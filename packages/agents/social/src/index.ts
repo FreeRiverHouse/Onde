@@ -4,8 +4,24 @@
  */
 
 import { createLogger, type SocialPost, type PostMetrics, type Campaign } from '@onde/core';
+import {
+  XAccountManager,
+  createSingleAccountManager,
+  createManagerFromEnv,
+  type XAccountCredentials,
+  type TweetResult,
+  type ThreadResult,
+  type PostTweetOptions,
+  type ScheduleTweetOptions,
+  type MediaAttachment,
+} from './twitter/index.js';
 
 const logger = createLogger('agent-social');
+
+// ============ Re-export Twitter module ============
+export * from './twitter/index.js';
+
+// ============ Agent Types ============
 
 export interface TweetDraft {
   content: string;
@@ -47,34 +63,193 @@ export interface AudienceAnalysis {
   };
 }
 
-export class SocialAgent {
-  private apiKey: string;
-  private model: string;
-  private twitterConfig?: {
+export interface SocialAgentConfig {
+  /** OpenAI API key per generazione contenuti */
+  apiKey: string;
+  /** Modello AI da usare (default: gpt-4) */
+  model?: string;
+  /** Configurazione Twitter singolo account (legacy) */
+  twitter?: {
     apiKey: string;
     apiSecret: string;
     accessToken: string;
     accessSecret: string;
   };
+  /** Manager X/Twitter pre-configurato */
+  xManager?: XAccountManager;
+  /** Lista di account X da configurare automaticamente */
+  xAccounts?: XAccountCredentials[];
+  /** Account X di default */
+  defaultXAccount?: string;
+}
 
-  constructor(config: {
-    apiKey: string;
-    model?: string;
-    twitter?: {
-      apiKey: string;
-      apiSecret: string;
-      accessToken: string;
-      accessSecret: string;
-    };
-  }) {
+/**
+ * Social Agent - Gestisce posting e engagement sui social media
+ *
+ * @example
+ * ```typescript
+ * // Configurazione semplice (singolo account)
+ * const agent = new SocialAgent({
+ *   apiKey: process.env.OPENAI_API_KEY!,
+ *   twitter: {
+ *     apiKey: process.env.TWITTER_API_KEY!,
+ *     apiSecret: process.env.TWITTER_API_SECRET!,
+ *     accessToken: process.env.TWITTER_ACCESS_TOKEN!,
+ *     accessSecret: process.env.TWITTER_ACCESS_SECRET!,
+ *   },
+ * });
+ *
+ * // Configurazione multi-account
+ * const agent = new SocialAgent({
+ *   apiKey: process.env.OPENAI_API_KEY!,
+ *   xAccounts: [
+ *     {
+ *       accountId: 'brand_main',
+ *       name: 'Brand Principale',
+ *       apiKey: process.env.X_BRAND_MAIN_API_KEY!,
+ *       apiSecret: process.env.X_BRAND_MAIN_API_SECRET!,
+ *       accessToken: process.env.X_BRAND_MAIN_ACCESS_TOKEN!,
+ *       accessTokenSecret: process.env.X_BRAND_MAIN_ACCESS_SECRET!,
+ *     },
+ *   ],
+ *   defaultXAccount: 'brand_main',
+ * });
+ *
+ * // Pubblica tweet
+ * await agent.postTweet('Ciao mondo!', 'brand_main');
+ * ```
+ */
+export class SocialAgent {
+  private apiKey: string;
+  private model: string;
+  private xManager: XAccountManager | null = null;
+
+  constructor(config: SocialAgentConfig) {
     this.apiKey = config.apiKey;
     this.model = config.model || 'gpt-4';
-    this.twitterConfig = config.twitter;
-    logger.info('SocialAgent initialized', { twitterConfigured: !!this.twitterConfig });
+
+    // Inizializza X Manager
+    if (config.xManager) {
+      this.xManager = config.xManager;
+    } else if (config.xAccounts && config.xAccounts.length > 0) {
+      this.xManager = new XAccountManager({
+        accounts: config.xAccounts,
+        defaultAccountId: config.defaultXAccount,
+      });
+    } else if (config.twitter) {
+      // Legacy: singolo account Twitter
+      this.xManager = new XAccountManager({
+        defaultAccountId: 'default',
+        accounts: [
+          {
+            accountId: 'default',
+            name: 'Default',
+            apiKey: config.twitter.apiKey,
+            apiSecret: config.twitter.apiSecret,
+            accessToken: config.twitter.accessToken,
+            accessTokenSecret: config.twitter.accessSecret,
+          },
+        ],
+      });
+    }
+
+    logger.info('SocialAgent initialized', {
+      xConfigured: !!this.xManager,
+      accountCount: this.xManager?.listAccounts().length ?? 0,
+    });
   }
 
   /**
-   * Generate tweet content based on topic or campaign
+   * Ottiene il manager X/Twitter
+   */
+  getXManager(): XAccountManager {
+    if (!this.xManager) {
+      throw new Error('X/Twitter non configurato');
+    }
+    return this.xManager;
+  }
+
+  /**
+   * Verifica se X/Twitter e' configurato
+   */
+  isXConfigured(): boolean {
+    return this.xManager !== null;
+  }
+
+  // ============ Funzioni X/Twitter ============
+
+  /**
+   * Pubblica un tweet
+   *
+   * @param text - Testo del tweet (max 280 caratteri)
+   * @param accountId - ID dell'account da usare (opzionale)
+   */
+  async postTweet(text: string, accountId?: string): Promise<TweetResult> {
+    return this.getXManager().postTweet(text, accountId);
+  }
+
+  /**
+   * Pubblica un thread di tweet
+   *
+   * @param tweets - Array di testi per il thread
+   * @param accountId - ID dell'account da usare (opzionale)
+   */
+  async postThread(tweets: string[], accountId?: string): Promise<ThreadResult> {
+    return this.getXManager().postThread(tweets, accountId);
+  }
+
+  /**
+   * Schedula un tweet per pubblicazione futura
+   *
+   * @param text - Testo del tweet
+   * @param date - Data di pubblicazione
+   * @param accountId - ID dell'account da usare (opzionale)
+   * @returns ID dello scheduled tweet
+   */
+  async scheduleTweet(text: string, date: Date, accountId?: string): Promise<string> {
+    return this.getXManager().scheduleTweet(text, date, accountId);
+  }
+
+  /**
+   * Pubblica un tweet con media
+   *
+   * @param text - Testo del tweet
+   * @param media - Media da allegare
+   * @param accountId - ID dell'account da usare (opzionale)
+   */
+  async postTweetWithMedia(
+    text: string,
+    media: MediaAttachment[],
+    accountId?: string
+  ): Promise<TweetResult> {
+    return this.getXManager().postTweetWithMedia(text, media, accountId);
+  }
+
+  /**
+   * Risponde a un tweet
+   */
+  async replyToTweet(text: string, replyToId: string, accountId?: string): Promise<TweetResult> {
+    return this.getXManager().replyToTweet(text, replyToId, accountId);
+  }
+
+  /**
+   * Cancella uno scheduled tweet
+   */
+  cancelScheduledTweet(scheduledId: string): boolean {
+    return this.getXManager().cancelScheduledTweet(scheduledId);
+  }
+
+  /**
+   * Lista scheduled tweets
+   */
+  listScheduledTweets() {
+    return this.getXManager().listScheduledTweets();
+  }
+
+  // ============ AI Content Generation ============
+
+  /**
+   * Genera contenuto tweet con AI
    */
   async generateTweet(params: {
     topic: string;
@@ -85,14 +260,18 @@ export class SocialAgent {
   }): Promise<TweetDraft> {
     logger.info('Generating tweet', { topic: params.topic });
 
-    // TODO: Implement tweet generation with AI
+    // TODO: Implementare con OpenAI
+    // Per ora placeholder
+    const hashtags = params.includeHashtags ? ' #AI #Marketing' : '';
+    const content = `[AI Generated] ${params.topic}${hashtags}`;
+
     return {
-      content: '',
+      content: content.slice(0, params.maxLength || 280),
     };
   }
 
   /**
-   * Generate a Twitter thread on a topic
+   * Genera un thread su un topic
    */
   async generateThread(params: {
     topic: string;
@@ -102,73 +281,43 @@ export class SocialAgent {
   }): Promise<ThreadDraft> {
     logger.info('Generating thread', { topic: params.topic, length: params.length });
 
-    // TODO: Implement thread generation
+    // TODO: Implementare con OpenAI
+    const tweets: TweetDraft[] = [];
+    for (let i = 0; i < params.length; i++) {
+      tweets.push({
+        content: `${i + 1}/${params.length} [AI Generated] ${params.topic}`,
+      });
+    }
+
     return {
-      tweets: [],
+      tweets,
       topic: params.topic,
     };
   }
 
   /**
-   * Post a tweet to X/Twitter
-   */
-  async postTweet(draft: TweetDraft): Promise<SocialPost> {
-    if (!this.twitterConfig) {
-      throw new Error('Twitter not configured');
-    }
-
-    logger.info('Posting tweet', { contentLength: draft.content.length });
-
-    // TODO: Implement actual Twitter posting via twitter-api-v2
-    const post: SocialPost = {
-      id: crypto.randomUUID(),
-      platform: 'twitter',
-      content: draft.content,
-      mediaUrls: draft.mediaUrls,
-      scheduledAt: draft.scheduledAt,
-      status: 'published',
-      publishedAt: new Date(),
-    };
-
-    return post;
-  }
-
-  /**
-   * Schedule tweets for optimal times
-   */
-  async schedulePosts(
-    drafts: TweetDraft[],
-    strategy: EngagementStrategy
-  ): Promise<SocialPost[]> {
-    logger.info('Scheduling posts', { count: drafts.length });
-
-    // TODO: Implement scheduling logic
-    return [];
-  }
-
-  /**
-   * Generate engagement strategy for campaign
+   * Genera strategia di engagement
    */
   async generateEngagementStrategy(campaign: Campaign): Promise<EngagementStrategy> {
     logger.info('Generating engagement strategy', { campaignId: campaign.id });
 
-    // TODO: Implement strategy generation
+    // TODO: Implementare con analisi AI
     return {
       postingFrequency: 3,
       optimalTimes: ['09:00', '12:00', '18:00'],
       hashtags: [],
-      mentionStrategy: '',
-      replyGuidelines: [],
+      mentionStrategy: 'Engage with relevant influencers',
+      replyGuidelines: ['Be helpful', 'Stay on brand', 'Respond within 1 hour'],
     };
   }
 
   /**
-   * Analyze audience and engagement
+   * Analizza audience
    */
   async analyzeAudience(): Promise<AudienceAnalysis> {
     logger.info('Analyzing audience');
 
-    // TODO: Implement audience analysis
+    // TODO: Implementare con Twitter Analytics API
     return {
       demographics: {
         interests: [],
@@ -190,7 +339,7 @@ export class SocialAgent {
   }
 
   /**
-   * Generate reply to a mention or comment
+   * Genera risposta a un tweet
    */
   async generateReply(params: {
     originalTweet: string;
@@ -199,10 +348,49 @@ export class SocialAgent {
   }): Promise<TweetDraft> {
     logger.info('Generating reply');
 
-    // TODO: Implement reply generation
+    // TODO: Implementare con OpenAI
     return {
-      content: '',
+      content: `[AI Reply] Thanks for your message!`,
     };
+  }
+
+  // ============ Legacy method for backward compatibility ============
+
+  /**
+   * @deprecated Use postTweet instead
+   */
+  async postTweetLegacy(draft: TweetDraft): Promise<SocialPost> {
+    if (!this.xManager) {
+      throw new Error('Twitter not configured');
+    }
+
+    logger.warn('Using deprecated postTweetLegacy method');
+
+    const result = await this.xManager.postTweet(draft.content);
+
+    const post: SocialPost = {
+      id: result.tweetId,
+      platform: 'twitter',
+      content: draft.content,
+      mediaUrls: draft.mediaUrls,
+      scheduledAt: draft.scheduledAt,
+      status: 'published',
+      publishedAt: new Date(),
+    };
+
+    return post;
+  }
+
+  /**
+   * @deprecated Use scheduleTweet instead
+   */
+  async schedulePosts(
+    drafts: TweetDraft[],
+    strategy: EngagementStrategy
+  ): Promise<SocialPost[]> {
+    logger.warn('Using deprecated schedulePosts method');
+    // Placeholder per compatibilita'
+    return [];
   }
 }
 
