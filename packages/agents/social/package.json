@@ -1,0 +1,22 @@
+{
+  "name": "@onde/agent-social",
+  "version": "0.1.0",
+  "description": "AI Social Agent - X/Twitter posting and engagement",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onde/core": "*",
+    "@onde/pr-agency": "*",
+    "twitter-api-v2": "^1.15.0",
+    "openai": "^4.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

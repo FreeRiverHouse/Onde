@@ -1,0 +1,20 @@
+{
+  "name": "@onde/agent-branding",
+  "version": "0.1.0",
+  "description": "AI Branding Agent - Brand strategy and identity management",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onde/core": "*",
+    "openai": "^4.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

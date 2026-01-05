@@ -1,0 +1,19 @@
+{
+  "name": "@onde/publishing",
+  "version": "0.1.0",
+  "description": "Onde Casa Editrice - Digital publishing for music and books",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onde/core": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

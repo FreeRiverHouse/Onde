@@ -1,0 +1,21 @@
+{
+  "name": "@onde/agent-marketer",
+  "version": "0.1.0",
+  "description": "AI Marketing Agent - Campaign creation and optimization",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onde/core": "*",
+    "@onde/pr-agency": "*",
+    "openai": "^4.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

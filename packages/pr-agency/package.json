@@ -1,0 +1,20 @@
+{
+  "name": "@onde/pr-agency",
+  "version": "0.1.0",
+  "description": "Onde PR - Marketing agency with X/Twitter integration",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onde/core": "*",
+    "twitter-api-v2": "^1.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}
