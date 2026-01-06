@@ -2,7 +2,38 @@
 
 **Casa Editrice Digitale & Agenzia PR**
 
-Onde e una piattaforma completa per la pubblicazione digitale di musica e libri, con un'agenzia PR integrata (Onde PR) per dominare branding, marketing e go-to-market.
+Onde è una piattaforma completa per la pubblicazione digitale di musica e libri, con un'agenzia PR integrata (Onde PR) per dominare branding, marketing e go-to-market.
+
+## Roadmap
+
+### PR Agency (Onde PR)
+- [x] Integrazione X/Twitter API per 3 account (@FreeRiverHouse, @Onde_FRH, @magmatic__)
+- [x] Telegram bot per posting (@OndePR_bot)
+- [x] Comandi /frh, /onde, /magmatic per postare
+- [x] Report automatico giornaliero (17:40)
+- [x] Daily Tech Post automatico per @FreeRiverHouse (21:30)
+- [x] Content bank con 40 post pre-scritti
+- [x] Style guide per ogni account
+- [ ] Instagram integration
+- [ ] Analytics dashboard web
+
+### Casa Editrice (Publishing)
+- [x] Sistema agenti AI (Editore Capo, Gianni Parola, Pino Pennello)
+- [x] Workflow produzione libri documentato
+- [x] Generazione PDF con Puppeteer
+- [x] Primo libro in produzione: "Il Salmo 23 per Bambini"
+- [x] Testo completo (6 capitoli + intro)
+- [x] Stile illustrazioni approvato (watercolor)
+- [ ] Illustrazioni finali generate
+- [ ] Layout PDF finale
+- [ ] Pubblicazione su KDP
+
+### Infrastructure
+- [x] Monorepo TypeScript con Turbo
+- [x] LaunchAgents per automazione macOS
+- [x] GitHub repo privato
+- [ ] CI/CD pipeline
+- [ ] Dashboard web
 
 ## Architettura
 

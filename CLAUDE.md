@@ -179,6 +179,34 @@ Quando creo contenuti per social media:
 - **NO**: "building in public", call-to-action, "link in bio", push
 - **SI**: Condivisione genuina, bellezza, poesia senza spiegazioni
 - **Riferimento**: Come Mattia postava su IG - semplice, diretto, poetico
+- **Style Guide**: `/clients/magmatic/style_guide.md`
+
+---
+
+## Onde PR Agent - Funzionalità
+
+### 1. Style Analysis & Replication
+L'agent può:
+- **Analizzare** i post esistenti del cliente (IG, X, etc.)
+- **Estrarre** pattern di tono, struttura, emoji usage, hashtag policy
+- **Creare style guide** automatica per ogni cliente
+- **Replicare** lo stile nei nuovi contenuti
+
+**Processo**:
+1. Leggere post storici del cliente via Claude for Chrome
+2. Identificare pattern ricorrenti (lunghezza, tono, formattazione)
+3. Salvare style guide in `/clients/[nome]/style_guide.md`
+4. Applicare style guide a tutti i contenuti futuri
+
+### 2. Content Pillars
+- Identificare i temi principali del cliente
+- Categorizzare contenuti per pillar
+- Bilanciare il mix nei prospetti
+
+### 3. Cross-Platform Adaptation
+- Adattare contenuti da una piattaforma all'altra
+- Rispettare limiti caratteri e formati diversi
+- Mantenere l'essenza del messaggio
 
 ---
 

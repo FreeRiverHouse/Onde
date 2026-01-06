@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Good Shepherd - Psalm 23</title>
+    <title>The Light Within - Psalm 23</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -35,45 +35,46 @@
             page-break-after: avoid;
         }
 
-        /* ===== COVER - SOFT PURPLE/BLUE ===== */
+        /* ===== COVER - COSMIC SOFT ===== */
         .cover {
-            background: linear-gradient(160deg, #e8d5f0 0%, #d0e8f5 50%, #f5ebe0 100%);
+            background: linear-gradient(160deg, #1a1a3a 0%, #2d2d5a 30%, #4a3a6a 60%, #6a5a8a 100%);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
-            padding: 20mm;
+            padding: 15mm 15mm 0 15mm;
         }
 
         .cover img {
             width: 145mm;
             height: auto;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(100,80,120,0.25);
-            border: 6px solid white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 4px solid rgba(255,255,255,0.3);
         }
 
         .cover h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 36pt;
-            color: #5a4a6a;
-            margin-top: 12mm;
+            font-size: 34pt;
+            color: #f5f0ff;
+            margin-top: 10mm;
             letter-spacing: 2px;
+            text-shadow: 0 2px 20px rgba(200,180,255,0.5);
         }
 
         .cover h2 {
-            font-size: 14pt;
-            color: #7a6a8a;
+            font-size: 13pt;
+            color: #c8b8e8;
             font-weight: 400;
-            margin-top: 4mm;
+            margin-top: 3mm;
         }
 
         .cover .author {
-            position: absolute;
-            bottom: 18mm;
             font-size: 10pt;
-            color: #8a7a9a;
+            color: #a098c0;
+            margin-top: auto;
+            padding-bottom: 10mm;
         }
 
         /* ===== DEDICATION ===== */
@@ -82,14 +83,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(180deg, #faf8fc 0%, #f5f8fa 100%);
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d2d4a 50%, #f8f6fa 100%);
         }
 
         .dedication-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-size: 17pt;
-            color: #6a5a7a;
+            color: #e8e0f5;
             text-align: center;
             max-width: 130mm;
             line-height: 2.2;
@@ -122,7 +123,7 @@
         .chapter-title {
             font-family: 'Playfair Display', serif;
             font-size: 19pt;
-            color: #5a4a6a;
+            color: #4a3a5a;
             margin-bottom: 6mm;
             text-align: center;
         }
@@ -140,7 +141,7 @@
         .chapter-text {
             font-size: 13pt;
             line-height: 2;
-            color: #444;
+            color: #3a3a4a;
             text-align: center;
             max-width: 150mm;
         }
@@ -152,7 +153,7 @@
         .verse {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: #6a5a7a;
+            color: #5a4a6a;
             margin: 8px 0;
             padding: 10px 18px;
             border-left: 3px solid #c8b8d8;
@@ -184,7 +185,7 @@
         .fine {
             font-family: 'Playfair Display', serif;
             font-size: 40pt;
-            color: #6a5a7a;
+            color: #5a4a6a;
             font-style: italic;
             margin-bottom: 25mm;
         }
@@ -207,7 +208,7 @@
         .publisher {
             margin-top: 20mm;
             font-size: 13pt;
-            color: #6a5a7a;
+            color: #5a4a6a;
             font-weight: 600;
         }
 
@@ -230,7 +231,7 @@
         .psalm-title {
             font-family: 'Playfair Display', serif;
             font-size: 17pt;
-            color: #6a5a7a;
+            color: #5a4a6a;
             margin-bottom: 12mm;
         }
 
@@ -253,144 +254,147 @@
 <!-- COVER -->
 <div class="page cover">
     <img src="images/00-copertina.jpg" alt="Cover">
-    <h1>My Good Shepherd</h1>
-    <h2>A gentle retelling of Psalm 23</h2>
+    <h1>The Light Within</h1>
+    <h2>A journey through Psalm 23</h2>
     <p class="author">Words by Gianni Parola &bull; Art by Pino Pennello</p>
 </div>
 
 <!-- DEDICATION -->
 <div class="page dedication">
-    <div class="dedication-ornament">&#10045;</div>
+    <div class="dedication-ornament">&#10022;</div>
     <p class="dedication-text">
-        For every little heart<br>
-        that needs to know:<br>
-        you are loved,<br>
-        you are enough,<br>
-        and you are never alone.
+        Every atom in your body<br>
+        was once part of a star.<br>
+        You carry the universe inside you,<br>
+        and you are never, ever alone.
     </p>
-    <div class="dedication-ornament">&#10045;</div>
+    <div class="dedication-ornament">&#10022;</div>
 </div>
 
-<!-- CHAPTER 1 -->
+<!-- CHAPTER 1: STARDUST -->
 <div class="page chapter">
     <p class="chapter-number">ONE</p>
-    <h2 class="chapter-title">I Have a Shepherd</h2>
+    <h2 class="chapter-title">Made of Stars</h2>
     <img src="images/01-pastore.jpg" alt="The Shepherd">
     <div class="chapter-text">
-        <p>There is someone who loves me so much,<br>
-        a good shepherd with kind, gentle eyes.<br>
-        He knows my name. He knows my heart.</p>
+        <p>Before you were born,<br>
+        the stars were already singing your name.<br>
+        Every tiny piece of you came from the sky.</p>
 
-        <p class="verse">"I will take care of you," he whispers,<br>
-        "You have everything you need.<br>
-        You are loved, just as you are."</p>
+        <p class="verse">"I made you from stardust," whispers the shepherd,<br>
+        "You are part of everything that shines.<br>
+        You will always have what you need."</p>
 
-        <p>And I know it's true, deep inside.<br>
-        I am loved. I am enough.</p>
+        <p>And I look at my hands and smile,<br>
+        because now I know:<br>
+        I am made of light.</p>
     </div>
     <span class="page-number">3</span>
 </div>
 
-<!-- CHAPTER 2 -->
+<!-- CHAPTER 2: STILLNESS -->
 <div class="page chapter">
     <p class="chapter-number">TWO</p>
-    <h2 class="chapter-title">A Place to Rest</h2>
+    <h2 class="chapter-title">The Quiet Place</h2>
     <img src="images/02-acque-tranquille.jpg" alt="Still Waters">
     <div class="chapter-text">
-        <p>My shepherd takes me to quiet places,<br>
-        green meadows soft as velvet,<br>
-        calm streams that sing soft lullabies.</p>
+        <p>The shepherd leads me to a place<br>
+        where everything is still,<br>
+        where the water reflects the clouds<br>
+        and the grass hums a lullaby.</p>
 
-        <p class="verse">"Rest here," he says, "Be still.<br>
-        Let peace fill your heart.<br>
-        Everything is going to be alright."</p>
+        <p class="verse">"Be still," he says softly,<br>
+        "and know that you are loved.<br>
+        Let the silence fill your heart."</p>
 
-        <p>I breathe slowly and feel so calm.<br>
-        The world feels safe and beautiful.</p>
+        <p>I close my eyes and breathe.<br>
+        In the quiet, I find myself.</p>
     </div>
     <span class="page-number">4</span>
 </div>
 
-<!-- CHAPTER 3 -->
+<!-- CHAPTER 3: THE PATH -->
 <div class="page chapter">
     <p class="chapter-number">THREE</p>
-    <h2 class="chapter-title">The Right Way</h2>
+    <h2 class="chapter-title">Growing Down</h2>
     <img src="images/03-sentieri.jpg" alt="The Path">
     <div class="chapter-text">
-        <p>Sometimes I don't know which way to go.<br>
-        The path seems long and uncertain.</p>
+        <p>The path winds like a river,<br>
+        sometimes up toward the sky,<br>
+        sometimes down into the earth.</p>
 
-        <p>But my shepherd walks beside me:</p>
+        <p class="verse">"Grow up toward the stars," he says,<br>
+        "but also grow down into the ground.<br>
+        Stretch your branches. Spread your roots.<br>
+        Both directions lead to me."</p>
 
-        <p class="verse">"Don't worry," he says gently,<br>
-        "I will show you the way.<br>
-        One step at a time, together."</p>
-
-        <p>I take his hand and walk with him.<br>
-        I don't need to be afraid.</p>
+        <p>I understand now:<br>
+        the journey goes both ways.</p>
     </div>
     <span class="page-number">5</span>
 </div>
 
-<!-- CHAPTER 4 -->
+<!-- CHAPTER 4: THE VALLEY -->
 <div class="page chapter">
     <p class="chapter-number">FOUR</p>
-    <h2 class="chapter-title">When It Gets Dark</h2>
+    <h2 class="chapter-title">Through the Shadows</h2>
     <img src="images/04-valle-oscura.jpg" alt="Dark Valley">
     <div class="chapter-text">
-        <p>Sometimes things feel scary,<br>
-        like when the night is very dark<br>
-        and shadows seem so big.</p>
+        <p>Sometimes we must walk through darkness,<br>
+        where shadows feel so big and cold.<br>
+        But even here, something grows.</p>
 
-        <p>But my shepherd holds me close:</p>
+        <p class="verse">"Do not push the darkness away," he whispers,<br>
+        "It is soil where flowers bloom.<br>
+        The lotus grows from mud.<br>
+        And I am here, always here."</p>
 
-        <p class="verse">"I am right here with you.<br>
-        Nothing can hurt you.<br>
-        My love is bigger than any fear."</p>
-
-        <p>I feel his warmth, and the fear melts away.<br>
-        Love is always stronger.</p>
+        <p>I hold his hand through the valley,<br>
+        and somewhere in the dark,<br>
+        I begin to see the light.</p>
     </div>
     <span class="page-number">6</span>
 </div>
 
-<!-- CHAPTER 5 -->
+<!-- CHAPTER 5: OVERFLOW -->
 <div class="page chapter">
     <p class="chapter-number">FIVE</p>
-    <h2 class="chapter-title">A Special Celebration</h2>
+    <h2 class="chapter-title">The Overflowing Cup</h2>
     <img src="images/05-tavola.jpg" alt="The Feast">
     <div class="chapter-text">
-        <p>My shepherd prepares wonderful surprises!<br>
-        A table full of yummy things,<br>
-        fruits and sweets and golden bread.</p>
+        <p>And then - oh! - the feast appears:<br>
+        a table under the open sky,<br>
+        full of everything wonderful.</p>
 
-        <p class="verse">"This is for you," he smiles,<br>
-        "Because you are special to me.<br>
-        Your cup is overflowing with joy!"</p>
+        <p class="verse">"This is for you," he laughs with joy,<br>
+        "Not because you earned it,<br>
+        but because you ARE.<br>
+        Your cup overflows with stars!"</p>
 
-        <p>I feel so happy, so loved, so blessed.<br>
-        There is always more than enough.</p>
+        <p>I drink deeply and feel the light<br>
+        spilling over, filling everything.</p>
     </div>
     <span class="page-number">7</span>
 </div>
 
-<!-- CHAPTER 6 -->
+<!-- CHAPTER 6: HOME -->
 <div class="page chapter">
     <p class="chapter-number">SIX</p>
-    <h2 class="chapter-title">Forever Home</h2>
+    <h2 class="chapter-title">Already Home</h2>
     <img src="images/06-casa-signore.jpg" alt="Home">
     <div class="chapter-text">
-        <p>And every day, step by step,<br>
-        my shepherd leads me home -<br>
-        a beautiful home of light and love.</p>
+        <p>And so I learn the secret:<br>
+        I don't have to search for home.<br>
+        Home was always here, inside me.</p>
 
-        <p class="verse">"This is where you belong," he says,<br>
-        "I will never leave you.<br>
+        <p class="verse">"You belong to the stars," he says,<br>
+        "and the stars belong to you.<br>
         Goodness and love will follow you<br>
-        every single day of your life."</p>
+        forever and ever."</p>
 
-        <p>I smile and know it's true.<br>
-        I am home. I am loved. Forever.</p>
+        <p>I look up at the night sky<br>
+        and smile at my family:<br>
+        a billion stars, shining back.</p>
     </div>
     <span class="page-number">8</span>
 </div>
@@ -414,7 +418,7 @@
 <!-- THE END -->
 <div class="page end-page">
     <p class="fine">The End</p>
-    <p class="ornament">&#10045; &#10045; &#10045;</p>
+    <p class="ornament">&#10022; &#10022; &#10022;</p>
 
     <div class="credits">
         <p><strong>Words:</strong> Gianni Parola</p>
