@@ -1,0 +1,206 @@
+{
+  "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
+  "lastUsedIndex": 11,
+  "posts": [
+    {
+      "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "Our Unity test automation runs at 2 AM. I wake up to either green checkmarks or a to-do list. The machines never sleep.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "VR development rule: if it makes you dizzy, it'll make your users sick. Testing on yourself is non-negotiable.",
+      "topic": "vr",
+      "used": false
+    },
+    {
+      "text": "Writing code for children means writing code your future self can understand. Turns out that's just... good code.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "The hardest part of game dev isn't the code. It's knowing when to stop adding features and ship something.",
+      "topic": "gamedev",
+      "used": false
+    },
+    {
+      "text": "Automated tests caught a bug at 3 AM that would have taken me hours to find. The robots are earning their keep.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Meta Quest development: 80% waiting for builds, 15% fixing platform-specific bugs, 5% actual game code.",
+      "topic": "vr",
+      "used": false
+    },
+    {
+      "text": "Every recipe in our cooking game was tested by actual kids. Their feedback: 'Make it more squishy.' Working on it.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "Build once, test everywhere - except it's never 'once' and everywhere keeps adding new screen sizes.",
+      "topic": "mobile",
+      "used": false
+    },
+    {
+      "text": "The factory loop: build, test, fix, repeat. Let the machines do the boring parts while you sleep.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Shipping a kids' app means parental controls, COPPA compliance, and testing on devices with sticky screens. The glamorous life.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "VR comfort settings are accessibility features. Motion sickness options aren't optional, they're mandatory.",
+      "topic": "vr",
+      "used": true
+    },
+    {
+      "text": "Our PR agent posts automatically now. Sometimes automation is just teaching robots to do your job so you can do a better one.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Six apps in parallel, one developer. The secret? Shared architecture and a lot of copy-paste between projects.",
+      "topic": "gamedev",
+      "used": true
+    },
+    {
+      "text": "Kids don't read tutorials. They tap everything. Design for chaos, build for curiosity.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "Today's debugging session: 'why does this work in editor but crash on device?' Tomorrow's answer: threading.",
+      "topic": "mobile",
+      "used": false
+    },
+    {
+      "text": "Unity batch mode is beautiful. Headless builds, automated tests, no mouse required. The CLI always wins.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Building in public means sharing the ugly commits too. Not every day is a breakthrough.",
+      "topic": "process",
+      "used": false
+    },
+    {
+      "text": "A 4-year-old tested our app and found 3 bugs I missed. Hiring kids as QA: unethical but effective.",
+      "topic": "kids-apps",
+      "used": false
+    },
+    {
+      "text": "The best code review is a good night's sleep. Fresh eyes > tired debugging.",
+      "topic": "process",
+      "used": false
+    },
+    {
+      "text": "KidsChefStudio: 1035 lines of game code sat untouched for months. Today it finally runs. Sometimes you just need fresh eyes.",
+      "topic": "kidschefstudio",
+      "used": false
+    },
+    {
+      "text": "Fixed the XP system today. Cumulative thresholds, not incremental. Level 5 = 1000 XP total, not 1000 XP after level 4. Math matters.",
+      "topic": "kidschefstudio",
+      "used": false
+    },
+    {
+      "text": "BusinessIsBusiness: a VR office simulator where you manage virtual employees. Yes, it's as meta as it sounds.",
+      "topic": "bib",
+      "used": false
+    },
+    {
+      "text": "Quest 3 passthrough makes office simulation weird. Your real desk, virtual coworkers. The future of remote work nobody asked for.",
+      "topic": "vr",
+      "used": false
+    },
+    {
+      "text": "Set up a Telegram bot to post on X automatically. Now I'm teaching AI to do social media so I can do more coding.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "The dashboard shows all our apps on a projector. Post-its with project status. Very startup, very 2015. Still works.",
+      "topic": "process",
+      "used": false
+    },
+    {
+      "text": "PizzaGelatoRush: a racing game with pizza delivery. Because Mario Kart + food delivery = obvious indie game pitch.",
+      "topic": "pizzarush",
+      "used": false
+    },
+    {
+      "text": "Unity 6 is fast. Like, noticeably fast. The editor doesn't freeze when I hit play anymore. Small wins.",
+      "topic": "unity",
+      "used": false
+    },
+    {
+      "text": "Today I wrote more YAML than C#. CI/CD pipelines are the code nobody talks about at conferences.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Publishing a digital book is 10% writing, 90% figuring out why the PDF margins are wrong. Every. Single. Time.",
+      "topic": "onde",
+      "used": false
+    },
+    {
+      "text": "Our cooking game has 8 chef levels. From Kitchen Helper to Master Chef. Gamification of Italian grandma's recipes.",
+      "topic": "kidschefstudio",
+      "used": false
+    },
+    {
+      "text": "Added a factory automation system. Code builds overnight, tests run, Telegram pings me if something breaks. Sleep-driven development.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "The test framework wasn't installed. 23 tests, all failing because of one missing package. Unity dependency hell is real.",
+      "topic": "unity",
+      "used": false
+    },
+    {
+      "text": "Music creation app for kids: drag and drop instruments, make beats. Teaching composition without sheet music.",
+      "topic": "kidsmusic",
+      "used": false
+    },
+    {
+      "text": "Five different Unity projects, one shared codebase pattern. When you find something that works, copy it everywhere.",
+      "topic": "gamedev",
+      "used": false
+    },
+    {
+      "text": "SwiftUI for the dashboard, Unity for the games, TypeScript for the bots. Modern indie dev is polyglot by necessity.",
+      "topic": "process",
+      "used": false
+    },
+    {
+      "text": "The PR agent now picks the most interesting commit of the day and tweets about it. Building in public, automated.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Onde: a digital publisher at the intersection of tech, spirituality, and art. Big words for a small operation with big dreams.",
+      "topic": "onde",
+      "used": false
+    },
+    {
+      "text": "LaunchAgents on macOS: cron jobs but fancier. The factory runs at 2 AM, the PR posts at 9:30 PM. Robots on schedule.",
+      "topic": "automation",
+      "used": false
+    },
+    {
+      "text": "Game dev for kids means every interaction needs sound feedback. Taps, swipes, success, failure. Audio is half the UX.",
+      "topic": "kids-apps",
+      "used": false
+    }
+  ]
+}

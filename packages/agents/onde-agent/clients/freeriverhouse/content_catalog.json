@@ -1,0 +1,56 @@
+{
+  "client": "freeriverhouse",
+  "lastUpdated": "2026-01-05",
+  "handles": {
+    "x": "@FreeRiverHouse",
+    "tiktok": "TBD",
+    "youtube": "TBD",
+    "instagram": "TBD"
+  },
+  "brand": {
+    "tagline": "Dove il software diventa arte",
+    "voice": "Cazzuto, divertente, autentico, building in public",
+    "pillars": [
+      {
+        "id": "ai_factory",
+        "name": "AI Factory",
+        "emoji": "🏭",
+        "description": "Come funziona la nostra fabbrica di agenti AI"
+      },
+      {
+        "id": "building_public",
+        "name": "Building in Public",
+        "emoji": "🔧",
+        "description": "Processo, errori, vittorie - tutto in diretta"
+      },
+      {
+        "id": "future_of_work",
+        "name": "Future of Work",
+        "emoji": "🚀",
+        "description": "Come sarà lavorare con AI teams"
+      },
+      {
+        "id": "tutorials",
+        "name": "Tutorial / How-To",
+        "emoji": "📚",
+        "description": "Guide pratiche per usare i nostri tool"
+      },
+      {
+        "id": "behind_scenes",
+        "name": "Behind the Scenes",
+        "emoji": "🎬",
+        "description": "La vita a FreeRiverHouse, LA River, vibes"
+      }
+    ]
+  },
+  "videoPrompts": {
+    "batch_001": {
+      "status": "draft",
+      "scenes": 8,
+      "file": "video_prompts/prompt_batch_001.md"
+    }
+  },
+  "content": [],
+  "queue": [],
+  "posted": []
+}

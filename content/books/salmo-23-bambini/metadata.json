@@ -1,0 +1,85 @@
+{
+  "id": "salmo-23-bambini",
+  "title": "Il Salmo 23 per Bambini",
+  "titleEn": "Psalm 23 for Kids",
+  "subtitle": "Il Signore è il mio Pastore",
+  "subtitleEn": "The Lord is My Shepherd",
+  "author": "Free River House",
+  "illustrator": "AI Generated",
+  "ageRange": {
+    "min": 4,
+    "max": 8,
+    "label": "4-8 anni"
+  },
+  "genre": "Spiritualità",
+  "language": "both",
+  "format": "ebook",
+  "pageCount": 24,
+  "wordCount": 600,
+  "status": "writing",
+  "illustrationStyle": {
+    "type": "soft-watercolor",
+    "colors": ["soft green", "sky blue", "warm yellow", "gentle pink"],
+    "mood": "peaceful, safe, warm",
+    "characters": "diverse children, gentle shepherd, fluffy sheep"
+  },
+  "amazonKDP": {
+    "categories": [
+      "JUVENILE NONFICTION / Religion / Christianity",
+      "JUVENILE NONFICTION / Religion / Bible Stories"
+    ],
+    "keywords": [
+      "salmo 23 bambini",
+      "bibbia illustrata bambini",
+      "libri religiosi bambini",
+      "regalo prima comunione",
+      "psalm 23 kids",
+      "children bible stories",
+      "christian books for kids"
+    ],
+    "pricing": {
+      "it": 4.99,
+      "en": 4.99
+    }
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "verseRef": "1a",
+      "titleIt": "Il Signore è il mio pastore",
+      "titleEn": "The Lord is my shepherd"
+    },
+    {
+      "number": 2,
+      "verseRef": "1b-2",
+      "titleIt": "Non mi manca nulla",
+      "titleEn": "I have everything I need"
+    },
+    {
+      "number": 3,
+      "verseRef": "3",
+      "titleIt": "Mi guida sulla strada giusta",
+      "titleEn": "He guides me on the right path"
+    },
+    {
+      "number": 4,
+      "verseRef": "4",
+      "titleIt": "Non ho paura",
+      "titleEn": "I am not afraid"
+    },
+    {
+      "number": 5,
+      "verseRef": "5",
+      "titleIt": "Una tavola piena di cose buone",
+      "titleEn": "A table full of good things"
+    },
+    {
+      "number": 6,
+      "verseRef": "6",
+      "titleIt": "Per sempre con Dio",
+      "titleEn": "Forever with God"
+    }
+  ],
+  "createdAt": "2025-01-05",
+  "updatedAt": "2025-01-05"
+}

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Psalm 23 for Children</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Georgia', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== COVER ===== */
+        .cover {
+            background: linear-gradient(180deg, #7eb8da 0%, #a8d4a0 50%, #f5e6c8 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 15mm 15mm 0 15mm;
+        }
+
+        .cover img {
+            width: 160mm;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 5px solid white;
+            margin-top: 8mm;
+        }
+
+        .cover h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 38pt;
+            color: #2c5530;
+            margin-top: 12mm;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+        }
+
+        .cover h2 {
+            font-size: 16pt;
+            color: #3d6b41;
+            font-weight: 400;
+            font-style: italic;
+            margin-top: 4mm;
+            margin-bottom: 8mm;
+        }
+
+        .cover .author {
+            font-size: 11pt;
+            color: #4a6b4a;
+            margin-top: auto;
+            padding-bottom: 10mm;
+        }
+
+        /* ===== DEDICATION ===== */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #e8f5e0 0%, #d0eaf8 100%);
+        }
+
+        .dedication-text {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 18pt;
+            color: #3d6b41;
+            text-align: center;
+            max-width: 140mm;
+            line-height: 2;
+        }
+
+        .dedication-ornament {
+            font-size: 28pt;
+            color: #8bc49a;
+            margin: 15mm 0;
+        }
+
+        /* ===== CHAPTERS ===== */
+        .chapter {
+            background: linear-gradient(180deg, #e8f5e0 0%, #d0eaf8 50%, #f5ebe0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8mm 10mm;
+        }
+
+        .chapter-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 22pt;
+            color: #2c5530;
+            margin-bottom: 6mm;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+        }
+
+        .chapter img {
+            width: 180mm;
+            height: auto;
+            max-height: 150mm;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            margin-bottom: 6mm;
+        }
+
+        .chapter-text {
+            font-size: 14pt;
+            line-height: 1.85;
+            color: #2a2a2a;
+            text-align: center;
+            max-width: 160mm;
+        }
+
+        .chapter-text p {
+            margin-bottom: 6px;
+        }
+
+        .verse {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            color: #2c5530;
+            margin: 8px 0;
+            padding: 10px 18px;
+            border-left: 4px solid #5a9a6a;
+            border-right: 4px solid #5a9a6a;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(90,154,106,0.12) 0%, rgba(90,154,106,0.2) 50%, rgba(90,154,106,0.12) 100%);
+            border-radius: 8px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 6mm;
+            right: 10mm;
+            font-size: 10pt;
+            color: #5a9a6a;
+            font-weight: 600;
+        }
+
+        /* ===== END ===== */
+        .end-page {
+            background: linear-gradient(180deg, #e8f5e0 0%, #d0eaf8 50%, #f5ebe0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fine {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 44pt;
+            color: #2c5530;
+            font-style: italic;
+            margin-bottom: 30mm;
+        }
+
+        .ornament {
+            font-size: 22pt;
+            color: #5a9a6a;
+            margin-bottom: 15mm;
+        }
+
+        .credits {
+            font-size: 14pt;
+            color: #3d6b41;
+        }
+
+        .credits p {
+            margin: 6px 0;
+        }
+
+        .publisher {
+            margin-top: 25mm;
+            font-size: 15pt;
+            color: #2c5530;
+            font-weight: 600;
+        }
+
+        .powered {
+            font-size: 10pt;
+            color: #5a9a6a;
+            margin-top: 8mm;
+        }
+
+        /* ===== ORIGINAL PSALM ===== */
+        .psalm-page {
+            background: linear-gradient(180deg, #f5ebe0 0%, #e8f5e0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20mm;
+        }
+
+        .psalm-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 20pt;
+            color: #2c5530;
+            margin-bottom: 15mm;
+        }
+
+        .psalm-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 13pt;
+            line-height: 2.2;
+            color: #3d6b41;
+            text-align: center;
+            max-width: 140mm;
+        }
+
+        .psalm-text p {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+    <img src="images/00-copertina.jpg" alt="Cover">
+    <h1>Psalm 23<br>for Children</h1>
+    <h2>A story of love and protection</h2>
+    <p class="author">Words by Gianni Parola &bull; Illustrations by Pino Pennello</p>
+</div>
+
+<!-- DEDICATION -->
+<div class="page dedication">
+    <div class="dedication-ornament">&#10087;</div>
+    <p class="dedication-text">
+        To all the children of the world,<br>
+        so they may know that there is always<br>
+        Someone who loves them<br>
+        and walks beside them.
+    </p>
+    <div class="dedication-ornament">&#10087;</div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page chapter">
+    <h2 class="chapter-title">The Lord is my shepherd</h2>
+    <img src="images/01-pastore.jpg" alt="The Shepherd">
+    <div class="chapter-text">
+        <p>Once upon a time there was a good shepherd, the kindest in the world.<br>
+        He had eyes as gentle as honey<br>
+        and a smile that warmed like the sun.</p>
+
+        <p class="verse">"I will always be with you," the shepherd whispered,<br>
+        "You will never lack anything,<br>
+        because I take care of you."</p>
+
+        <p>And his little sheep, white as clouds,<br>
+        followed him happily wherever he went.</p>
+    </div>
+    <span class="page-number">3</span>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page chapter">
+    <h2 class="chapter-title">Green pastures and still waters</h2>
+    <img src="images/02-acque-tranquille.jpg" alt="Still Waters">
+    <div class="chapter-text">
+        <p>The shepherd knew the most beautiful places:<br>
+        green meadows where the grass was soft,<br>
+        streams that sang silver songs.</p>
+
+        <p class="verse">"Rest here," said the shepherd,<br>
+        "The cool water will give you strength,<br>
+        and the green grass will help you grow."</p>
+
+        <p>The little sheep lay down contentedly,<br>
+        and the world felt like a great big hug.</p>
+    </div>
+    <span class="page-number">4</span>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page chapter">
+    <h2 class="chapter-title">The right paths</h2>
+    <img src="images/03-sentieri.jpg" alt="Paths of Righteousness">
+    <div class="chapter-text">
+        <p>Sometimes the road seemed difficult,<br>
+        full of rocks and mysterious curves.</p>
+
+        <p>But the shepherd walked ahead:</p>
+
+        <p class="verse">"Follow me," he said with a steady voice,<br>
+        "I know the right way.<br>
+        I will lead you where there is light."</p>
+
+        <p>And the little sheep walked peacefully,<br>
+        because they knew they were safe.</p>
+    </div>
+    <span class="page-number">5</span>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page chapter">
+    <h2 class="chapter-title">The dark valley</h2>
+    <img src="images/04-valle-oscura.jpg" alt="Dark Valley">
+    <div class="chapter-text">
+        <p>One day they came to a dark valley,<br>
+        where shadows seemed like giants<br>
+        and the wind was frightening.</p>
+
+        <p>But the shepherd held his staff tightly:</p>
+
+        <p class="verse">"Do not be afraid," he said softly,<br>
+        "I am here, right beside you.<br>
+        The darkness cannot hurt you<br>
+        when we walk together."</p>
+
+        <p>And the little sheep felt their hearts grow calm,<br>
+        because the shepherd was near.</p>
+    </div>
+    <span class="page-number">6</span>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page chapter">
+    <h2 class="chapter-title">The table and the cup</h2>
+    <img src="images/05-tavola.jpg" alt="The Feast">
+    <div class="chapter-text">
+        <p>Then came a day of celebration!<br>
+        The shepherd prepared a beautiful table<br>
+        full of colorful fruits,<br>
+        golden bread and sweet honey.</p>
+
+        <p class="verse">"This is for you," he said with a smile,<br>
+        "Because you are special.<br>
+        Your cup is so full<br>
+        that it overflows with joy!"</p>
+
+        <p>And the little sheep ate happily,<br>
+        feeling like the most loved in the world.</p>
+    </div>
+    <span class="page-number">7</span>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page chapter">
+    <h2 class="chapter-title">The house of the Lord</h2>
+    <img src="images/06-casa-signore.jpg" alt="The Lord's House">
+    <div class="chapter-text">
+        <p>And so, day after day,<br>
+        the shepherd led his little sheep<br>
+        toward home - a beautiful home<br>
+        made of light and love.</p>
+
+        <p class="verse">"This is your home," said the shepherd,<br>
+        "And I will always be here.<br>
+        Today, tomorrow, and forever,<br>
+        goodness and love will follow you."</p>
+
+        <p>And the little sheep understood<br>
+        that with their shepherd,<br>
+        they would be happy forever.</p>
+    </div>
+    <span class="page-number">8</span>
+</div>
+
+<!-- ORIGINAL PSALM -->
+<div class="page psalm-page">
+    <h3 class="psalm-title">Psalm 23</h3>
+    <div class="psalm-text">
+        <p>The Lord is my shepherd; I shall not want.</p>
+        <p>He makes me lie down in green pastures.<br>He leads me beside still waters.</p>
+        <p>He restores my soul.<br>He leads me in paths of righteousness<br>for his name's sake.</p>
+        <p>Even though I walk through the valley<br>of the shadow of death,<br>I will fear no evil, for you are with me.</p>
+        <p>Your rod and your staff,<br>they comfort me.</p>
+        <p>You prepare a table before me<br>in the presence of my enemies.</p>
+        <p>You anoint my head with oil;<br>my cup overflows.</p>
+        <p>Surely goodness and mercy shall follow me<br>all the days of my life,<br>and I shall dwell in the house of the Lord<br>forever.</p>
+    </div>
+    <span class="page-number">9</span>
+</div>
+
+<!-- THE END -->
+<div class="page end-page">
+    <p class="fine">The End</p>
+    <p class="ornament">&#10087; &#10087; &#10087;</p>
+
+    <div class="credits">
+        <p><strong>Words:</strong> Gianni Parola</p>
+        <p><strong>Illustrations:</strong> Pino Pennello</p>
+        <p style="margin-top: 10px; font-size: 11pt; color: #5a9a6a;">Powered by Claude AI and Grok</p>
+    </div>
+
+    <p class="publisher">Onde Publishing</p>
+    <p class="powered">First Edition - 2026</p>
+    <span class="page-number">10</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+{
+  "client": "magmatic",
+  "lastUpdated": "2026-01-05",
+  "instagramHandle": "@magmatic._",
+  "xHandle": "@magmatic__",
+  "contentSources": {
+    "instagram": {
+      "posts": 25,
+      "reels": 15,
+      "storiesArchive": "50+",
+      "highlights": 6
+    }
+  },
+  "pillars": [
+    {
+      "id": "la_river",
+      "name": "LA River / Frogtown",
+      "emoji": "🌊",
+      "contentCount": 8,
+      "topContent": ["Pop Up Concert (1809 views)", "Downstream Prophecy workshop", "ONE YEAR celebration (64 likes)"]
+    },
+    {
+      "id": "video_poetry",
+      "name": "Video Poetry",
+      "emoji": "🎬",
+      "contentCount": 6,
+      "topContent": ["Performance 4991 views (TOP!)", "SNOW release (840 views)", "mi chiede di baciarla", "cade la neve (754 views)"]
+    },
+    {
+      "id": "behind_scenes",
+      "name": "Behind the Scenes",
+      "emoji": "🎧",
+      "contentCount": 4,
+      "topContent": ["DJ Pioneer set (1334 views)", "Orange bridge setup (407 views)", "Synth + sampler setup"]
+    },
+    {
+      "id": "citazioni",
+      "name": "Citazioni / Filosofia",
+      "emoji": "📚",
+      "contentCount": 3,
+      "topContent": ["Spring teaches earth to bloom (32 likes)", "S'apra volte come un fiore (756 views)", "where does the current call you"]
+    },
+    {
+      "id": "golden_hour",
+      "name": "Golden Hour",
+      "emoji": "🌅",
+      "contentCount": 2,
+      "topContent": ["Soft focus flowers LA Design Weekend", "Sunset shots"]
+    },
+    {
+      "id": "building_public",
+      "name": "Building in Public",
+      "emoji": "🔧",
+      "contentCount": 2,
+      "topContent": ["2024 Un anno di musica recap", "Process shots"]
+    }
+  ],
+  "content": [
+    {
+      "id": "1",
+      "type": "reel",
+      "pillar": "video_poetry",
+      "description": "Performance video con fili colorati - visual art + music",
+      "date": "2024",
+      "views": 4991,
+      "priority": "high",
+      "repostable": true
+    },
+    {
+      "id": "2",
+      "type": "reel",
+      "pillar": "la_river",
+      "description": "Pop Up Concert featuring Magmatic - LA River event",
+      "date": "2024-11",
+      "views": 1809,
+      "priority": "high",
+      "repostable": true
+    },
+    {
+      "id": "3",
+      "type": "reel",
+      "pillar": "behind_scenes",
+      "description": "DJ Pioneer set - shirtless, tattooed, professional setup",
+      "date": "2024",
+      "views": 1334,
+      "priority": "high",
+      "repostable": true
+    },
+    {
+      "id": "4",
+      "type": "reel",
+      "pillar": "video_poetry",
+      "description": "SNOW release - retro CRT TVs aesthetic",
+      "date": "2025-02-28",
+      "views": 840,
+      "priority": "high",
+      "repostable": true,
+      "collab": ["@versetpost", "@field.exe"]
+    },
+    {
+      "id": "5",
+      "type": "reel",
+      "pillar": "citazioni",
+      "description": "S'apra volte come un fiore - black/white floral illustration",
+      "date": "2024",
+      "views": 756,
+      "priority": "medium",
+      "repostable": true
+    },
+    {
+      "id": "6",
+      "type": "reel",
+      "pillar": "video_poetry",
+      "description": "cade la neve sopra il tuo ricordo - red/pink typography",
+      "date": "2024",
+      "views": 754,
+      "priority": "medium",
+      "repostable": true
+    },
+    {
+      "id": "7",
+      "type": "post",
+      "pillar": "la_river",
+      "description": "ONE YEAR of pop-up shows celebration - DJ set at Frogtown Brewery",
+      "date": "2024-11-09",
+      "likes": 64,
+      "priority": "high",
+      "repostable": true,
+      "collab": ["@burncartel", "@hoodedyouth", "@rigatx_", "@balloonxm"]
+    },
+    {
+      "id": "8",
+      "type": "post",
+      "pillar": "video_poetry",
+      "description": "Mattia Rame tribute - emotional Italian poetry",
+      "date": "2024-08-11",
+      "likes": 57,
+      "priority": "medium",
+      "repostable": true,
+      "collab": ["@mattia_rame_official", "@pennylaneisinyoureyes"]
+    },
+    {
+      "id": "9",
+      "type": "carousel",
+      "pillar": "la_river",
+      "description": "Downstream Prophecy workshop - community event at Elysian Valley",
+      "date": "2025-10-21",
+      "likes": 32,
+      "priority": "medium",
+      "repostable": true,
+      "collab": ["@_shagho", "@lindseykusterman"]
+    },
+    {
+      "id": "10",
+      "type": "carousel",
+      "pillar": "citazioni",
+      "description": "where does the current call you - typography on blue",
+      "date": "2025-09-24",
+      "likes": 16,
+      "priority": "medium",
+      "repostable": true,
+      "event": "LA Design Weekend"
+    },
+    {
+      "id": "11",
+      "type": "carousel",
+      "pillar": "citazioni",
+      "description": "Spring teaches the earth to bloom - Traditional Wisdom quote",
+      "date": "2025-09-21",
+      "likes": 32,
+      "priority": "medium",
+      "repostable": true,
+      "event": "LA Design Weekend"
+    },
+    {
+      "id": "12",
+      "type": "video",
+      "pillar": "la_river",
+      "description": "Excursus - DJ set on orange bridge, Frogtown",
+      "date": "2023-12-08",
+      "likes": 49,
+      "priority": "high",
+      "repostable": true,
+      "pinned": true,
+      "collab": ["@field.exe"]
+    },
+    {
+      "id": "13",
+      "type": "carousel",
+      "pillar": "video_poetry",
+      "description": "SNOW release promo - LA River photo shoot",
+      "date": "2025-03-02",
+      "likes": 37,
+      "priority": "medium",
+      "repostable": true,
+      "collab": ["@versetpost", "@nicoladamati", "@ilmerlostudio"]
+    }
+  ],
+  "queue": [],
+  "posted": [],
+  "insights": {
+    "topPerformingPillar": "video_poetry",
+    "avgEngagementRate": "1.7%",
+    "bestContentTypes": ["reels", "video"],
+    "recommendations": [
+      "Reels with visual art + music perform best (4991 views top)",
+      "LA River content has strong community engagement",
+      "Italian poetry resonates well with audience",
+      "Collab posts get good reach",
+      "Behind-the-scenes DJ content is underutilized but performs well"
+    ]
+  }
+}
