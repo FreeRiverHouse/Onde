@@ -294,14 +294,34 @@ L'agent può:
 
 ## 🚨 TASK IN CORSO - RIPRENDI DA QUI (2026-01-06)
 
-### Cosa stai facendo
-Creazione **Antologia Poesia Italiana per Bambini** - primo libro collana Poetry.
+### PR Dashboard Portal - NUOVO PRODOTTO
+**Path:** `tools/pr-dashboard/`
+**URL:** http://localhost:3333
+**Come lanciare:**
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/tools/pr-dashboard
+npm start
+```
 
-### Prossimo step
-1. **GENERA 3 IMMAGINI CON GROK** (usa Claude for Chrome)
-2. Crea PDF con 3 poesie + 3 stili
-3. Manda PDF su Telegram a Mattia
-4. Mattia sceglie lo stile
+**Features:**
+- Customer portal per approvazione contenuti social
+- Interfaccia museo/galleria con post come quadri appesi
+- Sezioni: Galleria Post, Upload, Stile & Prompt, Account da Seguire, Ricerca
+- Pronto per multi-tenant (future auth per clienti esterni)
+- Puo' diventare primo prodotto SaaS da vendere
+
+### Video Piccole Rime - COMPLETATI
+**Path:** `books/piccole-rime/videos/`
+- 01-stella-stellina-stars.mp4 (2.1MB)
+- 02-pulcino-bagnato-rain.mp4 (4.2MB)
+- 03-pioggerellina-rain.mp4 (2.8MB)
+Stile Luzzati folk art animato, generati con @grok
+
+### Prossimi step
+1. Aggiornare bio @Onde_FRH: "AI Publishing House + PR Agency"
+2. Approvare i 3 video nella dashboard
+3. Postare i video su @Onde_FRH (taggare @grok)
+4. Generare altri video per poesie 4-10
 
 ### Le 3 poesie selezionate
 
