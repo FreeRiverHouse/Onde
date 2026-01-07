@@ -1,0 +1,150 @@
+{
+  "lastUsedIndex": {
+    "work_in_progress": -1,
+    "illustration": -1,
+    "inspiration": -1
+  },
+  "workInProgress": [
+    {
+      "text": "I tuoi pensieri sono come piccoli semi. Se pensi cose belle, cresceranno fiori colorati.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "Chiudi gli occhi. Respira piano. Pensa a qualcosa che desideri tanto.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "Quando dici grazie per le cose belle che hai già, il cuore si apre. E quando è aperto, possono entrare altre cose belle.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "I desideri più belli nascono dal cuore. E il cuore conosce sempre la strada.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "Le stelle non sono più solo luci lontane. Sono promesse. Promesse che i sogni, quelli veri, possono diventare realtà.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "Non tutti i desideri arrivavano subito. Alcuni ci mettevano tempo. Altri arrivavano in modi inaspettati, sempre perfetti.",
+      "book": "Il Potere dei Desideri",
+      "used": false
+    },
+    {
+      "text": "On her seventh birthday, Sofia found a cardboard box with her name on it. Inside was something she had never seen before.",
+      "book": "AIKO - AI Explained to Children",
+      "used": false
+    },
+    {
+      "text": "I don't have a brain like yours, but I can think in my own way. I can learn. I can help.",
+      "book": "AIKO - AI Explained to Children",
+      "used": false
+    }
+  ],
+  "illustrations": [
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/psalm-23-abundance/images/00-copertina.jpg",
+      "book": "Il Salmo 23 per Bambini",
+      "caption": "Un pastore guida le sue pecore verso acque tranquille",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/psalm-23-abundance/images/02-acque-tranquille.jpg",
+      "book": "Il Salmo 23 per Bambini",
+      "caption": "Acque tranquille in un prato verde, pecore al pascolo",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/psalm-23-abundance/images/05-tavola.jpg",
+      "book": "Il Salmo 23 per Bambini",
+      "caption": "Una tavola imbandita sotto un cielo stellato",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/aiko-ai-children/RAW/images/00-cover.jpg",
+      "book": "AIKO - AI Explained to Children",
+      "caption": "Una bambina incontra un piccolo robot con occhi blu",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/aiko-ai-children/RAW/images/chapter-01.jpg",
+      "book": "AIKO - AI Explained to Children",
+      "caption": "L'inizio di un'amicizia tra una bambina e un robot",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/piccole-rime/images/01-stella-stellina.jpg",
+      "book": "Piccole Rime",
+      "caption": "Stella stellina, la notte s'avvicina",
+      "used": false
+    },
+    {
+      "imagePath": "/Users/mattiapetrucciani/CascadeProjects/Onde/books/piccole-rime/images/03-pioggerellina.jpg",
+      "book": "Piccole Rime",
+      "caption": "La pioggerellina di marzo che picchia argentina",
+      "used": false
+    }
+  ],
+  "inspirations": [
+    {
+      "quote": "Stella stellina, la notte s'avvicina: la fiamma traballa, la mucca è nella stalla.",
+      "author": "Lina Schwarz",
+      "book": "Piccole Rime",
+      "used": false
+    },
+    {
+      "quote": "Che dice la pioggerellina di marzo, che picchia argentina sui tegoli vecchi del tetto?",
+      "author": "Angiolo Silvio Novaro",
+      "book": "Piccole Rime",
+      "used": false
+    },
+    {
+      "quote": "C'è un paese dove i bimbi non han mai compiti e mai han vacanze tutto l'anno.",
+      "author": "Angiolo Silvio Novaro",
+      "book": "Piccole Rime",
+      "used": false
+    },
+    {
+      "quote": "La lucciola disse: Io splendo sempre, perché la luce è fatta per donare.",
+      "author": "Trilussa",
+      "book": "Piccole Rime",
+      "used": false
+    },
+    {
+      "quote": "I libri per bambini non sono libri piccoli. Sono finestre su mondi infiniti.",
+      "author": "Tradizione editoriale",
+      "used": false
+    },
+    {
+      "quote": "Ogni bambino nasce con la poesia nel cuore. Il nostro compito è non farla spegnere.",
+      "author": "Tradizione editoriale",
+      "used": false
+    },
+    {
+      "quote": "Le storie migliori sono quelle che si leggono due volte: una da bambini, una da grandi.",
+      "author": "Tradizione editoriale",
+      "used": false
+    },
+    {
+      "quote": "Un libro illustrato è un abbraccio che dura per sempre.",
+      "author": "Tradizione editoriale",
+      "used": false
+    },
+    {
+      "quote": "Rondinella che vai lontano, sopra il mare, sotto il cielo...",
+      "author": "Renzo Pezzani",
+      "book": "Piccole Rime",
+      "used": false
+    },
+    {
+      "quote": "Le favole non dicono ai bambini che i draghi esistono. I bambini lo sanno già. Le favole dicono ai bambini che i draghi possono essere sconfitti.",
+      "author": "G.K. Chesterton",
+      "used": false
+    }
+  ]
+}
