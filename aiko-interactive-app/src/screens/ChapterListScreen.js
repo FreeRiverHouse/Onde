@@ -10,7 +10,8 @@ import {
   Animated,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { chapters } from '../data/chapters';
+import { useTranslation } from 'react-i18next';
+import { getChapters } from '../data/chaptersMultilang';
 import { colors, typography, spacing, borderRadius, shadows } from '../utils/theme';
 
 const { width } = Dimensions.get('window');
@@ -76,14 +77,17 @@ const ChapterCard = ({ chapter, index, onPress }) => {
 };
 
 export default function ChapterListScreen({ navigation }) {
+  const { t, i18n } = useTranslation();
+  const chapters = getChapters(i18n.language);
+
   return (
     <LinearGradient
       colors={[colors.golden.light, colors.background.cream]}
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>AIKO's Story</Text>
-        <Text style={styles.headerSubtitle}>Choose a chapter to explore</Text>
+        <Text style={styles.headerTitle}>{t('chapterList.title')}</Text>
+        <Text style={styles.headerSubtitle}>{t('chapterList.subtitle')}</Text>
       </View>
 
       <FlatList

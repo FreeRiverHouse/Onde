@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,18 @@ import {
   Animated,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { coverData } from '../data/chapters';
+import { useTranslation } from 'react-i18next';
+import { getCoverData } from '../data/chaptersMultilang';
+import LanguageSelector from '../components/LanguageSelector';
 import { colors, typography, spacing, borderRadius, shadows } from '../utils/theme';
 
 const { width, height } = Dimensions.get('window');
 
 export default function HomeScreen({ navigation }) {
+  const { i18n } = useTranslation();
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+  const coverData = getCoverData(i18n.language);
+
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const glowAnim = useRef(new Animated.Value(0)).current;
@@ -63,6 +69,14 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       locations={[0, 0.5, 1]}
     >
+      {/* Language Button */}
+      <TouchableOpacity
+        style={styles.languageButton}
+        onPress={() => setShowLanguageSelector(true)}
+      >
+        <Text style={styles.languageButtonText}>🌍</Text>
+      </TouchableOpacity>
+
       <Animated.View
         style={[
           styles.content,
@@ -120,6 +134,12 @@ export default function HomeScreen({ navigation }) {
         {/* Dedication (subtle) */}
         <Text style={styles.dedication}>{coverData.dedication}</Text>
       </Animated.View>
+
+      {/* Language Selector Modal */}
+      <LanguageSelector
+        visible={showLanguageSelector}
+        onClose={() => setShowLanguageSelector(false)}
+      />
     </LinearGradient>
   );
 }
@@ -127,6 +147,22 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  languageButton: {
+    position: 'absolute',
+    top: 50,
+    right: spacing.lg,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.background.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...shadows.md,
+    zIndex: 10,
+  },
+  languageButtonText: {
+    fontSize: 28,
   },
   content: {
     flex: 1,

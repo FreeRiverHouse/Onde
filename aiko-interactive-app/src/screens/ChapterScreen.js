@@ -11,6 +11,7 @@ import {
   Modal,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing, borderRadius, shadows } from '../utils/theme';
 
 // Import games
@@ -38,6 +39,7 @@ const GAMES_MAP = {
 
 export default function ChapterScreen({ route, navigation }) {
   const { chapter } = route.params;
+  const { t } = useTranslation();
   const [showGame, setShowGame] = useState(false);
   const [currentParagraph, setCurrentParagraph] = useState(0);
 
@@ -86,7 +88,7 @@ export default function ChapterScreen({ route, navigation }) {
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Text style={styles.backButtonText}>← Back</Text>
+            <Text style={styles.backButtonText}>← {t('navigation.back')}</Text>
           </TouchableOpacity>
           <View style={styles.chapterBadge}>
             <Text style={styles.chapterNumber}>Chapter {chapter.id}</Text>
@@ -135,12 +137,12 @@ export default function ChapterScreen({ route, navigation }) {
           <View style={styles.navigationContainer}>
             {currentParagraph > 0 && (
               <TouchableOpacity style={styles.navButton} onPress={handlePrevious}>
-                <Text style={styles.navButtonText}>← Previous</Text>
+                <Text style={styles.navButtonText}>← {t('navigation.previous')}</Text>
               </TouchableOpacity>
             )}
             {currentParagraph < chapter.text.length - 1 && (
               <TouchableOpacity style={styles.navButton} onPress={handleNext}>
-                <Text style={styles.navButtonText}>Next →</Text>
+                <Text style={styles.navButtonText}>{t('navigation.next')} →</Text>
               </TouchableOpacity>
             )}
           </View>

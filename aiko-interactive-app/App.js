@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 
+// i18n
+import './src/i18n/i18n';
+
 // Screens
 import HomeScreen from './src/screens/HomeScreen';
 import ChapterListScreen from './src/screens/ChapterListScreen';
