@@ -159,9 +159,25 @@ curl -s "https://api.telegram.org/bot${TOKEN}/sendMessage" \
 ## Stile Visivo - IMPORTANTE
 
 ### Riferimenti Approvati
-- **Emanuele Luzzati** - Illustratore italiano, eleganza teatrale
+- **Emanuele Luzzati** - Illustratore italiano, eleganza teatrale, folk mediterraneo
 - **Beatrix Potter** - Delicatezza inglese, acquarello naturalistico
 - **Vintage italiano anni '50** - Colori caldi, nostalgia elegante
+
+### Stili per Collana
+
+| Collana | Stile Preferito | Note |
+|---------|-----------------|------|
+| **Poetry** | **LUZZATI FOLK** | Teatrale, colori vivaci ma eleganti, forme stilizzate, mediterraneo |
+| **Spirituality** | Acquarello pastorale | Luce divina, atmosfera rassicurante |
+| **Tech** | Acquarello moderno caldo | LED glow soft, pastello tech |
+
+### Prompt Keywords per Stile Luzzati (Poetry)
+```
+Emanuele Luzzati style, Italian folk art illustration,
+theatrical children's book, Mediterranean colors,
+stylized figures, handcrafted feel, vintage Italian,
+NOT Pixar NOT cartoon NOT plastic
+```
 
 ### Prompt Template Approvato
 

@@ -4,7 +4,24 @@
     "last_updated": "2026-01-06",
     "style_guide": {
       "approved": ["elegant watercolor", "European vintage", "soft muted colors", "delicate brushstrokes", "warm golden light", "Beatrix Potter", "Luzzati", "vintage italiano anni 50"],
-      "forbidden": ["Pixar", "cartoon", "plastic", "3D", "American style", "bright saturated colors"]
+      "forbidden": ["Pixar", "cartoon", "plastic", "3D", "American style", "bright saturated colors"],
+      "collana_styles": {
+        "poetry": {
+          "preferred": "Luzzati folk italiano",
+          "description": "Stile Emanuele Luzzati - folk italiano teatrale, colori vivaci ma eleganti, forme stilizzate, influenza mediterranea, artigianale",
+          "prompt_keywords": ["Emanuele Luzzati style", "Italian folk art", "theatrical illustration", "Mediterranean colors", "stylized figures", "handcrafted feel", "vintage Italian children's book"]
+        },
+        "spirituality": {
+          "preferred": "Acquarello pastorale",
+          "description": "Acquarello morbido, luce divina/dorata, atmosfera rassicurante",
+          "prompt_keywords": ["soft watercolor", "pastoral", "warm golden light", "peaceful atmosphere", "gentle brushstrokes"]
+        },
+        "tech": {
+          "preferred": "Acquarello moderno caldo",
+          "description": "Moderno ma caldo, LED glow soft, colori pastello tech",
+          "prompt_keywords": ["modern watercolor", "soft LED glow", "pastel tech colors", "friendly robots", "warm atmosphere"]
+        }
+      }
     }
   },
   "books": {
