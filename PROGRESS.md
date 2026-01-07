@@ -1,8 +1,58 @@
 # Onde - Progress Tracker
 
 > Questo file traccia TUTTO quello che sta succedendo in Onde.
-> Aggiornato automaticamente da Editore Capo, Pino Pennello, Gianni Parola.
+> Aggiornato automaticamente da Editore Capo, Pina Pennello, Gianni Parola.
 > **Per workflow completo vedi: `BOOK_FACTORY.md`**
+
+---
+
+## 🚨🎨 PRIORITÀ #1 - STILE UNITARIO ONDE (2026-01-07)
+
+### BLOCCO TOTALE GENERAZIONE IMMAGINI
+
+**NON GENERARE PIÙ NESSUNA IMMAGINE** finché lo stile non è definito con Pina Pennello.
+
+| Cosa | Status |
+|------|--------|
+| Definire stile casa editrice | **IN CORSO** |
+| Prompt templates skill | Da fare |
+| Style guide documentata | Da fare |
+| Esempi approvati | Da fare |
+| Rifare immagini AIKO | **BLOCCATO** |
+| Rifare immagini Salmo | **BLOCCATO** |
+
+**Eccezione**: Poesia italiana può avere stile diverso (es. Luzzati vintage).
+
+---
+
+## Operation Tsunami - Multi-Platform Expansion
+
+**Obiettivo**: Espandere Onde su tutte le piattaforme per massimo impatto
+
+### Phase 1 - Master X (In Corso)
+- [x] Account @Onde_FRH attivo
+- [x] Sistema PR Agent con approvazione
+- [ ] Engagement automatico (like, repost, commenti)
+- [ ] Scroll X per opportunità
+
+### Phase 2 - Video Expansion
+- [ ] YouTube Shorts
+- [ ] TikTok (via Chrome web automation)
+- [ ] Instagram Reels
+
+### Phase 3 - Audio
+- [ ] Spotify (podcast, audiobooks)
+- [ ] Apple Podcasts
+- [ ] YouTube Music
+
+### Nuovi Personaggi
+
+| Personaggio | Ruolo | Account X | Status |
+|-------------|-------|-----------|--------|
+| **Gianni Parola** | Scrittore | @GianniParola | Pianificazione |
+| **Pina Pennello** | Illustratrice | @PinaPennello | NUOVO (sostituisce Pino) |
+
+**Pina Pennello**: Giovane illustratrice, friendly, ispirational, educativa. Le illustrazioni portano la sua firma. I bambini la conosceranno e ameranno.
 
 ---
 

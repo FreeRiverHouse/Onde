@@ -5,6 +5,37 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨🎨 BLOCCO TOTALE GENERAZIONE IMMAGINI - PRIORITÀ ASSOLUTA
+
+**DATA: 2026-01-07**
+
+**NON GENERARE PIÙ NESSUNA IMMAGINE** finché lo stile unitario Onde non è definito.
+
+### La Regola
+Prima di generare QUALSIASI illustrazione, dobbiamo:
+1. Definire lo stile della casa editrice con Pina Pennello
+2. Creare prompt templates, skill Grok/Claude
+3. Avere un branding completo e riconoscibile
+
+### Cosa Fare
+- **STOP**: Niente più immagini per nessun libro
+- **PRIMA**: Definire lo stile "versione beta"
+- **POI**: Rifare TUTTE le immagini con lo stile nuovo
+
+### Eccezioni Possibili
+- **Poesia italiana**: può avere stile diverso (es. Luzzati folk art)
+- **Libri bambini (AIKO, Salmo)**: STILE UNITARIO OBBLIGATORIO
+
+### Output Atteso
+- Prompt templates salvati come skill
+- Style guide documentata
+- Esempi approvati da Mattia
+
+### Nota
+Questa è la nostra "versione beta" dello stile. Poi si potrà evolvere, ma almeno avremo un punto di partenza stabile e riconoscibile.
+
+---
+
 ## IMPORTANTE - Claude for Chrome
 
 **Claude Code ha accesso a Claude for Chrome extension.**
@@ -74,11 +105,17 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 - Template base con fix già inclusi (es. Chapter 8)
 - Documentare i parametri configurabili
 
-### 5. Auto-Upload Amazon
-**Ogni volta che genero un ePub, iniziare subito il caricamento su KDP.**
-- Non aspettare che l'utente lo chieda
-- Aprire KDP, iniziare il form
-- L'utente farà solo la selezione file finale
+### 5. PROCESSO APPROVAZIONE LIBRI NUOVI (OBBLIGATORIO)
+**MAI pubblicare un libro nuovo senza questo processo:**
+
+1. **Scelta Stile** - Generare 2-3 stili diversi di immagini di prova
+2. **Approvazione Stile** - Mattia sceglie lo stile preferito
+3. **Generazione Immagini** - Creare TUTTE le immagini con lo stile scelto
+4. **Impaginazione** - Creare PDF/ePub e controllare layout
+5. **Review Telegram** - Mandare su Telegram per approvazione finale
+6. **Pubblicazione** - SOLO dopo OK esplicito di Mattia
+
+**Auto-upload KDP**: Si applica SOLO a traduzioni di libri già approvati, NON a libri nuovi.
 
 ---
 
