@@ -12,7 +12,7 @@
 |-------|---------|-------|----------|-------------|--------|
 | AIKO | Tech | 100% | 100% | 100% | Review |
 | Salmo 23 | Spiritualità | 100% | 100% | 75% | Bozza V2 |
-| Legge Attrazione | Spiritualità | 0% | 0% | 0% | In queue |
+| Legge Attrazione | Spiritualità | 100% | 0% | 0% | Testo pronto |
 | Mindfulness Bambini | Spiritualità | 0% | 0% | 0% | In queue |
 | Antologia Poesie EN | Poetry | 0% | 0% | 0% | In queue |
 | AIKO (IT) | Tech | 0% | 50% | 0% | Traduzione |
