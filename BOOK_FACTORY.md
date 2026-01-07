@@ -116,6 +116,19 @@ Aspetta risposta di Mattia:
 - Salva versione finale in: `books/[collana]/[nome]/`
 - Commit su GitHub
 
+### Fase 5: Consegna Finale
+
+Quando il libro è COMPLETATO (testo + immagini + PDF):
+
+**Opzione 1 - Email:**
+- Invia PDF a: `magmaticxr@gmail.com`
+- Oggetto: `[Onde] Libro: [Titolo] - [Collana]`
+
+**Opzione 2 - Google Drive:**
+- Path: (da configurare - chiedere a Mattia)
+
+**Notifica Telegram**: "📬 Libro inviato a magmaticxr@gmail.com"
+
 ---
 
 ## Collane Editoriali
