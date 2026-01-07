@@ -5,6 +5,40 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-07)
+
+**QUANDO RIAPRI CON --chrome:**
+
+1. Vai su `x.com/i/grok` → "Create Images"
+2. Genera le **4 OPZIONI STILISTICHE** per definire lo stile Onde
+3. Ogni opzione ha 2 prompt (personaggi storie + personaggi redazione)
+
+### I 4 STILI DA GENERARE:
+
+**OPZIONE A - Acquarello Morbido Italiano:**
+```
+Soft Italian watercolor children's book illustration, 7-year-old girl with warm brown hair and curious eyes sitting with a small friendly robot with glowing LED heart, gentle morning light through window, pastel colors, dreamy atmosphere, tender and warm, award-winning illustration, 4k
+```
+
+**OPZIONE B - Scarry-Seuss Vivace:**
+```
+Whimsical Richard Scarry meets Dr Seuss style, playful 7yo girl with bouncy pigtails and a round adorable robot friend with expressive LED eyes, vibrant colors, fun details everywhere, cheerful and energetic, busy but readable composition, children's book illustration, 4k
+```
+
+**OPZIONE C - Vintage Italiano Anni '50:**
+```
+Vintage 1950s Italian children's book illustration, nostalgic style, little girl in classic dress with a retro-futuristic friendly robot toy, limited color palette with warm sepia tones and pops of teal, hand-painted texture, classic storybook feel, 4k
+```
+
+**OPZIONE D - Moderno Flat Contemporaneo:**
+```
+Modern flat illustration style, cute girl character with simple geometric shapes and a friendly round robot with minimal features, bold vibrant colors, clean lines, contemporary children's app aesthetic, warm and inviting, vector-like quality, 4k
+```
+
+**DOPO**: Mostra a Mattia le 4 opzioni, lui sceglie lo stile, poi si procede con lo "tsunami".
+
+---
+
 ## 🚨📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE
 
 **DATA: 2026-01-07**
