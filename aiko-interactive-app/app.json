@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "AIKO Interactive",
+    "slug": "aiko-interactive",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/00-cover.jpg",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/00-cover.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF9E6"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.onde.aiko",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.onde.aiko",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/00-cover.jpg",
+        "backgroundColor": "#FFF9E6"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/00-cover.jpg"
+    },
+    "plugins": [
+      [
+        "expo-av"
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "aiko-interactive-onde"
+      }
+    }
+  }
+}
