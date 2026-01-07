@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "description": "Database prompt illustrazioni per libri Onde",
+    "last_updated": "2026-01-06",
+    "style_guide": {
+      "approved": ["elegant watercolor", "European vintage", "soft muted colors", "delicate brushstrokes", "warm golden light", "Beatrix Potter", "Luzzati", "vintage italiano anni 50"],
+      "forbidden": ["Pixar", "cartoon", "plastic", "3D", "American style", "bright saturated colors"]
+    }
+  },
+  "books": {
+    "il-potere-dei-desideri": {
+      "title": "Il Potere dei Desideri",
+      "collana": "spirituality",
+      "status": "prompts_ready",
+      "total_illustrations": 11,
+      "completed_illustrations": 0,
+      "prompts": [
+        {
+          "id": 1,
+          "chapter": "cover",
+          "description_it": "Bambina che guarda le stelle, atmosfera magica",
+          "prompt": "Elegant watercolor children's book cover, Italian vintage 1950s style, 6-year-old girl with brown braids sitting on windowsill looking at starry night sky, soft warm lamp light inside cozy bedroom, dreamy magical atmosphere, soft muted colors, delicate brushstrokes, warm golden interior light contrasting with deep blue night, NOT Pixar NOT cartoon NOT plastic, award-winning illustration, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 2,
+          "chapter": 1,
+          "description_it": "Giulia al davanzale guarda le stelle",
+          "prompt": "Elegant watercolor illustration, European vintage style, young girl with brown braids sitting on window seat, gazing at stars through window, cozy bedroom with warm lamplight, stuffed toys on bed, peaceful dreamy atmosphere, soft pastel colors, delicate brushstrokes, Beatrix Potter inspired, warm golden light, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 3,
+          "chapter": 2,
+          "description_it": "Mamma e figlia sedute insieme sul letto",
+          "prompt": "Soft watercolor children's book illustration, Italian vintage style, mother and young daughter sitting together on bed holding hands, cream colored soft blanket, warm bedside lamp light, intimate tender moment, soft muted colors, delicate gentle brushwork, refined European illustration style, warm amber lighting, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 4,
+          "chapter": 3,
+          "description_it": "Giulia con occhi chiusi, nuvole di sogni intorno",
+          "prompt": "Elegant watercolor illustration, dreamy style, young girl with eyes closed and serene smile, soft cloudy thought bubbles around her showing a puppy and bicycle and laughing children, pastel colors, gentle ethereal atmosphere, European vintage children's book style, soft diffused light, delicate brushstrokes, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 5,
+          "chapter": 4,
+          "description_it": "Giulia in prato con braccia aperte, raggi di sole",
+          "prompt": "Luminous watercolor illustration, vintage European style, young girl standing in green meadow with arms open to sky, golden sunbeams streaming down, white butterflies around her, expression of pure joy, soft pastoral Italian landscape, warm golden light, delicate watercolor technique, peaceful atmosphere, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 6,
+          "chapter": 5,
+          "description_it": "Giulia che disegna sul quaderno con stelline",
+          "prompt": "Charming watercolor illustration, vintage Italian children's book style, young girl sitting at small desk drawing in notebook with golden stars on blue cover, colored pencils scattered on table, concentrated happy expression, warm cozy room, soft afternoon light through window, delicate brushwork, muted warm colors, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 7,
+          "chapter": 6,
+          "description_it": "Papà con scatola bucherellata, Giulia corre verso di lui",
+          "prompt": "Heartwarming watercolor illustration, European vintage style, father standing in doorway holding cardboard box with holes, excited young girl running toward him with wide eyes, warm golden late afternoon light streaming through door, anticipation and joy, soft muted colors, Italian home interior, delicate brushstrokes, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 8,
+          "chapter": 7,
+          "description_it": "Giulia corre nel parco autunnale col cagnolino",
+          "prompt": "Beautiful watercolor illustration, vintage European children's book style, young girl running joyfully through autumn park with golden leaves, small brown puppy bounding beside her, warm sunset light, soft amber and gold colors, peaceful pastoral scene, Beatrix Potter inspired delicacy, gentle brushwork, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 9,
+          "chapter": 8,
+          "description_it": "Giulia sussurra all'orecchio di un'amica nel giardino",
+          "prompt": "Gentle watercolor illustration, vintage Italian style, two young girls in flower garden, one whispering secret in other's ear, both smiling with complicity, wildflowers around them, soft diffused sunlight, pastel colors, intimate friendship moment, delicate refined brushwork, European children's book style, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 10,
+          "chapter": 9,
+          "description_it": "Un bambino generico guarda le stelle dalla finestra",
+          "prompt": "Evocative watercolor illustration, European vintage style, child silhouette sitting at window looking at starry night sky, could be any child (boy or girl), magical dreamy atmosphere, soft warm interior light against deep blue night, stars twinkling, invitation to dream, delicate brushstrokes, soft muted colors, 4k",
+          "status": "pending",
+          "filename": null
+        },
+        {
+          "id": 11,
+          "chapter": 10,
+          "description_it": "Cielo stellato con stella cadente",
+          "prompt": "Magical watercolor illustration, night sky seen through open window, brilliant stars in deep blue velvet sky, one shooting star streaking across, sense of infinite possibility and wonder, soft atmospheric style, vintage European children's book illustration, delicate celestial beauty, peaceful hopeful atmosphere, 4k",
+          "status": "pending",
+          "filename": null
+        }
+      ]
+    }
+  }
+}
