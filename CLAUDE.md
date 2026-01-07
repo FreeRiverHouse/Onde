@@ -498,4 +498,75 @@ Vintage 1950s Italian children's book illustration, retro watercolor style, nost
 
 ---
 
-*Ultimo aggiornamento: 2026-01-06 - Stile Vintage '50 scelto, generazione libro in corso*
+---
+
+## 🥽 VISIONE VR - ONDE PR AGENCY
+
+### Il Futuro delle Riunioni Cliente
+
+**Onde PR non è solo una dashboard web. È un'esperienza immersiva.**
+
+### L'Ufficio Virtuale
+
+Immagina:
+- **Grattacielo penthouse** stile Harvey Specter (Suits)
+- **Vista mozzafiato** su skyline notturno (New York, Tokyo, Milano)
+- **Giradischi vintage** che suona vinili selezionati
+- **Galleria d'arte** con i post del cliente come quadri appesi
+- **Atmosfera di successo** - legno scuro, luci soffuse, oro
+
+### Come Funziona
+
+1. **Cliente fa login** → entra in VR lounge
+2. **Vede i post in pending** come opere d'arte in galleria
+3. **Walk around** → si avvicina a ogni "quadro", lo osserva
+4. **Interazione naturale** → point & approve/reject
+5. **Meeting room** → discussione strategia con PR agent AI (avatar)
+6. **Ambient sound** → vinile in sottofondo, city noise, atmosfera lounge
+
+### Vibe di Manifestazione
+
+**Creiamo l'energia del successo PRIMA che arrivi.**
+
+- Ogni cliente che entra sente: "Sono arrivato. Questo è il livello."
+- L'ambiente comunica: eleganza, potere, raffinatezza
+- La musica comunica: gusto, cultura, attenzione ai dettagli
+- L'esperienza comunica: "Il tuo brand merita il meglio"
+
+### Tech Stack (Futuro)
+
+- **WebXR** - accessibile da Quest, browser, mobile AR
+- **Three.js / A-Frame** - rendering 3D web-based
+- **Spatial audio** - vinile e ambient sound posizionali
+- **Avatar AI** - PR agent come persona virtuale
+- **Multi-user** - più stakeholder nella stessa room
+
+### Perché Questo Vince
+
+1. **Differenziazione totale** - nessun competitor ha questo
+2. **Premium positioning** - giustifica prezzi alti
+3. **Viral potential** - clienti fanno screenshot, parlano, mostrano
+4. **Emotional connection** - non è solo tool, è esperienza
+5. **Manifestation energy** - vibe di successo attrae successo
+
+### Roadmap VR
+
+**Phase 1**: Web dashboard (✓ IN CORSO)
+**Phase 2**: 3D web gallery (Three.js)
+**Phase 3**: VR headset support (WebXR)
+**Phase 4**: AI avatar PR agent
+**Phase 5**: Multi-client lounges, networking spaces
+
+---
+
+## 🗄️ Content Database
+
+### OndePRDB Repository
+- **URL**: `https://github.com/FreeRiverHouse/OndePRDB`
+- **Scopo**: Database centralizzato contenuti social per tutti gli account
+- **Struttura**: TBD - in configurazione
+- **Accesso**: Private repo Free River House
+
+---
+
+*Ultimo aggiornamento: 2026-01-07 - Visione VR documentata, PR Dashboard in sviluppo*
