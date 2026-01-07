@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "id": "piccole-rime-01",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Stella Stellina",
+      "collection": "Piccole Rime - Poesia Italiana",
+      "mediaType": "video",
+      "media": "/videos/01-stella-stellina-stars.mp4",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Stella stellina, la notte s'avvicina...\"\n\nUna ninna nanna della tradizione italiana, illustrata in stile Emanuele Luzzati.\n\nAnimazione video by @grok",
+      "status": "pending",
+      "createdAt": "2026-01-06T21:30:00Z"
+    },
+    {
+      "id": "piccole-rime-02",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Il Pulcino Bagnato",
+      "collection": "Piccole Rime - Poesia Italiana",
+      "mediaType": "video",
+      "media": "/videos/02-pulcino-bagnato-rain.mp4",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\nUn pulcino cerca riparo dalla pioggia sotto le ali della mamma chioccia.\n\nIllustrazioni in stile folk art Luzzati.\nAnimazione by @grok",
+      "status": "pending",
+      "createdAt": "2026-01-06T21:31:00Z"
+    },
+    {
+      "id": "piccole-rime-03",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Che Dice la Pioggerellina",
+      "collection": "Piccole Rime - Poesia Italiana",
+      "mediaType": "video",
+      "media": "/videos/03-pioggerellina-rain.mp4",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Che dice la pioggerellina di marzo, che picchia argentina sui tegoli vecchi del tetto...\"\n\nPoesia di Angiolo Silvio Novaro.\nAnimazione in stile Luzzati by @grok",
+      "status": "pending",
+      "createdAt": "2026-01-06T21:32:00Z"
+    }
+  ]
+}
