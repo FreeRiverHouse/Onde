@@ -1,0 +1,27 @@
+{
+  "home": {
+    "title": "AIKO",
+    "subtitle": "L'Intelligenza Artificiale Spiegata ai Bambini",
+    "author": "Scritto da Gianni Parola",
+    "illustrator": "Illustrato da Pino Pennello",
+    "publisher": "Pubblicato da Onde, Free River House",
+    "startReading": "Inizia a Leggere",
+    "dedication": "Per ogni bambino che ha mai chiesto: 'Ma COME funziona?' Questo libro è per te. Perché la curiosità è dove tutto inizia."
+  },
+  "chapterList": {
+    "title": "La Storia di AIKO",
+    "subtitle": "Scegli un capitolo da esplorare"
+  },
+  "navigation": {
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "continue": "Continua",
+    "close": "Chiudi"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "language": "Lingua",
+    "chooseLanguage": "Scegli Lingua"
+  }
+}

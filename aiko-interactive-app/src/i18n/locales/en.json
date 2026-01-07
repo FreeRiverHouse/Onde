@@ -1,0 +1,27 @@
+{
+  "home": {
+    "title": "AIKO",
+    "subtitle": "AI Explained to Children",
+    "author": "Written by Gianni Parola",
+    "illustrator": "Illustrated by Pino Pennello",
+    "publisher": "Published by Onde, Free River House",
+    "startReading": "Start Reading",
+    "dedication": "For every child who has ever asked: 'But HOW does it work?' This book is for you. Because curiosity is where everything begins."
+  },
+  "chapterList": {
+    "title": "AIKO's Story",
+    "subtitle": "Choose a chapter to explore"
+  },
+  "navigation": {
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "close": "Close"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "chooseLanguage": "Choose Language"
+  }
+}
