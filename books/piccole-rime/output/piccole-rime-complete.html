@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piccole Rime - Antologia di Poesia Italiana</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Crimson Text', Georgia, serif;
+      background: #1a1a2e;
+      color: #f5f5f5;
+    }
+
+    .page {
+      page-break-after: always;
+      min-height: 100vh;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Cover Page */
+    .cover {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 15px solid;
+      border-image: linear-gradient(45deg, #e94560, #f9d923, #4ecca3, #3498db) 1;
+    }
+
+    .cover h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      color: #f9d923;
+      margin-bottom: 20px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 #e94560;
+    }
+
+    .cover .subtitle {
+      font-size: 24px;
+      font-style: italic;
+      color: #4ecca3;
+      margin-bottom: 50px;
+      letter-spacing: 2px;
+    }
+
+    .cover .authors {
+      font-size: 18px;
+      color: #f5f5f5;
+      margin: 40px 0;
+      line-height: 2.2;
+    }
+
+    .cover .publisher {
+      font-size: 28px;
+      color: #f9d923;
+      margin-top: 60px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      border: 3px solid #f9d923;
+      padding: 20px 60px;
+      display: inline-block;
+    }
+
+    .cover .style-note {
+      font-size: 16px;
+      color: #4ecca3;
+      margin-top: 30px;
+      font-style: italic;
+    }
+
+    /* Poem Pages */
+    .poem-page {
+      padding: 40px 60px;
+      background: #1a1a2e;
+    }
+
+    .poem-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid #e94560;
+    }
+
+    .poem-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: #f9d923;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .poem-header .author {
+      font-style: italic;
+      color: #4ecca3;
+      font-size: 16px;
+    }
+
+    .poem-content {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-top: 30px;
+    }
+
+    .poem-image {
+      flex: 0 0 45%;
+    }
+
+    .poem-image img {
+      width: 100%;
+      border-radius: 8px;
+      border: 5px solid #e94560;
+      box-shadow: 0 10px 40px rgba(233, 69, 96, 0.4);
+    }
+
+    .poem-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .poem-text pre {
+      font-family: 'Crimson Text', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.9;
+      white-space: pre-wrap;
+      color: #f5f5f5;
+      width: 100%;
+    }
+
+    .footer {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 2px solid #e94560;
+      font-size: 12px;
+      color: #4ecca3;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+      .page:last-child {
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cover Page -->
+  <div class="page cover">
+    <h1>Piccole Rime</h1>
+    <p class="subtitle">Antologia di Poesia Italiana per Bambini</p>
+
+    <div class="authors">
+      Lina Schwarz • Angiolo Silvio Novaro<br>
+      Guido Gozzano • Renzo Pezzani • Trilussa
+    </div>
+
+    <p class="publisher">Onde</p>
+    <p class="style-note">Illustrazioni ispirate a Emanuele Luzzati</p>
+  </div>
+
+  <!-- Poem 1: Stella Stellina -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Stella Stellina</h2>
+      <p class="author">Lina Schwarz (1876-1947)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/01-stella-stellina.jpg" alt="Stella Stellina">
+      </div>
+      <div class="poem-text">
+        <pre>Stella stellina
+la notte s'avvicina:
+la fiamma traballa,
+la mucca è nella stalla.
+
+La mucca e il vitello,
+la pecora e l'agnello,
+la chioccia e il pulcino,
+la mamma e il suo bambino.
+
+Ognuno ha il suo piccino,
+ognuno ha la sua mamma
+e tutti fan la nanna.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 2: Il pulcino bagnato -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Il Pulcino Bagnato</h2>
+      <p class="author">Lina Schwarz (1876-1947)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/02-pulcino-bagnato.jpg" alt="Il Pulcino Bagnato">
+      </div>
+      <div class="poem-text">
+        <pre>Un pulcino tutto bagnato
+cerca un posto riparato.
+La gallina sotto l'ala
+lo nasconde e lo riscalda.
+
+Piove piove, pioverella,
+ma lui sta sotto l'ombrella
+di sua mamma premurosa
+che lo cova e lo riposa.
+
+Quando il sole tornerà
+il pulcino canterà:
+pio pio, pio pio pio,
+grazie mamma, eccomi qui io!</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 3: Che dice la pioggerellina -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Che dice la pioggerellina di marzo</h2>
+      <p class="author">Angiolo Silvio Novaro (1866-1938)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/03-pioggerellina.jpg" alt="Pioggerellina">
+      </div>
+      <div class="poem-text">
+        <pre>Che dice la pioggerellina
+di marzo, che picchia argentina
+sui tegoli vecchi
+del tetto, sui bruscoli secchi
+dell'orto, sul fico e sul moro
+ornati di gemmule d'oro?
+
+Passata è l'uggiosa invernata,
+passata, passata!
+Di fuor dalla nuvola nera
+di fuor dalla nuvola bigia
+che in cielo si pigia,
+domani uscirà Primavera
+con pieno il grembiale
+di tiepido sole,
+di fresche viole,
+di primule rosse, di battiti d'ale,
+di nidi, di gridi
+di rondini, ed anche
+di stelle di mandorlo, bianche...
+
+Ciò dice la pioggerellina
+sui tegoli vecchi del tetto,
+sui bruscoli secchi dell'orto,
+sul fico e sul moro
+ornati di gemmule d'oro.
+
+Ciò canta, ciò dice;
+e il cuor che l'ascolta è felice.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 4: Il paese dei balocchi -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Il Paese dei Balocchi</h2>
+      <p class="author">Angiolo Silvio Novaro (1866-1938)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/04-paese-balocchi.jpg" alt="Il Paese dei Balocchi">
+      </div>
+      <div class="poem-text">
+        <pre>C'è un paese dove i bimbi
+non han mai compiti e mai
+han vacanze tutto l'anno
+e i giocattoli non si rompono mai.
+
+Là le mamme non sgridano
+e i papà sorridono sempre,
+là le caramelle crescono
+come fiori a settembre.
+
+Ma quel paese, bimbi miei,
+è lontano, tanto lontano!
+Per trovarlo ci vuole il sogno
+e la mano nella mano.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 5: La Befana -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>La Befana</h2>
+      <p class="author">Guido Gozzano (1883-1916)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/05-la-befana.jpg" alt="La Befana">
+      </div>
+      <div class="poem-text">
+        <pre>Discesi dal lettino
+son là presso il camino,
+grandi occhi estasiati,
+i bimbi affaccendati
+
+a metter la calzetta
+che invita la vecchietta
+a portar chicche e doni
+per tutti i bimbi buoni.
+
+Ognun chiudendo gli occhi,
+sogna dolci e balocchi;
+e Dori, il più piccino,
+accosta il suo visino
+
+alla grande vetrata
+per veder la sfilata
+dei Magi, su nel cielo,
+nella notte di gelo.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 6: L'anatroccolo -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>L'Anatroccolo</h2>
+      <p class="author">Guido Gozzano (1883-1916)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/06-anatroccolo.jpg" alt="L'Anatroccolo">
+      </div>
+      <div class="poem-text">
+        <pre>L'anatroccolo piccino
+va nell'acqua del mulino,
+nuota nuota senza posa
+come fosse un pesce o cosa.
+
+Qua qua qua, che bella vita,
+l'acqua fresca è squisita!
+Mamma anatra lo sorveglia
+dalla riva, che meraviglia!
+
+Viene sera, torna a riva,
+sotto l'ala se ne va:
+buonanotte, anatroccolo,
+qua qua qua, qua qua qua.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 7: La rondinella -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>La Rondinella</h2>
+      <p class="author">Renzo Pezzani (1898-1951)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/07-rondinella.jpg" alt="La Rondinella">
+      </div>
+      <div class="poem-text">
+        <pre>Rondinella che vai lontano
+sopra il mare, sotto il cielo,
+dove vai con tanto zelo
+con quel volo sovrumano?
+
+Vado al caldo, vado al sole,
+dove l'Africa m'aspetta,
+ma ritorno, ve lo giuro,
+quando torna Primavera.
+
+E la rondine è partita
+col suo volo nero e bianco,
+ma al balcone del bambino
+tornerà senza mai stancarsi.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 8: Il semaforo -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Il Semaforo</h2>
+      <p class="author">Renzo Pezzani (1898-1951)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/08-semaforo.jpg" alt="Il Semaforo">
+      </div>
+      <div class="poem-text">
+        <pre>Rosso giallo verde,
+il semaforo non perde
+mai un colpo, mai un momento,
+regolando il movimento.
+
+Rosso: fermo, stai a guardare!
+Giallo: attento, sta' per cambiare!
+Verde: via, puoi camminare!
+
+Come un grande occhio lucente
+guida tutti attentamente,
+e se tutti lo rispettano
+mai incidenti accadranno.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 9: La lumaca -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>La Lumaca</h2>
+      <p class="author">Trilussa (1871-1950)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/09-lumaca.jpg" alt="La Lumaca">
+      </div>
+      <div class="poem-text">
+        <pre>La lumachella de la vanagloria
+ch'era strisciata sopra un obelisco,
+guardò la bava e disse: "Che delizia!
+Ho lasciato la traccia ne la storia!"
+
+Così pensava, tutta soddisfatta,
+ma venne un acquazzone a mezzanotte
+e lavò via la bava e la lumaca
+restò senza la traccia e senza gloria.</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+  <!-- Poem 10: Er grillo -->
+  <div class="page poem-page">
+    <div class="poem-header">
+      <h2>Er Grillo</h2>
+      <p class="author">Trilussa (1871-1950)</p>
+    </div>
+    <div class="poem-content">
+      <div class="poem-image">
+        <img src="../images/10-grillo.jpg" alt="Er Grillo">
+      </div>
+      <div class="poem-text">
+        <pre>Un grillo, ch'era pratico der monno,
+consigliava una lucciola così:
+"Accendi er lume solamente quanno
+te può servì pe' li commodi tui;
+
+che se lo lasci acceso tutto er giorno,
+la gente te lo scambia pe' un lampione:
+e tu farai la luce all'antra gente
+senz'avenne nisuno ricompensa".
+
+Ma la lucciola disse: "Io splendo sempre,
+perché la luce è fatta pe' donà".</pre>
+      </div>
+    </div>
+    <div class="footer">Onde - Collana Poetry</div>
+  </div>
+
+</body>
+</html>
