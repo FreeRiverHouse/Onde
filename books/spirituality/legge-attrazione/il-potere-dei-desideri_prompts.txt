@@ -1,0 +1,125 @@
+# Prompt Illustrazioni - Il Potere dei Desideri
+
+Stile: Acquarello elegante europeo, vintage italiano
+NO: Pixar, cartoon, plasticoso, americano
+SI: Beatrix Potter, Luzzati, delicato, morbido
+
+---
+
+## ILLUSTRAZIONE 1 - Copertina
+Descrizione: Bambina che guarda le stelle, atmosfera magica
+
+PROMPT GROK:
+```
+Elegant watercolor children's book cover, Italian vintage 1950s style, 6-year-old girl with brown braids sitting on windowsill looking at starry night sky, soft warm lamp light inside cozy bedroom, dreamy magical atmosphere, soft muted colors, delicate brushstrokes, warm golden interior light contrasting with deep blue night, NOT Pixar NOT cartoon NOT plastic, award-winning illustration, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 2 - Capitolo 1: La Bambina che Sognava
+Descrizione: Giulia al davanzale guarda le stelle
+
+PROMPT GROK:
+```
+Elegant watercolor illustration, European vintage style, young girl with brown braids sitting on window seat, gazing at stars through window, cozy bedroom with warm lamplight, stuffed toys on bed, peaceful dreamy atmosphere, soft pastel colors, delicate brushstrokes, Beatrix Potter inspired, warm golden light, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 3 - Capitolo 2: Il Segreto dei Pensieri
+Descrizione: Mamma e figlia sedute insieme sul letto
+
+PROMPT GROK:
+```
+Soft watercolor children's book illustration, Italian vintage style, mother and young daughter sitting together on bed holding hands, cream colored soft blanket, warm bedside lamp light, intimate tender moment, soft muted colors, delicate gentle brushwork, refined European illustration style, warm amber lighting, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 4 - Capitolo 3: Il Gioco dei Desideri
+Descrizione: Giulia con occhi chiusi, nuvole di sogni intorno
+
+PROMPT GROK:
+```
+Elegant watercolor illustration, dreamy style, young girl with eyes closed and serene smile, soft cloudy thought bubbles around her showing a puppy and bicycle and laughing children, pastel colors, gentle ethereal atmosphere, European vintage children's book style, soft diffused light, delicate brushstrokes, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 5 - Capitolo 4: La Parola Magica
+Descrizione: Giulia in prato con braccia aperte, raggi di sole
+
+PROMPT GROK:
+```
+Luminous watercolor illustration, vintage European style, young girl standing in green meadow with arms open to sky, golden sunbeams streaming down, white butterflies around her, expression of pure joy, soft pastoral Italian landscape, warm golden light, delicate watercolor technique, peaceful atmosphere, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 6 - Capitolo 5: Il Quaderno dei Sogni
+Descrizione: Giulia che disegna sul quaderno con stelline
+
+PROMPT GROK:
+```
+Charming watercolor illustration, vintage Italian children's book style, young girl sitting at small desk drawing in notebook with golden stars on blue cover, colored pencils scattered on table, concentrated happy expression, warm cozy room, soft afternoon light through window, delicate brushwork, muted warm colors, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 7 - Capitolo 6: Il Giorno Speciale
+Descrizione: Papà con scatola bucherellata, Giulia corre verso di lui
+
+PROMPT GROK:
+```
+Heartwarming watercolor illustration, European vintage style, father standing in doorway holding cardboard box with holes, excited young girl running toward him with wide eyes, warm golden late afternoon light streaming through door, anticipation and joy, soft muted colors, Italian home interior, delicate brushstrokes, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 8 - Capitolo 7: Come Funziona
+Descrizione: Giulia corre nel parco autunnale col cagnolino
+
+PROMPT GROK:
+```
+Beautiful watercolor illustration, vintage European children's book style, young girl running joyfully through autumn park with golden leaves, small brown puppy bounding beside her, warm sunset light, soft amber and gold colors, peaceful pastoral scene, Beatrix Potter inspired delicacy, gentle brushwork, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 9 - Capitolo 8: Il Segreto Condiviso
+Descrizione: Giulia sussurra all'orecchio di un'amica nel giardino
+
+PROMPT GROK:
+```
+Gentle watercolor illustration, vintage Italian style, two young girls in flower garden, one whispering secret in other's ear, both smiling with complicity, wildflowers around them, soft diffused sunlight, pastel colors, intimate friendship moment, delicate refined brushwork, European children's book style, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 10 - Capitolo 9: Il Tuo Turno
+Descrizione: Un bambino generico guarda le stelle dalla finestra
+
+PROMPT GROK:
+```
+Evocative watercolor illustration, European vintage style, child silhouette sitting at window looking at starry night sky, could be any child (boy or girl), magical dreamy atmosphere, soft warm interior light against deep blue night, stars twinkling, invitation to dream, delicate brushstrokes, soft muted colors, 4k
+```
+
+---
+
+## ILLUSTRAZIONE 11 - Capitolo 10: La Promessa delle Stelle
+Descrizione: Cielo stellato con stella cadente
+
+PROMPT GROK:
+```
+Magical watercolor illustration, night sky seen through open window, brilliant stars in deep blue velvet sky, one shooting star streaking across, sense of infinite possibility and wonder, soft atmospheric style, vintage European children's book illustration, delicate celestial beauty, peaceful hopeful atmosphere, 4k
+```
+
+---
+
+TOTALE: 11 illustrazioni (1 copertina + 10 capitoli)
+
+NOTE PER GENERAZIONE:
+- Genera 2-3 varianti per ogni prompt
+- Scegli la più elegante e meno "cartoonosa"
+- Se troppo Pixar, aggiungi "traditional watercolor, hand-painted feel"
+- Salva in: books/spirituality/legge-attrazione/images/
