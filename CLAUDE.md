@@ -5,6 +5,25 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE
+
+**DATA: 2026-01-07**
+
+**QUANDO SI CITA UN AUTORE REALE:**
+- Il testo DEVE essere verificato al 100%
+- MAI inventare, modificare o "completare" testi di autori veri
+- Se non trovi la fonte originale → NON PUBBLICARE
+- Verifica SEMPRE: titolo, autore, testo esatto, anno
+
+**POESIE AI:**
+- Per ora NON pubblichiamo poesie scritte da AI
+- In futuro forse, ma per ora NO
+- Eccezione: contenuti originali per @magmatic__ se Mattia approva
+
+**Questa regola vale per TUTTI: Gianni Parola, Pina Pennello, tutti gli agenti e bot.**
+
+---
+
 ## 🚨🎨 BLOCCO TOTALE GENERAZIONE IMMAGINI - PRIORITÀ ASSOLUTA
 
 **DATA: 2026-01-07**
