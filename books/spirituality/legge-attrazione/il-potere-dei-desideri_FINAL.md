@@ -4,17 +4,17 @@
 
 ---
 
-## Capitolo 1: La Bambina che Sognava
+## Capitolo 1: Il Bambino che Sognava
 
-[ILLUSTRAZIONE: Bambina di 6 anni con trecce castane seduta sul davanzale, guarda il cielo stellato, cameretta accogliente con luce dorata della lampada, peluche sul letto]
+[ILLUSTRAZIONE: Bambino di 6 anni con capelli castani seduto sul davanzale, guarda il cielo stellato, cameretta accogliente con luce dorata della lampada, peluche sul letto]
 
-Giulia aveva sei anni, due trecce castane e un cuore pieno di sogni.
+Leo aveva sei anni, capelli castani e un cuore pieno di sogni.
 
 Ogni sera, quando il cielo diventava blu scuro e le stelle iniziavano a brillare, si sedeva alla finestra e pensava.
 
 "Mamma," disse una sera, mentre la luna faceva capolino dietro le nuvole, "come si fa a far avverare i desideri?"
 
-La mamma entrò con passo leggero, si sedette accanto a lei e le accarezzò i capelli.
+La mamma entrò con passo leggero, si sedette accanto a lui e gli accarezzò i capelli.
 
 "Vuoi che ti racconti un segreto?"
 
@@ -22,31 +22,31 @@ La mamma entrò con passo leggero, si sedette accanto a lei e le accarezzò i ca
 
 ## Capitolo 2: Il Segreto dei Pensieri
 
-[ILLUSTRAZIONE: Mamma e figlia sedute insieme sul letto, mani intrecciate, coperta morbida color crema, luce calda della lampada sul comodino]
+[ILLUSTRAZIONE: Mamma e figlio seduti insieme sul letto, mani intrecciate, coperta morbida color crema, luce calda della lampada sul comodino]
 
 "I tuoi pensieri," disse la mamma piano, "sono come piccoli semi."
 
-"Semi?" Giulia inclinò la testa.
+"Semi?" Leo inclinò la testa.
 
 "Sì. Ogni pensiero è un semino. Se pensi cose belle, cresceranno fiori colorati. Se pensi cose tristi, cresceranno erbacce."
 
-Giulia guardò le sue mani, girandole piano.
+Leo guardò le sue mani, girandole piano.
 
 "Allora devo pensare cose belle?"
 
-"Esatto. Ma non basta pensarle." La mamma le prese le mani e le portò al petto. "Devi sentirle qui. Il cuore è il giardino dove i semi crescono davvero."
+"Esatto. Ma non basta pensarle." La mamma gli prese le mani e le portò al petto. "Devi sentirle qui. Il cuore è il giardino dove i semi crescono davvero."
 
 ---
 
 ## Capitolo 3: Il Gioco dei Desideri
 
-[ILLUSTRAZIONE: Giulia con occhi chiusi e sorriso sereno, intorno a lei nuvole morbide con immagini sfumate - un cagnolino marrone, una bicicletta rossa, bambini che ridono insieme]
+[ILLUSTRAZIONE: Leo con occhi chiusi e sorriso sereno, intorno a lui nuvole morbide con immagini sfumate - un cagnolino marrone, una bicicletta rossa, bambini che ridono insieme]
 
-La mamma le insegnò un gioco speciale.
+La mamma gli insegnò un gioco speciale.
 
 "Chiudi gli occhi. Respira piano. Pensa a qualcosa che desideri tanto."
 
-Giulia chiuse gli occhi.
+Leo chiuse gli occhi.
 
 "Ci sei?" sussurrò la mamma.
 
@@ -58,7 +58,7 @@ Giulia chiuse gli occhi.
 
 "Senti il suo cuoricino che batte? Ti lecca la mano?"
 
-"Sì!" Giulia rise. "Mi fa il solletico!"
+"Sì!" Leo rise. "Mi fa il solletico!"
 
 "E come ti senti?"
 
@@ -70,7 +70,7 @@ Quando aprì gli occhi, il suo sorriso illuminava la stanza.
 
 ## Capitolo 4: La Parola Magica
 
-[ILLUSTRAZIONE: Giulia in un prato verde con braccia aperte al cielo, raggi di sole dorati che la avvolgono, farfalle bianche intorno]
+[ILLUSTRAZIONE: Leo in un prato verde con braccia aperte al cielo, raggi di sole dorati che lo avvolgono, farfalle bianche intorno]
 
 "C'è una parola magica," disse la mamma il giorno dopo. "Una parola che funziona come una chiave."
 
@@ -78,7 +78,7 @@ Quando aprì gli occhi, il suo sorriso illuminava la stanza.
 
 "Quella è gentile. Ma ce n'è una più potente."
 
-La mamma si chinò verso di lei.
+La mamma si chinò verso di lui.
 
 "Grazie."
 
@@ -86,21 +86,21 @@ La mamma si chinò verso di lei.
 
 "Quando dici grazie per le cose belle che hai già, il cuore si apre. E quando è aperto, possono entrare altre cose belle."
 
-Da quel giorno, Giulia iniziò a dire grazie per tutto.
+Da quel giorno, Leo iniziò a dire grazie per tutto.
 
-Grazie per il sole. Grazie per la colazione. Grazie per i baci della mamma. Grazie per essere Giulia.
+Grazie per il sole. Grazie per la colazione. Grazie per i baci della mamma. Grazie per essere Leo.
 
 ---
 
 ## Capitolo 5: Il Quaderno dei Sogni
 
-[ILLUSTRAZIONE: Giulia seduta al tavolino, quaderno blu con stelline dorate aperto, matite colorate sparse, espressione concentrata]
+[ILLUSTRAZIONE: Leo seduto al tavolino, quaderno blu con stelline dorate aperto, matite colorate sparse, espressione concentrata]
 
-Per il suo compleanno, la mamma le regalò un quaderno speciale: copertina blu notte, piena di stelline dorate.
+Per il suo compleanno, la mamma gli regalò un quaderno speciale: copertina blu notte, piena di stelline dorate.
 
 "Questo è il tuo Quaderno dei Sogni. Ogni giorno, disegna qualcosa di bello che desideri."
 
-Giulia lo strinse al petto.
+Leo lo strinse al petto.
 
 Nei giorni seguenti lo riempì di disegni: un cagnolino con orecchie flosce, una casa sull'albero, un viaggio al mare.
 
@@ -112,33 +112,33 @@ Non sapeva ancora che quei disegni erano mappe. Mappe per luoghi che avrebbe vis
 
 ## Capitolo 6: Il Giorno Speciale
 
-[ILLUSTRAZIONE: Papà sulla porta con scatola bucherellata, Giulia che corre verso di lui con occhi spalancati, luce dorata del tardo pomeriggio dalla finestra]
+[ILLUSTRAZIONE: Papà sulla porta con scatola bucherellata, Leo che corre verso di lui con occhi spalancati, luce dorata del tardo pomeriggio dalla finestra]
 
 Passarono settimane. Poi mesi.
 
-Giulia continuava a pensare al cagnolino, a sentire il suo pelo morbido, a dire grazie.
+Leo continuava a pensare al cagnolino, a sentire il suo pelo morbido, a dire grazie.
 
 Un pomeriggio d'autunno, il papà tornò con una scatola.
 
 Una scatola che si muoveva.
 
-"Giulia, vieni qui."
+"Leo, vieni qui."
 
-Il cuore le batteva forte. Si avvicinò piano.
+Il cuore gli batteva forte. Si avvicinò piano.
 
 Il papà aprì.
 
-Due occhietti marroni, lucidi come castagne, la guardarono. Una codina iniziò a scodinzolare.
+Due occhietti marroni, lucidi come castagne, lo guardarono. Una codina iniziò a scodinzolare.
 
-"Il mio desiderio!" Giulia prese il cucciolo tra le braccia. "Si è avverato!"
+"Il mio desiderio!" Leo prese il cucciolo tra le braccia. "Si è avverato!"
 
 ---
 
 ## Capitolo 7: Come Funziona
 
-[ILLUSTRAZIONE: Giulia che corre in un parco autunnale con foglie dorate, il cagnolino che saltella accanto a lei, luce calda del tramonto]
+[ILLUSTRAZIONE: Leo che corre in un parco autunnale con foglie dorate, il cagnolino che saltella accanto a lui, luce calda del tramonto]
 
-Giulia chiamò il cucciolo Stella.
+Leo chiamò il cucciolo Stella.
 
 Una domenica al parco chiese: "Mamma, come ha fatto il desiderio a diventare vero?"
 
@@ -148,7 +148,7 @@ La mamma guardò le nuvole.
 
 "Posso desiderare tutto?"
 
-"Tutto quello che ti fa sentire felice e buona. Sai quali sono i desideri più belli?"
+"Tutto quello che ti fa sentire felice e buono. Sai quali sono i desideri più belli?"
 
 "Quali?"
 
@@ -158,15 +158,15 @@ La mamma guardò le nuvole.
 
 ## Capitolo 8: Il Segreto Condiviso
 
-[ILLUSTRAZIONE: Giulia che sussurra all'orecchio di un'amica in giardino fiorito, entrambe sorridono, fiori di campo intorno]
+[ILLUSTRAZIONE: Leo che sussurra all'orecchio di un amico in giardino, entrambi sorridono, fiori di campo intorno]
 
-Giulia cresceva, e il segreto funzionava sempre.
+Leo cresceva, e il segreto funzionava sempre.
 
 Non tutti i desideri arrivavano subito. Alcuni ci mettevano tempo. Altri arrivavano in modi inaspettati, sempre perfetti.
 
 E capì una cosa importante: la magia più grande era condividerla.
 
-Così iniziò a raccontare il segreto. Alla sua amica Sofia. A suo cugino Marco. A bambini che sembravano tristi.
+Così iniziò a raccontare il segreto. Al suo amico Tommaso. A sua cugina Sofia. A bambini che sembravano tristi.
 
 "Chiudi gli occhi. Pensa a qualcosa di bello. Sentilo nel cuore. Di' grazie."
 
@@ -200,7 +200,7 @@ E il cuore conosce sempre la strada.
 
 [ILLUSTRAZIONE: Cielo notturno con stelle brillanti attraverso finestra aperta, stella cadente, atmosfera di magia e possibilità infinite]
 
-Giulia adesso ha dieci anni.
+Leo adesso ha dieci anni.
 
 Stella dorme ai piedi del suo letto.
 
