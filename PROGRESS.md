@@ -1,0 +1,145 @@
+# Onde - Progress Tracker
+
+> Questo file traccia TUTTO quello che sta succedendo in Onde.
+> Aggiornato automaticamente da Editore Capo, Pino Pennello, Gianni Parola.
+> **Per workflow completo vedi: `BOOK_FACTORY.md`**
+
+---
+
+## Dashboard Libri
+
+| Libro | Collana | Testo | Immagini | Manoscritto | Status |
+|-------|---------|-------|----------|-------------|--------|
+| AIKO | Tech | 100% | 100% | 100% | Review |
+| Salmo 23 | Spiritualità | 100% | 100% | 75% | Bozza V2 |
+| Legge Attrazione | Spiritualità | 0% | 0% | 0% | In queue |
+| Mindfulness Bambini | Spiritualità | 0% | 0% | 0% | In queue |
+| Antologia Poesie EN | Poetry | 0% | 0% | 0% | In queue |
+| AIKO (IT) | Tech | 0% | 50% | 0% | Traduzione |
+| Antologia Poesie IT | Poetry | 100% | 100% | 100% | Pronto |
+
+**Legenda Progress:**
+- 25% = Solo testo (almeno draft1)
+- 50% = Testo + Immagini
+- 75% = Manoscritto pronto per review
+- 100% = Approvato
+
+---
+
+## Progetti Attivi
+
+### AIKO - AI Spiegata ai Bambini
+**Status:** PRIMA BOZZA COMPLETA
+**Ultimo aggiornamento:** 2026-01-06 13:08
+
+#### Testo
+- [x] Scrittura completata (Gianni Parola)
+- [x] File: `~/Downloads/aiko-final.txt`
+- [x] 8 capitoli + dedica + nota genitori
+- [x] Lingua: Inglese
+
+#### Illustrazioni (Pino Pennello via Grok)
+| Cap | Descrizione | Status | File |
+|-----|-------------|--------|------|
+| 0 | Copertina AIKO | FATTO | cover-aiko.jpg |
+| 1 | Sofia apre scatola, scopre AIKO | FATTO | chapter1-strange-new-friend.jpg |
+| 2 | Cervello vs circuiti | FATTO | chapter2-brain-circuits.jpg |
+| 3 | AIKO con foto gatto Whiskers | FATTO | chapter3-learning-to-see.jpg |
+| 4 | AIKO con testi/libri, Luca | FATTO | chapter4-learning-to-talk.jpg |
+| 5 | AIKO aiuta (homework, traduzioni, etc) | FATTO | chapter5-what-aiko-can-do.jpg |
+| 6 | Drago viola + gelato, AIKO confuso | FATTO | chapter6-what-aiko-cannot-do.jpg |
+| 7 | 4 regole sicurezza (icone) | FATTO | chapter7-using-ai-safely.jpg |
+| 8 | Futuro insieme, tramonto dorato | FATTO | chapter8-future-together.jpg |
+
+**Progresso:** 9/9 illustrazioni (100%)
+
+#### PDF Generato
+- **File:** `/books/aiko-ai-children/output/AIKO-AI-Explained-to-Children.pdf`
+- **Dimensione:** 5.7 MB
+- **Pagine:** 13 (copertina, titolo, dedica, 8 capitoli, fine, note genitori)
+
+#### Prossimi Step
+1. Review del PDF con Mattia
+2. Feedback su immagini/testo
+3. Creare copertina KDP (dimensioni specifiche)
+4. Creare EPUB per Kindle
+5. Pubblicare su Kindle
+
+---
+
+### Salmo 23 per Bambini
+**Status:** Bozza V2 pronta
+**Ultimo aggiornamento:** 2026-01-05
+
+- [x] Testo completato
+- [x] Illustrazioni completate (7/7)
+- [ ] EPUB finale
+- [ ] Pubblicazione Kindle
+
+---
+
+## Log Attivita
+
+### 2026-01-06
+- **12:22** - Caricato testo finale AIKO (`aiko-final.txt`)
+- **??:??** - Generata copertina AIKO su Grok (2 varianti)
+- **??:??** - Creato sistema tracking PROGRESS.md
+
+### 2026-01-05
+- Completate illustrazioni Salmo 23
+- Generate prime illustrazioni AIKO (cap 2-5)
+- Creato character sheet AIKO
+
+---
+
+## File Importanti
+
+| File | Descrizione |
+|------|-------------|
+| `CLAUDE.md` | Memoria principale Claude |
+| `PROGRESS.md` | Questo file - tracking progetti |
+| `content/agents/*.md` | Profili agenti (docs) |
+| `packages/agents/` | **AGENT REALI TypeScript** |
+| `packages/agents/memory/` | Memoria persistente degli agent |
+| `books/*/` | Cartelle libri in produzione |
+
+---
+
+## Sistema Agent (TypeScript)
+
+**Creato: 2026-01-06**
+
+### Come Usare
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/packages/agents
+
+# Parla con Pino Pennello (illustratore)
+npm run pino
+
+# Parla con Gianni Parola (scrittore)
+npm run gianni
+
+# Parla con Mattia Cenci (editore capo)
+npm run mattia
+```
+
+### Comandi CLI
+- `status` - Vedi stato di tutti gli agent
+- `switch pino/gianni/mattia` - Cambia agent
+- `exit` - Esci
+
+### Workflow Immagini
+1. Chiedi a Pino: "illustra capitolo X di [libro]"
+2. Pino genera il prompt
+3. Tu (Claude) vai su Grok web e generi
+4. Confermi a Pino che è fatto
+
+### Memoria Agent
+- `memory/pino-pennello.memory.json`
+- `memory/gianni-parola.memory.json`
+- `memory/mattia-cenci.memory.json`
+- `memory/projects.json` (progetti libro)
+
+---
+
+*Ultimo aggiornamento: 2026-01-06 - Creato sistema agent TypeScript*
