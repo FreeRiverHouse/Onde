@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "description": "Curated quotes database for Onde books and social posts",
+    "lastUpdated": "2026-01-06",
+    "sources": ["Instagram @magmatic._ highlights", "Books", "Research"]
+  },
+  "quotes": [
+    {
+      "id": "thich-nhat-hanh-01",
+      "author": "Thich Nhat Hanh",
+      "source": "No Mud, No Lotus",
+      "quote": "The art of happiness is also the art of suffering well. When we learn to acknowledge, embrace, and understand our suffering, we suffer much less.",
+      "themes": ["suffering", "happiness", "transformation", "mindfulness"],
+      "useFor": ["books", "posts"],
+      "accounts": ["onde", "magmatic"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "james-hillman-01",
+      "author": "James Hillman",
+      "source": "Unknown",
+      "quote": "Real growth means descending into the abyss and darkness of life. Real growth is opening ourselves to uncertainty and vulnerability, becoming smaller, shrinking the illusions and pretensions.",
+      "themes": ["growth", "depth", "soul", "vulnerability"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic", "onde"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "elio-vittorini-01",
+      "author": "Elio Vittorini",
+      "source": "Una nuova cultura (1945)",
+      "quote": "Potremo mai avere una cultura che sappia proteggere l'uomo dalle sofferenze invece di limitarsi a consolarlo?",
+      "themes": ["culture", "suffering", "protection", "postwar"],
+      "useFor": ["posts"],
+      "accounts": ["onde"],
+      "childFriendly": false,
+      "language": "it"
+    },
+    {
+      "id": "rocco-scotellaro-01",
+      "author": "Rocco Scotellaro",
+      "source": "La mia bella patria (1949)",
+      "quote": "Io sono un filo d'erba, un filo d'erba che trema. E la mia Patria è dove l'erba trema. Un alito può trapiantare il mio seme lontano.",
+      "themes": ["identity", "nature", "belonging", "simplicity"],
+      "useFor": ["posts", "books"],
+      "accounts": ["onde", "magmatic"],
+      "childFriendly": true,
+      "language": "it"
+    },
+    {
+      "id": "franco-battiato-01",
+      "author": "Franco Battiato",
+      "source": "Testamento",
+      "quote": "Lascio agli eredi l'imparzialità, la volontà di crescere e capire, uno sguardo feroce e indulgente, per non offendere inutilmente.",
+      "themes": ["legacy", "wisdom", "growth", "compassion"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic", "onde"],
+      "childFriendly": false,
+      "language": "it"
+    },
+    {
+      "id": "franco-battiato-02",
+      "author": "Franco Battiato",
+      "source": "Testamento",
+      "quote": "We never died, we were never born!",
+      "themes": ["spirituality", "eternity", "non-duality"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "michael-singer-01",
+      "author": "Michael A. Singer",
+      "source": "The Untethered Soul",
+      "quote": "There is nothing more important to true growth than realizing that you are not the voice of the mind - you are the one who hears it.",
+      "themes": ["consciousness", "mind", "awareness", "growth"],
+      "useFor": ["posts", "books"],
+      "accounts": ["onde", "magmatic"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "nisargadatta-01",
+      "author": "Nisargadatta Maharaj",
+      "source": "I Am That",
+      "quote": "Wisdom tells me I am nothing. Love tells me I am everything. Between the two my life flows.",
+      "themes": ["non-duality", "wisdom", "love", "balance"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "rick-rubin-01",
+      "author": "Rick Rubin",
+      "source": "The Creative Act",
+      "quote": "Living in tune with the seasons and other natural rhythms, observing the breath, moving your body, stilling the mind all access this expanded awareness and invite creative flow.",
+      "themes": ["creativity", "nature", "awareness", "flow"],
+      "useFor": ["posts"],
+      "accounts": ["freeriverhouse", "magmatic"],
+      "childFriendly": true,
+      "language": "en"
+    },
+    {
+      "id": "emily-dickinson-01",
+      "author": "Emily Dickinson",
+      "source": "Poem 1680",
+      "quote": "Sometimes with the Heart, Seldom with the Soul, Scarcer once with the Might, Few love at all.",
+      "themes": ["love", "heart", "soul", "rarity"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic", "onde"],
+      "childFriendly": false,
+      "language": "en"
+    },
+    {
+      "id": "nietzsche-01",
+      "author": "Friedrich Nietzsche",
+      "source": "Amor Fati concept",
+      "quote": "My formula for greatness in a human being is amor fati: that one wants nothing to be different, not forward, not backward, not in all eternity.",
+      "themes": ["acceptance", "fate", "love", "stoicism"],
+      "useFor": ["posts"],
+      "accounts": ["magmatic"],
+      "childFriendly": false,
+      "language": "en"
+    }
+  ],
+  "toResearch": [
+    {
+      "theme": "kindness",
+      "famousAuthors": ["Dalai Lama", "Mother Teresa", "Aesop", "Mark Twain"],
+      "note": "Find famous quotes about kindness to replace Instagram account quotes"
+    },
+    {
+      "theme": "Salmo 23 - Gospel quotes",
+      "famousAuthors": ["Jesus Christ (Gospels)"],
+      "note": "Find Gospel verses that complement Psalm 23 themes: shepherd, protection, comfort"
+    }
+  ]
+}

@@ -21,6 +21,67 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 
 ---
 
+## 🚨 NUOVA STRATEGIA APP - ABBANDONIAMO UNITY
+
+### Stack Veloce per App Educative
+**Unity è OVERKILL** per giochi educativi semplici. Usa:
+
+| Tool | Uso | Tempo |
+|------|-----|-------|
+| **React Native + Expo** | App iOS/Android | Ore |
+| **Google AI Studio** | Prototipi web | 2 min |
+| **Rork** ($20/mese) | MVP mobile | Minuti |
+| **PWA + Capacitor** | Web → Store | Ore |
+
+### File di Riferimento
+- `APP-FACTORY-PLAN.md` - Piano completo app da sviluppare
+- `MARKET-INSIGHTS-2026.md` - Analisi mercato Grok
+
+### Priorità App Q1 2026
+1. KidsChefStudio → React Native
+2. AIKO Interactive
+3. Piccole Rime app
+4. Salmo 23 Kids
+5. Mindful Kids
+
+---
+
+## REGOLE EFFICIENZA PRODUZIONE LIBRI
+
+### 1. Multiple Tab Grok per Immagini
+**SEMPRE aprire 5-10 tab di Grok in parallelo** quando devo generare immagini.
+- Ogni tab può generare 4 varianti alla volta
+- Mentre una genera, passo alla successiva
+- 20+ immagini in 1 minuto invece di 5 minuti
+- URL: https://x.com/i/grok → "Crea immagini"
+
+### 2. Image-to-Image con Grok
+**Posso dare a Grok un'immagine di riferimento** e chiedergli di fare qualcosa di simile.
+- Drag & drop immagine nel prompt
+- Descrivi cosa vuoi mantenere/cambiare
+- Perfetto per mantenere stile coerente tra illustrazioni
+
+### 3. Controllo Visivo OBBLIGATORIO
+**Prima di consegnare qualsiasi PDF/ePub:**
+- Aprire il PDF con Preview
+- Fare screenshot di OGNI pagina
+- Verificare che testo e immagini non si sovrappongano
+- Controllare soprattutto pagine con molto testo (es. Chapter 8)
+
+### 4. Script Riutilizzabili
+**Creare sempre script riutilizzabili** per processi ripetitivi:
+- `create-all-translations.js` per traduzioni multiple
+- Template base con fix già inclusi (es. Chapter 8)
+- Documentare i parametri configurabili
+
+### 5. Auto-Upload Amazon
+**Ogni volta che genero un ePub, iniziare subito il caricamento su KDP.**
+- Non aspettare che l'utente lo chieda
+- Aprire KDP, iniziare il form
+- L'utente farà solo la selezione file finale
+
+---
+
 ## Onde PR System
 
 ### Account X Gestiti
