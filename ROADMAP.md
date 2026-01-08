@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - Aggiunto piano lip sync interno + CTA per piattaforma
+**Ultimo aggiornamento**: 2026-01-08 - Aggiunto Onde Lounge, tech channel, Distribution Easy strategy
 
 ---
 
@@ -77,6 +77,87 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 1. Generare audio base (storia/poesia)
 2. Aggiungere CTA specifico per piattaforma
 3. Generare video lip sync per ogni versione
+
+### 🎵 Onde Lounge - Canale Ambient (NUOVA VISIONE)
+**Concept**: Canale YouTube con video lunghi ambient per relax, feste, studio, cucina
+
+**Perché**:
+- La musica ambient/lofi è una COMMODITY - decorazione, non arte
+- Mercato enorme: study beats, dinner party music, relaxation
+- Possiamo automatizzare completamente con Video Factory
+- Zero competizione artistica - puro volume e qualità visiva
+
+**Prodotto**:
+- Video 1-4 ore con scenari animati stile Onde
+- Musica AI-generated (Suno, Udio, o simili)
+- Leggere animazioni su immagini statiche (parallax, particelle, luce)
+- Titoli tipo: "Italian Countryside Sunset | 3 Hours Relaxing Music"
+
+**Pipeline Video Factory**:
+1. Generare immagini scenari (Grok, stile Onde)
+2. Animare leggermente (zoom lento, particelle, luce)
+3. Generare musica ambient AI (loop 10-30 min)
+4. Assemblare video lungo (1-4 ore)
+5. Upload automatico su YouTube
+
+**Canale**: "Onde Lounge" o "Onde Ambient"
+
+**Task**:
+- [ ] Setup canale YouTube dedicato
+- [ ] Test generazione musica AI (Suno/Udio)
+- [ ] Pipeline animazione immagini (ffmpeg + effetti)
+- [ ] Primo video test 1 ora
+- [ ] Automazione completa
+
+---
+
+### 📚 Audiobooks & Podcast Expansion
+**Concept**: Libri Onde come audiobook + podcast educativi
+
+**Perché**:
+- La gente impara in macchina, in palestra, camminando
+- Stesso contenuto, nuovo formato, nuovo revenue stream
+- ElevenLabs già integrato (voce Gianni Parola)
+
+**Prodotti**:
+- Audiobook completi dei libri Onde (AIKO, Salmo 23, etc.)
+- Podcast "Onde Kids" - storie della buonanotte
+- Podcast "Onde Learn" - pillole educative
+
+---
+
+### 💡 Tech Channel (Nuova Idea)
+**Concept**: Canale tech separato con nuovo personaggio
+
+**Personaggio**: Da creare - stile Gianni ma per tech/coding
+**Contenuti**:
+- Libro "Vibes Coding" - come programmare con AI
+- Tutorial coding per principianti
+- Behind the scenes di come costruiamo Onde
+
+**Note**: Separato da Onde Kids - target adulti/teenager
+
+---
+
+### 🌊 Distribution Easy Strategy
+**Filosofia**: Margine piccolo × Volume enorme = Profitto
+
+**Come funziona**:
+- Ogni contenuto tradotto in 6+ lingue automaticamente
+- Ogni formato: libro, ebook, audiobook, video, podcast
+- Ogni piattaforma: KDP, YouTube, Spotify, TikTok, Apple
+- AI fa il 90% del lavoro, noi supervisioniamo
+
+**Matematica**:
+- 1 libro × 6 lingue × 4 formati = 24 prodotti
+- 10 libri = 240 prodotti
+- Anche $1/mese per prodotto = $240/mese passivi
+
+**Onde = Prima Casa Editrice 100% AI?**
+- Da verificare se siamo i primi
+- Se sì, storytelling potentissimo per PR
+
+---
 
 ### Fase 1: Fondamenta (Gennaio 2026)
 - [ ] Definire visual style unificato
@@ -226,6 +307,29 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 - [ ] TikTok integration
 - [ ] Instagram Reels automation
 - [ ] PR Dashboard come prodotto SaaS multi-tenant
+
+### 📱 Multi-Social Expansion (NUOVO)
+**Strategia**: Ogni post viene archiviato e ripostato su tutti i social
+
+**Piattaforme Target**:
+| Piattaforma | Account | Status |
+|-------------|---------|--------|
+| **X** | @Onde_FRH, @FreeRiverHouse, @magmatic__ | ✅ Attivo |
+| **Instagram** | @onde_publishing | DA CREARE |
+| **TikTok** | @onde | DA CREARE |
+| **Facebook** | Onde Publishing | DA CREARE |
+| **LinkedIn** | Free River House | DA CREARE |
+
+**Archivio Post**:
+- Path: `OndePRDB/archive/posted/`
+- Ogni post salvato con data, caption, media
+- Facilita repost cross-platform
+
+**Workflow**:
+1. Crea post per X
+2. Salva in archivio OndePRDB
+3. Adatta e riposta su altri social
+4. Track performance per piattaforma
 
 ---
 
