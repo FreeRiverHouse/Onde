@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - Aggiunto Onde Books (store indipendente + app famiglia)
+**Ultimo aggiornamento**: 2026-01-08 - Aggiunto @la_river_x takeover (10 post), Gianni Parola immagini
 
 ---
 
@@ -831,6 +831,41 @@ npx expo start
 - Mese 1: 100+ follower
 - Mese 3: 500+ follower
 - Mese 6: 1000+ follower, voce riconosciuta
+
+---
+
+### 🌊 @la_river_x Takeover - 10 Post (NUOVO - 8 Gen 2026)
+
+**Concept**: Account takeover per community artisti locali del LA River
+
+**Il tema**:
+- Il rapporto di Mattia con il fiume (DJ set, eventi)
+- Come il fiume ha ispirato FreeRiverHouse e Onde
+- "Onde = fiume = far fiorire il mondo"
+
+**10 Post Pianificati** (mix formati):
+| # | Tipo | Tema | Status |
+|---|------|------|--------|
+| 1 | Video/Foto | DJ set al fiume - la scena | DA FARE |
+| 2 | Poesia | Il fiume come ispirazione | DA FARE |
+| 3 | Foto | FreeRiverHouse - come è nato | DA FARE |
+| 4 | Video | Onde Publishing - missione | DA FARE |
+| 5 | Foto | I libri ispirati dal fiume | DA FARE |
+| 6 | Poesia | Testo @magmatic__ sul fiume | DA FARE |
+| 7 | Foto | La community del fiume | DA FARE |
+| 8 | Video | Il logo Onde (onde = fiore) | DA FARE |
+| 9 | Foto | Connessione artisti locali | DA FARE |
+| 10 | Poesia/Video | Finale - "far fiorire il mondo" | DA FARE |
+
+**Account Partner**: @la_river_x (community artisti LA River)
+**Referenza contenuti**: @magmatic._ su Instagram (DJ set, eventi fiume)
+
+**Task**:
+- [ ] Esplorare @magmatic._ per contenuti esistenti fiume/DJ
+- [ ] Esplorare @la_river_x per capire stile community
+- [ ] Creare 10 bozze post
+- [ ] Salvare in `OndePRDB/clients/magmatic/la-river-takeover/`
+- [ ] Coordinare con la community per approvazione
 
 ---
 
