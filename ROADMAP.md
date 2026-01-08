@@ -1,0 +1,276 @@
+# Onde - Roadmap 2026
+
+**Ultimo aggiornamento**: 2026-01-07
+
+---
+
+## 🚨 PRIORITÀ ASSOLUTA - Q1 2026
+
+### 1. Definire Stile Unitario Onde (BLOCCANTE)
+**Status**: IN CORSO - URGENTE
+**Blocca**: Tutte le nuove generazioni di immagini
+
+**Task immediato**:
+- [ ] Generare 4 opzioni stilistiche su Grok (prompt già pronti in CLAUDE.md)
+- [ ] Mattia sceglie lo stile definitivo
+- [ ] Creare prompt templates e skill
+- [ ] Documentare style guide completa
+- [ ] Rifare immagini esistenti con nuovo stile
+
+**Deadline**: Prima possibile - blocca produzione libri
+
+---
+
+## 📚 Publishing - Casa Editrice
+
+### Q1 2026 (Gen-Mar)
+
+**Obiettivo**: 5+ libri pubblicati su KDP
+
+#### Libri in Lavorazione
+
+| Libro | Collana | Status | Prossimo Step |
+|-------|---------|--------|---------------|
+| AIKO - AI Explained to Children | Tech | Review PDF | Feedback Mattia → KDP |
+| Il Salmo 23 per Bambini | Spiritualità | Bozza V2 | EPUB → KDP |
+| Il Potere dei Desideri | Spiritualità | Testo 100% | **BLOCCATO** (stile) |
+| Piccole Rime (Antologia IT) | Poetry | Completo | Video approval |
+| Il Respiro Magico | Spiritualità | In Queue | Da iniziare |
+
+#### Video Content (Nuova Iniziativa)
+
+**Status**: 3 video generati (stile Luzzati)
+- [x] Stella Stellina
+- [x] Pulcino Bagnato
+- [x] Pioggerellina
+- [ ] Approvazione in PR Dashboard (localhost:3333)
+- [ ] Posting su @Onde_FRH (tagga @grok)
+- [ ] Generare video 4-10
+
+**Goal**: Espandere su YouTube Shorts, TikTok, Instagram Reels
+
+#### Libri in Queue (H1 2026)
+1. Antologia Poesie EN (Stevenson, Lear, Rossetti)
+2. AIKO traduzione IT
+3. La Luce Dentro (Spiritualità)
+4. Il Piccolo Inventore (Tech)
+
+---
+
+## 📱 App Development - STRATEGIA CAMBIATA
+
+### ⚠️ DECISIONE: Abbandonare Unity per App Educative
+
+**Motivazione**: Unity è OVERKILL per giochi educativi semplici
+
+**Nuovo Stack Veloce**:
+- React Native + Expo (iOS/Android in ore)
+- Google AI Studio (prototipi web in 2 min)
+- Rork ($20/mese) per MVP mobile rapidi
+- PWA + Capacitor (web → Store in ore)
+
+### Q1 2026 - Target: 5 App su App Store
+
+| App | Status | Azione |
+|-----|--------|--------|
+| KidsChefStudio | Unity Phase 1 | **CONVERTIRE** a React Native |
+| AIKO Interactive | Pianificata | Sviluppare con React Native |
+| Piccole Rime App | Pianificata | Sviluppare con React Native |
+| Salmo 23 Kids | Pianificata | Sviluppare con React Native |
+| Mindful Kids | Pianificata | Sviluppare con React Native |
+
+### Q2 2026 - Target: 10 App Totali
+
+**Revenue Goal**: $1k/mese da app Q1, $5k/mese Q2
+
+---
+
+## 🎯 PR Agency - Onde PR
+
+### Attivo e Funzionante
+
+**Account Gestiti**:
+- @FreeRiverHouse (Building in public, tech, startup)
+- @Onde_FRH (Casa editrice, cultura, libri)
+- @magmatic__ (Personale, poesia, arte - Mattia)
+
+**Automazione**:
+- [x] Bot Telegram @OndePR_bot (comandi /frh, /onde, /magmatic)
+- [x] Report giornaliero automatico (17:40)
+- [x] Daily Tech Post automatico (21:30)
+- [x] 40 post pre-scritti nel bank
+- [x] PR Agent con Grok AI
+- [x] PR Dashboard museo-style (localhost:3333)
+
+### Q1 2026 - Espansione
+
+**Immediate**:
+- [ ] Aggiornare bio @Onde_FRH: "AI Publishing House + PR Agency"
+- [ ] Instagram Content Revival (@magmatic__ - 5 anni di contenuti)
+- [ ] Crescita organica @FreeRiverHouse
+
+**Q1 Goals**:
+- [ ] YouTube Shorts automation
+- [ ] TikTok integration
+- [ ] Instagram Reels automation
+- [ ] PR Dashboard come prodotto SaaS multi-tenant
+
+---
+
+## 🎮 VR/Gaming Projects
+
+### BusinessIsBusiness
+**Status**: Early Development (3 commits)
+**Tipo**: VR Game - Frontend gamificato per Claude Code
+**Platform**: Meta Quest
+
+**Phase 1** (In Corso): Audio Prototype
+- [ ] Agent system completato
+- [ ] Voice pipeline implementata
+- [ ] Server Bridge Mac ↔ Quest
+
+**Q2 2026**: Phase 2 (2D Interface iPad/Mac)
+
+### Unity Games (Status Congelato)
+
+| Progetto | Status | Decisione |
+|----------|--------|-----------|
+| KidsChefStudio | Phase 1 | **FREEZE** → React Native |
+| KidsGameStudio | Swift/Ready | Pubblicare su Store |
+| KidsMusicStudio | Advanced | Valutare se completare o freeze |
+| PIZZA-GELATO-RUSH | MVP | Freeze (non prioritario) |
+
+---
+
+## 🤖 PolyRoborto (Trading Bot)
+
+**Status**: Production-Ready
+**Tipo**: Copy-trading bot per Polymarket
+**Revenue**: Potenziale guadagno passivo
+
+**Q1 Action**: Deploy e monitor
+
+---
+
+## 💰 Revenue Goals
+
+### Q1 2026 (Gen-Mar)
+- **Libri KDP**: $200-500/mese
+- **App Store**: $500-1000/mese
+- **PolyRoborto**: Variable
+- **PR Dashboard SaaS**: $0 (setup)
+- **TOTAL TARGET**: $1,000/mese
+
+### Q2 2026 (Apr-Giu)
+- **Libri KDP**: $1k/mese (15+ libri)
+- **App Store**: $3k/mese (10+ app)
+- **PR Dashboard**: $1k/mese (primi clienti)
+- **TOTAL TARGET**: $5,000/mese
+
+---
+
+## 🗓️ Timeline Chiave
+
+### Gennaio 2026
+- [ ] Definire stile Onde (settimana 1)
+- [ ] Pubblicare AIKO + Salmo 23 (settimana 2-3)
+- [ ] Setup React Native stack (settimana 2)
+- [ ] Prima app React Native pubblicata (settimana 4)
+
+### Febbraio 2026
+- [ ] 3+ libri pubblicati
+- [ ] 3 app React Native pubblicate
+- [ ] Video expansion (YouTube Shorts, TikTok)
+
+### Marzo 2026
+- [ ] 5 libri totali pubblicati
+- [ ] 5 app pubblicate
+- [ ] PR Dashboard beta per primi clienti
+- [ ] $1k/mese revenue raggiunto
+
+---
+
+## 🚫 Cosa NON Fare
+
+### Illustrazioni
+- ❌ NO Pixar, cartoon, plasticoso
+- ❌ NO generare immagini prima di definire stile unitario
+- ❌ NO stile americano bright
+
+### Testi
+- ❌ NO inventare citazioni di autori reali
+- ❌ NO pubblicare poesie AI (per ora)
+- ❌ NO modificare testi di autori in dominio pubblico
+
+### X/Twitter
+- ❌ NO hashtag (Grok analizza automaticamente)
+- ❌ NO mischiare stili tra account diversi
+- ❌ NO call-to-action su @magmatic__
+
+---
+
+## 🎨 Regole Creative
+
+### Stile Illustrazioni Onde
+✅ **APPROVATO**:
+- Acquarello elegante europeo
+- Vintage italiano anni '50 / Beatrix Potter
+- Emanuele Luzzati (per Poetry)
+- Colori morbidi, luce dorata
+- Minimalismo raffinato
+
+❌ **VIETATO**:
+- Pixar / 3D / Cartoon
+- Colori saturi plasticosi
+- Stile americano
+
+### Separazione Brand
+
+**@FreeRiverHouse**:
+- Stile: Building in public, tech, startup
+- Tono: Professionale ma umano
+
+**@Onde_FRH**:
+- Stile: Casa editrice, cultura
+- Tono: Colto, riflessivo
+
+**@magmatic__**:
+- Stile: Personale, poesia, arte
+- Tono: Autentico, ZERO vendita
+
+---
+
+## 📊 Metriche di Successo
+
+### Publishing
+- Libri pubblicati / mese
+- Download KDP
+- Review rating (target: 4.5+)
+
+### Apps
+- App pubblicate / mese
+- Download totali
+- Revenue / app
+- User retention
+
+### PR
+- Follower growth (organico)
+- Engagement rate
+- Post pubblicati / settimana
+
+---
+
+## 🔄 Review & Iterate
+
+**Cadenza**: Fine mese
+**Processo**:
+1. Review revenue vs goals
+2. Analisi performance progetti
+3. Pivot su cosa funziona
+4. Kill progetti morti
+
+**Prossima Review**: 31 Gennaio 2026
+
+---
+
+*Documento vivo - aggiornato con priorità e decisioni correnti*
