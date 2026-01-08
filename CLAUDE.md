@@ -5,6 +5,29 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 STILE EDITORIALE ONDE - VALORI TRADIZIONALI
+
+**Onde è una casa editrice con valori tradizionali europei/italiani.**
+
+### Nelle illustrazioni:
+- **Famiglie tradizionali**: mamma, papà, bambini
+- **Bambini normali**: aspetto naturale, europeo/italiano
+- **NO contenuti woke**: niente diversità forzata, niente messaggi politically correct americani
+- **NO ambiguità**: se ci sono due bambini, devono essere chiaramente amici in modo innocente
+- **Stile classico**: ispirazione anni '50-'60 italiana, Luzzati, Munari
+
+### Nei prompt per AI (Grok, DALL-E, etc.):
+- Essere ESPLICITI: "two Italian boys as friends" non "two children whispering"
+- Specificare SEMPRE: "traditional", "classic", "Italian", "European"
+- Evitare termini ambigui che AI woke possono interpretare male
+
+### Perché:
+- I genitori italiani vogliono libri tradizionali per i loro figli
+- Non siamo una casa editrice americana progressista
+- Il nostro pubblico apprezza valori familiari classici
+
+---
+
 ## 🚨 LEZIONI APPRESE - 7 Gennaio 2026
 
 ### NON postare contenuti di libri non usciti
