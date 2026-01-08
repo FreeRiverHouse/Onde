@@ -191,7 +191,81 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
+// Add schedule section
+const scheduleHtml = `
+  <div class="section" style="page-break-before: always;">
+    <h2 class="section-title">📅 CALENDARIO PROPOSTO - Settimana 8-14 Gennaio 2026</h2>
+
+    <table style="width:100%; border-collapse: collapse; margin-top: 20px;">
+      <tr style="background: #d4a853; color: white;">
+        <th style="padding: 12px; text-align: left;">Giorno</th>
+        <th style="padding: 12px; text-align: left;">@FreeRiverHouse (21:30)</th>
+        <th style="padding: 12px; text-align: left;">@magmatic__ (23:00)</th>
+        <th style="padding: 12px; text-align: left;">@Onde_FRH (9:00)</th>
+      </tr>
+      <tr style="background: #f9f9f9;">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Mer 8</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PR Agent</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Loto</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Stella Stellina</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Gio 9</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Kids QA</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+      </tr>
+      <tr style="background: #f9f9f9;">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Ven 10</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Factory System</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Il Cosmo Dissommerso</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Il Pulcino Bagnato</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Sab 11</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">VR Dizzy Test</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+      </tr>
+      <tr style="background: #f9f9f9;">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Dom 12</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">KidsChefStudio</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Y Lan</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Lun 13</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Unity 6</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pioggerellina</td>
+      </tr>
+      <tr style="background: #f9f9f9;">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;"><strong>Mar 14</strong></td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Six Apps</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Volare</td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd;">—</td>
+      </tr>
+    </table>
+
+    <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+      <h3 style="margin-bottom: 15px; color: #1a1a1a;">Riepilogo Frequenze</h3>
+      <ul style="line-height: 2;">
+        <li><strong>@FreeRiverHouse</strong>: 1 post/giorno alle 21:30 (building in public)</li>
+        <li><strong>@magmatic__</strong>: 3 post/settimana alle 23:00 (poesia, momenti riflessivi)</li>
+        <li><strong>@Onde_FRH</strong>: 3 post/settimana alle 9:00 (video Piccole Rime)</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; border-left: 3px solid #d4a853; background: #fffbf0;">
+      <strong>Nota:</strong> Questo è un calendario proposto. Seleziona i post che preferisci nella dashboard e modifica lo schedule come vuoi.
+    </div>
+  </div>
+`;
+
+// Combine HTML with schedule
+const finalHtml = html.replace('</body>', scheduleHtml + '</body>');
+
 // Write HTML file
 const outputPath = path.join(__dirname, 'posts-preview.html');
-fs.writeFileSync(outputPath, html);
+fs.writeFileSync(outputPath, finalHtml);
 console.log('HTML generated:', outputPath);

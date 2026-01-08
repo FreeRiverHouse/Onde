@@ -41,10 +41,13 @@
 | App | Concept | Monetizzazione | Mercato |
 |-----|---------|----------------|---------|
 | **AIKO Interactive** | Libro AI → App con quiz, mini-games | Freemium + IAP | Global |
+| **AIKO 2: Robotaxi** | Sofia prende Waymo con mamma, AIKO spiega come funziona (idea del figlio di Mattia) | Freemium | Global |
+| **Moonlight Tamagotchi** | Casa da arredare, personaggio da vestire, fa pupù, virtual pet | Freemium + IAP | Global |
 | **Piccole Rime** | Poesie italiane animate + audio | $2.99 | IT/Global |
 | **Salmo 23 Kids** | Meditazione guidata per bambini | Freemium | USA/Global |
 | **Mindful Kids** | Respirazione, emozioni, calma | Subscription | Global |
 | **ABC della Gentilezza** | Storie interattive gentilezza | $1.99 | IT/Global |
+| **Word Play / Giochi di Parole** | Rime, giochi linguistici, multilingua | Freemium | Global |
 
 ### TIER 3: App Spirituali/Manifestazione (Q2 2026)
 

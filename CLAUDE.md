@@ -20,6 +20,22 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 📱 NUOVE APP DA TELEGRAM (2026-01-07)
+
+**Idee raccolte dal bot Telegram - DA SVILUPPARE:**
+
+| App | Concept | Note |
+|-----|---------|------|
+| **Moonlight Tamagotchi** | Virtual pet con casa da arredare, vestiti, fa pupu' | Stile Tamagotchi moderno |
+| **AIKO 2: Robotaxi** | Sofia prende Waymo con mamma, AIKO spiega | Idea del figlio di Mattia |
+| **Word Play** | Giochi di parole, rime, multilingua | Educativo linguistico |
+
+**Canale Video/Gaming**: Idea per canale YouTube con Neri che gioca a Minecraft
+
+**RIFERIMENTO**: Lista completa app in `APP-FACTORY-PLAN.md`
+
+---
+
 ## 🚨 NIENTE HASHTAG SU X - REGOLA 2026
 
 **DATA: 2026-01-07**
@@ -34,9 +50,48 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🎨 PINA PENNELLO - ILLUSTRATRICE ONDE
+
+**REGOLA IMPORTANTE per l'universo editoriale Onde:**
+
+**Pina Pennello** è l'illustratrice ufficiale di Onde. È un personaggio del nostro universo editoriale.
+
+**NEI POST:**
+- **MAI** scrivere "illustrazioni in stile X" o "stile folk art" o simili
+- **QUANDO Pina avrà un account X**: scrivere "Illustrazioni by @PinaPennello" e taggarla
+- **FINO AD ALLORA**: non menzionare lo stile delle illustrazioni nei post
+
+**Per i video animati by Grok**: si può scrivere "Animazione by @grok" perché Grok è reale e ha un account.
+
+**NOTA**: Questo fa parte della costruzione del nostro universo editoriale. Pina è un personaggio come Gianni Parola.
+
+---
+
 ## 📁 REPOSITORY CONTENUTI - OndePRDB
 
 **Path**: `/Users/mattia/Projects/OndePRDB/`
+
+### 🚨 REGOLA FONDAMENTALE: USA IL CONTENUTO ESISTENTE
+
+**MAI INVENTARE POST.** I contenuti sono GIÀ SCRITTI in OndePRDB.
+
+- `clients/freeriverhouse/tech-posts.md` → 40 post @FreeRiverHouse già pronti
+- `clients/magmatic/posts/` → Poesie e post @magmatic__ già pronti
+- `clients/onde/` → Contenuti @Onde_FRH
+
+**QUANDO DEVO CREARE POST:**
+1. **PRIMA** leggere i file in OndePRDB
+2. **USARE** i post che esistono già
+3. **MAI** inventare contenuto generico/motivazionale
+
+**PERCHÉ:** I post scritti dal PR Agent sono specifici, autentici, con nomi di progetti veri (PolyRoborto, KidsChefStudio, BusinessIsBusiness). Contenuto generico tipo "Building apps for kids is different" senza contesto specifico è FUFFA.
+
+**STILE CORRETTO (da tech-posts.md):**
+- ✅ "The test framework wasn't installed. 23 tests, all failing because of one missing package."
+- ✅ "Win rate: started at 45.7%, now at 50%. Still learning!"
+- ❌ "Every button needs to work on the first tap" (troppo generico)
+
+---
 
 Questo è il repository CENTRALE per tutti i contenuti PR. Struttura:
 
