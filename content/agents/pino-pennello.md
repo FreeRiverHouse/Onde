@@ -46,12 +46,30 @@ Prima di generare un'immagine:
 
 **USA SEMPRE GROK VIA WEB** (Claude for Chrome), MAI via API (costa crediti).
 
-### Procedura:
+### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
+
+**Per mantenere lo STESSO personaggio in tutte le illustrazioni di un libro:**
+
+1. **Genera/scegli UN'immagine di riferimento** del personaggio principale
+2. **Carica quell'immagine su Grok** (drag & drop o click sull'icona allegato)
+3. **Usa prompt SEMPLICI**: "stesso bambino, ma [nuova scena]"
+   - Esempio: "stesso bambino, ma in camera sua che scrive su un quaderno"
+   - Esempio: "stesso bambino, ma al parco con un cagnolino"
+4. **Fai SEMPRE upscale** dopo la generazione
+5. **Ripeti** per ogni illustrazione usando sempre la stessa immagine di riferimento
+
+**PERCHÉ FUNZIONA**: Grok capisce che deve mantenere l'aspetto del personaggio e cambiare solo la scena.
+
+**ERRORE DA NON RIPETERE**: Generare ogni immagine da zero con prompt testuali = personaggio diverso ogni volta.
+
+### Procedura Standard:
 1. Naviga su `x.com/i/grok`
-2. Clicca "Create Images"
-3. Scrivi il prompt
-4. Aspetta generazione
-5. Scarica l'immagine
+2. Clicca "Create Images" o "Edit Image"
+3. Carica immagine di riferimento (se usi la tecnica)
+4. Scrivi il prompt
+5. Aspetta generazione
+6. **FAI UPSCALE** (obbligatorio)
+7. Scarica l'immagine
 
 Questo è GRATIS con X Premium. L'API costa, il web no.
 

@@ -122,6 +122,22 @@ git push -u origin main
 - Specificare SEMPRE: "traditional", "classic", "wholesome"
 - Evitare termini ambigui che AI possono interpretare male (hanno bias woke di default)
 
+### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
+
+**Per mantenere lo STESSO personaggio in tutte le illustrazioni di un libro:**
+
+1. **Genera/scegli UN'immagine di riferimento** del personaggio principale
+2. **Carica quell'immagine su Grok** (drag & drop o click sull'icona allegato)
+3. **Usa prompt SEMPLICI**: "stesso bambino, ma [nuova scena]"
+   - Esempio: "stesso bambino, ma in camera sua che scrive su un quaderno"
+   - Esempio: "stesso bambino, ma al parco con un cagnolino"
+4. **Fai SEMPRE upscale** dopo la generazione
+5. **Ripeti** per ogni illustrazione usando sempre la stessa immagine di riferimento
+
+**PERCHÉ FUNZIONA**: Grok capisce che deve mantenere l'aspetto del personaggio e cambiare solo la scena.
+
+**ERRORE DA NON RIPETERE**: Generare ogni immagine da zero con prompt testuali = personaggio diverso ogni volta.
+
 ### Perché:
 - I genitori normali vogliono libri tradizionali per i loro figli
 - La gente si è rotta il cazzo del wokeismo (ovunque, non solo in Europa)
