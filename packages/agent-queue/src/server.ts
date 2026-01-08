@@ -54,14 +54,15 @@ const server = http.createServer(async (req, res) => {
     // GET /tasks - Get all tasks
     if (path === '/tasks' && method === 'GET') {
       const tasks = agentQueue.getAllTasks();
-      sendJson(res, { tasks });
+      const blocked = tasks.filter(t => t.status === 'blocked').length;
+      sendJson(res, { tasks, total: tasks.length, blocked });
       return;
     }
 
     // GET /tasks/blocked - Get blocked tasks
     if (path === '/tasks/blocked' && method === 'GET') {
       const tasks = agentQueue.getBlockedTasks();
-      sendJson(res, { tasks });
+      sendJson(res, { tasks, total: tasks.length, blocked: tasks.length });
       return;
     }
 
@@ -102,9 +103,9 @@ const server = http.createServer(async (req, res) => {
     if (approveMatch && method === 'POST') {
       const task = agentQueue.approveTask(approveMatch[1]);
       if (task) {
-        sendJson(res, { task, message: `${task.agentName} sbloccato` });
+        sendJson(res, { success: true, task, message: `${task.agentName} sbloccato` });
       } else {
-        sendJson(res, { error: 'Task not found' }, 404);
+        sendJson(res, { success: false, error: 'Task not found' }, 404);
       }
       return;
     }
@@ -128,6 +129,26 @@ const server = http.createServer(async (req, res) => {
       const task = agentQueue.completeTask(completeMatch[1]);
       if (task) {
         sendJson(res, { task });
+      } else {
+        sendJson(res, { error: 'Task not found' }, 404);
+      }
+      return;
+    }
+
+    // POST /tasks/:id/message - Send message to agent
+    const messageMatch = path.match(/^\/tasks\/(\d+)\/message$/);
+    if (messageMatch && method === 'POST') {
+      const body = await parseBody(req);
+      const task = agentQueue.getTask(messageMatch[1]);
+      if (task) {
+        // For now, log the message. In future, this will be sent to the agent
+        console.log(`📨 Message for ${task.agentName}: ${body.message}`);
+        // Could trigger a notification, webhook, or store in queue
+        sendJson(res, {
+          success: true,
+          message: `Messaggio inviato a ${task.agentName}`,
+          task
+        });
       } else {
         sendJson(res, { error: 'Task not found' }, 404);
       }
@@ -163,10 +184,12 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`🚀 Agent Queue API running on http://localhost:${PORT}`);
   console.log('   Endpoints:');
-  console.log('   GET  /tasks         - List all tasks');
-  console.log('   GET  /tasks/blocked - List blocked tasks');
+  console.log('   GET  /tasks           - List all tasks');
+  console.log('   GET  /tasks/blocked   - List blocked tasks');
   console.log('   POST /tasks/:id/approve - Approve/unblock task');
   console.log('   POST /tasks/:id/block   - Block task');
+  console.log('   POST /tasks/:id/message - Send message to agent');
+  console.log('   GET  /health          - Health check');
 });
 
 export { server };

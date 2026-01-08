@@ -1,0 +1,24 @@
+name: OndeApprove
+options:
+  bundleIdPrefix: com.freeriverhouse
+  deploymentTarget:
+    watchOS: "10.0"
+
+settings:
+  SWIFT_VERSION: "5.9"
+  DEVELOPMENT_TEAM: ""
+
+targets:
+  OndeApprove Watch App:
+    type: application
+    platform: watchOS
+    sources:
+      - OndeApprove
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.freeriverhouse.OndeApprove.watchkitapp
+      INFOPLIST_FILE: OndeApprove/Info.plist
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      GENERATE_INFOPLIST_FILE: YES
+      MARKETING_VERSION: "1.0"
+      CURRENT_PROJECT_VERSION: "1"
+      WATCHOS_DEPLOYMENT_TARGET: "10.0"
