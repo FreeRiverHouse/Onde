@@ -15,14 +15,16 @@ import {
   TrendingUp,
   Paintbrush,
   PenTool,
+  LayoutDashboard,
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: Home },
+  { name: 'Kanban Agenti', href: '/kanban', icon: LayoutDashboard },
   { name: 'Catalogo', href: '/catalogo', icon: BookOpen },
   { name: 'Libri Bambini', href: '/libri-bambini', icon: Baby },
   { name: 'Gianni Parola', href: '/scrittore', icon: PenTool },
-  { name: 'Pino Pennello', href: '/illustratore', icon: Paintbrush },
+  { name: 'Pina Pennello', href: '/illustratore', icon: Paintbrush },
   { name: 'Go-To-Market', href: '/gotomarket', icon: TrendingUp },
   { name: 'Musica', href: '/musica', icon: Music },
   { name: 'Campagne PR', href: '/campagne', icon: Megaphone },
