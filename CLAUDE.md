@@ -5,6 +5,26 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 ROADMAP = FONTE DI VERITÀ (REGOLA #1)
+
+**CONTROLLA SEMPRE LA ROADMAP PRIMA DI FARE QUALUNQUE COSA!**
+
+**Path**: `ROADMAP.md` (in questo repo)
+
+La ROADMAP è:
+- ✅ La roadmap strategica di Onde
+- ✅ La to-do list delle prossime cose da fare
+- ✅ Lo status update di ogni singolo progetto
+- ✅ Il documento da tenere SEMPRE aggiornato
+
+**Regole:**
+1. Leggi la ROADMAP all'inizio di ogni sessione
+2. Aggiorna la ROADMAP quando completi qualcosa
+3. **Committa e pusha OGNI VOLTA** che aggiorni la ROADMAP
+4. Mai lavorare su qualcosa che non è nella ROADMAP senza chiedere
+
+---
+
 ## 🚨 STILE EDITORIALE ONDE - VALORI TRADIZIONALI
 
 **Onde è una casa editrice con valori tradizionali. NO woke content.**
