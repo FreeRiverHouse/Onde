@@ -25,6 +25,53 @@ La ROADMAP è:
 
 ---
 
+## 🎨 BRANDING DINAMICO - IDENTITÀ VISIVA ONDE
+
+### Banner X Come Branding Stagionale
+Il banner di @Onde_FRH cambia in base al prodotto/contenuto corrente:
+- **Storie della buonanotte** → Banner notturno magico con fiume e luci
+- **Libri nuovi** → Banner che riflette il tema del libro
+- **Estate** → Banner diurno luminoso
+- **Inverno** → Banner invernale accogliente
+
+### Coerenza Stilistica Totale
+**TUTTO deve essere coerente visivamente:**
+- Banner X
+- Immagini post
+- Copertine libri
+- Thumbnail YouTube
+- Avatar personaggi (Gianni, Pina)
+
+### Pina Pennello = Art Director
+Ogni immagine Onde è "firmata" da Pina Pennello:
+- Stile acquarello europeo SEMPRE
+- Palette colori coerente
+- NO Pixar, NO 3D, NO cartoon americano
+- Luce dorata/notturna magica
+
+### 🙏 Credits nei Post - Ringraziamo Tutti!
+**Onde ha cura di tutti quelli che collaborano:**
+- **Illustrazioni**: "🎨 Pina Pennello con @grok 🙏"
+- **Testi/Strategia**: Ringraziare anche Claude quando collabora
+- **Video**: "@grok" per animazioni
+- **Format completo**: "🎨 Pina Pennello con @grok 🙏 | Strategy @anthropic"
+
+**Filosofia**: Onde è una famiglia, ringraziamo sempre chi ci aiuta!
+
+### Prompt Base per Banner
+```
+Wide panoramic banner 1500x500, [TEMA], European watercolor style,
+Beatrix Potter meets Luzzati, soft brushstrokes,
+NOT Pixar NOT 3D NOT cartoon, natural colors, 4k
+```
+
+**Temi banner:**
+- Notturno: "magical night scene, moonlight, fireflies, stars, peaceful"
+- Diurno: "golden hour, warm sunlight, Italian countryside, inviting"
+- Invernale: "cozy winter, snow, warm lights, fireplace glow"
+
+---
+
 ## 🚨 STILE EDITORIALE ONDE - VALORI TRADIZIONALI
 
 **Onde è una casa editrice con valori tradizionali. NO woke content.**
