@@ -1,0 +1,24 @@
+{
+  "name": "@onde/multimedia",
+  "version": "0.1.0",
+  "description": "Onde Multimedia - Operation Tsunami: Podcast, YouTube, TikTok",
+  "main": "index.js",
+  "scripts": {
+    "generate:audio": "node scripts/generate-audio.js",
+    "build:rss": "node scripts/build-rss.js",
+    "publish": "node scripts/publish-episode.js"
+  },
+  "keywords": [
+    "podcast",
+    "kids",
+    "italian",
+    "onde",
+    "multimedia"
+  ],
+  "author": "Casa Editrice Onde",
+  "license": "MIT",
+  "dependencies": {
+    "elevenlabs": "^0.1.0",
+    "rss": "^1.2.2"
+  }
+}
