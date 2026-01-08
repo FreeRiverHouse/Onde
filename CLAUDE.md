@@ -575,9 +575,32 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 3. **Generazione Immagini** - Creare TUTTE le immagini con lo stile scelto
 4. **Impaginazione** - Creare PDF/ePub e controllare layout
 5. **Review Telegram** - Mandare su Telegram per approvazione finale
-6. **Pubblicazione** - SOLO dopo OK esplicito di Mattia
+6. **Archiviazione OndePRDB** - PRIMA di pubblicare (vedi sotto)
+7. **Pubblicazione** - SOLO dopo OK esplicito di Mattia
 
 **Auto-upload KDP**: Si applica SOLO a traduzioni di libri già approvati, NON a libri nuovi.
+
+### 6. ARCHIVIAZIONE LIBRI IN OndePRDB (OBBLIGATORIO - 8 Gen 2026)
+**PRIMA di pubblicare qualsiasi libro, archiviare TUTTO in OndePRDB:**
+
+**Path**: `OndePRDB/clients/onde/books/[nome-libro]/`
+
+**Contenuto obbligatorio:**
+```
+[nome-libro]/
+├── cover.jpg          # Copertina alta risoluzione
+├── [nome-libro].pdf   # PDF finale per stampa
+├── [nome-libro].epub  # ePub finale
+├── images/            # Tutte le illustrazioni RAW
+├── quotes.md          # Citazioni per social media
+└── metadata.json      # Titolo, autore, ISBN, descrizione
+```
+
+**PERCHÉ:**
+- Ogni agente sa dove trovare i materiali per creare contenuti
+- Post con copertine, citazioni, promozioni → tutto in un posto
+- Backup centralizzato di tutti i libri pubblicati
+- Facilita cross-posting su Instagram, TikTok, etc.
 
 ---
 

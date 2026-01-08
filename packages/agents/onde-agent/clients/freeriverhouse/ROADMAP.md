@@ -92,6 +92,24 @@ Posizionare FreeRiverHouse come il brand di software più figo, divertente e inn
 
 ---
 
+## 🤖 Social Media Automation (NUOVO - 8 Gen 2026)
+
+**Obiettivo**: Automatizzare posting cross-platform
+
+| Piattaforma | Status |
+|-------------|--------|
+| X/Twitter | ✅ Attivo |
+| Instagram | DA FARE |
+| TikTok | DA FARE |
+| YouTube | Setup in corso |
+
+**Task:**
+- [ ] Setup Instagram automation
+- [ ] Setup TikTok automation
+- [ ] Cross-post automatico tra piattaforme
+
+---
+
 ## 💡 IDEE FUTURE
 
 - [ ] Podcast "Building the Future"
@@ -102,5 +120,5 @@ Posizionare FreeRiverHouse come il brand di software più figo, divertente e inn
 
 ---
 
-**Last Updated:** 2026-01-05
+**Last Updated:** 2026-01-08
 **Owner:** Onde Agent

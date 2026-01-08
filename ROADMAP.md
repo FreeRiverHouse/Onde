@@ -395,6 +395,35 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ## 📚 Publishing - Casa Editrice
 
+### 📦 Workflow Pubblicazione Libri (OBBLIGATORIO - 8 Gen 2026)
+
+**PRIMA di pubblicare qualsiasi libro su KDP, seguire questi step:**
+
+1. **Archiviazione in OndePRDB** (OBBLIGATORIO)
+   - Creare cartella: `OndePRDB/clients/onde/books/[nome-libro]/`
+   - Contenuto cartella:
+     - `cover.jpg` - Copertina alta risoluzione
+     - `[nome-libro].pdf` - PDF finale per stampa
+     - `[nome-libro].epub` - ePub finale
+     - `images/` - Tutte le illustrazioni RAW
+     - `quotes.md` - Citazioni per social media posts
+     - `metadata.json` - Titolo, autore, ISBN, descrizione
+
+2. **Verifica Pre-Pubblicazione**
+   - [ ] Cover archiviata
+   - [ ] PDF archiviato
+   - [ ] ePub archiviato
+   - [ ] Immagini RAW archiviate
+   - [ ] Citazioni estratte per social
+
+3. **Pubblicazione**
+   - Upload su KDP
+   - Post annuncio su @Onde_FRH
+
+**PERCHÉ**: Ogni agente che deve creare contenuti (post, citazioni, promozioni) sa dove trovare i materiali. Tutto centralizzato in OndePRDB.
+
+---
+
 ### Q1 2026 (Gen-Mar)
 
 **Obiettivo**: 5+ libri pubblicati su KDP
@@ -501,6 +530,35 @@ npx expo start
 - [ ] TikTok integration
 - [ ] Instagram Reels automation
 - [ ] PR Dashboard come prodotto SaaS multi-tenant
+
+### 🤖 Social Media Automation (NUOVO - 8 Gen 2026)
+**Obiettivo**: Automatizzare posting su tutte le piattaforme
+
+**Piattaforme da automatizzare:**
+| Piattaforma | API/Tool | Status |
+|-------------|----------|--------|
+| **X/Twitter** | X API v2 | ✅ Attivo (via bot Telegram) |
+| **Instagram** | Meta Graph API / Later | DA FARE |
+| **TikTok** | TikTok API / CapCut | DA FARE |
+| **YouTube Shorts** | YouTube Data API v3 | DA FARE |
+
+**Task Automazione Instagram:**
+- [ ] Creare account Business Instagram @onde_publishing
+- [ ] Collegare a Meta Business Suite
+- [ ] Setup Meta Graph API per posting automatico
+- [ ] Creare workflow: contenuto approvato → auto-post IG
+
+**Task Automazione TikTok:**
+- [ ] Creare account TikTok @onde
+- [ ] Esplorare TikTok API per business
+- [ ] Workflow video: Grok genera → auto-upload TikTok
+- [ ] Cross-post da YouTube Shorts
+
+**Workflow Target:**
+1. Creo contenuto (testo + immagine/video)
+2. Approvo su Telegram/PR Dashboard
+3. Sistema posta automaticamente su TUTTE le piattaforme
+4. Analytics centralizzate in dashboard
 
 ### 📱 Multi-Social Expansion (NUOVO)
 **Strategia**: Ogni post viene archiviato e ripostato su tutti i social
