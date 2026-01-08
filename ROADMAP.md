@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-07 22:50
+**Ultimo aggiornamento**: 2026-01-08 - Aggiunto piano lip sync interno + CTA per piattaforma
 
 ---
 
@@ -42,6 +42,41 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ### Valori Brand Onde
 **Peaceful, growth oriented, kind, artistic, creative, inspiring, playful, friendly, relaxing, grateful, curious, open, wise, balanced**
+
+### 🎙️ Lip Sync Tool Interno (PRIORITÀ)
+**Obiettivo**: Costruire sistema lip sync in-house per scalare podcast multilingua
+
+**Perché**:
+- Servizi esterni costano troppo (Hedra $12/mese = 4 min, non scala)
+- Dobbiamo fare podcast in TUTTE le lingue
+- Mac server disponibile per processing locale
+
+**Stack Proposto**:
+- **Wav2Lip** o **SadTalker** (modelli open source)
+- Mac M-series come server di rendering
+- Pipeline: Immagine + Audio → Video lip sync
+- Target qualità: livello Hedra Character 3
+
+**Task**:
+- [ ] Setup ambiente Python con modelli lip sync
+- [ ] Test qualità Wav2Lip vs SadTalker
+- [ ] Pipeline automatica immagine+audio→video
+- [ ] Benchmark performance su Mac
+
+### 📢 Audio per Piattaforma (CTA Specifici)
+**REGOLA**: Ogni piattaforma ha audio diverso con call-to-action specifico
+
+| Piattaforma | CTA Audio | Note |
+|-------------|-----------|------|
+| **YouTube** | "Iscriviti al canale!" / "Subscribe!" | Fine video |
+| **Spotify** | "Segui il podcast!" / "Follow!" | Fine episodio |
+| **TikTok** | "Seguimi!" / "Follow!" | Breve |
+| **Apple Podcasts** | "Lascia una recensione!" | Fine episodio |
+
+**Workflow**:
+1. Generare audio base (storia/poesia)
+2. Aggiungere CTA specifico per piattaforma
+3. Generare video lip sync per ogni versione
 
 ### Fase 1: Fondamenta (Gennaio 2026)
 - [ ] Definire visual style unificato
