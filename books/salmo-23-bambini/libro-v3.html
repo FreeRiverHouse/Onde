@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Il Salmo 23 per Bambini</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Georgia', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 12mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== COPERTINA ===== */
+        .cover {
+            background: linear-gradient(180deg, #7eb8da 0%, #a8d4a0 50%, #f5e6c8 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20mm;
+        }
+
+        .cover img {
+            width: 150mm;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 5px solid white;
+        }
+
+        .cover h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 38pt;
+            color: #2c5530;
+            margin-top: 15mm;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+        }
+
+        .cover h2 {
+            font-size: 16pt;
+            color: #3d6b41;
+            font-weight: 400;
+            font-style: italic;
+            margin-top: 5mm;
+        }
+
+        .cover .author {
+            position: absolute;
+            bottom: 20mm;
+            font-size: 11pt;
+            color: #4a6b4a;
+        }
+
+        /* ===== DEDICA ===== */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fffef8;
+        }
+
+        .dedication-text {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 18pt;
+            color: #5a7a5a;
+            text-align: center;
+            max-width: 140mm;
+            line-height: 2;
+        }
+
+        .dedication-ornament {
+            font-size: 24pt;
+            color: #8bc49a;
+            margin: 15mm 0;
+        }
+
+        /* ===== CAPITOLI ===== */
+        .chapter {
+            background: linear-gradient(180deg, #fffef5 0%, #f8f6f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10mm 15mm;
+        }
+
+        .chapter-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 12pt;
+            color: #8bc49a;
+            letter-spacing: 3px;
+            margin-bottom: 3mm;
+        }
+
+        .chapter-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 20pt;
+            color: #3d6b41;
+            margin-bottom: 8mm;
+            text-align: center;
+        }
+
+        .chapter img {
+            width: 165mm;
+            height: auto;
+            max-height: 140mm;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            margin-bottom: 8mm;
+        }
+
+        .chapter-text {
+            font-size: 14pt;
+            line-height: 1.9;
+            color: #333;
+            text-align: center;
+            max-width: 155mm;
+        }
+
+        .chapter-text p {
+            margin-bottom: 8px;
+        }
+
+        .verse {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            color: #4a7c59;
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-left: 4px solid #8bc49a;
+            border-right: 4px solid #8bc49a;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(139,196,154,0.08) 0%, rgba(139,196,154,0.15) 50%, rgba(139,196,154,0.08) 100%);
+            border-radius: 8px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 8mm;
+            right: 12mm;
+            font-size: 10pt;
+            color: #aaa;
+        }
+
+        /* ===== FINE ===== */
+        .end-page {
+            background: linear-gradient(180deg, #f0f8e8 0%, #e8f4f0 50%, #fff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fine {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 42pt;
+            color: #4a7c59;
+            font-style: italic;
+            margin-bottom: 30mm;
+        }
+
+        .ornament {
+            font-size: 20pt;
+            color: #8bc49a;
+            margin-bottom: 15mm;
+        }
+
+        .credits {
+            font-size: 13pt;
+            color: #666;
+        }
+
+        .credits p {
+            margin: 6px 0;
+        }
+
+        .publisher {
+            margin-top: 25mm;
+            font-size: 14pt;
+            color: #4a7c59;
+            font-weight: 600;
+        }
+
+        .powered {
+            font-size: 9pt;
+            color: #999;
+            margin-top: 8mm;
+        }
+
+        /* ===== SALMO ORIGINALE ===== */
+        .psalm-page {
+            background: #fffef8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25mm;
+        }
+
+        .psalm-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18pt;
+            color: #4a7c59;
+            margin-bottom: 15mm;
+        }
+
+        .psalm-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 13pt;
+            line-height: 2.2;
+            color: #555;
+            text-align: center;
+            max-width: 140mm;
+        }
+
+        .psalm-text p {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COPERTINA -->
+<div class="page cover">
+    <img src="images/00-copertina.jpg" alt="Copertina">
+    <h1>Il Salmo 23<br>per Bambini</h1>
+    <h2>Una storia di amore e protezione</h2>
+    <p class="author">Testi di Gianni Parola &bull; Illustrazioni di Pina Pennello</p>
+</div>
+
+<!-- DEDICA -->
+<div class="page dedication">
+    <div class="dedication-ornament">&#10087;</div>
+    <p class="dedication-text">
+        A tutti i bambini del mondo,<br>
+        perché sappiano che c'è sempre<br>
+        Qualcuno che li ama<br>
+        e cammina con loro.
+    </p>
+    <div class="dedication-ornament">&#10087;</div>
+</div>
+
+<!-- CAPITOLO 1 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO UNO</p>
+    <h2 class="chapter-title">Il Signore è il mio pastore</h2>
+    <img src="images/01-pastore.jpg" alt="Il Pastore">
+    <div class="chapter-text">
+        <p>C'era una volta un pastore buono, il più buono del mondo.<br>
+        Aveva occhi gentili come il miele<br>
+        e un sorriso che scaldava come il sole.</p>
+
+        <p class="verse">"Io sarò sempre con te," sussurrava il pastore,<br>
+        "Non ti mancherà mai niente,<br>
+        perché io mi prendo cura di te."</p>
+
+        <p>E la sua pecorella, bianca come una nuvola,<br>
+        lo seguiva felice dovunque andasse.</p>
+    </div>
+    <span class="page-number">3</span>
+</div>
+
+<!-- CAPITOLO 2 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO DUE</p>
+    <h2 class="chapter-title">I pascoli e le acque tranquille</h2>
+    <img src="images/02-acque-tranquille.jpg" alt="Acque Tranquille">
+    <div class="chapter-text">
+        <p>Il pastore conosceva i posti più belli:<br>
+        prati verdi dove l'erba era morbida,<br>
+        ruscelli che cantavano canzoni d'argento.</p>
+
+        <p class="verse">"Riposa qui," diceva il pastore,<br>
+        "L'acqua fresca ti darà forza,<br>
+        e l'erba verde ti farà crescere."</p>
+
+        <p>La pecorella si sdraiava contenta,<br>
+        e il mondo sembrava un abbraccio grande.</p>
+    </div>
+    <span class="page-number">4</span>
+</div>
+
+<!-- CAPITOLO 3 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO TRE</p>
+    <h2 class="chapter-title">I sentieri giusti</h2>
+    <img src="images/03-sentieri.jpg" alt="Sentieri di Giustizia">
+    <div class="chapter-text">
+        <p>A volte la strada sembrava difficile,<br>
+        piena di sassi e curve misteriose.</p>
+
+        <p>Ma il pastore camminava davanti:</p>
+
+        <p class="verse">"Seguimi," diceva con voce sicura,<br>
+        "Io conosco la via giusta.<br>
+        Ti porto dove c'è la luce."</p>
+
+        <p>E la pecorella camminava tranquilla,<br>
+        perché sapeva di essere al sicuro.</p>
+    </div>
+    <span class="page-number">5</span>
+</div>
+
+<!-- CAPITOLO 4 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO QUATTRO</p>
+    <h2 class="chapter-title">La valle oscura</h2>
+    <img src="images/04-valle-oscura.jpg" alt="Valle Oscura">
+    <div class="chapter-text">
+        <p>Un giorno arrivò una valle buia,<br>
+        dove le ombre sembravano giganti<br>
+        e il vento faceva paura.</p>
+
+        <p>Ma il pastore strinse forte il suo bastone:</p>
+
+        <p class="verse">"Non temere," disse piano,<br>
+        "Io sono qui, proprio accanto a te.<br>
+        Il buio non ti può far male<br>
+        quando camminiamo insieme."</p>
+
+        <p>E la pecorella sentì il cuore calmo,<br>
+        perché il pastore era vicino.</p>
+    </div>
+    <span class="page-number">6</span>
+</div>
+
+<!-- CAPITOLO 5 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO CINQUE</p>
+    <h2 class="chapter-title">La tavola e la coppa</h2>
+    <img src="images/05-tavola.jpg" alt="Tavola Imbandita">
+    <div class="chapter-text">
+        <p>Poi arrivò un giorno di festa!<br>
+        Il pastore preparò una tavola bellissima<br>
+        piena di frutti colorati,<br>
+        pane dorato e miele dolce.</p>
+
+        <p class="verse">"Questa è per te," disse sorridendo,<br>
+        "Perché tu sei speciale.<br>
+        La tua coppa è così piena<br>
+        che trabocca di gioia!"</p>
+
+        <p>E la pecorella mangiò felice,<br>
+        sentendosi la più amata del mondo.</p>
+    </div>
+    <span class="page-number">7</span>
+</div>
+
+<!-- CAPITOLO 6 -->
+<div class="page chapter">
+    <p class="chapter-number">CAPITOLO SEI</p>
+    <h2 class="chapter-title">La casa del Signore</h2>
+    <img src="images/06-casa-signore.jpg" alt="Casa del Signore">
+    <div class="chapter-text">
+        <p>E così, giorno dopo giorno,<br>
+        il pastore guidava la sua pecorella<br>
+        verso casa - una casa bellissima<br>
+        fatta di luce e amore.</p>
+
+        <p class="verse">"Questa è la tua casa," disse il pastore,<br>
+        "E io sarò sempre qui.<br>
+        Oggi, domani e per sempre,<br>
+        la bontà e l'amore ti seguiranno."</p>
+
+        <p>E la pecorella capì<br>
+        che con il suo pastore,<br>
+        sarebbe stata felice per sempre.</p>
+    </div>
+    <span class="page-number">8</span>
+</div>
+
+<!-- SALMO ORIGINALE -->
+<div class="page psalm-page">
+    <h3 class="psalm-title">Il Salmo 23</h3>
+    <div class="psalm-text">
+        <p>Il Signore è il mio pastore: non manco di nulla.</p>
+        <p>Su pascoli erbosi mi fa riposare,<br>ad acque tranquille mi conduce.</p>
+        <p>Rinfranca l'anima mia,<br>mi guida per il giusto cammino<br>a motivo del suo nome.</p>
+        <p>Anche se vado per una valle oscura,<br>non temo alcun male, perché tu sei con me.</p>
+        <p>Il tuo bastone e il tuo vincastro<br>mi danno sicurezza.</p>
+        <p>Davanti a me tu prepari una mensa<br>sotto gli occhi dei miei nemici.</p>
+        <p>Ungi di olio il mio capo;<br>il mio calice trabocca.</p>
+        <p>Sì, bontà e fedeltà mi saranno compagne<br>tutti i giorni della mia vita,<br>e abiterò nella casa del Signore<br>per lunghi giorni.</p>
+    </div>
+    <span class="page-number">9</span>
+</div>
+
+<!-- FINE -->
+<div class="page end-page">
+    <p class="fine">Fine</p>
+    <p class="ornament">&#10087; &#10087; &#10087;</p>
+
+    <div class="credits">
+        <p><strong>Testi:</strong> Gianni Parola</p>
+        <p><strong>Illustrazioni:</strong> Pino Pennello</p>
+        <p style="margin-top: 10px; font-size: 11pt; color: #888;">Immagini generate con Grok AI</p>
+    </div>
+
+    <p class="publisher">Casa Editrice Onde</p>
+    <p class="powered">Prima Edizione - 2026</p>
+    <span class="page-number">10</span>
+</div>
+
+</body>
+</html>
