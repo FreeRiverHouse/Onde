@@ -560,6 +560,40 @@ npx expo start
 3. Sistema posta automaticamente su TUTTE le piattaforme
 4. Analytics centralizzate in dashboard
 
+### 👤 Gianni Parola - Autore su X (NUOVO - 8 Gen 2026)
+
+**Account**: @GianniParola (da creare)
+**Piano completo**: `OndePRDB/clients/gianni-parola/SOCIAL-MEDIA-PLAN.md`
+
+**Chi è Gianni Parola:**
+- Scrittore per bambini, autore Onde
+- ~40 anni, occhiali tondi, giacca tweed
+- Voce: riflessiva, gentile, poetica
+
+**Content Pillars:**
+| Pillar | % | Contenuto |
+|--------|---|-----------|
+| Dietro le quinte scrittura | 40% | Processo creativo, ispirazioni |
+| Riflessioni lettura/infanzia | 30% | Importanza delle storie |
+| Libri Onde | 20% | Novità, soft promo |
+| Vita quotidiana | 10% | Momenti autentici |
+
+**Task Setup:**
+- [ ] Creare account @GianniParola su X
+- [ ] Generare foto profilo (ritratto acquarello)
+- [ ] Generare banner (scrivania scrittore)
+- [ ] Pubblicare primo post di presentazione
+- [ ] Collegare a @Onde_FRH
+
+**Bank Post**: 20 post già scritti in `OndePRDB/clients/gianni-parola/SOCIAL-MEDIA-PLAN.md`
+
+**Obiettivi:**
+- Mese 1: 100+ follower
+- Mese 3: 500+ follower
+- Mese 6: 1000+ follower, voce riconosciuta
+
+---
+
 ### 📱 Multi-Social Expansion (NUOVO)
 **Strategia**: Ogni post viene archiviato e ripostato su tutti i social
 
