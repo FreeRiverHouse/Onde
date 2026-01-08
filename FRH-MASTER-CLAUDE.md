@@ -120,6 +120,39 @@ NOT Pixar NOT 3D NOT cartoon, natural colors, 4k
 
 ---
 
+## 🚨🔴 CONTROLLO QUALITÀ ANATOMICO - OBBLIGATORIO (2026-01-08)
+
+**LEZIONE CRITICA**: Il video animato di "Stella Stellina" è stato ELIMINATO perché il bambino aveva difetti anatomici (due orecchie visibili in modo anomalo).
+
+### ⛔ PRIMA DI PUBBLICARE QUALSIASI CONTENUTO AI-GENERATO:
+
+**CONTROLLO ANATOMICO OBBLIGATORIO:**
+- [ ] **Mani**: 5 dita per mano, proporzioni corrette
+- [ ] **Braccia/Gambe**: 2 braccia, 2 gambe, articolazioni normali
+- [ ] **Viso**: 2 occhi, 1 naso, 1 bocca, 2 orecchie (posizionate correttamente)
+- [ ] **Orecchie**: Solo 2, ai lati della testa, non duplicate o fuse
+- [ ] **Dita dei piedi**: 5 per piede se visibili
+- [ ] **Proporzioni corpo**: Testa, busto, arti proporzionati
+- [ ] **Nessuna fusione**: Parti del corpo non fuse tra loro
+- [ ] **Nessuna duplicazione**: Niente arti/parti extra
+
+### 🔍 PROCEDURA QC:
+1. **ZOOM al 100%** su ogni figura umana/animale
+2. **Contare** mani, dita, occhi, orecchie
+3. **Verificare** proporzioni e posizioni
+4. **Se c'è QUALSIASI dubbio** → Rigenerare l'immagine
+5. **Video animati**: Controllare FRAME PER FRAME se possibile
+
+### ⚠️ ATTENZIONE SPECIALE PER:
+- **Bambini**: L'AI spesso sbaglia con le proporzioni infantili
+- **Mani che tengono oggetti**: Errore comune = dita extra
+- **Profili**: Orecchie duplicate o mancanti
+- **Gruppi di persone**: Arti che si fondono tra persone vicine
+
+**REGOLA**: È meglio rigenerare 10 volte che pubblicare UN contenuto con errori anatomici.
+
+---
+
 ## 🚨 LEZIONI APPRESE - 7 Gennaio 2026
 
 ### NON postare contenuti di libri non usciti
@@ -588,6 +621,8 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
    - [ ] Gli ambienti sono corretti per ogni scena?
    - [ ] Nessun elemento visivo contraddice il testo?
    - [ ] Layout verificato (testo non sovrapposto)?
+   - [ ] **🔴 ANATOMIA OK?** (mani 5 dita, 2 orecchie, proporzioni corrette)
+   - [ ] **🔴 Nessuna parte del corpo duplicata o fusa?**
 
 3. **SE TROVI INCOERENZE**
    - NON mandare il PDF
