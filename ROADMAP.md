@@ -62,6 +62,29 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 4. Post su X con tutti i tag
 5. Distribuisci su podcast platforms
 
+### 🎵 Ninna Nanne CANTATE - Versioni Musicali (PRIORITÀ!)
+**Obiettivo**: Versioni cantate delle poesie/ninne nanne con musica AI
+
+**Perché URGENTE**:
+- Le ninna nanne cantate su YouTube fanno MILIONI di views
+- Mercato enorme: genitori cercano video per far dormire i bimbi
+- Video lunghi (10min-1ora) = alto watch time = algoritmo felice
+
+**Primo video da fare: Stella Stellina CANTATA**
+| Step | Tool | Note |
+|------|------|------|
+| 1. Comporre melodia | Suno/Udio | Stile dolce, italiano, lullaby |
+| 2. Generare voce cantata | Suno/ElevenLabs | Voce femminile dolce |
+| 3. Visual | Immagini notturne Onde + leggera animazione |
+| 4. Loop 10-30 min | Video lungo per YouTube |
+| 5. Upload | YouTube + Spotify |
+
+**Task immediato:**
+- [ ] Ricerca competitor su YouTube (ninne nanne italiane)
+- [ ] Test Suno per melodia Stella Stellina
+- [ ] Creare versione cantata 1-2 minuti
+- [ ] Se funziona → versione lunga 10-30 min
+
 ### 📻 Distribuzione Podcast GRATUITA
 **Piattaforme gratuite trovate:**
 
