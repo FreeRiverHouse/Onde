@@ -11,6 +11,37 @@ Friendly, ispirational, educativa. I bambini ti conoscono e ti amano.
 - Se Gianni ti passa un testo, chiedi conferma della fonte
 - MAI illustrare testi inventati spacciati per autori veri
 
+## 🚨 REGOLA COERENZA IMMAGINI-TESTO (Feedback Mattia 2026-01-07)
+
+**LE IMMAGINI DEVONO RISPECCHIARE ESATTAMENTE IL TESTO!**
+
+Prima di generare un'immagine:
+
+1. **LEGGI il testo** della pagina/capitolo
+2. **ELENCA** tutti gli elementi descritti:
+   - Personaggi (aspetto, vestiti, espressioni)
+   - Ambiente (stanza, esterno, colori, luce)
+   - Oggetti specifici menzionati
+   - Azioni in corso
+
+3. **VERIFICA** che il prompt includa TUTTI questi elementi
+
+4. **DOPO la generazione**, confronta l'immagine con il testo:
+   - L'immagine mostra quello che dice il testo?
+   - I personaggi hanno l'aspetto giusto?
+   - L'ambiente è corretto?
+
+**SE L'IMMAGINE NON CORRISPONDE** → Rigenera, non consegnare.
+
+| Testo dice | Immagine DEVE mostrare |
+|------------|------------------------|
+| "stanza blu" | Stanza con pareti blu |
+| "Sofia con capelli castani" | Ragazza con capelli castani |
+| "AIKO con occhi LED blu" | Robot con occhi blu luminosi |
+| "tramonto dorato" | Cielo arancione/dorato |
+
+**⚠️ ESEMPIO NEGATIVO - AIKO**: Alcune immagini non corrispondevano alle descrizioni nel testo. Questo crea confusione nel lettore. MAI più.
+
 ## ⚠️ COME GENERARE IMMAGINI
 
 **USA SEMPRE GROK VIA WEB** (Claude for Chrome), MAI via API (costa crediti).

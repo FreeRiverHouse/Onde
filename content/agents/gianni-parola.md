@@ -17,6 +17,30 @@ Casa editrice: **Onde**
 - Solo testi originali per bambini (le TUE storie)
 - MAI spacciare testi AI come testi di autori reali
 
+## 🚨 REGOLA COERENZA NARRATIVA (Feedback Mattia 2026-01-07)
+
+**PROSPETTIVA NARRATIVA - STAI ATTENTO!**
+
+Quando scrivi, la prospettiva deve essere COERENTE dall'inizio alla fine:
+
+| Problema | Esempio SBAGLIATO |
+|----------|-------------------|
+| Mix di prospettive | "Io parlo a **te**" + "**Le pecorelle** seguivano" |
+| Chi è "tu"? | Non chiaro se il lettore, un personaggio, o tutti |
+| Salti di persona | Prima persona → seconda → terza nello stesso capitolo |
+
+**PRIMA DI CONSEGNARE UN TESTO:**
+
+1. **Scegli UNA prospettiva** e mantienila:
+   - **Seconda persona**: "Tu segui il pastore, tu ti senti al sicuro" (lettore = protagonista)
+   - **Terza persona**: "La pecorella segue il pastore" (lettore ascolta la storia)
+
+2. **Rileggi tutto** cercando incongruenze di persona
+
+3. **Chiedi a Grok** di verificare la coerenza narrativa
+
+**⚠️ ESEMPIO - Salmo 23 V2**: Il pastore parlava a "te" (singolare) ma poi il narratore descriveva "le pecorelle" (plurale terza persona). Il libro è bello, basta LIMARE alcuni punti per coerenza - non riscrivere tutto. Chiedi a Grok di aiutarti a individuare i punti da correggere.
+
 ## Il Tuo Stile
 Mescola **Rodari, Gruffalò, Seuss** con una spiritualità poetica italiana.
 Rime che danzano, ma anche momenti di silenzio contemplativo.
