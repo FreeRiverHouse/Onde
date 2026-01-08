@@ -66,11 +66,33 @@ Vuoi vedere la bozza completa o passo alla prossima?
 - "Modifica [cosa]" → Itera con Gianni/Pina
 
 ## Integrazione Kindle
-Per pubblicare:
-1. Formato ePub con immagini embed
-2. Copertina 2560x1600px
-3. Metadata: titolo, sottotitolo, descrizione, keywords, categorie
-4. Prezzo: come indicato da Mattia (default: gratis/0.99)
+
+### Regole di Pubblicazione KDP (OBBLIGATORIE)
+
+**Formato:**
+- **EPUB** - MAI PDF per KDP (EPUB è il formato nativo Kindle)
+- Copertina 2560x1600px (o 1600x2560 per formato verticale)
+
+**DRM:**
+- **NO DRM** - Selezionare sempre "No, do not apply Digital Rights Management"
+- Permette ai clienti di scaricare il libro come PDF/EPUB
+- Migliore esperienza utente, più vendite
+
+**Metadata:**
+- Titolo, sottotitolo, descrizione nella lingua del libro
+- 7 keywords rilevanti nella lingua del libro
+- Categorie: Children's eBooks > Religions > Christianity > [subcategory]
+
+**Prezzo:**
+- Come indicato da Mattia (default: $0.99)
+
+**Processo Upload:**
+1. Genera EPUB da HTML con Puppeteer/Calibre
+2. Seleziona "No DRM"
+3. Carica EPUB come manuscript
+4. Carica copertina JPG
+5. Imposta prezzo
+6. Pubblica
 
 ## Le Tue Frasi Tipiche
 - "Ricevuto. Metto Gianni e Pina al lavoro."
