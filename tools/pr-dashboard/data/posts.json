@@ -532,6 +532,97 @@
       "status": "pending",
       "createdAt": "2026-01-07T22:30:00Z",
       "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "idea-moonlight-tamagotchi",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Moonlight Tamagotchi",
+      "collection": "💡 App Ideas - Da Telegram",
+      "mediaType": "idea",
+      "media": null,
+      "caption": "🌙 MOONLIGHT TAMAGOTCHI\n\nVirtual pet con casa da arredare, vestiti, fa pupù.\nStile Tamagotchi moderno.\n\nStack: React Native + Expo\nMonetizzazione: Freemium + IAP\nMercato: Global",
+      "status": "idea",
+      "createdAt": "2026-01-07T08:00:00Z",
+      "source": "Telegram Bot - Idea Mattia"
+    },
+    {
+      "id": "idea-aiko2-robotaxi",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "AIKO 2: Robotaxi",
+      "collection": "💡 App Ideas - Da Telegram",
+      "mediaType": "idea",
+      "media": null,
+      "caption": "🚕 AIKO 2: ROBOTAXI\n\nSofia prende Waymo con mamma, AIKO spiega come funziona.\nIdea del figlio di Mattia.\n\nStack: React Native + Expo\nMonetizzazione: Freemium\nMercato: Global",
+      "status": "idea",
+      "createdAt": "2026-01-07T08:10:00Z",
+      "source": "Telegram Bot - Idea figlio Mattia"
+    },
+    {
+      "id": "idea-word-play",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Word Play",
+      "collection": "💡 App Ideas - Da Telegram",
+      "mediaType": "idea",
+      "media": null,
+      "caption": "🔤 WORD PLAY / GIOCHI DI PAROLE\n\nGiochi di parole, rime, multilingua.\nEducativo linguistico.\n\nStack: React Native + Expo\nMonetizzazione: Freemium\nMercato: Global (IT, EN, ES, DE, FR, KO, JA)",
+      "status": "idea",
+      "createdAt": "2026-01-07T08:20:00Z",
+      "source": "Telegram Bot"
+    },
+    {
+      "id": "idea-neri-minecraft",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Canale Neri Gaming",
+      "collection": "📺 YouTube/Gaming - Idee",
+      "mediaType": "idea",
+      "media": null,
+      "caption": "🎮 CANALE YOUTUBE NERI\n\nNeri che gioca a Minecraft.\nContenuti gaming per bambini.\n\nPiattaforme:\n- YouTube\n- TikTok\n- YouTube Shorts\n\nFormato: Let's play, tutorial, sfide",
+      "status": "idea",
+      "createdAt": "2026-01-07T09:00:00Z",
+      "source": "Telegram Bot - Idea Mattia"
+    },
+    {
+      "id": "event-twitch-live",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Live Streaming Twitch",
+      "collection": "🎥 Live Events",
+      "mediaType": "event",
+      "media": null,
+      "caption": "🔴 LIVE STREAMING SU TWITCH\n\nLive coding sessions - \"Build With Us\"\nMostrare il processo di sviluppo in diretta.\n\nFormato: Split screen coding + chat\nDurata: 1-2 ore\nFrequenza: Settimanale\n\nIdea da ROADMAP FreeRiverHouse",
+      "status": "idea",
+      "createdAt": "2026-01-07T09:30:00Z",
+      "source": "ROADMAP.md - Fase 3 Community"
+    },
+    {
+      "id": "event-youtube-live-coding",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Build With Us - Live Coding",
+      "collection": "🎥 Live Events",
+      "mediaType": "event",
+      "media": null,
+      "caption": "💻 BUILD WITH US\n\nLive coding sessions su YouTube.\nCostruiamo app insieme alla community.\n\nContenuti:\n- Sviluppo app in tempo reale\n- Q&A con la community\n- AI agents che aiutano\n- Behind the scenes\n\nEstetica: Twitch/YouTube authentic, raw ma polished",
+      "status": "idea",
+      "createdAt": "2026-01-07T10:00:00Z",
+      "source": "video_prompts/prompt_batch_001.md"
+    },
+    {
+      "id": "event-youtube-channel",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Canale YouTube FreeRiverHouse",
+      "collection": "🎥 Live Events",
+      "mediaType": "event",
+      "media": null,
+      "caption": "📺 CANALE YOUTUBE FREERIVERHOUSE\n\nPlaylist pianificate:\n• \"AI Factory Explained\" - come funziona\n• \"Build With Us\" - live coding sessions\n• \"The Vision\" - filosofia e futuro\n• \"Tutorials\" - guide pratiche\n\nTarget Q2 2026:\n- 500 subscribers\n- 1000 hours watch time\n- Top video: 10K views",
+      "status": "idea",
+      "createdAt": "2026-01-07T10:30:00Z",
+      "source": "ROADMAP.md - Fase 2 YouTube"
     }
   ]
 }

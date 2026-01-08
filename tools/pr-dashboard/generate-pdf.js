@@ -4,17 +4,40 @@ const path = require('path');
 // Read posts
 const posts = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/posts.json'), 'utf8')).posts;
 
-// Group by account
+// Separate regular posts from ideas and events
+const regularPosts = posts.filter(p => p.mediaType !== 'idea' && p.mediaType !== 'event');
+const ideaPosts = posts.filter(p => p.mediaType === 'idea');
+const eventPosts = posts.filter(p => p.mediaType === 'event');
+
+// Group regular posts by account
 const accounts = {
   'onde': { name: '@Onde_FRH', posts: [] },
   'magmatic': { name: '@magmatic__', posts: [] },
   'frh': { name: '@FreeRiverHouse', posts: [] }
 };
 
-posts.forEach(p => {
+regularPosts.forEach(p => {
   if (accounts[p.account]) {
     accounts[p.account].posts.push(p);
   }
+});
+
+// Group ideas by collection
+const ideaCollections = {};
+ideaPosts.forEach(p => {
+  if (!ideaCollections[p.collection]) {
+    ideaCollections[p.collection] = [];
+  }
+  ideaCollections[p.collection].push(p);
+});
+
+// Group events by collection
+const eventCollections = {};
+eventPosts.forEach(p => {
+  if (!eventCollections[p.collection]) {
+    eventCollections[p.collection] = [];
+  }
+  eventCollections[p.collection].push(p);
 });
 
 // Generate sections HTML
@@ -46,6 +69,66 @@ for (const [key, data] of Object.entries(accounts)) {
     <div class="section">
       <h2 class="section-title">${data.name} (${data.posts.length} post)</h2>
       ${postsHtml}
+    </div>
+  `;
+}
+
+// Generate Ideas sections
+for (const [collection, items] of Object.entries(ideaCollections)) {
+  let itemsHtml = '';
+  items.forEach(item => {
+    itemsHtml += `
+      <div class="post idea-card">
+        <div class="post-header">
+          <span class="post-title">${item.title}</span>
+          <span class="post-account idea-badge">IDEA</span>
+        </div>
+        <div class="post-collection">${item.source}</div>
+        <div class="post-caption">${item.caption}</div>
+        <div class="approval-row">
+          <span class="approval-option"><span class="checkbox"></span> Da Sviluppare</span>
+          <span class="approval-option"><span class="checkbox"></span> Backlog</span>
+          <span class="approval-option"><span class="checkbox"></span> Scartata</span>
+        </div>
+        <div class="note-line"></div>
+      </div>
+    `;
+  });
+
+  sectionsHtml += `
+    <div class="section">
+      <h2 class="section-title" style="color: #4a90d9; border-color: #4a90d9;">${collection} (${items.length})</h2>
+      ${itemsHtml}
+    </div>
+  `;
+}
+
+// Generate Events sections
+for (const [collection, items] of Object.entries(eventCollections)) {
+  let itemsHtml = '';
+  items.forEach(item => {
+    itemsHtml += `
+      <div class="post event-card">
+        <div class="post-header">
+          <span class="post-title">${item.title}</span>
+          <span class="post-account event-badge">EVENTO</span>
+        </div>
+        <div class="post-collection">${item.source}</div>
+        <div class="post-caption">${item.caption}</div>
+        <div class="approval-row">
+          <span class="approval-option"><span class="checkbox"></span> Pianificare</span>
+          <span class="approval-option"><span class="checkbox"></span> Backlog</span>
+          <span class="approval-option"><span class="checkbox"></span> Non ora</span>
+        </div>
+        <div class="note-line"></div>
+      </div>
+    `;
+  });
+
+  sectionsHtml += `
+    <div class="section">
+      <h2 class="section-title" style="color: #e74c3c; border-color: #e74c3c;">${collection} (${items.length})</h2>
+      ${itemsHtml}
     </div>
   `;
 }
@@ -123,6 +206,22 @@ const html = `<!DOCTYPE html>
       border-radius: 20px;
       font-size: 12px;
       font-weight: 500;
+    }
+
+    .idea-badge {
+      background: #4a90d9 !important;
+    }
+
+    .event-badge {
+      background: #e74c3c !important;
+    }
+
+    .idea-card {
+      border-left: 4px solid #4a90d9;
+    }
+
+    .event-card {
+      border-left: 4px solid #e74c3c;
     }
 
     .post-collection {
