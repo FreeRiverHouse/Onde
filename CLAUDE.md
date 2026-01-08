@@ -7,11 +7,17 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-07)
 
-**QUANDO RIAPRI CON --chrome:**
+**⚡ PRIORITÀ ASSOLUTA - BLOCCANTE ⚡**
 
-1. Vai su `x.com/i/grok` → "Create Images"
-2. Genera le **4 OPZIONI STILISTICHE** per definire lo stile Onde
-3. Ogni opzione ha 2 prompt (personaggi storie + personaggi redazione)
+**QUANDO MATTIA RIAPRE CON `--chrome`:**
+
+1. **Aprire 4-5 tab di Grok** in parallelo: `https://x.com/i/grok`
+2. In ogni tab: Click su "Create Images"
+3. **Generare le 4 OPZIONI STILISTICHE** (un prompt per tab)
+4. Ogni opzione genera 4 varianti → Mattia sceglie la migliore
+5. Salvare le immagini scelte in `~/Downloads/` con nomi chiari
+
+**IMPORTANTE**: Usare Claude for Chrome extension - X è già loggato!
 
 ### I 4 STILI DA GENERARE:
 
@@ -35,7 +41,16 @@ Vintage 1950s Italian children's book illustration, nostalgic style, little girl
 Modern flat illustration style, cute girl character with simple geometric shapes and a friendly round robot with minimal features, bold vibrant colors, clean lines, contemporary children's app aesthetic, warm and inviting, vector-like quality, 4k
 ```
 
-**DOPO**: Mostra a Mattia le 4 opzioni, lui sceglie lo stile, poi si procede con lo "tsunami".
+**WORKFLOW**:
+1. Claude Code riaperto con `--chrome` flag
+2. Io (Claude) apro 4-5 tab di Grok in parallelo
+3. Genero le 4 opzioni stilistiche (1 prompt per tab)
+4. Grok genera 4 varianti per opzione = 16 immagini totali
+5. Mattia sceglie la migliore → quello diventa LO STILE ONDE
+6. Creo prompt templates e skill
+7. **SBLOCCO**: Ora posso generare TUTTE le immagini con lo stile scelto
+
+**RICORDA**: Non devo chiedere a Mattia di aprire Grok - lo faccio IO con Claude for Chrome!
 
 ---
 
