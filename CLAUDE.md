@@ -5,6 +5,39 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 LEZIONI APPRESE - 7 Gennaio 2026
+
+### NON postare contenuti di libri non usciti
+- **Piccole Rime** è il nome del LIBRO, non di una collana
+- Prima di postare contenuti su libri/prodotti, verificare SEMPRE se sono già pubblicati
+- Se il libro non è uscito → NON promuoverlo
+
+### Pina Pennello (NON Mario/Pino con baffi)
+- **Pina Pennello** = giovane illustratrice donna
+- NON usare il personaggio maschile con baffi
+- Aggiornare tutte le immagini
+
+### Slack - Leggere regolarmente
+- Mattia posta idee e task su Slack (#all-freeriverhouse)
+- Configurare workflow per leggere Slack automaticamente
+- Workspace: FreeRiverHouse
+
+---
+
+## 🔴 PRIORITÀ IMMEDIATE (da Slack)
+
+1. **Kanban Dashboard Agenti** - Dashboard unica per controllare agenti, card rossa quando bloccato
+2. **Visual Style Unificato** - Rifare TUTTE le immagini col nuovo stile
+3. **Pina Pennello** - Creare personaggio giovane illustratrice
+4. **Workflow Approvazione** - Watch/Bottone BT per approvare mentre lavi i piatti
+5. **Operation Tsunami** - YouTube, Spotify, TikTok per Onde
+
+**Riferimenti**:
+- https://x.com/housecor/status/2008905575669662019 (Kanban agenti)
+- https://x.com/pdrmnvd/status/2009030821408330147
+
+---
+
 ## 🚨 API FIRST - REGOLA ASSOLUTA
 
 **PRIMA di fare QUALSIASI azione via browser, VERIFICA se esiste un'API.**

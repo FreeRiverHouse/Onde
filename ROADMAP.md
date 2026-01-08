@@ -1,10 +1,79 @@
 # Onde - Roadmap 2026
 
-**Ultimo aggiornamento**: 2026-01-07
+> **"Facciamo fiorire il mondo. Questa è la missione."**
+
+**Ultimo aggiornamento**: 2026-01-07 22:50
 
 ---
 
-## 🚨 PRIORITÀ ASSOLUTA - Q1 2026
+## 🔴 PRIORITÀ IMMEDIATE (Slack 7 Gen 2026)
+
+### 1. Kanban Dashboard Agenti (🔥 SUBITO)
+Ispirato a [@housecor](https://x.com/housecor/status/2008905575669662019):
+- [ ] Dashboard unica per controllare tutti gli agenti
+- [ ] Card ROSSA quando agente è bloccato
+- [ ] Un posto per monitorare e interagire
+- [ ] Integrazione con BIB Dashboard
+
+### 2. Visual Style Unificato + Pina Pennello
+- [ ] Creare personaggio **Pina Pennello** (giovane illustratrice, NON Mario con baffi)
+- [ ] Aggiornare Gianni Parola
+- [ ] Rifare TUTTE le immagini across the board col nuovo stile
+- [ ] Aggiungere logo e facce autori nel back dei libri
+
+### 3. Workflow Approvazione Veloce
+Permettere a Mattia di approvare anche mentre lava i piatti:
+- [ ] Apple Watch - notifiche con azione rapida
+- [ ] Bottone BT/USB rosso sul Mac
+- [ ] Touch ID per email e acquisti Chrome
+- [ ] Potenziare Telegram Bot
+
+---
+
+## 🎯 Operation Tsunami - Piano Multimedia
+
+### Valori Brand Onde
+**Peaceful, growth oriented, kind, artistic, creative, inspiring, playful, friendly, relaxing, grateful, curious, open, wise, balanced**
+
+### Fase 1: Fondamenta (Gennaio 2026)
+- [ ] Definire visual style unificato
+- [ ] Creare Pina Pennello
+- [ ] Logo Onde definitivo
+- [ ] Branding stilistico identitario
+
+### Fase 2: Canali (Febbraio 2026)
+- [ ] **YouTube Onde** - Video educational e buffi
+- [ ] **Spotify** - Podcast, audiobook bambini
+- [ ] **TikTok** - Contenuti brevi, animazioni
+- [ ] **Account X** per Gianni e Pina (divertenti, ispiracionali, educativi)
+
+### Fase 3: Prime Uscite a Tappeto (Marzo 2026)
+- [ ] Uscite coordinate su tutti i canali
+- [ ] Presenza social di Gianni e Pina
+
+---
+
+## 📚 Status Libri (aggiornato)
+
+| Libro | Status | Progresso | Note |
+|-------|--------|-----------|------|
+| **AIKO** | Prima bozza completa | 100% | 8 cap + dedica + nota genitori, 9/9 illustrazioni |
+| **Salmo 23** | Bozza V2 pronta | 90% | Review → KDP |
+| **Antologia Poesia IT** | In produzione | 40% | Completare illustrazioni |
+| **Piccole Rime** | Video pronti | 30% | ⚠️ LIBRO NON ANCORA USCITO |
+
+---
+
+## 📱 App "Onde STEM" / "Grow O Learn"
+
+**Concept**: Il bimbo sceglie con quale personaggio giocare/imparare/creare
+- Gianni insegna a scrivere
+- Pina insegna a disegnare
+- Eventualmente app dedicate
+
+---
+
+## 🚨 PRIORITÀ PRECEDENTI - Q1 2026
 
 ### 1. Definire Stile Unitario Onde (BLOCCANTE)
 **Status**: IN CORSO - URGENTE
