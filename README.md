@@ -18,7 +18,7 @@ Onde è una piattaforma completa per la pubblicazione digitale di musica e libri
 - [ ] Analytics dashboard web
 
 ### Casa Editrice (Publishing)
-- [x] Sistema agenti AI (Editore Capo, Gianni Parola, Pino Pennello)
+- [x] Sistema agenti AI (Editore Capo, Gianni Parola, Pina Pennello)
 - [x] Workflow produzione libri documentato
 - [x] Generazione PDF con Puppeteer
 - [x] Primo libro in produzione: "Il Salmo 23 per Bambini"

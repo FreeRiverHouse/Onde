@@ -25,6 +25,27 @@ La ROADMAP è:
 
 ---
 
+## 🚨 REGOLA #2 - BRANDING PRIMA DI TUTTO
+
+**OGNI VOLTA che devi generare immagini, video, o contenuti visivi:**
+
+1. **LEGGI SEMPRE** il file `BRAND-GUIDE.md` prima di iniziare
+2. **VERIFICA** che i prompt rispettino lo stile Onde
+3. **CONSULTA l'Editore Capo** (`content/agents/editore-capo.md`) per decisioni importanti
+
+**Questo vale per TUTTI gli agenti Claude, in OGNI sessione.**
+
+### Riferimenti Branding
+- **BRAND-GUIDE.md** - Guida completa identità visiva Onde
+- **content/authors/AUTHOR-PORTRAITS.md** - Prompt ritratti Gianni e Pina
+- **content/agents/pina-pennello.md** - Agente illustratrice
+
+### Personaggi Redazione (NOMI CORRETTI!)
+- **Gianni Parola** - Lo scrittore (uomo ~40 anni)
+- **Pina Pennello** - L'illustratrice (donna ~30 anni) - **NON "Pino"!**
+
+---
+
 ## 🎨 BRANDING DINAMICO - IDENTITÀ VISIVA ONDE
 
 ### Banner X Come Branding Stagionale

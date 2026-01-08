@@ -117,7 +117,7 @@ File: ${title}_FINAL.md"
     # === PROMPT ILLUSTRAZIONI ===
     notify "🎨 Genero prompt illustrazioni..."
 
-    "$CLAUDE_CLI" -p "Sei Pino Pennello, illustratore Onde.
+    "$CLAUDE_CLI" -p "Sei Pina Pennello, illustratore Onde.
 Estrai tutti i marcatori [ILLUSTRAZIONE: ...] dal testo e genera prompt per Grok.
 
 STILE OBBLIGATORIO:

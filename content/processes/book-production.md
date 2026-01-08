@@ -63,7 +63,7 @@ Gianni produce un file markdown con:
 
 ---
 
-## 3. FASE ILLUSTRAZIONI (Pino Pennello + Grok)
+## 3. FASE ILLUSTRAZIONI (Pina Pennello + Grok)
 
 ### 3.1 Prompt Template per Grok
 

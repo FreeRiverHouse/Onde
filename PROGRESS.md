@@ -99,7 +99,7 @@
 - [x] 8 capitoli + dedica + nota genitori
 - [x] Lingua: Inglese
 
-#### Illustrazioni (Pino Pennello via Grok)
+#### Illustrazioni (Pina Pennello via Grok)
 | Cap | Descrizione | Status | File |
 |-----|-------------|--------|------|
 | 0 | Copertina AIKO | FATTO | cover-aiko.jpg |
@@ -174,7 +174,7 @@
 ```bash
 cd /Users/mattiapetrucciani/CascadeProjects/Onde/packages/agents
 
-# Parla con Pino Pennello (illustratore)
+# Parla con Pina Pennello (illustratore)
 npm run pino
 
 # Parla con Gianni Parola (scrittore)

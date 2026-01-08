@@ -235,7 +235,7 @@ const bookContent = `
   <h2>AI Explained to Children</h2>
   <div class="credits">
     Written by Gianni Parola<br>
-    Illustrated by Pino Pennello<br>
+    Illustrated by Pina Pennello<br>
     Published by Onde, Free River House
   </div>
 </div>
@@ -247,7 +247,7 @@ const bookContent = `
   <div class="divider"></div>
   <div class="author-info">
     Written by <strong>Gianni Parola</strong><br>
-    Illustrated by <strong>Pino Pennello</strong><br><br>
+    Illustrated by <strong>Pina Pennello</strong><br><br>
     <em>Published by</em><br>
     <strong>Onde</strong><br>
     Free River House<br><br>
@@ -443,7 +443,7 @@ const bookContent = `
   <h2>THE END</h2>
   <div class="publisher">
     Words: Gianni Parola<br>
-    Illustrations: Pino Pennello<br><br>
+    Illustrations: Pina Pennello<br><br>
     Published by Onde<br>
     Free River House<br><br>
     First Edition - 2026

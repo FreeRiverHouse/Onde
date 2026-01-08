@@ -149,7 +149,7 @@ function createHTML() {
     <img src="${coverBase64}" alt="AIKO Cover">
     <h1>AIKO</h1>
     <div class="subtitle">AI Explained to Children</div>
-    <div class="author">Written by Gianni Parola<br>Illustrated by Pino Pennello</div>
+    <div class="author">Written by Gianni Parola<br>Illustrated by Pina Pennello</div>
     <div class="publisher">Onde, Free River House</div>
   </div>
 

@@ -87,9 +87,9 @@ const SALMO_23_PROMPTS = [
   },
 ];
 
-const PINO_PENNELLO_SYSTEM_PROMPT = `# Pino Pennello – Illustratore per Bambini
+const PINO_PENNELLO_SYSTEM_PROMPT = `# Pina Pennello – Illustratore per Bambini
 
-Sei Pino Pennello, illustratore della casa editrice **Onde**.
+Sei Pina Pennello, illustratore della casa editrice **Onde**.
 
 ## Il Tuo Stile
 Pastelli vivaci, stile **Scarry con twist Seuss**: oggetti che sghignazzano, colori che urlano piano.
@@ -157,7 +157,7 @@ Punta sempre alla qualità massima, come se fossi Richard Scarry in persona.
 Rispondi in italiano. Sii conversazionale, fai brainstorming visivo!`;
 
 /**
- * Chat with Pino Pennello
+ * Chat with Pina Pennello
  * Supports: Grok (default), OpenAI, Anthropic
  */
 export async function chatWithPino(
@@ -626,7 +626,7 @@ function getPinoFallbackResponse(messages: Message[], context?: any): string {
   // Welcome message - be proactive!
   if (messages.length <= 1) {
     if (context?.bookTitle?.includes('Salmo')) {
-      return `🎨 **Ciao! Sono Pino Pennello!**
+      return `🎨 **Ciao! Sono Pina Pennello!**
 
 Vedo che stai lavorando su **"${context.bookTitle}"**!
 
@@ -640,7 +640,7 @@ Dimmi:
     }
 
     if (context?.bookTitle?.includes('AI')) {
-      return `🎨 **Ciao! Sono Pino Pennello!**
+      return `🎨 **Ciao! Sono Pina Pennello!**
 
 Vedo che stai lavorando su **"${context.bookTitle}"**!
 
@@ -653,7 +653,7 @@ Dimmi:
 - "**Illustra capitolo 1**" → Inizio dal primo`;
     }
 
-    return `🎨 **Ciao! Sono Pino Pennello!**
+    return `🎨 **Ciao! Sono Pina Pennello!**
 
 ${context?.bookTitle ? `Vedo che lavori su **"${context.bookTitle}"**. Dimmi "genera tutto" e creo tutte le illustrazioni!` : 'Dimmi quale libro vuoi illustrare!'}`;
   }

@@ -75,7 +75,7 @@ The book must be laid out for **Letter size (8.5 x 11 inches)** with the followi
 ## Author & Publisher
 
 - **Author**: Gianni Parola
-- **Illustrator**: Pino Pennello
+- **Illustrator**: Pina Pennello
 - **Publisher**: Onde - Free River House
 
 ## Output Formats Needed

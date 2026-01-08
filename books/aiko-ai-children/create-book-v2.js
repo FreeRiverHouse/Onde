@@ -312,7 +312,7 @@ const bookContent = `
   <h1>AIKO</h1>
   <h2>AI Explained to Children</h2>
   <div class="credits">
-    Written by Gianni Parola · Illustrated by Pino Pennello<br>
+    Written by Gianni Parola · Illustrated by Pina Pennello<br>
     Onde · Free River House
   </div>
 </div>
@@ -324,7 +324,7 @@ const bookContent = `
   <div class="ornament"></div>
   <div class="author-info">
     Written by <strong>Gianni Parola</strong><br>
-    Illustrated by <strong>Pino Pennello</strong><br><br>
+    Illustrated by <strong>Pina Pennello</strong><br><br>
     Published by <strong>Onde</strong><br>
     Free River House<br><br>
     <em>First Edition · 2026</em>
@@ -510,7 +510,7 @@ const bookContent = `
   <h2>The End</h2>
   <div class="publisher">
     Words by Gianni Parola<br>
-    Illustrations by Pino Pennello<br><br>
+    Illustrations by Pina Pennello<br><br>
     Published by <strong>Onde</strong><br>
     Free River House<br><br>
     First Edition · 2026

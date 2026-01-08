@@ -423,8 +423,8 @@ Per generare l'EPUB ho bisogno di verificare:
 **CONTENUTI PRONTI:**
 - ✅ 6 capitoli testo italiano
 - ✅ 6 capitoli testo inglese
-- ⏳ 6 illustrazioni capitoli (da Pino Pennello)
-- ⏳ 1 copertina (da Pino Pennello)
+- ⏳ 6 illustrazioni capitoli (da Pina Pennello)
+- ⏳ 1 copertina (da Pina Pennello)
 
 **SPECIFICHE EPUB:**
 - Formato: EPUB 3.0 (compatibile KDP)

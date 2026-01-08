@@ -77,7 +77,7 @@ async function createAccessibleVersion() {
 title: "AIKO"
 subtitle: "AI Explained to Children"
 author: "Gianni Parola"
-illustrator: "Pino Pennello"
+illustrator: "Pina Pennello"
 publisher: "Onde - Free River House"
 lang: en
 ---`;

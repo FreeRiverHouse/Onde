@@ -454,7 +454,7 @@ async function createProfessionalBook() {
   </div>
   <h1 class="cover-title">AIKO</h1>
   <p class="cover-subtitle">AI Explained to Children</p>
-  <p class="cover-author">Written by Gianni Parola<br>Illustrated by Pino Pennello</p>
+  <p class="cover-author">Written by Gianni Parola<br>Illustrated by Pina Pennello</p>
   <p class="cover-publisher">ONDE • FREE RIVER HOUSE</p>
 </div>
 

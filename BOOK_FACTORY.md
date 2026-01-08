@@ -35,7 +35,7 @@ Leggi TUTTO questo file prima di iniziare qualsiasi task.
 │  1. SCRITTURA (Gianni Parola)                                   │
 │     └── Prima bozza → Revisione 1 → Revisione 2 → TESTO FINALE │
 │                                                                 │
-│  2. ILLUSTRAZIONI (Pino Pennello)                               │
+│  2. ILLUSTRAZIONI (Pina Pennello)                               │
 │     └── Prompt → Generazione Grok → Selezione → IMMAGINI FINALI│
 │                                                                 │
 │  3. MANOSCRITTO                                                 │

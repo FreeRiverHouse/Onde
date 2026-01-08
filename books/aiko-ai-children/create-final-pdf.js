@@ -226,7 +226,7 @@ function createHTML() {
     <img src="${img.cover}" alt="Cover">
     <h1>AIKO</h1>
     <div class="subtitle">AI Explained to Children</div>
-    <div class="author">Written by Gianni Parola | Illustrated by Pino Pennello</div>
+    <div class="author">Written by Gianni Parola | Illustrated by Pina Pennello</div>
     <div class="logos">
       <img src="${img.logoOnde}" alt="Onde">
       <img src="${img.logoFRH}" alt="Free River House">
@@ -426,7 +426,7 @@ function createHTML() {
     <h2>The End</h2>
     <div class="credits">
       <p>Written by Gianni Parola</p>
-      <p>Illustrated by Pino Pennello</p>
+      <p>Illustrated by Pina Pennello</p>
       <p style="margin-top: 20px;">Published by Onde, Free River House</p>
       <p>First Edition - 2026</p>
       <p style="margin-top: 30px; font-style: italic; color: #95a5a6;">Images by @grok</p>

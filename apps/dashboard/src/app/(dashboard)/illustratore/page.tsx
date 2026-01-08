@@ -132,7 +132,7 @@ export default function IllustratorePage() {
     const welcomeMessage: ChatMessage = {
       id: 'welcome',
       role: 'assistant',
-      content: `🎨 **Ciao! Sono Pino Pennello!**
+      content: `🎨 **Ciao! Sono Pina Pennello!**
 
 Sono l'illustratore di Onde, e adoro creare immagini magiche per i libri dei bambini!
 
@@ -236,7 +236,7 @@ ${savedMessages.length > 0 ? '🎨 *Ho recuperato la nostra conversazione preced
     const welcomeMessage: ChatMessage = {
       id: 'welcome',
       role: 'assistant',
-      content: `🎨 **Ciao! Sono Pino Pennello!**
+      content: `🎨 **Ciao! Sono Pina Pennello!**
 
 Sono l'illustratore di Onde, e adoro creare immagini magiche per i libri dei bambini!
 
@@ -261,7 +261,7 @@ Dimmi cosa vuoi illustrare!`,
   return (
     <>
       <Header
-        title="Pino Pennello"
+        title="Pina Pennello"
         description="Il tuo illustratore AI per libri per bambini"
       />
 

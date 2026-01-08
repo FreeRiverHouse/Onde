@@ -186,7 +186,7 @@ export default function IllustrazioniPage() {
             <Link href="/illustratore">
               <Button className="bg-gradient-to-r from-pink-500 to-orange-500">
                 <Paintbrush className="h-4 w-4 mr-2" />
-                Chiedi a Pino Pennello
+                Chiedi a Pina Pennello
               </Button>
             </Link>
             <Button variant="outline">
@@ -270,14 +270,14 @@ export default function IllustrazioniPage() {
                 <Paintbrush className="h-6 w-6 text-pink-500" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Suggerimento da Pino Pennello</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">Suggerimento da Pina Pennello</h3>
                 <p className="text-sm text-gray-600">
                   Per mantenere consistenza visiva, genera tutte le illustrazioni nella stessa sessione.
                   Inizia dalla copertina per definire lo stile, poi procedi con i capitoli in ordine.
                 </p>
                 <Link href="/illustratore">
                   <Button variant="link" className="px-0 mt-2 text-pink-600">
-                    Parla con Pino Pennello <ExternalLink className="h-3 w-3 ml-1" />
+                    Parla con Pina Pennello <ExternalLink className="h-3 w-3 ml-1" />
                   </Button>
                 </Link>
               </div>

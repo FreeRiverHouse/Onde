@@ -53,7 +53,7 @@ async function createCover() {
   <img src="${imageToBase64(coverPath)}" alt="AIKO Cover - Sofia, Luca and AIKO reading together">
   <h1>AIKO</h1>
   <p class="subtitle">AI Explained to Children</p>
-  <p class="author">Written by Gianni Parola<br>Illustrated by Pino Pennello</p>
+  <p class="author">Written by Gianni Parola<br>Illustrated by Pina Pennello</p>
   <p class="publisher">Onde &bull; Free River House</p>
 </body>
 </html>`;
