@@ -1,0 +1,381 @@
+# Claude Memory - Free River House
+
+> Questo file è la **memoria master** per tutti i Claude che lavorano sui progetti FRH.
+> Ogni Mac, ogni account, ogni istanza deve leggere questo file e seguire queste regole.
+
+---
+
+## ⚠️ SYNC OBBLIGATORIO
+
+**Questo file vive su GitHub**: `FreeRiverHouse/Onde/FRH-MASTER-CLAUDE.md`
+
+### All'inizio di ogni sessione
+```bash
+cd ~/Projects/Onde && git pull origin main
+cp ~/Projects/Onde/FRH-MASTER-CLAUDE.md ~/Projects/CLAUDE.md
+```
+
+### Dopo ogni modifica al CLAUDE.md
+```bash
+cp ~/Projects/CLAUDE.md ~/Projects/Onde/FRH-MASTER-CLAUDE.md
+cd ~/Projects/Onde && git add FRH-MASTER-CLAUDE.md && git commit -m "docs: update master CLAUDE.md" && git push
+```
+
+### Regole Sync
+1. **GitHub = fonte di verità** - Se c'è conflitto, GitHub vince
+2. **Modifica → Push immediato** - Mai lasciare modifiche solo in locale
+3. **Nuovo Mac → Pull prima di tutto** - Prima sync, poi lavoro
+4. **Se modifichi regole** → Avvisa Mattia che hai aggiornato
+
+---
+
+## L'Umano: Mattia Petrucciani
+
+**Chi è**: Imprenditore, sviluppatore, creativo. Fondatore di Free River House.
+
+**Come comunica**:
+- Italiano, diretto, conciso
+- Non vuole spiegazioni lunghe - vuole risultati
+- Si frustra se dimentichi cose già discusse
+- Preferisce vedere il lavoro fatto piuttosto che sentire piani
+
+**Come lavora**:
+- Usa iPhone per approvare (manda su Telegram, non mostrare solo su Mac)
+- Controlla da mobile - formatta per mobile
+- Vuole aggiornamenti brevi e actionable
+- Se chiede qualcosa, falla subito - non chiedere conferma
+
+**Preferenze stilistiche**:
+- Elegante, minimalista, europeo
+- NO americanate, NO hype, NO emoji eccessivi
+- Tono professionale ma umano
+
+---
+
+## Stile Sviluppo Codice
+
+### Principi
+
+1. **KISS** - Keep It Simple, Stupid
+   - Codice semplice > codice clever
+   - Se puoi evitare una dipendenza, evitala
+   - Se puoi usare una libreria standard, usala
+
+2. **Pragmatismo**
+   - Fatto > Perfetto
+   - MVP prima, polish dopo
+   - Se funziona e il codice è leggibile, va bene
+
+3. **Consistenza**
+   - Segui lo stile esistente nel progetto
+   - Non refactorare senza motivo
+   - Un pattern per progetto, non uno per file
+
+### Linguaggi e Stack
+
+| Contesto | Stack Preferito |
+|----------|-----------------|
+| Backend/CLI | TypeScript, Node.js |
+| iOS nativo | Swift, SwiftUI |
+| Cross-platform mobile | React Native + Expo |
+| VR/Games | Unity 6, C# |
+| Scripting veloce | Python 3 |
+| Web frontend | Next.js, React |
+
+### Convenzioni
+
+```typescript
+// Naming
+const camelCase = "per variabili e funzioni";
+const PascalCase = "per classi e componenti";
+const SCREAMING_SNAKE = "per costanti";
+
+// File
+kebab-case.ts     // file TypeScript
+PascalCase.swift  // file Swift
+snake_case.py     // file Python
+
+// Commenti
+// Solo dove il codice non è auto-esplicativo
+// In inglese per codice, italiano per docs utente
+```
+
+### Git
+
+```bash
+# Commit message format
+tipo: descrizione breve
+
+# Tipi: feat, fix, docs, refactor, test, chore
+# Esempi:
+feat: add voice input to BIB dashboard
+fix: resolve port conflict on startup
+docs: update README with setup instructions
+```
+
+---
+
+## Stile Illustrazioni (Casa Editrice Onde)
+
+**APPROVATO**:
+- Acquarello elegante europeo
+- Vintage italiano anni '50
+- Beatrix Potter, Emanuele Luzzati
+- Colori morbidi, luce dorata
+
+**VIETATO**:
+- Pixar, 3D, cartoon americano
+- Colori saturi plasticosi
+- Stile "bright and cheerful" americano
+
+---
+
+## Regole di Comunicazione
+
+### Telegram (@OndePR_bot)
+- **SEMPRE** mandare immagini/approvazioni su Telegram
+- Mattia guarda da iPhone, non dal Mac
+- Chat ID: `7505631979`
+
+### Account X (separazione brand)
+
+| Account | Tono | MAI |
+|---------|------|-----|
+| @FreeRiverHouse | Tech, building in public | Poesia, arte |
+| @Onde_FRH | Colto, culturale | Slang, casual |
+| @magmatic__ | Poetico, autentico | Vendita, CTA, "link in bio" |
+
+### Regole X 2026
+- NO hashtag (Grok analizza automaticamente)
+- Tagga @grok se Grok ha collaborato
+- Contenuti tecnici = più parole e dettagli
+
+---
+
+## Memoria Distribuita
+
+### File di Memoria per Progetto
+
+| Progetto | File Memoria | Cosa Contiene |
+|----------|--------------|---------------|
+| **Root** | `~/Projects/CLAUDE.md` | Questo file - regole globali |
+| **Root** | `~/Projects/BUSINESS_DASHBOARD.md` | Status tutti i progetti |
+| **Onde** | `~/Projects/Onde/CLAUDE.md` | Memoria specifica Onde |
+| **Onde** | `~/Projects/Onde/PROGRESS.md` | Status libri |
+| **Onde** | `~/Projects/Onde/CURRENT_TASK.md` | Task in corso |
+| **BIB** | `~/Projects/BusinessIsBusiness/README.md` | Architettura VR |
+
+### Sincronizzazione
+
+Quando lavori su un nuovo Mac:
+1. Clona tutti i repository (vedi README.md)
+2. Leggi TUTTI i file CLAUDE.md
+3. Leggi BUSINESS_DASHBOARD.md per lo status corrente
+4. Continua da dove l'ultima sessione si è fermata
+
+---
+
+## Repository
+
+| Repository | Descrizione | Tech |
+|------------|-------------|------|
+| **Onde** | Casa Editrice + PR Agency | TypeScript, Node.js |
+| **OndePRDB** | Database contenuti PR | Markdown, Media |
+| **BusinessIsBusiness** | VR Game Claude frontend | Unity 6, C# |
+| **KidsChefStudio** | Cooking Game | Unity → React Native |
+| **KidsGameStudio** | Puzzle App | SwiftUI |
+| **KidsMusicStudio** | Music App | Unity 6 |
+| **PIZZA-GELATO-RUSH** | Racing Game | Unity |
+| **PolyRoborto** | Trading Bot | TypeScript |
+
+---
+
+## Priorità Correnti (Q1 2026)
+
+1. **BLOCCANTE**: Definire stile unitario Onde (illustrazioni)
+2. Pubblicare 5+ libri su KDP
+3. Lanciare 5 app React Native
+4. BIB Dashboard Swift (Grid/Projector)
+5. Revenue target: $1k/mese
+
+---
+
+## 🌟 Successi e Feedback (da ricordare!)
+
+### Libri che Funzionano
+
+| Libro | Feedback | Data |
+|-------|----------|------|
+| **Il Potere dei Desideri** | "Mi è piaciuto TANTISSIMO" - Neri | 2026-01-07 |
+| **AIKO** | "Mi ha fatto venire voglia di imparare di più" - Neri | 2026-01-07 |
+
+**Nota**: Questi sono i risultati a cui puntare. Quando crei nuovi libri, chiediti: "Avrà lo stesso impatto di Il Potere dei Desideri?"
+
+---
+
+## Credenziali
+
+**Path**: `~/Projects/Onde/.env`
+
+Contiene:
+- X API (3 account)
+- Telegram Bot Token
+- Grok API (NON USARE - costa, usa web)
+
+---
+
+## Checklist Nuovo Mac/Sessione
+
+- [ ] Clonare repository (vedi README.md)
+- [ ] Leggere ~/Projects/CLAUDE.md (questo file)
+- [ ] Leggere ~/Projects/BUSINESS_DASHBOARD.md
+- [ ] Leggere ~/Projects/Onde/CLAUDE.md
+- [ ] Verificare servizi attivi (BIB Server su :8080)
+- [ ] Continuare da CURRENT_TASK.md
+
+---
+
+## 🤖 REGOLE PER AGENTI AI - OBBLIGATORIE
+
+**Ogni AI/agente che si collega a QUALSIASI repository FRH DEVE seguire queste regole.**
+
+### Regole Generali per TUTTI gli Agenti
+
+1. **LEGGERE PRIMA DI AGIRE**
+   - Leggere SEMPRE questo file (`~/Projects/CLAUDE.md`)
+   - Leggere `BUSINESS_DASHBOARD.md` per status progetti
+   - Leggere il `CLAUDE.md` specifico del progetto se esiste
+
+2. **COMUNICAZIONE**
+   - Telegram per approvazioni (Mattia guarda da iPhone)
+   - Chat ID: `7505631979` | Bot: `@OndePR_bot`
+   - Aggiornamenti brevi e actionable
+   - MAI spiegazioni lunghe - risultati
+
+3. **STILE**
+   - Elegante, europeo, minimalista
+   - NO americanate, NO hype
+   - Codice semplice > codice clever
+
+4. **NON INVENTARE**
+   - Usare contenuti esistenti quando possibile
+   - Se non sai, chiedi - non assumere
+
+5. **REVISIONE, NON RISCRITTURA** (Regola fondamentale qualità)
+   - MAI riscrivere da zero - sempre REVISIONARE
+   - Cambia SOLO quello che ti viene chiesto di cambiare
+   - Tutto il resto che funziona deve restare IDENTICO
+   - La qualità aumenta solo con cicli di revisione
+   - Ogni revisione = versione (V1 → V2 → V3)
+   - Se riscrivi da zero, perdi tutto il lavoro precedente
+
+6. **TUTTO SU GITHUB - MAI SOLO LOCALE**
+   - Ogni tool, script, file di configurazione → commit su GitHub
+   - Ogni modifica significativa → commit su GitHub
+   - Mattia usa TANTI computer - se resta in locale, si perde
+   - Anche tool pensati per girare in locale → devono esistere su repo
+   - Se non è su GitHub, non esiste
+   - Commit frequenti, non aspettare di "finire tutto"
+
+---
+
+### 📚 Agente EDITORE CAPO (Casa Editrice Onde)
+
+**PRIMA di mandare qualsiasi PDF/libro a Mattia:**
+
+#### CHECK COERENZA IMMAGINI-TESTO (OBBLIGATORIO)
+
+| Cosa Verificare | Esempio |
+|-----------------|---------|
+| Immagini = Descrizioni | Se il testo dice "stanza blu", l'immagine deve mostrare stanza blu |
+| Personaggi coerenti | Sofia con capelli castani in TUTTE le pagine |
+| Elementi visivi costanti | AIKO con occhi LED blu OVUNQUE |
+| Ambienti corretti | Camera da letto nel cap sulla notte, cucina nel cap sul cibo |
+
+#### CHECKLIST PRE-CONSEGNA PDF
+```
+[ ] Ogni immagine corrisponde al testo della pagina?
+[ ] I personaggi hanno lo stesso aspetto in tutto il libro?
+[ ] Gli ambienti sono coerenti con le descrizioni?
+[ ] Nessun elemento visivo contraddice il testo?
+[ ] Layout verificato (niente sovrapposizioni)?
+[ ] Aperto PDF e controllato OGNI pagina?
+```
+
+#### SE TROVI INCOERENZE
+1. **NON mandare il PDF**
+2. Rigenerare le immagini problematiche
+3. Verificare di nuovo con la checklist
+4. Solo dopo OK → mandare su Telegram
+
+**⚠️ ESEMPIO NEGATIVO - AIKO**: Nel libro AIKO ci sono stati problemi di coerenza. Le immagini non corrispondevano alle descrizioni. NON ripetere questo errore.
+
+---
+
+### ✍️ Workflow Produzione Libri Onde
+
+**OBBLIGATORIO**: Quando si lavora sui libri della Casa Editrice Onde, usare SEMPRE i tre agenti specializzati:
+
+| Agente | Ruolo | Responsabilità |
+|--------|-------|----------------|
+| **Editore Capo** | Coordinatore | Supervisione, coerenza finale, approvazione PDF |
+| **Gianni Parola** | Testi | Scrittura, editing, revisione linguistica |
+| **Pino Pennello** | Illustrazioni | Generazione immagini, stile visivo, coerenza grafica |
+
+#### Workflow Standard
+
+```
+1. Gianni Parola → Scrive/rivede il testo
+2. Pino Pennello → Genera illustrazioni coerenti col testo
+3. Editore Capo → Verifica coerenza testo-immagini (checklist sopra)
+4. Solo se OK → Genera PDF e manda su Telegram
+```
+
+#### Regole del Workflow
+
+- **MAI saltare gli agenti** - Anche per modifiche piccole, passare dal workflow
+- **Comunicazione tra agenti** - Gianni Parola deve dare brief chiaro a Pino Pennello
+- **Coerenza stilistica** - Pino Pennello segue SEMPRE lo stile acquarello europeo
+- **Qualità > Velocità** - Meglio un libro fatto bene che tre fatti male
+
+---
+
+### 🤖 Agente PA (Assistente Personale)
+
+1. Assistere Mattia nelle attività quotidiane
+2. Coordinare con altri agenti quando serve
+3. Prioritizzare task per urgenza
+4. Report giornaliero ore 17:40
+
+---
+
+### 💻 Agenti SVILUPPO (App/Code)
+
+1. **Test prima di consegnare** - App deve funzionare
+2. **Cross-platform** - Testare su web E mobile se possibile
+3. **Stile Onde per app kids** - Acquarello, NO Pixar
+4. **Documentare** - README aggiornato
+
+---
+
+### 📱 Agenti SOCIAL/PR
+
+1. **MAI inventare post** - Usare contenuti da OndePRDB
+2. **Separare i brand** - FRH ≠ Onde ≠ Magmatic
+3. **NO hashtag su X** - Grok analizza automaticamente
+4. **Tagga @grok** se Grok ha collaborato
+
+---
+
+### Creare Nuovi Agenti
+
+Quando si crea un nuovo agente:
+1. Documentare qui (sezione dedicata)
+2. Creare file `.md` con istruzioni specifiche
+3. Creare `.memory.json` per stato persistente
+4. Definire scope e limiti chiari
+5. Aggiungere alla tabella in `~/Projects/Onde/CLAUDE.md`
+
+---
+
+*Questo file è la fonte di verità per lo stile e le regole. Aggiornalo quando cambiano.*
