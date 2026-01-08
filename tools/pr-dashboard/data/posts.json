@@ -9,9 +9,10 @@
       "mediaType": "video",
       "media": "/videos/01-stella-stellina-stars.mp4",
       "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Stella stellina, la notte s'avvicina...\"\n\nUna ninna nanna della tradizione italiana.\n\nAnimazione video by @grok",
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-01-06T21:30:00Z",
-      "source": "OndePRDB/clients/onde"
+      "source": "OndePRDB/clients/onde",
+      "approvedAt": "2026-01-08T03:39:11.012Z"
     },
     {
       "id": "piccole-rime-02",
@@ -22,9 +23,10 @@
       "mediaType": "video",
       "media": "/videos/02-pulcino-bagnato-rain.mp4",
       "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\nUn pulcino cerca riparo dalla pioggia sotto le ali della mamma chioccia.\n\nAnimazione by @grok",
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-01-06T21:31:00Z",
-      "source": "OndePRDB/clients/onde"
+      "source": "OndePRDB/clients/onde",
+      "approvedAt": "2026-01-08T03:39:37.705Z"
     },
     {
       "id": "piccole-rime-03",
@@ -74,9 +76,10 @@
       "mediaType": "text",
       "media": null,
       "caption": "nella tua testa\nc'è tutto l'universo\nc'è una sorgente di tempesta\nc'è il cosmo dissommerso",
-      "status": "pending",
+      "status": "approved",
       "createdAt": "2026-01-07T11:00:00Z",
-      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md",
+      "approvedAt": "2026-01-08T03:42:45.378Z"
     },
     {
       "id": "magmatic-ylan",
