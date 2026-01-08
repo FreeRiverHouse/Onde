@@ -29,6 +29,51 @@ cd ~/Projects/Onde && git add FRH-MASTER-CLAUDE.md && git commit -m "docs: updat
 
 ---
 
+## 🔑 GIT & GITHUB - COME COMMITTARE DA QUALSIASI MAC
+
+**REGOLA ASSOLUTA: Non dire MAI "non posso committare" o "manca l'autenticazione".**
+
+### Il Token Funziona SEMPRE
+I repository FRH usano un **Personal Access Token (PAT)** nell'URL del remote. Questo funziona senza SSH keys, senza gh CLI, senza credential helper.
+
+### Come Verificare/Configurare un Repo
+```bash
+# Controlla il remote di un repo che FUNZIONA (es. Onde)
+cd ~/Projects/Onde && git remote -v
+# Output: https://ghp_XXXXX@github.com/FreeRiverHouse/Onde.git
+
+# Copia il token e usalo per altri repo
+cd ~/Projects/AltroRepo
+git remote remove origin
+git remote add origin https://ghp_XXXXX@github.com/FreeRiverHouse/AltroRepo.git
+git push -u origin main
+```
+
+### Se il Repo Non Esiste su GitHub
+```bash
+# Crealo via API con lo stesso token
+curl -X POST \
+  -H "Authorization: token ghp_XXXXX" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/user/repos \
+  -d '{"name":"NomeRepo","description":"Descrizione","private":false}'
+
+# Poi aggiungi remote e pusha
+git remote add origin https://ghp_XXXXX@github.com/FreeRiverHouse/NomeRepo.git
+git push -u origin main
+```
+
+### Token di Riferimento
+**Prendi SEMPRE il token da un repo già configurato** (es. Onde). Non inventare token.
+
+### NIENTE SCUSE
+- ❌ "gh non è installato" → USA IL TOKEN NELL'URL
+- ❌ "SSH keys non configurate" → USA IL TOKEN NELL'URL
+- ❌ "credential helper non funziona" → USA IL TOKEN NELL'URL
+- ❌ "non posso pushare" → GUARDA IL REMOTE DI ONDE E COPIA IL TOKEN
+
+---
+
 ## L'Umano: Mattia Petrucciani
 
 **Chi è**: Imprenditore, sviluppatore, creativo. Fondatore di Free River House.
