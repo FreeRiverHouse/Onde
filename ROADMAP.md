@@ -43,6 +43,49 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 ### Valori Brand Onde
 **Peaceful, growth oriented, kind, artistic, creative, inspiring, playful, friendly, relaxing, grateful, curious, open, wise, balanced**
 
+### 🎬 Video Podcast - PROSSIMI EPISODI (PRIORITÀ ALTA!)
+**Status**: Ep.01 Stella Stellina PUBBLICATO! Eccezionale risultato.
+
+**Prossimi episodi da fare SUBITO:**
+| # | Titolo | Testo | Status |
+|---|--------|-------|--------|
+| 01 | Stella Stellina | Lina Schwarz | ✅ LIVE su YouTube |
+| 02 | Pioggerellina di Marzo | A.S. Novaro | DA FARE |
+| 03 | La Befana | Guido Gozzano | DA FARE |
+| 04 | Pulcino Bagnato | Tradizionale | DA FARE |
+| 05 | Il Pesciolino d'Oro | Fiaba russa | DA FARE |
+
+**Pipeline per ogni episodio:**
+1. Testo → ElevenLabs (voce Marco/Gianni)
+2. Immagine Gianni → Hedra lip sync
+3. Upload YouTube + sottotitoli
+4. Post su X con tutti i tag
+5. Distribuisci su podcast platforms
+
+### 📻 Distribuzione Podcast GRATUITA
+**Piattaforme gratuite trovate:**
+
+| Piattaforma | Costo | Note |
+|-------------|-------|------|
+| **Spotify for Creators** | GRATIS | Ex Anchor, diretto su Spotify |
+| **Buzzsprout** | Free tier | Limitato ma funziona |
+| **Podbean** | Free tier | Buone analytics |
+| **YouTube** | GRATIS | Già attivo! |
+
+**Per musica ambient (Onde Lounge):**
+| Distributore | Costo | Royalties |
+|--------------|-------|-----------|
+| **Rebel Music** | GRATIS | 100% tue |
+| **RouteNote** | GRATIS | 85% (prendono 15%) |
+| **Level Music** | GRATIS | Warner-backed |
+
+**Task immediato:**
+- [ ] Creare account Spotify for Creators
+- [ ] Upload Ep.01 Stella Stellina come podcast
+- [ ] Setup RSS feed per distribuzione automatica
+
+---
+
 ### 🎙️ Lip Sync Tool Interno (PRIORITÀ)
 **Obiettivo**: Costruire sistema lip sync in-house per scalare podcast multilingua
 
