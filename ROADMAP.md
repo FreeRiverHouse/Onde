@@ -288,9 +288,128 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ---
 
+## 🎬 VIDEO FACTORY - Sistema Produzione Video AI (PRIORITÀ #2)
+
+**Obiettivo**: Pipeline automatizzata per creare video spettacolari (lip sync, video poesia, music video)
+
+### 🎯 Cos'è la Video Factory
+
+Un **sistema/agent** che prende in input:
+- Testo (poesia, script, lyrics)
+- Audio (voce, musica AI o di Mattia)
+- Immagini (illustrazioni Onde, foto, AI generated)
+
+E produce:
+- Video lip sync con Gianni/Pina che parlano
+- Video poesia animati (benchmark: @magmatic._ ma MEGLIO)
+- Music video per YouTube/TikTok/Onde Lounge
+- Proiezioni per Tracklab/live events
+
+### 🛠️ Stack Tecnologico (Ricerca 8 Gen 2026)
+
+| Tool | Uso | Costo | Qualità |
+|------|-----|-------|---------|
+| **[Hedra AI](https://www.hedra-ai.com/)** | Lip sync emotivo | $10-50/mese | ⭐⭐⭐⭐⭐ Espressioni realistiche |
+| **[Kling AI](https://klingai.com/)** | Video alta qualità | Vario | ⭐⭐⭐⭐⭐ 2min @ 1080p |
+| **[Hailuo](https://hailuoai.video/)** | Video poetici/cinematici | Gratis? | ⭐⭐⭐⭐⭐ PERFETTO per poesia |
+| **[Plazmapunk](https://app.plazmapunk.com/)** | Music video da canzone | Vario | ⭐⭐⭐⭐ Sync automatico col beat |
+| **[Neural Frames](https://www.neuralframes.com/)** | Frame-by-frame da audio | Vario | ⭐⭐⭐⭐ DAW-style, keyframe |
+| **[Runway Gen-4](https://runwayml.com/)** | Workflow filmmaker | $12+ | ⭐⭐⭐⭐ Controllo preciso |
+| **Wav2Lip/SadTalker** | Lip sync locale GRATIS | $0 | ⭐⭐⭐ Da testare su Mac |
+
+### 📊 Benchmark: Video Magmatic
+
+**Stato attuale** (@magmatic._ su Instagram):
+- Top video: 4,991 views
+- Stile: Video poesia con AI vecchia
+- Problema: AI obsoleta, qualità migliorabile
+
+**Obiettivo Video Factory**:
+- Qualità CINEMATICA (Hailuo, Kling)
+- Lip sync EMOTIVO (Hedra)
+- Sync PERFETTO con musica (Plazmapunk, Neural Frames)
+- Output per TUTTI i canali (YouTube, TikTok, proiezioni, VR)
+
+### 🏗️ Architettura Video Factory
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      VIDEO FACTORY                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   INPUT                 PROCESSING              OUTPUT      │
+│   ─────                 ──────────              ──────      │
+│                                                             │
+│   📝 Testo      ──┐                                         │
+│   🎵 Audio      ──┼──▶  [AI Pipeline]  ──▶  📺 YouTube     │
+│   🖼️ Immagini   ──┘     • Hedra (lip)        📱 TikTok     │
+│                         • Hailuo (poetry)    🎭 Tracklab   │
+│                         • Kling (quality)    🌐 Onde Portal│
+│                         • FFmpeg (assembly)  📻 Spotify    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 📋 Tipi di Video da Produrre
+
+| Tipo | Input | Tool Principale | Output |
+|------|-------|-----------------|--------|
+| **Lip Sync Gianni/Pina** | Immagine + Audio | Hedra | YouTube podcast |
+| **Video Poesia** | Testo + Musica + Visual | Hailuo + Kling | Social, Onde Lounge |
+| **Music Video** | Canzone completa | Plazmapunk | YouTube, Spotify Canvas |
+| **Ninna Nanna Animata** | Illustrazione + Voce | Kling + animazione | YouTube Kids |
+| **Ambient Loop** | Immagine + Musica AI | FFmpeg + Suno | Onde Lounge (1-4 ore) |
+| **Proiezioni Live** | Visual art | Runway + effect | Tracklab/eventi |
+
+### 🎯 Integrazione Onde Ecosystem
+
+**Onde Lounge** (YouTube ambient):
+- Video 1-4 ore con scenari Onde
+- Musica rilassante (AI + Mattia)
+- Accessibile da Onde Portal
+
+**Onde Portal** (VR/Web):
+- Ambiente immersivo per chill
+- Scegli alimentazione video
+- Musica rilassante in background
+- Social chill space
+
+### 🚀 MVP Sprint Video Factory
+
+**Step 1 - Test Tools** (oggi/domani)
+- [ ] Provare Hedra con immagine Gianni → lip sync
+- [ ] Provare Hailuo con poesia Magmatic → video poetry
+- [ ] Provare Plazmapunk con traccia Mattia → music video
+- [ ] Testare Wav2Lip locale su Mac (gratis!)
+
+**Step 2 - Pipeline Base**
+- [ ] Script che prende testo + audio → genera video
+- [ ] Integrazione con Onde Books (video per ogni libro)
+- [ ] Export multi-formato (YouTube, TikTok, Square)
+
+**Step 3 - Automazione**
+- [ ] Agent che monitora nuovi contenuti
+- [ ] Genera video automaticamente
+- [ ] Upload su tutte le piattaforme
+
+### 📂 Path
+
+```
+apps/
+├── video-factory/          # NUOVO - pipeline video
+│   ├── scripts/            # Script generazione
+│   ├── templates/          # Template video
+│   ├── output/             # Video generati
+│   └── config/             # Configurazione tools
+```
+
+---
+
 ## 💰 MONEY PRINTING FACTORY - Video AI Passivi (NUOVO 8 Gen 2026)
 
 **Obiettivo**: Creare canali YouTube con video AI che generano revenue passiva
+
+**DIPENDE DA**: Video Factory (sopra) per la produzione
 
 ### 🔥 L'Idea (da Mattia)
 - Video tipo "camino che brucia" fanno MILIARDI di views
