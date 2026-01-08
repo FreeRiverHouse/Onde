@@ -8,9 +8,10 @@
       "collection": "Piccole Rime - Poesia Italiana",
       "mediaType": "video",
       "media": "/videos/01-stella-stellina-stars.mp4",
-      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Stella stellina, la notte s'avvicina...\"\n\nUna ninna nanna della tradizione italiana, illustrata in stile Emanuele Luzzati.\n\nAnimazione video by @grok",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Stella stellina, la notte s'avvicina...\"\n\nUna ninna nanna della tradizione italiana, illustrata in stile folk art acquarello.\n\nAnimazione video by @grok",
       "status": "pending",
-      "createdAt": "2026-01-06T21:30:00Z"
+      "createdAt": "2026-01-06T21:30:00Z",
+      "source": "OndePRDB/clients/onde"
     },
     {
       "id": "piccole-rime-02",
@@ -20,9 +21,10 @@
       "collection": "Piccole Rime - Poesia Italiana",
       "mediaType": "video",
       "media": "/videos/02-pulcino-bagnato-rain.mp4",
-      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\nUn pulcino cerca riparo dalla pioggia sotto le ali della mamma chioccia.\n\nIllustrazioni in stile folk art Luzzati.\nAnimazione by @grok",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\nUn pulcino cerca riparo dalla pioggia sotto le ali della mamma chioccia.\n\nIllustrazioni in stile folk art italiano.\nAnimazione by @grok",
       "status": "pending",
-      "createdAt": "2026-01-06T21:31:00Z"
+      "createdAt": "2026-01-06T21:31:00Z",
+      "source": "OndePRDB/clients/onde"
     },
     {
       "id": "piccole-rime-03",
@@ -32,9 +34,153 @@
       "collection": "Piccole Rime - Poesia Italiana",
       "mediaType": "video",
       "media": "/videos/03-pioggerellina-rain.mp4",
-      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Che dice la pioggerellina di marzo, che picchia argentina sui tegoli vecchi del tetto...\"\n\nPoesia di Angiolo Silvio Novaro.\nAnimazione in stile Luzzati by @grok",
+      "caption": "Dalla collana \"Piccole Rime\" di Onde.\n\n\"Che dice la pioggerellina di marzo, che picchia argentina sui tegoli vecchi del tetto...\"\n\nPoesia di Angiolo Silvio Novaro.\nAnimazione in stile folk art by @grok",
       "status": "pending",
-      "createdAt": "2026-01-06T21:32:00Z"
+      "createdAt": "2026-01-06T21:32:00Z",
+      "source": "OndePRDB/clients/onde"
+    },
+    {
+      "id": "magmatic-loto",
+      "account": "magmatic",
+      "accountDisplay": "@magmatic__",
+      "title": "Loto",
+      "collection": "Poesia - Il Cosmo Dissommerso",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Non estirpare il male dal tuo cuore.\nNon cercare di spegnere il dolore.\n\nTerra da coltivare.\nFango su cui fiorire.",
+      "status": "pending",
+      "createdAt": "2026-01-07T10:00:00Z",
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+    },
+    {
+      "id": "magmatic-cosmo",
+      "account": "magmatic",
+      "accountDisplay": "@magmatic__",
+      "title": "Il Cosmo Dissommerso",
+      "collection": "Poesia - Il Cosmo Dissommerso",
+      "mediaType": "text",
+      "media": null,
+      "caption": "nella tua testa\nc'e' tutto l'universo\nc'e' una sorgente di tempesta\nc'e' il cosmo dissommerso",
+      "status": "pending",
+      "createdAt": "2026-01-07T11:00:00Z",
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+    },
+    {
+      "id": "magmatic-ylan",
+      "account": "magmatic",
+      "accountDisplay": "@magmatic__",
+      "title": "Y Lan",
+      "collection": "Poesia - Y Lan",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Ci separa la notte smisurata,\nper unirci abbiamo solo i pensieri.\nL'intera notte puo' essere colmata\ndai sogni, finche' li crediamo veri.",
+      "status": "pending",
+      "createdAt": "2026-01-07T12:00:00Z",
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+    },
+    {
+      "id": "magmatic-jacaranda",
+      "account": "magmatic",
+      "accountDisplay": "@magmatic__",
+      "title": "Jacaranda",
+      "collection": "Poesia - Il Cosmo Dissommerso",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Il vento mi attraversa, mi cancella.\nIl mare e' la sua ancella\ne l'anima ci sversa la sua scorza.\n\nThe wind flows through me. Erases me.\nHis maid is the sea\nAnd the soul spills her skin.",
+      "status": "pending",
+      "createdAt": "2026-01-07T13:00:00Z",
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+    },
+    {
+      "id": "magmatic-volare",
+      "account": "magmatic",
+      "accountDisplay": "@magmatic__",
+      "title": "Volare",
+      "collection": "Poesia",
+      "mediaType": "text",
+      "media": null,
+      "caption": "sognare di volare\ne' come liberare\nun animale",
+      "status": "pending",
+      "createdAt": "2026-01-07T14:00:00Z",
+      "source": "OndePRDB/clients/magmatic/posts/prospetto_10_post_v2.md"
+    },
+    {
+      "id": "frh-kids-apps-01",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Kids App UX",
+      "collection": "Building in Public - Kids Apps",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
+      "status": "pending",
+      "createdAt": "2026-01-07T15:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "frh-kids-apps-02",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Kids QA",
+      "collection": "Building in Public - Kids Apps",
+      "mediaType": "text",
+      "media": null,
+      "caption": "A 4-year-old tested our app and found 3 bugs I missed. Hiring kids as QA: unethical but effective.",
+      "status": "pending",
+      "createdAt": "2026-01-07T16:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "frh-automation-01",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Night Automation",
+      "collection": "Building in Public - Automation",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Our Unity test automation runs at 2 AM. I wake up to either green checkmarks or a to-do list. The machines never sleep.",
+      "status": "pending",
+      "createdAt": "2026-01-07T17:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "frh-automation-02",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Factory Automation",
+      "collection": "Building in Public - Automation",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Added a factory automation system. Code builds overnight, tests run, Telegram pings me if something breaks. Sleep-driven development.",
+      "status": "pending",
+      "createdAt": "2026-01-07T18:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "frh-vr-01",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "VR Development",
+      "collection": "Building in Public - VR",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Meta Quest development: 80% waiting for builds, 15% fixing platform-specific bugs, 5% actual game code.",
+      "status": "pending",
+      "createdAt": "2026-01-07T19:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
+    },
+    {
+      "id": "frh-onde-publishing",
+      "account": "frh",
+      "accountDisplay": "@FreeRiverHouse",
+      "title": "Digital Publishing",
+      "collection": "Building in Public - Onde",
+      "mediaType": "text",
+      "media": null,
+      "caption": "Publishing a digital book is 10% writing, 90% figuring out why the PDF margins are wrong. Every. Single. Time.",
+      "status": "pending",
+      "createdAt": "2026-01-07T20:00:00Z",
+      "source": "OndePRDB/clients/freeriverhouse/tech-posts.md"
     }
   ]
 }

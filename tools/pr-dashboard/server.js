@@ -85,6 +85,58 @@ app.post('/api/posts', (req, res) => {
   }
 });
 
+// Feedback system
+const FEEDBACK_FILE = path.join(__dirname, 'data/feedback.json');
+
+// Get feedback
+app.get('/api/feedback', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf8'));
+    res.json(data);
+  } catch (error) {
+    res.json({ feedback: [], generalNotes: '' });
+  }
+});
+
+// Add feedback for a post
+app.post('/api/feedback/:postId', (req, res) => {
+  try {
+    let data = { feedback: [], generalNotes: '' };
+    try {
+      data = JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf8'));
+    } catch (e) {}
+
+    const newFeedback = {
+      postId: req.params.postId,
+      date: new Date().toISOString(),
+      status: req.body.status || 'note',
+      note: req.body.note || ''
+    };
+    data.feedback.push(newFeedback);
+    fs.writeFileSync(FEEDBACK_FILE, JSON.stringify(data, null, 2));
+    res.json({ success: true, feedback: newFeedback });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update general notes
+app.post('/api/feedback/general', (req, res) => {
+  try {
+    let data = { feedback: [], generalNotes: '' };
+    try {
+      data = JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf8'));
+    } catch (e) {}
+
+    data.generalNotes = req.body.notes || '';
+    data.lastUpdated = new Date().toISOString();
+    fs.writeFileSync(FEEDBACK_FILE, JSON.stringify(data, null, 2));
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`
   =============================================

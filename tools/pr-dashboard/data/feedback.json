@@ -1,0 +1,12 @@
+{
+  "instructions": "Mattia, scrivi qui il tuo feedback sui post. Claude leggera' questo file.",
+  "feedback": [
+    {
+      "postId": "example",
+      "date": "2026-01-07",
+      "status": "approved|rejected|needs-edit",
+      "note": "Il tuo commento qui"
+    }
+  ],
+  "generalNotes": ""
+}

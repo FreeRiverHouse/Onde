@@ -211,6 +211,24 @@
             background: #0a0a0a;
         }
 
+        .post-text-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: center;
+            color: var(--text);
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+        }
+
+        .post-text-content p {
+            margin: 0;
+            white-space: pre-line;
+        }
+
         .post-media video {
             width: 100%;
             height: 100%;
@@ -837,11 +855,13 @@ Es: TechCrunch, Hacker News, ProductHunt..."></textarea>
                     <div class="post-inner">
                         ${post.mediaType === 'video'
                             ? `<div class="post-media"><video src="${post.media}" autoplay loop muted playsinline></video></div>`
+                            : post.mediaType === 'text' || !post.media
+                            ? `<div class="post-media post-text-content"><p>${post.caption.replace(/\n/g, '<br>')}</p></div>`
                             : `<img class="post-media" src="${post.media}" alt="${post.title}">`
                         }
                         <div class="post-caption">
                             <span class="post-account">${post.accountDisplay || '@' + post.account}</span>
-                            <p>${post.caption}</p>
+                            ${post.mediaType !== 'text' ? `<p>${post.caption}</p>` : ''}
                         </div>
                     </div>
                     <div class="post-plaque">
@@ -935,12 +955,31 @@ Es: TechCrunch, Hacker News, ProductHunt..."></textarea>
                 document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const bg = btn.dataset.bg;
+                const sidebar = document.querySelector('.sidebar');
+                const cards = document.querySelectorAll('.post-card');
+                const statCards = document.querySelectorAll('.stat-card');
+
                 if (bg === 'museo') {
-                    document.body.style.background = 'linear-gradient(180deg, #2d1f1f 0%, #1a1212 100%)';
+                    // Museo theme - warm museum walls
+                    document.body.style.background = 'linear-gradient(180deg, #3d2a2a 0%, #1a1212 100%)';
+                    sidebar.style.background = '#2a1a1a';
+                    document.documentElement.style.setProperty('--bg-card', '#2a1a1a');
+                    cards.forEach(c => c.style.background = 'linear-gradient(145deg, #3a2520, #2a1815)');
+                    statCards.forEach(c => c.style.background = '#2a1a1a');
                 } else if (bg === 'casa') {
-                    document.body.style.background = 'linear-gradient(180deg, #2a1f1a 0%, #1a1512 100%)';
+                    // Casa theme - cozy home
+                    document.body.style.background = 'linear-gradient(180deg, #3a2f25 0%, #1a1512 100%)';
+                    sidebar.style.background = '#2a2218';
+                    document.documentElement.style.setProperty('--bg-card', '#2a2218');
+                    cards.forEach(c => c.style.background = 'linear-gradient(145deg, #3a3025, #2a2318)');
+                    statCards.forEach(c => c.style.background = '#2a2218');
                 } else {
+                    // Dark theme - default
                     document.body.style.background = '#0f0f0f';
+                    sidebar.style.background = '#1a1a1a';
+                    document.documentElement.style.setProperty('--bg-card', '#1a1a1a');
+                    cards.forEach(c => c.style.background = 'linear-gradient(145deg, #2a2015, #1f1810)');
+                    statCards.forEach(c => c.style.background = '#1a1a1a');
                 }
             });
         });
