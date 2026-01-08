@@ -5,7 +5,7 @@ import * as path from 'path';
 
 dotenv.config();
 
-const VIDEOS_PATH = '/Users/mattia/Projects/Onde/tools/pr-dashboard/public/videos';
+const VIDEOS_PATH = '/Users/mattia/Projects/Onde/books/piccole-rime/videos';
 
 interface VideoPost {
   filename: string;
