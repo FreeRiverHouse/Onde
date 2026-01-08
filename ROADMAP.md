@@ -80,10 +80,33 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 | 5. Upload | YouTube + Spotify |
 
 **Task immediato:**
-- [ ] Ricerca competitor su YouTube (ninne nanne italiane)
 - [ ] Test Suno per melodia Stella Stellina
 - [ ] Creare versione cantata 1-2 minuti
 - [ ] Se funziona → versione lunga 10-30 min
+
+### 🔍 Ricerca YouTube - Generi ad Alto Volume (DA FARE)
+**Obiettivo**: Trovare nicchie/generi dove video AI-generated possono fare milioni di views
+
+**Criteri:**
+- Facili da produrre con AI (immagini + musica + voce)
+- Alto volume di ricerca/views
+- Bassa competizione o competizione battibile con qualità
+- Contenuti "commodity" (la gente cerca il genere, non il creator)
+
+**Generi da esplorare:**
+- [ ] Ninna nanne / Lullabies (tutte le lingue)
+- [ ] Ambient / Lo-fi / Study music
+- [ ] Nature sounds + visuals
+- [ ] Meditation / Relaxation
+- [ ] Kids songs / Nursery rhymes
+- [ ] ASMR visuals
+- [ ] Sleep music / White noise
+- [ ] Fireplace / Rain sounds
+
+**Output ricerca:**
+- Top 10 generi per views/facilità ratio
+- Esempi canali che fanno milioni di views
+- Strategia Onde per ogni genere
 
 ### 📻 Distribuzione Podcast GRATUITA
 **Piattaforme gratuite trovate:**
