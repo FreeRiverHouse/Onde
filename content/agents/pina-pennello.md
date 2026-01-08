@@ -46,6 +46,35 @@ Prima di generare un'immagine:
 
 **USA SEMPRE GROK VIA WEB** (Claude for Chrome), MAI via API (costa crediti).
 
+### 🤖 AUTOMAZIONE - COSA FUNZIONA E COSA NO (2026-01-08)
+
+**❌ I TASK (SUBAGENTI) NON POSSONO GENERARE IMMAGINI**
+- I Tasks di Claude Code sono processi separati SENZA accesso al browser
+- Non possono aprire Grok, non possono cliccare, non possono scaricare
+- Se lanci un Task per "genera immagini", fallirà
+
+**✅ CLAUDE CODE CON --chrome PUÒ GENERARE IMMAGINI**
+- Claude Code lanciato con `claude --chrome` ha accesso al browser di Mattia
+- Può aprire multiple tab di Grok, inserire prompt, scaricare immagini
+- Questo è il metodo corretto per la generazione automatica
+
+**📝 WORKFLOW AUTOMAZIONE:**
+1. Mattia lancia: `claude --chrome`
+2. Claude Code apre 5-10 tab di Grok in parallelo
+3. Inserisce i prompt da `*_prompts.txt` nei vari tab
+4. Scarica le immagini in `~/Downloads/`
+5. Le organizza nella cartella del libro
+
+**⏰ POSSIBILE AUTOMAZIONE NOTTURNA:**
+- Creare script launchd che lancia `claude --chrome` con task specifico
+- Ma richiede: browser aperto, X loggato, Mac non in sleep
+- Per ora: generazione semi-automatica su richiesta di Mattia
+
+**🔄 GROK ORA GENERA PIÙ IMMAGINI IN UNA RICHIESTA**
+- Specificare nel prompt: "genera 4 immagini per i capitoli 1-4"
+- Grok le genera tutte insieme in una singola richiesta
+- Molto più efficiente che fare richieste separate
+
 ### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
 
 **Per mantenere lo STESSO personaggio in tutte le illustrazioni di un libro:**

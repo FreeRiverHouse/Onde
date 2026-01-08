@@ -597,7 +597,7 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 |--------|------|-------|
 | **Editore Capo** | `editore-capo.md` | Orchestrazione produzione |
 | **Gianni Parola** | `gianni-parola.md` + `.memory.json` | Scrittura testi |
-| **Pino Pennello** | `pino-pennello.md` + `.memory.json` | Illustrazioni (via Grok) |
+| **Pina Pennello** | `pina-pennello.md` + `.memory.json` | Illustrazioni (via Grok) |
 | **PA Agent** | - | Assistente personale Mattia |
 
 ---
@@ -658,7 +658,7 @@ Quando si crea un nuovo agente:
 Documentato in: `/content/processes/book-production.md`
 
 1. **Testi**: Gianni Parola crea testo con marcatori [ILLUSTRAZIONE]
-2. **Immagini**: Pino Pennello genera prompt → Grok crea immagini
+2. **Immagini**: Pina Pennello genera prompt → Grok crea immagini
 3. **Layout**: HTML template → Puppeteer → PDF
 4. **Review**: Invio su Telegram per approvazione
 5. **Pubblicazione**: KDP
