@@ -5,6 +5,60 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🔴 TASK IMMEDIATO - "CHECK MEMORY" (8 Gennaio 2026)
+
+**Quando Mattia dice "check memory" → FAI QUESTO:**
+
+### 🎨 GENERA ILLUSTRAZIONI CODE SURFING CON GROK
+
+**File con tutti i prompt**: `books/vibe-coding/ILLUSTRATION-PLAN.md`
+
+**STEP 1 - Apri Grok**
+1. Naviga su `x.com/i/grok`
+2. Clicca "Create Images"
+
+**STEP 2 - Genera le 2 COPERTINE**
+
+**Cover A - ONDE-TECH** (copia questo prompt):
+```
+European watercolor book cover illustration,
+young Italian boy with curly brown hair surfing on a giant wave,
+the wave is made of flowing code and glowing data streams,
+small friendly white round robot companion riding alongside,
+warm golden sunset light through the spray,
+tech elements blend organically with watercolor ocean,
+title space at top, magical adventure feeling,
+Beatrix Potter meets Silicon Valley aesthetic,
+NOT Pixar NOT 3D, natural skin tone NO rosy cheeks, 4k
+```
+
+**Cover B - LUZZATI** (copia questo prompt):
+```
+Emanuele Luzzati style book cover,
+stylized boy and round robot surfing on abstract code wave,
+bold geometric shapes, theatrical composition,
+rich blues teals and golden oranges,
+decorative swirls representing data flow,
+Italian theatrical poster aesthetic,
+vintage 1960s feel with modern tech symbolism,
+title space at top, playful and artistic, 4k
+```
+
+**STEP 3 - Per ogni immagine**
+1. Fai **UPSCALE** (obbligatorio!)
+2. Scarica in `~/Downloads/`
+3. Verifica QC: 5 dita, 2 orecchie, proporzioni OK
+
+**STEP 4 - Genera i 10 capitoli + 3 appendici**
+Tutti i prompt sono in `ILLUSTRATION-PLAN.md`
+
+**STEP 5 - Salva e invia**
+1. Sposta immagini in `books/vibe-coding/images/`
+2. Manda le copertine su Telegram per approvazione
+3. Rigenera PDF con illustrazioni
+
+---
+
 ## 🚨 ROADMAP = FONTE DI VERITÀ (REGOLA #1)
 
 **CONTROLLA SEMPRE LA ROADMAP PRIMA DI FARE QUALUNQUE COSA!**
