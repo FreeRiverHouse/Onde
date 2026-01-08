@@ -247,6 +247,97 @@
         .psalm-text p {
             margin-bottom: 6px;
         }
+    
+    /* ===== ABOUT THE CREATORS ===== */
+    .creators-page {
+        background: linear-gradient(180deg, #faf8f5 0%, #f5e6b3 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15mm 20mm;
+    }
+
+    .creators-title {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 22pt;
+        color: #2c3e50;
+        margin-bottom: 12mm;
+        text-align: center;
+    }
+
+    .creators-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15mm;
+        width: 100%;
+        max-width: 160mm;
+    }
+
+    .creator-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 8mm;
+        background: rgba(255,255,255,0.7);
+        padding: 8mm;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .creator-portrait {
+        width: 40mm;
+        height: 40mm;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #d4af37;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        flex-shrink: 0;
+    }
+
+    .creator-info {
+        flex: 1;
+    }
+
+    .creator-name {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 16pt;
+        color: #2c3e50;
+        margin-bottom: 3mm;
+    }
+
+    .creator-role {
+        font-size: 10pt;
+        color: #d4af37;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 4mm;
+    }
+
+    .creator-bio {
+        font-size: 11pt;
+        line-height: 1.7;
+        color: #5d6d7e;
+    }
+
+    .creators-footer {
+        margin-top: 12mm;
+        text-align: center;
+    }
+
+    .publisher-logo {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 14pt;
+        color: #d4af37;
+        font-weight: 600;
+    }
+
+    .publisher-tagline {
+        font-size: 10pt;
+        color: #5d6d7e;
+        font-style: italic;
+        margin-top: 2mm;
+    }
+
     </style>
 </head>
 <body>
@@ -416,6 +507,45 @@
 </div>
 
 <!-- THE END -->
+
+<!-- ABOUT THE CREATORS -->
+<div class="page creators-page">
+    <h2 class="creators-title">About the Creators</h2>
+
+    <div class="creators-container">
+        <div class="creator-card">
+            <img class="creator-portrait" src="images/gianni-parola-portrait.jpg" alt="Gianni Parola">
+            <div class="creator-info">
+                <h3 class="creator-name">Gianni Parola</h3>
+                <p class="creator-role">Writer</p>
+                <p class="creator-bio">
+                    Gianni Parola writes stories that help children understand the world around them.
+                    He believes every child deserves books that spark curiosity and wonder.
+                </p>
+            </div>
+        </div>
+
+        <div class="creator-card">
+            <img class="creator-portrait" src="images/pina-pennello-portrait.jpg" alt="Pina Pennello">
+            <div class="creator-info">
+                <h3 class="creator-name">Pina Pennello</h3>
+                <p class="creator-role">Illustrator</p>
+                <p class="creator-bio">
+                    Pina Pennello brings stories to life with her warm watercolor illustrations.
+                    Her art is inspired by the gentle beauty of Italian countryside
+                    and the magic in everyday moments.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="creators-footer">
+        <p class="publisher-logo">Onde Publishing</p>
+        <p class="publisher-tagline">Free River House</p>
+    </div>
+</div>
+
+
 <div class="page end-page">
     <p class="fine">The End</p>
     <p class="ornament">&#10022; &#10022; &#10022;</p>
