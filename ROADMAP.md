@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 (sera) - Bio @Onde_FRH con tag @AnthropicAI e @grok, post Stella Stellina pubblicato
+**Ultimo aggiornamento**: 2026-01-08 (notte) - Aggiunta serie animata "AIKO & Sofia", pulizia KDP, AIKO 2 Robotaxi completato
 
 ---
 
@@ -61,6 +61,53 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 3. Upload YouTube + sottotitoli
 4. Post su X con tutti i tag
 5. Distribuisci su podcast platforms
+
+### 🎬 Serie Animata "AIKO & Sofia" - Pillole Tech per Bambini (NUOVO!)
+
+**Concept**: Serie di mini-episodi animati dove AIKO e Sofia spiegano concetti tech ai bambini
+
+**Perché è GOLD**:
+- Personaggi già esistenti e amati (dal libro AIKO)
+- Formato scalabile: episodi brevi 2-5 minuti
+- Contenuto educativo = genitori felici
+- Può diventare canale YouTube dedicato
+- Cross-promotion con libri e app
+
+**Format Episodi**:
+- Durata: 2-5 minuti
+- Stile: Animazione leggera su illustrazioni Onde (stile acquarello)
+- Voce: ElevenLabs (Sofia = bambina, AIKO = robot amichevole)
+- Musica: Jingle riconoscibile Onde
+
+**Episodi Pianificati - Stagione 1**:
+| # | Titolo | Tema | Status |
+|---|--------|------|--------|
+| 01 | Come funziona Internet? | Reti, pacchetti, router | DA FARE |
+| 02 | Cos'è un Robot? | Robotica base | DA FARE |
+| 03 | Il Robotaxi | Auto autonome (da AIKO 2) | DA FARE |
+| 04 | Come impara l'AI? | Machine learning semplice | DA FARE |
+| 05 | I Sensori Magici | Sensori, input/output | DA FARE |
+| 06 | Il Cloud | Storage, "nuvola" dei dati | DA FARE |
+| 07 | Coding per Piccoli | Concetti base programmazione | DA FARE |
+| 08 | Sicurezza Online | Privacy, password | DA FARE |
+
+**Pipeline Produzione**:
+1. Script (Gianni Parola) - dialogo Sofia + AIKO
+2. Illustrazioni scene (Grok, stile Onde)
+3. Animazione leggera (parallax, movimento labiale)
+4. Voci (ElevenLabs)
+5. Musica/SFX
+6. Upload YouTube + distribuzione
+
+**Canale**: YouTube "AIKO & Sofia" o sotto-playlist di Onde
+
+**Task Immediati**:
+- [ ] Scrivere script Ep.01 "Come funziona Internet?"
+- [ ] Definire voci Sofia e AIKO su ElevenLabs
+- [ ] Creare template visivo episodi
+- [ ] Jingle/sigla serie
+
+---
 
 ### 🎵 Ninna Nanne CANTATE - Versioni Musicali (PRIORITÀ!)
 **Obiettivo**: Versioni cantate delle poesie/ninne nanne con musica AI
