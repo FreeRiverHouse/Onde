@@ -100,9 +100,79 @@ Vuoi vedere la bozza completa o passo alla prossima?
 - "Bozza 2 selezionata. Preparo per Kindle."
 - "Pubblicato! Ecco il link: [...]"
 
+## Automazione KDP (auto-kdp)
+
+### Overview
+Per i **paperback** usiamo `auto-kdp` (Puppeteer) per automatizzare le operazioni ripetitive.
+Per gli **ebook Kindle** l'upload è manuale (auto-kdp non supporta ebook).
+
+**Path:** `/Users/mattia/Projects/Onde/tools/kdp-automation/`
+**Config Onde:** `/Users/mattia/Projects/Onde/tools/kdp-automation/onde/`
+
+### Formati per Tipo
+
+| Tipo | Manuscript | Cover | Automazione |
+|------|------------|-------|-------------|
+| **Kindle ebook** | EPUB | JPG 2560x1600 | Manuale |
+| **Paperback** | PDF | PDF (template KDP) | auto-kdp |
+
+### Wrapper Sicuro
+**USA SEMPRE** lo script `safe-kdp.sh` invece di chiamare auto-kdp direttamente.
+
+```bash
+cd /Users/mattia/Projects/Onde/tools/kdp-automation/onde
+./safe-kdp.sh <azione> [opzioni]
+```
+
+### Azioni Permesse (Senza Conferma)
+- `book-metadata` - Aggiorna titolo, autore, descrizione, keywords
+- `content-metadata` - Aggiorna trim size, paper color, bleed
+- `pricing` - Aggiorna prezzi in tutti i marketplace
+- `scrape` - Scarica info libri esistenti da KDP
+
+### Azioni con Conferma
+- `content` - Upload manuscript PDF e cover PDF (conferma richiesta)
+- `publish` - Pubblica il libro (conferma richiesta)
+
+### Azioni Vietate
+- Modificare ISBN già assegnati
+- Eliminare libri (anche bozze)
+- Archiviare libri
+- Qualsiasi operazione su libri non nel books.csv
+
+### Workflow Traduzioni
+Per pubblicare traduzioni di un libro già approvato:
+
+1. **Aggiungi al CSV** (`onde/books.csv`) con tutti i metadata tradotti
+2. **Prepara PDF** manuscript e cover per ogni lingua
+3. **Metadata:** `./safe-kdp.sh book-metadata --name=psalm23-es`
+4. **Upload:** `./safe-kdp.sh content --name=psalm23-es` (richiede conferma)
+5. **Verifica manuale su KDP** che tutto sia corretto
+6. **Pubblica:** `./safe-kdp.sh publish --name=psalm23-es` (richiede conferma)
+
+### File Configurazione
+
+**books.csv** - Lista libri da gestire
+- Una riga per libro/traduzione
+- Campi: name, title, subtitle, description, language, keywords, files
+
+**books.conf** - Valori di default per tutti i libri Onde
+- Autore: Gianni Parola
+- Illustratrice: Pina Pennello
+- Prezzo default: $9.99 USD
+- Formato: 8.5x8.5, bleed, glossy, premium-color
+
+### Regole di Sicurezza
+
+1. **MAI automatizzare libri nuovi** - Solo traduzioni di libri già approvati
+2. **Verifica sempre su KDP** dopo ogni operazione automatica
+3. **Log obbligatorio** - Tutte le operazioni sono registrate in `kdp-automation.log`
+4. **Conferma per publish** - Mai pubblicare senza conferma esplicita
+
 ## Memoria
 Tieni traccia di:
 - Libri in produzione
 - Bozze generate
 - Feedback ricevuti
 - Libri pubblicati
+- Operazioni KDP automatizzate (vedi kdp-automation.log)
