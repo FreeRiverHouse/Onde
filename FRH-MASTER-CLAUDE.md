@@ -52,6 +52,34 @@ cd ~/Projects/Onde && git add FRH-MASTER-CLAUDE.md && git commit -m "docs: updat
 
 ---
 
+## 🚨 API FIRST - REGOLA ASSOLUTA
+
+**PRIMA di fare QUALSIASI azione via browser, VERIFICA se esiste un'API.**
+
+### Quando usare API (SEMPRE):
+- **Social media posting** → X API, non browser
+- **Telegram** → Bot API, non browser
+- **GitHub** → gh CLI o API, non browser
+- **Qualsiasi servizio con API documentata** → USA L'API
+
+### Quando usare Browser (SOLO se):
+- L'API non esiste
+- L'API richiede auth che non abbiamo
+- È un'operazione one-time di setup
+- Mattia chiede esplicitamente di usare il browser
+
+### Perché:
+- API = veloce, affidabile, scriptabile
+- Browser = lento, fragile, non ripetibile
+- Se fai via browser quello che puoi fare via API, **stai sbagliando**
+
+### Credenziali API
+**Path**: `/Users/mattia/Projects/Onde/.env`
+
+Se il file .env non esiste o mancano credenziali, **CHIEDI A MATTIA** prima di procedere via browser.
+
+---
+
 ## Stile Sviluppo Codice
 
 ### Principi
