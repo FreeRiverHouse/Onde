@@ -23,15 +23,18 @@ Ispirato a [@housecor](https://x.com/housecor/status/2008905575669662019):
 
 ### 3. Workflow Approvazione Veloce
 Permettere a Mattia di approvare anche mentre lava i piatti:
-- [ ] **App Apple Watch "Onde Approve"** (PRIORITÀ)
+- [x] **App Apple Watch "Onde Approve"** (CREATA 8 Gen 2026)
   - Due azioni: **Approva** (tap) e **Parla** (voce per task complessi)
   - Default: approva con tap
   - Se task richiede input specifico → voce
-  - Notifiche push quando agente è bloccato
-  - Stack: SwiftUI + WatchConnectivity
+  - Feedback aptico (vibrazione) per conferme
+  - Stack: SwiftUI standalone watchOS app
+  - Path: `apps/onde-approve-watch/`
+  - [ ] Deploy su Watch reale
+  - [ ] Notifiche push quando agente è bloccato
 - [ ] Bottone BT/USB rosso sul Mac
 - [ ] Touch ID per email e acquisti Chrome
-- [ ] Potenziare Telegram Bot
+- [x] Telegram Bot con bottoni inline (funzionante)
 
 ---
 
