@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - Aggiunto Onde Lounge, tech channel, Distribution Easy strategy
+**Ultimo aggiornamento**: 2026-01-08 (sera) - Bio @Onde_FRH con tag @AnthropicAI e @grok, post Stella Stellina pubblicato
 
 ---
 
@@ -276,11 +276,11 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 #### Video Content (Nuova Iniziativa)
 
 **Status**: 3 video generati (stile Luzzati)
-- [x] Stella Stellina
+- [x] Stella Stellina ✅ LIVE su YouTube + postato su @Onde_FRH (8 Gen 2026)
 - [x] Pulcino Bagnato
 - [x] Pioggerellina
 - [ ] Approvazione in PR Dashboard (localhost:3333)
-- [ ] Posting su @Onde_FRH (tagga @grok)
+- [x] Posting su @Onde_FRH (tagga @grok) ✅ Stella Stellina postato
 - [ ] Generare video 4-10
 
 **Goal**: Espandere su YouTube Shorts, TikTok, Instagram Reels
@@ -307,13 +307,27 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ### Q1 2026 - Target: 5 App su App Store
 
-| App | Status | Azione |
-|-----|--------|--------|
-| KidsChefStudio | Unity Phase 1 | **CONVERTIRE** a React Native |
-| AIKO Interactive | Pianificata | Sviluppare con React Native |
-| Piccole Rime App | Pianificata | Sviluppare con React Native |
-| Salmo 23 Kids | Pianificata | Sviluppare con React Native |
-| Mindful Kids | Pianificata | Sviluppare con React Native |
+| App | Status | GitHub Repo | Azione |
+|-----|--------|-------------|--------|
+| KidsChefStudio | Unity Phase 1 | FreeRiverHouse/KidsChefStudio | **CONVERTIRE** a React Native |
+| **AIKO Interactive** | ✅ Su GitHub | FreeRiverHouse/aiko-interactive | Testare con Expo Go |
+| **Moonlight Interactive** | ✅ Su GitHub | FreeRiverHouse/moonlight-interactive | Testare con Expo Go |
+| **Moonlight Puzzle** | ✅ Su GitHub | FreeRiverHouse/moonlight-puzzle | Testare con Expo Go |
+| **Mad Math** | ✅ Su GitHub | FreeRiverHouse/mad-math | Testare con Expo Go |
+| Piccole Rime App | Pianificata | - | Sviluppare con React Native |
+| Salmo 23 Kids | Pianificata | - | Sviluppare con React Native |
+
+### 📲 Come Testare le App (Expo Go)
+```bash
+# Su Mac con Xcode e simulatore iOS:
+cd ~/Projects/OndeStandaloneApps/aiko-interactive
+npx expo start
+
+# Scansiona QR code con Expo Go app su iPhone/iPad
+# Oppure premi 'i' per aprire nel simulatore iOS
+```
+
+**Repo Expo Apps**: `FreeRiverHouse/OndeStandaloneApps` (monorepo)
 
 ### Q2 2026 - Target: 10 App Totali
 
@@ -341,7 +355,8 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 ### Q1 2026 - Espansione
 
 **Immediate**:
-- [ ] Aggiornare bio @Onde_FRH: "AI Publishing House + PR Agency"
+- [x] Aggiornare bio @Onde_FRH: "AI Publishing House + PR Agency" + tag @AnthropicAI e @grok ✅
+- [ ] Creare banner @Onde_FRH dimensioni corrette (1500x500) - tema notte per Storie della Buonanotte
 - [ ] Instagram Content Revival (@magmatic__ - 5 anni di contenuti)
 - [ ] Crescita organica @FreeRiverHouse
 
