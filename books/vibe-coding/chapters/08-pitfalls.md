@@ -2,6 +2,11 @@
 
 Code surfing isn't magic. It's a skill with real failure modes. This chapter is about the traps and how to escape them.
 
+> "i swear vibe coding is a real addiction now. bro i know people who code 12-16 hours a day just building random things."
+> *— @shiri_shh on X*
+
+Sound familiar? Yeah. Me too.
+
 ## The Hallucination Trap
 
 **What happens**: AI confidently generates code that looks right but doesn't work. Functions that don't exist. APIs with wrong parameters. Libraries that were never written.
@@ -74,6 +79,30 @@ AI: "Here's the code with snake_case variables"
 - Claude's extended context (200K tokens)
 - Project files that AI reads at start
 - Explicit constraints in each prompt
+
+## The Slot Machine Effect
+
+There's a viral post on X comparing vibe coding to slot machines. It went viral for a reason—it's uncomfortably accurate:
+
+| Slot Machines | Vibe Coding |
+|---------------|-------------|
+| You buy chips | You buy tokens |
+| You spin the slots | You hit "Generate" |
+| You might hit a jackpot, or get nothing | You might get a bug-free app, or nonsense |
+| Flashing lights, catchy animation | "Great idea!", "Of course!", "Here's the perfect solution!" |
+| "I have my own strategy" | "I'm a prompt engineer" |
+| "One more spin and I'll win it all back!" | "One more prompt and this bug will disappear" |
+| The casino always wins | Cursor always wins |
+
+*— @shiri_shh on X (599K views)*
+
+The comparison stings because there's truth in it. The dopamine hit of watching AI generate code is real. The "just one more try" loop is real.
+
+**How to avoid the slot machine trap:**
+1. Set time limits per feature
+2. If 5 prompts don't fix it, step back
+3. Take breaks—seriously
+4. Remember: you're building, not gambling
 
 ## The Sunk Cost Fallacy
 

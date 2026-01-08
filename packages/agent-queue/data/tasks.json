@@ -1,0 +1,55 @@
+[
+  {
+    "id": "1",
+    "agentName": "Claude Code",
+    "agentType": "claude",
+    "task": "Implementare sistema approvazione",
+    "status": "in_progress",
+    "startedAt": "2026-01-08T07:37:17.167Z",
+    "priority": "high",
+    "createdAt": "2026-01-08T07:37:17.167Z",
+    "updatedAt": "2026-01-08T07:37:17.167Z"
+  },
+  {
+    "id": "2",
+    "agentName": "Grok",
+    "agentType": "grok",
+    "task": "Generare immagini Pina Pennello",
+    "status": "todo",
+    "priority": "high",
+    "createdAt": "2026-01-08T07:37:17.167Z",
+    "updatedAt": "2026-01-08T07:37:17.167Z"
+  },
+  {
+    "id": "3",
+    "agentName": "PR Agent",
+    "agentType": "pr",
+    "task": "Schedulare post @Onde_FRH",
+    "status": "in_progress",
+    "priority": "high",
+    "createdAt": "2026-01-08T07:37:17.167Z",
+    "updatedAt": "2026-01-08T07:37:56.477Z",
+    "startedAt": "2026-01-08T07:37:56.477Z"
+  },
+  {
+    "id": "4",
+    "agentName": "Gianni Parola",
+    "agentType": "gianni",
+    "task": "Revisione capitolo 3 AIKO",
+    "status": "todo",
+    "priority": "medium",
+    "createdAt": "2026-01-08T07:37:17.167Z",
+    "updatedAt": "2026-01-08T07:37:17.167Z"
+  },
+  {
+    "id": "5",
+    "agentName": "Pina Pennello",
+    "agentType": "pina",
+    "task": "Illustrazioni Antologia Poesia",
+    "status": "blocked",
+    "blockedReason": "Stile visivo non ancora definito",
+    "priority": "high",
+    "createdAt": "2026-01-08T07:37:17.167Z",
+    "updatedAt": "2026-01-08T07:37:17.167Z"
+  }
+]

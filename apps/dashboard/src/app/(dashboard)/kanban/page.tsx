@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Header } from '@/components/layout/header';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,77 +13,27 @@ import {
   Pause,
   RotateCcw,
   MessageSquare,
-  ChevronRight
+  ChevronRight,
+  RefreshCw
 } from 'lucide-react';
+
+const API_URL = process.env.NEXT_PUBLIC_AGENT_API_URL || 'http://localhost:3002';
 
 type TaskStatus = 'todo' | 'in_progress' | 'blocked' | 'done';
 
 interface AgentTask {
   id: string;
   agentName: string;
-  agentType: 'claude' | 'grok' | 'telegram' | 'pr' | 'editor' | 'illustrator';
+  agentType: 'claude' | 'grok' | 'telegram' | 'pr' | 'gianni' | 'pina';
   task: string;
   status: TaskStatus;
   blockedReason?: string;
   startedAt?: string;
   completedAt?: string;
   priority: 'low' | 'medium' | 'high';
+  createdAt?: string;
+  updatedAt?: string;
 }
-
-const initialTasks: AgentTask[] = [
-  {
-    id: '1',
-    agentName: 'Claude Code',
-    agentType: 'claude',
-    task: 'Implementare Kanban Dashboard',
-    status: 'in_progress',
-    startedAt: new Date().toISOString(),
-    priority: 'high',
-  },
-  {
-    id: '2',
-    agentName: 'Grok',
-    agentType: 'grok',
-    task: 'Generare immagini Pina Pennello',
-    status: 'todo',
-    priority: 'high',
-  },
-  {
-    id: '3',
-    agentName: 'Telegram Bot',
-    agentType: 'telegram',
-    task: 'Inviare report giornaliero',
-    status: 'done',
-    completedAt: new Date().toISOString(),
-    priority: 'medium',
-  },
-  {
-    id: '4',
-    agentName: 'PR Agent',
-    agentType: 'pr',
-    task: 'Schedulare post @Onde_FRH',
-    status: 'blocked',
-    blockedReason: 'In attesa approvazione contenuto',
-    priority: 'high',
-  },
-  {
-    id: '5',
-    agentName: 'Gianni Parola',
-    agentType: 'editor',
-    task: 'Revisione capitolo 3 AIKO',
-    status: 'todo',
-    priority: 'medium',
-  },
-  {
-    id: '6',
-    agentName: 'Pina Pennello',
-    agentType: 'illustrator',
-    task: 'Illustrazioni Antologia Poesia',
-    status: 'blocked',
-    blockedReason: 'Stile visivo non ancora definito',
-    priority: 'high',
-  },
-];
 
 const columns: { id: TaskStatus; title: string; icon: React.ReactNode; color: string }[] = [
   { id: 'todo', title: 'Da Fare', icon: <Clock className="h-4 w-4" />, color: 'bg-gray-100' },
@@ -93,8 +43,33 @@ const columns: { id: TaskStatus; title: string; icon: React.ReactNode; color: st
 ];
 
 export default function KanbanPage() {
-  const [tasks, setTasks] = useState<AgentTask[]>(initialTasks);
+  const [tasks, setTasks] = useState<AgentTask[]>([]);
   const [draggedTask, setDraggedTask] = useState<AgentTask | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch tasks from API
+  const fetchTasks = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_URL}/tasks`);
+      if (!res.ok) throw new Error('Failed to fetch tasks');
+      const data = await res.json();
+      setTasks(data.tasks || []);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message);
+      console.error('Error fetching tasks:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Initial fetch + polling every 5 seconds
+  useEffect(() => {
+    fetchTasks();
+    const interval = setInterval(fetchTasks, 5000);
+    return () => clearInterval(interval);
+  }, [fetchTasks]);
 
   const getTasksByStatus = (status: TaskStatus) =>
     tasks.filter(task => task.status === status);
@@ -126,24 +101,41 @@ export default function KanbanPage() {
     }
   };
 
-  const moveTask = (taskId: string, newStatus: TaskStatus) => {
-    setTasks(prev =>
-      prev.map(task =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: newStatus,
-              blockedReason: newStatus === 'blocked' ? 'In attesa di input' : undefined,
-              startedAt: newStatus === 'in_progress' ? new Date().toISOString() : task.startedAt,
-              completedAt: newStatus === 'done' ? new Date().toISOString() : undefined,
-            }
-          : task
-      )
-    );
+  const moveTask = async (taskId: string, newStatus: TaskStatus) => {
+    try {
+      let endpoint = '';
+      if (newStatus === 'in_progress' || newStatus === 'todo') {
+        endpoint = `${API_URL}/tasks/${taskId}/approve`;
+      } else if (newStatus === 'blocked') {
+        endpoint = `${API_URL}/tasks/${taskId}/block`;
+      } else if (newStatus === 'done') {
+        endpoint = `${API_URL}/tasks/${taskId}/complete`;
+      }
+
+      if (endpoint) {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: newStatus === 'blocked' ? JSON.stringify({ reason: 'In attesa di input' }) : undefined,
+        });
+        if (res.ok) {
+          await fetchTasks();
+        }
+      }
+    } catch (err) {
+      console.error('Error moving task:', err);
+    }
   };
 
-  const unblockTask = (taskId: string) => {
-    moveTask(taskId, 'in_progress');
+  const unblockTask = async (taskId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/tasks/${taskId}/approve`, { method: 'POST' });
+      if (res.ok) {
+        await fetchTasks();
+      }
+    } catch (err) {
+      console.error('Error unblocking task:', err);
+    }
   };
 
   const getAgentIcon = (type: AgentTask['agentType']) => {
@@ -160,11 +152,28 @@ export default function KanbanPage() {
 
   const blockedCount = tasks.filter(t => t.status === 'blocked').length;
 
+  if (loading) {
+    return (
+      <>
+        <Header title="Kanban Agenti" description="Controlla tutti gli agenti da un unico posto" />
+        <div className="flex items-center justify-center h-96">
+          <RefreshCw className="h-8 w-8 animate-spin text-gray-400" />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Header
         title="Kanban Agenti"
         description="Controlla tutti gli agenti da un unico posto"
+        action={
+          <Button variant="outline" size="sm" onClick={fetchTasks}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Aggiorna
+          </Button>
+        }
       />
 
       {/* Alert for blocked tasks */}

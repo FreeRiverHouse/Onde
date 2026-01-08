@@ -25,11 +25,28 @@ This is a practical guide based on real projects. Every technique in this book c
 
 I didn't read about these techniques. I *did* them. And now I'm going to show you how.
 
+## How I Got Here
+
+Six months ago, I wasn't writing code anymore.
+
+Telecom engineer. Cybersecurity background. I studied programming in college, but hadn't touched an IDE in years. Too busy with other things.
+
+Then the algorithm started.
+
+First one post about Claude on my X feed. Then another about Cursor. Then someone building an app in an afternoon with something called "vibe coding."
+
+I clicked. I tried. I shipped something.
+
+Now I'm here at 11pm with five projects open and an AI as my co-pilot. The X algorithm recruited me. I didn't resist.
+
+This book exists because I fell down the rabbit hole—and I want to show you the way in.
+
 ## Who Should Read This
 
 - **Developers** who want to 10x their output
 - **Founders** who want to build MVPs without a team
 - **Creators** who have ideas but think "I can't code"
+- **Non-coders** who got recruited by the algorithm, like me
 - **Anyone** curious about how AI is changing software
 
 If you can describe what you want in plain English, you can code surf.

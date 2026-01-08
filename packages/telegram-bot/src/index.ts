@@ -11,6 +11,9 @@ import {
   getWeeklyTrend,
 } from './analytics';
 import { prAgent, ContentAnalysis } from './pr-agent';
+// Agent queue - inline import to avoid rootDir issues
+const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
+const agentQueue = require(agentQueuePath);
 
 // Load env from root
 dotenv.config({ path: path.join(__dirname, '../../../.env') });
@@ -620,6 +623,145 @@ function scheduleDailyReport() {
   }, msUntilTarget);
 }
 
+// === Agent Approval System ===
+
+// Send approval request with inline buttons
+async function sendApprovalRequest(task: agentQueue.AgentTask) {
+  if (!ALLOWED_CHAT_ID) return;
+
+  const message = `🔴 *${task.agentName}* bloccato
+
+*Task:* ${task.task}
+*Motivo:* ${task.blockedReason || 'Non specificato'}`;
+
+  await bot.telegram.sendMessage(ALLOWED_CHAT_ID, message, {
+    parse_mode: 'Markdown',
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: '✅ Approva', callback_data: `approve_${task.id}` },
+          { text: '💬 Parla', callback_data: `talk_${task.id}` },
+        ],
+      ],
+    },
+  });
+}
+
+// Handle inline button callbacks
+bot.on('callback_query', async (ctx) => {
+  const data = (ctx.callbackQuery as any).data;
+  if (!data) return;
+
+  if (data.startsWith('approve_')) {
+    const taskId = data.replace('approve_', '');
+    const task = agentQueue.approveTask(taskId);
+
+    if (task) {
+      await ctx.answerCbQuery(`✅ ${task.agentName} sbloccato!`);
+      await ctx.editMessageText(
+        `✅ *${task.agentName}* sbloccato\n\n*Task:* ${task.task}\n\n_Riprende il lavoro..._`,
+        { parse_mode: 'Markdown' }
+      );
+    } else {
+      await ctx.answerCbQuery('❌ Task non trovato');
+    }
+  } else if (data.startsWith('talk_')) {
+    const taskId = data.replace('talk_', '');
+    const task = agentQueue.getTask(taskId);
+
+    if (task) {
+      // Store pending talk task
+      pendingTalkTasks.set(ctx.from!.id, taskId);
+      await ctx.answerCbQuery('💬 Scrivi il messaggio...');
+      await ctx.reply(
+        `💬 *Messaggio per ${task.agentName}*\n\nScrivi il tuo messaggio e lo invierò all'agente.`,
+        { parse_mode: 'Markdown' }
+      );
+    } else {
+      await ctx.answerCbQuery('❌ Task non trovato');
+    }
+  }
+});
+
+// Store pending talk tasks
+const pendingTalkTasks: Map<number, string> = new Map();
+
+// Command: /agents - List all agents and their status
+bot.command('agents', async (ctx) => {
+  const tasks = agentQueue.getAllTasks();
+
+  let msg = '🤖 *STATO AGENTI*\n\n';
+
+  const byStatus = {
+    blocked: tasks.filter(t => t.status === 'blocked'),
+    in_progress: tasks.filter(t => t.status === 'in_progress'),
+    todo: tasks.filter(t => t.status === 'todo'),
+    done: tasks.filter(t => t.status === 'done'),
+  };
+
+  if (byStatus.blocked.length > 0) {
+    msg += '🔴 *BLOCCATI*\n';
+    byStatus.blocked.forEach(t => {
+      msg += `• ${t.agentName}: ${t.task}\n  _${t.blockedReason}_\n`;
+    });
+    msg += '\n';
+  }
+
+  if (byStatus.in_progress.length > 0) {
+    msg += '🔵 *IN CORSO*\n';
+    byStatus.in_progress.forEach(t => {
+      msg += `• ${t.agentName}: ${t.task}\n`;
+    });
+    msg += '\n';
+  }
+
+  if (byStatus.todo.length > 0) {
+    msg += '⚪ *DA FARE*\n';
+    byStatus.todo.forEach(t => {
+      msg += `• ${t.agentName}: ${t.task}\n`;
+    });
+    msg += '\n';
+  }
+
+  if (byStatus.done.length > 0) {
+    msg += '✅ *COMPLETATI*\n';
+    byStatus.done.forEach(t => {
+      msg += `• ${t.agentName}: ${t.task}\n`;
+    });
+  }
+
+  ctx.reply(msg, { parse_mode: 'Markdown' });
+});
+
+// Command: /block [agent] [reason] - Block an agent (for testing)
+bot.command('block', async (ctx) => {
+  const args = ctx.message.text.replace(/^\/block\s*/, '').trim();
+  const [agentName, ...reasonParts] = args.split(' ');
+  const reason = reasonParts.join(' ') || 'Richiede approvazione';
+
+  if (!agentName) {
+    ctx.reply('Uso: /block [nome_agente] [motivo]');
+    return;
+  }
+
+  const task = agentQueue.addTask({
+    agentName,
+    agentType: 'claude',
+    task: 'Task bloccato manualmente',
+    status: 'blocked',
+    blockedReason: reason,
+    priority: 'high',
+  });
+
+  // This will trigger the notification
+  await sendApprovalRequest(task);
+});
+
+// Register callback for when tasks get blocked
+agentQueue.onTaskBlocked(async (task) => {
+  await sendApprovalRequest(task);
+});
+
 // === Start Bot ===
 console.log('🚀 Onde PR Bot starting...');
 console.log(`   Bot: @OndePR_bot`);
@@ -627,6 +769,7 @@ console.log(`   Bot: @OndePR_bot`);
 bot.launch().then(() => {
   console.log('✅ Onde PR Bot is running!');
   console.log('   Send /start to begin');
+  console.log('   Agent approval system: ACTIVE');
 
   // Schedule daily reports
   scheduleDailyReport();
