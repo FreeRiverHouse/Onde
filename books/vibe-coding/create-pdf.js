@@ -217,7 +217,7 @@ async function createPdf() {
   <div class="cover">
     <h1>Code Surfing</h1>
     <div class="subtitle">Build Apps in a Day with AI</div>
-    <div class="collana">Onde on the Tech</div>
+    <div class="collana">Onde Tech</div>
   </div>
 
   <p>${allContent}</p>

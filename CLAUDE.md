@@ -9,14 +9,23 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 **Onde è una casa editrice con valori tradizionali. NO woke content.**
 
-### Nelle illustrazioni:
-- **Famiglie tradizionali**: mamma, papà, bambini
-- **Bambini normali**: aspetto naturale
-- **NO contenuti woke**: niente diversità forzata, niente messaggi politically correct
-- **NO ambiguità**: se ci sono due bambini, devono essere chiaramente amici in modo innocente
-- **Stile classico**: ispirazione anni '50-'60, Luzzati, Munari
+### ⛔ VIETATO ASSOLUTO - ILLUSTRAZIONI
+- **NO PIXAR** - Mai stile 3D, cartoon americano, plasticoso
+- **NO GUANCE ROSSE** - Mai rosy cheeks, bambini con guance rosa/rosse
+- **NO stile Disney/DreamWorks** - Niente occhi grandi sproporzionati
+- **NO colori saturi** - Niente colori brillanti plasticosi
+- **NO woke** - Niente diversità forzata, niente messaggi politically correct
+
+### ✅ STILE CORRETTO
+- **Acquarello europeo** - Morbido, elegante, naturale
+- **Anni '50-'60 italiano** - Luzzati, Munari, Beatrix Potter
+- **Colori naturali** - Palette morbide, luce dorata
+- **Bambini normali** - Aspetto naturale, carnagione normale SENZA guance rosse
+- **Famiglie tradizionali** - Mamma, papà, bambini
 
 ### Nei prompt per AI (Grok, DALL-E, etc.):
+- **SEMPRE aggiungere**: "natural skin tone, NO rosy cheeks, NO red cheeks"
+- **SEMPRE aggiungere**: "European watercolor style, NOT Pixar, NOT 3D, NOT cartoon"
 - Essere ESPLICITI: "two boys as friends" non "two children whispering"
 - Specificare SEMPRE: "traditional", "classic", "wholesome"
 - Evitare termini ambigui che AI possono interpretare male (hanno bias woke di default)
