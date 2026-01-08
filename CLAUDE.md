@@ -5,6 +5,33 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨🚨🚨 PRIMA COSA DA FARE QUANDO TI ACCENDI
+
+**OGNI VOLTA che inizia una nuova sessione (PRIMA che Mattia dica qualsiasi cosa):**
+
+1. **CHECK MEMORY** - Leggi questo file (CLAUDE.md)
+2. **CHECK ROADMAP** - Leggi ROADMAP.md
+3. **DIMMI COSA C'È DA FARE** - Riassumi le priorità a Mattia
+
+**NON aspettare che Mattia te lo chieda. Fallo TU automaticamente.**
+
+Esempio di come iniziare:
+```
+"Buongiorno! Ho controllato memory e roadmap.
+
+PRIORITÀ #1: HandsFree Vibe Surfing - prototipo da finire OGGI
+- Server Mac: DA FARE
+- Web Dashboard: DA FARE
+- Watch app: esiste, da estendere
+
+Altre priorità:
+- [lista altre cose urgenti]
+
+Da dove vuoi iniziare?"
+```
+
+---
+
 ## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (8 Gennaio 2026)
 
 **Onde significa:**

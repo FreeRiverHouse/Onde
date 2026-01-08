@@ -2,7 +2,90 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - Aggiunto @la_river_x takeover (10 post), Gianni Parola immagini
+**Ultimo aggiornamento**: 2026-01-08 - PRIORITÀ #1: HandsFree Vibe Surfing App
+
+---
+
+## 🔴🔴🔴 PRIORITÀ #1 - HandsFree Vibe Surfing (URGENTE!)
+
+**App per controllare Claude Code senza mani mentre fai altro (lavi i piatti, cucini, etc.)**
+
+### 🎯 Concept
+- Apple Watch + iPhone si interfacciano con Claude Code locale su Mac
+- Sulla stessa rete WiFi
+- Approvi permessi (1 o 2) con tap, voce, o pedale USB
+- **Il 2 è meglio perché automatizza di più** (trust the process)
+
+### 🏗️ Architettura
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Apple Watch    │────▶│   iPhone App    │────▶│  Mac Server     │
+│  (tap 1 o 2)    │     │  (relay + voice)│     │  (Claude Code)  │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+        │                                               │
+        └───────── Stessa rete WiFi ────────────────────┘
+```
+
+### 📱 Componenti
+
+| Componente | Descrizione | Status |
+|------------|-------------|--------|
+| **Mac Server** | Servizio locale che riceve comandi e li manda a Claude Code | DA FARE |
+| **iPhone App** | App che comunica con server + voice input | DA FARE |
+| **Apple Watch** | Due bottoni giganti: 1 e 2 (estende Onde Approve) | ESISTE GIÀ |
+| **Web Dashboard** | Fallback per controllo via browser | DA FARE |
+| **USB Pedale** | Pedale fisico per chi vuole (futuro) | IDEA |
+
+### 🔊 Voice Control
+
+**VoiceMode MCP** è una soluzione esistente per Claude Code:
+- URL: https://getvoicemode.com/
+- GitHub: https://github.com/mbailey/voicemode
+- Si integra come MCP server
+- Dicitura "listen" attiva input vocale
+
+**Possiamo integrare VoiceMode O costruire nostro sistema.**
+
+### 🚀 MVP Sprint (OGGI!)
+
+**Step 1 - Server Mac** (1 ora)
+- [ ] Creare server HTTP locale (Node.js o Python)
+- [ ] Endpoint POST /approve → manda "2" a Claude Code stdin
+- [ ] Endpoint POST /reject → manda "1"
+- [ ] Endpoint GET /status → stato Claude Code
+
+**Step 2 - Web Dashboard** (30 min)
+- [ ] Pagina HTML con 2 bottoni giganti: "1" e "2"
+- [ ] Il 2 è più grande e dorato
+- [ ] Accessibile da iPhone sulla stessa rete
+
+**Step 3 - Estendere Onde Approve Watch** (1 ora)
+- [ ] Connessione al server Mac
+- [ ] Notifiche push quando Claude chiede permesso
+- [ ] Feedback aptico su approvazione
+
+### 💡 Idea Promozione
+
+Includiamo HandsFree nel libro **"Vibe Coding"** - è uno strumento per vibe coders!
+
+**Mockup divertenti per social:**
+- Pedale USB con tasti 1 e 2 giganti
+- "The Claude Code Approval Pedal™"
+- Post su @FreeRiverHouse con logo
+
+### 📂 Path
+
+```
+apps/
+├── onde-approve-watch/     # Già esistente - estendere
+├── handsfree-server/       # NUOVO - server Mac
+└── handsfree-web/          # NUOVO - dashboard web
+```
+
+### 🎯 Goal
+
+**Entro fine giornata**: Prototipo funzionante dove Mattia può approvare Claude Code dall'Apple Watch mentre lava i piatti.
 
 ---
 
