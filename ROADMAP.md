@@ -286,6 +286,49 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ---
 
+## 📚 SchoolSync - App Compiti per Famiglie (NUOVA - 8 Gen 2026)
+
+**Concept**: App web-based per aiutare genitori e bambini a gestire il caos dei compiti scolastici
+
+**Il Problema**:
+- Le scuole usano mille app diverse (Classroom, Seesaw, Class Dojo, portali vari...)
+- I genitori non sanno più dove guardare
+- I bambini si perdono tra mille piattaforme
+- Nessuno ha una visione chiara di "cosa c'è da fare"
+
+**La Soluzione - SchoolSync**:
+- **Aggregatore**: Collega tutti i portali scolastici in un'unica dashboard
+- **Parent Portal**: I genitori vedono tutti i compiti di tutti i figli in un posto
+- **Child View**: Interfaccia semplice per i bambini - cosa devo fare oggi?
+- **Tracker**: Traccia lo stato dei compiti (da fare, in corso, completato)
+- **Notifiche**: Avvisi per scadenze imminenti
+- **Calendario unificato**: Tutti gli eventi scolastici in un posto
+
+**Approccio**:
+1. Prima la facciamo per NOI (i nostri figli)
+2. Se funziona, la diffondiamo ad altre famiglie
+3. Potenziale SaaS per scuole/distretti
+
+**Stack Proposto**:
+- Web app (React/Next.js)
+- Mobile-friendly (PWA)
+- Integrations con portali comuni (Google Classroom, etc.)
+- AI assistant per aiutare con i compiti (Claude API)
+
+**Task Iniziali**:
+- [ ] Mappare tutti i portali usati dalla scuola dei bambini
+- [ ] Wireframe interfaccia parent + child
+- [ ] MVP con aggregazione manuale (prima di API)
+- [ ] Test con la famiglia
+
+**Perché può avere successo**:
+- Risolve un problema REALE che vivono milioni di famiglie
+- Le scuole non lo risolveranno (burocrazia)
+- I genitori pagherebbero per avere pace mentale
+- Può diventare B2B venduto ai distretti scolastici
+
+---
+
 ## 🚨 PRIORITÀ PRECEDENTI - Q1 2026
 
 ### 1. Definire Stile Unitario Onde (BLOCCANTE)

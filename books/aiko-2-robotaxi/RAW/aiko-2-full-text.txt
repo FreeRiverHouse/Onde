@@ -1,0 +1,342 @@
+AIKO 2
+The Robotaxi Adventure
+
+Written by Gianni Parola
+Illustrated by Pina Pennello
+Published by Onde, Free River House
+
+A sequel to "AIKO - AI Explained to Children"
+
+═══════════════════════════════════════
+
+DEDICATION
+
+For every child who looks out the car window
+and wonders:
+"What if the car could drive itself?"
+
+The future is closer than you think.
+
+═══════════════════════════════════════
+
+CHAPTER ONE
+A Special Trip
+
+[ILLUSTRATION: Sofia and Mom standing outside their house on a sunny morning. Sofia holds AIKO in her arms. A sleek white car with no visible driver is pulling up to the curb. Sofia's eyes are wide with curiosity.]
+
+It was a sunny Saturday morning.
+Mom had a surprise for Sofia.
+
+"Today, we're going to Grandma's house," said Mom.
+"But we're not taking our car."
+
+Sofia looked confused. "Then how will we get there?"
+
+Mom smiled and pointed at her phone.
+"I called a special taxi. Look!"
+
+A white car pulled up in front of their house.
+It was smooth and quiet.
+And when Sofia looked through the window...
+
+"Mom! There's no one driving!"
+
+AIKO's blue eyes blinked with excitement.
+"Sofia, this is a ROBOTAXI.
+A car that drives itself.
+Using Artificial Intelligence - just like me!"
+
+═══════════════════════════════════════
+
+CHAPTER TWO
+A Car with Robot Eyes
+
+[ILLUSTRATION: Close-up of the robotaxi showing its sensors - cameras on all sides like eyes, a spinning LiDAR on the roof like a small hat, and radar sensors on the bumpers. Sofia and AIKO examine them curiously while Mom opens the door.]
+
+Before getting in, Sofia walked around the car.
+She noticed strange things on it.
+
+"What are all these bumps and cameras?" she asked.
+
+AIKO floated closer to explain.
+
+"These are the car's EYES.
+See these cameras? There are eight of them!
+They can see in every direction at once.
+You only have two eyes looking forward.
+This car can see all around - even behind!"
+
+Sofia pointed at a small spinning thing on the roof.
+"What about that?"
+
+"That's called LiDAR," said AIKO.
+"It shoots invisible laser beams in all directions.
+The beams bounce back from everything nearby -
+trees, people, other cars, even a tiny cat crossing the street.
+It creates a 3D map of everything around the car.
+Sixty times every second!"
+
+"Wow," whispered Sofia. "It sees MORE than we do."
+
+"In some ways, yes. But it doesn't UNDERSTAND
+what it sees the way you do.
+It just collects information."
+
+═══════════════════════════════════════
+
+CHAPTER THREE
+The Brain Inside
+
+[ILLUSTRATION: Inside the robotaxi. Sofia and Mom sit in comfortable back seats. No steering wheel visible up front. Screens show a map and a view of the road. AIKO sits between them, explaining. The interior is cozy and futuristic.]
+
+They climbed inside.
+The car was cozy, with soft seats and big windows.
+
+"Welcome aboard," said a friendly voice.
+"I will take you to Grandma's house safely."
+
+Sofia looked around. "Where's the steering wheel?"
+
+"There isn't one," said Mom. "This car doesn't need it."
+
+AIKO explained: "The car has a computer brain.
+It takes all the information from the cameras and LiDAR,
+and it thinks: What should I do next?"
+
+"But how does it KNOW what to do?" asked Sofia.
+
+"Remember how I learned to see cats
+by looking at thousands of pictures?"
+
+Sofia nodded.
+
+"This car learned the same way.
+It practiced driving millions and millions of times.
+It learned what to do when a light turns red.
+What to do when someone crosses the street.
+What to do when another car gets too close.
+It learned from every situation it could imagine."
+
+The car started moving smoothly.
+Sofia didn't even feel it start.
+
+═══════════════════════════════════════
+
+CHAPTER FOUR
+Seeing the Invisible
+
+[ILLUSTRATION: Split view - on one side, what Sofia sees through the window (a normal street with cars, trees, people). On the other side, what the robotaxi "sees" - the same scene but with colored boxes around every object, dotted lines showing predicted paths of moving things, road lines highlighted in bright colors.]
+
+As they drove, a screen in front showed something magical.
+
+It showed the street - but different.
+Every car had a colored box around it.
+Every person had a glowing outline.
+Dotted lines showed where things were moving.
+
+"What is this?" asked Sofia.
+
+"This is how the car SEES the world," said AIKO.
+"It doesn't see colors and shapes like you do.
+It sees objects and movements.
+Every car is a box with a speed and direction.
+Every person is a point that might move.
+The car is always predicting: What will happen next?"
+
+Mom pointed at a cyclist on the side of the road.
+On the screen, a dotted line showed where the cyclist might go.
+
+"See? The car is already planning what to do
+if the cyclist moves into the road."
+
+"It thinks ahead!" said Sofia.
+
+"Always," said AIKO. "Many times per second.
+It asks: What could go wrong?
+And it has a plan for everything."
+
+═══════════════════════════════════════
+
+CHAPTER FIVE
+Safety First
+
+[ILLUSTRATION: The robotaxi stopped at a crosswalk. A group of children is crossing, one of them drops a ball that rolls toward the street. The car stays completely still, its sensors glowing gently. Sofia watches through the window, feeling safe.]
+
+Suddenly, the car slowed down and stopped.
+
+"Why did we stop?" asked Sofia.
+
+She looked out the window.
+A group of children was crossing the street.
+One of them dropped a ball, and it rolled toward the road.
+
+The car stayed completely still.
+It waited until every child was safely across.
+Then it waited three more seconds - just to be sure.
+
+"The car is very careful," said Mom.
+
+AIKO nodded. "The most important rule for a robotaxi is:
+NEVER hurt anyone.
+If there's even a tiny chance something could be dangerous,
+the car will stop and wait.
+It's not in a hurry. Safety always comes first."
+
+"But what if something breaks?" asked Sofia.
+"What if a camera stops working?"
+
+"Good question! The car has BACKUP systems.
+If one camera fails, there are seven more.
+If the main computer has a problem,
+a second computer takes over immediately.
+And if something really goes wrong,
+the car will safely pull over and stop."
+
+Sofia felt safe.
+Safer than she expected.
+
+═══════════════════════════════════════
+
+CHAPTER SIX
+No Driver, But Many Helpers
+
+[ILLUSTRATION: A split scene showing different people who help the robotaxi work - engineers at computers programming the AI, map makers updating road information, a remote operator watching screens with many robotaxis, mechanics checking a car. All connected by glowing lines to the robotaxi Sofia is in.]
+
+"So the car drives itself," said Sofia.
+"But who MADE it so smart?"
+
+"Thousands of people," said AIKO.
+
+"Really?"
+
+"Really. Engineers wrote the code that lets the car think.
+Artists designed the maps it follows.
+Safety experts tested it millions of times.
+Mechanics keep every car in perfect condition.
+And somewhere, right now, people are watching
+to make sure all the robotaxis are doing okay."
+
+Mom added: "Even though there's no driver in this car,
+humans are still in charge.
+The people who built it, who test it, who watch over it."
+
+"So it's like... teamwork?" asked Sofia.
+
+"The biggest teamwork ever," said AIKO.
+"Humans and AI, working together.
+The AI does the driving.
+The humans make sure it drives WELL."
+
+═══════════════════════════════════════
+
+CHAPTER SEVEN
+Dreaming of Tomorrow
+
+[ILLUSTRATION: Sofia looking out the window, imagining the future - flying taxis in the sky, delivery robots on sidewalks, cities with clean air and lots of trees, happy people walking because there are fewer cars. A dreamy, hopeful atmosphere with soft golden light.]
+
+The ride was almost over.
+Sofia could see Grandma's neighborhood.
+
+"AIKO," she said, "what will the future be like?
+Will ALL cars drive themselves?"
+
+"Maybe," said AIKO. "Someday.
+Imagine a world where no one crashes because of mistakes.
+Where old people and kids can travel anywhere, safely.
+Where cars talk to each other so there are no traffic jams.
+Where cities have more parks because we need fewer parking lots."
+
+"That sounds amazing," said Sofia.
+
+"It could be. But it's up to humans to decide.
+Technology can help.
+But people must choose to use it wisely.
+To share it fairly.
+To make sure it helps everyone, not just a few."
+
+Sofia thought about this.
+"I want to help build that future."
+
+AIKO's eyes glowed warmly.
+"I know you will, Sofia.
+That's what makes humans so special.
+You don't just accept the world as it is.
+You dream of how it could be better."
+
+═══════════════════════════════════════
+
+CHAPTER EIGHT
+Arriving Safely
+
+[ILLUSTRATION: The robotaxi stopped in front of Grandma's house. Grandma waves from the porch. Sofia hugs Mom, holding AIKO. The car's lights blink a friendly goodbye. Warm, happy, cozy scene with afternoon sunlight.]
+
+The car stopped gently in front of Grandma's house.
+
+"You have arrived," said the friendly voice.
+"Thank you for riding with us. Have a wonderful day!"
+
+Grandma was already waving from the porch.
+
+Sofia stepped out and looked back at the robotaxi.
+"Thank you, car!"
+
+The car's lights blinked once - almost like a wink.
+Then it drove away quietly to pick up someone else.
+
+"So," said Mom, "what did you think?"
+
+Sofia smiled her biggest smile.
+"I think the future is already here.
+And it's pretty amazing."
+
+She looked at AIKO.
+"But you know what's even more amazing?"
+
+"What?" asked AIKO.
+
+"That people like us get to decide what comes next.
+We're not just passengers.
+We're the ones who will build tomorrow."
+
+AIKO blinked happily.
+"Together."
+
+"Together," Sofia agreed.
+
+And they went inside to tell Grandma
+all about their incredible adventure.
+
+═══════════════════════════════════════
+
+THE END
+
+═══════════════════════════════════════
+
+A NOTE FOR PARENTS AND TEACHERS
+
+This book introduces children (ages 5-8) to autonomous vehicles and robotaxis:
+
+Key concepts covered:
+- Sensors: How self-driving cars "see" (cameras, LiDAR, radar)
+- AI processing: How the car makes decisions based on data
+- Pattern recognition: Cars learn from millions of driving examples
+- Safety systems: Redundancy, backup systems, cautious behavior
+- Human oversight: Engineers, operators, and testers behind the technology
+- Predictions: How AI anticipates what might happen next
+- Future possibilities: Safer roads, accessibility, environmental benefits
+
+Important messages:
+- AI is a tool created and supervised by humans
+- Safety is the top priority in autonomous systems
+- Technology should help everyone, not just a few
+- Children can be part of building a better future
+
+Self-driving cars are becoming part of our world. Understanding how they work helps children feel comfortable with new technology while maintaining healthy curiosity and critical thinking.
+
+═══════════════════════════════════════
+
+Words: Gianni Parola
+Illustrations: Pina Pennello
+Published by Onde, Free River House
+
+First Edition - 2026
