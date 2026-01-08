@@ -38,6 +38,79 @@ Permettere a Mattia di approvare anche mentre lava i piatti:
 
 ---
 
+## 💰 MONEY PRINTING FACTORY - Video AI Passivi (NUOVO 8 Gen 2026)
+
+**Obiettivo**: Creare canali YouTube con video AI che generano revenue passiva
+
+### 🔥 L'Idea (da Mattia)
+- Video tipo "camino che brucia" fanno MILIARDI di views
+- Facili da fare con AI (immagini + musica + loop)
+- Nessuna competizione artistica, puro volume
+- Revenue passiva una volta pubblicati
+
+### 📺 Canali da Creare
+| Canale | Contenuto | Status |
+|--------|-----------|--------|
+| **Onde Lounge** | Chill music, ambient, lo-fi | DA CREARE |
+| **Onde Music** | Musica rilassante italiana | DA CREARE |
+| **[Chill Music Channel]** | Study beats, rain sounds | DA CREARE |
+
+### 🎬 Tipi di Video da Produrre
+1. **Fireplace/Camino** - Video camino 3-10 ore, suoni crepitio
+2. **Rain sounds** - Pioggia su finestra, tetto, foresta
+3. **Chill/Lo-fi beats** - Musica studio, concentrazione
+4. **Nature ambient** - Foresta, mare, montagna
+5. **Italian countryside** - Paesaggi italiani + musica soft
+
+### 🛠️ Pipeline Produzione
+1. **Immagine**: Grok genera scena (stile Onde o realistico)
+2. **Animazione**: Leggero movimento (parallax, particelle, luce)
+3. **Musica**: Suno/Udio genera loop 10-30 min
+4. **Assemblaggio**: FFmpeg crea video 1-10 ore
+5. **Upload**: Automatico su YouTube
+
+### ⚡ Task Immediati
+- [ ] Creare canale YouTube "Onde Lounge"
+- [ ] Test: generare 1 video camino 1 ora
+- [ ] Test: generare 1 video chill music
+- [ ] Pipeline automatica per produzione batch
+- [ ] Analisi competitor (canali che fanno milioni views)
+
+### 💡 Perché Funziona
+- La gente cerca "fireplace 10 hours" → miliardi di views
+- Zero effort creativo dopo setup pipeline
+- Scalabile all'infinito
+- Perfetto per AI: ripetitivo, commodity
+
+### 🔍 Generi ad Alto Volume (Ricerca)
+**Criteri**: Facili da produrre con AI, alto volume views, bassa competizione
+
+| Genere | Difficoltà | Potenziale | Note |
+|--------|------------|------------|------|
+| Fireplace/Camino | ⭐ Facile | 🔥🔥🔥 Alto | Loop semplice |
+| Rain sounds | ⭐ Facile | 🔥🔥🔥 Alto | Solo audio + immagine |
+| Lo-fi/Study beats | ⭐⭐ Medio | 🔥🔥🔥 Alto | Serve buona musica AI |
+| Nature ambient | ⭐ Facile | 🔥🔥 Medio | Foresta, mare, etc. |
+| Ninna nanne | ⭐⭐ Medio | 🔥🔥🔥 Alto | Multilingua! |
+| ASMR visuals | ⭐⭐ Medio | 🔥🔥 Medio | Nicchia specifica |
+| Sleep music | ⭐ Facile | 🔥🔥🔥 Alto | Molto richiesto |
+
+### 🎵 Distribuzione Musica (Gratis)
+| Distributore | Costo | Royalties | Note |
+|--------------|-------|-----------|------|
+| **Rebel Music** | GRATIS | 100% | Consigliato |
+| **RouteNote** | GRATIS | 85% | Warner-backed |
+| **Level Music** | GRATIS | 100% | Buono |
+
+### 📋 Primo Sprint MPF
+1. ✅ Sezione creata in ROADMAP
+2. [ ] **OGGI**: Creare canale YouTube "Onde Lounge"
+3. [ ] **OGGI**: Generare 1 video test (camino 1 ora)
+4. [ ] Analizzare top 5 canali competitor
+5. [ ] Pipeline automatica entro fine settimana
+
+---
+
 ## 🎯 Operation Tsunami - Piano Multimedia
 
 ### Valori Brand Onde
