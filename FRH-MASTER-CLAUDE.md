@@ -29,6 +29,34 @@ cd ~/Projects/Onde && git add FRH-MASTER-CLAUDE.md && git commit -m "docs: updat
 
 ---
 
+## 🚨 ROADMAP = FONTE DI VERITÀ (REGOLA FONDAMENTALE)
+
+**CONTROLLA SEMPRE LA ROADMAP PRIMA DI FARE QUALUNQUE COSA!**
+
+**Path**: `/Users/mattia/Projects/Onde/ROADMAP.md`
+
+La ROADMAP è:
+- ✅ La roadmap strategica
+- ✅ La to-do list delle prossime cose da fare
+- ✅ Lo status update di ogni singolo progetto
+- ✅ Il documento da tenere SEMPRE aggiornato
+
+**Regole ROADMAP:**
+1. **Leggi la ROADMAP** all'inizio di ogni sessione
+2. **Aggiorna la ROADMAP** quando completi qualcosa
+3. **Committa e pusha** ogni volta che aggiorni la ROADMAP
+4. **Mai lavorare su qualcosa** che non è nella ROADMAP senza chiedere
+
+**Ogni modifica alla ROADMAP = commit + push immediato:**
+```bash
+cd ~/Projects/Onde
+git add ROADMAP.md
+git commit -m "docs: update roadmap - [descrizione breve]"
+git push
+```
+
+---
+
 ## 🔑 GIT & GITHUB - COME COMMITTARE DA QUALSIASI MAC
 
 **REGOLA ASSOLUTA: Non dire MAI "non posso committare" o "manca l'autenticazione".**
