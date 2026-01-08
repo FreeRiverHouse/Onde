@@ -487,6 +487,13 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 - 20+ immagini in 1 minuto invece di 5 minuti
 - URL: https://x.com/i/grok → "Crea immagini"
 
+### 1b. Grok Genera Più Immagini in Una Richiesta (NUOVO 2026)
+**Grok web ora può generare più immagini contemporaneamente** in una singola richiesta.
+- Specificare nel prompt: "genera 4 immagini per i capitoli 1-4"
+- Grok le genera tutte insieme
+- Molto più efficiente che fare richieste separate
+- Usare questa feature per batch di illustrazioni simili
+
 ### 2. Image-to-Image con Grok
 **Posso dare a Grok un'immagine di riferimento** e chiedergli di fare qualcosa di simile.
 - Drag & drop immagine nel prompt
