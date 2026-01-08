@@ -1,0 +1,60 @@
+{
+  "title": "Stella Stellina ⭐ Ninna Nanna Italiana | Poesia per Bambini",
+  "description": "Una delle più belle ninne nanne della tradizione italiana, animata con amore per i più piccoli.\n\n✨ \"Stella stellina, la notte s'avvicina...\"\n\nQuesta dolce poesia di Lina Schwarz accompagna i bambini verso il sonno, raccontando di tutti gli animali che trovano riparo per la notte: la mucca con il vitello, la pecora con l'agnello, la chioccia con il pulcino... e la mamma con il suo bambino.\n\n📚 Dalla collana \"Piccole Rime\" di Onde\nAnimazione in stile acquarello italiano\n\n👶 Perfetta per:\n- Routine della nanna\n- Momento di calma\n- Imparare la poesia italiana\n\n🌙 Buonanotte!\n\n---\n© Onde\nAnimazione by @grok\n\n#ninnaNanna #poesiaItaliana #bambini #stellaStellina #buonanotte #kids #italian #lullaby #education",
+  "tags": [
+    "ninna nanna",
+    "poesia italiana",
+    "bambini",
+    "stella stellina",
+    "lina schwarz",
+    "filastrocca",
+    "buonanotte",
+    "kids",
+    "italian lullaby",
+    "children poetry",
+    "educational",
+    "onde",
+    "piccole rime",
+    "acquarello",
+    "animazione"
+  ],
+  "category": "Education",
+  "language": "it",
+  "madeForKids": true,
+  "visibility": "public",
+  "playlist": "Piccole Rime - Poesia Italiana",
+  "thumbnail": {
+    "prompt": "Watercolor illustration, night sky with golden stars, cozy Italian stable, warm candlelight, mother holding sleeping baby, text 'Stella Stellina' in elegant script, children's book style, Luzzati aesthetic"
+  },
+  "clips": [
+    {
+      "id": 1,
+      "name": "stella-stellina-clip-01-stars.mp4",
+      "duration": "10-15 sec",
+      "prompt": "Watercolor animation, Italian children's book style, beautiful night sky with twinkling golden stars appearing one by one, soft blue to purple gradient sky, a single bright star shining brightest, gentle dreamy movement, Luzzati aesthetic, warm atmosphere, 9:16 vertical format, 15 seconds"
+    },
+    {
+      "id": 2,
+      "name": "stella-stellina-clip-02-stable.mp4",
+      "duration": "10-15 sec",
+      "prompt": "Watercolor animation, Italian children's book style, cozy wooden stable at night, warm golden candlelight glowing inside, gentle cow lying down with her calf, fluffy sheep with little lamb sleeping nearby, hay and warmth, peaceful atmosphere, Luzzati aesthetic, 9:16 vertical format, 15 seconds"
+    },
+    {
+      "id": 3,
+      "name": "stella-stellina-clip-03-hen.mp4",
+      "duration": "10-15 sec",
+      "prompt": "Watercolor animation, Italian children's book style, mother hen with soft feathers sheltering her tiny yellow chick under her wing, cozy nest with straw, night time, warm amber glow, tender moment, gentle breathing movement, Luzzati aesthetic, 9:16 vertical format, 15 seconds"
+    },
+    {
+      "id": 4,
+      "name": "stella-stellina-clip-04-mother.mp4",
+      "duration": "10-15 sec",
+      "prompt": "Watercolor animation, Italian children's book style, mother in a rocking chair by window, holding sleeping baby wrapped in soft blanket, stars visible through window, warm candlelight, tender loving expression, everyone sleeping peacefully, text 'Buonanotte' fades in, Luzzati aesthetic, 9:16 vertical format, 15 seconds"
+    }
+  ],
+  "audio": {
+    "voiceover": "Italian female voice, soft and warm, reading the poem slowly",
+    "music": "Soft lullaby, music box style, gentle piano",
+    "poem": "Stella stellina\nla notte s'avvicina:\nla fiamma traballa,\nla mucca è nella stalla.\nLa mucca e il vitello,\nla pecora e l'agnello,\nla chioccia e il pulcino,\nla mamma e il suo bambino.\nOgnuno ha il suo piccino,\nognuno ha la sua mamma\ne tutti fan la nanna."
+  }
+}

@@ -213,6 +213,24 @@ Modern Italian watercolor children's book illustration, curious little girl with
 
 ---
 
+## 👥 PERSONAGGI REDAZIONE ONDE - BETA v1 (2026-01-07)
+
+**Gianni Parola** - Scrittore
+- Uomo italiano ~40 anni
+- Capelli ricci scuri, occhiali tondi
+- Giacca tweed, aspetto intellettuale
+- File: `~/Downloads/GianniA-Scrittore.jpg`
+
+**Pina Pennello** - Illustratrice
+- Donna italiana ~30 anni
+- Capelli castani raccolti con pennello
+- Grembiule macchiato di colori, tiene tavolozza
+- File: `~/Downloads/PinaA-Illustratrice.jpg`
+
+**Nota**: Versione beta - da migliorare in futuro con stile più "libro per bambini" e meno realistico.
+
+---
+
 ## 🚨📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE
 
 **DATA: 2026-01-07**
