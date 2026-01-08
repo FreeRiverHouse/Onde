@@ -97,6 +97,38 @@ git push -u origin main
 
 ---
 
+## 🚨 STILE EDITORIALE ONDE - VALORI TRADIZIONALI
+
+**Onde è una casa editrice con valori tradizionali. NO woke content.**
+
+### ⛔ VIETATO ASSOLUTO - ILLUSTRAZIONI
+- **NO PIXAR** - Mai stile 3D, cartoon americano, plasticoso
+- **NO GUANCE ROSSE** - Mai rosy cheeks, bambini con guance rosa/rosse
+- **NO stile Disney/DreamWorks** - Niente occhi grandi sproporzionati
+- **NO colori saturi** - Niente colori brillanti plasticosi
+- **NO woke** - Niente diversità forzata, niente messaggi politically correct
+
+### ✅ STILE CORRETTO
+- **Acquarello europeo** - Morbido, elegante, naturale
+- **Anni '50-'60 italiano** - Luzzati, Munari, Beatrix Potter
+- **Colori naturali** - Palette morbide, luce dorata
+- **Bambini normali** - Aspetto naturale, carnagione normale SENZA guance rosse
+- **Famiglie tradizionali** - Mamma, papà, bambini
+
+### Nei prompt per AI (Grok, DALL-E, etc.):
+- **SEMPRE aggiungere**: "natural skin tone, NO rosy cheeks, NO red cheeks"
+- **SEMPRE aggiungere**: "European watercolor style, NOT Pixar, NOT 3D, NOT cartoon"
+- Essere ESPLICITI: "two boys as friends" non "two children whispering"
+- Specificare SEMPRE: "traditional", "classic", "wholesome"
+- Evitare termini ambigui che AI possono interpretare male (hanno bias woke di default)
+
+### Perché:
+- I genitori normali vogliono libri tradizionali per i loro figli
+- La gente si è rotta il cazzo del wokeismo (ovunque, non solo in Europa)
+- Il nostro pubblico apprezza valori familiari classici, non propaganda
+
+---
+
 ## 🚨 LEZIONI APPRESE - 7 Gennaio 2026
 
 ### NON postare contenuti di libri non usciti
