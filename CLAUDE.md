@@ -5,52 +5,127 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
-## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-07)
+## 💭 NAMING - DA DECIDERE (2026-01-07)
 
-**⚡ PRIORITÀ ASSOLUTA - BLOCCANTE ⚡**
+**Onde Publishing** vs **Onde Studio**
 
-**QUANDO MATTIA RIAPRE CON `--chrome`:**
+| Nome | Pro | Contro |
+|------|-----|--------|
+| **Onde Publishing** | Chiaro, tradizionale, professionale | Limita a "pubblicazione" |
+| **Onde Studio** | Moderno, include app/video/contenuti digitali | Meno specifico |
 
-1. **Aprire 4-5 tab di Grok** in parallelo: `https://x.com/i/grok`
-2. In ogni tab: Click su "Create Images"
-3. **Generare le 4 OPZIONI STILISTICHE** (un prompt per tab)
-4. Ogni opzione genera 4 varianti → Mattia sceglie la migliore
-5. Salvare le immagini scelte in `~/Downloads/` con nomi chiari
+**Nota**: Le due dashboard (Business Dashboard + PR Dashboard) saranno collegate con navigazione interna.
 
-**IMPORTANTE**: Usare Claude for Chrome extension - X è già loggato!
+**Decisione**: Da prendere
 
-### I 4 STILI DA GENERARE:
+---
 
-**OPZIONE A - Acquarello Morbido Italiano:**
+## 🚨 NIENTE HASHTAG SU X - REGOLA 2026
+
+**DATA: 2026-01-07**
+
+**REGOLA ASSOLUTA**: Mai usare hashtag nei post su X/Twitter.
+- Musk ha annunciato che gli hashtag non servono più
+- Grok analizza direttamente il contenuto per la distribuzione
+- Se Grok trova il post interessante, lo diffonde di più
+- Gli hashtag sono spam visivo e peggiorano l'engagement
+
+**RIMUOVERE DA TUTTI I POST**: `#buildinpublic`, `#ai`, `#publishing`, ecc.
+
+---
+
+## 📁 REPOSITORY CONTENUTI - OndePRDB
+
+**Path**: `/Users/mattia/Projects/OndePRDB/`
+
+Questo è il repository CENTRALE per tutti i contenuti PR. Struttura:
+
 ```
-Soft Italian watercolor children's book illustration, 7-year-old girl with warm brown hair and curious eyes sitting with a small friendly robot with glowing LED heart, gentle morning light through window, pastel colors, dreamy atmosphere, tender and warm, award-winning illustration, 4k
+OndePRDB/
+├── clients/
+│   ├── magmatic/       → @magmatic__ (poesia, arte)
+│   │   ├── style_guide.md
+│   │   ├── posts/      → 20 post pronti
+│   │   ├── media/      → catalogo media
+│   │   └── poetry/     → testi originali
+│   ├── freeriverhouse/ → @FreeRiverHouse (tech, building in public)
+│   │   ├── tech-posts.md    → 40+ post pronti
+│   │   └── milestones.md    → template milestone
+│   └── onde/           → @Onde_FRH (libri, publishing)
+│       └── books/      → The Shepherd's Promise (4 formati)
+└── content/
+    └── grok-videos/    → video generati
 ```
 
-**OPZIONE B - Scarry-Seuss Vivace:**
+**QUANDO DEVO CREARE POST**: Pescare da OndePRDB, non inventare.
+**QUANDO HO NUOVI CONTENUTI**: Salvarli in OndePRDB.
+
+---
+
+## 🚨 REGOLA APPROVAZIONE IMMAGINI - SEMPRE TELEGRAM
+
+**DATA: 2026-01-07**
+
+**QUANDO DEVO FAR SCEGLIERE IMMAGINI A MATTIA:**
+- **MAI** aprire le immagini solo nel browser
+- **SEMPRE** scaricare e mandare su Telegram
+- Mattia guarda/sceglie da iPhone, non dal Mac
+- Usare il bot @OndePR_bot (chat ID: 7505631979)
+
+**WORKFLOW CORRETTO:**
+1. Generare immagini su Grok
+2. Scaricare in ~/Downloads/
+3. Mandare su Telegram con descrizione
+4. Aspettare risposta di Mattia su Telegram
+
+---
+
+## 🎨 STILI ILLUSTRAZIONE ONDE - APPROVATI (2026-01-07)
+
+**ABBIAMO DUE STILI UFFICIALI** - da usare di volta in volta a seconda del progetto.
+
+### Stile DORATO (ex Opzione F)
+**Uso suggerito**: Personaggi delle storie, illustrazioni emotive
+
 ```
-Whimsical Richard Scarry meets Dr Seuss style, playful 7yo girl with bouncy pigtails and a round adorable robot friend with expressive LED eyes, vibrant colors, fun details everywhere, cheerful and energetic, busy but readable composition, children's book illustration, 4k
+Children's book illustration in painterly watercolor style, playful 7yo girl with flowing brown hair and a round adorable robot friend with expressive LED eyes, rich saturated colors but elegant composition, soft brushwork texture, warm golden light, natural complexion without rosy cheeks, contemporary European storybook aesthetic, whimsical but refined, 4k
 ```
 
-**OPZIONE C - Vintage Italiano Anni '50:**
+**Caratteristiche**:
+- Pittorico saturo, luce dorata calda
+- Colori ricchi ma eleganti
+- Texture pennellate morbide
+- Storybook europeo contemporaneo
+
+**File riferimento**: `~/Downloads/OpzioneF-Pittorico.jpg`
+
+---
+
+### Stile TERRA (ex Opzione G)
+**Uso suggerito**: Pina Pennello, Gianni Parola, elementi più "artistici"
+
 ```
-Vintage 1950s Italian children's book illustration, nostalgic style, little girl in classic dress with a retro-futuristic friendly robot toy, limited color palette with warm sepia tones and pops of teal, hand-painted texture, classic storybook feel, 4k
+Modern Italian watercolor children's book illustration, curious little girl with a friendly robot companion with heart-shaped light, sophisticated color palette mixing warm ochre teal and coral, painterly texture with visible brushstrokes, soft natural lighting, elegant European illustration style, no exaggerated features or red cheeks, warm and inviting atmosphere, 4k
 ```
 
-**OPZIONE D - Moderno Flat Contemporaneo:**
-```
-Modern flat illustration style, cute girl character with simple geometric shapes and a friendly round robot with minimal features, bold vibrant colors, clean lines, contemporary children's app aesthetic, warm and inviting, vector-like quality, 4k
-```
+**Caratteristiche**:
+- Italiano moderno, palette ocra/teal/coral
+- Pennellate visibili, texture pittorica
+- Elegante europeo, atmosfera calda
+- Più "artistico" e raffinato
 
-**WORKFLOW**:
-1. Claude Code riaperto con `--chrome` flag
-2. Io (Claude) apro 4-5 tab di Grok in parallelo
-3. Genero le 4 opzioni stilistiche (1 prompt per tab)
-4. Grok genera 4 varianti per opzione = 16 immagini totali
-5. Mattia sceglie la migliore → quello diventa LO STILE ONDE
-6. Creo prompt templates e skill
-7. **SBLOCCO**: Ora posso generare TUTTE le immagini con lo stile scelto
+**File riferimento**: `~/Downloads/OpzioneG-ItalianoModerno.jpg`
 
-**RICORDA**: Non devo chiedere a Mattia di aprire Grok - lo faccio IO con Claude for Chrome!
+---
+
+### Come Scegliere
+- **DORATO = PRINCIPALE** - Usa questo per la maggior parte dei progetti
+- **TERRA = SPECIALE** - Per progetti artistici, Pina/Gianni, contenuti raffinati
+- **In dubbio?** → Usa Dorato
+
+**IMPORTANTE**: Entrambi gli stili sono senza guance rosse, eleganti, europei. NO Pixar, NO CocoMelon.
+
+**SBLOCCO GENERAZIONE**: Gli stili sono definiti! Ora posso generare illustrazioni per tutti i libri.
 
 ---
 
@@ -70,37 +145,6 @@ Modern flat illustration style, cute girl character with simple geometric shapes
 - Eccezione: contenuti originali per @magmatic__ se Mattia approva
 
 **Questa regola vale per TUTTI: Gianni Parola, Pina Pennello, tutti gli agenti e bot.**
-
----
-
-## 🚨🎨 BLOCCO TOTALE GENERAZIONE IMMAGINI - PRIORITÀ ASSOLUTA
-
-**DATA: 2026-01-07**
-
-**NON GENERARE PIÙ NESSUNA IMMAGINE** finché lo stile unitario Onde non è definito.
-
-### La Regola
-Prima di generare QUALSIASI illustrazione, dobbiamo:
-1. Definire lo stile della casa editrice con Pina Pennello
-2. Creare prompt templates, skill Grok/Claude
-3. Avere un branding completo e riconoscibile
-
-### Cosa Fare
-- **STOP**: Niente più immagini per nessun libro
-- **PRIMA**: Definire lo stile "versione beta"
-- **POI**: Rifare TUTTE le immagini con lo stile nuovo
-
-### Eccezioni Possibili
-- **Poesia italiana**: può avere stile diverso (es. Luzzati folk art)
-- **Libri bambini (AIKO, Salmo)**: STILE UNITARIO OBBLIGATORIO
-
-### Output Atteso
-- Prompt templates salvati come skill
-- Style guide documentata
-- Esempi approvati da Mattia
-
-### Nota
-Questa è la nostra "versione beta" dello stile. Poi si potrà evolvere, ma almeno avremo un punto di partenza stabile e riconoscibile.
 
 ---
 
