@@ -23,7 +23,12 @@ Ispirato a [@housecor](https://x.com/housecor/status/2008905575669662019):
 
 ### 3. Workflow Approvazione Veloce
 Permettere a Mattia di approvare anche mentre lava i piatti:
-- [ ] Apple Watch - notifiche con azione rapida
+- [ ] **App Apple Watch "Onde Approve"** (PRIORITÀ)
+  - Due azioni: **Approva** (tap) e **Parla** (voce per task complessi)
+  - Default: approva con tap
+  - Se task richiede input specifico → voce
+  - Notifiche push quando agente è bloccato
+  - Stack: SwiftUI + WatchConnectivity
 - [ ] Bottone BT/USB rosso sul Mac
 - [ ] Touch ID per email e acquisti Chrome
 - [ ] Potenziare Telegram Bot

@@ -1,13 +1,13 @@
-# Vibe Coding: Build Apps in a Day with AI
+# Code Surfing: Build Apps in a Day with AI
 
 ## Subtitle
-A Practical Guide to AI-Assisted Development
+Ride the Wave of AI-Assisted Development
 
 ## Target Audience
 - Developers curious about AI-assisted coding
 - Non-technical founders who want to build MVPs
 - Creators who want to automate workflows
-- Anyone who's heard of "vibe coding" and wants to try it
+- Anyone who's heard of "code surfing" and wants to try it
 
 ## Format
 - Ebook (PDF, ePub)
@@ -24,10 +24,10 @@ A Practical Guide to AI-Assisted Development
 
 ## OUTLINE
 
-### Introduction: What is Vibe Coding?
-- The shift from "writing code" to "directing code"
-- AI as your pair programmer
-- When to vibe code vs traditional development
+### Introduction: What is Code Surfing?
+- The shift from "writing code" to "riding code"
+- AI as your surfboard
+- When to surf vs paddle (AI vs traditional)
 - Tools of the trade: Claude, Cursor, Grok, ChatGPT
 
 ### Chapter 1: Setting Up Your Vibe Coding Environment
@@ -80,7 +80,7 @@ A Practical Guide to AI-Assisted Development
 - The hallucination trap
 - Over-engineering with AI
 - Security considerations
-- When to stop vibe coding and write real code
+- When to stop code surfing and write real code
 
 ### Chapter 9: Shipping and Iterating
 - Good enough is good enough

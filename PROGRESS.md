@@ -68,7 +68,7 @@
 | Antologia Poesie EN | Poetry | 0% | 0% | 0% | In queue |
 | AIKO (IT) | Tech | 0% | 50% | 0% | Traduzione |
 | Antologia Poesie IT | Poetry | 100% | 100% | 100% | Pronto |
-| **Vibe Coding** | Tech (adulti) | 0% | 0% | 0% | 📝 Outline in corso |
+| **Code Surfing** | Onde on the Tech | 10% | 0% | 0% | ✍️ Scrittura in corso |
 
 ---
 
