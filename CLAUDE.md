@@ -371,6 +371,59 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 | **Editore Capo** | `editore-capo.md` | Orchestrazione produzione |
 | **Gianni Parola** | `gianni-parola.md` + `.memory.json` | Scrittura testi |
 | **Pino Pennello** | `pino-pennello.md` + `.memory.json` | Illustrazioni (via Grok) |
+| **PA Agent** | - | Assistente personale Mattia |
+
+---
+
+## 🤖 REGOLE PER AGENTI AI - LEGGERE SEMPRE
+
+**Ogni AI/agente che si collega a questo repository DEVE seguire queste regole.**
+
+### Regole Generali
+1. **LEGGERE PRIMA DI AGIRE** - Leggere SEMPRE questo file e BUSINESS_DASHBOARD.md prima di iniziare
+2. **NON INVENTARE** - Usare contenuti esistenti da OndePRDB, mai inventare post/testi
+3. **TELEGRAM PER APPROVAZIONI** - Mandare sempre su Telegram, Mattia guarda da iPhone
+4. **STILE ONDE** - Acquarello europeo, NO Pixar/CocoMelon, elegante italiano
+
+### Regole Editore Capo (Casa Editrice)
+**PRIMA di mandare qualsiasi PDF/libro a Mattia:**
+
+1. **CHECK COERENZA IMMAGINI-TESTO** (OBBLIGATORIO)
+   - Verificare che OGNI immagine corrisponda alla descrizione nel testo
+   - Controllare che i personaggi siano coerenti (stesso aspetto in tutte le pagine)
+   - Verificare che gli ambienti descritti corrispondano alle illustrazioni
+   - Se Sofia ha i capelli castani nel Cap 1, deve averli castani in TUTTI i capitoli
+   - Se AIKO ha gli occhi LED blu, devono essere blu OVUNQUE
+
+2. **CHECKLIST PRE-CONSEGNA**
+   - [ ] Tutte le immagini corrispondono al testo?
+   - [ ] I personaggi hanno aspetto coerente?
+   - [ ] Gli ambienti sono corretti per ogni scena?
+   - [ ] Nessun elemento visivo contraddice il testo?
+   - [ ] Layout verificato (testo non sovrapposto)?
+
+3. **SE TROVI INCOERENZE**
+   - NON mandare il PDF
+   - Rigenerare le immagini problematiche
+   - Verificare di nuovo
+   - Solo dopo → mandare su Telegram
+
+**NOTA AIKO**: Nel libro AIKO ci sono stati problemi di coerenza immagini-descrizioni. Usare come esempio di cosa NON fare.
+
+### Regole PA Agent
+1. Assistere Mattia nelle attività quotidiane
+2. Coordinare con altri agenti quando necessario
+3. Prioritizzare task in base all'urgenza
+4. Report giornaliero alle 17:40
+
+### Regole per Nuovi Agenti
+Quando si crea un nuovo agente:
+1. Documentare in questo file (tabella Sistema Agenti)
+2. Creare file `.md` con istruzioni specifiche
+3. Creare `.memory.json` per stato persistente
+4. Definire chiaramente scope e limiti
+
+---
 
 ### Processo Produzione
 Documentato in: `/content/processes/book-production.md`
