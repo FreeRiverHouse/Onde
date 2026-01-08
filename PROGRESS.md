@@ -60,13 +60,23 @@
 
 | Libro | Collana | Testo | Immagini | Manoscritto | Status |
 |-------|---------|-------|----------|-------------|--------|
-| AIKO | Tech | 100% | 100% | 100% | Review |
-| Salmo 23 | Spiritualità | 100% | 100% | 75% | Bozza V2 |
-| Legge Attrazione | Spiritualità | 100% | 0% | 0% | Testo pronto |
+| AIKO | Tech | 100% | 100% | 100% | ✅ PUBBLICATO |
+| Il Potere dei Desideri | Spiritualità | 100% | 100% | 100% | ✅ PDF Pronto |
+| Salmo 23 | Spiritualità | 100% | 100% | 75% | Bozza V2 → V3 |
+| Piccole Rime | Poetry | 100% | 100% | 100% | ✅ PDF Pronto |
 | Mindfulness Bambini | Spiritualità | 0% | 0% | 0% | In queue |
 | Antologia Poesie EN | Poetry | 0% | 0% | 0% | In queue |
 | AIKO (IT) | Tech | 0% | 50% | 0% | Traduzione |
 | Antologia Poesie IT | Poetry | 100% | 100% | 100% | Pronto |
+
+---
+
+## 🌟 Feedback Lettori (2026-01-07)
+
+| Libro | Lettore | Feedback | Note |
+|-------|---------|----------|------|
+| **Il Potere dei Desideri** | Neri | "Mi è piaciuto TANTISSIMO" | Uno dei migliori risultati |
+| **AIKO** | Neri | "Mi ha fatto venire voglia di imparare di più" | Obiettivo educativo raggiunto |
 
 **Legenda Progress:**
 - 25% = Solo testo (almeno draft1)
