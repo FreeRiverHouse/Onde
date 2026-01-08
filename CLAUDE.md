@@ -5,6 +5,35 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (8 Gennaio 2026)
+
+**Onde significa:**
+- **Connessione** - tra autore e lettore, tra storie e cuori
+- **Vibrazione di energia** - che si propaga e tocca chi incontra
+- **Comunicazione** - storie che parlano senza barriere
+- **Bellezza** - estetica prima di tutto
+- **Movimento** - mai fermi, sempre in crescita
+
+**FreeRiverHouse + Onde = Far fiorire il mondo**
+
+La missione profonda (da non esplicitare sempre, ma da vivere):
+- Portiamo nutrimento, facciamo crescere
+- Come un fiume libero che nutre la terra
+- Come onde che raggiungono ogni riva
+
+**Per PR e comunicazione:**
+- Questa è la vibe vera
+- Non vendita, ma connessione
+- Non hype, ma sostanza
+- Non disruption per ego, ma disruption per liberare
+
+**Il logo:**
+- Le onde sembrano un fiore - non è un caso
+- Onde = fiorire = far fiorire il mondo
+- Messaggio implicito, non da esplicitare sempre, ma da tenere presente
+
+---
+
 ## 🔴 TASK IMMEDIATO - "CHECK MEMORY" (8 Gennaio 2026)
 
 **Quando Mattia dice "check memory" → FAI QUESTO:**
