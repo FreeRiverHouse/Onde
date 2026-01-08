@@ -612,17 +612,17 @@
       "source": "video_prompts/prompt_batch_001.md"
     },
     {
-      "id": "event-youtube-channel",
-      "account": "frh",
-      "accountDisplay": "@FreeRiverHouse",
-      "title": "Canale YouTube FreeRiverHouse",
-      "collection": "🎥 Live Events",
+      "id": "event-onde-multimedia",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Canale Multimedia Onde",
+      "collection": "🎥 Onde Multimedia",
       "mediaType": "event",
       "media": null,
-      "caption": "📺 CANALE YOUTUBE FREERIVERHOUSE\n\nPlaylist pianificate:\n• \"AI Factory Explained\" - come funziona\n• \"Build With Us\" - live coding sessions\n• \"The Vision\" - filosofia e futuro\n• \"Tutorials\" - guide pratiche\n\nTarget Q2 2026:\n- 500 subscribers\n- 1000 hours watch time\n- Top video: 10K views",
+      "caption": "📺 ONDE - CASA EDITRICE MULTIMEDIA\n\nPiattaforme:\n• YouTube - Video, cartoni animati\n• Spotify - Podcast, audiolibri\n• TikTok/Reels - Contenuti brevi\n\nContenuti:\n• Cartoni animati dalle storie Onde\n• Podcast per bambini e famiglie\n• Video educativi\n• Behind the scenes produzione libri\n\nTarget Q2 2026:\n- 500 subscribers YouTube\n- Podcast su Spotify\n- Serie animata Piccole Rime",
       "status": "idea",
       "createdAt": "2026-01-07T10:30:00Z",
-      "source": "ROADMAP.md - Fase 2 YouTube"
+      "source": "Idea Mattia - Casa Editrice Multimedia"
     }
   ]
 }

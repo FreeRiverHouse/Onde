@@ -30,9 +30,38 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 | **AIKO 2: Robotaxi** | Sofia prende Waymo con mamma, AIKO spiega | Idea del figlio di Mattia |
 | **Word Play** | Giochi di parole, rime, multilingua | Educativo linguistico |
 
-**Canale Video/Gaming**: Idea per canale YouTube con Neri che gioca a Minecraft
+**Canale Video/Gaming Neri**: Idea per canale YouTube con Neri che gioca a Minecraft
 
 **RIFERIMENTO**: Lista completa app in `APP-FACTORY-PLAN.md`
+
+---
+
+## 📺 ONDE MULTIMEDIA (2026-01-07)
+
+**Onde è una casa editrice MULTIMEDIA - non solo libri!**
+
+| Piattaforma | Contenuti |
+|-------------|-----------|
+| **YouTube** | Video, cartoni animati dalle storie |
+| **Spotify** | Podcast, audiolibri per bambini |
+| **TikTok/Reels** | Contenuti brevi, animazioni |
+
+**Contenuti da produrre:**
+- Cartoni animati dalle storie Onde (Piccole Rime, AIKO, etc.)
+- Podcast per bambini e famiglie
+- Video educativi
+- Behind the scenes produzione libri
+
+**IMPORTANTE**: Il canale YouTube/Spotify è di ONDE (casa editrice), NON di FreeRiverHouse.
+
+**Target Q2 2026:**
+- 500 subscribers YouTube
+- Podcast attivo su Spotify
+- Serie animata Piccole Rime
+
+**Live Events FreeRiverHouse** (separato):
+- Twitch: Live coding "Build With Us"
+- YouTube FRH: Tutorial tecnici, behind the scenes sviluppo
 
 ---
 
