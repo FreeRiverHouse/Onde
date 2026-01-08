@@ -2,8 +2,8 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 
 async function createPDF() {
-    const version = process.argv[2] || 'v2';
-    const htmlFile = version === 'v1' ? 'libro.html' : 'libro-v2.html';
+    const version = process.argv[2] || 'v3';
+    const htmlFile = version === 'v1' ? 'libro.html' : `libro-${version}.html`;
     const pdfFile = `libro-${version}.pdf`;
 
     console.log(`Creazione PDF ${version}...`);

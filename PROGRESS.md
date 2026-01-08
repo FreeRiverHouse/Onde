@@ -62,7 +62,7 @@
 |-------|---------|-------|----------|-------------|--------|
 | AIKO | Tech | 100% | 100% | 100% | ✅ PUBBLICATO |
 | Il Potere dei Desideri | Spiritualità | 100% | 100% | 100% | ✅ PDF Pronto |
-| Salmo 23 | Spiritualità | 100% | 100% | 75% | Bozza V2 → V3 |
+| Salmo 23 | Spiritualità | 100% | 100% | 90% | V3 su Telegram per approvazione |
 | Piccole Rime | Poetry | 100% | 100% | 100% | ✅ PDF Pronto |
 | Mindfulness Bambini | Spiritualità | 0% | 0% | 0% | In queue |
 | Antologia Poesie EN | Poetry | 0% | 0% | 0% | In queue |

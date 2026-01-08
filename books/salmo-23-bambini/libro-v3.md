@@ -2,7 +2,7 @@
 ## Una storia di amore e protezione
 
 *Testi: Gianni Parola*
-*Illustrazioni: Pina Pennello (via Grok)*
+*Illustrazioni: Pina Pennello*
 *Casa Editrice: Onde*
 
 ---
