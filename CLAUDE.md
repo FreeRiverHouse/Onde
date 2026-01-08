@@ -886,36 +886,50 @@ L'agent può:
 
 ---
 
-## 🚨 TASK IN CORSO - RIPRENDI DA QUI (2026-01-06)
+## 🚨 TASK IN CORSO - RIPRENDI DA QUI (2026-01-08)
 
-### PR Dashboard Portal - NUOVO PRODOTTO
-**Path:** `tools/pr-dashboard/`
-**URL:** http://localhost:3333
-**Come lanciare:**
-```bash
-cd /Users/mattiapetrucciani/CascadeProjects/Onde/tools/pr-dashboard
-npm start
-```
+### 🎨 PINA PENNELLO: GENERA IMMAGINI PER 4 NUOVI LIBRI
 
-**Features:**
-- Customer portal per approvazione contenuti social
-- Interfaccia museo/galleria con post come quadri appesi
-- Sezioni: Galleria Post, Upload, Stile & Prompt, Account da Seguire, Ricerca
-- Pronto per multi-tenant (future auth per clienti esterni)
-- Puo' diventare primo prodotto SaaS da vendere
+**QUANDO MATTIA DICE "check memory" → FAI QUESTO:**
 
-### Video Piccole Rime - COMPLETATI
-**Path:** `books/piccole-rime/videos/`
-- 01-stella-stellina-stars.mp4 (2.1MB)
-- 02-pulcino-bagnato-rain.mp4 (4.2MB)
-- 03-pioggerellina-rain.mp4 (2.8MB)
-Stile Luzzati folk art animato, generati con @grok
+#### STEP 1: Apri Grok
+Naviga su `https://x.com/i/grok` → clicca "Create Images"
 
-### Prossimi step
-1. Aggiornare bio @Onde_FRH: "AI Publishing House + PR Agency"
-2. Approvare i 3 video nella dashboard
-3. Postare i video su @Onde_FRH (taggare @grok)
-4. Generare altri video per poesie 4-10
+#### STEP 2: Genera immagini per questi libri (in ordine)
+
+**LIBRO 1: Il Respiro Magico** (10 immagini)
+- Path prompts: `books/spirituality/mindfulness/il-respiro-magico_prompts.txt`
+- Salva in: `books/spirituality/mindfulness/images/`
+
+**LIBRO 2: La Luce Dentro** (9 immagini)
+- Path prompts: `books/spirituality/la-luce-dentro/la-luce-dentro_prompts.txt`
+- Salva in: `books/spirituality/la-luce-dentro/images/`
+
+**LIBRO 3: Il Piccolo Inventore** (11 immagini)
+- Path prompts: `books/tech/piccolo-inventore/il-piccolo-inventore_prompts.txt`
+- Salva in: `books/tech/piccolo-inventore/images/`
+
+**LIBRO 4: Il Potere dei Desideri** (11 immagini)
+- Path prompts: `books/spirituality/legge-attrazione/` (verifica file)
+- Salva in: `books/spirituality/legge-attrazione/images/`
+
+#### STEP 3: Workflow per ogni libro
+1. Leggi il file `*_prompts.txt`
+2. Apri 5-10 tab Grok in parallelo
+3. Inserisci i prompt (uno per tab)
+4. Genera + UPSCALE
+5. Scarica in `~/Downloads/`
+6. Sposta nelle cartelle corrette
+7. Passa al libro successivo
+
+#### STEP 4: Quando finisci
+- Aggiorna BOOK_PLAN.md con status "immagini complete"
+- Commit e push
+- Notifica Mattia su Telegram
+
+---
+
+### Libri precedenti (referenza)
 
 ### Le 3 poesie selezionate
 
