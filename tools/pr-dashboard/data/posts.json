@@ -623,6 +623,58 @@
       "status": "idea",
       "createdAt": "2026-01-07T10:30:00Z",
       "source": "Idea Mattia - Casa Editrice Multimedia"
+    },
+    {
+      "id": "short-stella-stellina",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Short: Stella Stellina",
+      "collection": "🎬 YouTube Shorts - Da Produrre",
+      "mediaType": "short",
+      "media": null,
+      "caption": "⭐ STELLA STELLINA - YouTube Short\n\nPoesia: Lina Schwarz\nDurata: ~45 sec (4 clip Grok)\n\nScene:\n1. Cielo stellato, notte che arriva\n2. Stalla accogliente, mucca e vitello\n3. Chioccia con pulcino\n4. Mamma con bambino, tutti dormono\n\nStile: Acquarello animato, Luzzati\nAudio: Voce narrante + musica soft",
+      "status": "idea",
+      "createdAt": "2026-01-07T11:00:00Z",
+      "source": "Video Factory - Piccole Rime"
+    },
+    {
+      "id": "short-pulcino-bagnato",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Short: Il Pulcino Bagnato",
+      "collection": "🎬 YouTube Shorts - Da Produrre",
+      "mediaType": "short",
+      "media": null,
+      "caption": "🐣 IL PULCINO BAGNATO - YouTube Short\n\nDurata: ~45 sec (4 clip Grok)\n\nScene:\n1. Pioggia che cade sul prato\n2. Pulcino solo sotto la pioggia\n3. Mamma chioccia arriva\n4. Pulcino al sicuro sotto le ali\n\nStile: Acquarello animato\nAudio: Suoni pioggia + voce narrante",
+      "status": "idea",
+      "createdAt": "2026-01-07T11:10:00Z",
+      "source": "Video Factory - Piccole Rime"
+    },
+    {
+      "id": "short-pioggerellina",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Short: Che Dice la Pioggerellina",
+      "collection": "🎬 YouTube Shorts - Da Produrre",
+      "mediaType": "short",
+      "media": null,
+      "caption": "🌧️ CHE DICE LA PIOGGERELLINA - YouTube Short\n\nPoesia: A.S. Novaro\nDurata: ~60 sec (5 clip Grok)\n\nScene:\n1. Pioggia di marzo sui tetti\n2. Orto con fico e gelso\n3. Primavera esce dalla nuvola\n4. Fiori, rondini, mandorli in fiore\n5. Cuore felice che ascolta\n\nStile: Acquarello vivace\nAudio: Suoni pioggia + musica allegra",
+      "status": "idea",
+      "createdAt": "2026-01-07T11:20:00Z",
+      "source": "Video Factory - Piccole Rime"
+    },
+    {
+      "id": "short-aiko-intro",
+      "account": "onde",
+      "accountDisplay": "@Onde_FRH",
+      "title": "Short: AIKO si Presenta",
+      "collection": "🎬 YouTube Shorts - Da Produrre",
+      "mediaType": "short",
+      "media": null,
+      "caption": "🤖 AIKO SI PRESENTA - YouTube Short\n\nDurata: ~45 sec (4 clip Grok)\n\nScene:\n1. Sofia apre una scatola, luce\n2. AIKO si accende, occhi LED\n3. AIKO e Sofia si guardano\n4. Diventano amici, AIKO ride\n\nStile: Moderno, caldo, friendly robot\nAudio: Musica curiosa + voce AIKO",
+      "status": "idea",
+      "createdAt": "2026-01-07T11:30:00Z",
+      "source": "Video Factory - AIKO"
     }
   ]
 }
