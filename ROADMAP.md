@@ -103,6 +103,76 @@ Reader: epub.js o simile
 
 ---
 
+## 🎯 STRATEGIA PR & GUERRILLA MARKETING (NUOVO 8 Gen 2026)
+
+**Visione**: Onde è l'**Uber dell'editoria**. Stiamo disrupting Amazon/Kindle come Uber ha disrupted i taxi.
+
+### 🔥 Perché Siamo Disruptive
+- **Prima casa editrice 100% AI** (potenzialmente)
+- **Zero intermediari** = prezzi bassissimi (30 centesimi invece di €3)
+- **Qualità + Valori tradizionali** = quello che i genitori vogliono
+- **Multi-lingua nativo** = un libro in 10 lingue in un giorno
+
+### 💰 Strategia Prezzi Aggressiva
+| Su Amazon | Su Onde Books |
+|-----------|---------------|
+| €2.99 (noi prendiamo €1) | **€0.30** (noi prendiamo €0.27) |
+| €4.99 (noi prendiamo €1.75) | **€0.50** (noi prendiamo €0.47) |
+| €9.99 (noi prendiamo €3.50) | **€1.00** (noi prendiamo €0.97) |
+
+**Il 30% che Amazon si mangiava?** Lo diamo ai CLIENTI come sconto.
+
+### 🎪 Guerrilla Marketing - "Rubare" Follower a Kindle
+
+**Strategia**: Commentare sotto i post di @AmazonKindle e competitor per portare gente da noi.
+
+**Messaggi tipo**:
+- "Bel libro! Lo abbiamo anche noi a €0.30 su ondebooks.com 😉"
+- "Perché pagare €4.99 quando puoi averlo a €0.50?"
+- "Stanco dei prezzi Amazon? C'è un'alternativa..."
+
+**Account Target da "presidiare"**:
+- @AmazonKindle
+- @KindleIT
+- @KDP_Amazon
+- @Audible_IT
+- @KoboBooks
+
+**Task**:
+- [ ] Creare lista post Kindle da commentare
+- [ ] Preparare 20 risposte tipo (non spam, utili)
+- [ ] Commentare 5-10 post/giorno
+- [ ] Monitorare risultati
+
+### 📰 Campagna PR - Comunicato Stampa
+
+**File creati** (`OndePRDB/campaigns/onde-launch-2026/`):
+- ✅ `press-release-IT.md` - Comunicato italiano
+- ✅ `press-release-EN.md` - Comunicato inglese
+- ✅ `media-list.md` - Lista 50+ media target
+- ✅ `outreach-strategy.md` - Piano contatto media
+- [ ] `email-templates.md` - Template email (in progress)
+
+**Media Target**:
+- **Italia**: Il Libraio, Giornale della Libreria, Wired Italia
+- **Internazionali**: Publishing Perspectives, The Bookseller, Publishers Weekly
+- **Tech**: TechCrunch, The Verge, Ars Technica
+- **Podcast**: Self Publishing Italia, Libroza, Martin Eden
+
+**Angle Giornalistici**:
+1. **Per media tech**: "AI-First Publisher Disrupts Amazon"
+2. **Per media famiglia**: "Libri per bambini a 30 centesimi"
+3. **Per media business**: "La fine del monopolio Kindle?"
+4. **Per media italiani**: "Startup italiana sfida Amazon"
+
+### 📅 Piano Lancio PR
+- **Settimana 1**: Finalizzare comunicato stampa
+- **Settimana 2**: Mandare a 50 media italiani
+- **Settimana 3**: Mandare a media internazionali
+- **Settimana 4**: Follow-up e interviste
+
+---
+
 ## 🔴 PRIORITÀ IMMEDIATE (Slack 7 Gen 2026)
 
 ### 1. Kanban Dashboard Agenti (🔥 SUBITO)
