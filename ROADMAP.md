@@ -2,7 +2,104 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 (notte) - Aggiunta serie animata "AIKO & Sofia", pulizia KDP, AIKO 2 Robotaxi completato
+**Ultimo aggiornamento**: 2026-01-08 - Aggiunto Onde Books (store indipendente + app famiglia)
+
+---
+
+## 📚 ONDE BOOKS - Store Indipendente + App Famiglia (NUOVO 8 Gen 2026)
+
+**Obiettivo**: Bypassare Amazon KDP e vendere ebook direttamente. Creare un'app di lettura bella per famiglie.
+
+### 🔥 Perché Farlo
+- Amazon KDP ha limite ridicolo di 3 titoli/giorno
+- Amazon prende il 30-65% dei guadagni
+- Nessun controllo sull'esperienza utente
+- Le app di lettura esistenti fanno SCHIFO (design tech, non da bibliofili)
+
+### 🏗️ Architettura
+
+| Componente | Descrizione | Target |
+|------------|-------------|--------|
+| **Onde Books Portal** | Dashboard admin per gestire libri, ordini, utenti | Noi (Onde) |
+| **Onde Books App** | App di lettura per famiglie | Clienti |
+
+### 📖 "Onde Books" - L'App Cliente
+**Concept**: App di lettura per famiglie con design da amanti dei libri, non da tech.
+
+**Features MVP**:
+- 📚 Libreria personale (libri gratuiti + a pagamento)
+- 🎨 Layout bellissimi (typography curata, margini, luce notturna)
+- 👨‍👩‍👧‍👦 Profili famiglia (genitori + bambini)
+- 💳 Checkout semplice (Stripe)
+- 📖 Lettura offline
+- 🌙 Modalità notte per storie della buonanotte
+
+**Features Future**:
+- 🎧 Audiobook integrati
+- 📺 Video delle storie
+- 🏆 Gamification lettura per bambini
+- 🌍 Multilingua
+
+### 🏠 Hosting Self-Hosted (ZERO COSTI)
+**Infrastruttura**: Mac di Mattia (già sempre acceso, già ha Minecraft server pubblico)
+
+| Componente | Soluzione | Costo |
+|------------|-----------|-------|
+| Server | Mac locale | $0 |
+| Port forwarding | Router già configurato | $0 |
+| Dominio | ondereading.com (o simile) | ~$12/anno |
+| SSL | Let's Encrypt | $0 |
+| Pagamenti | Stripe (2.9% + $0.30/tx) | Solo su vendite |
+| Storage ebook | Locale su Mac | $0 |
+
+**Costo totale**: ~$12/anno + commissioni Stripe sulle vendite
+
+### 🛠️ Stack Tecnico
+```
+Frontend: Next.js (React)
+Backend: Next.js API routes
+Database: SQLite (locale) o Postgres
+Payments: Stripe
+Auth: NextAuth.js
+Storage: File system locale
+Reader: epub.js o simile
+```
+
+### 📋 Task MVP
+- [ ] Setup progetto Next.js
+- [ ] Pagina catalogo libri
+- [ ] Pagina dettaglio libro
+- [ ] Reader ebook integrato (epub.js)
+- [ ] Integrazione Stripe checkout
+- [ ] Sistema account utenti
+- [ ] Profili famiglia
+- [ ] Download offline
+- [ ] Deploy su Mac locale
+- [ ] Dominio + SSL
+
+### 💡 Modello Business
+| Tipo | Prezzo | Note |
+|------|--------|------|
+| **Libri gratuiti** | $0 | Lead magnet, fidelizzazione |
+| **Libri singoli** | $0.99-$4.99 | Acquisto diretto |
+| **Bundle famiglia** | $9.99/mese | Accesso a tutto il catalogo |
+| **Libri premium** | $9.99+ | Edizioni speciali, illustrate |
+
+### 🎯 Vantaggi vs Amazon
+| | Amazon KDP | Onde Books |
+|--|------------|--------------|
+| Commissioni | 30-65% | ~3% (solo Stripe) |
+| Limite upload | 3/giorno | Illimitato |
+| Controllo UX | Zero | Totale |
+| Dati clienti | Amazon li tiene | Nostri |
+| Branding | Generico | Onde style |
+| Prezzo minimo | $0.99 | Qualsiasi |
+
+### 🚀 Timeline
+- **Settimana 1**: Setup base, catalogo, reader
+- **Settimana 2**: Stripe, account utenti
+- **Settimana 3**: Deploy, test, polish
+- **Settimana 4**: Launch soft con libri esistenti
 
 ---
 
