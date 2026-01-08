@@ -1,29 +1,75 @@
 # Onde Multimedia - Operation Tsunami
 
-> Espandere Onde su tutti i canali: YouTube, Spotify, TikTok
+> Espandere Onde su tutti i canali: YouTube, Spotify, TikTok - IN TUTTE LE LINGUE
 
-## Status: IN SVILUPPO
+## Status: PRIMO EPISODIO COMPLETATO
+
+**Ep.01 Stella Stellina** - 1:22 - Voce Marco (ElevenLabs) - PRONTO PER DISTRIBUZIONE
+
+---
+
+## ROADMAP DISTRIBUZIONE
+
+### Fase 1: Audio Podcast (Spotify + Apple Podcasts)
+| Piattaforma | Status | Note |
+|-------------|--------|------|
+| **Spotify for Podcasters** | DA FARE | podcasters.spotify.com |
+| **Apple Podcasts Connect** | DA FARE | podcastsconnect.apple.com |
+| **Amazon Music** | DA FARE | Via Spotify for Podcasters |
+| **Google Podcasts** | DA FARE | Via RSS feed |
+
+### Fase 2: Video Podcast (YouTube)
+| Formato | Tool | Status |
+|---------|------|--------|
+| **Gianni Parola che legge** | Hedra/HeyGen (lip sync) | DA PROVARE |
+| **Illustrazioni animate** | Runway/Pika | DA PROVARE |
+| **Slideshow + audio** | CapCut/Canva | Backup semplice |
+
+### Fase 3: Traduzioni Multi-Lingua
+| Lingua | Voce ElevenLabs | Status |
+|--------|-----------------|--------|
+| **Italiano** | Marco | FATTO (Ep.01) |
+| **Inglese** | Da scegliere | DA FARE |
+| **Francese** | Da scegliere | DA FARE |
+| **Spagnolo** | Da scegliere | DA FARE |
+| **Tedesco** | Da scegliere | DA FARE |
+| **Portoghese** | Da scegliere | DA FARE |
+
+**STRATEGIA**: Ogni episodio viene tradotto in 6+ lingue = 6x reach, 6x revenue
+
+---
 
 ## Canali Target
 
 | Canale | Tipo Contenuto | Status |
 |--------|----------------|--------|
-| **Spotify** | Podcast, audiobook bambini | Setup in corso |
-| **YouTube** | Video educational, animazioni | Pianificato |
-| **TikTok** | Contenuti brevi, animazioni | Pianificato |
+| **Spotify** | Podcast, audiobook bambini | PRONTO (Ep.01) |
+| **Apple Podcasts** | Podcast bambini | DA CONFIGURARE |
+| **YouTube** | Video podcast con Gianni | DA CREARE VIDEO |
+| **TikTok** | Clip brevi, animazioni | Pianificato |
+
+---
 
 ## Podcast Onde
 
 ### Concept
-Podcast per bambini e famiglie:
+Podcast per bambini e famiglie - MULTILINGUA:
 - Storie lette ad alta voce (dai libri Onde)
-- Poesie della tradizione italiana
+- Poesie della tradizione (italiana e internazionale)
 - Mini-lezioni educative (Gianni & Pina)
+- **TUTTO tradotto in 6+ lingue per distribuzione globale**
 
 ### Voci
-- **Gianni Parola**: Narratore principale, tono caldo e avvolgente
-- **Pina Pennello**: Co-host creativa, spunti artistici
-- Voice cloning con ElevenLabs (voci custom Onde)
+- **Gianni Parola (IT)**: Marco - ElevenLabs (GRATUITO, 73K users)
+- **Gianni Parola (EN)**: Da scegliere dalla libreria ElevenLabs
+- **Gianni Parola (FR/ES/DE)**: Da scegliere
+- **Pina Pennello**: Co-host creativa (voce femminile da scegliere)
+
+### IMPORTANTE: Contenuti Universali
+Per massimizzare le traduzioni, preferire contenuti che funzionano in tutte le culture:
+- Ninne nanne e poesie classiche (dominio pubblico)
+- Storie originali Onde (già nostre)
+- Temi universali: natura, famiglia, amicizia, sogni
 
 ### Struttura Episodio
 ```
