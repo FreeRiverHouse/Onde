@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>목자의 약속 - 어린이를 위한 시편 23편</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 12mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== COVER ===== */
+        .cover {
+            background: linear-gradient(180deg, #f5d782 0%, #a8d4a0 50%, #7eb8da 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 15mm 15mm 0 15mm;
+        }
+
+        .cover img {
+            width: 150mm;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 5px solid white;
+        }
+
+        .cover h1 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 34pt;
+            color: #2c5530;
+            margin-top: 15mm;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .cover h2 {
+            font-size: 15pt;
+            color: #3d6b41;
+            font-weight: 400;
+            margin-top: 5mm;
+        }
+
+        .cover .author {
+            font-size: 11pt;
+            color: #4a6b4a;
+            margin-top: auto;
+            padding-bottom: 10mm;
+        }
+
+        /* ===== DEDICATION ===== */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fffef8;
+        }
+
+        .dedication-text {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16pt;
+            color: #5a7a5a;
+            text-align: center;
+            max-width: 140mm;
+            line-height: 2.2;
+        }
+
+        .dedication-ornament {
+            font-size: 24pt;
+            color: #d4a855;
+            margin: 15mm 0;
+        }
+
+        /* ===== CHAPTERS ===== */
+        .chapter {
+            background: linear-gradient(180deg, #fffef5 0%, #f8f6f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10mm 15mm;
+        }
+
+        .chapter-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 12pt;
+            color: #d4a855;
+            letter-spacing: 3px;
+            margin-bottom: 3mm;
+        }
+
+        .chapter-title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20pt;
+            color: #3d6b41;
+            margin-bottom: 8mm;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .chapter img {
+            width: 165mm;
+            height: auto;
+            max-height: 140mm;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            margin-bottom: 8mm;
+        }
+
+        .chapter-text {
+            font-size: 13pt;
+            line-height: 2;
+            color: #333;
+            text-align: center;
+            max-width: 155mm;
+        }
+
+        .chapter-text p {
+            margin-bottom: 8px;
+        }
+
+        .verse {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #7a6030;
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-left: 4px solid #d4a855;
+            border-right: 4px solid #d4a855;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(212,168,85,0.08) 0%, rgba(212,168,85,0.15) 50%, rgba(212,168,85,0.08) 100%);
+            border-radius: 8px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 8mm;
+            right: 12mm;
+            font-size: 10pt;
+            color: #aaa;
+        }
+
+        /* ===== END ===== */
+        .end-page {
+            background: linear-gradient(180deg, #fdf6e3 0%, #e8f4f0 50%, #fff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fine {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 36pt;
+            color: #7a6030;
+            margin-bottom: 30mm;
+            font-weight: 700;
+        }
+
+        .ornament {
+            font-size: 20pt;
+            color: #d4a855;
+            margin-bottom: 15mm;
+        }
+
+        .credits {
+            font-size: 13pt;
+            color: #666;
+        }
+
+        .credits p {
+            margin: 6px 0;
+        }
+
+        .publisher {
+            margin-top: 25mm;
+            font-size: 14pt;
+            color: #7a6030;
+            font-weight: 600;
+        }
+
+        .powered {
+            font-size: 9pt;
+            color: #999;
+            margin-top: 8mm;
+        }
+
+        /* ===== ORIGINAL PSALM ===== */
+        .psalm-page {
+            background: #fffef8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25mm;
+        }
+
+        .psalm-title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 18pt;
+            color: #7a6030;
+            margin-bottom: 15mm;
+            font-weight: 700;
+        }
+
+        .psalm-text {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 12pt;
+            line-height: 2.4;
+            color: #555;
+            text-align: center;
+            max-width: 140mm;
+        }
+
+        .psalm-text p {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+    <img src="images/00-copertina.jpg" alt="표지">
+    <h1>목자의 약속</h1>
+    <h2>시편 23편: 풍요와 신뢰의 이야기</h2>
+    <p class="author">글 지안니 파롤라 &bull; 그림 피노 펜넬로</p>
+</div>
+
+<!-- DEDICATION -->
+<div class="page dedication">
+    <div class="dedication-ornament">&#10022;</div>
+    <p class="dedication-text">
+        큰 꿈을 꾸는 모든 어린이에게,<br>
+        우주는 항상 너의 말을 듣고 있단다.<br>
+        네가 필요한 모든 것은<br>
+        이미 너에게 오고 있어.
+    </p>
+    <div class="dedication-ornament">&#10022;</div>
+</div>
+
+<!-- CHAPTER 1: ABUNDANCE -->
+<div class="page chapter">
+    <p class="chapter-number">제 1 장</p>
+    <h2 class="chapter-title">네가 필요한 모든 것</h2>
+    <img src="images/01-pastore.jpg" alt="목자">
+    <div class="chapter-text">
+        <p>너를 지켜주는 착한 목자가 있어,<br>
+        네가 만날 수 있는 가장 친절한 친구야.<br>
+        그는 네 마음과 모든 꿈을 알고 있어.</p>
+
+        <p class="verse">"넌 항상 충분히 가질 거야," 그가 말했어,<br>
+        "네가 필요한 모든 것은 이미 여기 있어.<br>
+        그냥 믿기만 하면, 보게 될 거야."</p>
+
+        <p>작은 양들은 미소 짓고 아주 가벼운 기분이 들었어,<br>
+        왜냐하면 그들은 알았거든: 항상 충분해.<br>
+        항상 충분한 사랑. 항상 충분한 기쁨.</p>
+    </div>
+    <span class="page-number">3</span>
+</div>
+
+<!-- CHAPTER 2: GRATITUDE -->
+<div class="page chapter">
+    <p class="chapter-number">제 2 장</p>
+    <h2 class="chapter-title">지금이라는 선물</h2>
+    <img src="images/02-acque-tranquille.jpg" alt="잔잔한 물">
+    <div class="chapter-text">
+        <p>목자는 그들을 마법 같은 곳으로 데려갔어:<br>
+        부드러운 초록 초원, 반짝이는 시냇물,<br>
+        모든 꽃이 "고마워"라고 속삭이는 곳.</p>
+
+        <p class="verse">"멈추고 이게 얼마나 좋은지 느껴봐," 그가 말했어,<br>
+        "네가 가진 것에 감사하면,<br>
+        더 좋은 것들이 너에게 찾아와."</p>
+
+        <p>작은 양들은 깊이 숨을 쉬고 미소 지었어.<br>
+        그들은 따뜻한 햇살, 시원한 바람을 느꼈어.<br>
+        "고마워, 고마워, 고마워," 그들이 노래했어.</p>
+    </div>
+    <span class="page-number">4</span>
+</div>
+
+<!-- CHAPTER 3: TRUST -->
+<div class="page chapter">
+    <p class="chapter-number">제 3 장</p>
+    <h2 class="chapter-title">길을 믿어</h2>
+    <img src="images/03-sentieri.jpg" alt="길">
+    <div class="chapter-text">
+        <p>때로는 앞의 길이 헷갈려 보였어,<br>
+        이리저리 굽이치고, 보기 어려웠지.</p>
+
+        <p>하지만 목자는 미소 지으며 말했어:</p>
+
+        <p class="verse">"전체 길을 알 필요 없어.<br>
+        그냥 다음 발걸음만 내딛으면 돼.<br>
+        내가 너를 네가 아직 상상도 못 하는<br>
+        멋진 곳으로 안내해 줄게."</p>
+
+        <p>그래서 작은 양들은 믿는 법을 배웠어,<br>
+        좋은 일이 올 거라는 것을 알면서.</p>
+    </div>
+    <span class="page-number">5</span>
+</div>
+
+<!-- CHAPTER 4: LOVE OVER FEAR -->
+<div class="page chapter">
+    <p class="chapter-number">제 4 장</p>
+    <h2 class="chapter-title">사랑은 두려움보다 강해</h2>
+    <img src="images/04-valle-oscura.jpg" alt="어두운 골짜기">
+    <div class="chapter-text">
+        <p>어느 날 그들은 그림자의 골짜기에 도착했어,<br>
+        두려움이 무서운 것들을 속삭이는 곳.</p>
+
+        <p>하지만 목자의 목소리는 차분하고 맑았어:</p>
+
+        <p class="verse">"두려움은 그림자일 뿐이야 - 너를 해칠 수 없어.<br>
+        두려움 대신 사랑을 선택하면,<br>
+        그림자는 사라져.<br>
+        나는 항상 너와 함께 있어."</p>
+
+        <p>작은 양들은 사랑을 선택했고, 갑자기<br>
+        골짜기가 더 이상 그렇게 어둡게 느껴지지 않았어.</p>
+    </div>
+    <span class="page-number">6</span>
+</div>
+
+<!-- CHAPTER 5: OVERFLOW -->
+<div class="page chapter">
+    <p class="chapter-number">제 5 장</p>
+    <h2 class="chapter-title">네가 구한 것보다 더 많이</h2>
+    <img src="images/05-tavola.jpg" alt="잔치">
+    <div class="chapter-text">
+        <p>그러자 놀라운 일이 일어났어!<br>
+        목자가 큰 잔치를 준비했는데<br>
+        그들이 먹을 수 있는 것보다<br>
+        더 많은 맛있는 것들이 있었어.</p>
+
+        <p class="verse">"삶은 이렇게 작동해," 그가 기쁘게 말했어,<br>
+        "네가 믿고 감사하면,<br>
+        네가 필요한 것만 얻는 게 아니야 -<br>
+        더 많이 얻어! 네 잔이 넘쳐흘러!"</p>
+
+        <p>작은 양들은 기쁨에 웃었어.<br>
+        나눌 풍요가 너무 많았거든!</p>
+    </div>
+    <span class="page-number">7</span>
+</div>
+
+<!-- CHAPTER 6: HOME -->
+<div class="page chapter">
+    <p class="chapter-number">제 6 장</p>
+    <h2 class="chapter-title">넌 이미 여기에 속해</h2>
+    <img src="images/06-casa-signore.jpg" alt="집">
+    <div class="chapter-text">
+        <p>그렇게, 날마다,<br>
+        목자는 그들을 집으로 인도했어 -<br>
+        빛과 사랑으로 만들어진 아름다운 집.</p>
+
+        <p class="verse">"네 자리를 얻을 필요 없어," 그가 말했어,<br>
+        "넌 이미 여기에 속해 있어.<br>
+        선함과 사랑이 너를 따를 거야<br>
+        네 삶의 모든 날 동안."</p>
+
+        <p>그리고 작은 양들은 이해했어:<br>
+        그들은 항상 사랑받았고, 항상 안전했고,<br>
+        그들이 필요했던 모든 것은<br>
+        이미 그들의 것이었어.</p>
+    </div>
+    <span class="page-number">8</span>
+</div>
+
+<!-- ORIGINAL PSALM -->
+<div class="page psalm-page">
+    <h3 class="psalm-title">시편 23편</h3>
+    <div class="psalm-text">
+        <p>여호와는 나의 목자시니 내게 부족함이 없으리로다.</p>
+        <p>그가 나를 푸른 초장에 누이시며<br>쉴 만한 물가로 인도하시는도다.</p>
+        <p>내 영혼을 소생시키시고<br>자기 이름을 위하여 의의 길로 인도하시는도다.</p>
+        <p>내가 사망의 음침한 골짜기로 다닐지라도<br>해를 두려워하지 않을 것은 주께서 나와 함께 하심이라.</p>
+        <p>주의 지팡이와 막대기가<br>나를 안위하시나이다.</p>
+        <p>주께서 내 원수의 목전에서<br>내게 상을 차려 주시고.</p>
+        <p>기름을 내 머리에 부으셨으니<br>내 잔이 넘치나이다.</p>
+        <p>내 평생에 선하심과 인자하심이 반드시 나를 따르리니<br>내가 여호와의 집에 영원히 살리로다.</p>
+    </div>
+    <span class="page-number">9</span>
+</div>
+
+<!-- THE END -->
+<div class="page end-page">
+    <p class="fine">끝</p>
+    <p class="ornament">&#10022; &#10022; &#10022;</p>
+
+    <div class="credits">
+        <p><strong>글:</strong> 지안니 파롤라</p>
+        <p><strong>그림:</strong> 피노 펜넬로</p>
+        <p style="margin-top: 10px; font-size: 11pt; color: #888;">Powered by Claude AI and Grok</p>
+    </div>
+
+    <p class="publisher">Onde Publishing</p>
+    <p class="powered">초판 - 2026</p>
+    <span class="page-number">10</span>
+</div>
+
+</body>
+</html>

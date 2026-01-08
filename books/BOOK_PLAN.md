@@ -11,29 +11,52 @@
 - **Età**: 5-8 anni
 - **Status**: TESTO COMPLETO, immagini da generare
 - **Path**: `books/spirituality/legge-attrazione/`
-- **Files**:
-  - `il-potere-dei-desideri_FINAL.md` ✅
-  - `il-potere-dei-desideri_prompts.txt` ✅
 - **Prossimo step**: Generare 11 immagini su Grok
+
+### 2. Il Respiro Magico ✍️ → 🎨 (NUOVO!)
+- **Collana**: Spiritualità
+- **Età**: 4-7 anni
+- **Status**: TESTO COMPLETO + PROMPTS PRONTI
+- **Path**: `books/spirituality/mindfulness/`
+- **Files**:
+  - `il-respiro-magico_FINAL.md` ✅
+  - `il-respiro-magico_prompts.txt` ✅
+- **Prossimo step**: Generare 10 immagini su Grok
+
+### 3. La Luce Dentro ✍️ → 🎨 (NUOVO!)
+- **Collana**: Spiritualità
+- **Età**: 6-9 anni
+- **Status**: TESTO COMPLETO + PROMPTS PRONTI
+- **Path**: `books/spirituality/la-luce-dentro/`
+- **Files**:
+  - `la-luce-dentro_FINAL.md` ✅
+  - `la-luce-dentro_prompts.txt` ✅
+- **Prossimo step**: Generare 10 immagini su Grok
+
+### 4. Il Piccolo Inventore ✍️ → 🎨 (NUOVO!)
+- **Collana**: Tech
+- **Età**: 6-10 anni
+- **Status**: TESTO COMPLETO + PROMPTS PRONTI
+- **Path**: `books/tech/piccolo-inventore/`
+- **Files**:
+  - `il-piccolo-inventore_FINAL.md` ✅
+  - `il-piccolo-inventore_prompts.txt` ✅
+- **Prossimo step**: Generare 11 immagini su Grok
+
+### 5. AIKO Italiano ✍️ (NUOVO!)
+- **Collana**: Tech
+- **Età**: 5-8 anni
+- **Status**: TRADUZIONE COMPLETA
+- **Path**: `books/tech/aiko-it/`
+- **Files**:
+  - `aiko-italiano_FINAL.md` ✅
+- **Prossimo step**: Riusare immagini EN → PDF
 
 ---
 
 ## Libri in Queue (da scrivere)
 
-### 2. Il Respiro Magico
-- **Collana**: Spiritualità
-- **Tema**: Mindfulness e meditazione per bambini
-- **Età**: 4-7 anni
-- **Capitoli stimati**: 8-10
-- **Contenuto**:
-  - Esercizi di respirazione semplici
-  - Consapevolezza del corpo
-  - Gestione delle emozioni
-  - Trovare la calma
-- **Stile illustrazioni**: Acquarello morbido, colori pastello, atmosfera zen ma calda
-- **Path destinazione**: `books/spirituality/mindfulness/`
-
-### 3. Antologia Poesie Inglesi
+### 1. Antologia Poesie Inglesi
 - **Collana**: Poetry
 - **Tema**: Poesie classiche inglesi per bambini
 - **Età**: 5-10 anni
@@ -47,43 +70,19 @@
 - **Path destinazione**: `books/poetry/english/`
 - **Nota**: NON tradurre - rimane in inglese originale
 
-### 4. AIKO - Traduzione Italiana
-- **Collana**: Tech
-- **Tema**: Traduzione di AIKO dall'inglese
-- **Source**: `books/aiko-ai-children/` o `~/Downloads/aiko-final.txt`
-- **Stile**: Mantieni stesso tono, adatta culturalmente
-- **Immagini**: Riusa le stesse (già pronte)
-- **Path destinazione**: `books/tech/aiko-it/`
-
-### 5. La Luce Dentro (nuovo - spiritualità)
-- **Collana**: Spiritualità
-- **Tema**: Trovare la propria luce interiore
-- **Età**: 6-9 anni
-- **Contenuto**:
-  - Ogni bambino ha una luce speciale
-  - Come farla brillare
-  - Aiutare gli altri a trovare la loro
-- **Stile illustrazioni**: Molta luce dorata, atmosfera calda
-
-### 6. Il Piccolo Inventore (tech per bambini)
-- **Collana**: Tech
-- **Tema**: Creatività e problem-solving
-- **Età**: 6-10 anni
-- **Contenuto**:
-  - Un bambino che inventa cose
-  - Fallimenti come apprendimento
-  - Collaborazione
-- **Stile illustrazioni**: Vintage ma con elementi tech, laboratorio accogliente
-
 ---
 
-## Libri Completati
+## Libri Completati (Testo Pronto)
 
 | Libro | Collana | Data | Status |
 |-------|---------|------|--------|
 | AIKO (EN) | Tech | 2026-01 | ✅ PDF pronto |
 | Salmo 23 | Spiritualità | 2026-01 | ✅ Bozza V2 |
 | Antologia Poesie IT | Poetry | 2026-01 | ✅ Pronto |
+| **Il Respiro Magico** | Spiritualità | 2026-01-08 | ✅ Testo + Prompts |
+| **La Luce Dentro** | Spiritualità | 2026-01-08 | ✅ Testo + Prompts |
+| **Il Piccolo Inventore** | Tech | 2026-01-08 | ✅ Testo + Prompts |
+| **AIKO Italiano** | Tech | 2026-01-08 | ✅ Traduzione completa |
 
 ---
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Das Versprechen des Hirten - Psalm 23 fur Kinder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Georgia', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 12mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== COVER ===== */
+        .cover {
+            background: linear-gradient(180deg, #f5d782 0%, #a8d4a0 50%, #7eb8da 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 15mm 15mm 0 15mm;
+        }
+
+        .cover img {
+            width: 150mm;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 5px solid white;
+        }
+
+        .cover h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 32pt;
+            color: #2c5530;
+            margin-top: 15mm;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+        }
+
+        .cover h2 {
+            font-size: 15pt;
+            color: #3d6b41;
+            font-weight: 400;
+            font-style: italic;
+            margin-top: 5mm;
+        }
+
+        .cover .author {
+            font-size: 11pt;
+            color: #4a6b4a;
+            margin-top: auto;
+            padding-bottom: 10mm;
+        }
+
+        /* ===== DEDICATION ===== */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fffef8;
+        }
+
+        .dedication-text {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 18pt;
+            color: #5a7a5a;
+            text-align: center;
+            max-width: 140mm;
+            line-height: 2;
+        }
+
+        .dedication-ornament {
+            font-size: 24pt;
+            color: #d4a855;
+            margin: 15mm 0;
+        }
+
+        /* ===== CHAPTERS ===== */
+        .chapter {
+            background: linear-gradient(180deg, #fffef5 0%, #f8f6f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10mm 15mm;
+        }
+
+        .chapter-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 12pt;
+            color: #d4a855;
+            letter-spacing: 3px;
+            margin-bottom: 3mm;
+        }
+
+        .chapter-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 20pt;
+            color: #3d6b41;
+            margin-bottom: 8mm;
+            text-align: center;
+        }
+
+        .chapter img {
+            width: 165mm;
+            height: auto;
+            max-height: 140mm;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            margin-bottom: 8mm;
+        }
+
+        .chapter-text {
+            font-size: 14pt;
+            line-height: 1.9;
+            color: #333;
+            text-align: center;
+            max-width: 155mm;
+        }
+
+        .chapter-text p {
+            margin-bottom: 8px;
+        }
+
+        .verse {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            color: #7a6030;
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-left: 4px solid #d4a855;
+            border-right: 4px solid #d4a855;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(212,168,85,0.08) 0%, rgba(212,168,85,0.15) 50%, rgba(212,168,85,0.08) 100%);
+            border-radius: 8px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 8mm;
+            right: 12mm;
+            font-size: 10pt;
+            color: #aaa;
+        }
+
+        /* ===== END ===== */
+        .end-page {
+            background: linear-gradient(180deg, #fdf6e3 0%, #e8f4f0 50%, #fff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fine {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 42pt;
+            color: #7a6030;
+            font-style: italic;
+            margin-bottom: 30mm;
+        }
+
+        .ornament {
+            font-size: 20pt;
+            color: #d4a855;
+            margin-bottom: 15mm;
+        }
+
+        .credits {
+            font-size: 13pt;
+            color: #666;
+        }
+
+        .credits p {
+            margin: 6px 0;
+        }
+
+        .publisher {
+            margin-top: 25mm;
+            font-size: 14pt;
+            color: #7a6030;
+            font-weight: 600;
+        }
+
+        .powered {
+            font-size: 9pt;
+            color: #999;
+            margin-top: 8mm;
+        }
+
+        /* ===== ORIGINAL PSALM ===== */
+        .psalm-page {
+            background: #fffef8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25mm;
+        }
+
+        .psalm-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18pt;
+            color: #7a6030;
+            margin-bottom: 15mm;
+        }
+
+        .psalm-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 13pt;
+            line-height: 2.2;
+            color: #555;
+            text-align: center;
+            max-width: 140mm;
+        }
+
+        .psalm-text p {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+    <img src="images/00-copertina.jpg" alt="Titelbild">
+    <h1>Das Versprechen des Hirten</h1>
+    <h2>Psalm 23: Eine Geschichte von Fulle und Vertrauen</h2>
+    <p class="author">Text von Gianni Parola &bull; Illustrationen von Pino Pennello</p>
+</div>
+
+<!-- DEDICATION -->
+<div class="page dedication">
+    <div class="dedication-ornament">&#10022;</div>
+    <p class="dedication-text">
+        Fur jedes Kind, das gross traumt,<br>
+        wisse, dass das Universum dir immer zuhort,<br>
+        und alles, was du brauchst,<br>
+        ist bereits auf dem Weg zu dir.
+    </p>
+    <div class="dedication-ornament">&#10022;</div>
+</div>
+
+<!-- CHAPTER 1: ABUNDANCE -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL EINS</p>
+    <h2 class="chapter-title">Alles, was du brauchst</h2>
+    <img src="images/01-pastore.jpg" alt="Der Hirte">
+    <div class="chapter-text">
+        <p>Es gibt einen guten Hirten, der uber dich wacht,<br>
+        den freundlichsten Freund, den du je kennen wirst.<br>
+        Er kennt dein Herz und alle deine Traume.</p>
+
+        <p class="verse">"Du wirst immer genug haben," sagt er,<br>
+        "Alles, was du brauchst, ist bereits hier.<br>
+        Glaube nur, und du wirst es sehen."</p>
+
+        <p>Die kleinen Schafe lachelten und fuhlten sich so leicht,<br>
+        denn sie wussten: Es gibt immer genug.<br>
+        Immer genug Liebe. Immer genug Freude.</p>
+    </div>
+    <span class="page-number">3</span>
+</div>
+
+<!-- CHAPTER 2: GRATITUDE -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL ZWEI</p>
+    <h2 class="chapter-title">Das Geschenk des Augenblicks</h2>
+    <img src="images/02-acque-tranquille.jpg" alt="Stille Wasser">
+    <div class="chapter-text">
+        <p>Der Hirte fuhrte sie an einen magischen Ort:<br>
+        weiche grune Wiesen, funkelnde Bache,<br>
+        wo jede Blume "danke" flusterte.</p>
+
+        <p class="verse">"Halte inne und fuhle, wie gut das ist," sagte er,<br>
+        "Wenn du dankbar bist fur das, was du hast,<br>
+        kommen noch mehr gute Dinge zu dir."</p>
+
+        <p>Die kleinen Schafe atmeten tief ein und lachelten.<br>
+        Sie bemerkten die warme Sonne, die frische Brise.<br>
+        "Danke, danke, danke," sangen sie.</p>
+    </div>
+    <span class="page-number">4</span>
+</div>
+
+<!-- CHAPTER 3: TRUST -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL DREI</p>
+    <h2 class="chapter-title">Vertraue dem Weg</h2>
+    <img src="images/03-sentieri.jpg" alt="Der Pfad">
+    <div class="chapter-text">
+        <p>Manchmal sah der Weg voraus verwirrend aus,<br>
+        sich windend und drehend, schwer zu sehen.</p>
+
+        <p>Aber der Hirte lachelte und sagte:</p>
+
+        <p class="verse">"Du musst nicht den ganzen Weg kennen.<br>
+        Mach einfach den nachsten Schritt.<br>
+        Ich werde dich zu wunderbaren Orten fuhren,<br>
+        die du dir noch nicht vorstellen kannst."</p>
+
+        <p>Und die kleinen Schafe lernten zu vertrauen,<br>
+        wissend, dass gute Dinge kommen wurden.</p>
+    </div>
+    <span class="page-number">5</span>
+</div>
+
+<!-- CHAPTER 4: LOVE OVER FEAR -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL VIER</p>
+    <h2 class="chapter-title">Liebe ist starker als Angst</h2>
+    <img src="images/04-valle-oscura.jpg" alt="Dunkles Tal">
+    <div class="chapter-text">
+        <p>Eines Tages kamen sie in ein Tal der Schatten,<br>
+        wo die Angst beunruhigende Dinge flusterte.</p>
+
+        <p>Aber die Stimme des Hirten war ruhig und klar:</p>
+
+        <p class="verse">"Angst ist nur ein Schatten - sie kann dir nicht schaden.<br>
+        Wenn du Liebe statt Angst wahlst,<br>
+        verschwinden die Schatten.<br>
+        Ich bin immer bei dir."</p>
+
+        <p>Die kleinen Schafe wahlten die Liebe, und plotzlich<br>
+        schien das Tal nicht mehr so dunkel.</p>
+    </div>
+    <span class="page-number">6</span>
+</div>
+
+<!-- CHAPTER 5: OVERFLOW -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL FUNF</p>
+    <h2 class="chapter-title">Mehr als du erbeten hast</h2>
+    <img src="images/05-tavola.jpg" alt="Das Festmahl">
+    <div class="chapter-text">
+        <p>Dann geschah etwas Wunderbares!<br>
+        Der Hirte bereitete ein grosses Festmahl<br>
+        mit mehr kostlichen Dingen,<br>
+        als sie jemals essen konnten.</p>
+
+        <p class="verse">"So funktioniert das Leben," sagte er freudig,<br>
+        "Wenn du glaubst und dankbar bist,<br>
+        bekommst du nicht nur, was du brauchst -<br>
+        du bekommst mehr! Dein Becher lauft uber!"</p>
+
+        <p>Die kleinen Schafe lachten vor Freude.<br>
+        Es gab so viel Fulle zu teilen!</p>
+    </div>
+    <span class="page-number">7</span>
+</div>
+
+<!-- CHAPTER 6: HOME -->
+<div class="page chapter">
+    <p class="chapter-number">KAPITEL SECHS</p>
+    <h2 class="chapter-title">Du gehorst bereits dazu</h2>
+    <img src="images/06-casa-signore.jpg" alt="Zuhause">
+    <div class="chapter-text">
+        <p>Und so, Tag fur Tag,<br>
+        fuhrte der Hirte sie nach Hause -<br>
+        ein wunderschones Zuhause aus Licht und Liebe.</p>
+
+        <p class="verse">"Du musst dir deinen Platz nicht verdienen," sagte er,<br>
+        "Du gehorst bereits hierher.<br>
+        Gute und Liebe werden dir folgen<br>
+        alle Tage deines Lebens."</p>
+
+        <p>Und die kleinen Schafe verstanden:<br>
+        Sie waren immer geliebt, immer sicher,<br>
+        und alles, was sie jemals brauchten,<br>
+        gehorte ihnen bereits.</p>
+    </div>
+    <span class="page-number">8</span>
+</div>
+
+<!-- ORIGINAL PSALM -->
+<div class="page psalm-page">
+    <h3 class="psalm-title">Psalm 23</h3>
+    <div class="psalm-text">
+        <p>Der Herr ist mein Hirte, mir wird nichts mangeln.</p>
+        <p>Er weidet mich auf einer grunen Aue<br>und fuhret mich zum frischen Wasser.</p>
+        <p>Er erquicket meine Seele.<br>Er fuhret mich auf rechter Strasse<br>um seines Namens willen.</p>
+        <p>Und ob ich schon wanderte im finstern Tal,<br>furchte ich kein Ungluck; denn du bist bei mir.</p>
+        <p>Dein Stecken und Stab<br>trosten mich.</p>
+        <p>Du bereitest vor mir einen Tisch<br>im Angesicht meiner Feinde.</p>
+        <p>Du salbest mein Haupt mit Ol<br>und schenkest mir voll ein.</p>
+        <p>Gutes und Barmherzigkeit werden mir folgen<br>mein Leben lang,<br>und ich werde bleiben im Hause des Herrn<br>immerdar.</p>
+    </div>
+    <span class="page-number">9</span>
+</div>
+
+<!-- THE END -->
+<div class="page end-page">
+    <p class="fine">Ende</p>
+    <p class="ornament">&#10022; &#10022; &#10022;</p>
+
+    <div class="credits">
+        <p><strong>Text:</strong> Gianni Parola</p>
+        <p><strong>Illustrationen:</strong> Pino Pennello</p>
+        <p style="margin-top: 10px; font-size: 11pt; color: #888;">Powered by Claude AI and Grok</p>
+    </div>
+
+    <p class="publisher">Onde Publishing</p>
+    <p class="powered">Erste Ausgabe - 2026</p>
+    <span class="page-number">10</span>
+</div>
+
+</body>
+</html>
