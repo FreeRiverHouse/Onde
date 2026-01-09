@@ -61,6 +61,39 @@ La missione profonda (da non esplicitare sempre, ma da vivere):
 
 ---
 
+## 🔴🔴🔴 PUNTO ESATTO DOVE MI SONO FERMATO (8 Gennaio 2026)
+
+**RIPRENDI DA QUI:**
+
+### 1. Approval Dashboard - CREATA, NON LANCIATA
+- **Path**: `apps/approval-dashboard/`
+- **Porta**: 3456
+- **Status**: File creati, npm install fatto, server NON avviato
+- **Per lanciare**: `cd apps/approval-dashboard && node server.js`
+- **Funzionalità**: Dashboard web per approvare/rifiutare immagini con commenti
+
+### 2. HandsFree Pedal Mockups - PROMPT PRONTI
+- **Path prompt**: `content/social/handsfree-pedal-post.md`
+- **4 immagini da generare**:
+  1. Product Shot (stile Amazon)
+  2. In-Use Shot (cucina)
+  3. Before/After Meme
+  4. Close-up tasti consumati
+- **Status**: Navigato su Grok (`x.com/i/grok`), tab aperto, NON ancora generato
+
+### 3. Workflow da completare:
+1. Lancia dashboard: `cd apps/approval-dashboard && node server.js`
+2. Apri browser su `http://localhost:3456`
+3. Genera immagini su Grok
+4. Scarica in `~/Downloads/`
+5. Aggiungi alla dashboard per approvazione via API POST
+
+### Chrome Status
+- Tab Grok già aperto (tabId: 1790232527)
+- Pronto per generare immagini
+
+---
+
 ## 🔴🔴🔴 TASK IMMEDIATO - AIKO 2 ROBOTAXI (8 Gennaio 2026 - STASERA!)
 
 **MATTIA VUOLE LEGGERE IL LIBRO STASERA!**
