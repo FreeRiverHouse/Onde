@@ -1367,3 +1367,7 @@ Vintage 1950s Italian children's book illustration, retro watercolor style, nost
 - Pubblicazione più veloce (no limite 3/giorno)
 - Multilingua automatico (6+ lingue per titolo)
 - VR reader (esclusivo Onde)
+
+**Domini da considerare:**
+- **onde.surf** - DISPONIBILE (da comprare quando pronti)
+- **onde.la** - DISPONIBILE (LA = Los Angeles / "la onda")
