@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-09 - FABBRICA ONDE: 66/93 task completati (71%)
+**Ultimo aggiornamento**: 2026-01-09 - FABBRICA ONDE: 76/102 task completati (75%)
 
 ---
 
@@ -11,10 +11,15 @@
 **COMPLETATO E FUNZIONANTE!**
 
 ### 📊 Risultati
-- ✅ **66 task completati (71%)**
-- 🔵 16 in progress
-- 🟡 11 bloccati (dipendenze)
-- 📦 93 task totali
+- ✅ **76 task completati (75%)**
+- 🔵 13 in progress
+- 🟡 12 bloccati (dipendenze)
+- 📦 102 task totali
+
+### 🆕 Nuovi Task Aggiunti (9 Gen 2026)
+- **PR Study Chain**: pr-study-001/002/003 - Studiare best practices X
+- **TSUNAMI**: tsunami-001/002/003 - Cross-pollination catalogo → OndePRDB
+- **Multi-Post System**: social-auto-001 ✅ completato
 
 ### ✅ Cosa è stato costruito
 - **Worker Manager CLI** (`scripts/worker/worker-manager.js`)

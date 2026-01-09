@@ -159,5 +159,47 @@ Illustrazione: Pina Pennello con @grok
 
 ---
 
-*Task: social-ig-001*
+## Script Automazione (social-ig-002)
+
+### File Disponibili
+
+| Script | Descrizione |
+|--------|-------------|
+| `META-GRAPH-API-GUIDE.md` | Guida completa setup Meta API |
+| `instagram-poster.js` | Script posting via Graph API |
+| `media-uploader.js` | Upload media su Cloudflare R2 |
+| `post-to-instagram.js` | Workflow completo (upload + post) |
+
+### Quick Start
+
+```bash
+# 1. Configura .env con le credenziali (vedi META-GRAPH-API-GUIDE.md)
+
+# 2. Verifica token
+node instagram-poster.js check-token
+
+# 3. Verifica account
+node instagram-poster.js get-account-info
+
+# 4. Posta immagine (workflow completo)
+node post-to-instagram.js image /path/to/image.jpg "Caption del post"
+```
+
+### Variabili Ambiente Richieste
+
+```env
+# Instagram Graph API
+INSTAGRAM_BUSINESS_ACCOUNT_ID=
+INSTAGRAM_ACCESS_TOKEN=
+
+# Cloudflare R2 (per hosting media)
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_R2_ACCESS_KEY=
+CLOUDFLARE_R2_SECRET_KEY=
+CLOUDFLARE_R2_BUCKET=onde-media
+```
+
+---
+
+*Task: social-ig-001, social-ig-002*
 *Ultimo aggiornamento: 2026-01-09*

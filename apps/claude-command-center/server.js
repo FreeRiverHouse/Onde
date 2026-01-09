@@ -240,6 +240,193 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
+// GET /api/status - full status for dashboard (matches frontend)
+app.get('/api/status', (req, res) => {
+  const tasksData = getTasks();
+  const tasks = tasksData.tasks || [];
+  const workers = getWorkers();
+
+  // Get pending approvals (tasks waiting for human approval)
+  const pendingApprovals = tasks
+    .filter(t => t.status === 'in_progress' && t.needs_approval)
+    .map(t => ({
+      id: t.id,
+      worker: t.claimed_by ? t.claimed_by.slice(-12) : 'unknown',
+      task: t.title,
+      time: t.claimed_at ? formatTimeAgo(new Date(t.claimed_at)) : '?'
+    }));
+
+  // Active workers
+  const activeWorkers = workers
+    .filter(w => w.status === 'active')
+    .map(w => ({
+      id: w.taskId,
+      name: getTaskTitle(tasks, w.taskId),
+      time: `${w.ageMinutes}min`,
+      status: 'active'
+    }));
+
+  // Blocked tasks (stale locks or blocked status)
+  const blockedTasks = [
+    ...workers.filter(w => w.status === 'stale').map(w => ({
+      id: w.taskId,
+      name: getTaskTitle(tasks, w.taskId),
+      reason: `Stale ${w.ageMinutes}min`,
+      time: `${w.ageMinutes}min`
+    })),
+    ...tasks.filter(t => t.status === 'blocked').map(t => ({
+      id: t.id,
+      name: t.title,
+      reason: 'Dependencies not met',
+      time: '-'
+    }))
+  ];
+
+  res.json({
+    stats: {
+      completed: tasks.filter(t => t.status === 'completed').length,
+      active: workers.filter(w => w.status === 'active').length,
+      pending: pendingApprovals.length,
+      blocked: blockedTasks.length
+    },
+    pending: pendingApprovals,
+    active: activeWorkers,
+    blocked: blockedTasks
+  });
+});
+
+// POST /api/unblock/:id - sblocca un task (alias for frontend)
+app.post('/api/unblock/:id', (req, res) => {
+  const { id } = req.params;
+  const tasksData = getTasks();
+
+  const task = tasksData.tasks.find(t => t.id === id);
+
+  // Remove lock file
+  const lockFile = path.join(LOCKS_DIR, `${id}.lock`);
+  if (fs.existsSync(lockFile)) {
+    fs.unlinkSync(lockFile);
+  }
+
+  if (task) {
+    task.status = 'available';
+    task.claimed_by = null;
+    task.claimed_at = null;
+    saveTasks(tasksData);
+  }
+
+  broadcast({ type: 'task_unblocked', taskId: id });
+  res.json({ success: true });
+});
+
+// POST /api/broadcast - send message to all workers
+app.post('/api/broadcast', (req, res) => {
+  const { message } = req.body;
+  if (!message) {
+    return res.status(400).json({ error: 'Message required' });
+  }
+
+  const messages = saveMessage(message);
+  broadcast({ type: 'broadcast', message });
+
+  res.json({ success: true });
+});
+
+// POST /api/approve/:id - approve a pending task
+app.post('/api/approve/:id', (req, res) => {
+  const { id } = req.params;
+  const tasksData = getTasks();
+  const task = tasksData.tasks.find(t => t.id === id);
+
+  if (task) {
+    task.needs_approval = false;
+    task.approved_at = new Date().toISOString();
+    saveTasks(tasksData);
+  }
+
+  broadcast({ type: 'task_approved', taskId: id });
+  res.json({ success: true });
+});
+
+// POST /api/reject/:id - reject a pending task
+app.post('/api/reject/:id', (req, res) => {
+  const { id } = req.params;
+  const tasksData = getTasks();
+  const task = tasksData.tasks.find(t => t.id === id);
+
+  if (task) {
+    task.status = 'available';
+    task.claimed_by = null;
+    task.claimed_at = null;
+    task.needs_approval = false;
+
+    const lockFile = path.join(LOCKS_DIR, `${id}.lock`);
+    if (fs.existsSync(lockFile)) {
+      fs.unlinkSync(lockFile);
+    }
+
+    saveTasks(tasksData);
+  }
+
+  broadcast({ type: 'task_rejected', taskId: id });
+  res.json({ success: true });
+});
+
+// POST /api/approve-all - approve all pending tasks
+app.post('/api/approve-all', (req, res) => {
+  const tasksData = getTasks();
+
+  tasksData.tasks.forEach(task => {
+    if (task.needs_approval) {
+      task.needs_approval = false;
+      task.approved_at = new Date().toISOString();
+    }
+  });
+
+  saveTasks(tasksData);
+  broadcast({ type: 'all_approved' });
+  res.json({ success: true });
+});
+
+// POST /api/reject-all - reject all pending tasks
+app.post('/api/reject-all', (req, res) => {
+  const tasksData = getTasks();
+
+  tasksData.tasks.forEach(task => {
+    if (task.needs_approval && task.status === 'in_progress') {
+      task.status = 'available';
+      task.claimed_by = null;
+      task.claimed_at = null;
+      task.needs_approval = false;
+
+      const lockFile = path.join(LOCKS_DIR, `${task.id}.lock`);
+      if (fs.existsSync(lockFile)) {
+        try { fs.unlinkSync(lockFile); } catch (e) {}
+      }
+    }
+  });
+
+  saveTasks(tasksData);
+  broadcast({ type: 'all_rejected' });
+  res.json({ success: true });
+});
+
+// Helper function to format time ago
+function formatTimeAgo(date) {
+  const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
+  if (minutes < 1) return 'now';
+  if (minutes < 60) return `${minutes}min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h`;
+  return `${Math.floor(hours / 24)}d`;
+}
+
+// Helper function to get task title
+function getTaskTitle(tasks, taskId) {
+  const task = tasks.find(t => t.id === taskId);
+  return task ? task.title : taskId;
+}
+
 // WebSocket connection handler
 wss.on('connection', (ws) => {
   console.log('New WebSocket connection');

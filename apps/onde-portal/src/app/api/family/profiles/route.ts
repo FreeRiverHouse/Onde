@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Ensure parent profile exists first
-    let profiles = getProfilesByUser(user.id)
+    const profiles = getProfilesByUser(user.id)
     if (profiles.length === 0) {
       createParentProfile(user.id, user.name || 'Genitore')
     }

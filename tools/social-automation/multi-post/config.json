@@ -1,0 +1,86 @@
+{
+  "platforms": {
+    "x": {
+      "enabled": true,
+      "accounts": {
+        "magmatic": {
+          "name": "magmatic__",
+          "envPrefix": "X_MAGMATIC"
+        },
+        "onde": {
+          "name": "Onde_FRH",
+          "envPrefix": "X_ONDE"
+        },
+        "frh": {
+          "name": "FreeRiverHouse",
+          "envPrefix": "X_FRH"
+        }
+      }
+    },
+    "instagram": {
+      "enabled": true,
+      "requiresBusinessAccount": true,
+      "envPrefix": "INSTAGRAM",
+      "mediaRequirements": {
+        "image": {
+          "formats": ["jpg", "jpeg", "png"],
+          "maxSize": "8MB",
+          "minDimensions": { "width": 320, "height": 320 },
+          "maxDimensions": { "width": 1440, "height": 1800 },
+          "aspectRatio": { "min": 0.8, "max": 1.91 }
+        },
+        "video": {
+          "formats": ["mp4", "mov"],
+          "maxDuration": 90,
+          "minDuration": 3,
+          "maxSize": "100MB"
+        }
+      }
+    },
+    "tiktok": {
+      "enabled": true,
+      "requiresCreatorAccount": true,
+      "envPrefix": "TIKTOK",
+      "privacyOptions": ["SELF_ONLY", "PUBLIC_TO_EVERYONE", "MUTUAL_FOLLOW_FRIENDS"],
+      "mediaRequirements": {
+        "video": {
+          "formats": ["mp4", "mov", "webm"],
+          "maxDuration": 180,
+          "minDuration": 3,
+          "maxSize": "287MB"
+        }
+      }
+    },
+    "youtube": {
+      "enabled": false,
+      "note": "YouTube Data API richiede OAuth2 e review app",
+      "envPrefix": "YOUTUBE"
+    }
+  },
+  "telegram": {
+    "botToken": "8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps",
+    "chatId": "7505631979",
+    "approvalCommands": {
+      "approve": ["ok", "si", "yes", "vai", "pubblica", "1"],
+      "reject": ["no", "stop", "skip", "2"],
+      "edit": ["modifica", "edit", "3"]
+    }
+  },
+  "approvalDashboard": {
+    "url": "http://localhost:3456",
+    "apiEndpoint": "/api/items"
+  },
+  "defaults": {
+    "addCredits": true,
+    "creditsFormat": {
+      "onde": "Illustrazione: Pina Pennello con @grok",
+      "frh": "Visual: @grok",
+      "magmatic": ""
+    }
+  },
+  "logging": {
+    "enabled": true,
+    "path": "./logs",
+    "rotationDays": 30
+  }
+}

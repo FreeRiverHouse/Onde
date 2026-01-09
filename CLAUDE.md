@@ -182,10 +182,22 @@ Sistema automatizzato per produrre video da contenuti Onde:
 **SISTEMA WORKER ATTIVO E FUNZIONANTE!**
 
 ### 📊 Status Corrente
-- ✅ **66 task completati (71%)**
-- 🔵 16 in progress (agenti al lavoro)
-- 🟡 11 bloccati (dipendenze)
-- 📦 93 task totali nella roadmap
+- ✅ **76 task completati (75%)**
+- 🔵 13 in progress (agenti al lavoro)
+- 🟡 12 bloccati (dipendenze)
+- 📦 102 task totali nella roadmap
+
+### 🌊 TSUNAMI Strategy (9 Gen 2026)
+**Cross-pollination Editore Capo ↔ Onde PR**:
+- Ogni libro → cartella OndePRDB completa
+- Contenuti: copertina, quotes, 5 video brevi, 1 video lungo, podcast, cartoni
+- Template riusabile per tutta la produzione
+- Task: tsunami-001/002/003
+
+### 📚 PR Study (9 Gen 2026)
+- pr-study-001: Studio X Analytics e Best Practices
+- pr-study-002: Audit Contenuti Onde Esistenti
+- pr-study-003: Account Ispiratori da Seguire
 
 ### 🔧 Come Usare la Fabbrica
 ```bash
@@ -1532,8 +1544,21 @@ export KMP_DUPLICATE_LIB_OK=TRUE
 cd /Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip
 
 # 4. Esegui lip sync
-python run.py --face input.jpg --audio input.wav
+python run.py -video_file input.jpg -vocal_file input.mp3 -output_file output/result.mp4
 ```
+
+### ⚠️ LIMITAZIONE QUALITY (9 Gen 2026)
+**SOLO "Fast" FUNZIONA** su Mac ARM64!
+
+- **Fast**: ✅ Funziona (Wav2Lip base)
+- **Improved**: ❌ Bug dlib ARM64 (create_mask fallisce)
+- **Enhanced**: ❌ Bug dlib ARM64 (create_mask + upscale fallisce)
+
+Il problema è che dlib 19.24.2 conda-forge per osx-arm64 ha un bug:
+- `RuntimeError: Unsupported image type` anche con immagini uint8 RGB valide
+- Non c'è fix disponibile al momento
+
+**Workaround**: Usa Fast quality, poi upscale separatamente se serve (es. con Topaz Video AI).
 
 ### Modelli installati (1.2GB totali)
 - `Wav2Lip.pth` (416MB) - base lip sync

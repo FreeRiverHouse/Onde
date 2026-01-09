@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:17:15.988Z",
+  "last_updated": "2026-01-09T09:32:16.297Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -730,12 +730,13 @@
       "description": "Setup account business Instagram Onde",
       "category": "pr",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": "claude-10778-mk6nx8pf",
-      "claimed_at": "2026-01-09T09:17:15.988Z"
+      "claimed_by": "claude-11841-mk6nypww",
+      "claimed_at": "2026-01-09T09:18:24.945Z",
+      "completed_at": "2026-01-09T09:20:37.126Z"
     },
     {
       "id": "social-ig-002",
@@ -743,14 +744,15 @@
       "description": "Configurare API Meta per auto-posting IG",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "social-ig-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-14074-mk6o24em",
+      "claimed_at": "2026-01-09T09:21:03.696Z",
+      "completed_at": "2026-01-09T09:25:18.052Z"
     },
     {
       "id": "social-tiktok-001",
@@ -788,15 +790,16 @@
       "description": "Approva Telegram → auto-post X, IG, TikTok, YT",
       "category": "tools",
       "priority": 2,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "social-ig-002",
         "social-tiktok-002"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-17971-mk6o8j8q",
+      "claimed_at": "2026-01-09T09:26:02.859Z",
+      "completed_at": "2026-01-09T09:30:50.968Z"
     },
     {
       "id": "pr-001",
@@ -1436,6 +1439,143 @@
       "claimed_by": "claude-85763-mk6nf2bx",
       "claimed_at": "2026-01-09T09:03:07.918Z",
       "completed_at": "2026-01-09T09:08:09.566Z"
+    },
+    {
+      "id": "social-ig-003",
+      "title": "Linktree Setup Onde",
+      "description": "Creare account Linktree per Onde Publishing con link Amazon, Spotify, YouTube, sito web",
+      "category": "pr",
+      "priority": 3,
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-14700-mk6o30be",
+      "claimed_at": "2026-01-09T09:21:45.051Z",
+      "created_at": "2026-01-09T09:20:51.550Z",
+      "completed_at": "2026-01-09T09:23:07.319Z"
+    },
+    {
+      "id": "social-ig-004",
+      "title": "Instagram Content Calendar Q1 2026",
+      "description": "Creare calendario editoriale dettagliato per Instagram Onde Q1 2026 con tutti i post pianificati",
+      "category": "pr",
+      "priority": 3,
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-14684-mk6o306w",
+      "claimed_at": "2026-01-09T09:21:44.889Z",
+      "created_at": "2026-01-09T09:20:51.706Z",
+      "completed_at": "2026-01-09T09:24:31.543Z"
+    },
+    {
+      "id": "social-fb-001",
+      "title": "Pagina Facebook Onde Publishing",
+      "description": "Setup pagina Facebook Onde Publishing come prerequisito per Instagram Business e Meta Business Suite",
+      "category": "pr",
+      "priority": 2,
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-14717-mk6o30fy",
+      "claimed_at": "2026-01-09T09:21:45.215Z",
+      "created_at": "2026-01-09T09:20:51.877Z",
+      "completed_at": "2026-01-09T09:23:26.979Z"
+    },
+    {
+      "id": "pr-study-001",
+      "title": "Studio X Analytics e Best Practices",
+      "description": "Analizzare account X di successo nel settore publishing e tech. Studiare: timing, formati, tono, engagement. Creare report con learnings per Onde PR.",
+      "category": "PR",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-19416-mk6oas5y",
+      "claimed_at": "2026-01-09T09:27:47.735Z",
+      "created_at": "2026-01-09T09:27:25.394Z"
+    },
+    {
+      "id": "pr-study-002",
+      "title": "Audit Contenuti Onde Esistenti",
+      "description": "Rivedere tutti i post FRH, Onde, Magmatic. Identificare pattern deboli. Proporre miglioramenti tono/qualità. Creare style guide aggiornata.",
+      "category": "PR",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "pr-study-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:27:26.412Z"
+    },
+    {
+      "id": "pr-study-003",
+      "title": "Account Ispiratori da Seguire",
+      "description": "Compilare lista di 20+ account X da seguire per ispirazione: publishing, indie dev, building in public. Per ogni account: cosa fanno bene, cosa copiare.",
+      "category": "PR",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "pr-study-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:27:27.500Z"
+    },
+    {
+      "id": "tsunami-001",
+      "title": "OndePRDB Cross-Pollination Setup",
+      "description": "Struttura OndePRDB per cross-pollination: ogni libro = cartella con copertina, quotes, video brevi/lunghi, podcast script, prompts per cartoni personaggi. Template riusabile per tutta la produzione.",
+      "category": "PR",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:32:13.698Z"
+    },
+    {
+      "id": "tsunami-002",
+      "title": "Catalogo → OndePRDB Migration",
+      "description": "Migrare TUTTI i libri esistenti nel nuovo formato OndePRDB: AIKO, AIKO 2, Salmo 23, Piccole Rime, etc. Per ogni libro: 5 video brevi, 1 video lungo, 1 podcast episode, prompts cartoni.",
+      "category": "PR",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "tsunami-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:32:15.203Z"
+    },
+    {
+      "id": "tsunami-003",
+      "title": "Cartoni Personaggi Template",
+      "description": "Template per generare cartoni dei personaggi di ogni libro (Gianni, Pina, Sofia, AIKO, etc). Include: prompt immagine, stile animazione, script brevi, formato video.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "tsunami-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:32:16.296Z"
     }
   ]
 }

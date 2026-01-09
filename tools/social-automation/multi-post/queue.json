@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "id": 1767951027973,
+      "status": "pending_approval",
+      "createdAt": "2026-01-09T09:30:27.973Z",
+      "platforms": [
+        "x"
+      ],
+      "xAccount": "onde",
+      "text": "Test del sistema Multi-Post\\! Questo e' un messaggio di prova.",
+      "mediaUrl": null,
+      "mediaPath": null,
+      "mediaType": null,
+      "caption": "Test del sistema Multi-Post\\! Questo e' un messaggio di prova.",
+      "telegramMessageId": 466,
+      "results": {},
+      "updatedAt": "2026-01-09T09:30:29.434Z"
+    }
+  ]
+}

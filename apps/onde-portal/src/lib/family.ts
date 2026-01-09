@@ -60,7 +60,8 @@ const profiles: Map<string, FamilyProfile> = new Map()
 
 // Constants
 const MAX_PROFILES_PER_USER = 5
-const ACTIVE_PROFILE_COOKIE = 'onde_active_profile'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _ACTIVE_PROFILE_COOKIE = 'onde_active_profile' // Reserved for future use
 
 /**
  * Create the main parent profile

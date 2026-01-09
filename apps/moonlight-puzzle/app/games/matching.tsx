@@ -7,7 +7,6 @@ import {
   Animated,
   Dimensions,
   SafeAreaView,
-  PanResponder,
 } from 'react-native';
 import { router } from 'expo-router';
 import { Colors } from '../../constants/Colors';
