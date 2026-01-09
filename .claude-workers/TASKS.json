@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:32:16.297Z",
+  "last_updated": "2026-01-09T09:42:27.709Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1491,13 +1491,14 @@
       "description": "Analizzare account X di successo nel settore publishing e tech. Studiare: timing, formati, tono, engagement. Creare report con learnings per Onde PR.",
       "category": "PR",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": "claude-19416-mk6oas5y",
       "claimed_at": "2026-01-09T09:27:47.735Z",
-      "created_at": "2026-01-09T09:27:25.394Z"
+      "created_at": "2026-01-09T09:27:25.394Z",
+      "completed_at": "2026-01-09T09:34:26.332Z"
     },
     {
       "id": "pr-study-002",
@@ -1505,15 +1506,16 @@
       "description": "Rivedere tutti i post FRH, Onde, Magmatic. Identificare pattern deboli. Proporre miglioramenti tono/qualità. Creare style guide aggiornata.",
       "category": "PR",
       "priority": 2,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "pr-study-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:27:26.412Z"
+      "claimed_by": "claude-25385-mk6okntb",
+      "claimed_at": "2026-01-09T09:35:28.657Z",
+      "created_at": "2026-01-09T09:27:26.412Z",
+      "completed_at": "2026-01-09T09:41:32.800Z"
     },
     {
       "id": "pr-study-003",
@@ -1521,15 +1523,16 @@
       "description": "Compilare lista di 20+ account X da seguire per ispirazione: publishing, indie dev, building in public. Per ogni account: cosa fanno bene, cosa copiare.",
       "category": "PR",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "pr-study-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:27:27.500Z"
+      "claimed_by": "claude-25365-mk6oknk4",
+      "claimed_at": "2026-01-09T09:35:28.331Z",
+      "created_at": "2026-01-09T09:27:27.500Z",
+      "completed_at": "2026-01-09T09:39:00.869Z"
     },
     {
       "id": "tsunami-001",
@@ -1537,12 +1540,12 @@
       "description": "Struttura OndePRDB per cross-pollination: ogni libro = cartella con copertina, quotes, video brevi/lunghi, podcast script, prompts per cartoni personaggi. Template riusabile per tutta la produzione.",
       "category": "PR",
       "priority": 1,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
+      "claimed_by": "claude-23908-mk6oi6ux",
+      "claimed_at": "2026-01-09T09:33:33.376Z",
       "created_at": "2026-01-09T09:32:13.698Z"
     },
     {
@@ -1576,6 +1579,251 @@
       "claimed_by": null,
       "claimed_at": null,
       "created_at": "2026-01-09T09:32:16.296Z"
+    },
+    {
+      "id": "music-ai-001",
+      "title": "Suno AI Music Pipeline",
+      "description": "Pipeline per generare musica AI con Suno: lofi beats, ambient, ninne nanne. Script batch, prompt library, quality control.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "ninna-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-28486-mk6oq0um",
+      "claimed_at": "2026-01-09T09:39:38.831Z",
+      "created_at": "2026-01-09T09:39:13.980Z"
+    },
+    {
+      "id": "music-ai-002",
+      "title": "Onde Lounge 24/7 Stream Setup",
+      "description": "Setup per streaming 24/7 su YouTube: OBS config, playlist rotation, chat bot, monetization. Come Lofi Girl ma per bambini/famiglie.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "music-ai-001",
+        "video-003"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:39:14.310Z"
+    },
+    {
+      "id": "music-ai-003",
+      "title": "Library 100 Tracce Ambient Onde",
+      "description": "Generare 100 tracce ambient/lofi con Suno per Onde Lounge: 20 ninne nanne, 30 study music, 30 relax, 20 nature sounds.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "music-ai-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:39:15.674Z"
+    },
+    {
+      "id": "audiobook-pipeline-001",
+      "title": "Audiobook Factory Pipeline",
+      "description": "Pipeline per generare audiobook da ogni libro Onde: ElevenLabs voices, chapter splitting, background music, quality check. Ogni libro = audiobook automatico.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "audiobook-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-29798-mk6osakv",
+      "claimed_at": "2026-01-09T09:41:24.751Z",
+      "created_at": "2026-01-09T09:40:15.605Z"
+    },
+    {
+      "id": "audiobook-pipeline-002",
+      "title": "Audiobook Catalog Completo",
+      "description": "Generare audiobook per TUTTI i libri Onde: AIKO 2, Piccole Rime, Il Respiro Magico, La Luce Dentro, etc. Target: 20 audiobook.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "audiobook-pipeline-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:40:17.291Z"
+    },
+    {
+      "id": "podcast-pipeline-001",
+      "title": "Podcast Factory Pipeline",
+      "description": "Pipeline per generare podcast episodes: intro jingle, Gianni voice, background ambient, outro. Template per episodi batch.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "podcast-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-29819-mk6osb7u",
+      "claimed_at": "2026-01-09T09:41:25.580Z",
+      "created_at": "2026-01-09T09:40:18.686Z"
+    },
+    {
+      "id": "podcast-pipeline-002",
+      "title": "50 Episodi Podcast Backlog",
+      "description": "Generare 50 episodi podcast pronti: poesie italiane, storie della buonanotte, favole. Backlog per 1 anno di pubblicazione settimanale.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "podcast-pipeline-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:40:19.886Z"
+    },
+    {
+      "id": "spotify-004",
+      "title": "Spotify Distribution Multi-Show",
+      "description": "Setup distribuzione Spotify: Onde Podcast (storie), Onde Lounge (music), Audiobook channel. RSS per ogni show.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "spotify-003"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-29779-mk6osaij",
+      "claimed_at": "2026-01-09T09:41:24.669Z",
+      "created_at": "2026-01-09T09:40:21.522Z"
+    },
+    {
+      "id": "cross-001",
+      "title": "MEGA Cross-Pollination Engine",
+      "description": "UN LIBRO = TUTTO: ebook, audiobook, podcast ep, 5 video brevi, 1 video lungo, 10 post social, cartone personaggi, musica tema. Script che da 1 input genera 15+ output.",
+      "category": "TOOLS",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [
+        "tsunami-001",
+        "audiobook-pipeline-001",
+        "podcast-pipeline-001",
+        "music-ai-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:40:38.037Z"
+    },
+    {
+      "id": "cross-002",
+      "title": "Content Matrix Generator",
+      "description": "Matrice automatica: Libro X genera → Audiobook, Podcast, YT Long, 5 YT Shorts, 5 TikTok, 5 IG Reels, 10 Tweet, Spotify track, Cartone. Template JSON per ogni libro.",
+      "category": "TOOLS",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [
+        "cross-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:40:38.366Z"
+    },
+    {
+      "id": "cross-003",
+      "title": "One-Click Publishing Pipeline",
+      "description": "Da 1 click: genera tutto, carica su tutte le piattaforme (KDP, Spotify, YouTube, TikTok, IG, X), schedule post. FULL AUTOMATION.",
+      "category": "TOOLS",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [
+        "cross-002",
+        "social-auto-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:40:39.318Z"
+    },
+    {
+      "id": "aiko-teach-001",
+      "title": "AIKO Teaches Tech - Serie YouTube",
+      "description": "Serie video con AIKO che spiega tech ai bambini: Internet, App, Robot, Coding, AI Safety. 10 episodi da 3-5 min. Lip sync + animazione.",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "lipsync-002"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:41:35.987Z"
+    },
+    {
+      "id": "aiko-teach-002",
+      "title": "AIKO Podcast - Tech per Bambini",
+      "description": "Podcast con AIKO: Come funziona YouTube? Cosa sono i robot? Perché il telefono sa dove sei? 20 episodi brevi (5-8 min).",
+      "category": "MULTIMEDIA",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "aiko-series-002"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-30871-mk6otn5m",
+      "claimed_at": "2026-01-09T09:42:27.709Z",
+      "created_at": "2026-01-09T09:41:37.481Z"
+    },
+    {
+      "id": "aiko-teach-003",
+      "title": "AIKO Shorts - 1 Fatto Tech al Giorno",
+      "description": "TikTok/Shorts con AIKO: 1 fatto tech curioso al giorno. 30 secondi. Batch di 30 per un mese intero.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "aiko-teach-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:41:39.037Z"
+    },
+    {
+      "id": "aiko-teach-004",
+      "title": "AIKO x Sofia Dialogues",
+      "description": "Video con AIKO e Sofia che parlano: Sofia fa domande, AIKO spiega. Formato dialogo naturale per bambini.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "aiko-teach-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:41:40.514Z"
     }
   ]
 }

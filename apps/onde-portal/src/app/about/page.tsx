@@ -1,135 +1,116 @@
-export default function About() {
+import Link from 'next/link'
+
+// TODO: Fetch dynamically from X API
+const profiles = {
+  onde: {
+    name: 'Onde',
+    handle: '@Onde_FRH',
+    bio: 'Classici e storie originali. Illustrati ad acquerello.',
+    url: 'https://x.com/Onde_FRH',
+    followers: '—',
+  },
+  frh: {
+    name: 'FreeRiverHouse',
+    handle: '@FreeRiverHouse',
+    bio: 'Building tools for creators. AI, publishing, apps.',
+    url: 'https://x.com/FreeRiverHouse',
+    followers: '—',
+  },
+}
+
+function XProfileCard({ profile }: { profile: typeof profiles.onde }) {
   return (
-    <div className="min-h-screen">
-      {/* Hero section */}
-      <div className="relative py-20 px-4 text-center bg-gradient-to-b from-[#0a1628] to-onde-dark">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-5xl mb-6">🌊</div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-white">
-            Chi Siamo
-          </h1>
-          <p className="text-xl text-[#2dd4bf] font-light italic">
-            Storie che viaggiano come onde, raggiungendo ogni riva.
+    <a
+      href={profile.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl p-6 hover:border-[#2dd4bf]/30 hover:bg-white/5 transition-all group"
+    >
+      <div className="flex items-start gap-4">
+        {/* Avatar */}
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2dd4bf]/20 to-onde-gold/20 flex items-center justify-center text-2xl flex-shrink-0">
+          🌊
+        </div>
+
+        <div className="flex-1 min-w-0">
+          {/* Name & Handle */}
+          <div className="flex items-center gap-2 mb-1">
+            <span className="font-bold text-white group-hover:text-[#2dd4bf] transition">
+              {profile.name}
+            </span>
+            <svg className="w-4 h-4 text-[#1d9bf0]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z" />
+            </svg>
+          </div>
+
+          <p className="text-white/40 text-sm mb-2">{profile.handle}</p>
+
+          {/* Bio */}
+          <p className="text-white/60 text-sm leading-relaxed">
+            {profile.bio}
           </p>
         </div>
       </div>
 
-      {/* Main content - Scritto da Gianni Parola */}
-      <div className="max-w-3xl mx-auto px-4 py-16">
-        <div className="space-y-10 text-lg leading-relaxed">
+      {/* Footer */}
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+        <span className="text-white/30 text-xs">Segui su X</span>
+        <span className="text-[#2dd4bf] text-sm group-hover:translate-x-1 transition-transform">→</span>
+      </div>
+    </a>
+  )
+}
 
-          {/* La nostra storia */}
-          <section>
-            <p className="text-xl md:text-2xl font-serif text-white/90 leading-relaxed">
-              Le storie migliori sono quelle che continuano a vivere.
-              Passano di mano in mano, di generazione in generazione,
-              come onde che non smettono mai di muoversi.
-            </p>
-          </section>
-
-          <section className="text-white/70 space-y-6">
-            <p>
-              <strong className="text-onde-gold">Onde</strong> è nata da una convinzione:
-              i grandi classici della letteratura non appartengono a nessuno e appartengono a tutti.
-              Sono patrimonio dell'umanità. E meritano di essere letti, amati, condivisi.
-            </p>
-
-            <p>
-              Non vendiamo libri. Apriamo porte. Ogni titolo nel nostro catalogo è gratuito,
-              perché crediamo che la bellezza debba circolare liberamente.
-              Come un fiume che nutre la terra che attraversa.
-            </p>
-          </section>
-
-          {/* La cura */}
-          <section className="border-l-4 border-[#2dd4bf] pl-6 py-4">
-            <p className="text-white/80 italic">
-              "Non basta rendere disponibile un testo. Bisogna renderlo vivo.
-              Ogni libro che pubblichiamo è curato come se fosse l'unico."
-            </p>
-            <p className="text-onde-gold mt-3 text-sm font-medium">— Gianni Parola</p>
-          </section>
-
-          <section className="text-white/70 space-y-6">
-            <p>
-              Le nostre illustrazioni sono acquarelli. Pennellate morbide, luce dorata,
-              quello stile europeo che sa di libri sfogliati davanti al camino.
-              Niente plastica digitale. Niente cartoon. Solo arte che respira.
-            </p>
-
-            <p>
-              Ogni testo è verificato sulle fonti originali. Non ci accontentiamo
-              di quello che troviamo in giro. Andiamo a cercare le edizioni storiche,
-              confrontiamo, correggiamo. Perché le parole meritano rispetto.
-            </p>
-          </section>
-
-          {/* Il nome */}
-          <section className="bg-white/5 rounded-2xl p-8 my-12">
-            <h2 className="text-2xl font-serif font-bold text-[#2dd4bf] mb-4">
-              Perché "Onde"?
-            </h2>
-            <p className="text-white/70">
-              Perché le storie si muovono come onde. Partono da un punto
-              e raggiungono rive che non potevano immaginare.
-              Perché ogni lettura è un'onda che ti attraversa e ti cambia, anche solo un poco.
-              Perché il nostro logo sembra un fiore che sboccia — e forse non è un caso.
-            </p>
-          </section>
-
+function CatalogCard() {
+  return (
+    <Link
+      href="/catalogo"
+      className="block bg-gradient-to-br from-[#2dd4bf]/10 to-onde-gold/5 border border-[#2dd4bf]/20 rounded-2xl p-6 hover:border-[#2dd4bf]/40 hover:bg-[#2dd4bf]/10 transition-all group"
+    >
+      <div className="flex items-start gap-4">
+        {/* Icon */}
+        <div className="w-14 h-14 rounded-full bg-[#2dd4bf]/20 flex items-center justify-center text-2xl flex-shrink-0">
+          📚
         </div>
 
-        {/* La Redazione */}
-        <div className="border-t border-onde-gold/20 pt-16 mt-16">
-          <h2 className="text-3xl font-serif font-bold mb-2 text-center text-white">La Redazione</h2>
-          <p className="text-center text-white/50 mb-12">Le mani e i cuori dietro ogni pagina</p>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Gianni Parola */}
-            <div className="bg-gradient-to-br from-white/5 to-white/0 rounded-2xl p-8 border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#2dd4bf]/20 to-onde-gold/20 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl">✍️</span>
-              </div>
-              <h3 className="font-serif font-bold text-xl text-onde-gold text-center mb-2">
-                Gianni Parola
-              </h3>
-              <p className="text-[#2dd4bf] text-center text-sm mb-4">Scrittore & Curatore Editoriale</p>
-              <p className="text-white/60 text-center text-sm leading-relaxed">
-                Cerca le parole giuste tra quelle che esistono già.
-                Cura i testi come un giardiniere cura le rose:
-                con pazienza, rispetto, e un po' di meraviglia.
-              </p>
-            </div>
-
-            {/* Pina Pennello */}
-            <div className="bg-gradient-to-br from-white/5 to-white/0 rounded-2xl p-8 border border-white/10">
-              <div className="w-20 h-20 bg-gradient-to-br from-onde-gold/20 to-[#2dd4bf]/20 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl">🎨</span>
-              </div>
-              <h3 className="font-serif font-bold text-xl text-onde-gold text-center mb-2">
-                Pina Pennello
-              </h3>
-              <p className="text-[#2dd4bf] text-center text-sm mb-4">Illustratrice</p>
-              <p className="text-white/60 text-center text-sm leading-relaxed">
-                Dipinge mondi con l'acquarello, un colore alla volta.
-                Il suo stile è quello dei libri che tua nonna sfogliava —
-                morbido, caldo, senza tempo.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Call to action */}
-        <div className="text-center mt-20 py-12">
-          <p className="text-white/50 mb-6">
-            Mille libri. Zero euro. Infinite storie.
+        <div className="flex-1">
+          <h3 className="font-bold text-white group-hover:text-[#2dd4bf] transition mb-1">
+            Catalogo
+          </h3>
+          <p className="text-white/40 text-sm mb-2">1000 titoli</p>
+          <p className="text-white/60 text-sm leading-relaxed">
+            Classici della letteratura mondiale. Gratuiti, per sempre.
           </p>
-          <a
-            href="/catalogo"
-            className="inline-block bg-gradient-to-r from-[#2dd4bf] to-[#14b8a6] text-[#0a1628] font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform"
-          >
-            Esplora la Biblioteca →
-          </a>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#2dd4bf]/10">
+        <span className="text-[#2dd4bf]/50 text-xs">Esplora</span>
+        <span className="text-[#2dd4bf] text-sm group-hover:translate-x-1 transition-transform">→</span>
+      </div>
+    </Link>
+  )
+}
+
+export default function About() {
+  return (
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-lg">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-serif font-light tracking-wide text-white mb-3">
+            Onde
+          </h1>
+          <p className="text-white/40 text-sm tracking-widest uppercase">
+            Casa Editrice
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="space-y-4">
+          <XProfileCard profile={profiles.onde} />
+          <XProfileCard profile={profiles.frh} />
+          <CatalogCard />
         </div>
       </div>
     </div>

@@ -182,10 +182,10 @@ Sistema automatizzato per produrre video da contenuti Onde:
 **SISTEMA WORKER ATTIVO E FUNZIONANTE!**
 
 ### 📊 Status Corrente
-- ✅ **76 task completati (75%)**
-- 🔵 13 in progress (agenti al lavoro)
-- 🟡 12 bloccati (dipendenze)
-- 📦 102 task totali nella roadmap
+- ✅ **79 task completati (68%)**
+- 🔵 18 in progress (agenti al lavoro)
+- 🟡 20 bloccati (dipendenze)
+- 📦 117 task totali nella roadmap
 
 ### 🌊 TSUNAMI Strategy (9 Gen 2026)
 **Cross-pollination Editore Capo ↔ Onde PR**:
