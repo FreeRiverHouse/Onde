@@ -894,13 +894,13 @@ apps/
 
 #### Libri in Queue (H1 2026)
 1. Antologia Poesie EN (Stevenson, Lear, Rossetti)
-2. AIKO traduzione IT
+2. ~~AIKO traduzione IT~~ ✅ COMPLETATA - `books/tech/aiko-it/aiko-italiano_FINAL.md`
 3. La Luce Dentro (Spiritualità)
 4. Il Piccolo Inventore (Tech)
-5. **The Slant Book / Il Libro Sbilenco** (Peter Newell, 1910) - NUOVO!
-   - Originale inglese: disponibile (dominio pubblico)
-   - Traduzione italiana: DA FARE
-   - Illustrazioni originali: DA RICREARE in stile Onde
+5. ~~**The Slant Book / Il Libro Sbilenco**~~ ✅ TRADUZIONE COMPLETATA (8 Gen 2026)
+   - Originale inglese: `books/classici/il-libro-sbilenco/RAW/slant-book-original-EN.txt`
+   - Traduzione italiana: `books/classici/il-libro-sbilenco/il-libro-sbilenco.md`
+   - Illustrazioni: DA GENERARE con Pina Pennello (22 capitoli)
 
 ---
 
