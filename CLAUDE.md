@@ -3,6 +3,10 @@
 ## Owner
 Mattia Petrucciani - parla italiano, comunicazione diretta.
 
+## REGOLA D'ORO: MEMORIA = COMMIT
+**Ogni volta che aggiorni CLAUDE.md → COMMIT IMMEDIATO.**
+Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
+
 ---
 
 ## 🚨🚨🚨 PRIMA COSA DA FARE QUANDO TI ACCENDI
@@ -58,6 +62,33 @@ La missione profonda (da non esplicitare sempre, ma da vivere):
 - Le onde sembrano un fiore - non è un caso
 - Onde = fiorire = far fiorire il mondo
 - Messaggio implicito, non da esplicitare sempre, ma da tenere presente
+
+---
+
+## 🔴🔴🔴 VIDEO FACTORY - PRIORITÀ ASSOLUTA (8 Gennaio 2026)
+
+**LA VIDEO FACTORY È FONDAMENTALE PER SCALARE ONDE.**
+
+### Cos'è la Video Factory
+Sistema automatizzato per produrre video da contenuti Onde:
+- **Lip syncing** - Sincronizzazione labiale su immagini/personaggi
+- **Music sync** - Video sincronizzati a beat musicali
+- **Stile definibile** - Acquarello Onde, anime, realistico, etc.
+
+### Perché è prioritaria
+- Permette di scalare la produzione multimediale
+- YouTube, TikTok, Reels richiedono VIDEO
+- Un libro = decine di video promozionali automatici
+- Personaggi Onde (Gianni, Pina) possono "parlare" nei video
+
+### Status
+- MVP in progettazione (agent lanciato)
+- Vedi `VIDEO-FACTORY-MVP.md` per piano dettagliato
+
+### Tool da valutare (2026)
+- **Lip sync**: Sync Labs, D-ID, HeyGen, Hedra
+- **Video gen**: Runway Gen-3, Pika, Kling, Sora
+- **Music sync**: Da ricercare
 
 ---
 
