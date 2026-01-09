@@ -2,48 +2,95 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Onde - Approval Dashboard</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
       background: #0a0a0a;
       color: #fff;
       min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom);
     }
     header {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      padding: 20px 40px;
+      padding: 15px 20px;
       border-bottom: 1px solid #333;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 12px;
     }
-    h1 { font-size: 24px; font-weight: 600; }
-    .stats { display: flex; gap: 20px; }
-    .stat {
-      padding: 8px 16px;
+    h1 { font-size: 20px; font-weight: 600; }
+    .handsfree-link {
+      font-size: 12px;
+      color: #f4d03f;
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid #f4d03f33;
       border-radius: 20px;
-      font-size: 14px;
+    }
+    .stats { display: flex; gap: 10px; flex-wrap: wrap; }
+    .stat {
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
     }
     .stat.pending { background: #f59e0b22; color: #f59e0b; }
     .stat.approved { background: #10b98122; color: #10b981; }
     .stat.rejected { background: #ef444422; color: #ef4444; }
 
-    main { padding: 40px; }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 12px 20px;
+      background: #111;
+      border-bottom: 1px solid #222;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab {
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #888;
+      transition: all 0.2s;
+    }
+    .tab.active { background: #f4d03f; color: #000; border-color: #f4d03f; }
+    .tab:not(.active):hover { background: #222; color: #fff; }
+
+    main { padding: 20px; }
 
     .empty {
       text-align: center;
-      padding: 100px 20px;
+      padding: 80px 20px;
       color: #666;
     }
-    .empty h2 { font-size: 20px; margin-bottom: 10px; }
+    .empty h2 { font-size: 18px; margin-bottom: 8px; }
+    .empty p { font-size: 14px; }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 400px) {
+      .grid { grid-template-columns: 1fr; }
     }
 
     .card {
@@ -57,41 +104,77 @@
     .card.approved { border-color: #10b981; }
     .card.rejected { border-color: #ef4444; }
 
-    .card-image {
+    .card-media {
       width: 100%;
       aspect-ratio: 16/9;
       object-fit: cover;
       background: #222;
     }
-    .card-image.placeholder {
+    .card-media.placeholder {
       display: flex;
       align-items: center;
       justify-content: center;
       color: #666;
       font-size: 14px;
     }
+    .card-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
 
-    .card-content { padding: 20px; }
-    .card-title {
-      font-size: 18px;
+    .card-content { padding: 16px; }
+
+    .card-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 8px;
+    }
+    .badge.pending { background: #f59e0b22; color: #f59e0b; }
+    .badge.approved { background: #10b98122; color: #10b981; }
+    .badge.rejected { background: #ef444422; color: #ef4444; }
+    .badge.type-illustration { background: #8b5cf622; color: #8b5cf6; }
+    .badge.type-social { background: #06b6d422; color: #06b6d4; }
+    .badge.type-video { background: #f4348422; color: #f43484; }
+    .badge.platform { background: #33333; color: #aaa; }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
     .card-description {
-      color: #999;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 12px;
+      color: #888;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 10px;
     }
-    .card-prompt {
+    .card-caption {
       background: #0a0a0a;
       padding: 12px;
       border-radius: 8px;
-      font-family: monospace;
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 16px;
-      max-height: 80px;
+      font-size: 13px;
+      color: #ccc;
+      margin-bottom: 12px;
+      border-left: 3px solid #f4d03f;
+    }
+    .card-prompt {
+      background: #0a0a0a;
+      padding: 10px;
+      border-radius: 8px;
+      font-family: 'SF Mono', monospace;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 14px;
+      max-height: 60px;
       overflow-y: auto;
     }
 
@@ -101,24 +184,33 @@
     }
     .btn {
       flex: 1;
-      padding: 12px;
+      padding: 16px 12px;
       border: none;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 12px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: all 0.15s;
+      -webkit-user-select: none;
+      user-select: none;
     }
-    .btn:hover { opacity: 0.9; }
-    .btn.approve { background: #10b981; color: #fff; }
-    .btn.reject { background: #333; color: #fff; }
-    .btn.redo { background: #f59e0b; color: #000; }
+    .btn:active { transform: scale(0.97); }
+    .btn.approve {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn.reject { background: #2d3436; color: #999; }
+    .btn.redo {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+    }
 
     .comment-input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #333;
-      border-radius: 8px;
+      border-radius: 10px;
       background: #0a0a0a;
       color: #fff;
       font-size: 14px;
@@ -127,22 +219,57 @@
     }
     .comment-input:focus { outline: none; border-color: #f59e0b; }
 
-    .status-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 12px;
+    .bulk-actions {
+      padding: 15px 20px;
+      background: #111;
+      border-top: 1px solid #222;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 10px;
+      padding-bottom: calc(15px + env(safe-area-inset-bottom));
     }
-    .status-badge.pending { background: #f59e0b22; color: #f59e0b; }
-    .status-badge.approved { background: #10b98122; color: #10b981; }
-    .status-badge.rejected { background: #ef444422; color: #ef4444; }
+    .bulk-btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .bulk-btn.approve-all {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+
+    .ip-info {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      font-size: 10px;
+      color: #444;
+      font-family: 'SF Mono', monospace;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 600px) {
+      header { padding: 12px 15px; }
+      h1 { font-size: 18px; }
+      .tabs { padding: 10px 15px; }
+      main { padding: 15px; padding-bottom: 100px; }
+      .btn { padding: 18px 12px; font-size: 16px; }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Onde Approval Dashboard</h1>
+    <div class="header-top">
+      <h1>Onde Approvals</h1>
+      <a class="handsfree-link" href="" id="handsfree-link">HandsFree</a>
+    </div>
     <div class="stats">
       <span class="stat pending" id="pending-count">0 pending</span>
       <span class="stat approved" id="approved-count">0 approved</span>
@@ -150,15 +277,42 @@
     </div>
   </header>
 
+  <div class="tabs">
+    <div class="tab active" data-type="all">Tutti</div>
+    <div class="tab" data-type="illustration">Illustrazioni</div>
+    <div class="tab" data-type="social">Social</div>
+    <div class="tab" data-type="video">Video</div>
+  </div>
+
   <main>
     <div id="content"></div>
   </main>
 
+  <div class="bulk-actions" id="bulk-actions" style="display: none;">
+    <button class="bulk-btn approve-all" onclick="bulkApprove()">Approva tutti i pending</button>
+  </div>
+
+  <div class="ip-info" id="ip-info"></div>
+
   <script>
     let items = [];
+    let currentFilter = 'all';
+    let serverInfo = {};
+
+    // Init
+    async function init() {
+      try {
+        const res = await fetch('/api/info');
+        serverInfo = await res.json();
+        document.getElementById('handsfree-link').href = serverInfo.handsfreeServer;
+        document.getElementById('ip-info').textContent = `${serverInfo.localIP}:${serverInfo.port}`;
+      } catch (e) {}
+      loadItems();
+    }
 
     async function loadItems() {
-      const res = await fetch('/api/items');
+      const url = currentFilter === 'all' ? '/api/items' : `/api/items?type=${currentFilter}`;
+      const res = await fetch(url);
       items = await res.json();
       render();
     }
@@ -169,6 +323,18 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      if (navigator.vibrate) navigator.vibrate(30);
+      loadItems();
+    }
+
+    async function bulkApprove() {
+      const type = currentFilter === 'all' ? null : currentFilter;
+      await fetch('/api/bulk-approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type })
+      });
+      if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
       loadItems();
     }
 
@@ -182,11 +348,14 @@
       document.getElementById('approved-count').textContent = `${approved} approved`;
       document.getElementById('rejected-count').textContent = `${rejected} rejected`;
 
+      // Show/hide bulk actions
+      document.getElementById('bulk-actions').style.display = pending > 1 ? 'flex' : 'none';
+
       if (items.length === 0) {
         content.innerHTML = `
           <div class="empty">
-            <h2>Nessuna immagine da approvare</h2>
-            <p>Le immagini generate appariranno qui</p>
+            <h2>Nessun contenuto da approvare</h2>
+            <p>I nuovi contenuti appariranno qui</p>
           </div>
         `;
         return;
@@ -198,33 +367,44 @@
         return order[a.status] - order[b.status];
       });
 
+      const typeLabels = { illustration: 'Illustrazione', social: 'Social', video: 'Video' };
+
       content.innerHTML = `
         <div class="grid">
           ${sorted.map(item => `
             <div class="card ${item.status}">
-              ${item.image
-                ? `<img class="card-image" src="${item.image}" alt="${item.title}">`
-                : `<div class="card-image placeholder">Immagine in generazione...</div>`
+              ${item.video
+                ? `<video class="card-video" src="${item.video}" controls poster="${item.image || ''}"></video>`
+                : item.image
+                  ? `<img class="card-media" src="${item.image}" alt="${item.title}">`
+                  : `<div class="card-media placeholder">Media in arrivo...</div>`
               }
               <div class="card-content">
-                <span class="status-badge ${item.status}">${item.status}</span>
+                <div class="card-badges">
+                  <span class="badge ${item.status}">${item.status}</span>
+                  <span class="badge type-${item.type}">${typeLabels[item.type] || item.type}</span>
+                  ${item.platform ? `<span class="badge platform">${item.platform}</span>` : ''}
+                  ${item.book ? `<span class="badge platform">${item.book}</span>` : ''}
+                </div>
                 <h3 class="card-title">${item.title}</h3>
-                <p class="card-description">${item.description}</p>
-                <div class="card-prompt">${item.prompt}</div>
+                ${item.description ? `<p class="card-description">${item.description}</p>` : ''}
+                ${item.caption ? `<div class="card-caption">${item.caption}</div>` : ''}
+                ${item.prompt ? `<div class="card-prompt">${item.prompt}</div>` : ''}
+
                 ${item.status === 'pending' ? `
                   <div class="card-actions">
                     <button class="btn approve" onclick="updateItem(${item.id}, {status:'approved'})">Approva</button>
                     <button class="btn reject" onclick="showComment(${item.id})">Rifiuta</button>
                   </div>
-                  <div id="comment-${item.id}" style="display:none; margin-top:10px;">
-                    <textarea class="comment-input" id="comment-text-${item.id}" placeholder="Perche non va bene?"></textarea>
+                  <div id="comment-${item.id}" style="display:none; margin-top:12px;">
+                    <textarea class="comment-input" id="comment-text-${item.id}" placeholder="Cosa c'e da cambiare?" rows="2"></textarea>
                     <button class="btn redo" onclick="rejectWithComment(${item.id})">Rigenera</button>
                   </div>
                 ` : item.status === 'rejected' ? `
-                  <p style="color:#ef4444;font-size:13px;margin-top:10px;">
-                    <strong>Commento:</strong> ${item.comment || 'Nessun commento'}
+                  <p style="color:#ef4444;font-size:12px;margin-top:8px;">
+                    <strong>Note:</strong> ${item.comment || 'Nessun commento'}
                   </p>
-                  <button class="btn redo" style="margin-top:10px;" onclick="updateItem(${item.id}, {status:'pending'})">
+                  <button class="btn redo" style="margin-top:10px;width:100%;" onclick="updateItem(${item.id}, {status:'pending'})">
                     Rimetti in coda
                   </button>
                 ` : ''}
@@ -244,7 +424,18 @@
       updateItem(id, { status: 'rejected', comment });
     }
 
-    loadItems();
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.type;
+        loadItems();
+      });
+    });
+
+    // Start
+    init();
     // Auto-refresh every 5 seconds
     setInterval(loadItems, 5000);
   </script>

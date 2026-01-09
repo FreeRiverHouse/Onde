@@ -2,90 +2,142 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - PRIORITÀ #1: HandsFree Vibe Surfing App
+**Ultimo aggiornamento**: 2026-01-08 - HandsFree + Approval Dashboard COMPLETATI
 
 ---
 
-## 🔴🔴🔴 PRIORITÀ #1 - HandsFree Vibe Surfing (URGENTE!)
+## ✅ COMPLETATO - HandsFree Vibe Surfing MVP (8 Gen 2026)
 
-**App per controllare Claude Code senza mani mentre fai altro (lavi i piatti, cucini, etc.)**
+**Sistema per controllare Claude Code senza mani - FUNZIONANTE!**
 
-### 🎯 Concept
-- Apple Watch + iPhone si interfacciano con Claude Code locale su Mac
-- Sulla stessa rete WiFi
-- Approvi permessi (1 o 2) con tap, voce, o pedale USB
-- **Il 2 è meglio perché automatizza di più** (trust the process)
+### 🎯 Cosa Fa
+- Approvi permessi (1 o 2) da iPhone/iPad sulla stessa rete WiFi
+- Bottone 2 gigante e dorato (il default giusto)
+- Manda keystroke al Terminal tramite AppleScript
 
-### 🏗️ Architettura
+### 🚀 Come Usare
 
+```bash
+# Avvia il server
+cd apps/handsfree-server
+node server.js
+
+# Apri nel browser (o iPhone sulla stessa rete)
+# http://localhost:8888
+# http://<IP_MAC>:8888
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Apple Watch    │────▶│   iPhone App    │────▶│  Mac Server     │
-│  (tap 1 o 2)    │     │  (relay + voice)│     │  (Claude Code)  │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-        │                                               │
-        └───────── Stessa rete WiFi ────────────────────┘
-```
 
-### 📱 Componenti
+### 📱 Componenti COMPLETATI
 
 | Componente | Descrizione | Status |
 |------------|-------------|--------|
-| **Mac Server** | Servizio locale che riceve comandi e li manda a Claude Code | DA FARE |
-| **iPhone App** | App che comunica con server + voice input | DA FARE |
-| **Apple Watch** | Due bottoni giganti: 1 e 2 (estende Onde Approve) | ESISTE GIÀ |
-| **Web Dashboard** | Fallback per controllo via browser | DA FARE |
-| **USB Pedale** | Pedale fisico per chi vuole (futuro) | IDEA |
-
-### 🔊 Voice Control
-
-**VoiceMode MCP** è una soluzione esistente per Claude Code:
-- URL: https://getvoicemode.com/
-- GitHub: https://github.com/mbailey/voicemode
-- Si integra come MCP server
-- Dicitura "listen" attiva input vocale
-
-**Possiamo integrare VoiceMode O costruire nostro sistema.**
-
-### 🚀 MVP Sprint (OGGI!)
-
-**Step 1 - Server Mac** (1 ora)
-- [ ] Creare server HTTP locale (Node.js o Python)
-- [ ] Endpoint POST /approve → manda "2" a Claude Code stdin
-- [ ] Endpoint POST /reject → manda "1"
-- [ ] Endpoint GET /status → stato Claude Code
-
-**Step 2 - Web Dashboard** (30 min)
-- [ ] Pagina HTML con 2 bottoni giganti: "1" e "2"
-- [ ] Il 2 è più grande e dorato
-- [ ] Accessibile da iPhone sulla stessa rete
-
-**Step 3 - Estendere Onde Approve Watch** (1 ora)
-- [ ] Connessione al server Mac
-- [ ] Notifiche push quando Claude chiede permesso
-- [ ] Feedback aptico su approvazione
-
-### 💡 Idea Promozione
-
-Includiamo HandsFree nel libro **"Vibe Coding"** - è uno strumento per vibe coders!
-
-**Mockup divertenti per social:**
-- Pedale USB con tasti 1 e 2 giganti
-- "The Claude Code Approval Pedal™"
-- Post su @FreeRiverHouse con logo
+| **Mac Server** | `apps/handsfree-server/server.js` - Porta 8888 | FATTO |
+| **Web Dashboard** | Dashboard embedded con bottoni 1 e 2 giganti | FATTO |
+| **Apple Watch** | `apps/onde-approve-watch/` - Esisteva gia | ESISTE |
+| **USB Pedale** | Idea futura | IDEA |
 
 ### 📂 Path
 
 ```
 apps/
-├── onde-approve-watch/     # Già esistente - estendere
-├── handsfree-server/       # NUOVO - server Mac
-└── handsfree-web/          # NUOVO - dashboard web
+├── handsfree-server/       # Server Mac (porta 8888)
+│   ├── server.js           # Server HTTP + dashboard embedded
+│   └── package.json
+└── onde-approve-watch/     # Gia esistente
 ```
 
-### 🎯 Goal
+### API Endpoints
 
-**Entro fine giornata**: Prototipo funzionante dove Mattia può approvare Claude Code dall'Apple Watch mentre lava i piatti.
+| Endpoint | Metodo | Descrizione |
+|----------|--------|-------------|
+| `/` | GET | Dashboard web con bottoni 1 e 2 |
+| `/approve` | POST | Manda "2" (approva) |
+| `/reject` | POST | Manda "1" (rifiuta) |
+| `/status` | GET | Stato server + statistiche |
+
+---
+
+## ✅ COMPLETATO - Approval Dashboard v2 (8 Gen 2026)
+
+**Dashboard per approvare illustrazioni, post social e video - CON NOTIFICHE TELEGRAM!**
+
+### 🚀 Come Usare
+
+```bash
+# Avvia la dashboard
+cd apps/approval-dashboard
+npm install  # solo la prima volta
+node server.js
+
+# Apri nel browser
+# http://localhost:3456
+# http://<IP_MAC>:3456
+```
+
+### Features
+
+- **3 tipi di contenuto**: Illustrazioni, Social Media, Video
+- **Tab per filtrare**: Tutti / Illustrazioni / Social / Video
+- **Bottoni grandi mobile-friendly**: Approva (verde), Rifiuta (con commento)
+- **Bulk approve**: Approva tutti i pending in un click
+- **Notifiche Telegram**: Notifica quando c'e qualcosa da approvare
+- **Link a HandsFree**: Accedi direttamente al server HandsFree
+
+### API Endpoints
+
+| Endpoint | Metodo | Descrizione |
+|----------|--------|-------------|
+| `/api/items` | GET | Lista items (filtri: ?type=social&status=pending) |
+| `/api/items` | POST | Aggiungi nuovo item |
+| `/api/items/:id` | PATCH | Aggiorna status/commento |
+| `/api/items/:id` | DELETE | Elimina item |
+| `/api/stats` | GET | Statistiche |
+| `/api/bulk-approve` | POST | Approva tutti i pending |
+| `/api/info` | GET | Info server + IP |
+
+### Esempio: Aggiungere un'illustrazione
+
+```bash
+curl -X POST http://localhost:3456/api/items \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "illustration",
+    "title": "Copertina AIKO 2",
+    "description": "Copertina del libro AIKO 2 Robotaxi",
+    "image": "/uploads/aiko2-cover.jpg",
+    "book": "AIKO 2",
+    "prompt": "European watercolor style..."
+  }'
+```
+
+### Esempio: Aggiungere un post social
+
+```bash
+curl -X POST http://localhost:3456/api/items \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "social",
+    "title": "Post lancio AIKO",
+    "platform": "twitter",
+    "caption": "Nuovo libro per bambini che spiega l AI!",
+    "image": "/uploads/aiko-promo.jpg"
+  }'
+```
+
+---
+
+## 🔴 PROSSIMI STEP - HandsFree Extension
+
+**MVP funziona! Ora estendere:**
+
+- [ ] **Notifiche push Apple Watch** quando Claude chiede permesso
+- [ ] **Feedback aptico** su approvazione (vibrazione)
+- [ ] **Connessione Watch-Server** diretta
+- [ ] **VoiceMode integration** (opzionale)
+
+### Idea Promozione
+
+Includiamo HandsFree nel libro **"Vibe Coding"** - e uno strumento per vibe coders!
 
 ---
 
