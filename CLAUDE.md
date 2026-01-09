@@ -31,23 +31,92 @@ Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
 
 1. **CHECK MEMORY** - Leggi questo file (CLAUDE.md)
 2. **CHECK ROADMAP** - Leggi ROADMAP.md
-3. **DIMMI COSA C'È DA FARE** - Riassumi le priorità a Mattia
+3. **CHECK TASK DISPONIBILI** - `node scripts/worker/worker-manager.js available`
+4. **DIMMI COSA C'È DA FARE** - Riassumi le priorità a Mattia
 
 **NON aspettare che Mattia te lo chieda. Fallo TU automaticamente.**
 
 Esempio di come iniziare:
 ```
-"Buongiorno! Ho controllato memory e roadmap.
+"Buongiorno! Ho controllato memory, roadmap e task queue.
 
-PRIORITÀ #1: HandsFree Vibe Surfing - prototipo da finire OGGI
-- Server Mac: DA FARE
-- Web Dashboard: DA FARE
-- Watch app: esiste, da estendere
+📊 TASK QUEUE STATUS:
+- 🟢 Disponibili: 5
+- 🔵 In Progress: 2 (altri worker)
+- ✅ Completati: 3
 
-Altre priorità:
-- [lista altre cose urgenti]
+PROSSIMO TASK DISPONIBILE:
+- style-001: Definire Stile Unitario Onde [P1]
 
-Da dove vuoi iniziare?"
+Vuoi che inizi a lavorare su questo task?"
+```
+
+---
+
+## 🏭 SISTEMA WORKER (FABBRICA ONDE)
+
+### Come Funziona
+
+Ogni sessione Claude è un **worker** della fabbrica. I task vengono gestiti automaticamente:
+
+```bash
+# Vedi stato tutti i task
+node scripts/worker/worker-manager.js status
+
+# Vedi task disponibili (senza dipendenze bloccanti)
+node scripts/worker/worker-manager.js available
+
+# Prendi un task specifico
+node scripts/worker/worker-manager.js claim <task-id>
+
+# Prendi il prossimo task per priorità
+node scripts/worker/worker-manager.js next
+
+# Quando finisci
+node scripts/worker/worker-manager.js complete <task-id>
+
+# Se devi abbandonare il task
+node scripts/worker/worker-manager.js release <task-id>
+
+# Vedi chi sta lavorando su cosa
+node scripts/worker/worker-manager.js workers
+```
+
+### Regole Worker
+
+1. **UN TASK ALLA VOLTA** - Non prendere più task contemporaneamente
+2. **RISPETTA LE DIPENDENZE** - Il sistema blocca task con dipendenze non completate
+3. **COMMIT FREQUENTI** - Ogni progresso va committato
+4. **RILASCIA SE BLOCCATO** - Non tenere task che non puoi completare
+5. **COORDINA CON ALTRI** - Controlla `workers` prima di editare file condivisi
+
+### Workflow Standard
+
+```
+1. Mattia dice "check memory" o apre nuova sessione
+2. Controllo CLAUDE.md, ROADMAP.md, task queue
+3. Mostro task disponibili
+4. Mattia dice "lavora" o sceglie un task
+5. Prendo il task con `claim` o `next`
+6. Eseguo il lavoro
+7. Commit frequenti
+8. Completo con `complete`
+9. Prendo il prossimo task o chiedo a Mattia
+```
+
+### Files del Sistema Worker
+
+```
+.claude-workers/
+├── TASKS.json       # Lista task con dipendenze
+├── locks/           # Lock files per task in progress
+└── logs/            # Log attività giornalieri
+
+scripts/worker/
+└── worker-manager.js  # Script gestione task
+
+content/agents/
+└── code-worker.md    # Prompt agente worker
 ```
 
 ---
@@ -397,6 +466,48 @@ Quando generi immagini, stai attento a:
 - **Gruppi di persone**: Arti che si fondono tra persone vicine
 
 **REGOLA**: È meglio rigenerare 10 volte che pubblicare UN contenuto con errori anatomici.
+
+---
+
+## 🚨🔴 CONTROLLO QUALITÀ CROSS-MEDIA - OBBLIGATORIO (2026-01-09)
+
+**LEZIONE CRITICA**: Test lip sync di Gianni Parola BOCCIATO perché:
+1. La voce non combacia con il podcast già pubblicato
+2. L'immagine non è coerente con altre apparizioni del personaggio
+
+### ⛔ PRIMA DI CREARE CONTENUTI PER PERSONAGGI ONDE:
+
+**CHECKLIST COERENZA CROSS-MEDIA:**
+- [ ] **Voce**: Verificare voce esistente del personaggio (ElevenLabs voice ID, podcast)
+- [ ] **Aspetto**: Usare immagine reference UFFICIALE del personaggio
+- [ ] **Stile**: Coerente con contenuti già pubblicati
+- [ ] **Piattaforme**: Verificare cosa è già online (YouTube, Spotify, X)
+
+### 📁 REFERENCE UFFICIALI PERSONAGGI
+
+| Personaggio | Immagine Reference | Voce Reference | Note |
+|-------------|-------------------|----------------|------|
+| **Gianni Parola** | `content/authors/gianni-parola-ref.jpg` | ElevenLabs voice ID TBD | Scrittore Onde |
+| **Pina Pennello** | `content/authors/pina-pennello-ref.jpg` | ElevenLabs voice ID TBD | Illustratrice Onde |
+
+### 🔑 REGOLE COERENZA
+
+1. **VERIFICA PRIMA DI CREARE**
+   - Controlla contenuti esistenti del personaggio
+   - Usa SEMPRE le reference ufficiali
+   - MAI creare nuove versioni senza approvazione
+
+2. **UN PERSONAGGIO = UNA IDENTITÀ**
+   - Stessa voce OVUNQUE (stesso voice ID ElevenLabs)
+   - Stesso aspetto visivo OVUNQUE (stessa immagine reference)
+   - Se devi cambiare qualcosa → CHIEDI PRIMA
+
+3. **WORKFLOW LIP SYNC**
+   - Usa SOLO immagini reference approvate
+   - Usa SOLO voci già approvate per quel personaggio
+   - Verifica che il contenuto audio sia pertinente al personaggio
+
+**REGOLA**: Non esistono "test" pubblici. Ogni contenuto deve essere coerente al 100% PRIMA di essere inviato.
 
 ---
 

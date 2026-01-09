@@ -8,13 +8,15 @@ interface EpubReaderProps {
 
 export default function EpubReader({ epubUrl }: EpubReaderProps) {
   const viewerRef = useRef<HTMLDivElement>(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(0)
+  const [currentPage] = useState(1)
+  const [totalPages] = useState(0)
 
   useEffect(() => {
     // In produzione, usa epub.js
     // Per ora, placeholder
-    console.log('Loading epub:', epubUrl)
+    if (epubUrl) {
+      // Future: load epub
+    }
   }, [epubUrl])
 
   return (

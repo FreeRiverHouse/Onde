@@ -1,4 +1,4 @@
-export default function Success({ searchParams }: { searchParams: { book?: string } }) {
+export default function Success() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-20 text-center">
       <div className="text-6xl mb-6">✅</div>

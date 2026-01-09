@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
   try {
-    const { bookId, bookTitle, price } = await request.json()
+    const { bookId } = await request.json()
 
     // In produzione, qui usiamo Stripe
     // Per ora, simuliamo la risposta
