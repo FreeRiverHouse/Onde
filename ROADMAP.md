@@ -2,7 +2,7 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-08 - HandsFree + Approval Dashboard COMPLETATI
+**Ultimo aggiornamento**: 2026-01-09 - Lip Sync Tool QUASI PRONTO (manca solo download modello)
 
 ---
 
@@ -735,25 +735,44 @@ apps/
 
 ---
 
-### 🎙️ Lip Sync Tool Interno (PRIORITÀ)
+### 🎙️ Lip Sync Tool Interno - SETUP COMPLETATO (9 Gen 2026)
 **Obiettivo**: Costruire sistema lip sync in-house per scalare podcast multilingua
+
+**Status**: QUASI PRONTO - Manca solo scaricare il modello!
 
 **Perché**:
 - Servizi esterni costano troppo (Hedra $12/mese = 4 min, non scala)
 - Dobbiamo fare podcast in TUTTE le lingue
 - Mac server disponibile per processing locale
 
-**Stack Proposto**:
-- **Wav2Lip** o **SadTalker** (modelli open source)
-- Mac M-series come server di rendering
-- Pipeline: Immagine + Audio → Video lip sync
-- Target qualità: livello Hedra Character 3
+**Stack Scelto**: Easy-Wav2Lip
+- Installato su SSD esterno (disco interno ha solo 1.8GB liberi)
+- Python venv con PyTorch + MPS support
+- Zero costi cloud
+
+**Path su SSD**:
+```
+/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/
+├── venv/           # Python environment
+├── checkpoints/    # Model weights (DA SCARICARE!)
+└── inference.py    # Main script
+```
+
+**Wrapper Script**:
+```bash
+cd /Users/mattia/Projects/Onde/tools/lip-sync
+python lip_sync.py --face gianni.jpg --audio storia.mp3 --output video.mp4
+```
 
 **Task**:
-- [ ] Setup ambiente Python con modelli lip sync
-- [ ] Test qualità Wav2Lip vs SadTalker
-- [ ] Pipeline automatica immagine+audio→video
-- [ ] Benchmark performance su Mac
+- [x] Setup ambiente Python con modelli lip sync
+- [x] Script wrapper `lip_sync.py` creato
+- [x] Documentazione README completa
+- [ ] **FARE ORA**: Scaricare modello wav2lip_gan.pth (400MB) da Google Drive:
+  - Link: https://drive.google.com/file/d/13Ktexq-nZOsAxqrTdMh3Q0ntPB3yiBtv/view
+  - Posizionare in: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/checkpoints/`
+- [ ] Test con immagine Gianni Parola
+- [ ] Benchmark performance su Mac M1
 
 ### 📢 Audio per Piattaforma (CTA Specifici)
 **REGOLA**: Ogni piattaforma ha audio diverso con call-to-action specifico

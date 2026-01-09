@@ -1371,3 +1371,38 @@ Vintage 1950s Italian children's book illustration, retro watercolor style, nost
 **Domini da considerare:**
 - **onde.surf** - DISPONIBILE (da comprare quando pronti)
 - **onde.la** - DISPONIBILE (LA = Los Angeles / "la onda")
+
+---
+
+## 🎬 VIDEO FACTORY - STRATEGIA LIP SYNC (9 Gen 2026)
+
+**APPROCCIO**: Batch notturno, lento, locale
+
+**Come funziona:**
+- Sistema lip sync gira LOCALMENTE sul Mac (Wav2Lip)
+- Processa video di NOTTE mentre Mattia dorme
+- Rate limit LENTO - nessuna fretta
+- Batch queue: metti in coda, al mattino è pronto
+- ZERO costi cloud
+
+### 📍 PATH SU SSD ESTERNO (IMPORTANTE!)
+**Path principale**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/`
+**Virtual env**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/venv/`
+**Modelli**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/checkpoints/`
+
+⚠️ **ASSICURARSI CHE L'SSD SIA COLLEGATO** prima di usare lip sync!
+
+### Come attivare
+```bash
+cd /Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip
+source venv/bin/activate
+python inference.py --face input.jpg --audio input.wav
+```
+
+**Workflow:**
+1. Aggiungi job alla coda (immagine + audio)
+2. Cron job notturno processa la coda
+3. Output in `output/videos/`
+4. Notifica Telegram quando fatto
+
+**Uso**: Solo interno Onde per ora (Gianni Parola, Pina Pennello, contenuti educativi)
