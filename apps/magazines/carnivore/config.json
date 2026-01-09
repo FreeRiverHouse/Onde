@@ -1,0 +1,12 @@
+{
+  "name": "Carnivore Digest",
+  "description": "Curated news and posts about carnivore diet",
+  "niche": "carnivore",
+  "sources": [
+    {"type": "twitter", "accounts": ["@SBakerMD", "@DrPaulSaladino", "@CarnivoreMD"]},
+    {"type": "reddit", "subreddits": ["r/carnivore", "r/zerocarb"]},
+    {"type": "rss", "feeds": ["meatrx.com/feed"]}
+  ],
+  "postFrequency": "weekly",
+  "monetization": ["affiliate", "newsletter", "ebook"]
+}

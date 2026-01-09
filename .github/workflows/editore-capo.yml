@@ -1,0 +1,160 @@
+# Editore Capo - Deliberazione Automatica Libri
+# Controlla libri pronti e li delibera se passano QC
+
+name: Editore Capo - Delibera Libri
+
+on:
+  schedule:
+    # Ogni 6 ore
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      book:
+        description: 'Nome libro specifico da deliberare'
+        required: false
+        type: string
+      force_approve:
+        description: 'Forza approvazione (skip QC)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  check-books:
+    runs-on: ubuntu-latest
+    name: Controlla Libri Pronti
+    outputs:
+      books_ready: ${{ steps.scan.outputs.books_ready }}
+      books_list: ${{ steps.scan.outputs.books_list }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan for ready books
+        id: scan
+        run: |
+          echo "Scanning books folder for ready books..."
+
+          # Cerca libri con status "ready_for_review" in metadata
+          READY_BOOKS=""
+
+          for dir in books/*/; do
+            if [ -f "${dir}metadata.json" ]; then
+              STATUS=$(jq -r '.status // "unknown"' "${dir}metadata.json" 2>/dev/null || echo "unknown")
+              if [ "$STATUS" = "ready_for_review" ]; then
+                BOOK_NAME=$(basename "$dir")
+                READY_BOOKS="${READY_BOOKS}${BOOK_NAME},"
+                echo "Found: $BOOK_NAME"
+              fi
+            fi
+          done
+
+          if [ -n "$READY_BOOKS" ]; then
+            echo "books_ready=true" >> $GITHUB_OUTPUT
+            echo "books_list=${READY_BOOKS%,}" >> $GITHUB_OUTPUT
+          else
+            echo "books_ready=false" >> $GITHUB_OUTPUT
+            echo "No books ready for review"
+          fi
+
+  deliberate:
+    runs-on: ubuntu-latest
+    name: Delibera Libri
+    needs: check-books
+    if: needs.check-books.outputs.books_ready == 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Quality Control Check
+        id: qc
+        run: |
+          echo "Running QC on ready books..."
+
+          IFS=',' read -ra BOOKS <<< "${{ needs.check-books.outputs.books_list }}"
+
+          for BOOK in "${BOOKS[@]}"; do
+            echo "Checking: $BOOK"
+
+            # Verifica file essenziali
+            BOOK_DIR="books/${BOOK}"
+            MISSING=""
+
+            [ ! -f "${BOOK_DIR}/manuscript.pdf" ] && [ ! -f "${BOOK_DIR}/manuscript.epub" ] && MISSING="${MISSING}manuscript,"
+            [ ! -f "${BOOK_DIR}/cover.jpg" ] && [ ! -f "${BOOK_DIR}/cover.png" ] && MISSING="${MISSING}cover,"
+            [ ! -f "${BOOK_DIR}/metadata.json" ] && MISSING="${MISSING}metadata,"
+
+            if [ -n "$MISSING" ]; then
+              echo "FAILED: $BOOK - Missing: ${MISSING%,}"
+              echo "qc_passed=false" >> $GITHUB_OUTPUT
+            else
+              echo "PASSED: $BOOK"
+              echo "qc_passed=true" >> $GITHUB_OUTPUT
+              echo "approved_book=$BOOK" >> $GITHUB_OUTPUT
+            fi
+          done
+
+      - name: Delibera Approvazione
+        if: steps.qc.outputs.qc_passed == 'true' || github.event.inputs.force_approve == 'true'
+        run: |
+          BOOK="${{ steps.qc.outputs.approved_book }}"
+          echo "Editore Capo approva: $BOOK"
+
+          # Aggiorna status a "approved"
+          METADATA="books/${BOOK}/metadata.json"
+          if [ -f "$METADATA" ]; then
+            jq '.status = "approved" | .approved_date = now | .approved_by = "editore-capo-automation"' "$METADATA" > tmp.json
+            mv tmp.json "$METADATA"
+          fi
+
+          # Crea file di approvazione
+          echo "Approved by Editore Capo Automation" > "books/${BOOK}/APPROVED"
+          echo "Date: $(date)" >> "books/${BOOK}/APPROVED"
+
+      - name: Commit approvazione
+        if: steps.qc.outputs.qc_passed == 'true'
+        run: |
+          git config user.name "Editore Capo Bot"
+          git config user.email "editore-capo@onde.publishing"
+          git add .
+          git commit -m "Editore Capo: Approvato ${{ steps.qc.outputs.approved_book }}" || echo "No changes"
+          git push || echo "Push failed - will retry"
+
+      - name: Notifica Telegram
+        run: |
+          BOOK="${{ steps.qc.outputs.approved_book }}"
+          QC="${{ steps.qc.outputs.qc_passed }}"
+
+          if [ "$QC" = "true" ]; then
+            MESSAGE="<b>Editore Capo</b>%0A%0ALibro APPROVATO: <b>${BOOK}</b>%0A%0APronte per pubblicazione KDP."
+          else
+            MESSAGE="<b>Editore Capo</b>%0A%0ALibro non pronto: ${BOOK}%0A%0AControlla i file mancanti."
+          fi
+
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d "parse_mode=HTML" \
+            -d "text=$MESSAGE"
+        continue-on-error: true
+
+  notify-daily:
+    runs-on: ubuntu-latest
+    name: Report Giornaliero
+    needs: [check-books, deliberate]
+    if: always()
+
+    steps:
+      - name: Send daily report
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d "parse_mode=HTML" \
+            -d "text=<b>Editore Capo - Report</b>%0A%0ALibri controllati: ${{ needs.check-books.outputs.books_list || 'nessuno' }}%0AStatus: ${{ needs.deliberate.result || 'N/A' }}"
+        continue-on-error: true

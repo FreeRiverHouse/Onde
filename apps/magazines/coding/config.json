@@ -1,0 +1,12 @@
+{
+  "name": "Vibe Coding Weekly",
+  "description": "AI-assisted coding news, tools, and tutorials",
+  "niche": "vibe-coding",
+  "sources": [
+    {"type": "twitter", "accounts": ["@OpenAI", "@AnthropicAI", "@cursor_ai", "@v0"]},
+    {"type": "hackernews", "topics": ["AI coding", "Claude", "GPT"]},
+    {"type": "reddit", "subreddits": ["r/LocalLLaMA", "r/ClaudeAI"]}
+  ],
+  "postFrequency": "weekly",
+  "monetization": ["sponsor", "course", "tools"]
+}

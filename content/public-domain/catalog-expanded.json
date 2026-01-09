@@ -1,0 +1,259 @@
+{
+  "metadata": {
+    "created": "2026-01-08",
+    "description": "Testi pubblico dominio - Spiritualità, Poesia, Psicologia",
+    "strategy": "Copertine belle stile Onde + solo testo = ePub €0.50"
+  },
+  "collections": {
+    "spiritualita": {
+      "description": "Testi spirituali classici - no copyright",
+      "coverStyle": "Onde DORATO - luce calda, pacifica",
+      "books": [
+        {
+          "id": "salmi-scelti",
+          "title": "I Salmi più Belli",
+          "contents": ["Salmo 23", "Salmo 91", "Salmo 121", "Salmo 1", "Salmo 27", "Salmo 139"],
+          "price": 0.50,
+          "description": "I salmi più amati della Bibbia in una raccolta accessibile"
+        },
+        {
+          "id": "preghiere-classiche",
+          "title": "Preghiere Classiche",
+          "contents": ["Padre Nostro", "Ave Maria", "Cantico delle Creature", "Preghiera di San Francesco"],
+          "price": 0.50,
+          "description": "Le preghiere che hanno accompagnato generazioni"
+        },
+        {
+          "id": "meditazioni-stoiche",
+          "title": "Meditazioni - Marco Aurelio",
+          "author": "Marco Aurelio (121-180)",
+          "contents": ["Libri I-XII (estratti)"],
+          "price": 0.99,
+          "description": "Saggezza stoica dall'imperatore filosofo"
+        },
+        {
+          "id": "tao-te-ching",
+          "title": "Tao Te Ching",
+          "author": "Lao Tzu (VI sec. a.C.)",
+          "contents": ["81 capitoli"],
+          "price": 0.99,
+          "description": "Il classico del taoismo - via della virtù"
+        },
+        {
+          "id": "bhagavad-gita-estratti",
+          "title": "Bhagavad Gita - Estratti",
+          "contents": ["Capitoli scelti"],
+          "price": 0.99,
+          "description": "Saggezza induista per la vita quotidiana"
+        },
+        {
+          "id": "confessioni-agostino",
+          "title": "Le Confessioni (Estratti)",
+          "author": "Sant'Agostino (354-430)",
+          "price": 0.99,
+          "description": "Il viaggio spirituale più celebre della storia"
+        }
+      ]
+    },
+    "poesia": {
+      "description": "Poesia classica - italiana e internazionale",
+      "coverStyle": "Onde TERRA - elegante, artistico",
+      "books": [
+        {
+          "id": "piccole-rime-italiane",
+          "title": "Piccole Rime Italiane",
+          "contents": ["Stella Stellina", "Pioggerellina di Marzo", "La Befana", "Ninna Nanna"],
+          "price": 0.50,
+          "description": "Le filastrocche italiane più amate"
+        },
+        {
+          "id": "leopardi-infinito",
+          "title": "L'Infinito e Altre Poesie",
+          "author": "Giacomo Leopardi",
+          "contents": ["L'Infinito", "A Silvia", "Il Sabato del Villaggio", "La Quiete Dopo la Tempesta"],
+          "price": 0.50,
+          "description": "I capolavori del poeta di Recanati"
+        },
+        {
+          "id": "pascoli-myricae",
+          "title": "Myricae - Poesie Scelte",
+          "author": "Giovanni Pascoli",
+          "contents": ["X Agosto", "Lavandare", "Il Gelsomino Notturno", "Temporale"],
+          "price": 0.50,
+          "description": "La poesia delle piccole cose"
+        },
+        {
+          "id": "stevenson-garden",
+          "title": "A Child's Garden of Verses",
+          "author": "R.L. Stevenson",
+          "contents": ["66 poesie per bambini"],
+          "price": 0.99,
+          "description": "Classic English children's poetry"
+        },
+        {
+          "id": "dickinson-scelti",
+          "title": "Emily Dickinson - Poesie",
+          "author": "Emily Dickinson",
+          "contents": ["Hope is the Thing with Feathers", "I'm Nobody", "Because I Could Not Stop for Death"],
+          "price": 0.50,
+          "description": "Perle poetiche americane"
+        },
+        {
+          "id": "whitman-leaves",
+          "title": "Leaves of Grass - Estratti",
+          "author": "Walt Whitman",
+          "contents": ["O Captain! My Captain!", "Song of Myself (estratti)", "I Hear America Singing"],
+          "price": 0.99,
+          "description": "La voce dell'America"
+        },
+        {
+          "id": "blake-songs",
+          "title": "Songs of Innocence",
+          "author": "William Blake",
+          "contents": ["The Lamb", "The Tyger", "London"],
+          "price": 0.50,
+          "description": "Visioni poetiche inglesi"
+        },
+        {
+          "id": "nonsense-collection",
+          "title": "Nonsense Poetry",
+          "contents": ["Jabberwocky (Carroll)", "The Owl and the Pussycat (Lear)", "Limericks"],
+          "price": 0.50,
+          "description": "Poesia del nonsenso inglese"
+        }
+      ]
+    },
+    "psicologia": {
+      "description": "Testi classici di psicologia e filosofia pratica",
+      "coverStyle": "Onde DARK - profondo, intellettuale",
+      "books": [
+        {
+          "id": "seneca-lettere",
+          "title": "Lettere a Lucilio - Estratti",
+          "author": "Seneca (4 a.C. - 65 d.C.)",
+          "contents": ["Sulla brevità della vita", "Sulla tranquillità dell'animo", "Sulla felicità"],
+          "price": 0.99,
+          "description": "Saggezza stoica per la vita moderna"
+        },
+        {
+          "id": "epitteto-manuale",
+          "title": "Il Manuale di Epitteto",
+          "author": "Epitteto (50-135 d.C.)",
+          "contents": ["Enchiridion completo"],
+          "price": 0.99,
+          "description": "Guida pratica stoica alla vita"
+        },
+        {
+          "id": "montaigne-saggi",
+          "title": "Saggi - Estratti",
+          "author": "Michel de Montaigne (1533-1592)",
+          "contents": ["Dell'amicizia", "Dell'educazione dei fanciulli", "Sulla solitudine"],
+          "price": 0.99,
+          "description": "Riflessioni sulla natura umana"
+        },
+        {
+          "id": "pascal-pensieri",
+          "title": "Pensieri - Estratti",
+          "author": "Blaise Pascal (1623-1662)",
+          "contents": ["Pensieri sulla condizione umana"],
+          "price": 0.99,
+          "description": "Meditazioni sulla fede e la ragione"
+        },
+        {
+          "id": "emerson-self-reliance",
+          "title": "Self-Reliance e Altri Saggi",
+          "author": "Ralph Waldo Emerson (1803-1882)",
+          "contents": ["Self-Reliance", "Nature", "The Over-Soul"],
+          "price": 0.99,
+          "description": "Filosofia trascendentalista americana"
+        },
+        {
+          "id": "thoreau-walden",
+          "title": "Walden - Estratti",
+          "author": "Henry David Thoreau (1817-1862)",
+          "contents": ["Economia", "Dove vivevo", "Lettura", "Solitudine"],
+          "price": 0.99,
+          "description": "Vita semplice e riflessione"
+        },
+        {
+          "id": "james-habits",
+          "title": "The Habit - William James",
+          "author": "William James (1842-1910)",
+          "contents": ["Capitolo sulle abitudini da Principles of Psychology"],
+          "price": 0.50,
+          "description": "La psicologia delle abitudini"
+        },
+        {
+          "id": "nietzsche-aforismi",
+          "title": "Aforismi di Nietzsche",
+          "author": "Friedrich Nietzsche (1844-1900)",
+          "contents": ["Aforismi scelti da varie opere"],
+          "price": 0.50,
+          "description": "Pensiero filosofico radicale"
+        }
+      ]
+    },
+    "classici_bambini": {
+      "description": "Fiabe e storie classiche per bambini",
+      "coverStyle": "Onde DORATO - magico, accogliente",
+      "books": [
+        {
+          "id": "favole-esopo",
+          "title": "Le Favole di Esopo",
+          "author": "Esopo (VI sec. a.C.)",
+          "contents": ["La volpe e l'uva", "La lepre e la tartaruga", "Il lupo e l'agnello", "etc."],
+          "price": 0.99,
+          "description": "Le favole che insegnano da millenni"
+        },
+        {
+          "id": "favole-fedro",
+          "title": "Le Favole di Fedro",
+          "author": "Fedro (15 a.C. - 50 d.C.)",
+          "contents": ["Favole latine scelte"],
+          "price": 0.50,
+          "description": "Saggezza antica in forma di favole"
+        },
+        {
+          "id": "andersen-fiabe",
+          "title": "Fiabe di Andersen",
+          "author": "Hans Christian Andersen (1805-1875)",
+          "contents": ["La Sirenetta", "Il Brutto Anatroccolo", "La Piccola Fiammiferaia"],
+          "price": 0.99,
+          "description": "Le fiabe più amate di Andersen"
+        },
+        {
+          "id": "grimm-fiabe",
+          "title": "Fiabe dei Fratelli Grimm",
+          "author": "Fratelli Grimm",
+          "contents": ["Cappuccetto Rosso", "Biancaneve", "Hansel e Gretel", "Cenerentola"],
+          "price": 0.99,
+          "description": "Fiabe classiche tedesche"
+        },
+        {
+          "id": "perrault-fiabe",
+          "title": "Fiabe di Perrault",
+          "author": "Charles Perrault (1628-1703)",
+          "contents": ["La Bella Addormentata", "Il Gatto con gli Stivali", "Pollicino"],
+          "price": 0.99,
+          "description": "I racconti di Mamma Oca"
+        },
+        {
+          "id": "collodi-pinocchio",
+          "title": "Le Avventure di Pinocchio",
+          "author": "Carlo Collodi (1826-1890)",
+          "contents": ["Romanzo completo"],
+          "price": 0.99,
+          "description": "Il burattino più famoso del mondo"
+        }
+      ]
+    }
+  },
+  "coverPrompts": {
+    "spiritualita": "European watercolor book cover, peaceful golden light, soft ethereal atmosphere, gentle rays of light, warm and serene, NOT Pixar NOT 3D, elegant typography space at top, 4k",
+    "poesia": "Modern Italian watercolor book cover, elegant ochre teal and coral palette, visible brushstrokes, sophisticated artistic feeling, NOT Pixar NOT 3D, typography space at top, 4k",
+    "psicologia": "Minimalist watercolor book cover, deep thoughtful blue and gold tones, intellectual atmosphere, classical European style, NOT Pixar NOT 3D, elegant typography space, 4k",
+    "classici_bambini": "Warm watercolor children's book cover, magical golden hour light, inviting and cozy, European storybook aesthetic, NOT Pixar NOT 3D, title space at top, 4k"
+  },
+  "totalBooks": 28,
+  "estimatedRevenue": "28 libri x €0.75 avg x 100 copie = €2100/mese potenziale"
+}

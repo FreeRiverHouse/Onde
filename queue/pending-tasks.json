@@ -1,0 +1,39 @@
+{
+  "created": "2026-01-08",
+  "tasks": [
+    {
+      "id": "1",
+      "type": "book",
+      "name": "aiko-2-robotaxi",
+      "status": "waiting_images",
+      "blocker": "chrome_extension",
+      "priority": "high",
+      "notes": "Mattia vuole leggerlo stasera"
+    },
+    {
+      "id": "2",
+      "type": "book",
+      "name": "il-respiro-magico",
+      "status": "waiting_images",
+      "blocker": "chrome_extension",
+      "priority": "medium"
+    },
+    {
+      "id": "3",
+      "type": "book",
+      "name": "la-luce-dentro",
+      "status": "waiting_images",
+      "blocker": "chrome_extension",
+      "priority": "medium"
+    },
+    {
+      "id": "4",
+      "type": "video",
+      "name": "stella-stellina-cantata",
+      "status": "pending",
+      "blocker": null,
+      "priority": "medium",
+      "notes": "Versione cantata con Suno"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "metadata": {
+    "created": "2026-01-08",
+    "description": "Testi in pubblico dominio - no copyright, pronti per ePub",
+    "note": "Tutti gli autori sono morti da più di 70 anni"
+  },
+  "authors": {
+    "italiani": [
+      {
+        "name": "Lina Schwarz",
+        "years": "1876-1947",
+        "genre": "Filastrocche, ninne nanne",
+        "works": [
+          {"title": "Stella Stellina", "type": "poem", "length": "short"},
+          {"title": "Ninna Nanna del Chicco di Grano", "type": "poem", "length": "short"},
+          {"title": "Il Pulcino Bagnato", "type": "poem", "length": "short"},
+          {"title": "La Farfallina", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Angiolo Silvio Novaro",
+        "years": "1866-1938",
+        "genre": "Poesia natura",
+        "works": [
+          {"title": "Che Dice la Pioggerellina di Marzo", "type": "poem", "length": "medium"},
+          {"title": "La Patria", "type": "poem", "length": "short"},
+          {"title": "Il Fiore", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Guido Gozzano",
+        "years": "1883-1916",
+        "genre": "Rime per bimbi",
+        "works": [
+          {"title": "La Befana", "type": "poem", "length": "short"},
+          {"title": "La Notte Santa", "type": "poem", "length": "medium"},
+          {"title": "L'Amica di Nonna Speranza", "type": "poem", "length": "long"}
+        ]
+      },
+      {
+        "name": "Renzo Pezzani",
+        "years": "1898-1951",
+        "genre": "Filastrocche didattiche",
+        "works": [
+          {"title": "Filastrocche per tutto l'anno", "type": "collection", "length": "long"}
+        ]
+      },
+      {
+        "name": "Trilussa",
+        "years": "1871-1950",
+        "genre": "Favole in versi (romanesco)",
+        "works": [
+          {"title": "Le Favole", "type": "collection", "length": "long"},
+          {"title": "Er Compagno Scompagno", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Giovanni Pascoli",
+        "years": "1855-1912",
+        "genre": "Poesia",
+        "works": [
+          {"title": "X Agosto", "type": "poem", "length": "short"},
+          {"title": "La Cavallina Storna", "type": "poem", "length": "medium"},
+          {"title": "Il Gelsomino Notturno", "type": "poem", "length": "short"},
+          {"title": "Lavandare", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Giacomo Leopardi",
+        "years": "1798-1837",
+        "genre": "Poesia",
+        "works": [
+          {"title": "L'Infinito", "type": "poem", "length": "short"},
+          {"title": "A Silvia", "type": "poem", "length": "medium"},
+          {"title": "Il Sabato del Villaggio", "type": "poem", "length": "short"},
+          {"title": "La Quiete Dopo la Tempesta", "type": "poem", "length": "short"}
+        ]
+      }
+    ],
+    "internazionali": [
+      {
+        "name": "Robert Louis Stevenson",
+        "years": "1850-1894",
+        "genre": "Children's poetry",
+        "works": [
+          {"title": "A Child's Garden of Verses", "type": "collection", "length": "long", "poems": 66},
+          {"title": "The Land of Counterpane", "type": "poem", "length": "short"},
+          {"title": "My Shadow", "type": "poem", "length": "short"},
+          {"title": "The Swing", "type": "poem", "length": "short"},
+          {"title": "Bed in Summer", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Edward Lear",
+        "years": "1812-1888",
+        "genre": "Nonsense, limerick",
+        "works": [
+          {"title": "The Owl and the Pussycat", "type": "poem", "length": "medium"},
+          {"title": "A Book of Nonsense", "type": "collection", "length": "long"},
+          {"title": "The Jumblies", "type": "poem", "length": "medium"},
+          {"title": "The Dong with a Luminous Nose", "type": "poem", "length": "long"}
+        ]
+      },
+      {
+        "name": "Christina Rossetti",
+        "years": "1830-1894",
+        "genre": "Nursery rhymes",
+        "works": [
+          {"title": "Sing-Song: A Nursery Rhyme Book", "type": "collection", "length": "long"},
+          {"title": "Who Has Seen the Wind?", "type": "poem", "length": "short"},
+          {"title": "In the Bleak Midwinter", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Lewis Carroll",
+        "years": "1832-1898",
+        "genre": "Nonsense",
+        "works": [
+          {"title": "Jabberwocky", "type": "poem", "length": "medium"},
+          {"title": "The Walrus and the Carpenter", "type": "poem", "length": "long"},
+          {"title": "How Doth the Little Crocodile", "type": "poem", "length": "short"},
+          {"title": "Alice's Adventures in Wonderland", "type": "novel", "length": "long"}
+        ]
+      },
+      {
+        "name": "Eugene Field",
+        "years": "1850-1895",
+        "genre": "Ninne nanne americane",
+        "works": [
+          {"title": "Wynken, Blynken, and Nod", "type": "poem", "length": "medium"},
+          {"title": "Little Boy Blue", "type": "poem", "length": "short"},
+          {"title": "The Sugar-Plum Tree", "type": "poem", "length": "medium"}
+        ]
+      },
+      {
+        "name": "William Blake",
+        "years": "1757-1827",
+        "genre": "Poetry",
+        "works": [
+          {"title": "Songs of Innocence", "type": "collection", "length": "long"},
+          {"title": "The Tyger", "type": "poem", "length": "short"},
+          {"title": "The Lamb", "type": "poem", "length": "short"}
+        ]
+      },
+      {
+        "name": "Emily Dickinson",
+        "years": "1830-1886",
+        "genre": "Poetry",
+        "works": [
+          {"title": "Hope is the Thing with Feathers", "type": "poem", "length": "short"},
+          {"title": "I'm Nobody! Who are you?", "type": "poem", "length": "short"},
+          {"title": "Because I Could Not Stop for Death", "type": "poem", "length": "medium"}
+        ]
+      },
+      {
+        "name": "Walt Whitman",
+        "years": "1819-1892",
+        "genre": "Poetry",
+        "works": [
+          {"title": "O Captain! My Captain!", "type": "poem", "length": "medium"},
+          {"title": "I Hear America Singing", "type": "poem", "length": "short"},
+          {"title": "Song of Myself", "type": "poem", "length": "long"}
+        ]
+      }
+    ],
+    "spirituali": [
+      {
+        "name": "Bibbia (traduzioni antiche)",
+        "genre": "Testi sacri",
+        "works": [
+          {"title": "Salmo 23", "type": "psalm", "length": "short"},
+          {"title": "Salmo 91", "type": "psalm", "length": "short"},
+          {"title": "Salmo 121", "type": "psalm", "length": "short"},
+          {"title": "Beatitudini (Matteo 5)", "type": "scripture", "length": "short"},
+          {"title": "Padre Nostro", "type": "prayer", "length": "short"},
+          {"title": "Cantico dei Cantici", "type": "scripture", "length": "long"}
+        ]
+      },
+      {
+        "name": "San Francesco d'Assisi",
+        "years": "1181-1226",
+        "genre": "Spiritualità",
+        "works": [
+          {"title": "Cantico delle Creature", "type": "prayer", "length": "medium"},
+          {"title": "Preghiera Semplice", "type": "prayer", "length": "short"}
+        ]
+      }
+    ]
+  },
+  "ebooksPlanned": [
+    {
+      "title": "Piccole Rime Italiane",
+      "content": ["Stella Stellina", "Che Dice la Pioggerellina", "La Befana"],
+      "price": 0.50,
+      "status": "ready_to_generate"
+    },
+    {
+      "title": "A Child's Garden of Verses",
+      "content": "Full collection R.L. Stevenson",
+      "price": 0.99,
+      "status": "ready_to_generate"
+    },
+    {
+      "title": "Nonsense Poetry Collection",
+      "content": ["Jabberwocky", "The Owl and the Pussycat", "Limericks"],
+      "price": 0.50,
+      "status": "ready_to_generate"
+    },
+    {
+      "title": "Salmi per Bambini",
+      "content": ["Salmo 23", "Salmo 91", "Salmo 121"],
+      "price": 0.50,
+      "status": "ready_to_generate"
+    },
+    {
+      "title": "Poesie di Leopardi",
+      "content": ["L'Infinito", "A Silvia", "Il Sabato del Villaggio"],
+      "price": 0.50,
+      "status": "ready_to_generate"
+    }
+  ]
+}
