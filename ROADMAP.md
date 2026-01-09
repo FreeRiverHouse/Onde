@@ -897,6 +897,10 @@ apps/
 2. AIKO traduzione IT
 3. La Luce Dentro (Spiritualità)
 4. Il Piccolo Inventore (Tech)
+5. **The Slant Book / Il Libro Sbilenco** (Peter Newell, 1910) - NUOVO!
+   - Originale inglese: disponibile (dominio pubblico)
+   - Traduzione italiana: DA FARE
+   - Illustrazioni originali: DA RICREARE in stile Onde
 
 ---
 

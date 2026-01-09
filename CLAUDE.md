@@ -9,6 +9,22 @@ Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
 
 ---
 
+## 🔮 PAROLA IN CODICE: "SBRINCHI, SBRONCHI"
+
+**Quando Mattia dice "Sbrinchi, sbronchi", DEVI fare queste 3 cose:**
+
+1. **AGGIORNA LA MEMORIA** - Aggiungi/modifica info in CLAUDE.md
+2. **AGGIORNA LA ROADMAP** - Aggiungi task/modifiche in ROADMAP.md
+3. **FAI COMMIT** - `git add . && git commit && git push`
+
+**Esempio d'uso:**
+- Mattia: "Aggiungi questo libro al catalogo. Sbrinchi, sbronchi!"
+- Claude: Aggiunge al catalogo → Aggiorna CLAUDE.md → Aggiorna ROADMAP → Commit + Push
+
+**NOTA**: Questa regola esiste perché Claude perde la memoria tra sessioni. Scrivendo qui la regola, la prossima volta che apro questo file la leggo e la seguo.
+
+---
+
 ## 🚨🚨🚨 PRIMA COSA DA FARE QUANDO TI ACCENDI
 
 **OGNI VOLTA che inizia una nuova sessione (PRIMA che Mattia dica qualsiasi cosa):**

@@ -244,6 +244,18 @@
           "contents": ["Romanzo completo"],
           "price": 0.99,
           "description": "Il burattino più famoso del mondo"
+        },
+        {
+          "id": "slant-book",
+          "title": "The Slant Book / Il Libro Sbilenco",
+          "author": "Peter Newell (1862-1924)",
+          "originalYear": 1910,
+          "contents": ["Storia completa + illustrazioni originali"],
+          "price": 0.99,
+          "languages": ["en", "it"],
+          "description": "La carrozzina di Bobby rotola giù per la collina! Libro fisicamente tagliato ad angolo - unico nel suo genere",
+          "notes": "Dominio pubblico. Traduzione italiana da fare. Originale inglese disponibile.",
+          "status": "to_translate"
         }
       ]
     }
@@ -254,6 +266,6 @@
     "psicologia": "Minimalist watercolor book cover, deep thoughtful blue and gold tones, intellectual atmosphere, classical European style, NOT Pixar NOT 3D, elegant typography space, 4k",
     "classici_bambini": "Warm watercolor children's book cover, magical golden hour light, inviting and cozy, European storybook aesthetic, NOT Pixar NOT 3D, title space at top, 4k"
   },
-  "totalBooks": 28,
+  "totalBooks": 29,
   "estimatedRevenue": "28 libri x €0.75 avg x 100 copie = €2100/mese potenziale"
 }
