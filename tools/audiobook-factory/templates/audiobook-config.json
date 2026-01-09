@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Template di configurazione per audiobook Onde",
+
+  "title": "AIKO 2: The Robotaxi Adventure",
+  "author": "Onde Publishing",
+  "narrator": "Gianni Parola",
+  "language": "it-IT",
+  "isbn_audiobook": "",
+
+  "source": {
+    "book_path": "books/aiko-2-robotaxi/",
+    "text_file": "RAW/aiko-2-full-text.txt",
+    "pdf_file": "AIKO-2-Robotaxi.pdf"
+  },
+
+  "voices": {
+    "narrator": {
+      "voice_id": "${ELEVENLABS_VOICE_GIANNI}",
+      "name": "Gianni Parola",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.75,
+        "style": 0.25,
+        "use_speaker_boost": true
+      }
+    },
+    "sofia": {
+      "voice_id": "${ELEVENLABS_VOICE_SOFIA}",
+      "name": "Sofia",
+      "description": "Bambina 7 anni, curiosa, vivace",
+      "settings": {
+        "stability": 0.45,
+        "similarity_boost": 0.80,
+        "style": 0.35,
+        "use_speaker_boost": true
+      }
+    },
+    "aiko": {
+      "voice_id": "${ELEVENLABS_VOICE_AIKO}",
+      "name": "AIKO",
+      "description": "Robot amichevole, voce leggermente digitale",
+      "settings": {
+        "stability": 0.65,
+        "similarity_boost": 0.85,
+        "style": 0.20,
+        "use_speaker_boost": false
+      }
+    },
+    "mom": {
+      "voice_id": "${ELEVENLABS_VOICE_MOM}",
+      "name": "Mamma",
+      "description": "Madre di Sofia, calda e rassicurante",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.75,
+        "style": 0.30,
+        "use_speaker_boost": true
+      }
+    }
+  },
+
+  "tts_settings": {
+    "model": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "rate_limit_ms": 200
+  },
+
+  "chapters": {
+    "total": 8,
+    "intro_pause_seconds": 2,
+    "between_chapters_pause_seconds": 3,
+    "outro_pause_seconds": 3
+  },
+
+  "background_music": {
+    "enabled": true,
+    "file": "tools/audiobook-factory/music/children/magical-bells.mp3",
+    "volume_db": -18,
+    "fade_in_seconds": 3,
+    "fade_out_seconds": 5,
+    "loop_if_shorter": true
+  },
+
+  "output": {
+    "directory": "books/aiko-2-robotaxi/audiobook/",
+    "formats": ["mp3", "m4b"],
+    "mp3_settings": {
+      "bitrate": "128k",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "m4b_settings": {
+      "codec": "aac",
+      "bitrate": "128k",
+      "include_chapters": true,
+      "include_cover": true,
+      "cover_image": "books/aiko-2-robotaxi/images/cover.jpg"
+    }
+  },
+
+  "metadata": {
+    "title": "AIKO 2: The Robotaxi Adventure",
+    "artist": "Gianni Parola",
+    "album": "AIKO Series",
+    "album_artist": "Onde Publishing",
+    "year": 2026,
+    "genre": "Children/Audiobook",
+    "comment": "Audiobook per bambini sulla guida autonoma",
+    "copyright": "2026 Onde Publishing",
+    "publisher": "Onde Publishing"
+  },
+
+  "quality_check": {
+    "target_lufs": -16,
+    "max_peak_db": -1,
+    "min_duration_per_chapter_seconds": 60,
+    "verify_all_voices": true,
+    "check_silence_gaps": true
+  },
+
+  "distribution": {
+    "spotify_anchor": false,
+    "apple_books": false,
+    "audible_acx": false,
+    "youtube": true,
+    "onde_portal": true,
+    "soundcloud_preview": true
+  },
+
+  "cost_estimate": {
+    "characters_total": 20000,
+    "cost_per_1000_chars": 0.22,
+    "estimated_cost_usd": 4.40
+  },
+
+  "created": "2026-01-09",
+  "last_updated": "2026-01-09",
+  "status": "draft"
+}

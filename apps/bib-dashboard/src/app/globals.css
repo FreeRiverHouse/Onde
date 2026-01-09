@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 15;
+  --background-end-rgb: 22, 33, 62;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    135deg,
+    rgb(var(--background-start-rgb)) 0%,
+    rgb(var(--background-end-rgb)) 100%
+  );
+  min-height: 100vh;
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-onde-gold/30 transition-all duration-300;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold mb-6 flex items-center gap-3;
+  }
+
+  .chart-container {
+    @apply bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/10;
+  }
+
+  .timeline-item {
+    @apply relative pl-8 pb-6 border-l-2 border-onde-gold/30 last:pb-0;
+  }
+
+  .timeline-dot {
+    @apply absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-onde-gold;
+  }
+
+  .badge {
+    @apply px-2 py-1 text-xs font-medium rounded-full;
+  }
+
+  .badge-green {
+    @apply bg-onde-green/20 text-onde-green;
+  }
+
+  .badge-blue {
+    @apply bg-blue-500/20 text-blue-400;
+  }
+
+  .badge-yellow {
+    @apply bg-yellow-500/20 text-yellow-400;
+  }
+
+  .badge-purple {
+    @apply bg-purple-500/20 text-purple-400;
+  }
+}
+
+/* Animated counter */
+.counter {
+  display: inline-block;
+  animation: countUp 0.6s ease-out forwards;
+}
+
+/* Glow effect for important numbers */
+.glow-text {
+  text-shadow: 0 0 20px rgba(244, 208, 63, 0.5);
+}
+
+/* Pulse animation for live indicator */
+.live-indicator {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 208, 63, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 208, 63, 0.5);
+}
