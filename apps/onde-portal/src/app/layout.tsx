@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/" className="text-2xl font-bold text-onde-gold">Onde</a>
             <div className="flex gap-6">
               <a href="/catalogo" className="hover:text-onde-gold">Catalogo</a>
-              <a href="/libreria" className="hover:text-onde-gold">La Mia Libreria</a>
-              <a href="/about" className="hover:text-onde-gold">Chi Siamo</a>
+              <a href="/libreria" className="hover:text-onde-gold">Libreria</a>
+              <a href="/famiglia" className="hover:text-onde-gold">Famiglia</a>
               <a href="/account" className="hover:text-onde-gold">Account</a>
             </div>
           </div>

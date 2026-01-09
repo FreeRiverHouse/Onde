@@ -1,0 +1,18 @@
+{
+  "name": "onde-instagram-reels",
+  "version": "1.0.0",
+  "description": "Sistema automatico per generare e pubblicare Instagram Reels",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node generate-reel.js",
+    "queue": "node queue-manager.js",
+    "process": "node process-queue.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-fetch": "^2.6.7",
+    "sharp": "^0.32.0"
+  }
+}

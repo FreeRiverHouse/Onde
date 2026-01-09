@@ -1,0 +1,14 @@
+{
+  "name": "claude-command-center",
+  "version": "1.0.0",
+  "description": "Dashboard to control all Claude workers from iPhone",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2"
+  }
+}

@@ -2,7 +2,41 @@
 
 > **"Facciamo fiorire il mondo. Questa è la missione."**
 
-**Ultimo aggiornamento**: 2026-01-09 - Lip Sync Tool QUASI PRONTO (manca solo download modello)
+**Ultimo aggiornamento**: 2026-01-09 - FABBRICA ONDE: 66/93 task completati (71%)
+
+---
+
+## 🏭 FABBRICA ONDE - Sistema Worker Automatizzato (9 Gen 2026)
+
+**COMPLETATO E FUNZIONANTE!**
+
+### 📊 Risultati
+- ✅ **66 task completati (71%)**
+- 🔵 16 in progress
+- 🟡 11 bloccati (dipendenze)
+- 📦 93 task totali
+
+### ✅ Cosa è stato costruito
+- **Worker Manager CLI** (`scripts/worker/worker-manager.js`)
+  - Gestione task atomica con lock files
+  - Dipendenze automatiche
+  - CSI: `add` command per continuous improvement
+- **Dashboard Kanban** (`apps/worker-dashboard/` porta 3457)
+- **Agent Prompt** (`content/agents/code-worker.md`)
+
+### 🎯 Task Completati dalla Fabbrica (highlights)
+- Branding: stile, Pina, Gianni, banner
+- Publishing: KDP x5, checklists
+- Multimedia: podcast ep 1-5, YouTube, Spotify setup
+- Apps: Moonlight, AIKO, Kids Chef, VR Books
+- Tools: RSS podcast, automation scripts
+- PR: Instagram revival, Gianni X account
+
+### 🔄 CSI - Continuous Service Improvement
+Ogni worker, completando un task, aggiunge follow-up per miglioramenti:
+```bash
+node scripts/worker/worker-manager.js add '{"id":"nuovo-task","title":"Titolo","description":"Desc","category":"cat","priority":3}'
+```
 
 ---
 

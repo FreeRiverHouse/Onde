@@ -98,3 +98,15 @@
 
 *Ultimo aggiornamento: 2026-01-09*
 *Task: kdp-006*
+
+---
+
+## NOTA: Task in attesa
+
+Questo task richiede il browser (Claude for Chrome) per generare le immagini su Grok.
+Tutti i materiali sono pronti:
+- Testo completo e revisionato
+- Prompt per tutte le 10 illustrazioni
+- Struttura directory preparata
+
+**Per completare**: Connettere Claude for Chrome e generare le immagini.

@@ -1,8 +1,10 @@
 import SwiftUI
+import WatchKit
 
 struct ContentView: View {
     @StateObject private var service = AgentQueueService()
     @State private var showSettings = false
+    @State private var previousTaskCount = 0
 
     var body: some View {
         NavigationStack {
@@ -64,6 +66,17 @@ struct ContentView: View {
         }
         .refreshable {
             await service.fetchBlockedTasks()
+        }
+        .onChange(of: service.blockedTasks.count) { oldValue, newValue in
+            // Haptic feedback when new tasks arrive
+            if newValue > oldValue && newValue > 0 {
+                // New blocked task - alert the user
+                WKInterfaceDevice.current().play(.notification)
+            } else if newValue == 0 && oldValue > 0 {
+                // All tasks cleared - success
+                WKInterfaceDevice.current().play(.success)
+            }
+            previousTaskCount = newValue
         }
     }
 }
@@ -127,6 +140,8 @@ struct SettingsView: View {
                 Section {
                     Button("Salva") {
                         service.setBaseURL(apiURL)
+                        // Haptic feedback on save
+                        WKInterfaceDevice.current().play(.click)
                         dismiss()
                         Task { await service.fetchBlockedTasks() }
                     }

@@ -177,36 +177,54 @@ Sistema automatizzato per produrre video da contenuti Onde:
 
 ---
 
-## 🔴🔴🔴 PUNTO ESATTO DOVE MI SONO FERMATO (8 Gennaio 2026)
+## 🏭 FABBRICA ONDE - STATUS (9 Gennaio 2026)
 
-**RIPRENDI DA QUI:**
+**SISTEMA WORKER ATTIVO E FUNZIONANTE!**
 
-### 1. Approval Dashboard - CREATA, NON LANCIATA
-- **Path**: `apps/approval-dashboard/`
-- **Porta**: 3456
-- **Status**: File creati, npm install fatto, server NON avviato
-- **Per lanciare**: `cd apps/approval-dashboard && node server.js`
-- **Funzionalità**: Dashboard web per approvare/rifiutare immagini con commenti
+### 📊 Status Corrente
+- ✅ **66 task completati (71%)**
+- 🔵 16 in progress (agenti al lavoro)
+- 🟡 11 bloccati (dipendenze)
+- 📦 93 task totali nella roadmap
 
-### 2. HandsFree Pedal Mockups - PROMPT PRONTI
-- **Path prompt**: `content/social/handsfree-pedal-post.md`
-- **4 immagini da generare**:
-  1. Product Shot (stile Amazon)
-  2. In-Use Shot (cucina)
-  3. Before/After Meme
-  4. Close-up tasti consumati
-- **Status**: Navigato su Grok (`x.com/i/grok`), tab aperto, NON ancora generato
+### 🔧 Come Usare la Fabbrica
+```bash
+# Vedi stato
+node scripts/worker/worker-manager.js status
 
-### 3. Workflow da completare:
-1. Lancia dashboard: `cd apps/approval-dashboard && node server.js`
-2. Apri browser su `http://localhost:3456`
-3. Genera immagini su Grok
-4. Scarica in `~/Downloads/`
-5. Aggiungi alla dashboard per approvazione via API POST
+# Prendi prossimo task
+node scripts/worker/worker-manager.js next
 
-### Chrome Status
-- Tab Grok già aperto (tabId: 1790232527)
-- Pronto per generare immagini
+# Completa un task
+node scripts/worker/worker-manager.js complete <task-id>
+
+# CSI: Aggiungi nuovo task
+node scripts/worker/worker-manager.js add '{"id":"task-id","title":"Titolo","description":"Desc","category":"cat","priority":2}'
+```
+
+### 🔄 CSI - Continuous Service Improvement
+**REGOLA**: Quando completi un task, valuta se ci sono miglioramenti da aggiungere:
+- Dopo feature → test, documentazione, ottimizzazione
+- Dopo problema → task per risolverlo
+- Dopo opportunità → task per sfruttarla
+
+### 📁 Path Sistema Worker
+```
+.claude-workers/
+├── TASKS.json       # 93 task con dipendenze
+├── locks/           # Lock files atomici
+└── logs/            # Log attività
+
+scripts/worker/
+└── worker-manager.js  # CLI gestione
+
+content/agents/
+└── code-worker.md    # Prompt agente worker
+```
+
+### 🎯 Team Attivi
+- **Moonlight Puzzle**: Dev + QA + Editore Capo (ciclo iterativo)
+- **Multiple workers**: Processing roadmap in parallelo
 
 ---
 

@@ -30,9 +30,50 @@ node scripts/worker/worker-manager.js next
 # Segna il task come completato
 node scripts/worker/worker-manager.js complete <task-id>
 
+# 🔄 CSI: Aggiungi task di miglioramento se necessario
+node scripts/worker/worker-manager.js add '{"id":"nuovo-id","title":"Titolo","description":"Desc","category":"cat","priority":3}'
+
 # Prendi il prossimo task (se disponibile)
 node scripts/worker/worker-manager.js next
 ```
+
+## 🔄 CSI - Continuous Service Improvement
+
+**REGOLA FONDAMENTALE**: Quando completi un task, SEMPRE valuta se ci sono miglioramenti possibili.
+
+### Quando Aggiungere Nuovi Task
+
+1. **Dopo aver completato una feature**: Aggiungi task per test, documentazione, ottimizzazione
+2. **Dopo aver trovato un problema**: Crea task per risolverlo
+3. **Dopo aver visto un'opportunità**: Crea task per sfruttarla
+4. **Dopo feedback**: Crea task per implementare i miglioramenti suggeriti
+
+### Esempio CSI
+
+```bash
+# Completo task podcast-001
+node scripts/worker/worker-manager.js complete podcast-001
+
+# CSI: Aggiungo task per miglioramenti
+node scripts/worker/worker-manager.js add '{"id":"podcast-audio-001","title":"Migliorare qualità audio podcast","description":"Aggiungere intro/outro musicale, normalizzare volumi, rimuovere silenzi","category":"multimedia","priority":3,"dependencies":["podcast-001"]}'
+
+node scripts/worker/worker-manager.js add '{"id":"podcast-translate-001","title":"Tradurre podcast in inglese","description":"Creare versione inglese degli episodi podcast","category":"multimedia","priority":3,"dependencies":["podcast-001"]}'
+
+# Continuo col prossimo task
+node scripts/worker/worker-manager.js next
+```
+
+### Tipi di Task CSI Comuni
+
+| Completato | CSI Follow-up |
+|------------|---------------|
+| App creata | Test, ottimizzazione, documentazione |
+| Libro pubblicato | Traduzioni, audiobook, video promo |
+| Script creato | Test automatici, refactoring, esempi |
+| Contenuto PR | A/B test, analytics, iterazioni |
+| Immagini generate | Varianti, formati diversi, animazioni |
+
+**FILOSOFIA**: Il lavoro non è mai "finito". C'è sempre un modo per migliorare.
 
 ## Regole d'Oro
 

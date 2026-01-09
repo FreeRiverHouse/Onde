@@ -181,5 +181,95 @@ npm run dev
 
 ---
 
+## Profili Famiglia
+
+### Panoramica
+
+Il sistema famiglia permette di gestire piu profili sotto un unico account:
+- 1 profilo genitore (principale)
+- Fino a 4 profili bambini
+- Libri condivisi tra tutti i profili
+- Progresso lettura separato per profilo
+
+### Struttura
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      FAMILY SYSTEM                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │                   User Account                       │   │
+│  │  - email, auth, purchases                            │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                          │                                   │
+│                          ▼                                   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │                Family Profiles (max 5)               │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │  👤 Genitore (parent)                                │   │
+│  │     - creato automaticamente                         │   │
+│  │     - non eliminabile                                │   │
+│  │                                                       │   │
+│  │  🦊 Bambino 1  🐻 Bambino 2  🦄 Bambino 3  🐼 Bambino 4  │
+│  │     - avatar emoji                                   │   │
+│  │     - eta opzionale                                  │   │
+│  │     - progresso lettura                              │   │
+│  │     - preferenze (font, tema)                        │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### API Endpoints
+
+| Metodo | Endpoint | Descrizione |
+|--------|----------|-------------|
+| GET | `/api/family/profiles` | Lista tutti i profili |
+| POST | `/api/family/profiles` | Crea profilo bambino |
+| GET | `/api/family/profiles/:id` | Dettagli profilo |
+| PATCH | `/api/family/profiles/:id` | Aggiorna profilo |
+| DELETE | `/api/family/profiles/:id` | Elimina profilo bambino |
+
+### Modello FamilyProfile
+
+```typescript
+interface FamilyProfile {
+  id: string
+  userId: string        // Parent user ID
+  name: string
+  avatarEmoji: string   // Emoji avatar (🦊, 🐻, etc.)
+  age?: number
+  isChild: boolean
+  createdAt: Date
+  readingProgress: ReadingProgress[]
+  preferences: ProfilePreferences
+}
+
+interface ReadingProgress {
+  bookId: string
+  currentChapter: number
+  totalChapters: number
+  lastReadAt: Date
+  completed: boolean
+}
+
+interface ProfilePreferences {
+  fontSize: 'small' | 'medium' | 'large'
+  theme: 'light' | 'dark' | 'sepia'
+  readAloud: boolean
+  autoPlay: boolean
+}
+```
+
+### Avatar Disponibili
+
+```
+🦊 🐻 🐰 🦁 🐼 🦄 🐸 🦋 🌟 🌈
+🚀 🎨 📚 🎸 ⚽ 🧸 🎭 🎪 🎠 🏰
+```
+
+---
+
 *Creato: 2026-01-09*
-*Task: onde-books-004*
+*Task: onde-books-004, onde-books-005*

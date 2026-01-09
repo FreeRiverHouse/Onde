@@ -385,6 +385,82 @@ function cmdWorkers() {
   }
 }
 
+// Aggiungi nuovo task alla roadmap
+function cmdAdd(jsonStr) {
+  if (!jsonStr) {
+    console.log(c('bold', '\n➕ AGGIUNGI TASK\n'));
+    console.log('Uso: node worker-manager.js add \'{"id":"task-id","title":"Titolo","description":"Desc","category":"cat","priority":2}\'');
+    console.log('\nCampi obbligatori:');
+    console.log('  id          - ID unico (es: "video-010")');
+    console.log('  title       - Titolo breve');
+    console.log('  description - Descrizione dettagliata');
+    console.log('  category    - Categoria (branding, publishing, multimedia, tools, apps, pr)');
+    console.log('  priority    - 1=urgente, 2=normale, 3=bassa, 4=backlog');
+    console.log('\nCampi opzionali:');
+    console.log('  dependencies     - Array di task-id prerequisiti');
+    console.log('  estimated_effort - small/medium/large');
+    console.log('  files_involved   - Array di file coinvolti\n');
+    return;
+  }
+
+  let newTask;
+  try {
+    newTask = JSON.parse(jsonStr);
+  } catch (e) {
+    console.error(c('red', 'ERRORE: JSON non valido'));
+    console.error(e.message);
+    process.exit(1);
+  }
+
+  // Validazione
+  const required = ['id', 'title', 'description', 'category', 'priority'];
+  for (const field of required) {
+    if (!newTask[field]) {
+      console.error(c('red', `ERRORE: Campo obbligatorio mancante: ${field}`));
+      process.exit(1);
+    }
+  }
+
+  const data = loadTasks();
+
+  // Verifica ID unico
+  if (data.tasks.find(t => t.id === newTask.id)) {
+    console.error(c('red', `ERRORE: Task con ID "${newTask.id}" esiste già`));
+    process.exit(1);
+  }
+
+  // Aggiungi defaults
+  const task = {
+    id: newTask.id,
+    title: newTask.title,
+    description: newTask.description,
+    category: newTask.category,
+    priority: newTask.priority,
+    status: 'available',
+    dependencies: newTask.dependencies || [],
+    estimated_effort: newTask.estimated_effort || 'medium',
+    files_involved: newTask.files_involved || [],
+    claimed_by: null,
+    claimed_at: null,
+    created_at: new Date().toISOString()
+  };
+
+  data.tasks.push(task);
+  data.last_updated = new Date().toISOString();
+  saveTasks(data);
+
+  logActivity('ADD', task.id, getWorkerId(), task.title);
+
+  console.log(c('green', `\n✅ Task "${task.id}" aggiunto alla roadmap!\n`));
+  console.log(`   Title: ${task.title}`);
+  console.log(`   Category: ${task.category}`);
+  console.log(`   Priority: P${task.priority}`);
+  if (task.dependencies.length > 0) {
+    console.log(`   Dependencies: ${task.dependencies.join(', ')}`);
+  }
+  console.log('');
+}
+
 // === MAIN ===
 
 const args = process.argv.slice(2);
@@ -412,6 +488,9 @@ switch (command) {
     break;
   case 'workers':
     cmdWorkers();
+    break;
+  case 'add':
+    cmdAdd(param);
     break;
   default:
     console.log(c('bold', '\n🏭 ONDE WORKER MANAGER\n'));

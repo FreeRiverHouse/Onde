@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:11:08.758Z",
+  "last_updated": "2026-01-09T09:17:15.988Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -396,14 +396,15 @@
       "description": "Configurare RSS feed per distribuzione automatica",
       "category": "tools",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "spotify-001"
       ],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-1033-mk6nnshs",
-      "claimed_at": "2026-01-09T09:09:55.073Z"
+      "claimed_at": "2026-01-09T09:09:55.073Z",
+      "completed_at": "2026-01-09T09:11:38.999Z"
     },
     {
       "id": "ninna-001",
@@ -602,8 +603,8 @@
       "files_involved": [
         "books/spirituality/la-luce-dentro/"
       ],
-      "claimed_by": "claude-2841-mk6npdcm",
-      "claimed_at": "2026-01-09T09:11:08.758Z"
+      "claimed_by": "claude-5814-mk6ns15n",
+      "claimed_at": "2026-01-09T09:13:12.924Z"
     },
     {
       "id": "kdp-007",
@@ -611,7 +612,7 @@
       "description": "Completare 11 illustrazioni e pubblicare",
       "category": "publishing",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "style-001"
       ],
@@ -620,7 +621,8 @@
         "books/tech/piccolo-inventore/"
       ],
       "claimed_by": "claude-2255-mk6novg4",
-      "claimed_at": "2026-01-09T09:10:45.557Z"
+      "claimed_at": "2026-01-09T09:10:45.557Z",
+      "completed_at": "2026-01-09T09:11:42.601Z"
     },
     {
       "id": "kdp-008",
@@ -628,14 +630,14 @@
       "description": "Stevenson, Lear, Rossetti con illustrazioni",
       "category": "publishing",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "style-001"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3631-mk6nq6ec",
+      "claimed_at": "2026-01-09T09:11:46.404Z"
     },
     {
       "id": "slant-001",
@@ -677,7 +679,7 @@
       "description": "Setup account X per personaggio scrittore",
       "category": "pr",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "gianni-001"
       ],
@@ -685,8 +687,9 @@
       "files_involved": [
         "OndePRDB/clients/gianni-parola/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3986-mk6nqiwi",
+      "claimed_at": "2026-01-09T09:12:02.610Z",
+      "completed_at": "2026-01-09T09:13:12.901Z"
     },
     {
       "id": "gianni-x-002",
@@ -694,14 +697,15 @@
       "description": "Generare ritratto acquarello e banner scrivania",
       "category": "branding",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "gianni-001"
       ],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3052-mk6npkdc",
+      "claimed_at": "2026-01-09T09:11:17.857Z",
+      "completed_at": "2026-01-09T09:11:59.344Z"
     },
     {
       "id": "gianni-x-003",
@@ -709,15 +713,16 @@
       "description": "Scrivere e pubblicare post presentazione",
       "category": "pr",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "gianni-x-001",
         "gianni-x-002"
       ],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-5910-mk6ns59v",
+      "claimed_at": "2026-01-09T09:13:18.260Z",
+      "completed_at": "2026-01-09T09:14:10.062Z"
     },
     {
       "id": "social-ig-001",
@@ -725,12 +730,12 @@
       "description": "Setup account business Instagram Onde",
       "category": "pr",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-10778-mk6nx8pf",
+      "claimed_at": "2026-01-09T09:17:15.988Z"
     },
     {
       "id": "social-ig-002",
@@ -753,12 +758,13 @@
       "description": "Setup account TikTok Onde",
       "category": "pr",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-9634-mk6nvpiv",
+      "claimed_at": "2026-01-09T09:16:04.472Z",
+      "completed_at": "2026-01-09T09:16:09.959Z"
     },
     {
       "id": "social-tiktok-002",
@@ -766,14 +772,15 @@
       "description": "Esplorare TikTok API per posting automatico",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "social-tiktok-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-10044-mk6nw501",
+      "claimed_at": "2026-01-09T09:16:24.530Z",
+      "completed_at": "2026-01-09T09:17:10.667Z"
     },
     {
       "id": "social-auto-001",
@@ -870,12 +877,13 @@
       "description": "Ricerca contenuti DJ set, LA River su IG",
       "category": "pr",
       "priority": 4,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-4440-mk6nqsy4",
+      "claimed_at": "2026-01-09T09:12:15.628Z",
+      "completed_at": "2026-01-09T09:12:54.744Z"
     },
     {
       "id": "river-002",
@@ -883,7 +891,7 @@
       "description": "Scrivere 10 post per takeover @la_river_x",
       "category": "pr",
       "priority": 4,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "river-001"
       ],
@@ -891,8 +899,9 @@
       "files_involved": [
         "OndePRDB/clients/magmatic/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-5617-mk6nru77",
+      "claimed_at": "2026-01-09T09:13:03.907Z",
+      "completed_at": "2026-01-09T09:14:07.906Z"
     },
     {
       "id": "vr-001",
@@ -964,14 +973,15 @@
       "description": "Scegliere ambiente lettura (natura, spazio, mare)",
       "category": "apps",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
       "claimed_by": "claude-2190-mk6not9p",
-      "claimed_at": "2026-01-09T09:10:42.733Z"
+      "claimed_at": "2026-01-09T09:10:42.733Z",
+      "completed_at": "2026-01-09T09:13:30.237Z"
     },
     {
       "id": "vr-006",
@@ -979,14 +989,15 @@
       "description": "Salvataggio posizione lettura",
       "category": "apps",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
       "claimed_by": "claude-1660-mk6nodbz",
-      "claimed_at": "2026-01-09T09:10:22.079Z"
+      "claimed_at": "2026-01-09T09:10:22.079Z",
+      "completed_at": "2026-01-09T09:12:06.722Z"
     },
     {
       "id": "onde-books-001",
@@ -1064,7 +1075,7 @@
       "description": "Genitori + bambini stesso account",
       "category": "apps",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "onde-books-004"
       ],
@@ -1073,7 +1084,8 @@
         "apps/onde-portal/"
       ],
       "claimed_by": "claude-2842-mk6npdci",
-      "claimed_at": "2026-01-09T09:11:08.755Z"
+      "claimed_at": "2026-01-09T09:11:08.755Z",
+      "completed_at": "2026-01-09T09:13:49.837Z"
     },
     {
       "id": "onde-books-006",
@@ -1081,14 +1093,15 @@
       "description": "Deployment con dominio + SSL",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "onde-books-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3391-mk6npxvn",
+      "claimed_at": "2026-01-09T09:11:35.364Z",
+      "completed_at": "2026-01-09T09:12:15.848Z"
     },
     {
       "id": "apps-expo-001",
@@ -1166,12 +1179,13 @@
       "description": "App React Native per bambini",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [],
       "claimed_by": "claude-97513-mk6nkm0i",
-      "claimed_at": "2026-01-09T09:07:26.707Z"
+      "claimed_at": "2026-01-09T09:07:26.707Z",
+      "completed_at": "2026-01-09T09:11:18.448Z"
     },
     {
       "id": "apps-convert-001",
@@ -1179,12 +1193,13 @@
       "description": "Migrare da Unity a React Native + Expo",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [],
       "claimed_by": "claude-97898-mk6nkxd7",
-      "claimed_at": "2026-01-09T09:07:41.420Z"
+      "claimed_at": "2026-01-09T09:07:41.420Z",
+      "completed_at": "2026-01-09T09:12:09.007Z"
     },
     {
       "id": "schoolsync-001",
@@ -1192,12 +1207,13 @@
       "description": "Identificare app usate dalla scuola",
       "category": "apps",
       "priority": 4,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-2681-mk6np8di",
-      "claimed_at": "2026-01-09T09:11:02.310Z"
+      "claimed_at": "2026-01-09T09:11:02.310Z",
+      "completed_at": "2026-01-09T09:11:26.198Z"
     },
     {
       "id": "schoolsync-002",
@@ -1205,14 +1221,15 @@
       "description": "UI parent + child view",
       "category": "apps",
       "priority": 4,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "schoolsync-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-4866-mk6nr574",
+      "claimed_at": "2026-01-09T09:12:31.505Z",
+      "completed_at": "2026-01-09T09:14:06.726Z"
     },
     {
       "id": "handsfree-001",
@@ -1220,14 +1237,15 @@
       "description": "Notifica quando Claude chiede permesso",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-approve-watch/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-6688-mk6nswr9",
+      "claimed_at": "2026-01-09T09:13:53.879Z",
+      "completed_at": "2026-01-09T09:17:11.566Z"
     },
     {
       "id": "handsfree-002",
@@ -1235,14 +1253,15 @@
       "description": "Vibrazione su approve/reject",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [
         "apps/onde-approve-watch/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3943-mk6nqh3o",
+      "claimed_at": "2026-01-09T09:12:00.277Z",
+      "completed_at": "2026-01-09T09:13:08.124Z"
     },
     {
       "id": "handsfree-003",
@@ -1250,14 +1269,15 @@
       "description": "Pubblicare su Apple Watch fisico",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-approve-watch/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-8694-mk6nul3s",
+      "claimed_at": "2026-01-09T09:15:12.089Z",
+      "completed_at": "2026-01-09T09:16:00.140Z"
     },
     {
       "id": "kanban-001",
@@ -1295,12 +1315,13 @@
       "description": "Sistema auto per generare e pubblicare Shorts",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-3175-mk6npowm",
+      "claimed_at": "2026-01-09T09:11:23.734Z",
+      "completed_at": "2026-01-09T09:14:31.111Z"
     },
     {
       "id": "tools-003",
@@ -1308,12 +1329,13 @@
       "description": "Integrare TikTok nel sistema auto posting",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-6152-mk6nsf37",
+      "claimed_at": "2026-01-09T09:13:30.980Z",
+      "completed_at": "2026-01-09T09:15:36.816Z"
     },
     {
       "id": "tools-004",
@@ -1321,12 +1343,13 @@
       "description": "Sistema auto per Reels",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-7605-mk6ntmfa",
+      "claimed_at": "2026-01-09T09:14:27.143Z",
+      "completed_at": "2026-01-09T09:16:16.332Z"
     },
     {
       "id": "saas-001",
@@ -1334,14 +1357,15 @@
       "description": "Trasformare in prodotto vendibile",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [
         "tools/pr-dashboard/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-6875-mk6nt27t",
+      "claimed_at": "2026-01-09T09:14:00.953Z",
+      "completed_at": "2026-01-09T09:15:00.473Z"
     },
     {
       "id": "polyroborto-001",
@@ -1349,12 +1373,13 @@
       "description": "Deploy copy-trading bot e monitoring",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-4815-mk6nr3t2",
+      "claimed_at": "2026-01-09T09:12:29.703Z",
+      "completed_at": "2026-01-09T09:13:47.865Z"
     },
     {
       "id": "audiobook-001",

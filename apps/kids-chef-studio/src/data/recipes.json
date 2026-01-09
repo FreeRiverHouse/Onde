@@ -1,0 +1,190 @@
+{
+  "recipes": [
+    {
+      "id": "pizza",
+      "name": "Pizza Margherita",
+      "nameEn": "Margherita Pizza",
+      "emoji": "🍕",
+      "difficulty": 1,
+      "timeMinutes": 5,
+      "premium": false,
+      "description": {
+        "it": "Impara a fare una deliziosa pizza margherita con mozzarella e pomodoro!",
+        "en": "Learn to make a delicious margherita pizza with mozzarella and tomato!"
+      },
+      "ingredients": [
+        { "id": "flour", "name": "Farina", "nameEn": "Flour", "emoji": "🌾" },
+        { "id": "water", "name": "Acqua", "nameEn": "Water", "emoji": "💧" },
+        { "id": "tomato", "name": "Salsa pomodoro", "nameEn": "Tomato sauce", "emoji": "🍅" },
+        { "id": "cheese", "name": "Mozzarella", "nameEn": "Mozzarella", "emoji": "🧀" },
+        { "id": "basil", "name": "Basilico", "nameEn": "Basil", "emoji": "🌿" }
+      ],
+      "steps": [
+        {
+          "instruction": { "it": "Tocca per aggiungere la farina!", "en": "Tap to add flour!" },
+          "action": "tap",
+          "emoji": "🌾"
+        },
+        {
+          "instruction": { "it": "Tocca per aggiungere l'acqua!", "en": "Tap to add water!" },
+          "action": "tap",
+          "emoji": "💧"
+        },
+        {
+          "instruction": { "it": "Scorri per mescolare l'impasto!", "en": "Swipe to mix the dough!" },
+          "action": "swipe",
+          "emoji": "🥣"
+        },
+        {
+          "instruction": { "it": "Tocca per stendere l'impasto!", "en": "Tap to roll out the dough!" },
+          "action": "tap",
+          "emoji": "🍕"
+        },
+        {
+          "instruction": { "it": "Aggiungi la salsa!", "en": "Add the sauce!" },
+          "action": "tap",
+          "emoji": "🍅"
+        },
+        {
+          "instruction": { "it": "Metti la mozzarella!", "en": "Add the mozzarella!" },
+          "action": "tap",
+          "emoji": "🧀"
+        },
+        {
+          "instruction": { "it": "Aspetta che cuocia...", "en": "Wait for it to cook..." },
+          "action": "wait",
+          "emoji": "🔥",
+          "duration": 3000
+        },
+        {
+          "instruction": { "it": "Pizza pronta!", "en": "Pizza is ready!" },
+          "action": "tap",
+          "emoji": "🍕"
+        }
+      ]
+    },
+    {
+      "id": "biscotti",
+      "name": "Biscotti",
+      "nameEn": "Cookies",
+      "emoji": "🍪",
+      "difficulty": 1,
+      "timeMinutes": 4,
+      "premium": false,
+      "description": {
+        "it": "Prepara dei biscotti croccanti usando le formine divertenti!",
+        "en": "Make crunchy cookies using fun cookie cutters!"
+      },
+      "ingredients": [
+        { "id": "flour", "name": "Farina", "nameEn": "Flour", "emoji": "🌾" },
+        { "id": "butter", "name": "Burro", "nameEn": "Butter", "emoji": "🧈" },
+        { "id": "sugar", "name": "Zucchero", "nameEn": "Sugar", "emoji": "🍬" },
+        { "id": "eggs", "name": "Uova", "nameEn": "Eggs", "emoji": "🥚" },
+        { "id": "chocolate", "name": "Gocce cioccolato", "nameEn": "Chocolate chips", "emoji": "🍫" }
+      ],
+      "steps": [
+        {
+          "instruction": { "it": "Tocca per aggiungere la farina!", "en": "Tap to add flour!" },
+          "action": "tap",
+          "emoji": "🌾"
+        },
+        {
+          "instruction": { "it": "Aggiungi il burro!", "en": "Add butter!" },
+          "action": "tap",
+          "emoji": "🧈"
+        },
+        {
+          "instruction": { "it": "Aggiungi lo zucchero!", "en": "Add sugar!" },
+          "action": "tap",
+          "emoji": "🍬"
+        },
+        {
+          "instruction": { "it": "Scorri per mescolare!", "en": "Swipe to mix!" },
+          "action": "swipe",
+          "emoji": "🥣"
+        },
+        {
+          "instruction": { "it": "Scegli la formina!", "en": "Choose a cookie cutter!" },
+          "action": "tap",
+          "emoji": "⭐"
+        },
+        {
+          "instruction": { "it": "Aggiungi cioccolato!", "en": "Add chocolate!" },
+          "action": "tap",
+          "emoji": "🍫"
+        },
+        {
+          "instruction": { "it": "Aspetta che cuociano...", "en": "Wait for them to bake..." },
+          "action": "wait",
+          "emoji": "🔥",
+          "duration": 3000
+        },
+        {
+          "instruction": { "it": "Biscotti pronti!", "en": "Cookies are ready!" },
+          "action": "tap",
+          "emoji": "🍪"
+        }
+      ]
+    },
+    {
+      "id": "frullato",
+      "name": "Frullato di Frutta",
+      "nameEn": "Fruit Smoothie",
+      "emoji": "🥤",
+      "difficulty": 1,
+      "timeMinutes": 3,
+      "premium": true,
+      "description": {
+        "it": "Prepara un delizioso frullato con frutta fresca!",
+        "en": "Make a delicious smoothie with fresh fruit!"
+      },
+      "ingredients": [
+        { "id": "banana", "name": "Banana", "nameEn": "Banana", "emoji": "🍌" },
+        { "id": "strawberry", "name": "Fragole", "nameEn": "Strawberries", "emoji": "🍓" },
+        { "id": "milk", "name": "Latte", "nameEn": "Milk", "emoji": "🥛" },
+        { "id": "honey", "name": "Miele", "nameEn": "Honey", "emoji": "🍯" }
+      ],
+      "steps": []
+    },
+    {
+      "id": "insalata",
+      "name": "Insalata Colorata",
+      "nameEn": "Colorful Salad",
+      "emoji": "🥗",
+      "difficulty": 2,
+      "timeMinutes": 4,
+      "premium": true,
+      "description": {
+        "it": "Crea un'insalata arcobaleno con tante verdure!",
+        "en": "Create a rainbow salad with lots of vegetables!"
+      },
+      "ingredients": [
+        { "id": "lettuce", "name": "Lattuga", "nameEn": "Lettuce", "emoji": "🥬" },
+        { "id": "tomato", "name": "Pomodoro", "nameEn": "Tomato", "emoji": "🍅" },
+        { "id": "carrot", "name": "Carota", "nameEn": "Carrot", "emoji": "🥕" },
+        { "id": "cucumber", "name": "Cetriolo", "nameEn": "Cucumber", "emoji": "🥒" }
+      ],
+      "steps": []
+    },
+    {
+      "id": "panino",
+      "name": "Panino",
+      "nameEn": "Sandwich",
+      "emoji": "🥪",
+      "difficulty": 1,
+      "timeMinutes": 3,
+      "premium": true,
+      "description": {
+        "it": "Costruisci il panino dei tuoi sogni!",
+        "en": "Build your dream sandwich!"
+      },
+      "ingredients": [
+        { "id": "bread", "name": "Pane", "nameEn": "Bread", "emoji": "🍞" },
+        { "id": "ham", "name": "Prosciutto", "nameEn": "Ham", "emoji": "🥓" },
+        { "id": "cheese", "name": "Formaggio", "nameEn": "Cheese", "emoji": "🧀" },
+        { "id": "lettuce", "name": "Lattuga", "nameEn": "Lettuce", "emoji": "🥬" }
+      ],
+      "steps": []
+    }
+  ]
+}

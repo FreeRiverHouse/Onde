@@ -7,8 +7,39 @@ App per approvare agenti bloccati direttamente dall'Apple Watch.
 - Lista agenti bloccati in tempo reale
 - **Tap per approvare** - Un tocco per sbloccare
 - **Voce per parlare** - Dettatura per inviare istruzioni
-- Feedback aptico (vibrazione) per conferma
+- **Feedback aptico completo** - Vibrazioni per ogni azione
+- **Push Notifications** - Notifica immediata quando un agente si blocca
 - Pull-to-refresh per aggiornare
+
+## Push Notifications
+
+L'app riceve notifiche push quando un agente si blocca e richiede approvazione.
+
+### Azioni dalla Notifica
+
+| Azione | Descrizione |
+|--------|-------------|
+| **Approva** | Sblocca l'agente direttamente dalla notifica |
+| **Visualizza** | Apre l'app per vedere i dettagli |
+
+### Setup Push Notifications
+
+Vedi [PUSH-NOTIFICATIONS-SETUP.md](./PUSH-NOTIFICATIONS-SETUP.md) per la guida completa.
+
+## Feedback Aptico
+
+L'app usa il feedback aptico dell'Apple Watch per comunicare lo stato delle azioni:
+
+| Evento | Tipo Haptic | Sensazione |
+|--------|-------------|------------|
+| Approvazione riuscita | `.success` | Doppio tap leggero |
+| Approvazione fallita | `.failure` | Vibrazione forte |
+| Messaggio inviato | `.success` | Doppio tap leggero |
+| Nuovo task bloccato | `.notification` | Tap di notifica |
+| Tutti i task risolti | `.success` | Doppio tap leggero |
+| Salvataggio settings | `.click` | Click leggero |
+
+Questo permette di usare l'app anche senza guardare lo schermo (es. lavando i piatti).
 
 ## Setup
 
@@ -63,12 +94,13 @@ npx ts-node src/server.ts
 
 ```
 OndeApprove/
-├── OndeApproveApp.swift    # Entry point
-├── ContentView.swift       # Lista task bloccate
-├── TaskDetailView.swift    # Dettaglio + bottoni Approva/Parla
-├── AgentQueueService.swift # Chiamate API
-├── Models.swift            # Strutture dati
-└── Assets.xcassets/        # Icone e colori
+├── OndeApproveApp.swift         # Entry point + App Delegate
+├── ContentView.swift            # Lista task bloccate
+├── TaskDetailView.swift         # Dettaglio + bottoni Approva/Parla
+├── AgentQueueService.swift      # Chiamate API
+├── PushNotificationService.swift # Gestione notifiche push
+├── Models.swift                 # Strutture dati
+└── Assets.xcassets/             # Icone e colori
 ```
 
 ## API Endpoints
@@ -85,7 +117,7 @@ L'app usa questi endpoint dell'Agent Queue:
 ## Roadmap
 
 - [ ] Complication per schermo Watch
-- [ ] Notifiche push quando un agente si blocca
+- [x] Notifiche push quando un agente si blocca
 - [ ] Widget per vedere stato a colpo d'occhio
 - [ ] Siri Shortcuts ("Hey Siri, approva Pina")
 

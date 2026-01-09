@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Onde Command Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-green: #00ff88;
+            --accent-blue: #4488ff;
+            --accent-yellow: #ffcc00;
+            --accent-red: #ff4466;
+            --accent-purple: #aa66ff;
+            --border-color: #2a2a3a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h1::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(0, 255, 136, 0); }
+        }
+
+        .stats-bar {
+            background: var(--bg-secondary);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .stat-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .stat-dot.green { background: var(--accent-green); }
+        .stat-dot.blue { background: var(--accent-blue); }
+        .stat-dot.yellow { background: var(--accent-yellow); }
+        .stat-dot.red { background: var(--accent-red); }
+
+        .container {
+            padding: 16px;
+            max-width: 100%;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            min-height: 70px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.1s, opacity 0.1s;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        .btn-approve {
+            background: linear-gradient(135deg, #00cc6a, #00ff88);
+            color: #003322;
+        }
+
+        .btn-reject {
+            background: linear-gradient(135deg, #cc3355, #ff4466);
+            color: #330011;
+        }
+
+        .btn-icon {
+            font-size: 28px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .card-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+        }
+
+        .status-waiting {
+            background: rgba(255, 204, 0, 0.15);
+            color: var(--accent-yellow);
+        }
+
+        .btn-unblock {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            min-width: 80px;
+            min-height: 44px;
+        }
+
+        .btn-unblock:active {
+            opacity: 0.8;
+        }
+
+        .message-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .message-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            resize: none;
+            min-height: 50px;
+        }
+
+        .message-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-send {
+            width: 100%;
+            background: linear-gradient(135deg, #3366dd, #4488ff);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 50px;
+        }
+
+        .btn-send:active {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        .refresh-indicator {
+            position: fixed;
+            top: 70px;
+            right: 16px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .pending-approval {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 204, 0, 0.05));
+            border-color: rgba(255, 204, 0, 0.3);
+        }
+
+        .pending-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .pending-task {
+            font-size: 13px;
+            color: var(--text-secondary);
+            word-break: break-word;
+        }
+
+        .pending-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 12px;
+        }
+
+        .btn-small {
+            min-width: 44px;
+            min-height: 44px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-small-approve {
+            background: var(--accent-green);
+            color: #003322;
+        }
+
+        .btn-small-reject {
+            background: var(--accent-red);
+            color: #330011;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .toast.error {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-primary: #f5f5f7;
+                --bg-secondary: #ffffff;
+                --bg-card: #ffffff;
+                --text-primary: #1a1a1a;
+                --text-secondary: #666677;
+                --border-color: #e0e0e5;
+            }
+
+            .btn-approve {
+                color: #ffffff;
+            }
+
+            .btn-reject {
+                color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>ONDE COMMAND CENTER</h1>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-dot green"></span>
+            <span id="stat-completed">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-dot blue"></span>
+            <span id="stat-active">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-dot yellow"></span>
+            <span id="stat-pending">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-dot red"></span>
+            <span id="stat-blocked">0</span>
+        </div>
+    </div>
+
+    <div class="refresh-indicator" id="refresh-indicator">
+        Auto-refresh: <span id="countdown">5</span>s
+    </div>
+
+    <div class="container">
+        <div class="action-buttons">
+            <button class="btn btn-approve" onclick="approveAll()">
+                <span class="btn-icon">&#10003;</span>
+                <span>APPROVA TUTTI</span>
+            </button>
+            <button class="btn btn-reject" onclick="rejectAll()">
+                <span class="btn-icon">&#10005;</span>
+                <span>RIFIUTA TUTTI</span>
+            </button>
+        </div>
+
+        <div class="section" id="pending-section">
+            <div class="section-title">In Attesa di Approvazione</div>
+            <div class="card-list" id="pending-list">
+                <div class="empty-state">Nessuna richiesta in attesa</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Workers Attivi</div>
+            <div class="card-list" id="active-list">
+                <div class="empty-state">Nessun worker attivo</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Task Bloccati</div>
+            <div class="card-list" id="blocked-list">
+                <div class="empty-state">Nessun task bloccato</div>
+            </div>
+        </div>
+
+        <div class="message-section">
+            <div class="section-title">Messaggio Broadcast</div>
+            <input type="text" class="message-input" id="broadcast-message" placeholder="Scrivi messaggio per tutti i workers...">
+            <button class="btn-send" onclick="sendBroadcast()">INVIA A TUTTI</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const API_BASE = '/api';
+        let countdown = 5;
+        let refreshInterval;
+        let countdownInterval;
+
+        // Simulated data for demo (replace with actual API calls)
+        let mockData = {
+            stats: {
+                completed: 52,
+                active: 18,
+                pending: 11,
+                blocked: 3
+            },
+            pending: [
+                { id: 'req-001', worker: 'kdp-001', task: 'Pubblicare libro su Amazon KDP', time: '2min' },
+                { id: 'req-002', worker: 'podcast-002', task: 'Upload episodio podcast', time: '1min' }
+            ],
+            active: [
+                { id: 'kdp-001', name: 'KDP Publisher', time: '3min', status: 'active' },
+                { id: 'podcast-002', name: 'Podcast Generator', time: '5min', status: 'active' },
+                { id: 'cover-003', name: 'Cover Designer', time: '1min', status: 'active' }
+            ],
+            blocked: [
+                { id: 'style-002', name: 'Style Generator', reason: 'API rate limit', time: '10min' }
+            ]
+        };
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type}`;
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 2000);
+        }
+
+        function updateStats(stats) {
+            document.getElementById('stat-completed').textContent = stats.completed;
+            document.getElementById('stat-active').textContent = stats.active;
+            document.getElementById('stat-pending').textContent = stats.pending;
+            document.getElementById('stat-blocked').textContent = stats.blocked;
+        }
+
+        function renderPendingList(items) {
+            const list = document.getElementById('pending-list');
+            if (items.length === 0) {
+                list.innerHTML = '<div class="empty-state">Nessuna richiesta in attesa</div>';
+                return;
+            }
+            list.innerHTML = items.map(item => `
+                <div class="card pending-approval" data-id="${item.id}">
+                    <div class="pending-info">
+                        <span class="card-name">${item.worker}</span>
+                        <span class="pending-task">${item.task}</span>
+                        <span class="card-meta">${item.time} fa</span>
+                    </div>
+                    <div class="pending-actions">
+                        <button class="btn-small btn-small-approve" onclick="approveRequest('${item.id}')">&#10003;</button>
+                        <button class="btn-small btn-small-reject" onclick="rejectRequest('${item.id}')">&#10005;</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderActiveList(items) {
+            const list = document.getElementById('active-list');
+            if (items.length === 0) {
+                list.innerHTML = '<div class="empty-state">Nessun worker attivo</div>';
+                return;
+            }
+            list.innerHTML = items.map(item => `
+                <div class="card">
+                    <div class="card-info">
+                        <span class="card-name">${item.name}</span>
+                        <span class="card-meta">${item.id} - ${item.time}</span>
+                    </div>
+                    <span class="card-status status-active">Attivo</span>
+                </div>
+            `).join('');
+        }
+
+        function renderBlockedList(items) {
+            const list = document.getElementById('blocked-list');
+            if (items.length === 0) {
+                list.innerHTML = '<div class="empty-state">Nessun task bloccato</div>';
+                return;
+            }
+            list.innerHTML = items.map(item => `
+                <div class="card">
+                    <div class="card-info">
+                        <span class="card-name">${item.name}</span>
+                        <span class="card-meta">${item.reason} - ${item.time}</span>
+                    </div>
+                    <button class="btn-unblock" onclick="unblockTask('${item.id}')">SBLOCCA</button>
+                </div>
+            `).join('');
+        }
+
+        async function fetchData() {
+            try {
+                // Try to fetch from real API
+                const response = await fetch(`${API_BASE}/status`);
+                if (response.ok) {
+                    const data = await response.json();
+                    return data;
+                }
+            } catch (e) {
+                // Use mock data if API not available
+                console.log('Using mock data');
+            }
+            return mockData;
+        }
+
+        async function refreshData() {
+            const data = await fetchData();
+            updateStats(data.stats);
+            renderPendingList(data.pending || []);
+            renderActiveList(data.active || []);
+            renderBlockedList(data.blocked || []);
+        }
+
+        async function approveRequest(id) {
+            try {
+                await fetch(`${API_BASE}/approve/${id}`, { method: 'POST' });
+                mockData.pending = mockData.pending.filter(p => p.id !== id);
+                mockData.stats.pending--;
+                showToast('Richiesta approvata');
+                refreshData();
+            } catch (e) {
+                mockData.pending = mockData.pending.filter(p => p.id !== id);
+                mockData.stats.pending--;
+                showToast('Richiesta approvata');
+                refreshData();
+            }
+        }
+
+        async function rejectRequest(id) {
+            try {
+                await fetch(`${API_BASE}/reject/${id}`, { method: 'POST' });
+                mockData.pending = mockData.pending.filter(p => p.id !== id);
+                mockData.stats.pending--;
+                showToast('Richiesta rifiutata', 'error');
+                refreshData();
+            } catch (e) {
+                mockData.pending = mockData.pending.filter(p => p.id !== id);
+                mockData.stats.pending--;
+                showToast('Richiesta rifiutata', 'error');
+                refreshData();
+            }
+        }
+
+        async function approveAll() {
+            try {
+                await fetch(`${API_BASE}/approve-all`, { method: 'POST' });
+                mockData.stats.pending = 0;
+                mockData.pending = [];
+                showToast('Tutte le richieste approvate');
+                refreshData();
+            } catch (e) {
+                mockData.stats.pending = 0;
+                mockData.pending = [];
+                showToast('Tutte le richieste approvate');
+                refreshData();
+            }
+        }
+
+        async function rejectAll() {
+            try {
+                await fetch(`${API_BASE}/reject-all`, { method: 'POST' });
+                mockData.stats.pending = 0;
+                mockData.pending = [];
+                showToast('Tutte le richieste rifiutate', 'error');
+                refreshData();
+            } catch (e) {
+                mockData.stats.pending = 0;
+                mockData.pending = [];
+                showToast('Tutte le richieste rifiutate', 'error');
+                refreshData();
+            }
+        }
+
+        async function unblockTask(id) {
+            try {
+                await fetch(`${API_BASE}/unblock/${id}`, { method: 'POST' });
+                mockData.blocked = mockData.blocked.filter(b => b.id !== id);
+                mockData.stats.blocked--;
+                showToast('Task sbloccato');
+                refreshData();
+            } catch (e) {
+                mockData.blocked = mockData.blocked.filter(b => b.id !== id);
+                mockData.stats.blocked--;
+                showToast('Task sbloccato');
+                refreshData();
+            }
+        }
+
+        async function sendBroadcast() {
+            const message = document.getElementById('broadcast-message').value.trim();
+            if (!message) {
+                showToast('Inserisci un messaggio', 'error');
+                return;
+            }
+            try {
+                await fetch(`${API_BASE}/broadcast`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                document.getElementById('broadcast-message').value = '';
+                showToast('Messaggio inviato a tutti');
+            } catch (e) {
+                document.getElementById('broadcast-message').value = '';
+                showToast('Messaggio inviato a tutti');
+            }
+        }
+
+        function startAutoRefresh() {
+            countdown = 5;
+            document.getElementById('countdown').textContent = countdown;
+
+            clearInterval(countdownInterval);
+            clearInterval(refreshInterval);
+
+            countdownInterval = setInterval(() => {
+                countdown--;
+                document.getElementById('countdown').textContent = countdown;
+                if (countdown <= 0) {
+                    countdown = 5;
+                    refreshData();
+                }
+            }, 1000);
+        }
+
+        // Prevent double-tap zoom
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - (this.lastTouch || 0) < 300) {
+                e.preventDefault();
+            }
+            this.lastTouch = now;
+        }, { passive: false });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshData();
+            startAutoRefresh();
+        });
+
+        // Refresh when page becomes visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                refreshData();
+                startAutoRefresh();
+            }
+        });
+    </script>
+</body>
+</html>

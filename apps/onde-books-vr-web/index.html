@@ -189,6 +189,13 @@
   <!-- Bookmark Notification -->
   <div id="bookmark-notification"></div>
 
+  <!-- Resume Reading Banner -->
+  <div id="resume-banner">
+    <span id="resume-text">Continua dalla pagina 3</span>
+    <button onclick="resumeReading()">Continua</button>
+    <button class="dismiss" onclick="dismissResume()">Inizia da capo</button>
+  </div>
+
   <!-- UI Controls -->
   <div id="ui-overlay">
     <button class="ui-button" onclick="previousPage()">Pagina Precedente</button>
@@ -491,6 +498,20 @@
         text="value: < Indietro; align: center; width: 0.3; color: #f4e4c1"
       ></a-box>
 
+      <!-- Bookmark button -->
+      <a-box
+        class="interactive"
+        id="bookmark-btn"
+        position="0 0 0"
+        width="0.12"
+        height="0.08"
+        depth="0.02"
+        material="color: #8b6914"
+        event-set__mouseenter="material.color: #a67c1a"
+        event-set__mouseleave="material.color: #8b6914"
+        text="value: Salva; align: center; width: 0.25; color: #f4e4c1"
+      ></a-box>
+
       <!-- Next page button -->
       <a-box
         class="interactive"
@@ -645,7 +666,10 @@
       if (currentPage < totalPages - 1) {
         animatePageTurn('next');
         currentPage++;
-        setTimeout(updateBookDisplay, 300);
+        setTimeout(() => {
+          updateBookDisplay();
+          autoSaveBookmark();
+        }, 300);
       }
     }
 
@@ -653,7 +677,10 @@
       if (currentPage > 0) {
         animatePageTurn('prev');
         currentPage--;
-        setTimeout(updateBookDisplay, 300);
+        setTimeout(() => {
+          updateBookDisplay();
+          autoSaveBookmark();
+        }, 300);
       }
     }
 
@@ -685,11 +712,57 @@
       }
     }
 
+    // Resume reading functions
+    let savedBookmarkPage = null;
+
+    function resumeReading() {
+      if (savedBookmarkPage !== null && savedBookmarkPage > 0) {
+        currentPage = savedBookmarkPage;
+        updateBookDisplay();
+      }
+      dismissResume();
+    }
+
+    function dismissResume() {
+      const banner = document.getElementById('resume-banner');
+      if (banner) {
+        banner.classList.remove('visible');
+      }
+    }
+
+    function checkForSavedBookmark() {
+      const savedPage = loadBookmark();
+      if (savedPage > 0) {
+        savedBookmarkPage = savedPage;
+        const banner = document.getElementById('resume-banner');
+        const resumeText = document.getElementById('resume-text');
+        if (banner && resumeText) {
+          resumeText.textContent = `Continua dalla pagina ${savedPage + 1}`;
+          banner.classList.add('visible');
+        }
+      }
+    }
+
+    // Auto-save bookmark on page change
+    function autoSaveBookmark() {
+      if (currentPage > 0) {
+        const bookmark = {
+          page: currentPage,
+          bookId: 'piccole-rime-001',
+          timestamp: Date.now(),
+          title: bookContent.title
+        };
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bookmark));
+      }
+    }
+
     // VR button handlers
     document.addEventListener('DOMContentLoaded', () => {
       // Hide loading screen
       setTimeout(() => {
         document.getElementById('loading-screen').classList.add('hidden');
+        // Check for saved bookmark after loading
+        checkForSavedBookmark();
       }, 1500);
 
       // Initialize book
@@ -698,12 +771,16 @@
       // VR button click handlers
       const prevBtn = document.getElementById('prev-btn');
       const nextBtn = document.getElementById('next-btn');
+      const bookmarkBtn = document.getElementById('bookmark-btn');
 
       if (prevBtn) {
         prevBtn.addEventListener('click', previousPage);
       }
       if (nextBtn) {
         nextBtn.addEventListener('click', nextPage);
+      }
+      if (bookmarkBtn) {
+        bookmarkBtn.addEventListener('click', saveBookmark);
       }
 
       // Keyboard controls
