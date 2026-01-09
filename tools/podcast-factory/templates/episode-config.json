@@ -1,0 +1,103 @@
+{
+  "$schema": "episode-config-schema",
+  "version": "1.0",
+  "episode": {
+    "id": "ep000",
+    "number": 0,
+    "title": "Titolo Episodio",
+    "series": "Piccole Rime",
+    "type": "poetry|story|fairytale|lullaby",
+    "target_age": "4-8",
+    "target_duration_minutes": 5
+  },
+  "content": {
+    "original_text": {
+      "title": "Titolo Opera Originale",
+      "author": "Nome Autore",
+      "author_dates": "(1866-1938)",
+      "source": "Dominio pubblico",
+      "verified": false,
+      "verification_source": "URL o riferimento bibliografico"
+    },
+    "script_path": "content/podcast/epXXX-titolo-script.md",
+    "intro_variant": "standard",
+    "outro_variant": "standard"
+  },
+  "narrator": {
+    "name": "Gianni Parola",
+    "voice_engine": "elevenlabs|edge-tts|xtts",
+    "voice_id": "",
+    "settings": {
+      "stability": 0.50,
+      "clarity": 0.75,
+      "rate": "-15%",
+      "pitch": "-5Hz"
+    }
+  },
+  "audio": {
+    "format": "mp3",
+    "bitrate": "192k",
+    "sample_rate": 44100,
+    "channels": "stereo",
+    "loudness_lufs": -14
+  },
+  "music": {
+    "background": {
+      "style": "ambient piano",
+      "bpm": 65,
+      "volume_percent": 15,
+      "source": "suno|custom|library",
+      "file_path": ""
+    },
+    "intro_jingle": {
+      "file_path": "assets/jingle-intro.mp3",
+      "duration_seconds": 3
+    },
+    "outro_jingle": {
+      "file_path": "assets/jingle-outro.mp3",
+      "duration_seconds": 3
+    }
+  },
+  "effects": {
+    "intro": [],
+    "during_reading": [],
+    "outro": []
+  },
+  "metadata": {
+    "id3": {
+      "title": "Ep. XX - Titolo Episodio",
+      "artist": "Onde - Gianni Parola",
+      "album": "Piccole Rime - Storie della Buonanotte",
+      "year": 2026,
+      "genre": "Podcast",
+      "comment": "Produzione Onde Publishing"
+    },
+    "spotify": {
+      "explicit": false,
+      "keywords": ["poesia bambini", "filastrocche", "buonanotte", "audiolibri bambini"],
+      "category_primary": "Kids & Family > Stories for Kids",
+      "category_secondary": "Arts > Books"
+    }
+  },
+  "output": {
+    "directory": "output/podcast/epXXX-titolo/",
+    "files": {
+      "script": "script.md",
+      "narration_raw": "narration-raw.mp3",
+      "background": "background.mp3",
+      "final": "epXXX-titolo-final.mp3",
+      "metadata": "metadata.json"
+    }
+  },
+  "status": {
+    "script_written": false,
+    "script_approved": false,
+    "narration_generated": false,
+    "music_selected": false,
+    "assembled": false,
+    "qc_passed": false,
+    "published": false,
+    "publish_date": ""
+  },
+  "notes": ""
+}

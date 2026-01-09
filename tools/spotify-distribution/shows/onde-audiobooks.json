@@ -1,0 +1,163 @@
+{
+  "id": "onde-audiobooks",
+  "title": "Onde Audiobooks",
+  "subtitle": "Storie da Ascoltare",
+  "description": "Onde Audiobooks presenta audiobook completi per bambini, con narrazioni professionali e produzioni audio di alta qualita. Storie lunghe divise in capitoli, perfette per viaggi, attese o momenti speciali.",
+  "author": "Onde",
+  "email": "audiobooks@onde.fm",
+  "website": "https://onde.fm",
+  "language": "it",
+  "copyright": "2025 Onde",
+  "explicit": false,
+
+  "rss": {
+    "feedUrl": "https://onde.fm/rss/onde-audiobooks.xml",
+    "format": "RSS 2.0",
+    "encoding": "UTF-8",
+    "namespaces": {
+      "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+      "spotify": "http://www.spotify.com/ns/rss",
+      "content": "http://purl.org/rss/1.0/modules/content/"
+    }
+  },
+
+  "categories": {
+    "primary": {
+      "name": "Kids & Family",
+      "subcategory": "Stories"
+    },
+    "secondary": {
+      "name": "Arts",
+      "subcategory": "Books"
+    }
+  },
+
+  "artwork": {
+    "dimensions": {
+      "width": 3000,
+      "height": 3000,
+      "minimum": 1400
+    },
+    "format": ["JPEG", "PNG"],
+    "colorSpace": "RGB",
+    "background": {
+      "primary": "#8b6914",
+      "secondary": "#4a3728",
+      "style": "gradient-warm-book"
+    },
+    "elements": ["libro-aperto", "personaggi", "elementi-magici"],
+    "text": {
+      "title": "Onde Audiobooks",
+      "tagline": "Storie da Ascoltare"
+    },
+    "file": "/assets/artwork/onde-audiobooks-cover.jpg",
+    "perBookCovers": true
+  },
+
+  "audio": {
+    "format": ["MP3", "M4A"],
+    "bitrate": {
+      "min": 128,
+      "recommended": 192,
+      "unit": "kbps"
+    },
+    "sampleRate": 44100,
+    "channels": "stereo",
+    "loudness": {
+      "target": -16,
+      "unit": "LUFS"
+    }
+  },
+
+  "content": {
+    "types": ["audiobook", "raccolta-storie"],
+    "structure": {
+      "type": "serial",
+      "useSeasons": true,
+      "seasonPerBook": true
+    },
+    "targetAge": {
+      "min": 4,
+      "max": 10
+    },
+    "frequency": {
+      "min": 1,
+      "max": 2,
+      "unit": "audiobooks/month"
+    },
+    "chapterDuration": {
+      "min": 10,
+      "max": 30,
+      "average": 20,
+      "unit": "minutes"
+    },
+    "totalDuration": {
+      "min": 60,
+      "max": 300,
+      "unit": "minutes"
+    }
+  },
+
+  "naming": {
+    "pattern": "[Titolo Libro] - Capitolo [N]: [Titolo Capitolo]",
+    "seasonPattern": "Stagione [N]: [Titolo Libro]",
+    "examples": [
+      "Le Avventure di Luna - Capitolo 1: L'Inizio del Viaggio",
+      "Le Avventure di Luna - Capitolo 2: La Foresta Incantata",
+      "Il Piccolo Esploratore - Capitolo 1: La Mappa Misteriosa"
+    ],
+    "specialEpisodes": {
+      "trailer": "[Titolo Libro] - Trailer",
+      "intro": "[Titolo Libro] - Introduzione"
+    }
+  },
+
+  "templates": {
+    "showDescription": "Onde Audiobooks - Libri Audio per Bambini\n\nScoprite il piacere dell'ascolto con Onde Audiobooks! Audiobook completi per bambini, narrati da voci professionali e prodotti con la massima cura. Storie lunghe divise in capitoli, perfette per viaggi, momenti di relax o per riscoprire il piacere di ascoltare insieme.\n\nPerfetto per:\n- Viaggi in auto\n- Momenti di attesa\n- Alternativa agli schermi\n- Lettura condivisa in famiglia\n\nEta consigliata: 4-10 anni\nNuovi audiobook: ogni mese\n\n#audiobook #bambini #storie #lettura #onde",
+    "episodeDescription": "[TITOLO LIBRO] - Capitolo [N]\n\"[Titolo Capitolo]\"\n\n[Breve sinossi del capitolo 2-3 frasi - senza spoiler]\n\nLibro: [Titolo completo]\nAutore: [Nome autore]\nNarratore: [Nome voce narrante]\nCapitolo: [N] di [Totale]\nDurata: [X minuti]\nEta consigliata: [X-Y anni]\n\n---\nAudiobook completo disponibile su onde.fm",
+    "trailerDescription": "[TITOLO LIBRO] - Trailer\n\n[Descrizione accattivante del libro 3-4 frasi]\n\nScopri questa nuova avventura su Onde Audiobooks!\n\nAutore: [Nome autore]\nNarratore: [Nome voce narrante]\nCapitoli: [N totali]\nDurata totale: [X ore Y minuti]\nEta consigliata: [X-Y anni]\n\nPrimo capitolo disponibile [data]!\n\n---\nonde.fm/audiobooks"
+  },
+
+  "social": {
+    "hashtags": ["audiobook", "bambini", "storie", "lettura", "onde", "ascoltare"],
+    "mentions": ["@ondeaudiobooks"]
+  },
+
+  "spotify": {
+    "showType": "serial",
+    "countryOfOrigin": "IT",
+    "features": {
+      "qa": true,
+      "polls": true,
+      "videoSupport": false,
+      "chaptersSupport": true
+    }
+  },
+
+  "metadata": {
+    "bookFields": [
+      "title",
+      "author",
+      "narrator",
+      "totalChapters",
+      "totalDuration",
+      "ageRange",
+      "genre",
+      "synopsis",
+      "coverArt"
+    ],
+    "chapterFields": [
+      "chapterNumber",
+      "chapterTitle",
+      "duration",
+      "synopsis"
+    ]
+  },
+
+  "seriesManagement": {
+    "releaseSchedule": "weekly",
+    "chaptersPerWeek": 2,
+    "previewChapters": 1,
+    "trailerRequired": true
+  }
+}

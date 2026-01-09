@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Onde Podcast RSS Feed Template
+  Show: Storie della Buonanotte, Poesie
+
+  Questo template e configurato per contenuti parlati (storie, fiabe, poesie).
+  Sostituire i placeholder {{VARIABLE}} con i valori appropriati.
+-->
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:spotify="http://www.spotify.com/ns/rss"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+    <!-- Channel Info -->
+    <title>Onde Podcast</title>
+    <link>https://onde.fm</link>
+    <description><![CDATA[
+Onde Podcast - Storie della Buonanotte per Bambini
+
+Benvenuti nel mondo delle storie Onde! Ogni sera, una nuova avventura per accompagnare i vostri bambini verso sogni sereni. Storie originali, fiabe classiche rivisitate e poesie sussurrate, tutte narrate con amore e cura.
+
+Perfetto per:
+- Routine della nanna
+- Momenti di relax in famiglia
+- Stimolare l'immaginazione
+
+Eta consigliata: 2-8 anni
+Nuovi episodi: ogni settimana
+    ]]></description>
+    <language>it</language>
+
+    <atom:link href="https://onde.fm/rss/onde-podcast.xml" rel="self" type="application/rss+xml"/>
+
+    <copyright>2025 Onde</copyright>
+    <managingEditor>podcast@onde.fm (Onde)</managingEditor>
+
+    <pubDate>{{PUB_DATE}}</pubDate>
+    <lastBuildDate>{{LAST_BUILD_DATE}}</lastBuildDate>
+
+    <generator>Onde RSS Generator</generator>
+
+    <!-- iTunes Metadata -->
+    <itunes:title>Onde Podcast</itunes:title>
+    <itunes:author>Onde</itunes:author>
+    <itunes:owner>
+      <itunes:name>Onde</itunes:name>
+      <itunes:email>podcast@onde.fm</itunes:email>
+    </itunes:owner>
+
+    <itunes:summary><![CDATA[Storie della buonanotte e poesie per bambini, narrate con voci calde e accompagnate da suoni rilassanti. Ogni episodio e pensato per accompagnare i piu piccoli verso un sonno sereno.]]></itunes:summary>
+    <itunes:subtitle>Storie della Buonanotte per Bambini</itunes:subtitle>
+
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+
+    <!-- Categories: Kids & Family > Stories -->
+    <itunes:category text="Kids &amp; Family">
+      <itunes:category text="Stories"/>
+    </itunes:category>
+    <itunes:category text="Arts">
+      <itunes:category text="Books"/>
+    </itunes:category>
+
+    <!-- Artwork: 3000x3000, palette notturna -->
+    <itunes:image href="https://onde.fm/assets/artwork/onde-podcast-cover.jpg"/>
+    <image>
+      <url>https://onde.fm/assets/artwork/onde-podcast-cover.jpg</url>
+      <title>Onde Podcast</title>
+      <link>https://onde.fm</link>
+    </image>
+
+    <spotify:countryOfOrigin>IT</spotify:countryOfOrigin>
+
+    <itunes:keywords>storie, buonanotte, bambini, fiabe, poesie, sonno, nanna, onde</itunes:keywords>
+
+    <!-- ============================================ -->
+    <!-- EPISODES                                     -->
+    <!-- Copiare il blocco <item> per ogni episodio  -->
+    <!-- ============================================ -->
+
+    <item>
+      <title>{{EPISODE_TYPE}} - {{EPISODE_TITLE}} | {{DURATION}} min</title>
+      <link>{{EPISODE_URL}}</link>
+      <guid isPermaLink="false">{{EPISODE_GUID}}</guid>
+      <pubDate>{{EPISODE_PUB_DATE}}</pubDate>
+
+      <description><![CDATA[
+{{EPISODE_TITLE}}
+
+{{EPISODE_SYNOPSIS}}
+
+Eta consigliata: {{AGE_MIN}}-{{AGE_MAX}} anni
+Durata: {{DURATION}} minuti
+Voce narrante: {{NARRATOR}}
+
+Buonanotte dai piccoli esploratori di Onde!
+
+---
+Trova tutte le nostre storie su onde.fm
+      ]]></description>
+
+      <content:encoded><![CDATA[
+<h2>{{EPISODE_TITLE}}</h2>
+<p>{{EPISODE_SYNOPSIS}}</p>
+<ul>
+  <li><strong>Eta consigliata:</strong> {{AGE_MIN}}-{{AGE_MAX}} anni</li>
+  <li><strong>Durata:</strong> {{DURATION}} minuti</li>
+  <li><strong>Voce narrante:</strong> {{NARRATOR}}</li>
+</ul>
+<p>Buonanotte dai piccoli esploratori di Onde!</p>
+<p><a href="https://onde.fm">Trova tutte le nostre storie su onde.fm</a></p>
+      ]]></content:encoded>
+
+      <enclosure
+        url="{{AUDIO_URL}}"
+        length="{{AUDIO_SIZE_BYTES}}"
+        type="audio/mpeg"/>
+
+      <itunes:title>{{EPISODE_TYPE}} - {{EPISODE_TITLE}}</itunes:title>
+      <itunes:summary>{{EPISODE_SYNOPSIS}}</itunes:summary>
+      <itunes:duration>{{DURATION_SECONDS}}</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episode>{{EPISODE_NUMBER}}</itunes:episode>
+
+      <!-- Episode artwork (optional, falls back to show artwork) -->
+      <itunes:image href="{{EPISODE_ARTWORK_URL}}"/>
+    </item>
+
+    <!-- ============================================ -->
+    <!-- EXAMPLE EPISODE (Storia)                    -->
+    <!-- ============================================ -->
+    <!--
+    <item>
+      <title>Storia - Il Piccolo Drago che Sognava le Stelle | 12 min</title>
+      <link>https://onde.fm/podcast/ep001</link>
+      <guid isPermaLink="false">onde-podcast-ep001</guid>
+      <pubDate>Mon, 06 Jan 2025 20:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Il Piccolo Drago che Sognava le Stelle
+
+Un draghetto curioso scopre che i suoi sogni possono portarlo fin oltre le nuvole, dove le stelle brillano piu vicine. Una storia dolce sull'importanza di sognare in grande.
+
+Eta consigliata: 3-6 anni
+Durata: 12 minuti
+Voce narrante: Maria Rossi
+
+Buonanotte dai piccoli esploratori di Onde!
+
+- - -
+Trova tutte le nostre storie su onde.fm
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/podcast/ep001-drago-stelle.mp3"
+        length="11520000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Storia - Il Piccolo Drago che Sognava le Stelle</itunes:title>
+      <itunes:summary>Un draghetto curioso scopre che i suoi sogni possono portarlo fin oltre le nuvole.</itunes:summary>
+      <itunes:duration>720</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episode>1</itunes:episode>
+    </item>
+    -->
+
+    <!-- ============================================ -->
+    <!-- EXAMPLE EPISODE (Poesia)                    -->
+    <!-- ============================================ -->
+    <!--
+    <item>
+      <title>Poesia - La Luna e la Farfalla | 5 min</title>
+      <link>https://onde.fm/podcast/ep002</link>
+      <guid isPermaLink="false">onde-podcast-ep002</guid>
+      <pubDate>Wed, 08 Jan 2025 20:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+La Luna e la Farfalla
+
+Una poesia delicata che racconta l'amicizia tra la luna e una farfalla notturna. Versi dolci accompagnati da musica soffice.
+
+Eta consigliata: 2-5 anni
+Durata: 5 minuti
+Voce narrante: Marco Bianchi
+
+Buonanotte dai piccoli esploratori di Onde!
+
+- - -
+Trova tutte le nostre storie su onde.fm
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/podcast/ep002-luna-farfalla.mp3"
+        length="4800000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Poesia - La Luna e la Farfalla</itunes:title>
+      <itunes:summary>Una poesia delicata che racconta l'amicizia tra la luna e una farfalla notturna.</itunes:summary>
+      <itunes:duration>300</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episode>2</itunes:episode>
+    </item>
+    -->
+
+  </channel>
+</rss>

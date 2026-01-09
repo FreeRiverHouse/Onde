@@ -1,0 +1,123 @@
+{
+  "id": "onde-podcast",
+  "title": "Onde Podcast",
+  "subtitle": "Storie della Buonanotte per Bambini",
+  "description": "Onde Podcast raccoglie storie della buonanotte e poesie per bambini, narrate con voci calde e accompagnate da suoni rilassanti. Ogni episodio e pensato per accompagnare i piu piccoli verso un sonno sereno.",
+  "author": "Onde",
+  "email": "podcast@onde.fm",
+  "website": "https://onde.fm",
+  "language": "it",
+  "copyright": "2025 Onde",
+  "explicit": false,
+
+  "rss": {
+    "feedUrl": "https://onde.fm/rss/onde-podcast.xml",
+    "format": "RSS 2.0",
+    "encoding": "UTF-8",
+    "namespaces": {
+      "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+      "spotify": "http://www.spotify.com/ns/rss",
+      "content": "http://purl.org/rss/1.0/modules/content/"
+    }
+  },
+
+  "categories": {
+    "primary": {
+      "name": "Kids & Family",
+      "subcategory": "Stories"
+    },
+    "secondary": {
+      "name": "Arts",
+      "subcategory": "Books"
+    }
+  },
+
+  "artwork": {
+    "dimensions": {
+      "width": 3000,
+      "height": 3000,
+      "minimum": 1400
+    },
+    "format": ["JPEG", "PNG"],
+    "colorSpace": "RGB",
+    "background": {
+      "primary": "#1a1a3e",
+      "secondary": "#2d1b4e",
+      "style": "gradient-dark-night"
+    },
+    "elements": ["luna", "stelle", "personaggio-onde"],
+    "text": {
+      "title": "Onde Podcast",
+      "tagline": "Storie della Buonanotte"
+    },
+    "file": "/assets/artwork/onde-podcast-cover.jpg"
+  },
+
+  "audio": {
+    "format": ["MP3", "M4A"],
+    "bitrate": {
+      "min": 128,
+      "recommended": 192,
+      "unit": "kbps"
+    },
+    "sampleRate": 44100,
+    "channels": "stereo",
+    "loudness": {
+      "target": -16,
+      "unit": "LUFS"
+    }
+  },
+
+  "content": {
+    "types": ["storia", "poesia", "fiaba"],
+    "targetAge": {
+      "min": 2,
+      "max": 8
+    },
+    "frequency": {
+      "min": 3,
+      "max": 5,
+      "unit": "episodes/week"
+    },
+    "duration": {
+      "min": 5,
+      "max": 20,
+      "average": 12,
+      "unit": "minutes"
+    }
+  },
+
+  "naming": {
+    "pattern": "[Tipo] - [Titolo] | [Durata] min",
+    "types": {
+      "storia": "Storia",
+      "poesia": "Poesia",
+      "fiaba": "Fiaba"
+    },
+    "examples": [
+      "Storia - Il Piccolo Drago che Sognava le Stelle | 12 min",
+      "Poesia - La Luna e la Farfalla | 5 min",
+      "Fiaba - Cappuccetto Rosso (versione dolce) | 15 min"
+    ]
+  },
+
+  "templates": {
+    "showDescription": "Onde Podcast - Storie della Buonanotte per Bambini\n\nBenvenuti nel mondo delle storie Onde! Ogni sera, una nuova avventura per accompagnare i vostri bambini verso sogni sereni. Storie originali, fiabe classiche rivisitate e poesie sussurrate, tutte narrate con amore e cura.\n\nPerfetto per:\n- Routine della nanna\n- Momenti di relax in famiglia\n- Stimolare l'immaginazione\n\nEta consigliata: 2-8 anni\nNuovi episodi: ogni settimana\n\n#storiedellabounanotte #bambini #podcast #onde #fiabe",
+    "episodeDescription": "[TITOLO EPISODIO]\n\n[Breve sinossi 2-3 frasi]\n\nEta consigliata: [X-Y anni]\nDurata: [X minuti]\nVoce narrante: [Nome narratore]\n\nBuonanotte dai piccoli esploratori di Onde!\n\n---\nTrova tutte le nostre storie su onde.fm"
+  },
+
+  "social": {
+    "hashtags": ["storiedellabounanotte", "bambini", "podcast", "onde", "fiabe", "buonanotte"],
+    "mentions": ["@ondepodcast"]
+  },
+
+  "spotify": {
+    "showType": "episodic",
+    "countryOfOrigin": "IT",
+    "features": {
+      "qa": true,
+      "polls": true,
+      "videoSupport": false
+    }
+  }
+}

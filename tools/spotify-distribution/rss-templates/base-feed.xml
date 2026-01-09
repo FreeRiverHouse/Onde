@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Onde RSS Feed Base Template
+
+  Questo template contiene la struttura base comune a tutti i feed RSS.
+  Sostituire i placeholder {{VARIABLE}} con i valori appropriati.
+
+  Per show specifici, utilizzare i template dedicati:
+  - podcast-feed.xml
+  - lounge-feed.xml
+  - audiobooks-feed.xml
+-->
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:spotify="http://www.spotify.com/ns/rss"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+    <!-- Required Channel Elements -->
+    <title>{{SHOW_TITLE}}</title>
+    <link>{{WEBSITE_URL}}</link>
+    <description>{{SHOW_DESCRIPTION}}</description>
+    <language>{{LANGUAGE}}</language>
+
+    <!-- Atom Self Link (required for validation) -->
+    <atom:link href="{{FEED_URL}}" rel="self" type="application/rss+xml"/>
+
+    <!-- Copyright and Legal -->
+    <copyright>{{COPYRIGHT}}</copyright>
+    <managingEditor>{{EMAIL}} ({{AUTHOR}})</managingEditor>
+    <webMaster>{{EMAIL}} ({{AUTHOR}})</webMaster>
+
+    <!-- Publication Info -->
+    <pubDate>{{PUB_DATE}}</pubDate>
+    <lastBuildDate>{{LAST_BUILD_DATE}}</lastBuildDate>
+
+    <!-- Generator -->
+    <generator>Onde RSS Generator</generator>
+
+    <!-- iTunes/Spotify Podcast Metadata -->
+    <itunes:title>{{SHOW_TITLE}}</itunes:title>
+    <itunes:author>{{AUTHOR}}</itunes:author>
+    <itunes:owner>
+      <itunes:name>{{AUTHOR}}</itunes:name>
+      <itunes:email>{{EMAIL}}</itunes:email>
+    </itunes:owner>
+
+    <itunes:summary>{{SHOW_SUMMARY}}</itunes:summary>
+    <itunes:subtitle>{{SHOW_SUBTITLE}}</itunes:subtitle>
+
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>{{SHOW_TYPE}}</itunes:type>
+
+    <!-- Categories -->
+    <itunes:category text="{{PRIMARY_CATEGORY}}">
+      <itunes:category text="{{PRIMARY_SUBCATEGORY}}"/>
+    </itunes:category>
+    <itunes:category text="{{SECONDARY_CATEGORY}}"/>
+
+    <!-- Artwork -->
+    <itunes:image href="{{ARTWORK_URL}}"/>
+    <image>
+      <url>{{ARTWORK_URL}}</url>
+      <title>{{SHOW_TITLE}}</title>
+      <link>{{WEBSITE_URL}}</link>
+    </image>
+
+    <!-- Spotify Specific -->
+    <spotify:countryOfOrigin>{{COUNTRY_CODE}}</spotify:countryOfOrigin>
+
+    <!-- Keywords (deprecated but still useful) -->
+    <itunes:keywords>{{KEYWORDS}}</itunes:keywords>
+
+    <!-- Episodes -->
+    {{EPISODES}}
+
+  </channel>
+</rss>

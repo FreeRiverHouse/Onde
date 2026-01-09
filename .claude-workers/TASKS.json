@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:42:27.709Z",
+  "last_updated": "2026-01-09T09:45:50.363Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1540,13 +1540,14 @@
       "description": "Struttura OndePRDB per cross-pollination: ogni libro = cartella con copertina, quotes, video brevi/lunghi, podcast script, prompts per cartoni personaggi. Template riusabile per tutta la produzione.",
       "category": "PR",
       "priority": 1,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": "claude-23908-mk6oi6ux",
       "claimed_at": "2026-01-09T09:33:33.376Z",
-      "created_at": "2026-01-09T09:32:13.698Z"
+      "created_at": "2026-01-09T09:32:13.698Z",
+      "completed_at": "2026-01-09T09:44:55.043Z"
     },
     {
       "id": "tsunami-002",
@@ -1824,6 +1825,100 @@
       "claimed_by": null,
       "claimed_at": null,
       "created_at": "2026-01-09T09:41:40.514Z"
+    },
+    {
+      "id": "music-viral-001",
+      "title": "Album Stupid Songs for Kids",
+      "description": "Album Spotify di canzoni stupide virali per bambini stile Cocomelon/Baby Shark. Ah Ah Cookie, Cacca Song, Puzzetta Dance. 10 tracce ripetitive e catchy. Target: virale su TikTok.",
+      "category": "MULTIMEDIA",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "music-ai-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:43:55.733Z"
+    },
+    {
+      "id": "music-viral-002",
+      "title": "TikTok Stupid Songs Campaign",
+      "description": "30 TikTok con le canzoni stupide: balletti, reaction kids, challenge. Ah Ah Cookie Challenge. Obiettivo: 1M views.",
+      "category": "PR",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "music-viral-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:43:56.055Z"
+    },
+    {
+      "id": "dashboard-client-001",
+      "title": "Client Approval Dashboard v2",
+      "description": "Migliorare apps/approval-dashboard: galleria post come quadri, swipe approve/reject, notifiche Telegram, multi-cliente. Stile museo elegante.",
+      "category": "APPS",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "saas-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:44:53.245Z"
+    },
+    {
+      "id": "dashboard-bib-001",
+      "title": "BIB Progress Dashboard",
+      "description": "Dashboard Building in Public: traccia TUTTO Onde in tempo reale. Task completati, libri pubblicati, video generati, follower, revenue. Grafici belli. Pubblico su onde.surf.",
+      "category": "APPS",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-33029-mk6oxecb",
+      "claimed_at": "2026-01-09T09:45:22.908Z",
+      "created_at": "2026-01-09T09:44:54.734Z"
+    },
+    {
+      "id": "dashboard-bib-002",
+      "title": "BIB Dashboard - Automazioni",
+      "description": "Auto-update BIB dashboard: webhook da GitHub, KDP sales, Spotify plays, YouTube views. Tutto automatico, zero input manuale.",
+      "category": "TOOLS",
+      "priority": 3,
+      "status": "available",
+      "dependencies": [
+        "dashboard-bib-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-09T09:44:56.170Z"
+    },
+    {
+      "id": "dashboard-factory-001",
+      "title": "Factory Dashboard Live",
+      "description": "Dashboard fabbrica live: agenti attivi, task queue, completamenti real-time. WebSocket updates. Visibile da iPhone.",
+      "category": "APPS",
+      "priority": 2,
+      "status": "in_progress",
+      "dependencies": [
+        "kanban-001"
+      ],
+      "estimated_effort": "medium",
+      "files_involved": [],
+      "claimed_by": "claude-33391-mk6oxziw",
+      "claimed_at": "2026-01-09T09:45:50.363Z",
+      "created_at": "2026-01-09T09:44:57.691Z"
     }
   ]
 }

@@ -1,0 +1,144 @@
+{
+  "id": "onde-lounge",
+  "title": "Onde Lounge",
+  "subtitle": "Musica per Sognare",
+  "description": "Onde Lounge offre una selezione curata di musica ambient, lofi beats e ninne nanne originali, progettate per creare l'atmosfera perfetta per il sonno dei bambini e il relax di tutta la famiglia.",
+  "author": "Onde",
+  "email": "lounge@onde.fm",
+  "website": "https://onde.fm",
+  "language": "it",
+  "copyright": "2025 Onde",
+  "explicit": false,
+
+  "rss": {
+    "feedUrl": "https://onde.fm/rss/onde-lounge.xml",
+    "format": "RSS 2.0",
+    "encoding": "UTF-8",
+    "namespaces": {
+      "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+      "spotify": "http://www.spotify.com/ns/rss",
+      "content": "http://purl.org/rss/1.0/modules/content/"
+    }
+  },
+
+  "categories": {
+    "primary": {
+      "name": "Music",
+      "subcategory": "Music Commentary"
+    },
+    "secondary": {
+      "name": "Kids & Family",
+      "subcategory": null
+    }
+  },
+
+  "artwork": {
+    "dimensions": {
+      "width": 3000,
+      "height": 3000,
+      "minimum": 1400
+    },
+    "format": ["JPEG", "PNG"],
+    "colorSpace": "RGB",
+    "background": {
+      "primary": "#1a3a4a",
+      "secondary": "#2a2a5e",
+      "style": "gradient-calm-ocean"
+    },
+    "elements": ["onde-sonore", "note-musicali", "luna"],
+    "text": {
+      "title": "Onde Lounge",
+      "tagline": "Musica per Sognare"
+    },
+    "file": "/assets/artwork/onde-lounge-cover.jpg"
+  },
+
+  "audio": {
+    "format": ["MP3", "M4A"],
+    "bitrate": {
+      "min": 192,
+      "recommended": 320,
+      "unit": "kbps"
+    },
+    "sampleRate": 44100,
+    "channels": "stereo",
+    "loudness": {
+      "target": -14,
+      "unit": "LUFS"
+    }
+  },
+
+  "content": {
+    "types": ["lofi", "ambient", "ninna-nanna", "nature"],
+    "genres": ["Ambient", "Lofi", "Chillhop", "Classical", "Nature Sounds"],
+    "targetAge": {
+      "min": 0,
+      "max": 99,
+      "note": "Famiglie, genitori, bambini per il sonno"
+    },
+    "frequency": {
+      "min": 2,
+      "max": 3,
+      "unit": "episodes/week"
+    },
+    "duration": {
+      "min": 30,
+      "max": 120,
+      "average": 60,
+      "unit": "minutes"
+    }
+  },
+
+  "naming": {
+    "pattern": "[Genere] - [Titolo Mix/Brano] | [Durata]",
+    "types": {
+      "lofi": "Lofi",
+      "ambient": "Ambient",
+      "ninna-nanna": "Ninna Nanna",
+      "nature": "Nature"
+    },
+    "examples": [
+      "Lofi - Notte di Stelle Cadenti | 45 min",
+      "Ambient - Onde del Mare Calmo | 60 min",
+      "Ninna Nanna - Sogni di Nuvole | 30 min",
+      "Nature - Pioggia sulla Finestra | 90 min"
+    ]
+  },
+
+  "templates": {
+    "showDescription": "Onde Lounge - Musica per il Sonno dei Bambini\n\nIl vostro rifugio musicale per notti tranquille. Onde Lounge propone una selezione esclusiva di musica ambient, lofi beats rilassanti e ninne nanne originali, create appositamente per accompagnare il sonno dei piu piccoli.\n\nPerfetto per:\n- Addormentarsi dolcemente\n- Creare un ambiente calmo\n- Meditazione e relax in famiglia\n\nGeneri: Ambient, Lofi, Ninne Nanne, Nature Sounds\nNuovi mix: ogni settimana\n\n#lofi #ambient #sleep #bambini #ninnananna",
+    "episodeDescription": "[TITOLO EPISODIO]\n\n[Descrizione atmosfera/mood 2-3 frasi]\n\nGenere: [Lofi/Ambient/Ninna Nanna/Nature]\nDurata: [X minuti]\nBPM: [X] (se applicabile)\nMood: [Rilassante/Meditativo/Sognante]\n\nIdeale per: [contesto d'uso]\n\n---\nMusica originale Onde - onde.fm"
+  },
+
+  "musicLicensing": {
+    "types": ["original", "licensed", "royalty-free"],
+    "attribution": {
+      "required": true,
+      "format": "Track: [Title] by [Artist]"
+    }
+  },
+
+  "social": {
+    "hashtags": ["lofi", "ambient", "sleep", "bambini", "ninnananna", "relaxmusic", "onde"],
+    "mentions": ["@ondelounge"]
+  },
+
+  "spotify": {
+    "showType": "episodic",
+    "countryOfOrigin": "IT",
+    "features": {
+      "qa": false,
+      "polls": true,
+      "videoSupport": false
+    }
+  },
+
+  "playlists": {
+    "crossPromotion": true,
+    "suggested": [
+      "Sleep Music for Babies",
+      "Lofi Sleep",
+      "Ambient Relaxation"
+    ]
+  }
+}
