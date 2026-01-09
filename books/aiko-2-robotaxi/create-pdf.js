@@ -6,6 +6,26 @@ const bookDir = __dirname;
 const imagesDir = path.join(bookDir, 'images');
 const outputPath = path.join(bookDir, 'AIKO-2-Robotaxi.pdf');
 
+// Paths per branding
+const ONDE_ROOT = '/Users/mattia/Projects/Onde';
+const authorsDir = path.join(ONDE_ROOT, 'content/authors');
+const brandingDir = path.join(ONDE_ROOT, 'assets/branding');
+
+// Funzione helper per caricare immagini
+function loadImageBase64(filepath) {
+  try {
+    if (fs.existsSync(filepath)) {
+      const data = fs.readFileSync(filepath);
+      const ext = path.extname(filepath).toLowerCase();
+      const mime = ext === '.png' ? 'image/png' : 'image/jpeg';
+      return `data:${mime};base64,${data.toString('base64')}`;
+    }
+  } catch (err) {
+    console.warn(`Warning: Could not load ${filepath}`);
+  }
+  return '';
+}
+
 const chapters = [
   { num: 1, title: "A Special Trip" },
   { num: 2, title: "A Car with Robot Eyes" },
@@ -275,6 +295,95 @@ async function createPDF() {
       text-align: justify;
       white-space: pre-line;
     }
+
+    /* About the Creators */
+    .about-creators {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25mm;
+      min-height: 297mm;
+    }
+    .about-creators h2 {
+      font-size: 24pt;
+      color: #2c3e50;
+      margin-bottom: 15mm;
+      text-align: center;
+    }
+    .creator {
+      display: flex;
+      align-items: center;
+      margin: 8mm 0;
+      max-width: 150mm;
+    }
+    .creator-portrait {
+      width: 35mm;
+      height: 35mm;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 8mm;
+      border: 2px solid #f39c12;
+    }
+    .creator-info h3 {
+      font-size: 16pt;
+      color: #2980b9;
+      margin: 0 0 2mm 0;
+    }
+    .creator-info .role {
+      font-size: 10pt;
+      color: #7f8c8d;
+      font-style: italic;
+      margin: 0 0 3mm 0;
+    }
+    .creator-info .bio {
+      font-size: 11pt;
+      line-height: 1.5;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    /* About Onde */
+    .about-onde {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30mm;
+      min-height: 297mm;
+    }
+    .onde-logo {
+      width: 50mm;
+      height: auto;
+      margin-bottom: 10mm;
+    }
+    .about-onde h2 {
+      font-size: 22pt;
+      color: #2980b9;
+      margin: 0 0 3mm 0;
+      letter-spacing: 2px;
+    }
+    .about-onde .tagline {
+      font-size: 14pt;
+      color: #f39c12;
+      font-style: italic;
+      margin: 0 0 10mm 0;
+    }
+    .about-onde .description {
+      font-size: 12pt;
+      line-height: 1.6;
+      color: #2c3e50;
+      max-width: 120mm;
+      margin: 0 0 10mm 0;
+    }
+    .about-onde .social {
+      font-size: 10pt;
+      color: #7f8c8d;
+    }
+    .about-onde .social p {
+      margin: 2mm 0;
+    }
   </style>
 </head>
 <body>`;
@@ -305,6 +414,57 @@ async function createPDF() {
     <div class="chapter-text">${chapterTexts[ch.num]}</div>
   </div>`;
   }
+
+  // About the Creators page
+  const gianniImg = loadImageBase64(path.join(authorsDir, 'gianni-parola-portrait.jpg'));
+  const pinaImg = loadImageBase64(path.join(authorsDir, 'pina-pennello-portrait.jpg'));
+
+  html += `
+  <div class="page about-creators">
+    <h2>About the Creators</h2>
+
+    <div class="creator">
+      ${gianniImg ? `<img class="creator-portrait" src="${gianniImg}" alt="Gianni Parola">` : ''}
+      <div class="creator-info">
+        <h3>Gianni Parola</h3>
+        <p class="role">Writer</p>
+        <p class="bio">Gianni Parola writes stories that help children understand
+        the world around them. He believes every child deserves books that spark
+        curiosity and wonder.</p>
+      </div>
+    </div>
+
+    <div class="creator">
+      ${pinaImg ? `<img class="creator-portrait" src="${pinaImg}" alt="Pina Pennello">` : ''}
+      <div class="creator-info">
+        <h3>Pina Pennello</h3>
+        <p class="role">Illustrator</p>
+        <p class="bio">Pina Pennello brings stories to life with her warm watercolor
+        illustrations. Her art is inspired by the gentle beauty of Italian countryside
+        and the magic in everyday moments.</p>
+      </div>
+    </div>
+  </div>`;
+
+  // About Onde page
+  const ondeLogoImg = loadImageBase64(path.join(brandingDir, 'onde-logo-color.png'));
+
+  html += `
+  <div class="page about-onde">
+    ${ondeLogoImg ? `<img class="onde-logo" src="${ondeLogoImg}" alt="Onde Publishing">` : '<div style="height:50mm; display:flex; align-items:center; justify-content:center; font-size:36pt; color:#2980b9; font-weight:bold;">ONDE</div>'}
+
+    <h2>ONDE PUBLISHING</h2>
+    <p class="tagline">Stories that connect hearts.</p>
+
+    <p class="description">Onde is a children's book publisher dedicated to creating
+    beautiful, meaningful stories. We believe in the power of words and art to inspire
+    the next generation.</p>
+
+    <div class="social">
+      <p>www.ondebooks.com</p>
+      <p>@Onde_FRH</p>
+    </div>
+  </div>`;
 
   html += `</body></html>`;
 

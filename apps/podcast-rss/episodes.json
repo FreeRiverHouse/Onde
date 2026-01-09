@@ -1,0 +1,56 @@
+{
+  "podcast": {
+    "title": "Piccole Rime - Storie della Buonanotte",
+    "description": "Poesie e filastrocche italiane della tradizione, lette per i bambini prima di dormire. Una produzione Onde Publishing.",
+    "author": "Gianni Parola",
+    "email": "podcast@onde.it",
+    "language": "it",
+    "categories": ["Kids & Family", "Stories for Kids"],
+    "image": "https://onde.it/podcast/cover.jpg",
+    "website": "https://onde.it/podcast"
+  },
+  "episodes": [
+    {
+      "id": "ep001",
+      "title": "Stella Stellina",
+      "description": "La celebre ninna nanna di Lina Schwarz (1876-1947). Una poesia dolce che accompagna i bambini nel sonno, parlando di tutti gli animali della fattoria che, come i bambini, vanno a dormire con le loro mamme.",
+      "author": "Lina Schwarz",
+      "narrator": "Gianni Parola",
+      "audioFile": "ep001-stella-stellina.mp3",
+      "duration": "00:02:30",
+      "publishDate": "2026-01-09",
+      "season": 1,
+      "episode": 1,
+      "explicit": false,
+      "keywords": ["ninna nanna", "stella", "buonanotte", "bambini", "lina schwarz"]
+    },
+    {
+      "id": "ep002",
+      "title": "Che dice la pioggerellina di marzo",
+      "description": "Una poesia allegra di Angiolo Silvio Novaro (1866-1938) che celebra l'arrivo della primavera. La pioggerellina di marzo annuncia che l'inverno e' passato e la Primavera sta arrivando.",
+      "author": "Angiolo Silvio Novaro",
+      "narrator": "Gianni Parola",
+      "audioFile": "ep002-pioggerellina.mp3",
+      "duration": "00:03:15",
+      "publishDate": "2026-01-10",
+      "season": 1,
+      "episode": 2,
+      "explicit": false,
+      "keywords": ["primavera", "pioggia", "marzo", "natura", "novaro"]
+    },
+    {
+      "id": "ep003",
+      "title": "La Befana",
+      "description": "Una poesia di Guido Gozzano (1883-1916) che racconta la magia della notte dell'Epifania, quando i bambini appendono le calze al camino aspettando i doni della Befana.",
+      "author": "Guido Gozzano",
+      "narrator": "Gianni Parola",
+      "audioFile": "ep003-la-befana.mp3",
+      "duration": "00:02:00",
+      "publishDate": "2026-01-11",
+      "season": 1,
+      "episode": 3,
+      "explicit": false,
+      "keywords": ["befana", "epifania", "calza", "doni", "gozzano"]
+    }
+  ]
+}

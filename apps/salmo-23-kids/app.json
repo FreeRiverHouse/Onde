@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Salmo 23 Kids",
+    "slug": "salmo-23-kids",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f5e6d3"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.onde.salmo23kids"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#f5e6d3"
+      },
+      "package": "com.onde.salmo23kids"
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

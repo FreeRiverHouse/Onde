@@ -105,6 +105,75 @@
       border: 2px solid #8b6914 !important;
       border-radius: 8px !important;
     }
+
+    /* Bookmark notification */
+    #bookmark-notification {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 1000;
+      padding: 12px 24px;
+      background: rgba(44, 24, 16, 0.95);
+      color: #c4a461;
+      border-radius: 20px;
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      border: 1px solid #8b6914;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    #bookmark-notification.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Resume reading banner */
+    #resume-banner {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+      color: #f4e4c1;
+      border-radius: 12px;
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      border: 1px solid #8b6914;
+      display: none;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    #resume-banner.visible {
+      display: flex;
+    }
+
+    #resume-banner button {
+      padding: 6px 12px;
+      font-size: 12px;
+      background: #8b6914;
+      color: #f4e4c1;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+    }
+
+    #resume-banner button:hover {
+      background: #a67c1a;
+    }
+
+    #resume-banner .dismiss {
+      background: transparent;
+      color: #c4a461;
+      padding: 4px 8px;
+    }
   </style>
 </head>
 <body>
@@ -117,9 +186,13 @@
   <!-- Page Indicator -->
   <div id="page-indicator">Pagina 1 di 8</div>
 
+  <!-- Bookmark Notification -->
+  <div id="bookmark-notification"></div>
+
   <!-- UI Controls -->
   <div id="ui-overlay">
     <button class="ui-button" onclick="previousPage()">Pagina Precedente</button>
+    <button class="ui-button" onclick="saveBookmark()" title="Salva posizione lettura">Salva</button>
     <button class="ui-button" onclick="nextPage()">Pagina Successiva</button>
   </div>
 
@@ -137,9 +210,14 @@
       <img id="leather-texture" src="assets/leather-texture.jpg" crossorigin="anonymous">
       <img id="wood-texture" src="assets/wood-texture.jpg" crossorigin="anonymous">
 
-      <!-- Audio -->
-      <audio id="page-turn-sound" src="assets/page-turn.mp3" preload="auto"></audio>
-      <audio id="fire-ambient" src="assets/fire-ambient.mp3" preload="auto" loop></audio>
+      <!-- Audio - Sound Effects -->
+      <audio id="page-turn-sound" src="assets/audio/page-turn.mp3" preload="auto"></audio>
+
+      <!-- Audio - Ambient Loops -->
+      <audio id="fire-ambient" src="assets/audio/fire-ambient.mp3" preload="auto" loop></audio>
+      <audio id="rain-ambient" src="assets/audio/rain-ambient.mp3" preload="auto" loop></audio>
+      <audio id="forest-ambient" src="assets/audio/forest-ambient.mp3" preload="auto" loop></audio>
+      <audio id="ocean-ambient" src="assets/audio/ocean-ambient.mp3" preload="auto" loop></audio>
     </a-assets>
 
     <!-- Environment: Cozy Library -->
@@ -472,6 +550,63 @@
       ]
     };
 
+    // Bookmark System - Persistent reading position
+    const BOOKMARK_KEY = 'onde-vr-bookmark';
+
+    function saveBookmark() {
+      const bookmark = {
+        page: currentPage,
+        bookId: 'piccole-rime-001',
+        timestamp: Date.now(),
+        title: bookContent.title
+      };
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bookmark));
+      showBookmarkNotification('Segnalibro salvato!');
+    }
+
+    function loadBookmark() {
+      try {
+        const saved = localStorage.getItem(BOOKMARK_KEY);
+        if (saved) {
+          const bookmark = JSON.parse(saved);
+          if (bookmark.bookId === 'piccole-rime-001' && bookmark.page < totalPages) {
+            return bookmark.page;
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load bookmark:', e);
+      }
+      return 0;
+    }
+
+    function clearBookmark() {
+      localStorage.removeItem(BOOKMARK_KEY);
+      showBookmarkNotification('Segnalibro rimosso');
+    }
+
+    function showBookmarkNotification(message) {
+      const notification = document.getElementById('bookmark-notification');
+      if (notification) {
+        notification.textContent = message;
+        notification.classList.add('visible');
+        setTimeout(() => {
+          notification.classList.remove('visible');
+        }, 2000);
+      }
+    }
+
+    function getLastReadInfo() {
+      try {
+        const saved = localStorage.getItem(BOOKMARK_KEY);
+        if (saved) {
+          const bookmark = JSON.parse(saved);
+          const date = new Date(bookmark.timestamp);
+          return `Ultima lettura: pagina ${bookmark.page + 1}, ${date.toLocaleDateString('it-IT')}`;
+        }
+      } catch (e) {}
+      return null;
+    }
+
     let currentPage = 0;
     const totalPages = bookContent.pages.length;
 
@@ -598,7 +733,75 @@
       scene.addEventListener('xbuttondown', () => nextPage());
       scene.addEventListener('bbuttondown', () => previousPage());
       scene.addEventListener('ybuttondown', () => previousPage());
+
+      // Start ambient audio after user interaction
+      startAmbientAudio();
     });
+
+    // Audio Manager
+    let currentAmbient = 'fire';
+    let ambientVolume = 0.3;
+    const ambientSounds = ['fire', 'rain', 'forest', 'ocean'];
+
+    function startAmbientAudio() {
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+        audio.play().catch(() => {
+          // Autoplay blocked, will start on first interaction
+          document.addEventListener('click', () => {
+            audio.play().catch(() => {});
+          }, { once: true });
+        });
+      }
+    }
+
+    function stopAllAmbient() {
+      ambientSounds.forEach(name => {
+        const audio = document.getElementById(`${name}-ambient`);
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }
+
+    function switchAmbient(ambientName) {
+      if (!ambientSounds.includes(ambientName)) return;
+
+      stopAllAmbient();
+      currentAmbient = ambientName;
+
+      const audio = document.getElementById(`${ambientName}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+        audio.play().catch(() => {});
+      }
+    }
+
+    function setAmbientVolume(volume) {
+      ambientVolume = Math.max(0, Math.min(1, volume));
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+      }
+    }
+
+    function toggleAmbient() {
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+        }
+      }
+    }
+
+    // Expose functions globally for UI
+    window.switchAmbient = switchAmbient;
+    window.setAmbientVolume = setAmbientVolume;
+    window.toggleAmbient = toggleAmbient;
   </script>
 </body>
 </html>

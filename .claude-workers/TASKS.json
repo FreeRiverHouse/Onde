@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:07:26.707Z",
+  "last_updated": "2026-01-09T09:11:08.758Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -62,15 +62,15 @@
       "description": "Aggiornare intero catalogo immagini Onde al nuovo stile unitario",
       "category": "branding",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "pina-001",
         "gianni-001"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-98716-mk6nlmsh",
+      "claimed_at": "2026-01-09T09:08:14.371Z"
     },
     {
       "id": "branding-004",
@@ -78,7 +78,7 @@
       "description": "Inserire logo Onde e volti autori nel retro dei libri",
       "category": "branding",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "gianni-001",
         "pina-001"
@@ -86,7 +86,8 @@
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-93439-mk6nip3z",
-      "claimed_at": "2026-01-09T09:05:57.408Z"
+      "claimed_at": "2026-01-09T09:05:57.408Z",
+      "completed_at": "2026-01-09T09:09:11.691Z"
     },
     {
       "id": "banner-001",
@@ -171,12 +172,13 @@
       "description": "Testare Hailuo AI per video poetry da poesia Magmatic",
       "category": "video-factory",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": "claude-96223-mk6njopl",
-      "claimed_at": "2026-01-09T09:06:43.545Z"
+      "claimed_at": "2026-01-09T09:06:43.545Z",
+      "completed_at": "2026-01-09T09:07:37.801Z"
     },
     {
       "id": "video-factory-003",
@@ -188,8 +190,8 @@
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-97162-mk6nk9rv",
-      "claimed_at": "2026-01-09T09:07:10.844Z"
+      "claimed_by": "claude-522-mk6nnbzd",
+      "claimed_at": "2026-01-09T09:09:33.679Z"
     },
     {
       "id": "video-factory-004",
@@ -243,14 +245,14 @@
       "description": "Generare primo video test camino con suoni crepitio per YouTube",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-98542-mk6nlhu1",
+      "claimed_at": "2026-01-09T09:08:07.947Z"
     },
     {
       "id": "video-002",
@@ -258,14 +260,14 @@
       "description": "Generare video chill music per studio/concentrazione",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-99143-mk6nm3y8",
+      "claimed_at": "2026-01-09T09:08:36.609Z"
     },
     {
       "id": "video-003",
@@ -335,12 +337,13 @@
       "description": "Video podcast Il Pesciolino d'Oro (fiaba russa)",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": "claude-96647-mk6nk1fm",
-      "claimed_at": "2026-01-09T09:07:00.036Z"
+      "claimed_at": "2026-01-09T09:07:00.036Z",
+      "completed_at": "2026-01-09T09:08:31.348Z"
     },
     {
       "id": "podcast-005",
@@ -348,14 +351,15 @@
       "description": "Generare episodi 6-10 con altri testi/poesie",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "podcast-001"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-99883-mk6nmsrr",
+      "claimed_at": "2026-01-09T09:09:08.776Z",
+      "completed_at": "2026-01-09T09:10:38.759Z"
     },
     {
       "id": "spotify-001",
@@ -363,12 +367,13 @@
       "description": "Setup account Spotify for Creators per distribuzione podcast",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": null,
-      "claimed_at": null
+      "claimed_at": null,
+      "completed_at": "2026-01-09T09:08:02.316Z"
     },
     {
       "id": "spotify-002",
@@ -376,14 +381,14 @@
       "description": "Caricare primo episodio come podcast audio su Spotify",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "spotify-001"
       ],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-1831-mk6nohtt",
+      "claimed_at": "2026-01-09T09:10:27.906Z"
     },
     {
       "id": "spotify-003",
@@ -391,14 +396,14 @@
       "description": "Configurare RSS feed per distribuzione automatica",
       "category": "tools",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "spotify-001"
       ],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-1033-mk6nnshs",
+      "claimed_at": "2026-01-09T09:09:55.073Z"
     },
     {
       "id": "ninna-001",
@@ -464,12 +469,13 @@
       "description": "Setup voice IDs unici per Sofia e AIKO",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-350-mk6nn5vf",
+      "claimed_at": "2026-01-09T09:09:25.756Z",
+      "completed_at": "2026-01-09T09:10:50.188Z"
     },
     {
       "id": "aiko-series-003",
@@ -477,14 +483,15 @@
       "description": "Design template storyboard per episodi",
       "category": "branding",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "style-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-98121-mk6nl3r2",
+      "claimed_at": "2026-01-09T09:07:49.695Z",
+      "completed_at": "2026-01-09T09:08:43.750Z"
     },
     {
       "id": "aiko-series-004",
@@ -492,12 +499,13 @@
       "description": "Creare jingle musicale intro",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-97142-mk6nk9di",
-      "claimed_at": "2026-01-09T09:07:10.327Z"
+      "claimed_at": "2026-01-09T09:07:10.327Z",
+      "completed_at": "2026-01-09T09:07:46.156Z"
     },
     {
       "id": "kdp-001",
@@ -537,14 +545,15 @@
       "description": "Completare e pubblicare (bloccato da stile)",
       "category": "publishing",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "style-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": null,
-      "claimed_at": null
+      "claimed_at": null,
+      "completed_at": "2026-01-09T09:08:01.760Z"
     },
     {
       "id": "kdp-004",
@@ -568,7 +577,7 @@
       "description": "Completare 10 illustrazioni e pubblicare",
       "category": "publishing",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "style-001"
       ],
@@ -576,8 +585,8 @@
       "files_involved": [
         "books/spirituality/mindfulness/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2216-mk6notjr",
+      "claimed_at": "2026-01-09T09:10:43.096Z"
     },
     {
       "id": "kdp-006",
@@ -585,7 +594,7 @@
       "description": "Completare 9 illustrazioni e pubblicare",
       "category": "publishing",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "style-001"
       ],
@@ -593,8 +602,8 @@
       "files_involved": [
         "books/spirituality/la-luce-dentro/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2841-mk6npdcm",
+      "claimed_at": "2026-01-09T09:11:08.758Z"
     },
     {
       "id": "kdp-007",
@@ -602,7 +611,7 @@
       "description": "Completare 11 illustrazioni e pubblicare",
       "category": "publishing",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "style-001"
       ],
@@ -610,8 +619,8 @@
       "files_involved": [
         "books/tech/piccolo-inventore/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2255-mk6novg4",
+      "claimed_at": "2026-01-09T09:10:45.557Z"
     },
     {
       "id": "kdp-008",
@@ -652,14 +661,15 @@
       "description": "Recuperare e ripubblicare 5 anni di contenuti su X",
       "category": "pr",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [
         "OndePRDB/clients/magmatic/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-99442-mk6nmh71",
+      "claimed_at": "2026-01-09T09:08:53.773Z",
+      "completed_at": "2026-01-09T09:09:51.955Z"
     },
     {
       "id": "gianni-x-001",
@@ -906,14 +916,15 @@
       "description": "Implementare font SDF per leggibilità VR",
       "category": "apps",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
       "claimed_by": "claude-96657-mk6nk1g2",
-      "claimed_at": "2026-01-09T09:07:00.051Z"
+      "claimed_at": "2026-01-09T09:07:00.051Z",
+      "completed_at": "2026-01-09T09:10:12.984Z"
     },
     {
       "id": "vr-003",
@@ -921,14 +932,15 @@
       "description": "Supporto immagini dentro libri VR",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-99426-mk6nmh0g",
+      "claimed_at": "2026-01-09T09:08:53.537Z",
+      "completed_at": "2026-01-09T09:10:38.676Z"
     },
     {
       "id": "vr-004",
@@ -936,14 +948,15 @@
       "description": "Suoni camino, page turn per esperienza VR",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-99381-mk6nmfbx",
+      "claimed_at": "2026-01-09T09:08:51.358Z",
+      "completed_at": "2026-01-09T09:10:22.155Z"
     },
     {
       "id": "vr-005",
@@ -951,14 +964,14 @@
       "description": "Scegliere ambiente lettura (natura, spazio, mare)",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2190-mk6not9p",
+      "claimed_at": "2026-01-09T09:10:42.733Z"
     },
     {
       "id": "vr-006",
@@ -966,14 +979,14 @@
       "description": "Salvataggio posizione lettura",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [
         "apps/onde-books-vr-web/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-1660-mk6nodbz",
+      "claimed_at": "2026-01-09T09:10:22.079Z"
     },
     {
       "id": "onde-books-001",
@@ -1015,7 +1028,7 @@
       "description": "Payment processing per acquisti",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "onde-books-001"
       ],
@@ -1024,7 +1037,8 @@
         "apps/onde-portal/"
       ],
       "claimed_by": "claude-93989-mk6nj4zn",
-      "claimed_at": "2026-01-09T09:06:17.988Z"
+      "claimed_at": "2026-01-09T09:06:17.988Z",
+      "completed_at": "2026-01-09T09:11:04.523Z"
     },
     {
       "id": "onde-books-004",
@@ -1032,7 +1046,7 @@
       "description": "Auth, profili, cronologia acquisti",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "onde-books-001"
       ],
@@ -1041,7 +1055,8 @@
         "apps/onde-portal/"
       ],
       "claimed_by": "claude-96158-mk6njn4q",
-      "claimed_at": "2026-01-09T09:06:41.499Z"
+      "claimed_at": "2026-01-09T09:06:41.499Z",
+      "completed_at": "2026-01-09T09:10:07.568Z"
     },
     {
       "id": "onde-books-005",
@@ -1049,7 +1064,7 @@
       "description": "Genitori + bambini stesso account",
       "category": "apps",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "onde-books-004"
       ],
@@ -1057,8 +1072,8 @@
       "files_involved": [
         "apps/onde-portal/"
       ],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2842-mk6npdci",
+      "claimed_at": "2026-01-09T09:11:08.755Z"
     },
     {
       "id": "onde-books-006",
@@ -1095,12 +1110,13 @@
       "description": "Eseguire su simulatore/iPhone",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-96593-mk6nk070",
-      "claimed_at": "2026-01-09T09:06:58.428Z"
+      "claimed_at": "2026-01-09T09:06:58.428Z",
+      "completed_at": "2026-01-09T09:09:28.225Z"
     },
     {
       "id": "apps-expo-003",
@@ -1136,12 +1152,13 @@
       "description": "App React Native storie animate",
       "category": "apps",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [],
       "claimed_by": "claude-96821-mk6nk4kf",
-      "claimed_at": "2026-01-09T09:07:04.096Z"
+      "claimed_at": "2026-01-09T09:07:04.096Z",
+      "completed_at": "2026-01-09T09:09:50.919Z"
     },
     {
       "id": "apps-new-002",
@@ -1162,12 +1179,12 @@
       "description": "Migrare da Unity a React Native + Expo",
       "category": "apps",
       "priority": 2,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-97898-mk6nkxd7",
+      "claimed_at": "2026-01-09T09:07:41.420Z"
     },
     {
       "id": "schoolsync-001",
@@ -1175,12 +1192,12 @@
       "description": "Identificare app usate dalla scuola",
       "category": "apps",
       "priority": 4,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-2681-mk6np8di",
+      "claimed_at": "2026-01-09T09:11:02.310Z"
     },
     {
       "id": "schoolsync-002",
@@ -1359,12 +1376,13 @@
       "description": "Versione audiobook Salmo 23",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-98897-mk6nlu54",
+      "claimed_at": "2026-01-09T09:08:23.897Z",
+      "completed_at": "2026-01-09T09:09:05.350Z"
     },
     {
       "id": "research-001",
@@ -1386,12 +1404,13 @@
       "description": "Top 5 canali che fanno milioni views",
       "category": "pr",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "small",
       "files_involved": [],
       "claimed_by": "claude-85763-mk6nf2bx",
-      "claimed_at": "2026-01-09T09:03:07.918Z"
+      "claimed_at": "2026-01-09T09:03:07.918Z",
+      "completed_at": "2026-01-09T09:08:09.566Z"
     }
   ]
 }

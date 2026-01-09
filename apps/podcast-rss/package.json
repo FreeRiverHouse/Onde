@@ -1,0 +1,15 @@
+{
+  "name": "onde-podcast-rss",
+  "version": "1.0.0",
+  "description": "RSS Feed Generator per Onde Podcast",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "generate": "node generate-feed.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "podcast": "^2.0.1"
+  }
+}

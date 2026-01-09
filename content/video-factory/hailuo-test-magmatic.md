@@ -166,6 +166,7 @@ Per ogni poesia:
 - [x] Prompt video preparati
 - [x] Workflow definito
 - [x] Criteri valutazione definiti
+- [x] Poesie originali verificate da fonte (magmatic-poesie.txt)
 - [ ] Account Hailuo AI creato (richiede browser)
 - [ ] Poesia 1 generata (richiede browser)
 - [ ] Poesia 2 generata (richiede browser)
@@ -173,6 +174,83 @@ Per ogni poesia:
 - [ ] Poesia 4 generata (richiede browser)
 - [ ] Valutazione completata
 - [ ] Report finale
+
+---
+
+## Poesie Originali da Fonte
+
+### Da magmatic-poesie.txt - Verificate
+
+**LOTO (Terra da coltivare)** - PRIORITA' #1
+```
+Non estirpare il male dal tuo cuore.
+Non cercare di spegnere
+il dolore.
+Terra da coltivare.
+Fango su cui fiorire.
+Trasalire
+nel vuoto
+come un boccio
+di loto
+di
+ta
+to.
+```
+
+**JACARANDA (Il vento)** - PRIORITA' #2
+```
+Il vento mi attraversa
+mi cancella.
+Il mare è la sua ancella
+e l'anima ci sversa
+
+la sua scorza,
+e l'ansia che la sferza
+viaggia sopra le stelle
+oscilla in un'amaca navicella
+
+vede l'iperuranio
+nella tela di un ragno
+e tra i fiori lavanda
+
+della jacaranda
+la mappa di un tesoro
+fatto d'oro e d'alloro.
+```
+
+**GROWING DOWN** - PRIORITA' #3
+```
+Dentro la terra
+Verso le stelle
+Tendiamo rami
+Stendiamo mani
+
+Dell'universo
+Cerchiamo il centro
+E in questo cerchio
+Ci siamo dentro
+```
+
+**TANGERINE DREAM** - PRIORITA' #4
+```
+Batte il suo cuore
+sul mio
+scorre il respiro,
+il calore
+
+dentro la stanza il fruscio
+del rumore
+bianco, di cento quartine e altre storie d'amore
+dei sogni dell'io
+
+lui sogna
+i fiori le farfalle
+con ali d'oro rosa e gialle
+
+è dentro un canto di Fucini
+sogna ció che bisogna:
+i fiori, le farfalle, i mandarini.
+```
 
 ---
 

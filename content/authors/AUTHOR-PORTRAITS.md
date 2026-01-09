@@ -92,6 +92,17 @@ Salvare in: `/Users/mattia/Projects/Onde/content/authors/`
 | Ritratto | Status | Data |
 |----------|--------|------|
 | Pina Pennello | COMPLETATO | 2026-01-09 |
-| Gianni Parola | DA FARE | - |
+| Gianni Parola | COMPLETATO | 2026-01-09 |
 
-**NOTA**: Per generare Gianni Parola serve accesso a Grok via browser (Claude for Chrome).
+## Integrazione nei Libri
+
+Le pagine "About the Creators" sono ora integrate negli script create-pdf.js.
+
+**Guida completa**: `/content/branding/BOOK-BRANDING-GUIDE.md`
+
+**Script utility**: `/scripts/book-utils/add-authors-page.js`
+
+### Assets Mancanti
+- Logo Onde (da generare via Grok)
+  - Path target: `/assets/branding/onde-logo-color.png`
+  - Prompt nel BOOK-BRANDING-GUIDE.md

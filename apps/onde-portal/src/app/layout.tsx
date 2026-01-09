@@ -14,9 +14,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <a href="/" className="text-2xl font-bold text-onde-gold">Onde</a>
             <div className="flex gap-6">
-              <a href="/catalogo" className="hover:text-onde-gold">Biblioteca</a>
-              <a href="/image-factory" className="hover:text-onde-gold">Image Factory</a>
+              <a href="/catalogo" className="hover:text-onde-gold">Catalogo</a>
+              <a href="/libreria" className="hover:text-onde-gold">La Mia Libreria</a>
               <a href="/about" className="hover:text-onde-gold">Chi Siamo</a>
+              <a href="/account" className="hover:text-onde-gold">Account</a>
             </div>
           </div>
         </nav>
