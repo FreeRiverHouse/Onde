@@ -141,61 +141,42 @@ Sistema automatizzato per produrre video da contenuti Onde:
 
 ---
 
-## 🔴🔴🔴 TASK IMMEDIATO - AIKO 2 ROBOTAXI (8 Gennaio 2026 - STASERA!)
+## ✅ COMPLETATO - AIKO 2 ROBOTAXI (9 Gennaio 2026)
 
-**MATTIA VUOLE LEGGERE IL LIBRO STASERA!**
+**LIBRO CONSEGNATO A MATTIA VIA TELEGRAM!**
 
-**Quando ti accendi → FAI QUESTO SUBITO (senza chiedere):**
+### 📚 AIKO 2: THE ROBOTAXI ADVENTURE
 
-### 📚 CONSEGNA AIKO 2: THE ROBOTAXI ADVENTURE
+**PDF finale**: `books/aiko-2-robotaxi/AIKO-2-Robotaxi.pdf`
+**Telegram**: Inviato ✅ (message_id: 460)
 
-**Testo**: COMPLETO in `books/aiko-2-robotaxi/RAW/aiko-2-full-text.txt`
-**Prompt**: PRONTI in `books/aiko-2-robotaxi/RAW/illustration-prompts.md`
-**Output**: Manda PDF finale su Telegram
+### 🎨 IMMAGINI GENERATE (9/9)
 
-### 🎨 STEP 1 - GENERA 9 IMMAGINI CON GROK (PARALLELO!)
+| Immagine | File | Status |
+|----------|------|--------|
+| Copertina | `images/cover.jpg` | ✅ |
+| Cap 1 - Arrivo robotaxi | `images/chapter-01.jpg` | ✅ |
+| Cap 2 - Sensori/LiDAR | `images/chapter-02.jpg` | ✅ |
+| Cap 3 - Interno robotaxi | `images/chapter-03.jpg` | ✅ |
+| Cap 4 - Vista split | `images/chapter-04.jpg` | ✅ |
+| Cap 5 - Sicurezza | `images/chapter-05.jpg` | ✅ |
+| Cap 6 - Team dietro le quinte | `images/chapter-06.jpg` | ✅ |
+| Cap 7 - Sogno futuro | `images/chapter-07.jpg` | ✅ |
+| Cap 8 - Arrivo dalla nonna | `images/chapter-08.jpg` | ✅ |
 
-**Apri 5+ tab di Grok contemporaneamente** su `x.com/i/grok` → "Create Images"
+### 📂 Path Completi
 
-| Tab | Illustrazione | Prompt file |
-|-----|---------------|-------------|
-| 1 | Copertina | illustration-prompts.md |
-| 2 | Cap 1 - Arrivo robotaxi | illustration-prompts.md |
-| 3 | Cap 2 - Sensori/LiDAR | illustration-prompts.md |
-| 4 | Cap 3 - Interno robotaxi | illustration-prompts.md |
-| 5 | Cap 4 - Vista split | illustration-prompts.md |
-| 6 | Cap 5 - Sicurezza | illustration-prompts.md |
-| 7 | Cap 6 - Team dietro le quinte | illustration-prompts.md |
-| 8 | Cap 7 - Sogno futuro | illustration-prompts.md |
-| 9 | Cap 8 - Arrivo dalla nonna | illustration-prompts.md |
-
-**Per ogni immagine:**
-1. Copia prompt dal file
-2. Incolla in Grok
-3. Genera
-4. **FAI UPSCALE** (obbligatorio!)
-5. Scarica in `~/Downloads/`
-
-### 📦 STEP 2 - ASSEMBLA PDF
-
-1. Sposta immagini in `books/aiko-2-robotaxi/images/`
-2. Usa script `create-pdf.js` per generare PDF finale
-3. Verifica layout (testo + immagini non sovrapposti)
-
-### 📱 STEP 3 - MANDA SU TELEGRAM
-
-```bash
-curl -X POST "https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendDocument" \
-  -F "chat_id=7505631979" \
-  -F "document=@[PATH_PDF]" \
-  -F "caption=📚 AIKO 2: The Robotaxi Adventure - PRONTO!"
 ```
-
-### ⚠️ REGOLE PINA PENNELLO (da rispettare!)
-- Stile acquarello europeo, NO Pixar
-- Coerenza personaggi (Sofia sempre uguale)
-- QC anatomico: 5 dita, 2 orecchie, proporzioni OK
-- Se immagine non corrisponde al testo → RIGENERA
+books/aiko-2-robotaxi/
+├── AIKO-2-Robotaxi.pdf     # PDF finale
+├── create-pdf.js            # Script generazione
+├── images/                  # Tutte le illustrazioni
+│   ├── cover.jpg
+│   └── chapter-01.jpg ... chapter-08.jpg
+└── RAW/
+    ├── aiko-2-full-text.txt
+    └── illustration-prompts.md
+```
 
 ---
 

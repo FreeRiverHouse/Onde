@@ -893,6 +893,7 @@ python lip_sync.py --face gianni.jpg --audio storia.mp3 --output video.mp4
 | Libro | Status | Progresso | Note |
 |-------|--------|-----------|------|
 | **AIKO** | Prima bozza completa | 100% | 8 cap + dedica + nota genitori, 9/9 illustrazioni |
+| **AIKO 2: Robotaxi** | ✅ COMPLETATO | 100% | PDF inviato a Mattia via Telegram (9 Gen 2026) |
 | **Salmo 23** | Bozza V2 pronta | 90% | Review → KDP |
 | **Antologia Poesia IT** | In produzione | 40% | Completare illustrazioni |
 | **Piccole Rime** | Video pronti | 30% | ⚠️ LIBRO NON ANCORA USCITO |
