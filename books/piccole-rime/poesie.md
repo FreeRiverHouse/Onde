@@ -21,26 +21,6 @@ e tutti fan la nanna.
 
 ---
 
-## 2. IL PULCINO BAGNATO
-**Lina Schwarz (1876-1947)**
-
-```
-Un pulcino tutto bagnato
-cerca un posto riparato.
-La gallina sotto l'ala
-lo nasconde e lo riscalda.
-
-Piove piove, pioverella,
-ma lui sta sotto l'ombrella
-di sua mamma premurosa
-che lo cova e lo riposa.
-
-Quando il sole tornera'
-il pulcino canterra':
-pio pio, pio pio pio,
-grazie mamma, eccomi qui io!
-```
-
 ---
 
 ## 3. CHE DICE LA PIOGGERELLINA DI MARZO
@@ -128,26 +108,6 @@ nella notte di gelo.
 ```
 
 ---
-
-## 6. L'ANATROCCOLO
-**Guido Gozzano (1883-1916)**
-
-```
-L'anatroccolo piccino
-va nell'acqua del mulino,
-nuota nuota senza posa
-come fosse un pesce o cosa.
-
-Qua qua qua, che bella vita,
-l'acqua fresca e' squisita!
-Mamma anatra lo sorveglia
-dalla riva, che meraviglia!
-
-Viene sera, torna a riva,
-sotto l'ala se ne va:
-buonanotte, anatroccolo,
-qua qua qua, qua qua qua.
-```
 
 ---
 

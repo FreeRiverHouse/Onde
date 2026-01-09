@@ -710,15 +710,26 @@ Modern Italian watercolor children's book illustration, curious little girl with
 
 ---
 
-## 🚨📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE
+## 🚨🔴📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE CAZZATE
 
-**DATA: 2026-01-07**
+**DATA: 2026-01-09 - AGGIORNATA**
+
+### ⛔ REGOLA LICENZIAMENTO
+
+**SE GIANNI PAROLA (o qualsiasi agente) INVENTA UN TESTO E LO ATTRIBUISCE A UN AUTORE REALE → LICENZIATO.**
+
+**TESTI FAKE ELIMINATI DAL CATALOGO:**
+- "Il Pulcino Bagnato" → FAKE (attribuito falsamente a Lina Schwarz)
+- "L'Anatroccolo" → FAKE (attribuito falsamente a Guido Gozzano)
+
+### Regole per citare autori reali
 
 **QUANDO SI CITA UN AUTORE REALE:**
 - Il testo DEVE essere verificato al 100%
 - MAI inventare, modificare o "completare" testi di autori veri
 - Se non trovi la fonte originale → NON PUBBLICARE
 - Verifica SEMPRE: titolo, autore, testo esatto, anno
+- **USA GROK/WEB per VERIFICARE prima di includere**
 
 **POESIE AI:**
 - Per ora NON pubblichiamo poesie scritte da AI

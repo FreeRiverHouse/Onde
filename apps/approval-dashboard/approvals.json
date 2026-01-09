@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 1767944903406,
+      "title": "Product Shot",
+      "description": "Stile Amazon - pedale USB con bottoni 1 e 2",
+      "prompt": "Product photography, USB foot pedal...",
+      "image": "/images/handsfree-pedal-01-product.jpg",
+      "status": "pending",
+      "comment": "",
+      "createdAt": "2026-01-09T07:48:23.406Z"
+    },
+    {
+      "id": 1767944914457,
+      "title": "Kitchen In-Use",
+      "description": "Programmatore che lava i piatti con pedale",
+      "prompt": "Humorous lifestyle photo, programmer washing dishes...",
+      "image": "/images/handsfree-pedal-02-kitchen.jpg",
+      "status": "pending",
+      "comment": "",
+      "createdAt": "2026-01-09T07:48:34.457Z"
+    },
+    {
+      "id": 1767944914467,
+      "title": "Before/After Meme",
+      "description": "Infomercial style - problema vs soluzione",
+      "prompt": "Split image infomercial style...",
+      "image": "/images/handsfree-pedal-03-before-after.jpg",
+      "status": "pending",
+      "comment": "",
+      "createdAt": "2026-01-09T07:48:34.467Z"
+    },
+    {
+      "id": 1767944914476,
+      "title": "Close-up Buttons",
+      "description": "Dettaglio bottoni - 2 consumato, 1 nuovo",
+      "prompt": "Close-up product detail shot, arcade buttons...",
+      "image": "/images/handsfree-pedal-04-closeup.jpg",
+      "status": "pending",
+      "comment": "",
+      "createdAt": "2026-01-09T07:48:34.476Z"
+    }
+  ]
+}
