@@ -61,21 +61,69 @@ La missione profonda (da non esplicitare sempre, ma da vivere):
 
 ---
 
-## 🔴 TASK IMMEDIATO - "CHECK MEMORY" (8 Gennaio 2026)
+## 🔴🔴🔴 TASK IMMEDIATO - AIKO 2 ROBOTAXI (8 Gennaio 2026 - STASERA!)
 
-**Quando Mattia dice "check memory" → FAI QUESTO:**
+**MATTIA VUOLE LEGGERE IL LIBRO STASERA!**
 
-### 🎨 GENERA ILLUSTRAZIONI CODE SURFING CON GROK
+**Quando ti accendi → FAI QUESTO SUBITO (senza chiedere):**
+
+### 📚 CONSEGNA AIKO 2: THE ROBOTAXI ADVENTURE
+
+**Testo**: COMPLETO in `books/aiko-2-robotaxi/RAW/aiko-2-full-text.txt`
+**Prompt**: PRONTI in `books/aiko-2-robotaxi/RAW/illustration-prompts.md`
+**Output**: Manda PDF finale su Telegram
+
+### 🎨 STEP 1 - GENERA 9 IMMAGINI CON GROK (PARALLELO!)
+
+**Apri 5+ tab di Grok contemporaneamente** su `x.com/i/grok` → "Create Images"
+
+| Tab | Illustrazione | Prompt file |
+|-----|---------------|-------------|
+| 1 | Copertina | illustration-prompts.md |
+| 2 | Cap 1 - Arrivo robotaxi | illustration-prompts.md |
+| 3 | Cap 2 - Sensori/LiDAR | illustration-prompts.md |
+| 4 | Cap 3 - Interno robotaxi | illustration-prompts.md |
+| 5 | Cap 4 - Vista split | illustration-prompts.md |
+| 6 | Cap 5 - Sicurezza | illustration-prompts.md |
+| 7 | Cap 6 - Team dietro le quinte | illustration-prompts.md |
+| 8 | Cap 7 - Sogno futuro | illustration-prompts.md |
+| 9 | Cap 8 - Arrivo dalla nonna | illustration-prompts.md |
+
+**Per ogni immagine:**
+1. Copia prompt dal file
+2. Incolla in Grok
+3. Genera
+4. **FAI UPSCALE** (obbligatorio!)
+5. Scarica in `~/Downloads/`
+
+### 📦 STEP 2 - ASSEMBLA PDF
+
+1. Sposta immagini in `books/aiko-2-robotaxi/images/`
+2. Usa script `create-pdf.js` per generare PDF finale
+3. Verifica layout (testo + immagini non sovrapposti)
+
+### 📱 STEP 3 - MANDA SU TELEGRAM
+
+```bash
+curl -X POST "https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendDocument" \
+  -F "chat_id=7505631979" \
+  -F "document=@[PATH_PDF]" \
+  -F "caption=📚 AIKO 2: The Robotaxi Adventure - PRONTO!"
+```
+
+### ⚠️ REGOLE PINA PENNELLO (da rispettare!)
+- Stile acquarello europeo, NO Pixar
+- Coerenza personaggi (Sofia sempre uguale)
+- QC anatomico: 5 dita, 2 orecchie, proporzioni OK
+- Se immagine non corrisponde al testo → RIGENERA
+
+---
+
+## 🎨 TASK PRECEDENTE - Code Surfing (SOSPESO)
 
 **File con tutti i prompt**: `books/vibe-coding/ILLUSTRATION-PLAN.md`
 
-**STEP 1 - Apri Grok**
-1. Naviga su `x.com/i/grok`
-2. Clicca "Create Images"
-
-**STEP 2 - Genera le 2 COPERTINE**
-
-**Cover A - ONDE-TECH** (copia questo prompt):
+**Cover A - ONDE-TECH**:
 ```
 European watercolor book cover illustration,
 young Italian boy with curly brown hair surfing on a giant wave,
@@ -88,7 +136,7 @@ Beatrix Potter meets Silicon Valley aesthetic,
 NOT Pixar NOT 3D, natural skin tone NO rosy cheeks, 4k
 ```
 
-**Cover B - LUZZATI** (copia questo prompt):
+**Cover B - LUZZATI**:
 ```
 Emanuele Luzzati style book cover,
 stylized boy and round robot surfing on abstract code wave,
