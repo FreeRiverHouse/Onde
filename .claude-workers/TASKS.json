@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:45:50.363Z",
+  "last_updated": "2026-01-09T09:46:35.610Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1587,7 +1587,7 @@
       "description": "Pipeline per generare musica AI con Suno: lofi beats, ambient, ninne nanne. Script batch, prompt library, quality control.",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "ninna-001"
       ],
@@ -1595,7 +1595,8 @@
       "files_involved": [],
       "claimed_by": "claude-28486-mk6oq0um",
       "claimed_at": "2026-01-09T09:39:38.831Z",
-      "created_at": "2026-01-09T09:39:13.980Z"
+      "created_at": "2026-01-09T09:39:13.980Z",
+      "completed_at": "2026-01-09T09:46:35.607Z"
     },
     {
       "id": "music-ai-002",

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Onde Audiobooks RSS Feed Template
+  Show: Full Audiobooks per Bambini
+
+  Questo template e configurato per audiobook a capitoli (serial).
+  Ogni audiobook corrisponde a una "stagione".
+  Sostituire i placeholder {{VARIABLE}} con i valori appropriati.
+-->
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:spotify="http://www.spotify.com/ns/rss"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+    <!-- Channel Info -->
+    <title>Onde Audiobooks</title>
+    <link>https://onde.fm</link>
+    <description><![CDATA[
+Onde Audiobooks - Libri Audio per Bambini
+
+Scoprite il piacere dell'ascolto con Onde Audiobooks! Audiobook completi per bambini, narrati da voci professionali e prodotti con la massima cura. Storie lunghe divise in capitoli, perfette per viaggi, momenti di relax o per riscoprire il piacere di ascoltare insieme.
+
+Perfetto per:
+- Viaggi in auto
+- Momenti di attesa
+- Alternativa agli schermi
+- Lettura condivisa in famiglia
+
+Eta consigliata: 4-10 anni
+Nuovi audiobook: ogni mese
+    ]]></description>
+    <language>it</language>
+
+    <atom:link href="https://onde.fm/rss/onde-audiobooks.xml" rel="self" type="application/rss+xml"/>
+
+    <copyright>2025 Onde</copyright>
+    <managingEditor>audiobooks@onde.fm (Onde)</managingEditor>
+
+    <pubDate>{{PUB_DATE}}</pubDate>
+    <lastBuildDate>{{LAST_BUILD_DATE}}</lastBuildDate>
+
+    <generator>Onde RSS Generator</generator>
+
+    <!-- iTunes Metadata -->
+    <itunes:title>Onde Audiobooks</itunes:title>
+    <itunes:author>Onde</itunes:author>
+    <itunes:owner>
+      <itunes:name>Onde</itunes:name>
+      <itunes:email>audiobooks@onde.fm</itunes:email>
+    </itunes:owner>
+
+    <itunes:summary><![CDATA[Audiobook completi per bambini con narrazioni professionali. Storie lunghe divise in capitoli, perfette per viaggi, attese o momenti speciali.]]></itunes:summary>
+    <itunes:subtitle>Storie da Ascoltare</itunes:subtitle>
+
+    <itunes:explicit>false</itunes:explicit>
+    <!-- Serial type for chapter-based content -->
+    <itunes:type>serial</itunes:type>
+
+    <!-- Categories: Kids & Family > Stories -->
+    <itunes:category text="Kids &amp; Family">
+      <itunes:category text="Stories"/>
+    </itunes:category>
+    <itunes:category text="Arts">
+      <itunes:category text="Books"/>
+    </itunes:category>
+
+    <!-- Artwork: 3000x3000, palette warm book -->
+    <itunes:image href="https://onde.fm/assets/artwork/onde-audiobooks-cover.jpg"/>
+    <image>
+      <url>https://onde.fm/assets/artwork/onde-audiobooks-cover.jpg</url>
+      <title>Onde Audiobooks</title>
+      <link>https://onde.fm</link>
+    </image>
+
+    <spotify:countryOfOrigin>IT</spotify:countryOfOrigin>
+
+    <itunes:keywords>audiobook, bambini, storie, lettura, onde, libri, capitoli</itunes:keywords>
+
+    <!-- ============================================ -->
+    <!-- TRAILER EPISODE TEMPLATE                    -->
+    <!-- Pubblicare prima di ogni nuovo audiobook    -->
+    <!-- ============================================ -->
+
+    <item>
+      <title>{{BOOK_TITLE}} - Trailer</title>
+      <link>{{EPISODE_URL}}</link>
+      <guid isPermaLink="false">{{EPISODE_GUID}}</guid>
+      <pubDate>{{EPISODE_PUB_DATE}}</pubDate>
+
+      <description><![CDATA[
+{{BOOK_TITLE}} - Trailer
+
+{{BOOK_DESCRIPTION}}
+
+Scopri questa nuova avventura su Onde Audiobooks!
+
+Autore: {{AUTHOR}}
+Narratore: {{NARRATOR}}
+Capitoli: {{TOTAL_CHAPTERS}}
+Durata totale: {{TOTAL_DURATION}}
+Eta consigliata: {{AGE_MIN}}-{{AGE_MAX}} anni
+
+Primo capitolo disponibile {{RELEASE_DATE}}!
+
+---
+onde.fm/audiobooks
+      ]]></description>
+
+      <enclosure
+        url="{{AUDIO_URL}}"
+        length="{{AUDIO_SIZE_BYTES}}"
+        type="audio/mpeg"/>
+
+      <itunes:title>{{BOOK_TITLE}} - Trailer</itunes:title>
+      <itunes:summary>{{BOOK_DESCRIPTION}}</itunes:summary>
+      <itunes:duration>{{DURATION_SECONDS}}</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>trailer</itunes:episodeType>
+      <itunes:season>{{SEASON_NUMBER}}</itunes:season>
+
+      <!-- Book-specific artwork -->
+      <itunes:image href="{{BOOK_ARTWORK_URL}}"/>
+    </item>
+
+    <!-- ============================================ -->
+    <!-- CHAPTER EPISODE TEMPLATE                    -->
+    <!-- Copiare per ogni capitolo dell'audiobook    -->
+    <!-- ============================================ -->
+
+    <item>
+      <title>{{BOOK_TITLE}} - Capitolo {{CHAPTER_NUMBER}}: {{CHAPTER_TITLE}}</title>
+      <link>{{EPISODE_URL}}</link>
+      <guid isPermaLink="false">{{EPISODE_GUID}}</guid>
+      <pubDate>{{EPISODE_PUB_DATE}}</pubDate>
+
+      <description><![CDATA[
+{{BOOK_TITLE}} - Capitolo {{CHAPTER_NUMBER}}
+"{{CHAPTER_TITLE}}"
+
+{{CHAPTER_SYNOPSIS}}
+
+Libro: {{BOOK_TITLE}}
+Autore: {{AUTHOR}}
+Narratore: {{NARRATOR}}
+Capitolo: {{CHAPTER_NUMBER}} di {{TOTAL_CHAPTERS}}
+Durata: {{DURATION}} minuti
+Eta consigliata: {{AGE_MIN}}-{{AGE_MAX}} anni
+
+---
+Audiobook completo disponibile su onde.fm
+      ]]></description>
+
+      <content:encoded><![CDATA[
+<h2>{{BOOK_TITLE}} - Capitolo {{CHAPTER_NUMBER}}</h2>
+<h3>"{{CHAPTER_TITLE}}"</h3>
+<p>{{CHAPTER_SYNOPSIS}}</p>
+<ul>
+  <li><strong>Libro:</strong> {{BOOK_TITLE}}</li>
+  <li><strong>Autore:</strong> {{AUTHOR}}</li>
+  <li><strong>Narratore:</strong> {{NARRATOR}}</li>
+  <li><strong>Capitolo:</strong> {{CHAPTER_NUMBER}} di {{TOTAL_CHAPTERS}}</li>
+  <li><strong>Durata:</strong> {{DURATION}} minuti</li>
+  <li><strong>Eta consigliata:</strong> {{AGE_MIN}}-{{AGE_MAX}} anni</li>
+</ul>
+<p><a href="https://onde.fm/audiobooks">Audiobook completo disponibile su onde.fm</a></p>
+      ]]></content:encoded>
+
+      <enclosure
+        url="{{AUDIO_URL}}"
+        length="{{AUDIO_SIZE_BYTES}}"
+        type="audio/mpeg"/>
+
+      <itunes:title>Capitolo {{CHAPTER_NUMBER}}: {{CHAPTER_TITLE}}</itunes:title>
+      <itunes:summary>{{CHAPTER_SYNOPSIS}}</itunes:summary>
+      <itunes:duration>{{DURATION_SECONDS}}</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:season>{{SEASON_NUMBER}}</itunes:season>
+      <itunes:episode>{{CHAPTER_NUMBER}}</itunes:episode>
+
+      <!-- Book-specific artwork -->
+      <itunes:image href="{{BOOK_ARTWORK_URL}}"/>
+    </item>
+
+    <!-- ============================================ -->
+    <!-- EXAMPLE: AUDIOBOOK 1 (Season 1)             -->
+    <!-- Le Avventure di Luna                        -->
+    <!-- ============================================ -->
+
+    <!--
+    <item>
+      <title>Le Avventure di Luna - Trailer</title>
+      <link>https://onde.fm/audiobooks/luna/trailer</link>
+      <guid isPermaLink="false">onde-audiobooks-luna-trailer</guid>
+      <pubDate>Sun, 05 Jan 2025 10:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Le Avventure di Luna - Trailer
+
+Luna e una bambina curiosa che scopre un portale magico nel giardino di nonna. Insieme al suo gatto parlante Micio, vivra incredibili avventure in mondi fantastici, imparando l'importanza dell'amicizia e del coraggio.
+
+Scopri questa nuova avventura su Onde Audiobooks!
+
+Autore: Sofia Verdi
+Narratore: Giulia Bianchi
+Capitoli: 10
+Durata totale: 3 ore 20 minuti
+Eta consigliata: 5-9 anni
+
+Primo capitolo disponibile il 12 gennaio!
+
+- - -
+onde.fm/audiobooks
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/audiobooks/luna/trailer.mp3"
+        length="3600000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Le Avventure di Luna - Trailer</itunes:title>
+      <itunes:summary>Luna scopre un portale magico e vive incredibili avventure in mondi fantastici.</itunes:summary>
+      <itunes:duration>180</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>trailer</itunes:episodeType>
+      <itunes:season>1</itunes:season>
+
+      <itunes:image href="https://onde.fm/assets/artwork/audiobooks/luna-cover.jpg"/>
+    </item>
+
+    <item>
+      <title>Le Avventure di Luna - Capitolo 1: L'Inizio del Viaggio</title>
+      <link>https://onde.fm/audiobooks/luna/cap01</link>
+      <guid isPermaLink="false">onde-audiobooks-luna-cap01</guid>
+      <pubDate>Sun, 12 Jan 2025 10:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Le Avventure di Luna - Capitolo 1
+"L'Inizio del Viaggio"
+
+Luna trova uno strano libro nella soffitta di nonna. Quando lo apre, le pagine brillano e il suo gatto Micio inizia a parlare. Cosa succedera?
+
+Libro: Le Avventure di Luna
+Autore: Sofia Verdi
+Narratore: Giulia Bianchi
+Capitolo: 1 di 10
+Durata: 20 minuti
+Eta consigliata: 5-9 anni
+
+- - -
+Audiobook completo disponibile su onde.fm
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/audiobooks/luna/cap01.mp3"
+        length="24000000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Capitolo 1: L'Inizio del Viaggio</itunes:title>
+      <itunes:summary>Luna trova uno strano libro nella soffitta di nonna e il suo gatto inizia a parlare.</itunes:summary>
+      <itunes:duration>1200</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:season>1</itunes:season>
+      <itunes:episode>1</itunes:episode>
+
+      <itunes:image href="https://onde.fm/assets/artwork/audiobooks/luna-cover.jpg"/>
+    </item>
+
+    <item>
+      <title>Le Avventure di Luna - Capitolo 2: La Foresta Incantata</title>
+      <link>https://onde.fm/audiobooks/luna/cap02</link>
+      <guid isPermaLink="false">onde-audiobooks-luna-cap02</guid>
+      <pubDate>Sun, 19 Jan 2025 10:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Le Avventure di Luna - Capitolo 2
+"La Foresta Incantata"
+
+Luna e Micio attraversano il portale e si ritrovano in una foresta dove gli alberi cantano. Devono trovare la Fata dei Sogni prima del tramonto.
+
+Libro: Le Avventure di Luna
+Autore: Sofia Verdi
+Narratore: Giulia Bianchi
+Capitolo: 2 di 10
+Durata: 22 minuti
+Eta consigliata: 5-9 anni
+
+- - -
+Audiobook completo disponibile su onde.fm
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/audiobooks/luna/cap02.mp3"
+        length="26400000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Capitolo 2: La Foresta Incantata</itunes:title>
+      <itunes:summary>Luna e Micio attraversano il portale e si ritrovano in una foresta dove gli alberi cantano.</itunes:summary>
+      <itunes:duration>1320</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:season>1</itunes:season>
+      <itunes:episode>2</itunes:episode>
+
+      <itunes:image href="https://onde.fm/assets/artwork/audiobooks/luna-cover.jpg"/>
+    </item>
+    -->
+
+    <!-- ============================================ -->
+    <!-- EXAMPLE: AUDIOBOOK 2 (Season 2)             -->
+    <!-- Il Piccolo Esploratore                      -->
+    <!-- ============================================ -->
+
+    <!--
+    <item>
+      <title>Il Piccolo Esploratore - Trailer</title>
+      <link>https://onde.fm/audiobooks/esploratore/trailer</link>
+      <guid isPermaLink="false">onde-audiobooks-esploratore-trailer</guid>
+      <pubDate>Sun, 02 Feb 2025 10:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Il Piccolo Esploratore - Trailer
+
+Marco e un bambino che sogna di diventare un grande esploratore. Un giorno trova una mappa misteriosa che lo portera a scoprire i segreti nascosti del suo quartiere.
+
+Autore: Luca Rossi
+Narratore: Marco Verdi
+Capitoli: 8
+Durata totale: 2 ore 40 minuti
+Eta consigliata: 6-10 anni
+
+Primo capitolo disponibile il 9 febbraio!
+
+- - -
+onde.fm/audiobooks
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/audiobooks/esploratore/trailer.mp3"
+        length="3000000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Il Piccolo Esploratore - Trailer</itunes:title>
+      <itunes:summary>Marco trova una mappa misteriosa che lo portera a scoprire i segreti del suo quartiere.</itunes:summary>
+      <itunes:duration>150</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>trailer</itunes:episodeType>
+      <itunes:season>2</itunes:season>
+
+      <itunes:image href="https://onde.fm/assets/artwork/audiobooks/esploratore-cover.jpg"/>
+    </item>
+
+    <item>
+      <title>Il Piccolo Esploratore - Capitolo 1: La Mappa Misteriosa</title>
+      <link>https://onde.fm/audiobooks/esploratore/cap01</link>
+      <guid isPermaLink="false">onde-audiobooks-esploratore-cap01</guid>
+      <pubDate>Sun, 09 Feb 2025 10:00:00 +0100</pubDate>
+
+      <description><![CDATA[
+Il Piccolo Esploratore - Capitolo 1
+"La Mappa Misteriosa"
+
+Marco trova una vecchia mappa nella libreria di nonno. Sembra una mappa del quartiere, ma con segni e simboli misteriosi. Dove portera?
+
+Libro: Il Piccolo Esploratore
+Autore: Luca Rossi
+Narratore: Marco Verdi
+Capitolo: 1 di 8
+Durata: 18 minuti
+Eta consigliata: 6-10 anni
+
+- - -
+Audiobook completo disponibile su onde.fm
+      ]]></description>
+
+      <enclosure
+        url="https://cdn.onde.fm/audiobooks/esploratore/cap01.mp3"
+        length="21600000"
+        type="audio/mpeg"/>
+
+      <itunes:title>Capitolo 1: La Mappa Misteriosa</itunes:title>
+      <itunes:summary>Marco trova una vecchia mappa con segni e simboli misteriosi nella libreria di nonno.</itunes:summary>
+      <itunes:duration>1080</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:season>2</itunes:season>
+      <itunes:episode>1</itunes:episode>
+
+      <itunes:image href="https://onde.fm/assets/artwork/audiobooks/esploratore-cover.jpg"/>
+    </item>
+    -->
+
+  </channel>
+</rss>
