@@ -1328,3 +1328,42 @@ Vintage 1950s Italian children's book illustration, retro watercolor style, nost
 ---
 
 *Ultimo aggiornamento: 2026-01-06 - Stile Vintage '50 scelto, generazione libro in corso*
+
+---
+
+## 🥽 ONDE BOOKS VR - Lettore Ebook per Oculus (9 Gen 2026)
+
+**NUOVA DIREZIONE STRATEGICA**: Creare lettore ebook per Meta Quest / Oculus
+
+**Perché è importante:**
+- Amazon NON lo fa = mercato vuoto
+- Differenziatore unico vs concorrenza
+- Libri per bambini immersivi = WOW factor
+- Cross-sell con tutto il catalogo Onde
+
+**Path**: `apps/onde-books-vr/`
+
+---
+
+## 🌊 STRATEGIA TSUNAMI (9 Gen 2026)
+
+**OBIETTIVO**: Catalogo MASSICCIO di ebook in dominio pubblico
+
+**Fonti:**
+- Project Gutenberg (principale)
+- @Samahul su X per libri "nascosti" (health/carnivore)
+- Internet Archive
+
+**Categorie target:**
+- Spiritualità
+- Poesia
+- Arte
+- Tech/Scienza
+- Health/Dieta (carnivore, digiuno, etc.)
+- Classici bambini
+
+**Vantaggio competitivo vs Amazon:**
+- Prezzi più bassi (€0.30-0.99 vs €2.99+)
+- Pubblicazione più veloce (no limite 3/giorno)
+- Multilingua automatico (6+ lingue per titolo)
+- VR reader (esclusivo Onde)

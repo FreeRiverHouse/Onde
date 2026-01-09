@@ -89,6 +89,45 @@ apps/
 
 ---
 
+## 🥽 ONDE BOOKS VR - Lettore Ebook per Oculus (NUOVO 9 Gen 2026)
+
+**Obiettivo**: Lettore ebook immersivo per Meta Quest / Oculus
+
+### 🔥 Perché è GOLD
+- **Nessuno l'ha fatto bene ancora** - mercato vuoto
+- Leggere in VR = esperienza unica (ambiente tranquillo, niente distrazioni)
+- Libri per bambini in VR = WOW (illustrazioni che ti circondano!)
+- Cross-sell con Onde Books portal
+- **Amazon NON lo fa** = opportunità enorme
+- Differenziatore competitivo unico
+
+### 🏗️ Features MVP
+- Ambiente di lettura rilassante (biblioteca, natura, spazio, camino)
+- Pagine che girano in 3D
+- Font grande e leggibile (comfort VR)
+- Supporto ePub
+- Sincronizzazione con account Onde Books
+- Modalità bambini (illustrazioni immersive a 360°)
+
+### 🎯 Visione "Libri Immersivi"
+- Libri per bambini dove le illustrazioni ti CIRCONDANO
+- Mentre leggi, l'ambiente cambia in base alla storia
+- Audio narrazione integrato
+- Interattività leggera (tocca elementi della scena)
+
+### 📋 Task
+- [ ] Prototype Unity per Quest
+- [ ] UI/UX lettura confortevole (no motion sickness)
+- [ ] Import ePub
+- [ ] Ambiente 3D di base (biblioteca accogliente)
+- [ ] Test su Quest 3
+- [ ] Sync con Onde Books account
+
+### 📂 Path
+`apps/onde-books-vr/`
+
+---
+
 ## 📚 ONDE BOOKS - Store Indipendente + App Famiglia (NUOVO 8 Gen 2026)
 
 **Obiettivo**: Bypassare Amazon KDP e vendere ebook direttamente. Creare un'app di lettura bella per famiglie.
