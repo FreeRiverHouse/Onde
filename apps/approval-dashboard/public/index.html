@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onde - Approval Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 20px 40px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 { font-size: 24px; font-weight: 600; }
+    .stats { display: flex; gap: 20px; }
+    .stat {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    .stat.pending { background: #f59e0b22; color: #f59e0b; }
+    .stat.approved { background: #10b98122; color: #10b981; }
+    .stat.rejected { background: #ef444422; color: #ef4444; }
+
+    main { padding: 40px; }
+
+    .empty {
+      text-align: center;
+      padding: 100px 20px;
+      color: #666;
+    }
+    .empty h2 { font-size: 20px; margin-bottom: 10px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #333;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); border-color: #555; }
+    .card.approved { border-color: #10b981; }
+    .card.rejected { border-color: #ef4444; }
+
+    .card-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: #222;
+    }
+    .card-image.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .card-content { padding: 20px; }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card-description {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .card-prompt {
+      background: #0a0a0a;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 16px;
+      max-height: 80px;
+      overflow-y: auto;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn.approve { background: #10b981; color: #fff; }
+    .btn.reject { background: #333; color: #fff; }
+    .btn.redo { background: #f59e0b; color: #000; }
+
+    .comment-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #0a0a0a;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 10px;
+      resize: none;
+    }
+    .comment-input:focus { outline: none; border-color: #f59e0b; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .status-badge.pending { background: #f59e0b22; color: #f59e0b; }
+    .status-badge.approved { background: #10b98122; color: #10b981; }
+    .status-badge.rejected { background: #ef444422; color: #ef4444; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Onde Approval Dashboard</h1>
+    <div class="stats">
+      <span class="stat pending" id="pending-count">0 pending</span>
+      <span class="stat approved" id="approved-count">0 approved</span>
+      <span class="stat rejected" id="rejected-count">0 rejected</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="content"></div>
+  </main>
+
+  <script>
+    let items = [];
+
+    async function loadItems() {
+      const res = await fetch('/api/items');
+      items = await res.json();
+      render();
+    }
+
+    async function updateItem(id, data) {
+      await fetch(`/api/items/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      loadItems();
+    }
+
+    function render() {
+      const content = document.getElementById('content');
+      const pending = items.filter(i => i.status === 'pending').length;
+      const approved = items.filter(i => i.status === 'approved').length;
+      const rejected = items.filter(i => i.status === 'rejected').length;
+
+      document.getElementById('pending-count').textContent = `${pending} pending`;
+      document.getElementById('approved-count').textContent = `${approved} approved`;
+      document.getElementById('rejected-count').textContent = `${rejected} rejected`;
+
+      if (items.length === 0) {
+        content.innerHTML = `
+          <div class="empty">
+            <h2>Nessuna immagine da approvare</h2>
+            <p>Le immagini generate appariranno qui</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort: pending first, then rejected, then approved
+      const sorted = [...items].sort((a, b) => {
+        const order = { pending: 0, rejected: 1, approved: 2 };
+        return order[a.status] - order[b.status];
+      });
+
+      content.innerHTML = `
+        <div class="grid">
+          ${sorted.map(item => `
+            <div class="card ${item.status}">
+              ${item.image
+                ? `<img class="card-image" src="${item.image}" alt="${item.title}">`
+                : `<div class="card-image placeholder">Immagine in generazione...</div>`
+              }
+              <div class="card-content">
+                <span class="status-badge ${item.status}">${item.status}</span>
+                <h3 class="card-title">${item.title}</h3>
+                <p class="card-description">${item.description}</p>
+                <div class="card-prompt">${item.prompt}</div>
+                ${item.status === 'pending' ? `
+                  <div class="card-actions">
+                    <button class="btn approve" onclick="updateItem(${item.id}, {status:'approved'})">Approva</button>
+                    <button class="btn reject" onclick="showComment(${item.id})">Rifiuta</button>
+                  </div>
+                  <div id="comment-${item.id}" style="display:none; margin-top:10px;">
+                    <textarea class="comment-input" id="comment-text-${item.id}" placeholder="Perche non va bene?"></textarea>
+                    <button class="btn redo" onclick="rejectWithComment(${item.id})">Rigenera</button>
+                  </div>
+                ` : item.status === 'rejected' ? `
+                  <p style="color:#ef4444;font-size:13px;margin-top:10px;">
+                    <strong>Commento:</strong> ${item.comment || 'Nessun commento'}
+                  </p>
+                  <button class="btn redo" style="margin-top:10px;" onclick="updateItem(${item.id}, {status:'pending'})">
+                    Rimetti in coda
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function showComment(id) {
+      document.getElementById(`comment-${id}`).style.display = 'block';
+    }
+
+    function rejectWithComment(id) {
+      const comment = document.getElementById(`comment-text-${id}`).value;
+      updateItem(id, { status: 'rejected', comment });
+    }
+
+    loadItems();
+    // Auto-refresh every 5 seconds
+    setInterval(loadItems, 5000);
+  </script>
+</body>
+</html>
