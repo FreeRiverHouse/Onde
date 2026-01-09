@@ -10,49 +10,76 @@
         "name": "Lina Schwarz",
         "years": "1876-1947",
         "genre": "Filastrocche, ninne nanne",
+        "verified": "2026-01-09",
         "works": [
-          {"title": "Stella Stellina", "type": "poem", "length": "short"},
-          {"title": "Ninna Nanna del Chicco di Grano", "type": "poem", "length": "short"},
-          {"title": "Il Pulcino Bagnato", "type": "poem", "length": "short"},
-          {"title": "La Farfallina", "type": "poem", "length": "short"}
+          {"title": "Stella Stellina", "type": "poem", "length": "short", "status": "VERIFICATO"},
+          {"title": "Ninna Nanna del Chicco di Grano", "type": "poem", "length": "short", "status": "DA VERIFICARE"},
+          {"title": "La Farfallina", "type": "poem", "length": "short", "status": "DA VERIFICARE"}
+        ],
+        "removed": [
+          {"title": "Il Pulcino Bagnato", "reason": "FAKE - Non esiste nelle opere di Lina Schwarz"}
         ]
       },
       {
         "name": "Angiolo Silvio Novaro",
         "years": "1866-1938",
         "genre": "Poesia natura",
+        "verified": "2026-01-09",
         "works": [
-          {"title": "Che Dice la Pioggerellina di Marzo", "type": "poem", "length": "medium"},
-          {"title": "La Patria", "type": "poem", "length": "short"},
-          {"title": "Il Fiore", "type": "poem", "length": "short"}
-        ]
+          {"title": "Che Dice la Pioggerellina di Marzo", "type": "poem", "length": "medium", "status": "VERIFICATO", "source": "filastrocche.it, poesiedautore.it"},
+          {"title": "La Patria", "type": "poem", "length": "short", "status": "DA VERIFICARE"},
+          {"title": "Il Fiore", "type": "poem", "length": "short", "status": "DA VERIFICARE"}
+        ],
+        "removed": [
+          {"title": "Il Paese dei Balocchi", "reason": "FAKE - Non risulta nelle opere verificate di Novaro (Il Cestello, Il Piccolo Orfeo, etc.)"}
+        ],
+        "verifiedWorks": "Il Cestello (1910), Il Cuore Nascosto (1920), Il Piccolo Orfeo (1929)"
       },
       {
         "name": "Guido Gozzano",
         "years": "1883-1916",
         "genre": "Rime per bimbi",
+        "verified": "2026-01-09",
         "works": [
-          {"title": "La Befana", "type": "poem", "length": "short"},
-          {"title": "La Notte Santa", "type": "poem", "length": "medium"},
-          {"title": "L'Amica di Nonna Speranza", "type": "poem", "length": "long"}
-        ]
+          {"title": "La Befana", "type": "poem", "length": "short", "status": "VERIFICATO", "source": "wikisource.it, filastrocche.it", "note": "Originale dice 'scarpetta' non 'calzetta'"},
+          {"title": "La Notte Santa", "type": "poem", "length": "medium", "status": "DA VERIFICARE"},
+          {"title": "L'Amica di Nonna Speranza", "type": "poem", "length": "long", "status": "DA VERIFICARE"}
+        ],
+        "removed": [
+          {"title": "L'Anatroccolo", "reason": "FAKE - Segnalato e rimosso in precedenza"}
+        ],
+        "verifiedWorks": "Le Dolci Rime (raccolta postuma, 1935)"
       },
       {
         "name": "Renzo Pezzani",
         "years": "1898-1951",
         "genre": "Filastrocche didattiche",
+        "verified": "2026-01-09",
         "works": [
-          {"title": "Filastrocche per tutto l'anno", "type": "collection", "length": "long"}
-        ]
+          {"title": "Filastrocche per tutto l'anno", "type": "collection", "length": "long", "status": "DA VERIFICARE"},
+          {"title": "I Mesi", "type": "poem", "length": "short", "status": "DA VERIFICARE", "source": "noinonni.it"},
+          {"title": "Aria di Pasqua", "type": "poem", "length": "short", "status": "DA VERIFICARE"},
+          {"title": "La Farfalla", "type": "poem", "length": "short", "status": "DA VERIFICARE"}
+        ],
+        "removed": [
+          {"title": "La Rondinella", "reason": "FAKE - Non risulta tra le opere verificate di Pezzani"},
+          {"title": "Il Semaforo", "reason": "FAKE - Non risulta tra le opere verificate di Pezzani. Esiste come filastrocca tradizionale anonima"}
+        ],
+        "verifiedSources": "filastrocche.it, noinonni.it"
       },
       {
         "name": "Trilussa",
         "years": "1871-1950",
         "genre": "Favole in versi (romanesco)",
+        "verified": "2026-01-09",
         "works": [
-          {"title": "Le Favole", "type": "collection", "length": "long"},
-          {"title": "Er Compagno Scompagno", "type": "poem", "length": "short"}
-        ]
+          {"title": "La Lumachella de la Vanagloria", "type": "poem", "length": "short", "status": "VERIFICATO", "source": "poesiedautore.it, aforismi.meglio.it", "note": "Solo 4 versi, NON 8 - versioni con 'acquazzone' sono FALSE"},
+          {"title": "La Lucciola", "type": "poem", "length": "short", "status": "VERIFICATO", "source": "Raccolta 'Acqua e Vino'"},
+          {"title": "Er Grillo Zoppo", "type": "poem", "length": "short", "status": "DA VERIFICARE"},
+          {"title": "Le Favole", "type": "collection", "length": "long", "status": "DA VERIFICARE"},
+          {"title": "Er Compagno Scompagno", "type": "poem", "length": "short", "status": "DA VERIFICARE"}
+        ],
+        "warning": "ATTENZIONE: Molte versioni 'semplificate per bambini' in circolazione sono ALTERATE. Verificare SEMPRE testo originale in romanesco."
       },
       {
         "name": "Giovanni Pascoli",

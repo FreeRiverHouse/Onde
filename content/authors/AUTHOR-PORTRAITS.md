@@ -82,5 +82,16 @@ natural skin tone NO rosy cheeks, 4k
 
 ## File Output
 Salvare in: `/Users/mattia/Projects/Onde/content/authors/`
-- `gianni-parola-portrait.jpg`
-- `pina-pennello-portrait.jpg`
+- `gianni-parola-portrait.jpg` - **DA GENERARE**
+- `pina-pennello-portrait.jpg` - **COMPLETATO (2026-01-09)**
+
+---
+
+## Status Generazione
+
+| Ritratto | Status | Data |
+|----------|--------|------|
+| Pina Pennello | COMPLETATO | 2026-01-09 |
+| Gianni Parola | DA FARE | - |
+
+**NOTA**: Per generare Gianni Parola serve accesso a Grok via browser (Claude for Chrome).

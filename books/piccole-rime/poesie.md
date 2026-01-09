@@ -60,25 +60,12 @@ e il cuor che l'ascolta e' felice.
 
 ---
 
-## 4. IL PAESE DEI BALOCCHI
-**Angiolo Silvio Novaro (1866-1938)**
+## 4. [RIMOSSO - TESTO NON VERIFICATO]
+**"Il Paese dei Balocchi" - FALSA ATTRIBUZIONE**
 
-```
-C'e' un paese dove i bimbi
-non han mai compiti e mai
-han vacanze tutto l'anno
-e i giocattoli non si rompono mai.
-
-La' le mamme non sgridano
-e i papa' sorridono sempre,
-la' le caramelle crescono
-come fiori a settembre.
-
-Ma quel paese, bimbi miei,
-e' lontano, tanto lontano!
-Per trovarlo ci vuole il sogno
-e la mano nella mano.
-```
+*Questo testo è stato rimosso perché attribuito falsamente a Novaro.*
+*Non risulta in nessuna delle sue opere verificate (Il Cestello, Il Piccolo Orfeo, etc.)*
+*Probabilmente inventato da AI.*
 
 ---
 
@@ -111,95 +98,72 @@ nella notte di gelo.
 
 ---
 
-## 7. LA RONDINELLA
-**Renzo Pezzani (1898-1951)**
+## 7. [RIMOSSO - TESTO NON VERIFICATO]
+**"La Rondinella" - FALSA ATTRIBUZIONE**
 
-```
-Rondinella che vai lontano
-sopra il mare, sotto il cielo,
-dove vai con tanto zelo
-con quel volo sovrumano?
-
-Vado al caldo, vado al sole,
-dove l'Africa m'aspetta,
-ma ritorno, ve lo giuro,
-quando torna Primavera.
-
-E la rondine e' partita
-col suo volo nero e bianco,
-ma al balcone del bambino
-tornera' senza mai stancarsi.
-```
+*Questo testo è stato rimosso perché attribuito falsamente a Renzo Pezzani.*
+*Non risulta tra le sue opere verificate su filastrocche.it e altre fonti.*
+*Probabilmente inventato da AI.*
 
 ---
 
-## 8. IL SEMAFORO
-**Renzo Pezzani (1898-1951)**
+## 8. [RIMOSSO - TESTO NON VERIFICATO]
+**"Il Semaforo" - FALSA ATTRIBUZIONE**
 
-```
-Rosso giallo verde,
-il semaforo non perde
-mai un colpo, mai un momento,
-regolando il movimento.
-
-Rosso: fermo, stai a guardare!
-Giallo: attento, sta' per cambiare!
-Verde: via, puoi camminare!
-
-Come un grande occhio lucente
-guida tutti attentamente,
-e se tutti lo rispettano
-mai incidenti accadranno.
-```
+*Questo testo è stato rimosso perché attribuito falsamente a Renzo Pezzani.*
+*Esistono filastrocche sul semaforo nella tradizione popolare, ma nessuna di Pezzani.*
+*Probabilmente inventato da AI.*
 
 ---
 
-## 9. LA LUMACA
-**Trilussa (1871-1950)**
+## 9. [DA CORREGGERE - VERSIONE ALTERATA]
+**"La Lumachella de la Vanagloria" - Trilussa (1871-1950)**
 
+**TESTO ORIGINALE VERIFICATO (4 versi):**
 ```
-La lumachella de la vanagloria
+La lumachella de la Vanagloria
 ch'era strisciata sopra un obelisco,
-guardo' la bava e disse: "Che delizia!
-Ho lasciato la traccia ne la storia!"
-
-Cosi' pensava, tutta soddisfatta,
-ma venne un acquazzone a mezzanotte
-e lavo' via la bava e la lumaca
-resto' senza la traccia e senza gloria.
+guardò la bava e disse: Già capisco
+che lascerò un'impronta ne la Storia.
 ```
 
-*Nota: Traduzione semplificata dal romanesco per bambini*
+*NOTA: Il testo precedente era ALTERATO - aggiungeva una seconda strofa*
+*con "acquazzone" che NON ESISTE nell'originale di Trilussa.*
+*Fonte: poesiedautore.it, aforismi.meglio.it*
 
 ---
 
-## 10. ER GRILLO
-**Trilussa (1871-1950)**
+## 10. [DA VERIFICARE - VERSIONE NON CONFERMATA]
+**"Er Grillo e la Lucciola" - Attribuito a Trilussa (1871-1950)**
 
-```
-Un grillo, ch'era pratico der monno,
-consigliava una lucciola cosi':
-"Accendi er lume solamente quanno
-te puo' servi' pe' li commodi tui;
+*ATTENZIONE: Questa versione specifica NON è stata confermata.*
+*Trilussa ha scritto poesie sulla lucciola ("La Lucciola" in "Acqua e Vino")*
+*e sul grillo ("Er Grillo Zoppo"), ma questa combinazione specifica*
+*non risulta verificata nelle sue opere.*
 
-che se lo lasci acceso tutto er giorno,
-la gente te lo scambia pe' un lampione:
-e tu farai la luce all'antra gente
-senz'avenne nisuno ricompensa".
-
-Ma la lucciola disse: "Io splendo sempre,
-perche' la luce e' fatta pe' dona'".
-```
-
-*Nota: Traduzione semplificata dal romanesco per bambini*
+*DA RICERCARE FONTI PRIMARIE prima di pubblicare.*
 
 ---
 
 ## Note sui Testi
 
-- Tutti i testi sono di autori in **pubblico dominio** (morti da oltre 70 anni)
-- Le poesie di Trilussa sono adattate/semplificate dal romanesco originale
-- Alcune poesie minori potrebbero avere varianti testuali
+**VERIFICA FILOLOGICA del 9 Gennaio 2026:**
+
+### Testi CONFERMATI (autentici):
+- **Stella Stellina** (Lina Schwarz) - Verificato
+- **Che dice la pioggerellina di marzo** (A.S. Novaro) - Verificato
+- **La Befana** (Guido Gozzano) - Verificato (nota: originale dice "scarpetta" non "calzetta")
+
+### Testi RIMOSSI (falsi o non verificabili):
+- "Il Paese dei Balocchi" (falsa attribuzione a Novaro)
+- "La Rondinella" (falsa attribuzione a Pezzani)
+- "Il Semaforo" (falsa attribuzione a Pezzani)
+
+### Testi DA CORREGGERE:
+- "La Lumachella de la Vanagloria" (Trilussa) - Testo alterato, ora corretto
+- "Er Grillo" (Trilussa) - Da verificare fonte primaria
+
+**REGOLA ONDE**: Mai pubblicare testi attribuiti ad autori reali senza verifica filologica.
 
 ---
 
