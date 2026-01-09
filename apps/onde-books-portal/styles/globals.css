@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Book card hover animation */
+.book-card {
+  transition: all 0.3s ease;
+}
+.book-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Language flag animation */
+.lang-flag {
+  transition: all 0.2s ease;
+}
+.lang-flag:hover {
+  transform: scale(1.2);
+}
+
+/* Category pill animation */
+.category-pill {
+  transition: all 0.2s ease;
+}
+.category-pill:hover {
+  transform: scale(1.05);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #C67B5C 0%, #A65D3F 50%, #D4A853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Wave animation for header */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.wave-icon {
+  animation: wave 2s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Staggered animation for grid items */
+.grid-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
