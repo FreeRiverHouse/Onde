@@ -331,30 +331,26 @@ NOT Pixar NOT 3D NOT cartoon, natural colors, 4k
 
 ---
 
-## 🚨 STILE EDITORIALE ONDE - VALORI TRADIZIONALI
+## 🎨 STILE VISIVO ONDE
 
-**Onde è una casa editrice con valori tradizionali. NO woke content.**
+**Onde punta sulla qualità estetica. Stile europeo, elegante, senza tempo.**
 
-### ⛔ VIETATO ASSOLUTO - ILLUSTRAZIONI
-- **NO PIXAR** - Mai stile 3D, cartoon americano, plasticoso
-- **NO GUANCE ROSSE** - Mai rosy cheeks, bambini con guance rosa/rosse
-- **NO stile Disney/DreamWorks** - Niente occhi grandi sproporzionati
+### ⛔ EVITARE - ILLUSTRAZIONI
+- **NO PIXAR/3D** - Mai stile cartoon americano plasticoso
+- **NO GUANCE ROSSE** - Mai rosy cheeks esagerate
+- **NO Disney/DreamWorks** - Niente occhi grandi sproporzionati
 - **NO colori saturi** - Niente colori brillanti plasticosi
-- **NO woke** - Niente diversità forzata, niente messaggi politically correct
 
-### ✅ STILE CORRETTO
+### ✅ STILE ONDE
 - **Acquarello europeo** - Morbido, elegante, naturale
-- **Anni '50-'60 italiano** - Luzzati, Munari, Beatrix Potter
+- **Beatrix Potter, Luzzati, Munari** - Riferimenti stilistici
 - **Colori naturali** - Palette morbide, luce dorata
-- **Bambini normali** - Aspetto naturale, carnagione normale SENZA guance rosse
-- **Famiglie tradizionali** - Mamma, papà, bambini
+- **Proporzioni realistiche** - Niente esagerazioni cartoon
 
 ### Nei prompt per AI (Grok, DALL-E, etc.):
-- **SEMPRE aggiungere**: "natural skin tone, NO rosy cheeks, NO red cheeks"
+- **SEMPRE aggiungere**: "natural skin tone, NO rosy cheeks"
 - **SEMPRE aggiungere**: "European watercolor style, NOT Pixar, NOT 3D, NOT cartoon"
-- Essere ESPLICITI: "two boys as friends" non "two children whispering"
-- Specificare SEMPRE: "traditional", "classic", "wholesome"
-- Evitare termini ambigui che AI possono interpretare male (hanno bias woke di default)
+- Specificare riferimenti: "Beatrix Potter style", "Luzzati aesthetic"
 
 ### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
 
@@ -372,10 +368,21 @@ NOT Pixar NOT 3D NOT cartoon, natural colors, 4k
 
 **ERRORE DA NON RIPETERE**: Generare ogni immagine da zero con prompt testuali = personaggio diverso ogni volta.
 
-### Perché:
-- I genitori normali vogliono libri tradizionali per i loro figli
-- La gente si è rotta il cazzo del wokeismo (ovunque, non solo in Europa)
-- Il nostro pubblico apprezza valori familiari classici, non propaganda
+### ⚠️ ATTENZIONE AL BIAS WOKE
+
+**Le AI generative (Grok, DALL-E, Midjourney) hanno bias woke di default.**
+
+Quando generi immagini, stai attento a:
+- **Diversità forzata** - AI tende a inserire diversità anche quando non richiesta
+- **Esagerazioni politically correct** - Evitare messaggi forzati
+- **Interpretazioni moderne** - Mantenere lo spirito classico delle storie originali
+
+**Nei prompt essere ESPLICITI:**
+- Specificare SEMPRE caratteristiche dei personaggi
+- Usare "traditional", "classic", "European" come keyword
+- Evitare termini ambigui che AI possono interpretare in modo woke
+
+**Il nostro pubblico**: Famiglie che cercano libri classici, eleganti, senza propaganda.
 
 ---
 
@@ -1398,17 +1405,36 @@ Vintage 1950s Italian children's book illustration, retro watercolor style, nost
 
 ### 📍 PATH SU SSD ESTERNO (IMPORTANTE!)
 **Path principale**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/`
-**Virtual env**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/venv/`
+**Conda env**: `/Volumes/DATI-SSD/onde-ai/miniforge3/envs/wav2lip/`
 **Modelli**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/checkpoints/`
 
-⚠️ **ASSICURARSI CHE L'SSD SIA COLLEGATO** prima di usare lip sync!
+⚠️ **ASSICURARSI CHE L'SSD "DATI-SSD" SIA COLLEGATO** prima di usare lip sync!
 
-### Come attivare
+### Come attivare (AGGIORNATO 9 Gen 2026)
 ```bash
+# 1. Attiva ambiente conda
+source /Volumes/DATI-SSD/onde-ai/miniforge3/bin/activate wav2lip
+
+# 2. Fix OpenMP (necessario su Mac)
+export KMP_DUPLICATE_LIB_OK=TRUE
+
+# 3. Vai alla cartella
 cd /Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip
-source venv/bin/activate
-python inference.py --face input.jpg --audio input.wav
+
+# 4. Esegui lip sync
+python run.py --face input.jpg --audio input.wav
 ```
+
+### Modelli installati (1.2GB totali)
+- `Wav2Lip.pth` (416MB) - base lip sync
+- `Wav2Lip_GAN.pth` (416MB) - lip sync migliorato
+- `GFPGANv1.4.pth` (332MB) - face enhancement
+- `shape_predictor_68_face_landmarks_GTX.dat` (63MB)
+
+### Note tecniche
+- Python 3.10 via Miniforge (conda-forge)
+- PyTorch 2.9.1 con **MPS** (Apple Silicon GPU)
+- dlib precompilato via conda (NO compilazione!)
 
 **Workflow:**
 1. Aggiungi job alla coda (immagine + audio)
