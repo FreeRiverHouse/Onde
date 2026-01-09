@@ -153,30 +153,53 @@ Includiamo HandsFree nel libro **"Vibe Coding"** - e uno strumento per vibe code
 - **Amazon NON lo fa** = opportunità enorme
 - Differenziatore competitivo unico
 
-### 🏗️ Features MVP
-- Ambiente di lettura rilassante (biblioteca, natura, spazio, camino)
-- Pagine che girano in 3D
-- Font grande e leggibile (comfort VR)
-- Supporto ePub
-- Sincronizzazione con account Onde Books
-- Modalità bambini (illustrazioni immersive a 360°)
+### ✅ PROTOTYPE WEBXR COMPLETATO (8 Gen 2026)
 
-### 🎯 Visione "Libri Immersivi"
+**Stack scelto**: WebXR + A-Frame (invece di Unity per prototipazione rapida)
+**Path**: `apps/onde-books-vr-web/`
+
+**Features implementate nel prototype:**
+- [x] Ambiente biblioteca 3D (camino animato, scaffali, poltrona, lampada)
+- [x] Libro 3D con pagine che girano
+- [x] Testo leggibile (font grande, contrasto alto)
+- [x] Animazione page turn
+- [x] Controlli Quest (trigger, A/B/X/Y buttons)
+- [x] Controlli desktop (tastiera + mouse)
+- [x] Parser ePub base
+
+**Come testare:**
+```bash
+cd apps/onde-books-vr-web
+npm install
+npm start
+# Apri http://localhost:8080 su Quest Browser
+# Clicca "Enter VR" per modalita' immersiva
+```
+
+**Contenuto demo**: Piccole Rime (Stella Stellina, Pioggerellina, Befana)
+
+### 🏗️ Features MVP Rimanenti
+- [ ] Caricamento ePub dinamico (UI per caricare propri libri)
+- [ ] Font SDF per leggibilita' perfetta
+- [ ] Immagini/illustrazioni nel libro
+- [ ] Audio ambient (camino, page turn)
+- [ ] Selezione ambiente (natura, spazio, mare)
+- [ ] Bookmark e salvataggio posizione
+- [ ] Sync con Onde Books account
+
+### 🎯 Visione "Libri Immersivi" (Futuro)
 - Libri per bambini dove le illustrazioni ti CIRCONDANO
 - Mentre leggi, l'ambiente cambia in base alla storia
 - Audio narrazione integrato
 - Interattività leggera (tocca elementi della scena)
 
-### 📋 Task
-- [ ] Prototype Unity per Quest
-- [ ] UI/UX lettura confortevole (no motion sickness)
-- [ ] Import ePub
-- [ ] Ambiente 3D di base (biblioteca accogliente)
-- [ ] Test su Quest 3
-- [ ] Sync con Onde Books account
+### 🔧 Stack Tecnologico
+- **A-Frame 1.5.0** - Framework WebXR
+- **A-Frame Extras** - Controlli locomotion
+- **JSZip** - Estrazione ePub
+- **Vanilla JS** - Nessun framework pesante
 
-### 📂 Path
-`apps/onde-books-vr/`
+**Nota**: Per versione production con grafica AAA → Unity. Per validare idea → WebXR vince.
 
 ---
 
