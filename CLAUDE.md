@@ -61,7 +61,37 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
-## REGOLA #1 - API FIRST
+## REGOLA #2 - BACKUP CHAT INCREMENTALE
+
+**DATA: 2026-01-10**
+
+**Ogni sessione deve salvare le idee importanti in `chat-history/`**
+
+### Come funziona:
+1. File giornaliero: `chat-history/YYYY-MM-DD-ideas.md`
+2. Aggiungere in modo INCREMENTALE (append, non sovrascrivere)
+3. Salvare: decisioni, idee, frasi chiave di Mattia
+4. Committare e pushare periodicamente
+
+### Formato:
+```markdown
+### [NUMERO]. TITOLO IDEA
+
+**Contesto**: ...
+**Decisione**: ...
+**Frase Mattia**: "..."
+```
+
+### Workflow:
+- Durante la sessione: salva idee importanti
+- Fine sessione: commit + push
+- GitHub Action manda digest giornaliero su Telegram (17:40 PT)
+
+**MAI perdere un'idea!**
+
+---
+
+## REGOLA #3 - API FIRST
 
 **PRIMA di fare QUALSIASI azione via browser, VERIFICA se esiste un'API.**
 

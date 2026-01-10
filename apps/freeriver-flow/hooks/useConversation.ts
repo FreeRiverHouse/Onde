@@ -1,7 +1,24 @@
+/**
+ * useConversation Hook
+ *
+ * Hook principale per gestire le conversazioni vocali con gli agenti Onde.
+ *
+ * Integra:
+ * - Voice Recording (expo-av)
+ * - Whisper API (speech-to-text)
+ * - Claude API (AI conversation)
+ * - TTS (text-to-speech via expo-speech o ElevenLabs)
+ *
+ * Stati: idle | listening | processing | speaking
+ */
+
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Audio } from 'expo-av';
-import * as Speech from 'expo-speech';
 import { getConfig, isElevenLabsAvailable } from '@/services/config';
+import { WhisperService, initWhisper, getWhisper } from '@/services/whisper';
+import { processVoiceCommand, type Message as ClaudeMessage } from '@/services/claude';
+import { tts } from '@/services/tts';
+import { agents, getAgentById, getAgentSystemPrompt, type Agent } from '@/data/agents';
 
 // ============================================
 // TYPES
@@ -17,252 +34,132 @@ export interface Message {
   agentId?: string;
 }
 
-export interface Agent {
-  id: string;
-  name: string;
-  role: string;
-  systemPrompt: string;
-  voiceId?: string; // ElevenLabs voice ID
+export interface UseConversationOptions {
+  /** ID agente iniziale (default: editore-capo) */
+  initialAgent?: string;
+  /** Usa ElevenLabs per TTS se disponibile (default: true) */
+  useElevenLabs?: boolean;
+  /** Callback quando cambia lo status */
+  onStatusChange?: (status: ConversationStatus) => void;
+  /** Callback quando arriva un messaggio */
+  onMessage?: (message: Message) => void;
+  /** Callback su errore */
+  onError?: (error: Error) => void;
 }
 
-// Default agents available in the app
-export const DEFAULT_AGENTS: Agent[] = [
-  {
-    id: 'editore-capo',
-    name: 'Editore Capo',
-    role: 'Coordina la produzione editoriale',
-    systemPrompt: `Sei l'Editore Capo di Onde, una casa editrice italiana.
-Coordini la produzione di libri per bambini.
-Rispondi in modo professionale ma caloroso, in italiano.
-Sei esperto di editoria, illustrazioni, e storytelling per bambini.`,
-  },
-  {
-    id: 'gianni-parola',
-    name: 'Gianni Parola',
-    role: 'Scrittore',
-    systemPrompt: `Sei Gianni Parola, lo scrittore di Onde.
-Scrivi storie per bambini con uno stile elegante e poetico.
-Ami le filastrocche, le rime, e le storie con una morale.
-Rispondi sempre in italiano con un tono creativo e ispirato.`,
-  },
-  {
-    id: 'pina-pennello',
-    name: 'Pina Pennello',
-    role: 'Illustratrice',
-    systemPrompt: `Sei Pina Pennello, l'illustratrice di Onde.
-Crei illustrazioni in stile acquarello europeo, ispirate a Beatrix Potter e Luzzati.
-Sei appassionata di arte, colori, e composizione visiva.
-Rispondi in italiano con entusiasmo artistico.`,
-  },
-  {
-    id: 'pr-agent',
-    name: 'PR Agent',
-    role: 'Marketing e comunicazione',
-    systemPrompt: `Sei il PR Agent di Onde.
-Ti occupi di social media, marketing, e comunicazione.
-Conosci le best practice per X/Twitter, Instagram, e TikTok.
-Rispondi in italiano con un tono professionale e strategico.`,
-  },
-];
-
-// ============================================
-// WHISPER SERVICE (Speech-to-Text)
-// ============================================
-
-async function transcribeAudio(audioUri: string): Promise<string> {
-  const config = getConfig();
-
-  // Read the audio file
-  const response = await fetch(audioUri);
-  const audioBlob = await response.blob();
-
-  // Create form data for OpenAI Whisper API
-  const formData = new FormData();
-  formData.append('file', {
-    uri: audioUri,
-    type: 'audio/m4a',
-    name: 'recording.m4a',
-  } as any);
-  formData.append('model', 'whisper-1');
-  formData.append('language', 'it'); // Italian
-
-  const whisperResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${config.openaiApiKey}`,
-    },
-    body: formData,
-  });
-
-  if (!whisperResponse.ok) {
-    const error = await whisperResponse.text();
-    throw new Error(`Whisper API error: ${error}`);
-  }
-
-  const result = await whisperResponse.json();
-  return result.text;
-}
-
-// ============================================
-// CLAUDE SERVICE (AI Conversation)
-// ============================================
-
-async function sendToClaude(
-  messages: { role: 'user' | 'assistant'; content: string }[],
-  systemPrompt: string
-): Promise<string> {
-  const config = getConfig();
-
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': config.anthropicApiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
-      system: systemPrompt,
-      messages: messages.map(m => ({
-        role: m.role,
-        content: m.content,
-      })),
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Claude API error: ${error}`);
-  }
-
-  const result = await response.json();
-  return result.content[0].text;
-}
-
-// ============================================
-// TTS SERVICE (Text-to-Speech)
-// ============================================
-
-async function speakText(text: string, voiceId?: string): Promise<void> {
-  const config = getConfig();
-
-  // Use ElevenLabs if available
-  if (isElevenLabsAvailable() && config.elevenLabsApiKey) {
-    return speakWithElevenLabs(text, voiceId || config.elevenLabsVoiceId || undefined);
-  }
-
-  // Fallback to device TTS
-  return speakWithDeviceTTS(text);
-}
-
-async function speakWithElevenLabs(text: string, voiceId?: string): Promise<void> {
-  const config = getConfig();
-
-  // Default Italian voice if not specified
-  const voice = voiceId || 'EXAVITQu4vr4xnSDxMaL'; // Sarah - good for Italian
-
-  const response = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${voice}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'xi-api-key': config.elevenLabsApiKey!,
-      },
-      body: JSON.stringify({
-        text,
-        model_id: 'eleven_multilingual_v2',
-        voice_settings: {
-          stability: 0.5,
-          similarity_boost: 0.75,
-        },
-      }),
-    }
-  );
-
-  if (!response.ok) {
-    console.warn('ElevenLabs API error, falling back to device TTS');
-    return speakWithDeviceTTS(text);
-  }
-
-  // Get audio data and play it
-  const audioBlob = await response.blob();
-  const audioUri = URL.createObjectURL(audioBlob);
-
-  const { sound } = await Audio.Sound.createAsync({ uri: audioUri });
-  await sound.playAsync();
-
-  // Wait for playback to complete
-  return new Promise((resolve) => {
-    sound.setOnPlaybackStatusUpdate((status) => {
-      if (status.isLoaded && status.didJustFinish) {
-        sound.unloadAsync();
-        resolve();
-      }
-    });
-  });
-}
-
-async function speakWithDeviceTTS(text: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    Speech.speak(text, {
-      language: 'it-IT',
-      rate: 0.9,
-      onDone: () => resolve(),
-      onError: (error) => reject(error),
-    });
-  });
-}
-
-async function stopSpeaking(): Promise<void> {
-  // Stop ElevenLabs playback would require tracking the sound object
-  // For now, just stop device TTS
-  await Speech.stop();
-}
-
-// ============================================
-// MAIN HOOK
-// ============================================
-
-export function useConversation() {
+export interface UseConversationReturn {
   // State
+  messages: Message[];
+  activeAgent: string;
+  status: ConversationStatus;
+  error: string | null;
+  currentAgent: Agent | undefined;
+  agents: Agent[];
+
+  // Actions
+  startListening: () => Promise<void>;
+  stopListening: () => Promise<void>;
+  sendMessage: (text: string) => Promise<void>;
+  cancelSpeaking: () => Promise<void>;
+  clearMessages: () => void;
+  setActiveAgent: (agentId: string, clearHistory?: boolean) => void;
+}
+
+// Re-export types for convenience
+export type { Agent };
+
+// Export agents list
+export const DEFAULT_AGENTS = agents;
+
+// ============================================
+// HOOK IMPLEMENTATION
+// ============================================
+
+export function useConversation(options: UseConversationOptions = {}): UseConversationReturn {
+  const {
+    initialAgent = 'editore-capo',
+    useElevenLabs: preferElevenLabs = true,
+    onStatusChange,
+    onMessage,
+    onError,
+  } = options;
+
+  // ----------------------------------------
+  // State
+  // ----------------------------------------
   const [messages, setMessages] = useState<Message[]>([]);
-  const [activeAgent, setActiveAgent] = useState<string>('editore-capo');
-  const [status, setStatus] = useState<ConversationStatus>('idle');
+  const [activeAgent, setActiveAgentState] = useState<string>(initialAgent);
+  const [status, setStatusInternal] = useState<ConversationStatus>('idle');
   const [error, setError] = useState<string | null>(null);
 
   // Refs for audio recording
   const recordingRef = useRef<Audio.Recording | null>(null);
-  const soundRef = useRef<Audio.Sound | null>(null);
+  const whisperRef = useRef<WhisperService | null>(null);
 
   // Get current agent
-  const currentAgent = DEFAULT_AGENTS.find(a => a.id === activeAgent) || DEFAULT_AGENTS[0];
+  const currentAgent = getAgentById(activeAgent);
 
-  // Initialize audio on mount
+  // ----------------------------------------
+  // Status Management
+  // ----------------------------------------
+  const setStatus = useCallback((newStatus: ConversationStatus) => {
+    setStatusInternal(newStatus);
+    onStatusChange?.(newStatus);
+  }, [onStatusChange]);
+
+  // ----------------------------------------
+  // Initialize Services
+  // ----------------------------------------
   useEffect(() => {
-    Audio.setAudioModeAsync({
-      allowsRecordingIOS: true,
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: false,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-    });
+    const init = async () => {
+      try {
+        const config = getConfig();
 
-    return () => {
-      // Cleanup
-      if (recordingRef.current) {
-        recordingRef.current.stopAndUnloadAsync();
-      }
-      if (soundRef.current) {
-        soundRef.current.unloadAsync();
+        // Initialize Whisper
+        whisperRef.current = initWhisper(config.openaiApiKey);
+
+        // Initialize TTS
+        if (preferElevenLabs && isElevenLabsAvailable()) {
+          tts.configure({
+            defaultProvider: 'elevenlabs',
+            elevenLabsApiKey: config.elevenLabsApiKey || undefined,
+            defaultVoiceId: config.elevenLabsVoiceId || undefined,
+            defaultLanguage: 'it-IT',
+          });
+        } else {
+          tts.configure({
+            defaultProvider: 'expo-speech',
+            defaultLanguage: 'it-IT',
+          });
+        }
+
+        // Configure audio mode
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          playsInSilentModeIOS: true,
+          staysActiveInBackground: false,
+          shouldDuckAndroid: true,
+          playThroughEarpieceAndroid: false,
+        });
+      } catch (err) {
+        console.error('Error initializing conversation services:', err);
       }
     };
-  }, []);
 
-  // ============================================
-  // Start listening (voice recording)
-  // ============================================
+    init();
+
+    // Cleanup
+    return () => {
+      if (recordingRef.current) {
+        recordingRef.current.stopAndUnloadAsync().catch(() => {});
+      }
+      tts.stop().catch(() => {});
+    };
+  }, [preferElevenLabs]);
+
+  // ----------------------------------------
+  // Start Listening (Voice Recording)
+  // ----------------------------------------
   const startListening = useCallback(async () => {
     try {
       setError(null);
@@ -291,13 +188,14 @@ export function useConversation() {
       const message = err instanceof Error ? err.message : 'Errore durante la registrazione';
       setError(message);
       setStatus('idle');
+      onError?.(err instanceof Error ? err : new Error(message));
       console.error('startListening error:', err);
     }
-  }, []);
+  }, [setStatus, onError]);
 
-  // ============================================
-  // Stop listening and process audio
-  // ============================================
+  // ----------------------------------------
+  // Stop Listening and Process
+  // ----------------------------------------
   const stopListening = useCallback(async () => {
     try {
       if (!recordingRef.current) {
@@ -322,8 +220,16 @@ export function useConversation() {
         playsInSilentModeIOS: true,
       });
 
-      // Transcribe with Whisper
-      const transcript = await transcribeAudio(audioUri);
+      // Get Whisper service
+      const whisper = whisperRef.current || getWhisper();
+
+      // Validate and transcribe
+      const isValid = await whisper.validateAudioFile(audioUri);
+      if (!isValid) {
+        throw new Error('File audio non valido');
+      }
+
+      const { text: transcript } = await whisper.transcribe(audioUri);
 
       if (!transcript.trim()) {
         setStatus('idle');
@@ -332,55 +238,58 @@ export function useConversation() {
 
       // Add user message
       const userMessage: Message = {
-        id: Date.now().toString(),
+        id: `msg_${Date.now()}`,
         role: 'user',
         content: transcript,
         timestamp: new Date(),
       };
 
       setMessages(prev => [...prev, userMessage]);
+      onMessage?.(userMessage);
 
       // Build conversation history for Claude
-      const conversationHistory = messages
+      // Filter to current agent's conversation
+      const conversationHistory: ClaudeMessage[] = messages
         .filter(m => m.agentId === activeAgent || m.agentId === undefined)
         .slice(-10) // Keep last 10 messages for context
         .map(m => ({ role: m.role, content: m.content }));
 
-      conversationHistory.push({ role: 'user', content: transcript });
-
       // Get response from Claude
-      const response = await sendToClaude(
-        conversationHistory,
-        currentAgent.systemPrompt
-      );
+      const result = await processVoiceCommand(transcript, conversationHistory);
+
+      if (!result.success) {
+        throw new Error(result.response);
+      }
 
       // Add assistant message
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `msg_${Date.now() + 1}`,
         role: 'assistant',
-        content: response,
+        content: result.response,
         timestamp: new Date(),
         agentId: activeAgent,
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      onMessage?.(assistantMessage);
 
       // Speak the response
       setStatus('speaking');
-      await speakText(response, currentAgent.voiceId);
+      await tts.speak(result.response);
 
       setStatus('idle');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Errore durante l\'elaborazione';
       setError(message);
       setStatus('idle');
+      onError?.(err instanceof Error ? err : new Error(message));
       console.error('stopListening error:', err);
     }
-  }, [messages, activeAgent, currentAgent]);
+  }, [messages, activeAgent, setStatus, onMessage, onError]);
 
-  // ============================================
-  // Send text message directly (without voice)
-  // ============================================
+  // ----------------------------------------
+  // Send Text Message (Without Voice)
+  // ----------------------------------------
   const sendMessage = useCallback(async (text: string) => {
     try {
       if (!text.trim()) return;
@@ -390,77 +299,89 @@ export function useConversation() {
 
       // Add user message
       const userMessage: Message = {
-        id: Date.now().toString(),
+        id: `msg_${Date.now()}`,
         role: 'user',
         content: text,
         timestamp: new Date(),
       };
 
       setMessages(prev => [...prev, userMessage]);
+      onMessage?.(userMessage);
 
       // Build conversation history for Claude
-      const conversationHistory = messages
+      const conversationHistory: ClaudeMessage[] = messages
         .filter(m => m.agentId === activeAgent || m.agentId === undefined)
         .slice(-10)
         .map(m => ({ role: m.role, content: m.content }));
 
-      conversationHistory.push({ role: 'user', content: text });
-
       // Get response from Claude
-      const response = await sendToClaude(
-        conversationHistory,
-        currentAgent.systemPrompt
-      );
+      const result = await processVoiceCommand(text, conversationHistory);
+
+      if (!result.success) {
+        throw new Error(result.response);
+      }
 
       // Add assistant message
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `msg_${Date.now() + 1}`,
         role: 'assistant',
-        content: response,
+        content: result.response,
         timestamp: new Date(),
         agentId: activeAgent,
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      onMessage?.(assistantMessage);
 
       // Speak the response
       setStatus('speaking');
-      await speakText(response, currentAgent.voiceId);
+      await tts.speak(result.response);
 
       setStatus('idle');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Errore durante l\'invio';
       setError(message);
       setStatus('idle');
+      onError?.(err instanceof Error ? err : new Error(message));
       console.error('sendMessage error:', err);
     }
-  }, [messages, activeAgent, currentAgent]);
+  }, [messages, activeAgent, setStatus, onMessage, onError]);
 
-  // ============================================
-  // Stop speaking
-  // ============================================
+  // ----------------------------------------
+  // Cancel Speaking
+  // ----------------------------------------
   const cancelSpeaking = useCallback(async () => {
-    await stopSpeaking();
+    await tts.stop();
     setStatus('idle');
-  }, []);
+  }, [setStatus]);
 
-  // ============================================
-  // Clear conversation history
-  // ============================================
+  // ----------------------------------------
+  // Clear Messages
+  // ----------------------------------------
   const clearMessages = useCallback(() => {
     setMessages([]);
   }, []);
 
-  // ============================================
-  // Switch agent and optionally clear history
-  // ============================================
-  const switchAgent = useCallback((agentId: string, clearHistory: boolean = false) => {
-    setActiveAgent(agentId);
+  // ----------------------------------------
+  // Switch Agent
+  // ----------------------------------------
+  const setActiveAgent = useCallback((agentId: string, clearHistory: boolean = false) => {
+    // Verify agent exists
+    const agent = getAgentById(agentId);
+    if (!agent) {
+      console.warn(`Agent not found: ${agentId}`);
+      return;
+    }
+
+    setActiveAgentState(agentId);
     if (clearHistory) {
       setMessages([]);
     }
   }, []);
 
+  // ----------------------------------------
+  // Return
+  // ----------------------------------------
   return {
     // State
     messages,
@@ -468,7 +389,7 @@ export function useConversation() {
     status,
     error,
     currentAgent,
-    agents: DEFAULT_AGENTS,
+    agents,
 
     // Actions
     startListening,
@@ -476,7 +397,7 @@ export function useConversation() {
     sendMessage,
     cancelSpeaking,
     clearMessages,
-    setActiveAgent: switchAgent,
+    setActiveAgent,
   };
 }
 
