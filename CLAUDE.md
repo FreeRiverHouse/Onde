@@ -1347,11 +1347,74 @@ L'agent può:
 
 **È una strategia virale intenzionale.** La canzone stupida fa conoscere il brand.
 
-### TASK IMMEDIATI (con Chrome connesso)
-1. **Design EMILIO** - Generare su Grok, stile Salmo 23
-2. **Profilo X** - Creare @Emil_io o simile
-3. **Primi contenuti** - 10 post pronti per lancio
-4. **Rigenerare libri** - Sostituire AIKO → EMILIO
+### ⛏️ STRATEGIA MINECRAFT - EMILIO GAMER (9 Gen 2026)
+**EMILIO diventa uno YouTuber/TikToker che gioca a Minecraft!**
+
+**Perché Minecraft:**
+- Viralissimo tra i bambini
+- Mattia ha GIÀ un server Minecraft che gira sul Mac
+- Possiamo creare skin/personaggi EMILIO dentro il gioco
+- I figli di Mattia (Neri) e i loro amici possono giocare
+- COMMUNITY: bambini che giocano con EMILIO
+
+**Contenuto EMILIO su Minecraft:**
+1. 🎮 **Video gameplay** - EMILIO gioca a Minecraft
+2. 🎵 **Canzoni stupide** - "Ha Ha Cookie" mentre gioca
+3. 📚 **Insegna AI** - Spiega concetti mentre costruisce
+4. 👨‍👩‍👧‍👦 **Community** - Server dove i bambini giocano insieme
+
+**Da fare:**
+- [ ] Creare skin EMILIO per Minecraft
+- [ ] Brandizzare il server esistente
+- [ ] Primi video: EMILIO costruisce, canta, insegna
+- [ ] Bot EMILIO NPC nel server?
+
+**Formula virale:**
+Robot EMILIO + Minecraft + Canzoni stupide + Lezioni AI = 🚀
+
+### 🎨 TASK #1 - DESIGN EMILIO (PRIORITÀ ASSOLUTA)
+
+**EMILIO DEVE SPACCARE.**
+
+Quando la gente lo vede, deve:
+- Sbavare
+- Voler comprare il peluche
+- Riconoscerlo SUBITO (come Pikachu, Totoro, Baby Yoda)
+
+**INCARICO A PINA PENNELLO:**
+1. **STUDIA IL MERCATO** - Analizza i personaggi iconici:
+   - Peppa Pig (semplicità estrema)
+   - Bluey (espressività, famiglia)
+   - Totoro (tenerezza, rotondità)
+   - Baby Yoda (occhioni, proporzioni baby)
+   - WALL-E (robot tenero, espressivo)
+   - Baymax (morbido, rassicurante)
+
+2. **CICLI DI REVIEW** - Non fermarti alla prima versione:
+   - Genera 10+ varianti
+   - Testa con persone reali
+   - Itera, itera, itera
+
+3. **CHECKLIST ICONICITÀ**:
+   - [ ] Riconoscibile in 1 secondo?
+   - [ ] Funziona in silhouette?
+   - [ ] Funziona piccolo (icona app)?
+   - [ ] Funziona grande (peluche)?
+   - [ ] Espressivo senza parlare?
+   - [ ] I bambini lo vogliono abbracciare?
+   - [ ] I genitori lo trovano carino?
+
+4. **STILE**: Acquarello dorato Onde, MA deve funzionare anche come:
+   - Peluche 3D
+   - Icona app
+   - Merchandise
+
+**TEMPO**: Ore di lavoro, non minuti. Questo è IL personaggio.
+
+### TASK SECONDARI (con Chrome connesso)
+1. **Profilo X** - Creare @Emil_io o simile
+2. **Primi contenuti** - 10 post pronti per lancio
+3. **Rigenerare libri** - Sostituire AIKO → EMILIO
 
 ### Fabbrica Sbloccata
 - 89 task disponibili nel sistema worker

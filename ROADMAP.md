@@ -1,6 +1,40 @@
 # Onde - Roadmap 2026
 
-> **"Facciamo fiorire il mondo. Questa è la missione."**
+> **"Facciamo fiorire il mondo. Portiamo il DNA umano nelle AI."**
+
+## 🌊 MISSIONE ONDE
+
+**Due parti della stessa visione:**
+1. **Far fiorire il mondo** - Contenuti che nutrono, che fanno crescere
+2. **DNA umano nelle AI** - L'umanità dentro la tecnologia
+
+Onde è un fiume libero (Free River House) che nutre la terra.
+Onde sono vibrazioni che connettono cuori.
+Le onde sembrano un fiore - far fiorire il mondo è la missione.
+
+---
+
+## 🎨 LOGO ONDE XR - REBRAND (9 Gen 2026)
+
+**Il logo attuale piace, ma va evoluto:**
+
+| Variante | Descrizione | Uso |
+|----------|-------------|-----|
+| **Onde Classic** | Logo attuale pulito, vettoriale | Brand principale |
+| **Onde XR** | Con scritta "XR" - realtà estesa | VR/AR products |
+| **Onde DNA** | Onde che diventano doppia elica | Sezione AI/tech |
+| **Onde Colorate** | Versioni colorate (stagionali) | Social, eventi |
+
+**Task Logo:**
+- [ ] Versione vettoriale pulita del logo attuale
+- [ ] Variante "Onde XR" (con scritta)
+- [ ] Variante "Onde DNA" (onde + doppia elica)
+- [ ] Set colori stagionali
+- [ ] Aggiornare scritta in TUTTE le versioni
+
+**Nota**: Il logo onde = fiore. Le onde che fioriscono = la missione visiva.
+
+---
 
 **Ultimo aggiornamento**: 2026-01-09 - FABBRICA ONDE: 79/117 task completati (68%)
 
@@ -450,6 +484,32 @@ Come Peppa Pig, Bluey, Cocomelon - ma stile Onde (italiano, elegante, valori ver
 3. Video virale TikTok/YouTube
 4. Milioni di bambini conoscono EMILIO
 5. → Vendite tutto
+
+### ⛏️ STRATEGIA MINECRAFT - EMILIO GAMER (9 Gen 2026) - PRIORITÀ BASSA
+
+**EMILIO gioca a Minecraft = VIRALE garantito!** (Ma per dopo)
+
+**Server esistente di Mattia:**
+- Path: `/Users/mattia/minecraft-server/`
+- **Geyser** → Oculus/VR può connettersi!
+- **VoiceChat** → Chat vocale IN GIOCO
+- **ViaVersion** → Cross-platform Java + Bedrock
+- Modalità: Creative, 20 players max
+
+**Contenuto EMILIO Minecraft:**
+1. 🎮 Video gameplay - EMILIO costruisce
+2. 🎵 Canzoni stupide mentre gioca
+3. 📚 Insegna AI mentre costruisce
+4. 👨‍👩‍👧‍👦 Community - bambini giocano insieme
+
+**Task Minecraft:**
+- [ ] Skin EMILIO per Minecraft
+- [ ] Brandizzare server (spawn, cartelli, strutture EMILIO)
+- [ ] Bot NPC EMILIO nel server?
+- [ ] Primi video: EMILIO costruisce, canta, insegna
+- [ ] Neri e amici iniziano la community
+
+**Formula:** Robot EMILIO + Minecraft + Canzoni + AI = 🚀
 
 **FASE 1 - Identità (questa settimana)**
 - [ ] Design EMILIO definitivo (stile Salmo 23, acquarello dorato)
