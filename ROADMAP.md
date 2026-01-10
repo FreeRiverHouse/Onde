@@ -973,6 +973,32 @@ apps/
 4. **Nature ambient** - Foresta, mare, montagna
 5. **Italian countryside** - Paesaggi italiani + musica soft
 
+### 🍼 PARENTING TIPS NEI VIDEO (IMPORTANTE!)
+
+**Concetto chiave**: I video white noise/ambient NON sono solo rumore di fondo!
+
+**Come funziona:**
+- Il genitore mette il video per far dormire il bambino
+- Mentre il bambino si addormenta, il genitore VEDE consigli utili
+- **Audio**: Solo white noise/ambient (il bambino dorme)
+- **Video**: Testo con parenting tips sovrapposti
+- **Sottotitoli**: Inglese + traduzioni automatiche (ES, IT, FR, DE, PT, etc.)
+
+**Perché è GOLD:**
+- Il genitore è CAPTIVE AUDIENCE (non può fare altro mentre aspetta che il bimbo dorma)
+- Contenuto utile = più watch time = algoritmo felice
+- Differenziatore unico vs competitor (loro hanno solo rumore)
+- Cross-sell libri Onde per genitori
+
+**Tipi di tips:**
+- Consigli per far dormire i bambini
+- Routine della nanna
+- Sviluppo infantile
+- Gestione stress genitoriale
+- Citazioni ispiranti per genitori stanchi
+
+**Applicare a TUTTI i video ambient**, non solo white noise!
+
 ### 🛠️ Pipeline Produzione
 1. **Immagine**: Grok genera scena (stile Onde o realistico)
 2. **Animazione**: Leggero movimento (parallax, particelle, luce)

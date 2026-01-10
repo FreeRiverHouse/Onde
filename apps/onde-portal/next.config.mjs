@@ -1,16 +1,11 @@
-import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev'
-
-// Setup Cloudflare dev platform
-if (process.env.NODE_ENV === 'development') {
-  setupDevPlatform()
-}
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: true,
   },
+  // Static export for Cloudflare Pages
+  output: 'export',
   // Ignore ESLint errors during build (fix later)
   eslint: {
     ignoreDuringBuilds: true,
@@ -19,6 +14,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Skip API routes in static export
+  trailingSlash: true,
 }
 
 export default nextConfig

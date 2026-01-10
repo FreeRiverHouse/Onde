@@ -1,5 +1,8 @@
 // FreeRiver Flow - UI Components
-// Onde branded chat components for AI agent interactions
+// Onde branded components for AI agent interactions
+
+export { VoiceButton } from './VoiceButton';
+export type { VoiceButtonStatus } from './VoiceButton';
 
 export { AgentCard } from './AgentCard';
 export type { Agent, AgentStatus } from './AgentCard';

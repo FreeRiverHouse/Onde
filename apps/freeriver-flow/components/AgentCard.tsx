@@ -55,58 +55,55 @@ interface AgentCardProps {
 }
 
 export function AgentCard({ agent, onPress, style }: AgentCardProps) {
-  const { name, emoji, role, status, isSpeaking } = agent;
+  const { name, role, status, lastMessage } = agent;
 
   // Animation values
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const glowAnim = useRef(new Animated.Value(0)).current;
 
-  // Speaking animation - pulsing effect
+  // Determine if agent is active (not idle)
+  const isActive = status !== 'idle';
+
+  // Animation for active states (listening, thinking, speaking)
   useEffect(() => {
-    if (isSpeaking) {
+    if (isActive) {
       const pulseAnimation = Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, {
-            toValue: 1.15,
-            duration: 300,
+            toValue: 1.08,
+            duration: 400,
             useNativeDriver: true,
           }),
           Animated.timing(pulseAnim, {
             toValue: 1,
-            duration: 300,
+            duration: 400,
             useNativeDriver: true,
           }),
         ])
       );
 
-      const glowAnimation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(glowAnim, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: false,
-          }),
-          Animated.timing(glowAnim, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: false,
-          }),
-        ])
-      );
+      const glowAnimation = Animated.timing(glowAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      });
 
       pulseAnimation.start();
       glowAnimation.start();
 
       return () => {
         pulseAnimation.stop();
-        glowAnimation.stop();
       };
     } else {
       pulseAnim.setValue(1);
-      glowAnim.setValue(0);
+      Animated.timing(glowAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: false,
+      }).start();
     }
-  }, [isSpeaking, pulseAnim, glowAnim]);
+  }, [isActive, pulseAnim, glowAnim]);
 
   // Press animation
   const handlePressIn = () => {
@@ -129,25 +126,41 @@ export function AgentCard({ agent, onPress, style }: AgentCardProps) {
     onPress?.(agent);
   };
 
-  // Get status color and label
-  const getStatusConfig = (status: AgentStatus) => {
-    switch (status) {
-      case 'selected':
-        return { color: COLORS.selected, label: 'Attivo' };
-      case 'busy':
-        return { color: COLORS.busy, label: 'Occupato' };
+  // Get status configuration
+  const getStatusConfig = (agentStatus: AgentStatus) => {
+    switch (agentStatus) {
+      case 'listening':
+        return { color: COLORS.listening, label: 'In ascolto', icon: '' };
+      case 'thinking':
+        return { color: COLORS.thinking, label: 'Elabora...', icon: '' };
+      case 'speaking':
+        return { color: COLORS.speaking, label: 'Parla', icon: '' };
       case 'idle':
       default:
-        return { color: COLORS.idle, label: 'Disponibile' };
+        return { color: COLORS.idle, label: 'Disponibile', icon: '' };
     }
   };
 
-  const statusConfig = getStatusConfig(status);
+  // Get emoji for agent based on name
+  const getAgentEmoji = (agentName: string): string => {
+    const emojiMap: Record<string, string> = {
+      'Scrittore': '',
+      'Illustratore': '',
+      'Publisher': '',
+      'Marketing': '',
+      'Editore': '',
+      'PR': '',
+    };
+    return emojiMap[agentName] || '';
+  };
 
-  // Interpolate glow color for speaking animation
+  const statusConfig = getStatusConfig(status);
+  const emoji = getAgentEmoji(name);
+
+  // Interpolate glow color based on status
   const glowColor = glowAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['rgba(52, 152, 219, 0)', 'rgba(52, 152, 219, 0.4)'],
+    outputRange: ['rgba(59, 130, 246, 0)', `${statusConfig.color}40`],
   });
 
   return (
@@ -166,11 +179,11 @@ export function AgentCard({ agent, onPress, style }: AgentCardProps) {
         onPressOut={handlePressOut}
         style={[
           styles.card,
-          status === 'selected' && styles.cardSelected,
+          isActive && styles.cardActive,
         ]}
       >
-        {/* Speaking glow effect */}
-        {isSpeaking && (
+        {/* Glow effect for active states */}
+        {isActive && (
           <Animated.View
             style={[
               styles.glowOverlay,
@@ -190,19 +203,15 @@ export function AgentCard({ agent, onPress, style }: AgentCardProps) {
         >
           <View style={[
             styles.avatar,
-            isSpeaking && styles.avatarSpeaking,
+            isActive && { borderColor: statusConfig.color },
           ]}>
             <Text style={styles.emoji}>{emoji}</Text>
           </View>
 
-          {/* Speaking indicator */}
-          {isSpeaking && (
-            <View style={styles.speakingIndicator}>
-              <View style={styles.soundWave}>
-                <View style={[styles.soundBar, styles.soundBar1]} />
-                <View style={[styles.soundBar, styles.soundBar2]} />
-                <View style={[styles.soundBar, styles.soundBar3]} />
-              </View>
+          {/* Status icon indicator */}
+          {isActive && (
+            <View style={[styles.statusIcon, { backgroundColor: statusConfig.color }]}>
+              <Text style={styles.statusIconText}>{statusConfig.icon}</Text>
             </View>
           )}
         </Animated.View>
@@ -227,6 +236,13 @@ export function AgentCard({ agent, onPress, style }: AgentCardProps) {
             {statusConfig.label}
           </Text>
         </View>
+
+        {/* Last message preview */}
+        {lastMessage && (
+          <Text style={styles.lastMessage} numberOfLines={2}>
+            {lastMessage}
+          </Text>
+        )}
       </Pressable>
     </Animated.View>
   );
@@ -234,25 +250,25 @@ export function AgentCard({ agent, onPress, style }: AgentCardProps) {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: 120,
+    width: '47%',
+    marginBottom: 4,
   },
   card: {
     backgroundColor: COLORS.surface,
-    borderRadius: 20,
-    padding: 16,
+    borderRadius: 16,
+    padding: 14,
     alignItems: 'center',
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: COLORS.border,
     shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
     overflow: 'hidden',
   },
-  cardSelected: {
-    borderColor: COLORS.selected,
-    borderWidth: 3,
+  cardActive: {
+    borderWidth: 2,
   },
   glowOverlay: {
     position: 'absolute',
@@ -260,69 +276,52 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderRadius: 18,
+    borderRadius: 14,
   },
   avatarContainer: {
     position: 'relative',
-    marginBottom: 12,
+    marginBottom: 10,
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: COLORS.background,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: COLORS.surfaceHighlight,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
     borderColor: COLORS.border,
   },
-  avatarSpeaking: {
-    borderColor: COLORS.secondary,
-    borderWidth: 3,
-  },
   emoji: {
-    fontSize: 36,
+    fontSize: 28,
   },
-  speakingIndicator: {
+  statusIcon: {
     position: 'absolute',
-    bottom: -4,
-    right: -4,
-    backgroundColor: COLORS.secondary,
+    bottom: -2,
+    right: -2,
+    width: 20,
+    height: 20,
     borderRadius: 10,
-    padding: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: COLORS.surface,
   },
-  soundWave: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    height: 12,
-    gap: 2,
-  },
-  soundBar: {
-    width: 3,
-    backgroundColor: COLORS.surface,
-    borderRadius: 1.5,
-  },
-  soundBar1: {
-    height: 6,
-  },
-  soundBar2: {
-    height: 12,
-  },
-  soundBar3: {
-    height: 8,
+  statusIconText: {
+    fontSize: 10,
   },
   name: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     color: COLORS.textPrimary,
     textAlign: 'center',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   role: {
-    fontSize: 11,
+    fontSize: 10,
     color: COLORS.textSecondary,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   statusContainer: {
     flexDirection: 'row',
@@ -330,13 +329,20 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
   statusText: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '600',
+  },
+  lastMessage: {
+    marginTop: 8,
+    fontSize: 9,
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
 

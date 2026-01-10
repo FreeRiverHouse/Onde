@@ -1,172 +1,98 @@
-# Deploy Onde Portal su Mac Locale
+# Deploy Onde Portal
 
-## Prerequisiti
+## Cloudflare Pages (Produzione)
 
-- Node.js 18+
-- npm o pnpm
-- Porta 3000 libera (o altra porta)
+### Configurazione
+
+Il sito viene esportato come **sito statico** (output: 'export' in next.config.mjs).
+
+**IMPORTANTE**: Le API routes NON sono incluse nel build statico. La pagina `/libro/[id]` fetcha direttamente da Project Gutenberg client-side.
+
+### Deploy Manuale
+
+```bash
+cd /Users/mattia/Projects/Onde/apps/onde-portal
+
+# Build del sito statico
+npm run build
+
+# Deploy su Cloudflare Pages
+npx wrangler pages deploy out --project-name=onde-portal
+```
+
+### Deploy Automatico (GitHub)
+
+Cloudflare Pages puo' essere configurato per deployare automaticamente su push a GitHub:
+
+1. Vai su Cloudflare Dashboard > Pages
+2. Crea nuovo progetto o seleziona "onde-portal"
+3. Collega il repository GitHub (FreeRiverHouse/Onde)
+4. Configura:
+   - **Build command**: `cd apps/onde-portal && npm install && npm run build`
+   - **Build output directory**: `apps/onde-portal/out`
+   - **Root directory**: `/` (root del repo)
+
+### Domini
+
+- **Produzione**: onde.la (da configurare in Cloudflare)
+- **Staging**: onde.surf (da configurare)
+- **Preview**: onde-portal.pages.dev (automatico)
 
 ---
 
-## Deploy Locale (Sviluppo)
+## Sviluppo Locale
 
-### 1. Installare dipendenze
+### Modalita Sviluppo
+
 ```bash
 cd /Users/mattia/Projects/Onde/apps/onde-portal
 npm install
-```
-
-### 2. Avviare in modalita sviluppo
-```bash
 npm run dev
 ```
 
-### 3. Accedere
-- URL: http://localhost:3000
+URL: http://localhost:3000
 
----
+### Build di Produzione Locale
 
-## Deploy Locale (Produzione)
-
-### 1. Build del progetto
 ```bash
 npm run build
-```
-
-### 2. Avviare in produzione
-```bash
 npm run start
 ```
 
-### 3. Avvio automatico con PM2 (raccomandato)
-```bash
-# Installare PM2 globalmente
-npm install -g pm2
+---
 
-# Avviare con PM2
-pm2 start npm --name "onde-portal" -- start
+## Note Tecniche
 
-# Salvare configurazione
-pm2 save
+### Stack
+- **Framework**: Next.js 15.5.2 (App Router)
+- **Styling**: Tailwind CSS
+- **Animazioni**: Framer Motion
+- **Deploy**: Static export su Cloudflare Pages
 
-# Avvio automatico al boot
-pm2 startup
-```
+### Limitazioni Static Export
+
+Con `output: 'export'`:
+- Le API routes NON sono disponibili in produzione
+- Ogni pagina dinamica richiede `generateStaticParams()`
+- Il fetch dei dati avviene client-side
+
+### Pagine
+
+| Pagina | Tipo | Note |
+|--------|------|------|
+| `/` | Statica | Homepage |
+| `/catalogo` | Statica | Lista libri |
+| `/libro/[id]` | SSG | Pre-generata per ogni libro |
+| `/about`, `/app`, `/vr`, etc. | Statiche | Pagine informative |
+| `/account`, `/famiglia`, `/libreria` | Statiche | UI senza backend |
+
+### Futuro: API Routes
+
+Se servono API routes funzionanti:
+1. Usare Cloudflare Workers separati
+2. Oppure migrare su Vercel (supporta API routes native)
+3. Oppure usare OpenNext per Cloudflare (piu' complesso)
 
 ---
 
-## Dominio Locale con /etc/hosts
-
-### 1. Aggiungere entry
-```bash
-sudo nano /etc/hosts
-```
-
-Aggiungere:
-```
-127.0.0.1 onde.local
-127.0.0.1 books.onde.local
-```
-
-### 2. Accedere con dominio locale
-- http://onde.local:3000
-
----
-
-## SSL Locale con mkcert
-
-### 1. Installare mkcert
-```bash
-brew install mkcert
-mkcert -install
-```
-
-### 2. Generare certificati
-```bash
-cd /Users/mattia/Projects/Onde/apps/onde-portal
-mkcert onde.local books.onde.local localhost
-```
-
-### 3. Usare con Caddy (reverse proxy)
-```bash
-brew install caddy
-```
-
-Creare Caddyfile:
-```
-onde.local {
-    reverse_proxy localhost:3000
-    tls internal
-}
-
-books.onde.local {
-    reverse_proxy localhost:3000
-    tls internal
-}
-```
-
-Avviare Caddy:
-```bash
-caddy run
-```
-
----
-
-## Script di Deploy Automatico
-
-### start-production.sh
-```bash
-#!/bin/bash
-cd /Users/mattia/Projects/Onde/apps/onde-portal
-npm run build
-pm2 start npm --name "onde-portal" -- start
-echo "Onde Portal avviato su http://localhost:3000"
-```
-
----
-
-## Verifica Deploy
-
-1. [ ] npm install completato senza errori
-2. [ ] npm run build completato
-3. [ ] Server avviato su porta 3000
-4. [ ] Homepage accessibile
-5. [ ] Catalogo carica correttamente
-6. [ ] Filtri funzionanti
-
----
-
-## Troubleshooting
-
-### Porta gia in uso
-```bash
-# Trovare processo su porta 3000
-lsof -i :3000
-
-# Terminare processo
-kill -9 <PID>
-```
-
-### Errori di build
-```bash
-# Pulire cache
-rm -rf .next
-npm run build
-```
-
-### PM2 non funziona
-```bash
-# Verificare status
-pm2 status
-
-# Vedere log
-pm2 logs onde-portal
-
-# Restart
-pm2 restart onde-portal
-```
-
----
-
-*Creato: 2026-01-09*
-*Task: onde-books-006*
+*Ultimo aggiornamento: 2026-01-10*

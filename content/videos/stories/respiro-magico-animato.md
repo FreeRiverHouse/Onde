@@ -1,0 +1,33 @@
+# Il Respiro Magico | Mindfulness per Bambini
+
+## Metadata
+- Canale: Onde Stories
+- Durata: 5 min
+- Voce: gianni
+- Stile: acquarello-onde
+
+## Descrizione YouTube
+Impara a respirare con calma con questa storia animata.
+
+## Script
+
+### Intro (0:00 - 0:15)
+[Scrivere hook iniziale]
+
+### Contenuto Principale
+[Scrivere contenuto]
+
+### Outro
+[Scrivere conclusione con CTA]
+
+## Note Produzione
+- [ ] Script completato
+- [ ] Audio generato (ElevenLabs)
+- [ ] Immagini generate (Hedra/Grok)
+- [ ] Video assemblato (FFmpeg)
+- [ ] Thumbnail creata
+- [ ] Sottotitoli aggiunti
+- [ ] Upload su YouTube
+
+---
+*Generato da Onde Video Factory - 2026-01-10T09:38:02.961Z*

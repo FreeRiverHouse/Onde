@@ -1,0 +1,213 @@
+# ═══════════════════════════════════════════════════════════
+# ONDE CONTENT FACTORY - GitHub Action
+#
+# Questa action PRODUCE contenuti automaticamente:
+# - Genera template storie EMILIO se mancano
+# - Genera script video YouTube se mancano
+# - Verifica che i libri abbiano PDF
+# - Notifica su Telegram se ci sono problemi
+#
+# Schedule: ogni 6 ore
+# ═══════════════════════════════════════════════════════════
+
+name: Content Factory
+
+on:
+  schedule:
+    # Ogni 6 ore: 00:00, 06:00, 12:00, 18:00 PT
+    - cron: '0 8,14,20,2 * * *'  # UTC (PT + 8)
+  workflow_dispatch:  # Trigger manuale
+
+env:
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: '7505631979'
+
+jobs:
+  check-and-generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check existing content
+        id: check
+        run: |
+          echo "═══════════════════════════════════════════════════════"
+          echo "ONDE CONTENT FACTORY - Controllo contenuti"
+          echo "═══════════════════════════════════════════════════════"
+
+          # Conta storie EMILIO
+          mkdir -p books/emilio
+          EMILIO_COUNT=$(ls books/emilio/*.md 2>/dev/null | wc -l || echo "0")
+          echo "Storie EMILIO esistenti: $EMILIO_COUNT"
+          echo "emilio_count=$EMILIO_COUNT" >> $GITHUB_OUTPUT
+
+          # Conta video script
+          mkdir -p content/videos/emilio
+          VIDEO_COUNT=$(ls content/videos/emilio/*.md 2>/dev/null | wc -l || echo "0")
+          echo "Script video EMILIO esistenti: $VIDEO_COUNT"
+          echo "video_count=$VIDEO_COUNT" >> $GITHUB_OUTPUT
+
+          # Conta PDF libri
+          PDF_MISSING=""
+          for book in salmo-23-bambini aiko-ai-children piccole-rime vibe-coding; do
+            if [ -d "books/$book" ]; then
+              if ! ls books/$book/*.pdf 1>/dev/null 2>&1; then
+                PDF_MISSING="$PDF_MISSING $book"
+              fi
+            fi
+          done
+          echo "PDF mancanti:$PDF_MISSING"
+          echo "pdf_missing=$PDF_MISSING" >> $GITHUB_OUTPUT
+
+      - name: Generate EMILIO stories if needed
+        if: steps.check.outputs.emilio_count < 3
+        run: |
+          echo "Generando template storie EMILIO..."
+
+          EXISTING=${{ steps.check.outputs.emilio_count }}
+          TARGET=3
+
+          for i in $(seq 1 $((TARGET - EXISTING))); do
+            NUM=$((EXISTING + i))
+            FILENAME="books/emilio/emilio-storia-$(printf '%02d' $NUM).md"
+
+            cat > "$FILENAME" << 'STORY'
+          # EMILIO Storia #$NUM - DA COMPLETARE
+
+          ## Metadata
+          - Generato automaticamente da GitHub Action
+          - Data: $(date -u +"%Y-%m-%d")
+          - Status: TEMPLATE - DA COMPLETARE
+
+          ## Istruzioni
+          Questo è un template. L'Editore Capo deve:
+          1. Scegliere un tema tech per bambini
+          2. Scrivere la storia completa
+          3. Definire le illustrazioni necessarie
+          4. Generare le immagini con Grok
+          5. Creare il PDF finale
+
+          ## Temi suggeriti
+          - Come funziona Internet
+          - Cos'è un Robot
+          - Il Cervello dei Computer
+          - Come Impara l'AI
+          - I Sensori Magici
+
+          ---
+          *Template generato da Onde Content Factory*
+          STORY
+
+            # Fix the NUM variable in the template
+            sed -i "s/\$NUM/$NUM/g" "$FILENAME"
+            sed -i "s/\$(date -u +\"%Y-%m-%d\")/$(date -u +"%Y-%m-%d")/g" "$FILENAME"
+
+            echo "✅ Creato: $FILENAME"
+          done
+
+      - name: Generate YouTube video scripts if needed
+        if: steps.check.outputs.video_count < 3
+        run: |
+          echo "Generando template script video YouTube..."
+
+          EXISTING=${{ steps.check.outputs.video_count }}
+          TARGET=3
+
+          for i in $(seq 1 $((TARGET - EXISTING))); do
+            NUM=$((EXISTING + i))
+            FILENAME="content/videos/emilio/emilio-video-$(printf '%02d' $NUM).md"
+
+            cat > "$FILENAME" << 'VIDEO'
+          # EMILIO Video YouTube #NUM_PLACEHOLDER
+
+          ## Video Info
+          - Canale: Onde / EMILIO
+          - Durata target: 3-5 minuti
+          - Lingua: Italiano + sottotitoli
+          - Status: TEMPLATE - DA COMPLETARE
+
+          ## Struttura
+          1. Hook (0:15) - Cattura attenzione
+          2. Intro (0:15) - Sigla EMILIO
+          3. Spiegazione (2:00) - Contenuto principale
+          4. Esempio (1:00) - Applicazione pratica
+          5. Fatto WOW (0:30) - Curiosità
+          6. Outro (0:30) - CTA e saluti
+
+          ## Checklist Produzione
+          - [ ] Script finale scritto
+          - [ ] Voce EMILIO registrata
+          - [ ] Illustrazioni generate
+          - [ ] Video montato
+          - [ ] Sottotitoli aggiunti
+          - [ ] Thumbnail creata
+          - [ ] Pubblicato su YouTube
+
+          ---
+          *Template generato da Onde Content Factory*
+          VIDEO
+
+            # Fix placeholder
+            sed -i "s/NUM_PLACEHOLDER/$NUM/g" "$FILENAME"
+
+            echo "✅ Creato: $FILENAME"
+          done
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "factory@freeriverhouse.com"
+          git config --local user.name "Onde Factory Bot"
+
+          git add -A
+
+          if git diff --staged --quiet; then
+            echo "Nessun cambiamento da committare"
+          else
+            git commit -m "🏭 Factory: auto-generated content templates
+
+          - EMILIO stories: ${{ steps.check.outputs.emilio_count }} → target 3
+          - YouTube scripts: ${{ steps.check.outputs.video_count }} → target 3
+          - PDF missing:${{ steps.check.outputs.pdf_missing }}
+
+          Co-Authored-By: Onde Factory Bot <factory@freeriverhouse.com>"
+
+            git push
+            echo "✅ Contenuti committati e pushati"
+          fi
+
+      - name: Notify Telegram if PDFs missing
+        if: steps.check.outputs.pdf_missing != ''
+        run: |
+          MESSAGE="🚨 ONDE FACTORY ALERT
+
+          PDF MANCANTI:${{ steps.check.outputs.pdf_missing }}
+
+          Azione richiesta: generare i PDF per questi libri!
+
+          Storie EMILIO: ${{ steps.check.outputs.emilio_count }}/3
+          Video YouTube: ${{ steps.check.outputs.video_count }}/3"
+
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+            -d "chat_id=$TELEGRAM_CHAT_ID" \
+            -d "text=$MESSAGE" \
+            -d "parse_mode=HTML"
+
+      - name: Summary
+        run: |
+          echo "═══════════════════════════════════════════════════════"
+          echo "ONDE CONTENT FACTORY - COMPLETATO"
+          echo "═══════════════════════════════════════════════════════"
+          echo ""
+          echo "📚 Storie EMILIO: ${{ steps.check.outputs.emilio_count }}"
+          echo "🎬 Script video: ${{ steps.check.outputs.video_count }}"
+          echo "❌ PDF mancanti:${{ steps.check.outputs.pdf_missing }}"
+          echo ""
+          echo "La factory gira ogni 6 ore automaticamente."

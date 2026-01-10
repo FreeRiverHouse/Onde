@@ -1,0 +1,14 @@
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0000.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0001.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0002.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0003.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0004.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0005.png'
+duration 45
+file '/Users/mattia/Projects/Onde/output/white-noise/temp/images/tip_0006.png'
+duration 45
