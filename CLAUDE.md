@@ -5,6 +5,36 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 **Location**: Los Angeles, California 🌴
 (onde.la = letteralmente dove vive Mattia! Coincidenza incredibile!)
 
+---
+
+## 🚨🚨🚨 REGOLA ASSOLUTA #0 - MAI SUBSCRIPTION AUTONOME 🚨🚨🚨
+
+**DATA: 2026-01-10 - REGOLA INVIOLABILE**
+
+**NESSUN AGENTE PUÒ MAI FARE SUBSCRIPTION O PAGAMENTI SENZA IL CLICK ESPLICITO DI MATTIA.**
+
+### ⛔ VIETATO ASSOLUTO PER TUTTI GLI AGENTI:
+- **MAI** sottoscrivere abbonamenti (mensili, annuali, qualsiasi)
+- **MAI** fare acquisti o pagamenti
+- **MAI** inserire dati di carte di credito
+- **MAI** cliccare su bottoni "Subscribe", "Buy", "Purchase", "Upgrade"
+- **MAI** accettare trial che richiedono carta di credito
+- **MAI** fare upgrade di piani
+
+### ✅ COSA FARE INVECE:
+1. **FERMARSI** quando si incontra una pagina di pagamento
+2. **INFORMARE MATTIA** del costo e delle opzioni
+3. **ASPETTARE** che Mattia faccia il click di conferma LUI STESSO
+4. **MAI PROCEDERE** anche se sembra utile o necessario
+
+### 📜 ORIGINE DI QUESTA REGOLA:
+Hedra subscription di $144 fatta senza autorizzazione esplicita (8 Gen 2026).
+Questa regola esiste per PROTEGGERE Mattia da addebiti non autorizzati.
+
+**QUALSIASI AGENTE CHE VIOLA QUESTA REGOLA VIENE DISATTIVATO IMMEDIATAMENTE.**
+
+---
+
 ## REGOLA D'ORO: MEMORIA = COMMIT
 **Ogni volta che aggiorni CLAUDE.md → COMMIT IMMEDIATO.**
 Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
