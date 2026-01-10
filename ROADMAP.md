@@ -416,6 +416,35 @@ Reader: epub.js o simile
 
 ## 🔴 PRIORITÀ IMMEDIATE (Slack 7 Gen 2026)
 
+### 0. REBRANDING AIKO → EMILIO (🔥 NUOVO - 9 Gen 2026)
+
+**DECISIONE**: Il personaggio robot AIKO verrà rinominato **EMILIO**
+
+**Motivazione**:
+- Nome "Aiko" non protetto ma generico
+- "Emilio" ispirato a **EMIGLIO** di Giochi Preziosi (robot anni '90)
+- Aspetto più rassicurante, vintage, italiano
+
+**Copyright EMIGLIO**:
+- Dichiarare ispirazione = OK
+- Design sufficientemente diverso = OK
+- Nome "Emilio" è generico, non protetto
+
+**TASK**:
+- [ ] Ridefinire aspetto Emilio (ispirato a Emiglio ma diverso)
+- [ ] Stile visivo: Salmo 23 (più shiny, acquarello dorato)
+- [ ] Rigenerare TUTTE le immagini dei libri AIKO 1 e 2
+- [ ] Aggiornare testi (sostituire AIKO → Emilio)
+- [ ] Aggiungere check "verifica nomi esistenti" nel processo editoriale
+
+**PROCESSO EDITORIALE - NUOVO CHECK**:
+Prima di pubblicare un libro, l'Editore Capo DEVE verificare:
+- [ ] Il nome del personaggio principale esiste già in altri libri?
+- [ ] Ricerca Amazon/Google per conflitti
+- [ ] Se esiste → rinominare PRIMA di procedere
+
+---
+
 ### 1. Kanban Dashboard Agenti (🔥 SUBITO)
 Ispirato a [@housecor](https://x.com/housecor/status/2008905575669662019):
 - [ ] Dashboard unica per controllare tutti gli agenti
@@ -941,6 +970,27 @@ python lip_sync.py --face gianni.jpg --audio storia.mp3 --output video.mp4
 | **Salmo 23** | Bozza V2 pronta | 90% | Review → KDP |
 | **Antologia Poesia IT** | In produzione | 40% | Completare illustrazioni |
 | **Piccole Rime** | Video pronti | 30% | ⚠️ LIBRO NON ANCORA USCITO |
+| **Code Surfing / Vibe Coding** | 🔴 REVISIONE TONO | 80% | Tono troppo sborone → riscrivere più umile e naturale |
+
+---
+
+## 🔴 REVISIONE URGENTE - Code Surfing Book (9 Gen 2026)
+
+**Path**: `books/vibe-coding/`
+
+**PROBLEMA**: Il tono attuale è troppo supponente/sborone. Frasi tipo:
+- "I didn't read about these techniques. I *did* them."
+- "The X algorithm recruited me."
+- "fire up your AI assistant, and let's catch some waves"
+
+**TONO DESIDERATO**: Onesto, umile, da newbie che però fa le cose.
+- "Sono nuovo di questo mondo, ma ho costruito tutto questo"
+- "Non sono un esperto, sto imparando anche io"
+- Naturale, come si parla con un amico
+
+**AZIONE**: Claude riscrive tutti i capitoli con tono corretto, poi review con Grok.
+
+**NON È STATO SCRITTO DA GIANNI PAROLA** - Gianni si occupa solo dei libri per bambini.
 
 ---
 
