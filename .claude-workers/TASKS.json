@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T04:28:37.524Z",
+  "last_updated": "2026-01-10T04:33:16.486Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1555,7 +1555,7 @@
       "description": "Migrare TUTTI i libri esistenti nel nuovo formato OndePRDB: AIKO, AIKO 2, Salmo 23, Piccole Rime, etc. Per ogni libro: 5 video brevi, 1 video lungo, 1 podcast episode, prompts cartoni.",
       "category": "PR",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "tsunami-001"
       ],
@@ -1563,7 +1563,8 @@
       "files_involved": [],
       "claimed_by": "claude-20782-mk7t0c8t",
       "claimed_at": "2026-01-10T04:27:24.800Z",
-      "created_at": "2026-01-09T09:32:15.203Z"
+      "created_at": "2026-01-09T09:32:15.203Z",
+      "completed_at": "2026-01-10T04:33:16.486Z"
     },
     {
       "id": "tsunami-003",
