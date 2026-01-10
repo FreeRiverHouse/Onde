@@ -119,6 +119,36 @@ Prima di lavorare su qualsiasi cosa:
 
 **SE NON FACCIO BACKUP = STO FACENDO UNA CAZZATA**
 
+---
+
+## 🚨 REGOLA #3 - GESTIONE SPAZIO DISCO
+
+**DATA: 2026-01-10**
+
+**NON sovraccaricare il disco interno del Mac!**
+
+### Dove mettere le cose:
+| Cosa | Dove | Motivo |
+|------|------|--------|
+| Codice, config, testi | Disco interno Mac | Veloce, serve sempre |
+| Video generati, output pesanti | `/Volumes/DATI-SSD/` | Non riempire Mac |
+| Samples, librerie audio | `/Volumes/DATI-SSD/` | Pesanti |
+| Backup progetti | `/Volumes/DATI-SSD/BACKUP-MAC-*/` | Sicurezza |
+
+### Soglie di Alert:
+- **Disco Mac < 20GB liberi** → ⚠️ ALERT: Spostare roba su SSD
+- **Disco Mac < 10GB liberi** → 🚨 CRITICO: Fermare tutto, liberare spazio
+- **SSD < 100GB liberi** → ⚠️ Valutare pulizia
+
+### Comandi per controllare:
+```bash
+df -h / /Volumes/DATI-SSD
+```
+
+### Stato attuale (10 Gen 2026):
+- Mac interno: 48GB liberi ✅
+- SSD esterno: 404GB liberi ✅
+
 ### Formato:
 ```markdown
 ### [NUMERO]. TITOLO IDEA

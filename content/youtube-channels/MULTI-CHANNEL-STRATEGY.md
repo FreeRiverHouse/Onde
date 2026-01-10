@@ -1,7 +1,16 @@
-# Onde YouTube Multi-Channel Strategy
-## Ultra SEO - Nomi Paraculi - Volume Play
+# YouTube Cash Cow Strategy
+## Canali Anonimi - Nomi SEO - Volume Play
 
-**Filosofia:** Costo produzione ~0 → Facciamo tanti canali specifici, ognuno domina la sua keyword.
+**IMPORTANTE:** Questi canali sono **completamente separati** da Onde e FreeRiverHouse.
+- Email diverse per ogni canale
+- Nessun branding Onde
+- Zero riferimenti a chi li possiede
+- Scopo unico: generare revenue passiva
+
+**Onde rimane pulita** = Casa editrice seria, brand reputation
+**Questi canali** = Cash cows anonime per finanziare tutto
+
+**Filosofia:** Costo produzione ~0 → Facciamo tanti canali anonimi, ognuno domina la sua keyword.
 
 ---
 
@@ -49,6 +58,19 @@
 **Differenziazione:** Stile Onde (acquarello invece di anime)
 **Primo video:** "Lofi Study Music - 3 Hours Focus Beats"
 
+### 8. MINDFUL SLEEP SOUNDS 🆕
+**Target keyword:** "sleep sounds" / "white noise for adults" / "sleep meditation"
+**Contenuto:** White noise + mindfulness tips, citazioni buddismo, psicologia
+**Differenziazione:** Tips per adulti (non parenting), sfondo SCURO
+**Background:** #0D0D0D (quasi nero) - per chi dorme non deve dare fastidio luce
+**Tips file:** `content/white-noise/adult-mindfulness-tips.md`
+**Primo video:** "8 Hours White Noise for Sleep - Mindfulness & Wisdom"
+
+**Nota importante:** A differenza di Baby Sleep (sfondo chiaro crema), questo ha sfondo SCURO perché:
+- Gli adulti che mettono per dormire non vogliono luce
+- Chi guarda a video finito apprezza i contenuti
+- Tips cambiano ogni 60 secondi (più lenti che baby)
+
 ---
 
 ## PRIORITÀ PRODUZIONE
@@ -56,12 +78,13 @@
 | # | Canale | Keyword Volume | Difficoltà | Priorità |
 |---|--------|----------------|------------|----------|
 | 1 | **Baby Sleep White Noise** | 900K | Facile | 🔴 ALTA |
-| 2 | **Trippy Visuals 4K** | 450K | Media | 🔴 ALTA |
-| 3 | **Sleep Frequencies** | 300K | Facile | 🟡 MEDIA |
-| 4 | **Red Light Therapy Sleep** | 200K | Facile | 🟡 MEDIA |
-| 5 | **Fireplace Ambience 4K** | 1M | Media | 🟡 MEDIA |
-| 6 | **Rain Sounds For Sleeping** | 800K | Facile | 🟢 BASSA |
-| 7 | **Lofi Study Beats** | 500K | Media | 🟢 BASSA |
+| 2 | **Mindful Sleep Sounds** | 600K | Facile | 🔴 ALTA |
+| 3 | **Trippy Visuals 4K** | 450K | Media | 🔴 ALTA |
+| 4 | **Sleep Frequencies** | 300K | Facile | 🟡 MEDIA |
+| 5 | **Red Light Therapy Sleep** | 200K | Facile | 🟡 MEDIA |
+| 6 | **Fireplace Ambience 4K** | 1M | Media | 🟡 MEDIA |
+| 7 | **Rain Sounds For Sleeping** | 800K | Facile | 🟢 BASSA |
+| 8 | **Lofi Study Beats** | 500K | Media | 🟢 BASSA |
 
 ---
 
@@ -122,9 +145,41 @@ Cron Job Notturno:
 5. Notifica Telegram completamento
 ```
 
-**Target:** 1 video/canale/giorno = 7 video/giorno = 210 video/mese
+**Target:** 1 video/canale/giorno = 8 video/giorno = 240 video/mese
+
+---
+
+## 🎵 SPOTIFY DISTRIBUTION
+
+**Una volta prodotti i video, l'audio va anche su Spotify (gratis!).**
+
+### Perché Spotify?
+- Costo: $0 (via DistroKid $20/anno per unlimited)
+- Stesso contenuto audio, zero lavoro extra
+- Reach diverso: gente che cerca white noise su Spotify
+- Royalties: bassi ma esistono (~$0.003-0.005/stream)
+
+### Come Fare
+1. Estrai audio dal video: `ffmpeg -i video.mp4 -vn audio.mp3`
+2. Upload su DistroKid/TuneCore
+3. Distribuisce a Spotify, Apple Music, Amazon Music, etc.
+4. Track aggiuntivo: Zero sforzo
+
+### Differenze Spotify vs YouTube
+| | YouTube | Spotify |
+|---|---------|---------|
+| Visual | Sì (tips scrolling) | No |
+| Differenziazione | Alta (tips = valore) | Bassa (solo audio) |
+| Monetizzazione | Ads (CPM $2-5) | Royalties ($0.003/stream) |
+| Strategia | Unica | Volume play |
+
+### Conclusione Spotify
+- **Sì, facciamolo** - è gratis e ci porta reach
+- **Ma non ci differenzia** - su Spotify siamo uno dei tanti
+- **Focus rimane YouTube** - lì abbiamo il vantaggio competitivo (tips)
 
 ---
 
 *Onde Multi-Channel Strategy*
 *Gennaio 2026*
+*YouTube + Spotify Distribution*

@@ -999,6 +999,43 @@ apps/
 
 **Applicare a TUTTI i video ambient**, non solo white noise!
 
+### 🎯 FORMULA VIDEO: AMBIENT + TIPS (IL NOSTRO VANTAGGIO)
+
+**Differenziatore vs competitor:**
+- LORO: Solo audio ambient
+- NOI: Audio ambient + TIPS VISIVI sovrapposti
+
+| Audio | Tips | Target | Nome Canale SEO |
+|-------|------|--------|-----------------|
+| White noise baby | Parenting tips | Genitori neonati | "Baby Sleep Sounds + Parenting Tips" |
+| Rain forest | Mindfulness tips | Relax seekers | "Rain Sounds + Mindfulness" |
+| Study lo-fi | Productivity tips | Studenti | "Study Music + Focus Tips" |
+| Sleep sounds | Sleep hygiene | Insonni | "Sleep Sounds + Better Sleep Tips" |
+| Nature ambient | Wellness tips | Benessere | "Nature Sounds + Wellness" |
+
+**IMPORTANTE: Nomi canali SEO, NO "Onde" nel nome!**
+
+### 📝 TIPS DIVERSI PER TARGET
+
+**Per ADULTI:**
+- Frasi soothing, zen, mindfulness
+- "Breathe deeply", "Let go of today's worries"
+
+**Per GENITORI (baby white noise):**
+- Tips SUPER EASY, soothing
+- Rilassano anche il genitore (non stressano!)
+- "Il calore del tuo abbraccio è tutto ciò di cui ha bisogno"
+- NIENTE tips complicati
+
+**REVIEW OBBLIGATORIA**: Farli rivedere da Grok dopo averli scritti!
+
+### 🎨 GRAFICHE ULTRA STUNNING
+
+Differenziatore vs competitor:
+- LORO: Grafiche generiche/brutte
+- NOI: Grafiche AI ultra belle, ultra rilassanti
+- Watch time = algoritmo felice
+
 ### 🛠️ Pipeline Produzione
 1. **Immagine**: Grok genera scena (stile Onde o realistico)
 2. **Animazione**: Leggero movimento (parallax, particelle, luce)

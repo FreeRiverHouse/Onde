@@ -4,13 +4,27 @@
 ---
 
 ## TIP 1
+🇬🇧 "This white noise sounds like the womb - your baby feels safe and home"
+🇪🇸 "Este ruido blanco suena como el útero - tu bebé se siente seguro"
+🇫🇷 "Ce bruit blanc ressemble à l'utérus - ton bébé se sent en sécurité"
+🇩🇪 "Dieses Rauschen klingt wie der Mutterleib - dein Baby fühlt sich sicher"
+🇮🇹 "Questo rumore bianco ricorda l'utero - il tuo bambino si sente al sicuro"
+
+## TIP 2
+🇬🇧 "Your heartbeat was your baby's first lullaby"
+🇪🇸 "Tu latido fue la primera canción de cuna de tu bebé"
+🇫🇷 "Ton battement de cœur était la première berceuse de ton bébé"
+🇩🇪 "Dein Herzschlag war das erste Schlaflied deines Babys"
+🇮🇹 "Il tuo battito cardiaco è stata la prima ninna nanna del tuo bambino"
+
+## TIP 3
 🇬🇧 "Your hug is the best medicine"
 🇪🇸 "Tu abrazo es la mejor medicina"
 🇫🇷 "Ton câlin est le meilleur remède"
 🇩🇪 "Deine Umarmung ist die beste Medizin"
 🇮🇹 "Il tuo abbraccio è la medicina migliore"
 
-## TIP 2
+## TIP 4
 🇬🇧 "Babies feel your love even while they sleep"
 🇪🇸 "Los bebés sienten tu amor incluso mientras duermen"
 🇫🇷 "Les bébés ressentent ton amour même quand ils dorment"

@@ -47,3 +47,13 @@ coverage/
 *.tmp
 *.temp
 .eslintcache
+# YouTube content - backup on YouTube, not GitHub
+output/
+assets/
+*.mp4
+*.mp3
+*.wav
+
+# Next.js build outputs
+apps/*/out/
+apps/*/.next/

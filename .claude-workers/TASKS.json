@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T04:33:16.486Z",
+  "last_updated": "2026-01-10T10:41:34.902Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -245,14 +245,14 @@
       "description": "Generare primo video test camino con suoni crepitio per YouTube",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-58146-mk865v9b",
+      "claimed_at": "2026-01-10T10:35:37.733Z"
     },
     {
       "id": "video-002",
@@ -1622,15 +1622,16 @@
       "description": "Generare 100 tracce ambient/lofi con Suno per Onde Lounge: 20 ninne nanne, 30 study music, 30 relax, 20 nature sounds.",
       "category": "MULTIMEDIA",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "music-ai-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:39:15.674Z"
+      "claimed_by": "claude-58356-mk866eka",
+      "claimed_at": "2026-01-10T10:36:02.747Z",
+      "created_at": "2026-01-09T09:39:15.674Z",
+      "completed_at": "2026-01-10T10:37:54.909Z"
     },
     {
       "id": "audiobook-pipeline-001",
@@ -1836,15 +1837,16 @@
       "description": "Album Spotify di canzoni stupide virali per bambini stile Cocomelon/Baby Shark. Ah Ah Cookie, Cacca Song, Puzzetta Dance. 10 tracce ripetitive e catchy. Target: virale su TikTok.",
       "category": "MULTIMEDIA",
       "priority": 3,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "music-ai-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:43:55.733Z"
+      "claimed_by": "claude-58321-mk866csc",
+      "claimed_at": "2026-01-10T10:36:00.451Z",
+      "created_at": "2026-01-09T09:43:55.733Z",
+      "completed_at": "2026-01-10T10:37:15.065Z"
     },
     {
       "id": "music-viral-002",
@@ -1884,13 +1886,14 @@
       "description": "Dashboard Building in Public: traccia TUTTO Onde in tempo reale. Task completati, libri pubblicati, video generati, follower, revenue. Grafici belli. Pubblico su onde.surf.",
       "category": "APPS",
       "priority": 2,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:44:54.734Z"
+      "claimed_by": "claude-58172-mk865wty",
+      "claimed_at": "2026-01-10T10:35:39.767Z",
+      "created_at": "2026-01-09T09:44:54.734Z",
+      "completed_at": "2026-01-10T10:41:34.898Z"
     },
     {
       "id": "dashboard-bib-002",
