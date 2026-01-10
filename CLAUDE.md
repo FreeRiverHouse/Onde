@@ -7,6 +7,71 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🌐 FACTORY REMOTA - LAVORA DA OVUNQUE (10 Gen 2026)
+
+**TUTTA LA BARACCA FREERIVERHOUSE È ACCESSIBILE DA QUALSIASI COMPUTER!**
+
+### Come Funziona
+
+| Componente | Dove Vive | Come Accedere |
+|------------|-----------|---------------|
+| **Codice** | GitHub (FreeRiverHouse/Onde) | `git clone` da qualsiasi PC |
+| **Siti Web** | Cloudflare Pages | Auto-deploy su push a GitHub |
+| **Worker System** | GitHub | `node scripts/worker/worker-manager.js` |
+| **Agenti Claude** | GitHub + Claude Code | Lancia da qualsiasi PC con Claude |
+| **Telegram Bot** | API Cloud | Funziona sempre, ovunque |
+| **X/Twitter** | API Cloud | Funziona sempre, ovunque |
+| **Grok/Hedra** | Browser | Accedi da qualsiasi browser |
+
+### Account GitHub con Accesso
+- **FreeRiverHouse** - Account principale (admin)
+- **FreeRiverHouse-Dev** - Account sviluppo
+- **Magmatic** - Account Mattia personale
+- (Aggiungi altri collaboratori in Settings → Collaborators)
+
+### Workflow Multi-Computer
+
+```
+COMPUTER A (LA)          COMPUTER B (Milano)         CLOUDFLARE
+     │                         │                         │
+     │  push ─────────────────►│                         │
+     │                         │  push ──────────────────►│ auto-deploy
+     │                         │                         │
+     │◄─────────── pull ───────│                         │
+     │                         │                         │
+```
+
+1. **Chiunque** clona il repo
+2. **Chiunque** fa modifiche e pusha
+3. **Cloudflare** deploya automaticamente
+4. **Il Mac originale NON deve essere acceso**
+
+### Cosa Richiede Ancora il Mac Locale
+- ⚠️ **Lip Sync (Wav2Lip)** - Richiede SSD esterno con ambiente conda
+- ⚠️ **Video processing pesante** - GPU locale preferibile
+- Per il resto: **TUTTO FUNZIONA DA REMOTO**
+
+### Quick Start da Nuovo Computer
+```bash
+# 1. Clona il repo
+git clone https://github.com/FreeRiverHouse/Onde.git
+cd Onde
+
+# 2. Installa dipendenze
+npm install
+
+# 3. Crea .env con credenziali (chiedi a Mattia)
+# TELEGRAM_BOT_TOKEN=...
+# X_FRH_API_KEY=...
+
+# 4. Verifica sistema
+node scripts/worker/worker-manager.js status
+
+# 5. Lavora!
+```
+
+---
+
 ## 🚀 COLD START - DOPO RIFORMATTAZIONE MAC (10 Gen 2026)
 
 **Quando Mattia riformatta il Mac e reinstalla Claude Code, segui questi step:**
