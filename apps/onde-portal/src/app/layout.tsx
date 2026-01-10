@@ -55,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><a href="/libri" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">Libri</a></li>
                   <li><a href="/app" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">App</a></li>
                   <li><a href="/giochi" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">Giochi</a></li>
+                  <li><a href="/vr" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">🥽 VR</a></li>
                   <li><a href="/about" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">Chi Siamo</a></li>
                 </ul>
               </div>
