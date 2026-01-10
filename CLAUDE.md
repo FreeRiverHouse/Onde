@@ -7,14 +7,28 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
-## ROADMAP E VISIONE
+## 🚨🚨🚨 ROADMAP - LEGGERE SEMPRE (REGOLA SUPREMA)
 
 **Tutto il contenuto strategico, roadmap, task e visione e' in `ROADMAP.md`.**
 
-Prima di lavorare su qualsiasi cosa:
+### ALL'INIZIO DI OGNI SESSIONE (OBBLIGATORIO):
 1. Leggi questo file (CLAUDE.md) per le regole operative
-2. Leggi ROADMAP.md per sapere cosa fare
-3. Aggiorna entrambi quando completi qualcosa
+2. **LEGGI ROADMAP.md** - SEMPRE, OGNI VOLTA
+3. Dimmi cosa c'è da fare secondo la ROADMAP
+
+### ALLA FINE DI OGNI SESSIONE (OBBLIGATORIO):
+1. Aggiorna ROADMAP.md con tutte le idee nuove
+2. Aggiorna chat-history con le idee della sessione
+3. Commit e push tutto su GitHub
+
+### PAROLA IN CODICE: "SBRINCHI SBRONCHI"
+Quando Mattia dice "sbrinchi sbronchi" (o varianti), DEVO:
+1. ✅ **ROADMAP aggiornata** - Tutte le idee nuove aggiunte
+2. ✅ **Chat backupata** - chat-history/YYYY-MM-DD-ideas.md aggiornato
+3. ✅ **Git commit + push** - Tutto committato su GitHub
+4. ✅ **Conferma** - Dire a Mattia che tutto è salvato
+
+**SE NON LEGGO LA ROADMAP = STO SBAGLIANDO TUTTO!**
 
 ---
 
