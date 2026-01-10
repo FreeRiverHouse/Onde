@@ -97,7 +97,41 @@ Non siamo solo una casa editrice. Siamo una **piattaforma di creazione**.
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-10 - FreeRiver Flow priorità definite
+**Ultimo aggiornamento**: 2026-01-10 - onde.la deployed, 3 AI video agents launched, i18n working
+
+---
+
+## ✅ PROGRESS 10 GENNAIO 2026
+
+### Completati Oggi
+- [x] **onde.la deployed con 1002 pagine**
+- [x] **Ebook reader at /leggi working**
+- [x] **Footer changed to "Los Angeles"** (neutral copy)
+- [x] **Mission section hidden** for now
+- [x] **3 AI video agents launched** (cyber fireplace, ocean, rain)
+- [x] **Stock videos downloaded** (8 fireplace, 5 ocean, 5 rain)
+- [x] **i18n agent working** on EN/IT translation
+- [x] **CLAUDE.md updated** with session start/end rules
+
+### 🌍 IDEE STRATEGICHE (10 Gen 2026)
+
+**1. ONDE IS GLOBAL, NOT ITALIAN**
+- Default language: **ENGLISH**
+- Onde.la = Los Angeles (where Mattia lives)
+- Target: Global audience first, Italian second
+- All new content: English first, then translate to IT
+
+**2. YOUTUBE NEEDS AI-GENERATED VIDEOS, NOT JUST STOCK**
+- Stock videos = commodity (everyone has them)
+- AI-generated = differentiator
+- Next step: Use Runway/Kling/Hailuo for unique content
+- Goal: Videos that don't exist anywhere else
+
+**3. FREERIVER FLOW VOICE = PRIORITY #1**
+- Voice interface is the killer feature
+- Mattia on steroids: develop while running, walking, living
+- iPhone + AirPods + Claude API = minimum viable product
+- Everything else (VR, 2D, AR) comes after voice works
 
 ---
 
@@ -340,17 +374,24 @@ FREE RIVER HOUSE (holding)
 
 **OBIETTIVO**: Sito più bello di qualsiasi cosa esistente su internet.
 
+### ✅ DEPLOYED! (10 Gen 2026)
+- **onde.la LIVE con 1002 pagine**
+- Ebook reader funzionante a `/leggi`
+- Footer cambiato in "Los Angeles" (copy neutro)
+- Mission section nascosta per ora
+
 ### Cloudflare DNS - FATTO ✅
 - onde.la su Cloudflare (Free plan)
 - Zone ID: `5f1b2fe544f1a925765305fefcf36fe1`
 - Nameserver: `aarav.ns.cloudflare.com`, `janet.ns.cloudflare.com`
 - ✅ **Nameserver cambiati su Namecheap** (10 Gen 2026)
-- ⏳ Propagazione DNS in corso (fino a 48h)
+- ✅ **Propagazione completata** (10 Gen 2026)
 
 ### Sezioni Portale
+- [x] **Libri** - Catalogo Onde (1002 pagine)
+- [x] **Leggi** - Ebook reader a /leggi
 - [ ] **App** - Le nostre app
 - [ ] **Giochi** - Giochi educativi
-- [ ] **Libri** - Catalogo Onde
 
 ### Team Portale (2 Agenti)
 1. **Developer** - Architettura top, Next.js, animazioni
@@ -1274,6 +1315,18 @@ Differenziatore vs competitor:
 
 **SCELTA**: Freecords o Jumpstr (entrambi 100% gratis + 100% royalties)
 
+### 🤖 AI VIDEO AGENTS - LANCIATI! (10 Gen 2026)
+
+**3 agenti video AI operativi:**
+
+| Agente | Contenuto | Stock Videos | Status |
+|--------|-----------|--------------|--------|
+| **Cyber Fireplace Agent** | Camini futuristici/cyber | 8 video scaricati | ✅ ATTIVO |
+| **Ocean Agent** | Mare, onde, spiagge | 5 video scaricati | ✅ ATTIVO |
+| **Rain Agent** | Pioggia, temporali | 5 video scaricati | ✅ ATTIVO |
+
+**Stock videos location**: `/Volumes/DATI-SSD/onde-youtube/`
+
 ### 📋 Primo Sprint MPF
 1. ✅ Sezione creata in ROADMAP
 2. [ ] **OGGI**: Creare canale YouTube "Onde Lounge"
@@ -1283,9 +1336,10 @@ Differenziatore vs competitor:
    - `fireplace-test-10min.mp4` (62MB, 10:00)
    - Immagine: Unsplash royalty-free
    - Audio: Pink noise generato con ffmpeg (placeholder per audio camino vero)
-4. [ ] Analizzare top 5 canali competitor
-5. [ ] Pipeline automatica entro fine settimana
-6. [ ] Sostituire pink noise con audio camino reale da Freesound/Pixabay
+4. ✅ **COMPLETATO 10 Gen 2026**: Stock videos scaricati (8 fireplace, 5 ocean, 5 rain)
+5. [ ] Analizzare top 5 canali competitor
+6. [ ] Pipeline automatica entro fine settimana
+7. [ ] Sostituire pink noise con audio camino reale da Freesound/Pixabay
 
 ---
 
