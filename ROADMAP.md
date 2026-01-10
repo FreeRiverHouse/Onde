@@ -105,6 +105,33 @@ onde.la (pubblico)
 
 ---
 
+## 🌐 STRATEGIA DOMINI - DEV vs PRODUZIONE (10 Gen 2026)
+
+**DECISIONE FINALE**: Due domini per ambienti separati!
+
+| Dominio | Ambiente | Scopo | Status |
+|---------|----------|-------|--------|
+| **onde.surf** | DEV/STAGING | Sviluppo, test, app interattive | ✅ Comprato |
+| **onde.la** | PRODUZIONE | Casa editrice, libri | ✅ Configurato |
+
+### Struttura Brand
+```
+FREE RIVER HOUSE (holding)
+    ├── ONDE (publishing)
+    │      ├── onde.la (PROD)
+    │      └── onde.surf (DEV)
+    └── FLOW (app VR coding) → su onde.surf
+```
+
+### Task Domini
+- [x] Comprare onde.surf ($3/anno)
+- [ ] Configurare onde.surf su Cloudflare Pages
+- [ ] Collegare onde.surf come custom domain del progetto "onde"
+- [ ] Configurare onde.la come dominio produzione
+- [ ] Setup ambiente DEV separato da PROD
+
+---
+
 ## 🌐 PORTALE ONDE.LA - PRIORITÀ ASSOLUTA (9 Gen 2026)
 
 **OBIETTIVO**: Sito più bello di qualsiasi cosa esistente su internet.

@@ -162,6 +162,52 @@ Questa regola esiste per PROTEGGERE Mattia da addebiti non autorizzati.
 
 ---
 
+## 🌐 STRATEGIA DOMINI - DEV vs PRODUZIONE (10 Gen 2026)
+
+**DECISIONE FINALE**: Due domini, due funzioni diverse!
+
+| Dominio | Ambiente | Scopo |
+|---------|----------|-------|
+| **onde.surf** | DEV/STAGING | Sviluppo, test, interattivo, app VR |
+| **onde.la** | PRODUZIONE | Casa editrice, libri, stabile |
+
+### 🏢 STRUTTURA BRAND
+```
+FREE RIVER HOUSE (holding/software house)
+    │
+    ├── ONDE (publishing)
+    │      ├── onde.la (libri, editoriale) - PROD
+    │      └── onde.surf (interattivo, app) - DEV
+    │
+    └── FLOW / FREEFLOW (app VR coding)
+           └── vive su onde.surf
+```
+
+### 🏄 onde.surf (NUOVO - 10 Gen 2026)
+- **Comprato**: $3 primo anno
+- **Cloudflare Pages**: Collegato al repo Onde
+- **Deploy**: Auto su push a main
+- **URL produzione**: `onde.pages.dev` → `onde.surf`
+- **Scopo**:
+  - Ambiente sviluppo portale
+  - Test nuove feature
+  - App interattive
+  - FreeFlow/Flow (app VR coding con Meta Quest)
+
+### 🎯 onde.la (PRODUZIONE)
+- **Già configurato** su Cloudflare
+- **Uso**: Casa editrice ufficiale
+- **Pubblico**: Tradizionale, stabile
+- **Contenuti**: Libri, catalogo, acquisti
+
+### 🔮 FLOW / FREEFLOW (Futuro)
+- App VR per coding con Meta Quest
+- Sviluppato sotto FreeRiverHouse
+- Hostato su onde.surf
+- Nome: Flow, FreeFlow, o RiverFlow
+
+---
+
 ## 🎨 HEDRA - IMAGE FACTORY PER COERENZA PERSONAGGI (10 Gen 2026)
 
 **PROBLEMA RISOLTO**: Con Grok, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
