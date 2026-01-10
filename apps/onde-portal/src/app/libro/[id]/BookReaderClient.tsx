@@ -352,7 +352,7 @@ export default function BookReaderClient({ bookId }: Props) {
           </h1>
           <p className={`text-lg md:text-xl ${t.muted} mb-5 italic`}>{book.author}</p>
 
-          <div className="flex items-center justify-center gap-4 text-sm flex-wrap">
+          <div className="flex items-center justify-center gap-4 text-sm flex-wrap mb-6">
             {book.lang && book.lang !== 'en' && (
               <span className={`${t.highlightBg} ${t.highlight} px-4 py-1.5 rounded-full font-medium`}>
                 {book.lang.toUpperCase()}
@@ -370,6 +370,36 @@ export default function BookReaderClient({ bookId }: Props) {
               </>
             )}
           </div>
+
+          {/* FREE DOWNLOAD BUTTONS */}
+          {book.gutenberg && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+              <a
+                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}.epub3.images`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#2dd4bf] to-[#14b8a6] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
+              >
+                <span>📱</span> ePub Gratis
+              </a>
+              <a
+                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}.kf8.images`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
+              >
+                <span>📚</span> Kindle Gratis
+              </a>
+              <a
+                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white font-medium text-sm hover:scale-105 transition-transform"
+              >
+                <span>🌐</span> Altri formati
+              </a>
+            </div>
+          )}
         </div>
       </div>
 

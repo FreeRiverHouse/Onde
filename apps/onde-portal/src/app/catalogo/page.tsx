@@ -48,8 +48,19 @@ export default function Catalogo() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      {/* FREE BANNER */}
+      <div className="mb-8 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+        <div className="flex items-center gap-3">
+          <span className="text-3xl">📚</span>
+          <div>
+            <p className="font-bold text-emerald-400">Tutto il catalogo è GRATIS</p>
+            <p className="text-sm opacity-70">Scarica ePub, Kindle o leggi online - nessun costo</p>
+          </div>
+        </div>
+      </div>
+
       <h1 className="text-4xl font-bold mb-4">Biblioteca</h1>
-      <p className="opacity-70 mb-8">{bookCount} titoli nella collezione</p>
+      <p className="opacity-70 mb-8">{bookCount} titoli nella collezione • Tutti gratuiti</p>
 
       {/* Barra di ricerca */}
       <div className="mb-6">
