@@ -1,3 +1,10 @@
+/**
+ * AgentCard Component
+ *
+ * Mostra una card per un agente AI con stato visivo.
+ * Supporta stati: idle, listening, thinking, speaking
+ */
+
 import React, { useEffect, useRef } from 'react';
 import {
   View,
@@ -8,35 +15,37 @@ import {
   ViewStyle,
 } from 'react-native';
 
-// Onde brand colors
+// Dark theme colors (matching FreeRiver Flow design)
 const COLORS = {
-  primary: '#2C3E50',      // Deep blue-gray
-  secondary: '#3498DB',    // Bright blue
-  accent: '#E74C3C',       // Coral red
-  background: '#FFF8E7',   // Warm cream
-  surface: '#FFFFFF',      // White
-  textPrimary: '#2C3E50',  // Dark text
-  textSecondary: '#7F8C8D', // Gray text
-  border: '#ECE5D5',       // Warm border
+  background: '#0f172a',
+  surface: '#1e293b',
+  surfaceHighlight: '#334155',
+  primary: '#3b82f6',
+  primaryLight: '#60a5fa',
+  textPrimary: '#ffffff',
+  textSecondary: '#94a3b8',
+  border: '#334155',
 
   // Agent states
-  selected: '#27AE60',     // Green
-  busy: '#F39C12',         // Orange
-  idle: '#95A5A6',         // Gray
+  idle: '#64748b',
+  listening: '#22c55e',
+  thinking: '#f59e0b',
+  speaking: '#3b82f6',
 
   // Shadows
   shadow: '#000000',
 };
 
-export type AgentStatus = 'selected' | 'busy' | 'idle';
+// Agent status types matching index.tsx
+export type AgentStatus = 'idle' | 'listening' | 'thinking' | 'speaking';
 
+// Agent interface matching index.tsx
 export interface Agent {
   id: string;
   name: string;
-  emoji: string;
   role: string;
   status: AgentStatus;
-  isSpeaking?: boolean;
+  lastMessage?: string;
 }
 
 interface AgentCardProps {
