@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import Button from '@/components/ui/Button'
-// import { useTranslations } from 'next-intl' // TODO: configure i18n provider
+import { useTranslations } from '@/i18n'
 
 type BookSource = 'classic' | 'onde-studio'
 
@@ -141,23 +141,8 @@ const books: Book[] = [
   },
 ]
 
-// Temporary translations until i18n is properly configured
-const translations = {
-  title: 'I Nostri Libri',
-  subtitle: 'Storie illustrate, app educative e giochi per nutrire immaginazione e curiosità.',
-  classics: 'Classici',
-  classicsDesc: 'Grandi classici della letteratura, ora illustrati con il nostro stile unico.',
-  ondeStudio: 'Onde Studio',
-  ondeStudioDesc: 'Storie originali create dal nostro team di autori e illustratori.',
-  featured: 'In Evidenza',
-  allBooks: 'Tutti i Libri',
-  free: 'Gratis',
-  readNow: 'Leggi Ora',
-  comingSoon: 'Prossimamente',
-}
-
 export default function LibriPage() {
-  const t = (key: keyof typeof translations) => translations[key]
+  const t = useTranslations()
   const [activeSection, setActiveSection] = useState<BookSource>('classic')
 
   const classicBooks = books.filter(b => b.source === 'classic')
@@ -182,9 +167,9 @@ export default function LibriPage() {
           </motion.div>
 
           <SectionHeader
-            badge={t('badge')}
-            title={t('title')}
-            subtitle={t('subtitle')}
+            badge={t.books.badge}
+            title={t.books.title}
+            subtitle={t.books.subtitle}
             gradient="coral"
           />
         </div>
@@ -210,8 +195,8 @@ export default function LibriPage() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">📜</span>
               <div className="text-left">
-                <div className="font-display">{t('sections.classics')}</div>
-                <div className="text-xs opacity-70 font-normal">{t('sections.classicsSubtitle')}</div>
+                <div className="font-display">{t.books.sections.classics}</div>
+                <div className="text-xs opacity-70 font-normal">{t.books.sections.classicsSubtitle}</div>
               </div>
             </div>
             {activeSection === 'classic' && (
@@ -236,8 +221,8 @@ export default function LibriPage() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">✨</span>
               <div className="text-left">
-                <div className="font-display">{t('sections.ondeStudio')}</div>
-                <div className="text-xs opacity-70 font-normal">{t('sections.ondeStudioSubtitle')}</div>
+                <div className="font-display">{t.books.sections.ondeStudio}</div>
+                <div className="text-xs opacity-70 font-normal">{t.books.sections.ondeStudioSubtitle}</div>
               </div>
             </div>
             {activeSection === 'onde-studio' && (
@@ -264,19 +249,19 @@ export default function LibriPage() {
           {activeSection === 'classic' ? (
             <>
               <h3 className="text-xl font-display font-bold text-amber-900 mb-2">
-                {t('sections.classicsTitle')}
+                {t.books.sections.classicsTitle}
               </h3>
               <p className="text-amber-800/70">
-                {t('sections.classicsDescription')}
+                {t.books.sections.classicsDescription}
               </p>
             </>
           ) : (
             <>
               <h3 className="text-xl font-display font-bold text-onde-ocean mb-2">
-                {t('sections.ondeStudioTitle')}
+                {t.books.sections.ondeStudioTitle}
               </h3>
               <p className="text-onde-ocean/70">
-                {t('sections.ondeStudioDescription')}
+                {t.books.sections.ondeStudioDescription}
               </p>
             </>
           )}
@@ -292,7 +277,7 @@ export default function LibriPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            {t('featured')}
+            {t.books.featured}
           </motion.h3>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -304,7 +289,7 @@ export default function LibriPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <BookCard book={book} featured activeSection={activeSection} t={t} />
+                <BookCard book={book} activeSection={activeSection} t={t} />
               </motion.div>
             ))}
           </div>
@@ -319,7 +304,7 @@ export default function LibriPage() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          {activeSection === 'classic' ? t('sections.allClassics') : t('sections.allOndeStudio')}
+          {activeSection === 'classic' ? t.books.sections.allClassics : t.books.sections.allOndeStudio}
         </motion.h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -347,17 +332,17 @@ export default function LibriPage() {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-            {t('freeBooks.title')}
+            {t.books.freeBooks.title}
           </h3>
           <p className="text-white/70 max-w-lg mx-auto mb-6">
-            {t('freeBooks.description')}
+            {t.books.freeBooks.description}
           </p>
           <Button
             href="/catalogo"
             variant="secondary"
             className="bg-white text-onde-coral hover:bg-onde-cream border-0"
           >
-            {t('freeBooks.exploreCatalog')}
+            {t.books.freeBooks.exploreCatalog}
           </Button>
         </motion.div>
       </section>
@@ -368,14 +353,13 @@ export default function LibriPage() {
 // Featured Book Card Component
 function BookCard({
   book,
-  featured,
   activeSection,
   t
 }: {
   book: Book
-  featured?: boolean
   activeSection: BookSource
-  t: (key: string) => string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: any
 }) {
   const isClassic = activeSection === 'classic'
 
@@ -419,7 +403,7 @@ function BookCard({
                               ? 'bg-amber-100/60 text-amber-900/70'
                               : 'bg-white/60 text-onde-ocean/70'
                             }`}>
-              {t('watercolorIllustrated')}
+              {t.books.watercolorIllustrated}
             </span>
           </div>
 
@@ -439,7 +423,7 @@ function BookCard({
                              ? 'bg-gradient-to-r from-amber-200 to-amber-300 text-amber-900'
                              : 'bg-gradient-to-r from-onde-teal to-onde-teal-light text-white'
                            }`}>
-            {isClassic ? t('sections.classicBadge') : t('sections.ondeStudioBadge')}
+            {isClassic ? t.books.sections.classicBadge : t.books.sections.ondeStudioBadge}
           </span>
         </div>
       </Link>
@@ -477,14 +461,14 @@ function BookCard({
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            {t('buyOnAmazon')}
+            {t.books.buyOnAmazon}
           </a>
           <Link
             href={`/libro/${book.id}`}
             className="px-4 py-2.5 rounded-xl bg-onde-ocean/5 text-onde-ocean/70 font-medium
                        hover:bg-onde-ocean/10 transition-all duration-300 text-sm"
           >
-            {t('details')}
+            {t.books.details}
           </Link>
         </div>
       </div>
@@ -500,7 +484,8 @@ function BookCardSmall({
 }: {
   book: Book
   activeSection: BookSource
-  t: (key: string) => string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: any
 }) {
   const isClassic = activeSection === 'classic'
 

@@ -266,7 +266,7 @@ function VoiceButton({
   }, [isActive, pulseAnim]);
 
   const handlePressIn = () => {
-    if (isProcessing) return;
+    if (isDisabled) return;
     Animated.spring(scaleAnim, {
       toValue: 0.9,
       useNativeDriver: true,
@@ -275,7 +275,7 @@ function VoiceButton({
   };
 
   const handlePressOut = () => {
-    if (isProcessing) return;
+    if (isDisabled) return;
     Animated.spring(scaleAnim, {
       toValue: 1,
       friction: 3,
@@ -285,12 +285,14 @@ function VoiceButton({
   };
 
   const getButtonStyle = () => {
+    if (disabled) return styles.talkButtonDisabled;
     if (isActive) return styles.talkButtonRecording;
     if (isProcessing) return styles.talkButtonProcessing;
     return {};
   };
 
   const getButtonText = () => {
+    if (disabled) return 'Non connesso';
     switch (status) {
       case 'listening':
         return 'Sto ascoltando...';
@@ -528,9 +530,11 @@ export default function HomeScreen() {
           status={status}
           onPressIn={handleVoiceStart}
           onPressOut={handleVoiceEnd}
+          disabled={!isConnected}
         />
         <Text style={styles.statusHint}>
-          {status === 'speaking' ? 'Tocca per fermare' : STATUS_TEXT[status]}
+          {!isConnected ? 'Connetti al Mac per parlare' :
+           status === 'speaking' ? 'Tocca per fermare' : STATUS_TEXT[status]}
         </Text>
       </View>
     </SafeAreaView>
@@ -792,6 +796,10 @@ const styles = StyleSheet.create({
   talkButtonProcessing: {
     backgroundColor: Colors.oceanLight,
     opacity: 0.9,
+  },
+  talkButtonDisabled: {
+    backgroundColor: Colors.oceanLight,
+    opacity: 0.5,
   },
   talkButtonIcon: {
     fontSize: 20,
