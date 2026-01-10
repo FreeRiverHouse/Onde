@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onde - Presentazione 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            margin: 20px auto;
+            padding: 60px 80px;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 120px;
+            font-weight: 700;
+            letter-spacing: -4px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            font-weight: 300;
+            color: #888;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .date {
+            position: absolute;
+            bottom: 40px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #d4af37;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #d4af37;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #ddd;
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            background: #d4af37;
+            border-radius: 50%;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 72px;
+            font-weight: 700;
+            color: #d4af37;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #f4e4bc);
+            border-radius: 10px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 80px;
+            right: 80px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 4px;
+            background: #d4af37;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        td {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .status-complete { color: #4ade80; }
+        .status-progress { color: #fbbf24; }
+        .status-pending { color: #888; }
+
+        .quote {
+            font-size: 32px;
+            font-style: italic;
+            color: #d4af37;
+            text-align: center;
+            padding: 60px;
+            line-height: 1.5;
+        }
+
+        .small-text {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide slide-title">
+    <div class="logo">ONDE</div>
+    <div class="tagline">Casa Editrice Digitale & PR Agency</div>
+    <div class="date">Gennaio 2026 - Report Completo</div>
+</div>
+
+<!-- SLIDE 2: MISSION -->
+<div class="slide">
+    <h1>La Nostra Missione</h1>
+    <div class="accent-line"></div>
+    <p class="quote">"Far fiorire il mondo.<br>Portiamo il DNA umano nelle AI."</p>
+    <div class="grid-3" style="margin-top: 40px;">
+        <div class="card">
+            <h3>Connessione</h3>
+            <p>Tra autore e lettore, tra storie e cuori</p>
+        </div>
+        <div class="card">
+            <h3>Vibrazione</h3>
+            <p>Energia che si propaga e tocca chi incontra</p>
+        </div>
+        <div class="card">
+            <h3>Bellezza</h3>
+            <p>Estetica prima di tutto, eleganza senza tempo</p>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 3: OVERVIEW -->
+<div class="slide">
+    <h1>Cosa Siamo</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div>
+            <h3>Casa Editrice Digitale</h3>
+            <ul>
+                <li>Libri illustrati per bambini</li>
+                <li>eBook, PDF, Audiobook</li>
+                <li>App educative interattive</li>
+                <li>Contenuti VR immersivi</li>
+                <li>Podcast e video</li>
+            </ul>
+        </div>
+        <div>
+            <h3>PR Agency</h3>
+            <ul>
+                <li>3 account X gestiti</li>
+                <li>Automazione social media</li>
+                <li>Content strategy AI-powered</li>
+                <li>Cross-platform distribution</li>
+                <li>Analytics e reporting</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>2 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 4: STATS -->
+<div class="slide">
+    <h1>I Numeri</h1>
+    <div class="accent-line"></div>
+    <div class="grid-3">
+        <div class="stat-box card">
+            <div class="stat-number">25</div>
+            <div class="stat-label">Applicazioni</div>
+        </div>
+        <div class="stat-box card">
+            <div class="stat-number">158</div>
+            <div class="stat-label">Task Orchestrati</div>
+        </div>
+        <div class="stat-box card">
+            <div class="stat-number">14</div>
+            <div class="stat-label">Libri in Produzione</div>
+        </div>
+    </div>
+    <div class="grid-3" style="margin-top: 30px;">
+        <div class="stat-box card">
+            <div class="stat-number">79%</div>
+            <div class="stat-label">Task Completati</div>
+        </div>
+        <div class="stat-box card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Episodi Podcast</div>
+        </div>
+        <div class="stat-box card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Account Social Gestiti</div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>3 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 5: APPS -->
+<div class="slide">
+    <h1>Le Nostre App</h1>
+    <div class="accent-line"></div>
+    <table>
+        <tr>
+            <th>App</th>
+            <th>Tipo</th>
+            <th>Stack</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Onde Portal</td>
+            <td>Website principale</td>
+            <td>Next.js + Tailwind</td>
+            <td class="status-progress">In Progress</td>
+        </tr>
+        <tr>
+            <td>B.I.B. Dashboard</td>
+            <td>Business Intelligence</td>
+            <td>React + Node</td>
+            <td class="status-complete">Attivo</td>
+        </tr>
+        <tr>
+            <td>Moonlight Puzzle</td>
+            <td>Game Educativo</td>
+            <td>React + Canvas</td>
+            <td class="status-complete">Funzionante</td>
+        </tr>
+        <tr>
+            <td>AIKO Interactive</td>
+            <td>App Educativa AI</td>
+            <td>React Native</td>
+            <td class="status-complete">Funzionante</td>
+        </tr>
+        <tr>
+            <td>Onde Books VR</td>
+            <td>Reader VR</td>
+            <td>A-Frame WebXR</td>
+            <td class="status-progress">MVP</td>
+        </tr>
+    </table>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>4 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 6: BOOKS -->
+<div class="slide">
+    <h1>Catalogo Libri</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div>
+            <h3>Pubblicati</h3>
+            <ul>
+                <li><span class="highlight">AIKO 2: Robotaxi Adventure</span> - Tech</li>
+                <li><span class="highlight">Stella Stellina</span> - Poesia</li>
+                <li><span class="highlight">Il Salmo 23 per Bambini</span> - Spiritualita</li>
+            </ul>
+            <h3 style="margin-top: 30px;">In Produzione</h3>
+            <ul>
+                <li>AIKO - AI Spiegata ai Bambini</li>
+                <li>Il Potere dei Desideri</li>
+                <li>Piccole Rime (Antologia)</li>
+                <li>Il Respiro Magico</li>
+                <li>La Luce Dentro</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Collane Editoriali</h3>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Tech</h3>
+                <p>AI, coding, tecnologia per bambini</p>
+            </div>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Poetry</h3>
+                <p>Poesia illustrata, dominio pubblico</p>
+            </div>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Spiritualita</h3>
+                <p>Mindfulness, meditazione, valori</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>5 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 7: PERSONAGGI -->
+<div class="slide">
+    <h1>Il Team Creativo</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div class="card">
+            <h3>Gianni Parola</h3>
+            <p style="font-size: 18px; margin-bottom: 15px;"><em>Lo Scrittore</em></p>
+            <ul>
+                <li>Autore di tutti i testi Onde</li>
+                <li>Stile elegante, tradizionale</li>
+                <li>Uomo italiano ~40 anni</li>
+                <li>Capelli ricci, occhiali tondi</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Pina Pennello</h3>
+            <p style="font-size: 18px; margin-bottom: 15px;"><em>Supreme Art Director</em></p>
+            <ul>
+                <li>Illustratrice e designer</li>
+                <li>Gestisce Image & Video Factory</li>
+                <li>Donna italiana ~30 anni</li>
+                <li>Custode dello stile Onde</li>
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 40px; text-align: center;">
+        <h3>EMILIO - Il Nuovo Brand</h3>
+        <p>Robot AI educator per bambini - Il futuro di Onde</p>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>6 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 8: STILE VISIVO -->
+<div class="slide">
+    <h1>Stile Visivo Onde</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div>
+            <h3>Il Nostro Stile</h3>
+            <ul>
+                <li>Acquarello europeo elegante</li>
+                <li>Beatrix Potter + Luzzati + Munari</li>
+                <li>Colori naturali, luce dorata</li>
+                <li>Proporzioni realistiche</li>
+                <li>Sempre calore e accoglienza</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Cosa Evitiamo</h3>
+            <ul>
+                <li style="color: #ef4444;">NO Pixar / 3D plasticoso</li>
+                <li style="color: #ef4444;">NO Disney / DreamWorks</li>
+                <li style="color: #ef4444;">NO Guance rosse esagerate</li>
+                <li style="color: #ef4444;">NO Colori saturi</li>
+                <li style="color: #ef4444;">NO Stile americano cartoon</li>
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 40px;">
+        <h3>Varianti Stile</h3>
+        <div class="grid-2" style="margin-top: 20px;">
+            <div class="card">
+                <h3>Stile Dorato</h3>
+                <p>Principale - Personaggi, storie emotive. Luce dorata calda, painterly saturo.</p>
+            </div>
+            <div class="card">
+                <h3>Stile Terra</h3>
+                <p>Speciale - Pina, Gianni, arte. Palette ocra/teal, italiano moderno.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>7 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 9: TECH STACK -->
+<div class="slide">
+    <h1>Stack Tecnologico</h1>
+    <div class="accent-line"></div>
+    <div class="grid-3">
+        <div class="card">
+            <h3>Frontend</h3>
+            <ul>
+                <li>React / Next.js</li>
+                <li>Tailwind CSS</li>
+                <li>Framer Motion</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Mobile</h3>
+            <ul>
+                <li>React Native</li>
+                <li>Expo</li>
+                <li>SwiftUI (Watch)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>VR</h3>
+            <ul>
+                <li>A-Frame WebXR</li>
+                <li>Unity (futuro)</li>
+                <li>Meta Quest</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>AI Tools</h3>
+            <ul>
+                <li>Grok (immagini)</li>
+                <li>Hedra (video)</li>
+                <li>ElevenLabs (audio)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Infrastructure</h3>
+            <ul>
+                <li>Node.js + Express</li>
+                <li>PM2 (process mgr)</li>
+                <li>Cloudflare Pages</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Automation</h3>
+            <ul>
+                <li>Turbo Monorepo</li>
+                <li>GitHub Actions</li>
+                <li>Playwright (KDP)</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>8 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 10: WORKER SYSTEM -->
+<div class="slide">
+    <h1>Sistema Worker</h1>
+    <div class="accent-line"></div>
+    <p>Orchestrazione automatizzata di 158 task con dipendenze e priorita</p>
+    <div class="grid-2" style="margin-top: 30px;">
+        <div>
+            <h3>Status Task</h3>
+            <div style="margin: 20px 0;">
+                <p>Completati (79%)</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 79%;"></div></div>
+            </div>
+            <div style="margin: 20px 0;">
+                <p>In Progress</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 11%; background: #fbbf24;"></div></div>
+            </div>
+            <div style="margin: 20px 0;">
+                <p>Bloccati</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 13%; background: #ef4444;"></div></div>
+            </div>
+        </div>
+        <div>
+            <h3>Categorie</h3>
+            <ul>
+                <li>Branding: 25 task</li>
+                <li>Publishing: 35 task</li>
+                <li>Multimedia: 28 task</li>
+                <li>Apps: 22 task</li>
+                <li>PR Agency: 20 task</li>
+                <li>Infrastructure: 15 task</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>9 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 11: VIDEO FACTORY -->
+<div class="slide">
+    <h1>Video Factory</h1>
+    <div class="accent-line"></div>
+    <p>Pipeline automatizzata per produzione video multipiattaforma</p>
+    <div class="grid-2" style="margin-top: 30px;">
+        <div>
+            <h3>Tools</h3>
+            <ul>
+                <li><span class="highlight">Hedra</span> - Lip sync ($144/anno)</li>
+                <li><span class="highlight">Wav2Lip</span> - Locale (free)</li>
+                <li><span class="highlight">Hailuo</span> - Video gen poesia</li>
+                <li><span class="highlight">Kling</span> - Alta qualita</li>
+                <li><span class="highlight">ElevenLabs</span> - Voci narranti</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Output</h3>
+            <ul>
+                <li>YouTube Shorts</li>
+                <li>TikTok / Reels</li>
+                <li>Video educativi</li>
+                <li>Trailer libri</li>
+                <li>Podcast video</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 30px;">
+        <h3>Onde Lounge</h3>
+        <p>Canali YouTube ambient 1-4 ore: fireplace, rain sounds, lullabies. Monetizzazione passiva.</p>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>10 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 12: PR AGENCY -->
+<div class="slide">
+    <h1>PR Agency</h1>
+    <div class="accent-line"></div>
+    <div class="grid-3">
+        <div class="card">
+            <h3>@FreeRiverHouse</h3>
+            <p>Tech / Building in public</p>
+            <p class="small-text" style="margin-top: 10px;">Professionale, processo, milestone</p>
+        </div>
+        <div class="card">
+            <h3>@Onde_FRH</h3>
+            <p>Casa Editrice</p>
+            <p class="small-text" style="margin-top: 10px;">Colto, riflessivo, cultura</p>
+        </div>
+        <div class="card">
+            <h3>@magmatic__</h3>
+            <p>Arte / Poesia</p>
+            <p class="small-text" style="margin-top: 10px;">Autentico, zero vendita</p>
+        </div>
+    </div>
+    <div style="margin-top: 40px;">
+        <h3>Automazione</h3>
+        <div class="grid-2">
+            <ul>
+                <li>Telegram Bot @OndePR_bot</li>
+                <li>Comandi: /frh /onde /magmatic</li>
+                <li>Report giornaliero 17:40</li>
+            </ul>
+            <ul>
+                <li>100+ post pre-scritti</li>
+                <li>Cross-platform scheduling</li>
+                <li>Analytics automatizzati</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>11 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 13: INFRASTRUCTURE -->
+<div class="slide">
+    <h1>Infrastructure</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div>
+            <h3>Server Locale</h3>
+            <ul>
+                <li>Mac sempre acceso</li>
+                <li>PM2 process manager</li>
+                <li>Port forwarding LAN</li>
+                <li>SSD esterno per AI tasks</li>
+            </ul>
+            <h3 style="margin-top: 30px;">Porte Attive</h3>
+            <table style="font-size: 14px;">
+                <tr><td>3000</td><td>onde-portal</td></tr>
+                <tr><td>3001</td><td>bib-dashboard</td></tr>
+                <tr><td>3600</td><td>factory-dashboard</td></tr>
+                <tr><td>8888</td><td>handsfree-server</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>Cloud</h3>
+            <ul>
+                <li><span class="highlight">onde.la</span> - Dominio acquisito</li>
+                <li>Cloudflare DNS (Free)</li>
+                <li>Cloudflare Pages (deploy)</li>
+                <li>GitHub (code + Actions)</li>
+            </ul>
+            <h3 style="margin-top: 30px;">Costi Mensili</h3>
+            <ul>
+                <li>API Claude: ~$10-20</li>
+                <li>ElevenLabs: ~$5-10</li>
+                <li>Hedra: $12 (annuale)</li>
+                <li><strong>Totale: ~$30-40/mese</strong></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>12 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 14: ROADMAP Q1 -->
+<div class="slide">
+    <h1>Roadmap Q1 2026</h1>
+    <div class="accent-line"></div>
+    <div class="grid-3">
+        <div class="card">
+            <h3>Gennaio</h3>
+            <ul style="font-size: 16px;">
+                <li>Stile Onde definitivo</li>
+                <li>EMILIO design completo</li>
+                <li>4 nuovi libri illustrati</li>
+                <li>onde.la live</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Febbraio</h3>
+            <ul style="font-size: 16px;">
+                <li>5+ libri su KDP</li>
+                <li>Video Factory pipeline</li>
+                <li>Podcast 10 episodi</li>
+                <li>App Store submissions</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Marzo</h3>
+            <ul style="font-size: 16px;">
+                <li>Onde Lounge YouTube</li>
+                <li>Multi-platform PR</li>
+                <li>EMILIO X account</li>
+                <li>Revenue: $1k/mese</li>
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 40px;">
+        <h3>Target Revenue 2026</h3>
+        <div class="grid-2">
+            <div class="card">
+                <p><span class="highlight" style="font-size: 36px;">$1k</span>/mese</p>
+                <p class="small-text">Q1 Target</p>
+            </div>
+            <div class="card">
+                <p><span class="highlight" style="font-size: 36px;">$5k</span>/mese</p>
+                <p class="small-text">Q2 Target</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>13 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 15: ACHIEVEMENTS -->
+<div class="slide">
+    <h1>Achievements</h1>
+    <div class="accent-line"></div>
+    <div class="grid-2">
+        <div>
+            <h3>Completati</h3>
+            <ul>
+                <li>Sistema worker 158 task</li>
+                <li>25 applicazioni deployate</li>
+                <li>2 libri pubblicati</li>
+                <li>3 account X automatizzati</li>
+                <li>Telegram bot attivo</li>
+                <li>Lip sync setup locale</li>
+                <li>50+ episodi podcast</li>
+                <li>Hedra subscription</li>
+                <li>onde.la + Cloudflare</li>
+                <li>Apple Watch app</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Prossimi Step</h3>
+            <ul>
+                <li>Approvare stile unitario</li>
+                <li>EMILIO character design</li>
+                <li>Batch illustrazioni</li>
+                <li>5+ libri KDP Q1</li>
+                <li>Video Factory full</li>
+                <li>onde.la portale live</li>
+                <li>Revenue generation</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <span>ONDE</span>
+        <span>14 / 15</span>
+    </div>
+</div>
+
+<!-- SLIDE 16: CLOSING -->
+<div class="slide slide-title">
+    <div class="logo">ONDE</div>
+    <p style="font-size: 32px; color: #888; margin-top: 40px;">Far fiorire il mondo.</p>
+    <div style="margin-top: 60px;">
+        <p style="font-size: 20px; color: #555;">onde.la</p>
+        <p style="font-size: 16px; color: #444; margin-top: 10px;">Gennaio 2026</p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Onde Publishing - Presentazione Executive 2026</title>
+    <style>
+        @page { size: A4 landscape; margin: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #1a202c; color: white; }
+
+        .slide {
+            width: 297mm;
+            height: 210mm;
+            padding: 40px 60px;
+            page-break-after: always;
+            position: relative;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #1a365d 100%);
+        }
+
+        .slide:last-child { page-break-after: avoid; }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            color: #e88e40;
+        }
+
+        .slide-number {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 300;
+            color: #e88e40;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+        }
+
+        /* Title Slide */
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a365d 0%, #0d1b3e 100%);
+        }
+
+        .title-slide .logo {
+            font-size: 72px;
+            letter-spacing: 20px;
+            margin-bottom: 20px;
+        }
+
+        .title-slide h1 {
+            font-size: 42px;
+            font-weight: 200;
+            margin-bottom: 10px;
+        }
+
+        .title-slide .date {
+            font-size: 18px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 40px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: #e88e40;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        /* Lists */
+        ul { list-style: none; }
+
+        li {
+            font-size: 18px;
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #e88e40;
+            border-radius: 50%;
+        }
+
+        /* Status Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .tag-ready { background: #48bb78; color: white; }
+        .tag-progress { background: #ed8936; color: white; }
+        .tag-blocked { background: #fc8181; color: white; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        th {
+            background: rgba(232, 142, 64, 0.3);
+            color: #e88e40;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .roadmap-item {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .roadmap-item:not(:last-child):after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: #e88e40;
+        }
+
+        .roadmap-icon {
+            width: 60px;
+            height: 60px;
+            background: #e88e40;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+
+        .roadmap-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .roadmap-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Footer */
+        .slide-footer {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(232, 142, 64, 0.2);
+            border-left: 4px solid #e88e40;
+            padding: 20px 30px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box strong {
+            color: #e88e40;
+        }
+
+        /* Collana Colors */
+        .collana-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .collana-tech { background: #3182ce; }
+        .collana-spirit { background: #d53f8c; }
+        .collana-poetry { background: #38a169; }
+        .collana-classic { background: #dd6b20; }
+
+        /* Chart visualization */
+        .chart-bar {
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .chart-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e88e40, #ed8936);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide title-slide">
+    <div class="logo">ONDE</div>
+    <h1>Catalogo Libri 2026</h1>
+    <p class="subtitle">Casa Editrice - Free River House</p>
+    <p class="date">10 Gennaio 2026</p>
+</div>
+
+<!-- SLIDE 2: Overview Numbers -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="logo">ONDE</div>
+        <div class="slide-number">02</div>
+    </div>
+
+    <h2>Numeri Chiave</h2>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-number">15</div>
+            <div class="stat-label">Titoli nel Catalogo</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Collane Editoriali</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Lingue</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">8</div>
+            <div class="stat-label">PDF Pronti</div>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <strong>Potenziale:</strong> Con le traduzioni automatiche, 1 libro diventa 6+ versioni.
+        Pipeline attiva per scalare rapidamente il catalogo.
+    </div>
+
+    <div class="slide-footer">
+        <span>Onde Publishing</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 3: Collane -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="logo">ONDE</div>
+        <div class="slide-number">03</div>
+    </div>
+
+    <h2>Le Nostre Collane</h2>
+
+    <div class="two-col">
+        <div>
+            <h3><span class="collana-badge collana-spirit">SPIRITUALITA</span> 8 titoli</h3>
+            <ul>
+                <li>Il Salmo 23 per Bambini (IT)</li>
+                <li>Psalm 23 Abundance (5 lingue)</li>
+                <li>Il Potere dei Desideri (IT)</li>
+                <li>La Luce Dentro (in prod.)</li>
+                <li>Il Respiro Magico (in prod.)</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;"><span class="collana-badge collana-tech">TECH</span> 5 titoli</h3>
+            <ul>
+                <li>AIKO: AI Explained to Children</li>
+                <li>AIKO 2: The Robotaxi Adventure</li>
+                <li>AIKO (Italiano)</li>
+                <li>Il Piccolo Inventore (in prod.)</li>
+                <li>Vibe Coding (revisione)</li>
+            </ul>
+        </div>
+        <div>
+            <h3><span class="collana-badge collana-poetry">POETRY</span> 1 titolo</h3>
+            <ul>
+                <li>Piccole Rime - Filastrocche Italiane</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;"><span class="collana-badge collana-classic">CLASSICI</span> 1 titolo</h3>
+            <ul>
+                <li>Il Libro Sbilenco (trad. The Slant Book)</li>
+            </ul>
+
+            <div class="highlight-box" style="margin-top: 40px;">
+                <strong>Target Q1 2026:</strong><br>
+                5+ libri pubblicati su KDP<br>
+                $200-500/mese revenue
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>Onde Publishing</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 4: Status Produzione -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="logo">ONDE</div>
+        <div class="slide-number">04</div>
+    </div>
+
+    <h2>Status Produzione</h2>
+
+    <table>
+        <tr>
+            <th>Fase</th>
+            <th>Titoli</th>
+            <th>Dettagli</th>
+        </tr>
+        <tr>
+            <td><span class="tag tag-ready">PRONTI KDP</span></td>
+            <td>4</td>
+            <td>Il Salmo 23, Il Potere dei Desideri, AIKO 2, Psalm 23 Abundance</td>
+        </tr>
+        <tr>
+            <td><span class="tag tag-progress">IN PRODUZIONE</span></td>
+            <td>5</td>
+            <td>AIKO EN, La Luce Dentro, Il Respiro Magico, Il Piccolo Inventore, Il Libro Sbilenco</td>
+        </tr>
+        <tr>
+            <td><span class="tag tag-blocked">BLOCCATI</span></td>
+            <td>2</td>
+            <td>Piccole Rime (contenuto), Vibe Coding (revisione tono)</td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top: 30px;">Progresso Pipeline</h3>
+
+    <p style="margin: 10px 0; font-size: 14px;">Libri con PDF Completo</p>
+    <div class="chart-bar">
+        <div class="chart-fill" style="width: 53%;">8 / 15 (53%)</div>
+    </div>
+
+    <p style="margin: 10px 0; font-size: 14px;">Libri con Testo Completo</p>
+    <div class="chart-bar">
+        <div class="chart-fill" style="width: 80%;">12 / 15 (80%)</div>
+    </div>
+
+    <p style="margin: 10px 0; font-size: 14px;">Libri Pubblicati su KDP</p>
+    <div class="chart-bar">
+        <div class="chart-fill" style="width: 0%;">0 / 15 (0%)</div>
+    </div>
+
+    <div class="slide-footer">
+        <span>Onde Publishing</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 5: KDP Status -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="logo">ONDE</div>
+        <div class="slide-number">05</div>
+    </div>
+
+    <h2>Status KDP</h2>
+
+    <div class="highlight-box" style="background: rgba(252, 129, 129, 0.2); border-color: #fc8181;">
+        <strong style="color: #fc8181;">ATTENZIONE:</strong> Nessun libro pubblicato su Amazon KDP al momento.
+        Non sono disponibili dati di vendita.
+    </div>
+
+    <h3 style="margin-top: 30px;">Azioni Richieste per Upload</h3>
+
+    <div class="two-col">
+        <div>
+            <h3 style="font-size: 18px;">Per ogni libro:</h3>
+            <ul>
+                <li>Preview approvata da Mattia</li>
+                <li>Copertina formato KDP con spine</li>
+                <li>ePub generato (per Kindle)</li>
+                <li>Metadati e keywords ottimizzati</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="font-size: 18px;">Checklist KDP pronte per:</h3>
+            <ul>
+                <li>AIKO: AI Explained to Children</li>
+                <li>Il Salmo 23 per Bambini</li>
+                <li>Il Potere dei Desideri</li>
+                <li>Piccole Rime</li>
+                <li>Il Piccolo Inventore</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 30px;">
+        <strong>Strategia Prezzi:</strong> Ebook EUR 2.99-4.99 | Paperback EUR 9.99-12.99<br>
+        Royalty 70% su Kindle (fascia 2.99-9.99)
+    </div>
+
+    <div class="slide-footer">
+        <span>Onde Publishing</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 6: Prossimi Passi -->
+<div class="slide">
+    <div class="slide-header">
+        <div class="logo">ONDE</div>
+        <div class="slide-number">06</div>
+    </div>
+
+    <h2>Prossimi Passi</h2>
+
+    <div class="roadmap">
+        <div class="roadmap-item">
+            <div class="roadmap-icon">1</div>
+            <div class="roadmap-title">Approvazione</div>
+            <div class="roadmap-desc">Preview Telegram<br>OK da Mattia</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="roadmap-icon">2</div>
+            <div class="roadmap-title">Upload KDP</div>
+            <div class="roadmap-desc">4 libri pronti<br>Questa settimana</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="roadmap-icon">3</div>
+            <div class="roadmap-title">Immagini</div>
+            <div class="roadmap-desc">3 libri in attesa<br>31 illustrazioni</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="roadmap-icon">4</div>
+            <div class="roadmap-title">Traduzioni</div>
+            <div class="roadmap-desc">AIKO in 6 lingue<br>Q1 2026</div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 50px;">Priorita Immediate</h3>
+
+    <table>
+        <tr>
+            <th>P</th>
+            <th>Azione</th>
+            <th>Libro</th>
+        </tr>
+        <tr>
+            <td style="color: #fc8181; font-weight: bold;">P0</td>
+            <td>Upload su KDP</td>
+            <td>Il Salmo 23, Il Potere dei Desideri, Psalm 23 Abundance</td>
+        </tr>
+        <tr>
+            <td style="color: #ed8936; font-weight: bold;">P1</td>
+            <td>Generare immagini</td>
+            <td>Il Respiro Magico, La Luce Dentro, Il Piccolo Inventore</td>
+        </tr>
+        <tr>
+            <td style="color: #48bb78; font-weight: bold;">P2</td>
+            <td>Completare PDF</td>
+            <td>AIKO EN, AIKO IT</td>
+        </tr>
+    </table>
+
+    <div class="slide-footer">
+        <span>Onde Publishing</span>
+        <span>onde.la</span>
+    </div>
+</div>
+
+<!-- SLIDE 7: Closing -->
+<div class="slide title-slide">
+    <div class="logo">ONDE</div>
+    <h1 style="font-size: 36px; margin-top: 20px;">Far fiorire il mondo.</h1>
+    <p class="subtitle">Portare il DNA umano nelle AI.</p>
+
+    <div style="margin-top: 60px; font-size: 16px; color: rgba(255,255,255,0.6);">
+        <p>onde.la</p>
+        <p style="margin-top: 10px;">Casa Editrice - Free River House</p>
+    </div>
+</div>
+
+</body>
+</html>

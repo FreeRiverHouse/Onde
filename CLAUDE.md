@@ -268,16 +268,36 @@ I bambini stanno comunque in VR - **tanto vale fare roba BUONA che possono usare
 
 ---
 
-## 🤖 EMILIA vs EMILIO (10 Gen 2026)
+## 🤖 EMILIO - NOME CONFERMATO ✅ (10 Gen 2026)
 
-**NOME ALTERNATIVO**: EmilIA!!!!
+**NOME DEFINITIVO**: EmilIO
 
-Considerare "EmilIA" invece di "Emilio":
-- Gioco di parole con AI
-- Femminile = meno aggressivo, più accogliente?
-- Da discutere con Mattia
+### Perché IO e non IA:
+- **IO** = identità, coscienza (italiano "io" = "I")
+- **IA** = AI (gioco di parole ovvio, ma più scontato)
+- EmilIO suona come un nome italiano vero
+- L'identità > l'artificialità
 
-**Status attuale**: EMILIO confermato, ma EmilIA è opzione
+**DECISIONE**: Manteniamo **EMILIO** ✅
+
+### 🤫 INSIDE JOKE (Solo per noi!)
+**Nome completo segreto**: Emilio Maccarese
+
+Pubblicamente è solo "Emilio". Ma noi sappiamo che di cognome fa Maccarese.
+Non lo diciamo mai in pubblico - è il nostro scherzo interno. 😉
+
+---
+
+## 🌊 ONDE PORTAL - IL WORDPLAY (10 Gen 2026)
+
+**"On The Portal" = "ONDE Portal"**
+
+| Scritto | Suona Come | Significato |
+|---------|------------|-------------|
+| On The | Onde | Le onde (italiano) |
+
+È semplicemente **ONDE PORTAL** - la casa si chiama Onde!
+Quando dici "On The Portal" stai già dicendo "Onde Portal".
 
 ---
 

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Onde Publishing - Report Catalogo Libri 2026</title>
+    <style>
+        @page { size: A4; margin: 2cm; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Georgia', serif; line-height: 1.6; color: #333; background: #fff; padding: 40px; max-width: 210mm; margin: 0 auto; }
+        h1 { color: #1a365d; font-size: 28px; border-bottom: 3px solid #e88e40; padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { color: #2c5282; font-size: 20px; margin-top: 30px; margin-bottom: 15px; border-left: 4px solid #e88e40; padding-left: 10px; }
+        h3 { color: #2d3748; font-size: 16px; margin-top: 20px; margin-bottom: 10px; }
+        .header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #1a365d; padding-bottom: 20px; }
+        .header .logo { font-size: 42px; font-weight: bold; color: #1a365d; letter-spacing: 8px; }
+        .header .subtitle { font-size: 14px; color: #666; margin-top: 5px; }
+        .header .date { font-size: 12px; color: #888; margin-top: 10px; }
+        .summary-box { background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px; }
+        .stat-card { background: white; border-radius: 6px; padding: 15px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 32px; font-weight: bold; color: #e88e40; }
+        .stat-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #2c5282; color: white; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        tr:nth-child(even) { background: #f7fafc; }
+        .status { padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; display: inline-block; }
+        .status-ready { background: #c6f6d5; color: #22543d; }
+        .status-progress { background: #fef3c7; color: #92400e; }
+        .status-blocked { background: #fed7d7; color: #9b2c2c; }
+        .status-draft { background: #e9d5ff; color: #6b21a8; }
+        .collana { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+        .collana-tech { background: #dbeafe; color: #1e40af; }
+        .collana-spirit { background: #fce7f3; color: #9d174d; }
+        .collana-poetry { background: #d1fae5; color: #065f46; }
+        .collana-classic { background: #fef3c7; color: #92400e; }
+        .section { page-break-inside: avoid; margin-bottom: 30px; }
+        .workflow-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .workflow-step { display: flex; align-items: center; margin: 10px 0; }
+        .step-num { background: #e88e40; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; margin-right: 10px; }
+        .note-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; font-size: 13px; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; text-align: center; font-size: 11px; color: #666; }
+        ul { margin-left: 20px; margin-top: 10px; }
+        li { margin-bottom: 5px; font-size: 13px; }
+        .translations { font-size: 11px; color: #666; }
+        .priority { font-weight: bold; }
+        .priority-high { color: #dc2626; }
+        .priority-medium { color: #f59e0b; }
+        .priority-low { color: #10b981; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">ONDE</div>
+    <div class="subtitle">Casa Editrice - Free River House</div>
+    <div class="date">Report Catalogo Libri - 10 Gennaio 2026</div>
+</div>
+
+<h1>Report Completo Catalogo Libri</h1>
+
+<div class="summary-box">
+    <h3>Executive Summary</h3>
+    <div class="summary-grid">
+        <div class="stat-card">
+            <div class="stat-number">15</div>
+            <div class="stat-label">Titoli Totali</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">8</div>
+            <div class="stat-label">PDF Pronti</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Lingue</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Su KDP</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+<h2>1. Catalogo Completo Libri</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Titolo</th>
+            <th>Collana</th>
+            <th>Lingua</th>
+            <th>Status</th>
+            <th>PDF</th>
+            <th>KDP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>AIKO: AI Explained to Children</strong></td>
+            <td><span class="collana collana-tech">Tech</span></td>
+            <td>EN</td>
+            <td><span class="status status-ready">Pronto</span></td>
+            <td>In preparazione</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>AIKO 2: The Robotaxi Adventure</strong></td>
+            <td><span class="collana collana-tech">Tech</span></td>
+            <td>EN</td>
+            <td><span class="status status-ready">Completato</span></td>
+            <td>AIKO-2-Robotaxi.pdf (3.2MB)</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>AIKO (Italiano)</strong></td>
+            <td><span class="collana collana-tech">Tech</span></td>
+            <td>IT</td>
+            <td><span class="status status-progress">Traduzione</span></td>
+            <td>-</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Il Salmo 23 per Bambini</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>IT</td>
+            <td><span class="status status-ready">Pronto</span></td>
+            <td>libro-v3.pdf (3.1MB)</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Psalm 23 - Abundance</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>EN</td>
+            <td><span class="status status-ready">Completato</span></td>
+            <td>psalm-23-abundance.pdf (3.3MB)</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td>- Psalm 23 Abundance (ES)</td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>ES</td>
+            <td><span class="status status-ready">Tradotto</span></td>
+            <td>psalm-23-abundance-es.pdf + .epub</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td>- Psalm 23 Abundance (FR)</td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>FR</td>
+            <td><span class="status status-ready">Tradotto</span></td>
+            <td>psalm-23-abundance-fr.pdf + .epub</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td>- Psalm 23 Abundance (DE)</td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>DE</td>
+            <td><span class="status status-ready">Tradotto</span></td>
+            <td>psalm-23-abundance-de.pdf + .epub</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td>- Psalm 23 Abundance (KO)</td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>KO</td>
+            <td><span class="status status-ready">Tradotto</span></td>
+            <td>psalm-23-abundance-ko.pdf + .epub</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Psalm 23 - Children</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>EN</td>
+            <td><span class="status status-ready">Completato</span></td>
+            <td>psalm-23-children.pdf</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Psalm 23 - Gentle</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>EN</td>
+            <td><span class="status status-ready">Completato</span></td>
+            <td>psalm-23-gentle.pdf</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Il Potere dei Desideri</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>IT</td>
+            <td><span class="status status-ready">Pronto</span></td>
+            <td>Il-Potere-dei-Desideri.pdf (4.5MB)</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Piccole Rime</strong></td>
+            <td><span class="collana collana-poetry">Poetry</span></td>
+            <td>IT</td>
+            <td><span class="status status-blocked">Bloccato</span></td>
+            <td>Piccole-Rime-Luzzati.pdf</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td><strong>Vibe Coding / Code Surfing</strong></td>
+            <td><span class="collana collana-tech">Tech</span></td>
+            <td>EN</td>
+            <td><span class="status status-progress">Revisione</span></td>
+            <td>code-surfing.pdf (1.2MB)</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Il Libro Sbilenco</strong></td>
+            <td><span class="collana collana-classic">Classici</span></td>
+            <td>IT</td>
+            <td><span class="status status-progress">Traduzione</span></td>
+            <td>-</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>La Luce Dentro</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>IT</td>
+            <td><span class="status status-draft">Testo pronto</span></td>
+            <td>-</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Il Respiro Magico</strong></td>
+            <td><span class="collana collana-spirit">Spiritualita</span></td>
+            <td>IT</td>
+            <td><span class="status status-draft">Testo pronto</span></td>
+            <td>-</td>
+            <td>Non pubblicato</td>
+        </tr>
+        <tr>
+            <td><strong>Il Piccolo Inventore</strong></td>
+            <td><span class="collana collana-tech">Tech</span></td>
+            <td>IT</td>
+            <td><span class="status status-draft">Testo pronto</span></td>
+            <td>-</td>
+            <td>Non pubblicato</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>2. Dettaglio per Collana</h2>
+
+<h3>Collana Tech (5 titoli)</h3>
+<table>
+    <tr>
+        <th>Titolo</th>
+        <th>Capitoli</th>
+        <th>Immagini</th>
+        <th>Status Produzione</th>
+    </tr>
+    <tr>
+        <td>AIKO: AI Explained to Children</td>
+        <td>8 + dedica + nota genitori</td>
+        <td>9/9 complete</td>
+        <td>PDF da generare, checklist KDP pronta</td>
+    </tr>
+    <tr>
+        <td>AIKO 2: The Robotaxi Adventure</td>
+        <td>8</td>
+        <td>9/9 complete</td>
+        <td>PDF completato, script audiobook pronto</td>
+    </tr>
+    <tr>
+        <td>AIKO (Italiano)</td>
+        <td>8</td>
+        <td>Riusa EN</td>
+        <td>Traduzione completata, PDF da generare</td>
+    </tr>
+    <tr>
+        <td>Il Piccolo Inventore</td>
+        <td>10</td>
+        <td>0/11 (prompts pronti)</td>
+        <td>Testo + prompts pronti, immagini da generare</td>
+    </tr>
+    <tr>
+        <td>Vibe Coding</td>
+        <td>10 + appendici</td>
+        <td>0 (in attesa)</td>
+        <td>Revisione tono richiesta</td>
+    </tr>
+</table>
+
+<h3>Collana Spiritualita (8 titoli)</h3>
+<table>
+    <tr>
+        <th>Titolo</th>
+        <th>Traduzioni</th>
+        <th>Formati</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Il Salmo 23 per Bambini</td>
+        <td>IT</td>
+        <td>PDF (3.1MB)</td>
+        <td>Pronto per KDP</td>
+    </tr>
+    <tr>
+        <td>Psalm 23 - Abundance</td>
+        <td>EN, ES, FR, DE, KO</td>
+        <td>PDF + ePub</td>
+        <td>5 versioni complete</td>
+    </tr>
+    <tr>
+        <td>Psalm 23 - Children</td>
+        <td>EN</td>
+        <td>PDF</td>
+        <td>Pronto</td>
+    </tr>
+    <tr>
+        <td>Psalm 23 - Gentle</td>
+        <td>EN</td>
+        <td>PDF</td>
+        <td>Pronto</td>
+    </tr>
+    <tr>
+        <td>Il Potere dei Desideri</td>
+        <td>IT</td>
+        <td>PDF (4.5MB)</td>
+        <td>Pronto per KDP</td>
+    </tr>
+    <tr>
+        <td>La Luce Dentro</td>
+        <td>IT</td>
+        <td>-</td>
+        <td>Testo + prompts pronti</td>
+    </tr>
+    <tr>
+        <td>Il Respiro Magico</td>
+        <td>IT</td>
+        <td>-</td>
+        <td>Testo + prompts pronti</td>
+    </tr>
+</table>
+
+<h3>Collana Poetry (1 titolo)</h3>
+<table>
+    <tr>
+        <th>Titolo</th>
+        <th>Poesie</th>
+        <th>Status</th>
+        <th>Note</th>
+    </tr>
+    <tr>
+        <td>Piccole Rime</td>
+        <td>3 verificate</td>
+        <td>BLOCCATO</td>
+        <td>Contenuto insufficiente (min. 8-10 poesie). Testi falsi rimossi.</td>
+    </tr>
+</table>
+
+<h3>Collana Classici (1 titolo)</h3>
+<table>
+    <tr>
+        <th>Titolo</th>
+        <th>Originale</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Il Libro Sbilenco</td>
+        <td>The Slant Book (1910)</td>
+        <td>Traduzione IT completata, 22 illustrazioni da generare</td>
+    </tr>
+</table>
+</div>
+
+<div class="section">
+<h2>3. Status KDP e Vendite</h2>
+
+<div class="note-box">
+    <strong>NOTA IMPORTANTE:</strong> Al momento nessun libro e stato pubblicato su KDP. Non sono disponibili dati di vendita.
+</div>
+
+<h3>Libri Pronti per Upload KDP</h3>
+<ul>
+    <li><strong>Il Salmo 23 per Bambini</strong> - PDF pronto, checklist completata</li>
+    <li><strong>Il Potere dei Desideri</strong> - PDF pronto, checklist completata</li>
+    <li><strong>Psalm 23 Abundance (5 lingue)</strong> - PDF + ePub pronti</li>
+    <li><strong>AIKO 2: The Robotaxi Adventure</strong> - PDF pronto</li>
+</ul>
+
+<h3>Blocchi alla Pubblicazione</h3>
+<table>
+    <tr>
+        <th>Libro</th>
+        <th>Blocco</th>
+        <th>Azione Richiesta</th>
+    </tr>
+    <tr>
+        <td>Tutti i libri pronti</td>
+        <td>Approvazione Mattia</td>
+        <td>Preview su Telegram per OK finale</td>
+    </tr>
+    <tr>
+        <td>Tutti</td>
+        <td>Copertina KDP con spine</td>
+        <td>Generare formato specifico per paperback</td>
+    </tr>
+    <tr>
+        <td>Piccole Rime</td>
+        <td>Contenuto insufficiente</td>
+        <td>Aggiungere poesie verificate</td>
+    </tr>
+    <tr>
+        <td>Vibe Coding</td>
+        <td>Tono da rivedere</td>
+        <td>Riscrittura con tono piu umile</td>
+    </tr>
+</table>
+</div>
+
+<div class="section">
+<h2>4. Traduzioni e Localizzazione</h2>
+
+<table>
+    <tr>
+        <th>Libro Base</th>
+        <th>IT</th>
+        <th>EN</th>
+        <th>ES</th>
+        <th>FR</th>
+        <th>DE</th>
+        <th>KO</th>
+    </tr>
+    <tr>
+        <td>Psalm 23 Abundance</td>
+        <td>-</td>
+        <td>PDF+ePub</td>
+        <td>PDF+ePub</td>
+        <td>PDF+ePub</td>
+        <td>PDF+ePub</td>
+        <td>PDF+ePub</td>
+    </tr>
+    <tr>
+        <td>Salmo 23 Bambini</td>
+        <td>PDF</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>AIKO</td>
+        <td>Testo</td>
+        <td>Pronto</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+<p><strong>Totale Traduzioni Complete:</strong> 4 (ES, FR, DE, KO per Psalm 23 Abundance)</p>
+</div>
+
+<div class="section">
+<h2>5. Pipeline Produzione in Corso</h2>
+
+<h3>Libri con Testo Pronto (in attesa immagini)</h3>
+<ul>
+    <li><span class="priority priority-high">P1</span> Il Respiro Magico - 10 immagini da generare</li>
+    <li><span class="priority priority-high">P1</span> La Luce Dentro - 10 immagini da generare</li>
+    <li><span class="priority priority-high">P1</span> Il Piccolo Inventore - 11 immagini da generare</li>
+    <li><span class="priority priority-medium">P2</span> Il Libro Sbilenco - 22 illustrazioni da generare</li>
+</ul>
+
+<h3>Libri in Revisione</h3>
+<ul>
+    <li>Vibe Coding / Code Surfing - Revisione tono (troppo supponente)</li>
+    <li>Piccole Rime - Decisione su contenuto (3 poesie insufficienti)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>6. Workflow Suggerito per Dashboard Business</h2>
+
+<div class="workflow-box">
+<h3>Automazione Aggiornamenti Dashboard</h3>
+
+<div class="workflow-step">
+    <div class="step-num">1</div>
+    <div>Creare file <code>CATALOG-STATUS.json</code> nella root con stato di ogni libro</div>
+</div>
+<div class="workflow-step">
+    <div class="step-num">2</div>
+    <div>Script giornaliero che scansiona <code>/books/</code> e aggiorna il JSON</div>
+</div>
+<div class="workflow-step">
+    <div class="step-num">3</div>
+    <div>Dashboard web legge JSON e mostra stato in tempo reale</div>
+</div>
+<div class="workflow-step">
+    <div class="step-num">4</div>
+    <div>Integrazione KDP API (quando disponibile) per dati vendita</div>
+</div>
+<div class="workflow-step">
+    <div class="step-num">5</div>
+    <div>Notifica Telegram quando libro cambia stato</div>
+</div>
+
+<h3>Schema JSON Suggerito</h3>
+<pre style="background: #f1f5f9; padding: 10px; border-radius: 4px; font-size: 11px; overflow-x: auto;">
+{
+  "lastUpdate": "2026-01-10T10:00:00Z",
+  "books": [
+    {
+      "id": "salmo-23-bambini",
+      "title": "Il Salmo 23 per Bambini",
+      "collana": "spirituality",
+      "status": "ready",
+      "kdpStatus": "not_published",
+      "languages": ["it"],
+      "hasEpub": false,
+      "hasPdf": true,
+      "salesData": null
+    }
+  ]
+}
+</pre>
+</div>
+</div>
+
+<div class="section">
+<h2>7. Prossimi Passi Prioritari</h2>
+
+<table>
+    <tr>
+        <th>Priorita</th>
+        <th>Azione</th>
+        <th>Libro</th>
+        <th>Note</th>
+    </tr>
+    <tr>
+        <td><span class="priority priority-high">P0</span></td>
+        <td>Upload su KDP</td>
+        <td>Il Salmo 23, Il Potere dei Desideri</td>
+        <td>Pronti, serve OK Mattia</td>
+    </tr>
+    <tr>
+        <td><span class="priority priority-high">P1</span></td>
+        <td>Generare immagini</td>
+        <td>Il Respiro Magico, La Luce Dentro, Il Piccolo Inventore</td>
+        <td>Prompts pronti in ogni cartella</td>
+    </tr>
+    <tr>
+        <td><span class="priority priority-medium">P2</span></td>
+        <td>Generare PDF AIKO</td>
+        <td>AIKO: AI Explained to Children</td>
+        <td>Immagini complete, PDF da creare</td>
+    </tr>
+    <tr>
+        <td><span class="priority priority-medium">P2</span></td>
+        <td>Revisione tono</td>
+        <td>Vibe Coding</td>
+        <td>Riscrivere con tono umile</td>
+    </tr>
+    <tr>
+        <td><span class="priority priority-low">P3</span></td>
+        <td>Completare contenuto</td>
+        <td>Piccole Rime</td>
+        <td>Trovare altre poesie verificate</td>
+    </tr>
+</table>
+</div>
+
+<div class="footer">
+    <p><strong>ONDE Publishing</strong> - Free River House</p>
+    <p>Report generato il 10 Gennaio 2026 | onde.la</p>
+    <p style="font-style: italic; margin-top: 5px;">Far fiorire il mondo. Portare il DNA umano nelle AI.</p>
+</div>
+
+</body>
+</html>
