@@ -18,7 +18,27 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
-## REGOLA ASSOLUTA #0 - MAI SUBSCRIPTION AUTONOME
+## REGOLA ASSOLUTA #0 - DUE AMBIENTI: PROD E TEST
+
+**DATA: 2026-01-10 - REGOLA INVIOLABILE**
+
+**OGNI sviluppo deve essere fatto in DUE ambienti separati:**
+
+| Ambiente | Scopo | Dominio |
+|----------|-------|---------|
+| **TEST** | Sviluppo, test, sperimentazione | onde.surf |
+| **PROD** | Produzione, pubblico, stabile | onde.la |
+
+**Workflow obbligatorio:**
+1. Sviluppa e testa su **onde.surf** (TEST)
+2. Verifica che TUTTO funzioni
+3. Solo dopo → deploy su **onde.la** (PROD)
+
+**MAI deployare direttamente in PROD senza testare prima su TEST!**
+
+---
+
+## REGOLA ASSOLUTA #1 - MAI SUBSCRIPTION AUTONOME
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
 

@@ -41,7 +41,69 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-10 - VR Page, Backup, Onde Vision pianificato
+**Ultimo aggiornamento**: 2026-01-10 - FreeRiver Flow priorità definite
+
+---
+
+## 🚀 FREERIVER FLOW - PRIORITÀ #1 (10 Gen 2026)
+
+**"Mattia on Steroids" - Sviluppa mentre corri, cammini, vivi**
+
+### Architettura Chiarita
+
+```
+FREERIVER FLOW
+│
+├── 1️⃣ VOCE (Core - PRIORITÀ ASSOLUTA)
+│   └── iPhone + AirPods → Claude API
+│   └── Funziona OVUNQUE: corsa, macchina, aperitivo
+│   └── È IL MINIMO VITALE
+│
+├── 2️⃣ VR (Quest 2 - PRIORITÀ ALTA perché FIGO)
+│   └── Sei DENTRO la tua azienda
+│   └── Personaggi 3D: Editore Capo, Pina Pennello, Emilio
+│   └── Parli con loro, dai task, approvi
+│   └── È SIM CITY ma costruisci app/libri
+│
+├── 3️⃣ 2D (Desktop/Mobile)
+│   └── Versione con personaggini per chi non ha Quest
+│   └── Stesso concetto, meno immersivo
+│
+└── 4️⃣ AR GLASSES (Futuro - belli ma non urgenti)
+    └── OndeVision quando il resto funziona
+    └── Gli occhiali sono solo un monitor extra
+    └── Non aggiungono niente al workflow base
+```
+
+### Perché Quest 2 > AR Glasses
+
+| | Quest 2 VR | AR Glasses |
+|---|---|---|
+| **Immersione** | TOTALE - sei dentro | Parziale - overlay |
+| **Personaggi** | 3D a grandezza naturale | Piccoli ologrammi |
+| **Divertimento** | ALTO - è un gioco | Medio - è uno strumento |
+| **Mattia ce l'ha** | SÌ | NO (da comprare) |
+| **SDK** | Maturo (Unity/Godot) | Limitato |
+
+### Task Immediati
+
+- [ ] **App iPhone Voice-First** - Whisper + Claude API
+- [ ] **FreeRiver Flow VR** - Quest 2, personaggi Onde
+- [ ] Versione 2D con personaggini
+- [ ] AR Glasses (quando il resto funziona)
+
+### Stack Tecnico
+
+**Voice (iPhone):**
+- Whisper (speech-to-text)
+- Claude API (intelligenza)
+- Text-to-speech per risposte
+
+**VR (Quest 2):**
+- Unity + Meta XR SDK (o Godot)
+- Personaggi 3D low-poly stile Onde
+- Voice input/output
+- Connessione a Claude API
 
 ---
 

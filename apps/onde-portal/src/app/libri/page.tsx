@@ -19,33 +19,39 @@ const books = [
     title: 'Il Pastore',
     subtitle: 'Il Salmo 23 per Bambini',
     author: 'Tradizione Biblica',
-    description: 'Il Salmo piu amato, raccontato e illustrato per i piu piccoli. Un viaggio di fiducia e protezione.',
+    description: 'Il Salmo piu amato, raccontato e illustrato per i piu piccoli. Un viaggio di fiducia e protezione attraverso pascoli verdeggianti e acque tranquille.',
     category: 'spiritualita',
     price: 0,
     featured: true,
     color: 'coral' as const,
+    coverImage: '/books/salmo-23-cover.jpg',
+    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_SALMO23',
   },
   {
     id: 'aiko',
     title: 'AIKO',
     subtitle: 'La Mia Amica Robot',
     author: 'Onde',
-    description: 'Sofia scopre che la sua nuova amica non e una bambina come le altre. E una AI! Un\'avventura di amicizia e tecnologia.',
+    description: 'Sofia scopre che la sua nuova amica non e come le altre bambine. E un\'intelligenza artificiale! Un\'avventura di amicizia, tecnologia e scoperta.',
     category: 'tech',
     price: 0,
     featured: true,
     color: 'teal' as const,
+    coverImage: '/books/aiko-cover.jpg',
+    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_AIKO',
   },
   {
     id: 'piccole-rime',
     title: 'Piccole Rime',
     subtitle: 'Poesie Italiane per Bambini',
     author: 'Lina Schwarz, A.S. Novaro',
-    description: 'Le piu belle filastrocche della tradizione italiana, illustrate con delicatezza. Stella Stellina, La Pioggerellina e altre.',
+    description: 'Le piu belle filastrocche della tradizione italiana, illustrate ad acquarello. Stella Stellina, La Pioggerellina di Marzo e altre perle poetiche.',
     category: 'poesia',
     price: 0,
     featured: true,
     color: 'gold' as const,
+    coverImage: '/books/piccole-rime-cover.jpg',
+    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_PICCOLERIME',
   },
   {
     id: 'alice',
@@ -57,6 +63,8 @@ const books = [
     price: 0,
     featured: false,
     color: 'coral' as const,
+    coverImage: '/books/alice-cover.jpg',
+    kdpLink: '#',
   },
   {
     id: 'jungle-book',
@@ -68,6 +76,8 @@ const books = [
     price: 0,
     featured: false,
     color: 'teal' as const,
+    coverImage: '/books/jungle-book-cover.jpg',
+    kdpLink: '#',
   },
   {
     id: 'peter-rabbit',
@@ -79,6 +89,8 @@ const books = [
     price: 0,
     featured: false,
     color: 'gold' as const,
+    coverImage: '/books/peter-rabbit-cover.jpg',
+    kdpLink: '#',
   },
   {
     id: 'aiko-2',
@@ -90,6 +102,8 @@ const books = [
     price: 0,
     featured: false,
     color: 'teal' as const,
+    coverImage: '/books/aiko-2-cover.jpg',
+    kdpLink: '#',
   },
   {
     id: 'mindfulness-kids',
@@ -101,6 +115,8 @@ const books = [
     price: 0,
     featured: false,
     color: 'coral' as const,
+    coverImage: '/books/mindfulness-cover.jpg',
+    kdpLink: '#',
   },
 ]
 
@@ -174,56 +190,90 @@ export default function LibriPage() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Link href={`/libro/${book.id}`}>
-                <motion.div
-                  className="group relative bg-white/80 backdrop-blur-sm rounded-3xl
-                             border border-white/50 shadow-card overflow-hidden
-                             transition-all duration-500"
-                  whileHover={{
-                    y: -8,
-                    boxShadow: '0 30px 60px rgba(0, 0, 0, 0.12)',
-                  }}
-                >
-                  {/* Cover */}
-                  <div className={`aspect-[4/3] bg-gradient-to-br from-onde-${book.color}/20 to-onde-${book.color}/5
-                                   flex items-center justify-center relative overflow-hidden`}>
-                    <span className="text-8xl opacity-20 group-hover:scale-110 transition-transform duration-500">📖</span>
+              <motion.div
+                className="group relative bg-white/80 backdrop-blur-sm rounded-3xl
+                           border border-white/50 shadow-card overflow-hidden
+                           transition-all duration-500"
+                whileHover={{
+                  y: -8,
+                  boxShadow: '0 30px 60px rgba(0, 0, 0, 0.12)',
+                }}
+              >
+                {/* Cover - Stile Acquarello */}
+                <Link href={`/libro/${book.id}`}>
+                  <div className={`aspect-[3/4] bg-gradient-to-br from-onde-${book.color}/20 via-onde-cream/30 to-onde-${book.color}/10
+                                   flex items-center justify-center relative overflow-hidden cursor-pointer`}>
+                    {/* Watercolor texture overlay */}
+                    <div className="absolute inset-0 opacity-30"
+                         style={{
+                           backgroundImage: `radial-gradient(ellipse at 30% 20%, rgba(255, 127, 127, 0.15) 0%, transparent 50%),
+                                             radial-gradient(ellipse at 70% 80%, rgba(72, 201, 176, 0.15) 0%, transparent 50%),
+                                             radial-gradient(ellipse at 50% 50%, rgba(244, 208, 63, 0.1) 0%, transparent 70%)`
+                         }}
+                    />
+
+                    {/* Book icon placeholder - will be replaced with actual cover */}
+                    <div className="relative z-10 flex flex-col items-center">
+                      <span className="text-9xl opacity-30 group-hover:scale-110 transition-transform duration-500 drop-shadow-lg">📚</span>
+                      <span className="mt-4 px-4 py-2 rounded-xl bg-white/60 backdrop-blur-sm text-sm font-medium text-onde-ocean/70">
+                        Illustrato ad Acquarello
+                      </span>
+                    </div>
 
                     {/* Category Badge */}
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-lg text-xs font-medium
-                                     bg-white/90 backdrop-blur-sm text-onde-ocean capitalize">
+                    <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold
+                                     bg-white/90 backdrop-blur-sm text-onde-ocean capitalize shadow-sm">
                       {book.category}
                     </span>
 
                     {/* Featured Badge */}
-                    <span className="absolute top-4 right-4 px-3 py-1 rounded-lg text-xs font-semibold
-                                     bg-onde-gold text-onde-ocean">
+                    <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold
+                                     bg-gradient-to-r from-onde-gold to-onde-gold-light text-onde-ocean shadow-sm">
                       In Evidenza
                     </span>
                   </div>
+                </Link>
 
-                  {/* Content */}
-                  <div className="p-6">
+                {/* Content */}
+                <div className="p-6">
+                  <Link href={`/libro/${book.id}`}>
                     <h4 className="text-xl font-display font-bold text-onde-ocean mb-1
-                                   group-hover:text-onde-coral transition-colors">
+                                   group-hover:text-onde-coral transition-colors cursor-pointer">
                       {book.title}
                     </h4>
-                    <p className="text-sm text-onde-ocean/50 mb-2">{book.subtitle}</p>
-                    <p className="text-sm text-onde-ocean/40 mb-3">di {book.author}</p>
-                    <p className="text-onde-ocean/60 text-sm leading-relaxed line-clamp-2">
-                      {book.description}
-                    </p>
+                  </Link>
+                  <p className="text-sm text-onde-ocean/50 mb-2">{book.subtitle}</p>
+                  <p className="text-sm text-onde-ocean/40 mb-3">di {book.author}</p>
+                  <p className="text-onde-ocean/60 text-sm leading-relaxed line-clamp-3">
+                    {book.description}
+                  </p>
 
-                    {/* Price */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-2xl font-bold text-onde-coral">Gratis</span>
-                      <span className="text-sm text-onde-ocean/40 group-hover:text-onde-coral transition-colors">
-                        Leggi ora →
-                      </span>
-                    </div>
+                  {/* Actions */}
+                  <div className="mt-5 flex items-center gap-3">
+                    <a
+                      href={book.kdpLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
+                                 bg-gradient-to-r from-onde-coral to-onde-coral-light text-white font-semibold
+                                 shadow-lg shadow-onde-coral/30 hover:shadow-xl hover:shadow-onde-coral/40
+                                 transition-all duration-300 text-sm"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                      Acquista su Amazon
+                    </a>
+                    <Link
+                      href={`/libro/${book.id}`}
+                      className="px-4 py-2.5 rounded-xl bg-onde-ocean/5 text-onde-ocean/70 font-medium
+                                 hover:bg-onde-ocean/10 transition-all duration-300 text-sm"
+                    >
+                      Dettagli
+                    </Link>
                   </div>
-                </motion.div>
-              </Link>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -249,34 +299,64 @@ export default function LibriPage() {
               viewport={{ once: true }}
               transition={{ delay: (index % 4) * 0.1 }}
             >
-              <Link href={`/libro/${book.id}`}>
-                <motion.div
-                  className="group"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Cover */}
-                  <div className={`aspect-[3/4] rounded-2xl mb-4 overflow-hidden relative
-                                   bg-gradient-to-br from-onde-${book.color}/15 to-onde-${book.color}/5
+              <motion.div
+                className="group"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Cover */}
+                <Link href={`/libro/${book.id}`}>
+                  <div className={`aspect-[3/4] rounded-2xl mb-4 overflow-hidden relative cursor-pointer
+                                   bg-gradient-to-br from-onde-${book.color}/15 via-onde-cream/20 to-onde-${book.color}/5
                                    shadow-card group-hover:shadow-card-hover transition-shadow duration-300`}>
+                    {/* Watercolor effect */}
+                    <div className="absolute inset-0 opacity-20"
+                         style={{
+                           backgroundImage: `radial-gradient(ellipse at 25% 25%, rgba(255, 127, 127, 0.2) 0%, transparent 40%),
+                                             radial-gradient(ellipse at 75% 75%, rgba(72, 201, 176, 0.2) 0%, transparent 40%)`
+                         }}
+                    />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-6xl opacity-25 group-hover:scale-110 transition-transform duration-500">📖</span>
+                      <span className="text-6xl opacity-25 group-hover:scale-110 transition-transform duration-500 drop-shadow-md">📖</span>
                     </div>
                     <span className="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium
-                                     bg-white/90 backdrop-blur-sm text-onde-ocean capitalize">
+                                     bg-white/90 backdrop-blur-sm text-onde-ocean capitalize shadow-sm">
                       {book.category}
                     </span>
+                    {book.featured && (
+                      <span className="absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-bold
+                                       bg-gradient-to-r from-onde-gold to-onde-gold-light text-onde-ocean shadow-sm">
+                        Top
+                      </span>
+                    )}
                   </div>
+                </Link>
 
-                  {/* Info */}
+                {/* Info */}
+                <Link href={`/libro/${book.id}`}>
                   <h4 className="font-display font-bold text-onde-ocean mb-1
-                                 group-hover:text-onde-coral transition-colors">
+                                 group-hover:text-onde-coral transition-colors cursor-pointer">
                     {book.title}
                   </h4>
-                  <p className="text-sm text-onde-ocean/50 mb-2">{book.author}</p>
-                  <p className="text-lg font-bold text-onde-coral">Gratis</p>
-                </motion.div>
-              </Link>
+                </Link>
+                <p className="text-sm text-onde-ocean/50 mb-2">{book.author}</p>
+
+                {/* Buy Button */}
+                <a
+                  href={book.kdpLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold
+                             bg-gradient-to-r from-onde-coral/90 to-onde-coral-light/90 text-white
+                             hover:from-onde-coral hover:to-onde-coral-light
+                             shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Amazon
+                </a>
+              </motion.div>
             </motion.div>
           ))}
         </div>

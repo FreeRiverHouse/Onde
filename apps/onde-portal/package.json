@@ -6,17 +6,21 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start -p 3000"
+    "start": "next start -p 3000",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
+    "pages:deploy": "npm run pages:build && npx wrangler pages deploy .vercel/output/static"
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.6.1",
     "framer-motion": "^12.25.0",
-    "next": "^14",
+    "next": "15.5.2",
     "react": "^18",
     "react-dom": "^18",
     "stripe": "^20.1.2"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@types/node": "^20",
     "@types/react": "^18",
     "autoprefixer": "^10",

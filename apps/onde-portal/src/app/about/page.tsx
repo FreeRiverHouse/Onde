@@ -1,118 +1,501 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import Link from 'next/link'
+import SectionHeader from '@/components/ui/SectionHeader'
+import AnimatedCard from '@/components/ui/AnimatedCard'
+import Button from '@/components/ui/Button'
 
-// TODO: Fetch dynamically from X API
-const profiles = {
-  onde: {
-    name: 'Onde',
-    handle: '@Onde_FRH',
-    bio: 'Classici e storie originali. Illustrati ad acquerello.',
-    url: 'https://x.com/Onde_FRH',
-    followers: '—',
+// Team members
+const team = [
+  {
+    id: 'gianni',
+    name: 'Gianni Parola',
+    role: 'Scrittore',
+    description: 'Le storie nascono dalle parole. Gianni le sceglie con cura, una per una, come si raccolgono fiori in un prato. Ogni libro e un giardino da esplorare.',
+    icon: '✍️',
+    color: 'coral' as const,
+    quote: '"Le parole sono semi. Se le pianti con amore, fioriscono."',
   },
-  frh: {
-    name: 'FreeRiverHouse',
-    handle: '@FreeRiverHouse',
-    bio: 'Building tools for creators. AI, publishing, apps.',
-    url: 'https://x.com/FreeRiverHouse',
-    followers: '—',
+  {
+    id: 'pina',
+    name: 'Pina Pennello',
+    role: 'Illustratrice',
+    description: 'I colori danzano sulla carta. Pina dipinge mondi dove i bambini possono entrare, camminare, sognare. Ogni pennellata e una porta verso l\'immaginazione.',
+    icon: '🎨',
+    color: 'gold' as const,
+    quote: '"Dipingo quello che le parole non riescono a dire."',
   },
-}
+  {
+    id: 'emilio',
+    name: 'Emilio',
+    role: 'AI Educator',
+    description: 'Un amico robot che capisce il futuro. Emilio spiega la tecnologia ai bambini con pazienza infinita, trasformando il complesso in semplice, il misterioso in meraviglioso.',
+    icon: '🤖',
+    color: 'teal' as const,
+    quote: '"Imparare e il superpotere piu bello che esista."',
+  },
+]
 
-function XProfileCard({ profile }: { profile: typeof profiles.onde }) {
-  return (
-    <a
-      href={profile.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl p-6 hover:border-[#2dd4bf]/30 hover:bg-white/5 transition-all group"
-    >
-      <div className="flex items-start gap-4">
-        {/* Avatar */}
-        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2dd4bf]/20 to-onde-gold/20 flex items-center justify-center text-2xl flex-shrink-0">
-          🌊
-        </div>
-
-        <div className="flex-1 min-w-0">
-          {/* Name & Handle */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-bold text-white group-hover:text-[#2dd4bf] transition">
-              {profile.name}
-            </span>
-            <svg className="w-4 h-4 text-[#1d9bf0]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z" />
-            </svg>
-          </div>
-
-          <p className="text-white/40 text-sm mb-2">{profile.handle}</p>
-
-          {/* Bio */}
-          <p className="text-white/60 text-sm leading-relaxed">
-            {profile.bio}
-          </p>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
-        <span className="text-white/30 text-xs">Segui su X</span>
-        <span className="text-[#2dd4bf] text-sm group-hover:translate-x-1 transition-transform">→</span>
-      </div>
-    </a>
-  )
-}
-
-function CatalogCard() {
-  return (
-    <Link
-      href="/catalogo"
-      className="block bg-gradient-to-br from-[#2dd4bf]/10 to-onde-gold/5 border border-[#2dd4bf]/20 rounded-2xl p-6 hover:border-[#2dd4bf]/40 hover:bg-[#2dd4bf]/10 transition-all group"
-    >
-      <div className="flex items-start gap-4">
-        {/* Icon */}
-        <div className="w-14 h-14 rounded-full bg-[#2dd4bf]/20 flex items-center justify-center text-2xl flex-shrink-0">
-          📚
-        </div>
-
-        <div className="flex-1">
-          <h3 className="font-bold text-white group-hover:text-[#2dd4bf] transition mb-1">
-            Catalogo
-          </h3>
-          <p className="text-white/40 text-sm mb-2">1000 titoli</p>
-          <p className="text-white/60 text-sm leading-relaxed">
-            Classici della letteratura mondiale. Gratuiti, per sempre.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#2dd4bf]/10">
-        <span className="text-[#2dd4bf]/50 text-xs">Esplora</span>
-        <span className="text-[#2dd4bf] text-sm group-hover:translate-x-1 transition-transform">→</span>
-      </div>
-    </Link>
-  )
-}
+// Mission values
+const values = [
+  {
+    title: 'Bellezza',
+    description: 'Ogni libro e un\'opera d\'arte. Acquarelli che raccontano storie.',
+    icon: '🌸',
+  },
+  {
+    title: 'Semplicita',
+    description: 'Le grandi verita si nascondono nelle cose semplici.',
+    icon: '🌿',
+  },
+  {
+    title: 'Meraviglia',
+    description: 'Coltiviamo lo stupore. Il mondo e pieno di magia.',
+    icon: '✨',
+  },
+]
 
 export default function About() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-lg">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-serif font-light tracking-wide text-white mb-3">
-            Onde
-          </h1>
-          <p className="text-white/40 text-sm tracking-widest uppercase">
-            Casa Editrice
-          </p>
+    <div className="relative">
+      {/* ============================================
+          HERO SECTION - Chi siamo
+          ============================================ */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <motion.div
+            className="max-w-4xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8
+                         bg-gradient-to-r from-onde-coral/10 to-onde-gold/10
+                         text-onde-coral text-sm font-semibold border border-onde-coral/20"
+            >
+              <span className="w-2 h-2 rounded-full bg-onde-coral animate-pulse" />
+              Los Angeles, California
+            </motion.div>
+
+            {/* Main Title */}
+            <motion.h1
+              className="text-5xl sm:text-6xl md:text-7xl font-display font-bold
+                         text-onde-ocean leading-tight mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              C'era una volta{' '}
+              <span className="relative inline-block">
+                <span className="text-gradient-sunset">Onde</span>
+                <motion.svg
+                  className="absolute -bottom-2 left-0 w-full"
+                  viewBox="0 0 200 12"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                >
+                  <motion.path
+                    d="M0 6 Q50 0 100 6 T200 6"
+                    fill="none"
+                    stroke="url(#brushGradient)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="brushGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#FF7F7F" />
+                      <stop offset="50%" stopColor="#F4D03F" />
+                      <stop offset="100%" stopColor="#48C9B0" />
+                    </linearGradient>
+                  </defs>
+                </motion.svg>
+              </span>
+            </motion.h1>
+
+            {/* Story intro */}
+            <motion.div
+              className="text-xl md:text-2xl text-onde-ocean/70 max-w-3xl mx-auto leading-relaxed space-y-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <p>
+                Una piccola casa editrice italiana, nata sotto il sole della California.
+              </p>
+              <p className="text-lg text-onde-ocean/60">
+                Crediamo che le storie belle possano cambiare il mondo.
+                Che un libro illustrato ad acquarello possa aprire porte
+                che nessuna tecnologia sa aprire. Che l'immaginazione
+                sia il dono piu prezioso che possiamo fare ai bambini.
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
 
-        {/* Cards */}
-        <div className="space-y-4">
-          <XProfileCard profile={profiles.onde} />
-          <XProfileCard profile={profiles.frh} />
-          <CatalogCard />
+        {/* Floating watercolor elements */}
+        <motion.div
+          className="absolute top-1/4 left-10 w-20 h-20 rounded-full
+                     bg-gradient-to-br from-onde-coral/20 to-onde-gold/10
+                     blur-xl hidden lg:block"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 right-16 w-32 h-32 rounded-full
+                     bg-gradient-to-br from-onde-teal/15 to-onde-gold/10
+                     blur-2xl hidden lg:block"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.6, 0.4],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+      </section>
+
+      {/* ============================================
+          MISSION SECTION - Far fiorire il mondo
+          ============================================ */}
+      <section className="relative py-24 bg-gradient-to-b from-transparent to-onde-cream/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="max-w-4xl mx-auto text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                         text-sm font-semibold mb-6
+                         bg-gradient-to-r from-onde-teal/10 to-onde-gold/10
+                         text-onde-teal border border-onde-teal/20"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              La nostra missione
+            </motion.span>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-onde-ocean mb-6">
+              Far{' '}
+              <span className="relative inline-block">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-onde-coral via-onde-gold to-onde-teal">
+                  fiorire
+                </span>
+              </span>
+              {' '}il mondo
+            </h2>
+
+            <p className="text-lg md:text-xl text-onde-ocean/60 leading-relaxed max-w-2xl mx-auto">
+              Come un fiume libero che nutre la terra, portiamo storie che fanno crescere.
+              Ogni libro e un seme piantato con cura. Ogni pagina, un fiore che sboccia.
+            </p>
+          </motion.div>
+
+          {/* Values cards */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                className="text-center p-8"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <span className="text-5xl mb-4 block">{value.icon}</span>
+                <h3 className="text-2xl font-display font-bold text-onde-ocean mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-onde-ocean/60 leading-relaxed">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* ============================================
+          TEAM SECTION
+          ============================================ */}
+      <section className="relative py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            badge="Il Team"
+            title="Chi siamo"
+            subtitle="Tre anime, una visione. Uniamo parole, colori e tecnologia per creare qualcosa di bello."
+            gradient="sunset"
+          />
+
+          <div className="grid lg:grid-cols-3 gap-8 mt-12">
+            {team.map((member, index) => (
+              <AnimatedCard
+                key={member.id}
+                delay={index * 0.15}
+                variant={member.color}
+              >
+                {/* Icon */}
+                <div className={`w-20 h-20 rounded-3xl mb-6 flex items-center justify-center
+                                 text-4xl bg-onde-${member.color}/10`}>
+                  {member.icon}
+                </div>
+
+                {/* Name & Role */}
+                <h3 className="text-2xl font-display font-bold text-onde-ocean mb-1">
+                  {member.name}
+                </h3>
+                <p className={`text-onde-${member.color} font-semibold text-sm uppercase tracking-wide mb-4`}>
+                  {member.role}
+                </p>
+
+                {/* Description */}
+                <p className="text-onde-ocean/60 leading-relaxed mb-6">
+                  {member.description}
+                </p>
+
+                {/* Quote */}
+                <blockquote className="relative">
+                  <div className={`absolute -left-2 top-0 text-3xl text-onde-${member.color}/30`}>"</div>
+                  <p className="text-sm italic text-onde-ocean/50 pl-4">
+                    {member.quote}
+                  </p>
+                </blockquote>
+              </AnimatedCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          STORY SECTION - Il viaggio
+          ============================================ */}
+      <section className="relative py-24 bg-gradient-to-b from-onde-cream/30 to-transparent overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Text side */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.span
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                           text-sm font-semibold mb-6
+                           bg-gradient-to-r from-onde-gold/10 to-onde-coral/10
+                           text-onde-gold border border-onde-gold/20"
+              >
+                La nostra storia
+              </motion.span>
+
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-onde-ocean mb-6">
+                Dall'Italia a Los Angeles
+              </h2>
+
+              <div className="space-y-4 text-onde-ocean/70 leading-relaxed">
+                <p>
+                  Onde nasce da un sogno semplice: creare libri che i bambini vogliano
+                  rileggere, e rileggere ancora. Libri che profumano di carta e colori,
+                  ma parlano il linguaggio del futuro.
+                </p>
+                <p>
+                  Siamo un piccolo team sparso tra l'Italia e la California, unito
+                  dalla passione per le storie belle e la convinzione che la tecnologia,
+                  usata con saggezza, puo amplificare la creativita umana.
+                </p>
+                <p>
+                  Ogni nostro libro combina l'arte dell'illustrazione tradizionale -
+                  acquarelli, sfumature, luce dorata - con le possibilita del digitale.
+                  Il risultato? Storie che vivono su carta e schermo, che crescono
+                  con i bambini che le leggono.
+                </p>
+              </div>
+
+              <motion.div
+                className="mt-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <Button href="/libri" variant="primary">
+                  Esplora i nostri libri
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Visual side - Watercolor illustration placeholder */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="aspect-square rounded-4xl overflow-hidden relative
+                              bg-gradient-to-br from-onde-coral/10 via-onde-gold/10 to-onde-teal/10
+                              border border-onde-coral/20">
+                {/* Decorative watercolor circles */}
+                <motion.div
+                  className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full
+                             bg-gradient-to-br from-onde-coral/40 to-onde-gold/30 blur-xl"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 6, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full
+                             bg-gradient-to-br from-onde-teal/30 to-onde-gold/20 blur-2xl"
+                  animate={{ scale: [1.1, 1, 1.1] }}
+                  transition={{ duration: 8, repeat: Infinity, delay: 1 }}
+                />
+                <motion.div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                             w-24 h-24 rounded-full
+                             bg-gradient-to-br from-onde-gold/50 to-onde-coral/30 blur-lg"
+                  animate={{ scale: [0.9, 1.1, 0.9] }}
+                  transition={{ duration: 5, repeat: Infinity, delay: 2 }}
+                />
+
+                {/* Central icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    className="text-8xl"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    🌊
+                  </motion.div>
+                </div>
+
+                {/* Onde logo waves */}
+                <svg className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-16" viewBox="0 0 120 40">
+                  <motion.path
+                    d="M0 25C20 15 30 35 50 25C70 15 80 35 100 25"
+                    stroke="#FF7F7F"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    fill="none"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                  />
+                  <motion.path
+                    d="M10 20C30 10 40 30 60 20C80 10 90 30 110 20"
+                    stroke="#F4D03F"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.7 }}
+                  />
+                  <motion.path
+                    d="M20 15C40 5 50 25 70 15C90 5 100 25 120 15"
+                    stroke="#48C9B0"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    fill="none"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.9 }}
+                  />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          CTA SECTION
+          ============================================ */}
+      <section className="relative py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="relative rounded-4xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            {/* Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-onde-ocean to-onde-ocean-dark" />
+            <div className="absolute inset-0 opacity-30"
+                 style={{
+                   backgroundImage: `radial-gradient(circle at 20% 30%, rgba(255, 127, 127, 0.3) 0%, transparent 50%),
+                                     radial-gradient(circle at 80% 70%, rgba(72, 201, 176, 0.2) 0%, transparent 50%)`
+                 }}
+            />
+
+            {/* Content */}
+            <div className="relative px-8 py-16 md:px-16 md:py-20 text-center">
+              <motion.div
+                className="text-5xl mb-6"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                🌸
+              </motion.div>
+
+              <motion.h2
+                className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                Fai parte della storia
+              </motion.h2>
+
+              <motion.p
+                className="text-lg text-white/70 max-w-xl mx-auto mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                Seguici nel nostro viaggio. Nuove storie, nuove avventure,
+                nuovi modi di far fiorire l'immaginazione.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <Button href="/catalogo" variant="primary" size="lg">
+                  Esplora il Catalogo
+                </Button>
+                <Button
+                  href="https://twitter.com/Onde_FRH"
+                  variant="ghost"
+                  size="lg"
+                  className="text-white hover:bg-white/10"
+                >
+                  Seguici su X
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   )
 }
