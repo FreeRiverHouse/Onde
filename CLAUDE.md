@@ -91,17 +91,33 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
-## REGOLA #2 - BACKUP CHAT INCREMENTALE
+## 🚨🚨🚨 REGOLA #2 - BACKUP TUTTO SUBITO 🚨🚨🚨
 
-**DATA: 2026-01-10**
+**DATA: 2026-01-10 - REGOLA INVIOLABILE**
 
-**Ogni sessione deve salvare le idee importanti in `chat-history/`**
+**OGNI SINGOLA COSA CHE MATTIA DICE → BACKUP IMMEDIATO IN 3 POSTI:**
 
-### Come funziona:
-1. File giornaliero: `chat-history/YYYY-MM-DD-ideas.md`
-2. Aggiungere in modo INCREMENTALE (append, non sovrascrivere)
-3. Salvare: decisioni, idee, frasi chiave di Mattia
-4. Committare e pushare periodicamente
+### I 3 Posti (TUTTI E 3, SEMPRE):
+1. **chat-history/** → `chat-history/YYYY-MM-DD-ideas.md`
+2. **ROADMAP.md** → Se è strategico/operativo
+3. **GitHub** → `git add . && git commit && git push`
+
+### Cosa salvare:
+- OGNI idea, anche se sembra piccola
+- OGNI decisione
+- OGNI concetto nuovo
+- OGNI frase importante di Mattia
+- TUTTO. OGNI. SINGOLA. CAZZO. DI. COSA.
+
+### Workflow OBBLIGATORIO:
+1. Mattia dice qualcosa di importante
+2. **SUBITO** scrivo in chat-history (append)
+3. **SUBITO** aggiorno ROADMAP se serve
+4. **SUBITO** commit + push
+
+### NON "dopo", NON "alla fine della sessione" → **SUBITO**
+
+**SE NON FACCIO BACKUP = STO FACENDO UNA CAZZATA**
 
 ### Formato:
 ```markdown
