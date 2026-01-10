@@ -5,58 +5,61 @@ import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
-
-// Team members
-const team = [
-  {
-    id: 'gianni',
-    name: 'Gianni Parola',
-    role: 'Scrittore',
-    description: 'Le storie nascono dalle parole. Gianni le sceglie con cura, una per una, come si raccolgono fiori in un prato. Ogni libro e un giardino da esplorare.',
-    icon: '✍️',
-    color: 'coral' as const,
-    quote: '"Le parole sono semi. Se le pianti con amore, fioriscono."',
-  },
-  {
-    id: 'pina',
-    name: 'Pina Pennello',
-    role: 'Illustratrice',
-    description: 'I colori danzano sulla carta. Pina dipinge mondi dove i bambini possono entrare, camminare, sognare. Ogni pennellata e una porta verso l\'immaginazione.',
-    icon: '🎨',
-    color: 'gold' as const,
-    quote: '"Dipingo quello che le parole non riescono a dire."',
-  },
-  {
-    id: 'emilio',
-    name: 'Emilio',
-    role: 'AI Educator',
-    description: 'Un amico robot che capisce il futuro. Emilio spiega la tecnologia ai bambini con pazienza infinita, trasformando il complesso in semplice, il misterioso in meraviglioso.',
-    icon: '🤖',
-    color: 'teal' as const,
-    quote: '"Imparare e il superpotere piu bello che esista."',
-  },
-]
-
-// Mission values
-const values = [
-  {
-    title: 'Bellezza',
-    description: 'Ogni libro e un\'opera d\'arte. Acquarelli che raccontano storie.',
-    icon: '🌸',
-  },
-  {
-    title: 'Semplicita',
-    description: 'Le grandi verita si nascondono nelle cose semplici.',
-    icon: '🌿',
-  },
-  {
-    title: 'Meraviglia',
-    description: 'Coltiviamo lo stupore. Il mondo e pieno di magia.',
-    icon: '✨',
-  },
-]
+import { useTranslations } from '@/i18n'
 
 export default function About() {
+  const t = useTranslations()
+
+  // Team members
+  const team = [
+    {
+      id: 'gianni',
+      name: t.about.team.gianni.name,
+      role: t.about.team.gianni.role,
+      description: t.about.team.gianni.description,
+      icon: '✍️',
+      color: 'coral' as const,
+      quote: `"${t.about.team.gianni.quote}"`,
+    },
+    {
+      id: 'pina',
+      name: t.about.team.pina.name,
+      role: t.about.team.pina.role,
+      description: t.about.team.pina.description,
+      icon: '🎨',
+      color: 'gold' as const,
+      quote: `"${t.about.team.pina.quote}"`,
+    },
+    {
+      id: 'emilio',
+      name: t.about.team.emilio.name,
+      role: t.about.team.emilio.role,
+      description: t.about.team.emilio.description,
+      icon: '🤖',
+      color: 'teal' as const,
+      quote: `"${t.about.team.emilio.quote}"`,
+    },
+  ]
+
+  // Mission values
+  const values = [
+    {
+      title: t.about.values.beauty.title,
+      description: t.about.values.beauty.description,
+      icon: '🌸',
+    },
+    {
+      title: t.about.values.simplicity.title,
+      description: t.about.values.simplicity.description,
+      icon: '🌿',
+    },
+    {
+      title: t.about.values.wonder.title,
+      description: t.about.values.wonder.description,
+      icon: '✨',
+    },
+  ]
+
   return (
     <div className="relative">
       {/* ============================================
@@ -80,7 +83,7 @@ export default function About() {
                          text-onde-coral text-sm font-semibold border border-onde-coral/20"
             >
               <span className="w-2 h-2 rounded-full bg-onde-coral animate-pulse" />
-              Los Angeles, California
+              {t.about.badge}
             </motion.div>
 
             {/* Main Title */}
@@ -91,9 +94,9 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              C'era una volta{' '}
+              {t.about.title1}{' '}
               <span className="relative inline-block">
-                <span className="text-gradient-sunset">Onde</span>
+                <span className="text-gradient-sunset">{t.about.title2}</span>
                 <motion.svg
                   className="absolute -bottom-2 left-0 w-full"
                   viewBox="0 0 200 12"
@@ -127,13 +130,10 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <p>
-                Una piccola casa editrice italiana, nata sotto il sole della California.
+                {t.about.intro1}
               </p>
               <p className="text-lg text-onde-ocean/60">
-                Crediamo che le storie belle possano cambiare il mondo.
-                Che un libro illustrato ad acquarello possa aprire porte
-                che nessuna tecnologia sa aprire. Che l'immaginazione
-                sia il dono piu prezioso che possiamo fare ai bambini.
+                {t.about.intro2}
               </p>
             </motion.div>
           </motion.div>
@@ -163,20 +163,14 @@ export default function About() {
       </section>
 
       {/* ============================================
-          MISSION SECTION - NASCOSTA PER ORA
-          Mattia dirà quando rimetterla (10 Gen 2026)
-          Testo: "Far fiorire il mondo"
-          ============================================ */}
-
-      {/* ============================================
           TEAM SECTION
           ============================================ */}
       <section className="relative py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="Il Team"
-            title="Chi siamo"
-            subtitle="Tre anime, una visione. Uniamo parole, colori e tecnologia per creare qualcosa di bello."
+            badge={t.about.team.badge}
+            title={t.about.team.title}
+            subtitle={t.about.team.subtitle}
             gradient="sunset"
           />
 
@@ -238,30 +232,17 @@ export default function About() {
                            bg-gradient-to-r from-onde-gold/10 to-onde-coral/10
                            text-onde-gold border border-onde-gold/20"
               >
-                La nostra storia
+                {t.about.story.badge}
               </motion.span>
 
               <h2 className="text-3xl md:text-4xl font-display font-bold text-onde-ocean mb-6">
-                Dall'Italia a Los Angeles
+                {t.about.story.title}
               </h2>
 
               <div className="space-y-4 text-onde-ocean/70 leading-relaxed">
-                <p>
-                  Onde nasce da un sogno semplice: creare libri che i bambini vogliano
-                  rileggere, e rileggere ancora. Libri che profumano di carta e colori,
-                  ma parlano il linguaggio del futuro.
-                </p>
-                <p>
-                  Siamo un piccolo team sparso tra l'Italia e la California, unito
-                  dalla passione per le storie belle e la convinzione che la tecnologia,
-                  usata con saggezza, puo amplificare la creativita umana.
-                </p>
-                <p>
-                  Ogni nostro libro combina l'arte dell'illustrazione tradizionale -
-                  acquarelli, sfumature, luce dorata - con le possibilita del digitale.
-                  Il risultato? Storie che vivono su carta e schermo, che crescono
-                  con i bambini che le leggono.
-                </p>
+                <p>{t.about.story.p1}</p>
+                <p>{t.about.story.p2}</p>
+                <p>{t.about.story.p3}</p>
               </div>
 
               <motion.div
@@ -272,7 +253,7 @@ export default function About() {
                 transition={{ delay: 0.3 }}
               >
                 <Button href="/libri" variant="primary">
-                  Esplora i nostri libri
+                  {t.about.story.cta}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -401,7 +382,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Fai parte della storia
+                {t.about.cta.title}
               </motion.h2>
 
               <motion.p
@@ -411,8 +392,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Seguici nel nostro viaggio. Nuove storie, nuove avventure,
-                nuove idee da esplorare insieme.
+                {t.about.cta.subtitle}
               </motion.p>
 
               <motion.div
@@ -423,7 +403,7 @@ export default function About() {
                 transition={{ delay: 0.2 }}
               >
                 <Button href="/catalogo" variant="primary" size="lg">
-                  Esplora il Catalogo
+                  {t.about.cta.exploreCatalog}
                 </Button>
                 <Button
                   href="https://twitter.com/Onde_FRH"
@@ -431,7 +411,7 @@ export default function About() {
                   size="lg"
                   className="text-white hover:bg-white/10"
                 >
-                  Seguici su X
+                  {t.about.cta.followOnX}
                 </Button>
               </motion.div>
             </div>

@@ -5,143 +5,145 @@ import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
-
-// Data - I Nostri Libri
-const featuredBooks = [
-  {
-    id: 'salmo-23',
-    title: 'Il Pastore',
-    subtitle: 'Salmo 23 per Bambini',
-    cover: '/books/salmo-23-cover.jpg',
-    category: 'Spiritualità',
-    color: 'gold',
-    description: 'Il Salmo più amato, illustrato con cura per i piccoli.',
-  },
-  {
-    id: 'aiko',
-    title: 'AIKO',
-    subtitle: 'La Mia Amica Robot',
-    cover: '/books/aiko-cover.jpg',
-    category: 'Tech',
-    color: 'teal',
-    description: 'Come funziona l\'intelligenza artificiale? Sofia lo scopre con AIKO.',
-  },
-  {
-    id: 'piccole-rime',
-    title: 'Piccole Rime',
-    subtitle: 'Poesie Italiane',
-    cover: '/books/piccole-rime-cover.jpg',
-    category: 'Poesia',
-    color: 'coral',
-    description: 'Le più belle filastrocche della tradizione italiana.',
-  },
-  {
-    id: 'alice',
-    title: 'Alice',
-    subtitle: 'Nel Paese delle Meraviglie',
-    cover: '/books/alice-cover.jpg',
-    category: 'Classici',
-    color: 'teal',
-    description: 'Il capolavoro di Carroll, illustrato in stile acquarello.',
-  },
-]
-
-// Data - Le Nostre App
-const apps = [
-  {
-    id: 'emilio',
-    title: 'EMILIO',
-    description: 'Il robot amico che insegna ai bambini come funziona la tecnologia. Lezioni interattive e divertenti.',
-    color: 'coral',
-    icon: '🤖',
-    status: 'Prossimamente',
-    features: ['AI Educator', 'Lezioni Interattive', 'Per Bambini 5-12'],
-  },
-  {
-    id: 'moonlight-puzzle',
-    title: 'Moonlight Puzzle',
-    description: 'Puzzle rilassanti sotto le stelle per la buonanotte. Suoni della natura e musica dolce.',
-    color: 'teal',
-    icon: '🌙',
-    status: 'In sviluppo',
-    features: ['Puzzle Rilassanti', 'Suoni Natura', 'Modalità Notte'],
-  },
-  {
-    id: 'word-play',
-    title: 'Word Play',
-    description: 'Giochi di parole e rime in italiano e inglese. Impara giocando!',
-    color: 'gold',
-    icon: '📝',
-    status: 'Prossimamente',
-    features: ['Multilingua', 'Giochi di Parole', 'Educativo'],
-  },
-]
-
-// Data - Giochi
-const games = [
-  {
-    id: 'minecraft-onde',
-    title: 'Minecraft Onde',
-    description: 'Il server Minecraft della community Onde. Costruisci e impara insieme.',
-    image: '/games/minecraft.jpg',
-    badge: 'Community',
-  },
-  {
-    id: 'chef-studio',
-    title: 'Kids Chef Studio',
-    description: 'Cucina virtuale per piccoli chef. Ricette divertenti e sicure.',
-    image: '/games/chef.jpg',
-    badge: 'Educativo',
-  },
-  {
-    id: 'art-studio',
-    title: 'Pina Art Studio',
-    description: 'Disegna e colora con Pina Pennello. Tecniche ad acquarello.',
-    image: '/games/art.jpg',
-    badge: 'Creativo',
-  },
-]
-
-// Features section data
-const features = [
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    title: 'Storie Illustrate',
-    description: 'Libri con acquarelli originali. Ogni pagina è un quadro da sfogliare.',
-    color: 'coral',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-    title: 'App Educative',
-    description: 'Tecnologia al servizio dell\'apprendimento. Sicure e senza pubblicità.',
-    color: 'teal',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: 'Giochi Creativi',
-    description: 'Divertimento che stimola creatività e problem solving.',
-    color: 'gold',
-  },
-]
+import { useTranslations } from '@/i18n'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
+  const t = useTranslations()
+
+  // Data - I Nostri Libri
+  const featuredBooks = [
+    {
+      id: 'salmo-23',
+      title: t.books.bookTitles.salmo23.title,
+      subtitle: t.books.bookTitles.salmo23.subtitle,
+      cover: '/books/salmo-23-cover.jpg',
+      category: t.books.categories.spirituality,
+      color: 'gold',
+      description: t.books.bookTitles.salmo23.description,
+    },
+    {
+      id: 'aiko',
+      title: t.books.bookTitles.aiko.title,
+      subtitle: t.books.bookTitles.aiko.subtitle,
+      cover: '/books/aiko-cover.jpg',
+      category: t.books.categories.tech,
+      color: 'teal',
+      description: t.books.bookTitles.aiko.description,
+    },
+    {
+      id: 'piccole-rime',
+      title: t.books.bookTitles.piccoleRime.title,
+      subtitle: t.books.bookTitles.piccoleRime.subtitle,
+      cover: '/books/piccole-rime-cover.jpg',
+      category: t.books.categories.poetry,
+      color: 'coral',
+      description: t.books.bookTitles.piccoleRime.description,
+    },
+    {
+      id: 'alice',
+      title: t.books.bookTitles.alice.title,
+      subtitle: t.books.bookTitles.alice.subtitle,
+      cover: '/books/alice-cover.jpg',
+      category: t.books.categories.classics,
+      color: 'teal',
+      description: t.books.bookTitles.alice.description,
+    },
+  ]
+
+  // Data - Le Nostre App
+  const apps = [
+    {
+      id: 'emilio',
+      title: t.apps.appTitles.emilio.title,
+      description: t.apps.appTitles.emilio.description,
+      color: 'coral',
+      icon: '🤖',
+      status: t.common.comingSoon,
+      features: ['AI Educator', t.vr.features.interactive.title, 'Ages 5-12'],
+    },
+    {
+      id: 'moonlight-puzzle',
+      title: t.apps.appTitles.moonlightPuzzle.title,
+      description: t.apps.appTitles.moonlightPuzzle.description,
+      color: 'teal',
+      icon: '🌙',
+      status: t.common.inDevelopment,
+      features: [t.apps.appTitles.moonlightPuzzle.subtitle, t.apps.features.natureSounds, t.read.features.nightMode.title],
+    },
+    {
+      id: 'word-play',
+      title: t.apps.appTitles.wordPlay.title,
+      description: t.apps.appTitles.wordPlay.description,
+      color: 'gold',
+      icon: '📝',
+      status: t.common.comingSoon,
+      features: ['Multilingual', t.apps.appTitles.wordPlay.subtitle, 'Educational'],
+    },
+  ]
+
+  // Data - Giochi
+  const games = [
+    {
+      id: 'minecraft-onde',
+      title: 'Minecraft Onde',
+      description: t.games.minecraft.description,
+      image: '/games/minecraft.jpg',
+      badge: 'Community',
+    },
+    {
+      id: 'chef-studio',
+      title: t.games.gameTitles.chefStudio.title,
+      description: t.games.gameTitles.chefStudio.description,
+      image: '/games/chef.jpg',
+      badge: t.games.gameTitles.chefStudio.badge,
+    },
+    {
+      id: 'art-studio',
+      title: t.games.gameTitles.artStudio.title,
+      description: t.games.gameTitles.artStudio.description,
+      image: '/games/art.jpg',
+      badge: t.games.gameTitles.artStudio.badge,
+    },
+  ]
+
+  // Features section data
+  const features = [
+    {
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+      title: t.home.features.illustratedStories.title,
+      description: t.home.features.illustratedStories.description,
+      color: 'coral',
+    },
+    {
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      title: t.home.features.educationalApps.title,
+      description: t.home.features.educationalApps.description,
+      color: 'teal',
+    },
+    {
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: t.home.features.creativeGames.title,
+      description: t.home.features.creativeGames.description,
+      color: 'gold',
+    },
+  ]
 
   return (
     <div className="relative overflow-hidden">
@@ -260,7 +262,7 @@ export default function Home() {
                 <span className="text-onde-gold">~</span>
                 <span className="text-onde-teal">~</span>
               </motion.span>
-              Los Angeles
+              {t.home.badge}
               <motion.span
                 className="flex gap-1"
                 animate={{ y: [0, -3, 0] }}
@@ -280,9 +282,9 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
             >
-              <span className="block">Storie che</span>
+              <span className="block">{t.home.title1}</span>
               <span className="relative inline-block mt-2">
-                <span className="text-gradient-sunset">crescono</span>
+                <span className="text-gradient-sunset">{t.home.title2}</span>
                 {/* Brush stroke effect */}
                 <motion.svg
                   className="absolute -bottom-4 left-0 w-full h-6"
@@ -308,7 +310,7 @@ export default function Home() {
                   </defs>
                 </motion.svg>
               </span>
-              <span className="block mt-2">con te</span>
+              <span className="block mt-2">{t.home.title3}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -318,8 +320,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Libri illustrati ad acquarello, app educative e giochi
-              per far fiorire <span className="text-onde-coral font-medium">immaginazione</span> e <span className="text-onde-teal font-medium">curiosità</span>.
+              {t.home.subtitle} <span className="text-onde-coral font-medium">{t.home.imagination}</span> {t.home.and} <span className="text-onde-teal font-medium">{t.home.curiosity}</span>.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -335,7 +336,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
-                  Esplora i Libri
+                  {t.home.exploreBooks}
                 </span>
               </Button>
               <Button href="#app" variant="secondary" size="lg">
@@ -344,7 +345,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
-                  Scopri le App
+                  {t.home.discoverApps}
                 </span>
               </Button>
             </motion.div>
@@ -412,7 +413,7 @@ export default function Home() {
           transition={{ opacity: { delay: 1.5 }, y: { duration: 2, repeat: Infinity } }}
         >
           <div className="flex flex-col items-center gap-2 text-onde-ocean/40">
-            <span className="text-sm font-medium">Scorri</span>
+            <span className="text-sm font-medium">{t.home.scroll}</span>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -461,9 +462,9 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeader
-            badge="Libreria Illustrata"
-            title="I Nostri Libri"
-            subtitle="Storie classiche e originali, illustrate con acquarelli in stile europeo. Ogni libro è un'opera d'arte da sfogliare."
+            badge={t.home.booksSection.badge}
+            title={t.home.booksSection.title}
+            subtitle={t.home.booksSection.subtitle}
             gradient="coral"
           />
 
@@ -524,7 +525,7 @@ export default function Home() {
                                         opacity-0 group-hover:opacity-100 transition-opacity duration-300
                                         flex items-end p-4">
                           <span className="text-white text-sm font-medium">
-                            Scopri di più
+                            {t.home.booksSection.learnMore}
                           </span>
                         </div>
                       </div>
@@ -551,7 +552,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <Button href="/libri" variant="primary">
-              Vai alla Libreria
+              {t.home.booksSection.goToLibrary}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -577,9 +578,9 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeader
-            badge="App Educative"
-            title="Le Nostre App"
-            subtitle="Tecnologia pensata per i bambini. Sicura, educativa, senza pubblicità. Impara giocando!"
+            badge={t.home.appsSection.badge}
+            title={t.home.appsSection.title}
+            subtitle={t.home.appsSection.subtitle}
             gradient="teal"
           />
 
@@ -653,7 +654,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <Button href="/app" variant="teal">
-              Vedi Tutte le App
+              {t.home.appsSection.viewAllApps}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -668,9 +669,9 @@ export default function Home() {
       <section id="giochi" className="relative py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="Divertimento Creativo"
-            title="Giochi"
-            subtitle="Esperienze interattive che stimolano creatività e apprendimento."
+            badge={t.home.gamesSection.badge}
+            title={t.home.gamesSection.title}
+            subtitle={t.home.gamesSection.subtitle}
             gradient="gold"
           />
 
@@ -702,7 +703,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <Button href="/giochi" variant="gold">
-              Esplora i Giochi
+              {t.home.gamesSection.exploreGames}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -754,7 +755,7 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <span className="w-2 h-2 rounded-full bg-onde-coral animate-pulse" />
-                Unisciti alla Community
+                {t.home.ctaSection.badge}
               </motion.div>
 
               <motion.h2
@@ -763,7 +764,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Pronto a <span className="text-onde-gold">esplorare</span>?
+                {t.home.ctaSection.title} <span className="text-onde-gold">{t.home.ctaSection.titleHighlight}</span>?
               </motion.h2>
 
               <motion.p
@@ -773,8 +774,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Storie, app e giochi che crescono con te e la tua famiglia.
-                Seguici per scoprire le novità!
+                {t.home.ctaSection.subtitle}
               </motion.p>
 
               <motion.div
@@ -785,7 +785,7 @@ export default function Home() {
                 transition={{ delay: 0.2 }}
               >
                 <Button href="/libri" variant="primary" size="lg">
-                  Inizia a Leggere
+                  {t.home.ctaSection.startReading}
                 </Button>
                 <Button
                   href="https://twitter.com/Onde_FRH"
@@ -796,7 +796,7 @@ export default function Home() {
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                   </svg>
-                  Seguici su X
+                  {t.home.ctaSection.followOnX}
                 </Button>
               </motion.div>
             </div>
