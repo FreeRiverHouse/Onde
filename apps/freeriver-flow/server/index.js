@@ -24,10 +24,20 @@ import OpenAI from 'openai';
 const PORT = process.env.PORT || 3847;
 const WHISPER_MODEL = 'whisper-1';
 
-// OpenAI per Whisper (speech-to-text)
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// OpenAI per Whisper (speech-to-text) - lazy initialization
+let openai = null;
+
+function getOpenAI() {
+  if (!openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY non configurata. Speech-to-text non disponibile.');
+    }
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    });
+  }
+  return openai;
+}
 
 // Express per health check e info
 const app = express();
@@ -208,8 +218,9 @@ async function handleAudioData(ws, clientId, audioBuffer) {
 async function transcribeAudio(filePath) {
   try {
     const { createReadStream } = await import('fs');
+    const client = getOpenAI();
 
-    const transcription = await openai.audio.transcriptions.create({
+    const transcription = await client.audio.transcriptions.create({
       file: createReadStream(filePath),
       model: WHISPER_MODEL,
       language: 'it' // Italiano di default
