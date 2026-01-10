@@ -41,7 +41,44 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-09 - FABBRICA ONDE: 79/117 task completati (68%)
+**Ultimo aggiornamento**: 2026-01-09 - Cloudflare configurato, Portale onde.la in sviluppo
+
+---
+
+## 🌐 PORTALE ONDE.LA - PRIORITÀ ASSOLUTA (9 Gen 2026)
+
+**OBIETTIVO**: Sito più bello di qualsiasi cosa esistente su internet.
+
+### Cloudflare DNS - FATTO ✅
+- onde.la su Cloudflare (Free plan)
+- Zone ID: `5f1b2fe544f1a925765305fefcf36fe1`
+- Nameserver: `aarav.ns.cloudflare.com`, `janet.ns.cloudflare.com`
+- **TODO**: Mattia deve cambiare nameserver nel registrar
+
+### Sezioni Portale
+- [ ] **App** - Le nostre app
+- [ ] **Giochi** - Giochi educativi
+- [ ] **Libri** - Catalogo Onde
+
+### Team Portale (2 Agenti)
+1. **Developer** - Architettura top, Next.js, animazioni
+2. **Design Critic** - Esperto design, critica finché non è perfetto
+
+### Workflow
+Developer costruisce → Critic boccia → Developer migliora → Repeat → PERFETTO → Avvisa Mattia
+
+---
+
+## 🤖 EMILIO - AI EDUCATOR (9 Gen 2026)
+
+**Ispirazione**: @Aiden_Tech_Ai (https://x.com/Aiden_Tech_Ai)
+
+EMILIO = robot virtuale che insegna AI/tech ai bambini:
+- Stile acquarello Onde (copertina Salmo 23)
+- Video educativi, TikTok, YouTube
+- Contenuti per bambini (non adulti)
+
+---
 
 ---
 

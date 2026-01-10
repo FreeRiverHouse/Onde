@@ -2,442 +2,1419 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Onde - Approval Dashboard</title>
+  <title>Onde Gallery - Content Approval</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      min-height: 100vh;
-      padding-bottom: env(safe-area-inset-bottom);
+    :root {
+      --museum-bg: #1a1815;
+      --wall-color: #2d2a26;
+      --frame-gold: #c9a962;
+      --frame-dark: #5c4d3a;
+      --accent-approve: #4a9d6e;
+      --accent-reject: #c45c5c;
+      --accent-pending: #d4a84b;
+      --text-light: #f5f0e8;
+      --text-muted: #a09890;
+      --shadow-deep: rgba(0,0,0,0.5);
+
+      /* Client colors */
+      --frh-color: #3b82f6;
+      --onde-color: #f4d03f;
+      --magmatic-color: #a855f7;
     }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--museum-bg);
+      color: var(--text-light);
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      overscroll-behavior: none;
+    }
+
+    /* Museum Header */
     header {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      padding: 15px 20px;
-      border-bottom: 1px solid #333;
+      background: linear-gradient(180deg, #1f1c18 0%, var(--museum-bg) 100%);
+      padding: 20px;
+      border-bottom: 1px solid #3d3830;
       position: sticky;
       top: 0;
       z-index: 100;
     }
+
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
-    h1 { font-size: 20px; font-weight: 600; }
-    .handsfree-link {
-      font-size: 12px;
-      color: #f4d03f;
-      text-decoration: none;
-      padding: 6px 12px;
-      border: 1px solid #f4d03f33;
-      border-radius: 20px;
-    }
-    .stats { display: flex; gap: 10px; flex-wrap: wrap; }
-    .stat {
-      padding: 6px 12px;
-      border-radius: 16px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .stat.pending { background: #f59e0b22; color: #f59e0b; }
-    .stat.approved { background: #10b98122; color: #10b981; }
-    .stat.rejected { background: #ef444422; color: #ef4444; }
 
-    .tabs {
+    .logo {
       display: flex;
-      gap: 8px;
-      padding: 12px 20px;
-      background: #111;
-      border-bottom: 1px solid #222;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .tab {
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      color: #888;
-      transition: all 0.2s;
-    }
-    .tab.active { background: #f4d03f; color: #000; border-color: #f4d03f; }
-    .tab:not(.active):hover { background: #222; color: #fff; }
-
-    main { padding: 20px; }
-
-    .empty {
-      text-align: center;
-      padding: 80px 20px;
-      color: #666;
-    }
-    .empty h2 { font-size: 18px; margin-bottom: 8px; }
-    .empty p { font-size: 14px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
+      align-items: center;
+      gap: 12px;
     }
 
-    @media (max-width: 400px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      background: #1a1a1a;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid #333;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover { transform: translateY(-2px); border-color: #555; }
-    .card.approved { border-color: #10b981; }
-    .card.rejected { border-color: #ef4444; }
-
-    .card-media {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      background: #222;
-    }
-    .card-media.placeholder {
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--frame-gold), #8b7355);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #666;
-      font-size: 14px;
-    }
-    .card-video {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #000;
+      font-size: 20px;
     }
 
-    .card-content { padding: 16px; }
-
-    .card-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 11px;
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 600;
-    }
-    .badge.pending { background: #f59e0b22; color: #f59e0b; }
-    .badge.approved { background: #10b98122; color: #10b981; }
-    .badge.rejected { background: #ef444422; color: #ef4444; }
-    .badge.type-illustration { background: #8b5cf622; color: #8b5cf6; }
-    .badge.type-social { background: #06b6d422; color: #06b6d4; }
-    .badge.type-video { background: #f4348422; color: #f43484; }
-    .badge.platform { background: #33333; color: #aaa; }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .card-description {
-      color: #888;
-      font-size: 13px;
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-    .card-caption {
-      background: #0a0a0a;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #ccc;
-      margin-bottom: 12px;
-      border-left: 3px solid #f4d03f;
-    }
-    .card-prompt {
-      background: #0a0a0a;
-      padding: 10px;
-      border-radius: 8px;
-      font-family: 'SF Mono', monospace;
-      font-size: 11px;
-      color: #666;
-      margin-bottom: 14px;
-      max-height: 60px;
-      overflow-y: auto;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
     }
 
-    .card-actions {
+    .header-actions {
       display: flex;
       gap: 10px;
     }
-    .btn {
-      flex: 1;
-      padding: 16px 12px;
+
+    .view-toggle {
+      display: flex;
+      background: var(--wall-color);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .view-btn {
+      padding: 8px 12px;
       border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background: var(--frame-gold);
+      color: #1a1815;
+    }
+
+    /* Client Tabs */
+    .client-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .client-tab {
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      background: var(--wall-color);
+      border: 2px solid transparent;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .client-tab .count {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+
+    .client-tab.active {
+      border-color: var(--frame-gold);
+      color: var(--text-light);
+    }
+
+    .client-tab[data-client="frh"].active { border-color: var(--frh-color); }
+    .client-tab[data-client="onde"].active { border-color: var(--onde-color); }
+    .client-tab[data-client="magmatic"].active { border-color: var(--magmatic-color); }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 12px;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .stat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .stat-dot.pending { background: var(--accent-pending); }
+    .stat-dot.approved { background: var(--accent-approve); }
+    .stat-dot.rejected { background: var(--accent-reject); }
+
+    /* Type Filter Tabs */
+    .type-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 12px 20px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid #2a2520;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .type-tab {
+      padding: 8px 16px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      background: transparent;
+      border: 1px solid #3d3830;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .type-tab.active {
+      background: var(--frame-gold);
+      color: #1a1815;
+      border-color: var(--frame-gold);
+    }
+
+    /* Main Gallery */
+    main {
+      padding: 20px;
+      padding-bottom: 120px;
+    }
+
+    .empty-gallery {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .empty-gallery h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    .empty-gallery p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Gallery Grid View */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    @media (max-width: 400px) {
+      .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* Framed Artwork Card */
+    .artwork {
+      position: relative;
+      background: var(--wall-color);
+      border-radius: 4px;
+      padding: 16px;
+      box-shadow:
+        0 8px 32px var(--shadow-deep),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .artwork:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 48px var(--shadow-deep),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    /* Gold Frame */
+    .frame {
+      position: relative;
+      background: linear-gradient(145deg, #d4b66a, #a08040);
+      padding: 8px;
+      border-radius: 2px;
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -2px 4px rgba(0,0,0,0.3),
+        0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .frame-inner {
+      background: linear-gradient(145deg, #8b7355, #5c4d3a);
+      padding: 4px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .artwork-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      background: #1a1815;
+    }
+
+    .artwork-image.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .artwork-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      display: block;
+    }
+
+    /* Museum Plaque */
+    .plaque {
+      margin-top: 16px;
+      background: linear-gradient(180deg, #2a2520, #1f1c18);
+      border: 1px solid #3d3830;
+      border-radius: 4px;
+      padding: 14px;
+    }
+
+    .plaque-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .artwork-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-light);
+      line-height: 1.3;
+    }
+
+    .status-badge {
+      padding: 4px 10px;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge.pending {
+      background: rgba(212, 168, 75, 0.2);
+      color: var(--accent-pending);
+      border: 1px solid var(--accent-pending);
+    }
+
+    .status-badge.approved {
+      background: rgba(74, 157, 110, 0.2);
+      color: var(--accent-approve);
+      border: 1px solid var(--accent-approve);
+    }
+
+    .status-badge.rejected {
+      background: rgba(196, 92, 92, 0.2);
+      color: var(--accent-reject);
+      border: 1px solid var(--accent-reject);
+    }
+
+    .plaque-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .meta-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+    }
+
+    .meta-tag.client-frh { color: var(--frh-color); border-left: 2px solid var(--frh-color); }
+    .meta-tag.client-onde { color: var(--onde-color); border-left: 2px solid var(--onde-color); }
+    .meta-tag.client-magmatic { color: var(--magmatic-color); border-left: 2px solid var(--magmatic-color); }
+
+    .artwork-description {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .artwork-caption {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 4px;
+      border-left: 3px solid var(--frame-gold);
+      font-size: 12px;
+      color: #c0b8a8;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    /* Actions */
+    .artwork-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 14px 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
-      -webkit-user-select: none;
-      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-    .btn:active { transform: scale(0.97); }
-    .btn.approve {
-      background: linear-gradient(135deg, #10b981, #059669);
+
+    .action-btn:active { transform: scale(0.97); }
+
+    .action-btn.approve {
+      background: linear-gradient(135deg, var(--accent-approve), #3d8a5e);
       color: #fff;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 4px 12px rgba(74, 157, 110, 0.3);
     }
-    .btn.reject { background: #2d3436; color: #999; }
-    .btn.redo {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #000;
+
+    .action-btn.reject {
+      background: var(--wall-color);
+      color: var(--text-muted);
+      border: 1px solid #3d3830;
+    }
+
+    .action-btn.redo {
+      background: linear-gradient(135deg, var(--accent-pending), #b8923d);
+      color: #1a1815;
+    }
+
+    /* Comment Input */
+    .comment-section {
+      margin-top: 10px;
+      display: none;
+    }
+
+    .comment-section.visible {
+      display: block;
     }
 
     .comment-input {
       width: 100%;
       padding: 12px;
-      border: 1px solid #333;
-      border-radius: 10px;
-      background: #0a0a0a;
-      color: #fff;
+      border: 1px solid #3d3830;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.3);
+      color: var(--text-light);
       font-size: 14px;
+      font-family: inherit;
       margin-bottom: 10px;
       resize: none;
     }
-    .comment-input:focus { outline: none; border-color: #f59e0b; }
 
-    .bulk-actions {
-      padding: 15px 20px;
-      background: #111;
-      border-top: 1px solid #222;
+    .comment-input:focus {
+      outline: none;
+      border-color: var(--accent-pending);
+    }
+
+    /* Swipe Card View */
+    .swipe-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--museum-bg);
+      z-index: 200;
+      flex-direction: column;
+    }
+
+    .swipe-container.active {
+      display: flex;
+    }
+
+    .swipe-header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .swipe-close {
+      background: var(--wall-color);
+      border: none;
+      color: var(--text-light);
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .swipe-counter {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+    }
+
+    .swipe-cards {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .swipe-card {
+      position: absolute;
+      width: calc(100% - 40px);
+      max-width: 400px;
+      background: var(--wall-color);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 60px var(--shadow-deep);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .swipe-card.dragging {
+      transition: none;
+    }
+
+    .swipe-card .frame {
+      margin-bottom: 16px;
+    }
+
+    .swipe-card .artwork-image {
+      aspect-ratio: 1/1;
+    }
+
+    .swipe-overlay {
+      position: absolute;
+      top: 20px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      pointer-events: none;
+    }
+
+    .swipe-overlay.approve {
+      right: 20px;
+      background: var(--accent-approve);
+      color: white;
+      transform: rotate(15deg);
+    }
+
+    .swipe-overlay.reject {
+      left: 20px;
+      background: var(--accent-reject);
+      color: white;
+      transform: rotate(-15deg);
+    }
+
+    .swipe-hint {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .swipe-hint span {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 0 8px;
+      border-radius: 6px;
+      background: var(--wall-color);
+    }
+
+    .swipe-hint .left { color: var(--accent-reject); }
+    .swipe-hint .right { color: var(--accent-approve); }
+
+    /* Calendar View */
+    .calendar-view {
+      display: none;
+    }
+
+    .calendar-view.active {
+      display: block;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-nav button {
+      background: var(--wall-color);
+      border: 1px solid #3d3830;
+      color: var(--text-light);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      background: var(--wall-color);
+      border-radius: 8px;
+      padding: 6px;
+      font-size: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .calendar-day:hover {
+      background: #3d3830;
+    }
+
+    .calendar-day.today {
+      border: 2px solid var(--frame-gold);
+    }
+
+    .calendar-day.has-posts::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent-pending);
+      border-radius: 50%;
+    }
+
+    .calendar-day.other-month {
+      opacity: 0.3;
+    }
+
+    /* History View */
+    .history-view {
+      display: none;
+    }
+
+    .history-view.active {
+      display: block;
+    }
+
+    .history-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: var(--wall-color);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .history-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #1a1815;
+    }
+
+    .history-info {
+      flex: 1;
+    }
+
+    .history-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .history-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .history-status {
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .history-status.approved {
+      background: rgba(74, 157, 110, 0.2);
+      color: var(--accent-approve);
+    }
+
+    .history-status.rejected {
+      background: rgba(196, 92, 92, 0.2);
+      color: var(--accent-reject);
+    }
+
+    /* Bulk Actions */
+    .bulk-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      display: flex;
-      gap: 10px;
-      padding-bottom: calc(15px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, transparent, var(--museum-bg) 20%);
+      padding: 40px 20px 20px;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      display: none;
     }
+
+    .bulk-bar.visible {
+      display: block;
+    }
+
+    .bulk-content {
+      background: var(--wall-color);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+    }
+
     .bulk-btn {
       flex: 1;
-      padding: 14px;
+      padding: 16px;
       border: none;
       border-radius: 12px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
+
     .bulk-btn.approve-all {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #fff;
+      background: linear-gradient(135deg, var(--accent-approve), #3d8a5e);
+      color: white;
     }
 
-    .ip-info {
+    .bulk-btn.swipe-mode {
+      background: linear-gradient(135deg, var(--frame-gold), #a08040);
+      color: #1a1815;
+    }
+
+    /* Toast Notification */
+    .toast {
       position: fixed;
-      bottom: 80px;
-      right: 20px;
-      font-size: 10px;
-      color: #444;
-      font-family: 'SF Mono', monospace;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--wall-color);
+      color: var(--text-light);
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px var(--shadow-deep);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    /* Mobile optimizations */
-    @media (max-width: 600px) {
-      header { padding: 12px 15px; }
-      h1 { font-size: 18px; }
-      .tabs { padding: 10px 15px; }
-      main { padding: 15px; padding-bottom: 100px; }
-      .btn { padding: 18px 12px; font-size: 16px; }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
+
+    .toast.success { border-left: 4px solid var(--accent-approve); }
+    .toast.error { border-left: 4px solid var(--accent-reject); }
+
+    /* Mobile Optimizations */
+    @media (max-width: 600px) {
+      header { padding: 16px; }
+      h1 { font-size: 20px; }
+      main { padding: 16px; }
+      .gallery-grid { gap: 20px; }
+      .artwork { padding: 12px; }
+      .frame { padding: 6px; }
+      .plaque { padding: 12px; }
+      .action-btn { padding: 16px; font-size: 15px; }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .artwork {
+      animation: fadeIn 0.4s ease backwards;
+    }
+
+    .artwork:nth-child(1) { animation-delay: 0.05s; }
+    .artwork:nth-child(2) { animation-delay: 0.1s; }
+    .artwork:nth-child(3) { animation-delay: 0.15s; }
+    .artwork:nth-child(4) { animation-delay: 0.2s; }
+    .artwork:nth-child(5) { animation-delay: 0.25s; }
+    .artwork:nth-child(6) { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
   <header>
     <div class="header-top">
-      <h1>Onde Approvals</h1>
-      <a class="handsfree-link" href="" id="handsfree-link">HandsFree</a>
+      <div class="logo">
+        <div class="logo-icon">O</div>
+        <h1>Onde Gallery</h1>
+      </div>
+      <div class="header-actions">
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="gallery" title="Gallery">Grid</button>
+          <button class="view-btn" data-view="calendar" title="Calendar">Cal</button>
+          <button class="view-btn" data-view="history" title="History">Log</button>
+        </div>
+      </div>
     </div>
+
+    <div class="client-tabs">
+      <div class="client-tab active" data-client="all">
+        Tutti <span class="count" id="count-all">0</span>
+      </div>
+      <div class="client-tab" data-client="frh">
+        FRH <span class="count" id="count-frh">0</span>
+      </div>
+      <div class="client-tab" data-client="onde">
+        Onde <span class="count" id="count-onde">0</span>
+      </div>
+      <div class="client-tab" data-client="magmatic">
+        Magmatic <span class="count" id="count-magmatic">0</span>
+      </div>
+    </div>
+
     <div class="stats">
-      <span class="stat pending" id="pending-count">0 pending</span>
-      <span class="stat approved" id="approved-count">0 approved</span>
-      <span class="stat rejected" id="rejected-count">0 rejected</span>
+      <div class="stat">
+        <span class="stat-dot pending"></span>
+        <span id="stat-pending">0 pending</span>
+      </div>
+      <div class="stat">
+        <span class="stat-dot approved"></span>
+        <span id="stat-approved">0 approved</span>
+      </div>
+      <div class="stat">
+        <span class="stat-dot rejected"></span>
+        <span id="stat-rejected">0 rejected</span>
+      </div>
     </div>
   </header>
 
-  <div class="tabs">
-    <div class="tab active" data-type="all">Tutti</div>
-    <div class="tab" data-type="illustration">Illustrazioni</div>
-    <div class="tab" data-type="social">Social</div>
-    <div class="tab" data-type="video">Video</div>
+  <div class="type-tabs">
+    <div class="type-tab active" data-type="all">Tutti</div>
+    <div class="type-tab" data-type="illustration">Illustrazioni</div>
+    <div class="type-tab" data-type="social">Social</div>
+    <div class="type-tab" data-type="video">Video</div>
   </div>
 
   <main>
-    <div id="content"></div>
+    <div id="gallery-view" class="gallery-grid"></div>
+    <div id="calendar-view" class="calendar-view"></div>
+    <div id="history-view" class="history-view"></div>
   </main>
 
-  <div class="bulk-actions" id="bulk-actions" style="display: none;">
-    <button class="bulk-btn approve-all" onclick="bulkApprove()">Approva tutti i pending</button>
+  <div class="bulk-bar" id="bulk-bar">
+    <div class="bulk-content">
+      <button class="bulk-btn swipe-mode" onclick="enterSwipeMode()">
+        <span>Swipe Mode</span>
+      </button>
+      <button class="bulk-btn approve-all" onclick="bulkApprove()">
+        <span>Approva Tutti</span>
+      </button>
+    </div>
   </div>
 
-  <div class="ip-info" id="ip-info"></div>
+  <!-- Swipe Mode Container -->
+  <div class="swipe-container" id="swipe-container">
+    <div class="swipe-header">
+      <button class="swipe-close" onclick="exitSwipeMode()">X</button>
+      <div class="swipe-counter" id="swipe-counter">1 / 10</div>
+      <div style="width: 40px;"></div>
+    </div>
+    <div class="swipe-cards" id="swipe-cards"></div>
+    <div class="swipe-hint">
+      <span class="left">Reject</span>
+      <span class="right">Approve</span>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
 
   <script>
+    // State
     let items = [];
-    let currentFilter = 'all';
+    let currentClient = 'all';
+    let currentType = 'all';
+    let currentView = 'gallery';
     let serverInfo = {};
+    let swipeItems = [];
+    let currentSwipeIndex = 0;
 
-    // Init
+    // Clients mapping
+    const clientLabels = {
+      'frh': 'FreeRiverHouse',
+      'onde': 'Onde',
+      'magmatic': 'Magmatic'
+    };
+
+    const typeLabels = {
+      'illustration': 'Illustrazione',
+      'social': 'Social Media',
+      'video': 'Video'
+    };
+
+    // Initialize
     async function init() {
       try {
         const res = await fetch('/api/info');
         serverInfo = await res.json();
-        document.getElementById('handsfree-link').href = serverInfo.handsfreeServer;
-        document.getElementById('ip-info').textContent = `${serverInfo.localIP}:${serverInfo.port}`;
       } catch (e) {}
       loadItems();
     }
 
+    // Load items from API
     async function loadItems() {
-      const url = currentFilter === 'all' ? '/api/items' : `/api/items?type=${currentFilter}`;
-      const res = await fetch(url);
-      items = await res.json();
-      render();
+      let url = '/api/items?';
+      if (currentType !== 'all') url += `type=${currentType}&`;
+      if (currentClient !== 'all') url += `client=${currentClient}&`;
+
+      try {
+        const res = await fetch(url);
+        items = await res.json();
+        updateStats();
+        render();
+      } catch (e) {
+        showToast('Errore caricamento', 'error');
+      }
     }
 
-    async function updateItem(id, data) {
-      await fetch(`/api/items/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (navigator.vibrate) navigator.vibrate(30);
-      loadItems();
-    }
-
-    async function bulkApprove() {
-      const type = currentFilter === 'all' ? null : currentFilter;
-      await fetch('/api/bulk-approve', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type })
-      });
-      if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
-      loadItems();
-    }
-
-    function render() {
-      const content = document.getElementById('content');
+    // Update statistics
+    function updateStats() {
       const pending = items.filter(i => i.status === 'pending').length;
       const approved = items.filter(i => i.status === 'approved').length;
       const rejected = items.filter(i => i.status === 'rejected').length;
 
-      document.getElementById('pending-count').textContent = `${pending} pending`;
-      document.getElementById('approved-count').textContent = `${approved} approved`;
-      document.getElementById('rejected-count').textContent = `${rejected} rejected`;
+      document.getElementById('stat-pending').textContent = `${pending} pending`;
+      document.getElementById('stat-approved').textContent = `${approved} approved`;
+      document.getElementById('stat-rejected').textContent = `${rejected} rejected`;
 
-      // Show/hide bulk actions
-      document.getElementById('bulk-actions').style.display = pending > 1 ? 'flex' : 'none';
+      // Client counts
+      document.getElementById('count-all').textContent = items.filter(i => i.status === 'pending').length;
+      document.getElementById('count-frh').textContent = items.filter(i => i.client === 'frh' && i.status === 'pending').length;
+      document.getElementById('count-onde').textContent = items.filter(i => i.client === 'onde' && i.status === 'pending').length;
+      document.getElementById('count-magmatic').textContent = items.filter(i => i.client === 'magmatic' && i.status === 'pending').length;
+
+      // Show/hide bulk bar
+      const bulkBar = document.getElementById('bulk-bar');
+      bulkBar.classList.toggle('visible', pending > 0);
+    }
+
+    // Main render function
+    function render() {
+      if (currentView === 'gallery') {
+        renderGallery();
+      } else if (currentView === 'calendar') {
+        renderCalendar();
+      } else if (currentView === 'history') {
+        renderHistory();
+      }
+    }
+
+    // Render gallery view
+    function renderGallery() {
+      const container = document.getElementById('gallery-view');
+      container.style.display = 'grid';
+      document.getElementById('calendar-view').style.display = 'none';
+      document.getElementById('history-view').style.display = 'none';
 
       if (items.length === 0) {
-        content.innerHTML = `
-          <div class="empty">
-            <h2>Nessun contenuto da approvare</h2>
-            <p>I nuovi contenuti appariranno qui</p>
+        container.innerHTML = `
+          <div class="empty-gallery" style="grid-column: 1/-1;">
+            <h2>La galleria e vuota</h2>
+            <p>I nuovi contenuti da approvare appariranno qui</p>
           </div>
         `;
         return;
       }
 
-      // Sort: pending first, then rejected, then approved
+      // Sort: pending first
       const sorted = [...items].sort((a, b) => {
         const order = { pending: 0, rejected: 1, approved: 2 };
         return order[a.status] - order[b.status];
       });
 
-      const typeLabels = { illustration: 'Illustrazione', social: 'Social', video: 'Video' };
-
-      content.innerHTML = `
-        <div class="grid">
-          ${sorted.map(item => `
-            <div class="card ${item.status}">
+      container.innerHTML = sorted.map(item => `
+        <div class="artwork" data-id="${item.id}">
+          <div class="frame">
+            <div class="frame-inner">
               ${item.video
-                ? `<video class="card-video" src="${item.video}" controls poster="${item.image || ''}"></video>`
+                ? `<video class="artwork-video" src="${item.video}" controls poster="${item.image || ''}"></video>`
                 : item.image
-                  ? `<img class="card-media" src="${item.image}" alt="${item.title}">`
-                  : `<div class="card-media placeholder">Media in arrivo...</div>`
+                  ? `<img class="artwork-image" src="${item.image}" alt="${item.title}" loading="lazy">`
+                  : `<div class="artwork-image placeholder">In arrivo...</div>`
               }
-              <div class="card-content">
-                <div class="card-badges">
-                  <span class="badge ${item.status}">${item.status}</span>
-                  <span class="badge type-${item.type}">${typeLabels[item.type] || item.type}</span>
-                  ${item.platform ? `<span class="badge platform">${item.platform}</span>` : ''}
-                  ${item.book ? `<span class="badge platform">${item.book}</span>` : ''}
-                </div>
-                <h3 class="card-title">${item.title}</h3>
-                ${item.description ? `<p class="card-description">${item.description}</p>` : ''}
-                ${item.caption ? `<div class="card-caption">${item.caption}</div>` : ''}
-                ${item.prompt ? `<div class="card-prompt">${item.prompt}</div>` : ''}
-
-                ${item.status === 'pending' ? `
-                  <div class="card-actions">
-                    <button class="btn approve" onclick="updateItem(${item.id}, {status:'approved'})">Approva</button>
-                    <button class="btn reject" onclick="showComment(${item.id})">Rifiuta</button>
-                  </div>
-                  <div id="comment-${item.id}" style="display:none; margin-top:12px;">
-                    <textarea class="comment-input" id="comment-text-${item.id}" placeholder="Cosa c'e da cambiare?" rows="2"></textarea>
-                    <button class="btn redo" onclick="rejectWithComment(${item.id})">Rigenera</button>
-                  </div>
-                ` : item.status === 'rejected' ? `
-                  <p style="color:#ef4444;font-size:12px;margin-top:8px;">
-                    <strong>Note:</strong> ${item.comment || 'Nessun commento'}
-                  </p>
-                  <button class="btn redo" style="margin-top:10px;width:100%;" onclick="updateItem(${item.id}, {status:'pending'})">
-                    Rimetti in coda
-                  </button>
-                ` : ''}
-              </div>
             </div>
-          `).join('')}
+          </div>
+          <div class="plaque">
+            <div class="plaque-header">
+              <div class="artwork-title">${item.title}</div>
+              <span class="status-badge ${item.status}">${item.status}</span>
+            </div>
+            <div class="plaque-meta">
+              ${item.client ? `<span class="meta-tag client-${item.client}">${clientLabels[item.client] || item.client}</span>` : ''}
+              <span class="meta-tag">${typeLabels[item.type] || item.type}</span>
+              ${item.platform ? `<span class="meta-tag">${item.platform}</span>` : ''}
+              ${item.book ? `<span class="meta-tag">${item.book}</span>` : ''}
+            </div>
+            ${item.description ? `<p class="artwork-description">${item.description}</p>` : ''}
+            ${item.caption ? `<div class="artwork-caption">"${item.caption}"</div>` : ''}
+
+            ${item.status === 'pending' ? `
+              <div class="artwork-actions">
+                <button class="action-btn approve" onclick="updateItem(${item.id}, {status:'approved'})">
+                  Approva
+                </button>
+                <button class="action-btn reject" onclick="toggleComment(${item.id})">
+                  Rifiuta
+                </button>
+              </div>
+              <div class="comment-section" id="comment-${item.id}">
+                <textarea class="comment-input" id="comment-text-${item.id}" placeholder="Note per la revisione..." rows="2"></textarea>
+                <button class="action-btn redo" onclick="rejectWithComment(${item.id})">Richiedi Modifiche</button>
+              </div>
+            ` : item.status === 'rejected' ? `
+              <p style="color: var(--accent-reject); font-size: 12px; margin-top: 8px;">
+                <strong>Note:</strong> ${item.comment || 'Nessun commento'}
+              </p>
+              <button class="action-btn redo" style="margin-top: 10px; width: 100%;" onclick="updateItem(${item.id}, {status:'pending'})">
+                Rimetti in Coda
+              </button>
+            ` : ''}
+          </div>
         </div>
+      `).join('');
+    }
+
+    // Render calendar view
+    function renderCalendar() {
+      const container = document.getElementById('calendar-view');
+      container.style.display = 'block';
+      container.classList.add('active');
+      document.getElementById('gallery-view').style.display = 'none';
+      document.getElementById('history-view').style.display = 'none';
+
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startDay = firstDay.getDay();
+
+      const monthNames = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+                         'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+      const dayNames = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+
+      // Find scheduled items by date
+      const scheduledByDate = {};
+      items.forEach(item => {
+        if (item.scheduledFor) {
+          const date = new Date(item.scheduledFor).toDateString();
+          if (!scheduledByDate[date]) scheduledByDate[date] = [];
+          scheduledByDate[date].push(item);
+        }
+      });
+
+      let html = `
+        <div class="calendar-header">
+          <h2 class="calendar-title">${monthNames[month]} ${year}</h2>
+          <div class="calendar-nav">
+            <button onclick="changeMonth(-1)"><</button>
+            <button onclick="changeMonth(1)">></button>
+          </div>
+        </div>
+        <div class="calendar-grid">
+          ${dayNames.map(d => `<div class="calendar-day-header">${d}</div>`).join('')}
       `;
+
+      // Fill in empty days before start
+      for (let i = 0; i < startDay; i++) {
+        html += `<div class="calendar-day other-month"></div>`;
+      }
+
+      // Fill in days
+      for (let day = 1; day <= lastDay.getDate(); day++) {
+        const date = new Date(year, month, day);
+        const dateStr = date.toDateString();
+        const isToday = dateStr === now.toDateString();
+        const hasPosts = scheduledByDate[dateStr];
+
+        html += `
+          <div class="calendar-day ${isToday ? 'today' : ''} ${hasPosts ? 'has-posts' : ''}"
+               onclick="showDayPosts('${dateStr}')">
+            ${day}
+          </div>
+        `;
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
     }
 
-    function showComment(id) {
-      document.getElementById(`comment-${id}`).style.display = 'block';
+    // Render history view
+    function renderHistory() {
+      const container = document.getElementById('history-view');
+      container.style.display = 'block';
+      container.classList.add('active');
+      document.getElementById('gallery-view').style.display = 'none';
+      document.getElementById('calendar-view').style.display = 'none';
+
+      const processed = items.filter(i => i.status !== 'pending')
+                             .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+      if (processed.length === 0) {
+        container.innerHTML = `
+          <div class="empty-gallery">
+            <h2>Nessuna cronologia</h2>
+            <p>I contenuti approvati/rifiutati appariranno qui</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = processed.map(item => `
+        <div class="history-item">
+          ${item.image
+            ? `<img class="history-thumb" src="${item.image}" alt="${item.title}">`
+            : `<div class="history-thumb"></div>`
+          }
+          <div class="history-info">
+            <div class="history-title">${item.title}</div>
+            <div class="history-meta">
+              ${clientLabels[item.client] || 'General'} - ${new Date(item.updatedAt).toLocaleDateString('it-IT')}
+            </div>
+          </div>
+          <span class="history-status ${item.status}">${item.status}</span>
+        </div>
+      `).join('');
     }
 
+    // Update item
+    async function updateItem(id, data) {
+      try {
+        await fetch(`/api/items/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (navigator.vibrate) navigator.vibrate(30);
+        showToast(data.status === 'approved' ? 'Approvato!' : 'Aggiornato', 'success');
+        loadItems();
+      } catch (e) {
+        showToast('Errore', 'error');
+      }
+    }
+
+    // Toggle comment section
+    function toggleComment(id) {
+      const section = document.getElementById(`comment-${id}`);
+      section.classList.toggle('visible');
+    }
+
+    // Reject with comment
     function rejectWithComment(id) {
       const comment = document.getElementById(`comment-text-${id}`).value;
       updateItem(id, { status: 'rejected', comment });
     }
 
-    // Tab switching
-    document.querySelectorAll('.tab').forEach(tab => {
+    // Bulk approve
+    async function bulkApprove() {
+      try {
+        await fetch('/api/bulk-approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: currentType !== 'all' ? currentType : null,
+            client: currentClient !== 'all' ? currentClient : null
+          })
+        });
+        if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+        showToast('Tutti approvati!', 'success');
+        loadItems();
+      } catch (e) {
+        showToast('Errore', 'error');
+      }
+    }
+
+    // SWIPE MODE
+    function enterSwipeMode() {
+      swipeItems = items.filter(i => i.status === 'pending');
+      if (swipeItems.length === 0) {
+        showToast('Nessun contenuto da approvare', 'error');
+        return;
+      }
+
+      currentSwipeIndex = 0;
+      document.getElementById('swipe-container').classList.add('active');
+      renderSwipeCards();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function exitSwipeMode() {
+      document.getElementById('swipe-container').classList.remove('active');
+      document.body.style.overflow = '';
+      loadItems();
+    }
+
+    function renderSwipeCards() {
+      const container = document.getElementById('swipe-cards');
+      const counter = document.getElementById('swipe-counter');
+
+      if (currentSwipeIndex >= swipeItems.length) {
+        exitSwipeMode();
+        showToast('Tutti completati!', 'success');
+        return;
+      }
+
+      counter.textContent = `${currentSwipeIndex + 1} / ${swipeItems.length}`;
+
+      const item = swipeItems[currentSwipeIndex];
+      container.innerHTML = `
+        <div class="swipe-card" id="current-swipe-card">
+          <div class="swipe-overlay approve" id="overlay-approve">SI</div>
+          <div class="swipe-overlay reject" id="overlay-reject">NO</div>
+          <div class="frame">
+            <div class="frame-inner">
+              ${item.image
+                ? `<img class="artwork-image" src="${item.image}" alt="${item.title}">`
+                : `<div class="artwork-image placeholder">No image</div>`
+              }
+            </div>
+          </div>
+          <div class="plaque">
+            <div class="plaque-header">
+              <div class="artwork-title">${item.title}</div>
+            </div>
+            <div class="plaque-meta">
+              ${item.client ? `<span class="meta-tag client-${item.client}">${clientLabels[item.client] || item.client}</span>` : ''}
+              <span class="meta-tag">${typeLabels[item.type] || item.type}</span>
+            </div>
+            ${item.description ? `<p class="artwork-description">${item.description}</p>` : ''}
+          </div>
+        </div>
+      `;
+
+      // Setup touch/drag
+      setupSwipeGestures();
+    }
+
+    function setupSwipeGestures() {
+      const card = document.getElementById('current-swipe-card');
+      if (!card) return;
+
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      const onStart = (e) => {
+        isDragging = true;
+        startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        card.classList.add('dragging');
+      };
+
+      const onMove = (e) => {
+        if (!isDragging) return;
+        currentX = (e.type === 'touchmove' ? e.touches[0].clientX : e.clientX) - startX;
+        card.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
+
+        // Show overlays
+        const overlayApprove = document.getElementById('overlay-approve');
+        const overlayReject = document.getElementById('overlay-reject');
+
+        if (currentX > 50) {
+          overlayApprove.style.opacity = Math.min((currentX - 50) / 100, 1);
+          overlayReject.style.opacity = 0;
+        } else if (currentX < -50) {
+          overlayReject.style.opacity = Math.min((-currentX - 50) / 100, 1);
+          overlayApprove.style.opacity = 0;
+        } else {
+          overlayApprove.style.opacity = 0;
+          overlayReject.style.opacity = 0;
+        }
+      };
+
+      const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        card.classList.remove('dragging');
+
+        const threshold = 100;
+        const item = swipeItems[currentSwipeIndex];
+
+        if (currentX > threshold) {
+          // Approve
+          card.style.transform = `translateX(1000px) rotate(30deg)`;
+          card.style.opacity = '0';
+          setTimeout(() => {
+            updateItem(item.id, { status: 'approved' });
+            currentSwipeIndex++;
+            setTimeout(renderSwipeCards, 200);
+          }, 200);
+        } else if (currentX < -threshold) {
+          // Reject
+          card.style.transform = `translateX(-1000px) rotate(-30deg)`;
+          card.style.opacity = '0';
+          setTimeout(() => {
+            updateItem(item.id, { status: 'rejected', comment: 'Rejected via swipe' });
+            currentSwipeIndex++;
+            setTimeout(renderSwipeCards, 200);
+          }, 200);
+        } else {
+          // Reset
+          card.style.transform = '';
+          document.getElementById('overlay-approve').style.opacity = 0;
+          document.getElementById('overlay-reject').style.opacity = 0;
+        }
+
+        currentX = 0;
+      };
+
+      // Touch events
+      card.addEventListener('touchstart', onStart, { passive: true });
+      card.addEventListener('touchmove', onMove, { passive: true });
+      card.addEventListener('touchend', onEnd);
+
+      // Mouse events
+      card.addEventListener('mousedown', onStart);
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Event listeners
+    document.querySelectorAll('.client-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.client-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        currentFilter = tab.dataset.type;
+        currentClient = tab.dataset.client;
         loadItems();
       });
     });
 
-    // Start
+    document.querySelectorAll('.type-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentType = tab.dataset.type;
+        loadItems();
+      });
+    });
+
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentView = btn.dataset.view;
+        render();
+      });
+    });
+
+    // Initialize
     init();
-    // Auto-refresh every 5 seconds
-    setInterval(loadItems, 5000);
+
+    // Auto-refresh every 10 seconds
+    setInterval(loadItems, 10000);
   </script>
 </body>
 </html>

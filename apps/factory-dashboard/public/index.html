@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Onde Factory</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-alt: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #8888aa;
+            --text-muted: #555566;
+            --accent-green: #00ff88;
+            --accent-blue: #4488ff;
+            --accent-yellow: #ffcc00;
+            --accent-red: #ff4466;
+            --accent-purple: #aa66ff;
+            --accent-cyan: #00ddff;
+            --border: rgba(255,255,255,0.08);
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: var(--safe-top);
+            padding-bottom: calc(var(--safe-bottom) + 20px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header h1 span {
+            color: var(--accent-cyan);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .stat-box {
+            background: var(--bg-card-alt);
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-number.green { color: var(--accent-green); }
+        .stat-number.blue { color: var(--accent-blue); }
+        .stat-number.yellow { color: var(--accent-yellow); }
+        .stat-number.red { color: var(--accent-red); }
+
+        .stat-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* Container */
+        .container {
+            padding: 16px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-count {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Agent Cards */
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .agent-card:active {
+            transform: scale(0.98);
+        }
+
+        .agent-card.stale {
+            border-color: rgba(255, 68, 102, 0.3);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 68, 102, 0.1) 100%);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .agent-info {
+            flex: 1;
+        }
+
+        .agent-task {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .agent-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .agent-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+        }
+
+        .status-stale {
+            background: rgba(255, 68, 102, 0.15);
+            color: var(--accent-red);
+        }
+
+        .progress-container {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar.high {
+            background: linear-gradient(90deg, var(--accent-yellow), var(--accent-green));
+        }
+
+        /* Task Queue */
+        .queue-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .queue-priority {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .priority-1 { background: var(--accent-red); color: #fff; }
+        .priority-2 { background: var(--accent-yellow); color: #000; }
+        .priority-3 { background: var(--accent-blue); color: #fff; }
+
+        .queue-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .queue-title {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .queue-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 8px;
+        }
+
+        .queue-category {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        /* Completion Feed */
+        .feed-item {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feed-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .feed-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .feed-title {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .feed-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .category-pill {
+            background: var(--bg-card-alt);
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-pill .count {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 24px 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .empty-state-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: calc(var(--safe-top) + 70px);
+            left: 16px;
+            right: 16px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            color: #000;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Summary Row */
+        .summary-row {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .summary-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .tab:active {
+            transform: scale(0.95);
+        }
+
+        /* Connection Status */
+        .connection-lost {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--accent-red);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1001;
+            display: none;
+        }
+
+        .connection-lost.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .stats-grid {
+                gap: 12px;
+            }
+
+            .stat-box {
+                padding: 14px 12px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-lost" id="connectionLost">
+        Connessione persa - Riconnessione in corso...
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <header class="header">
+        <div class="header-top">
+            <h1>ONDE <span>FACTORY</span></h1>
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                LIVE
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number green" id="statCompleted">0</div>
+                <div class="stat-label">Completati</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number blue" id="statActive">0</div>
+                <div class="stat-label">Attivi</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number yellow" id="statQueue">0</div>
+                <div class="stat-label">In Coda</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number red" id="statBlocked">0</div>
+                <div class="stat-label">Bloccati</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="summary-row">
+            <div class="summary-item">
+                <div class="summary-value" id="todayCount">0</div>
+                <div class="summary-label">Oggi</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="progressPercent">0%</div>
+                <div class="summary-label">Progresso</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="totalTasks">0</div>
+                <div class="summary-label">Totali</div>
+            </div>
+        </div>
+
+        <div class="tabs" id="tabs">
+            <button class="tab active" data-tab="agents">Agenti</button>
+            <button class="tab" data-tab="queue">Coda</button>
+            <button class="tab" data-tab="feed">Feed</button>
+            <button class="tab" data-tab="categories">Categorie</button>
+        </div>
+
+        <div id="agentsSection" class="section">
+            <div class="section-header">
+                <span class="section-title">Agenti Attivi</span>
+                <span class="section-count" id="agentCount">0 agenti</span>
+            </div>
+            <div class="agent-list" id="agentList">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🤖</div>
+                    Nessun agente attivo
+                </div>
+            </div>
+        </div>
+
+        <div id="queueSection" class="section" style="display:none;">
+            <div class="section-header">
+                <span class="section-title">Task in Coda</span>
+                <span class="section-count" id="queueCount">0 task</span>
+            </div>
+            <div class="agent-list" id="queueList">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    Nessun task in coda
+                </div>
+            </div>
+        </div>
+
+        <div id="feedSection" class="section" style="display:none;">
+            <div class="section-header">
+                <span class="section-title">Completamenti Recenti</span>
+            </div>
+            <div class="agent-list" id="feedList">
+                <div class="empty-state">
+                    <div class="empty-state-icon">✅</div>
+                    Nessun completamento recente
+                </div>
+            </div>
+        </div>
+
+        <div id="categoriesSection" class="section" style="display:none;">
+            <div class="section-header">
+                <span class="section-title">Categorie</span>
+            </div>
+            <div class="category-pills" id="categoryPills"></div>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        let reconnectTimeout = null;
+        let data = {
+            stats: {},
+            workers: [],
+            queue: { available: [], blocked: [] },
+            history: []
+        };
+
+        // Initialize tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                showSection(tab.dataset.tab);
+            });
+        });
+
+        function showSection(section) {
+            document.getElementById('agentsSection').style.display = section === 'agents' ? 'block' : 'none';
+            document.getElementById('queueSection').style.display = section === 'queue' ? 'block' : 'none';
+            document.getElementById('feedSection').style.display = section === 'feed' ? 'block' : 'none';
+            document.getElementById('categoriesSection').style.display = section === 'categories' ? 'block' : 'none';
+        }
+
+        function connect() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+            ws.onopen = () => {
+                console.log('Connected to factory');
+                document.getElementById('connectionLost').classList.remove('show');
+            };
+
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                handleMessage(message);
+            };
+
+            ws.onclose = () => {
+                console.log('Connection lost, reconnecting...');
+                document.getElementById('connectionLost').classList.add('show');
+                reconnectTimeout = setTimeout(connect, 3000);
+            };
+
+            ws.onerror = (err) => {
+                console.error('WebSocket error:', err);
+                ws.close();
+            };
+        }
+
+        function handleMessage(message) {
+            switch (message.type) {
+                case 'init':
+                    data = message;
+                    render();
+                    break;
+                case 'update':
+                    data.stats = message.stats;
+                    data.workers = message.workers;
+                    data.queue = message.queue;
+                    render();
+                    break;
+                case 'task_completed':
+                    showToast(`✅ ${message.task.title}`);
+                    break;
+            }
+        }
+
+        function showToast(text) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<span>🎉</span> ${text}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function render() {
+            renderStats();
+            renderAgents();
+            renderQueue();
+            renderFeed();
+            renderCategories();
+        }
+
+        function renderStats() {
+            const stats = data.stats || {};
+            document.getElementById('statCompleted').textContent = stats.completed || 0;
+            document.getElementById('statActive').textContent = stats.activeWorkers || 0;
+            document.getElementById('statQueue').textContent = stats.available || 0;
+            document.getElementById('statBlocked').textContent = (stats.blocked || 0) + (stats.staleWorkers || 0);
+
+            document.getElementById('todayCount').textContent = stats.completedToday || 0;
+            document.getElementById('totalTasks').textContent = stats.total || 0;
+
+            const progress = stats.total ? Math.round((stats.completed / stats.total) * 100) : 0;
+            document.getElementById('progressPercent').textContent = `${progress}%`;
+        }
+
+        function renderAgents() {
+            const workers = data.workers || [];
+            const list = document.getElementById('agentList');
+            document.getElementById('agentCount').textContent = `${workers.length} agenti`;
+
+            if (workers.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🤖</div>
+                        Nessun agente attivo
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = workers.map(w => `
+                <div class="agent-card ${w.status === 'stale' ? 'stale' : ''}">
+                    <div class="agent-header">
+                        <div class="agent-info">
+                            <div class="agent-task">${w.taskTitle}</div>
+                            <div class="agent-meta">
+                                <span>${w.taskId}</span>
+                                <span>${w.ageMinutes} min</span>
+                            </div>
+                        </div>
+                        <span class="agent-status ${w.status === 'stale' ? 'status-stale' : 'status-active'}">
+                            ${w.status === 'stale' ? 'Stale' : 'Attivo'}
+                        </span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar ${w.progress > 70 ? 'high' : ''}" style="width: ${w.progress}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderQueue() {
+            const queue = data.queue || { available: [] };
+            const tasks = queue.available.slice(0, 10);
+            const list = document.getElementById('queueList');
+            document.getElementById('queueCount').textContent = `${queue.available.length} task`;
+
+            if (tasks.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        Nessun task in coda
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = tasks.map(t => `
+                <div class="queue-card">
+                    <div class="queue-priority priority-${t.priority || 3}">P${t.priority || 3}</div>
+                    <div class="queue-info">
+                        <div class="queue-title">${t.title}</div>
+                        <div class="queue-meta">
+                            <span class="queue-category">${t.category || 'misc'}</span>
+                            <span>${t.estimated_effort || 'medium'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFeed() {
+            const history = data.history || [];
+            const list = document.getElementById('feedList');
+
+            if (history.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✅</div>
+                        Nessun completamento recente
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = history.slice(0, 15).map(h => `
+                <div class="feed-item">
+                    <div class="feed-icon">✓</div>
+                    <div class="feed-info">
+                        <div class="feed-title">${h.taskTitle}</div>
+                        <div class="feed-time">${formatTime(h.timestamp)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCategories() {
+            const categories = data.stats?.categories || {};
+            const pills = document.getElementById('categoryPills');
+
+            if (Object.keys(categories).length === 0) {
+                pills.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📁</div>
+                        Nessuna categoria
+                    </div>
+                `;
+                return;
+            }
+
+            pills.innerHTML = Object.entries(categories)
+                .sort((a, b) => b[1].total - a[1].total)
+                .map(([cat, stats]) => `
+                    <div class="category-pill">
+                        ${cat.toUpperCase()}
+                        <span class="count">${stats.completed}/${stats.total}</span>
+                    </div>
+                `).join('');
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+
+            if (diffMins < 1) return 'Adesso';
+            if (diffMins < 60) return `${diffMins} min fa`;
+            if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h fa`;
+            return date.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' });
+        }
+
+        // Initial fetch as fallback
+        async function fetchData() {
+            try {
+                const response = await fetch('/api/dashboard');
+                if (response.ok) {
+                    data = await response.json();
+                    render();
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+            }
+        }
+
+        // Start connection
+        connect();
+        fetchData();
+
+        // Prevent zoom on double tap
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - (this.lastTouch || 0) < 300) {
+                e.preventDefault();
+            }
+            this.lastTouch = now;
+        }, { passive: false });
+
+        // Refresh when visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && (!ws || ws.readyState !== WebSocket.OPEN)) {
+                connect();
+            }
+        });
+    </script>
+</body>
+</html>

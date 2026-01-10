@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T09:47:38.061Z",
+  "last_updated": "2026-01-10T03:14:31.399Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -62,15 +62,15 @@
       "description": "Aggiornare intero catalogo immagini Onde al nuovo stile unitario",
       "category": "branding",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "pina-001",
         "gianni-001"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": "claude-98716-mk6nlmsh",
-      "claimed_at": "2026-01-09T09:08:14.371Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "branding-004",
@@ -117,8 +117,8 @@
       "files_involved": [
         "tools/lip-sync/"
       ],
-      "claimed_by": "claude-84513-mk6ndsw7",
-      "claimed_at": "2026-01-09T09:02:09.032Z"
+      "claimed_by": "claude-14169-mk7qeloq",
+      "claimed_at": "2026-01-10T03:14:31.399Z"
     },
     {
       "id": "lipsync-002",
@@ -159,12 +159,12 @@
       "description": "Testare Hedra AI lip sync emotivo con immagine Gianni Parola",
       "category": "video-factory",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-91408-mk6nh32q",
-      "claimed_at": "2026-01-09T09:04:42.195Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "video-factory-002",
@@ -186,12 +186,12 @@
       "description": "Testare Plazmapunk per music video sync con traccia musicale",
       "category": "video-factory",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-522-mk6nnbzd",
-      "claimed_at": "2026-01-09T09:09:33.679Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "video-factory-004",
@@ -245,14 +245,14 @@
       "description": "Generare primo video test camino con suoni crepitio per YouTube",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-98542-mk6nlhu1",
-      "claimed_at": "2026-01-09T09:08:07.947Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "video-002",
@@ -260,14 +260,14 @@
       "description": "Generare video chill music per studio/concentrazione",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-99143-mk6nm3y8",
-      "claimed_at": "2026-01-09T09:08:36.609Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "video-003",
@@ -381,14 +381,14 @@
       "description": "Caricare primo episodio come podcast audio su Spotify",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "spotify-001"
       ],
       "estimated_effort": "small",
       "files_involved": [],
-      "claimed_by": "claude-1831-mk6nohtt",
-      "claimed_at": "2026-01-09T09:10:27.906Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "spotify-003",
@@ -426,14 +426,14 @@
       "description": "Generare versione cantata 1-2 minuti con voce e musica",
       "category": "multimedia",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "ninna-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-92210-mk6nhsjo",
-      "claimed_at": "2026-01-09T09:05:15.205Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "ninna-003",
@@ -578,7 +578,7 @@
       "description": "Completare 10 illustrazioni e pubblicare",
       "category": "publishing",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "style-001"
       ],
@@ -586,8 +586,8 @@
       "files_involved": [
         "books/spirituality/mindfulness/"
       ],
-      "claimed_by": "claude-2216-mk6notjr",
-      "claimed_at": "2026-01-09T09:10:43.096Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "kdp-006",
@@ -630,14 +630,14 @@
       "description": "Stevenson, Lear, Rossetti con illustrazioni",
       "category": "publishing",
       "priority": 3,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "style-001"
       ],
       "estimated_effort": "large",
       "files_involved": [],
-      "claimed_by": "claude-3631-mk6nq6ec",
-      "claimed_at": "2026-01-09T09:11:46.404Z"
+      "claimed_by": null,
+      "claimed_at": null
     },
     {
       "id": "slant-001",
@@ -1670,14 +1670,14 @@
       "description": "Pipeline per generare podcast episodes: intro jingle, Gianni voice, background ambient, outro. Template per episodi batch.",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "podcast-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-29819-mk6osb7u",
-      "claimed_at": "2026-01-09T09:41:25.580Z",
+      "claimed_by": null,
+      "claimed_at": null,
       "created_at": "2026-01-09T09:40:18.686Z"
     },
     {
@@ -1787,14 +1787,14 @@
       "description": "Podcast con AIKO: Come funziona YouTube? Cosa sono i robot? Perché il telefono sa dove sei? 20 episodi brevi (5-8 min).",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "aiko-series-002"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-30871-mk6otn5m",
-      "claimed_at": "2026-01-09T09:42:27.709Z",
+      "claimed_by": null,
+      "claimed_at": null,
       "created_at": "2026-01-09T09:41:37.481Z"
     },
     {
@@ -1883,12 +1883,12 @@
       "description": "Dashboard Building in Public: traccia TUTTO Onde in tempo reale. Task completati, libri pubblicati, video generati, follower, revenue. Grafici belli. Pubblico su onde.surf.",
       "category": "APPS",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-33029-mk6oxecb",
-      "claimed_at": "2026-01-09T09:45:22.908Z",
+      "claimed_by": null,
+      "claimed_at": null,
       "created_at": "2026-01-09T09:44:54.734Z"
     },
     {
@@ -1913,14 +1913,14 @@
       "description": "Dashboard fabbrica live: agenti attivi, task queue, completamenti real-time. WebSocket updates. Visibile da iPhone.",
       "category": "APPS",
       "priority": 2,
-      "status": "in_progress",
+      "status": "available",
       "dependencies": [
         "kanban-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": "claude-33391-mk6oxziw",
-      "claimed_at": "2026-01-09T09:45:50.363Z",
+      "claimed_by": null,
+      "claimed_at": null,
       "created_at": "2026-01-09T09:44:57.691Z"
     }
   ]

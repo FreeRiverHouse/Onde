@@ -137,6 +137,73 @@ content/agents/
 
 **Nota su .la**: Il dominio .la è del **Laos** (non Los Angeles). Lo usiamo per il gioco di parole. Il Laos NON è un paradiso fiscale (20% corporate tax).
 
+### 🌐 CLOUDFLARE DNS - CONFIGURATO (9 Gen 2026)
+
+**onde.la è su Cloudflare!**
+
+| Info | Valore |
+|------|--------|
+| **Piano** | Free |
+| **Zone ID** | `5f1b2fe544f1a925765305fefcf36fe1` |
+| **Account ID** | `91ddd4ffd23fb9da94bb8c2a99225a3f` |
+| **Nameserver 1** | `aarav.ns.cloudflare.com` |
+| **Nameserver 2** | `janet.ns.cloudflare.com` |
+
+**AZIONE**: Cambiare nameserver nel registrar (già comunicato a Mattia).
+
+### 🎨 STILE VISIVO TOP - Copertina Salmo 23 (9 Gen 2026)
+
+**LO STILE DEFINITIVO ONDE = Copertina "Il Pastore" (Salmo 23)**
+
+Quello stile acquarello dorato è IL riferimento per:
+- EMILIO (robot educator)
+- Tutti i libri
+- Tutto il branding
+- Video, immagini, tutto
+
+**DA FARE**: Analizzare quella copertina, estrarre caratteristiche, aggiornare tutti i prompt.
+
+---
+
+## 🌐 PORTALE ONDE.LA - IL SITO PIÙ BELLO DEL MONDO (9 Gen 2026)
+
+**OBIETTIVO**: Il portale onde.la deve essere PIÙ BELLO di qualsiasi sito esistente su internet.
+
+### Sezioni del Portale
+- **App** - Le nostre app
+- **Giochi** - Giochi educativi
+- **Libri** - Catalogo Onde
+
+### 🎯 DUE AGENTI SUL PORTALE
+
+**1. DEVELOPER (Architetto)**
+- Costruisce usando architetture all'avanguardia
+- Next.js, Tailwind, animazioni top
+- Performance, SEO, accessibility perfetti
+- Crea, sviluppa, implementa
+
+**2. DESIGN CRITIC (Il Rompicoglioni)**
+- Esperto di design, arte, PR
+- Ha fatto ricerca di mercato sui siti più belli del mondo
+- Conosce tutti i siti di case editrici, arte, content top
+- Fa screenshot, critica, non è MAI contento
+- **NON APPROVA finché non siamo PIÙ FIGHI dei migliori**
+
+### Workflow
+1. Developer costruisce
+2. Design Critic critica e boccia
+3. Developer migliora
+4. Repeat finché Design Critic dice "PERFETTO"
+5. **SOLO ALLORA** → avvisa Mattia di vedere onde.la
+
+### Standard di Riferimento
+Siti da battere (case editrici, design, arte):
+- Da ricercare e documentare
+- Il Critic deve avere una lista di benchmark
+- Ogni elemento deve superare i migliori
+
+---
+
 **Onde significa:**
 - **Connessione** - tra autore e lettore, tra storie e cuori
 - **Vibrazione di energia** - che si propaga e tocca chi incontra
@@ -712,9 +779,35 @@ TELEGRAM_BOT_TOKEN=...
 
 ---
 
-## 🎨 PINA PENNELLO - ILLUSTRATRICE ONDE
+## 🎨 PINA PENNELLO - SUPREME ART DIRECTOR ONDE (Aggiornato 9 Gen 2026)
 
-**REGOLA IMPORTANTE per l'universo editoriale Onde:**
+**Pina Pennello** non è più solo illustratrice. È LA SUPREME ART DIRECTOR di Onde.
+
+### 🚀 Evoluzione di Pina (9 Gen 2026)
+Pina deve diventare:
+- **La più brava al mondo** in grafiche per internet e VR
+- **Esperta assoluta di design** - deve studiare tutto
+- **Gestore di Image Factory + Video Factory**
+- **Custode dello stile Onde** - mantiene coerenza in tutto
+
+### 📚 Pina deve STUDIARE
+- I siti più belli del mondo
+- Design di case editrici top
+- Arte digitale moderna
+- UI/UX best practices
+- Motion design
+- VR interfaces
+
+### 🎨 Pina GESTISCE
+- **Image Factory** (Grok) - genera tutte le immagini
+- **Video Factory** (Lip Sync) - genera tutti i video
+- **Stile Onde** - approva/boccia ogni contenuto visivo
+
+### Workflow con Pina
+1. Task visivo arriva
+2. Pina valuta, genera con Image/Video Factory
+3. Pina verifica coerenza stile
+4. Solo se perfetto → pubblica
 
 **Pina Pennello** è l'illustratrice ufficiale di Onde. È un personaggio del nostro universo editoriale.
 
@@ -1342,6 +1435,13 @@ L'agent può:
 - Ispirato a EMIGLIO (Giochi Preziosi 1994) ma design DIVERSO
 - Stile: acquarello dorato (come Salmo 23)
 - **EMILIO è un BRAND, non solo un personaggio**
+- **EMILIO è un AI EDUCATOR** - insegna AI/tech ai bambini (ispirato a @Aiden_Tech_Ai)
+
+### 🤖 @Aiden_Tech_Ai - RIFERIMENTO (9 Gen 2026)
+Account X da studiare: https://x.com/Aiden_Tech_Ai
+- Personaggio virtuale AI educator
+- EMILIO deve fare lo stesso MA per bambini
+- Stile Onde (acquarello), non realistico
 
 ### I Personaggi - IL QUARTETTO
 | Personaggio | Nome | Tipo | Note |
