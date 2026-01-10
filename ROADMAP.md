@@ -99,6 +99,34 @@ FREERIVER FLOW
 - Claude API (intelligenza)
 - Text-to-speech per risposte
 
+### 🎤 WISPR FLOW - Valutazione / Build Own (10 Gen 2026)
+
+**Wispr Flow** = App di speech recognition che funziona molto bene.
+- Trial gratuito, poi a pagamento
+- Serve anche per le nostre app (AIKO, etc.)
+
+**Opzioni:**
+1. **Usare Wispr Flow** - Pagare abbonamento
+2. **Costruire la nostra** - Iniziando da inglese + italiano
+
+**Perché costruire la nostra:**
+- Serve per TUTTE le app Onde (voce = futuro)
+- Controllo totale sulla qualità
+- Nessun costo ricorrente dopo sviluppo
+- Può diventare prodotto standalone
+
+**Stack da valutare:**
+- OpenAI Whisper (open source, gratis)
+- Apple Speech Recognition (nativo iOS)
+- Vosk (offline, open source)
+- DeepSpeech (Mozilla, open source)
+
+**Task:**
+- [ ] Test Wispr Flow durante trial
+- [ ] Benchmark contro Whisper locale
+- [ ] Prototipo iOS con Speech Recognition nativo
+- [ ] Decidere: buy vs build
+
 **VR (Quest 2):**
 - Unity + Meta XR SDK (o Godot)
 - Personaggi 3D low-poly stile Onde
