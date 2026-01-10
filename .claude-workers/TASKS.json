@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T11:06:14.489Z",
+  "last_updated": "2026-01-10T11:12:00.420Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -261,14 +261,14 @@
       "description": "Generare video chill music per studio/concentrazione",
       "category": "multimedia",
       "priority": 3,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null
+      "claimed_by": "claude-69596-mk87f06l",
+      "claimed_at": "2026-01-10T11:10:43.629Z"
     },
     {
       "id": "video-003",
@@ -1573,14 +1573,14 @@
       "description": "Template per generare cartoni dei personaggi di ogni libro (Gianni, Pina, Sofia, AIKO, etc). Include: prompt immagine, stile animazione, script brevi, formato video.",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "tsunami-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
+      "claimed_by": "claude-69549-mk87ez4y",
+      "claimed_at": "2026-01-10T11:10:42.279Z",
       "created_at": "2026-01-09T09:32:16.296Z"
     },
     {
@@ -1673,14 +1673,14 @@
       "description": "Pipeline per generare podcast episodes: intro jingle, Gianni voice, background ambient, outro. Template per episodi batch.",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "podcast-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
+      "claimed_by": "claude-69612-mk87f0kp",
+      "claimed_at": "2026-01-10T11:10:44.138Z",
       "created_at": "2026-01-09T09:40:18.686Z"
     },
     {
@@ -1790,15 +1790,16 @@
       "description": "Podcast con AIKO: Come funziona YouTube? Cosa sono i robot? Perché il telefono sa dove sei? 20 episodi brevi (5-8 min).",
       "category": "MULTIMEDIA",
       "priority": 2,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "aiko-series-002"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:41:37.481Z"
+      "claimed_by": "claude-69564-mk87ezab",
+      "claimed_at": "2026-01-10T11:10:42.467Z",
+      "created_at": "2026-01-09T09:41:37.481Z",
+      "completed_at": "2026-01-10T11:12:00.413Z"
     },
     {
       "id": "aiko-teach-003",
@@ -1871,14 +1872,14 @@
       "description": "Migliorare apps/approval-dashboard: galleria post come quadri, swipe approve/reject, notifiche Telegram, multi-cliente. Stile museo elegante.",
       "category": "APPS",
       "priority": 2,
-      "status": "available",
+      "status": "in_progress",
       "dependencies": [
         "saas-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
+      "claimed_by": "claude-69579-mk87ezjn",
+      "claimed_at": "2026-01-10T11:10:42.803Z",
       "created_at": "2026-01-09T09:44:53.245Z"
     },
     {
