@@ -125,9 +125,17 @@ content/agents/
 
 ## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (9 Gennaio 2026)
 
-**ONDE XR** - Brand confermato!
-- **Dominio**: onde.la (7 caratteri, facile)
-- **Perché "Onde"** (plurale): Più bello di "Onda", più unico
+**ONDE** - Brand confermato! (9 Gen 2026 - decisione finale)
+
+| Elemento | Scelta | Note |
+|----------|--------|------|
+| **Logo** | ONDE | Solo "ONDE" - pulito, timeless |
+| **Nome profilo X** | Onde | D'impatto, semplice |
+| **Bio X** | Onde.LA - ... | Gioco di parole LA = Los Angeles |
+| **Dominio** | onde.la | 7 caratteri, facile, geografico |
+| **Email** | onde.frh@... | Confermata, FRH visibile va bene |
+
+**Nota su .la**: Il dominio .la è del **Laos** (non Los Angeles). Lo usiamo per il gioco di parole. Il Laos NON è un paradiso fiscale (20% corporate tax).
 
 **Onde significa:**
 - **Connessione** - tra autore e lettore, tra storie e cuori

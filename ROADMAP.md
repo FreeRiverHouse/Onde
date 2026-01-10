@@ -14,25 +14,30 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 ---
 
-## 🎨 LOGO ONDE XR - REBRAND (9 Gen 2026)
+## 🎨 LOGO ONDE - DECISIONI FINALI (9 Gen 2026)
 
-**Il logo attuale piace, ma va evoluto:**
+**DECISIONE**: Logo con solo "ONDE" (senza LA, senza XR)
 
-| Variante | Descrizione | Uso |
-|----------|-------------|-----|
-| **Onde Classic** | Logo attuale pulito, vettoriale | Brand principale |
-| **Onde XR** | Con scritta "XR" - realtà estesa | VR/AR products |
-| **Onde DNA** | Onde che diventano doppia elica | Sezione AI/tech |
-| **Onde Colorate** | Versioni colorate (stagionali) | Social, eventi |
+| Elemento | Scelta | Motivo |
+|----------|--------|--------|
+| **Testo logo** | ONDE | Pulito, timeless, d'impatto |
+| **Nome profilo X** | Onde | Semplice |
+| **Bio X** | Onde.LA - ... | Gioco di parole geografico |
+| **Dominio** | onde.la | Match perfetto |
+
+**Concept Logo Generati (9 Gen 2026):**
+- ✅ Concept 1: Onda + Fiori (petali coral, sfondo neutro)
+- ✅ Concept 2: Onda + Palma + Tramonto LA (colori sunset)
+- 📱 Inviati su Telegram per approvazione
 
 **Task Logo:**
-- [ ] Versione vettoriale pulita del logo attuale
-- [ ] Variante "Onde XR" (con scritta)
-- [ ] Variante "Onde DNA" (onde + doppia elica)
-- [ ] Set colori stagionali
-- [ ] Aggiornare scritta in TUTTE le versioni
+- [x] Generare concept su Grok
+- [ ] Approvazione Mattia su Telegram
+- [ ] Versione vettoriale del concept scelto
+- [ ] Set colori stagionali (opzionale)
 
 **Nota**: Il logo onde = fiore. Le onde che fioriscono = la missione visiva.
+**Nota .la**: Il dominio è del Laos, lo usiamo per il gioco di parole (LA = Los Angeles).
 
 ---
 
