@@ -121,7 +121,11 @@ content/agents/
 
 ---
 
-## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (8 Gennaio 2026)
+## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (9 Gennaio 2026)
+
+**ONDE XR** - Brand confermato!
+- **Dominio**: onde.la (7 caratteri, facile)
+- **Perché "Onde"** (plurale): Più bello di "Onda", più unico
 
 **Onde significa:**
 - **Connessione** - tra autore e lettore, tra storie e cuori
@@ -131,6 +135,17 @@ content/agents/
 - **Movimento** - mai fermi, sempre in crescita
 
 **FreeRiverHouse + Onde = Far fiorire il mondo**
+
+### 🥽 VR È FONDAMENTALE (Non opzionale!)
+
+**VR è il terreno PERFETTO per le AI e per tutto quello che facciamo.**
+
+- Onde Vision (già in roadmap) - sviluppo app VR
+- Onde Books VR - lettore ebook immersivo
+- EMILIO in VR - personaggio interattivo
+- Minecraft VR - già funzionante con Geyser
+
+**La sicurezza in VR** - da considerare in secondo tempo
 
 La missione profonda (da non esplicitare sempre, ma da vivere):
 - Portiamo nutrimento, facciamo crescere
