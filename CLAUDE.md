@@ -1878,8 +1878,32 @@ Account X da studiare: https://x.com/Aiden_Tech_Ai
 
 **È una strategia virale intenzionale.** La canzone stupida fa conoscere il brand.
 
-### ⛏️ STRATEGIA MINECRAFT - EMILIO GAMER (9 Gen 2026)
+### ⛏️ STRATEGIA MINECRAFT - EMILIO GAMER (Aggiornato 10 Gen 2026)
+
 **EMILIO diventa uno YouTuber/TikToker che gioca a Minecraft!**
+
+### 📊 BENCHMARK: MILO AND CHIP (Il Modello da Seguire!)
+| Statistica | Valore |
+|------------|--------|
+| **Subscribers** | 2.77 MILIONI |
+| **Views max/video** | 10.4 MILIONI |
+| **Minuti guardati (Maggio 2025)** | 1.2 MILIARDI |
+| **Video pubblicati** | 594 |
+| **Crescita mensile** | +1,545% in un mese! |
+
+**Cosa fanno**: Due fratelli con personaggi cartoon in Minecraft, video lunghi (30-44 min), contenuti kids-friendly.
+
+**EMILIO può fare lo STESSO!**
+
+### 🔌 PLUGGARE L'UNIVERSO ONDE IN MINECRAFT
+L'idea: NON solo video gameplay, ma **integrare fisicamente** i personaggi Onde nel mondo Minecraft!
+
+**Come si fa:**
+1. **Skin Minecraft** - Creare skin di Emilio, Moonlight, Luca, Biscotto
+2. **NPC con Citizens** - Plugin per server che crea personaggi che parlano/interagiscono
+3. **Resource Pack custom** - Texture personalizzate con brand Onde
+4. **Mod** - Creare mod con i personaggi (più complesso)
+5. **Server brandizzato** - "Onde World" o "Emilio's World"
 
 **Perché Minecraft:**
 - Viralissimo tra i bambini
@@ -1887,21 +1911,28 @@ Account X da studiare: https://x.com/Aiden_Tech_Ai
 - Possiamo creare skin/personaggi EMILIO dentro il gioco
 - I figli di Mattia (Neri) e i loro amici possono giocare
 - COMMUNITY: bambini che giocano con EMILIO
+- **PRECEDENTE VALIDATO**: Milo and Chip = 2.77M subscribers!
 
 **Contenuto EMILIO su Minecraft:**
-1. 🎮 **Video gameplay** - EMILIO gioca a Minecraft
+1. 🎮 **Video gameplay** - EMILIO gioca a Minecraft (stile Milo & Chip)
 2. 🎵 **Canzoni stupide** - "Ha Ha Cookie" mentre gioca
 3. 📚 **Insegna AI** - Spiega concetti mentre costruisce
 4. 👨‍👩‍👧‍👦 **Community** - Server dove i bambini giocano insieme
+5. 🌍 **Onde World** - Mondo Minecraft brandizzato con i personaggi
 
 **Da fare:**
-- [ ] Creare skin EMILIO per Minecraft
-- [ ] Brandizzare il server esistente
+- [ ] Creare skin EMILIO per Minecraft (64x64 pixel)
+- [ ] Creare skin Moonlight, Luca, Biscotto
+- [ ] Brandizzare il server esistente → "Emilio's World"
+- [ ] Installare plugin Citizens per NPC
 - [ ] Primi video: EMILIO costruisce, canta, insegna
-- [ ] Bot EMILIO NPC nel server?
+- [ ] Resource pack Onde con texture custom
+- [ ] Studiare formato video Milo & Chip (30+ min)
 
 **Formula virale:**
-Robot EMILIO + Minecraft + Canzoni stupide + Lezioni AI = 🚀
+Robot EMILIO + Minecraft + Canzoni stupide + Lezioni AI + Community = 🚀
+
+**Potenziale**: Se arriviamo anche solo al 10% di Milo & Chip = **277k subscribers!**
 
 ### 🎨 TASK #1 - DESIGN EMILIO (PRIORITÀ ASSOLUTA)
 
