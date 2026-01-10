@@ -4,8 +4,24 @@
 
 - **Build**: Funzionante (npm run build)
 - **Deploy**: onde-portal.pages.dev (attivo)
+- **Test**: `npm run test:portal` - Test automatico tutte le routes
 - **onde.la**: In attesa configurazione DNS
 - **onde.surf**: Zona da creare su Cloudflare
+
+### Fix nodejs_compat (10 Gen 2026)
+
+Se appare l'errore "no nodejs_compat compatibility flag":
+
+1. Il progetto `onde` (onde-71m.pages.dev) ha Git integration che NON supporta wrangler.toml
+2. Usare `onde-portal` project per deploy manuali con wrangler
+3. Il file `wrangler.toml` contiene i compatibility flags necessari
+
+```toml
+# wrangler.toml
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "out"
+```
 
 ---
 
