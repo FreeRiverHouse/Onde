@@ -32,6 +32,32 @@ Quando Mattia dice "sbrinchi sbronchi" (o varianti), DEVO:
 
 ---
 
+## 🚨 PRE-COMPACTION HOOK (10 Gen 2026)
+
+**PRIMA che il contesto si compatti, DEVO:**
+
+1. **Leggere** `.claude/hooks/PreCompact.md` per le istruzioni
+2. **Salvare** tutte le idee in `chat-history/YYYY-MM-DD-ideas.md`
+3. **Creare handoff** YAML in `chat-history/handoffs/`
+4. **Aggiornare** ROADMAP.md se ci sono nuovi task
+5. **Commit + push** tutto su GitHub
+6. **Confermare** a Mattia che tutto è salvato
+
+**Struttura handoff YAML:**
+```yaml
+session_id: "..."
+timestamp: "..."
+current_tasks: [...]
+ideas_discussed: [...]
+decisions_made: [...]
+agents_running: [...]
+next_actions: [...]
+```
+
+**MAI compattare senza salvare prima!**
+
+---
+
 ## 🚨 REGOLA VIDEO - MAI IMMAGINI STATICHE (10 Gen 2026)
 
 **QUANDO MATTIA CHIEDE VIDEO = VIDEO ANIMATI VERI, NON IMMAGINI STATICHE!**

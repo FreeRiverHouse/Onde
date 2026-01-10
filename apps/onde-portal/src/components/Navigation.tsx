@@ -5,21 +5,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/app', label: 'App' },
-  { href: '/giochi', label: 'Giochi' },
-  { href: '/libri', label: 'Libri' },
-  { href: '/leggi', label: 'Leggi' },
-  { href: '/vr', label: 'VR' },
-  { href: '/about', label: 'Chi Siamo' },
-]
+import { useTranslations } from '@/i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const t = useTranslations()
+
+  const navItems = [
+    { href: '/', label: t.navigation.home },
+    { href: '/app', label: t.navigation.app },
+    { href: '/giochi', label: t.navigation.games },
+    { href: '/libri', label: t.navigation.books },
+    { href: '/leggi', label: t.navigation.read },
+    { href: '/vr', label: t.navigation.vr },
+    { href: '/about', label: t.navigation.about },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,8 +94,9 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
+            {/* Right side: Language Switcher + CTA */}
+            <div className="hidden md:flex items-center gap-3">
+              <LanguageSwitcher />
               <Link href="/libri">
                 <motion.span
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
@@ -102,7 +106,7 @@ export default function Navigation() {
                   whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255, 127, 127, 0.4)' }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Esplora
+                  {t.navigation.explore}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -111,19 +115,22 @@ export default function Navigation() {
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
-              className="md:hidden p-2 text-onde-ocean"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </motion.button>
+            <div className="md:hidden flex items-center gap-2">
+              <LanguageSwitcher />
+              <motion.button
+                className="p-2 text-onde-ocean"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </motion.button>
+            </div>
           </div>
         </div>
       </motion.nav>
