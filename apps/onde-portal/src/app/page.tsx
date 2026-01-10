@@ -13,9 +13,9 @@ const featuredBooks = [
     title: 'Il Pastore',
     subtitle: 'Salmo 23 per Bambini',
     cover: '/books/salmo-23-cover.jpg',
-    category: 'Spiritualita',
+    category: 'Spiritualità',
     color: 'gold',
-    description: 'Il Salmo piu amato, illustrato con cura per i piccoli.',
+    description: 'Il Salmo più amato, illustrato con cura per i piccoli.',
   },
   {
     id: 'aiko',
@@ -33,7 +33,7 @@ const featuredBooks = [
     cover: '/books/piccole-rime-cover.jpg',
     category: 'Poesia',
     color: 'coral',
-    description: 'Le piu belle filastrocche della tradizione italiana.',
+    description: 'Le più belle filastrocche della tradizione italiana.',
   },
   {
     id: 'alice',
@@ -64,7 +64,7 @@ const apps = [
     color: 'teal',
     icon: '🌙',
     status: 'In sviluppo',
-    features: ['Puzzle Rilassanti', 'Suoni Natura', 'Modalita Notte'],
+    features: ['Puzzle Rilassanti', 'Suoni Natura', 'Modalità Notte'],
   },
   {
     id: 'word-play',
@@ -112,7 +112,7 @@ const features = [
       </svg>
     ),
     title: 'Storie Illustrate',
-    description: 'Libri con acquarelli originali. Ogni pagina e un quadro da sfogliare.',
+    description: 'Libri con acquarelli originali. Ogni pagina è un quadro da sfogliare.',
     color: 'coral',
   },
   {
@@ -123,7 +123,7 @@ const features = [
       </svg>
     ),
     title: 'App Educative',
-    description: 'Tecnologia al servizio dell\'apprendimento. Sicure e senza pubblicita.',
+    description: 'Tecnologia al servizio dell\'apprendimento. Sicure e senza pubblicità.',
     color: 'teal',
   },
   {
@@ -134,7 +134,7 @@ const features = [
       </svg>
     ),
     title: 'Giochi Creativi',
-    description: 'Divertimento che stimola creativita e problem solving.',
+    description: 'Divertimento che stimola creatività e problem solving.',
     color: 'gold',
   },
 ]
@@ -260,7 +260,7 @@ export default function Home() {
                 <span className="text-onde-gold">~</span>
                 <span className="text-onde-teal">~</span>
               </motion.span>
-              Fatto con amore a Los Angeles
+              Onde Publishing
               <motion.span
                 className="flex gap-1"
                 animate={{ y: [0, -3, 0] }}
@@ -319,7 +319,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               Libri illustrati ad acquarello, app educative e giochi
-              per far fiorire <span className="text-onde-coral font-medium">immaginazione</span> e <span className="text-onde-teal font-medium">curiosita</span>.
+              per far fiorire <span className="text-onde-coral font-medium">immaginazione</span> e <span className="text-onde-teal font-medium">curiosità</span>.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -463,7 +463,7 @@ export default function Home() {
           <SectionHeader
             badge="Libreria Illustrata"
             title="I Nostri Libri"
-            subtitle="Storie classiche e originali, illustrate con acquarelli in stile europeo. Ogni libro e un'opera d'arte da sfogliare."
+            subtitle="Storie classiche e originali, illustrate con acquarelli in stile europeo. Ogni libro è un'opera d'arte da sfogliare."
             gradient="coral"
           />
 
@@ -524,7 +524,7 @@ export default function Home() {
                                         opacity-0 group-hover:opacity-100 transition-opacity duration-300
                                         flex items-end p-4">
                           <span className="text-white text-sm font-medium">
-                            Scopri di piu
+                            Scopri di più
                           </span>
                         </div>
                       </div>
@@ -579,7 +579,7 @@ export default function Home() {
           <SectionHeader
             badge="App Educative"
             title="Le Nostre App"
-            subtitle="Tecnologia pensata per i bambini. Sicura, educativa, senza pubblicita. Impara giocando!"
+            subtitle="Tecnologia pensata per i bambini. Sicura, educativa, senza pubblicità. Impara giocando!"
             gradient="teal"
           />
 
@@ -670,7 +670,7 @@ export default function Home() {
           <SectionHeader
             badge="Divertimento Creativo"
             title="Giochi"
-            subtitle="Esperienze interattive che stimolano creativita e apprendimento."
+            subtitle="Esperienze interattive che stimolano creatività e apprendimento."
             gradient="gold"
           />
 
@@ -774,7 +774,7 @@ export default function Home() {
                 transition={{ delay: 0.1 }}
               >
                 Storie, app e giochi che crescono con te e la tua famiglia.
-                Seguici per scoprire le novita!
+                Seguici per scoprire le novità!
               </motion.p>
 
               <motion.div

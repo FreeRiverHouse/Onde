@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
@@ -42,51 +43,20 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2">
               <motion.div
                 className="relative"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Wave Logo Icon */}
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  className="text-onde-coral"
-                >
-                  <motion.path
-                    d="M5 25C10 20 15 30 20 25C25 20 30 30 35 25"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, ease: 'easeInOut' }}
-                  />
-                  <motion.path
-                    d="M5 20C10 15 15 25 20 20C25 15 30 25 35 20"
-                    stroke="#F4D03F"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: 0.2, ease: 'easeInOut' }}
-                  />
-                  <motion.path
-                    d="M5 15C10 10 15 20 20 15C25 10 30 20 35 15"
-                    stroke="#48C9B0"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: 0.4, ease: 'easeInOut' }}
-                  />
-                </svg>
+                <Image
+                  src="/images/onde-logo.jpg"
+                  alt="Onde"
+                  width={48}
+                  height={48}
+                  className="rounded-xl"
+                  priority
+                />
               </motion.div>
               <span className="text-2xl font-display font-bold text-onde-ocean">
                 Onde

@@ -692,6 +692,45 @@ Reader: epub.js o simile
 
 ---
 
+## 📺 ONDE ROKU TV APP (NUOVO 10 Gen 2026)
+
+**Obiettivo**: App per Roku TV con i video Onde (YouTube content + video rilassanti tipo camino)
+
+### 🔥 Perché Farlo
+- Mattia ha già Roku TV per testare
+- I video belli che creiamo per YouTube possono andare anche su TV
+- Video rilassanti (camino, natura) perfetti per TV grande
+- Distribuzione alternativa a YouTube
+
+### 📦 Contenuti da Includere
+| Tipo | Descrizione | Fonte |
+|------|-------------|-------|
+| **Storie Animate** | Video delle storie Onde | YouTube |
+| **Camino** | Video rilassanti fuoco (10h+) | Generati/Stock |
+| **Natura** | Pioggia, foresta, onde mare | Stock |
+| **Lullabies** | Audio-video ninna nanne | Generati |
+
+### 🛠️ Stack Tecnico Roku
+- **Brightscript** - Linguaggio nativo Roku
+- **Direct Publisher** - Tool no-code di Roku (alternativa rapida)
+- **JSON Feed** - Per catalogo video dinamico
+
+### 📋 Task MVP
+- [ ] Account Roku Developer ($0)
+- [ ] Setup Direct Publisher (no-code)
+- [ ] Creare feed JSON con video esistenti
+- [ ] Upload video camino su hosting
+- [ ] Submit app allo store Roku
+- [ ] Test su Roku di Mattia
+
+### 💡 Strategia
+1. **MVP con Direct Publisher** - No coding, solo JSON feed
+2. **Video da YouTube** - Riusa quello che già abbiamo
+3. **Aggiungi camino/natura** - Contenuti "ambient" che funzionano su TV
+4. **Espandi dopo** - Se funziona, versione custom in Brightscript
+
+---
+
 ## 🎯 STRATEGIA PR & GUERRILLA MARKETING (NUOVO 8 Gen 2026)
 
 **Visione**: Onde è l'**Uber dell'editoria**. Stiamo disrupting Amazon/Kindle come Uber ha disrupted i taxi.

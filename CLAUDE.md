@@ -18,6 +18,21 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
+## 🚨 REGOLA VIDEO - MAI IMMAGINI STATICHE (10 Gen 2026)
+
+**QUANDO MATTIA CHIEDE VIDEO = VIDEO ANIMATI VERI, NON IMMAGINI STATICHE!**
+
+**Errore fatto**: Ho generato "video" che erano solo immagini fisse con audio. INACCETTABILE.
+
+**Come fare video veri:**
+1. **Stock video** da Pixabay/Pexels (scaricare VIDEO, non immagini)
+2. **AI video** con Runway, Kling, Pika, Hailuo (animazione vera)
+3. **YouTube Creative Commons** con yt-dlp
+
+**MAI più generare un'immagine statica e chiamarla "video".**
+
+---
+
 ## REGOLA CHECK OGNI 3 ORE - IDEE PERSE (10 Gen 2026)
 
 **Ogni 3 ore devo:**
