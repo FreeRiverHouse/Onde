@@ -1,7 +1,7 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T22:22:29.210Z",
-  "total_tasks": 158,
+  "last_updated": "2026-01-10T22:23:53.260Z",
+  "total_tasks": 161,
   "tasks": [
     {
       "id": "style-001",
@@ -1961,13 +1961,14 @@
       "description": "Provare Wispr Flow, documentare pro/contro, confrontare con nostra soluzione",
       "category": "FLOW",
       "priority": 1,
-      "status": "available",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": null,
       "claimed_at": null,
-      "created_at": "2026-01-10T22:16:30.345Z"
+      "created_at": "2026-01-10T22:16:30.345Z",
+      "completed_at": "2026-01-10T22:23:53.254Z"
     },
     {
       "id": "flow-voice-003",
@@ -2038,6 +2039,59 @@
       "claimed_by": null,
       "claimed_at": null,
       "created_at": "2026-01-10T22:25:00.000Z"
+    },
+    {
+      "id": "flow-voice-007",
+      "title": "Scaricare e testare Wispr Flow trial 14 giorni",
+      "description": "Scaricare Wispr Flow per macOS, attivare trial Pro gratuito, testare qualita riconoscimento italiano e inglese, documentare latenza e UX",
+      "category": "FLOW",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [],
+      "estimated_effort": "small",
+      "files_involved": [
+        "docs/wispr-flow-evaluation.md"
+      ],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-10T22:45:00.000Z"
+    },
+    {
+      "id": "flow-voice-008",
+      "title": "Prototipo voice dictation con Whisper locale",
+      "description": "Creare prototipo Python/Swift che usa Whisper locale per dictation system-wide, confrontare con Wispr Flow",
+      "category": "FLOW",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "flow-voice-007"
+      ],
+      "estimated_effort": "large",
+      "files_involved": [
+        "apps/voice-dictation/"
+      ],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-10T22:45:00.000Z"
+    },
+    {
+      "id": "flow-voice-009",
+      "title": "Decisione BUY vs BUILD voice dictation",
+      "description": "Dopo test Wispr Flow e prototipo Whisper, decidere se comprare Wispr Pro o sviluppare soluzione custom",
+      "category": "FLOW",
+      "priority": 2,
+      "status": "available",
+      "dependencies": [
+        "flow-voice-007",
+        "flow-voice-008"
+      ],
+      "estimated_effort": "small",
+      "files_involved": [
+        "docs/wispr-flow-evaluation.md"
+      ],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-10T22:45:00.000Z"
     }
   ]
 }
