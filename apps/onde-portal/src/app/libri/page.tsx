@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import Button from '@/components/ui/Button'
+import BookCover from '@/components/ui/BookCover'
 import { useTranslations } from '@/i18n'
 
 type BookSource = 'classic' | 'onde-studio'
@@ -375,53 +376,30 @@ function BookCard({
     >
       {/* Cover */}
       <Link href={`/libro/${book.id}`}>
-        <div className={`aspect-[3/4] flex items-center justify-center relative overflow-hidden cursor-pointer
-                        ${isClassic
-                          ? 'bg-gradient-to-br from-amber-100/50 via-amber-50/30 to-amber-100/20'
-                          : `bg-gradient-to-br from-onde-${book.color}/20 via-onde-cream/30 to-onde-${book.color}/10`
-                        }`}>
-          {/* Texture overlay */}
-          <div className={`absolute inset-0 ${isClassic ? 'opacity-40' : 'opacity-30'}`}
-               style={{
-                 backgroundImage: isClassic
-                   ? `radial-gradient(ellipse at 30% 20%, rgba(180, 140, 80, 0.2) 0%, transparent 50%),
-                      radial-gradient(ellipse at 70% 80%, rgba(160, 120, 60, 0.15) 0%, transparent 50%)`
-                   : `radial-gradient(ellipse at 30% 20%, rgba(255, 127, 127, 0.15) 0%, transparent 50%),
-                      radial-gradient(ellipse at 70% 80%, rgba(72, 201, 176, 0.15) 0%, transparent 50%),
-                      radial-gradient(ellipse at 50% 50%, rgba(244, 208, 63, 0.1) 0%, transparent 70%)`
-               }}
+        <div className="relative cursor-pointer group-hover:scale-[1.02] transition-transform duration-300">
+          <BookCover
+            title={book.title}
+            author={book.author}
+            coverImage={book.coverImage}
+            color={book.color}
+            size="lg"
           />
-
-          {/* Book icon */}
-          <div className="relative z-10 flex flex-col items-center">
-            <span className={`text-9xl group-hover:scale-110 transition-transform duration-500 drop-shadow-lg
-                            ${isClassic ? 'opacity-40' : 'opacity-30'}`}>
-              {isClassic ? '📖' : '📚'}
-            </span>
-            <span className={`mt-4 px-4 py-2 rounded-xl backdrop-blur-sm text-sm font-medium
-                            ${isClassic
-                              ? 'bg-amber-100/60 text-amber-900/70'
-                              : 'bg-white/60 text-onde-ocean/70'
-                            }`}>
-              {t.books.watercolorIllustrated}
-            </span>
-          </div>
 
           {/* Category Badge */}
           <span className={`absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold
-                           backdrop-blur-sm capitalize shadow-sm
+                           backdrop-blur-md capitalize shadow-lg z-10
                            ${isClassic
-                             ? 'bg-amber-100/90 text-amber-900'
-                             : 'bg-white/90 text-onde-ocean'
+                             ? 'bg-amber-900/80 text-amber-100'
+                             : 'bg-onde-dark/80 text-white'
                            }`}>
             {book.category}
           </span>
 
           {/* Source Badge */}
-          <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm
+          <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg z-10
                            ${isClassic
-                             ? 'bg-gradient-to-r from-amber-200 to-amber-300 text-amber-900'
-                             : 'bg-gradient-to-r from-onde-teal to-onde-teal-light text-white'
+                             ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900'
+                             : 'bg-gradient-to-r from-onde-teal to-onde-coral text-white'
                            }`}>
             {isClassic ? t.books.sections.classicBadge : t.books.sections.ondeStudioBadge}
           </span>
@@ -497,41 +475,27 @@ function BookCardSmall({
     >
       {/* Cover */}
       <Link href={`/libro/${book.id}`}>
-        <div className={`aspect-[3/4] rounded-2xl mb-4 overflow-hidden relative cursor-pointer
-                        shadow-card group-hover:shadow-card-hover transition-shadow duration-300
-                        ${isClassic
-                          ? 'bg-gradient-to-br from-amber-100/40 via-amber-50/30 to-amber-100/20'
-                          : `bg-gradient-to-br from-onde-${book.color}/15 via-onde-cream/20 to-onde-${book.color}/5`
-                        }`}>
-          {/* Effect */}
-          <div className={`absolute inset-0 ${isClassic ? 'opacity-30' : 'opacity-20'}`}
-               style={{
-                 backgroundImage: isClassic
-                   ? `radial-gradient(ellipse at 25% 25%, rgba(180, 140, 80, 0.25) 0%, transparent 40%),
-                      radial-gradient(ellipse at 75% 75%, rgba(160, 120, 60, 0.2) 0%, transparent 40%)`
-                   : `radial-gradient(ellipse at 25% 25%, rgba(255, 127, 127, 0.2) 0%, transparent 40%),
-                      radial-gradient(ellipse at 75% 75%, rgba(72, 201, 176, 0.2) 0%, transparent 40%)`
-               }}
+        <div className="relative mb-4 rounded-2xl overflow-hidden shadow-card group-hover:shadow-card-hover transition-all duration-300 group-hover:scale-[1.02]">
+          <BookCover
+            title={book.title}
+            author={book.author}
+            coverImage={book.coverImage}
+            color={book.color}
+            size="md"
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className={`text-6xl group-hover:scale-110 transition-transform duration-500 drop-shadow-md
-                            ${isClassic ? 'opacity-35' : 'opacity-25'}`}>
-              {isClassic ? '📖' : '✨'}
-            </span>
-          </div>
           <span className={`absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium
-                           backdrop-blur-sm capitalize shadow-sm
+                           backdrop-blur-md capitalize shadow-lg z-10
                            ${isClassic
-                             ? 'bg-amber-100/90 text-amber-900'
-                             : 'bg-white/90 text-onde-ocean'
+                             ? 'bg-amber-900/80 text-amber-100'
+                             : 'bg-onde-dark/80 text-white'
                            }`}>
             {book.category}
           </span>
           {book.featured && (
-            <span className={`absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-bold shadow-sm
+            <span className={`absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-bold shadow-lg z-10
                              ${isClassic
-                               ? 'bg-gradient-to-r from-amber-200 to-amber-300 text-amber-900'
-                               : 'bg-gradient-to-r from-onde-gold to-onde-gold-light text-onde-ocean'
+                               ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900'
+                               : 'bg-gradient-to-r from-onde-gold to-onde-coral text-onde-dark'
                              }`}>
               Top
             </span>
