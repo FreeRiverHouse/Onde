@@ -12,6 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Critical viewport meta tag for mobile stability */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+        <meta name="format-detection" content="telephone=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -19,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased overflow-x-hidden">
         <ClientLayout>
           {children}
         </ClientLayout>

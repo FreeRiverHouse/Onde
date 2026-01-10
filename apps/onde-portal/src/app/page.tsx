@@ -146,69 +146,65 @@ export default function Home() {
   ]
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-x-hidden w-full max-w-[100vw]">
       {/* ============================================
           HERO SECTION - Impattante con Acquarello
           ============================================ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Watercolor Background Blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Large coral blob top-left */}
+      <section className="relative min-h-[100svh] flex items-center overflow-hidden">
+        {/* Watercolor Background Blobs - Static on mobile for stability */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          {/* Large coral blob top-left - Reduced size on mobile, no animation on mobile */}
           <motion.div
-            className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-30"
+            className="absolute -top-20 -left-20 w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] rounded-full opacity-30 will-change-transform"
             style={{
               background: 'radial-gradient(circle, rgba(255,127,127,0.4) 0%, transparent 70%)',
-              filter: 'blur(80px)',
+              filter: 'blur(60px)',
+              transform: 'translate3d(0,0,0)', /* Force GPU acceleration */
             }}
+            initial={{ opacity: 0.3 }}
             animate={{
-              scale: [1, 1.1, 1],
-              x: [0, 30, 0],
-              y: [0, -20, 0],
+              scale: [1, 1.05, 1],
             }}
             transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Gold blob center-right */}
+          {/* Gold blob center-right - Reduced movement */}
           <motion.div
-            className="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-full opacity-25"
+            className="absolute top-1/4 -right-10 w-[250px] h-[250px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] rounded-full opacity-25 will-change-transform"
             style={{
               background: 'radial-gradient(circle, rgba(244,208,63,0.5) 0%, transparent 70%)',
-              filter: 'blur(60px)',
+              filter: 'blur(50px)',
+              transform: 'translate3d(0,0,0)',
             }}
+            initial={{ opacity: 0.25 }}
             animate={{
-              scale: [1, 1.15, 1],
-              x: [0, -40, 0],
-              y: [0, 30, 0],
+              scale: [1, 1.08, 1],
             }}
             transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           />
 
-          {/* Teal blob bottom-left */}
+          {/* Teal blob bottom-left - Simplified animation */}
           <motion.div
-            className="absolute bottom-20 left-1/4 w-[400px] h-[400px] rounded-full opacity-20"
+            className="absolute bottom-20 left-[10%] w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full opacity-20 will-change-transform"
             style={{
               background: 'radial-gradient(circle, rgba(72,201,176,0.4) 0%, transparent 70%)',
-              filter: 'blur(70px)',
+              filter: 'blur(50px)',
+              transform: 'translate3d(0,0,0)',
             }}
+            initial={{ opacity: 0.2 }}
             animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -40, 0],
+              scale: [1, 1.1, 1],
             }}
             transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
           />
 
-          {/* Ocean blob bottom-right */}
-          <motion.div
-            className="absolute -bottom-20 right-1/4 w-[350px] h-[350px] rounded-full opacity-15"
+          {/* Ocean blob bottom-right - Simplified */}
+          <div
+            className="absolute -bottom-10 right-[15%] w-[150px] h-[150px] md:w-[250px] md:h-[250px] lg:w-[350px] lg:h-[350px] rounded-full opacity-15"
             style={{
               background: 'radial-gradient(circle, rgba(27,79,114,0.3) 0%, transparent 70%)',
-              filter: 'blur(60px)',
+              filter: 'blur(50px)',
             }}
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           />
         </div>
 
@@ -274,13 +270,13 @@ export default function Home() {
               </motion.span>
             </motion.div>
 
-            {/* Main Title - Grande e Impattante */}
+            {/* Main Title - Grande e Impattante, responsive sizes */}
             <motion.h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold
-                         text-onde-ocean leading-[0.9] mb-8"
-              initial={{ opacity: 0, y: 40 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold
+                         text-onde-ocean leading-[0.95] mb-6 md:mb-8 px-2"
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
               <span className="block">{t.home.title1}</span>
               <span className="relative inline-block mt-2">
@@ -315,10 +311,10 @@ export default function Home() {
 
             {/* Subtitle */}
             <motion.p
-              className="text-xl md:text-2xl lg:text-3xl text-onde-ocean/60 max-w-3xl mx-auto mb-12 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-onde-ocean/60 max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed px-4"
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
               {t.home.subtitle} <span className="text-onde-coral font-medium">{t.home.imagination}</span> {t.home.and} <span className="text-onde-teal font-medium">{t.home.curiosity}</span>.
             </motion.p>
@@ -352,14 +348,13 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Floating Decorative Elements */}
+        {/* Floating Decorative Elements - Hidden on mobile for stability */}
         <motion.div
           className="absolute top-1/4 left-10 w-20 h-20 rounded-3xl bg-white/60
-                     backdrop-blur-sm border border-onde-coral/30 hidden lg:flex
-                     items-center justify-center text-4xl shadow-watercolor"
+                     backdrop-blur-sm border border-onde-coral/30 hidden xl:flex
+                     items-center justify-center text-4xl shadow-watercolor will-change-transform"
           animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
+            y: [0, -15, 0],
           }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
@@ -368,11 +363,10 @@ export default function Home() {
 
         <motion.div
           className="absolute top-1/3 right-16 w-16 h-16 rounded-2xl bg-white/60
-                     backdrop-blur-sm border border-onde-teal/30 hidden lg:flex
-                     items-center justify-center text-3xl shadow-watercolor"
+                     backdrop-blur-sm border border-onde-teal/30 hidden xl:flex
+                     items-center justify-center text-3xl shadow-watercolor will-change-transform"
           animate={{
-            y: [0, 15, 0],
-            rotate: [0, -8, 0],
+            y: [0, 12, 0],
           }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
         >
@@ -381,11 +375,10 @@ export default function Home() {
 
         <motion.div
           className="absolute bottom-1/3 left-1/4 w-14 h-14 rounded-2xl bg-white/60
-                     backdrop-blur-sm border border-onde-gold/30 hidden lg:flex
-                     items-center justify-center text-2xl shadow-watercolor"
+                     backdrop-blur-sm border border-onde-gold/30 hidden xl:flex
+                     items-center justify-center text-2xl shadow-watercolor will-change-transform"
           animate={{
-            y: [0, -12, 0],
-            rotate: [0, 10, 0],
+            y: [0, -10, 0],
           }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         >
@@ -394,11 +387,10 @@ export default function Home() {
 
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-12 h-12 rounded-xl bg-white/60
-                     backdrop-blur-sm border border-onde-coral/30 hidden lg:flex
-                     items-center justify-center text-xl shadow-watercolor"
+                     backdrop-blur-sm border border-onde-coral/30 hidden xl:flex
+                     items-center justify-center text-xl shadow-watercolor will-change-transform"
           animate={{
-            y: [0, -10, 0],
-            rotate: [0, -5, 0],
+            y: [0, -8, 0],
           }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
         >
