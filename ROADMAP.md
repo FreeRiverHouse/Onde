@@ -2162,4 +2162,28 @@ npx expo start
 
 ---
 
+## 💡 IDEE NUOVE (da valutare)
+
+### Speech-to-Text App (tipo Wispr Flow) - 10 Gen 2026
+
+**Contesto**: Wispr Flow è un'app di speech-to-text che funziona molto bene. Costa dopo il trial.
+
+**Idea Mattia**: Potremmo sviluppare la nostra versione?
+- Partire da inglese e italiano
+- Ci serve anche per le nostre app (FreeRiver Flow, etc.)
+- Potrebbe diventare un prodotto standalone
+
+**Da valutare**:
+- [ ] Analizzare come funziona Wispr Flow
+- [ ] Confrontare con alternative open source (Whisper, etc.)
+- [ ] Valutare effort vs comprare licenza
+- [ ] Se fattibile: integrare in FreeRiver Flow come primo use case
+
+**Tech Stack potenziale**:
+- Whisper (OpenAI) per transcription locale
+- Local processing per privacy
+- Cross-platform (iOS, macOS, web)
+
+---
+
 *Documento vivo - aggiornato con priorità e decisioni correnti*
