@@ -279,13 +279,23 @@ async function processCommand(ws, clientId, command) {
 /**
  * Esegue Claude Code come subprocess
  * Usa la subscription esistente di Mattia
+ *
+ * NOTA: Se USE_MOCK_CLAUDE=true, usa risposte simulate per testing
  */
 async function executeClaudeCode(prompt, onStream) {
+  // Usa mock se richiesto (per testing)
+  if (process.env.USE_MOCK_CLAUDE === 'true') {
+    return mockClaudeResponse(prompt, onStream);
+  }
+
   return new Promise((resolve, reject) => {
-    // Usa claude-code CLI
-    const claude = spawn('claude', ['-p', prompt], {
+    // Usa claude-code CLI con percorso completo per evitare problemi di PATH
+    // shell: false per evitare problemi di escaping con caratteri speciali
+    const claudePath = process.env.CLAUDE_PATH || '/opt/homebrew/bin/claude';
+    const claude = spawn(claudePath, ['-p', prompt], {
       env: { ...process.env },
-      shell: true
+      shell: false,
+      stdio: ['pipe', 'pipe', 'pipe']
     });
 
     let fullResponse = '';
@@ -325,6 +335,46 @@ async function executeClaudeCode(prompt, onStream) {
       reject(new Error('Timeout'));
     }, 5 * 60 * 1000);
   });
+}
+
+/**
+ * Mock response per testing quando Claude CLI non è disponibile
+ */
+async function mockClaudeResponse(prompt, onStream) {
+  const responses = {
+    'ciao': 'Ciao! Come posso aiutarti oggi?',
+    'hello': 'Hello! How can I help you today?',
+    'test': 'Test ricevuto! Il sistema funziona correttamente.',
+    default: `Ho ricevuto il tuo messaggio: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}". Sono in modalità test, quindi rispondo con un messaggio pre-impostato.`
+  };
+
+  // Simula un piccolo delay
+  await new Promise(r => setTimeout(r, 500));
+
+  // Determina la risposta
+  const lowerPrompt = prompt.toLowerCase();
+  let response = responses.default;
+  for (const [key, value] of Object.entries(responses)) {
+    if (key !== 'default' && lowerPrompt.includes(key)) {
+      response = value;
+      break;
+    }
+  }
+
+  // Simula streaming
+  const words = response.split(' ');
+  for (const word of words) {
+    if (onStream) {
+      onStream(word + ' ');
+      await new Promise(r => setTimeout(r, 50));
+    }
+  }
+
+  return {
+    text: response,
+    actions: [],
+    shouldSpeak: true
+  };
 }
 
 /**
