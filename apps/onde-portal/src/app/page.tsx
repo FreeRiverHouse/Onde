@@ -217,6 +217,17 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Development Banner */}
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <div className="bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm py-2 text-center">
+          <p className="text-black font-medium text-sm">
+            <span className="mr-2">🚧</span>
+            Still under <span className="font-bold">(fast)</span> development — Please Check Back Soon
+            <span className="ml-2">⚡</span>
+          </p>
+        </div>
+      </div>
+
       {/* ============================================
           HERO SECTION - Cinematic Full Screen
           ============================================ */}
