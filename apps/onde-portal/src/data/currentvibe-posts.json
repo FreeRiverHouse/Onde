@@ -1,0 +1,168 @@
+{
+  "posts": [
+    {
+      "id": "2008043379805048948",
+      "content": "This guy literally dropped a 30-min masterclass on Claude Code from idea to MVP",
+      "author": "Hayes",
+      "authorHandle": "@hayesdev_",
+      "category": "deep-dive",
+      "tweetUrl": "https://x.com/hayesdev_/status/2008043379805048948",
+      "timestamp": "2026-01-04",
+      "likes": 6265
+    },
+    {
+      "id": "2006751251036590354",
+      "content": "i swear vibe coding is a real addiction now bro i know people who code 12-16 hours a day just building random things",
+      "author": "shirish",
+      "authorHandle": "@shiri_shh",
+      "category": "hot-ship",
+      "tweetUrl": "https://x.com/shiri_shh/status/2006751251036590354",
+      "timestamp": "2026-01-01",
+      "likes": 7432
+    },
+    {
+      "id": "2007366453864120366",
+      "content": "holy shit this might be the best guide to vibe coding from YC save it",
+      "author": "Uttam",
+      "authorHandle": "@uttam_singhk",
+      "category": "deep-dive",
+      "tweetUrl": "https://x.com/uttam_singhk/status/2007366453864120366",
+      "timestamp": "2026-01-03",
+      "likes": 5888
+    },
+    {
+      "id": "2009726319366463673",
+      "content": "Me after a 28 hour claude code session",
+      "author": "Parham",
+      "authorHandle": "@pnegahdar",
+      "category": "hot-ship",
+      "tweetUrl": "https://x.com/pnegahdar/status/2009726319366463673",
+      "timestamp": "2026-01-09",
+      "likes": 3917
+    },
+    {
+      "id": "2008863725550539083",
+      "content": "This is literally how Boris, the Creator of Claude Code uses Claude code. Bookmark for later",
+      "author": "Shruti",
+      "authorHandle": "@heyshrutimishra",
+      "category": "cheat-code",
+      "tweetUrl": "https://x.com/heyshrutimishra/status/2008863725550539083",
+      "timestamp": "2026-01-07",
+      "likes": 2617
+    },
+    {
+      "id": "2008282454612656382",
+      "content": "NEVER start vibe coding an app without sending this PROMPT first",
+      "author": "Ernesto Lopez",
+      "authorHandle": "@ErnestoSOFTWARE",
+      "category": "shortcut",
+      "tweetUrl": "https://x.com/ErnestoSOFTWARE/status/2008282454612656382",
+      "timestamp": "2026-01-05",
+      "likes": 2637
+    },
+    {
+      "id": "2009838886722109854",
+      "content": "This is literally Claude Code Setup Cheatsheet Based on Boris, the creator of Claude Code. Save this.",
+      "author": "Min Choi",
+      "authorHandle": "@minchoi",
+      "category": "cheat-code",
+      "tweetUrl": "https://x.com/minchoi/status/2009838886722109854",
+      "timestamp": "2026-01-10",
+      "likes": 263
+    },
+    {
+      "id": "2009550750209450343",
+      "content": "Instead of watching a 30-minute episode on Netflix, watch this masterclass on Claude code and thank me later.",
+      "author": "Rohit Ghumare",
+      "authorHandle": "@ghumare64",
+      "category": "deep-dive",
+      "tweetUrl": "https://x.com/ghumare64/status/2009550750209450343",
+      "timestamp": "2026-01-09",
+      "likes": 1903
+    },
+    {
+      "id": "2009325247762452561",
+      "content": "this github lists +50 skills to use in Claude Code",
+      "author": "Machina",
+      "authorHandle": "@EXM7777",
+      "category": "shortcut",
+      "tweetUrl": "https://x.com/EXM7777/status/2009325247762452561",
+      "timestamp": "2026-01-08",
+      "likes": 1500
+    },
+    {
+      "id": "2008941700354592987",
+      "content": "What's your take on vibe coding? Which tools are actually worth using vs just hype?",
+      "author": "aditya",
+      "authorHandle": "@adxtyahq",
+      "category": "quick-win",
+      "tweetUrl": "https://x.com/adxtyahq/status/2008941700354592987",
+      "timestamp": "2026-01-07",
+      "likes": 1500
+    },
+    {
+      "id": "2009820285252579782",
+      "content": "This person released the most comprehensive free Vibe Coding guide.",
+      "author": "Crypto+AI Plus",
+      "authorHandle": "@0xCheshire",
+      "category": "deep-dive",
+      "tweetUrl": "https://x.com/0xCheshire/status/2009820285252579782",
+      "timestamp": "2026-01-10",
+      "likes": 1356
+    },
+    {
+      "id": "alexalbert-claudecode-jan9",
+      "content": "One of the bigger shifts for me with Claude Code over the past few months has been shutting down that initial dismissal I have when a task feels 'not worth my time'. Like I'll think 'it would be nice to rename all my screenshots with what's actually in them' and immediately move forward with it.",
+      "author": "Alex Albert",
+      "authorHandle": "@alexalbert__",
+      "category": "quick-win",
+      "tweetUrl": "https://x.com/alexalbert__/status/2009550000000000000",
+      "timestamp": "2026-01-09",
+      "likes": 2100
+    },
+    {
+      "id": "alexalbert-excel-dec29",
+      "content": "I'm hearing from many folks across finance industry that Claude for Excel is blowing their minds. The agentic coding takeoff but for other fields is coming in 2026.",
+      "author": "Alex Albert",
+      "authorHandle": "@alexalbert__",
+      "category": "hot-ship",
+      "tweetUrl": "https://x.com/alexalbert__/status/2008000000000000000",
+      "timestamp": "2025-12-29",
+      "likes": 4400
+    },
+    {
+      "id": "anthropic-evals-jan9",
+      "content": "New on the Anthropic Engineering Blog: Demystifying evals for AI agents. The capabilities that make agents useful also make them more difficult to evaluate. Here are evaluation strategies that have worked across real-world deployments.",
+      "author": "Anthropic",
+      "authorHandle": "@AnthropicAI",
+      "category": "deep-dive",
+      "tweetUrl": "https://x.com/AnthropicAI/status/2009400000000000000",
+      "timestamp": "2026-01-09",
+      "likes": 2300
+    },
+    {
+      "id": "2009496158696296703",
+      "content": "Vibe Coding expert starter pack.",
+      "author": "CodeXero",
+      "authorHandle": "@CodeXero_xyz",
+      "category": "shortcut",
+      "tweetUrl": "https://x.com/CodeXero_xyz/status/2009496158696296703",
+      "timestamp": "2026-01-08",
+      "likes": 672
+    }
+  ],
+  "lastUpdated": "2026-01-10T14:30:00.000Z",
+  "sources": [
+    "https://x.com/search?q=claude%20code",
+    "https://x.com/search?q=vibe%20coding",
+    "https://x.com/AnthropicAI",
+    "https://x.com/alexalbert__"
+  ],
+  "categories": {
+    "cheat-code": "Tips and tricks from experts",
+    "shortcut": "Time-saving commands and workflows",
+    "hot-ship": "Recently shipped projects and demos",
+    "quick-win": "Easy wins for immediate productivity",
+    "deep-dive": "In-depth tutorials and guides"
+  }
+}
