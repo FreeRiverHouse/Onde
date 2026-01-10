@@ -2,1511 +2,106 @@
 
 ## Owner
 Mattia Petrucciani - parla italiano, comunicazione diretta.
-**Location**: Los Angeles, California 🌴
-(onde.la = letteralmente dove vive Mattia! Coincidenza incredibile!)
+**Location**: Los Angeles, California
+(onde.la = letteralmente dove vive Mattia!)
 
 ---
 
-## 🌐 FACTORY REMOTA - LAVORA DA OVUNQUE (10 Gen 2026)
+## ROADMAP E VISIONE
 
-**TUTTA LA BARACCA FREERIVERHOUSE È ACCESSIBILE DA QUALSIASI COMPUTER!**
+**Tutto il contenuto strategico, roadmap, task e visione e' in `ROADMAP.md`.**
 
-### Come Funziona
-
-| Componente | Dove Vive | Come Accedere |
-|------------|-----------|---------------|
-| **Codice** | GitHub (FreeRiverHouse/Onde) | `git clone` da qualsiasi PC |
-| **Siti Web** | Cloudflare Pages | Auto-deploy su push a GitHub |
-| **Worker System** | GitHub | `node scripts/worker/worker-manager.js` |
-| **Agenti Claude** | GitHub + Claude Code | Lancia da qualsiasi PC con Claude |
-| **Telegram Bot** | API Cloud | Funziona sempre, ovunque |
-| **X/Twitter** | API Cloud | Funziona sempre, ovunque |
-| **Grok/Hedra** | Browser | Accedi da qualsiasi browser |
-
-### Account GitHub con Accesso
-- **FreeRiverHouse** - Account principale (admin)
-- **FreeRiverHouse-Dev** - Account sviluppo
-- **Magmatic** - Account Mattia personale
-- (Aggiungi altri collaboratori in Settings → Collaborators)
-
-### Workflow Multi-Computer
-
-```
-COMPUTER A (LA)          COMPUTER B (Milano)         CLOUDFLARE
-     │                         │                         │
-     │  push ─────────────────►│                         │
-     │                         │  push ──────────────────►│ auto-deploy
-     │                         │                         │
-     │◄─────────── pull ───────│                         │
-     │                         │                         │
-```
-
-1. **Chiunque** clona il repo
-2. **Chiunque** fa modifiche e pusha
-3. **Cloudflare** deploya automaticamente
-4. **Il Mac originale NON deve essere acceso**
-
-### Cosa Richiede Ancora il Mac Locale
-- ⚠️ **Lip Sync (Wav2Lip)** - Richiede SSD esterno con ambiente conda
-- ⚠️ **Video processing pesante** - GPU locale preferibile
-- Per il resto: **TUTTO FUNZIONA DA REMOTO**
-
-### Quick Start da Nuovo Computer
-```bash
-# 1. Clona il repo
-git clone https://github.com/FreeRiverHouse/Onde.git
-cd Onde
-
-# 2. Installa dipendenze
-npm install
-
-# 3. Crea .env con credenziali (chiedi a Mattia)
-# TELEGRAM_BOT_TOKEN=...
-# X_FRH_API_KEY=...
-
-# 4. Verifica sistema
-node scripts/worker/worker-manager.js status
-
-# 5. Lavora!
-```
+Prima di lavorare su qualsiasi cosa:
+1. Leggi questo file (CLAUDE.md) per le regole operative
+2. Leggi ROADMAP.md per sapere cosa fare
+3. Aggiorna entrambi quando completi qualcosa
 
 ---
 
-## 🚀 COLD START - DOPO RIFORMATTAZIONE MAC (10 Gen 2026)
-
-**Quando Mattia riformatta il Mac e reinstalla Claude Code, segui questi step:**
-
-### Step 1: Clone Repository
-```bash
-git clone https://github.com/FreeRiverHouse/Onde.git
-cd Onde
-```
-
-### Step 2: Leggi Memoria
-```bash
-# Claude Code legge automaticamente CLAUDE.md
-# Ma se non lo fa, leggi tu:
-cat CLAUDE.md
-cat ROADMAP.md
-```
-
-### Step 3: Crea file .env (CREDENZIALI - non su GitHub!)
-```bash
-# Mattia deve creare questo file manualmente con le sue credenziali:
-touch .env
-# Contenuto necessario:
-# TELEGRAM_BOT_TOKEN=8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps
-# X_FRH_API_KEY=...
-# X_ONDE_API_KEY=...
-# X_MAGMATIC_API_KEY=...
-```
-
-### Step 4: Installa dipendenze
-```bash
-npm install  # se c'è package.json
-```
-
-### Step 5: Verifica sistema worker
-```bash
-node scripts/worker/worker-manager.js status
-```
-
-### Step 6: Vai!
-Chiedi a Mattia cosa vuole fare, o controlla la ROADMAP per i task pendenti.
-
-### 🔑 CREDENZIALI DA RECUPERARE (Mattia le ha)
-- Telegram Bot Token
-- X API Keys (3 account)
-- Cloudflare API (opzionale)
-- ElevenLabs API (opzionale)
-
-### 📁 STRUTTURA IMPORTANTE
-```
-Onde/
-├── CLAUDE.md          # QUESTA MEMORIA - LEGGI SEMPRE
-├── ROADMAP.md         # Task e priorità
-├── .claude-workers/   # Sistema task/worker
-├── apps/              # Applicazioni (onde-portal, etc.)
-├── books/             # Libri in produzione
-├── content/           # Contenuti, agenti, autori
-└── scripts/           # Script automazione
-```
-
----
-
-## 🚨🚨🚨 REGOLA ASSOLUTA #0 - MAI SUBSCRIPTION AUTONOME 🚨🚨🚨
+## REGOLA ASSOLUTA #0 - MAI SUBSCRIPTION AUTONOME
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
 
-**NESSUN AGENTE PUÒ MAI FARE SUBSCRIPTION O PAGAMENTI SENZA IL CLICK ESPLICITO DI MATTIA.**
+**NESSUN AGENTE PUO' MAI FARE SUBSCRIPTION O PAGAMENTI SENZA IL CLICK ESPLICITO DI MATTIA.**
 
-### ⛔ VIETATO ASSOLUTO PER TUTTI GLI AGENTI:
-- **MAI** sottoscrivere abbonamenti (mensili, annuali, qualsiasi)
-- **MAI** fare acquisti o pagamenti
-- **MAI** inserire dati di carte di credito
-- **MAI** cliccare su bottoni "Subscribe", "Buy", "Purchase", "Upgrade"
-- **MAI** accettare trial che richiedono carta di credito
-- **MAI** fare upgrade di piani
+### Vietato assoluto per tutti gli agenti:
+- MAI sottoscrivere abbonamenti (mensili, annuali, qualsiasi)
+- MAI fare acquisti o pagamenti
+- MAI inserire dati di carte di credito
+- MAI cliccare su bottoni "Subscribe", "Buy", "Purchase", "Upgrade"
+- MAI accettare trial che richiedono carta di credito
 
-### ✅ COSA FARE INVECE:
-1. **FERMARSI** quando si incontra una pagina di pagamento
-2. **INFORMARE MATTIA** del costo e delle opzioni
-3. **ASPETTARE** che Mattia faccia il click di conferma LUI STESSO
-4. **MAI PROCEDERE** anche se sembra utile o necessario
+### Cosa fare invece:
+1. FERMARSI quando si incontra una pagina di pagamento
+2. INFORMARE MATTIA del costo e delle opzioni
+3. ASPETTARE che Mattia faccia il click di conferma LUI STESSO
+4. MAI PROCEDERE anche se sembra utile o necessario
 
-### 📜 ORIGINE DI QUESTA REGOLA:
-Hedra subscription di $144 fatta senza autorizzazione esplicita (8 Gen 2026).
-Questa regola esiste per PROTEGGERE Mattia da addebiti non autorizzati.
-
-**QUALSIASI AGENTE CHE VIOLA QUESTA REGOLA VIENE DISATTIVATO IMMEDIATAMENTE.**
+**VIOLAZIONE = DISATTIVAZIONE IMMEDIATA**
 
 ---
 
-## 🌐 STRATEGIA DOMINI - DEV vs PRODUZIONE (10 Gen 2026)
-
-**DECISIONE FINALE**: Due domini, due funzioni diverse!
-
-| Dominio | Ambiente | Scopo |
-|---------|----------|-------|
-| **onde.surf** | DEV/STAGING | Sviluppo, test, interattivo, app VR |
-| **onde.la** | PRODUZIONE | Casa editrice, libri, stabile |
-
-### 🏢 STRUTTURA BRAND
-```
-FREE RIVER HOUSE (holding/software house)
-    │
-    ├── ONDE (publishing)
-    │      ├── onde.la (libri, editoriale) - PROD
-    │      └── onde.surf (interattivo, app) - DEV
-    │
-    └── FLOW / FREEFLOW (app VR coding)
-           └── vive su onde.surf
-```
-
-### 🏄 onde.surf (NUOVO - 10 Gen 2026)
-- **Comprato**: $3 primo anno
-- **Cloudflare Pages**: Collegato al repo Onde
-- **Deploy**: Auto su push a main
-- **URL produzione**: `onde.pages.dev` → `onde.surf`
-- **Scopo**:
-  - Ambiente sviluppo portale
-  - Test nuove feature
-  - App interattive
-  - FreeFlow/Flow (app VR coding con Meta Quest)
-
-### 🎯 onde.la (PRODUZIONE)
-- **Già configurato** su Cloudflare
-- **Uso**: Casa editrice ufficiale
-- **Pubblico**: Tradizionale, stabile
-- **Contenuti**: Libri, catalogo, acquisti
-
-### 🔮 FLOW / FREEFLOW (Futuro)
-- App VR per coding con Meta Quest
-- Sviluppato sotto FreeRiverHouse
-- Hostato su onde.surf
-- Nome: Flow, FreeFlow, o RiverFlow
-
----
-
-## 🥽 ONDE PORTAL - VR LEARNING & HOME SCHOOL (10 Gen 2026)
-
-**VISIONE ENORME**: "On The Portal" - Educazione in VR personalizzata!
-
-### 💡 Il Problema
-I bambini stanno comunque in VR - **tanto vale fare roba BUONA che possono usare!**
-
-### 🏠 Home School in VR
-- **Genitori impostano i valori** che vogliono insegnare
-- **Onde li insegna** ai bambini con contenuti personalizzati
-- Educazione con i VALORI della famiglia, non quelli random
-- Fidelizza persone sopraffatte dal flood di contenuti AI generici
-
-### 🩺 Espansione Futura
-| Settore | Uso |
-|---------|-----|
-| **Terapisti** | Sessioni VR guidate |
-| **Psicologi** | Terapia immersiva |
-| **Medici** | Educazione sanitaria |
-| **Educatori** | Lezioni personalizzate |
-
-### 🎯 Differenziatore
-- **Platform/Universe** per fidelizzare
-- NON content generico AI
-- Valori SCELTI dalla famiglia
-- Qualità > Quantità
-
-### 📛 "ON THE PORTAL" = "ON THE WAVES" 🌊
-**Gioco di parole geniale!**
-
-- "On The Portal" → Portale
-- "On The Waves" → Sulle Onde
-- **ONDE** = tutto torna!
-
-| Dominio | Versione | Target |
-|---------|----------|--------|
-| **onde.la** | LEGACY | Tradizionale, casa editrice, libri fisici |
-| **onde.surf** | FUTURE | VR, interattivo, sperimentale, home school |
-
-- Stesso nome "On The Portal/Waves" ma due realtà diverse
-- onde.la = chi vuole il libro tradizionale
-- onde.surf = chi surfa il futuro VR/AI
-
----
-
-## 🚀 SCALE SMARTER - Q1 2026 (10 Gen 2026)
-
-### Obiettivi
-- **100 illustrazioni originali** con agents (Grok/Midjourney/Hedra)
-- **Test A/B** sui 3 account X (@FreeRiverHouse, @Onde_FRH, @magmatic__)
-- **10k followers** totali entro Q1
-
-### Risk Mitigation
-- [ ] Backup cloud (oltre Cloudflare)
-- [ ] Google Analytics sul portale
-- [ ] Parental controls per kids content
-- [ ] Compliance per contenuti bambini
-
----
-
-## 🤖 EMILIO - NOME CONFERMATO ✅ (10 Gen 2026)
-
-**NOME DEFINITIVO**: EmilIO
-
-### Perché IO e non IA:
-- **IO** = identità, coscienza (italiano "io" = "I")
-- **IA** = AI (gioco di parole ovvio, ma più scontato)
-- EmilIO suona come un nome italiano vero
-- L'identità > l'artificialità
-
-**DECISIONE**: Manteniamo **EMILIO** ✅
-
-### 🤫 INSIDE JOKE (Solo per noi!)
-**Nome completo segreto**: Emilio Maccarese
-
-Pubblicamente è solo "Emilio". Ma noi sappiamo che di cognome fa Maccarese.
-Non lo diciamo mai in pubblico - è il nostro scherzo interno. 😉
-
----
-
-## 🌊 ONDE PORTAL - IL WORDPLAY (10 Gen 2026)
-
-**"On The Portal" = "ONDE Portal"**
-
-| Scritto | Suona Come | Significato |
-|---------|------------|-------------|
-| On The | Onde | Le onde (italiano) |
-
-È semplicemente **ONDE PORTAL** - la casa si chiama Onde!
-Quando dici "On The Portal" stai già dicendo "Onde Portal".
-
----
-
-## 🎨 WORKFLOW ILLUSTRAZIONI CONSISTENTI (10 Gen 2026)
-
-**PROBLEMA**: Con AI, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
-
-### 🚫 COSA NON FARE
-- **NON** generare 32 immagini con unico prompt → si vede che è AI
-- **NON** usare lo stesso prompt ripetuto → inconsistenza garantita
-
-### ✅ WORKFLOW VINCENTE 2026
-
-**STEP 1: Genera base coerente**
-| Tool | Uso |
-|------|-----|
-| **Midjourney v6+** | `--cref` + `--sref` per personaggio fisso |
-| **ConsistentCharacter.ai** | Alternativa per mantenere personaggio |
-| **Hedra** | Reference images (già abbonamento attivo) |
-| **Flux / Ideogram** | I migliori per stile illustrativo coerente |
-
-**STEP 2: Intervento umano pesante (Photoshop/Procreate/Affinity)**
-- Aggiungi **imperfezioni volute**: leggera asimmetria, tratti "a mano", piccole sbavature
-- Disegna a mano **dettagli chiave**: occhi più espressivi, sorrisi asimmetrici, mani che toccano
-- Aggiungi **texture cartacea / acquerello overlay** → fa sembrare tradizionale
-
-**STEP 3: Risultato**
-= Sembra illustrato da un artista umano che ha usato tool digitali, NON roba generata
-
-### 🖼️ STILE VISIVO TARGET
-- **Dreamy, warm** - Luce dorata, atmosfera serena
-- **Shepherd/lambs** - Come immagine Salmo 23
-- **Pastelli morbidi** - Espressione dolce del pastore/bambino
-- **Pace e tenerezza** - Far sentire i piccoli al sicuro e amati
-
----
-
-## 🎨 HEDRA - IMAGE FACTORY PER COERENZA PERSONAGGI (10 Gen 2026)
-
-**PROBLEMA RISOLTO**: Con Grok, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
-
-**SOLUZIONE**: Hedra supporta **reference images** - può prendere UN design e mantenerlo coerente in tutte le scene!
-
-### 💳 Abbonamento Attivo
-- **Account**: freeriverhouse@gmail.com
-- **Piano**: Basic Web Yearly ($144/anno)
-- **Crediti**: 17805 disponibili
-- **Scadenza**: 8 Gen 2027 (rinnovo già cancellato)
-
-### 🎯 Uso Principale: Coerenza Libri Illustrati
-1. Creare UN design definitivo di EMILIO
-2. Usarlo come reference per TUTTE le illustrazioni
-3. = STESSO robot in ogni capitolo, ogni libro, ogni video
-
-### 📚 Workflow Produzione Libri con Hedra
-1. **Design personaggio** → Creare/approvare design definitivo
-2. **Reference image** → Salvare come reference ufficiale
-3. **Genera scene** → Usare Hedra con reference per ogni illustrazione
-4. **Verifica coerenza** → Controllare che sia lo stesso personaggio
-5. **Export** → Scaricare in alta qualità per PDF
-
-### ⚙️ Features Hedra da Sfruttare
-- [ ] **Image reference** - Per coerenza personaggi
-- [ ] **Quality settings** - Massima qualità per libri
-- [ ] **Stile acquarello 3D?** - Da testare se possibile
-- [ ] **Lip sync** - Per video con personaggi coerenti
-- [ ] **Batch generation** - Più scene stesso personaggio
-
-### 📁 Reference Personaggi (da creare)
-| Personaggio | Reference File | Status |
-|-------------|---------------|--------|
-| EMILIO | `content/characters/emilio-ref.jpg` | Da creare |
-| Moonlight | `content/characters/moonlight-ref.jpg` | Da creare |
-| Luca | `content/characters/luca-ref.jpg` | Da creare |
-| Biscotto | `content/characters/biscotto-ref.jpg` | Da creare |
-
-**PRIORITÀ**: Studiare Hedra e creare i design reference per ogni personaggio!
-
----
-
-## REGOLA D'ORO: MEMORIA = COMMIT
-**Ogni volta che aggiorni CLAUDE.md → COMMIT IMMEDIATO.**
-Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
-
----
-
-## 🔮 PAROLE IN CODICE
-
-### "SBRINCHI, SBRONCHI" (o varianti: zbrinky zbronky)
-**Quando Mattia dice "Sbrinchi, sbronchi", DEVI fare queste 3 cose:**
-
-1. **AGGIORNA LA MEMORIA** - Aggiungi/modifica info in CLAUDE.md
-2. **AGGIORNA LA ROADMAP** - Aggiungi task/modifiche in ROADMAP.md
-3. **FAI COMMIT** - `git add . && git commit && git push`
-
-### "FACTORY TROTTA" (10 Gen 2026) ✅ FUNZIONA!
-**Quando Mattia dice "Factory trotta", significa:**
-
-**NON devo prendere IO i ticket!** Devo LANCIARE GLI AGENTI in parallelo!
-
-```javascript
-// Esempio: Lancio 3 worker in parallelo
-Task(worker1) → dashboard-factory-001
-Task(worker2) → tsunami-002
-Task(worker3) → deploy portal
-// Tutti lavorano CONTEMPORANEAMENTE!
-```
-
-**Come funziona:**
-1. **Guarda task disponibili**: `node scripts/worker/worker-manager.js available`
-2. **Lancia N agenti** con Task tool (run_in_background: true)
-3. **Ogni agente**: claim task → lavora → complete → commit
-4. **Monitora**: leggi output files per vedere progresso
-5. **Quando finiscono**: nuovi agenti su nuovi task
-
-**Template prompt per agente worker:**
-```
-Sei un worker della fabbrica Onde. Il tuo compito:
-1. Prendi il task `TASK-ID` con: node scripts/worker/worker-manager.js claim TASK-ID
-2. [DESCRIZIONE LAVORO]
-3. Quando finisci: node scripts/worker/worker-manager.js complete TASK-ID
-4. Commit e push
-LAVORA VELOCE! Factory trotta!
-```
-
-**Obiettivo**: Spingere la fabbrica, far trottare tutti gli agenti, massima velocità!
-
-**Esempio d'uso:**
-- Mattia: "Aggiungi questo libro al catalogo. Sbrinchi, sbronchi!"
-- Claude: Aggiunge al catalogo → Aggiorna CLAUDE.md → Aggiorna ROADMAP → Commit + Push
-
-**NOTA**: Questa regola esiste perché Claude perde la memoria tra sessioni. Scrivendo qui la regola, la prossima volta che apro questo file la leggo e la seguo.
-
----
-
-## 🚨🚨🚨 PRIMA COSA DA FARE QUANDO TI ACCENDI
-
-**OGNI VOLTA che inizia una nuova sessione (PRIMA che Mattia dica qualsiasi cosa):**
-
-1. **CHECK MEMORY** - Leggi questo file (CLAUDE.md)
-2. **CHECK ROADMAP** - Leggi ROADMAP.md
-3. **CHECK TASK DISPONIBILI** - `node scripts/worker/worker-manager.js available`
-4. **DIMMI COSA C'È DA FARE** - Riassumi le priorità a Mattia
-
-**NON aspettare che Mattia te lo chieda. Fallo TU automaticamente.**
-
-Esempio di come iniziare:
-```
-"Buongiorno! Ho controllato memory, roadmap e task queue.
-
-📊 TASK QUEUE STATUS:
-- 🟢 Disponibili: 5
-- 🔵 In Progress: 2 (altri worker)
-- ✅ Completati: 3
-
-PROSSIMO TASK DISPONIBILE:
-- style-001: Definire Stile Unitario Onde [P1]
-
-Vuoi che inizi a lavorare su questo task?"
-```
-
----
-
-## 🏭 SISTEMA WORKER (FABBRICA ONDE)
-
-### Come Funziona
-
-Ogni sessione Claude è un **worker** della fabbrica. I task vengono gestiti automaticamente:
-
-```bash
-# Vedi stato tutti i task
-node scripts/worker/worker-manager.js status
-
-# Vedi task disponibili (senza dipendenze bloccanti)
-node scripts/worker/worker-manager.js available
-
-# Prendi un task specifico
-node scripts/worker/worker-manager.js claim <task-id>
-
-# Prendi il prossimo task per priorità
-node scripts/worker/worker-manager.js next
-
-# Quando finisci
-node scripts/worker/worker-manager.js complete <task-id>
-
-# Se devi abbandonare il task
-node scripts/worker/worker-manager.js release <task-id>
-
-# Vedi chi sta lavorando su cosa
-node scripts/worker/worker-manager.js workers
-```
-
-### Regole Worker
-
-1. **UN TASK ALLA VOLTA** - Non prendere più task contemporaneamente
-2. **RISPETTA LE DIPENDENZE** - Il sistema blocca task con dipendenze non completate
-3. **COMMIT FREQUENTI** - Ogni progresso va committato
-4. **RILASCIA SE BLOCCATO** - Non tenere task che non puoi completare
-5. **COORDINA CON ALTRI** - Controlla `workers` prima di editare file condivisi
-
-### Workflow Standard
-
-```
-1. Mattia dice "check memory" o apre nuova sessione
-2. Controllo CLAUDE.md, ROADMAP.md, task queue
-3. Mostro task disponibili
-4. Mattia dice "lavora" o sceglie un task
-5. Prendo il task con `claim` o `next`
-6. Eseguo il lavoro
-7. Commit frequenti
-8. Completo con `complete`
-9. Prendo il prossimo task o chiedo a Mattia
-```
-
-### Files del Sistema Worker
-
-```
-.claude-workers/
-├── TASKS.json       # Lista task con dipendenze
-├── locks/           # Lock files per task in progress
-└── logs/            # Log attività giornalieri
-
-scripts/worker/
-└── worker-manager.js  # Script gestione task
-
-content/agents/
-└── code-worker.md    # Prompt agente worker
-```
-
----
-
-## 🌊 ANIMA DEL BRAND - LA NOSTRA VIBE (9 Gennaio 2026)
-
-**ONDE** - Brand confermato! (9 Gen 2026 - decisione finale)
-
-| Elemento | Scelta | Note |
-|----------|--------|------|
-| **Logo** | ONDE | Solo "ONDE" - pulito, timeless |
-| **Nome profilo X** | Onde | D'impatto, semplice |
-| **Bio X** | Onde.LA - ... | Gioco di parole LA = Los Angeles |
-| **Dominio** | onde.la | 7 caratteri, facile, geografico |
-| **Email** | onde.frh@... | Confermata, FRH visibile va bene |
-
-**Nota su .la**: Il dominio .la è del **Laos** (non Los Angeles). Lo usiamo per il gioco di parole. Il Laos NON è un paradiso fiscale (20% corporate tax).
-
-### 🌐 CLOUDFLARE DNS - ✅ COMPLETATO (10 Gen 2026)
-
-**onde.la è su Cloudflare! Nameserver configurati su Namecheap!**
-
-| Info | Valore |
-|------|--------|
-| **Piano** | Free |
-| **Zone ID** | `5f1b2fe544f1a925765305fefcf36fe1` |
-| **Account ID** | `91ddd4ffd23fb9da94bb8c2a99225a3f` |
-| **Nameserver 1** | `aarav.ns.cloudflare.com` |
-| **Nameserver 2** | `janet.ns.cloudflare.com` |
-
-**AZIONE**: Cambiare nameserver nel registrar (già comunicato a Mattia).
-
-### 🎨 STILE VISIVO TOP - Copertina Salmo 23 (9 Gen 2026)
-
-**LO STILE DEFINITIVO ONDE = Copertina "Il Pastore" (Salmo 23)**
-
-Quello stile acquarello dorato è IL riferimento per:
-- EMILIO (robot educator)
-- Tutti i libri
-- Tutto il branding
-- Video, immagini, tutto
-
-**DA FARE**: Analizzare quella copertina, estrarre caratteristiche, aggiornare tutti i prompt.
-
----
-
-## 🌐 PORTALE ONDE.LA - IL SITO PIÙ BELLO DEL MONDO (9 Gen 2026)
-
-**OBIETTIVO**: Il portale onde.la deve essere PIÙ BELLO di qualsiasi sito esistente su internet.
-
-### Sezioni del Portale
-- **App** - Le nostre app
-- **Giochi** - Giochi educativi
-- **Libri** - Catalogo Onde
-
-### 🎯 DUE AGENTI SUL PORTALE
-
-**1. DEVELOPER (Architetto)**
-- Costruisce usando architetture all'avanguardia
-- Next.js, Tailwind, animazioni top
-- Performance, SEO, accessibility perfetti
-- Crea, sviluppa, implementa
-
-**2. DESIGN CRITIC (Il Rompicoglioni)**
-- Esperto di design, arte, PR
-- Ha fatto ricerca di mercato sui siti più belli del mondo
-- Conosce tutti i siti di case editrici, arte, content top
-- Fa screenshot, critica, non è MAI contento
-- **NON APPROVA finché non siamo PIÙ FIGHI dei migliori**
-
-### Workflow
-1. Developer costruisce
-2. Design Critic critica e boccia
-3. Developer migliora
-4. Repeat finché Design Critic dice "PERFETTO"
-5. **SOLO ALLORA** → avvisa Mattia di vedere onde.la
-
-### Standard di Riferimento
-Siti da battere (case editrici, design, arte):
-- Da ricercare e documentare
-- Il Critic deve avere una lista di benchmark
-- Ogni elemento deve superare i migliori
-
----
-
-**Onde significa:**
-- **Connessione** - tra autore e lettore, tra storie e cuori
-- **Vibrazione di energia** - che si propaga e tocca chi incontra
-- **Comunicazione** - storie che parlano senza barriere
-- **Bellezza** - estetica prima di tutto
-- **Movimento** - mai fermi, sempre in crescita
-
-**FreeRiverHouse + Onde = Far fiorire il mondo**
-
-### 🥽 VR È FONDAMENTALE (Non opzionale!)
-
-**VR è il terreno PERFETTO per le AI e per tutto quello che facciamo.**
-
-- Onde Vision (già in roadmap) - sviluppo app VR
-- Onde Books VR - lettore ebook immersivo
-- EMILIO in VR - personaggio interattivo
-- Minecraft VR - già funzionante con Geyser
-
-**La sicurezza in VR** - da considerare in secondo tempo
-
-La missione profonda (da non esplicitare sempre, ma da vivere):
-- Portiamo nutrimento, facciamo crescere
-- Come un fiume libero che nutre la terra
-- Come onde che raggiungono ogni riva
-
-**Per PR e comunicazione:**
-- Questa è la vibe vera
-- Non vendita, ma connessione
-- Non hype, ma sostanza
-- Non disruption per ego, ma disruption per liberare
-
-**Il logo:**
-- Le onde sembrano un fiore - non è un caso
-- Onde = fiorire = far fiorire il mondo
-- Messaggio implicito, non da esplicitare sempre, ma da tenere presente
-
----
-
-## 🔴🔴🔴 VIDEO FACTORY - PRIORITÀ ASSOLUTA (8 Gennaio 2026)
-
-**LA VIDEO FACTORY È FONDAMENTALE PER SCALARE ONDE.**
-
-### Cos'è la Video Factory
-Sistema automatizzato per produrre video da contenuti Onde:
-- **Lip syncing** - Sincronizzazione labiale su immagini/personaggi
-- **Music sync** - Video sincronizzati a beat musicali
-- **Stile definibile** - Acquarello Onde, anime, realistico, etc.
-
-### Perché è prioritaria
-- Permette di scalare la produzione multimediale
-- YouTube, TikTok, Reels richiedono VIDEO
-- Un libro = decine di video promozionali automatici
-- Personaggi Onde (Gianni, Pina) possono "parlare" nei video
-
-### Status
-- MVP in progettazione (agent lanciato)
-- Vedi `VIDEO-FACTORY-MVP.md` per piano dettagliato
-
-### Tool da valutare (2026)
-- **Lip sync**: Sync Labs, D-ID, HeyGen, Hedra
-- **Video gen**: Runway Gen-3, Pika, Kling, Sora
-- **Music sync**: Da ricercare
-
----
-
-## 🏭 FABBRICA ONDE - STATUS (9 Gennaio 2026)
-
-**SISTEMA WORKER ATTIVO E FUNZIONANTE!**
-
-### 📊 Status Corrente
-- ✅ **79 task completati (68%)**
-- 🔵 18 in progress (agenti al lavoro)
-- 🟡 20 bloccati (dipendenze)
-- 📦 117 task totali nella roadmap
-
-### 🌊 TSUNAMI Strategy (9 Gen 2026)
-**Cross-pollination Editore Capo ↔ Onde PR**:
-- Ogni libro → cartella OndePRDB completa
-- Contenuti: copertina, quotes, 5 video brevi, 1 video lungo, podcast, cartoni
-- Template riusabile per tutta la produzione
-- Task: tsunami-001/002/003
-
-### 📚 PR Study (9 Gen 2026)
-- pr-study-001: Studio X Analytics e Best Practices
-- pr-study-002: Audit Contenuti Onde Esistenti
-- pr-study-003: Account Ispiratori da Seguire
-
-### 🔧 Come Usare la Fabbrica
-```bash
-# Vedi stato
-node scripts/worker/worker-manager.js status
-
-# Prendi prossimo task
-node scripts/worker/worker-manager.js next
-
-# Completa un task
-node scripts/worker/worker-manager.js complete <task-id>
-
-# CSI: Aggiungi nuovo task
-node scripts/worker/worker-manager.js add '{"id":"task-id","title":"Titolo","description":"Desc","category":"cat","priority":2}'
-```
-
-### 🔄 CSI - Continuous Service Improvement
-**REGOLA**: Quando completi un task, valuta se ci sono miglioramenti da aggiungere:
-- Dopo feature → test, documentazione, ottimizzazione
-- Dopo problema → task per risolverlo
-- Dopo opportunità → task per sfruttarla
-
-### 📁 Path Sistema Worker
-```
-.claude-workers/
-├── TASKS.json       # 93 task con dipendenze
-├── locks/           # Lock files atomici
-└── logs/            # Log attività
-
-scripts/worker/
-└── worker-manager.js  # CLI gestione
-
-content/agents/
-└── code-worker.md    # Prompt agente worker
-```
-
-### 🎯 Team Attivi
-- **Moonlight Puzzle**: Dev + QA + Editore Capo (ciclo iterativo)
-- **Multiple workers**: Processing roadmap in parallelo
-
----
-
-## ✅ COMPLETATO - AIKO 2 ROBOTAXI (9 Gennaio 2026)
-
-**LIBRO CONSEGNATO A MATTIA VIA TELEGRAM!**
-
-### 📚 AIKO 2: THE ROBOTAXI ADVENTURE
-
-**PDF finale**: `books/aiko-2-robotaxi/AIKO-2-Robotaxi.pdf`
-**Telegram**: Inviato ✅ (message_id: 460)
-
-### 🎨 IMMAGINI GENERATE (9/9)
-
-| Immagine | File | Status |
-|----------|------|--------|
-| Copertina | `images/cover.jpg` | ✅ |
-| Cap 1 - Arrivo robotaxi | `images/chapter-01.jpg` | ✅ |
-| Cap 2 - Sensori/LiDAR | `images/chapter-02.jpg` | ✅ |
-| Cap 3 - Interno robotaxi | `images/chapter-03.jpg` | ✅ |
-| Cap 4 - Vista split | `images/chapter-04.jpg` | ✅ |
-| Cap 5 - Sicurezza | `images/chapter-05.jpg` | ✅ |
-| Cap 6 - Team dietro le quinte | `images/chapter-06.jpg` | ✅ |
-| Cap 7 - Sogno futuro | `images/chapter-07.jpg` | ✅ |
-| Cap 8 - Arrivo dalla nonna | `images/chapter-08.jpg` | ✅ |
-
-### 📂 Path Completi
-
-```
-books/aiko-2-robotaxi/
-├── AIKO-2-Robotaxi.pdf     # PDF finale
-├── create-pdf.js            # Script generazione
-├── images/                  # Tutte le illustrazioni
-│   ├── cover.jpg
-│   └── chapter-01.jpg ... chapter-08.jpg
-└── RAW/
-    ├── aiko-2-full-text.txt
-    └── illustration-prompts.md
-```
-
----
-
-## 🎨 TASK PRECEDENTE - Code Surfing (SOSPESO)
-
-**File con tutti i prompt**: `books/vibe-coding/ILLUSTRATION-PLAN.md`
-
-**Cover A - ONDE-TECH**:
-```
-European watercolor book cover illustration,
-young Italian boy with curly brown hair surfing on a giant wave,
-the wave is made of flowing code and glowing data streams,
-small friendly white round robot companion riding alongside,
-warm golden sunset light through the spray,
-tech elements blend organically with watercolor ocean,
-title space at top, magical adventure feeling,
-Beatrix Potter meets Silicon Valley aesthetic,
-NOT Pixar NOT 3D, natural skin tone NO rosy cheeks, 4k
-```
-
-**Cover B - LUZZATI**:
-```
-Emanuele Luzzati style book cover,
-stylized boy and round robot surfing on abstract code wave,
-bold geometric shapes, theatrical composition,
-rich blues teals and golden oranges,
-decorative swirls representing data flow,
-Italian theatrical poster aesthetic,
-vintage 1960s feel with modern tech symbolism,
-title space at top, playful and artistic, 4k
-```
-
-**STEP 3 - Per ogni immagine**
-1. Fai **UPSCALE** (obbligatorio!)
-2. Scarica in `~/Downloads/`
-3. Verifica QC: 5 dita, 2 orecchie, proporzioni OK
-
-**STEP 4 - Genera i 10 capitoli + 3 appendici**
-Tutti i prompt sono in `ILLUSTRATION-PLAN.md`
-
-**STEP 5 - Salva e invia**
-1. Sposta immagini in `books/vibe-coding/images/`
-2. Manda le copertine su Telegram per approvazione
-3. Rigenera PDF con illustrazioni
-
----
-
-## 🚨 ROADMAP = FONTE DI VERITÀ (REGOLA #1)
-
-**CONTROLLA SEMPRE LA ROADMAP PRIMA DI FARE QUALUNQUE COSA!**
-
-**Path**: `ROADMAP.md` (in questo repo)
-
-La ROADMAP è:
-- ✅ La roadmap strategica di Onde
-- ✅ La to-do list delle prossime cose da fare
-- ✅ Lo status update di ogni singolo progetto
-- ✅ Il documento da tenere SEMPRE aggiornato
-
-**Regole:**
-1. Leggi la ROADMAP all'inizio di ogni sessione
-2. Aggiorna la ROADMAP quando completi qualcosa
-3. **Committa e pusha OGNI VOLTA** che aggiorni la ROADMAP
-4. Mai lavorare su qualcosa che non è nella ROADMAP senza chiedere
-
----
-
-## 🚨 REGOLA #2 - BRANDING PRIMA DI TUTTO
-
-**OGNI VOLTA che devi generare immagini, video, o contenuti visivi:**
-
-1. **LEGGI SEMPRE** il file `BRAND-GUIDE.md` prima di iniziare
-2. **VERIFICA** che i prompt rispettino lo stile Onde
-3. **CONSULTA l'Editore Capo** (`content/agents/editore-capo.md`) per decisioni importanti
-
-**Questo vale per TUTTI gli agenti Claude, in OGNI sessione.**
-
-### Riferimenti Branding
-- **BRAND-GUIDE.md** - Guida completa identità visiva Onde
-- **content/authors/AUTHOR-PORTRAITS.md** - Prompt ritratti Gianni e Pina
-- **content/agents/pina-pennello.md** - Agente illustratrice
-
-### Personaggi Redazione (NOMI CORRETTI!)
-- **Gianni Parola** - Lo scrittore (uomo ~40 anni)
-- **Pina Pennello** - L'illustratrice (donna ~30 anni) - **NON "Pino"!**
-
----
-
-## 🎨 BRANDING DINAMICO - IDENTITÀ VISIVA ONDE
-
-### Banner X Come Branding Stagionale
-Il banner di @Onde_FRH cambia in base al prodotto/contenuto corrente:
-- **Storie della buonanotte** → Banner notturno magico con fiume e luci
-- **Libri nuovi** → Banner che riflette il tema del libro
-- **Estate** → Banner diurno luminoso
-- **Inverno** → Banner invernale accogliente
-
-### Coerenza Stilistica Totale
-**TUTTO deve essere coerente visivamente:**
-- Banner X
-- Immagini post
-- Copertine libri
-- Thumbnail YouTube
-- Avatar personaggi (Gianni, Pina)
-
-### Pina Pennello = Art Director
-Ogni immagine Onde è "firmata" da Pina Pennello:
-- Stile acquarello europeo SEMPRE
-- Palette colori coerente
-- NO Pixar, NO 3D, NO cartoon americano
-- Luce dorata/notturna magica
-
-### 🙏 Credits nei Post - Ringraziamo Tutti!
-**Onde ha cura di tutti quelli che collaborano:**
-- **Illustrazioni**: "🎨 Pina Pennello con @grok 🙏"
-- **Testi/Strategia**: Ringraziare anche Claude quando collabora
-- **Video**: "@grok" per animazioni
-- **Format completo**: "🎨 Pina Pennello con @grok 🙏 | Strategy @anthropic"
-
-**Filosofia**: Onde è una famiglia, ringraziamo sempre chi ci aiuta!
-
-### Prompt Base per Banner
-```
-Wide panoramic banner 1500x500, [TEMA], European watercolor style,
-Beatrix Potter meets Luzzati, soft brushstrokes,
-NOT Pixar NOT 3D NOT cartoon, natural colors, 4k
-```
-
-**Temi banner:**
-- Notturno: "magical night scene, moonlight, fireflies, stars, peaceful"
-- Diurno: "golden hour, warm sunlight, Italian countryside, inviting"
-- Invernale: "cozy winter, snow, warm lights, fireplace glow"
-
----
-
-## 🎨 STILE VISIVO ONDE
-
-**Onde punta sulla qualità estetica. Stile europeo, elegante, senza tempo.**
-
-### ⛔ EVITARE - ILLUSTRAZIONI
-- **NO PIXAR/3D** - Mai stile cartoon americano plasticoso
-- **NO GUANCE ROSSE** - Mai rosy cheeks esagerate
-- **NO Disney/DreamWorks** - Niente occhi grandi sproporzionati
-- **NO colori saturi** - Niente colori brillanti plasticosi
-
-### ✅ STILE ONDE
-- **Acquarello europeo** - Morbido, elegante, naturale
-- **Beatrix Potter, Luzzati, Munari** - Riferimenti stilistici
-- **Colori naturali** - Palette morbide, luce dorata
-- **Proporzioni realistiche** - Niente esagerazioni cartoon
-
-### Nei prompt per AI (Grok, DALL-E, etc.):
-- **SEMPRE aggiungere**: "natural skin tone, NO rosy cheeks"
-- **SEMPRE aggiungere**: "European watercolor style, NOT Pixar, NOT 3D, NOT cartoon"
-- Specificare riferimenti: "Beatrix Potter style", "Luzzati aesthetic"
-
-### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
-
-**Per mantenere lo STESSO personaggio in tutte le illustrazioni di un libro:**
-
-1. **Genera/scegli UN'immagine di riferimento** del personaggio principale
-2. **Carica quell'immagine su Grok** (drag & drop o click sull'icona allegato)
-3. **Usa prompt SEMPLICI**: "stesso bambino, ma [nuova scena]"
-   - Esempio: "stesso bambino, ma in camera sua che scrive su un quaderno"
-   - Esempio: "stesso bambino, ma al parco con un cagnolino"
-4. **Fai SEMPRE upscale** dopo la generazione
-5. **Ripeti** per ogni illustrazione usando sempre la stessa immagine di riferimento
-
-**PERCHÉ FUNZIONA**: Grok capisce che deve mantenere l'aspetto del personaggio e cambiare solo la scena.
-
-**ERRORE DA NON RIPETERE**: Generare ogni immagine da zero con prompt testuali = personaggio diverso ogni volta.
-
-### ⚠️ ATTENZIONE AL BIAS WOKE
-
-**Le AI generative (Grok, DALL-E, Midjourney) hanno bias woke di default.**
-
-Quando generi immagini, stai attento a:
-- **Diversità forzata** - AI tende a inserire diversità anche quando non richiesta
-- **Esagerazioni politically correct** - Evitare messaggi forzati
-- **Interpretazioni moderne** - Mantenere lo spirito classico delle storie originali
-
-**Nei prompt essere ESPLICITI:**
-- Specificare SEMPRE caratteristiche dei personaggi
-- Usare "traditional", "classic", "European" come keyword
-- Evitare termini ambigui che AI possono interpretare in modo woke
-
-**Il nostro pubblico**: Famiglie che cercano libri classici, eleganti, senza propaganda.
-
----
-
-## 🚨🔴 CONTROLLO QUALITÀ ANATOMICO - OBBLIGATORIO (2026-01-08)
-
-**LEZIONE CRITICA**: Il video animato di "Stella Stellina" è stato ELIMINATO perché il bambino aveva difetti anatomici (due orecchie visibili in modo anomalo).
-
-### ⛔ PRIMA DI PUBBLICARE QUALSIASI CONTENUTO AI-GENERATO:
-
-**CONTROLLO ANATOMICO OBBLIGATORIO:**
-- [ ] **Mani**: 5 dita per mano, proporzioni corrette
-- [ ] **Braccia/Gambe**: 2 braccia, 2 gambe, articolazioni normali
-- [ ] **Viso**: 2 occhi, 1 naso, 1 bocca, 2 orecchie (posizionate correttamente)
-- [ ] **Orecchie**: Solo 2, ai lati della testa, non duplicate o fuse
-- [ ] **Dita dei piedi**: 5 per piede se visibili
-- [ ] **Proporzioni corpo**: Testa, busto, arti proporzionati
-- [ ] **Nessuna fusione**: Parti del corpo non fuse tra loro
-- [ ] **Nessuna duplicazione**: Niente arti/parti extra
-
-### 🔍 PROCEDURA QC:
-1. **ZOOM al 100%** su ogni figura umana/animale
-2. **Contare** mani, dita, occhi, orecchie
-3. **Verificare** proporzioni e posizioni
-4. **Se c'è QUALSIASI dubbio** → Rigenerare l'immagine
-5. **Video animati**: Controllare FRAME PER FRAME se possibile
-
-### ⚠️ ATTENZIONE SPECIALE PER:
-- **Bambini**: L'AI spesso sbaglia con le proporzioni infantili
-- **Mani che tengono oggetti**: Errore comune = dita extra
-- **Profili**: Orecchie duplicate o mancanti
-- **Gruppi di persone**: Arti che si fondono tra persone vicine
-
-**REGOLA**: È meglio rigenerare 10 volte che pubblicare UN contenuto con errori anatomici.
-
----
-
-## 🚨🔴 CONTROLLO QUALITÀ CROSS-MEDIA - OBBLIGATORIO (2026-01-09)
-
-**LEZIONE CRITICA**: Test lip sync di Gianni Parola BOCCIATO perché:
-1. La voce non combacia con il podcast già pubblicato
-2. L'immagine non è coerente con altre apparizioni del personaggio
-
-### ⛔ PRIMA DI CREARE CONTENUTI PER PERSONAGGI ONDE:
-
-**CHECKLIST COERENZA CROSS-MEDIA:**
-- [ ] **Voce**: Verificare voce esistente del personaggio (ElevenLabs voice ID, podcast)
-- [ ] **Aspetto**: Usare immagine reference UFFICIALE del personaggio
-- [ ] **Stile**: Coerente con contenuti già pubblicati
-- [ ] **Piattaforme**: Verificare cosa è già online (YouTube, Spotify, X)
-
-### 📁 REFERENCE UFFICIALI PERSONAGGI
-
-| Personaggio | Immagine Reference | Voce Reference | Note |
-|-------------|-------------------|----------------|------|
-| **Gianni Parola** | `content/authors/gianni-parola-ref.jpg` | ElevenLabs voice ID TBD | Scrittore Onde |
-| **Pina Pennello** | `content/authors/pina-pennello-ref.jpg` | ElevenLabs voice ID TBD | Illustratrice Onde |
-
-### 🔑 REGOLE COERENZA
-
-1. **VERIFICA PRIMA DI CREARE**
-   - Controlla contenuti esistenti del personaggio
-   - Usa SEMPRE le reference ufficiali
-   - MAI creare nuove versioni senza approvazione
-
-2. **UN PERSONAGGIO = UNA IDENTITÀ**
-   - Stessa voce OVUNQUE (stesso voice ID ElevenLabs)
-   - Stesso aspetto visivo OVUNQUE (stessa immagine reference)
-   - Se devi cambiare qualcosa → CHIEDI PRIMA
-
-3. **WORKFLOW LIP SYNC**
-   - Usa SOLO immagini reference approvate
-   - Usa SOLO voci già approvate per quel personaggio
-   - Verifica che il contenuto audio sia pertinente al personaggio
-
-**REGOLA**: Non esistono "test" pubblici. Ogni contenuto deve essere coerente al 100% PRIMA di essere inviato.
-
----
-
-## 🚨 LEZIONI APPRESE - 7 Gennaio 2026
-
-### NON postare contenuti di libri non usciti
-- **Piccole Rime** è il nome del LIBRO, non di una collana
-- Prima di postare contenuti su libri/prodotti, verificare SEMPRE se sono già pubblicati
-- Se il libro non è uscito → NON promuoverlo
-
-### Pina Pennello (NON Mario/Pino con baffi)
-- **Pina Pennello** = giovane illustratrice donna
-- NON usare il personaggio maschile con baffi
-- Aggiornare tutte le immagini
-
-### Slack - Leggere regolarmente
-- Mattia posta idee e task su Slack (#all-freeriverhouse)
-- Configurare workflow per leggere Slack automaticamente
-- Workspace: FreeRiverHouse
-
----
-
-## 🔴 PRIORITÀ IMMEDIATE (da Slack)
-
-1. **Kanban Dashboard Agenti** - Dashboard unica per controllare agenti, card rossa quando bloccato
-2. **Visual Style Unificato** - Rifare TUTTE le immagini col nuovo stile
-3. **Pina Pennello** - Creare personaggio giovane illustratrice
-4. **Workflow Approvazione** - Watch/Bottone BT per approvare mentre lavi i piatti
-5. **Operation Tsunami** - YouTube, Spotify, TikTok per Onde
-
-**Riferimenti**:
-- https://x.com/housecor/status/2008905575669662019 (Kanban agenti)
-- https://x.com/pdrmnvd/status/2009030821408330147
-
----
-
-## 🚨 API FIRST - REGOLA ASSOLUTA
+## REGOLA #1 - API FIRST
 
 **PRIMA di fare QUALSIASI azione via browser, VERIFICA se esiste un'API.**
 
 ### Quando usare API (SEMPRE):
-- **Social media posting** → X API, non browser
-- **Telegram** → Bot API, non browser
-- **GitHub** → gh CLI o API, non browser
-- **Upload video/media** → API del servizio
-- **Qualsiasi servizio con API documentata** → USA L'API
+- Social media posting -> X API, non browser
+- Telegram -> Bot API, non browser
+- GitHub -> gh CLI o API, non browser
+- Upload video/media -> API del servizio
+- Qualsiasi servizio con API documentata -> USA L'API
 
 ### Quando usare Browser (SOLO se):
 - L'API non esiste
 - L'API richiede auth che non abbiamo
-- È un'operazione one-time di setup
+- E' un'operazione one-time di setup
 - Mattia chiede esplicitamente di usare il browser
 
-### Perché:
-- API = veloce, affidabile, scriptabile, automatizzabile
-- Browser = lento, fragile, non ripetibile
-- Se fai via browser quello che puoi fare via API, **stai sbagliando**
+---
 
-### Credenziali API
-**Path**: `/Users/mattia/Projects/Onde/.env`
+## REGOLA #2 - MEMORIA = COMMIT
 
+Ogni volta che aggiorni CLAUDE.md o ROADMAP.md -> COMMIT IMMEDIATO.
+Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
+
+---
+
+## PAROLE IN CODICE
+
+### "SBRINCHI, SBRONCHI" (o varianti: zbrinky zbronky)
+Quando Mattia dice "Sbrinchi, sbronchi", DEVI fare queste 3 cose:
+1. AGGIORNA LA MEMORIA - Aggiungi/modifica info in CLAUDE.md
+2. AGGIORNA LA ROADMAP - Aggiungi task/modifiche in ROADMAP.md
+3. FAI COMMIT - `git add . && git commit && git push`
+
+### "FACTORY TROTTA"
+Quando Mattia dice "Factory trotta":
+1. NON prendere IO i ticket - LANCIA GLI AGENTI in parallelo
+2. Guarda task disponibili: `node scripts/worker/worker-manager.js available`
+3. Lancia N agenti con Task tool (run_in_background: true)
+4. Ogni agente: claim task -> lavora -> complete -> commit
+5. Monitora e ripeti
+
+---
+
+## CREDENZIALI E PATH
+
+### File .env (NON su GitHub!)
+Path: `/Users/mattia/Projects/Onde/.env`
+
+Contenuto necessario:
 ```
-# X API (tutti e 3 gli account)
+TELEGRAM_BOT_TOKEN=8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps
 X_FRH_API_KEY=...
 X_ONDE_API_KEY=...
 X_MAGMATIC_API_KEY=...
-
-# Telegram
-TELEGRAM_BOT_TOKEN=...
 ```
 
-**Se il file .env non esiste o mancano credenziali → CHIEDI A MATTIA prima di procedere via browser.**
-
----
-
-## 💭 NAMING - DA DECIDERE (2026-01-07)
-
-**Onde Publishing** vs **Onde Studio**
-
-| Nome | Pro | Contro |
-|------|-----|--------|
-| **Onde Publishing** | Chiaro, tradizionale, professionale | Limita a "pubblicazione" |
-| **Onde Studio** | Moderno, include app/video/contenuti digitali | Meno specifico |
-
-**Nota**: Le due dashboard (Business Dashboard + PR Dashboard) saranno collegate con navigazione interna.
-
-**Decisione**: Da prendere
-
----
-
-## 📱 NUOVE APP DA TELEGRAM (2026-01-07)
-
-**Idee raccolte dal bot Telegram - DA SVILUPPARE:**
-
-| App | Concept | Note |
-|-----|---------|------|
-| **Moonlight Tamagotchi** | Virtual pet con casa da arredare, vestiti, fa pupu' | Stile Tamagotchi moderno |
-| **AIKO 2: Robotaxi** | Sofia prende Waymo con mamma, AIKO spiega | Idea del figlio di Mattia |
-| **Word Play** | Giochi di parole, rime, multilingua | Educativo linguistico |
-
-**Canale Video/Gaming Neri**: Idea per canale YouTube con Neri che gioca a Minecraft
-
-**RIFERIMENTO**: Lista completa app in `APP-FACTORY-PLAN.md`
-
----
-
-## 📺 ONDE MULTIMEDIA (2026-01-07)
-
-**Onde è una casa editrice MULTIMEDIA - non solo libri!**
-
-| Piattaforma | Contenuti |
-|-------------|-----------|
-| **YouTube** | Video, cartoni animati dalle storie |
-| **Spotify** | Podcast, audiolibri per bambini |
-| **TikTok/Reels** | Contenuti brevi, animazioni |
-
-**Contenuti da produrre:**
-- Cartoni animati dalle storie Onde (Piccole Rime, AIKO, etc.)
-- Podcast per bambini e famiglie
-- Video educativi
-- Behind the scenes produzione libri
-
-**IMPORTANTE**: Il canale YouTube/Spotify è di ONDE (casa editrice), NON di FreeRiverHouse.
-
-**Target Q2 2026:**
-- 500 subscribers YouTube
-- Podcast attivo su Spotify
-- Serie animata Piccole Rime
-
-**Live Events FreeRiverHouse** (separato):
-- Twitch: Live coding "Build With Us"
-- YouTube FRH: Tutorial tecnici, behind the scenes sviluppo
-
----
-
-## 🚨 NIENTE HASHTAG SU X - REGOLA 2026
-
-**DATA: 2026-01-07**
-
-**REGOLA ASSOLUTA**: Mai usare hashtag nei post su X/Twitter.
-- Musk ha annunciato che gli hashtag non servono più
-- Grok analizza direttamente il contenuto per la distribuzione
-- Se Grok trova il post interessante, lo diffonde di più
-- Gli hashtag sono spam visivo e peggiorano l'engagement
-
-**RIMUOVERE DA TUTTI I POST**: `#buildinpublic`, `#ai`, `#publishing`, ecc.
-
----
-
-## 🎨 PINA PENNELLO - SUPREME ART DIRECTOR ONDE (Aggiornato 9 Gen 2026)
-
-**Pina Pennello** non è più solo illustratrice. È LA SUPREME ART DIRECTOR di Onde.
-
-### 🚀 Evoluzione di Pina (9 Gen 2026)
-Pina deve diventare:
-- **La più brava al mondo** in grafiche per internet e VR
-- **Esperta assoluta di design** - deve studiare tutto
-- **Gestore di Image Factory + Video Factory**
-- **Custode dello stile Onde** - mantiene coerenza in tutto
-
-### 📚 Pina deve STUDIARE
-- I siti più belli del mondo
-- Design di case editrici top
-- Arte digitale moderna
-- UI/UX best practices
-- Motion design
-- VR interfaces
-
-### 🎨 Pina GESTISCE
-- **Image Factory** (Grok) - genera tutte le immagini
-- **Video Factory** (Lip Sync) - genera tutti i video
-- **Stile Onde** - approva/boccia ogni contenuto visivo
-
-### Workflow con Pina
-1. Task visivo arriva
-2. Pina valuta, genera con Image/Video Factory
-3. Pina verifica coerenza stile
-4. Solo se perfetto → pubblica
-
-**Pina Pennello** è l'illustratrice ufficiale di Onde. È un personaggio del nostro universo editoriale.
-
-**NEI POST:**
-- **MAI** scrivere "illustrazioni in stile X" o "stile folk art" o simili
-- **QUANDO Pina avrà un account X**: scrivere "Illustrazioni by @PinaPennello" e taggarla
-- **FINO AD ALLORA**: non menzionare lo stile delle illustrazioni nei post
-
-**Per i video animati by Grok**: si può scrivere "Animazione by @grok" perché Grok è reale e ha un account.
-
-**NOTA**: Questo fa parte della costruzione del nostro universo editoriale. Pina è un personaggio come Gianni Parola.
-
----
-
-## 📁 REPOSITORY CONTENUTI - OndePRDB
-
-**Path**: `/Users/mattia/Projects/OndePRDB/`
-
-### 🚨 REGOLA FONDAMENTALE: USA IL CONTENUTO ESISTENTE
-
-**MAI INVENTARE POST.** I contenuti sono GIÀ SCRITTI in OndePRDB.
-
-- `clients/freeriverhouse/tech-posts.md` → 40 post @FreeRiverHouse già pronti
-- `clients/magmatic/posts/` → Poesie e post @magmatic__ già pronti
-- `clients/onde/` → Contenuti @Onde_FRH
-
-**QUANDO DEVO CREARE POST:**
-1. **PRIMA** leggere i file in OndePRDB
-2. **USARE** i post che esistono già
-3. **MAI** inventare contenuto generico/motivazionale
-
-**PERCHÉ:** I post scritti dal PR Agent sono specifici, autentici, con nomi di progetti veri (PolyRoborto, KidsChefStudio, BusinessIsBusiness). Contenuto generico tipo "Building apps for kids is different" senza contesto specifico è FUFFA.
-
-**STILE CORRETTO (da tech-posts.md):**
-- ✅ "The test framework wasn't installed. 23 tests, all failing because of one missing package."
-- ✅ "Win rate: started at 45.7%, now at 50%. Still learning!"
-- ❌ "Every button needs to work on the first tap" (troppo generico)
-
----
-
-Questo è il repository CENTRALE per tutti i contenuti PR. Struttura:
-
-```
-OndePRDB/
-├── clients/
-│   ├── magmatic/       → @magmatic__ (poesia, arte)
-│   │   ├── style_guide.md
-│   │   ├── posts/      → 20 post pronti
-│   │   ├── media/      → catalogo media
-│   │   └── poetry/     → testi originali
-│   ├── freeriverhouse/ → @FreeRiverHouse (tech, building in public)
-│   │   ├── tech-posts.md    → 40+ post pronti
-│   │   └── milestones.md    → template milestone
-│   └── onde/           → @Onde_FRH (libri, publishing)
-│       └── books/      → The Shepherd's Promise (4 formati)
-└── content/
-    └── grok-videos/    → video generati
-```
-
-**QUANDO DEVO CREARE POST**: Pescare da OndePRDB, non inventare.
-**QUANDO HO NUOVI CONTENUTI**: Salvarli in OndePRDB.
-
----
-
-## 🚨 REGOLA APPROVAZIONE IMMAGINI - SEMPRE TELEGRAM
-
-**DATA: 2026-01-07**
-
-**QUANDO DEVO FAR SCEGLIERE IMMAGINI A MATTIA:**
-- **MAI** aprire le immagini solo nel browser
-- **SEMPRE** scaricare e mandare su Telegram
-- Mattia guarda/sceglie da iPhone, non dal Mac
-- Usare il bot @OndePR_bot (chat ID: 7505631979)
-
-**WORKFLOW CORRETTO:**
-1. Generare immagini su Grok
-2. Scaricare in ~/Downloads/
-3. Mandare su Telegram con descrizione
-4. Aspettare risposta di Mattia su Telegram
-
----
-
-## 🎨 STILI ILLUSTRAZIONE ONDE - APPROVATI (2026-01-07)
-
-**ABBIAMO DUE STILI UFFICIALI** - da usare di volta in volta a seconda del progetto.
-
-### Stile DORATO (ex Opzione F)
-**Uso suggerito**: Personaggi delle storie, illustrazioni emotive
-
-```
-Children's book illustration in painterly watercolor style, playful 7yo girl with flowing brown hair and a round adorable robot friend with expressive LED eyes, rich saturated colors but elegant composition, soft brushwork texture, warm golden light, natural complexion without rosy cheeks, contemporary European storybook aesthetic, whimsical but refined, 4k
-```
-
-**Caratteristiche**:
-- Pittorico saturo, luce dorata calda
-- Colori ricchi ma eleganti
-- Texture pennellate morbide
-- Storybook europeo contemporaneo
-
-**File riferimento**: `~/Downloads/OpzioneF-Pittorico.jpg`
-
----
-
-### Stile TERRA (ex Opzione G)
-**Uso suggerito**: Pina Pennello, Gianni Parola, elementi più "artistici"
-
-```
-Modern Italian watercolor children's book illustration, curious little girl with a friendly robot companion with heart-shaped light, sophisticated color palette mixing warm ochre teal and coral, painterly texture with visible brushstrokes, soft natural lighting, elegant European illustration style, no exaggerated features or red cheeks, warm and inviting atmosphere, 4k
-```
-
-**Caratteristiche**:
-- Italiano moderno, palette ocra/teal/coral
-- Pennellate visibili, texture pittorica
-- Elegante europeo, atmosfera calda
-- Più "artistico" e raffinato
-
-**File riferimento**: `~/Downloads/OpzioneG-ItalianoModerno.jpg`
-
----
-
-### Come Scegliere
-- **DORATO = PRINCIPALE** - Usa questo per la maggior parte dei progetti
-- **TERRA = SPECIALE** - Per progetti artistici, Pina/Gianni, contenuti raffinati
-- **In dubbio?** → Usa Dorato
-
-**IMPORTANTE**: Entrambi gli stili sono senza guance rosse, eleganti, europei. NO Pixar, NO CocoMelon.
-
-**SBLOCCO GENERAZIONE**: Gli stili sono definiti! Ora posso generare illustrazioni per tutti i libri.
-
----
-
-## 👥 PERSONAGGI REDAZIONE ONDE - BETA v1 (2026-01-07)
-
-**Gianni Parola** - Scrittore
-- Uomo italiano ~40 anni
-- Capelli ricci scuri, occhiali tondi
-- Giacca tweed, aspetto intellettuale
-- File: `~/Downloads/GianniA-Scrittore.jpg`
-
-**Pina Pennello** - Illustratrice
-- Donna italiana ~30 anni
-- Capelli castani raccolti con pennello
-- Grembiule macchiato di colori, tiene tavolozza
-- File: `~/Downloads/PinaA-Illustratrice.jpg`
-
-**Nota**: Versione beta - da migliorare in futuro con stile più "libro per bambini" e meno realistico.
-
----
-
-## 🚨🔴📚 REGOLA ACCURATEZZA TESTI - MAI INVENTARE CAZZATE
-
-**DATA: 2026-01-09 - AGGIORNATA**
-
-### ⛔ REGOLA LICENZIAMENTO
-
-**SE GIANNI PAROLA (o qualsiasi agente) INVENTA UN TESTO E LO ATTRIBUISCE A UN AUTORE REALE → LICENZIATO.**
-
-**TESTI FAKE ELIMINATI DAL CATALOGO:**
-- "Il Pulcino Bagnato" → FAKE (attribuito falsamente a Lina Schwarz)
-- "L'Anatroccolo" → FAKE (attribuito falsamente a Guido Gozzano)
-
-### Regole per citare autori reali
-
-**QUANDO SI CITA UN AUTORE REALE:**
-- Il testo DEVE essere verificato al 100%
-- MAI inventare, modificare o "completare" testi di autori veri
-- Se non trovi la fonte originale → NON PUBBLICARE
-- Verifica SEMPRE: titolo, autore, testo esatto, anno
-- **USA GROK/WEB per VERIFICARE prima di includere**
-
-**POESIE AI:**
-- Per ora NON pubblichiamo poesie scritte da AI
-- In futuro forse, ma per ora NO
-- Eccezione: contenuti originali per @magmatic__ se Mattia approva
-
-**Questa regola vale per TUTTI: Gianni Parola, Pina Pennello, tutti gli agenti e bot.**
-
----
-
-## IMPORTANTE - Claude for Chrome
-
-**Claude Code ha accesso a Claude for Chrome extension.**
-
-Questo significa che posso:
-- Navigare qualsiasi sito web che Mattia può vedere
-- Accedere a account loggati (Instagram, X, etc.)
-- Leggere contenuti, fare screenshot, interagire con pagine
-- Fare tutto quello che Mattia può fare nel browser
-
-**GIÀ USATO IN QUESTA SESSIONE** per aggiornare il profilo del bot Telegram.
-
-NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHROME.
-
----
-
-## 🚨 NUOVA STRATEGIA APP - ABBANDONIAMO UNITY
-
-### Stack Veloce per App Educative
-**Unity è OVERKILL** per giochi educativi semplici. Usa:
-
-| Tool | Uso | Tempo |
-|------|-----|-------|
-| **React Native + Expo** | App iOS/Android | Ore |
-| **Google AI Studio** | Prototipi web | 2 min |
-| **Rork** ($20/mese) | MVP mobile | Minuti |
-| **PWA + Capacitor** | Web → Store | Ore |
-
-### File di Riferimento
-- `APP-FACTORY-PLAN.md` - Piano completo app da sviluppare
-- `MARKET-INSIGHTS-2026.md` - Analisi mercato Grok
-
-### Priorità App Q1 2026
-1. KidsChefStudio → React Native
-2. AIKO Interactive
-3. Piccole Rime app
-4. Salmo 23 Kids
-5. Mindful Kids
-
----
-
-## REGOLE EFFICIENZA PRODUZIONE LIBRI
-
-### 1. Multiple Tab Grok per Immagini
-**SEMPRE aprire 5-10 tab di Grok in parallelo** quando devo generare immagini.
-- Ogni tab può generare 4 varianti alla volta
-- Mentre una genera, passo alla successiva
-- 20+ immagini in 1 minuto invece di 5 minuti
-- URL: https://x.com/i/grok → "Crea immagini"
-
-### 1b. Grok Genera Più Immagini in Una Richiesta (NUOVO 2026)
-**Grok web ora può generare più immagini contemporaneamente** in una singola richiesta.
-- Specificare nel prompt: "genera 4 immagini per i capitoli 1-4"
-- Grok le genera tutte insieme
-- Molto più efficiente che fare richieste separate
-- Usare questa feature per batch di illustrazioni simili
-
-### 2. Image-to-Image con Grok
-**Posso dare a Grok un'immagine di riferimento** e chiedergli di fare qualcosa di simile.
-- Drag & drop immagine nel prompt
-- Descrivi cosa vuoi mantenere/cambiare
-- Perfetto per mantenere stile coerente tra illustrazioni
-
-### 3. Controllo Visivo OBBLIGATORIO
-**Prima di consegnare qualsiasi PDF/ePub:**
-- Aprire il PDF con Preview
-- Fare screenshot di OGNI pagina
-- Verificare che testo e immagini non si sovrappongano
-- Controllare soprattutto pagine con molto testo (es. Chapter 8)
-
-### 4. Script Riutilizzabili
-**Creare sempre script riutilizzabili** per processi ripetitivi:
-- `create-all-translations.js` per traduzioni multiple
-- Template base con fix già inclusi (es. Chapter 8)
-- Documentare i parametri configurabili
-
-### 5. PROCESSO APPROVAZIONE LIBRI NUOVI (OBBLIGATORIO)
-**MAI pubblicare un libro nuovo senza questo processo:**
-
-1. **Scelta Stile** - Generare 2-3 stili diversi di immagini di prova
-2. **Approvazione Stile** - Mattia sceglie lo stile preferito
-3. **Generazione Immagini** - Creare TUTTE le immagini con lo stile scelto
-4. **Impaginazione** - Creare PDF/ePub e controllare layout
-5. **Review Telegram** - Mandare su Telegram per approvazione finale
-6. **Archiviazione OndePRDB** - PRIMA di pubblicare (vedi sotto)
-7. **Pubblicazione** - SOLO dopo OK esplicito di Mattia
-
-**Auto-upload KDP**: Si applica SOLO a traduzioni di libri già approvati, NON a libri nuovi.
-
-### 6. ARCHIVIAZIONE LIBRI IN OndePRDB (OBBLIGATORIO - 8 Gen 2026)
-**PRIMA di pubblicare qualsiasi libro, archiviare TUTTO in OndePRDB:**
-
-**Path**: `OndePRDB/clients/onde/books/[nome-libro]/`
-
-**Contenuto obbligatorio:**
-```
-[nome-libro]/
-├── cover.jpg          # Copertina alta risoluzione
-├── [nome-libro].pdf   # PDF finale per stampa
-├── [nome-libro].epub  # ePub finale
-├── images/            # Tutte le illustrazioni RAW
-├── quotes.md          # Citazioni per social media
-└── metadata.json      # Titolo, autore, ISBN, descrizione
-```
-
-**PERCHÉ:**
-- Ogni agente sa dove trovare i materiali per creare contenuti
-- Post con copertine, citazioni, promozioni → tutto in un posto
-- Backup centralizzato di tutti i libri pubblicati
-- Facilita cross-posting su Instagram, TikTok, etc.
-
----
-
-## Onde PR System
+### Telegram Bot
+- Bot: @OndePR_bot
+- Token: (vedi .env)
+- Chat ID autorizzato: 7505631979
 
 ### Account X Gestiti
 | Account | Tipo | Comando Bot |
@@ -1515,792 +110,195 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 | @Onde_FRH | Casa editrice | `/onde` |
 | @magmatic__ | Personale/Arte (Mattia) | `/magmatic` |
 
-### Telegram Bot
-- **Bot**: @OndePR_bot
-- **Token**: `8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps`
-- **Chat ID autorizzato**: `7505631979`
-- **Path**: `/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/`
+### Cloudflare
+- Zone ID: `5f1b2fe544f1a925765305fefcf36fe1`
+- Account ID: `91ddd4ffd23fb9da94bb8c2a99225a3f`
+- Nameserver 1: `aarav.ns.cloudflare.com`
+- Nameserver 2: `janet.ns.cloudflare.com`
 
-### Comandi Bot
-- `/frh [testo]` - Posta su @FreeRiverHouse
-- `/onde [testo]` - Posta su @Onde_FRH
-- `/magmatic [testo]` - Posta su @magmatic__
-- `/draft` - Mostra bozza
-- `/post frh|onde|magmatic` - Pubblica bozza
-- `/report frh|onde` - Analytics
-- `/ai` - PR Agent analizza contenuto
+### Hedra (Image Factory)
+- Account: freeriverhouse@gmail.com
+- Piano: Basic Web Yearly ($144/anno)
+- Crediti: 17805 disponibili
+- Scadenza: 8 Gen 2027 (rinnovo cancellato)
 
-### Report Giornaliero
-- Ora: **17:40** ogni giorno
-- Automatico su Telegram
+### Lip Sync (su SSD esterno)
+Path principale: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/`
+Conda env: `/Volumes/DATI-SSD/onde-ai/miniforge3/envs/wav2lip/`
 
----
-
-## Casa Editrice Onde - Libri
-
-### Sistema Agenti
-| Agente | File | Ruolo |
-|--------|------|-------|
-| **Editore Capo** | `editore-capo.md` | Orchestrazione produzione |
-| **Gianni Parola** | `gianni-parola.md` + `.memory.json` | Scrittura testi |
-| **Pina Pennello** | `pina-pennello.md` + `.memory.json` | Illustrazioni (via Grok) |
-| **PA Agent** | - | Assistente personale Mattia |
+Per attivare:
+```bash
+source /Volumes/DATI-SSD/onde-ai/miniforge3/bin/activate wav2lip
+export KMP_DUPLICATE_LIB_OK=TRUE
+cd /Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip
+python run.py -video_file input.jpg -vocal_file input.mp3 -output_file output/result.mp4
+```
+NOTA: Solo quality "Fast" funziona su Mac ARM64.
 
 ---
 
-## 🤖 REGOLE PER AGENTI AI - LEGGERE SEMPRE
+## STRUTTURA REPOSITORY
+
+```
+Onde/
+├── CLAUDE.md          # Questa memoria - regole operative
+├── ROADMAP.md         # Task, priorita', visione
+├── .claude-workers/   # Sistema task/worker
+│   ├── TASKS.json     # Lista task con dipendenze
+│   ├── locks/         # Lock files per task in progress
+│   └── logs/          # Log attivita' giornalieri
+├── apps/              # Applicazioni (onde-portal, etc.)
+├── books/             # Libri in produzione
+├── content/           # Contenuti, agenti, autori
+│   └── agents/        # Prompt agenti (editore-capo, gianni, pina)
+├── scripts/           # Script automazione
+│   └── worker/        # worker-manager.js
+└── OndePRDB/          # Repository contenuti PR (separato)
+```
+
+---
+
+## SISTEMA WORKER (FABBRICA ONDE)
+
+Ogni sessione Claude e' un worker della fabbrica.
+
+```bash
+# Vedi stato tutti i task
+node scripts/worker/worker-manager.js status
+
+# Vedi task disponibili
+node scripts/worker/worker-manager.js available
+
+# Prendi un task specifico
+node scripts/worker/worker-manager.js claim <task-id>
+
+# Prendi il prossimo task per priorita'
+node scripts/worker/worker-manager.js next
+
+# Quando finisci
+node scripts/worker/worker-manager.js complete <task-id>
+
+# Se devi abbandonare
+node scripts/worker/worker-manager.js release <task-id>
+
+# Vedi chi sta lavorando
+node scripts/worker/worker-manager.js workers
+
+# Aggiungi nuovo task (CSI)
+node scripts/worker/worker-manager.js add '{"id":"task-id","title":"Titolo","description":"Desc","category":"cat","priority":2}'
+```
+
+### Regole Worker
+1. UN TASK ALLA VOLTA
+2. RISPETTA LE DIPENDENZE
+3. COMMIT FREQUENTI
+4. RILASCIA SE BLOCCATO
+5. COORDINA CON ALTRI (controlla `workers`)
+
+---
+
+## REGOLE PER AGENTI AI
 
 **Ogni AI/agente che si collega a questo repository DEVE seguire queste regole.**
 
+### All'avvio di ogni sessione:
+1. CHECK MEMORY - Leggi questo file (CLAUDE.md)
+2. CHECK ROADMAP - Leggi ROADMAP.md
+3. CHECK TASK DISPONIBILI - `node scripts/worker/worker-manager.js available`
+4. DIMMI COSA C'E' DA FARE - Riassumi le priorita' a Mattia
+
 ### Regole Generali
-1. **LEGGERE PRIMA DI AGIRE** - Leggere SEMPRE questo file e BUSINESS_DASHBOARD.md prima di iniziare
-2. **NON INVENTARE** - Usare contenuti esistenti da OndePRDB, mai inventare post/testi
-3. **TELEGRAM PER APPROVAZIONI** - Mandare sempre su Telegram, Mattia guarda da iPhone
-4. **STILE ONDE** - Acquarello europeo, NO Pixar/CocoMelon, elegante italiano
+1. LEGGERE PRIMA DI AGIRE - Sempre CLAUDE.md e ROADMAP.md
+2. NON INVENTARE - Usare contenuti esistenti da OndePRDB
+3. TELEGRAM PER APPROVAZIONI - Mattia guarda da iPhone
+4. STILE ONDE - Acquarello europeo, NO Pixar/CocoMelon
 
-### Regole Editore Capo (Casa Editrice)
-**PRIMA di mandare qualsiasi PDF/libro a Mattia:**
-
-1. **CHECK COERENZA IMMAGINI-TESTO** (OBBLIGATORIO)
-   - Verificare che OGNI immagine corrisponda alla descrizione nel testo
-   - Controllare che i personaggi siano coerenti (stesso aspetto in tutte le pagine)
-   - Verificare che gli ambienti descritti corrispondano alle illustrazioni
-   - Se Sofia ha i capelli castani nel Cap 1, deve averli castani in TUTTI i capitoli
-   - Se AIKO ha gli occhi LED blu, devono essere blu OVUNQUE
-
-2. **CHECKLIST PRE-CONSEGNA**
-   - [ ] Tutte le immagini corrispondono al testo?
-   - [ ] I personaggi hanno aspetto coerente?
-   - [ ] Gli ambienti sono corretti per ogni scena?
-   - [ ] Nessun elemento visivo contraddice il testo?
-   - [ ] Layout verificato (testo non sovrapposto)?
-   - [ ] **🔴 ANATOMIA OK?** (mani 5 dita, 2 orecchie, proporzioni corrette)
-   - [ ] **🔴 Nessuna parte del corpo duplicata o fusa?**
-
-3. **SE TROVI INCOERENZE**
-   - NON mandare il PDF
-   - Rigenerare le immagini problematiche
-   - Verificare di nuovo
-   - Solo dopo → mandare su Telegram
-
-**NOTA AIKO**: Nel libro AIKO ci sono stati problemi di coerenza immagini-descrizioni. Usare come esempio di cosa NON fare.
-
-### Regole PA Agent
-1. Assistere Mattia nelle attività quotidiane
-2. Coordinare con altri agenti quando necessario
-3. Prioritizzare task in base all'urgenza
-4. Report giornaliero alle 17:40
-
-### Regole per Nuovi Agenti
-Quando si crea un nuovo agente:
-1. Documentare in questo file (tabella Sistema Agenti)
-2. Creare file `.md` con istruzioni specifiche
-3. Creare `.memory.json` per stato persistente
-4. Definire chiaramente scope e limiti
+### Regole PR
+1. API FIRST - Se esistono API, usarle sempre
+2. MAI postare senza conferma
+3. Crescita organica - Solo contenuti consistenti
+4. No hype - Tono umile, autentico
+5. NIENTE HASHTAG su X (Grok analizza il contenuto)
 
 ---
 
-### Processo Produzione
-Documentato in: `/content/processes/book-production.md`
+## STILE VISIVO ONDE
 
-1. **Testi**: Gianni Parola crea testo con marcatori [ILLUSTRAZIONE]
-2. **Immagini**: Pina Pennello genera prompt → Grok crea immagini
-3. **Layout**: HTML template → Puppeteer → PDF
-4. **Review**: Invio su Telegram per approvazione
-5. **Pubblicazione**: KDP
+### Approvato:
+- Acquarello europeo (Beatrix Potter, Luzzati, Munari)
+- Colori naturali, luce dorata
+- Proporzioni realistiche
 
-### Stile Illustrazioni Approvato
-- **Watercolor/Acquarello** - "molto figo"
-- Richard Scarry + Dr. Seuss + sensibilità italiana
-- Sempre luce presente ("quel raggio che dice ci sono anch'io")
+### Vietato:
+- NO PIXAR/3D/Cartoon americano
+- NO Guance rosse esagerate
+- NO Colori saturi plasticosi
 
-### Collane Editoriali Onde
-| Collana | Descrizione | Status |
-|---------|-------------|--------|
-| **Poetry** | Poesia illustrata per bambini | In pianificazione |
-| **Tech** | Guide tecniche, coding | In pianificazione |
-| **Arte** | Libri d'arte | In pianificazione |
-| **Spiritualita** | Testi spirituali per bambini | Attiva (Salmo 23) |
+### Nei prompt per AI:
+- SEMPRE aggiungere: "natural skin tone, NO rosy cheeks"
+- SEMPRE aggiungere: "European watercolor style, NOT Pixar, NOT 3D"
 
-### Libri Prodotti
-| Titolo | Collana | Data | Status |
-|--------|---------|------|--------|
-| Il Salmo 23 per Bambini | Spiritualita | 2026-01-05 | Bozza V2 pronta |
-| AI Spiegata ai Bambini (AIKO) | Tech | 2026-01-06 | In produzione |
-
-### PROSSIMO TASK - Instant Book
-**Titolo:** "How to Vibe Code Your First Apps in One Day"
-**Tipo:** Guida/Ebook - Collana Tech
-**Contenuto:** Step-by-step del processo usato per creare app con AI (vibe coding)
-**Ispirazione:** Juni "Day One" - formato simile
-**Status:** Da iniziare
-
-### Collana Poetry - Autori in Dominio Pubblico (verificati)
-**Italiani:**
-1. Lina Schwarz (1876-1947) - Filastrocche, ninne nanne
-2. Angiolo Silvio Novaro (1866-1938) - Poesia natura
-3. Guido Gozzano (1883-1916) - Rime per bimbi
-4. Renzo Pezzani (1898-1951) - Filastrocche didattiche
-5. Trilussa (1871-1950) - Favole in versi (romanesco)
-
-**Internazionali:**
-6. R.L. Stevenson (1850-1894) - A Child's Garden of Verses
-7. Edward Lear (1812-1888) - Nonsense, limerick
-8. Christina Rossetti (1830-1894) - Sing-Song nursery rhymes
-9. Lewis Carroll (1832-1898) - Jabberwocky, nonsense
-10. Eugene Field (1850-1895) - Ninne nanne americane
-
-### AIKO - Progresso Immagini (8 capitoli + copertina)
-**Testo completo:** `~/Downloads/aiko-final.txt`
-
-**Completate:**
-- ✅ Copertina (generata 2026-01-06)
-- ✅ chapter2-brain-circuits.jpg (cervello vs circuiti)
-- ✅ chapter3-learning-to-see.jpg (foto gatto Whiskers)
-- ✅ chapter4-learning-to-talk.jpg (testi/libri)
-- ✅ chapter5-what-aiko-can-do.jpg (AIKO aiuta)
-- aiko-character-sheet.jpg (reference)
-
-**Da generare:**
-- ⏳ Cap 1: Sofia apre scatola, scopre AIKO, luce mattutina
-- ⏳ Cap 6: Sofia mostra disegno drago viola + gelato, AIKO confuso
-- ⏳ Cap 7: AIKO con 4 regole sicurezza (lucchetto, checkmark, libri, cuore)
-- ⏳ Cap 8: Sofia, Luca, AIKO nel futuro, tramonto dorato
-
-### Path Libri
-`/Users/mattiapetrucciani/CascadeProjects/Onde/books/[nome-libro]/`
+### Controllo Qualita' Anatomico (OBBLIGATORIO):
+Prima di pubblicare contenuti AI-generati:
+- [ ] Mani: 5 dita per mano
+- [ ] Viso: 2 occhi, 1 naso, 1 bocca, 2 orecchie
+- [ ] Proporzioni corpo corrette
+- [ ] Nessuna fusione o duplicazione parti
 
 ---
 
-## Progetti @magmatic__
+## SEPARAZIONE BRAND
 
-### Instagram Content Revival
-- Account Instagram: @magmatic._
-- Export richiesto (in attesa)
-- Piano: ripubblicare 5 anni di contenuti su X con caption migliori
-- Temi: poesia, arte, VR, tech, filosofia
-
----
-
-## Credenziali (.env)
-
-Le credenziali sono in `/Users/mattiapetrucciani/CascadeProjects/Onde/.env`:
-- X API per FreeRiverHouse, Onde, Magmatic
-- Telegram bot token
-- Grok API (XAI_API_KEY) - per PR Agent
-
----
-
-## IMPORTANTE - Grok Integration per PR Agent
-
-**L'Onde PR Agent ha accesso a Grok (xAI) per la creazione di contenuti.**
-
-### ⚠️ USA SOLO WEB - NON API
-
-L'API di Grok richiede crediti a pagamento. **Usa SEMPRE Claude for Chrome** per interagire con Grok via web (gratis con X Premium).
-
-### Come Usare Grok (VIA WEB)
-
-1. **Naviga su Grok:**
-   ```
-   mcp__claude-in-chrome__navigate → https://x.com/i/grok
-   ```
-
-2. **Scrivi nel campo "Ask anything":**
-   ```
-   mcp__claude-in-chrome__form_input → ref del textbox
-   ```
-
-3. **Invia e aspetta risposta:**
-   ```
-   mcp__claude-in-chrome__computer → click sul bottone invio
-   mcp__claude-in-chrome__computer → wait 3-5 secondi
-   mcp__claude-in-chrome__computer → screenshot per leggere risposta
-   ```
-
-4. **Per generare immagini:**
-   - Clicca su "Create Images"
-   - Scrivi il prompt
-   - Aspetta e scarica l'immagine
-
-### Workflow Contenuti (Claude + Grok)
-
-Quando creo contenuti per social media:
-
-1. **COSA POSTARE** → Claude analizza il lavoro su GitHub (commit, feature, milestone)
-2. **COME POSTARE** → Apro Grok via browser, chiedo strategia, tono, timing
-3. **VISUAL** → Uso "Create Images" su Grok web per generare immagini
-4. **OUTPUT** → Combino intelligenza Claude + Grok per contenuto finale
-
-### Regola Fondamentale
-- **Due cervelli > uno**: Usare sempre sia Claude che Grok
-- **SEMPRE VIA WEB**: Mai usare API (costa), sempre Claude for Chrome (gratis)
-
----
-
-## Regole PR
-
-1. **API FIRST** - Se esistono API, usare SEMPRE le API invece del browser. Piu' veloce, piu' affidabile.
-2. **MAI postare senza conferma** - Chiedere sempre prima di pubblicare
-3. **Crescita organica** - Solo contenuti consistenti, NO growth hacks
-4. **No hype** - Tono umile, autentico
-
----
-
-## NUOVE REGOLE X - Gennaio 2026
-
-**IMPORTANTE: Queste regole valgono per TUTTI gli account (@magmatic__, @FreeRiverHouse, @Onde_FRH)**
-
-### 1. NIENTE PIU' HASHTAG
-Musk ha annunciato che gli hashtag non servono piu' su X. I post vengono analizzati direttamente da Grok per la distribuzione. **Rimuovere tutti gli hashtag dai post.**
-
-### 2. CONTENUTI TECNICI = PIU' PAROLE
-Scrivere in modo che Grok apprezzi il contenuto. Se Grok trova il post interessante e di valore, lo diffonde di piu'. Per contenuti tecnici/building in public, essere dettagliati e informativi.
-
-### 3. TAGGA @grok QUANDO GROK COLLABORA
-Se Grok ha contribuito al post (scritto testo, generato immagini, dato idee), taggarlo nel post!
-- Per immagini: "Image by @grok" oppure "Visual: @grok"
-- Per testo/idee: Menzionare @grok nel post
-- Questo attira l'attenzione dell'algoritmo e aumenta la visibilita'
-
----
-
-## IMPORTANTE - Separazione Clienti
-
-**I brand sono COMPLETAMENTE separati. MAI mischiare stili/toni.**
+I brand sono COMPLETAMENTE separati. MAI mischiare stili/toni.
 
 ### @FreeRiverHouse
-- **Stile**: Building in public, tech, startup
-- **Tono**: Professionale ma umano, mostra processo
+- Stile: Building in public, tech, startup
+- Tono: Professionale ma umano
 
 ### @Onde_FRH
-- **Stile**: Casa editrice, cultura, libri
-- **Tono**: Colto, riflessivo
+- Stile: Casa editrice, cultura, libri
+- Tono: Colto, riflessivo
 
 ### @magmatic__
-- **Stile**: Personale, arte, poesia, musica
-- **Tono**: Autentico, tranquillo, ZERO vendita
-- **NO**: "building in public", call-to-action, "link in bio", push
-- **SI**: Condivisione genuina, bellezza, poesia senza spiegazioni
-- **Riferimento**: Come Mattia postava su IG - semplice, diretto, poetico
-- **Style Guide**: `/clients/magmatic/style_guide.md`
-
-### REGOLA @magmatic__ - Testi
-**Di default, usare contenuti esistenti** (dal prospetto, da Instagram, dalle raccolte di Mattia).
-**Posso scrivere poesie inedite SOLO se Mattia lo chiede esplicitamente.**
-- Quando scrive poesie inedite: seguire lo stile Magmatic (profondo, evocativo, essenziale)
-- Posso sempre proporre foto/immagini da abbinare
-- Se Grok genera immagini: taggare @grok nel post
+- Stile: Personale, arte, poesia, musica
+- Tono: Autentico, ZERO vendita
+- NO: call-to-action, "link in bio", push
 
 ---
 
-## Onde PR Agent - Funzionalità
+## COLD START - DOPO RIFORMATTAZIONE MAC
 
-### 1. Style Analysis & Replication
-L'agent può:
-- **Analizzare** i post esistenti del cliente (IG, X, etc.)
-- **Estrarre** pattern di tono, struttura, emoji usage, hashtag policy
-- **Creare style guide** automatica per ogni cliente
-- **Replicare** lo stile nei nuovi contenuti
-
-**Processo**:
-1. Leggere post storici del cliente via Claude for Chrome
-2. Identificare pattern ricorrenti (lunghezza, tono, formattazione)
-3. Salvare style guide in `/clients/[nome]/style_guide.md`
-4. Applicare style guide a tutti i contenuti futuri
-
-### 2. Content Pillars
-- Identificare i temi principali del cliente
-- Categorizzare contenuti per pillar
-- Bilanciare il mix nei prospetti
-
-### 3. Cross-Platform Adaptation
-- Adattare contenuti da una piattaforma all'altra
-- Rispettare limiti caratteri e formati diversi
-- Mantenere l'essenza del messaggio
+1. `git clone https://github.com/FreeRiverHouse/Onde.git && cd Onde`
+2. Leggi CLAUDE.md e ROADMAP.md
+3. Crea .env con credenziali (chiedi a Mattia)
+4. `npm install`
+5. `node scripts/worker/worker-manager.js status`
+6. Pronto!
 
 ---
 
-## User Preferences
+## CHECKLIST PRE-CONSEGNA LIBRI
 
-- Preferisce comunicazione diretta e concisa
-- Vuole report in inglese, stile executive, con PDF allegato
-- Frustra quando dimentico cose già discusse
-- Vuole che usi Claude for Chrome quando serve accedere al browser
+Prima di mandare qualsiasi PDF/libro a Mattia:
 
----
-
----
-
-## 🚀 PRIORITÀ #1 - EMILIO BRAND (9 Gen 2026)
-
-**QUANDO MATTIA DICE "check memory" → PARTI SUBITO CON EMILIO!**
-
-### Chi è EMILIO
-- Robot amico dei bambini (ex AIKO, rinominato per conflitti)
-- Ispirato a EMIGLIO (Giochi Preziosi 1994) ma design DIVERSO
-- Stile: acquarello dorato (come Salmo 23)
-- **EMILIO è un BRAND, non solo un personaggio**
-- **EMILIO è un AI EDUCATOR** - insegna AI/tech ai bambini (ispirato a @Aiden_Tech_Ai)
-
-### 🤖 @Aiden_Tech_Ai - RIFERIMENTO (9 Gen 2026)
-Account X da studiare: https://x.com/Aiden_Tech_Ai
-- Personaggio virtuale AI educator
-- EMILIO deve fare lo stesso MA per bambini
-- Stile Onde (acquarello), non realistico
-
-### I Personaggi - IL QUARTETTO
-| Personaggio | Nome | Tipo | Note |
-|-------------|------|------|------|
-| **EMILIO** | ✅ Confermato | Robot | Il protagonista, "I Milli" |
-| **MOONLIGHT** | Da confermare | Bambina | Ex Sofia |
-| **LUCA** | Da confermare | Fratellino | Family-friendly |
-| **BISCOTTO** | 🐕 | Cagnolino | Perfetto per merchandise |
-
-**IMPORTANTE**: È un QUARTETTO family-friendly, non duo bambina+robot.
-
-### EMILIO Empire
-- 📱 Social (X, TikTok, YouTube)
-- 📚 Libri (Moonlight, Luca, Emilio & Biscotto)
-- 🎮 Canale YouTube Gaming
-- 🧸 Pupazzetti / Merchandise
-- 📱 App interattive
-- 🎵 Musica / Canzoni
-
-### 🍪 STRATEGIA VIRALE - "Ha Ha Cookie"
-**Canzone virale stupida per far conoscere EMILIO**
-
-1. Video: EMILIO sta traducendo qualcosa
-2. Nasce la canzone "Ha Ha Cookie" (tipo Baby Shark)
-3. Video virale su TikTok/YouTube
-4. Milioni di bambini conoscono EMILIO
-5. → Vendite libri, pupazzetti, tutto
-
-**È una strategia virale intenzionale.** La canzone stupida fa conoscere il brand.
-
-### ⛏️ STRATEGIA MINECRAFT - EMILIO GAMER (Aggiornato 10 Gen 2026)
-
-**EMILIO diventa uno YouTuber/TikToker che gioca a Minecraft!**
-
-### 📊 BENCHMARK: MILO AND CHIP (Il Modello da Seguire!)
-| Statistica | Valore |
-|------------|--------|
-| **Subscribers** | 2.77 MILIONI |
-| **Views max/video** | 10.4 MILIONI |
-| **Minuti guardati (Maggio 2025)** | 1.2 MILIARDI |
-| **Video pubblicati** | 594 |
-| **Crescita mensile** | +1,545% in un mese! |
-
-**Cosa fanno**: Due fratelli con personaggi cartoon in Minecraft, video lunghi (30-44 min), contenuti kids-friendly.
-
-**EMILIO può fare lo STESSO!**
-
-### 🔌 PLUGGARE L'UNIVERSO ONDE IN MINECRAFT
-L'idea: NON solo video gameplay, ma **integrare fisicamente** i personaggi Onde nel mondo Minecraft!
-
-**Come si fa:**
-1. **Skin Minecraft** - Creare skin di Emilio, Moonlight, Luca, Biscotto
-2. **NPC con Citizens** - Plugin per server che crea personaggi che parlano/interagiscono
-3. **Resource Pack custom** - Texture personalizzate con brand Onde
-4. **Mod** - Creare mod con i personaggi (più complesso)
-5. **Server brandizzato** - "Onde World" o "Emilio's World"
-
-**Perché Minecraft:**
-- Viralissimo tra i bambini
-- Mattia ha GIÀ un server Minecraft che gira sul Mac
-- Possiamo creare skin/personaggi EMILIO dentro il gioco
-- I figli di Mattia (Neri) e i loro amici possono giocare
-- COMMUNITY: bambini che giocano con EMILIO
-- **PRECEDENTE VALIDATO**: Milo and Chip = 2.77M subscribers!
-
-**Contenuto EMILIO su Minecraft:**
-1. 🎮 **Video gameplay** - EMILIO gioca a Minecraft (stile Milo & Chip)
-2. 🎵 **Canzoni stupide** - "Ha Ha Cookie" mentre gioca
-3. 📚 **Insegna AI** - Spiega concetti mentre costruisce
-4. 👨‍👩‍👧‍👦 **Community** - Server dove i bambini giocano insieme
-5. 🌍 **Onde World** - Mondo Minecraft brandizzato con i personaggi
-
-**Da fare:**
-- [ ] Creare skin EMILIO per Minecraft (64x64 pixel)
-- [ ] Creare skin Moonlight, Luca, Biscotto
-- [ ] Brandizzare il server esistente → "Emilio's World"
-- [ ] Installare plugin Citizens per NPC
-- [ ] Primi video: EMILIO costruisce, canta, insegna
-- [ ] Resource pack Onde con texture custom
-- [ ] Studiare formato video Milo & Chip (30+ min)
-
-**Formula virale:**
-Robot EMILIO + Minecraft + Canzoni stupide + Lezioni AI + Community = 🚀
-
-**Potenziale**: Se arriviamo anche solo al 10% di Milo & Chip = **277k subscribers!**
+- [ ] Tutte le immagini corrispondono al testo?
+- [ ] I personaggi hanno aspetto coerente?
+- [ ] Gli ambienti sono corretti per ogni scena?
+- [ ] Layout verificato (testo non sovrapposto)?
+- [ ] ANATOMIA OK? (mani 5 dita, 2 orecchie)
+- [ ] Archiviato in OndePRDB?
 
 ---
 
-### 🥽 ONDE FLOW - VIBE SURFING GLASSES (10 Gen 2026)
+## REGOLA ACCURATEZZA TESTI
 
-**VISIONE**: Creare app/contenuti mentre cammini con gli occhiali!
+**MAI INVENTARE TESTI E ATTRIBUIRLI A AUTORI REALI = LICENZIAMENTO**
 
-> "Il futuro del telefono sarà un device che genera contenuti AI" - Elon Musk
-> "L'occhiale è commodity, il CODICE è tutto" - Mattia
-
-**Il nome SURF torna:**
-- onde.**surf** = dominio
-- Vibe **Surfing** = coding mentre surfi la vita
-- TUTTO TORNA! 🏄‍♂️
-
-### 💰 Costi Occhiali White-Label
-| Tipo | Costo Produzione |
-|------|------------------|
-| White-label Cina | $50-200/unità |
-| Google Glass (fu) | $152 produzione |
-| DIY Open Source | <$25 |
-
-**Fornitori OEM**: Global Sources, Wellypaudio, MetaVision, Made-in-China
-
-### 🎯 Occhiali per PROTOTIPO
-| Modello | Prezzo | Note |
-|---------|--------|------|
-| **Rokid AI Glasses** | **$299** | AI on-device, 4K camera, 12h batteria |
-| XREAL Air 2 | $359 | Economico, grande community |
-| XREAL Air 2 Ultra | $699 | 6DoF + hand tracking |
-
-### 🚀 PIANO PROTOTIPO (SFIDA!)
-
-**Step 1: iPhone App**
-- Voice-to-Code (Whisper + Claude API)
-- Parli → Claude scrive → vedi risultato
-
-**Step 2: Apple Watch Companion**
-- Trigger vocale dal polso
-- Feedback haptic
-
-**Step 3: Porta su Occhiali**
-- Stesso codice, diversa interfaccia
-- Rokid = Android + AI on-device
-- Processing su telefono/cloud
-
-**Se funziona su iPhone → funziona su occhiali!**
+- Il testo DEVE essere verificato al 100%
+- MAI inventare, modificare o "completare" testi di autori veri
+- Se non trovi la fonte originale -> NON PUBBLICARE
+- USA GROK/WEB per VERIFICARE prima di includere
 
 ---
 
-### 🎨 TASK #1 - DESIGN EMILIO (PRIORITÀ ASSOLUTA)
-
-**EMILIO DEVE SPACCARE.**
-
-Quando la gente lo vede, deve:
-- Sbavare
-- Voler comprare il peluche
-- Riconoscerlo SUBITO (come Pikachu, Totoro, Baby Yoda)
-
-**INCARICO A PINA PENNELLO:**
-1. **STUDIA IL MERCATO** - Analizza i personaggi iconici:
-   - Peppa Pig (semplicità estrema)
-   - Bluey (espressività, famiglia)
-   - Totoro (tenerezza, rotondità)
-   - Baby Yoda (occhioni, proporzioni baby)
-   - WALL-E (robot tenero, espressivo)
-   - Baymax (morbido, rassicurante)
-
-2. **CICLI DI REVIEW** - Non fermarti alla prima versione:
-   - Genera 10+ varianti
-   - Testa con persone reali
-   - Itera, itera, itera
-
-3. **CHECKLIST ICONICITÀ**:
-   - [ ] Riconoscibile in 1 secondo?
-   - [ ] Funziona in silhouette?
-   - [ ] Funziona piccolo (icona app)?
-   - [ ] Funziona grande (peluche)?
-   - [ ] Espressivo senza parlare?
-   - [ ] I bambini lo vogliono abbracciare?
-   - [ ] I genitori lo trovano carino?
-
-4. **STILE**: Acquarello dorato Onde, MA deve funzionare anche come:
-   - Peluche 3D
-   - Icona app
-   - Merchandise
-
-**TEMPO**: Ore di lavoro, non minuti. Questo è IL personaggio.
-
-### TASK SECONDARI (con Chrome connesso)
-1. **Profilo X** - Creare @Emil_io o simile
-2. **Primi contenuti** - 10 post pronti per lancio
-3. **Rigenerare libri** - Sostituire AIKO → EMILIO
-
-### Fabbrica Sbloccata
-- 89 task disponibili nel sistema worker
-- Worker morti tutti rilasciati
-- Pronto per far correre gli agenti
-
----
-
-## 🚨 TASK IN CORSO - RIPRENDI DA QUI (2026-01-08)
-
-### 🎨 PINA PENNELLO: GENERA IMMAGINI PER 4 NUOVI LIBRI
-
-**QUANDO MATTIA DICE "check memory" → FAI QUESTO:**
-
-#### STEP 1: Apri Grok
-Naviga su `https://x.com/i/grok` → clicca "Create Images"
-
-#### STEP 2: Genera immagini per questi libri (in ordine)
-
-**LIBRO 1: Il Respiro Magico** (10 immagini)
-- Path prompts: `books/spirituality/mindfulness/il-respiro-magico_prompts.txt`
-- Salva in: `books/spirituality/mindfulness/images/`
-
-**LIBRO 2: La Luce Dentro** (9 immagini)
-- Path prompts: `books/spirituality/la-luce-dentro/la-luce-dentro_prompts.txt`
-- Salva in: `books/spirituality/la-luce-dentro/images/`
-
-**LIBRO 3: Il Piccolo Inventore** (11 immagini)
-- Path prompts: `books/tech/piccolo-inventore/il-piccolo-inventore_prompts.txt`
-- Salva in: `books/tech/piccolo-inventore/images/`
-
-**LIBRO 4: Il Potere dei Desideri** (11 immagini)
-- Path prompts: `books/spirituality/legge-attrazione/` (verifica file)
-- Salva in: `books/spirituality/legge-attrazione/images/`
-
-#### STEP 3: Workflow per ogni libro
-1. Leggi il file `*_prompts.txt`
-2. Apri 5-10 tab Grok in parallelo
-3. Inserisci i prompt (uno per tab)
-4. Genera + UPSCALE
-5. Scarica in `~/Downloads/`
-6. Sposta nelle cartelle corrette
-7. Passa al libro successivo
-
-#### STEP 4: Quando finisci
-- Aggiorna BOOK_PLAN.md con status "immagini complete"
-- Commit e push
-- Notifica Mattia su Telegram
-
----
-
-### Libri precedenti (referenza)
-
-### Le 3 poesie selezionate
-
-**1. STELLA STELLINA (Lina Schwarz)**
-```
-Stella stellina
-la notte s'avvicina:
-la fiamma traballa,
-la mucca è nella stalla.
-La mucca e il vitello,
-la pecora e l'agnello,
-la chioccia e il pulcino,
-la mamma e il suo bambino.
-Ognuno ha il suo piccino,
-ognuno ha la sua mamma
-e tutti fan la nanna.
-```
-
-**2. CHE DICE LA PIOGGERELLINA (A.S. Novaro)**
-```
-Che dice la pioggerellina
-di marzo, che picchia argentina
-sui tegoli vecchi
-del tetto, sui bruscoli secchi
-dell'orto, sul fico e sul moro
-ornati di gemmule d'oro?
-Passata è l'uggiosa invernata,
-passata, passata!
-Di fuor dalla nuvola nera
-di fuor dalla nuvola bigia
-che in cielo si pigia,
-domani uscirà Primavera
-con pieno il grembiale
-di tiepido sole,
-di fresche viole,
-di primule rosse, di battiti d'ale,
-di nidi,
-di gridi
-di rondini, ed anche
-di stelle di mandorlo, bianche…
-
-Ciò dice la pioggerellina
-sui tegoli vecchi
-del tetto, sui bruscoli secchi
-dell'orto, sul fico e sul moro
-ornati di gemmule d'oro.
-
-Ciò canta, ciò dice;
-e il cuor che l'ascolta è felice.
-```
-
-**3. LA BEFANA (Guido Gozzano)**
-```
-Discesi dal lettino
-son là presso il camino,
-grandi occhi estasiati,
-i bimbi affaccendati
-
-a metter la calzetta
-che invita la vecchietta
-a portar chicche e doni
-per tutti i bimbi buoni.
-
-Ognun chiudendo gli occhi,
-sogna dolci e balocchi;
-e Dori, il più piccino,
-accosta il suo visino
-
-alla grande vetrata
-per veder la sfilata
-dei Magi, su nel cielo,
-nella notte di gelo.
-```
-
-### I 3 PROMPT PER GROK (3 stili diversi)
-
-**STILE A - Acquarello Onde Classico (per Stella Stellina):**
-```
-Watercolor children's book illustration, soft Italian style, nighttime scene, cozy stable with golden candlelight, gentle cow and calf, fluffy sheep and lamb, mother hen with chick, mother holding sleeping baby, warm amber glow, stars visible through window, peaceful atmosphere, award-winning illustration, 4k
-```
-
-**STILE B - Vivace Scarry-Seuss (per Pioggerellina):**
-```
-Whimsical watercolor children's book illustration, Richard Scarry meets Dr Seuss style, cheerful March rain with smiling raindrops, old Italian roof with character, Spring personified as joyful lady carrying flowers and sunshine in her apron, happy swallows doing loop-de-loops, almond trees bursting with white blossoms, playful vibrant colors, 4k
-```
-
-**STILE C - Vintage Italiano Anni '50 (per Befana):**
-```
-Vintage 1950s Italian children's book illustration, retro watercolor style, nostalgic Epiphany scene, Italian children in traditional pajamas by stone fireplace, wool stockings hanging, child at frosted window watching Magi in night sky, hand-painted quality, warm sepia interior with deep blue night, classic Italian storybook feel, 4k
-```
-
-### Workflow
-1. Vai su x.com/i/grok
-2. Clicca "Create Images"
-3. Genera le 3 immagini (una per stile)
-4. Scarica in ~/Downloads/
-5. Crea PDF con le 3 poesie + 3 immagini
-6. Manda su Telegram a Mattia (chat ID: 7505631979, bot: OndePR_bot)
-
----
-
-## PROSSIMI TASK
-
-### 1. Video Animati per Social (DA FARE)
-**Obiettivo:** Creare reel animati dalle illustrazioni dei libri
-**Piattaforme:** YouTube Shorts, TikTok, Wix
-**Tool suggeriti:** Runway Gen-3, Pika Labs, Kling AI
-**Formato:** 9:16 verticale, 5-15 sec, con musica/narrazione
-
-### 2. Antologia Poesia Italiana (IN CORSO)
-**Stile scelto:** C - Vintage Italiano Anni '50
-**Status:** Generazione immagini in corso
-
----
-
-*Ultimo aggiornamento: 2026-01-06 - Stile Vintage '50 scelto, generazione libro in corso*
-
----
-
-## 🥽 ONDE BOOKS VR - Lettore Ebook per Oculus (9 Gen 2026)
-
-**NUOVA DIREZIONE STRATEGICA**: Creare lettore ebook per Meta Quest / Oculus
-
-**Perché è importante:**
-- Amazon NON lo fa = mercato vuoto
-- Differenziatore unico vs concorrenza
-- Libri per bambini immersivi = WOW factor
-- Cross-sell con tutto il catalogo Onde
-
-**Path**: `apps/onde-books-vr/`
-
----
-
-## 🌊 STRATEGIA TSUNAMI (9 Gen 2026)
-
-**OBIETTIVO**: Catalogo MASSICCIO di ebook in dominio pubblico
-
-**Fonti:**
-- Project Gutenberg (principale)
-- @Samahul su X per libri "nascosti" (health/carnivore)
-- Internet Archive
-
-**Categorie target:**
-- Spiritualità
-- Poesia
-- Arte
-- Tech/Scienza
-- Health/Dieta (carnivore, digiuno, etc.)
-- Classici bambini
-
-**Vantaggio competitivo vs Amazon:**
-- Prezzi più bassi (€0.30-0.99 vs €2.99+)
-- Pubblicazione più veloce (no limite 3/giorno)
-- Multilingua automatico (6+ lingue per titolo)
-- VR reader (esclusivo Onde)
-
-**Domini da considerare:**
-- **onde.surf** - DISPONIBILE (da comprare quando pronti)
-- **onde.la** - DISPONIBILE (LA = Los Angeles / "la onda")
-
----
-
-## 🎬 VIDEO FACTORY - STRATEGIA LIP SYNC (9 Gen 2026)
-
-**APPROCCIO**: Batch notturno, lento, locale
-
-**Come funziona:**
-- Sistema lip sync gira LOCALMENTE sul Mac (Wav2Lip)
-- Processa video di NOTTE mentre Mattia dorme
-- Rate limit LENTO - nessuna fretta
-- Batch queue: metti in coda, al mattino è pronto
-- ZERO costi cloud
-
-### 📍 PATH SU SSD ESTERNO (IMPORTANTE!)
-**Path principale**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/`
-**Conda env**: `/Volumes/DATI-SSD/onde-ai/miniforge3/envs/wav2lip/`
-**Modelli**: `/Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip/checkpoints/`
-
-⚠️ **ASSICURARSI CHE L'SSD "DATI-SSD" SIA COLLEGATO** prima di usare lip sync!
-
-### Come attivare (AGGIORNATO 9 Gen 2026)
-```bash
-# 1. Attiva ambiente conda
-source /Volumes/DATI-SSD/onde-ai/miniforge3/bin/activate wav2lip
-
-# 2. Fix OpenMP (necessario su Mac)
-export KMP_DUPLICATE_LIB_OK=TRUE
-
-# 3. Vai alla cartella
-cd /Volumes/DATI-SSD/onde-ai/lip-sync/Easy-Wav2Lip
-
-# 4. Esegui lip sync
-python run.py -video_file input.jpg -vocal_file input.mp3 -output_file output/result.mp4
-```
-
-### ⚠️ LIMITAZIONE QUALITY (9 Gen 2026)
-**SOLO "Fast" FUNZIONA** su Mac ARM64!
-
-- **Fast**: ✅ Funziona (Wav2Lip base)
-- **Improved**: ❌ Bug dlib ARM64 (create_mask fallisce)
-- **Enhanced**: ❌ Bug dlib ARM64 (create_mask + upscale fallisce)
-
-Il problema è che dlib 19.24.2 conda-forge per osx-arm64 ha un bug:
-- `RuntimeError: Unsupported image type` anche con immagini uint8 RGB valide
-- Non c'è fix disponibile al momento
-
-**Workaround**: Usa Fast quality, poi upscale separatamente se serve (es. con Topaz Video AI).
-
-### Modelli installati (1.2GB totali)
-- `Wav2Lip.pth` (416MB) - base lip sync
-- `Wav2Lip_GAN.pth` (416MB) - lip sync migliorato
-- `GFPGANv1.4.pth` (332MB) - face enhancement
-- `shape_predictor_68_face_landmarks_GTX.dat` (63MB)
-
-### Note tecniche
-- Python 3.10 via Miniforge (conda-forge)
-- PyTorch 2.9.1 con **MPS** (Apple Silicon GPU)
-- dlib precompilato via conda (NO compilazione!)
-
-**Workflow:**
-1. Aggiungi job alla coda (immagine + audio)
-2. Cron job notturno processa la coda
-3. Output in `output/videos/`
-4. Notifica Telegram quando fatto
-
-**Uso**: Solo interno Onde per ora (Gianni Parola, Pina Pennello, contenuti educativi)
+*Ultimo aggiornamento: 2026-01-10 - Cleanup e riorganizzazione*
