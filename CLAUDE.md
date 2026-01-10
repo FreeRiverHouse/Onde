@@ -38,6 +38,36 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
+## REGOLA ASSOLUTA #0.5 - MAI BYPASSARE GLI AGENTI
+
+**DATA: 2026-01-10 - REGOLA INVIOLABILE**
+
+**I CONTENUTI CREATIVI DEVONO PASSARE DAGLI AGENTI. MAI SCRIVERLI DIRETTAMENTE!**
+
+### Workflow Contenuti - CHI FA COSA:
+| Chi | Cosa Fa | File |
+|-----|---------|------|
+| **Editore Capo** | Commissiona, coordina, assembla, QC | `content/agents/editore-capo.md` |
+| **Gianni Parola** | Scrive testi con marcatori [ILLUSTRAZIONE: ...] | `content/agents/gianni-parola.md` |
+| **Pina Pennello** | Crea prompt per illustrazioni | `content/agents/pina-pennello.md` |
+| **Grok** | Genera immagini dai prompt di Pina | Via browser |
+
+### Processo Creazione Libro/Video:
+1. **Commissione** → Editore Capo riceve richiesta
+2. **Testi** → Editore Capo delega a Gianni Parola
+3. **Illustrazioni** → Editore Capo delega a Pina Pennello
+4. **Assemblaggio** → Editore Capo crea PDF/video
+5. **QC** → Editore Capo verifica anatomia, coerenza
+6. **Approvazione** → Telegram a Mattia
+7. **Pubblicazione** → Solo dopo OK
+
+### Workflow Documentato:
+`content/processes/book-production.md`
+
+**SE BYPASSO GLI AGENTI → STO FACENDO UNA CAZZATA!**
+
+---
+
 ## REGOLA ASSOLUTA #1 - MAI SUBSCRIPTION AUTONOME
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
