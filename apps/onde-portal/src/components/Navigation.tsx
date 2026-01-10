@@ -11,7 +11,8 @@ const navItems = [
   { href: '/app', label: 'App' },
   { href: '/giochi', label: 'Giochi' },
   { href: '/libri', label: 'Libri' },
-  { href: '/vr', label: '🥽 VR' },
+  { href: '/leggi', label: 'Leggi' },
+  { href: '/vr', label: 'VR' },
   { href: '/about', label: 'Chi Siamo' },
 ]
 
