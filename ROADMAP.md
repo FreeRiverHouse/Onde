@@ -41,7 +41,67 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-09 - Cloudflare configurato, Portale onde.la in sviluppo
+**Ultimo aggiornamento**: 2026-01-10 - VR Page, Backup, Onde Vision pianificato
+
+---
+
+## 💾 BACKUP PRE-FORMATTAZIONE MAC (10 Gen 2026)
+
+**BACKUP COMPLETATO!**
+
+| Cosa | Dove | Dimensione |
+|------|------|------------|
+| Projects/ | `/Volumes/DATI-SSD/BACKUP-MAC-2026-01-10/Projects/` | 3.2GB |
+| node_modules | ESCLUSI (reinstallabili) | - |
+| .next | ESCLUSO (rigenerabile) | - |
+| Video pesanti | ESCLUSI | - |
+
+**Dopo formattazione:**
+1. `git clone https://github.com/FreeRiverHouse/Onde.git`
+2. Leggi `CLAUDE.md` → sezione COLD START
+3. Recupera `.env` da backup o crea nuovo
+4. `npm install`
+5. Pronto!
+
+**iMovie Library (48GB)**: Video demo SASE 2022 - DA DECIDERE SE TENERE
+
+---
+
+## 🥽 ONDE VISION - AMBIENTE SVILUPPO VR (10 Gen 2026)
+
+**Concetto**: Backdoor sicura per dashboard e controllo remoto.
+
+### Architettura
+```
+onde.la (pubblico)
+    ├── /          → Portale pubblico
+    ├── /vr        → Esperienza VR pubblica
+    └── /vision    → BACKDOOR PROTETTA (Onde Vision)
+                    ├── Dashboard controllo
+                    ├── Worker status
+                    ├── Messaggi a Claude
+                    └── Test workflow
+```
+
+### Sicurezza
+- [ ] **Porta 443** - HTTPS obbligatorio
+- [ ] **Password/Certificato** - Accesso protetto
+- [ ] **URL nascosto** - Non linkato pubblicamente
+- [ ] **Rate limiting** - Anti-bruteforce
+- [ ] **IP whitelist** - Opzionale
+
+### Fasi
+1. **Fase 1**: Port forwarding 443 → Mac locale
+2. **Fase 2**: SSL/TLS con Let's Encrypt
+3. **Fase 3**: Autenticazione /vision
+4. **Fase 4**: Dashboard controllo agenti
+5. **Fase 5**: App Oculus dedicata (futuro)
+
+### Vantaggi
+- Testare workflow da iPhone/Oculus ovunque
+- Mandare messaggi a Claude da remoto
+- Controllare la "fabbrica" in movimento
+- **onde.la** = corto da digitare in VR! 🎯
 
 ---
 
