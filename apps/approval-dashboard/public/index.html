@@ -8,24 +8,39 @@
   <title>Onde Gallery - Content Approval</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --museum-bg: #1a1815;
-      --wall-color: #2d2a26;
+      /* Museum Palette - Elegant & Warm */
+      --museum-bg: #0f0d0b;
+      --museum-wall: #1a1714;
+      --museum-accent: #2a2520;
       --frame-gold: #c9a962;
+      --frame-gold-light: #ddc078;
+      --frame-bronze: #8b7355;
       --frame-dark: #5c4d3a;
-      --accent-approve: #4a9d6e;
-      --accent-reject: #c45c5c;
-      --accent-pending: #d4a84b;
-      --text-light: #f5f0e8;
-      --text-muted: #a09890;
-      --shadow-deep: rgba(0,0,0,0.5);
 
-      /* Client colors */
-      --frh-color: #3b82f6;
-      --onde-color: #f4d03f;
-      --magmatic-color: #a855f7;
+      /* Status Colors */
+      --approve-green: #4a9d6e;
+      --approve-glow: rgba(74, 157, 110, 0.3);
+      --reject-red: #c45c5c;
+      --reject-glow: rgba(196, 92, 92, 0.3);
+      --pending-gold: #d4a84b;
+
+      /* Text */
+      --text-cream: #f5f0e8;
+      --text-muted: #9a9080;
+      --text-dim: #6a6055;
+
+      /* Client Colors */
+      --frh-blue: #4a90d9;
+      --onde-gold: #f4d03f;
+      --magmatic-purple: #a855f7;
+
+      /* Effects */
+      --shadow-deep: 0 20px 60px rgba(0,0,0,0.6);
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
+      --glass: rgba(255,255,255,0.03);
     }
 
     * {
@@ -33,23 +48,28 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--museum-bg);
-      color: var(--text-light);
+      color: var(--text-cream);
       min-height: 100vh;
       min-height: -webkit-fill-available;
       overscroll-behavior: none;
     }
 
-    /* Museum Header */
+    /* Elegant Header */
     header {
-      background: linear-gradient(180deg, #1f1c18 0%, var(--museum-bg) 100%);
-      padding: 20px;
-      border-bottom: 1px solid #3d3830;
+      background: linear-gradient(180deg, rgba(26,23,20,0.98) 0%, rgba(15,13,11,0.95) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.15);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -59,114 +79,158 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--frame-gold), #8b7355);
-      border-radius: 8px;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(145deg, var(--frame-gold), var(--frame-bronze));
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--museum-bg);
+      box-shadow: 0 4px 12px rgba(201, 169, 98, 0.3);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--text-light);
+      letter-spacing: 1px;
+      color: var(--text-cream);
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
     }
 
     .header-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .view-toggle {
       display: flex;
-      background: var(--wall-color);
-      border-radius: 8px;
+      background: var(--museum-accent);
+      border-radius: 10px;
       padding: 4px;
+      border: 1px solid rgba(201, 169, 98, 0.1);
     }
 
     .view-btn {
-      padding: 8px 12px;
+      padding: 10px 14px;
       border: none;
       background: transparent;
       color: var(--text-muted);
       cursor: pointer;
-      border-radius: 6px;
-      font-size: 14px;
-      transition: all 0.2s;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .view-btn:hover {
+      color: var(--text-cream);
     }
 
     .view-btn.active {
-      background: var(--frame-gold);
-      color: #1a1815;
+      background: linear-gradient(145deg, var(--frame-gold), var(--frame-bronze));
+      color: var(--museum-bg);
+      box-shadow: 0 2px 8px rgba(201, 169, 98, 0.25);
     }
 
-    /* Client Tabs */
+    /* Client Tabs - Elegant Pills */
     .client-tabs {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 16px;
       overflow-x: auto;
       padding-bottom: 4px;
       -webkit-overflow-scrolling: touch;
     }
 
+    .client-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
     .client-tab {
-      padding: 10px 16px;
-      border-radius: 20px;
+      padding: 12px 20px;
+      border-radius: 24px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      background: var(--wall-color);
-      border: 2px solid transparent;
+      background: var(--museum-accent);
+      border: 1px solid rgba(255,255,255,0.05);
       color: var(--text-muted);
-      transition: all 0.2s;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .client-tab:hover {
+      border-color: rgba(201, 169, 98, 0.2);
+      transform: translateY(-1px);
     }
 
     .client-tab .count {
-      background: rgba(255,255,255,0.1);
-      padding: 2px 8px;
-      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      padding: 3px 10px;
+      border-radius: 12px;
       font-size: 11px;
+      font-weight: 600;
     }
 
     .client-tab.active {
       border-color: var(--frame-gold);
-      color: var(--text-light);
+      color: var(--text-cream);
+      background: linear-gradient(145deg, rgba(201, 169, 98, 0.15), rgba(201, 169, 98, 0.05));
     }
 
-    .client-tab[data-client="frh"].active { border-color: var(--frh-color); }
-    .client-tab[data-client="onde"].active { border-color: var(--onde-color); }
-    .client-tab[data-client="magmatic"].active { border-color: var(--magmatic-color); }
+    .client-tab[data-client="frh"].active {
+      border-color: var(--frh-blue);
+      background: linear-gradient(145deg, rgba(74, 144, 217, 0.15), rgba(74, 144, 217, 0.05));
+    }
+    .client-tab[data-client="onde"].active {
+      border-color: var(--onde-gold);
+      background: linear-gradient(145deg, rgba(244, 208, 63, 0.15), rgba(244, 208, 63, 0.05));
+    }
+    .client-tab[data-client="magmatic"].active {
+      border-color: var(--magmatic-purple);
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05));
+    }
 
-    /* Stats */
+    /* Stats Bar */
     .stats {
       display: flex;
-      gap: 12px;
+      gap: 16px;
     }
 
     .stat {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-size: 12px;
       color: var(--text-muted);
     }
@@ -175,111 +239,132 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
+      box-shadow: 0 0 8px currentColor;
     }
 
-    .stat-dot.pending { background: var(--accent-pending); }
-    .stat-dot.approved { background: var(--accent-approve); }
-    .stat-dot.rejected { background: var(--accent-reject); }
+    .stat-dot.pending { background: var(--pending-gold); color: var(--pending-gold); }
+    .stat-dot.approved { background: var(--approve-green); color: var(--approve-green); }
+    .stat-dot.rejected { background: var(--reject-red); color: var(--reject-red); }
 
-    /* Type Filter Tabs */
+    /* Type Filter */
     .type-tabs {
       display: flex;
-      gap: 6px;
-      padding: 12px 20px;
-      background: rgba(0,0,0,0.3);
-      border-bottom: 1px solid #2a2520;
+      gap: 8px;
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(201, 169, 98, 0.08);
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
 
     .type-tab {
-      padding: 8px 16px;
-      border-radius: 16px;
+      padding: 10px 18px;
+      border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
       background: transparent;
-      border: 1px solid #3d3830;
+      border: 1px solid rgba(255,255,255,0.1);
       color: var(--text-muted);
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+    }
+
+    .type-tab:hover {
+      border-color: rgba(201, 169, 98, 0.3);
+      color: var(--text-cream);
     }
 
     .type-tab.active {
-      background: var(--frame-gold);
-      color: #1a1815;
-      border-color: var(--frame-gold);
+      background: linear-gradient(145deg, var(--frame-gold), var(--frame-bronze));
+      color: var(--museum-bg);
+      border-color: transparent;
+      box-shadow: 0 2px 12px rgba(201, 169, 98, 0.3);
     }
 
     /* Main Gallery */
     main {
-      padding: 20px;
-      padding-bottom: 120px;
+      padding: 28px 20px;
+      padding-bottom: 140px;
+      max-width: 1600px;
+      margin: 0 auto;
     }
 
     .empty-gallery {
       text-align: center;
-      padding: 80px 20px;
+      padding: 100px 20px;
     }
 
     .empty-gallery h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
       margin-bottom: 12px;
       color: var(--text-muted);
     }
 
     .empty-gallery p {
-      color: #666;
+      color: var(--text-dim);
       font-size: 14px;
     }
 
-    /* Gallery Grid View */
+    /* Gallery Grid */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 32px;
     }
 
     @media (max-width: 400px) {
-      .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
     }
 
-    /* Framed Artwork Card */
+    /* Museum Artwork Card */
     .artwork {
       position: relative;
-      background: var(--wall-color);
-      border-radius: 4px;
-      padding: 16px;
-      box-shadow:
-        0 8px 32px var(--shadow-deep),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: linear-gradient(180deg, var(--museum-wall) 0%, rgba(26,23,20,0.8) 100%);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: var(--shadow-deep);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(201, 169, 98, 0.08);
     }
 
     .artwork:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 16px 48px var(--shadow-deep),
-        inset 0 1px 0 rgba(255,255,255,0.05);
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      border-color: rgba(201, 169, 98, 0.15);
     }
 
-    /* Gold Frame */
+    /* Ornate Gold Frame */
     .frame {
       position: relative;
-      background: linear-gradient(145deg, #d4b66a, #a08040);
-      padding: 8px;
-      border-radius: 2px;
+      background: linear-gradient(145deg, #ddc078, #a08040);
+      padding: 10px;
+      border-radius: 4px;
       box-shadow:
-        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 2px 4px rgba(255,255,255,0.4),
         inset 0 -2px 4px rgba(0,0,0,0.3),
-        0 4px 12px rgba(0,0,0,0.4);
+        0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    .frame::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 2px;
+      pointer-events: none;
     }
 
     .frame-inner {
-      background: linear-gradient(145deg, #8b7355, #5c4d3a);
-      padding: 4px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+      background: linear-gradient(145deg, #7a6545, #4a3d30);
+      padding: 5px;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.6);
     }
 
     .artwork-image {
@@ -287,16 +372,18 @@
       aspect-ratio: 4/3;
       object-fit: cover;
       display: block;
-      background: #1a1815;
+      background: var(--museum-bg);
+      border-radius: 1px;
     }
 
     .artwork-image.placeholder {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-muted);
+      color: var(--text-dim);
       font-size: 14px;
       font-style: italic;
+      background: linear-gradient(135deg, #1a1714, #0f0d0b);
     }
 
     .artwork-video {
@@ -304,166 +391,215 @@
       aspect-ratio: 16/9;
       background: #000;
       display: block;
+      border-radius: 1px;
     }
 
-    /* Museum Plaque */
+    /* Museum Plaque - Brass Style */
     .plaque {
-      margin-top: 16px;
-      background: linear-gradient(180deg, #2a2520, #1f1c18);
-      border: 1px solid #3d3830;
-      border-radius: 4px;
-      padding: 14px;
+      margin-top: 18px;
+      background: linear-gradient(180deg, #1f1c18 0%, #151310 100%);
+      border: 1px solid rgba(201, 169, 98, 0.12);
+      border-radius: 6px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .plaque::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 169, 98, 0.3), transparent);
     }
 
     .plaque-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      gap: 12px;
     }
 
     .artwork-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
       font-weight: 600;
-      color: var(--text-light);
+      color: var(--text-cream);
       line-height: 1.3;
     }
 
     .status-badge {
-      padding: 4px 10px;
-      border-radius: 12px;
+      padding: 5px 12px;
+      border-radius: 14px;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      flex-shrink: 0;
     }
 
     .status-badge.pending {
-      background: rgba(212, 168, 75, 0.2);
-      color: var(--accent-pending);
-      border: 1px solid var(--accent-pending);
+      background: rgba(212, 168, 75, 0.15);
+      color: var(--pending-gold);
+      border: 1px solid rgba(212, 168, 75, 0.4);
     }
 
     .status-badge.approved {
-      background: rgba(74, 157, 110, 0.2);
-      color: var(--accent-approve);
-      border: 1px solid var(--accent-approve);
+      background: rgba(74, 157, 110, 0.15);
+      color: var(--approve-green);
+      border: 1px solid rgba(74, 157, 110, 0.4);
     }
 
     .status-badge.rejected {
-      background: rgba(196, 92, 92, 0.2);
-      color: var(--accent-reject);
-      border: 1px solid var(--accent-reject);
+      background: rgba(196, 92, 92, 0.15);
+      color: var(--reject-red);
+      border: 1px solid rgba(196, 92, 92, 0.4);
     }
 
     .plaque-meta {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .meta-tag {
       font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
       color: var(--text-muted);
+      border-left: 2px solid transparent;
     }
 
-    .meta-tag.client-frh { color: var(--frh-color); border-left: 2px solid var(--frh-color); }
-    .meta-tag.client-onde { color: var(--onde-color); border-left: 2px solid var(--onde-color); }
-    .meta-tag.client-magmatic { color: var(--magmatic-color); border-left: 2px solid var(--magmatic-color); }
+    .meta-tag.client-frh {
+      color: var(--frh-blue);
+      border-left-color: var(--frh-blue);
+      background: rgba(74, 144, 217, 0.08);
+    }
+    .meta-tag.client-onde {
+      color: var(--onde-gold);
+      border-left-color: var(--onde-gold);
+      background: rgba(244, 208, 63, 0.08);
+    }
+    .meta-tag.client-magmatic {
+      color: var(--magmatic-purple);
+      border-left-color: var(--magmatic-purple);
+      background: rgba(168, 85, 247, 0.08);
+    }
 
     .artwork-description {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 8px;
+      line-height: 1.6;
+      margin-bottom: 10px;
     }
 
     .artwork-caption {
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 4px;
+      background: rgba(0,0,0,0.4);
+      padding: 12px 14px;
+      border-radius: 6px;
       border-left: 3px solid var(--frame-gold);
-      font-size: 12px;
+      font-size: 13px;
       color: #c0b8a8;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-style: italic;
+      line-height: 1.5;
     }
 
-    /* Actions */
+    /* Action Buttons - Elegant */
     .artwork-actions {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .action-btn {
       flex: 1;
-      padding: 14px 12px;
+      padding: 16px 14px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
+      letter-spacing: 0.3px;
     }
 
-    .action-btn:active { transform: scale(0.97); }
+    .action-btn:active {
+      transform: scale(0.96);
+    }
 
     .action-btn.approve {
-      background: linear-gradient(135deg, var(--accent-approve), #3d8a5e);
+      background: linear-gradient(145deg, var(--approve-green), #3d8a5e);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(74, 157, 110, 0.3);
+      box-shadow: 0 4px 16px var(--approve-glow);
+    }
+
+    .action-btn.approve:hover {
+      box-shadow: 0 6px 24px var(--approve-glow);
+      transform: translateY(-2px);
     }
 
     .action-btn.reject {
-      background: var(--wall-color);
+      background: var(--museum-accent);
       color: var(--text-muted);
-      border: 1px solid #3d3830;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .action-btn.reject:hover {
+      border-color: var(--reject-red);
+      color: var(--reject-red);
     }
 
     .action-btn.redo {
-      background: linear-gradient(135deg, var(--accent-pending), #b8923d);
-      color: #1a1815;
+      background: linear-gradient(145deg, var(--pending-gold), #b8923d);
+      color: var(--museum-bg);
+      box-shadow: 0 4px 16px rgba(212, 168, 75, 0.3);
     }
 
-    /* Comment Input */
+    /* Comment Section */
     .comment-section {
-      margin-top: 10px;
+      margin-top: 12px;
       display: none;
+      animation: slideDown 0.3s ease;
     }
 
     .comment-section.visible {
       display: block;
     }
 
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .comment-input {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #3d3830;
-      border-radius: 8px;
-      background: rgba(0,0,0,0.3);
-      color: var(--text-light);
+      padding: 14px;
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.4);
+      color: var(--text-cream);
       font-size: 14px;
       font-family: inherit;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       resize: none;
+      transition: border-color 0.2s;
     }
 
     .comment-input:focus {
       outline: none;
-      border-color: var(--accent-pending);
+      border-color: var(--pending-gold);
     }
 
-    /* Swipe Card View */
+    /* Swipe Mode - Fullscreen Experience */
     .swipe-container {
       display: none;
       position: fixed;
@@ -471,7 +607,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--museum-bg);
+      background: linear-gradient(180deg, #0a0908 0%, #1a1714 100%);
       z-index: 200;
       flex-direction: column;
     }
@@ -481,27 +617,35 @@
     }
 
     .swipe-header {
-      padding: 20px;
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
     }
 
     .swipe-close {
-      background: var(--wall-color);
-      border: none;
-      color: var(--text-light);
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      font-size: 20px;
+      background: var(--museum-accent);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-cream);
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+      font-size: 18px;
       cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .swipe-close:hover {
+      background: var(--reject-red);
+      border-color: var(--reject-red);
     }
 
     .swipe-counter {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      letter-spacing: 2px;
     }
 
     .swipe-cards {
@@ -517,14 +661,16 @@
     .swipe-card {
       position: absolute;
       width: calc(100% - 40px);
-      max-width: 400px;
-      background: var(--wall-color);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 20px 60px var(--shadow-deep);
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: 380px;
+      background: linear-gradient(180deg, var(--museum-wall) 0%, #151310 100%);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow-deep);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.4s ease;
       touch-action: pan-y;
       user-select: none;
+      border: 1px solid rgba(201, 169, 98, 0.1);
     }
 
     .swipe-card.dragging {
@@ -532,142 +678,136 @@
     }
 
     .swipe-card .frame {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .swipe-card .artwork-image {
       aspect-ratio: 1/1;
+      border-radius: 2px;
     }
 
     .swipe-overlay {
       position: absolute;
-      top: 20px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 24px;
-      font-weight: 700;
+      top: 24px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 28px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       opacity: 0;
       transition: opacity 0.15s;
       pointer-events: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     .swipe-overlay.approve {
-      right: 20px;
-      background: var(--accent-approve);
+      right: 24px;
+      background: linear-gradient(145deg, var(--approve-green), #3d8a5e);
       color: white;
-      transform: rotate(15deg);
+      transform: rotate(12deg);
     }
 
     .swipe-overlay.reject {
-      left: 20px;
-      background: var(--accent-reject);
+      left: 24px;
+      background: linear-gradient(145deg, var(--reject-red), #a04545);
       color: white;
-      transform: rotate(-15deg);
+      transform: rotate(-12deg);
     }
 
     .swipe-hint {
       text-align: center;
-      padding: 20px;
-      color: var(--text-muted);
+      padding: 24px;
+      color: var(--text-dim);
       font-size: 14px;
-    }
-
-    .swipe-hint span {
-      display: inline-block;
-      padding: 6px 12px;
-      margin: 0 8px;
-      border-radius: 6px;
-      background: var(--wall-color);
-    }
-
-    .swipe-hint .left { color: var(--accent-reject); }
-    .swipe-hint .right { color: var(--accent-approve); }
-
-    /* Calendar View */
-    .calendar-view {
-      display: none;
-    }
-
-    .calendar-view.active {
-      display: block;
-    }
-
-    .calendar-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+      justify-content: center;
+      gap: 40px;
     }
 
-    .calendar-title {
-      font-family: 'Playfair Display', serif;
+    .swipe-hint .hint-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .swipe-hint .hint-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 20px;
     }
 
-    .calendar-nav {
+    .swipe-hint .hint-icon.left {
+      background: rgba(196, 92, 92, 0.15);
+      color: var(--reject-red);
+    }
+    .swipe-hint .hint-icon.right {
+      background: rgba(74, 157, 110, 0.15);
+      color: var(--approve-green);
+    }
+
+    /* Bulk Action Bar */
+    .bulk-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, transparent, rgba(15,13,11,0.98) 30%);
+      padding: 50px 20px 20px;
+      padding-bottom: calc(24px + env(safe-area-inset-bottom));
+      display: none;
+      pointer-events: none;
+    }
+
+    .bulk-bar.visible {
+      display: block;
+    }
+
+    .bulk-content {
+      background: var(--museum-wall);
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      border-radius: 20px;
+      padding: 16px;
       display: flex;
-      gap: 8px;
+      gap: 12px;
+      pointer-events: auto;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
     }
 
-    .calendar-nav button {
-      background: var(--wall-color);
-      border: 1px solid #3d3830;
-      color: var(--text-light);
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+    .bulk-btn {
+      flex: 1;
+      padding: 18px;
+      border: none;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
     }
 
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
+    .bulk-btn:active {
+      transform: scale(0.97);
     }
 
-    .calendar-day-header {
-      text-align: center;
-      padding: 8px;
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 500;
+    .bulk-btn.approve-all {
+      background: linear-gradient(145deg, var(--approve-green), #3d8a5e);
+      color: white;
+      box-shadow: 0 4px 16px var(--approve-glow);
     }
 
-    .calendar-day {
-      aspect-ratio: 1;
-      background: var(--wall-color);
-      border-radius: 8px;
-      padding: 6px;
-      font-size: 12px;
-      position: relative;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .calendar-day:hover {
-      background: #3d3830;
-    }
-
-    .calendar-day.today {
-      border: 2px solid var(--frame-gold);
-    }
-
-    .calendar-day.has-posts::after {
-      content: '';
-      position: absolute;
-      bottom: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent-pending);
-      border-radius: 50%;
-    }
-
-    .calendar-day.other-month {
-      opacity: 0.3;
+    .bulk-btn.swipe-mode {
+      background: linear-gradient(145deg, var(--frame-gold), var(--frame-bronze));
+      color: var(--museum-bg);
+      box-shadow: 0 4px 16px rgba(201, 169, 98, 0.3);
     }
 
     /* History View */
@@ -682,19 +822,26 @@
     .history-item {
       display: flex;
       gap: 16px;
-      padding: 16px;
-      background: var(--wall-color);
-      border-radius: 12px;
+      padding: 18px;
+      background: var(--museum-wall);
+      border: 1px solid rgba(201, 169, 98, 0.08);
+      border-radius: 14px;
       margin-bottom: 12px;
       align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .history-item:hover {
+      border-color: rgba(201, 169, 98, 0.2);
     }
 
     .history-thumb {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
       object-fit: cover;
-      background: #1a1815;
+      background: var(--museum-bg);
+      border: 2px solid rgba(201, 169, 98, 0.15);
     }
 
     .history-info {
@@ -702,7 +849,9 @@
     }
 
     .history-title {
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
+      font-size: 16px;
       margin-bottom: 4px;
     }
 
@@ -712,89 +861,141 @@
     }
 
     .history-status {
-      padding: 6px 12px;
-      border-radius: 16px;
+      padding: 8px 14px;
+      border-radius: 18px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .history-status.approved {
-      background: rgba(74, 157, 110, 0.2);
-      color: var(--accent-approve);
+      background: rgba(74, 157, 110, 0.15);
+      color: var(--approve-green);
     }
 
     .history-status.rejected {
-      background: rgba(196, 92, 92, 0.2);
-      color: var(--accent-reject);
+      background: rgba(196, 92, 92, 0.15);
+      color: var(--reject-red);
     }
 
-    /* Bulk Actions */
-    .bulk-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(180deg, transparent, var(--museum-bg) 20%);
-      padding: 40px 20px 20px;
-      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    /* Calendar View */
+    .calendar-view {
       display: none;
     }
 
-    .bulk-bar.visible {
+    .calendar-view.active {
       display: block;
     }
 
-    .bulk-content {
-      background: var(--wall-color);
-      border-radius: 16px;
-      padding: 16px;
+    .calendar-header {
       display: flex;
-      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
-    .bulk-btn {
-      flex: 1;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
+    .calendar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+    }
+
+    .calendar-nav {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 8px;
     }
 
-    .bulk-btn.approve-all {
-      background: linear-gradient(135deg, var(--accent-approve), #3d8a5e);
-      color: white;
+    .calendar-nav button {
+      background: var(--museum-accent);
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      color: var(--text-cream);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
     }
 
-    .bulk-btn.swipe-mode {
-      background: linear-gradient(135deg, var(--frame-gold), #a08040);
-      color: #1a1815;
+    .calendar-nav button:hover {
+      border-color: var(--frame-gold);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      padding: 12px 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      background: var(--museum-accent);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 13px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .calendar-day:hover {
+      background: rgba(201, 169, 98, 0.1);
+      border-color: rgba(201, 169, 98, 0.2);
+    }
+
+    .calendar-day.today {
+      border: 2px solid var(--frame-gold);
+      font-weight: 600;
+    }
+
+    .calendar-day.has-posts::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--pending-gold);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--pending-gold);
+    }
+
+    .calendar-day.other-month {
+      opacity: 0.25;
     }
 
     /* Toast Notification */
     .toast {
       position: fixed;
-      bottom: 100px;
+      bottom: 120px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: var(--wall-color);
-      color: var(--text-light);
-      padding: 14px 24px;
-      border-radius: 12px;
+      background: var(--museum-wall);
+      color: var(--text-cream);
+      padding: 16px 28px;
+      border-radius: 14px;
       font-size: 14px;
       font-weight: 500;
-      box-shadow: 0 8px 24px var(--shadow-deep);
+      box-shadow: var(--shadow-deep);
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1000;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .toast.show {
@@ -802,29 +1003,43 @@
       opacity: 1;
     }
 
-    .toast.success { border-left: 4px solid var(--accent-approve); }
-    .toast.error { border-left: 4px solid var(--accent-reject); }
+    .toast.success {
+      border-left: 4px solid var(--approve-green);
+      box-shadow: var(--shadow-deep), 0 0 30px var(--approve-glow);
+    }
+    .toast.error {
+      border-left: 4px solid var(--reject-red);
+      box-shadow: var(--shadow-deep), 0 0 30px var(--reject-glow);
+    }
 
     /* Mobile Optimizations */
     @media (max-width: 600px) {
-      header { padding: 16px; }
-      h1 { font-size: 20px; }
-      main { padding: 16px; }
-      .gallery-grid { gap: 20px; }
-      .artwork { padding: 12px; }
-      .frame { padding: 6px; }
-      .plaque { padding: 12px; }
-      .action-btn { padding: 16px; font-size: 15px; }
+      header { padding: 18px 16px 14px; }
+      h1 { font-size: 22px; }
+      .logo-subtitle { display: none; }
+      main { padding: 20px 16px; }
+      .gallery-grid { gap: 24px; }
+      .artwork { padding: 16px; }
+      .frame { padding: 8px; }
+      .plaque { padding: 14px; }
+      .action-btn { padding: 18px; font-size: 15px; }
+      .client-tab { padding: 10px 16px; }
     }
 
     /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .artwork {
-      animation: fadeIn 0.4s ease backwards;
+      animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
     }
 
     .artwork:nth-child(1) { animation-delay: 0.05s; }
@@ -833,6 +1048,27 @@
     .artwork:nth-child(4) { animation-delay: 0.2s; }
     .artwork:nth-child(5) { animation-delay: 0.25s; }
     .artwork:nth-child(6) { animation-delay: 0.3s; }
+
+    /* Haptic-like visual feedback */
+    @keyframes approve-pulse {
+      0% { box-shadow: 0 0 0 0 var(--approve-glow); }
+      70% { box-shadow: 0 0 0 20px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    @keyframes reject-pulse {
+      0% { box-shadow: 0 0 0 0 var(--reject-glow); }
+      70% { box-shadow: 0 0 0 20px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    .artwork.approved-animation {
+      animation: approve-pulse 0.6s ease-out;
+    }
+
+    .artwork.rejected-animation {
+      animation: reject-pulse 0.6s ease-out;
+    }
   </style>
 </head>
 <body>
@@ -840,7 +1076,10 @@
     <div class="header-top">
       <div class="logo">
         <div class="logo-icon">O</div>
-        <h1>Onde Gallery</h1>
+        <div class="logo-text">
+          <h1>Onde Gallery</h1>
+          <span class="logo-subtitle">Content Approval</span>
+        </div>
       </div>
       <div class="header-actions">
         <div class="view-toggle">
@@ -898,10 +1137,10 @@
   <div class="bulk-bar" id="bulk-bar">
     <div class="bulk-content">
       <button class="bulk-btn swipe-mode" onclick="enterSwipeMode()">
-        <span>Swipe Mode</span>
+        Swipe Mode
       </button>
       <button class="bulk-btn approve-all" onclick="bulkApprove()">
-        <span>Approva Tutti</span>
+        Approva Tutti
       </button>
     </div>
   </div>
@@ -911,12 +1150,18 @@
     <div class="swipe-header">
       <button class="swipe-close" onclick="exitSwipeMode()">X</button>
       <div class="swipe-counter" id="swipe-counter">1 / 10</div>
-      <div style="width: 40px;"></div>
+      <div style="width: 44px;"></div>
     </div>
     <div class="swipe-cards" id="swipe-cards"></div>
     <div class="swipe-hint">
-      <span class="left">Reject</span>
-      <span class="right">Approve</span>
+      <div class="hint-item">
+        <div class="hint-icon left">X</div>
+        <span>Reject</span>
+      </div>
+      <div class="hint-item">
+        <div class="hint-icon right">V</div>
+        <span>Approve</span>
+      </div>
     </div>
   </div>
 
@@ -981,11 +1226,13 @@
       document.getElementById('stat-approved').textContent = `${approved} approved`;
       document.getElementById('stat-rejected').textContent = `${rejected} rejected`;
 
-      // Client counts
-      document.getElementById('count-all').textContent = items.filter(i => i.status === 'pending').length;
-      document.getElementById('count-frh').textContent = items.filter(i => i.client === 'frh' && i.status === 'pending').length;
-      document.getElementById('count-onde').textContent = items.filter(i => i.client === 'onde' && i.status === 'pending').length;
-      document.getElementById('count-magmatic').textContent = items.filter(i => i.client === 'magmatic' && i.status === 'pending').length;
+      // Client counts - count ALL items (not just filtered)
+      fetch('/api/items').then(r => r.json()).then(allItems => {
+        document.getElementById('count-all').textContent = allItems.filter(i => i.status === 'pending').length;
+        document.getElementById('count-frh').textContent = allItems.filter(i => i.client === 'frh' && i.status === 'pending').length;
+        document.getElementById('count-onde').textContent = allItems.filter(i => i.client === 'onde' && i.status === 'pending').length;
+        document.getElementById('count-magmatic').textContent = allItems.filter(i => i.client === 'magmatic' && i.status === 'pending').length;
+      });
 
       // Show/hide bulk bar
       const bulkBar = document.getElementById('bulk-bar');
@@ -1066,10 +1313,10 @@
                 <button class="action-btn redo" onclick="rejectWithComment(${item.id})">Richiedi Modifiche</button>
               </div>
             ` : item.status === 'rejected' ? `
-              <p style="color: var(--accent-reject); font-size: 12px; margin-top: 8px;">
+              <p style="color: var(--reject-red); font-size: 12px; margin-top: 10px;">
                 <strong>Note:</strong> ${item.comment || 'Nessun commento'}
               </p>
-              <button class="action-btn redo" style="margin-top: 10px; width: 100%;" onclick="updateItem(${item.id}, {status:'pending'})">
+              <button class="action-btn redo" style="margin-top: 12px; width: 100%;" onclick="updateItem(${item.id}, {status:'pending'})">
                 Rimetti in Coda
               </button>
             ` : ''}
@@ -1173,7 +1420,7 @@
           <div class="history-info">
             <div class="history-title">${item.title}</div>
             <div class="history-meta">
-              ${clientLabels[item.client] || 'General'} - ${new Date(item.updatedAt).toLocaleDateString('it-IT')}
+              ${clientLabels[item.client] || 'Generale'} - ${new Date(item.updatedAt).toLocaleDateString('it-IT')}
             </div>
           </div>
           <span class="history-status ${item.status}">${item.status}</span>
@@ -1181,17 +1428,27 @@
       `).join('');
     }
 
-    // Update item
+    // Update item with animation
     async function updateItem(id, data) {
+      const artwork = document.querySelector(`.artwork[data-id="${id}"]`);
+
       try {
         await fetch(`/api/items/${id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
+
+        // Add animation class
+        if (artwork) {
+          artwork.classList.add(data.status === 'approved' ? 'approved-animation' : 'rejected-animation');
+        }
+
         if (navigator.vibrate) navigator.vibrate(30);
         showToast(data.status === 'approved' ? 'Approvato!' : 'Aggiornato', 'success');
-        loadItems();
+
+        // Delay reload to show animation
+        setTimeout(() => loadItems(), 300);
       } catch (e) {
         showToast('Errore', 'error');
       }
@@ -1201,6 +1458,9 @@
     function toggleComment(id) {
       const section = document.getElementById(`comment-${id}`);
       section.classList.toggle('visible');
+      if (section.classList.contains('visible')) {
+        section.querySelector('textarea').focus();
+      }
     }
 
     // Reject with comment
@@ -1211,6 +1471,8 @@
 
     // Bulk approve
     async function bulkApprove() {
+      if (!confirm('Approvare tutti i contenuti in sospeso?')) return;
+
       try {
         await fetch('/api/bulk-approve', {
           method: 'POST',
@@ -1307,17 +1569,21 @@
       const onMove = (e) => {
         if (!isDragging) return;
         currentX = (e.type === 'touchmove' ? e.touches[0].clientX : e.clientX) - startX;
-        card.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
 
-        // Show overlays
+        const rotation = currentX * 0.04;
+        const scale = 1 - Math.abs(currentX) * 0.0003;
+        card.style.transform = `translateX(${currentX}px) rotate(${rotation}deg) scale(${Math.max(0.95, scale)})`;
+
+        // Show overlays with smooth opacity
         const overlayApprove = document.getElementById('overlay-approve');
         const overlayReject = document.getElementById('overlay-reject');
+        const threshold = 60;
 
-        if (currentX > 50) {
-          overlayApprove.style.opacity = Math.min((currentX - 50) / 100, 1);
+        if (currentX > threshold) {
+          overlayApprove.style.opacity = Math.min((currentX - threshold) / 80, 1);
           overlayReject.style.opacity = 0;
-        } else if (currentX < -50) {
-          overlayReject.style.opacity = Math.min((-currentX - 50) / 100, 1);
+        } else if (currentX < -threshold) {
+          overlayReject.style.opacity = Math.min((-currentX - threshold) / 80, 1);
           overlayApprove.style.opacity = 0;
         } else {
           overlayApprove.style.opacity = 0;
@@ -1330,29 +1596,42 @@
         isDragging = false;
         card.classList.remove('dragging');
 
-        const threshold = 100;
+        const threshold = 120;
         const item = swipeItems[currentSwipeIndex];
 
         if (currentX > threshold) {
-          // Approve
-          card.style.transform = `translateX(1000px) rotate(30deg)`;
+          // Approve - fly right
+          card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+          card.style.transform = `translateX(1200px) rotate(40deg) scale(0.8)`;
           card.style.opacity = '0';
+          if (navigator.vibrate) navigator.vibrate([20, 30, 20]);
           setTimeout(() => {
-            updateItem(item.id, { status: 'approved' });
+            fetch(`/api/items/${item.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: 'approved' })
+            });
             currentSwipeIndex++;
-            setTimeout(renderSwipeCards, 200);
+            setTimeout(renderSwipeCards, 150);
           }, 200);
         } else if (currentX < -threshold) {
-          // Reject
-          card.style.transform = `translateX(-1000px) rotate(-30deg)`;
+          // Reject - fly left
+          card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+          card.style.transform = `translateX(-1200px) rotate(-40deg) scale(0.8)`;
           card.style.opacity = '0';
+          if (navigator.vibrate) navigator.vibrate(50);
           setTimeout(() => {
-            updateItem(item.id, { status: 'rejected', comment: 'Rejected via swipe' });
+            fetch(`/api/items/${item.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: 'rejected', comment: 'Rejected via swipe' })
+            });
             currentSwipeIndex++;
-            setTimeout(renderSwipeCards, 200);
+            setTimeout(renderSwipeCards, 150);
           }, 200);
         } else {
-          // Reset
+          // Snap back with bounce
+          card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
           card.style.transform = '';
           document.getElementById('overlay-approve').style.opacity = 0;
           document.getElementById('overlay-reject').style.opacity = 0;
@@ -1379,7 +1658,7 @@
       toast.className = `toast ${type} show`;
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 2500);
+      }, 3000);
     }
 
     // Event listeners
@@ -1408,6 +1687,39 @@
         currentView = btn.dataset.view;
         render();
       });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('swipe-container').classList.contains('active')) {
+        if (e.key === 'ArrowRight' || e.key === 'a') {
+          // Approve
+          const item = swipeItems[currentSwipeIndex];
+          if (item) {
+            fetch(`/api/items/${item.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: 'approved' })
+            });
+            currentSwipeIndex++;
+            renderSwipeCards();
+          }
+        } else if (e.key === 'ArrowLeft' || e.key === 'r') {
+          // Reject
+          const item = swipeItems[currentSwipeIndex];
+          if (item) {
+            fetch(`/api/items/${item.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: 'rejected' })
+            });
+            currentSwipeIndex++;
+            renderSwipeCards();
+          }
+        } else if (e.key === 'Escape') {
+          exitSwipeMode();
+        }
+      }
     });
 
     // Initialize

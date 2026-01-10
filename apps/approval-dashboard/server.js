@@ -104,7 +104,7 @@ async function sendTelegramNotification(message) {
   });
 }
 
-// Get all items (with optional type filter)
+// Get all items (with optional type/client filter)
 app.get('/api/items', (req, res) => {
   const data = loadData();
   let items = data.items;
@@ -112,6 +112,11 @@ app.get('/api/items', (req, res) => {
   // Filter by type if specified
   if (req.query.type) {
     items = items.filter(i => i.type === req.query.type);
+  }
+
+  // Filter by client if specified
+  if (req.query.client) {
+    items = items.filter(i => i.client === req.query.client);
   }
 
   // Filter by status if specified
@@ -145,6 +150,7 @@ app.post('/api/items', async (req, res) => {
   const item = {
     id: Date.now(),
     type: req.body.type || 'illustration', // illustration, social, video
+    client: req.body.client || null, // frh, onde, magmatic
     title: req.body.title || 'Senza titolo',
     description: req.body.description || '',
     prompt: req.body.prompt || '',
