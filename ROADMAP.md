@@ -187,10 +187,20 @@ FREE RIVER HOUSE (holding)
 
 ### Task Domini
 - [x] Comprare onde.surf ($3/anno)
-- [ ] Configurare onde.surf su Cloudflare Pages
-- [ ] Collegare onde.surf come custom domain del progetto "onde"
+- [x] Build onde-portal (986 libri, tutte le pagine) - **10 Gen 2026**
+- [x] Test localhost:3000 - TUTTE LE ROUTE FUNZIONANO - **10 Gen 2026**
+- [ ] Deploy su Cloudflare Pages (SERVE CLOUDFLARE_API_TOKEN)
+- [ ] Collegare onde.surf come custom domain del progetto "onde-portal"
 - [ ] Configurare onde.la come dominio produzione
 - [ ] Setup ambiente DEV separato da PROD
+
+### Stato Deploy (10 Gen 2026)
+- **Build**: OK - 1001 pagine generate in `/apps/onde-portal/out/`
+- **Localhost**: OK - Tutte le 18 route testate funzionano
+- **onde.surf**: DNS punta a IP sbagliato (162.255.119.212)
+- **onde-portal.pages.dev**: Error 522 - nessun deployment attivo
+- **BLOCCO**: Serve `CLOUDFLARE_API_TOKEN` per deploy via wrangler
+- **Log test**: `/logs/portal-test-2026-01-10.md`
 
 ### "ON THE PORTAL" = "ON THE WAVES" 🌊
 **Stesso nome, due versioni!**
