@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T11:13:05.328Z",
+  "last_updated": "2026-01-10T11:16:38.742Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1874,7 +1874,7 @@
       "description": "Migliorare apps/approval-dashboard: galleria post come quadri, swipe approve/reject, notifiche Telegram, multi-cliente. Stile museo elegante.",
       "category": "APPS",
       "priority": 2,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "saas-001"
       ],
@@ -1882,7 +1882,8 @@
       "files_involved": [],
       "claimed_by": "claude-69579-mk87ezjn",
       "claimed_at": "2026-01-10T11:10:42.803Z",
-      "created_at": "2026-01-09T09:44:53.245Z"
+      "created_at": "2026-01-09T09:44:53.245Z",
+      "completed_at": "2026-01-10T11:16:38.737Z"
     },
     {
       "id": "dashboard-bib-001",
