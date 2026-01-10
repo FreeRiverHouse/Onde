@@ -91,6 +91,20 @@
     "buyOnAmazon": "Buy on Amazon",
     "details": "Details",
     "watercolorIllustrated": "Watercolor Illustrated",
+    "sections": {
+      "classics": "Classics",
+      "classicsSubtitle": "Public Domain",
+      "classicsTitle": "Timeless Literature",
+      "classicsDescription": "Masterpieces of world literature, now in the public domain. From Project Gutenberg, illustrated with European watercolors.",
+      "classicBadge": "Classic",
+      "allClassics": "All Classics",
+      "ondeStudio": "Onde Studio",
+      "ondeStudioSubtitle": "Original Creations",
+      "ondeStudioTitle": "Created by Onde",
+      "ondeStudioDescription": "Original stories created by Onde with the help of AI. Modern tales for today's children, with our signature watercolor illustrations.",
+      "ondeStudioBadge": "Onde Studio",
+      "allOndeStudio": "All Onde Studio Books"
+    },
     "freeBooks": {
       "title": "All books are free",
       "description": "Children's literature should be accessible to everyone. Download, read and share our illustrated stories.",

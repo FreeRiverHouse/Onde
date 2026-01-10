@@ -1,6 +1,8 @@
 // Complete Gutenberg catalog with 1000+ books
 // gutenberg = Project Gutenberg ID
 
+export type BookSource = 'classic' | 'onde-studio'
+
 export interface Book {
   id: string
   title: string
@@ -8,6 +10,7 @@ export interface Book {
   gutenberg?: number
   category: string
   lang?: string // default: en
+  source?: BookSource // default: classic (Gutenberg books are classics)
 }
 
 export const books: Book[] = [

@@ -24,7 +24,7 @@ import {
   Platform,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { useConversation, DEFAULT_AGENTS, type Agent, type ConversationStatus } from '@/hooks/useConversation';
+import { useMacConversation, DEFAULT_AGENTS, type Agent, type ConversationStatus } from '@/hooks/useMacConversation';
 
 const { width } = Dimensions.get('window');
 
@@ -146,8 +146,42 @@ function AgentCard({
   );
 }
 
+// Connection status badge
+function ConnectionBadge({
+  isConnected,
+  status: connStatus,
+  onRetry
+}: {
+  isConnected: boolean;
+  status: string;
+  onRetry: () => void;
+}) {
+  if (isConnected) {
+    return (
+      <View style={styles.connectionBadge}>
+        <View style={[styles.connectionDot, { backgroundColor: Colors.success }]} />
+        <Text style={styles.connectionText}>Mac</Text>
+      </View>
+    );
+  }
+
+  return (
+    <TouchableOpacity onPress={onRetry} style={styles.connectionBadge}>
+      <View style={[styles.connectionDot, { backgroundColor: connStatus === 'connecting' ? Colors.gold : Colors.error }]} />
+      <Text style={styles.connectionText}>
+        {connStatus === 'connecting' ? '...' : 'Riconnetti'}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
 // Header with logo
-function Header({ status }: { status: ConversationStatus }) {
+function Header({ status, isConnected, connectionStatus, onRetry }: {
+  status: ConversationStatus;
+  isConnected: boolean;
+  connectionStatus: string;
+  onRetry: () => void;
+}) {
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -182,6 +216,11 @@ function Header({ status }: { status: ConversationStatus }) {
           {status === 'idle' ? 'Parla con i tuoi agenti' : STATUS_TEXT[status]}
         </Text>
       </View>
+      <ConnectionBadge
+        isConnected={isConnected}
+        status={connectionStatus}
+        onRetry={onRetry}
+      />
     </View>
   );
 }
@@ -191,16 +230,19 @@ function VoiceButton({
   status,
   onPressIn,
   onPressOut,
+  disabled = false,
 }: {
   status: ConversationStatus;
   onPressIn: () => void;
   onPressOut: () => void;
+  disabled?: boolean;
 }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
   const isActive = status === 'listening';
   const isProcessing = status === 'processing' || status === 'speaking';
+  const isDisabled = disabled || isProcessing;
 
   useEffect(() => {
     if (isActive) {
@@ -350,20 +392,23 @@ export default function HomeScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [initError, setInitError] = useState<string | null>(null);
 
-  // Use the conversation hook that ties everything together
+  // Use the Mac conversation hook - connects to Mac server
   const {
     messages,
     activeAgent,
     status,
     error,
     agents,
+    isConnected,
+    connectionStatus,
+    connect,
     startListening,
     stopListening,
     setActiveAgent,
     cancelSpeaking,
-  } = useConversation({
+  } = useMacConversation({
+    serverUrl: 'ws://localhost:3847', // Mac server
     initialAgent: 'editore-capo',
-    useElevenLabs: false, // Start with expo-speech for simplicity
     onStatusChange: (newStatus) => {
       console.log('[Home] Status changed:', newStatus);
     },
@@ -377,6 +422,13 @@ export default function HomeScreen() {
     onError: (err) => {
       console.error('[Home] Error:', err.message);
       setInitError(err.message);
+    },
+    onConnected: () => {
+      console.log('[Home] Connected to Mac server!');
+      setInitError(null);
+    },
+    onDisconnected: () => {
+      console.log('[Home] Disconnected from Mac server');
     },
   });
 
@@ -402,7 +454,12 @@ export default function HomeScreen() {
       <StatusBar style="light" />
 
       {/* Header */}
-      <Header status={status} />
+      <Header
+        status={status}
+        isConnected={isConnected}
+        connectionStatus={connectionStatus}
+        onRetry={connect}
+      />
 
       {/* Error display */}
       {(error || initError) && (
@@ -511,6 +568,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     marginLeft: 12,
+    flex: 1,
   },
   headerTitle: {
     fontSize: 22,
@@ -521,6 +579,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.textMuted,
     marginTop: 2,
+  },
+  connectionBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.oceanLight,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  connectionDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 6,
+  },
+  connectionText: {
+    fontSize: 12,
+    color: Colors.white,
+    fontWeight: '500',
   },
 
   // Error banner

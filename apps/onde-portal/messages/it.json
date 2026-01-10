@@ -91,6 +91,20 @@
     "buyOnAmazon": "Acquista su Amazon",
     "details": "Dettagli",
     "watercolorIllustrated": "Illustrato ad Acquarello",
+    "sections": {
+      "classics": "Classici",
+      "classicsSubtitle": "Dominio Pubblico",
+      "classicsTitle": "Letteratura Senza Tempo",
+      "classicsDescription": "Capolavori della letteratura mondiale, ora in dominio pubblico. Da Project Gutenberg, illustrati con acquarelli europei.",
+      "classicBadge": "Classico",
+      "allClassics": "Tutti i Classici",
+      "ondeStudio": "Onde Studio",
+      "ondeStudioSubtitle": "Creazioni Originali",
+      "ondeStudioTitle": "Creati da Onde",
+      "ondeStudioDescription": "Storie originali create da Onde con l'aiuto dell'AI. Racconti moderni per i bambini di oggi, con le nostre illustrazioni ad acquarello.",
+      "ondeStudioBadge": "Onde Studio",
+      "allOndeStudio": "Tutti i Libri Onde Studio"
+    },
     "freeBooks": {
       "title": "Tutti i libri sono gratuiti",
       "description": "La letteratura per bambini dovrebbe essere accessibile a tutti. Scarica, leggi e condividi le nostre storie illustrate.",
