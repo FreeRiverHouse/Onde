@@ -301,6 +301,17 @@ export default function CurrentPage() {
 
   return (
     <div className="min-h-screen py-12">
+      {/* Development Banner */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-2xl p-4 text-center">
+          <p className="text-yellow-300 font-medium">
+            <span className="text-xl mr-2">🚧</span>
+            Still under <span className="font-bold">(fast)</span> development — Please Check Back Soon
+            <span className="text-xl ml-2">⚡</span>
+          </p>
+        </div>
+      </div>
+
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <motion.div
