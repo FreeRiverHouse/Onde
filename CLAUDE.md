@@ -155,14 +155,35 @@ Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
 2. **AGGIORNA LA ROADMAP** - Aggiungi task/modifiche in ROADMAP.md
 3. **FAI COMMIT** - `git add . && git commit && git push`
 
-### "FACTORY TROTTA" (10 Gen 2026)
+### "FACTORY TROTTA" (10 Gen 2026) ✅ FUNZIONA!
 **Quando Mattia dice "Factory trotta", significa:**
 
-Tutti gli agenti devono lavorare come PAZZI TROTTATORI:
-1. **Prendi ticket** - `node scripts/worker/worker-manager.js next`
-2. **Fai il task** - Completa velocemente
-3. **Aggiungi task** - Espandi con nuovi task (CSI)
-4. **Prendi altro ticket** - E VIA!
+**NON devo prendere IO i ticket!** Devo LANCIARE GLI AGENTI in parallelo!
+
+```javascript
+// Esempio: Lancio 3 worker in parallelo
+Task(worker1) → dashboard-factory-001
+Task(worker2) → tsunami-002
+Task(worker3) → deploy portal
+// Tutti lavorano CONTEMPORANEAMENTE!
+```
+
+**Come funziona:**
+1. **Guarda task disponibili**: `node scripts/worker/worker-manager.js available`
+2. **Lancia N agenti** con Task tool (run_in_background: true)
+3. **Ogni agente**: claim task → lavora → complete → commit
+4. **Monitora**: leggi output files per vedere progresso
+5. **Quando finiscono**: nuovi agenti su nuovi task
+
+**Template prompt per agente worker:**
+```
+Sei un worker della fabbrica Onde. Il tuo compito:
+1. Prendi il task `TASK-ID` con: node scripts/worker/worker-manager.js claim TASK-ID
+2. [DESCRIZIONE LAVORO]
+3. Quando finisci: node scripts/worker/worker-manager.js complete TASK-ID
+4. Commit e push
+LAVORA VELOCE! Factory trotta!
+```
 
 **Obiettivo**: Spingere la fabbrica, far trottare tutti gli agenti, massima velocità!
 
