@@ -130,6 +130,54 @@ FREE RIVER HOUSE (holding)
 - [ ] Configurare onde.la come dominio produzione
 - [ ] Setup ambiente DEV separato da PROD
 
+### "ON THE PORTAL" = "ON THE WAVES" 🌊
+**Stesso nome, due versioni!**
+- onde.la = LEGACY (tradizionale, libri)
+- onde.surf = FUTURE (VR, home school, interattivo)
+
+---
+
+## 🥽 VR LEARNING & HOME SCHOOL (10 Gen 2026)
+
+**VISIONE**: I bambini stanno comunque in VR - tanto vale fare roba BUONA!
+
+### Home School Personalizzato
+- Genitori impostano i VALORI che vogliono insegnare
+- Onde li insegna ai bambini con contenuti su misura
+- Fidelizza chi è sopraffatto dal flood AI generico
+
+### Espansione Futura
+- Terapisti → sessioni VR guidate
+- Psicologi → terapia immersiva
+- Medici → educazione sanitaria
+- Educatori → lezioni personalizzate
+
+---
+
+## 🎨 WORKFLOW ILLUSTRAZIONI 2026 (10 Gen 2026)
+
+**REGOLA**: NON generare 32 immagini con stesso prompt → si vede che è AI!
+
+### Tool per Coerenza Personaggi
+- **Midjourney**: `--cref` + `--sref` per personaggio fisso
+- **ConsistentCharacter.ai**: alternativa
+- **Hedra**: reference images (abbonamento attivo)
+
+### Intervento Umano (Photoshop/Procreate)
+- Imperfezioni volute: asimmetria, sbavature
+- Dettagli a mano: occhi, sorrisi, mani
+- Texture cartacea / acquerello overlay
+
+---
+
+## 🚀 SCALE SMARTER Q1 2026
+
+- [ ] 100 illustrazioni originali con agents
+- [ ] Test A/B sui 3 account X
+- [ ] Target: 10k followers Q1
+- [ ] Google Analytics sul portale
+- [ ] Parental controls per kids content
+
 ---
 
 ## 🌐 PORTALE ONDE.LA - PRIORITÀ ASSOLUTA (9 Gen 2026)

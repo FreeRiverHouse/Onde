@@ -208,6 +208,113 @@ FREE RIVER HOUSE (holding/software house)
 
 ---
 
+## 🥽 ONDE PORTAL - VR LEARNING & HOME SCHOOL (10 Gen 2026)
+
+**VISIONE ENORME**: "On The Portal" - Educazione in VR personalizzata!
+
+### 💡 Il Problema
+I bambini stanno comunque in VR - **tanto vale fare roba BUONA che possono usare!**
+
+### 🏠 Home School in VR
+- **Genitori impostano i valori** che vogliono insegnare
+- **Onde li insegna** ai bambini con contenuti personalizzati
+- Educazione con i VALORI della famiglia, non quelli random
+- Fidelizza persone sopraffatte dal flood di contenuti AI generici
+
+### 🩺 Espansione Futura
+| Settore | Uso |
+|---------|-----|
+| **Terapisti** | Sessioni VR guidate |
+| **Psicologi** | Terapia immersiva |
+| **Medici** | Educazione sanitaria |
+| **Educatori** | Lezioni personalizzate |
+
+### 🎯 Differenziatore
+- **Platform/Universe** per fidelizzare
+- NON content generico AI
+- Valori SCELTI dalla famiglia
+- Qualità > Quantità
+
+### 📛 "ON THE PORTAL" = "ON THE WAVES" 🌊
+**Gioco di parole geniale!**
+
+- "On The Portal" → Portale
+- "On The Waves" → Sulle Onde
+- **ONDE** = tutto torna!
+
+| Dominio | Versione | Target |
+|---------|----------|--------|
+| **onde.la** | LEGACY | Tradizionale, casa editrice, libri fisici |
+| **onde.surf** | FUTURE | VR, interattivo, sperimentale, home school |
+
+- Stesso nome "On The Portal/Waves" ma due realtà diverse
+- onde.la = chi vuole il libro tradizionale
+- onde.surf = chi surfa il futuro VR/AI
+
+---
+
+## 🚀 SCALE SMARTER - Q1 2026 (10 Gen 2026)
+
+### Obiettivi
+- **100 illustrazioni originali** con agents (Grok/Midjourney/Hedra)
+- **Test A/B** sui 3 account X (@FreeRiverHouse, @Onde_FRH, @magmatic__)
+- **10k followers** totali entro Q1
+
+### Risk Mitigation
+- [ ] Backup cloud (oltre Cloudflare)
+- [ ] Google Analytics sul portale
+- [ ] Parental controls per kids content
+- [ ] Compliance per contenuti bambini
+
+---
+
+## 🤖 EMILIA vs EMILIO (10 Gen 2026)
+
+**NOME ALTERNATIVO**: EmilIA!!!!
+
+Considerare "EmilIA" invece di "Emilio":
+- Gioco di parole con AI
+- Femminile = meno aggressivo, più accogliente?
+- Da discutere con Mattia
+
+**Status attuale**: EMILIO confermato, ma EmilIA è opzione
+
+---
+
+## 🎨 WORKFLOW ILLUSTRAZIONI CONSISTENTI (10 Gen 2026)
+
+**PROBLEMA**: Con AI, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
+
+### 🚫 COSA NON FARE
+- **NON** generare 32 immagini con unico prompt → si vede che è AI
+- **NON** usare lo stesso prompt ripetuto → inconsistenza garantita
+
+### ✅ WORKFLOW VINCENTE 2026
+
+**STEP 1: Genera base coerente**
+| Tool | Uso |
+|------|-----|
+| **Midjourney v6+** | `--cref` + `--sref` per personaggio fisso |
+| **ConsistentCharacter.ai** | Alternativa per mantenere personaggio |
+| **Hedra** | Reference images (già abbonamento attivo) |
+| **Flux / Ideogram** | I migliori per stile illustrativo coerente |
+
+**STEP 2: Intervento umano pesante (Photoshop/Procreate/Affinity)**
+- Aggiungi **imperfezioni volute**: leggera asimmetria, tratti "a mano", piccole sbavature
+- Disegna a mano **dettagli chiave**: occhi più espressivi, sorrisi asimmetrici, mani che toccano
+- Aggiungi **texture cartacea / acquerello overlay** → fa sembrare tradizionale
+
+**STEP 3: Risultato**
+= Sembra illustrato da un artista umano che ha usato tool digitali, NON roba generata
+
+### 🖼️ STILE VISIVO TARGET
+- **Dreamy, warm** - Luce dorata, atmosfera serena
+- **Shepherd/lambs** - Come immagine Salmo 23
+- **Pastelli morbidi** - Espressione dolce del pastore/bambino
+- **Pace e tenerezza** - Far sentire i piccoli al sicuro e amati
+
+---
+
 ## 🎨 HEDRA - IMAGE FACTORY PER COERENZA PERSONAGGI (10 Gen 2026)
 
 **PROBLEMA RISOLTO**: Con Grok, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
