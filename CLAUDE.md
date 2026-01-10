@@ -7,6 +7,68 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚀 COLD START - DOPO RIFORMATTAZIONE MAC (10 Gen 2026)
+
+**Quando Mattia riformatta il Mac e reinstalla Claude Code, segui questi step:**
+
+### Step 1: Clone Repository
+```bash
+git clone https://github.com/FreeRiverHouse/Onde.git
+cd Onde
+```
+
+### Step 2: Leggi Memoria
+```bash
+# Claude Code legge automaticamente CLAUDE.md
+# Ma se non lo fa, leggi tu:
+cat CLAUDE.md
+cat ROADMAP.md
+```
+
+### Step 3: Crea file .env (CREDENZIALI - non su GitHub!)
+```bash
+# Mattia deve creare questo file manualmente con le sue credenziali:
+touch .env
+# Contenuto necessario:
+# TELEGRAM_BOT_TOKEN=8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps
+# X_FRH_API_KEY=...
+# X_ONDE_API_KEY=...
+# X_MAGMATIC_API_KEY=...
+```
+
+### Step 4: Installa dipendenze
+```bash
+npm install  # se c'è package.json
+```
+
+### Step 5: Verifica sistema worker
+```bash
+node scripts/worker/worker-manager.js status
+```
+
+### Step 6: Vai!
+Chiedi a Mattia cosa vuole fare, o controlla la ROADMAP per i task pendenti.
+
+### 🔑 CREDENZIALI DA RECUPERARE (Mattia le ha)
+- Telegram Bot Token
+- X API Keys (3 account)
+- Cloudflare API (opzionale)
+- ElevenLabs API (opzionale)
+
+### 📁 STRUTTURA IMPORTANTE
+```
+Onde/
+├── CLAUDE.md          # QUESTA MEMORIA - LEGGI SEMPRE
+├── ROADMAP.md         # Task e priorità
+├── .claude-workers/   # Sistema task/worker
+├── apps/              # Applicazioni (onde-portal, etc.)
+├── books/             # Libri in produzione
+├── content/           # Contenuti, agenti, autori
+└── scripts/           # Script automazione
+```
+
+---
+
 ## 🚨🚨🚨 REGOLA ASSOLUTA #0 - MAI SUBSCRIPTION AUTONOME 🚨🚨🚨
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
@@ -35,19 +97,74 @@ Questa regola esiste per PROTEGGERE Mattia da addebiti non autorizzati.
 
 ---
 
+## 🎨 HEDRA - IMAGE FACTORY PER COERENZA PERSONAGGI (10 Gen 2026)
+
+**PROBLEMA RISOLTO**: Con Grok, ogni immagine genera un personaggio diverso. EMILIO in Cap 1 è diverso da EMILIO in Cap 2.
+
+**SOLUZIONE**: Hedra supporta **reference images** - può prendere UN design e mantenerlo coerente in tutte le scene!
+
+### 💳 Abbonamento Attivo
+- **Account**: freeriverhouse@gmail.com
+- **Piano**: Basic Web Yearly ($144/anno)
+- **Crediti**: 17805 disponibili
+- **Scadenza**: 8 Gen 2027 (rinnovo già cancellato)
+
+### 🎯 Uso Principale: Coerenza Libri Illustrati
+1. Creare UN design definitivo di EMILIO
+2. Usarlo come reference per TUTTE le illustrazioni
+3. = STESSO robot in ogni capitolo, ogni libro, ogni video
+
+### 📚 Workflow Produzione Libri con Hedra
+1. **Design personaggio** → Creare/approvare design definitivo
+2. **Reference image** → Salvare come reference ufficiale
+3. **Genera scene** → Usare Hedra con reference per ogni illustrazione
+4. **Verifica coerenza** → Controllare che sia lo stesso personaggio
+5. **Export** → Scaricare in alta qualità per PDF
+
+### ⚙️ Features Hedra da Sfruttare
+- [ ] **Image reference** - Per coerenza personaggi
+- [ ] **Quality settings** - Massima qualità per libri
+- [ ] **Stile acquarello 3D?** - Da testare se possibile
+- [ ] **Lip sync** - Per video con personaggi coerenti
+- [ ] **Batch generation** - Più scene stesso personaggio
+
+### 📁 Reference Personaggi (da creare)
+| Personaggio | Reference File | Status |
+|-------------|---------------|--------|
+| EMILIO | `content/characters/emilio-ref.jpg` | Da creare |
+| Moonlight | `content/characters/moonlight-ref.jpg` | Da creare |
+| Luca | `content/characters/luca-ref.jpg` | Da creare |
+| Biscotto | `content/characters/biscotto-ref.jpg` | Da creare |
+
+**PRIORITÀ**: Studiare Hedra e creare i design reference per ogni personaggio!
+
+---
+
 ## REGOLA D'ORO: MEMORIA = COMMIT
 **Ogni volta che aggiorni CLAUDE.md → COMMIT IMMEDIATO.**
 Non esiste aggiornare la memoria senza committare. Sono la stessa cosa.
 
 ---
 
-## 🔮 PAROLA IN CODICE: "SBRINCHI, SBRONCHI"
+## 🔮 PAROLE IN CODICE
 
+### "SBRINCHI, SBRONCHI" (o varianti: zbrinky zbronky)
 **Quando Mattia dice "Sbrinchi, sbronchi", DEVI fare queste 3 cose:**
 
 1. **AGGIORNA LA MEMORIA** - Aggiungi/modifica info in CLAUDE.md
 2. **AGGIORNA LA ROADMAP** - Aggiungi task/modifiche in ROADMAP.md
 3. **FAI COMMIT** - `git add . && git commit && git push`
+
+### "FACTORY TROTTA" (10 Gen 2026)
+**Quando Mattia dice "Factory trotta", significa:**
+
+Tutti gli agenti devono lavorare come PAZZI TROTTATORI:
+1. **Prendi ticket** - `node scripts/worker/worker-manager.js next`
+2. **Fai il task** - Completa velocemente
+3. **Aggiungi task** - Espandi con nuovi task (CSI)
+4. **Prendi altro ticket** - E VIA!
+
+**Obiettivo**: Spingere la fabbrica, far trottare tutti gli agenti, massima velocità!
 
 **Esempio d'uso:**
 - Mattia: "Aggiungi questo libro al catalogo. Sbrinchi, sbronchi!"
@@ -167,9 +284,9 @@ content/agents/
 
 **Nota su .la**: Il dominio .la è del **Laos** (non Los Angeles). Lo usiamo per il gioco di parole. Il Laos NON è un paradiso fiscale (20% corporate tax).
 
-### 🌐 CLOUDFLARE DNS - CONFIGURATO (9 Gen 2026)
+### 🌐 CLOUDFLARE DNS - ✅ COMPLETATO (10 Gen 2026)
 
-**onde.la è su Cloudflare!**
+**onde.la è su Cloudflare! Nameserver configurati su Namecheap!**
 
 | Info | Valore |
 |------|--------|

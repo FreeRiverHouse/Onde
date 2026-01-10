@@ -2,24 +2,416 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --onde-gold: #f4d03f;
-  --onde-dark: #1a1a2e;
-  --onde-blue: #16213e;
+/* ============================================
+   ONDE PORTAL - Global Styles
+   Stile Acquarello Europeo
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Onde Palette */
+    --onde-coral: #FF7F7F;
+    --onde-coral-light: #FFB3B3;
+    --onde-gold: #F4D03F;
+    --onde-gold-light: #F9E79F;
+    --onde-teal: #48C9B0;
+    --onde-teal-light: #A3E4D7;
+    --onde-blue: #5DADE2;
+    --onde-ocean: #1B4F72;
+    --onde-cream: #FDF6E3;
+    --onde-sand: #F5DEB3;
+
+    /* Animation speeds */
+    --transition-fast: 150ms;
+    --transition-base: 300ms;
+    --transition-slow: 500ms;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background: linear-gradient(180deg, var(--onde-cream) 0%, #fff 100%);
+    min-height: 100vh;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: rgba(255, 127, 127, 0.3);
+  }
 }
 
-body {
-  background: linear-gradient(135deg, var(--onde-dark) 0%, var(--onde-blue) 100%);
+@layer components {
+  /* ============================================
+     WATERCOLOR EFFECTS
+     ============================================ */
+
+  .watercolor-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .watercolor-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 20%, rgba(255, 127, 127, 0.12) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 80%, rgba(72, 201, 176, 0.1) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(244, 208, 63, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(93, 173, 226, 0.08) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .watercolor-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .watercolor-blob-coral {
+    background: var(--onde-coral);
+  }
+
+  .watercolor-blob-teal {
+    background: var(--onde-teal);
+  }
+
+  .watercolor-blob-gold {
+    background: var(--onde-gold);
+  }
+
+  .watercolor-blob-blue {
+    background: var(--onde-blue);
+  }
+
+  /* ============================================
+     NAVIGATION
+     ============================================ */
+
+  .nav-link {
+    @apply relative px-4 py-2 text-onde-ocean/70 font-medium transition-all duration-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-onde-coral to-onde-gold;
+    @apply transition-all duration-300 transform -translate-x-1/2;
+  }
+
+  .nav-link:hover {
+    @apply text-onde-ocean;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-onde-coral;
+  }
+
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  /* ============================================
+     BUTTONS
+     ============================================ */
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2;
+    @apply px-6 py-3 rounded-2xl font-semibold;
+    @apply transition-all duration-300 ease-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-onde-coral to-onde-coral-light;
+    @apply text-white shadow-lg shadow-onde-coral/30;
+    @apply hover:shadow-xl hover:shadow-onde-coral/40 hover:scale-105;
+    @apply focus:ring-onde-coral;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white/80 backdrop-blur-sm;
+    @apply text-onde-ocean border-2 border-onde-ocean/20;
+    @apply hover:bg-onde-cream hover:border-onde-coral/40 hover:scale-105;
+    @apply focus:ring-onde-ocean;
+  }
+
+  .btn-gold {
+    @apply btn bg-gradient-to-r from-onde-gold to-onde-gold-light;
+    @apply text-onde-ocean shadow-lg shadow-onde-gold/30;
+    @apply hover:shadow-xl hover:shadow-onde-gold/40 hover:scale-105;
+    @apply focus:ring-onde-gold;
+  }
+
+  .btn-teal {
+    @apply btn bg-gradient-to-r from-onde-teal to-onde-teal-light;
+    @apply text-white shadow-lg shadow-onde-teal/30;
+    @apply hover:shadow-xl hover:shadow-onde-teal/40 hover:scale-105;
+    @apply focus:ring-onde-teal;
+  }
+
+  /* ============================================
+     CARDS
+     ============================================ */
+
+  .card {
+    @apply relative bg-white/80 backdrop-blur-sm rounded-3xl;
+    @apply border border-white/50 shadow-card;
+    @apply transition-all duration-500 ease-out;
+    @apply overflow-hidden;
+  }
+
+  .card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg,
+      rgba(255, 127, 127, 0.05) 0%,
+      rgba(244, 208, 63, 0.05) 50%,
+      rgba(72, 201, 176, 0.05) 100%
+    );
+  }
+
+  .card:hover {
+    @apply shadow-card-hover -translate-y-2;
+  }
+
+  .card:hover::before {
+    @apply opacity-100;
+  }
+
+  .card-coral {
+    @apply border-onde-coral/20;
+  }
+
+  .card-coral:hover {
+    @apply border-onde-coral/40 shadow-glow-coral;
+  }
+
+  .card-gold {
+    @apply border-onde-gold/20;
+  }
+
+  .card-gold:hover {
+    @apply border-onde-gold/40 shadow-glow-gold;
+  }
+
+  .card-teal {
+    @apply border-onde-teal/20;
+  }
+
+  .card-teal:hover {
+    @apply border-onde-teal/40 shadow-glow-teal;
+  }
+
+  /* ============================================
+     SECTION HEADERS
+     ============================================ */
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-display font-bold text-onde-ocean;
+    @apply mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-onde-ocean/60 max-w-2xl mx-auto;
+    @apply leading-relaxed;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full;
+    @apply text-sm font-semibold mb-6;
+    @apply bg-gradient-to-r from-onde-coral/10 to-onde-gold/10;
+    @apply text-onde-coral border border-onde-coral/20;
+  }
+
+  /* ============================================
+     GRID LAYOUTS
+     ============================================ */
+
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .masonry-grid {
+    columns: 1;
+    column-gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .masonry-grid {
+      columns: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      columns: 3;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+
+  /* ============================================
+     WAVE DIVIDERS
+     ============================================ */
+
+  .wave-divider {
+    @apply relative h-24 md:h-32 overflow-hidden;
+  }
+
+  .wave-divider svg {
+    @apply absolute bottom-0 w-full h-full;
+  }
+
+  /* ============================================
+     GLASSMORPHISM
+     ============================================ */
+
+  .glass {
+    @apply bg-white/60 backdrop-blur-md;
+    @apply border border-white/50;
+    @apply shadow-lg;
+  }
+
+  .glass-dark {
+    @apply bg-onde-ocean/80 backdrop-blur-md;
+    @apply border border-white/10;
+    @apply text-white;
+  }
+
+  /* ============================================
+     DECORATIVE ELEMENTS
+     ============================================ */
+
+  .decorative-line {
+    @apply h-1 w-24 mx-auto rounded-full;
+    background: linear-gradient(90deg, var(--onde-coral), var(--onde-gold), var(--onde-teal));
+  }
+
+  .decorative-dot {
+    @apply w-2 h-2 rounded-full bg-onde-gold;
+  }
+
+  .brush-stroke {
+    position: relative;
+  }
+
+  .brush-stroke::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(244, 208, 63, 0.4) 20%,
+      rgba(244, 208, 63, 0.6) 50%,
+      rgba(244, 208, 63, 0.4) 80%,
+      transparent 100%
+    );
+    border-radius: 4px;
+    transform: skewX(-5deg);
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Staggered animation delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
 }
 
-.book-card {
-  @apply bg-white/5 rounded-2xl p-6 hover:bg-white/10 transition-all cursor-pointer;
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 
-.btn-primary {
-  @apply bg-onde-gold text-onde-dark font-bold py-3 px-6 rounded-xl hover:opacity-90 transition;
-}
+  .text-gradient-coral {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-onde-coral to-onde-coral-light;
+  }
 
-.btn-secondary {
-  @apply border border-onde-gold text-onde-gold py-3 px-6 rounded-xl hover:bg-onde-gold/10 transition;
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-onde-gold to-onde-gold-light;
+  }
+
+  .text-gradient-teal {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-onde-teal to-onde-teal-light;
+  }
+
+  .text-gradient-sunset {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-onde-coral via-onde-gold to-onde-teal;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

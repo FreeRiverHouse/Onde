@@ -53,7 +53,8 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 - onde.la su Cloudflare (Free plan)
 - Zone ID: `5f1b2fe544f1a925765305fefcf36fe1`
 - Nameserver: `aarav.ns.cloudflare.com`, `janet.ns.cloudflare.com`
-- **TODO**: Mattia deve cambiare nameserver nel registrar
+- ✅ **Nameserver cambiati su Namecheap** (10 Gen 2026)
+- ⏳ Propagazione DNS in corso (fino a 48h)
 
 ### Sezioni Portale
 - [ ] **App** - Le nostre app
@@ -66,6 +67,24 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 ### Workflow
 Developer costruisce → Critic boccia → Developer migliora → Repeat → PERFETTO → Avvisa Mattia
+
+---
+
+## 🎨 HEDRA - IMAGE FACTORY (10 Gen 2026)
+
+**Abbonamento attivo**: $144/anno, 17805 crediti, scade 8 Gen 2027
+
+### Da Studiare
+- [ ] **Reference images** - Può mantenere stesso personaggio?
+- [ ] **Stili disponibili** - Ha acquarello o solo 3D Pixar?
+- [ ] **Quality settings** - Quali opzioni per libri?
+- [ ] **Workflow ottimale** - Come usarlo per produzione libri
+
+### Obiettivo
+Usare Hedra per risolvere il problema di COERENZA:
+- EMILIO uguale in ogni illustrazione
+- Tutti i personaggi consistenti
+- Qualità superiore a Grok
 
 ---
 
