@@ -416,32 +416,69 @@ Reader: epub.js o simile
 
 ## 🔴 PRIORITÀ IMMEDIATE (Slack 7 Gen 2026)
 
-### 0. REBRANDING AIKO → EMILIO (🔥 NUOVO - 9 Gen 2026)
+### 0. 🚀 EMILIO BRAND - PRIORITÀ ASSOLUTA (9 Gen 2026)
 
-**DECISIONE**: Il personaggio robot AIKO verrà rinominato **EMILIO**
+**EMILIO non è un personaggio. EMILIO è un BRAND.**
 
-**Motivazione**:
-- Nome "Aiko" non protetto ma generico
-- "Emilio" ispirato a **EMIGLIO** di Giochi Preziosi (robot anni '90)
-- Aspetto più rassicurante, vintage, italiano
+Come Peppa Pig, Bluey, Cocomelon - ma stile Onde (italiano, elegante, valori veri).
 
-**Copyright EMIGLIO**:
-- Dichiarare ispirazione = OK
-- Design sufficientemente diverso = OK
-- Nome "Emilio" è generico, non protetto
+### 🎯 EMILIO EMPIRE - Piano Completo
 
-**TASK**:
-- [ ] Ridefinire aspetto Emilio (ispirato a Emiglio ma diverso)
-- [ ] Stile visivo: Salmo 23 (più shiny, acquarello dorato)
-- [ ] Rigenerare TUTTE le immagini dei libri AIKO 1 e 2
-- [ ] Aggiornare testi (sostituire AIKO → Emilio)
-- [ ] Aggiungere check "verifica nomi esistenti" nel processo editoriale
+| Verticale | Descrizione | Priority |
+|-----------|-------------|----------|
+| **📱 Social** | Profilo X, TikTok, YouTube | P0 - SUBITO |
+| **📚 Libri** | Sofia & Emilio (ex AIKO) | P1 |
+| **🎮 Gaming** | Canale YouTube video giochi | P1 |
+| **🧸 Merchandise** | Pupazzetti, peluche | P2 |
+| **📱 App** | Giochi interattivi Emilio | P2 |
+| **🎵 Musica** | Canzoni, jingle, ninne nanne | P2 |
+| **👕 Abbigliamento** | T-shirt, accessori | P3 |
 
-**PROCESSO EDITORIALE - NUOVO CHECK**:
-Prima di pubblicare un libro, l'Editore Capo DEVE verificare:
-- [ ] Il nome del personaggio principale esiste già in altri libri?
-- [ ] Ricerca Amazon/Google per conflitti
-- [ ] Se esiste → rinominare PRIMA di procedere
+### 📋 TASK IMMEDIATI - Lancio EMILIO
+
+### 👥 IL QUARTETTO
+| Personaggio | Nome | Tipo | Note |
+|-------------|------|------|------|
+| **EMILIO** | ✅ | Robot | Protagonista |
+| **MOONLIGHT** | Da confermare | Bambina | Ex Sofia |
+| **LUCA** | Da confermare | Fratellino | Family-friendly |
+| **BISCOTTO** | 🐕 | Cagnolino | (già esiste Chef Biscotto) |
+
+### 🍪 STRATEGIA VIRALE - "Ha Ha Cookie"
+1. Video: EMILIO traduce qualcosa
+2. Nasce canzone "Ha Ha Cookie" (tipo Baby Shark)
+3. Video virale TikTok/YouTube
+4. Milioni di bambini conoscono EMILIO
+5. → Vendite tutto
+
+**FASE 1 - Identità (questa settimana)**
+- [ ] Design EMILIO definitivo (stile Salmo 23, acquarello dorato)
+- [ ] Character sheet QUARTETTO (Emilio, Moonlight, Luca, Biscotto)
+- [ ] Profilo X @Emil_io o simile
+- [ ] Bio, avatar, banner
+- [ ] Primi 10 post pronti
+
+**FASE 2 - Contenuti (prossima settimana)**
+- [ ] Rigenerare TUTTI i libri con EMILIO (non più AIKO)
+- [ ] Video "Ha Ha Cookie" virale
+- [ ] Canale YouTube EMILIO Gaming
+- [ ] Prima puntata gaming
+
+**FASE 3 - Merchandise (Q1 2026)**
+- [ ] Design pupazzetto 3D EMILIO
+- [ ] Pupazzetti tutto il QUARTETTO
+- [ ] Trovare produttore (Alibaba? Italia?)
+- [ ] Prima tiratura test
+
+### 🔒 Note Interne
+- Ispirato a EMIGLIO (Giochi Preziosi 1994) ma design DIVERSO
+- Stile: acquarello dorato Onde, NON plasticoso
+- Il nome è stato scelto strategicamente
+
+### ✅ CHECK ANTI-PLAGIO COMPLETATO
+- Nome "AIKO" aveva conflitti (3+ libri esistenti)
+- Nome "EMILIO" verificato: nessun conflitto significativo
+- Design sarà originale stile Onde
 
 ---
 

@@ -1308,6 +1308,58 @@ L'agent può:
 
 ---
 
+## 🚀 PRIORITÀ #1 - EMILIO BRAND (9 Gen 2026)
+
+**QUANDO MATTIA DICE "check memory" → PARTI SUBITO CON EMILIO!**
+
+### Chi è EMILIO
+- Robot amico dei bambini (ex AIKO, rinominato per conflitti)
+- Ispirato a EMIGLIO (Giochi Preziosi 1994) ma design DIVERSO
+- Stile: acquarello dorato (come Salmo 23)
+- **EMILIO è un BRAND, non solo un personaggio**
+
+### I Personaggi - IL QUARTETTO
+| Personaggio | Nome | Tipo | Note |
+|-------------|------|------|------|
+| **EMILIO** | ✅ Confermato | Robot | Il protagonista, "I Milli" |
+| **MOONLIGHT** | Da confermare | Bambina | Ex Sofia |
+| **LUCA** | Da confermare | Fratellino | Family-friendly |
+| **BISCOTTO** | 🐕 | Cagnolino | Perfetto per merchandise |
+
+**IMPORTANTE**: È un QUARTETTO family-friendly, non duo bambina+robot.
+
+### EMILIO Empire
+- 📱 Social (X, TikTok, YouTube)
+- 📚 Libri (Moonlight, Luca, Emilio & Biscotto)
+- 🎮 Canale YouTube Gaming
+- 🧸 Pupazzetti / Merchandise
+- 📱 App interattive
+- 🎵 Musica / Canzoni
+
+### 🍪 STRATEGIA VIRALE - "Ha Ha Cookie"
+**Canzone virale stupida per far conoscere EMILIO**
+
+1. Video: EMILIO sta traducendo qualcosa
+2. Nasce la canzone "Ha Ha Cookie" (tipo Baby Shark)
+3. Video virale su TikTok/YouTube
+4. Milioni di bambini conoscono EMILIO
+5. → Vendite libri, pupazzetti, tutto
+
+**È una strategia virale intenzionale.** La canzone stupida fa conoscere il brand.
+
+### TASK IMMEDIATI (con Chrome connesso)
+1. **Design EMILIO** - Generare su Grok, stile Salmo 23
+2. **Profilo X** - Creare @Emil_io o simile
+3. **Primi contenuti** - 10 post pronti per lancio
+4. **Rigenerare libri** - Sostituire AIKO → EMILIO
+
+### Fabbrica Sbloccata
+- 89 task disponibili nel sistema worker
+- Worker morti tutti rilasciati
+- Pronto per far correre gli agenti
+
+---
+
 ## 🚨 TASK IN CORSO - RIPRENDI DA QUI (2026-01-08)
 
 ### 🎨 PINA PENNELLO: GENERA IMMAGINI PER 4 NUOVI LIBRI
