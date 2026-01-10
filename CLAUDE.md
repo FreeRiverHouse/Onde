@@ -2,6 +2,8 @@
 
 ## Owner
 Mattia Petrucciani - parla italiano, comunicazione diretta.
+**Location**: Los Angeles, California 🌴
+(onde.la = letteralmente dove vive Mattia! Coincidenza incredibile!)
 
 ## REGOLA D'ORO: MEMORIA = COMMIT
 **Ogni volta che aggiorni CLAUDE.md → COMMIT IMMEDIATO.**
