@@ -18,6 +18,19 @@ Prima di lavorare su qualsiasi cosa:
 
 ---
 
+## REGOLA CHECK OGNI 3 ORE - IDEE PERSE (10 Gen 2026)
+
+**Ogni 3 ore devo:**
+1. Tornare indietro e RILEGGERE tutta la chat
+2. Verificare se ho perso qualche idea di Mattia
+3. Aggiungere le idee perse in ROADMAP.md
+4. Commit e push
+
+**Perché**: Mattia lancia tante idee durante le conversazioni.
+Non posso perderle. Questo check periodico previene le dimenticanze.
+
+---
+
 ## REGOLA ASSOLUTA #0 - DUE AMBIENTI: PROD E TEST
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
@@ -242,7 +255,24 @@ X_MAGMATIC_API_KEY=...
 - Nameserver 1: `aarav.ns.cloudflare.com`
 - Nameserver 2: `janet.ns.cloudflare.com`
 
-### Hedra (Image Factory)
+---
+
+## 🚨 TOOL AI PER GENERAZIONE - REGOLE ASSOLUTE
+
+**DATA: 2026-01-10 - NON DIMENTICARE MAI**
+
+### REGOLA #1: IO GENERO, NON DO PROMPT A MATTIA
+**MAI dare prompt a Mattia e dire "usa questo su Grok".**
+**IO devo aprire il browser e generare le immagini direttamente!**
+
+### Grok (Immagini AI)
+- **URL**: https://x.com/i/grok → "Create Images"
+- **Accesso**: Via Claude for Chrome (browser)
+- **Workflow**: IO apro Grok, genero, scarico, mando su Telegram
+- **Stile**: Seguire linee guida Pina Pennello (acquarello europeo)
+- **MAI**: Dare prompt a Mattia. LI USO IO.
+
+### Hedra (Video AI / Lip Sync)
 - Account: freeriverhouse@gmail.com
 - Piano: Basic Web Yearly ($144/anno)
 - Crediti: 17805 disponibili

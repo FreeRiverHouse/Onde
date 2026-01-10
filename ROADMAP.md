@@ -953,6 +953,66 @@ apps/
 
 **DIPENDE DA**: Video Factory (sopra) per la produzione
 
+### 📊 DUE STRATEGIE COMPLEMENTARI (10 Gen 2026)
+
+| | Breve Termine | Lungo Termine |
+|--|---------------|---------------|
+| **Cosa** | Video YouTube ambient | Libri |
+| **Cash flow** | Subito | Lento ma costante |
+| **Durata** | Effimero (1 mese?) | 10+ anni |
+| **Asset** | Consumabile | Duraturo |
+
+**Entrambe valide!** Video = cash flow per finanziare libri. Libri = asset per sempre.
+
+### 🎨 BRANDING CANALI - QUALITÀ MANIACALE (10 Gen 2026)
+
+**REGOLA**: Ogni canale ha il SUO stile (NON Onde!)
+
+**Checklist per ogni canale:**
+- [ ] Nome curato e memorabile
+- [ ] Banner professionale che MATCHA il tema
+- [ ] Foto profilo riconoscibile
+- [ ] Thumbnail template definito
+- [ ] Stile coerente col contenuto
+
+**Stili per tipo:**
+| Canale | Stile |
+|--------|-------|
+| Baby sleep | Soffice, pastello, notte stellata |
+| Kids party | Colorato, divertente, cartoon-ish |
+| Adult party | Elegante, neon, modern |
+| Fireplace | Premium, zen, minimal |
+
+### 🎪 PARTY BACKDROPS + ELEMENTI SURREALI (10 Gen 2026)
+
+**DIFFERENZIATORE**: Aggiungere elementi assurdi/surreali ogni tanto!
+- Circo → elefante che vola
+- Castello principessa → unicorno dalle torri
+- Discoteca → luci che formano creature
+
+**Perché funziona**: La gente ricorda le cose STRANE. Share factor altissimo.
+
+### 📋 PRIORITÀ CANALI PER VIEWS (10 Gen 2026)
+
+1. **BABY WHITE NOISE + PARENTING TIPS** (PRIORITÀ #1)
+   - Visual: Nuvole pastel, cielo notturno scuro
+   - TIPS sovrapposti per genitori
+   - Potenziale: 10M-100M+ views
+
+2. **CRAZY PARTY BACKDROPS** (PRIORITÀ #2)
+   - Kids: Circo, Castello, Unicorni, Palloncini
+   - Adults: Discoteca, Fuochi artificio, Neon
+   - Elementi surreali per differenziarsi
+
+3. **FIREPLACE SLEEK/MODERNO**
+   - Design elegante, non impossibile
+   - Alto search volume
+
+4. **IMPOSSIBLE/SURREAL**
+   - Roller coaster nello SPAZIO
+   - Vedute Marte
+   - Acquario impossibile
+
 ### 🔥 L'Idea (da Mattia)
 - Video tipo "camino che brucia" fanno MILIARDI di views
 - Facili da fare con AI (immagini + musica + loop)
