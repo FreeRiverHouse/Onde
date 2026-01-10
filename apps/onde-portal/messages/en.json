@@ -1,0 +1,488 @@
+{
+  "metadata": {
+    "title": "Onde - Stories, Apps and Games for Children",
+    "description": "The Italian portal for families. Watercolor illustrated books, educational apps and games for children."
+  },
+  "navigation": {
+    "home": "Home",
+    "app": "App",
+    "games": "Games",
+    "books": "Books",
+    "read": "Read",
+    "vr": "VR",
+    "about": "About Us",
+    "explore": "Explore"
+  },
+  "footer": {
+    "description": "We create illustrated stories, educational apps and games that nurture imagination and curiosity.",
+    "explore": "Explore",
+    "followUs": "Follow Us",
+    "copyright": "2026 Onde. Made with love in Los Angeles.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "home": {
+    "badge": "Los Angeles",
+    "title1": "Stories that",
+    "title2": "grow",
+    "title3": "with you",
+    "subtitle": "Watercolor illustrated books, educational apps and games to nurture",
+    "imagination": "imagination",
+    "and": "and",
+    "curiosity": "curiosity",
+    "exploreBooks": "Explore Books",
+    "discoverApps": "Discover Apps",
+    "scroll": "Scroll",
+    "features": {
+      "illustratedStories": {
+        "title": "Illustrated Stories",
+        "description": "Books with original watercolors. Every page is a painting to browse."
+      },
+      "educationalApps": {
+        "title": "Educational Apps",
+        "description": "Technology serving learning. Safe and ad-free."
+      },
+      "creativeGames": {
+        "title": "Creative Games",
+        "description": "Fun that stimulates creativity and problem solving."
+      }
+    },
+    "booksSection": {
+      "badge": "Illustrated Library",
+      "title": "Our Books",
+      "subtitle": "Classic and original stories, illustrated in European watercolor style. Each book is a work of art to browse.",
+      "learnMore": "Learn more",
+      "goToLibrary": "Go to Library"
+    },
+    "appsSection": {
+      "badge": "Educational Apps",
+      "title": "Our Apps",
+      "subtitle": "Technology designed for children. Safe, educational, ad-free. Learn by playing!",
+      "viewAllApps": "View All Apps"
+    },
+    "gamesSection": {
+      "badge": "Creative Fun",
+      "title": "Games",
+      "subtitle": "Interactive experiences that stimulate creativity and learning.",
+      "exploreGames": "Explore Games"
+    },
+    "ctaSection": {
+      "badge": "Join the Community",
+      "title": "Ready to",
+      "titleHighlight": "explore",
+      "subtitle": "Stories, apps and games that grow with you and your family. Follow us to discover what's new!",
+      "startReading": "Start Reading",
+      "followOnX": "Follow us on X"
+    }
+  },
+  "books": {
+    "categories": {
+      "all": "All",
+      "spirituality": "Spirituality",
+      "classics": "Classics",
+      "poetry": "Poetry",
+      "tech": "Tech"
+    },
+    "badge": "Illustrated Library",
+    "title": "Books",
+    "subtitle": "Great classics and original stories, illustrated with artisanal care in European watercolor style.",
+    "featured": "Featured",
+    "allBooks": "All Books",
+    "buyOnAmazon": "Buy on Amazon",
+    "details": "Details",
+    "watercolorIllustrated": "Watercolor Illustrated",
+    "freeBooks": {
+      "title": "All books are free",
+      "description": "Children's literature should be accessible to everyone. Download, read and share our illustrated stories.",
+      "exploreCatalog": "Explore Full Catalog"
+    },
+    "bookTitles": {
+      "salmo23": {
+        "title": "The Shepherd",
+        "subtitle": "Psalm 23 for Children",
+        "description": "The most beloved Psalm, told and illustrated for the little ones. A journey of trust and protection through green pastures and still waters."
+      },
+      "aiko": {
+        "title": "AIKO",
+        "subtitle": "My Robot Friend",
+        "description": "Sofia discovers that her new friend is not like the other girls. She's an artificial intelligence! An adventure of friendship, technology and discovery."
+      },
+      "piccoleRime": {
+        "title": "Little Rhymes",
+        "subtitle": "Italian Poems for Children",
+        "description": "The most beautiful nursery rhymes of Italian tradition, illustrated in watercolor. Twinkle Twinkle Little Star, March Rain and other poetic gems."
+      },
+      "alice": {
+        "title": "Alice in Wonderland",
+        "subtitle": "Illustrated Edition",
+        "description": "Alice's journey into the upside-down world. Original illustrations in European watercolor style."
+      },
+      "jungleBook": {
+        "title": "The Jungle Book",
+        "subtitle": "Illustrated Edition",
+        "description": "Mowgli and his jungle friends. The law of the pack, friendship and courage."
+      },
+      "peterRabbit": {
+        "title": "Peter Rabbit",
+        "subtitle": "Complete Adventures",
+        "description": "The most famous rabbit in English literature. Illustrations faithful to the original spirit."
+      },
+      "aiko2": {
+        "title": "AIKO 2",
+        "subtitle": "The Robotaxi Adventure",
+        "description": "Sofia and AIKO discover how self-driving cars work. A trip to grandma's becomes a technology lesson!"
+      },
+      "mindfulness": {
+        "title": "The Magic Breath",
+        "subtitle": "Mindfulness for Children",
+        "description": "Learn to breathe, calm down and find inner peace. Simple exercises for little warriors of tranquility."
+      }
+    }
+  },
+  "apps": {
+    "badge": "Coming Soon",
+    "title": "Apps Coming Soon",
+    "subtitle": "Digital experiences painted in watercolor. Safe, ad-free, created with love for the little ones.",
+    "comingSoon": "Coming Soon",
+    "inDevelopment": "In Development",
+    "inPlanning": "In Planning",
+    "moreTocome": {
+      "title": "And much more coming...",
+      "subtitle": "More magical experiences in creation"
+    },
+    "newsletter": {
+      "badge": "Exclusive Preview",
+      "title": "Want to try them first?",
+      "subtitle": "Follow Onde to receive updates on new apps and early access to beta tests.",
+      "followOnX": "Follow us on X",
+      "learnMore": "Learn more"
+    },
+    "appTitles": {
+      "kidsChefStudio": {
+        "title": "KidsChefStudio",
+        "subtitle": "Virtual Kitchen for Little Chefs",
+        "description": "A magical kitchen where children learn to cook through animated recipes. Ingredients that come to life, instruments that sing, and dishes that tell stories."
+      },
+      "aikoInteractive": {
+        "title": "AIKO Interactive",
+        "subtitle": "Your Robot Friend",
+        "description": "AIKO is your digital adventure companion. Together you explore the world of technology, learn how robots work and discover the secrets of artificial intelligence."
+      },
+      "mindfulKids": {
+        "title": "Mindful Kids",
+        "subtitle": "Breathe, Relax, Grow",
+        "description": "A digital zen garden where children discover inner calm. Breathing exercises like soap bubbles, guided meditations by wise animals, and moments of peace."
+      },
+      "freeriverFlow": {
+        "title": "FreeRiver Flow",
+        "subtitle": "Let the Waves Carry You",
+        "description": "A meditative experience where you follow the flow of a magical river. Dancing colors, nature sounds, and the sweet feeling of letting go like a leaf on water."
+      },
+      "emilio": {
+        "title": "EMILIO",
+        "subtitle": "AI Educator",
+        "description": "The friendly robot that teaches children how technology works."
+      },
+      "moonlightPuzzle": {
+        "title": "Moonlight Puzzle",
+        "subtitle": "Night Puzzles",
+        "description": "Relaxing puzzles with nighttime atmospheres and sweet music."
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Word Games",
+        "description": "Word games, rhymes and vocabulary in Italian and English."
+      },
+      "storyMaker": {
+        "title": "Story Maker",
+        "subtitle": "Create Your Stories",
+        "description": "Write and illustrate your stories with magical characters and settings."
+      }
+    },
+    "features": {
+      "illustratedRecipes": "Illustrated recipes",
+      "zeroRealRisks": "Zero real risks",
+      "learnCooking": "Learn cooking",
+      "aiAdventures": "AI Adventures",
+      "interactiveDialogs": "Interactive dialogs",
+      "techDiscoveries": "Tech discoveries",
+      "guidedMeditation": "Guided meditation",
+      "breathingExercises": "Breathing exercises",
+      "relaxingStories": "Relaxing stories",
+      "visualRelax": "Visual relax",
+      "natureSounds": "Nature sounds",
+      "immersiveExperience": "Immersive experience"
+    }
+  },
+  "games": {
+    "badge": "Creative Fun",
+    "title": "Games",
+    "subtitle": "Interactive experiences that stimulate creativity, logic and learning. Safe for the whole family.",
+    "minecraft": {
+      "badge": "Coming Soon",
+      "title": "Emilio's World",
+      "description": "The official Onde community Minecraft server. Build, explore and learn together with other children in a safe, moderated environment, guided by EMILIO!",
+      "features": {
+        "moderated": "Moderated 24/7",
+        "collaborative": "Collaborative builds",
+        "weeklyEvents": "Weekly events",
+        "age": "Age 6+"
+      },
+      "version": "Version",
+      "age": "Age",
+      "status": "Status",
+      "comingSoon": "Coming Soon"
+    },
+    "miniGames": {
+      "badge": "Learn by Playing",
+      "title": "Educational Mini-Games",
+      "subtitle": "A collection of games designed to stimulate creativity, logic and learning in children."
+    },
+    "cta": {
+      "title": "New games coming!",
+      "subtitle": "We're working on new educational gaming experiences. Follow us to stay updated!",
+      "discoverApps": "Discover Apps",
+      "exploreBooks": "Explore Books"
+    },
+    "gameTitles": {
+      "chefStudio": {
+        "title": "Kids Chef Studio",
+        "subtitle": "Virtual Kitchen",
+        "description": "Virtual kitchen for little chefs. Fun and safe recipes to prepare. Learn the basics of cooking by playing.",
+        "badge": "Educational"
+      },
+      "artStudio": {
+        "title": "Pina Art Studio",
+        "subtitle": "Drawing and Colors",
+        "description": "Draw and color with Pina Pennello. Learn watercolor techniques, create art and develop creativity.",
+        "badge": "Creative"
+      },
+      "puzzleWorld": {
+        "title": "Puzzle World",
+        "subtitle": "Creative Puzzles",
+        "description": "Collection of puzzles and brain teasers for all ages. Train logical thinking and problem solving.",
+        "badge": "Logic"
+      },
+      "musicMaker": {
+        "title": "Music Maker Kids",
+        "subtitle": "Create Music",
+        "description": "Create melodies and rhythms with virtual instruments. Explore music, compose songs and learn the basics.",
+        "badge": "Musical"
+      },
+      "natureExplorer": {
+        "title": "Nature Explorer",
+        "subtitle": "Discover Nature",
+        "description": "Explore nature through interactive games. Learn about plants, animals and environment in a fun way.",
+        "badge": "Nature"
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Word Games",
+        "description": "Word games and rhymes in Italian and English. Expand your vocabulary while having fun with words.",
+        "badge": "Language"
+      }
+    }
+  },
+  "about": {
+    "badge": "Los Angeles, California",
+    "title1": "Once upon a time",
+    "title2": "Onde",
+    "intro1": "A small Italian publishing house, born under the California sun.",
+    "intro2": "We believe that beautiful stories can change the world. That a watercolor illustrated book can open doors that no technology can open. That imagination is the most precious gift we can give to children.",
+    "team": {
+      "badge": "The Team",
+      "title": "Who We Are",
+      "subtitle": "Three souls, one vision. We combine words, colors and technology to create something beautiful.",
+      "gianni": {
+        "name": "Gianni Parola",
+        "role": "Writer",
+        "description": "Stories are born from words. Gianni chooses them with care, one by one, like picking flowers in a meadow. Every book is a garden to explore.",
+        "quote": "Words are seeds. If you plant them with love, they bloom."
+      },
+      "pina": {
+        "name": "Pina Pennello",
+        "role": "Illustrator",
+        "description": "Colors dance on paper. Pina paints worlds where children can enter, walk, dream. Every brushstroke is a door to imagination.",
+        "quote": "I paint what words cannot say."
+      },
+      "emilio": {
+        "name": "Emilio",
+        "role": "AI Educator",
+        "description": "A robot friend who understands the future. Emilio explains technology to children with infinite patience, turning the complex into simple, the mysterious into wonderful.",
+        "quote": "Learning is the most beautiful superpower that exists."
+      }
+    },
+    "values": {
+      "beauty": {
+        "title": "Beauty",
+        "description": "Every book is a work of art. Watercolors that tell stories."
+      },
+      "simplicity": {
+        "title": "Simplicity",
+        "description": "Great truths hide in simple things."
+      },
+      "wonder": {
+        "title": "Wonder",
+        "description": "We cultivate amazement. The world is full of magic."
+      }
+    },
+    "story": {
+      "badge": "Our Story",
+      "title": "From Italy to Los Angeles",
+      "p1": "Onde was born from a simple dream: to create books that children want to read again, and again. Books that smell of paper and colors, but speak the language of the future.",
+      "p2": "We are a small team scattered between Italy and California, united by a passion for beautiful stories and the belief that technology, used wisely, can amplify human creativity.",
+      "p3": "Each of our books combines the art of traditional illustration - watercolors, shading, golden light - with digital possibilities. The result? Stories that live on paper and screen, that grow with the children who read them.",
+      "cta": "Explore our books"
+    },
+    "cta": {
+      "title": "Be part of the story",
+      "subtitle": "Follow us on our journey. New stories, new adventures, new ideas to explore together.",
+      "exploreCatalog": "Explore the Catalog",
+      "followOnX": "Follow us on X"
+    }
+  },
+  "read": {
+    "badge": "Digital Library",
+    "title": "Read Our",
+    "titleHighlight": "Books",
+    "subtitle": "Browse and read Onde illustrated books directly in your browser. A reading experience designed for families.",
+    "readNow": "Read now",
+    "noBooks": {
+      "title": "No books available",
+      "description": "Our books will be available soon. Come back to visit us!",
+      "backHome": "Back to Home"
+    },
+    "features": {
+      "readAnywhere": {
+        "title": "Read Anywhere",
+        "description": "Access your books from any device, even offline after the first load."
+      },
+      "nightMode": {
+        "title": "Night Mode",
+        "description": "Three reading themes: day, sepia and night to read in any condition."
+      },
+      "forFamily": {
+        "title": "For the Whole Family",
+        "description": "Selected and carefully illustrated content to be read together."
+      }
+    },
+    "reader": {
+      "close": "Close",
+      "day": "Day",
+      "sepia": "Sepia",
+      "night": "Night",
+      "reduceText": "Reduce text",
+      "enlargeText": "Enlarge text",
+      "index": "Index",
+      "loading": "Loading...",
+      "error": "Unable to load the book. Try again.",
+      "backToLibrary": "Back to library",
+      "completed": "completed",
+      "navigation": "Use arrows or click to navigate"
+    }
+  },
+  "vr": {
+    "badge": "The Future is Here",
+    "title": "Onde in",
+    "titleHighlight": "VR",
+    "subtitle1": "On The Portal - On The Waves",
+    "subtitle2": "Personalized immersive education. Children will learn in VR, might as well be with content that parents choose.",
+    "discoverHomeSchool": "Discover Home School VR",
+    "freeriverFlow": "FreeRiver Flow VR",
+    "features": {
+      "immersion": {
+        "title": "Total Immersion",
+        "description": "Enter inside the stories. Live books like never before."
+      },
+      "interactive": {
+        "title": "Interactive Lessons",
+        "description": "Learning that engages all senses."
+      },
+      "familyValues": {
+        "title": "Family Values",
+        "description": "Parents decide what to teach. We make it magical."
+      }
+    },
+    "flow": {
+      "badge": "Coming Soon",
+      "title": "FreeRiver",
+      "titleHighlight": "Flow VR",
+      "description": "Code while you walk. Create apps with your voice, watch code take shape in the 3D space around you. The future of coding is immersive.",
+      "features": {
+        "voiceToCode": {
+          "title": "Voice-to-Code",
+          "description": "Speak and code appears"
+        },
+        "visualDebugging": {
+          "title": "Visual Debugging",
+          "description": "See data flow in 3D"
+        },
+        "aiCompanion": {
+          "title": "AI Companion",
+          "description": "EMILIO guides you while creating"
+        },
+        "multiPlatform": {
+          "title": "Multi-platform",
+          "description": "Meta Quest, Apple Vision Pro"
+        }
+      },
+      "joinWaitlist": "Join the Waitlist"
+    },
+    "homeSchool": {
+      "badge": "Personalized Education",
+      "title": "Home School VR",
+      "subtitle": "Parents set the values. Onde teaches them to children in a magical and immersive way.",
+      "problem": {
+        "title": "The Problem",
+        "description": "Children will spend more and more time in VR. Parents are overwhelmed by generic AI content without control over transmitted values."
+      },
+      "solution": {
+        "title": "The Onde Solution",
+        "description": "Parents define the values they want to teach. Onde creates personalized VR experiences that respect those values. Quality over quantity."
+      },
+      "parentsDecide": "Parents Decide:",
+      "values": {
+        "spirituality": "Spirituality",
+        "creativity": "Creativity",
+        "respect": "Respect",
+        "curiosity": "Curiosity",
+        "empathy": "Empathy",
+        "resilience": "Resilience"
+      },
+      "subjects": {
+        "title": "VR Subjects",
+        "subtitle": "Select learning areas",
+        "math": { "name": "Math", "description": "Numbers come alive" },
+        "science": { "name": "Science", "description": "Explore the microscopic" },
+        "history": { "name": "History", "description": "Travel through time" },
+        "art": { "name": "Art", "description": "Paint in 3D" },
+        "music": { "name": "Music", "description": "Virtual orchestra" },
+        "languages": { "name": "Languages", "description": "Language immersion" }
+      },
+      "startConfig": "Start Configuration"
+    },
+    "expansion": {
+      "badge": "Future Expansion",
+      "title": "Beyond Education",
+      "subtitle": "Onde's VR platform will expand to serve professionals and families.",
+      "therapists": { "title": "Therapists", "description": "Guided VR sessions for mental wellness" },
+      "psychologists": { "title": "Psychologists", "description": "Immersive environments for therapy" },
+      "doctors": { "title": "Doctors", "description": "Interactive health education" },
+      "educators": { "title": "Educators", "description": "Personalized virtual classrooms" }
+    },
+    "cta": {
+      "title": "Ready to Surf the Future?",
+      "subtitle": "Sign up to be among the first to try Onde VR. On The Portal. On The Waves.",
+      "joinWaitlist": "Join the Waitlist",
+      "backHome": "Back to Home"
+    }
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  },
+  "common": {
+    "comingSoon": "Coming Soon",
+    "inDevelopment": "In Development",
+    "inPlanning": "In Planning"
+  }
+}

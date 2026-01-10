@@ -1,4 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+/**
+ * FreeRiver Flow - Voice First Development App
+ *
+ * "Mattia on Steroids" - Develop while running, walking, living.
+ *
+ * This is the main screen that provides:
+ * 1. Voice recording with hold-to-talk
+ * 2. Speech-to-text via Whisper API
+ * 3. AI conversation via Claude API
+ * 4. Text-to-speech for responses
+ */
+
+import React, { useRef, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,15 +18,17 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-  Pressable,
   Animated,
   Dimensions,
-  Image,
+  ActivityIndicator,
+  Platform,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { useConversation, DEFAULT_AGENTS, type Agent, type ConversationStatus } from '@/hooks/useConversation';
 
 const { width } = Dimensions.get('window');
 
-// Colori Onde
+// Onde Brand Colors
 const Colors = {
   coral: '#FF7F7F',
   ocean: '#1A365D',
@@ -24,57 +38,34 @@ const Colors = {
   white: '#FFFFFF',
   textMuted: '#94A3B8',
   cardBg: '#1E3A5F',
+  error: '#EF4444',
+  success: '#22C55E',
 };
 
-// Agenti della redazione
-interface Agent {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  color: string;
-}
+// Status text mapping
+const STATUS_TEXT: Record<ConversationStatus, string> = {
+  idle: 'Tieni premuto per parlare',
+  listening: 'Sto ascoltando...',
+  processing: 'Elaboro...',
+  speaking: 'Parlo...',
+};
 
-const AGENTS: Agent[] = [
-  {
-    id: 'editore-capo',
-    name: 'Editore Capo',
-    role: 'Orchestrazione produzione',
-    avatar: '/assets/avatars/editore.png',
-    color: Colors.gold,
-  },
-  {
-    id: 'pina-pennello',
-    name: 'Pina Pennello',
-    role: 'Illustratrice',
-    avatar: '/assets/avatars/pina.png',
-    color: Colors.coral,
-  },
-  {
-    id: 'emilio',
-    name: 'Emilio',
-    role: 'AI Educator',
-    avatar: '/assets/avatars/emilio.png',
-    color: '#60A5FA',
-  },
-];
-
-// Messaggio nella conversazione
-interface Message {
-  id: string;
-  sender: 'user' | 'agent';
-  agentId?: string;
-  text: string;
-  timestamp: Date;
-}
-
-// Componente Avatar Agente con fallback
+// Avatar component with initials fallback
 function AgentAvatar({ agent, size = 48 }: { agent: Agent; size?: number }) {
   const initials = agent.name
     .split(' ')
     .map(w => w[0])
     .join('')
     .toUpperCase();
+
+  const bgColors: Record<string, string> = {
+    'editore-capo': Colors.gold,
+    'pina-pennello': Colors.coral,
+    'emilio': '#60A5FA',
+    'gianni-parola': '#A78BFA',
+  };
+
+  const bgColor = bgColors[agent.id] || Colors.coral;
 
   return (
     <View
@@ -84,19 +75,19 @@ function AgentAvatar({ agent, size = 48 }: { agent: Agent; size?: number }) {
           width: size,
           height: size,
           borderRadius: size / 2,
-          backgroundColor: agent.color + '30',
-          borderColor: agent.color,
+          backgroundColor: bgColor + '30',
+          borderColor: bgColor,
         },
       ]}
     >
-      <Text style={[styles.avatarText, { fontSize: size * 0.4, color: agent.color }]}>
-        {initials}
+      <Text style={[styles.avatarEmoji, { fontSize: size * 0.5 }]}>
+        {agent.avatar}
       </Text>
     </View>
   );
 }
 
-// Card Agente
+// Agent selection card
 function AgentCard({
   agent,
   isSelected,
@@ -107,6 +98,15 @@ function AgentCard({
   onPress: () => void;
 }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  const bgColors: Record<string, string> = {
+    'editore-capo': Colors.gold,
+    'pina-pennello': Colors.coral,
+    'emilio': '#60A5FA',
+    'gianni-parola': '#A78BFA',
+  };
+
+  const bgColor = bgColors[agent.id] || Colors.coral;
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
@@ -134,7 +134,7 @@ function AgentCard({
         <View
           style={[
             styles.agentCard,
-            isSelected && { borderColor: agent.color, borderWidth: 2 },
+            isSelected && { borderColor: bgColor, borderWidth: 2 },
           ]}
         >
           <AgentAvatar agent={agent} size={56} />
@@ -146,26 +146,30 @@ function AgentCard({
   );
 }
 
-// Header con Logo
-function Header() {
+// Header with logo
+function Header({ status }: { status: ConversationStatus }) {
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulseAnim, {
-          toValue: 1.05,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulseAnim, {
-          toValue: 1,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
-  }, []);
+    if (status === 'listening' || status === 'processing') {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.1,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    } else {
+      pulseAnim.setValue(1);
+    }
+  }, [status, pulseAnim]);
 
   return (
     <View style={styles.header}>
@@ -174,27 +178,32 @@ function Header() {
       </Animated.View>
       <View style={styles.headerText}>
         <Text style={styles.headerTitle}>FreeRiver Flow</Text>
-        <Text style={styles.headerSubtitle}>Parla con i tuoi agenti</Text>
+        <Text style={styles.headerSubtitle}>
+          {status === 'idle' ? 'Parla con i tuoi agenti' : STATUS_TEXT[status]}
+        </Text>
       </View>
     </View>
   );
 }
 
-// Bottone Hold to Talk
-function HoldToTalkButton({
-  isRecording,
+// Voice button with hold-to-talk
+function VoiceButton({
+  status,
   onPressIn,
   onPressOut,
 }: {
-  isRecording: boolean;
+  status: ConversationStatus;
   onPressIn: () => void;
   onPressOut: () => void;
 }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
+  const isActive = status === 'listening';
+  const isProcessing = status === 'processing' || status === 'speaking';
+
   useEffect(() => {
-    if (isRecording) {
+    if (isActive) {
       Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, {
@@ -212,9 +221,10 @@ function HoldToTalkButton({
     } else {
       pulseAnim.setValue(1);
     }
-  }, [isRecording]);
+  }, [isActive, pulseAnim]);
 
   const handlePressIn = () => {
+    if (isProcessing) return;
     Animated.spring(scaleAnim, {
       toValue: 0.9,
       useNativeDriver: true,
@@ -223,6 +233,7 @@ function HoldToTalkButton({
   };
 
   const handlePressOut = () => {
+    if (isProcessing) return;
     Animated.spring(scaleAnim, {
       toValue: 1,
       friction: 3,
@@ -231,10 +242,34 @@ function HoldToTalkButton({
     onPressOut();
   };
 
+  const getButtonStyle = () => {
+    if (isActive) return styles.talkButtonRecording;
+    if (isProcessing) return styles.talkButtonProcessing;
+    return {};
+  };
+
+  const getButtonText = () => {
+    switch (status) {
+      case 'listening':
+        return 'Sto ascoltando...';
+      case 'processing':
+        return 'Elaboro...';
+      case 'speaking':
+        return 'Sto parlando...';
+      default:
+        return 'Hold to Talk';
+    }
+  };
+
   return (
-    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+    <TouchableOpacity
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      activeOpacity={0.9}
+      disabled={isProcessing}
+    >
       <View style={styles.talkButtonWrapper}>
-        {isRecording && (
+        {isActive && (
           <Animated.View
             style={[
               styles.talkButtonPulse,
@@ -245,26 +280,47 @@ function HoldToTalkButton({
         <Animated.View
           style={[
             styles.talkButton,
-            isRecording && styles.talkButtonRecording,
+            getButtonStyle(),
             { transform: [{ scale: scaleAnim }] },
           ]}
         >
-          <Text style={styles.talkButtonIcon}>
-            {isRecording ? '...' : '  '}
-          </Text>
-          <Text style={styles.talkButtonText}>
-            {isRecording ? 'Sto ascoltando' : 'Hold to Talk'}
-          </Text>
+          {isProcessing ? (
+            <ActivityIndicator color={Colors.white} size="small" />
+          ) : (
+            <Text style={styles.talkButtonIcon}>
+              {isActive ? '...' : '  '}
+            </Text>
+          )}
+          <Text style={styles.talkButtonText}>{getButtonText()}</Text>
         </Animated.View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 
-// Bolla messaggio
-function MessageBubble({ message, agents }: { message: Message; agents: Agent[] }) {
-  const isUser = message.sender === 'user';
-  const agent = agents.find(a => a.id === message.agentId);
+// Message bubble component
+function MessageBubble({
+  content,
+  role,
+  agentId,
+  agents,
+}: {
+  content: string;
+  role: 'user' | 'assistant';
+  agentId?: string;
+  agents: Agent[];
+}) {
+  const isUser = role === 'user';
+  const agent = agents.find(a => a.id === agentId);
+
+  const bgColors: Record<string, string> = {
+    'editore-capo': Colors.gold,
+    'pina-pennello': Colors.coral,
+    'emilio': '#60A5FA',
+    'gianni-parola': '#A78BFA',
+  };
+
+  const agentColor = agent ? bgColors[agent.id] || Colors.coral : Colors.coral;
 
   return (
     <View
@@ -275,82 +331,87 @@ function MessageBubble({ message, agents }: { message: Message; agents: Agent[] 
     >
       {!isUser && agent && (
         <View style={styles.messageHeader}>
-          <AgentAvatar agent={agent} size={24} />
-          <Text style={[styles.messageSender, { color: agent.color }]}>
+          <Text style={styles.agentEmoji}>{agent.avatar}</Text>
+          <Text style={[styles.messageSender, { color: agentColor }]}>
             {agent.name}
           </Text>
         </View>
       )}
       {isUser && (
-        <Text style={styles.messageSender}>Tu</Text>
+        <Text style={styles.messageSenderUser}>Tu</Text>
       )}
-      <Text style={styles.messageText}>{message.text}</Text>
+      <Text style={styles.messageText}>{content}</Text>
     </View>
   );
 }
 
-// Schermata principale
+// Main screen component
 export default function HomeScreen() {
-  const [selectedAgent, setSelectedAgent] = useState<string>(AGENTS[0].id);
-  const [isRecording, setIsRecording] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      sender: 'agent',
-      agentId: 'editore-capo',
-      text: 'Ciao! Sono l\'Editore Capo. Come posso aiutarti oggi?',
-      timestamp: new Date(),
-    },
-  ]);
-
   const scrollViewRef = useRef<ScrollView>(null);
+  const [initError, setInitError] = useState<string | null>(null);
 
-  const handleVoiceStart = () => {
-    setIsRecording(true);
-  };
-
-  const handleVoiceEnd = () => {
-    setIsRecording(false);
-
-    // Simula un messaggio utente
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      sender: 'user',
-      text: 'Comando vocale ricevuto...',
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, userMessage]);
-
-    // Simula risposta agente
-    setTimeout(() => {
-      const agent = AGENTS.find(a => a.id === selectedAgent);
-      const agentMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        sender: 'agent',
-        agentId: selectedAgent,
-        text: `[${agent?.name}] Sto elaborando la tua richiesta...`,
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, agentMessage]);
-
-      // Scroll to bottom
+  // Use the conversation hook that ties everything together
+  const {
+    messages,
+    activeAgent,
+    status,
+    error,
+    agents,
+    startListening,
+    stopListening,
+    setActiveAgent,
+    cancelSpeaking,
+  } = useConversation({
+    initialAgent: 'editore-capo',
+    useElevenLabs: false, // Start with expo-speech for simplicity
+    onStatusChange: (newStatus) => {
+      console.log('[Home] Status changed:', newStatus);
+    },
+    onMessage: (message) => {
+      console.log('[Home] New message:', message.role, message.content.substring(0, 50));
+      // Scroll to bottom when new message arrives
       setTimeout(() => {
         scrollViewRef.current?.scrollToEnd({ animated: true });
       }, 100);
-    }, 1000);
+    },
+    onError: (err) => {
+      console.error('[Home] Error:', err.message);
+      setInitError(err.message);
+    },
+  });
 
-    // Scroll to bottom
-    setTimeout(() => {
-      scrollViewRef.current?.scrollToEnd({ animated: true });
-    }, 100);
+  // Handle voice button press
+  const handleVoiceStart = async () => {
+    setInitError(null);
+    await startListening();
+  };
+
+  const handleVoiceEnd = async () => {
+    await stopListening();
+  };
+
+  // Handle tap while speaking
+  const handleTapWhileSpeaking = () => {
+    if (status === 'speaking') {
+      cancelSpeaking();
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <Header />
+      <StatusBar style="light" />
 
-      {/* Lista Agenti - Scrollabile orizzontalmente */}
+      {/* Header */}
+      <Header status={status} />
+
+      {/* Error display */}
+      {(error || initError) && (
+        <View style={styles.errorBanner}>
+          <Text style={styles.errorText}>{error || initError}</Text>
+        </View>
+      )}
+
+      {/* Agent selection */}
       <View style={styles.agentsSection}>
         <Text style={styles.sectionTitle}>Seleziona agente</Text>
         <ScrollView
@@ -358,18 +419,18 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.agentsScroll}
         >
-          {AGENTS.map(agent => (
+          {agents.map((agent) => (
             <AgentCard
               key={agent.id}
               agent={agent}
-              isSelected={selectedAgent === agent.id}
-              onPress={() => setSelectedAgent(agent.id)}
+              isSelected={activeAgent === agent.id}
+              onPress={() => setActiveAgent(agent.id)}
             />
           ))}
         </ScrollView>
       </View>
 
-      {/* Area Conversazione */}
+      {/* Conversation area */}
       <View style={styles.conversationSection}>
         <Text style={styles.sectionTitle}>Conversazione</Text>
         <ScrollView
@@ -377,20 +438,43 @@ export default function HomeScreen() {
           style={styles.messagesContainer}
           contentContainerStyle={styles.messagesContent}
           showsVerticalScrollIndicator={false}
+          onTouchStart={handleTapWhileSpeaking}
         >
-          {messages.map(message => (
-            <MessageBubble key={message.id} message={message} agents={AGENTS} />
-          ))}
+          {messages.length === 0 ? (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateEmoji}>  </Text>
+              <Text style={styles.emptyStateText}>
+                Tieni premuto il pulsante e parla
+              </Text>
+              <Text style={styles.emptyStateSubtext}>
+                Il tuo messaggio verra' trascritto e inviato a{' '}
+                {agents.find(a => a.id === activeAgent)?.name || 'l\'agente'}
+              </Text>
+            </View>
+          ) : (
+            messages.map((message) => (
+              <MessageBubble
+                key={message.id}
+                content={message.content}
+                role={message.role}
+                agentId={message.agentId}
+                agents={agents}
+              />
+            ))
+          )}
         </ScrollView>
       </View>
 
-      {/* Bottone Hold to Talk */}
+      {/* Voice button */}
       <View style={styles.bottomSection}>
-        <HoldToTalkButton
-          isRecording={isRecording}
+        <VoiceButton
+          status={status}
           onPressIn={handleVoiceStart}
           onPressOut={handleVoiceEnd}
         />
+        <Text style={styles.statusHint}>
+          {status === 'speaking' ? 'Tocca per fermare' : STATUS_TEXT[status]}
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -439,7 +523,21 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  // Agenti
+  // Error banner
+  errorBanner: {
+    backgroundColor: Colors.error + '20',
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.error + '40',
+  },
+  errorText: {
+    color: Colors.error,
+    fontSize: 13,
+    textAlign: 'center',
+  },
+
+  // Agents section
   agentsSection: {
     paddingTop: 16,
   },
@@ -471,8 +569,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginBottom: 8,
   },
-  avatarText: {
-    fontWeight: 'bold',
+  avatarEmoji: {
+    textAlign: 'center',
   },
   agentName: {
     fontSize: 14,
@@ -487,7 +585,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Conversazione
+  // Conversation section
   conversationSection: {
     flex: 1,
     marginTop: 16,
@@ -502,6 +600,29 @@ const styles = StyleSheet.create({
   messagesContent: {
     padding: 16,
     gap: 12,
+    minHeight: 100,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+    minHeight: 200,
+  },
+  emptyStateEmoji: {
+    fontSize: 48,
+    marginBottom: 16,
+  },
+  emptyStateText: {
+    fontSize: 16,
+    color: Colors.white,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
+    color: Colors.textMuted,
+    textAlign: 'center',
   },
   messageBubble: {
     maxWidth: '85%',
@@ -524,7 +645,14 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     gap: 8,
   },
+  agentEmoji: {
+    fontSize: 18,
+  },
   messageSender: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  messageSenderUser: {
     fontSize: 12,
     fontWeight: '600',
     color: Colors.white,
@@ -537,11 +665,16 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
 
-  // Bottom Section
+  // Bottom section
   bottomSection: {
     paddingHorizontal: 20,
     paddingBottom: 24,
     alignItems: 'center',
+  },
+  statusHint: {
+    marginTop: 12,
+    fontSize: 13,
+    color: Colors.textMuted,
   },
   talkButtonWrapper: {
     position: 'relative',
@@ -564,14 +697,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 48,
     borderRadius: 32,
     minWidth: 200,
-    shadowColor: Colors.coral,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 8,
+    ...Platform.select({
+      ios: {
+        shadowColor: Colors.coral,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
+      },
+      android: {
+        elevation: 8,
+      },
+    }),
   },
   talkButtonRecording: {
     backgroundColor: Colors.gold,
+  },
+  talkButtonProcessing: {
+    backgroundColor: Colors.oceanLight,
+    opacity: 0.9,
   },
   talkButtonIcon: {
     fontSize: 20,

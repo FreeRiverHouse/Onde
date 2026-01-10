@@ -260,7 +260,7 @@ export default function Home() {
                 <span className="text-onde-gold">~</span>
                 <span className="text-onde-teal">~</span>
               </motion.span>
-              Onde Publishing
+              Los Angeles
               <motion.span
                 className="flex gap-1"
                 animate={{ y: [0, -3, 0] }}

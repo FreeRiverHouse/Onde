@@ -163,68 +163,10 @@ export default function About() {
       </section>
 
       {/* ============================================
-          MISSION SECTION - Far fiorire il mondo
+          MISSION SECTION - NASCOSTA PER ORA
+          Mattia dirà quando rimetterla (10 Gen 2026)
+          Testo: "Far fiorire il mondo"
           ============================================ */}
-      <section className="relative py-24 bg-gradient-to-b from-transparent to-onde-cream/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="max-w-4xl mx-auto text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.span
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                         text-sm font-semibold mb-6
-                         bg-gradient-to-r from-onde-teal/10 to-onde-gold/10
-                         text-onde-teal border border-onde-teal/20"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              La nostra missione
-            </motion.span>
-
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-onde-ocean mb-6">
-              Far{' '}
-              <span className="relative inline-block">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-onde-coral via-onde-gold to-onde-teal">
-                  fiorire
-                </span>
-              </span>
-              {' '}il mondo
-            </h2>
-
-            <p className="text-lg md:text-xl text-onde-ocean/60 leading-relaxed max-w-2xl mx-auto">
-              Come un fiume libero che nutre la terra, portiamo storie che fanno crescere.
-              Ogni libro e un seme piantato con cura. Ogni pagina, un fiore che sboccia.
-            </p>
-          </motion.div>
-
-          {/* Values cards */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                className="text-center p-8"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <span className="text-5xl mb-4 block">{value.icon}</span>
-                <h3 className="text-2xl font-display font-bold text-onde-ocean mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-onde-ocean/60 leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ============================================
           TEAM SECTION
@@ -470,7 +412,7 @@ export default function About() {
                 transition={{ delay: 0.1 }}
               >
                 Seguici nel nostro viaggio. Nuove storie, nuove avventure,
-                nuovi modi di far fiorire l'immaginazione.
+                nuove idee da esplorare insieme.
               </motion.p>
 
               <motion.div

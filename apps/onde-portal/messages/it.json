@@ -1,0 +1,488 @@
+{
+  "metadata": {
+    "title": "Onde - Storie, App e Giochi per Bambini",
+    "description": "Il portale italiano per famiglie. Libri illustrati ad acquarello, app educative e giochi per bambini."
+  },
+  "navigation": {
+    "home": "Home",
+    "app": "App",
+    "games": "Giochi",
+    "books": "Libri",
+    "read": "Leggi",
+    "vr": "VR",
+    "about": "Chi Siamo",
+    "explore": "Esplora"
+  },
+  "footer": {
+    "description": "Creiamo storie illustrate, app educative e giochi che fanno crescere immaginazione e curiosita.",
+    "explore": "Esplora",
+    "followUs": "Seguici",
+    "copyright": "2026 Onde. Fatto con amore a Los Angeles.",
+    "privacy": "Privacy",
+    "terms": "Termini"
+  },
+  "home": {
+    "badge": "Los Angeles",
+    "title1": "Storie che",
+    "title2": "crescono",
+    "title3": "con te",
+    "subtitle": "Libri illustrati ad acquarello, app educative e giochi per far fiorire",
+    "imagination": "immaginazione",
+    "and": "e",
+    "curiosity": "curiosita",
+    "exploreBooks": "Esplora i Libri",
+    "discoverApps": "Scopri le App",
+    "scroll": "Scorri",
+    "features": {
+      "illustratedStories": {
+        "title": "Storie Illustrate",
+        "description": "Libri con acquarelli originali. Ogni pagina e un quadro da sfogliare."
+      },
+      "educationalApps": {
+        "title": "App Educative",
+        "description": "Tecnologia al servizio dell'apprendimento. Sicure e senza pubblicita."
+      },
+      "creativeGames": {
+        "title": "Giochi Creativi",
+        "description": "Divertimento che stimola creativita e problem solving."
+      }
+    },
+    "booksSection": {
+      "badge": "Libreria Illustrata",
+      "title": "I Nostri Libri",
+      "subtitle": "Storie classiche e originali, illustrate con acquarelli in stile europeo. Ogni libro e un'opera d'arte da sfogliare.",
+      "learnMore": "Scopri di piu",
+      "goToLibrary": "Vai alla Libreria"
+    },
+    "appsSection": {
+      "badge": "App Educative",
+      "title": "Le Nostre App",
+      "subtitle": "Tecnologia pensata per i bambini. Sicura, educativa, senza pubblicita. Impara giocando!",
+      "viewAllApps": "Vedi Tutte le App"
+    },
+    "gamesSection": {
+      "badge": "Divertimento Creativo",
+      "title": "Giochi",
+      "subtitle": "Esperienze interattive che stimolano creativita e apprendimento.",
+      "exploreGames": "Esplora i Giochi"
+    },
+    "ctaSection": {
+      "badge": "Unisciti alla Community",
+      "title": "Pronto a",
+      "titleHighlight": "esplorare",
+      "subtitle": "Storie, app e giochi che crescono con te e la tua famiglia. Seguici per scoprire le novita!",
+      "startReading": "Inizia a Leggere",
+      "followOnX": "Seguici su X"
+    }
+  },
+  "books": {
+    "categories": {
+      "all": "Tutti",
+      "spirituality": "Spiritualita",
+      "classics": "Classici",
+      "poetry": "Poesia",
+      "tech": "Tech"
+    },
+    "badge": "Libreria Illustrata",
+    "title": "Libri",
+    "subtitle": "I grandi classici e storie originali, illustrati con cura artigianale in stile acquarello europeo.",
+    "featured": "In Evidenza",
+    "allBooks": "Tutti i Libri",
+    "buyOnAmazon": "Acquista su Amazon",
+    "details": "Dettagli",
+    "watercolorIllustrated": "Illustrato ad Acquarello",
+    "freeBooks": {
+      "title": "Tutti i libri sono gratuiti",
+      "description": "La letteratura per bambini dovrebbe essere accessibile a tutti. Scarica, leggi e condividi le nostre storie illustrate.",
+      "exploreCatalog": "Esplora il Catalogo Completo"
+    },
+    "bookTitles": {
+      "salmo23": {
+        "title": "Il Pastore",
+        "subtitle": "Il Salmo 23 per Bambini",
+        "description": "Il Salmo piu amato, raccontato e illustrato per i piu piccoli. Un viaggio di fiducia e protezione attraverso pascoli verdeggianti e acque tranquille."
+      },
+      "aiko": {
+        "title": "AIKO",
+        "subtitle": "La Mia Amica Robot",
+        "description": "Sofia scopre che la sua nuova amica non e come le altre bambine. E un'intelligenza artificiale! Un'avventura di amicizia, tecnologia e scoperta."
+      },
+      "piccoleRime": {
+        "title": "Piccole Rime",
+        "subtitle": "Poesie Italiane per Bambini",
+        "description": "Le piu belle filastrocche della tradizione italiana, illustrate ad acquarello. Stella Stellina, La Pioggerellina di Marzo e altre perle poetiche."
+      },
+      "alice": {
+        "title": "Alice nel Paese delle Meraviglie",
+        "subtitle": "Edizione Illustrata",
+        "description": "Il viaggio di Alice nel mondo capovolto. Illustrazioni originali in stile acquarello europeo."
+      },
+      "jungleBook": {
+        "title": "Il Libro della Giungla",
+        "subtitle": "Edizione Illustrata",
+        "description": "Mowgli e i suoi amici della giungla. La legge del branco, l'amicizia e il coraggio."
+      },
+      "peterRabbit": {
+        "title": "Peter Rabbit",
+        "subtitle": "Le Avventure Complete",
+        "description": "Il coniglio piu famoso della letteratura inglese. Illustrazioni fedeli allo spirito originale."
+      },
+      "aiko2": {
+        "title": "AIKO 2",
+        "subtitle": "L'Avventura del Robotaxi",
+        "description": "Sofia e AIKO scoprono come funzionano le auto che guidano da sole. Un viaggio dalla nonna diventa una lezione di tecnologia!"
+      },
+      "mindfulness": {
+        "title": "Il Respiro Magico",
+        "subtitle": "Mindfulness per Bambini",
+        "description": "Impara a respirare, calmarti e trovare la pace interiore. Esercizi semplici per piccoli guerrieri della tranquillita."
+      }
+    }
+  },
+  "apps": {
+    "badge": "Prossimamente",
+    "title": "App in Arrivo",
+    "subtitle": "Esperienze digitali dipinte ad acquarello. Sicure, senza pubblicita, create con amore per i piu piccoli.",
+    "comingSoon": "Coming Soon",
+    "inDevelopment": "In sviluppo",
+    "inPlanning": "In progettazione",
+    "moreTocome": {
+      "title": "E molto altro in arrivo...",
+      "subtitle": "Altre esperienze magiche in fase di creazione"
+    },
+    "newsletter": {
+      "badge": "Anteprima Esclusiva",
+      "title": "Vuoi provarle in anteprima?",
+      "subtitle": "Segui Onde per ricevere aggiornamenti sulle nuove app e accesso anticipato ai beta test.",
+      "followOnX": "Seguici su X",
+      "learnMore": "Scopri di piu"
+    },
+    "appTitles": {
+      "kidsChefStudio": {
+        "title": "KidsChefStudio",
+        "subtitle": "Cucina Virtuale per Piccoli Chef",
+        "description": "Una cucina magica dove i bambini imparano a cucinare attraverso ricette animate. Ingredienti che prendono vita, strumenti che cantano, e piatti che raccontano storie."
+      },
+      "aikoInteractive": {
+        "title": "AIKO Interactive",
+        "subtitle": "La Tua Amica Robot",
+        "description": "AIKO e la tua compagna di avventure digitali. Insieme esplorate il mondo della tecnologia, imparate come funzionano i robot e scoprite i segreti dell'intelligenza artificiale."
+      },
+      "mindfulKids": {
+        "title": "Mindful Kids",
+        "subtitle": "Respira, Rilassati, Cresci",
+        "description": "Un giardino zen digitale dove i bambini scoprono la calma interiore. Esercizi di respirazione come bolle di sapone, meditazioni guidate da animaletti saggi, e momenti di pace."
+      },
+      "freeriverFlow": {
+        "title": "FreeRiver Flow",
+        "subtitle": "Lasciati Trasportare dalle Onde",
+        "description": "Un'esperienza meditativa dove segui il flusso di un fiume magico. Colori che danzano, suoni della natura, e la dolce sensazione di lasciarsi andare come una foglia sull'acqua."
+      },
+      "emilio": {
+        "title": "EMILIO",
+        "subtitle": "AI Educator",
+        "description": "Il robot amico che insegna ai bambini come funziona la tecnologia."
+      },
+      "moonlightPuzzle": {
+        "title": "Moonlight Puzzle",
+        "subtitle": "Puzzle Notturni",
+        "description": "Puzzle rilassanti con atmosfere notturne e musiche dolci."
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Giochi di Parole",
+        "description": "Giochi di parole, rime e vocabolario in italiano e inglese."
+      },
+      "storyMaker": {
+        "title": "Story Maker",
+        "subtitle": "Crea le Tue Storie",
+        "description": "Scrivi e illustra le tue storie con personaggi e ambientazioni magiche."
+      }
+    },
+    "features": {
+      "illustratedRecipes": "Ricette illustrate",
+      "zeroRealRisks": "Zero rischi reali",
+      "learnCooking": "Impara cucinando",
+      "aiAdventures": "Avventure AI",
+      "interactiveDialogs": "Dialoghi interattivi",
+      "techDiscoveries": "Scoperte tecnologiche",
+      "guidedMeditation": "Meditazione guidata",
+      "breathingExercises": "Esercizi di respiro",
+      "relaxingStories": "Storie rilassanti",
+      "visualRelax": "Relax visivo",
+      "natureSounds": "Suoni della natura",
+      "immersiveExperience": "Esperienza immersiva"
+    }
+  },
+  "games": {
+    "badge": "Divertimento Creativo",
+    "title": "Giochi",
+    "subtitle": "Esperienze interattive che stimolano creativita, logica e apprendimento. Sicuri per tutta la famiglia.",
+    "minecraft": {
+      "badge": "Coming Soon",
+      "title": "Emilio's World",
+      "description": "Il server Minecraft ufficiale della community Onde. Costruisci, esplora e impara insieme ad altri bambini in un ambiente sicuro e moderato, guidato da EMILIO!",
+      "features": {
+        "moderated": "Moderato 24/7",
+        "collaborative": "Costruzioni collaborative",
+        "weeklyEvents": "Eventi settimanali",
+        "age": "Eta 6+"
+      },
+      "version": "Versione",
+      "age": "Eta",
+      "status": "Status",
+      "comingSoon": "In arrivo"
+    },
+    "miniGames": {
+      "badge": "Impara Giocando",
+      "title": "Mini-Giochi Educativi",
+      "subtitle": "Una collezione di giochi pensati per stimolare creativita, logica e apprendimento nei bambini."
+    },
+    "cta": {
+      "title": "Nuovi giochi in arrivo!",
+      "subtitle": "Stiamo lavorando a nuove esperienze di gioco educative. Seguici per rimanere aggiornato sulle novita!",
+      "discoverApps": "Scopri le App",
+      "exploreBooks": "Esplora i Libri"
+    },
+    "gameTitles": {
+      "chefStudio": {
+        "title": "Kids Chef Studio",
+        "subtitle": "Cucina Virtuale",
+        "description": "Cucina virtuale per piccoli chef. Ricette divertenti e sicure da preparare. Impara i fondamenti della cucina giocando.",
+        "badge": "Educativo"
+      },
+      "artStudio": {
+        "title": "Pina Art Studio",
+        "subtitle": "Disegno e Colori",
+        "description": "Disegna e colora con Pina Pennello. Impara tecniche ad acquarello, crea opere d'arte e sviluppa la creativita.",
+        "badge": "Creativo"
+      },
+      "puzzleWorld": {
+        "title": "Puzzle World",
+        "subtitle": "Rompicapi Creativi",
+        "description": "Collezione di puzzle e rompicapi per tutte le eta. Allena il pensiero logico e la risoluzione di problemi.",
+        "badge": "Logica"
+      },
+      "musicMaker": {
+        "title": "Music Maker Kids",
+        "subtitle": "Crea Musica",
+        "description": "Crea melodie e ritmi con strumenti virtuali. Esplora la musica, componi canzoni e impara le basi musicali.",
+        "badge": "Musicale"
+      },
+      "natureExplorer": {
+        "title": "Nature Explorer",
+        "subtitle": "Scopri la Natura",
+        "description": "Esplora la natura attraverso giochi interattivi. Impara su piante, animali e ambiente in modo divertente.",
+        "badge": "Natura"
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Giochi di Parole",
+        "description": "Giochi di parole e rime in italiano e inglese. Amplia il vocabolario divertendoti con le parole.",
+        "badge": "Linguistico"
+      }
+    }
+  },
+  "about": {
+    "badge": "Los Angeles, California",
+    "title1": "C'era una volta",
+    "title2": "Onde",
+    "intro1": "Una piccola casa editrice italiana, nata sotto il sole della California.",
+    "intro2": "Crediamo che le storie belle possano cambiare il mondo. Che un libro illustrato ad acquarello possa aprire porte che nessuna tecnologia sa aprire. Che l'immaginazione sia il dono piu prezioso che possiamo fare ai bambini.",
+    "team": {
+      "badge": "Il Team",
+      "title": "Chi siamo",
+      "subtitle": "Tre anime, una visione. Uniamo parole, colori e tecnologia per creare qualcosa di bello.",
+      "gianni": {
+        "name": "Gianni Parola",
+        "role": "Scrittore",
+        "description": "Le storie nascono dalle parole. Gianni le sceglie con cura, una per una, come si raccolgono fiori in un prato. Ogni libro e un giardino da esplorare.",
+        "quote": "Le parole sono semi. Se le pianti con amore, fioriscono."
+      },
+      "pina": {
+        "name": "Pina Pennello",
+        "role": "Illustratrice",
+        "description": "I colori danzano sulla carta. Pina dipinge mondi dove i bambini possono entrare, camminare, sognare. Ogni pennellata e una porta verso l'immaginazione.",
+        "quote": "Dipingo quello che le parole non riescono a dire."
+      },
+      "emilio": {
+        "name": "Emilio",
+        "role": "AI Educator",
+        "description": "Un amico robot che capisce il futuro. Emilio spiega la tecnologia ai bambini con pazienza infinita, trasformando il complesso in semplice, il misterioso in meraviglioso.",
+        "quote": "Imparare e il superpotere piu bello che esista."
+      }
+    },
+    "values": {
+      "beauty": {
+        "title": "Bellezza",
+        "description": "Ogni libro e un'opera d'arte. Acquarelli che raccontano storie."
+      },
+      "simplicity": {
+        "title": "Semplicita",
+        "description": "Le grandi verita si nascondono nelle cose semplici."
+      },
+      "wonder": {
+        "title": "Meraviglia",
+        "description": "Coltiviamo lo stupore. Il mondo e pieno di magia."
+      }
+    },
+    "story": {
+      "badge": "La nostra storia",
+      "title": "Dall'Italia a Los Angeles",
+      "p1": "Onde nasce da un sogno semplice: creare libri che i bambini vogliano rileggere, e rileggere ancora. Libri che profumano di carta e colori, ma parlano il linguaggio del futuro.",
+      "p2": "Siamo un piccolo team sparso tra l'Italia e la California, unito dalla passione per le storie belle e la convinzione che la tecnologia, usata con saggezza, puo amplificare la creativita umana.",
+      "p3": "Ogni nostro libro combina l'arte dell'illustrazione tradizionale - acquarelli, sfumature, luce dorata - con le possibilita del digitale. Il risultato? Storie che vivono su carta e schermo, che crescono con i bambini che le leggono.",
+      "cta": "Esplora i nostri libri"
+    },
+    "cta": {
+      "title": "Fai parte della storia",
+      "subtitle": "Seguici nel nostro viaggio. Nuove storie, nuove avventure, nuove idee da esplorare insieme.",
+      "exploreCatalog": "Esplora il Catalogo",
+      "followOnX": "Seguici su X"
+    }
+  },
+  "read": {
+    "badge": "Libreria Digitale",
+    "title": "Leggi i Nostri",
+    "titleHighlight": "Libri",
+    "subtitle": "Sfoglia e leggi i libri illustrati di Onde direttamente nel browser. Un'esperienza di lettura pensata per le famiglie.",
+    "readNow": "Leggi ora",
+    "noBooks": {
+      "title": "Nessun libro disponibile",
+      "description": "I nostri libri saranno presto disponibili. Torna a trovarci!",
+      "backHome": "Torna alla Home"
+    },
+    "features": {
+      "readAnywhere": {
+        "title": "Leggi Ovunque",
+        "description": "Accedi ai tuoi libri da qualsiasi dispositivo, anche offline dopo il primo caricamento."
+      },
+      "nightMode": {
+        "title": "Modalita Notte",
+        "description": "Tre temi di lettura: giorno, seppia e notte per leggere in ogni condizione."
+      },
+      "forFamily": {
+        "title": "Per Tutta la Famiglia",
+        "description": "Contenuti selezionati e illustrati con cura per essere letti insieme."
+      }
+    },
+    "reader": {
+      "close": "Chiudi",
+      "day": "Giorno",
+      "sepia": "Seppia",
+      "night": "Notte",
+      "reduceText": "Riduci testo",
+      "enlargeText": "Ingrandisci testo",
+      "index": "Indice",
+      "loading": "Caricamento...",
+      "error": "Impossibile caricare il libro. Riprova.",
+      "backToLibrary": "Torna alla libreria",
+      "completed": "completato",
+      "navigation": "Usa le frecce o clicca per navigare"
+    }
+  },
+  "vr": {
+    "badge": "Il Futuro e Qui",
+    "title": "Onde in",
+    "titleHighlight": "VR",
+    "subtitle1": "On The Portal - On The Waves",
+    "subtitle2": "Educazione immersiva personalizzata. I bambini impareranno in VR, tanto vale che sia con contenuti che i genitori scelgono.",
+    "discoverHomeSchool": "Scopri Home School VR",
+    "freeriverFlow": "FreeRiver Flow VR",
+    "features": {
+      "immersion": {
+        "title": "Immersione Totale",
+        "description": "Entra dentro le storie. Vivi i libri come mai prima."
+      },
+      "interactive": {
+        "title": "Lezioni Interattive",
+        "description": "Apprendimento che coinvolge tutti i sensi."
+      },
+      "familyValues": {
+        "title": "Valori Familiari",
+        "description": "I genitori decidono cosa insegnare. Noi lo rendiamo magico."
+      }
+    },
+    "flow": {
+      "badge": "Coming Soon",
+      "title": "FreeRiver",
+      "titleHighlight": "Flow VR",
+      "description": "Programma mentre cammini. Crea app con la voce, guarda il codice prendere forma nello spazio 3D intorno a te. Il futuro del coding e immersivo.",
+      "features": {
+        "voiceToCode": {
+          "title": "Voice-to-Code",
+          "description": "Parla e il codice appare"
+        },
+        "visualDebugging": {
+          "title": "Visual Debugging",
+          "description": "Vedi il flusso dei dati in 3D"
+        },
+        "aiCompanion": {
+          "title": "AI Companion",
+          "description": "EMILIO ti guida mentre crei"
+        },
+        "multiPlatform": {
+          "title": "Multi-piattaforma",
+          "description": "Meta Quest, Apple Vision Pro"
+        }
+      },
+      "joinWaitlist": "Iscriviti alla Waitlist"
+    },
+    "homeSchool": {
+      "badge": "Educazione Personalizzata",
+      "title": "Home School VR",
+      "subtitle": "I genitori impostano i valori. Onde li insegna ai bambini in modo magico e immersivo.",
+      "problem": {
+        "title": "Il Problema",
+        "description": "I bambini passeranno sempre piu tempo in VR. I genitori sono sommersi da contenuti AI generici senza controllo sui valori trasmessi."
+      },
+      "solution": {
+        "title": "La Soluzione Onde",
+        "description": "I genitori definiscono i valori che vogliono insegnare. Onde crea esperienze VR personalizzate che rispettano quei valori. Qualita invece di quantita."
+      },
+      "parentsDecide": "I Genitori Decidono:",
+      "values": {
+        "spirituality": "Spiritualita",
+        "creativity": "Creativita",
+        "respect": "Rispetto",
+        "curiosity": "Curiosita",
+        "empathy": "Empatia",
+        "resilience": "Resilienza"
+      },
+      "subjects": {
+        "title": "Materie VR",
+        "subtitle": "Seleziona le aree di apprendimento",
+        "math": { "name": "Matematica", "description": "Numeri che prendono vita" },
+        "science": { "name": "Scienze", "description": "Esplora il microscopico" },
+        "history": { "name": "Storia", "description": "Viaggia nel tempo" },
+        "art": { "name": "Arte", "description": "Dipingi in 3D" },
+        "music": { "name": "Musica", "description": "Orchestra virtuale" },
+        "languages": { "name": "Lingue", "description": "Immersione linguistica" }
+      },
+      "startConfig": "Inizia la Configurazione"
+    },
+    "expansion": {
+      "badge": "Espansione Futura",
+      "title": "Oltre l'Educazione",
+      "subtitle": "La piattaforma VR di Onde si espandera per servire professionisti e famiglie.",
+      "therapists": { "title": "Terapisti", "description": "Sessioni VR guidate per benessere mentale" },
+      "psychologists": { "title": "Psicologi", "description": "Ambienti immersivi per terapia" },
+      "doctors": { "title": "Medici", "description": "Educazione sanitaria interattiva" },
+      "educators": { "title": "Educatori", "description": "Classi virtuali personalizzate" }
+    },
+    "cta": {
+      "title": "Pronto a Surfare il Futuro?",
+      "subtitle": "Iscriviti per essere tra i primi a provare Onde VR. On The Portal. On The Waves.",
+      "joinWaitlist": "Iscriviti alla Waitlist",
+      "backHome": "Torna alla Home"
+    }
+  },
+  "languageSwitcher": {
+    "label": "Lingua"
+  },
+  "common": {
+    "comingSoon": "Prossimamente",
+    "inDevelopment": "In sviluppo",
+    "inPlanning": "In progettazione"
+  }
+}
