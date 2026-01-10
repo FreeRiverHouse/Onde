@@ -12,6 +12,24 @@ Onde è un fiume libero (Free River House) che nutre la terra.
 Onde sono vibrazioni che connettono cuori.
 Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
+### 🌀 FILOSOFIA ONDE (10 Gen 2026)
+
+**Onde è il cammino del Tao** - quella linea che sta in mezzo.
+
+La vita è onde:
+- Ti sballotta
+- Ti porta su e giù
+- Ti fa oscillare
+
+**L'arte e la cultura ti danno:**
+- La stabilità per restare in equilibrio
+- La capacità di **surfare** sulle onde della vita
+- Gli occhi per **vedere la bellezza**
+
+> "Stare a metà, surfare, vedere la bellezza" - Mattia
+
+Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
+
 ---
 
 ## 🎨 LOGO ONDE - DECISIONI FINALI (9 Gen 2026)
@@ -1167,12 +1185,17 @@ Differenziatore vs competitor:
 | ASMR visuals | ⭐⭐ Medio | 🔥🔥 Medio | Nicchia specifica |
 | Sleep music | ⭐ Facile | 🔥🔥🔥 Alto | Molto richiesto |
 
-### 🎵 Distribuzione Musica (Gratis)
+### 🎵 Distribuzione Musica GRATIS (Aggiornato 10 Gen 2026)
+
 | Distributore | Costo | Royalties | Note |
 |--------------|-------|-----------|------|
-| **Rebel Music** | GRATIS | 100% | Consigliato |
-| **RouteNote** | GRATIS | 85% | Warner-backed |
-| **Level Music** | GRATIS | 100% | Buono |
+| **[Freecords](https://freecords.com/the-club)** | GRATIS | 100% | 24h review, account manager, CONSIGLIATO |
+| **[Jumpstr](https://jumpstr.io/)** | GRATIS | 100% | Unlimited releases, no limits |
+| **[Rebel Music](https://rebelmusicdistribution.com/)** | GRATIS | 100% | No subscriptions, artist-first |
+| **[RouteNote](https://routenote.com/)** | GRATIS | 85% (o 100% premium) | 1M+ users dal 2007 |
+| **[OFFstep](https://offstep.com/)** | GRATIS | Varia | By ONErpm, 45+ platforms |
+
+**SCELTA**: Freecords o Jumpstr (entrambi 100% gratis + 100% royalties)
 
 ### 📋 Primo Sprint MPF
 1. ✅ Sezione creata in ROADMAP
@@ -1306,15 +1329,17 @@ Differenziatore vs competitor:
 - Esempi canali che fanno milioni di views
 - Strategia Onde per ogni genere
 
-### 📻 Distribuzione Podcast GRATUITA
-**Piattaforme gratuite trovate:**
+### 📻 Distribuzione Podcast GRATUITA (Aggiornato 10 Gen 2026)
 
 | Piattaforma | Costo | Note |
 |-------------|-------|------|
-| **Spotify for Creators** | GRATIS | Ex Anchor, diretto su Spotify |
-| **Buzzsprout** | Free tier | Limitato ma funziona |
-| **Podbean** | Free tier | Buone analytics |
-| **YouTube** | GRATIS | Già attivo! |
+| **[Spotify for Creators](https://creators.spotify.com/)** | GRATIS | Ex Anchor, diretto Spotify, RSS per altri |
+| **[RSS.com](https://rss.com/)** | GRATIS (FLAN tier) | Unlimited ep, auto-distro Apple/Spotify/Amazon |
+| **[RedCircle](https://redcircle.com/)** | GRATIS | Unlimited storage, 1 podcast, monetization tools |
+| **[Podbean](https://podbean.com/)** | GRATIS | Spotify partner, 1-click Apple/Spotify |
+| **[Buzzsprout](https://buzzsprout.com/)** | GRATIS | 2h/mese, ep offline dopo 3 mesi |
+
+**SCELTA**: RSS.com (FLAN) o Spotify for Creators - entrambi illimitati e auto-distribuzione
 
 **Per musica ambient (Onde Lounge):**
 | Distributore | Costo | Royalties |
