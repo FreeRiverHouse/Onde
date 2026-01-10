@@ -1,0 +1,524 @@
+{
+  "$schema": "content-matrix-schema.json",
+  "version": "1.0.0",
+  "description": "Content Matrix Generator - Template per generare automaticamente tutti i contenuti derivati da un libro",
+
+  "book": {
+    "id": "",
+    "title": "",
+    "slug": "",
+    "author": "Onde Publishing",
+    "illustrator": "Pina Pennello",
+    "narrator": "Gianni Parola",
+    "language": "it",
+    "target_age": "3-8",
+    "genre": "",
+    "themes": [],
+    "characters": [],
+    "synopsis": "",
+    "cover_image": "",
+    "chapters": []
+  },
+
+  "audiobook": {
+    "enabled": true,
+    "specs": {
+      "format": "m4b",
+      "bitrate": "128kbps",
+      "sample_rate": "44100Hz",
+      "channels": "stereo",
+      "voice_id": "gianni-parola-v1",
+      "voice_provider": "ElevenLabs",
+      "estimated_duration_minutes": 0,
+      "intro_music": "onde-audiobook-intro.mp3",
+      "outro_music": "onde-audiobook-outro.mp3",
+      "background_music": "soft-ambient-piano.mp3",
+      "background_volume": 0.15
+    },
+    "chapters": [],
+    "output": {
+      "filename": "",
+      "path": "output/audiobooks/",
+      "cover": "",
+      "metadata": {
+        "album": "",
+        "artist": "Gianni Parola",
+        "album_artist": "Onde Publishing",
+        "genre": "Audiobook",
+        "year": 2026,
+        "copyright": "Onde Publishing 2026"
+      }
+    },
+    "distribution": {
+      "platforms": ["Audible", "Apple Books", "Spotify", "Google Play"],
+      "price_usd": 4.99,
+      "isbn": ""
+    }
+  },
+
+  "podcast": {
+    "enabled": true,
+    "specs": {
+      "format": "mp3",
+      "bitrate": "192kbps",
+      "show_name": "Onde Stories - Storie della Buonanotte",
+      "episode_type": "full",
+      "intro_duration_seconds": 15,
+      "outro_duration_seconds": 10,
+      "host_voice_id": "gianni-parola-v1",
+      "jingle": "onde-podcast-jingle.mp3"
+    },
+    "episode": {
+      "title": "",
+      "number": 0,
+      "season": 1,
+      "description": "",
+      "script": {
+        "intro": "Benvenuti a Onde Stories, le storie della buonanotte. Oggi vi leggo: {title}",
+        "content": "",
+        "outro": "Grazie per aver ascoltato Onde Stories. Iscriviti per nuove storie ogni settimana. Buonanotte!"
+      },
+      "tags": [],
+      "explicit": false
+    },
+    "output": {
+      "filename": "",
+      "path": "output/podcasts/",
+      "cover": ""
+    },
+    "distribution": {
+      "platforms": ["Spotify", "Apple Podcasts", "Google Podcasts", "Amazon Music"],
+      "rss_feed": "https://onde.la/podcast/rss.xml"
+    }
+  },
+
+  "youtube_long": {
+    "enabled": true,
+    "specs": {
+      "format": "mp4",
+      "resolution": "1920x1080",
+      "aspect_ratio": "16:9",
+      "frame_rate": 30,
+      "codec": "h264",
+      "audio_codec": "aac",
+      "estimated_duration_minutes": 0,
+      "intro_video": "onde-youtube-intro.mp4",
+      "outro_video": "onde-youtube-outro.mp4"
+    },
+    "video": {
+      "title": "",
+      "description": "",
+      "tags": [],
+      "category": "Education",
+      "playlist": "Storie della Buonanotte",
+      "thumbnail_prompt": "",
+      "scenes": [],
+      "background_style": "animated-illustrations",
+      "narrator_visible": false,
+      "subtitles": true,
+      "subtitles_languages": ["it", "en"]
+    },
+    "output": {
+      "filename": "",
+      "path": "output/youtube/long/",
+      "thumbnail": ""
+    },
+    "distribution": {
+      "channel": "Onde Publishing",
+      "channel_id": "",
+      "visibility": "public",
+      "schedule": null,
+      "monetization": true,
+      "end_screen": true,
+      "cards": []
+    }
+  },
+
+  "youtube_shorts": {
+    "enabled": true,
+    "count": 5,
+    "specs": {
+      "format": "mp4",
+      "resolution": "1080x1920",
+      "aspect_ratio": "9:16",
+      "frame_rate": 30,
+      "max_duration_seconds": 60,
+      "codec": "h264"
+    },
+    "shorts": [
+      {
+        "id": 1,
+        "title": "",
+        "hook": "",
+        "script": "",
+        "scene_description": "",
+        "music_style": "upbeat-children",
+        "text_overlay": "",
+        "call_to_action": "Link al libro completo in bio!"
+      },
+      {
+        "id": 2,
+        "title": "",
+        "hook": "",
+        "script": "",
+        "scene_description": "",
+        "music_style": "gentle-lullaby",
+        "text_overlay": "",
+        "call_to_action": "Iscriviti per altre storie!"
+      },
+      {
+        "id": 3,
+        "title": "",
+        "hook": "",
+        "script": "",
+        "scene_description": "",
+        "music_style": "magical-whimsical",
+        "text_overlay": "",
+        "call_to_action": "Qual e' la tua parte preferita?"
+      },
+      {
+        "id": 4,
+        "title": "",
+        "hook": "",
+        "script": "",
+        "scene_description": "",
+        "music_style": "adventure",
+        "text_overlay": "",
+        "call_to_action": "Condividi con un amico!"
+      },
+      {
+        "id": 5,
+        "title": "",
+        "hook": "",
+        "script": "",
+        "scene_description": "",
+        "music_style": "emotional",
+        "text_overlay": "",
+        "call_to_action": "Buonanotte!"
+      }
+    ],
+    "output": {
+      "path": "output/youtube/shorts/",
+      "naming_pattern": "{book_slug}-short-{id}.mp4"
+    }
+  },
+
+  "tiktok": {
+    "enabled": true,
+    "count": 5,
+    "specs": {
+      "format": "mp4",
+      "resolution": "1080x1920",
+      "aspect_ratio": "9:16",
+      "max_duration_seconds": 60,
+      "trending_sounds": true
+    },
+    "videos": [
+      {
+        "id": 1,
+        "concept": "story-teaser",
+        "title": "",
+        "hook_text": "",
+        "script": "",
+        "visual_style": "animated-watercolor",
+        "sound_suggestion": "trending-lullaby",
+        "hashtags_suggestion": []
+      },
+      {
+        "id": 2,
+        "concept": "character-intro",
+        "title": "",
+        "hook_text": "",
+        "script": "",
+        "visual_style": "character-spotlight",
+        "sound_suggestion": "cute-instrumental",
+        "hashtags_suggestion": []
+      },
+      {
+        "id": 3,
+        "concept": "moral-lesson",
+        "title": "",
+        "hook_text": "",
+        "script": "",
+        "visual_style": "text-animation",
+        "sound_suggestion": "inspirational",
+        "hashtags_suggestion": []
+      },
+      {
+        "id": 4,
+        "concept": "behind-scenes",
+        "title": "",
+        "hook_text": "",
+        "script": "",
+        "visual_style": "illustration-process",
+        "sound_suggestion": "lofi-beats",
+        "hashtags_suggestion": []
+      },
+      {
+        "id": 5,
+        "concept": "reading-moment",
+        "title": "",
+        "hook_text": "",
+        "script": "",
+        "visual_style": "cozy-reading",
+        "sound_suggestion": "ambient-fireplace",
+        "hashtags_suggestion": []
+      }
+    ],
+    "output": {
+      "path": "output/tiktok/",
+      "naming_pattern": "{book_slug}-tiktok-{id}.mp4"
+    },
+    "distribution": {
+      "account": "@onde",
+      "schedule_days_apart": 2
+    }
+  },
+
+  "instagram_reels": {
+    "enabled": true,
+    "count": 5,
+    "specs": {
+      "format": "mp4",
+      "resolution": "1080x1920",
+      "aspect_ratio": "9:16",
+      "max_duration_seconds": 90,
+      "cover_frame": "custom"
+    },
+    "reels": [
+      {
+        "id": 1,
+        "concept": "story-highlight",
+        "title": "",
+        "caption": "",
+        "script": "",
+        "visual_style": "cinematic-watercolor",
+        "audio": "original",
+        "cover_text": ""
+      },
+      {
+        "id": 2,
+        "concept": "illustration-showcase",
+        "title": "",
+        "caption": "",
+        "script": "",
+        "visual_style": "art-gallery",
+        "audio": "trending",
+        "cover_text": ""
+      },
+      {
+        "id": 3,
+        "concept": "reading-asmr",
+        "title": "",
+        "caption": "",
+        "script": "",
+        "visual_style": "cozy-ambient",
+        "audio": "voiceover",
+        "cover_text": ""
+      },
+      {
+        "id": 4,
+        "concept": "quote-animation",
+        "title": "",
+        "caption": "",
+        "script": "",
+        "visual_style": "text-on-illustration",
+        "audio": "soft-piano",
+        "cover_text": ""
+      },
+      {
+        "id": 5,
+        "concept": "family-moment",
+        "title": "",
+        "caption": "",
+        "script": "",
+        "visual_style": "warm-lifestyle",
+        "audio": "gentle-acoustic",
+        "cover_text": ""
+      }
+    ],
+    "output": {
+      "path": "output/instagram/reels/",
+      "naming_pattern": "{book_slug}-reel-{id}.mp4"
+    },
+    "distribution": {
+      "account": "@onde_publishing",
+      "cross_post_facebook": true
+    }
+  },
+
+  "tweets": {
+    "enabled": true,
+    "count": 10,
+    "specs": {
+      "max_characters": 280,
+      "include_media": true,
+      "thread_capable": true
+    },
+    "tweets": [
+      {
+        "id": 1,
+        "type": "announcement",
+        "content": "",
+        "media": "cover",
+        "schedule_day": 0
+      },
+      {
+        "id": 2,
+        "type": "quote",
+        "content": "",
+        "media": "illustration",
+        "schedule_day": 1
+      },
+      {
+        "id": 3,
+        "type": "behind-scenes",
+        "content": "",
+        "media": "process",
+        "schedule_day": 2
+      },
+      {
+        "id": 4,
+        "type": "character",
+        "content": "",
+        "media": "character-art",
+        "schedule_day": 3
+      },
+      {
+        "id": 5,
+        "type": "educational",
+        "content": "",
+        "media": "infographic",
+        "schedule_day": 4
+      },
+      {
+        "id": 6,
+        "type": "engagement",
+        "content": "",
+        "media": "poll-image",
+        "schedule_day": 5
+      },
+      {
+        "id": 7,
+        "type": "testimonial",
+        "content": "",
+        "media": "review-graphic",
+        "schedule_day": 7
+      },
+      {
+        "id": 8,
+        "type": "fun-fact",
+        "content": "",
+        "media": "fact-card",
+        "schedule_day": 10
+      },
+      {
+        "id": 9,
+        "type": "milestone",
+        "content": "",
+        "media": "celebration",
+        "schedule_day": 14
+      },
+      {
+        "id": 10,
+        "type": "throwback",
+        "content": "",
+        "media": "compilation",
+        "schedule_day": 30
+      }
+    ],
+    "output": {
+      "path": "output/tweets/",
+      "filename": "{book_slug}-tweets.json"
+    },
+    "distribution": {
+      "accounts": ["@Onde_FRH", "@FreeRiverHouse"],
+      "use_api": true
+    }
+  },
+
+  "spotify_track": {
+    "enabled": true,
+    "specs": {
+      "format": "wav",
+      "sample_rate": "44100Hz",
+      "bit_depth": "16bit",
+      "duration_minutes": 3,
+      "genre": "Children's Music",
+      "ai_generator": "Suno"
+    },
+    "track": {
+      "title": "",
+      "type": "theme-song",
+      "style": "gentle Italian lullaby, soft piano, light strings, warm and comforting",
+      "mood": "peaceful, magical, bedtime",
+      "tempo": "slow",
+      "vocals": "instrumental",
+      "prompt": "",
+      "lyrics": ""
+    },
+    "output": {
+      "filename": "",
+      "path": "output/spotify/",
+      "cover": ""
+    },
+    "distribution": {
+      "distributor": "DistroKid",
+      "platforms": ["Spotify", "Apple Music", "Amazon Music", "YouTube Music"],
+      "isrc": "",
+      "release_date": ""
+    }
+  },
+
+  "cartoon": {
+    "enabled": true,
+    "specs": {
+      "format": "mp4",
+      "resolution": "1920x1080",
+      "duration_minutes": 5,
+      "style": "2D animated watercolor",
+      "frame_rate": 24
+    },
+    "episode": {
+      "title": "",
+      "synopsis": "",
+      "characters": [],
+      "voice_actors": {
+        "narrator": "gianni-parola-v1",
+        "characters": {}
+      },
+      "scenes": [],
+      "storyboard_prompts": [],
+      "background_music": "gentle-orchestral",
+      "sound_effects": true
+    },
+    "output": {
+      "filename": "",
+      "path": "output/cartoons/",
+      "thumbnail": "",
+      "storyboard_path": ""
+    },
+    "distribution": {
+      "platforms": ["YouTube", "Amazon Prime Video Kids"],
+      "age_rating": "G",
+      "series_name": "Onde Stories Animated"
+    }
+  },
+
+  "metadata": {
+    "created_at": "",
+    "updated_at": "",
+    "generated_by": "content-matrix-generator",
+    "version": "1.0.0",
+    "status": "draft",
+    "notes": ""
+  },
+
+  "generation_queue": {
+    "priority": 1,
+    "batch_id": "",
+    "dependencies": [],
+    "estimated_time_hours": 0,
+    "assigned_worker": null
+  }
+}

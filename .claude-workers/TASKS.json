@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T11:17:07.910Z",
+  "last_updated": "2026-01-10T18:37:06.439Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -1725,7 +1725,7 @@
       "description": "UN LIBRO = TUTTO: ebook, audiobook, podcast ep, 5 video brevi, 1 video lungo, 10 post social, cartone personaggi, musica tema. Script che da 1 input genera 15+ output.",
       "category": "TOOLS",
       "priority": 1,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "tsunami-001",
         "audiobook-pipeline-001",
@@ -1734,9 +1734,10 @@
       ],
       "estimated_effort": "medium",
       "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:40:38.037Z"
+      "claimed_by": "claude-3394-mk8n8hm7",
+      "claimed_at": "2026-01-10T18:33:33.488Z",
+      "created_at": "2026-01-09T09:40:38.037Z",
+      "completed_at": "2026-01-10T18:37:06.438Z"
     },
     {
       "id": "cross-002",
@@ -1744,15 +1745,20 @@
       "description": "Matrice automatica: Libro X genera → Audiobook, Podcast, YT Long, 5 YT Shorts, 5 TikTok, 5 IG Reels, 10 Tweet, Spotify track, Cartone. Template JSON per ogni libro.",
       "category": "TOOLS",
       "priority": 1,
-      "status": "available",
+      "status": "completed",
       "dependencies": [
         "cross-001"
       ],
       "estimated_effort": "medium",
-      "files_involved": [],
-      "claimed_by": null,
-      "claimed_at": null,
-      "created_at": "2026-01-09T09:40:38.366Z"
+      "files_involved": [
+        "tools/content-matrix/generate-matrix.js",
+        "tools/content-matrix/content-matrix-template.json",
+        "tools/content-matrix/README.md"
+      ],
+      "claimed_by": "claude-opus-4.5",
+      "claimed_at": "2026-01-10T18:45:00.000Z",
+      "created_at": "2026-01-09T09:40:38.366Z",
+      "completed_at": "2026-01-10T18:50:00.000Z"
     },
     {
       "id": "cross-003",
