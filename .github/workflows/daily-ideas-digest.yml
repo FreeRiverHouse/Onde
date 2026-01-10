@@ -1,0 +1,68 @@
+name: Daily Ideas Digest to Telegram
+
+on:
+  schedule:
+    # Ogni giorno alle 20:00 PT (04:00 UTC del giorno dopo)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Permette trigger manuale
+
+jobs:
+  send-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get today's ideas
+        id: ideas
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          YESTERDAY=$(date -d "yesterday" +%Y-%m-%d 2>/dev/null || date -v-1d +%Y-%m-%d)
+
+          # Cerca file di oggi o ieri
+          IDEAS_FILE=""
+          if [ -f "chat-history/${TODAY}-ideas.md" ]; then
+            IDEAS_FILE="chat-history/${TODAY}-ideas.md"
+          elif [ -f "chat-history/${YESTERDAY}-ideas.md" ]; then
+            IDEAS_FILE="chat-history/${YESTERDAY}-ideas.md"
+          fi
+
+          if [ -n "$IDEAS_FILE" ]; then
+            # Estrai le idee principali (intestazioni ##)
+            DIGEST=$(grep "^##" "$IDEAS_FILE" | head -10 | sed 's/## /- /')
+            echo "digest<<EOF" >> $GITHUB_OUTPUT
+            echo "$DIGEST" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "has_ideas=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_ideas=false" >> $GITHUB_OUTPUT
+          fi
+
+          # Conta commit di oggi
+          COMMITS=$(git log --oneline --since="24 hours ago" | wc -l | tr -d ' ')
+          echo "commits=$COMMITS" >> $GITHUB_OUTPUT
+
+      - name: Send to Telegram
+        if: steps.ideas.outputs.has_ideas == 'true' || steps.ideas.outputs.commits > 0
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MESSAGE="🌊 *ONDE DAILY DIGEST*%0A%0A"
+          MESSAGE+="📅 $(date +%Y-%m-%d)%0A%0A"
+
+          if [ "${{ steps.ideas.outputs.has_ideas }}" == "true" ]; then
+            MESSAGE+="💡 *Idee di oggi:*%0A"
+            MESSAGE+="${{ steps.ideas.outputs.digest }}%0A%0A"
+          fi
+
+          MESSAGE+="📝 Commit nelle ultime 24h: ${{ steps.ideas.outputs.commits }}%0A"
+          MESSAGE+="%0A🔗 https://github.com/FreeRiverHouse/Onde"
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d text="${MESSAGE}" \
+            -d parse_mode="Markdown"

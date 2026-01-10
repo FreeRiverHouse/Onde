@@ -1934,6 +1934,55 @@ Robot EMILIO + Minecraft + Canzoni stupide + Lezioni AI + Community = 🚀
 
 **Potenziale**: Se arriviamo anche solo al 10% di Milo & Chip = **277k subscribers!**
 
+---
+
+### 🥽 ONDE FLOW - VIBE SURFING GLASSES (10 Gen 2026)
+
+**VISIONE**: Creare app/contenuti mentre cammini con gli occhiali!
+
+> "Il futuro del telefono sarà un device che genera contenuti AI" - Elon Musk
+> "L'occhiale è commodity, il CODICE è tutto" - Mattia
+
+**Il nome SURF torna:**
+- onde.**surf** = dominio
+- Vibe **Surfing** = coding mentre surfi la vita
+- TUTTO TORNA! 🏄‍♂️
+
+### 💰 Costi Occhiali White-Label
+| Tipo | Costo Produzione |
+|------|------------------|
+| White-label Cina | $50-200/unità |
+| Google Glass (fu) | $152 produzione |
+| DIY Open Source | <$25 |
+
+**Fornitori OEM**: Global Sources, Wellypaudio, MetaVision, Made-in-China
+
+### 🎯 Occhiali per PROTOTIPO
+| Modello | Prezzo | Note |
+|---------|--------|------|
+| **Rokid AI Glasses** | **$299** | AI on-device, 4K camera, 12h batteria |
+| XREAL Air 2 | $359 | Economico, grande community |
+| XREAL Air 2 Ultra | $699 | 6DoF + hand tracking |
+
+### 🚀 PIANO PROTOTIPO (SFIDA!)
+
+**Step 1: iPhone App**
+- Voice-to-Code (Whisper + Claude API)
+- Parli → Claude scrive → vedi risultato
+
+**Step 2: Apple Watch Companion**
+- Trigger vocale dal polso
+- Feedback haptic
+
+**Step 3: Porta su Occhiali**
+- Stesso codice, diversa interfaccia
+- Rokid = Android + AI on-device
+- Processing su telefono/cloud
+
+**Se funziona su iPhone → funziona su occhiali!**
+
+---
+
 ### 🎨 TASK #1 - DESIGN EMILIO (PRIORITÀ ASSOLUTA)
 
 **EMILIO DEVE SPACCARE.**
