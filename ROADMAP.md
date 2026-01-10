@@ -1079,9 +1079,15 @@ Differenziatore vs competitor:
 ### 📋 Primo Sprint MPF
 1. ✅ Sezione creata in ROADMAP
 2. [ ] **OGGI**: Creare canale YouTube "Onde Lounge"
-3. [ ] **OGGI**: Generare 1 video test (camino 1 ora)
+3. ✅ **COMPLETATO 10 Gen 2026**: Generato video test camino 5min e 10min
+   - Output: `/Volumes/DATI-SSD/onde-youtube/fireplace/`
+   - `fireplace-test-5min.mp4` (47MB, 5:00)
+   - `fireplace-test-10min.mp4` (62MB, 10:00)
+   - Immagine: Unsplash royalty-free
+   - Audio: Pink noise generato con ffmpeg (placeholder per audio camino vero)
 4. [ ] Analizzare top 5 canali competitor
 5. [ ] Pipeline automatica entro fine settimana
+6. [ ] Sostituire pink noise con audio camino reale da Freesound/Pixabay
 
 ---
 

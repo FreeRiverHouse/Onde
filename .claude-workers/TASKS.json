@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T10:41:34.902Z",
+  "last_updated": "2026-01-10T11:06:14.489Z",
   "total_tasks": 158,
   "tasks": [
     {
@@ -245,14 +245,15 @@
       "description": "Generare primo video test camino con suoni crepitio per YouTube",
       "category": "multimedia",
       "priority": 3,
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [
         "youtube-001"
       ],
       "estimated_effort": "medium",
       "files_involved": [],
       "claimed_by": "claude-58146-mk865v9b",
-      "claimed_at": "2026-01-10T10:35:37.733Z"
+      "claimed_at": "2026-01-10T10:35:37.733Z",
+      "completed_at": "2026-01-10T11:06:14.488Z"
     },
     {
       "id": "video-002",
