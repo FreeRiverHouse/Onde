@@ -153,5 +153,36 @@ python book.upgrade.py \
 
 ---
 
-*Upgrade chirurgico completato con successo - 2026-01-11 15:15*
+## Update: Aggiunta Nota Biografica Re Davide
+
+### Richiesta Mattia (15:14)
+"Aggiungi anche una nota biografica sulla vita di Davide."
+
+### Implementazione
+**Nuova pagina aggiunta**: "About King David" (pagina 10)
+
+**Contenuto biografico**:
+- Introduzione: Re Davide (c. 1040-970 BCE), figura amata nella storia biblica
+- Gioventù: Pastore a Betlemme, lezioni di protezione e cura del gregge
+- Coraggio: Battaglia contro Golia, fede in Dio
+- Identità: "Sweet Psalmist of Israel" - autore di molti salmi
+- Connessione Salmo 23: Esperienza personale come pastore → comprensione di Dio come Pastore
+- Legacy: Cuore che torna sempre a Dio, insegnamento di portare tutto a Dio
+
+**Stile**:
+- Font: Quicksand 12pt per testo, Libre Baskerville per titolo
+- Layout: Testo giustificato, max-width 150mm
+- Background: Gradient beige (#faf8f5 → #f5f0e8)
+- Tono: Educativo, rispettoso, accessibile per famiglie
+
+**Risultato**:
+- Libro ora 12 pagine (era 10)
+- PDF: 3.4M (era 3.3M)
+- Immagini: Ancora tutte invariate
+- Aggiunto valore educativo significativo
+
+---
+
+*Upgrade chirurgico completato con successo - 2026-01-11 15:17*
 *Primo test procedura book.upgrade con parametri*
+*Update: Aggiunta nota biografica Re Davide*
