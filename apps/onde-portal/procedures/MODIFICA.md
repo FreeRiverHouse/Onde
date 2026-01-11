@@ -33,11 +33,37 @@ npm run dev
 npm run dev -- --port 3333
 ```
 
-**Verifica:**
+**Verifica (METODO ROBUSTO):**
 ```bash
-# In un altro terminale, verifica che il server sia attivo
-curl -s --head http://localhost:8888 | head -n 1
-# Deve restituire: HTTP/1.1 200 OK
+# IMPORTANTE: curl -s da solo NON rileva server down!
+# Usa SEMPRE uno di questi metodi:
+
+# Metodo 1: curl con -sf (fail silently on error)
+curl -sf http://localhost:8888 > /dev/null && echo "Server OK" || echo "Server DOWN"
+
+# Metodo 2: Verifica processo sulla porta
+lsof -i :8888 > /dev/null 2>&1 && echo "Processo attivo" || echo "Nessun processo"
+
+# Metodo 3: Verifica HTTP status code esplicito
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8888 2>/dev/null || echo "000")
+if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "304" ]; then
+    echo "[OK] Server risponde con HTTP $HTTP_CODE"
+else
+    echo "[ERROR] Server non risponde (HTTP $HTTP_CODE)"
+    echo "        Avvia con: npm run dev"
+fi
+```
+
+**Se il server non parte:**
+```bash
+# Verifica se la porta e' gia' occupata
+lsof -i :8888
+
+# Uccidi processi zombie sulla porta
+kill $(lsof -t -i:8888) 2>/dev/null || true
+
+# Riprova
+npm run dev
 ```
 
 ### Step 2: Crea Snapshot Pre-Modifica
@@ -221,14 +247,39 @@ git reset --hard HEAD~1
 
 ## Cosa Fare se Fallisce
 
-| Problema | Soluzione |
-|----------|-----------|
-| Server non parte | Verifica `npm install`, controlla errori |
-| Pagina bianca | Controlla console browser (F12), cerca errore |
-| Modifica non appare | Ricarica pagina (Cmd+Shift+R), riavvia server |
-| Build fallisce | Leggi errore, correggi sintassi, annulla se necessario |
-| Sito rotto | `git checkout -- .` per annullare tutto |
-| Non trovo il file | Usa `grep -r` per cercare contenuto |
+| Problema | Causa Probabile | Soluzione |
+|----------|-----------------|-----------|
+| Server non parte | Porta occupata o dipendenze | `lsof -i :8888` per vedere chi usa la porta, poi `npm install` |
+| `curl -s` dice OK ma server e' down | Bug di curl -s | Usa `curl -sf` con flag `-f` oppure `lsof -i :8888` |
+| Pagina bianca | Errore JavaScript | Controlla console browser (F12), cerca errore rosso |
+| Modifica non appare | Cache browser | Ricarica forzato (Cmd+Shift+R), o svuota cache |
+| Modifica non appare | Server non ricompilato | Riavvia server (`npm run dev`) |
+| Build fallisce | Errore sintassi | Leggi messaggio errore, correggi, riprova |
+| Build fallisce | Dipendenze mancanti | `npm install` e riprova |
+| Sito rotto completamente | Modifica errata | `git checkout -- .` per annullare TUTTO |
+| Non trovo il file | Nome diverso | Usa `grep -r "contenuto"` per cercare nel contenuto |
+| Permessi negati | File protetto | `chmod 644 [file]` o controlla owner |
+
+---
+
+## Rollback Automatico
+
+Se la modifica rompe qualcosa, ecco come annullare rapidamente:
+
+```bash
+# Opzione 1: Annulla modifiche non committate (SICURO)
+git checkout -- .
+
+# Opzione 2: Ripristina da backup (se hai fatto backup)
+cp /Users/mattia/Projects/Onde/apps/onde-portal/out/index.html.bak /Users/mattia/Projects/Onde/apps/onde-portal/out/index.html
+
+# Opzione 3: Torna al commit precedente (ATTENZIONE: perdi modifiche!)
+git reset --hard HEAD~1
+
+# Opzione 4: Usa snapshot pre-modifica
+LAST_SNAPSHOT=$(ls -t /Users/mattia/Projects/Onde/apps/onde-portal/snapshots/ | head -1)
+cp -r "/Users/mattia/Projects/Onde/apps/onde-portal/snapshots/${LAST_SNAPSHOT}/test/src" .
+```
 
 ---
 

@@ -115,18 +115,43 @@ echo "Linee cambiate: ${CHANGES}"
 
 ```bash
 #!/bin/bash
-# Script verifica automatica
+# Script verifica automatica con timeout e retry
 
 PREPROD_URL="https://onde.surf"
 ERRORS=0
+MAX_RETRIES=3
+RETRY_DELAY=10
 
 echo "=== VERIFICA AUTOMATICA PREPROD ==="
 
-# 1. Verifica raggiungibilita
-if curl -s --head "${PREPROD_URL}" | head -n 1 | grep -q "200"; then
+# Funzione per verificare con retry
+verify_url() {
+    local url=$1
+    local retries=0
+
+    while [ $retries -lt $MAX_RETRIES ]; do
+        # Usa curl -sf per fallire correttamente su errori
+        HTTP_CODE=$(curl -sf -o /dev/null -w "%{http_code}" --connect-timeout 10 --max-time 30 "${url}" 2>/dev/null || echo "000")
+
+        if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "301" ] || [ "$HTTP_CODE" = "302" ]; then
+            return 0
+        fi
+
+        retries=$((retries + 1))
+        if [ $retries -lt $MAX_RETRIES ]; then
+            echo "       Retry $retries/$MAX_RETRIES in ${RETRY_DELAY}s..."
+            sleep $RETRY_DELAY
+        fi
+    done
+    return 1
+}
+
+# 1. Verifica raggiungibilita (con retry)
+echo "[CHECK] Verifica raggiungibilita..."
+if verify_url "${PREPROD_URL}"; then
     echo "[OK] Sito raggiungibile"
 else
-    echo "[ERROR] Sito non raggiungibile"
+    echo "[ERROR] Sito non raggiungibile dopo $MAX_RETRIES tentativi"
     ERRORS=$((ERRORS + 1))
 fi
 
@@ -356,14 +381,50 @@ log "=== FINE DEPLOY ==="
 
 ## Cosa Fare se Fallisce
 
-| Fase | Errore | Azione |
-|------|--------|--------|
-| Build | Errori compilazione | Correggi codice, non deployare |
-| Push | Conflitti git | Risolvi conflitti, ripeti |
-| PREPROD | Non raggiungibile | Verifica CI/CD, log deploy |
-| PREPROD | Contenuto errato | Verifica branch, ripeti deploy |
-| PROD | Non raggiungibile | **ROLLBACK IMMEDIATO** |
-| PROD | Contenuto errato | **ROLLBACK IMMEDIATO** |
+| Fase | Errore | Azione Immediata | Comando |
+|------|--------|------------------|---------|
+| Build | Errori compilazione | Correggi codice, non deployare | `npm run build 2>&1 \| head -50` |
+| Build | Dipendenze mancanti | Reinstalla dipendenze | `rm -rf node_modules && npm install` |
+| Push | Conflitti git | Risolvi conflitti, ripeti | `git status` per vedere conflitti |
+| Push | Autenticazione fallita | Verifica credenziali | `git remote -v` e configura token |
+| PREPROD | Non raggiungibile | Verifica CI/CD, log deploy | Controlla dashboard Vercel/Netlify |
+| PREPROD | Contenuto errato | Verifica branch, ripeti deploy | `git log --oneline -5` |
+| PREPROD | Deploy lento | Attendi o verifica build queue | Dashboard CI/CD |
+| PROD | Non raggiungibile | **ROLLBACK IMMEDIATO** | `./procedures/scripts/rollback.sh` |
+| PROD | Contenuto errato | **ROLLBACK IMMEDIATO** | `git revert HEAD --no-edit && git push` |
+| PROD | Performance degradate | Valuta rollback | Controlla metriche prima di decidere |
+
+---
+
+## Rollback Automatico in Caso di Errore PROD
+
+```bash
+#!/bin/bash
+# ESEGUI QUESTO SE PROD E' ROTTO
+
+echo "=== ROLLBACK EMERGENZA PROD ==="
+
+cd /Users/mattia/Projects/Onde
+
+# Salva il commit problematico per analisi
+BAD_COMMIT=$(git rev-parse HEAD)
+echo "Commit problematico: ${BAD_COMMIT}"
+
+# Opzione 1: Revert (crea nuovo commit, piu' sicuro)
+git revert HEAD --no-edit
+git push origin main
+
+echo "Rollback completato. Attendo propagazione..."
+sleep 60
+
+# Verifica
+if curl -sf https://onde.la > /dev/null 2>&1; then
+    echo "[OK] PROD ripristinato"
+else
+    echo "[CRITICAL] PROD ancora down - escalation necessaria"
+    echo "Contatta: [INSERIRE CONTATTI EMERGENZA]"
+fi
+```
 
 **In caso di problema PROD, esegui subito:** `./procedures/scripts/rollback.sh`
 

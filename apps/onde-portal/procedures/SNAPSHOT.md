@@ -36,11 +36,22 @@ echo "Snapshot directory creata: ${SNAPSHOT_DIR}"
 ### Step 2: Snapshot TEST (localhost:8888)
 
 ```bash
-# Verifica che il server TEST sia attivo
-if curl -s --head http://localhost:8888 | head -n 1 | grep -q "200\|301\|302"; then
-    echo "[OK] TEST server attivo"
+# Verifica che il server TEST sia attivo (metodo robusto)
+# NOTA: curl -s NON fallisce quando il server e' down, bisogna usare -sf o verificare con lsof
+
+# Metodo 1: Verifica se c'e' un processo sulla porta
+if lsof -i :8888 > /dev/null 2>&1; then
+    echo "[OK] Processo attivo su porta 8888"
 else
-    echo "[WARN] TEST server non raggiungibile - potrebbe essere spento"
+    echo "[WARN] Nessun processo su porta 8888"
+fi
+
+# Metodo 2: Verifica HTTP response con curl -sf (fail silently)
+if curl -sf http://localhost:8888 > /dev/null 2>&1; then
+    echo "[OK] TEST server risponde correttamente"
+else
+    echo "[WARN] TEST server non risponde - verificare se e' avviato"
+    echo "       Per avviarlo: cd /Users/mattia/Projects/Onde/apps/onde-portal && npm run dev"
 fi
 
 # Copia file sorgente (ambiente locale)
@@ -234,6 +245,27 @@ echo "${SNAPSHOT_DIR}"
 | `Permission denied` | Permessi file | Esegui con `sudo` o correggi permessi |
 | `No space left` | Disco pieno | Libera spazio, elimina vecchi snapshot |
 | `git: command not found` | Git non installato | Installa git o ignora metadata git |
+| `curl ritorna OK ma server e' down` | Bug di `curl -s` senza `-f` | Usa sempre `curl -sf` per verifiche |
+| `lsof: command not found` | lsof non installato | Usa `netstat -an \| grep 8888` in alternativa |
+| `Snapshot vuoto` | File sorgente non trovati | Verifica path e che src/ esista |
+
+---
+
+## Diagnostica Rapida
+
+```bash
+# Verifica connettivita' internet
+ping -c 1 google.com > /dev/null 2>&1 && echo "Internet OK" || echo "Internet DOWN"
+
+# Verifica DNS
+nslookup onde.la > /dev/null 2>&1 && echo "DNS OK" || echo "DNS problem"
+
+# Verifica spazio disco
+df -h / | awk 'NR==2 {print "Spazio disponibile: " $4}'
+
+# Verifica server locale (metodo robusto)
+curl -sf http://localhost:8888 > /dev/null 2>&1 && echo "Server locale OK" || echo "Server locale DOWN"
+```
 
 ---
 
