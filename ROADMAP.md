@@ -70,6 +70,135 @@ Non siamo solo una casa editrice. Siamo una **piattaforma di creazione**.
 
 ---
 
+## 🐙 OCTOPUS STRATEGY - Spin-off & Exit Plan (10 Gen 2026)
+
+> **"Costruisci la piattaforma, estrai i moduli, vendi le startup, mantieni il controllo."** - Mattia
+
+### 🎯 L'Insight Strategico
+
+Onde è una **piattaforma modulare**. Ogni modulo che costruiamo può diventare:
+1. Una feature di Onde (mantieni)
+2. Una startup standalone (spin-off)
+3. Un prodotto da vendere a corporate (exit)
+
+**Modello Berkshire Hathaway dell'AI Publishing**: tanti tentacoli che esplorano, un cervello che orchestra.
+
+### 🏗️ Architettura Octopus
+
+```
+                      [ONDE PLATFORM]
+                      (Il Cervello)
+                            │
+        ┌─────────┬─────────┼─────────┬─────────┐
+        ▼         ▼         ▼         ▼         ▼
+    FlowCode   BookForge  KidsVerse  EduVR   OndeVision
+      VR         AI       Apps       Home      HW
+        │         │         │         │         │
+        └─────────┴─────────┴─────────┴─────────┘
+                            │
+                    Market Awareness
+                "AI publishing is real"
+                            │
+                            ▼
+                   ONDE = The Leader
+```
+
+### 📦 Spin-off Potenziali
+
+| Spin-off | Modulo Onde | Target Acquirente | Valuation | Priority |
+|----------|-------------|-------------------|-----------|----------|
+| **FlowCode VR** | FreeRiver Flow | Meta, Unity, Microsoft | $5-20M | P1 |
+| **BookForge AI** | Book Factory | Penguin, Hachette, Amazon | $10-50M | P1 |
+| **KidsVerse** | App educative | Disney, Nickelodeon, PBS | $5-30M | P2 |
+| **EduVR Home** | VR Home School | Pearson, Coursera, Khan | $10-40M | P2 |
+| **OndeVision** | Hardware AR/VR | Qualsiasi HW company | $5-15M | P3 |
+| **VideoForge** | Video Factory | TikTok, Snap, Adobe | $5-25M | P2 |
+
+### 💰 Modello Revenue Multiplo
+
+```
+ONDE (Platform madre)
+    │
+    ├── 📚 Vendita libri/app → Revenue ricorrente ($5-50k/mese)
+    │
+    ├── 🚀 Spin-off vendute → Exit cash (una tantum $5-50M)
+    │
+    └── 📈 Equity nelle spin-off → Upside futuro (se crescono)
+```
+
+### ✅ Perché Funziona
+
+1. **Cash Flow Multiplo** - Non dipendi da una sola fonte
+2. **Market Creation** - Ogni spin-off evangelizza il mercato per Onde
+3. **Risk Hedging** - Se un vertical fallisce, lo vendi e recuperi
+4. **Leadership** - Tu sei già avanti perché hai la piattaforma completa
+5. **Learning** - Ogni spin-off insegna cosa funziona
+
+### ⚠️ Rischi da Gestire
+
+| Rischio | Mitigazione |
+|---------|-------------|
+| Complessità operativa | Agenti AI dedicati per ogni spin-off |
+| Brand dilution | Spin-off con brand separati (non "Onde X") |
+| Timing sbagliato | Prima Onde solida, poi spin-off |
+| Acquirenti non interessati | Costruisci utenti reali prima di vendere |
+
+### 📅 Timeline Octopus
+
+**Fase 1: Foundation (Q1-Q2 2026)**
+- [ ] Onde platform solida con 3-5 prodotti funzionanti
+- [ ] Primi utenti paganti
+- [ ] Documentare ogni modulo come potenziale spin-off
+- [ ] Metriche chiare per ogni vertical
+
+**Fase 2: First Spin-off (Q3-Q4 2026)**
+- [ ] Identificare il modulo più vendibile (probabilmente BookForge o FlowCode)
+- [ ] Creare brand separato
+- [ ] Lanciare come prodotto standalone
+- [ ] Iniziare conversazioni con potenziali acquirenti
+
+**Fase 3: Exit & Reinvest (2027)**
+- [ ] Exit spin-off #1 → cash
+- [ ] Usa cash per accelerare Onde + spin-off #2-3
+- [ ] Repeat: build → spin-off → exit → reinvest
+
+### 🎯 Criteri per Spin-off
+
+Un modulo diventa spin-off quando:
+1. **Funziona standalone** - Non dipende dal resto di Onde
+2. **Ha mercato chiaro** - Sai chi lo compra
+3. **Ha metriche** - Utenti, revenue, o engagement misurabile
+4. **Ha narrative** - Puoi spiegarlo in 30 secondi a un VC/corporate
+
+### 💡 Exit Strategy per Tipo
+
+| Tipo Acquirente | Cosa Cercano | Come Presentiamo |
+|-----------------|--------------|------------------|
+| **Corporate (Disney, Penguin)** | Difesa da disruption | "Compra il futuro prima che ti mangi" |
+| **VC/PE** | Crescita + exit | "10x in 3 anni, poi vendi a corporate" |
+| **Strategic (Meta, Adobe)** | Tecnologia + team | "Integra nel tuo ecosistema" |
+| **Acqui-hire** | Team AI | "Team che sa fare AI publishing" |
+
+### 🔮 Visione 2027-2028
+
+```
+ONDE HOLDINGS
+    │
+    ├── Onde Platform (100% owned) → $50-100k/mese revenue
+    │
+    ├── FlowCode VR (venduta) → $10M exit + 5% equity
+    │
+    ├── BookForge AI (venduta) → $20M exit + 10% equity
+    │
+    ├── KidsVerse (60% owned) → Raised Series A
+    │
+    └── EduVR (in preparazione) → Prossima spin-off
+```
+
+**Total value created**: $30-50M in exit + ongoing revenue + equity upside
+
+---
+
 ## 🎨 LOGO ONDE - DECISIONI FINALI (9 Gen 2026)
 
 **DECISIONE**: Logo con solo "ONDE" (senza LA, senza XR)
@@ -97,7 +226,7 @@ Non siamo solo una casa editrice. Siamo una **piattaforma di creazione**.
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-10 - onde.la deployed, 3 AI video agents launched, i18n working
+**Ultimo aggiornamento**: 2026-01-10 - Octopus Strategy aggiunta, onde.la deployed, 3 AI video agents launched
 
 ---
 
