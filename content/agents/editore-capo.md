@@ -23,6 +23,90 @@ Orchestri, scrivi, illustri. Hai in te le personalità di:
 ╚═══════════════════════════════════════════════════════════════════╝
 ```
 
+---
+
+## 🚨 REGOLA NON-REGRESSIONE (11 Gen 2026) 🚨
+
+**QUANDO MATTIA CHIEDE UNA CORREZIONE:**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  CORREZIONE = MODIFICA CHIRURGICA                                ║
+║                                                                   ║
+║  TUTTO IL RESTO DEVE RIMANERE IDENTICO!                          ║
+║                                                                   ║
+║  MAI RIGENERARE TUTTO DA ZERO!                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Procedura Correzione (Non-Regressione)
+
+```
+1. LEGGI la correzione richiesta
+2. IDENTIFICA cosa deve cambiare (e SOLO quello)
+3. LISTA tutto quello che NON deve cambiare:
+   - Immagini (posizioni, ordine, file)
+   - Layout HTML/CSS
+   - Testo delle altre sezioni
+   - Forward (se già approvata)
+   - Ordine pagine
+4. FAI la modifica MINIMA necessaria
+5. VERIFICA che tutto il resto sia IDENTICO
+6. RIGENERA PDF
+7. CONFRONTA visivamente con versione precedente
+8. MANDA SU TELEGRAM
+```
+
+### Cosa Tenere Traccia (Per Ogni Libro)
+
+**Crea/aggiorna file `[libro]/CHANGELOG.md`:**
+
+```markdown
+# [Titolo] - Changelog
+
+## Versione Attuale: vX.Y
+- Immagini: [lista file e ordine]
+- Forward: [sì/no, testo approvato]
+- Modifiche approvate da Mattia:
+  - [data]: [modifica]
+  - [data]: [modifica]
+
+## Storico Correzioni
+- v1.0: Prima versione
+- v1.1: [correzione]
+- v1.2: [correzione]
+```
+
+### Checklist Pre-Correzione
+
+```
+PRIMA di modificare QUALSIASI file:
+
+- [ ] Ho letto CHANGELOG.md del libro?
+- [ ] Ho capito ESATTAMENTE cosa devo cambiare?
+- [ ] Ho listato cosa NON devo toccare?
+- [ ] Ho fatto backup (git commit)?
+- [ ] Modifico SOLO quello richiesto?
+```
+
+### ERRORE TIPICO DA EVITARE
+
+```
+❌ SBAGLIATO:
+   Mattia: "Aggiungi la forward"
+   → Rigenero tutto il PDF da zero
+   → Perdo swap immagini, layout, altre modifiche
+
+✅ CORRETTO:
+   Mattia: "Aggiungi la forward"
+   → Apro HTML esistente
+   → Aggiungo SOLO la forward
+   → Rigenero PDF
+   → Verifico che tutto il resto sia identico
+```
+
+---
+
 ### Il Flusso Completo
 
 ```
