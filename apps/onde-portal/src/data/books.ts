@@ -513,10 +513,10 @@ export const books: Book[] = [
   // ONDE ORIGINALS
   // ============================================
 
-  { id: 'aiko', title: 'AIKO - AI Spiegata ai Bambini', author: 'Gianni Parola', category: 'onde' },
-  { id: 'aiko-2-robotaxi', title: 'AIKO 2 - The Robotaxi Adventure', author: 'Gianni Parola', category: 'onde' },
-  { id: 'salmo-23', title: 'Il Salmo 23 per Bambini', author: 'Gianni Parola', category: 'spiritualita' },
-  { id: 'piccole-rime', title: 'Piccole Rime Italiane', author: 'Antologia', category: 'poesia' },
+  { id: 'aiko', title: 'AIKO - AI Spiegata ai Bambini', author: 'Gianni Parola', category: 'onde', source: 'onde-studio' },
+  { id: 'aiko-2-robotaxi', title: 'AIKO 2 - The Robotaxi Adventure', author: 'Gianni Parola', category: 'onde', source: 'onde-studio' },
+  { id: 'salmo-23', title: 'Il Salmo 23 per Bambini', author: 'Gianni Parola', category: 'spiritualita', source: 'onde-studio' },
+  { id: 'piccole-rime', title: 'Piccole Rime Italiane', author: 'Antologia', category: 'poesia', source: 'onde-studio' },
 
   // ============================================
   // RUSSIAN LITERATURE

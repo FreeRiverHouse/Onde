@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditations - Marcus Aurelius</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            background: #1a1a1a;
+            color: #2c2c2c;
+            line-height: 1.8;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background: #faf8f3;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cover Page */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #1a1410 0%, #2c2419 50%, #1a1410 100%);
+            color: #d4af37;
+        }
+
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40mm 20mm 30mm 20mm;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            text-align: center;
+        }
+
+        .cover h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 42pt;
+            font-weight: 700;
+            color: #d4af37;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8mm;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cover .author {
+            font-family: 'Cinzel', serif;
+            font-size: 18pt;
+            font-weight: 400;
+            color: #c9b896;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .cover .publisher {
+            position: absolute;
+            bottom: 15mm;
+            left: 0;
+            right: 0;
+            font-family: 'Cinzel', serif;
+            font-size: 10pt;
+            color: #8b7355;
+            letter-spacing: 3px;
+        }
+
+        /* Title Page */
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30mm;
+            background: #faf8f3;
+        }
+
+        .title-page h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 36pt;
+            color: #2c1810;
+            letter-spacing: 4px;
+            margin-bottom: 10mm;
+        }
+
+        .title-page .subtitle {
+            font-size: 14pt;
+            font-style: italic;
+            color: #5a4a3a;
+            margin-bottom: 15mm;
+        }
+
+        .title-page .author {
+            font-family: 'Cinzel', serif;
+            font-size: 18pt;
+            color: #3d2d1d;
+            letter-spacing: 3px;
+            margin-bottom: 5mm;
+        }
+
+        .title-page .dates {
+            font-size: 11pt;
+            color: #8b7355;
+            margin-bottom: 30mm;
+        }
+
+        .ornament {
+            font-size: 24pt;
+            color: #d4af37;
+            margin: 10mm 0;
+        }
+
+        .title-page .edition {
+            font-size: 11pt;
+            color: #5a4a3a;
+            margin-top: 20mm;
+        }
+
+        .title-page .publisher-info {
+            position: absolute;
+            bottom: 25mm;
+            font-family: 'Cinzel', serif;
+            font-size: 11pt;
+            color: #8b7355;
+            letter-spacing: 2px;
+        }
+
+        /* Dedication Page */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40mm;
+            background: #faf8f3;
+        }
+
+        .dedication p {
+            font-style: italic;
+            font-size: 14pt;
+            color: #5a4a3a;
+            max-width: 120mm;
+            line-height: 2;
+        }
+
+        /* Book/Chapter Pages */
+        .chapter {
+            padding: 20mm 25mm 25mm 25mm;
+            background: #faf8f3;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 8mm;
+        }
+
+        .book-number {
+            font-family: 'Cinzel', serif;
+            font-size: 11pt;
+            color: #8b7355;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 3mm;
+        }
+
+        .chapter-title {
+            font-family: 'Cinzel', serif;
+            font-size: 20pt;
+            color: #2c1810;
+            letter-spacing: 2px;
+            margin-bottom: 2mm;
+        }
+
+        .chapter-theme {
+            font-style: italic;
+            font-size: 11pt;
+            color: #8b7355;
+        }
+
+        .chapter-image {
+            width: 100%;
+            max-height: 120mm;
+            object-fit: contain;
+            margin: 6mm 0;
+            border-radius: 2mm;
+        }
+
+        .chapter-content {
+            flex: 1;
+            font-size: 10.5pt;
+            text-align: justify;
+            color: #2c2c2c;
+        }
+
+        .chapter-content p {
+            margin-bottom: 4mm;
+            text-indent: 8mm;
+        }
+
+        .chapter-content p:first-child {
+            text-indent: 0;
+        }
+
+        .chapter-content p:first-child::first-letter {
+            font-family: 'Cinzel', serif;
+            font-size: 28pt;
+            float: left;
+            line-height: 1;
+            padding-right: 3mm;
+            color: #2c1810;
+        }
+
+        .quote-block {
+            margin: 6mm 10mm;
+            padding: 4mm 6mm;
+            border-left: 2px solid #d4af37;
+            font-style: italic;
+            color: #5a4a3a;
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 12mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 10pt;
+            color: #8b7355;
+        }
+
+        /* End Page */
+        .end-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40mm;
+            background: #faf8f3;
+        }
+
+        .end-page .finis {
+            font-family: 'Cinzel', serif;
+            font-size: 18pt;
+            color: #2c1810;
+            letter-spacing: 4px;
+            margin-bottom: 20mm;
+        }
+
+        .end-page .credits {
+            font-size: 10pt;
+            color: #8b7355;
+            line-height: 2.2;
+        }
+
+        .end-page .credits strong {
+            color: #5a4a3a;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page cover">
+        <img src="images/cover.jpg" alt="Meditations Cover" class="cover-image">
+        <div class="cover-overlay">
+            <h1>Meditations</h1>
+            <div class="author">Marcus Aurelius</div>
+            <div class="publisher">Onde Classics</div>
+        </div>
+    </div>
+
+    <!-- Title Page -->
+    <div class="page title-page">
+        <div class="ornament">&#x2726;</div>
+        <h1>MEDITATIONS</h1>
+        <div class="subtitle">Thoughts to Himself</div>
+        <div class="author">MARCUS AURELIUS ANTONINUS</div>
+        <div class="dates">Emperor of Rome, 161-180 AD</div>
+        <div class="ornament">&#x2726; &#x2726; &#x2726;</div>
+        <div class="edition">Illustrated Edition<br>Translated by Meric Casaubon</div>
+        <div class="publisher-info">ONDE CLASSICS<br>2026</div>
+    </div>
+
+    <!-- Dedication Page -->
+    <div class="page dedication">
+        <div class="ornament">&#x2726;</div>
+        <p>To all who seek wisdom<br>in times of turmoil,<br>and peace<br>in the midst of chaos.</p>
+        <div class="ornament">&#x2726;</div>
+    </div>
+
+    <!-- Book I: Gratitude -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book One</div>
+            <div class="chapter-title">Gratitude</div>
+            <div class="chapter-theme">Lessons from Loved Ones</div>
+        </div>
+        <img src="images/book1.jpg" alt="Book 1 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>Of my grandfather Verus I have learned to be gentle and meek, and to refrain from all anger and passion. From the fame and memory of him that begot me I have learned both shamefastness and manlike behaviour.</p>
+            <p>Of my mother I have learned to be religious, and bountiful; and to forbear, not only to do, but to intend any evil; to content myself with a spare diet, and to fly all such excess as is incidental to great wealth.</p>
+            <div class="quote-block">
+                "From the gods I received that I had good grandfathers, and parents, a good sister, good masters, good domestics, loving kinsmen, almost all that I have."
+            </div>
+            <p>To Rusticus I am beholding, that I first entered into the conceit that my life wanted some redress and cure. From Apollonius, true liberty, and unvariable steadfastness, and not to regard anything at all, though never so little, but right and reason.</p>
+        </div>
+        <div class="page-number">1</div>
+    </div>
+
+    <!-- Book II: Acceptance -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Two</div>
+            <div class="chapter-title">Acceptance</div>
+            <div class="chapter-theme">The Common Nature of Mankind</div>
+        </div>
+        <img src="images/book2.jpg" alt="Book 2 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>Remember how long thou hast already put off these things, and how often a certain day and hour as it were, having been set unto thee by the gods, thou hast neglected it. It is high time for thee to understand the true nature both of the world, whereof thou art a part.</p>
+            <div class="quote-block">
+                "Betimes in the morning say to thyself, This day I shall have to do with an idle curious man, with an unthankful man, a railer, a crafty, false, or an envious man."
+            </div>
+            <p>All these ill qualities have happened unto them, through ignorance of that which is truly good and truly bad. But I that understand the nature of that which is good, that it only is to be desired, and of that which is bad, that it only is truly odious and shameful: who know moreover, that this transgressor, whosoever he be, is my kinsman.</p>
+            <p>For we are all born to be fellow-workers, as the feet, the hands, and the eyelids; as the rows of the upper and under teeth.</p>
+        </div>
+        <div class="page-number">2</div>
+    </div>
+
+    <!-- Book III: Rational Analysis -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Three</div>
+            <div class="chapter-title">Rational Analysis</div>
+            <div class="chapter-theme">The Examination of Impressions</div>
+        </div>
+        <img src="images/book3.jpg" alt="Book 3 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>A man must not only consider how daily his life wasteth and decreaseth, but this also, that if he live long, he cannot be certain, whether his understanding shall continue so able and sufficient, for either discreet consideration, in matter of businesses; or for contemplation.</p>
+            <div class="quote-block">
+                "Thou must hasten therefore; not only because thou art every day nearer unto death than other, but also because that intellective faculty in thee doth daily waste and decay."
+            </div>
+            <p>Spend not the remnant of thy days in thoughts and fancies concerning other men. See therefore in the whole series and connection of thy thoughts, that thou be careful to prevent whatsoever is idle and impertinent: but especially, whatsoever is curious and malicious.</p>
+            <p>Do nothing against thy will, nor contrary to the community, nor without due examination.</p>
+        </div>
+        <div class="page-number">3</div>
+    </div>
+
+    <!-- Book IV: Inner Citadel -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Four</div>
+            <div class="chapter-title">The Inner Citadel</div>
+            <div class="chapter-theme">Retreat Within Yourself</div>
+        </div>
+        <img src="images/book4.jpg" alt="Book 4 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>They seek for themselves private retiring places, as country villages, the sea-shore, mountains; yea thou thyself art wont to long much after such places. But all this thou must know proceeds from simplicity in the highest degree.</p>
+            <div class="quote-block">
+                "At what time soever thou wilt, it is in thy power to retire into thyself, and to be at rest, and free from all businesses. A man cannot any whither retire better than to his own soul."
+            </div>
+            <p>Let these precepts be brief and fundamental, which as soon as thou dost call them to mind, may suffice thee to purge thy soul throughly. This world is mere change, and this life, opinion.</p>
+            <p>Not as though thou hadst thousands of years to live. Death hangs over thee: whilst yet thou livest, whilst thou mayest, be good.</p>
+        </div>
+        <div class="page-number">4</div>
+    </div>
+
+    <!-- Book V: Turning Obstacles -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Five</div>
+            <div class="chapter-title">Obstacles into Opportunities</div>
+            <div class="chapter-theme">Virtue Through Duty</div>
+        </div>
+        <img src="images/book5.jpg" alt="Book 5 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>In the morning when thou findest thyself unwilling to rise, consider with thyself presently, it is to go about a man's work that I am stirred up. Am I then yet unwilling to go about that, for which I myself was born and brought forth into this world?</p>
+            <div class="quote-block">
+                "Seest thou not how all things in the world besides, how every tree and plant, how sparrows and ants, spiders and bees: how all in their kind are intent as it were orderly to perform whatsoever naturally doth become and belong unto them?"
+            </div>
+            <p>Such there be, who when they have done a good turn to any, do not so much as know what they have done; but are like unto the vine, which beareth her grapes, and when once she hath borne her own proper fruit, is contented and seeks for no further recompense.</p>
+            <p>Accept then, and be pleased with whatsoever doth happen, as tending to the health and welfare of the universe.</p>
+        </div>
+        <div class="page-number">5</div>
+    </div>
+
+    <!-- Book VI: Living with Nature -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Six</div>
+            <div class="chapter-title">Living with Nature</div>
+            <div class="chapter-theme">Agreement with the Universe</div>
+        </div>
+        <img src="images/book6.jpg" alt="Book 6 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>The best kind of revenge is not to become like unto them. One thing here is worth a great deal, to pass thy life in truth and justice, with a benevolent disposition even to liars and unjust men.</p>
+            <div class="quote-block">
+                "The universe is change; our life is what our thoughts make it. Look within. Within is the fountain of good, and it will ever bubble up, if thou wilt ever dig."
+            </div>
+            <p>Let it not be in any man's power to say truly of thee, that thou art not simple, or that thou art not good; but let him be a liar, whosoever shall think anything of these things concerning thee.</p>
+            <p>Labour not as one that is wretched, nor as one that would be pitied, or admired; but direct thy will and thy desire to one thing only: to be active or to rest, as the public good shall require.</p>
+        </div>
+        <div class="page-number">6</div>
+    </div>
+
+    <!-- Book VII: Resilience -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Seven</div>
+            <div class="chapter-title">Resilience</div>
+            <div class="chapter-theme">Interconnectedness and Endurance</div>
+        </div>
+        <img src="images/book7.jpg" alt="Book 7 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>What is badness? It is that which thou hast often seen. And so of everything that happens, be it what it will, be ready to remember that it is that which thou hast already often seen. For generally above and below, all things are the same.</p>
+            <div class="quote-block">
+                "Receive without pride, let go without attachment. Never esteem anything as of advantage to thee that shall make thee break thy word or lose thy self-respect."
+            </div>
+            <p>In the whole constitution of man, I see not any virtue contrary to justice, whereby it may be resisted and opposed. But one whereby pleasure and voluptuousness may be resisted and opposed, I see: continence.</p>
+            <p>Be not ashamed of help. It is thy business to do thy appointed duty, like a soldier storming a breach. What if, being lame, thou canst not scale the walls alone, but with the help of another canst?</p>
+        </div>
+        <div class="page-number">7</div>
+    </div>
+
+    <!-- Book VIII: Present Moment -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Eight</div>
+            <div class="chapter-title">The Present Moment</div>
+            <div class="chapter-theme">Detachment from Fame</div>
+        </div>
+        <img src="images/book8.jpg" alt="Book 8 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>This also may serve to keep thee from vainglory; that it is not now in thy power to have lived from thy youth, or even from middle age, as a philosopher. It appears both to many others and to thyself, that thou art far from philosophy.</p>
+            <div class="quote-block">
+                "Think not so much of what thou hast not, as of what thou hast: but of the things which thou hast, select the best, and then reflect how eagerly they would have been sought, if thou hadst them not."
+            </div>
+            <p>Remember that to change thy opinion and to follow him who corrects thy error is as consistent with freedom as it is to persist in thy error. For it is thy own activity, moving according to thy own impulse and judgment.</p>
+            <p>Every instant of time is a pinprick of eternity. All things are petty, easily changed, vanishing away.</p>
+        </div>
+        <div class="page-number">8</div>
+    </div>
+
+    <!-- Book IX: Justice -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Nine</div>
+            <div class="chapter-title">Justice</div>
+            <div class="chapter-theme">The Common Good</div>
+        </div>
+        <img src="images/book9.jpg" alt="Book 9 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>He who acts unjustly acts impiously. For since the universal nature has made rational animals for the sake of one another to help one another according to their deserts, but in no way to injure one another, he who transgresses her will, is clearly guilty of impiety.</p>
+            <div class="quote-block">
+                "That which is not good for the swarm, neither is it good for the bee. No man is an island; we are bound together in rational community."
+            </div>
+            <p>Adapt thyself to the things with which thy lot has been cast: and the men among whom thou hast received thy portion, love them, but do it truly, sincerely.</p>
+            <p>Soon, very soon, thou wilt be ashes, or a skeleton, and either a name or not even a name; but name is sound and echo. And the things which are much valued in life are empty and rotten and trifling.</p>
+        </div>
+        <div class="page-number">9</div>
+    </div>
+
+    <!-- Book X: Healthy Mind -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Ten</div>
+            <div class="chapter-title">A Healthy Mind</div>
+            <div class="chapter-theme">Trust in Providence</div>
+        </div>
+        <img src="images/book10.jpg" alt="Book 10 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>Wilt thou, then, O my soul, never be good and simple and one and naked, more manifest than the body which surrounds thee? Wilt thou never enjoy an affectionate and contented disposition?</p>
+            <div class="quote-block">
+                "Look at the stars lighting up the sky: to gaze upon them a while is cleansing. Think of how all things speedily change, and in the twinkling of an eye are born and pass away."
+            </div>
+            <p>Think often of the bond that unites all things in the universe, and their dependence upon one another. All things are interwoven with one another, and the bond is holy.</p>
+            <p>Though thou shouldst be going to live three thousand years, and as many times ten thousand years, still remember that no man loses any other life than this which he now lives.</p>
+        </div>
+        <div class="page-number">10</div>
+    </div>
+
+    <!-- Book XI: Improving the Soul -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Eleven</div>
+            <div class="chapter-title">Improving the Soul</div>
+            <div class="chapter-theme">Judgment and Acceptance</div>
+        </div>
+        <img src="images/book11.jpg" alt="Book 11 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>These are the properties of the rational soul: it sees itself, analyses itself, and makes itself such as it chooses; the fruit which it bears it enjoys; for the fruits of plants and that in animals which corresponds to fruits others enjoy.</p>
+            <div class="quote-block">
+                "When another blames thee or hates thee, or when men say about thee anything injurious, approach their poor souls, penetrate within, and see what kind of men they are."
+            </div>
+            <p>Thou wilt discover that thou needst not be concerned about what they think of thee. However thou must be well disposed towards them, for by nature they are friends.</p>
+            <p>Consider that everything which happens, happens justly, and if thou observest carefully, thou wilt find it to be so. I do not say only with respect to the continuous series of things, but with respect to what is just.</p>
+        </div>
+        <div class="page-number">11</div>
+    </div>
+
+    <!-- Book XII: Acceptance of Death -->
+    <div class="page chapter">
+        <div class="chapter-header">
+            <div class="book-number">Book Twelve</div>
+            <div class="chapter-title">Graceful Acceptance</div>
+            <div class="chapter-theme">Death and Divine Order</div>
+        </div>
+        <img src="images/book12.jpg" alt="Book 12 Illustration" class="chapter-image">
+        <div class="chapter-content">
+            <p>All those things at which thou wishest to arrive by a circuitous road, thou canst have now, if thou dost not refuse them to thyself. And this means, if thou wilt take no notice of all the past, and trust the future to providence, and direct the present only conformably to piety and justice.</p>
+            <div class="quote-block">
+                "Pass then through this little space of time conformably to nature, and end thy journey in content, just as an olive falls off when it is ripe, blessing nature who produced it, and thanking the tree on which it grew."
+            </div>
+            <p>How small a part of the boundless and unfathomable time is assigned to every man? For it is very soon swallowed up in the eternal. And how small a part of the whole substance? And how small a part of the universal soul?</p>
+            <p>And on what a small clod of the whole earth thou creepest? Reflecting on all this, consider nothing to be great, except to act as thy nature leads thee, and to endure that which the common nature brings.</p>
+        </div>
+        <div class="page-number">12</div>
+    </div>
+
+    <!-- End Page -->
+    <div class="page end-page">
+        <div class="ornament">&#x2726;</div>
+        <div class="finis">FINIS</div>
+        <div class="ornament">&#x2726; &#x2726; &#x2726;</div>
+        <div class="credits">
+            <strong>Meditations</strong><br>
+            Marcus Aurelius Antoninus<br><br>
+            Translated by Meric Casaubon (1634)<br>
+            Public Domain Text from Project Gutenberg<br><br>
+            <strong>Illustrations</strong><br>
+            Generated with Grok AI<br>
+            Art Direction by Pina Pennello<br><br>
+            <strong>Published by</strong><br>
+            Onde Classics<br>
+            Los Angeles, 2026<br><br>
+            <em>onde.la</em>
+        </div>
+    </div>
+</body>
+</html>

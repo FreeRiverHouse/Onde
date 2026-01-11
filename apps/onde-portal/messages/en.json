@@ -299,10 +299,10 @@
   },
   "about": {
     "badge": "Los Angeles, California",
-    "title1": "Once upon a time",
+    "title1": "About",
     "title2": "Onde",
-    "intro1": "A small Italian publishing house, born under the California sun.",
-    "intro2": "We believe that beautiful stories can change the world. That a watercolor illustrated book can open doors that no technology can open. That imagination is the most precious gift we can give to children.",
+    "intro1": "A digital publishing company based in Los Angeles, California.",
+    "intro2": "We create and sell illustrated ebooks (PDF and EPUB). Our catalog includes classic literature, children's books, spirituality, art, and technology titles. Digital delivery via email. Contact: onde.frh@proton.me",
     "team": {
       "badge": "The Team",
       "title": "Who We Are",
@@ -341,12 +341,12 @@
       }
     },
     "story": {
-      "badge": "Our Story",
-      "title": "From Italy to Los Angeles",
-      "p1": "Onde was born from a simple dream: to create books that children want to read again, and again. Books that smell of paper and colors, but speak the language of the future.",
-      "p2": "We are a small team scattered between Italy and California, united by a passion for beautiful stories and the belief that technology, used wisely, can amplify human creativity.",
-      "p3": "Each of our books combines the art of traditional illustration - watercolors, shading, golden light - with digital possibilities. The result? Stories that live on paper and screen, that grow with the children who read them.",
-      "cta": "Explore our books"
+      "badge": "What We Do",
+      "title": "Digital Publishing",
+      "p1": "We publish illustrated editions of classic books from the public domain.",
+      "p2": "Each book features original illustrations and is available in PDF and EPUB formats.",
+      "p3": "Some books are free, others have a small price. All are delivered digitally via email after purchase.",
+      "cta": "See our books"
     },
     "cta": {
       "title": "Be part of the story",

@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import ClientLayout from '@/components/ClientLayout'
 
 export const metadata: Metadata = {
-  title: 'Onde - Stories, Apps and Games for Children',
-  description: 'The Italian portal for families. Watercolor illustrated books, educational apps and games for children.',
-  keywords: ['children books', 'educational apps', 'kids games', 'illustrated stories', 'onde'],
+  title: 'Onde - Beautiful Books, Illustrated Classics',
+  description: 'AI-native digital publishing house based in Los Angeles. Illustrated editions of classic literature, crafted with care.',
+  keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

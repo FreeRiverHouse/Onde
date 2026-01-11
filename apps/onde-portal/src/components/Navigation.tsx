@@ -16,11 +16,7 @@ export default function Navigation() {
 
   const navItems = [
     { href: '/', label: t.navigation.home },
-    { href: '/collezioni', label: 'Collezioni' },
     { href: '/libri', label: t.navigation.books },
-    { href: '/app', label: t.navigation.app },
-    { href: '/giochi', label: t.navigation.games },
-    { href: '/leggi', label: t.navigation.read },
     { href: '/about', label: t.navigation.about },
   ]
 

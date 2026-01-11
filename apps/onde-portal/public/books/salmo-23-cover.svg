@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="600" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient - pastoral green meadow -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB"/>
+      <stop offset="40%" style="stop-color:#B0E0E6"/>
+      <stop offset="100%" style="stop-color:#90EE90"/>
+    </linearGradient>
+    <linearGradient id="grassGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#228B22"/>
+      <stop offset="100%" style="stop-color:#006400"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="400" height="600" fill="url(#skyGradient)"/>
+
+  <!-- Rolling hills -->
+  <ellipse cx="200" cy="520" rx="350" ry="150" fill="#32CD32"/>
+  <ellipse cx="50" cy="550" rx="200" ry="100" fill="#228B22"/>
+  <ellipse cx="350" cy="540" rx="180" ry="120" fill="#2E8B57"/>
+
+  <!-- Sun rays -->
+  <circle cx="320" cy="80" r="40" fill="#FFD700" opacity="0.9"/>
+  <circle cx="320" cy="80" r="60" fill="#FFD700" opacity="0.3"/>
+
+  <!-- Simple sheep (stylized) -->
+  <g transform="translate(80, 380)">
+    <ellipse cx="30" cy="20" rx="25" ry="18" fill="#FFFFF0"/>
+    <circle cx="50" cy="15" r="12" fill="#FFFFF0"/>
+    <circle cx="52" cy="12" r="3" fill="#333"/>
+    <rect x="15" y="35" width="4" height="15" fill="#333"/>
+    <rect x="35" y="35" width="4" height="15" fill="#333"/>
+  </g>
+
+  <g transform="translate(250, 400)">
+    <ellipse cx="30" cy="20" rx="22" ry="16" fill="#FFFFF0"/>
+    <circle cx="48" cy="16" r="10" fill="#FFFFF0"/>
+    <circle cx="50" cy="14" r="2.5" fill="#333"/>
+    <rect x="18" y="33" width="4" height="12" fill="#333"/>
+    <rect x="35" y="33" width="4" height="12" fill="#333"/>
+  </g>
+
+  <!-- Still water (pond) -->
+  <ellipse cx="200" cy="470" rx="60" ry="20" fill="#4169E1" opacity="0.6"/>
+  <ellipse cx="200" cy="468" rx="50" ry="15" fill="#87CEEB" opacity="0.5"/>
+
+  <!-- Title area -->
+  <rect x="30" y="100" width="340" height="180" rx="20" fill="white" opacity="0.9"/>
+
+  <!-- Title text -->
+  <text x="200" y="160" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="#2E5B2E" text-anchor="middle">Il Pastore</text>
+  <text x="200" y="200" font-family="Georgia, serif" font-size="18" fill="#4A7C4A" text-anchor="middle">Il Salmo 23</text>
+  <text x="200" y="230" font-family="Georgia, serif" font-size="16" fill="#4A7C4A" text-anchor="middle">per Bambini</text>
+
+  <!-- Onde logo area -->
+  <text x="200" y="265" font-family="Georgia, serif" font-size="12" fill="#6B8E6B" text-anchor="middle">Onde Publishing</text>
+</svg>

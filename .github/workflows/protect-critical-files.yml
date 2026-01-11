@@ -1,0 +1,40 @@
+name: Protect Critical Files
+
+on:
+  pull_request:
+    paths:
+      - 'apps/onde-portal/src/app/page.tsx'
+      - 'apps/onde-portal/src/app/about/page.tsx'
+
+jobs:
+  check-critical-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block PR
+        run: |
+          echo "🚫 BLOCKED: This PR modifies protected critical files!"
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  PROTECTED FILES (futuristic design - took 3 days!):"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "  • apps/onde-portal/src/app/page.tsx (homepage)"
+          echo "  • apps/onde-portal/src/app/about/page.tsx (about page)"
+          echo ""
+          echo "These files define the core site design and require"
+          echo "explicit approval from Mattia before any changes."
+          echo ""
+          echo "To proceed:"
+          echo "  1. Add the label 'critical-changes-approved' to this PR"
+          echo "  2. Get explicit approval from @magmatic__"
+          echo ""
+          exit 1
+
+  check-approval:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'critical-changes-approved')
+    steps:
+      - name: Approved
+        run: |
+          echo "✅ Critical changes approved with label"
+          echo "Proceeding with PR..."

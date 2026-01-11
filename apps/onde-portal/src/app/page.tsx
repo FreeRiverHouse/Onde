@@ -2,9 +2,8 @@
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
-import { useEffect, useRef, useState, useMemo } from 'react'
-import { useTranslations } from '@/i18n'
-import HomeSpotifySection from '@/components/spotify/HomeSpotifySection'
+import Image from 'next/image'
+import { useRef, useMemo } from 'react'
 
 // Particle component for floating background particles
 function Particle({ index }: { index: number }) {
@@ -79,102 +78,43 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   )
 }
 
+// Book data
+const books = [
+  {
+    id: 'meditations',
+    title: 'Meditations',
+    subtitle: 'Thoughts to Himself',
+    author: 'Marcus Aurelius',
+    description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
+    category: 'Philosophy',
+    price: '$0.11',
+    gradient: 'from-amber-500 to-amber-700',
+    cover: '/books/meditations-cover.jpg',
+    pdfUrl: '/books/meditations-en.pdf',
+    epubUrl: '/books/epub/meditations-en.epub',
+  },
+  {
+    id: 'shepherds-promise',
+    title: "The Shepherd's Promise",
+    subtitle: 'Psalm 23 for Children',
+    author: 'Biblical Tradition',
+    description: 'The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.',
+    category: 'Spirituality',
+    price: 'Free',
+    gradient: 'from-emerald-500 to-green-600',
+    cover: '/books/shepherds-promise-cover.jpg',
+    pdfUrl: '/books/the-shepherds-promise.pdf',
+  },
+]
+
 export default function Home() {
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
-  const t = useTranslations()
 
   // Generate particle indices
   const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
-
-  // Data - Featured Books
-  const featuredBooks = [
-    {
-      id: 'salmo-23',
-      title: t.books.bookTitles.salmo23.title,
-      subtitle: t.books.bookTitles.salmo23.subtitle,
-      cover: '/books/salmo-23-cover.jpg',
-      category: t.books.categories.spirituality,
-      gradient: 'from-amber-500 to-orange-600',
-      description: t.books.bookTitles.salmo23.description,
-    },
-    {
-      id: 'aiko',
-      title: t.books.bookTitles.aiko.title,
-      subtitle: t.books.bookTitles.aiko.subtitle,
-      cover: '/books/aiko-cover.jpg',
-      category: t.books.categories.tech,
-      gradient: 'from-cyan-500 to-blue-600',
-      description: t.books.bookTitles.aiko.description,
-    },
-    {
-      id: 'piccole-rime',
-      title: t.books.bookTitles.piccoleRime.title,
-      subtitle: t.books.bookTitles.piccoleRime.subtitle,
-      cover: '/books/piccole-rime-cover.jpg',
-      category: t.books.categories.poetry,
-      gradient: 'from-pink-500 to-rose-600',
-      description: t.books.bookTitles.piccoleRime.description,
-    },
-    {
-      id: 'alice',
-      title: t.books.bookTitles.alice.title,
-      subtitle: t.books.bookTitles.alice.subtitle,
-      cover: '/books/alice-cover.jpg',
-      category: t.books.categories.classics,
-      gradient: 'from-violet-500 to-purple-600',
-      description: t.books.bookTitles.alice.description,
-    },
-  ]
-
-  // Data - Apps
-  const apps = [
-    {
-      id: 'emilio',
-      title: t.apps.appTitles.emilio.title,
-      description: t.apps.appTitles.emilio.description,
-      icon: '🤖',
-      status: t.common.comingSoon,
-      gradient: 'from-onde-coral to-onde-pink',
-    },
-    {
-      id: 'moonlight-puzzle',
-      title: t.apps.appTitles.moonlightPuzzle.title,
-      description: t.apps.appTitles.moonlightPuzzle.description,
-      icon: '🌙',
-      status: t.common.inDevelopment,
-      gradient: 'from-onde-blue to-onde-purple',
-    },
-    {
-      id: 'word-play',
-      title: t.apps.appTitles.wordPlay.title,
-      description: t.apps.appTitles.wordPlay.description,
-      icon: '📝',
-      status: t.common.comingSoon,
-      gradient: 'from-onde-gold to-onde-coral',
-    },
-  ]
-
-  // Features
-  const features = [
-    {
-      icon: '📚',
-      title: t.home.features.illustratedStories.title,
-      description: t.home.features.illustratedStories.description,
-    },
-    {
-      icon: '🎮',
-      title: t.home.features.educationalApps.title,
-      description: t.home.features.educationalApps.description,
-    },
-    {
-      icon: '✨',
-      title: t.home.features.creativeGames.title,
-      description: t.home.features.creativeGames.description,
-    },
-  ]
 
   return (
     <div className="relative overflow-x-hidden w-full">
@@ -215,17 +155,6 @@ export default function Home() {
           {particleIndices.map((i) => (
             <Particle key={i} index={i} />
           ))}
-        </div>
-      </div>
-
-      {/* Development Banner */}
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <div className="bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm py-2 text-center">
-          <p className="text-black font-medium text-sm">
-            <span className="mr-2">🚀</span>
-            <span className="font-bold">SUPER CAZZUTO</span> — Powered by Vercel Analytics
-            <span className="ml-2">⚡</span>
-          </p>
         </div>
       </div>
 
@@ -297,7 +226,7 @@ export default function Home() {
             className="section-badge-futuristic mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-            {t.home.badge}
+            Los Angeles
           </motion.div>
 
           {/* Main Title */}
@@ -307,25 +236,19 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-white">{t.home.title1}</span>
-            <br />
-            <span className="text-gradient-neon">{t.home.title2}</span>
-            <br />
-            <span className="text-white/80 italic">{t.home.title3}</span>
-            <br />
-            <span className="text-2xl md:text-3xl text-yellow-400 font-bold mt-4">🚀 SUPER CAZZUTO MODE 🚀</span>
+            <span className="text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Beautiful Books</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed"
+            className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            {t.home.subtitle}{' '}
-            <span className="text-onde-teal">{t.home.imagination}</span> {t.home.and}{' '}
-            <span className="text-onde-purple">{t.home.curiosity}</span>.
+            Illustrated editions of timeless classics, crafted with care.
+            <br />
+            Download and enjoy.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -335,32 +258,27 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <Link href="#libri">
+            <Link href="#books">
               <button className="btn-futuristic group">
                 <span className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
-                  {t.home.exploreBooks}
+                  Explore Books
                 </span>
               </button>
             </Link>
-            <Link href="#app">
+            <Link href="/about">
               <button className="btn-outline-glow">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  About Us
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                  {t.home.discoverApps}
                 </span>
               </button>
             </Link>
-            <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
-              <span className="text-yellow-400 font-bold text-sm">⚡ CAZZUTO LEVEL: MAX ⚡</span>
-              <span className="text-green-400 font-bold text-sm">📊 ANALYTICS ACTIVE 📊</span>
-            </div>
           </motion.div>
         </motion.div>
 
@@ -371,43 +289,15 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
         >
-          <span className="text-white/40 text-sm font-medium">{t.home.scroll}</span>
+          <span className="text-white/40 text-sm font-medium">Scroll</span>
           <div className="scroll-indicator-line" />
         </motion.div>
       </section>
 
       {/* ============================================
-          FEATURES SECTION
-          ============================================ */}
-      <section className="relative py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                className="card-3d p-8"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-              >
-                <div className="text-5xl mb-6">{feature.icon}</div>
-                <h3 className="text-xl font-display font-bold text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-white/60 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================
           BOOKS SECTION - Cinematic Cards
           ============================================ */}
-      <section id="libri" className="relative py-32">
+      <section id="books" className="relative py-32">
         {/* Decorative glow */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] floating-orb opacity-20"
              style={{ background: 'var(--onde-coral)', filter: 'blur(150px)' }} />
@@ -422,41 +312,51 @@ export default function Home() {
           >
             <span className="section-badge-futuristic">
               <span className="w-2 h-2 rounded-full bg-onde-coral" />
-              {t.home.booksSection.badge}
+              Now Available
             </span>
-            <h2 className="section-title-futuristic mb-4">{t.home.booksSection.title}</h2>
-            <p className="section-subtitle-futuristic">{t.home.booksSection.subtitle}</p>
+            <h2 className="section-title-futuristic mb-4">Our Books</h2>
+            <p className="section-subtitle-futuristic">
+              Classic literature, illustrated with care. Beautiful editions for the digital age.
+            </p>
             <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
 
           {/* Books Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredBooks.map((book, index) => (
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {books.map((book, index) => (
               <motion.div
                 key={book.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
               >
-                <Link href={`/libro/${book.id}`}>
-                  <TiltCard className="group">
+                <TiltCard className="group">
+                  <motion.div
+                    className="card-holographic p-1 relative"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Glow effect on hover */}
                     <motion.div
-                      className="card-holographic p-1 relative"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {/* Glow effect on hover */}
-                      <motion.div
-                        className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-                        style={{
-                          background: `radial-gradient(circle, ${book.gradient.includes('amber') ? '#FFD93D' : book.gradient.includes('cyan') ? '#4ECDC4' : book.gradient.includes('pink') ? '#FF6B6B' : '#6C63FF'}40 0%, transparent 70%)`,
-                          filter: 'blur(20px)',
-                        }}
-                      />
+                      className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                      style={{
+                        background: `radial-gradient(circle, ${book.gradient.includes('amber') ? '#FFD93D' : '#4ECDC4'}40 0%, transparent 70%)`,
+                        filter: 'blur(20px)',
+                      }}
+                    />
 
+                    <div className="bg-onde-dark-surface/80 backdrop-blur-xl rounded-3xl overflow-hidden">
                       {/* Book Cover */}
-                      <div className={`aspect-[3/4] rounded-2xl overflow-hidden relative bg-gradient-to-br ${book.gradient}`}>
+                      <div className={`aspect-[4/3] relative bg-gradient-to-br ${book.gradient}`}>
+                        <Image
+                          src={book.cover}
+                          alt={book.title}
+                          fill
+                          className="object-contain p-6"
+                          priority={index === 0}
+                        />
+
                         {/* Animated shimmer effect */}
                         <motion.div
                           className="absolute inset-0 opacity-0 group-hover:opacity-100"
@@ -468,170 +368,62 @@ export default function Home() {
                           transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
                         />
 
-                        {/* Placeholder */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.span
-                            className="text-8xl opacity-30"
-                            animate={{ y: [0, -10, 0], rotate: [0, 3, 0] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                          >
-                            📖
-                          </motion.span>
-                        </div>
-
                         {/* Category Badge */}
                         <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold
                                        glass-dark text-white/90 backdrop-blur-md border border-white/10">
                           {book.category}
                         </span>
 
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent
-                                      opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                                      flex items-end p-6">
-                          <span className="text-white font-medium flex items-center gap-2">
-                            {t.home.booksSection.learnMore}
-                            <motion.svg
-                              className="w-4 h-4"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              animate={{ x: [0, 5, 0] }}
-                              transition={{ duration: 1, repeat: Infinity }}
+                        {/* Price Badge */}
+                        <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold
+                                        ${book.price === 'Free' ? 'bg-emerald-500' : 'bg-amber-500'} text-white`}>
+                          {book.price}
+                        </span>
+                      </div>
+
+                      {/* Book Info */}
+                      <div className="p-6">
+                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-onde-teal transition-colors">
+                          {book.title}
+                        </h3>
+                        <p className="text-onde-teal/80 text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-white/40 text-xs mb-4">by {book.author}</p>
+                        <p className="text-white/70 text-sm leading-relaxed mb-6">
+                          {book.description}
+                        </p>
+
+                        {/* Download Buttons */}
+                        <div className="flex gap-3">
+                          <a
+                            href={book.pdfUrl}
+                            download
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                                     bg-gradient-to-r from-onde-teal to-onde-blue text-white font-semibold text-sm
+                                     hover:shadow-lg hover:shadow-onde-teal/30 transition-all duration-300"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Download PDF
+                          </a>
+                          {book.epubUrl && (
+                            <a
+                              href={book.epubUrl}
+                              download
+                              className="px-4 py-3 rounded-xl bg-white/5 text-white/80 font-semibold text-sm
+                                       border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                             >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </motion.svg>
-                          </span>
+                              EPUB
+                            </a>
+                          )}
                         </div>
                       </div>
-                    </motion.div>
-
-                    {/* Book shadow glow */}
-                    <div
-                      className="absolute -bottom-4 left-4 right-4 h-8 rounded-lg blur-xl group-hover:blur-2xl transition-all duration-300"
-                      style={{
-                        background: book.gradient.includes('amber') ? '#FFD93D' : book.gradient.includes('cyan') ? '#4ECDC4' : book.gradient.includes('pink') ? '#FF6B6B' : '#6C63FF',
-                        opacity: 0.4,
-                      }}
-                    />
-
-                    {/* Book Info */}
-                    <div className="mt-6 text-center relative">
-                      <h3 className="font-display font-bold text-lg text-white group-hover:text-onde-teal transition-colors">
-                        {book.title}
-                      </h3>
-                      <p className="text-sm text-white/40 mt-1">{book.subtitle}</p>
                     </div>
-                  </TiltCard>
-                </Link>
+                  </motion.div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
-
-          {/* CTA */}
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link href="/libri">
-              <button className="btn-futuristic">
-                <span>{t.home.booksSection.goToLibrary}</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ============================================
-          SPOTIFY-LIKE SECTIONS (Playlists, Now Reading, Recommendations)
-          ============================================ */}
-      <HomeSpotifySection />
-
-      {/* ============================================
-          APPS SECTION
-          ============================================ */}
-      <section id="app" className="relative py-32">
-        {/* Decorative glow */}
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] floating-orb opacity-15"
-             style={{ background: 'var(--onde-blue)', filter: 'blur(150px)' }} />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Section Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="section-badge-futuristic" style={{ borderColor: 'var(--onde-teal)', color: 'var(--onde-teal)' }}>
-              <span className="w-2 h-2 rounded-full bg-onde-teal" />
-              {t.home.appsSection.badge}
-            </span>
-            <h2 className="section-title-futuristic mb-4">{t.home.appsSection.title}</h2>
-            <p className="section-subtitle-futuristic">{t.home.appsSection.subtitle}</p>
-            <div className="glow-line w-32 mx-auto mt-8" />
-          </motion.div>
-
-          {/* Apps Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {apps.map((app, index) => (
-              <motion.div
-                key={app.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-              >
-                <div className="card-3d glass-glow p-8 h-full">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <motion.div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${app.gradient}
-                                flex items-center justify-center text-4xl shadow-lg`}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {app.icon}
-                    </motion.div>
-                    <span className="px-3 py-1.5 rounded-full text-xs font-semibold
-                                   glass-dark text-onde-teal border border-onde-teal/30">
-                      {app.status}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-2xl font-display font-bold text-white mb-3">
-                    {app.title}
-                  </h3>
-                  <p className="text-white/60 leading-relaxed">
-                    {app.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link href="/app">
-              <button className="btn-outline-glow">
-                <span>{t.home.appsSection.viewAllApps}</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -664,7 +456,7 @@ export default function Home() {
                   viewport={{ once: true }}
                 >
                   <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-                  {t.home.ctaSection.badge}
+                  More books coming
                 </motion.span>
 
                 <motion.h2
@@ -673,40 +465,59 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  {t.home.ctaSection.title}{' '}
-                  <span className="text-gradient-neon">{t.home.ctaSection.titleHighlight}</span>?
+                  Want to stay{' '}
+                  <span className="text-gradient-neon">updated</span>?
                 </motion.h2>
 
                 <motion.p
-                  className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10"
+                  className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  {t.home.ctaSection.subtitle}
+                  We&apos;re preparing more beautiful editions of classic literature.
+                  Follow us on X for updates.
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                  className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  <Link href="/libri">
-                    <button className="btn-futuristic">
-                      <span>{t.home.ctaSection.startReading}</span>
-                    </button>
-                  </Link>
-                  <a href="https://twitter.com/Onde_FRH" target="_blank" rel="noopener noreferrer">
-                    <button className="btn-outline-glow flex items-center gap-2">
+                  <a
+                    href="https://twitter.com/Onde_FRH"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-futuristic"
+                  >
+                    <span className="flex items-center gap-2">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
-                      {t.home.ctaSection.followOnX}
-                    </button>
+                      Follow @Onde_FRH
+                    </span>
                   </a>
+                  <a
+                    href="https://twitter.com/FreeRiverHouse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-glow"
+                  >
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow @FreeRiverHouse
+                    </span>
+                  </a>
+                  <Link href="/about">
+                    <button className="btn-outline-glow">
+                      <span>About Us</span>
+                    </button>
+                  </Link>
                 </motion.div>
               </div>
             </div>

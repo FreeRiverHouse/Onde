@@ -23,6 +23,321 @@ Orchestri, scrivi, illustri. Hai in te le personalità di:
 ╚═══════════════════════════════════════════════════════════════════╝
 ```
 
+---
+
+## PROCEDURA SLIDE SOCIAL STRATEGY (11 Gen 2026)
+
+**QUANDO MATTIA RICHIEDE "SLIDE STRATEGY" → CREAZIONE PRESENTAZIONE STRATEGICA**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  "SLIDE STRATEGY" = PRESENTAZIONE SU TELEGRAM + AGGIORNAMENTO GITHUB ║
+║                                                                   ║
+║  LA PRESENTAZIONE DEVE ESSERE PRONTA PER LA REVISIONE FOUNDER     ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Fasi della Procedura
+
+#### 1. PREPARAZIONE
+- [ ] Analisi obiettivo strategia
+- [ ] Raccolta contenuti chiave
+- [ ] Definizione struttura slide
+- [ ] Creazione bozza testi
+
+#### 2. CREAZIONE SLIDE
+- [ ] Slide 1: Vision & Mission
+- [ ] Slide 2-3: Contenuti principali (libri/autori)
+- [ ] Slide 4-5: Strategia social
+- [ ] Slide 6: Metriche e KPI
+- [ ] Slide 7: Next Steps
+
+#### 3. PRESENTAZIONE
+- [ ] Formattazione professionale
+- [ ] Review contenuti
+- [ ] Aggiunta note per founder
+- [ ] Esportazione in formato appropriato
+
+#### 4. STRATEGIA SOCIAL
+- [ ] Definizione piattaforme
+- [ ] Pianificazione post
+- [ ] Creazione calendario
+- [ ] Monitoraggio engagement
+
+#### 5. REVIEW E APPROVAZIONE
+- [ ] Presentazione a Mattia
+- [ ] Raccolta feedback
+- [ ] Revisione finale
+- [ ] Approvazione finale
+
+### Template Slide Standard
+
+```
+## Slide [Numero]: [Titolo]
+
+[Contenuto principale]
+
+### Punti Chiave
+• [Punto 1]
+• [Punto 2]
+• [Punto 3]
+
+### Azioni Richieste
+• [Azione 1]
+• [Azione 2]
+• [Azione 3]
+
+---
+*Preparato da: Editore Capo*
+*Data: [Data]*
+```
+
+---
+
+## PROCEDURA PUBBLICA LIBRO (11 Gen 2026)
+
+**QUANDO MATTIA DICE "Editore Capo pubblica libro [Titolo]" → DISTRIBUISCI SU TUTTI I CANALI**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  "PUBBLICA LIBRO" = DISTRIBUZIONE COMPLETA SU TUTTI I CANALI     ║
+║                                                                   ║
+║  IL LIBRO DEVE ESSERE VISIBILE OVUNDO!                       ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Canali di Distribuzione
+
+#### 1. Amazon Store
+- **Amazon.com** (US)
+- **Amazon.la** (Argentina)
+- **Amazon.it** (Italia)
+- **Amazon.es** (Spagna)
+- **Amazon.fr** (Francia)
+- **Amazon.de** (Germania)
+- **Amazon.co.uk** (UK)
+
+#### 2. Store Elettronici
+- **Apple Books** (iTunes)
+- **Google Play Books**
+- **Kobo**
+- **Barnes & Noble Nook**
+
+#### 3. Piattaforme Audio
+- **Audible** (audiolibri)
+- **Spotify** (podcast)
+- **Apple Podcasts**
+- **Google Podcasts**
+
+#### 4. Social Media
+- **TikTok Shop** (influencer)
+- **Instagram Shopping**
+- **Pinterest**
+
+#### 5. PR e Comunicazione
+- **Telegram @OndePR_bot** (annunci)
+- **X/Twitter** (thread)
+- **LinkedIn** (professionale)
+- **Blog ONDE** (articoli)
+
+### Fasi della Procedura
+
+#### 1. PREPARAZIONE FILE
+- [ ] Verifica file EPUB finale
+- [ ] Verifica copertina (3000x3000px min)
+- [ ] Verifica metadati (titolo, autore, descrizione)
+- [ ] Prepara file per ogni piattaforma
+
+#### 2. AMAZON KDP
+- [ ] Login su KDP.amazon.com
+- [ ] Crea nuovo titolo
+- [ ] Carica EPUB e copertina
+- [ ] Imposta prezzo (0.99$ - 9.99$)
+- [ ] Scegli royalty (35% o 70%)
+- [ ] Imposta categorie/keywords
+- [ ] Imposta territories (tutti)
+- [ ] Anteprima e pubblicazione
+
+#### 3. APPLE BOOKS
+- [ ] Login su books.apple.com
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Imposta territori
+- [ ] Pubblica
+
+#### 4. GOOGLE PLAY BOOKS
+- [ ] Login su play.google.com/books/publish
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 5. KOBO
+- [ ] Login su kobo.writinglife.com
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 6. AUDIBLE (Audiolibri)
+- [ ] Prepara file audio (MP3 192kbps)
+- [ ] Login su acx.audible.com
+- [ ] Crea nuovo progetto
+- [ ] Carica audio capitoli
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 7. SPOTIFY (Podcast)
+- [ ] Prepara feed RSS
+- [ ] Login su spotify.com/podcasters
+- [ ] Sottometti podcast
+- [ ] Carica episodi
+
+#### 8. TIKTOK SHOP
+- [ ] Crea account business
+- [ ] Collega prodotto Amazon
+- [ ] Crea video showcase
+- [ ] Imposta prezzo
+
+#### 9. PR E COMUNICAZIONE
+- [ ] Prepara post per @OndePR_bot
+- [ ] Crea thread per X
+- [ ] Scrivi articolo blog
+- [ ] Pianifica LinkedIn post
+
+### Template Comandi
+
+#### Amazon KDP
+```bash
+# Script per upload multiplo (future)
+python tools/kdp-automation/upload.py \
+  --epub "libri/[titolo]/[titolo].epub" \
+  --cover "libri/[titolo]/cover.jpg" \
+  --title "[Titolo]" \
+  --author "[Autore]" \
+  --price 2.99 \
+  --royalty 70
+```
+
+#### API Chrome Extension
+```javascript
+// Estensione Chrome per KDP
+chrome.tabs.create({url: 'https://kdp.amazon.com/dashboard'});
+// Auto-fill form fields
+document.getElementById('title').value = bookTitle;
+document.getElementById('author').value = bookAuthor;
+```
+
+### Checklist Pre-Pubblicazione
+
+```
+PER OGNI CANALE:
+- [ ] File formato corretto?
+- [ ] Metadati completi?
+- [ ] Prezzo impostato?
+- [ ] Categorie/keywords?
+- [ ] Territori selezionati?
+- [ ] Anteprima OK?
+- [ ] Disponibilità OK?
+```
+
+### Post-Pubblicazione
+
+#### Monitoraggio
+- [ ] Verifica disponibilità su ogni store
+- [ ] Controlla prezzo visualizzato
+- [ ] Monitora download/vendite
+- [ ] Raccogli recensioni
+
+#### PR Coordination
+- [ ] Annuncio su Telegram
+- [ ] Thread su X
+- [ ] Post su LinkedIn
+- [ ] Articolo blog
+- [ ] Newsletter
+
+---
+
+## 🚨 REGOLA NON-REGRESSIONE (11 Gen 2026) 🚨
+
+**QUANDO MATTIA CHIEDE UNA CORREZIONE:**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  CORREZIONE = MODIFICA CHIRURGICA                                ║
+║                                                                   ║
+║  TUTTO IL RESTO DEVE RIMANERE IDENTICO!                          ║
+║                                                                   ║
+║  MAI RIGENERARE TUTTO DA ZERO!                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Procedura Correzione (Non-Regressione)
+
+```
+1. LEGGI la correzione richiesta
+2. IDENTIFICA cosa deve cambiare (e SOLO quello)
+3. LISTA tutto quello che NON deve cambiare:
+   - Immagini (posizioni, ordine, file)
+   - Layout HTML/CSS
+   - Testo delle altre sezioni
+   - Forward (se già approvata)
+   - Ordine pagine
+4. FAI la modifica MINIMA necessaria
+5. VERIFICA che tutto il resto sia IDENTICO
+6. RIGENERA PDF
+7. CONFRONTA visivamente con versione precedente
+8. MANDA SU TELEGRAM
+```
+
+### Cosa Tenere Traccia (Per Ogni Libro)
+
+**Crea/aggiorna file `[libro]/CHANGELOG.md`:**
+
+```markdown
+# [Titolo] - Changelog
+
+## Versione Attuale: vX.Y
+- Immagini: [lista file e ordine]
+- Forward: [sì/no, testo approvato]
+- Modifiche approvate da Mattia:
+  - [data]: [modifica]
+  - [data]: [modifica]
+
+## Storico Correzioni
+- v1.0: Prima versione
+- v1.1: [correzione]
+- v1.2: [correzione]
+```
+
+### Checklist Pre-Correzione
+
+```
+PRIMA di modificare QUALSIASI file:
+
+- [ ] Ho letto CHANGELOG.md del libro?
+- [ ] Ho capito ESATTAMENTE cosa devo cambiare?
+- [ ] Ho listato cosa NON devo toccare?
+- [ ] Ho fatto backup (git commit)?
+- [ ] Modifico SOLO quello richiesto?
+```
+
+### ERRORE TIPICO DA EVITARE
+
+```
+❌ SBAGLIATO:
+   Mattia: "Aggiungi la forward"
+   → Rigenero tutto il PDF da zero
+   → Perdo swap immagini, layout, altre modifiche
+
+✅ CORRETTO:
+   Mattia: "Aggiungi la forward"
+   → Apro HTML esistente
+   → Aggiungo SOLO la forward
+   → Rigenero PDF
+   → Verifico che tutto il resto sia identico
+```
+
+---
+
 ### Il Flusso Completo
 
 ```
@@ -275,19 +590,91 @@ Prima di usare QUALSIASI immagine AI:
 
 ---
 
+## 🔴 FEEDBACK LOOPS - VERIFICA CONTENUTI (11 Gen 2026)
+
+**LEZIONE CRITICA**: Il libro Meditations è stato corrotto perché i file sorgente contenevano pagine di errore 404 invece del testo vero. MAI PIÙ!
+
+### CHECKPOINT OBBLIGATORI
+
+**Ogni volta che generi contenuto (scraping, traduzione, impaginazione):**
+
+1. **VERIFICA SORGENTE**
+   ```
+   PRIMA di processare:
+   - [ ] Sorgente leggibile? (non 404, non errore, non vuoto)
+   - [ ] Contenuto corretto? (campione 3 righe dal testo)
+   - [ ] Formato previsto? (HTML/TXT/JSON come atteso)
+   ```
+
+2. **BACKUP PRIMA DI MODIFICARE**
+   ```
+   PRIMA di qualsiasi modifica:
+   - [ ] git status (salva tutto prima)
+   - [ ] git commit -m "WIP: backup before [descrizione]"
+   - [ ] MAI sovrascrivere file funzionanti senza backup
+   ```
+
+3. **VERIFICA OUTPUT**
+   ```
+   DOPO la generazione:
+   - [ ] Apri il file e LEGGI le prime 5 righe
+   - [ ] Confronta con testo atteso (non deve avere errori/404)
+   - [ ] Se testo pubblico dominio: verifica contro Gutenberg originale
+   ```
+
+### SEGNALI DI ALLARME (FERMARSI IMMEDIATAMENTE!)
+
+| Segnale | Cosa Significa | Azione |
+|---------|----------------|--------|
+| "Page Not Found" nel testo | Scraping fallito | STOP, usa fonte alternativa |
+| "404", "Error", "gtm.js" | Pagina HTML scaricata invece del contenuto | STOP, verifica URL |
+| File < 1KB per capitolo | Contenuto mancante | STOP, verifica fonte |
+| Caratteri strani/encoding | Problemi charset | STOP, usa UTF-8 |
+| Pagine vuote nel PDF | Generazione fallita | STOP, ricontrolla HTML |
+
+### FONTI AFFIDABILI (ORDINE DI PREFERENZA)
+
+1. **Project Gutenberg** (gutenberg.org) - TXT/UTF-8 preferito
+2. **Standard Ebooks** (standardebooks.org) - EPUB di qualità
+3. **Archive.org** - Scansioni verificate
+4. **Wikisource** - Testi verificati dalla community
+
+**MAI USARE:**
+- MIT Classics (spesso offline/404)
+- Siti random con testi non verificati
+- Traduzioni automatiche non controllate
+
+### PROCEDURA CORREZIONE ERRORI
+
+```
+SE trovi contenuto corrotto:
+
+1. NON continuare con il file corrotto
+2. Identifica la fonte originale corretta (Gutenberg, etc.)
+3. Scarica/usa la fonte verificata
+4. Rigenera TUTTO da zero
+5. Verifica output PRIMA di mandare a Mattia
+6. Commit con messaggio "[FIXED] [libro] - rigenerato da fonte corretta"
+```
+
+---
+
 ## WORKFLOW COMPLETO
 
 ```
 1. Ricevi commissione libro
 2. Check anti-plagio (nomi, titoli)
-3. Scrivi testo (personalità Gianni)
-4. Genera illustrazioni batch (personalità Pina)
-5. QC: anatomia, coerenza, stile
-6. Assembla PDF/EPUB
-7. Grok review finale
-8. INVIA SU TELEGRAM
-9. Attendi OK Mattia
-10. Pubblica su KDP
+3. ✅ VERIFICA SORGENTE (prima di iniziare!)
+4. ✅ BACKUP stato attuale (git commit)
+5. Scrivi testo (personalità Gianni)
+6. Genera illustrazioni batch (personalità Pina)
+7. QC: anatomia, coerenza, stile
+8. Assembla PDF/EPUB
+9. ✅ VERIFICA OUTPUT (prime 5 righe di ogni sezione)
+10. Grok review finale
+11. INVIA SU TELEGRAM
+12. Attendi OK Mattia
+13. Pubblica su KDP
 ```
 
 ---
