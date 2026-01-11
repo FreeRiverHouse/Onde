@@ -502,16 +502,46 @@ PUBBLICAZIONE
 >
 > *Find a comfortable spot. Take a breath. And let's begin.*
 
-#### Voci: 50% Maschili / 50% Femminili
+#### Voce = L'Autore che Racconta
 
-| Tipo Libro | Voce Consigliata |
-|------------|------------------|
-| Filosofia maschile (Marcus Aurelius, Seneca) | Maschile profonda |
-| Romanzo gotico (Frankenstein) | Femminile (Mary Shelley) |
-| Poesia | Alternare M/F |
-| Spiritualità | Voce calda, può essere M o F |
+**🎭 La voce dell'audiobook deve ESSERE l'autore.**
 
-**Obiettivo**: Bilanciare il catalogo 50/50.
+Come se l'autore stesso raccontasse il suo libro.
+
+| Criterio | Come Impostare |
+|----------|----------------|
+| **Genere** | Uomo → voce maschile, Donna → voce femminile |
+| **Età** | Rispecchia l'età dell'autore quando ha scritto |
+| **Tono** | Come se l'autore parlasse direttamente a te |
+| **Accento** | Appropriato all'origine (British per autori UK, etc.) |
+
+**Esempi:**
+
+| Libro | Autore | Voce |
+|-------|--------|------|
+| Meditations | Marcus Aurelius (50+ anni, imperatore) | Maschile matura, autorevole, riflessiva |
+| Frankenstein | Mary Shelley (18 anni quando scrisse) | Femminile giovane, intensa, drammatica |
+| Pride & Prejudice | Jane Austen (35 anni) | Femminile, British, ironica, elegante |
+| Thus Spoke Zarathustra | Nietzsche (40 anni) | Maschile, tedesco, profetica, intensa |
+
+#### Impostazioni Voce nel Metadata
+
+Nel `metadata.json` di ogni libro, includi:
+
+```json
+{
+  "audiobook": {
+    "voice_gender": "male",
+    "voice_age": "50+",
+    "voice_tone": "authoritative, reflective, calm",
+    "voice_accent": "neutral",
+    "voice_character": "As if Marcus Aurelius himself is speaking to you",
+    "narrator_note": "The emperor sharing his private thoughts"
+  }
+}
+```
+
+**Obiettivo**: L'ascoltatore deve sentire che l'autore gli sta parlando direttamente.
 
 #### Tool per Generazione Audio
 
@@ -542,14 +572,96 @@ Prompt: "Listen to this audiobook sample and check:
 Respond: APPROVED or NEEDS_REVISION + feedback"
 ```
 
-#### Output Finale Audiolibro
+#### Cover Audiobook: Volto dell'Autore
 
+**La cover dell'audiobook NON è la stessa del libro.**
+
+È un'illustrazione con il **volto dell'autore** in stile Onde.
+
+| Elemento | Specifica |
+|----------|-----------|
+| **Soggetto** | Ritratto/volto dell'autore |
+| **Stile** | Acquarello europeo (stile Onde) |
+| **Dimensioni** | 1400x1400px (quadrato per Spotify) |
+| **Testo** | Nome autore + "Audiobook" |
+| **Mood** | Riflette il tono del libro |
+
+**Processo (Pina Pennello):**
+
+1. **Ricerca riferimento** - Trova ritratti storici dell'autore
+2. **Genera illustrazione** - Stile acquarello Onde, non fotorealistico
+3. **Verifica somiglianza** - Grok confronta con ritratti noti
+4. **Aggiungi testo** - Nome autore + "Audiobook" o "Read by the Author"
+5. **Review** - Editore Capo approva
+
+**Prompt esempio per Grok:**
+```
+Watercolor portrait of Marcus Aurelius, Roman emperor, 50+ years old,
+wise contemplative expression, European book illustration style,
+NOT photorealistic, soft brushstrokes, warm golden light,
+classical dignified atmosphere, 4k
+```
+
+**Output**: `cover-audiobook.jpg` (1400x1400px)
+
+---
+
+### FASE 8.6: PODCAST SUL LIBRO (10 min)
+
+**🎙️ Ogni audiobook ha anche un podcast di accompagnamento.**
+
+#### Cosa Include il Podcast
+
+| Episodio | Contenuto | Durata |
+|----------|-----------|--------|
+| **Ep 1: Introduzione** | Chi era l'autore, contesto storico, perché leggere questo libro | 5-10 min |
+| **Ep 2: Temi Chiave** | I concetti principali spiegati | 10-15 min |
+| **Ep 3: Come Applicarlo** | Lezioni pratiche per la vita moderna | 10-15 min |
+| **Ep 4: Dietro le Quinte** | Come Onde ha curato questa edizione | 5 min |
+
+#### Voce Podcast
+
+- **Diversa dall'audiobook** - L'audiobook è "l'autore che racconta"
+- **Il podcast è Onde che presenta** - Voce editoriale, calda, informativa
+- **Può essere la stessa voce** per tutti i podcast (brand consistency)
+
+#### Struttura File
+
+```
+[nome-libro]/podcast/
+├── ep01-introduction.mp3
+├── ep02-key-themes.mp3
+├── ep03-practical-lessons.mp3
+├── ep04-behind-the-scenes.mp3
+├── cover-podcast.jpg        # Stessa del libro o variante
+└── metadata.json
+```
+
+#### Cover Podcast
+
+- Può usare la **cover del libro** (non l'audiobook)
+- Oppure variante con "Onde Podcast" badge
+- Sempre 1400x1400px per Spotify
+
+---
+
+#### Output Finale Audiolibro + Podcast
+
+**Audiolibro:**
 - [ ] Intro "Dear listener" registrata
 - [ ] Tutti i capitoli registrati
+- [ ] Voce = l'autore che racconta (genere, età, tono)
 - [ ] Audio verificato (pronuncia, qualità)
-- [ ] Cover quadrata 1400x1400px
-- [ ] Metadata per Spotify/podcast
-- [ ] Pronto per upload su Onde portal + Spotify
+- [ ] Cover con volto autore (1400x1400px)
+- [ ] Metadata con impostazioni voce
+
+**Podcast:**
+- [ ] Ep 1-4 registrati
+- [ ] Voce editoriale Onde
+- [ ] Cover podcast
+- [ ] Metadata per Spotify
+
+**Pronto per upload su Onde portal + Spotify**
 
 **Struttura file per lingua:**
 ```

@@ -683,4 +683,73 @@
   .glow-coral {
     filter: drop-shadow(0 0 20px var(--onde-coral-glow));
   }
+
+  /* ============================================
+     ONDE CLASSICS STYLE - Elegant Serif Theme
+     Following VISUAL-IDENTITY-GUIDE.md
+     ============================================ */
+
+  /* Classics palette */
+  .classics-dark {
+    background-color: #1a1a3a; /* Blu profondo */
+  }
+
+  .classics-burgundy {
+    color: #800020;
+  }
+
+  .classics-ivory {
+    background-color: #FFFFF0;
+  }
+
+  .classics-gold {
+    color: #C9A227;
+  }
+
+  /* Elegant serif typography */
+  .classics-display {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Premium card style for Classics books */
+  .card-classics {
+    @apply relative rounded-2xl overflow-hidden;
+    background: linear-gradient(145deg, #1a1a3a 0%, #0f0f2a 100%);
+    border: 1px solid rgba(201, 162, 39, 0.2);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(201, 162, 39, 0.1);
+  }
+
+  .card-classics:hover {
+    border-color: rgba(201, 162, 39, 0.4);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(201, 162, 39, 0.1),
+      inset 0 1px 0 rgba(201, 162, 39, 0.2);
+  }
+
+  /* Gold accent line */
+  .gold-accent-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C9A227, transparent);
+  }
+
+  /* Premium button for Classics */
+  .btn-classics {
+    @apply relative inline-flex items-center justify-center gap-2;
+    @apply px-6 py-3 rounded-lg font-medium;
+    background: linear-gradient(135deg, #C9A227 0%, #A68A1F 100%);
+    color: #1a1a3a;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-classics:hover {
+    background: linear-gradient(135deg, #D4AD30 0%, #B89522 100%);
+    box-shadow: 0 4px 20px rgba(201, 162, 39, 0.4);
+    transform: translateY(-2px);
+  }
 }

@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import Link from 'next/link'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { useTranslations } from '@/i18n'
+import HomeSpotifySection from '@/components/spotify/HomeSpotifySection'
 
 // Particle component for floating background particles
 function Particle({ index }: { index: number }) {
@@ -539,6 +540,11 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* ============================================
+          SPOTIFY-LIKE SECTIONS (Playlists, Now Reading, Recommendations)
+          ============================================ */}
+      <HomeSpotifySection />
 
       {/* ============================================
           APPS SECTION
