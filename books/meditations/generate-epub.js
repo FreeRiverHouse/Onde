@@ -94,6 +94,16 @@ async function generateEnglishEpub() {
 
   // Read book texts from /tmp files
   const chapters = [];
+
+  // Add forward as first chapter
+  chapters.push({
+    title: 'Forward',
+    data: `<p style="font-style: italic; margin-bottom: 1.5em;">You found this. Or maybe it found you.</p>
+<p style="margin-bottom: 1.5em;">A Roman emperor wrote these words two thousand years ago, alone in his tent, after long days of war. They were never meant to be read by anyone else. Just a man trying to stay sane, stay kind, stay human—while the weight of an empire pressed down on him.</p>
+<p style="margin-bottom: 1.5em;">And somehow, here they are. In your hands.</p>
+<p style="margin-bottom: 1.5em;">We're Onde, a small publishing house in Los Angeles. The rest is between you and Marcus.</p>`
+  });
+
   for (let i = 1; i <= 12; i++) {
     const tmpPath = `/tmp/book${i}.html`;
     if (fs.existsSync(tmpPath)) {

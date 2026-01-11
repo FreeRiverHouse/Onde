@@ -141,7 +141,7 @@ export default function Home() {
                   Philosophy
                 </span>
                 <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-white">
-                  $0.99
+                  $0.11
                 </span>
               </div>
               <div className="p-6">
@@ -175,8 +175,8 @@ export default function Home() {
             >
               <div className="relative aspect-[4/3] bg-gradient-to-br from-green-50 to-emerald-50">
                 <Image
-                  src="/books/salmo-23-cover.svg"
-                  alt="The Shepherd - Psalm 23"
+                  src="/books/shepherds-promise-cover.jpg"
+                  alt="The Shepherd's Promise - Psalm 23"
                   fill
                   className="object-contain p-4"
                 />
@@ -195,7 +195,7 @@ export default function Home() {
                   The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.
                 </p>
                 <div className="flex gap-3">
-                  <a href="/books/salmo-23.pdf" download
+                  <a href="/books/the-shepherds-promise.pdf" download
                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
                               bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold text-sm">
                     Download Free PDF

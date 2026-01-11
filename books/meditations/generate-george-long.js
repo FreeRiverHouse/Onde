@@ -146,6 +146,15 @@ async function main() {
   <div class="ornament">✦</div>
 </div>
 
+<div class="page title-page">
+  <p style="font-style: italic; font-size: 12pt; color: #5a4a3a; max-width: 130mm; line-height: 2.2; text-align: left;">
+    You found this. Or maybe it found you.<br><br>
+    A Roman emperor wrote these words two thousand years ago, alone in his tent, after long days of war. They were never meant to be read by anyone else. Just a man trying to stay sane, stay kind, stay human—while the weight of an empire pressed down on him.<br><br>
+    And somehow, here they are. In your hands.<br><br>
+    We're Onde, a small publishing house in Los Angeles. The rest is between you and Marcus.
+  </p>
+</div>
+
 `;
 
   let pageNum = 1;
