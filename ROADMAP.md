@@ -139,6 +139,39 @@ Non siamo solo una casa editrice. Siamo una **piattaforma di creazione**.
 
 **"Mattia on Steroids" - Sviluppa mentre corri, cammini, vivi**
 
+### 🎯 Cos'è FreeRiverFlow (CHIARIMENTO DEFINITIVO)
+
+**FreeRiverFlow è la TUA FABBRICA VIRTUALE.**
+
+È un'app dove:
+- Entri nella tua "fabbrica" (VR, 2D, o solo voce)
+- Vedi i tuoi **agenti come personaggi** (Editore Capo, Pina Pennello, Gianni Parola, Emilio)
+- **Parli con loro**, dai task, approvi il loro lavoro
+- Loro **lavorano** e producono libri, app, video
+- È **GAMIFICATION dello sviluppo** - come Sim City ma costruisci prodotti reali
+
+**"Flow" = essere NEL FLOW** - lo stato di produttività massima.
+
+### 📊 Dashboard FreeRiverFlow (NUOVA 10 Gen 2026)
+
+La dashboard deve mostrare:
+
+| Metrica | Descrizione |
+|---------|-------------|
+| **CPU %** | Uso CPU del computer locale |
+| **RAM %** | Uso memoria (ALERT se > 85%) |
+| **Disco %** | Spazio disco |
+| **Agenti Attivi** | Quanti agenti stanno lavorando |
+| **Agenti Disponibili** | Quanti ne puoi lanciare (basato su risorse) |
+| **Task in Coda** | Task disponibili da assegnare |
+
+**Comportamento Smart:**
+- Se risorse < 85% → "Posso lanciare altri agenti!"
+- Se risorse > 85% → "Fermo, aspetto che si liberino risorse"
+- Agenti completano task → "Ho finito! Posso fare altro?"
+
+**Script esistente:** `scripts/factory/factory-controller.js`
+
 ### Architettura Chiarita
 
 ```
@@ -158,6 +191,7 @@ FREERIVER FLOW
 ├── 3️⃣ 2D (Desktop/Mobile)
 │   └── Versione con personaggini per chi non ha Quest
 │   └── Stesso concetto, meno immersivo
+│   └── Dashboard con metriche sistema
 │
 └── 4️⃣ AR GLASSES (Futuro - belli ma non urgenti)
     └── OndeVision quando il resto funziona
@@ -2187,3 +2221,33 @@ npx expo start
 ---
 
 *Documento vivo - aggiornato con priorità e decisioni correnti*
+
+---
+
+## ✅ COMPLETATO OGGI (10 Gen 2026)
+
+### Pinocchio Illustrated Edition - COMPLETO!
+**Path**: `books/pinocchio/`
+
+**Generato:**
+- 12 illustrazioni originali in stile acquarello europeo (Luzzati)
+- ePub completo con 36 capitoli
+- Dimensione: 4.88 MB
+
+**Illustrazioni create:**
+| ID | Scena |
+|----|-------|
+| cover | Pinocchio portrait |
+| ch03 | Geppetto carving |
+| ch04 | Talking Cricket |
+| ch08 | Going to school |
+| ch10 | Marionette Theater |
+| ch12 | Fox and Cat |
+| ch16 | Fairy Azure Hair |
+| ch17 | Nose Growing |
+| ch30 | Land of Toys |
+| ch32 | Donkey transformation |
+| ch35 | Inside the shark |
+| ch36 | Becomes real boy |
+
+**Prossimo step**: Pubblicare su Amazon KDP ($4.99 ebook)

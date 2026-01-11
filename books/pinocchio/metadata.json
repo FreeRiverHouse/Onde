@@ -1,0 +1,53 @@
+{
+  "id": "pinocchio-illustrated",
+  "title": "The Adventures of Pinocchio",
+  "subtitle": "Illustrated Edition with Original Watercolor Art",
+  "author": "Carlo Collodi",
+  "translator": "Carol Della Chiesa",
+  "illustrator": "Pina Pennello (Onde Studio)",
+  "publisher": "Onde Publishing",
+  "language": "en",
+  "originalLanguage": "it",
+  "publicationDate": "2026-01-11",
+  "categories": ["Children's Books", "Classic Literature", "Fairy Tales", "Italian Literature"],
+  "ageRange": "6-12",
+  "keywords": [
+    "pinocchio",
+    "carlo collodi",
+    "italian fairy tale",
+    "classic children book",
+    "illustrated pinocchio",
+    "geppetto",
+    "wooden puppet",
+    "fairy tale illustrated"
+  ],
+  "description": "A beautifully illustrated edition of Carlo Collodi's beloved masterpiece. Follow Pinocchio's adventures from wooden puppet to real boy, brought to life with stunning European watercolor illustrations in the classic Italian tradition. This edition features 12 original artworks capturing the magic, humor, and heart of this timeless story.",
+  "price": {
+    "ebook": 4.99,
+    "paperback": 12.99,
+    "currency": "USD"
+  },
+  "chapters": 36,
+  "illustrations": [
+    {"id": "cover", "scene": "Pinocchio portrait with long nose, Italian village background"},
+    {"id": "ch03", "scene": "Geppetto carving Pinocchio in his workshop"},
+    {"id": "ch04", "scene": "The Talking Cricket giving advice to Pinocchio"},
+    {"id": "ch08", "scene": "Pinocchio going to school with his ABC book"},
+    {"id": "ch10", "scene": "The Marionette Theater with Fire Eater"},
+    {"id": "ch12", "scene": "The sly Fox and Cat meeting Pinocchio"},
+    {"id": "ch16", "scene": "The Fairy with Azure Hair caring for Pinocchio"},
+    {"id": "ch17", "scene": "Pinocchio's nose growing as he tells lies"},
+    {"id": "ch30", "scene": "The Land of Toys with children playing"},
+    {"id": "ch32", "scene": "Pinocchio transformed into a donkey"},
+    {"id": "ch35", "scene": "Pinocchio inside the giant shark/whale"},
+    {"id": "ch36", "scene": "Pinocchio becomes a real boy"}
+  ],
+  "styleGuide": {
+    "illustrationStyle": "European watercolor, Italian tradition",
+    "avoid": ["Pixar style", "Disney style", "3D cartoon", "rosy cheeks"],
+    "reference": "Beatrix Potter meets Emanuele Luzzati, warm golden light, natural tones"
+  },
+  "sourceText": "Project Gutenberg #500",
+  "publicDomain": true,
+  "isbn": "TBD"
+}
