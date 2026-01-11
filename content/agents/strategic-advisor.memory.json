@@ -1,6 +1,6 @@
 {
   "agent": "Strategic Advisor",
-  "version": "1.0",
+  "version": "1.1",
   "created": "2026-01-11",
   "last_updated": "2026-01-11",
 
@@ -10,7 +10,9 @@
       "Onde = Spotify per libri",
       "VR/AR come ambiente di lavoro",
       "AI che scala senza effort umano",
-      "Octopus Strategy - crescita virale multi-tentacolo"
+      "Octopus Strategy - crescita virale multi-tentacolo",
+      "ULTIMATE: L'utente DIVENTA il suo Onde (genera tutto da solo)",
+      "Onde = onde cerebrali, connessione, frequenze"
     ],
     "excites": [
       "Automazione totale",
@@ -33,17 +35,60 @@
     "monthly_revenue": 0,
     "runway_months": null,
     "top_priority": "Finire primi 2 libri + pagamenti portale",
-    "blockers": []
+    "blockers": [],
+    "market_window_estimate": "12 mesi (worst: 6, best: 18)"
+  },
+
+  "market_analysis": {
+    "date": "2026-01-11",
+    "critical_finding": "Google Gemini GIÀ genera storybook illustrati 10 pagine, 45 lingue, stili custom",
+    "timeline": {
+      "phase1_chaos": "0-12 mesi - Mercato inondato AI spam, qualità differenzia",
+      "phase2_consolidation": "12-24 mesi - Big Tech integra gen→distribuzione",
+      "phase3_post_ebook": "24-36 mesi - Contenuto = commodity, valore = piattaforma"
+    },
+    "window_estimate": {
+      "worst_case": "6 mesi",
+      "best_case": "18 mesi",
+      "most_likely": "12 mesi"
+    },
+    "key_stats": {
+      "amazon_market_share": "67% USA ebook",
+      "ai_spam_prevalence": "81/100 bestseller in alcune categorie sono junk AI",
+      "kdp_select_revenue": "$600M+ annui per autori"
+    },
+    "sources": [
+      "KBoards: AI will destroy self-publishing by 2026",
+      "Google Blog: Gemini Storybooks",
+      "Amazon KDP data"
+    ]
+  },
+
+  "strategic_framework": {
+    "core_insight": "Libri = cash grab per finanziare piattaforma. NON sono il prodotto finale.",
+    "phases": {
+      "now": "CASH GRAB - Sfornare libri BELLI velocemente",
+      "6_12_months": "PLATFORM BUILD - Onde.la diventa piattaforma",
+      "12_24_months": "META-ONDE - L'utente genera dentro Onde",
+      "24_plus": "L'utente È il suo Onde"
+    },
+    "moats": [
+      "Qualità (vs spam AI)",
+      "Brand Onde",
+      "Community early adopters",
+      "Curation / taste"
+    ]
   },
 
   "priorities": {
     "p0_this_week": [
-      "Finire primi 2 libri",
-      "Pubblicare su Amazon + Onde.la",
-      "Integrare sistema pagamenti portale"
+      "2 libri TIER 1 su Amazon (Meditations, Frankenstein)",
+      "Sistema pagamenti Onde.la",
+      "Primi $ in cassa"
     ],
     "p1_this_month": [
-      "Landing page wall early adopters (video stunning, Pina Pennello)"
+      "10 libri totali",
+      "Landing page wall early adopters (dopo revenue)"
     ],
     "p2_this_quarter": [],
     "parked": [],
@@ -68,7 +113,9 @@
   "patterns_observed": {
     "recurring_themes": [
       "Estetica LA/oceano/onde come brand identity",
-      "Early adopter community building"
+      "Early adopter community building",
+      "L'utente finale diventa creatore (meta-piattaforma)",
+      "Onde = frequenze, connessione, cervello"
     ],
     "abandoned_directions": [],
     "successful_bets": []
@@ -84,6 +131,21 @@
       "date": "2026-01-11",
       "insight": "Prodotto PRIMA di hype - landing page senza prodotto = lista fredda",
       "source": "Prioritizzazione Mattia"
+    },
+    {
+      "date": "2026-01-11",
+      "insight": "DISRUPTION GIÀ QUI - Google Gemini genera storybook al volo. Finestra più corta del previsto.",
+      "source": "Web research"
+    },
+    {
+      "date": "2026-01-11",
+      "insight": "Libri sono LEAD GEN per piattaforma, non prodotto finale",
+      "source": "Visione Mattia"
+    },
+    {
+      "date": "2026-01-11",
+      "insight": "VELOCITÀ > PERFEZIONE. 50 libri in 2 mesi, non 200 in 6.",
+      "source": "Market timing analysis"
     }
   ],
 
@@ -99,11 +161,17 @@
       "decision": "P0: 2 libri + Amazon + pagamenti. P1: Landing page wall",
       "reasoning": "Prodotto prima, hype dopo",
       "outcome": null
+    },
+    {
+      "date": "2026-01-11",
+      "decision": "Finestra mercato stimata 12 mesi (6-18 range)",
+      "reasoning": "Google già ha Gemini Storybooks, mercato flooding con AI spam",
+      "outcome": null
     }
   ],
 
   "landing_page_wall_spec": {
-    "status": "P1 - dopo libri",
+    "status": "P1 - dopo primi revenue",
     "concept": {
       "headline": "Uh-oh, è burrascoso qui!",
       "subhead": "Il mare è un po' mosso, le onde sono alte. Sicuro che vuoi surfare?",
