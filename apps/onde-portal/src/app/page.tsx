@@ -100,7 +100,7 @@ export default function Home() {
       </motion.section>
 
       {/* ============================================
-          FEATURED BOOK - MEDITATIONS
+          FEATURED BOOKS
           ============================================ */}
       <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50/30 via-white to-onde-cream">
         <div className="max-w-6xl mx-auto">
@@ -112,97 +112,104 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-medium mb-4">
-              Featured Release
+              Now Available
             </span>
             <h2 className="text-4xl sm:text-5xl font-display font-bold text-onde-ocean">
-              Now Available
+              Our Books
             </h2>
           </motion.div>
 
-          {/* Book Card */}
-          <motion.div
-            className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden
-                       border border-amber-200/30"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Cover */}
-              <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[500px]">
+          {/* Books Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Meditations */}
+            <motion.div
+              className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-amber-200/30"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-50 to-amber-100">
                 <Image
                   src="/books/meditations-cover.jpg"
-                  alt="Meditations by Marcus Aurelius"
+                  alt="Meditations"
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                <span className="absolute top-6 left-6 px-4 py-2 rounded-xl text-sm font-semibold
-                               bg-amber-900/90 text-amber-100 backdrop-blur-md shadow-lg">
+                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-900/80 text-amber-100">
                   Philosophy
                 </span>
+                <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-white">
+                  $0.99
+                </span>
               </div>
-
-              {/* Content */}
-              <div className="p-8 md:p-12 flex flex-col justify-center bg-gradient-to-br from-amber-50/50 to-white">
-                <h3 className="text-4xl font-display font-bold text-amber-900 mb-2">
-                  Meditations
-                </h3>
-                <p className="text-xl text-amber-700/80 mb-2">Thoughts to Himself</p>
-                <p className="text-onde-ocean/60 mb-6">by Marcus Aurelius</p>
-
-                <p className="text-onde-ocean/70 leading-relaxed mb-8">
-                  The private reflections of the Roman Emperor Marcus Aurelius, written during
-                  his military campaigns. A timeless guide to Stoic philosophy, self-discipline,
-                  and finding inner peace amidst chaos.
+              <div className="p-6">
+                <h3 className="text-2xl font-display font-bold text-amber-900 mb-1">Meditations</h3>
+                <p className="text-amber-700/80 text-sm mb-1">Thoughts to Himself</p>
+                <p className="text-onde-ocean/50 text-xs mb-4">by Marcus Aurelius</p>
+                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6">
+                  The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.
                 </p>
-
-                <p className="text-sm text-onde-ocean/50 mb-8">
-                  Translated by George Long (1862) &bull; Complete Illustrated Edition
-                </p>
-
-                {/* Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href="/books/meditations-en.pdf"
-                    download
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
-                             bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold
-                             shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40
-                             transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
+                <div className="flex gap-3">
+                  <a href="/books/meditations-en.pdf" download
+                     className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
+                              bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold text-sm">
                     Download PDF
                   </a>
-                  <a
-                    href="/books/epub/meditations-en.epub"
-                    download
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
-                             bg-onde-ocean/10 text-onde-ocean font-semibold
-                             hover:bg-onde-ocean/20 transition-all duration-300"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    Download EPUB
+                  <a href="/books/epub/meditations-en.epub" download
+                     className="px-4 py-2.5 rounded-xl bg-onde-ocean/10 text-onde-ocean font-semibold text-sm">
+                    EPUB
                   </a>
                 </div>
+              </div>
+            </motion.div>
 
-                <p className="mt-6 text-sm text-amber-600/80 flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            {/* Psalm 23 */}
+            <motion.div
+              className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-green-200/30"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="relative aspect-[4/3] bg-gradient-to-br from-green-50 to-emerald-50">
+                <Image
+                  src="/books/salmo-23-cover.svg"
+                  alt="The Shepherd - Psalm 23"
+                  fill
+                  className="object-contain p-4"
+                />
+                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold bg-green-800/80 text-green-100">
+                  Spirituality
+                </span>
+                <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold bg-green-500 text-white">
+                  Free
+                </span>
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-display font-bold text-green-900 mb-1">The Shepherd</h3>
+                <p className="text-green-700/80 text-sm mb-1">Psalm 23 for Children</p>
+                <p className="text-onde-ocean/50 text-xs mb-4">Biblical Tradition</p>
+                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6">
+                  The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.
+                </p>
+                <div className="flex gap-3">
+                  <a href="/books/salmo-23.pdf" download
+                     className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
+                              bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold text-sm">
+                    Download Free PDF
+                  </a>
+                </div>
+                <p className="mt-4 text-xs text-green-600 flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  Free illustrated edition - Public Domain
+                  Free illustrated edition
                 </p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

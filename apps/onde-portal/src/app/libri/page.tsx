@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
-import Button from '@/components/ui/Button'
 import { useTranslations } from '@/i18n'
 
 interface Book {
@@ -16,7 +15,9 @@ interface Book {
   category: string
   coverImage: string
   pdfLink: string
-  epubLink: string
+  epubLink?: string
+  price: string
+  isFree: boolean
 }
 
 const books: Book[] = [
@@ -30,12 +31,25 @@ const books: Book[] = [
     coverImage: '/books/meditations-cover.jpg',
     pdfLink: '/books/meditations-en.pdf',
     epubLink: '/books/epub/meditations-en.epub',
+    price: '$0.99',
+    isFree: false,
+  },
+  {
+    id: 'psalm-23',
+    title: 'The Shepherd',
+    subtitle: 'Psalm 23 for Children',
+    author: 'Biblical Tradition',
+    description: 'The most beloved Psalm, illustrated for young readers. A journey of trust and protection through green pastures and still waters. Beautiful watercolor illustrations bring this timeless prayer to life.',
+    category: 'Spirituality',
+    coverImage: '/books/salmo-23-cover.svg',
+    pdfLink: '/books/salmo-23.pdf',
+    price: 'Free',
+    isFree: true,
   },
 ]
 
 export default function LibriPage() {
   const t = useTranslations()
-  const book = books[0]
 
   return (
     <div className="min-h-screen py-12">
@@ -62,91 +76,99 @@ export default function LibriPage() {
         </div>
       </section>
 
-      {/* Featured Book - Meditations */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <motion.div
-          className="bg-white/80 backdrop-blur-sm rounded-3xl border border-amber-200/50
-                     shadow-xl overflow-hidden"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="grid md:grid-cols-2 gap-0">
-            {/* Cover Image */}
-            <div className="relative aspect-[3/4] md:aspect-auto">
-              <Image
-                src={book.coverImage}
-                alt={book.title}
-                fill
-                className="object-cover"
-                priority
-              />
-              {/* Category Badge */}
-              <span className="absolute top-6 left-6 px-4 py-2 rounded-xl text-sm font-semibold
-                             bg-amber-900/80 text-amber-100 backdrop-blur-md shadow-lg">
-                {book.category}
-              </span>
-            </div>
+      {/* Books Grid */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="grid md:grid-cols-2 gap-8">
+          {books.map((book, index) => (
+            <motion.div
+              key={book.id}
+              className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-200/50
+                         shadow-xl overflow-hidden"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15 }}
+            >
+              {/* Cover Image */}
+              <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-50 to-amber-100">
+                <Image
+                  src={book.coverImage}
+                  alt={book.title}
+                  fill
+                  className="object-contain p-4"
+                  priority={index === 0}
+                />
+                {/* Category Badge */}
+                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold
+                               bg-amber-900/80 text-amber-100 backdrop-blur-md shadow-lg">
+                  {book.category}
+                </span>
+                {/* Price Badge */}
+                <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg
+                               ${book.isFree
+                                 ? 'bg-green-500 text-white'
+                                 : 'bg-amber-500 text-white'}`}>
+                  {book.price}
+                </span>
+              </div>
 
-            {/* Content */}
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <h2 className="text-4xl font-display font-bold text-amber-900 mb-2">
+              {/* Content */}
+              <div className="p-6">
+                <h2 className="text-2xl font-display font-bold text-amber-900 mb-1">
                   {book.title}
                 </h2>
-                <p className="text-lg text-amber-700/80 mb-2">{book.subtitle}</p>
-                <p className="text-onde-ocean/60 mb-6">by {book.author}</p>
+                <p className="text-amber-700/80 mb-1">{book.subtitle}</p>
+                <p className="text-onde-ocean/50 text-sm mb-4">by {book.author}</p>
 
-                <p className="text-onde-ocean/70 leading-relaxed mb-8">
+                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6 line-clamp-3">
                   {book.description}
                 </p>
 
                 {/* Download Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href={book.pdfLink}
                     download
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
-                             bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
+                             bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold text-sm
                              shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40
                              transition-all duration-300 hover:scale-[1.02]"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     Download PDF
                   </a>
-                  <a
-                    href={book.epubLink}
-                    download
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
-                             bg-onde-ocean/10 text-onde-ocean font-semibold
-                             hover:bg-onde-ocean/20 transition-all duration-300"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    Download EPUB
-                  </a>
+                  {book.epubLink && (
+                    <a
+                      href={book.epubLink}
+                      download
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
+                               bg-onde-ocean/10 text-onde-ocean font-semibold text-sm
+                               hover:bg-onde-ocean/20 transition-all duration-300"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      EPUB
+                    </a>
+                  )}
                 </div>
 
                 {/* Free Label */}
-                <p className="mt-6 text-sm text-amber-600/80 flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Free illustrated edition - Public Domain
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+                {book.isFree && (
+                  <p className="mt-4 text-xs text-green-600 flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Free illustrated edition
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Coming Soon */}
