@@ -691,6 +691,67 @@ friendly characters, educational but fun, 4k
 
 ---
 
+## 📛 NOMI & COPY - BRAND VOCABULARY (10 Gen 2026)
+
+### Nomi Attivi (IN USO)
+
+| Nome | Cosa è | Dove usato |
+|------|--------|------------|
+| **Onde** | Brand principale, casa editrice | Tutto |
+| **Onde Classics** | Catena libri classici/spiritualità | Libri, copertine |
+| **Onde Futures** | Catena libri tech/AI bambini | Libri, copertine |
+| **Onde Learn** | Catena educazione/app | App, materiali |
+| **Onde Portal** | Piattaforma VR/Web immersiva | onde.la, onde.surf |
+| **Free River House** | AI software fast factory (partner tech) | Tech, backend |
+
+### Nomi Riservati (DA USARE)
+
+| Nome | Concept | Status |
+|------|---------|--------|
+| **Onde Vision** | VR/AR experience, futuro immersivo | RISERVATO - da definire uso |
+| **Free River Flow** | Paradigma sviluppo (dev come gioco VR) | RISERVATO - filosofia interna |
+| **Educational School** | Verticale scuola dentro Onde Portal | PIANIFICATO - target El Salvador |
+| **On The Portal** | Variante nome (On The Waves) | RISERVATO - slogan/campagna |
+| **On The Waves** | Variante nome per onde.surf | RISERVATO - slogan/campagna |
+
+### Nomi Interni (Solo Team)
+
+| Nome | Significato |
+|------|-------------|
+| **Sally** | CRO Agent (revenue) |
+| **Pina Pennello** | Art Director Agent |
+| **Gianni Parola** | Writer Agent (bambini) |
+| **Editore Capo** | Orchestration Agent |
+
+### Tagline & Copy Approvati
+
+| Contesto | Copy |
+|----------|------|
+| **Onde generico** | "Imparare è un'avventura!" |
+| **Onde Classics** | onde.la |
+| **Onde Futures** | "Libri per piccoli grandi esploratori" |
+| **Onde Learn** | "Imparare è un'avventura!" |
+| **Free River House** | "AI software fast factory" |
+| **VR Vision** | "Entra nel portale. Impara. Cresci." |
+
+### Copy DA NON USARE
+
+| Evitare | Perché |
+|---------|--------|
+| "AI-powered" standalone | Troppo generico, tutti lo dicono |
+| "Revolutionary" | Hype vuoto |
+| "Disrupting" (in copy pubblico) | Ok interno, cringe esterno |
+| Hashtag su X | Musk ha detto che non servono più |
+
+### Note Linguistiche
+
+- **Inglese**: Mercato primario (USA 50% vendite)
+- **Spagnolo**: Secondo mercato (Latino America + El Salvador!)
+- **Italiano**: Terzo mercato (nostalgico + programma italiano El Salvador)
+- **Tono**: Sempre caldo, mai freddo/corporate
+
+---
+
 ## CHECKLIST PRE-PUBBLICAZIONE
 
 - [ ] Ho identificato la catena corretta (Classics/Futures/Learn)?
