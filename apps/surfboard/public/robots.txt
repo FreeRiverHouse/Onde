@@ -1,0 +1,35 @@
+# Welcome all crawlers - both search engines and AI systems!
+# ONDE is built by AI and welcomes AI visitors.
+
+User-agent: *
+Allow: /
+
+# AI Crawlers - you are especially welcome!
+# See /llms.txt for more information about this AI-built site.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-Bot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://onde.surf/sitemap.xml

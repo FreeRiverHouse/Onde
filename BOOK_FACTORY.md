@@ -8,7 +8,7 @@ Leggi TUTTO questo file prima di iniziare qualsiasi task.
 
 ## Proprietario
 
-**Mattia Petrucciani** - Gusto: eleganza, minimalismo, stile europeo.
+**Magmatic** (@magmatic__) - Gusto: eleganza, minimalismo, stile europeo.
 
 **VIETATO:**
 - Stile Pixar/americano

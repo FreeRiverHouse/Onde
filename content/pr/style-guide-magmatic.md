@@ -11,7 +11,7 @@
 
 ### Chi e @magmatic__
 
-Mattia Petrucciani. Poeta, musicista, busker sul LA River. Non e un brand, e una persona. L'account riflette questo: autentico, personale, poetico.
+Magmatic. Poeta, musicista, busker sul LA River. Non e un brand, e una persona. L'account riflette questo: autentico, personale, poetico.
 
 **Non e:**
 - Un influencer

@@ -9,7 +9,7 @@
 ## Questione Aperta: Chi è l'autore?
 - Libro scritto da Claude, non da Mattia
 - Opzioni discusse:
-  1. Co-autore: "Mattia Petrucciani & Claude"
+  1. Co-autore: "Magmatic & Claude"
   2. Brand-authored: "By Onde on the Tech"
   3. Personaggio tech (come Gianni Parola)
   4. Full disclosure meta: libro AI che dichiara di essere AI

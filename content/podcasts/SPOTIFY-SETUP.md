@@ -1,6 +1,6 @@
 # Spotify for Creators - Setup Podcast Onde
 
-**Documento preparato per Mattia Petrucciani**
+**Documento preparato per Magmatic (@magmatic__)**
 **Data: 10 Gennaio 2026**
 
 ---

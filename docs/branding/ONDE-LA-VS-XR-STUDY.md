@@ -2,7 +2,7 @@
 
 **Preparato da: Onde PR Agency**
 **Data: 9 Gennaio 2026 - Aggiornamento**
-**Per: Mattia Petrucciani, Fondatore (Los Angeles)**
+**Per: Magmatic (@magmatic__), Fondatore (Los Angeles)**
 
 ---
 

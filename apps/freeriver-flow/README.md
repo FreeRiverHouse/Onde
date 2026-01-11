@@ -304,6 +304,6 @@ Proprietary - FreeRiverHouse / Onde
 
 ---
 
-*"Gli occhiali sono commodity, il CODICE e' tutto."* - Mattia Petrucciani
+*"Gli occhiali sono commodity, il CODICE e' tutto."* - Magmatic
 
 *Documento generato: 2026-01-10*

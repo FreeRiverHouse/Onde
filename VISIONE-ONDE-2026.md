@@ -295,7 +295,7 @@ Il wordplay funziona in entrambe le direzioni.
 - **Factory Workers** - Automazione task
 
 ### Umano
-- **Mattia Petrucciani** - Fondatore, Los Angeles
+- **Magmatic** (@magmatic__) - Fondatore, Los Angeles
 
 ---
 

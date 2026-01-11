@@ -1,7 +1,7 @@
 # Claude Memory - Onde Project
 
 ## Owner
-Mattia Petrucciani - parla italiano, comunicazione diretta.
+Magmatic (@magmatic__) - parla italiano, comunicazione diretta.
 **Location**: Los Angeles, California
 (onde.la = letteralmente dove vive Mattia!)
 
@@ -12,10 +12,11 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 **Tutto il contenuto strategico, roadmap, task e visione e' in `ROADMAP.md`.**
 
 ### ALL'INIZIO DI OGNI SESSIONE (OBBLIGATORIO):
-1. **LEGGI CHEATSHEET.md** - Regole procedurali compatte (5 min)
-2. Leggi questo file (CLAUDE.md) per le regole operative
-3. **LEGGI ROADMAP.md** - SEMPRE, OGNI VOLTA
-4. Dimmi cosa c'è da fare secondo la ROADMAP
+1. **SE ESISTE HANDOFF.md** → Leggilo ed esegui SUBITO il task urgente!
+2. **LEGGI CHEATSHEET.md** - Regole procedurali compatte (5 min)
+3. Leggi questo file (CLAUDE.md) per le regole operative
+4. **LEGGI ROADMAP.md** - SEMPRE, OGNI VOLTA
+5. Dimmi cosa c'è da fare secondo la ROADMAP
 
 ### ALLA FINE DI OGNI SESSIONE (OBBLIGATORIO):
 1. Aggiorna ROADMAP.md con tutte le idee nuove

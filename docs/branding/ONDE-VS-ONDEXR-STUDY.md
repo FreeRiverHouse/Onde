@@ -2,7 +2,7 @@
 
 **Preparato da: Onde PR Agency**
 **Data: 9 Gennaio 2026**
-**Per: Mattia Petrucciani, Fondatore**
+**Per: Magmatic (@magmatic__), Fondatore**
 
 ---
 

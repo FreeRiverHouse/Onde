@@ -2,7 +2,7 @@
 
 **Data:** 10 Gennaio 2026
 **Autore:** Claude (Opus 4.5)
-**Richiesto da:** Mattia Petrucciani
+**Richiesto da:** Magmatic (@magmatic__)
 
 ---
 

@@ -1,7 +1,7 @@
 # Claude Memory - Onde Project
 
 ## Owner
-Mattia Petrucciani - parla italiano, comunicazione diretta.
+Magmatic (@magmatic__) - parla italiano, comunicazione diretta.
 
 ---
 
