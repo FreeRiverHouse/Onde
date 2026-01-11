@@ -8,6 +8,9 @@ Naming style: Java method calls
 import os
 import json
 import time
+import subprocess
+import shutil
+import difflib
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -24,8 +27,10 @@ class UpgradeIteration:
     should_continue: bool
 
 class BookUpgradeProcedure:
-    def __init__(self, book_path: str):
+    def __init__(self, book_path: str, upgrade_reason: str = ""):
         self.book_path = Path(book_path)
+        self.upgrade_reason = upgrade_reason
+        self.backup_path = None
         self.iterations = []
         self.max_iterations = 10
         self.quality_threshold = 9.5
