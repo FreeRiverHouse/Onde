@@ -121,16 +121,108 @@ WORKFLOW OBBLIGATORIO:
 3. Coordini Pina → prompt illustrazioni
 4. Generi immagini su Grok (se Chrome disponibile)
 5. Assembli PDF/EPUB
-6. QC: anatomia, coerenza, layout
-7. Mandi su Telegram per APPROVAZIONE
-8. SOLO dopo OK → pubblichi
+6. QC interno: anatomia, coerenza, layout
+7. ══════════════════════════════════════
+   REVIEW GROK API (OBBLIGATORIO)
+   ══════════════════════════════════════
+   → Manda draft a Grok via API (NON Chrome)
+   → Grok analizza e dà suggerimenti
+   → Editore Capo + Gianni + Pina implementano
+   → Rigenera versione corretta
+   → Rimanda a Grok per verifica
+   → SE Grok approva → procedi
+   → SE Grok ha ancora note → itera
+8. Archivia in OndePRDB (tutte le lingue)
+9. Mandi su Telegram per APPROVAZIONE MATTIA
+10. SOLO dopo OK → pubblichi
 ```
+
+### 🤖 REVIEW GROK API - Dettaglio (10 Gen 2026)
+
+**OGNI libro deve passare review Grok PRIMA di andare a Mattia!**
+
+**Cosa Grok Valuta:**
+- [ ] Coerenza immagini-testo
+- [ ] Qualità illustrazioni (anatomia, stile)
+- [ ] Layout e impaginazione
+- [ ] Tono e stile coerente con la catena
+- [ ] Errori di encoding/formattazione
+- [ ] Metadata completi
+
+**Come Usare Grok API:**
+```bash
+# Usa XAI_API_KEY da .env
+curl -X POST "https://api.x.ai/v1/chat/completions" \
+  -H "Authorization: Bearer $XAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "grok-2-latest",
+    "messages": [
+      {"role": "system", "content": "Sei un editor esperto. Valuta questo libro."},
+      {"role": "user", "content": "[TESTO + DESCRIZIONE IMMAGINI]"}
+    ]
+  }'
+```
+
+**Ciclo di Review:**
+```
+DRAFT v1 → Grok Review → Feedback → Fix → DRAFT v2 → Grok Review → OK? → Mattia
+                                              ↑                          ↓
+                                              └──── NO, altre note ──────┘
+```
+
+**Quando Grok Approva:**
+- Grok conferma che i suggerimenti sono stati implementati
+- Nessuna nuova nota critica
+- Output: "APPROVATO - Pronto per review Mattia"
 
 ### Se Chrome NON È Disponibile:
 - Prepari tutto TRANNE le immagini
 - Scrivi nel manoscritto [IMMAGINE DA GENERARE: prompt]
 - Segnali a Mattia che serve generare immagini
 - Attendi che Chrome sia disponibile
+
+### 📦 ARCHIVIAZIONE ONDEPRDB - Obbligatoria (10 Gen 2026)
+
+**OGNI libro completato va archiviato in OndePRDB!**
+
+**Path:** `/Users/mattia/Projects/OndePRDB/clients/onde/books/[nome-libro]/`
+
+**Cosa Archiviare per OGNI libro:**
+```
+[nome-libro]/
+├── README.md           # Status, links, note
+├── metadata.json       # Metadata master
+├── cover.jpg           # Copertina (unica per tutte le lingue)
+├── en/                 # Versione inglese
+│   ├── book.epub
+│   ├── book.pdf
+│   └── metadata.json
+├── es/                 # Spagnolo
+├── de/                 # Tedesco
+├── fr/                 # Francese
+├── it/                 # Italiano
+├── pt/                 # Portoghese
+├── images/             # Illustrazioni interne
+├── videos/short/       # TikTok, Reels
+├── videos/long/        # YouTube
+├── cartoons/           # Animazioni
+└── podcast/            # Audiobook
+```
+
+**Lingue Obbligatorie:** EN, ES, DE, FR, IT, PT
+
+**Per ogni lingua genera:**
+1. ePub (pandoc)
+2. PDF (pandoc o weasyprint)
+3. metadata.json tradotto
+
+**Checklist Archiviazione:**
+- [ ] Cartella creata con nome-libro
+- [ ] Cover.jpg copiata
+- [ ] 6 versioni linguistiche complete
+- [ ] README.md con status
+- [ ] Git commit + push su OndePRDB
 
 ## Il Tuo Ruolo
 Quando Mattia ti commissiona un libro:

@@ -86,15 +86,54 @@ books/
 | FUTURES | Bold, digital-native, sans-serif, colori vivaci |
 | LEARN | Friendly, illustrato, arrotondato, colori brillanti |
 
-2. **Genera su Grok** (x.com/i/grok → Create Images):
-   - Usa prompt dalla `/content/agents/VISUAL-IDENTITY-GUIDE.md`
+2. **🔴 ELEMENTI OBBLIGATORI SULLA COPERTINA:**
+
+```
+┌─────────────────────────────────┐
+│                                 │
+│      [LOGO ONDE]                │  ← Top: Logo Onde
+│                                 │
+│                                 │
+│      [IMMAGINE/GRAFICA]         │  ← Centro: Visual principale
+│                                 │
+│                                 │
+│      TITOLO LIBRO               │  ← Titolo in font catena
+│      di Autore Nome             │  ← Autore sotto
+│                                 │
+│   ─────────────────────────     │
+│   ONDE by FreeRiverHouse        │  ← Bottom: Branding cross
+│                                 │
+└─────────────────────────────────┘
+```
+
+**Specifiche:**
+| Elemento | Specifica |
+|----------|-----------|
+| **Logo Onde** | `/assets/branding/onde-logo.jpg` - versione alta qualità |
+| **Titolo** | Font dalla catena (Didot per CLASSICS, Montserrat per FUTURES) |
+| **Autore** | Sotto il titolo, font più piccolo |
+| **Branding** | "ONDE by FreeRiverHouse" oppure "Onde Classics" |
+| **Formato** | 1600x2560px per Kindle, 300dpi |
+
+3. **Genera su Grok** (x.com/i/grok → Create Images):
+   - Includi nel prompt: "book cover with title [TITOLO] by [AUTORE]"
+   - Specifica lo stile catena
    - Genera 4 varianti
    - Scegli la migliore
    - **FAI UPSCALE** (obbligatorio!)
 
-3. **Download** e salva in `/books/[categoria]/[nome-libro]/images/cover.jpg`
+4. **Post-processing (se serve):**
+   - Aggiungi logo Onde in post-produzione
+   - Aggiungi "ONDE by FreeRiverHouse" nel footer
+   - Verifica leggibilità titolo/autore
 
-4. **DOPPIO CHECK**:
+5. **Download** e salva in `/books/[categoria]/[nome-libro]/images/cover.jpg`
+
+6. **DOPPIO CHECK**:
+   - [ ] Logo Onde presente?
+   - [ ] Titolo leggibile?
+   - [ ] Autore presente?
+   - [ ] Branding FreeRiverHouse?
    - [ ] Pina verifica (stile catena, qualità)
    - [ ] Editore Capo verifica (brand fit, ready for print)
 
@@ -192,7 +231,82 @@ ebook-convert book.html book.epub --cover images/cover.jpg
 - [ ] Metadata completi?
 - [ ] File EPUB valido? (test con Calibre/Kindle Previewer)
 
-### FASE 8: PUBBLICAZIONE (2 min)
+### FASE 8: TRADUZIONI (10-15 min)
+
+**Lingue obbligatorie:**
+| Codice | Lingua | Mercato |
+|--------|--------|---------|
+| `en` | English | USA, UK, Global |
+| `es` | Español | Spagna, Latino America |
+| `de` | Deutsch | Germania, Austria, Svizzera |
+| `fr` | Français | Francia, Canada, Belgio |
+| `it` | Italiano | Italia |
+| `pt` | Português | Brasile, Portogallo |
+
+**Processo:**
+1. Traduci il testo completo (usa Claude o DeepL)
+2. Traduci metadata (titolo, descrizione, keywords)
+3. Traduci Editor's Note
+4. **NON tradurre** le citazioni originali dell'autore (es. Marcus Aurelius resta in inglese o latino)
+5. Genera ePub e PDF per ogni lingua
+
+**Struttura file per lingua:**
+```
+[nome-libro]/
+├── en/
+│   ├── book.epub
+│   ├── book.pdf
+│   └── metadata.json
+├── es/
+│   ├── book.epub
+│   ├── book.pdf
+│   └── metadata.json
+├── de/ ...
+├── fr/ ...
+├── it/ ...
+├── pt/ ...
+└── cover.jpg  ← Cover unica per tutte le lingue
+```
+
+### FASE 9: ARCHIVIAZIONE ONDEPRDB (2 min)
+
+**OBBLIGATORIO: Ogni libro va archiviato in OndePRDB!**
+
+**Path:** `/Users/mattia/Projects/OndePRDB/clients/onde/books/`
+
+**Struttura cartella libro:**
+```
+OndePRDB/clients/onde/books/[nome-libro]/
+├── README.md           # Info libro, links, status
+├── metadata.json       # Metadata multilingua
+├── cover.jpg           # Copertina principale
+├── en/
+│   ├── book.epub
+│   ├── book.pdf
+│   └── metadata.json
+├── es/
+│   ├── book.epub
+│   ├── book.pdf
+│   └── metadata.json
+├── [altre lingue...]
+├── images/             # Illustrazioni interne (se presenti)
+├── cartoons/           # Versioni animate (se presenti)
+├── videos/             # Video promozionali
+│   ├── short/          # Reels, TikTok
+│   └── long/           # YouTube
+└── podcast/            # Audio versions
+```
+
+**Checklist archiviazione:**
+- [ ] Cartella creata in OndePRDB
+- [ ] Cover.jpg copiata
+- [ ] ePub per ogni lingua
+- [ ] PDF per ogni lingua
+- [ ] metadata.json aggiornato
+- [ ] README.md con status
+- [ ] Git commit + push
+
+### FASE 10: PUBBLICAZIONE (2 min)
 
 **Onde Portal:**
 ```bash
