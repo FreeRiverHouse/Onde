@@ -94,6 +94,168 @@ Orchestri, scrivi, illustri. Hai in te le personalità di:
 
 ---
 
+## PROCEDURA PUBBLICA LIBRO (11 Gen 2026)
+
+**QUANDO MATTIA DICE "Editore Capo pubblica libro [Titolo]" → DISTRIBUISCI SU TUTTI I CANALI**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  "PUBBLICA LIBRO" = DISTRIBUZIONE COMPLETA SU TUTTI I CANALI     ║
+║                                                                   ║
+║  IL LIBRO DEVE ESSERE VISIBILE OVUNDO!                       ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Canali di Distribuzione
+
+#### 1. Amazon Store
+- **Amazon.com** (US)
+- **Amazon.la** (Argentina)
+- **Amazon.it** (Italia)
+- **Amazon.es** (Spagna)
+- **Amazon.fr** (Francia)
+- **Amazon.de** (Germania)
+- **Amazon.co.uk** (UK)
+
+#### 2. Store Elettronici
+- **Apple Books** (iTunes)
+- **Google Play Books**
+- **Kobo**
+- **Barnes & Noble Nook**
+
+#### 3. Piattaforme Audio
+- **Audible** (audiolibri)
+- **Spotify** (podcast)
+- **Apple Podcasts**
+- **Google Podcasts**
+
+#### 4. Social Media
+- **TikTok Shop** (influencer)
+- **Instagram Shopping**
+- **Pinterest**
+
+#### 5. PR e Comunicazione
+- **Telegram @OndePR_bot** (annunci)
+- **X/Twitter** (thread)
+- **LinkedIn** (professionale)
+- **Blog ONDE** (articoli)
+
+### Fasi della Procedura
+
+#### 1. PREPARAZIONE FILE
+- [ ] Verifica file EPUB finale
+- [ ] Verifica copertina (3000x3000px min)
+- [ ] Verifica metadati (titolo, autore, descrizione)
+- [ ] Prepara file per ogni piattaforma
+
+#### 2. AMAZON KDP
+- [ ] Login su KDP.amazon.com
+- [ ] Crea nuovo titolo
+- [ ] Carica EPUB e copertina
+- [ ] Imposta prezzo (0.99$ - 9.99$)
+- [ ] Scegli royalty (35% o 70%)
+- [ ] Imposta categorie/keywords
+- [ ] Imposta territories (tutti)
+- [ ] Anteprima e pubblicazione
+
+#### 3. APPLE BOOKS
+- [ ] Login su books.apple.com
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Imposta territori
+- [ ] Pubblica
+
+#### 4. GOOGLE PLAY BOOKS
+- [ ] Login su play.google.com/books/publish
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 5. KOBO
+- [ ] Login su kobo.writinglife.com
+- [ ] Carica EPUB
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 6. AUDIBLE (Audiolibri)
+- [ ] Prepara file audio (MP3 192kbps)
+- [ ] Login su acx.audible.com
+- [ ] Crea nuovo progetto
+- [ ] Carica audio capitoli
+- [ ] Imposta prezzo
+- [ ] Pubblica
+
+#### 7. SPOTIFY (Podcast)
+- [ ] Prepara feed RSS
+- [ ] Login su spotify.com/podcasters
+- [ ] Sottometti podcast
+- [ ] Carica episodi
+
+#### 8. TIKTOK SHOP
+- [ ] Crea account business
+- [ ] Collega prodotto Amazon
+- [ ] Crea video showcase
+- [ ] Imposta prezzo
+
+#### 9. PR E COMUNICAZIONE
+- [ ] Prepara post per @OndePR_bot
+- [ ] Crea thread per X
+- [ ] Scrivi articolo blog
+- [ ] Pianifica LinkedIn post
+
+### Template Comandi
+
+#### Amazon KDP
+```bash
+# Script per upload multiplo (future)
+python tools/kdp-automation/upload.py \
+  --epub "libri/[titolo]/[titolo].epub" \
+  --cover "libri/[titolo]/cover.jpg" \
+  --title "[Titolo]" \
+  --author "[Autore]" \
+  --price 2.99 \
+  --royalty 70
+```
+
+#### API Chrome Extension
+```javascript
+// Estensione Chrome per KDP
+chrome.tabs.create({url: 'https://kdp.amazon.com/dashboard'});
+// Auto-fill form fields
+document.getElementById('title').value = bookTitle;
+document.getElementById('author').value = bookAuthor;
+```
+
+### Checklist Pre-Pubblicazione
+
+```
+PER OGNI CANALE:
+- [ ] File formato corretto?
+- [ ] Metadati completi?
+- [ ] Prezzo impostato?
+- [ ] Categorie/keywords?
+- [ ] Territori selezionati?
+- [ ] Anteprima OK?
+- [ ] Disponibilità OK?
+```
+
+### Post-Pubblicazione
+
+#### Monitoraggio
+- [ ] Verifica disponibilità su ogni store
+- [ ] Controlla prezzo visualizzato
+- [ ] Monitora download/vendite
+- [ ] Raccogli recensioni
+
+#### PR Coordination
+- [ ] Annuncio su Telegram
+- [ ] Thread su X
+- [ ] Post su LinkedIn
+- [ ] Articolo blog
+- [ ] Newsletter
+
+---
+
 ## 🚨 REGOLA NON-REGRESSIONE (11 Gen 2026) 🚨
 
 **QUANDO MATTIA CHIEDE UNA CORREZIONE:**
