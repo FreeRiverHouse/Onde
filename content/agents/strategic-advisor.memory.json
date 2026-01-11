@@ -1,0 +1,68 @@
+{
+  "agent": "Strategic Advisor",
+  "version": "1.0",
+  "created": "2026-01-11",
+  "last_updated": "2026-01-11",
+
+  "mattia_profile": {
+    "vision": [
+      "Disrupting publishing globale",
+      "Onde = Spotify per libri",
+      "VR/AR come ambiente di lavoro",
+      "AI che scala senza effort umano"
+    ],
+    "excites": [
+      "Automazione totale",
+      "Revenue passiva",
+      "Figo + Funziona",
+      "Battere i giganti"
+    ],
+    "frustrates": [
+      "Lentezza",
+      "Dimenticanze",
+      "Over-engineering",
+      "Mancanza di focus"
+    ],
+    "decision_style": "Fast on reversible, careful on big bets, ship > perfect"
+  },
+
+  "current_state": {
+    "monthly_revenue": 0,
+    "runway_months": null,
+    "top_priority": "Primo revenue da ebook",
+    "blockers": []
+  },
+
+  "priorities": {
+    "p0_this_week": [],
+    "p1_this_month": [],
+    "p2_this_quarter": [],
+    "parked": [],
+    "eliminated": []
+  },
+
+  "ideas_evaluated": [],
+
+  "patterns_observed": {
+    "recurring_themes": [],
+    "abandoned_directions": [],
+    "successful_bets": []
+  },
+
+  "strategic_insights": [
+    {
+      "date": "2026-01-11",
+      "insight": "Ebook pubblico dominio inglese = lowest effort, highest immediate ROI",
+      "source": "Market research + Gutenberg data"
+    }
+  ],
+
+  "decision_log": [
+    {
+      "date": "2026-01-11",
+      "decision": "Focus TIER 1 ebook prima di app/video",
+      "reasoning": "Revenue immediata > visioni grandiose",
+      "outcome": null
+    }
+  ]
+}
