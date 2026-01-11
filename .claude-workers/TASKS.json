@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-10T22:48:12.168Z",
+  "last_updated": "2026-01-11T20:06:21.759Z",
   "total_tasks": 161,
   "tasks": [
     {
@@ -2095,6 +2095,24 @@
       "claimed_by": null,
       "claimed_at": null,
       "created_at": "2026-01-10T22:45:00.000Z"
+    },
+    {
+      "id": "eng-incremental-001",
+      "title": "Incremental Website Changes System",
+      "description": "Sistema per modifiche chirurgiche al sito senza rebuild completo. Include: snapshot system, rollback procedure, surgical edit workflow.",
+      "category": "engineering",
+      "priority": 1,
+      "status": "available",
+      "dependencies": [],
+      "estimated_effort": "medium",
+      "files_involved": [
+        "apps/onde-portal/WEBSITE-PROCEDURES.md",
+        "apps/onde-portal/scripts/rollback.sh",
+        "apps/onde-portal/snapshots/"
+      ],
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-01-11T20:06:21.757Z"
     }
   ]
 }
