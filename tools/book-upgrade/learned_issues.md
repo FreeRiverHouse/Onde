@@ -8,12 +8,13 @@ Questo documento raccoglie tutti i problemi trovati durante la produzione libri 
 
 ## **CATEGORIA: WORKFLOW**
 
-### Issue #1: Bypassare Agenti
-- **Problema**: Creare contenuti senza passare da Editore Capo/Pina/Gianni
+### Issue #1: Bypassare Editore Capo
+- **Problema**: Creare contenuti senza passare da Editore Capo
 - **Impatto**: Qualità inconsistente, mancanza QC
-- **Fix**: SEMPRE usare workflow: Editore Capo → Gianni/Pina → QC
+- **Fix**: SEMPRE usare Editore Capo (che ha incorporato Pina e Gianni)
 - **Priorità**: CRITICA
-- **Check anti-slop**: Verificare che ogni libro abbia passato workflow completo
+- **Check anti-slop**: Verificare che ogni libro abbia passato workflow Editore Capo
+- **Nota**: Pina e Gianni sono ora personalità incorporate in Editore Capo
 
 ### Issue #2: Mancanza Commit Frequenti
 - **Problema**: Non fare commit durante lavoro, rischio perdita dati
@@ -77,11 +78,12 @@ Questo documento raccoglie tutti i problemi trovati durante la produzione libri 
 ## **CATEGORIA: PROCESSO**
 
 ### Issue #9: Mancanza Doppio Check
-- **Problema**: Immagini mandate senza QC Pina → Editore Capo
+- **Problema**: Immagini mandate senza QC interno Editore Capo
 - **Impatto**: Errori non catturati, qualità bassa
-- **Fix**: SEMPRE doppio check: creator → Editore Capo
+- **Fix**: SEMPRE doppio check interno: Editore Capo verifica con personalità Pina incorporata
 - **Priorità**: CRITICA
 - **Check anti-slop**: Verificare log doppio check
+- **Nota**: Pina è ora personalità incorporata in Editore Capo
 
 ### Issue #10: Subscription Non Autorizzate
 - **Problema**: Quasi sottoscritto servizi a pagamento senza permesso

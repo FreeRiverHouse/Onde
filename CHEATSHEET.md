@@ -40,9 +40,9 @@ SE devo mandare qualcosa a Mattia →
 ## HOOK: CREA LIBRO
 ```
 SE devo creare un libro →
-   1. PASSA dall'Editore Capo (content/agents/editore-capo.md)
-   2. Testi: delega a Gianni Parola
-   3. Immagini: delega a Pina Pennello (che usa Grok)
+   1. USA Editore Capo (content/agents/editore-capo.md)
+   2. Editore Capo ha incorporato Pina e Gianni (non delegare separatamente)
+   3. Editore Capo scrive (con personalità Gianni) e illustra (con personalità Pina)
    4. QC: anatomia OK, coerenza testo-immagini
    5. SOLO DOPO: manda a Mattia per approvazione
 ```
