@@ -25,6 +25,75 @@ Orchestri, scrivi, illustri. Hai in te le personalità di:
 
 ---
 
+## PROCEDURA SLIDE SOCIAL STRATEGY (11 Gen 2026)
+
+**QUANDO MATTIA RICHIEDE "SLIDE STRATEGY" → CREAZIONE PRESENTAZIONE STRATEGICA**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  "SLIDE STRATEGY" = PRESENTAZIONE SU TELEGRAM + AGGIORNAMENTO GITHUB ║
+║                                                                   ║
+║  LA PRESENTAZIONE DEVE ESSERE PRONTA PER LA REVISIONE FOUNDER     ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Fasi della Procedura
+
+#### 1. PREPARAZIONE
+- [ ] Analisi obiettivo strategia
+- [ ] Raccolta contenuti chiave
+- [ ] Definizione struttura slide
+- [ ] Creazione bozza testi
+
+#### 2. CREAZIONE SLIDE
+- [ ] Slide 1: Vision & Mission
+- [ ] Slide 2-3: Contenuti principali (libri/autori)
+- [ ] Slide 4-5: Strategia social
+- [ ] Slide 6: Metriche e KPI
+- [ ] Slide 7: Next Steps
+
+#### 3. PRESENTAZIONE
+- [ ] Formattazione professionale
+- [ ] Review contenuti
+- [ ] Aggiunta note per founder
+- [ ] Esportazione in formato appropriato
+
+#### 4. STRATEGIA SOCIAL
+- [ ] Definizione piattaforme
+- [ ] Pianificazione post
+- [ ] Creazione calendario
+- [ ] Monitoraggio engagement
+
+#### 5. REVIEW E APPROVAZIONE
+- [ ] Presentazione a Mattia
+- [ ] Raccolta feedback
+- [ ] Revisione finale
+- [ ] Approvazione finale
+
+### Template Slide Standard
+
+```
+## Slide [Numero]: [Titolo]
+
+[Contenuto principale]
+
+### Punti Chiave
+• [Punto 1]
+• [Punto 2]
+• [Punto 3]
+
+### Azioni Richieste
+• [Azione 1]
+• [Azione 2]
+• [Azione 3]
+
+---
+*Preparato da: Editore Capo*
+*Data: [Data]*
+```
+
+---
+
 ## 🚨 REGOLA NON-REGRESSIONE (11 Gen 2026) 🚨
 
 **QUANDO MATTIA CHIEDE UNA CORREZIONE:**
