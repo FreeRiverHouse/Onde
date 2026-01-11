@@ -1,109 +1,310 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useTranslations } from '@/i18n'
+import { useRef, useMemo } from 'react'
+
+// Particle component for floating background particles
+function Particle({ index }: { index: number }) {
+  const randomX = useMemo(() => Math.random() * 100, [])
+  const randomDelay = useMemo(() => Math.random() * 20, [])
+  const randomDuration = useMemo(() => 15 + Math.random() * 15, [])
+  const randomSize = useMemo(() => 2 + Math.random() * 4, [])
+  const colors = ['#4ECDC4', '#6C63FF', '#A855F7', '#FF6B6B', '#FFD93D']
+  const color = useMemo(() => colors[index % colors.length], [index])
+
+  return (
+    <motion.div
+      className="absolute rounded-full pointer-events-none"
+      style={{
+        left: `${randomX}%`,
+        width: randomSize,
+        height: randomSize,
+        background: color,
+        boxShadow: `0 0 ${randomSize * 3}px ${color}`,
+      }}
+      initial={{ y: '110vh', opacity: 0 }}
+      animate={{
+        y: '-10vh',
+        opacity: [0, 0.8, 0.8, 0],
+      }}
+      transition={{
+        duration: randomDuration,
+        delay: randomDelay,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
+    />
+  )
+}
+
+// 3D Tilt Card Component
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), { stiffness: 300, damping: 30 })
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 300, damping: 30 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    x.set((e.clientX - rect.left) / rect.width - 0.5)
+    y.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+        perspective: 1000,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Book data
+const books = [
+  {
+    id: 'meditations',
+    title: 'Meditations',
+    subtitle: 'Thoughts to Himself',
+    author: 'Marcus Aurelius',
+    description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
+    category: 'Philosophy',
+    price: '$0.11',
+    gradient: 'from-amber-500 to-amber-700',
+    cover: '/books/meditations-cover.jpg',
+    pdfUrl: '/books/meditations-en.pdf',
+    epubUrl: '/books/epub/meditations-en.epub',
+  },
+  {
+    id: 'shepherds-promise',
+    title: "The Shepherd's Promise",
+    subtitle: 'Psalm 23 for Children',
+    author: 'Biblical Tradition',
+    description: 'The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.',
+    category: 'Spirituality',
+    price: 'Free',
+    gradient: 'from-emerald-500 to-green-600',
+    cover: '/books/shepherds-promise-cover.jpg',
+    pdfUrl: '/books/the-shepherds-promise.pdf',
+  },
+]
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
-  const t = useTranslations()
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
+
+  // Generate particle indices
+  const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
 
   return (
     <div className="relative overflow-x-hidden w-full">
       {/* ============================================
-          HERO SECTION
+          FIXED BACKGROUND - Immersive Futuristic
           ============================================ */}
-      <motion.section
-        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
-        style={{ opacity: heroOpacity, scale: heroScale }}
-      >
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-onde-cream via-white to-amber-50/30 -z-10" />
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Base dark gradient */}
+        <div className="absolute inset-0 bg-onde-dark" />
 
-        <div className="max-w-5xl mx-auto text-center pt-20">
+        {/* Mesh gradient overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(108, 99, 255, 0.2) 0%, transparent 50%),
+              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(255, 107, 107, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)
+            `,
+          }}
+        />
+
+        {/* Animated grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {particleIndices.map((i) => (
+            <Particle key={i} index={i} />
+          ))}
+        </div>
+      </div>
+
+      {/* ============================================
+          HERO SECTION - Cinematic Full Screen
+          ============================================ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Orbs Background */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Large purple orb */}
+          <motion.div
+            className="floating-orb w-[600px] h-[600px] -top-40 -left-40"
+            style={{ background: 'var(--onde-purple)' }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Teal orb right */}
+          <motion.div
+            className="floating-orb w-[500px] h-[500px] top-1/4 -right-40"
+            style={{ background: 'var(--onde-teal)' }}
+            animate={{
+              x: [0, -30, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          />
+          {/* Blue orb bottom */}
+          <motion.div
+            className="floating-orb w-[400px] h-[400px] bottom-20 left-1/4"
+            style={{ background: 'var(--onde-blue)' }}
+            animate={{
+              x: [0, 40, 0],
+              y: [0, -30, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          />
+          {/* Coral accent orb */}
+          <motion.div
+            className="floating-orb w-[300px] h-[300px] top-1/2 right-1/4"
+            style={{ background: 'var(--onde-coral)' }}
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
+          />
+        </div>
+
+        {/* Grid Pattern Overlay */}
+        <div className="grid-pattern opacity-30" />
+
+        {/* Hero Content */}
+        <motion.div
+          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
+        >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                       bg-amber-100/80 border border-amber-200/50 mb-8"
+            className="section-badge-futuristic mb-8"
           >
-            <span className="text-lg">📚</span>
-            <span className="text-amber-800 font-medium">Classic Literature, Reimagined</span>
+            <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
+            Los Angeles
           </motion.div>
 
-          {/* Title */}
+          {/* Main Title */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-onde-ocean mb-6"
-            initial={{ opacity: 0, y: 30 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8"
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Beautiful Books,
+            <span className="text-white">Beautiful Books,</span>
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700">
-              Freely Shared
-            </span>
+            <span className="text-gradient-neon">Freely Shared</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl text-onde-ocean/60 max-w-2xl mx-auto mb-10"
+            className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             Illustrated editions of timeless classics, crafted with care.
-            Download and enjoy for free.
+            <br />
+            Download and enjoy.
           </motion.p>
 
-          {/* CTA */}
+          {/* CTA Buttons */}
           <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <Link
-              href="/libri"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl
-                         bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-lg
-                         shadow-xl shadow-amber-500/30 hover:shadow-2xl hover:shadow-amber-500/40
-                         transition-all duration-300 hover:scale-[1.02]"
-            >
-              Explore Our Books
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <Link href="#books">
+              <button className="btn-futuristic group">
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Explore Books
+                </span>
+              </button>
+            </Link>
+            <Link href="/about">
+              <button className="btn-outline-glow">
+                <span className="flex items-center gap-2">
+                  About Us
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
             </Link>
           </motion.div>
+        </motion.div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-12 left-1/2 -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-          >
-            <motion.div
-              className="w-6 h-10 rounded-full border-2 border-onde-ocean/30 flex justify-center pt-2"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <div className="w-1.5 h-3 rounded-full bg-onde-ocean/40" />
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <span className="text-white/40 text-sm font-medium">Scroll</span>
+          <div className="scroll-indicator-line" />
+        </motion.div>
+      </section>
 
       {/* ============================================
-          FEATURED BOOKS
+          BOOKS SECTION - Cinematic Cards
           ============================================ */}
-      <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50/30 via-white to-onde-cream">
-        <div className="max-w-6xl mx-auto">
+      <section id="books" className="relative py-32">
+        {/* Decorative glow */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] floating-orb opacity-20"
+             style={{ background: 'var(--onde-coral)', filter: 'blur(150px)' }} />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Section Header */}
           <motion.div
             className="text-center mb-16"
@@ -111,173 +312,203 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-medium mb-4">
+            <span className="section-badge-futuristic">
+              <span className="w-2 h-2 rounded-full bg-onde-coral" />
               Now Available
             </span>
-            <h2 className="text-4xl sm:text-5xl font-display font-bold text-onde-ocean">
-              Our Books
-            </h2>
+            <h2 className="section-title-futuristic mb-4">Our Books</h2>
+            <p className="section-subtitle-futuristic">
+              Classic literature, illustrated with care. Beautiful editions for the digital age.
+            </p>
+            <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
 
           {/* Books Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Meditations */}
-            <motion.div
-              className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-amber-200/30"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-50 to-amber-100">
-                <Image
-                  src="/books/meditations-cover.jpg"
-                  alt="Meditations"
-                  fill
-                  className="object-contain p-4"
-                  priority
-                />
-                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-900/80 text-amber-100">
-                  Philosophy
-                </span>
-                <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-white">
-                  $0.11
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-display font-bold text-amber-900 mb-1">Meditations</h3>
-                <p className="text-amber-700/80 text-sm mb-1">Thoughts to Himself</p>
-                <p className="text-onde-ocean/50 text-xs mb-4">by Marcus Aurelius</p>
-                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6">
-                  The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.
-                </p>
-                <div className="flex gap-3">
-                  <a href="/books/meditations-en.pdf" download
-                     className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
-                              bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold text-sm">
-                    Download PDF
-                  </a>
-                  <a href="/books/epub/meditations-en.epub" download
-                     className="px-4 py-2.5 rounded-xl bg-onde-ocean/10 text-onde-ocean font-semibold text-sm">
-                    EPUB
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {books.map((book, index) => (
+              <motion.div
+                key={book.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
+              >
+                <TiltCard className="group">
+                  <motion.div
+                    className="card-holographic p-1 relative"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Glow effect on hover */}
+                    <motion.div
+                      className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                      style={{
+                        background: `radial-gradient(circle, ${book.gradient.includes('amber') ? '#FFD93D' : '#4ECDC4'}40 0%, transparent 70%)`,
+                        filter: 'blur(20px)',
+                      }}
+                    />
 
-            {/* Psalm 23 */}
-            <motion.div
-              className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-green-200/30"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="relative aspect-[4/3] bg-gradient-to-br from-green-50 to-emerald-50">
-                <Image
-                  src="/books/shepherds-promise-cover.jpg"
-                  alt="The Shepherd's Promise - Psalm 23"
-                  fill
-                  className="object-contain p-4"
-                />
-                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold bg-green-800/80 text-green-100">
-                  Spirituality
-                </span>
-                <span className="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold bg-green-500 text-white">
-                  Free
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-display font-bold text-green-900 mb-1">The Shepherd</h3>
-                <p className="text-green-700/80 text-sm mb-1">Psalm 23 for Children</p>
-                <p className="text-onde-ocean/50 text-xs mb-4">Biblical Tradition</p>
-                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6">
-                  The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.
-                </p>
-                <div className="flex gap-3">
-                  <a href="/books/the-shepherds-promise.pdf" download
-                     className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
-                              bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold text-sm">
-                    Download Free PDF
-                  </a>
-                </div>
-                <p className="mt-4 text-xs text-green-600 flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Free illustrated edition
-                </p>
-              </div>
-            </motion.div>
+                    <div className="bg-onde-dark-surface/80 backdrop-blur-xl rounded-3xl overflow-hidden">
+                      {/* Book Cover */}
+                      <div className={`aspect-[4/3] relative bg-gradient-to-br ${book.gradient}`}>
+                        <Image
+                          src={book.cover}
+                          alt={book.title}
+                          fill
+                          className="object-contain p-6"
+                          priority={index === 0}
+                        />
+
+                        {/* Animated shimmer effect */}
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                          style={{
+                            background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)',
+                            backgroundSize: '200% 200%',
+                          }}
+                          animate={{ backgroundPosition: ['200% 200%', '-100% -100%'] }}
+                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                        />
+
+                        {/* Category Badge */}
+                        <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold
+                                       glass-dark text-white/90 backdrop-blur-md border border-white/10">
+                          {book.category}
+                        </span>
+
+                        {/* Price Badge */}
+                        <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold
+                                        ${book.price === 'Free' ? 'bg-emerald-500' : 'bg-amber-500'} text-white`}>
+                          {book.price}
+                        </span>
+                      </div>
+
+                      {/* Book Info */}
+                      <div className="p-6">
+                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-onde-teal transition-colors">
+                          {book.title}
+                        </h3>
+                        <p className="text-onde-teal/80 text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-white/40 text-xs mb-4">by {book.author}</p>
+                        <p className="text-white/60 text-sm leading-relaxed mb-6">
+                          {book.description}
+                        </p>
+
+                        {/* Download Buttons */}
+                        <div className="flex gap-3">
+                          <a
+                            href={book.pdfUrl}
+                            download
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                                     bg-gradient-to-r from-onde-teal to-onde-blue text-white font-semibold text-sm
+                                     hover:shadow-lg hover:shadow-onde-teal/30 transition-all duration-300"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Download PDF
+                          </a>
+                          {book.epubUrl && (
+                            <a
+                              href={book.epubUrl}
+                              download
+                              className="px-4 py-3 rounded-xl bg-white/5 text-white/80 font-semibold text-sm
+                                       border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                            >
+                              EPUB
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </TiltCard>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ============================================
-          ABOUT / MISSION
+          CTA SECTION - Join Onde
           ============================================ */}
-      <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-onde-cream">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="relative border-gradient-animated overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <span className="text-5xl mb-6 block">🌊</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-onde-ocean mb-6">
-              Our Mission
-            </h2>
-            <p className="text-lg text-onde-ocean/70 leading-relaxed mb-8">
-              At Onde, we believe great literature should be beautiful and accessible to everyone.
-              We create illustrated editions of public domain classics, combining timeless wisdom
-              with modern design. Every book is free to download and share.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 text-amber-600 font-semibold hover:text-amber-700 transition-colors"
-            >
-              Learn more about us
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+            {/* Inner content */}
+            <div className="relative p-12 md:p-16 text-center bg-onde-dark-surface rounded-[calc(1.5rem-2px)]">
+              {/* Background glow */}
+              <div className="absolute inset-0 overflow-hidden rounded-[calc(1.5rem-2px)]">
+                <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-onde-purple/20 blur-[100px]" />
+                <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-onde-teal/20 blur-[100px]" />
+              </div>
 
-      {/* ============================================
-          COMING SOON
-          ============================================ */}
-      <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-onde-cream to-white">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="bg-gradient-to-br from-onde-ocean/5 to-onde-teal/10 rounded-3xl p-8 md:p-12
-                       border border-onde-ocean/10 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-4xl mb-4 block">📖</span>
-            <h3 className="text-2xl font-display font-bold text-onde-ocean mb-4">
-              More Books Coming Soon
-            </h3>
-            <p className="text-onde-ocean/60 max-w-lg mx-auto mb-8">
-              We&apos;re preparing more beautifully illustrated editions of classic literature.
-              Follow us on social media for updates.
-            </p>
-            <div className="flex justify-center gap-4">
-              <a
-                href="https://twitter.com/Onde_FRH"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
-                           bg-onde-ocean text-white font-medium hover:bg-onde-ocean/90 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-                Follow @Onde_FRH
-              </a>
+              {/* Content */}
+              <div className="relative z-10">
+                <motion.span
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6
+                           glass-dark text-white/80 text-sm font-medium border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
+                  More books coming
+                </motion.span>
+
+                <motion.h2
+                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  Want to stay{' '}
+                  <span className="text-gradient-neon">updated</span>?
+                </motion.h2>
+
+                <motion.p
+                  className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                >
+                  We&apos;re preparing more beautiful editions of classic literature.
+                  Follow us on X for updates.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <a
+                    href="https://twitter.com/Onde_FRH"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-futuristic"
+                  >
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow @Onde_FRH
+                    </span>
+                  </a>
+                  <Link href="/about">
+                    <button className="btn-outline-glow">
+                      <span>About Us</span>
+                    </button>
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
