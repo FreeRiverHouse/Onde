@@ -607,6 +607,49 @@ convert cover-print.png -resize 50% -quality 85 cover-web.jpg
 
 ---
 
+## 🔴🔴🔴 STILE UNICO ONDE - "SALMO 23" (11 Gen 2026) 🔴🔴🔴
+
+**REGOLA ASSOLUTA: UN SOLO STILE PER TUTTI I LIBRI ONDE!**
+
+### Il Nostro Stile: "Salmo 23 Style"
+
+Basato sulla copertina originale del Salmo 23 per Bambini.
+**Riferimento**: `/Users/mattia/Downloads/psalm-23-cover.jpg`
+
+### PROMPT UNICO DA USARE SEMPRE:
+
+```
+Painterly children's book illustration in European watercolor style,
+visible brushstrokes, warm golden sunlight, bright blue sky with soft white clouds,
+rich saturated colors (ochre, golden yellow, sky blue, forest green),
+stylized but NOT 3D, NOT Pixar, NOT cartoon, NOT anime,
+traditional storybook aesthetic like Luzzati or Provensen,
+soft natural light, warm and inviting atmosphere, 4k
+```
+
+### Caratteristiche Chiave:
+| Elemento | SÌ | NO |
+|----------|----|----|
+| **Stile** | Pittorico, pennellate visibili | 3D, Pixar, plastificato |
+| **Colori** | Caldi, saturi naturali | Neon, fluorescenti |
+| **Luce** | Dorata, naturale | Artificiale, piatta |
+| **Texture** | Acquarello, brushwork | Liscio, digitale |
+| **Riferimenti** | Luzzati, Provensen, Beatrix Potter | Disney, DreamWorks, CocoMelon |
+
+### ⛔ VIETATO ASSOLUTO:
+- **NO PIXAR** - Mai stile 3D, plasticoso, lucido
+- **NO CARTOON AMERICANO** - Niente occhi grandi, proporzioni esagerate
+- **NO ANIME** - Niente stile giapponese
+- **NO GUANCE ROSSE** - Mai rosy cheeks esagerati
+
+### ✅ SEMPRE INCLUDERE NEI PROMPT:
+```
+NOT Pixar, NOT 3D, NOT cartoon, NOT anime, NOT plastic,
+European watercolor style, visible brushstrokes, traditional storybook
+```
+
+---
+
 ## 🔴 GENERAZIONE IMMAGINI CON GROK - METODO BATCH (11 Gen 2026)
 
 **REGOLA FONDAMENTALE**: MAI generare immagini una alla volta. SEMPRE batch!
@@ -616,12 +659,16 @@ convert cover-print.png -resize 50% -quality 85 cover-web.jpg
 Quando scrivi "genera N immagini di...", Grok chiama **Flux N volte IN PARALLELO**.
 Non c'è sintassi speciale - basta specificare il numero nel prompt!
 
-### Esempi di Prompt Batch
+### Esempi di Prompt Batch (con STILE SALMO 23)
 
 ```
 ✅ CORRETTO (8 immagini in 20 secondi):
 "Generate 8 illustrations for Meditations by Marcus Aurelius.
-Style: elegant watercolor, blue/gold/sepia, museum quality.
+
+STYLE: Painterly European watercolor, visible brushstrokes, warm golden light,
+bright colors (ochre, blue, green), NOT Pixar, NOT 3D, NOT cartoon,
+traditional storybook aesthetic like Luzzati, 4k
+
 1. Dawn over Roman camp
 2. Hand writing on parchment
 3. Stoic marble statue
@@ -656,25 +703,16 @@ Style: elegant watercolor, blue/gold/sepia, museum quality.
 | **FUTURES** (bambini) | 8 illustrazioni | 8 illustrazioni | 16+ |
 | **LEARN** (educativo) | 10 illustrazioni | 10 illustrazioni | 20+ |
 
-### Stili per Catena (da usare nei prompt)
+### STILE UNICO (TUTTE LE CATENE):
 
-**ONDE CLASSICS:**
+**USA SEMPRE QUESTO PROMPT BASE:**
 ```
-Style: elegant watercolor, blue/gold/sepia tones, museum quality,
-evocative not literal, European storybook aesthetic, 4k
-```
-
-**ONDE FUTURES:**
-```
-Style: modern digital illustration, electric blue/magenta/teal,
-clean vector aesthetic, child-friendly, tech-positive, 4k
+Painterly European watercolor style, visible brushstrokes, warm golden light,
+bright saturated colors (ochre, golden yellow, sky blue, forest green),
+NOT Pixar, NOT 3D, NOT cartoon, NOT anime, traditional storybook aesthetic, 4k
 ```
 
-**ONDE LEARN:**
-```
-Style: warm hand-drawn feel with digital polish, bright primary colors,
-friendly characters, educational but fun, 4k
-```
+**Poi aggiungi la scena specifica.**
 
 ### Workflow Completo Illustrazioni
 
@@ -683,7 +721,7 @@ friendly characters, educational but fun, 4k
 2. BATCH 1: "Generate 8 illustrations..." → attendi 20 sec
 3. BATCH 2: "Generate 4 illustrations..." → attendi 15 sec
 4. SCARICA: Salva tutte dalla galleria Grok
-5. QC: Verifica anatomia, coerenza, stile
+5. QC: Verifica anatomia, coerenza, stile SALMO 23
 6. RIGENERA: Solo quelle con problemi
 ```
 
