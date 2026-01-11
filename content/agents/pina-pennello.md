@@ -114,7 +114,7 @@ Onde ha **3 catene visive**:
 
 ## 💎 STILE DASHBOARD & PORTALE - LUXURY AI (11 Gen 2026)
 
-**Per tutte le dashboard (BIB, Sally's View) e portali cliente:**
+**Per tutte le dashboard (SurfBoard, Sally's View) e portali cliente:**
 
 | Elemento | Stile |
 |----------|-------|
@@ -141,7 +141,7 @@ Onde ha **3 catene visive**:
 
 **Usato per:**
 - Sally's View Dashboard
-- BIB Dashboard
+- SurfBoard
 - Portale clienti
 - Onde.la (quando premium)
 

@@ -1,13 +1,13 @@
 {
-  "name": "bib-dashboard",
+  "name": "surfboard",
   "version": "0.1.0",
   "private": true,
-  "description": "Building in Public Dashboard - Track Onde progress in real-time",
+  "description": "SurfBoard - Onde Command Center Dashboard",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "deploy": "npm run build && npx wrangler pages deploy out --project-name=bib-dashboard"
+    "deploy": "npm run build && npx wrangler pages deploy out --project-name=onde-surf"
   },
   "dependencies": {
     "next": "15.5.2",

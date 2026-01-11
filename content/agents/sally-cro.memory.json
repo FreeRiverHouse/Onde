@@ -31,12 +31,12 @@
     "Tool monitoraggio titoli",
     "Monitoraggio ricerche Google (per libri CR-free area Onde)",
     "Monitoraggio vendite Amazon/Onde.la",
-    "Sally's View Dashboard (nella BIB Dashboard)"
+    "Sally's View Dashboard (nella SurfBoard)"
   ],
 
   "dashboard_sallys_view": {
     "description": "Dashboard ultra fica che riassume tutto come se CRO riportasse al CEO",
-    "location": "Integrata nella BIB Dashboard",
+    "location": "Integrata nella SurfBoard",
     "features": [
       "Overview vendite tutti i titoli",
       "Trend ricerche Google per keywords libri",
@@ -90,7 +90,7 @@
     {
       "date": "2026-01-11",
       "instruction": "Sally's View Dashboard",
-      "details": "Dashboard nella BIB Dashboard - ultra fica, CRO riporta a CEO, drill-down dati. Per leadership meeting."
+      "details": "Dashboard nella SurfBoard - ultra fica, CRO riporta a CEO, drill-down dati. Per leadership meeting."
     }
   ],
 

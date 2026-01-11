@@ -12,9 +12,10 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 **Tutto il contenuto strategico, roadmap, task e visione e' in `ROADMAP.md`.**
 
 ### ALL'INIZIO DI OGNI SESSIONE (OBBLIGATORIO):
-1. Leggi questo file (CLAUDE.md) per le regole operative
-2. **LEGGI ROADMAP.md** - SEMPRE, OGNI VOLTA
-3. Dimmi cosa c'è da fare secondo la ROADMAP
+1. **LEGGI CHEATSHEET.md** - Regole procedurali compatte (5 min)
+2. Leggi questo file (CLAUDE.md) per le regole operative
+3. **LEGGI ROADMAP.md** - SEMPRE, OGNI VOLTA
+4. Dimmi cosa c'è da fare secondo la ROADMAP
 
 ### ALLA FINE DI OGNI SESSIONE (OBBLIGATORIO):
 1. Aggiorna ROADMAP.md con tutte le idee nuove

@@ -386,7 +386,7 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 
 ### 📊 SALLY'S VIEW DASHBOARD (Task Engineering)
 
-**Descrizione:** Dashboard ultra fica integrata nella BIB Dashboard. CRO riporta al CEO.
+**Descrizione:** Dashboard ultra fica integrata nella SurfBoard. CRO riporta al CEO.
 
 **Features:**
 - Overview vendite tutti i titoli
@@ -1683,7 +1683,7 @@ Ispirato a [@housecor](https://x.com/housecor/status/2008905575669662019):
 - [ ] Dashboard unica per controllare tutti gli agenti
 - [ ] Card ROSSA quando agente è bloccato
 - [ ] Un posto per monitorare e interagire
-- [ ] Integrazione con BIB Dashboard
+- [ ] Integrazione con SurfBoard
 
 ### 2. Visual Style Unificato + Pina Pennello
 - [ ] Creare personaggio **Pina Pennello** (giovane illustratrice, NON Mario con baffi)
