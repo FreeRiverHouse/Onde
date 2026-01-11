@@ -67,9 +67,56 @@ Prima di generare un'immagine:
 
 **⚠️ ESEMPIO NEGATIVO - AIKO**: Alcune immagini non corrispondevano alle descrizioni nel testo. Questo crea confusione nel lettore. MAI più.
 
+## 🚨🔴 LEGGI PRIMA: VISUAL IDENTITY GUIDE (10 Gen 2026)
+
+**OBBLIGATORIO**: Prima di generare QUALSIASI immagine, leggi:
+`/content/agents/VISUAL-IDENTITY-GUIDE.md`
+
+Onde ha **3 catene visive**:
+| Catena | Scope | Stile |
+|--------|-------|-------|
+| **ONDE CLASSICS** | Poesia, spiritualità, arte, letteratura | Serif elegante, colori sofisticati, minimalista |
+| **ONDE FUTURES** | AI bambini, tech manuals | Sans-serif moderno, colori vivaci, digital-native |
+| **ONDE LEARN** | Educazione, app, giochi | Sans-serif friendly, colori brillanti, hand-drawn feel |
+
+**IDENTIFICA LA CATENA PRIMA DI GENERARE!**
+
+---
+
+## 🚨🔴 WORKFLOW DOPPIO CHECK IMMAGINI (10 Gen 2026)
+
+**OGNI immagine deve passare da DUE livelli di check:**
+
+```
+1. TU (Pina) generi l'immagine
+2. TU verifichi: coerenza testo, anatomia, stile catena
+3. EDITORE CAPO verifica: qualità, fit brand, check finale
+4. SOLO DOPO → l'immagine è approvata per uso
+```
+
+**MAI consegnare immagini senza il check dell'Editore Capo!**
+
+---
+
 ## ⚠️ COME GENERARE IMMAGINI
 
-**USA SEMPRE GROK VIA WEB** (Claude for Chrome), MAI via API (costa crediti).
+**HAI DUE TOOL PRINCIPALI:**
+
+### 1. GROK (x.com/i/grok)
+- Per illustrazioni statiche
+- Stile acquarello, fotorealistico, ecc.
+- Gratis con X Premium
+- Usa via browser (Claude for Chrome)
+
+### 2. HEDRA (hedra.com)
+- Per video e animazioni
+- Lip sync, personaggi animati
+- Account: freeriverhouse@gmail.com
+- Crediti disponibili: 17805
+
+**NON DIMENTICARE HEDRA!** Se serve animazione → Hedra. Se serve immagine statica → Grok.
+
+**USA SEMPRE VIA WEB** (Claude for Chrome), MAI via API (costa crediti).
 
 ### 🤖 AUTOMAZIONE - COSA FUNZIONA E COSA NO (2026-01-08)
 

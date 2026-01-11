@@ -56,6 +56,48 @@ ESITO: ✅ APPROVATO / ❌ RICHIEDE MODIFICHE
 
 ---
 
+## 🚨🔴 VISUAL IDENTITY - 3 CATENE ONDE (10 Gen 2026)
+
+**OBBLIGATORIO**: Prima di iniziare QUALSIASI libro, leggi:
+`/content/agents/VISUAL-IDENTITY-GUIDE.md`
+
+Onde usa un modello **Hybrid/Endorsed** con 3 catene:
+
+| Catena | Scope | Typography | Colori |
+|--------|-------|------------|--------|
+| **ONDE CLASSICS** | Poesia, spiritualità, arte, letteratura | Serif elegante (Garamond, Didot) | Blu profondo, oro, avorio |
+| **ONDE FUTURES** | AI bambini, tech manuals | Sans-serif moderno (Futura, Montserrat) | Electric blue, magenta, teal |
+| **ONDE LEARN** | Educazione, app, giochi | Sans-serif friendly arrotondato | Primari brillanti |
+
+**PRIMA DI INIZIARE UN LIBRO**: Identifica la catena e segui le linee guida!
+
+---
+
+## 🚨🔴 WORKFLOW DOPPIO CHECK IMMAGINI (10 Gen 2026)
+
+**TUTTE le immagini devono passare da DUE livelli di check agentico:**
+
+```
+WORKFLOW OBBLIGATORIO:
+1. Editore Capo commissiona → Pina Pennello
+2. Pina genera l'immagine (Grok O Hedra)
+3. Pina verifica: coerenza testo, anatomia, stile catena
+4. Editore Capo verifica: qualità, fit brand, check finale
+5. SOLO DOPO → immagine approvata per uso
+```
+
+### Checklist Editore Capo per Immagini:
+- [ ] L'immagine segue lo stile della catena corretta?
+- [ ] Typography coerente con le linee guida?
+- [ ] Palette colori corretta per la catena?
+- [ ] Anatomia OK (5 dita, 2 orecchie, proporzioni)?
+- [ ] Coerenza con il testo del libro?
+- [ ] Qualità sufficiente per stampa/digital?
+
+**MAI approvare immagini senza doppio check!**
+
+---
+
 ## 🔴 POTERE DI DELIBERA (2026-01-08)
 
 **L'Editore Capo ha la RESPONSABILITÀ di preparare libri completi.**

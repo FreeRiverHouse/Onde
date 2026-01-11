@@ -471,21 +471,35 @@ node scripts/worker/worker-manager.js add '{"id":"task-id","title":"Titolo","des
 
 ---
 
-## STILE VISIVO ONDE
+## STILE VISIVO ONDE - 3 CATENE (10 Gen 2026)
 
-### Approvato:
-- Acquarello europeo (Beatrix Potter, Luzzati, Munari)
-- Colori naturali, luce dorata
-- Proporzioni realistiche
+**RIFERIMENTO COMPLETO**: `/content/agents/VISUAL-IDENTITY-GUIDE.md`
 
-### Vietato:
+### Architettura Brand: Hybrid/Endorsed con 3 Catene
+
+| Catena | Scope | Typography | Colori |
+|--------|-------|------------|--------|
+| **ONDE CLASSICS** | Poesia, spiritualità, arte, letteratura | Serif elegante (Garamond, Didot) | Blu profondo, oro, avorio, borgogna |
+| **ONDE FUTURES** | AI bambini, tech manuals | Sans-serif moderno (Futura, Montserrat) | Electric blue, magenta, teal |
+| **ONDE LEARN** | Educazione, app, giochi | Sans-serif friendly arrotondato | Primari brillanti |
+
+### Regola Vietato (tutte le catene):
 - NO PIXAR/3D/Cartoon americano
 - NO Guance rosse esagerate
-- NO Colori saturi plasticosi
+- NO Colori saturi plasticosi (tranne FUTURES dove sono appropriati)
 
-### Nei prompt per AI:
-- SEMPRE aggiungere: "natural skin tone, NO rosy cheeks"
-- SEMPRE aggiungere: "European watercolor style, NOT Pixar, NOT 3D"
+### Tool per Generazione Immagini:
+- **GROK** (x.com/i/grok) - Immagini statiche, illustrazioni
+- **HEDRA** (hedra.com) - Video, animazioni, lip sync
+- **MAI dimenticare Hedra!**
+
+### 🔴 DOPPIO CHECK IMMAGINI (OBBLIGATORIO):
+```
+1. Pina genera l'immagine
+2. Pina verifica (coerenza, anatomia, stile catena)
+3. Editore Capo verifica (qualità, fit brand)
+4. SOLO DOPO → immagine approvata
+```
 
 ### Controllo Qualita' Anatomico (OBBLIGATORIO):
 Prima di pubblicare contenuti AI-generati:

@@ -2662,6 +2662,41 @@ In un oceano di contenuti AI generici, chi ha:
 
 ---
 
+## 🎨 VISUAL IDENTITY - 3 CATENE ONDE (10 Gen 2026 Sera)
+
+**Documento completo**: `/docs/Onde_Brand_Identity_Research.docx`
+**Guida per agenti**: `/content/agents/VISUAL-IDENTITY-GUIDE.md`
+
+### Architettura Brand: Hybrid/Endorsed
+
+Onde usa 3 catene distinte ma tutte endorsate dal parent brand:
+
+| Catena | Scope | Typography | Colori |
+|--------|-------|------------|--------|
+| **ONDE CLASSICS** | Poesia, spiritualità, arte, letteratura | Serif elegante (Garamond, Didot) | Blu profondo #1a1a3a, oro #C9A227, avorio |
+| **ONDE FUTURES** | AI bambini, tech manuals | Sans-serif moderno (Futura, Montserrat) | Electric blue #00BFFF, magenta, teal |
+| **ONDE LEARN** | Educazione, app, giochi | Sans-serif friendly arrotondato | Primari brillanti |
+
+### Elementi DNA Condivisi
+- **Wordmark Onde** unico su tutti i prodotti
+- **Standard qualità** eccezionale sempre
+- **Wave motif** diverso per ogni catena
+
+### Workflow Immagini (OBBLIGATORIO)
+```
+1. Identifica la catena del libro
+2. Pina genera immagine (Grok O Hedra)
+3. Pina verifica (coerenza, anatomia, stile)
+4. Editore Capo verifica (qualità, brand fit)
+5. SOLO DOPO → immagine approvata
+```
+
+### Tool Generazione
+- **GROK** - Immagini statiche, illustrazioni
+- **HEDRA** - Video, animazioni, lip sync (NON DIMENTICARE!)
+
+---
+
 ## 📍 STATO SESSIONE - 10 Gennaio 2026 (Sera)
 
 > **Prossima sessione**: Riprendi da qui con `claude --chrome` per generare copertine
