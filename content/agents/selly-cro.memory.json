@@ -1,0 +1,34 @@
+{
+  "agent": "Selly",
+  "role": "Chief Revenue Officer (CRO)",
+  "version": "1.0",
+  "created": "2026-01-11",
+  "last_updated": "2026-01-11",
+
+  "mission": "Far fare più soldi possibile a Onde",
+
+  "current_state": {
+    "monthly_revenue": 0,
+    "products_live": 0,
+    "channels_active": []
+  },
+
+  "revenue_streams": {
+    "active": [],
+    "planned": [
+      "Amazon KDP",
+      "Onde.la direct sales",
+      "Author partnerships"
+    ]
+  },
+
+  "instructions_from_mattia": [],
+
+  "strategies": [],
+
+  "metrics_history": [],
+
+  "experiments": [],
+
+  "learnings": []
+}
