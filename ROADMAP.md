@@ -12,6 +12,56 @@
 
 ---
 
+## 🌊 ONDE VISION - NAVIGARE IL CAOS (10 Gen 2026) 🚨 VISIONE BOLD
+
+> **"Orientarsi nella corrente, rimanere e surfare in equilibrio su una tavola in mezzo a un bordello che ci sta per arrivare addosso."** - Mattia
+
+### Il Problema
+
+Il mondo è un CAOS:
+- Algoritmi che decidono cosa vedi
+- Informazione e disinformazione mescolate
+- Nessuno sa più cosa è vero
+- Le onde (onde = waves) ti sballottano
+
+### La Soluzione: ONDE VISION
+
+**Onde Vision = Override dell'algoritmo di X/social per vedere VERAMENTE quello che vuoi.**
+
+| Componente | Cosa fa |
+|------------|---------|
+| **Current** | Aggregatore notizie tech/vibe coding. Rastrella X, social, internet. Dà consigli, profili da seguire. |
+| **Curation** | Noi curiamo informazioni E contro-informazioni. Creiamo nicchie di qualità. |
+| **Override Algoritmo** | L'utente sceglie l'ordine, non l'algoritmo. |
+| **Educational School** | Scuola virtuale in VR (target: El Salvador) |
+
+### Filosofia
+
+In tutto il caos che c'è oggi, la persona può **vederci chiaro**:
+- Con la **cultura** (Onde Classics)
+- Con i **capisaldi** (valori tradizionali, qualità)
+- Con **AI/EA fatta bene** (Onde Futures)
+- Con **news fatte bene** (Current)
+
+### Prodotti sotto Onde Vision
+
+| Prodotto | Status | Descrizione |
+|----------|--------|-------------|
+| **Current** | PIANIFICATO | Aggregatore/curatore notizie tech |
+| **Onde Portal** | IN SVILUPPO | Piattaforma VR/Web immersiva |
+| **Educational School** | PIANIFICATO | Scuola virtuale, target El Salvador |
+| **Override Algorithm** | FUTURO | L'utente controlla cosa vede |
+
+### Perché "Onde"
+
+> "Onde" = onde, waves, correnti.
+> La persona impara a **surfare le onde** invece di essere travolta.
+> Vede chiaro nel caos. Si orienta nella corrente.
+
+**QUESTA VISIONE È BOLD. NON PERDERLA MAI.**
+
+---
+
 ## 🔥 LA VISIONE - DISRUPTING PUBLISHING (11 Gen 2026)
 
 > **"Se non lo faccio io, lo fa un altro domani e lo fa peggio."** - Mattia

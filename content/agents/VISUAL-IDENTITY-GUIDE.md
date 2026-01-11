@@ -708,11 +708,25 @@ friendly characters, educational but fun, 4k
 
 | Nome | Concept | Status |
 |------|---------|--------|
-| **Onde Vision** | VR/AR experience, futuro immersivo | RISERVATO - da definire uso |
+| **Onde Vision** | PIATTAFORMA COMPLETA: override algoritmo X/social, vedere VERAMENTE quello che vuoi, navigare il caos con cultura e capisaldi | CORE VISION |
+| **Current** | Aggregatore/curatore notizie tech e vibe coding. Rastrella X, social, internet. Profili da seguire, info curate. | PIANIFICATO |
 | **Free River Flow** | Paradigma sviluppo (dev come gioco VR) | RISERVATO - filosofia interna |
 | **Educational School** | Verticale scuola dentro Onde Portal | PIANIFICATO - target El Salvador |
 | **On The Portal** | Variante nome (On The Waves) | RISERVATO - slogan/campagna |
 | **On The Waves** | Variante nome per onde.surf | RISERVATO - slogan/campagna |
+
+### 🌊 ONDE VISION - Filosofia Core
+
+> **"Orientarsi nella corrente, surfare in equilibrio in mezzo al caos."**
+
+Onde Vision = aiutare le persone a **vederci chiaro** nel caos di oggi:
+- Override dell'algoritmo (l'utente sceglie cosa vedere)
+- Cultura solida (Onde Classics)
+- AI/EA fatta bene (Onde Futures)
+- News curate (Current)
+- Capisaldi e valori tradizionali
+
+**"Onde" = waves, correnti. Impari a surfarle invece di essere travolto.**
 
 ### Nomi Interni (Solo Team)
 
