@@ -1,14 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
 import Button from '@/components/ui/Button'
-import BookCover from '@/components/ui/BookCover'
 import { useTranslations } from '@/i18n'
-
-type BookSource = 'classic' | 'onde-studio'
 
 interface Book {
   id: string
@@ -17,139 +14,28 @@ interface Book {
   author: string
   description: string
   category: string
-  price: number
-  featured: boolean
-  color: 'coral' | 'teal' | 'gold'
   coverImage: string
-  kdpLink: string
-  source: BookSource
+  pdfLink: string
+  epubLink: string
 }
 
 const books: Book[] = [
-  // === CLASSICI (Public Domain - Gutenberg) ===
   {
-    id: 'alice',
-    title: 'Alice nel Paese delle Meraviglie',
-    subtitle: 'Edizione Illustrata',
-    author: 'Lewis Carroll',
-    description: 'Il viaggio di Alice nel mondo capovolto. Illustrazioni originali in stile acquarello europeo.',
-    category: 'classici',
-    price: 0,
-    featured: true,
-    color: 'coral' as const,
-    coverImage: '/books/alice-cover.jpg',
-    kdpLink: '#',
-    source: 'classic',
-  },
-  {
-    id: 'jungle-book',
-    title: 'Il Libro della Giungla',
-    subtitle: 'Edizione Illustrata',
-    author: 'Rudyard Kipling',
-    description: 'Mowgli e i suoi amici della giungla. La legge del branco, l\'amicizia e il coraggio.',
-    category: 'classici',
-    price: 0,
-    featured: true,
-    color: 'teal' as const,
-    coverImage: '/books/jungle-book-cover.jpg',
-    kdpLink: '#',
-    source: 'classic',
-  },
-  {
-    id: 'peter-rabbit',
-    title: 'Peter Rabbit',
-    subtitle: 'Le Avventure Complete',
-    author: 'Beatrix Potter',
-    description: 'Il coniglio piu famoso della letteratura inglese. Illustrazioni fedeli allo spirito originale.',
-    category: 'classici',
-    price: 0,
-    featured: true,
-    color: 'gold' as const,
-    coverImage: '/books/peter-rabbit-cover.jpg',
-    kdpLink: '#',
-    source: 'classic',
-  },
-  {
-    id: 'piccole-rime',
-    title: 'Piccole Rime',
-    subtitle: 'Poesie Italiane per Bambini',
-    author: 'Lina Schwarz, A.S. Novaro',
-    description: 'Le piu belle filastrocche della tradizione italiana, illustrate ad acquarello. Stella Stellina, La Pioggerellina di Marzo e altre perle poetiche.',
-    category: 'poesia',
-    price: 0,
-    featured: false,
-    color: 'gold' as const,
-    coverImage: '/books/piccole-rime-cover.jpg',
-    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_PICCOLERIME',
-    source: 'classic',
-  },
-  // === ONDE STUDIO (Creati da Onde con AI) ===
-  {
-    id: 'salmo-23',
-    title: 'Il Pastore',
-    subtitle: 'Il Salmo 23 per Bambini',
-    author: 'Tradizione Biblica',
-    description: 'Il Salmo piu amato, raccontato e illustrato per i piu piccoli. Un viaggio di fiducia e protezione attraverso pascoli verdeggianti e acque tranquille.',
-    category: 'spiritualita',
-    price: 0,
-    featured: true,
-    color: 'coral' as const,
-    coverImage: '/books/salmo-23-cover.jpg',
-    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_SALMO23',
-    source: 'onde-studio',
-  },
-  {
-    id: 'aiko',
-    title: 'AIKO',
-    subtitle: 'La Mia Amica Robot',
-    author: 'Onde',
-    description: 'Sofia scopre che la sua nuova amica non e come le altre bambine. E un\'intelligenza artificiale! Un\'avventura di amicizia, tecnologia e scoperta.',
-    category: 'tech',
-    price: 0,
-    featured: true,
-    color: 'teal' as const,
-    coverImage: '/books/aiko-cover.jpg',
-    kdpLink: 'https://www.amazon.com/dp/PLACEHOLDER_AIKO',
-    source: 'onde-studio',
-  },
-  {
-    id: 'aiko-2',
-    title: 'AIKO 2',
-    subtitle: 'L\'Avventura del Robotaxi',
-    author: 'Onde',
-    description: 'Sofia e AIKO scoprono come funzionano le auto che guidano da sole. Un viaggio dalla nonna diventa una lezione di tecnologia!',
-    category: 'tech',
-    price: 0,
-    featured: false,
-    color: 'teal' as const,
-    coverImage: '/books/aiko-2-cover.jpg',
-    kdpLink: '#',
-    source: 'onde-studio',
-  },
-  {
-    id: 'mindfulness-kids',
-    title: 'Il Respiro Magico',
-    subtitle: 'Mindfulness per Bambini',
-    author: 'Onde',
-    description: 'Impara a respirare, calmarti e trovare la pace interiore. Esercizi semplici per piccoli guerrieri della tranquillita.',
-    category: 'spiritualita',
-    price: 0,
-    featured: true,
-    color: 'coral' as const,
-    coverImage: '/books/mindfulness-cover.jpg',
-    kdpLink: '#',
-    source: 'onde-studio',
+    id: 'meditations',
+    title: 'Meditations',
+    subtitle: 'Thoughts to Himself',
+    author: 'Marcus Aurelius',
+    description: 'The private reflections of the Roman Emperor Marcus Aurelius, written during his military campaigns. A timeless guide to Stoic philosophy, self-discipline, and finding inner peace amidst chaos. Translated by George Long (1862).',
+    category: 'Philosophy',
+    coverImage: '/books/meditations-cover.jpg',
+    pdfLink: '/books/meditations-en.pdf',
+    epubLink: '/books/epub/meditations-en.epub',
   },
 ]
 
 export default function LibriPage() {
   const t = useTranslations()
-  const [activeSection, setActiveSection] = useState<BookSource>('classic')
-
-  const classicBooks = books.filter(b => b.source === 'classic')
-  const ondeStudioBooks = books.filter(b => b.source === 'onde-studio')
-  const activeBooks = activeSection === 'classic' ? classicBooks : ondeStudioBooks
-  const featuredBooks = activeBooks.filter(b => b.featured)
+  const book = books[0]
 
   return (
     <div className="min-h-screen py-12">
@@ -174,364 +60,114 @@ export default function LibriPage() {
             gradient="coral"
           />
         </div>
+      </section>
 
-        {/* Section Toggle - Classici / Onde Studio */}
+      {/* Featured Book - Meditations */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
-          className="flex justify-center gap-4 mb-12"
-          initial={{ opacity: 0, y: 20 }}
+          className="bg-white/80 backdrop-blur-sm rounded-3xl border border-amber-200/50
+                     shadow-xl overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          {/* Classici Tab */}
-          <motion.button
-            onClick={() => setActiveSection('classic')}
-            className={`relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300
-              ${activeSection === 'classic'
-                ? 'bg-gradient-to-br from-amber-100 to-amber-50 text-amber-900 shadow-lg shadow-amber-200/50 border-2 border-amber-300'
-                : 'bg-white/60 text-onde-ocean/60 hover:bg-amber-50/50 hover:text-amber-800 border-2 border-transparent'
-              }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">📜</span>
-              <div className="text-left">
-                <div className="font-display">{t.books.sections.classics}</div>
-                <div className="text-xs opacity-70 font-normal">{t.books.sections.classicsSubtitle}</div>
-              </div>
-            </div>
-            {activeSection === 'classic' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-200/30 to-amber-100/30 -z-10"
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* Cover Image */}
+            <div className="relative aspect-[3/4] md:aspect-auto">
+              <Image
+                src={book.coverImage}
+                alt={book.title}
+                fill
+                className="object-cover"
+                priority
               />
-            )}
-          </motion.button>
-
-          {/* Onde Studio Tab */}
-          <motion.button
-            onClick={() => setActiveSection('onde-studio')}
-            className={`relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300
-              ${activeSection === 'onde-studio'
-                ? 'bg-gradient-to-br from-onde-teal/20 to-onde-coral/10 text-onde-ocean shadow-lg shadow-onde-teal/20 border-2 border-onde-teal/50'
-                : 'bg-white/60 text-onde-ocean/60 hover:bg-onde-teal/10 hover:text-onde-ocean border-2 border-transparent'
-              }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">✨</span>
-              <div className="text-left">
-                <div className="font-display">{t.books.sections.ondeStudio}</div>
-                <div className="text-xs opacity-70 font-normal">{t.books.sections.ondeStudioSubtitle}</div>
-              </div>
+              {/* Category Badge */}
+              <span className="absolute top-6 left-6 px-4 py-2 rounded-xl text-sm font-semibold
+                             bg-amber-900/80 text-amber-100 backdrop-blur-md shadow-lg">
+                {book.category}
+              </span>
             </div>
-            {activeSection === 'onde-studio' && (
+
+            {/* Content */}
+            <div className="p-8 md:p-12 flex flex-col justify-center">
               <motion.div
-                layoutId="activeTab"
-                className="absolute inset-0 rounded-2xl bg-gradient-to-br from-onde-teal/20 to-onde-coral/10 -z-10"
-              />
-            )}
-          </motion.button>
-        </motion.div>
-
-        {/* Section Description */}
-        <motion.div
-          key={activeSection}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className={`max-w-2xl mx-auto text-center mb-12 p-6 rounded-2xl ${
-            activeSection === 'classic'
-              ? 'bg-gradient-to-br from-amber-50/80 to-amber-100/50 border border-amber-200/50'
-              : 'bg-gradient-to-br from-onde-teal/5 to-onde-coral/5 border border-onde-teal/20'
-          }`}
-        >
-          {activeSection === 'classic' ? (
-            <>
-              <h3 className="text-xl font-display font-bold text-amber-900 mb-2">
-                {t.books.sections.classicsTitle}
-              </h3>
-              <p className="text-amber-800/70">
-                {t.books.sections.classicsDescription}
-              </p>
-            </>
-          ) : (
-            <>
-              <h3 className="text-xl font-display font-bold text-onde-ocean mb-2">
-                {t.books.sections.ondeStudioTitle}
-              </h3>
-              <p className="text-onde-ocean/70">
-                {t.books.sections.ondeStudioDescription}
-              </p>
-            </>
-          )}
-        </motion.div>
-      </section>
-
-      {/* Featured Books */}
-      {featuredBooks.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <motion.h3
-            className="text-2xl font-display font-bold text-onde-ocean mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            {t.books.featured}
-          </motion.h3>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {featuredBooks.map((book, index) => (
-              <motion.div
-                key={book.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
               >
-                <BookCard book={book} activeSection={activeSection} t={t} />
+                <h2 className="text-4xl font-display font-bold text-amber-900 mb-2">
+                  {book.title}
+                </h2>
+                <p className="text-lg text-amber-700/80 mb-2">{book.subtitle}</p>
+                <p className="text-onde-ocean/60 mb-6">by {book.author}</p>
+
+                <p className="text-onde-ocean/70 leading-relaxed mb-8">
+                  {book.description}
+                </p>
+
+                {/* Download Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href={book.pdfLink}
+                    download
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
+                             bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold
+                             shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40
+                             transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download PDF
+                  </a>
+                  <a
+                    href={book.epubLink}
+                    download
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl
+                             bg-onde-ocean/10 text-onde-ocean font-semibold
+                             hover:bg-onde-ocean/20 transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Download EPUB
+                  </a>
+                </div>
+
+                {/* Free Label */}
+                <p className="mt-6 text-sm text-amber-600/80 flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Free illustrated edition - Public Domain
+                </p>
               </motion.div>
-            ))}
+            </div>
           </div>
-        </section>
-      )}
-
-      {/* All Books Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <motion.h3
-          className="text-2xl font-display font-bold text-onde-ocean mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          {activeSection === 'classic' ? t.books.sections.allClassics : t.books.sections.allOndeStudio}
-        </motion.h3>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {activeBooks.map((book, index) => (
-            <motion.div
-              key={book.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (index % 4) * 0.1 }}
-            >
-              <BookCardSmall book={book} activeSection={activeSection} t={t} />
-            </motion.div>
-          ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* CTA */}
+      {/* Coming Soon */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <motion.div
-          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-onde-coral to-onde-coral-dark
-                     p-8 md:p-12 text-center"
+          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-onde-ocean/5 to-onde-teal/10
+                     p-8 md:p-12 text-center border border-onde-ocean/10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-            {t.books.freeBooks.title}
+          <span className="text-4xl mb-4 block">📖</span>
+          <h3 className="text-2xl font-display font-bold text-onde-ocean mb-4">
+            More Books Coming Soon
           </h3>
-          <p className="text-white/70 max-w-lg mx-auto mb-6">
-            {t.books.freeBooks.description}
+          <p className="text-onde-ocean/60 max-w-lg mx-auto">
+            We&apos;re preparing more beautifully illustrated editions of classic literature.
+            Stay tuned for new releases.
           </p>
-          <Button
-            href="/catalogo"
-            variant="secondary"
-            className="bg-white text-onde-coral hover:bg-onde-cream border-0"
-          >
-            {t.books.freeBooks.exploreCatalog}
-          </Button>
         </motion.div>
       </section>
     </div>
-  )
-}
-
-// Featured Book Card Component
-function BookCard({
-  book,
-  activeSection,
-  t
-}: {
-  book: Book
-  activeSection: BookSource
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  t: any
-}) {
-  const isClassic = activeSection === 'classic'
-
-  return (
-    <motion.div
-      className={`group relative bg-white/80 backdrop-blur-sm rounded-3xl
-                 border shadow-card overflow-hidden transition-all duration-500
-                 ${isClassic ? 'border-amber-200/50' : 'border-onde-teal/30'}`}
-      whileHover={{
-        y: -8,
-        boxShadow: '0 30px 60px rgba(0, 0, 0, 0.12)',
-      }}
-    >
-      {/* Cover */}
-      <Link href={`/libro/${book.id}`}>
-        <div className="relative cursor-pointer group-hover:scale-[1.02] transition-transform duration-300">
-          <BookCover
-            title={book.title}
-            author={book.author}
-            coverImage={book.coverImage}
-            color={book.color}
-            size="lg"
-          />
-
-          {/* Category Badge */}
-          <span className={`absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold
-                           backdrop-blur-md capitalize shadow-lg z-10
-                           ${isClassic
-                             ? 'bg-amber-900/80 text-amber-100'
-                             : 'bg-onde-dark/80 text-white'
-                           }`}>
-            {book.category}
-          </span>
-
-          {/* Source Badge */}
-          <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg z-10
-                           ${isClassic
-                             ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900'
-                             : 'bg-gradient-to-r from-onde-teal to-onde-coral text-white'
-                           }`}>
-            {isClassic ? t.books.sections.classicBadge : t.books.sections.ondeStudioBadge}
-          </span>
-        </div>
-      </Link>
-
-      {/* Content */}
-      <div className="p-6">
-        <Link href={`/libro/${book.id}`}>
-          <h4 className={`text-xl font-display font-bold mb-1 transition-colors cursor-pointer
-                         ${isClassic
-                           ? 'text-amber-900 group-hover:text-amber-700'
-                           : 'text-onde-ocean group-hover:text-onde-coral'
-                         }`}>
-            {book.title}
-          </h4>
-        </Link>
-        <p className="text-sm text-onde-ocean/50 mb-2">{book.subtitle}</p>
-        <p className="text-sm text-onde-ocean/40 mb-3">di {book.author}</p>
-        <p className="text-onde-ocean/60 text-sm leading-relaxed line-clamp-3">
-          {book.description}
-        </p>
-
-        {/* Actions */}
-        <div className="mt-5 flex items-center gap-3">
-          <a
-            href={book.kdpLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl
-                       font-semibold shadow-lg transition-all duration-300 text-sm
-                       ${isClassic
-                         ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40'
-                         : 'bg-gradient-to-r from-onde-coral to-onde-coral-light text-white shadow-onde-coral/30 hover:shadow-xl hover:shadow-onde-coral/40'
-                       }`}
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            {t.books.buyOnAmazon}
-          </a>
-          <Link
-            href={`/libro/${book.id}`}
-            className="px-4 py-2.5 rounded-xl bg-onde-ocean/5 text-onde-ocean/70 font-medium
-                       hover:bg-onde-ocean/10 transition-all duration-300 text-sm"
-          >
-            {t.books.details}
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-// Small Book Card Component
-function BookCardSmall({
-  book,
-  activeSection,
-  t
-}: {
-  book: Book
-  activeSection: BookSource
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  t: any
-}) {
-  const isClassic = activeSection === 'classic'
-
-  return (
-    <motion.div
-      className="group"
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-    >
-      {/* Cover */}
-      <Link href={`/libro/${book.id}`}>
-        <div className="relative mb-4 rounded-2xl overflow-hidden shadow-card group-hover:shadow-card-hover transition-all duration-300 group-hover:scale-[1.02]">
-          <BookCover
-            title={book.title}
-            author={book.author}
-            coverImage={book.coverImage}
-            color={book.color}
-            size="md"
-          />
-          <span className={`absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium
-                           backdrop-blur-md capitalize shadow-lg z-10
-                           ${isClassic
-                             ? 'bg-amber-900/80 text-amber-100'
-                             : 'bg-onde-dark/80 text-white'
-                           }`}>
-            {book.category}
-          </span>
-          {book.featured && (
-            <span className={`absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-bold shadow-lg z-10
-                             ${isClassic
-                               ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900'
-                               : 'bg-gradient-to-r from-onde-gold to-onde-coral text-onde-dark'
-                             }`}>
-              Top
-            </span>
-          )}
-        </div>
-      </Link>
-
-      {/* Info */}
-      <Link href={`/libro/${book.id}`}>
-        <h4 className={`font-display font-bold mb-1 transition-colors cursor-pointer
-                       ${isClassic
-                         ? 'text-amber-900 group-hover:text-amber-700'
-                         : 'text-onde-ocean group-hover:text-onde-coral'
-                       }`}>
-          {book.title}
-        </h4>
-      </Link>
-      <p className="text-sm text-onde-ocean/50 mb-2">{book.author}</p>
-
-      {/* Buy Button */}
-      <a
-        href={book.kdpLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold
-                   shadow-md hover:shadow-lg transition-all duration-300
-                   ${isClassic
-                     ? 'bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-white hover:from-amber-500 hover:to-amber-600'
-                     : 'bg-gradient-to-r from-onde-coral/90 to-onde-coral-light/90 text-white hover:from-onde-coral hover:to-onde-coral-light'
-                   }`}
-      >
-        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-        Amazon
-      </a>
-    </motion.div>
   )
 }
