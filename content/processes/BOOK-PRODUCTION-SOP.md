@@ -13,6 +13,31 @@ Produrre libri classici di qualità premium a velocità industriale.
 
 ---
 
+## 🌟 FILOSOFIA: ABBONDANZA AI
+
+> "Con le AI tutti avranno quello che vogliono gratis." — Elon Musk
+
+**Onde sta realizzando questa visione.**
+
+I nostri libri devono essere:
+- **Più belli** di quelli che esistevano prima
+- **Più ricchi** di illustrazioni (perché possiamo)
+- **Più accessibili** (prezzi bassi, poi gratis)
+- **Luxury per tutti** - non economy class
+
+### Regola Illustrazioni: ABBONDANZA
+
+| Tipo Libro | Illustrazioni Minime |
+|------------|---------------------|
+| Classico filosofico (Meditations) | 8-12 |
+| Romanzo (Frankenstein) | 12-15 |
+| Poesia | 1 per poesia (min 10) |
+| Bambini | 1 per pagina (20+) |
+
+**Non lesinare.** L'AI genera. Usa l'abbondanza.
+
+---
+
 ## PREREQUISITI
 
 ### Tool Richiesti
@@ -316,14 +341,103 @@ pandoc book.html -o book.epub --metadata title="Meditations"
 ebook-convert book.html book.epub --cover images/cover.jpg
 ```
 
-### FASE 7: QC FINALE (2 min)
+### FASE 7: QC FINALE + DOPPIA REVISIONE (5 min)
 
-**Checklist obbligatoria:**
+**🚨 REGOLA: Quando il libro è pronto, MANDA AUTOMATICAMENTE SU TELEGRAM.**
+**Non aspettare che Mattia lo chieda. Ma PRIMA passa la doppia revisione.**
+
+#### Step 1: Checklist Tecnica (Pina/Gianni)
+
 - [ ] Copertina bella e centrata?
+- [ ] Logo Onde presente?
+- [ ] Titolo + Autore leggibili?
+- [ ] "ONDE by FreeRiverHouse" nel footer?
 - [ ] Testo formattato correttamente?
+- [ ] Forward presente e corretta?
 - [ ] Nessun errore di encoding?
 - [ ] Metadata completi?
 - [ ] File EPUB valido? (test con Calibre/Kindle Previewer)
+- [ ] **ANATOMIA OK?** (5 dita, 2 orecchie, proporzioni)
+- [ ] Immagini coerenti con testo?
+
+**SE FALLISCE** → Correggi e ripeti Step 1
+
+#### Step 2: Review Grok API
+
+```javascript
+// Chiamata Grok per review
+const prompt = `
+Review this book for quality:
+- Title: ${title}
+- Author: ${author}
+- Forward: [forward text]
+- Sample chapter: [first 500 words]
+
+Check:
+1. Forward tone: warm, human, specific to the book?
+2. Text quality: no errors, good formatting?
+3. Brand fit: matches Onde Classics style?
+4. Emotional impact: does it feel curated with care?
+
+Respond with: APPROVED or NEEDS_REVISION + specific feedback
+`;
+```
+
+**SE NEEDS_REVISION** → Applica feedback, ripeti Step 2
+**SE APPROVED** → Procedi a Step 3
+
+#### Step 3: Invio Automatico su Telegram
+
+**QUANDO entrambe le revisioni passano → MANDA SUBITO A MATTIA**
+
+```javascript
+// Invio automatico
+const message = `
+📚 NUOVO LIBRO PRONTO PER REVIEW
+
+📖 ${title} - ${author}
+🏷️ Chain: ${chain}
+🌍 Lingue: EN (altre in preparazione)
+
+✅ QC Tecnico: PASSED
+✅ Review Grok: APPROVED
+
+File allegati:
+- cover.jpg
+- book.epub
+- book.pdf
+`;
+
+// Manda su Telegram
+await sendTelegram(chatId, message);
+await sendFile(chatId, coverPath);
+await sendFile(chatId, epubPath);
+await sendFile(chatId, pdfPath);
+```
+
+**Bot Telegram:** @OndePR_bot
+**Chat ID:** 7505631979
+**Token:** (vedi .env)
+
+#### Flusso Completo
+
+```
+LIBRO COMPLETATO
+      ↓
+[Step 1] QC Tecnico (Pina/Gianni)
+      ↓ PASS
+[Step 2] Review Grok API
+      ↓ APPROVED
+[Step 3] INVIO AUTOMATICO TELEGRAM
+      ↓
+MATTIA RICEVE E APPROVA/RICHIEDE MODIFICHE
+      ↓
+PUBBLICAZIONE
+```
+
+**⚠️ IMPORTANTE**: Non aspettare che Mattia chieda il libro. Quando è pronto e ha passato la doppia revisione, MANDA SUBITO.
+
+---
 
 ### FASE 8: TRADUZIONI (10-15 min)
 

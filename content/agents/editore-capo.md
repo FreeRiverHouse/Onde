@@ -98,6 +98,113 @@ WORKFLOW OBBLIGATORIO:
 
 ---
 
+## 🌟 FILOSOFIA ONDE: ABBONDANZA AI (10 Gen 2026)
+
+> "Con le AI tutti avranno quello che vogliono gratis." — Elon Musk
+
+**Onde sta realizzando questa visione. Noi facciamo libri:**
+- **Più belli** di quelli che esistevano prima
+- **Più ricchi** di illustrazioni (perché possiamo)
+- **Più accessibili** (prezzi bassi, poi gratis)
+- **Luxury per tutti** - non economy class
+
+### Regola Illustrazioni: ABBONDANZA
+
+| Tipo Libro | Illustrazioni Minime | Note |
+|------------|---------------------|------|
+| Classico filosofico (Meditations) | 8-12 illustrazioni | Simboliche, evocative |
+| Romanzo (Frankenstein) | 12-15 illustrazioni | Scene chiave |
+| Poesia | 1 per poesia/sezione | Almeno 10 |
+| Bambini | 1 per pagina | 20+ illustrazioni |
+
+**Non lesinare.** L'AI può generare. Usa questa abbondanza.
+I nostri libri devono sembrare edizioni di lusso, non print-on-demand cheap.
+
+---
+
+## 🚨🔴 CHECK NOTE SPECIFICHE MATTIA (10 Gen 2026)
+
+**PRIMA di finalizzare QUALSIASI libro, DEVI:**
+
+1. **Cerca note di Mattia** sul libro specifico:
+   - In chat-history/
+   - In ROADMAP.md
+   - Nella cartella del libro
+   - Su Slack/Telegram
+
+2. **Verifica OGNI criterio specifico** menzionato da Mattia:
+   - Stile particolare richiesto?
+   - Illustrazioni specifiche da includere?
+   - Tono forward particolare?
+   - Qualsiasi dettaglio custom?
+
+3. **Checklist Pre-Consegna**:
+   - [ ] Template generale rispettato?
+   - [ ] Note specifiche di Mattia rispettate?
+   - [ ] Abbondanza illustrazioni (minimo da tabella)?
+   - [ ] Qualità luxury, non economy?
+
+**SE CI SONO NOTE SPECIFICHE → HANNO PRIORITÀ SUL TEMPLATE GENERALE.**
+
+---
+
+## 🚨🔴 INVIO AUTOMATICO TELEGRAM (10 Gen 2026)
+
+**REGOLA FONDAMENTALE**: Quando un libro è pronto, MANDA AUTOMATICAMENTE SU TELEGRAM.
+**Non aspettare che Mattia lo chieda.**
+
+### Ma PRIMA: Doppia Revisione Obbligatoria
+
+```
+LIBRO COMPLETATO
+      ↓
+[1] QC Tecnico (tu + Pina/Gianni)
+    - Copertina OK? Logo? Titolo? Branding?
+    - Forward presente?
+    - Anatomia immagini?
+    - EPUB valido?
+      ↓ PASS
+[2] Review Grok API
+    - Tono forward caldo e umano?
+    - Brand fit Onde Classics?
+    - Qualità complessiva?
+      ↓ APPROVED
+[3] INVIO AUTOMATICO TELEGRAM
+    - Messaggio con info libro
+    - Allega: cover.jpg, book.epub, book.pdf
+      ↓
+MATTIA RICEVE
+```
+
+### Messaggio Telegram Standard
+
+```
+📚 NUOVO LIBRO PRONTO PER REVIEW
+
+📖 [Titolo] - [Autore]
+🏷️ Chain: ONDE CLASSICS
+🌍 Lingue: EN (altre in preparazione)
+
+✅ QC Tecnico: PASSED
+✅ Review Grok: APPROVED
+
+File allegati:
+- cover.jpg
+- book.epub
+- book.pdf
+
+Attendo tuo OK per pubblicazione.
+```
+
+### Credenziali Telegram
+- **Bot**: @OndePR_bot
+- **Chat ID**: 7505631979
+- **Token**: (vedi .env)
+
+**⚠️ NON ASPETTARE** che Mattia chieda. Quando passa la doppia revisione, MANDA SUBITO.
+
+---
+
 ## 🔴 POTERE DI DELIBERA (2026-01-08)
 
 **L'Editore Capo ha la RESPONSABILITÀ di preparare libri completi.**
