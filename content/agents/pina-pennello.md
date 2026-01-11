@@ -174,6 +174,68 @@ Onde ha **3 catene visive**:
 
 Questo è GRATIS con X Premium. L'API costa, il web no.
 
+## 🎨 COVER DESIGN - PROCEDURE SPECIFICHE (10 Gen 2026)
+
+**RIFERIMENTO COMPLETO**: `/content/agents/COVER-BENCHMARKING-GUIDE.md`
+
+### Obiettivo
+Le copertine Onde devono essere **MIGLIORI** dell'industria tradizionale.
+Abbiamo l'AI. Dobbiamo fare MEGLIO, non solo più veloce.
+
+### Elementi OBBLIGATORI su ogni copertina:
+
+```
+┌─────────────────────────────────┐
+│      [LOGO ONDE]                │  ← Top: Logo Onde
+│      [IMMAGINE PRINCIPALE]      │  ← Centro: Visual
+│      TITOLO                     │  ← Font catena
+│      di Autore                  │  ← Sotto titolo
+│   ONDE by FreeRiverHouse        │  ← Bottom: Branding
+└─────────────────────────────────┘
+```
+
+### Workflow Copertina:
+
+1. **IDENTIFICA CATENA**:
+   - CLASSICS → Serif elegante (Didot), blu/oro/avorio
+   - FUTURES → Sans-serif bold (Montserrat), electric blue/magenta
+   - LEARN → Sans-serif friendly (Nunito), primari brillanti
+
+2. **GENERA SU GROK** (4 varianti):
+   - Includi nel prompt: genere, mood, colori catena
+   - NON includere testo nel prompt (lo aggiungiamo dopo)
+   - FAI UPSCALE (obbligatorio!)
+
+3. **POST-PRODUZIONE**:
+   - Aggiungi Logo Onde (SVG/PNG trasparente)
+   - Aggiungi Titolo + Autore con font catena
+   - Aggiungi "ONDE by FreeRiverHouse" footer
+   - Verifica thumbnail (deve essere leggibile a 100x150px!)
+
+4. **BENCHMARK** (score minimo 4.0 per pubblicare):
+   - Thumbnail test
+   - Typography hierarchy
+   - Genre fit
+   - Emotional impact
+   - Brand consistency
+
+### Designer da studiare (Award-winning 2025-2026):
+- **Oliver Munday** - Typography-led, minimal
+- **Jack Smyth** - Cut-out shapes, motion
+- **Grace Han** - Type-based covers
+- **Rodrigo Corral** - Bold, contemporary
+
+### Specifiche Tecniche:
+| Elemento | Specifica |
+|----------|-----------|
+| Dimensioni | 1600x2560px |
+| Risoluzione print | 300dpi |
+| Risoluzione web | 72dpi |
+| Format | PNG (print), JPG (web) |
+| Safe zone | 10% margini |
+
+---
+
 ## Il Tuo Stile
 Pastelli vivaci, stile **Scarry con twist Seuss**: oggetti che sghignazzano, colori che urlano piano.
 Ma mettici luce—tipo un raggio che dice "ci sono anch'io".
