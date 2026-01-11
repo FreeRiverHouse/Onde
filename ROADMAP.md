@@ -43,56 +43,73 @@ Questa sezione è ordinata per **revenue potenziale immediata**, basata su:
 
 ---
 
-### 🥇 TIER 1: PUBBLICARE QUESTA SETTIMANA (Revenue in 7-14 giorni)
+### 🥇 TIER 1: CLASSICI PUBBLICO DOMINIO INGLESE (Alta domanda globale)
 
-**Questi libri sono PRONTI o quasi pronti. Mancano solo upload KDP.**
+**ENGLISH FIRST = Mercato USA 50% vendite globali. Dati da Gutenberg + Google Trends.**
 
-| # | Libro | Categoria | Perché fa soldi | Status | Revenue stimata |
-|---|-------|-----------|-----------------|--------|-----------------|
-| 1 | **AIKO - AI Children (EN)** | Tech/STEM | AI = topic #1, poca concorrenza qualità | PDF pronto | $500-2000/mese |
-| 2 | **Psalm 23 Abundance (EN)** | Spiritualità | Evergreen, mercato USA 50% globale | PDF+ePub pronti | $300-1000/mese |
-| 3 | **Psalm 23 (ES)** | Spiritualità | Mercato latino ENORME | ePub pronto | $200-800/mese |
-| 4 | **Psalm 23 (DE)** | Spiritualità | Germania = 2° mercato EU | ePub pronto | $150-500/mese |
-| 5 | **Psalm 23 (FR)** | Spiritualità | Francia = 3° mercato EU | ePub pronto | $100-400/mese |
-| 6 | **AIKO Italiano** | Tech/STEM | Mercato IT poco coperto | Traduzione pronta | $100-300/mese |
-| 7 | **Piccole Rime Italiane** | Poesia | Video pronti, contenuto verificato | Quasi pronto | $50-200/mese |
+| # | Libro | Download | Amazon Gap | Revenue stimata |
+|---|-------|----------|------------|-----------------|
+| 1 | **Frankenstein** (Mary Shelley) | 5,074/giorno | Poche illustrate premium | $300-800/mese |
+| 2 | **Meditations** (Marcus Aurelius) | 18,218/mese | ZERO illustrate stile Onde | $200-600/mese |
+| 3 | **The Prophet** (Kahlil Gibran) | 6,973/mese | Pochissime illustrate | $150-400/mese |
+| 4 | **Confessions** (St. Augustine) | 3,000/mese | Quasi ZERO illustrate | $100-300/mese |
+| 5 | **Imitation of Christ** | 2,500/mese | ZERO illustrate | $100-300/mese |
 
-**Revenue TIER 1 stimata**: $1,400-5,200/mese
+**Revenue TIER 1 stimata**: $850-2,400/mese
 
-**AZIONE**: Upload 3/giorno su KDP (limite Amazon)
+**Fonte**: [Project Gutenberg Top 100](https://www.gutenberg.org/browse/scores/top)
 
 ---
 
-### 🥈 TIER 2: COMPLETARE IN 1-2 SETTIMANE (Revenue in 2-4 settimane)
+### 🥈 TIER 2: BAMBINI CLASSICI INGLESE (Nostalgia genitori)
 
-**Testo pronto, servono illustrazioni o impaginazione finale.**
+**Genitori cercano libri della loro infanzia. Evergreen, bassa saturazione illustrata.**
 
-| # | Libro | Cosa manca | Revenue stimata |
-|---|-------|------------|-----------------|
-| 8 | **Il Piccolo Inventore** | 10 illustrazioni | $100-400/mese |
-| 9 | **Il Respiro Magico** (Mindfulness) | 10 illustrazioni | $200-600/mese |
-| 10 | **La Luce Dentro** | 10 illustrazioni | $100-300/mese |
-| 11 | **Il Potere dei Desideri** (Legge Attrazione) | Illustrazioni | $150-500/mese |
-| 12 | **AIKO (ES/DE/FR)** | Traduzioni | $200-600/mese |
-| 13 | **Salmo 23 Bambini (IT)** | Review finale | $50-200/mese |
+| # | Libro | Download | Amazon Gap | Revenue stimata |
+|---|-------|----------|------------|-----------------|
+| 6 | **The Secret Garden** | 300+/giorno | Poche watercolor europee | $150-400/mese |
+| 7 | **A Little Princess** | 250+/giorno | Pochissime illustrate | $100-300/mese |
+| 8 | **Anne of Green Gables** | 500+/giorno | Gap illustrazioni europee | $150-400/mese |
+| 9 | **Wizard of Oz** | 646/giorno | Santore domina, servono alternative | $100-300/mese |
+| 10 | **Black Beauty** | 400+/giorno | Poche edizioni bambini | $100-250/mese |
 
-**Revenue TIER 2 stimata**: $800-2,600/mese
+**Revenue TIER 2 stimata**: $600-1,650/mese
 
 ---
 
-### 🥉 TIER 3: NUOVI LIBRI AD ALTA DOMANDA (Q1 2026)
+### 🥉 TIER 3: LIBRI ONDE GIÀ PRONTI
 
-**Basato su ricerca mercato: alta domanda + bassa concorrenza in Italia**
+| # | Libro | Status | Revenue stimata |
+|---|-------|--------|-----------------|
+| 11 | **AIKO - AI Children (EN)** | PDF pronto | $300-800/mese |
+| 12 | **Psalm 23 (EN/ES/DE/FR)** | ePub pronti | $400-1000/mese |
+| 13 | **Il Respiro Magico** | Testo pronto, servono illustrazioni | $100-300/mese |
+| 14 | **Il Piccolo Inventore** | Testo pronto, servono illustrazioni | $100-300/mese |
 
-| # | Libro | Mercato | Competizione | Revenue potenziale |
-|---|-------|---------|--------------|-------------------|
-| 14 | **"Adulto a 1200€/mese"** - Guida sopravvivenza giovani | ALTISSIMA | BASSA | $500-2000/mese |
-| 15 | **"1000€ in più al mese"** - Side hustle Italia | MOLTO ALTA | BASSA | $400-1500/mese |
-| 16 | **"ChatGPT Parla Italiano"** - Prompt engineering | MOLTO ALTA | MEDIA | $300-1000/mese |
-| 17 | **Meditations (Marco Aurelio)** - Stoicismo | ALTA | MEDIA | $200-800/mese |
-| 18 | **The Prophet (Gibran)** | ALTA | BASSA | $150-500/mese |
+**Revenue TIER 3 stimata**: $900-2,400/mese
 
-**Revenue TIER 3 stimata**: $1,550-5,800/mese
+---
+
+### 📊 LIBRI ITALIA (Q2 2026 - dopo inglese)
+
+| # | Libro | Domanda | Revenue potenziale |
+|---|-------|---------|-------------------|
+| 15 | **"Adulto a 1200€/mese"** | ALTISSIMA | $500-2000/mese |
+| 16 | **"1000€ in più al mese"** | MOLTO ALTA | $400-1500/mese |
+| 17 | **"ChatGPT Parla Italiano"** | MOLTO ALTA | $300-1000/mese |
+
+---
+
+### ⛔ DA NON FARE (Mercato saturo Amazon)
+
+| Titolo | Edizioni | Motivo |
+|--------|----------|--------|
+| Pride and Prejudice | 500+ | Impossibile emergere |
+| Alice in Wonderland | 300+ | Saturatissimo |
+| Romeo and Juliet | 200+ | Saturato |
+| Moby Dick | 200+ | Saturato |
+
+**Ricerca completa**: `docs/EBOOK-PRIORITY-RESEARCH.md`
 
 ---
 

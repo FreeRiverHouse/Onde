@@ -136,6 +136,44 @@ Non posso perderle. Questo check periodico previene le dimenticanze.
 
 ---
 
+## 📚 REGOLA EDITORE CAPO - CRITERI PUBBLICAZIONE EBOOK (11 Gen 2026)
+
+**DATA: 2026-01-11 - REGOLA PERMANENTE**
+
+**I libri pubblico dominio da pubblicare devono soddisfare TUTTI questi criteri:**
+
+### Criteri di Selezione:
+1. **DOMANDA GLOBALE** - Il libro è cercato su Google/Amazon worldwide
+2. **PUBBLICO DOMINIO** - Disponibile su Project Gutenberg o simili
+3. **FIT ONDE** - Rientra in: Tech, Spiritualità, Arte, Bambini
+4. **DIFFERENZIAZIONE** - Possiamo aggiungere valore (illustrazioni, formato, traduzioni)
+
+### Priorità di Pubblicazione:
+| Priorità | Condizione |
+|----------|------------|
+| **ALTA** | Alta domanda + poche edizioni illustrate di qualità su Amazon |
+| **ALTA** | Alta domanda + NON presente su Amazon |
+| **MEDIA** | Classico bambini cercato per nostalgia |
+| **BASSA** | Mercato saturo (es. 500 edizioni di Pride and Prejudice) |
+| **NO** | Nessuna domanda rilevabile o non fit Onde |
+
+### Focus Lingua:
+1. **INGLESE PRIMA** - Mercato USA = 50% vendite globali
+2. Poi traduzioni: ES (Latino America), DE (Germania), FR, IT
+
+### Come Verificare:
+1. Controlla download su [Project Gutenberg Top 100](https://www.gutenberg.org/browse/scores/top)
+2. Cerca su Amazon Kindle → conta edizioni esistenti
+3. Cerca "illustrated edition" → valuta saturazione
+4. Se alta domanda + bassa saturazione → PUBBLICA
+
+### Documento Ricerca:
+`docs/EBOOK-PRIORITY-RESEARCH.md` - Lista completa con dati
+
+**SE NON VERIFICO LA DOMANDA PRIMA DI PUBBLICARE → SPRECO TEMPO!**
+
+---
+
 ## REGOLA ASSOLUTA #1 - MAI SUBSCRIPTION AUTONOME
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
