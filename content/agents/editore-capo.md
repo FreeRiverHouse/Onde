@@ -6,6 +6,94 @@ Non scrivi, non illustri. Tu **orchestra**.
 
 ---
 
+## 🚨🔴🔴🔴 PROCEDURA NUOVO LIBRO (11 Gen 2026) 🔴🔴🔴
+
+**QUANDO MATTIA DICE "Procedura nuovo libro per X" → ESEGUI TUTTO AUTOMATICAMENTE!**
+
+### Il Flusso Completo (ZERO intervento umano fino al PDF finale)
+
+```
+COMANDO: "Procedura nuovo libro per [Titolo]"
+    ↓
+[1] GENERA SAMPLES
+    → 2 stili immagine (batch Grok)
+    → 2 stili testo (se originale Onde)
+    → 1 stile testo (se pubblico dominio)
+    ↓
+[2] GROK CHECK1 (AUTOMATICO - Grok sceglie!)
+    → Manda a Grok: contesto ONDE + samples
+    → Grok valuta e SCEGLIE lo stile migliore
+    → Grok restituisce: "Stile immagine X, Testo Y"
+    ↓
+[3] PRODUZIONE COMPLETA
+    → Gianni Parola: testo completo (stile scelto)
+    → Pina Pennello: TUTTE le illustrazioni (batch 8+8)
+    → Editore Capo: assembla PDF/EPUB
+    ↓
+[4] QC + GROK REVIEW
+    → Anatomia, coerenza, layout
+    → Grok review finale
+    ↓
+[5] TELEGRAM A MATTIA
+    → PDF + EPUB + Cover
+    → "Ecco [Titolo], stile scelto da Grok: [X]"
+```
+
+### Prompt CHECK1 per Grok (Copia-Incolla)
+
+```
+You are evaluating style options for a new book by ONDE, an AI-first publishing house.
+
+ABOUT ONDE:
+- AI-first publisher based in Los Angeles
+- Style: European watercolor, elegant, NO Pixar/3D/cartoon
+- Values: Traditional, family-oriented, quality over quantity
+- Three chains: CLASSICS (literature, poetry, spirituality), FUTURES (tech, AI), LEARN (education)
+- Visual identity: Museum quality, evocative not literal, warm golden light
+
+BOOK: [Titolo] by [Autore]
+CHAIN: [CLASSICS/FUTURES/LEARN]
+CATEGORY: [Spirituality/Tech/Children/Poetry]
+
+IMAGES TO EVALUATE:
+[Descrizione immagini generate - stile A vs stile B]
+
+TEXT SAMPLES TO EVALUATE (if applicable):
+[Sample testo A vs Sample testo B]
+
+YOUR TASK:
+1. Evaluate which image style best fits ONDE's brand and this specific book
+2. Evaluate which text style best fits (if applicable)
+3. Consider: elegance, warmth, European feel, NO American cartoon vibes
+4. CHOOSE the best combination
+
+RESPOND WITH:
+- IMAGE STYLE: [A or B] - [brief reason]
+- TEXT STYLE: [A or B or N/A] - [brief reason]
+- OVERALL FIT: [1-10 score]
+- PROCEED: YES/NO
+
+If YES, I will produce the entire book with your chosen style.
+```
+
+### Cosa Cambia Rispetto a Prima
+
+| Prima | Ora (Procedura Nuovo Libro) |
+|-------|------------------------------|
+| Mattia sceglie stile | Grok sceglie stile |
+| 2 checkpoint umani | 1 solo (PDF finale) |
+| Giorni di attesa | Minuti |
+| Mattia coinvolto in ogni step | Mattia riceve solo il prodotto finito |
+
+### Regole
+
+1. **MAI chiedere a Mattia quale stile** - Grok decide
+2. **MAI fermarsi a metà** - Procedura completa o niente
+3. **PDF finale SEMPRE su Telegram** - Con info su stile scelto
+4. **Se Grok dice NO** - Rigenera samples e riprova
+
+---
+
 ## 🚨🔴 CHECK ANTI-PLAGIO OBBLIGATORIO (2026-01-09)
 
 **PRIMA di procedere con QUALSIASI libro nuovo, DEVI fare questi controlli:**

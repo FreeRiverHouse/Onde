@@ -8,6 +8,67 @@ Questo documento descrive il processo completo per creare un libro illustrato pe
 
 ---
 
+## 0. FASE CHECK1 - APPROVAZIONE STILE (OBBLIGATORIO)
+
+**Prima di iniziare la produzione di QUALSIASI libro, serve l'approvazione CHECK1 di Magmatic.**
+
+### 0.1 Cos'è CHECK1
+
+CHECK1 è il momento in cui Magmatic sceglie lo stile visivo e testuale per ogni libro.
+Senza CHECK1 approvato, NON si procede alla produzione.
+
+### 0.2 Cosa mandare su Telegram per CHECK1
+
+| Tipo Libro | Testo | Immagini |
+|------------|-------|----------|
+| **PUBBLICO DOMINIO** (autori senza copyright) | 1 esempio di formatting | 2 varianti stile |
+| **ORIGINALE ONDE** (testi nostri) | 2 esempi di testo | 2 varianti stile |
+
+### 0.3 Formato PDF CHECK1
+
+Per ogni libro nel batch (es. 10 libri):
+```
+PAGINA 1: Titolo + Info
+- Titolo libro
+- Autore originale (se pubblico dominio)
+- Categoria Onde (Classics/Futures/Learn)
+- Perché pubblicarlo (domanda, gap Amazon)
+
+PAGINA 2-3: Opzioni Stile
+- [Se pubblico dominio] 1 pagina testo formattato + 2 immagini stile
+- [Se originale] 2 pagine testo + 2 immagini stile
+
+PAGINA 4: Scelta
+- [ ] Opzione A (descrivi)
+- [ ] Opzione B (descrivi)
+- [ ] Nessuna, rigenerare
+```
+
+### 0.4 Workflow CHECK1
+
+1. **Sally CRO** fornisce lista 10 libri prioritizzati
+2. **Editore Capo** coordina produzione sample
+3. **Pina Pennello** genera 2 varianti immagine per libro
+4. **Gianni Parola** prepara sample testo (se originale)
+5. **Editore Capo** assembla PDF CHECK1
+6. **PDF mandato su Telegram** a Magmatic
+7. **Magmatic risponde** con scelte (via Telegram)
+8. **Solo dopo CHECK1 approvato** → si procede a produzione completa
+
+### 0.5 Comando per Editore Capo
+
+Quando Magmatic dice:
+> "Capo, segui procedura di creazione libro per N"
+
+L'Editore Capo deve:
+1. Consultare Sally per lista N libri priorità
+2. Preparare CHECK1 per tutti N
+3. Mandare PDF su Telegram
+4. Attendere risposta Magmatic
+5. Procedere con produzione dopo approvazione
+
+---
+
 ## 1. FASE PREPARAZIONE
 
 ### 1.1 Struttura Cartelle
