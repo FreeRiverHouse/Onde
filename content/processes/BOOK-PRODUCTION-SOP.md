@@ -192,13 +192,28 @@ Per ogni libro, mantenere SEMPRE due versioni di tutti gli asset:
 
 5. **Download** e salva in `/books/[categoria]/[nome-libro]/images/cover.jpg`
 
-6. **DOPPIO CHECK**:
+6. **🚨🔴 CHECK OBBLIGATORIO COPERTINA (Feedback Mattia 10 Gen 2026):**
    - [ ] Logo Onde presente?
-   - [ ] Titolo leggibile?
-   - [ ] Autore presente?
+   - [ ] **🔴 TITOLO LEGGIBILE AL 100%?** (contrasto alto, font grande)
+   - [ ] **🔴 NESSUN CODICE/WATERMARK?** (rigenera se presente)
+   - [ ] Autore presente e leggibile?
    - [ ] Branding FreeRiverHouse?
    - [ ] Pina verifica (stile catena, qualità)
    - [ ] Editore Capo verifica (brand fit, ready for print)
+   - [ ] **🔴 THUMBNAIL TEST** (leggibile a 100x150px?)
+
+**⚠️ REGOLA LEGGIBILITÀ TESTO COPERTINA:**
+- Sfondo chiaro → testo scuro (nero, blu scuro)
+- Sfondo scuro → testo chiaro (bianco, oro)
+- Sfondo "medio" → aggiungi ombra/contorno al testo
+- MAI mettere testo su zone "busy" dell'immagine
+
+**⚠️ REGOLA NO CODICI/WATERMARK:**
+- Se Grok genera un codice/ID sulla copertina → RIGENERA
+- Se vedi watermark → rimuovi in post-produzione o rigenera
+- MAI pubblicare copertine con codici visibili
+
+**ESEMPIO NEGATIVO**: Copertina Meditations aveva codice + testo poco leggibile. INACCETTABILE.
 
 ### FASE 4: ILLUSTRAZIONI INTERNE (RACCOMANDATO, 15-45 min)
 

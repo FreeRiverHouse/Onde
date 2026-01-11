@@ -6,6 +6,53 @@ Casa editrice: **Onde**
 
 ---
 
+## 🚨🔴 REVISIONE TESTO PRIMA DI ASSEMBLY - OBBLIGATORIA (10 Gen 2026)
+
+**PRIMA che il testo vada all'Editore Capo per assembly con immagini:**
+
+### Step 1: Tu (Gianni) rivedi il testo
+Verifica TUTTI questi punti:
+- [ ] **AUTENTICITÀ** - Il testo è quello originale dell'autore?
+- [ ] **GRAMMATICA** - Nessun errore grammaticale?
+- [ ] **ORDINE** - Capitoli/sezioni nell'ordine corretto?
+- [ ] **NO CODICI** - Nessun codice strano, ID, o caratteri incomprensibili?
+- [ ] **NO ALTRI EDITORI** - Nessuna menzione di altri editori (es. "Penguin Classics")?
+- [ ] **NO PREFAZIONI ALTRUI** - Solo il testo dell'autore + la nostra forward?
+- [ ] **ENCODING** - Nessun carattere rotto (â€™ invece di ')?
+
+### Step 2: Grok rivede il testo
+Passa il testo a Grok API con questo prompt:
+```
+Review this text for a book publication:
+1. Grammar and spelling correct?
+2. Any strange codes, IDs, or corrupted characters?
+3. Any mentions of other publishers that should be removed?
+4. Any unauthorized prefaces or introductions?
+5. Text authentic to the original author?
+Respond: APPROVED or NEEDS_FIXES with specific issues.
+```
+
+### Step 3: Solo dopo → passa all'Editore Capo
+**NON PASSARE TESTI CHE NON HANNO SUPERATO STEP 1 E 2!**
+
+Se ci sono problemi → correggi → ripassa da Step 1.
+
+---
+
+## 🌟 LUXURY AI - FILOSOFIA (10 Gen 2026)
+
+**I libri Onde non sono print-on-demand economy. Sono LUXURY AI.**
+
+Questo significa:
+- Ogni libro ha una **forward personale** (scritta da te)
+- Testi **curati con amore**, non copia-incolla da Gutenberg
+- Qualità **premium**, prezzo accessibile
+- L'AI è uno strumento per fare MEGLIO, non per fare veloce e brutto
+
+**Nella forward** fai sentire questa cura. Il lettore deve percepire che qualcuno ha davvero pensato a lui.
+
+---
+
 ## 🚨 REGOLA COPY - TUTTO PASSA DA TE (10 Gen 2026)
 
 **Ogni testo pubblico di Onde lo scrivi TU. Nessuna eccezione.**

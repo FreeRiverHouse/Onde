@@ -67,6 +67,35 @@ Prima di generare un'immagine:
 
 **⚠️ ESEMPIO NEGATIVO - AIKO**: Alcune immagini non corrispondevano alle descrizioni nel testo. Questo crea confusione nel lettore. MAI più.
 
+## 🌟 LUXURY AI - ABBONDANZA ILLUSTRAZIONI (10 Gen 2026)
+
+**I libri Onde NON sono print-on-demand economy. Sono LUXURY AI.**
+
+**Questo significa TANTE illustrazioni, non solo la copertina!**
+
+| Tipo Libro | Illustrazioni Minime | Note |
+|------------|---------------------|------|
+| Classico filosofico (Meditations) | 8-12 | Simboliche, evocative |
+| Romanzo (Frankenstein) | 12-15 | Scene chiave |
+| Poesia | 1 per poesia | Almeno 10 |
+| Bambini | 1 per pagina | 20+ illustrazioni |
+
+**Filosofia**: L'AI può generare. Usa questa abbondanza.
+I nostri libri devono sembrare **edizioni di lusso**, non ebook cheap.
+
+**Per ogni libro, genera:**
+1. **Copertina** - con testo leggibile, no codici
+2. **Illustrazioni interne** - seguendo i temi/capitoli
+3. **Cover audiobook** - se c'è versione audio (ritratto autore)
+
+**Stili per ONDE CLASSICS:**
+- Acquarello elegante, non infantile
+- Colori sofisticati (blu, oro, seppia)
+- Simbolico/evocativo, non letterale
+- Stile "museo" - come litografie d'epoca
+
+---
+
 ## 🚨🔴 LEGGI PRIMA: VISUAL IDENTITY GUIDE (10 Gen 2026)
 
 **OBBLIGATORIO**: Prima di generare QUALSIASI immagine, leggi:
@@ -177,6 +206,40 @@ Questo è GRATIS con X Premium. L'API costa, il web no.
 ## 🎨 COVER DESIGN - PROCEDURE SPECIFICHE (10 Gen 2026)
 
 **RIFERIMENTO COMPLETO**: `/content/agents/COVER-BENCHMARKING-GUIDE.md`
+
+### 🚨🔴 REGOLA COPERTINE - TESTO LEGGIBILE + NO CODICI (10 Gen 2026)
+
+**FEEDBACK MATTIA**: Le copertine devono avere testo SEMPRE leggibile!
+
+**REGOLE OBBLIGATORIE:**
+
+1. **LEGGIBILITÀ TESTO** - Il titolo e l'autore devono essere SEMPRE leggibili:
+   - Contrasto ALTO tra testo e sfondo
+   - Se sfondo chiaro → testo scuro (nero, blu scuro)
+   - Se sfondo scuro → testo chiaro (bianco, oro)
+   - Se sfondo "medio" → aggiungi ombra/contorno al testo
+   - Font SIZE sufficiente (minimo 72pt per titolo)
+   - MAI mettere testo su zone "busy" dell'immagine
+   - SEMPRE verificare thumbnail test (deve essere leggibile a 100x150px!)
+
+2. **NESSUN CODICE/WATERMARK** - MAI pubblicare copertine con:
+   - Codici alfanumerici
+   - Watermark AI
+   - Numeri di serie
+   - Qualsiasi scritta non voluta
+   - ID generazione Grok
+   - **SE VEDI UN CODICE** → Rigenera l'immagine o rimuovilo in post-produzione
+
+3. **CHECK PRE-CONSEGNA COPERTINA:**
+   - [ ] Il titolo è leggibile al 100%?
+   - [ ] L'autore è leggibile?
+   - [ ] Non ci sono codici/watermark?
+   - [ ] Il thumbnail test passa?
+   - [ ] Il branding Onde è presente?
+
+**ESEMPIO NEGATIVO**: Copertina Meditations con codice visibile + testo poco leggibile su Marcus Aurelius. INACCETTABILE.
+
+---
 
 ### Obiettivo
 Le copertine Onde devono essere **MIGLIORI** dell'industria tradizionale.

@@ -93,6 +93,8 @@ WORKFLOW OBBLIGATORIO:
 - [ ] Anatomia OK (5 dita, 2 orecchie, proporzioni)?
 - [ ] Coerenza con il testo del libro?
 - [ ] Qualità sufficiente per stampa/digital?
+- [ ] **🔴 COPERTINA: Nessun codice/watermark visibile?**
+- [ ] **🔴 COPERTINA: Testo titolo/autore LEGGIBILE al 100%?**
 
 **MAI approvare immagini senza doppio check!**
 
@@ -246,7 +248,13 @@ Attendo tuo OK per pubblicazione.
 
 ### 🤖 REVIEW GROK API - Dettaglio (10 Gen 2026)
 
-**OGNI libro deve passare review Grok PRIMA di andare a Mattia!**
+**🚨🔴 OBBLIGATORIO - NON SALTABILE (Feedback Mattia 10 Gen 2026)**
+
+**ERRORE CRITICO FATTO**: L'agente ha saltato la review Grok perché "XAI_API_KEY non configurata".
+**QUESTO È INACCETTABILE!** Se la chiave non c'è → FERMARSI e chiedere a Mattia, NON saltare la review.
+
+**OGNI libro DEVE passare review Grok PRIMA di andare a Mattia!**
+**SE NON PUOI FARE LA REVIEW → NON MANDARE IL LIBRO!**
 
 **Cosa Grok Valuta:**
 - [ ] Coerenza immagini-testo
@@ -255,6 +263,7 @@ Attendo tuo OK per pubblicazione.
 - [ ] Tono e stile coerente con la catena
 - [ ] Errori di encoding/formattazione
 - [ ] Metadata completi
+- [ ] **🔴 COPERTINA: Testo leggibile? Nessun codice/watermark?**
 
 **Come Usare Grok API:**
 ```bash
