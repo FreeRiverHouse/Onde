@@ -110,7 +110,22 @@ Non posso perderle. Questo check periodico previene le dimenticanze.
 
 **DATA: 2026-01-10 - REGOLA INVIOLABILE**
 
-**I CONTENUTI CREATIVI DEVONO PASSARE DAGLI AGENTI. MAI SCRIVERLI DIRETTAMENTE!**
+**I CONTENUTI CREATIVI DEVONO PASSARE DAGLI AGENTI. MAI SCRIVERLI/FARLI DIRETTAMENTE!**
+
+### 🚨 ERRORE DA NON RIPETERE (10 Gen 2026)
+
+**Cosa è successo**: Ho mandato libri su Telegram senza seguire la procedura.
+- Ho bypassato Editore Capo, Pina, Gianni
+- Ho saltato doppia revisione (QC + Grok)
+- Ho improvvisato con ImageMagick invece di usare Grok
+- Le copertine non avevano titolo/autore/branding
+
+**Regola**: Quando un task riguarda PRODUZIONE LIBRI:
+1. **LEGGI** le procedure (editore-capo.md, SOP, visual identity)
+2. **PASSA** attraverso l'Editore Capo
+3. **SEGUI** il workflow: Pina per immagini, Gianni per testi
+4. **FAI** doppia revisione prima di mandare qualsiasi cosa
+5. **MAI** mandare file senza QC completo
 
 ### Workflow Contenuti - CHI FA COSA:
 | Chi | Cosa Fa | File |
