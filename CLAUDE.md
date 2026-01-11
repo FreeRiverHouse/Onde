@@ -513,3 +513,29 @@ Prima di mandare qualsiasi PDF/libro a Mattia:
 ---
 
 *Ultimo aggiornamento: 2026-01-10 - Cleanup e riorganizzazione*
+
+---
+
+## 🎮 FREE RIVER FLOW - VISIONE (10 Gen 2026)
+
+**IMPORTANTE - Questa visione deve essere ricordata!**
+
+Free River Flow = Sviluppo come un gioco VR, non tedioso.
+
+**Routine mattutina 10 min:**
+1. Collegati con calma
+2. Giro degli uffici virtuali (ogni agente ha la sua stanza)
+3. Ogni agente dice quanto ci mette
+4. Tu scheduli i follow-up
+5. Vai a vivere la vita
+
+**Paradigma:**
+- NO "yes yes yes" continuo
+- SÌ pre-approvazioni + "torna tra X ore"
+- SÌ CEO mode, non micromanagement
+- SÌ ambienti VR strafighi
+
+**Formula:** Sviluppo ultra chirurgico + divertente = Free River Flow
+
+**File completo:** `docs/free-river-flow-vision.md`
+
