@@ -78,6 +78,44 @@ books/
 
 ### FASE 3: COPERTINA (5 min)
 
+#### IMAGE FORMAT REQUIREMENTS FOR PRINT
+
+| Uso | Formato | Risoluzione | Note |
+|-----|---------|-------------|------|
+| Logo Onde | SVG (preferito) o PNG trasparente | Vettoriale o 1000x1000+ | Mai JPG per logo |
+| Copertine | PNG o TIFF | 300dpi, 1600x2560px min | Per stampa |
+| Illustrazioni interne | PNG trasparente | 300dpi | Per flessibilità layout |
+| Web/ePub | JPG o PNG | 72-150dpi | Ottimizzato per dimensione file |
+
+#### REGOLE GENERALI IMMAGINI:
+- Logo: SEMPRE vettoriale (SVG) o PNG trasparente - MAI JPG
+- Per stampa: SEMPRE 300dpi minimo
+- Per digital: 150dpi sufficiente
+- Preferire PNG a JPG per qualità (no compression artifacts)
+- Copertine: mantenere versione print-ready (300dpi) E web-ready (72dpi)
+
+#### MANTENIMENTO ASSET PRINT + DIGITAL
+Per ogni libro, mantenere SEMPRE due versioni di tutti gli asset:
+
+| Asset | Versione Print | Versione Digital |
+|-------|---------------|------------------|
+| Copertina | `cover-print.png` (300dpi, CMYK) | `cover-web.jpg` (72dpi, RGB) |
+| Illustrazioni | `images/print/` (300dpi, PNG) | `images/web/` (150dpi, JPG/PNG) |
+| Logo | `logo.svg` (vettoriale) | `logo.png` (trasparente) |
+
+**Struttura cartella aggiornata:**
+```
+[nome-libro]/
+├── images/
+│   ├── print/          # 300dpi per stampa
+│   │   ├── cover-print.png
+│   │   └── illustration-01.png
+│   └── web/            # 72-150dpi per digital
+│       ├── cover-web.jpg
+│       └── illustration-01.jpg
+└── ...
+```
+
 1. **Identifica lo stile** dalla catena:
 
 | Catena | Stile Copertina |

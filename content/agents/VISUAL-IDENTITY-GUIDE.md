@@ -422,6 +422,70 @@ Tutte le catene condividono: qualità produttiva eccezionale, typography curata,
 
 ---
 
+## IMAGE FORMAT REQUIREMENTS FOR PRINT
+
+| Uso | Formato | Risoluzione | Note |
+|-----|---------|-------------|------|
+| Logo Onde | SVG (preferito) o PNG trasparente | Vettoriale o 1000x1000+ | Mai JPG per logo |
+| Copertine | PNG o TIFF | 300dpi, 1600x2560px min | Per stampa |
+| Illustrazioni interne | PNG trasparente | 300dpi | Per flessibilità layout |
+| Web/ePub | JPG o PNG | 72-150dpi | Ottimizzato per dimensione file |
+
+### REGOLE GENERALI IMMAGINI:
+- Logo: SEMPRE vettoriale (SVG) o PNG trasparente - MAI JPG
+- Per stampa: SEMPRE 300dpi minimo
+- Per digital: 150dpi sufficiente
+- Preferire PNG a JPG per qualità (no compression artifacts)
+- Copertine: mantenere versione print-ready (300dpi) E web-ready (72dpi)
+
+---
+
+## MANTENIMENTO ASSET PRINT + DIGITAL
+
+**REGOLA FONDAMENTALE**: Per ogni progetto, mantenere SEMPRE due versioni di tutti gli asset visivi.
+
+### Struttura Asset per Progetto
+
+| Asset | Versione Print | Versione Digital |
+|-------|---------------|------------------|
+| **Copertina** | `cover-print.png` (300dpi, CMYK ready) | `cover-web.jpg` (72dpi, RGB) |
+| **Illustrazioni** | `images/print/` (300dpi, PNG trasparente) | `images/web/` (150dpi, JPG o PNG) |
+| **Logo Onde** | `logo.svg` (vettoriale) | `logo.png` (trasparente, 1000x1000+) |
+| **Grafiche promozionali** | `promo/print/` (300dpi, CMYK) | `promo/web/` (72dpi, RGB) |
+
+### Struttura Cartelle Standard
+
+```
+[progetto]/
+├── assets/
+│   ├── print/              # Asset per stampa (300dpi, CMYK)
+│   │   ├── cover-print.png
+│   │   ├── illustrations/
+│   │   └── promo/
+│   └── digital/            # Asset per web/ePub (72-150dpi, RGB)
+│       ├── cover-web.jpg
+│       ├── illustrations/
+│       └── promo/
+└── ...
+```
+
+### Workflow Creazione Asset
+
+1. **Genera sempre in alta risoluzione** (300dpi minimo)
+2. **Salva master** in formato lossless (PNG o TIFF)
+3. **Crea versione print** (300dpi, verifica CMYK se per tipografia)
+4. **Crea versione digital** (72-150dpi, RGB, ottimizzato)
+5. **MAI eliminare** la versione alta risoluzione
+
+### Conversione Print → Digital
+
+```bash
+# Esempio con ImageMagick
+convert cover-print.png -resize 50% -quality 85 cover-web.jpg
+```
+
+---
+
 ## CHECKLIST PRE-PUBBLICAZIONE
 
 - [ ] Ho identificato la catena corretta (Classics/Futures/Learn)?
@@ -430,6 +494,9 @@ Tutte le catene condividono: qualità produttiva eccezionale, typography curata,
 - [ ] Stile illustrazioni coerente con la catena?
 - [ ] Wordmark Onde posizionato correttamente?
 - [ ] Qualità premium garantita?
+- [ ] **Asset print-ready disponibili (300dpi)?**
+- [ ] **Asset digital-ready disponibili (72-150dpi)?**
+- [ ] **Logo in formato vettoriale (SVG) o PNG trasparente?**
 
 ---
 
