@@ -98,6 +98,31 @@ Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
 **Frase chiave:** *"Esperienza e crescita. È tutto divertendosi stando nel flow."*
 
+### 📚 LA MISSIONE CULTURALE (10 Gen 2026)
+
+**Onde riporta la gente a leggere.**
+
+Con Spotify dei libri possiamo:
+- **Far tornare i libri di moda** - Rendere la lettura cool di nuovo
+- **Far tornare la poesia di moda** - Video poesia, spoken word, VR poetry
+- **Creare mercato per contenuti dimenticati** - Classici, filosofia, spiritualità
+- **Video poesia in VR** - Esperienze immersive impossibili prima
+
+### ⏰ IL TIMING PERFETTO (10 Gen 2026)
+
+> "La gente adesso avrà molto più tempo per crescere perché sta già esternalizzando molti lavori alle AI." - Mattia
+
+**Perché ORA è il momento:**
+- Le AI prendono i lavori ripetitivi
+- Le persone hanno più tempo libero
+- Cercano significato, crescita, bellezza
+- **È il momento perfetto per creare e diffondere cultura**
+
+Onde arriva proprio quando il mondo ne ha più bisogno.
+Non vendiamo intrattenimento. Vendiamo crescita.
+
+---
+
 ### 🌀 FILOSOFIA ONDE (10 Gen 2026)
 
 **Onde è il cammino del Tao** - quella linea che sta in mezzo.
