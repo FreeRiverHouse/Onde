@@ -9,13 +9,16 @@
       "Disrupting publishing globale",
       "Onde = Spotify per libri",
       "VR/AR come ambiente di lavoro",
-      "AI che scala senza effort umano"
+      "AI che scala senza effort umano",
+      "Octopus Strategy - crescita virale multi-tentacolo"
     ],
     "excites": [
       "Automazione totale",
       "Revenue passiva",
       "Figo + Funziona",
-      "Battere i giganti"
+      "Battere i giganti",
+      "LA vibe / estetica stunning",
+      "Early adopter community"
     ],
     "frustrates": [
       "Lentezza",
@@ -29,22 +32,44 @@
   "current_state": {
     "monthly_revenue": 0,
     "runway_months": null,
-    "top_priority": "Primo revenue da ebook",
+    "top_priority": "Finire primi 2 libri + pagamenti portale",
     "blockers": []
   },
 
   "priorities": {
-    "p0_this_week": [],
-    "p1_this_month": [],
+    "p0_this_week": [
+      "Finire primi 2 libri",
+      "Pubblicare su Amazon + Onde.la",
+      "Integrare sistema pagamenti portale"
+    ],
+    "p1_this_month": [
+      "Landing page wall early adopters (video stunning, Pina Pennello)"
+    ],
     "p2_this_quarter": [],
     "parked": [],
     "eliminated": []
   },
 
-  "ideas_evaluated": [],
+  "ideas_evaluated": [
+    {
+      "date": "2026-01-11",
+      "idea": "Landing page wall early adopters",
+      "description": "Portale con wall 'mare burrascoso', input codice o email waitlist, video stunning onde/tramonto LA vibe",
+      "score": 3,
+      "revenue": "Indiretta (lista email, hype)",
+      "effort": "2-3 giorni",
+      "scale": "Media",
+      "moat": "Basso",
+      "verdict": "P1",
+      "reasoning": "Bella per branding ma senza prodotto = lista fredda. Prima i libri."
+    }
+  ],
 
   "patterns_observed": {
-    "recurring_themes": [],
+    "recurring_themes": [
+      "Estetica LA/oceano/onde come brand identity",
+      "Early adopter community building"
+    ],
     "abandoned_directions": [],
     "successful_bets": []
   },
@@ -54,6 +79,11 @@
       "date": "2026-01-11",
       "insight": "Ebook pubblico dominio inglese = lowest effort, highest immediate ROI",
       "source": "Market research + Gutenberg data"
+    },
+    {
+      "date": "2026-01-11",
+      "insight": "Prodotto PRIMA di hype - landing page senza prodotto = lista fredda",
+      "source": "Prioritizzazione Mattia"
     }
   ],
 
@@ -63,6 +93,30 @@
       "decision": "Focus TIER 1 ebook prima di app/video",
       "reasoning": "Revenue immediata > visioni grandiose",
       "outcome": null
+    },
+    {
+      "date": "2026-01-11",
+      "decision": "P0: 2 libri + Amazon + pagamenti. P1: Landing page wall",
+      "reasoning": "Prodotto prima, hype dopo",
+      "outcome": null
     }
-  ]
+  ],
+
+  "landing_page_wall_spec": {
+    "status": "P1 - dopo libri",
+    "concept": {
+      "headline": "Uh-oh, è burrascoso qui!",
+      "subhead": "Il mare è un po' mosso, le onde sono alte. Sicuro che vuoi surfare?",
+      "cta_code": "Se sei coraggioso, inserisci il codice",
+      "cta_email": "Oppure lascia la mail - ti avvisiamo quando le acque saranno calme",
+      "vibe": "LA sunset, oceano, stunning video background"
+    },
+    "assets_needed": [
+      "Video background onde/tramonto (Pina Pennello)",
+      "Copy raffinato",
+      "Integrazione email (Mailchimp/Loops?)",
+      "Sistema codici invito"
+    ],
+    "assigned_to": "Pina Pennello"
+  }
 }
