@@ -207,6 +207,62 @@ Per ogni libro, mantenere SEMPRE due versioni di tutti gli asset:
 - **Grok** per illustrazioni statiche
 - **Hedra** se serve animazione (es. per versione enhanced/video)
 
+### FASE 4.5: FORWARD DEL LIBRO (5 min)
+
+**Ogni libro ONDE CLASSICS ha una forward personale.**
+
+#### Workflow Forward
+
+1. **Gianni Parola scrive** la forward:
+   - Segue template in `/content/agents/gianni-parola.md`
+   - Apertura evocativa (1 riga)
+   - Sul libro specifico (2-3 righe) - perché è speciale, cosa può dare
+   - Su Onde + @magmatic__ (2 righe)
+   - Call to action gentile (1 riga)
+
+2. **Grok rivede** via API:
+   ```
+   Prompt: "Review this book forward for tone, grammar, and emotional impact.
+   It should feel warm, human, and specific to the book. Never corporate.
+   Suggest improvements if needed."
+   ```
+
+3. **Gianni integra** feedback di Grok
+
+4. **Editore Capo approva** - check brand fit
+
+5. **Forward inclusa** nel libro (dopo copertina, prima del testo)
+
+#### Esempio Forward (Meditations)
+
+> *You found this. Or maybe it found you.*
+>
+> *A Roman emperor wrote these words two thousand years ago, alone in his tent, after long days of war. They were never meant to be read by anyone else. Just a man trying to stay sane, stay kind, stay human—while the weight of an empire pressed down on him.*
+>
+> *And somehow, here they are. In your hands.*
+>
+> *We're Onde, a small publishing house in Los Angeles. This edition was curated by [@magmatic__](https://x.com/magmatic__) with care—and yes, with the help of AI. The text is authentic. The price is fair. The rest is between you and Marcus.*
+>
+> *If it helps, we'd love to hear about it.*
+
+#### Regole Tono Forward
+
+- **Caldo**, mai corporate
+- **Specifico** per ogni libro, mai copia-incolla
+- **Umano** - deve sentirsi che c'è qualcuno dietro
+- **Mai** dire esplicitamente "le AI sono buone" - farlo sentire
+- **Sempre** menzionare @magmatic__ con link
+
+#### 🔮 VISIONE FUTURA: Forward Personalizzate
+
+In futuro (Onde = Spotify per libri):
+- Forward personalizzata in base alla storia di lettura dell'utente
+- "Visto che hai letto X, questo libro ti piacerà perché..."
+- Suggerimenti "dopo questo, leggi anche..."
+- Guidiamo il lettore nel suo percorso di crescita
+
+---
+
 ### FASE 5: ASSEMBLY (5 min)
 
 1. **Crea `book.html`** dal template:
