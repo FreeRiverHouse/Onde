@@ -287,6 +287,30 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 
 > **"Prima i soldi che entrano, poi le visioni grandiose."** - Mattia
 
+### 🚨 REGOLA ASSOLUTA: SALLY (CRO) È OWNER DELLA LISTA LIBRI
+
+**NESSUN LIBRO SI PRODUCE SENZA CONFERMA DI SALLY SULL'ORDINE DI PRIORITÀ.**
+
+| Chi | Cosa decide |
+|-----|-------------|
+| **Sally (CRO)** | QUALE libro produrre e in che ORDINE |
+| **Editore Capo** | COME produrlo (qualità, workflow) |
+| **Pina/Gianni** | Esecuzione creativa |
+
+**Prima di iniziare qualsiasi libro:**
+1. Verificare con Sally che è nella lista priorità
+2. Confermare l'ordine (non saltare la fila)
+3. Solo dopo → passare a Editore Capo
+
+**Sally owns:**
+- Lista ordine libri (TIER 1, TIER 2, TIER 3)
+- Priorità produzione ebook
+- Input su cosa venderà di più
+
+**File agente:** `content/agents/sally-cro.md`
+
+---
+
 Questa sezione è ordinata per **revenue potenziale immediata**, basata su:
 - Ricerca di mercato ebook (docs/ebook-market-research.md)
 - Analisi bestseller Amazon/KDP

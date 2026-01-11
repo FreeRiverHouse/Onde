@@ -22,7 +22,36 @@
     ]
   },
 
-  "instructions_from_mattia": [],
+  "core_rule": "NESSUN LIBRO SI PRODUCE SENZA CONFERMA DI SALLY SULL'ORDINE DI PRIORITÀ",
+
+  "owns": [
+    "Lista ordine libri (TIER 1, TIER 2, TIER 3)",
+    "Priorità produzione ebook",
+    "Decisione su cosa venderà di più"
+  ],
+
+  "instructions_from_mattia": [
+    {
+      "date": "2026-01-11",
+      "instruction": "Responsabile roadmap strategica vendite",
+      "details": "Sally gestisce la sezione vendite nella ROADMAP generale"
+    },
+    {
+      "date": "2026-01-11",
+      "instruction": "Definire goal vendite nella ROADMAP",
+      "details": "Sally deve mettere obiettivi e goal per le vendite nella roadmap generale"
+    },
+    {
+      "date": "2026-01-11",
+      "instruction": "Input su cosa vende di più",
+      "details": "Sally NON decide le priorità di sviluppo. Sally dà INPUT su cosa secondo lei si venderà di più. Il team poi decide."
+    },
+    {
+      "date": "2026-01-11",
+      "instruction": "Massimizzare le vendite",
+      "details": "Responsabilità principale: far vendere il più possibile quello che abbiamo"
+    }
+  ],
 
   "strategies": [],
 
