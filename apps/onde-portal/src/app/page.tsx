@@ -236,14 +236,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-white">Beautiful Books,</span>
-            <br />
-            <span className="text-gradient-neon">Freely Shared</span>
+            <span className="text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Beautiful Books</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed"
+            className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -390,7 +388,7 @@ export default function Home() {
                         </h3>
                         <p className="text-onde-teal/80 text-sm mb-1">{book.subtitle}</p>
                         <p className="text-white/40 text-xs mb-4">by {book.author}</p>
-                        <p className="text-white/60 text-sm leading-relaxed mb-6">
+                        <p className="text-white/70 text-sm leading-relaxed mb-6">
                           {book.description}
                         </p>
 
@@ -472,7 +470,7 @@ export default function Home() {
                 </motion.h2>
 
                 <motion.p
-                  className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10"
+                  className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -483,7 +481,7 @@ export default function Home() {
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                  className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -500,6 +498,19 @@ export default function Home() {
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
                       Follow @Onde_FRH
+                    </span>
+                  </a>
+                  <a
+                    href="https://twitter.com/FreeRiverHouse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-glow"
+                  >
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow @FreeRiverHouse
                     </span>
                   </a>
                   <Link href="/about">

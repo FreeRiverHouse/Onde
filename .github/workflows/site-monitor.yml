@@ -1,0 +1,114 @@
+name: Site Monitor
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+jobs:
+  check-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check onde.la is up
+        id: check
+        run: |
+          echo "Checking onde.la..."
+
+          # Check if site is reachable
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://onde.la)
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "status=down" >> $GITHUB_OUTPUT
+            echo "error=HTTP $HTTP_STATUS" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check for critical content
+          CONTENT=$(curl -s https://onde.la)
+
+          # Check for futuristic design markers
+          if echo "$CONTENT" | grep -q "Beautiful Books"; then
+            echo "✅ 'Beautiful Books' found"
+          else
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Missing 'Beautiful Books' title" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if echo "$CONTENT" | grep -q "Freely Shared"; then
+            echo "✅ 'Freely Shared' found"
+          else
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Missing 'Freely Shared' subtitle" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check for old content that should NOT be there
+          if echo "$CONTENT" | grep -q "small italian publishing house"; then
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Found old 'small italian publishing house' text!" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check for particle effects (futuristic design marker)
+          if echo "$CONTENT" | grep -q "#4ECDC4"; then
+            echo "✅ Particle effects present (futuristic design)"
+          else
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Missing particle effects - old design detected!" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check for two books
+          if echo "$CONTENT" | grep -q "Meditations"; then
+            echo "✅ Meditations book present"
+          else
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Missing Meditations book" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if echo "$CONTENT" | grep -q "Shepherd"; then
+            echo "✅ Shepherd's Promise book present"
+          else
+            echo "status=wrong_content" >> $GITHUB_OUTPUT
+            echo "error=Missing Shepherd's Promise book" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "status=ok" >> $GITHUB_OUTPUT
+          echo "✅ All checks passed!"
+
+      - name: Send Telegram Alert (if issues)
+        if: steps.check.outputs.status != 'ok'
+        run: |
+          MESSAGE="🚨 *ONDE.LA ALERT*%0A%0A"
+          MESSAGE+="Status: ${{ steps.check.outputs.status }}%0A"
+          MESSAGE+="Error: ${{ steps.check.outputs.error }}%0A%0A"
+          MESSAGE+="Check the site immediately!%0A"
+          MESSAGE+="https://onde.la"
+
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+            -d "chat_id=$TELEGRAM_CHAT_ID" \
+            -d "text=$MESSAGE" \
+            -d "parse_mode=Markdown"
+
+      - name: Send Daily OK Report (at 9 AM PT)
+        if: steps.check.outputs.status == 'ok' && github.event.schedule == '0 17 * * *'
+        run: |
+          MESSAGE="✅ *ONDE.LA Daily Report*%0A%0A"
+          MESSAGE+="All systems operational:%0A"
+          MESSAGE+="• Futuristic design active%0A"
+          MESSAGE+="• Both books visible%0A"
+          MESSAGE+="• No old content detected%0A%0A"
+          MESSAGE+="Site: https://onde.la"
+
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+            -d "chat_id=$TELEGRAM_CHAT_ID" \
+            -d "text=$MESSAGE" \
+            -d "parse_mode=Markdown"
