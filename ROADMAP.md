@@ -47,6 +47,119 @@ Onde sta disrupting l'editoria mondiale su DUE fronti:
 
 > **"Non facciamo libri. Facciamo libri BELLISSIMI."** - Mattia
 
+### Lo Spam AI è il Nostro Alleato (11 Gen 2026)
+
+**Insight critico:** L'81% dei bestseller in alcune categorie Amazon sono junk AI.
+
+**Perché ci aiuta:**
+- Amazon sta diventando una discarica di spam
+- Gli autori VERI cercheranno rifugio
+- Onde = qualità curata, non spam
+- Gli autori vorranno venire da NOI
+
+**Strategia:**
+1. Catalogo classici curato (non spam)
+2. Catalogo AI ma BELLO (qualità Onde)
+3. **Colonna Autori** - Partnership con autori veri
+
+---
+
+### 🚫 ANTI-MONOPOLIO: Onde vs Amazon/Apple (11 Gen 2026)
+
+**Il problema:**
+- Amazon = 67% mercato ebook USA
+- Apple Books = quasi tutto il resto
+- Zero alternative per autori e lettori
+- Monopolio totale
+
+**Onde come alternativa:**
+- Piattaforma indipendente
+- Autori trattati come partner, non come commodity
+- Qualità > quantità
+- Community > algoritmo
+
+**Possibili alleanze:**
+| Partner | Perché | Probabilità |
+|---------|--------|-------------|
+| **X/Twitter** | Musk anti-monopolio, già ha Grok per contenuti | Alta |
+| **Tesla** | Ecosistema Musk, entertainment in-car | Media |
+| **Substack** | Già fa publishing indipendente | Media |
+| **Spotify** | Audiobook, già competitor Amazon | Media |
+
+**Da verificare:** X sta già facendo qualcosa simile? Possiamo integrarci?
+
+---
+
+### 🇮🇹 AUTORI ITALIANI - Potenziali Partnership (11 Gen 2026)
+
+**Criteri selezione:**
+- Copyright attivo (non pubblico dominio)
+- Piattaforma piccola/media
+- Presenti su X/social
+- Aperti all'innovazione
+- Stufi del mainstream/Amazon
+
+**Lista potenziali (da contattare Q2):**
+
+| Autore | Genere | Presenza Social | Casa Editrice | Note |
+|--------|--------|-----------------|---------------|------|
+| **Francesco Lorusso** | Poesia | Da verificare | arcipelagoitaca | Poeta + musicista, emergente |
+| **Mara Limonta** | Poesia/Narrativa | Da verificare | Indie | Vincitrice premi, pubblica 2025 |
+| **Riccardo Bruni** | Narrativa | Da verificare | Self/Amazon | Ex Strega 2016, conosce self-pub |
+| **Jenny Anastan** | Narrativa | Da verificare | Self | Self-publisher di successo |
+| **Amabile Giusti** | Narrativa | Da verificare | Self/Mondadori | Ibrida tradizionale/self |
+
+**Poeti contemporanei (più established):**
+- Vivian Lamarque
+- Valerio Magrelli
+- Milo De Angelis
+
+**Prossimi step:**
+1. [ ] Verificare profili X di ogni autore
+2. [ ] Valutare apertura all'innovazione
+3. [ ] Preparare pitch "Onde per Autori"
+4. [ ] Contattare Q2 2026 (dopo primi risultati)
+
+---
+
+### ⏰ MARKET TIMING ANALYSIS (11 Gen 2026)
+
+**Notizia critica:** Google Gemini GIÀ genera storybook illustrati al volo (10 pagine, 45 lingue).
+
+**Timeline finestra mercato:**
+
+| Fase | Timeline | Cosa succede |
+|------|----------|--------------|
+| **CAOS** | 0-12 mesi | Spam AI, qualità differenzia |
+| **CONSOLIDAMENTO** | 12-24 mesi | Big Tech integra gen→distribuzione |
+| **POST-EBOOK** | 24-36 mesi | Contenuto = commodity |
+
+**Stima finestra solida:** 12 mesi (worst: 6, best: 18)
+
+**Implicazione:** VELOCITÀ > PERFEZIONE. 50 libri in 2 mesi.
+
+---
+
+### 🔮 VISIONE ULTIMATE: L'Utente Diventa Onde (11 Gen 2026)
+
+**Fasi evoluzione:**
+
+```
+ORA:        Onde produce contenuti
+6-12 MESI:  Onde.la diventa piattaforma
+12-24 MESI: L'utente genera DENTRO Onde
+24+ MESI:   L'utente È il suo Onde
+```
+
+**Significato "Onde":**
+- Onde del mare (surfing, LA vibe)
+- Onde cerebrali (connessione, frequenze)
+- Onde come vibrazioni (far fiorire il mondo)
+
+**Il futuro:** L'utente non userà più Onde. Sarà lui stesso il suo Onde.
+
+---
+
 ### Exit potenziali
 
 | Acquirente | Perché ci vogliono | Valuation |
