@@ -275,19 +275,91 @@ Prima di usare QUALSIASI immagine AI:
 
 ---
 
+## 🔴 FEEDBACK LOOPS - VERIFICA CONTENUTI (11 Gen 2026)
+
+**LEZIONE CRITICA**: Il libro Meditations è stato corrotto perché i file sorgente contenevano pagine di errore 404 invece del testo vero. MAI PIÙ!
+
+### CHECKPOINT OBBLIGATORI
+
+**Ogni volta che generi contenuto (scraping, traduzione, impaginazione):**
+
+1. **VERIFICA SORGENTE**
+   ```
+   PRIMA di processare:
+   - [ ] Sorgente leggibile? (non 404, non errore, non vuoto)
+   - [ ] Contenuto corretto? (campione 3 righe dal testo)
+   - [ ] Formato previsto? (HTML/TXT/JSON come atteso)
+   ```
+
+2. **BACKUP PRIMA DI MODIFICARE**
+   ```
+   PRIMA di qualsiasi modifica:
+   - [ ] git status (salva tutto prima)
+   - [ ] git commit -m "WIP: backup before [descrizione]"
+   - [ ] MAI sovrascrivere file funzionanti senza backup
+   ```
+
+3. **VERIFICA OUTPUT**
+   ```
+   DOPO la generazione:
+   - [ ] Apri il file e LEGGI le prime 5 righe
+   - [ ] Confronta con testo atteso (non deve avere errori/404)
+   - [ ] Se testo pubblico dominio: verifica contro Gutenberg originale
+   ```
+
+### SEGNALI DI ALLARME (FERMARSI IMMEDIATAMENTE!)
+
+| Segnale | Cosa Significa | Azione |
+|---------|----------------|--------|
+| "Page Not Found" nel testo | Scraping fallito | STOP, usa fonte alternativa |
+| "404", "Error", "gtm.js" | Pagina HTML scaricata invece del contenuto | STOP, verifica URL |
+| File < 1KB per capitolo | Contenuto mancante | STOP, verifica fonte |
+| Caratteri strani/encoding | Problemi charset | STOP, usa UTF-8 |
+| Pagine vuote nel PDF | Generazione fallita | STOP, ricontrolla HTML |
+
+### FONTI AFFIDABILI (ORDINE DI PREFERENZA)
+
+1. **Project Gutenberg** (gutenberg.org) - TXT/UTF-8 preferito
+2. **Standard Ebooks** (standardebooks.org) - EPUB di qualità
+3. **Archive.org** - Scansioni verificate
+4. **Wikisource** - Testi verificati dalla community
+
+**MAI USARE:**
+- MIT Classics (spesso offline/404)
+- Siti random con testi non verificati
+- Traduzioni automatiche non controllate
+
+### PROCEDURA CORREZIONE ERRORI
+
+```
+SE trovi contenuto corrotto:
+
+1. NON continuare con il file corrotto
+2. Identifica la fonte originale corretta (Gutenberg, etc.)
+3. Scarica/usa la fonte verificata
+4. Rigenera TUTTO da zero
+5. Verifica output PRIMA di mandare a Mattia
+6. Commit con messaggio "[FIXED] [libro] - rigenerato da fonte corretta"
+```
+
+---
+
 ## WORKFLOW COMPLETO
 
 ```
 1. Ricevi commissione libro
 2. Check anti-plagio (nomi, titoli)
-3. Scrivi testo (personalità Gianni)
-4. Genera illustrazioni batch (personalità Pina)
-5. QC: anatomia, coerenza, stile
-6. Assembla PDF/EPUB
-7. Grok review finale
-8. INVIA SU TELEGRAM
-9. Attendi OK Mattia
-10. Pubblica su KDP
+3. ✅ VERIFICA SORGENTE (prima di iniziare!)
+4. ✅ BACKUP stato attuale (git commit)
+5. Scrivi testo (personalità Gianni)
+6. Genera illustrazioni batch (personalità Pina)
+7. QC: anatomia, coerenza, stile
+8. Assembla PDF/EPUB
+9. ✅ VERIFICA OUTPUT (prime 5 righe di ogni sezione)
+10. Grok review finale
+11. INVIA SU TELEGRAM
+12. Attendi OK Mattia
+13. Pubblica su KDP
 ```
 
 ---
