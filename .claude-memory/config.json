@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "initialized": "2026-01-11T01:03:46.870Z",
+  "lastCleanup": null,
+  "settings": {
+    "maxMemories": 1000,
+    "maxHandoffs": 100,
+    "autoCleanupDays": 30
+  }
+}

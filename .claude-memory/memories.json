@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "mem-1768093426879",
+      "content": "Continuous Claude implementato - hooks attivi per PreCompact e SessionStart",
+      "category": "milestone",
+      "source": "init-memory-db.js",
+      "savedToRoadmap": false,
+      "createdAt": "2026-01-11T01:03:46.879Z"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+# Onde Continuous Claude - Handoff
+# Generated: 2026-01-11T01:03:55.368Z
+# Trigger: manual
+
+session_meta:
+  id: "session-1768093435368-x8axyp"
+  timestamp: "2026-01-11T01:03:55.368Z"
+  trigger: "manual"
+  transcript: ""
+
+recent_files:
+  - ".claude-workers/TASKS.json"
+  - "CLAUDE.md"
+  - "ROADMAP.md"
+  - "books/pinocchio/generate-epub.js"
+  - "books/pinocchio/images/ch03-geppetto-workshop.jpg"
+  - "books/pinocchio/images/ch04-talking-cricket.jpg"
+  - "books/pinocchio/images/ch08-going-to-school.jpg"
+  - "books/pinocchio/images/ch10-marionette-theater.jpg"
+  - "books/pinocchio/images/ch12-fox-and-cat.jpg"
+  - "books/pinocchio/images/ch16-fairy-azure-hair.jpg"
+
+current_priorities:
+  - "Onde platform solida con 3-5 prodotti funzionanti"
+  - "Primi utenti paganti"
+  - "Documentare ogni modulo come potenziale spin-off"
+  - "Metriche chiare per ogni vertical"
+  - "Identificare il modulo più vendibile (probabilmente BookForge o FlowCode)"
+
+notes: |
+  Questo handoff e' stato salvato automaticamente prima della compaction.
+  Al prossimo avvio, Claude vedra' questo contesto.
