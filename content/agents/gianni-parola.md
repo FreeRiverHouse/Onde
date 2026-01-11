@@ -21,7 +21,9 @@ Verifica TUTTI questi punti:
 - [ ] **ENCODING** - Nessun carattere rotto (â€™ invece di ')?
 
 ### Step 2: Grok rivede il testo
-Passa il testo a Grok API con questo prompt:
+
+**METODO 1 - Via Browser (preferito se Chrome disponibile):**
+Apri Grok (x.com/i/grok) e incolla:
 ```
 Review this text for a book publication:
 1. Grammar and spelling correct?
@@ -30,6 +32,22 @@ Review this text for a book publication:
 4. Any unauthorized prefaces or introductions?
 5. Text authentic to the original author?
 Respond: APPROVED or NEEDS_FIXES with specific issues.
+
+[INCOLLA IL TESTO QUI]
+```
+
+**METODO 2 - Via API (se Chrome non disponibile):**
+```bash
+curl -X POST "https://api.x.ai/v1/chat/completions" \
+  -H "Authorization: Bearer $XAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "grok-2-latest",
+    "messages": [
+      {"role": "system", "content": "Sei un editor esperto. Valuta questo testo."},
+      {"role": "user", "content": "[TESTO DA REVISIONARE]"}
+    ]
+  }'
 ```
 
 ### Step 3: Solo dopo → passa all'Editore Capo

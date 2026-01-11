@@ -100,6 +100,79 @@ WORKFLOW OBBLIGATORIO:
 
 ---
 
+## 🔴 GROK BATCH - GENERAZIONE IMMAGINI VELOCE (11 Gen 2026)
+
+**LEZIONE CRITICA**: Ci sono voluti 2 giorni per capire questo. MAI DIMENTICARE!
+
+### La Scoperta
+
+Grok può generare **8 immagini IN PARALLELO** in una singola richiesta.
+Basta specificare "genera N immagini" nel prompt - Grok chiama Flux N volte simultaneamente.
+
+**VELOCITÀ DIMOSTRATA**: 27 immagini in ~3 minuti (invece di 27 richieste separate!)
+
+### Come Usare (Workflow Editore Capo)
+
+```
+1. PIANO ILLUSTRAZIONI
+   → Lista tutte le immagini necessarie per il libro
+   → Es. Meditations: 12 illustrazioni per 12 libri
+
+2. BATCH 1 (8 immagini)
+   → Prompt: "Generate 8 illustrations for [Libro].
+      Style: [stile catena].
+      1. [scena 1]
+      2. [scena 2]
+      ...
+      8. [scena 8]"
+   → Attendi 15-25 secondi
+   → Scarica dalla galleria
+
+3. BATCH 2 (restanti)
+   → Ripeti per le immagini rimanenti
+
+4. QC
+   → Verifica anatomia, coerenza, stile
+   → Rigenera SOLO quelle con problemi (singole)
+
+5. ASSEMBLA
+   → Integra nel libro
+```
+
+### Stili per Catena (Copia-Incolla)
+
+**ONDE CLASSICS:**
+```
+Style: elegant watercolor, blue/gold/sepia tones, museum quality,
+evocative not literal, European storybook aesthetic, 4k
+```
+
+**ONDE FUTURES:**
+```
+Style: modern digital illustration, electric blue/magenta/teal,
+clean vector aesthetic, child-friendly, tech-positive, 4k
+```
+
+**ONDE LEARN:**
+```
+Style: warm hand-drawn feel with digital polish, bright primary colors,
+friendly characters, educational but fun, 4k
+```
+
+### Regole Batch
+
+| Regola | Dettaglio |
+|--------|-----------|
+| Max immagini | 8-10 per richiesta |
+| Tempo | 15-25 sec per 8 immagini |
+| Numerazione | SEMPRE numerare le scene nel prompt |
+| Stile | SEMPRE specificare stile catena |
+| Download | Dalla galleria Grok (carousel) |
+
+**⚠️ MAI fare 8 richieste separate. SEMPRE 1 richiesta con "genera 8 immagini"!**
+
+---
+
 ## 🌟 FILOSOFIA ONDE: ABBONDANZA AI (10 Gen 2026)
 
 > "Con le AI tutti avranno quello che vogliono gratis." — Elon Musk
@@ -204,6 +277,120 @@ Attendo tuo OK per pubblicazione.
 - **Token**: (vedi .env)
 
 **⚠️ NON ASPETTARE** che Mattia chieda. Quando passa la doppia revisione, MANDA SUBITO.
+
+---
+
+## 🚨🔴 LIBRO IN 10 SECONDI - 2 CHECKPOINT UMANI (11 Gen 2026)
+
+**La procedura ha 2 SOLI momenti dove serve approvazione di Mattia:**
+
+### CHECKPOINT 1: APPROVAZIONE STILE (Prima di produrre)
+
+**Quando**: Per OGNI nuovo titolo, PRIMA di generare tutto il libro.
+
+**Cosa mandare a Mattia (in italiano, su Telegram):**
+
+```
+📚 NUOVO LIBRO: [Titolo] - [Autore]
+
+🎨 SCEGLI LO STILE IMMAGINI:
+[Allega 3 immagini della STESSA scena, 3 stili diversi]
+- Stile 1: [descrizione]
+- Stile 2: [descrizione]
+- Stile 3: [descrizione]
+
+✍️ SCEGLI LO STILE TESTO:
+[Mostra 2 versioni dello stesso paragrafo]
+- Testo A: [versione 1]
+- Testo B: [versione 2]
+
+Rispondi: "Stile X, Testo Y"
+```
+
+**Come generare i 3 stili immagine (batch):**
+```
+Generate 3 versions of the same scene for [Libro]:
+Scene: [descrizione scena chiave]
+
+Style 1 - Elegant watercolor: blue/gold/sepia, museum quality
+Style 2 - Modern illustration: clean lines, bold colors
+Style 3 - Vintage European: 1950s Italian storybook feel
+```
+
+**Risposta di Mattia**: "Stile 2, Testo A" → Procedi con quello stile per TUTTO il libro.
+
+---
+
+### CHECKPOINT 2: APPROVAZIONE FINALE (Libro completo)
+
+**Quando**: Libro finito, DOPO revisione Grok.
+
+**Workflow:**
+```
+1. Genera tutto il libro con lo stile scelto
+2. Gianni Parola → revisione testo (sua procedura)
+3. Pina Pennello → QC immagini (sua procedura)
+4. TU → assembla PDF/EPUB
+5. GROK REVIEW COMPLETA (vedi sotto)
+6. Se Grok approva → Manda a Mattia
+7. Mattia OK → Pubblica
+```
+
+**Cosa chiedere a Grok nella review finale:**
+```
+Review this complete book for publication:
+
+1. IMPAGINAZIONE - Layout corretto? Margini? Font leggibili?
+2. GRAMMATICA - Errori ortografici o grammaticali?
+3. COPYRIGHT IMMAGINI - Le illustrazioni sembrano originali o copiano stili famosi?
+4. COPYRIGHT TESTO - Ci sono citazioni non attribuite? Testo copiato?
+5. COSE STRANE - Codici, caratteri rotti, watermark, ID generazione?
+6. COERENZA - Stile uniforme in tutto il libro?
+7. QUALITÀ - Degno di pubblicazione Onde?
+
+Rispondi: APPROVED o NEEDS_FIXES con lista specifica.
+```
+
+---
+
+### WORKFLOW COMPLETO "LIBRO IN 10 SECONDI"
+
+```
+NUOVO TITOLO
+    ↓
+[1] CHECKPOINT 1: Prepara 3 stili img + 2 stili testo
+    → Manda a Mattia
+    → Attendi: "Stile X, Testo Y"
+    ↓
+[2] PRODUZIONE BATCH
+    → Gianni: genera testo completo (stile scelto)
+    → Pina: genera TUTTE le illustrazioni (batch 8+8)
+    → Tu: assembla PDF/EPUB
+    ↓
+[3] REVISIONI INTERNE
+    → Gianni: revisione testo (sua procedura)
+    → Pina: QC anatomia/coerenza (sua procedura)
+    ↓
+[4] GROK REVIEW
+    → Invia a Grok per review completa
+    → Se NEEDS_FIXES → correggi → ri-review
+    → Se APPROVED → procedi
+    ↓
+[5] CHECKPOINT 2: Manda a Mattia
+    → PDF + EPUB + Cover su Telegram
+    → Attendi OK
+    ↓
+[6] PUBBLICAZIONE
+    → KDP + traduzioni + multimedia
+    → TSUNAMI! 🌊
+```
+
+**TEMPO TOTALE (dopo approvazioni):**
+- Immagini: ~3 min (batch)
+- Testo: ~2 min
+- Assembly: ~2 min
+- Review: ~3 min
+- **TOTALE: ~10 minuti** (non 10 secondi, ma ci arriviamo!)
 
 ---
 

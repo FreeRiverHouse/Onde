@@ -1,8 +1,21 @@
 # ONDE Visual Identity Guide - Pilot Phase
 
-**Data**: 10 Gennaio 2026
-**Fonte**: Onde_Brand_Identity_Research.docx
+**Data**: 11 Gennaio 2026
+**Fonte**: Onde_Brand_Identity_Research.docx (Updated)
 **Status**: ATTIVO - Tutti gli agenti DEVONO seguire queste linee guida
+
+---
+
+## 🌊 VISIONE ONDE
+
+**Onde** = Casa editrice AI-driven che sta disrupting l'industria.
+
+**Filosofia Abbondanza (Musk-inspired):**
+- Ebook bellissimi a prezzi bassi (poi freemium/gratis)
+- Piattaforma Spotify-like che evolve in VR Portal
+- Lettura immersiva, condivisione, conversazioni con umani/AI
+
+**Partner Tecnico:** Free River House = AI software fast factory per generazione rapida contenuti.
 
 ---
 
@@ -137,6 +150,7 @@ onde.la
 
 **Scope**: Libri AI per bambini, manuali tech, educazione AI/tech
 **Pubblico**: Famiglie tech-curious, early adopters, professionisti
+**Sinergia**: Con Free River House per "fast factory" AI content generation
 
 ### Typography
 - **Font**: Futura, Avenir, Montserrat
@@ -151,17 +165,35 @@ onde.la
 | Arancione brillante | Accenti | #FF6600 |
 | Bianco/Grigio | Manuali tecnici | #FFFFFF/#808080 |
 
+### 🧬 NUOVO: Elemento Tech - Waves + DNA
+
+**Per sub-verticali tech (AI manuals, coding books):**
+Logo variant con **onde intrecciate a doppia elica DNA**, simboleggiando:
+- Fusione di flusso naturale ("Onde" = waves)
+- Evoluzione tecnologica (DNA = codice della vita/AI)
+- Abbondanza infinita di contenuti generati
+
+**Prompt per generare wave-DNA motif:**
+```
+Abstract waves forming a double helix DNA structure,
+electric blue and magenta gradients, symbolizing AI innovation
+and organic flow. Vector style, pure white background,
+futuristic yet warm, high-resolution, scalable.
+```
+
 ### Stile Illustrazioni
 - Digital-native
 - Gradienti smooth
 - Vector stilizzato
 - Character design consistente per AI-generated
+- **Wave-DNA motifs** per copertine tech/AI
 
 ### Design Covers
 - Grid-based
 - Design modulare
 - Gerarchia visiva chiara
 - Accessibility-first
+- **Tech books**: Wave-DNA per evocare innovazione rapida/evolutiva
 
 ### Reference
 - O'Reilly modern series
@@ -389,8 +421,97 @@ Tutte le catene condividono: qualità produttiva eccezionale, typography curata,
 ### 3. Motivo Onda (Wave Motif)
 "Onde" significa wave. Elemento grafico che appare diversamente in ogni catena:
 - **Classics**: Linee fluide eleganti
-- **Futures**: Pattern onda geometrici
+- **Futures**: Pattern onda geometrici + DNA per tech
 - **Learn**: Forme onda giocose
+
+### 4. Integrazione Free River House
+Free River House = AI software fast factory, backend per generazione contenuti Onde.
+- Trattare come partner endorsed: "Powered by Free River House"
+- Loghi complementari con wave motifs ma personalità distinte
+- **Onde** = portale culturale/educativo
+- **Free River House** = acceleratore tech
+
+---
+
+## 🎨 LOGO PROMPTS - VETTORIALI SU BIANCO (11 Gen 2026)
+
+**PROBLEMA RISOLTO**: I loghi attuali hanno sfondo beige/off-white e non sono vettoriali.
+**SOLUZIONE**: Prompt ottimizzati per generare loghi SVG-ready su sfondo BIANCO PURO.
+
+**Stile target**: AI-luxury vibe (futuristico ma con cuore umano), high-contrast, scalabili.
+
+### ONDE - Logo Core (3 Varianti)
+
+**Prompt 1 - Classic Variant:**
+```
+Create a stunning vector logo for 'Onde' publishing house:
+elegant, flowing wave shapes intertwining around bold sans-serif
+text in dark navy blue. Futuristic AI-luxury style with human heart –
+subtle organic curves evoking rivers and energy. Pure white background,
+high-contrast, scalable SVG style, minimalist, inspired by Penguin Classics
+but modern. No beige, ensure crisp edges, 4k.
+```
+
+**Prompt 2 - Tech Variant (Waves + DNA):**
+```
+Design a vector logo for 'Onde Tech' in AI-luxury vibe:
+waves intertwined with DNA double helix, forming the word 'Onde'
+in geometric sans-serif (Montserrat-inspired). Electric blue and
+magenta gradients for waves/DNA, symbolizing abundance and innovation.
+Pure white background, futuristic yet warm, high-resolution, scalable.
+Add subtle glow for tech feel, no text distortion, 4k.
+```
+
+**Prompt 3 - VR/Portal Variant:**
+```
+Generate a dynamic vector logo for 'Onde Portal':
+wave motifs expanding into immersive 3D-like swirls around 'Onde' text.
+Multilingual-friendly sans font, in deep blue with gold accents.
+AI abundance theme – waves suggesting infinite content flow.
+White background, vector style for app icons/VR splash screens,
+stunning and elegant, 4k.
+```
+
+### FREE RIVER HOUSE - Logo (3 Varianti)
+
+**Prompt 1 - Core Variant:**
+```
+Craft a stunning vector logo for 'Free River House' AI software fast factory:
+dynamic river waves forming an abstract S-shape, integrated with bold text
+in navy blue. Add subtle speed lines or flow arrows for 'fast factory' vibe.
+AI-luxury style – futuristic, energetic, with human warmth via organic curves.
+Pure white background, high-contrast, scalable SVG, minimalist, no beige, 4k.
+```
+
+**Prompt 2 - Tech/Factory Variant:**
+```
+Vector logo for 'Free River House': waves representing rapid AI generation,
+intertwined with gear-like elements or code streams for software factory theme.
+Text in modern sans-serif, electric blue accents. Stunning, high-energy design
+evoking Musk's abundance – fast, infinite flow. White background, crisp vectors,
+suitable for app icons, 4k.
+```
+
+**Prompt 3 - Abundance Variant:**
+```
+Design an epic vector logo for 'Free River House':
+free-flowing river waves branching into multiple streams,
+symbolizing AI abundance and fast content creation.
+Integrate 'Free River House' text seamlessly, with small bird motifs for freedom.
+Futuristic AI-luxury, dark blue on pure white background,
+scalable, warm and inviting despite tech edge, 4k.
+```
+
+### Regole Logo Generation
+
+| Regola | Dettaglio |
+|--------|-----------|
+| Background | SEMPRE bianco puro (#FFFFFF), MAI beige/off-white |
+| Stile | Vettoriale, scalabile, crisp edges |
+| Colori | Navy blue, electric blue, magenta, gold accents |
+| Vibe | AI-luxury: futuristico MA con cuore umano |
+| Output | Generare 4-8 varianti, scegliere la migliore |
+| Post-process | Convertire in SVG con Vectorizer.AI o simili |
 
 ---
 
@@ -483,6 +604,90 @@ Tutte le catene condividono: qualità produttiva eccezionale, typography curata,
 # Esempio con ImageMagick
 convert cover-print.png -resize 50% -quality 85 cover-web.jpg
 ```
+
+---
+
+## 🔴 GENERAZIONE IMMAGINI CON GROK - METODO BATCH (11 Gen 2026)
+
+**REGOLA FONDAMENTALE**: MAI generare immagini una alla volta. SEMPRE batch!
+
+### Come Funziona Grok Batch
+
+Quando scrivi "genera N immagini di...", Grok chiama **Flux N volte IN PARALLELO**.
+Non c'è sintassi speciale - basta specificare il numero nel prompt!
+
+### Esempi di Prompt Batch
+
+```
+✅ CORRETTO (8 immagini in 20 secondi):
+"Generate 8 illustrations for Meditations by Marcus Aurelius.
+Style: elegant watercolor, blue/gold/sepia, museum quality.
+1. Dawn over Roman camp
+2. Hand writing on parchment
+3. Stoic marble statue
+4. River flowing (time metaphor)
+5. Emperor meditating
+6. Stars over Rome
+7. Noble war horse
+8. Golden sunset over empire"
+
+❌ SBAGLIATO (8 richieste separate = 8x più lento):
+"Generate an illustration of dawn over Roman camp..."
+[aspetta]
+"Generate an illustration of hand writing..."
+[aspetta]
+...
+```
+
+### Limiti e Tempi
+
+| Immagini | Tempo | Note |
+|----------|-------|------|
+| 4 | 8-12 sec | Batch minimo consigliato |
+| 6 | 12-18 sec | Buon compromesso |
+| 8 | 15-25 sec | Massimo efficiente |
+| 10 | 20-30 sec | Limite pratico |
+
+### Per Tipo di Libro
+
+| Libro | Batch 1 | Batch 2 | Totale |
+|-------|---------|---------|--------|
+| **CLASSICS** (12 libri) | 8 illustrazioni | 4 illustrazioni | 12 |
+| **FUTURES** (bambini) | 8 illustrazioni | 8 illustrazioni | 16+ |
+| **LEARN** (educativo) | 10 illustrazioni | 10 illustrazioni | 20+ |
+
+### Stili per Catena (da usare nei prompt)
+
+**ONDE CLASSICS:**
+```
+Style: elegant watercolor, blue/gold/sepia tones, museum quality,
+evocative not literal, European storybook aesthetic, 4k
+```
+
+**ONDE FUTURES:**
+```
+Style: modern digital illustration, electric blue/magenta/teal,
+clean vector aesthetic, child-friendly, tech-positive, 4k
+```
+
+**ONDE LEARN:**
+```
+Style: warm hand-drawn feel with digital polish, bright primary colors,
+friendly characters, educational but fun, 4k
+```
+
+### Workflow Completo Illustrazioni
+
+```
+1. PIANIFICA: Lista tutte le illustrazioni necessarie (es. 12)
+2. BATCH 1: "Generate 8 illustrations..." → attendi 20 sec
+3. BATCH 2: "Generate 4 illustrations..." → attendi 15 sec
+4. SCARICA: Salva tutte dalla galleria Grok
+5. QC: Verifica anatomia, coerenza, stile
+6. RIGENERA: Solo quelle con problemi
+```
+
+**VELOCITÀ DIMOSTRATA**: 27 immagini in ~3 minuti (invece di 27 minuti!)
 
 ---
 

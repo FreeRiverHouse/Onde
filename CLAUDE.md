@@ -21,6 +21,23 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 2. Aggiorna chat-history con le idee della sessione
 3. Commit e push tutto su GitHub
 
+### PAROLA IN CODICE: "CAPO CAPO!" 🚨
+Quando Mattia dice "Capo, capo!" significa:
+- **Ti sto ripetendo questa cosa da un botto**
+- **Perché cazzo non la fai?!**
+- **Mi sto per incazzare!**
+
+**AZIONE IMMEDIATA:**
+1. FERMATI SUBITO
+2. NON continuare quello che stavi facendo
+3. CHIEDI: "Mattia, cosa non sto capendo? Spiegamelo in modo diverso."
+4. ASCOLTA la risposta con attenzione
+5. CONFERMA di aver capito prima di procedere
+
+**NOTA**: Se Mattia ripete qualcosa 3+ volte e non lo faccio, probabilmente non ho capito. FERMARMI e chiedere!
+
+---
+
 ### PAROLA IN CODICE: "SBRINCHI SBRONCHI"
 Quando Mattia dice "sbrinchi sbronchi" (o varianti), DEVO:
 1. ✅ **ROADMAP aggiornata** - Tutte le idee nuove aggiunte
@@ -70,6 +87,52 @@ next_actions: [...]
 3. **YouTube Creative Commons** con yt-dlp
 
 **MAI più generare un'immagine statica e chiamarla "video".**
+
+---
+
+## 🚨🔴 GROK BATCH - LEZIONE CRITICA (11 Gen 2026)
+
+**CI SONO VOLUTI 2 GIORNI PER CAPIRE QUESTO. MAI DIMENTICARE!**
+
+### Il Problema
+
+Mattia ha chiesto "usa i tasks di Grok" per 2 giorni.
+Ho capito male - pensavo fosse una feature speciale.
+In realtà è semplicissimo: **specifica il numero di immagini nel prompt**.
+
+### Come Funziona
+
+Quando scrivi "genera N immagini di...", Grok chiama **Flux N volte IN PARALLELO**.
+Non c'è sintassi speciale - basta specificare il numero!
+
+```
+✅ CORRETTO: "Generate 8 illustrations for Meditations..."
+   → Grok genera 8 immagini in ~20 secondi
+
+❌ SBAGLIATO: 8 richieste separate
+   → 8x più lento, 8x più click, 8x più errori
+```
+
+### Velocità Dimostrata
+
+**27 immagini in ~3 minuti** (invece di 27 minuti con richieste separate!)
+
+### Perché Non L'Ho Capito Prima
+
+Mattia lavorava su 4 finestre contemporaneamente. Le indicazioni si mischiavano.
+Il dettato vocale a volte sbagliava. Questo ha creato confusione.
+
+**LEZIONE**: Quando Mattia ripete qualcosa 20 volte, FERMARSI e chiedere chiarimenti!
+
+### Regola Permanente
+
+**OGNI volta che devo generare immagini su Grok:**
+1. Conta quante ne servono
+2. Fai UNA richiesta con "genera N immagini"
+3. Attendi 15-25 secondi
+4. Scarica dalla galleria
+
+**MAI fare richieste separate per immagini multiple!**
 
 ---
 

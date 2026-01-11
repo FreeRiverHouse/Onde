@@ -341,6 +341,37 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 
 ---
 
+### 🇸🇻 EL SALVADOR - GROK EDUCATION MARKET (10 Gen 2026)
+
+**BREAKING**: El Salvador è il **PRIMO PAESE AL MONDO** ad integrare Grok nelle scuole.
+
+**Perché ci interessa:**
+- Paese tradizionalista → fit perfetto con valori Onde
+- Molto religiosi → Salmo 23 = prodotto ideale
+- Pro-X/Grok ecosystem → usano i nostri stessi tool
+- Programma italiano attivo → possiamo proporre libri italiano
+
+**Prodotti da creare/tradurre:**
+
+| Prodotto | Lingua | Priorità | Note |
+|----------|--------|----------|------|
+| **Salmo 23 per Bambini** | Spagnolo | ALTA | Fit religioso perfetto |
+| **Libri educational Matematica/AI** | Spagnolo | ALTA | Target diretto scuole |
+| **Libri italiano per bambini** | Italiano | ALTA | Proporre al programma italiano |
+
+**Connessione a Onde Portal:**
+Onde Portal = scuola virtuale. Il bambino entra nel portale con PC/VR, parla con tutor AI per ogni materia. **Educational School è verticale chiave di Onde Portal.**
+
+**Next actions (Sally CRO):**
+1. Ricerca contatti governo/scuole El Salvador
+2. Tradurre Salmo 23 in spagnolo (TIER 1)
+3. Creare libri educational matematica/AI in spagnolo
+4. Proporre libri italiano al programma scolastico
+
+**File strategia dettagliata:** `content/agents/sally-cro.memory.json` → strategies.el-salvador-education
+
+---
+
 Questa sezione è ordinata per **revenue potenziale immediata**, basata su:
 - Ricerca di mercato ebook (docs/ebook-market-research.md)
 - Analisi bestseller Amazon/KDP
@@ -1695,6 +1726,14 @@ E produce:
 - Scegli alimentazione video
 - Musica rilassante in background
 - Social chill space
+
+**Onde Portal - Educational School** (NUOVA VERTICALE):
+- Bambino entra nel portale con PC/VR
+- Parla con tutor AI per ogni materia
+- Scuola virtuale completa
+- **Target: El Salvador** (primo paese con Grok nelle scuole)
+- Vedi: `ROADMAP.md` → sezione "El Salvador - Grok Education Market"
+- Vedi: `content/agents/sally-cro.memory.json` → strategies.el-salvador-education
 
 ### 🚀 MVP Sprint Video Factory
 

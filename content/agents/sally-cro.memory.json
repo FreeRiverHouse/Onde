@@ -94,7 +94,53 @@
     }
   ],
 
-  "strategies": [],
+  "strategies": [
+    {
+      "id": "el-salvador-education",
+      "date": "2026-01-10",
+      "name": "El Salvador Grok Education",
+      "status": "active",
+      "description": "El Salvador è il PRIMO paese al mondo ad usare Grok per l'educazione nelle scuole. Opportunità enorme.",
+      "market_intel": {
+        "country": "El Salvador",
+        "population": "6.5M",
+        "news": "Primo paese al mondo a integrare Grok nelle scuole",
+        "cultural_fit": [
+          "Tradizionalisti (fit perfetto con valori Onde)",
+          "Religiosi (Salmo 23 = prodotto ideale)",
+          "Pro-X/Grok ecosystem",
+          "Programma apprendimento italiano attivo"
+        ]
+      },
+      "product_opportunities": [
+        {
+          "product": "Libri educational bambini - Matematica/AI",
+          "language": "Spagnolo",
+          "priority": "ALTA",
+          "reasoning": "Target diretto scuole El Salvador"
+        },
+        {
+          "product": "Libri italiano per bambini",
+          "language": "Italiano",
+          "priority": "ALTA",
+          "reasoning": "Programma italiano nelle scuole - proporre direttamente"
+        },
+        {
+          "product": "Salmo 23 per Bambini",
+          "language": "Spagnolo",
+          "priority": "ALTA",
+          "reasoning": "Paese tradizionalista e religioso - fit perfetto"
+        }
+      ],
+      "connection_to_portal": "Onde Portal = scuola virtuale. Bambino entra nel portale con PC/VR, parla con tutor AI per ogni materia. Educational School è verticale chiave.",
+      "next_actions": [
+        "Ricerca contatti governo/scuole El Salvador",
+        "Tradurre Salmo 23 in spagnolo",
+        "Creare libri educational matematica/AI in spagnolo",
+        "Proporre libri italiano al programma italiano"
+      ]
+    }
+  ],
   "metrics_history": [],
   "experiments": [],
   "learnings": []

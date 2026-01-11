@@ -206,10 +206,40 @@ Onde ha **3 catene visive**:
 - Ma richiede: browser aperto, X loggato, Mac non in sleep
 - Per ora: generazione semi-automatica su richiesta di Mattia
 
-**🔄 GROK ORA GENERA PIÙ IMMAGINI IN UNA RICHIESTA**
-- Specificare nel prompt: "genera 4 immagini per i capitoli 1-4"
-- Grok le genera tutte insieme in una singola richiesta
-- Molto più efficiente che fare richieste separate
+### 🔄 GROK GENERA PIÙ IMMAGINI IN PARALLELO (FONDAMENTALE!)
+
+**COME FUNZIONA:**
+Quando scrivi "genera 4/6/8 immagini di...", Grok chiama Flux N volte IN PARALLELO.
+Non c'è sintassi speciale - basta specificare il numero!
+
+**ESEMPI CHE FUNZIONANO:**
+- "fammi 6 versioni diverse di..."
+- "genera 8 immagini di..."
+- "crea 4 varianti di..."
+- "give me 8 illustrations of..."
+
+**LIMITI:**
+- Max 8-10 immagini per richiesta
+- Tempo: 8-25 secondi per 4-8 immagini (TUTTO in parallelo!)
+
+**PER UN LIBRO COMPLETO (es. Meditations - 12 Books):**
+```
+Genera 8 illustrazioni per il libro "Meditations" di Marco Aurelio.
+Stile: acquarello elegante, toni blu/oro/seppia, stile museo, evocativo non letterale.
+
+1. Book 1 - Alba su accampamento militare romano, tenda dell'imperatore
+2. Book 2 - Mano che scrive su pergamena a lume di candela
+3. Book 3 - Statua stoica con ombre drammatiche
+4. Book 4 - Fiume che scorre, metafora del tempo
+5. Book 5 - Imperatore in meditazione, toga viola
+6. Book 6 - Stelle e cosmo sopra Roma
+7. Book 7 - Cavallo da guerra, disciplina e forza
+8. Book 8 - Tramonto dorato sull'impero
+```
+Poi fai una seconda richiesta per i Books 9-12.
+
+**REGOLA ASSOLUTA:** MAI fare 8 richieste separate. SEMPRE 1 richiesta con "genera 8 immagini".
+Questo è 8x più veloce!
 
 ### 🔑 TECNICA IMMAGINE DI RIFERIMENTO - OBBLIGATORIA PER COERENZA
 
