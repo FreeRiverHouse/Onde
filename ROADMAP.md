@@ -32,6 +32,116 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 
 ---
 
+## 💰 PRIORITÀ MONETIZZAZIONE - COSA FA SOLDI SUBITO (11 Gen 2026)
+
+> **"Prima i soldi che entrano, poi le visioni grandiose."** - Mattia
+
+Questa sezione è ordinata per **revenue potenziale immediata**, basata su:
+- Ricerca di mercato ebook (docs/ebook-market-research.md)
+- Analisi bestseller Amazon/KDP
+- Asset già pronti vs da creare
+
+---
+
+### 🥇 TIER 1: PUBBLICARE QUESTA SETTIMANA (Revenue in 7-14 giorni)
+
+**Questi libri sono PRONTI o quasi pronti. Mancano solo upload KDP.**
+
+| # | Libro | Categoria | Perché fa soldi | Status | Revenue stimata |
+|---|-------|-----------|-----------------|--------|-----------------|
+| 1 | **AIKO - AI Children (EN)** | Tech/STEM | AI = topic #1, poca concorrenza qualità | PDF pronto | $500-2000/mese |
+| 2 | **Psalm 23 Abundance (EN)** | Spiritualità | Evergreen, mercato USA 50% globale | PDF+ePub pronti | $300-1000/mese |
+| 3 | **Psalm 23 (ES)** | Spiritualità | Mercato latino ENORME | ePub pronto | $200-800/mese |
+| 4 | **Psalm 23 (DE)** | Spiritualità | Germania = 2° mercato EU | ePub pronto | $150-500/mese |
+| 5 | **Psalm 23 (FR)** | Spiritualità | Francia = 3° mercato EU | ePub pronto | $100-400/mese |
+| 6 | **AIKO Italiano** | Tech/STEM | Mercato IT poco coperto | Traduzione pronta | $100-300/mese |
+| 7 | **Piccole Rime Italiane** | Poesia | Video pronti, contenuto verificato | Quasi pronto | $50-200/mese |
+
+**Revenue TIER 1 stimata**: $1,400-5,200/mese
+
+**AZIONE**: Upload 3/giorno su KDP (limite Amazon)
+
+---
+
+### 🥈 TIER 2: COMPLETARE IN 1-2 SETTIMANE (Revenue in 2-4 settimane)
+
+**Testo pronto, servono illustrazioni o impaginazione finale.**
+
+| # | Libro | Cosa manca | Revenue stimata |
+|---|-------|------------|-----------------|
+| 8 | **Il Piccolo Inventore** | 10 illustrazioni | $100-400/mese |
+| 9 | **Il Respiro Magico** (Mindfulness) | 10 illustrazioni | $200-600/mese |
+| 10 | **La Luce Dentro** | 10 illustrazioni | $100-300/mese |
+| 11 | **Il Potere dei Desideri** (Legge Attrazione) | Illustrazioni | $150-500/mese |
+| 12 | **AIKO (ES/DE/FR)** | Traduzioni | $200-600/mese |
+| 13 | **Salmo 23 Bambini (IT)** | Review finale | $50-200/mese |
+
+**Revenue TIER 2 stimata**: $800-2,600/mese
+
+---
+
+### 🥉 TIER 3: NUOVI LIBRI AD ALTA DOMANDA (Q1 2026)
+
+**Basato su ricerca mercato: alta domanda + bassa concorrenza in Italia**
+
+| # | Libro | Mercato | Competizione | Revenue potenziale |
+|---|-------|---------|--------------|-------------------|
+| 14 | **"Adulto a 1200€/mese"** - Guida sopravvivenza giovani | ALTISSIMA | BASSA | $500-2000/mese |
+| 15 | **"1000€ in più al mese"** - Side hustle Italia | MOLTO ALTA | BASSA | $400-1500/mese |
+| 16 | **"ChatGPT Parla Italiano"** - Prompt engineering | MOLTO ALTA | MEDIA | $300-1000/mese |
+| 17 | **Meditations (Marco Aurelio)** - Stoicismo | ALTA | MEDIA | $200-800/mese |
+| 18 | **The Prophet (Gibran)** | ALTA | BASSA | $150-500/mese |
+
+**Revenue TIER 3 stimata**: $1,550-5,800/mese
+
+---
+
+### 📊 PROIEZIONE REVENUE EBOOK Q1 2026
+
+| Mese | Libri pubblicati | Revenue mensile |
+|------|------------------|-----------------|
+| Gennaio | 15-20 | $1,000-3,000 |
+| Febbraio | 30-40 | $2,500-6,000 |
+| Marzo | 50+ | $4,000-10,000 |
+
+**Target Q1**: $5,000/mese da ebook
+
+---
+
+### 🎯 AZIONI IMMEDIATE (Questa settimana)
+
+- [ ] **Lunedì**: AIKO EN + Psalm 23 EN + AIKO IT → KDP
+- [ ] **Martedì**: Psalm 23 ES + DE + FR → KDP
+- [ ] **Mercoledì**: Piccole Rime IT + Psalm 23 KO → KDP
+- [ ] **Giovedì**: Generare illustrazioni Il Piccolo Inventore
+- [ ] **Venerdì**: Generare illustrazioni Il Respiro Magico
+- [ ] **Weekend**: Review e preparazione settimana 2
+
+---
+
+### 📱 APP CHE FANNO SOLDI (Dopo libri)
+
+| App | Revenue model | Quando |
+|-----|---------------|--------|
+| **AIKO Interactive** | Freemium + IAP | Feb 2026 |
+| **Mindful Kids** | Subscription $2.99/mese | Feb 2026 |
+| **Salmo 23 Kids** | Freemium | Mar 2026 |
+
+**Target Q2**: $2,000/mese da app
+
+---
+
+### 🎬 VIDEO/YOUTUBE (Passivo, dopo infrastruttura)
+
+| Canale | Tipo | Revenue |
+|--------|------|---------|
+| **Onde Lounge** | Video ambient 10h | $500-2000/mese (dopo 1000 subs) |
+| **EMILIO Gaming** | Minecraft + educativo | $1000-5000/mese (dopo 10k subs) |
+
+**Target 2026**: 10k subscribers YouTube
+
+---
+
 ## 🚀 VISIONE DISRUPTION - YOUTUBE KILLER (10 Gen 2026)
 
 **"We need to disrupt YouTube. People will generate their own content on our platform."** - Mattia
@@ -226,7 +336,7 @@ ONDE HOLDINGS
 
 ---
 
-**Ultimo aggiornamento**: 2026-01-10 - Octopus Strategy aggiunta, onde.la deployed, 3 AI video agents launched
+**Ultimo aggiornamento**: 2026-01-11 - MONETIZZAZIONE prioritizzata, Continuous Claude implementato, Octopus Strategy
 
 ---
 
