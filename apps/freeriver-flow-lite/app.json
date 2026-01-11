@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Flow",
+    "slug": "freeriver-flow-lite",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "flow",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.freeriverhouse.flow",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Flow needs microphone access to control Claude Code with your voice."
+      }
+    },
+    "android": {
+      "package": "com.freeriverhouse.flow",
+      "permissions": ["RECORD_AUDIO"]
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

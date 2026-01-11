@@ -148,9 +148,119 @@ export default function BookReaderClient({ bookId }: Props) {
     localStorage.setItem('onde-reader-theme', theme)
   }, [fontSize, theme])
 
+  // ONDE STUDIO BOOKS - Custom content instead of Gutenberg
+  const ondeStudioContent: Record<string, BookData> = {
+    'salmo-23': {
+      title: 'Il Pastore - Il Salmo 23 per Bambini',
+      author: 'Tradizione Biblica',
+      lang: 'it',
+      content: '',
+      wordCount: 450,
+      chapters: [
+        {
+          title: 'Capitolo 1: Il Signore è il mio pastore',
+          content: `C'era una volta un pastore buono, il più buono del mondo.
+Aveva occhi gentili come il miele
+e un sorriso che scaldava come il sole.
+
+"Io sarò sempre con te," sussurrava il pastore,
+"Non ti mancherà mai niente,
+perché io mi prendo cura di te."
+
+E le sue pecorelle, bianche come nuvole,
+lo seguivano felici dovunque andasse.`
+        },
+        {
+          title: 'Capitolo 2: I pascoli e le acque tranquille',
+          content: `Il pastore conosceva i posti più belli:
+prati verdi dove l'erba era morbida,
+ruscelli che cantavano canzoni d'argento.
+
+"Riposa qui," diceva il pastore,
+"L'acqua fresca ti darà forza,
+e l'erba verde ti farà crescere."
+
+Le pecorelle si sdraiavano contente,
+e il mondo sembrava un abbraccio grande.`
+        },
+        {
+          title: 'Capitolo 3: I sentieri giusti',
+          content: `A volte la strada sembrava difficile,
+piena di sassi e curve misteriose.
+
+Ma il pastore camminava davanti:
+"Seguimi," diceva con voce sicura,
+"Io conosco la via giusta.
+Ti porto dove c'è la luce."
+
+E le pecorelle camminavano tranquille,
+perché sapevano di essere al sicuro.`
+        },
+        {
+          title: 'Capitolo 4: La valle oscura',
+          content: `Un giorno arrivò una valle buia,
+dove le ombre sembravano giganti
+e il vento faceva paura.
+
+Ma il pastore strinse forte il suo bastone:
+"Non temere," disse piano,
+"Io sono qui, proprio accanto a te.
+Il buio non ti può far male
+quando camminiamo insieme."
+
+E le pecorelle sentirono il cuore calmo,
+perché il pastore era vicino.`
+        },
+        {
+          title: 'Capitolo 5: La tavola e la coppa',
+          content: `Poi arrivò un giorno di festa!
+Il pastore preparò una tavola bellissima
+piena di frutti colorati,
+pane dorato e miele dolce.
+
+"Questa è per te," disse sorridendo,
+"Perché tu sei speciale.
+La tua coppa è così piena
+che trabocca di gioia!"
+
+E le pecorelle mangiarono felici,
+sentendosi le più amate del mondo.`
+        },
+        {
+          title: 'Capitolo 6: La casa del Signore',
+          content: `E così, giorno dopo giorno,
+il pastore guidava le sue pecorelle
+verso casa - una casa bellissima
+fatta di luce e amore.
+
+"Questa è la tua casa," disse il pastore,
+"E io sarò sempre qui.
+Oggi, domani e per sempre,
+la bontà e l'amore ti seguiranno."
+
+E le pecorelle capirono
+che con il loro pastore,
+sarebbero state felici per sempre.
+
+— Fine —
+
+Il Salmo 23 per Bambini
+Casa Editrice Onde - 2026`
+        }
+      ]
+    }
+  }
+
   // Fetch book directly from Gutenberg (client-side)
   useEffect(() => {
     if (!bookId) return
+
+    // Check if it's an Onde Studio book with custom content
+    if (ondeStudioContent[bookId]) {
+      setBookData(ondeStudioContent[bookId])
+      setLoading(false)
+      return
+    }
 
     if (!book?.gutenberg) {
       setError('Contenuto in arrivo')
@@ -371,7 +481,7 @@ export default function BookReaderClient({ bookId }: Props) {
             )}
           </div>
 
-          {/* FREE DOWNLOAD BUTTONS */}
+          {/* FREE DOWNLOAD BUTTONS - Gutenberg books */}
           {book.gutenberg && (
             <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
               <a
@@ -397,6 +507,28 @@ export default function BookReaderClient({ bookId }: Props) {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white font-medium text-sm hover:scale-105 transition-transform"
               >
                 <span>🌐</span> Altri formati
+              </a>
+            </div>
+          )}
+
+          {/* ONDE STUDIO BOOKS - PDF and Purchase buttons */}
+          {ondeStudioContent[bookId] && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+              <a
+                href={`/books/${bookId}.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#f472b6] to-[#ec4899] text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg"
+              >
+                <span>📄</span> PDF Illustrato
+              </a>
+              <a
+                href="https://www.amazon.com/dp/PLACEHOLDER_SALMO23"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
+              >
+                <span>📚</span> Acquista su Amazon
               </a>
             </div>
           )}

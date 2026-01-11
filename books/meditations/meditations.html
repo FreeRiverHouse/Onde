@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meditations - Marcus Aurelius - Onde Classics</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', Georgia, sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        :root {
+            --accent-gold: #c9a227;
+            --accent-navy: #1a1a2e;
+            --accent-warm: #5d4e37;
+            --bg-cream: #faf9f7;
+            --text-dark: #2c3e50;
+            --text-light: #5d6d7e;
+        }
+
+        /* COVER */
+        .cover {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .cover img {
+            width: 140mm;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            border: 3px solid rgba(201, 162, 39, 0.5);
+            margin-bottom: 15mm;
+        }
+
+        .cover h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 38pt;
+            color: #f5e6b3;
+            margin-bottom: 5mm;
+            letter-spacing: 2px;
+        }
+
+        .cover h2 {
+            font-size: 16pt;
+            color: #c9a227;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .cover .publisher {
+            position: absolute;
+            bottom: 15mm;
+            font-size: 11pt;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* FORWARD PAGE */
+        .forward-page {
+            background: var(--bg-cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 25mm;
+        }
+
+        .forward-page h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18pt;
+            color: var(--accent-warm);
+            margin-bottom: 10mm;
+            text-align: center;
+        }
+
+        .forward-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 12pt;
+            line-height: 2;
+            color: #444;
+            font-style: italic;
+        }
+
+        .forward-text p {
+            margin-bottom: 8mm;
+        }
+
+        .forward-signature {
+            margin-top: 15mm;
+            text-align: right;
+            font-size: 11pt;
+            color: var(--accent-gold);
+        }
+
+        /* ILLUSTRATION PAGE */
+        .illustration-page {
+            background: #f5f4f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .illustration-page img {
+            max-width: 170mm;
+            max-height: 220mm;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .illustration-page .caption {
+            margin-top: 8mm;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 11pt;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* TEXT PAGE */
+        .text-page {
+            background: var(--bg-cream);
+            padding: 20mm 25mm;
+        }
+
+        .book-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14pt;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 10mm;
+            letter-spacing: 2px;
+        }
+
+        .text-content {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 11pt;
+            line-height: 1.9;
+            color: #333;
+            text-align: justify;
+        }
+
+        .text-content p {
+            margin-bottom: 6mm;
+            text-indent: 8mm;
+        }
+
+        .text-content p:first-child {
+            text-indent: 0;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 10mm;
+            right: 15mm;
+            font-size: 10pt;
+            color: #aaa;
+        }
+
+        /* END PAGE */
+        .end-page {
+            background: linear-gradient(180deg, #faf9f7 0%, #f0ebe3 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .end-page .ornament {
+            font-size: 24pt;
+            color: var(--accent-gold);
+            margin-bottom: 15mm;
+        }
+
+        .end-page .credits {
+            font-size: 12pt;
+            color: #666;
+            line-height: 2;
+        }
+
+        .end-page .publisher-name {
+            margin-top: 20mm;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16pt;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .end-page .edition {
+            font-size: 10pt;
+            color: #888;
+            margin-top: 5mm;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover">
+    <img src="images/meditations-1.jpg" alt="Meditations">
+    <h1>MEDITATIONS</h1>
+    <h2>Marcus Aurelius</h2>
+    <p class="publisher">ONDE CLASSICS</p>
+</div>
+
+<!-- FORWARD -->
+<div class="page forward-page">
+    <h2>Forward</h2>
+    <div class="forward-text">
+        <p><em>You found this. Or maybe it found you.</em></p>
+
+        <p>A Roman emperor wrote these words two thousand years ago, alone in his tent, after long days of war. They were never meant to be read by anyone else. Just a man trying to stay sane, stay kind, stay human&mdash;while the weight of an empire pressed down on him.</p>
+
+        <p>And somehow, here they are. In your hands.</p>
+
+        <p>Marcus Aurelius never intended to write a book. What you hold is his private journal&mdash;notes to himself about how to live, how to think, how to face each day with clarity and courage. No polish. No pretense. Just raw wisdom from someone who had every reason to become cruel or cynical, and chose kindness instead.</p>
+
+        <p>We're Onde, a small publishing house. This edition was curated with care&mdash;and yes, with the help of AI to create the illustrations. The text is authentic, drawn from the public domain translation. The price is fair. The rest is between you and Marcus.</p>
+
+        <p>If it helps, we'd love to hear about it.</p>
+    </div>
+    <p class="forward-signature">&mdash; Onde Publishing</p>
+</div>
+
+<!-- ILLUSTRATION 1 -->
+<div class="page illustration-page">
+    <img src="images/meditations_style_a.jpg" alt="Marcus Aurelius writing">
+    <p class="caption">The philosopher emperor at his desk</p>
+</div>
+
+<!-- TEXT: INTRODUCTION EXCERPT -->
+<div class="page text-page">
+    <p class="book-title">INTRODUCTION</p>
+    <div class="text-content">
+        <p>MARCUS AURELIUS ANTONINUS was born on April 26, A.D. 121. His real name was M. Annius Verus, and he was sprung of a noble family which claimed descent from Numa, second King of Rome. Thus the most religious of emperors came of the blood of the most pious of early kings.</p>
+
+        <p>His father, Annius Verus, had held high office in Rome, and his grandfather, of the same name, had been thrice Consul. Both his parents died young, but Marcus held them in loving remembrance.</p>
+
+        <p>On his father's death Marcus was adopted by his grandfather, the consular Annius Verus, and there was deep love between these two. On the very first page of his book Marcus gratefully declares how of his grandfather he had learned to be gentle and meek, and to refrain from all anger and passion.</p>
+
+        <p>The Emperor Hadrian divined the fine character of the lad, whom he used to call not Verus but Verissimus, more Truthful than his own name. He advanced Marcus to equestrian rank when six years of age, and at the age of eight made him a member of the ancient Salian priesthood.</p>
+
+        <p>His education was conducted with all care. The ablest teachers were engaged for him, and he was trained in the strict doctrine of the Stoic philosophy, which was his great delight. He was taught to dress plainly and to live simply, to avoid all softness and luxury.</p>
+    </div>
+    <span class="page-number">3</span>
+</div>
+
+<!-- ILLUSTRATION 2 -->
+<div class="page illustration-page">
+    <img src="images/meditations_style_b.jpg" alt="Roman columns">
+    <p class="caption">The grandeur of Rome</p>
+</div>
+
+<!-- TEXT: FIRST BOOK EXCERPT -->
+<div class="page text-page">
+    <p class="book-title">THE FIRST BOOK</p>
+    <div class="text-content">
+        <p>From my grandfather Verus I learned good morals and the government of my temper.</p>
+
+        <p>From the reputation and remembrance of my father, modesty and a manly character.</p>
+
+        <p>From my mother, piety and beneficence, and abstinence, not only from evil deeds, but even from evil thoughts; and further, simplicity in my way of living, far removed from the habits of the rich.</p>
+
+        <p>From my great-grandfather, not to have frequented public schools, and to have had good teachers at home, and to know that on such things a man should spend liberally.</p>
+
+        <p>From my governor, to be neither of the green nor of the blue party at the games in the Circus, nor a partizan either of the Parmularius or the Scutarius at the gladiators' fights; from him too I learned endurance of labour, and to want little, and to work with my own hands, and not to meddle with other people's affairs, and not to be ready to listen to slander.</p>
+
+        <p>From Diognetus, not to busy myself about trifling things, and not to give credit to what was said by miracle-workers and jugglers about incantations and the driving away of daemons and such things.</p>
+    </div>
+    <span class="page-number">5</span>
+</div>
+
+<!-- END PAGE -->
+<div class="page end-page">
+    <p class="ornament">&#10022; &#10022; &#10022;</p>
+
+    <div class="credits">
+        <p><strong>Text:</strong> Marcus Aurelius (Public Domain)</p>
+        <p><strong>Translation:</strong> George Long</p>
+        <p><strong>Illustrations:</strong> Created with AI (Grok)</p>
+        <p><strong>Layout:</strong> Onde Publishing</p>
+    </div>
+
+    <p class="publisher-name">ONDE CLASSICS</p>
+    <p class="edition">First Edition &bull; 2026</p>
+</div>
+
+</body>
+</html>
