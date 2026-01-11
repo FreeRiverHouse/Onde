@@ -4,6 +4,14 @@
 
 ---
 
+## 💎 MANTRA INTERNI (NON SI DICONO, DEVONO TRASPARIRE)
+
+- **LUXURY AI** - Tutto deve essere ultra premium, futuristic, sleek
+- **METTIAMO IL CUORE** - Non solo tech, c'è anima dentro
+- **DNA UMANO NELLE AI** - Umanità dentro la tecnologia
+
+---
+
 ## 🔥 LA VISIONE - DISRUPTING PUBLISHING (11 Gen 2026)
 
 > **"Se non lo faccio io, lo fa un altro domani e lo fa peggio."** - Mattia
@@ -308,6 +316,28 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 - Input su cosa venderà di più
 
 **File agente:** `content/agents/sally-cro.md`
+
+### 📊 SALLY'S VIEW DASHBOARD (Task Engineering)
+
+**Descrizione:** Dashboard ultra fica integrata nella BIB Dashboard. CRO riporta al CEO.
+
+**Features:**
+- Overview vendite tutti i titoli
+- Trend ricerche Google per keywords libri
+- Performance per TIER (1, 2, 3)
+- Drill-down dati dettagliati
+- Instant books tech inclusi (es. Vibe Coding)
+
+**Use case:** Leadership meeting review
+
+**Stile grafico:** LUXURY AI
+- Futuristic, sleek, ultra moderno
+- Best possible graphic engines
+- Pina Pennello per visual assets
+
+**Status:** DA SVILUPPARE
+**Assigned to:** Engineering Department (code-worker)
+**Priority:** Media (dopo primi libri pubblicati)
 
 ---
 
@@ -625,6 +655,17 @@ ONDE HOLDINGS
 
 **Nota**: Il logo onde = fiore. Le onde che fioriscono = la missione visiva.
 **Nota .la**: Il dominio è del Laos, lo usiamo per il gioco di parole (LA = Los Angeles).
+
+### 🧬 LOGHI ALTERNATIVI - ONDE + DNA (Priorità Bassa)
+
+**Idea:** Per Onde Tech, esplorare loghi che giocano con il concetto di DNA.
+- Onde che ricordano la doppia elica del DNA
+- "Portiamo il DNA umano nelle AI" = visual identity
+- Fusione onde/DNA = connessione, evoluzione, vita
+
+**Status:** DA VALUTARE
+**Priority:** Bassa
+**Assigned to:** Pina Pennello (quando libera)
 
 ---
 

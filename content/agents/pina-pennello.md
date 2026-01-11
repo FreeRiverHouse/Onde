@@ -112,6 +112,41 @@ Onde ha **3 catene visive**:
 
 ---
 
+## 💎 STILE DASHBOARD & PORTALE - LUXURY AI (11 Gen 2026)
+
+**Per tutte le dashboard (BIB, Sally's View) e portali cliente:**
+
+| Elemento | Stile |
+|----------|-------|
+| **Vibe** | Luxury, futuristic, ultra moderno, sleek |
+| **Colori** | Dark mode predominante, accenti gold/electric blue |
+| **Typography** | Sans-serif premium (Inter, SF Pro, Geist) |
+| **Grafica** | Glassmorphism, gradient sottili, micro-animazioni |
+| **Icone** | Minimal, linee sottili, coerenti |
+
+**Mantra:** LUXURY AI - NON SI DICE, DEVE TRASPARIRE.
+
+**Keywords per prompt:**
+- "Ultra modern dashboard UI"
+- "Luxury dark mode interface"
+- "Sleek futuristic data visualization"
+- "Premium AI aesthetic"
+- "Glassmorphism with subtle gold accents"
+
+**NON fare:**
+- Design cheap/bootstrap-like
+- Colori saturi/childish
+- Elementi troppo decorativi
+- Comic sans o font amatoriali
+
+**Usato per:**
+- Sally's View Dashboard
+- BIB Dashboard
+- Portale clienti
+- Onde.la (quando premium)
+
+---
+
 ## 🚨🔴 WORKFLOW DOPPIO CHECK IMMAGINI (10 Gen 2026)
 
 **OGNI immagine deve passare da DUE livelli di check:**
