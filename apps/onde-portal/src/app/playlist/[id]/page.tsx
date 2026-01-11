@@ -1,21 +1,26 @@
-'use client'
-
 import { motion } from 'framer-motion'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { use } from 'react'
 import { getPlaylistById } from '@/data/playlists'
 import { books } from '@/data/books'
 import ShareButton from '@/components/spotify/ShareButton'
 import BookRow from '@/components/spotify/BookRow'
 
 interface PlaylistPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
+}
+
+export async function generateStaticParams() {
+  // Genera tutti gli ID delle playlist disponibili
+  const { playlists } = await import('@/data/playlists')
+  
+  return playlists.map((playlist: any) => ({
+    id: playlist.id,
+  }))
 }
 
 export default function PlaylistPage({ params }: PlaylistPageProps) {
-  const resolvedParams = use(params)
-  const playlist = getPlaylistById(resolvedParams.id)
+  const playlist = getPlaylistById(params.id)
 
   if (!playlist) {
     notFound()

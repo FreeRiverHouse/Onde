@@ -222,8 +222,8 @@ export default function Home() {
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm py-2 text-center">
           <p className="text-black font-medium text-sm">
-            <span className="mr-2">🚧</span>
-            Still under <span className="font-bold">(fast)</span> development — Please Check Back Soon
+            <span className="mr-2">🚀</span>
+            <span className="font-bold">SUPER CAZZUTO</span> — Powered by Vercel Analytics
             <span className="ml-2">⚡</span>
           </p>
         </div>
@@ -312,6 +312,8 @@ export default function Home() {
             <span className="text-gradient-neon">{t.home.title2}</span>
             <br />
             <span className="text-white/80 italic">{t.home.title3}</span>
+            <br />
+            <span className="text-2xl md:text-3xl text-yellow-400 font-bold mt-4">🚀 SUPER CAZZUTO MODE 🚀</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -355,6 +357,10 @@ export default function Home() {
                 </span>
               </button>
             </Link>
+            <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
+              <span className="text-yellow-400 font-bold text-sm">⚡ CAZZUTO LEVEL: MAX ⚡</span>
+              <span className="text-green-400 font-bold text-sm">📊 ANALYTICS ACTIVE 📊</span>
+            </div>
           </motion.div>
         </motion.div>
 

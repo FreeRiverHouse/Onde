@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.6.1",
+    "@vercel/analytics": "^1.6.1",
     "epubjs": "^0.3.93",
     "framer-motion": "^12.25.0",
     "next": "15.5.2",

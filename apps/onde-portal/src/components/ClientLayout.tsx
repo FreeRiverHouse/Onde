@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { I18nProvider, useTranslations } from '@/i18n';
 import Navigation from '@/components/Navigation';
 import WatercolorBackground from '@/components/ui/WatercolorBackground';
+import VercelAnalytics from '@/components/VercelAnalytics';
 
 function Footer() {
   const t = useTranslations();
@@ -69,6 +70,9 @@ function Footer() {
           <div className="flex gap-6 text-sm text-onde-ocean/40">
             <a href="/privacy" className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</a>
             <a href="/terms" className="hover:text-onde-ocean transition-colors">{t.footer.terms}</a>
+            <a href="https://vercel.com" className="hover:text-onde-ocean transition-colors" target="_blank" rel="noopener noreferrer">
+              ⚡ Powered by Vercel
+            </a>
           </div>
         </div>
       </div>
@@ -85,6 +89,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Footer />
+      <VercelAnalytics />
     </I18nProvider>
   );
 }
