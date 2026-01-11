@@ -75,6 +75,37 @@ next_actions: [...]
 
 ---
 
+## 🚨🔴 TELEGRAM = UNICO CANALE PER MATTIA (10 Gen 2026)
+
+**REGOLA ASSOLUTA**: TUTTO il materiale per Mattia va SEMPRE su Telegram.
+**Non "le immagini sono in Downloads". MANDA su Telegram!**
+
+### Credenziali (nel repository .env)
+```
+TELEGRAM_BOT_TOKEN=8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps
+TELEGRAM_CHAT_ID=7505631979
+Bot: @OndePR_bot
+```
+
+### Come Usare (JavaScript nel browser se bash non funziona)
+```javascript
+// Messaggio
+fetch("https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendMessage", {
+  method: "POST", headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({chat_id: "7505631979", text: "MESSAGGIO"})
+})
+
+// Immagine (da blob nel browser)
+const formData = new FormData();
+formData.append('chat_id', '7505631979');
+formData.append('photo', blob, 'file.jpg');
+fetch('https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendPhoto', {method: 'POST', body: formData})
+```
+
+**Mattia guarda Telegram da iPhone. MAI dirgli di aprire cartelle sul Mac!**
+
+---
+
 ## 🚨 REGOLA VIDEO - MAI IMMAGINI STATICHE (10 Gen 2026)
 
 **QUANDO MATTIA CHIEDE VIDEO = VIDEO ANIMATI VERI, NON IMMAGINI STATICHE!**

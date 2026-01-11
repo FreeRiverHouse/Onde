@@ -4,6 +4,23 @@
 
 ---
 
+## 🚧 DISCLAIMER - BUILDING THE SHIP WHILE FLYING
+
+> **"È tutto in mare mosso. Ma dagli, dagli!"** - Mattia
+
+**Onde è in costruzione attiva.** Tutto quello che vedi è work-in-progress.
+- La piattaforma funziona? **Sì, ma è grezza.**
+- Ci sono bug? **Probabilmente sì.**
+- È perfetta? **No, ma è VERA.**
+
+**Timeline Mattia** (più aggressiva di Grok):
+- Piattaforma funzionante: **2-4 settimane**
+- Piattaforma infiocchettata: **6 mesi**
+
+**Filosofia**: Meglio una nave imperfetta che naviga, che una nave perfetta mai costruita.
+
+---
+
 ## 💎 MANTRA INTERNI (NON SI DICONO, DEVONO TRASPARIRE)
 
 - **LUXURY AI** - Tutto deve essere ultra premium, futuristic, sleek

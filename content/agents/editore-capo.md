@@ -223,10 +223,47 @@ I nostri libri devono sembrare edizioni di lusso, non print-on-demand cheap.
 
 ---
 
-## 🚨🔴 INVIO AUTOMATICO TELEGRAM (10 Gen 2026)
+## 🚨🔴 INVIO MATERIALE A MATTIA = SEMPRE TELEGRAM (10 Gen 2026)
 
-**REGOLA FONDAMENTALE**: Quando un libro è pronto, MANDA AUTOMATICAMENTE SU TELEGRAM.
-**Non aspettare che Mattia lo chieda.**
+**REGOLA ASSOLUTA**: TUTTO il materiale per Mattia va SEMPRE su Telegram.
+**Non aspettare che Mattia lo chieda. Non chiedere conferma. MANDA.**
+
+### Credenziali (nel repository!)
+```
+Bot Token: 8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps
+Chat ID: 7505631979
+Bot Name: @OndePR_bot
+File: /Users/mattia/Projects/Onde/.env
+```
+
+### Come Mandare (JavaScript nel browser)
+```javascript
+// Testo
+fetch("https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendMessage", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({chat_id: "7505631979", text: "MESSAGGIO"})
+}).then(r => r.json())
+
+// Immagine (da blob/file nel browser)
+const formData = new FormData();
+formData.append('chat_id', '7505631979');
+formData.append('caption', 'DESCRIZIONE');
+formData.append('photo', blob, 'filename.jpg');
+fetch('https://api.telegram.org/bot8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps/sendPhoto', {
+  method: 'POST', body: formData
+}).then(r => r.json())
+```
+
+### Cosa Mandare su Telegram
+| Quando | Cosa |
+|--------|------|
+| Nuove immagini generate | Subito dopo generazione |
+| Bozze libro | PDF + EPUB + cover |
+| Proposte visual identity | Loghi, cover, stili |
+| Qualsiasi cosa per approvazione | TELEGRAM, SEMPRE |
+
+**⚠️ MAI dire "le immagini sono in Downloads". MANDA le immagini su Telegram!**
 
 ### Ma PRIMA: Doppia Revisione Obbligatoria
 
