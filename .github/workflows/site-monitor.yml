@@ -40,13 +40,8 @@ jobs:
             exit 0
           fi
 
-          if echo "$CONTENT" | grep -q "Freely Shared"; then
-            echo "✅ 'Freely Shared' found"
-          else
-            echo "status=wrong_content" >> $GITHUB_OUTPUT
-            echo "error=Missing 'Freely Shared' subtitle" >> $GITHUB_OUTPUT
-            exit 0
-          fi
+          # "Freely Shared" was removed from the site
+          echo "✅ 'Freely Shared' check skipped (removed from design)"
 
           # Check for old content that should NOT be there
           if echo "$CONTENT" | grep -q "small italian publishing house"; then

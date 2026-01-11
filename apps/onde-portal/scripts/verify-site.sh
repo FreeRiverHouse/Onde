@@ -54,7 +54,7 @@ echo ""
 
 # Homepage checks - must exist
 check_content "$SITE_URL" "Beautiful Books" "Title: 'Beautiful Books'" yes
-check_content "$SITE_URL" "Freely Shared" "Subtitle: 'Freely Shared'" yes
+# Removed: "Freely Shared" is no longer on the site
 check_content "$SITE_URL" "#4ECDC4" "Futuristic particles (teal)" yes
 check_content "$SITE_URL" "#6C63FF" "Futuristic particles (purple)" yes
 check_content "$SITE_URL" "floating-orb" "Floating orb effects" yes
