@@ -439,7 +439,7 @@ PUBBLICAZIONE
 
 ---
 
-### FASE 8: TRADUZIONI (10-15 min)
+### FASE 8: TRADUZIONI + FORMATI (15-20 min)
 
 **Lingue obbligatorie:**
 | Codice | Lingua | Mercato |
@@ -451,12 +451,105 @@ PUBBLICAZIONE
 | `it` | Italiano | Italia |
 | `pt` | Português | Brasile, Portogallo |
 
-**Processo:**
+**Per OGNI lingua, genera:**
+- [ ] `book.epub` - ePub con copertina e forward
+- [ ] `book.pdf` - PDF print-ready
+- [ ] `cover-[lang].jpg` - Copertina con titolo in quella lingua
+
+**Processo traduzioni:**
 1. Traduci il testo completo (usa Claude o DeepL)
 2. Traduci metadata (titolo, descrizione, keywords)
-3. Traduci Editor's Note
-4. **NON tradurre** le citazioni originali dell'autore (es. Marcus Aurelius resta in inglese o latino)
+3. Traduci Forward ("Dear reader" → "Querido lector", "Lieber Leser", etc.)
+4. **NON tradurre** le citazioni originali dell'autore
 5. Genera ePub e PDF per ogni lingua
+6. Genera copertina con titolo tradotto
+
+**Copertina multi-lingua:**
+- Stessa immagine base
+- Titolo tradotto nella lingua
+- Autore invariato
+- "ONDE by FreeRiverHouse" invariato
+- Fatta da Pina Pennello
+- Revisionata da Grok (check testo leggibile, composizione)
+
+---
+
+### FASE 8.5: AUDIOLIBRO (20-30 min)
+
+**🎧 OGNI libro ha una versione audiolibro in inglese.**
+
+#### Struttura Audiolibro
+
+```
+[nome-libro]/audio/
+├── 00-intro.mp3          # Introduzione "Dear listener"
+├── 01-chapter-1.mp3      # Capitolo 1
+├── 02-chapter-2.mp3      # Capitolo 2
+├── ...
+├── metadata.json         # Info audiolibro
+└── cover-audiobook.jpg   # Cover quadrata per Spotify
+```
+
+#### Introduzione Audio ("Dear Listener")
+
+**Gianni scrive una versione audio della forward:**
+
+> *Dear listener,*
+>
+> *Welcome. You're about to hear words written two thousand years ago by a Roman emperor, alone in his tent after long days of war. Marcus Aurelius never meant for anyone to read these—let alone hear them. They were his private thoughts on staying sane, staying kind, staying human.*
+>
+> *We're Onde, a small publishing house in Los Angeles. This audiobook was curated by @magmatic__ with care. The text is authentic. The voice you're hearing is bringing these ancient words to life.*
+>
+> *Find a comfortable spot. Take a breath. And let's begin.*
+
+#### Voci: 50% Maschili / 50% Femminili
+
+| Tipo Libro | Voce Consigliata |
+|------------|------------------|
+| Filosofia maschile (Marcus Aurelius, Seneca) | Maschile profonda |
+| Romanzo gotico (Frankenstein) | Femminile (Mary Shelley) |
+| Poesia | Alternare M/F |
+| Spiritualità | Voce calda, può essere M o F |
+
+**Obiettivo**: Bilanciare il catalogo 50/50.
+
+#### Tool per Generazione Audio
+
+| Tool | Uso | Note |
+|------|-----|------|
+| **ElevenLabs** | Voci high-quality | Preferito per qualità |
+| **OpenAI TTS** | Alternative | Buon rapporto qualità/prezzo |
+| **Hedra** | Lip sync video | Per versione video |
+
+#### Processo Produzione Audio
+
+1. **Dividi il testo in capitoli** (file separati)
+2. **Scrivi intro "Dear listener"** (Gianni)
+3. **Scegli voce** (M o F, bilanciando catalogo)
+4. **Genera audio** per ogni capitolo
+5. **Verifica qualità** (pronuncia, ritmo, emozione)
+6. **Assembla** con intro + capitoli
+7. **Genera cover quadrata** (1400x1400px per Spotify)
+
+#### Verifica Audio (Grok)
+
+```
+Prompt: "Listen to this audiobook sample and check:
+1. Pronunciation correct?
+2. Pacing appropriate for the content?
+3. Emotional tone matches the book?
+4. Any audio artifacts or issues?
+Respond: APPROVED or NEEDS_REVISION + feedback"
+```
+
+#### Output Finale Audiolibro
+
+- [ ] Intro "Dear listener" registrata
+- [ ] Tutti i capitoli registrati
+- [ ] Audio verificato (pronuncia, qualità)
+- [ ] Cover quadrata 1400x1400px
+- [ ] Metadata per Spotify/podcast
+- [ ] Pronto per upload su Onde portal + Spotify
 
 **Struttura file per lingua:**
 ```

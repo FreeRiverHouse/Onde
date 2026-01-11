@@ -121,6 +121,33 @@ Con Spotify dei libri possiamo:
 Onde arriva proprio quando il mondo ne ha più bisogno.
 Non vendiamo intrattenimento. Vendiamo crescita.
 
+### 🎨 VISIONE FUTURA: PERSONALIZZAZIONE TOTALE (10 Gen 2026)
+
+**Oggi:** Ebook e audiobook standard, belli, curati.
+**Domani:** Il lettore/ascoltatore personalizza tutto.
+
+#### Audiobook Personalizzabili
+- **Voce**: Scegli maschile, femminile, o specifica
+- **Tono**: Calmo, drammatico, intimo, professionale
+- **Velocità**: Lento per meditare, veloce per assorbire
+- **Lingua**: Genera al volo in qualsiasi lingua
+- **Accento**: British, American, Australian, etc.
+
+#### Ebook Personalizzabili
+- **Stile illustrazioni**: Acquarello, minimalista, dark, colorato
+- **Typography**: Serif classico, sans moderno, dyslexia-friendly
+- **Layout**: Dense, spazioso, large print
+- **Colori**: Light mode, dark mode, sepia, custom
+- **Interattività**: Note, highlights, quiz integrati
+
+#### Come Funzionerà
+1. Lettore sceglie libro
+2. Seleziona preferenze (voce, stile, layout)
+3. AI genera versione personalizzata al volo
+4. Download immediato
+
+**Filosofia**: Ogni lettore merita un libro fatto per lui.
+
 ---
 
 ### 🌀 FILOSOFIA ONDE (10 Gen 2026)
