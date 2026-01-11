@@ -15,7 +15,7 @@ Onde sta disrupting l'editoria mondiale su DUE fronti:
 | Fronte | Cosa | Perché è devastante |
 |--------|------|---------------------|
 | **Classici senza copyright** | Libri immortali, più importanti di quelli scritti oggi | Zero costi contenuto, domanda eterna |
-| **Libri scritti da AI** | Scritti meglio della maggior parte degli autori di oggi | Velocità infinita, qualità controllata |
+| **Libri scritti da AI** | Scritti meglio della maggior parte degli autori di oggi | Velocità infinita, **QUALITÀ ALTISSIMA** |
 
 ### I numeri che contano
 
@@ -41,9 +41,11 @@ Onde sta disrupting l'editoria mondiale su DUE fronti:
 
 1. **Velocità** - Mentre gli editori tradizionali pubblicano 1 libro in 18 mesi, noi ne facciamo 100 in 1 mese
 2. **Costi** - Zero anticipo autori, zero stampa, zero magazzino
-3. **Qualità** - Classici immortali + AI che scrive meglio di molti umani
+3. **Qualità ALTISSIMA** - Libri BELLISSIMI. Illustrazioni watercolor europee, typography curata, zero compromessi
 4. **Scala** - 20 lingue dal giorno 1, mercato globale
 5. **Timing** - Siamo i primi a fare questo a questa scala
+
+> **"Non facciamo libri. Facciamo libri BELLISSIMI."** - Mattia
 
 ### Exit potenziali
 
@@ -2656,4 +2658,73 @@ In un oceano di contenuti AI generici, chi ha:
 - "DNA umano"
 
 ...si distingue. La rivoluzione macro rende Onde PIÙ importante.
+
+
+---
+
+## 📍 STATO SESSIONE - 10 Gennaio 2026 (Sera)
+
+> **Prossima sessione**: Riprendi da qui con `claude --chrome` per generare copertine
+
+### ✅ COMPLETATO OGGI
+
+| Task | Status | File |
+|------|--------|------|
+| Meditations - Testo completo EN | ✅ DONE | `/books/classics/meditations/` |
+| Meditations - HTML per ePub | ✅ DONE | `book.html` |
+| Meditations - Metadata Amazon | ✅ DONE | `metadata.json` |
+| Frankenstein - Testo completo EN | ✅ DONE | `/books/classics/frankenstein/` |
+| Frankenstein - HTML per ePub | ✅ DONE | `book.html` |
+| Frankenstein - Metadata Amazon | ✅ DONE | `metadata.json` |
+| Frankenstein - 10 scene illustrazioni | ✅ DONE | `illustration-scenes.md` |
+| Template libro Onde | ✅ DONE | `/templates/book-template-onde.html` |
+| Brief copertine Pina Pennello | ✅ DONE | `/books/classics/PINA-COVER-BRIEF-URGENTE.md` |
+
+### 🔴 DA FARE SUBITO (Prossima sessione con Chrome)
+
+1. **Generare copertine** con Grok usando brief Pina Pennello
+   - Meditations: stile adulto/premium (busto romano, oro/nero)
+   - Frankenstein: stile gotico romantico (luna, laboratorio)
+   
+2. **Convertire in ePub** e caricare su KDP
+   - `pandoc book.html -o meditations.epub`
+   - `pandoc book.html -o frankenstein.epub`
+
+3. **Pubblicare su Amazon KDP**
+   - Prezzo Meditations: $0.99 (cattura mercato)
+   - Prezzo Frankenstein: $0.99 (cattura mercato)
+
+### 📊 LIBRI PRONTI PER PUBBLICAZIONE
+
+| # | Libro | Lingua | Status |
+|---|-------|--------|--------|
+| 1 | Meditations | EN | HTML pronto, serve copertina |
+| 2 | Frankenstein | EN | HTML pronto, serve copertina |
+| 3 | Psalm 23 Abundance | EN/ES/DE/FR/KO | ePub pronti |
+| 4 | AIKO - AI Children | EN | PDF pronto |
+| 5 | Salmo 23 Bambini | IT | PDF pronto |
+| 6 | Piccole Rime | IT | PDF pronto |
+| 7 | Vibe Coding | EN | PDF pronto |
+
+### 🎨 STILE COPERTINE (da Pina Pennello)
+
+**Meditations** (ADULTI):
+- Minimalista, premium, elegante
+- Palette: nero #1a1a2e, oro #c9a227, marmo #f5f5f0
+- NO watercolor bambini
+
+**Frankenstein** (GOTHIC ROMANTICO):
+- Acquarello europeo + atmosfera gotica
+- Palette: blu notte #1a1a3a, argento, ambra
+- La Creatura = TRAGICA non spaventosa
+- Beatrix Potter meets Caspar David Friedrich
+
+### 💡 PROMEMORIA
+
+- Tutti i libri classici devono essere in **INGLESE PRIMA** (mercato USA = 50%)
+- Copertine devono far **SBAVARE** ("WOW voglio comprarlo!")
+- Ogni libro deve avere pagina "About the Creators" con Gianni + Pina
+- Template base: `/templates/book-template-onde.html`
+
+---
 

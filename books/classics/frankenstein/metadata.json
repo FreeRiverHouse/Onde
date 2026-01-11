@@ -1,0 +1,61 @@
+{
+  "title": "Frankenstein; or, The Modern Prometheus",
+  "author": "Mary Wollstonecraft Shelley",
+  "original_publication": 1818,
+  "language": "en",
+  "genre": ["Gothic Fiction", "Science Fiction", "Horror", "Romantic Literature"],
+  "public_domain": true,
+  "source": "Project Gutenberg",
+  "gutenberg_id": 84,
+
+  "amazon_description": "Discover the timeless masterpiece that launched science fiction and continues to haunt readers two centuries later. Mary Shelley's FRANKENSTEIN tells the unforgettable story of Victor Frankenstein, a brilliant scientist who dares to create life itself—only to abandon his creation and unleash a tragedy that will consume everyone he loves.\n\nThis isn't the monster movie you think you know. Shelley's original novel is a profound meditation on ambition, responsibility, and what it means to be human. The Creature—eloquent, lonely, desperately seeking love—is one of literature's most sympathetic outcasts. His creator's rejection transforms him into a figure of Gothic tragedy, not horror.\n\nWritten when Shelley was just nineteen, FRANKENSTEIN remains shockingly relevant: a warning about scientific hubris, the ethics of creation, and the devastating consequences of abandoning those we bring into being.\n\nThis premium illustrated edition features:\n- Complete, unabridged 1818 text\n- Elegant European watercolor illustrations\n- Premium paper and binding\n- Perfect for collectors, students, and first-time readers\n\nTwo hundred years later, the question still echoes: Who is the real monster?",
+
+  "keywords": [
+    "Frankenstein",
+    "Mary Shelley",
+    "Gothic fiction classics",
+    "science fiction origin",
+    "romantic literature",
+    "illustrated classics premium",
+    "monster literary fiction"
+  ],
+
+  "target_audience": ["young adults", "adults", "students", "collectors"],
+
+  "edition_info": {
+    "publisher": "Onde Editions",
+    "edition": "Premium Illustrated",
+    "year": 2025,
+    "format": ["ePub", "Kindle", "Paperback", "Hardcover"],
+    "illustrations": "European watercolor style, Gothic romantic aesthetic"
+  },
+
+  "structure": {
+    "letters": 4,
+    "chapters": 24,
+    "total_sections": 28
+  },
+
+  "key_characters": [
+    {"name": "Victor Frankenstein", "role": "protagonist, scientist"},
+    {"name": "The Creature", "role": "Frankenstein's creation"},
+    {"name": "Robert Walton", "role": "Arctic explorer, narrator"},
+    {"name": "Elizabeth Lavenza", "role": "Victor's fiancee"},
+    {"name": "Henry Clerval", "role": "Victor's best friend"},
+    {"name": "Alphonse Frankenstein", "role": "Victor's father"},
+    {"name": "William Frankenstein", "role": "Victor's youngest brother"},
+    {"name": "Justine Moritz", "role": "Frankenstein family servant"},
+    {"name": "De Lacey family", "role": "Blind father, Felix, Agatha, Safie"}
+  ],
+
+  "themes": [
+    "Creation and responsibility",
+    "Isolation and loneliness",
+    "Nature vs. nurture",
+    "Scientific ambition and ethics",
+    "Revenge and its consequences",
+    "The sublime in nature",
+    "Parental abandonment",
+    "The outsider and society"
+  ]
+}

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{TITLE}} - Onde Publishing</title>
+    <style>
+        /* =========================================================
+           ONDE BOOK TEMPLATE v1.0
+           Based on: Psalm 23 Abundance + Pina Pennello Design Guide
+
+           BRANDING IDENTITY:
+           - Stile: Acquarello Europeo (Beatrix Potter + Luzzati + Munari)
+           - Luce: Dorata, sempre presente
+           - NO: Pixar, 3D, guance rosse, colori saturi
+           - SÌ: Morbido, elegante, caldo, scenografico ma non "big star"
+
+           PALETTE ONDE (Acquarello Dorato):
+           - Oro caldo: #D4A574 / #d4af37
+           - Blu notte: #2C3E50
+           - Verde salvia: #8FA876 / #3d6b41
+           - Crema avorio: #FFF8E7 / #fffef8
+           - Terracotta: #C17F59
+           - Lavanda: #B8A9C9
+
+           FONTS:
+           - Titles: Libre Baskerville (serif, elegante)
+           - Body: Quicksand (leggibile, amichevole)
+        ========================================================= */
+
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+        /* ===== PAGE SETUP ===== */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Georgia', sans-serif;
+            background: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 12mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== VARIABLES - CUSTOMIZE PER BOOK ===== */
+        :root {
+            /* Primary accent - change per book mood */
+            --accent-gold: #d4af37;
+            --accent-green: #3d6b41;
+            --accent-warm: #7a6030;
+
+            /* Backgrounds */
+            --bg-cream: #fffef8;
+            --bg-warm: #faf8f5;
+
+            /* Text */
+            --text-dark: #2c3e50;
+            --text-light: #5d6d7e;
+            --text-muted: #888;
+
+            /* Gradients - change for different book moods */
+            --gradient-cover: linear-gradient(180deg, #f5d782 0%, #a8d4a0 50%, #7eb8da 100%);
+            --gradient-chapter: linear-gradient(180deg, #fffef5 0%, #f8f6f0 100%);
+            --gradient-end: linear-gradient(180deg, #fdf6e3 0%, #e8f4f0 50%, #fff 100%);
+            --gradient-creators: linear-gradient(180deg, #faf8f5 0%, #f5e6b3 100%);
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            background: var(--gradient-cover);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 15mm 15mm 0 15mm;
+        }
+
+        .cover img {
+            width: 150mm;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 5px solid white;
+        }
+
+        .cover h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 34pt;
+            color: var(--accent-green);
+            margin-top: 15mm;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+        }
+
+        .cover h2 {
+            font-size: 15pt;
+            color: var(--accent-green);
+            font-weight: 400;
+            font-style: italic;
+            margin-top: 5mm;
+            opacity: 0.85;
+        }
+
+        .cover .author {
+            font-size: 11pt;
+            color: var(--accent-green);
+            margin-top: auto;
+            padding-bottom: 10mm;
+            opacity: 0.8;
+        }
+
+        /* ===== DEDICATION PAGE ===== */
+        .dedication {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-cream);
+        }
+
+        .dedication-text {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 18pt;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 140mm;
+            line-height: 2;
+        }
+
+        .dedication-ornament {
+            font-size: 24pt;
+            color: var(--accent-gold);
+            margin: 15mm 0;
+        }
+
+        /* ===== CHAPTER PAGES ===== */
+        .chapter {
+            background: var(--gradient-chapter);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10mm 15mm;
+        }
+
+        .chapter-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 12pt;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 3mm;
+        }
+
+        .chapter-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 20pt;
+            color: var(--accent-green);
+            margin-bottom: 8mm;
+            text-align: center;
+        }
+
+        .chapter img {
+            width: 165mm;
+            height: auto;
+            max-height: 140mm;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            margin-bottom: 8mm;
+        }
+
+        .chapter-text {
+            font-size: 14pt;
+            line-height: 1.9;
+            color: #333;
+            text-align: center;
+            max-width: 155mm;
+        }
+
+        .chapter-text p {
+            margin-bottom: 8px;
+        }
+
+        /* Quote/Verse styling - the "scenografico" element */
+        .verse, .quote {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            color: var(--accent-warm);
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-left: 4px solid var(--accent-gold);
+            border-right: 4px solid var(--accent-gold);
+            text-align: center;
+            background: linear-gradient(90deg, rgba(212,168,85,0.08) 0%, rgba(212,168,85,0.15) 50%, rgba(212,168,85,0.08) 100%);
+            border-radius: 8px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 8mm;
+            right: 12mm;
+            font-size: 10pt;
+            color: #aaa;
+        }
+
+        /* ===== ORIGINAL TEXT PAGE (for classics) ===== */
+        .original-text-page {
+            background: var(--bg-cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25mm;
+        }
+
+        .original-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18pt;
+            color: var(--accent-warm);
+            margin-bottom: 15mm;
+        }
+
+        .original-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 13pt;
+            line-height: 2.2;
+            color: #555;
+            text-align: center;
+            max-width: 140mm;
+        }
+
+        .original-text p {
+            margin-bottom: 8px;
+        }
+
+        /* ===== ABOUT THE CREATORS PAGE ===== */
+        .creators-page {
+            background: var(--gradient-creators);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15mm 20mm;
+        }
+
+        .creators-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 22pt;
+            color: var(--text-dark);
+            margin-bottom: 12mm;
+            text-align: center;
+        }
+
+        .creators-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15mm;
+            width: 100%;
+            max-width: 160mm;
+        }
+
+        .creator-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 8mm;
+            background: rgba(255,255,255,0.7);
+            padding: 8mm;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .creator-portrait {
+            width: 40mm;
+            height: 40mm;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+
+        .creator-info {
+            flex: 1;
+        }
+
+        .creator-name {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16pt;
+            color: var(--text-dark);
+            margin-bottom: 3mm;
+        }
+
+        .creator-role {
+            font-size: 10pt;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4mm;
+        }
+
+        .creator-bio {
+            font-size: 11pt;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .creators-footer {
+            margin-top: 12mm;
+            text-align: center;
+        }
+
+        .publisher-logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 14pt;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .publisher-tagline {
+            font-size: 10pt;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 2mm;
+        }
+
+        /* ===== END PAGE ===== */
+        .end-page {
+            background: var(--gradient-end);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fine {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 42pt;
+            color: var(--accent-warm);
+            font-style: italic;
+            margin-bottom: 30mm;
+        }
+
+        .ornament {
+            font-size: 20pt;
+            color: var(--accent-gold);
+            margin-bottom: 15mm;
+        }
+
+        .credits {
+            font-size: 13pt;
+            color: #666;
+        }
+
+        .credits p {
+            margin: 6px 0;
+        }
+
+        .publisher {
+            margin-top: 25mm;
+            font-size: 14pt;
+            color: var(--accent-warm);
+            font-weight: 600;
+        }
+
+        .edition-info {
+            font-size: 9pt;
+            color: var(--text-muted);
+            margin-top: 8mm;
+        }
+
+        .ai-credit {
+            font-size: 9pt;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* ===== ADULT BOOK VARIANT (for Meditations, etc) ===== */
+        .adult-variant {
+            --accent-gold: #c9a227;
+            --accent-green: #2c3e50;
+            --accent-warm: #5d4e37;
+            --gradient-cover: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            --gradient-chapter: linear-gradient(180deg, #faf9f7 0%, #f5f4f0 100%);
+        }
+
+        .adult-variant .cover {
+            background: var(--gradient-cover);
+        }
+
+        .adult-variant .cover h1,
+        .adult-variant .cover h2,
+        .adult-variant .cover .author {
+            color: #f5e6b3;
+            text-shadow: none;
+        }
+
+        /* ===== GOTHIC VARIANT (for Frankenstein, etc) ===== */
+        .gothic-variant {
+            --accent-gold: #b8860b;
+            --accent-green: #1a1a3a;
+            --accent-warm: #4a3a5a;
+            --gradient-cover: linear-gradient(180deg, #1a1a3a 0%, #2d2d5a 50%, #1a3a5a 100%);
+        }
+
+        .gothic-variant .cover {
+            background: var(--gradient-cover);
+        }
+
+        .gothic-variant .cover h1,
+        .gothic-variant .cover h2,
+        .gothic-variant .cover .author {
+            color: #e8d4b8;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 5mm; }
+        .mt-2 { margin-top: 10mm; }
+        .mb-1 { margin-bottom: 5mm; }
+        .mb-2 { margin-bottom: 10mm; }
+
+    </style>
+</head>
+<body>
+
+<!-- =========================================================
+     INSTRUCTIONS FOR USE:
+
+     1. Replace all {{PLACEHOLDERS}} with actual content
+     2. Choose variant class on <body>:
+        - Default: Children's books (warm, golden)
+        - adult-variant: Philosophy, self-help (elegant, dark)
+        - gothic-variant: Horror, gothic literature
+     3. Images go in /images/ folder relative to HTML
+     4. Author portraits: gianni-parola-portrait.jpg, pina-pennello-portrait.jpg
+     5. Export to PDF using browser print or Puppeteer
+
+     QUALITY CHECKLIST (from Pina Pennello):
+     - [ ] Illustrations match text exactly
+     - [ ] Golden light present in every image
+     - [ ] NO Pixar, NO 3D, NO rosy cheeks
+     - [ ] Anatomy check: 5 fingers, 2 ears
+     - [ ] Upscaled images only
+========================================================= -->
+
+<!-- COVER -->
+<div class="page cover">
+    <img src="images/00-cover.jpg" alt="Cover">
+    <h1>{{TITLE}}</h1>
+    <h2>{{SUBTITLE}}</h2>
+    <p class="author">Words by Gianni Parola &bull; Illustrations by Pina Pennello</p>
+</div>
+
+<!-- DEDICATION -->
+<div class="page dedication">
+    <div class="dedication-ornament">&#10022;</div>
+    <p class="dedication-text">
+        {{DEDICATION_TEXT}}
+    </p>
+    <div class="dedication-ornament">&#10022;</div>
+</div>
+
+<!-- CHAPTER TEMPLATE - Repeat for each chapter -->
+<div class="page chapter">
+    <p class="chapter-number">CHAPTER {{CHAPTER_NUM}}</p>
+    <h2 class="chapter-title">{{CHAPTER_TITLE}}</h2>
+    <img src="images/{{CHAPTER_IMAGE}}" alt="{{CHAPTER_TITLE}}">
+    <div class="chapter-text">
+        <p>{{CHAPTER_TEXT_PARA_1}}</p>
+
+        <p class="verse">{{CHAPTER_QUOTE}}</p>
+
+        <p>{{CHAPTER_TEXT_PARA_2}}</p>
+    </div>
+    <span class="page-number">{{PAGE_NUM}}</span>
+</div>
+
+<!-- ABOUT THE CREATORS -->
+<div class="page creators-page">
+    <h2 class="creators-title">About the Creators</h2>
+
+    <div class="creators-container">
+        <div class="creator-card">
+            <img class="creator-portrait" src="images/gianni-parola-portrait.jpg" alt="Gianni Parola">
+            <div class="creator-info">
+                <h3 class="creator-name">Gianni Parola</h3>
+                <p class="creator-role">Writer</p>
+                <p class="creator-bio">
+                    Gianni Parola writes stories that help children understand the world around them.
+                    He believes every child deserves books that spark curiosity and wonder.
+                </p>
+            </div>
+        </div>
+
+        <div class="creator-card">
+            <img class="creator-portrait" src="images/pina-pennello-portrait.jpg" alt="Pina Pennello">
+            <div class="creator-info">
+                <h3 class="creator-name">Pina Pennello</h3>
+                <p class="creator-role">Illustrator</p>
+                <p class="creator-bio">
+                    Pina Pennello brings stories to life with her warm watercolor illustrations.
+                    Her art is inspired by the gentle beauty of Italian countryside
+                    and the magic in everyday moments.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="creators-footer">
+        <p class="publisher-logo">Onde Publishing</p>
+        <p class="publisher-tagline">Free River House &bull; Stories that connect hearts</p>
+    </div>
+</div>
+
+<!-- THE END -->
+<div class="page end-page">
+    <p class="fine">The End</p>
+    <p class="ornament">&#10022; &#10022; &#10022;</p>
+
+    <div class="credits">
+        <p><strong>Words:</strong> Gianni Parola</p>
+        <p><strong>Illustrations:</strong> Pina Pennello</p>
+        <p class="ai-credit">Illustrations created with Grok AI</p>
+    </div>
+
+    <p class="publisher">Onde Publishing</p>
+    <p class="edition-info">First Edition &bull; {{YEAR}} &bull; {{ISBN}}</p>
+</div>
+
+</body>
+</html>
