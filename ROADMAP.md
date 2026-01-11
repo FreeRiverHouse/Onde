@@ -75,6 +75,29 @@ Onde è un fiume libero (Free River House) che nutre la terra.
 Onde sono vibrazioni che connettono cuori.
 Le onde sembrano un fiore - far fiorire il mondo è la missione.
 
+### 🎧 BOLD VISION: ONDE = SPOTIFY PER LIBRI (10 Gen 2026)
+
+**Non vendiamo libri. Vendiamo ESPERIENZA e CRESCITA.**
+
+| Oggi | Domani |
+|------|--------|
+| Introduzioni statiche | Introduzioni dinamiche basate su goal del lettore |
+| Ebook store tradizionale | Piattaforma immersiva tipo Spotify |
+| Lettura passiva | VR Library, audiobook, video - quello che vuoi |
+
+**La visione VR:**
+- Entri in una biblioteca virtuale
+- O ti siedi su una spiaggia virtuale
+- Leggi, ascolti, guardi - il formato che preferisci
+- Tutto nel **flow**, tutto divertente
+
+**Personalizzazione:**
+- Il lettore dice: "Qual è il mio obiettivo?"
+- Onde genera introduzioni customizzate
+- Guida la crescita personale attraverso i libri
+
+**Frase chiave:** *"Esperienza e crescita. È tutto divertendosi stando nel flow."*
+
 ### 🌀 FILOSOFIA ONDE (10 Gen 2026)
 
 **Onde è il cammino del Tao** - quella linea che sta in mezzo.

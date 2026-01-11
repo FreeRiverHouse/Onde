@@ -44,14 +44,23 @@ Produrre libri classici di qualità premium a velocità industriale.
    - Tech/AI → **ONDE FUTURES**
    - Educazione bambini → **ONDE LEARN**
 
-### FASE 2: TESTO (5 min)
+### FASE 2: TESTO (5-10 min)
 
 1. **Scarica** il testo da Project Gutenberg (formato TXT o HTML)
-2. **Pulisci**:
+
+2. **🔴 VERIFICA AUTENTICITÀ (OBBLIGATORIO)**:
+   - [ ] Il testo proviene da fonte verificata (Gutenberg, Internet Archive, ecc.)?
+   - [ ] La traduzione è quella indicata? (verifica traduttore)
+   - [ ] Nessuna modifica al testo originale?
+   - [ ] Per classici: confronta con edizione di riferimento
+   - [ ] **MAI modificare/inventare testi e attribuirli ad autori reali**
+
+3. **Pulisci**:
    - Rimuovi header/footer Gutenberg
    - Formatta capitoli
    - Verifica encoding UTF-8
-3. **Salva** in `/books/[categoria]/[nome-libro]/text/`
+
+4. **Salva** in `/books/[categoria]/[nome-libro]/text/`
 
 ```bash
 # Struttura cartella
@@ -89,19 +98,37 @@ books/
    - [ ] Pina verifica (stile catena, qualità)
    - [ ] Editore Capo verifica (brand fit, ready for print)
 
-### FASE 4: ILLUSTRAZIONI INTERNE (opzionale, 10-30 min)
+### FASE 4: ILLUSTRAZIONI INTERNE (RACCOMANDATO, 15-45 min)
 
-**Per libri che richiedono illustrazioni:**
+**🎨 OBIETTIVO: Fare libri PIÙ BELLI del normale, non solo funzionali.**
 
-1. **Identifica scene chiave** (max 10-15 per libro)
-2. **Crea prompt** seguendo stile catena
-3. **Genera in batch** su Grok (apri 5-10 tab parallele)
-4. **Tecnica coerenza**: Usa image-to-image per mantenere stile
-5. **DOPPIO CHECK** ogni immagine
+**Anche per classici adulti**, aggiungi illustrazioni per elevare l'esperienza:
 
-**Per classici adulti (Meditations, filosofia):**
-- Spesso bastano copertina + typography
-- NO illustrazioni interne = più veloce
+| Tipo Libro | Illustrazioni Suggerite |
+|------------|------------------------|
+| Filosofia (Meditations) | 5-8 illustrazioni simboliche (colonne romane, busti, paesaggi stoici) |
+| Romanzo (Frankenstein) | 8-12 scene chiave (laboratorio, natura, momenti emotivi) |
+| Poesia | 1 illustrazione per poesia o sezione |
+| Spiritualità | 6-10 illustrazioni contemplative |
+
+**Processo:**
+
+1. **Identifica scene/temi chiave** - leggi il testo, scegli momenti iconici
+2. **Crea prompt** seguendo stile catena (CLASSICS = elegante, simbolico)
+3. **Genera in batch** su Grok (apri 5-10 tab parallele per velocità)
+4. **Tecnica coerenza**: Usa image-to-image per mantenere stile uniforme
+5. **DOPPIO CHECK** ogni immagine (Pina + Editore Capo)
+6. **Posiziona** le illustrazioni nei punti giusti del testo
+
+**Stili illustrazioni per ONDE CLASSICS:**
+- Acquarello elegante, non infantile
+- Colori sofisticati (blu, oro, seppia)
+- Simbolico/evocativo, non letterale
+- Stile "museo" - come litografie d'epoca
+
+**Tool:**
+- **Grok** per illustrazioni statiche
+- **Hedra** se serve animazione (es. per versione enhanced/video)
 
 ### FASE 5: ASSEMBLY (5 min)
 
