@@ -94,12 +94,17 @@ class BookUpgradeEnhanced:
         print(f"   ✅ Backup creato: {backup_dir.name}")
     
     def compare_versions(self) -> Dict:
-        """Confronta versione originale con upgradata"""
+        """Confronta versione originale con upgradata - CON CHECK AUTOMATICI"""
         
         diff_report = {
             'files_changed': [],
             'total_changes': 0,
-            'detailed_diff': []
+            'detailed_diff': [],
+            'page_count_original': 0,
+            'page_count_upgraded': 0,
+            'file_size_original': 0,
+            'file_size_upgraded': 0,
+            'critical_errors': []
         }
         
         # Trova file HTML principale
@@ -111,10 +116,38 @@ class BookUpgradeEnhanced:
             if backup_file.exists():
                 # Leggi entrambe le versioni
                 with open(backup_file, 'r', encoding='utf-8') as f:
-                    original = f.readlines()
+                    original_content = f.read()
+                    original = original_content.splitlines(keepends=True)
                 
                 with open(html_file, 'r', encoding='utf-8') as f:
-                    upgraded = f.readlines()
+                    upgraded_content = f.read()
+                    upgraded = upgraded_content.splitlines(keepends=True)
+                
+                # CHECK 1: Conta pagine (div class="page")
+                original_pages = original_content.count('<div class="page')
+                upgraded_pages = upgraded_content.count('<div class="page')
+                diff_report['page_count_original'] = original_pages
+                diff_report['page_count_upgraded'] = upgraded_pages
+                
+                # CHECK 2: Dimensione file
+                diff_report['file_size_original'] = len(original_content)
+                diff_report['file_size_upgraded'] = len(upgraded_content)
+                
+                # CHECK 3: Calo drastico pagine (>10% = ERRORE CRITICO)
+                if original_pages > 0:
+                    page_loss_percent = ((original_pages - upgraded_pages) / original_pages) * 100
+                    if page_loss_percent > 10:
+                        diff_report['critical_errors'].append(
+                            f"ERRORE CRITICO: Calo pagine {page_loss_percent:.1f}% ({original_pages} → {upgraded_pages})"
+                        )
+                
+                # CHECK 4: Calo drastico dimensione file (>20% = WARNING)
+                if diff_report['file_size_original'] > 0:
+                    size_loss_percent = ((diff_report['file_size_original'] - diff_report['file_size_upgraded']) / diff_report['file_size_original']) * 100
+                    if size_loss_percent > 20:
+                        diff_report['critical_errors'].append(
+                            f"WARNING: Calo dimensione file {size_loss_percent:.1f}%"
+                        )
                 
                 # Calcola diff
                 diff = list(difflib.unified_diff(
@@ -132,14 +165,35 @@ class BookUpgradeEnhanced:
         
         print(f"   📊 File modificati: {len(diff_report['files_changed'])}")
         print(f"   📊 Totale modifiche: {diff_report['total_changes']}")
+        print(f"   📄 Pagine: {diff_report['page_count_original']} → {diff_report['page_count_upgraded']}")
+        print(f"   💾 Dimensione: {diff_report['file_size_original']} → {diff_report['file_size_upgraded']} bytes")
+        
+        if diff_report['critical_errors']:
+            print(f"\n   ⚠️  ERRORI CRITICI RILEVATI:")
+            for error in diff_report['critical_errors']:
+                print(f"      ❌ {error}")
         
         return diff_report
     
     def verify_changes(self, diff_report: Dict) -> Dict:
-        """Verifica che modifiche corrispondano a richiesta upgrade"""
+        """Verifica che modifiche corrispondano a richiesta upgrade - CON CHECK CRITICI"""
+        
+        # CHECK CRITICO: Se ci sono errori critici nel diff, BLOCCA
+        if diff_report['critical_errors']:
+            print(f"\n   ❌ VERIFICA FALLITA: Errori critici rilevati")
+            return {
+                'approved': False,
+                'changes_summary': {},
+                'reason': self.upgrade_reason,
+                'match': False,
+                'critical_errors': diff_report['critical_errors'],
+                'failure_reason': 'Critical errors detected in diff comparison'
+            }
         
         # Analizza diff per capire cosa è cambiato
         changes_summary = self.analyze_diff(diff_report['detailed_diff'])
+        changes_summary['page_count_change'] = diff_report['page_count_upgraded'] - diff_report['page_count_original']
+        changes_summary['file_size_change'] = diff_report['file_size_upgraded'] - diff_report['file_size_original']
         
         print(f"\n   📋 Modifiche rilevate:")
         for change_type, count in changes_summary.items():
@@ -152,7 +206,8 @@ class BookUpgradeEnhanced:
             'approved': is_approved,
             'changes_summary': changes_summary,
             'reason': self.upgrade_reason,
-            'match': is_approved
+            'match': is_approved,
+            'critical_errors': diff_report['critical_errors']
         }
         
         if is_approved:
