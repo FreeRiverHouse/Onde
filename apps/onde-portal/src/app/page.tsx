@@ -130,6 +130,14 @@ export default function Home() {
   // Check if we're on onde.surf domain
   const [isOndeSurf, setIsOndeSurf] = useState(false)
   
+  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURN
+  // This is a React rule - hooks must be called in the same order every render
+  const { scrollYProgress } = useScroll()
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
+  const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
+  
   useEffect(() => {
     // Check hostname to determine if we're on onde.surf
     const hostname = window.location.hostname
@@ -144,18 +152,12 @@ export default function Home() {
   }, [])
   
   // If onde.surf, show split-screen selector
+  // This conditional return is AFTER all hooks have been called
   if (isOndeSurf) {
     return <SurfSelector />
   }
   
   // Otherwise, show normal portal (onde.la)
-  const { scrollYProgress } = useScroll()
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
-
-  // Generate particle indices
-  const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
 
   return (
     <div className="relative overflow-x-hidden w-full">
