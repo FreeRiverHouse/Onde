@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0ebe6"/>
+      <stop offset="100%" style="stop-color:#e0d8d1"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg4)" width="300" height="400"/>
+  <rect x="20" y="20" width="260" height="360" fill="none" stroke="#96867a" stroke-width="2"/>
+  <text x="150" y="180" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5b4a4a">Grimm's</text>
+  <text x="150" y="210" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#5b4a4a">Fairy Tales</text>
+  <text x="150" y="260" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#8a7b6b">Brothers Grimm</text>
+  <path d="M130 80 L150 60 L170 80 L160 80 L160 110 L140 110 L140 80 Z" fill="none" stroke="#96867a" stroke-width="1"/>
+  <rect x="145" y="100" width="10" height="10" fill="none" stroke="#96867a" stroke-width="1"/>
+</svg>
