@@ -1,0 +1,22 @@
+{
+  "book_id": "meditations",
+  "version": "Meditations-Eng-v1",
+  "mode": "UPGRADE",
+  "files": {
+    "pdf": "meditations-en.pdf",
+    "epub": "meditations-en.epub",
+    "cover": "meditations-cover.jpg"
+  },
+  "target_paths": {
+    "pdf": "apps/onde-portal/public/books/meditations-en.pdf",
+    "epub": "apps/onde-portal/public/books/epub/meditations-en.epub",
+    "cover": "apps/onde-portal/public/books/meditations-cover.jpg"
+  },
+  "workflow": [
+    "1. Deploy su ambiente di preproduzione",
+    "2. Test funzionalit\u00e0 portale",
+    "3. Verifica download PDF/EPUB",
+    "4. Se OK: deploy su produzione",
+    "5. Se FAIL: rollback automatico"
+  ]
+}
