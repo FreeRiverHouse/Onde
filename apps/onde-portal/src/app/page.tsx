@@ -128,8 +128,29 @@ const books = [
 ]
 
 export default function Home() {
-  // Check if we're on onde.surf domain
-  const [isOndeSurf, setIsOndeSurf] = useState(false)
+  // Check if we're on onde.surf domain - MUST be initialized to correct value immediately
+  const [isOndeSurf, setIsOndeSurf] = useState(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return false
+    
+    const hostname = window.location.hostname
+    const port = window.location.port
+    const urlParams = new URLSearchParams(window.location.search)
+    const mode = urlParams.get('mode')
+    const showPortal = sessionStorage.getItem('showPortal')
+    
+    // If mode=preprod or showPortal flag is set, show portal (not surf selector)
+    if (mode === 'preprod' || showPortal === 'true') {
+      sessionStorage.removeItem('showPortal')
+      return false
+    }
+    
+    // onde.surf: show split-screen
+    // onde.la: show normal portal
+    // localhost:7777: show split-screen (onde.surf test)
+    // localhost:8888: show normal portal (onde.la test)
+    return hostname.includes('onde.surf') || port === '7777'
+  })
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURN
   // This is a React rule - hooks must be called in the same order every render
@@ -138,36 +159,6 @@ export default function Home() {
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
   const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
-  
-  useEffect(() => {
-    // Check hostname to determine if we're on onde.surf
-    const hostname = window.location.hostname
-    const port = window.location.port
-    const urlParams = new URLSearchParams(window.location.search)
-    const mode = urlParams.get('mode')
-    const showPortal = sessionStorage.getItem('showPortal')
-    
-    console.log('[ONDE DEBUG] hostname:', hostname)
-    console.log('[ONDE DEBUG] port:', port)
-    console.log('[ONDE DEBUG] mode:', mode)
-    console.log('[ONDE DEBUG] showPortal:', showPortal)
-    
-    // If mode=preprod or showPortal flag is set, show portal (not surf selector)
-    if (mode === 'preprod' || showPortal === 'true') {
-      sessionStorage.removeItem('showPortal') // Clear flag after use
-      console.log('[ONDE DEBUG] Showing portal (preprod mode)')
-      setIsOndeSurf(false)
-      return
-    }
-    
-    // onde.surf: show split-screen
-    // onde.la: show normal portal
-    // localhost:7777: show split-screen (onde.surf test)
-    // localhost:8888: show normal portal (onde.la test)
-    const isSurf = hostname.includes('onde.surf') || port === '7777'
-    console.log('[ONDE DEBUG] isSurf:', isSurf)
-    setIsOndeSurf(isSurf)
-  }, [])
   
   // If onde.surf, show split-screen selector
   // This conditional return is AFTER all hooks have been called
