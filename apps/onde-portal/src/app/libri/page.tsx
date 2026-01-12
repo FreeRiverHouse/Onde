@@ -31,8 +31,8 @@ const books: Book[] = [
     coverImage: '/books/meditations-cover.jpg',
     pdfLink: '/books/meditations-en.pdf',
     epubLink: '/books/epub/meditations-en.epub',
-    price: '$0.11',
-    isFree: false,
+    price: 'Free',
+    isFree: true,
   },
   {
     id: 'shepherds-promise',

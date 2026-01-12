@@ -1,0 +1,45 @@
+{
+  "environment": "onde-la",
+  "base_url": "http://localhost:8888",
+  "timestamp": "2026-01-11T19:13:00.061256",
+  "tests": [
+    {
+      "page": "homepage",
+      "url": "http://localhost:8888",
+      "status": "error",
+      "errors": [
+        "Error: Page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8888/\nCall log:\n  - navigating to \"http://localhost:8888/\", waiting until \"networkidle\"\n"
+      ],
+      "warnings": [],
+      "links_found": 0,
+      "screenshot": null
+    },
+    {
+      "page": "libri",
+      "url": "http://localhost:8888/libri",
+      "status": "error",
+      "errors": [
+        "Error: Page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8888/libri\nCall log:\n  - navigating to \"http://localhost:8888/libri\", waiting until \"networkidle\"\n"
+      ],
+      "warnings": [],
+      "links_found": 0,
+      "screenshot": null
+    },
+    {
+      "page": "about",
+      "url": "http://localhost:8888/about",
+      "status": "error",
+      "errors": [
+        "Error: Page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8888/about\nCall log:\n  - navigating to \"http://localhost:8888/about\", waiting until \"networkidle\"\n"
+      ],
+      "warnings": [],
+      "links_found": 0,
+      "screenshot": null
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "links_tested": 0,
+  "screenshots_taken": 0,
+  "success": false
+}

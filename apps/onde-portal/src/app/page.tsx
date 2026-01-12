@@ -107,7 +107,7 @@ const books = [
     author: 'Marcus Aurelius',
     description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
     category: 'Philosophy',
-    price: '$0.11',
+    price: 'Free',
     gradient: 'from-amber-500 to-amber-700',
     cover: '/books/meditations-cover.jpg',
     pdfUrl: '/books/meditations-en.pdf',

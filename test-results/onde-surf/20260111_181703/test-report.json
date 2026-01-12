@@ -1,0 +1,41 @@
+{
+  "environment": "onde-surf",
+  "base_url": "http://localhost:7777",
+  "timestamp": "2026-01-11T18:17:03.958295",
+  "tests": [
+    {
+      "page": "homepage",
+      "url": "http://localhost:7777",
+      "status": "success",
+      "errors": [],
+      "warnings": [],
+      "links_found": 14,
+      "screenshot": "/Users/mattiapetrucciani/Onde/test-results/onde-surf/20260111_181703/homepage.png"
+    },
+    {
+      "page": "vr-portal",
+      "url": "http://localhost:7777/vr",
+      "status": "success",
+      "errors": [],
+      "warnings": [],
+      "links_found": 15,
+      "screenshot": "/Users/mattiapetrucciani/Onde/test-results/onde-surf/20260111_181703/vr-portal.png"
+    },
+    {
+      "page": "preprod-portal",
+      "url": "http://localhost:7777/preprod",
+      "status": "success",
+      "errors": [],
+      "warnings": [],
+      "links_found": 14,
+      "screenshot": "/Users/mattiapetrucciani/Onde/test-results/onde-surf/20260111_181703/preprod-portal.png"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Link testing error: ElementHandle.get_attribute: Execution context was destroyed, most likely because of a navigation\nCall log:\n  - waiting for locator(\":scope\")\n"
+  ],
+  "links_tested": 1,
+  "screenshots_taken": 3,
+  "success": true
+}
