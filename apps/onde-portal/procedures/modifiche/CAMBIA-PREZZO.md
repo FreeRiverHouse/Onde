@@ -31,9 +31,19 @@ grep -n '>Free<' /Users/mattia/Projects/Onde/apps/onde-portal/out/libri/index.ht
 
 ## STEP 2: Identificare i File da Modificare
 
+⚠️ **ATTENZIONE: Next.js usa sia HTML che JavaScript!**
+
 Il prezzo appare in questi file:
+
+### File HTML (rendering iniziale):
 1. **Homepage**: `/out/index.html`
 2. **Pagina Libri**: `/out/libri/index.html`
+
+### File JavaScript (hydration React):
+3. **JS Homepage**: `/out/_next/static/chunks/app/page-*.js`
+4. **JS Libri**: `/out/_next/static/chunks/app/libri/page-*.js`
+
+**IMPORTANTE:** Se modifichi SOLO l'HTML, l'utente vedrà il prezzo vecchio dopo che React idrata la pagina. Devi modificare ENTRAMBI!
 
 ---
 

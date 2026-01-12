@@ -274,22 +274,141 @@ PER OGNI CANALE:
 ╚═══════════════════════════════════════════════════════════════════╝
 ```
 
-### Procedura Correzione (Non-Regressione)
+### Procedura Correzione/Upgrade Libro (BLINDATA)
+
+## ═══════════════════════════════════════════════════════════════
+## FASE 1: SNAPSHOT PRE-UPGRADE (OBBLIGATORIO)
+## ═══════════════════════════════════════════════════════════════
+
+**PRIMA di toccare QUALSIASI file, esegui questi check e SALVA i risultati:**
+
+```bash
+# 1. Conta pagine PDF attuale
+mdls -name kMDItemNumberOfPages [libro].pdf
+# SALVA: pagine_prima = [numero]
+
+# 2. Verifica forward presente nell'HTML
+grep -c "forward\|You found this" [libro].html
+# SALVA: forward_check = [numero > 0 = OK]
+
+# 3. Verifica note biografiche
+grep -c "bio-page\|ABOUT\|biographical" [libro].html
+# SALVA: bio_check = [numero]
+
+# 4. Conta immagini
+grep -c '<img' [libro].html
+# SALVA: immagini_count = [numero]
+```
+
+**SALVA QUESTI VALORI IN UN FILE TEMPORANEO:**
+```
+PRE-UPGRADE SNAPSHOT:
+- Pagine: [X]
+- Forward: [presente/assente]
+- Bio notes: [presente/assente]
+- Immagini: [X]
+- File HTML: [nome file]
+- File PDF: [nome file]
+```
+
+## ═══════════════════════════════════════════════════════════════
+## FASE 2: MODIFICA CHIRURGICA
+## ═══════════════════════════════════════════════════════════════
 
 ```
 1. LEGGI la correzione richiesta
 2. IDENTIFICA cosa deve cambiare (e SOLO quello)
-3. LISTA tutto quello che NON deve cambiare:
-   - Immagini (posizioni, ordine, file)
-   - Layout HTML/CSS
-   - Testo delle altre sezioni
-   - Forward (se già approvata)
-   - Ordine pagine
-4. FAI la modifica MINIMA necessaria
-5. VERIFICA che tutto il resto sia IDENTICO
-6. RIGENERA PDF
-7. CONFRONTA visivamente con versione precedente
-8. MANDA SU TELEGRAM
+3. MODIFICA solo il file HTML esistente
+4. ⚠️ USA SOLO html-to-pdf.js per generare PDF!
+   - MAI usare script generate-*.js (RIGENERANO tutto!)
+```
+
+## ═══════════════════════════════════════════════════════════════
+## FASE 3: VERIFICA POST-UPGRADE (OBBLIGATORIO - NON SALTARE!)
+## ═══════════════════════════════════════════════════════════════
+
+**DOPO aver generato il nuovo PDF, esegui TUTTI questi check:**
+
+```bash
+# 1. Conta pagine PDF nuovo
+mdls -name kMDItemNumberOfPages [libro].pdf
+# CONFRONTA: pagine_dopo vs pagine_prima
+# REGOLA: deve essere UGUALE o +1 (se aggiunto contenuto)
+
+# 2. Verifica forward ANCORA presente
+grep -c "forward\|You found this" [libro].html
+# DEVE essere >= forward_check precedente
+
+# 3. Verifica bio notes ANCORA presenti
+grep -c "bio-page\|ABOUT\|biographical" [libro].html
+# DEVE essere >= bio_check precedente
+
+# 4. Conta immagini
+grep -c '<img' [libro].html
+# DEVE essere = immagini_count precedente
+```
+
+## ═══════════════════════════════════════════════════════════════
+## FASE 4: FAIL-SAFE - SE QUALCOSA NON QUADRA → STOP!
+## ═══════════════════════════════════════════════════════════════
+
+```
+⛔ SE pagine_dopo < pagine_prima - 5 → STOP! Qualcosa è andato perso!
+⛔ SE forward_check_dopo < forward_check_prima → STOP! Forward persa!
+⛔ SE bio_check_dopo < bio_check_prima → STOP! Bio notes perse!
+⛔ SE immagini_dopo < immagini_prima → STOP! Immagini perse!
+
+SE STOP:
+1. NON mandare su Telegram
+2. Ripristina da backup
+3. Analizza cosa è andato storto
+4. Riparti dalla FASE 1
+```
+
+## ═══════════════════════════════════════════════════════════════
+## FASE 5: SOLO SE TUTTI I CHECK PASSANO → INVIA
+## ═══════════════════════════════════════════════════════════════
+
+```
+✅ Tutti i check passati?
+   → Confronta visivamente PDF vecchio vs nuovo
+   → Manda su Telegram
+   → Aggiorna CHANGELOG
+```
+
+### ⚠️ ERRORE CRITICO DA EVITARE
+
+```
+❌ MAI USARE generate-complete-pdf.js o generate-george-long.js
+   → Questi script RIGENERANO l'HTML da zero
+   → SOVRASCRIVONO tutte le modifiche manuali!
+   → Forward, note biografiche, swap immagini: TUTTO PERSO!
+
+✅ USARE SEMPRE html-to-pdf.js
+   → Genera PDF dall'HTML ESISTENTE
+   → NON modifica l'HTML
+   → Preserva tutte le modifiche manuali
+```
+
+### CHECKLIST BLINDATA (copia e compila OGNI volta)
+
+```
+PRE-UPGRADE:
+- [ ] Pagine prima: ___
+- [ ] Forward presente: ___
+- [ ] Bio notes presenti: ___
+- [ ] Immagini count: ___
+- [ ] File HTML usato: ___
+
+POST-UPGRADE:
+- [ ] Pagine dopo: ___ (deve essere >= prima)
+- [ ] Forward presente: ___ (deve essere = prima)
+- [ ] Bio notes presenti: ___ (deve essere = prima)
+- [ ] Immagini count: ___ (deve essere = prima)
+- [ ] TUTTI I CHECK PASSATI? [ ] SÌ [ ] NO
+
+SE NO → STOP! NON INVIARE!
+SE SÌ → Procedi con invio Telegram
 ```
 
 ### Cosa Tenere Traccia (Per Ogni Libro)

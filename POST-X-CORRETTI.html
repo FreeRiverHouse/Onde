@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST X/TWITTER CORRETTI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 25%, #87ceeb 50%, #b3d9ff 75%, #e6f3ff 100%);
+            color: #2c5f7c;
+            line-height: 1.8;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(179, 217, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(230, 243, 255, 0.4) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 0 0 30px rgba(135, 206, 235, 0.3);
+        }
+        
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #87ceeb, transparent);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .wave-decoration {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%2387ceeb' opacity='0.2'/%3E%3C/svg%3E") repeat-x;
+            opacity: 0.3;
+        }
+        
+        .post-container {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .post {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 243, 255, 0.8));
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.2);
+        }
+        
+        .post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            background-size: 300% 100%;
+            animation: wave-flow 4s ease-in-out infinite;
+        }
+        
+        .post::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(135, 206, 235, 0.3);
+            border-color: rgba(135, 206, 235, 0.6);
+        }
+        
+        .theme-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .theme-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #4682b4;
+            margin-bottom: 10px;
+        }
+        
+        .theme-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5f9ea0;
+            font-style: italic;
+        }
+        
+        .platform-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .platform-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            background: linear-gradient(135deg, #87ceeb, #b3d9ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2c5f7c;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+        }
+        
+        .platform-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c5f7c;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        .post-content {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .post-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #2c5f7c;
+            line-height: 1.9;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        .post-meta {
+            font-size: 1rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 2px solid rgba(135, 206, 235, 0.3);
+            color: #4682b4;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #87ceeb, transparent);
+        }
+        
+        .brand {
+            color: #4682b4;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+        
+        @keyframes wave-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        @media print {
+            body { background: white; color: #2c5f7c; }
+            .post { border: 2px solid #87ceeb; background: white; }
+            .main-title { color: #4682b4; -webkit-text-fill-color: #4682b4; }
+            .platform-name { color: #2c5f7c; }
+            .post-text { color: #2c5f7c; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wave-decoration"></div>
+        
+        <div class="header">
+            <h1 class="main-title">Post X/Twitter</h1>
+            <div class="subtitle">Correzioni Applicate - Stile ONDE Relax</div>
+        </div>
+        
+        <div class="post-container">
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">1</div>
+                    <div class="theme-title">Morning Serenity</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">The Lord is my shepherd; I shall not want. He makes me lie down in green pastures.</div>
+                    <div class="post-meta">From "Psalm 23" - Ancient wisdom, timeless peace. Available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">2</div>
+                    <div class="theme-title">Morning Wisdom</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"When you arise in the morning, think of what a precious privilege it is to be alive, to breathe, to think, to enjoy, to love."</div>
+                    <div class="post-text">Marcus Aurelius wrote these words as personal reflections. Never meant to be read by anyone else. Just a man trying to stay human while the weight of an empire pressed down on him.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">3</div>
+                    <div class="theme-title">Obstacle as Path</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action. What stands in the way becomes the way."</div>
+                    <div class="post-text">This Stoic principle from Marcus Aurelius feels particularly relevant today. Every setback contains the seed of opportunity. Every constraint drives innovation.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">4</div>
+                    <div class="theme-title">Inner Strength</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events. Realize this, and you will find strength."</div>
+                    <div class="post-text">In volatile times, this 2,000-year-old insight from Marcus Aurelius is more relevant than ever. The difference between thriving and struggling often comes down to mindset.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="brand">@ONDE_FRH - Where Stories Flow...</div>
+        </div>
+    </div>
+</body>
+</html>

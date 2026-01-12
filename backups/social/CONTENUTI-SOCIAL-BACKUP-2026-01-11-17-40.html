@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTENUTI SOCIAL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 25%, #87ceeb 50%, #b3d9ff 75%, #e6f3ff 100%);
+            color: #2c5f7c;
+            line-height: 1.8;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(179, 217, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(230, 243, 255, 0.4) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .wave-decoration {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%2387ceeb' opacity='0.2'/%3E%3C/svg%3E") repeat-x;
+            opacity: 0.3;
+        }
+        
+        .post-container {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .post {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 243, 255, 0.8));
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.2);
+        }
+        
+        .post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            background-size: 300% 100%;
+            animation: wave-flow 4s ease-in-out infinite;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(135, 206, 235, 0.3);
+        }
+        
+        .book-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(135, 206, 235, 0.15);
+            border-radius: 15px;
+        }
+        
+        .book-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #4682b4;
+            margin-bottom: 10px;
+        }
+        
+        .post-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .post-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #2c5f7c;
+            line-height: 1.9;
+        }
+        
+        .post-meta {
+            font-size: 1rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .section-divider {
+            text-align: center;
+            margin: 60px 0;
+            padding: 30px;
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #4682b4;
+            font-weight: 900;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 2px solid rgba(135, 206, 235, 0.3);
+            color: #4682b4;
+        }
+        
+        .brand {
+            color: #4682b4;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+        
+        @keyframes wave-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wave-decoration"></div>
+        
+        <div class="header">
+            <h1 class="main-title">Contenuti Social</h1>
+            <div class="subtitle">On The Relax - Organizzati per Libro</div>
+        </div>
+        
+        <!-- MEDITATIONS -->
+        <div class="section-divider">
+            <div class="section-title">MEDITATIONS</div>
+        </div>
+        
+        <div class="post-container">
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"When you arise in the morning, think of what a precious privilege it is to be alive, to breathe, to think, to enjoy, to love."</div>
+                    <div class="post-text">Marcus Aurelius wrote these words as personal reflections. Never meant to be read by anyone else. Just a man trying to stay human while the weight of an empire pressed down on him.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events. Realize this, and you will find strength."</div>
+                    <div class="post-text">In volatile times, this 2,000-year-old insight from Marcus Aurelius is more relevant than ever. The difference between thriving and struggling often comes down to mindset.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 3</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">Marcus Aurelius wrote "Meditations" as a personal journal. Never intended for publication. Never meant to be a guide for CEOs, entrepreneurs, and leaders across millennia.</div>
+                    <div class="post-text">Yet here we are. His morning reflections on life, death, and duty have become one of history's most influential leadership texts.</div>
+                    <div class="post-text">Some wisdom transcends time because it speaks to eternal human challenges.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 4</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events."</div>
+                    <div class="post-text">In volatile markets and uncertain times, this 2,000-year-old insight from Marcus Aurelius is more relevant than ever.</div>
+                    <div class="post-text">The difference between thriving organizations and struggling ones often comes down to mindset: focusing on what we can control versus what we cannot.</div>
+                    <div class="post-text">Our Classics Collection brings these timeless strategies to today's leaders.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 5</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."</div>
+                    <div class="post-text">As we build companies and careers, Marcus Aurelius reminds us that success isn't about accumulation—it's about perspective.</div>
+                    <div class="post-text">Our mission at ONDE is to make wisdom accessible, beautiful, and practical for modern readers.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 6</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events." 💭</div>
+                    <div class="post-text">Inner strength beats outer chaos every time.</div>
+                    <div class="post-text">Marcus Aurelius wisdom from "Meditations" - link in bio.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 7</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">Marcus Aurelius was the most powerful man in the world. Yet every morning, he reminded himself: "When you arise in the morning, think of what a precious privilege it is to be alive, to breathe, to think, to enjoy, to love."</div>
+                    <div class="post-text">If the Roman Emperor needed this reminder, how much more do we?</div>
+                    <div class="post-text">Our new edition of "Meditations" makes these timeless reflections accessible and beautiful for today's readers.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 8</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action. What stands in the way becomes the way."</div>
+                    <div class="post-text">This powerful insight from Marcus Aurelius has helped leaders overcome challenges for 2,000 years. Every obstacle contains the opportunity for growth.</div>
+                    <div class="post-text">Our Classics Collection presents wisdom not as museum pieces, but as practical tools for modern life.</div>
+                    <div class="post-text">What challenge are you facing right now?</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 9</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events. Realize this, and you will find strength."</div>
+                    <div class="post-text">In uncertain times, Marcus Aurelius offers this timeless truth: focus on what you can control. Your mindset, your response, your choices.</div>
+                    <div class="post-text">We've created a beautiful edition of "Meditations" that brings ancient wisdom to modern challenges.</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">MEDITATIONS - 10</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."</div>
+                    <div class="post-text">Marcus Aurelius reminds us that happiness isn't about what we have—it's about how we think. A message that matters more than ever in our consumer culture.</div>
+                    <div class="post-text">Our mission is to make wisdom accessible, beautiful, and practical.</div>
+                    <div class="post-text">What makes you truly happy?</div>
+                    <div class="post-meta">From "Meditations" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PSALM 23 -->
+        <div class="section-divider page-break">
+            <div class="section-title">PSALM 23</div>
+        </div>
+        
+        <div class="post-container">
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">PSALM 23 - 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">The Lord is my shepherd; I shall not want. He makes me lie down in green pastures.</div>
+                    <div class="post-meta">From "Psalm 23" - Ancient wisdom, timeless peace. Available for free during launch at onde.la</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="book-header">
+                    <div class="book-number">PSALM 23 - 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">In an era of constant distraction, ancient wisdom offers something remarkable: clarity.</div>
+                    <div class="post-text">Psalm 23's "The Lord is my shepherd" isn't just poetry—it's a framework for leadership that has guided minds for 3,000 years.</div>
+                    <div class="post-text">We're bringing this timeless perspective to modern readers through our Classics Collection. Because some truths don't age.</div>
+                    <div class="post-meta">From "Psalm 23" - available for free during launch at onde.la</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="brand">@ONDE_FRH - Where Stories Flow...</div>
+        </div>
+    </div>
+</body>
+</html>

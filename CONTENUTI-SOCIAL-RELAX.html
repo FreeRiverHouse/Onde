@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTENUTI SOCIAL - ON THE RELAX</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 25%, #87ceeb 50%, #b3d9ff 75%, #e6f3ff 100%);
+            color: #2c5f7c;
+            line-height: 1.8;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(179, 217, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(230, 243, 255, 0.4) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 0 0 30px rgba(135, 206, 235, 0.3);
+        }
+        
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #87ceeb, transparent);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .wave-decoration {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%2387ceeb' opacity='0.2'/%3E%3C/svg%3E") repeat-x;
+            opacity: 0.3;
+        }
+        
+        .post-container {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .post {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 243, 255, 0.8));
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.2);
+        }
+        
+        .post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #87ceeb, #4682b4, #5f9ea0, #87ceeb);
+            background-size: 300% 100%;
+            animation: wave-flow 4s ease-in-out infinite;
+        }
+        
+        .post::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(135, 206, 235, 0.3);
+            border-color: rgba(135, 206, 235, 0.6);
+        }
+        
+        .theme-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .theme-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #4682b4;
+            margin-bottom: 10px;
+        }
+        
+        .theme-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5f9ea0;
+            font-style: italic;
+        }
+        
+        .platform-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .platform-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            background: linear-gradient(135deg, #87ceeb, #b3d9ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2c5f7c;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+        }
+        
+        .platform-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c5f7c;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        .day-badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #4682b4, #5f9ea0);
+            border: 2px solid #87ceeb;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(70, 130, 180, 0.3);
+        }
+        
+        .post-content {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .post-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #2c5f7c;
+            line-height: 1.9;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        
+        .post-meta {
+            font-size: 1rem;
+            color: #4682b4;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .visual-desc {
+            background: rgba(135, 206, 235, 0.1);
+            border-left: 4px solid #87ceeb;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #2c5f7c;
+            border-radius: 0 10px 10px 0;
+            position: relative;
+        }
+        
+        .visual-desc::before {
+            content: '🎨';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: #ffffff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #87ceeb;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 2px solid rgba(135, 206, 235, 0.3);
+            color: #4682b4;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #87ceeb, transparent);
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .brand {
+            color: #4682b4;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+        
+        .wave-separator {
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%2387ceeb' opacity='0.3'/%3E%3C/svg%3E") repeat-x;
+            margin: 40px 0;
+            opacity: 0.5;
+        }
+        
+        @keyframes wave-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        @media print {
+            body { background: white; color: #2c5f7c; }
+            .post { border: 2px solid #87ceeb; background: white; }
+            .main-title { color: #4682b4; -webkit-text-fill-color: #4682b4; }
+            .platform-name { color: #2c5f7c; }
+            .post-text { color: #2c5f7c; }
+        }
+        
+        .relax-accent {
+            color: #4682b4;
+            font-weight: bold;
+        }
+        
+        .sky-accent {
+            color: #87ceeb;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wave-decoration"></div>
+        
+        <div class="header">
+            <h1 class="main-title">Contenuti Social</h1>
+            <div class="subtitle">On The Relax - Dove la Serenità incontra il Mare</div>
+        </div>
+        
+        <div class="post-container">
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">1</div>
+                    <div class="theme-title">Morning Serenity</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                    <div class="day-badge">DAY 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">The Lord is my shepherd; I shall not want. He makes me lie down in green pastures.</div>
+                    <div class="post-meta">From "Psalm 23" - Ancient wisdom, timeless peace. Available now.</div>
+                    <div class="visual-desc">[Minimalist shepherd illustration - Onde watercolor style]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">2</div>
+                    <div class="theme-title">Morning Wisdom</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                    <div class="day-badge">DAY 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"When you arise in the morning, think of what a precious privilege it is to be alive, to breathe, to think, to enjoy, to love."</div>
+                    <div class="post-meta">Marcus Aurelius - Morning wisdom for modern souls. From "Meditations".</div>
+                    <div class="visual-desc">[Sunrise over ancient columns - Onde watercolor style]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">3</div>
+                    <div class="theme-title">Obstacle as Path</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                    <div class="day-badge">DAY 3</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action. What stands in the way becomes the way."</div>
+                    <div class="post-meta">Marcus Aurelius - Every obstacle is an opportunity. From "Meditations".</div>
+                    <div class="visual-desc">[Path through mountains - Onde watercolor style]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">4</div>
+                    <div class="theme-title">Inner Strength</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                    <div class="day-badge">DAY 4</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events. Realize this, and you will find strength."</div>
+                    <div class="post-meta">Marcus Aurelius - Inner strength beats outer chaos. From "Meditations".</div>
+                    <div class="visual-desc">[Stoic philosopher silhouette - Onde watercolor style]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">5</div>
+                    <div class="theme-title">Happiness Within</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">X</div>
+                    <div class="platform-name">X/TWITTER</div>
+                    <div class="day-badge">DAY 5</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."</div>
+                    <div class="post-meta">Marcus Aurelius - Happiness is internal. From "Meditations".</div>
+                    <div class="visual-desc">[Simple zen garden - Onde watercolor style]</div>
+                </div>
+            </div>
+            
+            <div class="wave-separator"></div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">6</div>
+                    <div class="theme-title">Leadership Clarity</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">in</div>
+                    <div class="platform-name">LINKEDIN</div>
+                    <div class="day-badge">DAY 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">In an era of constant distraction, ancient wisdom offers something remarkable: clarity.</div>
+                    <div class="post-text">Psalm 23's "The Lord is my shepherd" isn't just poetry—it's a framework for leadership that has guided minds for 3,000 years.</div>
+                    <div class="post-text">We're bringing this timeless perspective to modern readers through our Classics Collection. Because some truths don't age.</div>
+                    <div class="post-meta">Leadership, Wisdom, Timeless, ONDE</div>
+                    <div class="visual-desc">[Professional book cover - Psalm 23]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">7</div>
+                    <div class="theme-title">Personal Journal</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">in</div>
+                    <div class="platform-name">LINKEDIN</div>
+                    <div class="day-badge">DAY 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">Marcus Aurelius wrote "Meditations" as a personal journal. Never intended for publication. Never meant to be a guide for CEOs, entrepreneurs, and leaders across millennia.</div>
+                    <div class="post-text">Yet here we are. His morning reflections on life, death, and duty have become one of history's most influential leadership texts.</div>
+                    <div class="post-text">Some wisdom transcends time because it speaks to eternal human challenges.</div>
+                    <div class="post-meta">Stoicism, Leadership, Philosophy, ONDE</div>
+                    <div class="visual-desc">[Author portrait - Marcus Aurelius]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">8</div>
+                    <div class="theme-title">Innovation Mindset</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">in</div>
+                    <div class="platform-name">LINKEDIN</div>
+                    <div class="day-badge">DAY 3</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action."</div>
+                    <div class="post-text">This Stoic principle from Marcus Aurelius feels particularly relevant for today's leaders. Every setback contains the seed of opportunity. Every constraint drives innovation.</div>
+                    <div class="post-text">Our new edition of "Meditations" presents these insights not as ancient philosophy, but as practical tools for modern decision-making.</div>
+                    <div class="post-text">What obstacles have become your greatest opportunities?</div>
+                    <div class="post-meta">Innovation, Resilience, GrowthMindset, ONDE</div>
+                    <div class="visual-desc">[Modern office with ancient quote overlay]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">9</div>
+                    <div class="theme-title">Mindful Control</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">in</div>
+                    <div class="platform-name">LINKEDIN</div>
+                    <div class="day-badge">DAY 4</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events."</div>
+                    <div class="post-text">In volatile markets and uncertain times, this 2,000-year-old insight from Marcus Aurelius is more relevant than ever.</div>
+                    <div class="post-text">The difference between thriving organizations and struggling ones often comes down to mindset: focusing on what we can control versus what we cannot.</div>
+                    <div class="post-text">Our Classics Collection brings these timeless strategies to today's leaders.</div>
+                    <div class="post-meta">Mindset, Leadership, Control, ONDE</div>
+                    <div class="visual-desc">[Split image: ancient Rome vs modern skyline]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">10</div>
+                    <div class="theme-title">Purposeful Success</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">in</div>
+                    <div class="platform-name">LINKEDIN</div>
+                    <div class="day-badge">DAY 5</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."</div>
+                    <div class="post-text">As we build companies and careers, Marcus Aurelius reminds us that success isn't about accumulation—it's about perspective.</div>
+                    <div class="post-text">Our mission at ONDE is to make wisdom accessible, beautiful, and practical for modern readers.</div>
+                    <div class="post-text">What's your definition of a successful life?</div>
+                    <div class="post-meta">Purpose, Success, Philosophy, ONDE</div>
+                    <div class="visual-desc">[Minimalist lifestyle imagery]</div>
+                </div>
+            </div>
+            
+            <div class="wave-separator"></div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">11</div>
+                    <div class="theme-title">Divine Guidance</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">📷</div>
+                    <div class="platform-name">INSTAGRAM</div>
+                    <div class="day-badge">DAY 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The Lord is my shepherd; I shall not want." ✨</div>
+                    <div class="post-text">Psalm 23. Ancient wisdom for modern souls.</div>
+                    <div class="post-text">Available now in our Classics Collection - link in bio.</div>
+                    <div class="post-meta">ONDE, Classics, Wisdom, BookLover</div>
+                    <div class="visual-desc">[Elegant book flatlay with Psalm 23]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">12</div>
+                    <div class="theme-title">Sunrise Reflections</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">📷</div>
+                    <div class="platform-name">INSTAGRAM</div>
+                    <div class="day-badge">DAY 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">Morning thoughts from Marcus Aurelius 🌅</div>
+                    <div class="post-text">"When you arise in the morning, think of what a precious privilege it is to be alive."</div>
+                    <div class="post-text">From "Meditations" - now available in our beautiful new edition.</div>
+                    <div class="post-meta">Meditations, Stoicism, MorningWisdom, ONDE</div>
+                    <div class="visual-desc">[Sunrise reading setup with book]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">13</div>
+                    <div class="theme-title">Path Forward</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">📷</div>
+                    <div class="platform-name">INSTAGRAM</div>
+                    <div class="day-badge">DAY 3</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action."</div>
+                    <div class="post-text">Every obstacle is the way. Marcus Aurelius knew this 2,000 years ago.</div>
+                    <div class="post-text">How are you turning challenges into opportunities today?</div>
+                    <div class="post-meta">Stoicism, Resilience, Growth, ONDE</div>
+                    <div class="visual-desc">[Mountain path journey imagery]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">14</div>
+                    <div class="theme-title">Inner Peace</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">📷</div>
+                    <div class="platform-name">INSTAGRAM</div>
+                    <div class="day-badge">DAY 4</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events." 💭</div>
+                    <div class="post-text">Inner strength beats outer chaos every time.</div>
+                    <div class="post-text">Marcus Aurelius wisdom from "Meditations" - link in bio.</div>
+                    <div class="post-meta">Mindset, InnerPeace, Philosophy, ONDE</div>
+                    <div class="visual-desc">[Minimalist quote design]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">15</div>
+                    <div class="theme-title">Simple Joy</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">📷</div>
+                    <div class="platform-name">INSTAGRAM</div>
+                    <div class="day-badge">DAY 5</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself."</div>
+                    <div class="post-text">Simple truth from Marcus Aurelius.</div>
+                    <div class="post-text">Happiness isn't out there—it's in here. ❤️</div>
+                    <div class="post-meta">Happiness, Simplicity, Wisdom, ONDE</div>
+                    <div class="visual-desc">[Zen garden minimal flatlay]</div>
+                </div>
+            </div>
+            
+            <div class="wave-separator"></div>
+            
+            <div class="post page-break">
+                <div class="theme-header">
+                    <div class="theme-number">16</div>
+                    <div class="theme-title">Timeless Comfort</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">f</div>
+                    <div class="platform-name">FACEBOOK</div>
+                    <div class="day-badge">DAY 1</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">In a world that never stops, sometimes we need to return to what never changes. Psalm 23 has offered comfort and guidance for 3,000 years. "The Lord is my shepherd; I shall not want."</div>
+                    <div class="post-text">We've created a beautiful new edition that brings this ancient wisdom to modern readers. Perfect for quiet moments of reflection.</div>
+                    <div class="post-text">Available now in our Classics Collection.</div>
+                    <div class="post-meta">Faith, Wisdom, Comfort, ONDE, Books</div>
+                    <div class="visual-desc">[Cozy reading nook with book]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">17</div>
+                    <div class="theme-title">Daily Privilege</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">f</div>
+                    <div class="platform-name">FACEBOOK</div>
+                    <div class="day-badge">DAY 2</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">Marcus Aurelius was the most powerful man in the world. Yet every morning, he reminded himself: "When you arise in the morning, think of what a precious privilege it is to be alive, to breathe, to think, to enjoy, to love."</div>
+                    <div class="post-text">If the Roman Emperor needed this reminder, how much more do we?</div>
+                    <div class="post-text">Our new edition of "Meditations" makes these timeless reflections accessible and beautiful for today's readers.</div>
+                    <div class="post-meta">Philosophy, Gratitude, Life, ONDE</div>
+                    <div class="visual-desc">[Author bio with historical context]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">18</div>
+                    <div class="theme-title">Growth Opportunity</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">f</div>
+                    <div class="platform-name">FACEBOOK</div>
+                    <div class="day-badge">DAY 3</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"The impediment to action advances action. What stands in the way becomes the way."</div>
+                    <div class="post-text">This powerful insight from Marcus Aurelius has helped leaders overcome challenges for 2,000 years. Every obstacle contains the opportunity for growth.</div>
+                    <div class="post-text">Our Classics Collection presents wisdom not as museum pieces, but as practical tools for modern life.</div>
+                    <div class="post-text">What challenge are you facing right now?</div>
+                    <div class="post-meta">Motivation, Resilience, Growth, ONDE</div>
+                    <div class="visual-desc">[Inspirational quote graphic]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">19</div>
+                    <div class="theme-title">Mindful Choices</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">f</div>
+                    <div class="platform-name">FACEBOOK</div>
+                    <div class="day-badge">DAY 4</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"You have power over your mind - not outside events. Realize this, and you will find strength."</div>
+                    <div class="post-text">In uncertain times, Marcus Aurelius offers this timeless truth: focus on what you can control. Your mindset, your response, your choices.</div>
+                    <div class="post-text">We've created a beautiful edition of "Meditations" that brings ancient wisdom to modern challenges.</div>
+                    <div class="post-meta">Mindset, Control, Strength, ONDE</div>
+                    <div class="visual-desc">[Modern lifestyle with ancient wisdom]</div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="theme-header">
+                    <div class="theme-number">20</div>
+                    <div class="theme-title">True Happiness</div>
+                </div>
+                
+                <div class="platform-header">
+                    <div class="platform-icon">f</div>
+                    <div class="platform-name">FACEBOOK</div>
+                    <div class="day-badge">DAY 5</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-text">"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."</div>
+                    <div class="post-text">Marcus Aurelius reminds us that happiness isn't about what we have—it's about how we think. A message that matters more than ever in our consumer culture.</div>
+                    <div class="post-text">Our mission is to make wisdom accessible, beautiful, and practical.</div>
+                    <div class="post-text">What makes you truly happy?</div>
+                    <div class="post-meta">Happiness, Simplicity, Philosophy, ONDE</div>
+                    <div class="visual-desc">[Lifestyle imagery with message]</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-text">*Artwork by Grok AI*</div>
+            <div class="brand">@ONDE_FRH - Where Stories Flow...</div>
+        </div>
+    </div>
+</body>
+</html>
