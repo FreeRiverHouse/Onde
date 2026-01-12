@@ -10,9 +10,9 @@ import dynamic from 'next/dynamic'
 // Import split-screen dynamically
 const SurfSelector = dynamic(() => import('./surf-selector/page'), { ssr: false })
 
-// Particle component for floating background particles
+// Particle component for floating background particles - Ocean theme
 function Particle({ index }: { index: number }) {
-  const colors = ['#4ECDC4', '#6C63FF', '#A855F7', '#FF6B6B', '#FFD93D']
+  const colors = ['#06B6D4', '#14B8A6', '#22D3EE', '#38BDF8', '#67E8F9']
   const color = useMemo(() => colors[index % colors.length], [index])
   
   // Generate random values only on client side to avoid hydration errors
@@ -162,21 +162,21 @@ export default function Home() {
   return (
     <div className="relative overflow-x-hidden w-full">
       {/* ============================================
-          FIXED BACKGROUND - Immersive Futuristic
+          FIXED BACKGROUND - Ocean Relaxing Theme
           ============================================ */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Base dark gradient */}
         <div className="absolute inset-0 bg-onde-dark" />
 
-        {/* Mesh gradient overlay */}
+        {/* Mesh gradient overlay - Ocean/Turchese/Azzurro theme */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(108, 99, 255, 0.2) 0%, transparent 50%),
-              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
-              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(255, 107, 107, 0.12) 0%, transparent 50%),
-              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)
+              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(6, 182, 212, 0.25) 0%, transparent 50%),
+              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(20, 184, 166, 0.2) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(56, 189, 248, 0.18) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(34, 211, 238, 0.12) 0%, transparent 70%)
             `,
           }}
         />
@@ -205,12 +205,12 @@ export default function Home() {
           HERO SECTION - Cinematic Full Screen
           ============================================ */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Orbs Background */}
+        {/* Animated Orbs Background - Ocean Theme */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Large purple orb */}
+          {/* Large cyan orb */}
           <motion.div
             className="floating-orb w-[600px] h-[600px] -top-40 -left-40"
-            style={{ background: 'var(--onde-purple)' }}
+            style={{ background: '#06B6D4' }}
             animate={{
               x: [0, 50, 0],
               y: [0, 30, 0],
@@ -221,7 +221,7 @@ export default function Home() {
           {/* Teal orb right */}
           <motion.div
             className="floating-orb w-[500px] h-[500px] top-1/4 -right-40"
-            style={{ background: 'var(--onde-teal)' }}
+            style={{ background: '#14B8A6' }}
             animate={{
               x: [0, -30, 0],
               y: [0, 50, 0],
@@ -229,10 +229,10 @@ export default function Home() {
             }}
             transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           />
-          {/* Blue orb bottom */}
+          {/* Sky blue orb bottom */}
           <motion.div
             className="floating-orb w-[400px] h-[400px] bottom-20 left-1/4"
-            style={{ background: 'var(--onde-blue)' }}
+            style={{ background: '#38BDF8' }}
             animate={{
               x: [0, 40, 0],
               y: [0, -30, 0],
@@ -240,10 +240,10 @@ export default function Home() {
             }}
             transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
           />
-          {/* Coral accent orb */}
+          {/* Aqua accent orb */}
           <motion.div
             className="floating-orb w-[300px] h-[300px] top-1/2 right-1/4"
-            style={{ background: 'var(--onde-coral)' }}
+            style={{ background: '#22D3EE' }}
             animate={{
               x: [0, -20, 0],
               y: [0, 30, 0],
