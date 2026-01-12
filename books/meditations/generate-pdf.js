@@ -5,7 +5,7 @@ async function generatePDF() {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
-    const htmlPath = path.join(__dirname, 'meditations.html');
+    const htmlPath = path.join(__dirname, 'meditations-george-long.html');
     await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
 
     await page.pdf({
