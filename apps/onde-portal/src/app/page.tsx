@@ -147,9 +147,15 @@ export default function Home() {
     const mode = urlParams.get('mode')
     const showPortal = sessionStorage.getItem('showPortal')
     
+    console.log('[ONDE DEBUG] hostname:', hostname)
+    console.log('[ONDE DEBUG] port:', port)
+    console.log('[ONDE DEBUG] mode:', mode)
+    console.log('[ONDE DEBUG] showPortal:', showPortal)
+    
     // If mode=preprod or showPortal flag is set, show portal (not surf selector)
     if (mode === 'preprod' || showPortal === 'true') {
       sessionStorage.removeItem('showPortal') // Clear flag after use
+      console.log('[ONDE DEBUG] Showing portal (preprod mode)')
       setIsOndeSurf(false)
       return
     }
@@ -159,6 +165,7 @@ export default function Home() {
     // localhost:7777: show split-screen (onde.surf test)
     // localhost:8888: show normal portal (onde.la test)
     const isSurf = hostname.includes('onde.surf') || port === '7777'
+    console.log('[ONDE DEBUG] isSurf:', isSurf)
     setIsOndeSurf(isSurf)
   }, [])
   
