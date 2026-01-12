@@ -128,30 +128,6 @@ const books = [
 ]
 
 export default function Home() {
-  // Check if we're on onde.surf domain - MUST be initialized to correct value immediately
-  const [isOndeSurf, setIsOndeSurf] = useState(() => {
-    // Only run on client side
-    if (typeof window === 'undefined') return false
-    
-    const hostname = window.location.hostname
-    const port = window.location.port
-    const urlParams = new URLSearchParams(window.location.search)
-    const mode = urlParams.get('mode')
-    const showPortal = sessionStorage.getItem('showPortal')
-    
-    // If mode=preprod or showPortal flag is set, show portal (not surf selector)
-    if (mode === 'preprod' || showPortal === 'true') {
-      sessionStorage.removeItem('showPortal')
-      return false
-    }
-    
-    // onde.surf: show split-screen
-    // onde.la: show normal portal
-    // localhost:7777: show split-screen (onde.surf test)
-    // localhost:8888: show normal portal (onde.la test)
-    return hostname.includes('onde.surf') || port === '7777'
-  })
-  
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURN
   // This is a React rule - hooks must be called in the same order every render
   const { scrollYProgress } = useScroll()
@@ -160,13 +136,31 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
   const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
   
-  // If onde.surf, show split-screen selector
-  // This conditional return is AFTER all hooks have been called
-  if (isOndeSurf) {
-    return <SurfSelector />
-  }
+  // CRITICAL: Redirect onde.surf to /surf-selector IMMEDIATELY
+  // This must run before any rendering to avoid flash of wrong content
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    
+    const hostname = window.location.hostname
+    const port = window.location.port
+    const urlParams = new URLSearchParams(window.location.search)
+    const mode = urlParams.get('mode')
+    const showPortal = sessionStorage.getItem('showPortal')
+    
+    // If mode=preprod or showPortal flag, stay on portal
+    if (mode === 'preprod' || showPortal === 'true') {
+      sessionStorage.removeItem('showPortal')
+      return
+    }
+    
+    // If onde.surf or localhost:7777, redirect to /surf-selector
+    const isSurf = hostname.includes('onde.surf') || port === '7777'
+    if (isSurf && window.location.pathname === '/') {
+      window.location.href = '/surf-selector'
+    }
+  }, [])
   
-  // Otherwise, show normal portal (onde.la)
+  // Show normal portal (onde.la)
 
   return (
     <div className="relative overflow-x-hidden w-full">
