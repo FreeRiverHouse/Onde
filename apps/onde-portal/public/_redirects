@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects for onde.surf
+# onde.surf homepage should show split-screen selector
+/:hostname=onde.surf /surf-selector 200
