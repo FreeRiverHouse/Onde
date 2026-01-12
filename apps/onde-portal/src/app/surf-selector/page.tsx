@@ -30,9 +30,9 @@ export default function SurfSelector() {
       {/* Split Screen Container */}
       <div className="flex w-full h-full relative">
         
-        {/* LEFT SIDE - SURF DEV (Tempesta, onde fortissime) */}
+        {/* LEFT SIDE - PORTALE VR (Tempesta, onde fortissime) */}
         <Link 
-          href="/dev"
+          href="/vr"
           className="relative w-1/2 h-full group cursor-pointer overflow-hidden"
         >
           {/* ULTRA MODERN Animated Mesh Gradient - Tempesta */}
@@ -146,13 +146,13 @@ export default function SurfSelector() {
 
               {/* Title */}
               <h1 className="text-6xl font-bold mb-4 drop-shadow-2xl">
-                SURF
+                VR
               </h1>
               <p className="text-2xl mb-2 text-yellow-400 font-semibold drop-shadow-lg">
-                Development
+                Portale VR
               </p>
               <p className="text-lg text-gray-200 max-w-md drop-shadow-lg">
-                Tempesta di sviluppo • Onde fortissime • Ambiente di test
+                Tempesta onde fortissime • Esperienze immersive
               </p>
 
               {/* Hover indicator */}
