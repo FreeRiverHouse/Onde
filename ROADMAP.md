@@ -429,11 +429,21 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 **Connessione a Onde Portal:**
 Onde Portal = scuola virtuale. Il bambino entra nel portale con PC/VR, parla con tutor AI per ogni materia. **Educational School è verticale chiave di Onde Portal.**
 
+**🔥 BITCOIN PAYMENT STRATEGY (12 Gen 2026)**
+El Salvador = primo paese con Bitcoin come valuta legale.
+**IDEA**: Vendere contenuti educational in spagnolo DIRETTAMENTE in Bitcoin.
+- Nessun intermediario (no Amazon, no KDP)
+- Margini 100%
+- Target: scuole, genitori, governi locali
+- Pagamenti Lightning Network (istantanei, quasi zero fee)
+
 **Next actions (Sally CRO):**
 1. Ricerca contatti governo/scuole El Salvador
 2. Tradurre Salmo 23 in spagnolo (TIER 1)
 3. Creare libri educational matematica/AI in spagnolo
 4. Proporre libri italiano al programma scolastico
+5. **Setup pagamenti Bitcoin/Lightning su onde.la** (BTCPay Server o similar)
+6. **Landing page spagnola per El Salvador** con prezzi in BTC/sats
 
 **File strategia dettagliata:** `content/agents/sally-cro.memory.json` → strategies.el-salvador-education
 
