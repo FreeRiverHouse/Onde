@@ -176,9 +176,9 @@ export default function SurfSelector() {
         {/* DIVIDER LINE */}
         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-white to-transparent z-20" />
 
-        {/* RIGHT SIDE - LA PROD (Acqua tranquilla, palme) */}
+        {/* RIGHT SIDE - LA PREPROD (Acqua tranquilla, palme) */}
         <Link 
-          href="/"
+          href="/preprod"
           className="relative w-1/2 h-full group cursor-pointer overflow-hidden"
         >
           {/* ULTRA MODERN Animated Mesh Gradient - Calma */}
@@ -295,10 +295,10 @@ export default function SurfSelector() {
                 LA
               </h1>
               <p className="text-2xl mb-2 text-emerald-400 font-semibold drop-shadow-lg">
-                Production
+                Pre-Production
               </p>
               <p className="text-lg text-gray-200 max-w-md drop-shadow-lg">
-                Acqua tranquilla • Palme • Ambiente di produzione
+                Acqua tranquilla • Palme • Simula onde.la per testing
               </p>
 
               {/* Hover indicator */}
