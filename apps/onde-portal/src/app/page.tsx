@@ -4,6 +4,11 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useMemo, useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import dynamic from 'next/dynamic'
+
+// Import split-screen dynamically
+const SurfSelector = dynamic(() => import('./surf-selector/page'), { ssr: false })
 
 // Particle component for floating background particles
 function Particle({ index }: { index: number }) {
@@ -122,6 +127,28 @@ const books = [
 ]
 
 export default function Home() {
+  // Check if we're on onde.surf domain
+  const [isOndeSurf, setIsOndeSurf] = useState(false)
+  
+  useEffect(() => {
+    // Check hostname to determine if we're on onde.surf
+    const hostname = window.location.hostname
+    const port = window.location.port
+    
+    // onde.surf: show split-screen
+    // onde.la: show normal portal
+    // localhost:7777: show split-screen (onde.surf test)
+    // localhost:8888: show normal portal (onde.la test)
+    const isSurf = hostname.includes('onde.surf') || port === '7777'
+    setIsOndeSurf(isSurf)
+  }, [])
+  
+  // If onde.surf, show split-screen selector
+  if (isOndeSurf) {
+    return <SurfSelector />
+  }
+  
+  // Otherwise, show normal portal (onde.la)
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
