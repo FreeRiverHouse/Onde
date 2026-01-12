@@ -87,12 +87,28 @@ else
     fi
 fi
 
+# Step 7: VERIFICA CONTENUTO DOPO DEPLOY
+echo -e "${YELLOW}🔍 Verifying deployed content on onde.la...${NC}"
+echo ""
+"$SCRIPT_DIR/verify-deployment-content.sh" https://onde.la
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${RED}  ⚠️  ATTENZIONE: VERIFICA CONTENUTO FALLITA!${NC}"
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${RED}  Il deploy è completato ma onde.la NON mostra le modifiche corrette${NC}"
+    echo -e "${RED}  Possibile problema con custom domain o cache Cloudflare${NC}"
+    echo ""
+    # Non abortiamo, ma segnaliamo il problema
+fi
+
 echo ""
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${GREEN}  🎉 DEPLOY PRODUZIONE COMPLETATO!${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "${RED}⚠️  IMPORTANTE: Verifica onde.la immediatamente!${NC}"
+echo -e "${YELLOW}📋 Verifica manuale onde.la per confermare${NC}"
 echo ""
 
 # Send Telegram notification if credentials are available

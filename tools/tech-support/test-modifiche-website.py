@@ -131,6 +131,48 @@ class WebsiteTestRunner:
         self.results['tests'].append(test_result)
         return test_result
     
+    def verify_book_prices(self, page):
+        """Verifica prezzi libri nella pagina /libri"""
+        print(f"\n💰 Verifying book prices...")
+        
+        try:
+            # Cerca tutti i badge di prezzo
+            price_badges = page.query_selector_all('span:has-text("$"), span:has-text("Free")')
+            
+            prices_found = {}
+            for badge in price_badges:
+                price_text = badge.inner_text().strip()
+                # Trova il titolo del libro vicino a questo badge
+                parent = badge.locator('xpath=ancestor::div[contains(@class, "rounded")]').first
+                if parent:
+                    title_elem = parent.query_selector('h2, h3')
+                    if title_elem:
+                        book_title = title_elem.inner_text().strip()
+                        prices_found[book_title] = price_text
+                        print(f"   📖 {book_title}: {price_text}")
+            
+            # Verifica che Meditations sia Free (requisito specifico)
+            if 'Meditations' in prices_found:
+                if prices_found['Meditations'] != 'Free':
+                    error_msg = f"Meditations price is {prices_found['Meditations']}, expected Free"
+                    self.results['errors'].append(error_msg)
+                    self.results['success'] = False
+                    print(f"   ❌ {error_msg}")
+                else:
+                    print(f"   ✅ Meditations price verified: Free")
+            else:
+                warning_msg = "Meditations book not found in /libri page"
+                self.results['warnings'].append(warning_msg)
+                print(f"   ⚠️  {warning_msg}")
+            
+            # Salva i prezzi trovati nel report
+            self.results['book_prices'] = prices_found
+            
+        except Exception as e:
+            warning_msg = f"Price verification error: {str(e)}"
+            self.results['warnings'].append(warning_msg)
+            print(f"   ⚠️  {warning_msg}")
+    
     def test_links(self, page, base_test_result):
         """Test tutti i link trovati nella pagina"""
         print(f"\n🔗 Testing links...")
@@ -211,7 +253,12 @@ class WebsiteTestRunner:
             
             elif self.environment == 'onde-la':
                 # Test main portal routes
-                self.test_page(page, f"{self.base_url}/libri", 'libri')
+                libri_result = self.test_page(page, f"{self.base_url}/libri", 'libri')
+                
+                # Verify specific content: book prices
+                if libri_result['status'] == 'success':
+                    self.verify_book_prices(page)
+                
                 self.test_page(page, f"{self.base_url}/about", 'about')
             
             browser.close()
