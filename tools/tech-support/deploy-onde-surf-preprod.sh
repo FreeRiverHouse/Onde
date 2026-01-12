@@ -35,15 +35,57 @@ npm run build
 echo -e "${GREEN}✅ Build complete${NC}"
 echo ""
 
-# Step 2: Deploy to Cloudflare Pages
+# Step 2: TEST AUTOMATICI su localhost:8888 (OBBLIGATORIO)
+echo -e "${YELLOW}🧪 Running automated tests on TEST environment...${NC}"
+echo -e "${YELLOW}   Starting test server on localhost:8888...${NC}"
+
+# Kill any existing server on port 8888
+pkill -f "next dev -p 8888" 2>/dev/null || true
+sleep 2
+
+# Start test server in background
+npm run test:onde-la > /tmp/onde-test-server.log 2>&1 &
+TEST_SERVER_PID=$!
+echo -e "${YELLOW}   Test server PID: $TEST_SERVER_PID${NC}"
+
+# Wait for server to be ready
+echo -e "${YELLOW}   Waiting for server to be ready...${NC}"
+sleep 8
+
+# Run automated tests with Playwright
+echo -e "${YELLOW}   Executing Playwright tests...${NC}"
+cd "$ONDE_ROOT"
+python3 tools/tech-support/test-modifiche-website.py http://localhost:8888 onde-la
+
+TEST_EXIT_CODE=$?
+
+# Kill test server
+kill $TEST_SERVER_PID 2>/dev/null || true
+pkill -f "next dev -p 8888" 2>/dev/null || true
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${RED}  ❌ AUTOMATED TESTS FAILED!${NC}"
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${RED}  Deploy ABORTED - Fix errors before deploying${NC}"
+    echo ""
+    exit 1
+fi
+
+echo -e "${GREEN}✅ Automated tests passed${NC}"
+echo ""
+
+# Step 3: Deploy to Cloudflare Pages
 echo -e "${YELLOW}🚀 Deploying to Cloudflare Pages...${NC}"
 echo -e "${YELLOW}   Project: onde-portal${NC}"
 echo -e "${YELLOW}   Target: PREPRODUZIONE (onde.surf)${NC}"
+cd "$PORTAL_DIR"
 npx wrangler pages deploy out --project-name=onde-portal --commit-dirty=true
 echo -e "${GREEN}✅ Deploy complete${NC}"
 echo ""
 
-# Step 3: Extract deployment URL
+# Step 4: Extract deployment URL
 DEPLOY_URL=$(npx wrangler pages deployment list --project-name=onde-portal --format=json 2>/dev/null | jq -r '.[0].url' 2>/dev/null || echo "")
 
 if [ -z "$DEPLOY_URL" ]; then
@@ -52,12 +94,12 @@ if [ -z "$DEPLOY_URL" ]; then
 else
     echo -e "${GREEN}🌐 Deployment URL: $DEPLOY_URL${NC}"
     
-    # Step 4: Wait for propagation
+    # Step 5: Wait for propagation
     echo ""
     echo -e "${YELLOW}⏳ Waiting 10 seconds for propagation...${NC}"
     sleep 10
     
-    # Step 5: Verify deployment
+    # Step 6: Verify deployment
     echo -e "${YELLOW}🔍 Verifying deployment...${NC}"
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL")
     
