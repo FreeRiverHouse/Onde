@@ -7,6 +7,8 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
+    "test:onde-la": "next dev -p 8888",
+    "test:onde-surf": "next dev -p 7777",
     "deploy": "npm run build && npx wrangler pages deploy out --project-name=onde-portal",
     "deploy:test": "npm run build && npx wrangler pages deploy out --project-name=onde-portal",
     "test:portal": "node test-portal-loop.mjs --once"
