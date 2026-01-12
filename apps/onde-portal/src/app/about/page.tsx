@@ -59,13 +59,13 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="text-white">About </span>
+              <span className="text-gray-900">About </span>
               <span className="text-gradient-neon">Onde</span>
             </motion.h1>
 
             {/* Story intro */}
             <motion.div
-              className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto leading-relaxed space-y-6"
+              className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed space-y-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -73,7 +73,7 @@ export default function About() {
               <p>
                 <strong className="text-onde-teal">Onde</strong> is an AI-native digital publishing house based in Los Angeles.
               </p>
-              <p className="text-lg text-white/50">
+              <p className="text-lg text-gray-600">
                 We create beautifully illustrated ebooks from classic literature in the public domain.
                 Every book is crafted with care, combining timeless wisdom with modern design.
               </p>
@@ -100,11 +100,11 @@ export default function About() {
                 What We Do
               </span>
 
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-6">
                 AI-Powered Digital Publishing
               </h2>
 
-              <div className="space-y-4 text-white/60 leading-relaxed">
+              <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
                   We leverage AI tools to create illustrated editions of classic books that have entered the public domain.
                   From Marcus Aurelius to biblical texts, we bring timeless wisdom to life with beautiful artwork.
@@ -159,8 +159,8 @@ export default function About() {
                   </motion.div>
 
                   <div>
-                    <h3 className="text-2xl font-display font-bold text-white mb-2">AI-Native</h3>
-                    <p className="text-white/50">
+                    <h3 className="text-2xl font-display font-bold text-gray-900 mb-2">AI-Native</h3>
+                    <p className="text-gray-600">
                       Built from the ground up with AI at the core of our workflow
                     </p>
                   </div>
@@ -198,7 +198,7 @@ export default function About() {
               <div className="relative z-10 text-center">
                 <motion.span
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6
-                           glass-dark text-white/80 text-sm font-medium border border-white/10"
+                           glass-dark text-gray-800 text-sm font-medium border border-white/10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -208,7 +208,7 @@ export default function About() {
                 </motion.span>
 
                 <motion.h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6"
+                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -218,18 +218,18 @@ export default function About() {
                 </motion.h2>
 
                 <motion.p
-                  className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8 leading-relaxed"
+                  className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  Onde is a project by <strong className="text-white">Magmatic</strong>, a creator and builder based in Los Angeles.
+                  Onde is a project by <strong className="text-gray-900">Magmatic</strong>, a creator and builder based in Los Angeles.
                   Using AI agents and automation, we&apos;re building a new kind of publishing house &mdash; one that moves at the speed of thought.
                 </motion.p>
 
                 <motion.p
-                  className="text-white/40 text-sm mb-8"
+                  className="text-gray-500 text-sm mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -312,14 +312,14 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-coral/10">
                 ✍️
               </div>
-              <h3 className="text-2xl font-display font-bold text-white mb-1">Gianni Parola</h3>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Gianni Parola</h3>
               <p className="text-onde-coral font-semibold text-sm uppercase tracking-wide mb-4">Writer</p>
-              <p className="text-white/60 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6">
                 Stories are born from words. Gianni chooses them with care, one by one, like picking flowers in a meadow.
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-coral/30">&ldquo;</div>
-                <p className="text-sm italic text-white/40 pl-4">
+                <p className="text-sm italic text-gray-500 pl-4">
                   Words are seeds. If you plant them with love, they bloom.
                 </p>
               </blockquote>
@@ -336,14 +336,14 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-gold/10">
                 🎨
               </div>
-              <h3 className="text-2xl font-display font-bold text-white mb-1">Pina Pennello</h3>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Pina Pennello</h3>
               <p className="text-onde-gold font-semibold text-sm uppercase tracking-wide mb-4">Illustrator</p>
-              <p className="text-white/60 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6">
                 Colors dance on paper. Pina paints worlds where readers can enter, walk, and dream.
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-gold/30">&ldquo;</div>
-                <p className="text-sm italic text-white/40 pl-4">
+                <p className="text-sm italic text-gray-500 pl-4">
                   I paint what words cannot say.
                 </p>
               </blockquote>
@@ -360,14 +360,14 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-teal/10">
                 🤖
               </div>
-              <h3 className="text-2xl font-display font-bold text-white mb-1">Emilio</h3>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Emilio</h3>
               <p className="text-onde-teal font-semibold text-sm uppercase tracking-wide mb-4">AI Educator</p>
-              <p className="text-white/60 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6">
                 A robot friend who understands the future. Emilio explains technology with infinite patience.
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-teal/30">&ldquo;</div>
-                <p className="text-sm italic text-white/40 pl-4">
+                <p className="text-sm italic text-gray-500 pl-4">
                   Learning is the most beautiful superpower.
                 </p>
               </blockquote>
@@ -401,7 +401,7 @@ export default function About() {
             >
               <div className="text-6xl mb-4">🌸</div>
               <h3 className="text-xl font-display font-bold text-white mb-2">Beauty</h3>
-              <p className="text-white/50">
+              <p className="text-gray-600">
                 Every book is a work of art. Illustrations that tell stories.
               </p>
             </motion.div>
@@ -415,7 +415,7 @@ export default function About() {
             >
               <div className="text-6xl mb-4">🌿</div>
               <h3 className="text-xl font-display font-bold text-white mb-2">Simplicity</h3>
-              <p className="text-white/50">
+              <p className="text-gray-600">
                 Great truths hide in simple things.
               </p>
             </motion.div>
@@ -429,7 +429,7 @@ export default function About() {
             >
               <div className="text-6xl mb-4">✨</div>
               <h3 className="text-xl font-display font-bold text-white mb-2">Wonder</h3>
-              <p className="text-white/50">
+              <p className="text-gray-600">
                 We cultivate amazement. The world is full of magic.
               </p>
             </motion.div>

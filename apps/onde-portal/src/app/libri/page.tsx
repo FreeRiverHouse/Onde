@@ -117,10 +117,10 @@ export default function LibriPage() {
                 <h2 className="text-2xl font-display font-bold text-amber-900 mb-1">
                   {book.title}
                 </h2>
-                <p className="text-amber-700/80 mb-1">{book.subtitle}</p>
-                <p className="text-onde-ocean/50 text-sm mb-4">by {book.author}</p>
+                <p className="text-amber-900 mb-1">{book.subtitle}</p>
+                <p className="text-gray-700 text-sm mb-4">by {book.author}</p>
 
-                <p className="text-onde-ocean/70 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-gray-800 text-sm leading-relaxed mb-6 line-clamp-3">
                   {book.description}
                 </p>
 
@@ -185,7 +185,7 @@ export default function LibriPage() {
           <h3 className="text-2xl font-display font-bold text-onde-ocean mb-4">
             More Books Coming Soon
           </h3>
-          <p className="text-onde-ocean/60 max-w-lg mx-auto">
+          <p className="text-gray-700 max-w-lg mx-auto">
             We&apos;re preparing more beautifully illustrated editions of classic literature.
             Stay tuned for new releases.
           </p>

@@ -278,12 +278,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Beautiful Books</span>
+            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Beautiful Books</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+            className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -331,7 +331,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
         >
-          <span className="text-white/40 text-sm font-medium">Scroll</span>
+          <span className="text-gray-600 text-sm font-medium">Scroll</span>
           <div className="scroll-indicator-line" />
         </motion.div>
       </section>
