@@ -142,6 +142,16 @@ export default function Home() {
     // Check hostname to determine if we're on onde.surf
     const hostname = window.location.hostname
     const port = window.location.port
+    const urlParams = new URLSearchParams(window.location.search)
+    const mode = urlParams.get('mode')
+    const showPortal = sessionStorage.getItem('showPortal')
+    
+    // If mode=preprod or showPortal flag is set, show portal (not surf selector)
+    if (mode === 'preprod' || showPortal === 'true') {
+      sessionStorage.removeItem('showPortal') // Clear flag after use
+      setIsOndeSurf(false)
+      return
+    }
     
     // onde.surf: show split-screen
     // onde.la: show normal portal

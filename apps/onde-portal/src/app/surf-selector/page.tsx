@@ -88,9 +88,6 @@ export default function SurfSelector() {
               <p className="text-2xl mb-2 text-yellow-400 font-semibold drop-shadow-lg">
                 Portale VR
               </p>
-              <p className="text-lg text-gray-200 max-w-md drop-shadow-lg">
-                Tempesta onde fortissime • Esperienze immersive
-              </p>
 
               {/* Hover indicator */}
               <motion.div
@@ -166,13 +163,10 @@ export default function SurfSelector() {
 
               {/* Title */}
               <h1 className="text-6xl font-bold mb-4 drop-shadow-2xl">
-                LA
+                ONDE.LA
               </h1>
               <p className="text-2xl mb-2 text-emerald-400 font-semibold drop-shadow-lg">
                 Pre-Production
-              </p>
-              <p className="text-lg text-gray-200 max-w-md drop-shadow-lg">
-                Acqua tranquilla • Palme • Simula onde.la per testing
               </p>
 
               {/* Hover indicator */}
