@@ -176,31 +176,30 @@ export default function Home() {
           FIXED BACKGROUND - Ocean Relaxing Theme
           ============================================ */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Base dark gradient */}
-        <div className="absolute inset-0 bg-onde-dark" />
+        {/* Base LIGHT maritime gradient - AZZURRO CHIARO */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #B8D8E0 50%, #7EB8C4 100%)' }} />
 
-        {/* Mesh gradient overlay - Maritime Relaxing theme */}
+        {/* Onde marine overlay - VISIBILE */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(91, 154, 160, 0.2) 0%, transparent 50%),
-              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(126, 184, 196, 0.15) 0%, transparent 50%),
-              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(38, 97, 156, 0.12) 0%, transparent 50%),
-              radial-gradient(ellipse 50% 50% at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%)
+              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(91, 154, 160, 0.3) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(38, 97, 156, 0.2) 0%, transparent 50%)
             `,
           }}
         />
 
-        {/* Animated grid pattern */}
+        {/* Pattern onde marine */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)
+              linear-gradient(rgba(38, 97, 156, 1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(38, 97, 156, 1) 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px',
+            backgroundSize: '100px 100px',
           }}
         />
 
@@ -218,49 +217,38 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Orbs Background - Maritime Relaxing Theme */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Blu lapislazzuli orb */}
+          {/* Riflessi d'acqua - PIU' SOFT */}
           <motion.div
-            className="floating-orb w-[600px] h-[600px] -top-40 -left-40"
-            style={{ background: '#26619C' }}
+            className="floating-orb w-[500px] h-[500px] -top-40 -left-40"
+            style={{ background: 'rgba(38, 97, 156, 0.15)', filter: 'blur(80px)' }}
             animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.1, 1],
+              x: [0, 30, 0],
+              y: [0, 20, 0],
+              scale: [1, 1.05, 1],
             }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Turchese soft orb right */}
+          {/* Riflesso turchese */}
           <motion.div
-            className="floating-orb w-[500px] h-[500px] top-1/4 -right-40"
-            style={{ background: '#5B9AA0' }}
-            animate={{
-              x: [0, -30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-          {/* Azzurro soft orb bottom */}
-          <motion.div
-            className="floating-orb w-[400px] h-[400px] bottom-20 left-1/4"
-            style={{ background: '#7EB8C4' }}
-            animate={{
-              x: [0, 40, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-          />
-          {/* Oro accent orb */}
-          <motion.div
-            className="floating-orb w-[300px] h-[300px] top-1/2 right-1/4"
-            style={{ background: '#D4AF37' }}
+            className="floating-orb w-[400px] h-[400px] top-1/4 -right-40"
+            style={{ background: 'rgba(91, 154, 160, 0.2)', filter: 'blur(70px)' }}
             animate={{
               x: [0, -20, 0],
-              y: [0, 30, 0],
+              y: [0, 25, 0],
+              scale: [1, 1.08, 1],
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          />
+          {/* Riflesso azzurro chiaro */}
+          <motion.div
+            className="floating-orb w-[350px] h-[350px] bottom-20 left-1/4"
+            style={{ background: 'rgba(126, 184, 196, 0.18)', filter: 'blur(60px)' }}
+            animate={{
+              x: [0, 20, 0],
+              y: [0, -15, 0],
               scale: [1, 1.1, 1],
             }}
-            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
           />
         </div>
 
