@@ -4,37 +4,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Cinematic Dark Palette
+        // Maritime Relaxing Palette - Mare Calmo
         'onde': {
-          // Primary Dark Backgrounds
-          dark: '#0A0A0F',
-          'dark-blue': '#0F1629',
-          'dark-surface': '#12152B',
-          'dark-elevated': '#1A1F3D',
+          // Primary Dark Backgrounds - Blu oceano profondo
+          dark: '#0B1929',
+          'dark-blue': '#0D2137',
+          'dark-surface': '#122A42',
+          'dark-elevated': '#1A3A52',
 
-          // Neon Accents
-          coral: '#FF6B6B',
-          'coral-light': '#FF8E8E',
-          gold: '#FFD93D',
-          'gold-light': '#FFE566',
-          teal: '#4ECDC4',
-          'teal-light': '#7EDDD6',
-          blue: '#6C63FF',
-          'blue-light': '#8B83FF',
-          purple: '#A855F7',
-          'purple-light': '#C084FC',
-          cyan: '#22D3EE',
-          'cyan-light': '#67E8F9',
-          pink: '#EC4899',
-          'pink-light': '#F472B6',
+          // Maritime Accents - Turchese, Azzurro, Oro, Lapislazzuli
+          coral: '#D4AF37',           // Oro (sostituisce coral)
+          'coral-light': '#E5C158',
+          gold: '#D4AF37',             // Oro
+          'gold-light': '#E5C158',
+          teal: '#5B9AA0',             // Turchese soft
+          'teal-light': '#7EB8C4',
+          blue: '#26619C',             // Blu lapislazzuli
+          'blue-light': '#4A7C9B',
+          purple: '#4A7C9B',           // Azzurro profondo
+          'purple-light': '#6B9BB8',
+          cyan: '#7EB8C4',             // Azzurro soft
+          'cyan-light': '#A5D4DC',
+          pink: '#5B9AA0',             // Turchese (sostituisce pink)
+          'pink-light': '#7EB8C4',
 
-          // Legacy (for compatibility)
-          ocean: '#1B4F72',
-          'ocean-light': '#2980B9',
-          'ocean-dark': '#154360',
-          cream: '#FDF6E3',
-          'cream-dark': '#F5E6C8',
-          sand: '#F5DEB3',
+          // Maritime colors
+          ocean: '#26619C',            // Blu lapislazzuli
+          'ocean-light': '#4A7C9B',
+          'ocean-dark': '#1A4A7A',
+          cream: '#F5F5F5',            // Bianco
+          'cream-dark': '#E8E8E8',
+          sand: '#D4AF37',             // Oro
         },
       },
       fontFamily: {
@@ -46,20 +46,20 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'gradient-mesh': `
-          radial-gradient(ellipse 100% 100% at 50% 0%, rgba(108, 99, 255, 0.2) 0%, transparent 50%),
-          radial-gradient(ellipse 80% 60% at 100% 50%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse 60% 80% at 0% 100%, rgba(255, 107, 107, 0.12) 0%, transparent 50%),
-          radial-gradient(ellipse 50% 50% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)
+          radial-gradient(ellipse 100% 100% at 50% 0%, rgba(38, 97, 156, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse 80% 60% at 100% 50%, rgba(91, 154, 160, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse 60% 80% at 0% 100%, rgba(126, 184, 196, 0.1) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 50% at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 70%)
         `,
         'gradient-hero': `
-          radial-gradient(ellipse 80% 50% at 50% -20%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse 60% 40% at 80% 50%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
-          radial-gradient(ellipse 50% 30% at 20% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%)
+          radial-gradient(ellipse 80% 50% at 50% -20%, rgba(38, 97, 156, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse 60% 40% at 80% 50%, rgba(91, 154, 160, 0.08) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 30% at 20% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%)
         `,
-        'gradient-neon': 'linear-gradient(135deg, #4ECDC4 0%, #6C63FF 50%, #A855F7 100%)',
-        'gradient-fire': 'linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%)',
-        'gradient-ocean': 'linear-gradient(135deg, #1B4F72 0%, #2980B9 50%, #48C9B0 100%)',
-        'gradient-sunset': 'linear-gradient(135deg, #FF6B6B 0%, #FFD93D 50%, #4ECDC4 100%)',
+        'gradient-neon': 'linear-gradient(135deg, #5B9AA0 0%, #26619C 50%, #4A7C9B 100%)',
+        'gradient-fire': 'linear-gradient(135deg, #D4AF37 0%, #E5C158 100%)',
+        'gradient-ocean': 'linear-gradient(135deg, #26619C 0%, #5B9AA0 50%, #7EB8C4 100%)',
+        'gradient-sunset': 'linear-gradient(135deg, #D4AF37 0%, #5B9AA0 50%, #7EB8C4 100%)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -87,8 +87,8 @@ module.exports = {
           '100%': { backgroundPosition: '200% 0' },
         },
         glowPulse: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(78, 205, 196, 0.4)' },
-          '50%': { boxShadow: '0 0 40px rgba(78, 205, 196, 0.6), 0 0 60px rgba(108, 99, 255, 0.4)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(91, 154, 160, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(91, 154, 160, 0.4), 0 0 60px rgba(38, 97, 156, 0.3)' },
         },
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
@@ -110,12 +110,12 @@ module.exports = {
         },
       },
       boxShadow: {
-        // Glow shadows
-        'glow-teal': '0 0 30px rgba(78, 205, 196, 0.4)',
-        'glow-blue': '0 0 30px rgba(108, 99, 255, 0.4)',
-        'glow-purple': '0 0 30px rgba(168, 85, 247, 0.4)',
-        'glow-coral': '0 0 30px rgba(255, 107, 107, 0.4)',
-        'glow-gold': '0 0 30px rgba(255, 217, 61, 0.4)',
+        // Glow shadows - Maritime soft
+        'glow-teal': '0 0 30px rgba(91, 154, 160, 0.3)',
+        'glow-blue': '0 0 30px rgba(38, 97, 156, 0.3)',
+        'glow-purple': '0 0 30px rgba(74, 124, 155, 0.3)',
+        'glow-coral': '0 0 30px rgba(212, 175, 55, 0.3)',
+        'glow-gold': '0 0 30px rgba(212, 175, 55, 0.3)',
         // Card shadows
         'card': '0 10px 40px rgba(0, 0, 0, 0.3)',
         'card-hover': '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(108, 99, 255, 0.1)',

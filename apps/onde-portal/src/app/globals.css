@@ -3,34 +3,34 @@
 @tailwind utilities;
 
 /* ============================================
-   ONDE PORTAL - FUTURISTIC IMMERSIVE DESIGN
-   Inspired by Kling AI, Runway ML, Midjourney
+   ONDE PORTAL - MARE CALMO / MARITIME DESIGN
+   Turchese, Azzurro, Bianco, Oro, Blu Lapislazzuli
    ============================================ */
 
 @layer base {
   :root {
-    /* Futuristic Neon Palette */
-    --onde-coral: #FF6B6B;
-    --onde-coral-light: #FF8E8E;
-    --onde-coral-glow: rgba(255, 107, 107, 0.6);
-    --onde-gold: #FFD93D;
-    --onde-gold-light: #FFE566;
-    --onde-gold-glow: rgba(255, 217, 61, 0.6);
-    --onde-teal: #4ECDC4;
-    --onde-teal-light: #7EDDD6;
-    --onde-teal-glow: rgba(78, 205, 196, 0.6);
-    --onde-blue: #6C63FF;
-    --onde-blue-glow: rgba(108, 99, 255, 0.6);
-    --onde-purple: #A855F7;
-    --onde-purple-glow: rgba(168, 85, 247, 0.6);
-    --onde-cyan: #22D3EE;
-    --onde-cyan-glow: rgba(34, 211, 238, 0.6);
+    /* Maritime Relaxing Palette - Mare Calmo */
+    --onde-coral: #D4AF37;           /* Oro (sostituisce coral) */
+    --onde-coral-light: #E5C158;
+    --onde-coral-glow: rgba(212, 175, 55, 0.4);
+    --onde-gold: #D4AF37;             /* Oro */
+    --onde-gold-light: #E5C158;
+    --onde-gold-glow: rgba(212, 175, 55, 0.4);
+    --onde-teal: #5B9AA0;             /* Turchese soft */
+    --onde-teal-light: #7EB8C4;
+    --onde-teal-glow: rgba(91, 154, 160, 0.4);
+    --onde-blue: #26619C;             /* Blu lapislazzuli */
+    --onde-blue-glow: rgba(38, 97, 156, 0.4);
+    --onde-purple: #4A7C9B;           /* Azzurro profondo (sostituisce purple) */
+    --onde-purple-glow: rgba(74, 124, 155, 0.4);
+    --onde-cyan: #7EB8C4;             /* Azzurro soft */
+    --onde-cyan-glow: rgba(126, 184, 196, 0.4);
 
-    /* Dark futuristic base */
-    --onde-dark: #0A0A0F;
-    --onde-dark-blue: #0F1629;
-    --onde-dark-surface: #12152B;
-    --onde-dark-elevated: #1A1F3D;
+    /* Dark maritime base - blu profondo oceano */
+    --onde-dark: #0B1929;
+    --onde-dark-blue: #0D2137;
+    --onde-dark-surface: #122A42;
+    --onde-dark-elevated: #1A3A52;
 
     /* Glass effects */
     --glass-bg: rgba(255, 255, 255, 0.03);
@@ -58,9 +58,9 @@
     @apply font-body antialiased;
     background: var(--onde-dark);
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 30% at 20% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(38, 97, 156, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(91, 154, 160, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 30% at 20% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%);
     min-height: 100vh;
     min-height: 100dvh;
     overflow-x: hidden;
@@ -85,12 +85,12 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--onde-teal-light), var(--onde-purple));
+    background: linear-gradient(180deg, var(--onde-teal-light), var(--onde-gold));
   }
 
-  /* Selection color - neon */
+  /* Selection color - maritime */
   ::selection {
-    background: rgba(78, 205, 196, 0.4);
+    background: rgba(91, 154, 160, 0.4);
     color: white;
   }
 
@@ -108,17 +108,17 @@
      FUTURISTIC BACKGROUND EFFECTS
      ============================================ */
 
-  /* Animated gradient mesh background */
+  /* Animated gradient mesh background - Maritime */
   .mesh-gradient {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: -1;
     background:
-      radial-gradient(ellipse 100% 100% at 50% 0%, rgba(108, 99, 255, 0.2) 0%, transparent 50%),
-      radial-gradient(ellipse 80% 60% at 100% 50%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 80% at 0% 100%, rgba(255, 107, 107, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+      radial-gradient(ellipse 100% 100% at 50% 0%, rgba(38, 97, 156, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 80% 60% at 100% 50%, rgba(91, 154, 160, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 80% at 0% 100%, rgba(126, 184, 196, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
   }
 
   /* Grid pattern overlay */
