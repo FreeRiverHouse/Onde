@@ -1,14 +1,15 @@
 #!/bin/bash
-# Deploy Onde.surf - PREPRODUZIONE
-# Deploy automatico su Cloudflare Pages per onde.surf (preproduzione)
+# Deploy Onde.la - PRODUZIONE
+# Deploy automatico su Cloudflare Pages per onde.la (PRODUZIONE - SACRO)
 #
 # CARATTERISTICHE:
-# - Deploy automatico senza richiesta manuale di autenticazione
-# - Wrangler OAuth automatico
-# - Build + Deploy + Verifica
+# - Test automatici OBBLIGATORI prima del deploy
+# - Deploy su onde.la (PRODUZIONE)
+# - Verifica deployment
+# - Notifica Telegram
 #
 # Usage:
-#   ./deploy-onde-surf-preprod.sh
+#   ./deploy-onde-la-prod.sh
 
 set -e
 
@@ -23,9 +24,9 @@ ONDE_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 PORTAL_DIR="$ONDE_ROOT/apps/onde-portal"
 
 echo ""
-echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}  🌊 DEPLOY ONDE.SURF - PREPRODUZIONE${NC}"
-echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${RED}  🌊 DEPLOY ONDE.LA - PRODUZIONE (SACRO)${NC}"
+echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
 # Step 1: Build
@@ -37,7 +38,7 @@ echo ""
 
 # Step 2: TEST AUTOMATICI (OBBLIGATORIO) - Usa procedura centralizzata
 echo -e "${YELLOW}🧪 Running automated tests...${NC}"
-"$SCRIPT_DIR/test-website-before-deploy.sh" 7777 onde-surf
+"$SCRIPT_DIR/test-website-before-deploy.sh" 8888 onde-la
 
 if [ $? -ne 0 ]; then
     echo ""
@@ -54,7 +55,7 @@ echo ""
 # Step 3: Deploy to Cloudflare Pages
 echo -e "${YELLOW}🚀 Deploying to Cloudflare Pages...${NC}"
 echo -e "${YELLOW}   Project: onde-portal${NC}"
-echo -e "${YELLOW}   Target: PREPRODUZIONE (onde.surf)${NC}"
+echo -e "${YELLOW}   Target: PRODUZIONE (onde.la) - SACRO${NC}"
 cd "$PORTAL_DIR"
 npx wrangler pages deploy out --project-name=onde-portal --commit-dirty=true
 echo -e "${GREEN}✅ Deploy complete${NC}"
@@ -66,13 +67,14 @@ DEPLOY_URL=$(npx wrangler pages deployment list --project-name=onde-portal --for
 if [ -z "$DEPLOY_URL" ]; then
     echo -e "${YELLOW}⚠️  Could not extract deployment URL automatically${NC}"
     echo -e "${YELLOW}   Check: https://dash.cloudflare.com/pages/view/onde-portal${NC}"
+    DEPLOY_URL="https://onde.la"
 else
     echo -e "${GREEN}🌐 Deployment URL: $DEPLOY_URL${NC}"
     
     # Step 5: Wait for propagation
     echo ""
-    echo -e "${YELLOW}⏳ Waiting 10 seconds for propagation...${NC}"
-    sleep 10
+    echo -e "${YELLOW}⏳ Waiting 30 seconds for propagation...${NC}"
+    sleep 30
     
     # Step 6: Verify deployment
     echo -e "${YELLOW}🔍 Verifying deployment...${NC}"
@@ -87,17 +89,15 @@ fi
 
 echo ""
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}  🎉 DEPLOY PREPRODUZIONE COMPLETATO!${NC}"
+echo -e "${GREEN}  🎉 DEPLOY PRODUZIONE COMPLETATO!${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "${BLUE}📋 PROSSIMI STEP:${NC}"
-echo -e "${BLUE}   1. Verifica il sito su preproduzione${NC}"
-echo -e "${BLUE}   2. Se OK, procedi con deploy su PRODUZIONE (onde.la)${NC}"
+echo -e "${RED}⚠️  IMPORTANTE: Verifica onde.la immediatamente!${NC}"
 echo ""
 
 # Send Telegram notification if credentials are available
 if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
-    MESSAGE="✅ *ONDE.SURF PREPROD DEPLOYED*%0A%0ADeployment successful!%0A%0AView: $DEPLOY_URL"
+    MESSAGE="✅ *ONDE.LA PRODUZIONE DEPLOYED*%0A%0ADeployment successful!%0A%0AView: https://onde.la"
     curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
         -d "chat_id=$TELEGRAM_CHAT_ID" \
         -d "text=$MESSAGE" \
