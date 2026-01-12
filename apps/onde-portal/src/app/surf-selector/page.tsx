@@ -124,7 +124,7 @@ export default function SurfSelector() {
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
             >
-              <source src="/videos/ocean-calm-turquoise.mp4" type="video/mp4" />
+              <source src="/videos/ocean-peaceful-sunset.mp4" type="video/mp4" />
             </video>
             
             {/* Overlay gradient for better text readability */}
