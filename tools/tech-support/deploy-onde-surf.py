@@ -106,6 +106,43 @@ class OndeSurfDeployer:
         
         print(f"✅ Commit creato")
         
+        # Step 4: Test automatico su localhost:7777
+        print(f"\n🧪 STEP 4: Test automatico modifiche")
+        
+        # Avvia server TEST se non già attivo
+        print(f"   Avvio server TEST su localhost:7777...")
+        test_server = subprocess.Popen(
+            ['npm', 'run', 'test:onde-surf'],
+            cwd=self.portal_path,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        
+        # Aspetta che server sia pronto
+        import time
+        time.sleep(5)
+        
+        # Esegui test automatici
+        print(f"   Esecuzione test automatici...")
+        test_result = subprocess.run(
+            ['python3', 'tools/tech-support/test-modifiche-website.py', 
+             'http://localhost:7777', 'onde-surf'],
+            cwd=self.onde_root,
+            capture_output=True,
+            text=True
+        )
+        
+        # Termina server TEST
+        test_server.terminate()
+        test_server.wait()
+        
+        if test_result.returncode != 0:
+            print(f"❌ ERRORE: Test automatici falliti")
+            print(test_result.stdout[-1000:])
+            return False
+        
+        print(f"✅ Test automatici completati con successo")
+        
         # Step 5: STOP - Chiedi conferma prima di push
         print(f"\n" + "=" * 60)
         print(f"🛑 PRONTO PER PUSH SU ONDE.SURF")
@@ -114,6 +151,7 @@ class OndeSurfDeployer:
         print(f"   - File copiati: {len(target_paths)}")
         print(f"   - Build: OK")
         print(f"   - Commit: OK")
+        print(f"   - Test automatici: OK")
         print(f"\n⚠️  PROSSIMO STEP:")
         print(f"   git push origin main")
         print(f"   Deploy automatico su onde.surf")

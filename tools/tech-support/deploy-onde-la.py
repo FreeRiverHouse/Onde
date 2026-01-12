@@ -244,7 +244,51 @@ class OndeLaDeployer:
         
         print(f"✅ Commit creato")
         
-        # Step 9: STOP - Conferma finale OBBLIGATORIA
+        # Step 9: Test automatico su localhost:8888
+        print(f"\n🧪 STEP 9: Test automatico modifiche")
+        
+        # Avvia server TEST se non già attivo
+        print(f"   Avvio server TEST su localhost:8888...")
+        test_server = subprocess.Popen(
+            ['npm', 'run', 'test:onde-la'],
+            cwd=self.portal_path,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        
+        # Aspetta che server sia pronto
+        import time
+        time.sleep(5)
+        
+        # Esegui test automatici
+        print(f"   Esecuzione test automatici...")
+        test_result = subprocess.run(
+            ['python3', 'tools/tech-support/test-modifiche-website.py', 
+             'http://localhost:8888', 'onde-la'],
+            cwd=self.onde_root,
+            capture_output=True,
+            text=True
+        )
+        
+        # Termina server TEST
+        test_server.terminate()
+        test_server.wait()
+        
+        if test_result.returncode != 0:
+            print(f"❌ ERRORE CRITICO: Test automatici falliti")
+            print(test_result.stdout[-1000:])
+            print(f"🔄 ROLLBACK AUTOMATICO...")
+            # Ripristina backup
+            for file_type, target_path in target_paths.items():
+                backup_file = backup_dir / (self.onde_root / target_path).name
+                if backup_file.exists():
+                    shutil.copy2(backup_file, self.onde_root / target_path)
+            print(f"✅ Rollback completato")
+            return False
+        
+        print(f"✅ Test automatici completati con successo")
+        
+        # Step 10: STOP - Conferma finale OBBLIGATORIA
         print(f"\n" + "=" * 60)
         print(f"🛑 PRONTO PER PUSH SU ONDE.LA PRODUZIONE")
         print("=" * 60)
