@@ -3,26 +3,40 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 
 // Particle component for floating background particles
 function Particle({ index }: { index: number }) {
-  const randomX = useMemo(() => Math.random() * 100, [])
-  const randomDelay = useMemo(() => Math.random() * 20, [])
-  const randomDuration = useMemo(() => 15 + Math.random() * 15, [])
-  const randomSize = useMemo(() => 2 + Math.random() * 4, [])
   const colors = ['#4ECDC4', '#6C63FF', '#A855F7', '#FF6B6B', '#FFD93D']
   const color = useMemo(() => colors[index % colors.length], [index])
+  
+  // Generate random values only on client side to avoid hydration errors
+  const [randomValues, setRandomValues] = useState({
+    x: 50, // Default center position
+    size: 3, // Default size
+    delay: 0,
+    duration: 20
+  })
+
+  useEffect(() => {
+    // Generate random values after component mounts (client-side only)
+    setRandomValues({
+      x: Math.random() * 100,
+      size: 2 + Math.random() * 4,
+      delay: Math.random() * 20,
+      duration: 15 + Math.random() * 15
+    })
+  }, [])
 
   return (
     <motion.div
       className="absolute rounded-full pointer-events-none"
       style={{
-        left: `${randomX}%`,
-        width: randomSize,
-        height: randomSize,
+        left: `${randomValues.x}%`,
+        width: randomValues.size,
+        height: randomValues.size,
         background: color,
-        boxShadow: `0 0 ${randomSize * 3}px ${color}`,
+        boxShadow: `0 0 ${randomValues.size * 3}px ${color}`,
       }}
       initial={{ y: '110vh', opacity: 0 }}
       animate={{
@@ -30,8 +44,8 @@ function Particle({ index }: { index: number }) {
         opacity: [0, 0.8, 0.8, 0],
       }}
       transition={{
-        duration: randomDuration,
-        delay: randomDelay,
+        duration: randomValues.duration,
+        delay: randomValues.delay,
         repeat: Infinity,
         ease: 'linear',
       }}
