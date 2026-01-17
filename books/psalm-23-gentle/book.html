@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Light Within - Psalm 23</title>
+    <title>My Good Shepherd - Psalm 23 for Children</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -35,9 +35,9 @@
             page-break-after: avoid;
         }
 
-        /* ===== COVER - COSMIC SOFT ===== */
+        /* ===== COVER - WARM PASTORAL ===== */
         .cover {
-            background: linear-gradient(160deg, #1a1a3a 0%, #2d2d5a 30%, #4a3a6a 60%, #6a5a8a 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8AA 40%, #F5E6D3 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -50,31 +50,31 @@
             width: 145mm;
             height: auto;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            border: 4px solid rgba(255,255,255,0.3);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+            border: 5px solid white;
         }
 
         .cover h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 34pt;
-            color: #f5f0ff;
-            margin-top: 10mm;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 20px rgba(200,180,255,0.5);
+            font-size: 36pt;
+            color: #2D5016;
+            margin-top: 12mm;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
         }
 
         .cover h2 {
-            font-size: 13pt;
-            color: #c8b8e8;
+            font-size: 14pt;
+            color: #4A7023;
             font-weight: 400;
-            margin-top: 3mm;
+            font-style: italic;
+            margin-top: 4mm;
         }
 
         .cover .author {
-            font-size: 10pt;
-            color: #a098c0;
+            font-size: 11pt;
+            color: #5D4E37;
             margin-top: auto;
-            padding-bottom: 10mm;
+            padding-bottom: 12mm;
         }
 
         /* ===== DEDICATION ===== */
@@ -83,28 +83,28 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(180deg, #1a1a2e 0%, #2d2d4a 50%, #f8f6fa 100%);
+            background: linear-gradient(180deg, #FFF8E7 0%, #F5E6D3 100%);
         }
 
         .dedication-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 17pt;
-            color: #e8e0f5;
+            font-size: 18pt;
+            color: #5D4E37;
             text-align: center;
-            max-width: 130mm;
+            max-width: 140mm;
             line-height: 2.2;
         }
 
         .dedication-ornament {
             font-size: 28pt;
-            color: #c8b8d8;
-            margin: 12mm 0;
+            color: #98D8AA;
+            margin: 15mm 0;
         }
 
         /* ===== CHAPTERS ===== */
         .chapter {
-            background: linear-gradient(180deg, #fdfcfe 0%, #f8f6fa 100%);
+            background: linear-gradient(180deg, #FFFDF7 0%, #FFF8E7 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -115,15 +115,15 @@
             font-family: 'Nunito', sans-serif;
             font-size: 11pt;
             font-weight: 700;
-            color: #b8a8c8;
+            color: #98D8AA;
             letter-spacing: 4px;
             margin-bottom: 2mm;
         }
 
         .chapter-title {
             font-family: 'Playfair Display', serif;
-            font-size: 19pt;
-            color: #4a3a5a;
+            font-size: 20pt;
+            color: #2D5016;
             margin-bottom: 6mm;
             text-align: center;
         }
@@ -131,17 +131,17 @@
         .chapter img {
             width: 160mm;
             height: auto;
-            max-height: 135mm;
+            max-height: 130mm;
             object-fit: contain;
             border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(100,80,120,0.18);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
             margin-bottom: 6mm;
         }
 
         .chapter-text {
-            font-size: 13pt;
+            font-size: 14pt;
             line-height: 2;
-            color: #3a3a4a;
+            color: #3D3D3D;
             text-align: center;
             max-width: 150mm;
         }
@@ -153,13 +153,13 @@
         .verse {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: #5a4a6a;
-            margin: 8px 0;
-            padding: 10px 18px;
-            border-left: 3px solid #c8b8d8;
-            border-right: 3px solid #c8b8d8;
+            color: #4A7023;
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-left: 4px solid #98D8AA;
+            border-right: 4px solid #98D8AA;
             text-align: center;
-            background: linear-gradient(90deg, rgba(200,184,216,0.06) 0%, rgba(200,184,216,0.12) 50%, rgba(200,184,216,0.06) 100%);
+            background: linear-gradient(90deg, rgba(152,216,170,0.08) 0%, rgba(152,216,170,0.15) 50%, rgba(152,216,170,0.08) 100%);
             border-radius: 10px;
         }
 
@@ -168,13 +168,13 @@
             bottom: 6mm;
             right: 10mm;
             font-size: 9pt;
-            color: #c8b8d8;
+            color: #98D8AA;
             font-weight: 600;
         }
 
         /* ===== END ===== */
         .end-page {
-            background: linear-gradient(180deg, #f8f5fa 0%, #f0f5f8 50%, #fff 100%);
+            background: linear-gradient(180deg, #FFF8E7 0%, #E8F5E9 50%, #fff 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -184,21 +184,21 @@
 
         .fine {
             font-family: 'Playfair Display', serif;
-            font-size: 40pt;
-            color: #5a4a6a;
+            font-size: 42pt;
+            color: #2D5016;
             font-style: italic;
             margin-bottom: 25mm;
         }
 
         .ornament {
             font-size: 22pt;
-            color: #c8b8d8;
+            color: #98D8AA;
             margin-bottom: 12mm;
         }
 
         .credits {
             font-size: 12pt;
-            color: #777;
+            color: #666;
         }
 
         .credits p {
@@ -206,21 +206,21 @@
         }
 
         .publisher {
-            margin-top: 20mm;
-            font-size: 13pt;
-            color: #5a4a6a;
+            margin-top: 22mm;
+            font-size: 14pt;
+            color: #4A7023;
             font-weight: 600;
         }
 
         .powered {
             font-size: 9pt;
-            color: #aaa;
+            color: #999;
             margin-top: 6mm;
         }
 
         /* ===== ORIGINAL PSALM ===== */
         .psalm-page {
-            background: #fdfcfe;
+            background: #FFFDF7;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -230,8 +230,8 @@
 
         .psalm-title {
             font-family: 'Playfair Display', serif;
-            font-size: 17pt;
-            color: #5a4a6a;
+            font-size: 18pt;
+            color: #2D5016;
             margin-bottom: 12mm;
         }
 
@@ -239,7 +239,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 12pt;
             line-height: 2.3;
-            color: #666;
+            color: #555;
             text-align: center;
             max-width: 135mm;
         }
@@ -247,97 +247,6 @@
         .psalm-text p {
             margin-bottom: 6px;
         }
-    
-    /* ===== ABOUT THE CREATORS ===== */
-    .creators-page {
-        background: linear-gradient(180deg, #faf8f5 0%, #f5e6b3 100%);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 15mm 20mm;
-    }
-
-    .creators-title {
-        font-family: 'Libre Baskerville', serif;
-        font-size: 22pt;
-        color: #2c3e50;
-        margin-bottom: 12mm;
-        text-align: center;
-    }
-
-    .creators-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15mm;
-        width: 100%;
-        max-width: 160mm;
-    }
-
-    .creator-card {
-        display: flex;
-        align-items: flex-start;
-        gap: 8mm;
-        background: rgba(255,255,255,0.7);
-        padding: 8mm;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    .creator-portrait {
-        width: 40mm;
-        height: 40mm;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #d4af37;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        flex-shrink: 0;
-    }
-
-    .creator-info {
-        flex: 1;
-    }
-
-    .creator-name {
-        font-family: 'Libre Baskerville', serif;
-        font-size: 16pt;
-        color: #2c3e50;
-        margin-bottom: 3mm;
-    }
-
-    .creator-role {
-        font-size: 10pt;
-        color: #d4af37;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 4mm;
-    }
-
-    .creator-bio {
-        font-size: 11pt;
-        line-height: 1.7;
-        color: #5d6d7e;
-    }
-
-    .creators-footer {
-        margin-top: 12mm;
-        text-align: center;
-    }
-
-    .publisher-logo {
-        font-family: 'Libre Baskerville', serif;
-        font-size: 14pt;
-        color: #d4af37;
-        font-weight: 600;
-    }
-
-    .publisher-tagline {
-        font-size: 10pt;
-        color: #5d6d7e;
-        font-style: italic;
-        margin-top: 2mm;
-    }
-
     </style>
 </head>
 <body>
@@ -345,147 +254,133 @@
 <!-- COVER -->
 <div class="page cover">
     <img src="images/00-copertina.jpg" alt="Cover">
-    <h1>The Light Within</h1>
-    <h2>A journey through Psalm 23</h2>
-    <p class="author">Words by Gianni Parola &bull; Art by Pina Pennello</p>
+    <h1>My Good Shepherd</h1>
+    <h2>Psalm 23 for Little Ones</h2>
+    <p class="author">Words by Gianni Parola &bull; Art by Pino Pennello</p>
 </div>
 
 <!-- DEDICATION -->
 <div class="page dedication">
     <div class="dedication-ornament">&#10022;</div>
     <p class="dedication-text">
-        Every atom in your body<br>
-        was once part of a star.<br>
-        You carry the universe inside you,<br>
-        and you are never, ever alone.
+        For every child who wonders<br>
+        if there is enough love in the world:<br>
+        there is.<br>
+        More than enough. Always.
     </p>
     <div class="dedication-ornament">&#10022;</div>
 </div>
 
-<!-- CHAPTER 1: STARDUST -->
+<!-- CHAPTER 1: I SHALL NOT WANT -->
 <div class="page chapter">
     <p class="chapter-number">ONE</p>
-    <h2 class="chapter-title">Made of Stars</h2>
-    <img src="images/01-pastore.jpg" alt="The Shepherd">
+    <h2 class="chapter-title">I Have Everything I Need</h2>
+    <img src="images/01-pastore.jpg" alt="The Good Shepherd">
     <div class="chapter-text">
-        <p>Before you were born,<br>
-        the stars were already singing your name.<br>
-        Every tiny piece of you came from the sky.</p>
+        <p>There is a shepherd who loves me so much.<br>
+        He takes care of me every day.</p>
 
-        <p class="verse">"I made you from stardust," whispers the shepherd,<br>
-        "You are part of everything that shines.<br>
-        You will always have what you need."</p>
+        <p class="verse">"You will always have what you need,"<br>
+        the shepherd says with a smile.<br>
+        "Trust me. Good things are coming to you."</p>
 
-        <p>And I look at my hands and smile,<br>
-        because now I know:<br>
-        I am made of light.</p>
+        <p>And I believe him.<br>
+        I have everything I need.</p>
     </div>
     <span class="page-number">3</span>
 </div>
 
-<!-- CHAPTER 2: STILLNESS -->
+<!-- CHAPTER 2: GREEN PASTURES -->
 <div class="page chapter">
     <p class="chapter-number">TWO</p>
-    <h2 class="chapter-title">The Quiet Place</h2>
-    <img src="images/02-acque-tranquille.jpg" alt="Still Waters">
+    <h2 class="chapter-title">Soft Grass and Quiet Water</h2>
+    <img src="images/02-acque-tranquille.jpg" alt="Green Meadows">
     <div class="chapter-text">
-        <p>The shepherd leads me to a place<br>
-        where everything is still,<br>
-        where the water reflects the clouds<br>
-        and the grass hums a lullaby.</p>
+        <p>The shepherd takes me to beautiful places.<br>
+        Soft green grass. Calm, quiet water.</p>
 
-        <p class="verse">"Be still," he says softly,<br>
-        "and know that you are loved.<br>
-        Let the silence fill your heart."</p>
+        <p class="verse">"Rest here," he says gently.<br>
+        "Feel how good this is.<br>
+        Say thank you for these gifts."</p>
 
-        <p>I close my eyes and breathe.<br>
-        In the quiet, I find myself.</p>
+        <p>I lie down in the soft grass.<br>
+        Thank you, thank you, thank you.</p>
     </div>
     <span class="page-number">4</span>
 </div>
 
-<!-- CHAPTER 3: THE PATH -->
+<!-- CHAPTER 3: THE RIGHT PATH -->
 <div class="page chapter">
     <p class="chapter-number">THREE</p>
-    <h2 class="chapter-title">Growing Down</h2>
+    <h2 class="chapter-title">The Right Path</h2>
     <img src="images/03-sentieri.jpg" alt="The Path">
     <div class="chapter-text">
-        <p>The path winds like a river,<br>
-        sometimes up toward the sky,<br>
-        sometimes down into the earth.</p>
+        <p>Sometimes I don't know which way to go.<br>
+        The path looks long and twisty.</p>
 
-        <p class="verse">"Grow up toward the stars," he says,<br>
-        "but also grow down into the ground.<br>
-        Stretch your branches. Spread your roots.<br>
-        Both directions lead to me."</p>
+        <p class="verse">"Don't worry," says the shepherd.<br>
+        "I know the way.<br>
+        Just follow me, step by step."</p>
 
-        <p>I understand now:<br>
-        the journey goes both ways.</p>
+        <p>I take his hand.<br>
+        He always shows me the right path.</p>
     </div>
     <span class="page-number">5</span>
 </div>
 
-<!-- CHAPTER 4: THE VALLEY -->
+<!-- CHAPTER 4: I AM NOT AFRAID -->
 <div class="page chapter">
     <p class="chapter-number">FOUR</p>
-    <h2 class="chapter-title">Through the Shadows</h2>
+    <h2 class="chapter-title">I Am Not Afraid</h2>
     <img src="images/04-valle-oscura.jpg" alt="Dark Valley">
     <div class="chapter-text">
-        <p>Sometimes we must walk through darkness,<br>
-        where shadows feel so big and cold.<br>
-        But even here, something grows.</p>
+        <p>Sometimes the path goes through dark places.<br>
+        Shadows can feel scary.</p>
 
-        <p class="verse">"Do not push the darkness away," he whispers,<br>
-        "It is soil where flowers bloom.<br>
-        The lotus grows from mud.<br>
-        And I am here, always here."</p>
+        <p class="verse">"Do not be afraid," whispers the shepherd.<br>
+        "I am right here with you.<br>
+        I will never leave you alone."</p>
 
-        <p>I hold his hand through the valley,<br>
-        and somewhere in the dark,<br>
-        I begin to see the light.</p>
+        <p>I hold his hand tight.<br>
+        With him beside me, I am brave.</p>
     </div>
     <span class="page-number">6</span>
 </div>
 
-<!-- CHAPTER 5: OVERFLOW -->
+<!-- CHAPTER 5: MORE THAN ENOUGH -->
 <div class="page chapter">
     <p class="chapter-number">FIVE</p>
-    <h2 class="chapter-title">The Overflowing Cup</h2>
+    <h2 class="chapter-title">More Than Enough</h2>
     <img src="images/05-tavola.jpg" alt="The Feast">
     <div class="chapter-text">
-        <p>And then - oh! - the feast appears:<br>
-        a table under the open sky,<br>
-        full of everything wonderful.</p>
+        <p>Look! A special feast, just for me!<br>
+        So much food. So many good things.</p>
 
-        <p class="verse">"This is for you," he laughs with joy,<br>
-        "Not because you earned it,<br>
-        but because you ARE.<br>
-        Your cup overflows with stars!"</p>
+        <p class="verse">"All of this is for you," laughs the shepherd.<br>
+        "Not just enough - but MORE than enough!<br>
+        Your cup is overflowing with blessings."</p>
 
-        <p>I drink deeply and feel the light<br>
-        spilling over, filling everything.</p>
+        <p>My heart feels so full.<br>
+        There is always plenty to share.</p>
     </div>
     <span class="page-number">7</span>
 </div>
 
-<!-- CHAPTER 6: HOME -->
+<!-- CHAPTER 6: LOVE FOLLOWS ME -->
 <div class="page chapter">
     <p class="chapter-number">SIX</p>
-    <h2 class="chapter-title">Already Home</h2>
-    <img src="images/06-casa-signore.jpg" alt="Home">
+    <h2 class="chapter-title">Love Follows Me</h2>
+    <img src="images/06-casa-signore.jpg" alt="Home with the Shepherd">
     <div class="chapter-text">
-        <p>And so I learn the secret:<br>
-        I don't have to search for home.<br>
-        Home was always here, inside me.</p>
+        <p>Every day, something wonderful happens.<br>
+        Goodness and love follow me everywhere!</p>
 
-        <p class="verse">"You belong to the stars," he says,<br>
-        "and the stars belong to you.<br>
-        Goodness and love will follow you<br>
-        forever and ever."</p>
+        <p class="verse">"You are always welcome in my home,"<br>
+        says the shepherd, hugging me close.<br>
+        "Today, tomorrow, and forever."</p>
 
-        <p>I look up at the night sky<br>
-        and smile at my family:<br>
-        a billion stars, shining back.</p>
+        <p>I smile the biggest smile.<br>
+        I am loved. I am safe. I am home.</p>
     </div>
     <span class="page-number">8</span>
 </div>
@@ -507,56 +402,17 @@
 </div>
 
 <!-- THE END -->
-
-<!-- ABOUT THE CREATORS -->
-<div class="page creators-page">
-    <h2 class="creators-title">About the Creators</h2>
-
-    <div class="creators-container">
-        <div class="creator-card">
-            <img class="creator-portrait" src="images/gianni-parola-portrait.jpg" alt="Gianni Parola">
-            <div class="creator-info">
-                <h3 class="creator-name">Gianni Parola</h3>
-                <p class="creator-role">Writer</p>
-                <p class="creator-bio">
-                    Gianni Parola writes stories that help children understand the world around them.
-                    He believes every child deserves books that spark curiosity and wonder.
-                </p>
-            </div>
-        </div>
-
-        <div class="creator-card">
-            <img class="creator-portrait" src="images/pina-pennello-portrait.jpg" alt="Pina Pennello">
-            <div class="creator-info">
-                <h3 class="creator-name">Pina Pennello</h3>
-                <p class="creator-role">Illustrator</p>
-                <p class="creator-bio">
-                    Pina Pennello brings stories to life with her warm watercolor illustrations.
-                    Her art is inspired by the gentle beauty of Italian countryside
-                    and the magic in everyday moments.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="creators-footer">
-        <p class="publisher-logo">Onde Publishing</p>
-        <p class="publisher-tagline">Free River House</p>
-    </div>
-</div>
-
-
 <div class="page end-page">
     <p class="fine">The End</p>
     <p class="ornament">&#10022; &#10022; &#10022;</p>
 
     <div class="credits">
         <p><strong>Words:</strong> Gianni Parola</p>
-        <p><strong>Art:</strong> Pina Pennello</p>
+        <p><strong>Art:</strong> Pino Pennello</p>
         <p style="margin-top: 8px; font-size: 10pt; color: #999;">Powered by Claude AI and Grok</p>
     </div>
 
-    <p class="publisher">Onde Publishing</p>
+    <p class="publisher">Onde</p>
     <p class="powered">First Edition - 2026</p>
     <span class="page-number">10</span>
 </div>

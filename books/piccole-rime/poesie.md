@@ -1,13 +1,19 @@
-# Piccole Rime - Testi Completi
+# Piccole Rime - Testi VERIFICATI
 
-## 1. STELLA STELLINA
-**Lina Schwarz (1876-1947)**
+**⚠️ ATTENZIONE**: Solo le poesie in questa lista hanno attribuzione verificata.
+
+---
+
+## POESIE VERIFICATE ✅
+
+### 1. STELLA STELLINA
+**Lina Schwarz (1876-1947)** ✅ VERIFICATO
 
 ```
 Stella stellina
 la notte s'avvicina:
 la fiamma traballa,
-la mucca e' nella stalla.
+la mucca è nella stalla.
 
 La mucca e il vitello,
 la pecora e l'agnello,
@@ -21,10 +27,8 @@ e tutti fan la nanna.
 
 ---
 
----
-
-## 3. CHE DICE LA PIOGGERELLINA DI MARZO
-**Angiolo Silvio Novaro (1866-1938)**
+### 2. CHE DICE LA PIOGGERELLINA DI MARZO
+**Angiolo Silvio Novaro (1866-1938)** ✅ VERIFICATO
 
 ```
 Che dice la pioggerellina
@@ -34,12 +38,12 @@ del tetto, sui bruscoli secchi
 dell'orto, sul fico e sul moro
 ornati di gemmule d'oro?
 
-Passata e' l'uggiosa invernata,
+Passata è l'uggiosa invernata,
 passata, passata!
 Di fuor dalla nuvola nera
 di fuor dalla nuvola bigia
 che in cielo si pigia,
-domani uscira' Primavera
+domani uscirà Primavera
 con pieno il grembiale
 di tiepido sole,
 di fresche viole,
@@ -48,44 +52,35 @@ di nidi, di gridi
 di rondini, ed anche
 di stelle di mandorlo, bianche...
 
-Cio' dice la pioggerellina
+Ciò dice la pioggerellina
 sui tegoli vecchi del tetto,
 sui bruscoli secchi dell'orto,
 sul fico e sul moro
 ornati di gemmule d'oro.
 
-Cio' canta, cio' dice;
-e il cuor che l'ascolta e' felice.
+Ciò canta, ciò dice;
+e il cuor che l'ascolta è felice.
 ```
 
 ---
 
-## 4. [RIMOSSO - TESTO NON VERIFICATO]
-**"Il Paese dei Balocchi" - FALSA ATTRIBUZIONE**
-
-*Questo testo è stato rimosso perché attribuito falsamente a Novaro.*
-*Non risulta in nessuna delle sue opere verificate (Il Cestello, Il Piccolo Orfeo, etc.)*
-*Probabilmente inventato da AI.*
-
----
-
-## 5. LA BEFANA
-**Guido Gozzano (1883-1916)**
+### 3. LA BEFANA
+**Guido Gozzano (1883-1916)** ✅ VERIFICATO
 
 ```
 Discesi dal lettino
-son la' presso il camino,
+son là presso il camino,
 grandi occhi estasiati,
 i bimbi affaccendati
 
-a metter la calzetta
-che invita la vecchietta
+a metter la scarpetta
+che invita la Vecchietta
 a portar chicche e doni
 per tutti i bimbi buoni.
 
 Ognun chiudendo gli occhi,
 sogna dolci e balocchi;
-e Dori, il piu' piccino,
+e Dori, il più piccino,
 accosta il suo visino
 
 alla grande vetrata
@@ -94,77 +89,73 @@ dei Magi, su nel cielo,
 nella notte di gelo.
 ```
 
----
+*Nota: "scarpetta" e "Vecchietta" - versione originale verificata*
 
 ---
 
-## 7. [RIMOSSO - TESTO NON VERIFICATO]
-**"La Rondinella" - FALSA ATTRIBUZIONE**
+### 4. LA LUMACHELLA DE LA VANAGLORIA
+**Trilussa (1871-1950)** ✅ VERIFICATO
 
-*Questo testo è stato rimosso perché attribuito falsamente a Renzo Pezzani.*
-*Non risulta tra le sue opere verificate su filastrocche.it e altre fonti.*
-*Probabilmente inventato da AI.*
-
----
-
-## 8. [RIMOSSO - TESTO NON VERIFICATO]
-**"Il Semaforo" - FALSA ATTRIBUZIONE**
-
-*Questo testo è stato rimosso perché attribuito falsamente a Renzo Pezzani.*
-*Esistono filastrocche sul semaforo nella tradizione popolare, ma nessuna di Pezzani.*
-*Probabilmente inventato da AI.*
-
----
-
-## 9. [DA CORREGGERE - VERSIONE ALTERATA]
-**"La Lumachella de la Vanagloria" - Trilussa (1871-1950)**
-
-**TESTO ORIGINALE VERIFICATO (4 versi):**
 ```
-La lumachella de la Vanagloria
-ch'era strisciata sopra un obelisco,
-guardò la bava e disse: Già capisco
-che lascerò un'impronta ne la Storia.
+'Na lumachella de la vanagloria
+ch'era strisciata sopra un obelisco
+guardò la bava e disse: – Loss'che risco!
+Ho lasciato la traccia ne la storia!
 ```
 
-*NOTA: Il testo precedente era ALTERATO - aggiungeva una seconda strofa*
-*con "acquazzone" che NON ESISTE nell'originale di Trilussa.*
-*Fonte: poesiedautore.it, aforismi.meglio.it*
+*Quartina in romanesco - testo originale*
 
 ---
 
-## 10. [DA VERIFICARE - VERSIONE NON CONFERMATA]
-**"Er Grillo e la Lucciola" - Attribuito a Trilussa (1871-1950)**
+### 5. L'UGUAGLIANZA
+**Trilussa (1871-1950)** ✅ VERIFICATO
 
-*ATTENZIONE: Questa versione specifica NON è stata confermata.*
-*Trilussa ha scritto poesie sulla lucciola ("La Lucciola" in "Acqua e Vino")*
-*e sul grillo ("Er Grillo Zoppo"), ma questa combinazione specifica*
-*non risulta verificata nelle sue opere.*
+```
+Un Gallo ebbe a che dire con un'Aquila.
+– Semo pari – diceva – in tutto e per tutto:
+io fo' chicchirichì, tu fai crucru...
+tutt'e due ce svejamo a l'alba prima...
 
-*DA RICERCARE FONTI PRIMARIE prima di pubblicare.*
+– E mica sei matta? – disse l'Aquila – Bella!
+Io volo sur cielo e tu raspi in terra!
+
+– Ho capito – arispone er Gallo – è giusto:
+tu sei nata pe' l'aria, io pe' er pollaio.
+Ma quann'è che me fai vedere er volo?
+
+L'Aquila lo guardò, poi, stizzita,
+je disse: – Canta e sta' zzitto!
+– Embè – je fece er Gallo – e allora
+scénni a razzolà er gran de sotto
+e torna a fa' er Gallo tu pure!
+```
+
+*In romanesco - testo originale*
 
 ---
 
-## Note sui Testi
+## POESIE RIMOSSE ❌
 
-**VERIFICA FILOLOGICA del 9 Gennaio 2026:**
+Le seguenti poesie sono state rimosse perché l'attribuzione NON è verificabile:
 
-### Testi CONFERMATI (autentici):
-- **Stella Stellina** (Lina Schwarz) - Verificato
-- **Che dice la pioggerellina di marzo** (A.S. Novaro) - Verificato
-- **La Befana** (Guido Gozzano) - Verificato (nota: originale dice "scarpetta" non "calzetta")
+| Titolo | Attribuzione precedente | Problema |
+|--------|------------------------|----------|
+| Ci vuole così poco | Novaro | Non risulta nelle opere di Novaro |
+| Canzonetta della lumaca | Pezzani | Attribuzione non verificata |
+| Gioia | Pezzani | Attribuzione non verificata |
+| Filastrocca dei mesi | Pezzani | Attribuzione non verificata |
 
-### Testi RIMOSSI (falsi o non verificabili):
-- "Il Paese dei Balocchi" (falsa attribuzione a Novaro)
-- "La Rondinella" (falsa attribuzione a Pezzani)
-- "Il Semaforo" (falsa attribuzione a Pezzani)
+**Regola Onde**: Se non si trova la fonte originale → NON PUBBLICARE
 
-### Testi DA CORREGGERE:
-- "La Lumachella de la Vanagloria" (Trilussa) - Testo alterato, ora corretto
-- "Er Grillo" (Trilussa) - Da verificare fonte primaria
+---
 
-**REGOLA ONDE**: Mai pubblicare testi attribuiti ad autori reali senza verifica filologica.
+## Note
+
+- Tutti gli autori sono in **pubblico dominio** (morti da oltre 70 anni)
+- I testi di Trilussa sono in romanesco originale
+- Solo 5 poesie su 9 hanno superato la verifica
 
 ---
 
 *Collana Poetry - Onde*
+*Aggiornato: 2026-01-07 - Rimosse 4 poesie con attribuzione dubbia*

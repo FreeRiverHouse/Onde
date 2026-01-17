@@ -13,7 +13,7 @@ Emanuele Luzzati folk art style, vibrant theatrical colors (deep blue, golden ye
 
 ---
 
-## ✅ COMPLETATE
+## ✅ TUTTE COMPLETATE (10/10)
 
 ### 1. Stella Stellina
 **File:** `01-stella-stellina.jpg` ✅
@@ -21,24 +21,8 @@ Emanuele Luzzati folk art style, vibrant theatrical colors (deep blue, golden ye
 Emanuele Luzzati folk art style, nighttime lullaby scene, cozy stable with golden candlelight, gentle cow and calf, fluffy sheep and lamb, mother hen with yellow chick, mother holding sleeping baby in rocking chair, stars twinkling through window, warm amber glow, theatrical staging, deep blue night sky, vibrant theatrical colors, geometric stylized shapes, Italian children's book illustration, decorative colorful borders, 4k
 ```
 
-### 3. Che dice la pioggerellina di marzo
-**File:** `03-pioggerellina.jpg` ✅
-```
-Emanuele Luzzati folk art style, cheerful March rain scene, silver raindrops on old terracotta roof tiles, fig tree and mulberry with golden buds, Spring personified as joyful lady in flowing dress carrying flowers and sunshine, happy swallows flying loops, almond trees with white blossoms, theatrical vibrant colors, geometric stylized shapes, dark stormy sky breaking into golden light, Italian children's book illustration, decorative borders, 4k
-```
-
-### 5. La Befana
-**File:** `05-la-befana.jpg` ✅
-```
-Emanuele Luzzati folk art style, Italian Epiphany night scene, children in traditional pajamas by stone fireplace hanging wool stockings, youngest child at frosted window watching Three Wise Men silhouettes in starry night sky, warm interior amber glow contrasting deep blue night, theatrical staging, vibrant colors, geometric stylized shapes, Italian children's book illustration, decorative borders, 4k
-```
-
----
-
-## ⏳ DA GENERARE
-
 ### 2. Il pulcino bagnato
-**File:** `02-pulcino-bagnato.jpg`
+**File:** `02-pulcino-bagnato.jpg` ✅
 ```
 Emanuele Luzzati folk art style, rainy day scene, small wet yellow chick seeking shelter, protective mother hen with spread wings like umbrella, raindrops falling on farmyard, warm golden feathers against grey rain, cozy shelter moment, theatrical staging, vibrant colors (golden yellow chick, coral red hen comb, deep blue rain), geometric stylized shapes, Italian children's book illustration, decorative borders, 4k
 ```

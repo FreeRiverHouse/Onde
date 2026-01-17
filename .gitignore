@@ -42,18 +42,18 @@ yarn-error.log*
 # Testing
 coverage/
 .nyc_output/
+vitest.config.ts.timestamp*
+test-results/
 
 # Misc
 *.tmp
 *.temp
 .eslintcache
-# YouTube content - backup on YouTube, not GitHub
-output/
-assets/
-*.mp4
-*.mp3
-*.wav
 
-# Next.js build outputs
-apps/*/out/
-apps/*/.next/
+# Temporary files
+packages/telegram-bot/temp/
+packages/telegram-bot/data/*.json
+
+# Reports (generated)
+packages/telegram-bot/reports/*.pdf
+books.zip

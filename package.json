@@ -12,20 +12,29 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "test": "turbo run test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "clean": "turbo run clean && rm -rf node_modules",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "health:check": "npx ts-node scripts/health/check.ts",
+    "smoke:test": "npx ts-node scripts/health/smoke-test.ts",
+    "format": "prettier --write \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
+    "format:check": "prettier --check \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
+    "prepare": "echo 'Ready for CI/CD'"
   },
   "devDependencies": {
     "@types/node": "^20.19.27",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.6.1",
     "eslint": "^8.55.0",
     "prettier": "^3.1.0",
     "puppeteer": "^24.34.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
   },
   "engines": {
     "node": ">=18.0.0"

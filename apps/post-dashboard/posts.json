@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "room": "freeriver",
+      "type": "Video",
+      "content": "The mouse is moving by itself.\n\nSelecting categories. Filling forms. Clicking buttons.\n\nI'm just watching.",
+      "video": "IMG_4095.mov",
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "id": 2,
+      "room": "freeriver",
+      "type": "Post",
+      "content": "Claude sees the screen, understands context, does the tedious stuff.\n\nI went to make coffee.",
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "id": 3,
+      "room": "freeriver",
+      "type": "Image Post",
+      "content": "Meanwhile we're making illustrated books.\n\nThe boring parts are automated.\nThe creative parts stay human.",
+      "imageChoices": [
+        "rondinella",
+        "paese",
+        "stella"
+      ],
+      "selectedImage": null,
+      "status": "pending",
+      "feedback": null
+    }
+  ],
+  "lastUpdate": "2026-01-07T07:01:23.363Z"
+}

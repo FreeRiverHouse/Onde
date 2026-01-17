@@ -1,6 +1,6 @@
 {
   "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
-  "lastUsedIndex": 11,
+  "lastUsedIndex": 22,
   "posts": [
     {
       "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
@@ -20,7 +20,7 @@
     {
       "text": "Writing code for children means writing code your future self can understand. Turns out that's just... good code.",
       "topic": "kids-apps",
-      "used": false
+      "used": true
     },
     {
       "text": "The hardest part of game dev isn't the code. It's knowing when to stop adding features and ship something.",
@@ -75,7 +75,7 @@
     {
       "text": "Kids don't read tutorials. They tap everything. Design for chaos, build for curiosity.",
       "topic": "kids-apps",
-      "used": false
+      "used": true
     },
     {
       "text": "Today's debugging session: 'why does this work in editor but crash on device?' Tomorrow's answer: threading.",
@@ -115,7 +115,7 @@
     {
       "text": "BusinessIsBusiness: a VR office simulator where you manage virtual employees. Yes, it's as meta as it sounds.",
       "topic": "bib",
-      "used": false
+      "used": true
     },
     {
       "text": "Quest 3 passthrough makes office simulation weird. Your real desk, virtual coworkers. The future of remote work nobody asked for.",
@@ -125,12 +125,12 @@
     {
       "text": "Set up a Telegram bot to post on X automatically. Now I'm teaching AI to do social media so I can do more coding.",
       "topic": "automation",
-      "used": false
+      "used": true
     },
     {
       "text": "The dashboard shows all our apps on a projector. Post-its with project status. Very startup, very 2015. Still works.",
       "topic": "process",
-      "used": false
+      "used": true
     },
     {
       "text": "PizzaGelatoRush: a racing game with pizza delivery. Because Mario Kart + food delivery = obvious indie game pitch.",
@@ -160,17 +160,17 @@
     {
       "text": "Added a factory automation system. Code builds overnight, tests run, Telegram pings me if something breaks. Sleep-driven development.",
       "topic": "automation",
-      "used": false
+      "used": true
     },
     {
       "text": "The test framework wasn't installed. 23 tests, all failing because of one missing package. Unity dependency hell is real.",
       "topic": "unity",
-      "used": false
+      "used": true
     },
     {
       "text": "Music creation app for kids: drag and drop instruments, make beats. Teaching composition without sheet music.",
       "topic": "kidsmusic",
-      "used": false
+      "used": true
     },
     {
       "text": "Five different Unity projects, one shared codebase pattern. When you find something that works, copy it everywhere.",

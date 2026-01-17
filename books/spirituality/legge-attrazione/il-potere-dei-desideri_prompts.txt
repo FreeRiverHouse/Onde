@@ -123,3 +123,91 @@ NOTE PER GENERAZIONE:
 - Scegli la più elegante e meno "cartoonosa"
 - Se troppo Pixar, aggiungi "traditional watercolor, hand-painted feel"
 - Salva in: books/spirituality/legge-attrazione/images/
+
+---
+
+## WORKFLOW COMPLETO - Come Collegare Claude e Pubblicare
+
+### 1. GENERAZIONE IMMAGINI (via Chrome + Grok)
+
+```
+# Claude Code con Chrome extension può:
+1. Navigare a x.com/i/grok
+2. Cliccare "Crea immagini"
+3. Inserire il prompt
+4. Scaricare le immagini generate
+5. Salvare in books/spirituality/legge-attrazione/images/
+```
+
+### 2. CREAZIONE PDF (via script Node.js)
+
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/books/spirituality/legge-attrazione
+node create-book.js  # Crea PDF da HTML + immagini
+```
+
+### 3. PUBBLICAZIONE KDP (via Chrome)
+
+**Step-by-step per pubblicare su Amazon KDP:**
+
+1. **Naviga a KDP:**
+   ```
+   mcp__claude-in-chrome__navigate → https://kdp.amazon.com
+   ```
+
+2. **Login (se necessario):**
+   - L'utente deve essere già loggato
+   - Se non loggato, chiedere all'utente di loggarsi
+
+3. **Crea nuovo libro:**
+   - Clicca "Create New Title" > "Paperback" o "Kindle eBook"
+   - Compila i campi:
+     - Title: Il Potere dei Desideri
+     - Subtitle: Un libro per piccoli sognatori
+     - Author: [Nome autore]
+     - Description: [dalla sinossi]
+
+4. **Upload contenuto:**
+   - Upload manuscript (PDF/EPUB)
+   - Upload cover (usa KDP Cover Creator se necessario)
+
+5. **Pricing:**
+   - Seleziona mercati
+   - Imposta prezzo
+
+6. **Pubblica:**
+   - Review e conferma
+   - Attendi approvazione (24-72h)
+
+### 4. COVER KDP (dimensioni specifiche)
+
+Per paperback 6x9 pollici:
+- Cover completa: 4126 x 2775 px (spine dipende da pagine)
+- Solo fronte: 1875 x 2813 px
+
+**Come creare con KDP Cover Creator:**
+1. Vai su https://cc.amazon.com (link dal dashboard KDP)
+2. Scegli template
+3. Carica immagine copertina
+4. Regola posizione
+5. Scarica PDF
+
+### 5. COLLEGARE ALTRO CLAUDE
+
+Un altro Claude può leggere questo file da GitHub e:
+1. Vedere tutti i prompt pronti
+2. Generare le immagini su Grok
+3. Creare il PDF
+4. Pubblicare su KDP
+
+**Repository:**
+```
+github.com/FreeRiverHouse/Onde (private)
+Path: books/spirituality/legge-attrazione/
+```
+
+**File necessari:**
+- `il-potere-dei-desideri_FINAL.md` - Testo completo
+- `il-potere-dei-desideri_prompts.txt` - Questo file
+- `images/` - Cartella per le illustrazioni
+- `output/` - PDF/EPUB finali

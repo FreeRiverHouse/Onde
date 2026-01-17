@@ -1,10 +1,11 @@
-import { Telegraf, Context } from 'telegraf';
+import { Telegraf, Context, Markup } from 'telegraf';
 import { message } from 'telegraf/filters';
 import { TwitterApi } from 'twitter-api-v2';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
+import { v4 as uuidv4 } from 'uuid';
 import {
   generateDailyReport,
   formatReportMessage,
@@ -59,6 +60,147 @@ const tempDir = path.join(__dirname, '../temp');
 // Ensure temp directory exists
 if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir, { recursive: true });
+}
+
+// ============================================================================
+// APPROVAL SYSTEM - Async approvals via Telegram buttons
+// ============================================================================
+
+const approvalsDir = path.join(__dirname, '../approvals');
+if (!fs.existsSync(approvalsDir)) {
+  fs.mkdirSync(approvalsDir, { recursive: true });
+}
+
+// Chat queue for Claude Code communication
+const chatQueueDir = path.join(__dirname, '../chat_queue');
+if (!fs.existsSync(chatQueueDir)) {
+  fs.mkdirSync(chatQueueDir, { recursive: true });
+}
+
+interface ChatMessage {
+  id: string;
+  from: 'user' | 'claude';
+  message: string;
+  timestamp: string;
+  status: 'pending' | 'read' | 'replied';
+  reply?: string;
+}
+
+interface Approval {
+  id: string;
+  project: string;
+  action: string;
+  description: string;
+  context?: Record<string, any>;
+  status: 'pending' | 'approved' | 'rejected';
+  created: string;
+  responded?: string;
+  response?: string;
+}
+
+function createApproval(
+  project: string,
+  action: string,
+  description: string,
+  contextData?: Record<string, any>
+): Approval {
+  const id = uuidv4().slice(0, 8);
+  const approval: Approval = {
+    id,
+    project,
+    action,
+    description,
+    context: contextData,
+    status: 'pending',
+    created: new Date().toISOString(),
+  };
+
+  fs.writeFileSync(
+    path.join(approvalsDir, `${id}.json`),
+    JSON.stringify(approval, null, 2)
+  );
+
+  return approval;
+}
+
+function getApproval(id: string): Approval | null {
+  const filePath = path.join(approvalsDir, `${id}.json`);
+  if (fs.existsSync(filePath)) {
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  }
+  return null;
+}
+
+function updateApproval(id: string, status: 'approved' | 'rejected', response?: string): Approval | null {
+  const approval = getApproval(id);
+  if (approval) {
+    approval.status = status;
+    approval.responded = new Date().toISOString();
+    approval.response = response;
+    fs.writeFileSync(
+      path.join(approvalsDir, `${id}.json`),
+      JSON.stringify(approval, null, 2)
+    );
+  }
+  return approval;
+}
+
+function getPendingApprovals(): Approval[] {
+  const files = fs.readdirSync(approvalsDir).filter(f => f.endsWith('.json'));
+  const pending: Approval[] = [];
+
+  for (const file of files) {
+    try {
+      const approval = JSON.parse(fs.readFileSync(path.join(approvalsDir, file), 'utf-8'));
+      if (approval.status === 'pending') {
+        pending.push(approval);
+      }
+    } catch (e) {
+      // Skip invalid files
+    }
+  }
+
+  return pending.sort((a, b) => b.created.localeCompare(a.created));
+}
+
+async function sendApprovalRequest(
+  bot: Telegraf,
+  chatId: string | number,
+  project: string,
+  action: string,
+  description: string,
+  contextData?: Record<string, any>
+): Promise<string> {
+  const approval = createApproval(project, action, description, contextData);
+
+  const projectIcons: Record<string, string> = {
+    'Libro': '📚',
+    'LibroAI': '📚',
+    'AIKO': '📚',
+    'Onde': '🌊',
+    'magmatic': '🎨',
+    'FRH': '🏠',
+  };
+
+  const icon = projectIcons[project] || '📋';
+
+  const msg = `${icon} *RICHIESTA APPROVAZIONE*\n\n` +
+    `🏷️ Progetto: *${project}*\n` +
+    `⚡ Azione: *${action}*\n\n` +
+    `📝 ${description}\n\n` +
+    `🔖 ID: \`${approval.id}\``;
+
+  await bot.telegram.sendMessage(chatId, msg, {
+    parse_mode: 'Markdown',
+    ...Markup.inlineKeyboard([
+      [
+        Markup.button.callback('✅ Approvo', `approve_${approval.id}`),
+        Markup.button.callback('❌ Rifiuto', `reject_${approval.id}`)
+      ]
+    ])
+  });
+
+  return approval.id;
 }
 
 const bot = new Telegraf(TELEGRAM_TOKEN);
@@ -177,6 +319,13 @@ bot.command('help', (ctx) => {
 /report frh|onde - Report account
 /trend - Trend settimanale
 
+✅ *Approvazioni*
+/approvals - Mostra approvazioni in sospeso
+/ask <prog> <azione> <desc> - Richiedi approvazione
+
+💬 *Chat con Claude*
+/text <messaggio> - Parla con Claude Code
+
 💡 *Flusso:*
 1. Manda testo/foto/video
 2. /ai → Proposte
@@ -186,6 +335,184 @@ bot.command('help', (ctx) => {
 
 bot.command('chatid', (ctx) => {
   ctx.reply(`Chat ID: ${ctx.chat.id}`);
+});
+
+// === Approval System Commands ===
+
+bot.command('approvals', (ctx) => {
+  const pending = getPendingApprovals();
+
+  if (pending.length === 0) {
+    ctx.reply('✅ Nessuna approvazione in sospeso!');
+    return;
+  }
+
+  let msg = `📋 *APPROVAZIONI IN SOSPESO* (${pending.length})\n\n`;
+
+  for (const a of pending.slice(0, 10)) {
+    const created = a.created.slice(0, 16).replace('T', ' ');
+    msg += `📌 *${a.project}* - ${a.action}\n`;
+    msg += `   \`${a.id}\` - ${created}\n\n`;
+  }
+
+  msg += '_Usa i bottoni nei messaggi per approvare/rifiutare_';
+
+  ctx.reply(msg, { parse_mode: 'Markdown' });
+});
+
+bot.command('ask', async (ctx) => {
+  const args = ctx.message.text.replace(/^\/ask\s*/, '').trim().split(' ');
+
+  if (args.length < 3) {
+    ctx.reply(
+      '❓ *Richiedi Approvazione*\n\n' +
+      'Uso: `/ask <progetto> <azione> <descrizione>`\n\n' +
+      'Esempi:\n' +
+      '• `/ask LibroAI capitolo Pubblicare capitolo 3?`\n' +
+      '• `/ask Onde post Approvare post settimanale?`\n' +
+      '• `/ask magmatic contenuto Ripostare vecchio contenuto?`',
+      { parse_mode: 'Markdown' }
+    );
+    return;
+  }
+
+  const project = args[0];
+  const action = args[1];
+  const description = args.slice(2).join(' ');
+
+  const approvalId = await sendApprovalRequest(
+    bot,
+    ctx.chat.id,
+    project,
+    action,
+    description
+  );
+
+  ctx.reply(`✅ Approvazione creata: \`${approvalId}\``, { parse_mode: 'Markdown' });
+});
+
+// === Approval Button Handlers ===
+
+bot.action(/^approve_(.+)$/, async (ctx) => {
+  const approvalId = ctx.match[1];
+  const approval = getApproval(approvalId);
+
+  if (!approval) {
+    await ctx.answerCbQuery('⚠️ Approvazione non trovata');
+    return;
+  }
+
+  if (approval.status !== 'pending') {
+    await ctx.answerCbQuery(`ℹ️ Già processato: ${approval.status}`);
+    return;
+  }
+
+  updateApproval(approvalId, 'approved');
+
+  const projectIcons: Record<string, string> = {
+    'Libro': '📚',
+    'LibroAI': '📚',
+    'AIKO': '📚',
+    'Onde': '🌊',
+    'magmatic': '🎨',
+    'FRH': '🏠',
+  };
+
+  const icon = projectIcons[approval.project] || '📋';
+  const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+  await ctx.editMessageText(
+    `${icon} ✅ *APPROVATO*\n\n` +
+    `Progetto: *${approval.project}*\n` +
+    `Azione: *${approval.action}*\n\n` +
+    `_${approval.description.slice(0, 100)}_\n\n` +
+    `🔖 ID: \`${approvalId}\`\n` +
+    `⏰ ${time}`,
+    { parse_mode: 'Markdown' }
+  );
+
+  await ctx.answerCbQuery('✅ Approvato!');
+});
+
+bot.action(/^reject_(.+)$/, async (ctx) => {
+  const approvalId = ctx.match[1];
+  const approval = getApproval(approvalId);
+
+  if (!approval) {
+    await ctx.answerCbQuery('⚠️ Approvazione non trovata');
+    return;
+  }
+
+  if (approval.status !== 'pending') {
+    await ctx.answerCbQuery(`ℹ️ Già processato: ${approval.status}`);
+    return;
+  }
+
+  updateApproval(approvalId, 'rejected');
+
+  const projectIcons: Record<string, string> = {
+    'Libro': '📚',
+    'LibroAI': '📚',
+    'AIKO': '📚',
+    'Onde': '🌊',
+    'magmatic': '🎨',
+    'FRH': '🏠',
+  };
+
+  const icon = projectIcons[approval.project] || '📋';
+  const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+  await ctx.editMessageText(
+    `${icon} ❌ *RIFIUTATO*\n\n` +
+    `Progetto: *${approval.project}*\n` +
+    `Azione: *${approval.action}*\n\n` +
+    `🔖 ID: \`${approvalId}\`\n` +
+    `⏰ ${time}`,
+    { parse_mode: 'Markdown' }
+  );
+
+  await ctx.answerCbQuery('❌ Rifiutato');
+});
+
+// === Claude Code Chat System ===
+
+bot.command('text', async (ctx) => {
+  const message = ctx.message.text.replace(/^\/text\s*/, '').trim();
+
+  if (!message) {
+    ctx.reply(
+      '💬 *Chat con Claude Code*\n\n' +
+      'Uso: `/text <messaggio>`\n\n' +
+      'Esempio:\n' +
+      '`/text Come va il libro AI?`\n' +
+      '`/text Qual è lo stato di KidsChefStudio?`',
+      { parse_mode: 'Markdown' }
+    );
+    return;
+  }
+
+  const msgId = uuidv4().slice(0, 8);
+  const chatMessage: ChatMessage = {
+    id: msgId,
+    from: 'user',
+    message: message,
+    timestamp: new Date().toISOString(),
+    status: 'pending'
+  };
+
+  // Save to queue
+  fs.writeFileSync(
+    path.join(chatQueueDir, `${msgId}.json`),
+    JSON.stringify(chatMessage, null, 2)
+  );
+
+  ctx.reply(
+    `📨 *Messaggio inviato a Claude*\n\n` +
+    `"${message}"\n\n` +
+    `🔖 ID: \`${msgId}\`\n` +
+    `⏳ In attesa di risposta...`,
+    { parse_mode: 'Markdown' }
+  );
 });
 
 bot.command('draft', (ctx) => {
@@ -473,26 +800,65 @@ bot.command('agent', (ctx) => {
   ctx.reply(`🤖 *ONDE PR AGENT*\n\nStatus: ${status}\n\n${summary}`, { parse_mode: 'Markdown' });
 });
 
+// /status - Show Onde status
+bot.command('status', async (ctx) => {
+  const progressFile = path.join(__dirname, '../../../PROGRESS.md');
+  let booksStatus = 'N/A';
+
+  try {
+    const content = fs.readFileSync(progressFile, 'utf-8');
+    // Extract dashboard table
+    const dashboardMatch = content.match(/## Dashboard Libri[\s\S]*?\|[\s\S]*?\n\n/);
+    if (dashboardMatch) {
+      const lines = dashboardMatch[0].split('\n').filter(l => l.includes('|') && !l.includes('---'));
+      booksStatus = lines.slice(0, 5).join('\n');
+    }
+  } catch (e) {
+    booksStatus = 'Errore lettura PROGRESS.md';
+  }
+
+  const pending = getPendingApprovals();
+  const pendingCount = pending.length;
+
+  const msg = `🌊 *ONDE STATUS*
+
+📚 *Libri*
+${booksStatus}
+
+✅ *Approvazioni in sospeso:* ${pendingCount}
+
+🤖 *PR Agent:* ${prAgent.isAvailable() ? '🟢 Attivo' : '🔴 Non configurato'}
+
+📊 Usa /report frh|onde per analytics X`;
+
+  ctx.reply(msg, { parse_mode: 'Markdown' });
+});
+
 // === Message Handlers ===
 
-// Handle text messages -> create/update draft
+// Handle text messages -> send to Claude Code chat
 bot.on(message('text'), (ctx) => {
   // Skip commands
   if (ctx.message.text.startsWith('/')) return;
 
-  const userId = ctx.from.id;
-  const existingDraft = drafts.get(userId);
+  const message = ctx.message.text;
+  const msgId = uuidv4().slice(0, 8);
 
-  drafts.set(userId, {
-    text: ctx.message.text,
-    mediaFiles: existingDraft?.mediaFiles || [],
-    mediaTypes: existingDraft?.mediaTypes || [],
-  });
+  const chatMessage: ChatMessage = {
+    id: msgId,
+    from: 'user',
+    message: message,
+    timestamp: new Date().toISOString(),
+    status: 'pending'
+  };
 
-  const mediaCount = existingDraft?.mediaFiles?.length || 0;
-  const mediaInfo = mediaCount > 0 ? `\n📎 + ${mediaCount} media allegati` : '';
+  // Save to chat queue for Claude
+  fs.writeFileSync(
+    path.join(chatQueueDir, `${msgId}.json`),
+    JSON.stringify(chatMessage, null, 2)
+  );
 
-  ctx.reply(`📝 Bozza salvata:\n\n"${ctx.message.text}"${mediaInfo}\n\n🤖 /ai → Fai analizzare dal PR Agent\n📤 /post frh|onde → Pubblica`);
+  ctx.reply(`💬 Messaggio per Claude ricevuto!\n\n🔖 \`${msgId}\``, { parse_mode: 'Markdown' });
 });
 
 // Handle photos -> add to draft
