@@ -100,15 +100,31 @@ interface PetStats {
   coins: number;
 }
 
-const roomData: { key: RoomKey; icon: string; bg: string; category: 'home' | 'outside' }[] = [
-  { key: 'bedroom', icon: '🛏️', bg: '/assets/backgrounds/room-bedroom.jpg', category: 'home' },
-  { key: 'kitchen', icon: '🍳', bg: '/assets/backgrounds/room-kitchen.jpg', category: 'home' },
-  { key: 'living', icon: '🛋️', bg: '/assets/backgrounds/room-living.jpg', category: 'home' },
-  { key: 'bathroom', icon: '🛁', bg: '/assets/backgrounds/room-bathroom.jpg', category: 'home' },
-  { key: 'garden', icon: '🌙', bg: '/assets/backgrounds/room-garden.jpg', category: 'home' },
-  { key: 'garage', icon: '🚗', bg: '/assets/backgrounds/room-garage.jpg', category: 'home' },
-  { key: 'shop', icon: '👗', bg: '/assets/backgrounds/room-shop.jpg', category: 'outside' },
-  { key: 'supermarket', icon: '🛒', bg: '/assets/backgrounds/room-supermarket.jpg', category: 'outside' },
+// Room data with hotspot positions on the house map (percentages)
+const roomData: {
+  key: RoomKey;
+  icon: string;
+  bg: string;
+  category: 'home' | 'outside';
+  hotspot: { x: number; y: number; width: number; height: number };
+  lunaPos: { x: number; y: number };
+}[] = [
+  { key: 'bedroom', icon: '🛏️', bg: '/assets/backgrounds/room-bedroom.jpg', category: 'home',
+    hotspot: { x: 32, y: 18, width: 22, height: 28 }, lunaPos: { x: 43, y: 32 } },
+  { key: 'kitchen', icon: '🍳', bg: '/assets/backgrounds/room-kitchen.jpg', category: 'home',
+    hotspot: { x: 32, y: 52, width: 18, height: 30 }, lunaPos: { x: 41, y: 67 } },
+  { key: 'living', icon: '🛋️', bg: '/assets/backgrounds/room-living.jpg', category: 'home',
+    hotspot: { x: 50, y: 52, width: 20, height: 30 }, lunaPos: { x: 60, y: 67 } },
+  { key: 'bathroom', icon: '🛁', bg: '/assets/backgrounds/room-bathroom.jpg', category: 'home',
+    hotspot: { x: 58, y: 18, width: 18, height: 28 }, lunaPos: { x: 67, y: 32 } },
+  { key: 'garden', icon: '🌙', bg: '/assets/backgrounds/room-garden.jpg', category: 'home',
+    hotspot: { x: 5, y: 45, width: 22, height: 40 }, lunaPos: { x: 16, y: 65 } },
+  { key: 'garage', icon: '🚗', bg: '/assets/backgrounds/room-garage.jpg', category: 'home',
+    hotspot: { x: 70, y: 52, width: 22, height: 30 }, lunaPos: { x: 81, y: 67 } },
+  { key: 'shop', icon: '👗', bg: '/assets/backgrounds/room-shop.jpg', category: 'outside',
+    hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
+  { key: 'supermarket', icon: '🛒', bg: '/assets/backgrounds/room-supermarket.jpg', category: 'outside',
+    hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
 ];
 
 function App() {
@@ -232,55 +248,100 @@ function App() {
   const currentRoomData = roomData[currentRoom];
   const roomActions = t.actions[currentRoomData.key as keyof typeof t.actions];
 
+  // Get rooms that are inside the house (have hotspots)
+  const houseRooms = roomData.filter(r => r.hotspot.width > 0);
+  const outsideRooms = roomData.filter(r => r.category === 'outside');
+
   // Map View
   if (showMap) {
     return (
-      <div className="full-page-bg map-view" style={{ backgroundImage: `url(/assets/backgrounds/room-living.jpg)` }}>
-        <div className="overlay map-overlay" />
+      <div className="full-page-bg map-view">
+        {/* House Map Container */}
+        <div className="house-map-container">
+          <img
+            src="/assets/backgrounds/house-map.jpg"
+            alt="Moonlight House"
+            className="house-map-image"
+          />
 
-        {/* Header */}
-        <div className="header glass-card">
-          <h1 className="title">{t.title}</h1>
-          <div className="header-right">
-            <button className="lang-toggle" onClick={toggleLanguage}>
-              {lang === 'it' ? '🇮🇹' : '🇬🇧'}
+          {/* Clickable Hotspots */}
+          {houseRooms.map((room, index) => (
+            <button
+              key={room.key}
+              className="room-hotspot"
+              onClick={() => navigateToRoom(roomData.findIndex(r => r.key === room.key))}
+              style={{
+                left: `${room.hotspot.x}%`,
+                top: `${room.hotspot.y}%`,
+                width: `${room.hotspot.width}%`,
+                height: `${room.hotspot.height}%`,
+              }}
+              title={t.rooms[room.key]}
+            >
+              <span className="hotspot-label glass-card">
+                {room.icon} {t.rooms[room.key]}
+              </span>
             </button>
-            <div className="coin-container">
-              <span className="coin-icon">✨</span>
-              <span className="coin-text">{stats.coins}</span>
-            </div>
+          ))}
+
+          {/* Luna on Map */}
+          <div
+            className="luna-map"
+            style={{
+              left: `${roomData[currentRoom].lunaPos.x}%`,
+              top: `${roomData[currentRoom].lunaPos.y}%`,
+              transform: `translate(-50%, -50%) translateY(${floatY}px)`
+            }}
+          >
+            <img
+              src="/assets/character/luna-happy.jpg"
+              alt="Luna"
+              className="luna-map-img"
+            />
+            <div className="luna-map-glow" />
           </div>
         </div>
 
-        {/* Mini Stats */}
-        <div className="mini-stats glass-card">
-          <span>💚 {Math.round(stats.health)}</span>
-          <span>🍪 {Math.round(stats.hunger)}</span>
-          <span>⚡ {Math.round(stats.energy)}</span>
-          <span>💖 {Math.round(stats.happiness)}</span>
+        {/* Header Overlay */}
+        <div className="map-header">
+          <div className="header glass-card">
+            <h1 className="title">{t.title}</h1>
+            <div className="header-right">
+              <button className="lang-toggle" onClick={toggleLanguage}>
+                {lang === 'it' ? '🇮🇹' : '🇬🇧'}
+              </button>
+              <div className="coin-container">
+                <span className="coin-icon">✨</span>
+                <span className="coin-text">{stats.coins}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Mini Stats */}
+          <div className="mini-stats glass-card">
+            <span>💚 {Math.round(stats.health)}</span>
+            <span>🍪 {Math.round(stats.hunger)}</span>
+            <span>⚡ {Math.round(stats.energy)}</span>
+            <span>💖 {Math.round(stats.happiness)}</span>
+          </div>
         </div>
 
-        {/* Explore Text */}
-        <p className="explore-text">{t.explore}</p>
-
-        {/* Room Grid */}
-        <div className="room-grid">
-          {roomData.map((room, index) => (
+        {/* Outside Locations Bar */}
+        <div className="outside-bar glass-card">
+          <span className="outside-label">🚶 {lang === 'it' ? 'Esci' : 'Go out'}:</span>
+          {outsideRooms.map((room) => (
             <button
               key={room.key}
-              className="room-card glass-card"
-              onClick={() => navigateToRoom(index)}
-              style={{ backgroundImage: `url(${room.bg})` }}
+              className="outside-btn"
+              onClick={() => navigateToRoom(roomData.findIndex(r => r.key === room.key))}
             >
-              <div className="room-card-overlay" />
-              <span className="room-card-icon">{room.icon}</span>
-              <span className="room-card-name">{t.rooms[room.key]}</span>
+              {room.icon} {t.rooms[room.key]}
             </button>
           ))}
         </div>
 
         {/* Footer */}
-        <p className="footer">{t.footer}</p>
+        <p className="footer map-footer">{t.footer}</p>
       </div>
     );
   }

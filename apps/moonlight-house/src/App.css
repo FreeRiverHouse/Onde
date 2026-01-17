@@ -209,91 +209,174 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* ============ MAP VIEW ============ */
-.explore-text {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-  margin: 10px 0 20px;
-  font-weight: 600;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  position: relative;
+/* ============ MAP VIEW - HOUSE MAP ============ */
+.map-view {
+  padding: 0;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
-.room-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.house-map-container {
+  position: relative;
   width: 100%;
-  max-width: 400px;
-  z-index: 10;
-  position: relative;
-  flex: 1;
-}
-
-.room-card {
-  aspect-ratio: 1;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  transition: all 0.3s ease;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
 }
 
-.room-card-overlay {
+.house-map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100vh;
+}
+
+/* Clickable room hotspots */
+.room-hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 8px;
+}
+
+.room-hotspot:hover {
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.room-hotspot:active {
+  transform: scale(0.97);
+  background: rgba(255, 215, 0, 0.3);
+}
+
+.hotspot-label {
+  opacity: 0;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  transform: translateY(5px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.room-hotspot:hover .hotspot-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Luna on the map */
+.luna-map {
+  position: absolute;
+  z-index: 15;
+  transition: left 0.8s ease-out, top 0.8s ease-out;
+  pointer-events: none;
+}
+
+.luna-map-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(255, 215, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.luna-map-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Header overlay on map */
+.map-header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
-  transition: background 0.3s ease;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
 }
 
-.room-card:hover .room-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(155, 89, 182, 0.3) 0%,
-    rgba(155, 89, 182, 0.5) 100%
-  );
+.map-header .header {
+  margin-bottom: 10px;
 }
 
-.room-card:hover {
-  transform: scale(1.05);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(155, 89, 182, 0.3);
+.map-header .mini-stats {
+  margin-bottom: 0;
 }
 
-.room-card:active {
+/* Outside locations bar */
+.outside-bar {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.outside-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.outside-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.outside-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.outside-btn:active {
   transform: scale(0.98);
 }
 
-.room-card-icon {
-  font-size: 40px;
-  z-index: 2;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-}
-
-.room-card-name {
-  font-size: 14px;
-  color: #fff;
-  font-weight: 700;
-  z-index: 2;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
-  text-align: center;
+.map-footer {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  z-index: 20;
 }
 
 /* ============ ROOM VIEW ============ */
