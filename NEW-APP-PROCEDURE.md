@@ -17,21 +17,37 @@ npm run dev -- --port [PORTA] --host
 
 ---
 
-## Test LAN - Porte Assegnate
+## Convenzione Porte
 
-Tutte le app in test girano su LAN, accessibili da qualsiasi device sulla rete.
+### PROD (LAN Test) - Porte 111X
+Per test su dispositivi mobili e demo.
 
-| App | Porta | URL LAN |
-|-----|-------|---------|
+| App | Porta PROD | URL LAN |
+|-----|------------|---------|
 | moonlight-house | 1112 | http://[MAC_IP]:1112 |
 | moonlight-puzzle | 1113 | http://[MAC_IP]:1113 |
 | aiko-interactive | 1114 | http://[MAC_IP]:1114 |
 | [prossima app] | 1115 | http://[MAC_IP]:1115 |
 
-**Come avviare:**
+### DEV - Porte 8889+
+Per sviluppo locale con hot reload.
+
+| App | Porta DEV |
+|-----|-----------|
+| moonlight-house | 8889 |
+| moonlight-puzzle | 8890 |
+| aiko-interactive | 8891 |
+| [prossima app] | 8892 |
+
+**Come avviare DEV:**
 ```bash
 cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/[nome-app]
-npm run dev -- --port [PORTA] --host
+npm run dev -- --port 8889 --host
+```
+
+**Come avviare PROD (LAN):**
+```bash
+npm run dev -- --port 1112 --host
 ```
 
 **Trovare IP Mac:**
