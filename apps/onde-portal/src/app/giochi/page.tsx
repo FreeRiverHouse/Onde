@@ -21,7 +21,7 @@ const miniGames = [
     features: ['Drag & Drop', 'Esplorazione', '2-6 anni'],
     status: 'Gioca Ora',
     playable: true,
-    href: '/games/moonlight-magic-house/',
+    href: '/games/moonlight-magic-house/',  // Uses Next.js page that embeds the game
   },
   {
     id: 'chef-studio',

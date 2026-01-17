@@ -1,19 +1,7 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": true,
-  "rewrites": [
-    {
-      "source": "/games/",
-      "destination": "/games/index.html"
-    },
-    {
-      "source": "/games/moonlight-magic-house/",
-      "destination": "/games/moonlight-magic-house/index.html"
-    }
-  ],
   "headers": [
     {
-      "source": "/games/(.*)",
+      "source": "/static-games/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
