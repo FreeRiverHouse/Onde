@@ -2,12 +2,27 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
 
 // Mini-giochi educativi
 const miniGames = [
+  {
+    id: 'moonlight-magic-house',
+    title: 'Moonlight Magic House',
+    subtitle: 'Tamagotchi Moderno',
+    description: 'Esplora la casa magica di Moonlight! Trascina il personaggio nelle stanze, gioca, mangia, dormi e guadagna monete.',
+    icon: '/games/moonlight-magic-house/assets/backgrounds/house-map.jpg',
+    iconFallback: '🌙',
+    badge: 'Tamagotchi',
+    color: 'gold' as const,
+    features: ['Drag & Drop', 'Esplorazione', '2-6 anni'],
+    status: 'Gioca Ora',
+    playable: true,
+    href: '/games/moonlight-magic-house/',
+  },
   {
     id: 'chef-studio',
     title: 'Kids Chef Studio',
@@ -308,59 +323,91 @@ export default function GiochiPage() {
           whileInView="show"
           viewport={{ once: true }}
         >
-          {miniGames.map((game, index) => (
-            <AnimatedCard key={game.id} delay={index * 0.1} variant={game.color}>
-              {/* Header with image placeholder */}
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl
-                                 bg-gradient-to-br from-onde-${game.color}/20 to-onde-${game.color}/5
-                                 relative overflow-hidden`}>
-                  {/* Watercolor texture in icon background */}
-                  <div
-                    className="absolute inset-0 opacity-50"
-                    style={{
-                      background: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 70%)`,
-                    }}
-                  />
-                  <span className="relative z-10">{game.iconFallback}</span>
+          {miniGames.map((game, index) => {
+            const CardContent = (
+              <>
+                {/* Header with image placeholder */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl
+                                   bg-gradient-to-br from-onde-${game.color}/20 to-onde-${game.color}/5
+                                   relative overflow-hidden`}>
+                    {/* Watercolor texture in icon background */}
+                    <div
+                      className="absolute inset-0 opacity-50"
+                      style={{
+                        background: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 70%)`,
+                      }}
+                    />
+                    <span className="relative z-10">{game.iconFallback}</span>
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold
+                                     bg-onde-ocean/5 text-onde-ocean/60">
+                      {game.badge}
+                    </span>
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium
+                                      ${game.status === 'Gioca Ora'
+                                        ? 'bg-green-500/20 text-green-600'
+                                        : game.status === 'In sviluppo'
+                                        ? 'bg-onde-teal/10 text-onde-teal'
+                                        : 'bg-onde-gold/10 text-onde-gold-dark'
+                                      }`}>
+                      {game.status}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold
-                                   bg-onde-ocean/5 text-onde-ocean/60">
-                    {game.badge}
-                  </span>
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium
-                                    ${game.status === 'In sviluppo'
-                                      ? 'bg-onde-teal/10 text-onde-teal'
-                                      : 'bg-onde-gold/10 text-onde-gold-dark'
-                                    }`}>
-                    {game.status}
-                  </span>
+
+                {/* Content */}
+                <h3 className="text-xl font-display font-bold text-onde-ocean mb-1">
+                  {game.title}
+                </h3>
+                <p className="text-sm text-onde-ocean/50 mb-3">{game.subtitle}</p>
+                <p className="text-onde-ocean/60 leading-relaxed mb-4">
+                  {game.description}
+                </p>
+
+                {/* Features */}
+                <div className="flex flex-wrap gap-2">
+                  {game.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="px-2 py-1 rounded-lg text-xs bg-onde-cream text-onde-ocean/70"
+                    >
+                      {feature}
+                    </span>
+                  ))}
                 </div>
-              </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-display font-bold text-onde-ocean mb-1">
-                {game.title}
-              </h3>
-              <p className="text-sm text-onde-ocean/50 mb-3">{game.subtitle}</p>
-              <p className="text-onde-ocean/60 leading-relaxed mb-4">
-                {game.description}
-              </p>
+                {/* Play button for playable games */}
+                {'playable' in game && game.playable && (
+                  <div className="mt-4 pt-4 border-t border-onde-ocean/10">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl
+                                     bg-gradient-to-r from-onde-gold to-onde-coral
+                                     text-white font-semibold text-sm
+                                     group-hover:shadow-lg transition-shadow">
+                      ▶️ Gioca Ora
+                    </span>
+                  </div>
+                )}
+              </>
+            );
 
-              {/* Features */}
-              <div className="flex flex-wrap gap-2">
-                {game.features.map((feature) => (
-                  <span
-                    key={feature}
-                    className="px-2 py-1 rounded-lg text-xs bg-onde-cream text-onde-ocean/70"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            </AnimatedCard>
-          ))}
+            if ('playable' in game && game.playable && 'href' in game) {
+              return (
+                <Link key={game.id} href={game.href as string} className="group block">
+                  <AnimatedCard delay={index * 0.1} variant={game.color}>
+                    {CardContent}
+                  </AnimatedCard>
+                </Link>
+              );
+            }
+
+            return (
+              <AnimatedCard key={game.id} delay={index * 0.1} variant={game.color}>
+                {CardContent}
+              </AnimatedCard>
+            );
+          })}
         </motion.div>
       </section>
 
