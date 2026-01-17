@@ -538,5 +538,92 @@ return (
 
 ---
 
+---
+
+## 🚀 DEPLOY SU ONDE.SURF (DEV)
+
+**onde.surf è ambiente DEV - posso committare direttamente senza chiedere approvazione.**
+
+### Procedura Deploy Game/App su onde.surf
+
+1. **Build l'app con base path corretto:**
+   ```bash
+   cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/[nome-app]
+
+   # vite.config.ts deve avere:
+   # base: '/static-games/[nome-app]/',
+
+   npx vite build
+   ```
+
+2. **Copia build in onde-portal:**
+   ```bash
+   rm -rf /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal/public/static-games/[nome-app]
+   cp -r dist /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal/public/static-games/[nome-app]
+   cp -r public/assets /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal/public/static-games/[nome-app]/
+   ```
+
+3. **Crea Next.js page per routing (se non esiste):**
+   ```bash
+   mkdir -p apps/onde-portal/src/app/games/[nome-app]
+   ```
+
+   Crea `page.tsx` che fa embed via iframe:
+   ```tsx
+   'use client'
+   export default function GamePage() {
+     return (
+       <div className="min-h-screen">
+         <iframe
+           src="/static-games/[nome-app]/index.html"
+           className="w-full h-screen border-0"
+           title="[Nome App]"
+         />
+       </div>
+     )
+   }
+   ```
+
+4. **Commit e push:**
+   ```bash
+   git add -A
+   git commit -m "Deploy [nome-app] to onde.surf/games/[nome-app]"
+   git push
+   ```
+
+5. **Verifica deploy (Vercel impiega ~60-90 sec):**
+   - onde.surf/games/[nome-app]/
+
+### Checklist Deploy
+
+- [ ] Logo Onde (NO vite.svg o altri loghi)
+- [ ] Base path corretto in vite.config.ts
+- [ ] Assets copiati (backgrounds, images, etc.)
+- [ ] Next.js page creata per routing
+- [ ] Aggiunto a /giochi page se è un game
+- [ ] Commit con messaggio descrittivo
+- [ ] Verifica su browser dopo deploy
+
+### Struttura Files
+
+```
+apps/onde-portal/
+├── public/
+│   └── static-games/
+│       └── [nome-app]/
+│           ├── index.html
+│           ├── onde-logo.jpg       # MAI vite.svg!
+│           └── assets/
+│               ├── index-xxx.js
+│               ├── index-xxx.css
+│               └── backgrounds/
+└── src/app/
+    └── games/
+        └── [nome-app]/
+            └── page.tsx           # Next.js page con iframe
+```
+
+---
+
 *Ultimo aggiornamento: Gennaio 2026*
 *Procedura Engineering Department - Onde*
