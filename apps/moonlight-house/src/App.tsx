@@ -4,7 +4,7 @@ import './App.css';
 // Translations
 const translations = {
   it: {
-    title: 'Moonlight House',
+    title: 'Moonlight Magic House',
     rooms: {
       bedroom: 'Camera',
       kitchen: 'Cucina',
@@ -46,7 +46,7 @@ const translations = {
     footer: 'Onde Kids ✨',
   },
   en: {
-    title: 'Moonlight House',
+    title: 'Moonlight Magic House',
     rooms: {
       bedroom: 'Bedroom',
       kitchen: 'Kitchen',
@@ -144,6 +144,11 @@ function App() {
   const [showMap, setShowMap] = useState(true);
   const [lunaPosition, setLunaPosition] = useState({ x: 50, y: 50 });
   const [floatPhase, setFloatPhase] = useState(0);
+
+  // Drag and drop state for Luna
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
+  const [mapContainerRef, setMapContainerRef] = useState<HTMLDivElement | null>(null);
 
   // Float animation
   useEffect(() => {
@@ -245,6 +250,54 @@ function App() {
 
   const floatY = Math.sin(floatPhase * Math.PI / 180) * 8;
 
+  // Drag handlers for Luna on map
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    setDragPosition({ x: clientX, y: clientY });
+  };
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    setDragPosition({ x: clientX, y: clientY });
+  };
+
+  const handleDragEnd = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || !mapContainerRef) {
+      setIsDragging(false);
+      return;
+    }
+
+    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
+    const clientY = 'changedTouches' in e ? e.changedTouches[0].clientY : e.clientY;
+
+    // Get container bounds
+    const rect = mapContainerRef.getBoundingClientRect();
+    const relX = ((clientX - rect.left) / rect.width) * 100;
+    const relY = ((clientY - rect.top) / rect.height) * 100;
+
+    // Check if dropped on any room hotspot
+    const droppedRoom = houseRooms.find(room => {
+      const h = room.hotspot;
+      return relX >= h.x && relX <= h.x + h.width &&
+             relY >= h.y && relY <= h.y + h.height;
+    });
+
+    if (droppedRoom) {
+      const roomIndex = roomData.findIndex(r => r.key === droppedRoom.key);
+      navigateToRoom(roomIndex);
+    }
+
+    setIsDragging(false);
+  };
+
   const currentRoomData = roomData[currentRoom];
   const roomActions = t.actions[currentRoomData.key as keyof typeof t.actions];
 
@@ -257,7 +310,15 @@ function App() {
     return (
       <div className="full-page-bg map-view">
         {/* House Map Container */}
-        <div className="house-map-container">
+        <div
+          className="house-map-container"
+          ref={setMapContainerRef}
+          onMouseMove={handleDragMove}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+        >
           <img
             src="/assets/backgrounds/house-map.jpg"
             alt="Moonlight House"
@@ -265,11 +326,11 @@ function App() {
           />
 
           {/* Clickable Hotspots */}
-          {houseRooms.map((room, index) => (
+          {houseRooms.map((room) => (
             <button
               key={room.key}
-              className="room-hotspot"
-              onClick={() => navigateToRoom(roomData.findIndex(r => r.key === room.key))}
+              className={`room-hotspot ${isDragging ? 'drag-target' : ''}`}
+              onClick={() => !isDragging && navigateToRoom(roomData.findIndex(r => r.key === room.key))}
               style={{
                 left: `${room.hotspot.x}%`,
                 top: `${room.hotspot.y}%`,
@@ -284,22 +345,37 @@ function App() {
             </button>
           ))}
 
-          {/* Luna on Map */}
+          {/* Moonlight on Map - Draggable */}
           <div
-            className="luna-map"
-            style={{
+            className={`luna-map ${isDragging ? 'dragging' : ''}`}
+            style={isDragging && mapContainerRef ? {
+              position: 'fixed',
+              left: `${dragPosition.x}px`,
+              top: `${dragPosition.y}px`,
+              transform: 'translate(-50%, -50%) scale(1.2)',
+              zIndex: 100,
+            } : {
               left: `${roomData[currentRoom].lunaPos.x}%`,
               top: `${roomData[currentRoom].lunaPos.y}%`,
               transform: `translate(-50%, -50%) translateY(${floatY}px)`
             }}
+            onMouseDown={handleDragStart}
+            onTouchStart={handleDragStart}
           >
             <img
               src="/assets/character/luna-happy.jpg"
-              alt="Luna"
+              alt="Moonlight"
               className="luna-map-img"
             />
             <div className="luna-map-glow" />
           </div>
+
+          {/* Drag hint */}
+          {!isDragging && (
+            <div className="drag-hint">
+              {lang === 'it' ? '👆 Trascina Moonlight!' : '👆 Drag Moonlight!'}
+            </div>
+          )}
         </div>
 
         {/* Header Overlay */}
@@ -411,7 +487,7 @@ function App() {
 
         <img
           src="/assets/character/luna-happy.jpg"
-          alt="Luna"
+          alt="Moonlight"
           className={`luna-img ${isActing ? 'acting' : ''}`}
         />
         <div className="luna-glow" />

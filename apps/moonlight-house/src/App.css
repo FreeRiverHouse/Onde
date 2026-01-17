@@ -276,12 +276,24 @@
   transform: translateY(0);
 }
 
-/* Luna on the map */
+/* Moonlight on the map - Draggable */
 .luna-map {
   position: absolute;
   z-index: 15;
   transition: left 0.8s ease-out, top 0.8s ease-out;
-  pointer-events: none;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.luna-map:active {
+  cursor: grabbing;
+}
+
+.luna-map.dragging {
+  transition: none;
+  cursor: grabbing;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
 }
 
 .luna-map-img {
@@ -293,6 +305,11 @@
     0 0 20px rgba(255, 255, 255, 0.5),
     0 0 40px rgba(255, 215, 0, 0.3);
   border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.luna-map:hover .luna-map-img {
+  transform: scale(1.1);
 }
 
 .luna-map-glow {
@@ -306,6 +323,34 @@
   border-radius: 50%;
   animation: pulse-glow 2s ease-in-out infinite;
   z-index: -1;
+}
+
+/* Room hotspot when dragging */
+.room-hotspot.drag-target {
+  background: rgba(255, 215, 0, 0.15);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Drag hint */
+.drag-hint {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  animation: hint-bounce 2s ease-in-out infinite;
+  z-index: 25;
+}
+
+@keyframes hint-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
 }
 
 /* Header overlay on map */
