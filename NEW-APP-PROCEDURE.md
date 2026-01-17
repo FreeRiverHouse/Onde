@@ -1,0 +1,526 @@
+# Procedura Nuova App - Onde
+
+## Quick Start
+
+```bash
+# 1. Crea app con Vite (più affidabile per web)
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps
+npm create vite@latest [nome-app] -- --template react-ts
+
+# 2. Installa dipendenze
+cd [nome-app]
+npm install
+
+# 3. Avvia development su LAN (porta assegnata)
+npm run dev -- --port [PORTA] --host
+```
+
+---
+
+## Test LAN - Porte Assegnate
+
+Tutte le app in test girano su LAN, accessibili da qualsiasi device sulla rete.
+
+| App | Porta | URL LAN |
+|-----|-------|---------|
+| moonlight-house | 1112 | http://[MAC_IP]:1112 |
+| moonlight-puzzle | 1113 | http://[MAC_IP]:1113 |
+| aiko-interactive | 1114 | http://[MAC_IP]:1114 |
+| [prossima app] | 1115 | http://[MAC_IP]:1115 |
+
+**Come avviare:**
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/[nome-app]
+npm run dev -- --port [PORTA] --host
+```
+
+**Trovare IP Mac:**
+```bash
+ipconfig getifaddr en0
+```
+
+---
+
+## 🤖 FACTORY MODE - Test Automatici
+
+Ogni app DEVE passare test automatici prima di considerarsi "funzionante".
+
+### Test Suite Automatica
+
+Creare script `scripts/test-app.sh` in ogni app:
+
+```bash
+#!/bin/bash
+# Test automatici per app Onde
+
+APP_NAME=$1
+PORT=$2
+BASE_URL="http://localhost:$PORT"
+SCREENSHOTS_DIR="./test-screenshots"
+
+mkdir -p $SCREENSHOTS_DIR
+
+echo "🧪 Testing $APP_NAME on $BASE_URL"
+
+# 1. Test connettività
+echo "1. Testing connectivity..."
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" $BASE_URL)
+if [ "$HTTP_CODE" != "200" ]; then
+    echo "❌ FAIL: Server not responding (HTTP $HTTP_CODE)"
+    exit 1
+fi
+echo "✅ Server responding"
+
+# 2. Test HTML response
+echo "2. Testing HTML structure..."
+HTML=$(curl -s $BASE_URL)
+if echo "$HTML" | grep -q '<div id="root"'; then
+    echo "✅ React root element found"
+else
+    echo "❌ FAIL: React root element not found"
+    exit 1
+fi
+
+# 3. Test JavaScript bundle
+echo "3. Testing JS bundle loads..."
+BUNDLE_URL=$(echo "$HTML" | grep -o 'src="/[^"]*\.tsx[^"]*"' | head -1 | sed 's/src="//;s/"//')
+if [ -n "$BUNDLE_URL" ]; then
+    BUNDLE_CODE=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}${BUNDLE_URL}")
+    if [ "$BUNDLE_CODE" = "200" ]; then
+        echo "✅ JS bundle loads ($BUNDLE_URL)"
+    else
+        echo "❌ FAIL: JS bundle error (HTTP $BUNDLE_CODE)"
+        exit 1
+    fi
+else
+    echo "⚠️ WARNING: No JS bundle found in HTML"
+fi
+
+echo ""
+echo "🎉 All automated tests passed for $APP_NAME"
+```
+
+### Test con Chrome (via Claude Code)
+
+Per test visivi, Claude Code usa Claude for Chrome:
+
+```bash
+# Claude Code esegue automaticamente:
+# 1. Naviga a http://localhost:PORT
+# 2. Screenshot della pagina
+# 3. Verifica elementi visibili
+# 4. Click su ogni bottone
+# 5. Screenshot dopo ogni azione
+# 6. Report finale con tutti gli screenshot
+```
+
+### Checklist Test Factory Mode
+
+Ogni funzione dell'app deve essere testata:
+
+| Test | Metodo | Output |
+|------|--------|--------|
+| Server risponde | curl HTTP code | 200 OK |
+| HTML corretto | curl + grep | Root element presente |
+| Bundle JS carica | curl bundle URL | 200 OK |
+| UI renderizza | Chrome screenshot | Screenshot iniziale |
+| Bottone 1 funziona | Chrome click + screenshot | Screenshot post-click |
+| Bottone 2 funziona | Chrome click + screenshot | Screenshot post-click |
+| Stato si aggiorna | Chrome + screenshot | Screenshot stato |
+| No errori console | Chrome console read | 0 errori |
+
+### Script di Test Completo
+
+Creare `scripts/factory-test.js`:
+
+```javascript
+// Factory Test Script per Onde Apps
+const puppeteer = require('puppeteer');
+const fs = require('fs');
+
+async function testApp(appName, port) {
+    const url = `http://localhost:${port}`;
+    const screenshotsDir = `./test-screenshots/${appName}`;
+
+    fs.mkdirSync(screenshotsDir, { recursive: true });
+
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+
+    const results = {
+        appName,
+        port,
+        timestamp: new Date().toISOString(),
+        tests: []
+    };
+
+    try {
+        // Test 1: Page loads
+        await page.goto(url, { waitUntil: 'networkidle2' });
+        await page.screenshot({ path: `${screenshotsDir}/01-initial.png` });
+        results.tests.push({ name: 'Page loads', status: 'PASS' });
+
+        // Test 2: Check for errors in console
+        const errors = [];
+        page.on('console', msg => {
+            if (msg.type() === 'error') errors.push(msg.text());
+        });
+
+        // Test 3: Find and click all buttons
+        const buttons = await page.$$('button');
+        for (let i = 0; i < buttons.length; i++) {
+            const buttonText = await buttons[i].evaluate(el => el.innerText);
+            await buttons[i].click();
+            await page.waitForTimeout(500);
+            await page.screenshot({ path: `${screenshotsDir}/0${i+2}-click-${buttonText.replace(/\s+/g, '-')}.png` });
+            results.tests.push({ name: `Click: ${buttonText}`, status: 'PASS' });
+        }
+
+        // Test 4: Check console errors
+        if (errors.length === 0) {
+            results.tests.push({ name: 'No console errors', status: 'PASS' });
+        } else {
+            results.tests.push({ name: 'Console errors', status: 'FAIL', errors });
+        }
+
+    } catch (error) {
+        results.tests.push({ name: 'Runtime', status: 'FAIL', error: error.message });
+    }
+
+    await browser.close();
+
+    // Save results
+    fs.writeFileSync(`${screenshotsDir}/results.json`, JSON.stringify(results, null, 2));
+
+    // Print summary
+    console.log(`\n📊 Test Results for ${appName}:`);
+    results.tests.forEach(t => {
+        const icon = t.status === 'PASS' ? '✅' : '❌';
+        console.log(`${icon} ${t.name}`);
+    });
+
+    return results;
+}
+
+// Usage: node factory-test.js moonlight-house 1112
+const [appName, port] = process.argv.slice(2);
+testApp(appName, parseInt(port));
+```
+
+---
+
+## Checklist Pre-Sviluppo
+
+### 1. Definizione Progetto
+- [ ] Nome app (inglese, lowercase con trattini)
+- [ ] Bundle ID: `com.freeriverhouse.[nome]`
+- [ ] Target età (es. 4-8 anni)
+- [ ] Categoria App Store (Games, Education, etc.)
+- [ ] Monetizzazione (Freemium, IAP, Subscription, Paid)
+
+### 2. Design Brief
+- [ ] CREATIVE-BRIEF.md - Concept e valori
+- [ ] ARTWORK-PINA.md - Prompt per illustrazioni
+- [ ] COPY-GIANNI.md - Testi e copy
+- [ ] Palette colori definita (hex codes)
+
+### 3. Asset Richiesti (Prima di Coding)
+- [ ] Icona app 1024x1024
+- [ ] Splash screen
+- [ ] Character design (se presente)
+- [ ] Sfondi principali
+- [ ] Icone UI
+
+---
+
+## Struttura Progetto Standard (Vite)
+
+```
+apps/[nome-app]/
+├── src/
+│   ├── App.tsx              # Main component
+│   ├── App.css              # Styles
+│   ├── main.tsx             # Entry point
+│   ├── components/          # UI components
+│   └── hooks/               # Custom hooks
+├── public/                  # Static assets
+├── scripts/
+│   ├── test-app.sh          # Basic tests
+│   └── factory-test.js      # Full test suite
+├── test-screenshots/        # Test output
+├── package.json
+├── vite.config.ts
+├── CREATIVE-BRIEF.md
+├── ARTWORK-PINA.md
+├── COPY-GIANNI.md
+├── DEV-LOG.md
+└── TEST-LOG.md
+```
+
+---
+
+## Stack Tecnologico (Web-First)
+
+| Cosa | Tool |
+|------|------|
+| Framework | React + Vite |
+| Styling | CSS/Tailwind |
+| State | React useState/useReducer |
+| Storage | localStorage |
+| Animations | CSS transitions |
+| Testing | Puppeteer + curl |
+| Deployment | Vercel/Netlify |
+
+### Per Mobile (Future)
+| Cosa | Tool |
+|------|------|
+| Framework | React Native + Expo |
+| Navigation | Expo Router |
+| Storage | AsyncStorage |
+| Audio | expo-av |
+| Haptics | expo-haptics |
+
+---
+
+## Features Standard (Checklist)
+
+### Obbligatorie (MVP)
+- [ ] Splash screen con logo
+- [ ] Schermata principale funzionante
+- [ ] Almeno 1 interazione core
+- [ ] Salvataggio stato (localStorage)
+- [ ] **Tutti i test automatici passano**
+
+### Consigliate
+- [ ] Effetti sonori
+- [ ] Animazioni fluide
+- [ ] Multi-lingua (IT, EN)
+
+### Per Bambini (COPPA Compliance)
+- [ ] Parental gate (moltiplicazione)
+- [ ] NO ads per under 13
+- [ ] NO social sharing diretto
+- [ ] Privacy policy kid-friendly
+
+---
+
+## Workflow Sviluppo - Factory Mode
+
+### Fase 1: Setup
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps
+npm create vite@latest [nome] -- --template react-ts
+cd [nome]
+npm install
+npm install puppeteer --save-dev  # Per test
+mkdir -p scripts test-screenshots
+```
+
+### Fase 2: Sviluppo + Test Continuo
+```bash
+# Terminal 1: Dev server
+npm run dev -- --port [PORTA] --host
+
+# Terminal 2: Test continui (dopo ogni modifica significativa)
+./scripts/test-app.sh [nome-app] [PORTA]
+```
+
+### Fase 3: Test Completo Factory
+```bash
+# Prima di dichiarare "fatto"
+node scripts/factory-test.js [nome-app] [PORTA]
+
+# Verifica screenshots in test-screenshots/
+# Verifica results.json - tutti PASS
+```
+
+### Fase 4: Report
+Salvare in TEST-LOG.md:
+- Screenshot di ogni funzione
+- Risultati test
+- Note su problemi risolti
+
+---
+
+## Comandi Utili
+
+```bash
+# Avvia dev server
+npm run dev -- --port 1112 --host
+
+# Test rapido
+curl -s http://localhost:1112 | head -20
+
+# Test completo
+./scripts/test-app.sh moonlight-house 1112
+
+# Test con Puppeteer
+node scripts/factory-test.js moonlight-house 1112
+
+# Build production
+npm run build
+
+# Preview build
+npm run preview
+```
+
+---
+
+## Palette Colori Onde Kids
+
+```typescript
+// src/constants/Colors.ts
+export const Colors = {
+  // Notturno (Moonlight, sleep apps)
+  nightBlue: '#1a1a3e',
+  starGold: '#ffd700',
+  dreamViolet: '#9b59b6',
+  moonWhite: '#f5f5dc',
+  lavender: '#e6e6fa',
+
+  // Giorno (educational, games)
+  skyBlue: '#87CEEB',
+  sunYellow: '#FFD93D',
+  grassGreen: '#90EE90',
+  coralPink: '#FF6B6B',
+
+  // UI
+  background: '#f5f0ff',
+  text: '#4c1d95',
+  accent: '#7c3aed',
+  success: '#10b981',
+  error: '#ef4444',
+};
+```
+
+---
+
+## Agenti Coinvolti
+
+| Agente | Ruolo | Output |
+|--------|-------|--------|
+| **Editore Capo** | Approva concept e milestone | OK/Feedback |
+| **Pina Pennello** | Illustrazioni via Grok | PNG assets |
+| **Gianni Parola** | Copy e testi | Markdown files |
+| **Engineering** | Sviluppo + Test automatici | App + TEST-LOG.md |
+| **QA** | Review test screenshots | Approvazione |
+
+---
+
+## Documenti da Creare per Ogni App
+
+1. **CREATIVE-BRIEF.md** - Vision, target, valori
+2. **ARTWORK-PINA.md** - Prompt illustrazioni con palette
+3. **COPY-GIANNI.md** - Tutti i testi dell'app
+4. **DEV-LOG.md** - Log decisioni tecniche
+5. **TEST-LOG.md** - Screenshot + risultati test automatici
+
+---
+
+## 🚨 REGOLA FACTORY MODE
+
+**Un'app NON è "fatta" finché:**
+1. `./scripts/test-app.sh` passa tutti i test
+2. `node scripts/factory-test.js` genera screenshot di ogni funzione
+3. `results.json` mostra tutti PASS
+4. TEST-LOG.md contiene gli screenshot
+5. **Layout occupa TUTTA la pagina** (vedi sezione sotto)
+
+---
+
+## 🚨 LEZIONE IMPARATA - Layout Full Page (2026-01-17)
+
+**PROBLEMA:** Vite template di default ha CSS che CENTRA il contenuto invece di riempire la pagina.
+
+**FIX OBBLIGATORIO dopo `npm create vite`:**
+
+Modificare `src/index.css`:
+```css
+/* RIMUOVERE questo (default Vite): */
+body {
+  display: flex;
+  place-items: center;  /* ❌ QUESTO CENTRA TUTTO */
+}
+
+/* SOSTITUIRE con: */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport per mobile */
+  width: 100%;
+  overflow-x: hidden;
+}
+```
+
+**In App.css aggiungere al container:**
+```css
+.container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+```
+
+**TEST VISIVO OBBLIGATORIO:**
+- Screenshot deve mostrare app che occupa TUTTA l'altezza viewport
+- NO spazi bianchi sopra/sotto l'app
+- Testare anche su mobile (100dvh gestisce la barra browser)
+
+### Background Full-Page (se serve sfondo illustrato)
+
+Se l'app ha uno sfondo che deve coprire TUTTO lo schermo:
+
+```tsx
+// App.tsx - wrapper esterno per background
+return (
+  <div className="full-page-bg" style={{ backgroundImage: `url(${bg})` }}>
+    <div className="overlay" />
+    <div className="container">
+      {/* contenuto app */}
+    </div>
+  </div>
+);
+```
+
+```css
+/* App.css */
+.full-page-bg {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+}
+
+.overlay {
+  position: fixed; /* NON absolute! */
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+
+.particles {
+  position: fixed; /* NON absolute! */
+}
+
+.container {
+  max-width: 480px; /* mobile-first */
+  z-index: 5;
+}
+```
+
+**ERRORE COMUNE:** Mettere background-image sul container con max-width → lo sfondo non copre i lati
+
+**Engineering Dept Agent deve:**
+- Eseguire test automatici dopo ogni modifica
+- Generare screenshot prima di dichiarare "completato"
+- Includere results.json nel report
+
+---
+
+*Ultimo aggiornamento: Gennaio 2026*
+*Procedura Engineering Department - Onde*

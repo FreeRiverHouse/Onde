@@ -1,0 +1,76 @@
+{
+  "appName": "moonlight-tamagotchi",
+  "port": "1112",
+  "url": "http://localhost:1112",
+  "timestamp": "2026-01-17T16:49:45.000Z",
+  "tests": [
+    {
+      "name": "Page loads",
+      "status": "PASS"
+    },
+    {
+      "name": "Title check",
+      "status": "PASS",
+      "value": "Moonlight House - Onde Kids"
+    },
+    {
+      "name": "UI elements",
+      "status": "PASS",
+      "elements": {
+        "hasContainer": true,
+        "hasHeader": true,
+        "hasTitle": true,
+        "hasStats": true,
+        "hasActions": true,
+        "hasCharacter": true,
+        "buttonCount": 3,
+        "roomTabCount": 3
+      }
+    },
+    {
+      "name": "Click: Mangia",
+      "status": "PASS"
+    },
+    {
+      "name": "Click: Gioca",
+      "status": "PASS"
+    },
+    {
+      "name": "Click: Dormi",
+      "status": "PASS"
+    },
+    {
+      "name": "Room: 🛏️",
+      "status": "PASS"
+    },
+    {
+      "name": "Room: 🍳",
+      "status": "PASS"
+    },
+    {
+      "name": "Room: 🌙",
+      "status": "PASS"
+    },
+    {
+      "name": "No console errors",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/01-initial-load.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/02-click-mangia.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/02-click-gioca.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/02-click-dormi.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/03-room-1.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/03-room-2.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/03-room-3.png",
+    "/Users/mattiapetrucciani/CascadeProjects/Onde/apps/moonlight-tamagotchi/test-screenshots/04-final-state.png"
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "warnings": 0,
+    "total": 10
+  }
+}
