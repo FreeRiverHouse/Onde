@@ -319,9 +319,8 @@ export default function GiochiPage() {
         <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
           variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
+          initial="show"
+          animate="show"
         >
           {miniGames.map((game, index) => {
             const CardContent = (
