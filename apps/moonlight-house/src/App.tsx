@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+// Base path for assets (handles deployment to subdirectory)
+const BASE_URL = import.meta.env.BASE_URL || '/';
+
 // Translations
 const translations = {
   it: {
@@ -109,21 +112,21 @@ const roomData: {
   hotspot: { x: number; y: number; width: number; height: number };
   lunaPos: { x: number; y: number };
 }[] = [
-  { key: 'bedroom', icon: '🛏️', bg: '/assets/backgrounds/room-bedroom.jpg', category: 'home',
+  { key: 'bedroom', icon: '🛏️', bg: `${BASE_URL}assets/backgrounds/room-bedroom.jpg`, category: 'home',
     hotspot: { x: 32, y: 18, width: 22, height: 28 }, lunaPos: { x: 43, y: 32 } },
-  { key: 'kitchen', icon: '🍳', bg: '/assets/backgrounds/room-kitchen.jpg', category: 'home',
+  { key: 'kitchen', icon: '🍳', bg: `${BASE_URL}assets/backgrounds/room-kitchen.jpg`, category: 'home',
     hotspot: { x: 32, y: 52, width: 18, height: 30 }, lunaPos: { x: 41, y: 67 } },
-  { key: 'living', icon: '🛋️', bg: '/assets/backgrounds/room-living.jpg', category: 'home',
+  { key: 'living', icon: '🛋️', bg: `${BASE_URL}assets/backgrounds/room-living.jpg`, category: 'home',
     hotspot: { x: 50, y: 52, width: 20, height: 30 }, lunaPos: { x: 60, y: 67 } },
-  { key: 'bathroom', icon: '🛁', bg: '/assets/backgrounds/room-bathroom.jpg', category: 'home',
+  { key: 'bathroom', icon: '🛁', bg: `${BASE_URL}assets/backgrounds/room-bathroom.jpg`, category: 'home',
     hotspot: { x: 58, y: 18, width: 18, height: 28 }, lunaPos: { x: 67, y: 32 } },
-  { key: 'garden', icon: '🌙', bg: '/assets/backgrounds/room-garden.jpg', category: 'home',
+  { key: 'garden', icon: '🌙', bg: `${BASE_URL}assets/backgrounds/room-garden.jpg`, category: 'home',
     hotspot: { x: 5, y: 45, width: 22, height: 40 }, lunaPos: { x: 16, y: 65 } },
-  { key: 'garage', icon: '🚗', bg: '/assets/backgrounds/room-garage.jpg', category: 'home',
+  { key: 'garage', icon: '🚗', bg: `${BASE_URL}assets/backgrounds/room-garage.jpg`, category: 'home',
     hotspot: { x: 70, y: 52, width: 22, height: 30 }, lunaPos: { x: 81, y: 67 } },
-  { key: 'shop', icon: '👗', bg: '/assets/backgrounds/room-shop.jpg', category: 'outside',
+  { key: 'shop', icon: '👗', bg: `${BASE_URL}assets/backgrounds/room-shop.jpg`, category: 'outside',
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
-  { key: 'supermarket', icon: '🛒', bg: '/assets/backgrounds/room-supermarket.jpg', category: 'outside',
+  { key: 'supermarket', icon: '🛒', bg: `${BASE_URL}assets/backgrounds/room-supermarket.jpg`, category: 'outside',
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
 ];
 
@@ -320,7 +323,7 @@ function App() {
           onTouchEnd={handleDragEnd}
         >
           <img
-            src="/assets/backgrounds/house-map.jpg"
+            src={`${BASE_URL}assets/backgrounds/house-map.jpg`}
             alt="Moonlight House"
             className="house-map-image"
           />
@@ -363,7 +366,7 @@ function App() {
             onTouchStart={handleDragStart}
           >
             <img
-              src="/assets/character/luna-happy.jpg"
+              src={`${BASE_URL}assets/character/luna-happy.jpg`}
               alt="Moonlight"
               className="luna-map-img"
             />
@@ -486,7 +489,7 @@ function App() {
         )}
 
         <img
-          src="/assets/character/luna-happy.jpg"
+          src={`${BASE_URL}assets/character/luna-happy.jpg`}
           alt="Moonlight"
           className={`luna-img ${isActing ? 'acting' : ''}`}
         />
