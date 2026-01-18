@@ -5,13 +5,80 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
-## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-07)
+## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-18)
 
 **QUANDO RIAPRI CON --chrome:**
 
-1. Vai su `x.com/i/grok` → "Create Images"
-2. Genera le **4 OPZIONI STILISTICHE** per definire lo stile Onde
-3. Ogni opzione ha 2 prompt (personaggi storie + personaggi redazione)
+Genera le immagini per il sistema di posting automatico. I prompt sono pronti:
+
+### 1. STOIC QUOTE CARDS (per @Onde_FRH)
+
+**Marcus Aurelius:**
+```
+Roman emperor writing in private journal by candlelight, tent interior, ancient scrolls, warm amber glow, contemplative atmosphere, space for text overlay, 4k
+```
+
+**Seneca:**
+```
+Seneca writing by oil lamp, night scene, intimate warm lighting, philosophical atmosphere, elegant composition for text, 4k
+```
+
+**Epictetus:**
+```
+Broken chains becoming wings, symbolic transformation, sunrise colors, hope and freedom theme, elegant for text overlay, 4k
+```
+
+### 2. BEHIND THE SCENES (per @Onde_FRH)
+
+```
+Cozy Italian publishing house office, warm afternoon light through tall windows, books everywhere, wooden desk with manuscripts, watercolor illustrations scattered, creative warm atmosphere, 4k
+```
+
+```
+Artist studio with watercolor palette, children's book illustrations in progress, natural light, creative mess, brushes in jars, 4k
+```
+
+### 3. TECH/BUILDING IN PUBLIC (per @FreeRiverHouse)
+
+```
+Code on screen with coffee cup, morning light through window, developer's workspace, clean modern desk, productive calm atmosphere, 4k
+```
+
+```
+Robot learning from books, friendly AI concept, warm soft lighting, education and technology harmony, approachable tech, 4k
+```
+
+### 4. VIDEOS (opzionale)
+
+```
+Roman emperor writing in private journal by candlelight, tent interior, night atmosphere, subtle flame flicker, pensive contemplative mood, cinematic slow movement, warm amber tones, 8 seconds
+```
+
+```
+Morning light slowly filling Italian publishing house, dust particles in sunbeams, books on shelves coming alive with light, peaceful creative awakening, 10 seconds
+```
+
+**WORKFLOW:**
+1. Vai su x.com/i/grok
+2. Clicca "Create Images" (o "Create Video")
+3. Incolla ogni prompt
+4. Scegli il migliore, clicca UPSCALE
+5. Scarica in ~/Downloads/
+6. Sposta in /Onde/content/social/images/
+
+**FILE CREATI:**
+- `/packages/telegram-bot/src/content-scheduler.ts` - 41 post in inglese, schedule angel numbers
+- `/packages/telegram-bot/data/visual-content-system.json` - mappatura immagini e prompt
+- `/packages/telegram-bot/output/content-preview.pdf` - PDF elegante inviato su TG
+
+**SCHEDULE ATTIVO:**
+- Onde: 8:08, 11:11, 22:22
+- FRH: 9:09, 12:12, 21:21
+- Preview: 16:20
+
+---
+
+## OLD TASK (2026-01-07) - Style Options
 
 ### I 4 STILI DA GENERARE:
 
