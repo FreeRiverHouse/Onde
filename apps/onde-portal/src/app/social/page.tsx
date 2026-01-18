@@ -14,6 +14,17 @@ interface Post {
   status: 'draft' | 'approved' | 'posted'
 }
 
+// Philosopher to image mapping
+const philosopherImages: Record<string, string> = {
+  'Zeno of Citium': '/images/philosophers/zeno-quote.jpg',
+  'Cleanthes': '/images/philosophers/cleanthes-quote.jpg',
+  'Chrysippus': '/images/philosophers/chrysippus-quote.jpg',
+  'Musonius Rufus': '/images/philosophers/musonius-rufus-quote.jpg',
+  'Epictetus': '/images/philosophers/epictetus-quote.jpg',
+  'Seneca': '/images/philosophers/seneca-quote.jpg',
+  'Marcus Aurelius': '/images/philosophers/marcus-aurelius-quote.jpg',
+}
+
 // Full 21 posts - IMPROVED by Onde PR Agent (editorial style)
 const stoicCalendar = {
   days: [
@@ -282,6 +293,16 @@ export default function SocialDashboard() {
                   <p className="font-medium">{getDayName(day.day)}</p>
                   <p className="text-xs opacity-80">{day.philosopher}</p>
                 </div>
+                {/* Philosopher Image */}
+                {philosopherImages[day.philosopher] && (
+                  <div className="relative h-24 overflow-hidden">
+                    <img
+                      src={philosopherImages[day.philosopher]}
+                      alt={day.philosopher}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
                 <div className="p-3 space-y-2">
                   {posts.filter(p => p.day === day.day).map((post) => (
                     <button
@@ -318,20 +339,32 @@ export default function SocialDashboard() {
               {posts.map((post) => (
                 <div
                   key={post.id}
-                  className="p-6 hover:bg-amber-50 cursor-pointer transition"
+                  className="p-6 hover:bg-amber-50 cursor-pointer transition flex gap-4"
                   onClick={() => setSelectedPost(post)}
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-medium text-gray-900">{getDayName(post.day)}</span>
-                      <span className="text-amber-600 font-mono">{post.time}</span>
-                      <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(post.status)}`}>
-                        {post.status}
-                      </span>
+                  {/* Philosopher thumbnail */}
+                  {philosopherImages[post.philosopher] && (
+                    <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                      <img
+                        src={philosopherImages[post.philosopher]}
+                        alt={post.philosopher}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <span className="text-sm text-gray-500">{post.philosopher}</span>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium text-gray-900">{getDayName(post.day)}</span>
+                        <span className="text-amber-600 font-mono">{post.time}</span>
+                        <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(post.status)}`}>
+                          {post.status}
+                        </span>
+                      </div>
+                      <span className="text-sm text-gray-500">{post.philosopher}</span>
+                    </div>
+                    <p className="text-gray-700 whitespace-pre-line line-clamp-3">{post.text}</p>
                   </div>
-                  <p className="text-gray-700 whitespace-pre-line line-clamp-3">{post.text}</p>
                 </div>
               ))}
             </div>
@@ -358,6 +391,20 @@ export default function SocialDashboard() {
               </div>
 
               <div className="p-6 space-y-6">
+                {/* Philosopher Image */}
+                {philosopherImages[selectedPost.philosopher] && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-2">Immagine</label>
+                    <div className="rounded-xl overflow-hidden shadow-md">
+                      <img
+                        src={philosopherImages[selectedPost.philosopher]}
+                        alt={selectedPost.philosopher}
+                        className="w-full h-auto max-h-64 object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* Post Text */}
                 <div>
                   <label className="block text-sm font-medium text-gray-500 mb-2">Testo Post ({selectedPost.text.length} caratteri)</label>
@@ -374,7 +421,7 @@ export default function SocialDashboard() {
 
                 {/* Image Prompt */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-2">Prompt Immagine</label>
+                  <label className="block text-sm font-medium text-gray-500 mb-2">Prompt Immagine (per generare nuove varianti)</label>
                   <div className="bg-amber-50 rounded-lg p-4">
                     <p className="text-amber-800 font-mono text-sm">{selectedPost.imagePrompt}</p>
                   </div>
