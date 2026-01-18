@@ -12,6 +12,7 @@ import {
   getWeeklyTrend,
 } from './analytics';
 import { prAgent, ContentAnalysis } from './pr-agent';
+import { startScheduler, stopScheduler, initializeContentQueue, runScheduledPost } from './content-scheduler';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -1099,6 +1100,50 @@ bot.command('agents', async (ctx) => {
   ctx.reply(msg, { parse_mode: 'Markdown' });
 });
 
+// Command: /schedule - Show scheduler status and next posts
+bot.command('schedule', async (ctx) => {
+  const queue = require('./content-scheduler').loadContentQueue
+    ? require('./content-scheduler').loadContentQueue()
+    : { onde: [], frh: [], lastPosted: { onde: null, frh: null } };
+
+  let msg = '📅 *CONTENT SCHEDULER*\n\n';
+  msg += '*Orari (CET):*\n';
+  msg += '  Onde: 9:00, 14:00, 20:00\n';
+  msg += '  FRH: 10:00, 15:00, 21:00\n\n';
+
+  msg += '*Coda contenuti:*\n';
+  const ondeQueued = queue.onde?.filter((i: any) => i.status === 'queued').length || 0;
+  const frhQueued = queue.frh?.filter((i: any) => i.status === 'queued').length || 0;
+  msg += `  @Onde_FRH: ${ondeQueued} pronti\n`;
+  msg += `  @FreeRiverHouse: ${frhQueued} pronti\n\n`;
+
+  msg += '*Ultimo post:*\n';
+  msg += `  Onde: ${queue.lastPosted?.onde ? new Date(queue.lastPosted.onde).toLocaleString('it-IT') : 'mai'}\n`;
+  msg += `  FRH: ${queue.lastPosted?.frh ? new Date(queue.lastPosted.frh).toLocaleString('it-IT') : 'mai'}\n`;
+
+  ctx.reply(msg, { parse_mode: 'Markdown' });
+});
+
+// Command: /autopost [onde|frh] - Trigger manual scheduled post
+bot.command('autopost', async (ctx) => {
+  const args = ctx.message.text.replace(/^\/autopost\s*/, '').trim();
+  const account = args as 'onde' | 'frh';
+
+  if (account !== 'onde' && account !== 'frh') {
+    ctx.reply('Uso: /autopost <onde|frh>\n\nEsempio: /autopost onde');
+    return;
+  }
+
+  ctx.reply(`📤 Invio post automatico su @${account === 'frh' ? 'FreeRiverHouse' : 'Onde_FRH'}...`);
+
+  try {
+    await runScheduledPost(account);
+    ctx.reply(`✅ Post inviato su @${account === 'frh' ? 'FreeRiverHouse' : 'Onde_FRH'}`);
+  } catch (error: any) {
+    ctx.reply(`❌ Errore: ${error.message}`);
+  }
+});
+
 // Command: /block [agent] [reason] - Block an agent (for testing)
 bot.command('block', async (ctx) => {
   const args = ctx.message.text.replace(/^\/block\s*/, '').trim();
@@ -1136,11 +1181,22 @@ bot.launch().then(() => {
   console.log('✅ Onde PR Bot is running!');
   console.log('   Send /start to begin');
   console.log('   Agent approval system: ACTIVE');
+  console.log('   Content scheduler: ACTIVE');
 
   // Schedule daily reports
   scheduleDailyReport();
+
+  // Start content scheduler (3x daily posting)
+  initializeContentQueue();
+  startScheduler();
 });
 
 // Graceful shutdown
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+process.once('SIGINT', () => {
+  stopScheduler();
+  bot.stop('SIGINT');
+});
+process.once('SIGTERM', () => {
+  stopScheduler();
+  bot.stop('SIGTERM');
+});
