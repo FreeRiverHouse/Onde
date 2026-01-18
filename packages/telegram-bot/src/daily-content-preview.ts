@@ -126,16 +126,16 @@ export async function sendContentPreview(): Promise<void> {
   });
 
   const header = `
-☀️ *Buonasera*
+☀️ *Good evening*
 
 📅 ${dateStr}
 
-Ecco i contenuti pronti per i prossimi giorni.
-Rilassati e sfoglia.
+Here's what's coming up.
+Relax and browse.
 
 ━━━━━━━━━━━━━━━━━━━━
-📚 *@Onde\\_FRH*: ${ondeQueued.length} post
-🔧 *@FreeRiverHouse*: ${frhQueued.length} post
+📚 *@Onde\\_FRH*: ${ondeQueued.length} posts
+🔧 *@FreeRiverHouse*: ${frhQueued.length} posts
 ━━━━━━━━━━━━━━━━━━━━
 `;
 
@@ -175,9 +175,9 @@ Rilassati e sfoglia.
 
 ✅ *Fine preview*
 
-_I post verranno pubblicati automaticamente:_
-• Onde: 9:00, 14:00, 20:00
-• FRH: 10:00, 15:00, 21:00
+_Posts will be published automatically:_
+• Onde: 8:08, 11:11, 22:22
+• FRH: 9:09, 12:12, 21:21
 
 💡 Usa /autopost per pubblicare subito
 💡 Usa /schedule per vedere lo stato
