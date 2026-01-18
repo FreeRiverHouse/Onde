@@ -285,7 +285,7 @@ apps/[nome-app]/
 | Storage | localStorage |
 | Animations | CSS transitions |
 | Testing | Puppeteer + curl |
-| Deployment | Vercel/Netlify |
+| Deployment | **Cloudflare Pages** |
 
 ### Per Mobile (Future)
 | Cosa | Tool |
@@ -584,14 +584,21 @@ return (
    }
    ```
 
-4. **Commit e push:**
+4. **Build Next.js e Deploy su Cloudflare:**
+   ```bash
+   cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal
+   npm run build
+   npx wrangler pages deploy out --project-name=onde-surf --branch=main
+   ```
+
+5. **Commit e push (per storico git):**
    ```bash
    git add -A
    git commit -m "Deploy [nome-app] to onde.surf/games/[nome-app]"
    git push
    ```
 
-5. **Verifica deploy (Vercel impiega ~60-90 sec):**
+6. **Verifica deploy (Cloudflare impiega ~30-60 sec):**
    - onde.surf/games/[nome-app]/
 
 ### Checklist Deploy
@@ -621,6 +628,112 @@ apps/onde-portal/
     └── games/
         └── [nome-app]/
             └── page.tsx           # Next.js page con iframe
+```
+
+---
+
+---
+
+## 🚨 LEZIONE IMPARATA - BASE_URL per Asset Paths (2026-01-17)
+
+**PROBLEMA:** Quando un'app Vite viene hostata in un subpath (es. `/static-games/app-name/`), i path assoluti delle immagini non funzionano.
+
+**ESEMPIO ERRORE:**
+```
+❌ src="/assets/backgrounds/image.jpg"
+   → Richiede: https://onde.surf/assets/backgrounds/image.jpg
+   → 404 NOT FOUND!
+
+✅ src={`${BASE_URL}assets/backgrounds/image.jpg`}
+   → Richiede: https://onde.surf/static-games/app-name/assets/backgrounds/image.jpg
+   → FUNZIONA!
+```
+
+**FIX OBBLIGATORIO in App.tsx:**
+```tsx
+// All'inizio del file, PRIMA di qualsiasi uso di asset path:
+const BASE_URL = import.meta.env.BASE_URL || '/';
+
+// Poi TUTTI i path immagini devono usare BASE_URL:
+<img src={`${BASE_URL}assets/backgrounds/house-map.jpg`} />
+
+// Anche negli oggetti dati:
+const rooms = [
+  { bg: `${BASE_URL}assets/backgrounds/room-bedroom.jpg` },
+  { bg: `${BASE_URL}assets/backgrounds/room-kitchen.jpg` },
+];
+```
+
+**RICORDA:**
+- `import.meta.env.BASE_URL` viene dal `base` in vite.config.ts
+- In dev (`/`) e in prod (`/static-games/app-name/`) funziona automaticamente
+- MAI hardcodare path assoluti come `/assets/...` per immagini
+
+---
+
+## 🧪 TEST AUTOMATICI POST-DEPLOY (OBBLIGATORIO)
+
+**Un deploy NON è completo finché non passa TUTTI questi test.**
+
+### Checklist Test Post-Deploy
+
+| # | Test | Come Verificare | Criterio |
+|---|------|-----------------|----------|
+| 1 | Pagina carica | Naviga a URL | No errori, contenuto visibile |
+| 2 | Network 200 | DevTools → Network | Tutte risorse 200, no 404 |
+| 3 | Immagini visibili | Screenshot | Tutte le immagini renderizzate |
+| 4 | Console pulita | DevTools → Console | No errori rossi |
+| 5 | Interazioni | Click bottoni/link | Funzionano come atteso |
+
+### Procedura Test con Claude for Chrome
+
+```bash
+# 1. Naviga alla pagina deployata
+mcp__claude-in-chrome__navigate → https://onde.surf/games/[app-name]/
+
+# 2. Screenshot iniziale
+mcp__claude-in-chrome__computer → action: screenshot
+
+# 3. Verifica network requests (CRITICO!)
+mcp__claude-in-chrome__read_network_requests → tabId, urlPattern: "assets"
+# Controllare: TUTTE le richieste devono essere 200, NO 404!
+
+# 4. Leggi console per errori
+mcp__claude-in-chrome__read_console_messages → tabId, onlyErrors: true
+# Controllare: deve essere vuoto o solo warning non critici
+
+# 5. Test interazioni principali
+mcp__claude-in-chrome__computer → click su elementi chiave
+mcp__claude-in-chrome__computer → screenshot dopo ogni azione
+```
+
+### Errori Comuni e Fix
+
+| Errore | Causa | Fix |
+|--------|-------|-----|
+| Immagini 404 | Path assoluti hardcodati | Usa `${BASE_URL}assets/...` |
+| JS bundle 404 | Base path sbagliato | Verifica `base` in vite.config.ts |
+| CSS non caricato | Build non copiato | Rifai `cp -r dist/...` |
+| Assets mancanti | public/ non copiato | Copia anche `public/assets/` |
+
+---
+
+## 🌐 AMBIENTI DEPLOY
+
+| Ambiente | URL | Cloudflare Project | Uso |
+|----------|-----|-------------------|-----|
+| **PREPROD** | onde.surf | `onde-surf` | Test prima di prod |
+| **PROD** | onde.la | `onde-portal` | Produzione |
+
+**REGOLA:** Deployare SEMPRE prima su onde.surf (preprod), testare, poi promuovere a prod.
+
+**Comandi Deploy:**
+```bash
+# PREPROD (onde.surf)
+npx wrangler pages deploy out --project-name=onde-surf --branch=main
+
+# PROD (onde.la) - solo dopo test su preprod!
+npx wrangler pages deploy out --project-name=onde-portal --branch=main
 ```
 
 ---
