@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Preview - Onde & Free River House</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #fef9f3 0%, #fdf6ed 100%);
+      color: #2d2a26;
+      line-height: 1.7;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 60px 80px;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cover {
+      text-align: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+    }
+
+    .cover h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .cover .subtitle {
+      font-size: 1.4rem;
+      font-weight: 300;
+      opacity: 0.8;
+      margin-bottom: 60px;
+    }
+
+    .cover .date {
+      font-size: 1.1rem;
+      opacity: 0.6;
+      margin-top: 80px;
+    }
+
+    .cover .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 40px;
+    }
+
+    .cover .stat {
+      text-align: center;
+    }
+
+    .cover .stat-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 600;
+    }
+
+    .cover .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .section-divider {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      text-align: center;
+    }
+
+    .section-divider.frh {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+
+    .section-divider h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .section-divider .handle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    .section-divider .schedule {
+      margin-top: 40px;
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    .post-page {
+      background: #fffcf7;
+    }
+
+    .post-page.frh {
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    }
+
+    .post-card {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .post-type {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    .post-type.citazione {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .post-type.dietro_le_quinte {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .post-type.riflessione {
+      background: #f3e8ff;
+      color: #6b21a8;
+    }
+
+    .post-type.progress {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .post-type.lesson {
+      background: #fce7f3;
+      color: #9d174d;
+    }
+
+    .post-type.tool {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .post-content {
+      font-size: 1.35rem;
+      line-height: 1.9;
+      color: #1f1f1f;
+      white-space: pre-wrap;
+    }
+
+    .post-content .quote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #4a4a4a;
+    }
+
+    .post-meta {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .post-number {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .footer-page {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      text-align: center;
+    }
+
+    .footer-page h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .footer-page .schedule-grid {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin: 40px 0;
+    }
+
+    .footer-page .schedule-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .footer-page .time {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      margin: 10px 0;
+      opacity: 0.8;
+    }
+
+    .angel-emoji {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+
+    @media print {
+      .page {
+        page-break-after: always;
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cover -->
+  <div class="page cover">
+    <h1>Content Preview</h1>
+    <p class="subtitle">Stories waiting to be told</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">24</div>
+        <div class="stat-label">Onde Posts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">17</div>
+        <div class="stat-label">FRH Posts</div>
+      </div>
+    </div>
+
+    <p class="date">January 2026</p>
+  </div>
+
+  <!-- Onde Section Divider -->
+  <div class="page section-divider">
+    <h2>Onde</h2>
+    <p class="handle">@Onde_FRH</p>
+    <p class="schedule">
+      <span class="angel-emoji">✨</span>8:08 · 11:11 · 22:22
+    </p>
+  </div>
+
+  <!-- Onde Posts -->
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">1 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Around 170 AD, a Roman emperor sat alone in his tent after a long day of battle. By candlelight, he wrote in his private journal:
+
+"The happiness of your life depends upon the quality of your thoughts."
+
+Marcus Aurelius never intended for anyone to read these words. They were reminders to himself, on the hardest days.
+
+Two thousand years later, they still find the people who need them.</div>
+      <div class="post-meta">— Marcus Aurelius, Meditations (170 AD)</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">2 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Marcus Aurelius ruled the most powerful empire in history. He could have anything he wanted.
+
+What he wanted was to be a better person.
+
+"Waste no more time arguing about what a good man should be. Be one."
+
+He wrote this for himself, not for us. But sometimes the most private words become the most universal.</div>
+      <div class="post-meta">— Marcus Aurelius, Meditations</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">3 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Every morning, before dawn, Marcus Aurelius would remind himself:
+
+"When you arise in the morning, think of what a precious privilege it is to be alive — to breathe, to think, to enjoy, to love."
+
+He was preparing himself for difficult days. War. Politics. Betrayal.
+
+Maybe that's when gratitude matters most — not when things are easy, but when they're hard.</div>
+      <div class="post-meta">— Marcus Aurelius, Meditations</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">4 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Seneca was one of the richest men in Rome. He had everything.
+
+And yet he wrote:
+
+"It is not that we have a short time to live, but that we waste a lot of it."
+
+Wealth didn't blind him to the truth. Time is the only thing we can never get back.
+
+Two thousand years later, we're still learning this lesson.</div>
+      <div class="post-meta">— Seneca, On the Shortness of Life</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">5 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Epictetus was born a slave. He couldn't read. He had nothing.
+
+And yet he became one of the greatest philosophers in history.
+
+"It's not what happens to you, but how you react to it that matters."
+
+Some people are born with advantages. Others build themselves from nothing.
+
+The second kind often understands life better.</div>
+      <div class="post-meta">— Epictetus, Enchiridion</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">6 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">In a letter to his friend Lucilius, Seneca wrote something that still stops me:
+
+"Life is long, if you know how to use it."
+
+Nine words. Two thousand years old.
+
+Most people complain about not having enough time. Seneca suggests maybe we just don't know how to spend the time we have.
+
+What would change if we really believed this?</div>
+      <div class="post-meta">— Seneca, Letters to Lucilius</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">7 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Marcus Aurelius, to himself:
+
+"The impediment to action advances action. What stands in the way becomes the way."
+
+Three words that have traveled through millennia: The obstacle is the way.
+
+Every problem contains its own solution. Every difficulty teaches something essential.
+
+The Stoics understood this. We're still learning.</div>
+      <div class="post-meta">— Marcus Aurelius, Meditations</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">8 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Seneca once wrote:
+
+"Luck is what happens when preparation meets opportunity."
+
+We call it luck when someone succeeds. But watch closely — behind every "overnight success" there are years of invisible work.
+
+The lucky ones aren't lucky. They were just ready when the moment came.</div>
+      <div class="post-meta">— Seneca</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">9 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Here's something Seneca noticed two thousand years ago:
+
+"We suffer more often in imagination than in reality."
+
+How much of your worry is about things that never happen? How many sleepless nights for problems that solve themselves?
+
+The Stoics didn't have anxiety medication. They had philosophy. And sometimes, that's enough.</div>
+      <div class="post-meta">— Seneca, Letters to Lucilius</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">10 / 24</span>
+    <div class="post-card">
+      <span class="post-type citazione">Quote</span>
+      <div class="post-content">Epictetus taught that we should focus only on what we can control.
+
+"Some things are within our power, while others are not."
+
+Simple idea. Revolutionary practice.
+
+You can't control the weather. You can control how you dress.
+You can't control others' opinions. You can control your actions.
+You can't control the past. You can control what you do next.
+
+Freedom begins with this distinction.</div>
+      <div class="post-meta">— Epictetus, Enchiridion</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">11 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">This morning I spent two hours choosing a font for a children's poetry book.
+
+It might seem like a small thing. But fonts speak before words do.
+
+A rounded font says "this is playful." A serif font says "this is serious."
+
+For a children's book, you need something in between — something that says "this matters, but it's also fun."
+
+The invisible choices are often the most important ones.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">12 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">Today at the publishing house: reading a nursery rhyme out loud for the fifth time.
+
+Not because there are mistakes. But because rhythm matters.
+
+When a child reads aloud, every syllable counts. Every pause. Every breath.
+
+A good children's poem isn't just read — it's felt. It becomes a song in the mouth.
+
+That's what we're looking for. That moment when words become music.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">13 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">We spent all day on one translation today.
+
+The challenge: some Italian words have no English equivalent. Some feelings exist in one language but not another.
+
+The solution isn't to find the perfect word. It's to find the perfect feeling.
+
+You can't always translate words. But you can always translate meaning.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">14 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">We're working on a book that explains AI to children.
+
+The challenge: how do you talk about technology without losing the magic?
+
+A robot can be a friend. Science can be poetry. The future can be exciting instead of scary.
+
+The best explanations don't just inform — they inspire wonder.
+
+That's what we're trying to create.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">15 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">Today: choosing a book cover.
+
+We rejected twelve versions. The thirteenth felt close. We remade it anyway.
+
+The fourteenth was the one.
+
+A cover has three seconds to tell a story. Three seconds to make a promise.
+
+That's why it takes so long to get right.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">16 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">7 AM. First draft of a new book.
+
+The beginning of any book is the hardest part. Not because it's difficult to write — but because it makes a promise.
+
+Every first sentence says: "Here's what this book will give you."
+
+And then you have to deliver on that promise for every page that follows.
+
+No pressure.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">17 / 24</span>
+    <div class="post-card">
+      <span class="post-type dietro_le_quinte">Behind the Scenes</span>
+      <div class="post-content">We tested our illustrations with actual children today.
+
+They noticed things we didn't see. They missed things we thought were obvious.
+
+There's no substitute for the real audience. The people you're creating for will always surprise you.
+
+Best feedback session we've ever had.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">18 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">A children's book is not a simple book.
+
+It's a book that has to say complex things with simple words.
+
+It takes more work, not less. More thought, not less. More craft, not less.
+
+The hardest writing looks the easiest.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">19 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">What's the difference between a book and a good book?
+
+A good book makes you think even after you close it.
+
+The story ends. The questions don't.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">20 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">Every illustration tells a story that words don't say.
+
+There's a silent conversation between text and image. When it works, the reader doesn't even notice.
+
+That's the goal — to create something so natural it becomes invisible.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">21 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">Publishing a book is like sending a message in a bottle.
+
+You don't know who will find it. You don't know when.
+
+But you hope it reaches someone who needed exactly those words, at exactly that moment.
+
+Sometimes it does. And that makes everything worth it.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">22 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">Children's poetry is the hardest form.
+
+It has to be simple without being shallow.
+Musical without being artificial.
+Deep without being heavy.
+
+Anyone can write complicated poetry for adults.
+
+But writing something a child will remember forever? That's art.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">23 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">Children's books are also for adults.
+
+Sometimes, especially for adults.
+
+Children already know many of the things we've forgotten. The books remind us.</div>
+    </div>
+  </div>
+
+  <div class="page post-page" style="position: relative;">
+    <span class="post-number">24 / 24</span>
+    <div class="post-card">
+      <span class="post-type riflessione">Reflection</span>
+      <div class="post-content">Reading to a child before bed isn't just a habit.
+
+It's a ritual. And rituals build people.
+
+The stories we hear as children become the foundation of who we become.
+
+Choose them carefully.</div>
+    </div>
+  </div>
+
+  <!-- FRH Section Divider -->
+  <div class="page section-divider frh">
+    <h2>Free River House</h2>
+    <p class="handle">@FreeRiverHouse</p>
+    <p class="schedule">
+      <span class="angel-emoji">🌿</span>9:09 · 12:12 · 21:21
+    </p>
+  </div>
+
+  <!-- FRH Posts -->
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">1 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">The trading bot lost $45 in paper trading last week.
+
+Today I added a system that analyzes its own mistakes and adjusts automatically.
+
+It's basically teaching itself. Learning from failure. Getting better with each error.
+
+Let's see if it learns from its mistakes better than I do.
+
+(The answer is probably yes.)</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">2 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">This morning: fixing a bug in the notification system.
+
+The problem? It worked too well.
+
+50 notifications in 10 minutes. Technically correct. Practically unbearable.
+
+Sometimes the bug isn't that something doesn't work. It's that it works exactly as you designed it — and your design was wrong.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">3 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">Three days to make one feature work.
+
+It seemed simple when I started. "Should take an hour," I thought.
+
+Narrator: It did not take an hour.
+
+The lesson: simple in theory is often complex in practice.
+
+The code doesn't care about your estimates.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">4 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">The auto-posting system finally works.
+
+Every day at 21:30, the bot scans what we built, picks the most interesting thing, and tells the world.
+
+While I sleep, it works.
+
+We live in strange times. And I kind of love it.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">5 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">Today: refactoring code I wrote yesterday.
+
+When you write code at 2 AM, it always seems brilliant.
+
+In the light of day? Less so.
+
+The best programmers aren't the ones who never write bad code. They're the ones willing to admit it and fix it.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">6 / 17</span>
+    <div class="post-card">
+      <span class="post-type progress">Progress</span>
+      <div class="post-content">Milestone: 50 paper trades without a critical error.
+
+It's not glamorous. It's not exciting. No one throws a party for "didn't break for a while."
+
+But that's what progress looks like most of the time. Small wins. Quiet improvements. One step at a time.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">7 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">Lesson learned today: never trust mock data.
+
+The bot worked perfectly with fake data. Beautiful. Flawless.
+
+In production? It discovered that real-world data is weird. Messy. Unpredictable.
+
+The simulation is never the real thing. The map is never the territory.
+
+Always test with reality.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">8 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">Something nobody tells you about software development:
+
+90% of the time is spent figuring out why something doesn't work.
+10% of the time is spent actually writing code.
+
+Today was a 95% day.
+
+And that's okay. That's the job.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">9 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">Spent 4 hours debugging an error.
+
+The problem: a typo. One letter. That's it.
+
+The lesson: complex problems often have simple solutions.
+
+Also: maybe I just needed coffee. Hard to say.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">10 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">This week's lesson: automate first, optimize later.
+
+An imperfect system that runs is better than a perfect system on paper.
+
+Ship it. Learn from it. Improve it.
+
+Perfection is the enemy of progress.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">11 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">Today I deleted more code than I wrote.
+
+And it felt great.
+
+Sometimes the best solution is subtraction, not addition. Removing complexity instead of adding it.
+
+Simplicity is hard. But it's worth it.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">12 / 17</span>
+    <div class="post-card">
+      <span class="post-type lesson">Lesson</span>
+      <div class="post-content">Interesting bug: the system only worked on Tuesdays.
+
+The reason: a test I wrote 6 months ago, incorrectly.
+
+The code has a long memory. Every shortcut comes back eventually.
+
+Write tests like someone else will read them. (Because future you is someone else.)</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">13 / 17</span>
+    <div class="post-card">
+      <span class="post-type tool">Tool</span>
+      <div class="post-content">Today's stack: TypeScript, Claude API, Telegram Bot.
+
+Not the newest. Not the trendiest.
+
+But you know what? It works. It's reliable. It does the job.
+
+Sometimes the best thing you can say about a technology is: it gets out of the way.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">14 / 17</span>
+    <div class="post-card">
+      <span class="post-type tool">Tool</span>
+      <div class="post-content">Automation of the week: automatic posting at 21:30.
+
+The bot scans the day's commits, picks the most interesting one, writes a post about it.
+
+I sleep. It works.
+
+The future is strange. Machines talking about what machines built.
+
+And somehow, it's kind of beautiful.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">15 / 17</span>
+    <div class="post-card">
+      <span class="post-type tool">Tool</span>
+      <div class="post-content">Tool discovery: paper trading for testing strategies.
+
+Fake money. Real lessons.
+
+It's the best way to learn without paying full price for your mistakes.
+
+Every trader should start here. Every developer too, in their own way.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">16 / 17</span>
+    <div class="post-card">
+      <span class="post-type tool">Tool</span>
+      <div class="post-content">I built a bot that writes commit messages.
+
+Then I built a bot that reads those commit messages and posts about them on Twitter.
+
+Bots talking about bots. Meta-automation.
+
+We live in interesting times.</div>
+    </div>
+  </div>
+
+  <div class="page post-page frh" style="position: relative;">
+    <span class="post-number">17 / 17</span>
+    <div class="post-card">
+      <span class="post-type tool">Tool</span>
+      <div class="post-content">Today: connecting 3 different APIs into one flow.
+
+Every API has its own rules. Its own quirks. Its own way of failing.
+
+Integration is like being a translator between languages that don't quite match.
+
+When it works, it feels like magic. When it doesn't... well, there's always tomorrow.</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page footer-page">
+    <h2>Schedule</h2>
+
+    <div class="schedule-grid">
+      <div class="schedule-item">
+        <h3>✨ @Onde_FRH</h3>
+        <div class="time">8:08</div>
+        <div class="time">11:11</div>
+        <div class="time">22:22</div>
+      </div>
+      <div class="schedule-item">
+        <h3>🌿 @FreeRiverHouse</h3>
+        <div class="time">9:09</div>
+        <div class="time">12:12</div>
+        <div class="time">21:21</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 60px; opacity: 0.6; font-size: 0.9rem;">
+      41 stories, ready to inspire.
+    </p>
+  </div>
+
+</body>
+</html>
