@@ -1,7 +1,7 @@
 # Wrangler configuration for Onde Portal
 # This file configures Cloudflare Pages deployment
 
-name = "onde"
+name = "onde-surf"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "out"
