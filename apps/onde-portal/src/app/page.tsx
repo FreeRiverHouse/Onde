@@ -5,10 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import dynamic from 'next/dynamic'
 
-// Import split-screen dynamically
-const SurfSelector = dynamic(() => import('./surf-selector/page'), { ssr: false })
 
 // Particle component for floating background particles - Maritime Relaxing theme
 function Particle({ index }: { index: number }) {
@@ -136,31 +133,7 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
   const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
   
-  // CRITICAL: Redirect onde.surf to /surf-selector IMMEDIATELY
-  // This must run before any rendering to avoid flash of wrong content
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    
-    const hostname = window.location.hostname
-    const port = window.location.port
-    const urlParams = new URLSearchParams(window.location.search)
-    const mode = urlParams.get('mode')
-    const showPortal = sessionStorage.getItem('showPortal')
-    
-    // If mode=preprod or showPortal flag, stay on portal
-    if (mode === 'preprod' || showPortal === 'true') {
-      sessionStorage.removeItem('showPortal')
-      return
-    }
-    
-    // If onde.surf or localhost:7777, redirect to /surf-selector
-    const isSurf = hostname.includes('onde.surf') || port === '7777'
-    if (isSurf && window.location.pathname === '/') {
-      window.location.href = '/surf-selector'
-    }
-  }, [])
-  
-  // Show normal portal (onde.la)
+  // onde.surf = preprod environment, same content as onde.la
 
   return (
     <div className="relative overflow-x-hidden w-full">
