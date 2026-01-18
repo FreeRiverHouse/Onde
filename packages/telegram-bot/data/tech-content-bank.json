@@ -1,6 +1,6 @@
 {
   "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
-  "lastUsedIndex": 22,
+  "lastUsedIndex": 36,
   "posts": [
     {
       "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
@@ -185,7 +185,7 @@
     {
       "text": "The PR agent now picks the most interesting commit of the day and tweets about it. Building in public, automated.",
       "topic": "automation",
-      "used": false
+      "used": true
     },
     {
       "text": "Onde: a digital publisher at the intersection of tech, spirituality, and art. Big words for a small operation with big dreams.",

@@ -154,12 +154,12 @@ function renderDashboard(posts: PendingPost[]): string {
 
 // === Routes ===
 
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: any) => {
   const posts = loadPendingPosts();
   res.send(renderDashboard(posts));
 });
 
-app.post('/approve/:id', (req, res) => {
+app.post('/approve/:id', (req: any, res: any) => {
   const post = approvePost(req.params.id);
   if (post) {
     console.log(`✅ Post approvato: ${post.id}`);
@@ -167,7 +167,7 @@ app.post('/approve/:id', (req, res) => {
   res.redirect('/');
 });
 
-app.post('/reject/:id', (req, res) => {
+app.post('/reject/:id', (req: any, res: any) => {
   const post = rejectPost(req.params.id);
   if (post) {
     console.log(`❌ Post rifiutato: ${post.id}`);
@@ -175,7 +175,7 @@ app.post('/reject/:id', (req, res) => {
   res.redirect('/');
 });
 
-app.post('/create', async (req, res) => {
+app.post('/create', async (req: any, res: any) => {
   const { text, account } = req.body;
   if (text && account) {
     const post = await createAndSendPost(text, account);
@@ -186,7 +186,7 @@ app.post('/create', async (req, res) => {
 
 // === API per Claude/Agenti ===
 
-app.post('/api/post', async (req, res) => {
+app.post('/api/post', async (req: any, res: any) => {
   const { text, account, mediaFiles } = req.body;
   if (!text || !account) {
     return res.status(400).json({ error: 'text e account richiesti' });
@@ -195,9 +195,9 @@ app.post('/api/post', async (req, res) => {
   res.json({ success: true, postId: post.id });
 });
 
-app.get('/api/pending', (req, res) => {
+app.get('/api/pending', (req: any, res: any) => {
   const posts = loadPendingPosts();
-  res.json(posts.filter(p => p.status === 'pending'));
+  res.json(posts.filter((p: any) => p.status === 'pending'));
 });
 
 // === Watcher: controlla post approvati e posta ===

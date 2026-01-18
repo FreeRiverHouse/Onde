@@ -60,7 +60,8 @@
 
 | Libro | Collana | Testo | Immagini | Manoscritto | Status |
 |-------|---------|-------|----------|-------------|--------|
-| AIKO | Tech | 100% | 100% | 100% | ✅ PUBBLICATO |
+| **MILO: AI Explained** | Tech | 100% | 0% | 0% | 🆕 Testo pronto, prompt immagini pronti (upgrade da AIKO) |
+| **MILO: Internet** | Tech | 100% | 🎨 IN CORSO | 0% | Rigenerazione immagini (robot arancione, stile Luzzati) |
 | Il Potere dei Desideri | Spiritualità | 100% | 100% | 100% | ✅ PDF Pronto |
 | Salmo 23 | Spiritualità | 100% | 100% | 90% | V3 su Telegram per approvazione |
 | Piccole Rime | Poetry | 100% | 100% | 100% | ✅ PDF Pronto |

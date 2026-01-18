@@ -48,6 +48,9 @@
 | **Mindful Kids** | Respirazione, emozioni, calma | Subscription | Global |
 | **ABC della Gentilezza** | Storie interattive gentilezza | $1.99 | IT/Global |
 | **Word Play / Giochi di Parole** | Rime, giochi linguistici, multilingua | Freemium | Global |
+| **Little Vet / Piccolo Veterinario** | Cura animali, clinica veterinaria per bambini, impara anatomia animale | Freemium + IAP | Global |
+| **Music Academy Kids** | Impara la musica: note, ritmo, strumenti. Prima versione web (PWA), poi mobile | Freemium | Global |
+| **Ancient Rome Kids** | Storia di Roma per bambini: Marco Aurelio, gladiatori, vita quotidiana, filosofia stoica semplificata | Freemium | Global |
 
 ### TIER 3: App Spirituali/Manifestazione (Q2 2026)
 

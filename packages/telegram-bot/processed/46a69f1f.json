@@ -1,0 +1,16 @@
+{
+  "id": "46a69f1f",
+  "from": "user",
+  "type": "photo",
+  "message": "Milo ch 2",
+  "caption": "Milo ch 2",
+  "mediaPath": "/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/media/photo_1768755647139.jpg",
+  "mediaType": "image",
+  "timestamp": "2026-01-18T17:00:48.934Z",
+  "status": "processed",
+  "context": {
+    "action": "update_book",
+    "target": "milo",
+    "details": "Milo ch 2"
+  }
+}

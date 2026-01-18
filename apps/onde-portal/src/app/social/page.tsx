@@ -14,7 +14,7 @@ interface Post {
   status: 'draft' | 'approved' | 'posted'
 }
 
-// Full 21 posts from Grok - 7 days x 3 posts/day
+// Full 21 posts - IMPROVED by Onde PR Agent (editorial style)
 const stoicCalendar = {
   days: [
     {
@@ -22,9 +22,9 @@ const stoicCalendar = {
       philosopher: "Zeno of Citium",
       imagePrompt: "An ancient Greek philosopher standing thoughtfully under a olive tree in Athens, with subtle symbols of nature like flowing water and mountains in the background, in a vintage illustrated book style, 4k",
       posts: [
-        { id: "d1p1", time: "8:08", text: "Zeno, the founder of Stoicism, had this gem: \"We have two ears and one mouth, so we should listen more than we say.\" It's so simple, but damn, it's hard to live by. I've been trying to shut up more in conversations lately, and it's amazing how much you learn when you're not always talking. Feels like a quiet revolution in my daily chats." },
-        { id: "d1p2", time: "11:11", text: "Back in ancient Athens, Zeno taught that \"Man conquers the world by conquering himself.\" Hits home for me—I've spent too much time blaming external stuff for my frustrations. Lately, focusing on self-control has turned some tough days around. It's not easy, but it's empowering, you know?" },
-        { id: "d1p3", time: "22:22", text: "Zeno believed, \"All things are parts of one single system, which is called nature; the individual life is good when it is in harmony with nature.\" I love this—reminds me to stop fighting the flow and just align with what's real. Been applying it to my routines, and life's a bit smoother, less forced." }
+        { id: "d1p1", time: "8:08", text: "\"We have two ears and one mouth, so we should listen more than we say.\"\n\n— Zeno of Citium" },
+        { id: "d1p2", time: "11:11", text: "\"Man conquers the world by conquering himself.\"\n\nZeno founded Stoicism in Athens around 300 BC. His school met at the Stoa Poikile — the painted porch that gave the philosophy its name." },
+        { id: "d1p3", time: "22:22", text: "What does it mean to live well?\n\nZeno's answer: \"The individual life is good when it is in harmony with nature.\"" }
       ]
     },
     {
@@ -32,9 +32,9 @@ const stoicCalendar = {
       philosopher: "Cleanthes",
       imagePrompt: "A muscular ancient figure in simple robes, gazing at a stormy sky with lightning representing Zeus, surrounded by elements of fate like threads or a wheel, in a dramatic classical engraving aesthetic, 4k",
       posts: [
-        { id: "d2p1", time: "8:08", text: "Cleanthes, Zeno's successor, said, \"He needs little who desires but little.\" Such a straightforward punch to consumerism. I've been decluttering my wants lately, and it's freeing—less stuff, more peace. Who knew a boxer-turned-philosopher could nail modern life so well?" },
-        { id: "d2p2", time: "11:11", text: "In his hymn, Cleanthes wrote, \"Lead me, O Zeus, and thou, O Destiny.\" It's about surrendering to fate without resistance. I've leaned on this during uncertain times, like job shifts—going with it instead of pushing back. Makes the ride less bumpy, honestly." },
-        { id: "d2p3", time: "22:22", text: "Cleanthes nailed it: \"The Fates lead the willing, but drag the unwilling.\" Resistance just wears you out, right? I've caught myself fighting changes that were inevitable, and switching to acceptance has saved so much energy. Simple wisdom from a guy who worked nights to philosophize." }
+        { id: "d2p1", time: "8:08", text: "\"He needs little who desires but little.\"\n\n— Cleanthes" },
+        { id: "d2p2", time: "11:11", text: "\"Lead me, O Zeus, and thou, O Destiny.\"\n\nCleanthes succeeded Zeno as head of the Stoic school. A former boxer, he worked as a water-carrier by night to study philosophy by day." },
+        { id: "d2p3", time: "22:22", text: "Resistance or acceptance?\n\nCleanthes offered this: \"The Fates lead the willing, but drag the unwilling.\"" }
       ]
     },
     {
@@ -42,9 +42,9 @@ const stoicCalendar = {
       philosopher: "Chrysippus",
       imagePrompt: "A scholarly ancient Greek man at a desk piled with scrolls, deep in thought with geometric logic symbols floating around him, illustrated in a timeless woodcut print style, 4k",
       posts: [
-        { id: "d3p1", time: "8:08", text: "Chrysippus, the logic master of Stoicism, said, \"If I had followed the multitude, I should not have studied philosophy.\" Love this rebel vibe—don't just go with the crowd. I've skipped trendy opinions to dig deeper, and it's led to better decisions. Feels authentic, not performative." },
-        { id: "d3p2", time: "11:11", text: "According to Chrysippus, \"Wise people are in want of nothing, and yet need many things. On the other hand, nothing is needed by fools, for they do not understand how to use anything.\" Tricky, but true—wisdom's about using what you have right. Been reflecting on that with my daily habits, cutting waste." },
-        { id: "d3p3", time: "22:22", text: "Chrysippus taught, \"Living virtuously is equal to living in accordance with one's experience of the actual course of nature.\" Aligning actions with reality, not wishes. It's helped me drop illusions about control—now I adapt more, stress less. Guy wrote volumes, but this sticks." }
+        { id: "d3p1", time: "8:08", text: "\"If I had followed the multitude, I should not have studied philosophy.\"\n\n— Chrysippus" },
+        { id: "d3p2", time: "11:11", text: "\"Wise people are in want of nothing, and yet need many things.\"\n\nChrysippus wrote over 700 works on logic, ethics, and physics. He systematized Stoic thought so thoroughly that later thinkers said: \"Without Chrysippus, there would be no Stoa.\"" },
+        { id: "d3p3", time: "22:22", text: "How should we live?\n\nChrysippus: \"Living virtuously is equal to living in accordance with one's experience of the actual course of nature.\"" }
       ]
     },
     {
@@ -52,9 +52,9 @@ const stoicCalendar = {
       philosopher: "Musonius Rufus",
       imagePrompt: "A wise Roman philosopher in modest attire, sharing a simple meal outdoors with students, evoking everyday virtue and restraint, in a soft watercolor book illustration, 4k",
       posts: [
-        { id: "d4p1", time: "8:08", text: "Musonius Rufus, Epictetus's mentor, advised, \"You will earn the respect of all if you begin by earning the respect of yourself.\" Starts from within, huh? I've been working on self-compassion instead of seeking approval—it's shifted how I carry myself, more grounded." },
-        { id: "d4p2", time: "11:11", text: "Rufus said, \"If you accomplish something good with hard work, the labor passes quickly, but the good endures.\" So true for tough projects— the grind fades, but the result stays. Pushed through a recent challenge with this in mind, and yeah, the payoff lingers." },
-        { id: "d4p3", time: "22:22", text: "Practical as ever, Musonius Rufus noted, \"We should eat to live, not live to eat.\" Keeps indulgence in check. I've dialed back on comfort eating, focusing on fuel instead—feels better physically and mentally. Simple advice from a no-nonsense teacher." }
+        { id: "d4p1", time: "8:08", text: "\"You will earn the respect of all if you begin by earning the respect of yourself.\"\n\n— Musonius Rufus" },
+        { id: "d4p2", time: "11:11", text: "\"If you accomplish something good with hard work, the labor passes quickly, but the good endures.\"\n\nMusonius Rufus was Epictetus's teacher. Exiled by Nero, he continued teaching philosophy wherever fate sent him." },
+        { id: "d4p3", time: "22:22", text: "On moderation:\n\n\"We should eat to live, not live to eat.\"\n\n— Musonius Rufus" }
       ]
     },
     {
@@ -62,9 +62,9 @@ const stoicCalendar = {
       philosopher: "Epictetus",
       imagePrompt: "An ancient man with a crutch, symbolizing his enslaved past, sitting calmly in a marketplace teaching, with chains breaking into birds for freedom, in an inspirational etched art style, 4k",
       posts: [
-        { id: "d5p1", time: "8:08", text: "Epictetus reminded us, \"There is only one way to happiness and that is to cease worrying about things which are beyond the power of our will.\" Game-changer for anxiety. I've been letting go of what I can't control, like others' opinions—more space for joy now." },
-        { id: "d5p2", time: "11:11", text: "\"Don't explain your philosophy. Embody it,\" said Epictetus. Walk the talk, basically. I've stopped preaching and started living the principles—quiet actions speak louder. Born enslaved, but his mind was free; inspires me to do the same." },
-        { id: "d5p3", time: "22:22", text: "Epictetus put it plainly: \"It's not what happens to you, but how you react to it that matters.\" Perspective shift! Used this after a setback recently—reframed it as a lesson, bounced back faster. His wisdom pulls me out of funks every time." }
+        { id: "d5p1", time: "8:08", text: "\"There is only one way to happiness and that is to cease worrying about things which are beyond the power of our will.\"\n\n— Epictetus" },
+        { id: "d5p2", time: "11:11", text: "\"Don't explain your philosophy. Embody it.\"\n\nEpictetus was born a slave. His teachings survive through his student Arrian, who recorded the Discourses." },
+        { id: "d5p3", time: "22:22", text: "The Stoic perspective on difficulty:\n\n\"It's not what happens to you, but how you react to it that matters.\"\n\n— Epictetus" }
       ]
     },
     {
@@ -72,9 +72,9 @@ const stoicCalendar = {
       philosopher: "Seneca",
       imagePrompt: "A Roman statesman writing by candlelight, with an hourglass spilling sand and scattered distractions around him, captured in a detailed Renaissance-inspired drawing, 4k",
       posts: [
-        { id: "d6p1", time: "8:08", text: "Seneca wrote, \"Sometimes even to live is an act of courage.\" Resonates on tough days— just showing up counts. I've drawn from this during low points, pushing through with grit. Roman drama in his life, but his words steady me." },
-        { id: "d6p2", time: "11:11", text: "\"True happiness is to enjoy the present, without anxious dependence upon the future,\" from Seneca. Stop future-tripping! Been practicing mindfulness more, savoring now—less worry, more contentment. His letters feel like old friends advising." },
-        { id: "d6p3", time: "22:22", text: "Seneca's take on time: \"It is not that we have a short time to live, but that we waste a lot of it.\" Guilty as charged with distractions. Cutting nonsense has freed up hours for what matters—feels like extending life without magic." }
+        { id: "d6p1", time: "8:08", text: "\"Sometimes even to live is an act of courage.\"\n\n— Seneca" },
+        { id: "d6p2", time: "11:11", text: "\"True happiness is to enjoy the present, without anxious dependence upon the future.\"\n\nSeneca served as advisor to Emperor Nero. His Letters to Lucilius remain among the most accessible introductions to Stoic thought." },
+        { id: "d6p3", time: "22:22", text: "On time and its uses:\n\n\"It is not that we have a short time to live, but that we waste a lot of it.\"\n\n— Seneca, On the Shortness of Life" }
       ]
     },
     {
@@ -82,9 +82,9 @@ const stoicCalendar = {
       philosopher: "Marcus Aurelius",
       imagePrompt: "A Roman emperor in armor, meditating on a battlefield with a scroll in hand, blending stoic calm amid chaos like soldiers and storms, in an epic historical illustration format, 4k",
       posts: [
-        { id: "d7p1", time: "8:08", text: "Marcus Aurelius noted, \"You have power over your mind—not outside events. Realize this, and you will find strength.\" Emperor amid chaos, yet calm. I've used this to handle stress—focus inward, not on the mess. Transformative stuff." },
-        { id: "d7p2", time: "11:11", text: "\"The happiness of your life depends upon the quality of your thoughts,\" wrote Marcus in Meditations. Guard your mind! Shifted my negative loops to positive ones lately—brighter days follow. His journal wasn't for us, but glad it survived." },
-        { id: "d7p3", time: "22:22", text: "Each morning, Marcus reflected: \"When you arise in the morning, think of what a precious privilege it is to be alive—to breathe, to think, to enjoy, to love.\" Gratitude starter. I try this routine now—sets a tone of appreciation, less grumbling." }
+        { id: "d7p1", time: "8:08", text: "\"You have power over your mind — not outside events. Realize this, and you will find strength.\"\n\n— Marcus Aurelius, Meditations" },
+        { id: "d7p2", time: "11:11", text: "\"The happiness of your life depends upon the quality of your thoughts.\"\n\nMarcus Aurelius never intended the Meditations for publication. These private reflections, written during military campaigns, became one of philosophy's most enduring works." },
+        { id: "d7p3", time: "22:22", text: "A morning practice from the Roman Emperor:\n\n\"When you arise in the morning, think of what a precious privilege it is to be alive — to breathe, to think, to enjoy, to love.\"" }
       ]
     }
   ]

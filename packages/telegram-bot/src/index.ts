@@ -863,7 +863,47 @@ bot.on(message('text'), (ctx) => {
   ctx.reply(`💬 Messaggio per Claude ricevuto!\n\n🔖 \`${msgId}\``, { parse_mode: 'Markdown' });
 });
 
-// Handle photos -> add to draft
+// Parse context from message (for Claude actions)
+function parseMessageContext(text: string): { action?: string; target?: string; details?: string } {
+  const lower = text.toLowerCase();
+
+  // Chapter patterns
+  const chapterMatch = lower.match(/(?:per |aggiungi a |capitolo |chapter )(\d+)/);
+  if (chapterMatch) {
+    return { action: 'add_to_chapter', target: `chapter ${chapterMatch[1]}`, details: text };
+  }
+
+  // Book patterns
+  const bookPatterns = [
+    { pattern: /aiko/i, name: 'aiko' },
+    { pattern: /milo/i, name: 'milo' },
+    { pattern: /salmo/i, name: 'salmo-23' },
+    { pattern: /piccole rime/i, name: 'piccole-rime' },
+  ];
+  for (const { pattern, name } of bookPatterns) {
+    if (pattern.test(text)) {
+      return { action: 'update_book', target: name, details: text };
+    }
+  }
+
+  // Site patterns
+  if (lower.includes('sito') || lower.includes('website') || lower.includes('onde.surf')) {
+    return { action: 'update_site', target: 'onde.surf', details: text };
+  }
+
+  // App patterns
+  const appPatterns = ['kidschefstudio', 'kidsmusicstudio', 'pizzagelatorush'];
+  for (const app of appPatterns) {
+    if (lower.includes(app.toLowerCase())) {
+      const action = lower.includes('fix') ? 'fix_app' : 'update_app';
+      return { action, target: app, details: text };
+    }
+  }
+
+  return { details: text };
+}
+
+// Handle photos -> add to draft + queue for Claude
 bot.on(message('photo'), async (ctx) => {
   const userId = ctx.from.id;
   const photo = ctx.message.photo[ctx.message.photo.length - 1]; // highest resolution
@@ -874,11 +914,35 @@ bot.on(message('photo'), async (ctx) => {
     const file = await ctx.telegram.getFile(photo.file_id);
     const fileUrl = `https://api.telegram.org/file/bot${TELEGRAM_TOKEN}/${file.file_path}`;
 
-    // Download to temp
-    const localPath = path.join(tempDir, `${userId}_${Date.now()}.jpg`);
+    // Download to media folder (persistent, not temp)
+    const mediaDir = path.join(__dirname, '../media');
+    if (!fs.existsSync(mediaDir)) fs.mkdirSync(mediaDir, { recursive: true });
+
+    const timestamp = Date.now();
+    const localPath = path.join(mediaDir, `photo_${timestamp}.jpg`);
     await downloadFile(fileUrl, localPath);
 
-    // Update draft
+    // Save to chat queue for Claude
+    const msgId = uuidv4().slice(0, 8);
+    const context = parseMessageContext(caption);
+    const chatMessage = {
+      id: msgId,
+      from: 'user',
+      type: 'photo',
+      message: caption,
+      caption: caption,
+      mediaPath: localPath,
+      mediaType: 'image',
+      timestamp: new Date().toISOString(),
+      status: 'pending',
+      context: context
+    };
+    fs.writeFileSync(
+      path.join(chatQueueDir, `${msgId}.json`),
+      JSON.stringify(chatMessage, null, 2)
+    );
+
+    // Also update draft for PR system
     const existingDraft = drafts.get(userId);
     const mediaFiles = existingDraft?.mediaFiles || [];
     const mediaTypes = existingDraft?.mediaTypes || [];
@@ -892,7 +956,18 @@ bot.on(message('photo'), async (ctx) => {
     });
 
     const draft = drafts.get(userId)!;
-    ctx.reply(`📷 Foto aggiunta! (${draft.mediaFiles.length} media)\n\n${draft.text ? `Testo: "${draft.text}"` : 'Nessun testo - manda un messaggio'}\n\n🤖 /ai → PR Agent analizza\n📤 /post frh|onde → Pubblica`);
+
+    // Response based on context (escape underscores for Telegram Markdown)
+    const escapeMarkdown = (text: string) => text.replace(/_/g, '\\_');
+    let response = `📷 Foto ricevuta! (${draft.mediaFiles.length} media)\n\n`;
+    if (context.action && context.action !== 'message') {
+      response += `🎯 Azione rilevata: ${escapeMarkdown(context.action)}\n`;
+      response += `📍 Target: ${escapeMarkdown(context.target || '')}\n\n`;
+      response += `Claude processerà automaticamente.\n`;
+    }
+    response += `\n📎 ID: \`${msgId}\``;
+
+    ctx.reply(response, { parse_mode: 'Markdown' });
 
   } catch (error: any) {
     ctx.reply(`❌ Errore: ${error.message}`);
@@ -993,8 +1068,8 @@ function scheduleDailyReport() {
 
 // === Agent Approval System ===
 
-// Send approval request with inline buttons
-async function sendApprovalRequest(task: agentQueue.AgentTask) {
+// Send agent approval request with inline buttons
+async function sendAgentApprovalRequest(task: any) {
   if (!ALLOWED_CHAT_ID) return;
 
   const message = `🔴 *${task.agentName}* bloccato
@@ -1061,15 +1136,15 @@ bot.command('agents', async (ctx) => {
   let msg = '🤖 *STATO AGENTI*\n\n';
 
   const byStatus = {
-    blocked: tasks.filter(t => t.status === 'blocked'),
-    in_progress: tasks.filter(t => t.status === 'in_progress'),
-    todo: tasks.filter(t => t.status === 'todo'),
-    done: tasks.filter(t => t.status === 'done'),
+    blocked: tasks.filter((t: any) => t.status === 'blocked'),
+    in_progress: tasks.filter((t: any) => t.status === 'in_progress'),
+    todo: tasks.filter((t: any) => t.status === 'todo'),
+    done: tasks.filter((t: any) => t.status === 'done'),
   };
 
   if (byStatus.blocked.length > 0) {
     msg += '🔴 *BLOCCATI*\n';
-    byStatus.blocked.forEach(t => {
+    byStatus.blocked.forEach((t: any) => {
       msg += `• ${t.agentName}: ${t.task}\n  _${t.blockedReason}_\n`;
     });
     msg += '\n';
@@ -1077,7 +1152,7 @@ bot.command('agents', async (ctx) => {
 
   if (byStatus.in_progress.length > 0) {
     msg += '🔵 *IN CORSO*\n';
-    byStatus.in_progress.forEach(t => {
+    byStatus.in_progress.forEach((t: any) => {
       msg += `• ${t.agentName}: ${t.task}\n`;
     });
     msg += '\n';
@@ -1085,7 +1160,7 @@ bot.command('agents', async (ctx) => {
 
   if (byStatus.todo.length > 0) {
     msg += '⚪ *DA FARE*\n';
-    byStatus.todo.forEach(t => {
+    byStatus.todo.forEach((t: any) => {
       msg += `• ${t.agentName}: ${t.task}\n`;
     });
     msg += '\n';
@@ -1093,7 +1168,7 @@ bot.command('agents', async (ctx) => {
 
   if (byStatus.done.length > 0) {
     msg += '✅ *COMPLETATI*\n';
-    byStatus.done.forEach(t => {
+    byStatus.done.forEach((t: any) => {
       msg += `• ${t.agentName}: ${t.task}\n`;
     });
   }
@@ -1176,12 +1251,12 @@ bot.command('block', async (ctx) => {
   });
 
   // This will trigger the notification
-  await sendApprovalRequest(task);
+  await sendAgentApprovalRequest(task);
 });
 
 // Register callback for when tasks get blocked
-agentQueue.onTaskBlocked(async (task) => {
-  await sendApprovalRequest(task);
+agentQueue.onTaskBlocked(async (task: any) => {
+  await sendAgentApprovalRequest(task);
 });
 
 // === Start Bot ===

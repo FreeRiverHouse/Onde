@@ -1,0 +1,14 @@
+{
+  "id": "0fc0bc7b",
+  "from": "user",
+  "type": "photo",
+  "message": "",
+  "caption": "",
+  "mediaPath": "/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/media/photo_1768756483854.jpg",
+  "mediaType": "image",
+  "timestamp": "2026-01-18T17:14:45.393Z",
+  "status": "processed",
+  "context": {
+    "details": ""
+  }
+}
