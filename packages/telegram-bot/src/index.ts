@@ -13,6 +13,7 @@ import {
 } from './analytics';
 import { prAgent, ContentAnalysis } from './pr-agent';
 import { startScheduler, stopScheduler, initializeContentQueue, runScheduledPost } from './content-scheduler';
+import { sendContentPreview, scheduleContentPreview } from './daily-content-preview';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -1124,6 +1125,16 @@ bot.command('schedule', async (ctx) => {
   ctx.reply(msg, { parse_mode: 'Markdown' });
 });
 
+// Command: /preview - Send all scheduled posts as elegant slides
+bot.command('preview', async (ctx) => {
+  ctx.reply('📋 Invio preview contenuti...');
+  try {
+    await sendContentPreview();
+  } catch (error: any) {
+    ctx.reply(`❌ Errore: ${error.message}`);
+  }
+});
+
 // Command: /autopost [onde|frh] - Trigger manual scheduled post
 bot.command('autopost', async (ctx) => {
   const args = ctx.message.text.replace(/^\/autopost\s*/, '').trim();
@@ -1189,6 +1200,9 @@ bot.launch().then(() => {
   // Start content scheduler (3x daily posting)
   initializeContentQueue();
   startScheduler();
+
+  // Schedule content preview at 16:20 daily
+  scheduleContentPreview();
 });
 
 // Graceful shutdown
