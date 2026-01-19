@@ -1,0 +1,35 @@
+{
+  "title": "Il Saggio Imperatore - Le Avventure di Marco Aurelio",
+  "title_en": "The Wise Emperor - The Adventures of Marcus Aurelius",
+  "author": "Gianni Parola",
+  "illustrator": "Pina Pennello",
+  "collana": "Onde Classics",
+  "age_target": "5-8 anni",
+  "pages": 24,
+  "chapters": 10,
+  "format": ["pdf", "epub"],
+  "languages": {
+    "primary": "IT",
+    "planned": ["EN", "ES", "DE", "FR"]
+  },
+  "created": "2026-01-19",
+  "status": "testo_completo",
+  "workflow": {
+    "template": "libro-illustrato",
+    "quality_checks": ["anti_slop", "anatomy_check", "style_consistency", "character_consistency"],
+    "character_reference": "marco-aurelio-reference.png"
+  },
+  "description": {
+    "it": "La saggezza di Marco Aurelio spiegata ai bambini attraverso 10 piccole storie. Impara a essere gentile, paziente e onesto come il più saggio degli imperatori romani.",
+    "en": "The wisdom of Marcus Aurelius explained to children through 10 short stories. Learn to be kind, patient and honest like the wisest of Roman emperors."
+  },
+  "keywords": ["marco aurelio", "marcus aurelius", "stoicismo", "filosofia per bambini", "roma antica", "meditazioni", "valori", "gentilezza"],
+  "amazon": {
+    "categories": [
+      "Children's Books > History > Ancient Civilizations",
+      "Children's Books > Growing Up & Facts of Life > Values"
+    ],
+    "price_eur": 4.99,
+    "price_usd": 5.99
+  }
+}
