@@ -85,3 +85,4 @@ python tools/tech-support/deploy-onde-surf.py <book-id> <version>
 - **onde.la è SACRO**: Mai down, sempre funzionante
 - **onde.surf è veloce**: Meno check, iterazioni rapide
 - **TEST sono LAN privati**: 8888 e 7777 non esposti online
+# trigger vercel rebuild Mon Jan 19 12:00:36 PST 2026
