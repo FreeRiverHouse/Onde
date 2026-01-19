@@ -21,12 +21,93 @@ const VOICE_DIR = '/tmp/telegram-voice';
 const WHISPER_MODEL = '/Users/mattiapetrucciani/.whisper/ggml-base.bin';
 const MEMORY_DAYS = 7;
 
+// Lock file and heartbeat for reliability
+const LOCK_FILE = '/tmp/onde-bot.lock';
+const HEARTBEAT_FILE = '/tmp/onde-bot.heartbeat';
+const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+
 let lastUpdateId = 0;
+let heartbeatTimer = null;
+let isProcessing = false;
 
 // Ensure voice directory exists
 if (!fs.existsSync(VOICE_DIR)) {
   fs.mkdirSync(VOICE_DIR, { recursive: true });
 }
+
+// ============================================================================
+// LOCK FILE & HEARTBEAT - Prevents multiple instances and detects stuck state
+// ============================================================================
+
+function checkLockFile() {
+  try {
+    if (fs.existsSync(LOCK_FILE)) {
+      const lockData = JSON.parse(fs.readFileSync(LOCK_FILE, 'utf8'));
+      const pid = lockData.pid;
+
+      // Check if process is still running
+      try {
+        process.kill(pid, 0); // Signal 0 = check if process exists
+        console.error(`❌ Bot già in esecuzione (PID ${pid}). Esco.`);
+        process.exit(1);
+      } catch (e) {
+        // Process not running, we can take over
+        console.log(`🔓 Lock file stale (PID ${pid} non esiste). Prendo il controllo.`);
+      }
+    }
+  } catch (e) {
+    // Lock file corrupted or doesn't exist, proceed
+  }
+}
+
+function createLockFile() {
+  const lockData = {
+    pid: process.pid,
+    startedAt: new Date().toISOString()
+  };
+  fs.writeFileSync(LOCK_FILE, JSON.stringify(lockData));
+  console.log(`🔒 Lock file creato (PID ${process.pid})`);
+}
+
+function removeLockFile() {
+  try {
+    if (fs.existsSync(LOCK_FILE)) {
+      fs.unlinkSync(LOCK_FILE);
+      console.log('🔓 Lock file rimosso');
+    }
+  } catch (e) {}
+}
+
+function updateHeartbeat() {
+  const heartbeatData = {
+    pid: process.pid,
+    timestamp: new Date().toISOString(),
+    isProcessing: isProcessing
+  };
+  fs.writeFileSync(HEARTBEAT_FILE, JSON.stringify(heartbeatData));
+}
+
+function startHeartbeat() {
+  updateHeartbeat();
+  heartbeatTimer = setInterval(updateHeartbeat, HEARTBEAT_INTERVAL);
+  console.log(`💓 Heartbeat attivo (ogni ${HEARTBEAT_INTERVAL/1000}s)`);
+}
+
+function stopHeartbeat() {
+  if (heartbeatTimer) {
+    clearInterval(heartbeatTimer);
+    heartbeatTimer = null;
+  }
+  try {
+    if (fs.existsSync(HEARTBEAT_FILE)) {
+      fs.unlinkSync(HEARTBEAT_FILE);
+    }
+  } catch (e) {}
+}
+
+// Check lock on startup
+checkLockFile();
+createLockFile();
 
 // ============================================================================
 // CHAT HISTORY MANAGEMENT
@@ -248,6 +329,9 @@ ${history}`;
 // ============================================================================
 
 async function processMessage(text, user, isVoice = false) {
+  isProcessing = true;
+  updateHeartbeat();
+
   const prefix = isVoice ? '🎤 ' : '';
   console.log(`📨 ${prefix}${user}: ${text}`);
 
@@ -324,6 +408,9 @@ Ultimo: ${messages.length > 0 ? new Date(messages[messages.length-1].timestamp).
     addToHistory('assistant', errorMsg);
     await sendTelegram(errorMsg);
     console.error('Error:', e);
+  } finally {
+    isProcessing = false;
+    updateHeartbeat();
   }
 }
 
@@ -338,6 +425,10 @@ async function poll() {
   console.log(`🎤 Voce: Whisper italiano`);
   console.log(`🔒 Utente autorizzato: ${USER_ID}`);
   console.log('🔧 Claude CLI con tools ABILITATI');
+
+  // Start heartbeat
+  startHeartbeat();
+
   console.log('⏳ In attesa di messaggi...\n');
 
   const existingHistory = loadHistory();
@@ -405,14 +496,37 @@ async function poll() {
 }
 
 // Graceful shutdown
+function cleanup() {
+  console.log('🛑 Pulizia in corso...');
+  stopHeartbeat();
+  removeLockFile();
+}
+
 process.on('SIGTERM', () => {
-  console.log('Bot shutting down...');
+  console.log('Bot shutting down (SIGTERM)...');
+  cleanup();
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-  console.log('Bot interrupted...');
+  console.log('Bot interrupted (SIGINT)...');
+  cleanup();
   process.exit(0);
+});
+
+process.on('exit', () => {
+  cleanup();
+});
+
+// Handle uncaught errors
+process.on('uncaughtException', (err) => {
+  console.error('❌ Uncaught Exception:', err);
+  cleanup();
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection:', reason);
 });
 
 poll();
