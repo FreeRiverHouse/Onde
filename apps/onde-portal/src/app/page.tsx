@@ -243,7 +243,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Beautiful Books</span>
+            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">AI Publishing</span>
+            <br />
+            <span className="text-onde-coral drop-shadow-[0_2px_20px_rgba(255,127,127,0.3)]">Human Heart</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -253,9 +255,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Illustrated editions of timeless classics, crafted with care.
-            <br />
-            Download and enjoy.
+            Stories that matter, powered by technology, crafted with soul.
           </motion.p>
 
           {/* CTA Buttons */}
