@@ -1,0 +1,48 @@
+# Onde Continuous Claude - Handoff
+# Generated: 2026-01-19T10:55:00.000Z
+# Trigger: manual - AIKO→MILO rename fix
+
+session_meta:
+  id: "session-rename-milo"
+  timestamp: "2026-01-19T10:55:00.000Z"
+  trigger: "manual"
+
+lessons_learned:
+  - lesson: "Il robot si chiama MILO, NON AIKO"
+    context: "Il nome è stato cambiato da AIKO a MILO - sempre usare MILO"
+    fixed_files:
+      - "/CascadeProjects/CLAUDE.md"
+      - "/CascadeProjects/Onde/CLAUDE.md"
+    remaining_legacy_files: 211
+    note: "I file legacy verranno aggiornati quando si lavora su di essi"
+
+character_names:
+  robot: "MILO"
+  girl_7yo: "Sofia"
+  boy_5yo: "Luca"
+  grandmother: "Nonna"
+
+current_priorities:
+  - "Dashboard social su onde.surf per approvazione post"
+  - "Contenuti social 3x/giorno Onde + FRH, 1x/giorno Magmatic"
+  - "Post devono essere CALDI, DISCORSIVI, basati sui NOSTRI libri"
+  - "Skin EMILIO per Minecraft"
+
+social_strategy:
+  onde_frh:
+    frequency: "3/giorno"
+    content: "Quote dai nostri libri (MILO, Salmo 23), behind the scenes editoria"
+    tone: "Caldo, letterario, parlano i testi"
+  freeriverhouse:
+    frequency: "3/giorno"
+    content: "Building in public, codice, sviluppo software"
+    tone: "Genuino, tecnico ma accessibile"
+  magmatic:
+    frequency: "1/giorno"
+    content: "Poesia, arte, riflessioni"
+    tone: "Poetico, riflessivo, personale"
+
+notes: |
+  IMPORTANTE: Mai più usare "AIKO" - il robot si chiama "MILO".
+  Questo disallineamento causava confusione nei contenuti.
+  Sempre verificare i nomi dei personaggi prima di generare contenuti.

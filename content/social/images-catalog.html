@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Onde Social Images Catalog</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: #faf9f6;
+            color: #2c2c2c;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #c9a227;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        .header p {
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            font-size: 18px;
+            color: #c9a227;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .image-card .caption {
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            background: #f8f8f8;
+        }
+        .single-image {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #888;
+            font-size: 11px;
+        }
+        .account-tag {
+            display: inline-block;
+            background: #c9a227;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 ONDE SOCIAL IMAGES</h1>
+        <p>Catalogo Immagini per Social Media • Gennaio 2026</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🏛️ Stoic Philosophers - Quote Cards</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="marcus-aurelius-quote.jpg" alt="Marcus Aurelius">
+                <div class="caption">
+                    <strong>Marcus Aurelius</strong><br>
+                    Roman emperor writing by candlelight
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="seneca-quote.jpg" alt="Seneca">
+                <div class="caption">
+                    <strong>Seneca</strong><br>
+                    Writing by oil lamp, night scene
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="epictetus-quote.jpg" alt="Epictetus">
+                <div class="caption">
+                    <strong>Epictetus</strong><br>
+                    Broken chains becoming wings
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="zeno-quote.jpg" alt="Zeno of Citium">
+                <div class="caption">
+                    <strong>Zeno of Citium</strong><br>
+                    Founder of Stoicism
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🏛️ More Stoic Philosophers</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="cleanthes-quote.jpg" alt="Cleanthes">
+                <div class="caption">
+                    <strong>Cleanthes</strong><br>
+                    Sofia, Luca & AIKO - Future scene
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="chrysippus-quote.jpg" alt="Chrysippus">
+                <div class="caption">
+                    <strong>Chrysippus</strong><br>
+                    Cute robot with heart
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="musonius-rufus-quote.jpg" alt="Musonius Rufus">
+                <div class="caption">
+                    <strong>Musonius Rufus</strong><br>
+                    Robot with globe & connections
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">📖 Behind The Scenes - Publishing House</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="publishing-house.jpg" alt="Publishing House">
+                <div class="caption">
+                    <strong>Publishing House</strong><br>
+                    Cozy Italian office with books
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="artist-studio.jpg" alt="Artist Studio">
+                <div class="caption">
+                    <strong>Artist Studio</strong><br>
+                    Watercolor illustrations in progress
+                    <br><span class="account-tag">@Onde_FRH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">💻 Tech / Building in Public</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="code-coffee.jpg" alt="Code & Coffee">
+                <div class="caption">
+                    <strong>Code & Coffee</strong><br>
+                    Developer workspace, morning light
+                    <br><span class="account-tag">@FreeRiverHouse</span>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="robot-learning.jpg" alt="Robot Learning">
+                <div class="caption">
+                    <strong>Robot Learning</strong><br>
+                    Friendly AI concept, 4 poses
+                    <br><span class="account-tag">@FreeRiverHouse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Onde Publishing House • AI-Powered Content</p>
+        <p>Generated: January 19, 2026</p>
+    </div>
+</body>
+</html>

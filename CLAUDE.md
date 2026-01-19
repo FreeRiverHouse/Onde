@@ -5,7 +5,43 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
-## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-18)
+## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-19)
+
+### NANO BANANA VIA CHROME - Genera immagini libro MILO
+
+**STATO:** Master characters generati, ora serve generare MILO + scene
+
+**MASTER GIÀ PRONTI** (in `/books/milo-internet/images-nanob/masters/`):
+- ✅ master-sofia.png - 7 anni, fiocco rosa, vestito verde con uccellino
+- ✅ master-luca.png - 5 anni, biondo, salopette jeans
+- ✅ master-nonna.png - Nonna italiana, grembiule a fiori
+
+**DA FARE:**
+1. Generare MILO nello stesso stile vivace su gemini.google.com
+2. Usare "Keep this character exactly the same" per le 10 scene
+3. Poi rifare anche le immagini del libro MILO AI con lo stesso stile
+
+**WORKFLOW GEMINI:**
+1. Vai su gemini.google.com
+2. Upload master-sofia.png come riferimento stile
+3. Prompt: "Create a small friendly robot named MILO in the same art style as this image. Silver and light blue color, round base with NO legs, expressive LED eyes shaped like teardrops, cute proportions. Soft watercolor children's book illustration, 4k"
+4. Poi per ogni scena: "Keep this character exactly the same. Now show [scena]"
+
+**LE 10 SCENE DA GENERARE** (dal file `tools/nano-banana-book-generator.py`):
+1. Sofia sul divano con tablet, MILO accanto, Luca gioca sul tappeto
+2. MILO indica mappa del mondo con linee luminose, bambini guardano affascinati
+3. Messaggio "CIAO NONNA" si trasforma in 0 e 1 colorati
+4. Pacchetti digitali con ali come letterine, robot postino
+5. Città futuristica con router come palazzi, semafori digitali
+6. Vista sottomarina con cavo sul fondale, pesci colorati, balena curiosa
+7. Paesaggio italiano con colline, Nonna col telefono, tramonto dorato
+8. Cronometro gigante "0.2 secondi", MILO e bambini festeggiano
+9. Sofia videochiama Nonna, tramonto americano e alba italiana
+10. Sofia, Luca e MILO sul divano, MILO proietta ologrammi
+
+---
+
+## 🎯 OLD TASK (2026-01-18)
 
 **QUANDO RIAPRI CON --chrome:**
 
@@ -135,7 +171,7 @@ Creare un mondo coerente che vive su:
 - 🎮 **Videogiochi** (app educative)
 - 🎙️ **Podcast** (personaggi che parlano, animati)
 - 📺 **YouTube** (video con personaggi animati)
-- 📱 **App** (AIKO Interactive, KidsChefStudio, etc.)
+- 📱 **App** (MILO Interactive, KidsChefStudio, etc.)
 
 **TUTTO con lo stesso stile visivo unificato.**
 
@@ -145,7 +181,7 @@ Creare un mondo coerente che vive su:
 Questo è intenzionale - mostra immediatamente che siamo un editore AI:
 - Gianni Parola (scrittore) → illustrazione stile Onde
 - Pina Pennello (illustratrice) → illustrazione stile Onde
-- Sofia, Luca, AIKO → illustrazione stile Onde
+- Sofia, Luca, MILO → illustrazione stile Onde
 
 Un paradosso visivo che diventa il nostro marchio di fabbrica.
 
@@ -179,12 +215,11 @@ Lo stile DEVE funzionare per:
 - Capelli: Biondi, disordinati/messy
 - Personalità: Giocoso, un po' timido, affettuoso
 
-**AIKO** - Il Robot AI Amico
-- Forma: Bianco-perla, rotondo, Baymax-like
-- Dettagli: Bordi luminescenti blu
-- Cuore: Luce dorata pulsante nel petto
-- Occhi: LED espressivi, comunicano emozioni
-- Dimensione: Può stare in braccio a un bambino
+**MILO** - Il Robot AI Amico
+- Forma: Argento e azzurro, base rotonda SENZA gambe
+- Occhi: LED espressivi a forma di lacrima
+- Proporzioni: Carino, può stare in braccio a un bambino
+- Stile: Acquarello morbido per libri bambini
 
 ### Personaggi Redazione (Editorial Characters)
 
@@ -225,7 +260,7 @@ Prima di generare QUALSIASI illustrazione, dobbiamo:
 
 ### Eccezioni Possibili
 - **Poesia italiana**: può avere stile diverso (es. Luzzati folk art)
-- **Libri bambini (AIKO, Salmo)**: STILE UNITARIO OBBLIGATORIO
+- **Libri bambini (MILO, Salmo)**: STILE UNITARIO OBBLIGATORIO
 
 ### Output Atteso
 - Prompt templates salvati come skill
@@ -271,7 +306,7 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 
 ### Priorità App Q1 2026
 1. KidsChefStudio → React Native
-2. AIKO Interactive
+2. MILO Interactive
 3. Piccole Rime app
 4. Salmo 23 Kids
 5. Mindful Kids
@@ -385,7 +420,7 @@ Documentato in: `/content/processes/book-production.md`
 | Titolo | Collana | Data | Status |
 |--------|---------|------|--------|
 | Il Salmo 23 per Bambini | Spiritualita | 2026-01-05 | Bozza V2 pronta |
-| AI Spiegata ai Bambini (AIKO) | Tech | 2026-01-06 | In produzione |
+| AI Spiegata ai Bambini (MILO) | Tech | 2026-01-06 | In produzione |
 
 ### PROSSIMO TASK - Instant Book
 **Titolo:** "How to Vibe Code Your First Apps in One Day"
@@ -409,22 +444,22 @@ Documentato in: `/content/processes/book-production.md`
 9. Lewis Carroll (1832-1898) - Jabberwocky, nonsense
 10. Eugene Field (1850-1895) - Ninne nanne americane
 
-### AIKO - Progresso Immagini (8 capitoli + copertina)
-**Testo completo:** `~/Downloads/aiko-final.txt`
+### MILO - Progresso Immagini (8 capitoli + copertina)
+**Testo completo:** `~/Downloads/milo-final.txt`
 
 **Completate:**
 - ✅ Copertina (generata 2026-01-06)
 - ✅ chapter2-brain-circuits.jpg (cervello vs circuiti)
 - ✅ chapter3-learning-to-see.jpg (foto gatto Whiskers)
 - ✅ chapter4-learning-to-talk.jpg (testi/libri)
-- ✅ chapter5-what-aiko-can-do.jpg (AIKO aiuta)
-- aiko-character-sheet.jpg (reference)
+- ✅ chapter5-what-milo-can-do.jpg (MILO aiuta)
+- milo-character-sheet.jpg (reference)
 
 **Da generare:**
-- ⏳ Cap 1: Sofia apre scatola, scopre AIKO, luce mattutina
-- ⏳ Cap 6: Sofia mostra disegno drago viola + gelato, AIKO confuso
-- ⏳ Cap 7: AIKO con 4 regole sicurezza (lucchetto, checkmark, libri, cuore)
-- ⏳ Cap 8: Sofia, Luca, AIKO nel futuro, tramonto dorato
+- ⏳ Cap 1: Sofia apre scatola, scopre MILO, luce mattutina
+- ⏳ Cap 6: Sofia mostra disegno drago viola + gelato, MILO confuso
+- ⏳ Cap 7: MILO con 4 regole sicurezza (lucchetto, checkmark, libri, cuore)
+- ⏳ Cap 8: Sofia, Luca, MILO nel futuro, tramonto dorato
 
 ### Path Libri
 `/Users/mattiapetrucciani/CascadeProjects/Onde/books/[nome-libro]/`

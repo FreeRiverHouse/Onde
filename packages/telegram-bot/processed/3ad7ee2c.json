@@ -1,0 +1,16 @@
+{
+  "id": "3ad7ee2c",
+  "from": "user",
+  "type": "photo",
+  "message": "Chapter 1",
+  "caption": "Chapter 1",
+  "mediaPath": "/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/media/photo_1768768802800.jpg",
+  "mediaType": "image",
+  "timestamp": "2026-01-18T20:40:04.620Z",
+  "status": "processed",
+  "context": {
+    "action": "add_to_chapter",
+    "target": "chapter 1",
+    "details": "Chapter 1"
+  }
+}

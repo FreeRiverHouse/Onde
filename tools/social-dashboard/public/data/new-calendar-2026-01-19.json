@@ -1,0 +1,295 @@
+{
+  "version": "3.0",
+  "created": "2026-01-19",
+  "description": "Calendario social con tono CALDO e DISCORSIVO - come Gianni Parola scriverebbe",
+  "note": "Questi post sono piu lunghi, piu umani, come parlare con un amico. No corporate speak.",
+  "schedule": {
+    "onde": "3x/day (8:08, 11:11, 22:22)",
+    "frh": "3x/day (9:09, 12:12, 21:21)",
+    "magmatic": "1x/day (17:17)"
+  },
+
+  "onde": [
+    {
+      "id": "onde-01",
+      "text": "Sai quella sensazione quando leggi qualcosa a tuo figlio e vedi che si ferma a pensare?\n\nEcco, per quella sensazione facciamo libri.\n\nNon per vendere. Per creare quei momenti.\n\nSe poi vendono, bene. Ma il momento viene prima.",
+      "type": "reflection",
+      "book": null
+    },
+    {
+      "id": "onde-02",
+      "text": "Nel nostro libro MILO, c'e un passaggio che mi commuove ogni volta.\n\nIl robot dice a Sofia: \"Io sono molto intelligente in alcuni modi. Ma non sono vivo. Ed essere vivi - questa e una cosa molto speciale che avete voi.\"\n\nUn robot che insegna ai bambini il valore di essere umani. Forse e il modo piu gentile per parlare di AI.",
+      "type": "quote",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-03",
+      "text": "Stamattina in redazione abbiamo riletto il Salmo 23 per la decima volta.\n\nNon per correggere errori. Per sentire il ritmo. Un libro per bambini deve suonare come una ninnananna - se inciampi su una parola, hai sbagliato qualcosa.\n\nLa musicalita non e un extra. E il fondamento.",
+      "type": "behind_scenes",
+      "book": "Salmo 23"
+    },
+    {
+      "id": "onde-04",
+      "text": "\"I tuoi pensieri sono come piccoli semi,\" disse la mamma a Leo.\n\"Se pensi cose belle, cresceranno fiori colorati.\"\n\nDal nostro libro Il Potere dei Desideri.\n\nA volte le verita piu profonde si possono dire solo ai bambini. Perche loro ancora ci credono.",
+      "type": "quote",
+      "book": "Potere dei Desideri"
+    },
+    {
+      "id": "onde-05",
+      "text": "La cosa piu difficile nello scrivere per bambini? Non e semplificare.\n\nE togliere tutto cio che non serve, senza perdere cio che conta.\n\nOgni parola deve meritare il suo posto. Se ne puoi togliere una senza perdere nulla, quella parola non doveva esserci.",
+      "type": "reflection",
+      "book": null
+    },
+    {
+      "id": "onde-06",
+      "text": "Nel libro MILO e il Viaggio dei Messaggi, spieghiamo Internet ai bambini.\n\n\"Anche adesso, mentre voi dormite, miliardi di messaggi stanno volando intorno al mondo. Auguri di compleanno, foto di gattini, videochiamate con le nonne...\"\n\nInternet non e paura. E meraviglia.",
+      "type": "quote",
+      "book": "MILO Internet"
+    },
+    {
+      "id": "onde-07",
+      "text": "Oggi abbiamo scelto i colori per MILO: arancione e blu.\n\nPerche arancione? E caldo, amichevole, dice \"non aver paura di me\".\nPerche blu? E tecnologico, ma calmo, dice \"sono qui per aiutarti\".\n\nOgni scelta visiva in un libro per bambini racconta una storia silenziosa.",
+      "type": "behind_scenes",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-08",
+      "text": "\"Non temere,\" disse piano il pastore nella valle buia.\n\"Io sono qui, proprio accanto a te.\nIl buio non ti puo far male quando camminiamo insieme.\"\n\nDal Salmo 23 per Bambini.\n\nQuante volte nella vita abbiamo avuto bisogno di sentire esattamente queste parole?",
+      "type": "quote",
+      "book": "Salmo 23"
+    },
+    {
+      "id": "onde-09",
+      "text": "Una confessione: a volte leggo i nostri libri ad alta voce, da solo, in ufficio.\n\nNon per controllare errori. Per sentire se funzionano.\n\nUn libro per bambini che non suona bene letto ad alta voce non e ancora finito.",
+      "type": "behind_scenes",
+      "book": null
+    },
+    {
+      "id": "onde-10",
+      "text": "Sofia chiede a MILO: \"Come fai a sapere che quello e un gatto?\"\n\n\"Mi hanno mostrato migliaia di foto di gatti,\" risponde MILO. \"Tu ne hai vista una sola. Il tuo cervello impara piu velocemente del mio.\"\n\nA volte i bambini sottovalutano quanto sono straordinari. MILO glielo ricorda.",
+      "type": "quote",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-11",
+      "text": "Perche facciamo libri sull'AI per bambini?\n\nPerche il futuro appartiene a loro. E meritano di capirlo, non di temerlo.\n\nMILO non e qui per spaventare. E qui per spiegare, con gentilezza. Come farebbe un amico.",
+      "type": "reflection",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-12",
+      "text": "\"Quando dici grazie per le cose belle che hai gia,\" spiega la mamma a Leo, \"il cuore si apre. E quando e aperto, possono entrare altre cose belle.\"\n\nDal Potere dei Desideri.\n\nGratitudine come chiave. Non come obbligo. Come porta.",
+      "type": "quote",
+      "book": "Potere dei Desideri"
+    },
+    {
+      "id": "onde-13",
+      "text": "Oggi in redazione: tradurre una filastrocca dall'italiano all'inglese.\n\nIl problema: alcune parole italiane non esistono in inglese.\nLa soluzione: non tradurre le parole. Tradurre il sentimento.\n\nUna traduzione perfetta non e fedele alle parole. E fedele all'anima.",
+      "type": "behind_scenes",
+      "book": null
+    },
+    {
+      "id": "onde-14",
+      "text": "\"Tu sogni. Io calcolo.\nTu senti. Io elaboro.\nTu decidi. Io aiuto.\nInsieme, possiamo fare cose incredibili.\"\n\nCosi MILO spiega ai bambini il futuro con l'AI.\n\nNon umani contro macchine. Umani con macchine. Una squadra.",
+      "type": "quote",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-15",
+      "text": "Stella Stellina, la notte s'avvicina...\n\nLina Schwarz scrisse questa poesia piu di cento anni fa. I bambini la cantano ancora oggi.\n\nLe parole buone non invecchiano. Attraversano il tempo come se nulla fosse.",
+      "type": "reflection",
+      "book": "Piccole Rime"
+    },
+    {
+      "id": "onde-16",
+      "text": "\"Questa e la tua casa,\" disse il pastore alla pecorella.\n\"E io saro sempre qui.\nOggi, domani e per sempre.\"\n\nLa fine del Salmo 23 per Bambini.\n\nAlcuni libri non finiscono. Restano.",
+      "type": "quote",
+      "book": "Salmo 23"
+    },
+    {
+      "id": "onde-17",
+      "text": "Abbiamo scartato 14 copertine prima di trovare quella giusta per MILO.\n\nNon perche fossero brutte. Perche non erano GIUSTE.\n\nUna copertina ha 3 secondi per fare una promessa. Deve essere la promessa giusta.",
+      "type": "behind_scenes",
+      "book": "MILO"
+    },
+    {
+      "id": "onde-18",
+      "text": "I libri per bambini sono anche per gli adulti.\n\nAnzi, a volte sono soprattutto per gli adulti.\n\nI bambini sanno gia molte cose che noi abbiamo dimenticato. I libri ce le ricordano.",
+      "type": "reflection",
+      "book": null
+    },
+    {
+      "id": "onde-19",
+      "text": "\"Il Router e come un vigile molto intelligente,\" spiega MILO ai bambini.\n\"Guarda ogni messaggio e decide: Tu vai a destra! Tu vai a sinistra!\"\n\nConcetti complessi, parole semplici. Tecnologia che diventa avventura.",
+      "type": "quote",
+      "book": "MILO Internet"
+    },
+    {
+      "id": "onde-20",
+      "text": "Leggere ai bambini prima di dormire non e un'abitudine.\n\nE un rituale.\n\nE i rituali costruiscono persone. Le storie che sentiamo da piccoli diventano le fondamenta di chi siamo.",
+      "type": "reflection",
+      "book": null
+    },
+    {
+      "id": "onde-21",
+      "text": "\"Per ogni bambino che ha mai chiesto: Ma COME funziona?\n\nQuesto libro e per te.\nPerche la curiosita e dove tutto comincia.\"\n\nDedicatoria del nostro libro MILO.\n\nA volte la dedica dice tutto.",
+      "type": "quote",
+      "book": "MILO"
+    }
+  ],
+
+  "freeriverhouse": [
+    {
+      "id": "frh-01",
+      "text": "Today I spent 4 hours debugging something that turned out to be a typo.\n\nThe lesson isn't \"be more careful.\" The lesson is: complex problems often have embarrassingly simple solutions.\n\nOr maybe I just needed coffee. Both are valid.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-02",
+      "text": "We're building something weird at Onde.\n\nA children's book publisher where the authors and illustrators are... illustrations themselves. AI-generated characters writing AI-assisted books about AI.\n\nIs it meta? Absolutely. Is it the future? We think so. Is it confusing? A little. Are we having fun? Definitely.",
+      "type": "building"
+    },
+    {
+      "id": "frh-03",
+      "text": "The automation finally works.\n\nThe bot scans commits, picks what's interesting, writes a post, schedules it. While I sleep.\n\n3 weeks of work for something that takes 10 seconds.\n\nWorth it? Ask me in 6 months when I've saved 300 hours.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-04",
+      "text": "Lesson learned building children's apps:\n\nKids don't read instructions. They tap everything.\nKids don't wait for loading screens. They tap again.\nKids don't care about your clever UX. They want it to work NOW.\n\nDesigning for kids is designing for honesty. They show you exactly what's wrong.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-05",
+      "text": "Our publishing stack:\n\n- Claude for writing assistance\n- Grok for illustrations\n- TypeScript for automation\n- Telegram for approvals on the go\n\nAI-native publishing. Not replacing humans - amplifying them. The human still decides. The machines just make it faster.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-06",
+      "text": "Today I deleted more code than I wrote.\n\nThat's not failure. That's progress.\n\nThe best code is often no code at all. Simplicity is hard. Complexity is easy. Anyone can add. Removing takes courage.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-07",
+      "text": "Building in public means sharing the ugly commits too.\n\nNot every day is a breakthrough. Some days are just \"fixed typo\" and \"moved file\" and \"why doesn't this work.\"\n\nThat's the real work. The breakthroughs are just the highlights reel.",
+      "type": "reflection"
+    },
+    {
+      "id": "frh-08",
+      "text": "We rejected 12 book covers before finding the right one.\n\nNot because they were bad - some were beautiful. But beautiful isn't the same as RIGHT.\n\nA cover has 3 seconds to make a promise. You can't afford to make the wrong promise.",
+      "type": "building"
+    },
+    {
+      "id": "frh-09",
+      "text": "The 90/10 rule of development:\n\n90% of the time you're trying to understand why something doesn't work.\n10% of the time you're actually writing code.\n\nToday was a 95/5 day. Tomorrow will be better. Probably.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-10",
+      "text": "We wrote a children's book about AI. Using AI. About a robot named MILO. Generated by AI.\n\nMeta? Yes.\nConfusing? A little.\nHonest? Completely.\n\nThe future of publishing is transparent about its tools. We use AI. We're not hiding it. We're teaching kids about it.",
+      "type": "building"
+    },
+    {
+      "id": "frh-11",
+      "text": "Mistake we made early: generating images before defining a style.\n\nNow everything looks inconsistent. Chapter 1 looks different from Chapter 8.\n\nLesson: Style guide FIRST. Generation SECOND.\n\nWe're redoing everything. It's painful. It's worth it.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-12",
+      "text": "The Telegram bot handles everything now:\n\n/onde [text] -> posts to @Onde_FRH\n/frh [text] -> posts to @FreeRiverHouse\n/report -> analytics for the day\n\nMobile-first content management. I can approve a post from the subway.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-13",
+      "text": "Best decision we made: testing our illustrations with actual children.\n\nThey noticed things we missed completely.\nThey ignored things we thought were crucial.\n\nThe real audience is the only focus group that matters. Everyone else is guessing.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-14",
+      "text": "Current automation running:\n\n- Content scheduling: 3x/day per account\n- Cross-engagement between our accounts\n- Telegram approval workflow\n- Daily analytics report at 5 PM\n\nAll running while I do actual work. Or sleep. Mostly sleep.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-15",
+      "text": "Unity 6 is actually fast now.\n\nThe editor doesn't freeze when I hit Play. Builds are quicker. The console doesn't lag behind reality.\n\nSmall wins. But small wins compound. That's how you ship things.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-16",
+      "text": "The hardest part of AI-generated content isn't generation.\n\nIt's curation.\n\nAnyone can generate 100 images in 10 minutes. Knowing which ONE is right for your book? That takes taste. That takes time. That's the human part.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-17",
+      "text": "Why TypeScript for publishing automation?\n\n- Type safety catches bugs before they happen\n- Node.js ecosystem has everything\n- Easy to deploy anywhere\n- Claude writes it well (this matters more than you think)\n\nThe best language is the one that gets out of your way.",
+      "type": "tech"
+    },
+    {
+      "id": "frh-18",
+      "text": "Six different projects running in parallel. One developer.\n\nThe secret? Shared patterns. When something works, copy it everywhere.\n\nDon't reinvent. Reuse. Your future self will thank you.",
+      "type": "lesson"
+    },
+    {
+      "id": "frh-19",
+      "text": "MILO is our robot character who explains tech to kids.\n\nFirst book: AI Explained to Children\nSecond book: How the Internet Works\nNext: How Robots Think? How Apps Are Made?\n\nBuilding a tech education series. One gentle story at a time.",
+      "type": "building"
+    },
+    {
+      "id": "frh-20",
+      "text": "Refactoring code written at 2 AM.\n\nAt 2 AM it seemed brilliant. Elegant. Perfect.\n\nIn daylight it looks like someone threw spaghetti at a keyboard.\n\nLate night coding: great for inspiration. Terrible for production.",
+      "type": "reflection"
+    },
+    {
+      "id": "frh-21",
+      "text": "LaunchAgents on macOS: cron jobs but fancier.\n\nThe factory runs at 2 AM. Tests at 3 AM. PR posts at 9 PM.\n\nRobots on schedule while humans sleep.\n\nThe future isn't AI replacing us. It's AI doing the boring parts so we can do the interesting ones.",
+      "type": "tech"
+    }
+  ],
+
+  "magmatic": [
+    {
+      "id": "mag-01",
+      "text": "Some mornings the light through the window says more than I could write in a year.\n\nI just try to notice it.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-02",
+      "text": "Building in silence.\nSharing in whispers.\nLetting the work speak.\n\nMost things that matter happen quietly.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-03",
+      "text": "The best code I've ever written felt like poetry.\nThe best poetry I've ever read felt like truth.\nThe best truth I've ever found felt like silence.\n\nMaybe they're all the same thing.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-04",
+      "text": "I used to think productivity meant doing more.\n\nNow I think it means doing less, but meaning it.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-05",
+      "text": "There's a moment just before sunset when everything turns gold.\n\nYou can't photograph it. You can't describe it.\nYou can only be there.\n\nSome things only exist in the present tense.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-06",
+      "text": "The river doesn't try to be anything.\nIt just flows.\n\nMaybe that's the whole lesson.",
+      "type": "thought"
+    },
+    {
+      "id": "mag-07",
+      "text": "Lately I've been reading more and writing less.\n\nNot because I have nothing to say.\nBecause I'm not sure it's time to say it yet.\n\nSome words need to ripen.",
+      "type": "thought"
+    }
+  ],
+
+  "notes": {
+    "tono": "Caldo, umano, discorsivo. Come parlare con un amico intelligente.",
+    "lunghezza": "3-5 frasi minimo. Basta post da una riga.",
+    "onde_focus": "Quote dai libri CON contesto e riflessione personale. Dietro le quinte della redazione.",
+    "frh_focus": "Building in public con sostanza. Lezioni concrete. Tech con personalita.",
+    "magmatic_focus": "Poetico, riflessivo, zero vendita. Pensieri genuini, non contenuti.",
+    "regole": "ZERO hashtag. Tagga @grok se immagini generate. Cross-engagement tra account."
+  }
+}

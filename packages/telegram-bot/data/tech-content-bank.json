@@ -1,6 +1,6 @@
 {
   "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
-  "lastUsedIndex": 36,
+  "lastUsedIndex": 26,
   "posts": [
     {
       "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
@@ -135,7 +135,7 @@
     {
       "text": "PizzaGelatoRush: a racing game with pizza delivery. Because Mario Kart + food delivery = obvious indie game pitch.",
       "topic": "pizzarush",
-      "used": false
+      "used": true
     },
     {
       "text": "Unity 6 is fast. Like, noticeably fast. The editor doesn't freeze when I hit play anymore. Small wins.",

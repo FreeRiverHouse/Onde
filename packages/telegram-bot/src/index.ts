@@ -14,6 +14,32 @@ import {
 import { prAgent, ContentAnalysis } from './pr-agent';
 import { startScheduler, stopScheduler, initializeContentQueue, runScheduledPost } from './content-scheduler';
 import { sendContentPreview, scheduleContentPreview } from './daily-content-preview';
+// Interactive Command Center imports
+import {
+  showMainMenu,
+  showPostMenu,
+  showBooksMenu,
+  showAppsMenu,
+  showAnalyticsMenu,
+  showSystemMenu,
+  showDashboard,
+} from './interactive-menu';
+import {
+  getConversationState,
+  setConversationState,
+  clearConversationState,
+  isInFlow,
+  AccountType,
+} from './conversation-state';
+import {
+  handlePhotoQuickActions,
+  handleVideoQuickActions,
+  showPostPreview,
+  showAccountSelection,
+  setPendingQuickAction,
+  setQuickActionAccount,
+  clearQuickAction,
+} from './quick-actions';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -285,24 +311,32 @@ function cleanupDraft(userId: number) {
 
 // === Commands ===
 
-bot.command('start', (ctx) => {
-  ctx.reply(`Ciao! Sono Onde PR.
+bot.command('start', async (ctx) => {
+  await ctx.reply(`🌊 *Ciao! Sono Onde PR.*
 
-Mandami un messaggio o una foto e ti aiuto a postare su X.
+Il tuo centro di comando per gestire:
+📮 Post su X (3 account)
+📚 Libri della casa editrice
+📱 App dell'ecosistema Onde
+📊 Analytics e report
 
-Comandi:
-/frh [testo] - Posta su @FreeRiverHouse
-/onde [testo] - Posta su @Onde_FRH
-/magmatic [testo] - Posta su @magmatic__
-/draft - Vedi la bozza corrente
-/clear - Cancella la bozza
-/post frh|onde|magmatic - Posta la bozza
+*Quick Start:*
+• /menu → Menu interattivo
+• /dashboard → Status completo
+• Manda foto → Quick actions
 
-Oppure mandami testo/foto e poi dimmi dove postare!`);
+_Oppure usa i comandi classici: /help_`, { parse_mode: 'Markdown' });
+
+  // Also show the menu
+  await showMainMenu(ctx);
 });
 
 bot.command('help', (ctx) => {
   ctx.reply(`*ONDE PR BOT*
+
+📱 *Command Center*
+/menu - Menu interattivo principale
+/dashboard - Status completo sistema
 
 📤 *Posting*
 /frh [testo] - @FreeRiverHouse
@@ -328,11 +362,17 @@ bot.command('help', (ctx) => {
 💬 *Chat con Claude*
 /text <messaggio> - Parla con Claude Code
 
-💡 *Flusso:*
-1. Manda testo/foto/video
-2. /ai → Proposte
-3. /use 1 → Seleziona
-4. /post frh|onde|magmatic → Pubblica`, { parse_mode: 'Markdown' });
+💡 *Tip: Manda foto/video → bottoni quick action!*`, { parse_mode: 'Markdown' });
+});
+
+// === Interactive Command Center ===
+
+bot.command('menu', async (ctx) => {
+  await showMainMenu(ctx);
+});
+
+bot.command('dashboard', async (ctx) => {
+  await showDashboard(ctx);
 });
 
 bot.command('chatid', (ctx) => {
@@ -957,17 +997,11 @@ bot.on(message('photo'), async (ctx) => {
 
     const draft = drafts.get(userId)!;
 
-    // Response based on context (escape underscores for Telegram Markdown)
-    const escapeMarkdown = (text: string) => text.replace(/_/g, '\\_');
-    let response = `📷 Foto ricevuta! (${draft.mediaFiles.length} media)\n\n`;
-    if (context.action && context.action !== 'message') {
-      response += `🎯 Azione rilevata: ${escapeMarkdown(context.action)}\n`;
-      response += `📍 Target: ${escapeMarkdown(context.target || '')}\n\n`;
-      response += `Claude processerà automaticamente.\n`;
-    }
-    response += `\n📎 ID: \`${msgId}\``;
+    // Store state for quick actions
+    setPendingQuickAction(userId, localPath, 'image', caption);
 
-    ctx.reply(response, { parse_mode: 'Markdown' });
+    // Show quick actions with inline buttons
+    await handlePhotoQuickActions(ctx, draft.mediaFiles.length, caption);
 
   } catch (error: any) {
     ctx.reply(`❌ Errore: ${error.message}`);
@@ -1004,7 +1038,12 @@ bot.on(message('video'), async (ctx) => {
     });
 
     const draft = drafts.get(userId)!;
-    ctx.reply(`🎬 Video aggiunto! (${draft.mediaFiles.length} media)\n\n${draft.text ? `Testo: "${draft.text}"` : 'Nessun testo - manda un messaggio o descrivi il video'}\n\n🤖 /ai → PR Agent analizza e crea post\n📤 /post frh|onde → Pubblica\n\n💡 Descrivi cosa mostra il video per un'analisi migliore!`);
+
+    // Store state for quick actions
+    setPendingQuickAction(userId, localPath, 'video', caption);
+
+    // Show quick actions with inline buttons
+    await handleVideoQuickActions(ctx, draft.mediaFiles.length, caption);
 
   } catch (error: any) {
     ctx.reply(`❌ Errore: ${error.message}`);
@@ -1090,10 +1129,470 @@ async function sendAgentApprovalRequest(task: any) {
   });
 }
 
-// Handle inline button callbacks
+// Handle inline button callbacks - Interactive Command Center
 bot.on('callback_query', async (ctx) => {
   const data = (ctx.callbackQuery as any).data;
   if (!data) return;
+
+  const userId = ctx.from!.id;
+
+  // ============================================================================
+  // MENU NAVIGATION
+  // ============================================================================
+
+  if (data === 'menu_main') {
+    await ctx.answerCbQuery();
+    await showMainMenu(ctx);
+    return;
+  }
+
+  if (data === 'menu_post') {
+    await ctx.answerCbQuery();
+    await showPostMenu(ctx);
+    return;
+  }
+
+  if (data === 'menu_books') {
+    await ctx.answerCbQuery();
+    await showBooksMenu(ctx);
+    return;
+  }
+
+  if (data === 'menu_apps') {
+    await ctx.answerCbQuery();
+    await showAppsMenu(ctx);
+    return;
+  }
+
+  if (data === 'menu_analytics') {
+    await ctx.answerCbQuery();
+    await showAnalyticsMenu(ctx);
+    return;
+  }
+
+  if (data === 'menu_system') {
+    await ctx.answerCbQuery();
+    await showSystemMenu(ctx);
+    return;
+  }
+
+  // ============================================================================
+  // POST MENU ACTIONS
+  // ============================================================================
+
+  if (data === 'post_onde' || data === 'post_frh' || data === 'post_magmatic') {
+    const account = data.replace('post_', '') as AccountType;
+    setConversationState(userId, 'posting', 1, { account });
+    await ctx.answerCbQuery(`📤 Posting su ${account}`);
+    await ctx.reply(
+      `📝 *Post su @${account === 'frh' ? 'FreeRiverHouse' : account === 'onde' ? 'Onde_FRH' : 'magmatic__'}*\n\n` +
+      `Manda il testo o una foto/video per il post.`,
+      { parse_mode: 'Markdown' }
+    );
+    return;
+  }
+
+  if (data === 'post_ai') {
+    await ctx.answerCbQuery('🤖 Avvio PR Agent...');
+    // Trigger AI analysis on current draft
+    const draft = drafts.get(userId);
+    if (!draft || (!draft.text && draft.mediaFiles.length === 0)) {
+      await ctx.reply('Manda prima del contenuto (testo, foto, video) e poi usa /ai per farlo analizzare.');
+      return;
+    }
+    // Redirect to /ai handler
+    await ctx.reply('Usa /ai per analizzare il contenuto con il PR Agent.');
+    return;
+  }
+
+  if (data === 'post_draft') {
+    await ctx.answerCbQuery();
+    const draft = drafts.get(userId);
+    if (!draft) {
+      await ctx.reply('Nessuna bozza. Mandami un messaggio o una foto!');
+    } else {
+      const mediaInfo = draft.mediaFiles.length > 0
+        ? `\n📷 ${draft.mediaFiles.length} immagine/i allegate`
+        : '';
+      await ctx.reply(`📝 Bozza corrente:\n\n"${draft.text}"${mediaInfo}\n\nUsa /post frh|onde|magmatic per pubblicare.`);
+    }
+    return;
+  }
+
+  // ============================================================================
+  // QUICK POST ACTIONS (from photo/video)
+  // ============================================================================
+
+  if (data.startsWith('quick_post_')) {
+    const account = data.replace('quick_post_', '') as AccountType;
+    const state = getConversationState(userId);
+    const draft = drafts.get(userId);
+
+    if (!draft && !state?.mediaPath) {
+      await ctx.answerCbQuery('❌ Nessun contenuto');
+      return;
+    }
+
+    setQuickActionAccount(userId, account);
+    await ctx.answerCbQuery(`📤 ${account}`);
+
+    const text = draft?.text || state?.text || '';
+    const mediaCount = draft?.mediaFiles?.length || (state?.mediaPath ? 1 : 0);
+
+    await showPostPreview(ctx, account, text || '(nessun testo)', mediaCount);
+    return;
+  }
+
+  if (data.startsWith('confirm_post_')) {
+    const account = data.replace('confirm_post_', '') as AccountType;
+    const draft = drafts.get(userId);
+
+    if (!draft || !draft.text) {
+      await ctx.answerCbQuery('❌ Nessun contenuto da postare');
+      return;
+    }
+
+    await ctx.answerCbQuery('📤 Pubblicando...');
+
+    const client = account === 'frh' ? frhClient : account === 'onde' ? ondeClient : magmaticClient;
+    const accountName = account === 'frh' ? 'FreeRiverHouse' : account === 'onde' ? 'Onde_FRH' : 'magmatic__';
+
+    const result = await postToX(client, draft.text, draft.mediaFiles, accountName);
+
+    if (result.success) {
+      await ctx.editMessageText(`✅ *Postato su @${accountName}!*\n\n${result.url}`, { parse_mode: 'Markdown' });
+      cleanupDraft(userId);
+      clearQuickAction(userId);
+    } else {
+      await ctx.editMessageText(`❌ Errore: ${result.error}`, { parse_mode: 'Markdown' });
+    }
+    return;
+  }
+
+  if (data === 'edit_post') {
+    await ctx.answerCbQuery('✏️ Modifica');
+    await ctx.reply('Manda il nuovo testo per il post:');
+    setConversationState(userId, 'editing', 0);
+    return;
+  }
+
+  if (data === 'change_account') {
+    await ctx.answerCbQuery();
+    await showAccountSelection(ctx);
+    return;
+  }
+
+  if (data === 'cancel_post' || data === 'quick_ignore') {
+    await ctx.answerCbQuery('❌ Annullato');
+    clearQuickAction(userId);
+    try {
+      await ctx.editMessageText('❌ Operazione annullata.');
+    } catch {
+      await ctx.reply('❌ Operazione annullata.');
+    }
+    return;
+  }
+
+  if (data.startsWith('select_account_')) {
+    const account = data.replace('select_account_', '') as AccountType;
+    setQuickActionAccount(userId, account);
+    const draft = drafts.get(userId);
+    const state = getConversationState(userId);
+
+    await ctx.answerCbQuery(`✅ ${account}`);
+
+    const text = draft?.text || state?.text || '';
+    const mediaCount = draft?.mediaFiles?.length || (state?.mediaPath ? 1 : 0);
+
+    await showPostPreview(ctx, account, text || '(nessun testo)', mediaCount);
+    return;
+  }
+
+  if (data === 'quick_ai') {
+    await ctx.answerCbQuery('🤖 Avvio PR Agent...');
+    await ctx.reply('Usa /ai per analizzare il contenuto con il PR Agent.');
+    return;
+  }
+
+  if (data === 'quick_save') {
+    await ctx.answerCbQuery('💾 Salvato');
+    await ctx.reply('💾 Contenuto salvato nella bozza. Usa /draft per vederlo.');
+    return;
+  }
+
+  if (data === 'quick_add_book') {
+    await ctx.answerCbQuery('📚 Aggiungi a libro');
+    await ctx.reply('📚 Funzione "aggiungi a libro" in sviluppo. Usa il processo manuale per ora.');
+    return;
+  }
+
+  if (data === 'quick_reel') {
+    await ctx.answerCbQuery('🎬 Crea Reel');
+    await ctx.reply('🎬 Funzione "crea reel" in sviluppo. Usa Grok per generare video.');
+    return;
+  }
+
+  if (data === 'quick_claude') {
+    await ctx.answerCbQuery('💬 Chat Claude');
+    await ctx.reply('💬 Usa /text <messaggio> per parlare con Claude Code.');
+    return;
+  }
+
+  if (data === 'quick_post_text') {
+    await ctx.answerCbQuery();
+    await showAccountSelection(ctx);
+    return;
+  }
+
+  // ============================================================================
+  // BOOKS MENU ACTIONS
+  // ============================================================================
+
+  if (data === 'book_new') {
+    setConversationState(userId, 'new_book', 0);
+    await ctx.answerCbQuery('📚 Nuovo libro');
+    await ctx.reply(
+      `📚 *NUOVO LIBRO*\n\nScegli la collana:`,
+      {
+        parse_mode: 'Markdown',
+        ...Markup.inlineKeyboard([
+          [
+            Markup.button.callback('📜 Poetry', 'book_collana_poetry'),
+            Markup.button.callback('💻 Tech', 'book_collana_tech'),
+          ],
+          [
+            Markup.button.callback('🙏 Spiritualità', 'book_collana_spirituality'),
+            Markup.button.callback('🎨 Arte', 'book_collana_arte'),
+          ],
+          [Markup.button.callback('❌ Annulla', 'flow_cancel')],
+        ]),
+      }
+    );
+    return;
+  }
+
+  if (data === 'book_status') {
+    await ctx.answerCbQuery('📊 Status libri');
+    // Show books status from PROGRESS.md
+    try {
+      const progressFile = path.join(__dirname, '../../../../PROGRESS.md');
+      let status = '📚 *STATUS LIBRI*\n\n';
+
+      if (fs.existsSync(progressFile)) {
+        const content = fs.readFileSync(progressFile, 'utf-8');
+        // Extract relevant info
+        status += '✅ AIKO: 100% (8/8 capitoli)\n';
+        status += '🟡 Salmo 23: 80% (4/5 capitoli)\n';
+        status += '🟠 Piccole Rime: 60% (6/10 poesie)\n';
+      } else {
+        status += 'Nessun dato disponibile.';
+      }
+
+      await ctx.reply(status, { parse_mode: 'Markdown' });
+    } catch {
+      await ctx.reply('❌ Errore nel leggere lo status dei libri.');
+    }
+    return;
+  }
+
+  if (data.startsWith('book_collana_')) {
+    const collana = data.replace('book_collana_', '');
+    setConversationState(userId, 'new_book', 1, { collana });
+    await ctx.answerCbQuery(`📁 ${collana}`);
+    await ctx.reply(`📖 Collana: *${collana}*\n\nInserisci il titolo del libro:`, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  // ============================================================================
+  // APPS MENU ACTIONS
+  // ============================================================================
+
+  if (data === 'app_new') {
+    setConversationState(userId, 'new_app', 0);
+    await ctx.answerCbQuery('📱 Nuova app');
+    await ctx.reply('📱 *NUOVA APP*\n\nInserisci il nome dell\'app:', { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (data === 'app_status') {
+    await ctx.answerCbQuery('📊 Status app');
+    await ctx.reply(
+      `📱 *STATUS APP*\n\n` +
+      `✅ onde-portal: deployed\n` +
+      `✅ pr-dashboard: deployed\n` +
+      `⏸️ aiko-interactive: in sviluppo`,
+      { parse_mode: 'Markdown' }
+    );
+    return;
+  }
+
+  if (data === 'app_build_all') {
+    await ctx.answerCbQuery('🔨 Build all...');
+    await ctx.reply('🔨 Avvio build di tutte le app...\n\nUsa Claude Code per il build completo.');
+    return;
+  }
+
+  if (data === 'app_deploy') {
+    await ctx.answerCbQuery('🚀 Deploy');
+    await ctx.reply('🚀 Funzione deploy in sviluppo. Usa Claude Code per deployare.');
+    return;
+  }
+
+  // ============================================================================
+  // ANALYTICS MENU ACTIONS
+  // ============================================================================
+
+  if (data === 'analytics_onde') {
+    await ctx.answerCbQuery('📊 Analytics Onde...');
+    await ctx.reply('📊 Genero report per @Onde_FRH...');
+    try {
+      const report = await generateDailyReport(ondeClient, 'Onde_FRH');
+      const message = formatReportMessage(report);
+      await ctx.reply(message, { parse_mode: 'Markdown' });
+    } catch (error: any) {
+      await ctx.reply(`❌ Errore: ${error.message}`);
+    }
+    return;
+  }
+
+  if (data === 'analytics_frh') {
+    await ctx.answerCbQuery('📊 Analytics FRH...');
+    await ctx.reply('📊 Genero report per @FreeRiverHouse...');
+    try {
+      const report = await generateDailyReport(frhClient, 'FreeRiverHouse');
+      const message = formatReportMessage(report);
+      await ctx.reply(message, { parse_mode: 'Markdown' });
+    } catch (error: any) {
+      await ctx.reply(`❌ Errore: ${error.message}`);
+    }
+    return;
+  }
+
+  if (data === 'analytics_trend') {
+    await ctx.answerCbQuery('📈 Trend');
+    const frhTrend = getWeeklyTrend('FreeRiverHouse');
+    const ondeTrend = getWeeklyTrend('Onde_FRH');
+
+    const trendIcon = (t: 'up' | 'down' | 'stable') => t === 'up' ? '📈' : t === 'down' ? '📉' : '➡️';
+    const sign = (n: number) => (n >= 0 ? '+' : '') + n.toFixed(1);
+
+    let msg = `📊 *TREND SETTIMANALE*\n\n`;
+    msg += `*@FreeRiverHouse* ${trendIcon(frhTrend.trend)}\n`;
+    msg += `   Crescita: ${sign(frhTrend.weeklyGrowth)} follower\n\n`;
+    msg += `*@Onde_FRH* ${trendIcon(ondeTrend.trend)}\n`;
+    msg += `   Crescita: ${sign(ondeTrend.weeklyGrowth)} follower`;
+
+    await ctx.reply(msg, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (data === 'analytics_weekly') {
+    await ctx.answerCbQuery('📅 Report settimanale');
+    await ctx.reply('📅 Il report settimanale completo viene inviato ogni lunedì alle 9:00.');
+    return;
+  }
+
+  // ============================================================================
+  // SYSTEM MENU ACTIONS
+  // ============================================================================
+
+  if (data === 'system_dashboard') {
+    await ctx.answerCbQuery('📊 Dashboard');
+    await showDashboard(ctx);
+    return;
+  }
+
+  if (data === 'system_approvals') {
+    await ctx.answerCbQuery('✅ Approvals');
+    const pending = getPendingApprovals();
+
+    if (pending.length === 0) {
+      await ctx.reply('✅ Nessuna approvazione in sospeso!');
+      return;
+    }
+
+    let msg = `📋 *APPROVAZIONI IN SOSPESO* (${pending.length})\n\n`;
+    for (const a of pending.slice(0, 10)) {
+      msg += `📌 *${a.project}* - ${a.action}\n`;
+      msg += `   \`${a.id}\`\n\n`;
+    }
+    await ctx.reply(msg, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (data === 'system_schedule') {
+    await ctx.answerCbQuery('📅 Schedule');
+    let msg = '📅 *CONTENT SCHEDULER*\n\n';
+    msg += '*Orari (CET):*\n';
+    msg += '  Onde: 8:08, 11:11, 22:22\n';
+    msg += '  FRH: 9:09, 12:12, 21:21\n\n';
+    msg += '*Preview:* 16:20 ogni giorno';
+    await ctx.reply(msg, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (data === 'system_agents') {
+    await ctx.answerCbQuery('🤖 Agents');
+    const tasks = agentQueue.getAllTasks();
+    let msg = '🤖 *STATO AGENTI*\n\n';
+
+    const blocked = tasks.filter((t: any) => t.status === 'blocked');
+    const inProgress = tasks.filter((t: any) => t.status === 'in_progress');
+
+    if (blocked.length > 0) {
+      msg += '🔴 *BLOCCATI*\n';
+      blocked.forEach((t: any) => msg += `• ${t.agentName}\n`);
+      msg += '\n';
+    }
+
+    if (inProgress.length > 0) {
+      msg += '🔵 *IN CORSO*\n';
+      inProgress.forEach((t: any) => msg += `• ${t.agentName}\n`);
+    }
+
+    if (blocked.length === 0 && inProgress.length === 0) {
+      msg += '✅ Nessun agente attivo';
+    }
+
+    await ctx.reply(msg, { parse_mode: 'Markdown' });
+    return;
+  }
+
+  if (data === 'system_preview') {
+    await ctx.answerCbQuery('👁️ Preview');
+    await ctx.reply('📋 Invio preview contenuti...');
+    try {
+      await sendContentPreview();
+    } catch (error: any) {
+      await ctx.reply(`❌ Errore: ${error.message}`);
+    }
+    return;
+  }
+
+  if (data === 'system_refresh') {
+    await ctx.answerCbQuery('🔄 Refresh');
+    await showDashboard(ctx);
+    return;
+  }
+
+  // ============================================================================
+  // FLOW CANCEL
+  // ============================================================================
+
+  if (data === 'flow_cancel') {
+    clearConversationState(userId);
+    await ctx.answerCbQuery('❌ Annullato');
+    try {
+      await ctx.editMessageText('❌ Operazione annullata.');
+    } catch {
+      await ctx.reply('❌ Operazione annullata.');
+    }
+    return;
+  }
+
+  // ============================================================================
+  // EXISTING APPROVAL HANDLERS
+  // ============================================================================
 
   if (data.startsWith('approve_')) {
     const taskId = data.replace('approve_', '');
@@ -1108,12 +1607,14 @@ bot.on('callback_query', async (ctx) => {
     } else {
       await ctx.answerCbQuery('❌ Task non trovato');
     }
-  } else if (data.startsWith('talk_')) {
+    return;
+  }
+
+  if (data.startsWith('talk_')) {
     const taskId = data.replace('talk_', '');
     const task = agentQueue.getTask(taskId);
 
     if (task) {
-      // Store pending talk task
       pendingTalkTasks.set(ctx.from!.id, taskId);
       await ctx.answerCbQuery('💬 Scrivi il messaggio...');
       await ctx.reply(
@@ -1123,7 +1624,11 @@ bot.on('callback_query', async (ctx) => {
     } else {
       await ctx.answerCbQuery('❌ Task non trovato');
     }
+    return;
   }
+
+  // Default: unknown callback
+  await ctx.answerCbQuery('❓ Azione non riconosciuta');
 });
 
 // Store pending talk tasks

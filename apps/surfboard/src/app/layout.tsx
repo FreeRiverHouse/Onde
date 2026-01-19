@@ -93,6 +93,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Links */}
               <nav className="hidden md:flex items-center gap-4">
                 <a
+                  href="/"
+                  className="text-sm text-surf-foam/60 hover:text-surf-cyan transition-colors"
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="/social"
+                  className="text-sm text-surf-foam/60 hover:text-surf-gold transition-colors font-medium"
+                >
+                  📱 Social
+                </a>
+                <a
                   href="https://onde.la"
                   className="text-sm text-surf-foam/60 hover:text-surf-cyan transition-colors"
                 >

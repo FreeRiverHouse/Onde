@@ -1,0 +1,16 @@
+{
+  "id": "142dc139",
+  "from": "user",
+  "type": "photo",
+  "message": "Ecco la copertina di Milo 1( AI)",
+  "caption": "Ecco la copertina di Milo 1( AI)",
+  "mediaPath": "/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/media/photo_1768768629101.jpg",
+  "mediaType": "image",
+  "timestamp": "2026-01-18T20:37:10.983Z",
+  "status": "processed",
+  "context": {
+    "action": "update_book",
+    "target": "milo",
+    "details": "Ecco la copertina di Milo 1( AI)"
+  }
+}

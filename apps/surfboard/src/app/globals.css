@@ -224,6 +224,38 @@ body {
   100% { background-position: 200% 0; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
 /* Subtle grid pattern overlay */
 .grid-pattern {
   background-image:
