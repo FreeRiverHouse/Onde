@@ -16,11 +16,6 @@ function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <svg width="32" height="32" viewBox="0 0 40 40" fill="none" className="text-onde-coral">
-                <path d="M5 25C10 20 15 30 20 25C25 20 30 30 35 25" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-                <path d="M5 20C10 15 15 25 20 20C25 15 30 25 35 20" stroke="#F4D03F" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M5 15C10 10 15 20 20 15C25 10 30 20 35 15" stroke="#48C9B0" strokeWidth="2" strokeLinecap="round" />
-              </svg>
               <span className="text-xl font-display font-bold text-onde-ocean">Onde</span>
             </div>
             <p className="text-onde-ocean/60 max-w-sm leading-relaxed">
