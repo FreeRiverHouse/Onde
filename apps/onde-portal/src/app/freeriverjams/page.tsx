@@ -369,18 +369,46 @@ export default function SocialDashboard() {
   // Public Dashboard
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
-      {/* Wave decorations */}
-      <WaveTop />
+      {/* Hero section with background image */}
+      <div className="relative">
+        {/* Wave decoration top */}
+        <WaveTop />
 
-      {/* Header */}
-      <header className="relative z-10 pt-8 pb-4">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent mb-2">
-            🌊 Free River Jams
-          </h1>
-          <p className="text-gray-400 text-lg">Social Media Dashboard</p>
+        {/* Background image hero */}
+        <div className="relative z-5 flex justify-center pt-16 pb-8">
+          <div className="relative">
+            {/* Wave frame around image */}
+            <div className="absolute -inset-4 md:-inset-6 rounded-3xl bg-gradient-to-r from-cyan-500/20 via-sky-500/30 to-cyan-500/20 blur-xl"></div>
+            <div className="absolute -inset-2 md:-inset-3 rounded-2xl border-2 border-cyan-400/30"></div>
+
+            {/* The image */}
+            <img
+              src="/images/frj-background.jpg"
+              alt="MILO, Sofia e Luca - Free River Jams"
+              className="relative rounded-2xl shadow-2xl shadow-cyan-500/20 max-w-[280px] md:max-w-[350px] w-full"
+            />
+
+            {/* Decorative waves on sides */}
+            <svg className="absolute -left-8 top-1/2 -translate-y-1/2 w-6 h-24 text-cyan-400/40" viewBox="0 0 24 96">
+              <path fill="currentColor" d="M12,0 Q24,24 12,48 Q0,72 12,96 L0,96 L0,0 Z" />
+            </svg>
+            <svg className="absolute -right-8 top-1/2 -translate-y-1/2 w-6 h-24 text-cyan-400/40" viewBox="0 0 24 96">
+              <path fill="currentColor" d="M12,0 Q0,24 12,48 Q24,72 12,96 L24,96 L24,0 Z" />
+            </svg>
+          </div>
         </div>
-      </header>
+
+        {/* Header text */}
+        <header className="relative z-10 pb-8">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+              🌊 Free River Jams
+            </h1>
+            <p className="text-gray-400 text-lg">Social Media Dashboard</p>
+            <p className="text-cyan-400/60 text-sm mt-2">📅 Ogni Lunedì 16:00 - 17:30</p>
+          </div>
+        </header>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Stats */}
