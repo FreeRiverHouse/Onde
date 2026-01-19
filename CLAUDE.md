@@ -5,6 +5,25 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 DEPLOY ONDE.LA - PROCEDURA OBBLIGATORIA (2026-01-19)
+
+**NON C'È AUTO-DEPLOY DA GITHUB! Devi fare deploy manuale con wrangler.**
+
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal
+npm run build
+npx wrangler pages deploy out --project-name=onde-portal
+```
+
+**ATTENZIONE:**
+- **onde.la** → progetto `onde-portal`
+- **onde.surf** → progetto `onde-surf`
+- **SEMPRE** usare `onde-portal` per onde.la!
+
+**SEMPRE fare questo dopo ogni modifica a onde-portal!**
+
+---
+
 ## 🎯 MILO INTERNET - COMPLETATO (2026-01-19)
 
 ### 10 SCENE GENERATE CON SUCCESSO!
