@@ -5,39 +5,51 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
-## 🎯 PROSSIMO TASK IMMEDIATO (2026-01-19)
+## 🎯 MILO INTERNET - COMPLETATO (2026-01-19)
 
-### NANO BANANA VIA CHROME - Genera immagini libro MILO
+### 10 SCENE GENERATE CON SUCCESSO!
 
-**STATO:** Master characters generati, ora serve generare MILO + scene
+**IMMAGINI SALVATE:** `/books/milo-internet/images-nanob/`
+- 1.png - 10.png (tutte le scene)
+- masters/ (reference characters)
 
-**MASTER GIÀ PRONTI** (in `/books/milo-internet/images-nanob/masters/`):
-- ✅ master-sofia.png - 7 anni, fiocco rosa, vestito verde con uccellino
-- ✅ master-luca.png - 5 anni, biondo, salopette jeans
-- ✅ master-nonna.png - Nonna italiana, grembiule a fiori
+---
 
-**DA FARE:**
-1. Generare MILO nello stesso stile vivace su gemini.google.com
-2. Usare "Keep this character exactly the same" per le 10 scene
-3. Poi rifare anche le immagini del libro MILO AI con lo stesso stile
+## 🔧 PROCEDURA GROK "SAME CHARACTERS BUT" (FUNZIONA!)
 
-**WORKFLOW GEMINI:**
-1. Vai su gemini.google.com
-2. Upload master-sofia.png come riferimento stile
-3. Prompt: "Create a small friendly robot named MILO in the same art style as this image. Silver and light blue color, round base with NO legs, expressive LED eyes shaped like teardrops, cute proportions. Soft watercolor children's book illustration, 4k"
-4. Poi per ogni scena: "Keep this character exactly the same. Now show [scena]"
+### Setup
+1. Vai su **grok.com/imagine**
+2. Carica/genera un'immagine di riferimento con tutti i personaggi
+3. Salva questa come "master reference"
 
-**LE 10 SCENE DA GENERARE** (dal file `tools/nano-banana-book-generator.py`):
-1. Sofia sul divano con tablet, MILO accanto, Luca gioca sul tappeto
-2. MILO indica mappa del mondo con linee luminose, bambini guardano affascinati
-3. Messaggio "CIAO NONNA" si trasforma in 0 e 1 colorati
-4. Pacchetti digitali con ali come letterine, robot postino
-5. Città futuristica con router come palazzi, semafori digitali
-6. Vista sottomarina con cavo sul fondale, pesci colorati, balena curiosa
-7. Paesaggio italiano con colline, Nonna col telefono, tramonto dorato
-8. Cronometro gigante "0.2 secondi", MILO e bambini festeggiano
-9. Sofia videochiama Nonna, tramonto americano e alba italiana
-10. Sofia, Luca e MILO sul divano, MILO proietta ologrammi
+### Generare Scene Consistenti
+Per ogni nuova scena, usa il campo "Type to edit image..." con:
+```
+same characters but [descrizione scena]
+```
+
+### REGOLE IMPORTANTI - MAI DIMENTICARE!
+1. **MAI chiedere testo/scritte** - Grok non sa scriverle bene, genera watermark brutti
+2. **MAI usare parole che diventano testo** - evita "message", "trail", "title", ecc.
+3. **Premi ENTER** per inviare (non cliccare Edit)
+4. **Aspetta ~12 secondi** per generazione
+5. **Controlla watermark** - se c'è scritta, rigenera
+
+### Esempio Prompt Puliti
+```
+same characters but jumping and celebrating next to a giant colorful stopwatch timer, Earth globe floating above, stars and sparkles everywhere
+```
+```
+same characters but sitting on cozy couch at evening, MILO projecting colorful holograms from his hand, warm sunset light
+```
+
+### Workflow Veloce
+1. Screenshot per verificare
+2. form_input ref_68 per settare testo (più affidabile di type)
+3. Enter per inviare
+4. Wait 12s
+5. Download (icona freccia in basso)
+6. Copia in cartella output con nome corretto
 
 ---
 
