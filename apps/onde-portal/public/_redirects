@@ -1,3 +1,5 @@
 # Cloudflare Pages redirects for onde.surf
 # onde.surf homepage should show split-screen selector
 /:hostname=onde.surf /surf-selector 200
+
+# Free River Jams - uses public/freeriverjams/index.html directly
