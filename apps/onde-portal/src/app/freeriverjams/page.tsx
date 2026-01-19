@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 
-const CORRECT_PASSWORD = 'Ond333!'
-
 type PostType = 'text' | 'image' | 'video' | 'link' | 'thread'
 type PostStatus = 'draft' | 'approved' | 'scheduled' | 'posted'
 type Account = 'onde' | 'freeriverhouse' | 'magmatic'
@@ -270,23 +268,52 @@ function XPostPreview({ post, account }: { post: Post; account: typeof accounts[
   )
 }
 
+// Wave SVG component for decorations
+function WaveTop() {
+  return (
+    <div className="absolute top-0 left-0 right-0 overflow-hidden pointer-events-none">
+      <svg viewBox="0 0 1440 120" className="w-full h-20 md:h-28">
+        <defs>
+          <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.3" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#waveGradient1)" d="M0,60 C150,120 350,0 500,60 C650,120 850,0 1000,60 C1150,120 1300,20 1440,60 L1440,0 L0,0 Z" />
+        <path fill="url(#waveGradient1)" fillOpacity="0.5" d="M0,40 C200,100 400,0 600,50 C800,100 1000,10 1200,50 C1350,80 1400,30 1440,40 L1440,0 L0,0 Z" />
+      </svg>
+    </div>
+  )
+}
+
+function WaveBottom() {
+  return (
+    <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none">
+      <svg viewBox="0 0 1440 120" className="w-full h-20 md:h-28" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.2" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#waveGradient2)" d="M0,60 C150,0 350,120 500,60 C650,0 850,120 1000,60 C1150,0 1300,100 1440,60 L1440,120 L0,120 Z" />
+        <path fill="url(#waveGradient2)" fillOpacity="0.5" d="M0,80 C200,20 400,120 600,70 C800,20 1000,110 1200,70 C1350,40 1400,90 1440,80 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  )
+}
+
 export default function SocialDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const [posts, setPosts] = useState<Post[]>([])
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
   const [activeAccount, setActiveAccount] = useState<Account | 'all'>('all')
   const [editMode, setEditMode] = useState(false)
   const [editText, setEditText] = useState('')
 
-  // Check localStorage on mount
+  // Load posts on mount
   useEffect(() => {
-    const saved = localStorage.getItem('onde_social_auth_v2')
-    if (saved === 'true') {
-      setIsAuthenticated(true)
-    }
-    // Load posts
     const savedPosts = localStorage.getItem('onde_social_posts_v2')
     if (savedPosts) {
       setPosts(JSON.parse(savedPosts))
@@ -301,22 +328,6 @@ export default function SocialDashboard() {
       localStorage.setItem('onde_social_posts_v2', JSON.stringify(posts))
     }
   }, [posts])
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (password === CORRECT_PASSWORD) {
-      setIsAuthenticated(true)
-      localStorage.setItem('onde_social_auth_v2', 'true')
-      setError('')
-    } else {
-      setError('Password non corretta')
-    }
-  }
-
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    localStorage.removeItem('onde_social_auth_v2')
-  }
 
   const approvePost = (id: string) => {
     setPosts(posts.map(p => p.id === id ? { ...p, status: 'approved' as const } : p))
@@ -355,65 +366,23 @@ export default function SocialDashboard() {
     ? posts
     : posts.filter(p => p.account === activeAccount)
 
-  // Login screen
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4">
-        <div className="bg-gray-900 rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-800">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">🌊 Free River Jams</h1>
-            <p className="text-gray-500">Social Media Dashboard</p>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-                placeholder="Inserisci password"
-              />
-            </div>
-
-            {error && (
-              <p className="text-red-400 text-sm">{error}</p>
-            )}
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-medium"
-            >
-              Accedi
-            </button>
-          </form>
-        </div>
-      </div>
-    )
-  }
-
-  // Dashboard
+  // Public Dashboard
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+      {/* Wave decorations */}
+      <WaveTop />
+
       {/* Header */}
-      <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">🌊 Free River Jams Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleLogout}
-              className="text-sm text-gray-500 hover:text-gray-300"
-            >
-              Logout
-            </button>
-          </div>
+      <header className="relative z-10 pt-8 pb-4">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+            🌊 Free River Jams
+          </h1>
+          <p className="text-gray-400 text-lg">Social Media Dashboard</p>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Stats */}
         <div className="grid grid-cols-5 gap-4 mb-8">
           <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
@@ -647,6 +616,9 @@ export default function SocialDashboard() {
           </div>
         )}
       </main>
+
+      {/* Bottom wave decoration */}
+      <WaveBottom />
     </div>
   )
 }
