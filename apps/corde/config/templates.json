@@ -1,0 +1,135 @@
+{
+  "_description": "CORDE Templates - Pipeline preconfigurate per content generation",
+  "_updated": "2026-01-19",
+
+  "templates": {
+    "video-poesia": {
+      "name": "Video Poesia",
+      "description": "Genera video animato da poesia con illustrazioni Onde",
+      "category": "video",
+      "author": "pina-pennello",
+      "pipeline": ["parse_poem", "generate_illustrations", "animate_scenes", "add_audio", "assemble"],
+      "inputs": {
+        "poem_text": {"type": "string", "required": true},
+        "style": {"type": "string", "default": "onde-watercolor"},
+        "mood": {"type": "string", "default": "serene", "options": ["serene", "joyful", "contemplative", "nostalgic"]},
+        "duration": {"type": "int", "default": 60, "min": 30, "max": 300},
+        "resolution": {"type": "string", "default": "1080x1920", "options": ["1080x1920", "1920x1080", "1080x1080"]},
+        "audio_type": {"type": "string", "default": "tts", "options": ["tts", "music", "none"]}
+      },
+      "quality_checks": ["anti_slop", "style_consistency", "anatomy_check"]
+    },
+
+    "libro-illustrato": {
+      "name": "Libro Illustrato",
+      "description": "Genera libro per bambini con testo e illustrazioni",
+      "category": "book",
+      "author": "gianni-parola",
+      "illustrator": "pina-pennello",
+      "pipeline": ["write_story", "generate_illustrations", "check_consistency", "assemble_pdf", "quality_check"],
+      "inputs": {
+        "title": {"type": "string", "required": true},
+        "theme": {"type": "string", "required": true},
+        "age_target": {"type": "string", "default": "3-6", "options": ["0-3", "3-6", "6-9", "9-12"]},
+        "chapters": {"type": "int", "default": 8, "min": 4, "max": 20},
+        "style": {"type": "string", "default": "onde-watercolor"},
+        "lesson": {"type": "string", "required": false, "description": "Moral or lesson to include"},
+        "format": {"type": "string", "default": "pdf", "options": ["pdf", "epub", "both"]}
+      },
+      "quality_checks": ["anti_slop", "anatomy_check", "character_consistency", "book_qa"]
+    },
+
+    "milo-adventure": {
+      "name": "Milo Adventure",
+      "description": "Nuova avventura del personaggio Milo (robot tech)",
+      "category": "book",
+      "character": "milo",
+      "author": "emilio",
+      "illustrator": "onde-futures",
+      "pipeline": ["write_story", "load_character_ref", "generate_illustrations", "check_consistency", "assemble"],
+      "inputs": {
+        "adventure_theme": {"type": "string", "required": true},
+        "lesson": {"type": "string", "required": true, "description": "Tech concept to teach"},
+        "chapters": {"type": "int", "default": 6},
+        "style": {"type": "string", "default": "onde-tech"}
+      },
+      "character_reference": "/references/milo-character-sheet.png",
+      "quality_checks": ["character_consistency", "anti_slop", "anatomy_check"]
+    },
+
+    "ambient-video": {
+      "name": "Ambient Video",
+      "description": "Video loop per Onde Lounge (relax, studio, sleep)",
+      "category": "video",
+      "author": "onde-lounge",
+      "pipeline": ["generate_scene", "create_loop", "add_ambient_audio", "export"],
+      "inputs": {
+        "scene": {"type": "string", "required": true, "examples": ["fireplace", "rain_window", "italian_countryside", "cozy_library"]},
+        "mood": {"type": "string", "default": "relaxing"},
+        "duration": {"type": "int", "default": 3600, "description": "Duration in seconds"},
+        "loop": {"type": "bool", "default": true},
+        "audio": {"type": "string", "default": "white_noise", "options": ["white_noise", "rain", "fire", "lo-fi", "none"]}
+      },
+      "quality_checks": ["style_consistency"]
+    },
+
+    "social-content": {
+      "name": "Social Content",
+      "description": "Contenuto per social media (immagine + caption)",
+      "category": "social",
+      "author": "magmatic",
+      "pipeline": ["generate_image", "write_caption", "format_for_platform", "quality_check"],
+      "inputs": {
+        "theme": {"type": "string", "required": true},
+        "platform": {"type": "string", "default": "instagram", "options": ["instagram", "twitter", "both"]},
+        "style": {"type": "string", "default": "magmatic"},
+        "hashtags": {"type": "bool", "default": false, "description": "No hashtags on X!"}
+      },
+      "quality_checks": ["anti_slop", "style_consistency"]
+    },
+
+    "character-sheet": {
+      "name": "Character Sheet",
+      "description": "Genera character sheet per mantenere consistenza",
+      "category": "reference",
+      "pipeline": ["design_character", "generate_views", "create_reference_doc"],
+      "inputs": {
+        "character_name": {"type": "string", "required": true},
+        "description": {"type": "string", "required": true},
+        "style": {"type": "string", "default": "pina-pennello"},
+        "views": {"type": "list", "default": ["front", "side", "expressions"], "options": ["front", "side", "back", "expressions", "poses"]}
+      },
+      "output": "reference_image",
+      "quality_checks": ["anatomy_check", "style_consistency"]
+    }
+  },
+
+  "pipelines": {
+    "parse_poem": {
+      "description": "Parse poem into stanzas for illustration",
+      "node": "text_parse"
+    },
+    "generate_illustrations": {
+      "description": "Generate illustration for each section",
+      "node": "sdxl",
+      "with_ip_adapter": true
+    },
+    "animate_scenes": {
+      "description": "Convert illustrations to video clips",
+      "node": "ffmpeg",
+      "effect": "ken_burns"
+    },
+    "add_audio": {
+      "description": "Add narration or music",
+      "node": "audio_add"
+    },
+    "assemble": {
+      "description": "Assemble final output",
+      "node": "video_concat"
+    },
+    "quality_check": {
+      "description": "Run all quality checks",
+      "nodes": ["anti_slop", "anatomy_check", "style_consistency"]
+    }
+  }
+}

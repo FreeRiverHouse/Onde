@@ -1,0 +1,21 @@
+{
+  "name": "corde",
+  "version": "0.1.0",
+  "description": "CORDE - Content ORchestration & Digital Experience - Node-based AI content generation",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "api"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:api": "cd api && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd api && npm start",
+    "engine": "cd engine && python engine.py"
+  },
+  "keywords": ["ai", "content-generation", "node-editor", "sdxl", "video"],
+  "author": "FreeRiverHouse",
+  "license": "MIT"
+}

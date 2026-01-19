@@ -1,0 +1,134 @@
+{
+  "_description": "CORDE Authors - Creative team per generazione contenuti",
+  "_updated": "2026-01-19",
+
+  "writers": {
+    "gianni-parola": {
+      "name": "Gianni Parola",
+      "role": "Scrittore",
+      "style": "Testi per bambini, narrativa calda, lezioni morali",
+      "age_target": "3-8 anni",
+      "prompts": {
+        "system": "Sei Gianni Parola, scrittore italiano per bambini. Scrivi storie calde, semplici, con lezioni morali sottili. Età target: 3-8 anni. NO frasi fatte, NO slop. Ogni parola conta."
+      }
+    },
+    "emilio": {
+      "name": "EMILIO",
+      "role": "Robot Educatore",
+      "style": "Tech per bambini, spiegazioni semplici, entusiasta",
+      "age_target": "5-10 anni",
+      "prompts": {
+        "system": "Sei EMILIO, un robot amichevole che spiega la tecnologia ai bambini. Usa metafore dalla vita quotidiana. Sii entusiasta ma non esagerato."
+      }
+    }
+  },
+
+  "illustrators": {
+    "pina-pennello": {
+      "name": "Pina Pennello",
+      "role": "Illustratrice Onde",
+      "style": "Acquarello europeo, vintage italiano, bambini",
+      "chain": "onde-classics",
+      "prompts": {
+        "base": "European watercolor childrens book illustration, soft muted colors, warm golden light, Beatrix Potter meets Luzzati style, NOT Pixar NOT 3D NOT cartoon, elegant refined, natural skin tones",
+        "negative": "Pixar, 3D, cartoon, plastic, bright saturated colors, American style, rosy cheeks, red cheeks"
+      }
+    },
+    "magmatic": {
+      "name": "Magmatic",
+      "role": "Visual Artist",
+      "style": "Arte contemporanea, poetica visiva, minimalismo evocativo",
+      "chain": "magmatic",
+      "prompts": {
+        "base": "contemporary art photography, poetic visual, cinematic lighting, moody atmosphere, artistic composition, subtle emotion, Italy aesthetic, golden hour, film grain, authentic",
+        "negative": "cartoon, illustration, bright colors, commercial, stock photo, generic, fake, AI-looking"
+      }
+    },
+    "onde-futures": {
+      "name": "Onde Futures",
+      "role": "Tech Illustrator",
+      "style": "AI, tech, bambini, futuristico ma caldo",
+      "chain": "onde-futures",
+      "prompts": {
+        "base": "futuristic childrens illustration, friendly robots, soft LED glow, warm technology, electric blue and magenta accents, modern but inviting, NOT cold NOT sterile, approachable tech",
+        "negative": "scary, dark, dystopian, cold, sterile, hostile"
+      }
+    },
+    "onde-classics": {
+      "name": "Onde Classics",
+      "role": "Classic Illustrator",
+      "style": "Poesia, spiritualità, classici illustrati",
+      "chain": "onde-classics",
+      "prompts": {
+        "base": "classic book illustration, elegant serif typography feel, deep blue and gold, ivory parchment texture, timeless refined aesthetic, burgundy accents, spiritual peaceful",
+        "negative": "modern, casual, bright, cartoon, cheap"
+      }
+    },
+    "luzzati": {
+      "name": "Stile Luzzati",
+      "role": "Folk Art Illustrator",
+      "style": "Emanuele Luzzati, teatro, folk mediterraneo",
+      "chain": "onde-classics",
+      "prompts": {
+        "base": "Emanuele Luzzati style illustration, Italian folk art, theatrical childrens book, Mediterranean colors, stylized figures, handcrafted paper cut feel, vintage Italian poster art",
+        "negative": "realistic, 3D, Pixar, American cartoon, digital looking"
+      }
+    },
+    "kids": {
+      "name": "Kids Style",
+      "role": "Children Illustrator",
+      "style": "Colorato, giocoso, educativo, sicuro per bambini",
+      "chain": "onde-learn",
+      "prompts": {
+        "base": "bright friendly childrens illustration, educational, playful, safe for children, rounded shapes, happy atmosphere, diverse characters, inclusive, warm colors",
+        "negative": "scary, dark, violent, adult themes, sharp edges, realistic"
+      }
+    }
+  },
+
+  "video_styles": {
+    "onde-lounge": {
+      "name": "Onde Lounge",
+      "role": "Ambient Creator",
+      "style": "Ambient, relax, loop infiniti",
+      "prompts": {
+        "base": "peaceful ambient scene, Italian countryside, gentle movement, warm sunset light, cozy atmosphere, fireplace glow, rain on window, lo-fi aesthetic",
+        "negative": "action, fast, dramatic, urban, stressful"
+      }
+    },
+    "video-poesia": {
+      "name": "Video Poesia",
+      "role": "Poetry Video",
+      "style": "Poetico, contemplativo, artistico",
+      "prompts": {
+        "base": "poetic visual, contemplative mood, artistic cinematography, gentle movement, evocative imagery, dreamlike atmosphere",
+        "negative": "fast paced, action, commercial, generic"
+      }
+    }
+  },
+
+  "quality_rules": {
+    "anti_slop": {
+      "forbidden_phrases": [
+        "in today's world",
+        "it's important to note",
+        "delve into",
+        "dive into",
+        "journey of",
+        "transformative",
+        "game-changer",
+        "leverage",
+        "synergy"
+      ],
+      "min_uniqueness": 0.8
+    },
+    "image_requirements": {
+      "no_pixar": true,
+      "no_3d": true,
+      "no_rosy_cheeks": true,
+      "anatomy_check": true,
+      "hands_5_fingers": true,
+      "consistent_characters": true
+    }
+  }
+}
