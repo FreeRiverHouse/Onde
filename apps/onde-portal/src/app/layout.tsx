@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import ClientLayout from '@/components/ClientLayout'
 
 export const metadata: Metadata = {
-  title: 'Onde - AI Publishing with a Human Heart',
-  description: 'AI-native publishing house based in Los Angeles. Stories that matter, crafted with technology and heart.',
+  title: 'Onde - Crafted by Code, Touched by Soul',
+  description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
   keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
 }
 

@@ -243,9 +243,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">AI Publishing</span>
+            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Crafted by Code</span>
             <br />
-            <span className="text-onde-coral drop-shadow-[0_2px_20px_rgba(255,127,127,0.3)]">Human Heart</span>
+            <span className="text-onde-coral drop-shadow-[0_2px_20px_rgba(255,127,127,0.3)]">Touched by Soul</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -255,7 +255,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Stories that matter, powered by technology, crafted with soul.
+            AI-native publishing house. Timeless stories, reimagined.
           </motion.p>
 
           {/* CTA Buttons */}
