@@ -1,6 +1,6 @@
 {
   "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
-  "lastUsedIndex": 26,
+  "lastUsedIndex": 6,
   "posts": [
     {
       "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
@@ -35,7 +35,7 @@
     {
       "text": "Meta Quest development: 80% waiting for builds, 15% fixing platform-specific bugs, 5% actual game code.",
       "topic": "vr",
-      "used": false
+      "used": true
     },
     {
       "text": "Every recipe in our cooking game was tested by actual kids. Their feedback: 'Make it more squishy.' Working on it.",

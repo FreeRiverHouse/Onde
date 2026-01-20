@@ -92,20 +92,22 @@ function formatSlide(item: ContentItem, index: number, total: number): string {
   const typeLabel = getTypeLabel(item.type);
   const account = item.account === 'onde' ? '@Onde\\_FRH' : '@FreeRiverHouse';
 
-  let slide = `━━━━━━━━━━━━━━━━━━━━\n`;
-  slide += `${emoji} *${typeLabel}* · ${account}\n`;
-  slide += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-  slide += `${item.text}\n\n`;
+  // Compact format - smaller and cleaner
+  let slide = `${emoji} *${typeLabel}* · ${account} · ${index + 1}/${total}\n\n`;
+
+  // Truncate long posts for preview
+  const maxLen = 280;
+  const text = item.text.length > maxLen
+    ? item.text.substring(0, maxLen) + '...'
+    : item.text;
+  slide += `${text}`;
 
   if (item.metadata?.author) {
-    slide += `_— ${item.metadata.author}_`;
+    slide += `\n\n_— ${item.metadata.author}_`;
     if (item.metadata.source) {
       slide += ` _(${item.metadata.source})_`;
     }
-    slide += `\n`;
   }
-
-  slide += `\n▫️ ${index + 1} di ${total}`;
 
   return slide;
 }
@@ -125,19 +127,9 @@ export async function sendContentPreview(): Promise<void> {
     month: 'long'
   });
 
-  const header = `
-☀️ *Good evening*
+  const header = `☀️ *Preview* · ${dateStr}
 
-📅 ${dateStr}
-
-Here's what's coming up.
-Relax and browse.
-
-━━━━━━━━━━━━━━━━━━━━
-📚 *@Onde\\_FRH*: ${ondeQueued.length} posts
-🔧 *@FreeRiverHouse*: ${frhQueued.length} posts
-━━━━━━━━━━━━━━━━━━━━
-`;
+📚 Onde: ${ondeQueued.length} · 🔧 FRH: ${frhQueued.length}`;
 
   await sendTelegram(header);
 
@@ -146,11 +138,11 @@ Relax and browse.
 
   // Onde posts
   if (ondeQueued.length > 0) {
-    await delay(1000);
-    await sendTelegram(`\n\n📚 *ONDE*\n_Casa Editrice_`);
+    await delay(500);
+    await sendTelegram(`📚 *ONDE*`);
 
     for (let i = 0; i < ondeQueued.length; i++) {
-      await delay(800);
+      await delay(400);
       const slide = formatSlide(ondeQueued[i], i, ondeQueued.length);
       await sendTelegram(slide);
     }
@@ -158,11 +150,11 @@ Relax and browse.
 
   // FRH posts
   if (frhQueued.length > 0) {
-    await delay(1500);
-    await sendTelegram(`\n\n🔧 *FREE RIVER HOUSE*\n_Building in Public_`);
+    await delay(800);
+    await sendTelegram(`🔧 *FRH*`);
 
     for (let i = 0; i < frhQueued.length; i++) {
-      await delay(800);
+      await delay(400);
       const slide = formatSlide(frhQueued[i], i, frhQueued.length);
       await sendTelegram(slide);
     }
@@ -170,20 +162,8 @@ Relax and browse.
 
   // Footer
   await delay(1000);
-  const footer = `
-━━━━━━━━━━━━━━━━━━━━
-
-✅ *Fine preview*
-
-_Posts will be published automatically:_
-• Onde: 8:08, 11:11, 22:22
-• FRH: 9:09, 12:12, 21:21
-
-💡 Usa /autopost per pubblicare subito
-💡 Usa /schedule per vedere lo stato
-
-━━━━━━━━━━━━━━━━━━━━
-`;
+  const footer = `✅ *Done*
+Schedule: Onde 8:08/11:11/22:22 · FRH 9:09/12:12/21:21`;
 
   await sendTelegram(footer);
 
