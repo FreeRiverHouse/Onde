@@ -40,6 +40,13 @@ import {
   setQuickActionAccount,
   clearQuickAction,
 } from './quick-actions';
+import {
+  transcribeAudio,
+  downloadAudioFile,
+  cleanupAudioFile,
+  isWhisperAvailable,
+  detectLanguageHint,
+} from './voice-transcription';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -312,6 +319,8 @@ function cleanupDraft(userId: number) {
 // === Commands ===
 
 bot.command('start', async (ctx) => {
+  const whisperStatus = isWhisperAvailable() ? '🟢' : '⚪';
+
   await ctx.reply(`🌊 *Ciao! Sono Onde PR.*
 
 Il tuo centro di comando per gestire:
@@ -324,8 +333,9 @@ Il tuo centro di comando per gestire:
 • /menu → Menu interattivo
 • /dashboard → Status completo
 • Manda foto → Quick actions
+• 🎙️ Manda audio → Dettatura ${whisperStatus}
 
-_Oppure usa i comandi classici: /help_`, { parse_mode: 'Markdown' });
+_Supporto vocale: Italiano 🇮🇹 + Inglese 🇬🇧_`, { parse_mode: 'Markdown' });
 
   // Also show the menu
   await showMainMenu(ctx);
@@ -346,6 +356,10 @@ bot.command('help', (ctx) => {
 /clear - Cancella bozza
 /post frh|onde|magmatic - Pubblica
 
+🎙️ *Dettatura Vocale*
+Manda un messaggio vocale → trascritto automaticamente!
+Supporta 🇮🇹 Italiano e 🇬🇧 Inglese
+
 🤖 *PR Agent*
 /ai - Analizza contenuto e crea post
 /use 1|2|3 - Usa proposta dell'agent
@@ -362,7 +376,7 @@ bot.command('help', (ctx) => {
 💬 *Chat con Claude*
 /text <messaggio> - Parla con Claude Code
 
-💡 *Tip: Manda foto/video → bottoni quick action!*`, { parse_mode: 'Markdown' });
+💡 *Tip: Manda foto/video/audio → quick action!*`, { parse_mode: 'Markdown' });
 });
 
 // === Interactive Command Center ===
@@ -1047,6 +1061,114 @@ bot.on(message('video'), async (ctx) => {
 
   } catch (error: any) {
     ctx.reply(`❌ Errore: ${error.message}`);
+  }
+});
+
+// Handle voice messages -> transcribe and process as text
+bot.on(message('voice'), async (ctx) => {
+  const userId = ctx.from.id;
+  const voice = ctx.message.voice;
+
+  // Check if Whisper is available
+  if (!isWhisperAvailable()) {
+    ctx.reply(
+      '🎙️ *Dettatura non disponibile*\n\n' +
+      'Aggiungi `OPENAI_API_KEY` al .env per abilitare la trascrizione vocale.',
+      { parse_mode: 'Markdown' }
+    );
+    return;
+  }
+
+  // Show processing message
+  const processingMsg = await ctx.reply('🎙️ Trascrivo audio...');
+
+  try {
+    // Get file info
+    const file = await ctx.telegram.getFile(voice.file_id);
+    const fileUrl = `https://api.telegram.org/file/bot${TELEGRAM_TOKEN}/${file.file_path}`;
+
+    // Download to temp
+    const voiceDir = path.join(__dirname, '../temp/voice');
+    if (!fs.existsSync(voiceDir)) fs.mkdirSync(voiceDir, { recursive: true });
+
+    const localPath = path.join(voiceDir, `voice_${userId}_${Date.now()}.ogg`);
+    await downloadAudioFile(fileUrl, localPath);
+
+    // Transcribe (auto-detect language - supports IT and EN)
+    const result = await transcribeAudio(localPath);
+
+    // Cleanup audio file
+    cleanupAudioFile(localPath);
+
+    if (!result.success) {
+      await ctx.telegram.editMessageText(
+        ctx.chat.id,
+        processingMsg.message_id,
+        undefined,
+        `❌ Errore trascrizione: ${result.error}`
+      );
+      return;
+    }
+
+    const transcribedText = result.text || '';
+    const langEmoji = result.language === 'italian' || result.language === 'it' ? '🇮🇹' :
+                      result.language === 'english' || result.language === 'en' ? '🇬🇧' : '🌍';
+    const durationStr = result.duration ? ` (${Math.round(result.duration)}s)` : '';
+
+    // Update processing message with transcription
+    await ctx.telegram.editMessageText(
+      ctx.chat.id,
+      processingMsg.message_id,
+      undefined,
+      `🎙️ *Trascritto${durationStr}* ${langEmoji}\n\n"${transcribedText}"`,
+      { parse_mode: 'Markdown' }
+    );
+
+    // Save to chat queue for Claude (same as text messages)
+    const msgId = uuidv4().slice(0, 8);
+    const context = parseMessageContext(transcribedText);
+    const chatMessage: ChatMessage = {
+      id: msgId,
+      from: 'user',
+      message: transcribedText,
+      timestamp: new Date().toISOString(),
+      status: 'pending'
+    };
+
+    fs.writeFileSync(
+      path.join(chatQueueDir, `${msgId}.json`),
+      JSON.stringify({ ...chatMessage, source: 'voice', language: result.language, context }, null, 2)
+    );
+
+    // Also update draft if there's existing content
+    const existingDraft = drafts.get(userId);
+    if (existingDraft) {
+      existingDraft.text = existingDraft.text
+        ? existingDraft.text + '\n' + transcribedText
+        : transcribedText;
+      drafts.set(userId, existingDraft);
+    } else {
+      drafts.set(userId, {
+        text: transcribedText,
+        mediaFiles: [],
+        mediaTypes: [],
+      });
+    }
+
+    // Send confirmation with quick actions
+    await ctx.reply(
+      `💬 Messaggio vocale processato!\n\n🔖 \`${msgId}\`\n\n` +
+      `_Testo aggiunto alla bozza. Usa /draft per vedere o /post per pubblicare._`,
+      { parse_mode: 'Markdown' }
+    );
+
+  } catch (error: any) {
+    await ctx.telegram.editMessageText(
+      ctx.chat.id,
+      processingMsg.message_id,
+      undefined,
+      `❌ Errore: ${error.message}`
+    );
   }
 });
 

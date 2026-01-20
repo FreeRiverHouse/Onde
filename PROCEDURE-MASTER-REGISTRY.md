@@ -20,7 +20,16 @@
 - **Quando usare:** Ogni volta che devi mandare qualcosa a Mattia su Telegram
 - **Credenziali:** Bot token e chat ID inclusi nel file
 
-### 2. PROCEDURA CONTENUTI SOCIAL
+### 2. PROCEDURA POST SU X (TWITTER)
+- **File:** `/Users/mattia/Projects/Onde/PROCEDURA-POST-X.md`
+- **Agente:** PR Agent / Tutti
+- **Scopo:** Postare tweet su @Onde_FRH, @FreeRiverHouse, @magmatic__
+- **Quando usare:** Quando devi postare su X per qualsiasi account
+- **Credenziali:** `X_FRH_*`, `X_ONDE_*`, `X_MAGMATIC_*` nel .env
+- **Script:** `test-frh.js`, `post-frh-now.js`, `post-onde-now.js`, `post-magmatic-now.js`
+- **Troubleshooting:** Se 401 → rigenerare token su developer.twitter.com
+
+### 3. PROCEDURA CONTENUTI SOCIAL
 - **File:** `/Users/mattia/Projects/Onde/PROCEDURA-CONTENUTI-SOCIAL.md`
 - **Agente:** PR Agent / Editore Capo
 - **Scopo:** Creare contenuti social da zero
@@ -299,7 +308,7 @@ Ogni mese:
 **Versione:** 1.0
 **Data creazione:** 2026-01-11
 **Ultimo aggiornamento:** 2026-01-11
-**Procedure totali:** 11
+**Procedure totali:** 12
 
 ---
 
@@ -308,6 +317,7 @@ Ogni mese:
 | Task | Procedura | File |
 |------|-----------|------|
 | Inviare su Telegram | PROCEDURA INVIO TELEGRAM | PROCEDURA-INVIO-TELEGRAM.md |
+| Postare su X | PROCEDURA POST X | PROCEDURA-POST-X.md |
 | Creare post social | PROCEDURA CONTENUTI SOCIAL | PROCEDURA-CONTENUTI-SOCIAL.md |
 | Modificare post social | PROCEDURA REVISIONE CONTENUTI SOCIAL | PROCEDURA-REVISIONE-CONTENUTI-SOCIAL.md |
 | Arricchire post social | PROCEDURA UPGRADE CONTENUTI SOCIAL | PROCEDURA-UPGRADE-CONTENUTI-SOCIAL.md |
