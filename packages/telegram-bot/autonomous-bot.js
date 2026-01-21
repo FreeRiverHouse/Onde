@@ -14,11 +14,11 @@ const path = require('path');
 const TOKEN = '8528268093:AAGNZUcYBm8iMcn9D_oWr565rpxm9riNkBM';
 const CHAT_ID = '7505631979';
 const USER_ID = '7505631979'; // Solo questo utente può usare il bot
-const ONDE_ROOT = '/Users/mattiapetrucciani/CascadeProjects/Onde';
-const CASCADE_ROOT = '/Users/mattiapetrucciani/CascadeProjects';
-const HISTORY_FILE = '/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/chat-history.json';
+const ONDE_ROOT = '/Users/mattia/Projects/Onde';
+const CASCADE_ROOT = '/Users/mattia/Projects';
+const HISTORY_FILE = '/Users/mattia/Projects/Onde/packages/telegram-bot/data/chat-history.json';
 const VOICE_DIR = '/tmp/telegram-voice';
-const WHISPER_MODEL = '/Users/mattiapetrucciani/.whisper/ggml-base.bin';
+const WHISPER_MODEL = '/Users/mattia/.whisper/ggml-base.bin';
 const MEMORY_DAYS = 7;
 
 // Lock file and heartbeat for reliability
@@ -312,7 +312,7 @@ ${history}`;
       maxBuffer: 5 * 1024 * 1024,
       env: {
         ...process.env,
-        PATH: '/Users/mattiapetrucciani/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'
+        PATH: '/Users/mattia/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'
       }
     });
     return result.trim();

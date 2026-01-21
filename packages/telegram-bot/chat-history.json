@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-01-21T02:31:35.100Z",
+  "lastUpdated": "2026-01-21T18:34:22.047Z",
   "retentionDays": 7,
-  "messageCount": 306,
+  "messageCount": 312,
   "messages": [
     {
       "timestamp": "2026-01-19T16:25:59.500Z",
@@ -1532,6 +1532,36 @@
       "timestamp": "2026-01-21T02:31:35.100Z",
       "role": "assistant",
       "content": "MILO ha già le immagini in `images-nanob/` (10 scene completate, come da storico). \n\nDevo creare un file `prompts-pina.md` per usare CORDE, oppure CORDE può essere usato per **nuove** immagini MILO.\n\n**Cosa vuoi fare?**\n\n1. **Generare NUOVE immagini MILO** con CORDE (locale, SDXL) - devo creare i prompt\n2. **Altro libro** - quale?\n3. **Test CORDE** - prova veloce per verificare che funzioni\n\nDimmi cosa serve."
+    },
+    {
+      "timestamp": "2026-01-21T18:29:52.097Z",
+      "role": "user",
+      "content": "Prova 5 secondi high quality"
+    },
+    {
+      "timestamp": "2026-01-21T18:30:47.775Z",
+      "role": "assistant",
+      "content": "✅ **FATTO!**\n\n**Video MILO 5 secondi High Quality:**\n- **File:** `/Users/mattia/Projects/Onde/apps/corde/outputs/videos/milo-5s-hq.mp4`\n- **Dimensione:** 976 KB\n- **Risoluzione:** 1080x1920 (verticale, perfetto per TikTok/Reels)\n- **Effetto:** Ken Burns (zoom-in lento)\n- **Qualità:** CRF 18 (alta), preset slow\n\nVuoi che:\n1. **Apro il video** per vederlo?\n2. **Lo copio in un altro path** (tipo Downloads)?\n3. **Genero altri video** dalle altre immagini MILO?"
+    },
+    {
+      "timestamp": "2026-01-21T18:31:39.973Z",
+      "role": "user",
+      "content": "Stai fuori, si parlava di muladhara"
+    },
+    {
+      "timestamp": "2026-01-21T18:31:47.845Z",
+      "role": "assistant",
+      "content": "Hai ragione, scusa! \n\nStavi parlando di **Muladhara** - il primo chakra, chakra della radice.\n\nNon ho contesto precedente su cosa stavate discutendo esattamente. Stavi:\n\n1. **Generando contenuti** su Muladhara? (post, immagini, video)\n2. **Scrivendo qualcosa** per un libro/progetto?\n3. **Altro**?\n\nDimmi dove eravamo rimasti e riprendiamo da lì."
+    },
+    {
+      "timestamp": "2026-01-21T18:32:21.620Z",
+      "role": "user",
+      "content": "LOL!! Add chat history to bot"
+    },
+    {
+      "timestamp": "2026-01-21T18:34:22.047Z",
+      "role": "assistant",
+      "content": "❌ Errore: spawnSync /bin/sh ETIMEDOUT"
     }
   ]
 }

@@ -47,6 +47,12 @@ import {
   isWhisperAvailable,
   detectLanguageHint,
 } from './voice-transcription';
+import {
+  addUserMessage,
+  addBotMessage,
+  formatHistoryForPrompt,
+  getContextSummary,
+} from './chat-history';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -899,6 +905,9 @@ bot.on(message('text'), (ctx) => {
 
   const message = ctx.message.text;
   const msgId = uuidv4().slice(0, 8);
+
+  // Save to chat history for context
+  addUserMessage(message, 'text');
 
   const chatMessage: ChatMessage = {
     id: msgId,
