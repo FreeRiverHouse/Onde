@@ -62,25 +62,18 @@ export function DashboardContent() {
   const [stats] = useState(defaultStats)
 
   useEffect(() => {
-    console.log("DashboardContent: useEffect running")
-
     async function checkAuth() {
-      console.log("DashboardContent: checkAuth starting")
       try {
         const res = await fetch("/api/auth/session")
         const session = await res.json()
-        console.log("DashboardContent: session result", session)
 
         if (session && session.user) {
-          console.log("DashboardContent: authenticated!")
           setAuthStatus("authenticated")
         } else {
-          console.log("DashboardContent: NOT authenticated, redirecting...")
           setAuthStatus("unauthenticated")
           window.location.href = "/login?callbackUrl=/"
         }
-      } catch (error) {
-        console.log("DashboardContent: error", error)
+      } catch {
         setAuthStatus("unauthenticated")
         window.location.href = "/login?callbackUrl=/"
       }

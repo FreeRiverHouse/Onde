@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
-import { approvePost } from '@/lib/posts'
+import { getRequestContext } from '@cloudflare/next-on-pages'
+import { approvePostInD1, approvePost } from '@/lib/posts'
+
+export const runtime = 'edge'
 
 export async function POST(request: Request) {
   try {
@@ -9,14 +12,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Post ID required' }, { status: 400 })
     }
 
-    const success = approvePost(id)
+    const { env } = getRequestContext()
+    const db = env.DB
+
+    let success: boolean
+
+    if (db) {
+      // Use D1 database
+      success = await approvePostInD1(db, id)
+    } else {
+      // Fallback to in-memory for local dev
+      success = approvePost(id)
+    }
 
     if (success) {
       return NextResponse.json({ success: true, message: 'Post approved' })
     } else {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
-  } catch {
+  } catch (error) {
+    console.error('Error approving post:', error)
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 }

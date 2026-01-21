@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Providers } from '@/components/Providers'
 import { AuthButtons } from '@/components/AuthButtons'
+import { HeaderClient } from '@/components/HeaderClient'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     CORDE
                   </a>
                 </nav>
+                <HeaderClient />
                 <AuthButtons />
               </div>
             </div>

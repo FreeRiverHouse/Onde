@@ -53,6 +53,7 @@ import {
   formatHistoryForPrompt,
   getContextSummary,
 } from './chat-history';
+import { syncCheck, pushPostToDashboard, approvePostInD1, rejectPostInD1 } from './dashboard-sync';
 // Agent queue - inline import to avoid rootDir issues
 const agentQueuePath = require('path').join(__dirname, '../../agent-queue/src/index');
 const agentQueue = require(agentQueuePath);
@@ -451,6 +452,56 @@ bot.command('ask', async (ctx) => {
   );
 
   ctx.reply(`✅ Approvazione creata: \`${approvalId}\``, { parse_mode: 'Markdown' });
+});
+
+// === D1 Post Approval Handlers (for posts created on dashboard) ===
+
+bot.action(/^approve_post_(.+)$/, async (ctx) => {
+  const postId = ctx.match[1];
+
+  try {
+    const result = await approvePostInD1(postId);
+
+    if (result.success) {
+      const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+      await ctx.editMessageText(
+        `📝 ✅ *POST APPROVATO*\n\n` +
+        `Il post verrà pubblicato automaticamente.\n\n` +
+        `🔖 ID: \`${postId}\`\n` +
+        `⏰ ${time}\n\n` +
+        `_Sincronizzazione ogni 5 minuti_`,
+        { parse_mode: 'Markdown' }
+      );
+      await ctx.answerCbQuery('✅ Post approvato!');
+    } else {
+      await ctx.answerCbQuery(`❌ Errore: ${result.error}`);
+    }
+  } catch (error: any) {
+    await ctx.answerCbQuery(`❌ Errore: ${error.message}`);
+  }
+});
+
+bot.action(/^reject_post_(.+)$/, async (ctx) => {
+  const postId = ctx.match[1];
+
+  try {
+    const result = await rejectPostInD1(postId);
+
+    if (result.success) {
+      const time = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+      await ctx.editMessageText(
+        `📝 ❌ *POST RIFIUTATO*\n\n` +
+        `🔖 ID: \`${postId}\`\n` +
+        `⏰ ${time}`,
+        { parse_mode: 'Markdown' }
+      );
+      await ctx.answerCbQuery('❌ Post rifiutato');
+    } else {
+      await ctx.answerCbQuery(`❌ Errore: ${result.error}`);
+    }
+  } catch (error: any) {
+    await ctx.answerCbQuery(`❌ Errore: ${error.message}`);
+  }
 });
 
 // === Approval Button Handlers ===
@@ -1846,6 +1897,17 @@ bot.command('preview', async (ctx) => {
   }
 });
 
+// Command: /sync - Sync with dashboard (onde.surf)
+bot.command('sync', async (ctx) => {
+  ctx.reply('🔄 Sincronizzazione con onde.surf...');
+  try {
+    await syncCheck();
+    ctx.reply('✅ Sincronizzazione completata!');
+  } catch (error: any) {
+    ctx.reply(`❌ Errore: ${error.message}`);
+  }
+});
+
 // Command: /autopost [onde|frh] - Trigger manual scheduled post
 bot.command('autopost', async (ctx) => {
   const args = ctx.message.text.replace(/^\/autopost\s*/, '').trim();
@@ -1899,11 +1961,33 @@ agentQueue.onTaskBlocked(async (task: any) => {
 console.log('🚀 Onde PR Bot starting...');
 console.log(`   Bot: @OndePR_bot`);
 
+// Dashboard sync interval (check every 5 minutes)
+let dashboardSyncInterval: NodeJS.Timeout | null = null;
+
+function startDashboardSync() {
+  console.log('🔄 Dashboard sync: starting (every 5 minutes)');
+  dashboardSyncInterval = setInterval(async () => {
+    try {
+      await syncCheck();
+    } catch (error) {
+      console.error('Dashboard sync error:', error);
+    }
+  }, 5 * 60 * 1000); // 5 minutes
+}
+
+function stopDashboardSync() {
+  if (dashboardSyncInterval) {
+    clearInterval(dashboardSyncInterval);
+    dashboardSyncInterval = null;
+  }
+}
+
 bot.launch().then(() => {
   console.log('✅ Onde PR Bot is running!');
   console.log('   Send /start to begin');
   console.log('   Agent approval system: ACTIVE');
   console.log('   Content scheduler: ACTIVE');
+  console.log('   Dashboard sync: ACTIVE');
 
   // Schedule daily reports
   scheduleDailyReport();
@@ -1914,14 +1998,22 @@ bot.launch().then(() => {
 
   // Schedule content preview at 16:20 daily
   scheduleContentPreview();
+
+  // Start dashboard sync (check onde.surf for approved posts)
+  startDashboardSync();
+
+  // Initial sync check
+  syncCheck().catch(err => console.error('Initial sync failed:', err));
 });
 
 // Graceful shutdown
 process.once('SIGINT', () => {
   stopScheduler();
+  stopDashboardSync();
   bot.stop('SIGINT');
 });
 process.once('SIGTERM', () => {
   stopScheduler();
+  stopDashboardSync();
   bot.stop('SIGTERM');
 });

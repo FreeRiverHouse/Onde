@@ -5,7 +5,8 @@ import { isEmailWhitelisted } from "./db"
 // Get secrets from environment - works with both Node.js and Cloudflare Workers
 const getSecret = () => {
   // Try process.env first (Node.js), then globalThis for Workers
-  return process.env.AUTH_SECRET || (globalThis as any).AUTH_SECRET || ""
+  const global = globalThis as typeof globalThis & { AUTH_SECRET?: string }
+  return process.env.AUTH_SECRET || global.AUTH_SECRET || ""
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

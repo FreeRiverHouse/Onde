@@ -191,7 +191,7 @@ export async function postToX(post: PendingPost): Promise<{ success: boolean; ur
 // === Telegram Integration ===
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID!;
+export const CHAT_ID = process.env.TELEGRAM_CHAT_ID!;
 
 let bot: Telegraf | null = null;
 

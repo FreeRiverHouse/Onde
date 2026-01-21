@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { addTechFeedback } from '@/lib/polyroborto'
 
+export const runtime = 'edge'
+
 export async function POST(request: Request) {
   try {
     const { feedback } = await request.json()

@@ -2,7 +2,8 @@ import { auth } from "@/lib/auth"
 import { NextResponse } from "next/server"
 
 // Routes that don't require authentication
-const publicRoutes = ["/login", "/coming-soon", "/api/auth"]
+// /api/sync and /api/agent-tasks use bearer token auth instead of session
+const publicRoutes = ["/login", "/coming-soon", "/api/auth", "/api/sync", "/api/agent-tasks", "/frh"]
 
 export default auth((req) => {
   const { pathname } = req.nextUrl

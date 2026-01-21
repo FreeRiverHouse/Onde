@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
-import { addFeedback } from '@/lib/posts'
+import { getRequestContext } from '@cloudflare/next-on-pages'
+import { addFeedbackInD1, addFeedback } from '@/lib/posts'
+
+export const runtime = 'edge'
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +12,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Post ID and feedback required' }, { status: 400 })
     }
 
-    const success = addFeedback(id, feedback)
+    const { env } = getRequestContext()
+    const db = env.DB
+
+    let success: boolean
+
+    if (db) {
+      // Use D1 database
+      success = await addFeedbackInD1(db, id, feedback)
+    } else {
+      // Fallback to in-memory for local dev
+      success = addFeedback(id, feedback)
+    }
 
     if (success) {
       return NextResponse.json({
@@ -19,7 +33,8 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
-  } catch {
+  } catch (error) {
+    console.error('Error adding feedback:', error)
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 }

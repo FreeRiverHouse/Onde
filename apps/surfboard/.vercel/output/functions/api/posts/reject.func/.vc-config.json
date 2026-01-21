@@ -1,0 +1,18 @@
+{
+  "runtime": "edge",
+  "name": "api/posts/reject",
+  "deploymentTarget": "v8-worker",
+  "entrypoint": "index.js",
+  "assets": [],
+  "framework": {
+    "slug": "nextjs",
+    "version": "14.2.35"
+  },
+  "environment": {
+    "__NEXT_BUILD_ID": "YcCdT5nboS_5lNSC1gVhr",
+    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "K0bHaKqUZ5TCxpNAY5FKvBRIaR9svLrXirwD3YIXiNk=",
+    "__NEXT_PREVIEW_MODE_ID": "6347e4541e63647821d935a6c8af67e6",
+    "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "f3c18a572190e6cbf3f352e78bce70ef53a7afd05eb56e020dde245cad7b3f8d",
+    "__NEXT_PREVIEW_MODE_SIGNING_KEY": "93264dc67b4aed33f24bc98161c054f70d31da56b29956880355ee7932941d4a"
+  }
+}
