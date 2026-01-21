@@ -1,6 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-
 // Types
 export interface Task {
   id: string
@@ -16,13 +13,6 @@ export interface Task {
   claimed_at: string | null
   completed_at?: string
   created_at?: string
-}
-
-export interface TasksData {
-  version: string
-  last_updated: string
-  total_tasks: number
-  tasks: Task[]
 }
 
 export interface DashboardStats {
@@ -67,130 +57,10 @@ export interface DashboardStats {
   lastUpdated: string
 }
 
-// Helper function to count tasks by status
-function countByStatus(tasks: Task[], status: string): number {
-  return tasks.filter(t => t.status === status).length
-}
-
-// Helper function to get category stats
-function getCategoryStats(tasks: Task[]): { name: string; completed: number; total: number }[] {
-  const categories = new Map<string, { completed: number; total: number }>()
-
-  tasks.forEach(task => {
-    const cat = task.category.toLowerCase()
-    const current = categories.get(cat) || { completed: 0, total: 0 }
-    current.total++
-    if (task.status === 'completed') current.completed++
-    categories.set(cat, current)
-  })
-
-  return Array.from(categories.entries())
-    .map(([name, stats]) => ({ name, ...stats }))
-    .sort((a, b) => b.total - a.total)
-    .slice(0, 8) // Top 8 categories
-}
-
-// Helper function to get recent activity
-function getRecentActivity(tasks: Task[]): DashboardStats['recentActivity'] {
-  return tasks
-    .filter(t => t.completed_at || t.claimed_at)
-    .map(t => ({
-      id: t.id,
-      title: t.title,
-      status: t.status,
-      timestamp: t.completed_at || t.claimed_at || '',
-      category: t.category.toLowerCase()
-    }))
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-    .slice(0, 15)
-}
-
-// Count published items based on completed tasks
-function countPublishing(tasks: Task[]): DashboardStats['publishing'] {
-  const completed = tasks.filter(t => t.status === 'completed')
-
-  return {
-    booksPublished: completed.filter(t =>
-      t.id.startsWith('kdp-') ||
-      t.id.startsWith('slant-')
-    ).length,
-    audiobooks: completed.filter(t => t.id.startsWith('audiobook-')).length,
-    podcasts: completed.filter(t => t.id.startsWith('podcast-')).length,
-    videos: completed.filter(t =>
-      t.id.startsWith('video-') ||
-      t.category.toLowerCase() === 'multimedia'
-    ).length
-  }
-}
-
-// Count active workers
-function countActiveWorkers(tasks: Task[]): number {
-  const activeClaimers = new Set<string>()
-  tasks
-    .filter(t => t.status === 'in_progress' && t.claimed_by)
-    .forEach(t => activeClaimers.add(t.claimed_by!))
-  return activeClaimers.size
-}
-
-// Main data fetching function
+// Main data fetching function - returns dashboard stats
 export async function getDashboardStats(): Promise<DashboardStats> {
-  const tasksPath = path.join(process.cwd(), '..', '..', '.claude-workers', 'TASKS.json')
-
-  let tasksData: TasksData
-
-  try {
-    const fileContent = fs.readFileSync(tasksPath, 'utf-8')
-    tasksData = JSON.parse(fileContent)
-  } catch (error) {
-    // Return mock data if file not found
-    return getMockStats()
-  }
-
-  const tasks = tasksData.tasks
-  const completed = countByStatus(tasks, 'completed')
-  const inProgress = countByStatus(tasks, 'in_progress')
-  const available = countByStatus(tasks, 'available')
-  const blocked = tasks.filter(t =>
-    t.status === 'available' &&
-    t.dependencies.length > 0 &&
-    t.dependencies.some(dep => {
-      const depTask = tasks.find(dt => dt.id === dep)
-      return depTask && depTask.status !== 'completed'
-    })
-  ).length
-
-  return {
-    tasks: {
-      total: tasksData.total_tasks,
-      completed,
-      inProgress,
-      available: available - blocked,
-      blocked,
-      completionRate: Math.round((completed / tasksData.total_tasks) * 100)
-    },
-    categories: getCategoryStats(tasks),
-    recentActivity: getRecentActivity(tasks),
-    publishing: countPublishing(tasks),
-    social: {
-      // Placeholder values - would come from API integrations
-      xFollowers: 156,
-      igFollowers: 42,
-      tiktokFollowers: 28,
-      postsThisWeek: 12
-    },
-    revenue: {
-      // Placeholder values - would come from KDP, Spotify APIs
-      kdpEarnings: 'Coming Soon',
-      spotifyPlays: 'Coming Soon',
-      youtubeViews: 'Coming Soon'
-    },
-    activeWorkers: countActiveWorkers(tasks),
-    lastUpdated: tasksData.last_updated
-  }
-}
-
-// Mock data for development/fallback
-function getMockStats(): DashboardStats {
+  // In production, this could fetch from an API
+  // For now, return static data
   return {
     tasks: {
       total: 158,
@@ -233,26 +103,4 @@ function getMockStats(): DashboardStats {
     activeWorkers: 8,
     lastUpdated: new Date().toISOString()
   }
-}
-
-// Get completion history for chart (last 7 days)
-export function getCompletionHistory(tasks: Task[]): { day: string; completed: number }[] {
-  const history: { day: string; completed: number }[] = []
-  const now = new Date()
-
-  for (let i = 6; i >= 0; i--) {
-    const date = new Date(now)
-    date.setDate(date.getDate() - i)
-    const dayStr = date.toISOString().split('T')[0]
-    const dayLabel = date.toLocaleDateString('en-US', { weekday: 'short' })
-
-    const completedOnDay = tasks.filter(t => {
-      if (!t.completed_at) return false
-      return t.completed_at.startsWith(dayStr)
-    }).length
-
-    history.push({ day: dayLabel, completed: completedOnDay })
-  }
-
-  return history
 }

@@ -1,0 +1,21 @@
+{
+  "title": "Il Respiro Magico",
+  "subtitle": "Un libro sulla calma interiore per i più piccoli",
+  "author": "gianni-parola",
+  "illustrator": "pina-pennello",
+  "chain": "onde-classics",
+  "age_target": "4-7",
+  "language": "it",
+  "chapters": 9,
+  "created": "2026-01-08",
+  "status": "prompts_ready",
+  "characters": {
+    "tommaso": {
+      "name": "Tommaso",
+      "age": 6,
+      "description": "Bambino italiano, capelli castani, sempre in movimento",
+      "reference": null
+    }
+  },
+  "theme": "Mindfulness, breathing exercises, emotional regulation for children"
+}

@@ -1,24 +1,29 @@
 "use client"
 
-import { signIn, signOut } from "next-auth/react"
-import type { Session } from "next-auth"
+import { signIn, signOut, useSession } from "next-auth/react"
 
-interface AuthButtonsProps {
-  session: Session | null
-}
+export function AuthButtons() {
+  const { data: session, status } = useSession()
 
-export function AuthButtons({ session }: AuthButtonsProps) {
+  if (status === "loading") {
+    return (
+      <div className="px-4 py-2 rounded-lg bg-surf-teal/10 text-surf-foam/40 text-sm">
+        ...
+      </div>
+    )
+  }
+
   if (session?.user) {
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm text-surf-foam/60">
-          {session.user.email?.split("@")[0]}
+        <span className="text-sm text-surf-foam/60 hidden md:block">
+          {session.user.email}
         </span>
         <button
-          onClick={() => signOut()}
-          className="text-sm text-surf-foam/40 hover:text-red-400 transition-colors"
+          onClick={() => signOut({ callbackUrl: '/login' })}
+          className="text-sm px-4 py-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
         >
-          Esci
+          Sign Out
         </button>
       </div>
     )
@@ -27,9 +32,9 @@ export function AuthButtons({ session }: AuthButtonsProps) {
   return (
     <button
       onClick={() => signIn("google")}
-      className="text-sm text-surf-foam/60 hover:text-surf-cyan transition-colors"
+      className="text-sm px-4 py-2 rounded-lg bg-surf-teal/20 text-surf-cyan hover:bg-surf-teal/30 transition-colors"
     >
-      Accedi
+      Sign In
     </button>
   )
 }
