@@ -2,7 +2,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const XAI_API_KEY = process.env.XAI_API_KEY;
+const ZAI_API_KEY = process.env.ZAI_API_KEY;
 const GROK_API_URL = 'https://api.x.ai/v1/chat/completions';
+const ZAI_API_URL = 'https://api.z.ai/api/paas/v4/chat/completions';
+
+// Prefer Z.ai (free) over Grok (paid) if available
+const USE_ZAI_PRIMARY = true;
 
 // PR Agent System Prompt - defines personality and knowledge
 const PR_AGENT_SYSTEM = `Sei l'agente PR di Onde, una casa editrice digitale all'intersezione di tecnologia, spiritualità e arte.
@@ -91,6 +96,38 @@ export interface ContentAnalysis {
   notes?: string;
 }
 
+async function callZai(prompt: string): Promise<string> {
+  if (!ZAI_API_KEY) {
+    throw new Error('ZAI_API_KEY non configurata');
+  }
+
+  const response = await fetch(ZAI_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ZAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'glm-4.7-flash',
+      messages: [
+        { role: 'system', content: PR_AGENT_SYSTEM },
+        { role: 'user', content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 1024,
+      thinking: { type: 'disabled' }, // Direct answers, no chain-of-thought
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Z.ai API error: ${error}`);
+  }
+
+  const data = await response.json() as { choices?: { message?: { content?: string } }[] };
+  return data.choices?.[0]?.message?.content || '';
+}
+
 async function callGrok(prompt: string): Promise<string> {
   if (!XAI_API_KEY) {
     throw new Error('XAI_API_KEY non configurata');
@@ -122,6 +159,25 @@ async function callGrok(prompt: string): Promise<string> {
   return data.choices?.[0]?.message?.content || '';
 }
 
+// Smart LLM caller: tries Z.ai first (free), falls back to Grok
+async function callLLM(prompt: string): Promise<string> {
+  // Try Z.ai first if available and preferred
+  if (USE_ZAI_PRIMARY && ZAI_API_KEY) {
+    try {
+      return await callZai(prompt);
+    } catch (error: any) {
+      console.warn('Z.ai failed, trying Grok:', error.message);
+    }
+  }
+
+  // Fall back to Grok
+  if (XAI_API_KEY) {
+    return await callLLM(prompt);
+  }
+
+  throw new Error('No LLM API available (need ZAI_API_KEY or XAI_API_KEY)');
+}
+
 export class PRAgent {
   private knowledge: PRKnowledge;
 
@@ -130,7 +186,13 @@ export class PRAgent {
   }
 
   isAvailable(): boolean {
-    return !!XAI_API_KEY;
+    return !!(ZAI_API_KEY || XAI_API_KEY);
+  }
+
+  getLLMProvider(): string {
+    if (USE_ZAI_PRIMARY && ZAI_API_KEY) return 'Z.ai (GLM-4.7-Flash)';
+    if (XAI_API_KEY) return 'Grok (xAI)';
+    return 'None';
   }
 
   async analyzeAndCreatePost(params: {
@@ -243,7 +305,7 @@ RICERCA: ${query}
 Fornisci informazioni utili, trend, suggerimenti per il PR. Sii conciso e pratico.`;
 
     try {
-      return await callGrok(prompt);
+      return await callLLM(prompt);
     } catch (error: any) {
       return `Errore nella ricerca: ${error.message}`;
     }
@@ -272,7 +334,7 @@ Fornisci informazioni utili, trend, suggerimenti per il PR. Sii conciso e pratic
 - Voice: ${this.knowledge.brandVoice.join(', ')}
 - Topics: ${this.knowledge.topics.join(', ')}
 - Learned from: ${this.knowledge.successfulPosts.length} posts
-- Powered by: Grok (xAI)`;
+- Powered by: ${this.getLLMProvider()}`;
   }
 }
 

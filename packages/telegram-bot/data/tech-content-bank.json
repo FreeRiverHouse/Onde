@@ -1,6 +1,6 @@
 {
   "description": "Pre-written tech posts by Claude. Used for daily @FreeRiverHouse building in public.",
-  "lastUsedIndex": 6,
+  "lastUsedIndex": 1,
   "posts": [
     {
       "text": "Building apps for kids is different. Every button needs to work on the first tap. Every error needs a friendly message. No second chances.",
@@ -10,7 +10,7 @@
     {
       "text": "Our Unity test automation runs at 2 AM. I wake up to either green checkmarks or a to-do list. The machines never sleep.",
       "topic": "automation",
-      "used": false
+      "used": true
     },
     {
       "text": "VR development rule: if it makes you dizzy, it'll make your users sick. Testing on yourself is non-negotiable.",

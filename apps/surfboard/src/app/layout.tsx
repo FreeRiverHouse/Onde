@@ -1,5 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { auth } from '@/lib/auth'
+import { AuthButtons } from '@/components/AuthButtons'
 
 export const metadata: Metadata = {
   title: 'SurfBoard | Onde Command Center',
@@ -34,7 +36,8 @@ const WaveIcon = () => (
   </svg>
 )
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth()
   return (
     <html lang="en">
       <head>
@@ -104,20 +107,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   📱 Social
                 </a>
+                {session && (
+                  <a
+                    href="/corde"
+                    className="text-sm text-surf-foam/60 hover:text-surf-gold transition-colors font-medium"
+                  >
+                    🎨 CORDE
+                  </a>
+                )}
                 <a
                   href="https://onde.la"
                   className="text-sm text-surf-foam/60 hover:text-surf-cyan transition-colors"
                 >
                   onde.la
                 </a>
-                <a
-                  href="https://x.com/Onde_FRH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-surf-foam/60 hover:text-surf-gold transition-colors"
-                >
-                  @Onde_FRH
-                </a>
+                <AuthButtons session={session} />
               </nav>
             </div>
           </div>

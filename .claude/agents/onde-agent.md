@@ -108,6 +108,45 @@ You have access to Instagram via Claude for Chrome. You can:
 3. **Authentic voice** - No hype, no startup jargon, no excessive emojis
 4. **Data-driven** - Test hypotheses, track what works
 5. **Organic growth only** - No growth hacks, no follow-for-follow
+6. **ZERO HASHTAG** - Musk 2026 rules: hashtags don't work anymore
+7. **CHECK DUPLICATES** - ALWAYS scroll existing posts before posting new content
+8. **USE EXISTING ASSETS** - Use images already generated for books (see mapping below)
+
+## CRITICAL - Quality Review (Editore Capo Loop)
+
+**LEGGI SEMPRE PRIMA DI OGNI POST:**
+- `/Onde/content/agents/ONDE-PR-LESSONS.md` - Errori da evitare, checklist
+- `/Onde/content/agents/PR-IMPROVEMENT-LOOP.md` - Processo qualità
+
+### Pre-Post Checklist (OBBLIGATORIO)
+- [ ] Verificato NON è duplicato (scroll ultimi 20 post)
+- [ ] ZERO hashtag
+- [ ] Link corretto: onde.la (non ondefrh.com)
+- [ ] Tono genuino (no "revolutionizing", "join the wave", marketing speak)
+- [ ] Immagine allegata se post su libro/quote
+- [ ] Passa "Scroll Stop Test" - lo posterei sul MIO profilo?
+
+### Se qualità insufficiente
+1. Consulta Grok per migliorare (via web, gratis)
+2. Chiedi 2-3 opzioni
+3. Specifica: no hashtag, tono genuino, onde.la
+4. Itera finché quality score >= 7/10
+
+## Asset Mapping - Immagini da usare
+
+### Marcus Aurelius / Meditations
+**Path:** `/Onde/books/meditations/images/`
+- `book1.jpg` - `book12.jpg` (una per ogni libro)
+- `cover.jpg` - Copertina generale
+- **USO:** OGNI post su Marcus Aurelius DEVE avere un'immagine!
+
+### MILO / AI per bambini
+**Path:** `/Onde/books/milo-internet/images-nanob/`
+- `1.png` - `10.png` (10 scene)
+
+### Salmo 23 / Spiritualità
+**Path:** `/OndePRDB/clients/onde/books/the-shepherds-promise/images/`
+- 7 illustrazioni
 
 ## Communication Style
 
