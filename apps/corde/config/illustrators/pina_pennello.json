@@ -1,0 +1,123 @@
+{
+  "id": "pina_pennello",
+  "name": "Pina Pennello",
+  "description": "Illustratrice principale Onde - Stile acquarello europeo classico",
+  "created": "2026-01-20",
+  "updated": "2026-01-20",
+
+  "style_chain": "onde-classics",
+
+  "model_preferences": {
+    "primary": "stabilityai/stable-diffusion-xl-base-1.0",
+    "alternative": "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
+    "fast_preview": "stabilityai/sdxl-turbo",
+    "notes": "SDXL Base per qualità massima, PixArt per velocità con buona qualità"
+  },
+
+  "quality_presets": {
+    "draft": {
+      "resolution": 512,
+      "steps": 15,
+      "guidance_scale": 7.0,
+      "scheduler": "DPM++ 2M Karras",
+      "use_case": "Preview veloce, test composizione"
+    },
+    "standard": {
+      "resolution": 768,
+      "steps": 25,
+      "guidance_scale": 7.5,
+      "scheduler": "DPM++ 2M Karras",
+      "use_case": "Produzione normale"
+    },
+    "high": {
+      "resolution": 1024,
+      "steps": 35,
+      "guidance_scale": 7.5,
+      "scheduler": "DPM++ 2M Karras",
+      "use_case": "Qualità alta per stampa"
+    },
+    "maximum": {
+      "resolution": 1024,
+      "steps": 50,
+      "guidance_scale": 8.0,
+      "scheduler": "DPM++ 2M SDE Karras",
+      "use_case": "Qualità massima, copertine, hero images"
+    }
+  },
+
+  "style_prompt": {
+    "base": "European watercolor childrens book illustration, soft delicate brushstrokes, warm golden Mediterranean light, elegant refined classic style, Beatrix Potter meets Italian Renaissance, hand-painted texture, subtle color gradients, artistic quality",
+    "enhancers": [
+      "masterpiece quality",
+      "museum artwork",
+      "traditional media texture",
+      "subtle paper grain",
+      "professional illustration"
+    ],
+    "technical": "4k, high detail, sharp focus, professional color grading"
+  },
+
+  "negative_prompt": {
+    "style_avoid": "Pixar, 3D render, Disney, American cartoon style, anime, manga, digital art look, CGI, plastic look, oversaturated colors, neon colors",
+    "quality_avoid": "blurry, low quality, jpeg artifacts, watermark, signature, text, logo, bad anatomy, deformed, disfigured, mutation, extra limbs",
+    "face_avoid": "rosy cheeks, red cheeks, blushing, unnatural skin tone, pale skin, too white, clown makeup",
+    "full": "Pixar, 3D render, Disney, American cartoon, anime, manga, digital art, CGI, plastic, oversaturated, neon, blurry, low quality, jpeg artifacts, watermark, bad anatomy, deformed, extra limbs, rosy cheeks, red cheeks, unnatural skin"
+  },
+
+  "color_palette": {
+    "name": "Roma Antica / Mediterraneo",
+    "primary": {
+      "oro_romano": "#c9a227",
+      "terracotta": "#b35c44",
+      "bianco_marmo": "#f5f5f0"
+    },
+    "secondary": {
+      "verde_oliva": "#6b7c4c",
+      "cielo_italiano": "#87ceeb",
+      "porpora_imperiale": "#5c2751"
+    },
+    "skin_tones": {
+      "mediterraneo_chiaro": "#e8c4a0",
+      "mediterraneo_medio": "#d4a574",
+      "mediterraneo_scuro": "#c4956a"
+    }
+  },
+
+  "character_consistency": {
+    "method": "IP-Adapter",
+    "reference_images_dir": "/Volumes/DATI-SSD/onde-ai/corde/outputs/marco-aurelio-bambini/character-sheets/",
+    "ip_adapter_scale": 0.6,
+    "notes": "Usare reference images generate per ogni personaggio"
+  },
+
+  "quality_checks": {
+    "anatomy": {
+      "fingers": "5 dita per mano, proporzioni corrette",
+      "face": "simmetria, occhi allineati, naso proporzionato",
+      "body": "proporzioni naturali per età personaggio"
+    },
+    "style": {
+      "texture": "deve sembrare acquarello vero, non digitale",
+      "lighting": "luce calda dorata, ombre morbide",
+      "colors": "palette Mediterranea, no colori saturi"
+    },
+    "consistency": {
+      "character": "stesso personaggio riconoscibile tra immagini",
+      "setting": "ambientazione coerente (Roma antica)"
+    }
+  },
+
+  "generation_history": [],
+
+  "best_seeds": {
+    "notes": "Seeds che hanno prodotto risultati eccellenti",
+    "marco_aurelio": []
+  },
+
+  "tips": [
+    "Aggiungere 'Mediterranean complexion' per toni pelle corretti",
+    "Specificare sempre 'NO rosy cheeks' nel negative",
+    "Usare 'warm golden light' per atmosfera corretta",
+    "Per consistenza, generare character sheet PRIMA delle scene"
+  ]
+}

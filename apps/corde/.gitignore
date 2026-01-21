@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.DS_Store
+outputs/
+
+
+node_modules/
+package-lock.json
+*.pyc
+__pycache__/
+.DS_Store
+
+*.log
+data/jobs.json

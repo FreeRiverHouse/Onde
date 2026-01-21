@@ -1,26 +1,27 @@
 # Prompts Illustrazioni - Pina Pennello
-## MILO: AI Explained to Children
+## MILO - AI Spiegata ai Bambini
 
-**Chain**: onde-futures
-**Style Reference**: European watercolor, soft warm lighting, NOT Pixar
+**Chain**: onde-classics
+**Style Reference**: European watercolor, warm golden light, soft brushstrokes
+**MILO Reference**: Penguin-shaped orange robot, round body, no legs, LED face with smile
 
 ---
 
 ## CHARACTER REFERENCE
 
-### MILO (Robot) - DESIGN APPROVATO
+### MILO (Robot AI) - STILE PINGUINOSO
 ```
-Friendly round robot MILO, silver-grey metallic body with oval egg shape, round blue LED eyes expressive and friendly, small ear-like antennas on sides of head, tiny cute arms with simple hands, rounded base no legs, chubby cute proportions, can float slightly, warm friendly expression, European watercolor childrens book illustration, soft tech aesthetic NOT cold NOT sterile, warm golden accent lighting, NOT Pixar NOT 3D NOT cartoon, 4k
-```
-
-### Sofia (7 anni) - DESIGN APPROVATO
-```
-Italian girl Sofia 7 years old, wavy brown hair with BIG PINK POLKA DOT BOW on top, curious expressive eyes, wearing green dress with red bird pattern over yellow-orange striped sleeves, colorful striped tights, brown boots, explorer adventurous expression, European watercolor childrens book illustration, soft brushstrokes, warm lighting, natural skin tone NO rosy cheeks, NOT Pixar NOT 3D, 4k
+Cute friendly ORANGE robot named MILO with egg-shaped round body NO wings NO flippers, no legs just rounded oval base, bright orange glossy metallic surface, adorable face is LED screen with two big round eyes and gentle smile and tiny cute beak, small thin silver antenna on top of head, glowing cyan LED on chest, Tesla-inspired minimalist smooth design, adorable and approachable like a friendly penguin toy, European watercolor childrens book illustration, warm golden Mediterranean light, soft brushstrokes, NOT 3D NOT Pixar NOT CGI, pure watercolor painting style, 4k
 ```
 
-### Luca (5 anni) - DESIGN APPROVATO
+### Moonlight (Bambina protagonista)
 ```
-Italian boy Luca 5 years old, short BLONDE messy hair, big blue eyes, wearing orange striped t-shirt under blue denim overalls dungarees, blue sneakers, happy energetic expression arms often open wide, younger brother energy, European watercolor childrens book illustration, soft brushstrokes, warm lighting, natural skin tone NO rosy cheeks, NOT Pixar NOT 3D, 4k
+7-year-old girl named Moonlight with wavy dark brown hair, curious bright eyes, warm smile, casual comfortable clothes, Mediterranean complexion, European watercolor childrens book illustration, Beatrix Potter meets modern Italy, soft delicate brushstrokes, warm golden light, natural skin tone NO rosy cheeks, 4k
+```
+
+### Luca (Fratellino)
+```
+4-year-old boy named Luca with light messy hair, big curious eyes, playful expression, casual comfortable clothes, Mediterranean complexion, European watercolor childrens book illustration, soft warm colors, gentle brushstrokes, natural skin tone NO rosy cheeks, 4k
 ```
 
 ---
@@ -29,94 +30,77 @@ Italian boy Luca 5 years old, short BLONDE messy hair, big blue eyes, wearing or
 
 ### Capitolo 1 - A Strange New Friend
 ```
-Watercolor illustration, girl with pink bow opening box discovering silver robot with blue eyes no legs, warm morning light window, NOT 3D NOT Pixar
+Moonlight 7yo girl with wavy dark hair opening a cardboard box with wonder and surprise, discovering MILO a cute egg-shaped ORANGE robot NO wings with round body no legs oval base bright orange glossy surface LED face with round eyes and smile thin silver antenna cyan LED on chest, morning sunlight streaming through bedroom window, cozy bedroom with toys and books, European watercolor childrens book illustration, soft delicate brushstrokes, warm golden Mediterranean light, magical discovery moment, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
-### Capitolo 2 - What Is Artificial Intelligence
+### Capitolo 2 - What Is Artificial Intelligence?
 ```
-Watercolor illustration, girl with pink bow and silver robot sitting together, thought bubble brain connected to circuits, blonde boy peeking doorway, warm light, NOT 3D NOT Pixar
+Moonlight and MILO egg-shaped ORANGE robot NO wings with round body no legs sitting together on cozy couch, thought bubble showing brain on one side connected by glowing bridge of light to circuits on other side, Luca 4yo boy with light hair peeking in curiously from doorway, warm living room with soft afternoon light, European watercolor childrens book illustration, soft brushstrokes, warm golden colors, educational yet magical atmosphere, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 3 - How MILO Learned to See
 ```
-Watercolor illustration, silver robot surrounded by floating photos of cats dogs birds with labels, girl showing cat photo, warm golden light, magical learning, NOT 3D NOT Pixar
+MILO egg-shaped ORANGE robot NO wings with round body no legs LED face with smile surrounded by floating photographs like confetti, images of cats dogs birds trees houses with gentle labels, Moonlight holding photo of fluffy cat named Whiskers, magical learning scene with soft sparkles, European watercolor childrens book illustration, soft brushstrokes, warm golden light, multicolored joyful atmosphere, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 4 - How MILO Learned to Talk
 ```
-Watercolor illustration, silver robot with colorful text ribbons flowing around, floating books, blonde boy listening fascinated, warm golden light, library scene, NOT 3D NOT Pixar
+MILO egg-shaped ORANGE robot NO wings with round body no legs with streams of colorful text flowing around like gentle ribbons, words from books and stories swirling in air, Luca 4yo boy sitting nearby with toy, floating open books in soft background, European watercolor childrens book illustration, soft brushstrokes, warm golden light, dynamic but gentle composition, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 5 - What MILO Can Do
 ```
-Watercolor illustration, silver robot helping with homework flags books science, girl writing notes, multiple vignettes warm light, helpful friendly, NOT 3D NOT Pixar
+MILO egg-shaped ORANGE robot NO wings with round body no legs in center with small vignette scenes around showing helping with homework and colorful language flags and golden light bulb for ideas and recognizing photos, Moonlight and Luca watching impressed and happy, warm interior with soft afternoon light, European watercolor childrens book illustration, soft brushstrokes, warm vignette style, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 6 - What MILO Cannot Do
 ```
-Watercolor illustration, girl showing purple dragon drawing to silver robot, robot confused with question marks floating, warm afternoon light window, tender moment, NOT 3D NOT Pixar
+Moonlight showing MILO egg-shaped ORANGE robot NO wings with round body no legs LED face looking curious with gentle question marks floating above, her colorful drawing of purple dragon eating ice cream, playful warm afternoon light through window, cozy creative moment, European watercolor childrens book illustration, soft brushstrokes, warm golden colors, gentle humor, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 7 - Using AI Safely
 ```
-Watercolor illustration, silver robot showing four glowing icons lock checkmark books heart, family dinner table listening, warm atmosphere, NOT 3D NOT Pixar
+MILO egg-shaped ORANGE robot NO wings with round body no legs holding up four fingers with clear icons floating nearby golden padlock for privacy and green checkmark for verify and colorful books for learning and red heart with family for real friends, Moonlight and Luca listening attentively, warm interior with soft educational atmosphere, European watercolor childrens book illustration, soft brushstrokes, warm golden light, clear but artistic, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ### Capitolo 8 - The Future We Build Together
 ```
-Watercolor illustration, girl and blonde boy sitting on grass with silver robot, golden sunset sky orange pink, hopeful friendship future, warm emotional, NOT 3D NOT Pixar
+Moonlight and Luca walking toward bright hopeful future horizon, kids and friendly egg-shaped ORANGE robot NO wingss with round bodies no legs working together in garden classroom and playground in distance, MILO walking beside them as friend, beautiful golden sunset light, European watercolor childrens book illustration, soft brushstrokes, warm hopeful atmosphere, dreamy inspiring horizon, natural skin tone NO rosy cheeks NOT 3D NOT Pixar, 4k
 ```
 
 ---
 
 ## COPERTINA
+
 ```
-Watercolor book cover, girl with pink bow and blonde boy with silver robot between them, warm golden light, friendship wonder technology, title space top, NOT 3D NOT Pixar
+Friendly egg-shaped ORANGE robot NO wings MILO with round body no legs oval base bright orange glossy surface LED face with round eyes and warm smile thin silver antenna cyan LED on chest, standing with Moonlight 7yo girl with wavy dark hair and Luca 4yo boy, magical sparkles and warm golden light around them, title space at top, European watercolor childrens book cover illustration, soft delicate brushstrokes, warm Mediterranean colors, elegant and inviting, natural skin tone NO rosy cheeks NOT 3D NOT Pixar NOT CGI, premium quality, 4k
 ```
 
 ---
 
 ## NEGATIVE PROMPT (per tutte)
 ```
-Pixar, 3D, Disney, cartoon, American style, plastic, bright saturated colors, rosy cheeks, red cheeks, anime, manga, digital art look, harsh lighting, cold sterile, aggressive, white robot, teardrop eyes, golden heart
+Pixar, 3D render, Disney, American cartoon, anime, manga, digital art, CGI, plastic, oversaturated, neon, blurry, low quality, jpeg artifacts, watermark, bad anatomy, deformed, extra limbs, rosy cheeks, red cheeks, unnatural skin, harsh lighting, legs on robot, standing robot with legs, humanoid robot, wings, flying, bird wings, penguin wings, flippers, arms that look like wings
 ```
 
 ---
 
-## NOTE CONSISTENZA - DESIGN APPROVATI
+## WORKFLOW CORDE
 
-### MILO
-- Corpo **ARGENTO/GRIGIO** metallico (NON bianco)
-- Occhi **LED ROTONDI AZZURRI** (NON a goccia/teardrop)
-- **Orecchie/antenne laterali** sulla testa
-- **Proporzioni coccolose** (chubby cute)
-- Base rotonda, SENZA gambe
-- Reference: `/books/milo-internet/images-nanob/masters/master-milo.png`
+1. **Genera Character Sheet** (MILO pinguinoso, Moonlight, Luca) con prompts sopra
+2. **Usa IP-Adapter** con reference per ogni capitolo
+3. **Esegui QC**: anatomy_check + style_consistency
+4. **Iterate** se necessario fino a score > 85%
 
-### SOFIA
-- Capelli castani ondulati con **FIOCCO ROSA A POIS** grande
-- Vestito verde con uccellino rosso
-- Maniche a righe gialle/arancioni sotto
-- Calze a righe colorate + stivaletti marroni
-- Reference: `/books/milo-internet/images-nanob/masters/master-sofia.png`
+---
 
-### LUCA
-- Capelli **BIONDI** corti e disordinati
-- Occhi azzurri grandi
-- Maglietta a righe arancioni
-- **Salopette jeans blu**
-- Sneakers blu
-- Reference: `/books/milo-internet/images-nanob/masters/master-luca.png`
+## NOTE STILE MILO PINGUINOSO
 
-## COMANDI CLI
-
-```bash
-# Test singola immagine
-python generate_book.py --book milo-ai --test --steps 15
-
-# Solo copertina
-python generate_book.py --book milo-ai --cover --steps 20
-
-# Tutte le illustrazioni
-python generate_book.py --book milo-ai --steps 20
-```
+- **FORMA**: Rotonda/ovale come un pinguino, NESSUNA gamba, base ovale arrotondata
+- **COLORE**: ARANCIONE brillante, superficie lucida metallica
+- **FACCIA**: Schermo LED con occhi rotondi e sorriso gentile
+- **ANTENNA**: Sottile, argento, sulla testa
+- **LED PETTO**: Azzurro/ciano, forma ovale verticale
+- **STILE**: Tesla minimalista, liscio, amichevole
+- **ATMOSFERA**: Luce dorata mediterranea, acquarello europeo classico
+- **EVITARE**: Gambe, forma umanoide, 3D/CGI/Pixar

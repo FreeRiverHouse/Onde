@@ -289,7 +289,22 @@ app.use(express.static(join(__dirname, '../frontend/dist')));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', version: '0.1.0' });
+  res.json({
+    status: 'ok',
+    version: '0.1.0',
+    device: process.platform === 'darwin' ? 'mps' : 'cuda',
+    hostname: os.hostname(),
+  });
+});
+
+// Download generated file
+app.get('/api/output/:filename', (req, res) => {
+  const filepath = join(CONFIG.outputPath, req.params.filename);
+  if (fs.existsSync(filepath)) {
+    res.sendFile(filepath);
+  } else {
+    res.status(404).json({ error: 'File not found' });
+  }
 });
 
 // List templates
@@ -376,6 +391,46 @@ app.post('/api/generate/book', async (req, res) => {
   res.json({ job_id: job.id, status: 'queued' });
 });
 
+// Generate single image (direct, no workflow)
+app.post('/api/generate/image', async (req, res) => {
+  const {
+    prompt,
+    negative_prompt = '',
+    author = 'pina-pennello',
+    width = 1024,
+    height = 1024,
+    steps = 30,
+    guidance = 7.5,
+    seed = null,
+  } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ error: 'Prompt required' });
+  }
+
+  const authorConfig = AUTHORS[author];
+  const fullPrompt = authorConfig
+    ? `${authorConfig.prompts.base}, ${prompt}`
+    : prompt;
+  const fullNegative = authorConfig
+    ? `${authorConfig.prompts.negative || ''}, ${negative_prompt}`
+    : negative_prompt;
+
+  const job = createJob('image', {
+    prompt: fullPrompt,
+    negative_prompt: fullNegative,
+    width,
+    height,
+    steps,
+    guidance,
+    seed: seed || Math.floor(Math.random() * 2147483647),
+    author,
+  });
+
+  executeImageJob(job);
+  res.json({ job_id: job.id, status: 'queued' });
+});
+
 // Execute custom workflow
 app.post('/api/execute', async (req, res) => {
   const { workflow, params } = req.body;
@@ -393,6 +448,69 @@ app.post('/api/execute', async (req, res) => {
 // ═══════════════════════════════════════════════════════════
 // JOB EXECUTION
 // ═══════════════════════════════════════════════════════════
+
+// Execute direct image generation
+async function executeImageJob(job) {
+  updateJob(job.id, { status: 'running', started_at: new Date().toISOString() });
+
+  try {
+    const outputFile = join(CONFIG.outputPath, `${job.id}.png`);
+    const { prompt, negative_prompt, width, height, steps, guidance, seed } = job.params;
+
+    const engine = spawn('python', [
+      join(CONFIG.enginePath, 'generate_single.py'),
+      '--prompt', prompt,
+      '--negative', negative_prompt || '',
+      '--width', String(width),
+      '--height', String(height),
+      '--steps', String(steps),
+      '--guidance', String(guidance),
+      '--seed', String(seed),
+      '--output', outputFile,
+    ], {
+      cwd: CONFIG.enginePath,
+      env: {
+        ...process.env,
+        HF_HOME: '/Volumes/DATI-SSD/onde-ai/corde/cache',
+        TORCH_HOME: '/Volumes/DATI-SSD/onde-ai/corde/cache',
+      }
+    });
+
+    engine.stdout.on('data', (data) => {
+      const line = data.toString().trim();
+      try {
+        const msg = JSON.parse(line);
+        if (msg.progress !== undefined) {
+          updateJob(job.id, { progress: msg.progress });
+        }
+      } catch (e) {
+        console.log('[Image Gen]', line);
+      }
+    });
+
+    engine.stderr.on('data', (data) => {
+      console.error('[Image Gen Error]', data.toString());
+    });
+
+    engine.on('close', (code) => {
+      if (code === 0 && fs.existsSync(outputFile)) {
+        updateJob(job.id, {
+          status: 'completed',
+          output: outputFile,
+          completed_at: new Date().toISOString(),
+        });
+      } else {
+        updateJob(job.id, {
+          status: 'failed',
+          error: `Exit code ${code}`,
+        });
+      }
+    });
+
+  } catch (error) {
+    updateJob(job.id, { status: 'failed', error: error.message });
+  }
+}
 
 async function executeJob(job) {
   updateJob(job.id, { status: 'running', started_at: new Date().toISOString() });

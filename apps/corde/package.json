@@ -15,7 +15,16 @@
     "start": "cd api && npm start",
     "engine": "cd engine && python engine.py"
   },
-  "keywords": ["ai", "content-generation", "node-editor", "sdxl", "video"],
+  "keywords": [
+    "ai",
+    "content-generation",
+    "node-editor",
+    "sdxl",
+    "video"
+  ],
   "author": "FreeRiverHouse",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^24.35.0"
+  }
 }
