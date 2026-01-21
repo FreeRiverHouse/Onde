@@ -57,3 +57,4 @@ packages/telegram-bot/data/*.json
 # Reports (generated)
 packages/telegram-bot/reports/*.pdf
 books.zip
+CREDENZIALI-DA-SALVARE.md
