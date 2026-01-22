@@ -32,6 +32,7 @@ interface AgentState extends AgentConfig {
   status: 'working' | 'idle' | 'sleeping';
   currentTask?: string;
   taskCount: number;
+  lastSeen?: string | null;
 }
 
 interface AgentTask {
@@ -44,16 +45,42 @@ interface AgentTask {
   created_at: string;
 }
 
-const AGENTS_CONFIG: AgentConfig[] = [
-  { id: 'editore-capo', name: 'Editore Capo', role: 'Content Director', room: 'office', color: MV_COLORS.coral, skills: ['content_create', 'book_edit'], image: '/house/agents/editore-capo.png' },
-  { id: 'video-factory', name: 'Video Factory', role: 'Video Production', room: 'studio', color: MV_COLORS.terracotta, skills: ['video_generate', 'image_generate'], image: '/house/agents/video-factory.png' },
-  { id: 'tech-support', name: 'Tech Support', role: 'Technical Ops', room: 'lab', color: MV_COLORS.sky, skills: ['content_create', 'post_edit'], image: '/house/agents/automation.png' },
-  { id: 'onde-pr', name: 'Onde PR', role: 'Public Relations', room: 'lounge', color: MV_COLORS.terracotta, skills: ['post_feedback', 'post_edit'], image: '/house/agents/ondepr.png' },
-  { id: 'pina-pennello', name: 'Pina Pennello', role: 'Visual Artist', room: 'studio', color: MV_COLORS.coral, skills: ['image_generate'], image: '/house/agents/pina-pennello.png' },
-  { id: 'gianni-parola', name: 'Gianni Parola', role: 'Copywriter', room: 'library', color: MV_COLORS.sage, skills: ['content_create', 'book_edit'], image: '/house/agents/gianni-parola.png' },
-  { id: 'sally', name: 'Sally', role: 'AI Assistant', room: 'office', color: MV_COLORS.sage, skills: ['content_create', 'post_feedback'], image: '/house/agents/sally.png' },
-  { id: 'automation', name: 'Automation', role: 'Workflow Design', room: 'lab', color: MV_COLORS.stone, skills: ['content_create'], image: '/house/agents/automation.png' },
-];
+interface DBAgent {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  capabilities: string;
+  status: string;
+  last_seen: string | null;
+}
+
+// Visual config for agents (room assignments, images, colors)
+const AGENT_VISUALS: Record<string, { room: AgentConfig['room']; color: string; image: string }> = {
+  'editore-capo': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
+  'video-factory': { room: 'studio', color: MV_COLORS.terracotta, image: '/house/agents/video-factory.png' },
+  'engineering-dept': { room: 'lab', color: MV_COLORS.sky, image: '/house/agents/automation.png' },
+  'onde-pr': { room: 'lounge', color: MV_COLORS.terracotta, image: '/house/agents/ondepr.png' },
+  'pina-pennello': { room: 'studio', color: MV_COLORS.coral, image: '/house/agents/pina-pennello.png' },
+  'gianni-parola': { room: 'library', color: MV_COLORS.sage, image: '/house/agents/gianni-parola.png' },
+  'sally': { room: 'office', color: MV_COLORS.sage, image: '/house/agents/sally.png' },
+  'automation-architect': { room: 'lab', color: MV_COLORS.stone, image: '/house/agents/automation.png' },
+  'ceo-orchestrator': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
+  'qa-test-engineer': { room: 'lab', color: MV_COLORS.sky, image: '/house/agents/automation.png' },
+};
+
+// Default visual for unknown agents
+const DEFAULT_VISUAL = { room: 'garden' as const, color: MV_COLORS.stone, image: '/house/agents/automation.png' };
+
+// Check if agent was seen in last N minutes
+function isAgentActive(lastSeen: string | null, minutesThreshold: number = 5): boolean {
+  if (!lastSeen) return false;
+  const lastSeenDate = new Date(lastSeen);
+  const now = new Date();
+  const diffMs = now.getTime() - lastSeenDate.getTime();
+  const diffMinutes = diffMs / (1000 * 60);
+  return diffMinutes <= minutesThreshold;
+}
 
 const ROOMS: Record<string, { x: number; y: number; width: number; height: number; label: string; image: string }> = {
   office: { x: 40, y: 60, width: 180, height: 130, label: 'Ufficio', image: '/house/rooms/office.png' },
@@ -74,58 +101,72 @@ export function FreeRiverHouse() {
   const animationRef = useRef<number>();
   const { showToast } = useToast();
 
-  // Initialize agents
+  // Fetch agents and tasks from API - REAL DATA
   useEffect(() => {
-    const initialized = AGENTS_CONFIG.map(config => {
-      const room = ROOMS[config.room];
-      const x = room.x + 30 + Math.random() * (room.width - 60);
-      const y = room.y + 35 + Math.random() * (room.height - 70);
-      return {
-        ...config,
-        position: { x, y },
-        targetPosition: { x, y },
-        status: 'idle' as const,
-        taskCount: 0,
-      };
-    });
-    setAgents(initialized);
-  }, []);
-
-  // Fetch tasks and update agent status
-  useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch('/api/agent-tasks?status=pending,claimed,in_progress&limit=50');
+        // Fetch from /api/house which has agents, tasks, and stats
+        const res = await fetch('/api/house');
         if (res.ok) {
           const data = await res.json();
-          const taskList = data.tasks || [];
+          const dbAgents: DBAgent[] = data.agents || [];
+          const taskList: AgentTask[] = data.tasks || [];
           setTasks(taskList);
 
-          // Update agents based on tasks
-          setAgents(prev => prev.map(agent => {
-            const agentTasks = taskList.filter((t: AgentTask) =>
-              t.assigned_to === agent.id ||
-              t.description?.toLowerCase().includes(agent.name.toLowerCase())
-            );
-            const activeTasks = agentTasks.filter((t: AgentTask) =>
+          // Convert DB agents to visual agents with REAL status
+          const visualAgents: AgentState[] = dbAgents.map(dbAgent => {
+            const visual = AGENT_VISUALS[dbAgent.id] || DEFAULT_VISUAL;
+            const room = ROOMS[visual.room];
+
+            // Parse capabilities
+            let skills: string[] = [];
+            try {
+              skills = JSON.parse(dbAgent.capabilities || '[]');
+            } catch { skills = []; }
+
+            // Count tasks for this agent
+            const agentTasks = taskList.filter(t => t.assigned_to === dbAgent.id);
+            const activeTasks = agentTasks.filter(t =>
               t.status === 'in_progress' || t.status === 'claimed'
             );
 
+            // REAL STATUS: based on last_seen (active in last 5 min) OR has active tasks
+            const isActive = isAgentActive(dbAgent.last_seen, 5);
+            const hasActiveTasks = activeTasks.length > 0;
+            const realStatus = (isActive || hasActiveTasks) ? 'working' : 'idle';
+
             return {
-              ...agent,
-              status: activeTasks.length > 0 ? 'working' : 'idle',
+              id: dbAgent.id,
+              name: dbAgent.name,
+              role: dbAgent.description || dbAgent.type,
+              room: visual.room,
+              color: visual.color,
+              skills,
+              image: visual.image,
+              position: {
+                x: room.x + 30 + Math.random() * (room.width - 60),
+                y: room.y + 35 + Math.random() * (room.height - 70)
+              },
+              targetPosition: {
+                x: room.x + 30 + Math.random() * (room.width - 60),
+                y: room.y + 35 + Math.random() * (room.height - 70)
+              },
+              status: realStatus,
               currentTask: activeTasks[0]?.description,
               taskCount: agentTasks.length,
+              lastSeen: dbAgent.last_seen,
             };
-          }));
+          });
+
+          setAgents(visualAgents);
         }
       } catch (e) {
-        console.error('Failed to fetch tasks:', e);
+        console.error('Failed to fetch house data:', e);
       }
     };
 
-    fetchTasks();
-    const interval = setInterval(fetchTasks, 20000);
+    fetchData();
+    const interval = setInterval(fetchData, 15000); // Refresh every 15 sec
     return () => clearInterval(interval);
   }, []);
 
@@ -404,15 +445,22 @@ export function FreeRiverHouse() {
                   </div>
 
                   {/* Status */}
-                  <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs ${
-                    selectedAgent.status === 'working'
-                      ? 'bg-emerald-400/10 text-emerald-400'
-                      : 'bg-amber-400/10 text-amber-400'
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${
-                      selectedAgent.status === 'working' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
-                    }`} />
-                    {selectedAgent.status === 'working' ? 'Al lavoro' : 'Disponibile'}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs ${
+                      selectedAgent.status === 'working'
+                        ? 'bg-emerald-400/10 text-emerald-400'
+                        : 'bg-amber-400/10 text-amber-400'
+                    }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${
+                        selectedAgent.status === 'working' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
+                      }`} />
+                      {selectedAgent.status === 'working' ? 'Al lavoro' : 'Disponibile'}
+                    </div>
+                    {selectedAgent.lastSeen && (
+                      <span className="text-[10px] text-white/30">
+                        Last: {new Date(selectedAgent.lastSeen).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    )}
                   </div>
 
                   {selectedAgent.currentTask && (
