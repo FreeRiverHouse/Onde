@@ -1,0 +1,15 @@
+{
+  "name": "@onde/qa-agent",
+  "version": "1.0.0",
+  "description": "Automated QA agent for Onde web properties using Browser Use",
+  "scripts": {
+    "setup": "pip install -r requirements.txt && playwright install chromium",
+    "test": "python src/qa-agent.py",
+    "test:prod": "python src/qa-agent.py --env production",
+    "test:staging": "python src/qa-agent.py --env staging",
+    "test:local": "python src/qa-agent.py --env local"
+  },
+  "keywords": ["qa", "testing", "browser-use", "automation"],
+  "author": "FreeRiverHouse",
+  "license": "MIT"
+}

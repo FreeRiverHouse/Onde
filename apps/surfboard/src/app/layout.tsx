@@ -38,6 +38,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="/" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5">
                     Dashboard
                   </a>
+                  <a href="/house" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+                    House
+                  </a>
+                  <a href="/pr" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+                    PR
+                  </a>
                   <a href="/social" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5">
                     Social
                   </a>
