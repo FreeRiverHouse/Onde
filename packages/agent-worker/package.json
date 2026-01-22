@@ -1,0 +1,16 @@
+{
+  "name": "@onde/agent-worker",
+  "version": "1.0.0",
+  "description": "Local agent worker - processa task degli agenti Onde",
+  "main": "index.ts",
+  "scripts": {
+    "start": "npx ts-node index.ts",
+    "dev": "npx ts-node index.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
