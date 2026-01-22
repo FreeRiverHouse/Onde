@@ -17,8 +17,15 @@ const ZAI_MODEL = 'glm-4.7-flash';
 
 const API_BASE = 'https://onde.surf/api';
 const POLL_INTERVAL = 30000; // 30 secondi
-// Agent configs are at CascadeProjects root level
-const AGENTS_DIR = '/Users/mattiapetrucciani/CascadeProjects/.claude/agents';
+// Agent configs are in the Onde repo content/agents/ directory
+const AGENTS_DIR = path.resolve(__dirname, '../../content/agents');
+
+// Map DB agent IDs to filenames when they differ
+const AGENT_ID_MAP: Record<string, string> = {
+  'engineering-dept': 'code-worker',
+  'ceo-orchestrator': 'strategic-advisor',
+  'qa-test-engineer': 'tech-support',
+};
 
 interface Task {
   id: string;
@@ -37,10 +44,12 @@ interface AgentConfig {
 
 // Carica il system prompt dell'agente da file .md
 function loadAgentConfig(agentId: string): AgentConfig | null {
-  const mdPath = path.join(AGENTS_DIR, `${agentId}.md`);
+  // Use mapped filename if agent ID differs from file name
+  const fileId = AGENT_ID_MAP[agentId] || agentId;
+  const mdPath = path.join(AGENTS_DIR, `${fileId}.md`);
 
   if (!fs.existsSync(mdPath)) {
-    console.log(`[WARN] No config found for agent: ${agentId}`);
+    console.log(`[WARN] No config found for agent: ${agentId} (looked for ${fileId}.md in ${AGENTS_DIR})`);
     return null;
   }
 
@@ -171,8 +180,8 @@ async function updateAgentLastSeen(agentId: string): Promise<void> {
 // Main loop
 async function main() {
   console.log('========================================');
-  console.log('🤖 ONDE AGENT WORKER');
-  console.log('   Processing tasks with Grok (XAI)');
+  console.log('  ONDE AGENT WORKER');
+  console.log('  Processing tasks with Z.ai (free)');
   console.log('========================================\n');
 
   // Verifica API key - Z.ai (gratis!)
