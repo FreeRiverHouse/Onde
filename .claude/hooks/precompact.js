@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = '/Users/mattia/Projects/Onde';
+const ONDE_ROOT = '/Users/mattiapetrucciani/CascadeProjects/Onde';
 
 function generateSessionId() {
   return `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;

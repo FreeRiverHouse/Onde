@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = '/Users/mattia/Projects/Onde';
+const ONDE_ROOT = '/Users/mattiapetrucciani/CascadeProjects/Onde';
 
 function getLatestHandoff() {
   const handoffDir = path.join(ONDE_ROOT, 'chat-history', 'handoffs');

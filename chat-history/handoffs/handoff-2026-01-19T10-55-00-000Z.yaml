@@ -1,20 +1,11 @@
 # Onde Continuous Claude - Handoff
-# Generated: 2026-01-19T10:55:00.000Z
-# Trigger: manual - AIKO→MILO rename fix
+# Generated: 2026-01-21T14:31:00.000Z
+# Updated: cleaned old priorities
 
 session_meta:
-  id: "session-rename-milo"
-  timestamp: "2026-01-19T10:55:00.000Z"
-  trigger: "manual"
-
-lessons_learned:
-  - lesson: "Il robot si chiama MILO, NON AIKO"
-    context: "Il nome è stato cambiato da AIKO a MILO - sempre usare MILO"
-    fixed_files:
-      - "/CascadeProjects/CLAUDE.md"
-      - "/CascadeProjects/Onde/CLAUDE.md"
-    remaining_legacy_files: 211
-    note: "I file legacy verranno aggiornati quando si lavora su di essi"
+  id: "session-2026-01-21"
+  timestamp: "2026-01-21T14:31:00.000Z"
+  trigger: "manual cleanup"
 
 character_names:
   robot: "MILO"
@@ -22,27 +13,60 @@ character_names:
   boy_5yo: "Luca"
   grandmother: "Nonna"
 
+completed_tasks:
+  - "MILO Internet: 10 scene generate e salvate"
+  - "Sistema posting: 41 post pronti"
+  - "FRH Agents dashboard a /frh"
+  - "CORDE integration"
+  - "Marco Aurelio per Bambini - testo e prompt completi"
+  - "Google Auth + CORDE integration su onde.surf"
+  - "Watchdog per autonomous Telegram bot"
+
 current_priorities:
-  - "Dashboard social su onde.surf per approvazione post"
-  - "Contenuti social 3x/giorno Onde + FRH, 1x/giorno Magmatic"
-  - "Post devono essere CALDI, DISCORSIVI, basati sui NOSTRI libri"
-  - "Skin EMILIO per Minecraft"
+  - priority: 1
+    task: "Multi-tenant Dashboard per Client Content Approval"
+    status: "GitHub Issue #1 - OPEN"
+    note: "Dashboard su onde.surf per approvazione post clienti"
+
+  - priority: 2
+    task: "CORDE - generazione immagini locale"
+    status: "Setup completato, pronto per uso"
+    path: "/CascadeProjects/corde"
+
+  - priority: 3
+    task: "Contenuti social 3x/giorno"
+    status: "41 post pronti, schedule attivo"
+    note: "Posting disabilitato su FRH (stop spam)"
 
 social_strategy:
   onde_frh:
     frequency: "3/giorno"
-    content: "Quote dai nostri libri (MILO, Salmo 23), behind the scenes editoria"
+    schedule: "8:08, 11:11, 22:22"
+    content: "Quote dai nostri libri (MILO, Salmo 23), behind the scenes"
     tone: "Caldo, letterario, parlano i testi"
   freeriverhouse:
-    frequency: "3/giorno"
-    content: "Building in public, codice, sviluppo software"
+    frequency: "3/giorno (DISABILITATO)"
+    schedule: "9:09, 12:12, 21:21"
+    content: "Building in public, codice"
     tone: "Genuino, tecnico ma accessibile"
+    note: "daily-tech-post.ts DISABILITATO - stop spam"
   magmatic:
     frequency: "1/giorno"
     content: "Poesia, arte, riflessioni"
     tone: "Poetico, riflessivo, personale"
 
+books_status:
+  milo_internet:
+    status: "COMPLETATO"
+    images: "/books/milo-internet/images-nanob/ (10 scene)"
+  marco_aurelio_bambini:
+    status: "Testo + prompt completi"
+    path: "/books/marco-aurelio-bambini/"
+  salmo_23:
+    status: "Bozza V2 pronta"
+
 notes: |
-  IMPORTANTE: Mai più usare "AIKO" - il robot si chiama "MILO".
-  Questo disallineamento causava confusione nei contenuti.
-  Sempre verificare i nomi dei personaggi prima di generare contenuti.
+  - Il robot si chiama MILO (non AIKO)
+  - Posting FRH disabilitato per evitare spam
+  - CORDE funziona per generazione immagini locale (SDXL)
+  - Issue #1 GitHub: Multi-tenant dashboard
