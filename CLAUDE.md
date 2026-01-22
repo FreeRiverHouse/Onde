@@ -24,6 +24,77 @@ npx wrangler pages deploy out --project-name=onde-portal
 
 ---
 
+## 🚨 DEPLOY ONDE.SURF - PROCEDURA OBBLIGATORIA (2026-01-21)
+
+**Deploy a Cloudflare Pages (NON Workers!):**
+
+```bash
+cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/surfboard
+rm -rf .next .vercel/output
+npm run build
+npm run build:cf
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf
+```
+
+**IMPORTANTE - Due build necessarie:**
+1. `npm run build` → genera Next.js build in `.next/`
+2. `npm run build:cf` → converte per Cloudflare in `.vercel/output/static/`
+
+**SEMPRE testare dopo deploy:**
+```bash
+curl -s "https://onde.surf/api/house" | jq '.stats.agents'
+curl -s "https://onde.surf/api/pr/posts?status=pending" | jq 'length'
+```
+
+### ⚠️ LESSON LEARNED - Worker Routes vs Pages (2026-01-21)
+
+**PROBLEMA RISCONTRATO:**
+- `onde-surf.pages.dev` funzionava ma `onde.surf` dava 307 redirect
+- Causa: c'era un **Worker separato** chiamato `onde-surf` con routes `onde.surf/*` e `www.onde.surf/*`
+- Questo Worker intercettava il traffico PRIMA che arrivasse a Pages
+
+**DIAGNOSI:**
+1. Vai su Cloudflare Dashboard → onde.surf domain
+2. Menu laterale → **Workers Routes**
+3. Se vedi routes per `onde.surf/*` → quello è il problema!
+
+**SOLUZIONE:**
+1. Cloudflare Dashboard → Workers & Pages → onde-surf (Worker)
+2. Settings → Domains & Routes
+3. Elimina le routes `onde.surf/*` e `www.onde.surf/*`
+4. Ora il custom domain va a Pages invece che al Worker
+
+**REGOLA:** Se il custom domain non funziona ma pages.dev sì, controlla SEMPRE se ci sono Worker routes che intercettano il traffico!
+
+### ⚠️ LESSON LEARNED - NextAuth su Cloudflare Pages (2026-01-21)
+
+**PROBLEMA RISCONTRATO:**
+- Google OAuth completava correttamente (session valida su `/api/auth/session`)
+- Ma middleware redirigeva sempre a `/login` (token non validato)
+- Causa: `getToken()` di `next-auth/jwt` non funziona correttamente su Cloudflare Workers edge runtime
+
+**SOLUZIONE:**
+Usare il pattern `auth()` wrapper di NextAuth v5 invece di `getToken()`:
+
+```typescript
+// middleware.ts - PRIMA (non funziona su Cloudflare)
+import { getToken } from "next-auth/jwt"
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request, secret: process.env.AUTH_SECRET })
+  if (!token?.email) { redirect to login }
+}
+
+// middleware.ts - DOPO (funziona su Cloudflare)
+import { auth } from "./lib/auth"
+export default auth((req) => {
+  if (!req.auth?.user?.email) { redirect to login }
+})
+```
+
+**REGOLA:** Su Cloudflare Pages con NextAuth v5, usare SEMPRE `auth()` wrapper nel middleware, MAI `getToken()`.
+
+---
+
 ## 🎯 MILO INTERNET - COMPLETATO (2026-01-19)
 
 ### 10 SCENE GENERATE CON SUCCESSO!

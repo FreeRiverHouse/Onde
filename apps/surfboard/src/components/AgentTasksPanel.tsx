@@ -360,9 +360,9 @@ export function AgentTasksPanel() {
         ) : (
           <div className="divide-y divide-white/5">
             {tasks.map((task) => {
-              const typeConfig = taskTypeConfig[task.type]
-              const status = statusConfig[task.status]
-              const priority = priorityConfig[task.priority]
+              const typeConfig = taskTypeConfig[task.type] || taskTypeConfig.content_create
+              const status = statusConfig[task.status] || statusConfig.pending
+              const priority = priorityConfig[task.priority] || priorityConfig.normal
 
               return (
                 <div
