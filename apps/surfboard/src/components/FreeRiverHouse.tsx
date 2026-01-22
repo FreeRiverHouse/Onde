@@ -98,7 +98,12 @@ export function FreeRiverHouse() {
   const [message, setMessage] = useState('');
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const [expanded, setExpanded] = useState(true);
+  const [chatMode, setChatMode] = useState(false); // Toggle between task mode and chat mode
+  const [chatHistory, setChatHistory] = useState<{role: 'user' | 'agent', content: string, timestamp: string, agentId?: string}[]>([]);
+  const [isAsking, setIsAsking] = useState(false);
+  const [showAllTasks, setShowAllTasks] = useState(false);
   const animationRef = useRef<number>();
+  const chatEndRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
   // Fetch agents and tasks from API - REAL DATA
@@ -247,6 +252,104 @@ export function FreeRiverHouse() {
     }
   };
 
+  // Ask a question to an agent
+  const handleAskQuestion = async () => {
+    if (!selectedAgent || !message.trim()) return;
+
+    const question = message.trim();
+    setIsAsking(true);
+
+    // Add user message to chat
+    setChatHistory(prev => [...prev, {
+      role: 'user',
+      content: question,
+      timestamp: new Date().toISOString(),
+      agentId: selectedAgent.id
+    }]);
+    setMessage('');
+
+    try {
+      // Create an agent_request task
+      const res = await fetch('/api/agent-tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'agent_request',
+          description: question,
+          priority: 'high',
+          assigned_to: selectedAgent.id,
+          created_by: 'free-river-house-chat',
+          metadata: JSON.stringify({ chat: true, expectResponse: true })
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const taskId = data.task?.id;
+
+        // Poll for response (check every 3 seconds for up to 2 minutes)
+        if (taskId) {
+          let attempts = 0;
+          const maxAttempts = 40;
+          const pollInterval = setInterval(async () => {
+            attempts++;
+            try {
+              const taskRes = await fetch(`/api/agent-tasks/${taskId}`);
+              if (taskRes.ok) {
+                const taskData = await taskRes.json();
+                if (taskData.task?.status === 'done' && taskData.task?.result) {
+                  clearInterval(pollInterval);
+                  setChatHistory(prev => [...prev, {
+                    role: 'agent',
+                    content: taskData.task.result,
+                    timestamp: new Date().toISOString(),
+                    agentId: selectedAgent.id
+                  }]);
+                  setIsAsking(false);
+                } else if (taskData.task?.status === 'failed') {
+                  clearInterval(pollInterval);
+                  setChatHistory(prev => [...prev, {
+                    role: 'agent',
+                    content: `Error: ${taskData.task.error || 'Task failed'}`,
+                    timestamp: new Date().toISOString(),
+                    agentId: selectedAgent.id
+                  }]);
+                  setIsAsking(false);
+                }
+              }
+            } catch (e) {
+              console.error('Poll error:', e);
+            }
+
+            if (attempts >= maxAttempts) {
+              clearInterval(pollInterval);
+              setChatHistory(prev => [...prev, {
+                role: 'agent',
+                content: 'Response timeout - the agent may still be processing. Check back later.',
+                timestamp: new Date().toISOString(),
+                agentId: selectedAgent.id
+              }]);
+              setIsAsking(false);
+            }
+          }, 3000);
+        }
+      } else {
+        showToast('Errore nell\'invio della domanda', 'error');
+        setIsAsking(false);
+      }
+    } catch {
+      showToast('Errore di connessione', 'error');
+      setIsAsking(false);
+    }
+  };
+
+  // Scroll chat to bottom when new messages arrive
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chatHistory]);
+
   const workingCount = agents.filter(a => a.status === 'working').length;
   const selectedAgentTasks = tasks.filter(t =>
     t.assigned_to === selectedAgent?.id ||
@@ -259,11 +362,11 @@ export function FreeRiverHouse() {
       className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden"
     >
       {/* Header */}
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full px-4 py-3 border-b border-white/10 flex items-center justify-between hover:bg-white/[0.02] transition-colors"
-      >
-        <div className="flex items-center gap-3">
+      <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+        >
           <span className="text-2xl">🏠</span>
           <h2 className="text-sm font-medium text-white">Free River House</h2>
           {workingCount > 0 && (
@@ -271,9 +374,111 @@ export function FreeRiverHouse() {
               {workingCount} al lavoro
             </span>
           )}
+          <span className="text-white/40 text-xs">{expanded ? '▼' : '▶'}</span>
+        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowAllTasks(!showAllTasks)}
+            className={`px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 transition-colors ${
+              showAllTasks
+                ? 'bg-cyan-500/20 text-cyan-400'
+                : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70'
+            }`}
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+            All Tasks ({tasks.length})
+          </button>
         </div>
-        <span className="text-white/40 text-xs">{expanded ? '▼' : '▶'}</span>
-      </button>
+      </div>
+
+      {/* All Tasks Panel */}
+      {showAllTasks && (
+        <div className="border-b border-white/10 bg-white/[0.02] max-h-64 overflow-y-auto">
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-medium text-white">All Active Tasks</h3>
+              <div className="flex gap-2 text-[10px]">
+                <span className="px-2 py-0.5 bg-amber-400/20 text-amber-400 rounded">
+                  {tasks.filter(t => t.status === 'pending').length} pending
+                </span>
+                <span className="px-2 py-0.5 bg-blue-400/20 text-blue-400 rounded">
+                  {tasks.filter(t => t.status === 'in_progress' || t.status === 'claimed').length} in progress
+                </span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {tasks.length > 0 ? (
+                tasks.map(task => {
+                  const agent = agents.find(a => a.id === task.assigned_to);
+                  return (
+                    <div
+                      key={task.id}
+                      className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                      onClick={() => {
+                        if (agent) {
+                          setSelectedAgent(agent);
+                          setShowAllTasks(false);
+                        }
+                      }}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs text-white/70 truncate">{task.description}</div>
+                          <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                            <span className={`px-1.5 py-0.5 rounded text-[10px] ${
+                              task.status === 'in_progress' ? 'bg-blue-400/20 text-blue-400' :
+                              task.status === 'claimed' ? 'bg-purple-400/20 text-purple-400' :
+                              task.status === 'pending' ? 'bg-amber-400/20 text-amber-400' :
+                              task.status === 'done' ? 'bg-emerald-400/20 text-emerald-400' :
+                              'bg-white/10 text-white/50'
+                            }`}>
+                              {task.status}
+                            </span>
+                            <span className="text-[10px] text-white/30">{task.type}</span>
+                            {task.priority !== 'normal' && (
+                              <span className={`text-[10px] ${
+                                task.priority === 'urgent' ? 'text-red-400' :
+                                task.priority === 'high' ? 'text-orange-400' :
+                                'text-white/30'
+                              }`}>
+                                {task.priority}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {agent && (
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <div className="relative w-6 h-6 rounded-full overflow-hidden">
+                              <Image
+                                src={agent.image}
+                                alt={agent.name}
+                                fill
+                                className="object-cover"
+                                sizes="24px"
+                              />
+                            </div>
+                            <span className="text-[10px] text-white/50">{agent.name.split(' ')[0]}</span>
+                          </div>
+                        )}
+                        {!agent && task.assigned_to && (
+                          <span className="text-[10px] text-white/30">{task.assigned_to}</span>
+                        )}
+                        {!task.assigned_to && (
+                          <span className="text-[10px] text-white/20 italic">unassigned</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="text-white/30 text-xs text-center py-4">No active tasks</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {expanded && (
         <div className="flex flex-col lg:flex-row">
@@ -438,10 +643,18 @@ export function FreeRiverHouse() {
                         sizes="48px"
                       />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-white font-medium text-sm">{selectedAgent.name}</h3>
                       <p className="text-white/40 text-xs">{selectedAgent.role}</p>
                     </div>
+                    <button
+                      onClick={() => setSelectedAgent(null)}
+                      className="text-white/30 hover:text-white/60 transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
                   </div>
 
                   {/* Status */}
@@ -468,73 +681,168 @@ export function FreeRiverHouse() {
                       Task: {selectedAgent.currentTask.slice(0, 40)}...
                     </p>
                   )}
-                </div>
 
-                {/* Agent tasks */}
-                <div className="flex-1 overflow-y-auto max-h-40 p-2">
-                  {selectedAgentTasks.length > 0 ? (
-                    <div className="space-y-1">
-                      {selectedAgentTasks.slice(0, 5).map(task => (
-                        <div key={task.id} className="p-2 rounded-lg bg-white/5 text-xs">
-                          <div className="text-white/70 truncate">{task.description}</div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`px-1.5 py-0.5 rounded ${
-                              task.status === 'in_progress' ? 'bg-blue-400/20 text-blue-400' :
-                              task.status === 'pending' ? 'bg-amber-400/20 text-amber-400' :
-                              'bg-white/10 text-white/50'
-                            }`}>
-                              {task.status}
-                            </span>
-                            <span className="text-white/30">{task.priority}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-white/30 text-xs text-center py-4">
-                      Nessun task assegnato
-                    </p>
-                  )}
-                </div>
-
-                {/* New task form */}
-                <div className="p-3 border-t border-white/10">
-                  <label className="block text-xs text-white/40 mb-1">
-                    Nuovo task per {selectedAgent.name.split(' ')[0]}
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleCreateTask()}
-                      placeholder="Descrivi il task..."
-                      className="flex-1 bg-white/5 border border-white/10 text-white px-3 py-2 rounded-lg text-xs placeholder:text-white/30 focus:outline-none focus:border-cyan-500/50"
-                    />
+                  {/* Mode toggle: Task vs Chat */}
+                  <div className="mt-3 flex gap-1 bg-white/5 rounded-lg p-0.5">
                     <button
-                      onClick={handleCreateTask}
-                      disabled={!message.trim() || isCreatingTask}
-                      className="px-3 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      onClick={() => setChatMode(false)}
+                      className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
+                        !chatMode ? 'bg-cyan-500/20 text-cyan-400' : 'text-white/40 hover:text-white/60'
+                      }`}
                     >
-                      {isCreatingTask ? (
-                        <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                        </svg>
-                      ) : (
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                      )}
+                      Tasks
+                    </button>
+                    <button
+                      onClick={() => setChatMode(true)}
+                      className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
+                        chatMode ? 'bg-purple-500/20 text-purple-400' : 'text-white/40 hover:text-white/60'
+                      }`}
+                    >
+                      Ask Question
                     </button>
                   </div>
                 </div>
+
+                {chatMode ? (
+                  <>
+                    {/* Chat history */}
+                    <div className="flex-1 overflow-y-auto max-h-48 p-2 space-y-2">
+                      {chatHistory.filter(m => m.agentId === selectedAgent.id).length > 0 ? (
+                        chatHistory.filter(m => m.agentId === selectedAgent.id).map((msg, idx) => (
+                          <div
+                            key={idx}
+                            className={`p-2 rounded-lg text-xs ${
+                              msg.role === 'user'
+                                ? 'bg-cyan-500/10 text-cyan-200 ml-4'
+                                : 'bg-purple-500/10 text-purple-200 mr-4'
+                            }`}
+                          >
+                            <div className="text-[10px] text-white/30 mb-1">
+                              {msg.role === 'user' ? 'You' : selectedAgent.name} • {new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                            <div className="whitespace-pre-wrap">{msg.content}</div>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-white/30 text-xs text-center py-4">
+                          Ask {selectedAgent.name.split(' ')[0]} a question
+                        </p>
+                      )}
+                      {isAsking && (
+                        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-200 mr-4 text-xs">
+                          <div className="flex items-center gap-2">
+                            <svg className="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                            <span>{selectedAgent.name} is thinking...</span>
+                          </div>
+                        </div>
+                      )}
+                      <div ref={chatEndRef} />
+                    </div>
+
+                    {/* Question input */}
+                    <div className="p-3 border-t border-white/10">
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && !isAsking && handleAskQuestion()}
+                          placeholder={`Ask ${selectedAgent.name.split(' ')[0]}...`}
+                          className="flex-1 bg-white/5 border border-white/10 text-white px-3 py-2 rounded-lg text-xs placeholder:text-white/30 focus:outline-none focus:border-purple-500/50"
+                          disabled={isAsking}
+                        />
+                        <button
+                          onClick={handleAskQuestion}
+                          disabled={!message.trim() || isAsking}
+                          className="px-3 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        >
+                          {isAsking ? (
+                            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                          ) : (
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Agent tasks */}
+                    <div className="flex-1 overflow-y-auto max-h-40 p-2">
+                      {selectedAgentTasks.length > 0 ? (
+                        <div className="space-y-1">
+                          {selectedAgentTasks.slice(0, 5).map(task => (
+                            <div key={task.id} className="p-2 rounded-lg bg-white/5 text-xs">
+                              <div className="text-white/70 truncate">{task.description}</div>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className={`px-1.5 py-0.5 rounded ${
+                                  task.status === 'in_progress' ? 'bg-blue-400/20 text-blue-400' :
+                                  task.status === 'pending' ? 'bg-amber-400/20 text-amber-400' :
+                                  task.status === 'done' ? 'bg-emerald-400/20 text-emerald-400' :
+                                  'bg-white/10 text-white/50'
+                                }`}>
+                                  {task.status}
+                                </span>
+                                <span className="text-white/30">{task.priority}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-white/30 text-xs text-center py-4">
+                          Nessun task assegnato
+                        </p>
+                      )}
+                    </div>
+
+                    {/* New task form */}
+                    <div className="p-3 border-t border-white/10">
+                      <label className="block text-xs text-white/40 mb-1">
+                        Nuovo task per {selectedAgent.name.split(' ')[0]}
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && handleCreateTask()}
+                          placeholder="Descrivi il task..."
+                          className="flex-1 bg-white/5 border border-white/10 text-white px-3 py-2 rounded-lg text-xs placeholder:text-white/30 focus:outline-none focus:border-cyan-500/50"
+                        />
+                        <button
+                          onClick={handleCreateTask}
+                          disabled={!message.trim() || isCreatingTask}
+                          className="px-3 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        >
+                          {isCreatingTask ? (
+                            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                            </svg>
+                          ) : (
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </>
             ) : (
               <div className="flex-1 flex items-center justify-center p-6 text-white/30 text-center text-sm">
                 <div>
                   <span className="text-3xl mb-3 block">👆</span>
-                  <p>Clicca un agente<br />per assegnare task</p>
+                  <p>Clicca un agente<br />per assegnare task o fare domande</p>
                 </div>
               </div>
             )}
