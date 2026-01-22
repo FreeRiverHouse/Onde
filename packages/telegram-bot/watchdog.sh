@@ -1,7 +1,7 @@
 #!/bin/bash
 # Watchdog for FRH-ONDE Telegram Bot (AUTONOMOUS VERSION WITH CLAUDE)
 
-BOT_PATH="/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot"
+BOT_PATH="/Users/mattia/Projects/Onde/packages/telegram-bot"
 BOT_SCRIPT="autonomous-bot.js"
 LOG_FILE="$BOT_PATH/bot.log"
 LOCK_FILE="/tmp/onde-bot.lock"

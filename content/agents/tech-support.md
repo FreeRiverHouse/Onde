@@ -36,4 +36,48 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-11*
+## Telegram Bot (FRH-ONDE)
+
+### Path
+`packages/telegram-bot/`
+
+### Avvio
+```bash
+cd /Users/mattia/Projects/Onde/packages/telegram-bot
+npx ts-node src/index.ts
+```
+
+### Watchdog (background)
+```bash
+./watchdog.sh
+```
+
+### File principali
+| File | Funzione |
+|------|----------|
+| `src/index.ts` | Bot principale Telegraf |
+| `src/chat-history.ts` | Memoria conversazioni (ultimi 30 msg) |
+| `src/claude-loop.ts` | Loop processamento messaggi |
+| `src/smart-loop.ts` | Loop gestione libri |
+| `src/content-scheduler.ts` | Scheduler post automatici |
+
+### Variabili .env richieste
+- `ONDE_PR_TELEGRAM_TOKEN`
+- `ONDE_PR_CHAT_ID`
+- `TWITTER_API_KEY/SECRET` (FRH)
+- `X_ONDE_API_KEY/SECRET` (Onde)
+- `X_MAGMATIC_API_KEY/SECRET` (Magmatic)
+
+### Verifica funzionamento
+1. Manda `/start` su Telegram a @OndePR_bot
+2. Verifica risposta con menu
+3. Test `/status` per vedere stato sistema
+
+### Log
+```bash
+tail -f /Users/mattia/Projects/Onde/packages/telegram-bot/bot.log
+```
+
+---
+
+*Ultimo aggiornamento: 2026-01-21*

@@ -24,7 +24,7 @@ const POLL_INTERVAL = 3000;
 const chatQueueDir = path.join(__dirname, '../chat_queue');
 const mediaDir = path.join(__dirname, '../media');
 const processedDir = path.join(__dirname, '../processed');
-const ondeRoot = '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const ondeRoot = '/Users/mattia/Projects/Onde';
 const booksDir = path.join(ondeRoot, 'books');
 const progressFile = path.join(ondeRoot, 'PROGRESS.md');
 

@@ -21,9 +21,9 @@ const POLL_INTERVAL = 5000; // 5 seconds
 const chatQueueDir = path.join(__dirname, '../chat_queue');
 const mediaDir = path.join(__dirname, '../media');
 const processedDir = path.join(__dirname, '../processed');
-const booksDir = '/Users/mattiapetrucciani/CascadeProjects/Onde/books';
-const appsDir = '/Users/mattiapetrucciani/CascadeProjects/Onde/apps';
-const ondeRoot = '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const booksDir = '/Users/mattia/Projects/Onde/books';
+const appsDir = '/Users/mattia/Projects/Onde/apps';
+const ondeRoot = '/Users/mattia/Projects/Onde';
 
 // Ensure directories exist
 [chatQueueDir, mediaDir, processedDir].forEach(dir => {

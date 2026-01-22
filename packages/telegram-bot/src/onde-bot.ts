@@ -18,7 +18,7 @@ import { execSync } from 'child_process';
 const TOKEN = '8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps';
 const AUTHORIZED_CHAT_ID = '7505631979';
 const POLL_TIMEOUT = 30; // seconds for long polling
-const ONDE_ROOT = '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const ONDE_ROOT = '/Users/mattia/Projects/Onde';
 const BOOKS_DIR = path.join(ONDE_ROOT, 'books');
 
 let lastUpdateId = 0;
