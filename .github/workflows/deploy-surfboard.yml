@@ -1,0 +1,84 @@
+# Surfboard (onde.surf) Cloudflare Pages Deployment
+# Auto-deploys on push to main when surfboard files change
+
+name: Deploy Surfboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/surfboard/**'
+      - '.github/workflows/deploy-surfboard.yml'
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy even without changes'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-surfboard-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'apps/surfboard/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: apps/surfboard
+        run: npm ci
+
+      - name: Build Next.js
+        working-directory: apps/surfboard
+        run: npm run build
+
+      - name: Build for Cloudflare
+        working-directory: apps/surfboard
+        run: npm run build:cf
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/surfboard/.vercel/output/static --project-name=onde-surf
+          workingDirectory: '.'
+
+      - name: Verify deployment
+        run: |
+          echo "Waiting for deployment propagation..."
+          sleep 30
+
+          # Check if site is reachable
+          HTTP_CODE=$(curl -sf -o /dev/null -w "%{http_code}" "https://onde.surf" 2>/dev/null || echo "000")
+
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "307" ]; then
+            echo "Deployment verified! onde.surf is live."
+          else
+            echo "Warning: Got HTTP $HTTP_CODE - site may still be propagating"
+          fi
+
+      - name: Notify success
+        if: success()
+        run: |
+          echo "Surfboard deployed successfully to https://onde.surf"
+          echo "Commit: ${{ github.sha }}"
