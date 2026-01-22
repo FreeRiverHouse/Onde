@@ -47,21 +47,31 @@ npx wrangler pages deploy out --project-name=onde-portal
 
 ---
 
-## 🚨 DEPLOY ONDE.SURF - PROCEDURA OBBLIGATORIA (2026-01-21)
+## 🚨 DEPLOY ONDE.SURF - PROCEDURA AUTOMATICA (2026-01-22)
 
-**Deploy a Cloudflare Pages (NON Workers!):**
+**METODO 1: GitHub Actions (AUTOMATICO - push to main)**
+
+Ogni push su `apps/surfboard/**` triggera auto-deploy via `.github/workflows/deploy-surfboard.yml`
+
+**METODO 2: Deploy Programmatico (da Conductor/CLI)**
 
 ```bash
-cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/surfboard
-rm -rf .next .vercel/output
-npm run build
-npm run build:cf
+cd /path/to/Onde/apps/surfboard
+npm run build && npm run build:cf
+CLOUDFLARE_API_TOKEN=RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw \
 npx wrangler pages deploy .vercel/output/static --project-name=onde-surf
 ```
 
-**IMPORTANTE - Due build necessarie:**
-1. `npm run build` → genera Next.js build in `.next/`
-2. `npm run build:cf` → converte per Cloudflare in `.vercel/output/static/`
+**METODO 3: Trigger manuale workflow**
+
+```bash
+gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde
+```
+
+**Credenziali Cloudflare:**
+- Account ID: `91ddd4ffd23fb9da94bb8c2a99225a3f`
+- API Token: `RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw`
+- Progetto: `onde-surf`
 
 **SEMPRE testare dopo deploy:**
 ```bash
