@@ -5,6 +5,29 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🔗 GitHub - Repository FreeRiverHouse
+
+**Organizzazione:** https://github.com/FreeRiverHouse
+
+| Repo | Descrizione | Path locale |
+|------|-------------|-------------|
+| **Onde** | Monorepo principale (portal, telegram-bot, books) | `/Users/mattia/Projects/Onde` |
+| **OndePRDB** | Database PR system | `/Users/mattia/Projects/OndePRDB` |
+| **PolyRoborto** | Copy-trading bot Polymarket | `/Users/mattia/Projects/PolyRoborto` |
+| **polyroborto-data** | Dashboard data (JSON sync ogni 5 min) | Auto-sync da PolyRoborto |
+| **minecraft-server** | Minecraft server config | `/Users/mattia/Projects/minecraft-server` |
+| **the-algorithm** | Fork Twitter algorithm (reference) | `/Users/mattia/Projects/the-algorithm` |
+
+**Autenticazione:**
+```bash
+# Già configurato con gh CLI
+gh auth status
+```
+
+**Token:** `GH_TOKEN` in `.env` (ghp_xxx)
+
+---
+
 ## 🚨 DEPLOY ONDE.LA - PROCEDURA OBBLIGATORIA (2026-01-19)
 
 **NON C'È AUTO-DEPLOY DA GITHUB! Devi fare deploy manuale con wrangler.**
