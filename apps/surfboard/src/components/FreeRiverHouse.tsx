@@ -1,17 +1,29 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import { useToast } from './Toast';
+
+// Monument Valley color palette
+const MV_COLORS = {
+  cream: '#F5E6D3',
+  terracotta: '#D4A574',
+  sage: '#8B9A7B',
+  sky: '#87CEEB',
+  coral: '#E07A5F',
+  stone: '#6B5B4F',
+  shadow: 'rgba(0,0,0,0.1)',
+};
 
 // Agent configuration
 interface AgentConfig {
   id: string;
   name: string;
-  emoji: string;
   role: string;
   room: 'office' | 'studio' | 'lab' | 'library' | 'lounge' | 'garden';
   color: string;
   skills: string[];
+  image: string;
 }
 
 interface AgentState extends AgentConfig {
@@ -33,23 +45,23 @@ interface AgentTask {
 }
 
 const AGENTS_CONFIG: AgentConfig[] = [
-  { id: 'editore-capo', name: 'Editore Capo', emoji: '📰', role: 'Content Director', room: 'office', color: '#ef4444', skills: ['content_create', 'book_edit'] },
-  { id: 'video-factory', name: 'Video Factory', emoji: '🎬', role: 'Video Production', room: 'studio', color: '#8b5cf6', skills: ['video_generate', 'image_generate'] },
-  { id: 'tech-support', name: 'Tech Support', emoji: '🔧', role: 'Technical Ops', room: 'lab', color: '#3b82f6', skills: ['content_create', 'post_edit'] },
-  { id: 'onde-pr', name: 'Onde PR', emoji: '📢', role: 'Public Relations', room: 'lounge', color: '#f59e0b', skills: ['post_feedback', 'post_edit'] },
-  { id: 'pina-pennello', name: 'Pina Pennello', emoji: '🎨', role: 'Visual Artist', room: 'studio', color: '#ec4899', skills: ['image_generate'] },
-  { id: 'gianni-parola', name: 'Gianni Parola', emoji: '✍️', role: 'Copywriter', room: 'library', color: '#10b981', skills: ['content_create', 'book_edit'] },
-  { id: 'sally', name: 'Sally', emoji: '🤖', role: 'AI Assistant', room: 'office', color: '#6366f1', skills: ['content_create', 'post_feedback'] },
-  { id: 'automation', name: 'Automation', emoji: '⚙️', role: 'Workflow Design', room: 'lab', color: '#64748b', skills: ['content_create'] },
+  { id: 'editore-capo', name: 'Editore Capo', role: 'Content Director', room: 'office', color: MV_COLORS.coral, skills: ['content_create', 'book_edit'], image: '/house/agents/editore-capo.png' },
+  { id: 'video-factory', name: 'Video Factory', role: 'Video Production', room: 'studio', color: MV_COLORS.terracotta, skills: ['video_generate', 'image_generate'], image: '/house/agents/video-factory.png' },
+  { id: 'tech-support', name: 'Tech Support', role: 'Technical Ops', room: 'lab', color: MV_COLORS.sky, skills: ['content_create', 'post_edit'], image: '/house/agents/automation.png' },
+  { id: 'onde-pr', name: 'Onde PR', role: 'Public Relations', room: 'lounge', color: MV_COLORS.terracotta, skills: ['post_feedback', 'post_edit'], image: '/house/agents/ondepr.png' },
+  { id: 'pina-pennello', name: 'Pina Pennello', role: 'Visual Artist', room: 'studio', color: MV_COLORS.coral, skills: ['image_generate'], image: '/house/agents/pina-pennello.png' },
+  { id: 'gianni-parola', name: 'Gianni Parola', role: 'Copywriter', room: 'library', color: MV_COLORS.sage, skills: ['content_create', 'book_edit'], image: '/house/agents/gianni-parola.png' },
+  { id: 'sally', name: 'Sally', role: 'AI Assistant', room: 'office', color: MV_COLORS.sage, skills: ['content_create', 'post_feedback'], image: '/house/agents/sally.png' },
+  { id: 'automation', name: 'Automation', role: 'Workflow Design', room: 'lab', color: MV_COLORS.stone, skills: ['content_create'], image: '/house/agents/automation.png' },
 ];
 
-const ROOMS: Record<string, { x: number; y: number; width: number; height: number; label: string; emoji: string }> = {
-  office: { x: 40, y: 60, width: 180, height: 130, label: 'Ufficio', emoji: '🏢' },
-  studio: { x: 250, y: 60, width: 180, height: 130, label: 'Studio', emoji: '🎥' },
-  lab: { x: 460, y: 60, width: 180, height: 130, label: 'Lab', emoji: '🔬' },
-  library: { x: 40, y: 220, width: 180, height: 130, label: 'Biblioteca', emoji: '📚' },
-  lounge: { x: 250, y: 220, width: 180, height: 130, label: 'Salotto', emoji: '☕' },
-  garden: { x: 460, y: 220, width: 180, height: 130, label: 'Giardino', emoji: '🌳' },
+const ROOMS: Record<string, { x: number; y: number; width: number; height: number; label: string; image: string }> = {
+  office: { x: 40, y: 60, width: 180, height: 130, label: 'Ufficio', image: '/house/rooms/office.png' },
+  studio: { x: 250, y: 60, width: 180, height: 130, label: 'Studio', image: '/house/rooms/studio.png' },
+  lab: { x: 460, y: 60, width: 180, height: 130, label: 'Lab', image: '/house/rooms/lab.png' },
+  library: { x: 40, y: 220, width: 180, height: 130, label: 'Biblioteca', image: '/house/rooms/library.png' },
+  lounge: { x: 250, y: 220, width: 180, height: 130, label: 'Salotto', image: '/house/rooms/lounge.png' },
+  garden: { x: 460, y: 220, width: 180, height: 130, label: 'Giardino', image: '/house/rooms/garden.png' },
 };
 
 export function FreeRiverHouse() {
@@ -224,139 +236,146 @@ export function FreeRiverHouse() {
 
       {expanded && (
         <div className="flex flex-col lg:flex-row">
-          {/* Map */}
+          {/* Map - Monument Valley Style */}
           <div className="flex-1 p-4">
-            <svg viewBox="0 0 680 390" className="w-full h-auto">
+            <div className="relative w-full" style={{ aspectRatio: '680/390' }}>
               {/* Background */}
-              <defs>
-                <linearGradient id="houseBg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0f172a" />
-                  <stop offset="100%" stopColor="#1e293b" />
-                </linearGradient>
-              </defs>
-              <rect x="0" y="0" width="680" height="390" fill="url(#houseBg)" rx="12" />
-
-              {/* Rooms */}
-              {Object.entries(ROOMS).map(([id, room]) => (
-                <g key={id}>
-                  <rect
-                    x={room.x}
-                    y={room.y}
-                    width={room.width}
-                    height={room.height}
-                    fill="rgba(255,255,255,0.03)"
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="1"
-                    rx="8"
-                  />
-                  <text
-                    x={room.x + room.width / 2}
-                    y={room.y + 20}
-                    textAnchor="middle"
-                    fill="rgba(255,255,255,0.3)"
-                    fontSize="11"
-                    fontWeight="500"
-                  >
-                    {room.emoji} {room.label}
-                  </text>
-                </g>
-              ))}
-
-              {/* Corridors */}
-              <path
-                d="M 220 125 H 250 M 430 125 H 460 M 130 190 V 220 M 340 190 V 220 M 550 190 V 220"
-                stroke="rgba(255,255,255,0.05)"
-                strokeWidth="16"
-                strokeLinecap="round"
-              />
-
-              {/* Agents */}
-              {agents.map((agent) => (
-                <g
-                  key={agent.id}
-                  transform={`translate(${agent.position.x}, ${agent.position.y})`}
-                  onClick={() => setSelectedAgent(agent)}
-                  className="cursor-pointer"
-                  style={{ transition: 'transform 0.05s linear' }}
-                >
-                  {/* Working glow */}
-                  {agent.status === 'working' && (
-                    <circle
-                      r="20"
-                      fill={agent.color}
-                      opacity="0.2"
-                      className="animate-pulse"
-                    />
-                  )}
-
-                  {/* Agent body */}
-                  <circle
-                    r="14"
-                    fill={agent.color}
-                    stroke={selectedAgent?.id === agent.id ? '#fff' : 'rgba(0,0,0,0.3)'}
-                    strokeWidth={selectedAgent?.id === agent.id ? 2 : 1}
-                  />
-
-                  {/* Emoji */}
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fontSize="12"
-                  >
-                    {agent.emoji}
-                  </text>
-
-                  {/* Status dot */}
-                  <circle
-                    cx="10"
-                    cy="-10"
-                    r="4"
-                    fill={agent.status === 'working' ? '#22c55e' : '#eab308'}
-                    stroke="rgba(0,0,0,0.5)"
-                    strokeWidth="1"
-                    className={agent.status === 'working' ? 'animate-pulse' : ''}
-                  />
-
-                  {/* Task count badge */}
-                  {agent.taskCount > 0 && (
-                    <>
-                      <circle cx="-10" cy="-10" r="7" fill="#3b82f6" />
-                      <text
-                        x="-10"
-                        y="-10"
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill="#fff"
-                        fontSize="8"
-                        fontWeight="bold"
+              <div
+                className="absolute inset-0 rounded-xl overflow-hidden"
+                style={{ background: `linear-gradient(135deg, ${MV_COLORS.cream} 0%, ${MV_COLORS.sky}40 100%)` }}
+              >
+                {/* Rooms Grid */}
+                <div className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-2 p-3">
+                  {Object.entries(ROOMS).map(([id, room]) => (
+                    <div
+                      key={id}
+                      className="relative rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]"
+                      style={{
+                        boxShadow: `0 4px 12px ${MV_COLORS.shadow}`,
+                      }}
+                    >
+                      {/* Room Background Image */}
+                      <Image
+                        src={room.image}
+                        alt={room.label}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 33vw, 200px"
+                      />
+                      {/* Room Label Overlay */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 py-1.5 px-2 text-center"
+                        style={{
+                          background: 'linear-gradient(transparent, rgba(0,0,0,0.5))',
+                        }}
                       >
-                        {agent.taskCount}
-                      </text>
-                    </>
-                  )}
+                        <span className="text-white text-xs font-medium drop-shadow-md">
+                          {room.label}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Name */}
-                  <text
-                    y="26"
-                    textAnchor="middle"
-                    fill="rgba(255,255,255,0.7)"
-                    fontSize="9"
-                    fontWeight="500"
-                  >
-                    {agent.name.split(' ')[0]}
-                  </text>
-                </g>
-              ))}
+                {/* Agents Layer */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {agents.map((agent) => {
+                    const roomIndex = Object.keys(ROOMS).indexOf(agent.room);
+                    const col = roomIndex % 3;
+                    const row = Math.floor(roomIndex / 3);
+                    // Position within grid cell
+                    const baseX = (col * 33.33) + 16.66;
+                    const baseY = (row * 50) + 25;
+                    // Add some offset based on agent position for movement
+                    const offsetX = ((agent.position.x % 40) - 20) * 0.3;
+                    const offsetY = ((agent.position.y % 40) - 20) * 0.3;
+
+                    return (
+                      <div
+                        key={agent.id}
+                        className="absolute pointer-events-auto cursor-pointer transition-all duration-300 hover:scale-110"
+                        style={{
+                          left: `calc(${baseX}% + ${offsetX}px)`,
+                          top: `calc(${baseY}% + ${offsetY}px)`,
+                          transform: 'translate(-50%, -50%)',
+                          zIndex: selectedAgent?.id === agent.id ? 20 : 10,
+                        }}
+                        onClick={() => setSelectedAgent(agent)}
+                      >
+                        {/* Working glow */}
+                        {agent.status === 'working' && (
+                          <div
+                            className="absolute inset-0 rounded-full animate-pulse"
+                            style={{
+                              background: `radial-gradient(circle, ${agent.color}60 0%, transparent 70%)`,
+                              transform: 'scale(2)',
+                            }}
+                          />
+                        )}
+
+                        {/* Agent Avatar */}
+                        <div
+                          className="relative w-12 h-12 rounded-full overflow-hidden border-2 shadow-lg"
+                          style={{
+                            borderColor: selectedAgent?.id === agent.id ? '#fff' : agent.color,
+                            boxShadow: selectedAgent?.id === agent.id
+                              ? '0 0 0 2px #fff, 0 4px 12px rgba(0,0,0,0.3)'
+                              : `0 4px 12px ${MV_COLORS.shadow}`,
+                          }}
+                        >
+                          <Image
+                            src={agent.image}
+                            alt={agent.name}
+                            fill
+                            className="object-cover"
+                            sizes="48px"
+                          />
+                        </div>
+
+                        {/* Status dot */}
+                        <div
+                          className={`absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white shadow ${
+                            agent.status === 'working' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
+                          }`}
+                        />
+
+                        {/* Task count badge */}
+                        {agent.taskCount > 0 && (
+                          <div className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold shadow">
+                            {agent.taskCount}
+                          </div>
+                        )}
+
+                        {/* Name */}
+                        <div
+                          className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+                          style={{ color: MV_COLORS.stone }}
+                        >
+                          <span className="text-[10px] font-medium bg-white/80 px-1.5 py-0.5 rounded shadow-sm">
+                            {agent.name.split(' ')[0]}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
               {/* Legend */}
-              <g transform="translate(20, 370)">
-                <circle cx="0" cy="0" r="4" fill="#22c55e" />
-                <text x="8" y="3" fill="rgba(255,255,255,0.4)" fontSize="9">Working</text>
-                <circle cx="70" cy="0" r="4" fill="#eab308" />
-                <text x="78" y="3" fill="rgba(255,255,255,0.4)" fontSize="9">Idle</text>
-                <text x="550" y="3" fill="rgba(255,255,255,0.2)" fontSize="9">Click agent to assign task</text>
-              </g>
-            </svg>
+              <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px]" style={{ color: MV_COLORS.stone }}>
+                <div className="flex items-center gap-3 bg-white/80 px-2 py-1 rounded">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full" />
+                    Working
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 bg-amber-400 rounded-full" />
+                    Idle
+                  </span>
+                </div>
+                <span className="bg-white/80 px-2 py-1 rounded opacity-60">Click agent to assign task</span>
+              </div>
+            </div>
           </div>
 
           {/* Agent Panel */}
@@ -367,10 +386,16 @@ export function FreeRiverHouse() {
                 <div className="p-4 border-b border-white/10">
                   <div className="flex items-center gap-3 mb-2">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                      className="relative w-12 h-12 rounded-xl overflow-hidden"
                       style={{ backgroundColor: `${selectedAgent.color}20` }}
                     >
-                      {selectedAgent.emoji}
+                      <Image
+                        src={selectedAgent.image}
+                        alt={selectedAgent.name}
+                        fill
+                        className="object-cover"
+                        sizes="48px"
+                      />
                     </div>
                     <div>
                       <h3 className="text-white font-medium text-sm">{selectedAgent.name}</h3>
@@ -477,13 +502,21 @@ export function FreeRiverHouse() {
               <button
                 key={agent.id}
                 onClick={() => setSelectedAgent(agent)}
-                className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1.5 transition-all border ${
+                className={`px-2 py-1 rounded-lg text-xs flex items-center gap-2 transition-all border ${
                   selectedAgent?.id === agent.id
                     ? 'bg-white/10 text-white border-white/20'
                     : 'bg-white/5 text-white/50 border-transparent hover:bg-white/10 hover:text-white/70'
                 }`}
               >
-                <span>{agent.emoji}</span>
+                <div className="relative w-5 h-5 rounded-full overflow-hidden">
+                  <Image
+                    src={agent.image}
+                    alt={agent.name}
+                    fill
+                    className="object-cover"
+                    sizes="20px"
+                  />
+                </div>
                 <span>{agent.name.split(' ')[0]}</span>
                 {agent.status === 'working' && (
                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
