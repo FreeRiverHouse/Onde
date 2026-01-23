@@ -805,7 +805,7 @@ L'agent può:
 - Vuole report in inglese, stile executive, con PDF allegato
 - Frustra quando dimentico cose già discusse
 - Vuole che usi Claude for Chrome quando serve accedere al browser
-- **"Sbrinchi sbronchi"** = basta chiacchiere, vai avanti col lavoro, non aspettare istruzioni
+- **"Sbrinchi sbronchi"** = FINE SESSIONE. Esegui: aggiorna chat-history, ROADMAP se serve, git add/commit/push, conferma che tutto è salvato
 
 ---
 
