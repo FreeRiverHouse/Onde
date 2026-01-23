@@ -1,134 +1,79 @@
 #!/usr/bin/env node
-// SessionStart Hook Runner - Carica contesto all'avvio
-// Questo script viene chiamato da Claude Code hooks
+// SessionStart Hook - Inietta contesto e regole all'avvio
+// Output va a stdout → Claude lo vede nel contesto
 
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || '/Users/mattia/Projects/Onde';
+const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || '/Users/mattiapetrucciani/CascadeProjects/Onde';
 const HANDOFF_DIR = path.join(ONDE_ROOT, 'chat-history', 'handoffs');
-const MEMORY_LOG = path.join(ONDE_ROOT, '.claude-memory', 'hooks.log');
-
-function ensureDir(dir) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-}
-
-function log(message) {
-  ensureDir(path.dirname(MEMORY_LOG));
-  fs.appendFileSync(MEMORY_LOG, `[${new Date().toISOString()}] ${message}\n`);
-}
+const CHEATSHEET_PATH = path.join(ONDE_ROOT, 'CHEATSHEET.md');
 
 function getLatestHandoff() {
-  if (!fs.existsSync(HANDOFF_DIR)) {
-    return null;
-  }
-
+  if (!fs.existsSync(HANDOFF_DIR)) return null;
   const files = fs.readdirSync(HANDOFF_DIR)
     .filter(f => f.startsWith('handoff-') && f.endsWith('.yaml'))
-    .sort()
-    .reverse();
-
-  if (files.length === 0) {
-    return null;
-  }
-
-  const latestPath = path.join(HANDOFF_DIR, files[0]);
+    .sort().reverse();
+  if (files.length === 0) return null;
   return {
-    path: latestPath,
     filename: files[0],
-    content: fs.readFileSync(latestPath, 'utf8')
+    content: fs.readFileSync(path.join(HANDOFF_DIR, files[0]), 'utf8')
   };
 }
 
 function getRecentIdeas() {
-  // Cerca idee recenti nel chat-history
-  const chatHistoryDir = path.join(ONDE_ROOT, 'chat-history');
-  if (!fs.existsSync(chatHistoryDir)) {
-    return [];
-  }
-
+  const chatDir = path.join(ONDE_ROOT, 'chat-history');
+  if (!fs.existsSync(chatDir)) return null;
   const today = new Date().toISOString().split('T')[0];
+  const todayFile = path.join(chatDir, `${today}-ideas.md`);
+  if (fs.existsSync(todayFile)) {
+    return fs.readFileSync(todayFile, 'utf8').substring(0, 500);
+  }
+  // Try yesterday
   const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
-  const ideas = [];
-  for (const date of [today, yesterday]) {
-    const filePath = path.join(chatHistoryDir, `${date}.md`);
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf8');
-      // Estrai linee che sembrano idee (iniziano con - o *)
-      const matches = content.match(/^[\-\*] .+$/gm);
-      if (matches) {
-        ideas.push(...matches.slice(0, 5));
-      }
-    }
+  const yesterdayFile = path.join(chatDir, `${yesterday}-ideas.md`);
+  if (fs.existsSync(yesterdayFile)) {
+    return `[${yesterday}] ` + fs.readFileSync(yesterdayFile, 'utf8').substring(0, 500);
   }
-
-  return ideas.slice(0, 10);
+  return null;
 }
 
-function getCurrentPriorities() {
-  const roadmapPath = path.join(ONDE_ROOT, 'ROADMAP.md');
-  if (!fs.existsSync(roadmapPath)) {
-    return [];
-  }
-
-  const content = fs.readFileSync(roadmapPath, 'utf8');
-
-  // Cerca sezione PRIORITÀ IMMEDIATE
-  const priorityMatch = content.match(/## 🔴 PRIORITÀ IMMEDIATE[\s\S]*?(?=\n## |$)/);
-  if (priorityMatch) {
-    const tasks = priorityMatch[0].match(/- \[ \] .+/g);
-    if (tasks) {
-      return tasks.slice(0, 5).map(t => t.replace('- [ ] ', ''));
-    }
-  }
-
-  // Fallback: prendi qualsiasi task non completato
-  const allTasks = content.match(/- \[ \] .+/g);
-  return allTasks ? allTasks.slice(0, 5).map(t => t.replace('- [ ] ', '')) : [];
-}
-
-async function main() {
+function main() {
   const source = process.argv[2] || 'unknown';
-  log(`SessionStart (${source}): Hook triggered`);
+  const output = [];
 
-  try {
-    // 1. Carica ultimo handoff
-    const handoff = getLatestHandoff();
+  output.push('=== ONDE CONTINUOUS CLAUDE ===');
+  output.push('');
 
-    // 2. Carica priorità correnti
-    const priorities = getCurrentPriorities();
+  // 1. Regole critiche (dal CHEATSHEET)
+  output.push('REGOLE SESSIONE:');
+  output.push('- LEGGI CHEATSHEET.md e ROADMAP.md');
+  output.push('- "Sbrinchi sbronchi" = FINE SESSIONE: aggiorna chat-history/YYYY-MM-DD-ideas.md, ROADMAP.md, git commit+push, conferma');
+  output.push('- SEMPRE git pull PRIMA di lavorare');
+  output.push('- MAI spendere soldi senza autorizzazione');
+  output.push('- Telegram bot per comunicare con Mattia (chat 7505631979)');
+  output.push('');
 
-    // 3. Carica idee recenti
-    const recentIdeas = getRecentIdeas();
-
-    // 4. Crea summary per il log
-    const summary = {
-      source,
-      timestamp: new Date().toISOString(),
-      lastHandoff: handoff ? handoff.filename : 'none',
-      prioritiesCount: priorities.length,
-      recentIdeasCount: recentIdeas.length
-    };
-
-    log(`SessionStart: Loaded context - ${JSON.stringify(summary)}`);
-
-    // 5. Output per Claude (verrà letto come contesto)
-    if (handoff) {
-      console.log(`[Onde Session] Ultimo handoff: ${handoff.filename}`);
-    }
-    if (priorities.length > 0) {
-      console.log(`[Onde Session] Top priority: ${priorities[0]}`);
-    }
-
-    process.exit(0);
-  } catch (error) {
-    log(`SessionStart ERROR: ${error.message}`);
-    // Non bloccare - exit 0
-    process.exit(0);
+  // 2. Ultimo handoff
+  const handoff = getLatestHandoff();
+  if (handoff) {
+    output.push(`ULTIMO HANDOFF: ${handoff.filename}`);
+    output.push(handoff.content.substring(0, 800));
+    output.push('');
   }
+
+  // 3. Idee recenti
+  const ideas = getRecentIdeas();
+  if (ideas) {
+    output.push('IDEE RECENTI:');
+    output.push(ideas);
+    output.push('');
+  }
+
+  output.push('=== FINE CONTEXT INJECTION ===');
+
+  // Output to stdout - Claude will see this
+  console.log(output.join('\n'));
 }
 
 main();

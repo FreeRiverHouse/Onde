@@ -39,6 +39,17 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "sbrinchi|sbronchi",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/sbrinchi-sbronchi.js"
+          }
+        ]
+      }
     ]
   }
 }
