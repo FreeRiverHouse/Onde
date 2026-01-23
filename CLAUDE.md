@@ -5,6 +5,15 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 REGOLE GIT - OBBLIGATORIE
+
+1. **SEMPRE `git pull` PRIMA di iniziare qualsiasi lavoro** - Mai modificare file senza prima sincronizzarsi col remote
+2. **Mai pushare senza aver pullato** - Se il push fallisce, pull --rebase e riprova
+3. **Non committare build artifacts** (.vercel/, .next/, node_modules/, etc.)
+4. **Un commit per task** - Non mischiare cambiamenti non correlati
+
+---
+
 ## 🔗 GitHub - Repository FreeRiverHouse
 
 **Organizzazione:** https://github.com/FreeRiverHouse
