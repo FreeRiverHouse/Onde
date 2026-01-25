@@ -667,6 +667,33 @@ const translated = await zai.translate("Hello world", "italiano");
 1. **Z.ai** (gratis, primario)
 2. **Grok** (fallback se Z.ai fallisce)
 
+### GLM-4.7 + Conductor (Multi-Agent Setup)
+
+**Per runnare multipli agenti coding in parallelo a basso costo:**
+
+1. **Configura Claude Code per GLM-4.7** (già fatto in `~/.claude/settings.json`):
+   ```json
+   "env": {
+       "ANTHROPIC_AUTH_TOKEN": "${ZAI_API_KEY}",
+       "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+       "API_TIMEOUT_MS": "3000000"
+   }
+   ```
+
+2. **Installa Conductor** (macOS only):
+   - Scarica da [conductor.build](https://conductor.build)
+   - Aggiungi repo Git
+   - Ogni agente usa git worktrees per isolamento
+
+3. **Workflow**:
+   - Plan Mode → crea piano con GLM-4.7
+   - Execute → agenti lavorano in parallelo
+   - PR → review e merge
+
+**Documentazione completa**: `docs/GLM4-CONDUCTOR-SETUP.md`
+
+**Risparmio**: ~20x rispetto a Claude Sonnet, ~100x rispetto a Opus
+
 ---
 
 ## IMPORTANTE - Grok Integration per PR Agent
