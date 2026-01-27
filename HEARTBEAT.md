@@ -1,4 +1,14 @@
-# HEARTBEAT.md
+# HEARTBEAT.md — Checklist Periodica
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
-# Add tasks below when you want the agent to check something periodically.
+## 🧠 Memoria (PRIORITÀ ALTA)
+- [ ] Controlla se ci sono conversazioni importanti non salvate
+- [ ] Aggiorna `memory/YYYY-MM-DD.md` con eventi del giorno
+- [ ] Aggiorna `MEMORY.md` con decisioni/progetti significativi
+
+## 📋 Progetti Attivi
+- [ ] Traduzione "Republic of Innovation" — check status
+- [ ] Procedura traduzione Onde — testata?
+
+## 🔧 Sistema
+- [ ] Ollama running? Modelli scaricati?
+- [ ] GPU Radeon arrivata?

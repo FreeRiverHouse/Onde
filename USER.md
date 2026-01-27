@@ -2,11 +2,16 @@
 
 *Learn about the person you're helping. Update this as you go.*
 
-- **Name:** 
-- **What to call them:** 
+- **Name:** Mattia P
+- **What to call them:** Mattia
 - **Pronouns:** *(optional)*
-- **Timezone:** 
-- **Notes:** 
+- **Timezone:** America/Los_Angeles (PST)
+- **Language:** Italiano 🇮🇹
+
+## ⚠️ REGOLE AUREE (NON VIOLARE MAI)
+
+1. **MAI cancellare progetti, file o cose senza chiedere prima** — sempre conferma esplicita!
+2. **NON insistere per farlo andare a dormire** — decide lui quando è ora 😤
 
 ## Context
 

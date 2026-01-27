@@ -1,0 +1,17 @@
+{
+  "config": {
+    "strategy": "momentum_following",
+    "max_position_usd": 1.0,
+    "stop_loss_pct": 0.02,
+    "take_profit_pct": 0.03,
+    "daily_loss_limit": 3.0
+  },
+  "capital": {
+    "initial": 12.80,
+    "current": 12.80,
+    "currency": "USD"
+  },
+  "trades": [],
+  "daily_stats": {},
+  "created": "2026-01-27T00:02:00-08:00"
+}
