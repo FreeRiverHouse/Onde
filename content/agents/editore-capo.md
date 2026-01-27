@@ -844,3 +844,126 @@ SE trovi contenuto corrotto:
 
 *Questo file consolida: Editore Capo + Gianni Parola + Pina Pennello*
 *Ultimo aggiornamento: 11 Gen 2026*
+
+---
+
+## 🌍 PROCEDURA TRADUZIONE BOMBA (26 Gen 2026)
+
+**QUANDO MATTIA DICE "Traduci libro X in italiano/spagnolo/etc" → ESEGUI QUESTA PROCEDURA!**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║  "PROCEDURA TRADUZIONE" = TRADUZIONE RIGA PER RIGA DI QUALITÀ     ║
+║                                                                   ║
+║  BACKEND: Claude (oggi) → Modello locale (domani con Radeon)      ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Principi Fondamentali
+
+1. **RIGA PER RIGA** - Mai tradurre blocchi interi. Una riga alla volta per precisione.
+2. **GLOSSARIO** - Rispetta il glossario Onde (nomi, brand, termini tecnici)
+3. **STILE** - Scegli lo stile giusto per il contenuto (literary, children, formal)
+4. **QUALITY CHECK** - Verifica lunghezza e struttura dopo traduzione
+
+### Script CLI
+
+```bash
+# Traduzione standard EN→IT
+npx ts-node scripts/translate-book.ts content/books/meditations.txt --to italiano
+
+# Libro per bambini EN→ES
+npx ts-node scripts/translate-book.ts content/books/psalm23.txt --style children --to spagnolo
+
+# Con Ollama locale (quando Radeon disponibile)
+npx ts-node scripts/translate-book.ts book.txt --backend ollama --model qwen2.5:7b --to italiano
+```
+
+### API Programmatica
+
+```typescript
+import { LineByLineTranslator, ONDE_GLOSSARY } from '@onde/core';
+
+const translator = new LineByLineTranslator();
+
+const result = await translator.translate(bookText, {
+  targetLang: 'italiano',
+  style: 'literary',           // formal | casual | literary | children
+  glossary: ONDE_GLOSSARY,     // Preserva nomi Onde
+  preserveNames: true,         // Preserva nomi propri
+  onProgress: (curr, total) => console.log(`${curr}/${total}`)
+});
+
+// Quality check
+const quality = translator.qualityCheck(result.original, result.translated);
+if (!quality.passed) {
+  console.warn('⚠️ Warnings:', quality.warnings);
+}
+```
+
+### Glossario Onde (Termini da Preservare)
+
+| Termine | Traduzione | Note |
+|---------|------------|------|
+| Onde | Onde | Brand - MAI tradurre |
+| FreeRiver | FreeRiver | Brand |
+| Emilio | Emilio | Personaggio |
+| Moonlight | Moonlight | Personaggio |
+| mindfulness | mindfulness | Termine tecnico |
+| stoic/stoicism | stoico/stoicismo | Filosofia |
+
+### Stili Disponibili
+
+| Stile | Uso | Caratteristiche |
+|-------|-----|-----------------|
+| `literary` | Classici, poesia, filosofia | Preserva ritmo, metafore, tono emotivo |
+| `children` | Libri bambini 5-8 anni | Frasi corte, parole concrete, tono caldo |
+| `formal` | Manuali, documenti | Preciso, strutturato |
+| `casual` | Blog, social | Naturale, colloquiale |
+
+### Workflow Completo Libro Tradotto
+
+```
+1. ORIGINALE
+   └── Libro in inglese verificato e pulito
+   
+2. TRADUZIONE
+   └── npx ts-node scripts/translate-book.ts libro.txt --to italiano --style literary
+   
+3. QUALITY CHECK (automatico)
+   └── Verifica lunghezza, righe, errori
+   
+4. REVIEW MANUALE
+   └── Controllo prime 10 righe + ultime 10 righe
+   └── Spot check 5 righe random nel mezzo
+   
+5. COPERTINA TRADOTTA
+   └── Pina genera copertina con titolo italiano
+   
+6. EPUB/PDF
+   └── Assembla versione finale
+   
+7. TELEGRAM
+   └── Invia a Mattia per approvazione
+```
+
+### Backend Disponibili
+
+| Backend | Quando Usarlo | Setup |
+|---------|---------------|-------|
+| `claude` | DEFAULT - Oggi | Già configurato |
+| `ollama` | Domani con Radeon | `ollama pull qwen2.5:7b` |
+
+### Modelli Consigliati per Ollama (Radeon)
+
+| Modello | VRAM | Qualità | Velocità |
+|---------|------|---------|----------|
+| `qwen2.5:7b` | 8GB | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| `qwen2.5:14b` | 16GB | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| `llama3.2:8b` | 8GB | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| `glm4:9b` | 10GB | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+
+---
+
+*Procedura aggiornata: 26 Gen 2026*
+*Prossimo upgrade: Integrazione Radeon + modelli locali*

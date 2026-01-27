@@ -16,7 +16,7 @@ import { spawn } from 'child_process';
 const API_BASE = 'https://onde.surf/api';
 const POLL_INTERVAL = 30000; // 30 secondi
 const CLAUDE_TIMEOUT = 30000; // 30s max per task (haiku is fast)
-const CLAUDE_BIN = process.env.CLAUDE_BIN || '/Users/mattiapetrucciani/.local/bin/claude';
+const CLAUDE_BIN = process.env.CLAUDE_BIN || '/opt/homebrew/bin/claude';
 
 // Agent configs are in the Onde repo content/agents/ directory
 const AGENTS_DIR = path.resolve(__dirname, '../../content/agents');
