@@ -56,28 +56,24 @@ npx wrangler pages deploy out --project-name=onde-portal
 
 ---
 
-## 🚨 DEPLOY ONDE.SURF - PROCEDURA AUTOMATICA (2026-01-22)
+## 🚨 DEPLOY ONDE.SURF - PROCEDURA PROTETTA (2026-01-26)
 
-**METODO 1: GitHub Actions (AUTOMATICO - push to main)**
+**⚠️ DEPLOY PROTETTO - Solo tech-support agent può deployare!**
 
-Ogni push su `apps/surfboard/**` triggera auto-deploy via `.github/workflows/deploy-surfboard.yml`
+**NO AUTO-DEPLOY su push** - Il deploy richiede passphrase esplicita.
 
-**METODO 2: Deploy Programmatico (da Conductor/CLI)**
-
-```bash
-cd /path/to/Onde/apps/surfboard
-npm run build && npm run build:cf
-CLOUDFLARE_API_TOKEN=RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw \
-npx wrangler pages deploy .vercel/output/static --project-name=onde-surf
-```
-
-**METODO 3: Trigger manuale workflow**
+**UNICO METODO: GitHub Actions con passphrase**
 
 ```bash
-gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde
+gh workflow run deploy-surfboard.yml \
+  -R FreeRiverHouse/Onde \
+  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
+  -f reason="Descrizione del deploy"
 ```
 
-**Credenziali Cloudflare:**
+**Passphrase:** `9eeezNPQwjY8NJl5PL9C0pqTutP642xk`
+
+**Credenziali Cloudflare (solo per emergenze):**
 - Account ID: `91ddd4ffd23fb9da94bb8c2a99225a3f`
 - API Token: `RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw`
 - Progetto: `onde-surf`

@@ -1,21 +1,20 @@
 # Surfboard (onde.surf) Cloudflare Pages Deployment
-# Auto-deploys on push to main when surfboard files change
+# PROTECTED: Only tech-support agent can deploy via manual trigger with passphrase
+# NO AUTO-DEPLOY on push - requires explicit authorization
 
 name: Deploy Surfboard
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'apps/surfboard/**'
-      - '.github/workflows/deploy-surfboard.yml'
   workflow_dispatch:
     inputs:
-      force_deploy:
-        description: 'Force deploy even without changes'
-        required: false
-        type: boolean
-        default: false
+      deploy_key:
+        description: 'Deploy passphrase (required)'
+        required: true
+        type: string
+      reason:
+        description: 'Reason for deployment'
+        required: true
+        type: string
 
 concurrency:
   group: deploy-surfboard-${{ github.ref }}
@@ -25,9 +24,23 @@ env:
   NODE_VERSION: '20'
 
 jobs:
+  authorize:
+    name: Verify Authorization
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check deploy key
+        run: |
+          if [ "${{ inputs.deploy_key }}" != "${{ secrets.SURFBOARD_DEPLOY_KEY }}" ]; then
+            echo "::error::Invalid deploy key. Only authorized agents can deploy."
+            exit 1
+          fi
+          echo "Deploy authorized by: ${{ github.actor }}"
+          echo "Reason: ${{ inputs.reason }}"
+
   deploy:
     name: Build & Deploy
     runs-on: ubuntu-latest
+    needs: authorize
     permissions:
       contents: read
       deployments: write
@@ -80,5 +93,12 @@ jobs:
       - name: Notify success
         if: success()
         run: |
-          echo "Surfboard deployed successfully to https://onde.surf"
+          echo "========================================"
+          echo "DEPLOY SUCCESSFUL"
+          echo "========================================"
+          echo "Site: https://onde.surf"
           echo "Commit: ${{ github.sha }}"
+          echo "Deployed by: ${{ github.actor }}"
+          echo "Reason: ${{ inputs.reason }}"
+          echo "Time: $(date -u)"
+          echo "========================================"
