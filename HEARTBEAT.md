@@ -27,10 +27,18 @@
 - [ ] Leggi TASKS.md per altri task
 - [ ] Se Mattia non scrive → lavora autonomamente
 
-## 💰 TRADING (ogni 10 min!)
-- [ ] Check portfolio balance
-- [ ] Verifica posizioni aperte
-- [ ] Autotrader running?
+## 💰 TRADING WATCHDOG (PRIORITÀ!)
+- [ ] **AUTOTRADER DEVE ESSERE SEMPRE ATTIVO!**
+- [ ] Check: `ps aux | grep kalshi-autotrader`
+- [ ] Se morto → riavvia: `cd ~/Projects/Onde && nohup python3 -u scripts/kalshi-autotrader.py --live > /tmp/kalshi-autotrader.log 2>&1 &`
+- [ ] Check ultimo trade in `/tmp/kalshi-autotrader.log`
+- [ ] Se ultimo trade > 10 min fa → ALLARME!
+- [ ] Portfolio balance e P&L
+
+### Win Rate da migliorare
+- Portfolio partito $30, ora ~$24 (-19%)
+- Verificare se edge calcolato è corretto
+- Forse Kelly troppo aggressivo?
 
 ## 🧠 Memoria
 - [ ] Aggiorna `memory/YYYY-MM-DD.md` con progressi traduzione
