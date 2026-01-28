@@ -52,7 +52,7 @@
 - [x] Particle system (stelle, sparkles) ✅
 - [x] Background images per tutte le stanze ✅
 - [x] Transizioni stanze con Framer Motion ✅ (2026-01-28)
-- [ ] Responsive + mobile test
+- [x] Responsive + mobile test ✅ (2026-01-28) - Added 768px, 480px, 360px, 600px-height breakpoints
 - [ ] Sprite mood diversi (ora usa emoji 😊😢 ecc)
 - [ ] **Target: qualità App Store featured**
 
@@ -84,6 +84,18 @@
 - [x] **Traduzione CAP 5 "Rimedi liberali" COMPLETATO** (~12k parole)
 - [x] **Traduzione AMD/tinygrad COMPLETATA** (594 righe, 20k parole) → traduzioni/republic-of-innovation-IT.md
 
+## 🆕 AGGIUNTI OGGI (2026-01-28)
+
+- [x] Watchdog autotrader + cron ✅
+- [x] Ondinho welcome letter ✅
+- [x] Moonlight Framer Motion ✅
+- [x] Moonlight responsive CSS ✅
+
+### Nuovi Task (aggiunti da agente)
+- [ ] **Trading**: Aggiungere tracking settlement per calcolare win rate reale
+- [ ] **Moonlight**: Creare sprite mood diversi (happy, sad, sleepy, hungry) invece di emoji
+- [ ] **Monitoring**: Creare pagina status `/health` che mostra stato tutti i servizi
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 12:55 PST*
+*Ultimo aggiornamento: 2026-01-28 13:02 PST*
