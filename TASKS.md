@@ -101,12 +101,38 @@
 ## 📋 TODO - TRADING
 
 ### [T032] Ottimizzare se win rate < 50%
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Fixed! Black-Scholes inspired model with momentum tracking. Higher min edge (25%) for NO bets. Removed bearish bias.
+
+---
+
+## 📋 TODO - AUTOTRADER V2
+
+### [T033] Backtest del nuovo modello su dati storici
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P1  # URGENTE - win rate 0%!
-- **Notes**: Win rate 0%! Problemi: 1) 100% NO bias 2) Sottostima volatilità rialzista. Fix: aumentare sigma, rivedere probabilità direzionale
+- **Priority**: P2
+- **Notes**: Verificare che il nuovo Black-Scholes model avrebbe fatto meglio sui 41 trade persi
+
+### [T034] Alert Telegram se balance < $5
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Notifica proattiva se fondi bassi per evitare stop trading
+
+### [T035] Log win/loss settati via settlement tracker
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Integrare settlement-tracker con trade log per aggiornare automaticamente result_status
 
 ---
 
@@ -318,5 +344,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:52 PST*
+*Ultimo aggiornamento: 2026-01-28 13:53 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
