@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: 'Onde - Crafted by Code, Touched by Soul',
   description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
   keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/apple-icon.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
