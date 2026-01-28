@@ -17,8 +17,23 @@ import {
   Activity,
   Zap,
   Target,
-  Cpu
+  Cpu,
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight,
+  Flame,
+  History
 } from 'lucide-react';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine
+} from 'recharts';
 
 // ============== TYPES ==============
 interface KalshiPosition {
@@ -57,6 +72,28 @@ interface InboxMessage {
 interface InboxData {
   messages: InboxMessage[];
   lastUpdated: string;
+}
+
+interface Fill {
+  ticker: string;
+  side: 'yes' | 'no';
+  action: 'buy' | 'sell';
+  count: number;
+  price: number;
+  cost: number;
+  timestamp: string;
+  orderId: string;
+  tradeId: string;
+}
+
+interface FillsData {
+  fills: Fill[];
+  lastBet: Fill | null;
+  portfolioHistory: Array<{
+    timestamp: string;
+    value: number;
+  }>;
+  error?: string;
 }
 
 // ============== ANIMATED NUMBER COMPONENT ==============
@@ -288,11 +325,355 @@ function PulsingDot({ color = 'green', label }: { color?: 'green' | 'red' | 'yel
   );
 }
 
+// ============== LAST BET CARD COMPONENT ==============
+function LastBetCard({ lastBet }: { lastBet: Fill | null }) {
+  if (!lastBet) {
+    return (
+      <GlassCard glowColor="orange" className="p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/30 to-amber-500/30 flex items-center justify-center">
+            <Flame className="w-5 h-5 text-orange-400" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Last Bet Placed</h2>
+            <p className="text-xs text-gray-500">Most recent trade</p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center py-8 text-gray-500">
+          <Clock className="w-8 h-8 mb-3 opacity-30" />
+          <p className="text-sm">No bets placed yet</p>
+        </div>
+      </GlassCard>
+    );
+  }
+
+  // Parse ticker to extract info (e.g., KXBTCD-26JAN2803-T88499.99)
+  const tickerParts = lastBet.ticker.split('-');
+  const market = tickerParts[0] || lastBet.ticker;
+  const strike = tickerParts[2]?.replace('T', '$') || '';
+  
+  // Calculate edge (simple estimate based on price vs 50%)
+  const edge = Math.abs(50 - lastBet.price);
+  
+  const betTime = new Date(lastBet.timestamp);
+  const timeAgo = getTimeAgo(betTime);
+
+  return (
+    <GlassCard glowColor="orange" className="p-6" pulse>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/30 to-amber-500/30 flex items-center justify-center relative">
+            <Flame className="w-5 h-5 text-orange-400" />
+            <div className="absolute -top-1 -right-1">
+              <PulsingDot color="green" />
+            </div>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Last Bet Placed</h2>
+            <p className="text-xs text-gray-500">{timeAgo}</p>
+          </div>
+        </div>
+        <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+          lastBet.side === 'yes' 
+            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+            : 'bg-red-500/20 text-red-400 border border-red-500/30'
+        }`}>
+          {lastBet.side.toUpperCase()}
+        </div>
+      </div>
+
+      {/* Bet Details Grid */}
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        {/* Ticker */}
+        <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.05]">
+          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Market</p>
+          <p className="text-white font-mono font-bold text-sm truncate" title={lastBet.ticker}>
+            {market}
+          </p>
+          {strike && (
+            <p className="text-orange-400 text-xs mt-1">{strike}</p>
+          )}
+        </div>
+
+        {/* Price Paid */}
+        <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.05]">
+          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Price</p>
+          <p className="text-cyan-400 font-mono font-bold text-2xl">
+            {lastBet.price}¢
+          </p>
+        </div>
+
+        {/* Quantity */}
+        <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.05]">
+          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Contracts</p>
+          <p className="text-white font-mono font-bold text-2xl">
+            {lastBet.count}
+          </p>
+        </div>
+
+        {/* Total Cost */}
+        <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.05]">
+          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Total Cost</p>
+          <p className="text-emerald-400 font-mono font-bold text-2xl">
+            ${(lastBet.cost / 100).toFixed(2)}
+          </p>
+        </div>
+      </div>
+
+      {/* Edge Indicator */}
+      <div className="flex items-center justify-between bg-gradient-to-r from-purple-500/10 to-cyan-500/10 rounded-xl p-4 border border-purple-500/20">
+        <div className="flex items-center gap-2">
+          <Target className="w-5 h-5 text-purple-400" />
+          <span className="text-gray-400 text-sm">Calculated Edge</span>
+        </div>
+        <span className="text-purple-400 font-mono font-bold text-xl drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">
+          {edge.toFixed(1)}%
+        </span>
+      </div>
+
+      {/* Timestamp */}
+      <div className="mt-4 flex items-center justify-between text-xs text-gray-600 font-mono">
+        <span>{betTime.toLocaleDateString()}</span>
+        <span>{betTime.toLocaleTimeString()}</span>
+      </div>
+    </GlassCard>
+  );
+}
+
+// ============== PORTFOLIO CHART COMPONENT ==============
+function PortfolioChart({ data }: { data: Array<{ timestamp: string; value: number }> }) {
+  // Format data for recharts
+  const chartData = data.map(d => ({
+    time: new Date(d.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+    fullTime: new Date(d.timestamp).toLocaleString(),
+    value: d.value
+  }));
+
+  // Calculate stats
+  const values = data.map(d => d.value);
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const latestValue = values[values.length - 1] || 0;
+  const startValue = values[0] || 0;
+  const pnlPercent = startValue > 0 ? ((latestValue - startValue) / startValue * 100) : 0;
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[#0a0a0f]/95 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-2xl">
+          <p className="text-gray-400 text-xs mb-1">{payload[0]?.payload?.fullTime}</p>
+          <p className="text-cyan-400 font-mono font-bold text-lg">
+            ${payload[0]?.value?.toFixed(2)}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <GlassCard glowColor="cyan" className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/30 to-blue-500/30 flex items-center justify-center">
+            <History className="w-5 h-5 text-cyan-400" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Betting History</h2>
+            <p className="text-xs text-gray-500">Cumulative investment over time</p>
+          </div>
+        </div>
+        <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-bold ${
+          pnlPercent >= 0 
+            ? 'bg-emerald-500/20 text-emerald-400' 
+            : 'bg-red-500/20 text-red-400'
+        }`}>
+          {pnlPercent >= 0 ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+          {Math.abs(pnlPercent).toFixed(1)}%
+        </div>
+      </div>
+
+      {data.length < 2 ? (
+        <div className="flex flex-col items-center justify-center py-16 text-gray-500">
+          <BarChart3 className="w-12 h-12 mb-4 opacity-30" />
+          <p className="text-sm">Not enough data for chart</p>
+          <p className="text-xs text-gray-600 mt-1">Place some bets to see history</p>
+        </div>
+      ) : (
+        <>
+          <div className="h-[250px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.4}/>
+                    <stop offset="50%" stopColor="#00d4ff" stopOpacity={0.15}/>
+                    <stop offset="95%" stopColor="#00d4ff" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid 
+                  strokeDasharray="3 3" 
+                  stroke="rgba(255,255,255,0.05)" 
+                  vertical={false}
+                />
+                <XAxis 
+                  dataKey="time" 
+                  stroke="rgba(255,255,255,0.2)"
+                  tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis 
+                  stroke="rgba(255,255,255,0.2)"
+                  tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => `$${value}`}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <ReferenceLine 
+                  y={startValue} 
+                  stroke="rgba(168,85,247,0.5)" 
+                  strokeDasharray="5 5"
+                  label={{ value: 'Start', fill: 'rgba(168,85,247,0.7)', fontSize: 10 }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#00d4ff"
+                  strokeWidth={2}
+                  fill="url(#portfolioGradient)"
+                  dot={false}
+                  activeDot={{ 
+                    r: 6, 
+                    fill: '#00d4ff',
+                    stroke: '#0a0a0f',
+                    strokeWidth: 2
+                  }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Stats Row */}
+          <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-white/5">
+            <div className="text-center">
+              <p className="text-gray-500 text-xs uppercase tracking-wider">Min</p>
+              <p className="text-gray-300 font-mono font-bold">${minValue.toFixed(2)}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-500 text-xs uppercase tracking-wider">Max</p>
+              <p className="text-gray-300 font-mono font-bold">${maxValue.toFixed(2)}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-500 text-xs uppercase tracking-wider">Current</p>
+              <p className="text-cyan-400 font-mono font-bold">${latestValue.toFixed(2)}</p>
+            </div>
+          </div>
+        </>
+      )}
+    </GlassCard>
+  );
+}
+
+// ============== RECENT FILLS TABLE ==============
+function RecentFillsTable({ fills }: { fills: Fill[] }) {
+  const recentFills = fills.slice(0, 10);
+
+  return (
+    <GlassCard glowColor="purple" className="p-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/30 flex items-center justify-center">
+          <Activity className="w-5 h-5 text-purple-400" />
+        </div>
+        <div>
+          <h2 className="text-lg font-bold">Recent Trades</h2>
+          <p className="text-xs text-gray-500">{fills.length} total fills</p>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-gray-500 text-xs uppercase tracking-wider border-b border-white/5">
+              <th className="text-left py-2 font-medium">Time</th>
+              <th className="text-left py-2 font-medium">Ticker</th>
+              <th className="text-center py-2 font-medium">Side</th>
+              <th className="text-right py-2 font-medium">Qty</th>
+              <th className="text-right py-2 font-medium">Price</th>
+              <th className="text-right py-2 font-medium">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentFills.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="text-center py-8 text-gray-500">
+                  No trades yet
+                </td>
+              </tr>
+            ) : (
+              recentFills.map((fill, i) => (
+                <tr 
+                  key={fill.tradeId || i} 
+                  className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors"
+                >
+                  <td className="py-3 font-mono text-gray-400 text-xs">
+                    {new Date(fill.timestamp).toLocaleTimeString('en-US', { 
+                      hour: '2-digit', 
+                      minute: '2-digit'
+                    })}
+                  </td>
+                  <td className="py-3 font-mono text-gray-300 text-xs truncate max-w-[120px]" title={fill.ticker}>
+                    {fill.ticker.replace('KXBTCD-', '').replace('KXETHD-', '').substring(0, 15)}
+                  </td>
+                  <td className="py-3 text-center">
+                    <span className={`px-2 py-0.5 rounded text-xs font-bold ${
+                      fill.side === 'yes' 
+                        ? 'bg-emerald-500/20 text-emerald-400' 
+                        : 'bg-red-500/20 text-red-400'
+                    }`}>
+                      {fill.side.toUpperCase()}
+                    </span>
+                  </td>
+                  <td className="py-3 text-right font-mono text-gray-300">
+                    {fill.count}
+                  </td>
+                  <td className="py-3 text-right font-mono text-cyan-400">
+                    {fill.price}¢
+                  </td>
+                  <td className="py-3 text-right font-mono text-emerald-400">
+                    ${(fill.cost / 100).toFixed(2)}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </GlassCard>
+  );
+}
+
+// ============== HELPER FUNCTIONS ==============
+function getTimeAgo(date: Date): string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMins / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  return `${diffDays}d ago`;
+}
+
 // ============== MAIN COMPONENT ==============
 export default function BettingDashboard() {
   const [kalshiStatus, setKalshiStatus] = useState<KalshiStatus | null>(null);
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
+  const [fillsData, setFillsData] = useState<FillsData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -302,15 +683,17 @@ export default function BettingDashboard() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [kalshiRes, cryptoRes, inboxRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, fillsRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
-        fetch('/api/inbox')
+        fetch('/api/inbox'),
+        fetch('/api/kalshi/fills')
       ]);
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
+      if (fillsRes.ok) setFillsData(await fillsRes.json());
 
       setLastRefresh(new Date());
     } catch (error) {
@@ -509,8 +892,14 @@ export default function BettingDashboard() {
           />
         </div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* NEW: Last Bet + Chart Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <LastBetCard lastBet={fillsData?.lastBet || null} />
+          <PortfolioChart data={fillsData?.portfolioHistory || []} />
+        </div>
+
+        {/* Three Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Positions */}
           <div className="space-y-6">
             {/* Kalshi Section */}
@@ -535,7 +924,7 @@ export default function BettingDashboard() {
                 </a>
               </div>
 
-              <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                 {kalshiStatus?.positions && kalshiStatus.positions.length > 0 ? (
                   kalshiStatus.positions.map((pos, i) => (
                     <div 
@@ -601,108 +990,109 @@ export default function BettingDashboard() {
             </GlassCard>
           </div>
 
+          {/* Middle Column - Recent Trades */}
+          <RecentFillsTable fills={fillsData?.fills || []} />
+
           {/* Right Column - Inbox */}
-          <div className="space-y-6">
-            <GlassCard glowColor="green" className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/30 to-green-500/30 flex items-center justify-center">
-                  <Send className="w-5 h-5 text-emerald-400" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold">Clawdinho Inbox</h2>
-                  <p className="text-xs text-gray-500">Drop messages, links, commands</p>
-                </div>
+          <GlassCard glowColor="green" className="p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/30 to-green-500/30 flex items-center justify-center">
+                <Send className="w-5 h-5 text-emerald-400" />
               </div>
-
-              {/* Input Box */}
-              <div className="relative mb-6">
-                <div className="flex gap-3">
-                  <div className="flex-1 relative">
-                    <input
-                      type="text"
-                      value={inputMessage}
-                      onChange={(e) => setInputMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                      placeholder="Type a message or paste a link..."
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:shadow-[0_0_30px_rgba(0,255,136,0.1)] transition-all duration-300"
-                    />
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 pointer-events-none opacity-0 focus-within:opacity-100 transition-opacity" />
-                  </div>
-                  <button
-                    onClick={sendMessage}
-                    disabled={isSending || !inputMessage.trim()}
-                    className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 font-medium transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,136,0.3)] hover:scale-105 disabled:opacity-30 disabled:hover:scale-100 disabled:hover:shadow-none"
-                  >
-                    {isSending ? (
-                      <RefreshCw className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <Send className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
-                <p className="text-gray-600 text-xs mt-2 font-mono">
-                  → agents/betting/inbox.json
-                </p>
-              </div>
-
-              {/* Messages List */}
               <div>
-                <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-3">
-                  Recent Messages
-                </h3>
-                <div className="space-y-2 max-h-[350px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                  {inbox?.messages && inbox.messages.length > 0 ? (
-                    inbox.messages.map((msg) => (
-                      <div 
-                        key={msg.id}
-                        className={`group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 ${
-                          msg.processed 
-                            ? 'bg-white/[0.02] opacity-50' 
-                            : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-emerald-500/30'
-                        }`}
-                      >
-                        <div className="mt-0.5">{getMessageIcon(msg.type)}</div>
-                        <div className="flex-1 min-w-0">
-                          {msg.type === 'link' ? (
-                            <a 
-                              href={msg.content}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm text-cyan-400 hover:text-cyan-300 break-all transition-colors"
-                            >
-                              {msg.content}
-                            </a>
-                          ) : (
-                            <p className="text-sm text-gray-300 break-words">{msg.content}</p>
-                          )}
-                          <p className="text-xs text-gray-600 mt-1 font-mono">
-                            {new Date(msg.timestamp).toLocaleString()}
-                          </p>
-                        </div>
-                        <button
-                          onClick={() => deleteMessage(msg.id)}
-                          className="p-1.5 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-                      <MessageSquare className="w-8 h-8 mb-3 opacity-30" />
-                      <p className="text-sm">No messages yet</p>
-                    </div>
-                  )}
-                </div>
+                <h2 className="text-lg font-bold">Clawdinho Inbox</h2>
+                <p className="text-xs text-gray-500">Drop messages, links, commands</p>
               </div>
-            </GlassCard>
-          </div>
+            </div>
+
+            {/* Input Box */}
+            <div className="relative mb-6">
+              <div className="flex gap-3">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                    placeholder="Type a message or paste a link..."
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:shadow-[0_0_30px_rgba(0,255,136,0.1)] transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 pointer-events-none opacity-0 focus-within:opacity-100 transition-opacity" />
+                </div>
+                <button
+                  onClick={sendMessage}
+                  disabled={isSending || !inputMessage.trim()}
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 font-medium transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,136,0.3)] hover:scale-105 disabled:opacity-30 disabled:hover:scale-100 disabled:hover:shadow-none"
+                >
+                  {isSending ? (
+                    <RefreshCw className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
+              <p className="text-gray-600 text-xs mt-2 font-mono">
+                → agents/betting/inbox.json
+              </p>
+            </div>
+
+            {/* Messages List */}
+            <div>
+              <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-3">
+                Recent Messages
+              </h3>
+              <div className="space-y-2 max-h-[250px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                {inbox?.messages && inbox.messages.length > 0 ? (
+                  inbox.messages.map((msg) => (
+                    <div 
+                      key={msg.id}
+                      className={`group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 ${
+                        msg.processed 
+                          ? 'bg-white/[0.02] opacity-50' 
+                          : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-emerald-500/30'
+                      }`}
+                    >
+                      <div className="mt-0.5">{getMessageIcon(msg.type)}</div>
+                      <div className="flex-1 min-w-0">
+                        {msg.type === 'link' ? (
+                          <a 
+                            href={msg.content}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-cyan-400 hover:text-cyan-300 break-all transition-colors"
+                          >
+                            {msg.content}
+                          </a>
+                        ) : (
+                          <p className="text-sm text-gray-300 break-words">{msg.content}</p>
+                        )}
+                        <p className="text-xs text-gray-600 mt-1 font-mono">
+                          {new Date(msg.timestamp).toLocaleString()}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => deleteMessage(msg.id)}
+                        className="p-1.5 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+                    <MessageSquare className="w-8 h-8 mb-3 opacity-30" />
+                    <p className="text-sm">No messages yet</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </GlassCard>
         </div>
 
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-gray-600 text-xs font-mono">
-            AUTO-REFRESH 30s • BUILT FOR ONDE.SURF • v2.0
+            AUTO-REFRESH 30s • BUILT FOR ONDE.SURF • v3.0 🔥
           </p>
         </div>
       </div>

@@ -1,8 +1,15 @@
 # TASKS.md - Lista Task Attivi
 
 ## 🔴 PRIORITÀ ASSOLUTA (Stanotte!)
-- [ ] **TRADUZIONE "Republic of Innovation"** - installare modello, trovare originale, tradurre cap 5+
-- [ ] Creare procedura traduzione DEFINITIVA per Onde
+- [ ] **TRADUZIONE "Republic of Innovation"**
+  - [ ] Trovare file inglese originale (Mattia dice "in download")
+  - [ ] Usare Radeon + LLM (Qwen/GPT-2 XL) per tradurre EN→IT
+  - [ ] Tradurre capitoli 5+ (cap 1-4 già fatti)
+  - [ ] Qualità editoriale: riga per riga, stile coerente
+- [ ] **PROCEDURA TRADUZIONE DEFINITIVA**
+  - [ ] Script funzionante su Radeon
+  - [ ] Documentazione replicabile
+  - [ ] Testato e validato
 
 ## 🔴 In Attesa - ROADMAP (da fare)
 ### Publishing (TIER 1 - Revenue!)
