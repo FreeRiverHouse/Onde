@@ -162,12 +162,13 @@
 - **Notes**: SEO improvement
 
 ### [T042] Favicon personalizzata Onde
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Wave icon
+- **Notes**: ✅ Wave icon SVG created for onde-portal and surfboard. icon.svg + apple-icon.svg in app/ directories.
 
 ### [T043] Health check in CI
 - **Status**: TODO
@@ -398,6 +399,30 @@
 - **Priority**: P3
 - **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
 
+### [T098] Generare favicon.ico da SVG per compatibilità legacy
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T042]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alcuni browser vecchi richiedono .ico. Usare sharp o imagemagick per convertire.
+
+### [T099] Meta tags Open Graph per onde.surf
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Preview social per surfboard come fatto per /libri (T107)
+
+### [T200] Verificare favicon appare su onde.la dopo deploy
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T042]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Test visivo che favicon wave sia visibile su browser
+
 ---
 
 ## ✅ DONE
@@ -482,5 +507,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:45 PST*
+*Ultimo aggiornamento: 2026-01-28 15:52 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
