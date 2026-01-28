@@ -523,4 +523,21 @@ examples/gpt2.py --model_size gpt2-xl --prompt "Hello"
 
 **⚠️ REGOLA:** MAI dire "impossibile" o "non funziona". Il setup FUNZIONA. Punto.
 
-*Ultimo aggiornamento: 27 Gen 2026, 22:12 PST*
+*Ultimo aggiornamento: 27 Gen 2026, 23:10 PST*
+
+---
+
+## 📚 MEMORIA CENTRALE - LEGGERE SEMPRE!
+
+**Repo:** https://github.com/FreeRiverHouse/claude-memory
+**Path locale:** `~/claude-memory/`
+
+**File chiave:**
+- `CLAUDE.md` - Setup hardware, TinyGrad, AMD GPU, comandi
+- `CLAWDINHO-CEO.md` - Chi sono, cosa devo fare
+
+**LEZIONE APPRESA (27 Gen 2026):**
+- IO = CEO/coordinatore, NON esecutore tecnico
+- Claude Code = sa già tutto, ha documentato tutto
+- PRIMA di agire → leggi documentazione esistente
+- MAI reinventare la ruota su task già fatti

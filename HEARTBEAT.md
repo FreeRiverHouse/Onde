@@ -1,33 +1,36 @@
 # HEARTBEAT.md — Checklist Periodica
 
-## 🔥 AGENTI TRADUZIONE (CHECK OGNI 10 MIN!)
-- [ ] Check `editore-capo-traduzione` - stato?
-- [ ] Check `tech-support-procedura` - procedura pronta?
-- [ ] Check `coding-model-hunter` - trovato modello coding?
-- [ ] Se procedura funziona → PARALLELIZZA (split & conquer per capitoli)
+## 🔥 TASK NOTTURNO (23:30 PST - ATTIVO!)
 
-## 📋 TASK PENDENTI (PRIORITÀ MASSIMA!)
-- [ ] Leggi TASKS.md
-- [ ] Se ci sono task in attesa → LAVORACI o spawna agente
-- [ ] Se Mattia non scrive → lavora autonomamente ai task
+### PRIORITÀ ASSOLUTA: Traduzione "Republic of Innovation"
+1. **INSTALLARE MODELLO TRADUZIONE** su Radeon (NLLB-200 o simile, NON GPT-2!)
+2. **TROVARE ORIGINALE INGLESE** - capitoli 5+ mancanti
+3. **TRADURRE** riga per riga, stile perfetto e coerente
+4. **CREARE PROCEDURA DEFINITIVA** per traduzioni future
+
+**File traduzione:** `traduzioni/republic-of-innovation-IT.md` (cap 1-4 completati)
+**Setup Radeon:** `~/conductor/workspaces/Onde/moscow/tinygrad-fix`
+
+### Modelli da valutare per traduzione EN→IT:
+- NLLB-200 (Meta) - 54 lingue, ottimizzato per traduzione
+- mBART-50 - multilingue
+- Helsinki-NLP/opus-mt-en-it - specifico EN→IT
+- Seamless M4T - nuovo Meta model
+
+### ⚠️ REGOLE TRADUZIONE
+- Riga per riga, fedele all'originale
+- Stile coerente con cap 1-4 già tradotti
+- Qualità editoriale (non Google Translate!)
+- La procedura deve essere DEFINITIVA e replicabile
+
+## 📋 TASK PENDENTI
+- [ ] Leggi TASKS.md per altri task
+- [ ] Se Mattia non scrive → lavora autonomamente
 
 ## 💰 TRADING (ogni 10 min!)
 - [ ] Check portfolio balance
 - [ ] Verifica posizioni aperte
-- [ ] Gas disponibile sufficiente?
-- [ ] Errori da correggere?
+- [ ] Autotrader running?
 
-## 🧠 Memoria (PRIORITÀ ALTA)
-- [ ] Controlla se ci sono conversazioni importanti non salvate
-- [ ] Aggiorna `memory/YYYY-MM-DD.md` con eventi del giorno
-- [ ] Aggiorna `MEMORY.md` con decisioni/progetti significativi
-
-## 📋 Progetti Attivi
-- [ ] Traduzione "Republic of Innovation" — check status
-- [ ] Procedura traduzione Onde — testata?
-- [ ] Recuperare $10 da GMX vault!
-
-## 🔧 Sistema
-- [ ] Ollama running? Modelli scaricati?
-- [ ] GPU Radeon arrivata?
-- [ ] Mac sveglio (caffeinate)?
+## 🧠 Memoria
+- [ ] Aggiorna `memory/YYYY-MM-DD.md` con progressi traduzione

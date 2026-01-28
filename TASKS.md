@@ -1,6 +1,24 @@
 # TASKS.md - Lista Task Attivi
 
-## 🔴 In Attesa (da fare)
+## 🔴 PRIORITÀ ASSOLUTA (Stanotte!)
+- [ ] **TRADUZIONE "Republic of Innovation"** - installare modello, trovare originale, tradurre cap 5+
+- [ ] Creare procedura traduzione DEFINITIVA per Onde
+
+## 🔴 In Attesa - ROADMAP (da fare)
+### Publishing (TIER 1 - Revenue!)
+- [ ] AIKO EN → KDP
+- [ ] Psalm 23 EN → KDP  
+- [ ] AIKO IT → KDP
+- [ ] Psalm 23 ES/DE/FR → KDP
+- [ ] Frankenstein (illustrato premium) → KDP
+- [ ] Meditations Marcus Aurelius (illustrato) → KDP
+
+### Tech/Platform
+- [ ] Deploy onde.surf su Cloudflare
+- [ ] FreeRiver Flow Voice MVP (iPhone + Whisper + Claude)
+- [ ] Onde Books VR - continuare prototype WebXR
+
+### Trading
 - [x] ~~Aggiungere volatility-adjusted buffer~~ ✅ (2σ daily vol)
 - [ ] Raccogliere dati per ICA/PCA analysis
 - [x] ~~**MULTI-AGENT GROK STYLE**~~ ✅ `scripts/kalshi-multiagent.py`
