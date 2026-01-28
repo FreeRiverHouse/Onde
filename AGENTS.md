@@ -104,6 +104,28 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 **Don't overdo it:** One reaction per message max. Pick the one that fits best.
 
+## 🚀 DEPLOY - PROCEDURE OBBLIGATORIE
+
+**FILE COMPLETO:** `tools/tech-support/DEPLOY-PROCEDURES.md`
+
+### ONDE.SURF
+```bash
+gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
+  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
+  -f reason="MOTIVO DEL DEPLOY"
+```
+
+### ONDE.LA
+```bash
+cd /Users/mattia/Projects/Onde/apps/onde-portal
+npm run build && npx wrangler pages deploy out --project-name=onde-portal
+```
+
+**⚠️ SEMPRE commit+push PRIMA di deployare!**
+**⚠️ SEMPRE verificare con curl dopo il deploy!**
+
+---
+
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.

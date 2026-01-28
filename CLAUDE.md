@@ -5,6 +5,27 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚀🚀🚀 DEPLOY - LEGGI QUESTO 🚀🚀🚀
+
+**FILE COMPLETO:** `tools/tech-support/DEPLOY-PROCEDURES.md`
+
+### ONDE.SURF (Dashboard)
+```bash
+gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
+  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
+  -f reason="MOTIVO"
+```
+
+### ONDE.LA (Sito principale)
+```bash
+cd /Users/mattia/Projects/Onde/apps/onde-portal
+npm run build && npx wrangler pages deploy out --project-name=onde-portal
+```
+
+**NON SAI DEPLOYARE? LEGGI:** `tools/tech-support/DEPLOY-PROCEDURES.md`
+
+---
+
 ## 🚨 REGOLA 0 - LA PIU' IMPORTANTE
 
 # TUTTO VA SALVATO SU GIT
