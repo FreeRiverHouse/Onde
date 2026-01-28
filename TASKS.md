@@ -98,8 +98,13 @@
 
 ### Task aggiunti dopo health page
 - [x] **Portal**: Deploy onde.la per attivare /health ✅ (live at https://onde.la/health/)
-- [ ] **Trading**: Script analisi PnL giornaliero da kalshi-trades.jsonl
+- [x] **Trading**: Script analisi PnL giornaliero da kalshi-trades.jsonl ✅ (scripts/analyze-trades-pnl.py)
 - [ ] **Docs**: Aggiornare README con nuove funzionalità (health, responsive)
+
+### Task aggiunti 2026-01-28 13:05
+- [ ] **Trading**: Integrare settlement tracking automatico (BTC price a expiry) per calcolare win/loss reale
+- [ ] **Portal**: Aggiungere metadati Open Graph per preview social su /libri
+- [ ] **Moonlight**: Aggiungere sound effects (ambient music, interaction sounds)
 
 ---
 
