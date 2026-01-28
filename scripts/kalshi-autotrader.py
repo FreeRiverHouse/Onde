@@ -290,37 +290,79 @@ def kelly_size(edge: float, odds: float, bankroll: float) -> int:
     return max(MIN_BET_CENTS, bet_cents)
 
 
-def estimate_btc_prob(current_price: float, strike: float, hours_to_expiry: float, volatility: float, sentiment: int) -> float:
+def get_btc_momentum() -> float:
+    """Get BTC momentum (% change over last 4 hours). Positive = uptrend."""
+    try:
+        resp = requests.get(
+            "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1",
+            timeout=10
+        )
+        data = resp.json()
+        prices = [p[1] for p in data["prices"]]
+        if len(prices) < 20:
+            return 0.0
+        # Compare now vs 4 hours ago (roughly 16 data points with 15-min intervals)
+        recent = prices[-1]
+        old = prices[-min(16, len(prices))]
+        momentum = (recent - old) / old
+        return momentum
+    except:
+        return 0.0  # No momentum data
+
+
+def estimate_btc_prob(current_price: float, strike: float, hours_to_expiry: float, volatility: float, sentiment: int, momentum: float = 0.0) -> float:
     """
     Estimate probability BTC will be above strike at expiry
-    Uses simplified model with volatility and sentiment adjustment
+    Uses Black-Scholes inspired model with volatility and drift adjustment
+    
+    Key insight: With 2% daily vol, BTC can easily move ±2-3% in a day.
+    Cheap NO bets aren't free money - they're priced cheap because market expects UP.
     """
-    # Base case: current price vs strike
-    if current_price >= strike:
-        base_prob = 0.55  # Slightly above 50% if already above
+    import math
+    
+    # Distance to strike as % of current price
+    distance_pct = (strike - current_price) / current_price
+    
+    # Expected move based on volatility (sigma * sqrt(time))
+    # Assuming hours_to_expiry=24 means daily vol applies directly
+    time_factor = min(hours_to_expiry / 24, 1.0)  # Cap at 1 day
+    expected_move = volatility * math.sqrt(time_factor)
+    
+    # How many standard deviations is the strike from current price?
+    # Positive = strike is above current price (need upward move)
+    if expected_move > 0.001:
+        z_score = distance_pct / expected_move
     else:
-        base_prob = 0.45  # Slightly below if currently below
+        z_score = distance_pct * 100  # Fallback
     
-    # Adjust for distance from strike
-    pct_diff = (current_price - strike) / strike
-    prob_adjustment = pct_diff * 2  # 1% diff = 2% prob adjustment
+    # Add drift adjustment for momentum (positive momentum = expect higher prices)
+    # Scale momentum effect: +1% 4hr momentum → shift expected value up ~0.5%
+    drift = momentum * 0.5
+    z_score_adjusted = z_score - (drift / expected_move if expected_move > 0.001 else 0)
     
-    # Adjust for volatility (higher vol = more uncertainty = closer to 50%)
-    vol_adjustment = (0.5 - base_prob) * min(volatility * 10, 0.5)
+    # Sentiment adjustment: Greed (>50) = bullish, Fear (<50) = bearish
+    # Max ±0.3 z-score adjustment
+    sentiment_adj = (sentiment - 50) / 150
+    z_score_adjusted -= sentiment_adj
     
-    # Adjust for sentiment (Fear = bearish, Greed = bullish)
-    sentiment_adjustment = (sentiment - 50) / 500  # Max ±10% adjustment
+    # Convert z-score to probability using approximate normal CDF
+    # P(BTC > strike) = P(Z > z_score) = 1 - Phi(z_score)
+    # Using approximation: Phi(z) ≈ 1/(1 + exp(-1.7 * z))
+    prob_below_strike = 1 / (1 + math.exp(-1.7 * z_score_adjusted))
+    prob_above_strike = 1 - prob_below_strike
     
-    # Combine
-    prob = base_prob + prob_adjustment + vol_adjustment + sentiment_adjustment
-    return max(0.05, min(0.95, prob))  # Bound between 5-95%
+    # Bound probabilities
+    return max(0.05, min(0.95, prob_above_strike))
 
 
-def find_opportunities(markets: list, btc_price: float, eth_price: float, volatility: float, sentiment: int) -> list:
+def find_opportunities(markets: list, btc_price: float, eth_price: float, volatility: float, sentiment: int, momentum: float = 0.0) -> list:
     """Find trading opportunities in the markets"""
     opportunities = []
     skipped_expiry = 0
     skipped_low_edge = 0
+    
+    # Higher edge required for NO bets - they're often traps during rallies
+    MIN_EDGE_NO = max(MIN_EDGE, 0.25)  # At least 25% edge for NO
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -349,8 +391,8 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                 strike_str = subtitle.split("$")[1].split(" ")[0].replace(",", "")
                 strike = float(strike_str)
                 
-                # Estimate our probability
-                our_prob = estimate_btc_prob(btc_price, strike, 24, volatility, sentiment)
+                # Estimate our probability (now with momentum!)
+                our_prob = estimate_btc_prob(btc_price, strike, 24, volatility, sentiment, momentum)
                 market_prob_yes = calculate_implied_prob(yes_ask)
                 market_prob_no = calculate_implied_prob(100 - yes_bid)
                 
@@ -378,9 +420,9 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                 else:
                     skipped_low_edge += 1
                 
-                # Check NO opportunity
+                # Check NO opportunity (higher edge required - NO bets are contrarian)
                 edge_no = (1 - our_prob) - market_prob_no
-                if edge_no > MIN_EDGE:
+                if edge_no > MIN_EDGE_NO:
                     opp = {
                         "ticker": ticker,
                         "side": "no",
@@ -468,6 +510,11 @@ def trading_cycle(live_mode: bool = False):
     volatility = get_btc_volatility()
     print(f"📉 BTC Volatility (24h): {volatility*100:.1f}%")
     
+    # Get momentum (4h trend)
+    momentum = get_btc_momentum()
+    trend = "📈 UP" if momentum > 0.005 else "📉 DOWN" if momentum < -0.005 else "➡️ FLAT"
+    print(f"🔄 BTC Momentum (4h): {momentum*100:+.2f}% {trend}")
+    
     # Get current positions
     positions = get_positions()
     position_tickers = [p.get("ticker") for p in positions]
@@ -481,9 +528,9 @@ def trading_cycle(live_mode: bool = False):
     btc_markets = search_markets(series="KXBTCD")
     print(f"🔍 Found {len(btc_markets)} BTC markets")
     
-    # Find opportunities
-    opportunities = find_opportunities(btc_markets, btc, eth, volatility, sentiment)
-    print(f"🎯 Found {len(opportunities)} opportunities with edge > {MIN_EDGE*100:.0f}%")
+    # Find opportunities (now momentum-aware!)
+    opportunities = find_opportunities(btc_markets, btc, eth, volatility, sentiment, momentum)
+    print(f"🎯 Found {len(opportunities)} opportunities (YES edge>{MIN_EDGE*100:.0f}%, NO edge>25%)")
     
     if not opportunities:
         print("No good opportunities right now")
