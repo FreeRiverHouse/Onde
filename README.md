@@ -145,6 +145,35 @@ STORAGE_BUCKET=...
 | `@onde/agent-gtm` | Agent AI per GTM |
 | `@onde/agent-social` | Agent AI per social media |
 
+## Recent Updates (Jan 2026)
+
+### 🌐 Web Properties
+- **onde.la** - Main portal with book catalog, reader, health status
+- **onde.surf** - Surfboard theme selector
+
+### 🌙 Moonlight Magic House
+Interactive Tamagotchi-style game featuring:
+- Glassmorphism UI with glow effects
+- Particle system (stars, sparkles)
+- Framer Motion room transitions
+- Fully responsive (mobile-first, tested 360px-1920px)
+- Located at `/games/moonlight-magic-house/`
+
+### 📊 System Health
+- `/health` page with real-time service status monitoring
+- Auto-refreshes every 60 seconds
+- Tracks onde.la, onde.surf, GitHub
+
+### 📈 Trading Automation
+- Kalshi autotrader for BTC hourly markets
+- PnL analysis script: `scripts/analyze-trades-pnl.py`
+- Watchdog cron for auto-restart
+
+### 🔧 Developer Tools
+- Open Graph metadata for social sharing
+- Responsive CSS breakpoints (768px, 480px, 360px, 600px-height)
+- Static export for Cloudflare Pages
+
 ## Licenza
 
 Proprietary - Tutti i diritti riservati.
