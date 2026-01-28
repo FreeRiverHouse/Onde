@@ -342,7 +342,13 @@
 - **Completed**: 2026-01-28
 - **Notes**: 41 trade NO, 0% win rate - BTC +2.3% ($88k→$90k). Script: analyze-winrate.py
 
+### [T112] Fix duplicate runtime export surfboard
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: betting/page.tsx aveva `export const runtime = 'edge'` duplicato. Fixed e deploy triggered.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:53 PST*
+*Ultimo aggiornamento: 2026-01-28 14:05 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
