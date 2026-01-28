@@ -1,0 +1,129 @@
+import { NextResponse } from 'next/server';
+import { readFileSync, existsSync } from 'fs';
+import path from 'path';
+
+export const dynamic = 'force-dynamic';
+
+interface Trade {
+  timestamp: string;
+  type: string;
+  ticker: string;
+  side: string;
+  contracts?: number;
+  price_cents?: number;
+  cost_cents?: number;
+  edge?: number;
+  our_prob?: number;
+  market_prob?: number;
+  strike?: number;
+  current_price?: number;
+  order_status?: string;
+  result_status?: string;
+}
+
+interface TradingStats {
+  totalTrades: number;
+  wonTrades: number;
+  lostTrades: number;
+  pendingTrades: number;
+  winRate: number;
+  totalPnlCents: number;
+  todayTrades: number;
+  todayWinRate: number;
+  todayPnlCents: number;
+  recentTrades: Trade[];
+  lastUpdated: string;
+}
+
+export async function GET() {
+  try {
+    const tradesPath = path.join(process.cwd(), '../../scripts/kalshi-trades.jsonl');
+    
+    if (!existsSync(tradesPath)) {
+      return NextResponse.json({ 
+        error: 'Trades file not found',
+        path: tradesPath 
+      }, { status: 404 });
+    }
+
+    const content = readFileSync(tradesPath, 'utf-8');
+    const lines = content.trim().split('\n').filter(Boolean);
+    
+    // Parse all trades (type === 'trade' and order_status === 'executed')
+    const trades: Trade[] = [];
+    for (const line of lines) {
+      try {
+        const entry = JSON.parse(line);
+        if (entry.type === 'trade' && entry.order_status === 'executed') {
+          trades.push(entry);
+        }
+      } catch {
+        // Skip invalid JSON lines
+      }
+    }
+
+    // Calculate stats
+    const wonTrades = trades.filter(t => t.result_status === 'won');
+    const lostTrades = trades.filter(t => t.result_status === 'lost');
+    const pendingTrades = trades.filter(t => !t.result_status || t.result_status === 'pending');
+
+    // Calculate PnL
+    // Won NO: profit = (100 - price) * contracts
+    // Won YES: profit = (100 - price) * contracts
+    // Lost: loss = price * contracts
+    let totalPnlCents = 0;
+    for (const trade of trades) {
+      const contracts = trade.contracts || 1;
+      const price = trade.price_cents || 0;
+      
+      if (trade.result_status === 'won') {
+        // Won: profit = (100 - price) * contracts for NO bets
+        // For YES bets, it's similar but we paid the price
+        totalPnlCents += (100 - price) * contracts;
+      } else if (trade.result_status === 'lost') {
+        totalPnlCents -= price * contracts;
+      }
+      // pending trades don't affect PnL yet
+    }
+
+    // Today's trades (UTC)
+    const today = new Date().toISOString().split('T')[0];
+    const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
+    const todayWon = todayTrades.filter(t => t.result_status === 'won');
+    const todayLost = todayTrades.filter(t => t.result_status === 'lost');
+    
+    let todayPnlCents = 0;
+    for (const trade of todayTrades) {
+      const contracts = trade.contracts || 1;
+      const price = trade.price_cents || 0;
+      
+      if (trade.result_status === 'won') {
+        todayPnlCents += (100 - price) * contracts;
+      } else if (trade.result_status === 'lost') {
+        todayPnlCents -= price * contracts;
+      }
+    }
+
+    const stats: TradingStats = {
+      totalTrades: trades.length,
+      wonTrades: wonTrades.length,
+      lostTrades: lostTrades.length,
+      pendingTrades: pendingTrades.length,
+      winRate: trades.length > 0 ? (wonTrades.length / (wonTrades.length + lostTrades.length)) * 100 : 0,
+      totalPnlCents,
+      todayTrades: todayTrades.length,
+      todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
+      todayPnlCents,
+      recentTrades: trades.slice(-10).reverse(), // Last 10, newest first
+      lastUpdated: new Date().toISOString(),
+    };
+
+    return NextResponse.json(stats);
+  } catch (error) {
+    console.error('Error reading trades:', error);
+    return NextResponse.json({ 
+      error: 'Failed to read trades',
+      details: String(error)
+    }, { status: 500 });
+  }
+}

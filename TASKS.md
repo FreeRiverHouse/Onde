@@ -417,12 +417,12 @@
 - **Notes**: ✅ Added OpenGraph, Twitter cards, and icon metadata to surfboard layout.tsx. Moved icons to public/.
 
 ### [T200] Verificare favicon appare su onde.la dopo deploy
-- **Status**: TODO
-- **Owner**: 
+- **Status**: BLOCKED
+- **Owner**: @clawd
 - **Depends**: [T042]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Test visivo che favicon wave sia visibile su browser
+- **Notes**: Icons added to public/ + metadata. Deploy blocked: GH Actions billing (onde.surf) + test failure (onde.la). Mattia needs to fix billing.
 
 ---
 

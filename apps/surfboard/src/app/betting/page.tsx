@@ -61,6 +61,27 @@ interface InboxData {
   lastUpdated: string;
 }
 
+interface TradingStats {
+  totalTrades: number;
+  wonTrades: number;
+  lostTrades: number;
+  pendingTrades: number;
+  winRate: number;
+  totalPnlCents: number;
+  todayTrades: number;
+  todayWinRate: number;
+  todayPnlCents: number;
+  recentTrades: Array<{
+    timestamp: string;
+    ticker: string;
+    side: string;
+    contracts: number;
+    price_cents: number;
+    result_status?: string;
+  }>;
+  lastUpdated: string;
+}
+
 // ============== ANIMATED NUMBER COMPONENT ==============
 function AnimatedNumber({ 
   value, 
@@ -295,6 +316,7 @@ export default function BettingDashboard() {
   const [kalshiStatus, setKalshiStatus] = useState<KalshiStatus | null>(null);
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
+  const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -304,15 +326,17 @@ export default function BettingDashboard() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [kalshiRes, cryptoRes, inboxRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, statsRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
-        fetch('/api/inbox')
+        fetch('/api/inbox'),
+        fetch('/api/trading/stats')
       ]);
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
+      if (statsRes.ok) setTradingStats(await statsRes.json());
 
       setLastRefresh(new Date());
     } catch (error) {
@@ -510,6 +534,147 @@ export default function BettingDashboard() {
             decimals={2}
           />
         </div>
+
+        {/* Trading Stats Section */}
+        {tradingStats && (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-yellow-400" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold">Trading Performance</h2>
+                <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+              {/* Win Rate */}
+              <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Win Rate</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.winRate} 
+                  suffix="%"
+                  decimals={1}
+                  glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {tradingStats.wonTrades}W / {tradingStats.lostTrades}L
+                </p>
+              </GlassCard>
+
+              {/* Total PnL */}
+              <GlassCard glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Total PnL</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.totalPnlCents / 100} 
+                  prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
+                  decimals={2}
+                  glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">{tradingStats.totalTrades} trades</p>
+              </GlassCard>
+
+              {/* Today PnL */}
+              <GlassCard glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Activity className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Today</span>
+                </div>
+                <AnimatedNumber 
+                  value={Math.abs(tradingStats.todayPnlCents / 100)} 
+                  prefix={tradingStats.todayPnlCents >= 0 ? '+$' : '-$'}
+                  decimals={2}
+                  glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">{tradingStats.todayTrades} trades</p>
+              </GlassCard>
+
+              {/* Today Win Rate */}
+              <GlassCard glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Today WR</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.todayWinRate || 0} 
+                  suffix="%"
+                  decimals={1}
+                  glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
+                  className="text-2xl"
+                />
+              </GlassCard>
+
+              {/* Pending */}
+              <GlassCard glowColor="cyan" className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <RefreshCw className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Pending</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.pendingTrades} 
+                  decimals={0}
+                  glowColor="cyan"
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">awaiting settlement</p>
+              </GlassCard>
+            </div>
+
+            {/* Recent Trades */}
+            {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-3">
+                  Recent Trades
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {tradingStats.recentTrades.slice(0, 6).map((trade, i) => (
+                    <div 
+                      key={i}
+                      className={`flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] ${
+                        trade.result_status === 'won' ? 'border-l-2 border-l-emerald-500' :
+                        trade.result_status === 'lost' ? 'border-l-2 border-l-red-500' :
+                        'border-l-2 border-l-gray-500'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full ${
+                          trade.result_status === 'won' ? 'bg-emerald-400' :
+                          trade.result_status === 'lost' ? 'bg-red-400' :
+                          'bg-gray-400 animate-pulse'
+                        }`} />
+                        <div>
+                          <p className="text-sm font-mono text-gray-300">
+                            {trade.side.toUpperCase()} {trade.contracts}x @ {trade.price_cents}¢
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            {trade.ticker.replace('KXBTCD-', '').slice(0, 15)}
+                          </p>
+                        </div>
+                      </div>
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        trade.result_status === 'won' ? 'bg-emerald-500/20 text-emerald-400' :
+                        trade.result_status === 'lost' ? 'bg-red-500/20 text-red-400' :
+                        'bg-gray-500/20 text-gray-400'
+                      }`}>
+                        {trade.result_status || 'pending'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
