@@ -23,6 +23,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ONDE_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 PORTAL_DIR="$ONDE_ROOT/apps/onde-portal"
 
+# Load .env for Cloudflare credentials
+if [ -f "$ONDE_ROOT/.env" ]; then
+    export $(grep -E '^CLOUDFLARE_|^TELEGRAM_' "$ONDE_ROOT/.env" | xargs)
+fi
+
 echo ""
 echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${RED}  🌊 DEPLOY ONDE.LA - PRODUZIONE (SACRO)${NC}"
