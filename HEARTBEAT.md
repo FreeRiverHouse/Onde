@@ -5,6 +5,10 @@
 **NON CHIEDERE MAI A MATTIA COSA FARE!**
 **PRENDI UN TASK DALLA LISTA E COMPLETALO!**
 
+## 📊 ALERT FILES DA CONTROLLARE
+- `scripts/kalshi-daily-report.alert` → Se esiste, leggi e manda a Mattia via Telegram, poi elimina il file
+- `scripts/kalshi-low-winrate.alert` → Se esiste, leggi e manda alert a Mattia, poi elimina
+
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
 ```

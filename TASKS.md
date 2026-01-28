@@ -291,12 +291,13 @@
 - **Notes**: GET /api/trading/stats → {winRate, pnl, lastTrades[]} per dashboard
 
 ### [T085] Notifica Telegram riassunto giornaliero trade
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Alle 23:00 PST: trades oggi, win rate, PnL giorno
+- **Notes**: ✅ Script: kalshi-daily-summary.py + kalshi-daily-notify.sh. Cron 07:00 UTC (23:00 PST). Alert file per heartbeat pickup.
 
 ### [T086] Autotrader: pausa se PnL giornaliero < -$1
 - **Status**: DONE
@@ -481,5 +482,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:25 PST*
+*Ultimo aggiornamento: 2026-01-28 15:45 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
