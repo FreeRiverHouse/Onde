@@ -4,83 +4,92 @@ import { useEffect, useState } from 'react';
 
 interface ServiceStatus {
   name: string;
-  status: 'up' | 'down' | 'unknown';
+  status: 'up' | 'down' | 'checking';
   latency?: number;
   message?: string;
 }
 
-interface HealthData {
-  status: string;
-  timestamp: string;
-  services: ServiceStatus[];
-  version: string;
-  uptime: string;
-}
+const SERVICES_TO_CHECK = [
+  { name: 'onde.la', url: 'https://onde.la' },
+  { name: 'onde.surf', url: 'https://onde.surf' },
+  { name: 'GitHub (FRH)', url: 'https://github.com/FreeRiverHouse' },
+];
 
 export default function HealthPage() {
-  const [health, setHealth] = useState<HealthData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [services, setServices] = useState<ServiceStatus[]>(
+    SERVICES_TO_CHECK.map(s => ({ name: s.name, status: 'checking' as const }))
+  );
+  const [lastCheck, setLastCheck] = useState<Date | null>(null);
+
+  const checkService = async (name: string, url: string): Promise<ServiceStatus> => {
+    const start = Date.now();
+    try {
+      // Use a simple fetch with no-cors mode (can only check if request succeeds)
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      
+      await fetch(url, { 
+        mode: 'no-cors',
+        signal: controller.signal 
+      });
+      
+      clearTimeout(timeout);
+      const latency = Date.now() - start;
+      
+      return {
+        name,
+        status: 'up',
+        latency,
+        message: 'Reachable'
+      };
+    } catch (error) {
+      return {
+        name,
+        status: 'down',
+        latency: Date.now() - start,
+        message: error instanceof Error ? error.message : 'Unreachable'
+      };
+    }
+  };
+
+  const runChecks = async () => {
+    setServices(SERVICES_TO_CHECK.map(s => ({ name: s.name, status: 'checking' as const })));
+    
+    const results = await Promise.all(
+      SERVICES_TO_CHECK.map(({ name, url }) => checkService(name, url))
+    );
+    
+    setServices(results);
+    setLastCheck(new Date());
+  };
 
   useEffect(() => {
-    async function fetchHealth() {
-      try {
-        const res = await fetch('/api/health');
-        const data = await res.json();
-        setHealth(data);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : 'Failed to fetch health status');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchHealth();
-    const interval = setInterval(fetchHealth, 30000); // Refresh every 30s
+    runChecks();
+    const interval = setInterval(runChecks, 60000); // Check every 60s
     return () => clearInterval(interval);
   }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'up':
-      case 'healthy':
-        return 'text-green-500';
-      case 'down':
-      case 'degraded':
-        return 'text-red-500';
-      default:
-        return 'text-yellow-500';
+      case 'up': return 'text-green-500';
+      case 'down': return 'text-red-500';
+      default: return 'text-yellow-500';
     }
   };
 
   const getStatusBg = (status: string) => {
     switch (status) {
-      case 'up':
-      case 'healthy':
-        return 'bg-green-500/10 border-green-500/30';
-      case 'down':
-      case 'degraded':
-        return 'bg-red-500/10 border-red-500/30';
-      default:
-        return 'bg-yellow-500/10 border-yellow-500/30';
+      case 'up': return 'bg-green-500/10 border-green-500/30';
+      case 'down': return 'bg-red-500/10 border-red-500/30';
+      default: return 'bg-yellow-500/10 border-yellow-500/30';
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
-        <div className="text-white text-xl">Loading health status...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
-        <div className="text-red-400 text-xl">Error: {error}</div>
-      </div>
-    );
-  }
+  const allUp = services.every(s => s.status === 'up');
+  const anyDown = services.some(s => s.status === 'down');
+  const anyChecking = services.some(s => s.status === 'checking');
+  
+  const overallStatus = anyChecking ? 'checking' : allUp ? 'healthy' : anyDown ? 'degraded' : 'unknown';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
@@ -89,32 +98,39 @@ export default function HealthPage() {
         <p className="text-slate-400 mb-8">Real-time health monitoring</p>
 
         {/* Overall Status */}
-        <div className={`rounded-xl border p-6 mb-8 ${getStatusBg(health?.status || 'unknown')}`}>
+        <div className={`rounded-xl border p-6 mb-8 ${getStatusBg(overallStatus)}`}>
           <div className="flex items-center justify-between">
             <div>
               <div className="text-sm text-slate-400 uppercase tracking-wide">Overall Status</div>
-              <div className={`text-2xl font-bold ${getStatusColor(health?.status || 'unknown')}`}>
-                {health?.status === 'healthy' ? '✅ All Systems Operational' : 
-                 health?.status === 'degraded' ? '⚠️ Degraded Performance' : 
+              <div className={`text-2xl font-bold ${getStatusColor(overallStatus)}`}>
+                {overallStatus === 'healthy' ? '✅ All Systems Operational' : 
+                 overallStatus === 'degraded' ? '⚠️ Some Issues Detected' : 
+                 overallStatus === 'checking' ? '🔄 Checking...' :
                  '❓ Unknown'}
               </div>
             </div>
-            <div className="text-right text-slate-400 text-sm">
-              <div>v{health?.version}</div>
-              <div>Uptime: {health?.uptime}</div>
-            </div>
+            <button 
+              onClick={runChecks}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
+            >
+              ↻ Refresh
+            </button>
           </div>
         </div>
 
         {/* Services */}
         <div className="space-y-3">
-          {health?.services.map((service) => (
+          {services.map((service) => (
             <div 
               key={service.name}
               className={`rounded-lg border p-4 flex items-center justify-between ${getStatusBg(service.status)}`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-3 h-3 rounded-full ${service.status === 'up' ? 'bg-green-500' : 'bg-red-500'}`} />
+                <div className={`w-3 h-3 rounded-full ${
+                  service.status === 'up' ? 'bg-green-500' : 
+                  service.status === 'down' ? 'bg-red-500' : 
+                  'bg-yellow-500 animate-pulse'
+                }`} />
                 <span className="text-white font-medium">{service.name}</span>
               </div>
               <div className="text-right">
@@ -131,9 +147,14 @@ export default function HealthPage() {
 
         {/* Last Updated */}
         <div className="mt-8 text-center text-slate-500 text-sm">
-          Last updated: {health?.timestamp ? new Date(health.timestamp).toLocaleString() : 'N/A'}
+          Last checked: {lastCheck?.toLocaleString() || 'Never'}
           <br />
-          <span className="text-xs">Auto-refreshes every 30 seconds</span>
+          <span className="text-xs">Auto-refreshes every 60 seconds</span>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <a href="/" className="text-blue-400 hover:text-blue-300">← Back to Onde</a>
         </div>
       </div>
     </div>
