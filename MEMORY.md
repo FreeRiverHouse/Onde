@@ -1,5 +1,12 @@
 # MEMORY.md
 
+## 🚨 REGOLA #1 — NON DIMENTICARE MAI
+**SEMPRE LEGGERE `CLAUDE.md` PRIMA DI QUALSIASI OPERAZIONE!**
+- Deploy? → CLAUDE.md
+- Procedure? → CLAUDE.md
+- Credenziali? → CLAUDE.md
+- NON INVENTARE. LEGGI PRIMA.
+
 ## ⛔ REGOLE CRITICHE - NON VIOLARE MAI
 1. **MAI BROWSER PER POLYMARKET** - Solo phone mirror!
 2. Mai cancellare file/progetti senza chiedere
