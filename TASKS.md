@@ -103,7 +103,7 @@
 
 ### Task aggiunti 2026-01-28 13:05
 - [ ] **Trading**: Integrare settlement tracking automatico (BTC price a expiry) per calcolare win/loss reale
-- [ ] **Portal**: Aggiungere metadati Open Graph per preview social su /libri
+- [x] **Portal**: Aggiungere metadati Open Graph per preview social su /libri ✅
 - [ ] **Moonlight**: Aggiungere sound effects (ambient music, interaction sounds)
 
 ---
