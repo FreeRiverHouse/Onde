@@ -21,16 +21,17 @@
 ## 📋 TODO - TRADUZIONI
 
 ### [T010] Installare modello traduzione su M4 Mac
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @ondinho
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: [T011], [T012], [T013]
 - **Priority**: P1
-- **Notes**: LLaMA 3 8B o Helsinki-NLP. Serve per tutte le traduzioni.
+- **Notes**: ✅ NLLB-200 (facebook/nllb-200-distilled-600M) installato. Script: ~/clawd/translator.py
 
 ### [T011] Tradurre libro Capussela IT→EN
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: [T010]
 - **Blocks**: -
 - **Priority**: P2
