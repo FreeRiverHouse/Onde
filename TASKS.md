@@ -619,14 +619,39 @@
 - **Notes**: Backup MEMORY.md + memory/ folder periodicamente (separato da trade backups)
 
 ### [T213] Kalshi API retry logic con exponential backoff
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Added exponential backoff (2^n + jitter) to api_request(). Retries 5xx/timeout/conn errors up to 3x. Also added retry to CoinGecko and Fear&Greed APIs.
+
+### [T214] Cleanup vecchi log autotrader > 7 giorni
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P2
-- **Notes**: Se Kalshi API ritorna 5xx, riprova con backoff invece di crashare
+- **Priority**: P3
+- **Notes**: autotrader.log e watchdog.log possono crescere. Script cleanup periodico.
+
+### [T215] Watchdog health check - verify cron is running
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert se watchdog cron non esegue per >15min (watchdog del watchdog!)
+
+### [T216] Trading stats hourly snapshot for trend analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Salvare hourly snapshot di win rate/PnL per analisi trend nel tempo
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:13 PST*
+*Ultimo aggiornamento: 2026-01-28 16:15 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

@@ -153,26 +153,60 @@ def sign_request(method: str, path: str, timestamp: str) -> str:
     return base64.b64encode(signature).decode('utf-8')
 
 
-def api_request(method: str, path: str, body: dict = None) -> dict:
-    """Make authenticated API request"""
-    timestamp = str(int(datetime.now(timezone.utc).timestamp() * 1000))
-    signature = sign_request(method, path.split('?')[0], timestamp)
-    headers = {
-        "KALSHI-ACCESS-KEY": API_KEY_ID,
-        "KALSHI-ACCESS-SIGNATURE": signature,
-        "KALSHI-ACCESS-TIMESTAMP": timestamp,
-        "Content-Type": "application/json"
-    }
+def api_request(method: str, path: str, body: dict = None, max_retries: int = 3) -> dict:
+    """Make authenticated API request with exponential backoff retry"""
     url = f"{BASE_URL}{path}"
     
-    try:
-        if method == "GET":
-            resp = requests.get(url, headers=headers, timeout=10)
-        elif method == "POST":
-            resp = requests.post(url, headers=headers, json=body, timeout=10)
-        return resp.json()
-    except Exception as e:
-        return {"error": str(e)}
+    for attempt in range(max_retries):
+        # Generate fresh signature for each attempt (timestamp changes)
+        timestamp = str(int(datetime.now(timezone.utc).timestamp() * 1000))
+        signature = sign_request(method, path.split('?')[0], timestamp)
+        headers = {
+            "KALSHI-ACCESS-KEY": API_KEY_ID,
+            "KALSHI-ACCESS-SIGNATURE": signature,
+            "KALSHI-ACCESS-TIMESTAMP": timestamp,
+            "Content-Type": "application/json"
+        }
+        
+        try:
+            if method == "GET":
+                resp = requests.get(url, headers=headers, timeout=10)
+            elif method == "POST":
+                resp = requests.post(url, headers=headers, json=body, timeout=10)
+            
+            # Check for server errors (5xx) - retry these
+            if resp.status_code >= 500:
+                if attempt < max_retries - 1:
+                    wait_time = (2 ** attempt) + (time.time() % 1)  # Exponential backoff with jitter
+                    print(f"[RETRY] API {resp.status_code} error, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    return {"error": f"API error {resp.status_code} after {max_retries} retries"}
+            
+            # Client errors (4xx) - don't retry, return as-is
+            return resp.json()
+            
+        except requests.exceptions.Timeout:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + (time.time() % 1)
+                print(f"[RETRY] Timeout, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+            return {"error": f"Timeout after {max_retries} retries"}
+            
+        except requests.exceptions.ConnectionError:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + (time.time() % 1)
+                print(f"[RETRY] Connection error, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+            return {"error": f"Connection error after {max_retries} retries"}
+            
+        except Exception as e:
+            return {"error": str(e)}
+    
+    return {"error": "Max retries exceeded"}
 
 
 def get_balance() -> dict:
@@ -216,29 +250,45 @@ def place_order(ticker: str, side: str, count: int, price_cents: int) -> dict:
 
 # ============== EXTERNAL DATA ==============
 
-def get_crypto_prices() -> dict:
-    """Get current BTC/ETH prices"""
-    try:
-        resp = requests.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
-            timeout=5
-        )
-        data = resp.json()
-        return {
-            "btc": data["bitcoin"]["usd"],
-            "eth": data["ethereum"]["usd"]
-        }
-    except:
-        return None
+def get_crypto_prices(max_retries: int = 3) -> dict:
+    """Get current BTC/ETH prices with retry logic"""
+    for attempt in range(max_retries):
+        try:
+            resp = requests.get(
+                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
+                timeout=5
+            )
+            if resp.status_code >= 500:
+                raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
+            data = resp.json()
+            return {
+                "btc": data["bitcoin"]["usd"],
+                "eth": data["ethereum"]["usd"]
+            }
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + (time.time() % 1)
+                print(f"[RETRY] CoinGecko error: {e}, waiting {wait_time:.1f}s")
+                time.sleep(wait_time)
+                continue
+    return None
 
 
-def get_fear_greed() -> int:
-    """Get Fear & Greed Index (0-100)"""
-    try:
-        resp = requests.get("https://api.alternative.me/fng/?limit=1", timeout=5)
-        return int(resp.json()["data"][0]["value"])
-    except:
-        return 50
+def get_fear_greed(max_retries: int = 2) -> int:
+    """Get Fear & Greed Index (0-100) with retry logic"""
+    for attempt in range(max_retries):
+        try:
+            resp = requests.get("https://api.alternative.me/fng/?limit=1", timeout=5)
+            if resp.status_code >= 500:
+                raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
+            return int(resp.json()["data"][0]["value"])
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + (time.time() % 1)
+                print(f"[RETRY] F&G error: {e}, waiting {wait_time:.1f}s")
+                time.sleep(wait_time)
+                continue
+    return 50  # Default neutral
 
 
 # ============== FEEDBACK LOOP ==============
