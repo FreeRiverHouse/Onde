@@ -172,12 +172,13 @@
 - **Notes**: ✅ Wave icon SVG created for onde-portal and surfboard. icon.svg + apple-icon.svg in app/ directories.
 
 ### [T043] Health check in CI
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Test automatico endpoint /health
+- **Notes**: ✅ Already implemented! scripts/health/check.ts + smoke-test.ts exist. CI runs bot-health job with `npm run health:check`.
 
 ---
 
@@ -574,5 +575,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:15 PST*
+### [T208] Test playwright integration in deploy verification
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T205]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Update deploy-onde-la-prod.sh to use playwright for full browser tests instead of curl fallback
+
+### [T209] Canonical URLs for all pages
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add canonical link tags to prevent duplicate content issues in SEO
+
+### [T210] Meta descriptions per page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Each page should have unique meta description for better Google snippets
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 15:08 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
