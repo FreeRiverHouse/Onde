@@ -122,20 +122,22 @@
 - **Notes**: Verificare che il nuovo Black-Scholes model avrebbe fatto meglio sui 41 trade persi
 
 ### [T034] Alert Telegram se balance < $5
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Notifica proattiva se fondi bassi per evitare stop trading
+- **Notes**: ✅ kalshi-balance-alert.py + integrazione in autotrader. Scrive alert file se cash < $5, cooldown 1h
 
 ### [T035] Log win/loss settati via settlement tracker
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Integrare settlement-tracker con trade log per aggiornare automaticamente result_status
+- **Notes**: ✅ Settlement tracker ora aggiorna automaticamente result_status in kalshi-trades.jsonl (won/lost)
 
 ---
 
@@ -269,6 +271,30 @@
 - **Priority**: P2
 - **Notes**: Pagina web con win rate, PnL, ultimi trade
 
+### [T083] Trade log cleanup: rimuovere duplicati per stesso ticker/hour
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Multiple trades per stesso contratto (es. 4 trades T88499.99@04) - consolidare o tenere separati?
+
+### [T084] API endpoint per trade stats JSON
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GET /api/trading/stats → {winRate, pnl, lastTrades[]} per dashboard
+
+### [T085] Notifica Telegram riassunto giornaliero trade
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Alle 23:00 PST: trades oggi, win rate, PnL giorno
+
 ---
 
 ## ✅ DONE
@@ -353,5 +379,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 14:05 PST*
+*Ultimo aggiornamento: 2026-01-28 14:35 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

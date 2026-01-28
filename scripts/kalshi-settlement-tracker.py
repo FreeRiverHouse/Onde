@@ -220,6 +220,53 @@ def save_settlements(data: dict):
         json.dump(data, f, indent=2, default=str)
 
 
+def update_trade_log_results(settlements: dict):
+    """
+    Update kalshi-trades.jsonl with settlement results.
+    Rewrites the file, updating result_status for settled trades.
+    """
+    if not TRADES_FILE.exists():
+        return 0
+    
+    # Build lookup of settled tickers
+    settled_results = {}
+    for ticker, data in settlements.get('trades', {}).items():
+        if data.get('status') == 'settled':
+            settled_results[ticker] = 'won' if data.get('won') else 'lost'
+    
+    if not settled_results:
+        return 0
+    
+    # Read all lines
+    lines = []
+    updated_count = 0
+    with open(TRADES_FILE) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                entry = json.loads(line)
+                # Check if this is a trade that needs updating
+                if (entry.get('type') == 'trade' and 
+                    entry.get('ticker') in settled_results and
+                    entry.get('result_status') == 'pending'):
+                    entry['result_status'] = settled_results[entry['ticker']]
+                    updated_count += 1
+                lines.append(json.dumps(entry))
+            except json.JSONDecodeError:
+                lines.append(line)
+    
+    # Write back
+    if updated_count > 0:
+        with open(TRADES_FILE, 'w') as f:
+            for line in lines:
+                f.write(line + '\n')
+        print(f"\nUpdated {updated_count} trade log entries with settlement results.")
+    
+    return updated_count
+
+
 def process_settlements():
     """Process all pending trades and determine outcomes."""
     now = datetime.now(timezone.utc)
@@ -338,6 +385,9 @@ def process_settlements():
     
     # Save
     save_settlements(settlements)
+    
+    # Update trade log with results
+    update_trade_log_results(settlements)
     
     # Print summary
     print(f"\n{'='*50}")
