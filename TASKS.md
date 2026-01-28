@@ -408,12 +408,13 @@
 - **Notes**: Alcuni browser vecchi richiedono .ico. Usare sharp o imagemagick per convertire.
 
 ### [T099] Meta tags Open Graph per onde.surf
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Preview social per surfboard come fatto per /libri (T107)
+- **Notes**: ✅ Added OpenGraph, Twitter cards, and icon metadata to surfboard layout.tsx. Moved icons to public/.
 
 ### [T200] Verificare favicon appare su onde.la dopo deploy
 - **Status**: TODO
@@ -507,5 +508,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:52 PST*
+*Ultimo aggiornamento: 2026-01-28 16:00 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

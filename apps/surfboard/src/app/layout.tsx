@@ -7,7 +7,35 @@ import { BackgroundEffects } from '@/components/ui/BackgroundEffects'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
-  description: 'FreeRiverHouse Central Operations',
+  description: 'FreeRiverHouse Central Operations - Surfboard Dashboard',
+  keywords: ['FreeRiverHouse', 'Onde', 'Dashboard', 'AI Publishing'],
+  authors: [{ name: 'FreeRiverHouse' }],
+  openGraph: {
+    title: 'FRH HQ | Surfboard',
+    description: 'FreeRiverHouse Central Operations - Command & Control Dashboard',
+    url: 'https://onde.surf',
+    siteName: 'Onde Surfboard',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/icon.svg',
+        width: 32,
+        height: 32,
+        alt: 'Onde Wave Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'FRH HQ | Surfboard',
+    description: 'FreeRiverHouse Central Operations Dashboard',
+    creator: '@FreeRiverHouse',
+  },
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.svg',
+  },
 }
 
 // Force dynamic rendering to avoid prerender issues with auth/theme contexts
