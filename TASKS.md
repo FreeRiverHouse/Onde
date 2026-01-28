@@ -688,12 +688,13 @@
 - **Notes**: Compare different model parameters side-by-side. Track paper trades vs real trades.
 
 ### [T221] Export trading stats to CSV
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to export kalshi-trades.jsonl to CSV for Excel/Google Sheets analysis
+- **Notes**: ✅ Script: kalshi-export-csv.py. Usage: `--days N` for last N days, `--output file.csv` for custom path. Output: data/exports/
 
 ### [T222] Trade history API with pagination
 - **Status**: TODO
