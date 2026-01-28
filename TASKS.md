@@ -355,12 +355,13 @@
 - **Notes**: Debug: loggare il motivo preciso per cui ogni trade viene skippato
 
 ### [T092] PDF formattato "La Repubblica dell'Innovazione"
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T013]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Generare PDF professionale dalla traduzione IT approvata (QA 9/10)
+- **Notes**: ✅ Already exists! traduzioni/republic-of-innovation-IT.pdf (394KB, 8 pages). Created from Claude Opus translation.
 
 ### [T093] Backup automatico kalshi-trades.jsonl su git
 - **Status**: DONE
