@@ -628,12 +628,13 @@
 - **Notes**: ✅ Added exponential backoff (2^n + jitter) to api_request(). Retries 5xx/timeout/conn errors up to 3x. Also added retry to CoinGecko and Fear&Greed APIs.
 
 ### [T214] Cleanup vecchi log autotrader > 7 giorni
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: autotrader.log e watchdog.log possono crescere. Script cleanup periodico.
+- **Notes**: ✅ Script: scripts/cleanup-autotrader-logs.sh. Rotates logs >10MB, keeps last 1000 lines. Cron 03:00 daily.
 
 ### [T215] Watchdog health check - verify cron is running
 - **Status**: TODO
