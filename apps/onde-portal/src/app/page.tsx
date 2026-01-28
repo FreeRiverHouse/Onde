@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { Spotlight, Aurora } from '@/components/ui/spotlight'
 
 
 // Particle component for floating background particles - Maritime Relaxing theme
@@ -180,6 +181,12 @@ export default function Home() {
           HERO SECTION - Cinematic Full Screen
           ============================================ */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Spotlight Effect */}
+        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#D4AF37" />
+        
+        {/* Aurora Background */}
+        <Aurora className="opacity-30" />
+        
         {/* Animated Orbs Background - Maritime Relaxing Theme */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Riflessi d'acqua - PIU' SOFT */}
