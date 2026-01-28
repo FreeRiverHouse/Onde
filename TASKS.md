@@ -511,12 +511,13 @@
 ---
 
 ### [T201] PnL calculation fix: handle YES bets correctly
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T082]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Current API assumes NO bets. For YES bets, profit = (100 - cost) when won, loss = cost when lost.
+- **Notes**: ✅ Analyzed - current formula is CORRECT for both YES and NO! profit = (100-price)*contracts when won, loss = price*contracts when lost. Same for both sides.
 
 ### [T202] Historical win rate trend chart
 - **Status**: TODO
