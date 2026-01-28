@@ -268,12 +268,13 @@
 - **Notes**: ✅ kalshi-winrate-alert.py + cron ogni 6h. Alert file kalshi-low-winrate.alert per heartbeat
 
 ### [T082] Dashboard trading stats su /trade
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Pagina web con win rate, PnL, ultimi trade
+- **Notes**: ✅ Added /api/trading/stats API + Trading Performance section in /betting with win rate, PnL, today stats, and recent trades grid.
 
 ### [T083] Trade log cleanup: rimuovere duplicati per stesso ticker/hour
 - **Status**: TODO
@@ -508,5 +509,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:00 PST*
+### [T201] PnL calculation fix: handle YES bets correctly
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Current API assumes NO bets. For YES bets, profit = (100 - cost) when won, loss = cost when lost.
+
+### [T202] Historical win rate trend chart
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add line chart showing win rate over time (daily rolling average) to /betting dashboard
+
+### [T203] Trade filtering by date range
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow filtering trading stats by custom date range (today, week, month, custom)
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 15:05 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
