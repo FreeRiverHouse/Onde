@@ -154,12 +154,13 @@
 - **Notes**: Aggiungere GA4
 
 ### [T041] Sitemap.xml automatico per onde.la
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: SEO improvement
+- **Notes**: ✅ Created sitemap.ts + robots.ts for Next.js auto-generation. /sitemap.xml and /robots.txt now available.
 
 ### [T042] Favicon personalizzata Onde
 - **Status**: DONE
@@ -402,12 +403,13 @@
 - **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
 
 ### [T205] Install Playwright for automated testing
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy script falls back to curl tests. Playwright would enable full browser testing (JS rendering, interactions).
+- **Notes**: ✅ Installed via npm: playwright + @playwright/test. Chromium + FFmpeg downloaded to ~/Library/Caches/ms-playwright/
 
 ### [T206] Fix onde.surf GH Actions deploy (billing issue)
 - **Status**: TODO
