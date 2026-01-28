@@ -69,8 +69,18 @@ MIN_BET_CENTS = 5  # Minimum bet size (micro!)
 VOLATILITY_WINDOW = 10  # Minutes for volatility calc
 MIN_TIME_TO_EXPIRY_MINUTES = 30  # Skip markets expiring in less than 30 min
 
+# Alert settings
+LOW_BALANCE_THRESHOLD_CENTS = 500  # $5.00
+LOW_BALANCE_ALERT_FILE = Path(__file__).parent / "kalshi-low-balance.alert"
+LOW_BALANCE_ALERT_COOLDOWN = 3600  # 1 hour between alerts
+
+# Daily loss limit settings
+DAILY_LOSS_LIMIT_CENTS = 100  # $1.00 max daily loss
+DAILY_LOSS_PAUSE_FILE = Path(__file__).parent / "kalshi-daily-pause.json"
+
 # Logging/tracking
 TRADE_LOG_FILE = "scripts/kalshi-trades.jsonl"  # Track all decisions
+LAST_LOW_BALANCE_ALERT = None  # Track when we last alerted
 
 # ============== LOGGING FUNCTIONS ==============
 
@@ -115,6 +125,129 @@ def get_trade_stats() -> dict:
     except:
         pass
     return stats
+
+
+def calculate_daily_pnl() -> dict:
+    """Calculate today's PnL from trade log. Returns dict with spent, won, net_pnl in cents."""
+    today = datetime.now(timezone.utc).date()
+    result = {"spent_cents": 0, "won_cents": 0, "trades_today": 0, "wins": 0, "losses": 0}
+    
+    try:
+        log_path = Path(TRADE_LOG_FILE)
+        if not log_path.exists():
+            return result
+        
+        with open(log_path) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get("type") != "trade":
+                        continue
+                    
+                    # Parse timestamp
+                    ts_str = entry.get("timestamp", "")
+                    if not ts_str:
+                        continue
+                    trade_date = datetime.fromisoformat(ts_str.replace("Z", "+00:00")).date()
+                    
+                    # Only count today's trades
+                    if trade_date != today:
+                        continue
+                    
+                    result["trades_today"] += 1
+                    cost = entry.get("cost_cents", 0)
+                    result["spent_cents"] += cost
+                    
+                    status = entry.get("result_status", "pending")
+                    if status == "won":
+                        result["wins"] += 1
+                        # Won amount = contracts * (100 - price) for NO bets
+                        contracts = entry.get("contracts", 0)
+                        price = entry.get("price_cents", 0)
+                        result["won_cents"] += contracts * (100 - price)
+                    elif status == "lost":
+                        result["losses"] += 1
+                except:
+                    continue
+    except:
+        pass
+    
+    result["net_pnl_cents"] = result["won_cents"] - result["spent_cents"]
+    return result
+
+
+def check_daily_loss_limit() -> tuple:
+    """Check if daily loss limit has been hit. Returns (is_paused, pnl_info)."""
+    pnl = calculate_daily_pnl()
+    net_pnl = pnl["net_pnl_cents"]
+    
+    # If we've lost more than the limit, pause
+    if net_pnl < -DAILY_LOSS_LIMIT_CENTS:
+        pause_info = {
+            "paused_at": datetime.now(timezone.utc).isoformat(),
+            "reason": "daily_loss_limit",
+            "net_pnl_cents": net_pnl,
+            "limit_cents": -DAILY_LOSS_LIMIT_CENTS,
+            "trades_today": pnl["trades_today"],
+            "message": f"🛑 PAUSED: Daily loss ${abs(net_pnl)/100:.2f} exceeds limit ${DAILY_LOSS_LIMIT_CENTS/100:.2f}"
+        }
+        try:
+            with open(DAILY_LOSS_PAUSE_FILE, "w") as f:
+                json.dump(pause_info, f, indent=2)
+        except:
+            pass
+        return True, pnl
+    
+    # Check if pause file exists from earlier today
+    if DAILY_LOSS_PAUSE_FILE.exists():
+        try:
+            with open(DAILY_LOSS_PAUSE_FILE) as f:
+                pause_data = json.load(f)
+            pause_date = datetime.fromisoformat(pause_data.get("paused_at", "")).date()
+            today = datetime.now(timezone.utc).date()
+            if pause_date == today:
+                # Still paused today
+                return True, pnl
+            else:
+                # New day, remove pause file
+                DAILY_LOSS_PAUSE_FILE.unlink()
+        except:
+            DAILY_LOSS_PAUSE_FILE.unlink()  # Corrupted, remove
+    
+    return False, pnl
+
+
+def check_low_balance_alert(cash_cents: int) -> bool:
+    """Check if balance is low and create alert file if needed. Returns True if alert created."""
+    global LAST_LOW_BALANCE_ALERT
+    
+    if cash_cents >= LOW_BALANCE_THRESHOLD_CENTS:
+        # Balance OK - remove alert file if exists
+        if LOW_BALANCE_ALERT_FILE.exists():
+            LOW_BALANCE_ALERT_FILE.unlink()
+        return False
+    
+    # Balance is low - check cooldown
+    now = time.time()
+    if LAST_LOW_BALANCE_ALERT and (now - LAST_LOW_BALANCE_ALERT) < LOW_BALANCE_ALERT_COOLDOWN:
+        return False  # Already alerted recently
+    
+    # Write alert file
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "cash_cents": cash_cents,
+        "threshold_cents": LOW_BALANCE_THRESHOLD_CENTS,
+        "message": f"🚨 LOW BALANCE ALERT! Cash ${cash_cents/100:.2f} < ${LOW_BALANCE_THRESHOLD_CENTS/100:.2f}"
+    }
+    try:
+        with open(LOW_BALANCE_ALERT_FILE, "w") as f:
+            json.dump(alert_data, f, indent=2)
+        LAST_LOW_BALANCE_ALERT = now
+        print(f"\n🚨 LOW BALANCE ALERT! Written to {LOW_BALANCE_ALERT_FILE}")
+        return True
+    except Exception as e:
+        print(f"⚠️ Failed to write balance alert: {e}")
+        return False
 
 
 def check_time_to_expiry(market: dict) -> tuple:
@@ -486,6 +619,9 @@ def trading_cycle(live_mode: bool = False):
     print(f"\n💰 Cash: ${cash_cents/100:.2f}")
     print(f"📊 Portfolio: ${portfolio_cents/100:.2f}")
     
+    # Check for low balance alert
+    check_low_balance_alert(cash_cents)
+    
     if cash_cents < MIN_BET_CENTS:
         print("❌ Insufficient cash for trading")
         return
@@ -605,10 +741,26 @@ def run_autotrader(live_mode: bool = False, interval_seconds: int = 300):
     print("🤖 Starting Kalshi AutoTrader...")
     print(f"   Mode: {'LIVE' if live_mode else 'DRY RUN'}")
     print(f"   Interval: {interval_seconds}s")
+    print(f"   Daily loss limit: ${DAILY_LOSS_LIMIT_CENTS/100:.2f}")
     print("   Press Ctrl+C to stop\n")
     
     while True:
         try:
+            # Check daily loss limit before each cycle
+            is_paused, pnl = check_daily_loss_limit()
+            if is_paused:
+                print(f"\n🛑 TRADING PAUSED - Daily loss limit reached!")
+                print(f"   Today's PnL: ${pnl['net_pnl_cents']/100:+.2f}")
+                print(f"   Trades today: {pnl['trades_today']} ({pnl['wins']}W/{pnl['losses']}L)")
+                print(f"   Limit: -${DAILY_LOSS_LIMIT_CENTS/100:.2f}")
+                print(f"   Trading will resume tomorrow (UTC midnight)")
+                print(f"\n⏰ Checking again in {interval_seconds}s...")
+                time.sleep(interval_seconds)
+                continue
+            
+            # Show daily PnL status
+            print(f"\n📊 Daily PnL: ${pnl['net_pnl_cents']/100:+.2f} | Trades: {pnl['trades_today']} | Limit: -${DAILY_LOSS_LIMIT_CENTS/100:.2f}")
+            
             trading_cycle(live_mode)
             print(f"\n⏰ Next cycle in {interval_seconds}s...")
             time.sleep(interval_seconds)

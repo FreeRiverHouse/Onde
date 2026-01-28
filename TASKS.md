@@ -299,12 +299,13 @@
 - **Notes**: Alle 23:00 PST: trades oggi, win rate, PnL giorno
 
 ### [T086] Autotrader: pausa se PnL giornaliero < -$1
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Stop-loss giornaliero per limitare perdite
+- **Notes**: ✅ Implementato! Autotrader ora pausa automaticamente se daily loss > $1. File pause: kalshi-daily-pause.json. Reset a mezzanotte UTC.
 
 ### [T087] Migliorare modello: momentum tracking multi-timeframe
 - **Status**: TODO
@@ -455,5 +456,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:12 PST*
+*Ultimo aggiornamento: 2026-01-28 15:25 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
