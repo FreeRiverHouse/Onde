@@ -39,12 +39,13 @@
 - **Notes**: ✅ Già completato in T102! File: traduzioni/capussela-spirito-EN.txt (1622 righe). "Capussela spirito" = "Republic of Innovation"
 
 ### [T012] Tradurre Republic of Innovation cap 6+
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
+- **Completed**: 2026-01-28
 - **Depends**: [T010]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Continuare dopo cap 5 completato. EN→IT translation.
+- **Notes**: ✅ Capitolo 6 (finale) completato. File: traduzioni/republic-of-innovation-IT.md (887 righe totali)
 
 ### [T013] Verificare qualità traduzione vs cap 1-4
 - **Status**: TODO
