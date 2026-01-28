@@ -118,4 +118,29 @@ curl -sI "https://onde.surf" | head -3
 
 ---
 
+---
+
+## TROUBLESHOOTING
+
+### "ModuleNotFoundError: No module named 'playwright'"
+
+**Problema:** Lo script di test usa Playwright che non è installato.
+
+**Soluzione:** Lo script ora fa fallback a test basici con curl. Se vuoi Playwright:
+```bash
+pip3 install playwright
+playwright install
+```
+
+### "wrangler: You are not authenticated"
+
+**Problema:** Token Cloudflare non configurato.
+
+**Soluzione:** Lo script carica automaticamente da `.env`. Verifica che `.env` contenga:
+```
+CLOUDFLARE_API_TOKEN=RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw
+```
+
+---
+
 *Ultimo aggiornamento: 2026-01-28*
