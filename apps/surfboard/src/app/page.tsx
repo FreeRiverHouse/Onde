@@ -10,6 +10,8 @@ import { ActivityFeed } from '@/components/ActivityFeed'
 import { AgentTasksPanel } from '@/components/AgentTasksPanel'
 import { FreeRiverHouse } from '@/components/FreeRiverHouse'
 import { GlowCard } from '@/components/ui/GlowCard'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GradientText } from '@/components/ui/AnimatedText'
 
 export const runtime = 'edge'
 
@@ -23,98 +25,133 @@ export default async function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Hero Header */}
-      <div className="mb-12 relative">
-        {/* Background glow for header */}
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-cyan-500/20 via-teal-500/10 to-purple-500/20 blur-[100px] pointer-events-none" />
-        
-        <div className="relative">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-2xl blur-xl opacity-60 animate-pulse" />
-                <h1 className="relative text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-100 to-white tracking-tight">
-                  FreeRiverHouse
-                </h1>
-              </div>
-              <span className="text-4xl md:text-5xl font-light text-white/20">HQ</span>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-500/50" />
-              <span className="text-xs text-emerald-300 font-medium">All systems operational</span>
-            </div>
-            <span className="text-white/30 text-sm">Central Operations Dashboard</span>
-          </div>
-          
-          <div className="mt-4 flex items-center gap-2 text-white/20 text-sm">
-            <kbd className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-white/40 font-mono text-xs">⌘K</kbd>
-            <span>Quick actions</span>
-          </div>
+      {/* Hero Header - Ultra Premium */}
+      <div className="mb-16 relative">
+        {/* Multi-layer background glow */}
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 via-transparent to-purple-500/30 blur-[120px] animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-b from-teal-500/20 to-transparent blur-[80px]" style={{ animationDelay: '1s' }} />
         </div>
+        
+        <ScrollReveal animation="fade-up" duration={800}>
+          <div className="relative pt-8">
+            {/* Animated badge */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="group flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm hover:bg-emerald-500/20 transition-all duration-300 cursor-default">
+                <div className="relative">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping opacity-75" />
+                </div>
+                <span className="text-sm text-emerald-300 font-medium">All systems operational</span>
+              </div>
+              <span className="text-white/30 text-sm hidden sm:block">•</span>
+              <span className="text-white/30 text-sm hidden sm:block">Central Operations</span>
+            </div>
+            
+            {/* Main title with animated gradient */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
+              <GradientText 
+                colors={['#ffffff', '#06b6d4', '#8b5cf6', '#06b6d4', '#ffffff']}
+                speed={4}
+                className="drop-shadow-2xl"
+              >
+                FreeRiverHouse
+              </GradientText>
+              <span className="text-white/15 font-light ml-4">HQ</span>
+            </h1>
+            
+            {/* Subtitle with glow */}
+            <p className="text-xl text-white/40 max-w-xl mb-6">
+              Command center for autonomous operations, agent coordination, and real-time monitoring.
+            </p>
+            
+            {/* Quick actions keyboard hint */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-white/25 text-sm group cursor-pointer hover:text-white/40 transition-colors">
+                <kbd className="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/50 font-mono text-xs group-hover:border-cyan-500/30 group-hover:bg-cyan-500/5 transition-all">
+                  ⌘K
+                </kbd>
+                <span>Quick actions</span>
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <a href="/betting" className="flex items-center gap-2 text-white/25 text-sm hover:text-cyan-400/80 transition-colors">
+                <span>🎰</span>
+                <span>Live betting</span>
+              </a>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
 
       {/* Enhanced Stats with Sparklines */}
-      <div className="mb-8">
-        <EnhancedStats stats={stats} />
-      </div>
+      <ScrollReveal animation="fade-up" delay={100}>
+        <div className="mb-10">
+          <EnhancedStats stats={stats} />
+        </div>
+      </ScrollReveal>
 
       {/* Main Grid - 3 columns on large screens */}
-      <div className="grid lg:grid-cols-3 gap-6 mb-6">
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
         {/* Left column: Post Approval */}
-        <div className="lg:col-span-2">
-          <GlowCard variant="cyan" noPadding noTilt>
+        <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
+          <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
             <PostApproval />
           </GlowCard>
-        </div>
+        </ScrollReveal>
 
         {/* Right column: Activity Feed */}
-        <div className="lg:col-span-1">
-          <GlowCard variant="purple" noPadding noTilt>
+        <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
+          <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
             <ActivityFeed maxItems={6} />
           </GlowCard>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Second Row - PolyRoborto & Weekly Comparison */}
-      <div className="grid lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2">
-          <GlowCard variant="gold" noPadding noTilt>
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
+          <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
             <PolyRobortoPanel />
           </GlowCard>
-        </div>
-        <div className="lg:col-span-1">
-          <GlowCard variant="cyan" noPadding noTilt>
+        </ScrollReveal>
+        <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
+          <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
             <WeeklyComparison stats={stats} />
           </GlowCard>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Third Row - Free River House Map */}
-      <div className="mb-6">
-        <GlowCard variant="emerald" noPadding noTilt>
-          <FreeRiverHouse />
-        </GlowCard>
-      </div>
+      <ScrollReveal animation="zoom-in" delay={0}>
+        <div className="mb-8">
+          <GlowCard variant="emerald" noPadding noTilt glassIntensity="high">
+            <FreeRiverHouse />
+          </GlowCard>
+        </div>
+      </ScrollReveal>
 
       {/* Fourth Row - Agent Tasks & CORDE */}
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        <GlowCard variant="purple" noPadding noTilt>
-          <AgentTasksPanel />
-        </GlowCard>
-        <GlowCard variant="cyan" noPadding noTilt>
-          <CordePanel />
-        </GlowCard>
+      <div className="grid lg:grid-cols-2 gap-6 mb-8">
+        <ScrollReveal animation="fade-right" delay={0}>
+          <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
+            <AgentTasksPanel />
+          </GlowCard>
+        </ScrollReveal>
+        <ScrollReveal animation="fade-left" delay={100}>
+          <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
+            <CordePanel />
+          </GlowCard>
+        </ScrollReveal>
       </div>
 
       {/* Fifth Row - Tech Support */}
-      <div className="mb-8">
-        <GlowCard variant="gold" noPadding noTilt>
-          <TechSupportPanel />
-        </GlowCard>
-      </div>
+      <ScrollReveal animation="fade-up" delay={0}>
+        <div className="mb-10">
+          <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
+            <TechSupportPanel />
+          </GlowCard>
+        </div>
+      </ScrollReveal>
 
       {/* Quick Links - Bento Grid Style */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">

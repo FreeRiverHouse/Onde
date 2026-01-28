@@ -33,6 +33,120 @@ body {
   100% { background-position: 200% 0; }
 }
 
+/* ============================================
+   ULTRA PREMIUM ANIMATIONS
+   ============================================ */
+
+/* Morphing gradient animation */
+@keyframes morphGradient {
+  0%, 100% { 
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  50% { 
+    background-position: 100% 50%;
+    filter: hue-rotate(30deg);
+  }
+}
+
+/* 3D floating animation */
+@keyframes float3D {
+  0%, 100% { 
+    transform: translateY(0) translateZ(0) rotateX(0) rotateY(0);
+  }
+  25% { 
+    transform: translateY(-10px) translateZ(20px) rotateX(2deg) rotateY(-2deg);
+  }
+  50% { 
+    transform: translateY(-5px) translateZ(10px) rotateX(-1deg) rotateY(1deg);
+  }
+  75% { 
+    transform: translateY(-15px) translateZ(15px) rotateX(1deg) rotateY(-1deg);
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 100% { 
+    transform: translate(0);
+    text-shadow: none;
+  }
+  10% { 
+    transform: translate(-2px, 2px);
+    text-shadow: 2px 0 #06b6d4, -2px 0 #8b5cf6;
+  }
+  20% { 
+    transform: translate(2px, -2px);
+    text-shadow: -2px 0 #06b6d4, 2px 0 #8b5cf6;
+  }
+  30% { 
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+/* Neon pulse */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor;
+  }
+  50% {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor,
+      0 0 80px currentColor;
+  }
+}
+
+/* Gradient border rotation */
+@keyframes borderRotate {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+/* Subtle bounce */
+@keyframes subtleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Scale breathe */
+@keyframes scaleBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Utility classes for new animations */
+.animate-morph-gradient {
+  background-size: 200% 200%;
+  animation: morphGradient 8s ease infinite;
+}
+
+.animate-float-3d {
+  animation: float3D 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+.animate-neon-pulse {
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+.animate-subtle-bounce {
+  animation: subtleBounce 2s ease-in-out infinite;
+}
+
+.animate-scale-breathe {
+  animation: scaleBreathe 4s ease-in-out infinite;
+}
+
 /* Glow pulse for status indicators */
 @keyframes glow-pulse {
   0%, 100% { 
