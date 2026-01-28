@@ -71,5 +71,20 @@ Esempi:
 
 ---
 
+## 🔬 Confronto Qualità (2026-01-28)
+
+**Test su frase accademica complessa:**
+
+| Aspetto | NLLB-200 | Claude |
+|---------|----------|--------|
+| **Costo** | GRATIS ✅ | Token 💸 ❌ |
+| **Errori grammaticali** | Alcuni (post-edit) | Meno |
+| **Terminologia** | OK | Leggermente migliore |
+| **Verdetto** | **USA QUESTO** | MAI per traduzioni |
+
+**Conclusione:** NLLB-200 + revisione manuale = qualità sufficiente a costo ZERO.
+
+---
+
 *Ultimo aggiornamento: 2026-01-28*
 *Creato da: @ondinho dopo feedback Mattia*
