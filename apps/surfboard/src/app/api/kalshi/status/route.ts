@@ -1,36 +1,10 @@
 import { NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
 
-const execAsync = promisify(exec);
+export const runtime = 'edge';
 
-interface KalshiStatus {
-  cash: number;
-  portfolioValue: number;
-  positions: Array<{
-    ticker: string;
-    position: number;
-    exposure: number;
-    pnl?: number;
-  }>;
-  btcPrice: number;
-  ethPrice: number;
-  lastUpdated: string;
-}
-
-export async function GET() {
-  try {
-    // Create a standalone Python script to get Kalshi data as JSON
-    const pythonScript = `
-import requests
-import json
-from datetime import datetime, timezone
-import base64
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import padding
-
-API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
-PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
+// Kalshi API credentials (read-only access for portfolio view)
+const API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a";
+const PRIVATE_KEY_PEM = `-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEArvbCjuzAtVbmxZjlm5jglJTy6ZI8kOEGIktgl1KEgzgGr5mF
 PE42QKSPdV2NQrvp14fIn2Y+sQ5Us2xrpJ348LiwB5QxfIG63cjblRZ7xvXH6svY
 vVke4NShnB8l3uSdJrIvzbnlNEy86+vPaw+GjsODlKhQwm5v4rVEizG1yHxlC20e
@@ -56,83 +30,120 @@ jwMgHw04JwuL2qeuY5D0ztCLzC3+PSa45IPqSy7ThElUgazguU5+V2D0FB92N9oj
 x0028QKBgElTmOkG9w7V8MUhBQdI79TERvrls9r0kDeqzC3LqRHkJFuYueFP2C6p
 +OjRdeYnhHLtOH3+UkpCxUB4G0l5YVJtBcJUtNFSJMBKfaxqrd7awX2TZImfvgkb
 YJZnQlMSeGK5ezv10pi0K5q7luyW8TNfknr5uafM5vq2c/LLcAJn
------END RSA PRIVATE KEY-----"""
+-----END RSA PRIVATE KEY-----`;
 
-BASE_URL = "https://api.elections.kalshi.com"
+const BASE_URL = "https://api.elections.kalshi.com";
 
-def sign_request(method, path, timestamp):
-    private_key = serialization.load_pem_private_key(PRIVATE_KEY.encode(), password=None)
-    message = f"{timestamp}{method}{path}".encode('utf-8')
-    signature = private_key.sign(
-        message,
-        padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH),
-        hashes.SHA256()
-    )
-    return base64.b64encode(signature).decode('utf-8')
+interface KalshiStatus {
+  cash: number;
+  portfolioValue: number;
+  positions: Array<{
+    ticker: string;
+    position: number;
+    exposure: number;
+    pnl?: number;
+  }>;
+  btcPrice: number;
+  ethPrice: number;
+  lastUpdated: string;
+  error?: string;
+}
 
-def api_request(method, path):
-    timestamp = str(int(datetime.now(timezone.utc).timestamp() * 1000))
-    signature = sign_request(method, path, timestamp)
-    headers = {
-        "KALSHI-ACCESS-KEY": API_KEY_ID,
-        "KALSHI-ACCESS-SIGNATURE": signature,
-        "KALSHI-ACCESS-TIMESTAMP": timestamp,
-        "Content-Type": "application/json"
-    }
-    url = f"{BASE_URL}{path}"
-    resp = requests.get(url, headers=headers, timeout=10)
-    return resp.json()
+// Convert PEM to binary
+function pemToBinary(pem: string): ArrayBuffer {
+  const lines = pem.split('\n');
+  const base64 = lines
+    .filter(line => !line.startsWith('-----'))
+    .join('');
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
 
-try:
-    balance = api_request("GET", "/trade-api/v2/portfolio/balance")
-    positions_resp = api_request("GET", "/trade-api/v2/portfolio/positions")
-    positions = positions_resp.get("market_positions", [])
-    
-    # Get crypto prices
-    crypto_resp = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd", timeout=5)
-    crypto = crypto_resp.json()
-    
-    result = {
-        "balance": balance.get("balance", 0),
-        "portfolio_value": balance.get("portfolio_value", 0),
-        "positions": positions,
-        "btc_price": crypto.get("bitcoin", {}).get("usd", 0),
-        "eth_price": crypto.get("ethereum", {}).get("usd", 0)
-    }
-    print(json.dumps(result))
-except Exception as e:
-    print(json.dumps({"error": str(e)}))
-`;
+// Import RSA private key for signing
+async function importPrivateKey(): Promise<CryptoKey> {
+  const binaryKey = pemToBinary(PRIVATE_KEY_PEM);
+  return await crypto.subtle.importKey(
+    'pkcs8',
+    binaryKey,
+    {
+      name: 'RSA-PSS',
+      hash: 'SHA-256',
+    },
+    false,
+    ['sign']
+  );
+}
 
-    const { stdout } = await execAsync(`python3 -c '${pythonScript.replace(/'/g, "'\"'\"'")}'`, {
-      timeout: 30000
-    });
+// Sign request
+async function signRequest(method: string, path: string, timestamp: string): Promise<string> {
+  const privateKey = await importPrivateKey();
+  const message = `${timestamp}${method}${path}`;
+  const encoder = new TextEncoder();
+  const signature = await crypto.subtle.sign(
+    {
+      name: 'RSA-PSS',
+      saltLength: 32, // Using fixed salt length for consistency
+    },
+    privateKey,
+    encoder.encode(message)
+  );
+  return btoa(String.fromCharCode(...new Uint8Array(signature)));
+}
 
-    const data = JSON.parse(stdout.trim());
-    
-    if (data.error) {
-      throw new Error(data.error);
-    }
-    
+// Make authenticated API request
+async function apiRequest(method: string, path: string): Promise<any> {
+  const timestamp = String(Date.now());
+  const signature = await signRequest(method, path, timestamp);
+
+  const response = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      'KALSHI-ACCESS-KEY': API_KEY_ID,
+      'KALSHI-ACCESS-SIGNATURE': signature,
+      'KALSHI-ACCESS-TIMESTAMP': timestamp,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Kalshi API error: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export async function GET() {
+  try {
+    // Fetch balance and positions in parallel
+    const [balanceData, positionsData] = await Promise.all([
+      apiRequest('GET', '/trade-api/v2/portfolio/balance'),
+      apiRequest('GET', '/trade-api/v2/portfolio/positions'),
+    ]);
+
+    const positions = positionsData.market_positions || [];
+
     const status: KalshiStatus = {
-      cash: (data.balance || 0) / 100,
-      portfolioValue: (data.portfolio_value || 0) / 100,
-      positions: (data.positions || []).map((p: any) => ({
+      cash: (balanceData.balance || 0) / 100,
+      portfolioValue: (balanceData.portfolio_value || 0) / 100,
+      positions: positions.map((p: any) => ({
         ticker: p.ticker || '',
         position: p.position || 0,
         exposure: (p.market_exposure || 0) / 100,
-        pnl: p.realized_pnl ? p.realized_pnl / 100 : undefined
+        pnl: p.realized_pnl ? p.realized_pnl / 100 : undefined,
       })),
-      btcPrice: data.btc_price || 0,
-      ethPrice: data.eth_price || 0,
-      lastUpdated: new Date().toISOString()
+      btcPrice: 0,
+      ethPrice: 0,
+      lastUpdated: new Date().toISOString(),
     };
 
     return NextResponse.json(status);
   } catch (error) {
     console.error('Kalshi API error:', error);
-    
-    // Return error response
+
     return NextResponse.json({
       cash: 0,
       portfolioValue: 0,
@@ -140,7 +151,7 @@ except Exception as e:
       btcPrice: 0,
       ethPrice: 0,
       lastUpdated: new Date().toISOString(),
-      error: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+      error: error instanceof Error ? error.message : 'Unknown error',
+    } as KalshiStatus, { status: 500 });
   }
 }

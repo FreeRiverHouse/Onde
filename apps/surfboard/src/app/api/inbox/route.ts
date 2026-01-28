@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFile, writeFile } from 'fs/promises';
-import { existsSync } from 'fs';
 
-const INBOX_PATH = '/Users/mattia/Projects/Onde/agents/betting/inbox.json';
+export const runtime = 'edge';
+
+// GitHub API to read inbox.json from the repo
+const GITHUB_API = 'https://api.github.com/repos/FreeRiverHouse/Onde/contents/agents/betting/inbox.json';
 
 interface InboxMessage {
   id: string;
@@ -17,37 +18,39 @@ interface InboxData {
   lastUpdated: string;
 }
 
-async function getInbox(): Promise<InboxData> {
+async function getInboxFromGitHub(): Promise<InboxData> {
   try {
-    if (existsSync(INBOX_PATH)) {
-      const data = await readFile(INBOX_PATH, 'utf-8');
-      return JSON.parse(data);
+    const response = await fetch(GITHUB_API, {
+      headers: {
+        'Accept': 'application/vnd.github.v3.raw',
+        'User-Agent': 'Onde-Surfboard',
+      },
+    });
+
+    if (response.ok) {
+      return await response.json();
     }
   } catch (error) {
-    console.error('Error reading inbox:', error);
+    console.error('Error fetching inbox from GitHub:', error);
   }
   return { messages: [], lastUpdated: new Date().toISOString() };
 }
 
-async function saveInbox(inbox: InboxData): Promise<void> {
-  await writeFile(INBOX_PATH, JSON.stringify(inbox, null, 2), 'utf-8');
-}
-
-// GET - Retrieve inbox messages
+// GET - Retrieve inbox messages (read-only from GitHub)
 export async function GET() {
   try {
-    const inbox = await getInbox();
+    const inbox = await getInboxFromGitHub();
     return NextResponse.json(inbox);
   } catch (error) {
     console.error('GET inbox error:', error);
     return NextResponse.json(
-      { error: 'Failed to read inbox' },
+      { messages: [], lastUpdated: new Date().toISOString(), error: 'Failed to read inbox' },
       { status: 500 }
     );
   }
 }
 
-// POST - Add new message to inbox
+// POST - Add new message (returns info - actual write must be done locally)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -60,8 +63,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const inbox = await getInbox();
-    
     // Detect message type
     let type: InboxMessage['type'] = 'message';
     if (content.includes('twitter.com') || content.includes('x.com')) {
@@ -78,63 +79,37 @@ export async function POST(request: NextRequest) {
       processed: false
     };
 
-    inbox.messages.unshift(newMessage); // Add to beginning
-    inbox.lastUpdated = new Date().toISOString();
-
-    // Keep only last 100 messages
-    if (inbox.messages.length > 100) {
-      inbox.messages = inbox.messages.slice(0, 100);
-    }
-
-    await saveInbox(inbox);
-
-    return NextResponse.json({ 
-      success: true, 
-      message: newMessage 
+    // Note: On Edge runtime, we can't write to the local filesystem.
+    // The message is returned but needs to be synced via a local agent.
+    return NextResponse.json({
+      success: true,
+      message: newMessage,
+      note: 'Message created. Local sync required to persist to agents/betting/inbox.json'
     });
   } catch (error) {
     console.error('POST inbox error:', error);
     return NextResponse.json(
-      { error: 'Failed to save message' },
+      { error: 'Failed to process message' },
       { status: 500 }
     );
   }
 }
 
-// DELETE - Mark message as processed or delete
+// DELETE - Not available on edge runtime
 export async function DELETE(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
 
-    if (!id) {
-      return NextResponse.json(
-        { error: 'Message ID required' },
-        { status: 400 }
-      );
-    }
-
-    const inbox = await getInbox();
-    const messageIndex = inbox.messages.findIndex(m => m.id === id);
-
-    if (messageIndex === -1) {
-      return NextResponse.json(
-        { error: 'Message not found' },
-        { status: 404 }
-      );
-    }
-
-    inbox.messages.splice(messageIndex, 1);
-    inbox.lastUpdated = new Date().toISOString();
-
-    await saveInbox(inbox);
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('DELETE inbox error:', error);
+  if (!id) {
     return NextResponse.json(
-      { error: 'Failed to delete message' },
-      { status: 500 }
+      { error: 'Message ID required' },
+      { status: 400 }
     );
   }
+
+  return NextResponse.json({
+    success: false,
+    error: 'Delete not available on edge runtime. Use local agent to delete messages.',
+    messageId: id
+  }, { status: 501 });
 }

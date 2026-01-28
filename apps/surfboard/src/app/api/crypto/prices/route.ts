@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 interface CryptoPrices {
   btc: number;
   eth: number;
@@ -12,8 +14,7 @@ export async function GET() {
   try {
     const response = await fetch(
       'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true',
-      { 
-        next: { revalidate: 30 },
+      {
         headers: {
           'Accept': 'application/json'
         }
