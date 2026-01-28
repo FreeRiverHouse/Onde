@@ -602,12 +602,13 @@
 - **Notes**: Each page should have unique meta description for better Google snippets
 
 ### [T211] Telegram alert se autotrader crasha
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Watchdog dovrebbe notificare se autotrader muore e non si riavvia
+- **Notes**: ✅ Enhanced watchdog-autotrader.sh: creates kalshi-autotrader-crash.alert on crash detection. 30min cooldown. Heartbeat picks up alert and notifies.
 
 ### [T212] Backup memory files to git daily
 - **Status**: TODO
