@@ -3066,6 +3066,34 @@ Onde usa 3 catene distinte ma tutte endorsate dal parent brand:
 
 ---
 
+## 📍 STATO SESSIONE - 27-28 Gennaio 2026 (Notte)
+
+### ✅ COMPLETATO
+
+| Task | Status | Note |
+|------|--------|------|
+| Trading strategy fix | ✅ DONE | Kelly 0.08, MinEdge 15% |
+| Betting dashboard upgrade | ✅ DONE | LastBetCard, PortfolioChart, RecentFillsTable |
+| Deploy onde.surf | ✅ DONE | GitHub Actions workflow |
+| Traduzione Republic of Innovation CAP 5 | ✅ DONE | ~12k parole IT |
+| Traduzione capussela-spirito-EN | ✅ DONE | 1622 righe, intero libro |
+| Verifica onde.la | ✅ DONE | Homepage + /leggi/ (6 libri) |
+| Autotrader Kalshi | ✅ RUNNING | 5 trades, $0.73 totale, 46.5% edge medio |
+
+### 📊 AUTOTRADER PERFORMANCE
+
+- **5 trades** tutti NO su BTC strikes $88,250-$88,500
+- **BTC attuale**: ~$89,000 (sopra tutti gli strikes)
+- **Edge medio**: 46.5% (eccellente)
+- **Costo totale**: $0.73
+
+### 🔄 IN PROGRESS
+
+- Autotrader continua a girare
+- Claude Code (separato) sta aggiornando driver Radeon
+
+---
+
 ## 📍 STATO SESSIONE - 10 Gennaio 2026 (Sera)
 
 > **Prossima sessione**: Riprendi da qui con `claude --chrome` per generare copertine
