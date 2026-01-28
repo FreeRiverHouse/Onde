@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { auth } from "./lib/auth"
 
 // Routes that don't require authentication
-const publicRoutes = ["/login", "/coming-soon", "/api/auth", "/api/sync", "/api/agent-tasks", "/api/house", "/api/pr", "/api/activity", "/frh"]
+const publicRoutes = ["/login", "/coming-soon", "/api/auth", "/api/sync", "/api/agent-tasks", "/api/house", "/api/pr", "/api/activity", "/frh", "/betting", "/api/crypto", "/api/inbox", "/api/kalshi"]
 
 // Check if a path is public
 function isPublicPath(pathname: string): boolean {
