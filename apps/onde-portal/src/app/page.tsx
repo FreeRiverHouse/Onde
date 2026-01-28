@@ -160,7 +160,7 @@ export default function Home() {
       {/* ============================================
           HERO SECTION
           ============================================ */}
-      <section className="relative min-h-screen flex items-center justify-center">
+      <section className="relative min-h-[85vh] flex items-center justify-center pt-20">
         <SpotlightBeam className="-top-40 left-1/4" fill="#D4AF37" />
         <SpotlightBeam className="-top-20 right-1/4" fill="#5B9AA0" />
         
@@ -266,7 +266,7 @@ export default function Home() {
       {/* ============================================
           FEATURES BENTO GRID
           ============================================ */}
-      <section className="relative py-32">
+      <section className="relative py-20">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -309,7 +309,7 @@ export default function Home() {
       {/* ============================================
           BOOKS SECTION
           ============================================ */}
-      <section id="books" className="relative py-32">
+      <section id="books" className="relative py-20">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             className="text-center mb-20"
@@ -431,7 +431,7 @@ export default function Home() {
       {/* ============================================
           CTA SECTION
           ============================================ */}
-      <section className="relative py-32">
+      <section className="relative py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="p-12 md:p-20 text-center bg-white/80 backdrop-blur-xl rounded-3xl border-2 border-teal-200 shadow-2xl">
             <motion.div
