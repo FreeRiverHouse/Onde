@@ -322,12 +322,13 @@
 - **Notes**: Chart con price action e trade markers
 
 ### [T089] Verificare v2 autotrader sta usando modello corretto
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Backtest mostra v2 avrebbe skippato tutto - verificare che sia attivo!
+- **Notes**: ✅ FIXED! Era in esecuzione v1 (broken). Killato e riavviato con v2 (PID 22269). Ora usa Black-Scholes corretto.
 
 ### [T090] Aggiungere YES bets quando trend bullish
 - **Status**: TODO
@@ -429,5 +430,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 14:50 PST*
+*Ultimo aggiornamento: 2026-01-28 14:55 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
