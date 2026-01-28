@@ -97,7 +97,7 @@
 - [x] **Monitoring**: Creare pagina status `/health` che mostra stato tutti i servizi ✅
 
 ### Task aggiunti dopo health page
-- [ ] **Portal**: Deploy onde.la per attivare /health (needs `deploy-onde-la-prod.sh`)
+- [x] **Portal**: Deploy onde.la per attivare /health ✅ (live at https://onde.la/health/)
 - [ ] **Trading**: Script analisi PnL giornaliero da kalshi-trades.jsonl
 - [ ] **Docs**: Aggiornare README con nuove funzionalità (health, responsive)
 
