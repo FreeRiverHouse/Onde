@@ -18,8 +18,8 @@ gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
 
 ### ONDE.LA (Sito principale)
 ```bash
-cd /Users/mattia/Projects/Onde/apps/onde-portal
-npm run build && npx wrangler pages deploy out --project-name=onde-portal
+cd /Users/mattia/Projects/Onde
+./tools/tech-support/deploy-onde-la-prod.sh
 ```
 
 **NON SAI DEPLOYARE? LEGGI:** `tools/tech-support/DEPLOY-PROCEDURES.md`
@@ -76,22 +76,18 @@ gh auth status
 
 ---
 
-## 🚨 DEPLOY ONDE.LA - PROCEDURA OBBLIGATORIA (2026-01-19)
+## 🚨 DEPLOY ONDE.LA - PROCEDURA OBBLIGATORIA
 
-**NON C'È AUTO-DEPLOY DA GITHUB! Devi fare deploy manuale con wrangler.**
+**USA LO SCRIPT TECH-SUPPORT:**
 
 ```bash
-cd /Users/mattiapetrucciani/CascadeProjects/Onde/apps/onde-portal
-npm run build
-npx wrangler pages deploy out --project-name=onde-portal
+cd /Users/mattia/Projects/Onde
+./tools/tech-support/deploy-onde-la-prod.sh
 ```
 
-**ATTENZIONE:**
-- **onde.la** → progetto `onde-portal`
-- **onde.surf** → progetto `onde-surf`
-- **SEMPRE** usare `onde-portal` per onde.la!
+Lo script fa: build → test automatici → deploy wrangler → verifica
 
-**SEMPRE fare questo dopo ogni modifica a onde-portal!**
+**Progetto Cloudflare:** `onde-portal`
 
 ---
 
@@ -547,7 +543,7 @@ NON DIMENTICARE: Se serve accedere a qualcosa nel browser → USA CLAUDE FOR CHR
 - **Bot**: @OndePR_bot
 - **Token**: `8272332520:AAF7zrKpqOCnFMqOlF1GJCLycJFk3IPO6ps`
 - **Chat ID autorizzato**: `7505631979`
-- **Path**: `/Users/mattiapetrucciani/CascadeProjects/Onde/packages/telegram-bot/`
+- **Path**: `/Users/mattia/Projects/Onde/packages/telegram-bot/`
 
 ### Comandi Bot
 - `/frh [testo]` - Posta su @FreeRiverHouse
@@ -641,7 +637,7 @@ Documentato in: `/content/processes/book-production.md`
 - ⏳ Cap 8: Sofia, Luca, MILO nel futuro, tramonto dorato
 
 ### Path Libri
-`/Users/mattiapetrucciani/CascadeProjects/Onde/books/[nome-libro]/`
+`/Users/mattia/Projects/Onde/books/[nome-libro]/`
 
 ---
 
@@ -657,7 +653,7 @@ Documentato in: `/content/processes/book-production.md`
 
 ## Credenziali (.env)
 
-Le credenziali sono in `/Users/mattiapetrucciani/CascadeProjects/Onde/.env`:
+Le credenziali sono in `/Users/mattia/Projects/Onde/.env`:
 - X API per FreeRiverHouse, Onde, Magmatic
 - Telegram bot token
 - Grok API (XAI_API_KEY) - per PR Agent (backup)
@@ -853,7 +849,7 @@ L'agent può:
 **URL:** http://localhost:3333
 **Come lanciare:**
 ```bash
-cd /Users/mattiapetrucciani/CascadeProjects/Onde/tools/pr-dashboard
+cd /Users/mattia/Projects/Onde/tools/pr-dashboard
 npm start
 ```
 

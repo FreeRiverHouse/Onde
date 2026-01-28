@@ -117,8 +117,8 @@ gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
 
 ### ONDE.LA
 ```bash
-cd /Users/mattia/Projects/Onde/apps/onde-portal
-npm run build && npx wrangler pages deploy out --project-name=onde-portal
+cd /Users/mattia/Projects/Onde
+./tools/tech-support/deploy-onde-la-prod.sh
 ```
 
 **⚠️ SEMPRE commit+push PRIMA di deployare!**

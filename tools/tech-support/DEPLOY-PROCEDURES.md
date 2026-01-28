@@ -43,13 +43,18 @@ curl -sI "https://onde.surf" | head -3
 
 ## ONDE.LA (Portal - Sito Principale)
 
-### Comando Deploy (Manuale con Wrangler)
+### Comando Deploy (USA LO SCRIPT!)
 
 ```bash
-cd /Users/mattia/Projects/Onde/apps/onde-portal
-npm run build
-npx wrangler pages deploy out --project-name=onde-portal
+cd /Users/mattia/Projects/Onde
+./tools/tech-support/deploy-onde-la-prod.sh
 ```
+
+Lo script fa TUTTO automaticamente:
+1. Build
+2. Test automatici
+3. Deploy su Cloudflare (wrangler)
+4. Verifica contenuto
 
 ### Progetto Cloudflare
 - **Nome progetto:** `onde-portal`
@@ -58,6 +63,13 @@ npx wrangler pages deploy out --project-name=onde-portal
 ### Verifica Deploy
 ```bash
 curl -sI "https://onde.la" | head -3
+```
+
+### Se vuoi solo i comandi manuali (NON raccomandato)
+```bash
+cd /Users/mattia/Projects/Onde/apps/onde-portal
+npm run build
+npx wrangler pages deploy out --project-name=onde-portal --commit-dirty=true
 ```
 
 ---
