@@ -1,106 +1,65 @@
-'use client'
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
-import Link from 'next/link'
-
-interface ButtonProps {
-  children: ReactNode
-  variant?: 'primary' | 'secondary' | 'gold' | 'teal' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  href?: string
-  onClick?: () => void
-  className?: string
-  icon?: ReactNode
-  iconPosition?: 'left' | 'right'
-  disabled?: boolean
-}
-
-const variantStyles = {
-  primary: `
-    bg-gradient-to-r from-onde-coral to-onde-coral-light
-    text-white shadow-lg shadow-onde-coral/30
-    hover:shadow-xl hover:shadow-onde-coral/40
-  `,
-  secondary: `
-    bg-white/80 backdrop-blur-sm
-    text-onde-ocean border-2 border-onde-ocean/20
-    hover:bg-onde-cream hover:border-onde-coral/40
-  `,
-  gold: `
-    bg-gradient-to-r from-onde-gold to-onde-gold-light
-    text-onde-ocean shadow-lg shadow-onde-gold/30
-    hover:shadow-xl hover:shadow-onde-gold/40
-  `,
-  teal: `
-    bg-gradient-to-r from-onde-teal to-onde-teal-light
-    text-white shadow-lg shadow-onde-teal/30
-    hover:shadow-xl hover:shadow-onde-teal/40
-  `,
-  ghost: `
-    bg-transparent text-onde-ocean
-    hover:bg-onde-coral/10
-  `,
-}
-
-const sizeStyles = {
-  sm: 'px-4 py-2 text-sm rounded-xl',
-  md: 'px-6 py-3 text-base rounded-2xl',
-  lg: 'px-8 py-4 text-lg rounded-2xl',
-}
-
-export default function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  href,
-  onClick,
-  className = '',
-  icon,
-  iconPosition = 'right',
-  disabled = false,
-}: ButtonProps) {
-  const baseStyles = `
-    relative inline-flex items-center justify-center gap-2
-    font-semibold transition-all duration-300 ease-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-onde-coral
-    disabled:opacity-50 disabled:cursor-not-allowed
-  `
-
-  const content = (
-    <>
-      {icon && iconPosition === 'left' && <span className="flex-shrink-0">{icon}</span>}
-      <span>{children}</span>
-      {icon && iconPosition === 'right' && <span className="flex-shrink-0">{icon}</span>}
-    </>
-  )
-
-  const motionProps = {
-    whileHover: disabled ? {} : { scale: 1.05 },
-    whileTap: disabled ? {} : { scale: 0.98 },
-    transition: { duration: 0.2 },
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-gradient-to-r from-onde-coral to-onde-coral-light text-white shadow-lg shadow-onde-coral/30 hover:shadow-xl hover:shadow-onde-coral/40 hover:scale-[1.02] active:scale-[0.98]",
+        destructive:
+          "bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600",
+        outline:
+          "border-2 border-onde-coral/30 bg-transparent text-onde-ocean hover:bg-onde-coral/10 hover:border-onde-coral",
+        secondary:
+          "bg-onde-cream text-onde-ocean shadow hover:bg-onde-cream/80",
+        ghost:
+          "text-onde-ocean hover:bg-onde-ocean/10",
+        link:
+          "text-onde-coral underline-offset-4 hover:underline",
+        ocean:
+          "bg-gradient-to-r from-onde-teal to-onde-blue text-white shadow-lg shadow-onde-teal/30 hover:shadow-xl hover:shadow-onde-teal/40 hover:scale-[1.02]",
+        gold:
+          "bg-gradient-to-r from-onde-gold to-onde-gold-light text-onde-ocean shadow-lg shadow-onde-gold/30 hover:shadow-xl hover:shadow-onde-gold/40 hover:scale-[1.02]",
+        glass:
+          "bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20",
+      },
+      size: {
+        default: "h-11 px-6 py-2",
+        sm: "h-9 rounded-lg px-4 text-xs",
+        lg: "h-14 rounded-2xl px-8 text-base",
+        xl: "h-16 rounded-2xl px-10 text-lg",
+        icon: "h-11 w-11",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
   }
+)
 
-  const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
 
-  if (href && !disabled) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
     return (
-      <Link href={href}>
-        <motion.span className={combinedClassName} {...motionProps}>
-          {content}
-        </motion.span>
-      </Link>
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
     )
   }
+)
+Button.displayName = "Button"
 
-  return (
-    <motion.button
-      className={combinedClassName}
-      onClick={onClick}
-      disabled={disabled}
-      {...motionProps}
-    >
-      {content}
-    </motion.button>
-  )
-}
+export { Button, buttonVariants }

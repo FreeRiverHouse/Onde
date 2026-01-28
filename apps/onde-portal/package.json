@@ -14,15 +14,19 @@
     "test:portal": "node test-portal-loop.mjs --once"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
     "@stripe/stripe-js": "^8.6.1",
     "@vercel/analytics": "^1.6.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "epubjs": "^0.3.93",
     "framer-motion": "^12.26.2",
     "next": "15.5.2",
     "next-intl": "^4.7.0",
     "react": "^18",
     "react-dom": "^18",
-    "stripe": "^20.1.2"
+    "stripe": "^20.1.2",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
