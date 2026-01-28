@@ -637,12 +637,13 @@
 - **Notes**: ✅ Script: scripts/cleanup-autotrader-logs.sh. Rotates logs >10MB, keeps last 1000 lines. Cron 03:00 daily.
 
 ### [T215] Watchdog health check - verify cron is running
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert se watchdog cron non esegue per >15min (watchdog del watchdog!)
+- **Notes**: ✅ Script: meta-watchdog.sh. Cron */15 * * * *. Alerts if watchdog.log stale >15min. 1h cooldown.
 
 ### [T216] Trading stats hourly snapshot for trend analysis
 - **Status**: TODO
@@ -652,7 +653,32 @@
 - **Priority**: P3
 - **Notes**: Salvare hourly snapshot di win rate/PnL per analisi trend nel tempo
 
+### [T217] Aggregate alert check in heartbeat pickup
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ✅ Added watchdog-stale.alert to HEARTBEAT.md alert file list
+
+### [T218] Autotrader uptime percentage tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track and report autotrader uptime % (based on watchdog healthy checks vs total)
+
+### [T219] Email notification fallback for critical alerts
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: If Telegram notification fails, send via email as backup
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:15 PST*
+*Ultimo aggiornamento: 2026-01-28 15:27 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

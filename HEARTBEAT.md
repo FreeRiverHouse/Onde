@@ -9,6 +9,7 @@
 - `scripts/kalshi-daily-report.alert` → Se esiste, leggi e manda a Mattia via Telegram, poi elimina il file
 - `scripts/kalshi-low-winrate.alert` → Se esiste, leggi e manda alert a Mattia, poi elimina
 - `scripts/kalshi-autotrader-crash.alert` → Se esiste, URGENTE! Autotrader crashato. Manda alert, poi elimina
+- `scripts/watchdog-stale.alert` → Se esiste, watchdog cron non funziona! Manda alert, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
