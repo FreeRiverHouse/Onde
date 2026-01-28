@@ -94,7 +94,12 @@
 ### Nuovi Task (aggiunti da agente)
 - [ ] **Trading**: Aggiungere tracking settlement per calcolare win rate reale
 - [ ] **Moonlight**: Creare sprite mood diversi (happy, sad, sleepy, hungry) invece di emoji
-- [ ] **Monitoring**: Creare pagina status `/health` che mostra stato tutti i servizi
+- [x] **Monitoring**: Creare pagina status `/health` che mostra stato tutti i servizi ✅
+
+### Task aggiunti dopo health page
+- [ ] **Portal**: Deploy onde.la per attivare /health (needs `deploy-onde-la-prod.sh`)
+- [ ] **Trading**: Script analisi PnL giornaliero da kalshi-trades.jsonl
+- [ ] **Docs**: Aggiornare README con nuove funzionalità (health, responsive)
 
 ---
 
