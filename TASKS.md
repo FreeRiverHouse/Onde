@@ -285,12 +285,13 @@
 - **Notes**: Multiple trades per stesso contratto (es. 4 trades T88499.99@04) - consolidare o tenere separati?
 
 ### [T084] API endpoint per trade stats JSON
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T082]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: GET /api/trading/stats → {winRate, pnl, lastTrades[]} per dashboard
+- **Notes**: ✅ Created as part of T082. GET /api/trading/stats returns winRate, pnl, todayStats, recentTrades.
 
 ### [T085] Notifica Telegram riassunto giornaliero trade
 - **Status**: DONE
