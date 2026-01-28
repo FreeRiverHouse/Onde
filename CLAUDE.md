@@ -5,6 +5,24 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ---
 
+## 🚨 REGOLA 0 - LA PIU' IMPORTANTE
+
+# TUTTO VA SALVATO SU GIT
+Ogni informazione, ogni decisione, ogni configurazione. Niente si perde.
+
+**Memoria Centrale:** https://github.com/FreeRiverHouse/claude-memory
+- `CLAUDE.md` - Setup ambiente, hardware, modelli
+- `CLAWDINHO-CEO.md` - Handoff per Clawdinho
+- `logs/` - Storico messaggi
+
+**Leggi SEMPRE `~/claude-memory/CLAUDE.md` per info su:**
+- AMD GPU setup (RX 7900 XTX)
+- TinyGrad config
+- Modelli LLM disponibili
+- Clawdinho config
+
+---
+
 ## 🚨 REGOLE GIT - OBBLIGATORIE
 
 1. **SEMPRE `git pull` PRIMA di iniziare qualsiasi lavoro** - Mai modificare file senza prima sincronizzarsi col remote
