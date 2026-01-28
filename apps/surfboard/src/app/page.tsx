@@ -78,7 +78,7 @@ export default async function Dashboard() {
       </div>
 
       {/* Quick Links */}
-      <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+      <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         <a href="/house" className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-xl p-4 border border-amber-500/30 hover:border-amber-400/50 hover:from-amber-500/30 hover:to-orange-500/30 transition-all text-center group">
           <div className="text-xl mb-1 group-hover:scale-110 transition-transform">🏠</div>
           <div className="text-white text-sm font-medium">House</div>
@@ -93,6 +93,11 @@ export default async function Dashboard() {
           <div className="text-xl mb-1 group-hover:scale-110 transition-transform">🤖</div>
           <div className="text-white text-sm font-medium">Agents</div>
           <div className="text-purple-300/50 text-xs mt-0.5">7 Active</div>
+        </a>
+        <a href="/betting" className="bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-xl p-4 border border-emerald-500/30 hover:border-emerald-400/50 hover:from-emerald-500/30 hover:to-teal-500/30 transition-all text-center group">
+          <div className="text-xl mb-1 group-hover:scale-110 transition-transform">🎰</div>
+          <div className="text-white text-sm font-medium">Betting</div>
+          <div className="text-emerald-300/50 text-xs mt-0.5">Kalshi Live</div>
         </a>
         <a href="https://onde.la" target="_blank" rel="noopener noreferrer" className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all text-center group">
           <div className="text-xl mb-1 group-hover:scale-110 transition-transform">🌊</div>
