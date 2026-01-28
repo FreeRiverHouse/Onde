@@ -90,9 +90,9 @@ const features = [
     className: "md:col-span-2",
   },
   {
-    title: "Free Forever",
-    description: "All our books are free to download and share",
-    icon: "✨",
+    title: "Free During Launch",
+    description: "All our books are free to download during our launch period",
+    icon: "🚀",
   },
   {
     title: "Multi-format",
@@ -111,7 +111,7 @@ const features = [
 const testimonials = [
   { quote: "The illustrations in Meditations are breathtaking. This is how classic literature should be presented.", name: "Sarah M.", title: "Teacher" },
   { quote: "My kids love The Shepherd's Promise. The imagery brings the Psalm to life.", name: "David L.", title: "Parent" },
-  { quote: "Finally, beautiful editions of classic books that are free and accessible to everyone.", name: "Emily R.", title: "Librarian" },
+  { quote: "Finally, beautiful editions of classic books accessible to everyone during the launch.", name: "Emily R.", title: "Librarian" },
   { quote: "The attention to detail in each illustration is remarkable. True digital art.", name: "Marcus T.", title: "Art Director" },
 ]
 
@@ -444,8 +444,8 @@ export default function Home() {
                 Start Reading Today!
               </h2>
               <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
-                Join families everywhere enjoying beautiful, free books 
-                made with love for curious young minds! 📚✨
+                Join families everywhere enjoying beautiful books - free during our launch! 
+                Made with love for curious young minds 📚✨
               </p>
               <Link 
                 href="/libri"
