@@ -48,12 +48,13 @@
 - **Notes**: ✅ Capitolo 6 (finale) completato. File: traduzioni/republic-of-innovation-IT.md (887 righe totali)
 
 ### [T013] Verificare qualità traduzione vs cap 1-4
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T012]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: QA sui capitoli tradotti.
+- **Notes**: ✅ QA completato. Voto 9/10. Report: traduzioni/QA-REPORT-republic-innovation.md
 
 ---
 
@@ -346,6 +347,30 @@
 - **Priority**: P3
 - **Notes**: Debug: loggare il motivo preciso per cui ogni trade viene skippato
 
+### [T092] PDF formattato "La Repubblica dell'Innovazione"
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T013]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Generare PDF professionale dalla traduzione IT approvata (QA 9/10)
+
+### [T093] Backup automatico kalshi-trades.jsonl su git
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Commit giornaliero trade log per storico e recovery
+
+### [T094] Grafana/Prometheus setup per trading metrics
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dashboard real-time per win rate, PnL, open positions
+
 ---
 
 ## ✅ DONE
@@ -430,5 +455,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 14:55 PST*
+*Ultimo aggiornamento: 2026-01-28 15:12 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
