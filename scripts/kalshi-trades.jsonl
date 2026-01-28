@@ -1,0 +1,20 @@
+{"timestamp": "2026-01-28T07:39:28.515561+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T89249.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.523438+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T88999.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524029+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T88749.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524195+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T88499.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524312+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T88249.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524404+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T87999.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524468+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T87749.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524596+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T87499.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524710+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T87249.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524811+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T86999.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524890+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T86749.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524951+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T86499.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.524998+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T86249.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525060+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T85999.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525107+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T85749.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525218+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T85499.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525295+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T85249.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525370+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T84999.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525435+00:00", "type": "skip", "ticker": "KXBTCD-26JAN2803-T84749.99", "reason": "too_close_to_expiry", "minutes_left": 20.5, "min_required": 30}
+{"timestamp": "2026-01-28T07:39:28.525495+00:00", "type": "scan_summary", "ticker": "ALL", "skipped_expiry": 19, "skipped_low_edge": 0, "opportunities_found": 0, "min_edge": 0.15, "min_time_to_expiry": 30}

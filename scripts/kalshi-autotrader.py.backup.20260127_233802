@@ -20,13 +20,11 @@ import requests
 import json
 import sys
 import time
-import os
 from datetime import datetime, timezone, timedelta
 import base64
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 import statistics
-from pathlib import Path
 
 # ============== CONFIG ==============
 API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
@@ -61,78 +59,12 @@ YJZnQlMSeGK5ezv10pi0K5q7luyW8TNfknr5uafM5vq2c/LLcAJn
 BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters
-MIN_EDGE = 0.15  # 15% minimum edge to trade (conservative!)
+MIN_EDGE = 0.05  # 5% minimum edge to trade
 MAX_POSITION_PCT = 0.05  # Max 5% of portfolio per position (smaller bets!)
 MAX_POSITIONS = 50  # More positions allowed
-KELLY_FRACTION = 0.08  # Conservative Kelly for risk management (was 0.15)
+KELLY_FRACTION = 0.15  # Smaller Kelly for micro bets
 MIN_BET_CENTS = 5  # Minimum bet size (micro!)
 VOLATILITY_WINDOW = 10  # Minutes for volatility calc
-MIN_TIME_TO_EXPIRY_MINUTES = 30  # Skip markets expiring in less than 30 min
-
-# Logging/tracking
-TRADE_LOG_FILE = "scripts/kalshi-trades.jsonl"  # Track all decisions
-
-# ============== LOGGING FUNCTIONS ==============
-
-def log_decision(decision_type: str, ticker: str, details: dict):
-    """Log trading decision with full context"""
-    entry = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "type": decision_type,  # "trade", "skip", "opportunity", "error"
-        "ticker": ticker,
-        **details
-    }
-    try:
-        log_path = Path(TRADE_LOG_FILE)
-        log_path.parent.mkdir(exist_ok=True)
-        with open(log_path, "a") as f:
-            f.write(json.dumps(entry) + "\n")
-    except Exception as e:
-        print(f"⚠️ Failed to log: {e}")
-
-
-def get_trade_stats() -> dict:
-    """Calculate win/loss stats from trade log"""
-    stats = {"total": 0, "wins": 0, "losses": 0, "pending": 0, "profit_cents": 0}
-    try:
-        log_path = Path(TRADE_LOG_FILE)
-        if not log_path.exists():
-            return stats
-        with open(log_path) as f:
-            for line in f:
-                entry = json.loads(line.strip())
-                if entry.get("type") == "trade":
-                    stats["total"] += 1
-                    status = entry.get("result_status", "pending")
-                    if status == "win":
-                        stats["wins"] += 1
-                        stats["profit_cents"] += entry.get("profit_cents", 0)
-                    elif status == "loss":
-                        stats["losses"] += 1
-                        stats["profit_cents"] -= entry.get("cost_cents", 0)
-                    else:
-                        stats["pending"] += 1
-    except:
-        pass
-    return stats
-
-
-def check_time_to_expiry(market: dict) -> tuple:
-    """Check if market has enough time to expiry. Returns (is_ok, minutes_left)"""
-    try:
-        close_time_str = market.get("close_time") or market.get("expiration_time")
-        if not close_time_str:
-            return True, 999  # No expiry info, allow
-        
-        # Parse ISO timestamp
-        close_time = datetime.fromisoformat(close_time_str.replace("Z", "+00:00"))
-        now = datetime.now(timezone.utc)
-        minutes_left = (close_time - now).total_seconds() / 60
-        
-        return minutes_left >= MIN_TIME_TO_EXPIRY_MINUTES, minutes_left
-    except:
-        return True, 999  # On error, allow
-
 
 # ============== API FUNCTIONS ==============
 
@@ -319,8 +251,6 @@ def estimate_btc_prob(current_price: float, strike: float, hours_to_expiry: floa
 def find_opportunities(markets: list, btc_price: float, eth_price: float, volatility: float, sentiment: int) -> list:
     """Find trading opportunities in the markets"""
     opportunities = []
-    skipped_expiry = 0
-    skipped_low_edge = 0
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -329,17 +259,6 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
         subtitle = m.get("subtitle", "")
         
         if not yes_bid or not yes_ask:
-            continue
-        
-        # Check time to expiry
-        expiry_ok, minutes_left = check_time_to_expiry(m)
-        if not expiry_ok:
-            skipped_expiry += 1
-            log_decision("skip", ticker, {
-                "reason": "too_close_to_expiry",
-                "minutes_left": round(minutes_left, 1),
-                "min_required": MIN_TIME_TO_EXPIRY_MINUTES
-            })
             continue
         
         # Parse BTC markets
@@ -357,7 +276,7 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                 # Check YES opportunity
                 edge_yes = our_prob - market_prob_yes
                 if edge_yes > MIN_EDGE:
-                    opp = {
+                    opportunities.append({
                         "ticker": ticker,
                         "side": "yes",
                         "price": yes_ask,
@@ -366,22 +285,13 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                         "market_prob": market_prob_yes,
                         "strike": strike,
                         "current": btc_price,
-                        "asset": "BTC",
-                        "minutes_to_expiry": round(minutes_left, 1)
-                    }
-                    opportunities.append(opp)
-                    log_decision("opportunity", ticker, {
-                        "side": "yes", "edge": round(edge_yes, 4),
-                        "our_prob": round(our_prob, 3), "market_prob": round(market_prob_yes, 3),
-                        "price": yes_ask, "strike": strike, "btc_price": btc_price
+                        "asset": "BTC"
                     })
-                else:
-                    skipped_low_edge += 1
                 
                 # Check NO opportunity
                 edge_no = (1 - our_prob) - market_prob_no
                 if edge_no > MIN_EDGE:
-                    opp = {
+                    opportunities.append({
                         "ticker": ticker,
                         "side": "no",
                         "price": 100 - yes_bid,
@@ -390,31 +300,10 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                         "market_prob": market_prob_no,
                         "strike": strike,
                         "current": btc_price,
-                        "asset": "BTC",
-                        "minutes_to_expiry": round(minutes_left, 1)
-                    }
-                    opportunities.append(opp)
-                    log_decision("opportunity", ticker, {
-                        "side": "no", "edge": round(edge_no, 4),
-                        "our_prob": round(1 - our_prob, 3), "market_prob": round(market_prob_no, 3),
-                        "price": 100 - yes_bid, "strike": strike, "btc_price": btc_price
+                        "asset": "BTC"
                     })
-                else:
-                    skipped_low_edge += 1
             except:
                 continue
-    
-    # Log summary
-    if skipped_expiry or skipped_low_edge:
-        log_decision("scan_summary", "ALL", {
-            "skipped_expiry": skipped_expiry,
-            "skipped_low_edge": skipped_low_edge,
-            "opportunities_found": len(opportunities),
-            "min_edge": MIN_EDGE,
-            "min_time_to_expiry": MIN_TIME_TO_EXPIRY_MINUTES
-        })
-        print(f"   ⏰ Skipped {skipped_expiry} markets too close to expiry")
-        print(f"   📉 Skipped {skipped_low_edge} markets with edge < {MIN_EDGE*100:.0f}%")
     
     # Sort by edge (best first)
     opportunities.sort(key=lambda x: x["edge"], reverse=True)
@@ -427,15 +316,7 @@ def trading_cycle(live_mode: bool = False):
     """Run one trading cycle"""
     print(f"\n{'='*60}")
     print(f"🤖 KALSHI AUTOTRADER - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"   Strategy: Kelly={KELLY_FRACTION}, MinEdge={MIN_EDGE*100:.0f}%, MinExpiry={MIN_TIME_TO_EXPIRY_MINUTES}min")
     print(f"{'='*60}")
-    
-    # Show trade stats
-    stats = get_trade_stats()
-    if stats["total"] > 0:
-        win_rate = stats["wins"] / max(1, stats["wins"] + stats["losses"]) * 100
-        print(f"\n📊 Trade History: {stats['total']} total | {stats['wins']}W/{stats['losses']}L | {win_rate:.0f}% win rate")
-        print(f"   Pending: {stats['pending']} | P/L: ${stats['profit_cents']/100:+.2f}")
     
     # Get account status
     balance = get_balance()
@@ -522,35 +403,16 @@ def trading_cycle(live_mode: bool = False):
     print(f"   {best['side'].upper()} {contracts} contracts @ {best['price']}¢")
     print(f"   Ticker: {best['ticker']}")
     print(f"   Edge: {best['edge']*100:.1f}%")
-    print(f"   Time to expiry: {best.get('minutes_to_expiry', '?')} min")
     
     result = place_order(best["ticker"], best["side"], contracts, best["price"])
     
     order = result.get("order", {})
-    trade_log = {
-        "side": best["side"],
-        "contracts": contracts,
-        "price_cents": best["price"],
-        "edge": round(best["edge"], 4),
-        "our_prob": round(best["our_prob"], 3),
-        "market_prob": round(best["market_prob"], 3),
-        "strike": best.get("strike"),
-        "current_price": best.get("current"),
-        "minutes_to_expiry": best.get("minutes_to_expiry"),
-        "order_status": order.get("status", "unknown"),
-        "cost_cents": order.get("taker_fill_cost", 0)
-    }
-    
     if order.get("status") == "executed":
         print(f"✅ EXECUTED! Cost: ${order.get('taker_fill_cost', 0)/100:.2f}")
-        trade_log["result_status"] = "pending"  # Will be updated when resolved
-        log_decision("trade", best["ticker"], trade_log)
     else:
         print(f"📋 Order status: {order.get('status', 'unknown')}")
         if "error" in result:
             print(f"❌ Error: {result['error']}")
-            trade_log["error"] = result["error"]
-        log_decision("trade_attempt", best["ticker"], trade_log)
 
 
 def run_autotrader(live_mode: bool = False, interval_seconds: int = 300):

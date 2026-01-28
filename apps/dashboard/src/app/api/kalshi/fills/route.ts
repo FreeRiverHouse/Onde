@@ -115,7 +115,8 @@ except Exception as e:
     const data = JSON.parse(stdout.trim());
     
     if (data.error) {
-      throw new Error(data.error);
+      console.error('Kalshi API error:', data.error);
+      // Return empty data on API error instead of throwing
     }
 
     // Process fills into our format
