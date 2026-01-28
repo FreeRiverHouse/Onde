@@ -1,0 +1,49 @@
+# Deploy Onde Portal to Cloudflare Pages
+# Usage: gh workflow run deploy-portal.yml -f reason="description"
+
+name: Deploy Portal
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for deployment'
+        required: true
+        default: 'Manual deployment'
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy onde.la
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Portal
+        working-directory: apps/onde-portal
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=onde-portal
+          workingDirectory: 'apps/onde-portal'
+
+      - name: Verify deployment
+        run: |
+          echo "🚀 Deployment triggered for onde.la"
+          echo "📝 Reason: ${{ inputs.reason }}"
+          sleep 30
+          curl -sI "https://onde.la" | head -3
