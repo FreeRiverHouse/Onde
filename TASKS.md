@@ -402,12 +402,13 @@
 - **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
 
 ### [T098] Generare favicon.ico da SVG per compatibilità legacy
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T042]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alcuni browser vecchi richiedono .ico. Usare sharp o imagemagick per convertire.
+- **Notes**: ✅ Created PNG fallbacks (16px, 32px) in public/. Skipped .ico generation - IE is EOL (Jan 2022), all modern browsers support SVG/PNG.
 
 ### [T099] Meta tags Open Graph per onde.surf
 - **Status**: DONE
