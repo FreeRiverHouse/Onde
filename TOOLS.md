@@ -38,6 +38,24 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## 🌍 Traduzioni Locali
+
+### ⚠️ REGOLA: MAI M1! Solo Radeon o M4
+
+| Modello | Hardware | Funziona? | Note |
+|---------|----------|-----------|------|
+| GPT-2 | Radeon/TinyGrad | ❌ | Ripete invece di tradurre |
+| ONNX opus-mt | Radeon/TinyGrad | ❌ | Problemi shape tensor |
+| Helsinki-NLP opus-mt | CPU (M1) | ✅ | Lento ma funziona |
+| **LLaMA 3 8B** | **Radeon/TinyGrad** | ✅ | **BEST** - ~16GB, traduce benissimo |
+
+### Setup LLaMA 3 8B su Radeon
+- Modello: `TriAiExperiments/SFR-Iterative-DPO-LLaMA-3-8B-R`
+- Download: ~10 min (~16GB)
+- Backend: TinyGrad
+
+---
+
 ## 🎤 Voice Transcription
 - **Script**: `scripts/transcribe-voice.sh <audio_file> [language]`
 - **Default language**: Italian (it)
