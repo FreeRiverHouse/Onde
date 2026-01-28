@@ -1,32 +1,32 @@
 'use client'
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useMemo, useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import { Spotlight, Aurora } from '@/components/ui/spotlight'
+import { 
+  GradientText, 
+  Card3D, 
+  GlowingCard, 
+  BentoGrid, 
+  BentoGridItem, 
+  FloatingDock,
+  SpotlightBeam,
+  MovingBorder,
+  InfiniteMovingCards,
+  WavyBackground
+} from '@/components/ui/aceternity'
 
-
-// Particle component for floating background particles - Maritime Relaxing theme
+// Particle for ambient background
 function Particle({ index }: { index: number }) {
-  // Turchese, azzurro, bianco, oro, blu lapislazzuli - marittimo e rilassante
-  const colors = ['#5B9AA0', '#7EB8C4', '#F5F5F5', '#D4AF37', '#26619C']
-  const color = useMemo(() => colors[index % colors.length], [index])
+  const colors = ['#5B9AA0', '#7EB8C4', '#D4AF37', '#26619C', '#E8B4B8']
+  const color = colors[index % colors.length]
   
-  // Generate random values only on client side to avoid hydration errors
-  const [randomValues, setRandomValues] = useState({
-    x: 50, // Default center position
-    size: 3, // Default size
-    delay: 0,
-    duration: 20
-  })
-
+  const [values, setValues] = useState({ x: 50, size: 3, delay: 0, duration: 20 })
   useEffect(() => {
-    // Generate random values after component mounts (client-side only)
-    setRandomValues({
+    setValues({
       x: Math.random() * 100,
-      size: 2 + Math.random() * 4,
+      size: 2 + Math.random() * 6,
       delay: Math.random() * 20,
       duration: 15 + Math.random() * 15
     })
@@ -36,20 +36,17 @@ function Particle({ index }: { index: number }) {
     <motion.div
       className="absolute rounded-full pointer-events-none"
       style={{
-        left: `${randomValues.x}%`,
-        width: randomValues.size,
-        height: randomValues.size,
+        left: `${values.x}%`,
+        width: values.size,
+        height: values.size,
         background: color,
-        boxShadow: `0 0 ${randomValues.size * 3}px ${color}`,
+        boxShadow: `0 0 ${values.size * 4}px ${color}`,
       }}
       initial={{ y: '110vh', opacity: 0 }}
-      animate={{
-        y: '-10vh',
-        opacity: [0, 0.8, 0.8, 0],
-      }}
+      animate={{ y: '-10vh', opacity: [0, 0.9, 0.9, 0] }}
       transition={{
-        duration: randomValues.duration,
-        delay: randomValues.delay,
+        duration: values.duration,
+        delay: values.delay,
         repeat: Infinity,
         ease: 'linear',
       }}
@@ -57,46 +54,7 @@ function Particle({ index }: { index: number }) {
   )
 }
 
-// 3D Tilt Card Component
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), { stiffness: 300, damping: 30 })
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 300, damping: 30 })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    x.set((e.clientX - rect.left) / rect.width - 0.5)
-    y.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-        perspective: 1000,
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Book data
+// Books data
 const books = [
   {
     id: 'meditations',
@@ -105,439 +63,411 @@ const books = [
     author: 'Marcus Aurelius',
     description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
     category: 'Philosophy',
-    price: 'Free',
-    gradient: 'from-amber-500 to-amber-700',
+    gradient: 'from-amber-500 via-orange-500 to-red-500',
     cover: '/books/meditations-cover.jpg',
     pdfUrl: '/books/meditations-en.pdf',
-    epubUrl: '/books/epub/meditations-en.epub',
   },
   {
     id: 'shepherds-promise',
     title: "The Shepherd's Promise",
     subtitle: 'Psalm 23 for Children',
     author: 'Biblical Tradition',
-    description: 'The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.',
+    description: 'The most beloved Psalm, beautifully illustrated for young readers.',
     category: 'Spirituality',
-    price: 'Free',
-    gradient: 'from-emerald-500 to-green-600',
+    gradient: 'from-emerald-400 via-green-500 to-teal-600',
     cover: '/books/shepherds-promise-cover.jpg',
     pdfUrl: '/books/the-shepherds-promise.pdf',
   },
 ]
 
+// Features for Bento Grid
+const features = [
+  {
+    title: "Beautiful Books",
+    description: "Classic literature, reimagined with stunning AI illustrations",
+    icon: "📚",
+    className: "md:col-span-2",
+  },
+  {
+    title: "Free Forever",
+    description: "All our books are free to download and share",
+    icon: "✨",
+  },
+  {
+    title: "Multi-format",
+    description: "PDF, EPUB, and web reader",
+    icon: "📱",
+  },
+  {
+    title: "AI Enhanced",
+    description: "Illustrations crafted with cutting-edge AI",
+    icon: "🎨",
+    className: "md:col-span-2",
+  },
+]
+
+// Testimonials
+const testimonials = [
+  { quote: "The illustrations in Meditations are breathtaking. This is how classic literature should be presented.", name: "Sarah M.", title: "Teacher" },
+  { quote: "My kids love The Shepherd's Promise. The imagery brings the Psalm to life.", name: "David L.", title: "Parent" },
+  { quote: "Finally, beautiful editions of classic books that are free and accessible to everyone.", name: "Emily R.", title: "Librarian" },
+  { quote: "The attention to detail in each illustration is remarkable. True digital art.", name: "Marcus T.", title: "Art Director" },
+]
+
+// Dock items
+const dockItems = [
+  { title: "Books", icon: "📚", href: "#books" },
+  { title: "Games", icon: "🎮", href: "/games" },
+  { title: "VR", icon: "🥽", href: "/vr" },
+  { title: "About", icon: "✨", href: "#about" },
+]
+
 export default function Home() {
-  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURN
-  // This is a React rule - hooks must be called in the same order every render
   const { scrollYProgress } = useScroll()
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
-  const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
-  
-  // onde.surf = preprod environment, same content as onde.la
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.9])
+  const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -150])
+  const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => i), [])
 
   return (
-    <div className="relative overflow-x-hidden w-full">
+    <div className="relative min-h-screen bg-[#0a0a0f] overflow-x-hidden">
       {/* ============================================
-          FIXED BACKGROUND - Ocean Relaxing Theme
+          GLOBAL BACKGROUND
           ============================================ */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Base LIGHT maritime gradient - AZZURRO CHIARO */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #B8D8E0 50%, #7EB8C4 100%)' }} />
-
-        {/* Onde marine overlay - VISIBILE */}
-        <div
-          className="absolute inset-0"
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Dark gradient base */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f1419] to-[#0a0a0f]" />
+        
+        {/* Ambient orbs */}
+        <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-cyan-500/10 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[120px] translate-x-1/2" />
+        <div className="absolute bottom-0 left-1/3 w-[700px] h-[700px] bg-purple-500/10 rounded-full blur-[130px]" />
+        
+        {/* Grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
           style={{
-            background: `
-              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(91, 154, 160, 0.3) 0%, transparent 50%),
-              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(38, 97, 156, 0.2) 0%, transparent 50%)
-            `,
+            backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
           }}
         />
-
-        {/* Pattern onde marine */}
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(38, 97, 156, 1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(38, 97, 156, 1) 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px',
-          }}
-        />
-
+        
         {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {particleIndices.map((i) => (
-            <Particle key={i} index={i} />
-          ))}
-        </div>
+        {particles.map((i) => <Particle key={i} index={i} />)}
       </div>
 
       {/* ============================================
-          HERO SECTION - Cinematic Full Screen
+          HERO SECTION
           ============================================ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Spotlight Effect */}
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#D4AF37" />
+      <section className="relative min-h-screen flex items-center justify-center">
+        <SpotlightBeam className="-top-40 left-1/4" fill="#D4AF37" />
+        <SpotlightBeam className="-top-20 right-1/4" fill="#5B9AA0" />
         
-        {/* Aurora Background */}
-        <Aurora className="opacity-30" />
-        
-        {/* Animated Orbs Background - Maritime Relaxing Theme */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Riflessi d'acqua - PIU' SOFT */}
-          <motion.div
-            className="floating-orb w-[500px] h-[500px] -top-40 -left-40"
-            style={{ background: 'rgba(38, 97, 156, 0.15)', filter: 'blur(80px)' }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, 20, 0],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          {/* Riflesso turchese */}
-          <motion.div
-            className="floating-orb w-[400px] h-[400px] top-1/4 -right-40"
-            style={{ background: 'rgba(91, 154, 160, 0.2)', filter: 'blur(70px)' }}
-            animate={{
-              x: [0, -20, 0],
-              y: [0, 25, 0],
-              scale: [1, 1.08, 1],
-            }}
-            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          />
-          {/* Riflesso azzurro chiaro */}
-          <motion.div
-            className="floating-orb w-[350px] h-[350px] bottom-20 left-1/4"
-            style={{ background: 'rgba(126, 184, 196, 0.18)', filter: 'blur(60px)' }}
-            animate={{
-              x: [0, 20, 0],
-              y: [0, -15, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-          />
-        </div>
-
-        {/* Grid Pattern Overlay */}
-        <div className="grid-pattern opacity-30" />
-
-        {/* Hero Content */}
         <motion.div
-          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          className="relative z-10 max-w-6xl mx-auto px-4 text-center"
           style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
         >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="section-badge-futuristic mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-            Los Angeles
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
+            </span>
+            <span className="text-white/70 text-sm font-medium">Los Angeles • 2026</span>
           </motion.div>
 
           {/* Main Title */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.85] mb-8"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Crafted by Code</span>
+            <span className="text-white drop-shadow-2xl">Crafted by</span>
             <br />
-            <span className="text-onde-coral drop-shadow-[0_2px_20px_rgba(255,127,127,0.3)]">Touched by Soul</span>
+            <GradientText colors={["#5B9AA0", "#D4AF37", "#E8B4B8", "#5B9AA0"]}>
+              Code
+            </GradientText>
+            <br />
+            <span className="text-white/80">Touched by</span>
+            <br />
+            <motion.span 
+              className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #E8B4B8 0%, #D4AF37 50%, #5B9AA0 100%)',
+              }}
+              animate={{ 
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{ duration: 5, repeat: Infinity }}
+            >
+              Soul
+            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+            className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ delay: 0.4 }}
           >
-            AI-native publishing house. Timeless stories, reimagined.
+            Where technology meets artistry. Beautiful books, immersive games, 
+            and magical experiences—all free, all open.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ delay: 0.6 }}
           >
-            <Link href="#books">
-              <button className="btn-futuristic group">
-                <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  Explore Books
-                </span>
-              </button>
-            </Link>
-            <Link href="/about">
-              <button className="btn-outline-glow">
-                <span className="flex items-center gap-2">
-                  About Us
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </button>
+            <MovingBorder containerClassName="rounded-full">
+              <Link 
+                href="#books"
+                className="block px-8 py-4 text-white font-semibold text-lg hover:bg-white/5 transition-colors rounded-full"
+              >
+                Explore Books ✨
+              </Link>
+            </MovingBorder>
+            
+            <Link 
+              href="/games"
+              className="px-8 py-4 text-white/70 font-medium text-lg border border-white/10 rounded-full hover:bg-white/5 hover:border-white/20 transition-all"
+            >
+              Play Games 🎮
             </Link>
           </motion.div>
-        </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          <span className="text-gray-600 text-sm font-medium">Scroll</span>
-          <div className="scroll-indicator-line" />
+          {/* Scroll indicator */}
+          <motion.div
+            className="absolute bottom-12 left-1/2 -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ delay: 1, y: { duration: 1.5, repeat: Infinity } }}
+          >
+            <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
+              <motion.div 
+                className="w-1.5 h-1.5 bg-white/50 rounded-full"
+                animate={{ y: [0, 16, 0], opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* ============================================
-          BOOKS SECTION - Cinematic Cards
+          FEATURES BENTO GRID
           ============================================ */}
-      <section id="books" className="relative py-32">
-        {/* Decorative glow */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] floating-orb opacity-20"
-             style={{ background: 'var(--onde-coral)', filter: 'blur(150px)' }} />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Section Header */}
+      <section className="relative py-32">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="section-badge-futuristic">
-              <span className="w-2 h-2 rounded-full bg-onde-coral" />
-              Now Available
-            </span>
-            <h2 className="section-title-futuristic mb-4">Our Books</h2>
-            <p className="section-subtitle-futuristic">
-              Classic literature, illustrated with care. Beautiful editions for the digital age.
+            <span className="text-cyan-400 text-sm font-medium tracking-wider uppercase">Why Onde</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
+              Built Different
+            </h2>
+            <p className="text-white/50 max-w-xl mx-auto">
+              We create beautiful digital experiences with love and cutting-edge technology
             </p>
-            <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
 
-          {/* Books Grid */}
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <BentoGrid>
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <BentoGridItem
+                  title={feature.title}
+                  description={feature.description}
+                  icon={<span className="text-4xl">{feature.icon}</span>}
+                  className={feature.className}
+                />
+              </motion.div>
+            ))}
+          </BentoGrid>
+        </div>
+      </section>
+
+      {/* ============================================
+          BOOKS SECTION
+          ============================================ */}
+      <section id="books" className="relative py-32">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-amber-400 text-sm font-medium tracking-wider uppercase">Library</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mt-4 mb-6">
+              Featured Books
+            </h2>
+            <p className="text-white/50 max-w-xl mx-auto">
+              Classic literature with stunning AI-generated illustrations
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
             {books.map((book, index) => (
               <motion.div
                 key={book.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
+                transition={{ delay: index * 0.2 }}
               >
-                <TiltCard className="group">
-                  <motion.div
-                    className="card-holographic p-1 relative"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
+                <Card3D containerClassName="h-full">
+                  <GlowingCard 
+                    className="h-full"
+                    glowColor={book.gradient.includes('amber') ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}
                   >
-                    {/* Glow effect on hover */}
-                    <motion.div
-                      className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-                      style={{
-                        background: `radial-gradient(circle, ${book.gradient.includes('amber') ? '#FFD93D' : '#4ECDC4'}40 0%, transparent 70%)`,
-                        filter: 'blur(20px)',
-                      }}
-                    />
-
-                    <div className="bg-onde-dark-surface/80 backdrop-blur-xl rounded-3xl overflow-hidden">
-                      {/* Book Cover */}
-                      <div className={`aspect-[4/3] relative bg-gradient-to-br ${book.gradient}`}>
+                    <div className="bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
+                      {/* Cover */}
+                      <div className={`aspect-[16/10] relative bg-gradient-to-br ${book.gradient}`}>
                         <Image
                           src={book.cover}
                           alt={book.title}
                           fill
-                          className="object-contain p-6"
-                          priority={index === 0}
+                          className="object-contain p-8 drop-shadow-2xl"
                         />
-
-                        {/* Animated shimmer effect */}
-                        <motion.div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                          style={{
-                            background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)',
-                            backgroundSize: '200% 200%',
-                          }}
-                          animate={{ backgroundPosition: ['200% 200%', '-100% -100%'] }}
-                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                        />
-
-                        {/* Category Badge */}
-                        <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold
-                                       glass-dark text-white/90 backdrop-blur-md border border-white/10">
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+                        
+                        {/* Category badge */}
+                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-black/30 backdrop-blur-md text-white border border-white/10">
                           {book.category}
                         </span>
-
-                        {/* Price Badge */}
-                        <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold
-                                        ${book.price === 'Free' ? 'bg-emerald-500' : 'bg-amber-500'} text-white`}>
-                          {book.price}
+                        
+                        {/* Free badge */}
+                        <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">
+                          FREE
                         </span>
                       </div>
 
-                      {/* Book Info */}
-                      <div className="p-6">
-                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-onde-teal transition-colors">
-                          {book.title}
-                        </h3>
-                        <p className="text-onde-teal/80 text-sm mb-1">{book.subtitle}</p>
+                      {/* Info */}
+                      <div className="p-8">
+                        <h3 className="text-2xl font-bold text-white mb-1">{book.title}</h3>
+                        <p className="text-cyan-400 text-sm mb-1">{book.subtitle}</p>
                         <p className="text-white/40 text-xs mb-4">by {book.author}</p>
-                        <p className="text-white/70 text-sm leading-relaxed mb-6">
+                        <p className="text-white/60 text-sm leading-relaxed mb-8">
                           {book.description}
                         </p>
 
-                        {/* Download Buttons */}
-                        <div className="flex gap-3">
-                          <a
-                            href={book.pdfUrl}
-                            download
-                            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                                     bg-gradient-to-r from-onde-teal to-onde-blue text-white font-semibold text-sm
-                                     hover:shadow-lg hover:shadow-onde-teal/30 transition-all duration-300"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Download PDF
-                          </a>
-                          {book.epubUrl && (
-                            <a
-                              href={book.epubUrl}
-                              download
-                              className="px-4 py-3 rounded-xl bg-white/5 text-white/80 font-semibold text-sm
-                                       border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                            >
-                              EPUB
-                            </a>
-                          )}
-                        </div>
+                        <a
+                          href={book.pdfUrl}
+                          download
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download PDF
+                        </a>
                       </div>
                     </div>
-                  </motion.div>
-                </TiltCard>
+                  </GlowingCard>
+                </Card3D>
               </motion.div>
             ))}
           </div>
+
+          {/* See all books link */}
+          <motion.div
+            className="text-center mt-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <Link 
+              href="/libri"
+              className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+            >
+              <span>View all 1000+ books</span>
+              <motion.span 
+                className="inline-block"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* ============================================
-          CTA SECTION - Join Onde
+          TESTIMONIALS
+          ============================================ */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
+          <span className="text-purple-400 text-sm font-medium tracking-wider uppercase">Loved by readers</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">
+            What People Say
+          </h2>
+        </div>
+        
+        <InfiniteMovingCards items={testimonials} speed="slow" />
+      </section>
+
+      {/* ============================================
+          CTA SECTION
           ============================================ */}
       <section className="relative py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="relative border-gradient-animated overflow-hidden"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            {/* Inner content */}
-            <div className="relative p-12 md:p-16 text-center bg-onde-dark-surface rounded-[calc(1.5rem-2px)]">
-              {/* Background glow */}
-              <div className="absolute inset-0 overflow-hidden rounded-[calc(1.5rem-2px)]">
-                <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-onde-purple/20 blur-[100px]" />
-                <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-onde-teal/20 blur-[100px]" />
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <motion.span
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6
-                           glass-dark text-white/80 text-sm font-medium border border-white/10"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+        <div className="max-w-4xl mx-auto px-4">
+          <MovingBorder containerClassName="rounded-3xl" duration={5000}>
+            <div className="p-12 md:p-20 text-center bg-gray-900/50 backdrop-blur-xl rounded-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <span className="text-6xl mb-6 block">✨</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                  Start Your Journey
+                </h2>
+                <p className="text-white/50 text-lg mb-10 max-w-lg mx-auto">
+                  Join thousands of readers enjoying beautiful, free books 
+                  crafted with love and technology.
+                </p>
+                <Link 
+                  href="/libri"
+                  className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-orange-500/30 transition-all transform hover:scale-105"
                 >
-                  <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-                  More books coming
-                </motion.span>
-
-                <motion.h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                >
-                  Want to stay{' '}
-                  <span className="text-gradient-neon">updated</span>?
-                </motion.h2>
-
-                <motion.p
-                  className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                >
-                  We&apos;re preparing more beautiful editions of classic literature.
-                  Follow us on X for updates.
-                </motion.p>
-
-                <motion.div
-                  className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <a
-                    href="https://twitter.com/Onde_FRH"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-futuristic"
-                  >
-                    <span className="flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                      </svg>
-                      Follow @Onde_FRH
-                    </span>
-                  </a>
-                  <a
-                    href="https://twitter.com/FreeRiverHouse"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline-glow"
-                  >
-                    <span className="flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                      </svg>
-                      Follow @FreeRiverHouse
-                    </span>
-                  </a>
-                  <Link href="/about">
-                    <button className="btn-outline-glow">
-                      <span>About Us</span>
-                    </button>
-                  </Link>
-                </motion.div>
-              </div>
+                  Browse Library
+                  <span>→</span>
+                </Link>
+              </motion.div>
             </div>
-          </motion.div>
+          </MovingBorder>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="relative py-16 border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-white/30 text-sm">
+            © 2026 Onde • Crafted with ❤️ in Los Angeles
+          </p>
+        </div>
+      </footer>
+
+      {/* Floating Dock */}
+      <FloatingDock items={dockItems} />
     </div>
   )
 }
