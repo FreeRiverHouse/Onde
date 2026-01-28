@@ -20,7 +20,8 @@
 ### Deploy & Infra
 - [x] Verificare deploy onde.surf completato ✅
 - [x] Test curl dopo deploy ✅
-- [ ] Aggiornare ROADMAP con progressi
+- [x] Aggiornare ROADMAP con progressi ✅
+- [ ] **FIX:** onde.surf/frh → 307 redirect (serve AUTH_URL in Cloudflare)
 
 ### Trading
 - [ ] Monitorare win rate autotrader
