@@ -565,3 +565,54 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ============== SAFETY LIMITS (Added after 0% WR disaster) ==============
+MAX_DAILY_LOSS_CENTS = 500  # $5 max daily loss
+MAX_TRADES_PER_HOUR = 3     # Limit trade frequency
+PAPER_TRADE_MODE = True     # Start in paper trade mode!
+
+def check_daily_loss():
+    """Check if we've hit daily loss limit"""
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return 0
+    
+    today = datetime.now(timezone.utc).date()
+    daily_loss = 0
+    
+    with open(log_path) as f:
+        for line in f:
+            entry = json.loads(line.strip())
+            if entry.get("type") == "trade":
+                ts = entry.get("timestamp", "")
+                if ts.startswith(str(today)):
+                    pnl = entry.get("profit_cents", 0)
+                    if pnl < 0:
+                        daily_loss += abs(pnl)
+    
+    return daily_loss
+
+
+def check_hourly_trades():
+    """Count trades in last hour"""
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return 0
+    
+    hour_ago = datetime.now(timezone.utc) - timedelta(hours=1)
+    count = 0
+    
+    with open(log_path) as f:
+        for line in f:
+            entry = json.loads(line.strip())
+            if entry.get("type") == "trade":
+                ts = entry.get("timestamp", "")
+                try:
+                    trade_time = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                    if trade_time > hour_ago:
+                        count += 1
+                except:
+                    pass
+    
+    return count
