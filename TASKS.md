@@ -401,6 +401,30 @@
 - **Priority**: P3
 - **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
 
+### [T205] Install Playwright for automated testing
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy script falls back to curl tests. Playwright would enable full browser testing (JS rendering, interactions).
+
+### [T206] Fix onde.surf GH Actions deploy (billing issue)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct.
+
+### [T207] Create centralized test-pre-deploy.sh script
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: tools/tech-support/test-pre-deploy.sh doesn't exist but is referenced. Create unified test script.
+
 ### [T098] Generare favicon.ico da SVG per compatibilità legacy
 - **Status**: DONE
 - **Owner**: @clawd
@@ -548,5 +572,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:10 PST*
+*Ultimo aggiornamento: 2026-01-28 15:15 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
