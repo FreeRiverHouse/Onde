@@ -114,12 +114,13 @@
 ## 📋 TODO - AUTOTRADER V2
 
 ### [T033] Backtest del nuovo modello su dati storici
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Verificare che il nuovo Black-Scholes model avrebbe fatto meglio sui 41 trade persi
+- **Notes**: ✅ v2 model avrebbe SKIPPATO tutti 41 trade! v1 calcolava edge 45% quando era in realtà <10%. Script: backtest-v2-model.py
 
 ### [T034] Alert Telegram se balance < $5
 - **Status**: DONE
@@ -320,6 +321,30 @@
 - **Priority**: P3
 - **Notes**: Chart con price action e trade markers
 
+### [T089] Verificare v2 autotrader sta usando modello corretto
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Backtest mostra v2 avrebbe skippato tutto - verificare che sia attivo!
+
+### [T090] Aggiungere YES bets quando trend bullish
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T087]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Se momentum è fortemente bullish, considerare YES invece di NO
+
+### [T091] Log edge calcolato per ogni skip
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Debug: loggare il motivo preciso per cui ogni trade viene skippato
+
 ---
 
 ## ✅ DONE
@@ -404,5 +429,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 14:40 PST*
+*Ultimo aggiornamento: 2026-01-28 14:50 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
