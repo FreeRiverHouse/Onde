@@ -999,11 +999,162 @@
     0 0 90px rgba(255, 215, 0, 0.1);
 }
 
-/* Responsive */
+/* ============ RESPONSIVE ============ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .full-page-bg {
+    padding: 16px;
+  }
+  
+  .header {
+    padding: 10px 16px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .glass-card {
+    border-radius: 16px;
+  }
+  
+  .action-btn {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+  
+  .luna-img, .luna-map-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
+  .full-page-bg {
+    padding: 12px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  
+  .title {
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .header-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .mini-stats {
+    font-size: 12px;
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .room-actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .action-btn {
+    width: 100%;
+    padding: 16px;
+  }
+  
+  .luna-img, .luna-map-img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .luna-container {
+    transform: scale(0.9);
+  }
+  
+  .hotspot-label {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  
+  .outside-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .outside-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
   .achievement-popup { padding: 12px 16px; }
   .achievement-icon { font-size: 2rem; }
   .daily-reward-popup { padding: 24px 32px; }
   .reward-icon { font-size: 3rem; }
   .mini-game-area { height: 250px; }
+  
+  .xp-bar-container {
+    margin: 8px 0;
+  }
+  
+  .footer {
+    font-size: 11px;
+    margin-top: auto;
+    padding-bottom: 10px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+  .title {
+    font-size: 16px;
+  }
+  
+  .mini-stats span {
+    font-size: 11px;
+  }
+  
+  .luna-img, .luna-map-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .action-btn {
+    padding: 14px;
+    font-size: 14px;
+  }
+}
+
+/* Short screens (landscape mobile) */
+@media (max-height: 600px) {
+  .header {
+    margin-bottom: 8px;
+  }
+  
+  .mini-stats {
+    margin-bottom: 8px;
+  }
+  
+  .luna-container {
+    transform: scale(0.8);
+  }
+  
+  .room-actions {
+    margin-top: 8px;
+  }
+  
+  .footer {
+    display: none;
+  }
 }
