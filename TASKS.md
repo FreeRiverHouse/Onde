@@ -100,21 +100,13 @@
 
 ## 📋 TODO - TRADING
 
-### [T030] Settlement tracking automatico
-- **Status**: TODO
-- **Owner**: 
-- **Depends**: -
-- **Blocks**: [T031]
-- **Priority**: P1
-- **Notes**: Tracciare BTC price a expiry per calcolare win/loss reale
-
 ### [T031] Analisi win rate reale
 - **Status**: TODO
 - **Owner**: 
-- **Depends**: [T030]
+- **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Dopo settlement tracking, calcolare stats accurate
+- **Notes**: Settlement tracking completato (T109) - ora calcolare stats accurate
 
 ### [T032] Ottimizzare se win rate < 50%
 - **Status**: TODO
@@ -238,6 +230,34 @@
 
 ---
 
+## 📋 TODO - AUTOTRADER IMPROVEMENTS
+
+### [T080] Cron settlement tracker ogni ora
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Eseguire kalshi-settlement-tracker.py periodicamente
+
+### [T081] Alert Telegram se win rate < 40%
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T031]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Notifica se performance scende troppo
+
+### [T082] Dashboard trading stats su /trade
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Pagina web con win rate, PnL, ultimi trade
+
+---
+
 ## ✅ DONE
 
 ### [T100] Deploy onde.surf
@@ -294,7 +314,13 @@
 - **Completed**: 2026-01-28
 - **Notes**: scripts/analyze-trades-pnl.py
 
+### [T109] Settlement tracking automatico
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: scripts/kalshi-settlement-tracker.py - multi-source BTC price fetching
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:03 PST*
+*Ultimo aggiornamento: 2026-01-28 13:43 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
