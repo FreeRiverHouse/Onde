@@ -17,18 +17,19 @@ import {
   WavyBackground
 } from '@/components/ui/aceternity'
 
-// Particle for ambient background
+// Particle for ambient background - Ocean bubbles
 function Particle({ index }: { index: number }) {
-  const colors = ['#5B9AA0', '#7EB8C4', '#D4AF37', '#26619C', '#E8B4B8']
+  // Ocean colors - soft blues, teals, and sparkles
+  const colors = ['#5EEAD4', '#67E8F9', '#A5F3FC', '#FFFFFF', '#FDE68A']
   const color = colors[index % colors.length]
   
   const [values, setValues] = useState({ x: 50, size: 3, delay: 0, duration: 20 })
   useEffect(() => {
     setValues({
       x: Math.random() * 100,
-      size: 2 + Math.random() * 6,
+      size: 3 + Math.random() * 8,
       delay: Math.random() * 20,
-      duration: 15 + Math.random() * 15
+      duration: 12 + Math.random() * 18
     })
   }, [])
 
@@ -130,29 +131,29 @@ export default function Home() {
   const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => i), [])
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a0f] overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
       {/* ============================================
-          GLOBAL BACKGROUND
+          GLOBAL BACKGROUND - Ocean Relaxing + Kids Friendly
           ============================================ */}
       <div className="fixed inset-0 pointer-events-none">
-        {/* Dark gradient base */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f1419] to-[#0a0a0f]" />
+        {/* Soft ocean gradient */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }} />
         
-        {/* Ambient orbs */}
-        <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-cyan-500/10 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[120px] translate-x-1/2" />
-        <div className="absolute bottom-0 left-1/3 w-[700px] h-[700px] bg-purple-500/10 rounded-full blur-[130px]" />
+        {/* Warm sun glow */}
+        <div className="absolute -top-40 right-1/4 w-[600px] h-[600px] bg-amber-300/30 rounded-full blur-[100px]" />
+        <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-cyan-300/20 rounded-full blur-[80px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-300/25 rounded-full blur-[90px]" />
         
-        {/* Grid pattern */}
+        {/* Playful wave pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10' stroke='%235B9AA0' fill='none' stroke-width='2'/%3E%3C/svg%3E")`,
+            backgroundSize: '100px 20px',
           }}
         />
         
-        {/* Floating particles */}
+        {/* Floating particles - ocean bubbles */}
         {particles.map((i) => <Particle key={i} index={i} />)}
       </div>
 
@@ -171,13 +172,10 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
-            </span>
-            <span className="text-white/70 text-sm font-medium">Los Angeles • 2026</span>
+            <span className="text-2xl">🌊</span>
+            <span className="text-teal-700 text-sm font-medium">Los Angeles • Made with ❤️</span>
           </motion.div>
 
           {/* Main Title */}
@@ -187,37 +185,37 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="text-white drop-shadow-2xl">Crafted by</span>
+            <span className="text-teal-800 drop-shadow-sm">Crafted by</span>
             <br />
-            <GradientText colors={["#5B9AA0", "#D4AF37", "#E8B4B8", "#5B9AA0"]}>
+            <GradientText colors={["#0D9488", "#D97706", "#EC4899", "#0D9488"]}>
               Code
             </GradientText>
             <br />
-            <span className="text-white/80">Touched by</span>
+            <span className="text-teal-700">Touched by</span>
             <br />
             <motion.span 
               className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: 'linear-gradient(135deg, #E8B4B8 0%, #D4AF37 50%, #5B9AA0 100%)',
+                backgroundImage: 'linear-gradient(135deg, #F472B6 0%, #FBBF24 50%, #34D399 100%)',
               }}
               animate={{ 
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}
               transition={{ duration: 5, repeat: Infinity }}
             >
-              Soul
+              Soul ✨
             </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto mb-12"
+            className="text-xl md:text-2xl text-teal-600/80 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Where technology meets artistry. Beautiful books, immersive games, 
-            and magical experiences—all free, all open.
+            Beautiful books for curious minds 📚 Fun games for happy kids 🎮 
+            Free forever, made with love!
           </motion.p>
 
           {/* CTA Buttons */}
@@ -227,20 +225,20 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <MovingBorder containerClassName="rounded-full">
-              <Link 
-                href="#books"
-                className="block px-8 py-4 text-white font-semibold text-lg hover:bg-white/5 transition-colors rounded-full"
-              >
-                Explore Books ✨
-              </Link>
-            </MovingBorder>
+            <Link 
+              href="#books"
+              className="group px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-105 transition-all flex items-center gap-2"
+            >
+              <span>Explore Books</span>
+              <span className="text-xl group-hover:rotate-12 transition-transform">📚</span>
+            </Link>
             
             <Link 
               href="/games"
-              className="px-8 py-4 text-white/70 font-medium text-lg border border-white/10 rounded-full hover:bg-white/5 hover:border-white/20 transition-all"
+              className="group px-8 py-4 bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 transition-all flex items-center gap-2"
             >
-              Play Games 🎮
+              <span>Play Games</span>
+              <span className="text-xl group-hover:animate-bounce">🎮</span>
             </Link>
           </motion.div>
 
@@ -251,12 +249,15 @@ export default function Home() {
             animate={{ opacity: 1, y: [0, 10, 0] }}
             transition={{ delay: 1, y: { duration: 1.5, repeat: Infinity } }}
           >
-            <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
-              <motion.div 
-                className="w-1.5 h-1.5 bg-white/50 rounded-full"
-                animate={{ y: [0, 16, 0], opacity: [1, 0.3, 1] }}
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-teal-500 text-sm font-medium">Scroll down</span>
+              <motion.span 
+                className="text-2xl"
+                animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-              />
+              >
+                🐠
+              </motion.span>
             </div>
           </motion.div>
         </motion.div>
@@ -273,12 +274,14 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-cyan-400 text-sm font-medium tracking-wider uppercase">Why Onde</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
-              Built Different
+            <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
+              <span>🌟</span> Why Onde <span>🌟</span>
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
+              Made with Love
             </h2>
-            <p className="text-white/50 max-w-xl mx-auto">
-              We create beautiful digital experiences with love and cutting-edge technology
+            <p className="text-teal-600/70 max-w-xl mx-auto">
+              Beautiful stories and fun games for the whole family! 👨‍👩‍👧‍👦
             </p>
           </motion.div>
 
@@ -314,12 +317,14 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-amber-400 text-sm font-medium tracking-wider uppercase">Library</span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mt-4 mb-6">
+            <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
+              <span>📖</span> Library <span>📖</span>
+            </span>
+            <h2 className="text-4xl md:text-6xl font-bold text-teal-800 mt-4 mb-6">
               Featured Books
             </h2>
-            <p className="text-white/50 max-w-xl mx-auto">
-              Classic literature with stunning AI-generated illustrations
+            <p className="text-teal-600/70 max-w-xl mx-auto">
+              Classic stories with beautiful illustrations for young readers! 🎨
             </p>
           </motion.div>
 
@@ -337,7 +342,7 @@ export default function Home() {
                     className="h-full"
                     glowColor={book.gradient.includes('amber') ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}
                   >
-                    <div className="bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
+                    <div className="bg-white/90 backdrop-blur-xl border-2 border-teal-200 rounded-2xl overflow-hidden shadow-xl">
                       {/* Cover */}
                       <div className={`aspect-[16/10] relative bg-gradient-to-br ${book.gradient}`}>
                         <Image
@@ -346,36 +351,33 @@ export default function Home() {
                           fill
                           className="object-contain p-8 drop-shadow-2xl"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
                         
                         {/* Category badge */}
-                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-black/30 backdrop-blur-md text-white border border-white/10">
+                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-teal-700 shadow-md">
                           {book.category}
                         </span>
                         
                         {/* Free badge */}
-                        <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">
-                          FREE
+                        <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-md flex items-center gap-1">
+                          <span>✨</span> FREE
                         </span>
                       </div>
 
                       {/* Info */}
                       <div className="p-8">
-                        <h3 className="text-2xl font-bold text-white mb-1">{book.title}</h3>
-                        <p className="text-cyan-400 text-sm mb-1">{book.subtitle}</p>
-                        <p className="text-white/40 text-xs mb-4">by {book.author}</p>
-                        <p className="text-white/60 text-sm leading-relaxed mb-8">
+                        <h3 className="text-2xl font-bold text-teal-800 mb-1">{book.title}</h3>
+                        <p className="text-amber-600 text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-teal-500 text-xs mb-4">by {book.author}</p>
+                        <p className="text-teal-600/70 text-sm leading-relaxed mb-8">
                           {book.description}
                         </p>
 
                         <a
                           href={book.pdfUrl}
                           download
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all hover:scale-105"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
+                          <span>📥</span>
                           Download PDF
                         </a>
                       </div>
@@ -395,15 +397,15 @@ export default function Home() {
           >
             <Link 
               href="/libri"
-              className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors group font-medium"
             >
               <span>View all 1000+ books</span>
               <motion.span 
-                className="inline-block"
+                className="inline-block text-xl"
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
-                →
+                📚
               </motion.span>
             </Link>
           </motion.div>
@@ -415,9 +417,11 @@ export default function Home() {
           ============================================ */}
       <section className="relative py-24 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
-          <span className="text-purple-400 text-sm font-medium tracking-wider uppercase">Loved by readers</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">
-            What People Say
+          <span className="text-pink-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
+            <span>💬</span> Loved by readers <span>💬</span>
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mt-4">
+            What Families Say
           </h2>
         </div>
         
@@ -429,39 +433,39 @@ export default function Home() {
           ============================================ */}
       <section className="relative py-32">
         <div className="max-w-4xl mx-auto px-4">
-          <MovingBorder containerClassName="rounded-3xl" duration={5000}>
-            <div className="p-12 md:p-20 text-center bg-gray-900/50 backdrop-blur-xl rounded-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+          <div className="p-12 md:p-20 text-center bg-white/80 backdrop-blur-xl rounded-3xl border-2 border-teal-200 shadow-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-6xl mb-6 block">🌈</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-teal-800 mb-6">
+                Start Reading Today!
+              </h2>
+              <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
+                Join families everywhere enjoying beautiful, free books 
+                made with love for curious young minds! 📚✨
+              </p>
+              <Link 
+                href="/libri"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-teal-500/30 transition-all transform hover:scale-105"
               >
-                <span className="text-6xl mb-6 block">✨</span>
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                  Start Your Journey
-                </h2>
-                <p className="text-white/50 text-lg mb-10 max-w-lg mx-auto">
-                  Join thousands of readers enjoying beautiful, free books 
-                  crafted with love and technology.
-                </p>
-                <Link 
-                  href="/libri"
-                  className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-orange-500/30 transition-all transform hover:scale-105"
-                >
-                  Browse Library
-                  <span>→</span>
-                </Link>
-              </motion.div>
-            </div>
-          </MovingBorder>
+                <span>Browse Library</span>
+                <span className="text-2xl">📖</span>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative py-16 border-t border-white/5">
+      <footer className="relative py-16 border-t border-teal-200">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-white/30 text-sm">
-            © 2026 Onde • Crafted with ❤️ in Los Angeles
+          <p className="text-teal-500 text-sm flex items-center justify-center gap-2">
+            <span>🌊</span>
+            © 2026 Onde • Made with ❤️ in Los Angeles
+            <span>☀️</span>
           </p>
         </div>
       </footer>

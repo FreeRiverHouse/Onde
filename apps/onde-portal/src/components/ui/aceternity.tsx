@@ -145,18 +145,19 @@ export function BentoGridItem({
   return (
     <GlowingCard
       className={cn(
-        "row-span-1 bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 p-6 flex flex-col justify-between",
+        "row-span-1 bg-white/80 backdrop-blur-xl border-2 border-teal-200 p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow",
         className
       )}
+      glowColor="rgba(20, 184, 166, 0.3)"
     >
       {header && <div className="mb-4">{header}</div>}
       <div>
         {icon && <div className="mb-3">{icon}</div>}
         {title && (
-          <h3 className="font-bold text-lg text-white mb-2 tracking-tight">{title}</h3>
+          <h3 className="font-bold text-lg text-teal-800 mb-2 tracking-tight">{title}</h3>
         )}
         {description && (
-          <p className="text-white/60 text-sm leading-relaxed">{description}</p>
+          <p className="text-teal-600/70 text-sm leading-relaxed">{description}</p>
         )}
       </div>
     </GlowingCard>
@@ -171,7 +172,7 @@ export function FloatingDock({ items, className }: {
   return (
     <div className={cn("fixed bottom-8 left-1/2 -translate-x-1/2 z-50", className)}>
       <motion.div 
-        className="flex items-center gap-3 bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-full px-4 py-3"
+        className="flex items-center gap-3 bg-white/90 backdrop-blur-xl border-2 border-teal-200 rounded-full px-4 py-3 shadow-xl"
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1, type: "spring" }}
@@ -180,13 +181,13 @@ export function FloatingDock({ items, className }: {
           <motion.a
             key={idx}
             href={item.href}
-            className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 transition-colors group"
+            className="relative flex items-center justify-center w-12 h-12 rounded-full bg-teal-50 hover:bg-teal-100 transition-colors group"
             whileHover={{ scale: 1.2, y: -8 }}
             whileTap={{ scale: 0.9 }}
           >
             <span className="text-2xl">{item.icon}</span>
             <motion.span
-              className="absolute -top-10 px-3 py-1 bg-white text-black text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap"
+              className="absolute -top-10 px-3 py-1 bg-teal-600 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap shadow-lg"
               initial={{ y: 10 }}
               whileHover={{ y: 0 }}
             >
@@ -344,12 +345,12 @@ export function InfiniteMovingCards({ items, direction = "left", speed = "normal
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="w-[350px] max-w-full relative rounded-2xl border border-white/10 bg-gray-900/50 backdrop-blur-xl px-8 py-6 flex-shrink-0"
+            className="w-[350px] max-w-full relative rounded-2xl border-2 border-teal-200 bg-white/80 backdrop-blur-xl px-8 py-6 flex-shrink-0 shadow-lg"
           >
-            <p className="text-white/80 text-sm leading-relaxed mb-4">"{item.quote}"</p>
+            <p className="text-teal-700 text-sm leading-relaxed mb-4">"{item.quote}"</p>
             <div>
-              <p className="text-white font-medium">{item.name}</p>
-              <p className="text-white/50 text-sm">{item.title}</p>
+              <p className="text-teal-800 font-medium">{item.name}</p>
+              <p className="text-teal-500 text-sm">{item.title}</p>
             </div>
           </div>
         ))}
