@@ -256,12 +256,13 @@
 ## 📋 TODO - AUTOTRADER IMPROVEMENTS
 
 ### [T081] Alert Telegram se win rate < 40%
-- **Status**: TODO
-- **Owner**: 
-- **Depends**: [T031]
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Notifica se performance scende troppo
+- **Notes**: ✅ kalshi-winrate-alert.py + cron ogni 6h. Alert file kalshi-low-winrate.alert per heartbeat
 
 ### [T082] Dashboard trading stats su /trade
 - **Status**: TODO
@@ -294,6 +295,30 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Alle 23:00 PST: trades oggi, win rate, PnL giorno
+
+### [T086] Autotrader: pausa se PnL giornaliero < -$1
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Stop-loss giornaliero per limitare perdite
+
+### [T087] Migliorare modello: momentum tracking multi-timeframe
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Usare 1h, 4h, 24h momentum invece di solo volatility istantanea
+
+### [T088] Grafici trend BTC su /trade dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Chart con price action e trade markers
 
 ---
 
@@ -379,5 +404,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 14:35 PST*
+*Ultimo aggiornamento: 2026-01-28 14:40 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
