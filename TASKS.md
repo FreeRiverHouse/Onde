@@ -100,21 +100,13 @@
 
 ## 📋 TODO - TRADING
 
-### [T031] Analisi win rate reale
+### [T032] Ottimizzare se win rate < 50%
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P2
-- **Notes**: Settlement tracking completato (T109) - ora calcolare stats accurate
-
-### [T032] Ottimizzare se win rate < 50%
-- **Status**: TODO
-- **Owner**: 
-- **Depends**: [T031]
-- **Blocks**: -
-- **Priority**: P2
-- **Notes**: Tune parametri Kelly/MinEdge se serve
+- **Priority**: P1  # URGENTE - win rate 0%!
+- **Notes**: Win rate 0%! Problemi: 1) 100% NO bias 2) Sottostima volatilità rialzista. Fix: aumentare sigma, rivedere probabilità direzionale
 
 ---
 
@@ -318,7 +310,13 @@
 - **Completed**: 2026-01-28
 - **Notes**: Cron job `0 * * * *` esegue settlement tracker
 
+### [T111] Analisi win rate reale
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: 41 trade NO, 0% win rate - BTC +2.3% ($88k→$90k). Script: analyze-winrate.py
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:45 PST*
+*Ultimo aggiornamento: 2026-01-28 13:52 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

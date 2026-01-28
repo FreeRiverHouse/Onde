@@ -238,9 +238,12 @@ def process_settlements():
                 entry = json.loads(line.strip())
                 if entry.get('type') == 'trade' and entry.get('order_status') == 'executed':
                     ticker = entry.get('ticker')
-                    # Skip if already processed
-                    if ticker not in settlements['trades']:
-                        pending_trades.append(entry)
+                    # Skip if already settled successfully
+                    existing = settlements['trades'].get(ticker, {})
+                    if existing.get('status') == 'settled':
+                        continue
+                    # Include if not processed or if price fetch failed (retry)
+                    pending_trades.append(entry)
             except json.JSONDecodeError:
                 continue
     
