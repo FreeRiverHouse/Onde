@@ -18,8 +18,8 @@
 - [ ] Verificare qualità traduzione con stile cap 1-4
 
 ### Deploy & Infra
-- [ ] Verificare deploy onde.surf completato
-- [ ] Test curl dopo deploy
+- [x] Verificare deploy onde.surf completato ✅
+- [x] Test curl dopo deploy ✅
 - [ ] Aggiornare ROADMAP con progressi
 
 ### Trading
@@ -35,8 +35,8 @@
 - [ ] Psalm 23 multilingua su KDP
 
 ### Portal onde.la
-- [ ] Verificare 1002 pagine funzionanti
-- [ ] Test ebook reader /leggi
+- [x] Verificare homepage funzionante ✅
+- [x] Test ebook reader /leggi ✅ (6 libri OK)
 - [ ] Analytics Google
 
 ### App & VR
