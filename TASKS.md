@@ -45,6 +45,15 @@
 - [ ] FreeRiver Flow voice prototype
 - [ ] Onde Books VR per Quest
 
+### 🌙 Moonlight House (PRIORITÀ - da professionalizzare!)
+- [ ] Implementare glassmorphism UI
+- [ ] Aggiungere glow effects
+- [ ] Sostituire emoji con sprite animati
+- [ ] Particle system (stelle, sparkles)
+- [ ] Transizioni stanze con Framer Motion
+- [ ] Responsive + mobile test
+- [ ] **Target: qualità App Store featured**
+
 ## 📅 BACKLOG (Media Priorità)
 
 ### Content
