@@ -3,10 +3,16 @@
 ## ⏰ REGOLE HEARTBEAT (ogni 5 min)
 
 1. **Leggi TASKS.md** — prendi il prossimo task non completato
-2. **Lavora sul task** — usa agenti Claude Code se serve
+2. **Lavora sul task** — ⚠️ SENZA MODELLI (no traduzioni, no AI generation)
 3. **Aggiorna TASKS.md** — segna completato, aggiungi nuovi
 4. **Committa progressi** — git add/commit/push
 5. **Se tutto fatto** → HEARTBEAT_OK
+
+## 🚫 STANOTTE: NO MODELLI
+- ❌ Traduzioni
+- ❌ Libri illustrati  
+- ❌ Content AI
+- ✅ Infra, git, analisi, docs
 
 ## 🔍 CHECK RAPIDI (ogni heartbeat)
 
