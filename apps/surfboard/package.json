@@ -11,6 +11,7 @@
     "deploy": "npm run build:cf && npx wrangler pages deploy .vercel/output/static --project-name=onde-surf"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
     "@auth/core": "^0.41.0",
     "@opennextjs/cloudflare": "^1.14.10",
     "lucide-react": "^0.303.0",
