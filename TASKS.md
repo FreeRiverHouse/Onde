@@ -7,7 +7,8 @@
 | Task | Agente | Status |
 |------|--------|--------|
 | Deploy onde.surf | GitHub Actions | ✅ completato |
-| Traduzione cap 5-6 Republic of Innovation | diretto | ✅ cap 5 DONE, 🔄 cap 6 |
+| Traduzione cap 5 Republic of Innovation | diretto | ✅ COMPLETATO (594 righe) |
+| Traduzione capussela-spirito-EN | translate-amd.py | 🔄 running (PID 65357) |
 | Autotrader Kalshi | Script Python | ✅ running |
 
 ## 📋 PROSSIMI (Alta Priorità)
@@ -69,6 +70,7 @@
 - [x] Trigger deploy onde.surf via GitHub Actions
 - [x] **Deploy onde.surf COMPLETATO** ✅
 - [x] **Traduzione CAP 5 "Rimedi liberali" COMPLETATO** (~12k parole)
+- [x] **Traduzione AMD/tinygrad COMPLETATA** (594 righe, 20k parole) → traduzioni/republic-of-innovation-IT.md
 
 ---
 
