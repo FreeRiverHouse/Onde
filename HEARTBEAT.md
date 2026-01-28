@@ -2,26 +2,27 @@
 
 ## ⚠️ REGOLA FONDAMENTALE: MAI FERMARSI!
 
-**NON RISPONDERE MAI "HEARTBEAT_OK" E BASTA!**
-
-Ogni heartbeat DEVE:
-1. Controllare watchdog/autotrader
-2. Prendere un task da TASKS.md
-3. Fare almeno UNA cosa utile
-4. Aggiornare TASKS.md
-5. Committare progressi
+**NON CHIEDERE MAI A MATTIA COSA FARE!**
+**PRENDI UN TASK DALLA LISTA E COMPLETALO!**
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
 ```
 1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
-2. CHECK: Agenti bloccati? → sessions_list
-3. READ: TASKS.md → prendi prossimo task non completato
-4. WORK: Lavora sul task (anche piccolo!)
-5. UPDATE: Segna completato, aggiungi nuovi task
+2. READ: TASKS.md → prendi prossimo task non completato  
+3. WORK: Completa il task!
+4. UPDATE: Segna completato in TASKS.md
+5. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
 6. COMMIT: git add/commit/push
-7. REPORT: Breve status di cosa hai fatto
+7. Continua col prossimo task
 ```
+
+## 📣 REPORT ORARIO A MATTIA
+
+Ogni ORA manda su Telegram:
+- Task completati nell'ultima ora
+- Task aggiunti alla lista
+- Stato autotrader
 
 ## 🔥 PRIORITÀ TASK (in ordine)
 
@@ -31,20 +32,19 @@ Ogni heartbeat DEVE:
 4. **Libri** - TIER 1 da ROADMAP
 5. **Content** - Social, traduzioni
 
-## 🚫 MAI DIRE SOLO "HEARTBEAT_OK"
+## 🚫 COMPORTAMENTI VIETATI
 
-❌ SBAGLIATO:
-```
-HEARTBEAT_OK
-```
+❌ Dire solo "HEARTBEAT_OK" e aspettare
+❌ Chiedere a Mattia "cosa faccio?"
+❌ Fermarsi senza motivo
+❌ Non committare i progressi
 
-✅ GIUSTO:
-```
-- ✅ Autotrader running (PID 12345)
-- 🔨 Lavorato su: [task specifico]
-- 📝 Commit: [hash breve]
-HEARTBEAT_OK
-```
+## ✅ COMPORTAMENTO CORRETTO
+
+1. Prendi task → Completalo → Committa
+2. Aggiungi 3 task nuovi
+3. Prendi prossimo task → Ripeti
+4. Ogni ora: report a Mattia
 
 ## 🤖 AUTOTRADER WATCHDOG
 
@@ -53,25 +53,24 @@ Cron ogni 5 min: `/Users/mattia/Projects/Onde/scripts/watchdog-autotrader.sh`
 - Se morto → riavvia automaticamente
 - Log: `scripts/watchdog.log`
 
-## 📋 COSA FARE SE NON CI SONO TASK URGENTI
+## 📋 DOVE TROVARE TASK
 
-1. **Memory maintenance** - Leggi memory/, aggiorna MEMORY.md
-2. **Code review** - Controlla TODOs nel codice
-3. **Docs** - Aggiorna documentazione
-4. **Git cleanup** - Commit pending changes
-5. **Analisi trades** - Controlla kalshi-trades.jsonl
+1. **TASKS.md** - Lista task attivi
+2. **ROADMAP.md** - Obiettivi a lungo termine
+3. **CLAUDE.md** - Contesto progetto
+4. **GitHub Issues** - Se esistono
 
-## 📝 TEMPLATE RISPOSTA HEARTBEAT
+## 💡 COME AGGIUNGERE TASK UTILI
 
-```
-📊 HEARTBEAT [HH:MM]
-- Autotrader: ✅/❌
-- Task: [cosa hai fatto]
-- Next: [prossimo task]
-HEARTBEAT_OK
-```
+Dopo ogni task completato, pensa:
+- Cosa manca al progetto?
+- Cosa migliorerebbe la UX?
+- Cosa automatizzerebbe processi?
+- Cosa è nel ROADMAP ma non in TASKS?
+
+Aggiungi 3 task concreti e fattibili.
 
 ---
 
-*Aggiornato: 2026-01-28 12:55 PST*
-*MAI FERMARSI. SEMPRE LAVORARE.*
+*Aggiornato: 2026-01-28 12:59 PST*
+*AUTONOMIA TOTALE. MAI FERMARSI.*
