@@ -232,14 +232,6 @@
 
 ## 📋 TODO - AUTOTRADER IMPROVEMENTS
 
-### [T080] Cron settlement tracker ogni ora
-- **Status**: TODO
-- **Owner**: 
-- **Depends**: -
-- **Blocks**: -
-- **Priority**: P1
-- **Notes**: Eseguire kalshi-settlement-tracker.py periodicamente
-
 ### [T081] Alert Telegram se win rate < 40%
 - **Status**: TODO
 - **Owner**: 
@@ -320,7 +312,13 @@
 - **Completed**: 2026-01-28
 - **Notes**: scripts/kalshi-settlement-tracker.py - multi-source BTC price fetching
 
+### [T110] Cron settlement tracker ogni ora
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Cron job `0 * * * *` esegue settlement tracker
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:43 PST*
+*Ultimo aggiornamento: 2026-01-28 13:45 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
