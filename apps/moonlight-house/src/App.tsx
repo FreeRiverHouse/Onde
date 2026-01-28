@@ -1,5 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
+
+// Animation variants for room transitions
+const pageTransition = {
+  initial: { opacity: 0, scale: 0.95 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 1.05 },
+  transition: { duration: 0.3, ease: "easeInOut" }
+};
 
 // Base path for assets
 const BASE_URL = import.meta.env.BASE_URL || '/';
@@ -581,7 +590,13 @@ function App() {
   // Map View
   if (showMap) {
     return (
-      <div className={`full-page-bg map-view ${timeClass}`}>
+      <motion.div 
+        key="map-view"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 1.05 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={`full-page-bg map-view ${timeClass}`}>
         {showAchievement && <AchievementPopup achievement={showAchievement} lang={lang} onClose={() => setShowAchievement(null)} />}
         {eventMessage && <div className="event-toast glass-card">{eventMessage}</div>}
         
@@ -652,13 +667,20 @@ function App() {
         </div>
 
         <p className="footer map-footer">{t.footer}</p>
-      </div>
+      </motion.div>
     );
   }
 
   // Room View
   return (
-    <div className={`full-page-bg room-view ${timeClass}`} style={{ backgroundImage: `url(${currentRoomData.bg})` }}>
+    <motion.div 
+      key={`room-${currentRoom}`}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`full-page-bg room-view ${timeClass}`} 
+      style={{ backgroundImage: `url(${currentRoomData.bg})` }}>
       <div className="overlay" />
       {showAchievement && <AchievementPopup achievement={showAchievement} lang={lang} onClose={() => setShowAchievement(null)} />}
       {eventMessage && <div className="event-toast glass-card">{eventMessage}</div>}
@@ -705,7 +727,7 @@ function App() {
       </div>
 
       <p className="footer">{t.footer}</p>
-    </div>
+    </motion.div>
   );
 }
 
