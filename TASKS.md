@@ -348,7 +348,7 @@
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-28
-- **Notes**: betting/page.tsx aveva `export const runtime = 'edge'` duplicato. Fixed e deploy triggered.
+- **Notes**: betting/page.tsx aveva `export const runtime = 'edge'` duplicato. Fixed e pushed. ⚠️ Deploy fallito per GitHub billing issue!
 
 ---
 
