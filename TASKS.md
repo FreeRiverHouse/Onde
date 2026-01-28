@@ -30,12 +30,13 @@
 - **Notes**: ✅ NLLB-200 (facebook/nllb-200-distilled-600M) installato. Script: ~/clawd/translator.py
 
 ### [T011] Tradurre libro Capussela IT→EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
+- **Completed**: 2026-01-28
 - **Depends**: [T010]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: capussela-spirito. Chi finisce T010 prende questo.
+- **Notes**: ✅ Già completato in T102! File: traduzioni/capussela-spirito-EN.txt (1622 righe). "Capussela spirito" = "Republic of Innovation"
 
 ### [T012] Tradurre Republic of Innovation cap 6+
 - **Status**: TODO
