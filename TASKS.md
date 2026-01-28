@@ -8,7 +8,7 @@
 |------|--------|--------|
 | Deploy onde.surf | GitHub Actions | ✅ completato |
 | Traduzione cap 5 Republic of Innovation | diretto | ✅ COMPLETATO (594 righe) |
-| Traduzione capussela-spirito-EN | translate-amd.py | 🔄 running (PID 65357) |
+| Traduzione capussela-spirito-EN | translate-amd.py | ✅ completato (1622 righe) |
 | Autotrader Kalshi | Script Python | ✅ running |
 
 ## 📋 PROSSIMI (Alta Priorità)
