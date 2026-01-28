@@ -6,8 +6,8 @@
 
 | Task | Agente | Status |
 |------|--------|--------|
-| Deploy onde.surf | GitHub Actions | 🔄 in_progress |
-| Traduzione cap 5-6 Republic of Innovation | traduttore-v2 | ⚠️ bloccato |
+| Deploy onde.surf | GitHub Actions | ✅ completato |
+| Traduzione cap 5-6 Republic of Innovation | diretto | 🔄 cap 5 ~60% |
 | Autotrader Kalshi | Script Python | ✅ running |
 
 ## 📋 PROSSIMI (Alta Priorità)
