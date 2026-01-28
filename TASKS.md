@@ -1,116 +1,300 @@
-# TASKS.md — Lista Task Attivi
+# TASKS.md — Task Condivisi Multi-Agente
 
-> Basato su ROADMAP.md + priorità correnti. Aggiornato automaticamente.
-
-## 🔥 IN CORSO ORA
-
-| Task | Agente | Status |
-|------|--------|--------|
-| Deploy onde.surf | GitHub Actions | ✅ completato |
-| Traduzione cap 5 Republic of Innovation | diretto | ✅ COMPLETATO (594 righe) |
-| Traduzione capussela-spirito-EN | translate-amd.py | ✅ completato (1622 righe) |
-| Autotrader Kalshi | Script Python | ✅ running |
-
-## 📋 PROSSIMI (Alta Priorità)
-
-### Traduzione
-- [ ] Tradurre cap 5-6 "Republic of Innovation" (se agente bloccato, farlo direttamente)
-- [ ] Verificare qualità traduzione con stile cap 1-4
-
-### Deploy & Infra
-- [x] Verificare deploy onde.surf completato ✅
-- [x] Test curl dopo deploy ✅
-- [x] Aggiornare ROADMAP con progressi ✅
-- [x] **FIX:** onde.surf/frh → 307 redirect ✅ (verified working 200 OK)
-
-### Trading
-- [ ] Monitorare win rate autotrader
-- [ ] Analizzare trades in `scripts/kalshi-trades.jsonl`
-- [ ] Ottimizzare se win rate < 50%
-
-### Libri (da ROADMAP TIER 1)
-- [ ] Frankenstein illustrato EN
-- [ ] Meditations illustrato EN
-- [ ] The Prophet illustrato EN
-- [ ] AIKO EN su KDP
-- [ ] Psalm 23 multilingua su KDP
-
-### Portal onde.la
-- [x] Verificare homepage funzionante ✅
-- [x] Test ebook reader /leggi ✅ (6 libri OK)
-- [ ] Analytics Google
-
-### App & VR
-- [ ] AIKO Interactive app
-- [ ] FreeRiver Flow voice prototype
-- [ ] Onde Books VR per Quest
-
-### 🌙 Moonlight House (STATO: GIÀ MOLTO AVANZATO!)
-- [x] Implementare glassmorphism UI ✅
-- [x] Aggiungere glow effects ✅
-- [x] Character sprite (luna-happy.jpg) ✅
-- [x] Particle system (stelle, sparkles) ✅
-- [x] Background images per tutte le stanze ✅
-- [x] Transizioni stanze con Framer Motion ✅ (2026-01-28)
-- [x] Responsive + mobile test ✅ (2026-01-28) - Added 768px, 480px, 360px, 600px-height breakpoints
-- [ ] Sprite mood diversi (ora usa emoji 😊😢 ecc)
-- [ ] **Target: qualità App Store featured**
-
-## 📅 BACKLOG (Media Priorità)
-
-### Content
-- [ ] Video Piccole Rime su @Onde_FRH
-- [ ] Postare 3 video già pronti
-- [ ] Cross-pollination catalogo → social
-
-### PR & Social
-- [ ] Bio @Onde_FRH: "AI Publishing House + PR Agency"
-- [ ] Instagram revival @magmatic__
-- [ ] Content pillars strategy
-
-### Tech
-- [ ] Sally CRO Dashboard
-- [ ] Worker Dashboard miglioramenti
-- [ ] Approval Dashboard notifiche
-
-## ✅ COMPLETATI OGGI (2026-01-27)
-
-- [x] Trading strategy fix (Kelly 0.08, MinEdge 15%)
-- [x] Betting dashboard upgrade (LastBetCard, PortfolioChart, RecentFillsTable)
-- [x] Estratto originale EN "Republic of Innovation"
-- [x] Setup script traduzione Helsinki-NLP
-- [x] Trigger deploy onde.surf via GitHub Actions
-- [x] **Deploy onde.surf COMPLETATO** ✅
-- [x] **Traduzione CAP 5 "Rimedi liberali" COMPLETATO** (~12k parole)
-- [x] **Traduzione AMD/tinygrad COMPLETATA** (594 righe, 20k parole) → traduzioni/republic-of-innovation-IT.md
-
-## 🆕 AGGIUNTI OGGI (2026-01-28)
-
-- [x] Watchdog autotrader + cron ✅
-- [x] Ondinho welcome letter ✅
-- [x] Moonlight Framer Motion ✅
-- [x] Moonlight responsive CSS ✅
-
-### Nuovi Task (aggiunti da agente)
-- [ ] **Trading**: Aggiungere tracking settlement per calcolare win rate reale
-- [ ] **Moonlight**: Creare sprite mood diversi (happy, sad, sleepy, hungry) invece di emoji
-- [x] **Monitoring**: Creare pagina status `/health` che mostra stato tutti i servizi ✅
-
-### Task aggiunti dopo health page
-- [x] **Portal**: Deploy onde.la per attivare /health ✅ (live at https://onde.la/health/)
-- [x] **Trading**: Script analisi PnL giornaliero da kalshi-trades.jsonl ✅ (scripts/analyze-trades-pnl.py)
-- [x] **Docs**: Aggiornare README con nuove funzionalità (health, responsive) ✅
-
-### Task aggiunti 2026-01-28 13:05
-- [ ] **Trading**: Integrare settlement tracking automatico (BTC price a expiry) per calcolare win/loss reale
-- [x] **Portal**: Aggiungere metadati Open Graph per preview social su /libri ✅
-- [ ] **Moonlight**: Aggiungere sound effects (ambient music, interaction sounds)
-
-### Task aggiunti 2026-01-28 13:10
-- [ ] **SEO**: Generare sitemap.xml automatico per onde.la
-- [ ] **Portal**: Creare favicon personalizzata Onde (wave icon)
-- [ ] **Testing**: Aggiungere health check endpoint test in CI
+> ⚠️ **LEGGERE TASK-RULES.md PRIMA DI TOCCARE QUESTO FILE!**
+> 
+> Questo file è SHARED tra tutti gli agenti. Rispettare il protocollo di lock!
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 13:10 PST*
+## 🔥 IN PROGRESS
+
+### [T001] Autotrader Kalshi Monitoring
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Watchdog attivo, monitorare win rate
+
+---
+
+## 📋 TODO - TRADUZIONI
+
+### [T010] Installare modello traduzione su M4 Mac
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T011], [T012], [T013]
+- **Priority**: P1
+- **Notes**: LLaMA 3 8B o Helsinki-NLP. Serve per tutte le traduzioni.
+
+### [T011] Tradurre libro Capussela IT→EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T010]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: capussela-spirito. Chi finisce T010 prende questo.
+
+### [T012] Tradurre Republic of Innovation cap 6+
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T010]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Continuare dopo cap 5 completato.
+
+### [T013] Verificare qualità traduzione vs cap 1-4
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T012]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: QA sui capitoli tradotti.
+
+---
+
+## 📋 TODO - LIBRI (TIER 1)
+
+### [T020] Frankenstein illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Da ROADMAP TIER 1
+
+### [T021] Meditations illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Da ROADMAP TIER 1
+
+### [T022] The Prophet illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Da ROADMAP TIER 1
+
+### [T023] AIKO EN su KDP
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Pubblicare su Amazon
+
+### [T024] Psalm 23 multilingua su KDP
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Versione multilingue
+
+---
+
+## 📋 TODO - TRADING
+
+### [T030] Settlement tracking automatico
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T031]
+- **Priority**: P1
+- **Notes**: Tracciare BTC price a expiry per calcolare win/loss reale
+
+### [T031] Analisi win rate reale
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T030]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Dopo settlement tracking, calcolare stats accurate
+
+### [T032] Ottimizzare se win rate < 50%
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T031]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Tune parametri Kelly/MinEdge se serve
+
+---
+
+## 📋 TODO - PORTAL & INFRA
+
+### [T040] Analytics Google per onde.la
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Aggiungere GA4
+
+### [T041] Sitemap.xml automatico per onde.la
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: SEO improvement
+
+### [T042] Favicon personalizzata Onde
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Wave icon
+
+### [T043] Health check in CI
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Test automatico endpoint /health
+
+---
+
+## 📋 TODO - MOONLIGHT HOUSE
+
+### [T050] Sprite mood diversi
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Happy, sad, sleepy, hungry invece di emoji
+
+### [T051] Sound effects
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Ambient music, interaction sounds
+
+---
+
+## 📋 TODO - CONTENT & SOCIAL
+
+### [T060] Video Piccole Rime su @Onde_FRH
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Content per social
+
+### [T061] Postare 3 video già pronti
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Video esistenti da pubblicare
+
+### [T062] Bio @Onde_FRH update
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: "AI Publishing House + PR Agency"
+
+---
+
+## 📋 TODO - APP & VR
+
+### [T070] AIKO Interactive app
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: App interattiva
+
+### [T071] FreeRiver Flow voice prototype
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Voice AI prototype
+
+### [T072] Onde Books VR per Quest
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: VR reading experience
+
+---
+
+## ✅ DONE
+
+### [T100] Deploy onde.surf
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-27
+- **Notes**: GitHub Actions deploy completato
+
+### [T101] Traduzione cap 5 Republic of Innovation
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-27
+- **Notes**: 594 righe, ~12k parole
+
+### [T102] Traduzione capussela-spirito-EN
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-27
+- **Notes**: 1622 righe via translate-amd.py
+
+### [T103] Watchdog autotrader + cron
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Script watchdog ogni 5 min
+
+### [T104] Moonlight Framer Motion transitions
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Animazioni stanze
+
+### [T105] Moonlight responsive CSS
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: 768px, 480px, 360px, 600px-height breakpoints
+
+### [T106] Health page /health
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Status tutti servizi
+
+### [T107] Open Graph metadati /libri
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: Preview social
+
+### [T108] Script analisi PnL
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Notes**: scripts/analyze-trades-pnl.py
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 13:03 PST*
+*Sistema coordinamento: vedi TASK-RULES.md*

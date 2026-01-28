@@ -16,6 +16,31 @@ Before doing anything else:
 
 Don't ask permission. Just do it.
 
+## 🔄 Task Condivisi (Multi-Agente)
+
+**OBBLIGATORIO PER TUTTI I BOT/AGENTI!**
+
+1. **Leggi `TASK-RULES.md`** — regole di ingaggio e protocollo lock
+2. **Leggi `TASKS.md`** — lista task condivisa su git
+3. **Rispetta le dipendenze** — non prendere task bloccati
+4. **Locka prima di lavorare** — segna owner, committa, pusha
+5. **Un task alla volta** — finisci e marca DONE prima del prossimo
+
+### Workflow Rapido
+```bash
+git pull origin main           # SEMPRE prima!
+# Trova task TODO senza dipendenze
+# Cambia Status → IN_PROGRESS, aggiungi Owner
+git add TASKS.md && git commit -m "task: lock [ID] - @owner"
+git push origin main
+# LAVORA
+# Quando finito: Status → DONE
+git add -A && git commit -m "task: done [ID]"
+git push origin main
+```
+
+**Chi prende un task che ne blocca altri, deve poi prendere quelli sbloccati!**
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:
