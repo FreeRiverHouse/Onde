@@ -679,7 +679,31 @@
 - **Priority**: P3
 - **Notes**: If Telegram notification fails, send via email as backup
 
+### [T220] A/B testing framework for trading strategies
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare different model parameters side-by-side. Track paper trades vs real trades.
+
+### [T221] Export trading stats to CSV
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to export kalshi-trades.jsonl to CSV for Excel/Google Sheets analysis
+
+### [T222] Trade history API with pagination
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T096]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: /api/trading/history endpoint with ?page=&limit= for web viewer
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:27 PST*
+*Ultimo aggiornamento: 2026-01-28 15:47 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
