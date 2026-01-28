@@ -419,12 +419,22 @@
 - **Notes**: ✅ Added OpenGraph, Twitter cards, and icon metadata to surfboard layout.tsx. Moved icons to public/.
 
 ### [T200] Verificare favicon appare su onde.la dopo deploy
-- **Status**: BLOCKED
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T042]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Icons added to public/ + metadata. Deploy blocked: GH Actions billing (onde.surf) + test failure (onde.la). Mattia needs to fix billing.
+- **Notes**: ✅ Fixed stray app/ folder that broke homepage routing. Icons moved to src/app/. Deployed to onde.la successfully.
+
+### [T204] Fix homepage 404 - stray app/ folder
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
+- **Blocks**: [T200]
+- **Priority**: P1
+- **Notes**: ✅ Next.js prefers app/ over src/app/. Empty app/ folder (only icons) caused homepage 404. Moved icons to src/app/, removed stray folder.
 
 ---
 
@@ -537,5 +547,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:05 PST*
+*Ultimo aggiornamento: 2026-01-28 15:10 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
