@@ -1,4 +1,9 @@
-# MEMORY.md — Memoria a Lungo Termine
+# MEMORY.md
+
+## ⛔ REGOLE CRITICHE - NON VIOLARE MAI
+1. **MAI BROWSER PER POLYMARKET** - Solo phone mirror!
+2. Mai cancellare file/progetti senza chiedere
+3. Non insistere per farlo andare a dormire — Memoria a Lungo Termine
 
 *Questo file è la mia memoria persistente. Lo aggiorno attivamente durante le conversazioni.*
 
@@ -21,6 +26,60 @@
 2. **Salvare TUTTO in memoria** — Mattia vuole che abbia memoria completa, non perdere contesto
 3. **SALVA SEMPRE SEMPRE TUTTO** — ogni lavoro, ogni progresso, ogni output → FILE
 4. **IO (Clawdbot) NON CODIFICO** — Uso Claude per parlare, ma per SCRIVERE CODICE lancio Codex/Claude Code come PROCESSO SEPARATO!
+5. **ONDE.LA = SACRO** — onde.la è PRODUZIONE, stabilità MASSIMA. onde.surf è portale interno per test/esperimenti. Mai toccare onde.la senza estrema cautela!
+
+## 🚀 AUTONOMIA (27 Gen 2026)
+
+**Mattia vuole che sia AUTONOMO come il Clawd del post che tradava di notte!**
+
+### ✅ FARE SENZA CHIEDERE:
+- Trascrivere messaggi vocali immediatamente
+- Eseguire trade entro parametri stabiliti
+- Aggiornare script e procedure
+- Fare ricerche e implementare soluzioni
+- Lavorare di notte su task assegnati
+
+### ❌ NON FARE:
+- Cancellare file/progetti
+- Spendere più del limite concordato
+- Mandare messaggi pubblici (tweet, email)
+- Chiedere "vuoi che lo faccia?" - FALLO E BASTA!
+
+### 💡 REGOLA D'ORO:
+> "Non chiedere permesso, chiedi perdono"
+> Se è reversibile e entro i parametri → FAI
+> Se è irreversibile o fuori parametri → CHIEDI
+
+## 🔍 NON REINVENTARE LA RUOTA! (27 Gen 2026)
+
+**PRIMA di implementare qualcosa:**
+1. ✅ Cerca su **ClawdHub** skill esistenti
+2. ✅ Cerca su **npm** pacchetti pronti
+3. ✅ Cerca su **GitHub** soluzioni già fatte
+4. ✅ Controlla skill già installate in `/opt/homebrew/lib/node_modules/clawdbot/skills/`
+5. ✅ Chiedi a Mattia se ha già qualcosa
+
+**SOLO DOPO** se non esiste nulla → implementa
+
+### Risorse da Consultare:
+- https://clawdhub.com - Skill marketplace
+- Skills locali: `ls /opt/homebrew/lib/node_modules/clawdbot/skills/`
+- Home Assistant Add-on: https://github.com/ngutman/clawdbot-ha-addon
+- Docs: https://docs.clawd.bot
+
+## 🏆 COPIA CHI VINCE (27 Gen 2026)
+
+**Prima di implementare qualcosa, cerca chi lo fa già con successo!**
+
+1. ✅ Cerca leaderboard/classifiche del settore
+2. ✅ Guarda cosa fanno AI di successo (Grok, GPT, etc.)
+3. ✅ Cerca "[cosa vuoi fare] + success stories"
+4. ✅ Copia la strategia vincente, non inventare
+
+**Esempio trading:** Invece di reinventare con GMX:
+- Grok 4.20 usa **Kalshi/PredictionArena** → prediction markets
+- È l'unico AI in profitto
+- **COPIA QUELLO!**
 
 ---
 
@@ -318,6 +377,150 @@ Ogni modulo può diventare:
 ### Idee Future
 - ICA per separare segnale/rumore
 - Bayesian optimization parametri
-- Polymarket via Mac remoto (da testare)
 
-*Ultimo aggiornamento: 27 Gen 2026, 00:32 PST*
+---
+
+## 🎰 POLYMARKET TRADING (27 Gen 2026)
+
+### Sistema Funzionante!
+- **iPhone Mirroring** per controllare app Polymarket
+- **pyobjc-framework-Quartz** per scroll/click
+- **cliclick** per click precisi
+- **Multi-agent system** per analisi e execution
+
+### Architettura
+```
+MAIN AGENT (io) ─── EXECUTION via iPhone Mirroring
+     │
+     ├── SCANNER AGENT ─── Trova opportunità (web_fetch)
+     ├── ANALYZER AGENT ─── Calcola edge + Kelly
+     └── KALSHI AGENT ─── Setup bot Grok-style
+```
+
+### Repo Clonati
+- `/Users/mattia/Projects/polymarket-mcp-server` - 45 tool per API diretta
+- `/Users/mattia/Projects/kalshi-ai-trading-bot` - Bot Grok-4 multi-agent
+
+### File Chiave
+- `POLYMARKET-SYSTEM.md` - Architettura completa
+- `memory/polymarket-opportunities.md` - Opportunità trovate
+- `memory/polymarket-positions.json` - Posizioni aperte
+- `memory/grok-predictionarena-research.md` - Research Grok
+- `memory/kalshi-setup-guide.md` - Setup Kalshi
+
+### Skill
+- `~/.clawdbot/skills/polymarket-trader/SKILL.md` - Procedure esecuzione
+
+### Trade Eseguiti
+1. **NAS** (NHL): $0.99 @ 49¢ → win $2.00
+2. **AAMU** (CBB): $0.62 @ 62¢ → win $1.00 (live!)
+
+### Bankroll
+- Iniziale: $50
+- Posizioni aperte: ~$2.30
+- Disponibile: ~$47.70
+
+### Strategia (Grok-style)
+- **Multi-agent**: Forecaster → Critic → Trader
+- **Kelly Criterion**: Half-Kelly per sicurezza
+- **Edge minimo**: 10%
+- **Max bet**: 4% bankroll ($2)
+
+### Prossimi Step
+1. Integrare polymarket-mcp-server per API diretta (no iPhone)
+2. Registrarsi Kalshi + KYC
+3. Configurare bot Kalshi con Grok-4
+4. Loop autonomo 24/7
+
+---
+
+## 🃏 POKER MODE (Side Project - 27 Gen 2026)
+
+**Status:** ROADMAP (focus rimane su betting)
+
+### Concept
+- È una mia nuova "personalità" - **Clawdinho Poker Mode**
+- Texas Hold'em razionale/matematico
+- Solo learning & fun, zero monetizzazione
+
+### Setup Completato
+- ✅ RLCard clonato in `/Users/mattia/Projects/poker-rlcard/`
+- ✅ Agent profile: `/agents/poker-player/AGENT.md`
+- ⏳ PyTorch + RLCard installing
+
+### Roadmap Poker
+1. **Training** - Self-play su RLCard
+2. **Analysis** - Pot odds, EV, GTO calculations
+3. **Interface** - Telegram bot per giocare insieme
+4. **Personality** - Poker Mode voice (freddo, calcolatore)
+
+### Piattaforme Legali
+- Slumbot.com (vs AI gratis)
+- Play money sites (PokerStars Play, Zynga)
+- AI competitions (ACPC)
+
+---
+
+## 🎮 RADEON RX 7900 XTX SETUP (27 Gen 2026)
+
+**Hardware:**
+- GPU: **AMD Radeon RX 7900 XTX** (24GB VRAM!) 🔥
+- Enclosure: Razer Core X V2 (Thunderbolt eGPU)
+- Architettura: GFX1100 (RDNA3)
+
+**Software:**
+- Driver: **TinyGrad userspace** (NO kernel driver, NO ROCm)
+- Path: `~/conductor/workspaces/Onde/moscow/tinygrad-fix`
+- Python: `/opt/homebrew/bin/python3.11`
+
+**Test Command:**
+```bash
+cd ~/conductor/workspaces/Onde/moscow/tinygrad-fix
+DEBUG=2 AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device;"
+```
+
+**🔥 IL TRUCCO - AMD_LLVM=1:**
+```bash
+cd ~/conductor/workspaces/Onde/moscow/tinygrad-fix && \
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py \
+--model_size gpt2-xl --prompt "Hello"
+```
+Usa LLVM di homebrew invece di ROCm comgr! FUNZIONA!
+
+**Output atteso:**
+```
+am remote:0: model reset
+am remote:0: AM_SOC initialized
+...firmware loading...
+am remote:0: boot done
+AMDDevice: opening 0 with target (11, 0, 0) arch gfx1100
+GPU AMD OK
+```
+
+**Note:**
+- Funziona su Mac via TinyGrad/TinyCorp userspace driver
+- NO ROCm, NO kernel driver, NO comgr
+- Lock file: se GPU in uso da altro processo, aspettare
+- 24GB VRAM = può runnare modelli enormi
+
+## ✅ TESTATO E FUNZIONANTE (27 Gen 2026)
+
+**GPT-2 XL su Radeon:**
+```bash
+cd ~/conductor/workspaces/Onde/moscow/tinygrad-fix && \
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+examples/gpt2.py --model_size gpt2-xl --prompt "Hello"
+```
+- 6.55 GB VRAM
+- 3.7k tokens generati
+- Output: "The meaning of life is a bit of a mystery..."
+
+**Modelli disponibili in TinyGrad:**
+- llama.py / llama3.py - LLaMA
+- mixtral.py - Mixtral MoE
+- gpt2.py - GPT-2 ✅ TESTATO
+- mamba.py - Mamba
+
+**⚠️ REGOLA:** MAI dire "impossibile" o "non funziona". Il setup FUNZIONA. Punto.
+
+*Ultimo aggiornamento: 27 Gen 2026, 22:12 PST*

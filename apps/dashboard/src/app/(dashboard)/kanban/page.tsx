@@ -168,13 +168,13 @@ export default function KanbanPage() {
       <Header
         title="Kanban Agenti"
         description="Controlla tutti gli agenti da un unico posto"
-        action={
-          <Button variant="outline" size="sm" onClick={fetchTasks}>
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Aggiorna
-          </Button>
-        }
       />
+      <div className="px-6 pt-2">
+        <Button variant="outline" size="sm" onClick={fetchTasks}>
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Aggiorna
+        </Button>
+      </div>
 
       {/* Alert for blocked tasks */}
       {blockedCount > 0 && (

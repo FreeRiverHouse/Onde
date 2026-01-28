@@ -16,10 +16,12 @@ import {
   Paintbrush,
   PenTool,
   LayoutDashboard,
+  Dices,
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: Home },
+  { name: '🎰 Betting', href: '/betting', icon: Dices },
   { name: 'Kanban Agenti', href: '/kanban', icon: LayoutDashboard },
   { name: 'Catalogo', href: '/catalogo', icon: BookOpen },
   { name: 'Libri Bambini', href: '/libri-bambini', icon: Baby },
