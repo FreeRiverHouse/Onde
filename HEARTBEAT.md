@@ -1,38 +1,77 @@
 # HEARTBEAT.md — Ciclo Lavoro Autonomo
 
-## ⏰ REGOLE HEARTBEAT (ogni 5 min)
+## ⚠️ REGOLA FONDAMENTALE: MAI FERMARSI!
 
-1. **Leggi TASKS.md** — prendi il prossimo task non completato
-2. **Lavora sul task** — ⚠️ SENZA MODELLI (no traduzioni, no AI generation)
-3. **Aggiorna TASKS.md** — segna completato, aggiungi nuovi
-4. **Committa progressi** — git add/commit/push
-5. **Se tutto fatto** → HEARTBEAT_OK
+**NON RISPONDERE MAI "HEARTBEAT_OK" E BASTA!**
 
-## 🚫 STANOTTE: NO MODELLI
-- ❌ Traduzioni
-- ❌ Libri illustrati  
-- ❌ Content AI
-- ✅ Infra, git, analisi, docs
+Ogni heartbeat DEVE:
+1. Controllare watchdog/autotrader
+2. Prendere un task da TASKS.md
+3. Fare almeno UNA cosa utile
+4. Aggiornare TASKS.md
+5. Committare progressi
 
-## 🔍 CHECK RAPIDI (ogni heartbeat)
+## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
-- [ ] Autotrader running? `pgrep -f kalshi-autotrader`
-- [ ] Agenti bloccati? Respawna o fai direttamente
-- [ ] Deploy in corso? Verifica status
+```
+1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
+2. CHECK: Agenti bloccati? → sessions_list
+3. READ: TASKS.md → prendi prossimo task non completato
+4. WORK: Lavora sul task (anche piccolo!)
+5. UPDATE: Segna completato, aggiungi nuovi task
+6. COMMIT: git add/commit/push
+7. REPORT: Breve status di cosa hai fatto
+```
 
-## 📋 PRIORITÀ TASK
+## 🔥 PRIORITÀ TASK (in ordine)
 
-1. **Traduzioni** — Republic of Innovation cap 5-6
-2. **Deploy** — Verificare onde.surf
-3. **Trading** — Monitorare autotrader
-4. **Libri** — TIER 1 da ROADMAP (Frankenstein, Meditations, etc.)
+1. **Infra/Watchdog** - Autotrader, monitoring
+2. **Deploy** - Verifiche post-deploy
+3. **Moonlight House** - UI improvements
+4. **Libri** - TIER 1 da ROADMAP
+5. **Content** - Social, traduzioni
 
-## 🤖 QUANDO USARE AGENTI
+## 🚫 MAI DIRE SOLO "HEARTBEAT_OK"
 
-- Task lunghi (>5 min) → spawna agente
-- Task paralleli → spawna più agenti
-- Task semplici → fai direttamente
+❌ SBAGLIATO:
+```
+HEARTBEAT_OK
+```
 
-## 📝 REGOLA #1
+✅ GIUSTO:
+```
+- ✅ Autotrader running (PID 12345)
+- 🔨 Lavorato su: [task specifico]
+- 📝 Commit: [hash breve]
+HEARTBEAT_OK
+```
 
-**SEMPRE LEGGERE `CLAUDE.md` PRIMA DI PROCEDURE!**
+## 🤖 AUTOTRADER WATCHDOG
+
+Cron ogni 5 min: `/Users/mattia/Projects/Onde/scripts/watchdog-autotrader.sh`
+- Controlla se gira
+- Se morto → riavvia automaticamente
+- Log: `scripts/watchdog.log`
+
+## 📋 COSA FARE SE NON CI SONO TASK URGENTI
+
+1. **Memory maintenance** - Leggi memory/, aggiorna MEMORY.md
+2. **Code review** - Controlla TODOs nel codice
+3. **Docs** - Aggiorna documentazione
+4. **Git cleanup** - Commit pending changes
+5. **Analisi trades** - Controlla kalshi-trades.jsonl
+
+## 📝 TEMPLATE RISPOSTA HEARTBEAT
+
+```
+📊 HEARTBEAT [HH:MM]
+- Autotrader: ✅/❌
+- Task: [cosa hai fatto]
+- Next: [prossimo task]
+HEARTBEAT_OK
+```
+
+---
+
+*Aggiornato: 2026-01-28 12:55 PST*
+*MAI FERMARSI. SEMPRE LAVORARE.*
