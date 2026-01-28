@@ -7,7 +7,7 @@
 | Task | Agente | Status |
 |------|--------|--------|
 | Deploy onde.surf | GitHub Actions | ✅ completato |
-| Traduzione cap 5-6 Republic of Innovation | diretto | 🔄 cap 5 ~60% |
+| Traduzione cap 5-6 Republic of Innovation | diretto | ✅ cap 5 DONE, 🔄 cap 6 |
 | Autotrader Kalshi | Script Python | ✅ running |
 
 ## 📋 PROSSIMI (Alta Priorità)
@@ -67,6 +67,8 @@
 - [x] Estratto originale EN "Republic of Innovation"
 - [x] Setup script traduzione Helsinki-NLP
 - [x] Trigger deploy onde.surf via GitHub Actions
+- [x] **Deploy onde.surf COMPLETATO** ✅
+- [x] **Traduzione CAP 5 "Rimedi liberali" COMPLETATO** (~12k parole)
 
 ---
 
