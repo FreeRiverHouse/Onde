@@ -35,6 +35,12 @@
 4. **IO (Clawdbot) NON CODIFICO** — Uso Claude per parlare, ma per SCRIVERE CODICE lancio Codex/Claude Code come PROCESSO SEPARATO!
 5. **ONDE.LA = SACRO** — onde.la è PRODUZIONE, stabilità MASSIMA. onde.surf è portale interno per test/esperimenti. Mai toccare onde.la senza estrema cautela!
 
+## 🔧 Deploy Setup (28 Gen 2026)
+- **Cloudflare token** in `.env`: `CLOUDFLARE_API_TOKEN`
+- **onde.la deploy**: `./tools/tech-support/deploy-onde-la-prod.sh`
+- **onde.surf deploy**: `gh workflow run deploy-surfboard.yml` (needs GitHub billing fix)
+- Note: My exec commands don't inherit shell env vars - need inline export or source
+
 ## 🚀 AUTONOMIA (27 Gen 2026)
 
 **Mattia vuole che sia AUTONOMO come il Clawd del post che tradava di notte!**
