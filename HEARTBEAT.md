@@ -1,44 +1,32 @@
-# HEARTBEAT.md — Checklist Periodica
+# HEARTBEAT.md — Ciclo Lavoro Autonomo
 
-## 🔥 TASK NOTTURNO (23:30 PST - ATTIVO!)
+## ⏰ REGOLE HEARTBEAT (ogni 5 min)
 
-### PRIORITÀ ASSOLUTA: Traduzione "Republic of Innovation"
-1. **INSTALLARE MODELLO TRADUZIONE** su Radeon (NLLB-200 o simile, NON GPT-2!)
-2. **TROVARE ORIGINALE INGLESE** - capitoli 5+ mancanti
-3. **TRADURRE** riga per riga, stile perfetto e coerente
-4. **CREARE PROCEDURA DEFINITIVA** per traduzioni future
+1. **Leggi TASKS.md** — prendi il prossimo task non completato
+2. **Lavora sul task** — usa agenti Claude Code se serve
+3. **Aggiorna TASKS.md** — segna completato, aggiungi nuovi
+4. **Committa progressi** — git add/commit/push
+5. **Se tutto fatto** → HEARTBEAT_OK
 
-**File traduzione:** `traduzioni/republic-of-innovation-IT.md` (cap 1-4 completati)
-**Setup Radeon:** `~/conductor/workspaces/Onde/moscow/tinygrad-fix`
+## 🔍 CHECK RAPIDI (ogni heartbeat)
 
-### Modelli da valutare per traduzione EN→IT:
-- NLLB-200 (Meta) - 54 lingue, ottimizzato per traduzione
-- mBART-50 - multilingue
-- Helsinki-NLP/opus-mt-en-it - specifico EN→IT
-- Seamless M4T - nuovo Meta model
+- [ ] Autotrader running? `pgrep -f kalshi-autotrader`
+- [ ] Agenti bloccati? Respawna o fai direttamente
+- [ ] Deploy in corso? Verifica status
 
-### ⚠️ REGOLE TRADUZIONE
-- Riga per riga, fedele all'originale
-- Stile coerente con cap 1-4 già tradotti
-- Qualità editoriale (non Google Translate!)
-- La procedura deve essere DEFINITIVA e replicabile
+## 📋 PRIORITÀ TASK
 
-## 📋 TASK PENDENTI
-- [ ] Leggi TASKS.md per altri task
-- [ ] Se Mattia non scrive → lavora autonomamente
+1. **Traduzioni** — Republic of Innovation cap 5-6
+2. **Deploy** — Verificare onde.surf
+3. **Trading** — Monitorare autotrader
+4. **Libri** — TIER 1 da ROADMAP (Frankenstein, Meditations, etc.)
 
-## 💰 TRADING WATCHDOG (PRIORITÀ!)
-- [ ] **AUTOTRADER DEVE ESSERE SEMPRE ATTIVO!**
-- [ ] Check: `ps aux | grep kalshi-autotrader`
-- [ ] Se morto → riavvia: `cd ~/Projects/Onde && nohup python3 -u scripts/kalshi-autotrader.py --live > /tmp/kalshi-autotrader.log 2>&1 &`
-- [ ] Check ultimo trade in `/tmp/kalshi-autotrader.log`
-- [ ] Se ultimo trade > 10 min fa → ALLARME!
-- [ ] Portfolio balance e P&L
+## 🤖 QUANDO USARE AGENTI
 
-### Win Rate da migliorare
-- Portfolio partito $30, ora ~$24 (-19%)
-- Verificare se edge calcolato è corretto
-- Forse Kelly troppo aggressivo?
+- Task lunghi (>5 min) → spawna agente
+- Task paralleli → spawna più agenti
+- Task semplici → fai direttamente
 
-## 🧠 Memoria
-- [ ] Aggiorna `memory/YYYY-MM-DD.md` con progressi traduzione
+## 📝 REGOLA #1
+
+**SEMPRE LEGGERE `CLAUDE.md` PRIMA DI PROCEDURE!**

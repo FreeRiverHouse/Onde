@@ -1,62 +1,73 @@
-# TASKS.md - Lista Task Attivi
+# TASKS.md — Lista Task Attivi
 
-## 🔴 PRIORITÀ ASSOLUTA (Stanotte!)
-- [ ] **TRADUZIONE "Republic of Innovation"**
-  - [ ] Trovare file inglese originale (Mattia dice "in download")
-  - [ ] Usare Radeon + LLM (Qwen/GPT-2 XL) per tradurre EN→IT
-  - [ ] Tradurre capitoli 5+ (cap 1-4 già fatti)
-  - [ ] Qualità editoriale: riga per riga, stile coerente
-- [ ] **PROCEDURA TRADUZIONE DEFINITIVA**
-  - [ ] Script funzionante su Radeon
-  - [ ] Documentazione replicabile
-  - [ ] Testato e validato
+> Basato su ROADMAP.md + priorità correnti. Aggiornato automaticamente.
 
-## 🔴 In Attesa - ROADMAP (da fare)
-### Publishing (TIER 1 - Revenue!)
-- [ ] AIKO EN → KDP
-- [ ] Psalm 23 EN → KDP  
-- [ ] AIKO IT → KDP
-- [ ] Psalm 23 ES/DE/FR → KDP
-- [ ] Frankenstein (illustrato premium) → KDP
-- [ ] Meditations Marcus Aurelius (illustrato) → KDP
+## 🔥 IN CORSO ORA
 
-### Tech/Platform
-- [ ] Deploy onde.surf su Cloudflare
-- [ ] FreeRiver Flow Voice MVP (iPhone + Whisper + Claude)
-- [ ] Onde Books VR - continuare prototype WebXR
+| Task | Agente | Status |
+|------|--------|--------|
+| Deploy onde.surf | GitHub Actions | 🔄 in_progress |
+| Traduzione cap 5-6 Republic of Innovation | traduttore-v2 | ⚠️ bloccato |
+| Autotrader Kalshi | Script Python | ✅ running |
+
+## 📋 PROSSIMI (Alta Priorità)
+
+### Traduzione
+- [ ] Tradurre cap 5-6 "Republic of Innovation" (se agente bloccato, farlo direttamente)
+- [ ] Verificare qualità traduzione con stile cap 1-4
+
+### Deploy & Infra
+- [ ] Verificare deploy onde.surf completato
+- [ ] Test curl dopo deploy
+- [ ] Aggiornare ROADMAP con progressi
 
 ### Trading
-- [x] ~~Aggiungere volatility-adjusted buffer~~ ✅ (2σ daily vol)
-- [ ] Raccogliere dati per ICA/PCA analysis
-- [x] ~~**MULTI-AGENT GROK STYLE**~~ ✅ `scripts/kalshi-multiagent.py`
-- [x] ~~Implementare risk limits~~ ✅ FATTO
-- [x] ~~Beast Mode per edge alto (>30%)~~ ✅ integrato in multiagent (1.5x size)
+- [ ] Monitorare win rate autotrader
+- [ ] Analizzare trades in `scripts/kalshi-trades.jsonl`
+- [ ] Ottimizzare se win rate < 50%
 
-## ✅ Appena Completato
-- [x] Kelly criterion sizing implementato in kalshi-microbet.py
-- [x] Risk limits implementati (5% max position, 15% drawdown, 15 max positions)
+### Libri (da ROADMAP TIER 1)
+- [ ] Frankenstein illustrato EN
+- [ ] Meditations illustrato EN
+- [ ] The Prophet illustrato EN
+- [ ] AIKO EN su KDP
+- [ ] Psalm 23 multilingua su KDP
 
-## 🟡 In Corso
-- [~] Microbetting API - 5 trade eseguiti, portfolio $13.65 (+127%!)
-- [~] Whale detection via volume spike (no leaderboard pubblica)
+### Portal onde.la
+- [ ] Verificare 1002 pagine funzionanti
+- [ ] Test ebook reader /leggi
+- [ ] Analytics Google
 
-## 🟡 In Corso
-<!-- Task su cui sto lavorando -->
+### App & VR
+- [ ] AIKO Interactive app
+- [ ] FreeRiver Flow voice prototype
+- [ ] Onde Books VR per Quest
 
-## 🟢 Completati Oggi
-- [x] Creare API key Kalshi ✅
-- [x] Script kalshi-api-trader.py funzionante ✅
-- [x] Test API: balance $6.57, 9 posizioni ✅
-- [x] **ORDINE REALE VIA API** - comprato 1 YES BTC≥$88,750 @ 62¢ ✅
-- [x] API Kalshi completamente funzionante (no browser needed!) ✅
+## 📅 BACKLOG (Media Priorità)
+
+### Content
+- [ ] Video Piccole Rime su @Onde_FRH
+- [ ] Postare 3 video già pronti
+- [ ] Cross-pollination catalogo → social
+
+### PR & Social
+- [ ] Bio @Onde_FRH: "AI Publishing House + PR Agency"
+- [ ] Instagram revival @magmatic__
+- [ ] Content pillars strategy
+
+### Tech
+- [ ] Sally CRO Dashboard
+- [ ] Worker Dashboard miglioramenti
+- [ ] Approval Dashboard notifiche
+
+## ✅ COMPLETATI OGGI (2026-01-27)
+
+- [x] Trading strategy fix (Kelly 0.08, MinEdge 15%)
+- [x] Betting dashboard upgrade (LastBetCard, PortfolioChart, RecentFillsTable)
+- [x] Estratto originale EN "Republic of Innovation"
+- [x] Setup script traduzione Helsinki-NLP
+- [x] Trigger deploy onde.surf via GitHub Actions
 
 ---
 
-## 📋 Regole
-1. **Ogni richiesta** → aggiungi a "In Attesa"
-2. **Quando lavoro** → sposto a "In Corso"
-3. **Heartbeat senza messaggi** → lavoro ai task pendenti o spawno agenti
-4. **Mai dimenticare** → se non capisco, chiedo subito
-
----
-*Ultimo update: 2026-01-27 16:20 PST*
+*Ultimo aggiornamento: 2026-01-27 23:50 PST*
