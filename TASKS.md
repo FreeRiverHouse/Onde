@@ -381,12 +381,13 @@
 - **Notes**: Dashboard real-time per win rate, PnL, open positions
 
 ### [T095] Weekly trading report (PDF summary)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Generate PDF report ogni domenica con: trades totali, win rate, PnL, best/worst trade
+- **Notes**: ✅ Script: kalshi-weekly-report.py. PDF with daily breakdown, best/worst trades, PnL. Cron: Sunday 08:00 UTC. Output: data/reports/
 
 ### [T096] Trade history web viewer su /trading/history
 - **Status**: TODO

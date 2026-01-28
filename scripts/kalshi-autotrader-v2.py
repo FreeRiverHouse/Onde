@@ -68,6 +68,10 @@ MAX_POSITIONS = 30
 BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical)
 ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility
 
+# Momentum config
+MOMENTUM_TIMEFRAMES = ["1h", "4h", "24h"]
+MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more for hourly contracts
+
 # Logging
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
 
@@ -137,6 +141,160 @@ def get_trend_adjustment(prices_1h: list) -> float:
     
     # Cap adjustment at ±10%
     return max(-0.1, min(0.1, pct_change * 5))
+
+
+# ============== MULTI-TIMEFRAME MOMENTUM ==============
+
+def get_btc_ohlc(days: int = 2) -> list:
+    """Get BTC OHLC data from CoinGecko (hourly for 2 days)"""
+    try:
+        # CoinGecko gives hourly data for 1-90 days
+        resp = requests.get(
+            f"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days={days}",
+            timeout=10
+        )
+        if resp.status_code != 200:
+            return []
+        return resp.json()  # [[timestamp, open, high, low, close], ...]
+    except Exception as e:
+        print(f"[WARN] Failed to get OHLC: {e}")
+        return []
+
+
+def calculate_momentum(ohlc_data: list, timeframe: str) -> dict:
+    """
+    Calculate momentum metrics for a specific timeframe.
+    
+    Returns:
+        direction: -1 (bearish), 0 (neutral), 1 (bullish)
+        strength: 0.0 to 1.0
+        pct_change: actual % change
+    """
+    if not ohlc_data or len(ohlc_data) < 4:
+        return {"direction": 0, "strength": 0.0, "pct_change": 0.0}
+    
+    now_ms = time.time() * 1000
+    
+    # Map timeframe to hours
+    hours_map = {"1h": 1, "4h": 4, "24h": 24}
+    hours = hours_map.get(timeframe, 1)
+    cutoff_ms = now_ms - (hours * 60 * 60 * 1000)
+    
+    # Get prices in timeframe
+    prices_in_range = [c[4] for c in ohlc_data if c[0] >= cutoff_ms]  # Close prices
+    
+    if len(prices_in_range) < 2:
+        # Fall back to last N candles
+        n_candles = min(hours, len(ohlc_data))
+        prices_in_range = [c[4] for c in ohlc_data[-n_candles:]]
+    
+    if len(prices_in_range) < 2:
+        return {"direction": 0, "strength": 0.0, "pct_change": 0.0}
+    
+    start_price = prices_in_range[0]
+    end_price = prices_in_range[-1]
+    
+    pct_change = (end_price - start_price) / start_price
+    
+    # Calculate direction and strength
+    if abs(pct_change) < 0.001:  # <0.1% is neutral
+        direction = 0
+        strength = 0.0
+    elif pct_change > 0:
+        direction = 1
+        strength = min(1.0, abs(pct_change) * 20)  # 5% = full strength
+    else:
+        direction = -1
+        strength = min(1.0, abs(pct_change) * 20)
+    
+    return {
+        "direction": direction,
+        "strength": strength,
+        "pct_change": pct_change
+    }
+
+
+def get_multi_timeframe_momentum(ohlc_data: list) -> dict:
+    """
+    Calculate momentum across multiple timeframes.
+    
+    Returns:
+        composite_direction: weighted direction (-1 to 1)
+        composite_strength: weighted strength (0 to 1)
+        timeframes: individual timeframe data
+        alignment: True if all timeframes agree
+    """
+    result = {
+        "composite_direction": 0.0,
+        "composite_strength": 0.0,
+        "timeframes": {},
+        "alignment": False
+    }
+    
+    if not ohlc_data:
+        return result
+    
+    directions = []
+    total_weight = 0
+    composite_dir = 0.0
+    composite_str = 0.0
+    
+    for tf in MOMENTUM_TIMEFRAMES:
+        mom = calculate_momentum(ohlc_data, tf)
+        result["timeframes"][tf] = mom
+        
+        weight = MOMENTUM_WEIGHT.get(tf, 0.33)
+        composite_dir += mom["direction"] * mom["strength"] * weight
+        composite_str += mom["strength"] * weight
+        total_weight += weight
+        
+        if mom["strength"] > 0.1:  # Only count if meaningful
+            directions.append(mom["direction"])
+    
+    if total_weight > 0:
+        result["composite_direction"] = composite_dir / total_weight
+        result["composite_strength"] = composite_str / total_weight
+    
+    # Check alignment - all non-zero directions should match
+    if len(directions) >= 2:
+        result["alignment"] = len(set(directions)) == 1
+    
+    return result
+
+
+def adjust_probability_with_momentum(prob: float, strike: float, current_price: float, 
+                                     momentum: dict, side: str) -> float:
+    """
+    Adjust probability based on multi-timeframe momentum.
+    
+    For YES (betting price goes UP):
+        - Bullish momentum increases our probability
+        - Bearish momentum decreases it
+    
+    For NO (betting price stays DOWN/below):
+        - Bearish momentum increases our probability
+        - Bullish momentum decreases it
+    """
+    composite_dir = momentum.get("composite_direction", 0)
+    composite_str = momentum.get("composite_strength", 0)
+    alignment = momentum.get("alignment", False)
+    
+    # Max adjustment is ±15% with full alignment, ±8% without
+    max_adj = 0.15 if alignment else 0.08
+    
+    # Calculate adjustment
+    adjustment = composite_dir * composite_str * max_adj
+    
+    # Apply adjustment based on side
+    if side == "yes":
+        # Bullish momentum helps YES bets
+        adjusted = prob + adjustment
+    else:  # side == "no"
+        # Bearish momentum helps NO bets (so we flip the sign)
+        adjusted = prob - adjustment
+    
+    # Clamp to valid probability range
+    return max(0.01, min(0.99, adjusted))
 
 
 # ============== API FUNCTIONS ==============
