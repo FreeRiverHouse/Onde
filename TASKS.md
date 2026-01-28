@@ -397,12 +397,13 @@
 - **Notes**: Simple HTML table con filtri per date, risultato (won/lost/pending), ordinamento
 
 ### [T097] Cleanup vecchi backup > 30 giorni
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T093]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
+- **Notes**: ✅ Script: scripts/cleanup-old-backups.sh + cron 01:00 UTC daily. Keeps last 30 days of backups.
 
 ### [T205] Install Playwright for automated testing
 - **Status**: DONE
@@ -600,7 +601,31 @@
 - **Priority**: P3
 - **Notes**: Each page should have unique meta description for better Google snippets
 
+### [T211] Telegram alert se autotrader crasha
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Watchdog dovrebbe notificare se autotrader muore e non si riavvia
+
+### [T212] Backup memory files to git daily
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Backup MEMORY.md + memory/ folder periodicamente (separato da trade backups)
+
+### [T213] Kalshi API retry logic con exponential backoff
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Se Kalshi API ritorna 5xx, riprova con backoff invece di crashare
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:08 PST*
+*Ultimo aggiornamento: 2026-01-28 15:13 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
