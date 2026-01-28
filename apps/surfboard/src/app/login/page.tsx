@@ -1,4 +1,7 @@
+
 "use client"
+
+export const runtime = 'edge'
 
 import { signIn } from "next-auth/react"
 

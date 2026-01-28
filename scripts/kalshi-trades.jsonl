@@ -2002,3 +2002,6 @@
 {"timestamp": "2026-01-28T22:33:24.688959+00:00", "type": "opportunity", "ticker": "KXBTCD-26JAN2917-T88749.99", "side": "yes", "edge": 0.1564, "our_prob": 0.776, "market_prob": 0.62, "price": 62, "strike": 88750.0, "btc_price": 89142}
 {"timestamp": "2026-01-28T22:33:24.689510+00:00", "type": "opportunity", "ticker": "KXBTCD-26JAN2917-T88249.99", "side": "yes", "edge": 0.22, "our_prob": 0.95, "market_prob": 0.73, "price": 73, "strike": 88250.0, "btc_price": 89142}
 {"timestamp": "2026-01-28T22:33:24.689943+00:00", "type": "scan_summary", "ticker": "ALL", "skipped_expiry": 0, "skipped_low_edge": 55, "opportunities_found": 3, "min_edge": 0.15, "min_time_to_expiry": 30}
+{"timestamp": "2026-01-28T22:38:26.728318+00:00", "type": "opportunity", "ticker": "KXBTCD-26JAN2917-T89749.99", "side": "no", "edge": 0.2908, "our_prob": 0.931, "market_prob": 0.64, "price": 64, "strike": 89750.0, "btc_price": 89087}
+{"timestamp": "2026-01-28T22:38:26.731186+00:00", "type": "opportunity", "ticker": "KXBTCD-26JAN2917-T88249.99", "side": "yes", "edge": 0.221, "our_prob": 0.941, "market_prob": 0.72, "price": 72, "strike": 88250.0, "btc_price": 89087}
+{"timestamp": "2026-01-28T22:38:26.731678+00:00", "type": "scan_summary", "ticker": "ALL", "skipped_expiry": 0, "skipped_low_edge": 56, "opportunities_found": 2, "min_edge": 0.15, "min_time_to_expiry": 30}

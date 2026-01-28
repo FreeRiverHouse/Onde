@@ -1,0 +1,8 @@
+{
+  "paused_at": "2026-01-28T22:45:32.906015+00:00",
+  "reason": "daily_loss_limit",
+  "net_pnl_cents": -285,
+  "limit_cents": -100,
+  "trades_today": 41,
+  "message": "\ud83d\uded1 PAUSED: Daily loss $2.85 exceeds limit $1.00"
+}

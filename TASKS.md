@@ -357,12 +357,13 @@
 - **Notes**: Generare PDF professionale dalla traduzione IT approvata (QA 9/10)
 
 ### [T093] Backup automatico kalshi-trades.jsonl su git
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Commit giornaliero trade log per storico e recovery
+- **Notes**: ✅ Script: scripts/backup-trades-git.sh + cron 00:05 UTC daily. Backup in data/trading/. 2007 trades backed up.
 
 ### [T094] Grafana/Prometheus setup per trading metrics
 - **Status**: TODO
@@ -371,6 +372,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Dashboard real-time per win rate, PnL, open positions
+
+### [T095] Weekly trading report (PDF summary)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Generate PDF report ogni domenica con: trades totali, win rate, PnL, best/worst trade
+
+### [T096] Trade history web viewer su /trading/history
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Simple HTML table con filtri per date, risultato (won/lost/pending), ordinamento
+
+### [T097] Cleanup vecchi backup > 30 giorni
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T093]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Evitare bloat repo: tenere solo ultimi 30 giorni in data/trading/
 
 ---
 
