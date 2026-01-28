@@ -131,19 +131,29 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 ## 🚀 DEPLOY - PROCEDURE OBBLIGATORIE
 
+**FILE MASTER:** `/Users/mattia/claude-memory/CLAWDINHO-CEO.md`
 **FILE COMPLETO:** `tools/tech-support/DEPLOY-PROCEDURES.md`
 
-### ONDE.SURF
+### ONDE.SURF (Dashboard)
 ```bash
 gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
   -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
   -f reason="MOTIVO DEL DEPLOY"
 ```
+**Verifica:**
+```bash
+gh run list -R FreeRiverHouse/Onde --workflow=deploy-surfboard.yml -L 1
+curl -sI "https://onde.surf" | head -3
+```
 
-### ONDE.LA
+### ONDE.LA (Sito principale)
 ```bash
 cd /Users/mattia/Projects/Onde
 ./tools/tech-support/deploy-onde-la-prod.sh
+```
+**Verifica:**
+```bash
+curl -sI "https://onde.la" | head -3
 ```
 
 **⚠️ SEMPRE commit+push PRIMA di deployare!**
