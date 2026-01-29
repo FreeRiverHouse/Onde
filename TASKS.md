@@ -2634,12 +2634,13 @@
 - **Notes**: US market holidays often have lower crypto liquidity and unusual patterns. Script to check if today is a holiday (python-holidays or hardcoded list). Skip trading on Christmas, Thanksgiving, etc.
 
 ### [T415] Memory file auto-archiving for old daily notes
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T370]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Auto-move memory/YYYY-MM-DD.md files older than 30 days to memory/archive/. Keep workspace clean. Monthly cron job. Extract key learnings to MEMORY.md before archiving.
+- **Notes**: ✅ Script: archive-old-memory.sh. Cron: 1st of each month at midnight. Moves memory/YYYY-MM-DD.md files >30 days old to memory/archive/. Auto-commits changes. DAYS_OLD env configurable.
 
 ---
 
