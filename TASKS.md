@@ -1001,12 +1001,13 @@
 - **Notes**: Log warning when alert files exist >12h but <24h. Helps debug why heartbeat isn't picking them up.
 
 ### [T256] Cron job health dashboard on /health
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show status of all cron jobs (last run time, success/fail) on /health page. Use cron log files.
+- **Notes**: ✅ Added! API: /api/health/cron checks log file ages. UI: "Scheduled Jobs" section on /health shows each cron job with status (healthy/stale/error), schedule, and last run time.
 
 ### [T257] Trading PnL notification on market close
 - **Status**: TODO
