@@ -823,5 +823,86 @@
   },
   "accessibility": {
     "skipToContent": "Vai al contenuto principale"
+  },
+  "appPage": {
+    "badge": "Prossimamente",
+    "title": "App in Arrivo",
+    "subtitle": "Esperienze digitali dipinte ad acquarello. Sicure, senza pubblicità, create con amore per i più piccoli.",
+    "comingSoon": "Coming Soon",
+    "futureApps": {
+      "title": "E molto altro in arrivo...",
+      "subtitle": "Altre esperienze magiche in fase di creazione"
+    },
+    "status": {
+      "inProgress": "In sviluppo",
+      "inDesign": "In progettazione"
+    },
+    "features": {
+      "illustratedRecipes": "Ricette illustrate",
+      "zeroRealRisks": "Zero rischi reali",
+      "learnByCooking": "Impara cucinando",
+      "aiAdventures": "Avventure AI",
+      "interactiveDialogues": "Dialoghi interattivi",
+      "techDiscoveries": "Scoperte tecnologiche",
+      "guidedMeditation": "Meditazione guidata",
+      "breathingExercises": "Esercizi di respiro",
+      "relaxingStories": "Storie rilassanti",
+      "visualRelax": "Relax visivo",
+      "natureSounds": "Suoni della natura",
+      "immersiveExperience": "Esperienza immersiva"
+    },
+    "apps": {
+      "kidsChefStudio": {
+        "title": "KidsChefStudio",
+        "subtitle": "Cucina Virtuale per Piccoli Chef",
+        "description": "Una cucina magica dove i bambini imparano a cucinare attraverso ricette animate. Ingredienti che prendono vita, strumenti che cantano, e piatti che raccontano storie.",
+        "illustration": "Piccolo chef con cappello bianco tra pentole colorate, stile acquarello italiano"
+      },
+      "aikoInteractive": {
+        "title": "AIKO Interactive",
+        "subtitle": "La Tua Amica Robot",
+        "description": "AIKO è la tua compagna di avventure digitali. Insieme esplorate il mondo della tecnologia, imparate come funzionano i robot e scoprite i segreti dell'intelligenza artificiale.",
+        "illustration": "Robot rotondo con occhi LED espressivi e bambina curiosa, acquarello dorato"
+      },
+      "mindfulKids": {
+        "title": "Mindful Kids",
+        "subtitle": "Respira, Rilassati, Cresci",
+        "description": "Un giardino zen digitale dove i bambini scoprono la calma interiore. Esercizi di respirazione come bolle di sapone, meditazioni guidate da animaletti saggi, e momenti di pace.",
+        "illustration": "Bambino in posizione yoga sotto un albero di ciliegio, stile Beatrix Potter"
+      },
+      "freeriverFlow": {
+        "title": "FreeRiver Flow",
+        "subtitle": "Lasciati Trasportare dalle Onde",
+        "description": "Un'esperienza meditativa dove segui il flusso di un fiume magico. Colori che danzano, suoni della natura, e la dolce sensazione di lasciarsi andare come una foglia sull'acqua.",
+        "illustration": "Fiume che scorre tra colline verdi con luci dorate, acquarello italiano"
+      },
+      "emilio": {
+        "title": "EMILIO",
+        "subtitle": "AI Educator",
+        "description": "Il robot amico che insegna ai bambini come funziona la tecnologia."
+      },
+      "moonlightPuzzle": {
+        "title": "Moonlight Puzzle",
+        "subtitle": "Puzzle Notturni",
+        "description": "Puzzle rilassanti con atmosfere notturne e musiche dolci."
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Giochi di Parole",
+        "description": "Giochi di parole, rime e vocabolario in italiano e inglese."
+      },
+      "storyMaker": {
+        "title": "Story Maker",
+        "subtitle": "Crea le Tue Storie",
+        "description": "Scrivi e illustra le tue storie con personaggi e ambientazioni magiche."
+      }
+    },
+    "cta": {
+      "badge": "Anteprima Esclusiva",
+      "title": "Vuoi provarle in anteprima?",
+      "subtitle": "Segui Onde per ricevere aggiornamenti sulle nuove app e accesso anticipato ai beta test.",
+      "followOnX": "Seguici su X",
+      "learnMore": "Scopri di più"
+    }
   }
 }

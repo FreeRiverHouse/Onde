@@ -4,88 +4,69 @@ import { motion } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
+import { useTranslations } from '@/i18n'
 
-// App in arrivo con badge "Coming Soon"
-const upcomingApps = [
+// App data with translation keys
+const upcomingAppsData = [
   {
     id: 'kids-chef-studio',
-    title: 'KidsChefStudio',
-    subtitle: 'Cucina Virtuale per Piccoli Chef',
-    description: 'Una cucina magica dove i bambini imparano a cucinare attraverso ricette animate. Ingredienti che prendono vita, strumenti che cantano, e piatti che raccontano storie.',
+    translationKey: 'kidsChefStudio',
     color: 'coral' as const,
     icon: '👨‍🍳',
-    illustration: 'Piccolo chef con cappello bianco tra pentole colorate, stile acquarello italiano',
-    features: ['Ricette illustrate', 'Zero rischi reali', 'Impara cucinando'],
+    featureKeys: ['illustratedRecipes', 'zeroRealRisks', 'learnByCooking'],
   },
   {
     id: 'aiko-interactive',
-    title: 'AIKO Interactive',
-    subtitle: 'La Tua Amica Robot',
-    description: 'AIKO e la tua compagna di avventure digitali. Insieme esplorate il mondo della tecnologia, imparate come funzionano i robot e scoprite i segreti dell\'intelligenza artificiale.',
+    translationKey: 'aikoInteractive',
     color: 'teal' as const,
     icon: '🤖',
-    illustration: 'Robot rotondo con occhi LED espressivi e bambina curiosa, acquarello dorato',
-    features: ['Avventure AI', 'Dialoghi interattivi', 'Scoperte tecnologiche'],
+    featureKeys: ['aiAdventures', 'interactiveDialogues', 'techDiscoveries'],
   },
   {
     id: 'mindful-kids',
-    title: 'Mindful Kids',
-    subtitle: 'Respira, Rilassati, Cresci',
-    description: 'Un giardino zen digitale dove i bambini scoprono la calma interiore. Esercizi di respirazione come bolle di sapone, meditazioni guidate da animaletti saggi, e momenti di pace.',
+    translationKey: 'mindfulKids',
     color: 'gold' as const,
     icon: '🧘',
-    illustration: 'Bambino in posizione yoga sotto un albero di ciliegio, stile Beatrix Potter',
-    features: ['Meditazione guidata', 'Esercizi di respiro', 'Storie rilassanti'],
+    featureKeys: ['guidedMeditation', 'breathingExercises', 'relaxingStories'],
   },
   {
     id: 'freeriver-flow',
-    title: 'FreeRiver Flow',
-    subtitle: 'Lasciati Trasportare dalle Onde',
-    description: 'Un\'esperienza meditativa dove segui il flusso di un fiume magico. Colori che danzano, suoni della natura, e la dolce sensazione di lasciarsi andare come una foglia sull\'acqua.',
+    translationKey: 'freeriverFlow',
     color: 'teal' as const,
     icon: '🌊',
-    illustration: 'Fiume che scorre tra colline verdi con luci dorate, acquarello italiano',
-    features: ['Relax visivo', 'Suoni della natura', 'Esperienza immersiva'],
+    featureKeys: ['visualRelax', 'natureSounds', 'immersiveExperience'],
   },
 ]
 
-// Altre app in programma
-const futureApps = [
+// Future apps data with translation keys
+const futureAppsData = [
   {
     id: 'emilio',
-    title: 'EMILIO',
-    subtitle: 'AI Educator',
-    description: 'Il robot amico che insegna ai bambini come funziona la tecnologia.',
+    translationKey: 'emilio',
     color: 'coral' as const,
     icon: '🤖',
-    status: 'In progettazione',
+    statusKey: 'inDesign',
   },
   {
     id: 'moonlight-puzzle',
-    title: 'Moonlight Puzzle',
-    subtitle: 'Puzzle Notturni',
-    description: 'Puzzle rilassanti con atmosfere notturne e musiche dolci.',
+    translationKey: 'moonlightPuzzle',
     color: 'teal' as const,
     icon: '🌙',
-    status: 'In sviluppo',
+    statusKey: 'inProgress',
   },
   {
     id: 'word-play',
-    title: 'Word Play',
-    subtitle: 'Giochi di Parole',
-    description: 'Giochi di parole, rime e vocabolario in italiano e inglese.',
+    translationKey: 'wordPlay',
     color: 'gold' as const,
     icon: '📝',
-    status: 'In progettazione',
+    statusKey: 'inDesign',
   },
   {
     id: 'story-maker',
-    title: 'Story Maker',
-    subtitle: 'Crea le Tue Storie',
-    description: 'Scrivi e illustra le tue storie con personaggi e ambientazioni magiche.',
+    translationKey: 'storyMaker',
     color: 'coral' as const,
     icon: '📖',
-    status: 'In progettazione',
+    statusKey: 'inDesign',
   },
 ]
 
@@ -100,6 +81,26 @@ const container = {
 }
 
 export default function AppPage() {
+  const t = useTranslations()
+
+  // Build translated apps data
+  const upcomingApps = upcomingAppsData.map(app => ({
+    ...app,
+    title: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].title,
+    subtitle: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].subtitle,
+    description: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].description,
+    illustration: (t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps] as { illustration?: string }).illustration || '',
+    features: app.featureKeys.map(key => t.appPage.features[key as keyof typeof t.appPage.features]),
+  }))
+
+  const futureApps = futureAppsData.map(app => ({
+    ...app,
+    title: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].title,
+    subtitle: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].subtitle,
+    description: t.appPage.apps[app.translationKey as keyof typeof t.appPage.apps].description,
+    status: t.appPage.status[app.statusKey as keyof typeof t.appPage.status],
+  }))
+
   return (
     <div className="min-h-screen">
       {/* Watercolor Background Effect */}
@@ -135,9 +136,9 @@ export default function AppPage() {
           </motion.div>
 
           <SectionHeader
-            badge="Prossimamente"
-            title="App in Arrivo"
-            subtitle="Esperienze digitali dipinte ad acquarello. Sicure, senza pubblicita, create con amore per i piu piccoli."
+            badge={t.appPage.badge}
+            title={t.appPage.title}
+            subtitle={t.appPage.subtitle}
             gradient="teal"
           />
         </div>
@@ -190,7 +191,7 @@ export default function AppPage() {
                                    text-onde-coral text-sm font-bold border border-onde-coral/30
                                    shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-onde-coral animate-pulse" />
-                    Coming Soon
+                    {t.appPage.comingSoon}
                   </span>
                 </motion.div>
 
@@ -254,9 +255,9 @@ export default function AppPage() {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl font-display font-bold text-onde-ocean mb-2">
-            E molto altro in arrivo...
+            {t.appPage.futureApps.title}
           </h3>
-          <p className="text-onde-ocean/60">Altre esperienze magiche in fase di creazione</p>
+          <p className="text-onde-ocean/60">{t.appPage.futureApps.subtitle}</p>
         </motion.div>
 
         <motion.div
@@ -331,14 +332,14 @@ export default function AppPage() {
                          bg-white/10 text-white/80 text-sm font-medium mb-6"
             >
               <span className="w-2 h-2 rounded-full bg-onde-gold animate-pulse" />
-              Anteprima Esclusiva
+              {t.appPage.cta.badge}
             </motion.div>
 
             <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-              Vuoi provarle in anteprima?
+              {t.appPage.cta.title}
             </h3>
             <p className="text-lg text-white/70 max-w-lg mx-auto mb-8">
-              Segui Onde per ricevere aggiornamenti sulle nuove app e accesso anticipato ai beta test.
+              {t.appPage.cta.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -346,14 +347,14 @@ export default function AppPage() {
                 variant="primary"
                 className="bg-white text-onde-teal hover:bg-onde-cream"
               >
-                Seguici su X
+                {t.appPage.cta.followOnX}
               </Button>
               <Button
                 href="/about"
                 variant="ghost"
                 className="text-white border-white/30 hover:bg-white/10"
               >
-                Scopri di piu
+                {t.appPage.cta.learnMore}
               </Button>
             </div>
           </div>

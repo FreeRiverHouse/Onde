@@ -2859,12 +2859,13 @@
 - **Notes**: Cron Sunday 08:00 UTC: compute 7d/30d realized vol from cached OHLC, compare to model assumptions, flag if >20% divergence. Output: data/reports/volatility-week-YYYY-WW.json. Alert if calibration needed.
 
 ### [T435] i18n: /app page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /app page to use i18n system. Similar to /giochi conversion - extract hardcoded strings to en.json/it.json and use useTranslations() hook.
+- **Notes**: ✅ Converted! Added ~80 translation keys for /app page: badge, title, subtitle, comingSoon, futureApps section, status values, 12 feature labels, 8 app descriptions (upcoming + future), CTA section. Page now uses useTranslations() hook with translated data structures. Build verified ✅
 
 ### [T436] Add skeleton loading state for games grid
 - **Status**: DONE
@@ -3789,3 +3790,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Using historical data, analyze if trades entered at certain times to expiry (30min vs 15min vs 5min) have different win rates. May reveal optimal entry timing for autotrader to maximize edge.
+
+### [T644] i18n: /vr page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /vr page to use i18n system. Check current hardcoded strings, extract to en.json/it.json, use useTranslations() hook. Follow same pattern as T435 (/app page).
+
+### [T645] Book download stats page (/stats)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T299]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create public /stats page showing download analytics: total downloads, popular books, downloads per day chart, format breakdown (PDF/EPUB). Uses localStorage aggregation or server-side analytics if available.
+
+### [T646] Add "Recently Added" section to /libri
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add carousel/grid showing last 10 books added to the library. Requires adding dateAdded field to book metadata. Sort by date, show "New" badge for <7 days. Helps users discover fresh content.

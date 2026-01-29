@@ -765,5 +765,86 @@
   },
   "accessibility": {
     "skipToContent": "Skip to main content"
+  },
+  "appPage": {
+    "badge": "Coming Soon",
+    "title": "Apps Coming Soon",
+    "subtitle": "Digital experiences painted in watercolor. Safe, ad-free, created with love for little ones.",
+    "comingSoon": "Coming Soon",
+    "futureApps": {
+      "title": "And much more to come...",
+      "subtitle": "More magical experiences in the making"
+    },
+    "status": {
+      "inProgress": "In Development",
+      "inDesign": "In Design"
+    },
+    "features": {
+      "illustratedRecipes": "Illustrated recipes",
+      "zeroRealRisks": "Zero real risks",
+      "learnByCooking": "Learn by cooking",
+      "aiAdventures": "AI Adventures",
+      "interactiveDialogues": "Interactive dialogues",
+      "techDiscoveries": "Tech discoveries",
+      "guidedMeditation": "Guided meditation",
+      "breathingExercises": "Breathing exercises",
+      "relaxingStories": "Relaxing stories",
+      "visualRelax": "Visual relaxation",
+      "natureSounds": "Nature sounds",
+      "immersiveExperience": "Immersive experience"
+    },
+    "apps": {
+      "kidsChefStudio": {
+        "title": "KidsChefStudio",
+        "subtitle": "Virtual Kitchen for Little Chefs",
+        "description": "A magical kitchen where children learn to cook through animated recipes. Ingredients that come alive, singing utensils, and dishes that tell stories.",
+        "illustration": "Little chef with white hat among colorful pots, Italian watercolor style"
+      },
+      "aikoInteractive": {
+        "title": "AIKO Interactive",
+        "subtitle": "Your Robot Friend",
+        "description": "AIKO is your digital adventure companion. Together you explore the world of technology, learn how robots work and discover the secrets of artificial intelligence.",
+        "illustration": "Round robot with expressive LED eyes and curious girl, golden watercolor"
+      },
+      "mindfulKids": {
+        "title": "Mindful Kids",
+        "subtitle": "Breathe, Relax, Grow",
+        "description": "A digital zen garden where children discover inner calm. Breathing exercises like soap bubbles, meditations guided by wise little animals, and moments of peace.",
+        "illustration": "Child in yoga pose under cherry blossom tree, Beatrix Potter style"
+      },
+      "freeriverFlow": {
+        "title": "FreeRiver Flow",
+        "subtitle": "Let the Waves Carry You",
+        "description": "A meditative experience where you follow the flow of a magical river. Dancing colors, nature sounds, and the sweet sensation of letting go like a leaf on water.",
+        "illustration": "River flowing through green hills with golden lights, Italian watercolor"
+      },
+      "emilio": {
+        "title": "EMILIO",
+        "subtitle": "AI Educator",
+        "description": "The friendly robot that teaches children how technology works."
+      },
+      "moonlightPuzzle": {
+        "title": "Moonlight Puzzle",
+        "subtitle": "Night Puzzles",
+        "description": "Relaxing puzzles with nighttime atmospheres and gentle music."
+      },
+      "wordPlay": {
+        "title": "Word Play",
+        "subtitle": "Word Games",
+        "description": "Word games, rhymes and vocabulary in Italian and English."
+      },
+      "storyMaker": {
+        "title": "Story Maker",
+        "subtitle": "Create Your Stories",
+        "description": "Write and illustrate your own stories with magical characters and settings."
+      }
+    },
+    "cta": {
+      "badge": "Exclusive Preview",
+      "title": "Want to try them first?",
+      "subtitle": "Follow Onde to receive updates on new apps and early access to beta tests.",
+      "followOnX": "Follow us on X",
+      "learnMore": "Learn more"
+    }
   }
 }
