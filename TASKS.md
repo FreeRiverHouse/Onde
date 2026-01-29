@@ -2300,12 +2300,13 @@
 - **Notes**: ✅ Added! FileJson icon button next to CSV export. Exports full trade data with metadata (timestamp, filters, all fields including regime/reason). Formatted JSON with indent.
 
 ### [T363] Date range display in trading stats header
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T203]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show active date range in Trading Performance header when filtering is applied (e.g., "Jan 20 - Jan 27" or "Last 7 days"). Clear visual feedback.
+- **Notes**: ✅ Added! Shows active date filter in cyan under "Trading Performance" title. Formats: "Today", "Last 7 days", "Last 30 days", or custom "Jan 20 → Jan 27". Only shows when filter is not "All time".
 
 ### [T364] Date range comparison mode (vs previous period)
 - **Status**: TODO
