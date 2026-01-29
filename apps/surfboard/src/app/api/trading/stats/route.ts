@@ -20,6 +20,7 @@ interface Trade {
   order_status?: string;
   result_status?: string;
   minutes_to_expiry?: number;
+  latency_ms?: number;  // order placement to fill time
 }
 
 interface TradingStats {
@@ -43,6 +44,12 @@ interface TradingStats {
   longestLossStreak: number;  // longest consecutive losses
   currentStreak: number;  // current streak (positive for wins, negative for losses)
   currentStreakType: 'win' | 'loss' | 'none';  // type of current streak
+  // Latency stats (order placement to fill)
+  avgLatencyMs: number | null;   // average order latency in milliseconds
+  p95LatencyMs: number | null;   // 95th percentile latency
+  minLatencyMs: number | null;   // fastest order
+  maxLatencyMs: number | null;   // slowest order
+  latencyTradeCount: number;     // number of trades with latency data
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -271,6 +278,24 @@ export async function GET() {
       }
     }
 
+    // Latency stats (order placement to fill time)
+    const tradesWithLatency = trades.filter(t => t.latency_ms && t.latency_ms > 0);
+    let avgLatencyMs: number | null = null;
+    let p95LatencyMs: number | null = null;
+    let minLatencyMs: number | null = null;
+    let maxLatencyMs: number | null = null;
+    const latencyTradeCount = tradesWithLatency.length;
+    
+    if (tradesWithLatency.length > 0) {
+      const latencies = tradesWithLatency.map(t => t.latency_ms!).sort((a, b) => a - b);
+      avgLatencyMs = Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
+      minLatencyMs = latencies[0];
+      maxLatencyMs = latencies[latencies.length - 1];
+      // P95: 95th percentile
+      const p95Index = Math.floor(latencies.length * 0.95);
+      p95LatencyMs = latencies[Math.min(p95Index, latencies.length - 1)];
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -310,6 +335,12 @@ export async function GET() {
       longestLossStreak,
       currentStreak,
       currentStreakType,
+      // Latency stats
+      avgLatencyMs,
+      p95LatencyMs,
+      minLatencyMs,
+      maxLatencyMs,
+      latencyTradeCount,
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

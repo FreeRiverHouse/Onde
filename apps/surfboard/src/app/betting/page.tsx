@@ -87,6 +87,12 @@ interface TradingStats {
   longestLossStreak?: number;  // longest consecutive losses
   currentStreak?: number;  // current streak (positive for wins, negative for losses)
   currentStreakType?: 'win' | 'loss' | 'none';  // type of current streak
+  // Latency stats (order placement to fill)
+  avgLatencyMs?: number | null;   // average order latency
+  p95LatencyMs?: number | null;   // 95th percentile latency
+  minLatencyMs?: number | null;   // fastest order
+  maxLatencyMs?: number | null;   // slowest order
+  latencyTradeCount?: number;     // trades with latency data
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -1099,6 +1105,40 @@ export default function BettingDashboard() {
                   className="text-lg sm:text-xl md:text-2xl"
                 />
                 <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">longest loss streak</p>
+              </GlassCard>
+
+              {/* Order Latency */}
+              <GlassCard glowColor={
+                (tradingStats.avgLatencyMs ?? 0) === 0 ? 'cyan' :
+                (tradingStats.avgLatencyMs ?? 0) < 500 ? 'green' :
+                (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
+              } className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Avg Latency</span>
+                </div>
+                {tradingStats.latencyTradeCount && tradingStats.latencyTradeCount > 0 ? (
+                  <>
+                    <AnimatedNumber 
+                      value={tradingStats.avgLatencyMs ?? 0} 
+                      suffix="ms"
+                      decimals={0}
+                      glowColor={
+                        (tradingStats.avgLatencyMs ?? 0) < 500 ? 'green' :
+                        (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
+                      }
+                      className="text-lg sm:text-xl md:text-2xl"
+                    />
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
+                      p95: {tradingStats.p95LatencyMs ?? 0}ms · {tradingStats.latencyTradeCount} trades
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-lg sm:text-xl md:text-2xl font-bold text-gray-500">N/A</span>
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">no latency data yet</p>
+                  </>
+                )}
               </GlassCard>
             </div>
 

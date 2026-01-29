@@ -1351,12 +1351,13 @@
 - **Notes**: Track calculated edge at entry vs actual outcome. Analyze if higher edge correlates with higher win rate. Add edge_at_entry to trade log if missing.
 
 ### [T294] Add latency stats to /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T276]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show avg/p95 latency on trading dashboard. Helps monitor API health.
+- **Notes**: ✅ Added! API returns avgLatencyMs, p95LatencyMs, minLatencyMs, maxLatencyMs, latencyTradeCount. Dashboard shows "Avg Latency" card with color coding (<500ms=green, <1s=orange, >1s=red). Shows "N/A" until latency data available in trade logs.
 
 ### [T295] Alert if avg latency exceeds 2 seconds
 - **Status**: TODO
@@ -1633,7 +1634,31 @@
 - **Priority**: P3
 - **Notes**: ✅ Added! When swStatus is 'waiting', shows "🔄 Update Now" button. Triggers postMessage({type:'SKIP_WAITING'}) to activate new SW. Added message handler to sw.js. Button shows loading state, auto-reloads page on update.
 
+### [T327] Latency threshold alert (>2s avg)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T294]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Telegram alert if average order latency exceeds 2 seconds. Could indicate Kalshi API issues or network problems.
+
+### [T328] Latency trend chart on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T294]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Sparkline showing latency trend over last 24h/7d. Requires storing historical latency data per trade.
+
+### [T329] Trade execution success rate tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track ratio of successful order placements vs rejections/failures. Add rejectionCount, retryCount to API response. Alert if success rate drops below 95%.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
