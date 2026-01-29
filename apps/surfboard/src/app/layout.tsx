@@ -5,6 +5,7 @@ import { AuthButtons } from '@/components/AuthButtons'
 import { HeaderClient } from '@/components/HeaderClient'
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects'
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration'
+import { OfflineIndicator } from '@/components/OfflineIndicator'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           {/* Service Worker for offline PWA */}
           <ServiceWorkerRegistration />
+          <OfflineIndicator />
           
           {/* Premium Background Effects */}
           <BackgroundEffects />

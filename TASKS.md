@@ -1557,12 +1557,13 @@
 - **Notes**: Show contract count and cost basis per position. Calculate unrealized PnL based on current market price vs entry price.
 
 ### [T318] Offline indicator UI for PWA
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T312]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show banner/toast when app detects offline state. Indicate cached data age. Use navigator.onLine + online/offline events.
+- **Notes**: ✅ Created OfflineIndicator component. Shows orange banner when offline ("showing cached data"), green toast when reconnected (auto-hides 3s). Uses navigator.onLine + online/offline events. Animated with Tailwind.
 
 ### [T319] SW cache version bump script
 - **Status**: TODO
