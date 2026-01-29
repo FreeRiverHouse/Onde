@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-01-29T20:12:23.422246+00:00",
+  "tests": [
+    {
+      "name": "onde.la-homepage",
+      "status": "passed",
+      "diff_percent": 0.28391606506709316
+    },
+    {
+      "name": "onde.la-libri",
+      "status": "passed",
+      "diff_percent": 0.05427600230736121
+    },
+    {
+      "name": "onde.la-catalogo",
+      "status": "passed",
+      "diff_percent": 0.0
+    },
+    {
+      "name": "onde.la-about",
+      "status": "passed",
+      "diff_percent": 0.003947094579562662
+    },
+    {
+      "name": "onde.surf-login",
+      "status": "passed",
+      "diff_percent": 0.49152253951016933
+    },
+    {
+      "name": "onde.la-homepage-mobile",
+      "status": "passed",
+      "diff_percent": 0.055425545017859346
+    },
+    {
+      "name": "onde.la-libri-mobile",
+      "status": "passed",
+      "diff_percent": 0.0
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "baseline_updated": 0
+  }
+}
