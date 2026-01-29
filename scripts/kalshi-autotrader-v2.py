@@ -2742,11 +2742,17 @@ def log_ml_features(trade_data: dict):
         "ticker": ticker,
         "side": trade_data.get("side", ""),
         
-        # Price features (normalized)
-        "price_current": trade_data.get("current_price", 0),
-        "price_strike": trade_data.get("strike", 0),
+        # Price features (normalized) - may be None for weather markets
+        "price_current": trade_data.get("current_price") or 0,
+        "price_strike": trade_data.get("strike") or 0,
         "price_distance_pct": 0,  # calculated below
-        "price_above_strike": 1 if trade_data.get("current_price", 0) > trade_data.get("strike", 0) else 0,
+        "price_above_strike": 1 if (trade_data.get("current_price") or 0) > (trade_data.get("strike") or 0) else 0,
+        
+        # Weather-specific features (T422)
+        "is_weather_market": 1 if trade_data.get("asset") == "weather" else 0,
+        "forecast_temp": trade_data.get("forecast_temp"),
+        "forecast_uncertainty": trade_data.get("forecast_uncertainty"),
+        "city": trade_data.get("city"),
         
         # Probability features
         "prob_predicted": trade_data.get("our_prob", 0),  # Our model's probability
@@ -2792,10 +2798,10 @@ def log_ml_features(trade_data: dict):
         "profit_cents": None,  # Actual P&L
     }
     
-    # Calculate price distance percentage
-    strike = trade_data.get("strike", 0)
-    current = trade_data.get("current_price", 0)
-    if strike and current:
+    # Calculate price distance percentage (crypto only - weather has no strike)
+    strike = trade_data.get("strike")
+    current = trade_data.get("current_price")
+    if strike and current and strike > 0:
         ml_record["price_distance_pct"] = (current - strike) / strike * 100
     
     # Write to ML log file
@@ -3508,6 +3514,10 @@ def run_cycle():
     kelly_fraction = best.get("kelly_override", KELLY_FRACTION)
     
     # Skip volatility adjustments for weather markets (different edge source)
+    # Initialize multipliers (used in logging)
+    regime_multiplier = 1.0
+    vol_multiplier = 1.0
+    
     if asset_type == "weather":
         # Weather uses NWS forecast accuracy - simpler sizing
         adjusted_kelly = kelly_fraction
@@ -3567,9 +3577,13 @@ def run_cycle():
         "our_prob": best["our_prob"],
         "base_prob": best.get("base_prob", best["our_prob"]),
         "market_prob": best["market_prob"],
-        "strike": best["strike"],
-        "current_price": best["current"],
-        "minutes_to_expiry": best["minutes_left"],
+        "strike": best.get("strike"),  # None for weather
+        "current_price": best.get("current"),  # None for weather
+        "minutes_to_expiry": best.get("minutes_left"),  # None for weather
+        # Weather-specific fields (T422)
+        "forecast_temp": best.get("forecast_temp"),
+        "forecast_uncertainty": best.get("uncertainty"),
+        "city": best.get("city"),
         "momentum_dir": best.get("momentum_dir", 0),
         "momentum_str": best.get("momentum_str", 0),
         "momentum_aligned": best.get("momentum_aligned", False),
@@ -3738,8 +3752,8 @@ def write_health_status(cycle_count: int):
         except Exception:
             positions_count = None
         
-        # Get circuit breaker status
-        is_paused, pause_reason = check_circuit_breaker()
+        # Get circuit breaker status (returns 3 values: paused, losses, message)
+        is_paused, _, pause_reason = check_circuit_breaker()
         
         # Get consecutive losses
         consecutive_losses = get_consecutive_losses()
