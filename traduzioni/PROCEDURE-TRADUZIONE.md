@@ -1,7 +1,47 @@
 # PROCEDURE DI TRADUZIONE 📚
 
+> **REGOLA #0: OGNI MESSAGGIO MATTIA VA SU GIT**
+> Se non è su Git, non esiste. Trascrivere SEMPRE.
+
 > **REGOLA #1: USA MODELLI LOCALI SU M4!**
 > Non tradurre "manualmente" come Claude. M4 ha GPU per modelli locali.
+
+---
+
+## 🤖 WORKFLOW CON AGENTI
+
+### Pipeline Traduzione Completa
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  TRADUTTORE │ →  │  RILETTTORE │ →  │  REVISORE   │ →  │   OUTPUT    │
+│  (NLLB-200) │    │  (Errori)   │    │  (Stile)    │    │   FINALE    │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+```
+
+### Agente 1: TRADUTTORE
+- **Tool:** NLLB-200 locale
+- **Input:** Testo originale
+- **Output:** Traduzione grezza
+- **Script:** `~/clawd/translator.py`
+
+### Agente 2: RILETTTORE (Proofreader)
+- **Tool:** Script Python per check grammaticale
+- **Controlla:**
+  - Errori grammaticali
+  - Concordanze soggetto-verbo
+  - Punteggiatura
+  - Frasi incomplete
+- **Script:** `scripts/translation-reviewer.py` (se esiste)
+
+### Agente 3: REVISORE (Editor)
+- **Tool:** Confronto con originale
+- **Controlla:**
+  - Fedeltà al significato
+  - Stile e registro
+  - Terminologia tecnica
+  - Fluidità
+- **Output:** Versione finale approvata
 
 ---
 
