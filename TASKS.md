@@ -1914,12 +1914,13 @@
 - **Notes**: ✅ Script: analyze-trades-by-weekday.py. Shows per-day stats (trades, W/L, win rate, PnL, ROI). Includes weekend vs weekday comparison and insights. Usage: `python3 scripts/analyze-trades-by-weekday.py [--v2]`
 
 ### [T359] Add streak visualization to /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T287], [T288]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visual streak indicator showing recent trade outcomes (🟢🟢🟢🔴🟢 pattern). Click to see full history timeline.
+- **Notes**: ✅ Added "Trade History Pattern" section with colored dots (green=won, red=lost, gray=pending). Shows last 10 trades. Dots have glow effect and hover tooltip with trade details. Responsive sizing.
 
 ---
 

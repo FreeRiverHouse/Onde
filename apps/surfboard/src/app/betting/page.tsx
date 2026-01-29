@@ -1175,6 +1175,34 @@ export default function BettingDashboard() {
               </GlassCard>
             </div>
 
+            {/* Streak Pattern Visualization */}
+            {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
+              <div className="mt-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-gray-400 text-xs font-medium">Trade History Pattern</span>
+                  <span className="text-gray-600 text-[10px]">← newest</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {tradingStats.recentTrades.slice(0, 10).map((trade, i) => (
+                    <div 
+                      key={i}
+                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full transition-all ${
+                        trade.result_status === 'won' 
+                          ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' 
+                          : trade.result_status === 'lost'
+                          ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'
+                          : 'bg-gray-600 animate-pulse'
+                      }`}
+                      title={`${trade.side.toUpperCase()} ${trade.contracts}x @ ${trade.price_cents}¢ - ${trade.result_status || 'pending'}`}
+                    />
+                  ))}
+                  {tradingStats.recentTrades.length < 10 && (
+                    <span className="text-gray-600 text-xs ml-2">({tradingStats.recentTrades.length} trades)</span>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Recent Trades */}
             {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
               <div className="mt-4">
