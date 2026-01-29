@@ -743,12 +743,13 @@
 - **Notes**: ✅ Added "reason" field + full context to trade_log. Reason includes: edge %, momentum direction (bullish/bearish/neutral), extreme sentiment, high volatility. Also logs momentum, volatility, sentiment values for post-trade analysis.
 
 ### [T226] Add JSON-LD structured data for books
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Schema.org Book markup for better Google rich snippets. Include author, datePublished, isbn (if any), offers.
+- **Notes**: ✅ Added Schema.org Book + ItemList + CollectionPage markup to /libri layout.tsx. Includes author, translator, datePublished, offers with price=0. Google rich snippets ready.
 
 ### [T227] Lighthouse CI check for performance regression
 - **Status**: TODO
@@ -1047,5 +1048,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 17:17 PST*
+### [T261] Add JSON-LD structured data for /catalogo
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Similar to T226. Add Schema.org markup for all catalog products. Product type with offers.
+
+### [T262] RSS feed for book releases
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add /feed.xml endpoint for new book releases. Helps RSS readers and podcast apps discover content.
+
+### [T263] Reading time estimate on book cards
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "~X min read" or page count to book cards. Helps users know what they're downloading.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29 04:33 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
