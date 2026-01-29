@@ -360,20 +360,54 @@
 ## 🤖 TODO - AI TRADING RESEARCH (DA MATTIA 2026-01-29)
 
 ### [T408] Ricerca metodi Grok su piattaforme prediction market
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: [T409], [T410]
 - **Priority**: P1
-- **Notes**: X Freeze claimava Grok 4.20 con 10-12% returns su Alpha Arena, PredictionArena, Rallies. Verificare claim e studiare metodi. PredictionArena.ai USA KALSHI! Possiamo confrontare.
+- **Notes**: ✅ COMPLETED! Full analysis in `data/research/predictionarena-analysis-2026-01-29.md`
+  - **DEBUNKED:** Grok-4-1 has -15.94% return (WORST on leaderboard!)
+  - **KEY FINDING:** Only 1 model is profitable (Mystery Model Alpha +10.61%)
+  - **CRITICAL INSIGHT:** Winning strategy uses WEATHER MARKETS, not crypto!
+  - **Edge Source:** NWS forecast accuracy + favorite-longshot bias
+  - **Recommendation:** Add weather markets to autotrader (KXNYC, KXMIA, KXDEN)
 
 ### [T409] Replicare/migliorare strategie top modelli su Kalshi
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: [T408]
+- **Blocks**: [T422], [T423]
+- **Priority**: P1
+- **Notes**: Studiare leaderboard PredictionArena, analizzare pattern dei top performer, integrare insights in nostro autotrader.
+  - ✅ Research done in T408 - winning strategy uses WEATHER markets!
+  - Next: Implement weather market support (T422, T423)
+
+### [T422] Add weather markets to autotrader (KXNYC, KXMIA, KXDEN)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T408]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Based on PredictionArena research - weather markets have REAL edge!
+  - Markets: KXNYC (NYC temp), KXMIA (Miami temp), KXDEN (Denver temp)
+  - Data source: NWS forecasts (api.weather.gov)
+  - Strategy: Favorite-longshot bias near settlement (<48h)
+  - Key: High-prob outcomes (>75%) are underpriced at 40-50¢
+
+### [T423] Implement NWS weather forecast integration
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T422]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Studiare leaderboard PredictionArena, analizzare pattern dei top performer, integrare insights in nostro autotrader
+- **Notes**: Fetch official NWS forecasts for weather market trading
+  - API: api.weather.gov (free, no key needed)
+  - NYC: Central Park station
+  - Miami: Miami International Airport
+  - Denver: Denver International Airport
+  - Parse high/low temp forecasts
+  - Settlement uses OFFICIAL NWS Climatological Reports
 
 ### [T410] Monitorare altre piattaforme AI prediction markets
 - **Status**: TODO
