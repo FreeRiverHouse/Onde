@@ -21,12 +21,13 @@
 ## 🚨 URGENTE - DA MATTIA 2026-01-28
 
 ### [T090] Creare REGOLE-AGENTI.md
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Regola 0 (Git), Regola 1 (Procedure), Regola 2 (Task extraction). Sistema oliato.
+- **Notes**: ✅ Creato! 3 regole: Git (pull/push), Procedure (segui docs), Task extraction (estrai da conversazioni).
 
 ### [T091] Creare agente PM per review task
 - **Status**: TODO
