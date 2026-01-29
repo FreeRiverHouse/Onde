@@ -1378,12 +1378,13 @@
 - **Notes**: ✅ Script: cache-ohlc-data.py. Fetches 90 days OHLC from CoinGecko for BTC+ETH. Saves to data/ohlc/. Cron: 00:30 UTC daily. 180 candles per asset, JSON format with ISO timestamps.
 
 ### [T279] Trade entry latency profiling
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add timing logs for each API call in autotrader (market fetch, order placement, etc). Identify bottlenecks.
+- **Notes**: ✅ Comprehensive latency profiling added! 1) API_LATENCY_LOG tracks all API calls, 2) record_api_latency() records per-endpoint timing, 3) calculate_latency_stats() computes min/avg/p50/p95/p99/max, 4) print_latency_summary() shows formatted report, 5) identify_bottlenecks() detects slow endpoints, 6) External APIs tracked: Binance, CoinGecko, Coinbase, Fear&Greed, OHLC, 7) Profile saved to kalshi-latency-profile.json every 30min, 8) Analysis script: analyze-api-latency.py with detailed reporting.
 
 ### [T280] Calmar ratio calculation (return / max drawdown)
 - **Status**: DONE
@@ -2562,7 +2563,31 @@
 - **Priority**: P3
 - **Notes**: ✅ Added full_alignment field to opportunity data + trade_log. Captures when all timeframes (1h/4h/24h) agree regardless of direction. Enables T394 analysis of alignment effectiveness.
 
+### [T396] Latency-based exchange source prioritization
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T279]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use latency profile data to dynamically prioritize faster exchanges. If Binance avg <200ms but CoinGecko >500ms, try Binance first. Update priority order in get_crypto_prices() based on recent latency stats.
+
+### [T397] Latency anomaly detection and alerting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T279]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when latency suddenly increases beyond historical baseline. Calculate rolling avg + std dev. Alert when current avg > rolling_avg + 2*std_dev. Could indicate API issues or network problems.
+
+### [T398] Latency dashboard on /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T279], [T256]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add latency metrics section to /health page. Show: avg latency per endpoint category, slowest endpoints, error rates, latency trend sparklines. Read from kalshi-latency-profile.json via API.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 12:30 UTC*
+*Ultimo aggiornamento: 2026-01-30 16:20 UTC*
 *Sistema coordinamento: vedi TASK-RULES.md*

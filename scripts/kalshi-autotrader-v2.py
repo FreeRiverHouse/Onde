@@ -115,6 +115,148 @@ LATENCY_CHECK_WINDOW = 10  # Check last N trades
 STREAK_STATE_FILE = "scripts/kalshi-streak-records.json"
 STREAK_ALERT_FILE = "scripts/kalshi-streak-record.alert"
 
+# API Latency Profiling (T279)
+LATENCY_PROFILE_FILE = "scripts/kalshi-latency-profile.json"
+LATENCY_PROFILE_WINDOW = 100  # Keep last N calls per endpoint
+API_LATENCY_LOG = defaultdict(list)  # endpoint -> list of (timestamp, latency_ms)
+
+
+# ============== API LATENCY PROFILING (T279) ==============
+
+def record_api_latency(endpoint: str, latency_ms: float):
+    """
+    Record API call latency for profiling.
+    
+    Args:
+        endpoint: API endpoint name (e.g., "balance", "positions", "order")
+        latency_ms: Time taken for the call in milliseconds
+    """
+    global API_LATENCY_LOG
+    timestamp = datetime.now(timezone.utc).isoformat()
+    API_LATENCY_LOG[endpoint].append((timestamp, latency_ms))
+    
+    # Keep only last N entries per endpoint
+    if len(API_LATENCY_LOG[endpoint]) > LATENCY_PROFILE_WINDOW:
+        API_LATENCY_LOG[endpoint] = API_LATENCY_LOG[endpoint][-LATENCY_PROFILE_WINDOW:]
+
+
+def calculate_latency_stats(latencies: list) -> dict:
+    """
+    Calculate latency statistics from a list of latency values.
+    
+    Args:
+        latencies: List of latency values in ms
+    
+    Returns:
+        Dict with min, avg, p50, p95, p99, max, count
+    """
+    if not latencies:
+        return {"count": 0}
+    
+    sorted_latencies = sorted(latencies)
+    count = len(sorted_latencies)
+    
+    return {
+        "count": count,
+        "min_ms": round(sorted_latencies[0], 1),
+        "avg_ms": round(sum(sorted_latencies) / count, 1),
+        "p50_ms": round(sorted_latencies[int(count * 0.5)], 1),
+        "p95_ms": round(sorted_latencies[min(int(count * 0.95), count - 1)], 1),
+        "p99_ms": round(sorted_latencies[min(int(count * 0.99), count - 1)], 1),
+        "max_ms": round(sorted_latencies[-1], 1)
+    }
+
+
+def get_latency_profile() -> dict:
+    """
+    Get latency profile for all tracked endpoints.
+    
+    Returns:
+        Dict with endpoint -> stats mapping
+    """
+    profile = {}
+    for endpoint, entries in API_LATENCY_LOG.items():
+        latencies = [lat for _, lat in entries]
+        profile[endpoint] = calculate_latency_stats(latencies)
+    return profile
+
+
+def print_latency_summary():
+    """Print formatted latency profiling summary to console."""
+    profile = get_latency_profile()
+    if not profile:
+        return
+    
+    print("\n📊 API LATENCY PROFILE:")
+    print("=" * 70)
+    print(f"{'Endpoint':<25} {'Calls':>6} {'Min':>8} {'Avg':>8} {'P95':>8} {'Max':>8}")
+    print("-" * 70)
+    
+    # Sort by avg latency descending (slowest first)
+    sorted_endpoints = sorted(profile.items(), key=lambda x: x[1].get("avg_ms", 0), reverse=True)
+    
+    for endpoint, stats in sorted_endpoints:
+        if stats["count"] > 0:
+            print(f"{endpoint:<25} {stats['count']:>6} {stats['min_ms']:>7.1f}ms {stats['avg_ms']:>7.1f}ms "
+                  f"{stats['p95_ms']:>7.1f}ms {stats['max_ms']:>7.1f}ms")
+    
+    print("=" * 70)
+    
+    # Calculate totals
+    total_calls = sum(s.get("count", 0) for s in profile.values())
+    all_latencies = []
+    for entries in API_LATENCY_LOG.values():
+        all_latencies.extend([lat for _, lat in entries])
+    
+    if all_latencies:
+        total_stats = calculate_latency_stats(all_latencies)
+        print(f"{'TOTAL':<25} {total_calls:>6} {total_stats['min_ms']:>7.1f}ms {total_stats['avg_ms']:>7.1f}ms "
+              f"{total_stats['p95_ms']:>7.1f}ms {total_stats['max_ms']:>7.1f}ms")
+
+
+def save_latency_profile():
+    """Save latency profile to file for later analysis."""
+    profile = get_latency_profile()
+    if not profile:
+        return
+    
+    data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "endpoints": profile,
+        "raw_data": {endpoint: entries[-20:] for endpoint, entries in API_LATENCY_LOG.items()}  # Last 20 per endpoint
+    }
+    
+    with open(LATENCY_PROFILE_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+
+def identify_bottlenecks() -> list:
+    """
+    Identify API endpoints that may be bottlenecks.
+    
+    Returns:
+        List of (endpoint, issue, details) tuples
+    """
+    profile = get_latency_profile()
+    bottlenecks = []
+    
+    for endpoint, stats in profile.items():
+        if stats["count"] < 3:
+            continue  # Not enough data
+        
+        # Flag slow endpoints
+        if stats["avg_ms"] > 1000:
+            bottlenecks.append((endpoint, "slow_avg", f"Avg {stats['avg_ms']:.0f}ms > 1000ms threshold"))
+        
+        if stats["p95_ms"] > 2000:
+            bottlenecks.append((endpoint, "slow_p95", f"P95 {stats['p95_ms']:.0f}ms > 2000ms threshold"))
+        
+        # Flag high variance (p95 >> avg)
+        if stats["avg_ms"] > 0 and stats["p95_ms"] / stats["avg_ms"] > 3:
+            bottlenecks.append((endpoint, "high_variance", f"P95/Avg ratio {stats['p95_ms']/stats['avg_ms']:.1f}x"))
+    
+    return bottlenecks
+
 
 # ============== REGIME CHANGE ALERTING ==============
 
@@ -592,9 +734,11 @@ def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 1) -> list:
     # Try cached data first (T381)
     cached_data, is_fresh = load_cached_ohlc(coin_id)
     if cached_data and is_fresh:
+        record_api_latency("ohlc_cache_hit", 0)  # Track cache usage
         return cached_data
     
-    # Try live API
+    # Try live API with latency tracking
+    start = time.time()
     try:
         # CoinGecko OHLC endpoint - days=1 gives ~48 candles (30min intervals)
         # days=7 gives hourly candles - better for 24h momentum
@@ -603,13 +747,17 @@ def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 1) -> list:
             f"https://api.coingecko.com/api/v3/coins/{coin_id}/ohlc?vs_currency=usd&days={valid_days}",
             timeout=10
         )
+        latency = (time.time() - start) * 1000
+        record_api_latency(f"ext_ohlc_{coin_id[:3]}", latency)
         if resp.status_code == 200:
             data = resp.json()
             if isinstance(data, list) and data:
-                print(f"[OHLC] Fetched {len(data)} live {coin_id.upper()} candles from CoinGecko")
+                print(f"[OHLC] Fetched {len(data)} live {coin_id.upper()} candles from CoinGecko ({latency:.0f}ms)")
                 return data
         print(f"[WARN] {coin_id.upper()} OHLC API returned {resp.status_code}")
     except Exception as e:
+        latency = (time.time() - start) * 1000
+        record_api_latency(f"ext_ohlc_{coin_id[:3]}_error", latency)
         print(f"[WARN] CoinGecko OHLC fetch failed: {e}")
     
     # Fall back to stale cache if available
@@ -1025,8 +1173,23 @@ def sign_request(method: str, path: str, timestamp: str) -> str:
 
 
 def api_request(method: str, path: str, body: dict = None, max_retries: int = 3) -> dict:
-    """Make authenticated API request with exponential backoff retry"""
+    """Make authenticated API request with exponential backoff retry and latency tracking"""
     url = f"{BASE_URL}{path}"
+    
+    # Extract endpoint name for profiling (e.g., "/trade-api/v2/portfolio/balance" -> "balance")
+    endpoint_name = path.split("/")[-1].split("?")[0]
+    if "orders" in path:
+        endpoint_name = "order"
+    elif "positions" in path:
+        endpoint_name = "positions"
+    elif "balance" in path:
+        endpoint_name = "balance"
+    elif "markets" in path and "{" not in path:
+        endpoint_name = "markets_search"
+    elif "fills" in path:
+        endpoint_name = "fills"
+    
+    total_start = time.time()
     
     for attempt in range(max_retries):
         # Generate fresh signature for each attempt (timestamp changes)
@@ -1039,11 +1202,15 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
             "Content-Type": "application/json"
         }
         
+        attempt_start = time.time()
+        
         try:
             if method == "GET":
                 resp = requests.get(url, headers=headers, timeout=10)
             elif method == "POST":
                 resp = requests.post(url, headers=headers, json=body, timeout=10)
+            
+            attempt_latency = (time.time() - attempt_start) * 1000  # Convert to ms
             
             # Check for server errors (5xx) - retry these
             if resp.status_code >= 500:
@@ -1053,7 +1220,13 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
                     time.sleep(wait_time)
                     continue
                 else:
+                    total_latency = (time.time() - total_start) * 1000
+                    record_api_latency(f"{endpoint_name}_failed", total_latency)
                     return {"error": f"API error {resp.status_code} after {max_retries} retries"}
+            
+            # Success - record latency
+            total_latency = (time.time() - total_start) * 1000
+            record_api_latency(endpoint_name, total_latency)
             
             # Client errors (4xx) - don't retry, return as-is
             return resp.json()
@@ -1064,6 +1237,8 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
                 print(f"[RETRY] Timeout, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
                 time.sleep(wait_time)
                 continue
+            total_latency = (time.time() - total_start) * 1000
+            record_api_latency(f"{endpoint_name}_timeout", total_latency)
             return {"error": f"Timeout after {max_retries} retries"}
             
         except requests.exceptions.ConnectionError:
@@ -1072,9 +1247,13 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
                 print(f"[RETRY] Connection error, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
                 time.sleep(wait_time)
                 continue
+            total_latency = (time.time() - total_start) * 1000
+            record_api_latency(f"{endpoint_name}_conn_error", total_latency)
             return {"error": f"Connection error after {max_retries} retries"}
             
         except Exception as e:
+            total_latency = (time.time() - total_start) * 1000
+            record_api_latency(f"{endpoint_name}_error", total_latency)
             return {"error": str(e)}
     
     return {"error": "Max retries exceeded"}
@@ -1346,12 +1525,15 @@ def write_stop_loss_alert(ticker: str, side: str, contracts: int,
 # ============== EXTERNAL DATA ==============
 
 def get_prices_coingecko() -> dict:
-    """Get BTC/ETH prices from CoinGecko"""
+    """Get BTC/ETH prices from CoinGecko with latency tracking"""
+    start = time.time()
     try:
         resp = requests.get(
             "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
             timeout=5
         )
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_coingecko", latency)
         if resp.status_code == 200:
             data = resp.json()
             return {
@@ -1360,17 +1542,22 @@ def get_prices_coingecko() -> dict:
                 "source": "coingecko"
             }
     except Exception as e:
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_coingecko_error", latency)
         print(f"[PRICE] CoinGecko error: {e}")
     return None
 
 
 def get_prices_binance() -> dict:
-    """Get BTC/ETH prices from Binance"""
+    """Get BTC/ETH prices from Binance with latency tracking"""
+    start = time.time()
     try:
         resp = requests.get(
             "https://api.binance.com/api/v3/ticker/price?symbols=[\"BTCUSDT\",\"ETHUSDT\"]",
             timeout=5
         )
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_binance", latency)
         if resp.status_code == 200:
             data = resp.json()
             prices = {"source": "binance"}
@@ -1382,12 +1569,15 @@ def get_prices_binance() -> dict:
             if "btc" in prices and "eth" in prices:
                 return prices
     except Exception as e:
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_binance_error", latency)
         print(f"[PRICE] Binance error: {e}")
     return None
 
 
 def get_prices_coinbase() -> dict:
-    """Get BTC/ETH prices from Coinbase"""
+    """Get BTC/ETH prices from Coinbase with latency tracking"""
+    start = time.time()
     try:
         btc_resp = requests.get(
             "https://api.coinbase.com/v2/prices/BTC-USD/spot",
@@ -1397,6 +1587,8 @@ def get_prices_coinbase() -> dict:
             "https://api.coinbase.com/v2/prices/ETH-USD/spot",
             timeout=5
         )
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_coinbase", latency)
         if btc_resp.status_code == 200 and eth_resp.status_code == 200:
             return {
                 "btc": float(btc_resp.json()["data"]["amount"]),
@@ -1404,6 +1596,8 @@ def get_prices_coinbase() -> dict:
                 "source": "coinbase"
             }
     except Exception as e:
+        latency = (time.time() - start) * 1000
+        record_api_latency("ext_coinbase_error", latency)
         print(f"[PRICE] Coinbase error: {e}")
     return None
 
@@ -1476,10 +1670,13 @@ def get_crypto_prices(max_retries: int = 3) -> dict:
 
 
 def get_fear_greed(max_retries: int = 2) -> int:
-    """Get Fear & Greed Index (0-100) with retry logic"""
+    """Get Fear & Greed Index (0-100) with retry logic and latency tracking"""
+    start = time.time()
     for attempt in range(max_retries):
         try:
             resp = requests.get("https://api.alternative.me/fng/?limit=1", timeout=5)
+            latency = (time.time() - start) * 1000
+            record_api_latency("ext_fear_greed", latency)
             if resp.status_code >= 500:
                 raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
             return int(resp.json()["data"][0]["value"])
@@ -1489,6 +1686,8 @@ def get_fear_greed(max_retries: int = 2) -> int:
                 print(f"[RETRY] F&G error: {e}, waiting {wait_time:.1f}s")
                 time.sleep(wait_time)
                 continue
+    latency = (time.time() - start) * 1000
+    record_api_latency("ext_fear_greed_error", latency)
     return 50  # Default neutral
 
 
@@ -2156,16 +2355,37 @@ def main():
     print("🚀 Starting Kalshi AutoTrader v2")
     print("   With PROPER probability model and feedback loop!")
     print("   Now trading: BTC (KXBTCD) + ETH (KXETHD) markets!")
+    print("   📊 API latency profiling enabled (T279)")
     if DRY_RUN:
         print("   🧪 DRY RUN MODE - No real trades will be executed!")
         print(f"   📝 Trades logged to: {DRY_RUN_LOG_FILE}")
     print("   Press Ctrl+C to stop\n")
     
+    cycle_count = 0
+    
     while True:
         try:
             run_cycle()
+            cycle_count += 1
+            
+            # Print and save latency profile every 6 cycles (30 mins)
+            if cycle_count % 6 == 0:
+                print_latency_summary()
+                save_latency_profile()
+                
+                # Check for bottlenecks
+                bottlenecks = identify_bottlenecks()
+                if bottlenecks:
+                    print("\n⚠️ BOTTLENECKS DETECTED:")
+                    for endpoint, issue, details in bottlenecks:
+                        print(f"   • {endpoint}: {issue} - {details}")
+                
         except KeyboardInterrupt:
             print("\n\n👋 Stopping autotrader...")
+            # Print final latency summary
+            print("\n📊 FINAL LATENCY REPORT:")
+            print_latency_summary()
+            save_latency_profile()
             break
         except Exception as e:
             print(f"\n❌ Error: {e}")
