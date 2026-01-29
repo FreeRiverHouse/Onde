@@ -1923,7 +1923,31 @@
 - **Priority**: P3
 - **Notes**: ✅ Added "Trade History Pattern" section with colored dots (green=won, red=lost, gray=pending). Shows last 10 trades. Dots have glow effect and hover tooltip with trade details. Responsive sizing.
 
+### [T360] Quick date filter presets for trade history
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T340]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add buttons for "Today", "This Week", "This Month", "All Time" to quickly filter trade history by date range.
+
+### [T361] Daily PnL summary in trade history header
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T340]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show total PnL, trades count, and win rate summary for the currently filtered date range in trade history header.
+
+### [T362] JSON export option for trade history
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T096]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add JSON export button alongside CSV. Useful for programmatic analysis and data backup.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-28 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
