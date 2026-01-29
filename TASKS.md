@@ -1402,12 +1402,13 @@
 ---
 
 ### [T300] Momentum strength indicator on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T250]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add strength labels (weak/moderate/strong) based on composite_strength. Helps assess momentum reliability.
+- **Notes**: ✅ Added visual signal bars (like cell signal) next to momentum badge. 3 bars light up based on strength: weak (1), moderate (2), strong (3). Color matches signal direction. More intuitive than text labels.
 
 ### [T301] Alert when momentum aligns across all timeframes
 - **Status**: TODO
@@ -1425,7 +1426,31 @@
 - **Priority**: P3
 - **Notes**: Detect extended momentum (>2% in 4h) that often precedes reversals. Alert as contrarian opportunity.
 
+### [T303] Momentum divergence alert (price vs momentum)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T250]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when price makes new high/low but momentum composite doesn't confirm (divergence). Classic reversal signal. Integrate into autotrader decision logic.
+
+### [T304] Trading dashboard mobile responsiveness audit
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Audit /betting page on mobile viewports. Fix any overflow/layout issues. 15 stat cards might need collapsible sections on small screens.
+
+### [T305] Autotrader dry-run mode for strategy testing
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add DRY_RUN=true env flag to log trades without executing. Useful for testing new strategies/thresholds without risking capital. Log to separate kalshi-trades-dryrun.jsonl.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 18:42 PST heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
