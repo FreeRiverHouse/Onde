@@ -1,0 +1,77 @@
+#!/bin/bash
+# Health Webhook Notifier - Send alerts when /api/health/status returns critical
+# Runs via cron every 5 min
+# Creates cooldown file to avoid spam (30 min)
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+COOLDOWN_FILE="$SCRIPT_DIR/.health-webhook-cooldown"
+COOLDOWN_SECONDS=1800  # 30 minutes
+
+# Check cooldown
+if [ -f "$COOLDOWN_FILE" ]; then
+    LAST_ALERT=$(cat "$COOLDOWN_FILE")
+    NOW=$(date +%s)
+    ELAPSED=$((NOW - LAST_ALERT))
+    if [ "$ELAPSED" -lt "$COOLDOWN_SECONDS" ]; then
+        echo "Cooldown active ($ELAPSED/$COOLDOWN_SECONDS sec). Skipping."
+        exit 0
+    fi
+fi
+
+# Fetch health status
+HEALTH_URL="${HEALTH_URL:-https://onde.surf/api/health/status}"
+RESPONSE=$(curl -s --max-time 10 "$HEALTH_URL")
+
+if [ -z "$RESPONSE" ]; then
+    echo "$(date): Failed to fetch health status"
+    exit 1
+fi
+
+# Parse status (requires jq)
+STATUS=$(echo "$RESPONSE" | jq -r '.status // "unknown"')
+ONDE_LA_OK=$(echo "$RESPONSE" | jq -r '.sites.ondeLa.ok // true')
+ONDE_SURF_OK=$(echo "$RESPONSE" | jq -r '.sites.ondeSurf.ok // true')
+AUTOTRADER_RUNNING=$(echo "$RESPONSE" | jq -r '.autotrader.running // true')
+
+echo "$(date): Status=$STATUS, onde.la=$ONDE_LA_OK, onde.surf=$ONDE_SURF_OK, autotrader=$AUTOTRADER_RUNNING"
+
+# Only alert on critical status
+if [ "$STATUS" != "critical" ]; then
+    echo "Status is $STATUS (not critical). No alert needed."
+    exit 0
+fi
+
+# Build alert message
+ALERT_MSG="🚨 CRITICAL HEALTH ALERT\n\n"
+ALERT_MSG+="Status: $STATUS\n"
+[ "$ONDE_LA_OK" = "false" ] && ALERT_MSG+="❌ onde.la is DOWN\n"
+[ "$ONDE_SURF_OK" = "false" ] && ALERT_MSG+="❌ onde.surf is DOWN\n"
+[ "$AUTOTRADER_RUNNING" = "false" ] && ALERT_MSG+="❌ Autotrader is NOT RUNNING\n"
+ALERT_MSG+="\nTimestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+
+# Send to Discord webhook (if configured)
+DISCORD_WEBHOOK="${DISCORD_WEBHOOK:-}"
+if [ -n "$DISCORD_WEBHOOK" ]; then
+    curl -s -X POST "$DISCORD_WEBHOOK" \
+        -H "Content-Type: application/json" \
+        -d "{\"content\": \"$(echo -e "$ALERT_MSG")\"}"
+    echo "Sent Discord alert"
+fi
+
+# Send to Slack webhook (if configured)
+SLACK_WEBHOOK="${SLACK_WEBHOOK:-}"
+if [ -n "$SLACK_WEBHOOK" ]; then
+    curl -s -X POST "$SLACK_WEBHOOK" \
+        -H "Content-Type: application/json" \
+        -d "{\"text\": \"$(echo -e "$ALERT_MSG")\"}"
+    echo "Sent Slack alert"
+fi
+
+# Create alert file for heartbeat pickup
+ALERT_FILE="$SCRIPT_DIR/health-critical.alert"
+echo -e "$ALERT_MSG" > "$ALERT_FILE"
+echo "Created $ALERT_FILE for heartbeat"
+
+# Update cooldown
+date +%s > "$COOLDOWN_FILE"
+echo "Alert sent. Cooldown set for $COOLDOWN_SECONDS seconds."

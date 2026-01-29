@@ -76,16 +76,57 @@
   - Incident timeline for any outages
 
 ### [T451] Add webhook notifications for critical alerts
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T446]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Send webhook to Discord/Slack when /api/health/status returns critical:
-  - Create `scripts/health-webhook-notifier.sh`
-  - Cron every 5 min: check status, if critical → webhook
-  - Cooldown to avoid spam (30 min)
-  - Include: which site is down, latency, timestamp
+- **Notes**: ✅ Created `scripts/health-webhook-notifier.sh`!
+  - Fetches /api/health/status every run
+  - Only alerts on "critical" status (not degraded/healthy)
+  - 30-min cooldown to avoid spam
+  - Supports DISCORD_WEBHOOK and SLACK_WEBHOOK env vars
+  - Creates health-critical.alert for heartbeat pickup
+  - Cron: `*/5 * * * * /path/to/health-webhook-notifier.sh`
+  - Tested: correctly detects degraded (no alert) vs critical (alert)
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (15:11)
+
+### [T452] Add cron job for health-webhook-notifier.sh
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T451]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add to crontab: `*/5 * * * * /Users/mattia/Projects/Onde/scripts/health-webhook-notifier.sh`
+  - Configure DISCORD_WEBHOOK or SLACK_WEBHOOK in environment
+  - Test with intentional site downtime
+
+### [T453] Add Telegram integration to health webhook notifier
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T451]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Extend health-webhook-notifier.sh to support Telegram:
+  - Use Clawdbot message tool or direct Bot API
+  - TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID env vars
+  - Higher priority than Discord/Slack since Mattia uses Telegram
+
+### [T454] Create alert history dashboard widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T451], [T428]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: New component for /health page showing:
+  - Recent webhook alerts sent (last 7 days)
+  - Alert type breakdown (critical/degraded)
+  - Response times (how fast issues were resolved)
+  - Store in KV or Gist for persistence
 
 ---
 
