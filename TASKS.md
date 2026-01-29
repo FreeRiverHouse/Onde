@@ -3193,12 +3193,13 @@
 - **Notes**: ✅ Implemented! Added log_circuit_breaker_event() to autotrader-v2. Logs to kalshi-circuit-breaker-history.jsonl with: event_type, trigger_time, release_time, release_reason (win/cooldown), streak, trades_skipped (estimated), pause_duration_hours. Analysis script: analyze-circuit-breaker-history.py (shows patterns, recommendations).
 
 ### [T472] Autotrader health dashboard endpoint
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create kalshi-health-status.json written by autotrader every cycle with: is_running, last_cycle_time, trades_today, positions_count, circuit_breaker_status, win_rate_24h, balance. Can be read by external monitoring or /health page API.
+- **Notes**: ✅ Implemented! Added write_health_status() to autotrader-v2.py. Writes to data/trading/autotrader-health.json every cycle with: is_running, last_cycle_time, cycle_count, trades_today, won/lost/pending counts, win_rate_today, pnl_today_cents, positions_count, cash_cents, circuit_breaker status, consecutive_losses. Uses atomic write (temp file + rename). HEALTH_STATUS_FILE constant configurable.
 
 ### [T473] Trading session summary on process exit
 - **Status**: TODO
@@ -3586,4 +3587,28 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: ✅ Completed via T354! validate-settlement-prices.py cross-checks CoinGecko vs Coinbase. Mean Absolute Error: 0.04% (threshold: 0.5%). Status: EXCELLENT. Results saved to data/trading/settlement-validation.json.
+
+### [T620] Push autotrader health to GitHub Gist
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Extend push-stats-to-gist.py to include autotrader health status from data/trading/autotrader-health.json. Enables /health page on static Cloudflare Pages to show live autotrader status without server-side access. Add healthStatus field to gist JSON.
+
+### [T621] Autotrader startup time tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track autotrader startup timestamp in health status. Calculate uptime (hours running since last restart). Useful for debugging restarts and monitoring stability. Add startup_time, uptime_hours fields to write_health_status().
+
+### [T622] All-time trading stats in health status
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend write_health_status() to include all-time stats: total_trades, total_won, total_lost, all_time_pnl_cents. Provides complete trading performance context alongside daily stats.
 

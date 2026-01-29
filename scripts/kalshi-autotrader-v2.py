@@ -107,6 +107,9 @@ WHIPSAW_WINDOW_HOURS = 24  # Look for 2 flips within this window
 # Latency alerting
 LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
 
+# Health status endpoint (T472)
+HEALTH_STATUS_FILE = "data/trading/autotrader-health.json"
+
 # Extreme volatility alerting (T294)
 EXTREME_VOL_ALERT_FILE = "scripts/kalshi-extreme-vol.alert"
 EXTREME_VOL_ALERT_COOLDOWN = 3600  # 1 hour cooldown
@@ -3258,6 +3261,113 @@ def run_cycle():
         )
 
 
+# ============== HEALTH STATUS ENDPOINT (T472) ==============
+def get_today_stats() -> dict:
+    """Get today's trading statistics"""
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return {"trades": 0, "won": 0, "lost": 0, "pending": 0, "win_rate": 0.0, "pnl_cents": 0}
+    
+    today = datetime.now(timezone.utc).date()
+    trades_today = []
+    
+    with open(log_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") == "trade":
+                    ts = entry.get("timestamp", "")
+                    if ts.startswith(str(today)):
+                        trades_today.append(entry)
+            except:
+                pass
+    
+    won = sum(1 for t in trades_today if t.get("result_status") == "won")
+    lost = sum(1 for t in trades_today if t.get("result_status") == "lost")
+    pending = sum(1 for t in trades_today if t.get("result_status") == "pending")
+    settled = won + lost
+    win_rate = (won / settled * 100) if settled > 0 else 0.0
+    
+    pnl = 0
+    for t in trades_today:
+        if t.get("result_status") == "won":
+            # When winning: get paid 100¢ per contract minus entry price
+            pnl += (100 - t.get("price_cents", 0)) * t.get("contracts", 0)
+        elif t.get("result_status") == "lost":
+            # When losing: lose entry price
+            pnl -= t.get("price_cents", 0) * t.get("contracts", 0)
+    
+    return {
+        "trades": len(trades_today),
+        "won": won,
+        "lost": lost,
+        "pending": pending,
+        "win_rate": round(win_rate, 1),
+        "pnl_cents": pnl
+    }
+
+
+def write_health_status(cycle_count: int):
+    """Write autotrader health status to JSON file for external monitoring (T472)"""
+    try:
+        # Gather health data
+        today_stats = get_today_stats()
+        
+        # Get balance (safely)
+        try:
+            balance_data = get_balance()
+            cash_cents = balance_data.get("available_balance", 0)
+        except Exception:
+            cash_cents = None
+        
+        # Get positions count (safely)
+        try:
+            positions = get_positions()
+            positions_count = len(positions)
+        except Exception:
+            positions_count = None
+        
+        # Get circuit breaker status
+        is_paused, pause_reason = check_circuit_breaker()
+        
+        # Get consecutive losses
+        consecutive_losses = get_consecutive_losses()
+        
+        # Build health status
+        health = {
+            "is_running": True,
+            "last_cycle_time": datetime.now(timezone.utc).isoformat(),
+            "cycle_count": cycle_count,
+            "dry_run": DRY_RUN,
+            "trades_today": today_stats["trades"],
+            "today_won": today_stats["won"],
+            "today_lost": today_stats["lost"],
+            "today_pending": today_stats["pending"],
+            "win_rate_today": today_stats["win_rate"],
+            "pnl_today_cents": today_stats["pnl_cents"],
+            "positions_count": positions_count,
+            "cash_cents": cash_cents,
+            "circuit_breaker_active": is_paused,
+            "circuit_breaker_reason": pause_reason if is_paused else None,
+            "consecutive_losses": consecutive_losses,
+            "status": "🧪 dry_run" if DRY_RUN else ("⏸️ paused" if is_paused else "✅ running")
+        }
+        
+        # Ensure directory exists
+        health_path = Path(HEALTH_STATUS_FILE)
+        health_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write atomically (write to temp then rename)
+        temp_path = health_path.with_suffix(".tmp")
+        with open(temp_path, "w") as f:
+            json.dump(health, f, indent=2)
+        temp_path.rename(health_path)
+        
+    except Exception as e:
+        # Don't crash the autotrader for health status failures
+        print(f"⚠️ Failed to write health status: {e}")
+
+
 def main():
     """Main entry point"""
     print("🚀 Starting Kalshi AutoTrader v2")
@@ -3275,6 +3385,9 @@ def main():
         try:
             run_cycle()
             cycle_count += 1
+            
+            # Write health status after each cycle (T472)
+            write_health_status(cycle_count)
             
             # Print and save latency profile every 6 cycles (30 mins)
             if cycle_count % 6 == 0:
