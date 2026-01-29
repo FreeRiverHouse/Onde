@@ -2493,12 +2493,13 @@
 - **Notes**: ✅ Script: calculate-historical-volatility.py. Computes 7d/14d/30d/60d volatility from cached OHLC. Converts 4h candle vol to hourly. Compares to model assumptions. Output: data/ohlc/volatility-stats.json. Finding: Model currently OVERESTIMATES vol (BTC 0.32% actual vs 0.5% assumed, ETH 0.46% vs 0.7%).
 
 ### [T384] Price source reliability tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T246]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log which exchange API fails/succeeds each cycle. Weekly report showing uptime % per source (Binance, CoinGecko, Coinbase). Helps identify unreliable sources to deprioritize.
+- **Notes**: ✅ Script: track-api-reliability.py. Checks BTC/ETH availability from Binance, CoinGecko, Coinbase. Logs to api-reliability.jsonl. --report generates uptime % and recommendations. Cron: hourly check, weekly report (Sunday 10:00 UTC). Finding: Binance blocked (geo-restricted), CoinGecko/Coinbase 100%.
 
 ### [T385] Price spread anomaly detection
 - **Status**: DONE
