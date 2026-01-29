@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion'
 import { playlists, getFeaturedPlaylists } from '@/data/playlists'
 import PlaylistCard from '@/components/spotify/PlaylistCard'
+import { useTranslations } from '@/i18n'
 
 export default function CollezioniPage() {
+  const t = useTranslations()
   const featuredPlaylists = getFeaturedPlaylists()
   const regularPlaylists = playlists.filter(p => !p.featured)
 
@@ -18,10 +20,10 @@ export default function CollezioniPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-            Collezioni
+            {t.collections.title}
           </h1>
           <p className="text-xl text-white/60 max-w-2xl">
-            Playlist curate per ogni momento. Scopri raccolte tematiche di libri selezionati per te.
+            {t.collections.subtitle}
           </p>
         </motion.div>
 
@@ -29,10 +31,10 @@ export default function CollezioniPage() {
         <section className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-display font-bold text-white">
-              In evidenza
+              {t.collections.featured}
             </h2>
             <span className="px-3 py-1 rounded-full bg-onde-gold/20 text-onde-gold text-sm font-medium">
-              Curate da Onde
+              {t.collections.curatedBy}
             </span>
           </div>
 
@@ -54,7 +56,7 @@ export default function CollezioniPage() {
         {/* All Playlists */}
         <section>
           <h2 className="text-2xl font-display font-bold text-white mb-6">
-            Tutte le collezioni
+            {t.collections.allCollections}
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -91,16 +93,16 @@ export default function CollezioniPage() {
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                📚
+                {t.collections.createOwn.emoji}
               </motion.div>
               <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
-                Crea la tua collezione
+                {t.collections.createOwn.title}
               </h3>
               <p className="text-white/60 max-w-md mx-auto mb-6">
-                Presto potrai creare le tue playlist personalizzate e condividerle con amici e famiglia.
+                {t.collections.createOwn.description}
               </p>
               <button className="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white/80 font-medium cursor-not-allowed">
-                Prossimamente
+                {t.collections.createOwn.button}
               </button>
             </div>
           </div>

@@ -576,5 +576,18 @@
       "title": "Nessun libro trovato",
       "showAll": "Mostra tutti i libri"
     }
+  },
+  "collections": {
+    "title": "Collezioni",
+    "subtitle": "Playlist curate per ogni momento. Scopri raccolte tematiche di libri selezionati per te.",
+    "featured": "In evidenza",
+    "curatedBy": "Curate da Onde",
+    "allCollections": "Tutte le collezioni",
+    "createOwn": {
+      "emoji": "📚",
+      "title": "Crea la tua collezione",
+      "description": "Presto potrai creare le tue playlist personalizzate e condividerle con amici e famiglia.",
+      "button": "Prossimamente"
+    }
   }
 }

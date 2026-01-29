@@ -576,5 +576,18 @@
       "title": "No books found",
       "showAll": "Show all books"
     }
+  },
+  "collections": {
+    "title": "Collections",
+    "subtitle": "Curated playlists for every moment. Discover themed collections of books selected for you.",
+    "featured": "Featured",
+    "curatedBy": "Curated by Onde",
+    "allCollections": "All collections",
+    "createOwn": {
+      "emoji": "📚",
+      "title": "Create your collection",
+      "description": "Soon you'll be able to create your personalized playlists and share them with friends and family.",
+      "button": "Coming Soon"
+    }
   }
 }
