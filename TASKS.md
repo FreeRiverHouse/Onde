@@ -1162,14 +1162,39 @@
 - **Notes**: Show total trades count and today's trade count on /health dashboard. Read from kalshi-trades-v2.jsonl.
 
 ### [T273] Profit factor calculation in trading stats
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T082]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Profit factor = gross profit / gross loss. Add to /api/trading/stats and /betting dashboard. Key metric for strategy health.
+- **Notes**: ✅ Added! API now returns grossProfitCents, grossLossCents, profitFactor. Dashboard shows Profit Factor card with color coding (>1.5=strong, >1=profitable). Grid expanded to 6 columns.
+
+### [T274] Sharpe ratio calculation for trading strategy
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T273]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Sharpe ratio (risk-adjusted returns) to trading stats. Calculate: (avg return - risk-free) / std dev of returns. Needs daily PnL history.
+
+### [T275] Max drawdown tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track maximum drawdown from peak equity. Alert if drawdown exceeds 20%. Key risk metric for strategy health.
+
+### [T276] Trade latency logging (order to fill time)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log time from order submission to fill. Helps optimize timing and detect API delays. Add latency_ms field to trade log.
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:54 PST*
+*Ultimo aggiornamento: 2026-01-29 17:53 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

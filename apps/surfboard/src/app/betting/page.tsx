@@ -68,6 +68,9 @@ interface TradingStats {
   pendingTrades: number;
   winRate: number;
   totalPnlCents: number;
+  grossProfitCents?: number;
+  grossLossCents?: number;
+  profitFactor?: number;  // gross profit / gross loss (>1 = profitable)
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -668,7 +671,7 @@ export default function BettingDashboard() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
               {/* Win Rate */}
               <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -732,6 +735,23 @@ export default function BettingDashboard() {
                   glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
                   className="text-2xl"
                 />
+              </GlassCard>
+
+              {/* Profit Factor */}
+              <GlassCard glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <BarChart3 className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Profit Factor</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.profitFactor ?? 0} 
+                  decimals={2}
+                  glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {(tradingStats.profitFactor ?? 0) >= 1.5 ? 'strong' : (tradingStats.profitFactor ?? 0) >= 1 ? 'profitable' : 'needs work'}
+                </p>
               </GlassCard>
 
               {/* Pending */}

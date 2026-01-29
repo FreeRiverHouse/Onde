@@ -28,6 +28,9 @@ interface TradingStats {
   pendingTrades: number;
   winRate: number;
   totalPnlCents: number;
+  grossProfitCents: number;
+  grossLossCents: number;
+  profitFactor: number;  // gross profit / gross loss - key metric for strategy health
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -67,24 +70,27 @@ export async function GET() {
     const lostTrades = trades.filter(t => t.result_status === 'lost');
     const pendingTrades = trades.filter(t => !t.result_status || t.result_status === 'pending');
 
-    // Calculate PnL
-    // Won NO: profit = (100 - price) * contracts
-    // Won YES: profit = (100 - price) * contracts
+    // Calculate PnL and Profit Factor
+    // Won: profit = (100 - price) * contracts
     // Lost: loss = price * contracts
-    let totalPnlCents = 0;
+    let grossProfitCents = 0;
+    let grossLossCents = 0;
+    
     for (const trade of trades) {
       const contracts = trade.contracts || 1;
       const price = trade.price_cents || 0;
       
       if (trade.result_status === 'won') {
-        // Won: profit = (100 - price) * contracts for NO bets
-        // For YES bets, it's similar but we paid the price
-        totalPnlCents += (100 - price) * contracts;
+        grossProfitCents += (100 - price) * contracts;
       } else if (trade.result_status === 'lost') {
-        totalPnlCents -= price * contracts;
+        grossLossCents += price * contracts;
       }
       // pending trades don't affect PnL yet
     }
+    
+    const totalPnlCents = grossProfitCents - grossLossCents;
+    // Profit Factor: gross profit / gross loss (>1 = profitable strategy)
+    const profitFactor = grossLossCents > 0 ? grossProfitCents / grossLossCents : (grossProfitCents > 0 ? Infinity : 0);
 
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
@@ -111,6 +117,9 @@ export async function GET() {
       pendingTrades: pendingTrades.length,
       winRate: trades.length > 0 ? (wonTrades.length / (wonTrades.length + lostTrades.length)) * 100 : 0,
       totalPnlCents,
+      grossProfitCents,
+      grossLossCents,
+      profitFactor: Number.isFinite(profitFactor) ? Math.round(profitFactor * 100) / 100 : 0,
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,
