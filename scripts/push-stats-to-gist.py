@@ -25,6 +25,7 @@ TRADES_FILE_V1 = SCRIPT_DIR / "kalshi-trades.jsonl"
 TRADES_FILE_V2 = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
 GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
 VOLATILITY_FILE = SCRIPT_DIR.parent / "data" / "ohlc" / "volatility-stats.json"
+HEALTH_STATUS_FILE = SCRIPT_DIR.parent / "data" / "trading" / "autotrader-health.json"  # T472
 STATS_FILENAME = "onde-trading-stats.json"
 
 def load_volatility_stats():
@@ -65,6 +66,62 @@ def load_volatility_stats():
     except Exception as e:
         print(f"Warning: Could not load volatility stats: {e}")
         return None
+
+
+def load_health_status():
+    """Load autotrader health status (T620).
+    
+    Supports both formats:
+    - T472 format (from autotrader internal): is_running, last_cycle_time, etc.
+    - T488 format (from external script): process.running, status, issues, etc.
+    """
+    if not HEALTH_STATUS_FILE.exists():
+        return None
+    
+    try:
+        with open(HEALTH_STATUS_FILE, 'r') as f:
+            data = json.load(f)
+        
+        # Detect format by checking for T472 field (is_running) vs T488 field (process)
+        if "is_running" in data:
+            # T472 format (autotrader internal - preferred)
+            return {
+                "is_running": data.get("is_running", False),
+                "last_cycle_time": data.get("last_cycle_time"),
+                "cycle_count": data.get("cycle_count", 0),
+                "dry_run": data.get("dry_run", False),
+                "trades_today": data.get("trades_today", 0),
+                "today_won": data.get("today_won", 0),
+                "today_lost": data.get("today_lost", 0),
+                "today_pending": data.get("today_pending", 0),
+                "win_rate_today": data.get("win_rate_today", 0),
+                "pnl_today_cents": data.get("pnl_today_cents", 0),
+                "circuit_breaker_active": data.get("circuit_breaker_active", False),
+                "consecutive_losses": data.get("consecutive_losses", 0),
+                "status": data.get("status", "unknown"),
+                "format": "t472"
+            }
+        elif "process" in data:
+            # T488 format (external script - backward compat)
+            process = data.get("process", {})
+            trades = data.get("trades", {})
+            log = data.get("log", {})
+            return {
+                "is_running": process.get("running", False),
+                "last_cycle_time": data.get("generated_at"),
+                "status": data.get("status", "unknown"),
+                "issues": data.get("issues", []),
+                "trades_24h": trades.get("trades_24h", 0),
+                "log_active": log.get("log_active", False),
+                "log_age_minutes": log.get("log_age_minutes"),
+                "format": "t488"
+            }
+        else:
+            return None
+    except Exception as e:
+        print(f"Warning: Could not load health status: {e}")
+        return None
+
 
 def load_trades_from_file(filepath, source_tag=None):
     """Load trades from a JSONL file, optionally tagging with source."""
@@ -299,6 +356,11 @@ def calculate_stats(trades, source='v2'):
     vol_stats = load_volatility_stats()
     if vol_stats:
         result["volatility"] = vol_stats
+    
+    # Add autotrader health status (T620)
+    health_status = load_health_status()
+    if health_status:
+        result["healthStatus"] = health_status
     
     return result
 

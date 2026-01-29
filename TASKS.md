@@ -3589,12 +3589,13 @@
 - **Notes**: ✅ Completed via T354! validate-settlement-prices.py cross-checks CoinGecko vs Coinbase. Mean Absolute Error: 0.04% (threshold: 0.5%). Status: EXCELLENT. Results saved to data/trading/settlement-validation.json.
 
 ### [T620] Push autotrader health to GitHub Gist
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T472]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Extend push-stats-to-gist.py to include autotrader health status from data/trading/autotrader-health.json. Enables /health page on static Cloudflare Pages to show live autotrader status without server-side access. Add healthStatus field to gist JSON.
+- **Notes**: ✅ Extended push-stats-to-gist.py! Added load_health_status() that supports both T472 format (autotrader internal) and T488 format (external script). healthStatus field now included in gist JSON. Backward compatible with either health file format.
 
 ### [T621] Autotrader startup time tracking
 - **Status**: TODO
