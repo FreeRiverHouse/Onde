@@ -194,12 +194,13 @@
 ## 📋 TODO - PORTAL & INFRA
 
 ### [T040] Analytics Google per onde.la
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Aggiungere GA4
+- **Notes**: ✅ GA4 code added to layout.tsx! Set NEXT_PUBLIC_GA_ID env var with measurement ID (G-XXXXXXX) to activate. Gets from Google Analytics console.
 
 ### [T041] Sitemap.xml automatico per onde.la
 - **Status**: DONE
