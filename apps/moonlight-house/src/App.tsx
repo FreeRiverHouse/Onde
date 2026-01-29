@@ -190,6 +190,50 @@ const getMoodEmoji = (mood: MoodType): string => {
 
 const getXpForLevel = (level: number): number => level * 100;
 
+// ==================== SAVE GAME SYSTEM ====================
+const SAVE_KEY = 'moonlight-house-save';
+
+interface SaveData {
+  stats: PetStats;
+  achievements: Achievement[];
+  gameState: {
+    dayCount: number;
+    totalActions: number;
+    roomsVisited: RoomKey[];
+    lastDailyReward: string | null;
+    streak: number;
+  };
+  savedAt: string;
+}
+
+const loadSaveData = (): SaveData | null => {
+  try {
+    const saved = localStorage.getItem(SAVE_KEY);
+    if (!saved) return null;
+    const data = JSON.parse(saved) as SaveData;
+    return data;
+  } catch {
+    return null;
+  }
+};
+
+const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: GameState): void => {
+  try {
+    const data: SaveData = {
+      stats,
+      achievements,
+      gameState: {
+        ...gameState,
+        roomsVisited: Array.from(gameState.roomsVisited),
+      },
+      savedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+  } catch {
+    console.warn('Failed to save game');
+  }
+};
+
 // ==================== MINI-GAME COMPONENT ====================
 function StarCatchMiniGame({ onComplete, lang }: { onComplete: (score: number) => void; lang: Language }) {
   const [stars, setStars] = useState<{ id: number; x: number; y: number; caught: boolean }[]>([]);
@@ -313,9 +357,10 @@ function App() {
   // Sound manager for effects and ambient music
   const { playSound, playAmbient, stopAmbient, toggleMute, isMuted } = useSoundManager();
 
-  // Core state
-  const [stats, setStats] = useState<PetStats>({
-    health: 80, hunger: 60, energy: 90, happiness: 75, coins: 100, level: 1, xp: 0,
+  // Core state (restored from save or defaults)
+  const [stats, setStats] = useState<PetStats>(() => {
+    const saved = loadSaveData();
+    return saved?.stats ?? { health: 80, hunger: 60, energy: 90, happiness: 75, coins: 100, level: 1, xp: 0 };
   });
   const [currentRoom, setCurrentRoom] = useState(0);
   const [isActing, setIsActing] = useState(false);
@@ -324,12 +369,21 @@ function App() {
   const [lunaPosition, setLunaPosition] = useState({ x: 50, y: 50 });
   const [floatPhase, setFloatPhase] = useState(0);
 
-  // Enhanced state
+  // Enhanced state (restored from save or defaults)
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>(getTimeOfDay());
   const [mood, setMood] = useState<MoodType>('happy');
-  const [achievements, setAchievements] = useState<Achievement[]>(defaultAchievements);
-  const [gameState, setGameState] = useState<GameState>({
-    dayCount: 1, totalActions: 0, roomsVisited: new Set(), lastDailyReward: null, streak: 0,
+  const [achievements, setAchievements] = useState<Achievement[]>(() => {
+    const saved = loadSaveData();
+    return saved?.achievements ?? defaultAchievements;
+  });
+  const [gameState, setGameState] = useState<GameState>(() => {
+    const saved = loadSaveData();
+    return saved ? {
+      ...saved.gameState,
+      roomsVisited: new Set(saved.gameState.roomsVisited),
+    } : {
+      dayCount: 1, totalActions: 0, roomsVisited: new Set(), lastDailyReward: null, streak: 0,
+    };
   });
   const [showAchievement, setShowAchievement] = useState<Achievement | null>(null);
   const [showDailyReward, setShowDailyReward] = useState(false);
@@ -358,6 +412,11 @@ function App() {
   useEffect(() => {
     setMood(getMood(stats));
   }, [stats]);
+
+  // Auto-save game state
+  useEffect(() => {
+    saveSaveData(stats, achievements, gameState);
+  }, [stats, achievements, gameState]);
 
   // Ambient music based on room
   useEffect(() => {
