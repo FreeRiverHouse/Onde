@@ -1,6 +1,1 @@
-{
-  "lastHeartbeat": "2026-01-29T05:02:21Z",
-  "lastHeartbeatEpoch": 1769662941,
-  "host": "FRH-M1-PRO.local",
-  "lastChecks": {"email": null, "calendar": null, "weather": null, "heartbeat": 1738121278}
-}
+{"lastHeartbeat": 1769664106, "tasksCompleted": ["T353"], "tasksAdded": ["T372","T373","T374"]}
