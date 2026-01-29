@@ -20,6 +20,7 @@
 - `scripts/ohlc-cache-stale.alert` → Se esiste, OHLC cache (data/ohlc/) è stale >24h! Cron cache-ohlc-data.py non ha aggiornato. Manda alert, poi elimina
 - `scripts/kalshi-extreme-vol.alert` → Se esiste, trade piazzato durante EXTREME volatility (>2% hourly range)! Manda alert a Mattia con dettagli, poi elimina
 - `scripts/kalshi-momentum-aligned.alert` → Se esiste, FULL MOMENTUM ALIGNMENT! Tutti i timeframe (1h/4h/24h) concordano = segnale alta convinzione. Manda alert, poi elimina
+- `scripts/memory-stale.alert` → Se esiste, file memory stale >7 giorni! Ricorda a Mattia di rivedere/archiviare. Manda alert, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

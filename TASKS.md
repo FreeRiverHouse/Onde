@@ -2351,12 +2351,13 @@
 - **Notes**: Script to group trades by realized volatility at entry time (low/medium/high). Compare win rates per bucket to determine if volatility threshold affects model accuracy.
 
 ### [T370] Memory files age warning in heartbeat
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Check if memory/*.md files are older than 7 days. Alert Mattia to review and archive stale notes. Keep workspace tidy.
+- **Notes**: ✅ Script: check-memory-age.sh. Checks MEMORY.md, memory/*.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md for >7 days old. 24h cooldown. Alert file: memory-stale.alert. Added to HEARTBEAT.md pickup.
 
 ### [T371] Dark mode toggle for trading dashboard
 - **Status**: DONE
@@ -2612,6 +2613,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script to recommend trading windows based on historical performance. Output: suggested active hours, days to avoid, confidence intervals. Could feed into autotrader to pause during historically bad times.
+
+### [T413] Track API error rates per source
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T384]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log success/failure for each API call (Kalshi, CoinGecko, Coinbase, Binance). Weekly report showing error rate % per source. Helps identify unreliable APIs before they cause trading issues.
+
+### [T414] Auto-pause autotrader during market holidays
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: US market holidays often have lower crypto liquidity and unusual patterns. Script to check if today is a holiday (python-holidays or hardcoded list). Skip trading on Christmas, Thanksgiving, etc.
+
+### [T415] Memory file auto-archiving for old daily notes
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T370]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Auto-move memory/YYYY-MM-DD.md files older than 30 days to memory/archive/. Keep workspace clean. Monthly cron job. Extract key learnings to MEMORY.md before archiving.
 
 ---
 
