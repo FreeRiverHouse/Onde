@@ -2396,7 +2396,7 @@
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Pages needing i18n: ❌ /famiglia (~30 strings), ❌ /collezioni, ❌ /giochi, ❌ /about, ❌ /health. Homepage + catalogo already done. Breaking into subtasks T416-T420.
+- **Notes**: Pages needing i18n: ❌ /famiglia (~30 strings), ✅ /collezioni (2026-01-30), ❌ /giochi, ❌ /about, ❌ /health. Homepage + catalogo already done. Breaking into subtasks T422-T425.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
@@ -2702,3 +2702,35 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script that outputs JSON: running (bool), pid, uptime, last_trade_time, trade_count_today, win_rate_today, current_balance. Can be used by external monitoring or /health page.
+
+### [T422] i18n: /famiglia page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /famiglia page to use i18n system. ~30 hardcoded strings to translate.
+
+### [T423] i18n: /giochi page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /giochi page to use i18n system. ~40 hardcoded strings to translate.
+
+### [T424] i18n: /about page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /about page to use i18n system. About page has team info, values, story sections.
+
+### [T425] i18n: /health page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /health page to use i18n system. Technical page with service status info.
