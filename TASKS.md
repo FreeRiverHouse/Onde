@@ -2925,12 +2925,13 @@
 - **Notes**: ✅ Already implemented! check_circuit_breaker() in autotrader-v2.py. Pauses trading on 5+ consecutive losses, writes kalshi-circuit-breaker.alert. State file: kalshi-circuit-breaker.json. Resumes on first win.
 
 ### [T447] Trade PnL breakdown by day of week
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze trading performance by weekday to find patterns. Some days may have higher volatility (more opportunity) or lower liquidity (worse fills). Script: analyze-trades-by-weekday.py. Output: win rate, avg PnL, trade count per day.
+- **Notes**: ✅ Script: analyze-trades-by-weekday.py. Shows trades/win rate/PnL/avg PnL per day. Identifies best/worst days, gives recommendations. V1 data shows all trades on Wednesday (broken model batch). V2 awaiting more trades.
 
 ### [T448] Real-time trade notifications polling on dashboard
 - **Status**: TODO

@@ -1,216 +1,164 @@
 #!/usr/bin/env python3
 """
 Analyze trading performance by day of week.
-Check if certain days have better/worse win rates (market patterns may differ on weekends).
+Identifies patterns: some days may have higher volatility (more opportunity)
+or lower liquidity (worse fills).
 
-Usage:
-    python3 scripts/analyze-trades-by-weekday.py [--v2]
-    
-    --v2: Use v2 trade log (default: v1)
-
-Author: Clawd (T358)
+Usage: python3 analyze-trades-by-weekday.py
 """
 
 import json
-import argparse
 from datetime import datetime
-from pathlib import Path
 from collections import defaultdict
+import os
 
-# Trade log files
-V1_TRADE_LOG = "scripts/kalshi-trades.jsonl"
-V2_TRADE_LOG = "scripts/kalshi-trades-v2.jsonl"
+TRADE_LOG = os.path.expanduser("~/Projects/Onde/scripts/kalshi-trades-v2.jsonl")
+TRADE_LOG_V1 = os.path.expanduser("~/Projects/Onde/scripts/kalshi-trades.jsonl")
 
-WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
-
-def load_trades(filepath: str) -> list:
-    """Load trades from JSONL file."""
+def load_trades():
+    """Load trades from v2 log (or v1 fallback)."""
     trades = []
-    path = Path(filepath)
-    if not path.exists():
-        print(f"❌ Trade log not found: {filepath}")
-        return trades
     
-    with open(path) as f:
-        for line in f:
-            try:
-                entry = json.loads(line.strip())
-                if entry.get("type") == "trade":
-                    trades.append(entry)
-            except:
-                pass
+    # Try v2 first
+    if os.path.exists(TRADE_LOG):
+        with open(TRADE_LOG, 'r') as f:
+            for line in f:
+                try:
+                    trades.append(json.loads(line.strip()))
+                except:
+                    continue
+    
+    # Fallback to v1 if no v2 trades
+    if not trades and os.path.exists(TRADE_LOG_V1):
+        with open(TRADE_LOG_V1, 'r') as f:
+            for line in f:
+                try:
+                    trades.append(json.loads(line.strip()))
+                except:
+                    continue
     
     return trades
 
-
-def parse_timestamp(ts: str) -> datetime:
-    """Parse ISO timestamp."""
-    try:
-        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
-    except:
-        return None
-
-
-def analyze_by_weekday(trades: list) -> dict:
-    """
-    Analyze trades by day of week.
+def analyze_by_weekday(trades):
+    """Group trades by day of week and calculate stats."""
+    DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     
-    Returns:
-        dict with weekday stats: {0: {"total": N, "wins": N, "losses": N, ...}, ...}
-    """
-    stats = {i: {
-        "name": WEEKDAY_NAMES[i],
-        "total": 0,
-        "wins": 0,
-        "losses": 0,
-        "pending": 0,
-        "profit_cents": 0,
-        "cost_cents": 0
-    } for i in range(7)}
+    stats = {day: {'trades': 0, 'wins': 0, 'pnl': 0} for day in DAYS}
     
     for trade in trades:
-        ts = trade.get("timestamp")
+        # Get trade timestamp
+        ts = trade.get('timestamp') or trade.get('time')
         if not ts:
             continue
-        
-        dt = parse_timestamp(ts)
-        if not dt:
+            
+        try:
+            if isinstance(ts, str):
+                dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
+            else:
+                dt = datetime.fromtimestamp(ts)
+            
+            day_name = DAYS[dt.weekday()]
+        except:
             continue
         
-        weekday = dt.weekday()  # 0 = Monday, 6 = Sunday
-        stats[weekday]["total"] += 1
+        # Count trade
+        stats[day_name]['trades'] += 1
         
-        # Normalize result status
-        result = trade.get("result_status", "pending")
-        if result in ("won", "win"):
-            stats[weekday]["wins"] += 1
-            stats[weekday]["profit_cents"] += trade.get("profit_cents", 0)
-        elif result in ("lost", "loss"):
-            stats[weekday]["losses"] += 1
-            stats[weekday]["profit_cents"] += trade.get("profit_cents", 0)  # Already negative
+        # Check result
+        result = trade.get('result_status', trade.get('result', ''))
+        if result == 'won':
+            stats[day_name]['wins'] += 1
+        
+        # Calculate PnL
+        price = trade.get('price', trade.get('avg_price', 50))
+        contracts = trade.get('contracts', trade.get('quantity', 1))
+        side = trade.get('side', 'no')
+        
+        if result == 'won':
+            pnl = (100 - price) * contracts if side.lower() == 'no' else (100 - price) * contracts
+        elif result == 'lost':
+            pnl = -price * contracts
         else:
-            stats[weekday]["pending"] += 1
+            pnl = 0
         
-        stats[weekday]["cost_cents"] += trade.get("cost_cents", 0)
-    
-    # Calculate win rate for each day
-    for day_stats in stats.values():
-        settled = day_stats["wins"] + day_stats["losses"]
-        day_stats["win_rate"] = (day_stats["wins"] / settled * 100) if settled > 0 else 0
-        day_stats["roi"] = (day_stats["profit_cents"] / day_stats["cost_cents"] * 100) if day_stats["cost_cents"] > 0 else 0
+        stats[day_name]['pnl'] += pnl
     
     return stats
 
-
-def print_weekday_stats(stats: dict):
-    """Print formatted weekday statistics."""
-    print("\n" + "=" * 70)
-    print("📅 TRADING PERFORMANCE BY DAY OF WEEK")
-    print("=" * 70)
+def print_report(stats):
+    """Print formatted report."""
+    DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     
-    # Sort by total trades (to show busiest days first)
-    sorted_days = sorted(stats.items(), key=lambda x: x[1]["total"], reverse=True)
+    print("\n" + "=" * 60)
+    print("📊 TRADING PERFORMANCE BY DAY OF WEEK")
+    print("=" * 60)
     
-    print(f"\n{'Day':<12} {'Trades':>8} {'W/L':>10} {'Win %':>8} {'PnL':>12} {'ROI':>8}")
-    print("-" * 70)
-    
-    for _, day_stats in sorted_days:
-        name = day_stats["name"]
-        total = day_stats["total"]
-        wins = day_stats["wins"]
-        losses = day_stats["losses"]
-        win_rate = day_stats["win_rate"]
-        pnl = day_stats["profit_cents"] / 100
-        roi = day_stats["roi"]
-        
-        if total == 0:
-            print(f"{name:<12} {'N/A':>8} {'-':>10} {'-':>8} {'-':>12} {'-':>8}")
-        else:
-            # Color indicators
-            wr_indicator = "🟢" if win_rate >= 50 else "🔴" if win_rate < 40 else "🟡"
-            pnl_indicator = "+" if pnl > 0 else ""
-            
-            print(f"{name:<12} {total:>8} {wins:>4}W/{losses:<4}L {win_rate:>6.1f}%{wr_indicator} ${pnl_indicator}{pnl:>9.2f} {roi:>+7.1f}%")
-    
-    print("-" * 70)
-    
-    # Summary
-    total_trades = sum(d["total"] for d in stats.values())
-    total_wins = sum(d["wins"] for d in stats.values())
-    total_losses = sum(d["losses"] for d in stats.values())
-    total_pnl = sum(d["profit_cents"] for d in stats.values()) / 100
-    
-    settled = total_wins + total_losses
-    overall_wr = (total_wins / settled * 100) if settled > 0 else 0
-    
-    print(f"\n📊 Overall: {total_trades} trades | {total_wins}W/{total_losses}L | {overall_wr:.1f}% WR | ${total_pnl:+.2f} PnL")
-    
-    # Insights
-    print("\n💡 INSIGHTS:")
+    total_trades = sum(s['trades'] for s in stats.values())
     
     if total_trades == 0:
-        print("   No trades to analyze.")
+        print("\n⚠️ No trades found!")
         return
     
-    # Best day by win rate (min 3 settled trades)
-    valid_days = [(k, v) for k, v in stats.items() if v["wins"] + v["losses"] >= 3]
-    if valid_days:
-        best_wr_day = max(valid_days, key=lambda x: x[1]["win_rate"])
-        worst_wr_day = min(valid_days, key=lambda x: x[1]["win_rate"])
+    print(f"\n{'Day':<12} {'Trades':>8} {'Win Rate':>10} {'PnL':>12} {'Avg PnL':>10}")
+    print("-" * 52)
+    
+    best_day = None
+    best_wr = -1
+    worst_day = None
+    worst_wr = 101
+    
+    for day in DAYS:
+        s = stats[day]
+        trades = s['trades']
+        wins = s['wins']
+        pnl = s['pnl']
         
-        print(f"   📈 Best win rate: {best_wr_day[1]['name']} ({best_wr_day[1]['win_rate']:.1f}%)")
-        print(f"   📉 Worst win rate: {worst_wr_day[1]['name']} ({worst_wr_day[1]['win_rate']:.1f}%)")
+        if trades > 0:
+            wr = (wins / trades) * 100
+            avg_pnl = pnl / trades
+            
+            if wr > best_wr and trades >= 3:
+                best_wr = wr
+                best_day = day
+            if wr < worst_wr and trades >= 3:
+                worst_wr = wr
+                worst_day = day
+            
+            wr_str = f"{wr:.1f}%"
+            pnl_str = f"${pnl/100:.2f}"
+            avg_str = f"${avg_pnl/100:.2f}"
+        else:
+            wr_str = "-"
+            pnl_str = "-"
+            avg_str = "-"
+        
+        print(f"{day:<12} {trades:>8} {wr_str:>10} {pnl_str:>12} {avg_str:>10}")
     
-    # Most profitable day
-    best_pnl_day = max(stats.items(), key=lambda x: x[1]["profit_cents"])
-    worst_pnl_day = min(stats.items(), key=lambda x: x[1]["profit_cents"])
+    print("-" * 52)
     
-    if best_pnl_day[1]["profit_cents"] > 0:
-        print(f"   💰 Most profitable: {best_pnl_day[1]['name']} (${best_pnl_day[1]['profit_cents']/100:+.2f})")
-    if worst_pnl_day[1]["profit_cents"] < 0:
-        print(f"   💸 Biggest loss day: {worst_pnl_day[1]['name']} (${worst_pnl_day[1]['profit_cents']/100:+.2f})")
+    # Summary
+    total_wins = sum(s['wins'] for s in stats.values())
+    total_pnl = sum(s['pnl'] for s in stats.values())
+    overall_wr = (total_wins / total_trades * 100) if total_trades > 0 else 0
     
-    # Weekend vs Weekday
-    weekday_wins = sum(stats[i]["wins"] for i in range(5))
-    weekday_losses = sum(stats[i]["losses"] for i in range(5))
-    weekend_wins = sum(stats[i]["wins"] for i in range(5, 7))
-    weekend_losses = sum(stats[i]["losses"] for i in range(5, 7))
+    print(f"{'TOTAL':<12} {total_trades:>8} {overall_wr:.1f}%{'':<4} ${total_pnl/100:>10.2f}")
     
-    weekday_settled = weekday_wins + weekday_losses
-    weekend_settled = weekend_wins + weekend_losses
+    print("\n📈 INSIGHTS:")
+    if best_day and best_wr > 0:
+        print(f"  ✅ Best day: {best_day} ({best_wr:.1f}% win rate)")
+    if worst_day and worst_wr < 100:
+        print(f"  ⚠️ Worst day: {worst_day} ({worst_wr:.1f}% win rate)")
     
-    weekday_wr = (weekday_wins / weekday_settled * 100) if weekday_settled > 0 else 0
-    weekend_wr = (weekend_wins / weekend_settled * 100) if weekend_settled > 0 else 0
-    
-    print(f"\n   🏢 Weekday (Mon-Fri): {weekday_wr:.1f}% WR ({weekday_settled} trades)")
-    print(f"   🏖️  Weekend (Sat-Sun): {weekend_wr:.1f}% WR ({weekend_settled} trades)")
-    
-    if weekday_settled >= 5 and weekend_settled >= 3:
-        diff = weekend_wr - weekday_wr
-        if abs(diff) > 10:
-            better = "Weekend" if diff > 0 else "Weekday"
-            print(f"   ⚡ {better} performs {abs(diff):.1f}% better!")
+    # Recommendations
+    print("\n💡 RECOMMENDATIONS:")
+    if best_day:
+        print(f"  • Consider increasing position size on {best_day}s")
+    if worst_day:
+        print(f"  • Consider reducing activity or size on {worst_day}s")
 
-
-def main():
-    parser = argparse.ArgumentParser(description="Analyze trading by day of week")
-    parser.add_argument("--v2", action="store_true", help="Use v2 trade log")
-    args = parser.parse_args()
-    
-    log_file = V2_TRADE_LOG if args.v2 else V1_TRADE_LOG
-    print(f"📂 Loading trades from: {log_file}")
-    
-    trades = load_trades(log_file)
-    print(f"📈 Loaded {len(trades)} trades")
-    
-    if not trades:
-        print("❌ No trades found to analyze")
-        return
+if __name__ == '__main__':
+    trades = load_trades()
+    print(f"Loaded {len(trades)} trades")
     
     stats = analyze_by_weekday(trades)
-    print_weekday_stats(stats)
-
-
-if __name__ == "__main__":
-    main()
+    print_report(stats)
