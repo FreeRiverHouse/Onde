@@ -284,8 +284,8 @@
   - Works even when app is in background
 
 ### [T436] WhisperFlow: Add text overlay mode
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
