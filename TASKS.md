@@ -1529,12 +1529,13 @@
 - **Notes**: ✅ Script agent-heartbeat.sh + cron */5. Checks LaunchAgent status, sends heartbeat to /api/sync. FreeRiverHouse shows "online" if last_seen < 5min. ⚠️ Funziona quando migration 0005 è applicata (aggiunge Clawdinho a DB).
 
 ### [T505] Activity log live per ogni agente
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T500], [T501]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Mostrare ultime 5 azioni/messaggi dell'agente nel pannello laterale
+- **Notes**: ✅ Added Activity tab to FreeRiverHouse panel! 3 modes now: Tasks/Chat/Activity. Fetches from /api/activity, filters by agent name. Shows type-colored dots (deploy=green, image=purple, etc). Auto-refresh 30s.
 
 ### [T506] Voice input per assegnare task
 - **Status**: TODO

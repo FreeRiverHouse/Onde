@@ -104,10 +104,12 @@ export function FreeRiverHouse() {
   const [message, setMessage] = useState('');
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const [expanded, setExpanded] = useState(true);
-  const [chatMode, setChatMode] = useState(false); // Toggle between task mode and chat mode
+  // panelMode now handles all 3 modes: tasks, chat, activity
   const [chatHistory, setChatHistory] = useState<{role: 'user' | 'agent', content: string, timestamp: string, agentId?: string}[]>([]);
   const [isAsking, setIsAsking] = useState(false);
   const [showAllTasks, setShowAllTasks] = useState(false);
+  const [activities, setActivities] = useState<{id: number, type: string, title: string, description: string, actor: string, created_at: string}[]>([]);
+  const [panelMode, setPanelMode] = useState<'tasks' | 'chat' | 'activity'>('tasks'); // Extended from chatMode
   const animationRef = useRef<number>();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
@@ -178,7 +180,26 @@ export function FreeRiverHouse() {
 
     fetchData();
     const interval = setInterval(fetchData, 15000); // Refresh every 15 sec
-    return () => clearInterval(interval);
+
+    // Also fetch activity log
+    const fetchActivities = async () => {
+      try {
+        const res = await fetch('/api/activity?limit=20');
+        if (res.ok) {
+          const data = await res.json();
+          setActivities(data.activities || []);
+        }
+      } catch (e) {
+        console.error('Failed to fetch activities:', e);
+      }
+    };
+    fetchActivities();
+    const activityInterval = setInterval(fetchActivities, 30000); // Refresh every 30 sec
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(activityInterval);
+    };
   }, []);
 
   // Animate agents
@@ -688,28 +709,36 @@ export function FreeRiverHouse() {
                     </p>
                   )}
 
-                  {/* Mode toggle: Task vs Chat */}
+                  {/* Mode toggle: Tasks / Chat / Activity */}
                   <div className="mt-3 flex gap-1 bg-white/5 rounded-lg p-0.5">
                     <button
-                      onClick={() => setChatMode(false)}
+                      onClick={() => setPanelMode('tasks')}
                       className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
-                        !chatMode ? 'bg-cyan-500/20 text-cyan-400' : 'text-white/40 hover:text-white/60'
+                        panelMode === 'tasks' ? 'bg-cyan-500/20 text-cyan-400' : 'text-white/40 hover:text-white/60'
                       }`}
                     >
                       Tasks
                     </button>
                     <button
-                      onClick={() => setChatMode(true)}
+                      onClick={() => setPanelMode('chat')}
                       className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
-                        chatMode ? 'bg-purple-500/20 text-purple-400' : 'text-white/40 hover:text-white/60'
+                        panelMode === 'chat' ? 'bg-purple-500/20 text-purple-400' : 'text-white/40 hover:text-white/60'
                       }`}
                     >
-                      Ask Question
+                      Chat
+                    </button>
+                    <button
+                      onClick={() => setPanelMode('activity')}
+                      className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
+                        panelMode === 'activity' ? 'bg-amber-500/20 text-amber-400' : 'text-white/40 hover:text-white/60'
+                      }`}
+                    >
+                      Activity
                     </button>
                   </div>
                 </div>
 
-                {chatMode ? (
+                {panelMode === 'chat' && (
                   <>
                     {/* Chat history */}
                     <div className="flex-1 overflow-y-auto max-h-48 p-2 space-y-2">
@@ -779,7 +808,9 @@ export function FreeRiverHouse() {
                       </div>
                     </div>
                   </>
-                ) : (
+                )}
+
+                {panelMode === 'tasks' && (
                   <>
                     {/* Agent tasks */}
                     <div className="flex-1 overflow-y-auto max-h-40 p-2">
@@ -840,6 +871,68 @@ export function FreeRiverHouse() {
                           )}
                         </button>
                       </div>
+                    </div>
+                  </>
+                )}
+
+                {panelMode === 'activity' && (
+                  <>
+                    {/* Activity log */}
+                    <div className="flex-1 overflow-y-auto max-h-48 p-2 space-y-2">
+                      {activities.filter(a => 
+                        // Filter by selected agent (if actor matches)
+                        a.actor.toLowerCase().includes(selectedAgent.name.split(' ')[0].toLowerCase()) ||
+                        a.actor.toLowerCase().includes(selectedAgent.id)
+                      ).length > 0 ? (
+                        activities.filter(a => 
+                          a.actor.toLowerCase().includes(selectedAgent.name.split(' ')[0].toLowerCase()) ||
+                          a.actor.toLowerCase().includes(selectedAgent.id)
+                        ).slice(0, 10).map((activity) => (
+                          <div
+                            key={activity.id}
+                            className="p-2 rounded-lg bg-white/5 text-xs"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className={`w-1.5 h-1.5 rounded-full ${
+                                activity.type === 'deploy' ? 'bg-emerald-400' :
+                                activity.type.includes('approved') ? 'bg-green-400' :
+                                activity.type.includes('rejected') ? 'bg-red-400' :
+                                activity.type.includes('image') ? 'bg-purple-400' :
+                                activity.type.includes('book') ? 'bg-amber-400' :
+                                'bg-cyan-400'
+                              }`} />
+                              <span className="text-white/70 truncate">{activity.title}</span>
+                            </div>
+                            <div className="text-white/40 text-[10px] truncate">{activity.description}</div>
+                            <div className="text-white/20 text-[10px] mt-1">
+                              {new Date(activity.created_at).toLocaleString('it-IT', { 
+                                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+                              })}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-center py-4">
+                          <p className="text-white/30 text-xs">
+                            No recent activity for {selectedAgent.name.split(' ')[0]}
+                          </p>
+                          <p className="text-white/20 text-[10px] mt-1">
+                            Showing all activity:
+                          </p>
+                          {activities.slice(0, 5).map((activity) => (
+                            <div
+                              key={activity.id}
+                              className="p-2 mt-2 rounded-lg bg-white/5 text-xs text-left"
+                            >
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                                <span className="text-white/70 truncate">{activity.title}</span>
+                              </div>
+                              <div className="text-white/40 text-[10px]">{activity.actor}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
