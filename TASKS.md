@@ -374,14 +374,17 @@
   - **Recommendation:** Add weather markets to autotrader (KXNYC, KXMIA, KXDEN)
 
 ### [T409] Replicare/migliorare strategie top modelli su Kalshi
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T408]
-- **Blocks**: [T422], [T423]
+- **Blocks**: -
 - **Priority**: P1
-- **Notes**: Studiare leaderboard PredictionArena, analizzare pattern dei top performer, integrare insights in nostro autotrader.
+- **Notes**: ✅ COMPLETATO via T422/T423!
   - ✅ Research done in T408 - winning strategy uses WEATHER markets!
-  - Next: Implement weather market support (T422, T423)
+  - ✅ Weather markets integrated into autotrader (T422, T423)
+  - ✅ NWS forecast-based edge calculation
+  - ✅ Favorite-longshot bias exploitation
 
 ### [T422] Add weather markets to autotrader (KXNYC, KXMIA, KXDEN)
 - **Status**: DONE
