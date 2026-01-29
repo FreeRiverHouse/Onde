@@ -762,12 +762,13 @@
 - **Notes**: Include correlation between momentum alignment and win rate in weekly report. Shows if momentum filtering improves performance.
 
 ### [T233] Add Fear & Greed index to trade decision logging
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: get_fear_greed() is called but not logged with trades. Add to trade log entry for later analysis of sentiment correlation.
+- **Notes**: ✅ Completed as part of T225. Sentiment now logged in trade_log with value + included in reason string when extreme (<30 or >70).
 
 ### [T234] Implement trailing stop-loss for open positions
 - **Status**: DONE
