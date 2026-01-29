@@ -87,6 +87,11 @@ REGIME_STATE_FILE = "scripts/kalshi-regime-state.json"
 REGIME_ALERT_FILE = "scripts/kalshi-regime-change.alert"
 REGIME_ALERT_COOLDOWN = 3600  # 1 hour cooldown between alerts
 
+# Momentum direction change alerting
+MOMENTUM_STATE_FILE = "scripts/kalshi-momentum-state.json"
+MOMENTUM_ALERT_FILE = "scripts/kalshi-momentum-change.alert"
+MOMENTUM_ALERT_COOLDOWN = 1800  # 30 min cooldown (more frequent than regime)
+
 
 # ============== REGIME CHANGE ALERTING ==============
 
@@ -184,6 +189,126 @@ def write_regime_alert(changes: list, regime_details: dict):
     save_regime_state(state)
     
     print(f"   📢 Regime change alert written to {REGIME_ALERT_FILE}")
+
+
+# ============== MOMENTUM DIRECTION CHANGE ALERTING ==============
+
+def load_momentum_state() -> dict:
+    """Load previous momentum direction state from file."""
+    try:
+        with open(MOMENTUM_STATE_FILE, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {"btc": None, "eth": None, "last_alert": 0}
+
+
+def save_momentum_state(state: dict):
+    """Save current momentum direction state to file."""
+    with open(MOMENTUM_STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def get_momentum_direction_label(composite_dir: float) -> str:
+    """Convert composite direction to label (bullish/bearish/neutral)."""
+    if composite_dir > 0.1:
+        return "bullish"
+    elif composite_dir < -0.1:
+        return "bearish"
+    else:
+        return "neutral"
+
+
+def check_momentum_change(momentum_data: dict) -> list:
+    """
+    Check if momentum direction changed for any asset.
+    
+    Only alerts on significant direction flips:
+    - bullish → bearish
+    - bearish → bullish
+    (Ignores neutral transitions to reduce noise)
+    
+    Returns:
+        List of (asset, old_dir, new_dir, details) tuples for significant changes
+    """
+    state = load_momentum_state()
+    changes = []
+    
+    for asset in ["btc", "eth"]:
+        momentum = momentum_data.get(asset, {})
+        composite_dir = momentum.get("composite_direction", 0)
+        new_label = get_momentum_direction_label(composite_dir)
+        old_label = state.get(asset)
+        
+        # Only alert on bullish↔bearish flips (not neutral transitions)
+        if old_label and new_label != old_label:
+            if (old_label == "bullish" and new_label == "bearish") or \
+               (old_label == "bearish" and new_label == "bullish"):
+                details = {
+                    "composite_dir": composite_dir,
+                    "composite_str": momentum.get("composite_strength", 0),
+                    "alignment": momentum.get("alignment", False),
+                    "timeframes": momentum.get("timeframes", {})
+                }
+                changes.append((asset.upper(), old_label, new_label, details))
+        
+        # Update state
+        state[asset] = new_label
+    
+    save_momentum_state(state)
+    return changes
+
+
+def write_momentum_alert(changes: list):
+    """
+    Write momentum direction change alert file for heartbeat pickup.
+    
+    Args:
+        changes: List of (asset, old_dir, new_dir, details) tuples
+    """
+    state = load_momentum_state()
+    now = time.time()
+    
+    # Check cooldown
+    if now - state.get("last_alert", 0) < MOMENTUM_ALERT_COOLDOWN:
+        print(f"   ⏳ Momentum alert on cooldown ({int((MOMENTUM_ALERT_COOLDOWN - (now - state['last_alert']))/60)}min left)")
+        return
+    
+    alert_lines = ["📊 MOMENTUM DIRECTION CHANGE\n"]
+    
+    for asset, old_dir, new_dir, details in changes:
+        # Direction emoji
+        if new_dir == "bullish":
+            emoji = "🟢📈"
+            action = "Consider YES bets"
+        else:
+            emoji = "🔴📉"
+            action = "Consider NO bets"
+        
+        alert_lines.append(f"{emoji} {asset}: {old_dir.upper()} → {new_dir.upper()}")
+        
+        # Timeframe breakdown
+        tfs = details.get("timeframes", {})
+        tf_parts = []
+        for tf in ["1h", "4h", "24h"]:
+            tf_data = tfs.get(tf, {})
+            pct = tf_data.get("pct_change", 0) * 100
+            tf_parts.append(f"{tf}: {pct:+.2f}%")
+        if tf_parts:
+            alert_lines.append(f"   {' | '.join(tf_parts)}")
+        
+        alert_lines.append(f"   Composite: {details['composite_dir']:+.2f} | Strength: {details['composite_str']:.2f}")
+        alert_lines.append(f"   💡 {action}\n")
+    
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    
+    with open(MOMENTUM_ALERT_FILE, "w") as f:
+        f.write("\n".join(alert_lines))
+    
+    # Update last alert time
+    state["last_alert"] = now
+    save_momentum_state(state)
+    
+    print(f"   📢 Momentum change alert written to {MOMENTUM_ALERT_FILE}")
 
 
 # ============== PROPER PROBABILITY MODEL ==============
@@ -1397,6 +1522,12 @@ def run_cycle():
     if regime_changes:
         print(f"🔄 REGIME CHANGE: {', '.join([f'{a}: {old}→{new}' for a, old, new in regime_changes])}")
         write_regime_alert(regime_changes, current_regimes)
+    
+    # CHECK FOR MOMENTUM DIRECTION CHANGES (bullish↔bearish flips)
+    momentum_changes = check_momentum_change(momentum_data)
+    if momentum_changes:
+        print(f"📊 MOMENTUM FLIP: {', '.join([f'{a}: {old}→{new}' for a, old, new, _ in momentum_changes])}")
+        write_momentum_alert(momentum_changes)
     
     opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data)
     

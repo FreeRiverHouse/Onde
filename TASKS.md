@@ -1039,12 +1039,13 @@
 - **Notes**: Add 24h sparkline chart showing momentum trend on each asset card.
 
 ### [T259] Momentum alert when direction changes
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T250]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Telegram notification when BTC/ETH momentum flips from bullish→bearish or vice versa.
+- **Notes**: ✅ Added! Functions: load_momentum_state(), check_momentum_change(), write_momentum_alert(). Only alerts on significant flips (bullish↔bearish, ignores neutral). 30min cooldown. Alert file: kalshi-momentum-change.alert. Added to HEARTBEAT.md pickup.
 
 ### [T260] Trading stats API caching
 - **Status**: TODO
@@ -1400,5 +1401,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+### [T300] Momentum strength indicator on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T250]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add strength labels (weak/moderate/strong) based on composite_strength. Helps assess momentum reliability.
+
+### [T301] Alert when momentum aligns across all timeframes
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T259]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Super strong signal when 1h/4h/24h all agree. Telegram alert for high-conviction opportunities.
+
+### [T302] Momentum reversion detection
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Detect extended momentum (>2% in 4h) that often precedes reversals. Alert as contrarian opportunity.
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 18:42 PST heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*

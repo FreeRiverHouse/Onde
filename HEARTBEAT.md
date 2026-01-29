@@ -13,6 +13,7 @@
 - `scripts/kalshi-weekly-report.alert` → Se esiste, weekly report PDF pronto. Manda notifica, poi elimina
 - `scripts/kalshi-stop-loss.alert` → Se esiste, STOP-LOSS eseguito! Leggi message dal JSON, manda a Mattia, poi elimina
 - `scripts/kalshi-regime-change.alert` → Se esiste, regime di mercato cambiato! Manda info a Mattia, poi elimina
+- `scripts/kalshi-momentum-change.alert` → Se esiste, momentum flipped (bullish↔bearish)! Manda info a Mattia, poi elimina
 - `scripts/kalshi-circuit-breaker.alert` → Se esiste, CIRCUIT BREAKER! Trading pausato per consecutive losses. Manda alert urgente, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
