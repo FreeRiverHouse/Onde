@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
+import useSoundManager, { SoundEffect, AmbientTrack } from './useSoundManager';
 
 // Animation variants for room transitions
 const pageTransition = {
@@ -308,6 +309,9 @@ function DailyRewardPopup({ coins, streak, lang, onClose }: { coins: number; str
 function App() {
   const [lang, setLang] = useState<Language>('it');
   const t = translations[lang];
+  
+  // Sound manager for effects and ambient music
+  const { playSound, playAmbient, stopAmbient, toggleMute, isMuted } = useSoundManager();
 
   // Core state
   const [stats, setStats] = useState<PetStats>({
@@ -354,6 +358,22 @@ function App() {
   useEffect(() => {
     setMood(getMood(stats));
   }, [stats]);
+
+  // Ambient music based on room
+  useEffect(() => {
+    if (showMap) {
+      playAmbient('home');
+      return;
+    }
+    const room = roomData[currentRoom];
+    if (room.category === 'outside') {
+      playAmbient('shop');
+    } else if (room.key === 'garden') {
+      playAmbient('garden');
+    } else {
+      playAmbient('home');
+    }
+  }, [currentRoom, showMap, playAmbient]);
 
   // Stat decay
   useEffect(() => {
@@ -414,6 +434,7 @@ function App() {
       if (unlocked && !ach.unlocked) {
         setShowAchievement({ ...ach, unlocked: true, progress });
         setStats(s => ({ ...s, coins: s.coins + 25, xp: s.xp + 50 }));
+        playSound('achievement');
       }
       
       return { ...ach, progress, unlocked };
@@ -433,8 +454,10 @@ function App() {
         coins: s.coins + 50,
       }));
       showBubble(t.messages.levelUp.replace('{level}', String(stats.level + 1)));
+      playSound('level-up');
+      playSound('coin-collect');
     }
-  }, [stats.xp, stats.level, t.messages.levelUp]);
+  }, [stats.xp, stats.level, t.messages.levelUp, playSound]);
 
   const showBubble = (text: string) => {
     setActionBubble(text);
@@ -449,6 +472,8 @@ function App() {
     setStats(s => ({ ...s, coins: s.coins + dailyRewardAmount }));
     setGameState(g => ({ ...g, lastDailyReward: today, streak: newStreak }));
     setShowDailyReward(false);
+    playSound('coin-collect');
+    playSound('ui-success');
   };
 
   const handleMiniGameComplete = (score: number) => {
@@ -471,9 +496,13 @@ function App() {
     const xpGain = actionType === 'primary' ? 15 : 10;
 
     if ((room.key === 'shop' || room.key === 'supermarket') && stats.coins < cost) {
+      playSound('ui-error');
       showBubble(t.messages.notEnoughCoins);
       return;
     }
+    
+    // Play UI click
+    playSound('ui-click');
 
     // 20% chance for mini-game in garden
     if (room.key === 'garden' && actionType === 'primary' && Math.random() < 0.2) {
@@ -490,37 +519,46 @@ function App() {
           message = t.messages.sleeping;
           statChanges = { ...statChanges, energy: Math.min(100, stats.energy + 40), health: Math.min(100, stats.health + 10) };
           setAchievements(a => a.map(ach => ach.id === 'sleepyHead' ? { ...ach, progress: ach.progress + 1 } : ach));
+          playSound('action-sleep');
           break;
         case 'kitchen':
           message = t.messages.eating;
           statChanges = { ...statChanges, hunger: Math.min(100, stats.hunger + 30), health: Math.min(100, stats.health + 5) };
           setAchievements(a => a.map(ach => ach.id === 'firstMeal' ? { ...ach, progress: 1 } : ach));
+          playSound('action-eat');
           break;
         case 'garden':
           message = t.messages.playing;
           statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 25), energy: Math.max(0, stats.energy - 10), coins: stats.coins + 10 };
           setAchievements(a => a.map(ach => ach.id === 'socialite' ? { ...ach, progress: ach.progress + 1 } : ach));
+          playSound('action-play');
+          playSound('coin-collect');
           break;
         case 'living':
           message = t.messages.watching;
           statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 15), energy: Math.min(100, stats.energy + 5) };
+          playSound('ui-success');
           break;
         case 'bathroom':
           message = t.messages.bathing;
           statChanges = { ...statChanges, health: Math.min(100, stats.health + 15), happiness: Math.min(100, stats.happiness + 10) };
+          playSound('action-bath');
           break;
         case 'garage':
           message = t.messages.driving;
           statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 20), energy: Math.max(0, stats.energy - 5) };
+          playSound('action-drive');
           break;
         case 'shop':
           message = t.messages.shopping;
           statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 30), coins: stats.coins - cost };
           setAchievements(a => a.map(ach => ach.id === 'shopper' ? { ...ach, progress: ach.progress + 1 } : ach));
+          playSound('action-shop');
           break;
         case 'supermarket':
           message = t.messages.buying;
           statChanges = { ...statChanges, hunger: Math.min(100, stats.hunger + 25), coins: stats.coins - cost };
+          playSound('action-shop');
           break;
       }
 
@@ -535,6 +573,7 @@ function App() {
     setCurrentRoom(index);
     setShowMap(false);
     setLunaPosition({ x: 50, y: 60 });
+    playSound('ui-click');
   };
 
   const toggleLanguage = () => setLang(lang === 'it' ? 'en' : 'it');
@@ -636,6 +675,9 @@ function App() {
             <h1 className="title">{t.title}</h1>
             <div className="header-right">
               <span className="time-indicator">{t.timeOfDay[timeOfDay]}</span>
+              <button className="sound-toggle" onClick={() => { toggleMute(); playSound('ui-click'); }} title={isMuted ? 'Unmute' : 'Mute'}>
+                {isMuted ? '🔇' : '🔊'}
+              </button>
               <button className="lang-toggle" onClick={toggleLanguage}>{lang === 'it' ? '🇮🇹' : '🇬🇧'}</button>
               <div className="level-badge glass-card">Lv.{stats.level}</div>
               <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>

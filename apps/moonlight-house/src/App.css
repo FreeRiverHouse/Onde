@@ -133,7 +133,8 @@
   gap: 10px;
 }
 
-.lang-toggle {
+.lang-toggle,
+.sound-toggle {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
@@ -143,9 +144,14 @@
   transition: all 0.3s ease;
 }
 
-.lang-toggle:hover {
+.lang-toggle:hover,
+.sound-toggle:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.1);
+}
+
+.sound-toggle:active {
+  transform: scale(0.95);
 }
 
 .back-btn {

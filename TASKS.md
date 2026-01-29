@@ -194,12 +194,13 @@
 - **Notes**: ✅ Added CSS-based mood visual effects! Luna now has distinct appearances for each mood: happy (golden glow, gentle bounce), neutral (soft blue), sad (desaturated, droop animation), sleepy (dim, slow nod), hungry (green tint, wobble), excited (rainbow glow, jump). Both map and room views updated. Foundation for real sprite images later.
 
 ### [T051] Sound effects
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Ambient music, interaction sounds
+- **Notes**: ✅ Created full sound system! useSoundManager hook with: 12 sound effects (ui-click, action-eat/sleep/play/bath/shop/drive, coin-collect, level-up, achievement), 3 ambient tracks (home/garden/shop), mute toggle, volume control, localStorage persistence. Uses Web Audio API oscillator fallback when MP3s not available. Sounds play on all interactions. Mute button in header.
 
 ---
 
@@ -1840,6 +1841,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Side-by-side win rate chart comparing v1 (broken model) vs v2 (Black-Scholes) performance on /betting dashboard.
+
+### [T351] Real sprite images for Luna moods
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T050]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Upgrade CSS-based mood effects to actual sprite images. 6 states: luna-happy.png, luna-neutral.png, luna-sad.png, luna-sleepy.png, luna-hungry.png, luna-excited.png. Use AI image generation or commission artist.
+
+### [T352] Luna idle animations per room
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T050]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Room-specific idle animations: bedroom (yawn), kitchen (look at food), garden (look at flowers), living (watch TV), etc. Make Luna feel more alive.
+
+### [T353] Save game state to localStorage
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Persist PetStats, gameState, achievements to localStorage. Load on mount. Prevents losing progress on refresh.
 
 ---
 
