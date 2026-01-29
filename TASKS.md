@@ -471,12 +471,13 @@
 - **Notes**: ✅ Installed via npm: playwright + @playwright/test. Chromium + FFmpeg downloaded to ~/Library/Caches/ms-playwright/
 
 ### [T206] Fix onde.surf GH Actions deploy (billing issue)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: OBSOLETE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P1
-- **Notes**: ⚠️ PRIORITY RAISED by PM. Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct. Currently using wrangler workaround.
+- **Priority**: -
+- **Notes**: ✅ OBSOLETE: Migrato a Wrangler diretto. GitHub Actions non più necessario per deploy. Procedura permanente: `npm run build && npm run build:cf && wrangler pages deploy`.
 
 ---
 

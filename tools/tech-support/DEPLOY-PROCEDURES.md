@@ -2,7 +2,11 @@
 
 **LEGGI QUESTO FILE PRIMA DI QUALSIASI DEPLOY!**
 
-⚠️ **DEPLOY = WRANGLER DIRETTO. Niente GitHub Actions!**
+## ✅ METODO DEPLOY: WRANGLER DIRETTO
+
+Deploy via **Wrangler CLI** direttamente su Cloudflare Pages.
+- ❌ **NO GitHub Actions** - Non usato, non necessario
+- ✅ **Wrangler** - Metodo standard e definitivo
 
 ---
 
@@ -175,5 +179,6 @@ git push origin main
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29*
-*METODO: Wrangler diretto. Niente GitHub Actions.*
+*Ultimo aggiornamento: 2026-01-28*
+*METODO: Wrangler CLI diretto su Cloudflare Pages.*
+*GitHub Actions NON usato per deploy (scelta permanente).*
