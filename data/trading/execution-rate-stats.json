@@ -1,0 +1,25 @@
+{
+  "analyzed_at": "2026-01-29T12:23:53.944841+00:00",
+  "source": "v1",
+  "days_filter": 30,
+  "trades": {
+    "total_trades": 2016,
+    "with_latency": 0,
+    "latency_stats": {
+      "min_ms": null,
+      "max_ms": null,
+      "avg_ms": null,
+      "p50_ms": null,
+      "p95_ms": null
+    },
+    "by_asset": {
+      "btc": 1919,
+      "other": 97
+    },
+    "by_side": {
+      "unknown": 1082,
+      "yes": 113,
+      "no": 821
+    }
+  }
+}

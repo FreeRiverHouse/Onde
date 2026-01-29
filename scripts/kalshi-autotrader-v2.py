@@ -76,6 +76,7 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 # Logging
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
 SKIP_LOG_FILE = "scripts/kalshi-skips.jsonl"
+EXECUTION_LOG_FILE = "scripts/kalshi-execution-log.jsonl"
 
 # Dry run mode - log trades without executing
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() in ("true", "1", "yes")
@@ -2233,12 +2234,25 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
         
         if "error" in result:
             print(f"   ❌ Failed to exit: {result['error']}")
+            # Log failed stop-loss execution (T329)
+            log_execution(
+                ticker=ticker, side=side, count=contracts, price_cents=int(current),
+                status="error", latency_ms=latency_ms, error=result['error']
+            )
             continue
         
         order = result.get("order", {})
-        if order.get("status") in ["executed", "pending"]:
-            print(f"   ✅ Stop-loss order placed (status: {order.get('status')}) ⏱️ {latency_ms}ms")
+        order_status = order.get("status", "unknown")
+        if order_status in ["executed", "pending"]:
+            print(f"   ✅ Stop-loss order placed (status: {order_status}) ⏱️ {latency_ms}ms")
             exited += 1
+            
+            # Log execution success (T329)
+            log_execution(
+                ticker=ticker, side=side, count=contracts, price_cents=int(current),
+                status=order_status, latency_ms=latency_ms,
+                order_id=order.get("order_id", order.get("id"))
+            )
             
             # Log the stop-loss (with latency)
             log_stop_loss({
@@ -2250,7 +2264,7 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
                 "entry_price": entry,
                 "exit_price": current,
                 "loss_pct": loss_pct,
-                "order_status": order.get("status"),
+                "order_status": order_status,
                 "latency_ms": latency_ms
             })
             
@@ -2612,6 +2626,35 @@ def log_dry_run_trade(trade_data: dict):
     log_path.parent.mkdir(exist_ok=True)
     with open(log_path, "a") as f:
         f.write(json.dumps(trade_data) + "\n")
+
+
+def log_execution(ticker: str, side: str, count: int, price_cents: int, 
+                  status: str, latency_ms: int = None, error: str = None, 
+                  retries: int = 0, order_id: str = None):
+    """
+    Log execution attempt for success rate tracking (T329).
+    
+    Status values: executed, pending, rejected, error, timeout
+    """
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "ticker": ticker,
+        "side": side,
+        "count": count,
+        "price_cents": price_cents,
+        "status": status,
+        "latency_ms": latency_ms,
+        "retries": retries,
+    }
+    if error:
+        entry["error"] = error
+    if order_id:
+        entry["order_id"] = order_id
+    
+    log_path = Path(EXECUTION_LOG_FILE)
+    log_path.parent.mkdir(exist_ok=True)
+    with open(log_path, "a") as f:
+        f.write(json.dumps(entry) + "\n")
 
 
 # ============== OPPORTUNITY FINDING ==============
@@ -3160,10 +3203,23 @@ def run_cycle():
     
     if "error" in result:
         print(f"❌ Order error: {result['error']}")
+        # Log failed execution (T329)
+        log_execution(
+            ticker=best["ticker"],
+            side=best["side"],
+            count=contracts,
+            price_cents=best["price"],
+            status="error",
+            latency_ms=latency_ms,
+            error=result['error']
+        )
         return
     
     order = result.get("order", {})
-    if order.get("status") == "executed":
+    order_status = order.get("status", "unknown")
+    order_id = order.get("order_id", order.get("id"))
+    
+    if order_status == "executed":
         print(f"✅ Order executed!")
         
         # Log trade (with momentum + regime data + latency)
@@ -3171,13 +3227,34 @@ def run_cycle():
         trade_data["latency_ms"] = latency_ms
         log_trade(trade_data)
         
+        # Log successful execution (T329)
+        log_execution(
+            ticker=best["ticker"],
+            side=best["side"],
+            count=contracts,
+            price_cents=best["price"],
+            status="executed",
+            latency_ms=latency_ms,
+            order_id=order_id
+        )
+        
         # Check for latency alerts (after logging trade with new latency data)
         check_latency_alert()
         
         # Check for extreme volatility alerts (T294)
         check_extreme_vol_alert(trade_data)
     else:
-        print(f"⏳ Order status: {order.get('status')}")
+        print(f"⏳ Order status: {order_status}")
+        # Log pending/other status (T329)
+        log_execution(
+            ticker=best["ticker"],
+            side=best["side"],
+            count=contracts,
+            price_cents=best["price"],
+            status=order_status,
+            latency_ms=latency_ms,
+            order_id=order_id
+        )
 
 
 def main():

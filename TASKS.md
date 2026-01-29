@@ -2024,12 +2024,13 @@
 - **Notes**: Sparkline showing latency trend over last 24h/7d. Requires storing historical latency data per trade.
 
 ### [T329] Trade execution success rate tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track ratio of successful order placements vs rejections/failures. Add rejectionCount, retryCount to API response. Alert if success rate drops below 95%.
+- **Notes**: ✅ Implemented! Added EXECUTION_LOG_FILE + log_execution() function to autotrader-v2. Logs all order attempts (success/error/pending) with latency, ticker, side, count, status. Script: analyze-execution-rate.py analyzes success rate, latency stats, by-asset breakdown. Tracks both regular trades and stop-loss executions.
 
 ### [T330] API call count monitoring per hour
 - **Status**: DONE
@@ -2370,12 +2371,13 @@
 - **Notes**: Show pie/bar chart of trades by edge bucket (0-5%, 5-10%, 10-15%, 15%+). Color code by win rate per bucket. Helps visualize edge distribution and optimal thresholds.
 
 ### [T369] Analyze trades by volatility bucket
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DUPLICATE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to group trades by realized volatility at entry time (low/medium/high). Compare win rates per bucket to determine if volatility threshold affects model accuracy.
+- **Notes**: ⚠️ DUPLICATE of T285 (analyze-volatility-correlation.py). Already buckets trades by hourly volatility (very_low to very_high) and compares win rates.
 
 ### [T370] Memory files age warning in heartbeat
 - **Status**: DONE
@@ -3367,4 +3369,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Play subtle sound when new trade placed or position settled. Use existing useSoundManager pattern. Coin sound for wins, error sound for losses. Toggle in settings. Works in browser tab even when not focused.
+
+### [T495] Alert when execution success rate drops below 95%
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T329]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze last 20 execution attempts. If success rate <95%, write kalshi-execution-fail.alert for heartbeat pickup. 4h cooldown. Helps detect API issues or account problems early.
+
+### [T496] Execution performance by time of day analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T329]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend analyze-execution-rate.py to show success rate and latency by hour (UTC). Identify if certain times have worse execution. May reveal API congestion patterns or optimal trading windows.
+
+### [T497] Execution latency correlation with market volatility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T329], [T285]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if high volatility periods have worse execution latency. Correlate execution_log latency_ms with cached OHLC volatility at trade time. Could inform position sizing during volatile periods.
 
