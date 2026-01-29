@@ -2745,12 +2745,13 @@
 - **Notes**: Alert when price spread across exchanges (Binance/CoinGecko/Coinbase) exceeds 1%. Currently logs warning but no alert file. Potential arbitrage indicator or data quality issue.
 
 ### [T427] External API response caching (reduce redundant calls)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T308]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add 30-60s in-memory cache for CoinGecko/Binance price fetches. Multiple calls per cycle are redundant. Reduces rate limit usage and improves latency.
+- **Notes**: ✅ Implemented! Added 60s in-memory cache for: CoinGecko, Binance, Coinbase price fetches + Fear&Greed index. Functions: get_cached_response(), set_cached_response(), get_cache_stats(). Tracks cache hits via latency profiling (e.g., "prices_coingecko_cache_hit"). Reduces redundant API calls per cycle.
 
 ### [T428] Weekly rate limit usage report (trend analysis)
 - **Status**: TODO

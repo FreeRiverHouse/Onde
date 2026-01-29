@@ -399,6 +399,57 @@ def get_rate_limit_summary() -> str:
     return "\n".join(lines)
 
 
+# ============== EXTERNAL API CACHING (T427) ==============
+
+# Cache for external API responses to reduce redundant calls
+EXT_API_CACHE = {}  # key -> (timestamp, data)
+EXT_API_CACHE_TTL = 60  # 60 second TTL for cached responses
+
+
+def get_cached_response(cache_key: str):
+    """
+    Get cached API response if still valid.
+    
+    Args:
+        cache_key: Unique key for the cached data
+        
+    Returns:
+        Cached data if valid, None if expired or missing
+    """
+    if cache_key not in EXT_API_CACHE:
+        return None
+    
+    cached_time, cached_data = EXT_API_CACHE[cache_key]
+    if time.time() - cached_time > EXT_API_CACHE_TTL:
+        del EXT_API_CACHE[cache_key]
+        return None
+    
+    record_api_latency(f"{cache_key}_cache_hit", 0)  # Track cache hits
+    return cached_data
+
+
+def set_cached_response(cache_key: str, data: any):
+    """
+    Cache an API response.
+    
+    Args:
+        cache_key: Unique key for the cached data
+        data: Response data to cache
+    """
+    EXT_API_CACHE[cache_key] = (time.time(), data)
+
+
+def get_cache_stats() -> dict:
+    """Get cache statistics."""
+    valid_entries = sum(1 for key, (ts, _) in EXT_API_CACHE.items() 
+                       if time.time() - ts <= EXT_API_CACHE_TTL)
+    return {
+        "total_entries": len(EXT_API_CACHE),
+        "valid_entries": valid_entries,
+        "keys": list(EXT_API_CACHE.keys())
+    }
+
+
 # ============== REGIME CHANGE ALERTING ==============
 
 def load_regime_state() -> dict:
@@ -1771,7 +1822,12 @@ def write_stop_loss_alert(ticker: str, side: str, contracts: int,
 # ============== EXTERNAL DATA ==============
 
 def get_prices_coingecko() -> dict:
-    """Get BTC/ETH prices from CoinGecko with latency tracking"""
+    """Get BTC/ETH prices from CoinGecko with latency tracking and caching"""
+    # Check cache first (T427)
+    cached = get_cached_response("prices_coingecko")
+    if cached:
+        return cached
+    
     start = time.time()
     try:
         resp = requests.get(
@@ -1783,11 +1839,13 @@ def get_prices_coingecko() -> dict:
         record_api_call("coingecko", dict(resp.headers))  # Track rate limit
         if resp.status_code == 200:
             data = resp.json()
-            return {
+            result = {
                 "btc": data["bitcoin"]["usd"],
                 "eth": data["ethereum"]["usd"],
                 "source": "coingecko"
             }
+            set_cached_response("prices_coingecko", result)  # Cache the result
+            return result
     except Exception as e:
         latency = (time.time() - start) * 1000
         record_api_latency("ext_coingecko_error", latency)
@@ -1796,7 +1854,12 @@ def get_prices_coingecko() -> dict:
 
 
 def get_prices_binance() -> dict:
-    """Get BTC/ETH prices from Binance with latency tracking"""
+    """Get BTC/ETH prices from Binance with latency tracking and caching"""
+    # Check cache first (T427)
+    cached = get_cached_response("prices_binance")
+    if cached:
+        return cached
+    
     start = time.time()
     try:
         resp = requests.get(
@@ -1815,6 +1878,7 @@ def get_prices_binance() -> dict:
                 elif item["symbol"] == "ETHUSDT":
                     prices["eth"] = float(item["price"])
             if "btc" in prices and "eth" in prices:
+                set_cached_response("prices_binance", prices)  # Cache the result
                 return prices
     except Exception as e:
         latency = (time.time() - start) * 1000
@@ -1824,7 +1888,12 @@ def get_prices_binance() -> dict:
 
 
 def get_prices_coinbase() -> dict:
-    """Get BTC/ETH prices from Coinbase with latency tracking"""
+    """Get BTC/ETH prices from Coinbase with latency tracking and caching"""
+    # Check cache first (T427)
+    cached = get_cached_response("prices_coinbase")
+    if cached:
+        return cached
+    
     start = time.time()
     try:
         btc_resp = requests.get(
@@ -1839,11 +1908,13 @@ def get_prices_coinbase() -> dict:
         record_api_latency("ext_coinbase", latency)
         record_api_call("coinbase", dict(btc_resp.headers))  # Track rate limit
         if btc_resp.status_code == 200 and eth_resp.status_code == 200:
-            return {
+            result = {
                 "btc": float(btc_resp.json()["data"]["amount"]),
                 "eth": float(eth_resp.json()["data"]["amount"]),
                 "source": "coinbase"
             }
+            set_cached_response("prices_coinbase", result)  # Cache the result
+            return result
     except Exception as e:
         latency = (time.time() - start) * 1000
         record_api_latency("ext_coinbase_error", latency)
@@ -1919,7 +1990,12 @@ def get_crypto_prices(max_retries: int = 3) -> dict:
 
 
 def get_fear_greed(max_retries: int = 2) -> int:
-    """Get Fear & Greed Index (0-100) with retry logic and latency tracking"""
+    """Get Fear & Greed Index (0-100) with retry logic, latency tracking and caching"""
+    # Check cache first (T427) - F&G updates daily, 5 min cache is fine
+    cached = get_cached_response("fear_greed")
+    if cached is not None:
+        return cached
+    
     start = time.time()
     for attempt in range(max_retries):
         try:
@@ -1929,7 +2005,9 @@ def get_fear_greed(max_retries: int = 2) -> int:
             record_api_call("feargreed", dict(resp.headers))  # Track rate limit
             if resp.status_code >= 500:
                 raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
-            return int(resp.json()["data"][0]["value"])
+            value = int(resp.json()["data"][0]["value"])
+            set_cached_response("fear_greed", value)  # Cache the result
+            return value
         except Exception as e:
             if attempt < max_retries - 1:
                 wait_time = (2 ** attempt) + (time.time() % 1)
