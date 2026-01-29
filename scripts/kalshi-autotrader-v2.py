@@ -394,16 +394,92 @@ def get_trend_adjustment(prices_1h: list) -> float:
 
 # ============== MULTI-TIMEFRAME MOMENTUM ==============
 
+# Cached OHLC config (T381)
+OHLC_CACHE_DIR = Path(__file__).parent.parent / "data" / "ohlc"
+OHLC_CACHE_MAX_AGE_HOURS = 24  # Consider cache stale after 24h
+COIN_ID_TO_CACHE_FILE = {
+    "bitcoin": "btc-ohlc.json",
+    "ethereum": "eth-ohlc.json"
+}
+
+
+def load_cached_ohlc(coin_id: str) -> tuple[list, bool]:
+    """
+    Load OHLC data from local cache file.
+    
+    Args:
+        coin_id: CoinGecko coin id ("bitcoin" or "ethereum")
+    
+    Returns:
+        (ohlc_data, is_fresh): OHLC list in CoinGecko format, whether cache is fresh
+    """
+    cache_file = COIN_ID_TO_CACHE_FILE.get(coin_id)
+    if not cache_file:
+        return [], False
+    
+    cache_path = OHLC_CACHE_DIR / cache_file
+    if not cache_path.exists():
+        return [], False
+    
+    try:
+        with open(cache_path, "r") as f:
+            data = json.load(f)
+        
+        # Check freshness
+        updated_at = data.get("updated_at", "")
+        is_fresh = False
+        if updated_at:
+            try:
+                # Parse ISO timestamp
+                updated_time = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
+                age_hours = (datetime.now(timezone.utc) - updated_time).total_seconds() / 3600
+                is_fresh = age_hours < OHLC_CACHE_MAX_AGE_HOURS
+            except (ValueError, TypeError):
+                pass
+        
+        # Convert cache format to CoinGecko API format: [[timestamp, open, high, low, close], ...]
+        candles = data.get("candles", [])
+        ohlc_data = []
+        for c in candles:
+            ohlc_data.append([
+                c.get("timestamp"),
+                c.get("open"),
+                c.get("high"),
+                c.get("low"),
+                c.get("close")
+            ])
+        
+        if ohlc_data:
+            symbol = data.get("symbol", coin_id.upper())
+            status = "fresh" if is_fresh else "stale"
+            print(f"[OHLC] Loaded {len(ohlc_data)} cached {symbol} candles ({status})")
+        
+        return ohlc_data, is_fresh
+    
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        print(f"[WARN] Failed to load cached OHLC for {coin_id}: {e}")
+        return [], False
+
+
 def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 1) -> list:
-    """Get crypto OHLC data from CoinGecko (hourly candles for 1-2 days)
+    """Get crypto OHLC data, preferring local cache to reduce API calls.
     
     Args:
         coin_id: CoinGecko coin id ("bitcoin" or "ethereum")
         days: Number of days (valid: 1, 7, 14, 30, 90, 180, 365, max)
     
-    Note: CoinGecko OHLC only accepts: 1, 7, 14, 30, 90, 180, 365, max
-    For 1-2 days: granularity is 30min/hourly, which is what we need
+    Strategy:
+        1. Try local cache first (data/ohlc/*.json)
+        2. If cache is fresh (< 24h old), use it
+        3. If cache is stale but exists, use it with warning
+        4. Fall back to live CoinGecko API if cache unavailable
     """
+    # Try cached data first (T381)
+    cached_data, is_fresh = load_cached_ohlc(coin_id)
+    if cached_data and is_fresh:
+        return cached_data
+    
+    # Try live API
     try:
         # CoinGecko OHLC endpoint - days=1 gives ~48 candles (30min intervals)
         # days=7 gives hourly candles - better for 24h momentum
@@ -412,17 +488,21 @@ def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 1) -> list:
             f"https://api.coingecko.com/api/v3/coins/{coin_id}/ohlc?vs_currency=usd&days={valid_days}",
             timeout=10
         )
-        if resp.status_code != 200:
-            print(f"[WARN] {coin_id.upper()} OHLC API returned {resp.status_code}: {resp.text[:100]}")
-            return []
-        data = resp.json()
-        if not isinstance(data, list):
-            print(f"[WARN] {coin_id.upper()} OHLC unexpected format: {type(data)}")
-            return []
-        return data  # [[timestamp, open, high, low, close], ...]
+        if resp.status_code == 200:
+            data = resp.json()
+            if isinstance(data, list) and data:
+                print(f"[OHLC] Fetched {len(data)} live {coin_id.upper()} candles from CoinGecko")
+                return data
+        print(f"[WARN] {coin_id.upper()} OHLC API returned {resp.status_code}")
     except Exception as e:
-        print(f"[WARN] Failed to get {coin_id.upper()} OHLC: {e}")
-        return []
+        print(f"[WARN] CoinGecko OHLC fetch failed: {e}")
+    
+    # Fall back to stale cache if available
+    if cached_data:
+        print(f"[WARN] Using stale cached OHLC for {coin_id} (API unavailable)")
+        return cached_data
+    
+    return []
 
 
 def get_btc_ohlc(days: int = 1) -> list:

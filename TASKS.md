@@ -2436,12 +2436,13 @@
 - **Notes**: Allow users to save books to "My Reading List" (localStorage). Show bookmark icon on book cards. Dedicated /my-books page to view saved titles. UX improvement for return visitors.
 
 ### [T381] Use cached OHLC in autotrader momentum calculation
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T278]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Autotrader currently fetches live OHLC each cycle. Switch to cached data/ohlc/*.json for momentum calculation. Reduces CoinGecko API calls and latency. Fallback to live if cache stale.
+- **Notes**: ✅ Implemented! Added load_cached_ohlc() function to autotrader-v2. Strategy: 1) Try cache first, 2) If fresh (<24h), use it, 3) If stale but exists, try live API then fallback to cache, 4) Reduces CoinGecko calls from ~12/cycle to 0-2. Tested: BTC/ETH cache loading works, 180 candles each.
 
 ### [T382] OHLC cache health check in heartbeat
 - **Status**: TODO
