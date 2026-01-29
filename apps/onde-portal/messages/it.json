@@ -312,7 +312,42 @@
       "discoverApps": "Scopri le App",
       "exploreBooks": "Esplora i Libri"
     },
+    "status": {
+      "playNow": "Gioca Ora",
+      "comingSoon": "Prossimamente",
+      "inDevelopment": "In sviluppo",
+      "inPlanning": "In progettazione"
+    },
+    "features": {
+      "dragAndDrop": "Drag & Drop",
+      "exploration": "Esplorazione",
+      "age2to6": "2-6 anni",
+      "recipes50": "50+ ricette",
+      "stepByStep": "Step-by-step",
+      "noRisk": "Nessun rischio",
+      "watercolorTechniques": "Tecniche acquarello",
+      "guidedTutorials": "Tutorial guidati",
+      "personalGallery": "Galleria personale",
+      "levels100": "100+ livelli",
+      "progressiveDifficulty": "Difficolta progressiva",
+      "dailyChallenges": "Sfide giornaliere",
+      "instruments10": "10 strumenti",
+      "recordAndShare": "Registra e condividi",
+      "musicBasics": "Basi musicali",
+      "arSupported": "AR supportato",
+      "encyclopedia": "Enciclopedia",
+      "interactiveQuizzes": "Quiz interattivi",
+      "multilingual": "Multilingua",
+      "rhymesAndNursery": "Rime e filastrocche",
+      "dailyChallengesShort": "Sfide quotidiane"
+    },
     "gameTitles": {
+      "moonlightMagicHouse": {
+        "title": "Moonlight Magic House",
+        "subtitle": "Tamagotchi Moderno",
+        "description": "Esplora la casa magica di Moonlight! Trascina il personaggio nelle stanze, gioca, mangia, dormi e guadagna monete.",
+        "badge": "Tamagotchi"
+      },
       "chefStudio": {
         "title": "Kids Chef Studio",
         "subtitle": "Cucina Virtuale",

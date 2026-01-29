@@ -1,99 +1,81 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
+import { useTranslations } from '@/i18n/I18nProvider'
 
-// Mini-giochi educativi
-const miniGames = [
+// Type for game color variants
+type GameColor = 'gold' | 'teal' | 'coral'
+
+// Game configuration (non-translatable data)
+const miniGamesConfig = [
   {
     id: 'moonlight-magic-house',
-    title: 'Moonlight Magic House',
-    subtitle: 'Tamagotchi Moderno',
-    description: 'Esplora la casa magica di Moonlight! Trascina il personaggio nelle stanze, gioca, mangia, dormi e guadagna monete.',
+    translationKey: 'moonlightMagicHouse',
     icon: '/games/moonlight-magic-house/assets/backgrounds/house-map.jpg',
     iconFallback: '🌙',
-    badge: 'Tamagotchi',
-    color: 'gold' as const,
-    features: ['Drag & Drop', 'Esplorazione', '2-6 anni'],
-    status: 'Gioca Ora',
+    color: 'gold' as GameColor,
+    featureKeys: ['dragAndDrop', 'exploration', 'age2to6'],
+    statusKey: 'playNow',
     playable: true,
-    href: '/games/moonlight-magic-house/',  // Uses Next.js page that embeds the game
+    href: '/games/moonlight-magic-house/',
   },
   {
     id: 'chef-studio',
-    title: 'Kids Chef Studio',
-    subtitle: 'Cucina Virtuale',
-    description: 'Cucina virtuale per piccoli chef. Ricette divertenti e sicure da preparare. Impara i fondamenti della cucina giocando.',
+    translationKey: 'chefStudio',
     icon: '/images/games/chef-placeholder.jpg',
     iconFallback: '👨‍🍳',
-    badge: 'Educativo',
-    color: 'gold' as const,
-    features: ['50+ ricette', 'Step-by-step', 'Nessun rischio'],
-    status: 'Prossimamente',
+    color: 'gold' as GameColor,
+    featureKeys: ['recipes50', 'stepByStep', 'noRisk'],
+    statusKey: 'comingSoon',
   },
   {
     id: 'art-studio',
-    title: 'Pina Art Studio',
-    subtitle: 'Disegno e Colori',
-    description: "Disegna e colora con Pina Pennello. Impara tecniche ad acquarello, crea opere d'arte e sviluppa la creativita.",
+    translationKey: 'artStudio',
     icon: '/images/games/art-placeholder.jpg',
     iconFallback: '🎨',
-    badge: 'Creativo',
-    color: 'teal' as const,
-    features: ['Tecniche acquarello', 'Tutorial guidati', 'Galleria personale'],
-    status: 'In sviluppo',
+    color: 'teal' as GameColor,
+    featureKeys: ['watercolorTechniques', 'guidedTutorials', 'personalGallery'],
+    statusKey: 'inDevelopment',
   },
   {
     id: 'puzzle-world',
-    title: 'Puzzle World',
-    subtitle: 'Rompicapi Creativi',
-    description: 'Collezione di puzzle e rompicapi per tutte le eta. Allena il pensiero logico e la risoluzione di problemi.',
+    translationKey: 'puzzleWorld',
     icon: '/images/games/puzzle-placeholder.jpg',
     iconFallback: '🧩',
-    badge: 'Logica',
-    color: 'coral' as const,
-    features: ['100+ livelli', 'Difficolta progressiva', 'Sfide giornaliere'],
-    status: 'Prossimamente',
+    color: 'coral' as GameColor,
+    featureKeys: ['levels100', 'progressiveDifficulty', 'dailyChallenges'],
+    statusKey: 'comingSoon',
   },
   {
     id: 'music-maker',
-    title: 'Music Maker Kids',
-    subtitle: 'Crea Musica',
-    description: 'Crea melodie e ritmi con strumenti virtuali. Esplora la musica, componi canzoni e impara le basi musicali.',
+    translationKey: 'musicMaker',
     icon: '/images/games/music-placeholder.jpg',
     iconFallback: '🎵',
-    badge: 'Musicale',
-    color: 'gold' as const,
-    features: ['10 strumenti', 'Registra e condividi', 'Basi musicali'],
-    status: 'In progettazione',
+    color: 'gold' as GameColor,
+    featureKeys: ['instruments10', 'recordAndShare', 'musicBasics'],
+    statusKey: 'inPlanning',
   },
   {
     id: 'nature-explorer',
-    title: 'Nature Explorer',
-    subtitle: 'Scopri la Natura',
-    description: 'Esplora la natura attraverso giochi interattivi. Impara su piante, animali e ambiente in modo divertente.',
+    translationKey: 'natureExplorer',
     icon: '/images/games/nature-placeholder.jpg',
     iconFallback: '🌿',
-    badge: 'Natura',
-    color: 'teal' as const,
-    features: ['AR supportato', 'Enciclopedia', 'Quiz interattivi'],
-    status: 'Prossimamente',
+    color: 'teal' as GameColor,
+    featureKeys: ['arSupported', 'encyclopedia', 'interactiveQuizzes'],
+    statusKey: 'comingSoon',
   },
   {
     id: 'word-play',
-    title: 'Word Play',
-    subtitle: 'Giochi di Parole',
-    description: 'Giochi di parole e rime in italiano e inglese. Amplia il vocabolario divertendoti con le parole.',
+    translationKey: 'wordPlay',
     icon: '/images/games/words-placeholder.jpg',
     iconFallback: '📝',
-    badge: 'Linguistico',
-    color: 'coral' as const,
-    features: ['Multilingua', 'Rime e filastrocche', 'Sfide quotidiane'],
-    status: 'Prossimamente',
+    color: 'coral' as GameColor,
+    featureKeys: ['multilingual', 'rhymesAndNursery', 'dailyChallengesShort'],
+    statusKey: 'comingSoon',
   },
 ]
 
@@ -108,6 +90,15 @@ const container = {
 }
 
 export default function GiochiPage() {
+  const t = useTranslations()
+
+  // Helper to get status color
+  const getStatusColor = (statusKey: string) => {
+    if (statusKey === 'playNow') return 'bg-green-500/20 text-green-600'
+    if (statusKey === 'inDevelopment') return 'bg-onde-teal/10 text-onde-teal'
+    return 'bg-onde-gold/10 text-onde-gold-dark'
+  }
+
   return (
     <div className="min-h-screen py-12">
       {/* Hero */}
@@ -125,9 +116,9 @@ export default function GiochiPage() {
           </motion.div>
 
           <SectionHeader
-            badge="Divertimento Creativo"
-            title="Giochi"
-            subtitle="Esperienze interattive che stimolano creativita, logica e apprendimento. Sicuri per tutta la famiglia."
+            badge={t.games.badge}
+            title={t.games.title}
+            subtitle={t.games.subtitle}
             gradient="gold"
           />
         </div>
@@ -177,7 +168,7 @@ export default function GiochiPage() {
                   viewport={{ once: true }}
                 >
                   <span className="w-2 h-2 rounded-full bg-onde-gold animate-pulse" />
-                  Coming Soon
+                  {t.games.minecraft.badge}
                 </motion.div>
 
                 <motion.h3
@@ -187,7 +178,7 @@ export default function GiochiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  Emilio&apos;s World
+                  {t.games.minecraft.title}
                 </motion.h3>
 
                 <motion.p
@@ -197,8 +188,7 @@ export default function GiochiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  Il server Minecraft ufficiale della community Onde. Costruisci, esplora e impara
-                  insieme ad altri bambini in un ambiente sicuro e moderato, guidato da EMILIO!
+                  {t.games.minecraft.description}
                 </motion.p>
 
                 {/* Features */}
@@ -209,7 +199,12 @@ export default function GiochiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                 >
-                  {['Moderato 24/7', 'Costruzioni collaborative', 'Eventi settimanali', 'Eta 6+'].map((feature) => (
+                  {[
+                    t.games.minecraft.features.moderated,
+                    t.games.minecraft.features.collaborative,
+                    t.games.minecraft.features.weeklyEvents,
+                    t.games.minecraft.features.age
+                  ].map((feature) => (
                     <span
                       key={feature}
                       className="px-3 py-1.5 rounded-xl text-sm bg-white/10 backdrop-blur-sm text-white/80"
@@ -228,16 +223,16 @@ export default function GiochiPage() {
                   transition={{ delay: 0.4 }}
                 >
                   <div className="px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <p className="text-xs text-white/50 mb-1">Versione</p>
+                    <p className="text-xs text-white/50 mb-1">{t.games.minecraft.version}</p>
                     <p className="text-xl font-bold text-white">1.21+</p>
                   </div>
                   <div className="px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <p className="text-xs text-white/50 mb-1">Eta</p>
+                    <p className="text-xs text-white/50 mb-1">{t.games.minecraft.age}</p>
                     <p className="text-xl font-bold text-white">6+</p>
                   </div>
                   <div className="px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <p className="text-xs text-white/50 mb-1">Status</p>
-                    <p className="text-xl font-bold text-onde-gold">In arrivo</p>
+                    <p className="text-xs text-white/50 mb-1">{t.games.minecraft.status}</p>
+                    <p className="text-xl font-bold text-onde-gold">{t.games.minecraft.comingSoon}</p>
                   </div>
                 </motion.div>
               </div>
@@ -309,9 +304,9 @@ export default function GiochiPage() {
       {/* Mini-Giochi Educativi Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <SectionHeader
-          badge="Impara Giocando"
-          title="Mini-Giochi Educativi"
-          subtitle="Una collezione di giochi pensati per stimolare creativita, logica e apprendimento nei bambini."
+          badge={t.games.miniGames.badge}
+          title={t.games.miniGames.title}
+          subtitle={t.games.miniGames.subtitle}
           gradient="teal"
         />
 
@@ -322,7 +317,10 @@ export default function GiochiPage() {
           initial="show"
           animate="show"
         >
-          {miniGames.map((game, index) => {
+          {miniGamesConfig.map((game, index) => {
+            const gameT = t.games.gameTitles[game.translationKey as keyof typeof t.games.gameTitles]
+            const statusLabel = t.games.status[game.statusKey as keyof typeof t.games.status]
+            
             const CardContent = (
               <>
                 {/* Header with image placeholder */}
@@ -342,58 +340,52 @@ export default function GiochiPage() {
                   <div className="flex flex-col items-end gap-2">
                     <span className="px-3 py-1 rounded-full text-xs font-semibold
                                      bg-onde-ocean/5 text-onde-ocean/60">
-                      {game.badge}
+                      {gameT.badge}
                     </span>
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium
-                                      ${game.status === 'Gioca Ora'
-                                        ? 'bg-green-500/20 text-green-600'
-                                        : game.status === 'In sviluppo'
-                                        ? 'bg-onde-teal/10 text-onde-teal'
-                                        : 'bg-onde-gold/10 text-onde-gold-dark'
-                                      }`}>
-                      {game.status}
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${getStatusColor(game.statusKey)}`}>
+                      {statusLabel}
                     </span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <h3 className="text-xl font-display font-bold text-onde-ocean mb-1">
-                  {game.title}
+                  {gameT.title}
                 </h3>
-                <p className="text-sm text-onde-ocean/50 mb-3">{game.subtitle}</p>
+                <p className="text-sm text-onde-ocean/50 mb-3">{gameT.subtitle}</p>
                 <p className="text-onde-ocean/60 leading-relaxed mb-4">
-                  {game.description}
+                  {gameT.description}
                 </p>
 
                 {/* Features */}
                 <div className="flex flex-wrap gap-2">
-                  {game.features.map((feature) => (
+                  {game.featureKeys.map((featureKey) => (
                     <span
-                      key={feature}
+                      key={featureKey}
                       className="px-2 py-1 rounded-lg text-xs bg-onde-cream text-onde-ocean/70"
                     >
-                      {feature}
+                      {t.games.features[featureKey as keyof typeof t.games.features]}
                     </span>
                   ))}
                 </div>
 
                 {/* Play button for playable games */}
-                {'playable' in game && game.playable && (
+                {game.playable && (
                   <div className="mt-4 pt-4 border-t border-onde-ocean/10">
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl
                                      bg-gradient-to-r from-onde-gold to-onde-coral
                                      text-white font-semibold text-sm
                                      group-hover:shadow-lg transition-shadow">
-                      ▶️ Gioca Ora
+                      ▶️ {t.games.status.playNow}
                     </span>
                   </div>
                 )}
               </>
             );
 
-            if ('playable' in game && game.playable && 'href' in game) {
+            if (game.playable && game.href) {
               return (
-                <Link key={game.id} href={game.href as string} className="group block">
+                <Link key={game.id} href={game.href} className="group block">
                   <AnimatedCard delay={index * 0.1} variant={game.color}>
                     {CardContent}
                   </AnimatedCard>
@@ -449,7 +441,7 @@ export default function GiochiPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Nuovi giochi in arrivo!
+              {t.games.cta.title}
             </motion.h3>
 
             <motion.p
@@ -459,8 +451,7 @@ export default function GiochiPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              Stiamo lavorando a nuove esperienze di gioco educative.
-              Seguici per rimanere aggiornato sulle novita!
+              {t.games.cta.subtitle}
             </motion.p>
 
             <motion.div
@@ -471,10 +462,10 @@ export default function GiochiPage() {
               transition={{ delay: 0.2 }}
             >
               <Button href="/app" variant="teal">
-                Scopri le App
+                {t.games.cta.discoverApps}
               </Button>
               <Button href="/libri" variant="secondary">
-                Esplora i Libri
+                {t.games.cta.exploreBooks}
               </Button>
             </motion.div>
           </div>

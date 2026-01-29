@@ -2399,7 +2399,7 @@
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ❌ /giochi (T423), ❌ /about (T424), ❌ /health (T425). Homepage + catalogo already done.
+- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ✅ /giochi (T423, 2026-01-31), ❌ /about (T424), ❌ /health (T425). Homepage + catalogo already done.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
@@ -2717,12 +2717,13 @@
 - **Notes**: ✅ Converted! Added famiglia section to en.json/it.json with ~25 translation keys (title, years, parent, profile types, stats, form fields, buttons, info text). Page now uses useTranslations() hook.
 
 ### [T423] i18n: /giochi page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /giochi page to use i18n system. ~40 hardcoded strings to translate.
+- **Notes**: ✅ Converted! Added games.status (playNow/comingSoon/inDevelopment/inPlanning), games.features (15+ feature labels), games.gameTitles.moonlightMagicHouse to both en.json and it.json. Page now uses useTranslations() hook with translated game data.
 
 ### [T424] i18n: /about page translations
 - **Status**: TODO
@@ -2814,3 +2815,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Cron Sunday 08:00 UTC: compute 7d/30d realized vol from cached OHLC, compare to model assumptions, flag if >20% divergence. Output: data/reports/volatility-week-YYYY-WW.json. Alert if calibration needed.
+
+### [T435] i18n: /app page translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Convert /app page to use i18n system. Similar to /giochi conversion - extract hardcoded strings to en.json/it.json and use useTranslations() hook.
+
+### [T436] Add skeleton loading state for games grid
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add loading skeleton components for game cards on /giochi page. Show shimmer effect while content loads. Improves perceived performance.
+
+### [T437] Game card hover effects enhancement
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enhance game cards on /giochi with: 1) Subtle scale on hover (1.02x), 2) Shadow depth increase, 3) Icon wobble animation, 4) Smooth color transition on play button. Polish for better UX.

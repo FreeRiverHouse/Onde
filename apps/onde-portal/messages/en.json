@@ -312,7 +312,42 @@
       "discoverApps": "Discover Apps",
       "exploreBooks": "Explore Books"
     },
+    "status": {
+      "playNow": "Play Now",
+      "comingSoon": "Coming Soon",
+      "inDevelopment": "In Development",
+      "inPlanning": "In Planning"
+    },
+    "features": {
+      "dragAndDrop": "Drag & Drop",
+      "exploration": "Exploration",
+      "age2to6": "Ages 2-6",
+      "recipes50": "50+ recipes",
+      "stepByStep": "Step-by-step",
+      "noRisk": "No risk",
+      "watercolorTechniques": "Watercolor techniques",
+      "guidedTutorials": "Guided tutorials",
+      "personalGallery": "Personal gallery",
+      "levels100": "100+ levels",
+      "progressiveDifficulty": "Progressive difficulty",
+      "dailyChallenges": "Daily challenges",
+      "instruments10": "10 instruments",
+      "recordAndShare": "Record and share",
+      "musicBasics": "Music basics",
+      "arSupported": "AR supported",
+      "encyclopedia": "Encyclopedia",
+      "interactiveQuizzes": "Interactive quizzes",
+      "multilingual": "Multilingual",
+      "rhymesAndNursery": "Rhymes and nursery",
+      "dailyChallengesShort": "Daily challenges"
+    },
     "gameTitles": {
+      "moonlightMagicHouse": {
+        "title": "Moonlight Magic House",
+        "subtitle": "Modern Tamagotchi",
+        "description": "Explore Moonlight's magic house! Drag the character into rooms, play, eat, sleep and earn coins.",
+        "badge": "Tamagotchi"
+      },
       "chefStudio": {
         "title": "Kids Chef Studio",
         "subtitle": "Virtual Kitchen",
