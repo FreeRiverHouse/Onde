@@ -2307,6 +2307,12 @@ def run_cycle():
         "vol_ratio": best.get("vol_ratio", 1.0),
         "vol_aligned": best.get("vol_aligned", False),
         "vol_bonus": best.get("vol_bonus", 0),
+        # Position sizing multipliers (T390)
+        "kelly_fraction_base": KELLY_FRACTION,
+        "kelly_fraction_used": adjusted_kelly,
+        "regime_multiplier": regime_multiplier,
+        "vol_multiplier": vol_multiplier,
+        "size_multiplier_total": total_multiplier,
         # Price source data (T386)
         "price_sources": prices.get("sources", []),
         "result_status": "pending"

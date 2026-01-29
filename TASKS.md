@@ -2521,12 +2521,13 @@
 - **Notes**: Extend streak position analysis to compare BTC vs ETH streak patterns. Do different assets have different streak tendencies? May indicate model calibration differences.
 
 ### [T390] Log position size multipliers in trade data
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T293]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add regime_multiplier, vol_multiplier, adjusted_kelly fields to trade_log. Enables analysis of how sizing adjustments correlate with outcomes.
+- **Notes**: ✅ Added to trade_data: kelly_fraction_base, kelly_fraction_used, regime_multiplier, vol_multiplier, size_multiplier_total. Enables analysis of how sizing adjustments correlate with outcomes per T391.
 
 ### [T391] Analyze volatility-adjusted sizing effectiveness
 - **Status**: TODO
