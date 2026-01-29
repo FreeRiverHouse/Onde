@@ -6,6 +6,34 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:07)
+
+### [T425] Use LastUpdatedIndicator in TestStatusPanel
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T322]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Update TestStatusPanel to use the new LastUpdatedIndicator component for consistency. Replace local getTimeAgo() with shared time-utils.
+
+### [T426] Update Cloudflare API token with D1 permissions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T661]
+- **Priority**: P1
+- **Notes**: MANUAL: Current API token lacks D1:read/write permissions. Go to Cloudflare Dashboard → API Tokens → Edit token → Add D1 permissions. Required for running D1 migrations (T661).
+
+### [T427] Add cache diagnostic panel to /health page
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T322]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show detailed cache info: items cached, cache age per route, SW cache storage used, stale entries count. Would help diagnose PWA caching issues.
+
+---
+
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:43)
 
 ### [T413] Test Suite: Run 2x/day + Dashboard Integration
