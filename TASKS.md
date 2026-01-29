@@ -185,12 +185,13 @@
 ## 📋 TODO - MOONLIGHT HOUSE
 
 ### [T050] Sprite mood diversi
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Happy, sad, sleepy, hungry invece di emoji
+- **Notes**: ✅ Added CSS-based mood visual effects! Luna now has distinct appearances for each mood: happy (golden glow, gentle bounce), neutral (soft blue), sad (desaturated, droop animation), sleepy (dim, slow nod), hungry (green tint, wobble), excited (rainbow glow, jump). Both map and room views updated. Foundation for real sprite images later.
 
 ### [T051] Sound effects
 - **Status**: TODO

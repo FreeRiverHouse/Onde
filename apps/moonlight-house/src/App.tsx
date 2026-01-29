@@ -623,7 +623,7 @@ function App() {
               transform: `translate(-50%, -50%) translateY(${floatY}px)`
             }}
             onMouseDown={handleDragStart} onTouchStart={handleDragStart}>
-            <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className="luna-map-img" />
+            <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-map-img mood-${mood}`} />
             <div className="luna-map-glow" />
             <span className="luna-mood-indicator">{getMoodEmoji(mood)}</span>
           </div>
@@ -710,7 +710,7 @@ function App() {
 
       <div className="luna-container" style={{ left: `${lunaPosition.x}%`, top: `${lunaPosition.y}%`, transform: `translate(-50%, -50%) translateY(${floatY}px)` }}>
         {actionBubble && <div className="bubble glass-card"><span className="bubble-text">{actionBubble}</span></div>}
-        <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img ${isActing ? 'acting' : ''}`} />
+        <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''}`} />
         <div className="luna-glow" />
         <span className="luna-mood-badge">{getMoodEmoji(mood)}</span>
       </div>
