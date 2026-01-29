@@ -1435,12 +1435,13 @@
 - **Notes**: Alert when price makes new high/low but momentum composite doesn't confirm (divergence). Classic reversal signal. Integrate into autotrader decision logic.
 
 ### [T304] Trading dashboard mobile responsiveness audit
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Audit /betting page on mobile viewports. Fix any overflow/layout issues. 15 stat cards might need collapsible sections on small screens.
+- **Notes**: ✅ Fixed! Added responsive breakpoints (sm/md/lg/xl) for stat cards grid, header, and text sizes. Reduced padding on mobile, added truncate for text overflow, smaller icons/labels on small screens.
 
 ### [T305] Autotrader dry-run mode for strategy testing
 - **Status**: DONE
@@ -1476,6 +1477,32 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Track Kalshi/CoinGecko API call counts per hour. Alert if approaching rate limits. Add headers logging for remaining quota.
+
+---
+
+### [T309] Add PWA manifest for mobile install
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add manifest.json and service worker to surfboard for "Add to Home Screen" on mobile. Enables offline viewing of cached data.
+
+### [T310] Keyboard shortcuts for trading dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add keyboard shortcuts (R for refresh, / for search/command palette, Esc to close modals). Improves power user experience.
+
+### [T311] Stat cards collapse/expand on mobile
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T304]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add accordion-style collapse for stat card groups on mobile. Show top 4 by default, expandable to see all 15. Reduces initial scroll depth.
 
 ---
 
