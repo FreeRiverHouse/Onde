@@ -11,5 +11,10 @@
 **Win Rate:** 0.0%
 **Daily PnL:** $-2.85
 
+**Streaks:**
+Current: ❄️ 41L
+🏆 Best Win: 0
+💀 Worst Loss: 41
+
 ---
 _Autotrader v2 • Black-Scholes Model_

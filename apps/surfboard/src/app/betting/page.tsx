@@ -424,6 +424,7 @@ export default function BettingDashboard() {
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
   const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
+  const [statsSource, setStatsSource] = useState<'v1' | 'v2'>('v2');
   const [momentum, setMomentum] = useState<MomentumData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -442,7 +443,7 @@ export default function BettingDashboard() {
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
-        fetch('/api/trading/stats'),
+        fetch(`/api/trading/stats?source=${statsSource}`),
         fetch('/api/momentum')
       ]);
 
@@ -458,7 +459,7 @@ export default function BettingDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [statsSource]);
 
   useEffect(() => {
     fetchData();
@@ -844,11 +845,35 @@ export default function BettingDashboard() {
                   <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
                 </div>
               </div>
-              {/* Mobile expand/collapse button */}
-              <button
-                onClick={() => setShowAllStats(!showAllStats)}
-                className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs hover:bg-white/10 transition-all"
-              >
+              <div className="flex items-center gap-2">
+                {/* v1/v2 Source Toggle */}
+                <div className="flex items-center rounded-lg bg-white/5 border border-white/10 p-0.5">
+                  <button
+                    onClick={() => setStatsSource('v1')}
+                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                      statsSource === 'v1' 
+                        ? 'bg-white/10 text-gray-200' 
+                        : 'text-gray-500 hover:text-gray-400'
+                    }`}
+                  >
+                    v1
+                  </button>
+                  <button
+                    onClick={() => setStatsSource('v2')}
+                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                      statsSource === 'v2' 
+                        ? 'bg-white/10 text-gray-200' 
+                        : 'text-gray-500 hover:text-gray-400'
+                    }`}
+                  >
+                    v2
+                  </button>
+                </div>
+                {/* Mobile expand/collapse button */}
+                <button
+                  onClick={() => setShowAllStats(!showAllStats)}
+                  className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs hover:bg-white/10 transition-all"
+                >
                 {showAllStats ? (
                   <>
                     <ChevronUp className="w-4 h-4" />
@@ -860,7 +885,8 @@ export default function BettingDashboard() {
                     <span>More</span>
                   </>
                 )}
-              </button>
+                </button>
+              </div>
             </div>
             
             <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
@@ -1190,6 +1216,15 @@ export default function BettingDashboard() {
                     </div>
                   ))}
                 </div>
+                <a 
+                  href="/trading/history"
+                  className="mt-3 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.05] transition-colors text-gray-400 hover:text-gray-300 text-sm"
+                >
+                  <span>View All Trades</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
               </div>
             )}
           </div>

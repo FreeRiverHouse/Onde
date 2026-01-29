@@ -1747,12 +1747,13 @@
 - **Notes**: When implementing latency/trend charts, ensure colors adapt properly to light/dark mode for readability.
 
 ### [T339] Add link to /trading/history from /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T096]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add "View All Trades" button/link in Recent Trades section of /betting that navigates to /trading/history.
+- **Notes**: ✅ Added "View All Trades" link with arrow icon below Recent Trades grid. Links to /trading/history. Styled consistently with glass design.
 
 ### [T340] Date range picker for trade history
 - **Status**: TODO
@@ -1796,12 +1797,13 @@
 - **Notes**: ✅ Added ?source=v2 param. Reads from kalshi-trades-v2.jsonl (v1 default). Separate cache files per source. Returns source in response.
 
 ### [T345] Dashboard toggle for v1/v2 stats
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T344]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add toggle on /betting dashboard to switch between v1 and v2 trading stats. Uses ?source param from T344.
+- **Notes**: ✅ Added toggle button group in Trading Performance header. v1/v2 buttons with visual active state. Defaults to v2. Triggers refetch when changed. Styled consistent with existing UI.
 
 ### [T346] Combined v1+v2 trading stats view
 - **Status**: TODO
