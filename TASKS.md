@@ -1476,12 +1476,13 @@
 - **Notes**: ✅ Implemented! Auto-pauses after CIRCUIT_BREAKER_THRESHOLD consecutive losses (default 5, env configurable). Resumes automatically when a trade wins. Functions: get_consecutive_losses(), check_circuit_breaker(), write_circuit_breaker_alert(). Alert file: kalshi-circuit-breaker.alert. State: kalshi-circuit-breaker.json.
 
 ### [T290] Win rate by streak position analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T287]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if win rate changes based on position in streak (e.g., do we perform worse after 3+ consecutive wins/losses?). Detect psychological patterns.
+- **Notes**: ✅ Script: analyze-streak-position.py. Analyzes win rate by preceding context (after N wins/losses) and streak continuation probability. Detects hot hand, tilt risk, mean reversion patterns. Usage: `python3 scripts/analyze-streak-position.py [--v2] [--min-trades N]`
 
 ### [T291] Average return per trade on dashboard
 - **Status**: DONE
@@ -2454,6 +2455,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Added "price_sources" field to trade_data. Shows which exchanges (binance, coingecko, coinbase) contributed to the price at trade entry. Enables future analysis of source-specific win rates.
+
+### [T387] Streak position stats on /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T290]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add widget showing win rate by streak position context (after 2+ wins, after 2+ losses). Uses analyze-streak-position.py output. Helps traders recognize when they're in high/low probability contexts.
+
+### [T388] Streak-based position sizing adjustment
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T290]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Reduce position size after N consecutive wins (hot hand fallacy risk) or losses (tilt prevention). Configurable via STREAK_SIZE_REDUCTION_THRESHOLD env var. Log size adjustments in trade data.
+
+### [T389] Historical streak analysis by asset (BTC vs ETH)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T290], [T236]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend streak position analysis to compare BTC vs ETH streak patterns. Do different assets have different streak tendencies? May indicate model calibration differences.
 
 ---
 

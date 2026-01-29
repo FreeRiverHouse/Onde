@@ -1,0 +1,328 @@
+#!/usr/bin/env python3
+"""
+Analyze win rate by streak position.
+
+Purpose: Detect if win rate changes based on position in streak
+(e.g., do we perform worse after 3+ consecutive wins/losses?)
+
+This helps identify psychological or model patterns:
+- Overconfidence after wins
+- Tilt after losses
+- Mean reversion tendencies
+
+Usage:
+  python3 scripts/analyze-streak-position.py [--v2] [--min-trades N]
+"""
+
+import json
+import sys
+from pathlib import Path
+from collections import defaultdict
+from datetime import datetime
+
+V1_FILE = Path(__file__).parent / "kalshi-trades.jsonl"
+V2_FILE = Path(__file__).parent / "kalshi-trades-v2.jsonl"
+
+def load_trades(use_v2=False):
+    """Load trades with result_status from trade file."""
+    filepath = V2_FILE if use_v2 else V1_FILE
+    if not filepath.exists():
+        print(f"❌ Trade file not found: {filepath}")
+        return []
+    
+    trades = []
+    with open(filepath, 'r') as f:
+        for line in f:
+            try:
+                trade = json.loads(line.strip())
+                # Only include actual trades with results
+                if trade.get('type') == 'trade' and trade.get('result_status') in ('won', 'lost'):
+                    trades.append(trade)
+            except json.JSONDecodeError:
+                continue
+    
+    # Sort by timestamp
+    trades.sort(key=lambda t: t.get('timestamp', ''))
+    return trades
+
+
+def analyze_by_streak_position(trades):
+    """
+    Analyze win rate by position within a streak.
+    
+    Position 0 = start of new streak (after opposite outcome)
+    Position 1 = 2nd trade in streak direction
+    Position 2+ = deep in streak
+    """
+    if not trades:
+        return {}
+    
+    # Track win rate by position in win streak
+    win_streak_positions = defaultdict(lambda: {'wins': 0, 'losses': 0})
+    # Track win rate by position in loss streak  
+    loss_streak_positions = defaultdict(lambda: {'wins': 0, 'losses': 0})
+    # Track win rate after streak end
+    after_streak_stats = defaultdict(lambda: {'wins': 0, 'losses': 0})
+    
+    current_streak = 0  # positive = wins, negative = losses
+    
+    for trade in trades:
+        won = trade['result_status'] == 'won'
+        
+        # Determine position context
+        if current_streak > 0:
+            # We were on a win streak, this trade follows wins
+            position = min(current_streak, 5)  # Cap at 5+ for grouping
+            key = f"after_{position}_wins"
+            if won:
+                after_streak_stats[key]['wins'] += 1
+            else:
+                after_streak_stats[key]['losses'] += 1
+        elif current_streak < 0:
+            # We were on a loss streak, this trade follows losses
+            position = min(abs(current_streak), 5)
+            key = f"after_{position}_losses"
+            if won:
+                after_streak_stats[key]['wins'] += 1
+            else:
+                after_streak_stats[key]['losses'] += 1
+        else:
+            # First trade or streak just ended
+            if won:
+                after_streak_stats['first_trade']['wins'] += 1
+            else:
+                after_streak_stats['first_trade']['losses'] += 1
+        
+        # Update streak
+        if won:
+            if current_streak > 0:
+                current_streak += 1
+            else:
+                current_streak = 1  # New win streak
+        else:
+            if current_streak < 0:
+                current_streak -= 1
+            else:
+                current_streak = -1  # New loss streak
+    
+    return after_streak_stats
+
+
+def calculate_stats(stats_dict):
+    """Calculate win rate and totals from stats dict."""
+    results = []
+    for key, stats in sorted(stats_dict.items()):
+        total = stats['wins'] + stats['losses']
+        if total > 0:
+            win_rate = stats['wins'] / total * 100
+            results.append({
+                'context': key,
+                'total': total,
+                'wins': stats['wins'],
+                'losses': stats['losses'],
+                'win_rate': win_rate
+            })
+    return results
+
+
+def print_analysis(results, title, min_trades=3):
+    """Print formatted analysis results."""
+    print(f"\n{'='*60}")
+    print(f"📊 {title}")
+    print('='*60)
+    
+    if not results:
+        print("  No data available")
+        return
+    
+    # Filter by minimum trades
+    filtered = [r for r in results if r['total'] >= min_trades]
+    if not filtered:
+        print(f"  No contexts with >= {min_trades} trades")
+        return
+    
+    # Sort by context name for readability
+    filtered.sort(key=lambda r: r['context'])
+    
+    for r in filtered:
+        bar_len = int(r['win_rate'] / 5)  # 20 chars max
+        bar = '█' * bar_len + '░' * (20 - bar_len)
+        
+        # Color coding
+        if r['win_rate'] >= 55:
+            emoji = '🟢'
+        elif r['win_rate'] >= 45:
+            emoji = '🟡'
+        else:
+            emoji = '🔴'
+        
+        context_formatted = r['context'].replace('_', ' ').title()
+        print(f"\n  {emoji} {context_formatted}")
+        print(f"     Trades: {r['total']} ({r['wins']}W / {r['losses']}L)")
+        print(f"     Win Rate: {r['win_rate']:.1f}% |{bar}|")
+
+
+def analyze_streak_continuation(trades):
+    """
+    Analyze probability of streak continuing vs breaking.
+    E.g., after 2 wins, how often does the 3rd trade win?
+    """
+    if not trades:
+        return {}
+    
+    continuation_stats = defaultdict(lambda: {'continues': 0, 'breaks': 0})
+    
+    current_streak = 0
+    
+    for trade in trades:
+        won = trade['result_status'] == 'won'
+        
+        # Check if this trade continues or breaks streak
+        if current_streak > 0:  # On win streak
+            streak_len = min(current_streak, 5)
+            key = f"win_streak_{streak_len}"
+            if won:
+                continuation_stats[key]['continues'] += 1
+            else:
+                continuation_stats[key]['breaks'] += 1
+        elif current_streak < 0:  # On loss streak
+            streak_len = min(abs(current_streak), 5)
+            key = f"loss_streak_{streak_len}"
+            if not won:  # Loss continues loss streak
+                continuation_stats[key]['continues'] += 1
+            else:
+                continuation_stats[key]['breaks'] += 1
+        
+        # Update streak
+        if won:
+            current_streak = current_streak + 1 if current_streak > 0 else 1
+        else:
+            current_streak = current_streak - 1 if current_streak < 0 else -1
+    
+    return continuation_stats
+
+
+def print_continuation_analysis(stats, min_trades=3):
+    """Print streak continuation analysis."""
+    print(f"\n{'='*60}")
+    print("🎲 Streak Continuation Probability")
+    print("    (Does a streak tend to continue or break?)")
+    print('='*60)
+    
+    if not stats:
+        print("  No data available")
+        return
+    
+    for key in sorted(stats.keys()):
+        s = stats[key]
+        total = s['continues'] + s['breaks']
+        if total < min_trades:
+            continue
+        
+        cont_rate = s['continues'] / total * 100
+        
+        # Parse key
+        parts = key.split('_')
+        streak_type = parts[0]
+        streak_len = parts[2]
+        
+        if streak_type == 'win':
+            emoji = '🔥' if cont_rate > 50 else '💨'
+            label = f"After {streak_len} win(s)"
+            outcome = "another win" if cont_rate > 50 else "a loss"
+        else:
+            emoji = '❄️' if cont_rate > 50 else '🌤️'
+            label = f"After {streak_len} loss(es)"
+            outcome = "another loss" if cont_rate > 50 else "a win"
+        
+        bar_len = int(cont_rate / 5)
+        bar = '█' * bar_len + '░' * (20 - bar_len)
+        
+        print(f"\n  {emoji} {label}")
+        print(f"     Sample: {total} trades")
+        print(f"     Continues: {cont_rate:.1f}% |{bar}|")
+        print(f"     → More likely to see {outcome}")
+
+
+def print_insights(position_results, continuation_stats):
+    """Print key insights from the analysis."""
+    print(f"\n{'='*60}")
+    print("💡 KEY INSIGHTS")
+    print('='*60)
+    
+    insights = []
+    
+    # Find best/worst contexts
+    if position_results:
+        best = max(position_results, key=lambda r: r['win_rate']) if position_results else None
+        worst = min(position_results, key=lambda r: r['win_rate']) if position_results else None
+        
+        if best and best['total'] >= 5:
+            insights.append(f"✅ Best context: {best['context'].replace('_', ' ')} ({best['win_rate']:.1f}% WR)")
+        if worst and worst['total'] >= 5:
+            insights.append(f"❌ Worst context: {worst['context'].replace('_', ' ')} ({worst['win_rate']:.1f}% WR)")
+    
+    # Check for mean reversion patterns
+    for key, stats in continuation_stats.items():
+        total = stats['continues'] + stats['breaks']
+        if total >= 5:
+            cont_rate = stats['continues'] / total * 100
+            if 'win' in key and cont_rate < 40:
+                insights.append(f"📉 Win streaks tend to break early ({100-cont_rate:.0f}% break rate)")
+            elif 'loss' in key and cont_rate < 40:
+                insights.append(f"📈 Loss streaks tend to break early ({100-cont_rate:.0f}% break rate)")
+            elif 'win' in key and cont_rate > 60:
+                insights.append(f"🔥 Hot hand detected! Win streaks continue {cont_rate:.0f}% of time")
+            elif 'loss' in key and cont_rate > 60:
+                insights.append(f"⚠️ Tilt risk! Loss streaks continue {cont_rate:.0f}% of time")
+    
+    if not insights:
+        insights.append("📊 Not enough data for reliable insights yet")
+        insights.append("   (Need more trades with win/loss results)")
+    
+    for insight in insights:
+        print(f"  {insight}")
+    
+    print("\n" + "="*60)
+
+
+def main():
+    use_v2 = '--v2' in sys.argv
+    min_trades = 3
+    
+    # Parse --min-trades N
+    for i, arg in enumerate(sys.argv):
+        if arg == '--min-trades' and i + 1 < len(sys.argv):
+            try:
+                min_trades = int(sys.argv[i + 1])
+            except ValueError:
+                pass
+    
+    source = "v2" if use_v2 else "v1"
+    print(f"\n🎯 Analyzing streak position patterns ({source} trades)...")
+    print(f"   Minimum trades per context: {min_trades}")
+    
+    trades = load_trades(use_v2)
+    
+    if not trades:
+        print("\n❌ No settled trades found!")
+        print("   Run settlement tracker first: python3 scripts/kalshi-settlement-tracker.py")
+        return
+    
+    print(f"\n📈 Found {len(trades)} settled trades")
+    
+    # Analyze by position
+    position_stats = analyze_by_streak_position(trades)
+    position_results = calculate_stats(position_stats)
+    print_analysis(position_results, "Win Rate by Preceding Context", min_trades)
+    
+    # Analyze continuation
+    continuation_stats = analyze_streak_continuation(trades)
+    print_continuation_analysis(continuation_stats, min_trades)
+    
+    # Print insights
+    print_insights(position_results, continuation_stats)
+
+
+if __name__ == '__main__':
+    main()
