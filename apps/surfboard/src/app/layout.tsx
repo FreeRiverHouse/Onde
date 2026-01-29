@@ -7,6 +7,7 @@ import { BackgroundEffects } from '@/components/ui/BackgroundEffects'
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration'
 import { OfflineIndicator } from '@/components/OfflineIndicator'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-screen bg-[#0a0f1a] text-white antialiased overflow-x-hidden">
+        <GoogleAnalytics />
         <Providers>
           {/* Service Worker for offline PWA */}
           <ServiceWorkerRegistration />
@@ -100,6 +102,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <nav className="hidden md:flex items-center p-1 rounded-xl bg-white/[0.03] border border-white/[0.05]">
                   <a href="/" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-all rounded-lg hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10">
                     Dashboard
+                  </a>
+                  <a href="/analytics" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-all rounded-lg hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10">
+                    Analytics
                   </a>
                   <a href="/house" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-all rounded-lg hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10">
                     House

@@ -1,48 +1,77 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import { StatsCard } from './StatsCard'
+import type { DashboardStats } from '@/lib/data'
 
 interface EnhancedStatsProps {
-  stats: {
-    publishing: { booksPublished: number }
-    tasks: { completionRate: number; inProgress: number }
-    activeWorkers: number
-    social: { postsThisWeek: number }
-  }
+  stats?: DashboardStats
 }
 
-// Generate mock sparkline data for visualization
-function generateSparklineData(base: number, variance: number = 0.3, points: number = 10): number[] {
-  const data: number[] = []
-  let current = base * (1 - variance)
-  for (let i = 0; i < points; i++) {
-    // Trending upward with some randomness
-    const trend = (i / points) * (base * variance * 2)
-    const random = (Math.random() - 0.3) * (base * variance * 0.5)
-    current = Math.max(0, base * (1 - variance) + trend + random)
-    data.push(current)
+interface MetricsData {
+  publishing: {
+    booksPublished: number | null
+    audiobooks: number | null
+    podcasts: number | null
+    videos: number | null
+    history: { date: string; value: number }[]
   }
-  // Ensure last point is close to actual value
-  data[data.length - 1] = base
-  return data
+  social: {
+    xFollowers: number | null
+    igFollowers: number | null
+    tiktokFollowers: number | null
+    youtubeSubscribers: number | null
+    postsThisWeek: number | null
+  }
+  analytics: {
+    pageviews: number | null
+    users: number | null
+    sessions: number | null
+    bounceRate: number | null
+    history: { date: string; value: number }[]
+  }
+  hasData: boolean
+  lastUpdated: string | null
 }
 
-export function EnhancedStats({ stats }: EnhancedStatsProps) {
-  const booksData = generateSparklineData(stats.publishing.booksPublished, 0.4, 8)
-  const completionData = generateSparklineData(stats.tasks.completionRate, 0.2, 10)
-  const inProgressData = generateSparklineData(stats.tasks.inProgress, 0.5, 8)
-  const agentsData = generateSparklineData(stats.activeWorkers, 0.3, 8)
+export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
+  const [metrics, setMetrics] = useState<MetricsData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchMetrics() {
+      try {
+        const response = await fetch('/api/metrics')
+        if (!response.ok) throw new Error('Failed to fetch metrics')
+        const data = await response.json()
+        setMetrics(data)
+      } catch {
+        // Error fetching metrics - show no data state
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchMetrics()
+  }, [])
+
+  // No data state
+  const noData = !metrics?.hasData
+
+  // Extract history as sparkline data
+  const booksHistory = metrics?.publishing?.history?.map(h => h.value) || []
+  const analyticsHistory = metrics?.analytics?.history?.map(h => h.value) || []
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
       <StatsCard
         title="Books Published"
-        value={stats.publishing.booksPublished}
-        sparklineData={booksData}
+        value={metrics?.publishing?.booksPublished ?? null}
+        sparklineData={booksHistory.length > 0 ? booksHistory : undefined}
         chartType="bars"
         color="cyan"
-        trend="up"
-        trendValue="+2 this month"
+        trend={booksHistory.length > 1 ? "up" : undefined}
+        loading={loading}
+        noData={noData || metrics?.publishing?.booksPublished === null}
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -51,46 +80,52 @@ export function EnhancedStats({ stats }: EnhancedStatsProps) {
       />
 
       <StatsCard
-        title="Task Completion"
-        value={stats.tasks.completionRate}
-        suffix="%"
-        sparklineData={completionData}
+        title="Daily Visitors"
+        value={metrics?.analytics?.users ?? null}
+        sparklineData={analyticsHistory.length > 0 ? analyticsHistory : undefined}
         chartType="sparkline"
         color="emerald"
-        trend="up"
-        trendValue="+5% vs last week"
+        loading={loading}
+        noData={noData || metrics?.analytics?.users === null}
+        subtitle="from Google Analytics"
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
         }
       />
 
       <StatsCard
-        title="In Progress"
-        value={stats.tasks.inProgress}
-        sparklineData={inProgressData}
+        title="Social Followers"
+        value={
+          metrics?.social?.xFollowers !== null || metrics?.social?.igFollowers !== null
+            ? (metrics?.social?.xFollowers || 0) + (metrics?.social?.igFollowers || 0) + (metrics?.social?.tiktokFollowers || 0)
+            : null
+        }
         chartType="sparkline"
         color="amber"
-        trend="neutral"
+        loading={loading}
+        noData={noData || (metrics?.social?.xFollowers === null && metrics?.social?.igFollowers === null)}
+        subtitle="X + IG + TikTok"
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         }
       />
 
       <StatsCard
-        title="Active Agents"
-        value={stats.activeWorkers}
-        sparklineData={agentsData}
+        title="Page Views"
+        value={metrics?.analytics?.pageviews ?? null}
         chartType="bars"
         color="purple"
-        trend="up"
-        trendValue="All online"
+        loading={loading}
+        noData={noData || metrics?.analytics?.pageviews === null}
+        subtitle="today"
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
         }
       />
@@ -100,23 +135,59 @@ export function EnhancedStats({ stats }: EnhancedStatsProps) {
 
 // Weekly comparison stats
 interface WeeklyComparisonProps {
-  stats: {
-    tasks: { completed: number; total: number }
-    social: { postsThisWeek: number }
-    publishing: { booksPublished: number }
-  }
+  stats?: DashboardStats
 }
 
-export function WeeklyComparison({ stats }: WeeklyComparisonProps) {
-  // Mock last week data
-  const lastWeek = {
-    tasksCompleted: stats.tasks.completed - 12,
-    posts: stats.social.postsThisWeek - 3,
-    books: stats.publishing.booksPublished - 1
+export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
+  const [metrics, setMetrics] = useState<MetricsData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchMetrics() {
+      try {
+        const response = await fetch('/api/metrics')
+        if (response.ok) {
+          const data = await response.json()
+          setMetrics(data)
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchMetrics()
+  }, [])
+
+  const noData = !metrics?.hasData
+
+  if (loading) {
+    return (
+      <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-medium text-white">Weekly Progress</h3>
+        </div>
+        <div className="space-y-3 animate-pulse">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-6 bg-white/10 rounded" />
+          ))}
+        </div>
+      </div>
+    )
   }
 
-  const tasksDiff = stats.tasks.completed - lastWeek.tasksCompleted
-  const postsDiff = stats.social.postsThisWeek - lastWeek.posts
+  if (noData) {
+    return (
+      <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-medium text-white">Weekly Progress</h3>
+        </div>
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div className="text-3xl mb-2">📊</div>
+          <p className="text-white/40 text-sm">No historical data yet</p>
+          <p className="text-white/30 text-xs mt-1">Metrics will appear once data is collected</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="bg-white/5 rounded-xl p-4 border border-white/10">
@@ -126,47 +197,68 @@ export function WeeklyComparison({ stats }: WeeklyComparisonProps) {
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-white/60">Tasks Completed</span>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-white">{stats.tasks.completed}</span>
-            <span className={`text-xs ${tasksDiff >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-              {tasksDiff >= 0 ? '+' : ''}{tasksDiff}
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-white/60">Posts Published</span>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-white">{stats.social.postsThisWeek}</span>
-            <span className={`text-xs ${postsDiff >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-              {postsDiff >= 0 ? '+' : ''}{postsDiff}
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-white/60">Books Published</span>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-white">{stats.publishing.booksPublished}</span>
-            <span className="text-xs text-emerald-400">+1</span>
-          </div>
-        </div>
+        <MetricRow 
+          label="Books Published" 
+          value={metrics?.publishing?.booksPublished} 
+          history={metrics?.publishing?.history}
+        />
+        <MetricRow 
+          label="Page Views" 
+          value={metrics?.analytics?.pageviews} 
+          history={metrics?.analytics?.history}
+        />
+        <MetricRow 
+          label="X Followers" 
+          value={metrics?.social?.xFollowers}
+        />
       </div>
 
-      {/* Mini progress bar */}
-      <div className="mt-4 pt-4 border-t border-white/5">
-        <div className="flex justify-between text-xs mb-1">
-          <span className="text-white/40">Weekly goal progress</span>
-          <span className="text-cyan-400">78%</span>
+      {/* Last updated */}
+      {metrics?.lastUpdated && (
+        <div className="mt-4 pt-4 border-t border-white/5">
+          <div className="text-xs text-white/30">
+            Last updated: {new Date(metrics.lastUpdated).toLocaleString()}
+          </div>
         </div>
-        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full transition-all duration-1000"
-            style={{ width: '78%' }}
-          />
-        </div>
+      )}
+    </div>
+  )
+}
+
+function MetricRow({ 
+  label, 
+  value, 
+  history 
+}: { 
+  label: string
+  value: number | null | undefined
+  history?: { date: string; value: number }[]
+}) {
+  // Calculate change from history
+  let change: number | null = null
+  if (history && history.length > 7 && value !== null && value !== undefined) {
+    const weekAgoValue = history[history.length - 8]?.value
+    if (weekAgoValue !== undefined) {
+      change = value - weekAgoValue
+    }
+  }
+
+  return (
+    <div className="flex items-center justify-between">
+      <span className="text-sm text-white/60">{label}</span>
+      <div className="flex items-center gap-2">
+        {value !== null && value !== undefined ? (
+          <>
+            <span className="text-sm font-medium text-white">{value.toLocaleString()}</span>
+            {change !== null && (
+              <span className={`text-xs ${change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                {change >= 0 ? '+' : ''}{change}
+              </span>
+            )}
+          </>
+        ) : (
+          <span className="text-sm text-white/30">—</span>
+        )}
       </div>
     </div>
   )

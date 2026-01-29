@@ -150,7 +150,8 @@ export function FreeRiverHouse() {
     }
   };
 
-  // Request permission helper
+  // Request permission helper - kept for future use
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const requestNotificationPermission = async () => {
     if (!('Notification' in window)) return false;
     

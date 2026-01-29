@@ -5,7 +5,7 @@ import { AnimatedNumber, AnimatedPercentage } from './AnimatedNumber'
 
 interface StatsCardProps {
   title: string
-  value: number
+  value: number | null
   prefix?: string
   suffix?: string
   decimals?: number
@@ -22,6 +22,8 @@ interface StatsCardProps {
     trend: 'up' | 'down' | 'neutral'
   }
   className?: string
+  loading?: boolean
+  noData?: boolean
 }
 
 const colorMap = {
@@ -76,9 +78,50 @@ export function StatsCard({
   icon,
   subtitle,
   comparison,
-  className = ''
+  className = '',
+  loading = false,
+  noData = false
 }: StatsCardProps) {
   const colors = colorMap[color]
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className={`bg-white/5 rounded-xl p-4 border border-white/10 ${className}`}>
+        <div className="animate-pulse">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 bg-white/10 rounded-lg" />
+            <div className="w-24 h-3 bg-white/10 rounded" />
+          </div>
+          <div className="w-20 h-8 bg-white/10 rounded" />
+        </div>
+      </div>
+    )
+  }
+
+  // No data state
+  if (noData || value === null) {
+    return (
+      <div className={`bg-white/5 rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all group ${className}`}>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            {icon && (
+              <div className={`p-1.5 rounded-lg bg-white/5 text-white/30`}>
+                {icon}
+              </div>
+            )}
+            <span className="text-xs text-white/50 uppercase tracking-wider">{title}</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-center py-2">
+          <div className="text-center">
+            <div className="text-2xl text-white/20">—</div>
+            <p className="text-xs text-white/30 mt-1">No data yet</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={`bg-white/5 rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all group ${className}`}>
@@ -179,13 +222,15 @@ export function StatsCard({
 interface QuickStatsProps {
   stats: {
     title: string
-    value: number
+    value: number | null
     prefix?: string
     suffix?: string
     trend?: 'up' | 'down' | 'neutral'
     trendValue?: string
     color?: 'cyan' | 'gold' | 'emerald' | 'purple' | 'amber'
     sparklineData?: number[]
+    loading?: boolean
+    noData?: boolean
   }[]
   className?: string
 }
@@ -205,6 +250,8 @@ export function QuickStats({ stats, className = '' }: QuickStatsProps) {
           color={stat.color || 'cyan'}
           sparklineData={stat.sparklineData}
           chartType={stat.sparklineData ? 'sparkline' : 'none'}
+          loading={stat.loading}
+          noData={stat.noData}
         />
       ))}
     </div>

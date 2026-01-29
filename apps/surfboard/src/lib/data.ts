@@ -23,6 +23,7 @@ export interface DashboardStats {
     available: number
     blocked: number
     completionRate: number
+    history: { date: string; value: number }[]
   }
   categories: {
     name: string
@@ -37,70 +38,99 @@ export interface DashboardStats {
     category: string
   }[]
   publishing: {
-    booksPublished: number
-    audiobooks: number
-    podcasts: number
-    videos: number
+    booksPublished: number | null
+    audiobooks: number | null
+    podcasts: number | null
+    videos: number | null
+    history: { date: string; value: number }[]
   }
   social: {
-    xFollowers: number
-    igFollowers: number
-    tiktokFollowers: number
-    postsThisWeek: number
+    xFollowers: number | null
+    igFollowers: number | null
+    tiktokFollowers: number | null
+    youtubeSubscribers: number | null
+    postsThisWeek: number | null
+  }
+  analytics: {
+    pageviews: number | null
+    users: number | null
+    sessions: number | null
+    bounceRate: number | null
+    history: { date: string; value: number }[]
+  }
+  search: {
+    clicks: number | null
+    impressions: number | null
+    ctr: number | null
+    avgPosition: number | null
+    history: { date: string; value: number }[]
   }
   revenue: {
-    kdpEarnings: string
-    spotifyPlays: string
-    youtubeViews: string
+    kdpEarnings: number | null
+    spotifyPlays: number | null
+    youtubeViews: number | null
   }
   activeWorkers: number
-  lastUpdated: string
+  lastUpdated: string | null
+  hasData: boolean
 }
 
-// Main data fetching function - returns dashboard stats
+// Client-side function - fetches from API
 export async function getDashboardStats(): Promise<DashboardStats> {
-  // In production, this could fetch from an API
-  // For now, return static data
+  // Return empty/null state - data will be fetched client-side via API
+  // This ensures no fake data is ever shown
+  return getEmptyStats()
+}
+
+// Empty stats for initial load / no data state
+export function getEmptyStats(): DashboardStats {
   return {
     tasks: {
-      total: 158,
-      completed: 98,
-      inProgress: 18,
-      available: 22,
-      blocked: 20,
-      completionRate: 62
+      total: 0,
+      completed: 0,
+      inProgress: 0,
+      available: 0,
+      blocked: 0,
+      completionRate: 0,
+      history: []
     },
-    categories: [
-      { name: 'multimedia', completed: 25, total: 35 },
-      { name: 'apps', completed: 20, total: 28 },
-      { name: 'publishing', completed: 12, total: 15 },
-      { name: 'pr', completed: 18, total: 22 },
-      { name: 'branding', completed: 8, total: 10 },
-      { name: 'tools', completed: 15, total: 20 }
-    ],
-    recentActivity: [
-      { id: 'kdp-004', title: 'Pubblicare Piccole Rime', status: 'completed', timestamp: '2026-01-09T09:06:41.726Z', category: 'publishing' },
-      { id: 'youtube-001', title: 'Creare canale YouTube Onde Lounge', status: 'completed', timestamp: '2026-01-09T09:02:03.049Z', category: 'multimedia' },
-      { id: 'podcast-001', title: 'Ep.02 Pioggerellina di Marzo', status: 'completed', timestamp: '2026-01-09T09:01:43.506Z', category: 'multimedia' }
-    ],
+    categories: [],
+    recentActivity: [],
     publishing: {
-      booksPublished: 8,
-      audiobooks: 2,
-      podcasts: 5,
-      videos: 12
+      booksPublished: null,
+      audiobooks: null,
+      podcasts: null,
+      videos: null,
+      history: []
     },
     social: {
-      xFollowers: 156,
-      igFollowers: 42,
-      tiktokFollowers: 28,
-      postsThisWeek: 12
+      xFollowers: null,
+      igFollowers: null,
+      tiktokFollowers: null,
+      youtubeSubscribers: null,
+      postsThisWeek: null
+    },
+    analytics: {
+      pageviews: null,
+      users: null,
+      sessions: null,
+      bounceRate: null,
+      history: []
+    },
+    search: {
+      clicks: null,
+      impressions: null,
+      ctr: null,
+      avgPosition: null,
+      history: []
     },
     revenue: {
-      kdpEarnings: 'Coming Soon',
-      spotifyPlays: 'Coming Soon',
-      youtubeViews: 'Coming Soon'
+      kdpEarnings: null,
+      spotifyPlays: null,
+      youtubeViews: null
     },
-    activeWorkers: 8,
-    lastUpdated: new Date().toISOString()
+    activeWorkers: 0,
+    lastUpdated: null,
+    hasData: false
   }
 }
