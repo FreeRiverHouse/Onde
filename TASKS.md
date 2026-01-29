@@ -43,17 +43,18 @@
   - Update weekly report with news analysis section
 
 ### [T420] Add RSS feed parsing for crypto news (free alternative)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Free news sources without API key:
-  - CoinDesk RSS: https://www.coindesk.com/arc/outboundfeeds/rss/
-  - CoinTelegraph: https://cointelegraph.com/rss
-  - Bitcoin Magazine: https://bitcoinmagazine.com/feed
-  - Parse headlines, run through sentiment analyzer
-  - Cache in `data/crypto-news-feed.json`
+- **Notes**: ✅ Implemented! Created `scripts/fetch-crypto-rss.py`:
+  - **Sources**: CoinDesk, CoinTelegraph, Bitcoin Magazine, Decrypt
+  - **Caching**: 30-min TTL in `data/crypto-news-feed.json`
+  - **Integration**: crypto-news-search.py now uses RSS as fallback
+  - **Tested**: Detected BEARISH sentiment from "plunge" keywords in headlines
+  - No API key required - works immediately!
 
 ### [T421] Autotrader dry-run mode with simulated PnL
 - **Status**: TODO

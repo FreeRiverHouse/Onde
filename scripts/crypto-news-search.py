@@ -123,7 +123,9 @@ def search_crypto_news(query: str, count: int = 5) -> List[Dict]:
     """
     Search for crypto news using Clawdbot's web_search capability.
     
-    Falls back to direct Brave API if available.
+    Priority:
+    1. Brave Search API (if key available)
+    2. RSS feeds (free, no API key needed)
     """
     results = []
     
@@ -151,25 +153,55 @@ def search_crypto_news(query: str, count: int = 5) -> List[Dict]:
                     "url": result.get("url", ""),
                     "description": result.get("description", ""),
                 })
-            return results
+            if results:
+                return results
         except Exception as e:
             print(f"Brave API error: {e}", file=sys.stderr)
     
-    # Fallback: use subprocess to call a simple search script
-    # This allows the autotrader to work even without direct API access
+    # Fallback: Use RSS feeds (T420)
     try:
-        # Check for cached RSS/news feeds
+        # Try to import and use the RSS fetcher
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        rss_script = os.path.join(script_dir, "fetch-crypto-rss.py")
+        
+        if os.path.exists(rss_script):
+            from importlib.util import spec_from_file_location, module_from_spec
+            spec = spec_from_file_location("fetch_crypto_rss", rss_script)
+            rss_module = module_from_spec(spec)
+            spec.loader.exec_module(rss_module)
+            
+            # Get recent headlines
+            data = rss_module.fetch_all_feeds()
+            for article in data.get("results", [])[:count]:
+                results.append({
+                    "title": article.get("title", ""),
+                    "url": article.get("url", ""),
+                    "description": article.get("description", ""),
+                })
+            if results:
+                return results
+    except Exception as e:
+        print(f"RSS feed error: {e}", file=sys.stderr)
+    
+    # Final fallback: Check cached RSS data directly
+    try:
         news_cache = "data/crypto-news-feed.json"
         if os.path.exists(news_cache):
             with open(news_cache, 'r') as f:
                 cached = json.load(f)
-            # Return cached headlines if recent
+            # Return cached headlines if recent (within 2 hours)
             if cached.get("timestamp"):
-                cached_time = datetime.fromisoformat(cached["timestamp"])
-                if (datetime.now(timezone.utc).replace(tzinfo=None) - cached_time).total_seconds() < 3600:
-                    return cached.get("results", [])[:count]
-    except:
-        pass
+                cached_time = datetime.fromisoformat(cached["timestamp"].replace('Z', '+00:00'))
+                age = (datetime.now(timezone.utc) - cached_time).total_seconds()
+                if age < 7200:  # 2 hours
+                    for article in cached.get("results", [])[:count]:
+                        results.append({
+                            "title": article.get("title", ""),
+                            "url": article.get("url", ""),
+                            "description": article.get("description", ""),
+                        })
+    except Exception as e:
+        print(f"Cache read error: {e}", file=sys.stderr)
     
     return results
 
