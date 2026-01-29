@@ -1,0 +1,24 @@
+{
+  "updated_at": "2026-01-29T01:22:21.092255+00:00",
+  "last_24h": {
+    "uptime_pct": 95.08,
+    "healthy_checks": 116,
+    "restart_events": 6,
+    "total_checks": 122,
+    "hours_analyzed": 24
+  },
+  "last_7d": {
+    "uptime_pct": 95.08,
+    "healthy_checks": 116,
+    "restart_events": 6,
+    "total_checks": 122,
+    "hours_analyzed": 168
+  },
+  "daily": {
+    "2026-01-28": {
+      "uptime_pct": 95.08,
+      "healthy": 116,
+      "restarts": 6
+    }
+  }
+}

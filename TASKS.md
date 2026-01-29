@@ -672,12 +672,13 @@
 - **Notes**: ✅ Added watchdog-stale.alert to HEARTBEAT.md alert file list
 
 ### [T218] Autotrader uptime percentage tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track and report autotrader uptime % (based on watchdog healthy checks vs total)
+- **Notes**: ✅ Script: autotrader-uptime.py. Parses watchdog.log, calculates uptime % (24h + 7d). Saves to data/trading/autotrader-uptime.json. Cron: hourly at :30. Current: 95% uptime.
 
 ### [T219] Email notification fallback for critical alerts
 - **Status**: TODO
