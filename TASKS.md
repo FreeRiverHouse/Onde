@@ -1050,12 +1050,13 @@
 - **Notes**: ✅ Added! Functions: load_momentum_state(), check_momentum_change(), write_momentum_alert(). Only alerts on significant flips (bullish↔bearish, ignores neutral). 30min cooldown. Alert file: kalshi-momentum-change.alert. Added to HEARTBEAT.md pickup.
 
 ### [T260] Trading stats API caching
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Redis or file-based caching to /api/trading/stats to reduce JSONL parsing overhead.
+- **Notes**: ✅ File-based caching with 60s TTL. Cache at data/trading/stats-cache.json. Validates by TTL + source file mtime. Response includes cached: true/false + cacheAge.
 
 ---
 
@@ -1765,7 +1766,31 @@
 - **Priority**: P3
 - **Notes**: Add j/k for row navigation, Enter to expand trade details, arrow keys for pagination.
 
+### [T342] Trading history API caching
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T260]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Apply same file-based caching pattern from T260 to /api/trading/history. 60s TTL + source mtime validation.
+
+### [T343] Cache invalidation endpoint for trading APIs
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T260]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add POST /api/trading/cache/invalidate endpoint to force refresh stats without waiting for TTL. Useful after manual trades.
+
+### [T344] Trading stats for v2 autotrader file
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add query param ?source=v2 to /api/trading/stats to read from kalshi-trades-v2.jsonl. Allows dashboard to show v2 performance separately.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
