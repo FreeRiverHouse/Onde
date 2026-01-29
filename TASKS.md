@@ -2298,8 +2298,8 @@
 - **Notes**: ✅ Added! Preset buttons (All, Today, 7D, 30D) in filter bar. Auto-detects active preset, highlights with blue. Separated by border from other filters. Clicking sets from/to dates automatically.
 
 ### [T361] Daily PnL summary in trade history header
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T340]
 - **Blocks**: -
 - **Priority**: P3

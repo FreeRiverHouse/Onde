@@ -2,7 +2,7 @@
 
 export const runtime = 'edge';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
   ArrowLeft,
   ArrowRight,
@@ -13,7 +13,10 @@ import {
   TrendingUp,
   TrendingDown,
   Clock,
-  X
+  X,
+  DollarSign,
+  BarChart2,
+  Percent
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -226,6 +229,40 @@ export default function TradeHistoryPage() {
     return null; // custom range
   };
 
+  // Calculate summary stats from visible trades
+  const summary = useMemo(() => {
+    if (!data?.trades) return null;
+    
+    const trades = data.trades;
+    const settledTrades = trades.filter(t => t.result_status === 'won' || t.result_status === 'lost');
+    const won = trades.filter(t => t.result_status === 'won').length;
+    const lost = trades.filter(t => t.result_status === 'lost').length;
+    const pending = trades.filter(t => !t.result_status || t.result_status === 'pending').length;
+    
+    const totalPnl = trades.reduce((sum, t) => sum + (t.pnl_cents || 0), 0);
+    const winRate = settledTrades.length > 0 ? (won / settledTrades.length) * 100 : null;
+    
+    return {
+      won,
+      lost,
+      pending,
+      totalTrades: trades.length,
+      totalPnl,
+      winRate,
+      isPaginated: data.pagination.totalPages > 1
+    };
+  }, [data]);
+
+  const formatDateRange = () => {
+    if (!fromDate && !toDate) return 'All time';
+    if (fromDate === toDate) {
+      return new Date(fromDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+    const from = fromDate ? new Date(fromDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Start';
+    const to = toDate ? new Date(toDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Now';
+    return `${from} → ${to}`;
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
@@ -381,6 +418,68 @@ export default function TradeHistoryPage() {
         {error && (
           <div className="bg-red-900/50 border border-red-700 rounded p-4 mb-6">
             {error}
+          </div>
+        )}
+
+        {/* Summary Bar */}
+        {summary && summary.totalTrades > 0 && (
+          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 mb-6">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              {/* Date Range Label */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-400">Period:</span>
+                <span className="text-sm font-medium text-cyan-400">{formatDateRange()}</span>
+                {summary.isPaginated && (
+                  <span className="text-xs text-gray-500 ml-1">(showing page {data?.pagination.page})</span>
+                )}
+              </div>
+              
+              {/* Stats */}
+              <div className="flex items-center gap-6 flex-wrap">
+                {/* PnL */}
+                <div className="flex items-center gap-2">
+                  <DollarSign size={16} className="text-gray-400" />
+                  <span className="text-sm text-gray-400">PnL:</span>
+                  <span className={`font-semibold ${
+                    summary.totalPnl > 0 ? 'text-green-400' : 
+                    summary.totalPnl < 0 ? 'text-red-400' : 'text-gray-300'
+                  }`}>
+                    {summary.totalPnl >= 0 ? '+' : '-'}${Math.abs(summary.totalPnl / 100).toFixed(2)}
+                  </span>
+                </div>
+
+                {/* Trades Breakdown */}
+                <div className="flex items-center gap-2">
+                  <BarChart2 size={16} className="text-gray-400" />
+                  <span className="text-sm text-gray-400">Trades:</span>
+                  <span className="text-sm">
+                    <span className="text-green-400">{summary.won}W</span>
+                    <span className="text-gray-500 mx-1">/</span>
+                    <span className="text-red-400">{summary.lost}L</span>
+                    {summary.pending > 0 && (
+                      <>
+                        <span className="text-gray-500 mx-1">/</span>
+                        <span className="text-gray-400">{summary.pending}P</span>
+                      </>
+                    )}
+                  </span>
+                </div>
+
+                {/* Win Rate */}
+                {summary.winRate !== null && (
+                  <div className="flex items-center gap-2">
+                    <Percent size={16} className="text-gray-400" />
+                    <span className="text-sm text-gray-400">Win Rate:</span>
+                    <span className={`font-semibold ${
+                      summary.winRate >= 55 ? 'text-green-400' : 
+                      summary.winRate >= 45 ? 'text-yellow-400' : 'text-red-400'
+                    }`}>
+                      {summary.winRate.toFixed(1)}%
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
