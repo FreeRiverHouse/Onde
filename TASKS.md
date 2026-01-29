@@ -6,6 +6,49 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-31 (14:38)
+
+### [T443] Weather market performance widget on /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T422], [T424]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add widget showing weather market performance:
+  - Win rate for KXHIGH/KXLOW markets vs crypto
+  - NWS forecast accuracy tracking
+  - Best performing cities (NYC, MIA, DEN, etc.)
+  - Comparison: weather edge vs crypto edge
+  - Uses weather-settlements.json data
+
+### [T444] Current streak context indicator on /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T290], [T624]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show current streak with context:
+  - Current streak badge (e.g., "🔥 3W" or "❄️ 5L")
+  - Historical win rate AFTER current streak length
+  - Recommendation: "Continue" or "Caution" based on tilt patterns
+  - Compact card in header or stats section
+  - Uses longestWinStreak/longestLossStreak from gist
+
+### [T445] API latency category breakdown widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T398]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize API latency by category (already in gist.apiLatency):
+  - Bar chart: Kalshi, Binance, CoinGecko, Coinbase, Other
+  - Show avg/p95 latency per category
+  - Highlight slowest endpoints
+  - Color code: green (<200ms), yellow (200-500ms), red (>500ms)
+  - Uses apiLatency.categories from trading stats gist
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-30 (14:05)
 
 ### [T440] WhisperFlow: Add language auto-detect display
