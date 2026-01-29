@@ -472,6 +472,25 @@ export default function BettingDashboard() {
     }
   }, [statsSource, statsPeriod, customDateFrom, customDateTo, router]);
 
+  // Format date range for display
+  const getDateRangeText = useCallback(() => {
+    if (statsPeriod === 'all') return 'All time';
+    if (statsPeriod === 'today') return 'Today';
+    if (statsPeriod === 'week') return 'Last 7 days';
+    if (statsPeriod === 'month') return 'Last 30 days';
+    if (statsPeriod === 'custom') {
+      if (customDateFrom && customDateTo) {
+        const from = new Date(customDateFrom);
+        const to = new Date(customDateTo);
+        const formatDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        return `${formatDate(from)} → ${formatDate(to)}`;
+      }
+      if (customDateFrom) return `From ${new Date(customDateFrom).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+      if (customDateTo) return `Until ${new Date(customDateTo).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+    }
+    return 'All time';
+  }, [statsPeriod, customDateFrom, customDateTo]);
+
   // Build stats URL with period/date filters
   const buildStatsUrl = useCallback(() => {
     const params = new URLSearchParams({ source: statsSource });
@@ -939,7 +958,12 @@ export default function BettingDashboard() {
                 </div>
                 <div>
                   <h2 className="text-lg font-bold">Trading Performance</h2>
-                  <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
+                  <p className="text-xs text-gray-500">
+                    {statsPeriod !== 'all' && (
+                      <span className="text-cyan-400/80 mr-1">{getDateRangeText()} •</span>
+                    )}
+                    Win rate & PnL analysis
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
