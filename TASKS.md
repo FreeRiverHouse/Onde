@@ -983,12 +983,13 @@
 - **Notes**: Analyze if hourly contracts (KXBTCD) have different win rate than longer-term. Might inform which markets to focus on.
 
 ### [T254] Dashboard last heartbeat timestamp
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show when clawd last checked in on /health page. Helps verify bot is alive without checking processes.
+- **Notes**: ✅ Local monitoring: memory/heartbeat-state.json. Scripts: update-heartbeat-state.sh + check-heartbeat-state.sh. Run `scripts/check-heartbeat-state.sh` to verify bot is alive. Web dashboard integration would need GitHub API (future task).
 
 ### [T255] Alert file age warning (12h threshold)
 - **Status**: TODO
