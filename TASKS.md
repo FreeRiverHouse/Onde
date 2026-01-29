@@ -1002,12 +1002,13 @@
 - **Notes**: ✅ Local monitoring: memory/heartbeat-state.json. Scripts: update-heartbeat-state.sh + check-heartbeat-state.sh. Run `scripts/check-heartbeat-state.sh` to verify bot is alive. Web dashboard integration would need GitHub API (future task).
 
 ### [T255] Alert file age warning (12h threshold)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log warning when alert files exist >12h but <24h. Helps debug why heartbeat isn't picking them up.
+- **Notes**: ✅ Script: check-alert-ages.sh. Integrated into meta-watchdog.sh. Logs warnings for alerts aged 12-24h to help debug heartbeat pickup issues.
 
 ### [T256] Cron job health dashboard on /health
 - **Status**: DONE
@@ -1320,7 +1321,31 @@
 - **Priority**: P3
 - **Notes**: Analyze if win rate changes based on position in streak (e.g., do we perform worse after 3+ consecutive wins/losses?). Detect psychological patterns.
 
+### [T291] Average return per trade on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add stat card showing average cents profit/loss per trade. Helps understand trade quality beyond win rate.
+
+### [T292] Timezone indicator on /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show server timezone + current time on health page. Helps debug cron scheduling issues.
+
+### [T293] Trade confidence tracking (edge vs outcome)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track calculated edge at entry vs actual outcome. Analyze if higher edge correlates with higher win rate. Add edge_at_entry to trade log if missing.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 18:22 PST*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*

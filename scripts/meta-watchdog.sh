@@ -57,4 +57,7 @@ else
     fi
 fi
 
+# Also check for stale alert files (>12h) that heartbeat hasn't processed
+/Users/mattia/Projects/Onde/scripts/check-alert-ages.sh >> /Users/mattia/Projects/Onde/scripts/meta-watchdog.log 2>&1
+
 exit 0
