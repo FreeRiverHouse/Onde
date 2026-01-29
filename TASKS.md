@@ -3665,3 +3665,27 @@
 - **Priority**: P3
 - **Notes**: Add API error rate section to /health page alongside latency. Show: success rate %, error count by source, common error types, last 5 errors. Data from gist (extend push-stats-to-gist.py to include error stats from api-error-stats.json).
 
+### [T629] Autotrader cycle time visualization on /betting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T623]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add small chart showing autotrader cycle times over last 24h. Helps identify slowdowns or bottlenecks. Use cycle_count from healthStatus, calculate avg cycle time from log timestamps.
+
+### [T630] Trading stats refresh countdown timer
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T443]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add visual countdown timer showing seconds until next auto-refresh on /betting dashboard. Shows "Refreshing..." during fetch. Helps users know when fresh data is coming. Timer resets on manual refresh.
+
+### [T631] Mobile autotrader status in bottom navigation
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T623]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: On mobile (/betting), show autotrader status dot in bottom navigation or floating action button. Currently only visible on desktop (hidden sm). Make status accessible on all screen sizes without cluttering UI.
+
