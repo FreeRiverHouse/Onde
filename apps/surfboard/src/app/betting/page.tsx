@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
+import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 
 // ============== TYPES ==============
 interface KalshiPosition {
@@ -1427,6 +1428,29 @@ export default function BettingDashboard() {
               <p className="text-[10px] text-gray-600 mt-2 text-center">
                 Hover over points to see daily details
               </p>
+            </div>
+
+            {/* Return Distribution Histogram */}
+            <div className="mt-4">
+              <ReturnDistributionChart 
+                trades={tradingStats.recentTrades && tradingStats.recentTrades.length > 5 
+                  ? tradingStats.recentTrades.map(t => ({
+                      result_status: t.result_status as 'won' | 'lost' | 'pending',
+                      price_cents: t.price_cents,
+                      contracts: t.contracts,
+                      side: t.side as 'yes' | 'no'
+                    }))
+                  : generateMockTrades(50)
+                }
+                width={400}
+                height={240}
+                showLabels={true}
+              />
+              {(!tradingStats.recentTrades || tradingStats.recentTrades.length < 5) && (
+                <p className="text-[10px] text-gray-600 mt-1 text-center">
+                  Showing simulated data — will update with real trades
+                </p>
+              )}
             </div>
 
             {/* Recent Trades */}

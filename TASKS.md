@@ -1408,12 +1408,13 @@
 - **Notes**: ✅ Implemented! API: /api/trading/trend returns 30-day rolling stats. Script: compute-winrate-trend.py calculates from real trades. Dashboard now shows real data with trend indicator (improving/declining/stable) and overall avg. Falls back to mock if API unavailable.
 
 ### [T282] Trade return distribution histogram on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visualize return distribution (profit/loss per trade). Helps understand strategy characteristics (small wins vs big losses, etc).
+- **Notes**: ✅ Created ReturnDistributionChart.tsx component! SVG-based histogram showing PnL distribution in buckets (<-$10, -$10 to -$5, ..., >$10). Shows avg/median return, max win/loss, color-coded bars (green=wins, red=losses). Integrated into /betting dashboard after Win Rate Trend. Falls back to simulated data when <5 real trades available.
 
 ---
 
@@ -2921,3 +2922,27 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: ✅ Already implemented! check_circuit_breaker() in autotrader-v2.py. Pauses trading on 5+ consecutive losses, writes kalshi-circuit-breaker.alert. State file: kalshi-circuit-breaker.json. Resumes on first win.
+
+### [T447] Trade PnL breakdown by day of week
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze trading performance by weekday to find patterns. Some days may have higher volatility (more opportunity) or lower liquidity (worse fills). Script: analyze-trades-by-weekday.py. Output: win rate, avg PnL, trade count per day.
+
+### [T448] Real-time trade notifications polling on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add toast/notification on /betting when new trade is placed or settled. Poll /api/trading/stats every 30s, compare trade count, show notification with trade details (ticker, side, result). Use browser Notification API with permission.
+
+### [T449] Backtest position sizing strategies
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T248]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare historical performance using: fixed $5 per trade, Kelly criterion, half-Kelly, volatility-scaled sizing. Use settlement data to simulate each strategy. Report final PnL and max drawdown for each. Script: backtest-position-sizing.py.
