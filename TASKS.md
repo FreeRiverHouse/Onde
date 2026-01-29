@@ -2166,7 +2166,31 @@
 - **Priority**: P3
 - **Notes**: Weekly script to compute average realized vol for BTC/ETH over past 30 days. Compare to BTC_HOURLY_VOL/ETH_HOURLY_VOL constants. Suggest adjustments if consistently off by >20%.
 
+### [T378] GA4 custom events for book downloads
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T040]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track "book_download" event with book title, format (PDF/EPUB), language. Helps understand which books are popular and in what formats.
+
+### [T379] Trading PnL daily goal tracker
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add configurable daily profit target ($X). Show progress bar on /betting dashboard. Alert when goal reached or when significantly behind. Track goal hit rate over time.
+
+### [T380] Reading list / bookmark feature for books
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow users to save books to "My Reading List" (localStorage). Show bookmark icon on book cards. Dedicated /my-books page to view saved titles. UX improvement for return visitors.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
