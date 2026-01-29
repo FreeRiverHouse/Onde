@@ -3001,3 +3001,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script: seo-audit.sh. Crawl site for: broken internal links (404), images missing alt text, missing meta descriptions, orphan pages. Output report to data/seo/audit-YYYY-MM-DD.json. Integrate with deploy verification.
+
+### [T453] Deploy onde.la with a11y + catalog improvements
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
+- **Depends**: [T334], [T335]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy latest changes: category pill filters with URL persistence, WCAG accessibility fixes. Use deploy-onde-la-prod.sh. Verify with curl.
+
+### [T454] Skip-to-content link for keyboard accessibility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add invisible "Skip to main content" link at top of page that appears on focus. Standard a11y pattern for keyboard users to bypass navigation. CSS: visually-hidden unless :focus.
+
+### [T455] Visible focus indicators for all interactive elements
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T335]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Audit all buttons/links/inputs for visible focus states. Add consistent focus-visible ring style. Test with keyboard-only navigation. Tailwind: focus-visible:ring-2 focus-visible:ring-onde-gold.
