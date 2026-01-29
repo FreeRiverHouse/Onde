@@ -390,35 +390,55 @@
     "badge": "Los Angeles, California",
     "title1": "About",
     "title2": "Onde",
-    "intro1": "A digital publishing company based in Los Angeles, California.",
-    "intro2": "We create and sell illustrated ebooks (PDF and EPUB). Our catalog includes classic literature, children's books, spirituality, art, and technology titles. Digital delivery via email. Contact: onde.frh@proton.me",
+    "intro1": "is an AI-native digital publishing house based in Los Angeles.",
+    "intro2": "We create beautifully illustrated ebooks from classic literature in the public domain. Every book is crafted with care, combining timeless wisdom with modern design.",
+    "whatWeDo": {
+      "badge": "What We Do",
+      "title": "AI-Powered Digital Publishing",
+      "p1": "We leverage AI tools to create illustrated editions of classic books that have entered the public domain. From Marcus Aurelius to biblical texts, we bring timeless wisdom to life with beautiful artwork.",
+      "p2": "Each book is available in PDF and EPUB formats. Some are free, others have a small price. All are delivered digitally.",
+      "p3": "Our catalog includes philosophy, spirituality, children's literature, art, and technology titles.",
+      "cta": "See Our Books",
+      "aiNative": "AI-Native",
+      "aiNativeDesc": "Built from the ground up with AI at the core of our workflow"
+    },
+    "orchestra": {
+      "badge": "The Orchestra",
+      "title": "Orchestrated by",
+      "titleHighlight": "Magmatic",
+      "description": "Onde is a project by Magmatic, a creator and builder based in Los Angeles. Using AI agents and automation, we're building a new kind of publishing house — one that moves at the speed of thought.",
+      "subtitle": "From content creation to illustration to publishing — AI agents handle the heavy lifting while humans curate the vision.",
+      "followMagmatic": "Follow @magmatic__",
+      "followOnde": "Follow @Onde_FRH"
+    },
     "team": {
-      "badge": "The Team",
-      "title": "Who We Are",
-      "subtitle": "Three souls, one vision. We combine words, colors and technology to create something beautiful.",
+      "badge": "The Virtual Team",
+      "title": "AI Agents at Work",
+      "subtitle": "Our AI agents each have their specialty. Together, they bring books to life.",
       "gianni": {
         "name": "Gianni Parola",
         "role": "Writer",
-        "description": "Stories are born from words. Gianni chooses them with care, one by one, like picking flowers in a meadow. Every book is a garden to explore.",
+        "description": "Stories are born from words. Gianni chooses them with care, one by one, like picking flowers in a meadow.",
         "quote": "Words are seeds. If you plant them with love, they bloom."
       },
       "pina": {
         "name": "Pina Pennello",
         "role": "Illustrator",
-        "description": "Colors dance on paper. Pina paints worlds where children can enter, walk, dream. Every brushstroke is a door to imagination.",
+        "description": "Colors dance on paper. Pina paints worlds where readers can enter, walk, and dream.",
         "quote": "I paint what words cannot say."
       },
       "emilio": {
         "name": "Emilio",
         "role": "AI Educator",
-        "description": "A robot friend who understands the future. Emilio explains technology to children with infinite patience, turning the complex into simple, the mysterious into wonderful.",
-        "quote": "Learning is the most beautiful superpower that exists."
+        "description": "A robot friend who understands the future. Emilio explains technology with infinite patience.",
+        "quote": "Learning is the most beautiful superpower."
       }
     },
     "values": {
+      "title": "What We Believe",
       "beauty": {
         "title": "Beauty",
-        "description": "Every book is a work of art. Watercolors that tell stories."
+        "description": "Every book is a work of art. Illustrations that tell stories."
       },
       "simplicity": {
         "title": "Simplicity",
@@ -429,19 +449,9 @@
         "description": "We cultivate amazement. The world is full of magic."
       }
     },
-    "story": {
-      "badge": "What We Do",
-      "title": "Digital Publishing",
-      "p1": "We publish illustrated editions of classic books from the public domain.",
-      "p2": "Each book features original illustrations and is available in PDF and EPUB formats.",
-      "p3": "Some books are free, others have a small price. All are delivered digitally via email after purchase.",
-      "cta": "See our books"
-    },
-    "cta": {
-      "title": "Be part of the story",
-      "subtitle": "Follow us on our journey. New stories, new adventures, new ideas to explore together.",
-      "exploreCatalog": "Explore the Catalog",
-      "followOnX": "Follow us on X"
+    "contact": {
+      "title": "Get in Touch",
+      "subtitle": "Questions? Want to collaborate? Reach out."
     }
   },
   "read": {

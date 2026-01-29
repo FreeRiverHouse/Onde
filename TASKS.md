@@ -2400,7 +2400,7 @@
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ✅ /giochi (T423, 2026-01-31), ❌ /about (T424), ❌ /health (T425). Homepage + catalogo already done.
+- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ✅ /giochi (T423, 2026-01-31), ✅ /about (T424, 2026-01-31), ❌ /health (T425). Homepage + catalogo already done.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
@@ -2727,12 +2727,13 @@
 - **Notes**: ✅ Converted! Added games.status (playNow/comingSoon/inDevelopment/inPlanning), games.features (15+ feature labels), games.gameTitles.moonlightMagicHouse to both en.json and it.json. Page now uses useTranslations() hook with translated game data.
 
 ### [T424] i18n: /about page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /about page to use i18n system. About page has team info, values, story sections.
+- **Notes**: ✅ Converted! Added about section to it.json (badge, title, intro, whatWeDo, orchestra, team, values, contact). Updated page.tsx to use useTranslations() hook with t.about.* syntax.
 
 ### [T425] i18n: /health page translations
 - **Status**: TODO

@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useTranslations } from '@/i18n/I18nProvider'
 
 export default function About() {
+  const t = useTranslations()
+
   return (
     <div className="relative min-h-screen">
       {/* ============================================
@@ -49,7 +52,7 @@ export default function About() {
               className="section-badge-futuristic mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-onde-coral animate-pulse" />
-              Los Angeles, California
+              {t.about.badge}
             </motion.div>
 
             {/* Main Title */}
@@ -59,8 +62,8 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="text-gray-900">About </span>
-              <span className="text-gradient-neon">Onde</span>
+              <span className="text-gray-900">{t.about.title1} </span>
+              <span className="text-gradient-neon">{t.about.title2}</span>
             </motion.h1>
 
             {/* Story intro */}
@@ -71,11 +74,10 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <p>
-                <strong className="text-onde-teal">Onde</strong> is an AI-native digital publishing house based in Los Angeles.
+                <strong className="text-onde-teal">Onde</strong> {t.about.intro1}
               </p>
               <p className="text-lg text-gray-600">
-                We create beautifully illustrated ebooks from classic literature in the public domain.
-                Every book is crafted with care, combining timeless wisdom with modern design.
+                {t.about.intro2}
               </p>
             </motion.div>
           </motion.div>
@@ -97,25 +99,17 @@ export default function About() {
             >
               <span className="section-badge-futuristic mb-6">
                 <span className="w-2 h-2 rounded-full bg-onde-gold" />
-                What We Do
+                {t.about.whatWeDo.badge}
               </span>
 
               <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-6">
-                AI-Powered Digital Publishing
+                {t.about.whatWeDo.title}
               </h2>
 
               <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  We leverage AI tools to create illustrated editions of classic books that have entered the public domain.
-                  From Marcus Aurelius to biblical texts, we bring timeless wisdom to life with beautiful artwork.
-                </p>
-                <p>
-                  Each book is available in PDF and EPUB formats. Some are free, others have a small price.
-                  All are delivered digitally.
-                </p>
-                <p>
-                  Our catalog includes philosophy, spirituality, children&apos;s literature, art, and technology titles.
-                </p>
+                <p>{t.about.whatWeDo.p1}</p>
+                <p>{t.about.whatWeDo.p2}</p>
+                <p>{t.about.whatWeDo.p3}</p>
               </div>
 
               <motion.div
@@ -130,7 +124,7 @@ export default function About() {
                   className="btn-futuristic"
                 >
                   <span className="flex items-center gap-2">
-                    See Our Books
+                    {t.about.whatWeDo.cta}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -159,9 +153,9 @@ export default function About() {
                   </motion.div>
 
                   <div>
-                    <h3 className="text-2xl font-display font-bold text-gray-900 mb-2">AI-Native</h3>
+                    <h3 className="text-2xl font-display font-bold text-gray-900 mb-2">{t.about.whatWeDo.aiNative}</h3>
                     <p className="text-gray-600">
-                      Built from the ground up with AI at the core of our workflow
+                      {t.about.whatWeDo.aiNativeDesc}
                     </p>
                   </div>
 
@@ -204,7 +198,7 @@ export default function About() {
                   viewport={{ once: true }}
                 >
                   <span className="w-2 h-2 rounded-full bg-onde-purple animate-pulse" />
-                  The Orchestra
+                  {t.about.orchestra.badge}
                 </motion.span>
 
                 <motion.h2
@@ -213,8 +207,8 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  Orchestrated by{' '}
-                  <span className="text-gradient-fire">Magmatic</span>
+                  {t.about.orchestra.title}{' '}
+                  <span className="text-gradient-fire">{t.about.orchestra.titleHighlight}</span>
                 </motion.h2>
 
                 <motion.p
@@ -224,8 +218,7 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  Onde is a project by <strong className="text-gray-900">Magmatic</strong>, a creator and builder based in Los Angeles.
-                  Using AI agents and automation, we&apos;re building a new kind of publishing house &mdash; one that moves at the speed of thought.
+                  {t.about.orchestra.description}
                 </motion.p>
 
                 <motion.p
@@ -235,7 +228,7 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  From content creation to illustration to publishing &mdash; AI agents handle the heavy lifting while humans curate the vision.
+                  {t.about.orchestra.subtitle}
                 </motion.p>
 
                 <motion.div
@@ -255,7 +248,7 @@ export default function About() {
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
-                      Follow @magmatic__
+                      {t.about.orchestra.followMagmatic}
                     </span>
                   </a>
                   <a
@@ -268,7 +261,7 @@ export default function About() {
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
-                      Follow @Onde_FRH
+                      {t.about.orchestra.followOnde}
                     </span>
                   </a>
                 </motion.div>
@@ -291,11 +284,11 @@ export default function About() {
           >
             <span className="section-badge-futuristic">
               <span className="w-2 h-2 rounded-full bg-onde-teal" />
-              The Virtual Team
+              {t.about.team.badge}
             </span>
-            <h2 className="section-title-futuristic mb-4">AI Agents at Work</h2>
+            <h2 className="section-title-futuristic mb-4">{t.about.team.title}</h2>
             <p className="section-subtitle-futuristic">
-              Our AI agents each have their specialty. Together, they bring books to life.
+              {t.about.team.subtitle}
             </p>
             <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
@@ -312,15 +305,15 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-coral/10">
                 ✍️
               </div>
-              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Gianni Parola</h3>
-              <p className="text-onde-coral font-semibold text-sm uppercase tracking-wide mb-4">Writer</p>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">{t.about.team.gianni.name}</h3>
+              <p className="text-onde-coral font-semibold text-sm uppercase tracking-wide mb-4">{t.about.team.gianni.role}</p>
               <p className="text-gray-700 leading-relaxed mb-6">
-                Stories are born from words. Gianni chooses them with care, one by one, like picking flowers in a meadow.
+                {t.about.team.gianni.description}
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-coral/30">&ldquo;</div>
                 <p className="text-sm italic text-gray-500 pl-4">
-                  Words are seeds. If you plant them with love, they bloom.
+                  {t.about.team.gianni.quote}
                 </p>
               </blockquote>
             </motion.div>
@@ -336,15 +329,15 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-gold/10">
                 🎨
               </div>
-              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Pina Pennello</h3>
-              <p className="text-onde-gold font-semibold text-sm uppercase tracking-wide mb-4">Illustrator</p>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">{t.about.team.pina.name}</h3>
+              <p className="text-onde-gold font-semibold text-sm uppercase tracking-wide mb-4">{t.about.team.pina.role}</p>
               <p className="text-gray-700 leading-relaxed mb-6">
-                Colors dance on paper. Pina paints worlds where readers can enter, walk, and dream.
+                {t.about.team.pina.description}
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-gold/30">&ldquo;</div>
                 <p className="text-sm italic text-gray-500 pl-4">
-                  I paint what words cannot say.
+                  {t.about.team.pina.quote}
                 </p>
               </blockquote>
             </motion.div>
@@ -360,15 +353,15 @@ export default function About() {
               <div className="w-20 h-20 rounded-3xl mb-6 flex items-center justify-center text-4xl bg-onde-teal/10">
                 🤖
               </div>
-              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">Emilio</h3>
-              <p className="text-onde-teal font-semibold text-sm uppercase tracking-wide mb-4">AI Educator</p>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">{t.about.team.emilio.name}</h3>
+              <p className="text-onde-teal font-semibold text-sm uppercase tracking-wide mb-4">{t.about.team.emilio.role}</p>
               <p className="text-gray-700 leading-relaxed mb-6">
-                A robot friend who understands the future. Emilio explains technology with infinite patience.
+                {t.about.team.emilio.description}
               </p>
               <blockquote className="relative">
                 <div className="absolute -left-2 top-0 text-3xl text-onde-teal/30">&ldquo;</div>
                 <p className="text-sm italic text-gray-500 pl-4">
-                  Learning is the most beautiful superpower.
+                  {t.about.team.emilio.quote}
                 </p>
               </blockquote>
             </motion.div>
@@ -387,7 +380,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title-futuristic mb-4">What We Believe</h2>
+            <h2 className="section-title-futuristic mb-4">{t.about.values.title}</h2>
             <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
 
@@ -400,9 +393,9 @@ export default function About() {
               transition={{ delay: 0.1 }}
             >
               <div className="text-6xl mb-4">🌸</div>
-              <h3 className="text-xl font-display font-bold text-white mb-2">Beauty</h3>
+              <h3 className="text-xl font-display font-bold text-white mb-2">{t.about.values.beauty.title}</h3>
               <p className="text-gray-600">
-                Every book is a work of art. Illustrations that tell stories.
+                {t.about.values.beauty.description}
               </p>
             </motion.div>
 
@@ -414,9 +407,9 @@ export default function About() {
               transition={{ delay: 0.2 }}
             >
               <div className="text-6xl mb-4">🌿</div>
-              <h3 className="text-xl font-display font-bold text-white mb-2">Simplicity</h3>
+              <h3 className="text-xl font-display font-bold text-white mb-2">{t.about.values.simplicity.title}</h3>
               <p className="text-gray-600">
-                Great truths hide in simple things.
+                {t.about.values.simplicity.description}
               </p>
             </motion.div>
 
@@ -428,9 +421,9 @@ export default function About() {
               transition={{ delay: 0.3 }}
             >
               <div className="text-6xl mb-4">✨</div>
-              <h3 className="text-xl font-display font-bold text-white mb-2">Wonder</h3>
+              <h3 className="text-xl font-display font-bold text-white mb-2">{t.about.values.wonder.title}</h3>
               <p className="text-gray-600">
-                We cultivate amazement. The world is full of magic.
+                {t.about.values.wonder.description}
               </p>
             </motion.div>
           </div>
@@ -456,11 +449,11 @@ export default function About() {
             </motion.div>
 
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-              Get in Touch
+              {t.about.contact.title}
             </h2>
 
             <p className="text-lg text-white/60 mb-8">
-              Questions? Want to collaborate? Reach out.
+              {t.about.contact.subtitle}
             </p>
 
             <a

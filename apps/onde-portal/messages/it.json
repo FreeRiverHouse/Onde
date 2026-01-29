@@ -656,5 +656,73 @@
       "sharedBooks": "I libri acquistati sono condivisi tra tutti i profili della famiglia.",
       "separateProgress": "Il progresso di lettura e salvato separatamente per ogni profilo."
     }
+  },
+  "about": {
+    "badge": "Los Angeles, California",
+    "title1": "Chi è",
+    "title2": "Onde",
+    "intro1": "è una casa editrice digitale AI-native con sede a Los Angeles.",
+    "intro2": "Creiamo ebook illustrati da letteratura classica di pubblico dominio. Ogni libro è realizzato con cura, combinando saggezza senza tempo con design moderno.",
+    "whatWeDo": {
+      "badge": "Cosa Facciamo",
+      "title": "Editoria Digitale AI-Powered",
+      "p1": "Utilizziamo strumenti AI per creare edizioni illustrate di libri classici di pubblico dominio. Da Marco Aurelio ai testi biblici, diamo vita alla saggezza eterna con splendide illustrazioni.",
+      "p2": "Ogni libro è disponibile in formato PDF ed EPUB. Alcuni sono gratuiti, altri hanno un piccolo prezzo. Tutti sono consegnati digitalmente.",
+      "p3": "Il nostro catalogo include titoli di filosofia, spiritualità, letteratura per bambini, arte e tecnologia.",
+      "cta": "Vedi i Nostri Libri",
+      "aiNative": "AI-Native",
+      "aiNativeDesc": "Costruito dalle fondamenta con l'AI al centro del nostro workflow"
+    },
+    "orchestra": {
+      "badge": "L'Orchestra",
+      "title": "Orchestrato da",
+      "titleHighlight": "Magmatic",
+      "description": "Onde è un progetto di Magmatic, un creatore e builder con sede a Los Angeles. Usando agenti AI e automazione, stiamo costruendo un nuovo tipo di casa editrice — una che si muove alla velocità del pensiero.",
+      "subtitle": "Dalla creazione di contenuti all'illustrazione alla pubblicazione — gli agenti AI gestiscono il lavoro pesante mentre gli umani curano la visione.",
+      "followMagmatic": "Segui @magmatic__",
+      "followOnde": "Segui @Onde_FRH"
+    },
+    "team": {
+      "badge": "Il Team Virtuale",
+      "title": "Agenti AI al Lavoro",
+      "subtitle": "I nostri agenti AI hanno ognuno la propria specialità. Insieme, danno vita ai libri.",
+      "gianni": {
+        "name": "Gianni Parola",
+        "role": "Scrittore",
+        "description": "Le storie nascono dalle parole. Gianni le sceglie con cura, una ad una, come cogliere fiori in un prato.",
+        "quote": "Le parole sono semi. Se li pianti con amore, fioriscono."
+      },
+      "pina": {
+        "name": "Pina Pennello",
+        "role": "Illustratrice",
+        "description": "I colori danzano sulla carta. Pina dipinge mondi dove i lettori possono entrare, camminare e sognare.",
+        "quote": "Dipingo ciò che le parole non possono dire."
+      },
+      "emilio": {
+        "name": "Emilio",
+        "role": "Educatore AI",
+        "description": "Un amico robot che capisce il futuro. Emilio spiega la tecnologia con pazienza infinita.",
+        "quote": "Imparare è il superpotere più bello che esiste."
+      }
+    },
+    "values": {
+      "title": "In Cosa Crediamo",
+      "beauty": {
+        "title": "Bellezza",
+        "description": "Ogni libro è un'opera d'arte. Illustrazioni che raccontano storie."
+      },
+      "simplicity": {
+        "title": "Semplicità",
+        "description": "Le grandi verità si nascondono nelle cose semplici."
+      },
+      "wonder": {
+        "title": "Meraviglia",
+        "description": "Coltiviamo lo stupore. Il mondo è pieno di magia."
+      }
+    },
+    "contact": {
+      "title": "Contattaci",
+      "subtitle": "Domande? Vuoi collaborare? Scrivici."
+    }
   }
 }
