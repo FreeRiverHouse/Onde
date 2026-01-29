@@ -101,6 +101,46 @@
       min-width: 44px;
     }
   }
+
+  /* ============================================
+     ACCESSIBLE FOCUS INDICATORS
+     Visible focus rings for keyboard navigation
+     ============================================ */
+
+  /* Global focus-visible styles for all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible:not([tabindex="-1"]) {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--onde-dark, #0B1929),
+      0 0 0 4px var(--onde-gold, #D4AF37);
+    border-radius: 4px;
+  }
+
+  /* Remove default outline since we're using box-shadow */
+  :focus {
+    outline: none;
+  }
+
+  /* Ensure focus is visible even on dark backgrounds */
+  .dark a:focus-visible,
+  .dark button:focus-visible,
+  .dark [role="button"]:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--onde-dark-surface, #122A42),
+      0 0 0 4px var(--onde-gold, #D4AF37);
+  }
+
+  /* Special handling for elements that already have rounded borders */
+  .rounded-full:focus-visible,
+  [class*="rounded-"]:focus-visible {
+    border-radius: inherit;
+  }
 }
 
 @layer components {
@@ -845,5 +885,37 @@
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
+  }
+
+  /* ============================================
+     FOCUS INDICATOR UTILITIES
+     Use these for custom focus styling
+     ============================================ */
+
+  /* Gold focus ring (default) */
+  .focus-ring-gold:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--onde-dark, #0B1929),
+      0 0 0 4px var(--onde-gold, #D4AF37) !important;
+  }
+
+  /* Teal focus ring (for gold/coral elements) */
+  .focus-ring-teal:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--onde-dark, #0B1929),
+      0 0 0 4px var(--onde-teal, #5B9AA0) !important;
+  }
+
+  /* White focus ring (for very dark backgrounds) */
+  .focus-ring-white:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--onde-dark, #0B1929),
+      0 0 0 4px white !important;
+  }
+
+  /* Inset focus ring (for input fields) */
+  .focus-ring-inset:focus-visible {
+    box-shadow:
+      inset 0 0 0 2px var(--onde-gold, #D4AF37) !important;
   }
 }

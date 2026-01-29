@@ -3029,12 +3029,13 @@
 - **Notes**: ✅ Added! SkipToContent component in ClientLayout.tsx. Link visually hidden (sr-only) but appears on focus with styled appearance. Main element has id="main-content" and tabIndex={-1} for focus management. i18n translations added (EN/IT).
 
 ### [T455] Visible focus indicators for all interactive elements
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T335]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Audit all buttons/links/inputs for visible focus states. Add consistent focus-visible ring style. Test with keyboard-only navigation. Tailwind: focus-visible:ring-2 focus-visible:ring-onde-gold.
+- **Notes**: ✅ Added! Global focus-visible styles in globals.css for all interactive elements (a, button, input, select, textarea, [role="button"], [tabindex]). Uses gold ring with dark offset for visibility on all backgrounds. Added utility classes: focus-ring-gold, focus-ring-teal, focus-ring-white, focus-ring-inset for custom styling.
 
 ### [T456] Weekly cron for volatility calibration check
 - **Status**: TODO
