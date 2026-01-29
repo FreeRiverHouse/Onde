@@ -27,12 +27,18 @@
 - **Notes**: ✅ Added filter buttons to Alert History section! 5 filters: All, Divergence, Regime, Volatility, Whipsaw. Each shows count, color-coded when active, filtered alerts list updates dynamically. Mobile-friendly with flex-wrap.
 
 ### [T433] Add upload-alerts-to-gist.py health monitoring
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T428]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add monitoring for the alerts upload cron job. Create scripts/alerts-upload-stale.alert if upload hasn't run in >2h.
+- **Notes**: ✅ Created `scripts/watchdog-alerts-upload.sh`:
+  - Checks if Gist alerts section has been updated in last 2h
+  - Uses gh CLI to avoid GitHub's raw file cache
+  - Creates `alerts-upload-stale.alert` if stale
+  - 2h cooldown to avoid spam
+  - Also fixed upload-alerts-to-gist.py to use GitHub API directly (gh gist edit is interactive)
 
 ---
 

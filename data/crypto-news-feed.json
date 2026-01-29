@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T21:00:02.303323+00:00",
+  "timestamp": "2026-01-29T21:30:02.091532+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "SEC Chair Atkins Walks Back Timeline for Crypto Innovation Exemptions",
+      "url": "https://decrypt.co/356386/sec-chair-atkins-walks-back-timeline-crypto-innovation-exemptions",
+      "source": "decrypt",
+      "description": "Atkins had previously said the exemptions, which could target tokenized securities, DeFi, and other crypto sectors, would be out in January.",
+      "published": "2026-01-29T21:18:16+00:00"
+    },
     {
       "title": "Crypto custodian Copper weighs IPO as institutional demand grows: Report",
       "url": "https://cointelegraph.com/news/crypto-custodian-copper-ipo-institutional-demand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -184,13 +191,6 @@
       "source": "cointelegraph",
       "description": "The platform enables enterprises to use programmable stablecoins for payments and treasury while outsourcing custody, compliance and settlement.",
       "published": "2026-01-29T14:14:05+00:00"
-    },
-    {
-      "title": "Morning Minute: Gold Soars Toward $5,600; Bitcoin Falls",
-      "url": "https://decrypt.co/356284/morning-minute-gold-soars-toward-5600-bitcoin-falls",
-      "source": "decrypt",
-      "description": "Gold continues its parabolic rally, up 100% over the past year and seemingly finding new highs by the day. When will Bitcoin have its turn?",
-      "published": "2026-01-29T14:11:03+00:00"
     },
     {
       "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",

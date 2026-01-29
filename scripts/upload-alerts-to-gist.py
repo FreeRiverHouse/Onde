@@ -147,65 +147,55 @@ def update_gist_with_alerts(alerts: list) -> bool:
         'items': alerts,
     }
     
-    # Write to temp file
-    temp_file = '/tmp/onde-trading-stats-with-alerts.json'
-    with open(temp_file, 'w') as f:
-        json.dump(current_data, f, indent=2)
+    # Update Gist via GitHub API (gh gist edit is interactive, not suitable for scripts)
+    import urllib.request
+    import urllib.error
     
-    # Update Gist - use the add command with filename
+    # Get GitHub token from gh CLI
+    token_result = subprocess.run(['gh', 'auth', 'token'], capture_output=True, text=True)
+    if token_result.returncode != 0:
+        print(f"Error getting GitHub token: {token_result.stderr}", file=sys.stderr)
+        return False
+    
+    token = token_result.stdout.strip()
+    
+    # Prepare API request
+    api_url = f"https://api.github.com/gists/{GIST_ID}"
+    payload = json.dumps({
+        "files": {
+            GIST_FILE: {
+                "content": json.dumps(current_data, indent=2)
+            }
+        }
+    })
+    
+    req = urllib.request.Request(
+        api_url,
+        data=payload.encode('utf-8'),
+        method='PATCH',
+        headers={
+            'Authorization': f'Bearer {token}',
+            'Accept': 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+        }
+    )
+    
     try:
-        result = subprocess.run(
-            ['gh', 'gist', 'edit', GIST_ID, '-a', temp_file],
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-        if result.returncode != 0:
-            # Try alternative: direct API call
-            import urllib.request
-            import urllib.error
-            
-            # Get GitHub token
-            token_result = subprocess.run(['gh', 'auth', 'token'], capture_output=True, text=True)
-            if token_result.returncode != 0:
-                print(f"Error getting GitHub token: {token_result.stderr}", file=sys.stderr)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            if resp.status == 200:
+                print(f"✅ Updated Gist with {len(alerts)} alerts")
+                return True
+            else:
+                print(f"Error: API returned status {resp.status}", file=sys.stderr)
                 return False
-            
-            token = token_result.stdout.strip()
-            
-            # Prepare API request
-            api_url = f"https://api.github.com/gists/{GIST_ID}"
-            payload = json.dumps({
-                "files": {
-                    GIST_FILE: {
-                        "content": json.dumps(current_data, indent=2)
-                    }
-                }
-            })
-            
-            req = urllib.request.Request(
-                api_url,
-                data=payload.encode('utf-8'),
-                method='PATCH',
-                headers={
-                    'Authorization': f'Bearer {token}',
-                    'Accept': 'application/vnd.github+json',
-                    'Content-Type': 'application/json',
-                }
-            )
-            
-            try:
-                with urllib.request.urlopen(req, timeout=30) as resp:
-                    if resp.status == 200:
-                        print(f"✅ Updated Gist with {len(alerts)} alerts (via API)")
-                        return True
-            except urllib.error.HTTPError as e:
-                print(f"Error updating Gist via API: {e.code} {e.reason}", file=sys.stderr)
-                return False
-        
-        print(f"✅ Updated Gist with {len(alerts)} alerts")
-        return True
-        
+    except urllib.error.HTTPError as e:
+        print(f"Error updating Gist via API: {e.code} {e.reason}", file=sys.stderr)
+        try:
+            error_body = e.read().decode('utf-8')
+            print(f"  Response: {error_body[:200]}", file=sys.stderr)
+        except:
+            pass
+        return False
     except Exception as e:
         print(f"Error updating Gist: {e}", file=sys.stderr)
         return False

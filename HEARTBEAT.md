@@ -29,6 +29,7 @@
 - `scripts/ohlc-cache-stale.alert` → OHLC cache stale >24h! Manda alert, poi elimina
 - `scripts/memory-stale.alert` → Memory files stale >7 giorni! Manda alert, poi elimina
 - `scripts/test-failure.alert` → Test suite failed! Manda alert, poi elimina
+- `scripts/alerts-upload-stale.alert` → Alerts upload cron stale >2h! Manda alert, poi elimina
 - `scripts/ssl-expiring.alert` → SSL in scadenza (<30 giorni)! Manda alert, poi elimina
 - `scripts/broken-links.alert` → Link rotti su onde.la! Manda alert, poi elimina
 
