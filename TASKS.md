@@ -1304,12 +1304,13 @@
 - **Notes**: Telegram notification when a new longest win/loss streak is achieved. Celebrate wins, warn on tilt.
 
 ### [T289] Consecutive loss circuit breaker
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T287]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Auto-pause autotrader after N consecutive losses (configurable via env, default 5). Prevents tilt trading. Resume after manual review or cooldown.
+- **Notes**: ✅ Implemented! Auto-pauses after CIRCUIT_BREAKER_THRESHOLD consecutive losses (default 5, env configurable). Resumes automatically when a trade wins. Functions: get_consecutive_losses(), check_circuit_breaker(), write_circuit_breaker_alert(). Alert file: kalshi-circuit-breaker.alert. State: kalshi-circuit-breaker.json.
 
 ### [T290] Win rate by streak position analysis
 - **Status**: TODO

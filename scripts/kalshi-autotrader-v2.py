@@ -77,6 +77,11 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
 SKIP_LOG_FILE = "scripts/kalshi-skips.jsonl"
 
+# Circuit breaker config (consecutive losses)
+CIRCUIT_BREAKER_THRESHOLD = int(os.getenv("CIRCUIT_BREAKER_THRESHOLD", "5"))  # Auto-pause after N consecutive losses
+CIRCUIT_BREAKER_ALERT_FILE = "scripts/kalshi-circuit-breaker.alert"
+CIRCUIT_BREAKER_STATE_FILE = "scripts/kalshi-circuit-breaker.json"
+
 # Regime change alerting
 REGIME_STATE_FILE = "scripts/kalshi-regime-state.json"
 REGIME_ALERT_FILE = "scripts/kalshi-regime-change.alert"
@@ -1301,6 +1306,13 @@ def run_cycle():
     print(f"📈 History: {stats['total']} trades | {stats['wins']}W/{stats['losses']}L | {win_rate:.0f}% WR")
     print(f"💵 P/L: ${stats['profit_cents']/100:+.2f} | Pending: {stats['pending']}")
     
+    # Check circuit breaker (consecutive loss protection)
+    cb_paused, cb_losses, cb_message = check_circuit_breaker()
+    print(f"🔒 Circuit Breaker: {cb_message}")
+    if cb_paused:
+        print("⏸️ Trading paused by circuit breaker. Waiting for a win to settle...")
+        return
+    
     # Get balance
     bal = get_balance()
     if "error" in bal:
@@ -1534,3 +1546,116 @@ def check_hourly_trades():
                     pass
     
     return count
+
+
+def get_consecutive_losses() -> int:
+    """
+    Count consecutive losses from most recent settled trades.
+    Returns the current loss streak count (0 if last trade was a win).
+    """
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return 0
+    
+    # Read all trades and get settled ones
+    settled_trades = []
+    with open(log_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") == "trade" and entry.get("result_status") in ("won", "lost"):
+                    settled_trades.append(entry)
+            except:
+                pass
+    
+    if not settled_trades:
+        return 0
+    
+    # Sort by timestamp descending (most recent first)
+    settled_trades.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+    
+    # Count consecutive losses from most recent
+    consecutive_losses = 0
+    for trade in settled_trades:
+        if trade.get("result_status") == "lost":
+            consecutive_losses += 1
+        else:
+            break  # Hit a win, stop counting
+    
+    return consecutive_losses
+
+
+def load_circuit_breaker_state() -> dict:
+    """Load circuit breaker state from file."""
+    try:
+        with open(CIRCUIT_BREAKER_STATE_FILE, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {"paused": False, "pause_time": None, "streak_at_pause": 0}
+
+
+def save_circuit_breaker_state(state: dict):
+    """Save circuit breaker state to file."""
+    with open(CIRCUIT_BREAKER_STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def check_circuit_breaker() -> tuple:
+    """
+    Check if circuit breaker should trigger or is active.
+    
+    Returns:
+        (should_pause: bool, consecutive_losses: int, message: str)
+    """
+    state = load_circuit_breaker_state()
+    consecutive_losses = get_consecutive_losses()
+    
+    # If already paused, check if we should resume (after a win)
+    if state.get("paused"):
+        if consecutive_losses == 0:
+            # We got a win! Resume trading
+            state["paused"] = False
+            state["pause_time"] = None
+            state["streak_at_pause"] = 0
+            save_circuit_breaker_state(state)
+            return (False, 0, "✅ Circuit breaker released - got a win!")
+        else:
+            pause_time = state.get("pause_time", "unknown")
+            return (True, consecutive_losses, f"⏸️ Circuit breaker ACTIVE (paused at {pause_time}, {consecutive_losses} consecutive losses)")
+    
+    # Check if we should trigger circuit breaker
+    if consecutive_losses >= CIRCUIT_BREAKER_THRESHOLD:
+        state["paused"] = True
+        state["pause_time"] = datetime.now(timezone.utc).isoformat()
+        state["streak_at_pause"] = consecutive_losses
+        save_circuit_breaker_state(state)
+        
+        # Write alert file for heartbeat pickup
+        write_circuit_breaker_alert(consecutive_losses)
+        
+        return (True, consecutive_losses, f"🚨 CIRCUIT BREAKER TRIGGERED! {consecutive_losses} consecutive losses")
+    
+    return (False, consecutive_losses, f"✓ Streak: {consecutive_losses} losses (threshold: {CIRCUIT_BREAKER_THRESHOLD})")
+
+
+def write_circuit_breaker_alert(consecutive_losses: int):
+    """Write circuit breaker alert file for heartbeat notification."""
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "circuit_breaker",
+        "consecutive_losses": consecutive_losses,
+        "threshold": CIRCUIT_BREAKER_THRESHOLD,
+        "message": f"🚨 CIRCUIT BREAKER TRIGGERED!\n\n"
+                   f"AutoTrader paused after {consecutive_losses} consecutive losses.\n\n"
+                   f"This is a safety measure to prevent tilt trading.\n"
+                   f"Trading will resume automatically after a winning trade settles.\n\n"
+                   f"Actions you can take:\n"
+                   f"• Wait for pending trades to settle (a win will resume)\n"
+                   f"• Manually reset: `rm scripts/kalshi-circuit-breaker.json`\n"
+                   f"• Adjust threshold: `export CIRCUIT_BREAKER_THRESHOLD=10`"
+    }
+    
+    with open(CIRCUIT_BREAKER_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"📝 Circuit breaker alert written to {CIRCUIT_BREAKER_ALERT_FILE}")
