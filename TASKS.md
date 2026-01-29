@@ -2530,12 +2530,13 @@
 - **Notes**: ✅ Added to trade_data: kelly_fraction_base, kelly_fraction_used, regime_multiplier, vol_multiplier, size_multiplier_total. Enables analysis of how sizing adjustments correlate with outcomes per T391.
 
 ### [T391] Analyze volatility-adjusted sizing effectiveness
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T390]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare win rate and PnL when size was reduced (multiplier <1) vs increased (>1). Validates T293 position sizing logic. Output: data/trading/sizing-effectiveness.json
+- **Notes**: ✅ Script: analyze-sizing-effectiveness.py. Categorizes trades by size multiplier (reduced/standard/increased), compares win rate, PnL, ROI. Usage: `python3 scripts/analyze-sizing-effectiveness.py [--v2] [--threshold 0.1]`. Output: data/trading/sizing-effectiveness.json. Awaiting trades with T390 data.
 
 ### [T392] Compare cached vs live OHLC momentum accuracy
 - **Status**: TODO
