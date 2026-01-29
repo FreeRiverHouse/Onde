@@ -1,0 +1,127 @@
+/**
+ * Onde Books VR - Main Styles
+ * Additional styling for non-VR UI elements
+ */
+
+/* Base reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #1a0f0a;
+  color: #f4e4c1;
+  overflow: hidden;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+#loading-screen {
+  animation: fadeIn 0.5s ease;
+}
+
+#loading-screen p {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Page indicator */
+#page-indicator {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* UI buttons */
+.ui-button {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.ui-button:active {
+  transform: scale(0.98);
+}
+
+/* VR mode hide overlay */
+.a-fullscreen #ui-overlay,
+.a-fullscreen #page-indicator {
+  display: none !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #ui-overlay {
+    bottom: 10px;
+    flex-direction: column;
+  }
+
+  .ui-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  #page-indicator {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}
+
+/* Quest Browser specific */
+@media (display-mode: fullscreen) {
+  #ui-overlay,
+  #page-indicator {
+    display: none;
+  }
+}
+
+/* Custom scrollbar for any text areas */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2c1810;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b6914;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c4a461;
+}
+
+/* Accessibility - high contrast mode */
+@media (prefers-contrast: high) {
+  .ui-button {
+    border-width: 3px;
+  }
+
+  #page-indicator {
+    border: 2px solid #f4e4c1;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

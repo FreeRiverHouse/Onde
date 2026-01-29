@@ -1,0 +1,25 @@
+{
+  "name": "onde-books-vr-web",
+  "version": "0.1.0",
+  "description": "Onde Books VR - Immersive ebook reader for Meta Quest (WebXR prototype)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 8080",
+    "dev": "npx serve -l 8080 --cors",
+    "https": "npx serve -l 8443 --ssl-cert cert.pem --ssl-key key.pem"
+  },
+  "keywords": [
+    "vr",
+    "webxr",
+    "aframe",
+    "ebook",
+    "reader",
+    "meta-quest",
+    "onde"
+  ],
+  "author": "Onde Publishing",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

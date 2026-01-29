@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Assets for Onde Books VR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    h1 { color: #f4e4c1; }
+    .canvas-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .asset {
+      text-align: center;
+    }
+    .asset canvas {
+      border: 2px solid #4a2c1a;
+    }
+    .asset button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #4a2c1a;
+      color: #f4e4c1;
+      border: none;
+      cursor: pointer;
+    }
+    .asset button:hover {
+      background: #6b3d1f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Asset Generator for Onde Books VR</h1>
+  <p>Click each button to download the texture. Place files in the /assets folder.</p>
+
+  <div class="canvas-container">
+    <div class="asset">
+      <h3>Book Cover</h3>
+      <canvas id="book-cover" width="512" height="512"></canvas>
+      <br>
+      <button onclick="download('book-cover', 'book-cover.jpg')">Download</button>
+    </div>
+
+    <div class="asset">
+      <h3>Paper Texture</h3>
+      <canvas id="paper-texture" width="512" height="512"></canvas>
+      <br>
+      <button onclick="download('paper-texture', 'paper-texture.jpg')">Download</button>
+    </div>
+
+    <div class="asset">
+      <h3>Leather Texture</h3>
+      <canvas id="leather-texture" width="512" height="512"></canvas>
+      <br>
+      <button onclick="download('leather-texture', 'leather-texture.jpg')">Download</button>
+    </div>
+
+    <div class="asset">
+      <h3>Wood Texture</h3>
+      <canvas id="wood-texture" width="512" height="512"></canvas>
+      <br>
+      <button onclick="download('wood-texture', 'wood-texture.jpg')">Download</button>
+    </div>
+  </div>
+
+  <script>
+    // Generate Book Cover
+    function generateBookCover() {
+      const canvas = document.getElementById('book-cover');
+      const ctx = canvas.getContext('2d');
+
+      // Dark leather background
+      const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+      gradient.addColorStop(0, '#2c1810');
+      gradient.addColorStop(0.5, '#4a2c1a');
+      gradient.addColorStop(1, '#2c1810');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Gold decorative border
+      ctx.strokeStyle = '#8b6914';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(30, 30, 452, 452);
+
+      // Inner border
+      ctx.strokeStyle = '#c4a461';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(50, 50, 412, 412);
+
+      // Decorative corners
+      ctx.fillStyle = '#8b6914';
+      for (let i = 0; i < 4; i++) {
+        ctx.save();
+        ctx.translate(256, 256);
+        ctx.rotate(i * Math.PI / 2);
+        ctx.translate(-256, -256);
+
+        // Corner flourish
+        ctx.beginPath();
+        ctx.arc(70, 70, 15, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // Title
+      ctx.fillStyle = '#f4e4c1';
+      ctx.font = 'bold 48px Georgia';
+      ctx.textAlign = 'center';
+      ctx.fillText('PICCOLE', 256, 180);
+      ctx.fillText('RIME', 256, 240);
+
+      // Subtitle
+      ctx.font = '24px Georgia';
+      ctx.fillStyle = '#c4a461';
+      ctx.fillText('Poesie per Bambini', 256, 300);
+
+      // Publisher
+      ctx.font = 'italic 20px Georgia';
+      ctx.fillStyle = '#8b6914';
+      ctx.fillText('Onde Publishing', 256, 450);
+
+      // Add noise for texture
+      addNoise(ctx, 512, 512, 0.03);
+    }
+
+    // Generate Paper Texture
+    function generatePaperTexture() {
+      const canvas = document.getElementById('paper-texture');
+      const ctx = canvas.getContext('2d');
+
+      // Base cream color
+      ctx.fillStyle = '#f5f0e1';
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Add subtle variations
+      for (let i = 0; i < 500; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const alpha = Math.random() * 0.05;
+        ctx.fillStyle = `rgba(200, 180, 140, ${alpha})`;
+        ctx.fillRect(x, y, Math.random() * 5 + 1, Math.random() * 5 + 1);
+      }
+
+      // Add noise
+      addNoise(ctx, 512, 512, 0.02);
+
+      // Subtle fiber lines
+      ctx.strokeStyle = 'rgba(180, 160, 120, 0.1)';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < 50; i++) {
+        ctx.beginPath();
+        const y = Math.random() * 512;
+        ctx.moveTo(0, y);
+        ctx.lineTo(512, y + (Math.random() - 0.5) * 20);
+        ctx.stroke();
+      }
+    }
+
+    // Generate Leather Texture
+    function generateLeatherTexture() {
+      const canvas = document.getElementById('leather-texture');
+      const ctx = canvas.getContext('2d');
+
+      // Base brown
+      ctx.fillStyle = '#4a2c1a';
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Add leather grain
+      for (let i = 0; i < 2000; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const size = Math.random() * 3 + 1;
+        const lightness = Math.random() * 30 - 15;
+        const r = 74 + lightness;
+        const g = 44 + lightness;
+        const b = 26 + lightness;
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.beginPath();
+        ctx.ellipse(x, y, size, size * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Add scratches
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < 30; i++) {
+        ctx.beginPath();
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + (Math.random() - 0.5) * 50, y + (Math.random() - 0.5) * 50);
+        ctx.stroke();
+      }
+
+      addNoise(ctx, 512, 512, 0.05);
+    }
+
+    // Generate Wood Texture
+    function generateWoodTexture() {
+      const canvas = document.getElementById('wood-texture');
+      const ctx = canvas.getContext('2d');
+
+      // Base wood color
+      ctx.fillStyle = '#5c3d2e';
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Wood grain lines
+      for (let y = 0; y < 512; y += 2) {
+        const intensity = Math.sin(y * 0.1) * 10 + Math.random() * 5;
+        const r = 92 + intensity;
+        const g = 61 + intensity * 0.7;
+        const b = 46 + intensity * 0.5;
+        ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.lineWidth = 1 + Math.random();
+
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+
+        // Wavy grain
+        for (let x = 0; x < 512; x += 20) {
+          const wave = Math.sin((x + y) * 0.02) * 3;
+          ctx.lineTo(x, y + wave);
+        }
+        ctx.stroke();
+      }
+
+      // Add knots
+      for (let i = 0; i < 3; i++) {
+        const x = Math.random() * 400 + 50;
+        const y = Math.random() * 400 + 50;
+        const radius = Math.random() * 20 + 10;
+
+        const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+        gradient.addColorStop(0, '#3d2817');
+        gradient.addColorStop(0.5, '#4a2c1a');
+        gradient.addColorStop(1, '#5c3d2e');
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.ellipse(x, y, radius, radius * 0.6, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      addNoise(ctx, 512, 512, 0.03);
+    }
+
+    // Add noise to texture
+    function addNoise(ctx, width, height, intensity) {
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const noise = (Math.random() - 0.5) * intensity * 255;
+        data[i] = Math.max(0, Math.min(255, data[i] + noise));
+        data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    // Download canvas as image
+    function download(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      link.click();
+    }
+
+    // Generate all textures on load
+    window.onload = function() {
+      generateBookCover();
+      generatePaperTexture();
+      generateLeatherTexture();
+      generateWoodTexture();
+    };
+  </script>
+</body>
+</html>

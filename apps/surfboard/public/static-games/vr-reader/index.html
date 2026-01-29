@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Onde Books VR - Immersive Reading</title>
+  <meta name="description" content="Lettore ebook immersivo per Meta Quest">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A-Frame Core -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- A-Frame Extras (for better controls) -->
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+
+  <!-- A-Frame Environment Component -->
+  <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Georgia', serif;
+    }
+
+    /* UI Overlay for non-VR mode */
+    #ui-overlay {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    .ui-button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+      color: #f4e4c1;
+      border: 2px solid #8b6914;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: all 0.3s ease;
+    }
+
+    .ui-button:hover {
+      background: linear-gradient(135deg, #4a2c1a 0%, #6b3d1f 100%);
+      box-shadow: 0 0 20px rgba(139, 105, 20, 0.5);
+    }
+
+    #page-indicator {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      padding: 10px 25px;
+      background: rgba(44, 24, 16, 0.9);
+      color: #f4e4c1;
+      border-radius: 20px;
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      border: 1px solid #8b6914;
+    }
+
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a0f0a 0%, #2c1810 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #loading-screen h1 {
+      color: #f4e4c1;
+      font-family: 'Georgia', serif;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    #loading-screen p {
+      color: #c4a461;
+      font-family: 'Georgia', serif;
+      font-size: 18px;
+    }
+
+    /* VR Button styling */
+    .a-enter-vr-button {
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%) !important;
+      border: 2px solid #8b6914 !important;
+      border-radius: 8px !important;
+    }
+
+    /* Bookmark notification */
+    #bookmark-notification {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 1000;
+      padding: 12px 24px;
+      background: rgba(44, 24, 16, 0.95);
+      color: #c4a461;
+      border-radius: 20px;
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      border: 1px solid #8b6914;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    #bookmark-notification.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Resume reading banner */
+    #resume-banner {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+      color: #f4e4c1;
+      border-radius: 12px;
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      border: 1px solid #8b6914;
+      display: none;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    #resume-banner.visible {
+      display: flex;
+    }
+
+    #resume-banner button {
+      padding: 6px 12px;
+      font-size: 12px;
+      background: #8b6914;
+      color: #f4e4c1;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+    }
+
+    #resume-banner button:hover {
+      background: #a67c1a;
+    }
+
+    #resume-banner .dismiss {
+      background: transparent;
+      color: #c4a461;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <h1>Onde Books VR</h1>
+    <p>Caricamento biblioteca...</p>
+  </div>
+
+  <!-- Page Indicator -->
+  <div id="page-indicator">Pagina 1 di 8</div>
+
+  <!-- Bookmark Notification -->
+  <div id="bookmark-notification"></div>
+
+  <!-- Resume Reading Banner -->
+  <div id="resume-banner">
+    <span id="resume-text">Continua dalla pagina 3</span>
+    <button onclick="resumeReading()">Continua</button>
+    <button class="dismiss" onclick="dismissResume()">Inizia da capo</button>
+  </div>
+
+  <!-- UI Controls -->
+  <div id="ui-overlay">
+    <button class="ui-button" onclick="previousPage()">Pagina Precedente</button>
+    <button class="ui-button" onclick="saveBookmark()" title="Salva posizione lettura">Salva</button>
+    <button class="ui-button" onclick="nextPage()">Pagina Successiva</button>
+  </div>
+
+  <!-- A-Frame Scene -->
+  <a-scene
+    vr-mode-ui="enabled: true"
+    loading-screen="enabled: false"
+    renderer="antialias: true; colorManagement: true; physicallyCorrectLights: true"
+  >
+    <!-- Assets -->
+    <a-assets timeout="10000">
+      <!-- Book textures -->
+      <img id="book-cover" src="assets/book-cover.jpg" crossorigin="anonymous">
+      <img id="paper-texture" src="assets/paper-texture.jpg" crossorigin="anonymous">
+      <img id="leather-texture" src="assets/leather-texture.jpg" crossorigin="anonymous">
+      <img id="wood-texture" src="assets/wood-texture.jpg" crossorigin="anonymous">
+
+      <!-- Audio - Sound Effects -->
+      <audio id="page-turn-sound" src="assets/audio/page-turn.mp3" preload="auto"></audio>
+
+      <!-- Audio - Ambient Loops -->
+      <audio id="fire-ambient" src="assets/audio/fire-ambient.mp3" preload="auto" loop></audio>
+      <audio id="rain-ambient" src="assets/audio/rain-ambient.mp3" preload="auto" loop></audio>
+      <audio id="forest-ambient" src="assets/audio/forest-ambient.mp3" preload="auto" loop></audio>
+      <audio id="ocean-ambient" src="assets/audio/ocean-ambient.mp3" preload="auto" loop></audio>
+    </a-assets>
+
+    <!-- Environment: Cozy Library -->
+    <a-entity id="library-environment">
+      <!-- Floor -->
+      <a-plane
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="15"
+        height="15"
+        material="color: #3d2817; roughness: 0.9"
+      ></a-plane>
+
+      <!-- Walls -->
+      <a-box position="0 3 -7" width="15" height="6" depth="0.3" material="color: #4a3728; roughness: 0.8"></a-box>
+      <a-box position="-7.5 3 0" width="0.3" height="6" depth="15" material="color: #4a3728; roughness: 0.8"></a-box>
+      <a-box position="7.5 3 0" width="0.3" height="6" depth="15" material="color: #4a3728; roughness: 0.8"></a-box>
+
+      <!-- Ceiling -->
+      <a-plane
+        position="0 6 0"
+        rotation="90 0 0"
+        width="15"
+        height="15"
+        material="color: #2d1f14; roughness: 0.9"
+      ></a-plane>
+
+      <!-- Bookshelves on back wall -->
+      <a-entity id="bookshelf-left" position="-4 2 -6.5">
+        <a-box width="3" height="4" depth="0.5" material="color: #5c3d2e"></a-box>
+        <!-- Shelves -->
+        <a-box position="0 1.2 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 0.4 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 -0.4 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 -1.2 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <!-- Books on shelves -->
+        <a-entity class="books-row" position="-0.8 1.5 0.2">
+          <a-box width="0.15" height="0.5" depth="0.3" material="color: #8b0000"></a-box>
+          <a-box position="0.2 0 0" width="0.12" height="0.45" depth="0.3" material="color: #006400"></a-box>
+          <a-box position="0.4 0 0" width="0.18" height="0.55" depth="0.3" material="color: #00008b"></a-box>
+          <a-box position="0.6 0 0" width="0.14" height="0.48" depth="0.3" material="color: #8b4513"></a-box>
+          <a-box position="0.8 0 0" width="0.16" height="0.52" depth="0.3" material="color: #4b0082"></a-box>
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="bookshelf-right" position="4 2 -6.5">
+        <a-box width="3" height="4" depth="0.5" material="color: #5c3d2e"></a-box>
+        <!-- Shelves -->
+        <a-box position="0 1.2 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 0.4 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 -0.4 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <a-box position="0 -1.2 0.1" width="2.8" height="0.1" depth="0.4" material="color: #4a2c1a"></a-box>
+        <!-- Books on shelves -->
+        <a-entity class="books-row" position="-0.8 0.7 0.2">
+          <a-box width="0.13" height="0.42" depth="0.3" material="color: #b8860b"></a-box>
+          <a-box position="0.18 0 0" width="0.15" height="0.5" depth="0.3" material="color: #2f4f4f"></a-box>
+          <a-box position="0.38 0 0" width="0.12" height="0.38" depth="0.3" material="color: #a0522d"></a-box>
+          <a-box position="0.55 0 0" width="0.17" height="0.54" depth="0.3" material="color: #191970"></a-box>
+          <a-box position="0.78 0 0" width="0.14" height="0.46" depth="0.3" material="color: #556b2f"></a-box>
+        </a-entity>
+      </a-entity>
+
+      <!-- Fireplace -->
+      <a-entity id="fireplace" position="0 0.8 -6.3">
+        <!-- Fireplace frame -->
+        <a-box width="2.5" height="2" depth="0.8" material="color: #3d3d3d; roughness: 0.9"></a-box>
+        <!-- Fire opening -->
+        <a-box position="0 -0.2 0.3" width="1.8" height="1.2" depth="0.5" material="color: #1a0a00"></a-box>
+        <!-- Mantle -->
+        <a-box position="0 1.1 0" width="3" height="0.15" depth="1" material="color: #4a2c1a"></a-box>
+
+        <!-- Fire light (animated) -->
+        <a-light
+          id="fire-light"
+          type="point"
+          color="#ff6b35"
+          intensity="2"
+          distance="8"
+          position="0 0.2 0.2"
+          animation="property: light.intensity; from: 1.5; to: 2.5; dur: 500; dir: alternate; loop: true; easing: easeInOutSine"
+        ></a-light>
+
+        <!-- Fire particles (simple) -->
+        <a-entity id="fire-glow" position="0 0 0.3">
+          <a-sphere
+            radius="0.3"
+            material="color: #ff4500; emissive: #ff4500; emissiveIntensity: 0.8; transparent: true; opacity: 0.7"
+            animation="property: scale; from: 1 1 1; to: 1.1 1.2 1.1; dur: 300; dir: alternate; loop: true"
+          ></a-sphere>
+          <a-sphere
+            position="0.2 0.1 0"
+            radius="0.2"
+            material="color: #ff6b35; emissive: #ff6b35; emissiveIntensity: 0.6; transparent: true; opacity: 0.6"
+            animation="property: position; from: 0.2 0.1 0; to: 0.15 0.3 0.05; dur: 400; dir: alternate; loop: true"
+          ></a-sphere>
+          <a-sphere
+            position="-0.15 0.05 0"
+            radius="0.15"
+            material="color: #ffa500; emissive: #ffa500; emissiveIntensity: 0.5; transparent: true; opacity: 0.5"
+            animation="property: position; from: -0.15 0.05 0; to: -0.2 0.25 0.05; dur: 350; dir: alternate; loop: true"
+          ></a-sphere>
+        </a-entity>
+      </a-entity>
+
+      <!-- Reading Table -->
+      <a-entity id="reading-table" position="0 0.75 -2">
+        <!-- Table top -->
+        <a-box width="1.5" height="0.08" depth="1" material="color: #5c3d2e; roughness: 0.7"></a-box>
+        <!-- Table legs -->
+        <a-cylinder position="-0.6 -0.35 -0.35" radius="0.05" height="0.7" material="color: #4a2c1a"></a-cylinder>
+        <a-cylinder position="0.6 -0.35 -0.35" radius="0.05" height="0.7" material="color: #4a2c1a"></a-cylinder>
+        <a-cylinder position="-0.6 -0.35 0.35" radius="0.05" height="0.7" material="color: #4a2c1a"></a-cylinder>
+        <a-cylinder position="0.6 -0.35 0.35" radius="0.05" height="0.7" material="color: #4a2c1a"></a-cylinder>
+      </a-entity>
+
+      <!-- Armchair -->
+      <a-entity id="armchair" position="0 0 0.5">
+        <!-- Seat -->
+        <a-box position="0 0.4 0" width="0.8" height="0.15" depth="0.7" material="color: #8b4513; roughness: 0.6"></a-box>
+        <!-- Back -->
+        <a-box position="0 0.8 -0.3" width="0.8" height="0.8" depth="0.15" material="color: #8b4513; roughness: 0.6"></a-box>
+        <!-- Arms -->
+        <a-box position="-0.4 0.55 0" width="0.1" height="0.3" depth="0.6" material="color: #8b4513; roughness: 0.6"></a-box>
+        <a-box position="0.4 0.55 0" width="0.1" height="0.3" depth="0.6" material="color: #8b4513; roughness: 0.6"></a-box>
+        <!-- Cushion -->
+        <a-box position="0 0.52 0.05" width="0.7" height="0.1" depth="0.6" material="color: #a0522d; roughness: 0.8"></a-box>
+      </a-entity>
+
+      <!-- Side table with lamp -->
+      <a-entity id="side-table" position="-1.5 0 -0.5">
+        <a-cylinder radius="0.25" height="0.6" position="0 0.3 0" material="color: #4a2c1a"></a-cylinder>
+        <!-- Lamp base -->
+        <a-cylinder radius="0.1" height="0.4" position="0 0.8 0" material="color: #b8860b"></a-cylinder>
+        <!-- Lamp shade -->
+        <a-cone radius-bottom="0.25" radius-top="0.15" height="0.3" position="0 1.15 0" material="color: #f5deb3; transparent: true; opacity: 0.8"></a-cone>
+        <!-- Lamp light -->
+        <a-light type="point" color="#ffecd2" intensity="0.5" distance="4" position="0 1.1 0"></a-light>
+      </a-entity>
+
+      <!-- Window with moonlight -->
+      <a-entity id="window" position="6 2.5 -3">
+        <a-box width="0.1" height="2" depth="1.5" material="color: #4a2c1a"></a-box>
+        <a-plane
+          position="0.05 0 0"
+          rotation="0 90 0"
+          width="1.4"
+          height="1.9"
+          material="color: #0a1a2a; emissive: #1a2a3a; emissiveIntensity: 0.3"
+        ></a-plane>
+        <!-- Moonlight through window -->
+        <a-light type="spot" color="#b4c5d4" intensity="0.3" distance="10" angle="45" position="-2 0 0" target="#reading-table"></a-light>
+      </a-entity>
+
+      <!-- Rug -->
+      <a-plane
+        position="0 0.02 -0.5"
+        rotation="-90 0 0"
+        width="3"
+        height="4"
+        material="color: #722f37; roughness: 0.95"
+      ></a-plane>
+    </a-entity>
+
+    <!-- THE BOOK - Main interactive element -->
+    <a-entity
+      id="book"
+      position="0 0.85 -2"
+      rotation="0 0 0"
+      book-controller
+    >
+      <!-- Book base/spine -->
+      <a-box
+        id="book-spine"
+        position="0 0 0"
+        width="0.02"
+        height="0.35"
+        depth="0.26"
+        material="color: #4a2c1a; roughness: 0.6"
+      ></a-box>
+
+      <!-- Left page (previous) -->
+      <a-entity id="left-page" position="-0.12 0 0">
+        <a-plane
+          width="0.24"
+          height="0.34"
+          material="color: #f5f0e1; side: double"
+          text="value: ; color: #2c1810; align: left; width: 0.4; wrapCount: 28; font: dejavu; anchor: center"
+        ></a-plane>
+      </a-entity>
+
+      <!-- Right page (current) -->
+      <a-entity id="right-page" position="0.12 0 0">
+        <a-plane
+          width="0.24"
+          height="0.34"
+          material="color: #f5f0e1; side: double"
+          text="value: ; color: #2c1810; align: left; width: 0.4; wrapCount: 28; font: dejavu; anchor: center"
+        ></a-plane>
+      </a-entity>
+
+      <!-- Turning page (animated) -->
+      <a-entity id="turning-page" visible="false" position="0 0 0.001">
+        <a-plane
+          width="0.24"
+          height="0.34"
+          material="color: #f8f4e8; side: double"
+        ></a-plane>
+      </a-entity>
+
+      <!-- Book covers -->
+      <a-box
+        position="-0.13 0 -0.005"
+        width="0.26"
+        height="0.36"
+        depth="0.01"
+        material="color: #2c1810; roughness: 0.5"
+      ></a-box>
+      <a-box
+        position="0.13 0 -0.005"
+        width="0.26"
+        height="0.36"
+        depth="0.01"
+        material="color: #2c1810; roughness: 0.5"
+      ></a-box>
+    </a-entity>
+
+    <!-- Ambient Lighting -->
+    <a-light type="ambient" color="#ffecd2" intensity="0.3"></a-light>
+
+    <!-- Main ceiling light -->
+    <a-light type="point" color="#ffecd2" intensity="0.4" position="0 5 -2" distance="12"></a-light>
+
+    <!-- Camera Rig (for VR) -->
+    <a-entity id="rig" position="0 1.2 1" movement-controls="fly: false; speed: 0.1">
+      <a-entity
+        camera
+        look-controls="pointerLockEnabled: false"
+        wasd-controls="enabled: true; acceleration: 20"
+      ></a-entity>
+
+      <!-- Left hand controller -->
+      <a-entity
+        id="leftHand"
+        laser-controls="hand: left"
+        raycaster="objects: .interactive; far: 5"
+        line="color: #f4e4c1; opacity: 0.5"
+      ></a-entity>
+
+      <!-- Right hand controller -->
+      <a-entity
+        id="rightHand"
+        laser-controls="hand: right"
+        raycaster="objects: .interactive; far: 5"
+        line="color: #f4e4c1; opacity: 0.5"
+      ></a-entity>
+    </a-entity>
+
+    <!-- Interactive buttons in VR -->
+    <a-entity id="vr-ui" position="0 0.9 -1.5">
+      <!-- Previous page button -->
+      <a-box
+        class="interactive"
+        id="prev-btn"
+        position="-0.25 0 0"
+        width="0.15"
+        height="0.08"
+        depth="0.02"
+        material="color: #4a2c1a"
+        event-set__mouseenter="material.color: #6b3d1f"
+        event-set__mouseleave="material.color: #4a2c1a"
+        text="value: < Indietro; align: center; width: 0.3; color: #f4e4c1"
+      ></a-box>
+
+      <!-- Bookmark button -->
+      <a-box
+        class="interactive"
+        id="bookmark-btn"
+        position="0 0 0"
+        width="0.12"
+        height="0.08"
+        depth="0.02"
+        material="color: #8b6914"
+        event-set__mouseenter="material.color: #a67c1a"
+        event-set__mouseleave="material.color: #8b6914"
+        text="value: Salva; align: center; width: 0.25; color: #f4e4c1"
+      ></a-box>
+
+      <!-- Next page button -->
+      <a-box
+        class="interactive"
+        id="next-btn"
+        position="0.25 0 0"
+        width="0.15"
+        height="0.08"
+        depth="0.02"
+        material="color: #4a2c1a"
+        event-set__mouseenter="material.color: #6b3d1f"
+        event-set__mouseleave="material.color: #4a2c1a"
+        text="value: Avanti >; align: center; width: 0.3; color: #f4e4c1"
+      ></a-box>
+    </a-entity>
+
+  </a-scene>
+
+  <!-- Book Controller Component -->
+  <script>
+    // Book content - Sample ePub text (Stelle Stellina by Lina Schwarz)
+    const bookContent = {
+      title: "Piccole Rime",
+      author: "Antologia di Poesie per Bambini",
+      pages: [
+        {
+          left: "",
+          right: "PICCOLE RIME\n\nAntologia di\nPoesie per Bambini\n\n\nOnde Publishing\n2026"
+        },
+        {
+          left: "STELLA STELLINA\n\nLina Schwarz\n(1876-1947)",
+          right: "Stella stellina\nla notte s'avvicina:\nla fiamma traballa,\nla mucca e nella stalla.\n\nLa mucca e il vitello,\nla pecora e l'agnello,\nla chioccia e il pulcino,\nla mamma e il suo bambino."
+        },
+        {
+          left: "",
+          right: "Ognuno ha il suo piccino,\nognuno ha la sua mamma\ne tutti fan la nanna."
+        },
+        {
+          left: "LA PIOGGERELLINA\nDI MARZO\n\nAngiolo Silvio Novaro\n(1866-1938)",
+          right: "Che dice la pioggerellina\ndi marzo, che picchia\nargentina sui tegoli\nvecchi del tetto,\nsui bruscoli secchi\ndell'orto, sul fico\ne sul moro ornati\ndi gemmule d'oro?"
+        },
+        {
+          left: "Passata e l'uggiosa\ninvernata, passata,\npassata!\n\nDi fuor dalla nuvola\nnera, di fuor dalla\nnuvola bigia che in\ncielo si pigia,",
+          right: "domani uscira\nPrimavera con pieno\nil grembiale di\ntiepido sole, di\nfresche viole, di\nprimule rosse,\ndi battiti d'ale,\ndi nidi, di gridi\ndi rondini..."
+        },
+        {
+          left: "LA BEFANA\n\nGuido Gozzano\n(1883-1916)",
+          right: "Discesi dal lettino\nson la presso il camino,\ngrandi occhi estasiati,\ni bimbi affaccendati\n\na metter la calzetta\nche invita la vecchietta\na portar chicche e doni\nper tutti i bimbi buoni."
+        },
+        {
+          left: "Ognun chiudendo\ngli occhi, sogna\ndolci e balocchi;\ne Dori, il piu piccino,\naccosta il suo visino",
+          right: "alla grande vetrata\nper veder la sfilata\ndei Magi, su nel cielo,\nnella notte di gelo."
+        },
+        {
+          left: "",
+          right: "FINE\n\n\nGrazie per aver letto\ncon Onde Books VR\n\n\nonde-books.com"
+        }
+      ]
+    };
+
+    // Bookmark System - Persistent reading position
+    const BOOKMARK_KEY = 'onde-vr-bookmark';
+
+    function saveBookmark() {
+      const bookmark = {
+        page: currentPage,
+        bookId: 'piccole-rime-001',
+        timestamp: Date.now(),
+        title: bookContent.title
+      };
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bookmark));
+      showBookmarkNotification('Segnalibro salvato!');
+    }
+
+    function loadBookmark() {
+      try {
+        const saved = localStorage.getItem(BOOKMARK_KEY);
+        if (saved) {
+          const bookmark = JSON.parse(saved);
+          if (bookmark.bookId === 'piccole-rime-001' && bookmark.page < totalPages) {
+            return bookmark.page;
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load bookmark:', e);
+      }
+      return 0;
+    }
+
+    function clearBookmark() {
+      localStorage.removeItem(BOOKMARK_KEY);
+      showBookmarkNotification('Segnalibro rimosso');
+    }
+
+    function showBookmarkNotification(message) {
+      const notification = document.getElementById('bookmark-notification');
+      if (notification) {
+        notification.textContent = message;
+        notification.classList.add('visible');
+        setTimeout(() => {
+          notification.classList.remove('visible');
+        }, 2000);
+      }
+    }
+
+    function getLastReadInfo() {
+      try {
+        const saved = localStorage.getItem(BOOKMARK_KEY);
+        if (saved) {
+          const bookmark = JSON.parse(saved);
+          const date = new Date(bookmark.timestamp);
+          return `Ultima lettura: pagina ${bookmark.page + 1}, ${date.toLocaleDateString('it-IT')}`;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    let currentPage = 0;
+    const totalPages = bookContent.pages.length;
+
+    // Initialize book content
+    function updateBookDisplay() {
+      const leftPage = document.querySelector('#left-page a-plane');
+      const rightPage = document.querySelector('#right-page a-plane');
+      const pageIndicator = document.getElementById('page-indicator');
+
+      const page = bookContent.pages[currentPage];
+
+      leftPage.setAttribute('text', {
+        value: page.left,
+        color: '#2c1810',
+        align: 'left',
+        width: 0.4,
+        wrapCount: 28,
+        font: 'dejavu',
+        anchor: 'center'
+      });
+
+      rightPage.setAttribute('text', {
+        value: page.right,
+        color: '#2c1810',
+        align: 'left',
+        width: 0.4,
+        wrapCount: 28,
+        font: 'dejavu',
+        anchor: 'center'
+      });
+
+      pageIndicator.textContent = `Pagina ${currentPage + 1} di ${totalPages}`;
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages - 1) {
+        animatePageTurn('next');
+        currentPage++;
+        setTimeout(() => {
+          updateBookDisplay();
+          autoSaveBookmark();
+        }, 300);
+      }
+    }
+
+    function previousPage() {
+      if (currentPage > 0) {
+        animatePageTurn('prev');
+        currentPage--;
+        setTimeout(() => {
+          updateBookDisplay();
+          autoSaveBookmark();
+        }, 300);
+      }
+    }
+
+    function animatePageTurn(direction) {
+      const turningPage = document.getElementById('turning-page');
+      turningPage.setAttribute('visible', true);
+
+      const startRotation = direction === 'next' ? '0 0 0' : '0 180 0';
+      const endRotation = direction === 'next' ? '0 180 0' : '0 0 0';
+
+      turningPage.setAttribute('animation', {
+        property: 'rotation',
+        from: startRotation,
+        to: endRotation,
+        dur: 500,
+        easing: 'easeInOutQuad'
+      });
+
+      setTimeout(() => {
+        turningPage.setAttribute('visible', false);
+        turningPage.removeAttribute('animation');
+      }, 500);
+
+      // Play page turn sound if available
+      const sound = document.getElementById('page-turn-sound');
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+      }
+    }
+
+    // Resume reading functions
+    let savedBookmarkPage = null;
+
+    function resumeReading() {
+      if (savedBookmarkPage !== null && savedBookmarkPage > 0) {
+        currentPage = savedBookmarkPage;
+        updateBookDisplay();
+      }
+      dismissResume();
+    }
+
+    function dismissResume() {
+      const banner = document.getElementById('resume-banner');
+      if (banner) {
+        banner.classList.remove('visible');
+      }
+    }
+
+    function checkForSavedBookmark() {
+      const savedPage = loadBookmark();
+      if (savedPage > 0) {
+        savedBookmarkPage = savedPage;
+        const banner = document.getElementById('resume-banner');
+        const resumeText = document.getElementById('resume-text');
+        if (banner && resumeText) {
+          resumeText.textContent = `Continua dalla pagina ${savedPage + 1}`;
+          banner.classList.add('visible');
+        }
+      }
+    }
+
+    // Auto-save bookmark on page change
+    function autoSaveBookmark() {
+      if (currentPage > 0) {
+        const bookmark = {
+          page: currentPage,
+          bookId: 'piccole-rime-001',
+          timestamp: Date.now(),
+          title: bookContent.title
+        };
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bookmark));
+      }
+    }
+
+    // VR button handlers
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hide loading screen
+      setTimeout(() => {
+        document.getElementById('loading-screen').classList.add('hidden');
+        // Check for saved bookmark after loading
+        checkForSavedBookmark();
+      }, 1500);
+
+      // Initialize book
+      updateBookDisplay();
+
+      // VR button click handlers
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const bookmarkBtn = document.getElementById('bookmark-btn');
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', previousPage);
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', nextPage);
+      }
+      if (bookmarkBtn) {
+        bookmarkBtn.addEventListener('click', saveBookmark);
+      }
+
+      // Keyboard controls
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'd') {
+          nextPage();
+        } else if (e.key === 'ArrowLeft' || e.key === 'a') {
+          previousPage();
+        }
+      });
+
+      // Quest controller buttons
+      const scene = document.querySelector('a-scene');
+      scene.addEventListener('triggerdown', (e) => {
+        // Right trigger = next page
+        if (e.target.id === 'rightHand') {
+          nextPage();
+        }
+        // Left trigger = previous page
+        else if (e.target.id === 'leftHand') {
+          previousPage();
+        }
+      });
+
+      // A/X button for next, B/Y for previous
+      scene.addEventListener('abuttondown', () => nextPage());
+      scene.addEventListener('xbuttondown', () => nextPage());
+      scene.addEventListener('bbuttondown', () => previousPage());
+      scene.addEventListener('ybuttondown', () => previousPage());
+
+      // Start ambient audio after user interaction
+      startAmbientAudio();
+    });
+
+    // Audio Manager
+    let currentAmbient = 'fire';
+    let ambientVolume = 0.3;
+    const ambientSounds = ['fire', 'rain', 'forest', 'ocean'];
+
+    function startAmbientAudio() {
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+        audio.play().catch(() => {
+          // Autoplay blocked, will start on first interaction
+          document.addEventListener('click', () => {
+            audio.play().catch(() => {});
+          }, { once: true });
+        });
+      }
+    }
+
+    function stopAllAmbient() {
+      ambientSounds.forEach(name => {
+        const audio = document.getElementById(`${name}-ambient`);
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }
+
+    function switchAmbient(ambientName) {
+      if (!ambientSounds.includes(ambientName)) return;
+
+      stopAllAmbient();
+      currentAmbient = ambientName;
+
+      const audio = document.getElementById(`${ambientName}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+        audio.play().catch(() => {});
+      }
+    }
+
+    function setAmbientVolume(volume) {
+      ambientVolume = Math.max(0, Math.min(1, volume));
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        audio.volume = ambientVolume;
+      }
+    }
+
+    function toggleAmbient() {
+      const audio = document.getElementById(`${currentAmbient}-ambient`);
+      if (audio) {
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+        }
+      }
+    }
+
+    // Expose functions globally for UI
+    window.switchAmbient = switchAmbient;
+    window.setAmbientVolume = setAmbientVolume;
+    window.toggleAmbient = toggleAmbient;
+  </script>
+</body>
+</html>
