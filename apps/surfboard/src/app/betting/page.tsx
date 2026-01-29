@@ -451,46 +451,46 @@ export default function BettingDashboard() {
 
       <div className="relative z-10 p-4 md:p-8 max-w-[1600px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 via-cyan-500 to-emerald-500 p-[2px]">
-                <div className="w-full h-full rounded-2xl bg-[#0a0a0f] flex items-center justify-center">
-                  <Target className="w-6 h-6 text-cyan-400" />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 md:mb-8 gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
+            <div className="relative flex-shrink-0">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-purple-500 via-cyan-500 to-emerald-500 p-[2px]">
+                <div className="w-full h-full rounded-xl md:rounded-2xl bg-[#0a0a0f] flex items-center justify-center">
+                  <Target className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
                 </div>
               </div>
               <div className="absolute -bottom-1 -right-1">
                 <PulsingDot color="green" />
               </div>
             </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent">
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent truncate">
                 Trading Terminal
               </h1>
-              <p className="text-gray-500 text-sm">Kalshi • Polymarket • Live</p>
+              <p className="text-gray-500 text-xs sm:text-sm">Kalshi • Polymarket • Live</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 mt-4 md:mt-0">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap sm:flex-nowrap">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <PulsingDot color="green" label="Systems Online" />
             </div>
-            <span className="text-gray-500 text-xs font-mono">
+            <span className="text-gray-500 text-[10px] sm:text-xs font-mono">
               {lastRefresh.toLocaleTimeString()}
             </span>
             <button
               onClick={fetchData}
               disabled={isLoading}
-              className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,255,0.2)]"
+              className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,255,0.2)]"
             >
               <RefreshCw className={`w-4 h-4 text-cyan-400 transition-transform duration-500 ${isLoading ? 'animate-spin' : 'group-hover:rotate-180'}`} />
-              <span className="text-sm font-medium">Refresh</span>
+              <span className="text-xs sm:text-sm font-medium">Refresh</span>
             </button>
           </div>
         </div>
 
         {/* Main Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
           {/* BTC Card */}
           <GlassCard glowColor="orange" className="p-5">
             <div className="flex items-center justify-between mb-2">
@@ -705,255 +705,255 @@ export default function BettingDashboard() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
               {/* Win Rate */}
-              <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Win Rate</span>
+              <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.winRate} 
                   suffix="%"
                   decimals={1}
                   glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'}
-                  className="text-2xl"
+                  className="text-xl sm:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
                   {tradingStats.wonTrades}W / {tradingStats.lostTrades}L
                 </p>
               </GlassCard>
 
               {/* Total PnL */}
-              <GlassCard glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <DollarSign className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Total PnL</span>
+              <GlassCard glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Total PnL</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.totalPnlCents / 100} 
                   prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
                   decimals={2}
                   glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">{tradingStats.totalTrades} trades</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.totalTrades} trades</p>
               </GlassCard>
 
               {/* Today PnL */}
-              <GlassCard glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Activity className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Today</span>
+              <GlassCard glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today</span>
                 </div>
                 <AnimatedNumber 
                   value={Math.abs(tradingStats.todayPnlCents / 100)} 
                   prefix={tradingStats.todayPnlCents >= 0 ? '+$' : '-$'}
                   decimals={2}
                   glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">{tradingStats.todayTrades} trades</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.todayTrades} trades</p>
               </GlassCard>
 
               {/* Today Win Rate */}
-              <GlassCard glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Today WR</span>
+              <GlassCard glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today WR</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.todayWinRate || 0} 
                   suffix="%"
                   decimals={1}
                   glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
               </GlassCard>
 
               {/* Avg Return Per Trade */}
-              <GlassCard glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Avg Return</span>
+              <GlassCard glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Avg Return</span>
                 </div>
                 <AnimatedNumber 
                   value={Math.abs((tradingStats.avgReturnCents ?? 0) / 100)} 
                   prefix={(tradingStats.avgReturnCents ?? 0) >= 0 ? '+$' : '-$'}
                   decimals={2}
                   glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">per trade avg</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">per trade avg</p>
               </GlassCard>
 
               {/* Profit Factor */}
-              <GlassCard glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <BarChart3 className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Profit Factor</span>
+              <GlassCard glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Profit Factor</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.profitFactor ?? 0} 
                   decimals={2}
                   glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {(tradingStats.profitFactor ?? 0) >= 1.5 ? 'strong' : (tradingStats.profitFactor ?? 0) >= 1 ? 'profitable' : 'needs work'}
                 </p>
               </GlassCard>
 
               {/* Sharpe Ratio */}
-              <GlassCard glowColor={(tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Sharpe Ratio</span>
+              <GlassCard glowColor={(tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Sharpe Ratio</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.sharpeRatio ?? 0} 
                   decimals={2}
                   glowColor={(tradingStats.sharpeRatio ?? 0) >= 1 ? 'green' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {(tradingStats.sharpeRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sharpeRatio ?? 0) >= 1 ? 'good' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'fair' : 'poor'}
                 </p>
               </GlassCard>
 
               {/* Sortino Ratio */}
-              <GlassCard glowColor={(tradingStats.sortinoRatio ?? 0) >= 1 ? 'green' : 'purple'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Sortino Ratio</span>
+              <GlassCard glowColor={(tradingStats.sortinoRatio ?? 0) >= 1 ? 'green' : 'purple'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Sortino Ratio</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.sortinoRatio ?? 0} 
                   decimals={2}
                   glowColor={(tradingStats.sortinoRatio ?? 0) >= 2 ? 'green' : (tradingStats.sortinoRatio ?? 0) >= 1 ? 'purple' : 'orange'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {(tradingStats.sortinoRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sortinoRatio ?? 0) >= 1 ? 'good' : (tradingStats.sortinoRatio ?? 0) > 0 ? 'fair' : 'n/a'}
                 </p>
               </GlassCard>
 
               {/* Max Drawdown */}
-              <GlassCard glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Max Drawdown</span>
+              <GlassCard glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Max Drawdown</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.maxDrawdownPercent ?? 0} 
                   suffix="%"
                   decimals={1}
                   glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 10 ? 'green' : (tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   ${((tradingStats.maxDrawdownCents ?? 0) / 100).toFixed(2)} from peak
                 </p>
               </GlassCard>
 
               {/* Calmar Ratio */}
-              <GlassCard glowColor={(tradingStats.calmarRatio ?? 0) >= 1 ? 'green' : 'orange'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Activity className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Calmar Ratio</span>
+              <GlassCard glowColor={(tradingStats.calmarRatio ?? 0) >= 1 ? 'green' : 'orange'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Calmar Ratio</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.calmarRatio ?? 0} 
                   decimals={2}
                   glowColor={(tradingStats.calmarRatio ?? 0) >= 3 ? 'green' : (tradingStats.calmarRatio ?? 0) >= 1 ? 'purple' : 'orange'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {(tradingStats.calmarRatio ?? 0) >= 3 ? 'excellent' : (tradingStats.calmarRatio ?? 0) >= 1 ? 'good' : (tradingStats.calmarRatio ?? 0) > 0 ? 'needs work' : 'n/a'}
                 </p>
               </GlassCard>
 
               {/* Pending */}
-              <GlassCard glowColor="cyan" className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <RefreshCw className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Pending</span>
+              <GlassCard glowColor="cyan" className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Pending</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.pendingTrades} 
                   decimals={0}
                   glowColor="cyan"
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">awaiting settlement</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">awaiting settlement</p>
               </GlassCard>
 
               {/* Avg Trade Duration */}
-              <GlassCard glowColor="purple" className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Avg Duration</span>
+              <GlassCard glowColor="purple" className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Avg Duration</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.avgTradeDurationHours ?? 0} 
                   suffix="h"
                   decimals={1}
                   glowColor="purple"
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {(tradingStats.avgTradeDurationHours ?? 0) < 1 ? 'short-term' : (tradingStats.avgTradeDurationHours ?? 0) < 4 ? 'medium-term' : 'longer holds'}
                 </p>
               </GlassCard>
 
               {/* Current Streak */}
-              <GlassCard glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'} className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Current Streak</span>
+              <GlassCard glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'} className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Current Streak</span>
                 </div>
                 <AnimatedNumber 
                   value={Math.abs(tradingStats.currentStreak ?? 0)} 
                   prefix={tradingStats.currentStreakType === 'win' ? '🔥 ' : tradingStats.currentStreakType === 'loss' ? '❄️ ' : ''}
                   decimals={0}
                   glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'}
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">
                   {tradingStats.currentStreakType === 'win' ? 'consecutive wins' : tradingStats.currentStreakType === 'loss' ? 'consecutive losses' : 'no streak'}
                 </p>
               </GlassCard>
 
               {/* Best Streak */}
-              <GlassCard glowColor="green" className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Best Streak</span>
+              <GlassCard glowColor="green" className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Best Streak</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.longestWinStreak ?? 0} 
                   prefix="🏆 "
                   decimals={0}
                   glowColor="green"
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">longest win streak</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">longest win streak</p>
               </GlassCard>
 
               {/* Worst Streak */}
-              <GlassCard glowColor="red" className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs font-medium">Worst Streak</span>
+              <GlassCard glowColor="red" className="p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Worst Streak</span>
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.longestLossStreak ?? 0} 
                   prefix="💀 "
                   decimals={0}
                   glowColor="red"
-                  className="text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
-                <p className="text-xs text-gray-600 mt-1">longest loss streak</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">longest loss streak</p>
               </GlassCard>
             </div>
 
@@ -1025,7 +1025,7 @@ export default function BettingDashboard() {
                   rel="noopener noreferrer"
                   className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
                 >
-                  <ExternalLink className="w-4 h-4 text-gray-400" />
+                  <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                 </a>
               </div>
 
@@ -1090,7 +1090,7 @@ export default function BettingDashboard() {
               <div className="flex flex-col items-center justify-center py-8 text-gray-400">
                 <Cpu className="w-10 h-10 mb-3 opacity-30" />
                 <p className="text-sm">Stats via iPhone mirroring only</p>
-                <p className="text-xs text-gray-600 mt-1">(No browser access per TOOLS.md rules)</p>
+                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">(No browser access per TOOLS.md rules)</p>
               </div>
             </GlassCard>
           </div>
