@@ -6,6 +6,27 @@
 
 ---
 
+## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:43)
+
+### [T413] Test Suite: Run 2x/day + Dashboard Integration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Far girare i test esistenti (tools/tech-support/) 2 volte al giorno e mostrare risultati su dashboard
+  - **Test esistenti:**
+    - `test-modifiche-website.py` - Test website changes
+    - Scripts deploy (deploy-onde-la.py, deploy-onde-surf.py, deploy-portal.py)
+  - **TODO:**
+    - [ ] Setup cron per run 2x/day (es: 09:00 e 21:00)
+    - [ ] Salvare risultati in formato JSON per dashboard
+    - [ ] Aggiungere sezione "Test Status" su onde.surf dashboard
+    - [ ] Alert se test fallisce
+  - **Dashboard**: onde.surf (apps/surfboard)
+
+---
+
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:36)
 
 ### [T412] VERIFICARE che logging memoria FUNZIONI DAVVERO
