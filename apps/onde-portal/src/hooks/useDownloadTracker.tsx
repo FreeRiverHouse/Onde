@@ -60,6 +60,22 @@ export function useDownloadTracker() {
     saveStats(currentStats)
     setStats(currentStats)
 
+    // Send to Google Analytics 4 if available
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      try {
+        // GA4 custom event for book downloads
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).gtag('event', 'book_download', {
+          book_id: bookId,
+          book_format: format,
+          event_category: 'engagement',
+          event_label: `${bookId}_${format}`,
+        })
+      } catch {
+        // Silently fail - analytics is optional
+      }
+    }
+
     // Send to Cloudflare Analytics if available (using navigator.sendBeacon)
     if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
       try {

@@ -49,6 +49,20 @@ export function useReadingList() {
       if (prev.items.some(item => item.bookId === bookId)) {
         return prev
       }
+      
+      // Track in GA4
+      if (typeof window !== 'undefined' && 'gtag' in window) {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (window as any).gtag('event', 'add_to_reading_list', {
+            book_id: bookId,
+            event_category: 'engagement',
+          })
+        } catch {
+          // Silently fail - analytics is optional
+        }
+      }
+      
       return {
         ...prev,
         items: [...prev.items, { bookId, addedAt: new Date().toISOString() }]

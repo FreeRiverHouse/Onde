@@ -2456,12 +2456,13 @@
 - **Notes**: Weekly script to compute average realized vol for BTC/ETH over past 30 days. Compare to BTC_HOURLY_VOL/ETH_HOURLY_VOL constants. Suggest adjustments if consistently off by >20%.
 
 ### [T378] GA4 custom events for book downloads
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T040]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track "book_download" event with book title, format (PDF/EPUB), language. Helps understand which books are popular and in what formats.
+- **Notes**: ✅ Implemented! Added GA4 events: 1) book_download (bookId, format) in useDownloadTracker.tsx, 2) book_preview (bookId, title) in BookPreviewModal.tsx, 3) add_to_reading_list (bookId) in useReadingList.ts. All use gtag() with event_category: 'engagement'. Silently fail if GA not loaded.
 
 ### [T379] Trading PnL daily goal tracker
 - **Status**: TODO
@@ -3559,4 +3560,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Monthly script to read memory/YYYY-MM-DD.md files 7-30 days old, extract key decisions/learnings via LLM or heuristics, append summary to MEMORY.md, then archive originals. Prevents important context from being lost during archival.
+
+### [T617] GA4 custom event for catalog search queries
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T378]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track "catalog_search" event with query string (anonymized), results count, language. Helps understand what books users look for. Add to catalogo page search handler.
+
+### [T618] Autotrader error rate tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T329]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Track API errors per hour (Kalshi, price feeds). Alert if error rate >10% in any hour. Script: analyze-error-rates.py. Use execution log from T329 + api call tracking. Helps identify infrastructure issues before they impact trading.
+
+### [T619] Settlement price accuracy validation
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T354]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Script to compare our settlement tracker prices (CoinGecko) with Kalshi's official settlement prices (from order history API). Calculate mean absolute error. If >0.5% difference, investigate and adjust. Critical for win/loss calculation accuracy.
 

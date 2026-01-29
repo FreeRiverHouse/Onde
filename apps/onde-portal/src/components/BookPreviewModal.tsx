@@ -42,6 +42,20 @@ export function BookPreviewModal({ isOpen, onClose, book }: BookPreviewModalProp
     setPreviewError(false)
     setCurrentPage(0)
     
+    // Track preview view in GA4
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).gtag('event', 'book_preview', {
+          book_id: book.id,
+          book_title: book.title,
+          event_category: 'engagement',
+        })
+      } catch {
+        // Silently fail - analytics is optional
+      }
+    }
+    
     // Check if preview images exist
     const checkPreviewImages = async () => {
       const images: string[] = [book.coverImage] // Always include cover
