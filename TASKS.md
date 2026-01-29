@@ -93,6 +93,46 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (15:15)
+
+### [T455] Add health alert history persistence to KV
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T453]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Store health alerts in Cloudflare KV for history tracking:
+  - Key: `health-alert-{timestamp}`
+  - Store: status, which services down, resolution time
+  - API endpoint: GET /api/health/alerts-history
+  - Show in /health page as timeline
+
+### [T456] Health dashboard: Add auto-refresh toggle
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T446]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: /health page improvements:
+  - Auto-refresh every 30s (toggleable)
+  - Last refresh timestamp display
+  - Manual refresh button with loading state
+  - Remember preference in localStorage
+
+### [T457] Autotrader: Add momentum divergence to trade decisions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T087]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use momentum divergence alerts in trade logic:
+  - Read recent divergence alerts from data/finetuning/
+  - Skip trades that conflict with divergence signals
+  - Higher confidence when divergence aligns with trade direction
+  - Log divergence_aligned: true/false in trade data
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (15:11)
 
 ### [T452] Add cron job for health-webhook-notifier.sh
@@ -106,15 +146,18 @@
   - Test with intentional site downtime
 
 ### [T453] Add Telegram integration to health webhook notifier
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T451]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Extend health-webhook-notifier.sh to support Telegram:
-  - Use Clawdbot message tool or direct Bot API
-  - TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID env vars
-  - Higher priority than Discord/Slack since Mattia uses Telegram
+- **Notes**: ✅ Implemented! Extended health-webhook-notifier.sh:
+  - Added Telegram Bot API support
+  - Env vars: TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
+  - HTML parse mode for better formatting
+  - Response validation with error logging
+  - Works alongside Discord/Slack (can use all three)
 
 ### [T454] Create alert history dashboard widget
 - **Status**: TODO

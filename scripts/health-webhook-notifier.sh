@@ -67,6 +67,28 @@ if [ -n "$SLACK_WEBHOOK" ]; then
     echo "Sent Slack alert"
 fi
 
+# Send to Telegram (if configured)
+TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"
+TELEGRAM_CHAT_ID="${TELEGRAM_CHAT_ID:-}"
+if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+    # Format message for Telegram (escape special chars)
+    TG_MSG=$(echo -e "$ALERT_MSG" | sed 's/"/\\"/g')
+    
+    # Send via Telegram Bot API
+    TG_RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+        -H "Content-Type: application/json" \
+        -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"${TG_MSG}\", \"parse_mode\": \"HTML\"}")
+    
+    # Check if send was successful
+    TG_OK=$(echo "$TG_RESPONSE" | jq -r '.ok // false')
+    if [ "$TG_OK" = "true" ]; then
+        echo "Sent Telegram alert to chat $TELEGRAM_CHAT_ID"
+    else
+        TG_ERROR=$(echo "$TG_RESPONSE" | jq -r '.description // "Unknown error"')
+        echo "Telegram send failed: $TG_ERROR"
+    fi
+fi
+
 # Create alert file for heartbeat pickup
 ALERT_FILE="$SCRIPT_DIR/health-critical.alert"
 echo -e "$ALERT_MSG" > "$ALERT_FILE"
