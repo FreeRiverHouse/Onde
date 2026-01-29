@@ -2,7 +2,7 @@
 
 export const runtime = 'edge';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { 
   ArrowLeft,
   ArrowRight,
@@ -16,7 +16,8 @@ import {
   X,
   DollarSign,
   BarChart2,
-  Percent
+  Percent,
+  Keyboard
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -71,6 +72,88 @@ export default function TradeHistoryPage() {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Keyboard navigation
+  const [selectedRow, setSelectedRow] = useState(-1);
+  const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
+  const tableRef = useRef<HTMLTableSectionElement>(null);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLSelectElement) return;
+      
+      const tradesCount = data?.trades.length ?? 0;
+      
+      switch (e.key) {
+        case 'j': // Next row
+          e.preventDefault();
+          setSelectedRow(prev => Math.min(prev + 1, tradesCount - 1));
+          break;
+        case 'k': // Previous row
+          e.preventDefault();
+          setSelectedRow(prev => Math.max(prev - 1, 0));
+          break;
+        case 'g': // Go to first row
+          if (e.shiftKey) {
+            e.preventDefault();
+            setSelectedRow(tradesCount - 1); // G = last
+          } else {
+            e.preventDefault();
+            setSelectedRow(0); // g = first
+          }
+          break;
+        case 'ArrowLeft':
+        case 'h': // Previous page
+          if (data?.pagination.hasPrev) {
+            e.preventDefault();
+            setPage(p => Math.max(1, p - 1));
+            setSelectedRow(-1);
+          }
+          break;
+        case 'ArrowRight':
+        case 'l': // Next page
+          if (data?.pagination.hasNext) {
+            e.preventDefault();
+            setPage(p => p + 1);
+            setSelectedRow(-1);
+          }
+          break;
+        case 'r': // Refresh
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            fetchTrades();
+          }
+          break;
+        case 'f': // Toggle filters
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            setShowFilters(prev => !prev);
+          }
+          break;
+        case '?': // Show help
+          e.preventDefault();
+          setShowKeyboardHelp(prev => !prev);
+          break;
+        case 'Escape':
+          setSelectedRow(-1);
+          setShowKeyboardHelp(false);
+          break;
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [data, fetchTrades]);
+
+  // Scroll selected row into view
+  useEffect(() => {
+    if (selectedRow >= 0 && tableRef.current) {
+      const row = tableRef.current.children[selectedRow] as HTMLElement;
+      row?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [selectedRow]);
 
   const fetchTrades = useCallback(async () => {
     setLoading(true);
@@ -307,8 +390,16 @@ export default function TradeHistoryPage() {
               onClick={fetchTrades}
               disabled={loading}
               className="p-2 bg-gray-700 hover:bg-gray-600 rounded transition disabled:opacity-50"
+              title="Refresh (r)"
             >
               <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
+            </button>
+            <button
+              onClick={() => setShowKeyboardHelp(true)}
+              className="p-2 bg-gray-700 hover:bg-gray-600 rounded transition"
+              title="Keyboard shortcuts (?)"
+            >
+              <Keyboard size={18} />
             </button>
           </div>
         </div>
@@ -506,11 +597,16 @@ export default function TradeHistoryPage() {
                     <th className="pb-3 font-medium text-right">PnL</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody ref={tableRef}>
                   {data?.trades.map((trade, i) => (
                     <tr 
                       key={`${trade.timestamp}-${i}`}
-                      className="border-b border-gray-800 hover:bg-gray-800/50 transition"
+                      className={`border-b border-gray-800 transition cursor-pointer ${
+                        selectedRow === i 
+                          ? 'bg-blue-900/30 ring-1 ring-blue-500/50' 
+                          : 'hover:bg-gray-800/50'
+                      }`}
+                      onClick={() => setSelectedRow(i)}
                     >
                       <td className="py-3 text-sm">
                         <span className="text-gray-300">{formatTime(trade.timestamp)}</span>
@@ -598,6 +694,89 @@ export default function TradeHistoryPage() {
           </>
         )}
       </main>
+
+      {/* Keyboard Shortcuts Modal */}
+      {showKeyboardHelp && (
+        <div 
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+          onClick={() => setShowKeyboardHelp(false)}
+        >
+          <div 
+            className="bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold flex items-center gap-2">
+                <Keyboard size={20} /> Keyboard Shortcuts
+              </h2>
+              <button 
+                onClick={() => setShowKeyboardHelp(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="space-y-3 text-sm">
+              <div className="font-medium text-gray-400 mt-2">Navigation</div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Next row</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">j</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Previous row</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">k</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">First row</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">g</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Last row</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">G</kbd>
+              </div>
+              
+              <div className="font-medium text-gray-400 mt-4">Pagination</div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Previous page</span>
+                <div className="flex gap-1">
+                  <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">←</kbd>
+                  <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">h</kbd>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Next page</span>
+                <div className="flex gap-1">
+                  <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">→</kbd>
+                  <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">l</kbd>
+                </div>
+              </div>
+              
+              <div className="font-medium text-gray-400 mt-4">Actions</div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Refresh</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">r</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Toggle filters</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">f</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Show shortcuts</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">?</kbd>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-300">Clear selection / Close</span>
+                <kbd className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono">Esc</kbd>
+              </div>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-gray-700 text-xs text-gray-500 text-center">
+              Press <kbd className="bg-gray-700 px-1.5 py-0.5 rounded font-mono">Esc</kbd> to close
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

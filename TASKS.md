@@ -2127,8 +2127,8 @@
 - **Notes**: ✅ Added From/To date pickers to /trading/history filters. Uses native date inputs. Auto-resets to page 1 when dates change. Clear button resets dates too. Styled consistent with existing filters.
 
 ### [T341] Keyboard navigation for trade history table
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T096]
 - **Blocks**: -
 - **Priority**: P3
