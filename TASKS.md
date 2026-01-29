@@ -984,12 +984,13 @@
 - **Notes**: ✅ Script: cleanup-stale-alerts.sh. Removes alert files >24h old. Cron every 6h. Checks all 6 alert types.
 
 ### [T253] Win rate by market type (hourly vs daily)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if hourly contracts (KXBTCD) have different win rate than longer-term. Might inform which markets to focus on.
+- **Notes**: ✅ Script: analyze-market-types.py. Analyzes by asset (BTC/ETH), trading session, side (YES/NO), and hour UTC. V1 data: 0% WR (broken model). V2 awaiting trades.
 
 ### [T254] Dashboard last heartbeat timestamp
 - **Status**: DONE
@@ -1154,12 +1155,12 @@
 - **Notes**: ✅ Modified verify-deployment-content.sh to check if playwright module exists before using it. Falls back gracefully with warning. curl check is sufficient for verification.
 
 ### [T272] Add autotrader v2 trade count to /health page
-- **Status**: TODO
+- **Status**: BLOCKED
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show total trades count and today's trade count on /health dashboard. Read from kalshi-trades-v2.jsonl.
+- **Notes**: ⏸️ Blocked: Static export to Cloudflare Pages cannot access local files at runtime. Needs server deployment or external API (GitHub API to read from repo, or dedicated monitoring endpoint).
 
 ### [T273] Profit factor calculation in trading stats
 - **Status**: DONE
