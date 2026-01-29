@@ -11,6 +11,7 @@
 - `scripts/kalshi-autotrader-crash.alert` → Se esiste, URGENTE! Autotrader crashato. Manda alert, poi elimina
 - `scripts/watchdog-stale.alert` → Se esiste, watchdog cron non funziona! Manda alert, poi elimina
 - `scripts/kalshi-weekly-report.alert` → Se esiste, weekly report PDF pronto. Manda notifica, poi elimina
+- `scripts/kalshi-stop-loss.alert` → Se esiste, STOP-LOSS eseguito! Leggi message dal JSON, manda a Mattia, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

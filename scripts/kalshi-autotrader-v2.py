@@ -458,6 +458,7 @@ def sell_position(ticker: str, side: str, count: int, price_cents: int = None) -
 STOP_LOSS_THRESHOLD = 0.50  # Exit if position value drops 50% (e.g., from 30c to 15c)
 MIN_STOP_LOSS_VALUE = 5     # Don't bother exiting positions worth less than 5 cents
 STOP_LOSS_LOG_FILE = "scripts/kalshi-stop-loss.log"
+STOP_LOSS_ALERT_FILE = Path(__file__).parent / "kalshi-stop-loss.alert"
 
 
 def check_stop_losses(positions: list, prices: dict) -> list:
@@ -597,6 +598,9 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
                 "loss_pct": loss_pct,
                 "order_status": order.get("status")
             })
+            
+            # Write Telegram alert file for heartbeat to pick up
+            write_stop_loss_alert(ticker, side, contracts, entry, current, loss_pct)
     
     return exited
 
@@ -609,6 +613,42 @@ def log_stop_loss(data: dict):
     
     # Also log to main trade file
     log_trade(data)
+
+
+def write_stop_loss_alert(ticker: str, side: str, contracts: int, 
+                          entry_price: float, exit_price: float, loss_pct: float):
+    """
+    Write stop-loss alert file for heartbeat to pick up and send to Telegram.
+    Includes ticker, position info, and loss amount.
+    """
+    # Calculate loss in cents
+    loss_cents = (entry_price - exit_price) * contracts
+    
+    # Determine asset from ticker
+    asset = "ETH" if "KXETHD" in ticker else "BTC"
+    
+    alert_content = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "stop_loss",
+        "ticker": ticker,
+        "asset": asset,
+        "side": side.upper(),
+        "contracts": contracts,
+        "entry_price_cents": entry_price,
+        "exit_price_cents": exit_price,
+        "loss_pct": round(loss_pct, 1),
+        "loss_cents": round(loss_cents, 2),
+        "message": f"🚨 STOP-LOSS TRIGGERED\n\n"
+                   f"Ticker: {ticker}\n"
+                   f"Side: {side.upper()} | Contracts: {contracts}\n"
+                   f"Entry: {entry_price:.0f}¢ → Exit: {exit_price:.0f}¢\n"
+                   f"Loss: {loss_pct:.1f}% (${loss_cents/100:.2f})"
+    }
+    
+    with open(STOP_LOSS_ALERT_FILE, "w") as f:
+        json.dump(alert_content, f, indent=2)
+    
+    print(f"📢 Alert file written: {STOP_LOSS_ALERT_FILE}")
 
 
 # ============== EXTERNAL DATA ==============

@@ -849,12 +849,13 @@
 - **Notes**: Creare versione USA di ChiedIAlo. Personaggi: Editore Capo + Pina Pennello per illustrazioni. Creare design personaggi.
 
 ### [T239] Stop-loss Telegram notification
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T234]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Send Telegram alert when stop-loss triggers. Include ticker, entry/exit price, and loss amount.
+- **Notes**: ✅ Added write_stop_loss_alert() to autotrader-v2. Creates kalshi-stop-loss.alert with JSON payload (ticker, side, entry/exit price, loss %). HEARTBEAT.md updated to check and forward to Telegram.
 
 ### [T240] Stop-loss performance tracking
 - **Status**: TODO
@@ -906,7 +907,31 @@
 - **Priority**: P2
 - **Notes**: ✅ Fixed "Bet too small" bug. Was selecting 100¢ NO contracts with no profit potential. Now skips prices ≤5¢ or ≥95¢ (bad risk/reward).
 
+### [T246] Multi-exchange price feeds (Binance + CoinGecko + Coinbase)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Average prices from multiple exchanges for more accurate probability calculations. Reduces risk of single-source price manipulation or API lag.
+
+### [T247] Daily stop-loss stats summary in report
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T239], [T085]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include stop-loss stats in daily report: count triggered, total loss prevented vs if held, average loss %. Helps evaluate stop-loss threshold tuning.
+
+### [T248] Position sizing analysis (Kelly effectiveness tracking)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track actual bet sizes vs theoretical Kelly optimal. Compare win rates and PnL at different position sizes to optimize KELLY_FRACTION.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:03 PST*
+*Ultimo aggiornamento: 2026-01-29 17:25 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
