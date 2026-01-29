@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var transcriptionManager = TranscriptionManager.shared
+    @StateObject private var overlayManager = OverlayManager.shared
     
     private let languages = [
         ("auto", "Auto-detect"),
@@ -44,7 +45,37 @@ struct SettingsView: View {
                 .pickerStyle(.menu)
             }
             
-            Section("Keyboard Shortcut") {
+            Section("Overlay") {
+                Toggle("Show Overlay", isOn: Binding(
+                    get: { overlayManager.isOverlayVisible },
+                    set: { if $0 { overlayManager.showOverlay() } else { overlayManager.hideOverlay() } }
+                ))
+                
+                Picker("Position", selection: Binding(
+                    get: { overlayManager.overlayPosition },
+                    set: { overlayManager.updatePosition($0) }
+                )) {
+                    ForEach(OverlayManager.OverlayPosition.allCases, id: \.self) { position in
+                        Text(position.rawValue).tag(position)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .disabled(!overlayManager.isOverlayVisible)
+                
+                VStack(alignment: .leading) {
+                    Text("Background Opacity: \(Int(overlayManager.overlayOpacity * 100))%")
+                    Slider(
+                        value: Binding(
+                            get: { overlayManager.overlayOpacity },
+                            set: { overlayManager.updateOpacity($0) }
+                        ),
+                        in: 0.3...1.0,
+                        step: 0.1
+                    )
+                }
+            }
+            
+            Section("Keyboard Shortcuts") {
                 HStack {
                     Text("Toggle Recording")
                     Spacer()
@@ -76,7 +107,7 @@ struct SettingsView: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 350)
+        .frame(width: 400, height: 480)
     }
 }
 

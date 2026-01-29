@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T21:30:02.091532+00:00",
+  "timestamp": "2026-01-29T22:00:01.338679+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,34 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Google Brings Agentic Browsing to Chrome\u2014And It's Not Playing Nice With Competitors",
+      "url": "https://decrypt.co/356344/google-agentic-browsing-chrome-not-playing-nice-competitors",
+      "source": "decrypt",
+      "description": "Google has integrated Gemini 3 into Chrome with agentic capabilities, joining OpenAI and Anthropic in the race to automate web browsing.",
+      "published": "2026-01-29T21:53:33+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-01-29T21:52:00+00:00"
+    },
+    {
+      "title": "21Shares launches first Jito staked Solana ETP in Europe",
+      "url": "https://cointelegraph.com/news/21shares-first-jito-staked-solana-etp-europe?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The product offers exchange-traded exposure to JitoSOL with staking rewards embedded, as liquid staking ETFs remain under review in the United States.",
+      "published": "2026-01-29T21:48:31+00:00"
+    },
+    {
+      "title": "Bitcoin Plunge Could Get Much Worse as Death Cross Gains Power",
+      "url": "https://decrypt.co/356391/bitcoin-plunge-could-get-much-worse-death-cross-gains-power",
+      "source": "decrypt",
+      "description": "Bitcoin's technical setup is turning ugly, as the charts suggest bulls might want to buckle up for more pain ahead.",
+      "published": "2026-01-29T21:34:38+00:00"
+    },
     {
       "title": "SEC Chair Atkins Walks Back Timeline for Crypto Innovation Exemptions",
       "url": "https://decrypt.co/356386/sec-chair-atkins-walks-back-timeline-crypto-innovation-exemptions",
@@ -137,20 +165,6 @@
       "published": "2026-01-29T17:00:27+00:00"
     },
     {
-      "title": "Bitcoin Hits 2-Month Low as Gold and Stocks Give Up Gains, Crypto Liquidations Top $800M",
-      "url": "https://decrypt.co/356330/bitcoin-2-month-low-gold-stocks-give-up-gains-crypto-liquidations-800m",
-      "source": "decrypt",
-      "description": "Bitcoin plunged to a two-month low Thursday as risk-on assets broadly fell\u2014and even gold and silver gave up earlier gains.",
-      "published": "2026-01-29T16:31:47+00:00"
-    },
-    {
-      "title": "Bybit to Launch 'My Bank' Feature for IBAN Fiat-Crypto Transfers in February",
-      "url": "https://decrypt.co/356323/bybit-to-launch-my-bank-feature-for-iban-fiat-crypto-transfers-in-february",
-      "source": "decrypt",
-      "description": "The \u201cretail banking product\u201d aims to eliminate the friction that consumers experience when trying to send funds to crypto exchanges.",
-      "published": "2026-01-29T16:03:09+00:00"
-    },
-    {
       "title": "Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst\u00a0",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-5-to-85k",
       "source": "bitcoinmagazine",
@@ -172,25 +186,11 @@
       "published": "2026-01-29T14:50:07+00:00"
     },
     {
-      "title": "DePIN rebounds into a $10B overlooked sector, Messari says",
-      "url": "https://cointelegraph.com/news/depin-revenues-grow-despite-token-losses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "DePIN\u2019s \u201cdeath\u201d narrative hides a market that\u2019s quietly compounding revenues, as Messari\u2019s new report pegs the sector at $10 billion with growing real\u2011world usage and cash flow.",
-      "published": "2026-01-29T14:44:14+00:00"
-    },
-    {
       "title": "Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation",
       "url": "https://bitcoinmagazine.com/news/russia-to-roll-out-bitcoin-and-crypto",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation Russia wants to introduce its first regulatory framework for crypto like Bitcoin, with lawmakers aiming to finalize the draft for a parliamentary vote by the end of June. This post Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T14:26:35+00:00"
-    },
-    {
-      "title": "Fintech Dakota wants enterprises to treat money like software",
-      "url": "https://cointelegraph.com/news/fintech-dakota-stablecoin-programmable-money-software?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The platform enables enterprises to use programmable stablecoins for payments and treasury while outsourcing custody, compliance and settlement.",
-      "published": "2026-01-29T14:14:05+00:00"
     },
     {
       "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",

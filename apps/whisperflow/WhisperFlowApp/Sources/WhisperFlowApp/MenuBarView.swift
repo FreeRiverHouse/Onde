@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuBarView: View {
     @EnvironmentObject var transcriptionManager: TranscriptionManager
+    @StateObject private var overlayManager = OverlayManager.shared
     @State private var isHovering = false
     
     var body: some View {
@@ -71,6 +72,24 @@ struct MenuBarView: View {
                     .background(transcriptionManager.isRecording ? Color.red : Color.accentColor)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+                
+                // Overlay toggle button
+                Button(action: { overlayManager.toggleOverlay() }) {
+                    HStack {
+                        Image(systemName: overlayManager.isOverlayVisible ? "rectangle.on.rectangle.slash" : "rectangle.on.rectangle")
+                            .font(.system(size: 16))
+                        
+                        Text(overlayManager.isOverlayVisible ? "Hide Overlay" : "Show Overlay")
+                            .fontWeight(.medium)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(overlayManager.isOverlayVisible ? Color.orange : Color.secondary.opacity(0.2))
+                    .foregroundColor(overlayManager.isOverlayVisible ? .white : .primary)
+                    .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
                 .padding(.horizontal)

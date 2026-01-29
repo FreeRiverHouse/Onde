@@ -284,12 +284,25 @@
   - Works even when app is in background
 
 ### [T436] WhisperFlow: Add text overlay mode
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Floating overlay window that shows transcription in real-time. Position adjustable, semi-transparent background.
+- **Notes**: ✅ Floating overlay implemented!
+  - **OverlayWindow.swift**: NSPanel-based floating window (stays on top, all spaces)
+  - **OverlayView.swift**: Semi-transparent HUD with live transcription
+  - **Features:**
+    - Draggable position (click and drag anywhere)
+    - Position presets: Top or Bottom of screen
+    - Adjustable opacity (30%-100%)
+    - Recording indicator with pulse animation
+    - Copy to clipboard on hover
+    - Shows last 200 chars of transcription
+    - Hotkey hint when idle
+  - **Settings**: Position picker + opacity slider in Settings panel
+  - **Toggle**: Button in menu bar popover
 
 ### [T437] WhisperFlow: Launch at Login option
 - **Status**: TODO
