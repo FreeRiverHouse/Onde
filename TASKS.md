@@ -384,34 +384,40 @@
   - Next: Implement weather market support (T422, T423)
 
 ### [T422] Add weather markets to autotrader (KXNYC, KXMIA, KXDEN)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T408]
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Based on PredictionArena research - weather markets have REAL edge!
+- **Notes**: ✅ FULLY INTEGRATED! Based on PredictionArena research - weather markets have REAL edge!
   - ✅ **Module created**: `scripts/nws-weather-forecast.py`
   - ✅ **NWS API integration**: Fetches forecasts for NYC, MIA, DEN, CHI, LAX, HOU, AUS, PHI, SFO
   - ✅ **Probability model**: Normal distribution with forecast ±2-3°F uncertainty
   - ✅ **Edge calculator**: Compares our probabilities vs Kalshi prices
   - ✅ **Finding real edges**: Jan 30 NYC markets showing 15-25% edges!
-  - **TODO**: Integrate into main autotrader (kalshi-autotrader-v2.py)
-  - **TODO**: Add weather-specific position sizing
-  - **TODO**: Filter by time-to-settlement (<48h best)
+  - ✅ **Integrated into autotrader**: `kalshi-autotrader-v2.py` now scans weather markets
+  - ✅ **Weather-specific Kelly**: 8% Kelly (higher than crypto - NWS forecasts reliable)
+  - ✅ **Time filter**: Only trades <48h to settlement (highest NWS accuracy)
+  - ✅ **Cities**: NYC, MIA, DEN, CHI enabled (configurable via WEATHER_CITIES)
+  - Edge source: NWS forecast accuracy + favorite-longshot bias
 
 ### [T423] Implement NWS weather forecast integration
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T422]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Fetch official NWS forecasts for weather market trading
-  - API: api.weather.gov (free, no key needed)
-  - NYC: Central Park station
-  - Miami: Miami International Airport
-  - Denver: Denver International Airport
-  - Parse high/low temp forecasts
-  - Settlement uses OFFICIAL NWS Climatological Reports
+- **Notes**: ✅ MERGED INTO T422! All NWS integration completed:
+  - ✅ API: api.weather.gov (free, no key needed)
+  - ✅ NYC: Central Park station
+  - ✅ Miami: Miami International Airport
+  - ✅ Denver: Denver International Airport
+  - ✅ Parse high/low temp forecasts
+  - ✅ Settlement uses OFFICIAL NWS Climatological Reports
+  - ✅ 30-min cache to reduce API calls
+  - See T422 for full implementation details
 
 ### [T410] Monitorare altre piattaforme AI prediction markets
 - **Status**: TODO
