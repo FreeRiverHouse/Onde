@@ -1756,12 +1756,13 @@
 - **Notes**: ✅ Added "View All Trades" link with arrow icon below Recent Trades grid. Links to /trading/history. Styled consistently with glass design.
 
 ### [T340] Date range picker for trade history
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T096]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add from/to date picker to /trading/history filters. Uses ?from=YYYY-MM-DD&to=YYYY-MM-DD params already supported by API.
+- **Notes**: ✅ Added From/To date pickers to /trading/history filters. Uses native date inputs. Auto-resets to page 1 when dates change. Clear button resets dates too. Styled consistent with existing filters.
 
 ### [T341] Keyboard navigation for trade history table
 - **Status**: TODO

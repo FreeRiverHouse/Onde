@@ -63,6 +63,8 @@ export default function TradeHistoryPage() {
   const [resultFilter, setResultFilter] = useState('all');
   const [assetFilter, setAssetFilter] = useState('all');
   const [sideFilter, setSideFilter] = useState('all');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [showFilters, setShowFilters] = useState(false);
 
   const fetchTrades = useCallback(async () => {
@@ -76,6 +78,8 @@ export default function TradeHistoryPage() {
       if (resultFilter !== 'all') params.append('result', resultFilter);
       if (assetFilter !== 'all') params.append('asset', assetFilter);
       if (sideFilter !== 'all') params.append('side', sideFilter);
+      if (fromDate) params.append('from', fromDate);
+      if (toDate) params.append('to', toDate);
       
       const response = await fetch(`/api/trading/history?${params}`);
       if (!response.ok) throw new Error('Failed to fetch trades');
@@ -88,7 +92,7 @@ export default function TradeHistoryPage() {
     } finally {
       setLoading(false);
     }
-  }, [page, limit, resultFilter, assetFilter, sideFilter]);
+  }, [page, limit, resultFilter, assetFilter, sideFilter, fromDate, toDate]);
 
   useEffect(() => {
     fetchTrades();
@@ -97,7 +101,7 @@ export default function TradeHistoryPage() {
   // Reset to page 1 when filters change
   useEffect(() => {
     setPage(1);
-  }, [resultFilter, assetFilter, sideFilter]);
+  }, [resultFilter, assetFilter, sideFilter, fromDate, toDate]);
 
   const handleExportCSV = () => {
     if (!data?.trades.length) return;
@@ -226,12 +230,34 @@ export default function TradeHistoryPage() {
                 </select>
               </div>
               
-              {(resultFilter !== 'all' || assetFilter !== 'all' || sideFilter !== 'all') && (
+              <div className="flex items-center gap-2">
+                <label className="text-sm text-gray-400">From:</label>
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                  className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm"
+                />
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <label className="text-sm text-gray-400">To:</label>
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                  className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm"
+                />
+              </div>
+              
+              {(resultFilter !== 'all' || assetFilter !== 'all' || sideFilter !== 'all' || fromDate || toDate) && (
                 <button
                   onClick={() => {
                     setResultFilter('all');
                     setAssetFilter('all');
                     setSideFilter('all');
+                    setFromDate('');
+                    setToDate('');
                   }}
                   className="flex items-center gap-1 text-sm text-gray-400 hover:text-white"
                 >
