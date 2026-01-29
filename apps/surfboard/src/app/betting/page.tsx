@@ -607,24 +607,47 @@ export default function BettingDashboard() {
                         <p className="text-xs text-gray-600">${asset.currentPrice.toLocaleString()}</p>
                       </div>
                     </div>
-                    <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${
-                      asset.signal === 'bullish' 
-                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
-                        : asset.signal === 'bearish'
-                        ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                        : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                    }`}>
-                      {asset.signal === 'bullish' ? (
-                        <TrendingUp className="w-4 h-4" />
-                      ) : asset.signal === 'bearish' ? (
-                        <TrendingDown className="w-4 h-4" />
-                      ) : (
-                        <span>→</span>
-                      )}
-                      <span className="capitalize">{asset.signal}</span>
-                      {asset.strength !== 'weak' && (
-                        <span className="opacity-60">({asset.strength})</span>
-                      )}
+                    <div className="flex items-center gap-2">
+                      {/* Signal Strength Bars */}
+                      <div className="flex items-end gap-0.5 h-4" title={`Strength: ${asset.strength}`}>
+                        <div className={`w-1 rounded-full transition-all ${
+                          asset.strength !== 'weak' && asset.strength !== 'moderate' && asset.strength !== 'strong' ? 'h-1.5 bg-gray-600' :
+                          asset.signal === 'bullish' ? 'h-1.5 bg-emerald-400' :
+                          asset.signal === 'bearish' ? 'h-1.5 bg-red-400' :
+                          'h-1.5 bg-gray-500'
+                        }`} />
+                        <div className={`w-1 rounded-full transition-all ${
+                          asset.strength === 'moderate' || asset.strength === 'strong'
+                            ? asset.signal === 'bullish' ? 'h-2.5 bg-emerald-400' :
+                              asset.signal === 'bearish' ? 'h-2.5 bg-red-400' :
+                              'h-2.5 bg-gray-500'
+                            : 'h-2.5 bg-gray-700'
+                        }`} />
+                        <div className={`w-1 rounded-full transition-all ${
+                          asset.strength === 'strong'
+                            ? asset.signal === 'bullish' ? 'h-3.5 bg-emerald-400' :
+                              asset.signal === 'bearish' ? 'h-3.5 bg-red-400' :
+                              'h-3.5 bg-gray-500'
+                            : 'h-3.5 bg-gray-700'
+                        }`} />
+                      </div>
+                      {/* Signal Badge */}
+                      <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${
+                        asset.signal === 'bullish' 
+                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                          : asset.signal === 'bearish'
+                          ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                      }`}>
+                        {asset.signal === 'bullish' ? (
+                          <TrendingUp className="w-4 h-4" />
+                        ) : asset.signal === 'bearish' ? (
+                          <TrendingDown className="w-4 h-4" />
+                        ) : (
+                          <span>→</span>
+                        )}
+                        <span className="capitalize">{asset.signal}</span>
+                      </div>
                     </div>
                   </div>
                   

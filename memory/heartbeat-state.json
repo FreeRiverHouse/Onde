@@ -1,6 +1,9 @@
 {
-  "lastHeartbeat": "2026-01-29T01:18:40Z",
-  "lastHeartbeatEpoch": 1769649520,
-  "host": "FRH-M1-PRO.local",
-  "lastChecks": {"trading": 1738000000, "memory": 1738000000, "calendar": null, "weather": null}
+  "lastChecks": {
+    "autotrader": 1738118535,
+    "alerts": 1738118535,
+    "tasks": 1738118535
+  },
+  "lastTaskCompleted": "T259",
+  "lastHeartbeat": "2026-01-28T18:42:15-08:00"
 }
