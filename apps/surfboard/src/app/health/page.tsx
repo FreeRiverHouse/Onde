@@ -144,6 +144,49 @@ function ServiceCard({ service }: { service: ServiceHealth }) {
   )
 }
 
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
+}
+
+function StorageCard({ 
+  label, 
+  icon, 
+  getSize, 
+  getCount 
+}: { 
+  label: string
+  icon: string
+  getSize: () => number
+  getCount: () => number
+}) {
+  const [size, setSize] = useState(0)
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    try {
+      setSize(getSize())
+      setCount(getCount())
+    } catch {
+      // Storage may not be available
+    }
+  }, [getSize, getCount])
+  
+  return (
+    <div className="bg-white/5 rounded-xl p-4">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-lg">{icon}</span>
+        <span className="text-sm text-white/60">{label}</span>
+      </div>
+      <div className="flex items-end justify-between">
+        <div className="text-xl font-mono text-white">{formatBytes(size * 2)}</div>
+        <div className="text-xs text-white/40">{count} items</div>
+      </div>
+    </div>
+  )
+}
+
 function OverallStatus({ data }: { data: HealthData | null }) {
   const status = data?.overall || 'checking'
   const config = STATUS_CONFIG[status]
@@ -317,6 +360,49 @@ export default function HealthPage() {
           ))}
         </div>
         
+        {/* Browser Storage Section */}
+        <div className="mt-8 p-6 rounded-2xl border border-white/10 bg-white/5">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            💾 Browser Storage
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <StorageCard 
+              label="LocalStorage" 
+              icon="📦"
+              getSize={() => {
+                let size = 0
+                for (const key in localStorage) {
+                  if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
+                    size += localStorage.getItem(key)?.length || 0
+                  }
+                }
+                return size
+              }}
+              getCount={() => Object.keys(localStorage).length}
+            />
+            <StorageCard 
+              label="SessionStorage" 
+              icon="⏱️"
+              getSize={() => {
+                let size = 0
+                for (const key in sessionStorage) {
+                  if (Object.prototype.hasOwnProperty.call(sessionStorage, key)) {
+                    size += sessionStorage.getItem(key)?.length || 0
+                  }
+                }
+                return size
+              }}
+              getCount={() => Object.keys(sessionStorage).length}
+            />
+            <StorageCard 
+              label="Cookies" 
+              icon="🍪"
+              getSize={() => document.cookie.length}
+              getCount={() => document.cookie ? document.cookie.split(';').length : 0}
+            />
+          </div>
+        </div>
+
         {/* Timezone Info Section */}
         <div className="mt-8 p-4 rounded-2xl border border-white/10 bg-white/5">
           <div className="flex flex-wrap items-center justify-between gap-4">

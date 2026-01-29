@@ -1972,12 +1972,13 @@
 - **Notes**: ✅ Added! Uses web-vitals library. Shows CLS, FCP, INP, LCP, TTFB with color-coded ratings (good/needs-improvement/poor) per Google's thresholds. Grid layout, auto-updates as metrics become available.
 
 ### [T325] Browser storage breakdown (cookies, localStorage, sessionStorage)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T323]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend /health network section to show breakdown of browser storage usage by type.
+- **Notes**: ✅ Added Browser Storage section to /health page. Shows localStorage, sessionStorage, cookies with size (formatted bytes) and item count. StorageCard component with emoji icons.
 
 ### [T326] SW update button when waiting version available
 - **Status**: DONE
