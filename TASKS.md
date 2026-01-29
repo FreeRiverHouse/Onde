@@ -1531,6 +1531,30 @@
 - **Priority**: P3
 - **Notes**: Use ElevenLabs/TTS to announce major events: circuit breaker triggered, big win/loss, regime change. Optional Telegram voice message delivery.
 
+### [T315] Light/dark mode toggle for trading dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add theme toggle (system/light/dark). Use next-themes or manual implementation. Persist preference in localStorage.
+
+### [T316] Touch gestures for mobile dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add swipe gestures: pull-to-refresh, swipe down on modal to close. Use @use-gesture/react or native touch events.
+
+### [T317] Position size display in Kalshi positions list
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show contract count and cost basis per position. Calculate unrealized PnL based on current market price vs entry price.
+
 ---
 
 *Ultimo aggiornamento: 2026-01-30 heartbeat*
