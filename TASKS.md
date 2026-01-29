@@ -2511,7 +2511,31 @@
 - **Priority**: P3
 - **Notes**: Extend streak position analysis to compare BTC vs ETH streak patterns. Do different assets have different streak tendencies? May indicate model calibration differences.
 
+### [T390] Log position size multipliers in trade data
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T293]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add regime_multiplier, vol_multiplier, adjusted_kelly fields to trade_log. Enables analysis of how sizing adjustments correlate with outcomes.
+
+### [T391] Analyze volatility-adjusted sizing effectiveness
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T390]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare win rate and PnL when size was reduced (multiplier <1) vs increased (>1). Validates T293 position sizing logic. Output: data/trading/sizing-effectiveness.json
+
+### [T392] Compare cached vs live OHLC momentum accuracy
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T381]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track when momentum calc uses cached vs live data. Compare accuracy of resulting trades. Validates that cached OHLC doesn't degrade performance.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-29 07:21 UTC*
 *Sistema coordinamento: vedi TASK-RULES.md*
