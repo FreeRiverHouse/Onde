@@ -127,3 +127,14 @@
 ### 21:40 PST [msg:197]
 > Non devi lavorare per forza solo a libri comunque
 
+
+### 21:42 PST [msg:203]
+> Meditations gia abbiamo immagini e libro out. Sveglia bello!!!! Impara cresci migliorari
+
+⚠️ ERRORE MIO: Ho preso task già completato senza verificare!
+LEZIONE: Controllare SEMPRE cosa esiste prima di iniziare.
+
+
+### 22:28 PST [msg:206]
+> What happened to your heartbeat???
+

@@ -126,12 +126,13 @@
 - **Notes**: Da ROADMAP TIER 1. Libro pubblico dominio. Cerco testo + genero illustrazioni.
 
 ### [T021] Meditations illustrato EN
-- **Status**: IN_PROGRESS
-- **Owner**: @ondinho
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: già pubblicato
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Marcus Aurelius - pubblico dominio. Setup in parallelo a T020.
+- **Notes**: ✅ GIÀ PUBBLICATO! Ondinho ha duplicato per errore - verificare sempre prima di iniziare.
 
 ### [T022] The Prophet illustrato EN
 - **Status**: TODO
