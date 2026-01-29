@@ -103,16 +103,24 @@
   - Build + deploy via Wrangler OK
 
 ### [T448] Add PnL chart comparing weather vs crypto markets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T443]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Line chart showing cumulative PnL for:
-  - Weather markets (KXHIGH/KXLOW)
-  - Crypto markets (KXBTC/KXETH)
-  - Overall combined
-  - Could use existing chart patterns from WinRateTrendChart
+- **Notes**: ✅ Implemented! Created WeatherCryptoPnLChart component:
+  - **Location**: `apps/surfboard/src/components/WeatherCryptoPnLChart.tsx`
+  - **Features:**
+    - SVG-based cumulative PnL line chart
+    - 3 lines: Weather (amber), Crypto (blue), Combined (purple dashed)
+    - Zero line reference for profit/loss visualization
+    - Interactive legend with final PnL values
+    - Summary stats grid (weather/crypto/total)
+    - parsePnLByMarketType() helper to categorize trades
+    - Mock data fallback for testing
+  - **Theme-aware**: Works in light and dark mode
+  - **Integration**: Added to /betting page after WeatherPerformanceWidget
 
 ### [T449] Deploy onde.surf with health/status API
 - **Status**: DONE

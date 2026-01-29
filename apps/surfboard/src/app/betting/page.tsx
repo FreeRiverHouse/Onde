@@ -42,6 +42,7 @@ import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/WeatherPerformanceWidget';
+import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
@@ -1799,6 +1800,17 @@ export default function BettingDashboard() {
               <WeatherPerformanceWidget 
                 data={parseWeatherPerformance(tradingStats.recentTrades || [])}
                 loading={isLoading}
+              />
+            </div>
+
+            {/* Weather vs Crypto PnL Comparison (T448) */}
+            <div className="mt-4">
+              <WeatherCryptoPnLChart 
+                data={
+                  tradingStats.recentTrades && tradingStats.recentTrades.length >= 5
+                    ? parsePnLByMarketType(tradingStats.recentTrades)
+                    : generateMockPnLData(14) // Fallback to mock data
+                }
               />
             </div>
 
