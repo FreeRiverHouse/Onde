@@ -1513,12 +1513,13 @@
 - **Notes**: ✅ Implemented! Kelly fraction now adjusts based on: 1) Regime (choppy=0.5x, sideways=0.75x, trending=1.1x), 2) Volatility alignment (aligned=1.15x, high-not-aligned=0.8x). Added volatility field to opportunity data. Prints size adjustment when not 1.0x.
 
 ### [T294] Alert on extreme volatility entry
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T285]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Telegram alert when entering a trade during "very_high" volatility (>2% hourly range). Unusual conditions warrant attention.
+- **Notes**: ✅ Implemented! Volatility now classified into 5 buckets (very_low/low/normal/high/very_high). When trade placed during very_high vol (>2% hourly range), writes kalshi-extreme-vol.alert with full trade details. 1h cooldown. Added to HEARTBEAT.md pickup.
 
 ### [T295] Weekend vs weekday performance analysis
 - **Status**: TODO

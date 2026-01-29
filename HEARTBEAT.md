@@ -18,6 +18,7 @@
 - `scripts/kalshi-latency.alert` → Se esiste, latenza ordini troppo alta (>2s)! Possibile problema API/rete. Manda alert, poi elimina
 - `scripts/kalshi-streak-record.alert` → Se esiste, nuovo record streak (win o loss)! Celebra i win, avvisa dei loss. Manda messaggio, poi elimina
 - `scripts/ohlc-cache-stale.alert` → Se esiste, OHLC cache (data/ohlc/) è stale >24h! Cron cache-ohlc-data.py non ha aggiornato. Manda alert, poi elimina
+- `scripts/kalshi-extreme-vol.alert` → Se esiste, trade piazzato durante EXTREME volatility (>2% hourly range)! Manda alert a Mattia con dettagli, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

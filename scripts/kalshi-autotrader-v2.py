@@ -98,6 +98,10 @@ MOMENTUM_ALERT_COOLDOWN = 1800  # 30 min cooldown (more frequent than regime)
 
 # Latency alerting
 LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
+
+# Extreme volatility alerting (T294)
+EXTREME_VOL_ALERT_FILE = "scripts/kalshi-extreme-vol.alert"
+EXTREME_VOL_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -703,13 +707,18 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
     
     avg_range = sum(ranges) / len(ranges) if ranges else 0
     
-    # Classify volatility
+    # Classify volatility (buckets per T285)
+    # very_low: <0.3%, low: 0.3-0.5%, normal: 0.5-1%, high: 1-2%, very_high: >2%
     if avg_range < 0.003:  # < 0.3% avg range
+        vol_class = "very_low"
+    elif avg_range < 0.005:  # 0.3% - 0.5%
         vol_class = "low"
-    elif avg_range > 0.008:  # > 0.8% avg range
-        vol_class = "high"
-    else:
+    elif avg_range < 0.01:  # 0.5% - 1%
         vol_class = "normal"
+    elif avg_range < 0.02:  # 1% - 2%
+        vol_class = "high"
+    else:  # > 2%
+        vol_class = "very_high"
     
     result["volatility"] = vol_class
     result["details"]["avg_range"] = avg_range
@@ -2018,6 +2027,9 @@ def run_cycle():
         
         # Check for latency alerts (after logging trade with new latency data)
         check_latency_alert()
+        
+        # Check for extreme volatility alerts (T294)
+        check_extreme_vol_alert(trade_data)
     else:
         print(f"⏳ Order status: {order.get('status')}")
 
@@ -2299,6 +2311,77 @@ def write_latency_alert(avg_latency: float, latencies: list):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 Latency alert written: avg {avg_latency:.0f}ms > {LATENCY_THRESHOLD_MS}ms threshold")
+
+
+# ============== EXTREME VOLATILITY ALERTING (T294) ==============
+
+def check_extreme_vol_alert(trade_data: dict):
+    """
+    Check if trade was placed during extreme volatility and alert if so.
+    Alerts when volatility is "very_high" (>2% hourly range).
+    """
+    volatility = trade_data.get("volatility", "normal")
+    
+    # Only alert on very_high volatility
+    if volatility != "very_high":
+        return
+    
+    # Check cooldown
+    try:
+        if os.path.exists(EXTREME_VOL_ALERT_FILE):
+            mtime = os.path.getmtime(EXTREME_VOL_ALERT_FILE)
+            if time.time() - mtime < EXTREME_VOL_ALERT_COOLDOWN:
+                print(f"   ℹ️ Extreme vol alert on cooldown ({(EXTREME_VOL_ALERT_COOLDOWN - (time.time() - mtime)):.0f}s remaining)")
+                return
+    except Exception:
+        pass
+    
+    # Write alert
+    write_extreme_vol_alert(trade_data)
+
+
+def write_extreme_vol_alert(trade_data: dict):
+    """Write extreme volatility alert file for heartbeat pickup."""
+    ticker = trade_data.get("ticker", "unknown")
+    asset = trade_data.get("asset", "btc").upper()
+    side = trade_data.get("side", "unknown")
+    edge = trade_data.get("edge", 0)
+    price = trade_data.get("price_cents", 0)
+    contracts = trade_data.get("contracts", 0)
+    regime = trade_data.get("regime", "unknown")
+    vol_ratio = trade_data.get("vol_ratio", 1.0)
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "extreme_volatility",
+        "ticker": ticker,
+        "asset": asset,
+        "side": side,
+        "edge_pct": round(edge * 100, 1),
+        "regime": regime,
+        "vol_ratio": round(vol_ratio, 2),
+        "trade_details": {
+            "contracts": contracts,
+            "price_cents": price,
+            "cost_cents": contracts * price
+        },
+        "message": f"⚠️ EXTREME VOLATILITY TRADE\n\n"
+                   f"📊 {asset} is experiencing very high volatility (>2% hourly range)\n\n"
+                   f"Trade placed:\n"
+                   f"• Ticker: {ticker}\n"
+                   f"• Side: {side.upper()}\n"
+                   f"• Contracts: {contracts} @ {price}¢\n"
+                   f"• Edge: {edge*100:.1f}%\n"
+                   f"• Regime: {regime}\n"
+                   f"• Vol ratio: {vol_ratio:.2f}x\n\n"
+                   f"⚠️ High volatility increases both opportunity and risk.\n"
+                   f"Monitor this position closely!"
+    }
+    
+    with open(EXTREME_VOL_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"📝 🌋 Extreme volatility alert written: {asset} @ very_high vol")
 
 
 # ============== STREAK RECORD ALERTING (T288) ==============
