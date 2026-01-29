@@ -746,5 +746,8 @@
     "lastChecked": "Last checked",
     "autoRefresh": "Auto-refreshes every 60 seconds",
     "backToOnde": "Back to Onde"
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content"
   }
 }

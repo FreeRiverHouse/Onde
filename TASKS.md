@@ -3020,12 +3020,13 @@
 - **Notes**: ✅ Deployed! Category pill filters, URL persistence, WCAG fixes all live on onde.la. Verified: HTTP 200, content correct.
 
 ### [T454] Skip-to-content link for keyboard accessibility
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add invisible "Skip to main content" link at top of page that appears on focus. Standard a11y pattern for keyboard users to bypass navigation. CSS: visually-hidden unless :focus.
+- **Notes**: ✅ Added! SkipToContent component in ClientLayout.tsx. Link visually hidden (sr-only) but appears on focus with styled appearance. Main element has id="main-content" and tabIndex={-1} for focus management. i18n translations added (EN/IT).
 
 ### [T455] Visible focus indicators for all interactive elements
 - **Status**: TODO
@@ -3205,4 +3206,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add API reliability section to /health page showing error rates per source from data/trading/api-error-stats.json. Color-coded status indicators (green/yellow/red). Requires server-side or GitHub Gist storage for static export.
+
+### [T477] ARIA live regions for dynamic content
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T454]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add aria-live regions for dynamic updates (toast notifications, loading states, form validations). Ensures screen reader users are informed of changes. Use aria-live="polite" for non-urgent, "assertive" for errors.
+
+### [T478] High contrast mode toggle
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add optional high-contrast mode for users with visual impairments. Toggle in header/settings. CSS custom properties for contrast-safe color values. Respects prefers-contrast media query. Persist to localStorage.
+
+### [T479] Reduce motion support (prefers-reduced-motion)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Audit all animations (Framer Motion, CSS transitions) to respect prefers-reduced-motion media query. Add motion-safe/motion-reduce Tailwind utilities. Disable parallax, autoplay, and decorative animations for users who prefer reduced motion.
 
