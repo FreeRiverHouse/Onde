@@ -711,12 +711,13 @@
 - **Notes**: ✅ Analyzed - current formula is CORRECT for both YES and NO! profit = (100-price)*contracts when won, loss = price*contracts when lost. Same for both sides.
 
 ### [T202] Historical win rate trend chart
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T082]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add line chart showing win rate over time (daily rolling average) to /betting dashboard
+- **Notes**: ✅ Added! WinRateTrendChart component (SVG-based, no external libs). Shows 30-day rolling average with tooltips, gradient fill, trend color. Uses mock data for now (edge runtime can't read local files).
 
 ### [T203] Trade filtering by date range
 - **Status**: DONE

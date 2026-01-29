@@ -32,6 +32,7 @@ import {
   Monitor
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
+import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 
 // ============== TYPES ==============
 interface KalshiPosition {
@@ -1321,6 +1322,25 @@ export default function BettingDashboard() {
                 </div>
               </div>
             )}
+
+            {/* Win Rate Trend Chart */}
+            <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-cyan-400" />
+                  <span className="text-gray-400 text-xs font-medium">Win Rate Trend (30 days)</span>
+                </div>
+                <span className="text-gray-600 text-[10px]">Rolling daily average</span>
+              </div>
+              <WinRateTrendChart 
+                data={generateMockWinRateTrend(30)}
+                height={140}
+                showLabels={true}
+              />
+              <p className="text-[10px] text-gray-600 mt-2 text-center">
+                Hover over points to see daily details
+              </p>
+            </div>
 
             {/* Recent Trades */}
             {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
