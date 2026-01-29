@@ -2059,12 +2059,13 @@
 - **Notes**: Live feed showing recent trades as they happen. WebSocket or polling every 10s. Shows ticker, side, price, result.
 
 ### [T334] Book category filtering on /catalogo
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add dropdown/pills to filter books by category (classici, fiabe, favole, romanzi, etc). Persists in URL params.
+- **Notes**: ✅ Added! Quick-filter pills for top 8 categories with counts, URL persistence for all filters (category, lang, search, sort), active filter indicator with clear button, Suspense fallback, dark mode support.
 
 ### [T335] WCAG accessibility audit
 - **Status**: TODO
