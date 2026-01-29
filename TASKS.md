@@ -966,12 +966,13 @@
 - **Notes**: ✅ Script: memory-search.sh. Case-insensitive grep with context. Searches MEMORY.md, memory/*.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md.
 
 ### [T252] Auto-cleanup stale alert files > 24h
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Heartbeat might miss alerts if offline. Add cleanup script for alert files older than 24h to avoid stale notifications.
+- **Notes**: ✅ Script: cleanup-stale-alerts.sh. Removes alert files >24h old. Cron every 6h. Checks all 6 alert types.
 
 ### [T253] Win rate by market type (hourly vs daily)
 - **Status**: TODO
@@ -989,7 +990,31 @@
 - **Priority**: P3
 - **Notes**: Show when clawd last checked in on /health page. Helps verify bot is alive without checking processes.
 
+### [T255] Alert file age warning (12h threshold)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log warning when alert files exist >12h but <24h. Helps debug why heartbeat isn't picking them up.
+
+### [T256] Cron job health dashboard on /health
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show status of all cron jobs (last run time, success/fail) on /health page. Use cron log files.
+
+### [T257] Trading PnL notification on market close
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Send Telegram notification at midnight UTC with daily trading summary: trades taken, win rate, net PnL.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 17:17 PST*
+*Ultimo aggiornamento: 2026-01-28 17:09 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
