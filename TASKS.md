@@ -3476,12 +3476,13 @@
 - **Notes**: ✅ Enhanced gist fallback mapping! Dashboard now fetches from Gist when local API unavailable. Mapping includes: profitFactor, maxDrawdownCents/Percent, grossProfit/Loss, latency stats, volatility. Gist pushed with source=all for combined v1+v2 stats.
 
 ### [T606] Document autotrader-v2 trading model
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create docs/trading/AUTOTRADER-V2-MODEL.md explaining: 1) Black-Scholes inspired probability model, 2) Momentum integration (1h/4h/24h composite), 3) Market regime detection logic, 4) Dynamic MIN_EDGE thresholds, 5) Kelly criterion position sizing, 6) Stop-loss mechanics, 7) Circuit breaker logic. Helps future debugging and optimization.
+- **Notes**: ✅ Created docs/trading/AUTOTRADER-V2-MODEL.md with 15 sections covering: probability model (Black-Scholes), momentum integration, regime detection, position sizing (Kelly), stop-loss, circuit breaker, data sources, alert system, trade logging, dry run mode, health status, configuration reference, known limitations, related scripts, monitoring.
 
 ### [T607] Archive old memory files (>30 days)
 - **Status**: DONE
@@ -3689,3 +3690,27 @@
 - **Priority**: P3
 - **Notes**: On mobile (/betting), show autotrader status dot in bottom navigation or floating action button. Currently only visible on desktop (hidden sm). Make status accessible on all screen sizes without cluttering UI.
 
+
+### [T632] Probability model comparison backtest
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T606]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: backtest-probability-models.py. Compare Black-Scholes vs naive (distance-based) vs ML-based probability models on historical settlements. Uses cached OHLC + settlement data. Output: model accuracy metrics, calibration plots. Helps identify if probability model needs refinement.
+
+### [T633] Trading performance heatmap by hour/day
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T249], [T295]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create visual 7x24 heatmap showing win rate by day-of-week × hour-of-day. Uses trade history to identify optimal/worst trading windows. Export as SVG for dashboard integration. Script: generate-performance-heatmap.py.
+
+### [T634] Autotrader parameter sweep utility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T305], [T606]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Script: parameter-sweep.py. Run multiple dry-run simulations with different parameters (MIN_EDGE: 5-15%, KELLY_FRACTION: 0.02-0.10, volatility assumptions). Compare theoretical performance metrics. Output: optimal parameter recommendations. Helps tune model without risking capital.
