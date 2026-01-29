@@ -102,6 +102,11 @@ LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
 # Extreme volatility alerting (T294)
 EXTREME_VOL_ALERT_FILE = "scripts/kalshi-extreme-vol.alert"
 EXTREME_VOL_ALERT_COOLDOWN = 3600  # 1 hour cooldown
+
+# Full momentum alignment alerting (T301)
+MOMENTUM_ALIGN_ALERT_FILE = "scripts/kalshi-momentum-aligned.alert"
+MOMENTUM_ALIGN_ALERT_COOLDOWN = 7200  # 2 hour cooldown (rare event)
+MOMENTUM_ALIGN_MIN_STRENGTH = 0.5  # Minimum composite strength to alert
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -327,6 +332,112 @@ def write_momentum_alert(changes: list):
     save_momentum_state(state)
     
     print(f"   📢 Momentum change alert written to {MOMENTUM_ALERT_FILE}")
+
+
+# ============== FULL MOMENTUM ALIGNMENT ALERTING (T301) ==============
+
+def check_momentum_alignment_alert(momentum_data: dict):
+    """
+    Check if all timeframes are aligned with strong signal.
+    Alert for high-conviction opportunity when 1h/4h/24h all agree.
+    """
+    if not momentum_data:
+        return
+    
+    alerts = []
+    now = time.time()
+    
+    # Check cooldown
+    try:
+        if os.path.exists(MOMENTUM_ALIGN_ALERT_FILE):
+            mtime = os.path.getmtime(MOMENTUM_ALIGN_ALERT_FILE)
+            if now - mtime < MOMENTUM_ALIGN_ALERT_COOLDOWN:
+                return  # On cooldown
+    except Exception:
+        pass
+    
+    for asset in ["btc", "eth"]:
+        momentum = momentum_data.get(asset, {})
+        
+        # Check for full alignment with strong signal
+        is_aligned = momentum.get("alignment", False)
+        composite_dir = momentum.get("composite_direction", 0)
+        composite_str = momentum.get("composite_strength", 0)
+        timeframes = momentum.get("timeframes", {})
+        
+        if not is_aligned or composite_str < MOMENTUM_ALIGN_MIN_STRENGTH:
+            continue
+        
+        # Determine direction
+        if composite_dir > 0.3:
+            direction = "🟢 BULLISH"
+            signal = "Strong upward momentum across all timeframes"
+            action = "Consider YES bets on upside targets"
+        elif composite_dir < -0.3:
+            direction = "🔴 BEARISH" 
+            signal = "Strong downward momentum across all timeframes"
+            action = "Consider NO bets on upside targets"
+        else:
+            continue  # Not strong enough
+        
+        alerts.append({
+            "asset": asset.upper(),
+            "direction": direction,
+            "signal": signal,
+            "action": action,
+            "composite_dir": composite_dir,
+            "composite_str": composite_str,
+            "timeframes": timeframes
+        })
+    
+    if alerts:
+        write_momentum_alignment_alert(alerts)
+
+
+def write_momentum_alignment_alert(alerts: list):
+    """Write full momentum alignment alert file for heartbeat pickup."""
+    alert_lines = [
+        "🎯 FULL MOMENTUM ALIGNMENT DETECTED!\n",
+        "All timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n"
+    ]
+    
+    for alert in alerts:
+        asset = alert["asset"]
+        direction = alert["direction"]
+        signal = alert["signal"]
+        action = alert["action"]
+        composite_dir = alert["composite_dir"]
+        composite_str = alert["composite_str"]
+        timeframes = alert["timeframes"]
+        
+        alert_lines.append(f"📊 {asset}: {direction}")
+        alert_lines.append(f"   {signal}")
+        alert_lines.append("")
+        
+        # Show individual timeframes
+        for tf, data in timeframes.items():
+            tf_dir = data.get("direction", 0)
+            tf_str = data.get("strength", 0)
+            tf_label = "↑" if tf_dir > 0 else "↓" if tf_dir < 0 else "→"
+            alert_lines.append(f"   {tf}: {tf_label} dir={tf_dir:+.2f} str={tf_str:.2f}")
+        
+        alert_lines.append(f"\n   Composite: {composite_dir:+.2f} | Strength: {composite_str:.2f}")
+        alert_lines.append(f"   💡 {action}\n")
+    
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    alert_lines.append("\n⚠️ This is a rare high-confidence signal. Use appropriate position sizing!")
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "momentum_alignment",
+        "alerts": alerts,
+        "message": "\n".join(alert_lines)
+    }
+    
+    with open(MOMENTUM_ALIGN_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"   🎯 Full momentum alignment alert written!")
 
 
 # ============== PROPER PROBABILITY MODEL ==============
@@ -1827,6 +1938,9 @@ def run_cycle():
     eth_momentum = get_multi_timeframe_momentum(eth_ohlc)
     
     momentum_data = {"btc": btc_momentum, "eth": eth_momentum}
+    
+    # Check for full momentum alignment (T301) - high-conviction signal
+    check_momentum_alignment_alert(momentum_data)
     
     # Display momentum info for both
     for asset, momentum in [("BTC", btc_momentum), ("ETH", eth_momentum)]:

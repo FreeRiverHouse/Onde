@@ -1759,12 +1759,13 @@
 - **Notes**: ✅ Added visual signal bars (like cell signal) next to momentum badge. 3 bars light up based on strength: weak (1), moderate (2), strong (3). Color matches signal direction. More intuitive than text labels.
 
 ### [T301] Alert when momentum aligns across all timeframes
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T259]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Super strong signal when 1h/4h/24h all agree. Telegram alert for high-conviction opportunities.
+- **Notes**: ✅ Implemented! Checks alignment + minimum composite strength (0.5). When all timeframes agree with strong signal, writes kalshi-momentum-aligned.alert with details per asset. 2h cooldown (rare event). Added to HEARTBEAT.md pickup.
 
 ### [T302] Momentum reversion detection
 - **Status**: TODO
