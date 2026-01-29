@@ -3281,12 +3281,13 @@
 - **Notes**: ✅ Added fetchTradingStatsWithFallback() to /betting page. Tries local API first (dev), then falls back to gist URL for static Cloudflare Pages deploy. Maps gist format to TradingStats interface. TRADING_STATS_GIST_URL constant added.
 
 ### [T484] Migrate V1 trades to V2 format
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create migration script to convert kalshi-trades.jsonl (v1) to kalshi-trades-v2.jsonl format. Add missing fields: asset, reason, momentum, volatility, regime. Preserves historical data for trend analysis. Run once, then verify stats.
+- **Notes**: ✅ Script: migrate-trades-v1-to-v2.py. Converts 41 v1 trades to v2 format with: asset inference from ticker, reason string, defaults for momentum/regime/vol fields, migration metadata. Output: kalshi-trades-v1-migrated.jsonl. Flags: --stats, --dry-run, --append-to-v2. V1 context: 0% WR, all BTC NO bets, broken edge calculation.
 
 ### [T485] Auto-discovery of new Kalshi crypto markets
 - **Status**: TODO
