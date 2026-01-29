@@ -1912,12 +1912,13 @@
 - **Notes**: ✅ Added! ThemeToggle component with animated sun/moon icons in header. Keyboard shortcut 'T' on /betting. Light mode CSS already existed. Persists to localStorage via ThemeProvider.
 
 ### [T316] Touch gestures for mobile dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add swipe gestures: pull-to-refresh, swipe down on modal to close. Use @use-gesture/react or native touch events.
+- **Notes**: ✅ Implemented! Created useTouchGestures.tsx hook with: pull-to-refresh with visual indicator (PullToRefreshIndicator component), swipe-down/left/right callbacks, configurable thresholds, ref-based fetchData pattern for proper hook ordering. Integrated into /betting page - pull down from top to refresh data.
 
 ### [T317] Position size display in Kalshi positions list
 - **Status**: DONE
@@ -3714,3 +3715,27 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Script: parameter-sweep.py. Run multiple dry-run simulations with different parameters (MIN_EDGE: 5-15%, KELLY_FRACTION: 0.02-0.10, volatility assumptions). Compare theoretical performance metrics. Output: optimal parameter recommendations. Helps tune model without risking capital.
+
+### [T635] Swipe-to-dismiss modal on mobile
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T316]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend useTouchGestures hook to add swipe-down-to-dismiss for modals on /betting (shortcuts modal, position details). Track modal-specific touch handlers, animate modal sliding out on swipe. Better mobile UX.
+
+### [T636] Haptic feedback for mobile interactions
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T316]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add navigator.vibrate() calls for key mobile interactions: pull-to-refresh trigger, successful trade notification, circuit breaker alert. Short vibration patterns (50ms click, 200ms success, 400ms alert). Fallback silently on unsupported devices.
+
+### [T637] Trading stats dashboard dark/light mode persistence
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T315]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Verify theme persists correctly across page refreshes on /betting. Current ThemeProvider uses localStorage - check if edge runtime breaks this. Add explicit theme cookie as fallback if needed.

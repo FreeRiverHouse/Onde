@@ -36,6 +36,7 @@ import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRat
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
+import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -518,7 +519,19 @@ export default function BettingDashboard() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fetchDataRef = useRef<(() => Promise<void>) | null>(null);
   const { toggleTheme, theme, resolvedTheme } = useTheme();
+  
+  // Touch gestures for mobile (pull-to-refresh, swipe gestures)
+  const { handlers: touchHandlers, state: touchState } = useTouchGestures({
+    onRefresh: async () => {
+      if (fetchDataRef.current) {
+        await fetchDataRef.current();
+      }
+    },
+    pullThreshold: 80,
+    enabled: true,
+  });
   
   // Sync filters to URL
   useEffect(() => {
@@ -682,6 +695,9 @@ export default function BettingDashboard() {
     }
   }, [fetchTradingStatsWithFallback, statsSource]);
 
+  // Update fetchData ref for touch gesture hook
+  fetchDataRef.current = fetchData;
+
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 30000);
@@ -794,11 +810,21 @@ export default function BettingDashboard() {
   const ethChartData = ethMomentumAsset?.priceHistory?.length ? ethMomentumAsset.priceHistory : [2950, 2980, 2960, 3010, 2990, 3020, 3000, 2995, 2999];
 
   return (
-    <div className={`min-h-screen overflow-hidden transition-colors duration-300 ${
-      resolvedTheme === 'light' 
-        ? 'bg-slate-50 text-gray-900' 
-        : 'bg-[#0a0a0f] text-white'
-    }`}>
+    <div 
+      className={`min-h-screen overflow-hidden transition-colors duration-300 ${
+        resolvedTheme === 'light' 
+          ? 'bg-slate-50 text-gray-900' 
+          : 'bg-[#0a0a0f] text-white'
+      }`}
+      {...touchHandlers}
+    >
+      {/* Pull-to-refresh indicator for mobile */}
+      <PullToRefreshIndicator 
+        pullDistance={touchState.pullDistance} 
+        threshold={80} 
+        isRefreshing={touchState.isRefreshing} 
+      />
+      
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] animate-blob ${
