@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-01-29T07:15:33.582516+00:00",
+  "total_trades": 41,
+  "settled_trades": 41,
+  "vol_computed": 41,
+  "bucket_stats": {
+    "medium": {
+      "wins": 0,
+      "losses": 23,
+      "pending": 0,
+      "pnl": -215
+    },
+    "high": {
+      "wins": 0,
+      "losses": 18,
+      "pending": 0,
+      "pnl": -70
+    }
+  },
+  "low_vol_win_rate": 0,
+  "high_vol_win_rate": 0.0,
+  "volatility_edge": "none"
+}

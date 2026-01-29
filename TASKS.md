@@ -1431,12 +1431,13 @@
 - **Notes**: ✅ Added! Uses minutes_to_expiry field from trades, converts to hours. Dashboard shows "Avg Duration" card with labels: short-term (<1h), medium-term (1-4h), longer holds (>4h). Grid now has 11 stat cards.
 
 ### [T285] Trade correlation with BTC volatility
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if win rate changes based on BTC hourly volatility at trade time. Create script to correlate trade outcomes with volatility levels.
+- **Notes**: ✅ Script: analyze-volatility-correlation.py. Buckets trades by hourly volatility (very_low/<0.3%, low/0.3-0.5%, medium/0.5-1%, high/1-2%, very_high/>2%). Uses cached OHLC data. V1 trades: all 41 in medium-high vol periods with 0% WR (broken model). V2 will show real correlation. Saves to data/trading/volatility-correlation.json.
 
 ### [T286] Kelly criterion effectiveness tracking
 - **Status**: TODO
@@ -1501,6 +1502,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Added timezone info section showing: Cron TZ (UTC), user TZ, UTC time, local time. Helps debug cron scheduling.
+
+### [T293] Volatility-adjusted position sizing
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T285]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use volatility correlation to dynamically adjust bet sizes. Reduce size in volatility regimes with lower win rate, increase in better regimes. Integrate with Kelly fraction.
+
+### [T294] Alert on extreme volatility entry
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T285]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Telegram alert when entering a trade during "very_high" volatility (>2% hourly range). Unusual conditions warrant attention.
+
+### [T295] Weekend vs weekday performance analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare win rate/PnL by day of week. Crypto trades 24/7 but patterns may differ weekend vs weekday.
 
 ---
 
