@@ -168,3 +168,7 @@ TASK ESTRATTI:
 ### 22:40 PST [msg:214]
 > Stai scrivendo su git il contenuto di ogni mio cazzo di messsaggio?
 
+
+### 22:41 PST [msg:216]
+> Si ma la seguivi cazzone? Quannti messaggi hai loggato??
+
