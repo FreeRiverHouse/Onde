@@ -957,14 +957,15 @@
 - **Notes**: Show current BTC/ETH momentum (1h/4h/24h) on dashboard. Visual indicator: bullish/bearish/neutral.
 
 ### [T251] Memory file search CLI tool
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Quick CLI to search memory/*.md files for past decisions, context. Usage: ./scripts/memory-search.sh "kalshi" → shows relevant snippets.
+- **Notes**: ✅ Script: memory-search.sh. Case-insensitive grep with context. Searches MEMORY.md, memory/*.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md.
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 17:10 PST*
+*Ultimo aggiornamento: 2026-01-28 17:15 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
