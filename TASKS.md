@@ -1191,12 +1191,13 @@
 - **Notes**: ✅ Added! API returns maxDrawdownCents and maxDrawdownPercent. Calculates largest peak-to-trough decline in cumulative PnL. Dashboard card shows % with color coding (≤10%=green, ≤20%=orange, >20%=red).
 
 ### [T276] Trade latency logging (order to fill time)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log time from order submission to fill. Helps optimize timing and detect API delays. Add latency_ms field to trade log.
+- **Notes**: ✅ Added latency_ms tracking to both regular trades and stop-loss exits. Prints latency to console, logs to trade file. Analysis script: analyze-trade-latency.py (shows min/avg/p50/p95/p99/max + distribution).
 
 ---
 

@@ -814,8 +814,11 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
         print(f"   Side: {side.upper()} | Contracts: {contracts}")
         print(f"   Entry: {entry:.0f}¢ → Current: {current:.0f}¢ ({loss_pct:.1f}% loss)")
         
-        # Execute sell order
+        # Execute sell order (with latency tracking)
+        order_start = time.time()
         result = sell_position(ticker, side, contracts)
+        order_end = time.time()
+        latency_ms = int((order_end - order_start) * 1000)
         
         if "error" in result:
             print(f"   ❌ Failed to exit: {result['error']}")
@@ -823,10 +826,10 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
         
         order = result.get("order", {})
         if order.get("status") in ["executed", "pending"]:
-            print(f"   ✅ Stop-loss order placed (status: {order.get('status')})")
+            print(f"   ✅ Stop-loss order placed (status: {order.get('status')}) ⏱️ {latency_ms}ms")
             exited += 1
             
-            # Log the stop-loss
+            # Log the stop-loss (with latency)
             log_stop_loss({
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "type": "stop_loss",
@@ -836,7 +839,8 @@ def execute_stop_losses(stop_loss_positions: list) -> int:
                 "entry_price": entry,
                 "exit_price": current,
                 "loss_pct": loss_pct,
-                "order_status": order.get("status")
+                "order_status": order.get("status"),
+                "latency_ms": latency_ms
             })
             
             # Write Telegram alert file for heartbeat to pick up
@@ -1431,8 +1435,11 @@ def run_cycle():
     
     print(f"\n💸 Placing order: {contracts} contracts @ {best['price']}¢")
     
-    # Place order
+    # Place order (with latency tracking)
+    order_start = time.time()
     result = place_order(best["ticker"], best["side"], contracts, best["price"])
+    order_end = time.time()
+    latency_ms = int((order_end - order_start) * 1000)
     
     if "error" in result:
         print(f"❌ Order error: {result['error']}")
@@ -1442,7 +1449,8 @@ def run_cycle():
     if order.get("status") == "executed":
         print(f"✅ Order executed!")
         
-        # Log trade (with momentum + regime data)
+        # Log trade (with momentum + regime data + latency)
+        print(f"   ⏱️  Order latency: {latency_ms}ms")
         log_trade({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "type": "trade",
@@ -1466,6 +1474,7 @@ def run_cycle():
             "regime": best.get("regime", "unknown"),
             "regime_confidence": best.get("regime_confidence", 0),
             "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
+            "latency_ms": latency_ms,
             "result_status": "pending"
         })
     else:
