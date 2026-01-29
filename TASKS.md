@@ -28,6 +28,47 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (11:15)
+
+### [T419] Analyze news sentiment effectiveness on trade performance
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T661]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Track if trades with news_bonus perform better than those without.
+  - Create script: `analyze-news-effectiveness.py`
+  - Compare win rate: news-aligned vs neutral trades
+  - Track correlation: news_sentiment vs actual outcome
+  - Update weekly report with news analysis section
+
+### [T420] Add RSS feed parsing for crypto news (free alternative)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Free news sources without API key:
+  - CoinDesk RSS: https://www.coindesk.com/arc/outboundfeeds/rss/
+  - CoinTelegraph: https://cointelegraph.com/rss
+  - Bitcoin Magazine: https://bitcoinmagazine.com/feed
+  - Parse headlines, run through sentiment analyzer
+  - Cache in `data/crypto-news-feed.json`
+
+### [T421] Autotrader dry-run mode with simulated PnL
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Already have DRY_RUN flag, but add:
+  - Simulated portfolio tracking
+  - Settlement simulation (check actual price vs strike at expiry)
+  - Compare DRY_RUN PnL vs real trading
+  - Use for strategy testing before going live
+
+---
+
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:36)
 
 ### [T412] VERIFICARE che logging memoria FUNZIONI DAVVERO
