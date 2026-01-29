@@ -1223,7 +1223,31 @@
 - **Priority**: P3
 - **Notes**: Add timing logs for each API call in autotrader (market fetch, order placement, etc). Identify bottlenecks.
 
+### [T280] Calmar ratio calculation (return / max drawdown)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T275]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Calmar ratio = annualized return / max drawdown. Risk-adjusted performance metric. Higher is better. Add to stats API and dashboard.
+
+### [T281] Rolling 30-day win rate trend chart
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T202]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Sparkline or chart showing win rate trend over last 30 days. Helps identify strategy degradation early.
+
+### [T282] Trade return distribution histogram on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize return distribution (profit/loss per trade). Helps understand strategy characteristics (small wins vs big losses, etc).
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 18:00 PST*
+*Ultimo aggiornamento: 2026-01-29 22:00 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
