@@ -60,12 +60,13 @@
   - Run hourly via cron to keep alerts fresh
 
 ### [T429] Autotrader v2 trade count dashboard widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T277]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use the GitHub Gist stats (T277) to show v2 trade count on onde.surf. Currently only shows historical v1 data. Gist already contains fresh stats.
+- **Notes**: ✅ Already implemented! ModelComparisonChart component on betting page shows v1 vs v2 trade counts, win rates, and PnL side-by-side. Data fetched from GitHub Gist. Currently shows v2 trades: 0 because autotrader v2 is conservative (high MIN_EDGE threshold). Will populate automatically when v2 makes trades.
 
 ### [T430] Test visual baselines need auto-commit when updated
 - **Status**: TODO
