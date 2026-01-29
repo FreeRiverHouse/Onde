@@ -102,6 +102,10 @@ LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert i
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
 
+# Streak record alerting (T288)
+STREAK_STATE_FILE = "scripts/kalshi-streak-records.json"
+STREAK_ALERT_FILE = "scripts/kalshi-streak-record.alert"
+
 
 # ============== REGIME CHANGE ALERTING ==============
 
@@ -1447,6 +1451,9 @@ def run_cycle():
     update_result = update_trade_results()
     if update_result["updated"] > 0:
         print(f"📊 Updated {update_result['updated']} trades: {update_result['wins']}W / {update_result['losses']}L")
+        # Check for streak records when trades settle (T288)
+        streak_status = check_streak_records()
+        print(f"🎖️ {streak_status}")
     
     # Get stats
     stats = get_trade_stats()
@@ -1922,3 +1929,174 @@ def write_latency_alert(avg_latency: float, latencies: list):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 Latency alert written: avg {avg_latency:.0f}ms > {LATENCY_THRESHOLD_MS}ms threshold")
+
+
+# ============== STREAK RECORD ALERTING (T288) ==============
+
+def load_streak_records() -> dict:
+    """Load streak records from file."""
+    try:
+        with open(STREAK_STATE_FILE, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {"longest_win_streak": 0, "longest_loss_streak": 0, "updated_at": None}
+
+
+def save_streak_records(records: dict):
+    """Save streak records to file."""
+    records["updated_at"] = datetime.now(timezone.utc).isoformat()
+    with open(STREAK_STATE_FILE, "w") as f:
+        json.dump(records, f, indent=2)
+
+
+def calculate_current_streaks() -> dict:
+    """
+    Calculate current win/loss streak and longest streaks from trade log.
+    Returns dict with: current_streak, current_streak_type, longest_win_streak, longest_loss_streak
+    """
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return {
+            "current_streak": 0,
+            "current_streak_type": None,
+            "longest_win_streak": 0,
+            "longest_loss_streak": 0
+        }
+    
+    # Read all settled trades
+    settled_trades = []
+    with open(log_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") == "trade" and entry.get("result_status") in ("won", "lost", "win", "loss"):
+                    settled_trades.append(entry)
+            except:
+                pass
+    
+    if not settled_trades:
+        return {
+            "current_streak": 0,
+            "current_streak_type": None,
+            "longest_win_streak": 0,
+            "longest_loss_streak": 0
+        }
+    
+    # Sort by timestamp ascending (oldest first)
+    settled_trades.sort(key=lambda x: x.get("timestamp", ""))
+    
+    # Calculate streaks
+    current_streak = 0
+    current_type = None
+    longest_win = 0
+    longest_loss = 0
+    
+    for trade in settled_trades:
+        # Normalize result status (win/won, loss/lost)
+        result = trade.get("result_status", "")
+        is_win = result in ("won", "win")
+        is_loss = result in ("lost", "loss")
+        
+        if is_win:
+            if current_type == "win":
+                current_streak += 1
+            else:
+                current_streak = 1
+                current_type = "win"
+            longest_win = max(longest_win, current_streak)
+        elif is_loss:
+            if current_type == "loss":
+                current_streak += 1
+            else:
+                current_streak = 1
+                current_type = "loss"
+            longest_loss = max(longest_loss, current_streak)
+    
+    return {
+        "current_streak": current_streak,
+        "current_streak_type": current_type,
+        "longest_win_streak": longest_win,
+        "longest_loss_streak": longest_loss
+    }
+
+
+def check_streak_records() -> str:
+    """
+    Check if current streaks have hit new records. Alert if so.
+    Call this after trades settle.
+    
+    Returns: Status message
+    """
+    current = calculate_current_streaks()
+    saved = load_streak_records()
+    
+    alerts = []
+    
+    # Check for new win streak record
+    if current["longest_win_streak"] > saved["longest_win_streak"] and current["longest_win_streak"] >= 3:
+        alerts.append({
+            "type": "win_record",
+            "new_record": current["longest_win_streak"],
+            "old_record": saved["longest_win_streak"],
+            "emoji": "🏆🔥"
+        })
+        saved["longest_win_streak"] = current["longest_win_streak"]
+    
+    # Check for new loss streak record (not something to celebrate, but important to track)
+    if current["longest_loss_streak"] > saved["longest_loss_streak"] and current["longest_loss_streak"] >= 3:
+        alerts.append({
+            "type": "loss_record",
+            "new_record": current["longest_loss_streak"],
+            "old_record": saved["longest_loss_streak"],
+            "emoji": "💀📉"
+        })
+        saved["longest_loss_streak"] = current["longest_loss_streak"]
+    
+    # Save updated records
+    if alerts:
+        save_streak_records(saved)
+        write_streak_alert(alerts, current)
+        msg = f"🎖️ New streak record(s): {', '.join([a['type'] for a in alerts])}"
+        print(msg)
+        return msg
+    
+    return f"✓ Streaks: current={current['current_streak']} ({current['current_streak_type']}), " \
+           f"best win={current['longest_win_streak']}, worst loss={current['longest_loss_streak']}"
+
+
+def write_streak_alert(alerts: list, current: dict):
+    """Write streak record alert file for heartbeat pickup."""
+    
+    messages = []
+    for alert in alerts:
+        if alert["type"] == "win_record":
+            messages.append(
+                f"🏆🔥 NEW WIN STREAK RECORD!\n\n"
+                f"Consecutive wins: {alert['new_record']}\n"
+                f"Previous record: {alert['old_record']}\n\n"
+                f"The strategy is on fire! 🎉"
+            )
+        elif alert["type"] == "loss_record":
+            messages.append(
+                f"💀📉 NEW LOSS STREAK RECORD\n\n"
+                f"Consecutive losses: {alert['new_record']}\n"
+                f"Previous worst: {alert['old_record']}\n\n"
+                f"Consider pausing to review strategy.\n"
+                f"Circuit breaker: {CIRCUIT_BREAKER_THRESHOLD} consecutive losses"
+            )
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "streak_record",
+        "alerts": alerts,
+        "current_streak": current["current_streak"],
+        "current_streak_type": current["current_streak_type"],
+        "longest_win_streak": current["longest_win_streak"],
+        "longest_loss_streak": current["longest_loss_streak"],
+        "message": "\n\n---\n\n".join(messages)
+    }
+    
+    with open(STREAK_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"📝 Streak record alert written to {STREAK_ALERT_FILE}")

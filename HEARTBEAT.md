@@ -16,6 +16,7 @@
 - `scripts/kalshi-momentum-change.alert` → Se esiste, momentum flipped (bullish↔bearish)! Manda info a Mattia, poi elimina
 - `scripts/kalshi-circuit-breaker.alert` → Se esiste, CIRCUIT BREAKER! Trading pausato per consecutive losses. Manda alert urgente, poi elimina
 - `scripts/kalshi-latency.alert` → Se esiste, latenza ordini troppo alta (>2s)! Possibile problema API/rete. Manda alert, poi elimina
+- `scripts/kalshi-streak-record.alert` → Se esiste, nuovo record streak (win o loss)! Celebra i win, avvisa dei loss. Manda messaggio, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

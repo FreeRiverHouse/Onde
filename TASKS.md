@@ -1306,12 +1306,13 @@
 ---
 
 ### [T288] Streak alert when hitting new records
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T287]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Telegram notification when a new longest win/loss streak is achieved. Celebrate wins, warn on tilt.
+- **Notes**: ✅ Added! Functions: calculate_current_streaks(), check_streak_records(), write_streak_alert(). Tracks longest win/loss streaks in kalshi-streak-records.json. Alerts when new record ≥3 is set. Win records celebrated 🏆🔥, loss records warned 💀📉. Alert file: kalshi-streak-record.alert. Integrated into update_trade_results() flow.
 
 ### [T289] Consecutive loss circuit breaker
 - **Status**: DONE
@@ -1892,7 +1893,31 @@
 - **Priority**: P3
 - **Notes**: Run multiple dry-run instances with different MIN_EDGE values (5%, 8%, 10%, 12%, 15%). Compare win rates to find optimal threshold. Output: data/backtests/edge-sweep.json
 
+### [T357] Add streak stats to daily summary report
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T288], [T085]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include current streak, best win streak, worst loss streak in kalshi-daily-summary.py. Adds context to daily performance.
+
+### [T358] Analyze win rate by day of week
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: analyze-trades-by-weekday.py. Check if certain days of week have better/worse performance. Market patterns may differ on weekends.
+
+### [T359] Add streak visualization to /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T287], [T288]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visual streak indicator showing recent trade outcomes (🟢🟢🟢🔴🟢 pattern). Click to see full history timeline.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 20:15 PST heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
