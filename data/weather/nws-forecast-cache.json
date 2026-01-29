@@ -1,6 +1,6 @@
 {
   "NYC": {
-    "fetched_at": "2026-01-29T22:23:02.171358+00:00",
+    "fetched_at": "2026-01-29T22:54:37.617577+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
@@ -163,7 +163,7 @@
     }
   },
   "MIA": {
-    "fetched_at": "2026-01-29T22:23:02.990577+00:00",
+    "fetched_at": "2026-01-29T22:54:38.542390+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
@@ -326,7 +326,7 @@
     }
   },
   "DEN": {
-    "fetched_at": "2026-01-29T22:23:03.705457+00:00",
+    "fetched_at": "2026-01-29T22:54:39.173840+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
@@ -489,7 +489,7 @@
     }
   },
   "CHI": {
-    "fetched_at": "2026-01-29T22:23:04.389193+00:00",
+    "fetched_at": "2026-01-29T22:54:39.812666+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",

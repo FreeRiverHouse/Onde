@@ -9,17 +9,23 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (HEARTBEAT)
 
 ### [T446] Add health check JSON API for external monitoring
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create `/api/health/status` endpoint returning JSON with:
-  - Autotrader status (running/stopped, last cycle time)
-  - Site health (onde.la, onde.surf status codes)
-  - Trading stats summary (win rate, PnL, trades today)
-  - Alert count (from finetuning alerts)
-  - Useful for Uptime Robot or custom dashboards
+- **Notes**: ✅ Created `/api/health/status` endpoint!
+  - **Location**: `apps/surfboard/src/app/api/health/status/route.ts`
+  - **Returns JSON with:**
+    - `autotrader`: running status, last cycle time, version
+    - `sites.ondeLa/ondeSurf`: status code, latency, ok boolean
+    - `trading`: win rate, PnL, trades today/total, last trade time
+    - `alerts`: total 24h count, by type breakdown
+    - `status`: overall health (healthy/degraded/critical)
+  - **Caching**: 1 min public cache
+  - **Status codes**: 200 (healthy/degraded), 503 (critical)
+  - Ready for Uptime Robot or custom dashboards
 
 ### [T447] Deploy onde.surf with weather widget
 - **Status**: DONE
@@ -44,6 +50,41 @@
   - Crypto markets (KXBTC/KXETH)
   - Overall combined
   - Could use existing chart patterns from WinRateTrendChart
+
+### [T449] Deploy onde.surf with health/status API
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T446]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the new /api/health/status endpoint to production.
+  - Build: `npm run build && npm run build:cf`
+  - Deploy: `wrangler pages deploy`
+  - Verify: `curl https://onde.surf/api/health/status | jq`
+
+### [T450] Add uptime history chart to /health page
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T446]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show 24h/7d uptime history for sites:
+  - Store health check results in KV (every 5 min)
+  - Line chart showing response times over time
+  - Uptime percentage badge (99.9%, etc.)
+  - Incident timeline for any outages
+
+### [T451] Add webhook notifications for critical alerts
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T446]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Send webhook to Discord/Slack when /api/health/status returns critical:
+  - Create `scripts/health-webhook-notifier.sh`
+  - Cron every 5 min: check status, if critical → webhook
+  - Cooldown to avoid spam (30 min)
+  - Include: which site is down, latency, timestamp
 
 ---
 

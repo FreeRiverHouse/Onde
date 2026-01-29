@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T22:30:02.264145+00:00",
+  "timestamp": "2026-01-29T23:00:01.996668+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitfinex Bitcoin longs hit 2-year high: Is a rally to $100K possible?",
+      "url": "https://cointelegraph.com/news/bitfinex-bitcoin-longs-hit-2-year-high-is-a-rally-to-100k-possible?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin margin longs at Bitfinex exchange reached a 2-year high prior to stocks and crypto selling off sharply. Should traders expect a rally or the correction to continue?",
+      "published": "2026-01-29T22:51:22+00:00"
+    },
+    {
+      "title": "Ethereum's Oldest Crisis Reborn as a $220 Million Security Fund",
+      "url": "https://decrypt.co/356404/ethereum-crisis-reborn-220-million-security-fund",
+      "source": "decrypt",
+      "description": "Unclaimed Ethereum from a decade-long hack will be staked and distributed to fund audits, tooling, and incident responses.",
+      "published": "2026-01-29T22:35:32+00:00"
+    },
     {
       "title": "WallStreetBets Founder Cries Foul After Reddit Cracks Down on Miami Convention",
       "url": "https://decrypt.co/356412/wallstreetbets-founder-cries-foul-reddit-cracks-down-miami-convention",
@@ -137,13 +151,6 @@
       "published": "2026-01-29T18:24:27+00:00"
     },
     {
-      "title": "China Executes Eleven Members of Crime Family Linked to Myanmar Scam Hubs",
-      "url": "https://decrypt.co/356338/china-executes-eleven-members-of-crime-family-linked-to-myanmar-scam-hubs",
-      "source": "decrypt",
-      "description": "The Ming family members were put to death after being convicted of crimes that generated $1.4 billion, including running scam compounds.",
-      "published": "2026-01-29T17:57:20+00:00"
-    },
-    {
       "title": "Why did Bitcoin price just hit two-month lows near $83K?",
       "url": "https://cointelegraph.com/news/why-did-bitcoin-price-hit-two-month-lows-near-83k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -170,13 +177,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst The bitcoin price erased a rally above $90,000 in less than 24 hours as it dumped to $84,000. This post Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T15:43:18+00:00"
-    },
-    {
-      "title": "US Senate Agriculture Committee advances crypto market structure bill",
-      "url": "https://cointelegraph.com/news/live-senate-markup-crypto-market-structure-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Lawmakers begin debating amendments to a sweeping digital asset market structure proposal as Congress looks to clarify oversight of crypto markets.",
-      "published": "2026-01-29T15:35:50+00:00"
     },
     {
       "title": "Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt",
