@@ -701,6 +701,115 @@ def get_regime_for_asset(asset: str, ohlc_cache: dict, momentum_cache: dict) -> 
     return detect_market_regime(ohlc, momentum)
 
 
+# ============== VOLATILITY REBALANCING (T237) ==============
+
+def calculate_realized_volatility(ohlc_data: list, hours: int = 24) -> float:
+    """
+    Calculate realized volatility from OHLC data.
+    
+    Uses log returns of hourly close prices.
+    
+    Args:
+        ohlc_data: List of [timestamp, open, high, low, close] from CoinGecko
+        hours: Number of hours to use (default 24)
+    
+    Returns:
+        Hourly realized volatility as decimal (e.g., 0.008 = 0.8%)
+    """
+    if not ohlc_data or len(ohlc_data) < 2:
+        return None
+    
+    # Get last N candles
+    candles = ohlc_data[-min(hours, len(ohlc_data)):]
+    
+    # Extract close prices
+    closes = [c[4] for c in candles if len(c) >= 5 and c[4] and c[4] > 0]
+    
+    if len(closes) < 2:
+        return None
+    
+    # Calculate log returns
+    log_returns = []
+    for i in range(1, len(closes)):
+        if closes[i] > 0 and closes[i-1] > 0:
+            log_returns.append(math.log(closes[i] / closes[i-1]))
+    
+    if not log_returns:
+        return None
+    
+    # Calculate standard deviation of returns (realized volatility)
+    mean = sum(log_returns) / len(log_returns)
+    variance = sum((r - mean) ** 2 for r in log_returns) / len(log_returns)
+    realized_vol = math.sqrt(variance)
+    
+    return realized_vol
+
+
+def get_volatility_advantage(ohlc_data: dict) -> dict:
+    """
+    Compare realized vs assumed volatility for each asset.
+    
+    Returns advantage score for each asset:
+    - Positive = realized > assumed (favor YES bets, more likely to break strikes)
+    - Negative = realized < assumed (favor NO bets, less likely to break strikes)
+    - Zero = neutral or no data
+    
+    Also determines which asset has better trading conditions overall.
+    
+    Returns:
+        {
+            "btc": {"realized": 0.006, "assumed": 0.005, "ratio": 1.2, "advantage": "yes"},
+            "eth": {"realized": 0.008, "assumed": 0.007, "ratio": 1.14, "advantage": "yes"},
+            "preferred_asset": "btc",  # Asset with higher vol ratio
+            "vol_bonus": {"btc": 0.01, "eth": 0.005}  # Edge bonus for each asset
+        }
+    """
+    result = {
+        "btc": {"realized": None, "assumed": BTC_HOURLY_VOL, "ratio": 1.0, "advantage": "neutral"},
+        "eth": {"realized": None, "assumed": ETH_HOURLY_VOL, "ratio": 1.0, "advantage": "neutral"},
+        "preferred_asset": None,
+        "vol_bonus": {"btc": 0, "eth": 0}
+    }
+    
+    # Calculate realized volatility for each asset
+    for asset in ["btc", "eth"]:
+        ohlc = ohlc_data.get(asset, [])
+        realized = calculate_realized_volatility(ohlc, hours=24)
+        
+        if realized is not None:
+            assumed = BTC_HOURLY_VOL if asset == "btc" else ETH_HOURLY_VOL
+            ratio = realized / assumed if assumed > 0 else 1.0
+            
+            result[asset]["realized"] = realized
+            result[asset]["ratio"] = ratio
+            
+            # Determine advantage direction
+            if ratio > 1.15:  # >15% higher realized vol
+                result[asset]["advantage"] = "yes"  # Favor YES bets (more movement)
+            elif ratio < 0.85:  # >15% lower realized vol
+                result[asset]["advantage"] = "no"   # Favor NO bets (less movement)
+            else:
+                result[asset]["advantage"] = "neutral"
+            
+            # Calculate edge bonus (max ±2% bonus)
+            # Higher ratio = bonus for YES, Lower ratio = bonus for NO
+            vol_diff = (ratio - 1.0)  # Positive if realized > assumed
+            result["vol_bonus"][asset] = min(0.02, max(-0.02, vol_diff * 0.1))
+    
+    # Determine preferred asset (one with higher vol ratio = more edge opportunities)
+    btc_ratio = result["btc"]["ratio"]
+    eth_ratio = result["eth"]["ratio"]
+    
+    if btc_ratio > eth_ratio * 1.1:  # BTC has 10%+ higher ratio
+        result["preferred_asset"] = "btc"
+    elif eth_ratio > btc_ratio * 1.1:  # ETH has 10%+ higher ratio
+        result["preferred_asset"] = "eth"
+    else:
+        result["preferred_asset"] = None  # No clear preference
+    
+    return result
+
+
 # ============== API FUNCTIONS ==============
 
 def sign_request(method: str, path: str, timestamp: str) -> str:
@@ -1202,7 +1311,7 @@ def parse_time_to_expiry(market: dict) -> float:
 
 def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                        ohlc_data: dict = None, verbose: bool = True) -> list:
-    """Find trading opportunities with PROPER probability model + momentum adjustment + regime detection
+    """Find trading opportunities with PROPER probability model + momentum adjustment + regime detection + volatility rebalancing
     
     Args:
         markets: List of market dicts from Kalshi API
@@ -1230,6 +1339,18 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
             if verbose and regime_cache[asset]:
                 r = regime_cache[asset]
                 print(f"   {asset.upper()} regime: {r['regime']} (conf={r['confidence']:.0%}, vol={r['volatility']}, edge={r['dynamic_min_edge']*100:.1f}%)")
+    
+    # Calculate volatility advantage for asset rebalancing (T237)
+    vol_advantage = {}
+    if ohlc_data:
+        vol_advantage = get_volatility_advantage(ohlc_data)
+        if verbose:
+            btc_v = vol_advantage.get("btc", {})
+            eth_v = vol_advantage.get("eth", {})
+            pref = vol_advantage.get("preferred_asset")
+            if btc_v.get("realized") and eth_v.get("realized"):
+                pref_str = f" → Prefer {pref.upper()}" if pref else " → No preference"
+                print(f"   📊 Vol Rebalance: BTC ratio={btc_v['ratio']:.2f} ({btc_v['advantage']}) | ETH ratio={eth_v['ratio']:.2f} ({eth_v['advantage']}){pref_str}")
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -1334,13 +1455,17 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 edge = prob_above - market_prob_yes
                 # Bonus edge if momentum aligns (bullish momentum for YES)
                 momentum_bonus = 0.02 if (mom_dir > 0.2 and mom_alignment) else 0
+                # Volatility rebalance bonus (T237): favor YES when realized vol > assumed
+                vol_info = vol_advantage.get(asset, {}) if vol_advantage else {}
+                vol_bonus = max(0, vol_advantage.get("vol_bonus", {}).get(asset, 0)) if vol_info.get("advantage") == "yes" else 0
+                vol_aligned = vol_info.get("advantage") == "yes"
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "yes",
                     "price": yes_ask,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus,
                     "our_prob": prob_above,
                     "base_prob": base_prob_above,
                     "market_prob": market_prob_yes,
@@ -1352,7 +1477,10 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_aligned": mom_alignment and mom_dir > 0.2,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
-                    "dynamic_min_edge": dynamic_edge
+                    "dynamic_min_edge": dynamic_edge,
+                    "vol_ratio": vol_info.get("ratio", 1.0),
+                    "vol_aligned": vol_aligned,
+                    "vol_bonus": vol_bonus
                 })
                 found_opp = True
         
@@ -1371,13 +1499,18 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 edge = prob_below - market_prob_no
                 # Bonus edge if momentum aligns (bearish momentum for NO)
                 momentum_bonus = 0.02 if (mom_dir < -0.2 and mom_alignment) else 0
+                # Volatility rebalance bonus (T237): favor NO when realized vol < assumed
+                vol_info = vol_advantage.get(asset, {}) if vol_advantage else {}
+                # For NO bets, we want NEGATIVE vol_bonus (realized < assumed = less movement = good for NO)
+                vol_bonus = abs(min(0, vol_advantage.get("vol_bonus", {}).get(asset, 0))) if vol_info.get("advantage") == "no" else 0
+                vol_aligned = vol_info.get("advantage") == "no"
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "no",
                     "price": no_price,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus,
                     "our_prob": prob_below,
                     "base_prob": base_prob_below,
                     "market_prob": market_prob_no,
@@ -1389,7 +1522,10 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_aligned": mom_alignment and mom_dir < -0.2,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
-                    "dynamic_min_edge": dynamic_edge
+                    "dynamic_min_edge": dynamic_edge,
+                    "vol_ratio": vol_info.get("ratio", 1.0),
+                    "vol_aligned": vol_aligned,
+                    "vol_bonus": vol_bonus
                 })
                 found_opp = True
         
@@ -1576,6 +1712,12 @@ def run_cycle():
     regime_conf = best.get('regime_confidence', 0)
     dynamic_edge = best.get('dynamic_min_edge', MIN_EDGE)
     print(f"   Regime: {regime_str} (conf={regime_conf:.0%}) | Min edge: {dynamic_edge*100:.1f}%")
+    # Volatility rebalance info (T237)
+    vol_ratio = best.get('vol_ratio', 1.0)
+    vol_aligned = best.get('vol_aligned', False)
+    vol_bonus = best.get('vol_bonus', 0)
+    vol_badge = "📊 VOL ALIGNED!" if vol_aligned else ""
+    print(f"   Vol ratio: {vol_ratio:.2f} | Vol bonus: +{vol_bonus*100:.1f}% {vol_badge}")
     
     # Calculate bet size (Kelly)
     if cash < MIN_BET_CENTS / 100:
@@ -1614,6 +1756,10 @@ def run_cycle():
         "regime": best.get("regime", "unknown"),
         "regime_confidence": best.get("regime_confidence", 0),
         "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
+        # Volatility rebalance data (T237)
+        "vol_ratio": best.get("vol_ratio", 1.0),
+        "vol_aligned": best.get("vol_aligned", False),
+        "vol_bonus": best.get("vol_bonus", 0),
         "result_status": "pending"
     }
     

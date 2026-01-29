@@ -858,12 +858,13 @@
 - **Notes**: ✅ Script: analyze-winrate-by-asset.py. Shows per-asset: total trades, win rate, PnL, ROI, YES/NO breakdown. Currently 41 BTC trades (old v1 data), ETH ready.
 
 ### [T237] Auto-rebalance between assets based on volatility
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T223]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When one asset has significantly higher volatility (implied vs realized), prefer trading that asset for better edge opportunities.
+- **Notes**: ✅ Added! Functions: calculate_realized_volatility(), get_volatility_advantage(). Compares 24h realized vol vs assumed hourly vol for BTC/ETH. When realized/assumed ratio >1.15 favors YES bets (+bonus), <0.85 favors NO bets (+bonus). Max ±2% edge bonus. Logs vol_ratio, vol_aligned, vol_bonus in trade data. Shows preferred_asset when one has 10%+ higher ratio.
 
 ### [T228] Add error boundary to ClientLayout
 - **Status**: DONE
@@ -2098,7 +2099,31 @@
 - **Priority**: P3
 - **Notes**: Check /famiglia, /collezioni, /giochi, /about, /health for hardcoded IT/EN strings. Convert to use i18n system for consistency.
 
+### [T375] Analyze vol_aligned trades vs non-aligned
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T237]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare win rate and PnL of trades where vol_aligned=true vs false. Validate that volatility rebalancing improves performance. Similar to momentum alignment analysis.
+
+### [T376] Volatility preference alert (multi-day divergence)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T237]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: If one asset's vol ratio stays >1.2 for 3+ consecutive cycles, send Telegram alert recommending focus on that asset. Helps identify sustained edge opportunities.
+
+### [T377] Historical volatility vs model assumptions analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T237]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Weekly script to compute average realized vol for BTC/ETH over past 30 days. Compare to BTC_HOURLY_VOL/ETH_HOURLY_VOL constants. Suggest adjustments if consistently off by >20%.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-28 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
