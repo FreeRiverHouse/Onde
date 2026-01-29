@@ -111,6 +111,24 @@ interface UptimeHistoryData {
   sites: Record<string, SiteUptime>;
 }
 
+interface WebhookAlert {
+  timestamp: string;
+  type: string;
+  status: string;
+  details?: {
+    ondeLaDown?: boolean;
+    ondeSurfDown?: boolean;
+    autotraderDown?: boolean;
+  };
+  resolved?: boolean;
+}
+
+interface WebhookAlertsData {
+  generated_at: string;
+  count: number;
+  items: WebhookAlert[];
+}
+
 interface AutotraderHealth {
   is_running: boolean;
   last_cycle_time?: string;
@@ -201,6 +219,7 @@ export default function HealthPage() {
   const [cacheLoading, setCacheLoading] = useState(true);
   const [uptimeHistory, setUptimeHistory] = useState<UptimeHistoryData | null>(null);
   const [uptimeLoading, setUptimeLoading] = useState(true);
+  const [webhookAlerts, setWebhookAlerts] = useState<WebhookAlertsData | null>(null);
   
   // Auto-refresh state (T456)
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -503,6 +522,9 @@ export default function HealthPage() {
       }
       if (data.uptimeHistory) {
         setUptimeHistory(data.uptimeHistory);
+      }
+      if (data.webhookAlerts) {
+        setWebhookAlerts(data.webhookAlerts);
       }
     } catch (error) {
       console.error('Failed to fetch trading stats:', error);
@@ -1153,6 +1175,94 @@ export default function HealthPage() {
                       </div>
                     ) : null;
                   })()}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Webhook Alerts (T454) - Critical health alerts sent via Discord/Telegram */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">📢 Webhook Alerts (7d)</h2>
+          <div className={`rounded-lg border p-4 ${
+            !webhookAlerts ? 'bg-slate-500/10 border-slate-500/30' :
+            webhookAlerts.count === 0 ? 'bg-green-500/10 border-green-500/30' :
+            'bg-red-500/10 border-red-500/30'
+          }`}>
+            {!webhookAlerts ? (
+              <div className="text-slate-400 text-center py-4">
+                <div>📢 No webhook alert data</div>
+                <div className="text-xs mt-2">Webhook alerts appear when critical health issues are detected</div>
+              </div>
+            ) : webhookAlerts.count === 0 ? (
+              <div className="text-center py-4">
+                <div className="text-green-400 text-lg">✅ No critical alerts in the last 7 days</div>
+                <div className="text-xs text-slate-400 mt-2">
+                  All systems have been stable. Last checked: {new Date(webhookAlerts.generated_at).toLocaleString()}
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Summary Header */}
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-700">
+                  <div>
+                    <div className="text-sm text-slate-400">Critical Alerts (7d)</div>
+                    <div className="text-2xl font-bold text-red-400">{webhookAlerts.count}</div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="text-center">
+                      <div className="text-xs text-slate-500">Sites Down</div>
+                      <div className="text-lg font-bold text-red-400">
+                        {webhookAlerts.items.filter(a => a.details?.ondeLaDown || a.details?.ondeSurfDown).length}
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xs text-slate-500">Autotrader</div>
+                      <div className="text-lg font-bold text-yellow-400">
+                        {webhookAlerts.items.filter(a => a.details?.autotraderDown).length}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Alert Timeline */}
+                <div className="space-y-2 max-h-60 overflow-y-auto">
+                  {webhookAlerts.items.slice(0, 10).map((alert, i) => (
+                    <div key={`webhook-${i}`} className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono px-2 py-0.5 rounded bg-red-500/20 text-red-400">
+                            CRITICAL
+                          </span>
+                          <div className="flex gap-1">
+                            {alert.details?.ondeLaDown && (
+                              <span className="text-xs px-1.5 py-0.5 bg-slate-700 rounded text-red-300">onde.la</span>
+                            )}
+                            {alert.details?.ondeSurfDown && (
+                              <span className="text-xs px-1.5 py-0.5 bg-slate-700 rounded text-red-300">onde.surf</span>
+                            )}
+                            {alert.details?.autotraderDown && (
+                              <span className="text-xs px-1.5 py-0.5 bg-slate-700 rounded text-yellow-300">autotrader</span>
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-xs text-slate-500">
+                          {new Date(alert.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="text-sm text-red-300">
+                        Health check detected critical issues
+                        {alert.resolved && (
+                          <span className="ml-2 text-green-400 text-xs">✅ Resolved</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  {webhookAlerts.count > 10 && (
+                    <div className="text-center text-xs text-slate-500 pt-2">
+                      ... and {webhookAlerts.count - 10} more alerts
+                    </div>
+                  )}
                 </div>
               </>
             )}

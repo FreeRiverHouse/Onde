@@ -249,16 +249,23 @@
   - Works alongside Discord/Slack (can use all three)
 
 ### [T454] Create alert history dashboard widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T451], [T428]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: New component for /health page showing:
-  - Recent webhook alerts sent (last 7 days)
-  - Alert type breakdown (critical/degraded)
-  - Response times (how fast issues were resolved)
-  - Store in KV or Gist for persistence
+- **Notes**: ✅ Implemented webhook alert history on /health page!
+  - **New section**: "Webhook Alerts (7d)" showing critical health alerts
+  - **Features:**
+    - 7-day alert history (vs 24h for technical alerts)
+    - Breakdown by affected service (onde.la, onde.surf, autotrader)
+    - Alert timeline with timestamps
+    - Visual distinction between site-down and autotrader issues
+  - **Updated scripts:**
+    - `health-webhook-notifier.sh` now records to `data/alerts/webhook-history.json`
+    - `upload-alerts-to-gist.py` uploads webhook alerts to gist
+  - **Integration**: Added webhookAlerts section to gist, displayed on /health page
 
 ---
 

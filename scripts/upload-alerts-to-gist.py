@@ -112,9 +112,12 @@ def load_alerts_from_jsonl(hours: int = 24) -> list:
     return alerts[:50]
 
 
-def update_gist_with_alerts(alerts: list) -> bool:
-    """Update the trading stats Gist with alerts section."""
+def update_gist_with_alerts(alerts: list, webhook_alerts: list = None) -> bool:
+    """Update the trading stats Gist with alerts section. (T454: added webhook alerts)"""
     import subprocess
+    
+    if webhook_alerts is None:
+        webhook_alerts = []
     
     # Check for gh CLI
     result = subprocess.run(['which', 'gh'], capture_output=True)
@@ -140,11 +143,18 @@ def update_gist_with_alerts(alerts: list) -> bool:
         # Start fresh
         current_data = {}
     
-    # Add/update alerts section
+    # Add/update alerts section (technical alerts - 24h)
     current_data['alerts'] = {
         'generated_at': datetime.now(timezone.utc).isoformat(),
         'count': len(alerts),
         'items': alerts,
+    }
+    
+    # Add/update webhook alerts section (T454 - 7 days)
+    current_data['webhookAlerts'] = {
+        'generated_at': datetime.now(timezone.utc).isoformat(),
+        'count': len(webhook_alerts),
+        'items': webhook_alerts,
     }
     
     # Update Gist via GitHub API (gh gist edit is interactive, not suitable for scripts)
@@ -201,6 +211,37 @@ def update_gist_with_alerts(alerts: list) -> bool:
         return False
 
 
+def load_webhook_alerts(days: int = 7) -> list:
+    """Load webhook alerts from the last N days. (T454)"""
+    webhook_file = PROJECT_ROOT / "data" / "alerts" / "webhook-history.json"
+    if not webhook_file.exists():
+        return []
+    
+    try:
+        with open(webhook_file, 'r') as f:
+            data = json.load(f)
+        
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+        alerts = []
+        
+        for alert in data.get('alerts', []):
+            ts_str = alert.get('timestamp')
+            if not ts_str:
+                continue
+            
+            try:
+                ts = datetime.fromisoformat(ts_str.replace('Z', '+00:00'))
+                if ts >= cutoff:
+                    alerts.append(alert)
+            except ValueError:
+                continue
+        
+        return alerts
+    except Exception as e:
+        print(f"Warning: Error reading webhook history: {e}", file=sys.stderr)
+        return []
+
+
 def main():
     """Main entry point."""
     print(f"📊 Loading alerts from {FINETUNING_DIR}...")
@@ -211,7 +252,7 @@ def main():
     else:
         alerts = load_alerts_from_jsonl(hours=24)
     
-    print(f"Found {len(alerts)} alerts in last 24h")
+    print(f"Found {len(alerts)} technical alerts in last 24h")
     
     if alerts:
         for alert in alerts[:5]:
@@ -219,8 +260,12 @@ def main():
         if len(alerts) > 5:
             print(f"  ... and {len(alerts) - 5} more")
     
+    # Load webhook alerts (T454)
+    webhook_alerts = load_webhook_alerts(days=7)
+    print(f"Found {len(webhook_alerts)} webhook alerts in last 7 days")
+    
     print("\n📤 Uploading to Gist...")
-    success = update_gist_with_alerts(alerts)
+    success = update_gist_with_alerts(alerts, webhook_alerts)
     
     return 0 if success else 1
 

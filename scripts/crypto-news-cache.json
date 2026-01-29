@@ -1,6 +1,6 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-01-29T23:42:01.816077",
+    "timestamp": "2026-01-29T23:57:55.104856",
     "result": {
       "sentiment": "bearish",
       "confidence": 0.7,
@@ -11,7 +11,7 @@
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-01-29T23:42:01.816036+00:00",
+      "timestamp": "2026-01-29T23:57:55.104841+00:00",
       "should_trade": true,
       "edge_adjustment": -0.014,
       "news_count": 9

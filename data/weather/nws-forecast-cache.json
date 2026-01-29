@@ -1,21 +1,10 @@
 {
   "NYC": {
-    "fetched_at": "2026-01-29T23:26:09.895635+00:00",
+    "fetched_at": "2026-01-29T23:57:58.597741+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
       "periods": [
-        {
-          "name": "This Afternoon",
-          "start_time": "2026-01-29T13:00:00-05:00",
-          "end_time": "2026-01-29T18:00:00-05:00",
-          "temperature": 21,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Mostly Sunny",
-          "wind_speed": "7 mph",
-          "wind_direction": "W"
-        },
         {
           "name": "Tonight",
           "start_time": "2026-01-29T18:00:00-05:00",
@@ -158,12 +147,23 @@
           "short_forecast": "Slight Chance Light Snow",
           "wind_speed": "3 mph",
           "wind_direction": "NW"
+        },
+        {
+          "name": "Thursday",
+          "start_time": "2026-02-05T06:00:00-05:00",
+          "end_time": "2026-02-05T18:00:00-05:00",
+          "temperature": 30,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Chance Light Snow",
+          "wind_speed": "6 mph",
+          "wind_direction": "NW"
         }
       ]
     }
   },
   "MIA": {
-    "fetched_at": "2026-01-29T23:26:10.881802+00:00",
+    "fetched_at": "2026-01-29T23:57:59.773613+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
@@ -326,7 +326,7 @@
     }
   },
   "DEN": {
-    "fetched_at": "2026-01-29T23:26:11.718257+00:00",
+    "fetched_at": "2026-01-29T23:58:00.335949+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
@@ -489,14 +489,14 @@
     }
   },
   "CHI": {
-    "fetched_at": "2026-01-29T23:26:12.620458+00:00",
+    "fetched_at": "2026-01-29T23:58:00.994984+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-01-29T16:00:00-06:00",
+          "start_time": "2026-01-29T15:00:00-06:00",
           "end_time": "2026-01-29T18:00:00-06:00",
           "temperature": 16,
           "temperature_unit": "F",

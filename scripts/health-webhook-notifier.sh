@@ -94,6 +94,34 @@ ALERT_FILE="$SCRIPT_DIR/health-critical.alert"
 echo -e "$ALERT_MSG" > "$ALERT_FILE"
 echo "Created $ALERT_FILE for heartbeat"
 
+# Record to webhook alert history (T454)
+WEBHOOK_HISTORY="$SCRIPT_DIR/../data/alerts/webhook-history.json"
+mkdir -p "$(dirname "$WEBHOOK_HISTORY")"
+
+# Build details JSON
+DETAILS=$(jq -n \
+    --arg ondeLa "$ONDE_LA_OK" \
+    --arg ondeSurf "$ONDE_SURF_OK" \
+    --arg autotrader "$AUTOTRADER_RUNNING" \
+    '{ondeLaDown: ($ondeLa == "false"), ondeSurfDown: ($ondeSurf == "false"), autotraderDown: ($autotrader == "false")}')
+
+if [ ! -f "$WEBHOOK_HISTORY" ]; then
+    echo '{"generated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","alerts":[]}' > "$WEBHOOK_HISTORY"
+fi
+
+# Add to history
+NEW_ALERT=$(jq -n \
+    --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg status "$STATUS" \
+    --argjson details "$DETAILS" \
+    '{timestamp: $ts, type: "critical", status: $status, details: $details, resolved: false}')
+
+jq --argjson alert "$NEW_ALERT" '
+    .generated_at = (now | strftime("%Y-%m-%dT%H:%M:%SZ")) |
+    .alerts = ([$alert] + .alerts) | .alerts = .alerts[:100]
+' "$WEBHOOK_HISTORY" > "$WEBHOOK_HISTORY.tmp" && mv "$WEBHOOK_HISTORY.tmp" "$WEBHOOK_HISTORY"
+echo "Recorded to webhook history"
+
 # Update cooldown
 date +%s > "$COOLDOWN_FILE"
 echo "Alert sent. Cooldown set for $COOLDOWN_SECONDS seconds."
