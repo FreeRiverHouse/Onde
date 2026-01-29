@@ -61,3 +61,4 @@ CREDENZIALI-DA-SALVARE.md
 
 # Lighthouse CI reports
 .lighthouseci/
+*.alert
