@@ -145,3 +145,22 @@ LEZIONE: Controllare SEMPRE cosa esiste prima di iniziare.
 ⚠️ ERRORE: Ho LETTO la guida ma non ho CONFIGURATO il mio HEARTBEAT.md
 LEZIONE: Leggere ≠ Fare. Devo AGIRE, non solo capire.
 
+
+### 22:35 PST [msg:211] [IMMAGINE: regole]
+> REGOLA UNO) fai SEMPRE TUTTO USANDO UNA PROCEDURA ESISTENTE
+> - se non ce AGGIUNGI TASK DI CREARLA (ma controlla prima di creare duplicati)
+> - se trovi una procedura SEGUILA SEMPRE E NON SVIARE MAI!
+> - Se la procedura non porta a risultato o ha problemi, aggiungi task di AGGIUSTARLA!!
+> - SE UN AGENTE DICE CHE HA SEGUITO UNA PROCEDURA MA NON SA FARE LE COSE, aggiunga task di fixare la procedura
+> - QUI IL FOCUS È CREARE UN SISTEMA OLIATO E PRECISO E VELOCE
+>
+> REGOLA DUE) Da OGNI MIO SINGOLO MESSAGGIO, non metterti al lavoro!!! 
+> - Estrai task e aggiungili
+> - POI SCRIVI MESSAGGIO SU GIT (regola 0)
+> - Crea un agente PM che rivede task, dipendenze e PRIORITA
+> - Tutte queste regole anche ondinho deve seguirle
+
+TASK ESTRATTI:
+- [T-NEW] Creare REGOLE-AGENTI.md con regole 0, 1, 2
+- [T-NEW] Creare agente PM per review task/dipendenze/priorità
+

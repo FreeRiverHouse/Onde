@@ -20,6 +20,22 @@
 
 ## 🚨 URGENTE - DA MATTIA 2026-01-28
 
+### [T090] Creare REGOLE-AGENTI.md
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Regola 0 (Git), Regola 1 (Procedure), Regola 2 (Task extraction). Sistema oliato.
+
+### [T091] Creare agente PM per review task
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T090]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Rivede task, dipendenze, priorità. Mantiene sistema pulito.
+
 ### [T400] Rollback onde.surf a PRIMA di Google Auth
 - **Status**: DONE
 - **Owner**: @clawd
