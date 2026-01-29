@@ -30,23 +30,32 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:36)
 
 ### [T412] VERIFICARE che logging memoria FUNZIONI DAVVERO
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: [T414]
+- **Priority**: P0
+- **Notes**: 🔴 **ROOT CAUSE TROVATO 2026-01-29 09:52**
+  - **Problema REALE**: `memory_search` è DISABILITATO!
+  - **Errore**: "No API key found for provider openai/google"
+  - **Logging manuale**: ✅ FUNZIONA (Write tool scrive i file)
+  - **Ricerca semantica**: ❌ NON FUNZIONA (richiede embeddings API)
+  - **Soluzione**: Serve API key per embeddings O fallback grep
+  - **Task correlato**: T414 (fix embeddings)
+
+### [T414] 🚨 FIX memory_search - Aggiungere API key o fallback grep
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Il bot ha DICHIARATO di loggare i caffè ma NON L'HA FATTO! 
-  - **Problema**: "Dice di fare ma non fa"
-  - **Soluzione implementata**:
-    1. Processo 6-step in AGENTS.md ✅
-    2. REGOLE-AGENTI.md con 4 regole ✅  
-    3. **MANCA**: Verifica che il bot ESEGUA davvero i passi
-  - **Test da fare**:
-    - [ ] Mandare messaggio con info specifica (es: "ho bevuto 3 birre")
-    - [ ] Aspettare risposta
-    - [ ] Verificare che memory/YYYY-MM-DD.md contenga l'info
-    - [ ] Se non c'è → BUG ancora presente!
-  - **Fix necessario**: Il bot deve VERIFICARE (cat/ls) che il file sia stato scritto PRIMA di confermare
+- **Notes**: memory_search è DISABILITATO perché manca API key embeddings
+  - **Errore**: "No API key found for provider openai/google"
+  - **Opzione 1**: Aggiungere OPENAI_API_KEY al config Clawdbot
+  - **Opzione 2**: Aggiungere GOOGLE_API_KEY al config Clawdbot
+  - **Opzione 3**: Implementare fallback con grep (ricerca testuale invece di semantica)
+  - **File config**: `~/.clawdbot/agents/main/agent/auth-profiles.json`
+  - **Come aggiungere**: `clawdbot agents add main` (richiede Mattia)
 
 ---
 
