@@ -2554,12 +2554,13 @@
 - **Notes**: Script to compare win rate and PnL when trading during full alignment vs partial vs no alignment. Validates T301 hypothesis that alignment = better outcomes.
 
 ### [T395] Log momentum alignment status in trade data
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T301]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add full_alignment field to trade_log. Enables post-trade analysis of alignment effectiveness. Currently momentum_aligned only tracks 1h alignment.
+- **Notes**: ✅ Added full_alignment field to opportunity data + trade_log. Captures when all timeframes (1h/4h/24h) agree regardless of direction. Enables T394 analysis of alignment effectiveness.
 
 ---
 

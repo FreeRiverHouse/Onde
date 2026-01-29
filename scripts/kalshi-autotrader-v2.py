@@ -1781,6 +1781,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
                     "momentum_aligned": mom_alignment and mom_dir > 0.2,
+                    "full_alignment": mom_alignment,  # T395: all timeframes agree
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
                     "volatility": regime.get("volatility", "normal"),  # T293
@@ -1827,6 +1828,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
                     "momentum_aligned": mom_alignment and mom_dir < -0.2,
+                    "full_alignment": mom_alignment,  # T395: all timeframes agree
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
                     "volatility": regime.get("volatility", "normal"),  # T293
@@ -2098,6 +2100,7 @@ def run_cycle():
         "momentum_dir": best.get("momentum_dir", 0),
         "momentum_str": best.get("momentum_str", 0),
         "momentum_aligned": best.get("momentum_aligned", False),
+        "full_alignment": best.get("full_alignment", False),  # T395: all timeframes agree
         "regime": best.get("regime", "unknown"),
         "regime_confidence": best.get("regime_confidence", 0),
         "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
