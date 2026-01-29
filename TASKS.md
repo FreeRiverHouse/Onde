@@ -873,12 +873,13 @@
 - **Notes**: Allow STOP_LOSS_THRESHOLD to be set via environment variable for easy tuning without code change.
 
 ### [T242] Analyze skip log patterns - find optimal MIN_EDGE
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T224]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Script to analyze kalshi-skips.jsonl: histogram of edge_gap values, identify if MIN_EDGE is too high. If many skips have edge 10-14%, consider lowering threshold.
+- **Notes**: ✅ Script: analyze-skip-patterns.py. Findings: Old 15%/25% thresholds were too conservative. Current v2 uses 10% for both - appropriate since most skipped trades had <2% edge. 65% of NO skips had positive edge under old thresholds.
 
 ### [T243] Market regime detection (bullish/bearish/sideways)
 - **Status**: TODO
@@ -895,6 +896,15 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Reverse-engineer implied vol from Kalshi market prices. Compare vs realized vol to find mispriced options (high IV vs low realized = sell premium).
+
+### [T245] Filter extreme prices (≤5¢ or ≥95¢) from opportunities
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Fixed "Bet too small" bug. Was selecting 100¢ NO contracts with no profit potential. Now skips prices ≤5¢ or ≥95¢ (bad risk/reward).
 
 ---
 

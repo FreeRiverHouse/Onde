@@ -868,7 +868,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         skip_due_to_momentum = False
         
         # Check for YES opportunity (we think it'll be above strike)
-        if prob_above > market_prob_yes + MIN_EDGE:
+        # Skip extreme prices (no profit potential or bad risk/reward)
+        if yes_ask and yes_ask <= 5:
+            skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
+        elif yes_ask and yes_ask >= 95:
+            skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
+        elif prob_above > market_prob_yes + MIN_EDGE:
             # Skip YES if momentum is strongly bearish (dir < -0.3 with strength > 0.3)
             if mom_dir < -0.3 and mom_str > 0.3:
                 skip_due_to_momentum = True
@@ -896,8 +901,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                 })
                 found_opp = True
         
-        # Check for NO opportunity (we think it'll be below strike)  
-        if prob_below > market_prob_no + MIN_EDGE:
+        # Check for NO opportunity (we think it'll be below strike)
+        no_price = 100 - yes_bid if yes_bid else None
+        # Skip extreme NO prices (no profit potential or bad risk/reward)
+        if no_price and (no_price <= 5 or no_price >= 95):
+            skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
+        elif prob_below > market_prob_no + MIN_EDGE:
             # Skip NO if momentum is strongly bullish (dir > 0.3 with strength > 0.3)
             if mom_dir > 0.3 and mom_str > 0.3:
                 if not skip_due_to_momentum:  # Don't double count
@@ -910,7 +919,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                     "ticker": ticker,
                     "asset": asset,
                     "side": "no",
-                    "price": 100 - yes_bid,
+                    "price": no_price,
                     "edge": edge,
                     "edge_with_bonus": edge + momentum_bonus,
                     "our_prob": prob_below,
@@ -939,7 +948,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
             })
     
     # Log skip summary if verbose
-    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"]):
+    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price")):
         print(f"\n📋 Skip Summary:")
         if skip_reasons["not_crypto"]:
             print(f"   - Not crypto markets: {skip_reasons['not_crypto']}")
@@ -947,6 +956,8 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
             print(f"   - No strike parsed: {skip_reasons['no_strike']}")
         if skip_reasons["too_close_expiry"]:
             print(f"   - Too close to expiry (<{MIN_TIME_TO_EXPIRY_MINUTES}min): {skip_reasons['too_close_expiry']}")
+        if skip_reasons.get("extreme_price"):
+            print(f"   - Extreme price (≤5¢ or ≥95¢): {skip_reasons['extreme_price']}")
         if skip_reasons["momentum_conflict"]:
             print(f"   - Momentum conflict (betting against trend): {skip_reasons['momentum_conflict']}")
         
