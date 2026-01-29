@@ -1668,8 +1668,8 @@
 - **Notes**: ElevenLabs/sag per voce. Toggle "Read aloud" per chat responses
 
 ### [T508] Notifiche browser quando task completato
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
