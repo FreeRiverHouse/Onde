@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { onCLS, onFCP, onINP, onLCP, onTTFB, Metric } from 'web-vitals';
 import { useTranslations } from '@/i18n';
+import UptimeHistoryChart from '@/components/UptimeHistoryChart';
 
 interface WebVitalsMetric {
   name: string;
@@ -79,6 +80,35 @@ interface AlertsData {
   generated_at: string;
   count: number;
   items: AlertItem[];
+}
+
+interface UptimeCheck {
+  timestamp: string;
+  status: number;
+  latency_ms: number;
+  ok: boolean;
+  error?: string;
+}
+
+interface UptimeStats {
+  uptime_24h: number;
+  uptime_7d: number;
+  avg_latency_24h: number;
+  avg_latency_7d: number;
+  incidents_24h: number;
+  incidents_7d: number;
+  total_checks_24h: number;
+  total_checks_7d: number;
+}
+
+interface SiteUptime {
+  checks: UptimeCheck[];
+  stats: UptimeStats;
+}
+
+interface UptimeHistoryData {
+  generated_at: string;
+  sites: Record<string, SiteUptime>;
 }
 
 interface AutotraderHealth {
@@ -169,6 +199,8 @@ export default function HealthPage() {
   const [alertFilter, setAlertFilter] = useState<'all' | 'divergence' | 'regime' | 'vol' | 'whipsaw'>('all');
   const [cacheDiagnostics, setCacheDiagnostics] = useState<CacheDiagnostics | null>(null);
   const [cacheLoading, setCacheLoading] = useState(true);
+  const [uptimeHistory, setUptimeHistory] = useState<UptimeHistoryData | null>(null);
+  const [uptimeLoading, setUptimeLoading] = useState(true);
   
   // Auto-refresh state (T456)
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -452,9 +484,10 @@ export default function HealthPage() {
     }
   };
 
-  // Fetch API latency, autotrader health, and alerts from trading stats gist (T398, T627, T428)
+  // Fetch API latency, autotrader health, alerts, and uptime history from trading stats gist (T398, T627, T428, T450)
   const fetchTradingStats = async () => {
     setApiLatencyLoading(true);
+    setUptimeLoading(true);
     try {
       const gistUrl = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
       const response = await fetch(gistUrl, { cache: 'no-store' });
@@ -468,10 +501,14 @@ export default function HealthPage() {
       if (data.alerts) {
         setAlertsData(data.alerts);
       }
+      if (data.uptimeHistory) {
+        setUptimeHistory(data.uptimeHistory);
+      }
     } catch (error) {
       console.error('Failed to fetch trading stats:', error);
     } finally {
       setApiLatencyLoading(false);
+      setUptimeLoading(false);
     }
   };
 
@@ -696,6 +733,12 @@ export default function HealthPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Uptime History (T450) */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">📈 Uptime History</h2>
+          <UptimeHistoryChart data={uptimeHistory} loading={uptimeLoading} />
         </div>
 
         {/* Cron Jobs */}

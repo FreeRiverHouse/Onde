@@ -135,16 +135,25 @@
   - Returns JSON with sites, trading, alerts, autotrader status
 
 ### [T450] Add uptime history chart to /health page
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T446]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show 24h/7d uptime history for sites:
-  - Store health check results in KV (every 5 min)
-  - Line chart showing response times over time
-  - Uptime percentage badge (99.9%, etc.)
-  - Incident timeline for any outages
+- **Notes**: ✅ Implemented full uptime monitoring system!
+  - **Script**: `scripts/record-uptime.py` - records health checks every 5 min
+  - **Component**: `apps/onde-portal/src/components/UptimeHistoryChart.tsx`
+  - **Features:**
+    - 24h uptime bar chart (one bar per hour, color-coded)
+    - Uptime percentage badges (24h and 7d)
+    - Average latency stats with color coding
+    - Response time sparkline (24h trend)
+    - Incident timeline showing recent downtime events
+    - Incidents count (24h and 7d)
+  - **Storage**: Local JSON + GitHub Gist for edge runtime access
+  - **Cron**: `*/5 * * * *` for continuous monitoring
+  - **Integration**: Added to /health page after Services section
 
 ### [T451] Add webhook notifications for critical alerts
 - **Status**: DONE
