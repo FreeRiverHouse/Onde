@@ -3129,3 +3129,29 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Currently using localStorage which doesn't work for SSR. Add HTTP cookie fallback so server can render correct language on first load. Use next-cookies or similar. Prevents flash of wrong language.
+
+
+### [T468] Most Downloaded section on /libri page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T299]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "Popular Books" or "Most Downloaded" section at top of /libri page. Uses download data from useDownloadTracker. Shows top 5 books by download count. Re-orders books dynamically based on popularity.
+
+### [T469] Server-side download analytics with D1
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T299]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Persist download counts server-side using Cloudflare D1. Create downloads table (book_id, format, count, last_download). Add API endpoint /api/analytics/track to increment. Aggregate counts across all users instead of just localStorage per-user.
+
+### [T470] Book recommendation system based on downloads
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T299], [T469]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show "Readers also downloaded" on book detail pages. Track co-download patterns (users who downloaded A also downloaded B). Simple collaborative filtering without user accounts - just aggregate patterns.
+
