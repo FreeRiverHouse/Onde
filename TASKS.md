@@ -2556,12 +2556,13 @@
 - **Notes**: ✅ Implemented! check_whipsaw() tracks direction_history in momentum state, detects 2+ bullish↔bearish flips within 24h. Alert file: kalshi-whipsaw.alert (2h cooldown). Recommends reduced position sizes for choppy conditions. Added to HEARTBEAT.md pickup.
 
 ### [T394] Analyze win rate by momentum alignment status
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T301]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare win rate and PnL when trading during full alignment vs partial vs no alignment. Validates T301 hypothesis that alignment = better outcomes.
+- **Notes**: ✅ Script: analyze-momentum-alignment.py. Categorizes trades by alignment (full/partial/none), compares win rate, PnL, ROI. Usage: `python3 scripts/analyze-momentum-alignment.py [--v2]`. Output: data/trading/momentum-alignment-analysis.json. V2 trades will have proper alignment data.
 
 ### [T395] Log momentum alignment status in trade data
 - **Status**: DONE
@@ -2649,3 +2650,27 @@
 
 *Ultimo aggiornamento: 2026-01-30 17:00 UTC*
 *Sistema coordinamento: vedi TASK-RULES.md*
+
+### [T416] Auto-reduce position size during whipsaw
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T393]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When whipsaw is detected, automatically reduce position sizes by 50% for affected asset until momentum stabilizes (no flip for 6h). Extend T293 sizing logic.
+
+### [T417] Weekly volatility calibration check
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare realized 7d volatility vs BTC_HOURLY_VOL/ETH_HOURLY_VOL assumptions. Alert if off by >20%. Weekly cron (Sundays). Helps keep model calibrated.
+
+### [T418] Analyze win rate by momentum direction (bullish vs bearish)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare performance of trades made during bullish vs bearish momentum. Check if model performs better in one direction. May reveal asymmetric edge opportunities.
