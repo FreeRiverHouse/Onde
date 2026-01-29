@@ -1,0 +1,61 @@
+{
+  "asset": "eth",
+  "generated_at": "2026-01-28T23:46:57.867314",
+  "regime_distribution": {
+    "sideways": {
+      "count": 130,
+      "percentage": 75.14450867052022,
+      "avg_return_4h": 0.0069530731481607525
+    },
+    "trending_bullish": {
+      "count": 20,
+      "percentage": 11.560693641618498,
+      "avg_return_4h": 0.13841282088766796
+    },
+    "trending_bearish": {
+      "count": 20,
+      "percentage": 11.560693641618498,
+      "avg_return_4h": -0.11943432132049907
+    },
+    "choppy": {
+      "count": 3,
+      "percentage": 1.7341040462427744,
+      "avg_return_4h": -0.47854694412865983
+    }
+  },
+  "predictions": {
+    "sideways": {
+      "expected_direction": "neutral",
+      "avg_4h_return": 0.0069530731481607525,
+      "prediction_accuracy": 83.07692307692308,
+      "sample_size": 130
+    },
+    "trending_bullish": {
+      "expected_direction": "up",
+      "avg_4h_return": 0.13841282088766796,
+      "prediction_accuracy": 45.0,
+      "sample_size": 20
+    },
+    "trending_bearish": {
+      "expected_direction": "down",
+      "avg_4h_return": -0.11943432132049907,
+      "prediction_accuracy": 55.00000000000001,
+      "sample_size": 20
+    },
+    "choppy": {
+      "expected_direction": "neutral",
+      "avg_4h_return": -0.47854694412865983,
+      "prediction_accuracy": 66.66666666666666,
+      "sample_size": 3
+    }
+  },
+  "transitions": {
+    "sideways\u2192trending_bullish": 10,
+    "trending_bullish\u2192sideways": 11,
+    "sideways\u2192trending_bearish": 9,
+    "trending_bearish\u2192sideways": 10,
+    "sideways\u2192choppy": 2,
+    "choppy\u2192trending_bearish": 1,
+    "choppy\u2192trending_bullish": 1
+  }
+}

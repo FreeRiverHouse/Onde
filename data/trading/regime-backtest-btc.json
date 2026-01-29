@@ -1,0 +1,47 @@
+{
+  "asset": "btc",
+  "generated_at": "2026-01-28T23:46:54.510133",
+  "regime_distribution": {
+    "sideways": {
+      "count": 149,
+      "percentage": 86.1271676300578,
+      "avg_return_4h": -0.02654173662639493
+    },
+    "trending_bullish": {
+      "count": 11,
+      "percentage": 6.358381502890173,
+      "avg_return_4h": 0.16859478468445907
+    },
+    "trending_bearish": {
+      "count": 13,
+      "percentage": 7.514450867052023,
+      "avg_return_4h": 0.13448026790696754
+    }
+  },
+  "predictions": {
+    "sideways": {
+      "expected_direction": "neutral",
+      "avg_4h_return": -0.02654173662639493,
+      "prediction_accuracy": 89.93288590604027,
+      "sample_size": 149
+    },
+    "trending_bullish": {
+      "expected_direction": "up",
+      "avg_4h_return": 0.16859478468445907,
+      "prediction_accuracy": 54.54545454545454,
+      "sample_size": 11
+    },
+    "trending_bearish": {
+      "expected_direction": "down",
+      "avg_4h_return": 0.13448026790696754,
+      "prediction_accuracy": 46.15384615384615,
+      "sample_size": 13
+    }
+  },
+  "transitions": {
+    "sideways\u2192trending_bullish": 6,
+    "trending_bullish\u2192sideways": 6,
+    "sideways\u2192trending_bearish": 8,
+    "trending_bearish\u2192sideways": 8
+  }
+}

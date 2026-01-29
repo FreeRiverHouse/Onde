@@ -1259,12 +1259,13 @@
 - **Notes**: ✅ Script: analyze-winrate-by-regime.py. Reads from kalshi-trades-v2.jsonl, groups by regime (trending_bullish/bearish, sideways, choppy), calculates win rate/PnL/ROI per regime, compares performance. Awaiting v2 trades for data.
 
 ### [T266] Backtest regime detection on historical data
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T243]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Run regime detection on past OHLC data to see how often each regime occurs and if predictions align with actual price movement.
+- **Notes**: ✅ Script: backtest-regime-detection.py. Uses cached OHLC (90 days). Analyzes: regime distribution, prediction accuracy (4h ahead), transitions. Findings: BTC/ETH mostly sideways (75-86%), sideways most accurate (83-90%), trend regimes show continuation. Results: data/trading/regime-backtest-{btc,eth}.json
 
 ---
 
