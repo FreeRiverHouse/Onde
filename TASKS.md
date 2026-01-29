@@ -30,12 +30,13 @@
 - **Notes**: ✅ Creato! 3 regole: Git (pull/push), Procedure (segui docs), Task extraction (estrai da conversazioni).
 
 ### [T091] Creare agente PM per review task
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DUPLICATE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T090]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Rivede task, dipendenze, priorità. Mantiene sistema pulito.
+- **Notes**: ⚠️ DUPLICATE di T402 (già completato 2026-01-28). PM Review già eseguita.
 
 ### [T400] Rollback onde.surf a PRIMA di Google Auth
 - **Status**: DONE
@@ -1499,20 +1500,22 @@
 ## 🔥 REGOLE SISTEMA - DA MATTIA 2026-01-28 22:35 PST
 
 ### [T405] Aggiornare AGENTS.md con REGOLA UNO (Procedure)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: [T406], [T407]
 - **Priority**: P0
-- **Notes**: REGOLA UNO: Fai SEMPRE tutto usando una procedura esistente. Se non c'è → crea task per crearla. Se procedura non funziona → crea task per fixarla. Focus: sistema oliato, preciso, veloce.
+- **Notes**: ✅ Implementato via REGOLE-AGENTI.md + riferimento in AGENTS.md. REGOLA 1: Fai SEMPRE tutto usando procedure esistenti.
 
 ### [T406] Aggiornare AGENTS.md con REGOLA DUE (Estrai Task)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T405]
 - **Blocks**: [T407]
 - **Priority**: P0
-- **Notes**: REGOLA DUE: Da ogni messaggio NON mettersi subito al lavoro! Estrai task → Aggiungi a TASKS.md → Committa su git. Non lavorare in modo reattivo.
+- **Notes**: ✅ Implementato via REGOLE-AGENTI.md + riferimento in AGENTS.md. REGOLA 2: Estrai task da ogni messaggio!
 
 ### [T407] Propagare REGOLA UNO e DUE a Ondinho
 - **Status**: TODO

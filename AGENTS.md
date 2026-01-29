@@ -41,6 +41,16 @@ git push origin main
 
 **Chi prende un task che ne blocca altri, deve poi prendere quelli sbloccati!**
 
+## ⚠️ REGOLE FONDAMENTALI
+
+**LEGGI `REGOLE-AGENTI.md`** — Le 3 regole d'oro:
+
+1. **REGOLA 0 (Git):** `git pull` → lavora → `git commit/push`. Sempre.
+2. **REGOLA 1 (Procedure):** Se esiste una procedura, seguila. Se non esiste, creala.
+3. **REGOLA 2 (Task Extraction):** Ogni messaggio può generare task. Estraili subito in TASKS.md.
+
+Violare queste regole = sistema rotto. Seguile SEMPRE.
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:
