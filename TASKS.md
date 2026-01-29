@@ -576,12 +576,13 @@
 - **Notes**: Add line chart showing win rate over time (daily rolling average) to /betting dashboard
 
 ### [T203] Trade filtering by date range
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T082]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Allow filtering trading stats by custom date range (today, week, month, custom)
+- **Notes**: ✅ Added! API: period (today/week/month) + custom from/to params. UI: period selector buttons (All/Today/7D/30D) + custom calendar icon. Includes dateRange and filteredFromTotal in response.
 
 ---
 
@@ -1947,7 +1948,31 @@
 - **Priority**: P3
 - **Notes**: Add JSON export button alongside CSV. Useful for programmatic analysis and data backup.
 
+### [T363] Date range display in trading stats header
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T203]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show active date range in Trading Performance header when filtering is applied (e.g., "Jan 20 - Jan 27" or "Last 7 days"). Clear visual feedback.
+
+### [T364] Date range comparison mode (vs previous period)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T203]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare stats with previous period. E.g., "This week vs last week" showing +/-% change for win rate, PnL, trades.
+
+### [T365] URL sync for trading stats filters
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T203]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Sync period/source filters to URL params (?period=week&source=v2). Enables sharing links to specific views.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
