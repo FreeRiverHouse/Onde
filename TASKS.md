@@ -1668,12 +1668,13 @@
 - **Notes**: ElevenLabs/sag per voce. Toggle "Read aloud" per chat responses
 
 ### [T508] Notifiche browser quando task completato
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Push notification via Service Worker quando un agente completa un task
+- **Notes**: ✅ Added! Notification bell toggle in FreeRiverHouse header. Click to request permission (shows toast feedback). When enabled: receives browser notification on task completion with agent name and task description. Uses Web Notifications API, auto-closes after 5s.
 
 ### [T509] XP e livelli per agenti (gamification)
 - **Status**: TODO
