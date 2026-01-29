@@ -790,12 +790,13 @@
 - **Notes**: ✅ Updated! Now handles KXETHD tickers. Functions renamed: get_price_at_time(), get_price_binance(), get_price_cryptocompare() with asset param. Logs asset type in settlement records.
 
 ### [T236] Separate win rate tracking per asset (BTC vs ETH)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T223]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track and display win rates separately for BTC and ETH trades in dashboard and reports. Helps identify which asset performs better.
+- **Notes**: ✅ Script: analyze-winrate-by-asset.py. Shows per-asset: total trades, win rate, PnL, ROI, YES/NO breakdown. Currently 41 BTC trades (old v1 data), ETH ready.
 
 ### [T237] Auto-rebalance between assets based on volatility
 - **Status**: TODO
@@ -936,5 +937,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:35 PST*
+*Ultimo aggiornamento: 2026-01-29 17:42 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
