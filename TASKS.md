@@ -3173,12 +3173,13 @@
 - **Notes**: Show "Readers also downloaded" on book detail pages. Track co-download patterns (users who downloaded A also downloaded B). Simple collaborative filtering without user accounts - just aggregate patterns.
 
 ### [T471] Circuit breaker history logging
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T367]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log each circuit breaker trigger/release to kalshi-circuit-breaker-history.jsonl. Track: trigger time, release time, release reason (win/cooldown/manual), streak at trigger, trades skipped while paused. Analyze patterns to optimize threshold.
+- **Notes**: ✅ Implemented! Added log_circuit_breaker_event() to autotrader-v2. Logs to kalshi-circuit-breaker-history.jsonl with: event_type, trigger_time, release_time, release_reason (win/cooldown), streak, trades_skipped (estimated), pause_duration_hours. Analysis script: analyze-circuit-breaker-history.py (shows patterns, recommendations).
 
 ### [T472] Autotrader health dashboard endpoint
 - **Status**: TODO

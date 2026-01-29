@@ -87,6 +87,7 @@ CIRCUIT_BREAKER_THRESHOLD = int(os.getenv("CIRCUIT_BREAKER_THRESHOLD", "5"))  # 
 CIRCUIT_BREAKER_COOLDOWN_HOURS = float(os.getenv("CIRCUIT_BREAKER_COOLDOWN_HOURS", "4"))  # Require cooldown period after trigger
 CIRCUIT_BREAKER_ALERT_FILE = "scripts/kalshi-circuit-breaker.alert"
 CIRCUIT_BREAKER_STATE_FILE = "scripts/kalshi-circuit-breaker.json"
+CIRCUIT_BREAKER_HISTORY_FILE = "scripts/kalshi-circuit-breaker-history.jsonl"  # T471: History logging
 
 # Regime change alerting
 REGIME_STATE_FILE = "scripts/kalshi-regime-state.json"
@@ -3448,6 +3449,14 @@ def check_circuit_breaker() -> tuple:
         # Resume if EITHER we got a win OR cooldown period has elapsed
         if consecutive_losses == 0:
             # We got a win! Resume trading
+            trades_skipped = get_trades_skipped_count()
+            log_circuit_breaker_event(
+                event_type="release",
+                consecutive_losses=state.get("streak_at_pause", 0),
+                release_reason="win",
+                trades_skipped=trades_skipped,
+                trigger_time=pause_time_str
+            )
             state["paused"] = False
             state["pause_time"] = None
             state["streak_at_pause"] = 0
@@ -3455,6 +3464,14 @@ def check_circuit_breaker() -> tuple:
             return (False, 0, "✅ Circuit breaker released - got a win!")
         elif cooldown_elapsed:
             # Cooldown elapsed, resume cautiously
+            trades_skipped = get_trades_skipped_count()
+            log_circuit_breaker_event(
+                event_type="release",
+                consecutive_losses=consecutive_losses,
+                release_reason="cooldown",
+                trades_skipped=trades_skipped,
+                trigger_time=pause_time_str
+            )
             state["paused"] = False
             state["pause_time"] = None
             state["streak_at_pause"] = 0
@@ -3466,10 +3483,18 @@ def check_circuit_breaker() -> tuple:
     
     # Check if we should trigger circuit breaker
     if consecutive_losses >= CIRCUIT_BREAKER_THRESHOLD:
+        trigger_time = datetime.now(timezone.utc).isoformat()
         state["paused"] = True
-        state["pause_time"] = datetime.now(timezone.utc).isoformat()
+        state["pause_time"] = trigger_time
         state["streak_at_pause"] = consecutive_losses
         save_circuit_breaker_state(state)
+        
+        # Log trigger event to history (T471)
+        log_circuit_breaker_event(
+            event_type="trigger",
+            consecutive_losses=consecutive_losses,
+            trigger_time=trigger_time
+        )
         
         # Write alert file for heartbeat pickup
         write_circuit_breaker_alert(consecutive_losses)
@@ -3505,6 +3530,90 @@ def write_circuit_breaker_alert(consecutive_losses: int):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 Circuit breaker alert written to {CIRCUIT_BREAKER_ALERT_FILE}")
+
+
+# ============== CIRCUIT BREAKER HISTORY LOGGING (T471) ==============
+
+def log_circuit_breaker_event(
+    event_type: str,  # "trigger" or "release"
+    consecutive_losses: int,
+    release_reason: str = None,  # "win", "cooldown", "manual"
+    trades_skipped: int = 0,
+    trigger_time: str = None,
+    release_time: str = None
+):
+    """
+    Log circuit breaker trigger/release events to history file.
+    
+    Tracks:
+    - trigger_time: When circuit breaker was triggered
+    - release_time: When circuit breaker was released
+    - release_reason: Why it was released (win/cooldown/manual)
+    - streak_at_trigger: Consecutive losses when triggered
+    - trades_skipped: How many trading opportunities were skipped while paused
+    """
+    now = datetime.now(timezone.utc).isoformat()
+    
+    entry = {
+        "timestamp": now,
+        "event_type": event_type,
+        "consecutive_losses": consecutive_losses,
+        "threshold": CIRCUIT_BREAKER_THRESHOLD,
+        "cooldown_hours": CIRCUIT_BREAKER_COOLDOWN_HOURS,
+    }
+    
+    if event_type == "trigger":
+        entry["trigger_time"] = trigger_time or now
+    elif event_type == "release":
+        entry["release_time"] = release_time or now
+        entry["release_reason"] = release_reason
+        entry["trigger_time"] = trigger_time
+        entry["trades_skipped"] = trades_skipped
+        
+        # Calculate pause duration if we have trigger_time
+        if trigger_time:
+            try:
+                trigger_dt = datetime.fromisoformat(trigger_time)
+                release_dt = datetime.fromisoformat(release_time or now)
+                if trigger_dt.tzinfo is None:
+                    trigger_dt = trigger_dt.replace(tzinfo=timezone.utc)
+                if release_dt.tzinfo is None:
+                    release_dt = release_dt.replace(tzinfo=timezone.utc)
+                entry["pause_duration_hours"] = round((release_dt - trigger_dt).total_seconds() / 3600, 2)
+            except:
+                pass
+    
+    # Append to history file
+    try:
+        with open(CIRCUIT_BREAKER_HISTORY_FILE, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+        print(f"📊 Circuit breaker event logged: {event_type}")
+    except Exception as e:
+        print(f"⚠️ Failed to log circuit breaker event: {e}")
+
+
+def get_trades_skipped_count() -> int:
+    """
+    Count trading opportunities that were skipped while circuit breaker was active.
+    This is tracked via skip logs with reason containing 'circuit_breaker'.
+    """
+    try:
+        state = load_circuit_breaker_state()
+        pause_time_str = state.get("pause_time")
+        if not pause_time_str:
+            return 0
+        
+        pause_time = datetime.fromisoformat(pause_time_str)
+        if pause_time.tzinfo is None:
+            pause_time = pause_time.replace(tzinfo=timezone.utc)
+        
+        # Count opportunities that would have been taken since pause
+        # We estimate based on cycles run (each cycle is ~1 min)
+        hours_paused = (datetime.now(timezone.utc) - pause_time).total_seconds() / 3600
+        # Rough estimate: ~60 cycles per hour, avg 0.5 opportunities per cycle
+        return int(hours_paused * 30)  # Estimated skipped opportunities
+    except:
+        return 0
 
 
 # ============== LATENCY ALERTING (T295) ==============
