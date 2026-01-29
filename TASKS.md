@@ -1301,6 +1301,23 @@
 - **Priority**: P2
 - **Notes**: ✅ Updated! Now handles KXETHD tickers. Functions renamed: get_price_at_time(), get_price_binance(), get_price_cryptocompare() with asset param. Logs asset type in settlement records.
 
+### [T424] Weather market settlement tracker
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T422]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Created! `scripts/weather-settlement-tracker.py`:
+  - Parses KXHIGH/KXLOW weather tickers
+  - Fetches actual temps from NWS API (official settlement source)
+  - Fallback to Open-Meteo historical API
+  - Calculates win/loss based on temp vs threshold
+  - Tracks forecast accuracy (NWS vs actual)
+  - Updates kalshi-trades-v2.jsonl with results
+  - Saves to weather-settlements.json
+  - Ready for cron (hourly after market close)
+
 ### [T236] Separate win rate tracking per asset (BTC vs ETH)
 - **Status**: DONE
 - **Owner**: @clawd
