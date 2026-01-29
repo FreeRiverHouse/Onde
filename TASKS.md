@@ -1074,12 +1074,13 @@
 - **Notes**: ✅ Fixed "Bet too small" bug. Was selecting 100¢ NO contracts with no profit potential. Now skips prices ≤5¢ or ≥95¢ (bad risk/reward).
 
 ### [T246] Multi-exchange price feeds (Binance + CoinGecko + Coinbase)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Average prices from multiple exchanges for more accurate probability calculations. Reduces risk of single-source price manipulation or API lag.
+- **Notes**: ✅ Implemented! get_crypto_prices() now fetches from 3 sources (Binance, CoinGecko, Coinbase). Uses median price for robustness. Logs source count and warns on >0.5% price spread. Separate functions: get_prices_binance(), get_prices_coingecko(), get_prices_coinbase().
 
 ### [T247] Daily stop-loss stats summary in report
 - **Status**: DONE
@@ -2429,7 +2430,31 @@
 - **Priority**: P3
 - **Notes**: Script to compute 7d/30d historical volatility from cached OHLC. Compare to model assumptions (BTC_HOURLY_VOL). Output to data/ohlc/volatility-stats.json for dashboard use.
 
+### [T384] Price source reliability tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T246]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log which exchange API fails/succeeds each cycle. Weekly report showing uptime % per source (Binance, CoinGecko, Coinbase). Helps identify unreliable sources to deprioritize.
+
+### [T385] Price spread anomaly detection
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T246]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: If BTC/ETH price spread between exchanges exceeds 1%, write alert. Could indicate exchange issues, arbitrage opportunity, or manipulation. Log to price-anomalies.jsonl for analysis.
+
+### [T386] Add exchange sources to trade logs
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T246]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include "price_sources" field in trade_log showing which exchanges were used for price at entry (e.g., ["binance","coingecko"]). Helps analyze if specific source correlations affect win rate.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 heartbeat*
+*Ultimo aggiornamento: 2026-01-30 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*

@@ -1145,28 +1145,134 @@ def write_stop_loss_alert(ticker: str, side: str, contracts: int,
 
 # ============== EXTERNAL DATA ==============
 
-def get_crypto_prices(max_retries: int = 3) -> dict:
-    """Get current BTC/ETH prices with retry logic"""
-    for attempt in range(max_retries):
-        try:
-            resp = requests.get(
-                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
-                timeout=5
-            )
-            if resp.status_code >= 500:
-                raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
+def get_prices_coingecko() -> dict:
+    """Get BTC/ETH prices from CoinGecko"""
+    try:
+        resp = requests.get(
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
+            timeout=5
+        )
+        if resp.status_code == 200:
             data = resp.json()
             return {
                 "btc": data["bitcoin"]["usd"],
-                "eth": data["ethereum"]["usd"]
+                "eth": data["ethereum"]["usd"],
+                "source": "coingecko"
             }
-        except Exception as e:
-            if attempt < max_retries - 1:
-                wait_time = (2 ** attempt) + (time.time() % 1)
-                print(f"[RETRY] CoinGecko error: {e}, waiting {wait_time:.1f}s")
-                time.sleep(wait_time)
-                continue
+    except Exception as e:
+        print(f"[PRICE] CoinGecko error: {e}")
     return None
+
+
+def get_prices_binance() -> dict:
+    """Get BTC/ETH prices from Binance"""
+    try:
+        resp = requests.get(
+            "https://api.binance.com/api/v3/ticker/price?symbols=[\"BTCUSDT\",\"ETHUSDT\"]",
+            timeout=5
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            prices = {"source": "binance"}
+            for item in data:
+                if item["symbol"] == "BTCUSDT":
+                    prices["btc"] = float(item["price"])
+                elif item["symbol"] == "ETHUSDT":
+                    prices["eth"] = float(item["price"])
+            if "btc" in prices and "eth" in prices:
+                return prices
+    except Exception as e:
+        print(f"[PRICE] Binance error: {e}")
+    return None
+
+
+def get_prices_coinbase() -> dict:
+    """Get BTC/ETH prices from Coinbase"""
+    try:
+        btc_resp = requests.get(
+            "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+            timeout=5
+        )
+        eth_resp = requests.get(
+            "https://api.coinbase.com/v2/prices/ETH-USD/spot",
+            timeout=5
+        )
+        if btc_resp.status_code == 200 and eth_resp.status_code == 200:
+            return {
+                "btc": float(btc_resp.json()["data"]["amount"]),
+                "eth": float(eth_resp.json()["data"]["amount"]),
+                "source": "coinbase"
+            }
+    except Exception as e:
+        print(f"[PRICE] Coinbase error: {e}")
+    return None
+
+
+def get_crypto_prices(max_retries: int = 3) -> dict:
+    """
+    Get current BTC/ETH prices from multiple exchanges.
+    Aggregates prices from Binance, CoinGecko, and Coinbase for accuracy.
+    Uses median price when multiple sources available.
+    """
+    all_prices = []
+    sources_used = []
+    
+    # Fetch from all sources in parallel order of reliability
+    price_funcs = [
+        ("binance", get_prices_binance),
+        ("coingecko", get_prices_coingecko),
+        ("coinbase", get_prices_coinbase),
+    ]
+    
+    for source_name, fetch_func in price_funcs:
+        for attempt in range(max_retries):
+            result = fetch_func()
+            if result:
+                all_prices.append(result)
+                sources_used.append(source_name)
+                break
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 0.5 + (time.time() % 0.5)
+                time.sleep(wait_time)
+    
+    if not all_prices:
+        print("[PRICE] ERROR: All exchanges failed!")
+        return None
+    
+    # Aggregate prices using median for robustness
+    btc_prices = [p["btc"] for p in all_prices if "btc" in p]
+    eth_prices = [p["eth"] for p in all_prices if "eth" in p]
+    
+    def median(values):
+        sorted_vals = sorted(values)
+        n = len(sorted_vals)
+        if n == 0:
+            return None
+        if n % 2 == 1:
+            return sorted_vals[n // 2]
+        return (sorted_vals[n // 2 - 1] + sorted_vals[n // 2]) / 2
+    
+    btc_median = median(btc_prices) if btc_prices else None
+    eth_median = median(eth_prices) if eth_prices else None
+    
+    if btc_median is None or eth_median is None:
+        print(f"[PRICE] WARNING: Missing prices - BTC: {btc_prices}, ETH: {eth_prices}")
+        return None
+    
+    # Log price spread for monitoring
+    if len(btc_prices) > 1:
+        btc_spread = (max(btc_prices) - min(btc_prices)) / btc_median * 100
+        if btc_spread > 0.5:  # >0.5% spread is unusual
+            print(f"[PRICE] WARNING: BTC spread {btc_spread:.2f}% across exchanges")
+    
+    print(f"[PRICE] BTC: ${btc_median:,.0f} | ETH: ${eth_median:,.0f} ({len(sources_used)} sources: {', '.join(sources_used)})")
+    
+    return {
+        "btc": btc_median,
+        "eth": eth_median,
+        "sources": sources_used,
+        "source_count": len(sources_used)
+    }
 
 
 def get_fear_greed(max_retries: int = 2) -> int:
