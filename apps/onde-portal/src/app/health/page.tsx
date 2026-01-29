@@ -1,6 +1,14 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { onCLS, onFCP, onINP, onLCP, onTTFB, Metric } from 'web-vitals';
+
+interface WebVitalsMetric {
+  name: string;
+  value: number;
+  rating: 'good' | 'needs-improvement' | 'poor';
+  unit: string;
+}
 
 interface ServiceStatus {
   name: string;
@@ -62,6 +70,49 @@ export default function HealthPage() {
   });
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [webVitals, setWebVitals] = useState<WebVitalsMetric[]>([]);
+
+  // Collect Core Web Vitals
+  useEffect(() => {
+    const vitalsCallback = (metric: Metric) => {
+      // Rating thresholds per metric (based on Google's guidelines)
+      const getRating = (name: string, value: number): 'good' | 'needs-improvement' | 'poor' => {
+        const thresholds: Record<string, [number, number]> = {
+          CLS: [0.1, 0.25],        // Cumulative Layout Shift
+          FCP: [1800, 3000],       // First Contentful Paint (ms)
+          INP: [200, 500],         // Interaction to Next Paint (ms)
+          LCP: [2500, 4000],       // Largest Contentful Paint (ms)
+          TTFB: [800, 1800],       // Time to First Byte (ms)
+        };
+        const [good, poor] = thresholds[name] || [0, 0];
+        if (value <= good) return 'good';
+        if (value <= poor) return 'needs-improvement';
+        return 'poor';
+      };
+
+      const getUnit = (name: string): string => {
+        if (name === 'CLS') return '';
+        return 'ms';
+      };
+
+      setWebVitals(prev => {
+        const filtered = prev.filter(v => v.name !== metric.name);
+        return [...filtered, {
+          name: metric.name,
+          value: metric.value,
+          rating: getRating(metric.name, metric.value),
+          unit: getUnit(metric.name),
+        }].sort((a, b) => a.name.localeCompare(b.name));
+      });
+    };
+
+    // Register all web vitals callbacks
+    onCLS(vitalsCallback);
+    onFCP(vitalsCallback);
+    onINP(vitalsCallback);
+    onLCP(vitalsCallback);
+    onTTFB(vitalsCallback);
+  }, []);
 
   // Check network and service worker status
   const checkNetworkStatus = useCallback(async () => {
@@ -464,6 +515,83 @@ export default function HealthPage() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Core Web Vitals */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">⚡ Core Web Vitals</h2>
+          <div className={`rounded-lg border p-4 ${
+            webVitals.length === 0 ? 'bg-slate-500/10 border-slate-500/30' :
+            webVitals.some(v => v.rating === 'poor') ? 'bg-red-500/10 border-red-500/30' :
+            webVitals.some(v => v.rating === 'needs-improvement') ? 'bg-yellow-500/10 border-yellow-500/30' :
+            'bg-green-500/10 border-green-500/30'
+          }`}>
+            {webVitals.length === 0 ? (
+              <div className="text-slate-400 text-center py-4">
+                <div className="animate-pulse">📊 Collecting metrics...</div>
+                <div className="text-xs mt-2">Interact with the page to capture INP</div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {webVitals.map((metric) => (
+                  <div key={metric.name} className="bg-slate-800/50 rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-slate-400 text-xs font-medium">{metric.name}</span>
+                      <div className={`w-2 h-2 rounded-full ${
+                        metric.rating === 'good' ? 'bg-green-500' :
+                        metric.rating === 'needs-improvement' ? 'bg-yellow-500' :
+                        'bg-red-500'
+                      }`} />
+                    </div>
+                    <div className={`text-lg font-bold ${
+                      metric.rating === 'good' ? 'text-green-400' :
+                      metric.rating === 'needs-improvement' ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`}>
+                      {metric.name === 'CLS' 
+                        ? metric.value.toFixed(3) 
+                        : Math.round(metric.value)}{metric.unit}
+                    </div>
+                    <div className={`text-xs capitalize ${
+                      metric.rating === 'good' ? 'text-green-500' :
+                      metric.rating === 'needs-improvement' ? 'text-yellow-500' :
+                      'text-red-500'
+                    }`}>
+                      {metric.rating.replace('-', ' ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {webVitals.length > 0 && (
+              <div className="mt-3 pt-3 border-t border-slate-700 text-xs text-slate-500 text-center">
+                Based on <a href="https://web.dev/vitals/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Google&apos;s Core Web Vitals</a> thresholds
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Timezone Info */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">🕐 Timezone Info</h2>
+          <div className="rounded-lg border bg-slate-500/10 border-slate-500/30 p-4 grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <span className="text-slate-400">Cron TZ:</span>
+              <span className="text-white ml-2">UTC</span>
+            </div>
+            <div>
+              <span className="text-slate-400">Your TZ:</span>
+              <span className="text-white ml-2">{Intl.DateTimeFormat().resolvedOptions().timeZone}</span>
+            </div>
+            <div>
+              <span className="text-slate-400">UTC:</span>
+              <span className="text-white ml-2">{new Date().toISOString().slice(11, 19)}</span>
+            </div>
+            <div>
+              <span className="text-slate-400">Local:</span>
+              <span className="text-white ml-2">{new Date().toLocaleTimeString()}</span>
+            </div>
           </div>
         </div>
 
