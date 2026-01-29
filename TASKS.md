@@ -1125,12 +1125,13 @@
 - **Notes**: Current feed uses generic descriptions. Pull actual book summaries from Gutenberg API or local data.
 
 ### [T269] Deploy onde.la with RSS feed
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T262]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: RSS feed built - deploy to production to make it live.
+- **Notes**: ✅ Deployed to Cloudflare Pages. RSS feed live at https://onde.la/feed.xml
 
 ---
 
