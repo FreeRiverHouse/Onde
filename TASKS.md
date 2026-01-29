@@ -596,12 +596,13 @@
 - **Notes**: Add canonical link tags to prevent duplicate content issues in SEO
 
 ### [T210] Meta descriptions per page
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Each page should have unique meta description for better Google snippets
+- **Notes**: ✅ Added layout.tsx with Metadata for /about, /catalogo, /collezioni, /famiglia, /giochi, /health. Each has unique title+description for SEO.
 
 ### [T211] Telegram alert se autotrader crasha
 - **Status**: DONE
@@ -731,7 +732,31 @@
 - **Priority**: P3
 - **Notes**: Include "reason" field in trade log entry explaining why this trade was taken (edge %, momentum direction, volatility context).
 
+### [T226] Add JSON-LD structured data for books
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Schema.org Book markup for better Google rich snippets. Include author, datePublished, isbn (if any), offers.
+
+### [T227] Lighthouse CI check for performance regression
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Lighthouse audit to CI pipeline. Fail if performance score < 80 or accessibility < 90.
+
+### [T228] Add error boundary to ClientLayout
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Wrap ClientLayout children in React error boundary to prevent full app crash on component errors.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:00 PST*
+*Ultimo aggiornamento: 2026-01-29 00:45 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
