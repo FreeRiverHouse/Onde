@@ -2127,12 +2127,13 @@
 - **Notes**: ✅ Added From/To date pickers to /trading/history filters. Uses native date inputs. Auto-resets to page 1 when dates change. Clear button resets dates too. Styled consistent with existing filters.
 
 ### [T341] Keyboard navigation for trade history table
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T096]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add j/k for row navigation, Enter to expand trade details, arrow keys for pagination.
+- **Notes**: ✅ Added vim-style navigation! j/k for rows, g/G first/last, h/l or arrows for pages, r refresh, f filters, ? help modal. Click to select rows, Esc to clear. Blue highlight ring for selected row.
 
 ### [T342] Trading history API caching
 - **Status**: N/A
