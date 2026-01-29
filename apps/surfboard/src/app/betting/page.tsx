@@ -35,6 +35,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 import { EdgeDistributionChart, EdgeDistributionData } from '@/components/EdgeDistributionChart';
+import { StreakIndicator } from '@/components/StreakIndicator';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
@@ -951,6 +952,15 @@ export default function BettingDashboard() {
                 </span>
               </div>
             )}
+            {/* Streak Indicator (T444) */}
+            {tradingStats && (tradingStats.currentStreak ?? 0) > 0 && (
+              <StreakIndicator
+                currentStreak={tradingStats.currentStreak ?? 0}
+                currentStreakType={tradingStats.currentStreakType ?? 'none'}
+                compact={true}
+                className="hidden sm:inline-flex"
+              />
+            )}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <PulsingDot color="green" label="Systems Online" />
             </div>
@@ -1749,6 +1759,16 @@ export default function BettingDashboard() {
             <div className="mt-4">
               <EdgeDistributionChart 
                 data={tradingStats.edgeDistribution ?? null}
+              />
+            </div>
+
+            {/* Streak Analysis Card (T444) */}
+            <div className="mt-4">
+              <StreakIndicator
+                currentStreak={tradingStats.currentStreak ?? 0}
+                currentStreakType={tradingStats.currentStreakType ?? 'none'}
+                longestWinStreak={tradingStats.longestWinStreak}
+                longestLossStreak={tradingStats.longestLossStreak}
               />
             </div>
 

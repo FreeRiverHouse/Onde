@@ -22,17 +22,20 @@
   - Uses weather-settlements.json data
 
 ### [T444] Current streak context indicator on /betting
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T290], [T624]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show current streak with context:
-  - Current streak badge (e.g., "🔥 3W" or "❄️ 5L")
-  - Historical win rate AFTER current streak length
-  - Recommendation: "Continue" or "Caution" based on tilt patterns
-  - Compact card in header or stats section
-  - Uses longestWinStreak/longestLossStreak from gist
+- **Notes**: ✅ Implemented StreakIndicator component!
+  - **Compact badge** in header (🔥 3W or ❄️ 5L format)
+  - **Full card** in analytics section with:
+    - Best/Worst streak comparison
+    - Intensity-based styling (low/medium/high/extreme)
+    - Recommendations: "Tilt risk", "Hot streak", "Normal variance"
+  - Color-coded: emerald for wins, red for losses
+  - Uses longestWinStreak/longestLossStreak/currentStreak from gist
 
 ### [T445] API latency category breakdown widget
 - **Status**: TODO
