@@ -56,6 +56,15 @@
 - **Priority**: P1
 - **Notes**: ✅ Aggiunta sezione ROLLBACK a DEPLOY-PROCEDURES.md. 3 metodi: CF Dashboard, Git Revert, Wrangler.
 
+### [T404] Fix onde.surf still redirecting to /login
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T351]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: ✅ Regression fix! T351 fixed middleware but page.tsx still had auth() check. Removed auth import and session check from page.tsx. Now truly public. curl -sI https://onde.surf returns HTTP 200.
+
 ---
 
 ## 📋 TODO - TRADUZIONI
