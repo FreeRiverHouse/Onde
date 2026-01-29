@@ -47,6 +47,20 @@
 - **Priority**: P1
 - **Notes**: ✅ ROOT CAUSE: onde.surf agent-executor API was blocked by middleware AND used wrong CF context import. FIX: 1) Added /api/agent-executor to publicRoutes in middleware.ts, 2) Fixed import from @opennextjs/cloudflare to @cloudflare/next-on-pages, 3) Created trigger-onde-surf-executor.sh for cron automation. ⚠️ MANUAL CONFIG NEEDED: Set ANTHROPIC_API_KEY in Cloudflare Pages → Settings → Environment Variables → Add secret. Then cron every 5min will auto-process tasks.
 
+### [T661] 🚨 IMPLEMENTARE STRATEGIA GROK "FUNDAMENTAL" - FARE SOLDI!
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Grok 4.20 è l'UNICO in profitto (+10.69%) su prediction markets! Usa strategia FUNDAMENTAL invece di calcoli statistici:
+  - **WEB SEARCH** per dati specifici (NWS weather, unemployment stats, etc)
+  - **Information edge** invece di probability modeling
+  - **Mercati diversi**: Weather, Trump "say", unemployment, Netflix, inflation
+  - Copiare approccio: cercare DATI REALI invece di stimare probabilità
+  - Implementare web search pre-trade per trovare edge informativi
+  - REF: Leaderboard da Alpha Arena/PredictionArena
+
 ---
 
 ## 🚨 URGENTE - DA MATTIA 2026-01-28
