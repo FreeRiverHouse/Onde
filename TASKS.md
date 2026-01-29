@@ -1783,12 +1783,37 @@
 - **Notes**: Add POST /api/trading/cache/invalidate endpoint to force refresh stats without waiting for TTL. Useful after manual trades.
 
 ### [T344] Trading stats for v2 autotrader file
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add query param ?source=v2 to /api/trading/stats to read from kalshi-trades-v2.jsonl. Allows dashboard to show v2 performance separately.
+- **Notes**: ✅ Added ?source=v2 param. Reads from kalshi-trades-v2.jsonl (v1 default). Separate cache files per source. Returns source in response.
+
+### [T345] Dashboard toggle for v1/v2 stats
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T344]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add toggle on /betting dashboard to switch between v1 and v2 trading stats. Uses ?source param from T344.
+
+### [T346] Combined v1+v2 trading stats view
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T344]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add ?source=all option to merge v1+v2 trades for overall performance view. Useful for seeing total portfolio performance.
+
+### [T347] V2 trades settlement tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T344]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Update kalshi-settlement-tracker.py to also process kalshi-trades-v2.jsonl file. Ensure v2 trades get result_status updates.
 
 ---
 
