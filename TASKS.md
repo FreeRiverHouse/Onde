@@ -1368,12 +1368,13 @@
 - **Notes**: Push trade stats to GitHub Gist periodically for static site to fetch. Bypasses static export limitation.
 
 ### [T278] Cache historical BTC/ETH OHLC data locally
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Download and cache CoinGecko OHLC data daily. Reduces API calls and enables faster backtesting.
+- **Notes**: ✅ Script: cache-ohlc-data.py. Fetches 90 days OHLC from CoinGecko for BTC+ETH. Saves to data/ohlc/. Cron: 00:30 UTC daily. 180 candles per asset, JSON format with ISO timestamps.
 
 ### [T279] Trade entry latency profiling
 - **Status**: TODO
@@ -2404,7 +2405,31 @@
 - **Priority**: P3
 - **Notes**: Allow users to save books to "My Reading List" (localStorage). Show bookmark icon on book cards. Dedicated /my-books page to view saved titles. UX improvement for return visitors.
 
+### [T381] Use cached OHLC in autotrader momentum calculation
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Autotrader currently fetches live OHLC each cycle. Switch to cached data/ohlc/*.json for momentum calculation. Reduces CoinGecko API calls and latency. Fallback to live if cache stale.
+
+### [T382] OHLC cache health check in heartbeat
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add check if data/ohlc/*.json files are >24h old. Alert if cron failed to update. Ensures backtesting uses fresh data.
+
+### [T383] Calculate historical volatility from cached OHLC
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compute 7d/30d historical volatility from cached OHLC. Compare to model assumptions (BTC_HOURLY_VOL). Output to data/ohlc/volatility-stats.json for dashboard use.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-29 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
