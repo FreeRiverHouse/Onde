@@ -2660,12 +2660,13 @@
 - **Notes**: When whipsaw is detected, automatically reduce position sizes by 50% for affected asset until momentum stabilizes (no flip for 6h). Extend T293 sizing logic.
 
 ### [T417] Weekly volatility calibration check
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T278]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare realized 7d volatility vs BTC_HOURLY_VOL/ETH_HOURLY_VOL assumptions. Alert if off by >20%. Weekly cron (Sundays). Helps keep model calibrated.
+- **Notes**: ✅ Script: check-volatility-calibration.py. Compares 7d realized vol vs model assumptions. Alert if >20% deviation. Cron: Sundays 8 AM UTC. Alert file: kalshi-vol-calibration.alert. Initial run found BTC +28%, ETH +35% deviation - may need recalibration!
 
 ### [T418] Analyze win rate by momentum direction (bullish vs bearish)
 - **Status**: DONE
