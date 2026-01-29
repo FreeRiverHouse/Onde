@@ -65,3 +65,7 @@
 ### 19:29 PST [msg:158]
 > Mi dici 10 cose più fighe da installare nel nostro server Minecraft ? Che piacciano a Neri, mio figlio di 7 anni che è super intelligente creativo curioso sensibile geniale matematico etch😉
 
+
+### 19:33 PST [msg:160]
+> Puoi scrivere un promemoria per clawdinho per installare advanced reply e createmod? Oppure installi tu e committi e lui fa pull da github? Come funziona?
+
