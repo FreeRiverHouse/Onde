@@ -427,12 +427,13 @@
 - **Notes**: Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct.
 
 ### [T207] Create centralized test-pre-deploy.sh script
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: tools/tech-support/test-pre-deploy.sh doesn't exist but is referenced. Create unified test script.
+- **Notes**: ✅ Already exists as test-website-before-deploy.sh! Comprehensive Playwright tests + curl fallback. Used by deploy-onde-la-prod.sh.
 
 ### [T098] Generare favicon.ico da SVG per compatibilità legacy
 - **Status**: DONE
@@ -617,12 +618,13 @@
 - **Notes**: ✅ Enhanced watchdog-autotrader.sh: creates kalshi-autotrader-crash.alert on crash detection. 30min cooldown. Heartbeat picks up alert and notifies.
 
 ### [T212] Backup memory files to git daily
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Backup MEMORY.md + memory/ folder periodicamente (separato da trade backups)
+- **Notes**: ✅ Script: backup-memory-git.sh. Cron 02:00 daily. Backs up MEMORY.md, memory/, SOUL.md, USER.md, TOOLS.md, IDENTITY.md, HEARTBEAT.md. 30-day retention.
 
 ### [T213] Kalshi API retry logic con exponential backoff
 - **Status**: DONE
@@ -937,5 +939,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:42 PST*
+### [T249] Trade analysis by hour of day
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze which hours have best win rate. Might reveal optimal trading windows to focus on.
+
+### [T250] Momentum indicator on /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T087]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show current BTC/ETH momentum (1h/4h/24h) on dashboard. Visual indicator: bullish/bearish/neutral.
+
+### [T251] Memory file search CLI tool
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Quick CLI to search memory/*.md files for past decisions, context. Usage: ./scripts/memory-search.sh "kalshi" → shows relevant snippets.
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 17:10 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
