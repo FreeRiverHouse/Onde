@@ -859,12 +859,13 @@
 - **Notes**: ✅ Added write_stop_loss_alert() to autotrader-v2. Creates kalshi-stop-loss.alert with JSON payload (ticker, side, entry/exit price, loss %). HEARTBEAT.md updated to check and forward to Telegram.
 
 ### [T240] Stop-loss performance tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T234]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track stop-loss metrics: how often triggered, average loss saved vs holding to expiry. Add to weekly report.
+- **Notes**: ✅ Script: analyze-stop-loss.py. Compares actual loss at exit vs potential loss if held to settlement. Shows net savings. No stop-losses triggered yet (good!).
 
 ### [T241] Configurable stop-loss threshold via env
 - **Status**: DONE
@@ -935,5 +936,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:25 PST*
+*Ultimo aggiornamento: 2026-01-29 17:35 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
