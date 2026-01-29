@@ -3953,3 +3953,50 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add cron job (08:00 UTC daily) to run update-ml-outcomes.py --verbose. Ensures ML training data stays current with settlement results. Log output to data/trading/ml-update.log. Alerts if sync falls behind (>50 pending outcomes).
+
+---
+
+## 🧠 MEMORY - RULE N3: REMEMBER EVERYTHING!
+
+> **REGOLA N3:** Ricordare TUTTO quello che l'utente dice e tutto quello che fai. Memory persistente è OBBLIGATORIA.
+
+### [T656] Fix Clawdbot memory persistence
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T659]
+- **Priority**: P0
+- **Notes**: Implement proper memory hooks for Clawdbot (main). Options: 1) Use Clawdbot's built-in memory_search/memory_get tools properly, 2) Implement custom session summary → MEMORY.md pipeline, 3) Use vector DB (Chroma/Pinecone) for semantic search. MUST log all conversations and actions. Update AGENTS.md with memory protocol.
+
+### [T657] Fix Clawdinho memory persistence  
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T659]
+- **Priority**: P0
+- **Notes**: Implement memory persistence for Clawdinho bot. Same approach as T656. Clawdinho workspace: check location. Needs: 1) Session summaries, 2) Conversation logging, 3) Action logging, 4) Memory search before answers. Update Clawdinho's AGENTS.md.
+
+### [T658] Fix Onde-bot memory persistence
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T659]
+- **Priority**: P0
+- **Notes**: Implement memory persistence for Onde-bot. Same approach as T656/T657. Needs proper memory protocol in onde.surf codebase. Check D1 database for conversation storage options.
+
+### [T659] Create universal memory engagement rules
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T656], [T657], [T658]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Create unified memory/engagement rules for ALL FRH agents. Add to AGENTS.md in ALL repos: 1) MEMORY.md = long-term, 2) memory/*.md = daily logs, 3) MUST search memory before answering history questions, 4) MUST log significant events. Create template AGENTS.md section for memory protocol.
+
+### [T660] Add RULE N3 to REGOLE-AGENTI.md
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: ✅ Updated REGOLE-AGENTI.md with REGOLA N3: Memory. Full section with logging requirements, memory structure, search-before-answer protocol, and checklist updates.

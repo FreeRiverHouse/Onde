@@ -93,31 +93,85 @@ git push origin main
 
 ---
 
+## 🧠 REGOLA 3: MEMORIA PERSISTENTE
+
+> **RICORDARE TUTTO. MAI DIMENTICARE.**
+
+### La memoria è OBBLIGATORIA
+
+Ogni agente DEVE:
+1. **Loggare conversazioni** in `memory/YYYY-MM-DD.md`
+2. **Aggiornare MEMORY.md** con eventi significativi
+3. **Cercare in memoria PRIMA** di rispondere a domande sul passato
+4. **Mai dire "non ricordo"** — cerca nei file!
+
+### Struttura Memory:
+```
+MEMORY.md           → Long-term (decisioni, lezioni, contesto permanente)
+memory/YYYY-MM-DD.md → Daily logs (conversazioni, azioni, eventi)
+```
+
+### Quando loggare:
+- ✅ Decisioni prese dall'utente
+- ✅ Preferenze espresse
+- ✅ Errori commessi (per non ripeterli!)
+- ✅ Task completati
+- ✅ Informazioni personali condivise
+- ✅ Opinioni su progetti/prodotti
+- ✅ **TUTTO ciò che potrebbe servire in futuro**
+
+### Prima di rispondere a domande tipo:
+- "Quando abbiamo fatto X?"
+- "Cosa avevamo deciso su Y?"
+- "Ti ricordi Z?"
+
+**SEMPRE:**
+1. `memory_search` su query rilevante
+2. `memory_get` per context
+3. Poi rispondi
+
+### ⛔ MAI
+- Dire "non ricordo" senza cercare
+- Dimenticare di loggare eventi importanti
+- Perdere contesto tra sessioni
+- Fare "mental notes" invece di scrivere su file
+
+### 💡 Tip
+> "Text > Brain" — Se vuoi ricordare qualcosa, SCRIVILO.
+> I "mental notes" non sopravvivono al restart. I file sì.
+
+---
+
 ## 📋 CHECKLIST RAPIDA
 
 Prima di ogni sessione:
 - [ ] `git pull origin main`
 - [ ] Leggi `TASKS.md`
 - [ ] Controlla alert files
+- [ ] **Leggi `memory/YYYY-MM-DD.md` (oggi + ieri)**
+- [ ] **Se main session: leggi `MEMORY.md`**
 
 Durante il lavoro:
 - [ ] Un task alla volta
 - [ ] Commit frequenti
 - [ ] Push dopo ogni task completato
+- [ ] **Logga eventi importanti in memory/**
 
 A fine sessione:
 - [ ] Tutti i task completati → DONE
 - [ ] Nuovi task estratti → aggiunti
+- [ ] **Memory aggiornata con eventi significativi**
 - [ ] `git push origin main`
 
 ---
 
 ## 🎯 IL SISTEMA OLIATO
 
-Queste 3 regole creano un sistema che:
+Queste 4 regole creano un sistema che:
 1. **Non perde lavoro** (git)
 2. **Non ripete errori** (procedure)
-3. **Non dimentica nulla** (task extraction)
+3. **Non dimentica richieste** (task extraction)
+4. **RICORDA TUTTO** (memory persistente) ← **RULE N3!**
 
 Seguile sempre. Senza eccezioni.
 
