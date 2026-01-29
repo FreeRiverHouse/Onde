@@ -6,7 +6,17 @@ export const dynamic = 'force-dynamic';
 
 // Cache configuration
 const CACHE_TTL_SECONDS = 60; // 1 minute cache
-const CACHE_FILE = path.join(process.cwd(), '../../data/trading/stats-cache.json');
+const CACHE_DIR = path.join(process.cwd(), '../../data/trading');
+
+// Trade file paths
+const TRADE_FILES = {
+  v1: path.join(process.cwd(), '../../scripts/kalshi-trades.jsonl'),
+  v2: path.join(process.cwd(), '../../scripts/kalshi-trades-v2.jsonl'),
+};
+
+function getCacheFile(source: string): string {
+  return path.join(CACHE_DIR, `stats-cache-${source}.json`);
+}
 
 interface CacheData {
   stats: TradingStats;
@@ -68,11 +78,12 @@ interface TradingStats {
 }
 
 // Check if cache is valid
-function isCacheValid(tradesPath: string): CacheData | null {
+function isCacheValid(tradesPath: string, source: string): CacheData | null {
   try {
-    if (!existsSync(CACHE_FILE)) return null;
+    const cacheFile = getCacheFile(source);
+    if (!existsSync(cacheFile)) return null;
     
-    const cacheContent = readFileSync(CACHE_FILE, 'utf-8');
+    const cacheContent = readFileSync(cacheFile, 'utf-8');
     const cache: CacheData = JSON.parse(cacheContent);
     
     // Check TTL
@@ -90,12 +101,11 @@ function isCacheValid(tradesPath: string): CacheData | null {
 }
 
 // Write cache to file
-function writeCache(stats: TradingStats, sourceModified: number): void {
+function writeCache(stats: TradingStats, sourceModified: number, source: string): void {
   try {
-    const cacheDir = path.dirname(CACHE_FILE);
-    if (!existsSync(cacheDir)) {
+    if (!existsSync(CACHE_DIR)) {
       const { mkdirSync } = require('fs');
-      mkdirSync(cacheDir, { recursive: true });
+      mkdirSync(CACHE_DIR, { recursive: true });
     }
     
     const cache: CacheData = {
@@ -103,28 +113,34 @@ function writeCache(stats: TradingStats, sourceModified: number): void {
       timestamp: Date.now(),
       sourceModified,
     };
-    writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
+    writeFileSync(getCacheFile(source), JSON.stringify(cache, null, 2));
   } catch (err) {
     console.error('Failed to write cache:', err);
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const tradesPath = path.join(process.cwd(), '../../scripts/kalshi-trades.jsonl');
+    // Parse query params for source selection
+    const { searchParams } = new URL(request.url);
+    const source = searchParams.get('source') === 'v2' ? 'v2' : 'v1';
+    
+    const tradesPath = TRADE_FILES[source];
     
     if (!existsSync(tradesPath)) {
       return NextResponse.json({ 
-        error: 'Trades file not found',
-        path: tradesPath 
+        error: `Trades file not found (source: ${source})`,
+        path: tradesPath,
+        source 
       }, { status: 404 });
     }
 
     // Check cache first
-    const cachedData = isCacheValid(tradesPath);
+    const cachedData = isCacheValid(tradesPath, source);
     if (cachedData) {
       return NextResponse.json({
         ...cachedData.stats,
+        source,
         cached: true,
         cacheAge: Math.round((Date.now() - cachedData.timestamp) / 1000),
       });
@@ -415,9 +431,9 @@ export async function GET() {
     };
 
     // Write to cache for subsequent requests
-    writeCache(stats, sourceModified);
+    writeCache(stats, sourceModified, source);
 
-    return NextResponse.json({ ...stats, cached: false });
+    return NextResponse.json({ ...stats, source, cached: false });
   } catch (error) {
     console.error('Error reading trades:', error);
     return NextResponse.json({ 
