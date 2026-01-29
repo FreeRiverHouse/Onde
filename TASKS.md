@@ -1469,6 +1469,119 @@
 - **Priority**: P3
 - **Notes**: ✅ Added! Checks avg latency of last 10 trades. Alert file kalshi-latency.alert when >2s (configurable via LATENCY_THRESHOLD_MS). 1h cooldown. Added to HEARTBEAT.md pickup.
 
+---
+
+## 📋 TODO - VIRTUAL OFFICE (Free River House 2.0)
+
+> **Vision Doc:** docs/VIRTUAL-OFFICE-VISION.md
+> **Goal:** Ufficio virtuale 2D → VR con agenti AI reali (Clawdinho, Ondinho)
+
+### [T500] Registrare Clawdinho come agent nel DB
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: [T502], [T503]
+- **Priority**: P1
+- **Notes**: ✅ Clawdinho registrato! type=orchestrator, room=office, color=#00D4FF
+
+### [T501] Registrare Ondinho come agent nel DB
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: [T502], [T503]
+- **Priority**: P1
+- **Notes**: ✅ Ondinho registrato! type=creative, room=lounge, color=#FF6B35
+
+### [T502] Creare avatar Clawdinho (surfer emoji style)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T500]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: PNG 256x256 per /public/house/agents/clawdinho.png. Stile: surfista AI, colore cyan/azzurro
+
+### [T503] Creare avatar Ondinho (wave emoji style)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T501]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: PNG 256x256 per /public/house/agents/ondinho.png. Stile: onda/surfista brother, colore arancione
+
+### [T504] Connettere status Clawdinho a Clawdbot sessions reali
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T500]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: API che legge sessions_list da Clawdbot e aggiorna last_seen/status di Clawdinho
+
+### [T505] Activity log live per ogni agente
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T500], [T501]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Mostrare ultime 5 azioni/messaggi dell'agente nel pannello laterale
+
+### [T506] Voice input per assegnare task
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Whisper local → testo → create task. Bottone microfono nell'input
+
+### [T507] TTS per risposte agenti
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ElevenLabs/sag per voce. Toggle "Read aloud" per chat responses
+
+### [T508] Notifiche browser quando task completato
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Push notification via Service Worker quando un agente completa un task
+
+### [T509] XP e livelli per agenti (gamification)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: +10 XP per task done. Level up ogni 100 XP. Badge per achievements
+
+### [T510] Mood indicator basato su workload
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Agente "stressed" se >5 task pending, "happy" se alta win rate, "sleepy" se idle >1h
+
+### [T511] WebXR export per futuro VR
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Three.js/R3F scene con stanze 3D. Beach office o futuristic HQ. Bender AI per generare ambienti
+
+### [T512] Deploy Free River House su onde.surf/house
+- **Status**: TODO
+- **Owner**: @clawd
+- **Depends**: [T500], [T501], [T502], [T503]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Verificare che /house funzioni correttamente dopo aggiunta Clawdinho/Ondinho
+
 ### [T296] Analyze edge vs win rate correlation
 - **Status**: DONE
 - **Owner**: @clawd

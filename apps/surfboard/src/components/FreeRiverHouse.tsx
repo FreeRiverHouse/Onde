@@ -57,16 +57,22 @@ interface DBAgent {
 
 // Visual config for agents (room assignments, images, colors)
 const AGENT_VISUALS: Record<string, { room: AgentConfig['room']; color: string; image: string }> = {
+  // 🤖 Core AI Agents (Real Clawdbot sessions)
+  'clawdinho': { room: 'office', color: '#00D4FF', image: '/house/agents/clawdinho.svg' },
+  'ondinho': { room: 'lounge', color: '#FF6B35', image: '/house/agents/ondinho.svg' },
+  // ✍️ Creative Team
   'editore-capo': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
   'video-factory': { room: 'studio', color: MV_COLORS.terracotta, image: '/house/agents/video-factory.png' },
-  'engineering-dept': { room: 'lab', color: MV_COLORS.sky, image: '/house/agents/automation.png' },
-  'onde-pr': { room: 'lounge', color: MV_COLORS.terracotta, image: '/house/agents/ondepr.png' },
   'pina-pennello': { room: 'studio', color: MV_COLORS.coral, image: '/house/agents/pina-pennello.png' },
   'gianni-parola': { room: 'library', color: MV_COLORS.sage, image: '/house/agents/gianni-parola.png' },
-  'sally': { room: 'office', color: MV_COLORS.sage, image: '/house/agents/sally.png' },
+  // ⚙️ Tech Team
+  'engineering-dept': { room: 'lab', color: MV_COLORS.sky, image: '/house/agents/automation.png' },
   'automation-architect': { room: 'lab', color: MV_COLORS.stone, image: '/house/agents/automation.png' },
-  'ceo-orchestrator': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
   'qa-test-engineer': { room: 'lab', color: MV_COLORS.sky, image: '/house/agents/automation.png' },
+  // 📱 Media & PR
+  'onde-pr': { room: 'lounge', color: MV_COLORS.terracotta, image: '/house/agents/ondepr.png' },
+  'sally': { room: 'office', color: MV_COLORS.sage, image: '/house/agents/sally.png' },
+  'ceo-orchestrator': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
 };
 
 // Default visual for unknown agents
