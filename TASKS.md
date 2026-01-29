@@ -60,16 +60,19 @@
   - No API key required - works immediately!
 
 ### [T421] Autotrader dry-run mode with simulated PnL
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Already have DRY_RUN flag, but add:
-  - Simulated portfolio tracking
-  - Settlement simulation (check actual price vs strike at expiry)
-  - Compare DRY_RUN PnL vs real trading
-  - Use for strategy testing before going live
+- **Notes**: ✅ Implemented! Created `scripts/dryrun-settlement-tracker.py`:
+  - Simulated portfolio tracking ($10 initial capital)
+  - Settlement simulation using CryptoCompare + CoinGecko historical prices
+  - Compares dry-run PnL vs real trading performance
+  - Outputs to `data/trading/dryrun-portfolio.json`
+  - Updates trade log with settlement results
+  - Usage: `python3 scripts/dryrun-settlement-tracker.py` or `--compare` for real vs dry-run comparison
 
 ---
 
