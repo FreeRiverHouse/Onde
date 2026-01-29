@@ -6,6 +6,34 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (21:15)
+
+### [T431] Deploy onde.la with health page alert summary
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T428]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy onde.la to get the new Alert History panel live on /health. Use deploy-onde-la-prod.sh.
+
+### [T432] Add alert type filter to /health page
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T428]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add filter buttons (All/Divergence/Regime/Vol) to the Alert History section so users can filter by alert type.
+
+### [T433] Add upload-alerts-to-gist.py health monitoring
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T428]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add monitoring for the alerts upload cron job. Create scripts/alerts-upload-stale.alert if upload hasn't run in >2h.
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:10)
 
 ### [T428] Add alert summary to /health page
