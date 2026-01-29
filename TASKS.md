@@ -3173,8 +3173,8 @@
 - **Notes**: Show "Readers also downloaded" on book detail pages. Track co-download patterns (users who downloaded A also downloaded B). Simple collaborative filtering without user accounts - just aggregate patterns.
 
 ### [T471] Circuit breaker history logging
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T367]
 - **Blocks**: -
 - **Priority**: P3
