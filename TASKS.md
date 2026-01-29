@@ -2763,12 +2763,13 @@
 - **Notes**: Generate weekly summary of API usage trends. Include avg/peak calls per source, busiest hours, comparison vs previous week. Email or Telegram delivery via cron.
 
 ### [T429] Autotrader health cron with alert
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T421]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Cron job that runs autotrader-health.py every 15 min. Creates alert file if autotrader down >30 min or win rate drops below 30% in a day with >5 trades.
+- **Notes**: ✅ Script: autotrader-health-cron.sh. Checks health, alerts if down >30min OR win rate <30% with 5+ settled trades. State tracking: kalshi-health-state.json. Alert file: kalshi-health.alert. 1h cooldown. Cron: `*/15 * * * *`. Added to HEARTBEAT.md pickup.
 
 ### [T430] Trading dashboard API health endpoint
 - **Status**: TODO

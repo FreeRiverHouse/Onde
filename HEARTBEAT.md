@@ -24,6 +24,7 @@
 - `scripts/kalshi-vol-calibration.alert` → Se esiste, volatilità realizzata diverge da assunzioni >20%! Consiglia aggiornare BTC/ETH_HOURLY_VOL. Manda alert, poi elimina
 - `scripts/memory-stale.alert` → Se esiste, file memory stale >7 giorni! Ricorda a Mattia di rivedere/archiviare. Manda alert, poi elimina
 - `scripts/kalshi-rate-limit.alert` → Se esiste, API rate limit vicino alla soglia (>80%)! Manda alert a Mattia con dettagli, poi elimina
+- `scripts/kalshi-health.alert` → Se esiste, autotrader down >30min o win rate <30% con 5+ trade oggi! Manda alert a Mattia, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
