@@ -121,9 +121,12 @@ function writeCache(stats: TradingStats, sourceModified: number, source: string)
 
 export async function GET(request: Request) {
   try {
-    // Parse query params for source selection
+    // Parse query params for source selection and date filtering
     const { searchParams } = new URL(request.url);
     const source = searchParams.get('source') === 'v2' ? 'v2' : 'v1';
+    const period = searchParams.get('period'); // today, week, month, all
+    const fromDate = searchParams.get('from'); // ISO date string YYYY-MM-DD
+    const toDate = searchParams.get('to'); // ISO date string YYYY-MM-DD
     
     const tradesPath = TRADE_FILES[source];
     
@@ -135,15 +138,22 @@ export async function GET(request: Request) {
       }, { status: 404 });
     }
 
-    // Check cache first
-    const cachedData = isCacheValid(tradesPath, source);
-    if (cachedData) {
-      return NextResponse.json({
-        ...cachedData.stats,
-        source,
-        cached: true,
-        cacheAge: Math.round((Date.now() - cachedData.timestamp) / 1000),
-      });
+    // Build cache key including date params
+    const cacheKey = `${source}-${period || 'all'}-${fromDate || ''}-${toDate || ''}`;
+    
+    // Check cache first (only for 'all' period with no date filters to keep cache simple)
+    const useCache = !period && !fromDate && !toDate;
+    if (useCache) {
+      const cachedData = isCacheValid(tradesPath, source);
+      if (cachedData) {
+        return NextResponse.json({
+          ...cachedData.stats,
+          source,
+          period: 'all',
+          cached: true,
+          cacheAge: Math.round((Date.now() - cachedData.timestamp) / 1000),
+        });
+      }
     }
 
     // Get source file mtime for cache validation
@@ -153,18 +163,52 @@ export async function GET(request: Request) {
     const content = readFileSync(tradesPath, 'utf-8');
     const lines = content.trim().split('\n').filter(Boolean);
     
+    // Calculate date boundaries based on period or custom dates
+    let filterFromDate: Date | null = null;
+    let filterToDate: Date | null = null;
+    const now = new Date();
+    
+    if (period === 'today') {
+      filterFromDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      filterToDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    } else if (period === 'week') {
+      filterFromDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      filterToDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Include today
+    } else if (period === 'month') {
+      filterFromDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+      filterToDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    } else if (fromDate || toDate) {
+      // Custom date range
+      if (fromDate) {
+        filterFromDate = new Date(fromDate + 'T00:00:00Z');
+      }
+      if (toDate) {
+        filterToDate = new Date(toDate + 'T23:59:59Z');
+      }
+    }
+    
     // Parse all trades (type === 'trade' and order_status === 'executed')
-    const trades: Trade[] = [];
+    const allTrades: Trade[] = [];
     for (const line of lines) {
       try {
         const entry = JSON.parse(line);
         if (entry.type === 'trade' && entry.order_status === 'executed') {
-          trades.push(entry);
+          allTrades.push(entry);
         }
       } catch {
         // Skip invalid JSON lines
       }
     }
+    
+    // Filter by date range if specified
+    const trades = allTrades.filter(trade => {
+      if (!filterFromDate && !filterToDate) return true;
+      
+      const tradeDate = new Date(trade.timestamp);
+      if (filterFromDate && tradeDate < filterFromDate) return false;
+      if (filterToDate && tradeDate > filterToDate) return false;
+      return true;
+    });
 
     // Calculate stats
     const wonTrades = trades.filter(t => t.result_status === 'won');
@@ -430,10 +474,33 @@ export async function GET(request: Request) {
       lastUpdated: new Date().toISOString(),
     };
 
-    // Write to cache for subsequent requests
-    writeCache(stats, sourceModified, source);
+    // Write to cache for subsequent requests (only for unfiltered requests)
+    if (useCache) {
+      writeCache(stats, sourceModified, source);
+    }
 
-    return NextResponse.json({ ...stats, source, cached: false });
+    // Build response with filter info
+    const response: Record<string, unknown> = { 
+      ...stats, 
+      source, 
+      cached: false,
+      period: period || 'all',
+    };
+    
+    // Include date range info if filtered
+    if (filterFromDate || filterToDate) {
+      response.dateRange = {
+        from: filterFromDate?.toISOString().split('T')[0] || null,
+        to: filterToDate?.toISOString().split('T')[0] || null,
+      };
+    }
+    
+    // Include total count for context when filtered
+    if (period || fromDate || toDate) {
+      response.filteredFromTotal = allTrades.length;
+    }
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error reading trades:', error);
     return NextResponse.json({ 

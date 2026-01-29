@@ -24,7 +24,8 @@ import {
   Keyboard,
   X,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Calendar
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 
@@ -418,6 +419,9 @@ function PulsingDot({ color = 'green', label }: { color?: 'green' | 'red' | 'yel
   );
 }
 
+// ============== DATE PERIOD TYPE ==============
+type DatePeriod = 'all' | 'today' | 'week' | 'month' | 'custom';
+
 // ============== MAIN COMPONENT ==============
 export default function BettingDashboard() {
   const [kalshiStatus, setKalshiStatus] = useState<KalshiStatus | null>(null);
@@ -425,6 +429,9 @@ export default function BettingDashboard() {
   const [inbox, setInbox] = useState<InboxData | null>(null);
   const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
   const [statsSource, setStatsSource] = useState<'v1' | 'v2'>('v2');
+  const [statsPeriod, setStatsPeriod] = useState<DatePeriod>('all');
+  const [customDateFrom, setCustomDateFrom] = useState<string>('');
+  const [customDateTo, setCustomDateTo] = useState<string>('');
   const [momentum, setMomentum] = useState<MomentumData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -435,6 +442,18 @@ export default function BettingDashboard() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { toggleTheme } = useTheme();
 
+  // Build stats URL with period/date filters
+  const buildStatsUrl = useCallback(() => {
+    const params = new URLSearchParams({ source: statsSource });
+    if (statsPeriod === 'custom') {
+      if (customDateFrom) params.set('from', customDateFrom);
+      if (customDateTo) params.set('to', customDateTo);
+    } else if (statsPeriod !== 'all') {
+      params.set('period', statsPeriod);
+    }
+    return `/api/trading/stats?${params.toString()}`;
+  }, [statsSource, statsPeriod, customDateFrom, customDateTo]);
+
   // Fetch all data
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -443,7 +462,7 @@ export default function BettingDashboard() {
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
-        fetch(`/api/trading/stats?source=${statsSource}`),
+        fetch(buildStatsUrl()),
         fetch('/api/momentum')
       ]);
 
@@ -459,7 +478,7 @@ export default function BettingDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [statsSource]);
+  }, [buildStatsUrl]);
 
   useEffect(() => {
     fetchData();
@@ -845,7 +864,52 @@ export default function BettingDashboard() {
                   <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Date Period Filter */}
+                <div className="flex items-center rounded-lg bg-white/5 border border-white/10 p-0.5">
+                  {(['all', 'today', 'week', 'month'] as DatePeriod[]).map((period) => (
+                    <button
+                      key={period}
+                      onClick={() => setStatsPeriod(period)}
+                      className={`px-2 py-1 rounded-md text-xs font-medium transition-all capitalize ${
+                        statsPeriod === period 
+                          ? 'bg-white/10 text-gray-200' 
+                          : 'text-gray-500 hover:text-gray-400'
+                      }`}
+                    >
+                      {period === 'all' ? 'All' : period === 'today' ? 'Today' : period === 'week' ? '7D' : '30D'}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setStatsPeriod('custom')}
+                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all flex items-center gap-1 ${
+                      statsPeriod === 'custom' 
+                        ? 'bg-white/10 text-gray-200' 
+                        : 'text-gray-500 hover:text-gray-400'
+                    }`}
+                    title="Custom date range"
+                  >
+                    <Calendar className="w-3 h-3" />
+                  </button>
+                </div>
+                {/* Custom date range inputs */}
+                {statsPeriod === 'custom' && (
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="date"
+                      value={customDateFrom}
+                      onChange={(e) => setCustomDateFrom(e.target.value)}
+                      className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none"
+                    />
+                    <span className="text-gray-600 text-xs">→</span>
+                    <input
+                      type="date"
+                      value={customDateTo}
+                      onChange={(e) => setCustomDateTo(e.target.value)}
+                      className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none"
+                    />
+                  </div>
+                )}
                 {/* v1/v2 Source Toggle */}
                 <div className="flex items-center rounded-lg bg-white/5 border border-white/10 p-0.5">
                   <button
