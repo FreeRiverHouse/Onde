@@ -135,12 +135,12 @@
 - **Notes**: ✅ GIÀ PUBBLICATO! Ondinho ha duplicato per errore - verificare sempre prima di iniziare.
 
 ### [T022] The Prophet illustrato EN
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Da ROADMAP TIER 1
+- **Notes**: Kahlil Gibran - pubblico dominio (1923). Setup + prompts.
 
 ### [T023] AIKO EN su KDP
 - **Status**: TODO
@@ -157,6 +157,30 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Versione multilingue. Checklist: books/salmo-23-kdp/KDP-CHECKLIST.md
+
+### [T025] The Art of War illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Sun Tzu - pubblico dominio. Stile: Chinese ink wash + dramatic warfare
+
+### [T026] Tao Te Ching illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Lao Tzu - pubblico dominio. Stile: Minimalist Chinese calligraphy + nature
+
+### [T027] Divine Comedy illustrato EN
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Dante - pubblico dominio. Stile: Gustave Doré inspired, epic gothic
 
 ---
 

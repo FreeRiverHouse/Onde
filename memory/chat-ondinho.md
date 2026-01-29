@@ -138,3 +138,10 @@ LEZIONE: Controllare SEMPRE cosa esiste prima di iniziare.
 ### 22:28 PST [msg:206]
 > What happened to your heartbeat???
 
+
+### 22:29 PST [msg:209]
+> Come mai non avevi fatto? Avevvi gia mandato la guida ONDINHO-HEARTBEAT-GUIDE.md
+
+⚠️ ERRORE: Ho LETTO la guida ma non ho CONFIGURATO il mio HEARTBEAT.md
+LEZIONE: Leggere ≠ Fare. Devo AGIRE, non solo capire.
+
