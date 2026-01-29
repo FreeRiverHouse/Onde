@@ -1,4 +1,6 @@
 import { getDashboardStats } from '@/lib/data'
+import { auth } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 import { PostApproval } from '@/components/PostApproval'
 import { PolyRobortoPanel } from '@/components/PolyRobortoPanel'
 import { CordePanel } from '@/components/CordePanel'
@@ -14,7 +16,11 @@ import { GradientText } from '@/components/ui/AnimatedText'
 export const runtime = 'edge'
 
 export default async function Dashboard() {
-  // Auth rimosso - sito ora pubblico come onde.la
+  const session = await auth()
+  if (!session) {
+    redirect('/login')
+  }
+
   const stats = await getDashboardStats()
 
   return (
