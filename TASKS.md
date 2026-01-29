@@ -1366,12 +1366,13 @@
 ---
 
 ### [T277] External trade stats API (GitHub Gist or webhook)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: [T272]
 - **Priority**: P3
-- **Notes**: Push trade stats to GitHub Gist periodically for static site to fetch. Bypasses static export limitation.
+- **Notes**: ✅ Done! Script: push-stats-to-gist.py. Gist: 43b0815cc640bba8ac799ecb27434579. Raw URL: https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json. Cron: hourly at :45. Static site can fetch this for real stats.
 
 ### [T278] Cache historical BTC/ETH OHLC data locally
 - **Status**: DONE
@@ -3261,4 +3262,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Comprehensive audit log for all trade attempts (successful and failed). Include: timestamp, ticker, side, price, size, API response, latency, any errors. Store in kalshi-audit.jsonl. Useful for debugging failed trades and compliance.
+
+### [T483] Fetch real stats from gist on /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T277]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use gist raw URL (https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json) in /betting page. Enables static site to show real trade stats at runtime. Replace mock data fetch with gist fetch.
+
+### [T484] Migrate V1 trades to V2 format
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create migration script to convert kalshi-trades.jsonl (v1) to kalshi-trades-v2.jsonl format. Add missing fields: asset, reason, momentum, volatility, regime. Preserves historical data for trend analysis. Run once, then verify stats.
+
+### [T485] Auto-discovery of new Kalshi crypto markets
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to detect when Kalshi adds new crypto markets (SOL, DOGE, etc.). Check /markets API for series starting with KX. Alert when new tickers found. Could auto-expand autotrader coverage.
 
