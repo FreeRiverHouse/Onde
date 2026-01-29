@@ -31,16 +31,19 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (11:15)
 
 ### [T419] Analyze news sentiment effectiveness on trade performance
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T661]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Track if trades with news_bonus perform better than those without.
-  - Create script: `analyze-news-effectiveness.py`
-  - Compare win rate: news-aligned vs neutral trades
-  - Track correlation: news_sentiment vs actual outcome
-  - Update weekly report with news analysis section
+- **Notes**: ✅ Implemented! Created `scripts/analyze-news-effectiveness.py`:
+  - Categorizes trades: news-aligned, news-conflicting, neutral
+  - Calculates win rate delta between categories
+  - Tracks PnL by category
+  - Auto-generates recommendations based on data
+  - Output: `data/trading/news-effectiveness.json`
+  - Currently awaiting v2 trades with news sentiment data (41 existing trades are from v1)
 
 ### [T420] Add RSS feed parsing for crypto news (free alternative)
 - **Status**: DONE
@@ -4279,3 +4282,37 @@
   - Verify last check timestamps not older than 24h
   - Reset stale entries
   - Log cleanup to memory daily notes
+
+### [T425] Integrate news effectiveness into weekly trading report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T419]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add news sentiment section to kalshi-weekly-report.py:
+  - Show win rate: news-aligned vs neutral trades
+  - Effectiveness delta (pp improvement)
+  - Top news reasons that drove trades
+  - Recommendation from analyze-news-effectiveness.py
+
+### [T426] Add news effectiveness cron schedule
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T419]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Schedule analyze-news-effectiveness.py to run weekly (Sundays with weekly report).
+  - Output JSON refreshed weekly
+  - Could trigger alert if news hurting performance
+
+### [T427] News sentiment effectiveness widget on /betting dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T419]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add card showing:
+  - News-aligned win rate vs neutral
+  - Effectiveness delta with color coding
+  - Last analysis timestamp
+  - Uses data/trading/news-effectiveness.json

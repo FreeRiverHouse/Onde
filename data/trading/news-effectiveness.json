@@ -1,0 +1,41 @@
+{
+  "analysis_date": "2026-01-29T20:05:46.603265+00:00",
+  "total_trades": 41,
+  "trades_with_news": 0,
+  "trades_neutral": 41,
+  "categories": {
+    "aligned": {
+      "name": "News Aligned",
+      "count": 0,
+      "settled_count": 0,
+      "wins": 0,
+      "win_rate": null,
+      "avg_edge": null,
+      "total_pnl": 0,
+      "avg_news_confidence": null
+    },
+    "conflicting": {
+      "name": "News Conflicting",
+      "count": 0,
+      "settled_count": 0,
+      "wins": 0,
+      "win_rate": null,
+      "avg_edge": null,
+      "total_pnl": 0,
+      "avg_news_confidence": null
+    },
+    "neutral": {
+      "name": "Neutral/No News",
+      "count": 41,
+      "settled_count": 41,
+      "wins": 0,
+      "win_rate": 0.0,
+      "avg_edge": 45.4,
+      "total_pnl": -2.85,
+      "avg_news_confidence": null
+    }
+  },
+  "effectiveness_delta": null,
+  "news_reasons": {},
+  "recommendation": "INSUFFICIENT_DATA: No news-aligned trades yet. Keep trading to gather data."
+}
