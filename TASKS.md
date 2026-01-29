@@ -47,12 +47,13 @@
 - **Notes**: Agente dedicato che rivede TASKS.md, controlla dipendenze, aggiorna priorità. Tutte le regole (0,1,2) devono essere seguite anche da PM.
 
 ### [T403] Creare procedura ROLLBACK per deploy
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Aggiungere a DEPLOY-PROCEDURES.md sezione rollback. Come tornare a versione precedente su Cloudflare Pages.
+- **Notes**: ✅ Aggiunta sezione ROLLBACK a DEPLOY-PROCEDURES.md. 3 metodi: CF Dashboard, Git Revert, Wrangler.
 
 ---
 

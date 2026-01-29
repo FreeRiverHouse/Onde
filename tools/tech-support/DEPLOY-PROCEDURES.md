@@ -164,4 +164,49 @@ Per risolvere: Mattia deve controllare Settings → Billing & plans su GitHub.
 
 ---
 
+---
+
+## 🔄 ROLLBACK PROCEDURE
+
+Se un deploy rompe il sito, ecco come rollbackare:
+
+### Metodo 1: Cloudflare Dashboard (VELOCE)
+1. Vai su https://dash.cloudflare.com
+2. Pages → onde-surf (o onde-portal)
+3. Deployments → trova deploy funzionante precedente
+4. Clicca "..." → "Rollback to this deployment"
+
+### Metodo 2: Git Revert + Redeploy
+```bash
+# 1. Trova commit funzionante
+git log --oneline -20
+
+# 2. Checkout a commit buono
+git checkout <commit-hash> -- apps/surfboard  # o apps/onde-portal
+
+# 3. Commit e push
+git add -A
+git commit -m "rollback: revert to working version"
+git push origin main
+
+# 4. Redeploy (vedi sezioni sopra)
+```
+
+### Metodo 3: Wrangler Rollback
+```bash
+# Lista deployment
+npx wrangler pages deployment list --project-name=onde-surf
+
+# Trova deployment ID funzionante e rideploya quello
+# (Cloudflare Dashboard è più facile per questo)
+```
+
+### Checklist Post-Rollback
+1. ✅ Verifica curl: `curl -sI "https://onde.surf" | head -3`
+2. ✅ Testa in browser
+3. ✅ Aggiorna TASKS.md con rollback reason
+4. ✅ Commit nota di rollback
+
+---
+
 *Ultimo aggiornamento: 2026-01-29*
