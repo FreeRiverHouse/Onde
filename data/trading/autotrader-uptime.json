@@ -1,23 +1,23 @@
 {
-  "updated_at": "2026-01-29T04:30:00.831060+00:00",
+  "updated_at": "2026-01-29T05:30:00.829016+00:00",
   "last_24h": {
-    "uptime_pct": 96.97,
-    "healthy_checks": 192,
+    "uptime_pct": 97.3,
+    "healthy_checks": 216,
     "restart_events": 6,
-    "total_checks": 198,
+    "total_checks": 222,
     "hours_analyzed": 24
   },
   "last_7d": {
-    "uptime_pct": 96.97,
-    "healthy_checks": 192,
+    "uptime_pct": 97.3,
+    "healthy_checks": 216,
     "restart_events": 6,
-    "total_checks": 198,
+    "total_checks": 222,
     "hours_analyzed": 168
   },
   "daily": {
     "2026-01-28": {
-      "uptime_pct": 96.97,
-      "healthy": 192,
+      "uptime_pct": 97.3,
+      "healthy": 216,
       "restarts": 6
     }
   }

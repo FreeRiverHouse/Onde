@@ -1,8 +1,6 @@
 
 "use client"
 
-export const runtime = 'edge'
-
 import { signIn } from "next-auth/react"
 
 export default function LoginPage() {

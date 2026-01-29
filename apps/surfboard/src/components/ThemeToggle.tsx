@@ -56,3 +56,6 @@ export function ThemeToggle() {
     </button>
   )
 }
+
+// Alias for minimal version (same component)
+export { ThemeToggle as ThemeToggleMinimal }
