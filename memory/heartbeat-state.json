@@ -1,14 +1,10 @@
 {
-  "lastHeartbeat": "2026-01-31T08:15:00Z",
-  "lastHeartbeatEpoch": 1769847300,
-  "host": "FRH-M1-PRO.local",
   "lastChecks": {
-    "alerts": "2026-01-31T08:15:00Z",
-    "autotrader": "2026-01-31T08:15:00Z"
+    "autotrader": 1738181272,
+    "alerts": 1738181272,
+    "tasks": 1738181272
   },
-  "lastWork": {
-    "task": "T605 - Dashboard gist fallback enhancement",
-    "completed": "Enhanced gist mapping with profitFactor, maxDrawdown, latency, volatility fields",
-    "subtasksAdded": ["T623", "T624", "T625"]
-  }
+  "lastHeartbeat": "2026-01-29T12:07:52-08:00",
+  "tasksCompleted": ["T419", "T421"],
+  "note": "News analysis + dry-run settlement tracker"
 }
