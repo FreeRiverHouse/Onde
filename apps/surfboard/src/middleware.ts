@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-// Routes that don't require authentication (minimal - only auth endpoints and health checks)
-const publicRoutes = ["/login", "/api/auth", "/health", "/api/health"]
+// Routes that don't require authentication (minimal - only auth endpoints, health checks, and agent APIs with own auth)
+const publicRoutes = ["/login", "/api/auth", "/health", "/api/health", "/api/agent-executor", "/api/agent-tasks", "/api/house", "/api/activity", "/api/agents"]
 
 // Protected paths that require auth even if they look like static files
 const protectedPaths = ["/static-games", "/games"]

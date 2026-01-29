@@ -16,7 +16,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { getRequestContext } from '@cloudflare/next-on-pages'
 import {
   getNextAvailableTaskFromD1,
   claimAgentTaskInD1,
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Get D1 database
-    const { env } = await getCloudflareContext()
+    const { env } = getRequestContext()
     const db = env.DB
     
     if (!db) {

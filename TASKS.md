@@ -39,12 +39,13 @@
 - **Notes**: ✅ Rimossi testimonials finti (Sarah M., David L., Emily R., Marcus T.) da page.tsx. MAI PIÙ fake reviews!
 
 ### [T407] Bug: Agenti FRH non prendono task da onde.surf
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Quando scrivi agli agenti in FRH tramite onde.surf, non prendono i task. Da investigare.
+- **Notes**: ✅ ROOT CAUSE: onde.surf agent-executor API was blocked by middleware AND used wrong CF context import. FIX: 1) Added /api/agent-executor to publicRoutes in middleware.ts, 2) Fixed import from @opennextjs/cloudflare to @cloudflare/next-on-pages, 3) Created trigger-onde-surf-executor.sh for cron automation. ⚠️ MANUAL CONFIG NEEDED: Set ANTHROPIC_API_KEY in Cloudflare Pages → Settings → Environment Variables → Add secret. Then cron every 5min will auto-process tasks.
 
 ---
 
@@ -3845,3 +3846,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add carousel/grid showing last 10 books added to the library. Requires adding dateAdded field to book metadata. Sort by date, show "New" badge for <7 days. Helps users discover fresh content.
+
+### [T647] Add "Run Executor" button to FreeRiverHouse UI
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T407]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add manual trigger button in FreeRiverHouse component to POST /api/agent-executor. Shows loading state, result count, and errors. Useful for testing and immediate task processing without waiting for cron.
+
+### [T648] Configure ANTHROPIC_API_KEY in Cloudflare Pages
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T407]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: MANUAL: Go to Cloudflare Dashboard → Pages → onde-surf → Settings → Environment Variables → Add "ANTHROPIC_API_KEY" as encrypted secret. Without this, agent-executor can't process tasks. After adding, redeploy for changes to take effect.
+
+### [T649] Agent heartbeat registration for onde.surf
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T407]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create mechanism for Clawdbot local agents (like clawd) to register themselves with onde.surf D1 database. Update last_seen timestamp via POST /api/agents/heartbeat. This would show real agent status in FreeRiverHouse UI rather than relying only on task activity.
