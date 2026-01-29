@@ -18,6 +18,8 @@ interface Book {
   epubLink?: string
   price: string
   isFree: boolean
+  pages?: number
+  readingTime?: string // e.g., "~2h" or "~15 min"
 }
 
 const books: Book[] = [
@@ -33,6 +35,8 @@ const books: Book[] = [
     epubLink: '/books/epub/meditations-en.epub',
     price: 'Free',
     isFree: true,
+    pages: 112,
+    readingTime: '~3h',
   },
   {
     id: 'shepherds-promise',
@@ -46,6 +50,8 @@ const books: Book[] = [
     epubLink: '/books/epub/the-shepherds-promise.epub',
     price: 'Free',
     isFree: true,
+    pages: 12,
+    readingTime: '~5 min',
   },
 ]
 
@@ -118,7 +124,31 @@ export default function LibriPage() {
                   {book.title}
                 </h2>
                 <p className="text-amber-900 mb-1">{book.subtitle}</p>
-                <p className="text-gray-700 text-sm mb-4">by {book.author}</p>
+                <p className="text-gray-700 text-sm mb-2">by {book.author}</p>
+
+                {/* Reading info */}
+                {(book.pages || book.readingTime) && (
+                  <div className="flex items-center gap-3 text-xs text-gray-500 mb-4">
+                    {book.pages && (
+                      <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        {book.pages} pages
+                      </span>
+                    )}
+                    {book.readingTime && (
+                      <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {book.readingTime}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 <p className="text-gray-800 text-sm leading-relaxed mb-6 line-clamp-3">
                   {book.description}

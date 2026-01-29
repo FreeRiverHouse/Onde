@@ -1075,12 +1075,13 @@
 - **Notes**: ✅ Created /feed.xml with 50 featured books. Added RSS autodiscovery to layout. Fixed static export for robots.ts, sitemap.ts, api/health/cron.
 
 ### [T263] Reading time estimate on book cards
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add "~X min read" or page count to book cards. Helps users know what they're downloading.
+- **Notes**: ✅ Added pages + readingTime fields to Book interface. Shows "X pages" and "~Xh" on /libri cards with icons. UX improvement for users to gauge content before download.
 
 ### [T264] Regime change Telegram alert
 - **Status**: DONE
@@ -1372,6 +1373,30 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: ✅ Script: analyze-edge-vs-winrate.py. Groups trades by edge bucket (0-10%, 10-15%, etc.), shows win rate per bucket, checks for positive correlation (higher edge → higher WR), compares expected vs actual WR. Awaiting v2 trade data.
+
+### [T297] Reading time for /catalogo books (Gutenberg API integration)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T263]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend reading time feature to /catalogo. Fetch page counts from Gutenberg API metadata or estimate from file size (~250 words/page, 200 wpm).
+
+### [T298] Book preview modal (first 3 pages)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "Preview" button to book cards. Modal shows first 3 pages via PDF.js or image snapshots. Helps users decide before download.
+
+### [T299] Download analytics (track popular books)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track download events via simple counter (localStorage + periodic sync, or Cloudflare Analytics). Show "Most Downloaded" section on /libri.
 
 ---
 
