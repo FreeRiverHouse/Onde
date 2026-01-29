@@ -1,0 +1,25 @@
+{
+  "status": "warning",
+  "issues": [
+    "Log stale (637.4 min)"
+  ],
+  "process": {
+    "running": true,
+    "pid": 7498,
+    "process_count": 1
+  },
+  "trades": {
+    "last_trade": null,
+    "trades_24h": 0
+  },
+  "log": {
+    "log_active": false,
+    "log_age_minutes": 637.4,
+    "log_last_modified": "2026-01-29T01:32:31.671999+00:00"
+  },
+  "errors": {
+    "last_error": null
+  },
+  "generated_at": "2026-01-29T12:09:55.874677+00:00",
+  "version": "1.0"
+}

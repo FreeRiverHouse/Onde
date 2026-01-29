@@ -3308,10 +3308,11 @@
 - **Notes**: Add screenshot comparison tests using playwright.toHaveScreenshot(). Baseline screenshots for key pages (/libri, /catalogo, /betting). CI fails if visual diff >threshold. Catches unintended style regressions.
 
 ### [T488] Autotrader health endpoint API
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create lightweight HTTP endpoint (or file) showing autotrader status: running, last trade time, win rate 24h, current positions, last error. Enables external monitoring (UptimeRobot, etc.). Could be Python Flask or simple file update.
+- **Notes**: ✅ Created scripts/autotrader-health.py. Outputs JSON to data/trading/autotrader-health.json with: process status, last trade info, 24h win rate, log activity, recent errors. Exit codes: 0=healthy, 1=warning, 2=critical. Can be pushed to gist for external monitoring.
 
