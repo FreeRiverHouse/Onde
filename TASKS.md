@@ -1135,5 +1135,40 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:50 PST*
+### [T270] Fix curl redirect in verify-deployment-content.sh
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Fixed! Script was using `curl -s` but /libri redirects to /libri/. Changed to `curl -sL` to follow redirects. False positive "Meditations not found" resolved.
+
+### [T271] Install Python playwright for verification scripts
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Node playwright installed (T205) but verify-deployment-content.sh uses Python playwright. Need: pip install playwright && playwright install chromium
+
+### [T272] Add autotrader v2 trade count to /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show total trades count and today's trade count on /health dashboard. Read from kalshi-trades-v2.jsonl.
+
+### [T273] Profit factor calculation in trading stats
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T082]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Profit factor = gross profit / gross loss. Add to /api/trading/stats and /betting dashboard. Key metric for strategy health.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29 17:54 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
