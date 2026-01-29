@@ -2445,12 +2445,13 @@
 - **Notes**: ✅ Implemented! Added load_cached_ohlc() function to autotrader-v2. Strategy: 1) Try cache first, 2) If fresh (<24h), use it, 3) If stale but exists, try live API then fallback to cache, 4) Reduces CoinGecko calls from ~12/cycle to 0-2. Tested: BTC/ETH cache loading works, 180 candles each.
 
 ### [T382] OHLC cache health check in heartbeat
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T278]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add check if data/ohlc/*.json files are >24h old. Alert if cron failed to update. Ensures backtesting uses fresh data.
+- **Notes**: ✅ Implemented! Script: check-ohlc-cache.sh. Checks if data/ohlc/*.json >24h old or missing. Creates ohlc-cache-stale.alert for heartbeat pickup. 6h cooldown. Added to HEARTBEAT.md alert list.
 
 ### [T383] Calculate historical volatility from cached OHLC
 - **Status**: TODO
