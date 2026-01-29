@@ -2864,12 +2864,13 @@
 - **Notes**: ✅ Added! Cron: `0 9 * * 0` (Sundays 09:00 UTC, after OHLC cache + calibration check). Logs to scripts/historical-vol.log. Keeps data/ohlc/volatility-stats.json fresh weekly.
 
 ### [T439] Auto-recalibrate model volatility assumptions
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T383], [T417]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Based on T383 finding (model overestimates vol), create script to: 1) Compare 30d realized vs assumed, 2) If >25% divergence, suggest or auto-update .env with new BTC_HOURLY_VOL/ETH_HOURLY_VOL. Requires restart to take effect. Currently: BTC 0.32% actual vs 0.5% assumed.
+- **Notes**: ✅ Script: auto-calibrate-volatility.py. Compares 30d realized vs assumed vol, recommends new values if >25% divergence. Flags: --apply (update script), --threshold N, --no-alert. Alert file: kalshi-vol-recalibration.alert. Findings: BTC 0.50%→0.35%, ETH 0.70%→0.51% recommended. Adds 10% safety buffer above realized vol. Requires manual --apply to update (safety).
 
 ### [T440] Volatility trend visualization on dashboard
 - **Status**: TODO
@@ -3026,3 +3027,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Audit all buttons/links/inputs for visible focus states. Add consistent focus-visible ring style. Test with keyboard-only navigation. Tailwind: focus-visible:ring-2 focus-visible:ring-onde-gold.
+
+### [T456] Weekly cron for volatility calibration check
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T439]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Run auto-calibrate-volatility.py weekly (Sundays 10:00 UTC, after T417). Creates alert if recalibration needed. Cron: `0 10 * * 0`. Log to volatility-calibration.log.
+
+### [T457] Auto-restart autotrader after manual calibration
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T439]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend auto-calibrate-volatility.py --apply to optionally restart autotrader. Add --restart flag. Kill old process, wait 2s, start new one. Safer than leaving outdated model running.
+
+### [T458] Track calibration accuracy over time
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T439]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to analyze volatility-calibration.log. Compare recommended vs actual vol 30 days later. Shows if calibration improved model accuracy. Weekly report: avg prediction error before/after calibration.

@@ -1,0 +1,16 @@
+⚠️ VOLATILITY RECALIBRATION RECOMMENDED
+
+BTC: Model OVERESTIMATING by 36.0%
+  Current: 0.50%
+  Realized (30d): 0.32%
+  Recommended: 0.35%
+
+ETH: Model OVERESTIMATING by 33.9%
+  Current: 0.70%
+  Realized (30d): 0.46%
+  Recommended: 0.51%
+
+
+Run with --apply to update automatically:
+
+python3 scripts/auto-calibrate-volatility.py --apply
