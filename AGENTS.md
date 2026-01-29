@@ -52,6 +52,41 @@ git push origin main
 
 Violare queste regole = sistema rotto. Seguile SEMPRE.
 
+## 🚨 PROCESSO OBBLIGATORIO: PRIMA DI OGNI RISPOSTA A MATTIA
+
+**Questo processo è OBBLIGATORIO per OGNI messaggio di Mattia su Telegram!**
+
+### STEP 1: GIT SYNC (Regola 0)
+```bash
+git pull origin main
+```
+
+### STEP 2: LOG IMMEDIATO (Regola 3)
+Appendi a `memory/YYYY-MM-DD.md`:
+```markdown
+## YYYY-MM-DD HH:MM - [Topic]
+### Messaggio (ID: xxx)
+[Contenuto COMPLETO del messaggio]
+[Dettagli specifici: caffè, preferenze, decisioni, TUTTO]
+```
+
+### STEP 3: ESTRAI TASK (Regola 2)
+Se il messaggio contiene richieste/TODO → crea task in TASKS.md
+
+### STEP 4: CERCA MEMORIA (se domanda sul passato)
+```
+memory_search("query") → memory_get(path, from, lines) → poi rispondi
+```
+
+### STEP 5: COMMIT
+```bash
+git add memory/ TASKS.md && git commit -m "memory: log TOPIC" && git push
+```
+
+### STEP 6: ORA PUOI RISPONDERE
+
+**⛔ MAI saltare questi step! Mattia farà test!**
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:
