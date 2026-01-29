@@ -36,7 +36,6 @@ export function ModelComparisonChart({ v1Stats, v2Stats, className = '' }: Model
   
   // Progress bar max for visual comparison
   const maxWinRate = Math.max(v1.winRate, v2.winRate, 50);
-  const maxTrades = Math.max(v1.trades, v2.trades, 10);
   
   return (
     <div className={`bg-white/[0.02] border border-white/[0.05] rounded-xl p-4 ${className}`}>

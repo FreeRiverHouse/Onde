@@ -117,6 +117,58 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (10:15)
+
+### [T415] Deploy onde.surf dopo modifiche Test Status Panel
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T413]
+- **Blocks**: [T418]
+- **Priority**: P1
+- **Notes**: ✅ Deployed! TestStatusPanel live su onde.surf.
+  - Fixed ModelComparisonChart unused var lint error
+  - Added /api/test-status to publicRoutes middleware
+  - Build+deploy with Wrangler OK
+  - ⚠️ **API shows fallback data** - GitHub repo is private, raw.githubusercontent.com returns 404
+  - **NEW TASK T418**: Configure GitHub token or alternative data source
+
+### [T418] Configure Test Status data source for onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T415]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: The TestStatusPanel API fetches from raw.githubusercontent but repo is private.
+  - **Option 1**: Add GITHUB_TOKEN env var to Cloudflare Pages
+  - **Option 2**: Make test report public (gist or public repo)
+  - **Option 3**: Store in Cloudflare KV
+  - **Option 4**: Have cron push to external storage (S3, etc.)
+
+### [T416] Autotrader: web search per dati fondamentali pre-trade
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T661]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Implementare ricerca web automatica prima di ogni trade per trovare edge informativi. Ispirato a strategia Grok "Fundamental".
+  - Fonti: NWS (weather), BLS (unemployment), news crypto
+  - Integrare in autotrader-v2.py
+  - Log reasoning in trade entry
+
+### [T417] Test Suite: add Playwright visual regression tests
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T413]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Aggiungere screenshot comparison tests per catturare visual regressions
+  - Confronto baseline vs current
+  - Alert su diff >5%
+  - Salva screenshots in test-results/
+
+---
+
 ## 🔥 IN PROGRESS
 
 ### [T001] Autotrader Kalshi Monitoring
