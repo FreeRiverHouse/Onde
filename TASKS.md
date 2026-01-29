@@ -2947,3 +2947,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Compare historical performance using: fixed $5 per trade, Kelly criterion, half-Kelly, volatility-scaled sizing. Use settlement data to simulate each strategy. Report final PnL and max drawdown for each. Script: backtest-position-sizing.py.
+
+### [T450] Book cover image generation for /catalogo
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T297]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Replace placeholder 📖 emoji with AI-generated book covers. Use consistent style (minimalist, watercolor, or vintage). Generate on-demand or pre-cache top 50 books. Store in /public/covers/ or use image CDN.
+
+### [T451] Sort options for /catalogo (title, author, reading time)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T297]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add dropdown/buttons to sort catalog by: title (A-Z), author (A-Z), reading time (shortest first), or category. Default: title. Persist preference to localStorage. Complements existing category/language filters.
+
+### [T452] Autotrader: market hours optimization (skip low-volume times)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T249]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze trade performance by hour (T249 exists). Automatically reduce position size or skip trades during historically low-WR hours (e.g., 03:00-06:00 UTC). Configurable via TRADING_HOURS_BONUS/PENALTY dict.
