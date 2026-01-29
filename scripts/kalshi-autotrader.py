@@ -80,6 +80,7 @@ DAILY_LOSS_PAUSE_FILE = Path(__file__).parent / "kalshi-daily-pause.json"
 
 # Logging/tracking
 TRADE_LOG_FILE = "scripts/kalshi-trades.jsonl"  # Track all decisions
+SKIP_LOG_FILE = "scripts/kalshi-skips.jsonl"  # Track skipped opportunities for pattern analysis
 LAST_LOW_BALANCE_ALERT = None  # Track when we last alerted
 
 # ============== LOGGING FUNCTIONS ==============
@@ -99,6 +100,29 @@ def log_decision(decision_type: str, ticker: str, details: dict):
             f.write(json.dumps(entry) + "\n")
     except Exception as e:
         print(f"⚠️ Failed to log: {e}")
+
+
+def log_skip(ticker: str, reason: str, details: dict):
+    """Log skipped opportunity to separate file for pattern analysis.
+    
+    This helps identify:
+    - What edges we're consistently missing
+    - If our MIN_EDGE is too conservative
+    - Which strikes/assets have more near-misses
+    """
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "ticker": ticker,
+        "reason": reason,
+        **details
+    }
+    try:
+        log_path = Path(SKIP_LOG_FILE)
+        log_path.parent.mkdir(exist_ok=True)
+        with open(log_path, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+    except Exception as e:
+        print(f"⚠️ Failed to log skip: {e}")
 
 
 def get_trade_stats() -> dict:
@@ -510,10 +534,10 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
         expiry_ok, minutes_left = check_time_to_expiry(m)
         if not expiry_ok:
             skipped_expiry += 1
-            log_decision("skip", ticker, {
-                "reason": "too_close_to_expiry",
+            log_skip(ticker, "too_close_to_expiry", {
                 "minutes_left": round(minutes_left, 1),
-                "min_required": MIN_TIME_TO_EXPIRY_MINUTES
+                "min_required": MIN_TIME_TO_EXPIRY_MINUTES,
+                "subtitle": subtitle
             })
             continue
         
@@ -552,6 +576,20 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                     })
                 else:
                     skipped_low_edge += 1
+                    # Log detailed skip info for pattern analysis
+                    log_skip(ticker, "low_edge_yes", {
+                        "side": "yes",
+                        "edge": round(edge_yes, 4),
+                        "edge_needed": MIN_EDGE,
+                        "edge_gap": round(MIN_EDGE - edge_yes, 4),
+                        "our_prob": round(our_prob, 3),
+                        "market_prob": round(market_prob_yes, 3),
+                        "price": yes_ask,
+                        "strike": strike,
+                        "current_price": btc_price,
+                        "asset": "BTC",
+                        "minutes_to_expiry": round(minutes_left, 1)
+                    })
                 
                 # Check NO opportunity (higher edge required - NO bets are contrarian)
                 edge_no = (1 - our_prob) - market_prob_no
@@ -576,6 +614,20 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
                     })
                 else:
                     skipped_low_edge += 1
+                    # Log detailed skip info for pattern analysis
+                    log_skip(ticker, "low_edge_no", {
+                        "side": "no",
+                        "edge": round(edge_no, 4),
+                        "edge_needed": MIN_EDGE_NO,
+                        "edge_gap": round(MIN_EDGE_NO - edge_no, 4),
+                        "our_prob": round(1 - our_prob, 3),
+                        "market_prob": round(market_prob_no, 3),
+                        "price": 100 - yes_bid,
+                        "strike": strike,
+                        "current_price": btc_price,
+                        "asset": "BTC",
+                        "minutes_to_expiry": round(minutes_left, 1)
+                    })
             except:
                 continue
     

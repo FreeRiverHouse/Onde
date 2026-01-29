@@ -720,12 +720,13 @@
 - **Notes**: ✅ Added! Now scans both KXBTCD (BTC) and KXETHD (ETH) markets. Uses ETH_HOURLY_VOL (0.7%) for ETH. Separate momentum tracking for each asset. Trade log now includes `asset` field.
 
 ### [T224] Save skip logs to file for pattern analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T091]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Append skip data to scripts/kalshi-skips.jsonl for later analysis of what edges we're missing.
+- **Notes**: ✅ Added log_skip() function + SKIP_LOG_FILE constant. Logs to scripts/kalshi-skips.jsonl with: ticker, reason, edge, edge_needed, edge_gap, probabilities, strike, current_price, asset, minutes_to_expiry. Covers both low_edge_yes/no and expiry skips.
 
 ### [T225] Add trade entry reason field to trade logs
 - **Status**: TODO
@@ -869,7 +870,31 @@
 - **Priority**: P3
 - **Notes**: Allow STOP_LOSS_THRESHOLD to be set via environment variable for easy tuning without code change.
 
+### [T242] Analyze skip log patterns - find optimal MIN_EDGE
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T224]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Script to analyze kalshi-skips.jsonl: histogram of edge_gap values, identify if MIN_EDGE is too high. If many skips have edge 10-14%, consider lowering threshold.
+
+### [T243] Market regime detection (bullish/bearish/sideways)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use 4h/24h price change + volatility to classify market regime. Adjust MIN_EDGE dynamically: lower in trending, higher in choppy markets.
+
+### [T244] Implied volatility extraction from Kalshi prices
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Reverse-engineer implied vol from Kalshi market prices. Compare vs realized vol to find mispriced options (high IV vs low realized = sell premium).
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:33 PST*
+*Ultimo aggiornamento: 2026-01-28 16:53 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
