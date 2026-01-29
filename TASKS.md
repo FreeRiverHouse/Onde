@@ -314,12 +314,13 @@
 - **Notes**: ✅ Implementato! Autotrader ora pausa automaticamente se daily loss > $1. File pause: kalshi-daily-pause.json. Reset a mezzanotte UTC.
 
 ### [T087] Migliorare modello: momentum tracking multi-timeframe
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Usare 1h, 4h, 24h momentum invece di solo volatility istantanea
+- **Notes**: ✅ INTEGRATED! Momentum was calculated but never used. Now: 1) get_btc_ohlc() fetches 2-day OHLC, 2) get_multi_timeframe_momentum() calculates 1h/4h/24h composite, 3) adjust_probability_with_momentum() adjusts edge calc, 4) Skip trades that conflict with strong momentum, 5) 2% edge bonus for aligned momentum trades
 
 ### [T088] Grafici trend BTC su /trade dashboard
 - **Status**: TODO
@@ -749,6 +750,30 @@
 - **Priority**: P3
 - **Notes**: Add Lighthouse audit to CI pipeline. Fail if performance score < 80 or accessibility < 90.
 
+### [T232] Add momentum analysis to weekly trading report
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T095]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include correlation between momentum alignment and win rate in weekly report. Shows if momentum filtering improves performance.
+
+### [T233] Add Fear & Greed index to trade decision logging
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: get_fear_greed() is called but not logged with trades. Add to trade log entry for later analysis of sentiment correlation.
+
+### [T234] Implement trailing stop-loss for open positions
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: If BTC moves strongly against our position before expiry, exit early to cut losses. Monitor open positions every cycle.
+
 ### [T228] Add error boundary to ClientLayout
 - **Status**: TODO
 - **Owner**: 
@@ -783,5 +808,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 00:50 PST*
+*Ultimo aggiornamento: 2026-01-29 01:15 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

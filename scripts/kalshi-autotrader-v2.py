@@ -563,15 +563,21 @@ def parse_time_to_expiry(market: dict) -> float:
         return 999
 
 
-def find_opportunities(markets: list, btc_price: float, verbose: bool = True) -> list:
-    """Find trading opportunities with PROPER probability model"""
+def find_opportunities(markets: list, btc_price: float, momentum: dict = None, verbose: bool = True) -> list:
+    """Find trading opportunities with PROPER probability model + momentum adjustment"""
     opportunities = []
     skip_reasons = {
         "not_btc": 0,
         "no_strike": 0,
         "too_close_expiry": 0,
+        "momentum_conflict": 0,
         "insufficient_edge": []
     }
+    
+    # Extract momentum info for filtering
+    mom_dir = momentum.get("composite_direction", 0) if momentum else 0
+    mom_str = momentum.get("composite_strength", 0) if momentum else 0
+    mom_alignment = momentum.get("alignment", False) if momentum else False
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -603,53 +609,93 @@ def find_opportunities(markets: list, btc_price: float, verbose: bool = True) ->
             skip_reasons["too_close_expiry"] += 1
             continue
         
-        # Calculate PROPER probability
-        prob_above = calculate_prob_above_strike(
+        # Calculate BASE probability (from Black-Scholes model)
+        base_prob_above = calculate_prob_above_strike(
             btc_price, strike, minutes_left, BTC_HOURLY_VOL
         )
-        prob_below = 1 - prob_above
+        base_prob_below = 1 - base_prob_above
+        
+        # APPLY MOMENTUM ADJUSTMENT to probabilities
+        if momentum:
+            prob_above = adjust_probability_with_momentum(
+                base_prob_above, strike, btc_price, momentum, "yes"
+            )
+            prob_below = adjust_probability_with_momentum(
+                base_prob_below, strike, btc_price, momentum, "no"
+            )
+        else:
+            prob_above = base_prob_above
+            prob_below = base_prob_below
         
         # Market implied probabilities
         market_prob_yes = yes_ask / 100 if yes_ask else 0.5
         market_prob_no = (100 - yes_bid) / 100 if yes_bid else 0.5
         
-        # Calculate edges for both sides
+        # Calculate edges for both sides (now momentum-adjusted)
         yes_edge = prob_above - market_prob_yes
         no_edge = prob_below - market_prob_no
         
         found_opp = False
         
+        # MOMENTUM CONFLICT CHECK: Skip YES if strong bearish momentum
+        # Skip NO if strong bullish momentum (unless we have alignment which gives confidence)
+        skip_due_to_momentum = False
+        
         # Check for YES opportunity (we think it'll be above strike)
         if prob_above > market_prob_yes + MIN_EDGE:
-            edge = prob_above - market_prob_yes
-            opportunities.append({
-                "ticker": ticker,
-                "side": "yes",
-                "price": yes_ask,
-                "edge": edge,
-                "our_prob": prob_above,
-                "market_prob": market_prob_yes,
-                "strike": strike,
-                "current": btc_price,
-                "minutes_left": minutes_left
-            })
-            found_opp = True
+            # Skip YES if momentum is strongly bearish (dir < -0.3 with strength > 0.3)
+            if mom_dir < -0.3 and mom_str > 0.3:
+                skip_due_to_momentum = True
+                skip_reasons["momentum_conflict"] += 1
+            else:
+                edge = prob_above - market_prob_yes
+                # Bonus edge if momentum aligns (bullish momentum for YES)
+                momentum_bonus = 0.02 if (mom_dir > 0.2 and mom_alignment) else 0
+                opportunities.append({
+                    "ticker": ticker,
+                    "side": "yes",
+                    "price": yes_ask,
+                    "edge": edge,
+                    "edge_with_bonus": edge + momentum_bonus,
+                    "our_prob": prob_above,
+                    "base_prob": base_prob_above,
+                    "market_prob": market_prob_yes,
+                    "strike": strike,
+                    "current": btc_price,
+                    "minutes_left": minutes_left,
+                    "momentum_dir": mom_dir,
+                    "momentum_str": mom_str,
+                    "momentum_aligned": mom_alignment and mom_dir > 0.2
+                })
+                found_opp = True
         
         # Check for NO opportunity (we think it'll be below strike)  
         if prob_below > market_prob_no + MIN_EDGE:
-            edge = prob_below - market_prob_no
-            opportunities.append({
-                "ticker": ticker,
-                "side": "no",
-                "price": 100 - yes_bid,
-                "edge": edge,
-                "our_prob": prob_below,
-                "market_prob": market_prob_no,
-                "strike": strike,
-                "current": btc_price,
-                "minutes_left": minutes_left
-            })
-            found_opp = True
+            # Skip NO if momentum is strongly bullish (dir > 0.3 with strength > 0.3)
+            if mom_dir > 0.3 and mom_str > 0.3:
+                if not skip_due_to_momentum:  # Don't double count
+                    skip_reasons["momentum_conflict"] += 1
+            else:
+                edge = prob_below - market_prob_no
+                # Bonus edge if momentum aligns (bearish momentum for NO)
+                momentum_bonus = 0.02 if (mom_dir < -0.2 and mom_alignment) else 0
+                opportunities.append({
+                    "ticker": ticker,
+                    "side": "no",
+                    "price": 100 - yes_bid,
+                    "edge": edge,
+                    "edge_with_bonus": edge + momentum_bonus,
+                    "our_prob": prob_below,
+                    "base_prob": base_prob_below,
+                    "market_prob": market_prob_no,
+                    "strike": strike,
+                    "current": btc_price,
+                    "minutes_left": minutes_left,
+                    "momentum_dir": mom_dir,
+                    "momentum_str": mom_str,
+                    "momentum_aligned": mom_alignment and mom_dir < -0.2
+                })
+                found_opp = True
         
         # Log skip reason if no opportunity found
         if not found_opp:
@@ -665,7 +711,7 @@ def find_opportunities(markets: list, btc_price: float, verbose: bool = True) ->
             })
     
     # Log skip summary if verbose
-    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"]):
+    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"]):
         print(f"\n📋 Skip Summary:")
         if skip_reasons["not_btc"]:
             print(f"   - Not BTC markets: {skip_reasons['not_btc']}")
@@ -673,6 +719,8 @@ def find_opportunities(markets: list, btc_price: float, verbose: bool = True) ->
             print(f"   - No strike parsed: {skip_reasons['no_strike']}")
         if skip_reasons["too_close_expiry"]:
             print(f"   - Too close to expiry (<{MIN_TIME_TO_EXPIRY_MINUTES}min): {skip_reasons['too_close_expiry']}")
+        if skip_reasons["momentum_conflict"]:
+            print(f"   - Momentum conflict (betting against trend): {skip_reasons['momentum_conflict']}")
         
         if skip_reasons["insufficient_edge"]:
             print(f"   - Insufficient edge (need >{MIN_EDGE*100:.0f}%): {len(skip_reasons['insufficient_edge'])}")
@@ -683,8 +731,8 @@ def find_opportunities(markets: list, btc_price: float, verbose: bool = True) ->
                 gap = (MIN_EDGE - skip["best_edge"]) * 100
                 print(f"      {skip['ticker']} | Strike ${skip['strike']:,.0f} | {skip['best_side']} edge {edge_pct:+.1f}% (need {gap:.1f}% more) | {skip['minutes_left']}min left")
     
-    # Sort by edge
-    opportunities.sort(key=lambda x: x["edge"], reverse=True)
+    # Sort by edge (with momentum bonus for aligned trades)
+    opportunities.sort(key=lambda x: x.get("edge_with_bonus", x["edge"]), reverse=True)
     return opportunities
 
 
@@ -727,6 +775,23 @@ def run_cycle():
     btc_price = prices["btc"]
     print(f"📈 BTC: ${btc_price:,.0f}")
     
+    # Get OHLC data for momentum calculation
+    ohlc_data = get_btc_ohlc(days=2)
+    momentum = get_multi_timeframe_momentum(ohlc_data)
+    
+    # Display momentum info
+    if momentum["timeframes"]:
+        print(f"📊 Momentum (1h/4h/24h):")
+        for tf in ["1h", "4h", "24h"]:
+            tf_data = momentum["timeframes"].get(tf, {})
+            dir_symbol = "🟢" if tf_data.get("direction", 0) > 0 else ("🔴" if tf_data.get("direction", 0) < 0 else "⚪")
+            pct = tf_data.get("pct_change", 0) * 100
+            print(f"   {tf}: {dir_symbol} {pct:+.2f}% (str: {tf_data.get('strength', 0):.2f})")
+        
+        composite_dir = "BULLISH" if momentum["composite_direction"] > 0.1 else ("BEARISH" if momentum["composite_direction"] < -0.1 else "NEUTRAL")
+        aligned_str = "✓ ALIGNED" if momentum["alignment"] else ""
+        print(f"   → Composite: {composite_dir} (dir: {momentum['composite_direction']:.2f}, str: {momentum['composite_strength']:.2f}) {aligned_str}")
+    
     # Get positions
     positions = get_positions()
     print(f"📋 Open positions: {len(positions)}")
@@ -735,11 +800,11 @@ def run_cycle():
         print("⚠️ Max positions reached, skipping")
         return
     
-    # Find opportunities
+    # Find opportunities (now with momentum!)
     markets = search_markets("KXBTCD", limit=50)
     print(f"🔍 Scanning {len(markets)} BTC markets...")
     
-    opportunities = find_opportunities(markets, btc_price)
+    opportunities = find_opportunities(markets, btc_price, momentum=momentum)
     
     if not opportunities:
         print("😴 No opportunities found")
@@ -747,12 +812,15 @@ def run_cycle():
     
     # Take best opportunity
     best = opportunities[0]
-    print(f"\n🎯 Best opportunity:")
+    mom_aligned = best.get('momentum_aligned', False)
+    mom_badge = "🎯 MOMENTUM ALIGNED!" if mom_aligned else ""
+    print(f"\n🎯 Best opportunity: {mom_badge}")
     print(f"   {best['ticker']}")
     print(f"   Side: {best['side'].upper()} @ {best['price']}¢")
     print(f"   Strike: ${best['strike']:,.0f} | BTC: ${best['current']:,.0f}")
-    print(f"   Our prob: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
-    print(f"   Edge: {best['edge']*100:.1f}% | Time left: {best['minutes_left']:.0f}min")
+    print(f"   Base prob: {best.get('base_prob', best['our_prob'])*100:.1f}% → Adjusted: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
+    print(f"   Edge: {best['edge']*100:.1f}% (w/bonus: {best.get('edge_with_bonus', best['edge'])*100:.1f}%) | Time left: {best['minutes_left']:.0f}min")
+    print(f"   Momentum: dir={best.get('momentum_dir', 0):.2f} str={best.get('momentum_str', 0):.2f}")
     
     # Calculate bet size (Kelly)
     if cash < MIN_BET_CENTS / 100:
@@ -780,7 +848,7 @@ def run_cycle():
     if order.get("status") == "executed":
         print(f"✅ Order executed!")
         
-        # Log trade
+        # Log trade (with momentum data)
         log_trade({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "type": "trade",
@@ -790,11 +858,16 @@ def run_cycle():
             "price_cents": best["price"],
             "cost_cents": contracts * best["price"],
             "edge": best["edge"],
+            "edge_with_bonus": best.get("edge_with_bonus", best["edge"]),
             "our_prob": best["our_prob"],
+            "base_prob": best.get("base_prob", best["our_prob"]),
             "market_prob": best["market_prob"],
             "strike": best["strike"],
             "current_price": btc_price,
             "minutes_to_expiry": best["minutes_left"],
+            "momentum_dir": best.get("momentum_dir", 0),
+            "momentum_str": best.get("momentum_str", 0),
+            "momentum_aligned": best.get("momentum_aligned", False),
             "result_status": "pending"
         })
     else:
