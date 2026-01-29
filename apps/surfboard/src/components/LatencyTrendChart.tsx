@@ -32,7 +32,8 @@ export function LatencyTrendChart({
   
   // Theme-aware colors
   const gridColor = isDark ? '#3f3f46' : '#e5e7eb';
-  const labelColor = isDark ? 'text-zinc-500' : 'text-gray-500';
+  const _labelColor = isDark ? 'text-zinc-500' : 'text-gray-500';
+  void _labelColor; // Future: for axis labels
   const p95Color = isDark ? '#f59e0b' : '#d97706';
   const containerBg = isDark ? 'bg-zinc-800/50' : 'bg-gray-100/80';
   const textMuted = isDark ? 'text-zinc-400' : 'text-gray-600';

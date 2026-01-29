@@ -120,7 +120,7 @@ export function EdgeDistributionChart({ data, className = '' }: EdgeDistribution
         <div className="space-y-4">
           {/* Bar chart */}
           <div className="flex items-end gap-2 h-32">
-            {chartData.buckets.map((bucket, i) => (
+            {chartData.buckets.map((bucket) => (
               <div key={bucket.bucket} className="flex-1 flex flex-col items-center">
                 {/* Bar with tooltip */}
                 <div 

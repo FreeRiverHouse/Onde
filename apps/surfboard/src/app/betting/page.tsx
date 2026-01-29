@@ -41,6 +41,7 @@ import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/Latenc
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
+import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/WeatherPerformanceWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
@@ -1790,6 +1791,14 @@ export default function BettingDashboard() {
               <ModelComparisonChart 
                 v1Stats={tradingStats.bySource?.v1 || null}
                 v2Stats={tradingStats.bySource?.v2 || null}
+              />
+            </div>
+
+            {/* Weather Market Performance (T443) */}
+            <div className="mt-4">
+              <WeatherPerformanceWidget 
+                data={parseWeatherPerformance(tradingStats.recentTrades || [])}
+                loading={isLoading}
               />
             </div>
 

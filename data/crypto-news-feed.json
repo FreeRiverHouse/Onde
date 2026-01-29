@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T22:00:01.338679+00:00",
+  "timestamp": "2026-01-29T22:30:02.264145+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "WallStreetBets Founder Cries Foul After Reddit Cracks Down on Miami Convention",
+      "url": "https://decrypt.co/356412/wallstreetbets-founder-cries-foul-reddit-cracks-down-miami-convention",
+      "source": "decrypt",
+      "description": "Jaime Rogozinski litigated the trademark to the Supreme Court\u2014and lost.",
+      "published": "2026-01-29T22:03:42+00:00"
+    },
     {
       "title": "Google Brings Agentic Browsing to Chrome\u2014And It's Not Playing Nice With Competitors",
       "url": "https://decrypt.co/356344/google-agentic-browsing-chrome-not-playing-nice-competitors",
@@ -156,13 +163,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor The Senate Agriculture Committee advanced a crypto market bill 12-11 along party lines. This post Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T17:19:44+00:00"
-    },
-    {
-      "title": "Senate Democrats Say They Want a Crypto Bill\u2014But Republicans Tanked Negotiations",
-      "url": "https://decrypt.co/356334/senate-democrats-want-crypto-bill-republicans-tanked-negotiations",
-      "source": "decrypt",
-      "description": "Zero Senate Agriculture Democrats voted for a crypto market structure bill Thursday, which squeaked by a markup on party lines.",
-      "published": "2026-01-29T17:00:27+00:00"
     },
     {
       "title": "Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst\u00a0",

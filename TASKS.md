@@ -9,17 +9,24 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (14:38)
 
 ### [T443] Weather market performance widget on /betting
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T422], [T424]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add widget showing weather market performance:
-  - Win rate for KXHIGH/KXLOW markets vs crypto
-  - NWS forecast accuracy tracking
-  - Best performing cities (NYC, MIA, DEN, etc.)
-  - Comparison: weather edge vs crypto edge
-  - Uses weather-settlements.json data
+- **Notes**: ✅ Implemented WeatherPerformanceWidget component!
+  - **Component**: `apps/surfboard/src/components/WeatherPerformanceWidget.tsx`
+  - **Features:**
+    - Win rate for KXHIGH/KXLOW markets vs crypto comparison
+    - NWS forecast accuracy tracking (shows ±2°F accuracy)
+    - Best performing cities breakdown (NYC, MIA, DEN, CHI, etc.)
+    - Weather vs Crypto edge comparison bar chart
+    - City-level PnL and win rate stats
+    - "Coming Soon" state when no weather trades yet
+  - **Integration**: Added to /betting page after Model Comparison
+  - **Parser**: parseWeatherPerformance() extracts weather trades from gist data
+  - Also fixed lint errors in EdgeDistributionChart and LatencyTrendChart
 
 ### [T444] Current streak context indicator on /betting
 - **Status**: DONE
