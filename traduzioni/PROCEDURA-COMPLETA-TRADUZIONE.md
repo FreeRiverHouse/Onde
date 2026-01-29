@@ -44,13 +44,28 @@
 - **Output:** `traduzioni/TITOLO-IT_nllb200-m4.md`
 - **⛔ MAI Claude**
 
-### STEP 2: REVISIONE (2 CICLI)
+### STEP 2: REVISIONE (5+ CICLI)
 - **Tool:** Ollama llama3:70b (locale)
 - **Script:** `scripts/translation-pipeline.py`
-- **Ciclo 1:** RILETTTORE → REVISORE
-- **Ciclo 2:** RILETTTORE → REVISORE
-- **Output:** `traduzioni/revision-report-TITOLO.json`
-- **⛔ MAI Claude**
+- **⛔ MAI Claude per loop pesanti**
+
+#### Cicli Obbligatori:
+| Ciclo | Agente | Focus |
+|-------|--------|-------|
+| 1 | RILETTTORE | Errori grossolani, senso |
+| 2 | REVISORE | Fedeltà all'originale |
+| 3 | GRAMMATICO | Grammatica italiana perfetta |
+| 4 | ANTI-SLOP | Naturalezza, no "AI-speak" |
+| 5 | FORMATTATORE | Encoding UTF-8, punteggiatura |
+
+#### Checklist Anti-Slop:
+- [ ] Niente "inoltre", "pertanto" eccessivi
+- [ ] Frasi naturali, come parlerebbe un italiano
+- [ ] No traduzioni letterali goffe
+- [ ] Apostrofi corretti (non â€™)
+- [ ] Accenti corretti (à è ì ò ù)
+
+**Output:** `traduzioni/revision-report-TITOLO.json`
 
 ### STEP 3: SAMPLE PER APPROVAZIONE ⭐
 - **Formato:** PDF 3 pagine
@@ -60,6 +75,16 @@
   - Pag 3: 10 righe originale + 10 righe tradotte (Cap 3)
 - **Output:** `traduzioni/samples/TITOLO-sample-approvazione.pdf`
 - **Invio:** Telegram a Mattia
+
+#### ⚠️ QA OBBLIGATORIO PRIMA DI INVIARE:
+```
+1. APRI il file e LEGGILO tu stesso
+2. Controlla encoding (no â€™, no Ã)
+3. Controlla naturalezza italiano
+4. Controlla formattazione
+5. SOLO SE TUTTO OK → invia a Mattia
+```
+**MAI inviare senza aver controllato!**
 
 ### STEP 4: APPROVAZIONE MATTIA
 - **Decisore:** Mattia (SOLO LUI)

@@ -89,3 +89,7 @@
 ### 20:59 PST [msg:176]
 > (da Clawdinho) Fatto! 📄 Ho creato ONDINHO-HEARTBEAT-GUIDE.md con ciclo completo heartbeat, step-by-step, esempi, regole. File pushato su main.
 
+
+### 21:02 PST [msg:178] [IMMAGINE: screenshot sample rotto]
+> 1- lo hai guardato prima di mandarmelo? Avresti dovuto!! 2- aggiusta procedure, non è male ma cè ancora troppa slop. Ma possiamo arrivare a un lavoro eccellente. Servono solo piu cicli (i cicli fatti bene di revisione, correzione grammatica, anti slop, formattazione) fatti in modo agentico usando modelli LOCALI (mai claude per loop pesanti e costosi)
+
