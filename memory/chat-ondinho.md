@@ -109,3 +109,9 @@
 ### 21:22 PST [msg:190]
 > VAI LENto! Yes batch notturno spacca
 
+
+### 21:23 PST [msg:192]
+> Never never say buonanotte to me
+
+⚠️ NOTA: MAI dire buonanotte a Mattia!
+
