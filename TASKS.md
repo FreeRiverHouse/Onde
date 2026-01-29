@@ -1064,12 +1064,13 @@
 - **Notes**: ✅ Added Schema.org CollectionPage + ItemList with 5 featured books (Alice, Meditations, Grimm, Pride&Prejudice, Pinocchio). numberOfItems: 1000. Multi-language support.
 
 ### [T262] RSS feed for book releases
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add /feed.xml endpoint for new book releases. Helps RSS readers and podcast apps discover content.
+- **Notes**: ✅ Created /feed.xml with 50 featured books. Added RSS autodiscovery to layout. Fixed static export for robots.ts, sitemap.ts, api/health/cron.
 
 ### [T263] Reading time estimate on book cards
 - **Status**: TODO
@@ -1107,5 +1108,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 04:33 PST*
+### [T267] Add Atom feed alternative (/feed.atom)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T262]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Some readers prefer Atom over RSS. Duplicate /feed.xml logic with Atom format.
+
+### [T268] RSS feed with dynamic book descriptions
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T262]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Current feed uses generic descriptions. Pull actual book summaries from Gutenberg API or local data.
+
+### [T269] Deploy onde.la with RSS feed
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T262]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: RSS feed built - deploy to production to make it live.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29 17:50 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
