@@ -24,12 +24,21 @@
   - Supports 15 languages with flag emojis
 
 ### [T441] Autotrader: Add position size limits per asset
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T001]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Currently all assets use same Kelly sizing. Add config for per-asset max position size. Weather markets could have higher Kelly (more predictable), crypto lower. Reduces portfolio concentration risk.
+- **Notes**: ✅ Implemented per-asset position sizing!
+  - **ASSET_CONFIG dict**: Centralized config for Kelly fraction, max position %, min edge
+  - **BTC**: 5% Kelly, 3% max position, 10% min edge (standard)
+  - **ETH**: 4% Kelly, 2.5% max position, 12% min edge (more volatile)
+  - **Weather**: 8% Kelly, 2% max position, 10% min edge (NWS reliable)
+  - **Default**: 3% Kelly, 2% max position, 15% min edge (conservative for unknowns)
+  - **get_asset_config()**: Helper function with fallback to default
+  - **Logging**: Trade data now includes per-asset kelly_fraction_base and max_position_pct
+  - **Display**: Shows per-asset config in trade output (e.g. "📊 BTC Kelly: 5.0% | Max: 3.0%")
 
 ### [T442] Daily test suite: Add visual regression tests
 - **Status**: TODO

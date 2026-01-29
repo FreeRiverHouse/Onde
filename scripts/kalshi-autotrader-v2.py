@@ -91,11 +91,45 @@ BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters - MORE CONSERVATIVE
 MIN_EDGE = 0.10  # 10% minimum edge (was 15% but with wrong probabilities)
-MAX_POSITION_PCT = 0.03  # 3% max per position
-KELLY_FRACTION = 0.05  # Very conservative Kelly
+MAX_POSITION_PCT = 0.03  # 3% max per position (default, see per-asset below)
+KELLY_FRACTION = 0.05  # Very conservative Kelly (default, see per-asset below)
 MIN_BET_CENTS = 5
 MIN_TIME_TO_EXPIRY_MINUTES = 45  # Increased from 30
 MAX_POSITIONS = 30
+
+# Per-asset position sizing (T441)
+# Weather markets: higher Kelly (NWS forecasts are reliable), lower max position (less liquid)
+# BTC: standard sizing (most liquid, most traded)
+# ETH: slightly lower (more volatile than BTC)
+# KEY INSIGHT: Different assets have different edge sources and liquidity profiles
+ASSET_CONFIG = {
+    "btc": {
+        "kelly_fraction": 0.05,     # Standard Kelly
+        "max_position_pct": 0.03,   # 3% max per position
+        "min_edge": 0.10,           # 10% min edge
+    },
+    "eth": {
+        "kelly_fraction": 0.04,     # Lower Kelly (more volatile)
+        "max_position_pct": 0.025,  # 2.5% max per position (less liquid than BTC)
+        "min_edge": 0.12,           # 12% min edge (higher threshold for higher vol)
+    },
+    "weather": {
+        "kelly_fraction": 0.08,     # Higher Kelly (NWS forecasts reliable)
+        "max_position_pct": 0.02,   # 2% max (weather markets less liquid)
+        "min_edge": 0.10,           # 10% min edge
+    },
+    # Default for unknown assets
+    "default": {
+        "kelly_fraction": 0.03,     # Very conservative for unknown assets
+        "max_position_pct": 0.02,   # 2% max
+        "min_edge": 0.15,           # 15% min edge (be extra careful)
+    }
+}
+
+def get_asset_config(asset_type):
+    """Get per-asset configuration with fallback to default."""
+    asset_key = asset_type.lower() if asset_type else "default"
+    return ASSET_CONFIG.get(asset_key, ASSET_CONFIG["default"])
 
 # Volatility assumptions
 BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical)
@@ -110,9 +144,10 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 # Edge source: favorite-longshot bias + forecast accuracy
 WEATHER_ENABLED = os.getenv("WEATHER_ENABLED", "true").lower() in ("true", "1", "yes")
 WEATHER_CITIES = ["NYC", "MIA", "DEN", "CHI"]  # Top liquidity weather markets
-WEATHER_MIN_EDGE = 0.10  # 10% minimum edge for weather trades
 WEATHER_MAX_HOURS_TO_SETTLEMENT = 48  # Only trade within 48h of settlement (highest forecast accuracy)
-WEATHER_KELLY_FRACTION = 0.08  # Slightly more aggressive Kelly (NWS forecasts are reliable)
+# Legacy constants for backwards compatibility - now use ASSET_CONFIG["weather"] (T441)
+WEATHER_MIN_EDGE = ASSET_CONFIG["weather"]["min_edge"]
+WEATHER_KELLY_FRACTION = ASSET_CONFIG["weather"]["kelly_fraction"]
 
 # Logging
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
@@ -3505,13 +3540,17 @@ def run_cycle():
             news_icon = "📰🟢" if news_bonus > 0 else "📰🔴"
             print(f"   {news_icon} News: {news_sent.upper()} ({news_conf*100:.0f}%) → edge {news_bonus*100:+.2f}%")
     
-    # Calculate bet size (Kelly with volatility adjustment - T293)
+    # Calculate bet size (Kelly with volatility adjustment - T293, T441)
     if cash < MIN_BET_CENTS / 100:
         print("❌ Insufficient cash")
         return
     
-    # Base Kelly calculation - use override for weather (T422)
-    kelly_fraction = best.get("kelly_override", KELLY_FRACTION)
+    # Get per-asset configuration (T441)
+    asset_cfg = get_asset_config(asset_type)
+    
+    # Base Kelly calculation - use per-asset config, override from opportunity if present
+    kelly_fraction = best.get("kelly_override", asset_cfg["kelly_fraction"])
+    max_position_pct = asset_cfg["max_position_pct"]
     
     # Skip volatility adjustments for weather markets (different edge source)
     # Initialize multipliers (used in logging)
@@ -3521,7 +3560,7 @@ def run_cycle():
     if asset_type == "weather":
         # Weather uses NWS forecast accuracy - simpler sizing
         adjusted_kelly = kelly_fraction
-        print(f"   📊 Weather Kelly: {kelly_fraction*100:.1f}% (NWS-based)")
+        print(f"   📊 Weather Kelly: {kelly_fraction*100:.1f}% | Max: {max_position_pct*100:.1f}% (NWS-based)")
     else:
         # Volatility-adjusted position sizing (T293) for crypto
         # Reduce size in choppy/high-vol regimes, increase when volatility aligns
@@ -3548,14 +3587,17 @@ def run_cycle():
         # Apply adjustments to Kelly fraction
         adjusted_kelly = kelly_fraction * regime_multiplier * vol_multiplier
     
-    # Log the adjustment
+    # Log the adjustment (T441: show per-asset config)
     total_multiplier = regime_multiplier * vol_multiplier
+    if asset_type != "weather":
+        print(f"   📊 {asset_type.upper()} Kelly: {kelly_fraction*100:.1f}% | Max: {max_position_pct*100:.1f}%")
     if abs(total_multiplier - 1.0) > 0.01:
         adj_direction = "↑" if total_multiplier > 1.0 else "↓"
         print(f"   Position size: {adj_direction} {total_multiplier:.0%} (regime={regime_multiplier:.0%}, vol={vol_multiplier:.0%})")
     
     kelly_bet = cash * adjusted_kelly * best["edge"]
-    bet_size = max(MIN_BET_CENTS / 100, min(kelly_bet, cash * MAX_POSITION_PCT))
+    # Apply per-asset max position limit (T441)
+    bet_size = max(MIN_BET_CENTS / 100, min(kelly_bet, cash * max_position_pct))
     contracts = int(bet_size * 100 / best["price"])
     
     if contracts < 1:
@@ -3595,9 +3637,10 @@ def run_cycle():
         "vol_ratio": best.get("vol_ratio", 1.0),
         "vol_aligned": best.get("vol_aligned", False),
         "vol_bonus": best.get("vol_bonus", 0),
-        # Position sizing multipliers (T390)
-        "kelly_fraction_base": KELLY_FRACTION,
+        # Position sizing multipliers (T390, T441)
+        "kelly_fraction_base": asset_cfg["kelly_fraction"],  # Per-asset base (T441)
         "kelly_fraction_used": adjusted_kelly,
+        "max_position_pct": max_position_pct,  # Per-asset max (T441)
         "regime_multiplier": regime_multiplier,
         "vol_multiplier": vol_multiplier,
         "size_multiplier_total": total_multiplier,
