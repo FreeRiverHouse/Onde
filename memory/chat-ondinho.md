@@ -69,3 +69,7 @@
 ### 19:33 PST [msg:160]
 > Puoi scrivere un promemoria per clawdinho per installare advanced reply e createmod? Oppure installi tu e committi e lui fa pull da github? Come funziona?
 
+
+### 19:35 PST [msg:162]
+> Mi fai una lista per clawdinho? Tu hai una copia ma lui ha l originale. Poi digli di metterlo su GitHub il server. Scrivi in un file su GitHub tutte ste cose e dimmi il path e lui lo leggerà
+
