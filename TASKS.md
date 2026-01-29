@@ -340,12 +340,13 @@
 - **Notes**: ✅ FIXED! Era in esecuzione v1 (broken). Killato e riavviato con v2 (PID 22269). Ora usa Black-Scholes corretto.
 
 ### [T090] Aggiungere YES bets quando trend bullish
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T087]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Se momentum è fortemente bullish, considerare YES invece di NO
+- **Notes**: ✅ Already implemented! Autotrader makes YES bets when bullish (113 YES vs 821 NO in trade log). Logic: same MIN_EDGE, skips YES on bearish momentum, 2% bonus when momentum aligns.
 
 ### [T091] Log edge calcolato per ogni skip
 - **Status**: DONE
@@ -866,12 +867,13 @@
 - **Notes**: Track stop-loss metrics: how often triggered, average loss saved vs holding to expiry. Add to weekly report.
 
 ### [T241] Configurable stop-loss threshold via env
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T234]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Allow STOP_LOSS_THRESHOLD to be set via environment variable for easy tuning without code change.
+- **Notes**: ✅ Added! STOP_LOSS_THRESHOLD (default 0.50) and MIN_STOP_LOSS_VALUE (default 5) now read from environment variables.
 
 ### [T242] Analyze skip log patterns - find optimal MIN_EDGE
 - **Status**: DONE

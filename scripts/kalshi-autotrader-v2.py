@@ -12,6 +12,7 @@ FIXES:
 Author: Clawd (Fixed after 0% win rate disaster)
 """
 
+import os
 import requests
 import json
 import sys
@@ -454,9 +455,9 @@ def sell_position(ticker: str, side: str, count: int, price_cents: int = None) -
 
 # ============== STOP-LOSS MONITORING ==============
 
-# Stop-loss parameters
-STOP_LOSS_THRESHOLD = 0.50  # Exit if position value drops 50% (e.g., from 30c to 15c)
-MIN_STOP_LOSS_VALUE = 5     # Don't bother exiting positions worth less than 5 cents
+# Stop-loss parameters (configurable via environment)
+STOP_LOSS_THRESHOLD = float(os.getenv("STOP_LOSS_THRESHOLD", "0.50"))  # Exit if position value drops X% (default 50%)
+MIN_STOP_LOSS_VALUE = int(os.getenv("MIN_STOP_LOSS_VALUE", "5"))  # Don't exit positions worth less than X cents
 STOP_LOSS_LOG_FILE = "scripts/kalshi-stop-loss.log"
 STOP_LOSS_ALERT_FILE = Path(__file__).parent / "kalshi-stop-loss.alert"
 
