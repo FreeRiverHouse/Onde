@@ -69,12 +69,13 @@
 - **Notes**: ✅ Already implemented! ModelComparisonChart component on betting page shows v1 vs v2 trade counts, win rates, and PnL side-by-side. Data fetched from GitHub Gist. Currently shows v2 trades: 0 because autotrader v2 is conservative (high MIN_EDGE threshold). Will populate automatically when v2 makes trades.
 
 ### [T430] Test visual baselines need auto-commit when updated
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T417]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When running `--update-baseline`, auto-commit new baseline images to git. Currently requires manual commit. Script: visual-regression-tests.py.
+- **Notes**: ✅ Added auto_commit_baselines() function to visual-regression-tests.py. When running `--update-baseline`, automatically: git add baselines, commit with timestamp, push to origin. Use `--no-commit` flag to skip. Includes proper error handling for each git step.
 
 ---
 

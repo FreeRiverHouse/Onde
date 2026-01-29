@@ -206,10 +206,55 @@ def run_tests(update_baseline: bool = False) -> dict:
     return results
 
 
+def auto_commit_baselines() -> bool:
+    """Auto-commit updated baseline images to git"""
+    try:
+        # Stage baseline images
+        stage_cmd = ["git", "add", str(BASELINE_DIR)]
+        result = subprocess.run(stage_cmd, capture_output=True, text=True, cwd=ONDE_ROOT)
+        if result.returncode != 0:
+            print(f"   ⚠️ Git add failed: {result.stderr}")
+            return False
+        
+        # Check if there are staged changes
+        status_cmd = ["git", "diff", "--cached", "--name-only"]
+        result = subprocess.run(status_cmd, capture_output=True, text=True, cwd=ONDE_ROOT)
+        if not result.stdout.strip():
+            print("   ℹ️ No changes to commit")
+            return True
+        
+        # Commit with timestamp
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+        commit_msg = f"test: update visual baselines ({timestamp})"
+        commit_cmd = ["git", "commit", "-m", commit_msg]
+        result = subprocess.run(commit_cmd, capture_output=True, text=True, cwd=ONDE_ROOT)
+        if result.returncode != 0:
+            print(f"   ⚠️ Git commit failed: {result.stderr}")
+            return False
+        
+        print(f"   ✅ Committed: {commit_msg}")
+        
+        # Push to origin
+        push_cmd = ["git", "push", "origin", "main"]
+        result = subprocess.run(push_cmd, capture_output=True, text=True, cwd=ONDE_ROOT)
+        if result.returncode != 0:
+            print(f"   ⚠️ Git push failed (manual push needed): {result.stderr}")
+            return True  # Commit succeeded, push failed is ok
+        
+        print("   ✅ Pushed to origin/main")
+        return True
+        
+    except Exception as e:
+        print(f"   ⚠️ Auto-commit error: {e}")
+        return False
+
+
 def main():
     parser = argparse.ArgumentParser(description="Visual Regression Tests")
     parser.add_argument("--update-baseline", action="store_true",
                        help="Update baseline screenshots instead of comparing")
+    parser.add_argument("--no-commit", action="store_true",
+                       help="Skip auto-commit when updating baselines")
     args = parser.parse_args()
     
     print("=" * 60)
@@ -232,6 +277,11 @@ def main():
     
     if args.update_baseline:
         print(f"   Baselines updated: {summary['baseline_updated']}")
+        # Auto-commit unless --no-commit specified
+        if not args.no_commit and summary['baseline_updated'] > 0:
+            print()
+            print("📦 Auto-committing baseline changes...")
+            auto_commit_baselines()
     
     if summary["failed"] > 0:
         print(f"   ❌ FAILED: {summary['failed']}")
