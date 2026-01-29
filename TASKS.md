@@ -760,12 +760,13 @@
 - **Notes**: Add Lighthouse audit to CI pipeline. Fail if performance score < 80 or accessibility < 90.
 
 ### [T232] Add momentum analysis to weekly trading report
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T095]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include correlation between momentum alignment and win rate in weekly report. Shows if momentum filtering improves performance.
+- **Notes**: ✅ Added! Weekly report now includes: 1) Momentum Correlation Analysis section comparing aligned vs non-aligned trade win rates with insight, 2) Performance by Market Regime section showing win rate/PnL per regime (trending_bullish/bearish, sideways, choppy).
 
 ### [T233] Add Fear & Greed index to trade decision logging
 - **Status**: DONE
@@ -1017,12 +1018,13 @@
 - **Notes**: ✅ Added! API: /api/health/cron checks log file ages. UI: "Scheduled Jobs" section on /health shows each cron job with status (healthy/stale/error), schedule, and last run time.
 
 ### [T257] Trading PnL notification on market close
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE (duplicate)
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Send Telegram notification at midnight UTC with daily trading summary: trades taken, win rate, net PnL.
+- **Notes**: ✅ Superseded by T085 (daily summary at 07:00 UTC). Same functionality via kalshi-daily-summary.py.
 
 ---
 

@@ -40,6 +40,16 @@ def analyze_week():
     trades = []
     daily_stats = defaultdict(lambda: {'trades': 0, 'won': 0, 'lost': 0, 'pending': 0, 'pnl': 0, 'wagered': 0})
     
+    # Momentum correlation tracking
+    momentum_stats = {
+        'aligned': {'trades': 0, 'won': 0, 'lost': 0, 'pnl': 0},
+        'not_aligned': {'trades': 0, 'won': 0, 'lost': 0, 'pnl': 0},
+        'unknown': {'trades': 0, 'won': 0, 'lost': 0, 'pnl': 0},
+    }
+    
+    # Regime breakdown tracking
+    regime_stats = defaultdict(lambda: {'trades': 0, 'won': 0, 'lost': 0, 'pnl': 0})
+    
     with open(TRADES_FILE) as f:
         for line in f:
             try:
@@ -61,14 +71,37 @@ def analyze_week():
                 daily_stats[trade_date]['trades'] += 1
                 daily_stats[trade_date]['wagered'] += cost
                 
+                # Track momentum alignment
+                mom_aligned = entry.get('momentum_aligned')
+                if mom_aligned is True:
+                    mom_key = 'aligned'
+                elif mom_aligned is False:
+                    mom_key = 'not_aligned'
+                else:
+                    mom_key = 'unknown'
+                
+                momentum_stats[mom_key]['trades'] += 1
+                
+                # Track regime
+                regime = entry.get('regime', 'unknown')
+                regime_stats[regime]['trades'] += 1
+                
                 if result == 'won':
                     daily_stats[trade_date]['won'] += 1
                     daily_stats[trade_date]['pnl'] += (contracts * 100) - cost
                     entry['_pnl'] = (contracts * 100) - cost
+                    momentum_stats[mom_key]['won'] += 1
+                    momentum_stats[mom_key]['pnl'] += (contracts * 100) - cost
+                    regime_stats[regime]['won'] += 1
+                    regime_stats[regime]['pnl'] += (contracts * 100) - cost
                 elif result == 'lost':
                     daily_stats[trade_date]['lost'] += 1
                     daily_stats[trade_date]['pnl'] -= cost
                     entry['_pnl'] = -cost
+                    momentum_stats[mom_key]['lost'] += 1
+                    momentum_stats[mom_key]['pnl'] -= cost
+                    regime_stats[regime]['lost'] += 1
+                    regime_stats[regime]['pnl'] -= cost
                 else:
                     daily_stats[trade_date]['pending'] += 1
                     entry['_pnl'] = 0
@@ -94,6 +127,18 @@ def analyze_week():
     settled = total_won + total_lost
     win_rate = (total_won / settled * 100) if settled > 0 else 0
     
+    # Calculate momentum win rates
+    for key in momentum_stats:
+        s = momentum_stats[key]
+        settled = s['won'] + s['lost']
+        s['win_rate'] = (s['won'] / settled * 100) if settled > 0 else None
+    
+    # Calculate regime win rates
+    for key in regime_stats:
+        s = regime_stats[key]
+        settled = s['won'] + s['lost']
+        s['win_rate'] = (s['won'] / settled * 100) if settled > 0 else None
+    
     return {
         'week_start': (now_pst - timedelta(days=7)).strftime('%Y-%m-%d'),
         'week_end': now_pst.strftime('%Y-%m-%d'),
@@ -107,6 +152,8 @@ def analyze_week():
         'daily_stats': dict(daily_stats),
         'best_trade': best_trade,
         'worst_trade': worst_trade,
+        'momentum_stats': momentum_stats,
+        'regime_stats': dict(regime_stats),
     }
 
 def generate_pdf(stats):
@@ -212,6 +259,77 @@ def generate_pdf(stats):
     
     pdf.set_text_color(0, 0, 0)
     pdf.ln(10)
+    
+    # Momentum Analysis Section
+    mom_stats = stats.get('momentum_stats', {})
+    if any(s.get('trades', 0) > 0 for s in mom_stats.values()):
+        pdf.set_font('Helvetica', 'B', 14)
+        pdf.cell(0, 10, 'Momentum Correlation Analysis', new_x=XPos.LMARGIN, new_y=YPos.NEXT, fill=True)
+        pdf.ln(3)
+        
+        pdf.set_font('Helvetica', '', 10)
+        
+        aligned = mom_stats.get('aligned', {})
+        not_aligned = mom_stats.get('not_aligned', {})
+        
+        # Show aligned vs not aligned comparison
+        if aligned.get('trades', 0) > 0:
+            wr = aligned.get('win_rate')
+            wr_str = f"{wr:.1f}%" if wr is not None else "N/A"
+            pdf.cell(0, 7, f"Momentum Aligned Trades: {aligned['trades']} | "
+                          f"Win Rate: {wr_str} | PnL: ${aligned['pnl']/100:+.2f}",
+                     new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
+        if not_aligned.get('trades', 0) > 0:
+            wr = not_aligned.get('win_rate')
+            wr_str = f"{wr:.1f}%" if wr is not None else "N/A"
+            pdf.cell(0, 7, f"Non-Aligned Trades: {not_aligned['trades']} | "
+                          f"Win Rate: {wr_str} | PnL: ${not_aligned['pnl']/100:+.2f}",
+                     new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
+        # Show insight
+        aligned_wr = aligned.get('win_rate') or 0
+        not_aligned_wr = not_aligned.get('win_rate') or 0
+        if aligned.get('trades', 0) > 0 and not_aligned.get('trades', 0) > 0:
+            diff = aligned_wr - not_aligned_wr
+            if diff > 5:
+                insight = f"Momentum alignment improves win rate by {diff:.1f}pp"
+                pdf.set_text_color(0, 128, 0)
+            elif diff < -5:
+                insight = f"Momentum alignment hurts win rate by {abs(diff):.1f}pp (investigate!)"
+                pdf.set_text_color(200, 0, 0)
+            else:
+                insight = "No significant momentum correlation detected"
+                pdf.set_text_color(128, 128, 128)
+            pdf.set_font('Helvetica', 'I', 10)
+            pdf.cell(0, 7, f"→ {insight}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            pdf.set_text_color(0, 0, 0)
+        
+        pdf.ln(5)
+    
+    # Regime Breakdown Section
+    regime_stats = stats.get('regime_stats', {})
+    if any(s.get('trades', 0) > 0 for s in regime_stats.values()):
+        pdf.set_font('Helvetica', 'B', 14)
+        pdf.cell(0, 10, 'Performance by Market Regime', new_x=XPos.LMARGIN, new_y=YPos.NEXT, fill=True)
+        pdf.ln(3)
+        
+        pdf.set_font('Helvetica', '', 10)
+        
+        # Sort by trades descending
+        sorted_regimes = sorted(regime_stats.items(), key=lambda x: x[1].get('trades', 0), reverse=True)
+        
+        for regime, rs in sorted_regimes:
+            if rs.get('trades', 0) == 0:
+                continue
+            wr = rs.get('win_rate')
+            wr_str = f"{wr:.1f}%" if wr is not None else "N/A"
+            regime_label = regime.replace('_', ' ').title()
+            pdf.cell(0, 7, f"{regime_label}: {rs['trades']} trades | "
+                          f"Win Rate: {wr_str} | PnL: ${rs['pnl']/100:+.2f}",
+                     new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
+        pdf.ln(8)
     
     # Footer
     pdf.set_font('Helvetica', 'I', 9)
