@@ -423,12 +423,18 @@
   - See T422 for full implementation details
 
 ### [T410] Monitorare altre piattaforme AI prediction markets
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T408]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Piattaforme da monitorare: PredictionArena (Kalshi), Rallies.ai, Polymarket AI leagues. Cercare paper/blog su strategie.
+- **Notes**: ✅ Initial monitoring report created! See `data/research/ai-prediction-platforms-2026-01-29.md`
+  - **PredictionArena (Kalshi):** Only 1/6 AI models profitable, weather markets key
+  - **Polymarket AI:** High volume ($28m+), Google dominates model rankings, monthly recurring markets
+  - **Rallies.ai:** AI investing platform (needs deeper investigation)
+  - **Key insight:** Cross-platform arbitrage potential, monthly AI model markets for momentum plays
+  - Set up weekly monitoring cadence
 
 ---
 

@@ -1,0 +1,2 @@
+{"timestamp": "2026-01-29T20:34:00.271156+00:00", "ticker": "KXHIGHCHI-26JAN29-B16.5", "side": "no", "count": 4, "price_cents": 8, "status": "executed", "latency_ms": 194, "retries": 0, "order_id": "cd106fd1-674a-43b7-ad6d-22a2f3a72b43"}
+{"timestamp": "2026-01-29T20:39:13.480858+00:00", "ticker": "KXHIGHCHI-26JAN29-B16.5", "side": "no", "count": 2, "price_cents": 13, "status": "executed", "latency_ms": 324, "retries": 0, "order_id": "ceb6cfaf-771c-4d49-9216-1c4d4cea2180"}

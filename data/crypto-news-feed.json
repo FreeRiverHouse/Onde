@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T20:00:02.699545+00:00",
+  "timestamp": "2026-01-29T20:30:01.615911+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Talos adds $45M to Series B with new backing from Robinhood, Sony",
+      "url": "https://cointelegraph.com/news/talos-series-b-150m-robinhood-sony?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The Series B extension values the New York\u2013based crypto infrastructure company at about $1.5 billion and includes backing from institutional investors.",
+      "published": "2026-01-29T20:26:14+00:00"
+    },
     {
       "title": "DePIN Tokens Lag, Revenues Rise as Sector Is \u2018Forced Into Fundamentals\u2019",
       "url": "https://decrypt.co/356349/depin-tokens-lag-revenues-rise-fundamentals",
@@ -184,13 +191,6 @@
       "source": "decrypt",
       "description": "Solana ETFs are pulling in millions while SOL's price falls\u2014why are investors betting on the funds but losing faith in the race against silver?",
       "published": "2026-01-29T13:48:27+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-01-29T13:29:53+00:00"
     },
     {
       "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",
