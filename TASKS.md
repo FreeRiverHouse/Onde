@@ -1902,12 +1902,13 @@
 - **Notes**: Include current streak, best win streak, worst loss streak in kalshi-daily-summary.py. Adds context to daily performance.
 
 ### [T358] Analyze win rate by day of week
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script: analyze-trades-by-weekday.py. Check if certain days of week have better/worse performance. Market patterns may differ on weekends.
+- **Notes**: ✅ Script: analyze-trades-by-weekday.py. Shows per-day stats (trades, W/L, win rate, PnL, ROI). Includes weekend vs weekday comparison and insights. Usage: `python3 scripts/analyze-trades-by-weekday.py [--v2]`
 
 ### [T359] Add streak visualization to /betting dashboard
 - **Status**: TODO
