@@ -25,6 +25,23 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from pathlib import Path
 from collections import defaultdict
 
+# Import news sentiment analysis (T661 - Grok Fundamental strategy)
+try:
+    # Add scripts dir to path for local import
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from importlib.util import spec_from_file_location, module_from_spec
+    spec = spec_from_file_location("crypto_news_search", 
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "crypto-news-search.py"))
+    crypto_news_module = module_from_spec(spec)
+    spec.loader.exec_module(crypto_news_module)
+    get_crypto_sentiment = crypto_news_module.get_crypto_sentiment
+    NEWS_SEARCH_AVAILABLE = True
+except Exception as e:
+    NEWS_SEARCH_AVAILABLE = False
+    print(f"⚠️ News search module not available: {e}")
+    def get_crypto_sentiment(asset="both"):
+        return {"sentiment": "neutral", "confidence": 0.5, "edge_adjustment": 0, "should_trade": True, "reasons": []}
+
 # ============== CONFIG ==============
 API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
 PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
@@ -2782,14 +2799,16 @@ def parse_time_to_expiry(market: dict) -> float:
 
 
 def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
-                       ohlc_data: dict = None, verbose: bool = True) -> list:
-    """Find trading opportunities with PROPER probability model + momentum adjustment + regime detection + volatility rebalancing
+                       ohlc_data: dict = None, verbose: bool = True,
+                       news_sentiment: dict = None) -> list:
+    """Find trading opportunities with PROPER probability model + momentum adjustment + regime detection + volatility rebalancing + news sentiment (T661)
     
     Args:
         markets: List of market dicts from Kalshi API
         prices: Dict with "btc" and "eth" prices
         momentum_data: Dict with "btc" and "eth" momentum dicts
         ohlc_data: Dict with "btc" and "eth" OHLC data for regime detection
+        news_sentiment: Dict with news analysis results (T661 - Grok Fundamental)
     """
     opportunities = []
     skip_reasons = {
@@ -2931,13 +2950,27 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 vol_info = vol_advantage.get(asset, {}) if vol_advantage else {}
                 vol_bonus = max(0, vol_advantage.get("vol_bonus", {}).get(asset, 0)) if vol_info.get("advantage") == "yes" else 0
                 vol_aligned = vol_info.get("advantage") == "yes"
+                # News sentiment bonus (T661 - Grok Fundamental strategy)
+                # Bullish news gives edge bonus for YES bets
+                news_bonus = 0
+                news_info = {}
+                if news_sentiment:
+                    news_info = {
+                        "sentiment": news_sentiment.get("sentiment", "neutral"),
+                        "confidence": news_sentiment.get("confidence", 0.5),
+                        "reasons": news_sentiment.get("reasons", [])[:2]  # Keep top 2
+                    }
+                    if news_sentiment.get("sentiment") == "bullish":
+                        news_bonus = news_sentiment.get("edge_adjustment", 0)  # Positive for YES
+                    elif news_sentiment.get("sentiment") == "bearish":
+                        news_bonus = -abs(news_sentiment.get("edge_adjustment", 0)) * 0.5  # Penalty for YES
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "yes",
                     "price": yes_ask,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus,
                     "our_prob": prob_above,
                     "base_prob": base_prob_above,
                     "market_prob": market_prob_yes,
@@ -2954,7 +2987,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
-                    "vol_bonus": vol_bonus
+                    "vol_bonus": vol_bonus,
+                    "news_bonus": news_bonus,
+                    "news_sentiment": news_info.get("sentiment", "neutral"),
+                    "news_confidence": news_info.get("confidence", 0.5),
+                    "news_reasons": news_info.get("reasons", [])
                 })
                 found_opp = True
         
@@ -2978,13 +3015,27 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 # For NO bets, we want NEGATIVE vol_bonus (realized < assumed = less movement = good for NO)
                 vol_bonus = abs(min(0, vol_advantage.get("vol_bonus", {}).get(asset, 0))) if vol_info.get("advantage") == "no" else 0
                 vol_aligned = vol_info.get("advantage") == "no"
+                # News sentiment bonus (T661 - Grok Fundamental strategy)
+                # Bearish news gives edge bonus for NO bets
+                news_bonus = 0
+                news_info = {}
+                if news_sentiment:
+                    news_info = {
+                        "sentiment": news_sentiment.get("sentiment", "neutral"),
+                        "confidence": news_sentiment.get("confidence", 0.5),
+                        "reasons": news_sentiment.get("reasons", [])[:2]  # Keep top 2
+                    }
+                    if news_sentiment.get("sentiment") == "bearish":
+                        news_bonus = abs(news_sentiment.get("edge_adjustment", 0))  # Positive for NO
+                    elif news_sentiment.get("sentiment") == "bullish":
+                        news_bonus = -abs(news_sentiment.get("edge_adjustment", 0)) * 0.5  # Penalty for NO
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "no",
                     "price": no_price,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus,
                     "our_prob": prob_below,
                     "base_prob": base_prob_below,
                     "market_prob": market_prob_no,
@@ -3001,7 +3052,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
-                    "vol_bonus": vol_bonus
+                    "vol_bonus": vol_bonus,
+                    "news_bonus": news_bonus,
+                    "news_sentiment": news_info.get("sentiment", "neutral"),
+                    "news_confidence": news_info.get("confidence", 0.5),
+                    "news_reasons": news_info.get("reasons", [])
                 })
                 found_opp = True
         
@@ -3098,6 +3153,23 @@ def run_cycle():
     
     print(f"📈 BTC: ${prices['btc']:,.0f} | ETH: ${prices['eth']:,.0f}")
     
+    # Get news sentiment (T661 - Grok Fundamental strategy)
+    news_sentiment = None
+    if NEWS_SEARCH_AVAILABLE:
+        try:
+            news_sentiment = get_crypto_sentiment("both")
+            sentiment_icon = "🟢" if news_sentiment["sentiment"] == "bullish" else ("🔴" if news_sentiment["sentiment"] == "bearish" else "⚪")
+            print(f"📰 News Sentiment: {sentiment_icon} {news_sentiment['sentiment'].upper()} ({news_sentiment['confidence']*100:.0f}% conf)")
+            if news_sentiment.get("edge_adjustment"):
+                print(f"   Edge adjustment: {news_sentiment['edge_adjustment']*100:+.2f}%")
+            if news_sentiment.get("event_warning"):
+                print(f"   {news_sentiment['event_warning']}")
+            if not news_sentiment.get("should_trade", True):
+                print("   ⚠️ High-impact event approaching - reduced confidence")
+        except Exception as e:
+            print(f"📰 News check failed: {e}")
+            news_sentiment = None
+    
     # Get OHLC data for momentum calculation (7 days gives us hourly candles, enough for 24h momentum)
     btc_ohlc = get_btc_ohlc(days=7)
     eth_ohlc = get_eth_ohlc(days=7)
@@ -3179,7 +3251,7 @@ def run_cycle():
         # Check for whipsaw pattern (T393) - 2+ flips in 24h
         check_whipsaw(momentum_changes)
     
-    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data)
+    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data, news_sentiment=news_sentiment)
     
     if not opportunities:
         print("😴 No opportunities found")
@@ -3206,6 +3278,13 @@ def run_cycle():
     vol_bonus = best.get('vol_bonus', 0)
     vol_badge = "📊 VOL ALIGNED!" if vol_aligned else ""
     print(f"   Vol ratio: {vol_ratio:.2f} | Vol bonus: +{vol_bonus*100:.1f}% {vol_badge}")
+    # News sentiment info (T661 - Grok Fundamental)
+    news_sentiment = best.get('news_sentiment', 'neutral')
+    news_bonus = best.get('news_bonus', 0)
+    news_conf = best.get('news_confidence', 0.5)
+    if news_bonus != 0:
+        news_icon = "📰🟢" if news_bonus > 0 else "📰🔴"
+        print(f"   {news_icon} News: {news_sentiment.upper()} ({news_conf*100:.0f}%) → edge {news_bonus*100:+.2f}%")
     
     # Calculate bet size (Kelly with volatility adjustment - T293)
     if cash < MIN_BET_CENTS / 100:
@@ -3291,6 +3370,11 @@ def run_cycle():
         "size_multiplier_total": total_multiplier,
         # Price source data (T386)
         "price_sources": prices.get("sources", []),
+        # News sentiment data (T661 - Grok Fundamental)
+        "news_bonus": best.get("news_bonus", 0),
+        "news_sentiment": best.get("news_sentiment", "neutral"),
+        "news_confidence": best.get("news_confidence", 0.5),
+        "news_reasons": best.get("news_reasons", []),
         "result_status": "pending"
     }
     
