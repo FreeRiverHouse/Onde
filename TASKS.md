@@ -93,8 +93,8 @@
 - **Notes**: Pubblicare su Amazon
 
 ### [T024] Psalm 23 multilingua su KDP
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
