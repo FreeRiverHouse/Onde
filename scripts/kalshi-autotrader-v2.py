@@ -42,6 +42,21 @@ except Exception as e:
     def get_crypto_sentiment(asset="both"):
         return {"sentiment": "neutral", "confidence": 0.5, "edge_adjustment": 0, "should_trade": True, "reasons": []}
 
+# Import NWS weather forecast module (T422 - Weather markets based on PredictionArena research)
+try:
+    weather_spec = spec_from_file_location("nws_weather_forecast",
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "nws-weather-forecast.py"))
+    weather_module = module_from_spec(weather_spec)
+    weather_spec.loader.exec_module(weather_module)
+    parse_kalshi_weather_ticker = weather_module.parse_kalshi_weather_ticker
+    calculate_weather_edge = weather_module.calculate_weather_edge
+    fetch_forecast = weather_module.fetch_forecast
+    NWS_POINTS = weather_module.NWS_POINTS
+    WEATHER_AVAILABLE = True
+except Exception as e:
+    WEATHER_AVAILABLE = False
+    print(f"⚠️ Weather forecast module not available: {e}")
+
 # ============== CONFIG ==============
 API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
 PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
@@ -89,6 +104,15 @@ ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility
 # Momentum config
 MOMENTUM_TIMEFRAMES = ["1h", "4h", "24h"]
 MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more for hourly contracts
+
+# Weather market config (T422 - Based on PredictionArena research)
+# Key insight: NWS forecasts are accurate within ±2-3°F for <48h predictions
+# Edge source: favorite-longshot bias + forecast accuracy
+WEATHER_ENABLED = os.getenv("WEATHER_ENABLED", "true").lower() in ("true", "1", "yes")
+WEATHER_CITIES = ["NYC", "MIA", "DEN", "CHI"]  # Top liquidity weather markets
+WEATHER_MIN_EDGE = 0.10  # 10% minimum edge for weather trades
+WEATHER_MAX_HOURS_TO_SETTLEMENT = 48  # Only trade within 48h of settlement (highest forecast accuracy)
+WEATHER_KELLY_FRACTION = 0.08  # Slightly more aggressive Kelly (NWS forecasts are reliable)
 
 # Logging
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
@@ -3105,6 +3129,169 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
     return opportunities
 
 
+# ============== WEATHER MARKET OPPORTUNITIES (T422) ==============
+
+def find_weather_opportunities(verbose: bool = True) -> list:
+    """
+    Find trading opportunities in weather markets using NWS forecasts.
+    
+    Based on PredictionArena research:
+    - NWS forecasts are accurate within ±2-3°F for <48h predictions
+    - Markets systematically underprice high-probability outcomes (favorite-longshot bias)
+    - Best edge on high/low temp markets for next 1-2 days
+    
+    Returns: List of opportunity dicts compatible with execute_opportunity()
+    """
+    if not WEATHER_AVAILABLE:
+        if verbose:
+            print("⚠️ Weather module not available, skipping weather markets")
+        return []
+    
+    if not WEATHER_ENABLED:
+        if verbose:
+            print("⏸️ Weather trading disabled (set WEATHER_ENABLED=true to enable)")
+        return []
+    
+    opportunities = []
+    skip_reasons = {"no_forecast": 0, "too_far": 0, "insufficient_edge": 0, "extreme_price": 0, "parse_error": 0}
+    
+    # Map city codes to series tickers
+    city_series = {
+        "NYC": ["KXHIGHNY", "KXLOWTNYC", "KXLOWNY"],
+        "MIA": ["KXHIGHMIA", "KXLOWMIA"],
+        "DEN": ["KXHIGHDEN", "KXLOWDEN"],
+        "CHI": ["KXHIGHCHI", "KXLOWCHI"],
+        "LAX": ["KXHIGHLAX", "KXLOWLAX"],
+        "HOU": ["KXHIGHHOU", "KXLOWHOU"],
+    }
+    
+    markets_scanned = 0
+    
+    for city in WEATHER_CITIES:
+        series_list = city_series.get(city, [])
+        if not series_list:
+            continue
+        
+        # Pre-fetch forecast for this city
+        try:
+            forecast = fetch_forecast(city)
+            if not forecast:
+                skip_reasons["no_forecast"] += 1
+                continue
+        except Exception as e:
+            if verbose:
+                print(f"   ⚠️ Failed to fetch {city} forecast: {e}")
+            skip_reasons["no_forecast"] += 1
+            continue
+        
+        for series in series_list:
+            try:
+                # Fetch markets for this series
+                url = f"{BASE_URL}/trade-api/v2/markets"
+                params = {"series_ticker": series, "limit": 20, "status": "open"}
+                resp = requests.get(url, params=params, timeout=10)
+                
+                if resp.status_code != 200:
+                    continue
+                
+                markets = resp.json().get("markets", [])
+                markets_scanned += len(markets)
+                
+                for m in markets:
+                    ticker = m.get("ticker")
+                    title = m.get("title", "")
+                    yes_bid = m.get("yes_bid")
+                    yes_ask = m.get("yes_ask")
+                    close_time_str = m.get("close_time")
+                    
+                    if not ticker or yes_bid is None:
+                        continue
+                    
+                    # Skip extreme prices (bad risk/reward)
+                    if yes_ask and (yes_ask <= 5 or yes_ask >= 95):
+                        skip_reasons["extreme_price"] += 1
+                        continue
+                    if yes_bid and (yes_bid <= 5 or yes_bid >= 95):
+                        skip_reasons["extreme_price"] += 1
+                        continue
+                    
+                    # Check time to settlement
+                    if close_time_str:
+                        try:
+                            close_time = datetime.fromisoformat(close_time_str.replace("Z", "+00:00"))
+                            hours_to_close = (close_time - datetime.now(timezone.utc)).total_seconds() / 3600
+                            if hours_to_close > WEATHER_MAX_HOURS_TO_SETTLEMENT:
+                                skip_reasons["too_far"] += 1
+                                continue
+                            if hours_to_close < 1:  # Too close to settlement
+                                skip_reasons["too_far"] += 1
+                                continue
+                        except:
+                            pass
+                    
+                    # Parse ticker to understand the market
+                    parsed = parse_kalshi_weather_ticker(ticker, title)
+                    if not parsed:
+                        skip_reasons["parse_error"] += 1
+                        continue
+                    
+                    # Calculate edge using NWS forecast
+                    edge_result = calculate_weather_edge(parsed, yes_bid)
+                    if not edge_result:
+                        skip_reasons["no_forecast"] += 1
+                        continue
+                    
+                    recommendation = edge_result.get("recommendation")
+                    edge = edge_result.get("edge", 0)
+                    
+                    if not recommendation or edge < WEATHER_MIN_EDGE:
+                        skip_reasons["insufficient_edge"] += 1
+                        continue
+                    
+                    # Determine side and price
+                    side = "yes" if recommendation == "BUY_YES" else "no"
+                    price = yes_ask if side == "yes" else (100 - yes_bid if yes_bid else None)
+                    
+                    if not price or price <= 0:
+                        continue
+                    
+                    # Build opportunity dict (compatible with execute_opportunity)
+                    opp = {
+                        "ticker": ticker,
+                        "asset": "weather",  # Special asset type
+                        "side": side,
+                        "price": price,
+                        "edge": edge,
+                        "edge_with_bonus": edge,  # No momentum/news bonus for weather
+                        "our_prob": edge_result.get("calculated_probability", 0.5),
+                        "market_prob": edge_result.get("market_probability", 0.5),
+                        "forecast_temp": edge_result.get("forecast_temp"),
+                        "uncertainty": edge_result.get("uncertainty"),
+                        "city": city,
+                        "is_high_temp": parsed.get("is_high_temp", True),
+                        "market_type": parsed.get("market_type", "threshold"),
+                        "title": title,
+                        # Weather-specific Kelly (slightly higher confidence)
+                        "kelly_override": WEATHER_KELLY_FRACTION,
+                        # Reason for trade log
+                        "reason": f"Weather: {city} {'high' if parsed.get('is_high_temp') else 'low'} temp, NWS forecast {edge_result.get('forecast_temp', '?')}°F ± {edge_result.get('uncertainty', '?')}°F, edge {edge*100:.1f}%",
+                    }
+                    opportunities.append(opp)
+                    
+            except Exception as e:
+                if verbose:
+                    print(f"   ⚠️ Error scanning {series}: {e}")
+    
+    if verbose:
+        print(f"🌡️ Weather markets: Scanned {markets_scanned} | Found {len(opportunities)} opportunities")
+        if skip_reasons["insufficient_edge"]:
+            print(f"   Skipped: {skip_reasons['insufficient_edge']} insufficient edge, {skip_reasons['too_far']} too far, {skip_reasons['extreme_price']} extreme price")
+    
+    # Sort by edge
+    opportunities.sort(key=lambda x: x["edge"], reverse=True)
+    return opportunities
+
+
 # ============== MAIN LOOP ==============
 
 def run_cycle():
@@ -3251,73 +3438,105 @@ def run_cycle():
         # Check for whipsaw pattern (T393) - 2+ flips in 24h
         check_whipsaw(momentum_changes)
     
-    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data, news_sentiment=news_sentiment)
+    crypto_opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data, news_sentiment=news_sentiment)
     
-    if not opportunities:
-        print("😴 No opportunities found")
+    # Also scan weather markets (T422 - Based on PredictionArena research)
+    weather_opportunities = find_weather_opportunities(verbose=True)
+    
+    # Merge all opportunities
+    all_opportunities = crypto_opportunities + weather_opportunities
+    
+    # Sort by edge (with bonus)
+    all_opportunities.sort(key=lambda x: x.get("edge_with_bonus", x.get("edge", 0)), reverse=True)
+    
+    if not all_opportunities:
+        print("😴 No opportunities found (crypto or weather)")
         return
     
     # Take best opportunity
-    best = opportunities[0]
-    mom_aligned = best.get('momentum_aligned', False)
-    mom_badge = "🎯 MOMENTUM ALIGNED!" if mom_aligned else ""
-    asset_label = best.get('asset', 'btc').upper()
-    print(f"\n🎯 Best opportunity: {best['ticker']} {mom_badge}")
-    print(f"   Side: {best['side'].upper()} @ {best['price']}¢")
-    print(f"   Strike: ${best['strike']:,.0f} | {asset_label}: ${best['current']:,.0f}")
-    print(f"   Base prob: {best.get('base_prob', best['our_prob'])*100:.1f}% → Adjusted: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
-    print(f"   Edge: {best['edge']*100:.1f}% (w/bonus: {best.get('edge_with_bonus', best['edge'])*100:.1f}%) | Time left: {best['minutes_left']:.0f}min")
-    print(f"   Momentum: dir={best.get('momentum_dir', 0):.2f} str={best.get('momentum_str', 0):.2f}")
-    regime_str = best.get('regime', 'unknown')
-    regime_conf = best.get('regime_confidence', 0)
-    dynamic_edge = best.get('dynamic_min_edge', MIN_EDGE)
-    print(f"   Regime: {regime_str} (conf={regime_conf:.0%}) | Min edge: {dynamic_edge*100:.1f}%")
-    # Volatility rebalance info (T237)
-    vol_ratio = best.get('vol_ratio', 1.0)
-    vol_aligned = best.get('vol_aligned', False)
-    vol_bonus = best.get('vol_bonus', 0)
-    vol_badge = "📊 VOL ALIGNED!" if vol_aligned else ""
-    print(f"   Vol ratio: {vol_ratio:.2f} | Vol bonus: +{vol_bonus*100:.1f}% {vol_badge}")
-    # News sentiment info (T661 - Grok Fundamental)
-    news_sentiment = best.get('news_sentiment', 'neutral')
-    news_bonus = best.get('news_bonus', 0)
-    news_conf = best.get('news_confidence', 0.5)
-    if news_bonus != 0:
-        news_icon = "📰🟢" if news_bonus > 0 else "📰🔴"
-        print(f"   {news_icon} News: {news_sentiment.upper()} ({news_conf*100:.0f}%) → edge {news_bonus*100:+.2f}%")
+    best = all_opportunities[0]
+    asset_type = best.get('asset', 'btc')
+    asset_label = asset_type.upper()
+    
+    # Display varies for crypto vs weather
+    if asset_type == "weather":
+        # Weather opportunity display
+        city = best.get('city', '?')
+        temp_type = "High" if best.get('is_high_temp', True) else "Low"
+        forecast = best.get('forecast_temp', '?')
+        uncertainty = best.get('uncertainty', '?')
+        print(f"\n🌡️ Best opportunity: {best['ticker']} (WEATHER)")
+        print(f"   Side: {best['side'].upper()} @ {best['price']}¢")
+        print(f"   {city} {temp_type} Temp | NWS Forecast: {forecast}°F ± {uncertainty}°F")
+        print(f"   Our prob: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
+        print(f"   Edge: {best['edge']*100:.1f}%")
+        print(f"   💡 Weather edge source: NWS forecast accuracy + favorite-longshot bias")
+    else:
+        # Crypto opportunity display
+        mom_aligned = best.get('momentum_aligned', False)
+        mom_badge = "🎯 MOMENTUM ALIGNED!" if mom_aligned else ""
+        print(f"\n🎯 Best opportunity: {best['ticker']} {mom_badge}")
+        print(f"   Side: {best['side'].upper()} @ {best['price']}¢")
+        print(f"   Strike: ${best['strike']:,.0f} | {asset_label}: ${best['current']:,.0f}")
+        print(f"   Base prob: {best.get('base_prob', best['our_prob'])*100:.1f}% → Adjusted: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
+        print(f"   Edge: {best['edge']*100:.1f}% (w/bonus: {best.get('edge_with_bonus', best['edge'])*100:.1f}%) | Time left: {best['minutes_left']:.0f}min")
+        print(f"   Momentum: dir={best.get('momentum_dir', 0):.2f} str={best.get('momentum_str', 0):.2f}")
+        regime_str = best.get('regime', 'unknown')
+        regime_conf = best.get('regime_confidence', 0)
+        dynamic_edge = best.get('dynamic_min_edge', MIN_EDGE)
+        print(f"   Regime: {regime_str} (conf={regime_conf:.0%}) | Min edge: {dynamic_edge*100:.1f}%")
+        # Volatility rebalance info (T237)
+        vol_ratio = best.get('vol_ratio', 1.0)
+        vol_aligned = best.get('vol_aligned', False)
+        vol_bonus = best.get('vol_bonus', 0)
+        vol_badge = "📊 VOL ALIGNED!" if vol_aligned else ""
+        print(f"   Vol ratio: {vol_ratio:.2f} | Vol bonus: +{vol_bonus*100:.1f}% {vol_badge}")
+        # News sentiment info (T661 - Grok Fundamental)
+        news_sent = best.get('news_sentiment', 'neutral')
+        news_bonus = best.get('news_bonus', 0)
+        news_conf = best.get('news_confidence', 0.5)
+        if news_bonus != 0:
+            news_icon = "📰🟢" if news_bonus > 0 else "📰🔴"
+            print(f"   {news_icon} News: {news_sent.upper()} ({news_conf*100:.0f}%) → edge {news_bonus*100:+.2f}%")
     
     # Calculate bet size (Kelly with volatility adjustment - T293)
     if cash < MIN_BET_CENTS / 100:
         print("❌ Insufficient cash")
         return
     
-    # Base Kelly calculation
-    kelly_fraction = KELLY_FRACTION
+    # Base Kelly calculation - use override for weather (T422)
+    kelly_fraction = best.get("kelly_override", KELLY_FRACTION)
     
-    # Volatility-adjusted position sizing (T293)
-    # Reduce size in choppy/high-vol regimes, increase when volatility aligns
-    regime = best.get("regime", "unknown")
-    volatility = best.get("volatility", "normal")
-    vol_aligned = best.get("vol_aligned", False)
-    
-    # Regime adjustment: reduce in choppy markets, slight boost in trending
-    regime_multiplier = 1.0
-    if regime == "choppy":
-        regime_multiplier = 0.5  # Half size in choppy (hardest to trade)
-    elif regime == "sideways":
-        regime_multiplier = 0.75  # Reduced size in sideways
-    elif regime in ("trending_bullish", "trending_bearish"):
-        regime_multiplier = 1.1  # Slight boost in trending (cleaner signals)
-    
-    # Volatility alignment bonus: increase size when vol favors our direction
-    vol_multiplier = 1.0
-    if vol_aligned:
-        vol_multiplier = 1.15  # 15% boost when volatility aligns
-    elif volatility == "high":
-        vol_multiplier = 0.8  # Reduce in high vol if not aligned
-    
-    # Apply adjustments to Kelly fraction
-    adjusted_kelly = kelly_fraction * regime_multiplier * vol_multiplier
+    # Skip volatility adjustments for weather markets (different edge source)
+    if asset_type == "weather":
+        # Weather uses NWS forecast accuracy - simpler sizing
+        adjusted_kelly = kelly_fraction
+        print(f"   📊 Weather Kelly: {kelly_fraction*100:.1f}% (NWS-based)")
+    else:
+        # Volatility-adjusted position sizing (T293) for crypto
+        # Reduce size in choppy/high-vol regimes, increase when volatility aligns
+        regime = best.get("regime", "unknown")
+        volatility = best.get("volatility", "normal")
+        vol_aligned = best.get("vol_aligned", False)
+        
+        # Regime adjustment: reduce in choppy markets, slight boost in trending
+        regime_multiplier = 1.0
+        if regime == "choppy":
+            regime_multiplier = 0.5  # Half size in choppy (hardest to trade)
+        elif regime == "sideways":
+            regime_multiplier = 0.75  # Reduced size in sideways
+        elif regime in ("trending_bullish", "trending_bearish"):
+            regime_multiplier = 1.1  # Slight boost in trending (cleaner signals)
+        
+        # Volatility alignment bonus: increase size when vol favors our direction
+        vol_multiplier = 1.0
+        if vol_aligned:
+            vol_multiplier = 1.15  # 15% boost when volatility aligns
+        elif volatility == "high":
+            vol_multiplier = 0.8  # Reduce in high vol if not aligned
+        
+        # Apply adjustments to Kelly fraction
+        adjusted_kelly = kelly_fraction * regime_multiplier * vol_multiplier
     
     # Log the adjustment
     total_multiplier = regime_multiplier * vol_multiplier
