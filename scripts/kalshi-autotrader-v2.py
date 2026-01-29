@@ -96,6 +96,12 @@ MOMENTUM_STATE_FILE = "scripts/kalshi-momentum-state.json"
 MOMENTUM_ALERT_FILE = "scripts/kalshi-momentum-change.alert"
 MOMENTUM_ALERT_COOLDOWN = 1800  # 30 min cooldown (more frequent than regime)
 
+# Latency alerting
+LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
+LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
+LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
+LATENCY_CHECK_WINDOW = 10  # Check last N trades
+
 
 # ============== REGIME CHANGE ALERTING ==============
 
@@ -1632,6 +1638,9 @@ def run_cycle():
         print(f"   ⏱️  Order latency: {latency_ms}ms")
         trade_data["latency_ms"] = latency_ms
         log_trade(trade_data)
+        
+        # Check for latency alerts (after logging trade with new latency data)
+        check_latency_alert()
     else:
         print(f"⏳ Order status: {order.get('status')}")
 
@@ -1826,3 +1835,90 @@ def write_circuit_breaker_alert(consecutive_losses: int):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 Circuit breaker alert written to {CIRCUIT_BREAKER_ALERT_FILE}")
+
+
+# ============== LATENCY ALERTING (T295) ==============
+
+def get_recent_latencies(n: int = LATENCY_CHECK_WINDOW) -> list:
+    """
+    Get latencies from the last N trades.
+    Returns list of latency_ms values.
+    """
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return []
+    
+    trades_with_latency = []
+    with open(log_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") == "trade" and "latency_ms" in entry:
+                    trades_with_latency.append(entry)
+            except:
+                pass
+    
+    # Sort by timestamp descending (most recent first)
+    trades_with_latency.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+    
+    # Return latencies from last N trades
+    return [t["latency_ms"] for t in trades_with_latency[:n]]
+
+
+def check_latency_alert():
+    """
+    Check if average latency exceeds threshold and write alert if needed.
+    Has cooldown to prevent alert spam.
+    """
+    latencies = get_recent_latencies()
+    if len(latencies) < 3:
+        # Not enough data to determine trend
+        return
+    
+    avg_latency = sum(latencies) / len(latencies)
+    
+    if avg_latency <= LATENCY_THRESHOLD_MS:
+        return  # All good
+    
+    # Check cooldown
+    alert_path = Path(LATENCY_ALERT_FILE)
+    if alert_path.exists():
+        try:
+            stat = alert_path.stat()
+            age_seconds = time.time() - stat.st_mtime
+            if age_seconds < LATENCY_ALERT_COOLDOWN:
+                return  # Cooldown active
+        except:
+            pass
+    
+    # Write alert
+    write_latency_alert(avg_latency, latencies)
+
+
+def write_latency_alert(avg_latency: float, latencies: list):
+    """Write latency alert file for heartbeat pickup."""
+    max_latency = max(latencies) if latencies else 0
+    min_latency = min(latencies) if latencies else 0
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "latency",
+        "avg_latency_ms": round(avg_latency),
+        "max_latency_ms": max_latency,
+        "min_latency_ms": min_latency,
+        "threshold_ms": LATENCY_THRESHOLD_MS,
+        "sample_size": len(latencies),
+        "message": f"⚠️ HIGH ORDER LATENCY\n\n"
+                   f"Average latency: {avg_latency:.0f}ms (threshold: {LATENCY_THRESHOLD_MS}ms)\n"
+                   f"Last {len(latencies)} trades: min {min_latency}ms / max {max_latency}ms\n\n"
+                   f"This could indicate:\n"
+                   f"• Kalshi API slowdown\n"
+                   f"• Network connectivity issues\n"
+                   f"• Rate limiting\n\n"
+                   f"Check autotrader logs for details."
+    }
+    
+    with open(LATENCY_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"📝 Latency alert written: avg {avg_latency:.0f}ms > {LATENCY_THRESHOLD_MS}ms threshold")

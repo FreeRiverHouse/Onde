@@ -1,1 +1,9 @@
-{"lastUpdate":"2026-01-29T03:32:19Z","lastChecks":{"tasks":"1769657539","autotrader":"1769657539"},"completedToday":["T312","T318","T319","T321"]}
+{
+  "lastHeartbeat": "2026-01-30T03:33:58Z",
+  "taskCompleted": "T294",
+  "tasksAdded": ["T327", "T328", "T329"],
+  "autotraderRunning": true,
+  "autotraderPID": 7498,
+  "alertsChecked": true,
+  "alertsFound": 0
+}

@@ -1360,12 +1360,13 @@
 - **Notes**: ✅ Added! API returns avgLatencyMs, p95LatencyMs, minLatencyMs, maxLatencyMs, latencyTradeCount. Dashboard shows "Avg Latency" card with color coding (<500ms=green, <1s=orange, >1s=red). Shows "N/A" until latency data available in trade logs.
 
 ### [T295] Alert if avg latency exceeds 2 seconds
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T276]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Telegram alert if average order latency goes above 2s threshold. Could indicate API issues or network problems.
+- **Notes**: ✅ Added! Checks avg latency of last 10 trades. Alert file kalshi-latency.alert when >2s (configurable via LATENCY_THRESHOLD_MS). 1h cooldown. Added to HEARTBEAT.md pickup.
 
 ### [T296] Analyze edge vs win rate correlation
 - **Status**: DONE
@@ -1635,12 +1636,13 @@
 - **Notes**: ✅ Added! When swStatus is 'waiting', shows "🔄 Update Now" button. Triggers postMessage({type:'SKIP_WAITING'}) to activate new SW. Added message handler to sw.js. Button shows loading state, auto-reloads page on update.
 
 ### [T327] Latency threshold alert (>2s avg)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE (duplicate of T295)
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T294]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Telegram alert if average order latency exceeds 2 seconds. Could indicate Kalshi API issues or network problems.
+- **Notes**: ✅ Implemented in T295. Alert file kalshi-latency.alert when avg >2s. Heartbeat pickup enabled.
 
 ### [T328] Latency trend chart on dashboard
 - **Status**: TODO
@@ -1657,6 +1659,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Track ratio of successful order placements vs rejections/failures. Add rejectionCount, retryCount to API response. Alert if success rate drops below 95%.
+
+### [T330] API call count monitoring per hour
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track Kalshi/CoinGecko API calls per hour. Log to api-calls.jsonl. Alert if approaching rate limits. Helps debug 429 errors.
+
+### [T331] Trade prediction accuracy logging for ML
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log predicted probability + actual outcome for each trade. Creates training data for future ML model improvements. Fields: predicted_prob, actual_outcome, edge_at_entry, features.
+
+### [T332] VIX correlation with crypto volatility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Fetch VIX from Yahoo Finance. Correlate with BTC/ETH hourly vol. Macro fear indicator may improve regime detection.
 
 ---
 
