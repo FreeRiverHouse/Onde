@@ -3079,12 +3079,13 @@
 - **Notes**: Extend kalshi-weekly-report.py to include divergence signals section: signals fired, hit rate (price moved in predicted direction), avg move size, best/worst signals. Helps calibrate confidence thresholds over time.
 
 ### [T462] OHLC cache freshness alert
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T278]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Script/cron to check if data/ohlc/ cache is stale (>24h since last update). Creates ohlc-cache-stale.alert if cache-ohlc-data.py hasn't run. Critical: autotrader uses OHLC for momentum/regime detection.
+- **Notes**: ✅ Script: check-ohlc-cache.sh. Checks newest JSON in data/ohlc/, alerts if >24h old. Cron every 6h. Alert file: ohlc-cache-stale.alert. Auto-clears when cache refreshed. Already in HEARTBEAT.md pickup list.
 
 ### [T463] Bankroll growth visualization script
 - **Status**: TODO
