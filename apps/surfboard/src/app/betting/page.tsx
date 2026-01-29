@@ -34,7 +34,8 @@ import {
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
-import { LatencyTrendChart, generateMockLatencyTrend, type LatencyTrendPoint } from '@/components/LatencyTrendChart';
+import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
+import { VolatilityCard } from '@/components/VolatilityCard';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -118,6 +119,22 @@ interface TradingStats {
     result_status?: string;
   }>;
   lastUpdated: string;
+  // Volatility analysis
+  volatility?: {
+    generated_at: string;
+    assets: {
+      [key: string]: {
+        modelAssumption: number;
+        periods: {
+          [key: string]: {
+            realized: number;
+            deviation: number;
+            priceRangePct: number;
+          };
+        };
+      };
+    };
+  };
 }
 
 interface MomentumAsset {
@@ -1516,6 +1533,14 @@ export default function BettingDashboard() {
                 </p>
               </div>
             )}
+
+            {/* Volatility Analysis */}
+            <div className="mt-4">
+              <VolatilityCard 
+                volatility={tradingStats.volatility}
+                loading={statsLoading}
+              />
+            </div>
 
             {/* Recent Trades */}
             {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (

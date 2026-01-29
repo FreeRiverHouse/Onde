@@ -24,7 +24,47 @@ SCRIPT_DIR = Path(__file__).parent
 TRADES_FILE_V1 = SCRIPT_DIR / "kalshi-trades.jsonl"
 TRADES_FILE_V2 = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
 GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
+VOLATILITY_FILE = SCRIPT_DIR.parent / "data" / "ohlc" / "volatility-stats.json"
 STATS_FILENAME = "onde-trading-stats.json"
+
+def load_volatility_stats():
+    """Load volatility stats from OHLC analysis."""
+    if not VOLATILITY_FILE.exists():
+        return None
+    
+    try:
+        with open(VOLATILITY_FILE, 'r') as f:
+            data = json.load(f)
+        
+        # Extract compact summary for each asset
+        vol_summary = {
+            "generated_at": data.get("generated_at"),
+            "assets": {}
+        }
+        
+        for asset, asset_data in data.get("assets", {}).items():
+            periods = asset_data.get("periods", {})
+            model_assumption = asset_data.get("model_assumption_hourly", 0) * 100
+            
+            # Get 7d, 14d, 30d volatility
+            vol_summary["assets"][asset] = {
+                "modelAssumption": round(model_assumption, 2),
+                "periods": {}
+            }
+            
+            for period in ["7d", "14d", "30d"]:
+                if period in periods and "vol_hourly" not in periods[period].get("error", ""):
+                    p = periods[period]
+                    vol_summary["assets"][asset]["periods"][period] = {
+                        "realized": round(p.get("vol_hourly", 0), 2),
+                        "deviation": round(p.get("deviation_from_model_pct", 0), 1),
+                        "priceRangePct": round(p.get("price_range_pct", 0), 2)
+                    }
+        
+        return vol_summary
+    except Exception as e:
+        print(f"Warning: Could not load volatility stats: {e}")
+        return None
 
 def load_trades_from_file(filepath, source_tag=None):
     """Load trades from a JSONL file, optionally tagging with source."""
@@ -254,6 +294,11 @@ def calculate_stats(trades, source='v2'):
     
     if by_source:
         result["bySource"] = by_source
+    
+    # Add volatility stats
+    vol_stats = load_volatility_stats()
+    if vol_stats:
+        result["volatility"] = vol_stats
     
     return result
 

@@ -2896,12 +2896,13 @@
 - **Notes**: ✅ Script: auto-calibrate-volatility.py. Compares 30d realized vs assumed vol, recommends new values if >25% divergence. Flags: --apply (update script), --threshold N, --no-alert. Alert file: kalshi-vol-recalibration.alert. Findings: BTC 0.50%→0.35%, ETH 0.70%→0.51% recommended. Adds 10% safety buffer above realized vol. Requires manual --apply to update (safety).
 
 ### [T440] Volatility trend visualization on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T383]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add sparkline or chart to /betting showing 30d volatility trend for BTC/ETH. Read from data/ohlc/volatility-stats.json. Helps visualize if market vol is increasing/decreasing over time.
+- **Notes**: ✅ VolatilityCard component showing BTC/ETH realized vs model volatility. Comparison bars for 7d/14d/30d periods with deviation %. Data from push-stats-to-gist.py (added volatility field). Color-coded: green if model overestimates (conservative), red if underestimates (risky).
 
 ### [T441] Reversion signal win rate tracking
 - **Status**: TODO
