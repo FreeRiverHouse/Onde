@@ -39,12 +39,13 @@
 - **Notes**: ✅ Middleware semplificato (no auth redirect), tutto pubblico come onde.la.
 
 ### [T402] Creare agente PM per review task/dipendenze/priorità
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @pm-agent
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Agente dedicato che rivede TASKS.md, controlla dipendenze, aggiorna priorità. Tutte le regole (0,1,2) devono essere seguite anche da PM.
+- **Notes**: ✅ PM Review completata! Report: memory/pm-review-2026-01-28.md. Analizzati 377 task, verificate dipendenze, identificati 2 blocked, 3 duplicati gestiti, 3 priorità da rivedere.
 
 ### [T403] Creare procedura ROLLBACK per deploy
 - **Status**: DONE
@@ -474,8 +475,8 @@
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P2
-- **Notes**: Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct.
+- **Priority**: P1
+- **Notes**: ⚠️ PRIORITY RAISED by PM. Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct. Currently using wrangler workaround.
 
 ---
 
