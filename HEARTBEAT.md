@@ -28,6 +28,7 @@
 - `scripts/kalshi-momentum-reversion.alert` → Se esiste, REVERSION SIGNAL! Extended move (>2% in 4h) suggerisce mean reversion. Opportunità contrarian. Manda alert a Mattia, poi elimina
 - `scripts/kalshi-momentum-divergence.alert` → Se esiste, DIVERGENCE SIGNAL! Prezzo e momentum discordano (es: prezzo nuovo minimo ma RSI sale). Classico segnale di inversione. Manda alert a Mattia, poi elimina
 - `scripts/kalshi-vol-recalibration.alert` → Se esiste, volatilità modello necessita recalibrazione! Mostra raccomandazioni e chiedi se applicare. Manda info a Mattia, poi elimina
+- `scripts/kalshi-price-spread.alert` → Se esiste, PRICE SPREAD ANOMALY! Divergenza prezzi >1% tra exchange (arbitraggio o problema). Manda alert con dettagli, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

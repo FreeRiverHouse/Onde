@@ -2501,12 +2501,13 @@
 - **Notes**: Log which exchange API fails/succeeds each cycle. Weekly report showing uptime % per source (Binance, CoinGecko, Coinbase). Helps identify unreliable sources to deprioritize.
 
 ### [T385] Price spread anomaly detection
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T246]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: If BTC/ETH price spread between exchanges exceeds 1%, write alert. Could indicate exchange issues, arbitrage opportunity, or manipulation. Log to price-anomalies.jsonl for analysis.
+- **Notes**: ✅ Script: detect-price-spread.py. Monitors BTC/ETH prices from Binance, CoinGecko, Coinbase. Alerts when spread >1%. Logs anomalies to price-anomalies.jsonl. Features: continuous mode, history view, 30min cooldown. Alert file: kalshi-price-spread.alert. Added to HEARTBEAT.md pickup.
 
 ### [T386] Add exchange sources to trade logs
 - **Status**: DONE
@@ -3234,4 +3235,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Added! Global prefers-reduced-motion media query in globals.css. Disables/reduces: particles, floating orbs, blob animations, spotlight, holographic effects, gradient flows, hover transforms, scroll indicators. Keeps essential transitions instant. Added motion-safe/motion-reduce utility classes. WCAG 2.3.3 compliant.
+
+### [T480] Price spread monitoring cron job
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T385]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add cron job (every 15 min) to run detect-price-spread.py --threshold 1.0. Monitors for exchange price divergences. Alert file triggers Telegram notification via heartbeat. Helps detect arbitrage opportunities or exchange issues.
+
+### [T481] Multi-timeframe volatility dashboard widget
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add volatility widget to /betting showing realized vol for 1h/4h/24h timeframes vs model assumptions. Uses cached OHLC data. Color-coded: green when vol matches model, orange when diverging >20%. Helps traders understand current market conditions.
+
+### [T482] Trade execution audit log
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Comprehensive audit log for all trade attempts (successful and failed). Include: timestamp, ticker, side, price, size, API response, latency, any errors. Store in kalshi-audit.jsonl. Useful for debugging failed trades and compliance.
 
