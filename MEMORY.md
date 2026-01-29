@@ -38,7 +38,8 @@
 ## 🔧 Deploy Setup (28 Gen 2026)
 - **Cloudflare token** in `.env`: `CLOUDFLARE_API_TOKEN`
 - **onde.la deploy**: `./tools/tech-support/deploy-onde-la-prod.sh`
-- **onde.surf deploy**: `gh workflow run deploy-surfboard.yml` (needs GitHub billing fix)
+- **onde.surf deploy**: Wrangler diretto (vedi DEPLOY-PROCEDURES.md)
+- ⚠️ **NO GITHUB ACTIONS** - Solo metodi gratuiti (wrangler CLI)
 - Note: My exec commands don't inherit shell env vars - need inline export or source
 
 ## 🚀 AUTONOMIA (27 Gen 2026)

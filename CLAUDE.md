@@ -11,9 +11,11 @@ Mattia Petrucciani - parla italiano, comunicazione diretta.
 
 ### ONDE.SURF (Dashboard)
 ```bash
-gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
-  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
-  -f reason="MOTIVO"
+cd /Users/mattia/Projects/Onde/apps/surfboard
+npm run build && npm run build:cf
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 ```
 
 ### ONDE.LA (Sito principale)
@@ -21,6 +23,8 @@ gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
 cd /Users/mattia/Projects/Onde
 ./tools/tech-support/deploy-onde-la-prod.sh
 ```
+
+**⚠️ NO GITHUB ACTIONS - Solo Wrangler CLI (gratuito)**
 
 **NON SAI DEPLOYARE? LEGGI:** `tools/tech-support/DEPLOY-PROCEDURES.md`
 
@@ -91,32 +95,27 @@ Lo script fa: build → test automatici → deploy wrangler → verifica
 
 ---
 
-## 🚨 DEPLOY ONDE.SURF - PROCEDURA PROTETTA (2026-01-26)
+## 🚨 DEPLOY ONDE.SURF - METODO WRANGLER (2026-01-28)
 
-**⚠️ DEPLOY PROTETTO - Solo tech-support agent può deployare!**
+**⚠️ NO GITHUB ACTIONS** - Solo Wrangler CLI (gratuito, no billing)
 
-**NO AUTO-DEPLOY su push** - Il deploy richiede passphrase esplicita.
-
-**UNICO METODO: GitHub Actions con passphrase**
-
+**Comandi deploy:**
 ```bash
-gh workflow run deploy-surfboard.yml \
-  -R FreeRiverHouse/Onde \
-  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
-  -f reason="Descrizione del deploy"
+cd /Users/mattia/Projects/Onde/apps/surfboard
+npm run build && npm run build:cf
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 ```
 
-**Passphrase:** `9eeezNPQwjY8NJl5PL9C0pqTutP642xk`
-
-**Credenziali Cloudflare (solo per emergenze):**
+**Credenziali Cloudflare:**
 - Account ID: `91ddd4ffd23fb9da94bb8c2a99225a3f`
 - API Token: `RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw`
 - Progetto: `onde-surf`
 
 **SEMPRE testare dopo deploy:**
 ```bash
-curl -s "https://onde.surf/api/house" | jq '.stats.agents'
-curl -s "https://onde.surf/api/pr/posts?status=pending" | jq 'length'
+curl -sI "https://onde.surf" | head -3
 ```
 
 ### ⚠️ LESSON LEARNED - Worker Routes vs Pages (2026-01-21)

@@ -4,8 +4,6 @@ export const runtime = 'edge'
 
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { FreeRiverHouse } from '@/components/FreeRiverHouse'
 
 interface Book {
@@ -48,25 +46,15 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 }
 
 export default function HouseDashboard() {
-  const { status: authStatus } = useSession()
-  const router = useRouter()
   const [books, setBooks] = useState<Book[]>([])
   const [stats, setStats] = useState<Stats | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (authStatus === 'unauthenticated') {
-      router.push('/login')
-    }
-  }, [authStatus, router])
-
-  useEffect(() => {
-    if (authStatus === 'authenticated') {
-      fetchData()
-      const interval = setInterval(fetchData, 30000)
-      return () => clearInterval(interval)
-    }
-  }, [authStatus])
+    fetchData()
+    const interval = setInterval(fetchData, 30000)
+    return () => clearInterval(interval)
+  }, [])
 
   const fetchData = async () => {
     try {
@@ -83,14 +71,6 @@ export default function HouseDashboard() {
     } finally {
       setLoading(false)
     }
-  }
-
-  if (authStatus === 'loading') {
-    return (
-      <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
-        <div className="text-white/60">Checking session...</div>
-      </div>
-    )
   }
 
   if (loading) {
