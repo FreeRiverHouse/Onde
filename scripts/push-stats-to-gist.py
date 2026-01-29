@@ -355,6 +355,63 @@ def load_health_status():
         return None
 
 
+def calculate_streak_stats(trades):
+    """Calculate streak statistics from trades (T624).
+    
+    Returns:
+        dict: longestWinStreak, longestLossStreak, currentStreak, currentStreakType
+    """
+    # Filter to settled trades and sort by timestamp
+    settled = [t for t in trades if t.get('result_status') in ['won', 'lost']]
+    settled.sort(key=lambda t: t.get('timestamp', ''))
+    
+    if not settled:
+        return {
+            "longestWinStreak": 0,
+            "longestLossStreak": 0,
+            "currentStreak": 0,
+            "currentStreakType": "none"
+        }
+    
+    # Calculate streaks
+    longest_win = 0
+    longest_loss = 0
+    current_streak = 0
+    current_type = None
+    
+    for t in settled:
+        is_win = t.get('result_status') == 'won'
+        
+        if current_type is None:
+            # First trade
+            current_type = 'win' if is_win else 'loss'
+            current_streak = 1
+        elif (current_type == 'win' and is_win) or (current_type == 'loss' and not is_win):
+            # Streak continues
+            current_streak += 1
+        else:
+            # Streak breaks - record and reset
+            if current_type == 'win':
+                longest_win = max(longest_win, current_streak)
+            else:
+                longest_loss = max(longest_loss, current_streak)
+            current_type = 'win' if is_win else 'loss'
+            current_streak = 1
+    
+    # Don't forget to check the final streak
+    if current_type == 'win':
+        longest_win = max(longest_win, current_streak)
+    elif current_type == 'loss':
+        longest_loss = max(longest_loss, current_streak)
+    
+    return {
+        "longestWinStreak": longest_win,
+        "longestLossStreak": longest_loss,
+        "currentStreak": current_streak,
+        "currentStreakType": current_type or "none"
+    }
+
+
 def load_trades_from_file(filepath, source_tag=None):
     """Load trades from a JSONL file, optionally tagging with source."""
     trades = []
@@ -603,6 +660,10 @@ def calculate_stats(trades, source='v2'):
     settlements = load_settlements_stats()
     if settlements:
         result["settlements"] = settlements
+    
+    # Add streak stats (T624)
+    streak_stats = calculate_streak_stats(trades)
+    result.update(streak_stats)
     
     return result
 

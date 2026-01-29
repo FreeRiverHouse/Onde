@@ -3663,12 +3663,13 @@
 - **Notes**: ✅ Implemented! Added autotrader status indicator to /betting dashboard header. Shows: running/offline status with animated dot, circuit breaker alert (red), dry run mode indicator, status color coding (green=healthy, yellow=warning, red=error/offline). Data from gist healthStatus field. Compact badge design that fits in header row.
 
 ### [T624] Add streak tracking to gist push script
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T287], [T605]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Dashboard expects longestWinStreak, longestLossStreak, currentStreak, currentStreakType. Add streak calculation to push-stats-to-gist.py. Use kalshi-streak-records.json if exists, or calculate from trade log.
+- **Notes**: ✅ Implemented! Added calculate_streak_stats() function to push-stats-to-gist.py. Calculates from trade log directly: longest win/loss streaks, current streak count and type. Gist now includes longestWinStreak, longestLossStreak, currentStreak, currentStreakType. V1 data shows 41-loss streak (0% WR from broken model).
 
 ### [T625] Dashboard bySource comparison view
 - **Status**: TODO
@@ -3873,3 +3874,27 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Create mechanism for Clawdbot local agents (like clawd) to register themselves with onde.surf D1 database. Update last_seen timestamp via POST /api/agents/heartbeat. This would show real agent status in FreeRiverHouse UI rather than relying only on task activity.
+
+### [T650] Streak stats breakdown by asset (BTC vs ETH)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T624], [T236]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend streak calculation to track separately for BTC and ETH assets. Add byAsset section to streak stats in gist. Shows if one asset has worse streak patterns (may indicate model calibration issues per asset). Script: analyze-streak-by-asset.py
+
+### [T651] Weekly report streak summary section
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T624], [T095]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add streak summary to kalshi-weekly-report.py. Include: longest win/loss streaks this week, any new records set, comparison to all-time records, streak distribution (how many 2+, 3+, 4+ streaks occurred). Helps track trading psychology week-over-week.
+
+### [T652] Dashboard streak record indicator badge
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T624], [T359]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show badge/indicator on dashboard when current streak equals or exceeds all-time record. Use streak stats from gist. Gold badge for approaching win record, red alert for approaching loss record. Provides at-a-glance awareness of exceptional performance/risk.
