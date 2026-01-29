@@ -2300,8 +2300,8 @@
 - **Notes**: ✅ Added! FileJson icon button next to CSV export. Exports full trade data with metadata (timestamp, filters, all fields including regime/reason). Formatted JSON with indent.
 
 ### [T363] Date range display in trading stats header
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T203]
 - **Blocks**: -
 - **Priority**: P3
@@ -2789,3 +2789,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Script: analyze-edge-calibration.py. Groups trades by edge bucket (0-5%, 5-10%, etc), compares actual WR vs expected (50%+edge). Shows calibration error per bucket with interpretation. Flags: --v2, --buckets N. V1 analysis: 0% WR with 45%+ edge = catastrophically overconfident (broken model). V2 awaiting data.
+
+### [T432] API latency breakdown widget on /betting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T279]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add expandable section showing per-endpoint latency breakdown: Kalshi API, Binance, CoinGecko, Coinbase, Fear&Greed. Bar chart or list with p50/p95/p99. Helps identify bottlenecks.
+
+### [T433] Trade execution audit log viewer
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Web UI to view trade execution logs with full context: opportunity details, decision reason, API responses, timing breakdown. Useful for debugging why specific trades were taken/skipped.
+
+### [T434] Weekly OHLC volatility summary report
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278], [T383]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Cron Sunday 08:00 UTC: compute 7d/30d realized vol from cached OHLC, compare to model assumptions, flag if >20% divergence. Output: data/reports/volatility-week-YYYY-WW.json. Alert if calibration needed.
