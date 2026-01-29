@@ -1773,12 +1773,13 @@
 - **Notes**: ✅ Implemented! Checks alignment + minimum composite strength (0.5). When all timeframes agree with strong signal, writes kalshi-momentum-aligned.alert with details per asset. 2h cooldown (rare event). Added to HEARTBEAT.md pickup.
 
 ### [T302] Momentum reversion detection
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Detect extended momentum (>2% in 4h) that often precedes reversals. Alert as contrarian opportunity.
+- **Notes**: ✅ Implemented! Functions: detect_momentum_reversion(), check_reversion_alert(), write_reversion_alert(), get_reversion_edge_adjustment(). Triggers when 4h move >2% or 8h move >3% with strong momentum (>0.7). Alert file: kalshi-momentum-reversion.alert. Provides contrarian trading signals with confidence levels. Added to HEARTBEAT.md pickup.
 
 ### [T303] Momentum divergence alert (price vs momentum)
 - **Status**: TODO
@@ -2867,3 +2868,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add sparkline or chart to /betting showing 30d volatility trend for BTC/ETH. Read from data/ohlc/volatility-stats.json. Helps visualize if market vol is increasing/decreasing over time.
+
+### [T441] Reversion signal win rate tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T302]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track win rate specifically for trades made during reversion signals (T302). Analyze if contrarian trades outperform or underperform. Script: analyze-reversion-trades.py. Log reversion_signal: true/false in trade data.
+
+### [T442] Multi-asset correlation monitoring
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track BTC/ETH price correlation coefficient over time. When correlation breaks down (usually during liquidation events), adjust strategy accordingly. Script: analyze-asset-correlation.py using OHLC cache.
+
+### [T443] Dashboard refresh rate configuration
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add user setting for dashboard auto-refresh interval (30s/60s/5min/off). Currently hardcoded. Save preference to localStorage. Show countdown timer in header.

@@ -112,6 +112,14 @@ EXTREME_VOL_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 MOMENTUM_ALIGN_ALERT_FILE = "scripts/kalshi-momentum-aligned.alert"
 MOMENTUM_ALIGN_ALERT_COOLDOWN = 7200  # 2 hour cooldown (rare event)
 MOMENTUM_ALIGN_MIN_STRENGTH = 0.5  # Minimum composite strength to alert
+
+# Momentum reversion detection (T302) - extended moves often precede reversals
+REVERSION_ALERT_FILE = "scripts/kalshi-momentum-reversion.alert"
+REVERSION_ALERT_COOLDOWN = 3600  # 1 hour cooldown
+REVERSION_4H_THRESHOLD = 0.02  # 2% move in 4h triggers reversion watch
+REVERSION_8H_THRESHOLD = 0.03  # 3% move in 8h triggers high confidence reversion
+REVERSION_STRENGTH_THRESHOLD = 0.7  # Momentum strength for reversion signal
+
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -876,6 +884,198 @@ def write_momentum_alignment_alert(alerts: list):
         json.dump(alert_data, f, indent=2)
     
     print(f"   🎯 Full momentum alignment alert written!")
+
+
+# ============== MOMENTUM REVERSION DETECTION (T302) ==============
+
+def detect_momentum_reversion(ohlc_data: dict, momentum_data: dict) -> list:
+    """
+    Detect extended momentum that often precedes reversals.
+    
+    Triggers when:
+    - 4h move > 2% (REVERSION_4H_THRESHOLD)
+    - OR 8h move > 3% (REVERSION_8H_THRESHOLD)
+    - AND momentum strength is high (> 0.7)
+    
+    Extended moves tend to mean-revert in crypto, especially in hourly contracts.
+    This signals a potential contrarian opportunity.
+    
+    Returns:
+        List of reversion signals with asset, direction, confidence, suggested action
+    """
+    reversions = []
+    
+    for asset in ["btc", "eth"]:
+        ohlc = ohlc_data.get(asset, [])
+        momentum = momentum_data.get(asset, {})
+        
+        if not ohlc or len(ohlc) < 8:
+            continue
+        
+        # Get current and historical prices
+        current_price = ohlc[-1][4] if ohlc[-1] else None
+        if not current_price:
+            continue
+        
+        # 4-hour price change
+        price_4h_ago = ohlc[-4][4] if len(ohlc) >= 4 else current_price
+        change_4h = (current_price - price_4h_ago) / price_4h_ago if price_4h_ago else 0
+        
+        # 8-hour price change (if available)
+        price_8h_ago = ohlc[-8][4] if len(ohlc) >= 8 else price_4h_ago
+        change_8h = (current_price - price_8h_ago) / price_8h_ago if price_8h_ago else 0
+        
+        # Get momentum strength
+        composite_str = momentum.get("composite_strength", 0)
+        composite_dir = momentum.get("composite_direction", 0)
+        
+        # Check for extended move
+        abs_4h = abs(change_4h)
+        abs_8h = abs(change_8h)
+        
+        is_extended_4h = abs_4h >= REVERSION_4H_THRESHOLD
+        is_extended_8h = abs_8h >= REVERSION_8H_THRESHOLD
+        is_strong_momentum = composite_str >= REVERSION_STRENGTH_THRESHOLD
+        
+        if not (is_extended_4h or is_extended_8h):
+            continue
+        
+        if not is_strong_momentum:
+            continue  # Weak momentum = probably not a reversion candidate
+        
+        # Determine reversion direction (opposite to move)
+        if change_4h > 0:
+            reversion_dir = "bearish"
+            current_trend = "bullish"
+            contrarian_action = "Consider NO bets on upside / YES bets on downside"
+            emoji = "🔻"
+        else:
+            reversion_dir = "bullish"
+            current_trend = "bearish"
+            contrarian_action = "Consider YES bets on upside recovery"
+            emoji = "🔺"
+        
+        # Calculate confidence based on extension degree
+        confidence = "medium"
+        if is_extended_8h:
+            confidence = "high"
+        if abs_4h > REVERSION_4H_THRESHOLD * 1.5:  # 3%+ in 4h
+            confidence = "very_high"
+        
+        reversions.append({
+            "asset": asset.upper(),
+            "current_trend": current_trend,
+            "reversion_dir": reversion_dir,
+            "change_4h": change_4h,
+            "change_8h": change_8h,
+            "momentum_strength": composite_str,
+            "confidence": confidence,
+            "action": contrarian_action,
+            "emoji": emoji,
+            "current_price": current_price
+        })
+    
+    return reversions
+
+
+def check_reversion_alert(ohlc_data: dict, momentum_data: dict):
+    """
+    Check for momentum reversion signals and write alert if found.
+    """
+    if not ohlc_data or not momentum_data:
+        return
+    
+    now = time.time()
+    
+    # Check cooldown
+    try:
+        if os.path.exists(REVERSION_ALERT_FILE):
+            mtime = os.path.getmtime(REVERSION_ALERT_FILE)
+            if now - mtime < REVERSION_ALERT_COOLDOWN:
+                return  # On cooldown
+    except Exception:
+        pass
+    
+    reversions = detect_momentum_reversion(ohlc_data, momentum_data)
+    
+    if reversions:
+        write_reversion_alert(reversions)
+
+
+def write_reversion_alert(reversions: list):
+    """Write momentum reversion alert file for heartbeat pickup."""
+    alert_lines = [
+        "⚡ MOMENTUM REVERSION SIGNAL!\n",
+        "Extended move detected - potential mean reversion opportunity\n"
+    ]
+    
+    for rev in reversions:
+        asset = rev["asset"]
+        emoji = rev["emoji"]
+        current_trend = rev["current_trend"]
+        confidence = rev["confidence"]
+        change_4h = rev["change_4h"]
+        change_8h = rev["change_8h"]
+        mom_str = rev["momentum_strength"]
+        action = rev["action"]
+        price = rev["current_price"]
+        
+        conf_emoji = "🟢" if confidence == "very_high" else "🟡" if confidence == "high" else "⚪"
+        
+        alert_lines.append(f"{emoji} {asset}: Extended {current_trend.upper()} move")
+        alert_lines.append(f"   4h: {change_4h:+.2%} | 8h: {change_8h:+.2%}")
+        alert_lines.append(f"   Momentum strength: {mom_str:.2f}")
+        alert_lines.append(f"   Confidence: {conf_emoji} {confidence.upper()}")
+        alert_lines.append(f"   Current price: ${price:,.0f}")
+        alert_lines.append(f"\n   💡 Contrarian: {action}\n")
+    
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    alert_lines.append("\n⚠️ Reversion signals are contrarian. Use smaller position sizes!")
+    alert_lines.append("📊 Extended moves often revert, but can also accelerate (momentum).")
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "momentum_reversion",
+        "reversions": reversions,
+        "message": "\n".join(alert_lines)
+    }
+    
+    with open(REVERSION_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"   ⚡ Momentum reversion alert written ({len(reversions)} signals)!")
+
+
+def get_reversion_edge_adjustment(asset: str, ohlc_data: dict, momentum_data: dict) -> dict:
+    """
+    Get edge adjustment for reversion signals.
+    
+    Returns:
+        dict with:
+        - has_signal: bool
+        - adjustment: float (positive = bonus for contrarian, negative = penalty for with-trend)
+        - reason: str
+    """
+    result = {"has_signal": False, "adjustment": 0.0, "reason": ""}
+    
+    reversions = detect_momentum_reversion(ohlc_data, momentum_data)
+    
+    for rev in reversions:
+        if rev["asset"].lower() == asset.lower():
+            result["has_signal"] = True
+            
+            # Give bonus for contrarian bets
+            if rev["confidence"] == "very_high":
+                result["adjustment"] = 0.02  # +2% edge bonus for strong contrarian
+            elif rev["confidence"] == "high":
+                result["adjustment"] = 0.01  # +1% edge bonus
+            else:
+                result["adjustment"] = 0.005  # +0.5% for medium confidence
+            
+            result["reason"] = f"Extended {rev['current_trend']} move ({rev['change_4h']:+.1%} 4h) - reversion likely"
+            break
+    
+    return result
 
 
 # ============== PROPER PROBABILITY MODEL ==============
@@ -2467,9 +2667,13 @@ def run_cycle():
     eth_momentum = get_multi_timeframe_momentum(eth_ohlc)
     
     momentum_data = {"btc": btc_momentum, "eth": eth_momentum}
+    ohlc_data = {"btc": btc_ohlc, "eth": eth_ohlc}
     
     # Check for full momentum alignment (T301) - high-conviction signal
     check_momentum_alignment_alert(momentum_data)
+    
+    # Check for momentum reversion signals (T302) - contrarian opportunity
+    check_reversion_alert(ohlc_data, momentum_data)
     
     # Display momentum info for both
     for asset, momentum in [("BTC", btc_momentum), ("ETH", eth_momentum)]:
