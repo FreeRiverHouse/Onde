@@ -1276,6 +1276,22 @@
 - **Priority**: P3
 - **Notes**: Analyze if win rate changes based on BTC hourly volatility at trade time. Create script to correlate trade outcomes with volatility levels.
 
+### [T286] Kelly criterion effectiveness tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare actual bet sizes vs theoretical Kelly optimal. Track how Kelly fraction affects outcomes. Add kelly_fraction_used field to trade logs.
+
+### [T287] Add streak tracking (consecutive wins/losses)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track longest win streak, longest loss streak, current streak. Add to stats API and dashboard. Useful for detecting tilt or hot streaks.
+
 ---
 
 *Ultimo aggiornamento: 2026-01-30 05:55 PST*
