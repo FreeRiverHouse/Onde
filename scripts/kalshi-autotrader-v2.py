@@ -83,6 +83,7 @@ DRY_RUN_LOG_FILE = "scripts/kalshi-trades-dryrun.jsonl"
 
 # Circuit breaker config (consecutive losses)
 CIRCUIT_BREAKER_THRESHOLD = int(os.getenv("CIRCUIT_BREAKER_THRESHOLD", "5"))  # Auto-pause after N consecutive losses
+CIRCUIT_BREAKER_COOLDOWN_HOURS = float(os.getenv("CIRCUIT_BREAKER_COOLDOWN_HOURS", "4"))  # Require cooldown period after trigger
 CIRCUIT_BREAKER_ALERT_FILE = "scripts/kalshi-circuit-breaker.alert"
 CIRCUIT_BREAKER_STATE_FILE = "scripts/kalshi-circuit-breaker.json"
 
@@ -3351,8 +3352,23 @@ def check_circuit_breaker() -> tuple:
     state = load_circuit_breaker_state()
     consecutive_losses = get_consecutive_losses()
     
-    # If already paused, check if we should resume (after a win)
+    # If already paused, check if we should resume
     if state.get("paused"):
+        pause_time_str = state.get("pause_time")
+        cooldown_elapsed = False
+        hours_since_pause = 0
+        
+        if pause_time_str:
+            try:
+                pause_time = datetime.fromisoformat(pause_time_str)
+                if pause_time.tzinfo is None:
+                    pause_time = pause_time.replace(tzinfo=timezone.utc)
+                hours_since_pause = (datetime.now(timezone.utc) - pause_time).total_seconds() / 3600
+                cooldown_elapsed = hours_since_pause >= CIRCUIT_BREAKER_COOLDOWN_HOURS
+            except:
+                pass
+        
+        # Resume if EITHER we got a win OR cooldown period has elapsed
         if consecutive_losses == 0:
             # We got a win! Resume trading
             state["paused"] = False
@@ -3360,9 +3376,16 @@ def check_circuit_breaker() -> tuple:
             state["streak_at_pause"] = 0
             save_circuit_breaker_state(state)
             return (False, 0, "✅ Circuit breaker released - got a win!")
+        elif cooldown_elapsed:
+            # Cooldown elapsed, resume cautiously
+            state["paused"] = False
+            state["pause_time"] = None
+            state["streak_at_pause"] = 0
+            save_circuit_breaker_state(state)
+            return (False, consecutive_losses, f"⏰ Circuit breaker released - {CIRCUIT_BREAKER_COOLDOWN_HOURS}h cooldown elapsed (streak still {consecutive_losses})")
         else:
-            pause_time = state.get("pause_time", "unknown")
-            return (True, consecutive_losses, f"⏸️ Circuit breaker ACTIVE (paused at {pause_time}, {consecutive_losses} consecutive losses)")
+            hours_remaining = CIRCUIT_BREAKER_COOLDOWN_HOURS - hours_since_pause
+            return (True, consecutive_losses, f"⏸️ Circuit breaker ACTIVE ({consecutive_losses} losses, {hours_remaining:.1f}h until cooldown, or win to resume)")
     
     # Check if we should trigger circuit breaker
     if consecutive_losses >= CIRCUIT_BREAKER_THRESHOLD:
@@ -3386,14 +3409,19 @@ def write_circuit_breaker_alert(consecutive_losses: int):
         "type": "circuit_breaker",
         "consecutive_losses": consecutive_losses,
         "threshold": CIRCUIT_BREAKER_THRESHOLD,
+        "cooldown_hours": CIRCUIT_BREAKER_COOLDOWN_HOURS,
         "message": f"🚨 CIRCUIT BREAKER TRIGGERED!\n\n"
                    f"AutoTrader paused after {consecutive_losses} consecutive losses.\n\n"
                    f"This is a safety measure to prevent tilt trading.\n"
-                   f"Trading will resume automatically after a winning trade settles.\n\n"
+                   f"Trading will resume after:\n"
+                   f"• A winning trade settles, OR\n"
+                   f"• {CIRCUIT_BREAKER_COOLDOWN_HOURS}h cooldown period elapses\n\n"
                    f"Actions you can take:\n"
                    f"• Wait for pending trades to settle (a win will resume)\n"
+                   f"• Wait for cooldown ({CIRCUIT_BREAKER_COOLDOWN_HOURS}h from now)\n"
                    f"• Manually reset: `rm scripts/kalshi-circuit-breaker.json`\n"
-                   f"• Adjust threshold: `export CIRCUIT_BREAKER_THRESHOLD=10`"
+                   f"• Adjust threshold: `export CIRCUIT_BREAKER_THRESHOLD=10`\n"
+                   f"• Adjust cooldown: `export CIRCUIT_BREAKER_COOLDOWN_HOURS=2`"
     }
     
     with open(CIRCUIT_BREAKER_ALERT_FILE, "w") as f:

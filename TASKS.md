@@ -2348,12 +2348,13 @@
 - **Notes**: Add widget to /betting showing stop-loss performance: total triggered, cumulative savings vs holding, win rate of positions that would have hit stop-loss. Visualizes whether stop-loss threshold is optimal.
 
 ### [T367] Circuit breaker cooldown configuration via env
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T289]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add CIRCUIT_BREAKER_COOLDOWN_HOURS env var (default 4h). After circuit breaker activates, require cooldown period before auto-resuming even if a trade wins. Prevents whipsaw during bad streaks.
+- **Notes**: ✅ Implemented! CIRCUIT_BREAKER_COOLDOWN_HOURS env var (default 4h). Circuit breaker now resumes after EITHER a win OR cooldown elapsed. Shows remaining hours in status message. Alert includes cooldown info.
 
 ### [T368] Trade edge confidence buckets on dashboard
 - **Status**: TODO
@@ -3155,4 +3156,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Show "Readers also downloaded" on book detail pages. Track co-download patterns (users who downloaded A also downloaded B). Simple collaborative filtering without user accounts - just aggregate patterns.
+
+### [T471] Circuit breaker history logging
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T367]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log each circuit breaker trigger/release to kalshi-circuit-breaker-history.jsonl. Track: trigger time, release time, release reason (win/cooldown/manual), streak at trigger, trades skipped while paused. Analyze patterns to optimize threshold.
+
+### [T472] Autotrader health dashboard endpoint
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create kalshi-health-status.json written by autotrader every cycle with: is_running, last_cycle_time, trades_today, positions_count, circuit_breaker_status, win_rate_24h, balance. Can be read by external monitoring or /health page API.
+
+### [T473] Trading session summary on process exit
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add signal handler (SIGTERM/SIGINT) to autotrader that prints session summary before exit: trades made, win rate, PnL, hours running, positions left open. Log to file for crash analysis.
 
