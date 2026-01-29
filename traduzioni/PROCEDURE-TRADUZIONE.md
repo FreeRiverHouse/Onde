@@ -45,6 +45,38 @@
 
 ---
 
+## 🔄 PIPELINE 2 CICLI
+
+```bash
+# Esegui 2 cicli completi di revisione
+python3 scripts/translation-pipeline.py \
+    traduzioni/ORIGINALE.txt \
+    traduzioni/TRADUZIONE.md \
+    traduzioni/REPORT-REVISIONE.json
+```
+
+### Flusso:
+```
+Ciclo 1: RILETTTORE → REVISORE
+Ciclo 2: RILETTTORE → REVISORE (su output ciclo 1)
+```
+
+---
+
+## ⛔ REGOLA CRITICA ⛔
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║  MAI USARE TOKEN CLAUDE PER TRADUZIONI O REVISIONI            ║
+║  SOLO MODELLI LOCALI:                                         ║
+║    - NLLB-200 per traduzione                                  ║
+║    - Ollama llama3:70b per revisione                          ║
+║  Se vedi chiamate a Claude API = LICENZIAMENTO                ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+---
+
 ## 🖥️ Setup M4 Mac
 
 ### Modelli Disponibili
