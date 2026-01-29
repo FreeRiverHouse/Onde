@@ -1197,5 +1197,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 17:53 PST*
+### [T277] External trade stats API (GitHub Gist or webhook)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T272]
+- **Priority**: P3
+- **Notes**: Push trade stats to GitHub Gist periodically for static site to fetch. Bypasses static export limitation.
+
+### [T278] Cache historical BTC/ETH OHLC data locally
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Download and cache CoinGecko OHLC data daily. Reduces API calls and enables faster backtesting.
+
+### [T279] Trade entry latency profiling
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add timing logs for each API call in autotrader (market fetch, order placement, etc). Identify bottlenecks.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29 18:00 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
