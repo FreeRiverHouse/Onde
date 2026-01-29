@@ -62,6 +62,25 @@ interface ApiLatencyData {
   };
 }
 
+interface AlertItem {
+  timestamp: string;
+  type: string;
+  file: string;
+  summary: string;
+  details?: {
+    asset?: string;
+    timeframe?: string;
+    severity?: string;
+    regime?: string;
+  };
+}
+
+interface AlertsData {
+  generated_at: string;
+  count: number;
+  items: AlertItem[];
+}
+
 interface AutotraderHealth {
   is_running: boolean;
   last_cycle_time?: string;
@@ -126,6 +145,7 @@ export default function HealthPage() {
   const [apiLatency, setApiLatency] = useState<ApiLatencyData | null>(null);
   const [apiLatencyLoading, setApiLatencyLoading] = useState(true);
   const [autotraderHealth, setAutotraderHealth] = useState<AutotraderHealth | null>(null);
+  const [alertsData, setAlertsData] = useState<AlertsData | null>(null);
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -300,7 +320,7 @@ export default function HealthPage() {
     }
   };
 
-  // Fetch API latency and autotrader health from trading stats gist (T398, T627)
+  // Fetch API latency, autotrader health, and alerts from trading stats gist (T398, T627, T428)
   const fetchTradingStats = async () => {
     setApiLatencyLoading(true);
     try {
@@ -312,6 +332,9 @@ export default function HealthPage() {
       }
       if (data.healthStatus) {
         setAutotraderHealth(data.healthStatus);
+      }
+      if (data.alerts) {
+        setAlertsData(data.alerts);
       }
     } catch (error) {
       console.error('Failed to fetch trading stats:', error);
@@ -740,6 +763,95 @@ export default function HealthPage() {
                 {/* Last Updated */}
                 <div className="mt-3 pt-2 border-t border-slate-700 text-xs text-slate-500 text-center">
                   Updated: {new Date(apiLatency.generated_at).toLocaleString()}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Alert Summary (T428) */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">🚨 Alert History (24h)</h2>
+          <div className={`rounded-lg border p-4 ${
+            !alertsData ? 'bg-slate-500/10 border-slate-500/30' :
+            alertsData.count === 0 ? 'bg-green-500/10 border-green-500/30' :
+            alertsData.count <= 5 ? 'bg-yellow-500/10 border-yellow-500/30' :
+            'bg-red-500/10 border-red-500/30'
+          }`}>
+            {!alertsData ? (
+              <div className="text-slate-400 text-center py-4">
+                <div>🚨 No alert data available</div>
+                <div className="text-xs mt-2">Run upload-alerts-to-gist.py to sync alerts</div>
+              </div>
+            ) : alertsData.count === 0 ? (
+              <div className="text-center py-4">
+                <div className="text-green-400 text-lg">✅ No alerts in the last 24h</div>
+                <div className="text-xs text-slate-400 mt-2">
+                  Last checked: {new Date(alertsData.generated_at).toLocaleString()}
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Alert Count Header */}
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-700">
+                  <div>
+                    <div className="text-sm text-slate-400">Total Alerts</div>
+                    <div className={`text-2xl font-bold ${
+                      alertsData.count <= 3 ? 'text-yellow-400' :
+                      alertsData.count <= 10 ? 'text-orange-400' :
+                      'text-red-400'
+                    }`}>
+                      {alertsData.count}
+                    </div>
+                  </div>
+                  <div className="text-right text-xs text-slate-500">
+                    Last updated: {new Date(alertsData.generated_at).toLocaleString()}
+                  </div>
+                </div>
+
+                {/* Alert List */}
+                <div className="space-y-2 max-h-80 overflow-y-auto">
+                  {alertsData.items.slice(0, 10).map((alert, i) => (
+                    <div key={`${alert.timestamp}-${i}`} className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-xs font-mono px-2 py-0.5 rounded ${
+                            alert.type.includes('divergence') ? 'bg-yellow-500/20 text-yellow-400' :
+                            alert.type.includes('regime') ? 'bg-purple-500/20 text-purple-400' :
+                            alert.type.includes('vol') ? 'bg-blue-500/20 text-blue-400' :
+                            alert.type.includes('whipsaw') ? 'bg-red-500/20 text-red-400' :
+                            'bg-slate-600/50 text-slate-300'
+                          }`}>
+                            {alert.type.replace(/_/g, ' ').replace('momentum ', '')}
+                          </span>
+                          {alert.details?.severity && (
+                            <span className={`text-xs ${
+                              alert.details.severity === 'high' ? 'text-red-400' :
+                              alert.details.severity === 'medium' ? 'text-yellow-400' :
+                              'text-slate-400'
+                            }`}>
+                              {alert.details.severity}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs text-slate-500">
+                          {new Date(alert.timestamp).toLocaleTimeString()}
+                        </span>
+                      </div>
+                      <div className="text-sm text-slate-300">{alert.summary}</div>
+                      {alert.details?.asset && (
+                        <div className="text-xs text-slate-500 mt-1">
+                          {alert.details.asset}
+                          {alert.details.timeframe && ` • ${alert.details.timeframe}`}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  {alertsData.count > 10 && (
+                    <div className="text-center text-xs text-slate-500 pt-2">
+                      ... and {alertsData.count - 10} more alerts
+                    </div>
+                  )}
                 </div>
               </>
             )}

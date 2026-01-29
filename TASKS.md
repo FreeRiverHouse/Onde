@@ -9,12 +9,19 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:10)
 
 ### [T428] Add alert summary to /health page
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show recent alerts history on /health. Read from data/finetuning/*.jsonl to show momentum divergences, regime changes, etc. Display last 24h of alerts with timestamps.
+- **Notes**: ✅ Implemented! 
+  - Created `scripts/upload-alerts-to-gist.py` - aggregates alerts from data/finetuning/*.jsonl and uploads to Gist
+  - Added Alert History (24h) section to /health page
+  - Displays: alert count, type badges (divergence/regime/vol/whipsaw), severity, timestamps
+  - Color-coded: green (0 alerts), yellow (1-5), red (6+)
+  - Scrollable list with max 10 displayed
+  - Run hourly via cron to keep alerts fresh
 
 ### [T429] Autotrader v2 trade count dashboard widget
 - **Status**: TODO
