@@ -895,12 +895,13 @@
 - **Notes**: ✅ Script: analyze-skip-patterns.py. Findings: Old 15%/25% thresholds were too conservative. Current v2 uses 10% for both - appropriate since most skipped trades had <2% edge. 65% of NO skips had positive edge under old thresholds.
 
 ### [T243] Market regime detection (bullish/bearish/sideways)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use 4h/24h price change + volatility to classify market regime. Adjust MIN_EDGE dynamically: lower in trending, higher in choppy markets.
+- **Notes**: ✅ Implemented! detect_market_regime() classifies: trending_bullish, trending_bearish, sideways, choppy. Dynamic MIN_EDGE: 7% trending, 12% sideways, 15% choppy + volatility adjustments. Integrated into find_opportunities() and trade logging.
 
 ### [T244] Implied volatility extraction from Kalshi prices
 - **Status**: TODO
@@ -1075,6 +1076,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add "~X min read" or page count to book cards. Helps users know what they're downloading.
+
+### [T264] Regime change Telegram alert
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T243]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when market regime changes (e.g., sideways→trending_bullish). Helps human review trading strategy adjustments.
+
+### [T265] Analyze win rate by regime
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T243]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Script to compare win rates across different market regimes. Validate if dynamic edge is improving performance.
+
+### [T266] Backtest regime detection on historical data
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T243]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Run regime detection on past OHLC data to see how often each regime occurs and if predictions align with actual price movement.
 
 ---
 

@@ -323,6 +323,136 @@ def adjust_probability_with_momentum(prob: float, strike: float, current_price: 
     return max(0.01, min(0.99, adjusted))
 
 
+# ============== MARKET REGIME DETECTION ==============
+
+def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
+    """
+    Detect market regime based on price action and momentum.
+    
+    Regimes:
+        - "trending_bullish": Strong uptrend, predictable direction
+        - "trending_bearish": Strong downtrend, predictable direction
+        - "sideways": No clear trend, range-bound
+        - "choppy": High volatility with no trend (hardest to trade)
+    
+    Returns:
+        regime: str (one of above)
+        confidence: float (0-1)
+        volatility: str ("low", "normal", "high")
+        dynamic_min_edge: float (adjusted MIN_EDGE for this regime)
+    """
+    result = {
+        "regime": "sideways",
+        "confidence": 0.5,
+        "volatility": "normal",
+        "dynamic_min_edge": MIN_EDGE,  # default
+        "details": {}
+    }
+    
+    if not ohlc_data or len(ohlc_data) < 24:
+        return result
+    
+    # Calculate price changes over different periods
+    current_price = ohlc_data[-1][4] if ohlc_data[-1] else None  # Close price
+    if not current_price:
+        return result
+    
+    # 4-hour price change (last ~4 hourly candles)
+    price_4h_ago = ohlc_data[-4][4] if len(ohlc_data) >= 4 else current_price
+    change_4h = (current_price - price_4h_ago) / price_4h_ago if price_4h_ago else 0
+    
+    # 24-hour price change
+    price_24h_ago = ohlc_data[0][4] if len(ohlc_data) >= 24 else current_price
+    change_24h = (current_price - price_24h_ago) / price_24h_ago if price_24h_ago else 0
+    
+    # Calculate volatility (using range-based proxy)
+    ranges = []
+    for candle in ohlc_data[-24:]:
+        if candle and len(candle) >= 4:
+            high, low = candle[2], candle[3]
+            if low > 0:
+                ranges.append((high - low) / low)
+    
+    avg_range = sum(ranges) / len(ranges) if ranges else 0
+    
+    # Classify volatility
+    if avg_range < 0.003:  # < 0.3% avg range
+        vol_class = "low"
+    elif avg_range > 0.008:  # > 0.8% avg range
+        vol_class = "high"
+    else:
+        vol_class = "normal"
+    
+    result["volatility"] = vol_class
+    result["details"]["avg_range"] = avg_range
+    result["details"]["change_4h"] = change_4h
+    result["details"]["change_24h"] = change_24h
+    
+    # Get momentum data
+    mom_dir = momentum.get("composite_direction", 0) if momentum else 0
+    mom_str = momentum.get("composite_strength", 0) if momentum else 0
+    mom_aligned = momentum.get("alignment", False) if momentum else False
+    
+    result["details"]["momentum_dir"] = mom_dir
+    result["details"]["momentum_str"] = mom_str
+    result["details"]["momentum_aligned"] = mom_aligned
+    
+    # Determine regime
+    abs_4h = abs(change_4h)
+    abs_24h = abs(change_24h)
+    
+    # Strong trend: consistent direction + meaningful price change
+    is_bullish = change_4h > 0.005 and change_24h > 0.01 and mom_dir > 0.2
+    is_bearish = change_4h < -0.005 and change_24h < -0.01 and mom_dir < -0.2
+    
+    if is_bullish and mom_aligned:
+        result["regime"] = "trending_bullish"
+        result["confidence"] = min(0.9, 0.5 + abs_24h * 10 + mom_str * 0.3)
+    elif is_bearish and mom_aligned:
+        result["regime"] = "trending_bearish"
+        result["confidence"] = min(0.9, 0.5 + abs_24h * 10 + mom_str * 0.3)
+    elif vol_class == "high" and abs_24h < 0.02:
+        # High volatility but no directional move = choppy
+        result["regime"] = "choppy"
+        result["confidence"] = 0.7
+    else:
+        result["regime"] = "sideways"
+        result["confidence"] = 0.6
+    
+    # Calculate dynamic MIN_EDGE based on regime
+    # Trending markets = easier to predict = lower edge required
+    # Choppy/sideways = harder = higher edge required
+    if result["regime"] in ("trending_bullish", "trending_bearish"):
+        # Lower edge in trending (easier), even lower if high confidence
+        base_edge = 0.07  # 7% base for trending
+        confidence_adj = (1 - result["confidence"]) * 0.03  # up to 3% more if low confidence
+        result["dynamic_min_edge"] = base_edge + confidence_adj
+    elif result["regime"] == "choppy":
+        # Choppy = highest edge required (hardest to trade)
+        result["dynamic_min_edge"] = 0.15  # 15% minimum
+    else:  # sideways
+        # Sideways = moderate edge
+        result["dynamic_min_edge"] = 0.12  # 12% minimum
+    
+    # Volatility adjustment
+    if vol_class == "high":
+        result["dynamic_min_edge"] += 0.02  # +2% for high vol
+    elif vol_class == "low":
+        result["dynamic_min_edge"] -= 0.01  # -1% for low vol (more predictable)
+    
+    # Ensure min edge stays in reasonable bounds
+    result["dynamic_min_edge"] = max(0.05, min(0.20, result["dynamic_min_edge"]))
+    
+    return result
+
+
+def get_regime_for_asset(asset: str, ohlc_cache: dict, momentum_cache: dict) -> dict:
+    """Get market regime for a specific asset (btc or eth)."""
+    ohlc = ohlc_cache.get(asset, [])
+    momentum = momentum_cache.get(asset, {})
+    return detect_market_regime(ohlc, momentum)
+
+
 # ============== API FUNCTIONS ==============
 
 def sign_request(method: str, path: str, timestamp: str) -> str:
@@ -809,13 +939,15 @@ def parse_time_to_expiry(market: dict) -> float:
         return 999
 
 
-def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, verbose: bool = True) -> list:
-    """Find trading opportunities with PROPER probability model + momentum adjustment
+def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
+                       ohlc_data: dict = None, verbose: bool = True) -> list:
+    """Find trading opportunities with PROPER probability model + momentum adjustment + regime detection
     
     Args:
         markets: List of market dicts from Kalshi API
         prices: Dict with "btc" and "eth" prices
         momentum_data: Dict with "btc" and "eth" momentum dicts
+        ohlc_data: Dict with "btc" and "eth" OHLC data for regime detection
     """
     opportunities = []
     skip_reasons = {
@@ -825,6 +957,18 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         "momentum_conflict": 0,
         "insufficient_edge": []
     }
+    
+    # Calculate market regime for each asset to get dynamic MIN_EDGE
+    regime_cache = {}
+    if ohlc_data and momentum_data:
+        for asset in ["btc", "eth"]:
+            regime_cache[asset] = detect_market_regime(
+                ohlc_data.get(asset, []), 
+                momentum_data.get(asset, {})
+            )
+            if verbose and regime_cache[asset]:
+                r = regime_cache[asset]
+                print(f"   {asset.upper()} regime: {r['regime']} (conf={r['confidence']:.0%}, vol={r['volatility']}, edge={r['dynamic_min_edge']*100:.1f}%)")
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -908,6 +1052,10 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         # Skip NO if strong bullish momentum (unless we have alignment which gives confidence)
         skip_due_to_momentum = False
         
+        # Get dynamic MIN_EDGE from regime detection (falls back to static MIN_EDGE)
+        regime = regime_cache.get(asset, {})
+        dynamic_edge = regime.get("dynamic_min_edge", MIN_EDGE)
+        
         # Check for YES opportunity (we think it'll be above strike)
         # Skip extreme prices (no profit potential or bad risk/reward)
         yes_extreme = yes_ask and (yes_ask <= 5 or yes_ask >= 95)
@@ -916,7 +1064,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         
         if yes_extreme:
             skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
-        elif prob_above > market_prob_yes + MIN_EDGE:
+        elif prob_above > market_prob_yes + dynamic_edge:
             # Skip YES if momentum is strongly bearish (dir < -0.3 with strength > 0.3)
             if mom_dir < -0.3 and mom_str > 0.3:
                 skip_due_to_momentum = True
@@ -940,7 +1088,10 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                     "minutes_left": minutes_left,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
-                    "momentum_aligned": mom_alignment and mom_dir > 0.2
+                    "momentum_aligned": mom_alignment and mom_dir > 0.2,
+                    "regime": regime.get("regime", "unknown"),
+                    "regime_confidence": regime.get("confidence", 0),
+                    "dynamic_min_edge": dynamic_edge
                 })
                 found_opp = True
         
@@ -950,7 +1101,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         if no_extreme:
             if no_price:  # Only count as extreme if we have a price
                 skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
-        elif prob_below > market_prob_no + MIN_EDGE:
+        elif prob_below > market_prob_no + dynamic_edge:
             # Skip NO if momentum is strongly bullish (dir > 0.3 with strength > 0.3)
             if mom_dir > 0.3 and mom_str > 0.3:
                 if not skip_due_to_momentum:  # Don't double count
@@ -974,7 +1125,10 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                     "minutes_left": minutes_left,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
-                    "momentum_aligned": mom_alignment and mom_dir < -0.2
+                    "momentum_aligned": mom_alignment and mom_dir < -0.2,
+                    "regime": regime.get("regime", "unknown"),
+                    "regime_confidence": regime.get("confidence", 0),
+                    "dynamic_min_edge": dynamic_edge
                 })
                 found_opp = True
         
@@ -990,7 +1144,8 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                     "strike": strike,
                     "best_side": best_side,
                     "best_edge": best_edge,
-                    "required_edge": MIN_EDGE,
+                    "required_edge": dynamic_edge,  # Use dynamic edge from regime
+                    "regime": regime.get("regime", "unknown"),
                     "minutes_left": int(minutes_left)
                 })
     
@@ -1108,7 +1263,9 @@ def run_cycle():
     all_markets = btc_markets + eth_markets
     print(f"🔍 Scanning {len(btc_markets)} BTC + {len(eth_markets)} ETH = {len(all_markets)} total markets...")
     
-    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data)
+    # Pass OHLC data for regime detection
+    ohlc_data = {"btc": btc_ohlc, "eth": eth_ohlc}
+    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data)
     
     if not opportunities:
         print("😴 No opportunities found")
@@ -1125,6 +1282,10 @@ def run_cycle():
     print(f"   Base prob: {best.get('base_prob', best['our_prob'])*100:.1f}% → Adjusted: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
     print(f"   Edge: {best['edge']*100:.1f}% (w/bonus: {best.get('edge_with_bonus', best['edge'])*100:.1f}%) | Time left: {best['minutes_left']:.0f}min")
     print(f"   Momentum: dir={best.get('momentum_dir', 0):.2f} str={best.get('momentum_str', 0):.2f}")
+    regime_str = best.get('regime', 'unknown')
+    regime_conf = best.get('regime_confidence', 0)
+    dynamic_edge = best.get('dynamic_min_edge', MIN_EDGE)
+    print(f"   Regime: {regime_str} (conf={regime_conf:.0%}) | Min edge: {dynamic_edge*100:.1f}%")
     
     # Calculate bet size (Kelly)
     if cash < MIN_BET_CENTS / 100:
@@ -1152,7 +1313,7 @@ def run_cycle():
     if order.get("status") == "executed":
         print(f"✅ Order executed!")
         
-        # Log trade (with momentum data)
+        # Log trade (with momentum + regime data)
         log_trade({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "type": "trade",
@@ -1173,6 +1334,9 @@ def run_cycle():
             "momentum_dir": best.get("momentum_dir", 0),
             "momentum_str": best.get("momentum_str", 0),
             "momentum_aligned": best.get("momentum_aligned", False),
+            "regime": best.get("regime", "unknown"),
+            "regime_confidence": best.get("regime_confidence", 0),
+            "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
             "result_status": "pending"
         })
     else:
