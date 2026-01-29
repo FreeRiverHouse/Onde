@@ -454,11 +454,11 @@
 ### [T351] Fix onde.surf BROKEN dopo deploy sbagliato
 - **Status**: DONE
 - **Owner**: @clawd
-- **Completed**: 2026-01-28
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: ✅ Fixed! Redeployed via Wrangler with proper build. Site back online, auth redirect working correctly.
+- **Notes**: ✅ FIXED (2 rounds)! Round 1 (Jan 28): basic wrangler redeploy. Round 2 (Jan 29): Fixed ThemeToggleMinimal export missing (caused global 500), simplified middleware (removed auth() wrapper), added login/layout.tsx with edge runtime. Deploy via Wrangler direct (GH Actions blocked for billing).
 
 ### [T352] Rimuovere "made with love" da onde.la
 - **Status**: DONE

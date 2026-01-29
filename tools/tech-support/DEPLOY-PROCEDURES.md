@@ -6,7 +6,24 @@
 
 ## ONDE.SURF (Surfboard Dashboard)
 
-### Comando Deploy (UNICO METODO)
+### Comando Deploy (METODO WRANGLER - PRIMARIO)
+
+⚠️ **GitHub Actions è bloccato per billing - usa Wrangler diretto!**
+
+```bash
+cd /Users/mattia/Projects/Onde/apps/surfboard
+
+# 1. Build
+npm run build
+npm run build:cf
+
+# 2. Deploy
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
+```
+
+### Metodo Alternativo (GitHub Actions - BLOCCATO!)
 
 ```bash
 gh workflow run deploy-surfboard.yml \
@@ -15,10 +32,7 @@ gh workflow run deploy-surfboard.yml \
   -f reason="DESCRIVI QUI IL MOTIVO DEL DEPLOY"
 ```
 
-### Passphrase
-```
-9eeezNPQwjY8NJl5PL9C0pqTutP642xk
-```
+⚠️ **Attualmente fallisce per billing issue!** Usa Wrangler.
 
 ### Progetto Cloudflare
 - **Nome progetto:** `onde-surf`
@@ -26,18 +40,17 @@ gh workflow run deploy-surfboard.yml \
 
 ### Verifica Deploy
 ```bash
-# Controlla stato workflow
-gh run list -R FreeRiverHouse/Onde --workflow=deploy-surfboard.yml -L 1
-
 # Verifica sito online
 curl -sI "https://onde.surf" | head -3
+
+# Verifica login page
+curl -sI "https://onde.surf/login" | head -3
 ```
 
 ### Se il deploy fallisce
-1. Guarda i log: `gh run view <RUN_ID> -R FreeRiverHouse/Onde --log-failed`
-2. Fixa il problema nel codice
-3. Commit e push
-4. Rilancia il workflow con lo stesso comando
+1. Controlla errori nel build (`npm run build:cf`)
+2. Verifica che non ci siano import mancanti (es. ThemeToggleMinimal bug)
+3. Commit fix e rideploya
 
 ---
 
@@ -143,4 +156,12 @@ CLOUDFLARE_API_TOKEN=RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28*
+### GitHub Actions Billing Issue
+
+GitHub Actions è bloccato su FreeRiverHouse/Onde per problemi di billing. Per ora usa sempre Wrangler diretto.
+
+Per risolvere: Mattia deve controllare Settings → Billing & plans su GitHub.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29*
