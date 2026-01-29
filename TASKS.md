@@ -3107,12 +3107,13 @@
 - **Notes**: Script: analyze-trade-timing.py. Analyze which hour of day and day of week have best edge/win rate. Recommend optimal trading windows. Could inform trading schedule (pause during poor hours). Uses historical trades + cached OHLC volatility data.
 
 ### [T465] Deploy onde.la with health page i18n
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T425]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy onde.la with the new health page translations. Run `./tools/tech-support/deploy-onde-la-prod.sh` and verify /health page shows translations correctly.
+- **Notes**: ✅ Deployed! Built 1022 pages, passed tests, deployed to Cloudflare Pages. Verified HTTP 200, /libri page loads with Meditations book showing "Free". Download analytics (T299) also included in this deploy.
 
 ### [T466] Add i18n completeness check script
 - **Status**: TODO
