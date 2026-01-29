@@ -347,12 +347,13 @@
 - **Notes**: Se momentum è fortemente bullish, considerare YES invece di NO
 
 ### [T091] Log edge calcolato per ogni skip
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Debug: loggare il motivo preciso per cui ogni trade viene skippato
+- **Notes**: ✅ Added verbose skip logging to find_opportunities(). Shows breakdown by skip reason, and for insufficient edge shows top 5 closest opportunities with exact edge gap needed.
 
 ### [T092] PDF formattato "La Repubblica dell'Innovazione"
 - **Status**: DONE
@@ -706,5 +707,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 15:47 PST*
+### [T223] Add ETH (KXETHD) market support to autotrader
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Currently only scans BTC markets. ETH markets (KXETHD) have different volatility - use ETH_HOURLY_VOL constant.
+
+### [T224] Save skip logs to file for pattern analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T091]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Append skip data to scripts/kalshi-skips.jsonl for later analysis of what edges we're missing.
+
+### [T225] Add trade entry reason field to trade logs
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include "reason" field in trade log entry explaining why this trade was taken (edge %, momentum direction, volatility context).
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 16:00 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

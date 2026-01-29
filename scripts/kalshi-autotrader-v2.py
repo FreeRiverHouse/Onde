@@ -563,9 +563,15 @@ def parse_time_to_expiry(market: dict) -> float:
         return 999
 
 
-def find_opportunities(markets: list, btc_price: float) -> list:
+def find_opportunities(markets: list, btc_price: float, verbose: bool = True) -> list:
     """Find trading opportunities with PROPER probability model"""
     opportunities = []
+    skip_reasons = {
+        "not_btc": 0,
+        "no_strike": 0,
+        "too_close_expiry": 0,
+        "insufficient_edge": []
+    }
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -576,21 +582,25 @@ def find_opportunities(markets: list, btc_price: float) -> list:
         no_ask = m.get("no_ask", 0)
         
         if not ticker.startswith("KXBTCD"):
+            skip_reasons["not_btc"] += 1
             continue
         
         # Parse strike from subtitle
         if "$" not in subtitle:
+            skip_reasons["no_strike"] += 1
             continue
         
         try:
             strike_str = subtitle.split("$")[1].split(" ")[0].replace(",", "")
             strike = float(strike_str)
         except:
+            skip_reasons["no_strike"] += 1
             continue
         
         # Get time to expiry
         minutes_left = parse_time_to_expiry(m)
         if minutes_left < MIN_TIME_TO_EXPIRY_MINUTES:
+            skip_reasons["too_close_expiry"] += 1
             continue
         
         # Calculate PROPER probability
@@ -602,6 +612,12 @@ def find_opportunities(markets: list, btc_price: float) -> list:
         # Market implied probabilities
         market_prob_yes = yes_ask / 100 if yes_ask else 0.5
         market_prob_no = (100 - yes_bid) / 100 if yes_bid else 0.5
+        
+        # Calculate edges for both sides
+        yes_edge = prob_above - market_prob_yes
+        no_edge = prob_below - market_prob_no
+        
+        found_opp = False
         
         # Check for YES opportunity (we think it'll be above strike)
         if prob_above > market_prob_yes + MIN_EDGE:
@@ -617,6 +633,7 @@ def find_opportunities(markets: list, btc_price: float) -> list:
                 "current": btc_price,
                 "minutes_left": minutes_left
             })
+            found_opp = True
         
         # Check for NO opportunity (we think it'll be below strike)  
         if prob_below > market_prob_no + MIN_EDGE:
@@ -632,6 +649,39 @@ def find_opportunities(markets: list, btc_price: float) -> list:
                 "current": btc_price,
                 "minutes_left": minutes_left
             })
+            found_opp = True
+        
+        # Log skip reason if no opportunity found
+        if not found_opp:
+            best_edge = max(yes_edge, no_edge)
+            best_side = "YES" if yes_edge > no_edge else "NO"
+            skip_reasons["insufficient_edge"].append({
+                "ticker": ticker,
+                "strike": strike,
+                "best_side": best_side,
+                "best_edge": best_edge,
+                "required_edge": MIN_EDGE,
+                "minutes_left": int(minutes_left)
+            })
+    
+    # Log skip summary if verbose
+    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"]):
+        print(f"\n📋 Skip Summary:")
+        if skip_reasons["not_btc"]:
+            print(f"   - Not BTC markets: {skip_reasons['not_btc']}")
+        if skip_reasons["no_strike"]:
+            print(f"   - No strike parsed: {skip_reasons['no_strike']}")
+        if skip_reasons["too_close_expiry"]:
+            print(f"   - Too close to expiry (<{MIN_TIME_TO_EXPIRY_MINUTES}min): {skip_reasons['too_close_expiry']}")
+        
+        if skip_reasons["insufficient_edge"]:
+            print(f"   - Insufficient edge (need >{MIN_EDGE*100:.0f}%): {len(skip_reasons['insufficient_edge'])}")
+            # Show top 5 closest to having edge
+            sorted_by_edge = sorted(skip_reasons["insufficient_edge"], key=lambda x: x["best_edge"], reverse=True)
+            for skip in sorted_by_edge[:5]:
+                edge_pct = skip["best_edge"] * 100
+                gap = (MIN_EDGE - skip["best_edge"]) * 100
+                print(f"      {skip['ticker']} | Strike ${skip['strike']:,.0f} | {skip['best_side']} edge {edge_pct:+.1f}% (need {gap:.1f}% more) | {skip['minutes_left']}min left")
     
     # Sort by edge
     opportunities.sort(key=lambda x: x["edge"], reverse=True)
