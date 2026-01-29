@@ -869,9 +869,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
         
         # Check for YES opportunity (we think it'll be above strike)
         # Skip extreme prices (no profit potential or bad risk/reward)
-        if yes_ask and yes_ask <= 5:
-            skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
-        elif yes_ask and yes_ask >= 95:
+        yes_extreme = yes_ask and (yes_ask <= 5 or yes_ask >= 95)
+        no_price = 100 - yes_bid if yes_bid else None
+        no_extreme = not no_price or no_price <= 5 or no_price >= 95
+        
+        if yes_extreme:
             skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
         elif prob_above > market_prob_yes + MIN_EDGE:
             # Skip YES if momentum is strongly bearish (dir < -0.3 with strength > 0.3)
@@ -902,10 +904,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                 found_opp = True
         
         # Check for NO opportunity (we think it'll be below strike)
-        no_price = 100 - yes_bid if yes_bid else None
         # Skip extreme NO prices (no profit potential or bad risk/reward)
-        if no_price and (no_price <= 5 or no_price >= 95):
-            skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
+        # Also skip if no_price is None (no bid available)
+        if no_extreme:
+            if no_price:  # Only count as extreme if we have a price
+                skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
         elif prob_below > market_prob_no + MIN_EDGE:
             # Skip NO if momentum is strongly bullish (dir > 0.3 with strength > 0.3)
             if mom_dir > 0.3 and mom_str > 0.3:
@@ -934,18 +937,21 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, 
                 })
                 found_opp = True
         
-        # Log skip reason if no opportunity found
-        if not found_opp:
+        # Log skip reason if no opportunity found (but not due to extreme price)
+        if not found_opp and not (yes_extreme and no_extreme):
             best_edge = max(yes_edge, no_edge)
             best_side = "YES" if yes_edge > no_edge else "NO"
-            skip_reasons["insufficient_edge"].append({
-                "ticker": ticker,
-                "strike": strike,
-                "best_side": best_side,
-                "best_edge": best_edge,
-                "required_edge": MIN_EDGE,
-                "minutes_left": int(minutes_left)
-            })
+            # Only log if best side wasn't skipped due to extreme price
+            skip_due_to_price = (best_side == "YES" and yes_extreme) or (best_side == "NO" and no_extreme)
+            if not skip_due_to_price:
+                skip_reasons["insufficient_edge"].append({
+                    "ticker": ticker,
+                    "strike": strike,
+                    "best_side": best_side,
+                    "best_edge": best_edge,
+                    "required_edge": MIN_EDGE,
+                    "minutes_left": int(minutes_left)
+                })
     
     # Log skip summary if verbose
     if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price")):
