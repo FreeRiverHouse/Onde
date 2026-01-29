@@ -31,6 +31,7 @@ interface TradingStats {
   grossProfitCents: number;
   grossLossCents: number;
   profitFactor: number;  // gross profit / gross loss - key metric for strategy health
+  sharpeRatio: number;   // risk-adjusted return: (avg return) / std dev of returns
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -92,6 +93,36 @@ export async function GET() {
     // Profit Factor: gross profit / gross loss (>1 = profitable strategy)
     const profitFactor = grossLossCents > 0 ? grossProfitCents / grossLossCents : (grossProfitCents > 0 ? Infinity : 0);
 
+    // Sharpe Ratio: (average return) / std dev of returns
+    // For binary options: return = profit/cost as percentage
+    // Only calculate for settled trades (won or lost)
+    const settledTrades = trades.filter(t => t.result_status === 'won' || t.result_status === 'lost');
+    const returns: number[] = [];
+    
+    for (const trade of settledTrades) {
+      const cost = trade.cost_cents || trade.price_cents || 1;
+      const contracts = trade.contracts || 1;
+      const price = trade.price_cents || 0;
+      
+      if (trade.result_status === 'won') {
+        // Profit percentage: (100 - price) * contracts / cost
+        const profit = (100 - price) * contracts;
+        returns.push(profit / cost);
+      } else {
+        // Loss percentage: -price * contracts / cost = -1 (full loss)
+        returns.push(-1);
+      }
+    }
+    
+    let sharpeRatio = 0;
+    if (returns.length >= 2) {
+      const avgReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
+      const variance = returns.reduce((sum, r) => sum + Math.pow(r - avgReturn, 2), 0) / returns.length;
+      const stdDev = Math.sqrt(variance);
+      // Sharpe = mean / std (assuming risk-free rate = 0 for short-term trades)
+      sharpeRatio = stdDev > 0 ? avgReturn / stdDev : 0;
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -120,6 +151,7 @@ export async function GET() {
       grossProfitCents,
       grossLossCents,
       profitFactor: Number.isFinite(profitFactor) ? Math.round(profitFactor * 100) / 100 : 0,
+      sharpeRatio: Math.round(sharpeRatio * 100) / 100,  // Round to 2 decimal places
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

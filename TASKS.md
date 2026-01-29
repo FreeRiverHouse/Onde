@@ -1172,12 +1172,13 @@
 - **Notes**: ✅ Added! API now returns grossProfitCents, grossLossCents, profitFactor. Dashboard shows Profit Factor card with color coding (>1.5=strong, >1=profitable). Grid expanded to 6 columns.
 
 ### [T274] Sharpe ratio calculation for trading strategy
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T273]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Sharpe ratio (risk-adjusted returns) to trading stats. Calculate: (avg return - risk-free) / std dev of returns. Needs daily PnL history.
+- **Notes**: ✅ Added! API returns sharpeRatio (avg return / std dev). Dashboard shows Sharpe Ratio card with color coding (≥2=excellent, ≥1=good, ≥0=fair, <0=poor). Grid changed to 4-column layout.
 
 ### [T275] Max drawdown tracking
 - **Status**: TODO

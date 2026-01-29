@@ -71,6 +71,7 @@ interface TradingStats {
   grossProfitCents?: number;
   grossLossCents?: number;
   profitFactor?: number;  // gross profit / gross loss (>1 = profitable)
+  sharpeRatio?: number;   // risk-adjusted return metric
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -671,7 +672,7 @@ export default function BettingDashboard() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Win Rate */}
               <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -751,6 +752,23 @@ export default function BettingDashboard() {
                 />
                 <p className="text-xs text-gray-600 mt-1">
                   {(tradingStats.profitFactor ?? 0) >= 1.5 ? 'strong' : (tradingStats.profitFactor ?? 0) >= 1 ? 'profitable' : 'needs work'}
+                </p>
+              </GlassCard>
+
+              {/* Sharpe Ratio */}
+              <GlassCard glowColor={(tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Sharpe Ratio</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.sharpeRatio ?? 0} 
+                  decimals={2}
+                  glowColor={(tradingStats.sharpeRatio ?? 0) >= 1 ? 'green' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {(tradingStats.sharpeRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sharpeRatio ?? 0) >= 1 ? 'good' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'fair' : 'poor'}
                 </p>
               </GlassCard>
 
