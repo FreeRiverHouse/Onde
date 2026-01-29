@@ -142,6 +142,48 @@ memory/YYYY-MM-DD.md → Daily logs (conversazioni, azioni, eventi)
 
 ---
 
+## 🔵 REGOLA 4: VERIFICA PRIMA DI CONFERMARE
+
+> **MAI dire "fatto" senza VERIFICARE che sia davvero fatto!**
+
+### Il problema "dice di fare ma non fa"
+Un bot può:
+1. Chiamare una funzione di scrittura
+2. Ricevere "success"
+3. Ma il file non esiste o è vuoto!
+
+### La soluzione: VERIFICA SEMPRE
+Dopo ogni operazione importante:
+```bash
+# Dopo scrittura file
+cat /path/to/file   # O almeno: ls -la /path/to/file
+
+# Dopo commit
+git log -1          # Verifica commit esista
+
+# Dopo push
+git status          # Verifica sia pulito
+```
+
+### Quando verificare:
+- ✅ Dopo scrittura in `memory/*.md`
+- ✅ Dopo modifica `TASKS.md`
+- ✅ Dopo commit/push
+- ✅ Dopo deploy
+- ✅ Dopo qualsiasi operazione che l'utente si aspetta completata
+
+### ⛔ MAI
+- Dire "ho loggato X" senza verificare il file
+- Dire "commit fatto" senza `git log -1`
+- Dire "deploy ok" senza `curl` di verifica
+- Fidarsi ciecamente del "success" di una tool call
+
+### 💡 Tip
+> Il costo di una verifica è ~0.
+> Il costo di perdere la fiducia dell'utente è ENORME.
+
+---
+
 ## 📋 CHECKLIST RAPIDA
 
 Prima di ogni sessione:
@@ -156,6 +198,7 @@ Durante il lavoro:
 - [ ] Commit frequenti
 - [ ] Push dopo ogni task completato
 - [ ] **Logga eventi importanti in memory/**
+- [ ] **VERIFICA ogni scrittura con cat/ls**
 
 A fine sessione:
 - [ ] Tutti i task completati → DONE
@@ -167,15 +210,16 @@ A fine sessione:
 
 ## 🎯 IL SISTEMA OLIATO
 
-Queste 4 regole creano un sistema che:
+Queste 5 regole creano un sistema che:
 1. **Non perde lavoro** (git)
 2. **Non ripete errori** (procedure)
 3. **Non dimentica richieste** (task extraction)
-4. **RICORDA TUTTO** (memory persistente) ← **RULE N3!**
+4. **RICORDA TUTTO** (memory persistente)
+5. **NON MENTE** (verifica prima di confermare) ← **NEW!**
 
 Seguile sempre. Senza eccezioni.
 
 ---
 
 *Creato: 2026-01-29*
-*Ultimo update: 2026-01-29*
+*Ultimo update: 2026-01-29 09:40 - Aggiunta REGOLA 4 (verifica)*
