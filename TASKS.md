@@ -437,6 +437,44 @@
 - **Priority**: P2
 - **Notes**: Deploy blocked due to GitHub Actions billing limit. Mattia needs to check billing or switch to Cloudflare Pages direct.
 
+---
+
+## 🚨 PRIORITÀ MASSIMA - DEPLOY GRATIS
+
+### [T350] Deploy GRATIS per tutti i siti FRH
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
+- **Blocks**: [T351], [T352]
+- **Priority**: P0
+- **Notes**: ✅ Solved! Both sites deploy free via Cloudflare Pages + Wrangler. onde.la uses deploy-onde-la-prod.sh. onde.surf uses wrangler pages deploy. No GH Actions needed.
+
+### [T351] Fix onde.surf BROKEN dopo deploy sbagliato
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: ✅ Fixed! Redeployed via Wrangler with proper build. Site back online, auth redirect working correctly.
+
+### [T352] Rimuovere "made with love" da onde.la
+- **Status**: TODO
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Footer onde.la ha ancora "Built with ⚡ by FreeRiverHouse". Mattia vuole rimuoverlo.
+
+### [T353] Sistemare onde.la mezzo italiano mezzo inglese
+- **Status**: TODO
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: onde.la ha mix di italiano e inglese. Decidere lingua principale e uniformare tutto.
+
 ### [T207] Create centralized test-pre-deploy.sh script
 - **Status**: DONE
 - **Owner**: @clawd
