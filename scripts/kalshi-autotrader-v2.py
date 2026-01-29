@@ -77,6 +77,10 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
 SKIP_LOG_FILE = "scripts/kalshi-skips.jsonl"
 
+# Dry run mode - log trades without executing
+DRY_RUN = os.getenv("DRY_RUN", "false").lower() in ("true", "1", "yes")
+DRY_RUN_LOG_FILE = "scripts/kalshi-trades-dryrun.jsonl"
+
 # Circuit breaker config (consecutive losses)
 CIRCUIT_BREAKER_THRESHOLD = int(os.getenv("CIRCUIT_BREAKER_THRESHOLD", "5"))  # Auto-pause after N consecutive losses
 CIRCUIT_BREAKER_ALERT_FILE = "scripts/kalshi-circuit-breaker.alert"
@@ -1162,6 +1166,15 @@ def log_trade(trade_data: dict):
         f.write(json.dumps(trade_data) + "\n")
 
 
+def log_dry_run_trade(trade_data: dict):
+    """Log a simulated trade (dry run mode)"""
+    trade_data["dry_run"] = True
+    log_path = Path(DRY_RUN_LOG_FILE)
+    log_path.parent.mkdir(exist_ok=True)
+    with open(log_path, "a") as f:
+        f.write(json.dumps(trade_data) + "\n")
+
+
 # ============== OPPORTUNITY FINDING ==============
 
 def parse_time_to_expiry(market: dict) -> float:
@@ -1564,6 +1577,41 @@ def run_cycle():
         print("❌ Bet too small")
         return
     
+    # Build trade data for logging
+    trade_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "trade",
+        "ticker": best["ticker"],
+        "asset": best.get("asset", "btc"),
+        "side": best["side"],
+        "contracts": contracts,
+        "price_cents": best["price"],
+        "cost_cents": contracts * best["price"],
+        "edge": best["edge"],
+        "edge_with_bonus": best.get("edge_with_bonus", best["edge"]),
+        "our_prob": best["our_prob"],
+        "base_prob": best.get("base_prob", best["our_prob"]),
+        "market_prob": best["market_prob"],
+        "strike": best["strike"],
+        "current_price": best["current"],
+        "minutes_to_expiry": best["minutes_left"],
+        "momentum_dir": best.get("momentum_dir", 0),
+        "momentum_str": best.get("momentum_str", 0),
+        "momentum_aligned": best.get("momentum_aligned", False),
+        "regime": best.get("regime", "unknown"),
+        "regime_confidence": best.get("regime_confidence", 0),
+        "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
+        "result_status": "pending"
+    }
+    
+    if DRY_RUN:
+        # Dry run mode - log without executing
+        print(f"\n🧪 [DRY RUN] Would place order: {contracts} contracts @ {best['price']}¢")
+        print(f"   🧪 Simulating execution (no real money at risk)")
+        log_dry_run_trade(trade_data)
+        print(f"✅ [DRY RUN] Trade logged to {DRY_RUN_LOG_FILE}")
+        return
+    
     print(f"\n💸 Placing order: {contracts} contracts @ {best['price']}¢")
     
     # Place order (with latency tracking)
@@ -1582,32 +1630,8 @@ def run_cycle():
         
         # Log trade (with momentum + regime data + latency)
         print(f"   ⏱️  Order latency: {latency_ms}ms")
-        log_trade({
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "type": "trade",
-            "ticker": best["ticker"],
-            "asset": best.get("asset", "btc"),
-            "side": best["side"],
-            "contracts": contracts,
-            "price_cents": best["price"],
-            "cost_cents": contracts * best["price"],
-            "edge": best["edge"],
-            "edge_with_bonus": best.get("edge_with_bonus", best["edge"]),
-            "our_prob": best["our_prob"],
-            "base_prob": best.get("base_prob", best["our_prob"]),
-            "market_prob": best["market_prob"],
-            "strike": best["strike"],
-            "current_price": best["current"],
-            "minutes_to_expiry": best["minutes_left"],
-            "momentum_dir": best.get("momentum_dir", 0),
-            "momentum_str": best.get("momentum_str", 0),
-            "momentum_aligned": best.get("momentum_aligned", False),
-            "regime": best.get("regime", "unknown"),
-            "regime_confidence": best.get("regime_confidence", 0),
-            "dynamic_min_edge": best.get("dynamic_min_edge", MIN_EDGE),
-            "latency_ms": latency_ms,
-            "result_status": "pending"
-        })
+        trade_data["latency_ms"] = latency_ms
+        log_trade(trade_data)
     else:
         print(f"⏳ Order status: {order.get('status')}")
 
@@ -1617,6 +1641,9 @@ def main():
     print("🚀 Starting Kalshi AutoTrader v2")
     print("   With PROPER probability model and feedback loop!")
     print("   Now trading: BTC (KXBTCD) + ETH (KXETHD) markets!")
+    if DRY_RUN:
+        print("   🧪 DRY RUN MODE - No real trades will be executed!")
+        print(f"   📝 Trades logged to: {DRY_RUN_LOG_FILE}")
     print("   Press Ctrl+C to stop\n")
     
     while True:

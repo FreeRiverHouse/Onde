@@ -1443,12 +1443,39 @@
 - **Notes**: Audit /betting page on mobile viewports. Fix any overflow/layout issues. 15 stat cards might need collapsible sections on small screens.
 
 ### [T305] Autotrader dry-run mode for strategy testing
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Implemented! DRY_RUN=true env flag logs trades to kalshi-trades-dryrun.jsonl without executing. Shows 🧪 indicator in console. Useful for backtesting new strategies without risking capital.
+
+---
+
+### [T306] Analyze dry-run trades vs actual outcomes
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T305]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare kalshi-trades-dryrun.jsonl trades against settlement data. Shows theoretical win rate and PnL. Useful for validating new strategies before going live.
+
+### [T307] Position sizing comparison (fixed vs Kelly)
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P2
-- **Notes**: Add DRY_RUN=true env flag to log trades without executing. Useful for testing new strategies/thresholds without risking capital. Log to separate kalshi-trades-dryrun.jsonl.
+- **Priority**: P3
+- **Notes**: Analysis script comparing actual Kelly-based position sizing vs fixed-size betting. Calculate which would have better risk-adjusted returns on historical data.
+
+### [T308] API rate limit monitoring
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track Kalshi/CoinGecko API call counts per hour. Alert if approaching rate limits. Add headers logging for remaining quota.
 
 ---
 
