@@ -1086,12 +1086,13 @@
 - **Notes**: Alert when market regime changes (e.g., sideways→trending_bullish). Helps human review trading strategy adjustments.
 
 ### [T265] Analyze win rate by regime
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T243]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Script to compare win rates across different market regimes. Validate if dynamic edge is improving performance.
+- **Notes**: ✅ Script: analyze-winrate-by-regime.py. Reads from kalshi-trades-v2.jsonl, groups by regime (trending_bullish/bearish, sideways, choppy), calculates win rate/PnL/ROI per regime, compares performance. Awaiting v2 trades for data.
 
 ### [T266] Backtest regime detection on historical data
 - **Status**: TODO
