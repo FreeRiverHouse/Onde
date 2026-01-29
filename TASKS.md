@@ -3003,12 +3003,13 @@
 - **Notes**: Script: seo-audit.sh. Crawl site for: broken internal links (404), images missing alt text, missing meta descriptions, orphan pages. Output report to data/seo/audit-YYYY-MM-DD.json. Integrate with deploy verification.
 
 ### [T453] Deploy onde.la with a11y + catalog improvements
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T334], [T335]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy latest changes: category pill filters with URL persistence, WCAG accessibility fixes. Use deploy-onde-la-prod.sh. Verify with curl.
+- **Notes**: ✅ Deployed! Category pill filters, URL persistence, WCAG fixes all live on onde.la. Verified: HTTP 200, content correct.
 
 ### [T454] Skip-to-content link for keyboard accessibility
 - **Status**: TODO
