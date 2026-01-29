@@ -61,3 +61,7 @@
 ### 19:23 PST [msg:152]
 > Bene! Ora fai fare due cicli di revisione a entrambi gli agenti. In serie (rilegge/rived, rilegge/rivede comfrontando originale e trad. So che è un task complesso ma se lo implementiamo bene, renderá la nostta procedura top e la casa editrice andrà meglio. Anche per il bene di chi legge! Datti da fare con modello top disponibile su M4 (quei due agenti NON DEVONO MAI USARE TOKEN CLAUDE, scrivilo negli script procedure)
 
+
+### 19:29 PST [msg:158]
+> Mi dici 10 cose più fighe da installare nel nostro server Minecraft ? Che piacciano a Neri, mio figlio di 7 anni che è super intelligente creativo curioso sensibile geniale matematico etch😉
+
