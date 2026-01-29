@@ -1,0 +1,14 @@
+{
+  "generated": "2026-01-29T03:31:08.345782",
+  "period_days": 7,
+  "sources": {
+    "kalshi": {
+      "total_events": 7,
+      "errors": 0,
+      "successes": 7,
+      "error_rate": 0.0,
+      "success_rate": 100.0,
+      "sample_errors": []
+    }
+  }
+}

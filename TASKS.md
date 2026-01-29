@@ -2643,12 +2643,13 @@
 - **Notes**: Script to recommend trading windows based on historical performance. Output: suggested active hours, days to avoid, confidence intervals. Could feed into autotrader to pause during historically bad times.
 
 ### [T413] Track API error rates per source
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T384]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log success/failure for each API call (Kalshi, CoinGecko, Coinbase, Binance). Weekly report showing error rate % per source. Helps identify unreliable APIs before they cause trading issues.
+- **Notes**: ✅ Script: analyze-api-errors.py. Parses autotrader-v2.log for error patterns per source (Kalshi, CoinGecko, Binance, Coinbase, network). Detects retry attempts, timeouts, rate limits. Outputs success/error rates with sample errors. Stats saved to data/trading/api-error-stats.json. Usage: `python3 scripts/analyze-api-errors.py --days 7`
 
 ### [T414] Auto-pause autotrader during market holidays
 - **Status**: TODO
@@ -3180,4 +3181,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add signal handler (SIGTERM/SIGINT) to autotrader that prints session summary before exit: trades made, win rate, PnL, hours running, positions left open. Log to file for crash analysis.
+
+### [T474] Weekly API error rate cron job
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T413]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add cron job (Sundays 09:00 UTC) to run analyze-api-errors.py and generate weekly report. Send summary to Telegram if error rate >5% for any source. Helps catch degrading APIs early.
+
+### [T475] Alert on high API error rate
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T413]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend analyze-api-errors.py to write kalshi-api-error.alert when any source exceeds 10% error rate over 24h. Add to HEARTBEAT.md pickup. Integrates with existing alert infrastructure.
+
+### [T476] API error stats on /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T413]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add API reliability section to /health page showing error rates per source from data/trading/api-error-stats.json. Color-coded status indicators (green/yellow/red). Requires server-side or GitHub Gist storage for static export.
 
