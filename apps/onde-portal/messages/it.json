@@ -207,6 +207,22 @@
       }
     }
   },
+  "readingList": {
+    "badge": "La Tua Collezione",
+    "title": "La Mia Lista di Lettura",
+    "subtitleWithBooks": "{count} libro salvato per dopo",
+    "subtitleWithBooksPlural": "{count} libri salvati per dopo",
+    "subtitleEmpty": "Salva i libri che vuoi leggere più tardi",
+    "browsLibrary": "Sfoglia la Libreria",
+    "clearList": "Svuota Lista",
+    "emptyTitle": "La tua lista di lettura è vuota",
+    "emptyDescription": "Sfoglia la nostra libreria e clicca sull'icona del segnalibro su qualsiasi libro per salvarlo.",
+    "exploreBooks": "Esplora i Nostri Libri",
+    "inReadingList": "nella lista di lettura",
+    "addToList": "Aggiungi alla lista di lettura",
+    "removeFromList": "Rimuovi dalla lista di lettura",
+    "notDownloadedYet": "Non ancora scaricato"
+  },
   "apps": {
     "badge": "Prossimamente",
     "title": "App in Arrivo",

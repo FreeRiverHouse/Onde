@@ -2462,12 +2462,13 @@
 - **Notes**: Add configurable daily profit target ($X). Show progress bar on /betting dashboard. Alert when goal reached or when significantly behind. Track goal hit rate over time.
 
 ### [T380] Reading list / bookmark feature for books
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Allow users to save books to "My Reading List" (localStorage). Show bookmark icon on book cards. Dedicated /my-books page to view saved titles. UX improvement for return visitors.
+- **Notes**: ✅ Implemented! useReadingList hook (localStorage), bookmark buttons on /libri book cards, reading list counter in hero, dedicated /my-books page with empty state + bookmarked books grid. i18n translations added (EN/IT). Clear list button.
 
 ### [T381] Use cached OHLC in autotrader momentum calculation
 - **Status**: DONE
@@ -3315,4 +3316,28 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: ✅ Created scripts/autotrader-health.py. Outputs JSON to data/trading/autotrader-health.json with: process status, last trade info, 24h win rate, log activity, recent errors. Exit codes: 0=healthy, 1=warning, 2=critical. Can be pushed to gist for external monitoring.
+
+### [T489] Shareable reading list URL
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T380]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "Share List" button to /my-books page. Generates URL with bookmarked book IDs encoded (e.g., /my-books?books=meditations,shepherds-promise). Recipients can view shared list without it being added to their localStorage. Social sharing friendly.
+
+### [T490] Recently viewed books tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T380]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track last 5 books viewed by user (localStorage). Show "Recently Viewed" section on /libri page. Uses similar pattern to useReadingList hook. Helps users find books they were looking at but didn't bookmark.
+
+### [T491] Unified book data source for /libri and /my-books
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T380]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Currently both pages have duplicate book arrays. Create shared books.ts data file with all book info. Import in both pages. Single source of truth. Easier to add new books and maintain consistency.
 

@@ -207,6 +207,22 @@
       }
     }
   },
+  "readingList": {
+    "badge": "Your Collection",
+    "title": "My Reading List",
+    "subtitleWithBooks": "{count} book saved for later",
+    "subtitleWithBooksPlural": "{count} books saved for later",
+    "subtitleEmpty": "Save books you want to read later",
+    "browsLibrary": "Browse Library",
+    "clearList": "Clear List",
+    "emptyTitle": "Your reading list is empty",
+    "emptyDescription": "Browse our library and click the bookmark icon on any book to save it for later.",
+    "exploreBooks": "Explore Our Books",
+    "inReadingList": "in reading list",
+    "addToList": "Add to reading list",
+    "removeFromList": "Remove from reading list",
+    "notDownloadedYet": "Not downloaded yet"
+  },
   "apps": {
     "badge": "Coming Soon",
     "title": "Apps Coming Soon",

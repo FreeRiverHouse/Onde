@@ -6,6 +6,7 @@ import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { useTranslations } from '@/i18n'
 import { useDownloadTracker } from '@/hooks/useDownloadTracker'
+import { useReadingList } from '@/hooks/useReadingList'
 import { useState, useEffect } from 'react'
 
 interface Book {
@@ -60,6 +61,7 @@ const books: Book[] = [
 export default function LibriPage() {
   const t = useTranslations()
   const { trackDownload, getBookStats, getTotalDownloads } = useDownloadTracker()
+  const { toggleBookmark, isBookmarked, getReadingListCount, mounted: readingListMounted } = useReadingList()
   const [mounted, setMounted] = useState(false)
   
   useEffect(() => {
@@ -68,6 +70,10 @@ export default function LibriPage() {
 
   const handleDownload = (bookId: string, format: 'pdf' | 'epub') => {
     trackDownload(bookId, format)
+  }
+
+  const handleBookmark = (bookId: string) => {
+    toggleBookmark(bookId)
   }
 
   return (
@@ -93,21 +99,39 @@ export default function LibriPage() {
             gradient="coral"
           />
           
-          {/* Total Downloads Counter */}
-          {mounted && getTotalDownloads() > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full
-                         bg-green-100 text-green-700 text-sm font-medium"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" />
-              </svg>
-              {getTotalDownloads()} total downloads
-            </motion.div>
-          )}
+          {/* Stats Counters */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            {mounted && getTotalDownloads() > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                           bg-green-100 text-green-700 text-sm font-medium"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" />
+                </svg>
+                {getTotalDownloads()} total downloads
+              </motion.div>
+            )}
+            {readingListMounted && getReadingListCount() > 0 && (
+              <motion.a
+                href="/my-books"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                           bg-amber-100 text-amber-700 text-sm font-medium
+                           hover:bg-amber-200 transition-colors cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                </svg>
+                {getReadingListCount()} in reading list
+              </motion.a>
+            )}
+          </div>
         </div>
       </section>
 
@@ -137,13 +161,32 @@ export default function LibriPage() {
                                bg-amber-900/80 text-amber-100 backdrop-blur-md shadow-lg">
                   {book.category}
                 </span>
-                {/* Price Badge */}
-                <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg
-                               ${book.isFree
-                                 ? 'bg-green-500 text-white'
-                                 : 'bg-amber-500 text-white'}`}>
-                  {book.price}
-                </span>
+                {/* Bookmark + Price Badges */}
+                <div className="absolute top-4 right-4 flex items-center gap-2">
+                  {/* Bookmark Button */}
+                  {readingListMounted && (
+                    <button
+                      onClick={() => handleBookmark(book.id)}
+                      aria-label={isBookmarked(book.id) ? 'Remove from reading list' : 'Add to reading list'}
+                      className={`p-2 rounded-xl shadow-lg backdrop-blur-md transition-all duration-300
+                                 ${isBookmarked(book.id)
+                                   ? 'bg-amber-500 text-white hover:bg-amber-600'
+                                   : 'bg-white/80 text-amber-900 hover:bg-amber-100'}`}
+                    >
+                      <svg className="w-4 h-4" fill={isBookmarked(book.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                      </svg>
+                    </button>
+                  )}
+                  {/* Price Badge */}
+                  <span className={`px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg
+                                 ${book.isFree
+                                   ? 'bg-green-500 text-white'
+                                   : 'bg-amber-500 text-white'}`}>
+                    {book.price}
+                  </span>
+                </div>
               </div>
 
               {/* Content */}
