@@ -228,14 +228,20 @@
     - **Benchmark: 0.35x RTF = 3x faster than real-time!**
     - Created CLI prototype: `apps/whisperflow/whisperflow-cli.py`
     - Research doc: `data/research/whisperflow-research-2026-01-30.md`
+  - **✅ VAD integration (2026-01-29 13:48):**
+    - Installed Silero VAD with PyTorch
+    - Created `apps/whisperflow/whisperflow-vad.py`
+    - Voice-activated transcription working!
+    - Python venv with torch, torchaudio, sounddevice
+    - README.md with full documentation
   - **Tech stack (decided):**
     - **Whisper.cpp** ✅ - Installed, benchmarked, works great
-    - **Silero VAD** - Next step for voice detection
+    - **Silero VAD** ✅ - Integrated for voice detection
     - SwiftUI for menu bar app
   - **Features MVP:**
     - [x] CLI prototype with transcription
     - [x] Benchmark on M1 Pro
-    - [ ] Streaming mode with VAD
+    - [x] Streaming mode with VAD ✅
     - [ ] Menu bar app (macOS)
     - [ ] Copy to clipboard / overlay
   - **Future (VR ready):**
@@ -243,6 +249,30 @@
     - [ ] Multi-language
     - [ ] Speaker diarization
   - Se funziona → rilasciare gratis/freemium
+
+### [T434] WhisperFlow: Create macOS menu bar app (SwiftUI)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T411]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create native macOS menu bar app with SwiftUI. Features: icon in menu bar, click to start/stop recording, show transcription in dropdown, copy to clipboard button.
+
+### [T435] WhisperFlow: Add global hotkey support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Global keyboard shortcut (e.g., Cmd+Shift+T) to start/stop transcription from anywhere.
+
+### [T436] WhisperFlow: Add text overlay mode
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Floating overlay window that shows transcription in real-time. Position adjustable, semi-transparent background.
 
 ---
 
