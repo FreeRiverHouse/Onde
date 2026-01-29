@@ -4000,12 +4000,13 @@
 - **Notes**: Implement memory persistence for Onde-bot. Same approach as T656/T657. Needs proper memory protocol in onde.surf codebase. Check D1 database for conversation storage options.
 
 ### [T659] Create universal memory engagement rules
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawdbot
+- **Completed**: 2026-01-29
 - **Depends**: [T656], [T657], [T658]
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Create unified memory/engagement rules for ALL FRH agents. Add to AGENTS.md in ALL repos: 1) MEMORY.md = long-term, 2) memory/*.md = daily logs, 3) MUST search memory before answering history questions, 4) MUST log significant events. Create template AGENTS.md section for memory protocol.
+- **Notes**: ✅ Created `templates/AGENTS-MEMORY-SECTION.md` with universal memory protocol. Updated AGENTS.md in Onde and clawd repos. Template includes: REGOLE FONDAMENTALI, memory protocol, logging format, checklist for new repos.
 
 ### [T660] Add RULE N3 to REGOLE-AGENTI.md
 - **Status**: DONE
