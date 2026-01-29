@@ -1827,12 +1827,13 @@
 - **Notes**: ✅ Script: analyze-dryrun-trades.py. Parses KXBTCD/KXETHD tickers, fetches settlement prices from CoinGecko, calculates win rate + theoretical PnL. Caches results. Use: `python3 scripts/analyze-dryrun-trades.py --days 7`
 
 ### [T307] Position sizing comparison (fixed vs Kelly)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analysis script comparing actual Kelly-based position sizing vs fixed-size betting. Calculate which would have better risk-adjusted returns on historical data.
+- **Notes**: ✅ Script: analyze-position-sizing.py. Simulates Full/Half/Quarter Kelly + Fixed $1/2/5. Calculates: return %, max drawdown, Sharpe ratio, avg bet size. V1 data shows 0% WR killed all aggressive strategies. Recommendation: smaller sizing beats Kelly when edge is uncertain. Results: data/trading/position-sizing-comparison.json
 
 ### [T308] API rate limit monitoring
 - **Status**: DONE
@@ -3076,3 +3077,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Extend kalshi-weekly-report.py to include divergence signals section: signals fired, hit rate (price moved in predicted direction), avg move size, best/worst signals. Helps calibrate confidence thresholds over time.
+
+### [T462] OHLC cache freshness alert
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Script/cron to check if data/ohlc/ cache is stale (>24h since last update). Creates ohlc-cache-stale.alert if cache-ohlc-data.py hasn't run. Critical: autotrader uses OHLC for momentum/regime detection.
+
+### [T463] Bankroll growth visualization script
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T307]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: plot-bankroll-growth.py. Generate ASCII/SVG chart showing cumulative PnL over time from trade logs. Compare actual vs simulated strategies (Kelly/fixed). Output to data/trading/bankroll-chart.svg.
+
+### [T464] Trade timing optimization analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T249]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: analyze-trade-timing.py. Analyze which hour of day and day of week have best edge/win rate. Recommend optimal trading windows. Could inform trading schedule (pause during poor hours). Uses historical trades + cached OHLC volatility data.

@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-01-29T02:55:19.389020",
+  "model_version": "v1",
+  "strategies": {
+    "kelly": {
+      "name": "Full Kelly",
+      "final_bankroll": 0.0,
+      "total_return_pct": -100.0,
+      "total_pnl": -100.0,
+      "avg_pnl_per_trade": -2.439,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 100.0,
+      "sharpe_ratio": -0.448,
+      "avg_position_size": 2.44,
+      "total_trades": 41
+    },
+    "half_kelly": {
+      "name": "Half Kelly",
+      "final_bankroll": 0.42,
+      "total_return_pct": -99.58,
+      "total_pnl": -99.58,
+      "avg_pnl_per_trade": -2.4288,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 99.6,
+      "sharpe_ratio": -0.745,
+      "avg_position_size": 2.43,
+      "total_trades": 41
+    },
+    "quarter_kelly": {
+      "name": "Quarter Kelly",
+      "final_bankroll": 7.09,
+      "total_return_pct": -92.91,
+      "total_pnl": -92.91,
+      "avg_pnl_per_trade": -2.266,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 92.9,
+      "sharpe_ratio": -1.364,
+      "avg_position_size": 2.27,
+      "total_trades": 41
+    },
+    "fixed_1.0": {
+      "name": "Fixed $1.0",
+      "final_bankroll": 59.0,
+      "total_return_pct": -41.0,
+      "total_pnl": -41.0,
+      "avg_pnl_per_trade": -1.0,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 41.0,
+      "sharpe_ratio": -5.767421585941914e+16,
+      "avg_position_size": 1.0,
+      "total_trades": 41
+    },
+    "fixed_2.0": {
+      "name": "Fixed $2.0",
+      "final_bankroll": 18.0,
+      "total_return_pct": -82.0,
+      "total_pnl": -82.0,
+      "avg_pnl_per_trade": -2.0,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 82.0,
+      "sharpe_ratio": -5.767421585941914e+16,
+      "avg_position_size": 2.0,
+      "total_trades": 41
+    },
+    "fixed_5.0": {
+      "name": "Fixed $5.0",
+      "final_bankroll": 0.02,
+      "total_return_pct": -99.98,
+      "total_pnl": -99.98,
+      "avg_pnl_per_trade": -2.4387,
+      "win_rate_pct": 0.0,
+      "max_drawdown_pct": 100.0,
+      "sharpe_ratio": -1.056,
+      "avg_position_size": 2.44,
+      "total_trades": 41
+    }
+  }
+}
