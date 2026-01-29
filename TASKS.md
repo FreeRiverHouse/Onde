@@ -2697,12 +2697,13 @@
 - **Notes**: ✅ Script: check-ohlc-cache-age.sh. Checks btc-ohlc.json + eth-ohlc.json age. Alert if >24h old or missing. Alert file: ohlc-cache-stale.alert. Added to HEARTBEAT.md. Run with meta-watchdog or separate cron.
 
 ### [T421] Autotrader health JSON endpoint
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script that outputs JSON: running (bool), pid, uptime, last_trade_time, trade_count_today, win_rate_today, current_balance. Can be used by external monitoring or /health page.
+- **Notes**: ✅ Script: autotrader-health.py. Outputs JSON with: running, pid, uptime_24h/7d, last_trade_time, trade_count_today, won/lost/pending, win_rate_today, balance, status emoji. Flags: --pretty for human-readable, --json for raw. Usage: `python3 scripts/autotrader-health.py --pretty`
 
 ### [T422] i18n: /famiglia page translations
 - **Status**: TODO
@@ -2760,3 +2761,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Generate weekly summary of API usage trends. Include avg/peak calls per source, busiest hours, comparison vs previous week. Email or Telegram delivery via cron.
+
+### [T429] Autotrader health cron with alert
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T421]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Cron job that runs autotrader-health.py every 15 min. Creates alert file if autotrader down >30 min or win rate drops below 30% in a day with >5 trades.
+
+### [T430] Trading dashboard API health endpoint
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T421]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Expose /api/trading/health endpoint that serves autotrader-health.py output. Enables /health page to show autotrader status without local file access. Requires server deployment or GitHub Gist sync.
+
+### [T431] Trade outcome prediction confidence calibration
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare predicted edge % vs actual win rate buckets. Answer: when model says 15% edge, does it win ~65% of the time? Calibration curve output for model tuning.
