@@ -908,5 +908,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:54 PST*
+*Ultimo aggiornamento: 2026-01-29 17:03 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
