@@ -1584,20 +1584,22 @@
 - **Notes**: Three.js/R3F scene con stanze 3D. Beach office o futuristic HQ. Bender AI per generare ambienti
 
 ### [T512] Deploy Free River House su onde.surf/house
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T500], [T501], [T502], [T503]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Verificare che /house funzioni correttamente dopo aggiunta Clawdinho/Onde-bot
+- **Notes**: ✅ Deployed! Onde-bot (ex Ondinho) visible in house. Both onde.surf and /house return HTTP 200.
 
 ### [T513] Setup Cloudflare D1 per Virtual Office persistenza
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: [T504], [T505]
 - **Priority**: P1
-- **Notes**: D1 = SQLite edge, 5GB free. Schema: agents, tasks, activity_log. wrangler d1 create onde-office. API endpoints per CRUD. Alternativa MVP: localStorage client-side + JSON files.
+- **Notes**: ✅ D1 già configurato! DB: onde-surf-db. Schema includes: agents, agent_tasks, books, posts, users. Migration 0005 creata per aggiungere Clawdinho/Onde-bot. ⚠️ Token API non ha D1:import - applicare migration via CF Dashboard o con token aggiornato.
 
 ### [T296] Analyze edge vs win rate correlation
 - **Status**: DONE
