@@ -6,6 +6,35 @@
 
 ---
 
+## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:32)
+
+### [T411] Clone WhisperFlow - App Trascrizione Real-Time Open Source
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Creare app simile a WhisperFlow (menu bar Mac, live transcription). **VISIONE FUTURA: Vibe coding in VR!**
+  - **Tech stack da valutare:**
+    - **Nvidia Parakeet/Canary** - Streaming ASR, ascolta mentre parli
+    - **Faster-Whisper** - CTranslate2, 4x più veloce di OpenAI Whisper
+    - **Whisper.cpp** - C++ port, ottimizzato per Apple Silicon (Metal)
+    - **RealtimeSTT** - Python lib per streaming real-time
+    - **Silero VAD** - Voice Activity Detection (quando parlare)
+    - **WhisperX** - Word-level timestamps + diarization
+  - **Features MVP:**
+    - [ ] Menu bar app (macOS)
+    - [ ] Cattura audio microfono
+    - [ ] Trascrizione locale (no cloud)
+    - [ ] Copy to clipboard / overlay
+  - **Future (VR ready):**
+    - [ ] Streaming ASR (while speaking)
+    - [ ] Multi-language
+    - [ ] Speaker diarization
+  - Se funziona → rilasciare gratis/freemium
+
+---
+
 ## 🔥 IN PROGRESS
 
 ### [T001] Autotrader Kalshi Monitoring
