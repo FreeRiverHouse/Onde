@@ -3430,3 +3430,27 @@
 - **Priority**: P3
 - **Notes**: Enhance kalshi-skips.jsonl to include momentum, regime, volatility context at skip time. Enables analysis of "what would have happened" if thresholds were lower. Backtest potential missed opportunities.
 
+### [T602] Correlation-based position sizing adjustment
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T442]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When BTC/ETH correlation is low (<0.7), increase position sizes for the asset with stronger momentum. When highly correlated (>0.9), reduce size to avoid overexposure. Read from asset-correlation.json.
+
+### [T603] Correlation divergence alert
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T442]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when BTC/ETH correlation drops below 0.6 (unusual divergence). Creates kalshi-correlation-divergence.alert for heartbeat pickup. May indicate liquidations, exchange-specific events, or major news affecting one asset.
+
+### [T604] Weekly correlation report in trading summary
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T442], [T095]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add correlation section to kalshi-weekly-report.py: avg correlation over week, any divergence events, comparison to historical norm. Helps understand if market structure is changing.
+
