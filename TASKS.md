@@ -833,5 +833,17 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:27 PST*
+## 📋 TODO - CHIEDIALO (AI Publishing)
+
+### [T238] ChiedIAlo USA - Personaggi Editore Capo e Pina Pennello
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Creare versione USA di ChiedIAlo. Personaggi: Editore Capo + Pina Pennello per illustrazioni. Creare design personaggi.
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 16:33 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
