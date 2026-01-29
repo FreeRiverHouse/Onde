@@ -2447,12 +2447,13 @@
 - **Notes**: If BTC/ETH price spread between exchanges exceeds 1%, write alert. Could indicate exchange issues, arbitrage opportunity, or manipulation. Log to price-anomalies.jsonl for analysis.
 
 ### [T386] Add exchange sources to trade logs
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T246]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include "price_sources" field in trade_log showing which exchanges were used for price at entry (e.g., ["binance","coingecko"]). Helps analyze if specific source correlations affect win rate.
+- **Notes**: ✅ Added "price_sources" field to trade_data. Shows which exchanges (binance, coingecko, coinbase) contributed to the price at trade entry. Enables future analysis of source-specific win rates.
 
 ---
 

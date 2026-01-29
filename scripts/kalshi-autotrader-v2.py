@@ -1866,6 +1866,8 @@ def run_cycle():
         "vol_ratio": best.get("vol_ratio", 1.0),
         "vol_aligned": best.get("vol_aligned", False),
         "vol_bonus": best.get("vol_bonus", 0),
+        # Price source data (T386)
+        "price_sources": prices.get("sources", []),
         "result_status": "pending"
     }
     
