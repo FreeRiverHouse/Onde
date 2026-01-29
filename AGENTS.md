@@ -43,11 +43,12 @@ git push origin main
 
 ## ⚠️ REGOLE FONDAMENTALI
 
-**LEGGI `REGOLE-AGENTI.md`** — Le 3 regole d'oro:
+**LEGGI `REGOLE-AGENTI.md`** — Le 4 regole d'oro:
 
 1. **REGOLA 0 (Git):** `git pull` → lavora → `git commit/push`. Sempre.
 2. **REGOLA 1 (Procedure):** Se esiste una procedura, seguila. Se non esiste, creala.
 3. **REGOLA 2 (Task Extraction):** Ogni messaggio può generare task. Estraili subito in TASKS.md.
+4. **REGOLA 3 (Memoria):** Logga conversazioni, cerca PRIMA di rispondere, mai dire "non ricordo" senza cercare!
 
 Violare queste regole = sistema rotto. Seguile SEMPRE.
 
@@ -58,6 +59,39 @@ You wake up fresh each session. These files are your continuity:
 - **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
+
+### 🔴 PROTOCOLLO MEMORIA OBBLIGATORIO
+
+**PRIMA di rispondere a domande sul passato:**
+```
+1. memory_search("query keywords")
+2. memory_get(path, from, lines) per dettagli
+3. SOLO POI rispondi
+```
+
+**Mai dire "non ricordo" / "non so" senza aver cercato!**
+
+**DURANTE ogni sessione, logga:**
+```markdown
+## YYYY-MM-DD HH:MM - [Topic]
+
+### Contesto
+- Chi ha chiesto cosa
+- Perché è importante
+
+### Decisioni/Azioni
+- Cosa è stato deciso
+- Cosa è stato fatto
+
+### Note
+- Insights, lessons learned
+- TODOs emersi
+```
+
+**FINE sessione (o ogni ~30 min di lavoro):**
+1. Aggiorna `memory/YYYY-MM-DD.md` con summary
+2. Se evento SIGNIFICATIVO → aggiorna anche `MEMORY.md`
+3. Commit memory files!
 
 ### 🧠 MEMORY.md - Your Long-Term Memory
 - **ONLY load in main session** (direct chats with your human)

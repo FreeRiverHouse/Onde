@@ -3975,8 +3975,8 @@
 > **REGOLA N3:** Ricordare TUTTO quello che l'utente dice e tutto quello che fai. Memory persistente è OBBLIGATORIA.
 
 ### [T656] Fix Clawdbot memory persistence
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawdbot 
 - **Depends**: -
 - **Blocks**: [T659]
 - **Priority**: P0
