@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next'
 
+// Static export compatibility
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://onde.la'
   

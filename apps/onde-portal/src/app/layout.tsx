@@ -54,6 +54,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
   },
 }
 
@@ -64,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Critical viewport meta tag for mobile stability */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <meta name="format-detection" content="telephone=no" />
+        <link rel="alternate" type="application/rss+xml" title="Onde Books RSS Feed" href="/feed.xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Preload critical font for faster LCP */}
