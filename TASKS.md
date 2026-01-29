@@ -4245,3 +4245,37 @@
 - **Blocks**: -
 - **Priority**: P1
 - **Notes**: Modify `apps/surfboard/src/app/api/agent-executor/route.ts` to use loadAgentContext() and saveTaskMemory() from lib/agent-memory.ts. See docs/AGENT-MEMORY.md for implementation guide.
+
+### [T422] Add test report history (last 7 days) to dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T418]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Store historical test reports in KV (keyed by date). Show trend chart on dashboard.
+  - KV key pattern: `test-report-YYYY-MM-DD`
+  - Keep last 7 days, auto-expire older
+  - Add sparkline showing pass rate trend
+
+### [T423] Autotrader: Add SOL (Solana) market support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Kalshi has KXSOLD market for Solana. Add support like BTC/ETH.
+  - Add SOL_HOURLY_VOL constant (estimate from data)
+  - Multi-exchange price feeds for SOL
+  - Settlement tracking for SOL
+  - Dashboard momentum indicator for SOL
+
+### [T424] Create memory cleanup script for stale heartbeat-state
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: memory/heartbeat-state.json can grow stale. Script to:
+  - Verify last check timestamps not older than 24h
+  - Reset stale entries
+  - Log cleanup to memory daily notes
