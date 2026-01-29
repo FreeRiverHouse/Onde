@@ -3983,16 +3983,17 @@
 - **Notes**: Implement proper memory hooks for Clawdbot (main). Options: 1) Use Clawdbot's built-in memory_search/memory_get tools properly, 2) Implement custom session summary → MEMORY.md pipeline, 3) Use vector DB (Chroma/Pinecone) for semantic search. MUST log all conversations and actions. Update AGENTS.md with memory protocol.
 
 ### [T657] Fix Clawdinho memory persistence  
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawdbot 
 - **Depends**: -
 - **Blocks**: [T659]
 - **Priority**: P0
 - **Notes**: Implement memory persistence for Clawdinho bot. Same approach as T656. Clawdinho workspace: check location. Needs: 1) Session summaries, 2) Conversation logging, 3) Action logging, 4) Memory search before answers. Update Clawdinho's AGENTS.md.
 
 ### [T658] Fix Onde-bot memory persistence
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawdbot
+- **Completed**: 2026-01-29 
 - **Depends**: -
 - **Blocks**: [T659]
 - **Priority**: P0
@@ -4014,3 +4015,19 @@
 - **Blocks**: -
 - **Priority**: P0
 - **Notes**: ✅ Updated REGOLE-AGENTI.md with REGOLA N3: Memory. Full section with logging requirements, memory structure, search-before-answer protocol, and checklist updates.
+
+### [T661] Run D1 migration for agent_memory table
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T658]
+- **Blocks**: [T662]
+- **Priority**: P1
+- **Notes**: Run `wrangler d1 execute ondaDB --file=./apps/surfboard/migrations/0003_agent_memory.sql` to create agent_memory table in D1. Requires wrangler auth.
+
+### [T662] Integrate agent-memory.ts into agent-executor
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T661]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Modify `apps/surfboard/src/app/api/agent-executor/route.ts` to use loadAgentContext() and saveTaskMemory() from lib/agent-memory.ts. See docs/AGENT-MEMORY.md for implementation guide.
