@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { useTranslations } from '@/i18n'
+import { useDownloadTracker } from '@/hooks/useDownloadTracker'
+import { useState, useEffect } from 'react'
 
 interface Book {
   id: string
@@ -57,6 +59,16 @@ const books: Book[] = [
 
 export default function LibriPage() {
   const t = useTranslations()
+  const { trackDownload, getBookStats, getTotalDownloads } = useDownloadTracker()
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const handleDownload = (bookId: string, format: 'pdf' | 'epub') => {
+    trackDownload(bookId, format)
+  }
 
   return (
     <div className="min-h-screen py-12">
@@ -80,6 +92,22 @@ export default function LibriPage() {
             subtitle={t.books.subtitle}
             gradient="coral"
           />
+          
+          {/* Total Downloads Counter */}
+          {mounted && getTotalDownloads() > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full
+                         bg-green-100 text-green-700 text-sm font-medium"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" />
+              </svg>
+              {getTotalDownloads()} total downloads
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -154,11 +182,27 @@ export default function LibriPage() {
                   {book.description}
                 </p>
 
+                {/* Download Stats */}
+                {mounted && (
+                  <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    {getBookStats(book.id).count > 0 ? (
+                      <span>{getBookStats(book.id).count} download{getBookStats(book.id).count !== 1 ? 's' : ''}</span>
+                    ) : (
+                      <span>Be the first to download!</span>
+                    )}
+                  </div>
+                )}
+
                 {/* Download Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href={book.pdfLink}
                     download
+                    onClick={() => handleDownload(book.id, 'pdf')}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
                              bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold text-sm
                              shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40
@@ -174,6 +218,7 @@ export default function LibriPage() {
                     <a
                       href={book.epubLink}
                       download
+                      onClick={() => handleDownload(book.id, 'epub')}
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
                                bg-onde-ocean/10 text-onde-ocean font-semibold text-sm
                                hover:bg-onde-ocean/20 transition-all duration-300"

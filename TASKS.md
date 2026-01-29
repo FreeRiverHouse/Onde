@@ -1752,12 +1752,13 @@
 - **Notes**: Add "Preview" button to book cards. Modal shows first 3 pages via PDF.js or image snapshots. Helps users decide before download.
 
 ### [T299] Download analytics (track popular books)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track download events via simple counter (localStorage + periodic sync, or Cloudflare Analytics). Show "Most Downloaded" section on /libri.
+- **Notes**: ✅ Implemented! Created useDownloadTracker hook: tracks downloads in localStorage, counts per book + format (PDF/EPUB), sends beacon to analytics endpoint. Updated /libri page: shows download count per book, total downloads counter in hero, "Be the first to download!" for new books.
 
 ---
 
