@@ -1566,12 +1566,13 @@
 - **Notes**: ✅ Created OfflineIndicator component. Shows orange banner when offline ("showing cached data"), green toast when reconnected (auto-hides 3s). Uses navigator.onLine + online/offline events. Animated with Tailwind.
 
 ### [T319] SW cache version bump script
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T312]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to bump sw.js cache version on deploy. Ensures fresh caches after releases. Add to deploy-onde-surf.sh.
+- **Notes**: ✅ Created scripts/bump-sw-version.sh. Auto-increments cache version (v1→v2) or accepts custom version. Updates CACHE_NAME, STATIC_CACHE, API_CACHE. Run before deploy to force fresh caches.
 
 ### [T320] Background sync for trading dashboard refresh
 - **Status**: TODO
@@ -1580,6 +1581,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Use Background Sync API to queue data fetches when offline. Auto-refresh trading stats when connection restored.
+
+### [T321] Precache additional routes in service worker
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T312]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add /corde, /pr, and other key routes to PRECACHE_ASSETS in sw.js for better offline coverage.
+
+### [T322] Cache invalidation on API error recovery
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T312]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When API returns error but cache has valid data, show cached + indicate staleness. Add "last updated: Xm ago" to dashboard.
+
+### [T323] Network status in /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T318]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show current network status (online/offline), service worker status, and cache storage usage on /health page.
 
 ---
 
