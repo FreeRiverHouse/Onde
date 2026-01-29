@@ -39,8 +39,8 @@
 - **Notes**: ✅ Rimossi testimonials finti (Sarah M., David L., Emily R., Marcus T.) da page.tsx. MAI PIÙ fake reviews!
 
 ### [T407] Bug: Agenti FRH non prendono task da onde.surf
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
