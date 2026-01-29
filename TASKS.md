@@ -9,12 +9,13 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (21:15)
 
 ### [T431] Deploy onde.la with health page alert summary
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T428]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy onde.la to get the new Alert History panel live on /health. Use deploy-onde-la-prod.sh.
+- **Notes**: ✅ Deployed! Alert History (24h) section now live on onde.la/health. Deploy via wrangler (project: onde-portal). Note: Tests pass 16/17 - favicon.ico test fails because we use SVG favicon, not ICO.
 
 ### [T432] Add alert type filter to /health page
 - **Status**: TODO
