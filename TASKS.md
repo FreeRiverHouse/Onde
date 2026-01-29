@@ -18,6 +18,42 @@
 
 ---
 
+## 🚨 URGENTE - DA MATTIA 2026-01-28
+
+### [T400] Rollback onde.surf a PRIMA di Google Auth
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T401]
+- **Priority**: P0
+- **Notes**: Sito ha errore client-side. ROLLBACKARE a versione che funzionava PRIMA di Google Auth. Contenuto deve tornare quello originale.
+
+### [T401] Migrare onde.surf a stesso approccio di onde.la
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T400]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: onde.la deploya senza issues con wrangler. Migrare surfboard allo stesso approccio semplice. RIMUOVERE complessità auth/middleware inutile.
+
+### [T402] Creare agente PM per review task/dipendenze/priorità
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Agente dedicato che rivede TASKS.md, controlla dipendenze, aggiorna priorità. Tutte le regole (0,1,2) devono essere seguite anche da PM.
+
+### [T403] Creare procedura ROLLBACK per deploy
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Aggiungere a DEPLOY-PROCEDURES.md sezione rollback. Come tornare a versione precedente su Cloudflare Pages.
+
+---
+
 ## 📋 TODO - TRADUZIONI
 
 ### [T010] Installare modello traduzione su M4 Mac
