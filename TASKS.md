@@ -1504,20 +1504,22 @@
 - **Notes**: ✅ Onde-bot (ex Ondinho) registrato! type=creative, room=lounge, color=#FF6B35
 
 ### [T502] Creare avatar Clawdinho (surfer emoji style)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T500]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: PNG 256x256 per /public/house/agents/clawdinho.png. Stile: surfista AI, colore cyan/azzurro
+- **Notes**: ✅ Created SVG avatar at /public/house/agents/clawdinho.svg. Robot surfista style con visor animato, antenna pulsante, surfboard giallo, colore cyan (#00D4FF). Animazioni CSS per glow effect.
 
 ### [T503] Creare avatar Onde-bot (wave emoji style)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T501]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: PNG 256x256 per /public/house/agents/onde-bot.png. Stile: onda/surfista brother, colore arancione. Rinominato da Ondinho → Onde-bot.
+- **Notes**: ✅ Created SVG avatar at /public/house/agents/onde-bot.svg. Wave character con faccia friendly, cresta onda animata, corpo acqua gradient, colore arancione (#FF6B35). Animazioni CSS per movimento onda.
 
 ### [T504] Connettere status Clawdinho a Clawdbot sessions reali
 - **Status**: DONE
