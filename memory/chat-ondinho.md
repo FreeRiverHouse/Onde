@@ -73,3 +73,7 @@
 ### 19:35 PST [msg:162]
 > Mi fai una lista per clawdinho? Tu hai una copia ma lui ha l originale. Poi digli di metterlo su GitHub il server. Scrivi in un file su GitHub tutte ste cose e dimmi il path e lui lo leggerà
 
+
+### 20:46 PST [msg:164]
+> Update su questo task please. Lo hai messo nei task per TRACCIARE e synchronizzarti con Clawdinho? (reply a msg pipeline)
+

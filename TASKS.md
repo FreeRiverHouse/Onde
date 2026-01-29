@@ -56,6 +56,14 @@
 - **Priority**: P2
 - **Notes**: ✅ QA completato. Voto 9/10. Report: traduzioni/QA-REPORT-republic-innovation.md
 
+### [T015] Pipeline revisione 2 cicli (Capussela EN→IT)
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
+- **Depends**: [T012]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: 2 cicli RILETTTORE→REVISORE con llama3:70b locale. Script: scripts/translation-pipeline.py. ⛔ MAI TOKEN CLAUDE
+
 ---
 
 ## 📋 TODO - LIBRI (TIER 1)
