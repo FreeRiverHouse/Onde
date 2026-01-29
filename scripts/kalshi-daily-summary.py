@@ -11,7 +11,9 @@ from collections import defaultdict
 from pathlib import Path
 
 TRADES_FILE = Path(__file__).parent / "kalshi-trades.jsonl"
+V2_TRADES_FILE = Path(__file__).parent / "kalshi-trades-v2.jsonl"
 OUTPUT_FILE = Path(__file__).parent / "kalshi-daily-summary.txt"
+STREAK_RECORDS_FILE = Path(__file__).parent / "kalshi-streak-records.json"
 
 def parse_timestamp(ts):
     """Parse ISO timestamp."""
@@ -22,6 +24,75 @@ def get_pst_date(dt):
     pst_offset = timedelta(hours=-8)
     pst_time = dt + pst_offset
     return pst_time.strftime('%Y-%m-%d')
+
+def calculate_streaks() -> dict:
+    """
+    Calculate current streak and longest streaks from trade log.
+    Returns dict with: current_streak, current_type, longest_win, longest_loss
+    """
+    # Prefer v2, fallback to v1
+    trades_file = V2_TRADES_FILE if V2_TRADES_FILE.exists() else TRADES_FILE
+    
+    if not trades_file.exists():
+        return {"current_streak": 0, "current_type": None, "longest_win": 0, "longest_loss": 0}
+    
+    settled_trades = []
+    with open(trades_file) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") == "trade":
+                    result = entry.get("result_status", "pending")
+                    if result in ("won", "lost", "win", "loss"):
+                        settled_trades.append(entry)
+            except:
+                pass
+    
+    if not settled_trades:
+        return {"current_streak": 0, "current_type": None, "longest_win": 0, "longest_loss": 0}
+    
+    # Sort by timestamp
+    settled_trades.sort(key=lambda x: x.get("timestamp", ""))
+    
+    current_streak = 0
+    current_type = None
+    longest_win = 0
+    longest_loss = 0
+    
+    for trade in settled_trades:
+        result = trade.get("result_status", "")
+        is_win = result in ("won", "win")
+        is_loss = result in ("lost", "loss")
+        
+        if is_win:
+            if current_type == "win":
+                current_streak += 1
+            else:
+                current_streak = 1
+                current_type = "win"
+            longest_win = max(longest_win, current_streak)
+        elif is_loss:
+            if current_type == "loss":
+                current_streak += 1
+            else:
+                current_streak = 1
+                current_type = "loss"
+            longest_loss = max(longest_loss, current_streak)
+    
+    return {
+        "current_streak": current_streak,
+        "current_type": current_type,
+        "longest_win": longest_win,
+        "longest_loss": longest_loss
+    }
+
+def load_streak_records() -> dict:
+    """Load saved streak records for comparison."""
+    try:
+        with open(STREAK_RECORDS_FILE) as f:
+            return json.load(f)
+    except:
+        return {"longest_win_streak": 0, "longest_loss_streak": 0}
 
 def analyze_daily():
     """Analyze today's trades and generate summary."""
@@ -70,6 +141,20 @@ def analyze_daily():
     settled = settled_won + settled_lost
     win_rate = (settled_won / settled * 100) if settled > 0 else 0
     
+    # Get streak data
+    streaks = calculate_streaks()
+    records = load_streak_records()
+    
+    # Format current streak
+    if streaks["current_type"] == "win":
+        streak_emoji = "🔥"
+        streak_text = f"{streak_emoji} {streaks['current_streak']}W"
+    elif streaks["current_type"] == "loss":
+        streak_emoji = "❄️"
+        streak_text = f"{streak_emoji} {streaks['current_streak']}L"
+    else:
+        streak_text = "—"
+    
     # Generate summary message
     summary = f"""📊 **Kalshi Daily Summary** ({today_pst})
 
@@ -83,6 +168,11 @@ def analyze_daily():
 
 **Win Rate:** {win_rate:.1f}%
 **Daily PnL:** ${pnl/100:+.2f}
+
+**Streaks:**
+Current: {streak_text}
+🏆 Best Win: {streaks['longest_win']}
+💀 Worst Loss: {streaks['longest_loss']}
 
 ---
 _Autotrader v2 • Black-Scholes Model_"""

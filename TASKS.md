@@ -1894,12 +1894,13 @@
 - **Notes**: Run multiple dry-run instances with different MIN_EDGE values (5%, 8%, 10%, 12%, 15%). Compare win rates to find optimal threshold. Output: data/backtests/edge-sweep.json
 
 ### [T357] Add streak stats to daily summary report
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T288], [T085]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include current streak, best win streak, worst loss streak in kalshi-daily-summary.py. Adds context to daily performance.
+- **Notes**: ✅ Added streak section to daily summary! Shows: current streak (🔥 wins / ❄️ losses), best win streak 🏆, worst loss streak 💀. Added calculate_streaks() function to daily summary script. Prefers v2 trade log.
 
 ### [T358] Analyze win rate by day of week
 - **Status**: DONE
