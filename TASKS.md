@@ -776,12 +776,13 @@
 - **Notes**: If BTC moves strongly against our position before expiry, exit early to cut losses. Monitor open positions every cycle.
 
 ### [T235] ETH settlement tracker support
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T223]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Update kalshi-settlement-tracker.py to handle KXETHD tickers - needs to fetch ETH price for settlement determination.
+- **Notes**: ✅ Updated! Now handles KXETHD tickers. Functions renamed: get_price_at_time(), get_price_binance(), get_price_cryptocompare() with asset param. Logs asset type in settlement records.
 
 ### [T236] Separate win rate tracking per asset (BTC vs ETH)
 - **Status**: TODO

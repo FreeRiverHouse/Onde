@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
 Kalshi Settlement Tracker
-Tracks BTC price at contract expiry times to calculate actual win/loss.
+Tracks BTC/ETH price at contract expiry times to calculate actual win/loss.
 
-Contract ticker format: KXBTCD-[DATE][HOUR]-T[STRIKE]
-Example: KXBTCD-26JAN2804-T88499.99 = Jan 28 2026, 4:00 UTC, strike $88,500
+Contract ticker format: KX[ASSET]D-[DATE][HOUR]-T[STRIKE]
+BTC Example: KXBTCD-26JAN2804-T88499.99 = Jan 28 2026, 4:00 UTC, strike $88,500
+ETH Example: KXETHD-26JAN2804-T3199.99 = Jan 28 2026, 4:00 UTC, strike $3,200
 """
 
 import json
@@ -21,13 +22,22 @@ SETTLEMENTS_FILE = Path(__file__).parent / "kalshi-settlements.json"
 
 def parse_ticker(ticker: str) -> dict:
     """
-    Parse Kalshi BTC ticker to extract expiry time and strike.
-    Example: KXBTCD-26JAN2804-T88499.99
+    Parse Kalshi BTC/ETH ticker to extract expiry time, strike, and asset.
+    BTC Example: KXBTCD-26JAN2804-T88499.99
+    ETH Example: KXETHD-26JAN2804-T3199.99
     
-    Format: KXBTCD-[YY][MMM][DD][HH]-T[STRIKE]
+    Format: KX[ASSET]D-[YY][MMM][DD][HH]-T[STRIKE]
     where YY=year (20YY), MMM=month, DD=day, HH=hour (ET timezone)
     """
+    # Try BTC ticker format
     match = re.match(r'KXBTCD-(\d{2})([A-Z]{3})(\d{2})(\d{2})-T(\d+\.?\d*)', ticker)
+    asset = 'BTC'
+    
+    # Try ETH ticker format if BTC didn't match
+    if not match:
+        match = re.match(r'KXETHD-(\d{2})([A-Z]{3})(\d{2})(\d{2})-T(\d+\.?\d*)', ticker)
+        asset = 'ETH'
+    
     if not match:
         return None
     
@@ -72,21 +82,24 @@ def parse_ticker(ticker: str) -> dict:
         'expiry_time': expiry_time,
         'strike': float(strike),
         'expiry_hour_et': hour_et,
-        'expiry_date': f"{year}-{month:02d}-{day:02d}"
+        'expiry_date': f"{year}-{month:02d}-{day:02d}",
+        'asset': asset
     }
 
 
-def get_btc_price_at_time(target_time: datetime) -> float:
+def get_price_at_time(target_time: datetime, asset: str = 'BTC') -> float:
     """
-    Get BTC price at a specific historical time using CoinGecko API.
+    Get crypto price at a specific historical time using CoinGecko API.
     Uses hourly granularity for accuracy.
+    Supports BTC and ETH.
     """
     # CoinGecko market_chart/range endpoint
     # from/to are UNIX timestamps
     start_ts = int((target_time - timedelta(minutes=5)).timestamp())
     end_ts = int((target_time + timedelta(minutes=5)).timestamp())
     
-    url = f"https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from={start_ts}&to={end_ts}"
+    coin_id = 'bitcoin' if asset == 'BTC' else 'ethereum'
+    url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart/range?vs_currency=usd&from={start_ts}&to={end_ts}"
     
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -108,14 +121,16 @@ def get_btc_price_at_time(target_time: datetime) -> float:
         return None
 
 
-def get_btc_price_binance(target_time: datetime) -> float:
+def get_price_binance(target_time: datetime, asset: str = 'BTC') -> float:
     """
-    Get BTC price at a specific time using Binance klines API (backup).
+    Get crypto price at a specific time using Binance klines API (backup).
+    Supports BTC and ETH.
     """
     start_ts = int(target_time.timestamp() * 1000)
     end_ts = start_ts + 60000  # 1 minute later
     
-    url = f"https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&startTime={start_ts}&endTime={end_ts}&limit=1"
+    symbol = 'BTCUSDT' if asset == 'BTC' else 'ETHUSDT'
+    url = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1m&startTime={start_ts}&endTime={end_ts}&limit=1"
     
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -133,13 +148,14 @@ def get_btc_price_binance(target_time: datetime) -> float:
         return None
 
 
-def get_btc_price_cryptocompare(target_time: datetime) -> float:
+def get_price_cryptocompare(target_time: datetime, asset: str = 'BTC') -> float:
     """
-    Get BTC price at a specific time using CryptoCompare API (no auth needed).
+    Get crypto price at a specific time using CryptoCompare API (no auth needed).
+    Supports BTC and ETH.
     """
     ts = int(target_time.timestamp())
     
-    url = f"https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=1&toTs={ts}"
+    url = f"https://min-api.cryptocompare.com/data/v2/histominute?fsym={asset}&tsym=USD&limit=1&toTs={ts}"
     
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -323,13 +339,16 @@ def process_settlements():
             still_pending += 1
             settlements['trades'][ticker] = {
                 'status': 'pending',
+                'asset': parsed.get('asset', 'BTC'),
                 'expiry_time': expiry_time.isoformat(),
                 'trade': trade
             }
             continue
         
         # Expiry has passed - get settlement price
+        asset = parsed.get('asset', 'BTC')
         print(f"\n  Processing: {ticker}")
+        print(f"    Asset: {asset}")
         print(f"    Expiry: {expiry_time.isoformat()}")
         print(f"    Strike: ${parsed['strike']:,.2f}")
         print(f"    Side: {trade.get('side')} @ {trade.get('price_cents')}¢")
@@ -337,18 +356,19 @@ def process_settlements():
         # Try multiple sources to get settlement price
         # Add delay to avoid rate limiting
         time.sleep(2)
-        settlement_price = get_btc_price_at_time(expiry_time)
+        settlement_price = get_price_at_time(expiry_time, asset)
         if settlement_price is None:
             time.sleep(1.5)
-            settlement_price = get_btc_price_cryptocompare(expiry_time)
+            settlement_price = get_price_cryptocompare(expiry_time, asset)
         if settlement_price is None:
             time.sleep(1)
-            settlement_price = get_btc_price_binance(expiry_time)
+            settlement_price = get_price_binance(expiry_time, asset)
         
         if settlement_price is None:
-            print(f"    Could not get settlement price - marking for retry")
+            print(f"    Could not get {asset} settlement price - marking for retry")
             settlements['trades'][ticker] = {
                 'status': 'price_fetch_failed',
+                'asset': asset,
                 'expiry_time': expiry_time.isoformat(),
                 'trade': trade
             }
@@ -363,6 +383,7 @@ def process_settlements():
         
         settlements['trades'][ticker] = {
             'status': 'settled',
+            'asset': asset,
             'expiry_time': expiry_time.isoformat(),
             'settlement_price': settlement_price,
             'won': outcome['won'],
