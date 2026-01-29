@@ -1518,12 +1518,13 @@
 - **Notes**: ✅ Implementato via REGOLE-AGENTI.md + riferimento in AGENTS.md. REGOLA 2: Estrai task da ogni messaggio!
 
 ### [T407] Propagare REGOLA UNO e DUE a Ondinho
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T405], [T406]
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Ondinho deve seguire le stesse regole. Aggiornare il suo sistema/context.
+- **Notes**: ✅ Regole già nel workspace condiviso! REGOLE-AGENTI.md + AGENTS.md sono letti da tutti gli agenti che lavorano in /Users/mattia/Projects/Onde.
 
 ### [T293] Trade confidence tracking (edge vs outcome)
 - **Status**: TODO
