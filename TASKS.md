@@ -3474,10 +3474,11 @@
 - **Notes**: Create docs/trading/AUTOTRADER-V2-MODEL.md explaining: 1) Black-Scholes inspired probability model, 2) Momentum integration (1h/4h/24h composite), 3) Market regime detection logic, 4) Dynamic MIN_EDGE thresholds, 5) Kelly criterion position sizing, 6) Stop-loss mechanics, 7) Circuit breaker logic. Helps future debugging and optimization.
 
 ### [T607] Archive old memory files (>30 days)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create scripts/archive-old-memory.sh to move memory/YYYY-MM-DD.md files older than 30 days to memory/archive/. Keeps workspace clean while preserving history. Add cron job (monthly, 1st at 04:00 UTC).
+- **Notes**: ✅ Created scripts/archive-old-memory.sh. Moves memory/YYYY-MM-DD.md files >30 days old to memory/archive/. Skips non-date files. Tested OK. Cron: add `0 4 1 * * /Users/mattia/Projects/Onde/scripts/archive-old-memory.sh` for monthly run.
 
