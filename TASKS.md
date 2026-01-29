@@ -3614,3 +3614,27 @@
 - **Priority**: P3
 - **Notes**: Extend write_health_status() to include all-time stats: total_trades, total_won, total_lost, all_time_pnl_cents. Provides complete trading performance context alongside daily stats.
 
+### [T623] Dashboard autotrader health status indicator
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T605], [T620]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Display autotrader health status on /betting dashboard from gist healthStatus field. Show: running indicator (green/red dot), cycle count, dry run mode, circuit breaker status. Help users know if autotrader is active without checking logs.
+
+### [T624] Add streak tracking to gist push script
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T287], [T605]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dashboard expects longestWinStreak, longestLossStreak, currentStreak, currentStreakType. Add streak calculation to push-stats-to-gist.py. Use kalshi-streak-records.json if exists, or calculate from trade log.
+
+### [T625] Dashboard bySource comparison view
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T605], [T346]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When gist includes bySource field (source=all), show side-by-side v1 vs v2 performance comparison on dashboard. Cards showing: trades, win rate, PnL for each source. Helps evaluate model improvement.
+
