@@ -22,7 +22,9 @@ import {
   Cpu,
   HelpCircle,
   Keyboard,
-  X
+  X,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 // ============== TYPES ==============
@@ -338,6 +340,7 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
     { key: '?', description: 'Show keyboard shortcuts' },
     { key: 'Esc', description: 'Close this modal' },
     { key: 'K', description: 'Open Kalshi portfolio (new tab)' },
+    { key: 'E', description: 'Expand/collapse stat cards' },
     { key: 'H', description: 'Toggle help overlay' },
   ];
 
@@ -419,6 +422,7 @@ export default function BettingDashboard() {
   const [isSending, setIsSending] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Fetch all data
@@ -490,6 +494,10 @@ export default function BettingDashboard() {
         case 'h':
           e.preventDefault();
           setShowShortcuts(prev => !prev);
+          break;
+        case 'e':
+          e.preventDefault();
+          setShowAllStats(prev => !prev);
           break;
       }
     };
@@ -813,17 +821,36 @@ export default function BettingDashboard() {
         {/* Trading Stats Section */}
         {tradingStats && (
           <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-yellow-400" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-yellow-400" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold">Trading Performance</h2>
+                  <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-lg font-bold">Trading Performance</h2>
-                <p className="text-xs text-gray-500">Win rate & PnL analysis</p>
-              </div>
+              {/* Mobile expand/collapse button */}
+              <button
+                onClick={() => setShowAllStats(!showAllStats)}
+                className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs hover:bg-white/10 transition-all"
+              >
+                {showAllStats ? (
+                  <>
+                    <ChevronUp className="w-4 h-4" />
+                    <span>Less</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4" />
+                    <span>More</span>
+                  </>
+                )}
+              </button>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
+            <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
               {/* Win Rate */}
               <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-3 sm:p-4">
                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">

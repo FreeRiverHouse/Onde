@@ -1499,12 +1499,13 @@
 - **Notes**: ✅ Added! Shortcuts: R (refresh), / (focus input), ? (show shortcuts help), K (open Kalshi), H (toggle help), Esc (close modal). Modal with kbd styling. Footer hint. Help button in header.
 
 ### [T311] Stat cards collapse/expand on mobile
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T304]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add accordion-style collapse for stat card groups on mobile. Show top 4 by default, expandable to see all 15. Reduces initial scroll depth.
+- **Notes**: ✅ Added! Mobile shows first 6 stats by default. "More/Less" button in header expands all 15 cards. Keyboard shortcut 'E' toggles expand. CSS selector `max-md:[&>*:nth-child(n+7)]:hidden` hides cards 7+ on mobile.
 
 ### [T312] Service worker for offline PWA caching
 - **Status**: TODO
