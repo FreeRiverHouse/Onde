@@ -79,32 +79,34 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:36)
 
 ### [T412] VERIFICARE che logging memoria FUNZIONI DAVVERO
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
-- **Depends**: -
-- **Blocks**: [T414]
-- **Priority**: P0
-- **Notes**: 🔴 **ROOT CAUSE TROVATO 2026-01-29 09:52**
-  - **Problema REALE**: `memory_search` è DISABILITATO!
-  - **Errore**: "No API key found for provider openai/google"
-  - **Logging manuale**: ✅ FUNZIONA (Write tool scrive i file)
-  - **Ricerca semantica**: ❌ NON FUNZIONA (richiede embeddings API)
-  - **Soluzione**: Serve API key per embeddings O fallback grep
-  - **Task correlato**: T414 (fix embeddings)
-
-### [T414] 🚨 FIX memory_search - Aggiungere API key o fallback grep
-- **Status**: IN_PROGRESS
-- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: memory_search è DISABILITATO perché manca API key embeddings
-  - **Errore**: "No API key found for provider openai/google"
-  - **Opzione 1**: Aggiungere OPENAI_API_KEY al config Clawdbot
-  - **Opzione 2**: Aggiungere GOOGLE_API_KEY al config Clawdbot
-  - **Opzione 3**: Implementare fallback con grep (ricerca testuale invece di semantica)
-  - **File config**: `~/.clawdbot/agents/main/agent/auth-profiles.json`
-  - **Come aggiungere**: `clawdbot agents add main` (richiede Mattia)
+- **Notes**: ✅ **RISOLTO 2026-01-29 12:15**
+  - **Logging manuale**: ✅ FUNZIONA (Write tool scrive i file)
+  - **Ricerca semantica**: ❌ Disabilitata (no embeddings API key)
+  - **Workaround**: ✅ `scripts/memory-grep.sh "query"` per ricerca testuale
+  - Vedi T414 per dettagli workaround
+
+### [T414] 🚨 FIX memory_search - Aggiungere API key o fallback grep
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: ✅ WORKAROUND IMPLEMENTATO!
+  - **Problema**: memory_search disabilitato (no embeddings API key)
+  - **Soluzione**: Creato `scripts/memory-grep.sh` - fallback grep-based
+  - **Usage**: `./scripts/memory-grep.sh "search terms"`
+  - Cerca in MEMORY.md + memory/*.md files
+  - Mostra file:linea:match per ogni risultato
+  - **Per abilitare semantic search** (opzionale, costa):
+    - `clawdbot agents add main` → aggiungi OPENAI_API_KEY
+  - **Workaround funziona senza API key!**
 
 ---
 
