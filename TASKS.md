@@ -1093,12 +1093,13 @@
 - **Notes**: ✅ Added! Daily summary (kalshi-daily-summary.py) shows: count triggered, total loss at exit, avg loss %. Weekly report (kalshi-weekly-report.py) includes: total stop-losses, loss breakdown, daily details if multiple days.
 
 ### [T248] Position sizing analysis (Kelly effectiveness tracking)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track actual bet sizes vs theoretical Kelly optimal. Compare win rates and PnL at different position sizes to optimize KELLY_FRACTION.
+- **Notes**: ✅ Script: analyze-kelly-effectiveness.py. Analyzes: actual vs theoretical Kelly, win rate by position size bucket, bankroll simulation under different Kelly fractions. Generates recommendations. V1 data shows 0% WR (broken model), v2 awaiting trades.
 
 ---
 
@@ -2892,3 +2893,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add user setting for dashboard auto-refresh interval (30s/60s/5min/off). Currently hardcoded. Save preference to localStorage. Show countdown timer in header.
+
+### [T444] Auto-adjust Kelly fraction based on rolling win rate
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T248]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dynamic Kelly adjustment using last 50 trades rolling win rate. If WR drops below 40%, reduce Kelly by 50%. If WR rises above 60%, allow 25% increase. Caps at 2x base Kelly. Prevents overleveraging during drawdowns.
+
+### [T445] Trading strategy A/B test: momentum vs mean-reversion
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T220]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Run parallel paper trades: one uses momentum-aligned strategy, other uses contrarian/mean-reversion. Compare win rates over 100+ trades to determine which performs better in current market regime.
+
+### [T446] Alert: consecutive losing streak threshold
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: If 5+ consecutive losses, trigger circuit breaker alert + pause trading for 1h. Prevents runaway losses during adverse market conditions. Track streak in kalshi-streak.json. Alert file: kalshi-circuit-breaker.alert.

@@ -1,0 +1,64 @@
+{
+  "total_trades": 2016,
+  "trades_with_settlement": 41,
+  "by_size_bucket": {
+    "small (10-25\u00a2)": {
+      "trades": 11,
+      "wins": 0,
+      "pnl": -5050,
+      "win_rate": 0.0
+    },
+    "tiny (0-10\u00a2)": {
+      "trades": 30,
+      "wins": 0,
+      "pnl": -5850,
+      "win_rate": 0.0
+    }
+  },
+  "kelly_vs_actual": [],
+  "bankroll_simulation": {
+    "1%": {
+      "final_bankroll": 82.97,
+      "return": -17.0,
+      "max_drawdown": 17.0
+    },
+    "2%": {
+      "final_bankroll": 62.61,
+      "return": -37.4,
+      "max_drawdown": 37.4
+    },
+    "5%": {
+      "final_bankroll": 38.99,
+      "return": -61.0,
+      "max_drawdown": 61.0
+    },
+    "10%": {
+      "final_bankroll": 14.87,
+      "return": -85.1,
+      "max_drawdown": 85.1
+    },
+    "15%": {
+      "final_bankroll": 5.54,
+      "return": -94.5,
+      "max_drawdown": 94.5
+    },
+    "20%": {
+      "final_bankroll": 2.01,
+      "return": -98.0,
+      "max_drawdown": 98.0
+    },
+    "25%": {
+      "final_bankroll": 1.33,
+      "return": -98.7,
+      "max_drawdown": 98.7
+    }
+  },
+  "recommendations": [
+    "\u26a0\ufe0f Negative expected value: win rate (0.0%) too low for profitable Kelly betting",
+    "\ud83d\udcca Best performing size: small (10-25\u00a2) (0% WR, 11 trades)"
+  ],
+  "actual_win_rate": 0.0,
+  "theoretical_kelly": 0,
+  "current_kelly": 0.05,
+  "avg_price": 50.0
+}
