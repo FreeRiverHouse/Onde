@@ -1050,12 +1050,13 @@
 ---
 
 ### [T261] Add JSON-LD structured data for /catalogo
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Similar to T226. Add Schema.org markup for all catalog products. Product type with offers.
+- **Notes**: ✅ Added Schema.org CollectionPage + ItemList with 5 featured books (Alice, Meditations, Grimm, Pride&Prejudice, Pinocchio). numberOfItems: 1000. Multi-language support.
 
 ### [T262] RSS feed for book releases
 - **Status**: TODO
