@@ -431,6 +431,186 @@ def place_order(ticker: str, side: str, count: int, price_cents: int) -> dict:
     return api_request("POST", "/trade-api/v2/portfolio/orders", body)
 
 
+def sell_position(ticker: str, side: str, count: int, price_cents: int = None) -> dict:
+    """
+    Sell/exit an existing position.
+    If price_cents is None, use market order (sell at best available price).
+    """
+    # For market-like execution, we use aggressive limit prices
+    if price_cents is None:
+        # Sell YES at 1 cent (aggressive), sell NO at 1 cent (which means yes_price = 99)
+        price_cents = 1 if side == "yes" else 99
+    
+    body = {
+        "ticker": ticker,
+        "action": "sell",
+        "side": side,
+        "count": count,
+        "type": "limit",
+        "yes_price": price_cents if side == "yes" else 100 - price_cents
+    }
+    return api_request("POST", "/trade-api/v2/portfolio/orders", body)
+
+
+# ============== STOP-LOSS MONITORING ==============
+
+# Stop-loss parameters
+STOP_LOSS_THRESHOLD = 0.50  # Exit if position value drops 50% (e.g., from 30c to 15c)
+MIN_STOP_LOSS_VALUE = 5     # Don't bother exiting positions worth less than 5 cents
+STOP_LOSS_LOG_FILE = "scripts/kalshi-stop-loss.log"
+
+
+def check_stop_losses(positions: list, prices: dict) -> list:
+    """
+    Check all open positions for stop-loss triggers.
+    
+    For Kalshi binary options:
+    - We paid X cents to enter
+    - Current market value is Y cents (current bid)
+    - If Y < X * (1 - STOP_LOSS_THRESHOLD), exit
+    
+    Returns list of positions that should be exited.
+    """
+    positions_to_exit = []
+    
+    if not positions:
+        return positions_to_exit
+    
+    for pos in positions:
+        ticker = pos.get("ticker", "")
+        position = pos.get("position", 0)  # Positive = YES, Negative = NO
+        
+        if position == 0:
+            continue
+        
+        # Get current market info
+        market = get_market(ticker)
+        if not market:
+            continue
+        
+        # Determine our side and current market value
+        if position > 0:
+            side = "yes"
+            contracts = position
+            # Current value is what we can sell for (yes_bid)
+            current_value = market.get("yes_bid", 0)
+        else:
+            side = "no"
+            contracts = abs(position)
+            # For NO positions, value is 100 - yes_ask (what we can sell NO for)
+            current_value = 100 - market.get("yes_ask", 100)
+        
+        # Get our entry price from trade log
+        entry_price = get_entry_price_for_position(ticker, side)
+        if entry_price is None:
+            continue  # Can't find entry, skip
+        
+        # Calculate if we should exit
+        # Stop-loss: if current value is below threshold of entry
+        stop_loss_price = entry_price * (1 - STOP_LOSS_THRESHOLD)
+        
+        if current_value < stop_loss_price and current_value >= MIN_STOP_LOSS_VALUE:
+            loss_pct = (entry_price - current_value) / entry_price * 100
+            positions_to_exit.append({
+                "ticker": ticker,
+                "side": side,
+                "contracts": contracts,
+                "entry_price": entry_price,
+                "current_value": current_value,
+                "loss_pct": loss_pct,
+                "stop_loss_trigger": stop_loss_price
+            })
+    
+    return positions_to_exit
+
+
+def get_entry_price_for_position(ticker: str, side: str) -> float:
+    """
+    Look up the entry price for a position from trade log.
+    Returns average entry price if multiple entries, or None if not found.
+    """
+    log_path = Path(TRADE_LOG_FILE)
+    if not log_path.exists():
+        return None
+    
+    total_cost = 0
+    total_contracts = 0
+    
+    with open(log_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if (entry.get("type") == "trade" and 
+                    entry.get("ticker") == ticker and 
+                    entry.get("side") == side and
+                    entry.get("result_status") == "pending"):
+                    total_cost += entry.get("price_cents", 0) * entry.get("contracts", 0)
+                    total_contracts += entry.get("contracts", 0)
+            except:
+                continue
+    
+    if total_contracts > 0:
+        return total_cost / total_contracts
+    return None
+
+
+def execute_stop_losses(stop_loss_positions: list) -> int:
+    """
+    Execute stop-loss orders for positions that triggered.
+    Returns number of positions exited.
+    """
+    exited = 0
+    
+    for pos in stop_loss_positions:
+        ticker = pos["ticker"]
+        side = pos["side"]
+        contracts = pos["contracts"]
+        entry = pos["entry_price"]
+        current = pos["current_value"]
+        loss_pct = pos["loss_pct"]
+        
+        print(f"\n⚠️ STOP-LOSS TRIGGERED: {ticker}")
+        print(f"   Side: {side.upper()} | Contracts: {contracts}")
+        print(f"   Entry: {entry:.0f}¢ → Current: {current:.0f}¢ ({loss_pct:.1f}% loss)")
+        
+        # Execute sell order
+        result = sell_position(ticker, side, contracts)
+        
+        if "error" in result:
+            print(f"   ❌ Failed to exit: {result['error']}")
+            continue
+        
+        order = result.get("order", {})
+        if order.get("status") in ["executed", "pending"]:
+            print(f"   ✅ Stop-loss order placed (status: {order.get('status')})")
+            exited += 1
+            
+            # Log the stop-loss
+            log_stop_loss({
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "type": "stop_loss",
+                "ticker": ticker,
+                "side": side,
+                "contracts": contracts,
+                "entry_price": entry,
+                "exit_price": current,
+                "loss_pct": loss_pct,
+                "order_status": order.get("status")
+            })
+    
+    return exited
+
+
+def log_stop_loss(data: dict):
+    """Log stop-loss event to file"""
+    log_path = Path(STOP_LOSS_LOG_FILE)
+    with open(log_path, "a") as f:
+        f.write(json.dumps(data) + "\n")
+    
+    # Also log to main trade file
+    log_trade(data)
+
+
 # ============== EXTERNAL DATA ==============
 
 def get_crypto_prices(max_retries: int = 3) -> dict:
@@ -848,6 +1028,17 @@ def run_cycle():
     # Get positions
     positions = get_positions()
     print(f"📋 Open positions: {len(positions)}")
+    
+    # CHECK STOP-LOSSES for open positions
+    if positions:
+        stop_loss_candidates = check_stop_losses(positions, prices)
+        if stop_loss_candidates:
+            print(f"\n🚨 Stop-loss check: {len(stop_loss_candidates)} position(s) below threshold")
+            exited = execute_stop_losses(stop_loss_candidates)
+            if exited > 0:
+                print(f"✅ Exited {exited} position(s) via stop-loss")
+                # Refresh positions after exits
+                positions = get_positions()
     
     if len(positions) >= MAX_POSITIONS:
         print("⚠️ Max positions reached, skipping")

@@ -768,12 +768,13 @@
 - **Notes**: get_fear_greed() is called but not logged with trades. Add to trade log entry for later analysis of sentiment correlation.
 
 ### [T234] Implement trailing stop-loss for open positions
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: If BTC moves strongly against our position before expiry, exit early to cut losses. Monitor open positions every cycle.
+- **Notes**: ✅ Added! check_stop_losses() monitors open positions every cycle. Exits if position value drops 50% from entry. Functions: sell_position(), check_stop_losses(), execute_stop_losses(), get_entry_price_for_position(). Logs to kalshi-stop-loss.log.
 
 ### [T235] ETH settlement tracker support
 - **Status**: DONE
