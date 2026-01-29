@@ -116,6 +116,34 @@
 
 ---
 
+## 🤖 TODO - AI TRADING RESEARCH (DA MATTIA 2026-01-29)
+
+### [T408] Ricerca metodi Grok su piattaforme prediction market
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: [T409], [T410]
+- **Priority**: P1
+- **Notes**: X Freeze claimava Grok 4.20 con 10-12% returns su Alpha Arena, PredictionArena, Rallies. Verificare claim e studiare metodi. PredictionArena.ai USA KALSHI! Possiamo confrontare.
+
+### [T409] Replicare/migliorare strategie top modelli su Kalshi
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T408]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Studiare leaderboard PredictionArena, analizzare pattern dei top performer, integrare insights in nostro autotrader
+
+### [T410] Monitorare altre piattaforme AI prediction markets
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T408]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Piattaforme da monitorare: PredictionArena (Kalshi), Rallies.ai, Polymarket AI leagues. Cercare paper/blog su strategie.
+
+---
+
 ## 📋 TODO - TRADUZIONI
 
 ### [T010] Installare modello traduzione su M4 Mac

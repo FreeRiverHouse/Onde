@@ -1,11 +1,27 @@
 {
-  "generated": "2026-01-29T03:31:08.345782",
+  "generated": "2026-01-29T07:51:19.507815",
   "period_days": 7,
   "sources": {
     "kalshi": {
-      "total_events": 7,
+      "total_events": 15,
       "errors": 0,
-      "successes": 7,
+      "successes": 15,
+      "error_rate": 0.0,
+      "success_rate": 100.0,
+      "sample_errors": []
+    },
+    "coingecko": {
+      "total_events": 18,
+      "errors": 0,
+      "successes": 18,
+      "error_rate": 0.0,
+      "success_rate": 100.0,
+      "sample_errors": []
+    },
+    "coinbase": {
+      "total_events": 2,
+      "errors": 0,
+      "successes": 2,
       "error_rate": 0.0,
       "success_rate": 100.0,
       "sample_errors": []
