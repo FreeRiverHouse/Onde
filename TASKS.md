@@ -2116,12 +2116,13 @@
 - **Notes**: Add j/k for row navigation, Enter to expand trade details, arrow keys for pagination.
 
 ### [T342] Trading history API caching
-- **Status**: TODO
-- **Owner**: 
+- **Status**: N/A
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T260]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Apply same file-based caching pattern from T260 to /api/trading/history. 60s TTL + source mtime validation.
+- **Notes**: ⏭️ N/A: /api/trading/history runs on Edge runtime (Cloudflare), cannot access local files. Returns mock data on production. Caching not applicable for edge deployment.
 
 ### [T343] Cache invalidation endpoint for trading APIs
 - **Status**: TODO
@@ -2388,12 +2389,12 @@
 - **Notes**: ✅ Homepage now uses useTranslations()! Added hero.*, whyOnde.*, featuresNew.*, library.*, testimonials.*, ctaNew.*, footerNew.* translation keys to en.json and it.json. Respects user language preference via i18n system.
 
 ### [T374] Audit remaining pages for hardcoded strings
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Check /famiglia, /collezioni, /giochi, /about, /health for hardcoded IT/EN strings. Convert to use i18n system for consistency.
+- **Notes**: Pages needing i18n: ❌ /famiglia (~30 strings), ❌ /collezioni, ❌ /giochi, ❌ /about, ❌ /health. Homepage + catalogo already done. Breaking into subtasks T416-T420.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
