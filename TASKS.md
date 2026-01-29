@@ -1490,12 +1490,13 @@
 - **Notes**: ✅ Created manifest.json with app metadata, theme colors, SVG icons, and shortcuts (Trading Terminal, Moonlight House). Added PWA meta tags to layout.tsx. Users can now "Add to Home Screen" on mobile.
 
 ### [T310] Keyboard shortcuts for trading dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add keyboard shortcuts (R for refresh, / for search/command palette, Esc to close modals). Improves power user experience.
+- **Notes**: ✅ Added! Shortcuts: R (refresh), / (focus input), ? (show shortcuts help), K (open Kalshi), H (toggle help), Esc (close modal). Modal with kbd styling. Footer hint. Help button in header.
 
 ### [T311] Stat cards collapse/expand on mobile
 - **Status**: TODO

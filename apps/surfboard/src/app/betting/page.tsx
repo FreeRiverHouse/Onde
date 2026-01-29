@@ -19,7 +19,10 @@ import {
   Activity,
   Zap,
   Target,
-  Cpu
+  Cpu,
+  HelpCircle,
+  Keyboard,
+  X
 } from 'lucide-react';
 
 // ============== TYPES ==============
@@ -325,6 +328,66 @@ function MiniChart({ data, color = 'cyan' }: { data: number[]; color?: string })
   );
 }
 
+// ============== KEYBOARD SHORTCUTS MODAL ==============
+function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  if (!isOpen) return null;
+
+  const shortcuts = [
+    { key: 'R', description: 'Refresh all data' },
+    { key: '/', description: 'Focus message input' },
+    { key: '?', description: 'Show keyboard shortcuts' },
+    { key: 'Esc', description: 'Close this modal' },
+    { key: 'K', description: 'Open Kalshi portfolio (new tab)' },
+    { key: 'H', description: 'Toggle help overlay' },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      
+      {/* Modal */}
+      <div className="relative bg-gradient-to-br from-gray-900/95 to-gray-950/95 border border-white/10 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-purple-500/10">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center">
+              <Keyboard className="w-5 h-5 text-purple-400" />
+            </div>
+            <h2 className="text-lg font-bold text-white">Keyboard Shortcuts</h2>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <X className="w-5 h-5 text-gray-400" />
+          </button>
+        </div>
+
+        <div className="space-y-2">
+          {shortcuts.map((shortcut) => (
+            <div 
+              key={shortcut.key}
+              className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]"
+            >
+              <span className="text-gray-300 text-sm">{shortcut.description}</span>
+              <kbd className="px-2.5 py-1 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 text-cyan-400 font-mono text-sm shadow-lg">
+                {shortcut.key}
+              </kbd>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-gray-500 text-xs text-center mt-6">
+          Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-gray-400">?</kbd> anytime to show this
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ============== PULSING DOT COMPONENT ==============
 function PulsingDot({ color = 'green', label }: { color?: 'green' | 'red' | 'yellow'; label?: string }) {
   const colors = {
@@ -355,6 +418,8 @@ export default function BettingDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Fetch all data
   const fetchData = useCallback(async () => {
@@ -386,6 +451,51 @@ export default function BettingDashboard() {
     fetchData();
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
+  }, [fetchData]);
+
+  // Keyboard shortcuts handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger shortcuts when typing in input fields
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+        // Only handle Escape in input fields
+        if (e.key === 'Escape') {
+          target.blur();
+          setShowShortcuts(false);
+        }
+        return;
+      }
+
+      switch (e.key.toLowerCase()) {
+        case 'r':
+          e.preventDefault();
+          fetchData();
+          break;
+        case '/':
+          e.preventDefault();
+          inputRef.current?.focus();
+          break;
+        case '?':
+          e.preventDefault();
+          setShowShortcuts(prev => !prev);
+          break;
+        case 'escape':
+          setShowShortcuts(false);
+          break;
+        case 'k':
+          e.preventDefault();
+          window.open('https://kalshi.com/portfolio', '_blank');
+          break;
+        case 'h':
+          e.preventDefault();
+          setShowShortcuts(prev => !prev);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [fetchData]);
 
   const sendMessage = async () => {
@@ -479,9 +589,17 @@ export default function BettingDashboard() {
               {lastRefresh.toLocaleTimeString()}
             </span>
             <button
+              onClick={() => setShowShortcuts(true)}
+              className="p-2 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300"
+              title="Keyboard shortcuts (?)"
+            >
+              <HelpCircle className="w-4 h-4 text-gray-400" />
+            </button>
+            <button
               onClick={fetchData}
               disabled={isLoading}
               className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,255,0.2)]"
+              title="Refresh (R)"
             >
               <RefreshCw className={`w-4 h-4 text-cyan-400 transition-transform duration-500 ${isLoading ? 'animate-spin' : 'group-hover:rotate-180'}`} />
               <span className="text-xs sm:text-sm font-medium">Refresh</span>
@@ -1113,11 +1231,12 @@ export default function BettingDashboard() {
                 <div className="flex gap-3">
                   <div className="flex-1 relative">
                     <input
+                      ref={inputRef}
                       type="text"
                       value={inputMessage}
                       onChange={(e) => setInputMessage(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                      placeholder="Type a message or paste a link..."
+                      placeholder="Type a message or paste a link... (press / to focus)"
                       className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 focus:shadow-[0_0_30px_rgba(0,255,136,0.1)] transition-all duration-300"
                     />
                     <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 pointer-events-none opacity-0 focus-within:opacity-100 transition-opacity" />
@@ -1196,11 +1315,16 @@ export default function BettingDashboard() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-gray-600 text-xs font-mono">
-            AUTO-REFRESH 30s • BUILT FOR ONDE.SURF • v2.0
+            AUTO-REFRESH 30s • BUILT FOR ONDE.SURF • v2.0 • Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-gray-500">?</kbd> for shortcuts
           </p>
         </div>
       </div>
 
+      {/* Keyboard Shortcuts Modal */}
+      <KeyboardShortcutsModal 
+        isOpen={showShortcuts} 
+        onClose={() => setShowShortcuts(false)} 
+      />
     </div>
   );
 }
