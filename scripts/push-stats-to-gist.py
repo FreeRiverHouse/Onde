@@ -355,6 +355,78 @@ def load_health_status():
         return None
 
 
+def calculate_edge_distribution(trades):
+    """Calculate edge distribution buckets with win rates (T368).
+    
+    Groups trades by edge bucket and calculates win rate per bucket.
+    Used for the edge confidence chart on /betting dashboard.
+    """
+    buckets = [
+        (0.00, 0.05, "0-5%"),
+        (0.05, 0.10, "5-10%"),
+        (0.10, 0.15, "10-15%"),
+        (0.15, 0.20, "15-20%"),
+        (0.20, 0.30, "20-30%"),
+        (0.30, 1.00, "30%+"),
+    ]
+    
+    # Filter to trades with edge data
+    trades_with_edge = [t for t in trades if t.get('edge') is not None or t.get('edge_with_bonus') is not None]
+    settled_with_edge = [t for t in trades_with_edge if t.get('result_status') in ['won', 'lost']]
+    
+    distribution = []
+    
+    for low, high, name in buckets:
+        bucket_trades = []
+        for t in settled_with_edge:
+            edge = t.get('edge') or t.get('edge_with_bonus', 0)
+            if low <= edge < high:
+                bucket_trades.append(t)
+        
+        won = sum(1 for t in bucket_trades if t.get('result_status') == 'won')
+        lost = len(bucket_trades) - won
+        win_rate = (won / len(bucket_trades) * 100) if bucket_trades else 0
+        
+        # Calculate average edge in bucket
+        if bucket_trades:
+            avg_edge = sum(t.get('edge') or t.get('edge_with_bonus', 0) for t in bucket_trades) / len(bucket_trades)
+        else:
+            avg_edge = (low + high) / 2
+        
+        distribution.append({
+            "bucket": name,
+            "range": [low, high],
+            "trades": len(bucket_trades),
+            "won": won,
+            "lost": lost,
+            "winRate": round(win_rate, 1),
+            "avgEdge": round(avg_edge * 100, 1)  # as percentage
+        })
+    
+    # Calculate correlation (do higher edges correlate with higher win rates?)
+    buckets_with_trades = [b for b in distribution if b['trades'] > 0]
+    correlation = "insufficient_data"
+    
+    if len(buckets_with_trades) >= 2:
+        # Simple check: is the last bucket win rate >= first bucket?
+        first_wr = buckets_with_trades[0]['winRate']
+        last_wr = buckets_with_trades[-1]['winRate']
+        
+        if last_wr > first_wr + 5:
+            correlation = "positive"  # Higher edge = higher WR (model well-calibrated)
+        elif first_wr > last_wr + 5:
+            correlation = "negative"  # Lower edge = higher WR (model needs recalibration!)
+        else:
+            correlation = "neutral"  # No clear pattern
+    
+    return {
+        "buckets": distribution,
+        "totalSettled": len(settled_with_edge),
+        "tradesWithEdge": len(trades_with_edge),
+        "correlation": correlation
+    }
+
+
 def calculate_streak_stats(trades):
     """Calculate streak statistics from trades (T624).
     
@@ -712,6 +784,10 @@ def calculate_stats(trades, source='v2'):
     # Add streak stats (T624)
     streak_stats = calculate_streak_stats(trades)
     result.update(streak_stats)
+    
+    # Add edge distribution (T368)
+    edge_dist = calculate_edge_distribution(trades)
+    result["edgeDistribution"] = edge_dist
     
     return result
 

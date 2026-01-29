@@ -3038,12 +3038,19 @@
 - **Notes**: ✅ Implemented! CIRCUIT_BREAKER_COOLDOWN_HOURS env var (default 4h). Circuit breaker now resumes after EITHER a win OR cooldown elapsed. Shows remaining hours in status message. Alert includes cooldown info.
 
 ### [T368] Trade edge confidence buckets on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T296]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show pie/bar chart of trades by edge bucket (0-5%, 5-10%, 10-15%, 15%+). Color code by win rate per bucket. Helps visualize edge distribution and optimal thresholds.
+- **Notes**: ✅ Implemented! EdgeDistributionChart component on /betting dashboard:
+  - **6 edge buckets**: 0-5%, 5-10%, 10-15%, 15-20%, 20-30%, 30%+
+  - **Bar chart**: Height = trade count, color = win rate (green ≥50%, yellow 40-50%, red <40%)
+  - **Correlation indicator**: Shows if model is calibrated (higher edge → higher WR)
+  - **Data source**: push-stats-to-gist.py now includes edgeDistribution field
+  - **Interactive**: Hover for win rate %, trade count per bucket
+  - Insight box explains correlation status
 
 ### [T369] Analyze trades by volatility bucket
 - **Status**: DUPLICATE

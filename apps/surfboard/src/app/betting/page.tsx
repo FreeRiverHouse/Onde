@@ -34,6 +34,7 @@ import {
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
+import { EdgeDistributionChart, EdgeDistributionData } from '@/components/EdgeDistributionChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
@@ -153,6 +154,8 @@ interface TradingStats {
       };
     };
   };
+  // Edge distribution (T368)
+  edgeDistribution?: EdgeDistributionData | null;
   // Autotrader health status (T623)
   healthStatus?: AutotraderHealth | null;
 }
@@ -670,6 +673,9 @@ export default function BettingDashboard() {
           
           // Volatility analysis
           volatility: gistData.volatility,
+          
+          // Edge distribution (T368)
+          edgeDistribution: gistData.edgeDistribution ?? null,
           
           // Autotrader health status (T623)
           healthStatus: gistData.healthStatus ?? null,
@@ -1736,6 +1742,13 @@ export default function BettingDashboard() {
               <VolatilityCard 
                 volatility={tradingStats.volatility}
                 loading={isLoading}
+              />
+            </div>
+
+            {/* Edge Distribution (T368) */}
+            <div className="mt-4">
+              <EdgeDistributionChart 
+                data={tradingStats.edgeDistribution ?? null}
               />
             </div>
 
