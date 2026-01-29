@@ -3122,12 +3122,19 @@
 - **Notes**: ✅ Implemented! Added GA4 events: 1) book_download (bookId, format) in useDownloadTracker.tsx, 2) book_preview (bookId, title) in BookPreviewModal.tsx, 3) add_to_reading_list (bookId) in useReadingList.ts. All use gtag() with event_category: 'engagement'. Silently fail if GA not loaded.
 
 ### [T379] Trading PnL daily goal tracker
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add configurable daily profit target ($X). Show progress bar on /betting dashboard. Alert when goal reached or when significantly behind. Track goal hit rate over time.
+- **Notes**: ✅ Implemented! DailyGoalTracker component on /betting dashboard:
+  - Configurable daily profit target (editable inline, persists to localStorage)
+  - Progress bar showing current P&L vs goal (supports negative/behind)
+  - Status indicators: Goal Met 🎉 (green), On Track (yellow), Behind (red)
+  - Goal hit rate tracking with last 30 days history
+  - Expandable history view showing daily goal vs achieved
+  - Responsive design with glass morphism styling
 
 ### [T380] Reading list / bookmark feature for books
 - **Status**: DONE

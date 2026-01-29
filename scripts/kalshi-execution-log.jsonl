@@ -12,3 +12,4 @@
 {"timestamp": "2026-01-29T21:51:41.379925+00:00", "ticker": "KXHIGHCHI-26JAN29-B18.5", "side": "no", "count": 1, "price_cents": 20, "status": "executed", "latency_ms": 248, "retries": 0, "order_id": "7058995e-66a7-4a14-ac6a-b348f19c137a"}
 {"timestamp": "2026-01-29T21:56:52.780130+00:00", "ticker": "KXHIGHCHI-26JAN29-B18.5", "side": "no", "count": 1, "price_cents": 20, "status": "executed", "latency_ms": 181, "retries": 0, "order_id": "84f5e882-65c1-49ae-925a-ae5d6b136403"}
 {"timestamp": "2026-01-29T22:02:03.946482+00:00", "ticker": "KXHIGHCHI-26JAN29-B18.5", "side": "no", "count": 1, "price_cents": 21, "status": "executed", "latency_ms": 241, "retries": 0, "order_id": "793eaff0-bad4-4c71-a041-a357a0990fff"}
+{"timestamp": "2026-01-29T22:17:49.597646+00:00", "ticker": "KXHIGHCHI-26JAN29-B16.5", "side": "no", "count": 1, "price_cents": 13, "status": "executed", "latency_ms": 297, "retries": 0, "order_id": "a0fdb6e2-0db3-48cd-8088-5715404c581e"}

@@ -40,6 +40,7 @@ import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
+import { DailyGoalTracker } from '@/components/DailyGoalTracker';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -1593,6 +1594,11 @@ export default function BettingDashboard() {
                   </>
                 )}
               </GlassCard>
+            </div>
+
+            {/* Daily Goal Tracker */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <DailyGoalTracker todayPnlCents={tradingStats.todayPnlCents} />
             </div>
 
             {/* Streak Pattern Visualization */}
