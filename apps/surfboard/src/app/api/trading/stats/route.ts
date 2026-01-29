@@ -32,6 +32,8 @@ interface TradingStats {
   grossLossCents: number;
   profitFactor: number;  // gross profit / gross loss - key metric for strategy health
   sharpeRatio: number;   // risk-adjusted return: (avg return) / std dev of returns
+  maxDrawdownCents: number;  // largest peak-to-trough decline in cents
+  maxDrawdownPercent: number;  // max drawdown as % of peak equity
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -123,6 +125,41 @@ export async function GET() {
       sharpeRatio = stdDev > 0 ? avgReturn / stdDev : 0;
     }
 
+    // Max Drawdown: largest peak-to-trough decline
+    // Sort settled trades by timestamp and calculate cumulative PnL
+    const sortedSettled = [...settledTrades].sort((a, b) => 
+      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
+    
+    let cumulativePnl = 0;
+    let peak = 0;
+    let maxDrawdownCents = 0;
+    let maxDrawdownPercent = 0;
+    
+    for (const trade of sortedSettled) {
+      const contracts = trade.contracts || 1;
+      const price = trade.price_cents || 0;
+      
+      if (trade.result_status === 'won') {
+        cumulativePnl += (100 - price) * contracts;
+      } else if (trade.result_status === 'lost') {
+        cumulativePnl -= price * contracts;
+      }
+      
+      // Update peak if we have a new high
+      if (cumulativePnl > peak) {
+        peak = cumulativePnl;
+      }
+      
+      // Calculate current drawdown from peak
+      const drawdown = peak - cumulativePnl;
+      if (drawdown > maxDrawdownCents) {
+        maxDrawdownCents = drawdown;
+        // Calculate drawdown percent (relative to peak, avoid division by zero)
+        maxDrawdownPercent = peak > 0 ? (drawdown / peak) * 100 : 0;
+      }
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -152,6 +189,8 @@ export async function GET() {
       grossLossCents,
       profitFactor: Number.isFinite(profitFactor) ? Math.round(profitFactor * 100) / 100 : 0,
       sharpeRatio: Math.round(sharpeRatio * 100) / 100,  // Round to 2 decimal places
+      maxDrawdownCents,
+      maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

@@ -72,6 +72,8 @@ interface TradingStats {
   grossLossCents?: number;
   profitFactor?: number;  // gross profit / gross loss (>1 = profitable)
   sharpeRatio?: number;   // risk-adjusted return metric
+  maxDrawdownCents?: number;  // largest peak-to-trough decline
+  maxDrawdownPercent?: number;  // max drawdown as % of peak
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -769,6 +771,24 @@ export default function BettingDashboard() {
                 />
                 <p className="text-xs text-gray-600 mt-1">
                   {(tradingStats.sharpeRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sharpeRatio ?? 0) >= 1 ? 'good' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'fair' : 'poor'}
+                </p>
+              </GlassCard>
+
+              {/* Max Drawdown */}
+              <GlassCard glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingDown className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Max Drawdown</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.maxDrawdownPercent ?? 0} 
+                  suffix="%"
+                  decimals={1}
+                  glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 10 ? 'green' : (tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  ${((tradingStats.maxDrawdownCents ?? 0) / 100).toFixed(2)} from peak
                 </p>
               </GlassCard>
 
