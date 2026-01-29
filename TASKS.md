@@ -2991,8 +2991,8 @@
 - **Notes**: ✅ Added! Shows active date filter in cyan under "Trading Performance" title. Formats: "Today", "Last 7 days", "Last 30 days", or custom "Jan 20 → Jan 27". Only shows when filter is not "All time".
 
 ### [T364] Date range comparison mode (vs previous period)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T203]
 - **Blocks**: -
 - **Priority**: P3
