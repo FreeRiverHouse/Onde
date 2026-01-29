@@ -1,0 +1,171 @@
+{
+  "validated_count": 20,
+  "errors": [],
+  "by_ticker": {
+    "KXBTCD-26JAN2804-T88499.99": {
+      "our_price": 88867.96176901093,
+      "expiry_time": "2026-01-28T09:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 88808.02,
+      "error_coinbase": 59.94176901092578,
+      "error_pct_coinbase": 0.06749589621627167
+    },
+    "KXBTCD-26JAN2804-T88249.99": {
+      "our_price": 88867.96176901093,
+      "expiry_time": "2026-01-28T09:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 88808.02,
+      "error_coinbase": 59.94176901092578,
+      "error_pct_coinbase": 0.06749589621627167
+    },
+    "KXBTCD-26JAN2805-T87999.99": {
+      "our_price": 89330.21,
+      "expiry_time": "2026-01-28T10:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89377.5,
+      "error_coinbase": 47.2899999999936,
+      "error_pct_coinbase": 0.05291040810046555
+    },
+    "KXBTCD-26JAN2805-T87749.99": {
+      "our_price": 89330.21,
+      "expiry_time": "2026-01-28T10:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89377.5,
+      "error_coinbase": 47.2899999999936,
+      "error_pct_coinbase": 0.05291040810046555
+    },
+    "KXBTCD-26JAN2805-T88249.99": {
+      "our_price": 89345.8198413007,
+      "expiry_time": "2026-01-28T10:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89377.5,
+      "error_coinbase": 31.680158699295134,
+      "error_pct_coinbase": 0.035445339933758646
+    },
+    "KXBTCD-26JAN2806-T88499.99": {
+      "our_price": 89309.67,
+      "expiry_time": "2026-01-28T11:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89317.08,
+      "error_coinbase": 7.4100000000034925,
+      "error_pct_coinbase": 0.008296285548076016
+    },
+    "KXBTCD-26JAN2806-T88249.99": {
+      "our_price": 89309.67,
+      "expiry_time": "2026-01-28T11:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89317.08,
+      "error_coinbase": 7.4100000000034925,
+      "error_pct_coinbase": 0.008296285548076016
+    },
+    "KXBTCD-26JAN2806-T88749.99": {
+      "our_price": 89309.67,
+      "expiry_time": "2026-01-28T11:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89317.08,
+      "error_coinbase": 7.4100000000034925,
+      "error_pct_coinbase": 0.008296285548076016
+    },
+    "KXBTCD-26JAN2806-T87749.99": {
+      "our_price": 89309.67,
+      "expiry_time": "2026-01-28T11:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89317.08,
+      "error_coinbase": 7.4100000000034925,
+      "error_pct_coinbase": 0.008296285548076016
+    },
+    "KXBTCD-26JAN2807-T88499.99": {
+      "our_price": 89953.3487413721,
+      "expiry_time": "2026-01-28T12:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89879.99,
+      "error_coinbase": 73.35874137209612,
+      "error_pct_coinbase": 0.08161854643296702
+    },
+    "KXBTCD-26JAN2807-T88249.99": {
+      "our_price": 89934.1,
+      "expiry_time": "2026-01-28T12:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89879.99,
+      "error_coinbase": 54.11000000000058,
+      "error_pct_coinbase": 0.060202498909935995
+    },
+    "KXBTCD-26JAN2807-T88749.99": {
+      "our_price": 89953.3487413721,
+      "expiry_time": "2026-01-28T12:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89879.99,
+      "error_coinbase": 73.35874137209612,
+      "error_pct_coinbase": 0.08161854643296702
+    },
+    "KXBTCD-26JAN2808-T88249.99": {
+      "our_price": 89877.65,
+      "expiry_time": "2026-01-28T13:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89896.19,
+      "error_coinbase": 18.54000000000815,
+      "error_pct_coinbase": 0.02062378839415569
+    },
+    "KXBTCD-26JAN2808-T87999.99": {
+      "our_price": 89877.65,
+      "expiry_time": "2026-01-28T13:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89896.19,
+      "error_coinbase": 18.54000000000815,
+      "error_pct_coinbase": 0.02062378839415569
+    },
+    "KXBTCD-26JAN2808-T88999.99": {
+      "our_price": 89877.65,
+      "expiry_time": "2026-01-28T13:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89896.19,
+      "error_coinbase": 18.54000000000815,
+      "error_pct_coinbase": 0.02062378839415569
+    },
+    "KXBTCD-26JAN2809-T88999.99": {
+      "our_price": 90124.01,
+      "expiry_time": "2026-01-28T14:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 90094.69,
+      "error_coinbase": 29.319999999992433,
+      "error_pct_coinbase": 0.0325435383594665
+    },
+    "KXBTCD-26JAN2809-T88749.99": {
+      "our_price": 90117.42255647454,
+      "expiry_time": "2026-01-28T14:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 90094.69,
+      "error_coinbase": 22.732556474540615,
+      "error_pct_coinbase": 0.025231849373742912
+    },
+    "KXBTCD-26JAN2809-T89249.99": {
+      "our_price": 90117.42255647454,
+      "expiry_time": "2026-01-28T14:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 90094.69,
+      "error_coinbase": 22.732556474540615,
+      "error_pct_coinbase": 0.025231849373742912
+    },
+    "KXBTCD-26JAN2810-T88249.99": {
+      "our_price": 89511.6307398833,
+      "expiry_time": "2026-01-28T15:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89586.0,
+      "error_coinbase": 74.36926011669857,
+      "error_pct_coinbase": 0.08301437737670905
+    },
+    "KXBTCD-26JAN2810-T88999.99": {
+      "our_price": 89540.93,
+      "expiry_time": "2026-01-28T15:00:00+00:00",
+      "asset": "BTC",
+      "coinbase_price": 89586.0,
+      "error_coinbase": 45.070000000006985,
+      "error_pct_coinbase": 0.05030920009823744
+    }
+  },
+  "summary": {
+    "mean_absolute_error_coinbase": 0.040554243114988654,
+    "max_error_coinbase": 0.08301437737670905
+  },
+  "timestamp": "2026-01-29T13:42:01.766781+00:00"
+}
