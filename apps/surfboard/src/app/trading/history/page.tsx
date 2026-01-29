@@ -8,6 +8,7 @@ import {
   ArrowRight,
   Filter,
   Download,
+  FileJson,
   RefreshCw,
   TrendingUp,
   TrendingDown,
@@ -130,6 +131,39 @@ export default function TradeHistoryPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleExportJSON = () => {
+    if (!data?.trades.length) return;
+    
+    const exportData = {
+      exported_at: new Date().toISOString(),
+      total_trades: data.pagination.total,
+      filters: data.filters,
+      trades: data.trades.map(t => ({
+        timestamp: t.timestamp,
+        ticker: t.ticker,
+        asset: t.asset || 'BTC',
+        side: t.side,
+        price_cents: t.price_cents,
+        contracts: t.contracts || 1,
+        edge: t.edge,
+        result_status: t.result_status || 'pending',
+        pnl_cents: t.pnl_cents,
+        minutes_to_expiry: t.minutes_to_expiry,
+        reason: t.reason,
+        regime: t.regime
+      }))
+    };
+    
+    const json = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trades-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleString('en-US', {
@@ -174,8 +208,17 @@ export default function TradeHistoryPage() {
               onClick={handleExportCSV}
               disabled={!data?.trades.length}
               className="p-2 bg-gray-700 hover:bg-gray-600 rounded transition disabled:opacity-50"
+              title="Export CSV"
             >
               <Download size={18} />
+            </button>
+            <button
+              onClick={handleExportJSON}
+              disabled={!data?.trades.length}
+              className="p-2 bg-gray-700 hover:bg-gray-600 rounded transition disabled:opacity-50"
+              title="Export JSON"
+            >
+              <FileJson size={18} />
             </button>
             <button
               onClick={fetchTrades}

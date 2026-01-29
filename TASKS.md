@@ -1833,12 +1833,13 @@
 - **Notes**: ✅ Updated! Now processes both v1 and v2 files by default. Separate settlements JSON per source. CLI flags: --v1, --v2, --stats (shows both).
 
 ### [T348] Settlement cron job for v2 trades
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T347]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Verify cron job calls settlement tracker correctly for v2. May need update to crontab entry.
+- **Notes**: ✅ Verified! Cron runs every hour. Script already processes both v1 and v2 files by default (T347). V2 file will be auto-processed when first v2 trades are made.
 
 ### [T349] Unified settlements dashboard
 - **Status**: TODO
@@ -1949,12 +1950,13 @@
 - **Notes**: Show total PnL, trades count, and win rate summary for the currently filtered date range in trade history header.
 
 ### [T362] JSON export option for trade history
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T096]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add JSON export button alongside CSV. Useful for programmatic analysis and data backup.
+- **Notes**: ✅ Added! FileJson icon button next to CSV export. Exports full trade data with metadata (timestamp, filters, all fields including regime/reason). Formatted JSON with indent.
 
 ### [T363] Date range display in trading stats header
 - **Status**: TODO
