@@ -2048,6 +2048,30 @@
 - **Priority**: P3
 - **Notes**: Show pie/bar chart of trades by edge bucket (0-5%, 5-10%, 10-15%, 15%+). Color code by win rate per bucket. Helps visualize edge distribution and optimal thresholds.
 
+### [T369] Analyze trades by volatility bucket
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to group trades by realized volatility at entry time (low/medium/high). Compare win rates per bucket to determine if volatility threshold affects model accuracy.
+
+### [T370] Memory files age warning in heartbeat
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Check if memory/*.md files are older than 7 days. Alert Mattia to review and archive stale notes. Keep workspace tidy.
+
+### [T371] Dark mode toggle for trading dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add dark/light mode toggle for /betting page. Persist preference in localStorage. Useful for late-night trading monitoring.
+
 ---
 
 *Ultimo aggiornamento: 2026-01-30 heartbeat*
