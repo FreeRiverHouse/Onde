@@ -252,16 +252,117 @@ function OverallStatus({ data }: { data: HealthData | null }) {
   )
 }
 
+// Hook to manage browser notifications
+function useNotifications() {
+  const [permission, setPermission] = useState<NotificationPermission>('default')
+  const [enabled, setEnabled] = useState(false)
+  
+  useEffect(() => {
+    // Check if notifications are supported
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setPermission(Notification.permission)
+      // Load preference from localStorage
+      const savedPref = localStorage.getItem('healthNotificationsEnabled')
+      if (savedPref === 'true' && Notification.permission === 'granted') {
+        setEnabled(true)
+      }
+    }
+  }, [])
+  
+  const requestPermission = async () => {
+    if (!('Notification' in window)) {
+      console.warn('Notifications not supported')
+      return false
+    }
+    
+    const result = await Notification.requestPermission()
+    setPermission(result)
+    
+    if (result === 'granted') {
+      setEnabled(true)
+      localStorage.setItem('healthNotificationsEnabled', 'true')
+      return true
+    }
+    return false
+  }
+  
+  const toggleEnabled = (value: boolean) => {
+    setEnabled(value)
+    localStorage.setItem('healthNotificationsEnabled', value ? 'true' : 'false')
+  }
+  
+  const notify = (title: string, options?: NotificationOptions) => {
+    if (enabled && permission === 'granted') {
+      try {
+        const notification = new Notification(title, {
+          icon: '/icon.svg',
+          badge: '/icon.svg',
+          ...options
+        })
+        // Auto-close after 10 seconds
+        setTimeout(() => notification.close(), 10000)
+        return notification
+      } catch (e) {
+        console.warn('Failed to show notification:', e)
+      }
+    }
+    return null
+  }
+  
+  return { permission, enabled, requestPermission, toggleEnabled, notify }
+}
+
 export default function HealthPage() {
   const [data, setData] = useState<HealthData | null>(null)
   const [loading, setLoading] = useState(true)
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [autoRefresh, setAutoRefresh] = useState(true)
+  const [previousStatus, setPreviousStatus] = useState<string | null>(null)
+  
+  const { permission, enabled: notificationsEnabled, requestPermission, toggleEnabled, notify } = useNotifications()
+  
+  // Load autoRefresh preference from localStorage
+  useEffect(() => {
+    const savedAutoRefresh = localStorage.getItem('healthAutoRefresh')
+    if (savedAutoRefresh !== null) {
+      setAutoRefresh(savedAutoRefresh === 'true')
+    }
+  }, [])
+  
+  // Check for status changes and notify
+  useEffect(() => {
+    if (!data || !previousStatus) return
+    
+    const currentStatus = data.overall
+    if (currentStatus !== previousStatus) {
+      // Status changed - send notification
+      const statusEmoji = {
+        healthy: '✅',
+        degraded: '⚠️',
+        down: '🚨'
+      }[currentStatus] || '📊'
+      
+      const statusLabel = STATUS_CONFIG[currentStatus]?.label || currentStatus
+      const prevLabel = STATUS_CONFIG[previousStatus as keyof typeof STATUS_CONFIG]?.label || previousStatus
+      
+      notify(`${statusEmoji} System Status Changed`, {
+        body: `Status changed from ${prevLabel} to ${statusLabel}\n${data.checks.healthy}/${data.checks.total} services operational`,
+        tag: 'health-status-change', // Prevents duplicate notifications
+        requireInteraction: currentStatus === 'down' // Keep down notifications visible
+      })
+    }
+  }, [data, previousStatus, notify])
   
   const fetchHealth = useCallback(async () => {
     try {
       const res = await fetch('/api/health', { cache: 'no-store' })
       const json = await res.json()
+      
+      // Store previous status before updating
+      if (data?.overall) {
+        setPreviousStatus(data.overall)
+      }
+      
       setData(json)
       setLastUpdate(new Date())
     } catch (error) {
@@ -269,7 +370,7 @@ export default function HealthPage() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [data?.overall])
   
   useEffect(() => {
     fetchHealth()
@@ -280,6 +381,24 @@ export default function HealthPage() {
       return () => clearInterval(interval)
     }
   }, [fetchHealth, autoRefresh])
+  
+  // Keyboard shortcut: R to refresh
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return
+      }
+      
+      if (e.key.toLowerCase() === 'r' && !e.metaKey && !e.ctrlKey) {
+        setLoading(true)
+        fetchHealth()
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [fetchHealth])
   
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
@@ -307,10 +426,49 @@ export default function HealthPage() {
             </p>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Notifications toggle */}
+            <button
+              onClick={async () => {
+                if (permission !== 'granted') {
+                  await requestPermission()
+                } else {
+                  toggleEnabled(!notificationsEnabled)
+                }
+              }}
+              className={`
+                px-4 py-2 rounded-xl border transition-all flex items-center gap-2
+                ${notificationsEnabled && permission === 'granted'
+                  ? 'bg-purple-500/20 border-purple-500/30 text-purple-400' 
+                  : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}
+              `}
+              title={
+                permission === 'denied' 
+                  ? 'Notifications blocked - enable in browser settings' 
+                  : permission === 'granted' 
+                    ? (notificationsEnabled ? 'Click to disable notifications' : 'Click to enable notifications')
+                    : 'Click to enable browser notifications'
+              }
+            >
+              <span className="text-lg">
+                {permission === 'denied' ? '🔕' : notificationsEnabled ? '🔔' : '🔕'}
+              </span>
+              <span className="hidden sm:inline">
+                {permission === 'denied' 
+                  ? 'Blocked' 
+                  : notificationsEnabled 
+                    ? 'Alerts ON' 
+                    : 'Alerts OFF'}
+              </span>
+            </button>
+            
             {/* Auto-refresh toggle */}
             <button
-              onClick={() => setAutoRefresh(!autoRefresh)}
+              onClick={() => {
+                const newValue = !autoRefresh
+                setAutoRefresh(newValue)
+                localStorage.setItem('healthAutoRefresh', newValue ? 'true' : 'false')
+              }}
               className={`
                 px-4 py-2 rounded-xl border transition-all
                 ${autoRefresh 
@@ -321,16 +479,18 @@ export default function HealthPage() {
               {autoRefresh ? '⟳ Auto-refresh ON' : '⟳ Auto-refresh OFF'}
             </button>
             
-            {/* Manual refresh */}
+            {/* Manual refresh with keyboard hint */}
             <button
               onClick={() => {
                 setLoading(true)
                 fetchHealth()
               }}
               disabled={loading}
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl border border-white/10 transition-all disabled:opacity-50"
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl border border-white/10 transition-all disabled:opacity-50 flex items-center gap-2"
+              title="Press R to refresh"
             >
               {loading ? 'Checking...' : 'Refresh Now'}
+              <kbd className="hidden md:inline-block px-1.5 py-0.5 text-xs bg-white/10 rounded border border-white/20">R</kbd>
             </button>
           </div>
         </div>
@@ -442,7 +602,9 @@ export default function HealthPage() {
             <p>Last updated: {lastUpdate.toLocaleString()}</p>
           )}
           <p className="mt-2">
-            Health checks run every 30 seconds • Powered by Onde.surf
+            Health checks run every 30 seconds 
+            {notificationsEnabled && ' • 🔔 Alerts enabled'}
+            {' • Powered by Onde.surf'}
           </p>
         </div>
       </div>

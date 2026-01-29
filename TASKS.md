@@ -50,12 +50,22 @@
   - Tooltip on button: "Press R to refresh"
 
 ### [T460] Health page: Browser notifications on status change
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T456]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use browser Notifications API to alert when overall status changes (healthy→degraded, etc.). Opt-in toggle in settings. Only notify on actual changes, not every refresh.
+- **Notes**: ✅ Implemented! Browser Notifications API integration:
+  - **Toggle button** in header (🔔/🔕) with permission handling
+  - **Permission states**: default (click to enable), granted, denied (shows Blocked)
+  - **Detects status changes**: healthy↔degraded↔down transitions
+  - **Smart notifications**: only on actual changes, not every refresh
+  - **Tag deduplication**: prevents notification spam
+  - **requireInteraction**: keeps "down" alerts visible until dismissed
+  - **localStorage persistence**: remembers preference
+  - **Keyboard shortcut**: R to refresh (already existed, added kbd hint)
+  - Footer shows "🔔 Alerts enabled" when active
 
 ---
 
