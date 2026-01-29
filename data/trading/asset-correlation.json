@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-01-29T12:38:19.987580+00:00",
+  "btc_candles": 180,
+  "eth_candles": 180,
+  "analysis_window": "42 candles (~168h)",
+  "divergence_threshold": 0.7,
+  "current_correlation": 0.9161,
+  "stats_by_window": {
+    "7d": {
+      "mean": 0.8532,
+      "min": 0.7336,
+      "max": 0.9291,
+      "std_dev": 0.0301,
+      "current": 0.9161,
+      "samples": 138
+    },
+    "14d": {
+      "mean": 0.8568,
+      "min": 0.8093,
+      "max": 0.8974,
+      "std_dev": 0.022,
+      "current": 0.897,
+      "samples": 96
+    }
+  },
+  "divergence_events": [],
+  "recent_correlations": [
+    {
+      "timestamp": 1769529600000,
+      "datetime": "2026-01-27T16:00:00+00:00",
+      "correlation": 0.8742,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769544000000,
+      "datetime": "2026-01-27T20:00:00+00:00",
+      "correlation": 0.8733,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769558400000,
+      "datetime": "2026-01-28T00:00:00+00:00",
+      "correlation": 0.8687,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769572800000,
+      "datetime": "2026-01-28T04:00:00+00:00",
+      "correlation": 0.8628,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769587200000,
+      "datetime": "2026-01-28T08:00:00+00:00",
+      "correlation": 0.8621,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769601600000,
+      "datetime": "2026-01-28T12:00:00+00:00",
+      "correlation": 0.8643,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769616000000,
+      "datetime": "2026-01-28T16:00:00+00:00",
+      "correlation": 0.8627,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769630400000,
+      "datetime": "2026-01-28T20:00:00+00:00",
+      "correlation": 0.9011,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769644800000,
+      "datetime": "2026-01-29T00:00:00+00:00",
+      "correlation": 0.907,
+      "window_candles": 42
+    },
+    {
+      "timestamp": 1769659200000,
+      "datetime": "2026-01-29T04:00:00+00:00",
+      "correlation": 0.9161,
+      "window_candles": 42
+    }
+  ],
+  "insights": [
+    "\ud83d\udd17 BTC and ETH highly correlated (>0.9). They move almost identically.",
+    "\ud83d\udca1 High correlation = treat BTC/ETH similarly. Momentum signals likely apply to both."
+  ]
+}

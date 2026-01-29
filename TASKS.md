@@ -2907,12 +2907,13 @@
 - **Notes**: Track win rate specifically for trades made during reversion signals (T302). Analyze if contrarian trades outperform or underperform. Script: analyze-reversion-trades.py. Log reversion_signal: true/false in trade data.
 
 ### [T442] Multi-asset correlation monitoring
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track BTC/ETH price correlation coefficient over time. When correlation breaks down (usually during liquidation events), adjust strategy accordingly. Script: analyze-asset-correlation.py using OHLC cache.
+- **Notes**: ✅ Script: analyze-asset-correlation.py. Calculates rolling correlation (7d/14d/30d windows), detects divergence events when correlation < threshold, generates insights. Current: 0.916 (highly correlated). Output: data/trading/asset-correlation.json. Usage: `python3 scripts/analyze-asset-correlation.py [--window 42] [--threshold 0.7]`
 
 ### [T443] Dashboard refresh rate configuration
 - **Status**: TODO
