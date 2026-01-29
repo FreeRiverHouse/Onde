@@ -24,9 +24,7 @@ import {
   Keyboard,
   X,
   ChevronDown,
-  ChevronUp,
-  Sun,
-  Moon
+  ChevronUp
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 
@@ -434,7 +432,7 @@ export default function BettingDashboard() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   // Fetch all data
   const fetchData = useCallback(async () => {

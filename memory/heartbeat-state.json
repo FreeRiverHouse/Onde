@@ -1,9 +1,6 @@
 {
-  "lastHeartbeat": "2026-01-30T03:33:58Z",
-  "taskCompleted": "T294",
-  "tasksAdded": ["T327", "T328", "T329"],
-  "autotraderRunning": true,
-  "autotraderPID": 7498,
-  "alertsChecked": true,
-  "alertsFound": 0
+  "lastHeartbeat": "2026-01-29T03:52:42Z",
+  "lastHeartbeatEpoch": 1769658762,
+  "host": "FRH-M1-PRO.local",
+  "lastChecks": {}
 }

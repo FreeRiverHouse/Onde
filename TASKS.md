@@ -1714,12 +1714,13 @@
 ---
 
 ### [T336] System theme preference detection (prefers-color-scheme)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T315]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Detect OS-level theme preference and auto-set on first visit. Add "System" option to theme toggle.
+- **Notes**: ✅ Added! ThemeProvider now detects OS `prefers-color-scheme`. Theme cycles: dark → light → system. System mode auto-follows OS preference with real-time listener. Monitor icon for system mode. First-visit defaults to system.
 
 ### [T337] Smooth theme transition animations
 - **Status**: TODO
