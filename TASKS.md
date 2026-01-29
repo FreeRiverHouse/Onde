@@ -1508,12 +1508,13 @@
 - **Notes**: ✅ Added! Mobile shows first 6 stats by default. "More/Less" button in header expands all 15 cards. Keyboard shortcut 'E' toggles expand. CSS selector `max-md:[&>*:nth-child(n+7)]:hidden` hides cards 7+ on mobile.
 
 ### [T312] Service worker for offline PWA caching
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T309]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add service worker to cache static assets and API responses. Enable offline viewing of last cached trading stats when network unavailable.
+- **Notes**: ✅ Created sw.js with 3 caching strategies: 1) Cache-first for static assets, 2) Network-first for API routes with cache fallback, 3) Network-first for HTML with offline support. Precaches /, /betting, /house. ServiceWorkerRegistration component auto-registers and handles updates. API responses cached for 60s TTL.
 
 ### [T313] Export trading stats to Google Sheets
 - **Status**: TODO
@@ -1554,6 +1555,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Show contract count and cost basis per position. Calculate unrealized PnL based on current market price vs entry price.
+
+### [T318] Offline indicator UI for PWA
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T312]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show banner/toast when app detects offline state. Indicate cached data age. Use navigator.onLine + online/offline events.
+
+### [T319] SW cache version bump script
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T312]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to bump sw.js cache version on deploy. Ensures fresh caches after releases. Add to deploy-onde-surf.sh.
+
+### [T320] Background sync for trading dashboard refresh
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T312]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use Background Sync API to queue data fetches when offline. Auto-refresh trading stats when connection restored.
 
 ---
 

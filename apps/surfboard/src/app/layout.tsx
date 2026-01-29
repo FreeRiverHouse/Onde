@@ -4,6 +4,7 @@ import { Providers } from '@/components/Providers'
 import { AuthButtons } from '@/components/AuthButtons'
 import { HeaderClient } from '@/components/HeaderClient'
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects'
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -56,6 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-[#0a0f1a] text-white antialiased overflow-x-hidden">
         <Providers>
+          {/* Service Worker for offline PWA */}
+          <ServiceWorkerRegistration />
+          
           {/* Premium Background Effects */}
           <BackgroundEffects />
           
