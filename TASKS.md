@@ -2537,7 +2537,31 @@
 - **Priority**: P3
 - **Notes**: Track when momentum calc uses cached vs live data. Compare accuracy of resulting trades. Validates that cached OHLC doesn't degrade performance.
 
+### [T393] Whipsaw detection (momentum flip twice in same day)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T259]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when momentum flips direction twice within 24h (bullish→bearish→bullish or vice versa). Indicates choppy market conditions - consider reducing position sizes.
+
+### [T394] Analyze win rate by momentum alignment status
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T301]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to compare win rate and PnL when trading during full alignment vs partial vs no alignment. Validates T301 hypothesis that alignment = better outcomes.
+
+### [T395] Log momentum alignment status in trade data
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T301]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add full_alignment field to trade_log. Enables post-trade analysis of alignment effectiveness. Currently momentum_aligned only tracks 1h alignment.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 07:21 UTC*
+*Ultimo aggiornamento: 2026-01-30 12:30 UTC*
 *Sistema coordinamento: vedi TASK-RULES.md*
