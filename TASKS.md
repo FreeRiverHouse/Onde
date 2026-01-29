@@ -212,8 +212,8 @@
   - To enable web search: set BRAVE_API_KEY env var
 
 ### [T417] Test Suite: add Playwright visual regression tests
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T413]
 - **Blocks**: -
 - **Priority**: P2
