@@ -2431,12 +2431,13 @@
 - **Notes**: ✅ All pages converted to i18n! /famiglia (T422), /collezioni, /giochi (T423), /about (T424), /health (T425). Homepage + catalogo were already done. Full Italian localization complete.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T237]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare win rate and PnL of trades where vol_aligned=true vs false. Validate that volatility rebalancing improves performance. Similar to momentum alignment analysis.
+- **Notes**: ✅ Script: analyze-vol-alignment.py. Compares aligned vs not_aligned win rate, PnL, ROI. Includes vol_bonus bucket analysis, asset/side breakdown. V1 trades lack vol_aligned field (pre-T237). V2 awaiting settled trades. Output: data/trading/vol-alignment-analysis.json
 
 ### [T376] Volatility preference alert (multi-day divergence)
 - **Status**: TODO
@@ -3534,4 +3535,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add cron to run analyze-vix-correlation.py daily. Update vix-history.json and vix-correlation.json. Suggested: `0 1 * * * python3 scripts/analyze-vix-correlation.py --days 30`
+
+### [T614] Vol alignment performance widget on /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T375]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Display vol_aligned vs not_aligned win rate comparison from vol-alignment-analysis.json. Show when enough V2 data available. Color-coded bars showing performance difference. Helps validate T237 (volatility rebalancing) effectiveness visually.
+
+### [T615] Cross-asset momentum divergence analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T442]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to analyze trades when BTC and ETH momentum signals diverge. Compare win rate for trades taken during divergent vs convergent momentum. May reveal if trading against cross-asset signal is risky.
+
+### [T616] Auto-summarize old memory files into MEMORY.md
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T415]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Monthly script to read memory/YYYY-MM-DD.md files 7-30 days old, extract key decisions/learnings via LLM or heuristics, append summary to MEMORY.md, then archive originals. Prevents important context from being lost during archival.
 
