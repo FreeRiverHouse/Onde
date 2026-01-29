@@ -2854,12 +2854,13 @@
 - **Notes**: ✅ Created Skeleton.tsx component with shimmer animation + GameCardSkeleton + GameCardsSkeletonGrid. Integrated into /giochi page with 300ms loading state. Improves perceived performance.
 
 ### [T437] Game card hover effects enhancement
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Enhance game cards on /giochi with: 1) Subtle scale on hover (1.02x), 2) Shadow depth increase, 3) Icon wobble animation, 4) Smooth color transition on play button. Polish for better UX.
+- **Notes**: ✅ Enhanced AnimatedCard with: 1) scale(1.02) on hover with smooth easing, 2) variant-specific shadow depth (coral/gold/teal colors), 3) shine effect sweep animation, 4) whileTap scale(0.98) for tactile feedback, 5) card-icon class with wobble (scale+rotate) on hover. Updated /giochi play buttons with gradient swap, scale, and pulse animation.
 
 ### [T438] Cron job for historical volatility calculation
 - **Status**: DONE

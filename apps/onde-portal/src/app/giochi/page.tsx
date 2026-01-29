@@ -340,7 +340,7 @@ export default function GiochiPage() {
               <>
                 {/* Header with image placeholder */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl
+                  <div className={`card-icon w-20 h-20 rounded-2xl flex items-center justify-center text-4xl
                                    bg-gradient-to-br from-onde-${game.color}/20 to-onde-${game.color}/5
                                    relative overflow-hidden`}>
                     {/* Watercolor texture in icon background */}
@@ -390,8 +390,10 @@ export default function GiochiPage() {
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl
                                      bg-gradient-to-r from-onde-gold to-onde-coral
                                      text-white font-semibold text-sm
-                                     group-hover:shadow-lg transition-shadow">
-                      ▶️ {t.games.status.playNow}
+                                     shadow-md group-hover:shadow-xl group-hover:shadow-onde-gold/30
+                                     group-hover:scale-105 group-hover:from-onde-coral group-hover:to-onde-gold
+                                     transition-all duration-300 ease-out">
+                      <span className="group-hover:animate-pulse">▶️</span> {t.games.status.playNow}
                     </span>
                   </div>
                 )}
