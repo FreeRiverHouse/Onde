@@ -1789,12 +1789,13 @@
 - **Notes**: ✅ Implemented! Functions: detect_momentum_reversion(), check_reversion_alert(), write_reversion_alert(), get_reversion_edge_adjustment(). Triggers when 4h move >2% or 8h move >3% with strong momentum (>0.7). Alert file: kalshi-momentum-reversion.alert. Provides contrarian trading signals with confidence levels. Added to HEARTBEAT.md pickup.
 
 ### [T303] Momentum divergence alert (price vs momentum)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T250]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when price makes new high/low but momentum composite doesn't confirm (divergence). Classic reversal signal. Integrate into autotrader decision logic.
+- **Notes**: ✅ Implemented! Functions: calculate_rsi(), detect_momentum_divergence(), check_divergence_alert(), write_divergence_alert(), get_divergence_edge_adjustment(). Detects bullish (price lower low + RSI higher low) and bearish (price higher high + RSI lower high) divergences. Alert file: kalshi-momentum-divergence.alert. 1h cooldown. Confidence levels (medium/high/very_high) based on divergence strength. Edge bonus for trades aligned with divergence signal. Added to HEARTBEAT.md pickup.
 
 ### [T304] Trading dashboard mobile responsiveness audit
 - **Status**: DONE

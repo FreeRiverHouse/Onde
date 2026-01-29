@@ -120,6 +120,13 @@ REVERSION_4H_THRESHOLD = 0.02  # 2% move in 4h triggers reversion watch
 REVERSION_8H_THRESHOLD = 0.03  # 3% move in 8h triggers high confidence reversion
 REVERSION_STRENGTH_THRESHOLD = 0.7  # Momentum strength for reversion signal
 
+# Momentum divergence detection (T303) - price vs momentum disagreement
+DIVERGENCE_ALERT_FILE = "scripts/kalshi-momentum-divergence.alert"
+DIVERGENCE_ALERT_COOLDOWN = 3600  # 1 hour cooldown
+DIVERGENCE_LOOKBACK = 8  # Number of candles to analyze for divergence
+DIVERGENCE_MIN_PRICE_MOVE = 0.008  # 0.8% minimum price move to detect
+DIVERGENCE_STATE_FILE = "scripts/kalshi-divergence-state.json"
+
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -1073,6 +1080,285 @@ def get_reversion_edge_adjustment(asset: str, ohlc_data: dict, momentum_data: di
                 result["adjustment"] = 0.005  # +0.5% for medium confidence
             
             result["reason"] = f"Extended {rev['current_trend']} move ({rev['change_4h']:+.1%} 4h) - reversion likely"
+            break
+    
+    return result
+
+
+# ============== MOMENTUM DIVERGENCE DETECTION (T303) ==============
+
+def calculate_rsi(ohlc_data: list, period: int = 14) -> list:
+    """
+    Calculate RSI (Relative Strength Index) for momentum comparison.
+    
+    Args:
+        ohlc_data: List of [timestamp, open, high, low, close] candles
+        period: RSI period (default 14)
+    
+    Returns:
+        List of RSI values (same length as input, first 'period' entries are None)
+    """
+    if not ohlc_data or len(ohlc_data) < period + 1:
+        return [None] * len(ohlc_data) if ohlc_data else []
+    
+    closes = [c[4] for c in ohlc_data]
+    rsi_values = [None] * len(closes)
+    
+    # Calculate price changes
+    gains = []
+    losses = []
+    
+    for i in range(1, len(closes)):
+        change = closes[i] - closes[i-1]
+        gains.append(max(change, 0))
+        losses.append(abs(min(change, 0)))
+    
+    # Initial averages
+    avg_gain = sum(gains[:period]) / period
+    avg_loss = sum(losses[:period]) / period
+    
+    for i in range(period, len(closes)):
+        if avg_loss == 0:
+            rsi_values[i] = 100.0
+        else:
+            rs = avg_gain / avg_loss
+            rsi_values[i] = 100 - (100 / (1 + rs))
+        
+        # Update averages with smoothing
+        if i < len(gains):
+            avg_gain = (avg_gain * (period - 1) + gains[i]) / period
+            avg_loss = (avg_loss * (period - 1) + losses[i]) / period
+    
+    return rsi_values
+
+
+def detect_momentum_divergence(ohlc_data: dict, momentum_data: dict) -> list:
+    """
+    Detect price vs momentum divergence - classic reversal signal.
+    
+    Bullish divergence: Price makes LOWER low, but momentum (RSI) makes HIGHER low
+                        → Signals upward reversal (weakening selling pressure)
+    
+    Bearish divergence: Price makes HIGHER high, but momentum (RSI) makes LOWER high
+                        → Signals downward reversal (weakening buying pressure)
+    
+    Args:
+        ohlc_data: Dict with 'btc' and 'eth' OHLC lists
+        momentum_data: Dict with momentum info per asset
+    
+    Returns:
+        List of divergence signals with asset, type, confidence, action
+    """
+    divergences = []
+    
+    for asset in ["btc", "eth"]:
+        ohlc = ohlc_data.get(asset, [])
+        
+        if not ohlc or len(ohlc) < DIVERGENCE_LOOKBACK:
+            continue
+        
+        # Use recent candles only
+        recent = ohlc[-DIVERGENCE_LOOKBACK:]
+        closes = [c[4] for c in recent]
+        highs = [c[2] for c in recent]
+        lows = [c[3] for c in recent]
+        
+        # Calculate RSI for recent period
+        rsi_values = calculate_rsi(ohlc, period=6)  # Shorter period for responsiveness
+        recent_rsi = rsi_values[-DIVERGENCE_LOOKBACK:] if len(rsi_values) >= DIVERGENCE_LOOKBACK else []
+        
+        # Filter out None values for RSI analysis
+        valid_rsi_indices = [i for i, r in enumerate(recent_rsi) if r is not None]
+        if len(valid_rsi_indices) < 4:
+            continue  # Need enough data points
+        
+        # Find swing highs and lows in price
+        # Looking at first half vs second half of recent data
+        mid = DIVERGENCE_LOOKBACK // 2
+        
+        # Price extremes
+        first_half_low = min(lows[:mid])
+        second_half_low = min(lows[mid:])
+        first_half_high = max(highs[:mid])
+        second_half_high = max(highs[mid:])
+        
+        # RSI extremes (only where RSI is valid)
+        first_half_rsi_valid = [recent_rsi[i] for i in valid_rsi_indices if i < mid]
+        second_half_rsi_valid = [recent_rsi[i] for i in valid_rsi_indices if i >= mid]
+        
+        if not first_half_rsi_valid or not second_half_rsi_valid:
+            continue
+        
+        first_half_rsi_low = min(first_half_rsi_valid)
+        second_half_rsi_low = min(second_half_rsi_valid)
+        first_half_rsi_high = max(first_half_rsi_valid)
+        second_half_rsi_high = max(second_half_rsi_valid)
+        
+        current_price = closes[-1]
+        price_move_pct = (current_price - closes[0]) / closes[0] if closes[0] else 0
+        
+        # Skip if price move is too small
+        if abs(price_move_pct) < DIVERGENCE_MIN_PRICE_MOVE:
+            continue
+        
+        # Check for BULLISH divergence: price lower low, RSI higher low
+        price_lower_low = second_half_low < first_half_low
+        rsi_higher_low = second_half_rsi_low > first_half_rsi_low + 3  # 3-point threshold
+        
+        if price_lower_low and rsi_higher_low:
+            # Calculate confidence based on divergence strength
+            price_drop = (first_half_low - second_half_low) / first_half_low
+            rsi_rise = second_half_rsi_low - first_half_rsi_low
+            
+            confidence = "medium"
+            if price_drop > 0.015 and rsi_rise > 5:  # Strong divergence
+                confidence = "high"
+            if price_drop > 0.025 and rsi_rise > 8:  # Very strong
+                confidence = "very_high"
+            
+            divergences.append({
+                "asset": asset.upper(),
+                "type": "bullish",
+                "emoji": "🟢",
+                "signal": "Price lower low + RSI higher low",
+                "action": "Consider YES bets on upside recovery",
+                "confidence": confidence,
+                "price_drop": price_drop,
+                "rsi_rise": rsi_rise,
+                "current_price": current_price,
+                "current_rsi": recent_rsi[-1] if recent_rsi[-1] else 0
+            })
+        
+        # Check for BEARISH divergence: price higher high, RSI lower high
+        price_higher_high = second_half_high > first_half_high
+        rsi_lower_high = second_half_rsi_high < first_half_rsi_high - 3  # 3-point threshold
+        
+        if price_higher_high and rsi_lower_high:
+            price_rise = (second_half_high - first_half_high) / first_half_high
+            rsi_drop = first_half_rsi_high - second_half_rsi_high
+            
+            confidence = "medium"
+            if price_rise > 0.015 and rsi_drop > 5:
+                confidence = "high"
+            if price_rise > 0.025 and rsi_drop > 8:
+                confidence = "very_high"
+            
+            divergences.append({
+                "asset": asset.upper(),
+                "type": "bearish",
+                "emoji": "🔴",
+                "signal": "Price higher high + RSI lower high",
+                "action": "Consider NO bets on continued upside",
+                "confidence": confidence,
+                "price_rise": price_rise,
+                "rsi_drop": rsi_drop,
+                "current_price": current_price,
+                "current_rsi": recent_rsi[-1] if recent_rsi[-1] else 0
+            })
+    
+    return divergences
+
+
+def check_divergence_alert(ohlc_data: dict, momentum_data: dict):
+    """
+    Check for momentum divergence signals and write alert if found.
+    """
+    if not ohlc_data:
+        return
+    
+    now = time.time()
+    
+    # Check cooldown
+    try:
+        if os.path.exists(DIVERGENCE_ALERT_FILE):
+            mtime = os.path.getmtime(DIVERGENCE_ALERT_FILE)
+            if now - mtime < DIVERGENCE_ALERT_COOLDOWN:
+                return  # On cooldown
+    except Exception:
+        pass
+    
+    divergences = detect_momentum_divergence(ohlc_data, momentum_data)
+    
+    if divergences:
+        write_divergence_alert(divergences)
+
+
+def write_divergence_alert(divergences: list):
+    """Write momentum divergence alert file for heartbeat pickup."""
+    alert_lines = [
+        "📊 MOMENTUM DIVERGENCE DETECTED!\n",
+        "Price and momentum disagree - potential reversal signal\n"
+    ]
+    
+    for div in divergences:
+        asset = div["asset"]
+        div_type = div["type"]
+        emoji = div["emoji"]
+        signal = div["signal"]
+        confidence = div["confidence"]
+        action = div["action"]
+        price = div["current_price"]
+        rsi = div["current_rsi"]
+        
+        conf_emoji = "🟢" if confidence == "very_high" else "🟡" if confidence == "high" else "⚪"
+        
+        alert_lines.append(f"{emoji} {asset}: {div_type.upper()} DIVERGENCE")
+        alert_lines.append(f"   {signal}")
+        alert_lines.append(f"   RSI: {rsi:.1f} | Price: ${price:,.0f}")
+        
+        if div_type == "bullish":
+            alert_lines.append(f"   Price drop: {div['price_drop']:.2%} | RSI rise: +{div['rsi_rise']:.1f}")
+        else:
+            alert_lines.append(f"   Price rise: {div['price_rise']:.2%} | RSI drop: -{div['rsi_drop']:.1f}")
+        
+        alert_lines.append(f"   Confidence: {conf_emoji} {confidence.upper()}")
+        alert_lines.append(f"\n   💡 {action}\n")
+    
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    alert_lines.append("\n⚠️ Divergence is a leading indicator. Wait for price confirmation!")
+    alert_lines.append("📈 Classic technical pattern: divergence often precedes reversals.")
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "momentum_divergence",
+        "divergences": divergences,
+        "message": "\n".join(alert_lines)
+    }
+    
+    with open(DIVERGENCE_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"   📊 Momentum divergence alert written ({len(divergences)} signals)!")
+
+
+def get_divergence_edge_adjustment(asset: str, ohlc_data: dict, momentum_data: dict) -> dict:
+    """
+    Get edge adjustment for divergence signals.
+    
+    Returns:
+        dict with:
+        - has_signal: bool
+        - adjustment: float (bonus for trades aligned with divergence signal)
+        - reason: str
+    """
+    result = {"has_signal": False, "adjustment": 0.0, "reason": ""}
+    
+    divergences = detect_momentum_divergence(ohlc_data, momentum_data)
+    
+    for div in divergences:
+        if div["asset"].lower() == asset.lower():
+            result["has_signal"] = True
+            
+            # Bonus based on confidence
+            if div["confidence"] == "very_high":
+                result["adjustment"] = 0.02  # +2% edge bonus
+            elif div["confidence"] == "high":
+                result["adjustment"] = 0.015  # +1.5% edge bonus
+            else:
+                result["adjustment"] = 0.01  # +1% for medium confidence
+            
+            result["reason"] = f"{div['type'].capitalize()} divergence detected (RSI vs price disagree)"
+            result["divergence_type"] = div["type"]
             break
     
     return result
@@ -2674,6 +2960,9 @@ def run_cycle():
     
     # Check for momentum reversion signals (T302) - contrarian opportunity
     check_reversion_alert(ohlc_data, momentum_data)
+    
+    # Check for momentum divergence (T303) - price vs momentum disagreement
+    check_divergence_alert(ohlc_data, momentum_data)
     
     # Display momentum info for both
     for asset, momentum in [("BTC", btc_momentum), ("ETH", eth_momentum)]:
