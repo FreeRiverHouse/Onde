@@ -3,6 +3,7 @@ import { PostApproval } from '@/components/PostApproval'
 import { PolyRobortoPanel } from '@/components/PolyRobortoPanel'
 import { CordePanel } from '@/components/CordePanel'
 import { TechSupportPanel } from '@/components/TechSupportPanel'
+import { TestStatusPanel } from '@/components/TestStatusPanel'
 import { EnhancedStats, WeeklyComparison } from '@/components/EnhancedStats'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { AgentTasksPanel } from '@/components/AgentTasksPanel'
@@ -137,14 +138,17 @@ export default async function Dashboard() {
         </ScrollReveal>
       </div>
 
-      {/* Fifth Row - Tech Support */}
-      <ScrollReveal animation="fade-up" delay={0}>
-        <div className="mb-10">
+      {/* Fifth Row - Tech Support & Test Status */}
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
           <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
             <TechSupportPanel />
           </GlowCard>
-        </div>
-      </ScrollReveal>
+        </ScrollReveal>
+        <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
+          <TestStatusPanel />
+        </ScrollReveal>
+      </div>
 
       {/* Quick Links - Bento Grid Style */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">

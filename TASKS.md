@@ -9,8 +9,8 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:43)
 
 ### [T413] Test Suite: Run 2x/day + Dashboard Integration
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
