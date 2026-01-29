@@ -11,6 +11,52 @@ export interface Book {
   category: string
   lang?: string // default: en
   source?: BookSource // default: classic (Gutenberg books are classics)
+  pages?: number // estimated page count
+  readingTime?: string // e.g., "~3h" or "~15 min"
+}
+
+// Reading time estimates by category (based on typical Gutenberg book lengths)
+// 200 words per minute reading speed, ~250 words per page
+export const categoryReadingEstimates: Record<string, { pages: number; time: string }> = {
+  'fiabe': { pages: 180, time: '~4h' },
+  'favole': { pages: 80, time: '~2h' },
+  'classici': { pages: 280, time: '~6h' },
+  'romanzi': { pages: 350, time: '~7h' },
+  'avventura': { pages: 320, time: '~6h' },
+  'fantascienza': { pages: 250, time: '~5h' },
+  'horror': { pages: 220, time: '~4h' },
+  'mistero': { pages: 280, time: '~6h' },
+  'filosofia': { pages: 150, time: '~4h' },
+  'storia': { pages: 300, time: '~6h' },
+  'poesia': { pages: 100, time: '~2h' },
+  'teatro': { pages: 120, time: '~3h' },
+  'saggi': { pages: 200, time: '~5h' },
+  'humor': { pages: 180, time: '~4h' },
+  'spiritualita': { pages: 120, time: '~3h' },
+  'scienza': { pages: 250, time: '~5h' },
+  'autobiografia': { pages: 300, time: '~6h' },
+  'racconti': { pages: 200, time: '~4h' },
+  'politica': { pages: 180, time: '~4h' },
+  'viaggio': { pages: 280, time: '~6h' },
+  'miti': { pages: 200, time: '~4h' },
+  'arte': { pages: 150, time: '~3h' },
+  'musica': { pages: 180, time: '~4h' },
+  'educazione': { pages: 200, time: '~4h' },
+  'natura': { pages: 220, time: '~5h' },
+  'economia': { pages: 200, time: '~5h' },
+  'diritto': { pages: 250, time: '~5h' },
+  'medicina': { pages: 280, time: '~6h' },
+  'religione': { pages: 200, time: '~5h' },
+}
+
+// Helper to get reading estimate for a book
+export function getBookReadingEstimate(book: Book): { pages: number; time: string } {
+  // If book has explicit values, use them
+  if (book.pages && book.readingTime) {
+    return { pages: book.pages, time: book.readingTime }
+  }
+  // Otherwise use category estimate
+  return categoryReadingEstimates[book.category] || { pages: 200, time: '~4h' }
 }
 
 export const books: Book[] = [

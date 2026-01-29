@@ -1733,12 +1733,13 @@
 - **Notes**: ✅ Script: analyze-edge-vs-winrate.py. Groups trades by edge bucket (0-10%, 10-15%, etc.), shows win rate per bucket, checks for positive correlation (higher edge → higher WR), compares expected vs actual WR. Awaiting v2 trade data.
 
 ### [T297] Reading time for /catalogo books (Gutenberg API integration)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T263]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend reading time feature to /catalogo. Fetch page counts from Gutenberg API metadata or estimate from file size (~250 words/page, 200 wpm).
+- **Notes**: ✅ Added! Category-based reading estimates (200 wpm, ~250 words/page). Added categoryReadingEstimates map + getBookReadingEstimate() helper to books.ts. Updated /catalogo cards to show pages + reading time with icons.
 
 ### [T298] Book preview modal (first 3 pages)
 - **Status**: TODO
