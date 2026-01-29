@@ -77,3 +77,7 @@
 ### 20:46 PST [msg:164]
 > Update su questo task please. Lo hai messo nei task per TRACCIARE e synchronizzarti con Clawdinho? (reply a msg pipeline)
 
+
+### 20:47 PST [msg:166]
+> Solo per capire; bedrock support che cosa fa? Supporta accesso da ipad? Non toccare nulla ma spiegami le differenze
+
