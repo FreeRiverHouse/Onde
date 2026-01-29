@@ -3122,8 +3122,8 @@
 - **Notes**: ✅ Implemented! Added GA4 events: 1) book_download (bookId, format) in useDownloadTracker.tsx, 2) book_preview (bookId, title) in BookPreviewModal.tsx, 3) add_to_reading_list (bookId) in useReadingList.ts. All use gtag() with event_category: 'engagement'. Silently fail if GA not loaded.
 
 ### [T379] Trading PnL daily goal tracker
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
