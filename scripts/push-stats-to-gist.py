@@ -6,10 +6,11 @@ Creates/updates a public gist with trading stats JSON that the static site
 can fetch at runtime, bypassing the static export limitation.
 
 Usage:
-    python push-stats-to-gist.py [--create]
+    python push-stats-to-gist.py [--create] [--source v1|v2|all]
 
 Options:
-    --create    Create a new gist (first run only)
+    --create        Create a new gist (first run only)
+    --source X      Data source: v1, v2, or all (combined). Default: v2
 """
 
 import json
@@ -20,32 +21,52 @@ from pathlib import Path
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
-TRADES_FILE = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
+TRADES_FILE_V1 = SCRIPT_DIR / "kalshi-trades.jsonl"
+TRADES_FILE_V2 = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
 GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
 STATS_FILENAME = "onde-trading-stats.json"
 
-def load_trades():
-    """Load trades from JSONL file."""
+def load_trades_from_file(filepath, source_tag=None):
+    """Load trades from a JSONL file, optionally tagging with source."""
     trades = []
-    if not TRADES_FILE.exists():
+    if not filepath.exists():
         return trades
     
-    with open(TRADES_FILE, 'r') as f:
+    with open(filepath, 'r') as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
             try:
                 trade = json.loads(line)
+                if source_tag:
+                    trade['_source'] = source_tag
                 trades.append(trade)
             except json.JSONDecodeError:
                 continue
     return trades
 
-def calculate_stats(trades):
+def load_trades(source='v2'):
+    """Load trades based on source selection."""
+    if source == 'v1':
+        return load_trades_from_file(TRADES_FILE_V1, 'v1')
+    elif source == 'v2':
+        return load_trades_from_file(TRADES_FILE_V2, 'v2')
+    elif source == 'all':
+        v1_trades = load_trades_from_file(TRADES_FILE_V1, 'v1')
+        v2_trades = load_trades_from_file(TRADES_FILE_V2, 'v2')
+        # Combine and sort by timestamp
+        combined = v1_trades + v2_trades
+        combined.sort(key=lambda t: t.get('timestamp', ''))
+        return combined
+    else:
+        return load_trades_from_file(TRADES_FILE_V2, 'v2')
+
+def calculate_stats(trades, source='v2'):
     """Calculate trading statistics."""
     if not trades:
         return {
+            "source": source,
             "totalTrades": 0,
             "winRate": 0,
             "pnlCents": 0,
@@ -53,6 +74,7 @@ def calculate_stats(trades):
             "todayWinRate": 0,
             "todayPnlCents": 0,
             "byAsset": {},
+            "bySource": {} if source == 'all' else None,
             "lastUpdated": datetime.now(timezone.utc).isoformat()
         }
     
@@ -185,7 +207,33 @@ def calculate_stats(trades):
     
     max_dd_percent = (max_drawdown / peak * 100) if peak > 0 else 0
     
-    return {
+    # By source breakdown (only when source='all')
+    by_source = None
+    if source == 'all':
+        by_source = {}
+        for src in ['v1', 'v2']:
+            src_trades = [t for t in settled if t.get('_source') == src]
+            src_wins = sum(1 for t in src_trades if t.get('result_status') == 'won')
+            src_total = len(src_trades)
+            
+            src_pnl = 0
+            for t in src_trades:
+                price = t.get('price', 50)
+                contracts = t.get('contracts', 1)
+                if t.get('result_status') == 'won':
+                    src_pnl += (100 - price) * contracts
+                else:
+                    src_pnl -= price * contracts
+            
+            by_source[src] = {
+                "trades": src_total,
+                "winRate": round(src_wins / src_total * 100, 1) if src_total > 0 else 0,
+                "pnlCents": src_pnl,
+                "pnlDollars": round(src_pnl / 100, 2)
+            }
+    
+    result = {
+        "source": source,
         "totalTrades": total,
         "winRate": round(win_rate, 1),
         "pnlCents": total_pnl,
@@ -203,6 +251,11 @@ def calculate_stats(trades):
         **latency_stats,
         "lastUpdated": datetime.now(timezone.utc).isoformat()
     }
+    
+    if by_source:
+        result["bySource"] = by_source
+    
+    return result
 
 def get_gist_id():
     """Get existing gist ID or return None."""
@@ -241,14 +294,19 @@ def create_gist(stats_json):
     return gist_id
 
 def update_gist(gist_id, stats_json):
-    """Update existing gist."""
-    # Write stats to temp file
-    temp_file = Path("/tmp") / STATS_FILENAME
-    temp_file.write_text(stats_json)
+    """Update existing gist using GitHub API."""
+    # Build payload for gist API
+    payload = {
+        "files": {
+            STATS_FILENAME: {
+                "content": stats_json
+            }
+        }
+    }
     
-    # Update gist
+    # Update gist via gh api
     result = subprocess.run(
-        ["gh", "gist", "edit", gist_id, "-f", str(temp_file)],
+        ["gh", "api", "-X", "PATCH", f"/gists/{gist_id}", "-f", f"files[{STATS_FILENAME}][content]={stats_json}"],
         capture_output=True, text=True
     )
     
@@ -262,12 +320,27 @@ def update_gist(gist_id, stats_json):
 def main():
     create_new = "--create" in sys.argv
     
+    # Parse source argument
+    source = 'v2'  # default
+    for i, arg in enumerate(sys.argv):
+        if arg == '--source' and i + 1 < len(sys.argv):
+            source = sys.argv[i + 1]
+            if source not in ['v1', 'v2', 'all']:
+                print(f"Invalid source '{source}'. Use v1, v2, or all.")
+                sys.exit(1)
+    
     # Load trades and calculate stats
-    trades = load_trades()
-    stats = calculate_stats(trades)
+    trades = load_trades(source)
+    stats = calculate_stats(trades, source)
     stats_json = json.dumps(stats, indent=2)
     
-    print(f"Stats: {stats['totalTrades']} trades, {stats['winRate']}% win rate, ${stats.get('pnlDollars', 0)} PnL")
+    source_label = f"[{source}] " if source != 'v2' else ""
+    print(f"{source_label}Stats: {stats['totalTrades']} trades, {stats['winRate']}% win rate, ${stats.get('pnlDollars', 0)} PnL")
+    
+    # Show source breakdown when combined
+    if source == 'all' and 'bySource' in stats:
+        for src, src_stats in stats['bySource'].items():
+            print(f"  {src}: {src_stats['trades']} trades, {src_stats['winRate']}% WR, ${src_stats['pnlDollars']} PnL")
     
     gist_id = get_gist_id()
     

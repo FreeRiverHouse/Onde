@@ -2177,12 +2177,13 @@
 - **Notes**: ✅ Added toggle button group in Trading Performance header. v1/v2 buttons with visual active state. Defaults to v2. Triggers refetch when changed. Styled consistent with existing UI.
 
 ### [T346] Combined v1+v2 trading stats view
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T344]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add ?source=all option to merge v1+v2 trades for overall performance view. Useful for seeing total portfolio performance.
+- **Notes**: ✅ Added --source v1|v2|all flag to push-stats-to-gist.py. Combined view shows total stats + bySource breakdown per version. Fixed gh gist API update to use REST endpoint. Gist now includes source field and v1/v2 comparison.
 
 ### [T347] V2 trades settlement tracking
 - **Status**: DONE
@@ -3481,4 +3482,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Created scripts/archive-old-memory.sh. Moves memory/YYYY-MM-DD.md files >30 days old to memory/archive/. Skips non-date files. Tested OK. Cron: add `0 4 1 * * /Users/mattia/Projects/Onde/scripts/archive-old-memory.sh` for monthly run.
+
+### [T608] Dashboard toggle for source=all combined view
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T346]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "All" option to v1/v2 toggle on /betting dashboard. Shows combined stats from bySource. Useful for total portfolio view.
+
+### [T609] V2 autotrader trades count indicator on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T346], [T605]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show "V2: X trades" indicator when v2 autotrader starts making trades. Helps confirm v2 is active and working.
+
+### [T610] Cron job to push stats to gist with source=all
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T346]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Update hourly stats push cron to use --source all for comprehensive view. Current cron only pushes v2 stats.
 
