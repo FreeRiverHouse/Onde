@@ -21,20 +21,22 @@
 ## 🚨 URGENTE - DA MATTIA 2026-01-28
 
 ### [T400] Rollback onde.surf a PRIMA di Google Auth
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: [T401]
 - **Priority**: P0
-- **Notes**: Sito ha errore client-side. ROLLBACKARE a versione che funzionava PRIMA di Google Auth. Contenuto deve tornare quello originale.
+- **Notes**: ✅ Rimosso auth(), sito ora pubblico. Deploy OK via Wrangler.
 
 ### [T401] Migrare onde.surf a stesso approccio di onde.la
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T400]
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: onde.la deploya senza issues con wrangler. Migrare surfboard allo stesso approccio semplice. RIMUOVERE complessità auth/middleware inutile.
+- **Notes**: ✅ Middleware semplificato (no auth redirect), tutto pubblico come onde.la.
 
 ### [T402] Creare agente PM per review task/dipendenze/priorità
 - **Status**: TODO
