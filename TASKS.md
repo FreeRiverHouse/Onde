@@ -2298,12 +2298,13 @@
 - **Notes**: ✅ Added! Preset buttons (All, Today, 7D, 30D) in filter bar. Auto-detects active preset, highlights with blue. Separated by border from other filters. Clicking sets from/to dates automatically.
 
 ### [T361] Daily PnL summary in trade history header
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T340]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show total PnL, trades count, and win rate summary for the currently filtered date range in trade history header.
+- **Notes**: ✅ Added summary bar to /trading/history with: total PnL (color-coded), trades breakdown (W/L/P), win rate %, date range display. Shows pagination note when viewing partial results. Uses useMemo for efficient calculation.
 
 ### [T362] JSON export option for trade history
 - **Status**: DONE
