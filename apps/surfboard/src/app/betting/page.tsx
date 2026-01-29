@@ -77,6 +77,10 @@ interface TradingStats {
   calmarRatio?: number;  // annualized return / max drawdown %
   sortinoRatio?: number;  // return / downside deviation
   avgTradeDurationHours?: number;  // average time to settlement
+  longestWinStreak?: number;  // longest consecutive wins
+  longestLossStreak?: number;  // longest consecutive losses
+  currentStreak?: number;  // current streak (positive for wins, negative for losses)
+  currentStreakType?: 'win' | 'loss' | 'none';  // type of current streak
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -860,6 +864,56 @@ export default function BettingDashboard() {
                 <p className="text-xs text-gray-600 mt-1">
                   {(tradingStats.avgTradeDurationHours ?? 0) < 1 ? 'short-term' : (tradingStats.avgTradeDurationHours ?? 0) < 4 ? 'medium-term' : 'longer holds'}
                 </p>
+              </GlassCard>
+
+              {/* Current Streak */}
+              <GlassCard glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Current Streak</span>
+                </div>
+                <AnimatedNumber 
+                  value={Math.abs(tradingStats.currentStreak ?? 0)} 
+                  prefix={tradingStats.currentStreakType === 'win' ? '🔥 ' : tradingStats.currentStreakType === 'loss' ? '❄️ ' : ''}
+                  decimals={0}
+                  glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {tradingStats.currentStreakType === 'win' ? 'consecutive wins' : tradingStats.currentStreakType === 'loss' ? 'consecutive losses' : 'no streak'}
+                </p>
+              </GlassCard>
+
+              {/* Best Streak */}
+              <GlassCard glowColor="green" className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Best Streak</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.longestWinStreak ?? 0} 
+                  prefix="🏆 "
+                  decimals={0}
+                  glowColor="green"
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">longest win streak</p>
+              </GlassCard>
+
+              {/* Worst Streak */}
+              <GlassCard glowColor="red" className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingDown className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Worst Streak</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.longestLossStreak ?? 0} 
+                  prefix="💀 "
+                  decimals={0}
+                  glowColor="red"
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">longest loss streak</p>
               </GlassCard>
             </div>
 

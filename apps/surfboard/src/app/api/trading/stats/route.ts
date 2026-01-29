@@ -38,6 +38,10 @@ interface TradingStats {
   calmarRatio: number;   // annualized return / max drawdown % - risk-adjusted performance
   sortinoRatio: number;  // return / downside deviation - only penalizes negative returns
   avgTradeDurationHours: number;  // average time from entry to settlement
+  longestWinStreak: number;  // longest consecutive wins
+  longestLossStreak: number;  // longest consecutive losses
+  currentStreak: number;  // current streak (positive for wins, negative for losses)
+  currentStreakType: 'win' | 'loss' | 'none';  // type of current streak
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -212,6 +216,55 @@ export async function GET() {
       avgTradeDurationHours = (totalMinutes / tradesWithDuration.length) / 60;
     }
 
+    // Streak tracking: consecutive wins/losses
+    // Sort settled trades chronologically to track streaks properly
+    let longestWinStreak = 0;
+    let longestLossStreak = 0;
+    let currentStreak = 0;
+    let currentStreakType: 'win' | 'loss' | 'none' = 'none';
+    
+    let tempWinStreak = 0;
+    let tempLossStreak = 0;
+    
+    for (const trade of sortedSettled) {
+      if (trade.result_status === 'won') {
+        tempWinStreak++;
+        tempLossStreak = 0;
+        if (tempWinStreak > longestWinStreak) {
+          longestWinStreak = tempWinStreak;
+        }
+      } else if (trade.result_status === 'lost') {
+        tempLossStreak++;
+        tempWinStreak = 0;
+        if (tempLossStreak > longestLossStreak) {
+          longestLossStreak = tempLossStreak;
+        }
+      }
+    }
+    
+    // Determine current streak (from most recent trade)
+    if (sortedSettled.length > 0) {
+      // Walk backwards to count current streak
+      let streakCount = 0;
+      const lastResult = sortedSettled[sortedSettled.length - 1].result_status;
+      
+      for (let i = sortedSettled.length - 1; i >= 0; i--) {
+        if (sortedSettled[i].result_status === lastResult) {
+          streakCount++;
+        } else {
+          break;
+        }
+      }
+      
+      if (lastResult === 'won') {
+        currentStreak = streakCount;
+        currentStreakType = 'win';
+      } else if (lastResult === 'lost') {
+        currentStreak = -streakCount;
+        currentStreakType = 'loss';
+      }
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -246,6 +299,10 @@ export async function GET() {
       maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
       calmarRatio: Number.isFinite(calmarRatio) ? Math.round(calmarRatio * 100) / 100 : 0,  // Round to 2 decimal places
       avgTradeDurationHours: Math.round(avgTradeDurationHours * 10) / 10,  // Round to 1 decimal place
+      longestWinStreak,
+      longestLossStreak,
+      currentStreak,
+      currentStreakType,
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

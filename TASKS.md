@@ -1285,14 +1285,41 @@
 - **Notes**: Compare actual bet sizes vs theoretical Kelly optimal. Track how Kelly fraction affects outcomes. Add kelly_fraction_used field to trade logs.
 
 ### [T287] Add streak tracking (consecutive wins/losses)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track longest win streak, longest loss streak, current streak. Add to stats API and dashboard. Useful for detecting tilt or hot streaks.
+- **Notes**: ✅ Added! API returns longestWinStreak, longestLossStreak, currentStreak, currentStreakType. Dashboard shows 3 new cards: Current Streak (🔥/❄️), Best Streak (🏆), Worst Streak (💀). Grid now has 14 stat cards.
 
 ---
 
-*Ultimo aggiornamento: 2026-01-30 05:55 PST*
+### [T288] Streak alert when hitting new records
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T287]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Telegram notification when a new longest win/loss streak is achieved. Celebrate wins, warn on tilt.
+
+### [T289] Consecutive loss circuit breaker
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T287]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Auto-pause autotrader after N consecutive losses (configurable via env, default 5). Prevents tilt trading. Resume after manual review or cooldown.
+
+### [T290] Win rate by streak position analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T287]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if win rate changes based on position in streak (e.g., do we perform worse after 3+ consecutive wins/losses?). Detect psychological patterns.
+
+---
+
+*Ultimo aggiornamento: 2026-01-29 18:22 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
