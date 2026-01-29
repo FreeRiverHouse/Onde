@@ -1934,12 +1934,13 @@
 - **Notes**: ✅ Added "Trade History Pattern" section with colored dots (green=won, red=lost, gray=pending). Shows last 10 trades. Dots have glow effect and hover tooltip with trade details. Responsive sizing.
 
 ### [T360] Quick date filter presets for trade history
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T340]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add buttons for "Today", "This Week", "This Month", "All Time" to quickly filter trade history by date range.
+- **Notes**: ✅ Added! Preset buttons (All, Today, 7D, 30D) in filter bar. Auto-detects active preset, highlights with blue. Separated by border from other filters. Clicking sets from/to dates automatically.
 
 ### [T361] Daily PnL summary in trade history header
 - **Status**: TODO

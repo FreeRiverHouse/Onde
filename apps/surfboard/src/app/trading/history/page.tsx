@@ -180,6 +180,50 @@ export default function TradeHistoryPage() {
     return dollars >= 0 ? `+$${dollars.toFixed(2)}` : `-$${Math.abs(dollars).toFixed(2)}`;
   };
 
+  const setDatePreset = (preset: 'today' | 'week' | 'month' | 'all') => {
+    const today = new Date();
+    const formatDate = (d: Date) => d.toISOString().split('T')[0];
+    
+    switch (preset) {
+      case 'today':
+        setFromDate(formatDate(today));
+        setToDate(formatDate(today));
+        break;
+      case 'week':
+        const weekAgo = new Date(today);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        setFromDate(formatDate(weekAgo));
+        setToDate(formatDate(today));
+        break;
+      case 'month':
+        const monthAgo = new Date(today);
+        monthAgo.setDate(monthAgo.getDate() - 30);
+        setFromDate(formatDate(monthAgo));
+        setToDate(formatDate(today));
+        break;
+      case 'all':
+        setFromDate('');
+        setToDate('');
+        break;
+    }
+  };
+
+  const getActiveDatePreset = () => {
+    if (!fromDate && !toDate) return 'all';
+    const today = new Date().toISOString().split('T')[0];
+    if (fromDate === today && toDate === today) return 'today';
+    
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    if (fromDate === weekAgo.toISOString().split('T')[0] && toDate === today) return 'week';
+    
+    const monthAgo = new Date();
+    monthAgo.setDate(monthAgo.getDate() - 30);
+    if (fromDate === monthAgo.toISOString().split('T')[0] && toDate === today) return 'month';
+    
+    return null; // custom range
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
@@ -272,6 +316,23 @@ export default function TradeHistoryPage() {
                   <option value="YES">YES</option>
                   <option value="NO">NO</option>
                 </select>
+              </div>
+              
+              {/* Date Presets */}
+              <div className="flex items-center gap-1 border-l border-gray-600 pl-4">
+                {(['all', 'today', 'week', 'month'] as const).map((preset) => (
+                  <button
+                    key={preset}
+                    onClick={() => setDatePreset(preset)}
+                    className={`px-2 py-1 text-xs rounded transition ${
+                      getActiveDatePreset() === preset
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {preset === 'all' ? 'All' : preset === 'today' ? 'Today' : preset === 'week' ? '7D' : '30D'}
+                  </button>
+                ))}
               </div>
               
               <div className="flex items-center gap-2">
