@@ -3248,12 +3248,13 @@
 - **Notes**: Add signal handler (SIGTERM/SIGINT) to autotrader that prints session summary before exit: trades made, win rate, PnL, hours running, positions left open. Log to file for crash analysis.
 
 ### [T474] Weekly API error rate cron job
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T413]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add cron job (Sundays 09:00 UTC) to run analyze-api-errors.py and generate weekly report. Send summary to Telegram if error rate >5% for any source. Helps catch degrading APIs early.
+- **Notes**: ✅ Script: weekly-api-error-report.sh. Runs analyze-api-errors.py for 7 days. Triggers alert at 5% threshold (lower than real-time 10%). Alert file: kalshi-api-error-weekly.alert. Added to HEARTBEAT.md. Cron: `0 9 * * 0` (Sundays 09:00 UTC). Log: weekly-api-errors.log.
 
 ### [T475] Alert on high API error rate
 - **Status**: DONE
