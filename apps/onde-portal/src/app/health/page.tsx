@@ -112,6 +112,26 @@ interface NetworkStatus {
   cacheUsage?: { usage: number; quota: number };
 }
 
+interface CacheEntry {
+  url: string;
+  contentLength?: number;
+  contentType?: string;
+  date?: string;
+  ageMinutes?: number;
+}
+
+interface CacheDiagnostics {
+  caches: {
+    name: string;
+    entryCount: number;
+    totalSize: number;
+    entries: CacheEntry[];
+  }[];
+  totalEntries: number;
+  staleEntries: number;  // > 24h old
+  totalSize: number;
+}
+
 const SERVICES_TO_CHECK = [
   { name: 'onde.la', url: 'https://onde.la' },
   { name: 'onde.surf', url: 'https://onde.surf' },
@@ -147,6 +167,8 @@ export default function HealthPage() {
   const [autotraderHealth, setAutotraderHealth] = useState<AutotraderHealth | null>(null);
   const [alertsData, setAlertsData] = useState<AlertsData | null>(null);
   const [alertFilter, setAlertFilter] = useState<'all' | 'divergence' | 'regime' | 'vol' | 'whipsaw'>('all');
+  const [cacheDiagnostics, setCacheDiagnostics] = useState<CacheDiagnostics | null>(null);
+  const [cacheLoading, setCacheLoading] = useState(true);
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -251,6 +273,90 @@ export default function HealthPage() {
     }
 
     setNetworkStatus(status);
+  }, []);
+
+  // Analyze cache entries for diagnostics (T427)
+  const analyzeCaches = useCallback(async () => {
+    setCacheLoading(true);
+    try {
+      if (!('caches' in window)) {
+        setCacheDiagnostics(null);
+        return;
+      }
+
+      const cacheNames = await caches.keys();
+      const diagnostics: CacheDiagnostics = {
+        caches: [],
+        totalEntries: 0,
+        staleEntries: 0,
+        totalSize: 0,
+      };
+
+      const now = Date.now();
+      const STALE_THRESHOLD_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+      for (const cacheName of cacheNames) {
+        const cache = await caches.open(cacheName);
+        const requests = await cache.keys();
+        
+        const cacheInfo = {
+          name: cacheName,
+          entryCount: requests.length,
+          totalSize: 0,
+          entries: [] as CacheEntry[],
+        };
+
+        // Sample up to 20 entries for details
+        for (const request of requests.slice(0, 20)) {
+          try {
+            const response = await cache.match(request);
+            if (response) {
+              const entry: CacheEntry = {
+                url: new URL(request.url).pathname || request.url,
+              };
+              
+              const dateHeader = response.headers.get('date');
+              if (dateHeader) {
+                const cacheDate = new Date(dateHeader);
+                entry.date = dateHeader;
+                entry.ageMinutes = Math.round((now - cacheDate.getTime()) / 60000);
+                
+                if ((now - cacheDate.getTime()) > STALE_THRESHOLD_MS) {
+                  diagnostics.staleEntries++;
+                }
+              }
+              
+              const contentLength = response.headers.get('content-length');
+              if (contentLength) {
+                const size = parseInt(contentLength, 10);
+                entry.contentLength = size;
+                cacheInfo.totalSize += size;
+              }
+              
+              const contentType = response.headers.get('content-type');
+              if (contentType) {
+                entry.contentType = contentType.split(';')[0];
+              }
+              
+              cacheInfo.entries.push(entry);
+            }
+          } catch {
+            // Skip entries that can't be read
+          }
+        }
+
+        diagnostics.totalEntries += cacheInfo.entryCount;
+        diagnostics.totalSize += cacheInfo.totalSize;
+        diagnostics.caches.push(cacheInfo);
+      }
+
+      setCacheDiagnostics(diagnostics);
+    } catch (error) {
+      console.error('Cache analysis failed:', error);
+      setCacheDiagnostics(null);
+    } finally {
+      setCacheLoading(false);
+    }
   }, []);
 
   // Trigger service worker update (skipWaiting)
@@ -361,9 +467,11 @@ export default function HealthPage() {
   useEffect(() => {
     runChecks();
     checkNetworkStatus();
+    analyzeCaches();
     
     const interval = setInterval(runChecks, 60000); // Check every 60s
     const networkInterval = setInterval(checkNetworkStatus, 30000); // Check network every 30s
+    const cacheInterval = setInterval(analyzeCaches, 120000); // Check cache every 2min
 
     // Listen for online/offline events
     const handleOnline = () => setNetworkStatus(prev => ({ ...prev, online: true }));
@@ -375,10 +483,11 @@ export default function HealthPage() {
     return () => {
       clearInterval(interval);
       clearInterval(networkInterval);
+      clearInterval(cacheInterval);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [checkNetworkStatus]);
+  }, [checkNetworkStatus, analyzeCaches]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -1000,6 +1109,116 @@ export default function HealthPage() {
                   {((networkStatus.cacheUsage.usage / networkStatus.cacheUsage.quota) * 100).toFixed(2)}% {t.health.network.used}
                 </div>
               </div>
+            )}
+          </div>
+        </div>
+
+        {/* Cache Diagnostics (T427) */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">💾 Cache Diagnostics</h2>
+          <div className={`rounded-lg border p-4 ${
+            cacheLoading ? 'bg-slate-500/10 border-slate-500/30' :
+            !cacheDiagnostics ? 'bg-slate-500/10 border-slate-500/30' :
+            cacheDiagnostics.staleEntries > 10 ? 'bg-yellow-500/10 border-yellow-500/30' :
+            'bg-green-500/10 border-green-500/30'
+          }`}>
+            {cacheLoading ? (
+              <div className="text-slate-400 text-center py-4 animate-pulse">
+                Analyzing cache entries...
+              </div>
+            ) : !cacheDiagnostics ? (
+              <div className="text-slate-400 text-center py-4">
+                <div>💾 Cache API not available</div>
+                <div className="text-xs mt-2">Browser may not support Cache API</div>
+              </div>
+            ) : (
+              <>
+                {/* Summary Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div className="bg-slate-800/50 rounded-lg p-3">
+                    <div className="text-slate-400 text-xs mb-1">Total Entries</div>
+                    <div className="text-xl font-bold text-white">{cacheDiagnostics.totalEntries}</div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-3">
+                    <div className="text-slate-400 text-xs mb-1">Cache Size</div>
+                    <div className="text-xl font-bold text-white">{formatBytes(cacheDiagnostics.totalSize)}</div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-3">
+                    <div className="text-slate-400 text-xs mb-1">Cache Buckets</div>
+                    <div className="text-xl font-bold text-white">{cacheDiagnostics.caches.length}</div>
+                  </div>
+                  <div className="bg-slate-800/50 rounded-lg p-3">
+                    <div className="text-slate-400 text-xs mb-1">Stale (&gt;24h)</div>
+                    <div className={`text-xl font-bold ${
+                      cacheDiagnostics.staleEntries === 0 ? 'text-green-400' :
+                      cacheDiagnostics.staleEntries <= 5 ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`}>{cacheDiagnostics.staleEntries}</div>
+                  </div>
+                </div>
+
+                {/* Cache Buckets */}
+                {cacheDiagnostics.caches.length > 0 && (
+                  <div className="space-y-3">
+                    {cacheDiagnostics.caches.map((cache) => (
+                      <div key={cache.name} className="bg-slate-800/50 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-white font-medium text-sm">{cache.name}</span>
+                            <span className="text-xs text-slate-500">({cache.entryCount} items)</span>
+                          </div>
+                          {cache.totalSize > 0 && (
+                            <span className="text-xs text-slate-400">{formatBytes(cache.totalSize)}</span>
+                          )}
+                        </div>
+                        {cache.entries.length > 0 && (
+                          <div className="space-y-1 max-h-32 overflow-y-auto">
+                            {cache.entries.slice(0, 10).map((entry, i) => (
+                              <div key={i} className="flex items-center justify-between text-xs">
+                                <span className="text-slate-300 truncate max-w-[50%]" title={entry.url}>
+                                  {entry.url.length > 40 ? `...${entry.url.slice(-37)}` : entry.url}
+                                </span>
+                                <div className="flex items-center gap-2 text-slate-500">
+                                  {entry.contentType && (
+                                    <span className="bg-slate-700 px-1.5 py-0.5 rounded text-slate-400">
+                                      {entry.contentType.split('/')[1] || entry.contentType}
+                                    </span>
+                                  )}
+                                  {entry.ageMinutes !== undefined && (
+                                    <span className={entry.ageMinutes > 1440 ? 'text-yellow-400' : ''}>
+                                      {entry.ageMinutes < 60 ? `${entry.ageMinutes}m` :
+                                       entry.ageMinutes < 1440 ? `${Math.round(entry.ageMinutes / 60)}h` :
+                                       `${Math.round(entry.ageMinutes / 1440)}d`}
+                                    </span>
+                                  )}
+                                  {entry.contentLength && (
+                                    <span>{formatBytes(entry.contentLength)}</span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                            {cache.entryCount > 10 && (
+                              <div className="text-xs text-slate-500 text-center pt-1">
+                                ... and {cache.entryCount - 10} more
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Refresh Button */}
+                <div className="mt-3 pt-3 border-t border-slate-700 flex justify-center">
+                  <button
+                    onClick={analyzeCaches}
+                    className="px-3 py-1.5 text-xs bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors"
+                  >
+                    ↻ Refresh Cache Analysis
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>

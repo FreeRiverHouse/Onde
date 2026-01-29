@@ -99,12 +99,13 @@
 - **Notes**: MANUAL: Current API token lacks D1:read/write permissions. Go to Cloudflare Dashboard → API Tokens → Edit token → Add D1 permissions. Required for running D1 migrations (T661).
 
 ### [T427] Add cache diagnostic panel to /health page
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T322]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show detailed cache info: items cached, cache age per route, SW cache storage used, stale entries count. Would help diagnose PWA caching issues.
+- **Notes**: ✅ Added Cache Diagnostics panel to /health page! Shows: total entries, cache size, cache buckets count, stale entries (>24h). Per-bucket breakdown with entry details: URL path, content type, age, size. Samples up to 20 entries per bucket. Auto-refreshes every 2min. Helps diagnose PWA caching issues.
 
 ---
 
