@@ -904,5 +904,102 @@
       "followOnX": "Seguici su X",
       "learnMore": "Scopri di più"
     }
+  },
+  "vrPage": {
+    "hero": {
+      "badge": "Il Futuro è Qui",
+      "title": "Onde in",
+      "titleHighlight": "VR",
+      "tagline": "On The Portal - On The Waves",
+      "subtitle": "Educazione immersiva personalizzata. I bambini impareranno in VR, tanto vale che sia con contenuti che i genitori scelgono.",
+      "discoverHomeSchool": "Scopri Home School VR",
+      "freeriverFlow": "FreeRiver Flow VR"
+    },
+    "features": {
+      "totalImmersion": {
+        "title": "Immersione Totale",
+        "description": "Entra dentro le storie. Vivi i libri come mai prima."
+      },
+      "interactiveLessons": {
+        "title": "Lezioni Interattive",
+        "description": "Apprendimento che coinvolge tutti i sensi."
+      },
+      "familyValues": {
+        "title": "Valori Familiari",
+        "description": "I genitori decidono cosa insegnare. Noi lo rendiamo magico."
+      }
+    },
+    "flow": {
+      "badge": "Coming Soon",
+      "title": "FreeRiver",
+      "titleHighlight": "Flow VR",
+      "description": "Programma mentre cammini. Crea app con la voce, guarda il codice prendere forma nello spazio 3D intorno a te. Il futuro del coding è immersivo.",
+      "joinWaitlist": "Iscriviti alla Waitlist",
+      "listening": "Listening...",
+      "voiceInput": "Voice input detected",
+      "features": {
+        "voiceToCode": {
+          "title": "Voice-to-Code",
+          "description": "Parla e il codice appare"
+        },
+        "visualDebugging": {
+          "title": "Visual Debugging",
+          "description": "Vedi il flusso dei dati in 3D"
+        },
+        "aiCompanion": {
+          "title": "AI Companion",
+          "description": "EMILIO ti guida mentre crei"
+        },
+        "multiPlatform": {
+          "title": "Multi-piattaforma",
+          "description": "Meta Quest, Apple Vision Pro"
+        }
+      }
+    },
+    "homeSchool": {
+      "badge": "Educazione Personalizzata",
+      "title": "Home School VR",
+      "subtitle": "I genitori impostano i valori. Onde li insegna ai bambini in modo magico e immersivo.",
+      "problem": {
+        "title": "Il Problema",
+        "description": "I bambini passeranno sempre più tempo in VR. I genitori sono sommersi da contenuti AI generici senza controllo sui valori trasmessi."
+      },
+      "solution": {
+        "title": "La Soluzione Onde",
+        "description": "I genitori definiscono i valori che vogliono insegnare. Onde crea esperienze VR personalizzate che rispettano quei valori. Qualità invece di quantità."
+      },
+      "parentsDecide": "I Genitori Decidono:",
+      "values": ["Spiritualità", "Creatività", "Rispetto", "Curiosità", "Empatia", "Resilienza"],
+      "subjects": {
+        "title": "Materie VR",
+        "subtitle": "Seleziona le aree di apprendimento",
+        "startConfig": "Inizia la Configurazione"
+      },
+      "subjectsList": {
+        "math": { "name": "Matematica", "description": "Numeri che prendono vita" },
+        "science": { "name": "Scienze", "description": "Esplora il microscopico" },
+        "history": { "name": "Storia", "description": "Viaggia nel tempo" },
+        "art": { "name": "Arte", "description": "Dipingi in 3D" },
+        "music": { "name": "Musica", "description": "Orchestra virtuale" },
+        "languages": { "name": "Lingue", "description": "Immersione linguistica" }
+      }
+    },
+    "expansion": {
+      "badge": "Espansione Futura",
+      "title": "Oltre l'Educazione",
+      "subtitle": "La piattaforma VR di Onde si espanderà per servire professionisti e famiglie.",
+      "items": {
+        "therapists": { "title": "Terapisti", "description": "Sessioni VR guidate per benessere mentale" },
+        "psychologists": { "title": "Psicologi", "description": "Ambienti immersivi per terapia" },
+        "doctors": { "title": "Medici", "description": "Educazione sanitaria interattiva" },
+        "educators": { "title": "Educatori", "description": "Classi virtuali personalizzate" }
+      }
+    },
+    "cta": {
+      "title": "Pronto a Surfare il Futuro?",
+      "subtitle": "Iscriviti per essere tra i primi a provare Onde VR. On The Portal. On The Waves.",
+      "joinWaitlist": "Iscriviti alla Waitlist",
+      "backHome": "Torna alla Home"
+    }
   }
 }

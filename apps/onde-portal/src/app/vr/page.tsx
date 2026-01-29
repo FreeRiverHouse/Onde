@@ -4,68 +4,96 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
+import { useTranslations } from '@/i18n'
 
-// VR Feature data
-const vrFeatures = [
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-      </svg>
-    ),
-    title: 'Immersione Totale',
-    description: 'Entra dentro le storie. Vivi i libri come mai prima.',
-    color: 'teal',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    title: 'Lezioni Interattive',
-    description: 'Apprendimento che coinvolge tutti i sensi.',
-    color: 'coral',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-    title: 'Valori Familiari',
-    description: 'I genitori decidono cosa insegnare. Noi lo rendiamo magico.',
-    color: 'gold',
-  },
+// VR Feature icons (SVG components don't need translation)
+const vrFeatureIcons = {
+  totalImmersion: (
+    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+  ),
+  interactiveLessons: (
+    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+    </svg>
+  ),
+  familyValues: (
+    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+  ),
+}
+
+// Feature data structure (translations applied at render time)
+const vrFeatureData = [
+  { key: 'totalImmersion', color: 'teal' },
+  { key: 'interactiveLessons', color: 'coral' },
+  { key: 'familyValues', color: 'gold' },
 ]
 
-// Flow VR Features
-const flowFeatures = [
-  { title: 'Voice-to-Code', description: 'Parla e il codice appare', icon: '🎤' },
-  { title: 'Visual Debugging', description: 'Vedi il flusso dei dati in 3D', icon: '🔍' },
-  { title: 'AI Companion', description: 'EMILIO ti guida mentre crei', icon: '🤖' },
-  { title: 'Multi-piattaforma', description: 'Meta Quest, Apple Vision Pro', icon: '🥽' },
+// Flow VR Features data
+const flowFeatureData = [
+  { key: 'voiceToCode', icon: '🎤' },
+  { key: 'visualDebugging', icon: '🔍' },
+  { key: 'aiCompanion', icon: '🤖' },
+  { key: 'multiPlatform', icon: '🥽' },
 ]
 
-// Home School Subjects
-const subjects = [
-  { name: 'Matematica', icon: '🔢', color: 'coral', description: 'Numeri che prendono vita' },
-  { name: 'Scienze', icon: '🔬', color: 'teal', description: 'Esplora il microscopico' },
-  { name: 'Storia', icon: '🏛️', color: 'gold', description: 'Viaggia nel tempo' },
-  { name: 'Arte', icon: '🎨', color: 'coral', description: 'Dipingi in 3D' },
-  { name: 'Musica', icon: '🎵', color: 'teal', description: 'Orchestra virtuale' },
-  { name: 'Lingue', icon: '🌍', color: 'gold', description: 'Immersione linguistica' },
+// Home School Subjects data
+const subjectData = [
+  { key: 'math', icon: '🔢', color: 'coral' },
+  { key: 'science', icon: '🔬', color: 'teal' },
+  { key: 'history', icon: '🏛️', color: 'gold' },
+  { key: 'art', icon: '🎨', color: 'coral' },
+  { key: 'music', icon: '🎵', color: 'teal' },
+  { key: 'languages', icon: '🌍', color: 'gold' },
+]
+
+// Expansion items data
+const expansionData = [
+  { key: 'therapists', icon: '🩺' },
+  { key: 'psychologists', icon: '🧠' },
+  { key: 'doctors', icon: '👨‍⚕️' },
+  { key: 'educators', icon: '👨‍🏫' },
 ]
 
 export default function VRPage() {
+  const t = useTranslations()
   const { scrollYProgress } = useScroll()
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
-  const floatY = useTransform(scrollYProgress, [0, 1], [0, -100])
+
+  // Build translated data
+  const vrFeatures = vrFeatureData.map(f => ({
+    icon: vrFeatureIcons[f.key as keyof typeof vrFeatureIcons],
+    title: t.vrPage.features[f.key as keyof typeof t.vrPage.features].title,
+    description: t.vrPage.features[f.key as keyof typeof t.vrPage.features].description,
+    color: f.color,
+  }))
+
+  const flowFeatures = flowFeatureData.map(f => ({
+    icon: f.icon,
+    title: t.vrPage.flow.features[f.key as keyof typeof t.vrPage.flow.features].title,
+    description: t.vrPage.flow.features[f.key as keyof typeof t.vrPage.flow.features].description,
+  }))
+
+  const subjects = subjectData.map(s => ({
+    icon: s.icon,
+    color: s.color,
+    name: t.vrPage.homeSchool.subjectsList[s.key as keyof typeof t.vrPage.homeSchool.subjectsList].name,
+    description: t.vrPage.homeSchool.subjectsList[s.key as keyof typeof t.vrPage.homeSchool.subjectsList].description,
+  }))
+
+  const expansionItems = expansionData.map(e => ({
+    icon: e.icon,
+    title: t.vrPage.expansion.items[e.key as keyof typeof t.vrPage.expansion.items].title,
+    desc: t.vrPage.expansion.items[e.key as keyof typeof t.vrPage.expansion.items].description,
+  }))
 
   return (
     <div className="relative">
@@ -145,7 +173,7 @@ export default function VRPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-onde-teal opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-onde-teal"></span>
               </span>
-              Il Futuro e Qui
+              {t.vrPage.hero.badge}
             </motion.div>
 
             {/* VR Headset Icon */}
@@ -178,10 +206,10 @@ export default function VRPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              Onde in{' '}
+              {t.vrPage.hero.title}{' '}
               <span className="relative inline-block">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-onde-teal via-onde-coral to-onde-gold">
-                  VR
+                  {t.vrPage.hero.titleHighlight}
                 </span>
                 {/* Glow effect */}
                 <motion.span
@@ -199,7 +227,7 @@ export default function VRPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              On The Portal - On The Waves
+              {t.vrPage.hero.tagline}
             </motion.p>
             <motion.p
               className="text-lg md:text-xl text-onde-ocean/50 max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -207,8 +235,7 @@ export default function VRPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              Educazione immersiva personalizzata. I bambini impareranno in VR,
-              tanto vale che sia con contenuti che i genitori scelgono.
+              {t.vrPage.hero.subtitle}
             </motion.p>
 
             {/* CTA */}
@@ -219,13 +246,13 @@ export default function VRPage() {
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <Button href="#home-school" variant="teal" size="lg">
-                Scopri Home School VR
+                {t.vrPage.hero.discoverHomeSchool}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </Button>
               <Button href="#flow" variant="secondary" size="lg">
-                FreeRiver Flow VR
+                {t.vrPage.hero.freeriverFlow}
               </Button>
             </motion.div>
           </motion.div>
@@ -306,19 +333,18 @@ export default function VRPage() {
                 viewport={{ once: true }}
               >
                 <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-                Coming Soon
+                {t.vrPage.flow.badge}
               </motion.div>
 
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
-                FreeRiver{' '}
+                {t.vrPage.flow.title}{' '}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-onde-teal to-onde-coral">
-                  Flow VR
+                  {t.vrPage.flow.titleHighlight}
                 </span>
               </h2>
 
               <p className="text-xl text-white/70 mb-8 leading-relaxed">
-                Programma mentre cammini. Crea app con la voce, guarda il codice prendere forma
-                nello spazio 3D intorno a te. Il futuro del coding e immersivo.
+                {t.vrPage.flow.description}
               </p>
 
               {/* Features Grid */}
@@ -342,7 +368,7 @@ export default function VRPage() {
               {/* CTA */}
               <div className="flex gap-4">
                 <Button variant="teal">
-                  Iscriviti alla Waitlist
+                  {t.vrPage.flow.joinWaitlist}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -396,7 +422,7 @@ export default function VRPage() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.7 }}
                       >
-                        <span className="text-onde-gold font-mono text-sm">// Voice input detected</span>
+                        <span className="text-onde-gold font-mono text-sm">// {t.vrPage.flow.voiceInput}</span>
                       </motion.div>
                       <motion.div
                         className="flex gap-2"
@@ -449,7 +475,7 @@ export default function VRPage() {
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 0.5, repeat: Infinity }}
                     />
-                    <span className="text-white text-sm font-medium">Listening...</span>
+                    <span className="text-white text-sm font-medium">{t.vrPage.flow.listening}</span>
                   </motion.div>
                 </div>
               </div>
@@ -464,9 +490,9 @@ export default function VRPage() {
       <section id="home-school" className="relative py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="Educazione Personalizzata"
-            title="Home School VR"
-            subtitle="I genitori impostano i valori. Onde li insegna ai bambini in modo magico e immersivo."
+            badge={t.vrPage.homeSchool.badge}
+            title={t.vrPage.homeSchool.title}
+            subtitle={t.vrPage.homeSchool.subtitle}
             gradient="coral"
           />
 
@@ -483,11 +509,10 @@ export default function VRPage() {
               <div className="p-6 rounded-3xl bg-gradient-to-br from-onde-coral/10 to-onde-gold/5
                               border border-onde-coral/20">
                 <h3 className="text-xl font-display font-bold text-onde-ocean mb-3">
-                  Il Problema
+                  {t.vrPage.homeSchool.problem.title}
                 </h3>
                 <p className="text-onde-ocean/70 leading-relaxed">
-                  I bambini passeranno sempre piu tempo in VR. I genitori sono sommersi
-                  da contenuti AI generici senza controllo sui valori trasmessi.
+                  {t.vrPage.homeSchool.problem.description}
                 </p>
               </div>
 
@@ -495,20 +520,18 @@ export default function VRPage() {
               <div className="p-6 rounded-3xl bg-gradient-to-br from-onde-teal/10 to-onde-coral/5
                               border border-onde-teal/20">
                 <h3 className="text-xl font-display font-bold text-onde-ocean mb-3">
-                  La Soluzione Onde
+                  {t.vrPage.homeSchool.solution.title}
                 </h3>
                 <p className="text-onde-ocean/70 leading-relaxed">
-                  I genitori definiscono i valori che vogliono insegnare. Onde crea
-                  esperienze VR personalizzate che rispettano quei valori.
-                  Qualita invece di quantita.
+                  {t.vrPage.homeSchool.solution.description}
                 </p>
               </div>
 
               {/* Values List */}
               <div className="space-y-4">
-                <h4 className="font-display font-bold text-onde-ocean">I Genitori Decidono:</h4>
+                <h4 className="font-display font-bold text-onde-ocean">{t.vrPage.homeSchool.parentsDecide}</h4>
                 <div className="flex flex-wrap gap-3">
-                  {['Spiritualita', 'Creativita', 'Rispetto', 'Curiosita', 'Empatia', 'Resilienza'].map((value) => (
+                  {t.vrPage.homeSchool.values.map((value: string) => (
                     <span
                       key={value}
                       className="px-4 py-2 rounded-full text-sm font-medium
@@ -546,8 +569,8 @@ export default function VRPage() {
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">📚</span>
                       <div>
-                        <h4 className="font-display font-bold text-onde-ocean">Materie VR</h4>
-                        <p className="text-sm text-onde-ocean/50">Seleziona le aree di apprendimento</p>
+                        <h4 className="font-display font-bold text-onde-ocean">{t.vrPage.homeSchool.subjects.title}</h4>
+                        <p className="text-sm text-onde-ocean/50">{t.vrPage.homeSchool.subjects.subtitle}</p>
                       </div>
                     </div>
                   </div>
@@ -579,7 +602,7 @@ export default function VRPage() {
                   {/* Footer CTA */}
                   <div className="p-6 bg-gradient-to-br from-onde-cream/50 to-transparent">
                     <Button variant="primary" className="w-full">
-                      Inizia la Configurazione
+                      {t.vrPage.homeSchool.subjects.startConfig}
                     </Button>
                   </div>
                 </div>
@@ -595,19 +618,14 @@ export default function VRPage() {
       <section className="relative py-24 bg-gradient-to-b from-onde-cream/30 to-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="Espansione Futura"
-            title="Oltre l'Educazione"
-            subtitle="La piattaforma VR di Onde si espandera per servire professionisti e famiglie."
+            badge={t.vrPage.expansion.badge}
+            title={t.vrPage.expansion.title}
+            subtitle={t.vrPage.expansion.subtitle}
             gradient="teal"
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-            {[
-              { icon: '🩺', title: 'Terapisti', desc: 'Sessioni VR guidate per benessere mentale' },
-              { icon: '🧠', title: 'Psicologi', desc: 'Ambienti immersivi per terapia' },
-              { icon: '👨‍⚕️', title: 'Medici', desc: 'Educazione sanitaria interattiva' },
-              { icon: '👨‍🏫', title: 'Educatori', desc: 'Classi virtuali personalizzate' },
-            ].map((item, index) => (
+            {expansionItems.map((item, index) => (
               <motion.div
                 key={item.title}
                 className="p-6 rounded-3xl bg-white/80 backdrop-blur-sm border border-onde-teal/20
@@ -677,7 +695,7 @@ export default function VRPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Pronto a Surfare il Futuro?
+                {t.vrPage.cta.title}
               </motion.h2>
               <motion.p
                 className="text-lg text-white/70 max-w-xl mx-auto mb-8"
@@ -686,8 +704,7 @@ export default function VRPage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Iscriviti per essere tra i primi a provare Onde VR.
-                On The Portal. On The Waves.
+                {t.vrPage.cta.subtitle}
               </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -697,7 +714,7 @@ export default function VRPage() {
                 transition={{ delay: 0.2 }}
               >
                 <Button variant="primary" size="lg">
-                  Iscriviti alla Waitlist
+                  {t.vrPage.cta.joinWaitlist}
                 </Button>
                 <Button
                   href="/"
@@ -705,7 +722,7 @@ export default function VRPage() {
                   size="lg"
                   className="text-white hover:bg-white/10"
                 >
-                  Torna alla Home
+                  {t.vrPage.cta.backHome}
                 </Button>
               </motion.div>
             </div>

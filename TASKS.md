@@ -3792,12 +3792,13 @@
 - **Notes**: Using historical data, analyze if trades entered at certain times to expiry (30min vs 15min vs 5min) have different win rates. May reveal optimal entry timing for autotrader to maximize edge.
 
 ### [T644] i18n: /vr page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /vr page to use i18n system. Check current hardcoded strings, extract to en.json/it.json, use useTranslations() hook. Follow same pattern as T435 (/app page).
+- **Notes**: ✅ Converted! Added ~100 translation keys for /vr page: hero (badge, title, tagline, subtitle, CTAs), features (3 sections), Flow VR (badge, title, description, 4 features, code mockup text), Home School (problem/solution, values, subjects), Expansion (4 items), CTA section. Page now uses useTranslations() with dynamic data structures. Build verified ✅
 
 ### [T645] Book download stats page (/stats)
 - **Status**: TODO

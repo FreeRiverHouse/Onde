@@ -846,5 +846,102 @@
       "followOnX": "Follow us on X",
       "learnMore": "Learn more"
     }
+  },
+  "vrPage": {
+    "hero": {
+      "badge": "The Future is Here",
+      "title": "Onde in",
+      "titleHighlight": "VR",
+      "tagline": "On The Portal - On The Waves",
+      "subtitle": "Personalized immersive education. Children will learn in VR, might as well be with content that parents choose.",
+      "discoverHomeSchool": "Discover Home School VR",
+      "freeriverFlow": "FreeRiver Flow VR"
+    },
+    "features": {
+      "totalImmersion": {
+        "title": "Total Immersion",
+        "description": "Step inside stories. Experience books like never before."
+      },
+      "interactiveLessons": {
+        "title": "Interactive Lessons",
+        "description": "Learning that engages all senses."
+      },
+      "familyValues": {
+        "title": "Family Values",
+        "description": "Parents decide what to teach. We make it magical."
+      }
+    },
+    "flow": {
+      "badge": "Coming Soon",
+      "title": "FreeRiver",
+      "titleHighlight": "Flow VR",
+      "description": "Code while you walk. Create apps with your voice, watch code take shape in 3D space around you. The future of coding is immersive.",
+      "joinWaitlist": "Join the Waitlist",
+      "listening": "Listening...",
+      "voiceInput": "Voice input detected",
+      "features": {
+        "voiceToCode": {
+          "title": "Voice-to-Code",
+          "description": "Speak and code appears"
+        },
+        "visualDebugging": {
+          "title": "Visual Debugging",
+          "description": "See data flow in 3D"
+        },
+        "aiCompanion": {
+          "title": "AI Companion",
+          "description": "EMILIO guides you while you create"
+        },
+        "multiPlatform": {
+          "title": "Multi-platform",
+          "description": "Meta Quest, Apple Vision Pro"
+        }
+      }
+    },
+    "homeSchool": {
+      "badge": "Personalized Education",
+      "title": "Home School VR",
+      "subtitle": "Parents set the values. Onde teaches them to children in magical and immersive ways.",
+      "problem": {
+        "title": "The Problem",
+        "description": "Children will spend more and more time in VR. Parents are overwhelmed with generic AI content with no control over transmitted values."
+      },
+      "solution": {
+        "title": "The Onde Solution",
+        "description": "Parents define the values they want to teach. Onde creates personalized VR experiences that respect those values. Quality over quantity."
+      },
+      "parentsDecide": "Parents Decide:",
+      "values": ["Spirituality", "Creativity", "Respect", "Curiosity", "Empathy", "Resilience"],
+      "subjects": {
+        "title": "VR Subjects",
+        "subtitle": "Select learning areas",
+        "startConfig": "Start Configuration"
+      },
+      "subjectsList": {
+        "math": { "name": "Mathematics", "description": "Numbers come alive" },
+        "science": { "name": "Science", "description": "Explore the microscopic" },
+        "history": { "name": "History", "description": "Travel through time" },
+        "art": { "name": "Art", "description": "Paint in 3D" },
+        "music": { "name": "Music", "description": "Virtual orchestra" },
+        "languages": { "name": "Languages", "description": "Language immersion" }
+      }
+    },
+    "expansion": {
+      "badge": "Future Expansion",
+      "title": "Beyond Education",
+      "subtitle": "Onde's VR platform will expand to serve professionals and families.",
+      "items": {
+        "therapists": { "title": "Therapists", "description": "Guided VR sessions for mental wellness" },
+        "psychologists": { "title": "Psychologists", "description": "Immersive environments for therapy" },
+        "doctors": { "title": "Doctors", "description": "Interactive health education" },
+        "educators": { "title": "Educators", "description": "Personalized virtual classrooms" }
+      }
+    },
+    "cta": {
+      "title": "Ready to Surf the Future?",
+      "subtitle": "Sign up to be among the first to try Onde VR. On The Portal. On The Waves.",
+      "joinWaitlist": "Join the Waitlist",
+      "backHome": "Back to Home"
+    }
   }
 }
