@@ -1947,12 +1947,13 @@
 - **Notes**: ✅ Created scripts/bump-sw-version.sh. Auto-increments cache version (v1→v2) or accepts custom version. Updates CACHE_NAME, STATIC_CACHE, API_CACHE. Run before deploy to force fresh caches.
 
 ### [T320] Background sync for trading dashboard refresh
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T312]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use Background Sync API to queue data fetches when offline. Auto-refresh trading stats when connection restored.
+- **Notes**: ✅ Implemented! Updated sw.js (v1.1.0) with Background Sync support: sync tags for trading-stats/momentum/all, sync event handler, performSync() for batch API refresh, notifyClientsOfSync() for UI updates, fallback queue for browsers without Sync API. Created useBackgroundSync hook with: requestSync() for queueing, forceSync() for immediate refresh, smartSync() for online/offline-aware sync. Automatic processing of pending syncs when online.
 
 ### [T321] Precache additional routes in service worker
 - **Status**: DONE

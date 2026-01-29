@@ -1,9 +1,17 @@
 // Surfboard Service Worker - Offline PWA Support
-// Version: 1.0.0
+// Version: 1.1.0 - Added Background Sync
 
 const CACHE_NAME = 'surfboard-v1';
 const STATIC_CACHE = 'surfboard-static-v1';
 const API_CACHE = 'surfboard-api-v1';
+
+// Background Sync tags
+const SYNC_TRADING_STATS = 'sync-trading-stats';
+const SYNC_MOMENTUM = 'sync-momentum';
+const SYNC_ALL = 'sync-all';
+
+// Pending sync requests (for browsers without Background Sync API)
+let pendingSyncs = new Set();
 
 // Static assets to precache
 const PRECACHE_ASSETS = [
@@ -213,6 +221,141 @@ self.addEventListener('message', (event) => {
       });
     });
   }
+  
+  // Request background sync (for when client wants to queue a refresh)
+  if (event.data && event.data.type === 'REQUEST_SYNC') {
+    const syncTag = event.data.tag || SYNC_ALL;
+    console.log('[SW] Sync requested:', syncTag);
+    
+    // Try to register a sync (if supported)
+    if ('sync' in self.registration) {
+      self.registration.sync.register(syncTag)
+        .then(() => console.log('[SW] Sync registered:', syncTag))
+        .catch((err) => {
+          console.log('[SW] Sync registration failed, will retry on connect:', err);
+          pendingSyncs.add(syncTag);
+        });
+    } else {
+      // Fallback: store pending sync and retry when online
+      pendingSyncs.add(syncTag);
+      console.log('[SW] Background Sync not supported, queued for retry');
+    }
+    
+    // Notify client
+    if (event.ports && event.ports[0]) {
+      event.ports[0].postMessage({ type: 'SYNC_QUEUED', tag: syncTag });
+    }
+  }
+  
+  // Manual sync trigger (for testing or forced refresh)
+  if (event.data && event.data.type === 'FORCE_SYNC') {
+    const syncTag = event.data.tag || SYNC_ALL;
+    console.log('[SW] Force sync:', syncTag);
+    performSync(syncTag).then((results) => {
+      if (event.ports && event.ports[0]) {
+        event.ports[0].postMessage({ type: 'SYNC_COMPLETE', tag: syncTag, results });
+      }
+      // Notify all clients about the refresh
+      notifyClientsOfSync(syncTag, results);
+    });
+  }
 });
 
-console.log('[SW] Service worker loaded');
+// Background Sync event handler
+self.addEventListener('sync', (event) => {
+  console.log('[SW] Background sync triggered:', event.tag);
+  
+  if (event.tag === SYNC_TRADING_STATS) {
+    event.waitUntil(performSync(SYNC_TRADING_STATS));
+  } else if (event.tag === SYNC_MOMENTUM) {
+    event.waitUntil(performSync(SYNC_MOMENTUM));
+  } else if (event.tag === SYNC_ALL) {
+    event.waitUntil(performSync(SYNC_ALL));
+  }
+  
+  // Remove from pending syncs if it was there
+  pendingSyncs.delete(event.tag);
+});
+
+// Perform the actual sync operations
+async function performSync(syncTag) {
+  console.log('[SW] Performing sync:', syncTag);
+  const results = { success: [], failed: [] };
+  
+  const cache = await caches.open(API_CACHE);
+  
+  // Determine which endpoints to refresh
+  const endpoints = [];
+  if (syncTag === SYNC_TRADING_STATS || syncTag === SYNC_ALL) {
+    endpoints.push('/api/trading/stats');
+  }
+  if (syncTag === SYNC_MOMENTUM || syncTag === SYNC_ALL) {
+    endpoints.push('/api/momentum');
+  }
+  if (syncTag === SYNC_ALL) {
+    endpoints.push('/api/health');
+    endpoints.push('/api/health/cron');
+  }
+  
+  // Fetch and cache each endpoint
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(endpoint, { 
+        cache: 'no-store',
+        headers: { 'X-Background-Sync': 'true' }
+      });
+      
+      if (response.ok) {
+        // Add timestamp to cached response
+        const headers = new Headers(response.headers);
+        headers.set('sw-cache-time', Date.now().toString());
+        headers.set('sw-sync-time', new Date().toISOString());
+        
+        const body = await response.blob();
+        const cachedResponse = new Response(body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: headers
+        });
+        
+        await cache.put(endpoint, cachedResponse);
+        results.success.push(endpoint);
+        console.log('[SW] Synced:', endpoint);
+      } else {
+        results.failed.push({ endpoint, status: response.status });
+        console.log('[SW] Sync failed:', endpoint, response.status);
+      }
+    } catch (error) {
+      results.failed.push({ endpoint, error: error.message });
+      console.log('[SW] Sync error:', endpoint, error.message);
+    }
+  }
+  
+  return results;
+}
+
+// Notify all clients about sync completion
+async function notifyClientsOfSync(syncTag, results) {
+  const clients = await self.clients.matchAll({ type: 'window' });
+  for (const client of clients) {
+    client.postMessage({
+      type: 'SYNC_COMPLETE',
+      tag: syncTag,
+      results: results,
+      timestamp: new Date().toISOString()
+    });
+  }
+}
+
+// When coming online, process pending syncs
+self.addEventListener('online', () => {
+  console.log('[SW] Online detected, processing pending syncs');
+  pendingSyncs.forEach((tag) => {
+    performSync(tag).then((results) => {
+      notifyClientsOfSync(tag, results);
+      pendingSyncs.delete(tag);
+    });
+  });
+});
+
+console.log('[SW] Service worker loaded (v1.1.0 with Background Sync)');
