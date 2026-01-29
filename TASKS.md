@@ -3404,3 +3404,27 @@
 - **Priority**: P2
 - **Notes**: ✅ Fixed! Cron was using /usr/bin/python3 (3.9.6) but script uses 3.10+ syntax (`dict | None`). Updated crontab to use /opt/homebrew/bin/python3 (3.14.2). OHLC cache now updates correctly.
 
+### [T499] Weekly circuit breaker history analysis cron
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T471]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add cron job (Sundays 10:00 UTC, after calibration) to run analyze-circuit-breaker-history.py. If multiple triggers detected, send summary to Telegram. Helps review trading psychology/model performance weekly.
+
+### [T600] Autotrader startup session summary
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: On autotrader-v2 startup, print summary of last session: previous run duration, trades made, win rate, final balance, any errors. Helps understand context when restarting. Add load_previous_session_summary() function.
+
+### [T601] Skip trade logging improvements
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T224]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enhance kalshi-skips.jsonl to include momentum, regime, volatility context at skip time. Enables analysis of "what would have happened" if thresholds were lower. Backtest potential missed opportunities.
+
