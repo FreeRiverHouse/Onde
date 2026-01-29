@@ -63,9 +63,6 @@ function Footer() {
           <div className="flex gap-6 text-sm text-onde-ocean/40">
             <a href="/privacy" className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</a>
             <a href="/terms" className="hover:text-onde-ocean transition-colors">{t.footer.terms}</a>
-            <a href="https://vercel.com" className="hover:text-onde-ocean transition-colors" target="_blank" rel="noopener noreferrer">
-              ⚡ Powered by Vercel
-            </a>
           </div>
         </div>
       </div>

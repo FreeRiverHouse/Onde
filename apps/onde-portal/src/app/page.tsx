@@ -215,7 +215,7 @@ export default function Home() {
             transition={{ delay: 0.4 }}
           >
             Beautiful books for curious minds 📚 Fun games for happy kids 🎮 
-            Free forever, made with love!
+            Free forever!
           </motion.p>
 
           {/* CTA Buttons */}

@@ -460,12 +460,13 @@
 - **Notes**: ✅ Fixed! Redeployed via Wrangler with proper build. Site back online, auth redirect working correctly.
 
 ### [T352] Rimuovere "made with love" da onde.la
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Footer onde.la ha ancora "Built with ⚡ by FreeRiverHouse". Mattia vuole rimuoverlo.
+- **Notes**: ✅ Removed "made with love" from hero, removed "Powered by Vercel" from footer. Cleaner branding.
 
 ### [T353] Sistemare onde.la mezzo italiano mezzo inglese
 - **Status**: TODO

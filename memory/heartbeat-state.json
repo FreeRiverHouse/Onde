@@ -1,11 +1,6 @@
 {
-  "lastChecks": {
-    "email": null,
-    "calendar": null,
-    "weather": null,
-    "heartbeat": 1738121278
-  },
-  "lastTaskRun": "2026-01-28T20:28:00Z",
-  "tasksCompleted": ["T339", "T345", "T359", "T340"],
-  "notes": "Trading dashboard improvements: v1/v2 toggle, streak viz, date filters, history link"
+  "lastHeartbeat": "2026-01-29T05:02:21Z",
+  "lastHeartbeatEpoch": 1769662941,
+  "host": "FRH-M1-PRO.local",
+  "lastChecks": {"email": null, "calendar": null, "weather": null, "heartbeat": 1738121278}
 }

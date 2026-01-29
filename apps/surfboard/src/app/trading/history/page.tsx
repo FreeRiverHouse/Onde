@@ -189,18 +189,20 @@ export default function TradeHistoryPage() {
         setFromDate(formatDate(today));
         setToDate(formatDate(today));
         break;
-      case 'week':
+      case 'week': {
         const weekAgo = new Date(today);
         weekAgo.setDate(weekAgo.getDate() - 7);
         setFromDate(formatDate(weekAgo));
         setToDate(formatDate(today));
         break;
-      case 'month':
+      }
+      case 'month': {
         const monthAgo = new Date(today);
         monthAgo.setDate(monthAgo.getDate() - 30);
         setFromDate(formatDate(monthAgo));
         setToDate(formatDate(today));
         break;
+      }
       case 'all':
         setFromDate('');
         setToDate('');
