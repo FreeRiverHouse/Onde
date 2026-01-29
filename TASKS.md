@@ -3901,3 +3901,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Show badge/indicator on dashboard when current streak equals or exceeds all-time record. Use streak stats from gist. Gold badge for approaching win record, red alert for approaching loss record. Provides at-a-glance awareness of exceptional performance/risk.
+
+### [T653] ML model baseline: logistic regression on trade features
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T331]
+- **Blocks**: [T654]
+- **Priority**: P2
+- **Notes**: Create first ML model using T331 logged features. Start with simple logistic regression (scikit-learn) as baseline. Use features: momentum, regime, vol, time-to-expiry, price_distance. Output: model accuracy, feature importance, confusion matrix. Script: train-baseline-model.py. Requires >100 settled trades with outcomes.
+
+### [T654] ML model comparison: XGBoost vs baseline
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T653]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Train XGBoost classifier on same T331 features, compare to logistic regression baseline. Use cross-validation. Track: AUC, precision/recall, Sharpe if using probability as confidence. May reveal nonlinear patterns baseline misses. Script: train-xgboost-model.py.
+
+### [T655] Cron job to update ML outcomes daily
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T331]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add cron job (08:00 UTC daily) to run update-ml-outcomes.py --verbose. Ensures ML training data stays current with settlement results. Log output to data/trading/ml-update.log. Alerts if sync falls behind (>50 pending outcomes).
