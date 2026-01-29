@@ -2094,12 +2094,13 @@
 - **Notes**: ✅ Script: analyze-vix-correlation.py. Fetches VIX from Yahoo Finance, correlates with BTC/ETH daily vol. Shows: correlation coefficient, VIX regime (low_fear/moderate/elevated/high_fear), trading insights. Cache: data/trading/vix-history.json + vix-correlation.json. Usage: `python3 scripts/analyze-vix-correlation.py --days 30 --asset btc`
 
 ### [T333] Real-time trade ticker on /betting
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Live feed showing recent trades as they happen. WebSocket or polling every 10s. Shows ticker, side, price, result.
+- **Notes**: ✅ Created TradeTicker component! Smooth scrolling animation using requestAnimationFrame, pause on hover, shows: asset badge (BTC/ETH), side (YES/NO), strike price, contracts×price, result status (✓/✗/⏳). Integrated into /betting dashboard above stats grid. Also added TradeTickerStatic variant for non-scrolling displays.
 
 ### [T334] Book category filtering on /catalogo
 - **Status**: DONE

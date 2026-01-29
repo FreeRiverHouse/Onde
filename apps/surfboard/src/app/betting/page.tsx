@@ -36,6 +36,7 @@ import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRat
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
+import { TradeTicker } from '@/components/TradeTicker';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 
 // ============== CONSTANTS ==============
@@ -1272,6 +1273,17 @@ export default function BettingDashboard() {
                 </button>
               </div>
             </div>
+            
+            {/* Trade Ticker (T333) */}
+            {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
+              <div className="mb-4">
+                <TradeTicker 
+                  trades={tradingStats.recentTrades.slice(0, 20)}
+                  speed="normal"
+                  showTimestamp={false}
+                />
+              </div>
+            )}
             
             <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
               {/* Win Rate */}
