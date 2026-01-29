@@ -15,6 +15,7 @@ interface MomentumData {
   };
   signal: 'bullish' | 'bearish' | 'neutral';
   strength: 'strong' | 'moderate' | 'weak';
+  priceHistory: number[];  // Last 24 hourly close prices for charting
 }
 
 async function fetchOHLC(coinId: string): Promise<number[][]> {
@@ -97,10 +98,13 @@ export async function GET() {
     const btcMomentum = calculateMomentum(btcOHLC);
     const btcSignal = getMomentumSignal(btcMomentum.composite);
     const btcPrice = btcOHLC.length > 0 ? btcOHLC[btcOHLC.length - 1][4] : 0;
+    // Extract last 24 close prices for charting
+    const btcPriceHistory = btcOHLC.slice(-24).map(candle => candle[4]);
 
     const ethMomentum = calculateMomentum(ethOHLC);
     const ethSignal = getMomentumSignal(ethMomentum.composite);
     const ethPrice = ethOHLC.length > 0 ? ethOHLC[ethOHLC.length - 1][4] : 0;
+    const ethPriceHistory = ethOHLC.slice(-24).map(candle => candle[4]);
 
     const data: MomentumData[] = [
       {
@@ -109,7 +113,8 @@ export async function GET() {
         currentPrice: btcPrice,
         momentum: btcMomentum,
         signal: btcSignal.signal,
-        strength: btcSignal.strength
+        strength: btcSignal.strength,
+        priceHistory: btcPriceHistory
       },
       {
         asset: 'Ethereum',
@@ -117,7 +122,8 @@ export async function GET() {
         currentPrice: ethPrice,
         momentum: ethMomentum,
         signal: ethSignal.signal,
-        strength: ethSignal.strength
+        strength: ethSignal.strength,
+        priceHistory: ethPriceHistory
       }
     ];
 
