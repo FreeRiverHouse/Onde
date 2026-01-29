@@ -79,14 +79,17 @@ else
 fi
 echo ""
 
-# Step 3: Screenshot con Playwright
+# Step 3: Screenshot con Playwright (opzionale)
 echo -e "${YELLOW}📸 Taking screenshot of /libri page...${NC}"
-SCREENSHOT_DIR="$ONDE_ROOT/test-results/deployment-verification"
-mkdir -p "$SCREENSHOT_DIR"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-SCREENSHOT_FILE="$SCREENSHOT_DIR/libri-${TIMESTAMP}.png"
 
-python3 -c "
+# Check if playwright Python module is available
+if python3 -c "import playwright" 2>/dev/null; then
+    SCREENSHOT_DIR="$ONDE_ROOT/test-results/deployment-verification"
+    mkdir -p "$SCREENSHOT_DIR"
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    SCREENSHOT_FILE="$SCREENSHOT_DIR/libri-${TIMESTAMP}.png"
+
+    python3 -c "
 from playwright.sync_api import sync_playwright
 import sys
 
@@ -116,12 +119,15 @@ except Exception as e:
     sys.exit(1)
 "
 
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✅ Screenshot saved: $SCREENSHOT_FILE${NC}"
-    echo -e "${GREEN}✅ Meditations price verified: Free${NC}"
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✅ Screenshot saved: $SCREENSHOT_FILE${NC}"
+        echo -e "${GREEN}✅ Meditations price verified: Free${NC}"
+    else
+        echo -e "${RED}❌ Screenshot verification FAILED - Meditations still shows \$0.11${NC}"
+        VERIFICATION_FAILED=1
+    fi
 else
-    echo -e "${RED}❌ Screenshot verification FAILED - Meditations still shows \$0.11${NC}"
-    VERIFICATION_FAILED=1
+    echo -e "${YELLOW}⚠️  Playwright not available - skipping screenshot (curl check passed)${NC}"
 fi
 echo ""
 
