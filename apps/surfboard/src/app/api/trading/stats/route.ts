@@ -34,6 +34,7 @@ interface TradingStats {
   sharpeRatio: number;   // risk-adjusted return: (avg return) / std dev of returns
   maxDrawdownCents: number;  // largest peak-to-trough decline in cents
   maxDrawdownPercent: number;  // max drawdown as % of peak equity
+  calmarRatio: number;   // annualized return / max drawdown % - risk-adjusted performance
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -160,6 +161,32 @@ export async function GET() {
       }
     }
 
+    // Calmar Ratio: annualized return / max drawdown %
+    // Need: total invested, trading period, total return
+    let calmarRatio = 0;
+    if (sortedSettled.length >= 2 && maxDrawdownPercent > 0) {
+      // Calculate total invested (sum of all costs)
+      let totalInvestedCents = 0;
+      for (const trade of settledTrades) {
+        const cost = trade.cost_cents || (trade.price_cents || 0) * (trade.contracts || 1);
+        totalInvestedCents += cost;
+      }
+      
+      // Calculate trading period in days
+      const firstTradeDate = new Date(sortedSettled[0].timestamp);
+      const lastTradeDate = new Date(sortedSettled[sortedSettled.length - 1].timestamp);
+      const tradingDays = Math.max(1, (lastTradeDate.getTime() - firstTradeDate.getTime()) / (1000 * 60 * 60 * 24));
+      
+      // Total return as percentage
+      const totalReturn = totalInvestedCents > 0 ? (totalPnlCents / totalInvestedCents) * 100 : 0;
+      
+      // Annualized return (extrapolate to 365 days)
+      const annualizedReturn = totalReturn * (365 / tradingDays);
+      
+      // Calmar = annualized return / max drawdown %
+      calmarRatio = annualizedReturn / maxDrawdownPercent;
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -191,6 +218,7 @@ export async function GET() {
       sharpeRatio: Math.round(sharpeRatio * 100) / 100,  // Round to 2 decimal places
       maxDrawdownCents,
       maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
+      calmarRatio: Number.isFinite(calmarRatio) ? Math.round(calmarRatio * 100) / 100 : 0,  // Round to 2 decimal places
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

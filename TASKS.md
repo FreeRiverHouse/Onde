@@ -1224,12 +1224,13 @@
 - **Notes**: Add timing logs for each API call in autotrader (market fetch, order placement, etc). Identify bottlenecks.
 
 ### [T280] Calmar ratio calculation (return / max drawdown)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T275]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Calmar ratio = annualized return / max drawdown. Risk-adjusted performance metric. Higher is better. Add to stats API and dashboard.
+- **Notes**: ✅ Added! API calculates: total invested, trading period, annualized return, then Calmar = annualized return / max drawdown %. Dashboard shows card with color coding (≥3=excellent, ≥1=good). Grid now has 9 stat cards.
 
 ### [T281] Rolling 30-day win rate trend chart
 - **Status**: TODO
@@ -1249,5 +1250,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 22:00 PST*
+### [T283] Sortino ratio calculation (downside risk adjusted)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T274]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Sortino ratio = excess return / downside deviation. Better than Sharpe for asymmetric returns (only penalizes downside volatility). Add to stats API and dashboard.
+
+### [T284] Average trade duration tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track time from trade entry to settlement. Add avg_duration_hours to stats. Helps understand typical holding periods.
+
+### [T285] Trade correlation with BTC volatility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if win rate changes based on BTC hourly volatility at trade time. Create script to correlate trade outcomes with volatility levels.
+
+---
+
+*Ultimo aggiornamento: 2026-01-30 05:45 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

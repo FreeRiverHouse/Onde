@@ -74,6 +74,7 @@ interface TradingStats {
   sharpeRatio?: number;   // risk-adjusted return metric
   maxDrawdownCents?: number;  // largest peak-to-trough decline
   maxDrawdownPercent?: number;  // max drawdown as % of peak
+  calmarRatio?: number;  // annualized return / max drawdown %
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -789,6 +790,23 @@ export default function BettingDashboard() {
                 />
                 <p className="text-xs text-gray-600 mt-1">
                   ${((tradingStats.maxDrawdownCents ?? 0) / 100).toFixed(2)} from peak
+                </p>
+              </GlassCard>
+
+              {/* Calmar Ratio */}
+              <GlassCard glowColor={(tradingStats.calmarRatio ?? 0) >= 1 ? 'green' : 'orange'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Activity className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Calmar Ratio</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.calmarRatio ?? 0} 
+                  decimals={2}
+                  glowColor={(tradingStats.calmarRatio ?? 0) >= 3 ? 'green' : (tradingStats.calmarRatio ?? 0) >= 1 ? 'purple' : 'orange'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {(tradingStats.calmarRatio ?? 0) >= 3 ? 'excellent' : (tradingStats.calmarRatio ?? 0) >= 1 ? 'good' : (tradingStats.calmarRatio ?? 0) > 0 ? 'needs work' : 'n/a'}
                 </p>
               </GlassCard>
 
