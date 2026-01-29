@@ -172,3 +172,9 @@ TASK ESTRATTI:
 ### 22:41 PST [msg:216]
 > Si ma la seguivi cazzone? Quannti messaggi hai loggato??
 
+
+### 22:42 PST [msg:218]
+> Allora fai meno lo sborone
+
+⚠️ NOTA: Umiltà. Non vantarsi di regole che non seguivo.
+
