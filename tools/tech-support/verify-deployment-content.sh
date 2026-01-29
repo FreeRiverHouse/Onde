@@ -53,7 +53,7 @@ echo ""
 
 # Step 2: Verifica prezzo Marco Aurelio con curl
 echo -e "${YELLOW}💰 Checking Meditations price...${NC}"
-LIBRI_HTML=$(curl -s "$DEPLOY_URL/libri")
+LIBRI_HTML=$(curl -sL "$DEPLOY_URL/libri")
 
 # Cerca "Meditations" e poi il prezzo vicino
 if echo "$LIBRI_HTML" | grep -q "Meditations"; then
