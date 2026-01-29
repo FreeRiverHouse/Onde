@@ -23,6 +23,8 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent
 TRADES_FILE_V1 = SCRIPT_DIR / "kalshi-trades.jsonl"
 TRADES_FILE_V2 = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
+SETTLEMENTS_FILE_V1 = SCRIPT_DIR / "kalshi-settlements.json"  # T349
+SETTLEMENTS_FILE_V2 = SCRIPT_DIR / "kalshi-settlements-v2.json"  # T349
 GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
 VOLATILITY_FILE = SCRIPT_DIR.parent / "data" / "ohlc" / "volatility-stats.json"
 HEALTH_STATUS_FILE = SCRIPT_DIR.parent / "data" / "trading" / "autotrader-health.json"  # T472
@@ -161,6 +163,141 @@ def load_api_latency_stats():
     except Exception as e:
         print(f"Warning: Could not load API latency stats: {e}")
         return None
+
+
+def load_settlements_stats():
+    """Load settlement statistics from v1 and v2 files (T349).
+    
+    Returns combined settlement stats for dashboard display.
+    """
+    def process_settlements_file(filepath):
+        """Process a single settlements file."""
+        if not filepath.exists():
+            return {
+                "totalSettled": 0,
+                "totalPending": 0,
+                "totalWon": 0,
+                "totalLost": 0,
+                "winRate": 0,
+                "totalPnlCents": 0,
+                "totalPayoutCents": 0,
+                "byAsset": {
+                    "BTC": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0},
+                    "ETH": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0}
+                },
+                "lastSettlementTime": None,
+                "oldestPendingTime": None
+            }
+        
+        try:
+            with open(filepath, 'r') as f:
+                data = json.load(f)
+            
+            trades = data.get("trades", {})
+            
+            settled = [t for t in trades.values() if t.get("status") == "settled"]
+            pending = [t for t in trades.values() if t.get("status") != "settled"]
+            
+            won = [t for t in settled if t.get("won", False)]
+            lost = [t for t in settled if not t.get("won", False)]
+            
+            total_pnl = sum(t.get("pnl_cents", 0) for t in settled)
+            total_payout = sum(t.get("payout_cents", 0) for t in settled)
+            
+            # By asset breakdown
+            by_asset = {
+                "BTC": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0},
+                "ETH": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0}
+            }
+            
+            for ticker, t in trades.items():
+                asset = "ETH" if "KXETHD" in ticker else "BTC"
+                if t.get("status") == "settled":
+                    by_asset[asset]["settled"] += 1
+                    by_asset[asset]["pnlCents"] += t.get("pnl_cents", 0)
+                    if t.get("won"):
+                        by_asset[asset]["won"] += 1
+                    else:
+                        by_asset[asset]["lost"] += 1
+                else:
+                    by_asset[asset]["pending"] += 1
+            
+            # Settlement times
+            settlement_times = [t.get("expiry_time") for t in settled if t.get("expiry_time")]
+            pending_times = [t.get("expiry_time") for t in pending if t.get("expiry_time")]
+            
+            return {
+                "totalSettled": len(settled),
+                "totalPending": len(pending),
+                "totalWon": len(won),
+                "totalLost": len(lost),
+                "winRate": round(len(won) / len(settled) * 100, 1) if settled else 0,
+                "totalPnlCents": total_pnl,
+                "totalPayoutCents": total_payout,
+                "byAsset": by_asset,
+                "lastSettlementTime": max(settlement_times) if settlement_times else None,
+                "oldestPendingTime": min(pending_times) if pending_times else None
+            }
+        except Exception as e:
+            print(f"Warning: Could not load settlements from {filepath}: {e}")
+            return None
+    
+    v1_stats = process_settlements_file(SETTLEMENTS_FILE_V1)
+    v2_stats = process_settlements_file(SETTLEMENTS_FILE_V2)
+    
+    # Combine stats
+    def combine_stats(a, b):
+        if a is None and b is None:
+            return None
+        a = a or {"totalSettled": 0, "totalPending": 0, "totalWon": 0, "totalLost": 0, 
+                  "totalPnlCents": 0, "totalPayoutCents": 0, "byAsset": {
+                      "BTC": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0},
+                      "ETH": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0}
+                  }}
+        b = b or {"totalSettled": 0, "totalPending": 0, "totalWon": 0, "totalLost": 0,
+                  "totalPnlCents": 0, "totalPayoutCents": 0, "byAsset": {
+                      "BTC": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0},
+                      "ETH": {"settled": 0, "won": 0, "lost": 0, "pending": 0, "pnlCents": 0}
+                  }}
+        
+        combined = {
+            "totalSettled": a["totalSettled"] + b["totalSettled"],
+            "totalPending": a["totalPending"] + b["totalPending"],
+            "totalWon": a["totalWon"] + b["totalWon"],
+            "totalLost": a["totalLost"] + b["totalLost"],
+            "totalPnlCents": a["totalPnlCents"] + b["totalPnlCents"],
+            "totalPayoutCents": a["totalPayoutCents"] + b["totalPayoutCents"],
+            "byAsset": {}
+        }
+        
+        combined["winRate"] = round(combined["totalWon"] / combined["totalSettled"] * 100, 1) if combined["totalSettled"] > 0 else 0
+        
+        for asset in ["BTC", "ETH"]:
+            combined["byAsset"][asset] = {
+                "settled": a["byAsset"][asset]["settled"] + b["byAsset"][asset]["settled"],
+                "won": a["byAsset"][asset]["won"] + b["byAsset"][asset]["won"],
+                "lost": a["byAsset"][asset]["lost"] + b["byAsset"][asset]["lost"],
+                "pending": a["byAsset"][asset]["pending"] + b["byAsset"][asset]["pending"],
+                "pnlCents": a["byAsset"][asset]["pnlCents"] + b["byAsset"][asset]["pnlCents"]
+            }
+        
+        # Use most recent settlement time
+        times = [x for x in [a.get("lastSettlementTime"), b.get("lastSettlementTime")] if x]
+        combined["lastSettlementTime"] = max(times) if times else None
+        
+        # Use oldest pending time
+        pending_times = [x for x in [a.get("oldestPendingTime"), b.get("oldestPendingTime")] if x]
+        combined["oldestPendingTime"] = min(pending_times) if pending_times else None
+        
+        return combined
+    
+    combined = combine_stats(v1_stats, v2_stats)
+    
+    return {
+        "v1": v1_stats,
+        "v2": v2_stats,
+        "combined": combined
+    }
 
 
 def load_health_status():
@@ -461,6 +598,11 @@ def calculate_stats(trades, source='v2'):
     api_latency = load_api_latency_stats()
     if api_latency:
         result["apiLatency"] = api_latency
+    
+    # Add settlement stats (T349)
+    settlements = load_settlements_stats()
+    if settlements:
+        result["settlements"] = settlements
     
     return result
 
