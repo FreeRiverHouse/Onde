@@ -2761,12 +2761,19 @@
 - **Notes**: ✅ Added! Body has 0.3s ease transition for background and color. Theme toggle icons already had animations. Smooth fade between dark/light/system modes.
 
 ### [T338] Theme-aware chart colors for trading graphs
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T315], [T328]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When implementing latency/trend charts, ensure colors adapt properly to light/dark mode for readability.
+- **Notes**: ✅ Implemented theme-aware colors in WinRateTrendChart and LatencyTrendChart!
+  - Both charts now use useTheme() hook to detect dark/light mode
+  - Grid lines adapt: darker in light mode, lighter in dark mode
+  - Labels have proper contrast in both modes
+  - Trend colors (green/red/orange) adjusted for better light-mode contrast
+  - Container backgrounds swap: zinc-800/50 (dark) → gray-100/80 (light)
+  - Text colors adapt throughout: zinc-400/500 (dark) → gray-500/600 (light)
 
 ### [T339] Add link to /trading/history from /betting dashboard
 - **Status**: DONE

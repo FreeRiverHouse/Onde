@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useTheme } from './ThemeProvider';
 
 interface DataPoint {
   date: string;
@@ -21,6 +22,9 @@ export function WinRateTrendChart({
   className = '',
   showLabels = true 
 }: WinRateTrendChartProps) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  
   const chartData = useMemo(() => {
     if (!data || data.length === 0) return null;
     
@@ -67,7 +71,16 @@ export function WinRateTrendChart({
   }
 
   const { points, pathD, areaD, minRate, maxRate, trend, width, padding, chartHeight } = chartData;
-  const trendColor = trend === 'up' ? '#10b981' : trend === 'down' ? '#ef4444' : '#6b7280';
+  
+  // Theme-aware colors with better contrast in both modes
+  const getTrendColor = () => {
+    if (trend === 'up') return isDark ? '#10b981' : '#059669'; // green - slightly darker for light mode
+    if (trend === 'down') return isDark ? '#ef4444' : '#dc2626'; // red - slightly darker for light mode
+    return isDark ? '#6b7280' : '#4b5563'; // gray - darker for light mode
+  };
+  const trendColor = getTrendColor();
+  const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  const labelColor = isDark ? '#6b7280' : '#9ca3af';
   const gradientId = `winrate-gradient-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
@@ -80,7 +93,7 @@ export function WinRateTrendChart({
           </linearGradient>
         </defs>
         
-        {/* Grid lines */}
+        {/* Grid lines - theme aware */}
         {[0, 25, 50, 75, 100].map((pct) => {
           const y = padding.top + (chartHeight * (1 - pct / 100));
           return (
@@ -90,8 +103,7 @@ export function WinRateTrendChart({
                 y1={y}
                 x2={width - padding.right}
                 y2={y}
-                stroke="currentColor"
-                strokeOpacity="0.1"
+                stroke={gridColor}
                 strokeDasharray="2,2"
               />
               {showLabels && (
@@ -99,7 +111,8 @@ export function WinRateTrendChart({
                   x={padding.left - 5}
                   y={y + 4}
                   textAnchor="end"
-                  className="text-[8px] fill-gray-500"
+                  fill={labelColor}
+                  className="text-[8px]"
                 >
                   {Math.round(minRate + (maxRate - minRate) * (pct / 100))}%
                 </text>
@@ -136,14 +149,15 @@ export function WinRateTrendChart({
           </g>
         ))}
         
-        {/* X-axis labels */}
+        {/* X-axis labels - theme aware */}
         {showLabels && points.filter((_, i) => i === 0 || i === points.length - 1 || i === Math.floor(points.length / 2)).map((point, i) => (
           <text
             key={i}
             x={point.x}
             y={height - 5}
             textAnchor="middle"
-            className="text-[8px] fill-gray-500"
+            fill={labelColor}
+            className="text-[8px]"
           >
             {point.date.slice(5)} {/* MM-DD format */}
           </text>

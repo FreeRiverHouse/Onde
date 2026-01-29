@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useTheme } from './ThemeProvider';
 
 export interface LatencyTrendPoint {
   timestamp: string;
@@ -26,6 +27,18 @@ export function LatencyTrendChart({
   height = 200,
   showP95 = true 
 }: LatencyTrendChartProps) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  
+  // Theme-aware colors
+  const gridColor = isDark ? '#3f3f46' : '#e5e7eb';
+  const labelColor = isDark ? 'text-zinc-500' : 'text-gray-500';
+  const p95Color = isDark ? '#f59e0b' : '#d97706';
+  const containerBg = isDark ? 'bg-zinc-800/50' : 'bg-gray-100/80';
+  const textMuted = isDark ? 'text-zinc-400' : 'text-gray-600';
+  const textSubtle = isDark ? 'text-zinc-500' : 'text-gray-500';
+  const textDefault = isDark ? 'text-zinc-300' : 'text-gray-700';
+  
   const chartData = useMemo(() => {
     if (data.length === 0) return null;
 
@@ -94,9 +107,9 @@ export function LatencyTrendChart({
 
   if (!chartData || data.length < 2) {
     return (
-      <div className="bg-zinc-800/50 rounded-lg p-4">
-        <h3 className="text-sm font-medium text-zinc-400 mb-2">⏱️ Latency Trend</h3>
-        <div className="flex items-center justify-center h-32 text-zinc-500 text-sm">
+      <div className={`${containerBg} rounded-lg p-4`}>
+        <h3 className={`text-sm font-medium ${textMuted} mb-2`}>⏱️ Latency Trend</h3>
+        <div className={`flex items-center justify-center h-32 ${textSubtle} text-sm`}>
           {data.length < 2 
             ? 'Need more trades for latency trend'
             : 'No latency data available'}
@@ -105,11 +118,11 @@ export function LatencyTrendChart({
     );
   }
 
-  // Determine color based on average latency
+  // Determine color based on average latency (theme-aware with better contrast)
   const getLatencyColor = (ms: number) => {
-    if (ms < 500) return '#22c55e'; // green - excellent
-    if (ms < 1000) return '#f59e0b'; // orange - acceptable
-    return '#ef4444'; // red - slow
+    if (ms < 500) return isDark ? '#22c55e' : '#16a34a'; // green - excellent
+    if (ms < 1000) return isDark ? '#f59e0b' : '#d97706'; // orange - acceptable
+    return isDark ? '#ef4444' : '#dc2626'; // red - slow
   };
 
   const avgColor = getLatencyColor(chartData.overallAvg);
@@ -117,16 +130,16 @@ export function LatencyTrendChart({
   const trendLabel = chartData.trend === 'increasing' ? 'Slower' : chartData.trend === 'decreasing' ? 'Faster' : 'Stable';
 
   return (
-    <div className="bg-zinc-800/50 rounded-lg p-4">
+    <div className={`${containerBg} rounded-lg p-4`}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-medium text-zinc-400">⏱️ Latency Trend</h3>
+        <h3 className={`text-sm font-medium ${textMuted}`}>⏱️ Latency Trend</h3>
         <div className="flex items-center gap-3 text-xs">
-          <span className="text-zinc-500">{chartData.totalTrades} trades</span>
+          <span className={textSubtle}>{chartData.totalTrades} trades</span>
           <span className="flex items-center gap-1">
             <span>{trendIcon}</span>
             <span className={
-              chartData.trend === 'increasing' ? 'text-red-400' :
-              chartData.trend === 'decreasing' ? 'text-green-400' : 'text-zinc-400'
+              chartData.trend === 'increasing' ? (isDark ? 'text-red-400' : 'text-red-600') :
+              chartData.trend === 'decreasing' ? (isDark ? 'text-green-400' : 'text-green-600') : textMuted
             }>{trendLabel}</span>
           </span>
         </div>
@@ -135,22 +148,22 @@ export function LatencyTrendChart({
       {/* Stats row */}
       <div className="flex items-center gap-4 mb-3 text-xs">
         <div>
-          <span className="text-zinc-500">Avg: </span>
+          <span className={textSubtle}>Avg: </span>
           <span style={{ color: avgColor }} className="font-medium">
             {chartData.overallAvg.toFixed(0)}ms
           </span>
         </div>
         {showP95 && (
           <div>
-            <span className="text-zinc-500">P95: </span>
-            <span className="text-orange-400 font-medium">
+            <span className={textSubtle}>P95: </span>
+            <span className={isDark ? 'text-orange-400' : 'text-orange-600'} style={{ fontWeight: 500 }}>
               {chartData.overallP95.toFixed(0)}ms
             </span>
           </div>
         )}
         <div>
-          <span className="text-zinc-500">Range: </span>
-          <span className="text-zinc-300">
+          <span className={textSubtle}>Range: </span>
+          <span className={textDefault}>
             {chartData.yMin.toFixed(0)}-{chartData.yMax.toFixed(0)}ms
           </span>
         </div>
@@ -171,7 +184,7 @@ export function LatencyTrendChart({
             </linearGradient>
           </defs>
 
-          {/* Horizontal grid */}
+          {/* Horizontal grid - theme aware */}
           {[0, 25, 50, 75, 100].map(y => (
             <line
               key={y}
@@ -179,7 +192,7 @@ export function LatencyTrendChart({
               y1={y}
               x2="100"
               y2={y}
-              stroke="#3f3f46"
+              stroke={gridColor}
               strokeWidth="0.3"
               strokeDasharray="2,2"
             />
@@ -191,12 +204,12 @@ export function LatencyTrendChart({
             fill="url(#latencyGradient)"
           />
 
-          {/* P95 line (dashed) */}
+          {/* P95 line (dashed) - theme aware */}
           {showP95 && chartData.p95Path && (
             <path
               d={chartData.p95Path}
               fill="none"
-              stroke="#f59e0b"
+              stroke={p95Color}
               strokeWidth="1.5"
               strokeDasharray="3,2"
               strokeLinecap="round"
@@ -230,23 +243,23 @@ export function LatencyTrendChart({
           ))}
         </svg>
 
-        {/* Y-axis labels */}
-        <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[10px] text-zinc-500 -ml-1">
+        {/* Y-axis labels - theme aware */}
+        <div className={`absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[10px] ${textSubtle} -ml-1`}>
           <span>{chartData.yMax.toFixed(0)}</span>
           <span>{((chartData.yMax + chartData.yMin) / 2).toFixed(0)}</span>
           <span>{chartData.yMin.toFixed(0)}</span>
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="flex items-center gap-4 mt-2 text-[10px] text-zinc-500">
+      {/* Legend - theme aware */}
+      <div className={`flex items-center gap-4 mt-2 text-[10px] ${textSubtle}`}>
         <div className="flex items-center gap-1">
           <div className="w-3 h-0.5 rounded" style={{ backgroundColor: avgColor }}></div>
           <span>Avg</span>
         </div>
         {showP95 && (
           <div className="flex items-center gap-1">
-            <div className="w-3 h-0.5 bg-orange-400 rounded" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #f59e0b 0, #f59e0b 3px, transparent 3px, transparent 5px)' }}></div>
+            <div className="w-3 h-0.5 rounded" style={{ backgroundColor: p95Color, backgroundImage: `repeating-linear-gradient(90deg, ${p95Color} 0, ${p95Color} 3px, transparent 3px, transparent 5px)` }}></div>
             <span>P95</span>
           </div>
         )}
