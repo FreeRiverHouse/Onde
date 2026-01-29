@@ -2469,12 +2469,13 @@
 - **Notes**: ✅ Implemented! Script: check-ohlc-cache.sh. Checks if data/ohlc/*.json >24h old or missing. Creates ohlc-cache-stale.alert for heartbeat pickup. 6h cooldown. Added to HEARTBEAT.md alert list.
 
 ### [T383] Calculate historical volatility from cached OHLC
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T278]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compute 7d/30d historical volatility from cached OHLC. Compare to model assumptions (BTC_HOURLY_VOL). Output to data/ohlc/volatility-stats.json for dashboard use.
+- **Notes**: ✅ Script: calculate-historical-volatility.py. Computes 7d/14d/30d/60d volatility from cached OHLC. Converts 4h candle vol to hourly. Compares to model assumptions. Output: data/ohlc/volatility-stats.json. Finding: Model currently OVERESTIMATES vol (BTC 0.32% actual vs 0.5% assumed, ETH 0.46% vs 0.7%).
 
 ### [T384] Price source reliability tracking
 - **Status**: TODO
