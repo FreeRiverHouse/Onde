@@ -62,6 +62,14 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Handle messages from clients (for manual update trigger)
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('[SW] Received SKIP_WAITING message, activating new version');
+    self.skipWaiting();
+  }
+});
+
 // Fetch: Implement caching strategies
 self.addEventListener('fetch', (event) => {
   const { request } = event;

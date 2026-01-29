@@ -60,6 +60,8 @@ export default function HealthPage() {
     online: true,
     swStatus: 'checking',
   });
+  const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // Check network and service worker status
   const checkNetworkStatus = useCallback(async () => {
@@ -82,24 +84,27 @@ export default function HealthPage() {
       try {
         const registration = await navigator.serviceWorker.getRegistration();
         if (registration) {
-          if (registration.active) {
-            status.swStatus = 'active';
-            // Try to get version from SW cache name
-            const cacheNames = await caches.keys();
-            const versionedCache = cacheNames.find(n => n.startsWith('onde-v'));
-            if (versionedCache) {
-              status.swVersion = versionedCache.replace('onde-', '');
-            }
+          setSwRegistration(registration);
+          if (registration.waiting) {
+            status.swStatus = 'waiting';
           } else if (registration.installing) {
             status.swStatus = 'installing';
-          } else if (registration.waiting) {
-            status.swStatus = 'waiting';
+          } else if (registration.active) {
+            status.swStatus = 'active';
+          }
+          // Try to get version from SW cache name
+          const cacheNames = await caches.keys();
+          const versionedCache = cacheNames.find(n => n.startsWith('onde-v'));
+          if (versionedCache) {
+            status.swVersion = versionedCache.replace('onde-', '');
           }
         } else {
           status.swStatus = 'none';
+          setSwRegistration(null);
         }
       } catch {
         status.swStatus = 'error';
+        setSwRegistration(null);
       }
     } else {
       status.swStatus = 'none';
@@ -120,6 +125,32 @@ export default function HealthPage() {
 
     setNetworkStatus(status);
   }, []);
+
+  // Trigger service worker update (skipWaiting)
+  const updateServiceWorker = useCallback(async () => {
+    if (!swRegistration?.waiting) return;
+    
+    setIsUpdating(true);
+    
+    try {
+      // Tell the waiting service worker to skipWaiting
+      swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      
+      // Listen for the new service worker to take over
+      const handleControllerChange = () => {
+        window.location.reload();
+      };
+      navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange);
+      
+      // Fallback: reload after 3 seconds if controllerchange doesn't fire
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to update service worker:', error);
+      setIsUpdating(false);
+    }
+  }, [swRegistration]);
 
   const checkService = async (name: string, url: string): Promise<ServiceStatus> => {
     const start = Date.now();
@@ -386,19 +417,30 @@ export default function HealthPage() {
                 }`} />
                 <span className="text-white font-medium">Service Worker</span>
               </div>
-              <div className="text-right">
-                <div className={`text-sm font-medium ${
-                  networkStatus.swStatus === 'active' ? 'text-green-500' :
-                  networkStatus.swStatus === 'installing' || networkStatus.swStatus === 'waiting' ? 'text-yellow-500' :
-                  networkStatus.swStatus === 'none' ? 'text-slate-400' :
-                  networkStatus.swStatus === 'checking' ? 'text-yellow-500' :
-                  'text-red-500'
-                }`}>
-                  {networkStatus.swStatus.toUpperCase()}
-                </div>
-                {networkStatus.swVersion && (
-                  <div className="text-xs text-slate-400">Cache: {networkStatus.swVersion}</div>
+              <div className="text-right flex items-center gap-2">
+                {networkStatus.swStatus === 'waiting' && (
+                  <button
+                    onClick={updateServiceWorker}
+                    disabled={isUpdating}
+                    className="px-2 py-1 text-xs bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 border border-yellow-500/30 rounded transition-colors disabled:opacity-50"
+                  >
+                    {isUpdating ? '⏳ Updating...' : '🔄 Update Now'}
+                  </button>
                 )}
+                <div>
+                  <div className={`text-sm font-medium ${
+                    networkStatus.swStatus === 'active' ? 'text-green-500' :
+                    networkStatus.swStatus === 'installing' || networkStatus.swStatus === 'waiting' ? 'text-yellow-500' :
+                    networkStatus.swStatus === 'none' ? 'text-slate-400' :
+                    networkStatus.swStatus === 'checking' ? 'text-yellow-500' :
+                    'text-red-500'
+                  }`}>
+                    {networkStatus.swStatus.toUpperCase()}
+                  </div>
+                  {networkStatus.swVersion && (
+                    <div className="text-xs text-slate-400">Cache: {networkStatus.swVersion}</div>
+                  )}
+                </div>
               </div>
             </div>
 

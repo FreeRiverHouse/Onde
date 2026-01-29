@@ -1625,12 +1625,13 @@
 - **Notes**: Extend /health network section to show breakdown of browser storage usage by type.
 
 ### [T326] SW update button when waiting version available
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T323]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When swStatus is 'waiting', show "Update Available" button that triggers skipWaiting() to activate new SW immediately.
+- **Notes**: ✅ Added! When swStatus is 'waiting', shows "🔄 Update Now" button. Triggers postMessage({type:'SKIP_WAITING'}) to activate new SW. Added message handler to sw.js. Button shows loading state, auto-reloads page on update.
 
 ---
 
