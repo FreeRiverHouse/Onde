@@ -3639,3 +3639,27 @@
 - **Priority**: P3
 - **Notes**: When gist includes bySource field (source=all), show side-by-side v1 vs v2 performance comparison on dashboard. Cards showing: trades, win rate, PnL for each source. Helps evaluate model improvement.
 
+### [T626] API latency regression detection and alerting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T398], [T279]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: detect-latency-regression.py. Compare current avg latency vs 7-day rolling baseline. Alert when avg increases by >50% or p95 exceeds 2s. Alert file: kalshi-latency-regression.alert. Helps catch API degradation early. 6h cooldown.
+
+### [T627] Autotrader health status on /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T398], [T620]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Display healthStatus from trading stats gist on /health page. Show: running indicator, cycle count, trades today, win rate today, circuit breaker status, last cycle time. Complements API latency section with trading status.
+
+### [T628] API error rate section on /health page
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T398], [T413]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add API error rate section to /health page alongside latency. Show: success rate %, error count by source, common error types, last 5 errors. Data from gist (extend push-stats-to-gist.py to include error stats from api-error-stats.json).
+
