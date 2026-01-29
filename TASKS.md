@@ -1184,12 +1184,13 @@
 ---
 
 ### [T258] Momentum history chart (sparkline)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T250]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add 24h sparkline chart showing momentum trend on each asset card.
+- **Notes**: ✅ Added! 24h price trend sparkline on each momentum card. Shows priceHistory from /api/momentum. Includes % change label and color-coded chart (green/orange/cyan based on signal).
 
 ### [T259] Momentum alert when direction changes
 - **Status**: DONE

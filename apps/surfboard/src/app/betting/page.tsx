@@ -904,6 +904,25 @@ export default function BettingDashboard() {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* 24h Price Trend Sparkline */}
+                  {asset.priceHistory && asset.priceHistory.length > 1 && (
+                    <div className="mt-3 pt-3 border-t border-white/[0.05]">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] text-gray-500">24h Price Trend</span>
+                        <span className={`text-[10px] font-medium ${
+                          asset.priceHistory[asset.priceHistory.length - 1] > asset.priceHistory[0]
+                            ? 'text-emerald-400' : 'text-red-400'
+                        }`}>
+                          {((asset.priceHistory[asset.priceHistory.length - 1] - asset.priceHistory[0]) / asset.priceHistory[0] * 100).toFixed(2)}%
+                        </span>
+                      </div>
+                      <MiniChart 
+                        data={asset.priceHistory} 
+                        color={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'orange' : 'cyan'} 
+                      />
+                    </div>
+                  )}
                 </GlassCard>
               ))}
             </div>
