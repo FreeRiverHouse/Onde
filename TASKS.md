@@ -1493,6 +1493,34 @@
 - **Priority**: P3
 - **Notes**: ✅ Added timezone info section showing: Cron TZ (UTC), user TZ, UTC time, local time. Helps debug cron scheduling.
 
+---
+
+## 🔥 REGOLE SISTEMA - DA MATTIA 2026-01-28 22:35 PST
+
+### [T405] Aggiornare AGENTS.md con REGOLA UNO (Procedure)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T406], [T407]
+- **Priority**: P0
+- **Notes**: REGOLA UNO: Fai SEMPRE tutto usando una procedura esistente. Se non c'è → crea task per crearla. Se procedura non funziona → crea task per fixarla. Focus: sistema oliato, preciso, veloce.
+
+### [T406] Aggiornare AGENTS.md con REGOLA DUE (Estrai Task)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T405]
+- **Blocks**: [T407]
+- **Priority**: P0
+- **Notes**: REGOLA DUE: Da ogni messaggio NON mettersi subito al lavoro! Estrai task → Aggiungi a TASKS.md → Committa su git. Non lavorare in modo reattivo.
+
+### [T407] Propagare REGOLA UNO e DUE a Ondinho
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T405], [T406]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Ondinho deve seguire le stesse regole. Aggiornare il suo sistema/context.
+
 ### [T293] Trade confidence tracking (edge vs outcome)
 - **Status**: TODO
 - **Owner**: 
