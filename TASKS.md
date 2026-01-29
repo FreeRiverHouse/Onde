@@ -2016,12 +2016,13 @@
 - **Notes**: ✅ Implemented in T295. Alert file kalshi-latency.alert when avg >2s. Heartbeat pickup enabled.
 
 ### [T328] Latency trend chart on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T294]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Sparkline showing latency trend over last 24h/7d. Requires storing historical latency data per trade.
+- **Notes**: ✅ Implemented! Created LatencyTrendChart component (SVG-based, shows avg + P95 with area fill). Color-coded by latency quality (<500ms green, 500-1000ms orange, >1000ms red). Shows trend direction (faster/slower/stable). Script compute-latency-trend.py computes daily aggregates. Integrated into /betting dashboard + gist stats include latency trend data.
 
 ### [T329] Trade execution success rate tracking
 - **Status**: DONE

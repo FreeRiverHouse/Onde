@@ -34,6 +34,7 @@ import {
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
+import { LatencyTrendChart, generateMockLatencyTrend, type LatencyTrendPoint } from '@/components/LatencyTrendChart';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -1501,6 +1502,20 @@ export default function BettingDashboard() {
                 </p>
               )}
             </div>
+
+            {/* Latency Trend Chart */}
+            {tradingStats.avgLatencyMs !== null && tradingStats.avgLatencyMs !== undefined && (
+              <div className="mt-4">
+                <LatencyTrendChart 
+                  data={generateMockLatencyTrend(14)}
+                  height={160}
+                  showP95={true}
+                />
+                <p className="text-[10px] text-gray-600 mt-1 text-center">
+                  Order execution latency trend (mock data shown until API available)
+                </p>
+              </div>
+            )}
 
             {/* Recent Trades */}
             {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (

@@ -99,6 +99,46 @@ def calculate_stats(trades):
         else:
             today_pnl -= price * contracts
     
+    # Latency stats
+    latencies = [t.get('latency_ms') for t in trades if t.get('latency_ms') is not None]
+    latency_stats = {}
+    if latencies:
+        latencies_sorted = sorted(latencies)
+        n = len(latencies)
+        latency_stats = {
+            "avgLatencyMs": round(sum(latencies) / n),
+            "p95LatencyMs": latencies_sorted[int(n * 0.95)] if n >= 20 else latencies_sorted[-1],
+            "minLatencyMs": latencies_sorted[0],
+            "maxLatencyMs": latencies_sorted[-1],
+            "latencyTradeCount": n
+        }
+        
+        # Compute daily latency trend (last 14 days)
+        from collections import defaultdict
+        by_day = defaultdict(list)
+        for t in trades:
+            if t.get('latency_ms') is None:
+                continue
+            ts = t.get('timestamp', '')
+            if not ts:
+                continue
+            day_key = ts[:10]  # YYYY-MM-DD
+            by_day[day_key].append(t['latency_ms'])
+        
+        latency_trend = []
+        for day in sorted(by_day.keys())[-14:]:  # Last 14 days
+            day_latencies = sorted(by_day[day])
+            n_day = len(day_latencies)
+            latency_trend.append({
+                "timestamp": f"{day}T12:00:00Z",
+                "avgMs": round(sum(day_latencies) / n_day),
+                "p95Ms": day_latencies[int(n_day * 0.95)] if n_day >= 5 else day_latencies[-1],
+                "minMs": day_latencies[0],
+                "maxMs": day_latencies[-1],
+                "count": n_day
+            })
+        latency_stats["trend"] = latency_trend
+    
     # By asset breakdown
     by_asset = {}
     for asset in ['BTC', 'ETH']:
@@ -160,6 +200,7 @@ def calculate_stats(trades):
         "todayPnlCents": today_pnl,
         "byAsset": by_asset,
         "pendingTrades": len([t for t in trades if t.get('result_status') == 'pending']),
+        **latency_stats,
         "lastUpdated": datetime.now(timezone.utc).isoformat()
     }
 
