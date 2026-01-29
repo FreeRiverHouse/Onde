@@ -75,6 +75,7 @@ interface TradingStats {
   maxDrawdownCents?: number;  // largest peak-to-trough decline
   maxDrawdownPercent?: number;  // max drawdown as % of peak
   calmarRatio?: number;  // annualized return / max drawdown %
+  sortinoRatio?: number;  // return / downside deviation
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -772,6 +773,23 @@ export default function BettingDashboard() {
                 />
                 <p className="text-xs text-gray-600 mt-1">
                   {(tradingStats.sharpeRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sharpeRatio ?? 0) >= 1 ? 'good' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'fair' : 'poor'}
+                </p>
+              </GlassCard>
+
+              {/* Sortino Ratio */}
+              <GlassCard glowColor={(tradingStats.sortinoRatio ?? 0) >= 1 ? 'green' : 'purple'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingDown className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Sortino Ratio</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.sortinoRatio ?? 0} 
+                  decimals={2}
+                  glowColor={(tradingStats.sortinoRatio ?? 0) >= 2 ? 'green' : (tradingStats.sortinoRatio ?? 0) >= 1 ? 'purple' : 'orange'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {(tradingStats.sortinoRatio ?? 0) >= 2 ? 'excellent' : (tradingStats.sortinoRatio ?? 0) >= 1 ? 'good' : (tradingStats.sortinoRatio ?? 0) > 0 ? 'fair' : 'n/a'}
                 </p>
               </GlassCard>
 

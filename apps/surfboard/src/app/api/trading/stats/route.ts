@@ -35,6 +35,7 @@ interface TradingStats {
   maxDrawdownCents: number;  // largest peak-to-trough decline in cents
   maxDrawdownPercent: number;  // max drawdown as % of peak equity
   calmarRatio: number;   // annualized return / max drawdown % - risk-adjusted performance
+  sortinoRatio: number;  // return / downside deviation - only penalizes negative returns
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -118,12 +119,25 @@ export async function GET() {
     }
     
     let sharpeRatio = 0;
+    let sortinoRatio = 0;
     if (returns.length >= 2) {
       const avgReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
       const variance = returns.reduce((sum, r) => sum + Math.pow(r - avgReturn, 2), 0) / returns.length;
       const stdDev = Math.sqrt(variance);
       // Sharpe = mean / std (assuming risk-free rate = 0 for short-term trades)
       sharpeRatio = stdDev > 0 ? avgReturn / stdDev : 0;
+      
+      // Sortino Ratio: only penalizes downside volatility (negative returns)
+      // Target return = 0 (break-even)
+      const negativeReturns = returns.filter(r => r < 0);
+      if (negativeReturns.length > 0) {
+        const downsideVariance = negativeReturns.reduce((sum, r) => sum + Math.pow(r, 2), 0) / negativeReturns.length;
+        const downsideDev = Math.sqrt(downsideVariance);
+        sortinoRatio = downsideDev > 0 ? avgReturn / downsideDev : (avgReturn > 0 ? Infinity : 0);
+      } else if (avgReturn > 0) {
+        // No negative returns = infinite Sortino (perfect downside)
+        sortinoRatio = Infinity;
+      }
     }
 
     // Max Drawdown: largest peak-to-trough decline
@@ -216,6 +230,7 @@ export async function GET() {
       grossLossCents,
       profitFactor: Number.isFinite(profitFactor) ? Math.round(profitFactor * 100) / 100 : 0,
       sharpeRatio: Math.round(sharpeRatio * 100) / 100,  // Round to 2 decimal places
+      sortinoRatio: Number.isFinite(sortinoRatio) ? Math.round(sortinoRatio * 100) / 100 : 0,
       maxDrawdownCents,
       maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
       calmarRatio: Number.isFinite(calmarRatio) ? Math.round(calmarRatio * 100) / 100 : 0,  // Round to 2 decimal places

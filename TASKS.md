@@ -1251,12 +1251,13 @@
 ---
 
 ### [T283] Sortino ratio calculation (downside risk adjusted)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T274]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Sortino ratio = excess return / downside deviation. Better than Sharpe for asymmetric returns (only penalizes downside volatility). Add to stats API and dashboard.
+- **Notes**: ✅ Added! Sortino = avg return / downside deviation (only penalizes negative returns). Dashboard card shows excellent (≥2), good (≥1), fair (>0). Grid now has 10 stat cards.
 
 ### [T284] Average trade duration tracking
 - **Status**: TODO
