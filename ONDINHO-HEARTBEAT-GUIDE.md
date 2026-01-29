@@ -76,10 +76,62 @@ git push origin main
 Dopo ogni task completato, DEVI aggiungere 3 task nuovi.
 
 ### Dove trovare idee:
-1. **ROADMAP.md** - Obiettivi a lungo termine
-2. **CLAUDE.md** - Contesto progetto
-3. **GitHub Issues** - Bug e feature requests
-4. **Buon senso** - Cosa migliorerebbe il progetto?
+
+#### 📁 1. File Interni
+- **ROADMAP.md** - Obiettivi a lungo termine
+- **CLAUDE.md** - Contesto progetto
+- **GitHub Issues** - Bug e feature requests
+
+#### 🌐 2. Ricerche Web (usa `web_search`)
+Cerca trend, competitor, opportunità:
+
+| Query | Perché |
+|-------|--------|
+| `AI book publishing tools 2026` | Nuovi tool da integrare/battere |
+| `children ebook market trends` | Dove sta andando il mercato |
+| `VR reading apps Quest` | Competitor per Onde Books VR |
+| `self publishing alternatives Amazon` | Strategie anti-Amazon |
+| `audiobook AI generation` | Tool per audiobook pipeline |
+| `El Salvador education technology` | Mercato target |
+| `epub reader open source` | Librerie da usare |
+| `Grok X education` | Cosa fa la concorrenza |
+
+#### 🐦 3. Ricerche X/Twitter (usa `web_search` con `site:x.com`)
+Cerca conversazioni, lanci, opportunità:
+
+| Query | Perché |
+|-------|--------|
+| `site:x.com AI children books` | Chi pubblica, cosa funziona |
+| `site:x.com indie publishing 2026` | Community e trend |
+| `site:x.com VR reading` | Buzz su lettura immersiva |
+| `site:x.com Grok education` | Novità ecosistema X/Grok |
+| `site:x.com audiobook AI` | Tool emergenti |
+| `site:x.com Amazon KDP problems` | Pain point da risolvere |
+| `site:x.com El Salvador Bitcoin education` | Connessioni mercato target |
+| `site:x.com watercolor illustration AI` | Stili e tool per illustrazioni |
+
+#### 🎯 4. Come trasformare ricerche in task
+
+**Esempio workflow:**
+```
+1. Cerco: "AI audiobook generation tools 2026"
+2. Trovo: "ElevenLabs ha nuovo modello per libri"
+3. Creo task: "Testare ElevenLabs per audiobook Psalm 23"
+```
+
+**Pattern task da ricerche:**
+- `Integrare [TOOL] nel workflow [X]`
+- `Analizzare competitor [NOME] per feature [Y]`
+- `Testare [TECNOLOGIA] per [USE CASE]`
+- `Creare contenuto su trend [TOPIC]`
+- `Contattare [PERSONA/AZIENDA] per partnership`
+
+#### 💡 5. Buon senso
+Dopo ogni task, chiediti:
+- Cosa manca al progetto?
+- Cosa migliorerebbe la UX?
+- Cosa automatizzerebbe processi?
+- Cosa è nel ROADMAP ma non in TASKS?
 
 ### Formato task:
 ```markdown
