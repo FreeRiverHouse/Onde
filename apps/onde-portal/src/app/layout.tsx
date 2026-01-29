@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import ClientLayout from '@/components/ClientLayout'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://onde.la'),
   title: 'Onde - Crafted by Code, Touched by Soul',
   description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
   keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
@@ -10,6 +11,9 @@ export const metadata: Metadata = {
     icon: '/icon.svg',
     shortcut: '/icon.svg',
     apple: '/apple-icon.svg',
+  },
+  alternates: {
+    canonical: '/',
   },
 }
 

@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: 'Libri | Onde - Free Illustrated Books',
   description: 'Download free illustrated editions of classic literature. Meditations by Marcus Aurelius, The Prophet by Kahlil Gibran, and more.',
   keywords: ['free ebooks', 'illustrated books', 'classic literature', 'Meditations', 'Marcus Aurelius', 'philosophy', 'public domain'],
+  alternates: {
+    canonical: '/libri',
+  },
   openGraph: {
     title: 'Onde Libri - Free Illustrated Classics',
     description: 'Download free illustrated editions of timeless classics. Stoic philosophy, poetry, and more — beautifully designed.',
