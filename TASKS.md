@@ -2780,9 +2780,10 @@
 - **Notes**: Expose /api/trading/health endpoint that serves autotrader-health.py output. Enables /health page to show autotrader status without local file access. Requires server deployment or GitHub Gist sync.
 
 ### [T431] Trade outcome prediction confidence calibration
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare predicted edge % vs actual win rate buckets. Answer: when model says 15% edge, does it win ~65% of the time? Calibration curve output for model tuning.
+- **Notes**: ✅ Script: analyze-edge-calibration.py. Groups trades by edge bucket (0-5%, 5-10%, etc), compares actual WR vs expected (50%+edge). Shows calibration error per bucket with interpretation. Flags: --v2, --buckets N. V1 analysis: 0% WR with 45%+ edge = catastrophically overconfident (broken model). V2 awaiting data.
