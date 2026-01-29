@@ -393,12 +393,13 @@
 - **Notes**: ✅ Script: kalshi-weekly-report.py. PDF with daily breakdown, best/worst trades, PnL. Cron: Sunday 08:00 UTC. Output: data/reports/
 
 ### [T096] Trade history web viewer su /trading/history
-- **Status**: TODO
-- **Owner**: 
-- **Depends**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
+- **Depends**: [T222]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Simple HTML table con filtri per date, risultato (won/lost/pending), ordinamento
+- **Notes**: ✅ Created /trading/history page with: paginated table, filters (result/asset/side), CSV export, responsive design. Uses new /api/trading/history endpoint.
 
 ### [T097] Cleanup vecchi backup > 30 giorni
 - **Status**: DONE
@@ -1739,6 +1740,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: When implementing latency/trend charts, ensure colors adapt properly to light/dark mode for readability.
+
+### [T339] Add link to /trading/history from /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T096]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "View All Trades" button/link in Recent Trades section of /betting that navigates to /trading/history.
+
+### [T340] Date range picker for trade history
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T096]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add from/to date picker to /trading/history filters. Uses ?from=YYYY-MM-DD&to=YYYY-MM-DD params already supported by API.
+
+### [T341] Keyboard navigation for trade history table
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T096]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add j/k for row navigation, Enter to expand trade details, arrow keys for pagination.
 
 ---
 
