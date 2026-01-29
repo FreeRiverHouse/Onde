@@ -193,8 +193,8 @@
 - **Notes**: Lao Tzu - pubblico dominio. Stile: Minimalist Chinese calligraphy + nature
 
 ### [T027] Divine Comedy illustrato EN
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
