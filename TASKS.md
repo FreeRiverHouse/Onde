@@ -9,21 +9,22 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:43)
 
 ### [T413] Test Suite: Run 2x/day + Dashboard Integration
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Far girare i test esistenti (tools/tech-support/) 2 volte al giorno e mostrare risultati su dashboard
-  - **Test esistenti:**
-    - `test-modifiche-website.py` - Test website changes
-    - Scripts deploy (deploy-onde-la.py, deploy-onde-surf.py, deploy-portal.py)
-  - **TODO:**
-    - [ ] Setup cron per run 2x/day (es: 09:00 e 21:00)
-    - [ ] Salvare risultati in formato JSON per dashboard
-    - [ ] Aggiungere sezione "Test Status" su onde.surf dashboard
-    - [ ] Alert se test fallisce
-  - **Dashboard**: onde.surf (apps/surfboard)
+- **Notes**: ✅ Implemented comprehensive daily test suite!
+  - **Script**: `scripts/daily-test-suite.py`
+  - **Tests (14 total):**
+    - onde.la: Homepage, /libri, /catalogo, /about, /health, RSS, SSL, Performance, Content, API Health
+    - onde.surf: Auth redirect, Login page, SSL, Performance
+  - **Cron**: 09:00 and 21:00 PST (17:00 and 05:00 UTC)
+  - **Dashboard**: TestStatusPanel component on onde.surf
+  - **API**: /api/test-status (fetches report from GitHub)
+  - **Alert**: test-failure.alert for heartbeat pickup
+  - All 14 tests passing
 
 ---
 
