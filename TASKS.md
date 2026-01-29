@@ -93,8 +93,8 @@
   - **Task correlato**: T414 (fix embeddings)
 
 ### [T414] 🚨 FIX memory_search - Aggiungere API key o fallback grep
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
