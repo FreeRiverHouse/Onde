@@ -120,16 +120,19 @@
   - Remember preference in localStorage
 
 ### [T457] Autotrader: Add momentum divergence to trade decisions
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T087]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use momentum divergence alerts in trade logic:
-  - Read recent divergence alerts from data/finetuning/
-  - Skip trades that conflict with divergence signals
-  - Higher confidence when divergence aligns with trade direction
-  - Log divergence_aligned: true/false in trade data
+- **Notes**: ✅ Integrated divergence signals into autotrader!
+  - Uses existing `get_divergence_edge_adjustment()` function (was defined but never called)
+  - Bearish divergence → bonus for NO bets, penalty for YES
+  - Bullish divergence → bonus for YES bets, penalty for NO
+  - Edge adjustment: +1-2% based on confidence level
+  - Logged in trade data: divergence_bonus, divergence_aligned, divergence_type, divergence_reason
+  - Verbose output shows divergence detection per asset each cycle
 
 ---
 

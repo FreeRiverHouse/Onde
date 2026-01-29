@@ -2896,6 +2896,19 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 r = regime_cache[asset]
                 print(f"   {asset.upper()} regime: {r['regime']} (conf={r['confidence']:.0%}, vol={r['volatility']}, edge={r['dynamic_min_edge']*100:.1f}%)")
     
+    # Calculate divergence signals for each asset (T457)
+    # Bearish divergence = favor NO bets, Bullish divergence = favor YES bets
+    divergence_cache = {}
+    if ohlc_data and momentum_data:
+        for asset in ["btc", "eth"]:
+            divergence_cache[asset] = get_divergence_edge_adjustment(
+                asset, ohlc_data, momentum_data
+            )
+            if verbose and divergence_cache[asset].get("has_signal"):
+                d = divergence_cache[asset]
+                div_type = d.get("divergence_type", "unknown")
+                print(f"   ⚠️ {asset.upper()} DIVERGENCE: {div_type} (+{d['adjustment']*100:.1f}% edge bonus for {'NO' if div_type == 'bearish' else 'YES'} bets)")
+    
     # Calculate volatility advantage for asset rebalancing (T237)
     vol_advantage = {}
     if ohlc_data:
@@ -3029,13 +3042,22 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                         news_bonus = news_sentiment.get("edge_adjustment", 0)  # Positive for YES
                     elif news_sentiment.get("sentiment") == "bearish":
                         news_bonus = -abs(news_sentiment.get("edge_adjustment", 0)) * 0.5  # Penalty for YES
+                # Divergence bonus (T457)
+                # Bullish divergence = price down but RSI up = reversal up likely = favor YES
+                divergence_bonus = 0
+                divergence_info = divergence_cache.get(asset, {})
+                if divergence_info.get("has_signal"):
+                    if divergence_info.get("divergence_type") == "bullish":
+                        divergence_bonus = divergence_info.get("adjustment", 0)  # Bonus for YES
+                    elif divergence_info.get("divergence_type") == "bearish":
+                        divergence_bonus = -divergence_info.get("adjustment", 0) * 0.5  # Penalty for YES
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "yes",
                     "price": yes_ask,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus,
                     "our_prob": prob_above,
                     "base_prob": base_prob_above,
                     "market_prob": market_prob_yes,
@@ -3056,7 +3078,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "news_bonus": news_bonus,
                     "news_sentiment": news_info.get("sentiment", "neutral"),
                     "news_confidence": news_info.get("confidence", 0.5),
-                    "news_reasons": news_info.get("reasons", [])
+                    "news_reasons": news_info.get("reasons", []),
+                    "divergence_bonus": divergence_bonus,
+                    "divergence_aligned": divergence_info.get("divergence_type") == "bullish",
+                    "divergence_type": divergence_info.get("divergence_type", "none"),
+                    "divergence_reason": divergence_info.get("reason", "")
                 })
                 found_opp = True
         
@@ -3094,13 +3120,22 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                         news_bonus = abs(news_sentiment.get("edge_adjustment", 0))  # Positive for NO
                     elif news_sentiment.get("sentiment") == "bullish":
                         news_bonus = -abs(news_sentiment.get("edge_adjustment", 0)) * 0.5  # Penalty for NO
+                # Divergence bonus (T457)
+                # Bearish divergence = price up but RSI down = reversal down likely = favor NO
+                divergence_bonus = 0
+                divergence_info = divergence_cache.get(asset, {})
+                if divergence_info.get("has_signal"):
+                    if divergence_info.get("divergence_type") == "bearish":
+                        divergence_bonus = divergence_info.get("adjustment", 0)  # Bonus for NO
+                    elif divergence_info.get("divergence_type") == "bullish":
+                        divergence_bonus = -divergence_info.get("adjustment", 0) * 0.5  # Penalty for NO
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "no",
                     "price": no_price,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus,
                     "our_prob": prob_below,
                     "base_prob": base_prob_below,
                     "market_prob": market_prob_no,
@@ -3121,7 +3156,11 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "news_bonus": news_bonus,
                     "news_sentiment": news_info.get("sentiment", "neutral"),
                     "news_confidence": news_info.get("confidence", 0.5),
-                    "news_reasons": news_info.get("reasons", [])
+                    "news_reasons": news_info.get("reasons", []),
+                    "divergence_bonus": divergence_bonus,
+                    "divergence_aligned": divergence_info.get("divergence_type") == "bearish",
+                    "divergence_type": divergence_info.get("divergence_type", "none"),
+                    "divergence_reason": divergence_info.get("reason", "")
                 })
                 found_opp = True
         
