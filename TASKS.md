@@ -1057,12 +1057,13 @@
 - **Notes**: ✅ Implemented! detect_market_regime() classifies: trending_bullish, trending_bearish, sideways, choppy. Dynamic MIN_EDGE: 7% trending, 12% sideways, 15% choppy + volatility adjustments. Integrated into find_opportunities() and trade logging.
 
 ### [T244] Implied volatility extraction from Kalshi prices
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Reverse-engineer implied vol from Kalshi market prices. Compare vs realized vol to find mispriced options (high IV vs low realized = sell premium).
+- **Notes**: ✅ Script: extract-implied-vol.py. Uses log-normal model to back-solve IV from market prices. Compares to 24h realized vol. Shows SELL_YES (IV>RV, overpriced) and BUY_YES (IV<RV, underpriced) signals. Output: data/trading/implied-vol-analysis.json. Finding: Near-ATM strikes show very high IV ratios.
 
 ### [T245] Filter extreme prices (≤5¢ or ≥95¢) from opportunities
 - **Status**: DONE
