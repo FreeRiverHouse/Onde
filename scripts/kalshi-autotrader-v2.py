@@ -3419,15 +3419,13 @@ def main():
             save_latency_profile()
             break
         except Exception as e:
+            import traceback
             print(f"\n❌ Error: {e}")
+            traceback.print_exc()
         
         # Wait 5 minutes between cycles
         print("\n💤 Sleeping 5 minutes...")
         time.sleep(300)
-
-
-if __name__ == "__main__":
-    main()
 
 
 # ============== SAFETY LIMITS (Added after 0% WR disaster) ==============
@@ -4056,3 +4054,8 @@ def write_streak_alert(alerts: list, current: dict):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 Streak record alert written to {STREAK_ALERT_FILE}")
+
+
+# ============== MAIN ENTRY POINT ==============
+if __name__ == "__main__":
+    main()

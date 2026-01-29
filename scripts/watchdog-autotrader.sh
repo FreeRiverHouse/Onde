@@ -61,7 +61,7 @@ is_running() {
 start_trader() {
     log "🚀 Starting Kalshi Autotrader..."
     cd "$SCRIPT_DIR"
-    nohup /opt/homebrew/bin/python3 "$TRADER_SCRIPT" >> "$SCRIPT_DIR/autotrader.log" 2>&1 &
+    nohup /opt/homebrew/bin/python3 -u "$TRADER_SCRIPT" >> "$SCRIPT_DIR/autotrader-v2.log" 2>&1 &
     local pid=$!
     echo $pid > "$PID_FILE"
     log "✅ Autotrader started with PID $pid"
