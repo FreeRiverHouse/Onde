@@ -835,12 +835,12 @@
 - **Notes**: ✅ Created ErrorBoundary.tsx with "Try Again" + "Go Home" buttons. Shows error details in dev mode. Wraps children in ClientLayout.
 
 ### [T229] Add hreflang tags for multilingual pages
-- **Status**: TODO
+- **Status**: BLOCKED
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add hreflang alternate links for IT/EN versions of pages. Helps Google show correct language version.
+- **Notes**: ⏸️ Blocked: Site doesn't have separate language URLs (/en/, /it/) yet. hreflang requires actual alternate versions. Needs multilingual routing implementation first.
 
 ### [T230] Preload critical fonts for faster LCP
 - **Status**: DONE
@@ -1976,12 +1976,13 @@
 - **Notes**: Compare stats with previous period. E.g., "This week vs last week" showing +/-% change for win rate, PnL, trades.
 
 ### [T365] URL sync for trading stats filters
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T203]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Sync period/source filters to URL params (?period=week&source=v2). Enables sharing links to specific views.
+- **Notes**: ✅ Added! Filters sync to URL (?source=v1&period=week&from=...&to=...). Loads from URL on mount. Uses router.replace for history-friendly updates. Defaults omitted from URL.
 
 ---
 

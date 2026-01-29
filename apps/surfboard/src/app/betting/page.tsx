@@ -3,6 +3,7 @@
 export const runtime = 'edge';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -424,14 +425,21 @@ type DatePeriod = 'all' | 'today' | 'week' | 'month' | 'custom';
 
 // ============== MAIN COMPONENT ==============
 export default function BettingDashboard() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  // Initialize from URL params
+  const urlSource = searchParams.get('source') as 'v1' | 'v2' | null;
+  const urlPeriod = searchParams.get('period') as DatePeriod | null;
+  
   const [kalshiStatus, setKalshiStatus] = useState<KalshiStatus | null>(null);
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
   const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
-  const [statsSource, setStatsSource] = useState<'v1' | 'v2'>('v2');
-  const [statsPeriod, setStatsPeriod] = useState<DatePeriod>('all');
-  const [customDateFrom, setCustomDateFrom] = useState<string>('');
-  const [customDateTo, setCustomDateTo] = useState<string>('');
+  const [statsSource, setStatsSource] = useState<'v1' | 'v2'>(urlSource || 'v2');
+  const [statsPeriod, setStatsPeriod] = useState<DatePeriod>(urlPeriod || 'all');
+  const [customDateFrom, setCustomDateFrom] = useState<string>(searchParams.get('from') || '');
+  const [customDateTo, setCustomDateTo] = useState<string>(searchParams.get('to') || '');
   const [momentum, setMomentum] = useState<MomentumData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -441,6 +449,23 @@ export default function BettingDashboard() {
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { toggleTheme } = useTheme();
+  
+  // Sync filters to URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (statsSource !== 'v2') params.set('source', statsSource);
+    if (statsPeriod !== 'all') params.set('period', statsPeriod);
+    if (statsPeriod === 'custom') {
+      if (customDateFrom) params.set('from', customDateFrom);
+      if (customDateTo) params.set('to', customDateTo);
+    }
+    const queryString = params.toString();
+    const newUrl = queryString ? `/betting?${queryString}` : '/betting';
+    // Only update if URL actually changed
+    if (window.location.pathname + window.location.search !== newUrl) {
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [statsSource, statsPeriod, customDateFrom, customDateTo, router]);
 
   // Build stats URL with period/date filters
   const buildStatsUrl = useCallback(() => {
