@@ -5,6 +5,7 @@ import { I18nProvider, useTranslations } from '@/i18n';
 import Navigation from '@/components/Navigation';
 import WatercolorBackground from '@/components/ui/WatercolorBackground';
 import VercelAnalytics from '@/components/VercelAnalytics';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 function Footer() {
   const t = useTranslations();
@@ -78,7 +79,9 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <WatercolorBackground />
       <Navigation />
       <main className="relative z-10 pt-20">
-        {children}
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
       </main>
       <Footer />
       <VercelAnalytics />

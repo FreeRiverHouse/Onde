@@ -812,12 +812,13 @@
 - **Notes**: When one asset has significantly higher volatility (implied vs realized), prefer trading that asset for better edge opportunities.
 
 ### [T228] Add error boundary to ClientLayout
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Wrap ClientLayout children in React error boundary to prevent full app crash on component errors.
+- **Notes**: ✅ Created ErrorBoundary.tsx with "Try Again" + "Go Home" buttons. Shows error details in dev mode. Wraps children in ClientLayout.
 
 ### [T229] Add hreflang tags for multilingual pages
 - **Status**: TODO
