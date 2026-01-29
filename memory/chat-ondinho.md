@@ -81,3 +81,7 @@
 ### 20:47 PST [msg:166]
 > Solo per capire; bedrock support che cosa fa? Supporta accesso da ipad? Non toccare nulla ma spiegami le differenze
 
+
+### 20:52 PST [msg:171]
+> E dopo questi 2 cicli di revisione, la PROCEDURA COMPLESSIVA DI TRADUZIONE come step successivo prevede inviare a me su TG un mini sample con cui valuterò il lavoro e decideró se licenziare qualche modello (claude o chi lavora male). Sample sara un pdf di 3 (TRE) pagine. Pagina 1 avra 10 righe originale e le 10 righe ultra revisionate da capitolo 1. Pag 2 stessa cosa ma da cap 2, e cosi pag 3. Sara una prima milestone della PROCEDURA COMPLESSIVA DI TRADUZIONE. Se non cè, sei un cojone perche doveva gia esserci. Creale e dalle giusto nome e aggiorna git e memorie varie e fle di procedure di agente editore capo che DETIENE QUESTA CAZZO DI PROCEDURA
+
