@@ -33,6 +33,60 @@
     "exploreBooks": "Esplora i Libri",
     "discoverApps": "Scopri le App",
     "scroll": "Scorri",
+    "hero": {
+      "craftedBy": "Creato con",
+      "code": "Codice",
+      "touchedBy": "Toccato dall'",
+      "soul": "Anima",
+      "subtitle": "Libri belli per menti curiose 📚 Giochi divertenti per bambini felici 🎮 Gratis per sempre!",
+      "exploreBooks": "Esplora i Libri",
+      "playGames": "Gioca",
+      "scrollHint": "Scorri verso il basso"
+    },
+    "whyOnde": {
+      "badge": "Perché Onde",
+      "title": "Perché Onde?",
+      "subtitle": "Storie belle e giochi divertenti per tutta la famiglia! 👨‍👩‍👧‍👦"
+    },
+    "featuresNew": {
+      "beautifulBooks": {
+        "title": "Libri Bellissimi",
+        "description": "Letteratura classica, reimmaginata con splendide illustrazioni AI"
+      },
+      "freeDuringLaunch": {
+        "title": "Gratis al Lancio",
+        "description": "Tutti i nostri libri sono gratuiti durante il periodo di lancio"
+      },
+      "multiFormat": {
+        "title": "Multi-formato",
+        "description": "PDF, EPUB e lettore web"
+      },
+      "aiEnhanced": {
+        "title": "Potenziato da AI",
+        "description": "Illustrazioni create con AI all'avanguardia"
+      }
+    },
+    "library": {
+      "badge": "Biblioteca",
+      "title": "Libri in Evidenza",
+      "subtitle": "Storie classiche con bellissime illustrazioni per giovani lettori! 🎨",
+      "viewAll": "Vedi tutti i 1000+ libri",
+      "free": "GRATIS",
+      "downloadPdf": "Scarica PDF"
+    },
+    "testimonials": {
+      "badge": "Amato dai lettori",
+      "title": "Cosa Dicono le Famiglie"
+    },
+    "ctaNew": {
+      "emoji": "🌈",
+      "title": "Inizia a Leggere Oggi!",
+      "subtitle": "Unisciti alle famiglie che apprezzano libri bellissimi - gratis durante il lancio! 📚✨",
+      "button": "Sfoglia la Biblioteca"
+    },
+    "footerNew": {
+      "copyright": "© 2026 Onde • Los Angeles"
+    },
     "features": {
       "illustratedStories": {
         "title": "Storie Illustrate",

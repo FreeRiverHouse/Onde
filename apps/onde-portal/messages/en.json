@@ -33,6 +33,60 @@
     "exploreBooks": "Explore Books",
     "discoverApps": "Discover Apps",
     "scroll": "Scroll",
+    "hero": {
+      "craftedBy": "Crafted by",
+      "code": "Code",
+      "touchedBy": "Touched by",
+      "soul": "Soul",
+      "subtitle": "Beautiful books for curious minds 📚 Fun games for happy kids 🎮 Free forever!",
+      "exploreBooks": "Explore Books",
+      "playGames": "Play Games",
+      "scrollHint": "Scroll down"
+    },
+    "whyOnde": {
+      "badge": "Why Onde",
+      "title": "Why Onde?",
+      "subtitle": "Beautiful stories and fun games for the whole family! 👨‍👩‍👧‍👦"
+    },
+    "featuresNew": {
+      "beautifulBooks": {
+        "title": "Beautiful Books",
+        "description": "Classic literature, reimagined with stunning AI illustrations"
+      },
+      "freeDuringLaunch": {
+        "title": "Free During Launch",
+        "description": "All our books are free to download during our launch period"
+      },
+      "multiFormat": {
+        "title": "Multi-format",
+        "description": "PDF, EPUB, and web reader"
+      },
+      "aiEnhanced": {
+        "title": "AI Enhanced",
+        "description": "Illustrations crafted with cutting-edge AI"
+      }
+    },
+    "library": {
+      "badge": "Library",
+      "title": "Featured Books",
+      "subtitle": "Classic stories with beautiful illustrations for young readers! 🎨",
+      "viewAll": "View all 1000+ books",
+      "free": "FREE",
+      "downloadPdf": "Download PDF"
+    },
+    "testimonials": {
+      "badge": "Loved by readers",
+      "title": "What Families Say"
+    },
+    "ctaNew": {
+      "emoji": "🌈",
+      "title": "Start Reading Today!",
+      "subtitle": "Join families everywhere enjoying beautiful books - free during our launch! 📚✨",
+      "button": "Browse Library"
+    },
+    "footerNew": {
+      "copyright": "© 2026 Onde • Los Angeles"
+    },
     "features": {
       "illustratedStories": {
         "title": "Illustrated Stories",

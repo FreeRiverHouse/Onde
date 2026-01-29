@@ -2346,12 +2346,13 @@
 - **Notes**: ✅ Already implemented! LanguageSwitcher.tsx component with globe icon, dropdown menu showing EN/IT with checkmark for active. Integrated in Navigation.tsx for both desktop and mobile views. Uses useLocale() from i18n context.
 
 ### [T373] Convert homepage (page.tsx) to use i18n translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Homepage is hardcoded in English. Should use useTranslations() like other pages. Translations already exist in home.* keys. Benefits: respects user language preference.
+- **Notes**: ✅ Homepage now uses useTranslations()! Added hero.*, whyOnde.*, featuresNew.*, library.*, testimonials.*, ctaNew.*, footerNew.* translation keys to en.json and it.json. Respects user language preference via i18n system.
 
 ### [T374] Audit remaining pages for hardcoded strings
 - **Status**: TODO

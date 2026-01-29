@@ -16,6 +16,7 @@ import {
   InfiniteMovingCards,
   WavyBackground
 } from '@/components/ui/aceternity'
+import { useTranslations } from '@/i18n'
 
 // Particle for ambient background - Ocean bubbles
 function Particle({ index }: { index: number }) {
@@ -81,31 +82,9 @@ const books = [
   },
 ]
 
-// Features for Bento Grid
-const features = [
-  {
-    title: "Beautiful Books",
-    description: "Classic literature, reimagined with stunning AI illustrations",
-    icon: "📚",
-    className: "md:col-span-2",
-  },
-  {
-    title: "Free During Launch",
-    description: "All our books are free to download during our launch period",
-    icon: "🚀",
-  },
-  {
-    title: "Multi-format",
-    description: "PDF, EPUB, and web reader",
-    icon: "📱",
-  },
-  {
-    title: "AI Enhanced",
-    description: "Illustrations crafted with cutting-edge AI",
-    icon: "🎨",
-    className: "md:col-span-2",
-  },
-]
+// Features for Bento Grid - will be populated with translations in component
+const featureIcons = ["📚", "🚀", "📱", "🎨"]
+const featureClassNames = ["md:col-span-2", "", "", "md:col-span-2"]
 
 // Testimonials
 const testimonials = [
@@ -124,11 +103,38 @@ const dockItems = [
 ]
 
 export default function Home() {
+  const t = useTranslations()
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.9])
   const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -150])
   const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => i), [])
+  
+  // Features with translations
+  const features = [
+    {
+      title: t.home.featuresNew.beautifulBooks.title,
+      description: t.home.featuresNew.beautifulBooks.description,
+      icon: "📚",
+      className: "md:col-span-2",
+    },
+    {
+      title: t.home.featuresNew.freeDuringLaunch.title,
+      description: t.home.featuresNew.freeDuringLaunch.description,
+      icon: "🚀",
+    },
+    {
+      title: t.home.featuresNew.multiFormat.title,
+      description: t.home.featuresNew.multiFormat.description,
+      icon: "📱",
+    },
+    {
+      title: t.home.featuresNew.aiEnhanced.title,
+      description: t.home.featuresNew.aiEnhanced.description,
+      icon: "🎨",
+      className: "md:col-span-2",
+    },
+  ]
 
   return (
     <div className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
@@ -175,7 +181,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
           >
             <span className="text-2xl">🌊</span>
-            <span className="text-teal-700 text-sm font-medium">Los Angeles ☀️</span>
+            <span className="text-teal-700 text-sm font-medium">{t.home.badge} ☀️</span>
           </motion.div>
 
           {/* Main Title */}
@@ -185,13 +191,13 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="text-teal-800 drop-shadow-sm">Crafted by</span>
+            <span className="text-teal-800 drop-shadow-sm">{t.home.hero.craftedBy}</span>
             <br />
             <GradientText colors={["#0D9488", "#D97706", "#EC4899", "#0D9488"]}>
-              Code
+              {t.home.hero.code}
             </GradientText>
             <br />
-            <span className="text-teal-700">Touched by</span>
+            <span className="text-teal-700">{t.home.hero.touchedBy}</span>
             <br />
             <motion.span 
               className="text-transparent bg-clip-text"
@@ -203,7 +209,7 @@ export default function Home() {
               }}
               transition={{ duration: 5, repeat: Infinity }}
             >
-              Soul ✨
+              {t.home.hero.soul} ✨
             </motion.span>
           </motion.h1>
 
@@ -214,8 +220,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Beautiful books for curious minds 📚 Fun games for happy kids 🎮 
-            Free forever!
+            {t.home.hero.subtitle}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -229,7 +234,7 @@ export default function Home() {
               href="#books"
               className="group px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-105 transition-all flex items-center gap-2"
             >
-              <span>Explore Books</span>
+              <span>{t.home.hero.exploreBooks}</span>
               <span className="text-xl group-hover:rotate-12 transition-transform">📚</span>
             </Link>
             
@@ -237,7 +242,7 @@ export default function Home() {
               href="/games"
               className="group px-8 py-4 bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 transition-all flex items-center gap-2"
             >
-              <span>Play Games</span>
+              <span>{t.home.hero.playGames}</span>
               <span className="text-xl group-hover:animate-bounce">🎮</span>
             </Link>
           </motion.div>
@@ -250,7 +255,7 @@ export default function Home() {
             transition={{ delay: 1, y: { duration: 1.5, repeat: Infinity } }}
           >
             <div className="flex flex-col items-center gap-2">
-              <span className="text-teal-500 text-sm font-medium">Scroll down</span>
+              <span className="text-teal-500 text-sm font-medium">{t.home.hero.scrollHint}</span>
               <motion.span 
                 className="text-2xl"
                 animate={{ y: [0, 8, 0] }}
@@ -275,13 +280,13 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-              <span>🌟</span> Why Onde <span>🌟</span>
+              <span>🌟</span> {t.home.whyOnde.badge} <span>🌟</span>
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
-              Why Onde?
+              {t.home.whyOnde.title}
             </h2>
             <p className="text-teal-600/70 max-w-xl mx-auto">
-              Beautiful stories and fun games for the whole family! 👨‍👩‍👧‍👦
+              {t.home.whyOnde.subtitle}
             </p>
           </motion.div>
 
@@ -318,13 +323,13 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-              <span>📖</span> Library <span>📖</span>
+              <span>📖</span> {t.home.library.badge} <span>📖</span>
             </span>
             <h2 className="text-4xl md:text-6xl font-bold text-teal-800 mt-4 mb-6">
-              Featured Books
+              {t.home.library.title}
             </h2>
             <p className="text-teal-600/70 max-w-xl mx-auto">
-              Classic stories with beautiful illustrations for young readers! 🎨
+              {t.home.library.subtitle}
             </p>
           </motion.div>
 
@@ -359,7 +364,7 @@ export default function Home() {
                         
                         {/* Free badge */}
                         <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-md flex items-center gap-1">
-                          <span>✨</span> FREE
+                          <span>✨</span> {t.home.library.free}
                         </span>
                       </div>
 
@@ -378,7 +383,7 @@ export default function Home() {
                           className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all hover:scale-105"
                         >
                           <span>📥</span>
-                          Download PDF
+                          {t.home.library.downloadPdf}
                         </a>
                       </div>
                     </div>
@@ -399,7 +404,7 @@ export default function Home() {
               href="/libri"
               className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors group font-medium"
             >
-              <span>View all 1000+ books</span>
+              <span>{t.home.library.viewAll}</span>
               <motion.span 
                 className="inline-block text-xl"
                 animate={{ x: [0, 5, 0] }}
@@ -418,10 +423,10 @@ export default function Home() {
       <section className="relative py-24 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
           <span className="text-pink-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-            <span>💬</span> Loved by readers <span>💬</span>
+            <span>💬</span> {t.home.testimonials.badge} <span>💬</span>
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mt-4">
-            What Families Say
+            {t.home.testimonials.title}
           </h2>
         </div>
         
@@ -439,18 +444,18 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-6xl mb-6 block">🌈</span>
+              <span className="text-6xl mb-6 block">{t.home.ctaNew.emoji}</span>
               <h2 className="text-3xl md:text-5xl font-bold text-teal-800 mb-6">
-                Start Reading Today!
+                {t.home.ctaNew.title}
               </h2>
               <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
-                Join families everywhere enjoying beautiful books - free during our launch! 📚✨
+                {t.home.ctaNew.subtitle}
               </p>
               <Link 
                 href="/libri"
                 className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-teal-500/30 transition-all transform hover:scale-105"
               >
-                <span>Browse Library</span>
+                <span>{t.home.ctaNew.button}</span>
                 <span className="text-2xl">📖</span>
               </Link>
             </motion.div>
@@ -463,7 +468,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-teal-500 text-sm flex items-center justify-center gap-2">
             <span>🌊</span>
-            © 2026 Onde • Los Angeles
+            {t.home.footerNew.copyright}
             <span>☀️</span>
           </p>
         </div>
