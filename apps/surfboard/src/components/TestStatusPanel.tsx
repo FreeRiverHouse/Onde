@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { GlowCard } from './ui/GlowCard'
+import { LastUpdatedIndicator } from './LastUpdatedIndicator'
 
 interface TestResult {
   name: string
@@ -113,10 +114,6 @@ export function TestStatusPanel() {
     ? Math.round((report.summary.passed / report.summary.total) * 100)
     : 0
 
-  // Parse timestamp and format nicely
-  const lastRun = new Date(report.timestamp)
-  const timeAgo = getTimeAgo(lastRun)
-
   return (
     <GlowCard glowColor={allPassed ? 'green' : 'red'}>
       <div className="p-6">
@@ -163,10 +160,15 @@ export function TestStatusPanel() {
           </div>
         </div>
 
-        {/* Last Run */}
+        {/* Last Run - using shared time utilities */}
         <div className="flex items-center justify-between text-sm mb-4">
           <span className="text-white/40">Last run:</span>
-          <span className="text-white/60">{timeAgo}</span>
+          <LastUpdatedIndicator 
+            lastUpdated={report.timestamp}
+            thresholdSeconds={3600} // 1 hour threshold for test reports
+            compact={true}
+            onRequestRefresh={fetchReport}
+          />
         </div>
 
         {/* Alerts */}
@@ -218,13 +220,4 @@ export function TestStatusPanel() {
   )
 }
 
-function getTimeAgo(date: Date): string {
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
-  
-  if (seconds < 60) return 'just now'
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`
-  if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`
-  
-  return date.toLocaleDateString()
-}
+// Using shared time utilities from LastUpdatedIndicator component

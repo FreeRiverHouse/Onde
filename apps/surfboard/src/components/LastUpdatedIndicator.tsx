@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { RefreshCw, AlertCircle, Clock } from 'lucide-react';
-import { getTimeAgo, getStalenessLevel, formatAgeWithStaleness } from '@/lib/time-utils';
+import { formatAgeWithStaleness } from '@/lib/time-utils';
 
 interface LastUpdatedIndicatorProps {
   /** The last update timestamp */

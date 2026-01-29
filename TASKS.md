@@ -9,12 +9,13 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:07)
 
 ### [T425] Use LastUpdatedIndicator in TestStatusPanel
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T322]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Update TestStatusPanel to use the new LastUpdatedIndicator component for consistency. Replace local getTimeAgo() with shared time-utils.
+- **Notes**: ✅ Updated TestStatusPanel to use shared LastUpdatedIndicator component. Removed local getTimeAgo() function. Now shows staleness indicator with refresh button when report is >1h old. Also fixed unused import lint error in LastUpdatedIndicator.tsx.
 
 ### [T426] Update Cloudflare API token with D1 permissions
 - **Status**: TODO
