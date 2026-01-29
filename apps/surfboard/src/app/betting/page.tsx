@@ -82,6 +82,25 @@ interface TradingStats {
   lastUpdated: string;
 }
 
+interface MomentumAsset {
+  asset: string;
+  symbol: string;
+  currentPrice: number;
+  momentum: {
+    h1: number;
+    h4: number;
+    h24: number;
+    composite: number;
+  };
+  signal: 'bullish' | 'bearish' | 'neutral';
+  strength: 'strong' | 'moderate' | 'weak';
+}
+
+interface MomentumData {
+  data: MomentumAsset[];
+  lastUpdated: string;
+}
+
 // ============== ANIMATED NUMBER COMPONENT ==============
 function AnimatedNumber({ 
   value, 
@@ -317,6 +336,7 @@ export default function BettingDashboard() {
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
   const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
+  const [momentum, setMomentum] = useState<MomentumData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -326,17 +346,19 @@ export default function BettingDashboard() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [kalshiRes, cryptoRes, inboxRes, statsRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, statsRes, momentumRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
-        fetch('/api/trading/stats')
+        fetch('/api/trading/stats'),
+        fetch('/api/momentum')
       ]);
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
       if (statsRes.ok) setTradingStats(await statsRes.json());
+      if (momentumRes.ok) setMomentum(await momentumRes.json());
 
       setLastRefresh(new Date());
     } catch (error) {
@@ -534,6 +556,104 @@ export default function BettingDashboard() {
             decimals={2}
           />
         </div>
+
+        {/* Momentum Indicator Section */}
+        {momentum && momentum.data && (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/30 flex items-center justify-center">
+                <Activity className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold">Market Momentum</h2>
+                <p className="text-xs text-gray-500">1h / 4h / 24h price change</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {momentum.data.map((asset) => (
+                <GlassCard 
+                  key={asset.symbol} 
+                  glowColor={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'red' : 'cyan'} 
+                  className="p-4"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                        asset.symbol === 'BTC' 
+                          ? 'bg-gradient-to-br from-orange-500/30 to-amber-500/30' 
+                          : 'bg-gradient-to-br from-purple-500/30 to-blue-500/30'
+                      }`}>
+                        <span className={`font-bold text-sm ${asset.symbol === 'BTC' ? 'text-orange-400' : 'text-purple-400'}`}>
+                          {asset.symbol === 'BTC' ? '₿' : '◆'}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-300 font-medium">{asset.asset}</span>
+                        <p className="text-xs text-gray-600">${asset.currentPrice.toLocaleString()}</p>
+                      </div>
+                    </div>
+                    <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${
+                      asset.signal === 'bullish' 
+                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                        : asset.signal === 'bearish'
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                        : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                    }`}>
+                      {asset.signal === 'bullish' ? (
+                        <TrendingUp className="w-4 h-4" />
+                      ) : asset.signal === 'bearish' ? (
+                        <TrendingDown className="w-4 h-4" />
+                      ) : (
+                        <span>→</span>
+                      )}
+                      <span className="capitalize">{asset.signal}</span>
+                      {asset.strength !== 'weak' && (
+                        <span className="opacity-60">({asset.strength})</span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-4 gap-2">
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03]">
+                      <div className="text-xs text-gray-500 mb-1">1H</div>
+                      <div className={`text-sm font-mono font-bold ${
+                        asset.momentum.h1 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                      }`}>
+                        {asset.momentum.h1 >= 0 ? '+' : ''}{asset.momentum.h1.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03]">
+                      <div className="text-xs text-gray-500 mb-1">4H</div>
+                      <div className={`text-sm font-mono font-bold ${
+                        asset.momentum.h4 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                      }`}>
+                        {asset.momentum.h4 >= 0 ? '+' : ''}{asset.momentum.h4.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03]">
+                      <div className="text-xs text-gray-500 mb-1">24H</div>
+                      <div className={`text-sm font-mono font-bold ${
+                        asset.momentum.h24 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                      }`}>
+                        {asset.momentum.h24 >= 0 ? '+' : ''}{asset.momentum.h24.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-white/[0.05] border border-white/[0.08]">
+                      <div className="text-xs text-gray-500 mb-1">Score</div>
+                      <div className={`text-sm font-mono font-bold ${
+                        asset.momentum.composite >= 0.3 ? 'text-emerald-400' : 
+                        asset.momentum.composite <= -0.3 ? 'text-red-400' : 'text-gray-400'
+                      }`}>
+                        {asset.momentum.composite >= 0 ? '+' : ''}{asset.momentum.composite.toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Trading Stats Section */}
         {tradingStats && (

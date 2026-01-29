@@ -949,12 +949,13 @@
 - **Notes**: ✅ Script: analyze-trades-by-hour.py. Shows win rate/PnL per hour UTC. Currently all trades from broken v1 model. V2 needs more data.
 
 ### [T250] Momentum indicator on /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T087]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show current BTC/ETH momentum (1h/4h/24h) on dashboard. Visual indicator: bullish/bearish/neutral.
+- **Notes**: ✅ API: /api/momentum (CoinGecko OHLC). UI: BTC/ETH momentum cards with 1h/4h/24h changes + composite score + signal (bullish/bearish/neutral).
 
 ### [T251] Memory file search CLI tool
 - **Status**: DONE
@@ -1017,5 +1018,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 17:09 PST*
+### [T258] Momentum history chart (sparkline)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T250]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add 24h sparkline chart showing momentum trend on each asset card.
+
+### [T259] Momentum alert when direction changes
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T250]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Telegram notification when BTC/ETH momentum flips from bullish→bearish or vice versa.
+
+### [T260] Trading stats API caching
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Redis or file-based caching to /api/trading/stats to reduce JSONL parsing overhead.
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 17:17 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
