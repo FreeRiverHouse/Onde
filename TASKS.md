@@ -1494,14 +1494,14 @@
 - **Priority**: P1
 - **Notes**: ✅ Clawdinho registrato! type=orchestrator, room=office, color=#00D4FF
 
-### [T501] Registrare Ondinho come agent nel DB
+### [T501] Registrare Onde-bot come agent nel DB
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: [T502], [T503]
 - **Priority**: P1
-- **Notes**: ✅ Ondinho registrato! type=creative, room=lounge, color=#FF6B35
+- **Notes**: ✅ Onde-bot (ex Ondinho) registrato! type=creative, room=lounge, color=#FF6B35
 
 ### [T502] Creare avatar Clawdinho (surfer emoji style)
 - **Status**: TODO
@@ -1511,13 +1511,13 @@
 - **Priority**: P2
 - **Notes**: PNG 256x256 per /public/house/agents/clawdinho.png. Stile: surfista AI, colore cyan/azzurro
 
-### [T503] Creare avatar Ondinho (wave emoji style)
+### [T503] Creare avatar Onde-bot (wave emoji style)
 - **Status**: TODO
 - **Owner**: 
 - **Depends**: [T501]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: PNG 256x256 per /public/house/agents/ondinho.png. Stile: onda/surfista brother, colore arancione
+- **Notes**: PNG 256x256 per /public/house/agents/onde-bot.png. Stile: onda/surfista brother, colore arancione. Rinominato da Ondinho → Onde-bot.
 
 ### [T504] Connettere status Clawdinho a Clawdbot sessions reali
 - **Status**: TODO
@@ -1589,7 +1589,15 @@
 - **Depends**: [T500], [T501], [T502], [T503]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Verificare che /house funzioni correttamente dopo aggiunta Clawdinho/Ondinho
+- **Notes**: Verificare che /house funzioni correttamente dopo aggiunta Clawdinho/Onde-bot
+
+### [T513] Setup Cloudflare D1 per Virtual Office persistenza
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: [T504], [T505]
+- **Priority**: P1
+- **Notes**: D1 = SQLite edge, 5GB free. Schema: agents, tasks, activity_log. wrangler d1 create onde-office. API endpoints per CRUD. Alternativa MVP: localStorage client-side + JSON files.
 
 ### [T296] Analyze edge vs win rate correlation
 - **Status**: DONE

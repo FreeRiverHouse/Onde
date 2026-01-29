@@ -59,7 +59,7 @@ interface DBAgent {
 const AGENT_VISUALS: Record<string, { room: AgentConfig['room']; color: string; image: string }> = {
   // 🤖 Core AI Agents (Real Clawdbot sessions)
   'clawdinho': { room: 'office', color: '#00D4FF', image: '/house/agents/clawdinho.svg' },
-  'ondinho': { room: 'lounge', color: '#FF6B35', image: '/house/agents/ondinho.svg' },
+  'onde-bot': { room: 'lounge', color: '#FF6B35', image: '/house/agents/onde-bot.svg' },
   // ✍️ Creative Team
   'editore-capo': { room: 'office', color: MV_COLORS.coral, image: '/house/agents/editore-capo.png' },
   'video-factory': { room: 'studio', color: MV_COLORS.terracotta, image: '/house/agents/video-factory.png' },
