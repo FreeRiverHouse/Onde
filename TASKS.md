@@ -2225,12 +2225,13 @@
 - **Notes**: Compare CoinGecko settlement prices with Kalshi's official settlement prices (from order history). Script to validate our settlement tracker accuracy.
 
 ### [T355] Paper balance tracking in dry-run mode
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T305]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track virtual balance in kalshi-dryrun-balance.json. Start with $100, update on each dry-run trade settlement. Shows cumulative PnL over time.
+- **Notes**: ✅ Script: kalshi-dryrun-balance.py. Tracks virtual $100 balance for dry-run trades. Uses CoinGecko for settlement prices. Flags: --reset (restart), --status (show balance). State: kalshi-dryrun-balance.json. Shows win rate, PnL, pending trades.
 
 ### [T356] Strategy parameter sweep (MIN_EDGE optimization)
 - **Status**: TODO
