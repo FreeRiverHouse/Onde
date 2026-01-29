@@ -2,13 +2,13 @@
 
 **LEGGI QUESTO FILE PRIMA DI QUALSIASI DEPLOY!**
 
+⚠️ **DEPLOY = WRANGLER DIRETTO. Niente GitHub Actions!**
+
 ---
 
 ## ONDE.SURF (Surfboard Dashboard)
 
-### Comando Deploy (METODO WRANGLER - PRIMARIO)
-
-⚠️ **GitHub Actions è bloccato per billing - usa Wrangler diretto!**
+### Comando Deploy
 
 ```bash
 cd /Users/mattia/Projects/Onde/apps/surfboard
@@ -22,17 +22,6 @@ CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
 CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
 npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 ```
-
-### Metodo Alternativo (GitHub Actions - BLOCCATO!)
-
-```bash
-gh workflow run deploy-surfboard.yml \
-  -R FreeRiverHouse/Onde \
-  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
-  -f reason="DESCRIVI QUI IL MOTIVO DEL DEPLOY"
-```
-
-⚠️ **Attualmente fallisce per billing issue!** Usa Wrangler.
 
 ### Progetto Cloudflare
 - **Nome progetto:** `onde-surf`
@@ -87,7 +76,7 @@ npx wrangler pages deploy out --project-name=onde-portal --commit-dirty=true
 
 ---
 
-## CREDENZIALI CLOUDFLARE (Solo emergenze)
+## CREDENZIALI CLOUDFLARE
 
 ```
 Account ID: 91ddd4ffd23fb9da94bb8c2a99225a3f
@@ -98,7 +87,7 @@ API Token: RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw
 
 ## REGOLE IMPORTANTI
 
-1. **SEMPRE commit e push PRIMA di deployare** - Il workflow prende il codice da GitHub
+1. **SEMPRE commit e push PRIMA di deployare** - Mantieni repo pulito
 2. **SEMPRE verificare dopo il deploy** - curl per controllare che sia online
 3. **MAI usare auto-deploy** - Entrambi i siti richiedono deploy manuale/protetto
 4. **Se non sai cosa fare** - Leggi questo file!
@@ -117,19 +106,15 @@ git commit -m "Descrizione modifiche"
 git push origin main
 
 # 4. Deploy onde.surf
-gh workflow run deploy-surfboard.yml \
-  -R FreeRiverHouse/Onde \
-  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
-  -f reason="Descrizione del deploy"
+cd apps/surfboard
+npm run build && npm run build:cf
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 
-# 5. Aspetta ~3 minuti
-
-# 6. Verifica
-gh run list -R FreeRiverHouse/Onde --workflow=deploy-surfboard.yml -L 1
+# 5. Verifica
 curl -sI "https://onde.surf" | head -3
 ```
-
----
 
 ---
 
@@ -149,20 +134,10 @@ playwright install
 
 **Problema:** Token Cloudflare non configurato.
 
-**Soluzione:** Lo script carica automaticamente da `.env`. Verifica che `.env` contenga:
+**Soluzione:** Passa token inline o verifica `.env`:
 ```
 CLOUDFLARE_API_TOKEN=RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw
 ```
-
----
-
-### GitHub Actions Billing Issue
-
-GitHub Actions è bloccato su FreeRiverHouse/Onde per problemi di billing. Per ora usa sempre Wrangler diretto.
-
-Per risolvere: Mattia deve controllare Settings → Billing & plans su GitHub.
-
----
 
 ---
 
@@ -192,15 +167,6 @@ git push origin main
 # 4. Redeploy (vedi sezioni sopra)
 ```
 
-### Metodo 3: Wrangler Rollback
-```bash
-# Lista deployment
-npx wrangler pages deployment list --project-name=onde-surf
-
-# Trova deployment ID funzionante e rideploya quello
-# (Cloudflare Dashboard è più facile per questo)
-```
-
 ### Checklist Post-Rollback
 1. ✅ Verifica curl: `curl -sI "https://onde.surf" | head -3`
 2. ✅ Testa in browser
@@ -210,3 +176,4 @@ npx wrangler pages deployment list --project-name=onde-surf
 ---
 
 *Ultimo aggiornamento: 2026-01-29*
+*METODO: Wrangler diretto. Niente GitHub Actions.*

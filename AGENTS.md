@@ -131,30 +131,24 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 ## 🚀 DEPLOY - PROCEDURE OBBLIGATORIE
 
-**FILE MASTER:** `/Users/mattia/claude-memory/CLAWDINHO-CEO.md`
 **FILE COMPLETO:** `tools/tech-support/DEPLOY-PROCEDURES.md`
 
 ### ONDE.SURF (Dashboard)
 ```bash
-gh workflow run deploy-surfboard.yml -R FreeRiverHouse/Onde \
-  -f deploy_key="9eeezNPQwjY8NJl5PL9C0pqTutP642xk" \
-  -f reason="MOTIVO DEL DEPLOY"
+cd /Users/mattia/Projects/Onde/apps/surfboard
+npm run build && npm run build:cf
+CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw" \
+CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f" \
+npx wrangler pages deploy .vercel/output/static --project-name=onde-surf --commit-dirty=true
 ```
-**Verifica:**
-```bash
-gh run list -R FreeRiverHouse/Onde --workflow=deploy-surfboard.yml -L 1
-curl -sI "https://onde.surf" | head -3
-```
+**Verifica:** `curl -sI "https://onde.surf" | head -3`
 
 ### ONDE.LA (Sito principale)
 ```bash
 cd /Users/mattia/Projects/Onde
 ./tools/tech-support/deploy-onde-la-prod.sh
 ```
-**Verifica:**
-```bash
-curl -sI "https://onde.la" | head -3
-```
+**Verifica:** `curl -sI "https://onde.la" | head -3`
 
 **⚠️ SEMPRE commit+push PRIMA di deployare!**
 **⚠️ SEMPRE verificare con curl dopo il deploy!**
