@@ -1481,12 +1481,13 @@
 ---
 
 ### [T309] Add PWA manifest for mobile install
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add manifest.json and service worker to surfboard for "Add to Home Screen" on mobile. Enables offline viewing of cached data.
+- **Notes**: ✅ Created manifest.json with app metadata, theme colors, SVG icons, and shortcuts (Trading Terminal, Moonlight House). Added PWA meta tags to layout.tsx. Users can now "Add to Home Screen" on mobile.
 
 ### [T310] Keyboard shortcuts for trading dashboard
 - **Status**: TODO
@@ -1503,6 +1504,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Add accordion-style collapse for stat card groups on mobile. Show top 4 by default, expandable to see all 15. Reduces initial scroll depth.
+
+### [T312] Service worker for offline PWA caching
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T309]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add service worker to cache static assets and API responses. Enable offline viewing of last cached trading stats when network unavailable.
+
+### [T313] Export trading stats to Google Sheets
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to push daily trading stats to Google Sheets for historical tracking and charting. Use Google Sheets API with service account.
+
+### [T314] Voice TTS alerts for significant trading events
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use ElevenLabs/TTS to announce major events: circuit breaker triggered, big win/loss, regime change. Optional Telegram voice message delivery.
 
 ---
 
