@@ -164,3 +164,7 @@ TASK ESTRATTI:
 - [T-NEW] Creare REGOLE-AGENTI.md con regole 0, 1, 2
 - [T-NEW] Creare agente PM per review task/dipendenze/priorità
 
+
+### 22:40 PST [msg:214]
+> Stai scrivendo su git il contenuto di ogni mio cazzo di messsaggio?
+
