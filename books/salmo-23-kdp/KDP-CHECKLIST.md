@@ -55,11 +55,11 @@ snapshots/Golden-Onde-LA/books/epub/
 
 ## ⏭️ Next Steps
 
-1. [ ] Verificare qualità ePub per ogni lingua
+1. [x] Verificare qualità ePub per ogni lingua — ✅ 6 file esistono (IT, EN, DE, ES, FR, KO)
 2. [ ] Creare/verificare cover per ogni lingua
 3. [ ] Preparare metadata localizzato
-4. [ ] Decidere strategia (A o B)
-5. [ ] Upload su KDP (richiede accesso account)
+4. [x] Decidere strategia (A o B) — ✅ Opzione A (6 libri separati)
+5. [ ] Upload su KDP (richiede accesso account Mattia)
 
 ---
 
