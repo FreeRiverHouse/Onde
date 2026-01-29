@@ -35,6 +35,10 @@ import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 
+// ============== CONSTANTS ==============
+// External gist URL for trading stats (works on static Cloudflare Pages deploy)
+const TRADING_STATS_GIST_URL = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
+
 // ============== TYPES ==============
 interface KalshiPosition {
   ticker: string;
@@ -528,23 +532,68 @@ export default function BettingDashboard() {
     return `/api/trading/stats?${params.toString()}`;
   }, [statsSource, statsPeriod, customDateFrom, customDateTo]);
 
+  // Helper: Fetch trading stats with gist fallback for static deployments
+  const fetchTradingStatsWithFallback = useCallback(async (): Promise<TradingStats | null> => {
+    // Try local API first (works in development)
+    try {
+      const statsRes = await fetch(buildStatsUrl());
+      if (statsRes.ok) {
+        const data = await statsRes.json();
+        // If we got real data, return it
+        if (data && typeof data.totalTrades === 'number') {
+          return data;
+        }
+      }
+    } catch (e) {
+      console.log('Local stats API unavailable, trying gist fallback...');
+    }
+
+    // Fallback to external gist (works on static Cloudflare Pages deploy)
+    try {
+      const gistRes = await fetch(TRADING_STATS_GIST_URL, { cache: 'no-store' });
+      if (gistRes.ok) {
+        const gistData = await gistRes.json();
+        // Map gist format to TradingStats interface
+        return {
+          totalTrades: gistData.totalTrades ?? 0,
+          wonTrades: Math.round((gistData.winRate ?? 0) * (gistData.totalTrades ?? 0) / 100),
+          lostTrades: Math.round((100 - (gistData.winRate ?? 0)) * (gistData.totalTrades ?? 0) / 100),
+          pendingTrades: 0,
+          winRate: gistData.winRate ?? 0,
+          totalPnlCents: gistData.pnlCents ?? 0,
+          todayTrades: gistData.todayTrades ?? 0,
+          todayWinRate: gistData.todayWinRate ?? 0,
+          todayPnlCents: gistData.todayPnlCents ?? 0,
+          recentTrades: [],
+          lastUpdated: gistData.lastUpdated ?? new Date().toISOString(),
+        };
+      }
+    } catch (e) {
+      console.error('Gist fallback also failed:', e);
+    }
+
+    return null;
+  }, [buildStatsUrl]);
+
   // Fetch all data
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [kalshiRes, cryptoRes, inboxRes, statsRes, momentumRes, trendRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
-        fetch(buildStatsUrl()),
         fetch('/api/momentum'),
         fetch(`/api/trading/trend?days=30&source=${statsSource}`)
       ]);
 
+      // Fetch trading stats with gist fallback
+      const statsData = await fetchTradingStatsWithFallback();
+      if (statsData) setTradingStats(statsData);
+
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
-      if (statsRes.ok) setTradingStats(await statsRes.json());
       if (momentumRes.ok) setMomentum(await momentumRes.json());
       if (trendRes.ok) setWinRateTrend(await trendRes.json());
 
@@ -554,7 +603,7 @@ export default function BettingDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [buildStatsUrl, statsSource]);
+  }, [fetchTradingStatsWithFallback, statsSource]);
 
   useEffect(() => {
     fetchData();

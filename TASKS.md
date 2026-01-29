@@ -3267,12 +3267,13 @@
 - **Notes**: Comprehensive audit log for all trade attempts (successful and failed). Include: timestamp, ticker, side, price, size, API response, latency, any errors. Store in kalshi-audit.jsonl. Useful for debugging failed trades and compliance.
 
 ### [T483] Fetch real stats from gist on /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T277]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use gist raw URL (https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json) in /betting page. Enables static site to show real trade stats at runtime. Replace mock data fetch with gist fetch.
+- **Notes**: ✅ Added fetchTradingStatsWithFallback() to /betting page. Tries local API first (dev), then falls back to gist URL for static Cloudflare Pages deploy. Maps gist format to TradingStats interface. TRADING_STATS_GIST_URL constant added.
 
 ### [T484] Migrate V1 trades to V2 format
 - **Status**: TODO
