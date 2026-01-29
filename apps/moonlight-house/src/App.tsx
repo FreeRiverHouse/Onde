@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
-import useSoundManager, { SoundEffect, AmbientTrack } from './useSoundManager';
+import useSoundManager from './useSoundManager';
+import GameHub from './games/GameHub';
+import { PuzzleGame, DrawingPad, MemoryGame } from './games';
 
 // Animation variants for room transitions
 const pageTransition = {
@@ -389,6 +391,7 @@ function App() {
   const [showDailyReward, setShowDailyReward] = useState(false);
   const [dailyRewardAmount, setDailyRewardAmount] = useState(0);
   const [showMiniGame, setShowMiniGame] = useState(false);
+  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | null
   const [eventMessage, setEventMessage] = useState('');
 
   // Drag state
@@ -676,6 +679,23 @@ function App() {
   const outsideRooms = roomData.filter(r => r.category === 'outside');
   const timeClass = `time-${timeOfDay}`;
 
+  // Game completion handler for new games
+  const handleGameComplete = (score: number) => {
+    const coinsEarned = Math.floor(score / 2);
+    setStats(s => ({ ...s, coins: s.coins + coinsEarned, happiness: Math.min(100, s.happiness + 15), xp: s.xp + score }));
+    setActiveGame(null);
+    playSound('coin-collect');
+  };
+
+  const handleSelectGame = (game: string) => {
+    if (game === 'stars') {
+      setShowMiniGame(true);
+      setActiveGame(null);
+    } else {
+      setActiveGame(game);
+    }
+  };
+
   // Popups
   if (showDailyReward) {
     return <DailyRewardPopup coins={dailyRewardAmount} streak={gameState.streak} lang={lang} onClose={claimDailyReward} />;
@@ -683,6 +703,24 @@ function App() {
 
   if (showMiniGame) {
     return <StarCatchMiniGame onComplete={handleMiniGameComplete} lang={lang} />;
+  }
+
+  // Game Hub
+  if (activeGame === 'hub') {
+    return <GameHub lang={lang} onSelectGame={handleSelectGame} onBack={() => setActiveGame(null)} />;
+  }
+
+  // Individual Games
+  if (activeGame === 'puzzle') {
+    return <PuzzleGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
+  }
+
+  if (activeGame === 'drawing') {
+    return <DrawingPad lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
+  }
+
+  if (activeGame === 'memory') {
+    return <MemoryGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
   }
 
   // Map View
@@ -765,6 +803,9 @@ function App() {
               {room.icon} {t.rooms[room.key]}
             </button>
           ))}
+          <button className="outside-btn games-btn" onClick={() => setActiveGame('hub')}>
+            🎮 {lang === 'it' ? 'Giochi' : 'Games'}
+          </button>
         </div>
 
         <p className="footer map-footer">{t.footer}</p>

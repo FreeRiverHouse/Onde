@@ -124,6 +124,7 @@ const ALLOWED_EMAILS = [
   "mattia@onde.la",
   "magmaticxr@gmail.com",
   "freeriverhouse@gmail.com",
+  "freeriverouse@gmail.com",
 ]
 
 export function isEmailWhitelisted(email: string): boolean {
