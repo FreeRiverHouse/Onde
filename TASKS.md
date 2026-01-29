@@ -185,8 +185,8 @@
 - **Notes**: Sun Tzu - pubblico dominio. Stile: Chinese ink wash + dramatic warfare
 
 ### [T026] Tao Te Ching illustrato EN
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
