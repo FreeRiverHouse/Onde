@@ -26,7 +26,10 @@ import {
   X,
   ChevronDown,
   ChevronUp,
-  Calendar
+  Calendar,
+  Sun,
+  Moon,
+  Monitor
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 
@@ -448,7 +451,7 @@ export default function BettingDashboard() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, theme, resolvedTheme } = useTheme();
   
   // Sync filters to URL
   useEffect(() => {
@@ -615,14 +618,28 @@ export default function BettingDashboard() {
   const ethChartData = [2950, 2980, 2960, 3010, 2990, 3020, 3000, 2995, 2999];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
+    <div className={`min-h-screen overflow-hidden transition-colors duration-300 ${
+      resolvedTheme === 'light' 
+        ? 'bg-slate-50 text-gray-900' 
+        : 'bg-[#0a0a0f] text-white'
+    }`}>
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[150px] animate-blob" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] animate-blob animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[150px] animate-blob animation-delay-4000" />
+        <div className={`absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] animate-blob ${
+          resolvedTheme === 'light' ? 'bg-purple-300/20' : 'bg-purple-500/10'
+        }`} />
+        <div className={`absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] animate-blob animation-delay-2000 ${
+          resolvedTheme === 'light' ? 'bg-cyan-300/20' : 'bg-cyan-500/10'
+        }`} />
+        <div className={`absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full blur-[150px] animate-blob animation-delay-4000 ${
+          resolvedTheme === 'light' ? 'bg-blue-300/20' : 'bg-blue-500/10'
+        }`} />
         {/* Grid overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        <div className={`absolute inset-0 bg-[size:50px_50px] ${
+          resolvedTheme === 'light' 
+            ? 'bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)]'
+            : 'bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]'
+        }`} />
       </div>
 
       <div className="relative z-10 p-4 md:p-8 max-w-[1600px] mx-auto">
@@ -654,6 +671,19 @@ export default function BettingDashboard() {
             <span className="text-gray-500 text-[10px] sm:text-xs font-mono">
               {lastRefresh.toLocaleTimeString()}
             </span>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 group"
+              title={`Theme: ${theme} (T)`}
+            >
+              {theme === 'system' ? (
+                <Monitor className="w-4 h-4 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+              ) : resolvedTheme === 'dark' ? (
+                <Moon className="w-4 h-4 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+              ) : (
+                <Sun className="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors" />
+              )}
+            </button>
             <button
               onClick={() => setShowShortcuts(true)}
               className="p-2 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300"

@@ -2065,12 +2065,13 @@
 - **Notes**: Check if memory/*.md files are older than 7 days. Alert Mattia to review and archive stale notes. Keep workspace tidy.
 
 ### [T371] Dark mode toggle for trading dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add dark/light mode toggle for /betting page. Persist preference in localStorage. Useful for late-night trading monitoring.
+- **Notes**: ✅ Added! Toggle button in header with Sun/Moon/Monitor icons for light/dark/system. Keyboard shortcut 'T'. Background, grid, and container adapt to theme. Persists in localStorage via ThemeProvider.
 
 ---
 
