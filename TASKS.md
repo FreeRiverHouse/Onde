@@ -2842,3 +2842,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Enhance game cards on /giochi with: 1) Subtle scale on hover (1.02x), 2) Shadow depth increase, 3) Icon wobble animation, 4) Smooth color transition on play button. Polish for better UX.
+
+### [T438] Cron job for historical volatility calculation
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T383]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ✅ Added! Cron: `0 9 * * 0` (Sundays 09:00 UTC, after OHLC cache + calibration check). Logs to scripts/historical-vol.log. Keeps data/ohlc/volatility-stats.json fresh weekly.
+
+### [T439] Auto-recalibrate model volatility assumptions
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T383], [T417]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Based on T383 finding (model overestimates vol), create script to: 1) Compare 30d realized vs assumed, 2) If >25% divergence, suggest or auto-update .env with new BTC_HOURLY_VOL/ETH_HOURLY_VOL. Requires restart to take effect. Currently: BTC 0.32% actual vs 0.5% assumed.
+
+### [T440] Volatility trend visualization on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T383]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add sparkline or chart to /betting showing 30d volatility trend for BTC/ETH. Read from data/ohlc/volatility-stats.json. Helps visualize if market vol is increasing/decreasing over time.
