@@ -1520,12 +1520,13 @@
 - **Notes**: PNG 256x256 per /public/house/agents/onde-bot.png. Stile: onda/surfista brother, colore arancione. Rinominato da Ondinho → Onde-bot.
 
 ### [T504] Connettere status Clawdinho a Clawdbot sessions reali
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T500]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: API che legge sessions_list da Clawdbot e aggiorna last_seen/status di Clawdinho
+- **Notes**: ✅ Script agent-heartbeat.sh + cron */5. Checks LaunchAgent status, sends heartbeat to /api/sync. FreeRiverHouse shows "online" if last_seen < 5min. ⚠️ Funziona quando migration 0005 è applicata (aggiunge Clawdinho a DB).
 
 ### [T505] Activity log live per ogni agente
 - **Status**: TODO
