@@ -845,6 +845,30 @@
 - **Priority**: P2
 - **Notes**: Creare versione USA di ChiedIAlo. Personaggi: Editore Capo + Pina Pennello per illustrazioni. Creare design personaggi.
 
+### [T239] Stop-loss Telegram notification
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T234]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Send Telegram alert when stop-loss triggers. Include ticker, entry/exit price, and loss amount.
+
+### [T240] Stop-loss performance tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T234]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track stop-loss metrics: how often triggered, average loss saved vs holding to expiry. Add to weekly report.
+
+### [T241] Configurable stop-loss threshold via env
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T234]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow STOP_LOSS_THRESHOLD to be set via environment variable for easy tuning without code change.
+
 ---
 
 *Ultimo aggiornamento: 2026-01-28 16:33 PST*
