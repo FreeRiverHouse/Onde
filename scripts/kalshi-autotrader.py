@@ -761,6 +761,20 @@ def trading_cycle(live_mode: bool = False):
     
     result = place_order(best["ticker"], best["side"], contracts, best["price"])
     
+    # Build trade reason explanation
+    momentum_dir = "bullish" if momentum > 0.005 else "bearish" if momentum < -0.005 else "neutral"
+    edge_pct = best["edge"] * 100
+    reason_parts = [f"{edge_pct:.1f}% edge"]
+    if momentum_dir != "neutral":
+        reason_parts.append(f"{momentum_dir} momentum ({momentum*100:+.1f}%)")
+    if sentiment < 30:
+        reason_parts.append(f"extreme fear ({sentiment})")
+    elif sentiment > 70:
+        reason_parts.append(f"extreme greed ({sentiment})")
+    if volatility > 0.03:
+        reason_parts.append(f"high vol ({volatility*100:.1f}%)")
+    trade_reason = " | ".join(reason_parts)
+    
     order = result.get("order", {})
     trade_log = {
         "side": best["side"],
@@ -773,7 +787,13 @@ def trading_cycle(live_mode: bool = False):
         "current_price": best.get("current"),
         "minutes_to_expiry": best.get("minutes_to_expiry"),
         "order_status": order.get("status", "unknown"),
-        "cost_cents": order.get("taker_fill_cost", 0)
+        "cost_cents": order.get("taker_fill_cost", 0),
+        # Context for why this trade was taken
+        "reason": trade_reason,
+        "momentum": round(momentum, 4),
+        "volatility": round(volatility, 4),
+        "sentiment": sentiment,
+        "asset": best.get("asset", "BTC")
     }
     
     if order.get("status") == "executed":

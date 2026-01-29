@@ -729,12 +729,13 @@
 - **Notes**: ✅ Added log_skip() function + SKIP_LOG_FILE constant. Logs to scripts/kalshi-skips.jsonl with: ticker, reason, edge, edge_needed, edge_gap, probabilities, strike, current_price, asset, minutes_to_expiry. Covers both low_edge_yes/no and expiry skips.
 
 ### [T225] Add trade entry reason field to trade logs
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include "reason" field in trade log entry explaining why this trade was taken (edge %, momentum direction, volatility context).
+- **Notes**: ✅ Added "reason" field + full context to trade_log. Reason includes: edge %, momentum direction (bullish/bearish/neutral), extreme sentiment, high volatility. Also logs momentum, volatility, sentiment values for post-trade analysis.
 
 ### [T226] Add JSON-LD structured data for books
 - **Status**: TODO
@@ -896,5 +897,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-28 16:53 PST*
+*Ultimo aggiornamento: 2026-01-28 16:54 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
