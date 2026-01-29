@@ -1331,12 +1331,13 @@
 - **Notes**: ✅ Added avgReturnCents to API (route.ts) + Avg Return card to /betting dashboard. Shows +/- per trade average.
 
 ### [T292] Timezone indicator on /health page
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show server timezone + current time on health page. Helps debug cron scheduling issues.
+- **Notes**: ✅ Added timezone info section showing: Cron TZ (UTC), user TZ, UTC time, local time. Helps debug cron scheduling.
 
 ### [T293] Trade confidence tracking (edge vs outcome)
 - **Status**: TODO

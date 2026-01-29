@@ -317,8 +317,41 @@ export default function HealthPage() {
           ))}
         </div>
         
+        {/* Timezone Info Section */}
+        <div className="mt-8 p-4 rounded-2xl border border-white/10 bg-white/5">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="text-white/40 text-sm">⏰ Cron Timezone</div>
+              <div className="text-emerald-400 font-mono text-sm font-bold">UTC</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-white/40 text-sm">🌍 Your Timezone</div>
+              <div className="text-white font-mono text-sm">
+                {Intl.DateTimeFormat().resolvedOptions().timeZone}
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-white/40 text-sm">🕐 UTC Now</div>
+              <div className="text-cyan-400 font-mono text-sm">
+                {new Date().toISOString().slice(11, 19)} UTC
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-white/40 text-sm">📍 Local Time</div>
+              <div className="text-white font-mono text-sm">
+                {new Date().toLocaleTimeString('en-US', { 
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: false
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Footer */}
-        <div className="mt-12 text-center text-white/30 text-sm">
+        <div className="mt-8 text-center text-white/30 text-sm">
           {lastUpdate && (
             <p>Last updated: {lastUpdate.toLocaleString()}</p>
           )}
