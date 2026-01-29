@@ -94,11 +94,31 @@ Microphone → Silero VAD → whisper.cpp → Text Output
          when speaking)
 ```
 
+## macOS Menu Bar App (NEW!)
+
+A native SwiftUI menu bar app is now available:
+
+```bash
+cd apps/whisperflow/WhisperFlowApp
+swift build -c release
+# Run the app
+.build/release/WhisperFlowApp
+```
+
+### Features
+- 🎯 **Menu bar icon** - Click to open transcription panel
+- ⌨️ **Global hotkey** - ⌘⇧T to toggle recording from anywhere
+- 📋 **One-click copy** - Copy transcription to clipboard
+- ⚙️ **Settings** - Language, VAD sensitivity, audio device
+
+### Note
+The app wraps the Python VAD script, so you still need the Python environment set up.
+
 ## Future Plans
 
-- [ ] macOS menu bar app (SwiftUI)
-- [ ] Global hotkey trigger
-- [ ] Copy to clipboard / overlay
+- [x] macOS menu bar app (SwiftUI) ✅
+- [x] Global hotkey trigger ✅
+- [ ] Copy to clipboard overlay
 - [ ] VR integration (Quest via Clawdbot)
 
 ## License

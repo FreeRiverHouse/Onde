@@ -1,0 +1,35 @@
+{
+  "": {
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/master.swiftdeps"
+  },
+  "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/Sources/WhisperFlowApp/GlobalHotkey.swift": {
+    "dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/GlobalHotkey.d",
+    "object": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/GlobalHotkey.swift.o",
+    "swiftmodule": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/GlobalHotkey~partial.swiftmodule",
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/GlobalHotkey.swiftdeps"
+  },
+  "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/Sources/WhisperFlowApp/MenuBarView.swift": {
+    "dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/MenuBarView.d",
+    "object": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/MenuBarView.swift.o",
+    "swiftmodule": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/MenuBarView~partial.swiftmodule",
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/MenuBarView.swiftdeps"
+  },
+  "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/Sources/WhisperFlowApp/SettingsView.swift": {
+    "dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/SettingsView.d",
+    "object": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/SettingsView.swiftdeps"
+  },
+  "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/Sources/WhisperFlowApp/TranscriptionManager.swift": {
+    "dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/TranscriptionManager.d",
+    "object": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/TranscriptionManager.swift.o",
+    "swiftmodule": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/TranscriptionManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/TranscriptionManager.swiftdeps"
+  },
+  "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/Sources/WhisperFlowApp/WhisperFlowApp.swift": {
+    "dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/WhisperFlowApp.d",
+    "object": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/WhisperFlowApp.swift.o",
+    "swiftmodule": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/WhisperFlowApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/mattia/Projects/Onde/apps/whisperflow/WhisperFlowApp/.build/arm64-apple-macosx/debug/WhisperFlowApp.build/WhisperFlowApp.swiftdeps"
+  }
+}

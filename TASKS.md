@@ -242,8 +242,9 @@
     - [x] CLI prototype with transcription
     - [x] Benchmark on M1 Pro
     - [x] Streaming mode with VAD ✅
-    - [ ] Menu bar app (macOS)
-    - [ ] Copy to clipboard / overlay
+    - [x] Menu bar app (macOS) ✅ (T434)
+    - [x] Global hotkey ⌘⇧T ✅ (T435)
+    - [ ] Copy to clipboard overlay (T436)
   - **Future (VR ready):**
     - [ ] Streaming ASR (while speaking)
     - [ ] Multi-language
@@ -251,20 +252,36 @@
   - Se funziona → rilasciare gratis/freemium
 
 ### [T434] WhisperFlow: Create macOS menu bar app (SwiftUI)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T411]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create native macOS menu bar app with SwiftUI. Features: icon in menu bar, click to start/stop recording, show transcription in dropdown, copy to clipboard button.
+- **Notes**: ✅ Created native SwiftUI menu bar app!
+  - **Location**: `apps/whisperflow/WhisperFlowApp/`
+  - **Features:**
+    - Menu bar icon with popover panel
+    - Start/Stop recording button
+    - Live transcription display
+    - Copy to clipboard + clear buttons
+    - Settings panel (language, VAD threshold, device)
+    - Integration with Python VAD backend
+  - **Build**: `cd WhisperFlowApp && swift build -c release`
+  - **Run**: `.build/release/WhisperFlowApp`
 
 ### [T435] WhisperFlow: Add global hotkey support
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Global keyboard shortcut (e.g., Cmd+Shift+T) to start/stop transcription from anywhere.
+- **Notes**: ✅ Global hotkey implemented!
+  - **Hotkey**: ⌘⇧T (Cmd+Shift+T)
+  - **Action**: Toggle recording from anywhere
+  - **Tech**: Carbon API (EventHotKey)
+  - Works even when app is in background
 
 ### [T436] WhisperFlow: Add text overlay mode
 - **Status**: TODO
@@ -273,6 +290,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Floating overlay window that shows transcription in real-time. Position adjustable, semi-transparent background.
+
+### [T437] WhisperFlow: Launch at Login option
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add "Launch at Login" toggle in Settings using ServiceManagement/SMAppService. Auto-start menu bar app on login.
+
+### [T438] WhisperFlow: Audio device hot-swap support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Listen for CoreAudio device changes. Auto-switch to new device when connected (e.g., AirPods). Show notification when device changes.
+
+### [T439] WhisperFlow: Export transcription history
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Save transcription history to file. Options: append to file, timestamp each entry, export formats (txt/md/json). Persist between sessions.
 
 ---
 
