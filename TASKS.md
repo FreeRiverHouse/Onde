@@ -1523,12 +1523,13 @@
 - **Notes**: ✅ Implemented! Volatility now classified into 5 buckets (very_low/low/normal/high/very_high). When trade placed during very_high vol (>2% hourly range), writes kalshi-extreme-vol.alert with full trade details. 1h cooldown. Added to HEARTBEAT.md pickup.
 
 ### [T295] Weekend vs weekday performance analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare win rate/PnL by day of week. Crypto trades 24/7 but patterns may differ weekend vs weekday.
+- **Notes**: ✅ Script: analyze-weekend-weekday.py. Analyzes by day of week, compares weekend vs weekday win rate/PnL/ROI. Shows day-by-day breakdown + actionable insights. Saves to data/trading/weekend-weekday-analysis.json. V1 data skewed (all Wed). V2 awaiting trades.
 
 ---
 
@@ -2587,7 +2588,31 @@
 - **Priority**: P3
 - **Notes**: Add latency metrics section to /health page. Show: avg latency per endpoint category, slowest endpoints, error rates, latency trend sparklines. Read from kalshi-latency-profile.json via API.
 
+### [T410] Holiday trading performance analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T295]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend weekend analysis to US market holidays (Christmas, Thanksgiving, etc). Lower liquidity may affect crypto volatility patterns. Script: analyze-holiday-trading.py
+
+### [T411] Time-of-day heatmap visualization on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T249]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visual heatmap (7 days × 24 hours grid) showing win rate by day/hour. Color-coded: green=profitable hours, red=losing hours. Helps identify optimal trading windows.
+
+### [T412] Auto-detect optimal trading hours from historical data
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T249], [T295]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to recommend trading windows based on historical performance. Output: suggested active hours, days to avoid, confidence intervals. Could feed into autotrader to pause during historically bad times.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 16:20 UTC*
+*Ultimo aggiornamento: 2026-01-30 17:00 UTC*
 *Sistema coordinamento: vedi TASK-RULES.md*
