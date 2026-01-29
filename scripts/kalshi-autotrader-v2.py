@@ -96,6 +96,11 @@ MOMENTUM_STATE_FILE = "scripts/kalshi-momentum-state.json"
 MOMENTUM_ALERT_FILE = "scripts/kalshi-momentum-change.alert"
 MOMENTUM_ALERT_COOLDOWN = 1800  # 30 min cooldown (more frequent than regime)
 
+# Whipsaw detection (T393) - momentum flip twice in 24h
+WHIPSAW_ALERT_FILE = "scripts/kalshi-whipsaw.alert"
+WHIPSAW_ALERT_COOLDOWN = 7200  # 2 hour cooldown (rare event)
+WHIPSAW_WINDOW_HOURS = 24  # Look for 2 flips within this window
+
 # Latency alerting
 LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
 
@@ -474,6 +479,110 @@ def write_momentum_alert(changes: list):
     save_momentum_state(state)
     
     print(f"   📢 Momentum change alert written to {MOMENTUM_ALERT_FILE}")
+
+
+# ============== WHIPSAW DETECTION (T393) ==============
+
+def check_whipsaw(changes: list):
+    """
+    Detect whipsaw pattern: momentum flips direction twice within 24h.
+    
+    Whipsaw indicates choppy market conditions - consider reducing position sizes
+    or pausing trading for that asset.
+    
+    Args:
+        changes: List of (asset, old_dir, new_dir, details) tuples from current check
+    """
+    if not changes:
+        return
+    
+    state = load_momentum_state()
+    now = time.time()
+    
+    # Initialize history if not present
+    if "direction_history" not in state:
+        state["direction_history"] = {"btc": [], "eth": []}
+    
+    whipsaws_detected = []
+    window_seconds = WHIPSAW_WINDOW_HOURS * 3600
+    
+    for asset, old_dir, new_dir, details in changes:
+        asset_lower = asset.lower()
+        history = state["direction_history"].get(asset_lower, [])
+        
+        # Add current change to history
+        history.append({
+            "timestamp": now,
+            "old": old_dir,
+            "new": new_dir
+        })
+        
+        # Clean old entries (older than window)
+        history = [h for h in history if now - h["timestamp"] < window_seconds]
+        state["direction_history"][asset_lower] = history
+        
+        # Check for whipsaw: 2+ significant flips in window
+        # Look for pattern: bullish→bearish→bullish or bearish→bullish→bearish
+        if len(history) >= 2:
+            # Count direction flips (not just changes - actual reversals)
+            flip_count = 0
+            for i, change in enumerate(history):
+                if change["old"] in ("bullish", "bearish") and change["new"] in ("bullish", "bearish"):
+                    # This is a significant flip (not involving neutral)
+                    flip_count += 1
+            
+            if flip_count >= 2:
+                # Whipsaw detected!
+                hours_window = (now - history[0]["timestamp"]) / 3600
+                whipsaws_detected.append({
+                    "asset": asset,
+                    "flips": flip_count,
+                    "window_hours": hours_window,
+                    "history": history[-3:],  # Last 3 changes
+                    "latest_direction": new_dir
+                })
+    
+    save_momentum_state(state)
+    
+    # Write alert if whipsaw detected
+    if whipsaws_detected:
+        write_whipsaw_alert(whipsaws_detected)
+
+
+def write_whipsaw_alert(whipsaws: list):
+    """Write whipsaw alert file for heartbeat pickup."""
+    state = load_momentum_state()
+    now = time.time()
+    
+    # Check cooldown
+    if now - state.get("last_whipsaw_alert", 0) < WHIPSAW_ALERT_COOLDOWN:
+        remaining = int((WHIPSAW_ALERT_COOLDOWN - (now - state["last_whipsaw_alert"])) / 60)
+        print(f"   ⏳ Whipsaw alert on cooldown ({remaining}min left)")
+        return
+    
+    alert_lines = ["⚠️ WHIPSAW DETECTED - CHOPPY MARKET\n"]
+    
+    for ws in whipsaws:
+        alert_lines.append(f"🔀 {ws['asset']}: {ws['flips']} direction flips in {ws['window_hours']:.1f}h")
+        alert_lines.append(f"   Current direction: {ws['latest_direction']}")
+        alert_lines.append(f"   Recent changes: {' → '.join(h['new'] for h in ws['history'])}")
+        alert_lines.append("")
+    
+    alert_lines.append("💡 RECOMMENDATION:")
+    alert_lines.append("   • Reduce position sizes for affected assets")
+    alert_lines.append("   • Consider pausing trading until momentum stabilizes")
+    alert_lines.append("   • Higher MIN_EDGE may be appropriate")
+    alert_lines.append("")
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    
+    with open(WHIPSAW_ALERT_FILE, "w") as f:
+        f.write("\n".join(alert_lines))
+    
+    # Update last alert time
+    state["last_whipsaw_alert"] = now
+    save_momentum_state(state)
+    
+    print(f"   ⚠️ Whipsaw alert written to {WHIPSAW_ALERT_FILE}")
 
 
 # ============== FULL MOMENTUM ALIGNMENT ALERTING (T301) ==============
@@ -2202,6 +2311,8 @@ def run_cycle():
     if momentum_changes:
         print(f"📊 MOMENTUM FLIP: {', '.join([f'{a}: {old}→{new}' for a, old, new, _ in momentum_changes])}")
         write_momentum_alert(momentum_changes)
+        # Check for whipsaw pattern (T393) - 2+ flips in 24h
+        check_whipsaw(momentum_changes)
     
     opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data)
     

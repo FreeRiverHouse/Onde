@@ -2547,12 +2547,13 @@
 - **Notes**: Track when momentum calc uses cached vs live data. Compare accuracy of resulting trades. Validates that cached OHLC doesn't degrade performance.
 
 ### [T393] Whipsaw detection (momentum flip twice in same day)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T259]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when momentum flips direction twice within 24h (bullish→bearish→bullish or vice versa). Indicates choppy market conditions - consider reducing position sizes.
+- **Notes**: ✅ Implemented! check_whipsaw() tracks direction_history in momentum state, detects 2+ bullish↔bearish flips within 24h. Alert file: kalshi-whipsaw.alert (2h cooldown). Recommends reduced position sizes for choppy conditions. Added to HEARTBEAT.md pickup.
 
 ### [T394] Analyze win rate by momentum alignment status
 - **Status**: TODO
