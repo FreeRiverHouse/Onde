@@ -1,0 +1,31 @@
+#!/bin/bash
+# Memory search wrapper - semantic search over Clawdbot memory files
+# Usage: msearch "your query" [limit]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# Suppress all model loading noise
+export TRANSFORMERS_VERBOSITY=error
+export HF_HUB_DISABLE_PROGRESS_BARS=1
+
+source venv/bin/activate 2>/dev/null || {
+    echo "Setting up environment..."
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -q lancedb sentence-transformers pyarrow
+}
+
+if [ "$1" == "index" ] || [ "$1" == "reindex" ]; then
+    python memory_vectordb.py index 2>&1 | grep -v "^Loading\|^Warning\|UNEXPECTED\|embeddings.position_ids\|^Batches:"
+elif [ "$1" == "status" ]; then
+    python memory_vectordb.py status 2>&1 | grep -v "DeprecationWarning"
+elif [ -z "$1" ]; then
+    echo "Usage: msearch <query> [limit]"
+    echo "       msearch index    - Reindex memory files"
+    echo "       msearch status   - Show DB status"
+else
+    LIMIT="${2:-5}"
+    # Filter out all the model loading noise
+    python memory_vectordb.py search "$1" 2>&1 | grep -v "^Loading\|^Warning\|^BertModel\|^Key\|^Notes:\|UNEXPECTED\|embeddings.position_ids\|DeprecationWarning\|^Batches:\|^---"
+fi
