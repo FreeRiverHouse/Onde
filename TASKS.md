@@ -6,6 +6,34 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:10)
+
+### [T428] Add alert summary to /health page
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show recent alerts history on /health. Read from data/finetuning/*.jsonl to show momentum divergences, regime changes, etc. Display last 24h of alerts with timestamps.
+
+### [T429] Autotrader v2 trade count dashboard widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T277]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use the GitHub Gist stats (T277) to show v2 trade count on onde.surf. Currently only shows historical v1 data. Gist already contains fresh stats.
+
+### [T430] Test visual baselines need auto-commit when updated
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T417]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When running `--update-baseline`, auto-commit new baseline images to git. Currently requires manual commit. Script: visual-regression-tests.py.
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (13:07)
 
 ### [T425] Use LastUpdatedIndicator in TestStatusPanel
