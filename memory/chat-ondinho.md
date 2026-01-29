@@ -123,3 +123,7 @@
 ### 21:38 PST [msg:194]
 > Never stop amico
 
+
+### 21:40 PST [msg:197]
+> Non devi lavorare per forza solo a libri comunque
+

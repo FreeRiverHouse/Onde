@@ -289,12 +289,13 @@
 - **Notes**: ✅ Added /api/trading/stats API + Trading Performance section in /betting with win rate, PnL, today stats, and recent trades grid.
 
 ### [T083] Trade log cleanup: rimuovere duplicati per stesso ticker/hour
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @ondinho
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Multiple trades per stesso contratto (es. 4 trades T88499.99@04) - consolidare o tenere separati?
+- **Notes**: ✅ Script `scripts/analyze-trade-duplicates.py` creato. 41 trades → 21 unique combos → 11 duplicati. Raccomandazione: KEEP SEPARATE (mostra frequenza trading). Script può generare summaries se serve.
 
 ### [T084] API endpoint per trade stats JSON
 - **Status**: DONE
