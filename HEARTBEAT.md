@@ -6,38 +6,44 @@
 **PRENDI UN TASK DALLA LISTA E COMPLETALO!**
 
 ## 📊 ALERT FILES DA CONTROLLARE
-- `scripts/kalshi-daily-report.alert` → Se esiste, leggi e manda a Mattia via Telegram, poi elimina il file
-- `scripts/kalshi-low-winrate.alert` → Se esiste, leggi e manda alert a Mattia, poi elimina
-- `scripts/kalshi-autotrader-crash.alert` → Se esiste, URGENTE! Autotrader crashato. Manda alert, poi elimina
-- `scripts/watchdog-stale.alert` → Se esiste, watchdog cron non funziona! Manda alert, poi elimina
-- `scripts/kalshi-weekly-report.alert` → Se esiste, weekly report PDF pronto. Manda notifica, poi elimina
-- `scripts/kalshi-stop-loss.alert` → Se esiste, STOP-LOSS eseguito! Leggi message dal JSON, manda a Mattia, poi elimina
-- `scripts/kalshi-regime-change.alert` → Se esiste, regime di mercato cambiato! Manda info a Mattia, poi elimina
-- `scripts/kalshi-momentum-change.alert` → Se esiste, momentum flipped (bullish↔bearish)! Manda info a Mattia, poi elimina
-- `scripts/kalshi-circuit-breaker.alert` → Se esiste, CIRCUIT BREAKER! Trading pausato per consecutive losses. Manda alert urgente, poi elimina
-- `scripts/kalshi-latency.alert` → Se esiste, latenza ordini troppo alta (>2s)! Possibile problema API/rete. Manda alert, poi elimina
-- `scripts/kalshi-streak-record.alert` → Se esiste, nuovo record streak (win o loss)! Celebra i win, avvisa dei loss. Manda messaggio, poi elimina
-- `scripts/ohlc-cache-stale.alert` → Se esiste, OHLC cache (data/ohlc/) è stale >24h! Cron cache-ohlc-data.py non ha aggiornato. Manda alert, poi elimina
-- `scripts/kalshi-extreme-vol.alert` → Se esiste, trade piazzato durante EXTREME volatility (>2% hourly range)! Manda alert a Mattia con dettagli, poi elimina
-- `scripts/kalshi-momentum-aligned.alert` → Se esiste, FULL MOMENTUM ALIGNMENT! Tutti i timeframe (1h/4h/24h) concordano = segnale alta convinzione. Manda alert, poi elimina
-- `scripts/kalshi-whipsaw.alert` → Se esiste, WHIPSAW DETECTED! Momentum ha flippato 2+ volte in 24h = mercato choppy. Consiglia ridurre size. Manda alert, poi elimina
-- `scripts/kalshi-vol-calibration.alert` → Se esiste, volatilità realizzata diverge da assunzioni >20%! Consiglia aggiornare BTC/ETH_HOURLY_VOL. Manda alert, poi elimina
-- `scripts/memory-stale.alert` → Se esiste, file memory stale >7 giorni! Ricorda a Mattia di rivedere/archiviare. Manda alert, poi elimina
-- `scripts/kalshi-rate-limit.alert` → Se esiste, API rate limit vicino alla soglia (>80%)! Manda alert a Mattia con dettagli, poi elimina
-- `scripts/onde-surf-auth-broken.alert` → Se esiste, ONDE.SURF AUTH BROKEN! Dashboard esposta pubblicamente senza login! Manda alert URGENTE a Mattia, poi elimina
-- `scripts/kalshi-health.alert` → Se esiste, autotrader down >30min o win rate <30% con 5+ trade oggi! Manda alert a Mattia, poi elimina
-- `scripts/kalshi-momentum-reversion.alert` → Se esiste, REVERSION SIGNAL! Extended move (>2% in 4h) suggerisce mean reversion. Opportunità contrarian. Manda alert a Mattia, poi elimina
-- `scripts/kalshi-momentum-divergence.alert` → Se esiste, DIVERGENCE SIGNAL! Prezzo e momentum discordano (es: prezzo nuovo minimo ma RSI sale). Classico segnale di inversione. Manda alert a Mattia, poi elimina
-- `scripts/kalshi-vol-recalibration.alert` → Se esiste, volatilità modello necessita recalibrazione! Mostra raccomandazioni e chiedi se applicare. Manda info a Mattia, poi elimina
-- `scripts/kalshi-price-spread.alert` → Se esiste, PRICE SPREAD ANOMALY! Divergenza prezzi >1% tra exchange (arbitraggio o problema). Manda alert con dettagli, poi elimina
-- `scripts/kalshi-vol-recalibration.alert` → Se esiste, volatilità modello necessita recalibrazione! Mostra raccomandazioni e chiedi se applicare. Manda info a Mattia, poi elimina
-- `scripts/kalshi-api-error.alert` → Se esiste, HIGH API ERROR RATE (>10%)! Uno o più API (Kalshi/CoinGecko/Binance/Coinbase) ha error rate alto. Possibile downtime o rate limit. Manda alert, poi elimina
-- `scripts/kalshi-api-error-weekly.alert` → Se esiste, WEEKLY API ERROR REPORT! Review settimanale degli error rate API (soglia 5%). Manda report a Mattia, poi elimina
-- `scripts/onde-la-down.alert` → Se esiste, ONDE.LA DOWN! Un endpoint critico non risponde. Manda alert URGENTE, poi elimina
-- `scripts/test-failure.alert` → Se esiste, DAILY TEST SUITE FAILED! Uno o più test automatici falliti. Manda alert con dettagli, poi elimina
-- `scripts/ssl-expiring.alert` → Se esiste, SSL certificate in scadenza (<30 giorni)! Manda alert, poi elimina
-- `scripts/ssl-critical.alert` → Se esiste, SSL certificate CRITICO (<7 giorni)! Manda alert URGENTE, poi elimina
-- `scripts/broken-links.alert` → Se esiste, link rotti rilevati su onde.la! Manda alert con dettagli, poi elimina
+
+### 🚨 ALERT CRITICI → Manda a Mattia su Telegram
+- `scripts/kalshi-autotrader-crash.alert` → URGENTE! Autotrader crashato. Manda alert, poi elimina
+- `scripts/kalshi-circuit-breaker.alert` → CIRCUIT BREAKER! Trading pausato. Manda alert urgente, poi elimina
+- `scripts/kalshi-stop-loss.alert` → STOP-LOSS eseguito! Leggi message, manda a Mattia, poi elimina
+- `scripts/kalshi-health.alert` → Autotrader down >30min o win rate <30%! Manda alert, poi elimina
+- `scripts/onde-surf-auth-broken.alert` → AUTH BROKEN! Dashboard esposta! Manda alert URGENTE, poi elimina
+- `scripts/onde-la-down.alert` → ONDE.LA DOWN! Manda alert URGENTE, poi elimina
+- `scripts/ssl-critical.alert` → SSL CRITICO (<7 giorni)! Manda alert URGENTE, poi elimina
+- `scripts/watchdog-stale.alert` → Watchdog cron non funziona! Manda alert, poi elimina
+
+### 📈 ALERT OPERATIVI → Manda a Mattia su Telegram
+- `scripts/kalshi-daily-report.alert` → Daily report pronto. Manda a Mattia, poi elimina
+- `scripts/kalshi-weekly-report.alert` → Weekly report PDF pronto. Manda notifica, poi elimina
+- `scripts/kalshi-low-winrate.alert` → Win rate basso. Manda alert, poi elimina
+- `scripts/kalshi-streak-record.alert` → Record streak! Celebra/avvisa, poi elimina
+- `scripts/kalshi-latency.alert` → Latenza ordini alta (>2s)! Manda alert, poi elimina
+- `scripts/kalshi-rate-limit.alert` → API rate limit alto (>80%)! Manda alert, poi elimina
+- `scripts/kalshi-api-error.alert` → HIGH API ERROR RATE (>10%)! Manda alert, poi elimina
+- `scripts/kalshi-api-error-weekly.alert` → Weekly API error report. Manda report, poi elimina
+- `scripts/ohlc-cache-stale.alert` → OHLC cache stale >24h! Manda alert, poi elimina
+- `scripts/memory-stale.alert` → Memory files stale >7 giorni! Manda alert, poi elimina
+- `scripts/test-failure.alert` → Test suite failed! Manda alert, poi elimina
+- `scripts/ssl-expiring.alert` → SSL in scadenza (<30 giorni)! Manda alert, poi elimina
+- `scripts/broken-links.alert` → Link rotti su onde.la! Manda alert, poi elimina
+
+### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
+Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
+- `scripts/kalshi-momentum-divergence.alert` → Salva in `data/finetuning/momentum-divergence.jsonl`, poi elimina
+- `scripts/kalshi-momentum-change.alert` → Salva in `data/finetuning/momentum-change.jsonl`, poi elimina
+- `scripts/kalshi-momentum-aligned.alert` → Salva in `data/finetuning/momentum-aligned.jsonl`, poi elimina
+- `scripts/kalshi-momentum-reversion.alert` → Salva in `data/finetuning/momentum-reversion.jsonl`, poi elimina
+- `scripts/kalshi-regime-change.alert` → Salva in `data/finetuning/regime-change.jsonl`, poi elimina
+- `scripts/kalshi-whipsaw.alert` → Salva in `data/finetuning/whipsaw.jsonl`, poi elimina
+- `scripts/kalshi-vol-calibration.alert` → Salva in `data/finetuning/vol-calibration.jsonl`, poi elimina
+- `scripts/kalshi-vol-recalibration.alert` → Salva in `data/finetuning/vol-recalibration.jsonl`, poi elimina
+- `scripts/kalshi-extreme-vol.alert` → Salva in `data/finetuning/extreme-vol.jsonl`, poi elimina
+- `scripts/kalshi-price-spread.alert` → Salva in `data/finetuning/price-spread.jsonl`, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
