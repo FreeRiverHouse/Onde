@@ -3648,12 +3648,13 @@
 - **Notes**: Script: detect-latency-regression.py. Compare current avg latency vs 7-day rolling baseline. Alert when avg increases by >50% or p95 exceeds 2s. Alert file: kalshi-latency-regression.alert. Helps catch API degradation early. 6h cooldown.
 
 ### [T627] Autotrader health status on /health page
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T398], [T620]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Display healthStatus from trading stats gist on /health page. Show: running indicator, cycle count, trades today, win rate today, circuit breaker status, last cycle time. Complements API latency section with trading status.
+- **Notes**: ✅ Implemented! Added Autotrader Status section to /health page showing: running indicator with pulse animation, status badge (healthy/warning/error), circuit breaker alert, stats grid (trades today/24h, win rate, PnL, consecutive losses, cycles), issues list, and last cycle time. Data from trading stats gist healthStatus field. Graceful fallback when no data available.
 
 ### [T628] API error rate section on /health page
 - **Status**: TODO

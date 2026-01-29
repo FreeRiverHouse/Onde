@@ -62,6 +62,27 @@ interface ApiLatencyData {
   };
 }
 
+interface AutotraderHealth {
+  is_running: boolean;
+  last_cycle_time?: string;
+  status: 'healthy' | 'warning' | 'error' | 'unknown';
+  issues?: string[];
+  trades_24h?: number;
+  cycle_count?: number;
+  trades_today?: number;
+  today_won?: number;
+  today_lost?: number;
+  today_pending?: number;
+  win_rate_today?: number;
+  pnl_today_cents?: number;
+  circuit_breaker_active?: boolean;
+  consecutive_losses?: number;
+  dry_run?: boolean;
+  log_active?: boolean;
+  log_age_minutes?: number;
+  format?: string;
+}
+
 interface NetworkStatus {
   online: boolean;
   effectiveType?: string;
@@ -104,6 +125,7 @@ export default function HealthPage() {
   const [webVitals, setWebVitals] = useState<WebVitalsMetric[]>([]);
   const [apiLatency, setApiLatency] = useState<ApiLatencyData | null>(null);
   const [apiLatencyLoading, setApiLatencyLoading] = useState(true);
+  const [autotraderHealth, setAutotraderHealth] = useState<AutotraderHealth | null>(null);
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -278,8 +300,8 @@ export default function HealthPage() {
     }
   };
 
-  // Fetch API latency from trading stats gist (T398)
-  const fetchApiLatency = async () => {
+  // Fetch API latency and autotrader health from trading stats gist (T398, T627)
+  const fetchTradingStats = async () => {
     setApiLatencyLoading(true);
     try {
       const gistUrl = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
@@ -288,8 +310,11 @@ export default function HealthPage() {
       if (data.apiLatency) {
         setApiLatency(data.apiLatency);
       }
+      if (data.healthStatus) {
+        setAutotraderHealth(data.healthStatus);
+      }
     } catch (error) {
-      console.error('Failed to fetch API latency:', error);
+      console.error('Failed to fetch trading stats:', error);
     } finally {
       setApiLatencyLoading(false);
     }
@@ -302,7 +327,7 @@ export default function HealthPage() {
     const [results] = await Promise.all([
       Promise.all(SERVICES_TO_CHECK.map(({ name, url }) => checkService(name, url))),
       fetchCronHealth(),
-      fetchApiLatency()
+      fetchTradingStats()
     ]);
     
     setServices(results);
@@ -482,6 +507,133 @@ export default function HealthPage() {
                   </div>
                 </div>
               ))
+            )}
+          </div>
+        </div>
+
+        {/* Autotrader Health Status (T627) */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">🤖 Autotrader Status</h2>
+          <div className={`rounded-lg border p-4 ${
+            !autotraderHealth ? 'bg-slate-500/10 border-slate-500/30' :
+            autotraderHealth.status === 'healthy' ? 'bg-green-500/10 border-green-500/30' :
+            autotraderHealth.status === 'warning' ? 'bg-yellow-500/10 border-yellow-500/30' :
+            autotraderHealth.status === 'error' ? 'bg-red-500/10 border-red-500/30' :
+            'bg-slate-500/10 border-slate-500/30'
+          }`}>
+            {!autotraderHealth ? (
+              <div className="text-slate-400 text-center py-4">
+                <div>🤖 No autotrader data available</div>
+                <div className="text-xs mt-2">Health status will appear when autotrader is running</div>
+              </div>
+            ) : (
+              <>
+                {/* Status Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-4 h-4 rounded-full ${
+                      autotraderHealth.is_running ? 'bg-green-500 animate-pulse' : 'bg-red-500'
+                    }`} />
+                    <div>
+                      <div className="text-white font-medium">
+                        {autotraderHealth.is_running ? 'Running' : 'Stopped'}
+                        {autotraderHealth.dry_run && ' (Dry Run 🧪)'}
+                      </div>
+                      <div className={`text-sm ${
+                        autotraderHealth.status === 'healthy' ? 'text-green-400' :
+                        autotraderHealth.status === 'warning' ? 'text-yellow-400' :
+                        autotraderHealth.status === 'error' ? 'text-red-400' :
+                        'text-slate-400'
+                      }`}>
+                        {autotraderHealth.status === 'healthy' ? '✅ Healthy' :
+                         autotraderHealth.status === 'warning' ? '⚠️ Warning' :
+                         autotraderHealth.status === 'error' ? '❌ Error' :
+                         '❓ Unknown'}
+                      </div>
+                    </div>
+                  </div>
+                  {autotraderHealth.circuit_breaker_active && (
+                    <div className="px-3 py-1 bg-red-500/20 border border-red-500/40 rounded-lg">
+                      <span className="text-red-400 text-sm font-medium">🛑 Circuit Breaker Active</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  {autotraderHealth.trades_today !== undefined && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">Trades Today</div>
+                      <div className="text-xl font-bold text-white">{autotraderHealth.trades_today}</div>
+                    </div>
+                  )}
+                  {autotraderHealth.trades_24h !== undefined && !autotraderHealth.trades_today && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">Trades (24h)</div>
+                      <div className="text-xl font-bold text-white">{autotraderHealth.trades_24h}</div>
+                    </div>
+                  )}
+                  {autotraderHealth.win_rate_today !== undefined && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">Win Rate Today</div>
+                      <div className={`text-xl font-bold ${
+                        autotraderHealth.win_rate_today >= 50 ? 'text-green-400' :
+                        autotraderHealth.win_rate_today >= 40 ? 'text-yellow-400' :
+                        'text-red-400'
+                      }`}>
+                        {autotraderHealth.win_rate_today.toFixed(0)}%
+                      </div>
+                    </div>
+                  )}
+                  {autotraderHealth.pnl_today_cents !== undefined && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">PnL Today</div>
+                      <div className={`text-xl font-bold ${
+                        autotraderHealth.pnl_today_cents >= 0 ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {autotraderHealth.pnl_today_cents >= 0 ? '+' : ''}${(autotraderHealth.pnl_today_cents / 100).toFixed(2)}
+                      </div>
+                    </div>
+                  )}
+                  {autotraderHealth.consecutive_losses !== undefined && autotraderHealth.consecutive_losses > 0 && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">Consecutive Losses</div>
+                      <div className={`text-xl font-bold ${
+                        autotraderHealth.consecutive_losses >= 5 ? 'text-red-400' :
+                        autotraderHealth.consecutive_losses >= 3 ? 'text-yellow-400' :
+                        'text-slate-300'
+                      }`}>
+                        {autotraderHealth.consecutive_losses}
+                      </div>
+                    </div>
+                  )}
+                  {autotraderHealth.cycle_count !== undefined && (
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="text-slate-400 text-xs mb-1">Cycles</div>
+                      <div className="text-xl font-bold text-white">{autotraderHealth.cycle_count.toLocaleString()}</div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Issues */}
+                {autotraderHealth.issues && autotraderHealth.issues.length > 0 && (
+                  <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 mb-3">
+                    <div className="text-yellow-400 text-xs font-medium mb-1">⚠️ Issues</div>
+                    <ul className="text-yellow-300 text-sm space-y-1">
+                      {autotraderHealth.issues.map((issue, i) => (
+                        <li key={i}>• {issue}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Last Cycle Time */}
+                {autotraderHealth.last_cycle_time && (
+                  <div className="text-xs text-slate-500 text-center pt-2 border-t border-slate-700">
+                    Last cycle: {new Date(autotraderHealth.last_cycle_time).toLocaleString()}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
