@@ -965,7 +965,31 @@
 - **Priority**: P3
 - **Notes**: ✅ Script: memory-search.sh. Case-insensitive grep with context. Searches MEMORY.md, memory/*.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md.
 
+### [T252] Auto-cleanup stale alert files > 24h
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Heartbeat might miss alerts if offline. Add cleanup script for alert files older than 24h to avoid stale notifications.
+
+### [T253] Win rate by market type (hourly vs daily)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if hourly contracts (KXBTCD) have different win rate than longer-term. Might inform which markets to focus on.
+
+### [T254] Dashboard last heartbeat timestamp
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show when clawd last checked in on /health page. Helps verify bot is alive without checking processes.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-28 17:15 PST*
+*Ultimo aggiornamento: 2026-01-28 17:17 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
