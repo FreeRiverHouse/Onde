@@ -3457,3 +3457,27 @@
 - **Priority**: P3
 - **Notes**: Add correlation section to kalshi-weekly-report.py: avg correlation over week, any divergence events, comparison to historical norm. Helps understand if market structure is changing.
 
+### [T605] Dashboard fetch trading stats from Gist API
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T277]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Static Cloudflare Pages export can't read local files. T277 pushes stats to Gist hourly. Update /betting dashboard to fetch from https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json for live data instead of showing mock/stale data.
+
+### [T606] Document autotrader-v2 trading model
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create docs/trading/AUTOTRADER-V2-MODEL.md explaining: 1) Black-Scholes inspired probability model, 2) Momentum integration (1h/4h/24h composite), 3) Market regime detection logic, 4) Dynamic MIN_EDGE thresholds, 5) Kelly criterion position sizing, 6) Stop-loss mechanics, 7) Circuit breaker logic. Helps future debugging and optimization.
+
+### [T607] Archive old memory files (>30 days)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create scripts/archive-old-memory.sh to move memory/YYYY-MM-DD.md files older than 30 days to memory/archive/. Keeps workspace clean while preserving history. Add cron job (monthly, 1st at 04:00 UTC).
+
