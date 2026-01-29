@@ -1919,12 +1919,13 @@
 - **Notes**: Add swipe gestures: pull-to-refresh, swipe down on modal to close. Use @use-gesture/react or native touch events.
 
 ### [T317] Position size display in Kalshi positions list
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show contract count and cost basis per position. Calculate unrealized PnL based on current market price vs entry price.
+- **Notes**: ✅ Enhanced position cards! Now shows: 1) Asset type indicator (BTC/ETH), 2) YES/NO side (clearer than LONG/SHORT), 3) Contracts count with per-contract cost in cents, 4) PnL if available, 5) Max win potential calculation. Better visual hierarchy with grouped info.
 
 ### [T318] Offline indicator UI for PWA
 - **Status**: DONE
@@ -3340,4 +3341,28 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Currently both pages have duplicate book arrays. Create shared books.ts data file with all book info. Import in both pages. Single source of truth. Easier to add new books and maintain consistency.
+
+### [T492] Portfolio value history chart
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T277]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show historical portfolio value over time (7d/30d/all). Use trading snapshots data to calculate cumulative value at each point. Line chart with area fill. Includes cash + open positions value.
+
+### [T493] Position risk indicator (exposure % of portfolio)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T317]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add risk indicator to position cards showing exposure as percentage of total portfolio. Color coding: green (<10%), yellow (10-25%), red (>25%). Helps visualize concentration risk.
+
+### [T494] Trade alert sound effects
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T051]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Play subtle sound when new trade placed or position settled. Use existing useSoundManager pattern. Coin sound for wins, error sound for losses. Toggle in settings. Works in browser tab even when not focused.
 

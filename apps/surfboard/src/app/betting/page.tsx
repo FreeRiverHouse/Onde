@@ -1585,29 +1585,52 @@ export default function BettingDashboard() {
 
               <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                 {kalshiStatus?.positions && kalshiStatus.positions.length > 0 ? (
-                  kalshiStatus.positions.map((pos, i) => (
-                    <div 
-                      key={i}
-                      className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-cyan-500/30 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className={`w-2 h-2 rounded-full ${pos.position >= 0 ? 'bg-emerald-400' : 'bg-red-400'} shadow-lg`} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-mono text-gray-300 truncate group-hover:text-white transition-colors">
-                            {pos.ticker.replace('KXBTCD-', '').replace('KXETHD-', '')}
+                  kalshiStatus.positions.map((pos, i) => {
+                    const contracts = Math.abs(pos.position);
+                    const perContractCost = contracts > 0 ? Math.abs(pos.exposure) / contracts : 0;
+                    const isYes = pos.position > 0;
+                    const assetType = pos.ticker.includes('KXETHD') ? 'ETH' : 'BTC';
+                    
+                    return (
+                      <div 
+                        key={i}
+                        className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-cyan-500/30 transition-all duration-300"
+                      >
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <div className="flex flex-col items-center gap-0.5">
+                            <div className={`w-2 h-2 rounded-full ${isYes ? 'bg-emerald-400' : 'bg-red-400'} shadow-lg`} />
+                            <span className="text-[9px] font-bold text-gray-600">{assetType}</span>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-mono text-gray-300 truncate group-hover:text-white transition-colors">
+                              {pos.ticker.replace('KXBTCD-', '').replace('KXETHD-', '')}
+                            </p>
+                            <div className="flex items-center gap-2 text-xs text-gray-600">
+                              <span className={`font-semibold ${isYes ? 'text-emerald-500/70' : 'text-red-500/70'}`}>
+                                {isYes ? 'YES' : 'NO'}
+                              </span>
+                              <span>×{contracts}</span>
+                              <span className="text-gray-700">@</span>
+                              <span className="text-gray-500">{perContractCost.toFixed(0)}¢</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right ml-4 flex flex-col items-end">
+                          <p className={`font-mono font-bold ${pos.exposure >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                            ${Math.abs(pos.exposure).toFixed(2)}
                           </p>
-                          <p className="text-xs text-gray-600">
-                            {pos.position > 0 ? 'LONG' : 'SHORT'} {Math.abs(pos.position)} contracts
+                          {pos.pnl !== undefined && pos.pnl !== 0 && (
+                            <p className={`text-xs font-mono ${pos.pnl >= 0 ? 'text-emerald-500/80' : 'text-red-500/80'}`}>
+                              {pos.pnl >= 0 ? '+' : ''}{pos.pnl.toFixed(2)}
+                            </p>
+                          )}
+                          <p className="text-[10px] text-gray-700">
+                            max win: ${((100 - perContractCost) * contracts / 100).toFixed(2)}
                           </p>
                         </div>
                       </div>
-                      <div className="text-right ml-4">
-                        <p className={`font-mono font-bold ${pos.exposure >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                          ${pos.exposure.toFixed(2)}
-                        </p>
-                      </div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div className="flex flex-col items-center justify-center py-12 text-gray-500">
                     <Activity className="w-8 h-8 mb-3 opacity-50" />
