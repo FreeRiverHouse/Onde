@@ -3225,10 +3225,11 @@
 - **Notes**: Add optional high-contrast mode for users with visual impairments. Toggle in header/settings. CSS custom properties for contrast-safe color values. Respects prefers-contrast media query. Persist to localStorage.
 
 ### [T479] Reduce motion support (prefers-reduced-motion)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Audit all animations (Framer Motion, CSS transitions) to respect prefers-reduced-motion media query. Add motion-safe/motion-reduce Tailwind utilities. Disable parallax, autoplay, and decorative animations for users who prefer reduced motion.
+- **Notes**: ✅ Added! Global prefers-reduced-motion media query in globals.css. Disables/reduces: particles, floating orbs, blob animations, spotlight, holographic effects, gradient flows, hover transforms, scroll indicators. Keeps essential transitions instant. Added motion-safe/motion-reduce utility classes. WCAG 2.3.3 compliant.
 

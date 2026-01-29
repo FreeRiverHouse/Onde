@@ -919,3 +919,83 @@
       inset 0 0 0 2px var(--onde-gold, #D4AF37) !important;
   }
 }
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   Respect user preferences for reduced motion
+   WCAG 2.3.3 compliant
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable specific decorative animations */
+  .particle,
+  .floating-orb,
+  .animate-blob,
+  .animate-glow-pulse,
+  .animate-spotlight,
+  .card-holographic::after,
+  .btn-futuristic::after,
+  .scroll-indicator-line,
+  .border-gradient-animated::before {
+    animation: none !important;
+  }
+
+  /* Keep essential fade/scale transitions but make them instant */
+  .animate-fade-up,
+  .animate-scale-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Disable parallax and transform effects */
+  .card-3d:hover {
+    transform: translateY(-5px) !important; /* Subtle, no rotation */
+  }
+
+  .btn-futuristic:hover,
+  .btn-classics:hover,
+  .hover-lift:hover {
+    transform: none !important;
+  }
+
+  /* Disable gradient animations */
+  .text-gradient-aurora,
+  .holographic-shift {
+    animation: none !important;
+    background-position: 0% 50% !important;
+  }
+
+  /* Keep hover color changes but remove motion */
+  .nav-link-futuristic::before {
+    transition: none !important;
+  }
+}
+
+/* Utility classes for motion control */
+@layer utilities {
+  /* Only animate if motion is OK */
+  .motion-safe\:animate-pulse {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-safe\:animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  }
+
+  /* Disable animation explicitly */
+  .motion-reduce\:animate-none {
+    animation: none !important;
+  }
+}
