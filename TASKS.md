@@ -2450,12 +2450,13 @@
 - **Notes**: If one asset's vol ratio stays >1.2 for 3+ consecutive cycles, send Telegram alert recommending focus on that asset. Helps identify sustained edge opportunities.
 
 ### [T377] Historical volatility vs model assumptions analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T237]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Weekly script to compute average realized vol for BTC/ETH over past 30 days. Compare to BTC_HOURLY_VOL/ETH_HOURLY_VOL constants. Suggest adjustments if consistently off by >20%.
+- **Notes**: ✅ Script: check-vol-calibration.sh. Runs calculate-historical-volatility.py, checks 30d deviation >20%. Alert file: kalshi-vol-recalibration.alert. Cron: Sunday 08:00 UTC. Finding: Model currently overestimates vol (BTC -36%, ETH -34%).
 
 ### [T378] GA4 custom events for book downloads
 - **Status**: DONE
@@ -3739,3 +3740,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Verify theme persists correctly across page refreshes on /betting. Current ThemeProvider uses localStorage - check if edge runtime breaks this. Add explicit theme cookie as fallback if needed.
+
+### [T638] Auto-apply volatility recalibration
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T377]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: When T377 detects >20% deviation for 2+ consecutive weeks, auto-update BTC_HOURLY_VOL/ETH_HOURLY_VOL constants in autotrader-v2.py. Script: auto-recalibrate-volatility.py. Requires confirmation via Telegram before applying. Backup original values.
+
+### [T639] Model calibration status widget on /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T377]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add card to /betting showing: BTC/ETH realized vol vs assumed, deviation %, last calibration date, health indicator (green/yellow/red). Fetches from volatility-stats.json via gist. Warns when model needs recalibration.
+
+### [T640] Volatility regime transition alerts
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T377], [T243]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when 7d rolling volatility moves between regimes: very_low (<0.2%), low (0.2-0.4%), normal (0.4-0.8%), high (0.8-1.5%), very_high (>1.5%). Different from momentum - this tracks vol magnitude changes. Script: detect-vol-regime-change.py. Alert file: kalshi-vol-regime.alert.
