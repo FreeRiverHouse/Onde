@@ -1534,12 +1534,13 @@
 - **Notes**: ✅ Regole già nel workspace condiviso! REGOLE-AGENTI.md + AGENTS.md sono letti da tutti gli agenti che lavorano in /Users/mattia/Projects/Onde.
 
 ### [T293] Trade confidence tracking (edge vs outcome)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track calculated edge at entry vs actual outcome. Analyze if higher edge correlates with higher win rate. Add edge_at_entry to trade log if missing.
+- **Notes**: ✅ Script: analyze-edge-effectiveness.py. Analyzes: 1) Win rate by edge bucket, 2) Edge-outcome correlation coefficient, 3) Model calibration (predicted vs actual WR). Shows if higher edge → higher win rate. V1 data shows 0% WR with 0.4% edge (broken model). Usage: `python3 scripts/analyze-edge-effectiveness.py [--v2] [--buckets N]`
 
 ### [T294] Add latency stats to /betting dashboard
 - **Status**: DONE
@@ -2336,12 +2337,13 @@
 - **Notes**: ✅ Added! Toggle button in header with Sun/Moon/Monitor icons for light/dark/system. Keyboard shortcut 'T'. Background, grid, and container adapt to theme. Persists in localStorage via ThemeProvider.
 
 ### [T372] Add language switcher UI to onde-portal header
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add EN/IT toggle button or dropdown in navigation header. Should call setLocale() from i18n context. Display current locale flag or code.
+- **Notes**: ✅ Already implemented! LanguageSwitcher.tsx component with globe icon, dropdown menu showing EN/IT with checkmark for active. Integrated in Navigation.tsx for both desktop and mobile views. Uses useLocale() from i18n context.
 
 ### [T373] Convert homepage (page.tsx) to use i18n translations
 - **Status**: TODO
