@@ -3616,12 +3616,13 @@
 - **Notes**: Extend write_health_status() to include all-time stats: total_trades, total_won, total_lost, all_time_pnl_cents. Provides complete trading performance context alongside daily stats.
 
 ### [T623] Dashboard autotrader health status indicator
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T605], [T620]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Display autotrader health status on /betting dashboard from gist healthStatus field. Show: running indicator (green/red dot), cycle count, dry run mode, circuit breaker status. Help users know if autotrader is active without checking logs.
+- **Notes**: ✅ Implemented! Added autotrader status indicator to /betting dashboard header. Shows: running/offline status with animated dot, circuit breaker alert (red), dry run mode indicator, status color coding (green=healthy, yellow=warning, red=error/offline). Data from gist healthStatus field. Compact badge design that fits in header row.
 
 ### [T624] Add streak tracking to gist push script
 - **Status**: TODO

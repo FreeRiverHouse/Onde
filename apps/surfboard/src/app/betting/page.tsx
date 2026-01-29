@@ -135,6 +135,23 @@ interface TradingStats {
       };
     };
   };
+  // Autotrader health status (T623)
+  healthStatus?: AutotraderHealth | null;
+}
+
+interface AutotraderHealth {
+  is_running: boolean;
+  last_cycle_time?: string;
+  status: 'healthy' | 'warning' | 'error' | 'unknown';
+  issues?: string[];
+  trades_24h?: number;
+  cycle_count?: number;
+  trades_today?: number;
+  win_rate_today?: number;
+  pnl_today_cents?: number;
+  circuit_breaker_active?: boolean;
+  consecutive_losses?: number;
+  dry_run?: boolean;
 }
 
 interface MomentumAsset {
@@ -493,6 +510,7 @@ export default function BettingDashboard() {
   const [customDateTo, setCustomDateTo] = useState<string>(searchParams.get('to') || '');
   const [momentum, setMomentum] = useState<MomentumData | null>(null);
   const [winRateTrend, setWinRateTrend] = useState<WinRateTrendData | null>(null);
+  const [autotraderHealth, setAutotraderHealth] = useState<AutotraderHealth | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -613,6 +631,9 @@ export default function BettingDashboard() {
           // Volatility analysis
           volatility: gistData.volatility,
           
+          // Autotrader health status (T623)
+          healthStatus: gistData.healthStatus ?? null,
+          
           // Empty fields (not in gist but needed for interface)
           recentTrades: [],
           lastUpdated: gistData.lastUpdated ?? new Date().toISOString(),
@@ -639,7 +660,13 @@ export default function BettingDashboard() {
 
       // Fetch trading stats with gist fallback
       const statsData = await fetchTradingStatsWithFallback();
-      if (statsData) setTradingStats(statsData);
+      if (statsData) {
+        setTradingStats(statsData);
+        // Extract autotrader health status (T623)
+        if (statsData.healthStatus) {
+          setAutotraderHealth(statsData.healthStatus);
+        }
+      }
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
@@ -814,6 +841,45 @@ export default function BettingDashboard() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4 flex-wrap sm:flex-nowrap">
+            {/* Autotrader Status Indicator (T623) */}
+            {autotraderHealth && (
+              <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border ${
+                autotraderHealth.is_running && autotraderHealth.status === 'healthy' 
+                  ? 'bg-green-500/10 border-green-500/30' :
+                autotraderHealth.is_running && autotraderHealth.status === 'warning'
+                  ? 'bg-yellow-500/10 border-yellow-500/30' :
+                autotraderHealth.circuit_breaker_active
+                  ? 'bg-red-500/10 border-red-500/30' :
+                !autotraderHealth.is_running
+                  ? 'bg-red-500/10 border-red-500/30' :
+                'bg-white/5 border-white/10'
+              }`}>
+                <div className={`w-2 h-2 rounded-full ${
+                  autotraderHealth.is_running 
+                    ? autotraderHealth.circuit_breaker_active 
+                      ? 'bg-red-500' 
+                      : autotraderHealth.status === 'healthy' 
+                        ? 'bg-green-500 animate-pulse' 
+                        : 'bg-yellow-500 animate-pulse'
+                    : 'bg-red-500'
+                }`} />
+                <span className={`text-xs font-medium ${
+                  autotraderHealth.is_running 
+                    ? autotraderHealth.circuit_breaker_active 
+                      ? 'text-red-400'
+                      : autotraderHealth.status === 'healthy' 
+                        ? 'text-green-400' 
+                        : 'text-yellow-400'
+                    : 'text-red-400'
+                }`}>
+                  {autotraderHealth.circuit_breaker_active 
+                    ? '🛑 Circuit Breaker' 
+                    : autotraderHealth.is_running 
+                      ? `🤖 ${autotraderHealth.dry_run ? 'Dry Run' : 'Trading'}` 
+                      : '🤖 Offline'}
+                </span>
+              </div>
+            )}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <PulsingDot color="green" label="Systems Online" />
             </div>
