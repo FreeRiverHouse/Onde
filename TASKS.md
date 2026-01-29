@@ -2151,12 +2151,13 @@
 - **Notes**: ⏭️ N/A: /api/trading/history runs on Edge runtime (Cloudflare), cannot access local files. Returns mock data on production. Caching not applicable for edge deployment.
 
 ### [T343] Cache invalidation endpoint for trading APIs
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T260]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add POST /api/trading/cache/invalidate endpoint to force refresh stats without waiting for TTL. Useful after manual trades.
+- **Notes**: ✅ Script: invalidate-trading-cache.sh. Since static site uses GitHub Gist (T277), cache invalidation triggers push-stats-to-gist.py immediately. Supports --v1, --v2 (default), --all sources. Gist has no-cache headers so browsers get fresh data.
 
 ### [T344] Trading stats for v2 autotrader file
 - **Status**: DONE
