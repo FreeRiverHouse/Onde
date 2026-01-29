@@ -6,6 +6,23 @@
 
 ---
 
+## 🎮 MOONLIGHT MAGIC HOUSE - DA MATTIA 2026-01-29
+
+### [T461] Moonlight Magic House v2: Movimento + Oggetti Interattivi
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Feature request da Mattia per evoluzione futura:
+  1. **Più realismo nelle stanze** - Grafica più dettagliata/immersiva
+  2. **Moonlight si muove** - Personaggio animato che può camminare (frecce/tap)
+  3. **Oggetti interattivi** - Nella camera di Moonlight, oggetti cliccabili che aprono mini-giochi a sorpresa
+  - Concetto: trasformare da mappa statica a esperienza esplorativa
+  - Scoperta organica: clicca tablet → mini-game, clicca libro → storia, etc.
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (16:00 HEARTBEAT)
 
 ### [T458] Deploy onde.la with auto-refresh toggle on /health
