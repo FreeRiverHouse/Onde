@@ -2015,12 +2015,13 @@
 - **Notes**: Track ratio of successful order placements vs rejections/failures. Add rejectionCount, retryCount to API response. Alert if success rate drops below 95%.
 
 ### [T330] API call count monitoring per hour
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track Kalshi/CoinGecko API calls per hour. Log to api-calls.jsonl. Alert if approaching rate limits. Helps debug 429 errors.
+- **Notes**: ✅ Script: track-api-calls.py. Logs to api-calls.jsonl, shows current hour stats + 24h summary. Rate limit warnings. Flags: --status, --summary, --reset, --log. JSON output to data/trading/api-call-stats.json.
 
 ### [T331] Trade prediction accuracy logging for ML
 - **Status**: TODO
@@ -2676,3 +2677,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Script: analyze-momentum-direction.py. Compares bullish/bearish/neutral win rate, PnL, ROI, avg edge. Includes side breakdown (YES/NO) per direction. Usage: `python3 scripts/analyze-momentum-direction.py [--v2]`. Output: data/trading/momentum-direction-analysis.json.
+
+### [T419] Integrate API call tracking into autotrader
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T330]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Hook track-api-calls.py logging into autotrader for Kalshi, CoinGecko, Binance, Coinbase calls. Add import and call log_api_call() after each request. Enables rate limit monitoring.
+
+### [T420] OHLC cache staleness alert
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T278]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Script: check-ohlc-cache-age.sh. Checks btc-ohlc.json + eth-ohlc.json age. Alert if >24h old or missing. Alert file: ohlc-cache-stale.alert. Added to HEARTBEAT.md. Run with meta-watchdog or separate cron.
+
+### [T421] Autotrader health JSON endpoint
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script that outputs JSON: running (bool), pid, uptime, last_trade_time, trade_count_today, win_rate_today, current_balance. Can be used by external monitoring or /health page.
