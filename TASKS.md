@@ -1348,6 +1348,30 @@
 - **Priority**: P3
 - **Notes**: Track calculated edge at entry vs actual outcome. Analyze if higher edge correlates with higher win rate. Add edge_at_entry to trade log if missing.
 
+### [T294] Add latency stats to /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T276]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show avg/p95 latency on trading dashboard. Helps monitor API health.
+
+### [T295] Alert if avg latency exceeds 2 seconds
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T276]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Telegram alert if average order latency goes above 2s threshold. Could indicate API issues or network problems.
+
+### [T296] Analyze edge vs win rate correlation
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create script to correlate calculated edge at entry with actual win/loss. Validate if our probability model is calibrated correctly.
+
 ---
 
 *Ultimo aggiornamento: 2026-01-30 heartbeat*
