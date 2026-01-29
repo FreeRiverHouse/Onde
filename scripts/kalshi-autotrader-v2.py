@@ -110,6 +110,9 @@ LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
 # Health status endpoint (T472)
 HEALTH_STATUS_FILE = "data/trading/autotrader-health.json"
 
+# ML Feature Logging (T331) - structured data for ML model training
+ML_FEATURE_LOG_FILE = "data/trading/ml-training-data.jsonl"
+
 # Extreme volatility alerting (T294)
 EXTREME_VOL_ALERT_FILE = "scripts/kalshi-extreme-vol.alert"
 EXTREME_VOL_ALERT_COOLDOWN = 3600  # 1 hour cooldown
@@ -2661,6 +2664,108 @@ def log_execution(ticker: str, side: str, count: int, price_cents: int,
         f.write(json.dumps(entry) + "\n")
 
 
+def log_ml_features(trade_data: dict):
+    """
+    Log ML-friendly feature vectors for model training (T331).
+    
+    This creates a clean dataset with:
+    - Input features (all available at decision time)
+    - Target: predicted_prob vs market_prob (outcome added by settlement tracker)
+    - Metadata for filtering/analysis
+    
+    Fields logged:
+    - id: unique trade identifier (timestamp_ticker)
+    - timestamp: ISO timestamp
+    - asset: btc/eth
+    - side: yes/no
+    - target_label: 1 if our prediction says YES, 0 if NO (filled by settlement)
+    
+    Feature groups:
+    - price_*: price-related features
+    - momentum_*: momentum indicators
+    - regime_*: market regime features  
+    - vol_*: volatility features
+    - time_*: time-based features
+    - prob_*: probability calculations
+    """
+    # Generate unique ID
+    ts = trade_data.get("timestamp", datetime.now(timezone.utc).isoformat())
+    ticker = trade_data.get("ticker", "unknown")
+    trade_id = f"{ts}_{ticker}"
+    
+    ml_record = {
+        # Metadata
+        "id": trade_id,
+        "timestamp": ts,
+        "asset": trade_data.get("asset", "btc"),
+        "ticker": ticker,
+        "side": trade_data.get("side", ""),
+        
+        # Price features (normalized)
+        "price_current": trade_data.get("current_price", 0),
+        "price_strike": trade_data.get("strike", 0),
+        "price_distance_pct": 0,  # calculated below
+        "price_above_strike": 1 if trade_data.get("current_price", 0) > trade_data.get("strike", 0) else 0,
+        
+        # Probability features
+        "prob_predicted": trade_data.get("our_prob", 0),  # Our model's probability
+        "prob_market": trade_data.get("market_prob", 0),  # Market's implied probability
+        "prob_base": trade_data.get("base_prob", trade_data.get("our_prob", 0)),  # Before adjustments
+        "edge": trade_data.get("edge", 0),
+        "edge_with_bonus": trade_data.get("edge_with_bonus", trade_data.get("edge", 0)),
+        
+        # Momentum features
+        "momentum_direction": trade_data.get("momentum_dir", 0),  # -1 bearish, 0 neutral, 1 bullish
+        "momentum_strength": trade_data.get("momentum_str", 0),   # 0-1 strength
+        "momentum_aligned": 1 if trade_data.get("momentum_aligned", False) else 0,
+        "momentum_full_alignment": 1 if trade_data.get("full_alignment", False) else 0,
+        
+        # Regime features (one-hot encoded)
+        "regime": trade_data.get("regime", "unknown"),
+        "regime_trending_bullish": 1 if trade_data.get("regime") == "trending_bullish" else 0,
+        "regime_trending_bearish": 1 if trade_data.get("regime") == "trending_bearish" else 0,
+        "regime_sideways": 1 if trade_data.get("regime") == "sideways" else 0,
+        "regime_choppy": 1 if trade_data.get("regime") == "choppy" else 0,
+        "regime_confidence": trade_data.get("regime_confidence", 0),
+        
+        # Volatility features
+        "vol_ratio": trade_data.get("vol_ratio", 1.0),  # realized/assumed
+        "vol_aligned": 1 if trade_data.get("vol_aligned", False) else 0,
+        "vol_bonus": trade_data.get("vol_bonus", 0),
+        
+        # Time features
+        "minutes_to_expiry": trade_data.get("minutes_to_expiry", 0),
+        "hour_utc": datetime.fromisoformat(ts.replace("Z", "+00:00")).hour if "T" in ts else 0,
+        "day_of_week": datetime.fromisoformat(ts.replace("Z", "+00:00")).weekday() if "T" in ts else 0,
+        
+        # Position sizing features
+        "contracts": trade_data.get("contracts", 0),
+        "price_cents": trade_data.get("price_cents", 0),
+        "cost_cents": trade_data.get("cost_cents", 0),
+        "kelly_fraction_used": trade_data.get("kelly_fraction_used", KELLY_FRACTION),
+        "size_multiplier": trade_data.get("size_multiplier_total", 1.0),
+        
+        # Target (filled by settlement tracker)
+        "actual_outcome": None,  # 1=won, 0=lost (filled later)
+        "settlement_price": None,  # Final BTC/ETH price at settlement
+        "profit_cents": None,  # Actual P&L
+    }
+    
+    # Calculate price distance percentage
+    strike = trade_data.get("strike", 0)
+    current = trade_data.get("current_price", 0)
+    if strike and current:
+        ml_record["price_distance_pct"] = (current - strike) / strike * 100
+    
+    # Write to ML log file
+    log_path = Path(ML_FEATURE_LOG_FILE)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(log_path, "a") as f:
+        f.write(json.dumps(ml_record) + "\n")
+    
+    print(f"   📊 ML features logged ({len([k for k,v in ml_record.items() if v is not None])} features)")
+
+
 # ============== OPPORTUNITY FINDING ==============
 
 def parse_time_to_expiry(market: dict) -> float:
@@ -3230,6 +3335,9 @@ def run_cycle():
         print(f"   ⏱️  Order latency: {latency_ms}ms")
         trade_data["latency_ms"] = latency_ms
         log_trade(trade_data)
+        
+        # Log ML features for future model training (T331)
+        log_ml_features(trade_data)
         
         # Log successful execution (T329)
         log_execution(

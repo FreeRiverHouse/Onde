@@ -2077,12 +2077,13 @@
 - **Notes**: ✅ Script: track-api-calls.py. Logs to api-calls.jsonl, shows current hour stats + 24h summary. Rate limit warnings. Flags: --status, --summary, --reset, --log. JSON output to data/trading/api-call-stats.json.
 
 ### [T331] Trade prediction accuracy logging for ML
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log predicted probability + actual outcome for each trade. Creates training data for future ML model improvements. Fields: predicted_prob, actual_outcome, edge_at_entry, features.
+- **Notes**: ✅ Implemented! log_ml_features() in autotrader-v2.py logs 30+ features per trade to data/trading/ml-training-data.jsonl. Features: price_*, momentum_*, regime_*, vol_*, time_*, prob_*. Script: update-ml-outcomes.py reconciles with settlement results. Exports to CSV for model training. Usage: `python3 scripts/update-ml-outcomes.py --analyze` or `--export-csv`.
 
 ### [T332] VIX correlation with crypto volatility
 - **Status**: DONE
