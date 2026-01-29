@@ -1,10 +1,12 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimatedCard from '@/components/ui/AnimatedCard'
 import Button from '@/components/ui/Button'
+import { GameCardsSkeletonGrid } from '@/components/ui/Skeleton'
 import { useTranslations } from '@/i18n/I18nProvider'
 
 // Type for game color variants
@@ -91,6 +93,14 @@ const container = {
 
 export default function GiochiPage() {
   const t = useTranslations()
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Simulate content loading (translations, images, etc.)
+  useEffect(() => {
+    // Short delay for initial render, then show content
+    const timer = setTimeout(() => setIsLoading(false), 300)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Helper to get status color
   const getStatusColor = (statusKey: string) => {
@@ -311,6 +321,11 @@ export default function GiochiPage() {
         />
 
         {/* Games Grid */}
+        {isLoading ? (
+          <div className="mt-12">
+            <GameCardsSkeletonGrid count={6} />
+          </div>
+        ) : (
         <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
           variants={container}
@@ -400,6 +415,7 @@ export default function GiochiPage() {
             );
           })}
         </motion.div>
+        )}
       </section>
 
       {/* CTA Section */}

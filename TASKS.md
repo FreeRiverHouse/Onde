@@ -2832,12 +2832,13 @@
 - **Notes**: Convert /app page to use i18n system. Similar to /giochi conversion - extract hardcoded strings to en.json/it.json and use useTranslations() hook.
 
 ### [T436] Add skeleton loading state for games grid
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add loading skeleton components for game cards on /giochi page. Show shimmer effect while content loads. Improves perceived performance.
+- **Notes**: ✅ Created Skeleton.tsx component with shimmer animation + GameCardSkeleton + GameCardsSkeletonGrid. Integrated into /giochi page with 300ms loading state. Improves perceived performance.
 
 ### [T437] Game card hover effects enhancement
 - **Status**: TODO
