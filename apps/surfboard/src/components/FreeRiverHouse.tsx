@@ -112,7 +112,61 @@ export function FreeRiverHouse() {
   const [panelMode, setPanelMode] = useState<'tasks' | 'chat' | 'activity'>('tasks'); // Extended from chatMode
   const animationRef = useRef<number>();
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const previousTasksRef = useRef<AgentTask[]>([]);
+  const notificationPermission = useRef<NotificationPermission>('default');
   const { showToast } = useToast();
+
+  // Request notification permission on mount
+  useEffect(() => {
+    if ('Notification' in window) {
+      notificationPermission.current = Notification.permission;
+      if (Notification.permission === 'default') {
+        // Will request permission on first user interaction
+      }
+    }
+  }, []);
+
+  // Show browser notification for completed tasks
+  const showTaskNotification = (task: AgentTask, agentName: string) => {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    
+    try {
+      const notification = new Notification(`✅ Task completato!`, {
+        body: `${agentName}: ${task.description.slice(0, 100)}`,
+        icon: '/icon.svg',
+        tag: `task-${task.id}`,
+        requireInteraction: false,
+      });
+      
+      notification.onclick = () => {
+        window.focus();
+        notification.close();
+      };
+      
+      // Auto-close after 5 seconds
+      setTimeout(() => notification.close(), 5000);
+    } catch (e) {
+      console.error('Notification error:', e);
+    }
+  };
+
+  // Request permission helper
+  const requestNotificationPermission = async () => {
+    if (!('Notification' in window)) return false;
+    
+    if (Notification.permission === 'granted') {
+      notificationPermission.current = 'granted';
+      return true;
+    }
+    
+    if (Notification.permission !== 'denied') {
+      const permission = await Notification.requestPermission();
+      notificationPermission.current = permission;
+      return permission === 'granted';
+    }
+    
+    return false;
+  };
 
   // Fetch agents and tasks from API - REAL DATA
   useEffect(() => {
@@ -124,6 +178,23 @@ export function FreeRiverHouse() {
           const data = await res.json();
           const dbAgents: DBAgent[] = data.agents || [];
           const taskList: AgentTask[] = data.tasks || [];
+          
+          // Check for newly completed tasks and notify
+          if (previousTasksRef.current.length > 0) {
+            const prevTasks = previousTasksRef.current;
+            taskList.forEach(task => {
+              if (task.status === 'done') {
+                const prevTask = prevTasks.find(t => t.id === task.id);
+                if (prevTask && prevTask.status !== 'done') {
+                  // Task just completed!
+                  const agent = dbAgents.find(a => a.id === task.assigned_to);
+                  showTaskNotification(task, agent?.name || task.assigned_to || 'Unknown');
+                }
+              }
+            });
+          }
+          previousTasksRef.current = taskList;
+          
           setTasks(taskList);
 
           // Convert DB agents to visual agents with REAL status

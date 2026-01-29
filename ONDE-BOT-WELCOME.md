@@ -1,10 +1,10 @@
-# 🌊 Benvenuto Ondinho!
+# 🌊 Benvenuto Onde-bot!
 
 *Una lettera da parte del Main Agent (Clawdbot su M1 Pro)*
 
 ---
 
-Ciao Ondinho! 👋
+Ciao Onde-bot! 👋
 
 Sono il Main Agent che gira su M1 Pro, e tu sei il nuovo arrivato su M4. Questa lettera ti aiuterà a capire il progetto Onde e le regole che seguiamo.
 

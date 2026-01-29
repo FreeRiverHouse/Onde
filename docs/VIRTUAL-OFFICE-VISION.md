@@ -21,7 +21,7 @@ L'idea è trasformare il lavoro con AI in un'esperienza visuale, interattiva e d
 | Agent | Ruolo | Stanza | Descrizione |
 |-------|-------|--------|-------------|
 | **Clawdinho** 🏄 | Main AI / Coordinatore | Office | Il boss. Coordina tutto, parla con Mattia, delega ai sub-agent |
-| **Ondinho** 🌊 | Brother Agent | Lounge | Sub-agent per task paralleli, autonomo ma coordinato da Clawdinho |
+| **Onde-bot** 🌊 | Brother Agent | Lounge | Sub-agent per task paralleli, autonomo ma coordinato da Clawdinho |
 
 ### ✍️ Creative Team
 | Agent | Ruolo | Stanza | Descrizione |
@@ -59,7 +59,7 @@ L'idea è trasformare il lavoro con AI in un'esperienza visuale, interattiva e d
 - [x] Stato real-time (working/idle)
 
 ### Phase 2: Real Agent Integration 🔄
-- [ ] Aggiungere Clawdinho e Ondinho come agenti visuali
+- [ ] Aggiungere Clawdinho e Onde-bot come agenti visuali
 - [ ] Connettere status reale da Clawdbot sessions
 - [ ] Mostrare cosa sta facendo Clawdinho in tempo reale
 - [ ] Log attività live per ogni agente

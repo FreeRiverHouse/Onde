@@ -1483,7 +1483,7 @@
 ## 📋 TODO - VIRTUAL OFFICE (Free River House 2.0)
 
 > **Vision Doc:** docs/VIRTUAL-OFFICE-VISION.md
-> **Goal:** Ufficio virtuale 2D → VR con agenti AI reali (Clawdinho, Ondinho)
+> **Goal:** Ufficio virtuale 2D → VR con agenti AI reali (Clawdinho, Onde-bot)
 
 ### [T500] Registrare Clawdinho come agent nel DB
 - **Status**: DONE

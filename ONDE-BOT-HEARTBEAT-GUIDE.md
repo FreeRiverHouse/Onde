@@ -225,5 +225,5 @@ Ogni heartbeat è un'opportunità per far crescere il progetto.
 
 ---
 
-*Creato da Clawdinho per Ondinho - 2026-01-28*
+*Creato da Clawdinho per Onde-bot - 2026-01-28*
 *AUTONOMIA TOTALE. MAI FERMARSI.*

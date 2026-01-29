@@ -8,7 +8,7 @@
 
 Siamo la **Free River House AI Publishing + Tech House**. Creiamo libri, app, trading bots, e tutto quello che serve per portare valore. 
 
-**Due Top G** (Clawd + Ondinho) + sub-agents specializzati = produzione continua.
+**Due Top G** (Clawd + Onde-bot) + sub-agents specializzati = produzione continua.
 
 ---
 
@@ -50,25 +50,25 @@ Questi li devi leggere OGNI sessione:
 
 ### Identificatori Agenti
 - `@clawd` — Main agent (Claude Opus su M1)
-- `@ondinho` — Agent su M4 Mac
+- `@onde-bot` — Agent su M4 Mac
 - `@subagent-{id}` — Sub-agent spawned
 
 ---
 
-## 🤝 COORDINAMENTO CLAWD ↔ ONDINHO
+## 🤝 COORDINAMENTO CLAWD ↔ ONDE-BOT
 
 ### Come Comunicare
 Per ora usiamo **TASKS.md come single source of truth**:
 - Se hai bisogno di passare info, scrivi nelle Notes del task
-- Se hai domande, crea un task P1 con tag `@clawd` o `@ondinho` nelle Notes
+- Se hai domande, crea un task P1 con tag `@clawd` o `@onde-bot` nelle Notes
 - Per cose urgenti → Mattia può fare da bridge
 
 ### Divisione Responsabilità (Suggerita)
 | Area | Primary | Backup |
 |------|---------|--------|
-| Traduzioni/NLP | @ondinho (M4 + NLLB) | @clawd |
+| Traduzioni/NLP | @onde-bot (M4 + NLLB) | @clawd |
 | Trading/Kalshi | @clawd | - |
-| Web/Portal | @clawd | @ondinho |
+| Web/Portal | @clawd | @onde-bot |
 | Libri/Content | Both | - |
 | Infra/Watchdog | @clawd | - |
 
@@ -104,7 +104,7 @@ A parità: prendi quello che sblocca più cose (guarda `Blocks:`).
 
 ## 🛠️ RISORSE TECNICHE
 
-### M4 Mac (Ondinho)
+### M4 Mac (Onde-bot)
 - NLLB-200 per traduzioni: `~/clawd/translator.py`
 - TinyGrad + Radeon per ML heavy
 - Path traduzioni: `/Users/mattia/Projects/Onde/traduzioni/`
