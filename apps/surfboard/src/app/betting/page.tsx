@@ -76,6 +76,7 @@ interface TradingStats {
   maxDrawdownPercent?: number;  // max drawdown as % of peak
   calmarRatio?: number;  // annualized return / max drawdown %
   sortinoRatio?: number;  // return / downside deviation
+  avgTradeDurationHours?: number;  // average time to settlement
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -841,6 +842,24 @@ export default function BettingDashboard() {
                   className="text-2xl"
                 />
                 <p className="text-xs text-gray-600 mt-1">awaiting settlement</p>
+              </GlassCard>
+
+              {/* Avg Trade Duration */}
+              <GlassCard glowColor="purple" className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Avg Duration</span>
+                </div>
+                <AnimatedNumber 
+                  value={tradingStats.avgTradeDurationHours ?? 0} 
+                  suffix="h"
+                  decimals={1}
+                  glowColor="purple"
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">
+                  {(tradingStats.avgTradeDurationHours ?? 0) < 1 ? 'short-term' : (tradingStats.avgTradeDurationHours ?? 0) < 4 ? 'medium-term' : 'longer holds'}
+                </p>
               </GlassCard>
             </div>
 

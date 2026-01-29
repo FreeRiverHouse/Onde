@@ -19,6 +19,7 @@ interface Trade {
   current_price?: number;
   order_status?: string;
   result_status?: string;
+  minutes_to_expiry?: number;
 }
 
 interface TradingStats {
@@ -36,6 +37,7 @@ interface TradingStats {
   maxDrawdownPercent: number;  // max drawdown as % of peak equity
   calmarRatio: number;   // annualized return / max drawdown % - risk-adjusted performance
   sortinoRatio: number;  // return / downside deviation - only penalizes negative returns
+  avgTradeDurationHours: number;  // average time from entry to settlement
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
@@ -201,6 +203,15 @@ export async function GET() {
       calmarRatio = annualizedReturn / maxDrawdownPercent;
     }
 
+    // Average trade duration (time from entry to settlement in hours)
+    // Uses minutes_to_expiry field which indicates time until settlement at trade entry
+    let avgTradeDurationHours = 0;
+    const tradesWithDuration = trades.filter(t => t.minutes_to_expiry && t.minutes_to_expiry > 0);
+    if (tradesWithDuration.length > 0) {
+      const totalMinutes = tradesWithDuration.reduce((sum, t) => sum + (t.minutes_to_expiry || 0), 0);
+      avgTradeDurationHours = (totalMinutes / tradesWithDuration.length) / 60;
+    }
+
     // Today's trades (UTC)
     const today = new Date().toISOString().split('T')[0];
     const todayTrades = trades.filter(t => t.timestamp.startsWith(today));
@@ -234,6 +245,7 @@ export async function GET() {
       maxDrawdownCents,
       maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
       calmarRatio: Number.isFinite(calmarRatio) ? Math.round(calmarRatio * 100) / 100 : 0,  // Round to 2 decimal places
+      avgTradeDurationHours: Math.round(avgTradeDurationHours * 10) / 10,  // Round to 1 decimal place
       todayTrades: todayTrades.length,
       todayWinRate: todayTrades.length > 0 ? (todayWon.length / (todayWon.length + todayLost.length)) * 100 : 0,
       todayPnlCents,

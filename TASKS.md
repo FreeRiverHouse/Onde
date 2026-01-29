@@ -1260,12 +1260,13 @@
 - **Notes**: ✅ Added! Sortino = avg return / downside deviation (only penalizes negative returns). Dashboard card shows excellent (≥2), good (≥1), fair (>0). Grid now has 10 stat cards.
 
 ### [T284] Average trade duration tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track time from trade entry to settlement. Add avg_duration_hours to stats. Helps understand typical holding periods.
+- **Notes**: ✅ Added! Uses minutes_to_expiry field from trades, converts to hours. Dashboard shows "Avg Duration" card with labels: short-term (<1h), medium-term (1-4h), longer holds (>4h). Grid now has 11 stat cards.
 
 ### [T285] Trade correlation with BTC volatility
 - **Status**: TODO
@@ -1277,5 +1278,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-30 05:45 PST*
+*Ultimo aggiornamento: 2026-01-30 05:55 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
