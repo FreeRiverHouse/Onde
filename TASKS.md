@@ -9,12 +9,19 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-30 (14:05)
 
 ### [T440] WhisperFlow: Add language auto-detect display
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T439]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show detected language in overlay and menu bar when using auto-detect mode. Useful for multilingual users to know which language was recognized.
+- **Notes**: ✅ Implemented language auto-detection display!
+  - **Python VAD**: Updated to parse and output detected language from whisper-cpp
+  - **TranscriptionManager**: Added detectedLanguage property, parses output for language
+  - **MenuBarView**: Shows language flag emoji when auto-detect enabled (🇬🇧🇮🇹🇪🇸🇫🇷🇩🇪etc)
+  - **OverlayView**: Shows language flag next to recording indicator
+  - Only displays when language setting is "auto" (not when manually set)
+  - Supports 15 languages with flag emojis
 
 ### [T441] Autotrader: Add position size limits per asset
 - **Status**: TODO

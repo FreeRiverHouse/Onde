@@ -69,6 +69,17 @@ struct MenuBarView: View {
                         .font(.subheadline)
                         .foregroundColor(transcriptionManager.isRecording ? .red : .secondary)
                     
+                    // Detected language indicator
+                    if let lang = transcriptionManager.detectedLanguage, transcriptionManager.language == "auto" {
+                        Text(languageFlag(for: lang))
+                            .font(.caption)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .background(Color.accentColor.opacity(0.2))
+                            .cornerRadius(4)
+                            .help("Detected: \(languageName(for: lang))")
+                    }
+                    
                     Spacer()
                     
                     // Current device indicator
@@ -337,6 +348,49 @@ struct HistoryEntryRow: View {
         .padding(.horizontal, 8)
         .background(Color.secondary.opacity(0.1))
         .cornerRadius(6)
+    }
+}
+
+// MARK: - Language Helpers
+private func languageFlag(for code: String) -> String {
+    switch code.lowercased() {
+    case "en": return "🇬🇧"
+    case "it": return "🇮🇹"
+    case "es": return "🇪🇸"
+    case "fr": return "🇫🇷"
+    case "de": return "🇩🇪"
+    case "pt": return "🇵🇹"
+    case "zh": return "🇨🇳"
+    case "ja": return "🇯🇵"
+    case "ko": return "🇰🇷"
+    case "ru": return "🇷🇺"
+    case "ar": return "🇸🇦"
+    case "nl": return "🇳🇱"
+    case "pl": return "🇵🇱"
+    case "sv": return "🇸🇪"
+    case "tr": return "🇹🇷"
+    default: return "🌍"
+    }
+}
+
+private func languageName(for code: String) -> String {
+    switch code.lowercased() {
+    case "en": return "English"
+    case "it": return "Italian"
+    case "es": return "Spanish"
+    case "fr": return "French"
+    case "de": return "German"
+    case "pt": return "Portuguese"
+    case "zh": return "Chinese"
+    case "ja": return "Japanese"
+    case "ko": return "Korean"
+    case "ru": return "Russian"
+    case "ar": return "Arabic"
+    case "nl": return "Dutch"
+    case "pl": return "Polish"
+    case "sv": return "Swedish"
+    case "tr": return "Turkish"
+    default: return code.uppercased()
     }
 }
 

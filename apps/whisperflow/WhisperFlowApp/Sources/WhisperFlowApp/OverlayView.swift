@@ -8,12 +8,24 @@ struct OverlayView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Recording indicator
-            Circle()
-                .fill(transcriptionManager.isRecording ? Color.red : Color.gray.opacity(0.5))
-                .frame(width: 14, height: 14)
-                .shadow(color: transcriptionManager.isRecording ? .red.opacity(0.6) : .clear, radius: 6)
-                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: transcriptionManager.isRecording)
+            // Recording indicator with language
+            HStack(spacing: 6) {
+                Circle()
+                    .fill(transcriptionManager.isRecording ? Color.red : Color.gray.opacity(0.5))
+                    .frame(width: 14, height: 14)
+                    .shadow(color: transcriptionManager.isRecording ? .red.opacity(0.6) : .clear, radius: 6)
+                    .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: transcriptionManager.isRecording)
+                
+                // Detected language indicator
+                if let lang = transcriptionManager.detectedLanguage, transcriptionManager.language == "auto" {
+                    Text(overlayLanguageFlag(for: lang))
+                        .font(.system(size: 12))
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .background(Color.white.opacity(0.15))
+                        .cornerRadius(4)
+                }
+            }
             
             // Transcription text
             ScrollView(.horizontal, showsIndicators: false) {
@@ -95,6 +107,23 @@ struct OverlayView: View {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(transcriptionManager.transcribedText, forType: .string)
+    }
+    
+    private func overlayLanguageFlag(for code: String) -> String {
+        switch code.lowercased() {
+        case "en": return "🇬🇧"
+        case "it": return "🇮🇹"
+        case "es": return "🇪🇸"
+        case "fr": return "🇫🇷"
+        case "de": return "🇩🇪"
+        case "pt": return "🇵🇹"
+        case "zh": return "🇨🇳"
+        case "ja": return "🇯🇵"
+        case "ko": return "🇰🇷"
+        case "ru": return "🇷🇺"
+        case "ar": return "🇸🇦"
+        default: return "🌍"
+        }
     }
 }
 

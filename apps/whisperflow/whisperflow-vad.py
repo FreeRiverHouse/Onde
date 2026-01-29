@@ -181,6 +181,7 @@ class WhisperFlowVAD:
             '-f', wav_path,
             '--no-timestamps',
             '-t', '4',
+            '--print-special',  # Print special tokens including language
         ]
         
         if self.language != "auto":
@@ -194,16 +195,36 @@ class WhisperFlowVAD:
             print(f"\r❌ Transcription failed: {result.stderr[:100]}", end="\n")
             return
         
-        # Parse output
+        # Parse output for detected language
+        detected_lang = None
+        output_text = result.stdout + result.stderr
+        
+        # whisper.cpp outputs: "whisper_full_with_state: auto-detected language: en (p = 0.98)"
+        import re
+        lang_match = re.search(r'auto-detected language:\s*(\w+)', output_text)
+        if lang_match:
+            detected_lang = lang_match.group(1)
+        
+        # Parse transcription text
         text = result.stdout.strip()
         lines = text.split('\n')
         clean_lines = [l for l in lines if l and not l.startswith('[') and not l.startswith('whisper_')]
         text = ' '.join(clean_lines).strip()
         
+        # Remove any special tokens that might have been included
+        text = re.sub(r'\[_[A-Z_]+_\]', '', text).strip()
+        
         if text and text not in ["[BLANK_AUDIO]", "(music)", "(Music)"]:
             self.transcription_count += 1
             rtf = elapsed / (duration_ms / 1000)
-            print(f"\r📝 [{self.transcription_count}] ({duration_ms/1000:.1f}s → {elapsed:.2f}s, RTF {rtf:.2f}x): {text}")
+            
+            # Format output with detected language if available
+            lang_indicator = f"[{detected_lang}] " if detected_lang and self.language == "auto" else ""
+            print(f"\r📝 [{self.transcription_count}] ({duration_ms/1000:.1f}s → {elapsed:.2f}s, RTF {rtf:.2f}x): {lang_indicator}{text}")
+            
+            # Also print in a format the Swift app can parse
+            if detected_lang:
+                print(f"🌍 Detected: {detected_lang}")
         else:
             print(f"\r🔇 No speech detected in segment", end="      \n")
     

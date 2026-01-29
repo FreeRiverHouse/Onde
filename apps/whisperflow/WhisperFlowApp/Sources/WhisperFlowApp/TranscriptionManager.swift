@@ -9,6 +9,7 @@ class TranscriptionManager: NSObject, ObservableObject {
     @Published var isProcessing = false
     @Published var transcribedText = ""
     @Published var errorMessage: String?
+    @Published var detectedLanguage: String? // Auto-detected language code (e.g., "en", "it")
     
     private var audioRecorder: AVAudioRecorder?
     private var recordingURL: URL?
@@ -180,13 +181,51 @@ class TranscriptionManager: NSObject, ObservableObject {
                trimmed.hasPrefix("⚡") ||
                trimmed.hasPrefix("🛑") ||
                trimmed.hasPrefix("✅") ||
-               trimmed.hasPrefix("📝") ||
                trimmed.hasPrefix("[") {
                 // Status line, update processing state
                 if trimmed.contains("Transcribing") {
                     isProcessing = true
                 } else if trimmed.contains("Done") || trimmed.hasPrefix("📝") {
                     isProcessing = false
+                }
+                continue
+            }
+            
+            // Check for detected language indicator
+            // Format: 🌍 Detected: en
+            if trimmed.hasPrefix("🌍 Detected:") {
+                let langPart = trimmed.replacingOccurrences(of: "🌍 Detected:", with: "").trimmingCharacters(in: .whitespaces)
+                if !langPart.isEmpty {
+                    detectedLanguage = langPart
+                }
+                continue
+            }
+            
+            // Check for transcription with language prefix
+            // Format: 📝 [1] (1.2s → 0.5s, RTF 0.42x): [en] Hello world
+            if trimmed.hasPrefix("📝") {
+                isProcessing = false
+                // Extract the text after the metrics
+                if let colonRange = trimmed.range(of: "): ") {
+                    var text = String(trimmed[colonRange.upperBound...])
+                    
+                    // Check for inline language indicator [en]
+                    if text.hasPrefix("[") {
+                        if let closeBracket = text.firstIndex(of: "]") {
+                            let langCode = String(text[text.index(after: text.startIndex)..<closeBracket])
+                            if langCode.count == 2 { // Language codes are 2 chars
+                                detectedLanguage = langCode
+                            }
+                            text = String(text[text.index(after: closeBracket)...]).trimmingCharacters(in: .whitespaces)
+                        }
+                    }
+                    
+                    if !text.isEmpty {
+                        if !transcribedText.isEmpty {
+                            transcribedText += " "
+                        }
+                        transcribedText += text
+                    }
                 }
                 continue
             }
