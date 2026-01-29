@@ -93,12 +93,12 @@
 - **Notes**: Pubblicare su Amazon
 
 ### [T024] Psalm 23 multilingua su KDP
-- **Status**: IN_PROGRESS
-- **Owner**: @ondinho
+- **Status**: TODO
+- **Owner**: 
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Versione multilingue
+- **Notes**: Versione multilingue. Checklist: books/salmo-23-kdp/KDP-CHECKLIST.md
 
 ---
 
