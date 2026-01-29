@@ -3710,12 +3710,13 @@
 - **Notes**: Create visual 7x24 heatmap showing win rate by day-of-week × hour-of-day. Uses trade history to identify optimal/worst trading windows. Export as SVG for dashboard integration. Script: generate-performance-heatmap.py.
 
 ### [T634] Autotrader parameter sweep utility
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T305], [T606]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Script: parameter-sweep.py. Run multiple dry-run simulations with different parameters (MIN_EDGE: 5-15%, KELLY_FRACTION: 0.02-0.10, volatility assumptions). Compare theoretical performance metrics. Output: optimal parameter recommendations. Helps tune model without risking capital.
+- **Notes**: ✅ Script: parameter-sweep.py. Analyzes settlement data, simulates different MIN_EDGE (5-20%), KELLY_FRACTION (2-10%), and vol assumptions (current/realized/aggressive/conservative). Shows actual trade analysis confirming v1 edge calc was broken (40%+ edge but 0% WR). Outputs optimal recommendations to data/backtests/.
 
 ### [T635] Swipe-to-dismiss modal on mobile
 - **Status**: TODO
@@ -3764,3 +3765,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Alert when 7d rolling volatility moves between regimes: very_low (<0.2%), low (0.2-0.4%), normal (0.4-0.8%), high (0.8-1.5%), very_high (>1.5%). Different from momentum - this tracks vol magnitude changes. Script: detect-vol-regime-change.py. Alert file: kalshi-vol-regime.alert.
+
+### [T641] Parameter sweep for v2 trades (when available)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T634]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Once v2 autotrader has enough settled trades (>50), run parameter-sweep.py to find optimal MIN_EDGE and KELLY_FRACTION for the Black-Scholes model. Compare theoretical vs actual performance.
+
+### [T642] Monte Carlo simulation for bankroll evolution
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T634]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend parameter-sweep.py with Monte Carlo simulation. Given win rate and edge, simulate 1000 bankroll paths under different Kelly fractions. Show risk of ruin, expected value, and confidence intervals. Helps set conservative sizing.
+
+### [T643] Optimal entry timing analysis
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T634], [T249]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Using historical data, analyze if trades entered at certain times to expiry (30min vs 15min vs 5min) have different win rates. May reveal optimal entry timing for autotrader to maximize edge.

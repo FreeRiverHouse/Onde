@@ -1,8 +1,0 @@
-{
-    "type": "vol_recalibration",
-    "timestamp": "2026-01-29T14:29:28Z",
-    "btc_deviation_pct": -36.0,
-    "eth_deviation_pct": -33.9,
-    "message": "⚠️ VOLATILITY RECALIBRATION NEEDED\n\nBTC: -36.0% deviation (30d realized: 0.003202, model: 0.005)\nETH: -33.9% deviation (30d realized: 0.004627, model: 0.007)\n\nConsider adjusting BTC_HOURLY_VOL and/or ETH_HOURLY_VOL constants in autotrader-v2.py",
-    "stats_file": "data/ohlc/volatility-stats.json"
-}
