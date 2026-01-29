@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-01-29T08:06:09.113792+00:00",
+  "checks": {
+    "btc": {
+      "status": "checked",
+      "assumed_hourly_vol": 0.005,
+      "realized_hourly_vol": 0.0063882898870367645,
+      "deviation_pct": 0.2776579774073529,
+      "deviation_abs": 0.2776579774073529,
+      "samples": 180
+    },
+    "eth": {
+      "status": "checked",
+      "assumed_hourly_vol": 0.007,
+      "realized_hourly_vol": 0.009469248609667047,
+      "deviation_pct": 0.35274980138100676,
+      "deviation_abs": 0.35274980138100676,
+      "samples": 180
+    }
+  },
+  "alerts": [
+    {
+      "asset": "BTC",
+      "message": "Bitcoin realized vol (0.64%) is 28% higher than assumed (0.50%)",
+      "assumed": 0.005,
+      "realized": 0.0063882898870367645,
+      "recommendation": "Consider updating BTC_HOURLY_VOL to 0.0064"
+    },
+    {
+      "asset": "ETH",
+      "message": "Ethereum realized vol (0.95%) is 35% higher than assumed (0.70%)",
+      "assumed": 0.007,
+      "realized": 0.009469248609667047,
+      "recommendation": "Consider updating ETH_HOURLY_VOL to 0.0095"
+    }
+  ]
+}

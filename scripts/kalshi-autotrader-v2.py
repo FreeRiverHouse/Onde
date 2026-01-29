@@ -263,6 +263,142 @@ def identify_bottlenecks() -> list:
     return bottlenecks
 
 
+# ============== API RATE LIMIT MONITORING (T308) ==============
+
+# Rate limit tracking
+API_RATE_LIMITS = {
+    "kalshi": {"calls_per_hour": 0, "limit": 1000, "remaining": None, "reset_time": None},
+    "coingecko": {"calls_per_hour": 0, "limit": 30, "remaining": None, "reset_time": None},  # Free tier: 10-30/min
+    "binance": {"calls_per_hour": 0, "limit": 1200, "remaining": None, "reset_time": None},
+    "coinbase": {"calls_per_hour": 0, "limit": 10000, "remaining": None, "reset_time": None},
+    "feargreed": {"calls_per_hour": 0, "limit": 100, "remaining": None, "reset_time": None}
+}
+API_RATE_WINDOW_START = time.time()
+RATE_LIMIT_ALERT_FILE = "scripts/kalshi-rate-limit.alert"
+RATE_LIMIT_ALERT_THRESHOLD = 0.8  # Alert at 80% of limit
+RATE_LIMIT_LOG_FILE = "scripts/kalshi-api-rate-log.jsonl"
+
+
+def record_api_call(source: str, response_headers: dict = None):
+    """
+    Record an API call for rate limit tracking.
+    
+    Args:
+        source: API source name (kalshi, coingecko, binance, coinbase, feargreed)
+        response_headers: Optional response headers to extract rate limit info
+    """
+    global API_RATE_LIMITS, API_RATE_WINDOW_START
+    
+    # Reset hourly counters if window expired
+    if time.time() - API_RATE_WINDOW_START > 3600:
+        for src in API_RATE_LIMITS:
+            API_RATE_LIMITS[src]["calls_per_hour"] = 0
+        API_RATE_WINDOW_START = time.time()
+    
+    if source not in API_RATE_LIMITS:
+        return
+    
+    API_RATE_LIMITS[source]["calls_per_hour"] += 1
+    
+    # Extract rate limit headers if provided
+    if response_headers:
+        # Kalshi uses X-Ratelimit-* headers
+        if "x-ratelimit-remaining" in response_headers:
+            API_RATE_LIMITS[source]["remaining"] = int(response_headers.get("x-ratelimit-remaining", 0))
+        if "x-ratelimit-limit" in response_headers:
+            API_RATE_LIMITS[source]["limit"] = int(response_headers.get("x-ratelimit-limit", 1000))
+        if "x-ratelimit-reset" in response_headers:
+            API_RATE_LIMITS[source]["reset_time"] = response_headers.get("x-ratelimit-reset")
+        
+        # CoinGecko uses x-cg-* headers
+        if "x-cg-demo-api-calls-left" in response_headers:
+            API_RATE_LIMITS[source]["remaining"] = int(response_headers.get("x-cg-demo-api-calls-left", 0))
+
+
+def check_rate_limits() -> list:
+    """
+    Check if any API is approaching rate limits.
+    
+    Returns:
+        List of (source, usage_pct, message) for APIs near limit
+    """
+    warnings = []
+    
+    for source, data in API_RATE_LIMITS.items():
+        calls = data["calls_per_hour"]
+        limit = data["limit"]
+        remaining = data["remaining"]
+        
+        # Check based on remaining (from headers) if available
+        if remaining is not None and limit > 0:
+            usage_pct = 1 - (remaining / limit)
+            if usage_pct >= RATE_LIMIT_ALERT_THRESHOLD:
+                warnings.append((source, usage_pct, f"{source}: {remaining}/{limit} remaining ({usage_pct*100:.0f}% used)"))
+        # Otherwise check based on our hourly count
+        elif calls > 0 and limit > 0:
+            usage_pct = calls / limit
+            if usage_pct >= RATE_LIMIT_ALERT_THRESHOLD:
+                warnings.append((source, usage_pct, f"{source}: {calls}/{limit} calls/hour ({usage_pct*100:.0f}% used)"))
+    
+    return warnings
+
+
+def write_rate_limit_alert(warnings: list):
+    """Write rate limit alert file for heartbeat pickup."""
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "warnings": [{"source": w[0], "usage_pct": round(w[1]*100, 1), "message": w[2]} for w in warnings],
+        "full_status": {src: {k: v for k, v in data.items()} for src, data in API_RATE_LIMITS.items()}
+    }
+    
+    try:
+        with open(RATE_LIMIT_ALERT_FILE, "w") as f:
+            json.dump(alert_data, f, indent=2)
+        print(f"⚠️ RATE LIMIT ALERT written: {[w[2] for w in warnings]}")
+    except Exception as e:
+        print(f"Failed to write rate limit alert: {e}")
+
+
+def log_rate_limits():
+    """Log current rate limit status to JSONL file."""
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "window_start": datetime.fromtimestamp(API_RATE_WINDOW_START, timezone.utc).isoformat(),
+        "sources": {src: {
+            "calls": data["calls_per_hour"],
+            "limit": data["limit"],
+            "remaining": data["remaining"],
+            "usage_pct": round((data["calls_per_hour"] / data["limit"] * 100) if data["limit"] > 0 else 0, 1)
+        } for src, data in API_RATE_LIMITS.items()}
+    }
+    
+    try:
+        with open(RATE_LIMIT_LOG_FILE, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+    except Exception as e:
+        print(f"Failed to log rate limits: {e}")
+
+
+def get_rate_limit_summary() -> str:
+    """Get formatted rate limit summary for console output."""
+    lines = ["📊 API RATE LIMITS:"]
+    for source, data in API_RATE_LIMITS.items():
+        calls = data["calls_per_hour"]
+        limit = data["limit"]
+        remaining = data["remaining"]
+        
+        if remaining is not None:
+            status = f"{remaining} remaining"
+        else:
+            status = f"{calls}/{limit} calls/hour"
+        
+        usage_pct = (calls / limit * 100) if limit > 0 else 0
+        indicator = "🟢" if usage_pct < 50 else "🟡" if usage_pct < 80 else "🔴"
+        lines.append(f"  {indicator} {source}: {status}")
+    
+    return "\n".join(lines)
+
+
 # ============== REGIME CHANGE ALERTING ==============
 
 def load_regime_state() -> dict:
@@ -1333,9 +1469,10 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
                     record_api_latency(f"{endpoint_name}_failed", total_latency)
                     return {"error": f"API error {resp.status_code} after {max_retries} retries"}
             
-            # Success - record latency
+            # Success - record latency and rate limit
             total_latency = (time.time() - total_start) * 1000
             record_api_latency(endpoint_name, total_latency)
+            record_api_call("kalshi", dict(resp.headers))  # Track rate limit headers
             
             # Client errors (4xx) - don't retry, return as-is
             return resp.json()
@@ -1643,6 +1780,7 @@ def get_prices_coingecko() -> dict:
         )
         latency = (time.time() - start) * 1000
         record_api_latency("ext_coingecko", latency)
+        record_api_call("coingecko", dict(resp.headers))  # Track rate limit
         if resp.status_code == 200:
             data = resp.json()
             return {
@@ -1667,6 +1805,7 @@ def get_prices_binance() -> dict:
         )
         latency = (time.time() - start) * 1000
         record_api_latency("ext_binance", latency)
+        record_api_call("binance", dict(resp.headers))  # Track rate limit
         if resp.status_code == 200:
             data = resp.json()
             prices = {"source": "binance"}
@@ -1698,6 +1837,7 @@ def get_prices_coinbase() -> dict:
         )
         latency = (time.time() - start) * 1000
         record_api_latency("ext_coinbase", latency)
+        record_api_call("coinbase", dict(btc_resp.headers))  # Track rate limit
         if btc_resp.status_code == 200 and eth_resp.status_code == 200:
             return {
                 "btc": float(btc_resp.json()["data"]["amount"]),
@@ -1786,6 +1926,7 @@ def get_fear_greed(max_retries: int = 2) -> int:
             resp = requests.get("https://api.alternative.me/fng/?limit=1", timeout=5)
             latency = (time.time() - start) * 1000
             record_api_latency("ext_fear_greed", latency)
+            record_api_call("feargreed", dict(resp.headers))  # Track rate limit
             if resp.status_code >= 500:
                 raise requests.exceptions.RequestException(f"Server error {resp.status_code}")
             return int(resp.json()["data"][0]["value"])
@@ -2496,6 +2637,16 @@ def main():
                     print("\n⚠️ BOTTLENECKS DETECTED:")
                     for endpoint, issue, details in bottlenecks:
                         print(f"   • {endpoint}: {issue} - {details}")
+                
+                # Check rate limits (T308)
+                print(get_rate_limit_summary())
+                log_rate_limits()
+                rate_warnings = check_rate_limits()
+                if rate_warnings:
+                    print("\n⚠️ RATE LIMIT WARNING:")
+                    for source, pct, msg in rate_warnings:
+                        print(f"   • {msg}")
+                    write_rate_limit_alert(rate_warnings)
                 
         except KeyboardInterrupt:
             print("\n\n👋 Stopping autotrader...")

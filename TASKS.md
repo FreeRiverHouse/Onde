@@ -1824,12 +1824,13 @@
 - **Notes**: Analysis script comparing actual Kelly-based position sizing vs fixed-size betting. Calculate which would have better risk-adjusted returns on historical data.
 
 ### [T308] API rate limit monitoring
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track Kalshi/CoinGecko API call counts per hour. Alert if approaching rate limits. Add headers logging for remaining quota.
+- **Notes**: ✅ Implemented! Tracks calls per hour for Kalshi, CoinGecko, Binance, Coinbase, Fear&Greed. Extracts rate limit headers from responses. Alerts at 80% threshold via kalshi-rate-limit.alert. Logs to kalshi-api-rate-log.jsonl every 30min. Analysis script: analyze-api-rate-limits.py. Console shows rate limit summary with 🟢🟡🔴 indicators.
 
 ---
 
@@ -2734,3 +2735,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Convert /health page to use i18n system. Technical page with service status info.
+
+### [T426] Multi-exchange price consistency alerting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T246]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when price spread across exchanges (Binance/CoinGecko/Coinbase) exceeds 1%. Currently logs warning but no alert file. Potential arbitrage indicator or data quality issue.
+
+### [T427] External API response caching (reduce redundant calls)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T308]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add 30-60s in-memory cache for CoinGecko/Binance price fetches. Multiple calls per cycle are redundant. Reduces rate limit usage and improves latency.
+
+### [T428] Weekly rate limit usage report (trend analysis)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T308]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Generate weekly summary of API usage trends. Include avg/peak calls per source, busiest hours, comparison vs previous week. Email or Telegram delivery via cron.

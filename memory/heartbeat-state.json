@@ -1,6 +1,11 @@
 {
-  "lastHeartbeat": "2026-01-29T05:28:36Z",
-  "lastHeartbeatEpoch": 1769664516,
+  "lastHeartbeat": "2026-01-29T08:20:20Z",
+  "lastHeartbeatEpoch": 1769675020,
   "host": "FRH-M1-PRO.local",
-  "lastChecks": {}
+  "lastChecks": {},
+  "lastWork": {
+    "task": "T374 - i18n audit",
+    "completed": "/collezioni page translated",
+    "subtasksAdded": ["T422", "T423", "T424", "T425"]
+  }
 }

@@ -23,6 +23,7 @@
 - `scripts/kalshi-whipsaw.alert` → Se esiste, WHIPSAW DETECTED! Momentum ha flippato 2+ volte in 24h = mercato choppy. Consiglia ridurre size. Manda alert, poi elimina
 - `scripts/kalshi-vol-calibration.alert` → Se esiste, volatilità realizzata diverge da assunzioni >20%! Consiglia aggiornare BTC/ETH_HOURLY_VOL. Manda alert, poi elimina
 - `scripts/memory-stale.alert` → Se esiste, file memory stale >7 giorni! Ricorda a Mattia di rivedere/archiviare. Manda alert, poi elimina
+- `scripts/kalshi-rate-limit.alert` → Se esiste, API rate limit vicino alla soglia (>80%)! Manda alert a Mattia con dettagli, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

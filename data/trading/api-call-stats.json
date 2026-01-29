@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-01-29T08:13:35.204866+00:00",
+  "current_hour": {
+    "calls": {},
+    "errors": {},
+    "hour": "2026-01-29 08:00"
+  },
+  "last_24h_totals": {},
+  "rate_limits": {
+    "kalshi": 100,
+    "coingecko": 30,
+    "binance": 1200,
+    "coinbase": 10,
+    "fear_greed": 50
+  }
+}
