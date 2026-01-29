@@ -176,16 +176,18 @@
   - **NEW TASK T418**: Configure GitHub token or alternative data source
 
 ### [T418] Configure Test Status data source for onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T415]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: The TestStatusPanel API fetches from raw.githubusercontent but repo is private.
-  - **Option 1**: Add GITHUB_TOKEN env var to Cloudflare Pages
-  - **Option 2**: Make test report public (gist or public repo)
-  - **Option 3**: Store in Cloudflare KV
-  - **Option 4**: Have cron push to external storage (S3, etc.)
+- **Notes**: ✅ Implemented Cloudflare KV storage for test reports!
+  - Created KV namespace: `TEST_REPORTS` (id: 4c58636ecde440cf9ac910cccce98690)
+  - Updated API: GET reads from KV, POST writes to KV
+  - Created upload script: `scripts/upload-test-report.sh`
+  - Updated daily-test-suite.py to auto-upload after test run
+  - Dashboard now shows real test data (14 tests passing)
 
 ### [T416] Autotrader: web search per dati fondamentali pre-trade
 - **Status**: DONE

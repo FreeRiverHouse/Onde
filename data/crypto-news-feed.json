@@ -1,27 +1,49 @@
 {
-  "timestamp": "2026-01-29T19:13:27.936970+00:00",
+  "timestamp": "2026-01-29T20:00:02.699545+00:00",
   "sources": [
-    "coindesk",
     "cointelegraph",
     "bitcoinmagazine",
     "decrypt"
   ],
-  "failed_sources": [],
-  "article_count": 40,
+  "failed_sources": [
+    "coindesk"
+  ],
+  "article_count": 30,
   "results": [
     {
-      "title": "U.S. SEC, CFTC chiefs push united front on paving the way for crypto",
-      "url": "https://www.coindesk.com/policy/2026/01/29/u-s-sec-cftc-chiefs-push-united-front-on-paving-the-way-for-crypto",
-      "source": "coindesk",
-      "description": "With Commodity Futures Trading Commission head Mike Selig new in the role, the agencies held a \"harmonization\" event to show they're side-by-side.",
-      "published": "2026-01-29T19:00:00+00:00"
+      "title": "DePIN Tokens Lag, Revenues Rise as Sector Is \u2018Forced Into Fundamentals\u2019",
+      "url": "https://decrypt.co/356349/depin-tokens-lag-revenues-rise-fundamentals",
+      "source": "decrypt",
+      "description": "Token prices across DePIN remain deeply depressed, but on-chain revenues are growing.",
+      "published": "2026-01-29T19:57:56+00:00"
     },
     {
-      "title": "Crypto stocks sink as spot volume plunges and bitcoin tumbles below $84,000",
-      "url": "https://www.coindesk.com/markets/2026/01/29/crypto-linked-stocks-continue-2026-plunge-but-bitcoin-miners-with-ai-pivots-outperform",
-      "source": "coindesk",
-      "description": "Bellwether crypto exchange Coinbase was lower for an 8th straight session on Thursday to its weakest level since May.",
-      "published": "2026-01-29T18:55:48+00:00"
+      "title": "Gold, Silver Liquidations Spike on Hyperliquid Amid Trading Frenzy",
+      "url": "https://decrypt.co/356347/gold-silver-liquidations-spike-hyperliquid-amid-trading-frenzy",
+      "source": "decrypt",
+      "description": "Bitcoin liquidations still led on the platform, but silver and gold positions also took a hard hit Thursday.",
+      "published": "2026-01-29T19:54:00+00:00"
+    },
+    {
+      "title": "Bitcoin falls to $83.4K as gold bugs take profit and AI stocks sell off",
+      "url": "https://cointelegraph.com/news/bitcoin-falls-to-dollar83-4k-as-gold-bugs-take-profit-and-ai-stocks-sell-off?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price today. Is $80,000 the next stop for BTC?",
+      "published": "2026-01-29T19:44:32+00:00"
+    },
+    {
+      "title": "Japan's Biggest Bitcoin Treasury Firm Just Raised $137 Million to Buy Even More BTC",
+      "url": "https://decrypt.co/356322/japan-biggest-bitcoin-treasury-metaplanet-137-million-buy-btc",
+      "source": "decrypt",
+      "description": "Metaplanet raises $137 million for Bitcoin buys after its stock plunged 81% last year. Can the treasury firm bounce back in a crowded market?",
+      "published": "2026-01-29T19:38:45+00:00"
+    },
+    {
+      "title": "US CFTC and SEC push joint collaboration on crypto regulation",
+      "url": "https://cointelegraph.com/news/us-cftc-sec-agency-project-crypto-regulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "CFTC Chair Michael Selig and SEC Chair Paul Atkins held a joint agency event on Thursday to discuss harmonization on crypto regulation.",
+      "published": "2026-01-29T19:13:51+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
@@ -43,13 +65,6 @@
       "source": "decrypt",
       "description": "Top markets on Myriad this week include predictions on the next stops for Bitcoin and Solana, and President Donald Trump's approval rating.",
       "published": "2026-01-29T18:24:27+00:00"
-    },
-    {
-      "title": "Aero DEX aims to fix liquidity fragmentation and dethrone the incumbents",
-      "url": "https://www.coindesk.com/business/2026/01/29/aero-dex-aims-to-fix-liquidity-fragmentation-and-dethrone-the-incumbents",
-      "source": "coindesk",
-      "description": "The rollout of Aero, targeted for the second quarter of 2026, will take direct aim at incumbents like Uniswap and Curve, the team told CoinDesk.",
-      "published": "2026-01-29T18:14:07+00:00"
     },
     {
       "title": "China Executes Eleven Members of Crime Family Linked to Myanmar Scam Hubs",
@@ -80,60 +95,11 @@
       "published": "2026-01-29T17:19:44+00:00"
     },
     {
-      "title": "Ripple-linked XRP drops 5%, opening downside risk toward $1.70",
-      "url": "https://www.coindesk.com/markets/2026/01/29/ripple-linked-xrp-drops-5-opening-downside-risk-toward-usd1-70",
-      "source": "coindesk",
-      "description": "Traders are watching $1.80 as near-term support, with $1.87\u2013$1.90 now the key resistance zone.",
-      "published": "2026-01-29T17:15:46+00:00"
-    },
-    {
-      "title": "Dogecoin slumps 7% as bitcoin risk-off rattles memecoin bets",
-      "url": "https://www.coindesk.com/markets/2026/01/29/dogecoin-slumps-7-as-bitcoin-risk-off-rattles-memecoin-bets",
-      "source": "coindesk",
-      "description": "The token broke below key support at $0.1218 on heavy volume, turning that level into near-term resistance even after a brief bounce from around $0.115.",
-      "published": "2026-01-29T17:09:01+00:00"
-    },
-    {
-      "title": "Bitcoin\u2019s major safety net just snapped. Why a drop below $85,000 might risk more selloff",
-      "url": "https://www.coindesk.com/markets/2026/01/29/bitcoin-s-major-safety-net-just-snapped-after-falling-below-usd85-000-here-s-how-low-it-can-go",
-      "source": "coindesk",
-      "description": "Bitcoin price just fell through that price floor it's been bouncing off for two months. Now charts might be pointing to $75,000 as next level to watch.",
-      "published": "2026-01-29T17:06:05+00:00"
-    },
-    {
-      "title": "SEC chair says 'time is right' for pension funds to include crypto, CFTC head says digital assets set to flourish",
-      "url": "https://www.coindesk.com/policy/2026/01/29/sec-chair-says-time-is-right-for-pension-funds-to-include-crypto-cftc-head-says-digital-assets-set-to-flourish",
-      "source": "coindesk",
-      "description": "SEC Chair Paul Atkins and CFTC Chair Mike Selig said they are working with the Senate to get a crypto market structure bill over the line.",
-      "published": "2026-01-29T17:04:47+00:00"
-    },
-    {
       "title": "Senate Democrats Say They Want a Crypto Bill\u2014But Republicans Tanked Negotiations",
       "url": "https://decrypt.co/356334/senate-democrats-want-crypto-bill-republicans-tanked-negotiations",
       "source": "decrypt",
       "description": "Zero Senate Agriculture Democrats voted for a crypto market structure bill Thursday, which squeaked by a markup on party lines.",
       "published": "2026-01-29T17:00:27+00:00"
-    },
-    {
-      "title": "Here are key levels to watch as bitcoin plunges to $84,000",
-      "url": "https://www.coindesk.com/markets/2026/01/29/here-are-key-levels-to-watch-as-bitcoin-plunges-to-usd84-000",
-      "source": "coindesk",
-      "description": "While precious metals and stocks bounce from their worst levels of the session, crypto remains near the day's low.",
-      "published": "2026-01-29T16:56:15+00:00"
-    },
-    {
-      "title": "Crypto bill clears U.S. Senate milestone despite Democrat opposition",
-      "url": "https://www.coindesk.com/policy/2026/01/29/crypto-bill-clears-u-s-senate-milestone-as-effort-advanced-through-first-committee",
-      "source": "coindesk",
-      "description": "The market structure legislation for the first time advanced beyond a committee, setting up the next steps that could end with a vote of the overall chamber.",
-      "published": "2026-01-29T16:41:49+00:00"
-    },
-    {
-      "title": "Grading America\u2019s progress toward becoming the crypto capital of the world",
-      "url": "https://www.coindesk.com/opinion/2026/01/29/grading-america-s-progress-toward-becoming-the-crypto-capital-of-the-world",
-      "source": "coindesk",
-      "description": "A year after issuing an open letter to the incoming Trump administration, crypto law experts reflect on their regulatory advice.",
-      "published": "2026-01-29T16:35:00+00:00"
     },
     {
       "title": "Bitcoin Hits 2-Month Low as Gold and Stocks Give Up Gains, Crypto Liquidations Top $800M",
@@ -218,6 +184,41 @@
       "source": "decrypt",
       "description": "Solana ETFs are pulling in millions while SOL's price falls\u2014why are investors betting on the funds but losing faith in the race against silver?",
       "published": "2026-01-29T13:48:27+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-01-29T13:29:53+00:00"
+    },
+    {
+      "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",
+      "url": "https://bitcoinmagazine.com/news/bitcoin-price-steadies-fed-stops-cuts",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance The bitcoin price hovered near $90,000 as the Fed held rates steady and Powell signaled a neutral stance \u2014 neither tightening nor rushing new cuts. This post Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-28T20:51:40+00:00"
+    },
+    {
+      "title": "White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill",
+      "url": "https://bitcoinmagazine.com/politics/white-house-to-host-crypto-executives",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill The White House is reportedly convening banking and crypto executives on February 2 to revive stalled U.S. crypto legislation, after Senate progress on market-structure rules collapsed earlier this month. This post White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-28T19:30:16+00:00"
+    },
+    {
+      "title": "Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children",
+      "url": "https://bitcoinmagazine.com/news/coinbase-to-join-trump-accounts-push",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children Coinbase plans to join President Trump\u2019s new Trump Accounts program by matching the government\u2019s $1,000 child investment grant for employees\u2019 children \u2014 potentially in Bitcoin. This post Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-28T18:51:28+00:00"
+    },
+    {
+      "title": "Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet",
+      "url": "https://bitcoinmagazine.com/news/strive-semler-debt-adds-bitcoin-to-sheet",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet Strive raised $225 million in an oversubscribed preferred stock offering to pay down Semler-related debt and buy more bitcoin. This post Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-28T16:32:42+00:00"
     }
   ]
 }

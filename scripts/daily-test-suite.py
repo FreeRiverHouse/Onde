@@ -226,10 +226,31 @@ class TestSuite:
                 json.dump(alert_msg, f, indent=2)
             print(f"🚨 Alert created: {ALERT_FILE}")
 
+def upload_to_dashboard():
+    """Upload report to onde.surf KV storage"""
+    upload_script = SCRIPT_DIR / "upload-test-report.sh"
+    if upload_script.exists():
+        try:
+            result = subprocess.run(
+                [str(upload_script), str(REPORT_FILE)],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            if result.returncode == 0:
+                print("📤 Report uploaded to dashboard")
+            else:
+                print(f"⚠️ Upload failed: {result.stderr}")
+        except Exception as e:
+            print(f"⚠️ Upload error: {e}")
+    else:
+        print("⚠️ Upload script not found, skipping dashboard update")
+
 def main():
     suite = TestSuite()
     success = suite.run_all_tests()
     suite.save_report()
+    upload_to_dashboard()
     suite.create_alert_if_needed()
     sys.exit(0 if success else 1)
 
