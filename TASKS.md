@@ -2668,9 +2668,10 @@
 - **Notes**: Script to compare realized 7d volatility vs BTC_HOURLY_VOL/ETH_HOURLY_VOL assumptions. Alert if off by >20%. Weekly cron (Sundays). Helps keep model calibrated.
 
 ### [T418] Analyze win rate by momentum direction (bullish vs bearish)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare performance of trades made during bullish vs bearish momentum. Check if model performs better in one direction. May reveal asymmetric edge opportunities.
+- **Notes**: ✅ Script: analyze-momentum-direction.py. Compares bullish/bearish/neutral win rate, PnL, ROI, avg edge. Includes side breakdown (YES/NO) per direction. Usage: `python3 scripts/analyze-momentum-direction.py [--v2]`. Output: data/trading/momentum-direction-analysis.json.
