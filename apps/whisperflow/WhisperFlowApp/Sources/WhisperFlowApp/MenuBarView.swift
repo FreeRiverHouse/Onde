@@ -3,6 +3,7 @@ import SwiftUI
 struct MenuBarView: View {
     @EnvironmentObject var transcriptionManager: TranscriptionManager
     @StateObject private var overlayManager = OverlayManager.shared
+    @StateObject private var audioManager = AudioDeviceManager.shared
     @State private var isHovering = false
     
     var body: some View {
@@ -33,6 +34,22 @@ struct MenuBarView: View {
             
             // Status section
             VStack(spacing: 12) {
+                // Device change notification
+                if let change = audioManager.lastDeviceChange {
+                    HStack {
+                        Image(systemName: "speaker.wave.2")
+                            .foregroundColor(.accentColor)
+                        Text(change)
+                            .font(.caption)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.accentColor.opacity(0.1))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                }
+                
                 // Recording indicator
                 HStack {
                     Circle()
@@ -50,13 +67,21 @@ struct MenuBarView: View {
                     
                     Spacer()
                     
+                    // Current device indicator
+                    if let device = audioManager.devices.first(where: { $0.id == audioManager.selectedDeviceId }) {
+                        Text(device.name)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
+                    
                     if transcriptionManager.isProcessing {
                         ProgressView()
                             .scaleEffect(0.7)
                     }
                 }
                 .padding(.horizontal)
-                .padding(.top, 12)
+                .padding(.top, audioManager.lastDeviceChange == nil ? 12 : 4)
                 
                 // Main record button
                 Button(action: toggleRecording) {

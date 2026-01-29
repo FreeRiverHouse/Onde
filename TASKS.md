@@ -321,12 +321,23 @@
   - **Usage**: Settings → Startup → Toggle "Launch at Login"
 
 ### [T438] WhisperFlow: Audio device hot-swap support
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Listen for CoreAudio device changes. Auto-switch to new device when connected (e.g., AirPods). Show notification when device changes.
+- **Notes**: ✅ Full CoreAudio hot-swap implemented!
+  - **AudioDeviceManager.swift**: CoreAudio device enumeration + change listener
+  - **Features:**
+    - Real-time device list with default indicator
+    - Auto-switch to newly connected devices (AirPods, mics)
+    - System notifications on device connect/disconnect
+    - Current device indicator in menu bar
+    - Manual refresh button
+    - Toggle for auto-switch behavior
+  - **Uses**: UserNotifications framework (modern API)
+  - **Settings**: Device picker + auto-switch toggle in Audio section
 
 ### [T439] WhisperFlow: Export transcription history
 - **Status**: TODO

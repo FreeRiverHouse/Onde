@@ -4,6 +4,7 @@ struct SettingsView: View {
     @StateObject private var transcriptionManager = TranscriptionManager.shared
     @StateObject private var overlayManager = OverlayManager.shared
     @StateObject private var launchManager = LaunchAtLoginManager.shared
+    @StateObject private var audioManager = AudioDeviceManager.shared
     
     private let languages = [
         ("auto", "Auto-detect"),
@@ -38,12 +39,43 @@ struct SettingsView: View {
             }
             
             Section("Audio") {
-                Picker("Input Device", selection: $transcriptionManager.selectedDevice) {
-                    ForEach(transcriptionManager.getAudioDevices(), id: \.id) { device in
-                        Text(device.name).tag(device.id)
+                Picker("Input Device", selection: Binding(
+                    get: { audioManager.selectedDeviceId },
+                    set: { audioManager.selectDevice($0) }
+                )) {
+                    ForEach(audioManager.devices) { device in
+                        HStack {
+                            Text(device.name)
+                            if device.isDefault {
+                                Text("(Default)")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .tag(device.id)
                     }
                 }
                 .pickerStyle(.menu)
+                
+                Toggle("Auto-switch to new devices", isOn: Binding(
+                    get: { audioManager.autoSwitchToNew },
+                    set: { audioManager.setAutoSwitch($0) }
+                ))
+                .help("Automatically switch to newly connected audio devices (e.g., AirPods)")
+                
+                if let change = audioManager.lastDeviceChange {
+                    HStack {
+                        Image(systemName: "speaker.wave.2")
+                            .foregroundColor(.accentColor)
+                        Text(change)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Button("Refresh Devices") {
+                    audioManager.refreshDevices()
+                }
+                .font(.caption)
             }
             
             Section("Overlay") {
@@ -127,7 +159,7 @@ struct SettingsView: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 540)
+        .frame(width: 400, height: 600)
     }
 }
 
