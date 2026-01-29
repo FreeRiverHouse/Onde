@@ -3466,12 +3466,13 @@
 - **Notes**: Add correlation section to kalshi-weekly-report.py: avg correlation over week, any divergence events, comparison to historical norm. Helps understand if market structure is changing.
 
 ### [T605] Dashboard fetch trading stats from Gist API
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T277]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Static Cloudflare Pages export can't read local files. T277 pushes stats to Gist hourly. Update /betting dashboard to fetch from https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json for live data instead of showing mock/stale data.
+- **Notes**: ✅ Enhanced gist fallback mapping! Dashboard now fetches from Gist when local API unavailable. Mapping includes: profitFactor, maxDrawdownCents/Percent, grossProfit/Loss, latency stats, volatility. Gist pushed with source=all for combined v1+v2 stats.
 
 ### [T606] Document autotrader-v2 trading model
 - **Status**: TODO

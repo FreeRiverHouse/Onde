@@ -571,17 +571,49 @@ export default function BettingDashboard() {
       const gistRes = await fetch(TRADING_STATS_GIST_URL, { cache: 'no-store' });
       if (gistRes.ok) {
         const gistData = await gistRes.json();
-        // Map gist format to TradingStats interface
+        // Map gist format to TradingStats interface (comprehensive mapping)
+        const totalTrades = gistData.totalTrades ?? 0;
+        const winRate = gistData.winRate ?? 0;
+        const wonTrades = Math.round((winRate * totalTrades) / 100);
+        const lostTrades = totalTrades - wonTrades;
+        
         return {
-          totalTrades: gistData.totalTrades ?? 0,
-          wonTrades: Math.round((gistData.winRate ?? 0) * (gistData.totalTrades ?? 0) / 100),
-          lostTrades: Math.round((100 - (gistData.winRate ?? 0)) * (gistData.totalTrades ?? 0) / 100),
-          pendingTrades: 0,
-          winRate: gistData.winRate ?? 0,
+          // Core stats
+          totalTrades,
+          wonTrades,
+          lostTrades,
+          pendingTrades: gistData.pendingTrades ?? 0,
+          winRate,
           totalPnlCents: gistData.pnlCents ?? 0,
+          
+          // Profit metrics
+          grossProfitCents: gistData.grossProfitCents,
+          grossLossCents: gistData.grossLossCents,
+          profitFactor: gistData.profitFactor === "∞" ? Infinity : gistData.profitFactor,
+          
+          // Risk metrics
+          maxDrawdownCents: gistData.maxDrawdownCents,
+          maxDrawdownPercent: gistData.maxDrawdownPercent,
+          
+          // Calculate avg return from PnL/trades
+          avgReturnCents: totalTrades > 0 ? Math.round((gistData.pnlCents ?? 0) / totalTrades) : 0,
+          
+          // Today stats
           todayTrades: gistData.todayTrades ?? 0,
           todayWinRate: gistData.todayWinRate ?? 0,
           todayPnlCents: gistData.todayPnlCents ?? 0,
+          
+          // Latency stats
+          avgLatencyMs: gistData.avgLatencyMs ?? null,
+          p95LatencyMs: gistData.p95LatencyMs ?? null,
+          minLatencyMs: gistData.minLatencyMs ?? null,
+          maxLatencyMs: gistData.maxLatencyMs ?? null,
+          latencyTradeCount: gistData.latencyTradeCount ?? 0,
+          
+          // Volatility analysis
+          volatility: gistData.volatility,
+          
+          // Empty fields (not in gist but needed for interface)
           recentTrades: [],
           lastUpdated: gistData.lastUpdated ?? new Date().toISOString(),
         };
