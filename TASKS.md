@@ -1746,12 +1746,13 @@
 - **Notes**: ✅ Added! Category-based reading estimates (200 wpm, ~250 words/page). Added categoryReadingEstimates map + getBookReadingEstimate() helper to books.ts. Updated /catalogo cards to show pages + reading time with icons.
 
 ### [T298] Book preview modal (first 3 pages)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add "Preview" button to book cards. Modal shows first 3 pages via PDF.js or image snapshots. Helps users decide before download.
+- **Notes**: ✅ Implemented! Created BookPreviewModal component with: image-based page navigation (cover + up to 3 preview pages), keyboard navigation (Escape to close), animated transitions via Framer Motion, info sidebar with book details, responsive design for mobile/desktop. Added Preview button to /libri book cards. Images loaded from /books/previews/{bookId}-page-{n}.jpg with graceful fallback to cover-only view.
 
 ### [T299] Download analytics (track popular books)
 - **Status**: DONE
