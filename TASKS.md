@@ -1365,12 +1365,13 @@
 - **Notes**: Telegram alert if average order latency goes above 2s threshold. Could indicate API issues or network problems.
 
 ### [T296] Analyze edge vs win rate correlation
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create script to correlate calculated edge at entry with actual win/loss. Validate if our probability model is calibrated correctly.
+- **Notes**: ✅ Script: analyze-edge-vs-winrate.py. Groups trades by edge bucket (0-10%, 10-15%, etc.), shows win rate per bucket, checks for positive correlation (higher edge → higher WR), compares expected vs actual WR. Awaiting v2 trade data.
 
 ---
 
