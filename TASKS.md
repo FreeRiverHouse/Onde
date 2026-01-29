@@ -940,12 +940,13 @@
 ---
 
 ### [T249] Trade analysis by hour of day
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze which hours have best win rate. Might reveal optimal trading windows to focus on.
+- **Notes**: ✅ Script: analyze-trades-by-hour.py. Shows win rate/PnL per hour UTC. Currently all trades from broken v1 model. V2 needs more data.
 
 ### [T250] Momentum indicator on /betting dashboard
 - **Status**: TODO
