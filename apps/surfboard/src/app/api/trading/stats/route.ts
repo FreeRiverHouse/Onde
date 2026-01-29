@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, writeFileSync, statSync } from 'fs';
 import path from 'path';
 
 export const dynamic = 'force-dynamic';
+
+// Cache configuration
+const CACHE_TTL_SECONDS = 60; // 1 minute cache
+const CACHE_FILE = path.join(process.cwd(), '../../data/trading/stats-cache.json');
+
+interface CacheData {
+  stats: TradingStats;
+  timestamp: number;
+  sourceModified: number; // mtime of source file when cache was created
+}
 
 interface Trade {
   timestamp: string;
@@ -57,6 +67,48 @@ interface TradingStats {
   lastUpdated: string;
 }
 
+// Check if cache is valid
+function isCacheValid(tradesPath: string): CacheData | null {
+  try {
+    if (!existsSync(CACHE_FILE)) return null;
+    
+    const cacheContent = readFileSync(CACHE_FILE, 'utf-8');
+    const cache: CacheData = JSON.parse(cacheContent);
+    
+    // Check TTL
+    const ageSeconds = (Date.now() - cache.timestamp) / 1000;
+    if (ageSeconds > CACHE_TTL_SECONDS) return null;
+    
+    // Check if source file was modified
+    const sourceStats = statSync(tradesPath);
+    if (sourceStats.mtimeMs > cache.sourceModified) return null;
+    
+    return cache;
+  } catch {
+    return null;
+  }
+}
+
+// Write cache to file
+function writeCache(stats: TradingStats, sourceModified: number): void {
+  try {
+    const cacheDir = path.dirname(CACHE_FILE);
+    if (!existsSync(cacheDir)) {
+      const { mkdirSync } = require('fs');
+      mkdirSync(cacheDir, { recursive: true });
+    }
+    
+    const cache: CacheData = {
+      stats,
+      timestamp: Date.now(),
+      sourceModified,
+    };
+    writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
+  } catch (err) {
+    console.error('Failed to write cache:', err);
+  }
+}
+
 export async function GET() {
   try {
     const tradesPath = path.join(process.cwd(), '../../scripts/kalshi-trades.jsonl');
@@ -67,6 +119,20 @@ export async function GET() {
         path: tradesPath 
       }, { status: 404 });
     }
+
+    // Check cache first
+    const cachedData = isCacheValid(tradesPath);
+    if (cachedData) {
+      return NextResponse.json({
+        ...cachedData.stats,
+        cached: true,
+        cacheAge: Math.round((Date.now() - cachedData.timestamp) / 1000),
+      });
+    }
+
+    // Get source file mtime for cache validation
+    const sourceStats = statSync(tradesPath);
+    const sourceModified = sourceStats.mtimeMs;
 
     const content = readFileSync(tradesPath, 'utf-8');
     const lines = content.trim().split('\n').filter(Boolean);
@@ -348,7 +414,10 @@ export async function GET() {
       lastUpdated: new Date().toISOString(),
     };
 
-    return NextResponse.json(stats);
+    // Write to cache for subsequent requests
+    writeCache(stats, sourceModified);
+
+    return NextResponse.json({ ...stats, cached: false });
   } catch (error) {
     console.error('Error reading trades:', error);
     return NextResponse.json({ 
