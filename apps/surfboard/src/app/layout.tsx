@@ -6,6 +6,7 @@ import { HeaderClient } from '@/components/HeaderClient'
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects'
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration'
 import { OfflineIndicator } from '@/components/OfflineIndicator'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -113,6 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     CORDE
                   </a>
                 </nav>
+                <ThemeToggle />
                 <HeaderClient />
                 <AuthButtons />
               </div>

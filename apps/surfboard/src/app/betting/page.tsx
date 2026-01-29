@@ -24,8 +24,11 @@ import {
   Keyboard,
   X,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Sun,
+  Moon
 } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 
 // ============== TYPES ==============
 interface KalshiPosition {
@@ -348,6 +351,7 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
     { key: 'K', description: 'Open Kalshi portfolio (new tab)' },
     { key: 'E', description: 'Expand/collapse stat cards' },
     { key: 'H', description: 'Toggle help overlay' },
+    { key: 'T', description: 'Toggle light/dark mode' },
   ];
 
   return (
@@ -430,6 +434,7 @@ export default function BettingDashboard() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { theme, toggleTheme } = useTheme();
 
   // Fetch all data
   const fetchData = useCallback(async () => {
@@ -505,12 +510,16 @@ export default function BettingDashboard() {
           e.preventDefault();
           setShowAllStats(prev => !prev);
           break;
+        case 't':
+          e.preventDefault();
+          toggleTheme();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [fetchData]);
+  }, [fetchData, toggleTheme]);
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
