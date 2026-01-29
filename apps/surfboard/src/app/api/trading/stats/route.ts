@@ -38,6 +38,7 @@ interface TradingStats {
   calmarRatio: number;   // annualized return / max drawdown % - risk-adjusted performance
   sortinoRatio: number;  // return / downside deviation - only penalizes negative returns
   avgTradeDurationHours: number;  // average time from entry to settlement
+  avgReturnCents: number;  // average profit/loss per settled trade
   longestWinStreak: number;  // longest consecutive wins
   longestLossStreak: number;  // longest consecutive losses
   currentStreak: number;  // current streak (positive for wins, negative for losses)
@@ -216,6 +217,11 @@ export async function GET() {
       avgTradeDurationHours = (totalMinutes / tradesWithDuration.length) / 60;
     }
 
+    // Average return per trade (cents): total PnL / number of settled trades
+    const avgReturnCents = settledTrades.length > 0 
+      ? Math.round(totalPnlCents / settledTrades.length) 
+      : 0;
+
     // Streak tracking: consecutive wins/losses
     // Sort settled trades chronologically to track streaks properly
     let longestWinStreak = 0;
@@ -299,6 +305,7 @@ export async function GET() {
       maxDrawdownPercent: Math.round(maxDrawdownPercent * 100) / 100,  // Round to 2 decimal places
       calmarRatio: Number.isFinite(calmarRatio) ? Math.round(calmarRatio * 100) / 100 : 0,  // Round to 2 decimal places
       avgTradeDurationHours: Math.round(avgTradeDurationHours * 10) / 10,  // Round to 1 decimal place
+      avgReturnCents,  // Average profit/loss per settled trade
       longestWinStreak,
       longestLossStreak,
       currentStreak,

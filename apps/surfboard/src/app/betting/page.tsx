@@ -77,6 +77,7 @@ interface TradingStats {
   calmarRatio?: number;  // annualized return / max drawdown %
   sortinoRatio?: number;  // return / downside deviation
   avgTradeDurationHours?: number;  // average time to settlement
+  avgReturnCents?: number;  // average profit/loss per trade
   longestWinStreak?: number;  // longest consecutive wins
   longestLossStreak?: number;  // longest consecutive losses
   currentStreak?: number;  // current streak (positive for wins, negative for losses)
@@ -745,6 +746,22 @@ export default function BettingDashboard() {
                   glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
                   className="text-2xl"
                 />
+              </GlassCard>
+
+              {/* Avg Return Per Trade */}
+              <GlassCard glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'} className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-400 text-xs font-medium">Avg Return</span>
+                </div>
+                <AnimatedNumber 
+                  value={Math.abs((tradingStats.avgReturnCents ?? 0) / 100)} 
+                  prefix={(tradingStats.avgReturnCents ?? 0) >= 0 ? '+$' : '-$'}
+                  decimals={2}
+                  glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'}
+                  className="text-2xl"
+                />
+                <p className="text-xs text-gray-600 mt-1">per trade avg</p>
               </GlassCard>
 
               {/* Profit Factor */}

@@ -1322,12 +1322,13 @@
 - **Notes**: Analyze if win rate changes based on position in streak (e.g., do we perform worse after 3+ consecutive wins/losses?). Detect psychological patterns.
 
 ### [T291] Average return per trade on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add stat card showing average cents profit/loss per trade. Helps understand trade quality beyond win rate.
+- **Notes**: ✅ Added avgReturnCents to API (route.ts) + Avg Return card to /betting dashboard. Shows +/- per trade average.
 
 ### [T292] Timezone indicator on /health page
 - **Status**: TODO
