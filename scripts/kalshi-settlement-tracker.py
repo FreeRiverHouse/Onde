@@ -18,7 +18,9 @@ import urllib.request
 import urllib.error
 
 TRADES_FILE = Path(__file__).parent / "kalshi-trades.jsonl"
+TRADES_FILE_V2 = Path(__file__).parent / "kalshi-trades-v2.jsonl"
 SETTLEMENTS_FILE = Path(__file__).parent / "kalshi-settlements.json"
+SETTLEMENTS_FILE_V2 = Path(__file__).parent / "kalshi-settlements-v2.json"
 
 def parse_ticker(ticker: str) -> dict:
     """
@@ -219,29 +221,35 @@ def determine_outcome(trade: dict, settlement_price: float) -> dict:
     }
 
 
-def load_settlements() -> dict:
+def load_settlements(settlements_file: Path = None) -> dict:
     """Load existing settlements data."""
-    if SETTLEMENTS_FILE.exists():
+    if settlements_file is None:
+        settlements_file = SETTLEMENTS_FILE
+    if settlements_file.exists():
         try:
-            with open(SETTLEMENTS_FILE) as f:
+            with open(settlements_file) as f:
                 return json.load(f)
         except json.JSONDecodeError:
             return {}
     return {}
 
 
-def save_settlements(data: dict):
+def save_settlements(data: dict, settlements_file: Path = None):
     """Save settlements data."""
-    with open(SETTLEMENTS_FILE, 'w') as f:
+    if settlements_file is None:
+        settlements_file = SETTLEMENTS_FILE
+    with open(settlements_file, 'w') as f:
         json.dump(data, f, indent=2, default=str)
 
 
-def update_trade_log_results(settlements: dict):
+def update_trade_log_results(settlements: dict, trades_file: Path = None):
     """
-    Update kalshi-trades.jsonl with settlement results.
+    Update trade log file with settlement results.
     Rewrites the file, updating result_status for settled trades.
     """
-    if not TRADES_FILE.exists():
+    if trades_file is None:
+        trades_file = TRADES_FILE
+    if not trades_file.exists():
         return 0
     
     # Build lookup of settled tickers
@@ -256,7 +264,7 @@ def update_trade_log_results(settlements: dict):
     # Read all lines
     lines = []
     updated_count = 0
-    with open(TRADES_FILE) as f:
+    with open(trades_file) as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -275,18 +283,32 @@ def update_trade_log_results(settlements: dict):
     
     # Write back
     if updated_count > 0:
-        with open(TRADES_FILE, 'w') as f:
+        with open(trades_file, 'w') as f:
             for line in lines:
                 f.write(line + '\n')
-        print(f"\nUpdated {updated_count} trade log entries with settlement results.")
+        print(f"\nUpdated {updated_count} trade log entries ({trades_file.name}) with settlement results.")
     
     return updated_count
 
 
-def process_settlements():
+def process_settlements(trades_file: Path = None, settlements_file: Path = None):
     """Process all pending trades and determine outcomes."""
+    if trades_file is None:
+        trades_file = TRADES_FILE
+    if settlements_file is None:
+        settlements_file = SETTLEMENTS_FILE
+    
+    if not trades_file.exists():
+        print(f"Trades file not found: {trades_file}")
+        return {}
+    
+    source_name = trades_file.name
+    print(f"\n{'='*50}")
+    print(f"Processing: {source_name}")
+    print(f"{'='*50}")
+    
     now = datetime.now(timezone.utc)
-    settlements = load_settlements()
+    settlements = load_settlements(settlements_file)
     
     if 'trades' not in settlements:
         settlements['trades'] = {}
@@ -295,7 +317,7 @@ def process_settlements():
     
     # Load all trades
     pending_trades = []
-    with open(TRADES_FILE) as f:
+    with open(trades_file) as f:
         for line in f:
             try:
                 entry = json.loads(line.strip())
@@ -405,14 +427,14 @@ def process_settlements():
     settlements['summary']['last_updated'] = now.isoformat()
     
     # Save
-    save_settlements(settlements)
+    save_settlements(settlements, settlements_file)
     
     # Update trade log with results
-    update_trade_log_results(settlements)
+    update_trade_log_results(settlements, trades_file)
     
     # Print summary
     print(f"\n{'='*50}")
-    print(f"Settlement Summary")
+    print(f"Settlement Summary ({source_name})")
     print(f"{'='*50}")
     print(f"Newly settled: {newly_settled}")
     print(f"Still pending: {still_pending}")
@@ -430,18 +452,31 @@ def process_settlements():
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == '--stats':
-        # Just show stats
-        settlements = load_settlements()
-        summary = settlements.get('summary', {})
-        print(f"Wins: {summary.get('wins', 0)}")
-        print(f"Losses: {summary.get('losses', 0)}")
-        total = summary.get('wins', 0) + summary.get('losses', 0)
-        if total > 0:
-            print(f"Win Rate: {summary.get('wins', 0) / total * 100:.1f}%")
-        print(f"PnL: ${summary.get('total_pnl_cents', 0)/100:.2f}")
-        print(f"Pending: {summary.get('pending', 0)}")
+        # Show stats for both v1 and v2
+        for name, settlements_file in [("v1", SETTLEMENTS_FILE), ("v2", SETTLEMENTS_FILE_V2)]:
+            if not settlements_file.exists():
+                continue
+            print(f"\n--- {name} Stats ---")
+            settlements = load_settlements(settlements_file)
+            summary = settlements.get('summary', {})
+            print(f"Wins: {summary.get('wins', 0)}")
+            print(f"Losses: {summary.get('losses', 0)}")
+            total = summary.get('wins', 0) + summary.get('losses', 0)
+            if total > 0:
+                print(f"Win Rate: {summary.get('wins', 0) / total * 100:.1f}%")
+            print(f"PnL: ${summary.get('total_pnl_cents', 0)/100:.2f}")
+            print(f"Pending: {summary.get('pending', 0)}")
+    elif len(sys.argv) > 1 and sys.argv[1] == '--v2':
+        # Process only v2 file
+        process_settlements(TRADES_FILE_V2, SETTLEMENTS_FILE_V2)
+    elif len(sys.argv) > 1 and sys.argv[1] == '--v1':
+        # Process only v1 file
+        process_settlements(TRADES_FILE, SETTLEMENTS_FILE)
     else:
-        process_settlements()
+        # Process both v1 and v2 files
+        process_settlements(TRADES_FILE, SETTLEMENTS_FILE)
+        if TRADES_FILE_V2.exists():
+            process_settlements(TRADES_FILE_V2, SETTLEMENTS_FILE_V2)
 
 
 if __name__ == '__main__':
