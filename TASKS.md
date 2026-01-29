@@ -3256,12 +3256,13 @@
 - **Notes**: Add cron job (Sundays 09:00 UTC) to run analyze-api-errors.py and generate weekly report. Send summary to Telegram if error rate >5% for any source. Helps catch degrading APIs early.
 
 ### [T475] Alert on high API error rate
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T413]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend analyze-api-errors.py to write kalshi-api-error.alert when any source exceeds 10% error rate over 24h. Add to HEARTBEAT.md pickup. Integrates with existing alert infrastructure.
+- **Notes**: ✅ Implemented! Added check_and_alert() to analyze-api-errors.py. Triggers when any source has ≥10% error rate with ≥10 events. Alert file: kalshi-api-error.alert. 4h cooldown via .api-error-alert-cooldown. Added to HEARTBEAT.md pickup list. Helps catch API degradation early.
 
 ### [T476] API error stats on /health page
 - **Status**: TODO

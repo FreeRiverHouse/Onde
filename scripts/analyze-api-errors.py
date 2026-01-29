@@ -14,6 +14,12 @@ import argparse
 SCRIPT_DIR = Path(__file__).parent
 LOG_FILE = SCRIPT_DIR / "autotrader-v2.log"
 STATS_FILE = SCRIPT_DIR.parent / "data" / "trading" / "api-error-stats.json"
+ALERT_FILE = SCRIPT_DIR / "kalshi-api-error.alert"  # T475
+COOLDOWN_FILE = SCRIPT_DIR / ".api-error-alert-cooldown"
+
+# Configuration
+ERROR_RATE_THRESHOLD = 10  # Alert if any source exceeds 10% error rate
+ALERT_COOLDOWN_HOURS = 4   # Don't repeat alert for 4 hours
 
 # Ensure data directory exists
 STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -128,6 +134,80 @@ def calculate_rates(stats: dict) -> dict:
     
     return result
 
+def check_alert_cooldown() -> bool:
+    """Check if we're within the alert cooldown period."""
+    if not COOLDOWN_FILE.exists():
+        return False
+    
+    try:
+        last_alert_time = datetime.fromisoformat(COOLDOWN_FILE.read_text().strip())
+        hours_since = (datetime.now() - last_alert_time).total_seconds() / 3600
+        return hours_since < ALERT_COOLDOWN_HOURS
+    except (ValueError, OSError):
+        return False
+
+
+def write_alert(high_error_sources: list) -> bool:
+    """Write API error alert file for heartbeat pickup (T475).
+    
+    Args:
+        high_error_sources: List of tuples (source_name, error_rate, error_count)
+    
+    Returns:
+        bool: True if alert was written, False if skipped (cooldown)
+    """
+    if check_alert_cooldown():
+        print(f"⏰ Alert cooldown active (< {ALERT_COOLDOWN_HOURS}h since last alert)")
+        return False
+    
+    # Build alert message
+    lines = ["🔴 HIGH API ERROR RATE DETECTED"]
+    lines.append("")
+    
+    for source, rate, count in high_error_sources:
+        lines.append(f"• {source.upper()}: {rate}% error rate ({count} errors)")
+    
+    lines.append("")
+    lines.append("This may indicate:")
+    lines.append("- API endpoint issues or downtime")
+    lines.append("- Network connectivity problems")
+    lines.append("- Rate limit exhaustion")
+    lines.append("")
+    lines.append("Check scripts/autotrader-v2.log for details.")
+    
+    alert_content = "\n".join(lines)
+    
+    try:
+        ALERT_FILE.write_text(alert_content)
+        COOLDOWN_FILE.write_text(datetime.now().isoformat())
+        print(f"🚨 Alert written: {ALERT_FILE}")
+        return True
+    except OSError as e:
+        print(f"⚠️ Failed to write alert: {e}")
+        return False
+
+
+def check_and_alert(rates: dict) -> bool:
+    """Check error rates and trigger alert if threshold exceeded (T475).
+    
+    Returns:
+        bool: True if alert was triggered
+    """
+    high_error_sources = []
+    
+    for source, data in rates.items():
+        if data["error_rate"] >= ERROR_RATE_THRESHOLD and data["total_events"] >= 10:
+            # Only alert if there's enough data to be meaningful
+            high_error_sources.append((source, data["error_rate"], data["errors"]))
+    
+    if high_error_sources:
+        # Sort by error rate (worst first)
+        high_error_sources.sort(key=lambda x: -x[1])
+        return write_alert(high_error_sources)
+    
+    return False
+
+
 def show_report(days: int = 7):
     """Print API error rate report."""
     print(f"\n📊 API Error Rates (Last {days} Days)")
@@ -174,6 +254,9 @@ def show_report(days: int = 7):
         json.dump(output, f, indent=2)
     
     print(f"\n📁 Stats saved: {STATS_FILE}")
+    
+    # Check and trigger alerts if needed (T475)
+    check_and_alert(rates)
 
 def main():
     parser = argparse.ArgumentParser(description="Analyze API errors from autotrader logs")
