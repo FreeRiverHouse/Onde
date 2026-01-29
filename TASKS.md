@@ -588,12 +588,13 @@
 - **Notes**: Update deploy-onde-la-prod.sh to use playwright for full browser tests instead of curl fallback
 
 ### [T209] Canonical URLs for all pages
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add canonical link tags to prevent duplicate content issues in SEO
+- **Notes**: ✅ Added metadataBase + alternates.canonical to root and all page layouts. Prevents duplicate content issues.
 
 ### [T210] Meta descriptions per page
 - **Status**: DONE
@@ -756,7 +757,31 @@
 - **Priority**: P3
 - **Notes**: Wrap ClientLayout children in React error boundary to prevent full app crash on component errors.
 
+### [T229] Add hreflang tags for multilingual pages
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add hreflang alternate links for IT/EN versions of pages. Helps Google show correct language version.
+
+### [T230] Preload critical fonts for faster LCP
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add <link rel="preload"> for Playfair Display woff2. Currently uses Google Fonts stylesheet which blocks render.
+
+### [T231] Add breadcrumb structured data
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Schema.org BreadcrumbList for navigation hierarchy in Google search results.
+
 ---
 
-*Ultimo aggiornamento: 2026-01-29 00:45 PST*
+*Ultimo aggiornamento: 2026-01-29 00:50 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*
