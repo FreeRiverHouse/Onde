@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-01-29T00:04:19.466538",
+  "total_trades": 41,
+  "categories": {
+    "none": {
+      "trades": 41,
+      "wins": 0,
+      "losses": 41,
+      "win_rate": 0.0,
+      "pnl_cents": -285,
+      "roi": -1.0,
+      "momentum_dirs": {
+        "neutral": 41
+      },
+      "regimes": {
+        "unknown": 41
+      }
+    }
+  }
+}

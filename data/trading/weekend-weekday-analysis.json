@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-01-28T23:45:08.048044",
+  "by_day": {
+    "Wednesday": {
+      "trades": 2007,
+      "wins": 0,
+      "losses": 41,
+      "pnl": 0,
+      "invested": 6913
+    },
+    "Thursday": {
+      "trades": 9,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 481
+    },
+    "Monday": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 0
+    },
+    "Tuesday": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 0
+    },
+    "Friday": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 0
+    },
+    "Saturday": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 0
+    },
+    "Sunday": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "pnl": 0,
+      "invested": 0
+    }
+  },
+  "weekend": {
+    "trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "pnl": 0,
+    "invested": 0
+  },
+  "weekday": {
+    "trades": 2016,
+    "wins": 0,
+    "losses": 41,
+    "pnl": 0,
+    "invested": 7394
+  }
+}
