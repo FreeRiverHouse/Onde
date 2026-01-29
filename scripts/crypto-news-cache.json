@@ -1,6 +1,6 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-01-29T21:04:55.944331",
+    "timestamp": "2026-01-29T21:20:27.069667",
     "result": {
       "sentiment": "bullish",
       "confidence": 0.9,
@@ -9,7 +9,7 @@
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-01-29T21:04:55.944307+00:00",
+      "timestamp": "2026-01-29T21:20:27.069642+00:00",
       "should_trade": true,
       "edge_adjustment": 0.018,
       "news_count": 9

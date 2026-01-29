@@ -1,6 +1,6 @@
 {
   "NYC": {
-    "fetched_at": "2026-01-29T20:49:30.848359+00:00",
+    "fetched_at": "2026-01-29T21:20:30.721713+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
@@ -163,14 +163,14 @@
     }
   },
   "MIA": {
-    "fetched_at": "2026-01-29T20:49:31.570388+00:00",
+    "fetched_at": "2026-01-29T21:20:32.070654+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-01-29T15:00:00-05:00",
+          "start_time": "2026-01-29T16:00:00-05:00",
           "end_time": "2026-01-29T18:00:00-05:00",
           "temperature": 71,
           "temperature_unit": "F",
@@ -326,21 +326,21 @@
     }
   },
   "DEN": {
-    "fetched_at": "2026-01-29T20:49:32.180844+00:00",
+    "fetched_at": "2026-01-29T21:20:32.663937+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-01-29T12:00:00-07:00",
+          "start_time": "2026-01-29T14:00:00-07:00",
           "end_time": "2026-01-29T18:00:00-07:00",
           "temperature": 46,
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Mostly Sunny",
           "wind_speed": "10 to 14 mph",
-          "wind_direction": "NW"
+          "wind_direction": "WNW"
         },
         {
           "name": "Tonight",
@@ -489,14 +489,14 @@
     }
   },
   "CHI": {
-    "fetched_at": "2026-01-29T20:49:32.742607+00:00",
+    "fetched_at": "2026-01-29T21:20:33.487412+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-01-29T14:00:00-06:00",
+          "start_time": "2026-01-29T15:00:00-06:00",
           "end_time": "2026-01-29T18:00:00-06:00",
           "temperature": 16,
           "temperature_unit": "F",

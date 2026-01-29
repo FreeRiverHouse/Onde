@@ -146,6 +146,7 @@ export default function HealthPage() {
   const [apiLatencyLoading, setApiLatencyLoading] = useState(true);
   const [autotraderHealth, setAutotraderHealth] = useState<AutotraderHealth | null>(null);
   const [alertsData, setAlertsData] = useState<AlertsData | null>(null);
+  const [alertFilter, setAlertFilter] = useState<'all' | 'divergence' | 'regime' | 'vol' | 'whipsaw'>('all');
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -809,9 +810,53 @@ export default function HealthPage() {
                   </div>
                 </div>
 
+                {/* Alert Filter Buttons (T432) */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {(['all', 'divergence', 'regime', 'vol', 'whipsaw'] as const).map((filter) => {
+                    const filterCount = filter === 'all' 
+                      ? alertsData.items.length 
+                      : alertsData.items.filter(a => 
+                          filter === 'divergence' ? a.type.includes('divergence') :
+                          filter === 'regime' ? a.type.includes('regime') :
+                          filter === 'vol' ? a.type.includes('vol') :
+                          a.type.includes('whipsaw')
+                        ).length;
+                    return (
+                      <button
+                        key={filter}
+                        onClick={() => setAlertFilter(filter)}
+                        className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                          alertFilter === filter
+                            ? filter === 'all' ? 'bg-slate-600 text-white' :
+                              filter === 'divergence' ? 'bg-yellow-500/30 text-yellow-300 border border-yellow-500/50' :
+                              filter === 'regime' ? 'bg-purple-500/30 text-purple-300 border border-purple-500/50' :
+                              filter === 'vol' ? 'bg-blue-500/30 text-blue-300 border border-blue-500/50' :
+                              'bg-red-500/30 text-red-300 border border-red-500/50'
+                            : 'bg-slate-700/50 text-slate-400 hover:bg-slate-700 hover:text-slate-300'
+                        }`}
+                      >
+                        {filter === 'all' ? '📋 All' :
+                         filter === 'divergence' ? '📉 Divergence' :
+                         filter === 'regime' ? '🔄 Regime' :
+                         filter === 'vol' ? '📊 Volatility' :
+                         '⚡ Whipsaw'}
+                        <span className="ml-1.5 opacity-70">({filterCount})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
                 {/* Alert List */}
                 <div className="space-y-2 max-h-80 overflow-y-auto">
-                  {alertsData.items.slice(0, 10).map((alert, i) => (
+                  {alertsData.items
+                    .filter(alert => 
+                      alertFilter === 'all' ? true :
+                      alertFilter === 'divergence' ? alert.type.includes('divergence') :
+                      alertFilter === 'regime' ? alert.type.includes('regime') :
+                      alertFilter === 'vol' ? alert.type.includes('vol') :
+                      alert.type.includes('whipsaw')
+                    )
+                    .slice(0, 10).map((alert, i) => (
                     <div key={`${alert.timestamp}-${i}`} className="bg-slate-800/50 rounded-lg p-3">
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
@@ -847,11 +892,20 @@ export default function HealthPage() {
                       )}
                     </div>
                   ))}
-                  {alertsData.count > 10 && (
-                    <div className="text-center text-xs text-slate-500 pt-2">
-                      ... and {alertsData.count - 10} more alerts
-                    </div>
-                  )}
+                  {(() => {
+                    const filteredCount = alertsData.items.filter(alert => 
+                      alertFilter === 'all' ? true :
+                      alertFilter === 'divergence' ? alert.type.includes('divergence') :
+                      alertFilter === 'regime' ? alert.type.includes('regime') :
+                      alertFilter === 'vol' ? alert.type.includes('vol') :
+                      alert.type.includes('whipsaw')
+                    ).length;
+                    return filteredCount > 10 ? (
+                      <div className="text-center text-xs text-slate-500 pt-2">
+                        ... and {filteredCount - 10} more {alertFilter !== 'all' ? alertFilter + ' ' : ''}alerts
+                      </div>
+                    ) : null;
+                  })()}
                 </div>
               </>
             )}

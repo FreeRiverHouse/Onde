@@ -18,12 +18,13 @@
 - **Notes**: ✅ Deployed! Alert History (24h) section now live on onde.la/health. Deploy via wrangler (project: onde-portal). Note: Tests pass 16/17 - favicon.ico test fails because we use SVG favicon, not ICO.
 
 ### [T432] Add alert type filter to /health page
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T428]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add filter buttons (All/Divergence/Regime/Vol) to the Alert History section so users can filter by alert type.
+- **Notes**: ✅ Added filter buttons to Alert History section! 5 filters: All, Divergence, Regime, Volatility, Whipsaw. Each shows count, color-coded when active, filtered alerts list updates dynamically. Mobile-friendly with flex-wrap.
 
 ### [T433] Add upload-alerts-to-gist.py health monitoring
 - **Status**: TODO
