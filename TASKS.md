@@ -2957,12 +2957,13 @@
 - **Notes**: Replace placeholder 📖 emoji with AI-generated book covers. Use consistent style (minimalist, watercolor, or vintage). Generate on-demand or pre-cache top 50 books. Store in /public/covers/ or use image CDN.
 
 ### [T451] Sort options for /catalogo (title, author, reading time)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T297]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add dropdown/buttons to sort catalog by: title (A-Z), author (A-Z), reading time (shortest first), or category. Default: title. Persist preference to localStorage. Complements existing category/language filters.
+- **Notes**: ✅ Added! Sort dropdown with 4 options: Title (A-Z), Author (A-Z), Shortest first, Longest first. Persists to localStorage. Added i18n translations (EN/IT). Builds on T297 reading time estimates.
 
 ### [T452] Autotrader: market hours optimization (skip low-volume times)
 - **Status**: TODO

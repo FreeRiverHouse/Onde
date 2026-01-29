@@ -1,22 +1,39 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo } from 'react'
-import { books, bookCount, getBookReadingEstimate } from '@/data/books'
+import { useState, useMemo, useEffect } from 'react'
+import { books, bookCount, getBookReadingEstimate, Book } from '@/data/books'
 import { useTranslations } from '@/i18n'
 
 // Extract unique categories
 const categories = [...new Set(books.map(b => b.category))].sort()
+
+type SortOption = 'title' | 'author' | 'shortest' | 'longest'
 
 export default function Catalogo() {
   const t = useTranslations()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedLang, setSelectedLang] = useState<string | null>(null)
+  const [sortBy, setSortBy] = useState<SortOption>('title')
 
-  // Filter books
+  // Load sort preference from localStorage
+  useEffect(() => {
+    const savedSort = localStorage.getItem('catalog-sort')
+    if (savedSort && ['title', 'author', 'shortest', 'longest'].includes(savedSort)) {
+      setSortBy(savedSort as SortOption)
+    }
+  }, [])
+
+  // Save sort preference
+  const handleSortChange = (newSort: SortOption) => {
+    setSortBy(newSort)
+    localStorage.setItem('catalog-sort', newSort)
+  }
+
+  // Filter and sort books
   const filteredBooks = useMemo(() => {
-    return books.filter(book => {
+    let result = books.filter(book => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase()
@@ -38,7 +55,25 @@ export default function Catalogo() {
 
       return true
     })
-  }, [searchQuery, selectedCategory, selectedLang])
+
+    // Sort books
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'title':
+          return a.title.localeCompare(b.title)
+        case 'author':
+          return a.author.localeCompare(b.author)
+        case 'shortest':
+          return getBookReadingEstimate(a).pages - getBookReadingEstimate(b).pages
+        case 'longest':
+          return getBookReadingEstimate(b).pages - getBookReadingEstimate(a).pages
+        default:
+          return 0
+      }
+    })
+
+    return result
+  }, [searchQuery, selectedCategory, selectedLang, sortBy])
 
   const clearFilters = () => {
     setSearchQuery('')
@@ -101,6 +136,18 @@ export default function Catalogo() {
           <option value="fr">Français</option>
           <option value="de">Deutsch</option>
           <option value="es">Español</option>
+        </select>
+
+        {/* Sort dropdown */}
+        <select
+          value={sortBy}
+          onChange={(e) => handleSortChange(e.target.value as SortOption)}
+          className="px-4 py-2 rounded-lg border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-onde-gold"
+        >
+          <option value="title">{t.catalog.sort?.title || 'Title (A-Z)'}</option>
+          <option value="author">{t.catalog.sort?.author || 'Author (A-Z)'}</option>
+          <option value="shortest">{t.catalog.sort?.shortest || 'Shortest first'}</option>
+          <option value="longest">{t.catalog.sort?.longest || 'Longest first'}</option>
         </select>
 
         {/* Reset filters */}

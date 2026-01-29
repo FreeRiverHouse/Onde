@@ -613,6 +613,13 @@
       "allLanguages": "All languages",
       "reset": "Reset filters"
     },
+    "sort": {
+      "label": "Sort by",
+      "title": "Title (A-Z)",
+      "author": "Author (A-Z)",
+      "shortest": "Shortest first",
+      "longest": "Longest first"
+    },
     "results": {
       "showingAll": "Showing all {count} books",
       "found": "{count} books found"

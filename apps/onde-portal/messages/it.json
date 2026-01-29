@@ -603,6 +603,13 @@
       "allLanguages": "Tutte le lingue",
       "reset": "Reset filtri"
     },
+    "sort": {
+      "label": "Ordina per",
+      "title": "Titolo (A-Z)",
+      "author": "Autore (A-Z)",
+      "shortest": "Più brevi prima",
+      "longest": "Più lunghi prima"
+    },
     "results": {
       "showingAll": "Mostrando tutti i {count} libri",
       "found": "{count} libri trovati"
