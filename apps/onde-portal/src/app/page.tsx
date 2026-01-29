@@ -13,7 +13,6 @@ import {
   FloatingDock,
   SpotlightBeam,
   MovingBorder,
-  InfiniteMovingCards,
   WavyBackground
 } from '@/components/ui/aceternity'
 import { useTranslations } from '@/i18n'
@@ -85,14 +84,6 @@ const books = [
 // Features for Bento Grid - will be populated with translations in component
 const featureIcons = ["📚", "🚀", "📱", "🎨"]
 const featureClassNames = ["md:col-span-2", "", "", "md:col-span-2"]
-
-// Testimonials
-const testimonials = [
-  { quote: "The illustrations in Meditations are breathtaking. This is how classic literature should be presented.", name: "Sarah M.", title: "Teacher" },
-  { quote: "My kids love The Shepherd's Promise. The imagery brings the Psalm to life.", name: "David L.", title: "Parent" },
-  { quote: "Finally, beautiful editions of classic books accessible to everyone during the launch.", name: "Emily R.", title: "Librarian" },
-  { quote: "The attention to detail in each illustration is remarkable. True digital art.", name: "Marcus T.", title: "Art Director" },
-]
 
 // Dock items
 const dockItems = [
@@ -415,22 +406,6 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-      </section>
-
-      {/* ============================================
-          TESTIMONIALS
-          ============================================ */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
-          <span className="text-pink-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-            <span>💬</span> {t.home.testimonials.badge} <span>💬</span>
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mt-4">
-            {t.home.testimonials.title}
-          </h2>
-        </div>
-        
-        <InfiniteMovingCards items={testimonials} speed="slow" />
       </section>
 
       {/* ============================================

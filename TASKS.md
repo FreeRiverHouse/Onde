@@ -18,6 +18,36 @@
 
 ---
 
+## 🚨 URGENTE - DA MATTIA 2026-01-29
+
+### [T405] Watchdog onde.surf auth check ogni 20 min
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Script: watchdog-onde-surf-auth.sh. Cron */20 min. Verifica che onde.surf richieda auth (307 redirect). Se restituisce 200 → alert P0 + task per fixare. Alert file: onde-surf-auth-broken.alert
+
+### [T406] Rimuovere fake reviews/testimonials da onde.la
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Rimossi testimonials finti (Sarah M., David L., Emily R., Marcus T.) da page.tsx. MAI PIÙ fake reviews!
+
+### [T407] Bug: Agenti FRH non prendono task da onde.surf
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Quando scrivi agli agenti in FRH tramite onde.surf, non prendono i task. Da investigare.
+
+---
+
 ## 🚨 URGENTE - DA MATTIA 2026-01-28
 
 ### [T090] Creare REGOLE-AGENTI.md
