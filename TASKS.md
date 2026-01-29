@@ -1463,12 +1463,13 @@
 ---
 
 ### [T306] Analyze dry-run trades vs actual outcomes
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T305]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to compare kalshi-trades-dryrun.jsonl trades against settlement data. Shows theoretical win rate and PnL. Useful for validating new strategies before going live.
+- **Notes**: ✅ Script: analyze-dryrun-trades.py. Parses KXBTCD/KXETHD tickers, fetches settlement prices from CoinGecko, calculates win rate + theoretical PnL. Caches results. Use: `python3 scripts/analyze-dryrun-trades.py --days 7`
 
 ### [T307] Position sizing comparison (fixed vs Kelly)
 - **Status**: TODO
@@ -1867,7 +1868,31 @@
 - **Priority**: P2
 - **Notes**: ✅ Implemented! SaveData interface stores stats, achievements, gameState (with roomsVisited as array for JSON). loadSaveData() on mount initializes state. saveSaveData() in useEffect auto-saves on any change. Progress persists across browser refreshes.
 
+### [T354] Verify settlement prices match Kalshi official
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare CoinGecko settlement prices with Kalshi's official settlement prices (from order history). Script to validate our settlement tracker accuracy.
+
+### [T355] Paper balance tracking in dry-run mode
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T305]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track virtual balance in kalshi-dryrun-balance.json. Start with $100, update on each dry-run trade settlement. Shows cumulative PnL over time.
+
+### [T356] Strategy parameter sweep (MIN_EDGE optimization)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T306]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Run multiple dry-run instances with different MIN_EDGE values (5%, 8%, 10%, 12%, 15%). Compare win rates to find optimal threshold. Output: data/backtests/edge-sweep.json
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-28 20:15 PST heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
