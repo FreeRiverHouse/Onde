@@ -6,6 +6,34 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-30 (14:05)
+
+### [T440] WhisperFlow: Add language auto-detect display
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T439]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show detected language in overlay and menu bar when using auto-detect mode. Useful for multilingual users to know which language was recognized.
+
+### [T441] Autotrader: Add position size limits per asset
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T001]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Currently all assets use same Kelly sizing. Add config for per-asset max position size. Weather markets could have higher Kelly (more predictable), crypto lower. Reduces portfolio concentration risk.
+
+### [T442] Daily test suite: Add visual regression tests
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T413], [T417]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add visual regression tests from T417 to daily test suite (T413). Currently runs manually. Run 1x/day at 12:00 to catch UI regressions without burning too much CI time.
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (21:15)
 
 ### [T431] Deploy onde.la with health page alert summary
