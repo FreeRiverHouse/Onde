@@ -115,3 +115,11 @@
 
 ⚠️ NOTA: MAI dire buonanotte a Mattia!
 
+
+### 21:38 PST [msg:193]
+> BATTI LA FIACCA?? Altri task no?? In parallelo
+
+
+### 21:38 PST [msg:194]
+> Never stop amico
+

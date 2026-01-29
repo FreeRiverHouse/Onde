@@ -69,12 +69,12 @@
 ## 📋 TODO - LIBRI (TIER 1)
 
 ### [T020] Frankenstein illustrato EN
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Da ROADMAP TIER 1
+- **Notes**: Da ROADMAP TIER 1. Libro pubblico dominio. Cerco testo + genero illustrazioni.
 
 ### [T021] Meditations illustrato EN
 - **Status**: TODO
