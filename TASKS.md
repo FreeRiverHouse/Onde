@@ -1078,12 +1078,13 @@
 - **Notes**: Add "~X min read" or page count to book cards. Helps users know what they're downloading.
 
 ### [T264] Regime change Telegram alert
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T243]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when market regime changes (e.g., sideways→trending_bullish). Helps human review trading strategy adjustments.
+- **Notes**: ✅ Integrated into autotrader-v2! Checks for regime changes each cycle. Alert file: kalshi-regime-change.alert. Shows old→new regime per asset with 4h/24h price changes and new MIN_EDGE. 1h cooldown between alerts. Added to HEARTBEAT.md pickup.
 
 ### [T265] Analyze win rate by regime
 - **Status**: DONE

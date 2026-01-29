@@ -12,6 +12,7 @@
 - `scripts/watchdog-stale.alert` → Se esiste, watchdog cron non funziona! Manda alert, poi elimina
 - `scripts/kalshi-weekly-report.alert` → Se esiste, weekly report PDF pronto. Manda notifica, poi elimina
 - `scripts/kalshi-stop-loss.alert` → Se esiste, STOP-LOSS eseguito! Leggi message dal JSON, manda a Mattia, poi elimina
+- `scripts/kalshi-regime-change.alert` → Se esiste, regime di mercato cambiato! Manda info a Mattia, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 

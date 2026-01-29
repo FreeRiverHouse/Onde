@@ -75,6 +75,110 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 
 # Logging
 TRADE_LOG_FILE = "scripts/kalshi-trades-v2.jsonl"
+SKIP_LOG_FILE = "scripts/kalshi-skips.jsonl"
+
+# Regime change alerting
+REGIME_STATE_FILE = "scripts/kalshi-regime-state.json"
+REGIME_ALERT_FILE = "scripts/kalshi-regime-change.alert"
+REGIME_ALERT_COOLDOWN = 3600  # 1 hour cooldown between alerts
+
+
+# ============== REGIME CHANGE ALERTING ==============
+
+def load_regime_state() -> dict:
+    """Load previous regime state from file."""
+    try:
+        with open(REGIME_STATE_FILE, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {"btc": None, "eth": None, "last_alert": 0}
+
+
+def save_regime_state(state: dict):
+    """Save current regime state to file."""
+    with open(REGIME_STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def check_regime_change(current_regimes: dict) -> list:
+    """
+    Check if regime changed for any asset and return changes.
+    
+    Args:
+        current_regimes: Dict with btc and eth regime dicts from detect_market_regime()
+    
+    Returns:
+        List of (asset, old_regime, new_regime) tuples for any changes
+    """
+    state = load_regime_state()
+    changes = []
+    
+    for asset in ["btc", "eth"]:
+        new_regime = current_regimes.get(asset, {}).get("regime", "unknown")
+        old_regime = state.get(asset)
+        
+        if old_regime and old_regime != new_regime:
+            changes.append((asset.upper(), old_regime, new_regime))
+        
+        # Update state
+        state[asset] = new_regime
+    
+    save_regime_state(state)
+    return changes
+
+
+def write_regime_alert(changes: list, regime_details: dict):
+    """
+    Write regime change alert file for heartbeat pickup.
+    
+    Args:
+        changes: List of (asset, old_regime, new_regime) tuples
+        regime_details: Full regime data for context
+    """
+    state = load_regime_state()
+    now = time.time()
+    
+    # Check cooldown
+    if now - state.get("last_alert", 0) < REGIME_ALERT_COOLDOWN:
+        print(f"   ⏳ Regime alert on cooldown ({int((REGIME_ALERT_COOLDOWN - (now - state['last_alert']))/60)}min left)")
+        return
+    
+    alert_lines = ["🔄 MARKET REGIME CHANGE DETECTED\n"]
+    
+    for asset, old, new in changes:
+        # Get direction indicator
+        if new in ("trending_bullish",):
+            emoji = "📈"
+        elif new in ("trending_bearish",):
+            emoji = "📉"
+        elif new == "choppy":
+            emoji = "⚡"
+        else:
+            emoji = "➡️"
+        
+        alert_lines.append(f"{emoji} {asset}: {old} → {new}")
+        
+        # Add context if available
+        details = regime_details.get(asset.lower(), {}).get("details", {})
+        if details:
+            chg_4h = details.get("change_4h", 0) * 100
+            chg_24h = details.get("change_24h", 0) * 100
+            alert_lines.append(f"   4h: {chg_4h:+.2f}% | 24h: {chg_24h:+.2f}%")
+        
+        # Add trading implication
+        new_edge = regime_details.get(asset.lower(), {}).get("dynamic_min_edge", MIN_EDGE)
+        alert_lines.append(f"   New MIN_EDGE: {new_edge*100:.0f}%\n")
+    
+    alert_lines.append(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    
+    with open(REGIME_ALERT_FILE, "w") as f:
+        f.write("\n".join(alert_lines))
+    
+    # Update last alert time
+    state["last_alert"] = now
+    save_regime_state(state)
+    
+    print(f"   📢 Regime change alert written to {REGIME_ALERT_FILE}")
 
 
 # ============== PROPER PROBABILITY MODEL ==============
@@ -1265,6 +1369,19 @@ def run_cycle():
     
     # Pass OHLC data for regime detection
     ohlc_data = {"btc": btc_ohlc, "eth": eth_ohlc}
+    
+    # CHECK FOR REGIME CHANGES (alert on shift)
+    btc_regime = detect_market_regime(btc_ohlc, btc_momentum)
+    eth_regime = detect_market_regime(eth_ohlc, eth_momentum)
+    current_regimes = {"btc": btc_regime, "eth": eth_regime}
+    
+    print(f"📊 Market Regimes: BTC={btc_regime['regime']} ({btc_regime['confidence']:.0%}) | ETH={eth_regime['regime']} ({eth_regime['confidence']:.0%})")
+    
+    regime_changes = check_regime_change(current_regimes)
+    if regime_changes:
+        print(f"🔄 REGIME CHANGE: {', '.join([f'{a}: {old}→{new}' for a, old, new in regime_changes])}")
+        write_regime_alert(regime_changes, current_regimes)
+    
     opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data, ohlc_data=ohlc_data)
     
     if not opportunities:
