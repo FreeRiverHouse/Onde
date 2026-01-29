@@ -1723,12 +1723,13 @@
 - **Notes**: ✅ Added! ThemeProvider now detects OS `prefers-color-scheme`. Theme cycles: dark → light → system. System mode auto-follows OS preference with real-time listener. Monitor icon for system mode. First-visit defaults to system.
 
 ### [T337] Smooth theme transition animations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T315]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add CSS transitions for background and text colors when switching themes to avoid jarring color jumps.
+- **Notes**: ✅ Added! Body has 0.3s ease transition for background and color. Theme toggle icons already had animations. Smooth fade between dark/light/system modes.
 
 ### [T338] Theme-aware chart colors for trading graphs
 - **Status**: TODO

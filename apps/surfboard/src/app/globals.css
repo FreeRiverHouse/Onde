@@ -25,6 +25,8 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Smooth theme transition */
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Premium shimmer animation */
