@@ -39,6 +39,7 @@ import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
+import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -523,6 +524,7 @@ export default function BettingDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [dataFromCache, setDataFromCache] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -669,6 +671,8 @@ export default function BettingDashboard() {
   // Fetch all data
   const fetchData = useCallback(async () => {
     setIsLoading(true);
+    let fromCache = false;
+    
     try {
       const [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes] = await Promise.all([
         fetch('/api/kalshi/status'),
@@ -677,6 +681,13 @@ export default function BettingDashboard() {
         fetch('/api/momentum'),
         fetch(`/api/trading/trend?days=30&source=${statsSource}`)
       ]);
+
+      // Check if any response came from service worker cache
+      // SW adds 'sw-cache-time' header to cached responses
+      const responses = [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes];
+      const anyCached = responses.some(res => res.headers.get('sw-cache-time'));
+      const anyFailed = responses.some(res => !res.ok);
+      fromCache = anyCached || anyFailed || !navigator.onLine;
 
       // Fetch trading stats with gist fallback
       const statsData = await fetchTradingStatsWithFallback();
@@ -695,8 +706,11 @@ export default function BettingDashboard() {
       if (trendRes.ok) setWinRateTrend(await trendRes.json());
 
       setLastRefresh(new Date());
+      setDataFromCache(fromCache);
     } catch (error) {
       console.error('Error fetching data:', error);
+      // Network error likely means we're showing cached data
+      setDataFromCache(true);
     } finally {
       setIsLoading(false);
     }
@@ -916,9 +930,13 @@ export default function BettingDashboard() {
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <PulsingDot color="green" label="Systems Online" />
             </div>
-            <span className="text-gray-500 text-[10px] sm:text-xs font-mono">
-              {lastRefresh.toLocaleTimeString()}
-            </span>
+            <LastUpdatedIndicator
+              lastUpdated={lastRefresh}
+              fromCache={dataFromCache}
+              thresholdSeconds={300}
+              compact={true}
+              onRequestRefresh={fetchData}
+            />
             <button
               onClick={toggleTheme}
               className="p-2 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 group"
@@ -1680,7 +1698,7 @@ export default function BettingDashboard() {
             <div className="mt-4">
               <VolatilityCard 
                 volatility={tradingStats.volatility}
-                loading={statsLoading}
+                loading={isLoading}
               />
             </div>
 

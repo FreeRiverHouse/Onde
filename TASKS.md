@@ -2336,12 +2336,22 @@
 - **Notes**: ✅ Added /corde, /pr, /robots.txt to PRECACHE_ASSETS. Added /api/health/cron to API_ROUTES. Better offline coverage for all main pages.
 
 ### [T322] Cache invalidation on API error recovery
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T312]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When API returns error but cache has valid data, show cached + indicate staleness. Add "last updated: Xm ago" to dashboard.
+- **Notes**: ✅ Implemented! Created time utilities and LastUpdatedIndicator component:
+  - **Files**: `lib/time-utils.ts`, `components/LastUpdatedIndicator.tsx`
+  - **Features**: 
+    - Relative time display (e.g., "2m ago", "1h ago")
+    - Color-coded staleness (green=fresh, yellow=stale >5min, red=very stale >15min)
+    - Cache indicator when serving from SW cache
+    - Auto-updates every 10s to keep time current
+    - Refresh button on stale data
+  - **Integration**: Updated /betting page to track cache status and show indicator
+  - Also fixed pre-existing `statsLoading` bug (should be `isLoading`)
 
 ### [T323] Network status in /health page
 - **Status**: DONE

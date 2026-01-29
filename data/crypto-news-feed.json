@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T20:30:01.615911+00:00",
+  "timestamp": "2026-01-29T21:00:02.303323+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Crypto custodian Copper weighs IPO as institutional demand grows: Report",
+      "url": "https://cointelegraph.com/news/crypto-custodian-copper-ipo-institutional-demand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "A potential listing would further legitimize digital asset custody as core market infrastructure rather than a niche service following BitGo's public launch.",
+      "published": "2026-01-29T20:58:18+00:00"
+    },
+    {
+      "title": "Escape Velocity raises $62M to back DePIN infrastructure projects",
+      "url": "https://cointelegraph.com/news/escape-velocity-capital-raise-depin-projects?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The raise underscores venture investors\u2019 selective return to infrastructure-heavy crypto bets as DePIN struggles to move beyond early token launches.",
+      "published": "2026-01-29T20:53:33+00:00"
+    },
+    {
+      "title": "Dogecoin, XRP and Cardano Hit Lowest Prices Since 2024 as Altcoins Fall Harder Than Bitcoin",
+      "url": "https://decrypt.co/356359/dogecoin-xrp-cardano-lowest-prices-since-2024-altcoins-fall-harder-bitcoin",
+      "source": "decrypt",
+      "description": "Bitcoin is down bad Thursday, but Dogecoin, XRP, Cardano, and Litecoin are showing sharper losses, hitting lows not seen in over a year.",
+      "published": "2026-01-29T20:32:52+00:00"
+    },
     {
       "title": "Talos adds $45M to Series B with new backing from Robinhood, Sony",
       "url": "https://cointelegraph.com/news/talos-series-b-150m-robinhood-sony?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -46,10 +67,10 @@
       "published": "2026-01-29T19:38:45+00:00"
     },
     {
-      "title": "US CFTC and SEC push joint collaboration on crypto regulation",
+      "title": "US market regulators move to coordinate on crypto oversight",
       "url": "https://cointelegraph.com/news/us-cftc-sec-agency-project-crypto-regulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "CFTC Chair Michael Selig and SEC Chair Paul Atkins held a joint agency event on Thursday to discuss harmonization on crypto regulation.",
+      "description": "The chairs of the CFTC and SEC appeared together at a joint agency event Thursday to discuss a unified approach to crypto regulation.",
       "published": "2026-01-29T19:13:51+00:00"
     },
     {
@@ -165,32 +186,11 @@
       "published": "2026-01-29T14:14:05+00:00"
     },
     {
-      "title": "UK Lords launch stablecoin inquiry as Bank of England moves to finalize rules",
-      "url": "https://cointelegraph.com/news/uk-lawmakers-open-stablecoin-regulation-inquiry?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The parliamentary inquiry comes as regulators warn that stablecoins could drain bank deposits and reshape payments.",
-      "published": "2026-01-29T14:12:01+00:00"
-    },
-    {
       "title": "Morning Minute: Gold Soars Toward $5,600; Bitcoin Falls",
       "url": "https://decrypt.co/356284/morning-minute-gold-soars-toward-5600-bitcoin-falls",
       "source": "decrypt",
       "description": "Gold continues its parabolic rally, up 100% over the past year and seemingly finding new highs by the day. When will Bitcoin have its turn?",
       "published": "2026-01-29T14:11:03+00:00"
-    },
-    {
-      "title": "Single Bitcoin entity keeping BTC price 'suppressed' below $90K: Analysis",
-      "url": "https://cointelegraph.com/news/single-bitcoin-entity-keeping-btc-price-suppressed-below-90k-analysis?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin order-book analysis said that BTC price action was being held back by just one trading entity, while risking a trip to \"Bearadise.\"",
-      "published": "2026-01-29T13:59:16+00:00"
-    },
-    {
-      "title": "Solana ETFs Hit a Weekly High as Altcoin Deposits Surge",
-      "url": "https://decrypt.co/356282/solana-etfs-weekly-high-altcoin-deposits-surge",
-      "source": "decrypt",
-      "description": "Solana ETFs are pulling in millions while SOL's price falls\u2014why are investors betting on the funds but losing faith in the race against silver?",
-      "published": "2026-01-29T13:48:27+00:00"
     },
     {
       "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",

@@ -1,6 +1,6 @@
 {
   "NYC": {
-    "fetched_at": "2026-01-29T20:17:57.416385+00:00",
+    "fetched_at": "2026-01-29T20:49:30.848359+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
@@ -163,7 +163,7 @@
     }
   },
   "MIA": {
-    "fetched_at": "2026-01-29T20:17:57.912743+00:00",
+    "fetched_at": "2026-01-29T20:49:31.570388+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
@@ -326,7 +326,7 @@
     }
   },
   "DEN": {
-    "fetched_at": "2026-01-29T20:17:58.124795+00:00",
+    "fetched_at": "2026-01-29T20:49:32.180844+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
@@ -489,14 +489,14 @@
     }
   },
   "CHI": {
-    "fetched_at": "2026-01-29T20:17:58.506189+00:00",
+    "fetched_at": "2026-01-29T20:49:32.742607+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",
       "periods": [
         {
           "name": "This Afternoon",
-          "start_time": "2026-01-29T13:00:00-06:00",
+          "start_time": "2026-01-29T14:00:00-06:00",
           "end_time": "2026-01-29T18:00:00-06:00",
           "temperature": 16,
           "temperature_unit": "F",
