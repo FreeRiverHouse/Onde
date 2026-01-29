@@ -1536,12 +1536,13 @@
 - **Notes**: Use ElevenLabs/TTS to announce major events: circuit breaker triggered, big win/loss, regime change. Optional Telegram voice message delivery.
 
 ### [T315] Light/dark mode toggle for trading dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add theme toggle (system/light/dark). Use next-themes or manual implementation. Persist preference in localStorage.
+- **Notes**: ✅ Added! ThemeToggle component with animated sun/moon icons in header. Keyboard shortcut 'T' on /betting. Light mode CSS already existed. Persists to localStorage via ThemeProvider.
 
 ### [T316] Touch gestures for mobile dashboard
 - **Status**: TODO
@@ -1712,5 +1713,31 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 heartbeat*
+### [T336] System theme preference detection (prefers-color-scheme)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T315]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Detect OS-level theme preference and auto-set on first visit. Add "System" option to theme toggle.
+
+### [T337] Smooth theme transition animations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T315]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add CSS transitions for background and text colors when switching themes to avoid jarring color jumps.
+
+### [T338] Theme-aware chart colors for trading graphs
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T315], [T328]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When implementing latency/trend charts, ensure colors adapt properly to light/dark mode for readability.
+
+---
+
+*Ultimo aggiornamento: 2026-01-28 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
