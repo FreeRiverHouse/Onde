@@ -2248,12 +2248,13 @@
 - **Notes**: ✅ Implemented! Created /api/trading/settlements route (edge runtime placeholder) + added settlements stats to GitHub Gist via push-stats-to-gist.py. Gist now includes v1/v2/combined settlement stats with by-asset breakdown, win rates, PnL, and timestamps.
 
 ### [T350] V2 win rate comparison chart
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T344], [T347]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Side-by-side win rate chart comparing v1 (broken model) vs v2 (Black-Scholes) performance on /betting dashboard.
+- **Notes**: ✅ Created ModelComparisonChart component! Shows side-by-side v1 vs v2 comparison with: win rate progress bars, PnL display, trade counts, improvement summary when both have data, model descriptions (v1=legacy, v2=Black-Scholes). Handles edge cases (no data, only v1, only v2). Added to /betting dashboard after volatility analysis.
 
 ### [T351] Real sprite images for Luna moods
 - **Status**: TODO

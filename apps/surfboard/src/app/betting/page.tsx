@@ -37,6 +37,7 @@ import { ReturnDistributionChart, generateMockTrades } from '@/components/Return
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
+import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 
 // ============== CONSTANTS ==============
@@ -121,6 +122,11 @@ interface TradingStats {
     result_status?: string;
   }>;
   lastUpdated: string;
+  // Model comparison (v1 vs v2) - T350
+  bySource?: {
+    v1?: { trades: number; winRate: number; pnlCents: number; pnlDollars: number };
+    v2?: { trades: number; winRate: number; pnlCents: number; pnlDollars: number };
+  };
   // Volatility analysis
   volatility?: {
     generated_at: string;
@@ -1675,6 +1681,14 @@ export default function BettingDashboard() {
               <VolatilityCard 
                 volatility={tradingStats.volatility}
                 loading={statsLoading}
+              />
+            </div>
+
+            {/* Model Comparison (T350) */}
+            <div className="mt-4">
+              <ModelComparisonChart 
+                v1Stats={tradingStats.bySource?.v1 || null}
+                v2Stats={tradingStats.bySource?.v2 || null}
               />
             </div>
 
