@@ -711,12 +711,13 @@
 ---
 
 ### [T223] Add ETH (KXETHD) market support to autotrader
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Currently only scans BTC markets. ETH markets (KXETHD) have different volatility - use ETH_HOURLY_VOL constant.
+- **Notes**: ✅ Added! Now scans both KXBTCD (BTC) and KXETHD (ETH) markets. Uses ETH_HOURLY_VOL (0.7%) for ETH. Separate momentum tracking for each asset. Trade log now includes `asset` field.
 
 ### [T224] Save skip logs to file for pattern analysis
 - **Status**: TODO
@@ -774,6 +775,30 @@
 - **Priority**: P2
 - **Notes**: If BTC moves strongly against our position before expiry, exit early to cut losses. Monitor open positions every cycle.
 
+### [T235] ETH settlement tracker support
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T223]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Update kalshi-settlement-tracker.py to handle KXETHD tickers - needs to fetch ETH price for settlement determination.
+
+### [T236] Separate win rate tracking per asset (BTC vs ETH)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T223]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track and display win rates separately for BTC and ETH trades in dashboard and reports. Helps identify which asset performs better.
+
+### [T237] Auto-rebalance between assets based on volatility
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T223]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When one asset has significantly higher volatility (implied vs realized), prefer trading that asset for better edge opportunities.
+
 ### [T228] Add error boundary to ClientLayout
 - **Status**: TODO
 - **Owner**: 
@@ -808,5 +833,5 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-29 01:15 PST*
+*Ultimo aggiornamento: 2026-01-28 16:27 PST*
 *Sistema coordinamento: vedi TASK-RULES.md*

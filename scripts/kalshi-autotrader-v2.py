@@ -145,8 +145,12 @@ def get_trend_adjustment(prices_1h: list) -> float:
 
 # ============== MULTI-TIMEFRAME MOMENTUM ==============
 
-def get_btc_ohlc(days: int = 1) -> list:
-    """Get BTC OHLC data from CoinGecko (hourly candles for 1-2 days)
+def get_crypto_ohlc(coin_id: str = "bitcoin", days: int = 1) -> list:
+    """Get crypto OHLC data from CoinGecko (hourly candles for 1-2 days)
+    
+    Args:
+        coin_id: CoinGecko coin id ("bitcoin" or "ethereum")
+        days: Number of days (valid: 1, 7, 14, 30, 90, 180, 365, max)
     
     Note: CoinGecko OHLC only accepts: 1, 7, 14, 30, 90, 180, 365, max
     For 1-2 days: granularity is 30min/hourly, which is what we need
@@ -156,20 +160,30 @@ def get_btc_ohlc(days: int = 1) -> list:
         # days=7 gives hourly candles - better for 24h momentum
         valid_days = min(7, max(1, days))  # Clamp to valid values
         resp = requests.get(
-            f"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days={valid_days}",
+            f"https://api.coingecko.com/api/v3/coins/{coin_id}/ohlc?vs_currency=usd&days={valid_days}",
             timeout=10
         )
         if resp.status_code != 200:
-            print(f"[WARN] OHLC API returned {resp.status_code}: {resp.text[:100]}")
+            print(f"[WARN] {coin_id.upper()} OHLC API returned {resp.status_code}: {resp.text[:100]}")
             return []
         data = resp.json()
         if not isinstance(data, list):
-            print(f"[WARN] OHLC unexpected format: {type(data)}")
+            print(f"[WARN] {coin_id.upper()} OHLC unexpected format: {type(data)}")
             return []
         return data  # [[timestamp, open, high, low, close], ...]
     except Exception as e:
-        print(f"[WARN] Failed to get OHLC: {e}")
+        print(f"[WARN] Failed to get {coin_id.upper()} OHLC: {e}")
         return []
+
+
+def get_btc_ohlc(days: int = 1) -> list:
+    """Get BTC OHLC data (wrapper for backwards compatibility)"""
+    return get_crypto_ohlc("bitcoin", days)
+
+
+def get_eth_ohlc(days: int = 1) -> list:
+    """Get ETH OHLC data"""
+    return get_crypto_ohlc("ethereum", days)
 
 
 def calculate_momentum(ohlc_data: list, timeframe: str) -> dict:
@@ -574,21 +588,22 @@ def parse_time_to_expiry(market: dict) -> float:
         return 999
 
 
-def find_opportunities(markets: list, btc_price: float, momentum: dict = None, verbose: bool = True) -> list:
-    """Find trading opportunities with PROPER probability model + momentum adjustment"""
+def find_opportunities(markets: list, prices: dict, momentum_data: dict = None, verbose: bool = True) -> list:
+    """Find trading opportunities with PROPER probability model + momentum adjustment
+    
+    Args:
+        markets: List of market dicts from Kalshi API
+        prices: Dict with "btc" and "eth" prices
+        momentum_data: Dict with "btc" and "eth" momentum dicts
+    """
     opportunities = []
     skip_reasons = {
-        "not_btc": 0,
+        "not_crypto": 0,
         "no_strike": 0,
         "too_close_expiry": 0,
         "momentum_conflict": 0,
         "insufficient_edge": []
     }
-    
-    # Extract momentum info for filtering
-    mom_dir = momentum.get("composite_direction", 0) if momentum else 0
-    mom_str = momentum.get("composite_strength", 0) if momentum else 0
-    mom_alignment = momentum.get("alignment", False) if momentum else False
     
     for m in markets:
         ticker = m.get("ticker", "")
@@ -598,9 +613,29 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
         no_bid = m.get("no_bid", 0)
         no_ask = m.get("no_ask", 0)
         
-        if not ticker.startswith("KXBTCD"):
-            skip_reasons["not_btc"] += 1
+        # Detect asset type from ticker
+        if ticker.startswith("KXBTCD"):
+            asset = "btc"
+            current_price = prices.get("btc", 0)
+            hourly_vol = BTC_HOURLY_VOL
+        elif ticker.startswith("KXETHD"):
+            asset = "eth"
+            current_price = prices.get("eth", 0)
+            hourly_vol = ETH_HOURLY_VOL
+        else:
+            skip_reasons["not_crypto"] += 1
             continue
+        
+        if not current_price:
+            continue
+        
+        # Get momentum for this asset
+        momentum = momentum_data.get(asset) if momentum_data else None
+        
+        # Extract momentum info for filtering
+        mom_dir = momentum.get("composite_direction", 0) if momentum else 0
+        mom_str = momentum.get("composite_strength", 0) if momentum else 0
+        mom_alignment = momentum.get("alignment", False) if momentum else False
         
         # Parse strike from subtitle
         if "$" not in subtitle:
@@ -622,17 +657,17 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
         
         # Calculate BASE probability (from Black-Scholes model)
         base_prob_above = calculate_prob_above_strike(
-            btc_price, strike, minutes_left, BTC_HOURLY_VOL
+            current_price, strike, minutes_left, hourly_vol
         )
         base_prob_below = 1 - base_prob_above
         
         # APPLY MOMENTUM ADJUSTMENT to probabilities
         if momentum:
             prob_above = adjust_probability_with_momentum(
-                base_prob_above, strike, btc_price, momentum, "yes"
+                base_prob_above, strike, current_price, momentum, "yes"
             )
             prob_below = adjust_probability_with_momentum(
-                base_prob_below, strike, btc_price, momentum, "no"
+                base_prob_below, strike, current_price, momentum, "no"
             )
         else:
             prob_above = base_prob_above
@@ -664,6 +699,7 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
                 momentum_bonus = 0.02 if (mom_dir > 0.2 and mom_alignment) else 0
                 opportunities.append({
                     "ticker": ticker,
+                    "asset": asset,
                     "side": "yes",
                     "price": yes_ask,
                     "edge": edge,
@@ -672,7 +708,7 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
                     "base_prob": base_prob_above,
                     "market_prob": market_prob_yes,
                     "strike": strike,
-                    "current": btc_price,
+                    "current": current_price,
                     "minutes_left": minutes_left,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
@@ -692,6 +728,7 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
                 momentum_bonus = 0.02 if (mom_dir < -0.2 and mom_alignment) else 0
                 opportunities.append({
                     "ticker": ticker,
+                    "asset": asset,
                     "side": "no",
                     "price": 100 - yes_bid,
                     "edge": edge,
@@ -700,7 +737,7 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
                     "base_prob": base_prob_below,
                     "market_prob": market_prob_no,
                     "strike": strike,
-                    "current": btc_price,
+                    "current": current_price,
                     "minutes_left": minutes_left,
                     "momentum_dir": mom_dir,
                     "momentum_str": mom_str,
@@ -724,8 +761,8 @@ def find_opportunities(markets: list, btc_price: float, momentum: dict = None, v
     # Log skip summary if verbose
     if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"]):
         print(f"\n📋 Skip Summary:")
-        if skip_reasons["not_btc"]:
-            print(f"   - Not BTC markets: {skip_reasons['not_btc']}")
+        if skip_reasons["not_crypto"]:
+            print(f"   - Not crypto markets: {skip_reasons['not_crypto']}")
         if skip_reasons["no_strike"]:
             print(f"   - No strike parsed: {skip_reasons['no_strike']}")
         if skip_reasons["too_close_expiry"]:
@@ -783,25 +820,30 @@ def run_cycle():
         print("❌ Failed to get crypto prices")
         return
     
-    btc_price = prices["btc"]
-    print(f"📈 BTC: ${btc_price:,.0f}")
+    print(f"📈 BTC: ${prices['btc']:,.0f} | ETH: ${prices['eth']:,.0f}")
     
     # Get OHLC data for momentum calculation (7 days gives us hourly candles, enough for 24h momentum)
-    ohlc_data = get_btc_ohlc(days=7)
-    momentum = get_multi_timeframe_momentum(ohlc_data)
+    btc_ohlc = get_btc_ohlc(days=7)
+    eth_ohlc = get_eth_ohlc(days=7)
     
-    # Display momentum info
-    if momentum["timeframes"]:
-        print(f"📊 Momentum (1h/4h/24h):")
-        for tf in ["1h", "4h", "24h"]:
-            tf_data = momentum["timeframes"].get(tf, {})
-            dir_symbol = "🟢" if tf_data.get("direction", 0) > 0 else ("🔴" if tf_data.get("direction", 0) < 0 else "⚪")
-            pct = tf_data.get("pct_change", 0) * 100
-            print(f"   {tf}: {dir_symbol} {pct:+.2f}% (str: {tf_data.get('strength', 0):.2f})")
-        
-        composite_dir = "BULLISH" if momentum["composite_direction"] > 0.1 else ("BEARISH" if momentum["composite_direction"] < -0.1 else "NEUTRAL")
-        aligned_str = "✓ ALIGNED" if momentum["alignment"] else ""
-        print(f"   → Composite: {composite_dir} (dir: {momentum['composite_direction']:.2f}, str: {momentum['composite_strength']:.2f}) {aligned_str}")
+    btc_momentum = get_multi_timeframe_momentum(btc_ohlc)
+    eth_momentum = get_multi_timeframe_momentum(eth_ohlc)
+    
+    momentum_data = {"btc": btc_momentum, "eth": eth_momentum}
+    
+    # Display momentum info for both
+    for asset, momentum in [("BTC", btc_momentum), ("ETH", eth_momentum)]:
+        if momentum["timeframes"]:
+            print(f"📊 {asset} Momentum (1h/4h/24h):")
+            for tf in ["1h", "4h", "24h"]:
+                tf_data = momentum["timeframes"].get(tf, {})
+                dir_symbol = "🟢" if tf_data.get("direction", 0) > 0 else ("🔴" if tf_data.get("direction", 0) < 0 else "⚪")
+                pct = tf_data.get("pct_change", 0) * 100
+                print(f"   {tf}: {dir_symbol} {pct:+.2f}% (str: {tf_data.get('strength', 0):.2f})")
+            
+            composite_dir = "BULLISH" if momentum["composite_direction"] > 0.1 else ("BEARISH" if momentum["composite_direction"] < -0.1 else "NEUTRAL")
+            aligned_str = "✓ ALIGNED" if momentum["alignment"] else ""
+            print(f"   → Composite: {composite_dir} (dir: {momentum['composite_direction']:.2f}, str: {momentum['composite_strength']:.2f}) {aligned_str}")
     
     # Get positions
     positions = get_positions()
@@ -811,11 +853,13 @@ def run_cycle():
         print("⚠️ Max positions reached, skipping")
         return
     
-    # Find opportunities (now with momentum!)
-    markets = search_markets("KXBTCD", limit=50)
-    print(f"🔍 Scanning {len(markets)} BTC markets...")
+    # Find opportunities from BOTH BTC and ETH markets
+    btc_markets = search_markets("KXBTCD", limit=50)
+    eth_markets = search_markets("KXETHD", limit=50)
+    all_markets = btc_markets + eth_markets
+    print(f"🔍 Scanning {len(btc_markets)} BTC + {len(eth_markets)} ETH = {len(all_markets)} total markets...")
     
-    opportunities = find_opportunities(markets, btc_price, momentum=momentum)
+    opportunities = find_opportunities(all_markets, prices, momentum_data=momentum_data)
     
     if not opportunities:
         print("😴 No opportunities found")
@@ -825,10 +869,10 @@ def run_cycle():
     best = opportunities[0]
     mom_aligned = best.get('momentum_aligned', False)
     mom_badge = "🎯 MOMENTUM ALIGNED!" if mom_aligned else ""
-    print(f"\n🎯 Best opportunity: {mom_badge}")
-    print(f"   {best['ticker']}")
+    asset_label = best.get('asset', 'btc').upper()
+    print(f"\n🎯 Best opportunity: {best['ticker']} {mom_badge}")
     print(f"   Side: {best['side'].upper()} @ {best['price']}¢")
-    print(f"   Strike: ${best['strike']:,.0f} | BTC: ${best['current']:,.0f}")
+    print(f"   Strike: ${best['strike']:,.0f} | {asset_label}: ${best['current']:,.0f}")
     print(f"   Base prob: {best.get('base_prob', best['our_prob'])*100:.1f}% → Adjusted: {best['our_prob']*100:.1f}% vs Market: {best['market_prob']*100:.1f}%")
     print(f"   Edge: {best['edge']*100:.1f}% (w/bonus: {best.get('edge_with_bonus', best['edge'])*100:.1f}%) | Time left: {best['minutes_left']:.0f}min")
     print(f"   Momentum: dir={best.get('momentum_dir', 0):.2f} str={best.get('momentum_str', 0):.2f}")
@@ -864,6 +908,7 @@ def run_cycle():
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "type": "trade",
             "ticker": best["ticker"],
+            "asset": best.get("asset", "btc"),
             "side": best["side"],
             "contracts": contracts,
             "price_cents": best["price"],
@@ -874,7 +919,7 @@ def run_cycle():
             "base_prob": best.get("base_prob", best["our_prob"]),
             "market_prob": best["market_prob"],
             "strike": best["strike"],
-            "current_price": btc_price,
+            "current_price": best["current"],
             "minutes_to_expiry": best["minutes_left"],
             "momentum_dir": best.get("momentum_dir", 0),
             "momentum_str": best.get("momentum_str", 0),
@@ -889,6 +934,7 @@ def main():
     """Main entry point"""
     print("🚀 Starting Kalshi AutoTrader v2")
     print("   With PROPER probability model and feedback loop!")
+    print("   Now trading: BTC (KXBTCD) + ETH (KXETHD) markets!")
     print("   Press Ctrl+C to stop\n")
     
     while True:
