@@ -25,29 +25,31 @@ function Footer() {
           </div>
 
           {/* Links */}
-          <div>
-            <h4 className="font-display font-semibold text-onde-ocean mb-4">{t.footer.explore}</h4>
+          <nav aria-label="Footer navigation">
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.explore}</h2>
             <ul className="space-y-2">
               <li><a href="/libri" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</a></li>
               <li><a href="/about" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</a></li>
             </ul>
-          </div>
+          </nav>
 
           {/* Social */}
           <div>
-            <h4 className="font-display font-semibold text-onde-ocean mb-4">{t.footer.followUs}</h4>
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.followUs}</h2>
             <div className="flex gap-4">
               <a href="https://twitter.com/Onde_FRH" target="_blank" rel="noopener noreferrer"
+                 aria-label="Follow us on X (Twitter)"
                  className="w-10 h-10 rounded-full bg-onde-ocean/5 flex items-center justify-center
                             text-onde-ocean/60 hover:bg-onde-coral hover:text-white transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
               </a>
               <a href="https://youtube.com/@Onde" target="_blank" rel="noopener noreferrer"
+                 aria-label="Subscribe on YouTube"
                  className="w-10 h-10 rounded-full bg-onde-ocean/5 flex items-center justify-center
                             text-onde-ocean/60 hover:bg-onde-coral hover:text-white transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
