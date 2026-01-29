@@ -41,6 +41,7 @@ import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
+import { ComparisonIndicator } from '@/components/ComparisonIndicator';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -115,6 +116,13 @@ interface TradingStats {
   todayTrades: number;
   todayWinRate: number;
   todayPnlCents: number;
+  // Yesterday comparison (T364)
+  yesterdayTrades?: number;
+  yesterdayWinRate?: number;
+  yesterdayPnlCents?: number;
+  // Week comparison (T364)
+  thisWeek?: { trades: number; winRate: number; pnlCents: number };
+  prevWeek?: { trades: number; winRate: number; pnlCents: number };
   recentTrades: Array<{
     timestamp: string;
     ticker: string;
@@ -643,6 +651,15 @@ export default function BettingDashboard() {
           todayTrades: gistData.todayTrades ?? 0,
           todayWinRate: gistData.todayWinRate ?? 0,
           todayPnlCents: gistData.todayPnlCents ?? 0,
+          
+          // Yesterday comparison (T364)
+          yesterdayTrades: gistData.yesterdayTrades ?? 0,
+          yesterdayWinRate: gistData.yesterdayWinRate ?? 0,
+          yesterdayPnlCents: gistData.yesterdayPnlCents ?? 0,
+          
+          // Week comparison (T364)
+          thisWeek: gistData.thisWeek ?? { trades: 0, winRate: 0, pnlCents: 0 },
+          prevWeek: gistData.prevWeek ?? { trades: 0, winRate: 0, pnlCents: 0 },
           
           // Latency stats
           avgLatencyMs: gistData.avgLatencyMs ?? null,
@@ -1350,6 +1367,13 @@ export default function BettingDashboard() {
                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                   <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today</span>
+                  {(tradingStats.yesterdayPnlCents ?? 0) !== 0 && (
+                    <ComparisonIndicator 
+                      current={tradingStats.todayPnlCents} 
+                      previous={tradingStats.yesterdayPnlCents ?? 0}
+                      type="pnl"
+                    />
+                  )}
                 </div>
                 <AnimatedNumber 
                   value={Math.abs(tradingStats.todayPnlCents / 100)} 
@@ -1366,6 +1390,13 @@ export default function BettingDashboard() {
                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                   <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today WR</span>
+                  {(tradingStats.yesterdayWinRate ?? 0) !== 0 && (
+                    <ComparisonIndicator 
+                      current={tradingStats.todayWinRate} 
+                      previous={tradingStats.yesterdayWinRate ?? 0}
+                      type="rate"
+                    />
+                  )}
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.todayWinRate || 0} 

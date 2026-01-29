@@ -507,6 +507,47 @@ def calculate_stats(trades, source='v2'):
         else:
             today_pnl -= price * contracts
     
+    # Yesterday's stats (for comparison) - T364
+    from datetime import timedelta
+    yesterday = (datetime.now(timezone.utc).date() - timedelta(days=1)).isoformat()
+    yesterday_trades = [t for t in settled if t.get('timestamp', '').startswith(yesterday)]
+    yesterday_wins = sum(1 for t in yesterday_trades if t.get('result_status') == 'won')
+    yesterday_total = len(yesterday_trades)
+    yesterday_win_rate = (yesterday_wins / yesterday_total * 100) if yesterday_total > 0 else 0
+    
+    yesterday_pnl = 0
+    for t in yesterday_trades:
+        price = t.get('price', 50)
+        contracts = t.get('contracts', 1)
+        if t.get('result_status') == 'won':
+            yesterday_pnl += (100 - price) * contracts
+        else:
+            yesterday_pnl -= price * contracts
+    
+    # Last 7 days stats (for week comparison) - T364
+    week_ago = (datetime.now(timezone.utc).date() - timedelta(days=7)).isoformat()
+    prev_week_start = (datetime.now(timezone.utc).date() - timedelta(days=14)).isoformat()
+    
+    this_week_trades = [t for t in settled if t.get('timestamp', '') >= week_ago]
+    prev_week_trades = [t for t in settled if prev_week_start <= t.get('timestamp', '') < week_ago]
+    
+    def calc_period_stats(period_trades):
+        wins = sum(1 for t in period_trades if t.get('result_status') == 'won')
+        total = len(period_trades)
+        wr = (wins / total * 100) if total > 0 else 0
+        pnl = 0
+        for t in period_trades:
+            price = t.get('price', 50)
+            contracts = t.get('contracts', 1)
+            if t.get('result_status') == 'won':
+                pnl += (100 - price) * contracts
+            else:
+                pnl -= price * contracts
+        return {"trades": total, "winRate": round(wr, 1), "pnlCents": pnl}
+    
+    this_week_stats = calc_period_stats(this_week_trades)
+    prev_week_stats = calc_period_stats(prev_week_trades)
+    
     # Latency stats
     latencies = [t.get('latency_ms') for t in trades if t.get('latency_ms') is not None]
     latency_stats = {}
@@ -632,6 +673,13 @@ def calculate_stats(trades, source='v2'):
         "todayTrades": today_total,
         "todayWinRate": round(today_win_rate, 1),
         "todayPnlCents": today_pnl,
+        # Yesterday comparison (T364)
+        "yesterdayTrades": yesterday_total,
+        "yesterdayWinRate": round(yesterday_win_rate, 1),
+        "yesterdayPnlCents": yesterday_pnl,
+        # Week comparison (T364)
+        "thisWeek": this_week_stats,
+        "prevWeek": prev_week_stats,
         "byAsset": by_asset,
         "pendingTrades": len([t for t in trades if t.get('result_status') == 'pending']),
         **latency_stats,

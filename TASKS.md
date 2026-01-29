@@ -2991,12 +2991,18 @@
 - **Notes**: ✅ Added! Shows active date filter in cyan under "Trading Performance" title. Formats: "Today", "Last 7 days", "Last 30 days", or custom "Jan 20 → Jan 27". Only shows when filter is not "All time".
 
 ### [T364] Date range comparison mode (vs previous period)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T203]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Compare stats with previous period. E.g., "This week vs last week" showing +/-% change for win rate, PnL, trades.
+- **Notes**: ✅ Implemented period comparison!
+  - **Backend (push-stats-to-gist.py):** Added yesterdayTrades/WinRate/PnlCents, thisWeek/prevWeek stats
+  - **Frontend (ComparisonIndicator.tsx):** New component showing +/- delta with icons
+  - **UI:** Today PnL and Today WR cards now show "vs yesterday" comparison
+  - **Types:** pnl (dollar change), rate (percentage point), count (absolute)
+  - Comparison only shows when previous period has data
 
 ### [T365] URL sync for trading stats filters
 - **Status**: DONE
