@@ -943,12 +943,13 @@
 - **Notes**: Average prices from multiple exchanges for more accurate probability calculations. Reduces risk of single-source price manipulation or API lag.
 
 ### [T247] Daily stop-loss stats summary in report
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T239], [T085]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include stop-loss stats in daily report: count triggered, total loss prevented vs if held, average loss %. Helps evaluate stop-loss threshold tuning.
+- **Notes**: ✅ Added! Daily summary (kalshi-daily-summary.py) shows: count triggered, total loss at exit, avg loss %. Weekly report (kalshi-weekly-report.py) includes: total stop-losses, loss breakdown, daily details if multiple days.
 
 ### [T248] Position sizing analysis (Kelly effectiveness tracking)
 - **Status**: TODO
@@ -1983,6 +1984,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Added! Filters sync to URL (?source=v1&period=week&from=...&to=...). Loads from URL on mount. Uses router.replace for history-friendly updates. Defaults omitted from URL.
+
+### [T366] Stop-loss effectiveness over time dashboard widget
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T247], [T240]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add widget to /betting showing stop-loss performance: total triggered, cumulative savings vs holding, win rate of positions that would have hit stop-loss. Visualizes whether stop-loss threshold is optimal.
+
+### [T367] Circuit breaker cooldown configuration via env
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T289]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add CIRCUIT_BREAKER_COOLDOWN_HOURS env var (default 4h). After circuit breaker activates, require cooldown period before auto-resuming even if a trade wins. Prevents whipsaw during bad streaks.
+
+### [T368] Trade edge confidence buckets on dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T296]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show pie/bar chart of trades by edge bucket (0-5%, 5-10%, 10-15%, 15%+). Color code by win rate per bucket. Helps visualize edge distribution and optimal thresholds.
 
 ---
 

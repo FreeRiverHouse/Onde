@@ -14,6 +14,7 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 
 TRADES_FILE = Path(__file__).parent / "kalshi-trades.jsonl"
+STOP_LOSS_LOG = Path(__file__).parent / "kalshi-stop-loss.log"
 OUTPUT_DIR = Path(__file__).parent.parent / "data" / "reports"
 
 def parse_timestamp(ts):
@@ -31,6 +32,58 @@ def get_pst_now():
     now_utc = datetime.now(timezone.utc)
     pst_offset = timedelta(hours=-8)
     return now_utc + pst_offset
+
+def analyze_stop_losses_week(week_start_str: str) -> dict:
+    """
+    Analyze stop-losses triggered in the past week.
+    Returns stats: count, total_loss, avg_loss_pct, by_day breakdown.
+    """
+    if not STOP_LOSS_LOG.exists():
+        return {"count": 0, "total_loss_cents": 0, "avg_loss_pct": 0, "by_day": {}}
+    
+    week_start = datetime.fromisoformat(week_start_str).replace(tzinfo=timezone.utc)
+    stops_by_day = defaultdict(lambda: {"count": 0, "loss_cents": 0})
+    all_stops = []
+    
+    with open(STOP_LOSS_LOG) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") != "stop_loss":
+                    continue
+                ts = entry.get("timestamp", "")
+                if not ts:
+                    continue
+                dt = parse_timestamp(ts)
+                if dt < week_start:
+                    continue
+                
+                entry_price = entry.get("entry_price", 0) or entry.get("entry_price_cents", 0)
+                exit_price = entry.get("exit_price", 0) or entry.get("exit_price_cents", 0)
+                contracts = entry.get("contracts", 1)
+                loss_pct = entry.get("loss_pct", 0)
+                
+                loss_cents = (entry_price - exit_price) * contracts
+                date_str = get_pst_date(dt)
+                
+                stops_by_day[date_str]["count"] += 1
+                stops_by_day[date_str]["loss_cents"] += loss_cents
+                all_stops.append({"loss_cents": loss_cents, "loss_pct": loss_pct})
+            except:
+                pass
+    
+    if not all_stops:
+        return {"count": 0, "total_loss_cents": 0, "avg_loss_pct": 0, "by_day": {}}
+    
+    total_loss = sum(s["loss_cents"] for s in all_stops)
+    avg_loss_pct = sum(s["loss_pct"] for s in all_stops) / len(all_stops)
+    
+    return {
+        "count": len(all_stops),
+        "total_loss_cents": total_loss,
+        "avg_loss_pct": avg_loss_pct,
+        "by_day": dict(stops_by_day)
+    }
 
 def analyze_week():
     """Analyze last 7 days of trades."""
@@ -139,8 +192,13 @@ def analyze_week():
         settled = s['won'] + s['lost']
         s['win_rate'] = (s['won'] / settled * 100) if settled > 0 else None
     
+    week_start_str = (now_pst - timedelta(days=7)).strftime('%Y-%m-%d')
+    
+    # Get stop-loss stats for the week
+    stop_loss_stats = analyze_stop_losses_week(week_start_str)
+    
     return {
-        'week_start': (now_pst - timedelta(days=7)).strftime('%Y-%m-%d'),
+        'week_start': week_start_str,
         'week_end': now_pst.strftime('%Y-%m-%d'),
         'total_trades': total_trades,
         'total_won': total_won,
@@ -154,6 +212,7 @@ def analyze_week():
         'worst_trade': worst_trade,
         'momentum_stats': momentum_stats,
         'regime_stats': dict(regime_stats),
+        'stop_loss_stats': stop_loss_stats,
     }
 
 def generate_pdf(stats):
@@ -329,6 +388,42 @@ def generate_pdf(stats):
                           f"Win Rate: {wr_str} | PnL: ${rs['pnl']/100:+.2f}",
                      new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         
+        pdf.ln(8)
+    
+    # Stop-Loss Summary Section
+    sl_stats = stats.get('stop_loss_stats', {})
+    if sl_stats.get('count', 0) > 0:
+        pdf.set_font('Helvetica', 'B', 14)
+        pdf.cell(0, 10, 'Stop-Loss Summary', new_x=XPos.LMARGIN, new_y=YPos.NEXT, fill=True)
+        pdf.ln(3)
+        
+        pdf.set_font('Helvetica', '', 10)
+        pdf.cell(0, 7, f"Total Stop-Losses: {sl_stats['count']}", 
+                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.set_text_color(200, 0, 0)
+        pdf.cell(0, 7, f"Total Loss at Exit: ${sl_stats['total_loss_cents']/100:.2f}", 
+                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.set_text_color(0, 0, 0)
+        pdf.cell(0, 7, f"Average Loss %: {sl_stats['avg_loss_pct']:.1f}%", 
+                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
+        # Show daily breakdown if multiple days
+        by_day = sl_stats.get('by_day', {})
+        if len(by_day) > 1:
+            pdf.ln(3)
+            pdf.set_font('Helvetica', 'I', 9)
+            for date in sorted(by_day.keys()):
+                day_stats = by_day[date]
+                pdf.cell(0, 6, f"  {date}: {day_stats['count']} stop-loss(es), "
+                              f"${day_stats['loss_cents']/100:.2f} loss",
+                         new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
+        pdf.ln(5)
+        pdf.set_font('Helvetica', 'I', 9)
+        pdf.set_text_color(128, 128, 128)
+        pdf.cell(0, 6, "Note: Stop-losses trigger when position value drops 50% from entry.",
+                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.set_text_color(0, 0, 0)
         pdf.ln(8)
     
     # Footer

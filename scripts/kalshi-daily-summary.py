@@ -14,6 +14,7 @@ TRADES_FILE = Path(__file__).parent / "kalshi-trades.jsonl"
 V2_TRADES_FILE = Path(__file__).parent / "kalshi-trades-v2.jsonl"
 OUTPUT_FILE = Path(__file__).parent / "kalshi-daily-summary.txt"
 STREAK_RECORDS_FILE = Path(__file__).parent / "kalshi-streak-records.json"
+STOP_LOSS_LOG = Path(__file__).parent / "kalshi-stop-loss.log"
 
 def parse_timestamp(ts):
     """Parse ISO timestamp."""
@@ -94,6 +95,57 @@ def load_streak_records() -> dict:
     except:
         return {"longest_win_streak": 0, "longest_loss_streak": 0}
 
+def analyze_stop_losses_today(today_pst: str) -> dict:
+    """
+    Analyze stop-losses triggered today.
+    Returns dict with: count, total_loss_cents, avg_loss_pct
+    """
+    if not STOP_LOSS_LOG.exists():
+        return {"count": 0, "total_loss_cents": 0, "avg_loss_pct": 0}
+    
+    today_stops = []
+    with open(STOP_LOSS_LOG) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                if entry.get("type") != "stop_loss":
+                    continue
+                # Parse timestamp and check date
+                ts = entry.get("timestamp", "")
+                if ts:
+                    dt = parse_timestamp(ts)
+                    if get_pst_date(dt) == today_pst:
+                        today_stops.append(entry)
+            except:
+                pass
+    
+    if not today_stops:
+        return {"count": 0, "total_loss_cents": 0, "avg_loss_pct": 0}
+    
+    total_loss = 0
+    total_loss_pct = 0
+    
+    for sl in today_stops:
+        # Calculate loss from stop-loss
+        entry_price = sl.get("entry_price", 0) or sl.get("entry_price_cents", 0)
+        exit_price = sl.get("exit_price", 0) or sl.get("exit_price_cents", 0)
+        contracts = sl.get("contracts", 1)
+        loss_pct = sl.get("loss_pct", 0)
+        
+        # Actual loss at exit
+        loss_cents = (entry_price - exit_price) * contracts
+        total_loss += loss_cents
+        total_loss_pct += loss_pct
+    
+    count = len(today_stops)
+    avg_loss_pct = total_loss_pct / count if count > 0 else 0
+    
+    return {
+        "count": count,
+        "total_loss_cents": total_loss,
+        "avg_loss_pct": avg_loss_pct
+    }
+
 def analyze_daily():
     """Analyze today's trades and generate summary."""
     # Get today's date in PST
@@ -155,6 +207,19 @@ def analyze_daily():
     else:
         streak_text = "—"
     
+    # Get stop-loss stats for today
+    stop_loss_stats = analyze_stop_losses_today(today_pst)
+    
+    # Format stop-loss section
+    if stop_loss_stats["count"] > 0:
+        stop_loss_section = f"""
+**Stop-Losses Today:**
+🛑 Triggered: {stop_loss_stats['count']}
+📉 Total loss: ${stop_loss_stats['total_loss_cents']/100:.2f}
+📊 Avg loss: {stop_loss_stats['avg_loss_pct']:.1f}%"""
+    else:
+        stop_loss_section = ""
+    
     # Generate summary message
     summary = f"""📊 **Kalshi Daily Summary** ({today_pst})
 
@@ -168,6 +233,7 @@ def analyze_daily():
 
 **Win Rate:** {win_rate:.1f}%
 **Daily PnL:** ${pnl/100:+.2f}
+{stop_loss_section}
 
 **Streaks:**
 Current: {streak_text}
