@@ -135,8 +135,8 @@
   - Returns JSON with sites, trading, alerts, autotrader status
 
 ### [T450] Add uptime history chart to /health page
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T446]
 - **Blocks**: -
 - **Priority**: P3
