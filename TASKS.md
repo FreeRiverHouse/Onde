@@ -3500,10 +3500,11 @@
 - **Notes**: Show "V2: X trades" indicator when v2 autotrader starts making trades. Helps confirm v2 is active and working.
 
 ### [T610] Cron job to push stats to gist with source=all
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T346]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Update hourly stats push cron to use --source all for comprehensive view. Current cron only pushes v2 stats.
+- **Notes**: ✅ Updated hourly cron (45 * * * *) to use --source all. Now pushes combined v1+v2 stats to gist every hour.
 
