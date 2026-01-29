@@ -3,9 +3,9 @@
     "email": null,
     "calendar": null,
     "weather": null,
-    "heartbeat": 1738273200
+    "heartbeat": 1738121278
   },
-  "lastTaskRun": "2026-01-30T16:00:00Z",
-  "tasksCompleted": ["T050", "T051", "T353"],
-  "notes": "Moonlight House improvements: mood sprites, sound system, save game"
+  "lastTaskRun": "2026-01-28T20:28:00Z",
+  "tasksCompleted": ["T339", "T345", "T359", "T340"],
+  "notes": "Trading dashboard improvements: v1/v2 toggle, streak viz, date filters, history link"
 }
