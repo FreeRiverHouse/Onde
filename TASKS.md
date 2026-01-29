@@ -1504,12 +1504,13 @@
 - **Notes**: ✅ Added timezone info section showing: Cron TZ (UTC), user TZ, UTC time, local time. Helps debug cron scheduling.
 
 ### [T293] Volatility-adjusted position sizing
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T285]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use volatility correlation to dynamically adjust bet sizes. Reduce size in volatility regimes with lower win rate, increase in better regimes. Integrate with Kelly fraction.
+- **Notes**: ✅ Implemented! Kelly fraction now adjusts based on: 1) Regime (choppy=0.5x, sideways=0.75x, trending=1.1x), 2) Volatility alignment (aligned=1.15x, high-not-aligned=0.8x). Added volatility field to opportunity data. Prints size adjustment when not 1.0x.
 
 ### [T294] Alert on extreme volatility entry
 - **Status**: TODO

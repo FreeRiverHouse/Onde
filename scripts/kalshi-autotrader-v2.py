@@ -1663,6 +1663,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_aligned": mom_alignment and mom_dir > 0.2,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
+                    "volatility": regime.get("volatility", "normal"),  # T293
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
@@ -1708,6 +1709,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "momentum_aligned": mom_alignment and mom_dir < -0.2,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
+                    "volatility": regime.get("volatility", "normal"),  # T293
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
@@ -1905,12 +1907,46 @@ def run_cycle():
     vol_badge = "📊 VOL ALIGNED!" if vol_aligned else ""
     print(f"   Vol ratio: {vol_ratio:.2f} | Vol bonus: +{vol_bonus*100:.1f}% {vol_badge}")
     
-    # Calculate bet size (Kelly)
+    # Calculate bet size (Kelly with volatility adjustment - T293)
     if cash < MIN_BET_CENTS / 100:
         print("❌ Insufficient cash")
         return
     
-    kelly_bet = cash * KELLY_FRACTION * best["edge"]
+    # Base Kelly calculation
+    kelly_fraction = KELLY_FRACTION
+    
+    # Volatility-adjusted position sizing (T293)
+    # Reduce size in choppy/high-vol regimes, increase when volatility aligns
+    regime = best.get("regime", "unknown")
+    volatility = best.get("volatility", "normal")
+    vol_aligned = best.get("vol_aligned", False)
+    
+    # Regime adjustment: reduce in choppy markets, slight boost in trending
+    regime_multiplier = 1.0
+    if regime == "choppy":
+        regime_multiplier = 0.5  # Half size in choppy (hardest to trade)
+    elif regime == "sideways":
+        regime_multiplier = 0.75  # Reduced size in sideways
+    elif regime in ("trending_bullish", "trending_bearish"):
+        regime_multiplier = 1.1  # Slight boost in trending (cleaner signals)
+    
+    # Volatility alignment bonus: increase size when vol favors our direction
+    vol_multiplier = 1.0
+    if vol_aligned:
+        vol_multiplier = 1.15  # 15% boost when volatility aligns
+    elif volatility == "high":
+        vol_multiplier = 0.8  # Reduce in high vol if not aligned
+    
+    # Apply adjustments to Kelly fraction
+    adjusted_kelly = kelly_fraction * regime_multiplier * vol_multiplier
+    
+    # Log the adjustment
+    total_multiplier = regime_multiplier * vol_multiplier
+    if abs(total_multiplier - 1.0) > 0.01:
+        adj_direction = "↑" if total_multiplier > 1.0 else "↓"
+        print(f"   Position size: {adj_direction} {total_multiplier:.0%} (regime={regime_multiplier:.0%}, vol={vol_multiplier:.0%})")
+    
+    kelly_bet = cash * adjusted_kelly * best["edge"]
     bet_size = max(MIN_BET_CENTS / 100, min(kelly_bet, cash * MAX_POSITION_PCT))
     contracts = int(bet_size * 100 / best["price"])
     
