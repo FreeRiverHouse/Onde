@@ -38,16 +38,19 @@
   - Uses longestWinStreak/longestLossStreak/currentStreak from gist
 
 ### [T445] API latency category breakdown widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T398]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visualize API latency by category (already in gist.apiLatency):
-  - Bar chart: Kalshi, Binance, CoinGecko, Coinbase, Other
-  - Show avg/p95 latency per category
-  - Highlight slowest endpoints
-  - Color code: green (<200ms), yellow (200-500ms), red (>500ms)
+- **Notes**: ✅ Implemented ApiLatencyChart component!
+  - **Bar chart**: Shows all API categories (Binance, CoinGecko, Coinbase, Other)
+  - **Per-category stats**: avg latency, p95 marker, max, call count
+  - **Color coding**: green (<200ms), yellow (200-500ms), red (>500ms)
+  - **Health indicator**: Overall avg with status badge
+  - **Alert box**: Warns when any category has high latency
+  - **Interactive**: Hover for detailed stats per bar
   - Uses apiLatency.categories from trading stats gist
 
 ---

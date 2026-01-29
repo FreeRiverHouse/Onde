@@ -36,6 +36,7 @@ import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRat
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 import { EdgeDistributionChart, EdgeDistributionData } from '@/components/EdgeDistributionChart';
 import { StreakIndicator } from '@/components/StreakIndicator';
+import { ApiLatencyChart, ApiLatencyData } from '@/components/ApiLatencyChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
@@ -157,6 +158,8 @@ interface TradingStats {
   };
   // Edge distribution (T368)
   edgeDistribution?: EdgeDistributionData | null;
+  // API latency breakdown (T445)
+  apiLatency?: ApiLatencyData | null;
   // Autotrader health status (T623)
   healthStatus?: AutotraderHealth | null;
 }
@@ -677,6 +680,9 @@ export default function BettingDashboard() {
           
           // Edge distribution (T368)
           edgeDistribution: gistData.edgeDistribution ?? null,
+          
+          // API latency breakdown (T445)
+          apiLatency: gistData.apiLatency ?? null,
           
           // Autotrader health status (T623)
           healthStatus: gistData.healthStatus ?? null,
@@ -1771,6 +1777,13 @@ export default function BettingDashboard() {
                 longestLossStreak={tradingStats.longestLossStreak}
               />
             </div>
+
+            {/* API Latency Chart (T445) */}
+            {tradingStats.apiLatency && (
+              <div className="mt-4">
+                <ApiLatencyChart data={tradingStats.apiLatency} />
+              </div>
+            )}
 
             {/* Model Comparison (T350) */}
             <div className="mt-4">
