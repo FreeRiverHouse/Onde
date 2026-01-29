@@ -1808,12 +1808,37 @@
 - **Notes**: Add ?source=all option to merge v1+v2 trades for overall performance view. Useful for seeing total portfolio performance.
 
 ### [T347] V2 trades settlement tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T344]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Update kalshi-settlement-tracker.py to also process kalshi-trades-v2.jsonl file. Ensure v2 trades get result_status updates.
+- **Notes**: ✅ Updated! Now processes both v1 and v2 files by default. Separate settlements JSON per source. CLI flags: --v1, --v2, --stats (shows both).
+
+### [T348] Settlement cron job for v2 trades
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T347]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Verify cron job calls settlement tracker correctly for v2. May need update to crontab entry.
+
+### [T349] Unified settlements dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T347]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add API endpoint /api/trading/settlements that combines v1+v2 settlement stats. Show on dashboard.
+
+### [T350] V2 win rate comparison chart
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T344], [T347]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Side-by-side win rate chart comparing v1 (broken model) vs v2 (Black-Scholes) performance on /betting dashboard.
 
 ---
 
