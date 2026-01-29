@@ -105,3 +105,7 @@
 ### 21:08 PST [msg:185]
 > Stai andando sempre meglio; focus su problemi procedurali. Risolvi timeout (tronca, fai riga per riga, in caso!! O similmente) e facciamo fare un giro di procedura completo. ALLA fine di questi nuovi cicli, mandami un sample estraendo da versione NUOVA (specifica i vari cicli sotto cui è passata, e tempi). Documenta la procedura bene. È molto importante che come casa editrice AI, usiamo metodi ingegneristici e devops per deploy e upgrade di libri e contenuti in genere
 
+
+### 21:22 PST [msg:190]
+> VAI LENto! Yes batch notturno spacca
+

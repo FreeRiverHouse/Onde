@@ -210,8 +210,8 @@ def run_pipeline(original_file: str, translation_file: str, output_dir: str):
     log(f"   Paragrafi originale: {len(orig_paragraphs)}")
     log(f"   Paragrafi traduzione: {len(trans_paragraphs)}")
     
-    # Limit for testing (primi 20 paragrafi)
-    MAX_PARAGRAPHS = 20
+    # FULL RUN - tutti i paragrafi (batch notturno)
+    MAX_PARAGRAPHS = 100  # Primi 100 per stasera
     orig_paragraphs = orig_paragraphs[:MAX_PARAGRAPHS]
     trans_paragraphs = trans_paragraphs[:MAX_PARAGRAPHS]
     
