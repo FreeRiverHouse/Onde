@@ -33,6 +33,35 @@ interface CronHealthResponse {
   checkedAt: string;
 }
 
+interface ApiLatencyCategory {
+  total_calls: number;
+  endpoint_count: number;
+  avg_latency_ms: number;
+  endpoints: Array<{
+    name: string;
+    count: number;
+    avgMs: number;
+    p95Ms: number;
+    maxMs: number;
+  }>;
+}
+
+interface ApiLatencyData {
+  generated_at: string;
+  categories: Record<string, ApiLatencyCategory>;
+  slowest: Array<{
+    name: string;
+    count: number;
+    avgMs: number;
+    p95Ms: number;
+    maxMs: number;
+  }>;
+  overall: {
+    total_calls: number;
+    avg_latency_ms: number;
+  };
+}
+
 interface NetworkStatus {
   online: boolean;
   effectiveType?: string;
@@ -73,6 +102,8 @@ export default function HealthPage() {
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [webVitals, setWebVitals] = useState<WebVitalsMetric[]>([]);
+  const [apiLatency, setApiLatency] = useState<ApiLatencyData | null>(null);
+  const [apiLatencyLoading, setApiLatencyLoading] = useState(true);
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -247,13 +278,31 @@ export default function HealthPage() {
     }
   };
 
+  // Fetch API latency from trading stats gist (T398)
+  const fetchApiLatency = async () => {
+    setApiLatencyLoading(true);
+    try {
+      const gistUrl = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
+      const response = await fetch(gistUrl, { cache: 'no-store' });
+      const data = await response.json();
+      if (data.apiLatency) {
+        setApiLatency(data.apiLatency);
+      }
+    } catch (error) {
+      console.error('Failed to fetch API latency:', error);
+    } finally {
+      setApiLatencyLoading(false);
+    }
+  };
+
   const runChecks = async () => {
     setServices(SERVICES_TO_CHECK.map(s => ({ name: s.name, status: 'checking' as const })));
     setCronStatus('checking');
     
     const [results] = await Promise.all([
       Promise.all(SERVICES_TO_CHECK.map(({ name, url }) => checkService(name, url))),
-      fetchCronHealth()
+      fetchCronHealth(),
+      fetchApiLatency()
     ]);
     
     setServices(results);
@@ -433,6 +482,114 @@ export default function HealthPage() {
                   </div>
                 </div>
               ))
+            )}
+          </div>
+        </div>
+
+        {/* API Latency Metrics (T398) */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">⚡ API Latency</h2>
+          <div className={`rounded-lg border p-4 ${
+            apiLatencyLoading ? 'bg-slate-500/10 border-slate-500/30' :
+            !apiLatency ? 'bg-slate-500/10 border-slate-500/30' :
+            apiLatency.overall.avg_latency_ms > 1000 ? 'bg-red-500/10 border-red-500/30' :
+            apiLatency.overall.avg_latency_ms > 500 ? 'bg-yellow-500/10 border-yellow-500/30' :
+            'bg-green-500/10 border-green-500/30'
+          }`}>
+            {apiLatencyLoading ? (
+              <div className="text-slate-400 text-center py-4 animate-pulse">
+                Loading API latency data...
+              </div>
+            ) : !apiLatency ? (
+              <div className="text-slate-400 text-center py-4">
+                <div>📊 No API latency data available</div>
+                <div className="text-xs mt-2">Autotrader needs to run for ~30min to generate latency profile</div>
+              </div>
+            ) : (
+              <>
+                {/* Overall Summary */}
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-700">
+                  <div>
+                    <div className="text-sm text-slate-400">Overall Average</div>
+                    <div className={`text-2xl font-bold ${
+                      apiLatency.overall.avg_latency_ms < 200 ? 'text-green-400' :
+                      apiLatency.overall.avg_latency_ms < 500 ? 'text-blue-400' :
+                      apiLatency.overall.avg_latency_ms < 1000 ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`}>
+                      {apiLatency.overall.avg_latency_ms.toFixed(0)}ms
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm text-slate-400">Total Calls</div>
+                    <div className="text-xl font-semibold text-white">
+                      {apiLatency.overall.total_calls.toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Category Breakdown */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                  {Object.entries(apiLatency.categories).map(([name, cat]) => (
+                    <div key={name} className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-slate-400 text-xs font-medium uppercase">
+                          {name === 'kalshi' ? '📈 Kalshi' :
+                           name === 'coingecko' ? '🦎 CoinGecko' :
+                           name === 'binance' ? '🟡 Binance' :
+                           name === 'coinbase' ? '🔵 Coinbase' :
+                           `🔧 ${name}`}
+                        </span>
+                        <div className={`w-2 h-2 rounded-full ${
+                          cat.avg_latency_ms < 200 ? 'bg-green-500' :
+                          cat.avg_latency_ms < 500 ? 'bg-blue-500' :
+                          cat.avg_latency_ms < 1000 ? 'bg-yellow-500' :
+                          'bg-red-500'
+                        }`} />
+                      </div>
+                      <div className={`text-lg font-bold ${
+                        cat.avg_latency_ms < 200 ? 'text-green-400' :
+                        cat.avg_latency_ms < 500 ? 'text-blue-400' :
+                        cat.avg_latency_ms < 1000 ? 'text-yellow-400' :
+                        'text-red-400'
+                      }`}>
+                        {cat.avg_latency_ms.toFixed(0)}ms
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        {cat.total_calls.toLocaleString()} calls • {cat.endpoint_count} endpoints
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Slowest Endpoints */}
+                {apiLatency.slowest && apiLatency.slowest.length > 0 && (
+                  <div className="border-t border-slate-700 pt-3">
+                    <div className="text-xs text-slate-400 mb-2">🐢 Slowest Endpoints</div>
+                    <div className="space-y-1">
+                      {apiLatency.slowest.slice(0, 3).map((endpoint, i) => (
+                        <div key={endpoint.name} className="flex items-center justify-between text-xs">
+                          <span className="text-slate-300 truncate max-w-[60%]">
+                            {i + 1}. {endpoint.name}
+                          </span>
+                          <span className={`font-mono ${
+                            endpoint.avgMs < 500 ? 'text-slate-400' :
+                            endpoint.avgMs < 1000 ? 'text-yellow-400' :
+                            'text-red-400'
+                          }`}>
+                            {endpoint.avgMs.toFixed(0)}ms avg • p95: {endpoint.p95Ms.toFixed(0)}ms
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Last Updated */}
+                <div className="mt-3 pt-2 border-t border-slate-700 text-xs text-slate-500 text-center">
+                  Updated: {new Date(apiLatency.generated_at).toLocaleString()}
+                </div>
+              </>
             )}
           </div>
         </div>

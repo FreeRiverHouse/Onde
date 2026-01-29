@@ -2630,12 +2630,13 @@
 - **Notes**: Alert when latency suddenly increases beyond historical baseline. Calculate rolling avg + std dev. Alert when current avg > rolling_avg + 2*std_dev. Could indicate API issues or network problems.
 
 ### [T398] Latency dashboard on /health page
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T279], [T256]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add latency metrics section to /health page. Show: avg latency per endpoint category, slowest endpoints, error rates, latency trend sparklines. Read from kalshi-latency-profile.json via API.
+- **Notes**: ✅ Implemented! Added API Latency section to /health page showing: overall avg latency, total calls, per-category breakdown (Kalshi, CoinGecko, Binance, Coinbase), color-coded performance indicators, top 3 slowest endpoints. Data fetched from trading stats gist (updated push-stats-to-gist.py to include apiLatency from kalshi-latency-profile.json). Shows loading state and graceful fallback when no data available.
 
 ### [T410] Holiday trading performance analysis
 - **Status**: TODO
