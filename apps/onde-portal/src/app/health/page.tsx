@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { onCLS, onFCP, onINP, onLCP, onTTFB, Metric } from 'web-vitals';
+import { useTranslations } from '@/i18n';
 
 interface WebVitalsMetric {
   name: string;
@@ -58,6 +59,7 @@ const formatBytes = (bytes: number): string => {
 };
 
 export default function HealthPage() {
+  const t = useTranslations();
   const [services, setServices] = useState<ServiceStatus[]>(
     SERVICES_TO_CHECK.map(s => ({ name: s.name, status: 'checking' as const }))
   );
@@ -311,10 +313,10 @@ export default function HealthPage() {
         : 'unknown';
 
   const formatAge = (minutes: number | null): string => {
-    if (minutes === null) return 'Never';
-    if (minutes < 60) return `${minutes}m ago`;
-    if (minutes < 1440) return `${Math.round(minutes / 60)}h ago`;
-    return `${Math.round(minutes / 1440)}d ago`;
+    if (minutes === null) return t.health.cron.never;
+    if (minutes < 60) return `${minutes}m ${t.health.cron.ago}`;
+    if (minutes < 1440) return `${Math.round(minutes / 60)}h ${t.health.cron.ago}`;
+    return `${Math.round(minutes / 1440)}d ${t.health.cron.ago}`;
   };
 
   const getCronStatusColor = (status: CronJob['status']) => {
@@ -338,33 +340,33 @@ export default function HealthPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-2">🌊 Onde System Status</h1>
-        <p className="text-slate-400 mb-8">Real-time health monitoring</p>
+        <h1 className="text-3xl font-bold text-white mb-2">🌊 {t.health.title}</h1>
+        <p className="text-slate-400 mb-8">{t.health.subtitle}</p>
 
         {/* Overall Status */}
         <div className={`rounded-xl border p-6 mb-8 ${getStatusBg(overallStatus)}`}>
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-sm text-slate-400 uppercase tracking-wide">Overall Status</div>
+              <div className="text-sm text-slate-400 uppercase tracking-wide">{t.health.overall.label}</div>
               <div className={`text-2xl font-bold ${getStatusColor(overallStatus)}`}>
-                {overallStatus === 'healthy' ? '✅ All Systems Operational' : 
-                 overallStatus === 'degraded' ? '⚠️ Some Issues Detected' : 
-                 overallStatus === 'checking' ? '🔄 Checking...' :
-                 '❓ Unknown'}
+                {overallStatus === 'healthy' ? `✅ ${t.health.overall.healthy}` : 
+                 overallStatus === 'degraded' ? `⚠️ ${t.health.overall.degraded}` : 
+                 overallStatus === 'checking' ? `🔄 ${t.health.overall.checking}` :
+                 `❓ ${t.health.overall.unknown}`}
               </div>
             </div>
             <button 
               onClick={runChecks}
               className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
             >
-              ↻ Refresh
+              ↻ {t.health.refresh}
             </button>
           </div>
         </div>
 
         {/* Services */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">🌐 Web Services</h2>
+          <h2 className="text-lg font-semibold text-white mb-3">🌐 {t.health.services.title}</h2>
           <div className="space-y-3">
             {services.map((service) => (
               <div 
@@ -381,7 +383,9 @@ export default function HealthPage() {
                 </div>
                 <div className="text-right">
                   <div className={`text-sm font-medium ${getStatusColor(service.status)}`}>
-                    {service.status.toUpperCase()}
+                    {service.status === 'up' ? t.health.services.up : 
+                     service.status === 'down' ? t.health.services.down : 
+                     t.health.services.checking}
                   </div>
                   {service.latency && (
                     <div className="text-xs text-slate-400">{service.latency}ms</div>
@@ -394,12 +398,12 @@ export default function HealthPage() {
 
         {/* Cron Jobs */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">⏰ Scheduled Jobs</h2>
+          <h2 className="text-lg font-semibold text-white mb-3">⏰ {t.health.cron.title}</h2>
           <div className="space-y-3">
             {cronJobs.length === 0 && cronStatus === 'checking' ? (
-              <div className="text-slate-400 text-center py-4">Loading cron jobs...</div>
+              <div className="text-slate-400 text-center py-4">{t.health.cron.loading}</div>
             ) : cronJobs.length === 0 ? (
-              <div className="text-slate-400 text-center py-4">No cron job data available</div>
+              <div className="text-slate-400 text-center py-4">{t.health.cron.noData}</div>
             ) : (
               cronJobs.map((job) => (
                 <div 
@@ -417,11 +421,14 @@ export default function HealthPage() {
                       <span className="text-white font-medium">{job.name}</span>
                     </div>
                     <div className={`text-sm font-medium ${getCronStatusColor(job.status)}`}>
-                      {job.status.toUpperCase()}
+                      {job.status === 'healthy' ? t.health.cron.healthy :
+                       job.status === 'stale' ? t.health.cron.stale :
+                       job.status === 'error' ? t.health.cron.error :
+                       t.health.cron.unknown}
                     </div>
                   </div>
                   <div className="flex justify-between text-xs text-slate-400 pl-6">
-                    <span>Schedule: <code className="bg-slate-700 px-1 rounded">{job.schedule}</code></span>
+                    <span>{t.health.cron.schedule}: <code className="bg-slate-700 px-1 rounded">{job.schedule}</code></span>
                     <span>{formatAge(job.ageMinutes)}</span>
                   </div>
                 </div>
@@ -432,7 +439,7 @@ export default function HealthPage() {
 
         {/* Network & PWA Status */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">📡 Network & PWA</h2>
+          <h2 className="text-lg font-semibold text-white mb-3">📡 {t.health.network.title}</h2>
           <div className={`rounded-lg border p-4 space-y-3 ${
             networkStatus.online ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'
           }`}>
@@ -440,11 +447,11 @@ export default function HealthPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className={`w-3 h-3 rounded-full ${networkStatus.online ? 'bg-green-500' : 'bg-red-500'}`} />
-                <span className="text-white font-medium">Connection</span>
+                <span className="text-white font-medium">{t.health.network.connection}</span>
               </div>
               <div className="text-right">
                 <div className={`text-sm font-medium ${networkStatus.online ? 'text-green-500' : 'text-red-500'}`}>
-                  {networkStatus.online ? 'ONLINE' : 'OFFLINE'}
+                  {networkStatus.online ? t.health.network.online : t.health.network.offline}
                 </div>
                 {networkStatus.effectiveType && (
                   <div className="text-xs text-slate-400">
@@ -466,7 +473,7 @@ export default function HealthPage() {
                   networkStatus.swStatus === 'checking' ? 'bg-yellow-500 animate-pulse' :
                   'bg-red-500'
                 }`} />
-                <span className="text-white font-medium">Service Worker</span>
+                <span className="text-white font-medium">{t.health.network.serviceWorker}</span>
               </div>
               <div className="text-right flex items-center gap-2">
                 {networkStatus.swStatus === 'waiting' && (
@@ -475,7 +482,7 @@ export default function HealthPage() {
                     disabled={isUpdating}
                     className="px-2 py-1 text-xs bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 border border-yellow-500/30 rounded transition-colors disabled:opacity-50"
                   >
-                    {isUpdating ? '⏳ Updating...' : '🔄 Update Now'}
+                    {isUpdating ? `⏳ ${t.health.network.updating}` : `🔄 ${t.health.network.updateNow}`}
                   </button>
                 )}
                 <div>
@@ -486,10 +493,14 @@ export default function HealthPage() {
                     networkStatus.swStatus === 'checking' ? 'text-yellow-500' :
                     'text-red-500'
                   }`}>
-                    {networkStatus.swStatus.toUpperCase()}
+                    {networkStatus.swStatus === 'active' ? t.health.network.active :
+                     networkStatus.swStatus === 'installing' ? t.health.network.installing :
+                     networkStatus.swStatus === 'waiting' ? t.health.network.waiting :
+                     networkStatus.swStatus === 'none' ? t.health.network.none :
+                     networkStatus.swStatus.toUpperCase()}
                   </div>
                   {networkStatus.swVersion && (
-                    <div className="text-xs text-slate-400">Cache: {networkStatus.swVersion}</div>
+                    <div className="text-xs text-slate-400">{t.health.network.cache}: {networkStatus.swVersion}</div>
                   )}
                 </div>
               </div>
@@ -499,7 +510,7 @@ export default function HealthPage() {
             {networkStatus.cacheUsage && networkStatus.cacheUsage.quota > 0 && (
               <div className="border-t border-slate-700 pt-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-slate-400 text-sm">Cache Storage</span>
+                  <span className="text-slate-400 text-sm">{t.health.network.cacheStorage}</span>
                   <span className="text-slate-400 text-sm">
                     {formatBytes(networkStatus.cacheUsage.usage)} / {formatBytes(networkStatus.cacheUsage.quota)}
                   </span>
@@ -511,7 +522,7 @@ export default function HealthPage() {
                   />
                 </div>
                 <div className="text-xs text-slate-500 mt-1">
-                  {((networkStatus.cacheUsage.usage / networkStatus.cacheUsage.quota) * 100).toFixed(2)}% used
+                  {((networkStatus.cacheUsage.usage / networkStatus.cacheUsage.quota) * 100).toFixed(2)}% {t.health.network.used}
                 </div>
               </div>
             )}
@@ -520,7 +531,7 @@ export default function HealthPage() {
 
         {/* Core Web Vitals */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">⚡ Core Web Vitals</h2>
+          <h2 className="text-lg font-semibold text-white mb-3">⚡ {t.health.webVitals.title}</h2>
           <div className={`rounded-lg border p-4 ${
             webVitals.length === 0 ? 'bg-slate-500/10 border-slate-500/30' :
             webVitals.some(v => v.rating === 'poor') ? 'bg-red-500/10 border-red-500/30' :
@@ -529,8 +540,8 @@ export default function HealthPage() {
           }`}>
             {webVitals.length === 0 ? (
               <div className="text-slate-400 text-center py-4">
-                <div className="animate-pulse">📊 Collecting metrics...</div>
-                <div className="text-xs mt-2">Interact with the page to capture INP</div>
+                <div className="animate-pulse">📊 {t.health.webVitals.collecting}</div>
+                <div className="text-xs mt-2">{t.health.webVitals.interactHint}</div>
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -558,7 +569,9 @@ export default function HealthPage() {
                       metric.rating === 'needs-improvement' ? 'text-yellow-500' :
                       'text-red-500'
                     }`}>
-                      {metric.rating.replace('-', ' ')}
+                      {metric.rating === 'good' ? t.health.webVitals.good :
+                       metric.rating === 'needs-improvement' ? t.health.webVitals.needsImprovement :
+                       t.health.webVitals.poor}
                     </div>
                   </div>
                 ))}
@@ -566,7 +579,7 @@ export default function HealthPage() {
             )}
             {webVitals.length > 0 && (
               <div className="mt-3 pt-3 border-t border-slate-700 text-xs text-slate-500 text-center">
-                Based on <a href="https://web.dev/vitals/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Google&apos;s Core Web Vitals</a> thresholds
+                {t.health.webVitals.basedOn} <a href="https://web.dev/vitals/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Google&apos;s Core Web Vitals</a> {t.health.webVitals.thresholds}
               </div>
             )}
           </div>
@@ -574,22 +587,22 @@ export default function HealthPage() {
 
         {/* Timezone Info */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">🕐 Timezone Info</h2>
+          <h2 className="text-lg font-semibold text-white mb-3">🕐 {t.health.timezone.title}</h2>
           <div className="rounded-lg border bg-slate-500/10 border-slate-500/30 p-4 grid grid-cols-2 gap-3 text-sm">
             <div>
-              <span className="text-slate-400">Cron TZ:</span>
+              <span className="text-slate-400">{t.health.timezone.cronTz}:</span>
               <span className="text-white ml-2">UTC</span>
             </div>
             <div>
-              <span className="text-slate-400">Your TZ:</span>
+              <span className="text-slate-400">{t.health.timezone.yourTz}:</span>
               <span className="text-white ml-2">{Intl.DateTimeFormat().resolvedOptions().timeZone}</span>
             </div>
             <div>
-              <span className="text-slate-400">UTC:</span>
+              <span className="text-slate-400">{t.health.timezone.utc}:</span>
               <span className="text-white ml-2">{new Date().toISOString().slice(11, 19)}</span>
             </div>
             <div>
-              <span className="text-slate-400">Local:</span>
+              <span className="text-slate-400">{t.health.timezone.local}:</span>
               <span className="text-white ml-2">{new Date().toLocaleTimeString()}</span>
             </div>
           </div>
@@ -597,14 +610,14 @@ export default function HealthPage() {
 
         {/* Last Updated */}
         <div className="mt-8 text-center text-slate-500 text-sm">
-          Last checked: {lastCheck?.toLocaleString() || 'Never'}
+          {t.health.lastChecked}: {lastCheck?.toLocaleString() || t.health.cron.never}
           <br />
-          <span className="text-xs">Auto-refreshes every 60 seconds</span>
+          <span className="text-xs">{t.health.autoRefresh}</span>
         </div>
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <a href="/" className="text-blue-400 hover:text-blue-300">← Back to Onde</a>
+          <a href="/" className="text-blue-400 hover:text-blue-300">← {t.health.backToOnde}</a>
         </div>
       </div>
     </div>

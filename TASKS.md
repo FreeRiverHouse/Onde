@@ -2407,12 +2407,13 @@
 - **Notes**: ✅ Homepage now uses useTranslations()! Added hero.*, whyOnde.*, featuresNew.*, library.*, testimonials.*, ctaNew.*, footerNew.* translation keys to en.json and it.json. Respects user language preference via i18n system.
 
 ### [T374] Audit remaining pages for hardcoded strings
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ✅ /giochi (T423, 2026-01-31), ✅ /about (T424, 2026-01-31), ❌ /health (T425). Homepage + catalogo already done.
+- **Notes**: ✅ All pages converted to i18n! /famiglia (T422), /collezioni, /giochi (T423), /about (T424), /health (T425). Homepage + catalogo were already done. Full Italian localization complete.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
@@ -2749,12 +2750,13 @@
 - **Notes**: ✅ Converted! Added about section to it.json (badge, title, intro, whatWeDo, orchestra, team, values, contact). Updated page.tsx to use useTranslations() hook with t.about.* syntax.
 
 ### [T425] i18n: /health page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /health page to use i18n system. Technical page with service status info.
+- **Notes**: ✅ Converted! Added 60+ translation keys for health page: title, subtitle, overall status, services, cron jobs, network/PWA, web vitals, timezone, storage. Page now uses useTranslations() hook. Italian translations included.
 
 ### [T426] Multi-exchange price consistency alerting
 - **Status**: TODO
@@ -3102,3 +3104,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script: analyze-trade-timing.py. Analyze which hour of day and day of week have best edge/win rate. Recommend optimal trading windows. Could inform trading schedule (pause during poor hours). Uses historical trades + cached OHLC volatility data.
+
+### [T465] Deploy onde.la with health page i18n
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T425]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy onde.la with the new health page translations. Run `./tools/tech-support/deploy-onde-la-prod.sh` and verify /health page shows translations correctly.
+
+### [T466] Add i18n completeness check script
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: check-i18n-completeness.sh. Compare en.json and it.json to find missing keys. List any hardcoded strings in .tsx files that should be translated. Run before deploys to catch i18n regressions.
+
+### [T467] Language preference persistence in cookie for SSR
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T374]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Currently using localStorage which doesn't work for SSR. Add HTTP cookie fallback so server can render correct language on first load. Use next-cookies or similar. Prevents flash of wrong language.

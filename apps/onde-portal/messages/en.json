@@ -673,5 +673,78 @@
       "sharedBooks": "Purchased books are shared among all family profiles.",
       "separateProgress": "Reading progress is saved separately for each profile."
     }
+  },
+  "health": {
+    "title": "Onde System Status",
+    "subtitle": "Real-time health monitoring",
+    "overall": {
+      "label": "Overall Status",
+      "healthy": "All Systems Operational",
+      "degraded": "Some Issues Detected",
+      "checking": "Checking...",
+      "unknown": "Unknown"
+    },
+    "refresh": "Refresh",
+    "services": {
+      "title": "Web Services",
+      "up": "UP",
+      "down": "DOWN",
+      "checking": "CHECKING"
+    },
+    "cron": {
+      "title": "Scheduled Jobs",
+      "loading": "Loading cron jobs...",
+      "noData": "No cron job data available",
+      "schedule": "Schedule",
+      "healthy": "HEALTHY",
+      "stale": "STALE",
+      "error": "ERROR",
+      "unknown": "UNKNOWN",
+      "never": "Never",
+      "ago": "ago"
+    },
+    "network": {
+      "title": "Network & PWA",
+      "connection": "Connection",
+      "online": "ONLINE",
+      "offline": "OFFLINE",
+      "serviceWorker": "Service Worker",
+      "active": "ACTIVE",
+      "installing": "INSTALLING",
+      "waiting": "WAITING",
+      "none": "NONE",
+      "updateNow": "Update Now",
+      "updating": "Updating...",
+      "cache": "Cache",
+      "cacheStorage": "Cache Storage",
+      "used": "used"
+    },
+    "webVitals": {
+      "title": "Core Web Vitals",
+      "collecting": "Collecting metrics...",
+      "interactHint": "Interact with the page to capture INP",
+      "good": "good",
+      "needsImprovement": "needs improvement",
+      "poor": "poor",
+      "basedOn": "Based on",
+      "thresholds": "thresholds"
+    },
+    "timezone": {
+      "title": "Timezone Info",
+      "cronTz": "Cron TZ",
+      "yourTz": "Your TZ",
+      "utc": "UTC",
+      "local": "Local"
+    },
+    "storage": {
+      "title": "Browser Storage",
+      "localStorage": "Local Storage",
+      "sessionStorage": "Session Storage",
+      "cookies": "Cookies",
+      "items": "items"
+    },
+    "lastChecked": "Last checked",
+    "autoRefresh": "Auto-refreshes every 60 seconds",
+    "backToOnde": "Back to Onde"
   }
 }

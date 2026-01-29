@@ -731,5 +731,78 @@
       "title": "Contattaci",
       "subtitle": "Domande? Vuoi collaborare? Scrivici."
     }
+  },
+  "health": {
+    "title": "Stato Sistema Onde",
+    "subtitle": "Monitoraggio in tempo reale",
+    "overall": {
+      "label": "Stato Generale",
+      "healthy": "Tutti i Sistemi Operativi",
+      "degraded": "Alcuni Problemi Rilevati",
+      "checking": "Verifica in corso...",
+      "unknown": "Sconosciuto"
+    },
+    "refresh": "Aggiorna",
+    "services": {
+      "title": "Servizi Web",
+      "up": "ATTIVO",
+      "down": "OFFLINE",
+      "checking": "VERIFICA"
+    },
+    "cron": {
+      "title": "Attività Pianificate",
+      "loading": "Caricamento attività...",
+      "noData": "Nessun dato disponibile",
+      "schedule": "Pianificazione",
+      "healthy": "OK",
+      "stale": "OBSOLETO",
+      "error": "ERRORE",
+      "unknown": "SCONOSCIUTO",
+      "never": "Mai",
+      "ago": "fa"
+    },
+    "network": {
+      "title": "Rete & PWA",
+      "connection": "Connessione",
+      "online": "ONLINE",
+      "offline": "OFFLINE",
+      "serviceWorker": "Service Worker",
+      "active": "ATTIVO",
+      "installing": "INSTALLAZIONE",
+      "waiting": "IN ATTESA",
+      "none": "NESSUNO",
+      "updateNow": "Aggiorna Ora",
+      "updating": "Aggiornamento...",
+      "cache": "Cache",
+      "cacheStorage": "Spazio Cache",
+      "used": "utilizzato"
+    },
+    "webVitals": {
+      "title": "Core Web Vitals",
+      "collecting": "Raccolta metriche...",
+      "interactHint": "Interagisci con la pagina per catturare INP",
+      "good": "buono",
+      "needsImprovement": "da migliorare",
+      "poor": "scarso",
+      "basedOn": "Basato sulle",
+      "thresholds": "soglie"
+    },
+    "timezone": {
+      "title": "Info Fuso Orario",
+      "cronTz": "TZ Cron",
+      "yourTz": "Tuo TZ",
+      "utc": "UTC",
+      "local": "Locale"
+    },
+    "storage": {
+      "title": "Storage Browser",
+      "localStorage": "Storage Locale",
+      "sessionStorage": "Storage Sessione",
+      "cookies": "Cookie",
+      "items": "elementi"
+    },
+    "lastChecked": "Ultimo controllo",
+    "autoRefresh": "Aggiornamento automatico ogni 60 secondi",
+    "backToOnde": "Torna a Onde"
   }
 }
