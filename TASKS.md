@@ -3237,12 +3237,13 @@
 - **Notes**: ✅ Added! Global prefers-reduced-motion media query in globals.css. Disables/reduces: particles, floating orbs, blob animations, spotlight, holographic effects, gradient flows, hover transforms, scroll indicators. Keeps essential transitions instant. Added motion-safe/motion-reduce utility classes. WCAG 2.3.3 compliant.
 
 ### [T480] Price spread monitoring cron job
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T385]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add cron job (every 15 min) to run detect-price-spread.py --threshold 1.0. Monitors for exchange price divergences. Alert file triggers Telegram notification via heartbeat. Helps detect arbitrage opportunities or exchange issues.
+- **Notes**: ✅ Cron job added: `*/15 * * * *`. Runs detect-price-spread.py with 1% threshold. Logs to price-spread.log. Alert file triggers Telegram notification via heartbeat.
 
 ### [T481] Multi-timeframe volatility dashboard widget
 - **Status**: TODO
