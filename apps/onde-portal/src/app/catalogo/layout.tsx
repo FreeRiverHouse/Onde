@@ -1,6 +1,26 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
+// Breadcrumb JSON-LD for /catalogo
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://onde.la',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Catalogo',
+      item: 'https://onde.la/catalogo',
+    },
+  ],
+}
+
 // JSON-LD structured data for the catalog (Schema.org CollectionPage + ItemList)
 const catalogJsonLd = {
   '@context': 'https://schema.org',
@@ -110,6 +130,11 @@ export const metadata: Metadata = {
 export default function CatalogoLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Script
         id="catalog-jsonld"
         type="application/ld+json"

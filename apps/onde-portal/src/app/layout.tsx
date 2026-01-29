@@ -1,6 +1,46 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import ClientLayout from '@/components/ClientLayout'
+
+// Organization + WebSite JSON-LD for root
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://onde.la/#organization',
+      name: 'Onde',
+      url: 'https://onde.la',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://onde.la/icon.svg',
+      },
+      description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
+      sameAs: [
+        'https://twitter.com/Onde_FRH',
+        'https://youtube.com/@Onde',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://onde.la/#website',
+      url: 'https://onde.la',
+      name: 'Onde',
+      description: 'AI-native publishing house. Free illustrated ebooks, classic literature, and original stories.',
+      publisher: { '@id': 'https://onde.la/#organization' },
+      inLanguage: ['en', 'it'],
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://onde.la/catalogo?q={search_term_string}',
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://onde.la'),
@@ -29,6 +69,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
           rel="stylesheet"
+        />
+        <Script
+          id="organization-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">

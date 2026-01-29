@@ -837,12 +837,13 @@
 - **Notes**: Add <link rel="preload"> for Playfair Display woff2. Currently uses Google Fonts stylesheet which blocks render.
 
 ### [T231] Add breadcrumb structured data
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Schema.org BreadcrumbList for navigation hierarchy in Google search results.
+- **Notes**: ✅ Added Organization + WebSite schema to root layout. Added BreadcrumbList to /libri and /catalogo. SearchAction for catalog search.
 
 ---
 
