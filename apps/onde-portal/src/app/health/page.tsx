@@ -169,6 +169,31 @@ export default function HealthPage() {
   const [alertFilter, setAlertFilter] = useState<'all' | 'divergence' | 'regime' | 'vol' | 'whipsaw'>('all');
   const [cacheDiagnostics, setCacheDiagnostics] = useState<CacheDiagnostics | null>(null);
   const [cacheLoading, setCacheLoading] = useState(true);
+  
+  // Auto-refresh state (T456)
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  // Load auto-refresh preference from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('health-auto-refresh');
+      if (saved !== null) {
+        setAutoRefresh(saved === 'true');
+      }
+    }
+  }, []);
+  
+  // Save auto-refresh preference to localStorage
+  const toggleAutoRefresh = useCallback(() => {
+    setAutoRefresh(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('health-auto-refresh', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
 
   // Collect Core Web Vitals
   useEffect(() => {
@@ -450,30 +475,49 @@ export default function HealthPage() {
     }
   };
 
-  const runChecks = async () => {
+  const runChecks = useCallback(async () => {
+    setIsRefreshing(true);
     setServices(SERVICES_TO_CHECK.map(s => ({ name: s.name, status: 'checking' as const })));
     setCronStatus('checking');
     
-    const [results] = await Promise.all([
-      Promise.all(SERVICES_TO_CHECK.map(({ name, url }) => checkService(name, url))),
-      fetchCronHealth(),
-      fetchTradingStats()
-    ]);
-    
-    setServices(results);
-    setLastCheck(new Date());
-  };
+    try {
+      const [results] = await Promise.all([
+        Promise.all(SERVICES_TO_CHECK.map(({ name, url }) => checkService(name, url))),
+        fetchCronHealth(),
+        fetchTradingStats()
+      ]);
+      
+      setServices(results);
+      setLastCheck(new Date());
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, []);
 
+  // Initial load
   useEffect(() => {
     runChecks();
     checkNetworkStatus();
     analyzeCaches();
+  }, [runChecks, checkNetworkStatus, analyzeCaches]);
+  
+  // Auto-refresh interval (T456) - respects toggle
+  useEffect(() => {
+    if (!autoRefresh) return;
     
-    const interval = setInterval(runChecks, 60000); // Check every 60s
+    const interval = setInterval(runChecks, 30000); // Auto-refresh every 30s when enabled
     const networkInterval = setInterval(checkNetworkStatus, 30000); // Check network every 30s
     const cacheInterval = setInterval(analyzeCaches, 120000); // Check cache every 2min
 
-    // Listen for online/offline events
+    return () => {
+      clearInterval(interval);
+      clearInterval(networkInterval);
+      clearInterval(cacheInterval);
+    };
+  }, [autoRefresh, runChecks, checkNetworkStatus, analyzeCaches]);
+  
+  // Online/offline event listeners
+  useEffect(() => {
     const handleOnline = () => setNetworkStatus(prev => ({ ...prev, online: true }));
     const handleOffline = () => setNetworkStatus(prev => ({ ...prev, online: false }));
     
@@ -481,13 +525,10 @@ export default function HealthPage() {
     window.addEventListener('offline', handleOffline);
     
     return () => {
-      clearInterval(interval);
-      clearInterval(networkInterval);
-      clearInterval(cacheInterval);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [checkNetworkStatus, analyzeCaches]);
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -552,7 +593,7 @@ export default function HealthPage() {
 
         {/* Overall Status */}
         <div className={`rounded-xl border p-6 mb-8 ${getStatusBg(overallStatus)}`}>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div>
               <div className="text-sm text-slate-400 uppercase tracking-wide">{t.health.overall.label}</div>
               <div className={`text-2xl font-bold ${getStatusColor(overallStatus)}`}>
@@ -564,10 +605,40 @@ export default function HealthPage() {
             </div>
             <button 
               onClick={runChecks}
-              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
+              disabled={isRefreshing}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:cursor-wait text-white rounded-lg transition-colors flex items-center gap-2"
             >
-              ↻ {t.health.refresh}
+              <span className={isRefreshing ? 'animate-spin' : ''}>↻</span>
+              {isRefreshing ? 'Refreshing...' : t.health.refresh}
             </button>
+          </div>
+          
+          {/* Auto-refresh toggle (T456) */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={toggleAutoRefresh}
+                className={`relative w-12 h-6 rounded-full transition-colors ${
+                  autoRefresh ? 'bg-green-500' : 'bg-slate-600'
+                }`}
+                aria-label="Toggle auto-refresh"
+              >
+                <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                  autoRefresh ? 'translate-x-7' : 'translate-x-1'
+                }`} />
+              </button>
+              <span className="text-sm text-slate-300">
+                Auto-refresh {autoRefresh ? 'on' : 'off'}
+                {autoRefresh && <span className="text-slate-500 ml-1">(30s)</span>}
+              </span>
+            </div>
+            <div className="text-xs text-slate-500">
+              {lastCheck ? (
+                <>Last: {lastCheck.toLocaleTimeString()}</>
+              ) : (
+                <>Never refreshed</>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1304,9 +1375,17 @@ export default function HealthPage() {
 
         {/* Last Updated */}
         <div className="mt-8 text-center text-slate-500 text-sm">
-          {t.health.lastChecked}: {lastCheck?.toLocaleString() || t.health.cron.never}
-          <br />
-          <span className="text-xs">{t.health.autoRefresh}</span>
+          {lastCheck ? (
+            <>
+              {t.health.lastChecked}: {lastCheck.toLocaleString()}
+              <br />
+              <span className="text-xs">
+                {autoRefresh ? '🔄 Auto-refresh enabled (30s)' : '⏸️ Auto-refresh paused'}
+              </span>
+            </>
+          ) : (
+            <span className="text-xs">{t.health.cron.never}</span>
+          )}
         </div>
 
         {/* Footer */}

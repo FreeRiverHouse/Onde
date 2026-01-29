@@ -6,6 +6,34 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-31 (16:00 HEARTBEAT)
+
+### [T458] Deploy onde.la with auto-refresh toggle on /health
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T456]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy T456 changes to onde.la production. Use deploy-onde-la-prod.sh.
+
+### [T459] Health page: Add keyboard shortcut for manual refresh
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T456]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add 'R' key shortcut to trigger manual refresh on /health page. Show hint in UI.
+
+### [T460] Health page: Browser notifications on status change
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T456]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use browser Notifications API to alert when overall status changes (healthy→degraded, etc.). Opt-in toggle in settings. Only notify on actual changes, not every refresh.
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (HEARTBEAT)
 
 ### [T446] Add health check JSON API for external monitoring
@@ -108,16 +136,19 @@
   - Show in /health page as timeline
 
 ### [T456] Health dashboard: Add auto-refresh toggle
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T446]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: /health page improvements:
-  - Auto-refresh every 30s (toggleable)
-  - Last refresh timestamp display
-  - Manual refresh button with loading state
-  - Remember preference in localStorage
+- **Notes**: ✅ Implemented! /health page improvements:
+  - Auto-refresh every 30s (toggleable switch in header)
+  - Last refresh timestamp display in header and footer
+  - Manual refresh button with loading/spinning state
+  - Preference saved to localStorage (persists across sessions)
+  - Visual toggle switch (green=on, gray=off)
+  - Disabled refresh button while refreshing
 
 ### [T457] Autotrader: Add momentum divergence to trade decisions
 - **Status**: DONE

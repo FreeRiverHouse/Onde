@@ -1,17 +1,18 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-01-29T22:54:33.829008",
+    "timestamp": "2026-01-29T23:26:06.162571",
     "result": {
-      "sentiment": "neutral",
-      "confidence": 0.5,
+      "sentiment": "bearish",
+      "confidence": 0.633,
       "reasons": [
-        "No significant news detected"
+        "correction",
+        "hack"
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-01-29T22:54:33.828985+00:00",
+      "timestamp": "2026-01-29T23:26:06.162558+00:00",
       "should_trade": true,
-      "edge_adjustment": 0.0,
+      "edge_adjustment": -0.0127,
       "news_count": 9
     }
   }
