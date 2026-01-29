@@ -58,3 +58,6 @@ packages/telegram-bot/data/*.json
 packages/telegram-bot/reports/*.pdf
 books.zip
 CREDENZIALI-DA-SALVARE.md
+
+# Lighthouse CI reports
+.lighthouseci/

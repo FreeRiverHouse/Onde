@@ -19,6 +19,8 @@
     "typecheck": "turbo run typecheck",
     "health:check": "npx ts-node scripts/health/check.ts",
     "smoke:test": "npx ts-node scripts/health/smoke-test.ts",
+    "lighthouse": "./scripts/lighthouse-audit.sh",
+    "lighthouse:quick": "./scripts/lighthouse-audit.sh --quick",
     "format": "prettier --write \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
     "format:check": "prettier --check \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
     "prepare": "echo 'Ready for CI/CD'"

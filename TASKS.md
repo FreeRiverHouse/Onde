@@ -903,12 +903,13 @@
 - **Notes**: ✅ Added Schema.org Book + ItemList + CollectionPage markup to /libri layout.tsx. Includes author, translator, datePublished, offers with price=0. Google rich snippets ready.
 
 ### [T227] Lighthouse CI check for performance regression
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Lighthouse audit to CI pipeline. Fail if performance score < 80 or accessibility < 90.
+- **Notes**: ✅ Implemented! Created lighthouserc.js config + scripts/lighthouse-audit.sh. Thresholds: perf≥80%, a11y≥90%. npm scripts: `npm run lighthouse` (full) and `npm run lighthouse:quick` (curl-based). Core Web Vitals assertions: LCP≤2.5s, CLS≤0.1, TBT≤300ms.
 
 ### [T232] Add momentum analysis to weekly trading report
 - **Status**: DONE
@@ -2974,3 +2975,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Analyze trade performance by hour (T249 exists). Automatically reduce position size or skip trades during historically low-WR hours (e.g., 03:00-06:00 UTC). Configurable via TRADING_HOURS_BONUS/PENALTY dict.
+
+### [T449] Lighthouse score history tracking
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T227]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Save Lighthouse scores to data/lighthouse/history.jsonl after each run. Track performance/a11y/seo/practices over time. Script: track-lighthouse-history.sh. Alerts if score drops >10% from 7-day average.
+
+### [T450] Performance budget in build pipeline
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add budgets.json config for asset size limits (e.g., JS bundle <300KB, CSS <50KB, images <500KB each). Script: check-bundle-sizes.sh. Fail deploy if exceeded. Uses `du` and `find` to check build output.
+
+### [T451] SEO audit automation (broken links, alt text)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: seo-audit.sh. Crawl site for: broken internal links (404), images missing alt text, missing meta descriptions, orphan pages. Output report to data/seo/audit-YYYY-MM-DD.json. Integrate with deploy verification.
