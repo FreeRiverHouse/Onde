@@ -41,12 +41,19 @@
   - **Display**: Shows per-asset config in trade output (e.g. "📊 BTC Kelly: 5.0% | Max: 3.0%")
 
 ### [T442] Daily test suite: Add visual regression tests
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T413], [T417]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add visual regression tests from T417 to daily test suite (T413). Currently runs manually. Run 1x/day at 12:00 to catch UI regressions without burning too much CI time.
+- **Notes**: ✅ Integrated visual regression into daily test suite!
+  - **run_visual_regression_tests()**: New method in TestSuite class
+  - **Timing**: Only runs between 11:00-13:00 (1x/day at noon)
+  - **Subprocess**: Calls visual-regression-tests.py with 2-min timeout
+  - **Report parsing**: Reads visual-regression-report.json for detailed results
+  - **Error handling**: Graceful fallback on timeout or missing script
+  - **Dashboard**: Results appear in TestStatusPanel alongside other tests
 
 ---
 

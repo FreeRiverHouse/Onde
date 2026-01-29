@@ -167,6 +167,53 @@ class TestSuite:
             duration = int((time.time() - start) * 1000)
             self.add_test(name, "api", False, str(e), duration)
     
+    def run_visual_regression_tests(self):
+        """Run visual regression tests via Playwright (T442)"""
+        visual_script = SCRIPT_DIR / "visual-regression-tests.py"
+        if not visual_script.exists():
+            self.add_test("Visual Regression", "visual", False, "Script not found", 0)
+            return
+        
+        start = time.time()
+        try:
+            result = subprocess.run(
+                [sys.executable, str(visual_script)],
+                capture_output=True,
+                text=True,
+                timeout=120  # 2 minute timeout for visual tests
+            )
+            duration = int((time.time() - start) * 1000)
+            
+            # Parse the report if it exists
+            report_file = SCRIPT_DIR / "visual-regression-report.json"
+            if report_file.exists():
+                with open(report_file) as f:
+                    report = json.load(f)
+                
+                passed = report.get("summary", {}).get("failed", 1) == 0
+                total = report.get("summary", {}).get("total", 0)
+                failed = report.get("summary", {}).get("failed", 0)
+                
+                if passed:
+                    self.add_test("Visual Regression", "visual", True, 
+                                f"All {total} pages match baseline", duration)
+                else:
+                    failed_pages = [t["name"] for t in report.get("tests", []) if not t.get("passed")]
+                    self.add_test("Visual Regression", "visual", False,
+                                f"{failed}/{total} pages differ: {', '.join(failed_pages)}", duration)
+            else:
+                # No report - check exit code
+                passed = result.returncode == 0
+                self.add_test("Visual Regression", "visual", passed,
+                            "Tests completed" if passed else f"Exit code {result.returncode}", duration)
+                
+        except subprocess.TimeoutExpired:
+            duration = int((time.time() - start) * 1000)
+            self.add_test("Visual Regression", "visual", False, "Timeout (>2min)", duration)
+        except Exception as e:
+            duration = int((time.time() - start) * 1000)
+            self.add_test("Visual Regression", "visual", False, str(e), duration)
+    
     def run_all_tests(self):
         """Run the complete test suite"""
         print(f"🧪 Running Daily Test Suite - {datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -191,6 +238,15 @@ class TestSuite:
         self.run_http_test("onde.surf Login Page", "https://onde.surf/login", 200)
         self.run_ssl_test("onde.surf SSL", "onde.surf")
         self.run_response_time_test("onde.surf Performance", "https://onde.surf/login")
+        
+        # === Visual Regression Tests (T442) ===
+        # Run 1x/day at 12:00 to catch UI regressions without burning too much CI time
+        current_hour = datetime.now().hour
+        if current_hour >= 11 and current_hour <= 13:  # Run between 11:00-13:00
+            print("\n🎨 Running Visual Regression Tests...")
+            self.run_visual_regression_tests()
+        else:
+            print(f"\n⏭️ Skipping visual tests (only run at 12:00, current: {current_hour}:00)")
         
         # === Summary ===
         print("\n" + "=" * 60)
