@@ -1,11 +1,11 @@
 {
-  "lastHeartbeat": "2026-01-29T08:20:20Z",
-  "lastHeartbeatEpoch": 1769675020,
+  "lastHeartbeat": "2026-01-29T13:25:00Z",
+  "lastHeartbeatEpoch": 1769693100,
   "host": "FRH-M1-PRO.local",
   "lastChecks": {},
   "lastWork": {
-    "task": "T374 - i18n audit",
-    "completed": "/collezioni page translated",
-    "subtasksAdded": ["T422", "T423", "T424", "T425"]
+    "task": "T332 - VIX correlation analysis",
+    "completed": "analyze-vix-correlation.py script created",
+    "subtasksAdded": ["T611", "T612", "T613"]
   }
 }

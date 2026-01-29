@@ -1,0 +1,49 @@
+{
+  "correlation": 0.4035,
+  "data_points": 20,
+  "vix_current": 16.61,
+  "vix_mean": 15.91,
+  "vix_std": 33.61,
+  "crypto_vol_mean": 2.71,
+  "vix_regime": "moderate",
+  "matched_data": [
+    {
+      "date": "2026-01-21",
+      "vix": 16.9,
+      "crypto_vol": 3.32
+    },
+    {
+      "date": "2026-01-22",
+      "vix": 15.64,
+      "crypto_vol": 1.84
+    },
+    {
+      "date": "2026-01-23",
+      "vix": 16.09,
+      "crypto_vol": 2.48
+    },
+    {
+      "date": "2026-01-26",
+      "vix": 16.15,
+      "crypto_vol": 2.85
+    },
+    {
+      "date": "2026-01-27",
+      "vix": 16.35,
+      "crypto_vol": 1.64
+    },
+    {
+      "date": "2026-01-28",
+      "vix": 16.35,
+      "crypto_vol": 2.27
+    },
+    {
+      "date": "2026-01-29",
+      "vix": 16.61,
+      "crypto_vol": 2.25
+    }
+  ],
+  "interpretation": "Moderate positive correlation (0.40) | VIX spikes may precede crypto vol spikes - consider reducing position sizes when VIX rises",
+  "asset": "btc",
+  "timestamp": "2026-01-29T05:24:55.331591"
+}

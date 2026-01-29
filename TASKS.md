@@ -2053,12 +2053,13 @@
 - **Notes**: Log predicted probability + actual outcome for each trade. Creates training data for future ML model improvements. Fields: predicted_prob, actual_outcome, edge_at_entry, features.
 
 ### [T332] VIX correlation with crypto volatility
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Fetch VIX from Yahoo Finance. Correlate with BTC/ETH hourly vol. Macro fear indicator may improve regime detection.
+- **Notes**: ✅ Script: analyze-vix-correlation.py. Fetches VIX from Yahoo Finance, correlates with BTC/ETH daily vol. Shows: correlation coefficient, VIX regime (low_fear/moderate/elevated/high_fear), trading insights. Cache: data/trading/vix-history.json + vix-correlation.json. Usage: `python3 scripts/analyze-vix-correlation.py --days 30 --asset btc`
 
 ### [T333] Real-time trade ticker on /betting
 - **Status**: TODO
@@ -3509,4 +3510,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Updated hourly cron (45 * * * *) to use --source all. Now pushes combined v1+v2 stats to gist every hour.
+
+### [T611] Integrate VIX into autotrader regime detection
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T332]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use VIX data from T332 to enhance regime detection. VIX >25 suggests high fear = widen stop-losses. VIX <15 = normal sizing. Moderate positive correlation (0.40) means VIX spikes may precede crypto vol spikes.
+
+### [T612] Add VIX indicator widget to /betting dashboard
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T332]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Display current VIX level with regime indicator (🟢 low_fear / 🟡 moderate / 🟠 elevated / 🔴 high_fear). Show correlation with BTC vol. Fetch from cached vix-correlation.json via API or Gist.
+
+### [T613] Cron job for daily VIX-crypto correlation refresh
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T332]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add cron to run analyze-vix-correlation.py daily. Update vix-history.json and vix-correlation.json. Suggested: `0 1 * * * python3 scripts/analyze-vix-correlation.py --days 30`
 
