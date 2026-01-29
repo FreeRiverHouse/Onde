@@ -145,17 +145,28 @@ def get_trend_adjustment(prices_1h: list) -> float:
 
 # ============== MULTI-TIMEFRAME MOMENTUM ==============
 
-def get_btc_ohlc(days: int = 2) -> list:
-    """Get BTC OHLC data from CoinGecko (hourly for 2 days)"""
+def get_btc_ohlc(days: int = 1) -> list:
+    """Get BTC OHLC data from CoinGecko (hourly candles for 1-2 days)
+    
+    Note: CoinGecko OHLC only accepts: 1, 7, 14, 30, 90, 180, 365, max
+    For 1-2 days: granularity is 30min/hourly, which is what we need
+    """
     try:
-        # CoinGecko gives hourly data for 1-90 days
+        # CoinGecko OHLC endpoint - days=1 gives ~48 candles (30min intervals)
+        # days=7 gives hourly candles - better for 24h momentum
+        valid_days = min(7, max(1, days))  # Clamp to valid values
         resp = requests.get(
-            f"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days={days}",
+            f"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days={valid_days}",
             timeout=10
         )
         if resp.status_code != 200:
+            print(f"[WARN] OHLC API returned {resp.status_code}: {resp.text[:100]}")
             return []
-        return resp.json()  # [[timestamp, open, high, low, close], ...]
+        data = resp.json()
+        if not isinstance(data, list):
+            print(f"[WARN] OHLC unexpected format: {type(data)}")
+            return []
+        return data  # [[timestamp, open, high, low, close], ...]
     except Exception as e:
         print(f"[WARN] Failed to get OHLC: {e}")
         return []
@@ -775,8 +786,8 @@ def run_cycle():
     btc_price = prices["btc"]
     print(f"📈 BTC: ${btc_price:,.0f}")
     
-    # Get OHLC data for momentum calculation
-    ohlc_data = get_btc_ohlc(days=2)
+    # Get OHLC data for momentum calculation (7 days gives us hourly candles, enough for 24h momentum)
+    ohlc_data = get_btc_ohlc(days=7)
     momentum = get_multi_timeframe_momentum(ohlc_data)
     
     # Display momentum info
