@@ -305,12 +305,20 @@
   - **Toggle**: Button in menu bar popover
 
 ### [T437] WhisperFlow: Launch at Login option
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add "Launch at Login" toggle in Settings using ServiceManagement/SMAppService. Auto-start menu bar app on login.
+- **Notes**: ✅ Implemented!
+  - **LaunchAtLoginManager.swift**: Uses SMAppService (macOS 13+)
+  - **Features:**
+    - Toggle in Settings panel
+    - Automatic status detection
+    - Deep link to System Settings if approval required
+    - Graceful fallback message for macOS 12 and earlier
+  - **Usage**: Settings → Startup → Toggle "Launch at Login"
 
 ### [T438] WhisperFlow: Audio device hot-swap support
 - **Status**: TODO

@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var transcriptionManager = TranscriptionManager.shared
     @StateObject private var overlayManager = OverlayManager.shared
+    @StateObject private var launchManager = LaunchAtLoginManager.shared
     
     private let languages = [
         ("auto", "Auto-detect"),
@@ -75,6 +76,25 @@ struct SettingsView: View {
                 }
             }
             
+            Section("Startup") {
+                if launchManager.isAvailable {
+                    Toggle("Launch at Login", isOn: $launchManager.isEnabled)
+                    
+                    if launchManager.statusDescription == "Requires approval in System Settings" {
+                        Button("Open System Settings") {
+                            if let url = URL(string: "x-apple.systempreferences:com.apple.LoginItems-Settings.extension") {
+                                NSWorkspace.shared.open(url)
+                            }
+                        }
+                        .font(.caption)
+                    }
+                } else {
+                    Text("Launch at Login requires macOS 13+")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }
+            }
+            
             Section("Keyboard Shortcuts") {
                 HStack {
                     Text("Toggle Recording")
@@ -107,7 +127,7 @@ struct SettingsView: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 480)
+        .frame(width: 400, height: 540)
     }
 }
 
