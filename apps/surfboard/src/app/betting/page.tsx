@@ -1591,6 +1591,11 @@ export default function BettingDashboard() {
                     const isYes = pos.position > 0;
                     const assetType = pos.ticker.includes('KXETHD') ? 'ETH' : 'BTC';
                     
+                    // Calculate risk % of portfolio
+                    const portfolioTotal = (kalshiStatus?.portfolioValue || 0) + (kalshiStatus?.cash || 0);
+                    const riskPercent = portfolioTotal > 0 ? (Math.abs(pos.exposure) / portfolioTotal) * 100 : 0;
+                    const riskColor = riskPercent < 10 ? 'emerald' : riskPercent < 25 ? 'yellow' : 'red';
+                    
                     return (
                       <div 
                         key={i}
@@ -1615,10 +1620,23 @@ export default function BettingDashboard() {
                             </div>
                           </div>
                         </div>
-                        <div className="text-right ml-4 flex flex-col items-end">
-                          <p className={`font-mono font-bold ${pos.exposure >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                            ${Math.abs(pos.exposure).toFixed(2)}
-                          </p>
+                        <div className="text-right ml-4 flex flex-col items-end gap-0.5">
+                          <div className="flex items-center gap-2">
+                            <p className={`font-mono font-bold ${pos.exposure >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                              ${Math.abs(pos.exposure).toFixed(2)}
+                            </p>
+                            {/* Risk indicator */}
+                            <span 
+                              className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold
+                                ${riskColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
+                                ${riskColor === 'yellow' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
+                                ${riskColor === 'red' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : ''}
+                              `}
+                              title={`${riskPercent.toFixed(1)}% of portfolio`}
+                            >
+                              {riskPercent.toFixed(0)}%
+                            </span>
+                          </div>
                           {pos.pnl !== undefined && pos.pnl !== 0 && (
                             <p className={`text-xs font-mono ${pos.pnl >= 0 ? 'text-emerald-500/80' : 'text-red-500/80'}`}>
                               {pos.pnl >= 0 ? '+' : ''}{pos.pnl.toFixed(2)}

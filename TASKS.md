@@ -3351,12 +3351,13 @@
 - **Notes**: Show historical portfolio value over time (7d/30d/all). Use trading snapshots data to calculate cumulative value at each point. Line chart with area fill. Includes cash + open positions value.
 
 ### [T493] Position risk indicator (exposure % of portfolio)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T317]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add risk indicator to position cards showing exposure as percentage of total portfolio. Color coding: green (<10%), yellow (10-25%), red (>25%). Helps visualize concentration risk.
+- **Notes**: ✅ Added risk indicator badge to position cards! Shows exposure as % of portfolio (cash + positions). Color coded: emerald (<10%), yellow (10-25%), red (>25%). Tooltip shows exact %. Helps visualize concentration risk at a glance.
 
 ### [T494] Trade alert sound effects
 - **Status**: TODO
