@@ -7,6 +7,7 @@ import SectionHeader from '@/components/ui/SectionHeader'
 import { useTranslations } from '@/i18n'
 import { useDownloadTracker } from '@/hooks/useDownloadTracker'
 import { useReadingList } from '@/hooks/useReadingList'
+import { useRecentlyViewed } from '@/hooks/useRecentlyViewed'
 import { useState, useEffect } from 'react'
 
 interface Book {
@@ -62,7 +63,13 @@ export default function LibriPage() {
   const t = useTranslations()
   const { trackDownload, getBookStats, getTotalDownloads } = useDownloadTracker()
   const { toggleBookmark, isBookmarked, getReadingListCount, mounted: readingListMounted } = useReadingList()
+  const { getRecentlyViewedIds, getRecentlyViewedCount, mounted: recentlyViewedMounted } = useRecentlyViewed()
   const [mounted, setMounted] = useState(false)
+  
+  // Get recently viewed books (filter books array by recently viewed IDs)
+  const recentlyViewedBooks = recentlyViewedMounted 
+    ? books.filter(book => getRecentlyViewedIds().includes(book.id))
+    : []
   
   useEffect(() => {
     setMounted(true)
@@ -134,6 +141,47 @@ export default function LibriPage() {
           </div>
         </div>
       </section>
+
+      {/* Recently Viewed Section */}
+      {recentlyViewedMounted && recentlyViewedBooks.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-2xl">🕐</span>
+            <h2 className="text-xl font-display font-bold text-amber-900">Recently Viewed</h2>
+            <span className="text-sm text-gray-500">({getRecentlyViewedCount()})</span>
+          </div>
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-amber-200">
+            {recentlyViewedBooks.map((book, index) => (
+              <Link
+                key={book.id}
+                href={`/libro/${book.id}`}
+                className="flex-shrink-0 group"
+              >
+                <motion.div
+                  className="w-32 bg-white/90 backdrop-blur-sm rounded-2xl border border-amber-200/50
+                             shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <div className="relative aspect-[3/4] bg-gradient-to-br from-amber-50 to-amber-100">
+                    <Image
+                      src={book.coverImage}
+                      alt={book.title}
+                      fill
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-2">
+                    <p className="text-xs font-semibold text-amber-900 truncate">{book.title}</p>
+                    <p className="text-[10px] text-gray-500 truncate">{book.author}</p>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Books Grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">

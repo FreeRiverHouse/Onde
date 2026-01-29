@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import { books, Book } from '@/data/books'
+import { useRecentlyViewed } from '@/hooks/useRecentlyViewed'
 
 // Create a lookup map for faster access
 const booksMap: Record<string, Book> = {}
@@ -120,6 +121,14 @@ export default function BookReaderClient({ bookId }: Props) {
   const contentRef = useRef<HTMLDivElement>(null)
 
   const book = booksMap[bookId]
+  const { addToRecentlyViewed } = useRecentlyViewed()
+
+  // Track recently viewed books
+  useEffect(() => {
+    if (bookId) {
+      addToRecentlyViewed(bookId)
+    }
+  }, [bookId, addToRecentlyViewed])
 
   // Track reading progress
   useEffect(() => {

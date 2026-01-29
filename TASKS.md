@@ -3327,12 +3327,13 @@
 - **Notes**: Add "Share List" button to /my-books page. Generates URL with bookmarked book IDs encoded (e.g., /my-books?books=meditations,shepherds-promise). Recipients can view shared list without it being added to their localStorage. Social sharing friendly.
 
 ### [T490] Recently viewed books tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T380]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track last 5 books viewed by user (localStorage). Show "Recently Viewed" section on /libri page. Uses similar pattern to useReadingList hook. Helps users find books they were looking at but didn't bookmark.
+- **Notes**: ✅ Implemented! Created useRecentlyViewed hook (tracks last 5 books in localStorage). Integrated into BookReaderClient to track views. Added "Recently Viewed" horizontal scroll section on /libri page with compact book cards. Shows only if user has viewed books.
 
 ### [T491] Unified book data source for /libri and /my-books
 - **Status**: TODO
