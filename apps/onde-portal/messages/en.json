@@ -498,5 +498,29 @@
     "comingSoon": "Coming Soon",
     "inDevelopment": "In Development",
     "inPlanning": "In Planning"
+  },
+  "catalog": {
+    "launchBanner": {
+      "title": "Free during launch!",
+      "subtitle": "Download ePub, Kindle or read online - limited offer"
+    },
+    "title": "Library",
+    "subtitle": "titles in collection • Free during launch",
+    "search": {
+      "placeholder": "Search by title or author..."
+    },
+    "filters": {
+      "allCategories": "All categories",
+      "allLanguages": "All languages",
+      "reset": "Reset filters"
+    },
+    "results": {
+      "showingAll": "Showing all {count} books",
+      "found": "{count} books found"
+    },
+    "noResults": {
+      "title": "No books found",
+      "showAll": "Show all books"
+    }
   }
 }

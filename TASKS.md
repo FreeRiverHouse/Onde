@@ -469,12 +469,13 @@
 - **Notes**: ✅ Removed "made with love" from hero, removed "Powered by Vercel" from footer. Cleaner branding.
 
 ### [T353] Sistemare onde.la mezzo italiano mezzo inglese
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: onde.la ha mix di italiano e inglese. Decidere lingua principale e uniformare tutto.
+- **Notes**: ✅ Fixed /catalogo page to use i18n system. Added catalog translations to en.json and it.json. Now respects user language preference via localStorage/browser detection.
 
 ### [T207] Create centralized test-pre-deploy.sh script
 - **Status**: DONE
@@ -2072,6 +2073,30 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: ✅ Added! Toggle button in header with Sun/Moon/Monitor icons for light/dark/system. Keyboard shortcut 'T'. Background, grid, and container adapt to theme. Persists in localStorage via ThemeProvider.
+
+### [T372] Add language switcher UI to onde-portal header
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add EN/IT toggle button or dropdown in navigation header. Should call setLocale() from i18n context. Display current locale flag or code.
+
+### [T373] Convert homepage (page.tsx) to use i18n translations
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Homepage is hardcoded in English. Should use useTranslations() like other pages. Translations already exist in home.* keys. Benefits: respects user language preference.
+
+### [T374] Audit remaining pages for hardcoded strings
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Check /famiglia, /collezioni, /giochi, /about, /health for hardcoded IT/EN strings. Convert to use i18n system for consistency.
 
 ---
 

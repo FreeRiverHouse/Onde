@@ -3,19 +3,21 @@
 import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { books, bookCount } from '@/data/books'
+import { useTranslations } from '@/i18n'
 
-// Estrai le categorie uniche
+// Extract unique categories
 const categories = [...new Set(books.map(b => b.category))].sort()
 
 export default function Catalogo() {
+  const t = useTranslations()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedLang, setSelectedLang] = useState<string | null>(null)
 
-  // Filtra i libri
+  // Filter books
   const filteredBooks = useMemo(() => {
     return books.filter(book => {
-      // Filtro ricerca
+      // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase()
         const matchesTitle = book.title.toLowerCase().includes(query)
@@ -23,12 +25,12 @@ export default function Catalogo() {
         if (!matchesTitle && !matchesAuthor) return false
       }
 
-      // Filtro categoria
+      // Category filter
       if (selectedCategory && book.category !== selectedCategory) {
         return false
       }
 
-      // Filtro lingua
+      // Language filter
       if (selectedLang) {
         const bookLang = book.lang || 'en'
         if (bookLang !== selectedLang) return false
@@ -53,74 +55,74 @@ export default function Catalogo() {
         <div className="flex items-center gap-3">
           <span className="text-3xl">🚀</span>
           <div>
-            <p className="font-bold text-emerald-400">Gratis durante il lancio!</p>
-            <p className="text-sm opacity-70">Scarica ePub, Kindle o leggi online - offerta limitata</p>
+            <p className="font-bold text-emerald-400">{t.catalog.launchBanner.title}</p>
+            <p className="text-sm opacity-70">{t.catalog.launchBanner.subtitle}</p>
           </div>
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold mb-4">Biblioteca</h1>
-      <p className="opacity-70 mb-8">{bookCount} titoli nella collezione • Gratis durante il lancio</p>
+      <h1 className="text-4xl font-bold mb-4">{t.catalog.title}</h1>
+      <p className="opacity-70 mb-8">{bookCount} {t.catalog.subtitle}</p>
 
-      {/* Barra di ricerca */}
+      {/* Search bar */}
       <div className="mb-6">
         <input
           type="text"
-          placeholder="Cerca per titolo o autore..."
+          placeholder={t.catalog.search.placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full px-4 py-3 rounded-lg border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-onde-gold focus:border-transparent"
         />
       </div>
 
-      {/* Filtri */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6">
-        {/* Filtro categoria */}
+        {/* Category filter */}
         <select
           value={selectedCategory || ''}
           onChange={(e) => setSelectedCategory(e.target.value || null)}
           className="px-4 py-2 rounded-lg border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-onde-gold"
         >
-          <option value="">Tutte le categorie</option>
+          <option value="">{t.catalog.filters.allCategories}</option>
           {categories.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
 
-        {/* Filtro lingua */}
+        {/* Language filter */}
         <select
           value={selectedLang || ''}
           onChange={(e) => setSelectedLang(e.target.value || null)}
           className="px-4 py-2 rounded-lg border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-onde-gold"
         >
-          <option value="">Tutte le lingue</option>
+          <option value="">{t.catalog.filters.allLanguages}</option>
           <option value="en">English</option>
           <option value="it">Italiano</option>
-          <option value="fr">Francais</option>
+          <option value="fr">Français</option>
           <option value="de">Deutsch</option>
-          <option value="es">Espanol</option>
+          <option value="es">Español</option>
         </select>
 
-        {/* Reset filtri */}
+        {/* Reset filters */}
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
             className="px-4 py-2 rounded-lg bg-stone-200 hover:bg-stone-300 transition-colors"
           >
-            Reset filtri
+            {t.catalog.filters.reset}
           </button>
         )}
       </div>
 
-      {/* Risultati count */}
+      {/* Results count */}
       <p className="text-sm opacity-60 mb-6">
         {filteredBooks.length === books.length
-          ? `Mostrando tutti i ${books.length} libri`
-          : `${filteredBooks.length} libri trovati`
+          ? t.catalog.results.showingAll.replace('{count}', String(books.length))
+          : t.catalog.results.found.replace('{count}', String(filteredBooks.length))
         }
       </p>
 
-      {/* Griglia libri */}
+      {/* Books grid */}
       {filteredBooks.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {filteredBooks.map(book => (
@@ -141,12 +143,12 @@ export default function Catalogo() {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-xl opacity-60 mb-4">Nessun libro trovato</p>
+          <p className="text-xl opacity-60 mb-4">{t.catalog.noResults.title}</p>
           <button
             onClick={clearFilters}
             className="px-6 py-3 rounded-lg bg-onde-gold text-white hover:bg-onde-gold/90 transition-colors"
           >
-            Mostra tutti i libri
+            {t.catalog.noResults.showAll}
           </button>
         </div>
       )}
