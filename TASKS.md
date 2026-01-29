@@ -1600,14 +1600,39 @@
 - **Notes**: When API returns error but cache has valid data, show cached + indicate staleness. Add "last updated: Xm ago" to dashboard.
 
 ### [T323] Network status in /health page
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: [T318]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show current network status (online/offline), service worker status, and cache storage usage on /health page.
+- **Notes**: ✅ Added! Shows: 1) Online/offline status with Network Information API details (effectiveType, downlink, RTT), 2) Service Worker status (active/installing/waiting/none) with cache version, 3) Cache Storage usage bar with percentage. Auto-refreshes every 30s, responds to online/offline events.
+
+### [T324] Performance metrics on /health page (Core Web Vitals)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show LCP, FID, CLS metrics using web-vitals library. Help monitor page performance in production.
+
+### [T325] Browser storage breakdown (cookies, localStorage, sessionStorage)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T323]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend /health network section to show breakdown of browser storage usage by type.
+
+### [T326] SW update button when waiting version available
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T323]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When swStatus is 'waiting', show "Update Available" button that triggers skipWaiting() to activate new SW immediately.
 
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-28 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*

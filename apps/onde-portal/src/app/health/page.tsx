@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface ServiceStatus {
   name: string;
@@ -24,11 +24,30 @@ interface CronHealthResponse {
   checkedAt: string;
 }
 
+interface NetworkStatus {
+  online: boolean;
+  effectiveType?: string;
+  downlink?: number;
+  rtt?: number;
+  swStatus: 'checking' | 'active' | 'installing' | 'waiting' | 'none' | 'error';
+  swVersion?: string;
+  cacheUsage?: { usage: number; quota: number };
+}
+
 const SERVICES_TO_CHECK = [
   { name: 'onde.la', url: 'https://onde.la' },
   { name: 'onde.surf', url: 'https://onde.surf' },
   { name: 'GitHub (FRH)', url: 'https://github.com/FreeRiverHouse' },
 ];
+
+// Format bytes to human-readable
+const formatBytes = (bytes: number): string => {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${(bytes / Math.pow(k, i)).toFixed(1)} ${sizes[i]}`;
+};
 
 export default function HealthPage() {
   const [services, setServices] = useState<ServiceStatus[]>(
@@ -37,6 +56,70 @@ export default function HealthPage() {
   const [cronJobs, setCronJobs] = useState<CronJob[]>([]);
   const [cronStatus, setCronStatus] = useState<'checking' | 'healthy' | 'degraded' | 'error'>('checking');
   const [lastCheck, setLastCheck] = useState<Date | null>(null);
+  const [networkStatus, setNetworkStatus] = useState<NetworkStatus>({
+    online: true,
+    swStatus: 'checking',
+  });
+
+  // Check network and service worker status
+  const checkNetworkStatus = useCallback(async () => {
+    const status: NetworkStatus = {
+      online: typeof navigator !== 'undefined' ? navigator.onLine : true,
+      swStatus: 'checking',
+    };
+
+    // Check connection info (Network Information API)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nav = navigator as any;
+    if (nav?.connection) {
+      status.effectiveType = nav.connection.effectiveType;
+      status.downlink = nav.connection.downlink;
+      status.rtt = nav.connection.rtt;
+    }
+
+    // Check service worker status
+    if ('serviceWorker' in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.getRegistration();
+        if (registration) {
+          if (registration.active) {
+            status.swStatus = 'active';
+            // Try to get version from SW cache name
+            const cacheNames = await caches.keys();
+            const versionedCache = cacheNames.find(n => n.startsWith('onde-v'));
+            if (versionedCache) {
+              status.swVersion = versionedCache.replace('onde-', '');
+            }
+          } else if (registration.installing) {
+            status.swStatus = 'installing';
+          } else if (registration.waiting) {
+            status.swStatus = 'waiting';
+          }
+        } else {
+          status.swStatus = 'none';
+        }
+      } catch {
+        status.swStatus = 'error';
+      }
+    } else {
+      status.swStatus = 'none';
+    }
+
+    // Check cache storage usage
+    if ('storage' in navigator && 'estimate' in navigator.storage) {
+      try {
+        const estimate = await navigator.storage.estimate();
+        status.cacheUsage = {
+          usage: estimate.usage || 0,
+          quota: estimate.quota || 0,
+        };
+      } catch {
+        // Storage API not available
+      }
+    }
+
+    setNetworkStatus(status);
+  }, []);
 
   const checkService = async (name: string, url: string): Promise<ServiceStatus> => {
     const start = Date.now();
@@ -95,9 +178,25 @@ export default function HealthPage() {
 
   useEffect(() => {
     runChecks();
+    checkNetworkStatus();
+    
     const interval = setInterval(runChecks, 60000); // Check every 60s
-    return () => clearInterval(interval);
-  }, []);
+    const networkInterval = setInterval(checkNetworkStatus, 30000); // Check network every 30s
+
+    // Listen for online/offline events
+    const handleOnline = () => setNetworkStatus(prev => ({ ...prev, online: true }));
+    const handleOffline = () => setNetworkStatus(prev => ({ ...prev, online: false }));
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      clearInterval(interval);
+      clearInterval(networkInterval);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [checkNetworkStatus]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -245,6 +344,83 @@ export default function HealthPage() {
                   </div>
                 </div>
               ))
+            )}
+          </div>
+        </div>
+
+        {/* Network & PWA Status */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">📡 Network & PWA</h2>
+          <div className={`rounded-lg border p-4 space-y-3 ${
+            networkStatus.online ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'
+          }`}>
+            {/* Connection Status */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full ${networkStatus.online ? 'bg-green-500' : 'bg-red-500'}`} />
+                <span className="text-white font-medium">Connection</span>
+              </div>
+              <div className="text-right">
+                <div className={`text-sm font-medium ${networkStatus.online ? 'text-green-500' : 'text-red-500'}`}>
+                  {networkStatus.online ? 'ONLINE' : 'OFFLINE'}
+                </div>
+                {networkStatus.effectiveType && (
+                  <div className="text-xs text-slate-400">
+                    {networkStatus.effectiveType.toUpperCase()}
+                    {networkStatus.downlink && ` • ${networkStatus.downlink}Mbps`}
+                    {networkStatus.rtt && ` • ${networkStatus.rtt}ms RTT`}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Service Worker Status */}
+            <div className="flex items-center justify-between border-t border-slate-700 pt-3">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full ${
+                  networkStatus.swStatus === 'active' ? 'bg-green-500' :
+                  networkStatus.swStatus === 'installing' || networkStatus.swStatus === 'waiting' ? 'bg-yellow-500 animate-pulse' :
+                  networkStatus.swStatus === 'none' ? 'bg-slate-500' :
+                  networkStatus.swStatus === 'checking' ? 'bg-yellow-500 animate-pulse' :
+                  'bg-red-500'
+                }`} />
+                <span className="text-white font-medium">Service Worker</span>
+              </div>
+              <div className="text-right">
+                <div className={`text-sm font-medium ${
+                  networkStatus.swStatus === 'active' ? 'text-green-500' :
+                  networkStatus.swStatus === 'installing' || networkStatus.swStatus === 'waiting' ? 'text-yellow-500' :
+                  networkStatus.swStatus === 'none' ? 'text-slate-400' :
+                  networkStatus.swStatus === 'checking' ? 'text-yellow-500' :
+                  'text-red-500'
+                }`}>
+                  {networkStatus.swStatus.toUpperCase()}
+                </div>
+                {networkStatus.swVersion && (
+                  <div className="text-xs text-slate-400">Cache: {networkStatus.swVersion}</div>
+                )}
+              </div>
+            </div>
+
+            {/* Cache Storage */}
+            {networkStatus.cacheUsage && networkStatus.cacheUsage.quota > 0 && (
+              <div className="border-t border-slate-700 pt-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-slate-400 text-sm">Cache Storage</span>
+                  <span className="text-slate-400 text-sm">
+                    {formatBytes(networkStatus.cacheUsage.usage)} / {formatBytes(networkStatus.cacheUsage.quota)}
+                  </span>
+                </div>
+                <div className="w-full bg-slate-700 rounded-full h-2">
+                  <div 
+                    className="bg-blue-500 h-2 rounded-full transition-all"
+                    style={{ width: `${Math.min(100, (networkStatus.cacheUsage.usage / networkStatus.cacheUsage.quota) * 100)}%` }}
+                  />
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {((networkStatus.cacheUsage.usage / networkStatus.cacheUsage.quota) * 100).toFixed(2)}% used
+                </div>
+              </div>
             )}
           </div>
         </div>
