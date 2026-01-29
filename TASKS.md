@@ -2397,7 +2397,7 @@
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Pages needing i18n: ❌ /famiglia (~30 strings), ✅ /collezioni (2026-01-30), ❌ /giochi, ❌ /about, ❌ /health. Homepage + catalogo already done. Breaking into subtasks T422-T425.
+- **Notes**: Pages needing i18n: ✅ /famiglia (T422, 2026-01-30), ✅ /collezioni (2026-01-30), ❌ /giochi (T423), ❌ /about (T424), ❌ /health (T425). Homepage + catalogo already done.
 
 ### [T375] Analyze vol_aligned trades vs non-aligned
 - **Status**: TODO
@@ -2706,12 +2706,13 @@
 - **Notes**: ✅ Script: autotrader-health.py. Outputs JSON with: running, pid, uptime_24h/7d, last_trade_time, trade_count_today, won/lost/pending, win_rate_today, balance, status emoji. Flags: --pretty for human-readable, --json for raw. Usage: `python3 scripts/autotrader-health.py --pretty`
 
 ### [T422] i18n: /famiglia page translations
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Convert /famiglia page to use i18n system. ~30 hardcoded strings to translate.
+- **Notes**: ✅ Converted! Added famiglia section to en.json/it.json with ~25 translation keys (title, years, parent, profile types, stats, form fields, buttons, info text). Page now uses useTranslations() hook.
 
 ### [T423] i18n: /giochi page translations
 - **Status**: TODO
