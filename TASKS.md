@@ -3121,12 +3121,13 @@
 - **Notes**: ✅ Deployed! Built 1022 pages, passed tests, deployed to Cloudflare Pages. Verified HTTP 200, /libri page loads with Meditations book showing "Free". Download analytics (T299) also included in this deploy.
 
 ### [T466] Add i18n completeness check script
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T374]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script: check-i18n-completeness.sh. Compare en.json and it.json to find missing keys. List any hardcoded strings in .tsx files that should be translated. Run before deploys to catch i18n regressions.
+- **Notes**: ✅ Script: scripts/check-i18n.sh. Extracts all nested keys from en.json and it.json, compares using comm. Shows key counts, lists missing keys (max 20), exits with error code if mismatched. npm script: `npm run i18n:check`. Current status: 511 keys in sync!
 
 ### [T467] Language preference persistence in cookie for SSR
 - **Status**: TODO

@@ -11,7 +11,8 @@
     "test:onde-surf": "next dev -p 7777",
     "deploy": "npm run build && npx wrangler pages deploy out --project-name=onde-portal",
     "deploy:test": "npm run build && npx wrangler pages deploy out --project-name=onde-portal",
-    "test:portal": "node test-portal-loop.mjs --once"
+    "test:portal": "node test-portal-loop.mjs --once",
+    "i18n:check": "./scripts/check-i18n.sh"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
