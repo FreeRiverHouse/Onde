@@ -589,5 +589,37 @@
       "description": "Presto potrai creare le tue playlist personalizzate e condividerle con amici e famiglia.",
       "button": "Prossimamente"
     }
+  },
+  "famiglia": {
+    "title": "Profili Famiglia",
+    "years": "anni",
+    "parent": "Genitore",
+    "addProfile": "Aggiungi profilo",
+    "childProfile": "Profilo bambino",
+    "parentProfile": "Profilo genitore",
+    "deleteProfile": "Elimina profilo",
+    "confirmDelete": "Sei sicuro di voler eliminare questo profilo?",
+    "connectionError": "Errore di connessione",
+    "stats": {
+      "booksStarted": "Libri iniziati",
+      "booksCompleted": "Libri completati",
+      "chaptersRead": "Capitoli letti"
+    },
+    "goToLibrary": "Vai alla Libreria",
+    "newProfile": {
+      "title": "Nuovo Profilo Bambino",
+      "name": "Nome",
+      "namePlaceholder": "Nome del bambino",
+      "age": "Eta (opzionale)",
+      "agePlaceholder": "Anni",
+      "avatar": "Avatar",
+      "cancel": "Annulla",
+      "create": "Crea Profilo"
+    },
+    "info": {
+      "maxProfiles": "Ogni famiglia puo avere fino a 5 profili.",
+      "sharedBooks": "I libri acquistati sono condivisi tra tutti i profili della famiglia.",
+      "separateProgress": "Il progresso di lettura e salvato separatamente per ogni profilo."
+    }
   }
 }

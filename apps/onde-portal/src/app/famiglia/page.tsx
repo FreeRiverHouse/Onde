@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslations } from '@/i18n'
 
 interface Profile {
   id: string
@@ -19,6 +20,7 @@ interface ReadingStats {
 }
 
 export default function Famiglia() {
+  const t = useTranslations()
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [avatarOptions, setAvatarOptions] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
@@ -75,7 +77,7 @@ export default function Famiglia() {
         setError(data.error)
       }
     } catch (e) {
-      setError('Errore di connessione')
+      setError(t.famiglia.connectionError)
       console.error(e)
     }
   }
@@ -96,7 +98,7 @@ export default function Famiglia() {
   }
 
   async function handleDeleteProfile(profileId: string) {
-    if (!confirm('Sei sicuro di voler eliminare questo profilo?')) {
+    if (!confirm(t.famiglia.confirmDelete)) {
       return
     }
 
@@ -131,7 +133,7 @@ export default function Famiglia() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">Profili Famiglia</h1>
+      <h1 className="text-4xl font-bold mb-8">{t.famiglia.title}</h1>
 
       {/* Profile grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
@@ -148,10 +150,10 @@ export default function Famiglia() {
             <div className="text-5xl mb-3">{profile.avatarEmoji}</div>
             <div className="font-bold text-center">{profile.name}</div>
             {profile.age && (
-              <div className="text-sm opacity-60">{profile.age} anni</div>
+              <div className="text-sm opacity-60">{profile.age} {t.famiglia.years}</div>
             )}
             {!profile.isChild && (
-              <div className="text-xs text-onde-gold mt-1">Genitore</div>
+              <div className="text-xs text-onde-gold mt-1">{t.famiglia.parent}</div>
             )}
           </button>
         ))}
@@ -163,7 +165,7 @@ export default function Famiglia() {
             className="aspect-square bg-white/5 rounded-2xl p-4 flex flex-col items-center justify-center hover:bg-white/10 transition-colors border-2 border-dashed border-white/20"
           >
             <div className="text-4xl mb-2 opacity-60">+</div>
-            <div className="text-sm opacity-60">Aggiungi profilo</div>
+            <div className="text-sm opacity-60">{t.famiglia.addProfile}</div>
           </button>
         )}
       </div>
@@ -177,10 +179,10 @@ export default function Famiglia() {
               <div>
                 <h2 className="text-2xl font-bold">{selectedProfile.name}</h2>
                 {selectedProfile.age && (
-                  <p className="opacity-60">{selectedProfile.age} anni</p>
+                  <p className="opacity-60">{selectedProfile.age} {t.famiglia.years}</p>
                 )}
                 <p className="text-sm opacity-40">
-                  {selectedProfile.isChild ? 'Profilo bambino' : 'Profilo genitore'}
+                  {selectedProfile.isChild ? t.famiglia.childProfile : t.famiglia.parentProfile}
                 </p>
               </div>
             </div>
@@ -190,7 +192,7 @@ export default function Famiglia() {
                 onClick={() => handleDeleteProfile(selectedProfile.id)}
                 className="text-red-400 hover:text-red-300 text-sm"
               >
-                Elimina profilo
+                {t.famiglia.deleteProfile}
               </button>
             )}
           </div>
@@ -202,19 +204,19 @@ export default function Famiglia() {
                 <div className="text-2xl font-bold text-onde-gold">
                   {profileStats.booksStarted}
                 </div>
-                <div className="text-sm opacity-60">Libri iniziati</div>
+                <div className="text-sm opacity-60">{t.famiglia.stats.booksStarted}</div>
               </div>
               <div className="bg-white/5 rounded-xl p-4 text-center">
                 <div className="text-2xl font-bold text-onde-gold">
                   {profileStats.booksCompleted}
                 </div>
-                <div className="text-sm opacity-60">Libri completati</div>
+                <div className="text-sm opacity-60">{t.famiglia.stats.booksCompleted}</div>
               </div>
               <div className="bg-white/5 rounded-xl p-4 text-center">
                 <div className="text-2xl font-bold text-onde-gold">
                   {profileStats.chaptersRead}
                 </div>
-                <div className="text-sm opacity-60">Capitoli letti</div>
+                <div className="text-sm opacity-60">{t.famiglia.stats.chaptersRead}</div>
               </div>
             </div>
           )}
@@ -224,7 +226,7 @@ export default function Famiglia() {
               href="/libreria"
               className="inline-block bg-onde-gold text-black font-bold px-6 py-3 rounded-lg hover:bg-onde-gold/80"
             >
-              Vai alla Libreria
+              {t.famiglia.goToLibrary}
             </a>
           </div>
         </div>
@@ -234,7 +236,7 @@ export default function Famiglia() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
           <div className="bg-onde-dark rounded-2xl p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-6">Nuovo Profilo Bambino</h2>
+            <h2 className="text-2xl font-bold mb-6">{t.famiglia.newProfile.title}</h2>
 
             {error && (
               <div className="bg-red-500/20 border border-red-500 rounded-lg p-3 mb-4 text-sm">
@@ -244,33 +246,33 @@ export default function Famiglia() {
 
             <form onSubmit={handleAddProfile}>
               <div className="mb-4">
-                <label className="block text-sm mb-2 opacity-60">Nome</label>
+                <label className="block text-sm mb-2 opacity-60">{t.famiglia.newProfile.name}</label>
                 <input
                   type="text"
                   value={newProfile.name}
                   onChange={(e) => setNewProfile({ ...newProfile, name: e.target.value })}
                   className="w-full bg-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-onde-gold"
-                  placeholder="Nome del bambino"
+                  placeholder={t.famiglia.newProfile.namePlaceholder}
                   required
                   maxLength={50}
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm mb-2 opacity-60">Eta (opzionale)</label>
+                <label className="block text-sm mb-2 opacity-60">{t.famiglia.newProfile.age}</label>
                 <input
                   type="number"
                   value={newProfile.age}
                   onChange={(e) => setNewProfile({ ...newProfile, age: e.target.value })}
                   className="w-full bg-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-onde-gold"
-                  placeholder="Anni"
+                  placeholder={t.famiglia.newProfile.agePlaceholder}
                   min={1}
                   max={18}
                 />
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm mb-2 opacity-60">Avatar</label>
+                <label className="block text-sm mb-2 opacity-60">{t.famiglia.newProfile.avatar}</label>
                 <div className="grid grid-cols-5 gap-2">
                   {avatarOptions.map((emoji) => (
                     <button
@@ -299,13 +301,13 @@ export default function Famiglia() {
                   }}
                   className="flex-1 bg-white/10 font-bold py-3 rounded-lg hover:bg-white/20"
                 >
-                  Annulla
+                  {t.famiglia.newProfile.cancel}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 bg-onde-gold text-black font-bold py-3 rounded-lg hover:bg-onde-gold/80"
                 >
-                  Crea Profilo
+                  {t.famiglia.newProfile.create}
                 </button>
               </div>
             </form>
@@ -315,11 +317,11 @@ export default function Famiglia() {
 
       {/* Info box */}
       <div className="bg-white/5 rounded-xl p-6 text-center opacity-60">
-        <p className="mb-2">Ogni famiglia puo avere fino a 5 profili.</p>
+        <p className="mb-2">{t.famiglia.info.maxProfiles}</p>
         <p className="text-sm">
-          I libri acquistati sono condivisi tra tutti i profili della famiglia.
+          {t.famiglia.info.sharedBooks}
           <br />
-          Il progresso di lettura e salvato separatamente per ogni profilo.
+          {t.famiglia.info.separateProgress}
         </p>
       </div>
     </div>
