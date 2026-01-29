@@ -52,15 +52,16 @@
   - Could use existing chart patterns from WinRateTrendChart
 
 ### [T449] Deploy onde.surf with health/status API
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T446]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the new /api/health/status endpoint to production.
-  - Build: `npm run build && npm run build:cf`
-  - Deploy: `wrangler pages deploy`
-  - Verify: `curl https://onde.surf/api/health/status | jq`
+- **Notes**: ✅ Deployed! https://0a328ab2.onde-surf.pages.dev
+  - Both sites healthy (onde.la: 242ms, onde.surf: 318ms)
+  - Endpoint live: `curl https://onde.surf/api/health/status | jq`
+  - Returns JSON with sites, trading, alerts, autotrader status
 
 ### [T450] Add uptime history chart to /health page
 - **Status**: TODO
