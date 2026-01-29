@@ -21,12 +21,16 @@
   - Deployed via wrangler pages deploy
 
 ### [T459] Health page: Add keyboard shortcut for manual refresh
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T456]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add 'R' key shortcut to trigger manual refresh on /health page. Show hint in UI.
+- **Notes**: ✅ Implemented! Press 'R' to trigger manual refresh on /health page.
+  - Keyboard event listener added (skips when typing in inputs)
+  - Shows `R` kbd element next to refresh button (desktop only)
+  - Tooltip on button: "Press R to refresh"
 
 ### [T460] Health page: Browser notifications on status change
 - **Status**: TODO

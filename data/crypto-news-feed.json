@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29T23:00:01.996668+00:00",
+  "timestamp": "2026-01-29T23:30:01.896766+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,10 +11,17 @@
   "article_count": 30,
   "results": [
     {
+      "title": "Strategy, BitMine Stock Prices Dive as Bitcoin and Ethereum Sink",
+      "url": "https://decrypt.co/356357/strategy-bitmine-stock-prices-dive-bitcoin-ethereum-sink",
+      "source": "decrypt",
+      "description": "Leading crypto treasury firms BitMine and Strategy both saw their stocks plunge nearly 10% amid broader market uncertainty, as a possible U.S. government shutdown looms.",
+      "published": "2026-01-29T23:19:19+00:00"
+    },
+    {
       "title": "Bitfinex Bitcoin longs hit 2-year high: Is a rally to $100K possible?",
       "url": "https://cointelegraph.com/news/bitfinex-bitcoin-longs-hit-2-year-high-is-a-rally-to-100k-possible?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Bitcoin margin longs at Bitfinex exchange reached a 2-year high prior to stocks and crypto selling off sharply. Should traders expect a rally or the correction to continue?",
+      "description": "Bitcoin margin longs at Bitfinex exchange reached a two-year high prior to stocks and crypto selling off sharply. Should traders expect a rally or the correction to continue?",
       "published": "2026-01-29T22:51:22+00:00"
     },
     {
@@ -112,7 +119,7 @@
       "title": "Bitcoin falls to $83.4K as gold bugs take profit and AI stocks sell off",
       "url": "https://cointelegraph.com/news/bitcoin-falls-to-dollar83-4k-as-gold-bugs-take-profit-and-ai-stocks-sell-off?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price today. Is $80,000 the next stop for BTC?",
+      "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price Thursday. Is $80,000 the next stop for BTC?",
       "published": "2026-01-29T19:44:32+00:00"
     },
     {
@@ -142,13 +149,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas SEC Chairman Paul Atkins is going to speak at the Bitcoin 2026 Conference. This post SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T18:29:17+00:00"
-    },
-    {
-      "title": "Myriad Moves: Bitcoin Is Falling\u2014Will It Dump to $69K or Rebound to $100K?",
-      "url": "https://decrypt.co/356339/myriad-moves-bitcoin-falling-dump-69k-rebound-100k",
-      "source": "decrypt",
-      "description": "Top markets on Myriad this week include predictions on the next stops for Bitcoin and Solana, and President Donald Trump's approval rating.",
-      "published": "2026-01-29T18:24:27+00:00"
     },
     {
       "title": "Why did Bitcoin price just hit two-month lows near $83K?",

@@ -530,6 +530,26 @@ export default function HealthPage() {
     };
   }, []);
 
+  // Keyboard shortcut for manual refresh (T459)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only trigger on 'R' key when not typing in an input
+      if (
+        e.key.toLowerCase() === 'r' &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey &&
+        !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)
+      ) {
+        e.preventDefault();
+        runChecks();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [runChecks]);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'up': return 'text-green-500';
@@ -603,14 +623,18 @@ export default function HealthPage() {
                  `❓ ${t.health.overall.unknown}`}
               </div>
             </div>
-            <button 
-              onClick={runChecks}
-              disabled={isRefreshing}
-              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:cursor-wait text-white rounded-lg transition-colors flex items-center gap-2"
-            >
-              <span className={isRefreshing ? 'animate-spin' : ''}>↻</span>
-              {isRefreshing ? 'Refreshing...' : t.health.refresh}
-            </button>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={runChecks}
+                disabled={isRefreshing}
+                className="px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:cursor-wait text-white rounded-lg transition-colors flex items-center gap-2"
+                title="Press R to refresh"
+              >
+                <span className={isRefreshing ? 'animate-spin' : ''}>↻</span>
+                {isRefreshing ? 'Refreshing...' : t.health.refresh}
+              </button>
+              <kbd className="hidden sm:inline-block px-2 py-1 text-xs font-mono bg-slate-800 text-slate-400 border border-slate-600 rounded">R</kbd>
+            </div>
           </div>
           
           {/* Auto-refresh toggle (T456) */}
