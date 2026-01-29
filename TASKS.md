@@ -1686,7 +1686,31 @@
 - **Priority**: P3
 - **Notes**: Fetch VIX from Yahoo Finance. Correlate with BTC/ETH hourly vol. Macro fear indicator may improve regime detection.
 
+### [T333] Real-time trade ticker on /betting
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Live feed showing recent trades as they happen. WebSocket or polling every 10s. Shows ticker, side, price, result.
+
+### [T334] Book category filtering on /catalogo
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add dropdown/pills to filter books by category (classici, fiabe, favole, romanzi, etc). Persists in URL params.
+
+### [T335] WCAG accessibility audit
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Run axe-core or Lighthouse accessibility audit on all main pages. Fix any violations (color contrast, alt text, aria labels).
+
 ---
 
-*Ultimo aggiornamento: 2026-01-30 heartbeat*
+*Ultimo aggiornamento: 2026-01-29 heartbeat*
 *Sistema coordinamento: vedi TASK-RULES.md*
