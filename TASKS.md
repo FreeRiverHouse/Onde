@@ -58,6 +58,34 @@
 
 ---
 
+## ✅ COMPLETATO - DA MATTIA 2026-01-29 (09:42)
+
+### [T413] Test periodici automatici per siti (health check, auth, links)
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Script: `scripts/periodic-site-tests.sh`. Cron ogni 30min.
+  - **Test implementati (13 totali):**
+    - ✅ HTTP status check per tutti endpoint onde.la (/, /libri, /catalogo, /about, /health, /feed.xml)
+    - ✅ Auth redirect check onde.surf (deve essere 307 → login)
+    - ✅ Login page accessibile
+    - ✅ Response time (<3s threshold)
+    - ✅ SSL certificate validity (warning <30d, critical <7d)
+    - ✅ Content check (verifica testo "Onde" presente)
+    - ✅ API health check (/api/health/cron)
+    - ✅ Link integrity check (2x al giorno, ore 00 e 12)
+  - **Alert files:**
+    - `onde-la-down.alert` - endpoint critico down
+    - `onde-surf-auth-broken.alert` - auth non funziona
+    - `ssl-expiring.alert` / `ssl-critical.alert` - certificato in scadenza
+    - `broken-links.alert` - link rotti rilevati
+  - **Output:** JSON report in `scripts/site-health-report.json`
+
+---
+
 ## 🔥 IN PROGRESS
 
 ### [T001] Autotrader Kalshi Monitoring

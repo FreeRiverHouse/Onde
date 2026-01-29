@@ -33,6 +33,10 @@
 - `scripts/kalshi-vol-recalibration.alert` → Se esiste, volatilità modello necessita recalibrazione! Mostra raccomandazioni e chiedi se applicare. Manda info a Mattia, poi elimina
 - `scripts/kalshi-api-error.alert` → Se esiste, HIGH API ERROR RATE (>10%)! Uno o più API (Kalshi/CoinGecko/Binance/Coinbase) ha error rate alto. Possibile downtime o rate limit. Manda alert, poi elimina
 - `scripts/kalshi-api-error-weekly.alert` → Se esiste, WEEKLY API ERROR REPORT! Review settimanale degli error rate API (soglia 5%). Manda report a Mattia, poi elimina
+- `scripts/onde-la-down.alert` → Se esiste, ONDE.LA DOWN! Un endpoint critico non risponde. Manda alert URGENTE, poi elimina
+- `scripts/ssl-expiring.alert` → Se esiste, SSL certificate in scadenza (<30 giorni)! Manda alert, poi elimina
+- `scripts/ssl-critical.alert` → Se esiste, SSL certificate CRITICO (<7 giorni)! Manda alert URGENTE, poi elimina
+- `scripts/broken-links.alert` → Se esiste, link rotti rilevati su onde.la! Manda alert con dettagli, poi elimina
 
 ## ⏰ CICLO HEARTBEAT (ogni 5 min)
 
