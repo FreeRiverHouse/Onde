@@ -14,6 +14,10 @@ class TranscriptionManager: NSObject, ObservableObject {
     private var recordingURL: URL?
     private var vadProcess: Process?
     private var outputPipe: Pipe?
+    private var recordingStartTime: Date?
+    
+    // History manager
+    private let historyManager = TranscriptionHistoryManager.shared
     
     // Settings
     @Published var language: String = "auto"
@@ -63,6 +67,7 @@ class TranscriptionManager: NSObject, ObservableObject {
         
         isRecording = true
         errorMessage = nil
+        recordingStartTime = Date()
         
         // Start the Python VAD process
         startVADProcess()
@@ -72,6 +77,36 @@ class TranscriptionManager: NSObject, ObservableObject {
         isRecording = false
         vadProcess?.terminate()
         vadProcess = nil
+        
+        // Save to history if we have transcribed text
+        saveCurrentToHistory()
+    }
+    
+    /// Manually save current transcription to history
+    func saveCurrentToHistory() {
+        guard !transcribedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        let duration: TimeInterval?
+        if let start = recordingStartTime {
+            duration = Date().timeIntervalSince(start)
+        } else {
+            duration = nil
+        }
+        
+        historyManager.addEntry(
+            transcribedText,
+            language: language,
+            duration: duration
+        )
+    }
+    
+    /// Clear current transcription (optionally save to history first)
+    func clearTranscription(saveFirst: Bool = false) {
+        if saveFirst {
+            saveCurrentToHistory()
+        }
+        transcribedText = ""
+        recordingStartTime = nil
     }
     
     private func startVADProcess() {

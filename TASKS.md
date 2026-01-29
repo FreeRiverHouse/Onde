@@ -340,12 +340,21 @@
   - **Settings**: Device picker + auto-switch toggle in Audio section
 
 ### [T439] WhisperFlow: Export transcription history
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T434]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Save transcription history to file. Options: append to file, timestamp each entry, export formats (txt/md/json). Persist between sessions.
+- **Notes**: ✅ Implemented! Full transcription history system:
+  - **TranscriptionHistoryManager.swift**: Manages history persistence and export
+  - **Persistence**: Saves to ~/Library/Application Support/WhisperFlow/transcription-history.json
+  - **Export formats**: Plain text (.txt), Markdown (.md), JSON (.json)
+  - **Auto-save**: Optional daily file append on recording stop
+  - **UI**: History list in menu bar, export button, settings panel
+  - **Settings**: Export format picker, location selector, clear history (with confirm)
+  - **Stats**: Entry count, total word count displayed
+  - History persists between app restarts
 
 ---
 

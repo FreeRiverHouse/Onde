@@ -5,6 +5,11 @@ struct SettingsView: View {
     @StateObject private var overlayManager = OverlayManager.shared
     @StateObject private var launchManager = LaunchAtLoginManager.shared
     @StateObject private var audioManager = AudioDeviceManager.shared
+    @StateObject private var historyManager = TranscriptionHistoryManager.shared
+    
+    @State private var showingClearConfirm = false
+    @State private var showingExportSuccess = false
+    @State private var lastExportPath = ""
     
     private let languages = [
         ("auto", "Auto-detect"),
@@ -127,6 +132,56 @@ struct SettingsView: View {
                 }
             }
             
+            Section("History & Export") {
+                HStack {
+                    Text("Entries")
+                    Spacer()
+                    Text("\(historyManager.history.count)")
+                        .foregroundColor(.secondary)
+                }
+                
+                HStack {
+                    Text("Total Words")
+                    Spacer()
+                    Text("\(historyManager.totalWordCount)")
+                        .foregroundColor(.secondary)
+                }
+                
+                Toggle("Auto-save on stop", isOn: $historyManager.autoSaveEnabled)
+                    .help("Automatically save transcriptions to file when recording stops")
+                
+                Picker("Export Format", selection: $historyManager.exportFormat) {
+                    ForEach(TranscriptionHistoryManager.ExportFormat.allCases, id: \.self) { format in
+                        Text(format.displayName).tag(format)
+                    }
+                }
+                .pickerStyle(.menu)
+                
+                HStack {
+                    Text("Export Location")
+                    Spacer()
+                    Button(action: selectExportPath) {
+                        Text(historyManager.exportPath?.lastPathComponent ?? "Documents")
+                            .font(.caption)
+                            .foregroundColor(.accentColor)
+                    }
+                    .buttonStyle(.plain)
+                }
+                
+                HStack(spacing: 12) {
+                    Button("Export All") {
+                        exportAllHistory()
+                    }
+                    .disabled(historyManager.history.isEmpty)
+                    
+                    Button("Clear History") {
+                        showingClearConfirm = true
+                    }
+                    .disabled(historyManager.history.isEmpty)
+                    .foregroundColor(.red)
+                }
+            }
+            
             Section("Keyboard Shortcuts") {
                 HStack {
                     Text("Toggle Recording")
@@ -159,7 +214,52 @@ struct SettingsView: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 600)
+        .frame(width: 400, height: 700)
+        .alert("Clear History", isPresented: $showingClearConfirm) {
+            Button("Cancel", role: .cancel) { }
+            Button("Clear", role: .destructive) {
+                historyManager.clearHistory()
+            }
+        } message: {
+            Text("This will permanently delete all \(historyManager.history.count) transcription entries. This cannot be undone.")
+        }
+        .alert("Export Complete", isPresented: $showingExportSuccess) {
+            Button("Show in Finder") {
+                if let url = URL(string: lastExportPath) {
+                    NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
+                }
+            }
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Exported to:\n\(URL(string: lastExportPath)?.lastPathComponent ?? lastExportPath)")
+        }
+    }
+    
+    private func selectExportPath() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.prompt = "Select Export Location"
+        
+        if let currentPath = historyManager.exportPath {
+            panel.directoryURL = currentPath
+        }
+        
+        if panel.runModal() == .OK, let url = panel.url {
+            historyManager.exportPath = url
+        }
+    }
+    
+    private func exportAllHistory() {
+        do {
+            let url = try historyManager.exportHistory()
+            lastExportPath = url.absoluteString
+            showingExportSuccess = true
+        } catch {
+            // Could show an error alert here
+            print("Export failed: \(error)")
+        }
     }
 }
 
