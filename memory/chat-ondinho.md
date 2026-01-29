@@ -93,3 +93,15 @@
 ### 21:02 PST [msg:178] [IMMAGINE: screenshot sample rotto]
 > 1- lo hai guardato prima di mandarmelo? Avresti dovuto!! 2- aggiusta procedure, non è male ma cè ancora troppa slop. Ma possiamo arrivare a un lavoro eccellente. Servono solo piu cicli (i cicli fatti bene di revisione, correzione grammatica, anti slop, formattazione) fatti in modo agentico usando modelli LOCALI (mai claude per loop pesanti e costosi)
 
+
+### 21:05 PST [msg:181]
+> Aspe ma la revisione è comunque ancora in corso? Vediamo cosa esce
+
+
+### 21:05 PST [msg:182]
+> Si (aggiorna script per 5 cicli)
+
+
+### 21:08 PST [msg:185]
+> Stai andando sempre meglio; focus su problemi procedurali. Risolvi timeout (tronca, fai riga per riga, in caso!! O similmente) e facciamo fare un giro di procedura completo. ALLA fine di questi nuovi cicli, mandami un sample estraendo da versione NUOVA (specifica i vari cicli sotto cui è passata, e tempi). Documenta la procedura bene. È molto importante che come casa editrice AI, usiamo metodi ingegneristici e devops per deploy e upgrade di libri e contenuti in genere
+
