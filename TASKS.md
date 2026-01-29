@@ -136,14 +136,17 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (15:11)
 
 ### [T452] Add cron job for health-webhook-notifier.sh
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T451]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add to crontab: `*/5 * * * * /Users/mattia/Projects/Onde/scripts/health-webhook-notifier.sh`
-  - Configure DISCORD_WEBHOOK or SLACK_WEBHOOK in environment
-  - Test with intentional site downtime
+- **Notes**: ✅ Added to crontab!
+  - Runs every 5 minutes
+  - Logs to scripts/health-webhook.log
+  - Supports TELEGRAM_BOT_TOKEN, DISCORD_WEBHOOK, SLACK_WEBHOOK env vars
+  - 30-min cooldown to prevent spam
 
 ### [T453] Add Telegram integration to health webhook notifier
 - **Status**: DONE
