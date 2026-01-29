@@ -829,12 +829,13 @@
 - **Notes**: Add hreflang alternate links for IT/EN versions of pages. Helps Google show correct language version.
 
 ### [T230] Preload critical fonts for faster LCP
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add <link rel="preload"> for Playfair Display woff2. Currently uses Google Fonts stylesheet which blocks render.
+- **Notes**: ✅ Added preload for Playfair Display woff2 (latin subset). Reduces render-blocking on LCP.
 
 ### [T231] Add breadcrumb structured data
 - **Status**: DONE
