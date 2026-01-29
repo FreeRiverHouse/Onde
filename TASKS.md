@@ -1399,12 +1399,13 @@
 - **Notes**: ✅ Added! API calculates: total invested, trading period, annualized return, then Calmar = annualized return / max drawdown %. Dashboard shows card with color coding (≥3=excellent, ≥1=good). Grid now has 9 stat cards.
 
 ### [T281] Rolling 30-day win rate trend chart
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T202]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Sparkline or chart showing win rate trend over last 30 days. Helps identify strategy degradation early.
+- **Notes**: ✅ Implemented! API: /api/trading/trend returns 30-day rolling stats. Script: compute-winrate-trend.py calculates from real trades. Dashboard now shows real data with trend indicator (improving/declining/stable) and overall avg. Falls back to mock if API unavailable.
 
 ### [T282] Trade return distribution histogram on dashboard
 - **Status**: TODO
@@ -1444,12 +1445,13 @@
 - **Notes**: ✅ Script: analyze-volatility-correlation.py. Buckets trades by hourly volatility (very_low/<0.3%, low/0.3-0.5%, medium/0.5-1%, high/1-2%, very_high/>2%). Uses cached OHLC data. V1 trades: all 41 in medium-high vol periods with 0% WR (broken model). V2 will show real correlation. Saves to data/trading/volatility-correlation.json.
 
 ### [T286] Kelly criterion effectiveness tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DUPLICATE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Compare actual bet sizes vs theoretical Kelly optimal. Track how Kelly fraction affects outcomes. Add kelly_fraction_used field to trade logs.
+- **Notes**: ⚠️ DUPLICATE of T248. Script analyze-kelly-effectiveness.py already covers this: theoretical vs actual Kelly, position size buckets, bankroll simulation.
 
 ### [T287] Add streak tracking (consecutive wins/losses)
 - **Status**: DONE
@@ -2911,9 +2913,10 @@
 - **Notes**: Run parallel paper trades: one uses momentum-aligned strategy, other uses contrarian/mean-reversion. Compare win rates over 100+ trades to determine which performs better in current market regime.
 
 ### [T446] Alert: consecutive losing streak threshold
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: If 5+ consecutive losses, trigger circuit breaker alert + pause trading for 1h. Prevents runaway losses during adverse market conditions. Track streak in kalshi-streak.json. Alert file: kalshi-circuit-breaker.alert.
+- **Notes**: ✅ Already implemented! check_circuit_breaker() in autotrader-v2.py. Pauses trading on 5+ consecutive losses, writes kalshi-circuit-breaker.alert. State file: kalshi-circuit-breaker.json. Resumes on first win.

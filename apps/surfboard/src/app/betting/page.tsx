@@ -134,6 +134,29 @@ interface MomentumData {
   lastUpdated: string;
 }
 
+interface WinRateTrendPoint {
+  date: string;
+  winRate: number;
+  trades: number;
+  won?: number;
+  lost?: number;
+  pnlCents?: number;
+}
+
+interface WinRateTrendData {
+  data: WinRateTrendPoint[];
+  summary: {
+    days: number;
+    source: string;
+    totalTrades: number;
+    overallWinRate: number;
+    trend: 'improving' | 'declining' | 'stable';
+    recentAvgWinRate: number;
+    previousAvgWinRate: number;
+  };
+  lastUpdated: string;
+}
+
 // ============== ANIMATED NUMBER COMPONENT ==============
 function AnimatedNumber({ 
   value, 
@@ -446,6 +469,7 @@ export default function BettingDashboard() {
   const [customDateFrom, setCustomDateFrom] = useState<string>(searchParams.get('from') || '');
   const [customDateTo, setCustomDateTo] = useState<string>(searchParams.get('to') || '');
   const [momentum, setMomentum] = useState<MomentumData | null>(null);
+  const [winRateTrend, setWinRateTrend] = useState<WinRateTrendData | null>(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -507,12 +531,13 @@ export default function BettingDashboard() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [kalshiRes, cryptoRes, inboxRes, statsRes, momentumRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, statsRes, momentumRes, trendRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
         fetch(buildStatsUrl()),
-        fetch('/api/momentum')
+        fetch('/api/momentum'),
+        fetch(`/api/trading/trend?days=30&source=${statsSource}`)
       ]);
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
@@ -520,6 +545,7 @@ export default function BettingDashboard() {
       if (inboxRes.ok) setInbox(await inboxRes.json());
       if (statsRes.ok) setTradingStats(await statsRes.json());
       if (momentumRes.ok) setMomentum(await momentumRes.json());
+      if (trendRes.ok) setWinRateTrend(await trendRes.json());
 
       setLastRefresh(new Date());
     } catch (error) {
@@ -527,7 +553,7 @@ export default function BettingDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [buildStatsUrl]);
+  }, [buildStatsUrl, statsSource]);
 
   useEffect(() => {
     fetchData();
@@ -1375,11 +1401,26 @@ export default function BettingDashboard() {
                 <div className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4 text-cyan-400" />
                   <span className="text-gray-400 text-xs font-medium">Win Rate Trend (30 days)</span>
+                  {winRateTrend?.summary?.trend && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      winRateTrend.summary.trend === 'improving' 
+                        ? 'bg-emerald-500/20 text-emerald-400' 
+                        : winRateTrend.summary.trend === 'declining'
+                        ? 'bg-red-500/20 text-red-400'
+                        : 'bg-gray-500/20 text-gray-400'
+                    }`}>
+                      {winRateTrend.summary.trend === 'improving' ? '↑' : winRateTrend.summary.trend === 'declining' ? '↓' : '→'} {winRateTrend.summary.trend}
+                    </span>
+                  )}
                 </div>
-                <span className="text-gray-600 text-[10px]">Rolling daily average</span>
+                <span className="text-gray-600 text-[10px]">
+                  {winRateTrend?.summary?.overallWinRate !== undefined 
+                    ? `${winRateTrend.summary.overallWinRate}% avg (${winRateTrend.summary.totalTrades} trades)`
+                    : 'Rolling daily average'}
+                </span>
               </div>
               <WinRateTrendChart 
-                data={generateMockWinRateTrend(30)}
+                data={winRateTrend?.data || generateMockWinRateTrend(30)}
                 height={140}
                 showLabels={true}
               />
