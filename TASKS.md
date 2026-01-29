@@ -1583,12 +1583,13 @@
 - **Notes**: Use Background Sync API to queue data fetches when offline. Auto-refresh trading stats when connection restored.
 
 ### [T321] Precache additional routes in service worker
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T312]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add /corde, /pr, and other key routes to PRECACHE_ASSETS in sw.js for better offline coverage.
+- **Notes**: ✅ Added /corde, /pr, /robots.txt to PRECACHE_ASSETS. Added /api/health/cron to API_ROUTES. Better offline coverage for all main pages.
 
 ### [T322] Cache invalidation on API error recovery
 - **Status**: TODO

@@ -10,9 +10,12 @@ const PRECACHE_ASSETS = [
   '/',
   '/betting',
   '/house',
+  '/corde',
+  '/pr',
   '/manifest.json',
   '/icon.svg',
   '/apple-icon.svg',
+  '/robots.txt',
 ];
 
 // API routes to cache (network-first with cache fallback)
@@ -20,6 +23,7 @@ const API_ROUTES = [
   '/api/trading/stats',
   '/api/momentum',
   '/api/health',
+  '/api/health/cron',
 ];
 
 // Install: Precache static assets
