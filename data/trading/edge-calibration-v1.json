@@ -1,0 +1,20 @@
+{
+  "analysis_time": "2026-01-29T08:38:21.994983",
+  "total_trades": 41,
+  "total_won": 0,
+  "overall_win_rate": 0.0,
+  "avg_calibration_error": 95.4,
+  "buckets": [
+    {
+      "bucket": "20%+",
+      "trades": 41,
+      "won": 0,
+      "lost": 41,
+      "actual_win_rate": 0.0,
+      "avg_edge": 45.4,
+      "expected_win_rate": 95.4,
+      "calibration_error": -95.4
+    }
+  ],
+  "interpretation": "\ud83d\udcca Model is UNDERCONFIDENT - actual performance exceeds predictions\n\ud83d\udfe2 20%+ bucket: Actual WR 0.0% vs Expected 95.4% - Outperforming!"
+}

@@ -113,22 +113,19 @@ export function FreeRiverHouse() {
   const animationRef = useRef<number>();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const previousTasksRef = useRef<AgentTask[]>([]);
-  const notificationPermission = useRef<NotificationPermission>('default');
+  const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
   const { showToast } = useToast();
 
-  // Request notification permission on mount
+  // Check notification permission on mount
   useEffect(() => {
     if ('Notification' in window) {
-      notificationPermission.current = Notification.permission;
-      if (Notification.permission === 'default') {
-        // Will request permission on first user interaction
-      }
+      setNotificationEnabled(Notification.permission === 'granted');
     }
   }, []);
 
   // Show browser notification for completed tasks
   const showTaskNotification = (task: AgentTask, agentName: string) => {
-    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    if (!notificationEnabled || !('Notification' in window)) return;
     
     try {
       const notification = new Notification(`✅ Task completato!`, {
@@ -150,23 +147,40 @@ export function FreeRiverHouse() {
     }
   };
 
-  // Request permission helper - kept for future use
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // Request notification permission
   const requestNotificationPermission = async () => {
-    if (!('Notification' in window)) return false;
+    if (!('Notification' in window)) {
+      showToast('Browser non supporta notifiche', 'error');
+      return false;
+    }
     
     if (Notification.permission === 'granted') {
-      notificationPermission.current = 'granted';
+      setNotificationEnabled(true);
       return true;
     }
     
-    if (Notification.permission !== 'denied') {
-      const permission = await Notification.requestPermission();
-      notificationPermission.current = permission;
-      return permission === 'granted';
+    if (Notification.permission === 'denied') {
+      showToast('Notifiche bloccate. Abilita nelle impostazioni browser', 'error');
+      return false;
     }
     
-    return false;
+    // Permission is 'default' - request it
+    const permission = await Notification.requestPermission();
+    const granted = permission === 'granted';
+    setNotificationEnabled(granted);
+    
+    if (granted) {
+      showToast('🔔 Notifiche abilitate!', 'success');
+      // Show test notification
+      new Notification('Free River House', {
+        body: 'Riceverai notifiche quando un task viene completato!',
+        icon: '/icon.svg',
+      });
+    } else {
+      showToast('Notifiche non abilitate', 'error');
+    }
+    
+    return granted;
   };
 
   // Fetch agents and tasks from API - REAL DATA
@@ -476,6 +490,25 @@ export function FreeRiverHouse() {
           <span className="text-white/40 text-xs">{expanded ? '▼' : '▶'}</span>
         </button>
         <div className="flex items-center gap-2">
+          {/* Notification Toggle */}
+          <button
+            onClick={requestNotificationPermission}
+            title={notificationEnabled ? 'Notifiche abilitate' : 'Abilita notifiche'}
+            className={`p-1.5 rounded-lg text-xs transition-colors ${
+              notificationEnabled
+                ? 'bg-amber-500/20 text-amber-400'
+                : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {notificationEnabled ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9M15.536 8.464a5 5 0 010 7.072" />
+              )}
+            </svg>
+          </button>
+          {/* All Tasks Button */}
           <button
             onClick={() => setShowAllTasks(!showAllTasks)}
             className={`px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 transition-colors ${
