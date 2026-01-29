@@ -6,6 +6,29 @@
 
 ---
 
+## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:36)
+
+### [T412] VERIFICARE che logging memoria FUNZIONI DAVVERO
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Il bot ha DICHIARATO di loggare i caffè ma NON L'HA FATTO! 
+  - **Problema**: "Dice di fare ma non fa"
+  - **Soluzione implementata**:
+    1. Processo 6-step in AGENTS.md ✅
+    2. REGOLE-AGENTI.md con 4 regole ✅  
+    3. **MANCA**: Verifica che il bot ESEGUA davvero i passi
+  - **Test da fare**:
+    - [ ] Mandare messaggio con info specifica (es: "ho bevuto 3 birre")
+    - [ ] Aspettare risposta
+    - [ ] Verificare che memory/YYYY-MM-DD.md contenga l'info
+    - [ ] Se non c'è → BUG ancora presente!
+  - **Fix necessario**: Il bot deve VERIFICARE (cat/ls) che il file sia stato scritto PRIMA di confermare
+
+---
+
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:32)
 
 ### [T411] Clone WhisperFlow - App Trascrizione Real-Time Open Source
