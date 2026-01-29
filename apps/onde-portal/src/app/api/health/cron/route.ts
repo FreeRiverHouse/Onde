@@ -18,6 +18,7 @@ interface CronJob {
 const CRON_JOBS = [
   { name: 'Watchdog Autotrader', log: 'watchdog.log', expectedMin: 10 },
   { name: 'Settlement Tracker', log: 'settlement.log', expectedMin: 90 },
+  { name: 'Hourly Snapshot', log: 'hourly-snapshot.log', expectedMin: 90 },
   { name: 'Win Rate Alert', log: 'winrate-alert.log', expectedMin: 400 },
   { name: 'Daily Summary', log: 'daily-notify.log', expectedMin: 1500 },
   { name: 'Backup Trades', log: 'backup-trades.log', expectedMin: 1500 },

@@ -654,12 +654,13 @@
 - **Notes**: ✅ Script: meta-watchdog.sh. Cron */15 * * * *. Alerts if watchdog.log stale >15min. 1h cooldown.
 
 ### [T216] Trading stats hourly snapshot for trend analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-28
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Salvare hourly snapshot di win rate/PnL per analisi trend nel tempo
+- **Notes**: ✅ Script: kalshi-hourly-snapshot.py. Saves to data/trading/snapshots/YYYY-MM-DD.jsonl. Tracks all-time + today stats (trades, win rate, PnL, by asset/side). Cron: hourly at :00.
 
 ### [T217] Aggregate alert check in heartbeat pickup
 - **Status**: DONE
