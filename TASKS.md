@@ -3394,3 +3394,12 @@
 - **Priority**: P3
 - **Notes**: Analyze if high volatility periods have worse execution latency. Correlate execution_log latency_ms with cached OHLC volatility at trade time. Could inform position sizing during volatile periods.
 
+### [T498] Fix cron Python version for OHLC cache
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Fixed! Cron was using /usr/bin/python3 (3.9.6) but script uses 3.10+ syntax (`dict | None`). Updated crontab to use /opt/homebrew/bin/python3 (3.14.2). OHLC cache now updates correctly.
+
