@@ -175,7 +175,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
           >
             <span className="text-2xl">🌊</span>
-            <span className="text-teal-700 text-sm font-medium">Los Angeles • Made with ❤️</span>
+            <span className="text-teal-700 text-sm font-medium">Los Angeles ☀️</span>
           </motion.div>
 
           {/* Main Title */}
@@ -278,7 +278,7 @@ export default function Home() {
               <span>🌟</span> Why Onde <span>🌟</span>
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
-              Made with Love
+              Why Onde?
             </h2>
             <p className="text-teal-600/70 max-w-xl mx-auto">
               Beautiful stories and fun games for the whole family! 👨‍👩‍👧‍👦
@@ -444,8 +444,7 @@ export default function Home() {
                 Start Reading Today!
               </h2>
               <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
-                Join families everywhere enjoying beautiful books - free during our launch! 
-                Made with love for curious young minds 📚✨
+                Join families everywhere enjoying beautiful books - free during our launch! 📚✨
               </p>
               <Link 
                 href="/libri"
@@ -464,7 +463,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-teal-500 text-sm flex items-center justify-center gap-2">
             <span>🌊</span>
-            © 2026 Onde • Made with ❤️ in Los Angeles
+            © 2026 Onde • Los Angeles
             <span>☀️</span>
           </p>
         </div>
