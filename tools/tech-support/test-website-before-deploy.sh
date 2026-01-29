@@ -83,9 +83,29 @@ echo ""
 echo -e "${YELLOW}🧪 Executing tests...${NC}"
 cd "$ONDE_ROOT"
 
-# Check if playwright is available
-if python3 -c "import playwright" 2>/dev/null; then
-    echo -e "${YELLOW}   Using Playwright tests...${NC}"
+# Check if Node.js playwright is available (preferred)
+if npx playwright --version > /dev/null 2>&1; then
+    echo -e "${YELLOW}   Using Playwright (Node.js) tests...${NC}"
+    
+    # Run Playwright tests with environment variables
+    BASE_URL="http://localhost:$TEST_PORT" \
+    ENVIRONMENT="$ENVIRONMENT" \
+    npx playwright test \
+        --config=tools/tech-support/playwright.config.ts \
+        --reporter=list \
+        2>&1 | tee /tmp/playwright-test-output.log
+    
+    TEST_EXIT_CODE=${PIPESTATUS[0]}
+    
+    if [ $TEST_EXIT_CODE -eq 0 ]; then
+        echo -e "${GREEN}   ✅ All Playwright tests passed${NC}"
+    else
+        echo -e "${RED}   ❌ Playwright tests failed${NC}"
+        echo -e "${YELLOW}   Check: /tmp/playwright-test-output.log${NC}"
+    fi
+# Fallback to Python playwright if available
+elif python3 -c "import playwright" 2>/dev/null; then
+    echo -e "${YELLOW}   Using Playwright (Python) tests...${NC}"
     python3 tools/tech-support/test-modifiche-website.py http://localhost:$TEST_PORT $ENVIRONMENT
     TEST_EXIT_CODE=$?
 else
@@ -94,19 +114,27 @@ else
     TEST_EXIT_CODE=0
 
     # Test homepage
-    if curl -sf "http://localhost:$TEST_PORT" > /dev/null 2>&1; then
+    if curl -sLf "http://localhost:$TEST_PORT" > /dev/null 2>&1; then
         echo -e "${GREEN}   ✅ Homepage loads OK${NC}"
     else
         echo -e "${RED}   ❌ Homepage failed to load${NC}"
         TEST_EXIT_CODE=1
     fi
 
-    # Test a subpage
-    if curl -sf "http://localhost:$TEST_PORT/catalogo" > /dev/null 2>&1; then
-        echo -e "${GREEN}   ✅ Catalogo page loads OK${NC}"
+    # Test critical pages based on environment
+    if [ "$ENVIRONMENT" = "onde-la" ]; then
+        PAGES="/libri /catalogo /about /health"
     else
-        echo -e "${YELLOW}   ⚠️  Catalogo page not reachable${NC}"
+        PAGES="/betting"
     fi
+    
+    for page in $PAGES; do
+        if curl -sLf "http://localhost:$TEST_PORT$page" > /dev/null 2>&1; then
+            echo -e "${GREEN}   ✅ $page page loads OK${NC}"
+        else
+            echo -e "${YELLOW}   ⚠️  $page page not reachable${NC}"
+        fi
+    done
 fi
 
 # Step 5: Cleanup - Kill test server

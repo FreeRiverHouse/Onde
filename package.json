@@ -21,6 +21,9 @@
     "smoke:test": "npx ts-node scripts/health/smoke-test.ts",
     "lighthouse": "./scripts/lighthouse-audit.sh",
     "lighthouse:quick": "./scripts/lighthouse-audit.sh --quick",
+    "test:playwright": "npx playwright test --config=tools/tech-support/playwright.config.ts",
+    "test:playwright:ui": "npx playwright test --config=tools/tech-support/playwright.config.ts --ui",
+    "test:deploy": "./tools/tech-support/test-website-before-deploy.sh",
     "format": "prettier --write \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
     "format:check": "prettier --check \"packages/**/*.ts\" \"apps/**/*.ts\" \"*.ts\"",
     "prepare": "echo 'Ready for CI/CD'"

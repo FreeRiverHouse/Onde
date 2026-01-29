@@ -733,12 +733,13 @@
 ---
 
 ### [T208] Test playwright integration in deploy verification
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T205]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Update deploy-onde-la-prod.sh to use playwright for full browser tests instead of curl fallback
+- **Notes**: ✅ Created deploy-verification.spec.ts with 17 tests covering: homepage, navigation, critical pages, performance, assets, accessibility. Updated test-website-before-deploy.sh to use Node.js Playwright (preferred) → Python Playwright → curl fallback. Added npm scripts: test:playwright, test:playwright:ui, test:deploy.
 
 ### [T209] Canonical URLs for all pages
 - **Status**: DONE
@@ -3288,4 +3289,28 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script to detect when Kalshi adds new crypto markets (SOL, DOGE, etc.). Check /markets API for series starting with KX. Alert when new tickers found. Could auto-expand autotrader coverage.
+
+### [T486] E2E tests for onde.surf (surfboard)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T208]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend Playwright tests for surfboard environment. Test /betting dashboard, trading stats display, momentum cards, charts. Verify data loading and error states.
+
+### [T487] Playwright visual regression tests
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T208]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add screenshot comparison tests using playwright.toHaveScreenshot(). Baseline screenshots for key pages (/libri, /catalogo, /betting). CI fails if visual diff >threshold. Catches unintended style regressions.
+
+### [T488] Autotrader health endpoint API
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create lightweight HTTP endpoint (or file) showing autotrader status: running, last trade time, win rate 24h, current positions, last error. Enables external monitoring (UptimeRobot, etc.). Could be Python Flask or simple file update.
 
