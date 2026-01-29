@@ -216,23 +216,27 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:32)
 
 ### [T411] Clone WhisperFlow - App Trascrizione Real-Time Open Source
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
-- **Blocks**: -
+- **Blocks**: [T434], [T435], [T436]
 - **Priority**: P1
 - **Notes**: Creare app simile a WhisperFlow (menu bar Mac, live transcription). **VISIONE FUTURA: Vibe coding in VR!**
-  - **Tech stack da valutare:**
-    - **Nvidia Parakeet/Canary** - Streaming ASR, ascolta mentre parli
-    - **Faster-Whisper** - CTranslate2, 4x più veloce di OpenAI Whisper
-    - **Whisper.cpp** - C++ port, ottimizzato per Apple Silicon (Metal)
-    - **RealtimeSTT** - Python lib per streaming real-time
-    - **Silero VAD** - Voice Activity Detection (quando parlare)
-    - **WhisperX** - Word-level timestamps + diarization
+  - **✅ Research completed (2026-01-30):**
+    - Installed whisper-cpp via Homebrew
+    - Downloaded ggml-base.bin model (147MB)
+    - **Benchmark: 0.35x RTF = 3x faster than real-time!**
+    - Created CLI prototype: `apps/whisperflow/whisperflow-cli.py`
+    - Research doc: `data/research/whisperflow-research-2026-01-30.md`
+  - **Tech stack (decided):**
+    - **Whisper.cpp** ✅ - Installed, benchmarked, works great
+    - **Silero VAD** - Next step for voice detection
+    - SwiftUI for menu bar app
   - **Features MVP:**
+    - [x] CLI prototype with transcription
+    - [x] Benchmark on M1 Pro
+    - [ ] Streaming mode with VAD
     - [ ] Menu bar app (macOS)
-    - [ ] Cattura audio microfono
-    - [ ] Trascrizione locale (no cloud)
     - [ ] Copy to clipboard / overlay
   - **Future (VR ready):**
     - [ ] Streaming ASR (while speaking)
@@ -4510,3 +4514,44 @@
   - Effectiveness delta with color coding
   - Last analysis timestamp
   - Uses data/trading/news-effectiveness.json
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-30 (21:50)
+
+### [T434] WhisperFlow: Add Silero VAD for voice detection
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T411]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Integrate Silero VAD to detect speech start/stop. This enables:
+  - Only transcribe when speaking (saves CPU)
+  - Auto-segment audio for streaming
+  - Better latency (start transcribing immediately on speech)
+  - Install: `pip install silero-vad` or via torch.hub
+
+### [T435] WhisperFlow: SwiftUI menu bar app skeleton
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T411]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create basic macOS menu bar app with:
+  - System tray icon
+  - Start/stop recording hotkey
+  - Status indicator (idle/recording/transcribing)
+  - Settings panel (model selection, language)
+  - Xcode project in apps/whisperflow/macos/
+
+### [T436] WhisperFlow: WebSocket server for VR integration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create WebSocket server that broadcasts transcriptions in real-time:
+  - Port 8765 default
+  - JSON messages: {type: "partial"|"final", text: "..."}
+  - Enables Quest/VR clients to receive live transcriptions
+  - Foundation for vibe coding in VR!
