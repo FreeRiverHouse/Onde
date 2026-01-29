@@ -3052,3 +3052,27 @@
 - **Blocks**: -
 - **Priority**: P3
 - **Notes**: Script to analyze volatility-calibration.log. Compare recommended vs actual vol 30 days later. Shows if calibration improved model accuracy. Weekly report: avg prediction error before/after calibration.
+
+### [T459] Backtest divergence signals on historical OHLC
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T303], [T278]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script: backtest-divergence.py. Analyze historical divergence signals (from cached OHLC) against actual price moves 1h/4h/24h later. Calculate hit rate by confidence level. Shows if divergence detection is predictive. Output: data/trading/divergence-backtest.json.
+
+### [T460] Combined signal scoring (divergence + reversion + momentum)
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T303], [T302], [T301]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create composite signal score combining: divergence, reversion, and momentum alignment. Higher score = higher conviction. Add to opportunity evaluation. Trades with multiple confirming signals get edge bonus. Single function: calculate_composite_signal_score().
+
+### [T461] Weekly divergence signal accuracy report
+- **Status**: TODO
+- **Owner**: 
+- **Depends**: [T303], [T095]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend kalshi-weekly-report.py to include divergence signals section: signals fired, hit rate (price moved in predicted direction), avg move size, best/worst signals. Helps calibrate confidence thresholds over time.
