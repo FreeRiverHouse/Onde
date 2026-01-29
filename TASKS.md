@@ -6,6 +6,47 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-31 (HEARTBEAT)
+
+### [T446] Add health check JSON API for external monitoring
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create `/api/health/status` endpoint returning JSON with:
+  - Autotrader status (running/stopped, last cycle time)
+  - Site health (onde.la, onde.surf status codes)
+  - Trading stats summary (win rate, PnL, trades today)
+  - Alert count (from finetuning alerts)
+  - Useful for Uptime Robot or custom dashboards
+
+### [T447] Deploy onde.surf with weather widget
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T443]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed! WeatherPerformanceWidget now live on onde.surf/betting
+  - Deploy URL: https://51993bc9.onde-surf.pages.dev
+  - Site working with auth (307 redirect to login as expected)
+  - Build + deploy via Wrangler OK
+
+### [T448] Add PnL chart comparing weather vs crypto markets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T443]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Line chart showing cumulative PnL for:
+  - Weather markets (KXHIGH/KXLOW)
+  - Crypto markets (KXBTC/KXETH)
+  - Overall combined
+  - Could use existing chart patterns from WinRateTrendChart
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (14:38)
 
 ### [T443] Weather market performance widget on /betting
