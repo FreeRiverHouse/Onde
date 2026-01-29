@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     canonical: '/',
     types: {
       'application/rss+xml': '/feed.xml',
+      'application/atom+xml': '/feed.atom',
     },
   },
 }
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <meta name="format-detection" content="telephone=no" />
         <link rel="alternate" type="application/rss+xml" title="Onde Books RSS Feed" href="/feed.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Onde Books Atom Feed" href="/feed.atom" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Preload critical font for faster LCP */}

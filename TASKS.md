@@ -1113,12 +1113,13 @@
 ---
 
 ### [T267] Add Atom feed alternative (/feed.atom)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T262]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Some readers prefer Atom over RSS. Duplicate /feed.xml logic with Atom format.
+- **Notes**: ✅ Created /feed.atom with proper Atom 1.0 format. Same 50 books as RSS. Added autodiscovery links in layout metadata + explicit link tags.
 
 ### [T268] RSS feed with dynamic book descriptions
 - **Status**: TODO
