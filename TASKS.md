@@ -9527,3 +9527,40 @@
   - **Deployed**: https://7875c656.onde-surf.pages.dev
   - **Verified**: onde.surf auth redirect (307) working
   - ⏳ Future: date range filter (T823)
+
+### [T823] Dashboard: Date range filter for CSV export
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T822]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add date range picker to CSV export:
+  - Start date / End date inputs
+  - Quick presets: Today, This Week, This Month, All
+  - Filter trades before export
+  - Show count of trades in range before download
+
+### [T824] Autotrader: P95 latency threshold alert
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T820]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when P95 latency consistently high:
+  - Threshold: P95 > 3s for any critical endpoint
+  - Check: order, balance, positions endpoints
+  - Create kalshi-p95-latency.alert file
+  - Include endpoint name and current P95 value
+  - Suggest: network issues, API throttling
+
+### [T825] Dashboard: Percentile latency widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T820]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add latency percentile distribution widget:
+  - Show P50, P95, P99 values per endpoint
+  - Color coding: green (<500ms), yellow (<1s), red (>1s)
+  - Sparkline showing percentile trends
+  - Expandable to see all endpoints
