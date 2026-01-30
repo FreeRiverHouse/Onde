@@ -8229,3 +8229,47 @@
   - "😊 Happy - Agent is on a winning streak!"
   - Helps users understand mood calculations
 
+### [T786] Alert frequency analysis - track which alerts fire most
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create script to analyze alert frequency:
+  - Parse alert history from data/alerts/ and scripts/*.alert creations
+  - Count alerts by type over 7/30 days
+  - Identify most frequent alert types
+  - Detect if certain alerts are too noisy (fire >3x/day)
+  - Generate recommendations (adjust thresholds, consolidate, etc.)
+  - Output: data/alerts/frequency-analysis.json
+  - Could help reduce alert fatigue
+
+### [T787] Trading lessons learned - analyze losing trade patterns
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create script to extract patterns from losing trades:
+  - Load all trades from kalshi-trades-v2.jsonl
+  - Filter to result=lost trades only
+  - Analyze common factors: asset, side, time of day, momentum state, vol_ratio
+  - Cluster losing trades by similarity
+  - Generate "lessons learned" summary
+  - Examples: "65% of BTC NO losses occurred during bullish momentum"
+  - Output: data/trading/lessons-learned.json
+  - Could inform strategy improvements
+
+### [T788] Dashboard: Correlation history sparkline on /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T723]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add BTC-ETH correlation history visualization to dashboard:
+  - Sparkline showing 7-day correlation trend
+  - Current value with color coding (red >0.9, yellow 0.7-0.9, green <0.7)
+  - Hover tooltip showing historical values
+  - Uses correlation-history.jsonl data from T723
+  - Helps visualize diversification opportunities over time
+
