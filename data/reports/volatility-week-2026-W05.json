@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-01-30T19:00:32.491654+00:00",
+  "week": "2026-W05",
+  "year": 2026,
+  "week_number": 5,
+  "assets": {
+    "BTC": {
+      "label": "Bitcoin",
+      "model_assumption_hourly": 0.005,
+      "realized_7d": {
+        "volatility_hourly": 0.004652536935400865,
+        "volatility_annual_pct": 43.54535973361098,
+        "candles_used": 5,
+        "comparison": {
+          "realized": 0.004652536935400865,
+          "model": 0.005,
+          "ratio": 0.930507387080173,
+          "deviation_pct": 6.9492612919827,
+          "status": "MATCH",
+          "direction": "LOWER"
+        }
+      },
+      "realized_30d": {
+        "period_requested_days": 30,
+        "period_actual_days": 28.0,
+        "candle_interval_hours": 96,
+        "candles_used": 7,
+        "returns_calculated": 6,
+        "volatility_candle": 0.04337546598998211,
+        "volatility_hourly": 0.004426989959620908,
+        "volatility_annual": 0.414343557085951,
+        "mean_return": -0.0030260676942478674,
+        "comparison": {
+          "realized": 0.004426989959620908,
+          "model": 0.005,
+          "ratio": 0.8853979919241816,
+          "deviation_pct": 11.460200807581844,
+          "status": "MATCH",
+          "direction": "LOWER"
+        }
+      }
+    },
+    "ETH": {
+      "label": "Ethereum",
+      "model_assumption_hourly": 0.007,
+      "realized_7d": {
+        "volatility_hourly": 0.006984183532531914,
+        "volatility_annual_pct": 65.36837613379639,
+        "candles_used": 5,
+        "comparison": {
+          "realized": 0.006984183532531914,
+          "model": 0.007,
+          "ratio": 0.9977405046474163,
+          "deviation_pct": 0.22594953525837402,
+          "status": "MATCH",
+          "direction": "LOWER"
+        }
+      },
+      "realized_30d": {
+        "period_requested_days": 30,
+        "period_actual_days": 28.0,
+        "candle_interval_hours": 96,
+        "candles_used": 7,
+        "returns_calculated": 6,
+        "volatility_candle": 0.06589690341635464,
+        "volatility_hourly": 0.006725574541647269,
+        "volatility_annual": 0.6294792860274466,
+        "mean_return": -0.010696140172247534,
+        "comparison": {
+          "realized": 0.006725574541647269,
+          "model": 0.007,
+          "ratio": 0.9607963630924671,
+          "deviation_pct": 3.9203636907532924,
+          "status": "MATCH",
+          "direction": "LOWER"
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_assets": 2,
+    "divergent_assets": [],
+    "alerts_triggered": 0
+  },
+  "recommendations": [
+    "\u2705 All assets within tolerance"
+  ]
+}

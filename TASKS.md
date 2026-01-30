@@ -6519,12 +6519,20 @@
 - **Notes**: Web UI to view trade execution logs with full context: opportunity details, decision reason, API responses, timing breakdown. Useful for debugging why specific trades were taken/skipped.
 
 ### [T434] Weekly OHLC volatility summary report
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T278], [T383]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Cron Sunday 08:00 UTC: compute 7d/30d realized vol from cached OHLC, compare to model assumptions, flag if >20% divergence. Output: data/reports/volatility-week-YYYY-WW.json. Alert if calibration needed.
+- **Notes**: ✅ Script: `scripts/weekly-volatility-report.py`
+  - Computes realized vol from cached OHLC (auto-detects candle interval)
+  - Compares to model assumptions (BTC 0.5%, ETH 0.7%)
+  - Flags if >20% divergence
+  - Output: `data/reports/volatility-week-YYYY-WW.json`
+  - Alert file: `kalshi-vol-weekly-report.alert` (with --alert flag)
+  - Cron: Sunday 08:00 UTC (`0 8 * * 0`)
+  - Current findings: BTC 0.47% vs 0.50% (6.9% dev), ETH 0.70% vs 0.70% (0.2% dev) - both within tolerance
 
 ### [T435] i18n: /app page translations
 - **Status**: DONE
