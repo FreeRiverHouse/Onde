@@ -181,4 +181,4 @@ adventure feeling
 ---
 
 *Template creato: 2026-01-09*
-*Task: aiko-series-003*
+*Task: milo-series-003*

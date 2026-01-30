@@ -61,7 +61,7 @@ Crea un account gratuito su https://expo.dev per:
 
 ```bash
 # Vai alla cartella del progetto
-cd /Users/mattia/Projects/Onde/apps/aiko-interactive
+cd /Users/mattia/Projects/Onde/apps/milo-interactive
 
 # Installa dipendenze
 npm install
@@ -73,7 +73,7 @@ npx expo start
 ### Avvii Successivi
 
 ```bash
-cd /Users/mattia/Projects/Onde/apps/aiko-interactive
+cd /Users/mattia/Projects/Onde/apps/milo-interactive
 npx expo start
 ```
 
@@ -244,7 +244,7 @@ xcrun simctl io booted screenshot screenshot.png
 ### Dove Salvare
 
 ```
-/Users/mattia/Projects/Onde/apps/aiko-interactive/screenshots/
+/Users/mattia/Projects/Onde/apps/milo-interactive/screenshots/
 ├── splash.png
 ├── home.png
 ├── chapter.png

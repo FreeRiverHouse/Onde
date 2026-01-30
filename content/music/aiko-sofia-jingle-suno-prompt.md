@@ -137,4 +137,4 @@ Il jingle deve trasmettere:
 ---
 
 *Creato: 2026-01-09*
-*Task: aiko-series-004*
+*Task: milo-series-004*

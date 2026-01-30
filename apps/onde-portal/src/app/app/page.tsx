@@ -16,7 +16,7 @@ const upcomingAppsData = [
     featureKeys: ['illustratedRecipes', 'zeroRealRisks', 'learnByCooking'],
   },
   {
-    id: 'aiko-interactive',
+    id: 'milo-interactive',
     translationKey: 'aikoInteractive',
     color: 'teal' as const,
     icon: '🤖',
