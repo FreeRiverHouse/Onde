@@ -5261,12 +5261,23 @@
 - **Notes**: ✅ Script: kalshi-dryrun-balance.py. Tracks virtual $100 balance for dry-run trades. Uses CoinGecko for settlement prices. Flags: --reset (restart), --status (show balance). State: kalshi-dryrun-balance.json. Shows win rate, PnL, pending trades.
 
 ### [T356] Strategy parameter sweep (MIN_EDGE optimization)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T306]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Run multiple dry-run instances with different MIN_EDGE values (5%, 8%, 10%, 12%, 15%). Compare win rates to find optimal threshold. Output: data/backtests/edge-sweep.json
+- **Notes**: ✅ Implemented! Script: `scripts/edge-parameter-sweep.py`
+  - Tests thresholds: 5%, 8%, 10%, 12%, 15%, 20%, 25%, 30%
+  - Calculates: win rate, PnL, ROI, avg edge for each threshold
+  - Finds optimal by: win rate, PnL, ROI, balanced score
+  - Output: `data/backtests/edge-sweep.json`
+  - **Key Finding**: All v2 trades have edge >60% (weather trades with high calculated edge)
+    - V2: 40% WR regardless of threshold (all trades pass all thresholds)
+    - V1: 0% WR (broken model confirmed)
+  - **Insight**: Edge threshold is NOT the issue - probability model accuracy is
+  - **Recommendation**: Focus on improving probability model, not edge threshold
+  - Asset breakdown included (crypto vs weather)
 
 ### [T357] Add streak stats to daily summary report
 - **Status**: DONE
@@ -5375,6 +5386,51 @@
   - **Data flow:** stop-loss.log → push-stats-to-gist.py → gist → widget
   - **Integrated into** /betting page after CorrelationHeatmapWidget
   - Build passes, ready for deploy
+
+### [T772] Trading: Model calibration tracking - predicted vs actual probabilities
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T356]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Track model calibration to identify prediction accuracy issues (per T356 findings):
+  - Log our_prob vs actual outcome (binary) for every trade
+  - Bucket predictions (0-20%, 20-40%, etc.) and compare actual win rates
+  - Ideal: 30% predicted prob → ~30% actual wins
+  - Calculate Brier score and calibration curve
+  - Script: `scripts/analyze-model-calibration.py`
+  - Output: `data/trading/calibration-analysis.json`
+  - Dashboard widget showing calibration curve (future)
+
+### [T773] Trading: Weather forecast accuracy validator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Compare weather forecasts used for trading vs actual outcomes:
+  - Log forecast_temp at trade time with ticker
+  - After settlement, get actual temperature from weather API
+  - Calculate MAE (Mean Absolute Error) of forecasts
+  - Track by city (CHI, NYC, etc.)
+  - Identify if forecast bias exists (consistently too high/low)
+  - Script: `scripts/validate-weather-forecasts.py`
+  - May reveal why weather trades have 40% WR despite "high edge"
+
+### [T774] Trading: Add backtesting with historical OHLC data
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Proper backtesting framework for crypto trades:
+  - Use OHLC cache data for historical simulations
+  - Replay historical scenarios with different parameters
+  - Track what trades WOULD have been taken and outcomes
+  - Compare against actual settlement prices
+  - Script: `scripts/backtest-crypto-strategy.py`
+  - Output: `data/backtests/crypto-backtest-YYYYMMDD.json`
+  - Foundation for data-driven parameter tuning
 
 ### [T367] Circuit breaker cooldown configuration via env
 - **Status**: DONE
