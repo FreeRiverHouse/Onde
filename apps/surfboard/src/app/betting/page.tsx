@@ -592,6 +592,33 @@ export default function BettingDashboard() {
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [dataFromCache, setDataFromCache] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
+  
+  // Countdown timer state (T740)
+  const REFRESH_INTERVAL = 30; // seconds
+  const [countdown, setCountdown] = useState(REFRESH_INTERVAL);
+  const [isPaused, setIsPaused] = useState(false);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  
+  // Load auto-refresh preference from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('betting-auto-refresh');
+      if (saved !== null) {
+        setAutoRefresh(saved === 'true');
+      }
+    }
+  }, []);
+  
+  // Toggle auto-refresh and save to localStorage
+  const toggleAutoRefresh = useCallback(() => {
+    setAutoRefresh(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('betting-auto-refresh', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
   const [showAllStats, setShowAllStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const fetchDataRef = useRef<(() => Promise<void>) | null>(null);
@@ -800,11 +827,35 @@ export default function BettingDashboard() {
   // Update fetchData ref for touch gesture hook
   fetchDataRef.current = fetchData;
 
+  // Initial fetch
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 30000);
-    return () => clearInterval(interval);
   }, [fetchData]);
+  
+  // Countdown timer logic (T740)
+  useEffect(() => {
+    if (!autoRefresh || isPaused || isLoading) return;
+    
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          // Trigger refresh when countdown reaches 0
+          fetchData();
+          return REFRESH_INTERVAL;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [autoRefresh, isPaused, isLoading, fetchData]);
+  
+  // Reset countdown when refresh completes
+  useEffect(() => {
+    if (!isLoading) {
+      setCountdown(REFRESH_INTERVAL);
+    }
+  }, [isLoading]);
 
   // Keyboard shortcuts handler
   useEffect(() => {
@@ -1047,6 +1098,66 @@ export default function BettingDashboard() {
             >
               <HelpCircle className="w-4 h-4 text-gray-400" />
             </button>
+            {/* Auto-refresh toggle (T740) */}
+            <button
+              onClick={toggleAutoRefresh}
+              className={`relative w-10 h-5 rounded-full transition-colors ${
+                autoRefresh ? 'bg-emerald-500' : 'bg-gray-600'
+              }`}
+              aria-label="Toggle auto-refresh"
+              title={`Auto-refresh ${autoRefresh ? 'on' : 'off'}`}
+            >
+              <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
+                autoRefresh ? 'translate-x-5' : 'translate-x-0.5'
+              }`} />
+            </button>
+            
+            {/* Countdown timer (T740) */}
+            {autoRefresh && !isLoading && (
+              <div 
+                className="flex items-center gap-1.5"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                title={isPaused ? 'Paused - move mouse away to resume' : 'Hover to pause countdown'}
+              >
+                {/* Circular progress indicator */}
+                <div className="relative w-5 h-5">
+                  <svg className="w-5 h-5 -rotate-90" viewBox="0 0 24 24">
+                    {/* Background circle */}
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="text-gray-700"
+                    />
+                    {/* Progress circle */}
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      className={isPaused ? 'text-yellow-500' : 'text-emerald-500'}
+                      strokeDasharray={2 * Math.PI * 10}
+                      strokeDashoffset={2 * Math.PI * 10 * (1 - countdown / REFRESH_INTERVAL)}
+                      style={{ transition: 'stroke-dashoffset 1s linear' }}
+                    />
+                  </svg>
+                </div>
+                <span className={`text-xs font-mono ${isPaused ? 'text-yellow-500' : 'text-gray-400'}`}>
+                  {isPaused ? '⏸' : `${countdown}s`}
+                </span>
+              </div>
+            )}
+            {isLoading && (
+              <span className="text-xs text-cyan-400 animate-pulse">Refreshing...</span>
+            )}
+            
             <button
               onClick={fetchData}
               disabled={isLoading}

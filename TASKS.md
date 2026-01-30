@@ -1528,15 +1528,21 @@
   - Countdown timer with circular progress indicator now live
 
 ### [T740] Dashboard: Add countdown timer to /betting page
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T735]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Port countdown timer from /health to onde.surf /betting page:
-  - Reuse same component pattern from onde-portal
-  - Add pause on hover for reading stats
-  - Keep visual consistency with /health page
+- **Notes**: ✅ Ported countdown timer from /health to onde.surf /betting page!
+  - ✅ Auto-refresh toggle (emerald switch)
+  - ✅ 30-second countdown with circular SVG progress indicator
+  - ✅ Pause on hover (turns yellow, shows ⏸)
+  - ✅ "Refreshing..." indicator during fetch
+  - ✅ localStorage persistence for auto-refresh preference
+  - ✅ Reset countdown after each refresh
+  - ✅ Deployed: https://29785e23.onde-surf.pages.dev
+  - ✅ Verified: https://onde.surf/betting → 307 (auth redirect as expected)
 
 ### [T741] Health page: Add alert sound on status change
 - **Status**: TODO
