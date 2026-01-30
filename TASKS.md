@@ -8421,3 +8421,43 @@
   - Quick jump buttons for +10/-10 pages
   - Keyboard shortcut 'G' for "go to" dialog
   - Remember last reading positions per book
+
+### [T795] Trading: Add gist push health status to daily report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T767]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Include gist push health in autotrader daily report:
+  - Count of gist push attempts/failures in last 24h
+  - Parse gist-push-errors.log for recent entries
+  - Show "✅ Gist sync healthy" or "⚠️ N gist push errors"
+  - Include in hourly health report if failures detected
+  - Track average retry count per push (efficiency metric)
+
+### [T796] Dashboard: Add system health indicators bar
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T767]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add persistent health bar to onde.surf dashboard:
+  - Small status icons at top: autotrader (🟢/🔴), gist sync (🟢/🔴), API (🟢/🔴)
+  - Click icon to expand details
+  - Gist sync: last successful push timestamp, failure count
+  - API: current rate limit usage, latency
+  - Autotrader: PID, uptime, last trade time
+  - Auto-hide when all healthy, show on degraded
+
+### [T797] Trading: Analyze optimal trade frequency
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if trading frequency affects performance:
+  - Group trades by cycle frequency (trades/hour)
+  - Compare win rate during high-activity vs low-activity periods
+  - Check if waiting longer between trades improves outcomes
+  - Consider adding minimum cooldown between trades if pattern found
+  - Output: data/trading/trade-frequency-analysis.json
