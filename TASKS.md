@@ -3307,7 +3307,8 @@
     - Added `latencyHistory` field to TradingStats interface
     - Displayed in header bar next to streak indicator
     - Shows ⚡ icon with sparkline and current latency ms
-  - Build passes, needs deploy to onde.surf
+  - ✅ Deployed: https://6a442338.onde-surf.pages.dev
+  - ✅ Verified: onde.surf/betting returns 307 (auth redirect as expected)
 
 ### [T801] Auto-adjust position size based on current API latency
 - **Status**: TODO
