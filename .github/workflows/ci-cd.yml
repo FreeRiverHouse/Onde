@@ -481,8 +481,34 @@ jobs:
           echo "CI/CD nightly run had failures. Check GitHub Actions run #${{ github.run_id }}" > ci-failure.alert
           # This file would be picked up by the local heartbeat system
 
-      - name: Notify on critical failures
-        if: needs.verify.result == 'failure'
+      - name: Notify on critical failures (Telegram)
+        if: failure() && (needs.verify.result == 'failure' || contains(needs.*.result, 'failure'))
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          echo "::error::Production verification failed! Sites may be down."
-          # Could add Telegram/Slack notification here
+          echo "::error::CI/CD Pipeline failed!"
+          
+          # Build failure message
+          MESSAGE="🔴 *CI/CD Pipeline Failed*%0A%0A"
+          MESSAGE="${MESSAGE}📦 Run: [#${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})%0A"
+          MESSAGE="${MESSAGE}📝 Commit: \`${{ github.event.head_commit.message || 'N/A' }}\`%0A"
+          MESSAGE="${MESSAGE}👤 Author: ${{ github.actor }}%0A%0A"
+          
+          # Add job results
+          MESSAGE="${MESSAGE}*Job Results:*%0A"
+          MESSAGE="${MESSAGE}• Verify: ${{ needs.verify.result }}%0A"
+          MESSAGE="${MESSAGE}• Tests: ${{ needs.test-reader-vr.result }}%0A"
+          MESSAGE="${MESSAGE}• Builds: surfboard=${{ needs.build-surfboard.result }}, reader=${{ needs.build-reader.result }}%0A%0A"
+          MESSAGE="${MESSAGE}⚠️ Please check GitHub Actions for details."
+          
+          # Send to Telegram (if token available)
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d "chat_id=${TELEGRAM_CHAT_ID}" \
+              -d "text=${MESSAGE}" \
+              -d "parse_mode=Markdown" \
+              -d "disable_web_page_preview=true" || echo "Failed to send Telegram notification"
+          else
+            echo "Telegram credentials not configured, skipping notification"
+          fi

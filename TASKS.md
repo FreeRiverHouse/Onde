@@ -7258,3 +7258,45 @@
   - Natural pauses between items
   - Show queue status in UI
   - "Speak all suggestions" mode
+
+
+### [T745] CI/CD: Add Telegram notifications for pipeline failures
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T726]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ✅ Implemented Telegram notifications in CI/CD!
+  - Added to auto-improve job (triggers on any failure)
+  - Uses TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID secrets
+  - Notification includes: run ID, commit message, author, job results
+  - Links to GitHub Actions run page
+  - Markdown formatting for readability
+  - Graceful fallback if credentials not configured
+
+### [T746] CI/CD: Add deploy preview URLs for pull requests
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T726]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Automatic preview deployments for PRs:
+  - Deploy to unique Cloudflare Pages URL per PR
+  - Comment on PR with preview links
+  - Auto-cleanup when PR closed
+  - Useful for review before merge
+
+### [T747] CI/CD: Add test coverage tracking
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T726]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Track and report test coverage over time:
+  - Run coverage for reader-vr Playwright tests
+  - Upload coverage to Codecov or similar
+  - Show coverage badge in README
+  - Fail CI if coverage drops significantly
+  - Dashboard widget showing coverage trend
+
