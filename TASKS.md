@@ -7344,7 +7344,7 @@
 - **Priority**: P3
 - **Notes**: Add cron to run analyze-vix-correlation.py daily. Update vix-history.json and vix-correlation.json. Suggested: `0 1 * * * python3 scripts/analyze-vix-correlation.py --days 30`
 
-### [T815] VIX regime change alert for Telegram
+### [T832] VIX regime change alert for Telegram
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611]
@@ -7358,7 +7358,7 @@
   - Cooldown to avoid spam during volatile days
   - Similar pattern to kalshi-correlation-change.alert
 
-### [T816] Backtest VIX integration effectiveness
+### [T834] Backtest VIX integration effectiveness
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611]
@@ -7371,7 +7371,7 @@
   - Generate report with recommendations
   - Output to data/trading/vix-effectiveness-analysis.json
 
-### [T817] VIX history sparkline in /betting dashboard
+### [T836] VIX history sparkline in /betting dashboard
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611], [T612]
@@ -9563,7 +9563,7 @@
   - Script: `scripts/analyze-composite-signals.py`
   - Output: `data/trading/composite-signal-stats.json`
 
-### [T815] Dashboard: Composite signal hit rate widget
+### [T833] Dashboard: Composite signal hit rate widget
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T814]
@@ -9577,7 +9577,7 @@
   - Component: `CompositeSignalWidget.tsx`
   - Pull data from gist (extend push-stats-to-gist.py)
 
-### [T816] Trading: Add composite signal logging to trade data
+### [T835] Trading: Add composite signal logging to trade data
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T460]
@@ -9589,7 +9589,7 @@
   - Required for T814 analysis
   - Verify fields appear in kalshi-trades-*.jsonl
 
-### [T817] Dashboard: Latency vs Win Rate correlation chart
+### [T837] Dashboard: Latency vs Win Rate correlation chart
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T804]
@@ -9602,7 +9602,7 @@
   - Use data from latency-performance-analysis.json
   - Help determine optimal latency thresholds
 
-### [T818] Trading: Time-of-day latency pattern analysis
+### [T838] Trading: Time-of-day latency pattern analysis
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T801]
@@ -9616,7 +9616,7 @@
   - Output: JSON with hourly averages + recommendations
   - Could inform trading schedule optimization
 
-### [T819] Dashboard: Historical latency comparison widget
+### [T839] Dashboard: Historical latency comparison widget
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T800]
@@ -9629,7 +9629,7 @@
   - Quick glance widget for /betting or /health page
   - Data from latency-history.jsonl aggregation
 
-### [T820] Autotrader: API latency percentiles tracking
+### [T840] Autotrader: API latency percentiles tracking
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-30
@@ -9649,7 +9649,7 @@
   - ⏳ Future: Dashboard widget showing percentile distribution
   - ⏳ Future: Alert if P95 > 3s threshold
 
-### [T821] Trading: Dynamic position sizing based on streak
+### [T842] Trading: Dynamic position sizing based on streak
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
@@ -9662,7 +9662,7 @@
   - Maximum adjustment cap (e.g., ±20%)
   - Log adjustments for analysis
 
-### [T822] Dashboard: Export trade history to CSV
+### [T844] Dashboard: Export trade history to CSV
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-30
@@ -9681,7 +9681,7 @@
   - **Verified**: onde.surf auth redirect (307) working
   - ⏳ Future: date range filter (T823)
 
-### [T823] Dashboard: Date range filter for CSV export
+### [T846] Dashboard: Date range filter for CSV export
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T822]
@@ -9693,7 +9693,7 @@
   - Filter trades before export
   - Show count of trades in range before download
 
-### [T824] Autotrader: P95 latency threshold alert
+### [T847] Autotrader: P95 latency threshold alert
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-30
@@ -9712,7 +9712,7 @@
   - **Uses existing alert file**: scripts/kalshi-latency.alert
   - **Tested**: No current anomalies (P95 values are healthy)
 
-### [T825] Dashboard: Percentile latency widget
+### [T848] Dashboard: Percentile latency widget
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T820]
@@ -9724,7 +9724,7 @@
   - Sparkline showing percentile trends
   - Expandable to see all endpoints
 
-### [T826] Deploy onde.surf with latency adjustment indicator
+### [T850] Deploy onde.surf with latency adjustment indicator
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-30
@@ -9738,7 +9738,7 @@
   - Verified: onde.surf returns 307 (auth redirect as expected)
   - LatencyAdjustmentIndicator widget now live on /betting
 
-### [T827] Cron job health monitor script
+### [T852] Cron job health monitor script
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
@@ -9752,7 +9752,7 @@
   - Alert file: cron-health.alert
   - Useful for detecting silently failing crons
 
-### [T828] Dashboard: Weekly volatility comparison widget
+### [T854] Dashboard: Weekly volatility comparison widget
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T434]
@@ -9765,7 +9765,7 @@
   - Data from volatility-week-YYYY-WW.json
   - Alert badge when divergence >20%
 
-### [T820] Fix: AIKO rinominato in MILO - aggiornare ovunque
+### [T841] Fix: AIKO rinominato in MILO - aggiornare ovunque
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
@@ -9777,7 +9777,7 @@
   - Documentazione
   - KDP listings
 
-### [T821] Fix: Moonlight Magic House non carica su onde.surf
+### [T843] Fix: Moonlight Magic House non carica su onde.surf
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
@@ -9785,7 +9785,7 @@
 - **Priority**: P1
 - **Notes**: Gioco non funziona. Investigare e fixare.
 
-### [T822] Infra: Test suite E2E per tutto il sito
+### [T845] Infra: Test suite E2E per tutto il sito
 - **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
@@ -9798,7 +9798,7 @@
   - Tutti i flussi utente critici
   - Playwright/Puppeteer per browser automation
 
-### [T825] Traduzione Capussela EN→IT via Ollama
+### [T849] Traduzione Capussela EN→IT via Ollama
 - **Status**: IN_PROGRESS
 - **Owner**: @clawd
 - **Depends**: -
@@ -9811,7 +9811,7 @@
   - **⚠️ REQUIRES: M1 + Radeon eGPU (@clawdinho))
   - Output: traduzioni/capussela-completa/capussela-spirito-EN-final.txt
 
-### [T826] Trading: Add trade performance by time-of-day analysis
+### [T851] Trading: Add trade performance by time-of-day analysis
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-02-03
@@ -9834,7 +9834,7 @@
     - `python3 scripts/analyze-time-of-day.py --days 7` - Last week only
   - ⏳ Dashboard widget (future task)
 
-### [T827] Trading: Add market momentum regime indicator
+### [T853] Trading: Add market momentum regime indicator
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T483]
@@ -9848,7 +9848,7 @@
   - Dashboard widget showing current regime
   - Data source: hourly OHLC candles from Binance
 
-### [T828] Infra: Add health check endpoint to autotrader
+### [T855] Infra: Add health check endpoint to autotrader
 - **Status**: DONE
 - **Owner**: @clawd, @onde-bot-1
 - **Completed**: 2026-02-03
@@ -9873,7 +9873,7 @@
     - UptimeRobot/etc: Point to `http://host:8089/ready`
   - **Integration**: Starts automatically with autotrader (no config needed)
 
-### [T829] Trading: Add health history tracking and dashboard widget
+### [T856] Trading: Add health history tracking and dashboard widget
 - **Status**: DONE
 - **Owner**: @clawd
 - **Completed**: 2026-01-30
@@ -9900,7 +9900,7 @@
   - **Cron**: `*/5 * * * * python3 scripts/log-health-history.py`
   - Deployed: https://e97c2797.onde-surf.pages.dev
 
-### [T830] Trading: Add position heatmap by expiry time
+### [T857] Trading: Add position heatmap by expiry time
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: -
@@ -9913,7 +9913,7 @@
   - Dashboard widget on /betting page
   - Data from existing positions API
 
-### [T831] Infra: Add Prometheus metrics endpoint to autotrader
+### [T858] Infra: Add Prometheus metrics endpoint to autotrader
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T828]
