@@ -240,6 +240,9 @@ STREAK_POSITION_ANALYSIS_FILE = "data/trading/streak-position-analysis.json"
 STREAK_TILT_THRESHOLD = 3  # Warn when entering trade after N consecutive losses
 STREAK_HOT_HAND_THRESHOLD = 3  # Note when entering trade after N consecutive wins
 
+# Tilt risk alerting (T774) - alert Mattia when trading in risky state
+TILT_RISK_ALERT_FILE = "scripts/kalshi-tilt-risk.alert"
+
 # API Latency Profiling (T279)
 LATENCY_PROFILE_FILE = "scripts/kalshi-latency-profile.json"
 LATENCY_PROFILE_WINDOW = 100  # Keep last N calls per endpoint
@@ -4479,6 +4482,10 @@ def run_cycle():
         
         # Check for extreme volatility alerts (T294)
         check_extreme_vol_alert(trade_data)
+        
+        # Check for tilt risk alerts (T774) - alert when trading in risky state
+        if streak_ctx.get("tilt_risk"):
+            write_tilt_risk_alert(trade_data, streak_ctx)
     else:
         print(f"⏳ Order status: {order_status}")
         # Log pending/other status (T329)
@@ -5195,6 +5202,43 @@ def print_streak_position_warning(streak_ctx: dict):
         print(f"    💡 Note: Stay disciplined - don't let success lead to overconfidence.")
         if streak_ctx.get("continuation_probability") is not None:
             print(f"    📊 Historical continuation rate: {streak_ctx['continuation_probability']:.1%}")
+
+
+def write_tilt_risk_alert(trade_data: dict, streak_ctx: dict):
+    """
+    Write tilt risk alert file for heartbeat to send to Telegram (T774).
+    Called when a trade is placed while in tilt risk state.
+    """
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "type": "tilt_risk_trade",
+        "ticker": trade_data.get("ticker"),
+        "asset": trade_data.get("asset"),
+        "side": trade_data.get("side"),
+        "contracts": trade_data.get("contracts"),
+        "price_cents": trade_data.get("price_cents"),
+        "edge": trade_data.get("edge"),
+        "streak_context": streak_ctx.get("streak_context"),
+        "consecutive_losses": streak_ctx.get("current_streak"),
+        "continuation_probability": streak_ctx.get("continuation_probability"),
+        "message": (
+            f"⚠️ TILT RISK TRADE PLACED\n\n"
+            f"Ticker: {trade_data.get('ticker')}\n"
+            f"Side: {trade_data.get('side', '').upper()}\n"
+            f"Contracts: {trade_data.get('contracts')}\n"
+            f"Edge: {trade_data.get('edge', 0):.1%}\n\n"
+            f"📉 After {streak_ctx.get('current_streak')} consecutive losses!\n"
+            f"Context: {streak_ctx.get('streak_context')}\n"
+            + (f"📊 Historical continuation: {streak_ctx.get('continuation_probability'):.1%}\n" 
+               if streak_ctx.get('continuation_probability') is not None else "")
+            + "\n💡 Consider reviewing strategy if losses continue."
+        )
+    }
+    
+    with open(TILT_RISK_ALERT_FILE, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"📝 Tilt risk alert written to {TILT_RISK_ALERT_FILE}")
 
 
 # ============== STREAK RECORD ALERTING (T288) ==============

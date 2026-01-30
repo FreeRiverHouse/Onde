@@ -22,6 +22,7 @@
 - `scripts/kalshi-weekly-report.alert` → Weekly report PDF pronto. Manda notifica, poi elimina
 - `scripts/kalshi-low-winrate.alert` → Win rate basso. Manda alert, poi elimina
 - `scripts/kalshi-streak-record.alert` → Record streak! Celebra/avvisa, poi elimina
+- `scripts/kalshi-tilt-risk.alert` → TILT RISK trade placed! Manda alert, poi elimina
 - `scripts/kalshi-latency.alert` → Latenza ordini alta (>2s)! Manda alert, poi elimina
 - `scripts/kalshi-rate-limit.alert` → API rate limit alto (>80%)! Manda alert, poi elimina
 - `scripts/kalshi-api-error.alert` → HIGH API ERROR RATE (>10%)! Manda alert, poi elimina

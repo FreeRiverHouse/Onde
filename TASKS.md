@@ -7881,16 +7881,19 @@
   - Document in TOOLS.md or trading docs
 
 ### [T774] Trading: Telegram alert for high-tilt-risk trades
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T770]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Send Telegram alert when entering trade in tilt risk state:
-  - Write kalshi-tilt-risk.alert file for heartbeat pickup
-  - Include: ticker, edge, streak context, continuation probability
-  - Optional: require manual confirmation for tilt-risk trades (future)
-  - Helps Mattia intervene if needed during bad streaks
+- **Notes**: ✅ Implemented Telegram alert for tilt-risk trades!
+  - **Function**: `write_tilt_risk_alert(trade_data, streak_ctx)`
+  - **Alert file**: `scripts/kalshi-tilt-risk.alert`
+  - **Triggers**: When trade is executed while tilt_risk=True (3+ consecutive losses)
+  - **Alert content**: ticker, side, contracts, edge, streak context, consecutive losses, continuation probability
+  - **Integration**: Called after successful trade execution if tilt_risk flag is set
+  - **HEARTBEAT.md**: Updated to pick up kalshi-tilt-risk.alert files
 
 ### [T775] Trading: Analyze streak position vs outcome correlation
 - **Status**: TODO
