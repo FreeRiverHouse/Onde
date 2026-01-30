@@ -1027,6 +1027,50 @@
     - `get_log_stats()` - Get statistics
   - **Integration**: Added to meeting_simulator.py CLI
 
+### [T769] SE-Bot: Test HeyGen API real-time latency
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T732]
+- **Blocks**: [T770]
+- **Priority**: P2
+- **Notes**: Test HeyGen Avatar IV for real-time meeting use:
+  - Sign up for HeyGen Creator tier ($29/mo)
+  - Test Avatar IV real-time generation latency
+  - Measure end-to-end: text input → video output
+  - Target: <2s latency for conversational flow
+  - Document findings in test report
+  - Compare with D-ID streaming API as fallback
+
+### [T770] SE-Bot: Build video_avatar.py API client module
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T769], [T475]
+- **Blocks**: [T476]
+- **Priority**: P2
+- **Notes**: Create Python module for video avatar integration:
+  - **File**: `apps/se-bot/video_avatar.py`
+  - **Features:**
+    - HeyGen API client (primary provider)
+    - D-ID API client (fallback)
+    - Voice input → avatar video generation
+    - Sentiment-to-expression mapping
+    - Output to virtual camera (OBS)
+  - **Integration**: Connect to existing voice_output.py (T475)
+  - **Testing**: Mock mode for development
+
+### [T771] SE-Bot: Create Mattia voice profile for avatar
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T769]
+- **Blocks**: [T476]
+- **Priority**: P2
+- **Notes**: Set up voice cloning for authentic avatar:
+  - Record 3-5 min voice samples (various tones)
+  - Upload to HeyGen voice cloning
+  - Test cloned voice quality
+  - Create backup in D-ID if HeyGen quality insufficient
+  - Store voice profile ID in .env for SE-Bot
+
 ### [T480] Trading: Add portfolio-wide position concentration limits
 - **Status**: DONE
 - **Owner**: @clawd
@@ -1399,17 +1443,23 @@
 ### [T732] SE-Bot: Create video avatar provider comparison doc
 - **Status**: DONE
 - **Owner**: @clawd
-- **Completed**: 2026-01-31
-- **Status**: TODO
-- **Owner**: -
+- **Completed**: 2026-01-30
 - **Depends**: [T476]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Research and compare video avatar APIs for T476:
-  - HeyGen: Pricing, API capabilities, real-time support
-  - D-ID: Pricing, SDK, lip sync quality
-  - Synthesia: Enterprise tier, features
-  - Output: Markdown doc with pros/cons/pricing matrix
+- **Notes**: ✅ Created comprehensive video avatar provider comparison!
+  - **Document**: `apps/se-bot/docs/VIDEO-AVATAR-COMPARISON.md`
+  - **Providers compared**: HeyGen, D-ID, Synthesia
+  - **Analysis includes:**
+    - Pricing tiers and cost breakdown
+    - Real-time streaming capability comparison
+    - API features and documentation quality
+    - Lip sync and voice cloning support
+    - Languages and avatar customization
+  - **Recommendation**: HeyGen (primary) for real-time Avatar IV
+  - **Secondary**: D-ID for budget-conscious development
+  - **Integration architecture** diagram included
+  - **Cost estimate**: $29/mo for MVP testing
 
 ### [T733] Autotrader: Weekly performance summary report
 - **Status**: DONE

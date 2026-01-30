@@ -1,305 +1,235 @@
 # Video Avatar Providers Comparison
 
-**Purpose**: Research document for T476 (SE-Bot Video Avatar Integration)  
-**Last Updated**: 2026-01-31  
-**Author**: @clawd
+> **Created**: 2026-01-30  
+> **Purpose**: Evaluate video avatar APIs for SE-Bot real-time meeting avatar (T476)  
+> **Goal**: Participate in video meetings without being present (like Elon Musk's AI clone demos)
+
+---
 
 ## Executive Summary
 
-For SE-Bot's video avatar feature (participating in meetings with AI-generated video), we've analyzed three leading providers. **Recommendation: Start with D-ID** for MVP due to best price/latency balance for real-time use cases.
+| Provider | Best For | Real-Time? | Price Entry | API? |
+|----------|----------|------------|-------------|------|
+| **HeyGen** | Fastest processing, best API | ⚡ Yes (Avatar IV) | $29/mo | ✅ Full |
+| **D-ID** | Budget-friendly, good quality | ⚡ Yes (streaming) | Pay-per-minute | ✅ Full |
+| **Synthesia** | Enterprise, highest quality | ❌ Not real-time | ~$22/mo (annual) | ✅ Limited |
+
+**Recommendation for SE-Bot**: **HeyGen** for real-time streaming capability, or **D-ID** for budget-conscious development.
 
 ---
 
-## Provider Comparison Matrix
+## 1. HeyGen
+
+### Overview
+- **Website**: https://www.heygen.com
+- **API Docs**: https://docs.heygen.com
+- **G2 Rating**: #1 Fastest Growing Product 2025
+- **Customers**: 100,000+ businesses
+
+### Pricing Tiers
+
+| Plan | Price | Video Minutes | Features |
+|------|-------|---------------|----------|
+| Free | $0/mo | 3 videos (3-min max) | 720p, 500+ stock avatars, 30+ languages |
+| Creator | $29/mo | Unlimited | 1080p, voice cloning, 175+ languages |
+| Pro | $99/mo | Unlimited | 4K, 10x generative usage, early access |
+| Business | $149/mo | Unlimited | 60-min videos, SSO, team collab |
+| Enterprise | Custom | Unlimited | Fastest processing, dedicated support |
+
+### API Features
+- **Real-Time Streaming**: Yes! Avatar IV supports real-time generation
+- **Authentication**: API key in `X-API-KEY` header
+- **Endpoints**: Video generation, translation, avatar management
+- **SDK**: Postman collection available
+- **Latency**: "Fastest processing" tier available
+
+### Key Capabilities for SE-Bot
+✅ **Real-time avatar generation** (Avatar IV)  
+✅ **Voice cloning** (unlimited on paid plans)  
+✅ **175+ languages** for multi-lingual meetings  
+✅ **Custom avatars** (create your digital twin)  
+✅ **API access** on all plans  
+✅ **Motion/gesture control** (for natural body language)  
+✅ **Lip sync** (automatic from text/audio)  
+
+### Limitations
+- Avatar IV has 3-min max duration per video (real-time chunking needed)
+- Premium features locked to higher tiers
+- No OBS Virtual Cam integration (need separate solution)
+
+---
+
+## 2. D-ID
+
+### Overview
+- **Website**: https://www.d-id.com
+- **API Docs**: https://docs.d-id.com
+- **Focus**: AI-powered video creation and lip sync
+
+### Pricing Model
+- **Pay-per-minute**: Minutes deducted from plan (rounded to 15s intervals)
+- **Minutes don't accumulate**: Unused minutes expire monthly
+- **API shares balance**: Web and API use same minute pool
+
+### API Features
+- **Streaming API**: Yes, supports real-time generation
+- **Authentication**: API key from account settings
+- **Documentation**: Full REST API reference available
+- **Output formats**: MP4, various resolutions
+
+### Key Capabilities for SE-Bot
+✅ **Streaming/real-time** capability  
+✅ **Lip sync** from audio input  
+✅ **API access** with full documentation  
+✅ **Cost-effective** for development/testing  
+✅ **Ethics-focused** (transparency about synthetic content)  
+
+### Limitations
+- Watermark for trial users (full-screen)
+- Data deleted after 6 months of inactivity
+- Less polished than HeyGen for enterprise
+
+### Ethical Considerations
+D-ID emphasizes transparency about AI-generated content:
+- Synthetic nature disclosure required
+- Published ethical manifesto
+- Content moderation applied
+
+---
+
+## 3. Synthesia
+
+### Overview
+- **Website**: https://www.synthesia.io
+- **Focus**: Enterprise video production at scale
+- **Customers**: 50,000+ companies
+- **G2 Rating**: 4.7 from 2,000+ reviews
+
+### Pricing Tiers
+
+| Plan | Price | Video Minutes | Avatars |
+|------|-------|---------------|---------|
+| Free | $0/mo | 10 min/mo | 9 AI avatars |
+| Starter | ~$22/mo (annual) | 10 min/mo | 125+ avatars |
+| Creator | ~$67/mo (annual) | 30 min/mo | 180+ avatars, 3 personal |
+| Enterprise | Custom | Unlimited | 240+ avatars, unlimited personal |
+
+### API Features
+- **Synthesia API**: Available on Creator+ plans
+- **Limits**: 360 min/year included, more as add-on
+- **Automation**: Bulk personalization, template-based generation
+
+### Key Capabilities for SE-Bot
+✅ **Highest quality** avatars (enterprise-grade)  
+✅ **Personal avatars** (digital twin creation)  
+✅ **AI dubbing with lip sync**  
+✅ **Voice cloning** (included with personal avatar)  
+✅ **160+ languages**  
+✅ **SCORM export** (for LMS integration)  
+
+### Limitations
+❌ **NOT real-time**: Pre-rendered video only  
+❌ **Processing time**: Studio avatars take up to 10 days  
+❌ **Enterprise-focused**: Features gated behind high tiers  
+❌ **Limited API**: Not designed for real-time streaming  
+
+---
+
+## Feature Comparison Matrix
 
 | Feature | HeyGen | D-ID | Synthesia |
 |---------|--------|------|-----------|
-| **Real-time capable** | ✅ Yes (Streaming Avatar) | ✅ Yes (Live Portrait) | ❌ No (pre-rendered only) |
-| **Latency** | ~500ms | ~300ms | N/A |
-| **API availability** | ✅ REST + WebSocket | ✅ REST + WebSocket | ✅ REST only |
+| **Real-time streaming** | ✅ Avatar IV | ✅ Streaming API | ❌ Pre-render only |
 | **Lip sync quality** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Custom avatar** | ✅ (photo + video) | ✅ (photo only) | ✅ (studio recording) |
-| **Voice integration** | Built-in + external | External required | Built-in + external |
-| **Pricing tier** | $$$ | $$ | $$$$ |
-| **Free tier** | Trial credits | 5 min/day free | No free tier |
+| **Voice cloning** | ✅ Unlimited | ✅ | ✅ |
+| **Custom avatars** | ✅ (paid) | ✅ | ✅ (expensive add-on) |
+| **API availability** | ✅ All plans | ✅ All plans | ✅ Creator+ only |
+| **Languages** | 175+ | 130+ | 160+ |
+| **Latency** | Low | Medium | N/A (not real-time) |
+| **Price entry** | $29/mo | Pay-per-use | ~$22/mo |
+| **Enterprise ready** | ✅ | ✅ | ✅ Best |
 
 ---
 
-## Detailed Analysis
+## Recommendation for SE-Bot (T476)
 
-### 1. HeyGen
+### Primary Choice: **HeyGen**
 
-**Website**: https://heygen.com  
-**API Docs**: https://docs.heygen.com
+**Why HeyGen?**
+1. **Real-time Avatar IV** - Critical for live meeting participation
+2. **Voice cloning** - Can clone Mattia's voice for authenticity
+3. **Motion/gesture control** - Natural body language in meetings
+4. **Good API** - Well-documented, Postman collection
+5. **Reasonable pricing** - $29/mo to start testing
 
-#### Strengths
-- **Streaming Avatar API**: Real-time video generation with WebSocket
-- **Best quality**: Highest lip sync accuracy and natural movements
-- **Voice cloning**: Can clone your voice for realistic delivery
-- **Template system**: Pre-built avatar templates
-- **Multi-language**: 40+ languages supported
+**Implementation Plan:**
+1. Start with Creator tier ($29/mo) for development
+2. Test Avatar IV real-time generation latency
+3. Implement voice cloning with Mattia's voice
+4. Add gesture control for natural responses
+5. Route output to OBS Virtual Cam for meeting injection
 
-#### Weaknesses
-- **Pricing**: Most expensive option ($89-$249/month for API access)
-- **Latency**: ~500ms in streaming mode
-- **Complexity**: More setup required for real-time integration
+### Secondary Choice: **D-ID**
 
-#### API Capabilities
-```python
-# HeyGen Streaming Avatar example
-import heygen
-
-session = heygen.StreamingAvatar.create(
-    avatar_id="avatar_josh_lite",
-    voice_id="voice_custom_clone"
-)
-
-# Send text to speak
-session.speak("Hello, welcome to the meeting!")
-
-# Get video frame stream
-for frame in session.video_stream():
-    output_to_virtual_cam(frame)
-```
-
-#### Pricing (as of 2025)
-- **Creator**: $89/month (120 credits, no streaming)
-- **Business**: $249/month (500 credits, streaming included)
-- **Enterprise**: Custom pricing
-- **Credit cost**: ~0.5 credit per minute of video
+**Why D-ID as backup?**
+1. **Pay-per-minute** - Cost-effective for early testing
+2. **Streaming API** - Real-time capability exists
+3. **Lower entry cost** - No monthly commitment needed
 
 ---
 
-### 2. D-ID
-
-**Website**: https://d-id.com  
-**API Docs**: https://docs.d-id.com
-
-#### Strengths
-- **Fast latency**: ~300ms, best for real-time
-- **Simple API**: Easy REST + WebSocket integration
-- **Free tier**: 5 minutes/day free (great for testing)
-- **Photo-to-avatar**: Just upload a photo
-- **Price/performance**: Best value for real-time use
-
-#### Weaknesses
-- **Photo-only**: Can't create avatar from video (lower quality)
-- **Voice external**: Must integrate separate TTS (ElevenLabs)
-- **Expression range**: Less emotion variety than competitors
-- **No voice cloning**: Relies on external providers
-
-#### API Capabilities
-```python
-# D-ID Live Portrait example
-import requests
-
-# Create a talk
-response = requests.post(
-    "https://api.d-id.com/talks",
-    headers={"Authorization": f"Bearer {API_KEY}"},
-    json={
-        "source_url": "https://example.com/my-photo.jpg",
-        "script": {
-            "type": "audio",
-            "audio_url": "https://example.com/speech.mp3"
-        }
-    }
-)
-
-# Stream result
-video_url = response.json()["result_url"]
-```
-
-#### Real-time Streaming (Agents API)
-```python
-# D-ID Agents API for real-time
-ws = websocket.connect("wss://api.d-id.com/agents/streams")
-
-# Send text, get video frames
-ws.send(json.dumps({
-    "type": "text",
-    "text": "This is the live response",
-    "avatar_id": "my_avatar"
-}))
-```
-
-#### Pricing (as of 2025)
-- **Free**: 5 min/day, watermarked
-- **Lite**: $5.99/month (10 min, no watermark)
-- **Pro**: $29/month (15 min + premium features)
-- **Advanced**: $99/month (65 min + API priority)
-- **Enterprise**: Custom pricing
-
----
-
-### 3. Synthesia
-
-**Website**: https://synthesia.io  
-**API Docs**: https://docs.synthesia.io
-
-#### Strengths
-- **Highest quality**: Professional studio avatars
-- **Enterprise features**: Compliance, audit logs, SSO
-- **Localization**: 140+ languages
-- **Brand consistency**: Custom branded avatars
-- **Template library**: Thousands of scenes/backgrounds
-
-#### Weaknesses
-- **Not real-time**: Videos must be pre-rendered (2-5 min processing)
-- **Expensive**: Enterprise pricing only for API
-- **No streaming**: Cannot use for live meetings
-- **Long turnaround**: Not suitable for dynamic content
-
-#### API Capabilities
-```python
-# Synthesia (not real-time)
-import requests
-
-response = requests.post(
-    "https://api.synthesia.io/v2/videos",
-    headers={"Authorization": f"Bearer {API_KEY}"},
-    json={
-        "input": [{
-            "avatar": "anna_costume1_cameraA",
-            "background": "off_white",
-            "voice": "en-US-JennyNeural"
-        }],
-        "script": "Hello, this is a pre-recorded message."
-    }
-)
-
-# Wait for rendering (2-5 minutes)
-video_id = response.json()["id"]
-# Poll for completion...
-```
-
-#### Pricing (as of 2025)
-- **Personal**: $29/month (10 min/month, no API)
-- **Starter**: $89/month (120 min/year, limited API)
-- **Creator**: $299/month (360 min/year, full API)
-- **Enterprise**: Custom (unlimited, dedicated support)
-
----
-
-## Recommendation for SE-Bot
-
-### MVP Phase: D-ID
-**Rationale**:
-1. Best latency (~300ms) for real-time meetings
-2. Free tier allows extensive testing
-3. Simple integration with existing ElevenLabs setup
-4. Reasonable pricing ($29-99/month)
-5. Photo-to-avatar = quick setup
-
-### Production Phase: HeyGen
-**Rationale**:
-1. Higher quality for professional meetings
-2. Built-in voice cloning for more realistic SE persona
-3. Better expression/emotion range
-4. Worth the premium for sales engineering context
-
-### Not Recommended: Synthesia
-**Rationale**:
-1. No real-time capability = dealbreaker for live meetings
-2. Pre-rendering defeats the purpose of dynamic AI assistance
-3. Only suitable for pre-recorded content (training videos, etc.)
-
----
-
-## Integration Architecture
+## Integration Architecture for SE-Bot
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     SE-Bot Architecture                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ┌──────────────┐    ┌───────────────┐    ┌──────────────┐  │
-│  │  Meeting     │───▶│  Claude RAG   │───▶│  Text        │  │
-│  │  Transcript  │    │  (Suggestions)│    │  Response    │  │
-│  └──────────────┘    └───────────────┘    └──────┬───────┘  │
-│                                                   │          │
-│                                                   ▼          │
-│  ┌──────────────┐    ┌───────────────┐    ┌──────────────┐  │
-│  │  Virtual     │◀───│  D-ID/HeyGen  │◀───│  ElevenLabs  │  │
-│  │  Camera      │    │  (Avatar)     │    │  (Voice)     │  │
-│  └──────────────┘    └───────────────┘    └──────────────┘  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│  SE-Bot RAG     │───▶│  Video Avatar    │───▶│  OBS Virtual    │
+│  Response Text  │    │  API (HeyGen)    │    │  Cam Output     │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+                              │
+                              ▼
+                       ┌──────────────────┐
+                       │  Meeting App     │
+                       │  (Zoom/Teams)    │
+                       └──────────────────┘
 ```
 
-### Pipeline Steps
-1. Audio captured → Whisper transcription
-2. Transcript → RAG lookup → Claude response
-3. Response text → ElevenLabs TTS → audio stream
-4. Audio + avatar → D-ID/HeyGen → video stream
-5. Video → OBS Virtual Camera → meeting app
-
----
-
-## Technical Requirements
-
-### For D-ID Integration
-1. **API Key**: Sign up at d-id.com
-2. **Dependencies**: `pip install websocket-client requests`
-3. **Virtual Camera**: OBS VirtualCam or pyvirtualcam
-4. **Audio sync**: ElevenLabs output → D-ID audio input
-
-### Sample D-ID Integration Code
-```python
-# apps/se-bot/video_avatar.py (to be implemented)
-
-class VideoAvatarManager:
-    def __init__(self, provider: str = "d-id"):
-        self.provider = provider
-        self.api_key = os.environ.get("DID_API_KEY")
-        self.avatar_photo = "path/to/mattia_photo.jpg"
-        
-    async def generate_video(self, audio_url: str) -> str:
-        """Generate avatar video from audio"""
-        if self.provider == "d-id":
-            return await self._did_generate(audio_url)
-        elif self.provider == "heygen":
-            return await self._heygen_generate(audio_url)
-    
-    async def stream_to_camera(self, video_url: str):
-        """Stream video to virtual camera"""
-        # Use pyvirtualcam or OBS websocket
-        pass
-```
-
----
-
-## Cost Estimation (Monthly)
-
-### Light Usage (2 hours meetings/month)
-| Provider | Minutes | Cost |
-|----------|---------|------|
-| D-ID Pro | 120 min | $29 |
-| HeyGen | 120 min | ~$60 (credits) |
-
-### Heavy Usage (20 hours meetings/month)
-| Provider | Minutes | Cost |
-|----------|---------|------|
-| D-ID Advanced | 1200 min | $99+ overages |
-| HeyGen Business | 1200 min | ~$500 |
+### Components Needed:
+1. **HeyGen/D-ID API client** - Generate avatar video from text
+2. **Voice cloning setup** - One-time voice profile creation
+3. **OBS Virtual Camera** - Route avatar video to meetings
+4. **Latency buffer** - Handle real-time generation delays
+5. **Sentiment analysis** - Map emotions to avatar expressions
 
 ---
 
 ## Next Steps
 
-1. **[ ] Get D-ID API key** (free tier for testing)
-2. **[ ] Create avatar from Mattia's photo**
-3. **[ ] Implement `video_avatar.py` module
-4. **[ ] Test latency with ElevenLabs pipeline
-5. **[ ] Set up OBS VirtualCam output
-6. **[ ] Integration test in real meeting
+1. [ ] Sign up for HeyGen API trial
+2. [ ] Test Avatar IV real-time generation latency
+3. [ ] Record voice samples for cloning
+4. [ ] Create custom avatar (digital twin)
+5. [ ] Build API client in `apps/se-bot/video_avatar.py`
+6. [ ] Integrate with existing voice output (T475)
+7. [ ] Test in mock meeting scenario
+
+---
+
+## Cost Estimate (Monthly)
+
+| Component | Cost | Notes |
+|-----------|------|-------|
+| HeyGen Creator | $29 | Unlimited videos, real-time |
+| OBS Studio | Free | Virtual camera software |
+| Total MVP | **$29/mo** | For development/testing |
+
+Enterprise estimate: $149-500/mo depending on usage and quality needs.
 
 ---
 
 ## References
 
+- HeyGen Pricing: https://www.heygen.com/pricing
+- HeyGen API Docs: https://docs.heygen.com
+- D-ID Pricing: https://www.d-id.com/pricing
 - D-ID API Docs: https://docs.d-id.com
-- HeyGen API Docs: https://docs.heygen.com  
-- Synthesia API Docs: https://docs.synthesia.io
-- OBS VirtualCam: https://obsproject.com
-- pyvirtualcam: https://github.com/letmaik/pyvirtualcam
+- Synthesia Pricing: https://www.synthesia.io/pricing
