@@ -1008,6 +1008,47 @@
   - Similar books recommendations
   - User reviews (from linked sources)
 
+### [T815] Reader App: Cache management UI panel
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T803]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add UI to manage cached/downloaded books:
+  - List all cached books with storage size
+  - Total cache size display
+  - Delete individual books from cache
+  - "Clear all cache" option with confirmation
+  - "Download all" for library batch caching
+  - Storage quota indicator (if available)
+
+### [T816] Trading: Add asset rebalancing automation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T481]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Automate rebalancing suggestions from T481:
+  - Auto-execute rebalancing when concentration >45%
+  - Sell oldest positions first (FIFO)
+  - Configurable auto-rebalance threshold
+  - Telegram notification before executing
+  - "Dry run" mode to preview without executing
+  - Log rebalancing actions to separate file
+
+### [T817] Infrastructure: Add uptime history chart to /health
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize service uptime over time on onde.surf/health:
+  - Read from data/uptime/uptime-history.json
+  - Show 7-day/30-day uptime percentage per service
+  - Timeline chart with red/green bands for status
+  - Incident list with timestamps
+  - Export uptime report to CSV
+
 ---
 
 ## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
