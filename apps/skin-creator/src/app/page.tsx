@@ -57,6 +57,52 @@ export default function SkinCreator() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
   const particleIdRef = useRef(0);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  // Sound effects using Web Audio API 🔊
+  const playSound = useCallback((type: 'draw' | 'click' | 'download') => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    const ctx = audioContextRef.current;
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    if (type === 'draw') {
+      // Quick bloop
+      oscillator.frequency.setValueAtTime(800 + Math.random() * 400, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
+      gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.1);
+    } else if (type === 'click') {
+      // Pop sound
+      oscillator.frequency.setValueAtTime(600, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15);
+      gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.15);
+    } else if (type === 'download') {
+      // Celebration jingle
+      const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.2);
+        osc.start(ctx.currentTime + i * 0.1);
+        osc.stop(ctx.currentTime + i * 0.1 + 0.2);
+      });
+    }
+  }, []);
 
   // Get window size for confetti
   useEffect(() => {
@@ -221,6 +267,7 @@ export default function SkinCreator() {
     // Spawn sparkle particle! ✨
     if (isDrawing && Math.random() > 0.7) {
       spawnParticle(e.clientX, e.clientY);
+      playSound('draw'); // 🔊 Bloop!
     }
 
     const rect = canvas.getBoundingClientRect();
@@ -275,6 +322,7 @@ export default function SkinCreator() {
     
     // 🎉 Confetti celebration!
     setShowConfetti(true);
+    playSound('download'); // 🔊 Celebration jingle!
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
