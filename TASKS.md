@@ -329,17 +329,23 @@
   - Time-of-day variations (birds in morning, crickets at night)
 
 ### [T708] Reader App VR: Deploy enhanced version to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T702]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the enhanced VR reader with cozy library environment:
-  - Build static export with basePath=/reader-vr/
-  - Copy to onde-portal/public/reader-vr/
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify: https://onde.la/reader-vr/ returns 200 OK
-  - Test time-of-day toggle, fireplace, new objects
+- **Notes**: ✅ Deployed! https://01d44bf8.onde-portal.pages.dev
+  - ✅ Built static export with basePath=/reader-vr/
+  - ✅ Copied to onde-portal/public/reader-vr/
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.la/reader-vr/ returns 200 OK
+  - Enhanced library now live with:
+    - Fireplace with animated flames
+    - Grandfather clock with pendulum
+    - Time-of-day toggle (🌅🌆🌙)
+    - Oriental rug, globe, potted plant
+    - Wainscoting walls and crown molding
 
 ### [T709] Reader App VR: Add teleport spots for VR movement
 - **Status**: TODO
