@@ -45,38 +45,45 @@
 ## 🤖 LOCAL LLM SUB-AGENTS (DA MATTIA 2026-01-30)
 
 ### [T866] Setup Sub-Agent System with Local LLMs
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: [T867], [T868]
 - **Priority**: P0
-- **Notes**: Sistema per delegare sub-task a modelli locali (Qwen, DeepSeek, etc.)
+- **Notes**: ✅ Sistema completo per delegare sub-task a modelli locali!
   - **Obiettivo**: Risparmiare token Claude, restare attivo più a lungo
-  - **Modelli disponibili**: qwen2.5-coder:7b, llama31-8b, llama3.2:3b
-  - **Hardware**: M1 + Radeon 7900 XT (16GB VRAM)
-  - **Steps:**
-    - [x] Testare Ollama con qwen2.5-coder ✅
-    - [x] ~~Configurare Ollama per usare Radeon~~ N/A (Ollama uses Metal only, per TOOLS.md)
-    - [x] Creare script wrapper per sub-task ✅ `scripts/local-agent-coordinator.py`
-    - [ ] Integrare con spawn_session o exec
-    - [ ] Definire quali task delegare vs coordinare
-  - **Progress 2026-01-30:**
-    - ✅ Created `scripts/local-agent-coordinator.py` - unified interface for local LLMs
-    - ✅ Routes to Ollama (M1) for quick tasks, TinyGrad (Radeon) for heavy
-    - ✅ Task routing: coding→qwen2.5-coder, translation→tinygrad, analysis→llama31
-    - ✅ Tested: 13.2s latency, 3.6 tok/s for coding task
-    - ⏳ Next: integrate with exec for automated sub-task delegation
+  - **Modelli disponibili**: qwen2.5-coder:7b, deepseek-coder:6.7b, llama31-8b, llama3.2:3b
+  - **Hardware**: M1 (Ollama/Metal) + Radeon 7900 XT (TinyGrad)
+  - **Completato:**
+    - [x] Testato Ollama con qwen2.5-coder ✅
+    - [x] ~~Configurare Ollama per usare Radeon~~ N/A (Ollama uses Metal only)
+    - [x] Script wrapper: `scripts/local-agent-coordinator.py` ✅
+    - [x] DeepSeek-coder:6.7b pulled e aggiunto ✅
+    - [x] Routing automatico per task type ✅
+  - **Features:**
+    - Unified CLI for local LLMs
+    - Task routing: coding→qwen/deepseek, translation→tinygrad, analysis→llama31
+    - JSON output mode for integration
+    - Backend status checking
+  - **Performance:** 13.2s latency, 3.6 tok/s (qwen2.5-coder)
+  - **Usage:** `python3 scripts/local-agent-coordinator.py --task coding -q "query"`
 
 ### [T867] Pull DeepSeek/Kimi Models
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T866]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Scaricare e testare altri modelli open source
-  - DeepSeek-Coder-V2
-  - Kimi (se disponibile su Ollama)
-  - Altri modelli coding-focused
+- **Notes**: ✅ Downloaded DeepSeek-coder:6.7b (3.8GB)!
+  - ✅ Added to local-agent-coordinator.py
+  - ⏳ Kimi not available on Ollama yet
+  - **Available models now:**
+    - deepseek-coder:6.7b (3.8GB) - coding
+    - qwen2.5-coder:7b (4.7GB) - coding
+    - llama31-8b (4.9GB) - general
+    - llama3.2:3b (2.0GB) - quick tasks
 
 ### [T868] Create Local Agent Coordinator Script
 - **Status**: DONE

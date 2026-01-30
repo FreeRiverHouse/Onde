@@ -43,6 +43,7 @@ TASK_ROUTING = {
 # Ollama available models (from `ollama list`)
 OLLAMA_MODELS = {
     "qwen2.5-coder:7b": {"size": "4.7GB", "specialty": "coding"},
+    "deepseek-coder:6.7b": {"size": "3.8GB", "specialty": "coding"},
     "llama31-8b:latest": {"size": "4.9GB", "specialty": "general"},
     "llama3.2:3b": {"size": "2.0GB", "specialty": "quick tasks"},
 }
