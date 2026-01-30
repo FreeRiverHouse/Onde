@@ -543,6 +543,50 @@
     - `python meeting_simulator.py --query "question"` - Single test
     - `python meeting_simulator.py --with-claude` - Enable Claude responses
 
+### [T490] SE-Bot: Add security deep-dive content to knowledge base
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Expand KB with security-focused content:
+  - Ransomware protection and lateral movement prevention
+  - DLP (Data Loss Prevention) capabilities
+  - CASB (Cloud Access Security Broker) features
+  - Threat intelligence integration
+  - SOC integration and SIEM feeds
+  - Incident response workflows
+  - Compliance frameworks (HIPAA, PCI-DSS, GDPR)
+
+### [T491] SE-Bot: Create response style templates
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T479]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Claude prompt templates for different response styles:
+  - **Technical deep-dive**: For network engineers
+  - **Executive summary**: For C-level/business
+  - **Competitive battle card**: When customer mentions competitor
+  - **Objection handling**: Empathetic + redirect
+  - **Demo suggestion**: When customer seems interested
+  - Store templates in `apps/se-bot/prompts/` directory
+  - Integrate with meeting_simulator.py --style flag
+
+### [T492] SE-Bot: Add meeting transcript logging for fine-tuning
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T479]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Log meeting interactions for future model fine-tuning:
+  - Save transcript + KB retrieval + response to JSONL
+  - Include: timestamp, scenario category, relevance scores
+  - Add feedback mechanism (👍/👎 on suggestions)
+  - Export format compatible with Claude fine-tuning
+  - Privacy: Option to anonymize customer names
+  - Output: `data/se-bot/meeting-logs/YYYY-MM-DD.jsonl`
+
 ### [T480] Trading: Add portfolio-wide position concentration limits
 - **Status**: DONE
 - **Owner**: @clawd
