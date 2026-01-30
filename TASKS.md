@@ -8530,8 +8530,8 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T758] Autotrader: Volume anomaly alerts
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
