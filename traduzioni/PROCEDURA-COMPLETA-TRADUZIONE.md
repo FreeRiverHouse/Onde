@@ -1,8 +1,9 @@
 # 📚 PROCEDURA COMPLETA DI TRADUZIONE
 
 **Owner:** Agente Editore Capo (@ondinho)
-**Versione:** 1.0
-**Data:** 2026-01-28
+**Versione:** 2.0 — IRROBUSTITA
+**Data:** 2026-01-30
+**Ultimo aggiornamento:** Post-mortem Capussela
 
 ---
 
@@ -13,24 +14,94 @@
 ║  1. MAI USARE TOKEN CLAUDE PER TRADUZIONI O REVISIONI          ║
 ║  2. OGNI MESSAGGIO MATTIA VA SU GIT (REGOLA ZERO)              ║
 ║  3. SAMPLE APPROVAZIONE OBBLIGATORIO PRIMA DI PRODUZIONE       ║
+║  4. ⭐ VALIDARE COMPLETEZZA PRIMA DI DICHIARARE "FATTO"        ║
+║  5. ⭐ MAI LIMITI HARDCODED (MAX_PARAGRAPHS, etc.)             ║
 ╚════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## 🔄 PIPELINE COMPLETA
+## 🛡️ MECCANISMI ANTI-CRASH (NUOVO v2.0)
+
+### A) Monitoraggio CPU Obbligatorio
+```bash
+# Prima di ogni step pesante
+CPU_THRESHOLD=80
+current_cpu=$(top -l 1 | grep "CPU usage" | awk '{print $3}' | tr -d '%')
+if (( $(echo "$current_cpu > $CPU_THRESHOLD" | bc -l) )); then
+    echo "⚠️ CPU al $current_cpu% - ATTENDI prima di continuare!"
+    sleep 60
+fi
+```
+
+### B) Split per Capitoli (MAI tutto insieme!)
+```
+⛔ SBAGLIATO: Processare 1600 paragrafi in un colpo
+✅ GIUSTO:    Processare 1 capitolo alla volta con pause
+```
+
+**Sequenza obbligatoria:**
+1. Splitta libro in capitoli separati
+2. Processa Cap 1 → Checkpoint → Pausa 5min
+3. Verifica CPU < 70%
+4. Processa Cap 2 → Checkpoint → Pausa 5min
+5. Ripeti...
+
+### C) Checkpoint dopo ogni capitolo
+```bash
+# Dopo ogni capitolo completato
+cp traduzione_in_corso.txt checkpoints/cap_N_$(date +%s).txt
+echo "Cap N completato: $(date)" >> checkpoints/progress.log
+```
+
+### D) Recovery da crash
+```bash
+# Se crash, riparti dall'ultimo checkpoint
+LAST_CHECKPOINT=$(ls -t checkpoints/*.txt | head -1)
+echo "Riparto da: $LAST_CHECKPOINT"
+```
+
+### E) Timeout per singole chiamate LLM
+```python
+# MAI chiamate senza timeout!
+TIMEOUT_SECONDS = 120  # Max 2 minuti per paragrafo
+# Se timeout → log + skip + continua
+```
+
+### F) Validazione dimensioni OBBLIGATORIA
+```bash
+# PRIMA di dichiarare "completato":
+ORIG_SIZE=$(wc -c < originale.txt)
+TRAD_SIZE=$(wc -c < traduzione.txt)
+RATIO=$(echo "scale=2; $TRAD_SIZE / $ORIG_SIZE * 100" | bc)
+
+if (( $(echo "$RATIO < 80" | bc -l) )); then
+    echo "🚨 ERRORE: Traduzione incompleta! Solo ${RATIO}%"
+    exit 1
+fi
+```
+
+---
+
+## 🔄 PIPELINE COMPLETA v2.0
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   STEP 1     │ →   │   STEP 2     │ →   │   STEP 3     │
-│  TRADUZIONE  │     │  REVISIONE   │     │   SAMPLE     │
-│  (NLLB-200)  │     │  (2 cicli)   │     │  (3 pagine)  │
+│   STEP 0     │ →   │   STEP 1     │ →   │   STEP 2     │
+│  VALIDAZIONE │     │  TRADUZIONE  │     │  REVISIONE   │
+│  INPUT       │     │  (per cap)   │     │  (per cap)   │
 └──────────────┘     └──────────────┘     └──────────────┘
-                                                 ↓
+       ↓                                         ↓
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   STEP 6     │ ←   │   STEP 5     │ ←   │   STEP 4     │
-│  PUBBLICAZ.  │     │  PRODUZIONE  │     │ APPROVAZIONE │
-│   (KDP)      │     │   FINALE     │     │  (Mattia)    │
+│   STEP 3     │ →   │   STEP 4     │ →   │   STEP 5     │
+│  VALIDAZIONE │     │   SAMPLE     │     │ APPROVAZIONE │
+│  OUTPUT      │     │  (3 pagine)  │     │  (Mattia)    │
+└──────────────┘     └──────────────┘     └──────────────┘
+       ↓                                         ↓
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   STEP 6     │ →   │   STEP 7     │ →   │   STEP 8     │
+│  PRODUZIONE  │     │  QA FINALE   │     │ PUBBLICAZ.   │
+│  FINALE      │     │  COMPLETO    │     │  (KDP)       │
 └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
@@ -38,190 +109,266 @@
 
 ## 📋 STEP DETTAGLIATI
 
-### STEP 1: TRADUZIONE
-- **Tool:** NLLB-200 (locale su M4)
-- **Script:** `~/clawd/translator.py`
-- **Output:** `traduzioni/TITOLO-IT_nllb200-m4.md`
-- **⛔ MAI Claude**
+### STEP 0: VALIDAZIONE INPUT ⭐ NUOVO
+Prima di iniziare QUALSIASI traduzione:
 
-### STEP 2: REVISIONE (5+ CICLI)
-- **Tool:** Ollama llama3:70b (locale)
-- **Script:** `scripts/translation-pipeline.py`
-- **⛔ MAI Claude per loop pesanti**
-
-#### Cicli Obbligatori:
-| Ciclo | Agente | Focus |
-|-------|--------|-------|
-| 1 | RILETTTORE | Errori grossolani, senso |
-| 2 | REVISORE | Fedeltà all'originale |
-| 3 | GRAMMATICO | Grammatica italiana perfetta |
-| 4 | ANTI-SLOP | Naturalezza, no "AI-speak" |
-| 5 | FORMATTATORE | Encoding UTF-8, punteggiatura |
-
-#### Checklist Anti-Slop:
-- [ ] Niente "inoltre", "pertanto" eccessivi
-- [ ] Frasi naturali, come parlerebbe un italiano
-- [ ] No traduzioni letterali goffe
-- [ ] Apostrofi corretti (non â€™)
-- [ ] Accenti corretti (à è ì ò ù)
-
-**Output:** `traduzioni/revision-report-TITOLO.json`
-
-### STEP 3: SAMPLE PER APPROVAZIONE ⭐
-- **Formato:** PDF 3 pagine
-- **Contenuto:**
-  - Pag 1: 10 righe originale + 10 righe tradotte (Cap 1)
-  - Pag 2: 10 righe originale + 10 righe tradotte (Cap 2)
-  - Pag 3: 10 righe originale + 10 righe tradotte (Cap 3)
-- **Output:** `traduzioni/samples/TITOLO-sample-approvazione.pdf`
-- **Invio:** Telegram a Mattia
-
-#### ⚠️ QA OBBLIGATORIO PRIMA DI INVIARE:
-```
-1. APRI il file e LEGGILO tu stesso
-2. Controlla encoding (no â€™, no Ã)
-3. Controlla naturalezza italiano
-4. Controlla formattazione
-5. SOLO SE TUTTO OK → invia a Mattia
-```
-**MAI inviare senza aver controllato!**
-
-### STEP 4: APPROVAZIONE MATTIA
-- **Decisore:** Mattia (SOLO LUI)
-- **Opzioni:**
-  - ✅ APPROVATO → Vai a Step 5
-  - ❌ RIFIUTATO → Torna a Step 1 o 2
-  - 🔄 MODIFICHE → Correggi e rifai Sample
-- **Note:** Mattia può "licenziare" modelli che lavorano male
-
-### STEP 5: PRODUZIONE FINALE
-- **Solo dopo approvazione**
-- **Output:** 
-  - `traduzioni/TITOLO-IT_finale.md`
-  - `traduzioni/TITOLO-IT_finale.pdf`
-  - `traduzioni/TITOLO-IT_finale.epub`
-
-### STEP 5B: QA COMPLETO (QUALITY ASSURANCE) ⭐ NUOVO
-
-**Checklist obbligatoria prima di pubblicazione:**
-
-#### A) COMPLETEZZA
 ```bash
-# Verifica dimensioni
-wc -l ORIGINALE.txt TRADUZIONE.txt
-wc -c ORIGINALE.txt TRADUZIONE.txt
-# Traduzione deve essere almeno 80% dell'originale in bytes
-```
-- [ ] Conteggio righe comparabile (±20%)
-- [ ] Conteggio bytes comparabile (±20%)
-- [ ] TUTTI i capitoli presenti
-- [ ] Introduzione + Conclusione presenti
-- [ ] Note/References gestite (tradotte o escluse consapevolmente)
+# 1. Verifica file esiste e non è vuoto
+if [ ! -s "$INPUT_FILE" ]; then
+    echo "🚨 ERRORE: File input vuoto o inesistente!"
+    exit 1
+fi
 
-#### B) STRUTTURA
-- [ ] Titoli corrispondono all'originale
-- [ ] Sottotitolo preservato
-- [ ] Numerazione capitoli corretta
-- [ ] Nessuna sezione tagliata a metà
+# 2. Conta struttura
+echo "=== ANALISI INPUT ==="
+echo "File: $INPUT_FILE"
+echo "Size: $(wc -c < $INPUT_FILE) bytes"
+echo "Righe: $(wc -l < $INPUT_FILE)"
+echo "Capitoli: $(grep -c "^Chapter\|^Capitolo" $INPUT_FILE)"
+echo "Paragrafi: $(grep -c "^$" $INPUT_FILE)"
 
-#### C) FORMATTAZIONE
-| Check | Comando |
-|-------|---------|
-| Encoding | `file TRADUZIONE.txt` → UTF-8 |
-| Apostrofi | `grep "â€™" TRADUZIONE.txt` → 0 risultati |
-| Accenti | `grep "Ã" TRADUZIONE.txt` → 0 risultati |
-| Virgolette | Usare «» italiane |
-| Markdown | Titoli ##, corsivi *, blockquote > |
-
-#### D) QUALITÀ TRADUZIONE (3 campioni casuali)
-Per ogni campione:
-1. Estrarre 5-10 righe dall'originale
-2. Trovare corrispondente nella traduzione
-3. Verificare:
-   - [ ] Fedeltà semantica (significato preservato)
-   - [ ] Naturalezza italiano (suona nativo)
-   - [ ] Citazioni corrette
-   - [ ] Nomi propri preservati
-
-#### E) REPORT QA
-- **Output:** `traduzioni/QA-REPORT-TITOLO.md`
-- **Contenuto:**
-  - Metriche completezza
-  - Risultati check formattazione
-  - Campioni confrontati
-  - Lista problemi trovati
-  - Verdetto PASS/FAIL
-- **Invio:** Telegram a Mattia con verdetto
-
-**⛔ NON PUBBLICARE SE VERDETTO = FAIL**
-
-### STEP 6: PUBBLICAZIONE
-- **Piattaforma:** Amazon KDP
-- **Prerequisiti:** Tutti gli step precedenti completati
-
----
-
-## 📄 TEMPLATE SAMPLE (Step 3)
-
-```markdown
-# SAMPLE APPROVAZIONE TRADUZIONE
-
-**Titolo:** [TITOLO LIBRO]
-**Data:** [DATA]
-**Traduttore:** NLLB-200
-**Revisore:** llama3:70b (2 cicli)
-
----
-
-## CAPITOLO 1
-
-### Originale (EN)
-[10 righe dal capitolo 1 inglese]
-
-### Traduzione Revisionata (IT)
-[10 righe corrispondenti in italiano]
-
----
-
-## CAPITOLO 2
-[stesso formato]
-
----
-
-## CAPITOLO 3
-[stesso formato]
+# 3. Crea manifesto capitoli
+grep -n "^Chapter\|^Capitolo" $INPUT_FILE > capitoli_manifest.txt
 ```
 
----
+**Output:** `capitoli_manifest.txt` con lista capitoli e righe
 
-## 📁 STRUTTURA FILE
+### STEP 1: TRADUZIONE (PER CAPITOLO)
+- **Tool:** llama3:70b via Ollama (locale su M4)
+- **⛔ MAI** tutto il libro insieme
+- **⛔ MAI** più di 1 capitolo alla volta
 
+#### Sequenza per ogni capitolo:
+```bash
+for cap in $(seq 1 $NUM_CAPITOLI); do
+    # 1. Check CPU
+    wait_for_cpu_below 70
+    
+    # 2. Estrai capitolo
+    extract_chapter $cap > cap_${cap}_EN.txt
+    
+    # 3. Traduci
+    translate_chapter cap_${cap}_EN.txt > cap_${cap}_IT.txt
+    
+    # 4. Checkpoint
+    cp cap_${cap}_IT.txt checkpoints/
+    
+    # 5. Pausa cooldown
+    echo "Capitolo $cap completato. Pausa 5 minuti..."
+    sleep 300
+done
 ```
-traduzioni/
-├── PROCEDURA-COMPLETA-TRADUZIONE.md  ← QUESTO FILE
-├── PROCEDURE-TRADUZIONE.md           ← Dettagli tecnici
-├── samples/
-│   └── TITOLO-sample-approvazione.pdf
-├── TITOLO-EN_originale.txt
-├── TITOLO-IT_nllb200-m4.md
-├── TITOLO-IT_revisionato.md
-├── TITOLO-IT_finale.md
-└── revision-report-TITOLO.json
+
+### STEP 2: REVISIONE (5 CICLI, PER CAPITOLO)
+- **Tool:** Ollama llama3:70b (locale)
+- **⛔ MAI** tutti i capitoli insieme
+- **⛔ MAI** timeout senza recovery
+
+#### Cicli per ogni capitolo:
+| Ciclo | Agente | Focus | Timeout |
+|-------|--------|-------|---------|
+| 1 | RILETTTORE | Errori grossolani | 120s |
+| 2 | REVISORE | Fedeltà originale | 120s |
+| 3 | GRAMMATICO | Grammatica italiana | 120s |
+| 4 | ANTI-SLOP | Naturalezza | 120s |
+| 5 | FORMATTATORE | Encoding, punteggiatura | 60s |
+
+**Dopo ogni ciclo:** Checkpoint + Log
+
+### STEP 3: VALIDAZIONE OUTPUT ⭐ NUOVO
+**OBBLIGATORIO prima di procedere!**
+
+```bash
+# Script: validate_translation.sh
+#!/bin/bash
+ORIG=$1
+TRAD=$2
+
+ORIG_BYTES=$(wc -c < "$ORIG")
+TRAD_BYTES=$(wc -c < "$TRAD")
+RATIO=$(echo "scale=2; $TRAD_BYTES / $ORIG_BYTES * 100" | bc)
+
+ORIG_LINES=$(wc -l < "$ORIG")
+TRAD_LINES=$(wc -l < "$TRAD")
+
+ORIG_CAPS=$(grep -c "^Chapter\|^Capitolo" "$ORIG")
+TRAD_CAPS=$(grep -c "^Chapter\|^Capitolo" "$TRAD")
+
+echo "=== VALIDAZIONE OUTPUT ==="
+echo "Bytes:    $TRAD_BYTES / $ORIG_BYTES (${RATIO}%)"
+echo "Righe:    $TRAD_LINES / $ORIG_LINES"
+echo "Capitoli: $TRAD_CAPS / $ORIG_CAPS"
+
+# FAIL CONDITIONS
+FAIL=0
+if (( $(echo "$RATIO < 80" | bc -l) )); then
+    echo "🚨 FAIL: Traduzione < 80% dell'originale!"
+    FAIL=1
+fi
+
+if [ "$TRAD_CAPS" -lt "$ORIG_CAPS" ]; then
+    echo "🚨 FAIL: Capitoli mancanti!"
+    FAIL=1
+fi
+
+# Check sezioni tagliate
+if tail -1 "$TRAD" | grep -q "^[a-z]"; then
+    echo "🚨 FAIL: File termina a metà frase!"
+    FAIL=1
+fi
+
+if [ $FAIL -eq 1 ]; then
+    echo "❌ VALIDAZIONE FALLITA - NON PROCEDERE"
+    exit 1
+else
+    echo "✅ VALIDAZIONE OK"
+fi
+```
+
+### STEP 4: SAMPLE PER APPROVAZIONE
+*(come prima)*
+
+### STEP 5: APPROVAZIONE MATTIA
+*(come prima)*
+
+### STEP 6: PRODUZIONE FINALE
+*(come prima)*
+
+### STEP 7: QA FINALE COMPLETO ⭐ RAFFORZATO
+
+**Checklist OBBLIGATORIA:**
+
+#### A) COMPLETEZZA (automatica)
+```bash
+./validate_translation.sh originale.txt traduzione.txt
+# DEVE passare al 100%
+```
+
+#### B) ENCODING
+```bash
+# Zero risultati = OK
+grep -c "â€™\|Ã\|â€\|Ã¨\|Ã " traduzione.txt
+# Deve essere 0
+```
+
+#### C) STRUTTURA MANUALE
+- [ ] Aprire il file e scrollare fino in fondo
+- [ ] Verificare che l'ultima frase sia completa
+- [ ] Verificare che tutti i capitoli siano presenti
+- [ ] Verificare che Conclusione esista
+
+#### D) SPOT CHECK (3 campioni)
+- [ ] Campione da Cap 1 → OK?
+- [ ] Campione da Cap metà → OK?
+- [ ] Campione da ultimo Cap → OK?
+
+### STEP 8: PUBBLICAZIONE
+*(come prima)*
+
+---
+
+## 🚫 ERRORI DA EVITARE (Lezioni Apprese)
+
+### Errore 1: Limite hardcoded dimenticato
+```python
+# ⛔ MAI FARE:
+MAX_PARAGRAPHS = 100  # "per test"
+paragraphs = paragraphs[:MAX_PARAGRAPHS]
+
+# ✅ INVECE:
+# Se serve limitare per test, usare flag esplicito
+if TEST_MODE:
+    paragraphs = paragraphs[:100]
+    print("⚠️ TEST MODE: solo 100 paragrafi!")
+```
+
+### Errore 2: Non validare output
+```bash
+# ⛔ MAI FARE:
+echo "Pipeline completata! 100/100 ✅"
+
+# ✅ INVECE:
+./validate_translation.sh orig.txt trad.txt
+if [ $? -eq 0 ]; then
+    echo "Pipeline completata E VALIDATA ✅"
+fi
+```
+
+### Errore 3: Processare tutto insieme
+```bash
+# ⛔ MAI FARE:
+translate_book entire_book.txt
+
+# ✅ INVECE:
+for chapter in chapters/*.txt; do
+    translate_chapter "$chapter"
+    sleep 300  # Cooldown
+done
+```
+
+### Errore 4: Ignorare timeout
+```python
+# ⛔ MAI FARE:
+result = ollama_generate(prompt)  # Può bloccarsi per sempre
+
+# ✅ INVECE:
+result = ollama_generate(prompt, timeout=120)
+if "[TIMEOUT]" in result:
+    log_error(f"Timeout su paragrafo {i}")
+    continue  # Skip e continua
 ```
 
 ---
 
-## ✅ CHECKLIST TRADUZIONE
+## 📊 METRICHE DA TRACCIARE
 
-- [ ] Step 1: Traduzione NLLB-200 completata
-- [ ] Step 2: Revisione 2 cicli completata
-- [ ] Step 3: Sample 3 pagine creato
-- [ ] Step 3b: Sample inviato a Mattia su TG
-- [ ] Step 4: Approvazione ricevuta
-- [ ] Step 5: Produzione finale completata
-- [ ] Step 6: Pubblicato su KDP
+Per ogni traduzione, salvare in `metrics.json`:
+```json
+{
+  "input_file": "capussela-spirito-EN.txt",
+  "input_bytes": 301051,
+  "input_lines": 1622,
+  "input_chapters": 6,
+  "output_file": "capussela-spirito-IT.txt",
+  "output_bytes": 285000,
+  "output_lines": 1580,
+  "output_chapters": 6,
+  "completion_ratio": 0.95,
+  "model": "llama3:70b",
+  "total_time_hours": 12.5,
+  "cpu_max_percent": 78,
+  "timeouts": 3,
+  "checkpoints": 6,
+  "validated": true
+}
+```
 
 ---
 
-*Documento creato da @ondinho | 2026-01-28*
-*QUESTO FILE È LA FONTE DI VERITÀ PER LA PROCEDURA*
+## ✅ CHECKLIST TRADUZIONE v2.0
+
+- [ ] Step 0: Input validato (bytes, righe, capitoli contati)
+- [ ] Step 1: Traduzione per capitolo con checkpoint
+- [ ] Step 2: Revisione per capitolo con timeout
+- [ ] Step 3: Output validato (ratio ≥80%, tutti capitoli presenti)
+- [ ] Step 4: Sample 3 pagine creato
+- [ ] Step 5: Approvazione Mattia ricevuta
+- [ ] Step 6: Produzione finale
+- [ ] Step 7: QA finale superato
+- [ ] Step 8: Pubblicato su KDP
+
+---
+
+## 🔧 SCRIPT HELPER
+
+Gli script helper sono in: `scripts/translation/`
+- `validate_translation.sh` - Validazione output
+- `split_chapters.py` - Splitta libro in capitoli
+- `monitor_cpu.sh` - Monitoraggio CPU
+- `translate_chapter.sh` - Traduzione singolo capitolo
+- `merge_chapters.py` - Ricompone libro finale
+
+---
+
+*Documento v2.0 - Irrobustito dopo post-mortem Capussela*
+*@ondinho | 2026-01-30*
