@@ -39,6 +39,50 @@
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Convertire versione web in app iPad nativa
+
+---
+
+## 🤖 LOCAL LLM SUB-AGENTS (DA MATTIA 2026-01-30)
+
+### [T866] Setup Sub-Agent System with Local LLMs
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Depends**: -
+- **Blocks**: [T867], [T868]
+- **Priority**: P0
+- **Notes**: Sistema per delegare sub-task a modelli locali (Qwen, DeepSeek, etc.)
+  - **Obiettivo**: Risparmiare token Claude, restare attivo più a lungo
+  - **Modelli disponibili**: qwen2.5-coder:7b, llama31-8b, llama3.2:3b
+  - **Hardware**: M1 + Radeon 7900 XT (16GB VRAM)
+  - **Steps:**
+    - [x] Testare Ollama con qwen2.5-coder ✅
+    - [ ] Configurare Ollama per usare Radeon
+    - [ ] Creare script wrapper per sub-task
+    - [ ] Integrare con spawn_session o exec
+    - [ ] Definire quali task delegare vs coordinare
+
+### [T867] Pull DeepSeek/Kimi Models
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T866]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Scaricare e testare altri modelli open source
+  - DeepSeek-Coder-V2
+  - Kimi (se disponibile su Ollama)
+  - Altri modelli coding-focused
+
+### [T868] Create Local Agent Coordinator Script
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T866]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Script che:
+  - Riceve task da Clawdinho
+  - Assegna a modello locale appropriato
+  - Ritorna risultato
+  - Logging performance/qualità
   - **Options:**
     - PWA (web app installabile)
     - React Native / Expo
