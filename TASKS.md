@@ -56,10 +56,16 @@
   - **Hardware**: M1 + Radeon 7900 XT (16GB VRAM)
   - **Steps:**
     - [x] Testare Ollama con qwen2.5-coder ✅
-    - [ ] Configurare Ollama per usare Radeon
-    - [ ] Creare script wrapper per sub-task
+    - [x] ~~Configurare Ollama per usare Radeon~~ N/A (Ollama uses Metal only, per TOOLS.md)
+    - [x] Creare script wrapper per sub-task ✅ `scripts/local-agent-coordinator.py`
     - [ ] Integrare con spawn_session o exec
     - [ ] Definire quali task delegare vs coordinare
+  - **Progress 2026-01-30:**
+    - ✅ Created `scripts/local-agent-coordinator.py` - unified interface for local LLMs
+    - ✅ Routes to Ollama (M1) for quick tasks, TinyGrad (Radeon) for heavy
+    - ✅ Task routing: coding→qwen2.5-coder, translation→tinygrad, analysis→llama31
+    - ✅ Tested: 13.2s latency, 3.6 tok/s for coding task
+    - ⏳ Next: integrate with exec for automated sub-task delegation
 
 ### [T867] Pull DeepSeek/Kimi Models
 - **Status**: TODO
@@ -73,16 +79,24 @@
   - Altri modelli coding-focused
 
 ### [T868] Create Local Agent Coordinator Script
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T866]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Script che:
-  - Riceve task da Clawdinho
-  - Assegna a modello locale appropriato
-  - Ritorna risultato
-  - Logging performance/qualità
+- **Notes**: ✅ Created `scripts/local-agent-coordinator.py`!
+  - ✅ Riceve task da Clawdinho via CLI
+  - ✅ Assegna a modello locale appropriato (Ollama or TinyGrad)
+  - ✅ Ritorna risultato in JSON or plain text
+  - ✅ Logging performance (latency, tokens/sec)
+  - **Features:**
+    - `--task coding|quick|translation|analysis|creative|heavy`
+    - `--backend ollama|tinygrad` for explicit routing
+    - `--model` to specify Ollama model
+    - `--list-backends` shows available models
+    - `--json` for structured output
+  - **Tested:** qwen2.5-coder:7b coding task = 13.2s, 48 tokens, 3.6 tok/s
   - **Options:**
     - PWA (web app installabile)
     - React Native / Expo
