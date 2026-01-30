@@ -1409,19 +1409,27 @@
   - Output: Markdown doc with pros/cons/pricing matrix
 
 ### [T733] Autotrader: Weekly performance summary report
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T731]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Weekly summary sent to Telegram (every Sunday):
-  - Total trades (open/closed/settled)
-  - Weekly win rate vs previous week
-  - Weekly PnL vs previous week
-  - Best/worst performing markets
-  - Market breakdown (crypto vs weather)
-  - Key lessons/patterns observed
-  - Cron: Sunday 20:00 UTC
+- **Notes**: ✅ Implemented weekly performance summary!
+  - **Script**: `scripts/autotrader-weekly-report.py`
+  - **Cron**: `0 20 * * 0` (Sunday 20:00 UTC / 12:00 PST)
+  - **Features:**
+    - Total trades (open/closed/settled)
+    - Weekly win rate vs previous week with trend indicators
+    - Weekly PnL vs previous week
+    - Best/worst performing markets (min 2 trades to qualify)
+    - Asset class breakdown (crypto/weather/event/other)
+    - Auto-generated insights (concentration warnings, win rate alerts)
+    - Portfolio value
+    - Week-over-week comparison
+  - **Usage**: `python3 autotrader-weekly-report.py [--dry-run] [--verbose] [--force]`
+  - Supports both v1 and v2 trade log formats
+  - Filters to actual trades only (ignores skips)
 
 ### [T734] Autotrader: Auto-restart with exponential backoff
 - **Status**: DONE
