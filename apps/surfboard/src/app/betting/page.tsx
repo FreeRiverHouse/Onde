@@ -52,6 +52,7 @@ import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
 import { ComparisonIndicator } from '@/components/ComparisonIndicator';
 import { DailyVolumeWidget } from '@/components/DailyVolumeWidget';
+import { StatsComparisonTooltip, useComparisonTooltip, ComparisonTooltipToggle } from '@/components/StatsComparisonTooltip';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -724,6 +725,9 @@ export default function BettingDashboard() {
   const fetchDataRef = useRef<(() => Promise<void>) | null>(null);
   const { toggleTheme, theme, resolvedTheme } = useTheme();
   
+  // Comparison tooltip state (T744)
+  const { enabled: compareEnabled, toggle: toggleCompare, isLoaded: compareLoaded } = useComparisonTooltip();
+  
   // Touch gestures for mobile (pull-to-refresh, swipe gestures)
   const { handlers: touchHandlers, state: touchState } = useTouchGestures({
     onRefresh: async () => {
@@ -1198,6 +1202,14 @@ export default function BettingDashboard() {
             >
               <HelpCircle className="w-4 h-4 text-gray-400" />
             </button>
+            {/* Comparison tooltip toggle (T744) */}
+            {compareLoaded && (
+              <ComparisonTooltipToggle 
+                enabled={compareEnabled} 
+                onToggle={toggleCompare}
+                className="hidden sm:flex"
+              />
+            )}
             {/* Auto-refresh toggle (T740) */}
             <button
               onClick={toggleAutoRefresh}
@@ -1613,92 +1625,136 @@ export default function BettingDashboard() {
             
             <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
               {/* Win Rate */}
-              <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-3 sm:p-4">
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                    <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
+              <StatsComparisonTooltip
+                enabled={compareEnabled}
+                type="rate"
+                data={tradingStats.prevWeek ? {
+                  current: tradingStats.winRate,
+                  previous: tradingStats.prevWeek.winRate,
+                  previousPeriod: 'last week'
+                } : undefined}
+                position="bottom"
+              >
+                <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-3 sm:p-4">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                      <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
+                    </div>
+                    {/* 7-day trend sparkline */}
+                    <WinRateSparkline 
+                      data={parseWinRateTrendFromStats(winRateTrend) || generateMockSparklineData(7)}
+                      width={50}
+                      height={20}
+                      showTrendIcon={false}
+                    />
                   </div>
-                  {/* 7-day trend sparkline */}
-                  <WinRateSparkline 
-                    data={parseWinRateTrendFromStats(winRateTrend) || generateMockSparklineData(7)}
-                    width={50}
-                    height={20}
-                    showTrendIcon={false}
+                  <AnimatedNumber 
+                    value={tradingStats.winRate} 
+                    suffix="%"
+                    decimals={1}
+                    glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'}
+                    className="text-xl sm:text-2xl"
                   />
-                </div>
-                <AnimatedNumber 
-                  value={tradingStats.winRate} 
-                  suffix="%"
-                  decimals={1}
-                  glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'}
-                  className="text-xl sm:text-2xl"
-                />
-                <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
-                  {tradingStats.wonTrades}W / {tradingStats.lostTrades}L
-                </p>
-              </GlassCard>
+                  <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
+                    {tradingStats.wonTrades}W / {tradingStats.lostTrades}L
+                  </p>
+                </GlassCard>
+              </StatsComparisonTooltip>
 
               {/* Total PnL */}
-              <GlassCard glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                  <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Total PnL</span>
-                </div>
-                <AnimatedNumber 
-                  value={tradingStats.totalPnlCents / 100} 
-                  prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
-                  decimals={2}
-                  glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
-                  className="text-lg sm:text-xl md:text-2xl"
-                />
-                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.totalTrades} trades</p>
-              </GlassCard>
+              <StatsComparisonTooltip
+                enabled={compareEnabled}
+                type="pnl"
+                data={tradingStats.prevWeek ? {
+                  current: tradingStats.thisWeek?.pnlCents ?? tradingStats.totalPnlCents,
+                  previous: tradingStats.prevWeek.pnlCents,
+                  previousPeriod: 'last week'
+                } : undefined}
+                position="bottom"
+              >
+                <GlassCard glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                    <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                    <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Total PnL</span>
+                  </div>
+                  <AnimatedNumber 
+                    value={tradingStats.totalPnlCents / 100} 
+                    prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
+                    decimals={2}
+                    glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
+                    className="text-lg sm:text-xl md:text-2xl"
+                  />
+                  <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.totalTrades} trades</p>
+                </GlassCard>
+              </StatsComparisonTooltip>
 
               {/* Today PnL */}
-              <GlassCard glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                  <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today</span>
-                  {(tradingStats.yesterdayPnlCents ?? 0) !== 0 && (
-                    <ComparisonIndicator 
-                      current={tradingStats.todayPnlCents} 
-                      previous={tradingStats.yesterdayPnlCents ?? 0}
-                      type="pnl"
-                    />
-                  )}
-                </div>
-                <AnimatedNumber 
-                  value={Math.abs(tradingStats.todayPnlCents / 100)} 
-                  prefix={tradingStats.todayPnlCents >= 0 ? '+$' : '-$'}
-                  decimals={2}
-                  glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
-                  className="text-lg sm:text-xl md:text-2xl"
-                />
-                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.todayTrades} trades</p>
-              </GlassCard>
+              <StatsComparisonTooltip
+                enabled={compareEnabled}
+                type="pnl"
+                data={tradingStats.yesterdayPnlCents !== undefined ? {
+                  current: tradingStats.todayPnlCents,
+                  previous: tradingStats.yesterdayPnlCents,
+                  previousPeriod: 'yesterday'
+                } : undefined}
+                position="bottom"
+              >
+                <GlassCard glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                    <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                    <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today</span>
+                    {(tradingStats.yesterdayPnlCents ?? 0) !== 0 && (
+                      <ComparisonIndicator 
+                        current={tradingStats.todayPnlCents} 
+                        previous={tradingStats.yesterdayPnlCents ?? 0}
+                        type="pnl"
+                      />
+                    )}
+                  </div>
+                  <AnimatedNumber 
+                    value={Math.abs(tradingStats.todayPnlCents / 100)} 
+                    prefix={tradingStats.todayPnlCents >= 0 ? '+$' : '-$'}
+                    decimals={2}
+                    glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
+                    className="text-lg sm:text-xl md:text-2xl"
+                  />
+                  <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.todayTrades} trades</p>
+                </GlassCard>
+              </StatsComparisonTooltip>
 
               {/* Today Win Rate */}
-              <GlassCard glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'} className="p-3 sm:p-4">
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                  <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today WR</span>
-                  {(tradingStats.yesterdayWinRate ?? 0) !== 0 && (
-                    <ComparisonIndicator 
-                      current={tradingStats.todayWinRate} 
-                      previous={tradingStats.yesterdayWinRate ?? 0}
-                      type="rate"
-                    />
-                  )}
-                </div>
-                <AnimatedNumber 
-                  value={tradingStats.todayWinRate || 0} 
-                  suffix="%"
-                  decimals={1}
-                  glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
-                  className="text-lg sm:text-xl md:text-2xl"
-                />
-              </GlassCard>
+              <StatsComparisonTooltip
+                enabled={compareEnabled}
+                type="rate"
+                data={tradingStats.yesterdayWinRate !== undefined ? {
+                  current: tradingStats.todayWinRate,
+                  previous: tradingStats.yesterdayWinRate,
+                  previousPeriod: 'yesterday'
+                } : undefined}
+                position="bottom"
+              >
+                <GlassCard glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'} className="p-3 sm:p-4">
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                    <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                    <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today WR</span>
+                    {(tradingStats.yesterdayWinRate ?? 0) !== 0 && (
+                      <ComparisonIndicator 
+                        current={tradingStats.todayWinRate} 
+                        previous={tradingStats.yesterdayWinRate ?? 0}
+                        type="rate"
+                      />
+                    )}
+                  </div>
+                  <AnimatedNumber 
+                    value={tradingStats.todayWinRate || 0} 
+                    suffix="%"
+                    decimals={1}
+                    glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
+                    className="text-lg sm:text-xl md:text-2xl"
+                  />
+                </GlassCard>
+              </StatsComparisonTooltip>
 
               {/* Avg Return Per Trade */}
               <GlassCard glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'} className="p-3 sm:p-4">

@@ -1608,20 +1608,61 @@
   - ⏳ Needs deploy to onde.surf (see T745)
 
 ### [T744] Dashboard: Add quick stats comparison tooltip
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Hover tooltip comparing current vs previous period stats:
-  - Win rate: current vs 7d ago
-  - PnL: today vs yesterday
-  - Use ComparisonIndicator pattern
-  - Small popup on hover over stat cards
-  - Toggle switch to enable/disable (default off)
-  - Only sound on transition TO critical/down
-  - Respect muted state and user preference
-  - localStorage persistence
+- **Notes**: ✅ Implemented hover tooltips for stat comparisons!
+  - **Component**: `apps/surfboard/src/components/StatsComparisonTooltip.tsx`
+  - **Features:**
+    - ✅ Hover tooltip showing current vs previous values
+    - ✅ Win Rate: current vs last week
+    - ✅ Total PnL: this week vs last week
+    - ✅ Today PnL: today vs yesterday
+    - ✅ Today Win Rate: today vs yesterday
+    - ✅ Toggle button "Compare" in header (desktop only)
+    - ✅ localStorage persistence for preference
+    - ✅ Default off to not overwhelm new users
+    - ✅ Color-coded change indicators (green/red/neutral)
+    - ✅ Percentage and absolute change display
+    - ✅ Smooth hover animations
+  - Build passes, needs deploy to onde.surf
+
+### [T746] Dashboard: Deploy comparison tooltips to onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T744]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy T744 comparison tooltips feature to production:
+  - Build and deploy surfboard to Cloudflare Pages
+  - Verify tooltip works on hover over stat cards
+  - Test toggle button functionality
+  - Test localStorage persistence
+
+### [T747] Dashboard: Add keyboard shortcut 'C' to toggle comparison tooltips
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T744]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add keyboard shortcut for Compare toggle:
+  - Press 'C' to toggle comparison tooltips on/off
+  - Add to keyboard shortcuts modal
+  - Show in Compare button tooltip
+
+### [T748] Dashboard: Add week-over-week trade count comparison
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T744]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Extend comparison tooltips to trade volume:
+  - thisWeek.trades vs prevWeek.trades comparison
+  - Show on Total Trades stat card
+  - Volume trend indicator (more/less active)
 
 ---
 
