@@ -7672,15 +7672,17 @@
 
 
 ### [T765] Dashboard: Deploy 'C' keyboard shortcut to onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T747]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy T747 keyboard shortcut feature to production:
-  - Build surfboard with npm run build:cf
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify keyboard shortcut 'C' toggles comparison tooltips
+- **Notes**: ✅ Deployed T747 keyboard shortcut to production!
+  - ✅ Build via `npm run build:cf`
+  - ✅ Deploy via wrangler: https://1e050495.onde-surf.pages.dev
+  - ✅ Verified: https://onde.surf → 307 (auth redirect as expected)
+  - Press 'C' on /betting to toggle comparison tooltips
 
 ### [T766] Dashboard: Add position PnL sparkline to open positions
 - **Status**: TODO
