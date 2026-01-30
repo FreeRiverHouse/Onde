@@ -8530,17 +8530,25 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T758] Autotrader: Volume anomaly alerts
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when trading volume is unusual:
-  - Track 7-day average volume
-  - Alert if today > 2x average (high activity)
-  - Alert if today < 0.5x average (low activity)
-  - Create kalshi-volume-anomaly.alert for heartbeat
-  - Useful for detecting autotrader issues or market changes
+- **Notes**: ✅ Implemented volume anomaly detection!
+  - **Script**: `scripts/kalshi-volume-anomaly-alert.py`
+  - **Features:**
+    - Tracks 7-day average volume from trade logs
+    - Alert if today > 2x average (high activity)
+    - Alert if today < 0.5x average (low activity)
+    - Shows volume history in alert message
+    - Possible cause hints in alert
+    - Only alerts once per day per anomaly type
+    - State file: `data/trading/volume-anomaly-state.json`
+  - **Alert file**: `scripts/kalshi-volume-anomaly.alert`
+  - **HEARTBEAT.md**: Updated with new alert file
+  - **Cron**: Add `0 12,18 * * * python3 /path/to/kalshi-volume-anomaly-alert.py` for twice-daily checks
 
 ### [T759] Reader App: Track personal reading speed
 - **Status**: TODO
