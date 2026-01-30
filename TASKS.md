@@ -365,8 +365,8 @@
   - All enhanced ambient effects now live!
 
 ### [T488] Moonlight House: Add ambient soundscapes per room
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T461]
 - **Blocks**: -
 - **Priority**: P3
