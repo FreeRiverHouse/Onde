@@ -5070,3 +5070,45 @@
   - JSON messages: {type: "partial"|"final", text: "..."}
   - Enables Quest/VR clients to receive live transcriptions
   - Foundation for vibe coding in VR!
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-30 (00:15 HEARTBEAT)
+
+### [T462] Bind HEALTH_ALERTS_KV in Cloudflare Pages dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T455]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: MANUAL: Enable KV persistence for health alerts
+  - Go to Cloudflare Dashboard → Pages → onde-surf
+  - Settings → Functions → KV namespace bindings
+  - Add binding: Variable name = `HEALTH_ALERTS_KV`, KV namespace = HEALTH_ALERTS_KV
+  - Redeploy to activate
+
+### [T463] Add /health page widget for alert history timeline
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T455]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Display KV health alerts on /health page:
+  - Fetch from /api/health/alerts-history
+  - Show timeline of critical events
+  - Resolution time stats
+  - Service breakdown chart
+  - Filter by date range
+
+### [T464] Weather market performance report (weekly cron)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T422], [T443]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Weekly digest of weather market trading:
+  - Win rate by city (NYC, MIA, DEN, CHI)
+  - NWS forecast accuracy correlation
+  - Best/worst performing market types (KXHIGH vs KXLOW)
+  - Edge realization stats
+  - Cron: Sunday 12:00 UTC → creates kalshi-weather-weekly.alert
