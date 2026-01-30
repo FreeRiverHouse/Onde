@@ -777,6 +777,43 @@
   - ⏳ Future: "Download for offline" button (T804)
   - ⏳ Needs deploy to onde.la/reader (T805)
 
+### [T803] Reader App: Show "Downloaded" badge on cached books
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T802]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show visual indicator for books cached in IndexedDB:
+  - Check IndexedDB for stored EPUB data
+  - Show small ✓ or "Downloaded" badge on book card
+  - Different style for demo books (always available)
+  - Update badge when book is removed from cache
+
+### [T804] Reader App: Add "Download for offline" button
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T803]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Allow users to explicitly cache books for offline:
+  - Add download icon/button to book card
+  - Download and store EPUB in IndexedDB
+  - Show progress during download
+  - Update cached badge on completion
+  - Option to remove from cache
+
+### [T805] Reader App: Deploy offline indicator to onde.la/reader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T802]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App with offline indicator:
+  - Build with STATIC_EXPORT=1
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler
+  - Verify https://onde.la/reader/
+
 ---
 
 ## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
