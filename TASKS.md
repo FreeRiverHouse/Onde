@@ -9946,20 +9946,39 @@
   - Optional: Push to Pushgateway for remote monitoring
 
 ### [T859] Trading: Add momentum regime dashboard widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T853]
-- **Blocks**: -
+- **Blocks**: [T860]
 - **Priority**: P3
-- **Notes**: Display market momentum regime on onde.surf/betting:
-  - Show current regime (TRENDING/RANGING/VOLATILE) with color badge
-  - Direction indicator (bullish/bearish/mixed) with arrow
-  - Aggregate momentum score gauge (0-1)
-  - BTC/ETH individual scores breakdown
-  - ADX trend strength meter
-  - Trading recommendation based on regime
-  - Timestamp of last update
-  - Component: `apps/surfboard/src/components/MomentumRegimeWidget.tsx`
+- **Notes**: ✅ Implemented momentum regime dashboard widget!
+  - **Component**: `apps/surfboard/src/components/MomentumRegimeWidget.tsx`
+  - **Features:**
+    - ✅ Regime badge (TRENDING/RANGING/VOLATILE) with color coding
+    - ✅ Direction indicator (bullish/bearish/mixed) with arrow
+    - ✅ Aggregate momentum score gauge (0-1) with visual bar
+    - ✅ BTC/ETH breakdown cards with prices, ADX, ROC
+    - ✅ ADX trend strength indicator (4-dot meter)
+    - ✅ 24h and 7d rate of change badges
+    - ✅ Trading recommendation box with strategy advice
+    - ✅ Timestamp and data source footer
+    - ✅ Dark mode support
+  - **Interface**: Added `momentumRegime` to TradingStats interface
+  - **Integration**: Added to /betting page after CorrelationHeatmap
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.surf (T860)
+
+### [T860] Deploy onde.surf with momentum regime widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T859]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy surfboard with new MomentumRegimeWidget
+  - Build: npm run build:cf
+  - Deploy: wrangler pages deploy
+  - Verify: https://onde.surf/betting shows new widget
 
 ### [T832] Deploy onde.surf with position expiry heatmap
 - **Status**: DONE

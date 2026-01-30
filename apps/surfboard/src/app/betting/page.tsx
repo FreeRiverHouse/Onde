@@ -51,6 +51,7 @@ import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { HealthHistoryWidget } from '@/components/HealthHistoryWidget';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
+import { MomentumRegimeWidget } from '@/components/MomentumRegimeWidget';
 import { StopLossEffectivenessWidget } from '@/components/StopLossEffectivenessWidget';
 import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
 import { PositionExpiryHeatmap } from '@/components/PositionExpiryHeatmap';
@@ -366,6 +367,40 @@ interface TradingStats {
       eth_7d_change_pct: number;
     };
     data_source: string;
+  } | null;
+  // Momentum regime (T853)
+  momentumRegime?: {
+    timestamp: string;
+    regime: 'TRENDING' | 'RANGING' | 'VOLATILE';
+    aggregate_score: number;
+    direction: 'bullish' | 'bearish' | 'mixed';
+    btc: {
+      price: number;
+      momentum_score: number;
+      direction: string;
+      adx: number;
+      roc_24h: number;
+      roc_7d: number;
+    };
+    eth: {
+      price: number;
+      momentum_score: number;
+      direction: string;
+      adx: number;
+      roc_24h: number;
+      roc_7d: number;
+    };
+    recommendation: {
+      strategy: string;
+      description: string;
+      sizing: string;
+      hold_time: string;
+    };
+    thresholds: {
+      trending: number;
+      ranging: number;
+    };
+    source: string;
   } | null;
   // Hour/day trading heatmap (T411)
   hourDayHeatmap?: {
@@ -2462,6 +2497,14 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Momentum Regime Widget (T853/T859) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <MomentumRegimeWidget 
+                regimeData={tradingStats.momentumRegime || undefined}
                 loading={isLoading}
               />
             </div>
