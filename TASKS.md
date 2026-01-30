@@ -351,16 +351,18 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (17:32 HEARTBEAT)
 
 ### [T487] Deploy Moonlight House enhanced version to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T461]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the enhanced Moonlight House with ambient effects to onde.la
-  - Build static export from apps/moonlight-house
-  - Copy to apps/onde-portal/public/static-games/moonlight-magic-house/
-  - Deploy onde.la via wrangler
-  - Verify effects work on production
+- **Notes**: ✅ Deployed! https://d4aac734.onde-portal.pages.dev
+  - Built static export with base path /static-games/moonlight-magic-house/
+  - Copied all assets (backgrounds, character, sounds)
+  - Deployed to Cloudflare Pages
+  - Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+  - All enhanced ambient effects now live!
 
 ### [T488] Moonlight House: Add ambient soundscapes per room
 - **Status**: TODO
