@@ -140,7 +140,7 @@
   - **Mitigation**: Production apps should use latest Next.js 15+ when ready
 
 ### [T695] Reader App: PWA mobile testing
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T692]
 - **Blocks**: -
@@ -288,7 +288,7 @@
   - ⏳ Add link from main Reader App
 
 ### [T705] Reader App VR: Add environment switcher
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T701]
 - **Blocks**: -
@@ -301,7 +301,7 @@
   - Each environment needs: lighting, ambient sounds hook, atmosphere
 
 ### [T706] Reader App VR: Add hand tracking support
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T701]
 - **Blocks**: -
@@ -360,7 +360,7 @@
     - Wainscoting walls and crown molding
 
 ### [T709] Reader App VR: Add teleport spots for VR movement
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T702]
 - **Blocks**: -
@@ -373,7 +373,7 @@
   - Book panel follows user position
 
 ### [T710] Reader VR: Add reading session statistics
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T701]
 - **Blocks**: -
@@ -387,7 +387,7 @@
   - Optional: Achievements/milestones (first 100 pages, etc.)
 
 ### [T711] Reader VR: Add VR bookmark gestures
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T706], [T701]
 - **Blocks**: -
@@ -426,7 +426,7 @@
   - ⏳ VR spatial audio integration (future, see T713)
 
 ### [T713] Reader VR: Integrate TTS with spatial audio
-- **Status**: IN_PROGRESS (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Status**: DONE (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: @onde-bot-1
 - **Depends**: [T712], [T701]
 - **Blocks**: -
@@ -925,7 +925,7 @@
   - **Verified**: https://onde.la/reader/ returns 200 OK
 
 ### [T809] Reader App: Custom book covers via upload/URL
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T668]
 - **Blocks**: -
@@ -939,7 +939,7 @@
   - Preview before applying
 
 ### [T810] Reader App: Reading sessions history view
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T719]
 - **Blocks**: -
@@ -978,7 +978,7 @@
   - **HEARTBEAT.md**: Updated with new alert file
 
 ### [T812] Reader App: OPDS search improvements
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T808]
 - **Blocks**: -
@@ -991,7 +991,7 @@
   - Handle search errors gracefully
 
 ### [T813] Reader App: OPDS catalog recommendations
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T808]
 - **Blocks**: -
@@ -1004,7 +1004,7 @@
   - Category badges for catalogs (Fiction, Non-fiction, etc.)
 
 ### [T814] Reader App: Book preview before download
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T808]
 - **Blocks**: -
@@ -9799,7 +9799,7 @@
   - Playwright/Puppeteer per browser automation
 
 ### [T849] Traduzione Capussela EN→IT via Ollama
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
@@ -10005,7 +10005,7 @@
   - Verify: https://onde.surf/betting shows new widget
 
 ### [T861] Infra: Create Grafana dashboard template for trading metrics
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T858]
 - **Blocks**: -
@@ -10022,7 +10022,7 @@
   - Export as JSON for easy import
 
 ### [T862] Infra: Add API latency tracking to autotrader metrics
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T858]
 - **Blocks**: -
@@ -10054,7 +10054,7 @@
   - Build passes ✅
 
 ### [T864] Reader App: Auto-clear TTS position when book completed
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T863]
 - **Blocks**: -
@@ -10066,7 +10066,7 @@
   - Add "Clear TTS position" button in settings as manual option
 
 ### [T865] Reader App: Auto-start TTS on book open option
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T863]
 - **Blocks**: -
@@ -10089,3 +10089,15 @@
   - Deploy via wrangler to Cloudflare Pages
   - Verify: https://onde.la/reader/ returns 200 OK
   - Test TTS resume functionality works on deployed version
+
+### [T867] Reader App: Fix PWA requirements
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T695]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Fix PWA issues found in testing:
+  - Add icons (192x192 and 512x512 PNG) to public/
+  - Add `<link rel="manifest">` to layout.tsx
+  - Install and configure next-pwa for service worker
+  - Re-test with Lighthouse
