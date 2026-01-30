@@ -738,21 +738,30 @@
   - ⚠️ Note: Cloud sync shows "Local Only" until Supabase is configured (T801)
 
 ### [T801] Reader App: Setup Supabase project for cloud sync
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T698]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create Supabase project for Reader App cloud sync:
-  - Create new Supabase project (free tier OK)
-  - Create `reader_sync` table with columns:
-    - sync_code (text, primary key)
-    - device_id (text)
-    - data (jsonb)
-    - created_at (timestamp)
-    - updated_at (timestamp)
-  - Enable Row Level Security
-  - Add RLS policies for anonymous access
+- **Notes**: ✅ Created Supabase setup documentation and schema!
+  - ✅ `docs/SUPABASE-SETUP.md` - Full step-by-step setup guide
+    - Project creation instructions
+    - Database schema with indexes
+    - RLS policies for anonymous access
+    - Auto-cleanup cron for old data
+    - Environment variable configuration
+    - Troubleshooting section
+    - Security notes
+    - Cost estimate (free tier supports ~1000 users)
+  - ✅ `docs/supabase-schema.sql` - Runnable SQL script
+    - reader_sync table with sync_code, device_id, data JSONB
+    - Indexes for device and updated_at
+    - Auto-update trigger for updated_at
+    - RLS policies (insert, select, update for anon)
+    - Verification query
+  - ✅ Updated README.md with cloud sync documentation
+  - **Next step**: Mattia to create Supabase project and set env vars
   - Get URL and anon key
   - Add to reader-app .env.local
   - Document setup in README
@@ -815,6 +824,47 @@
   - ✅ Deployed via wrangler
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
   - Offline indicator now live in Library and Reader headers
+
+### [T806] Reader App: Add book search/filter in library
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add search and filter functionality to library view:
+  - Search by title, author
+  - Filter by: Currently Reading, Completed, Unread
+  - Sort by: Recently Read, Title, Author, Progress
+  - Persist last filter/sort preference
+  - Show result count
+
+### [T807] Reader App: Add reading goals and reminders
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T719]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Motivate consistent reading habits:
+  - Set daily reading goal (pages or minutes)
+  - Show progress toward daily goal
+  - Optional notification reminder (PWA notifications)
+  - Weekly summary of goal achievement
+  - Celebrate milestones (7-day streak, 30-day streak)
+
+### [T808] Reader App: Add OPDS catalog browser
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Browse and download books from OPDS catalogs:
+  - Support OPDS 1.x and 2.0 catalogs
+  - Pre-configured catalogs: Project Gutenberg, Standard Ebooks, etc.
+  - Add custom OPDS catalog URL
+  - Search within catalog
+  - One-click download and add to library
+  - Show book metadata (cover, description, author)
+  - Reference: https://opds.io/
 
 ---
 
