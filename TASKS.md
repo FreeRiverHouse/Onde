@@ -1462,18 +1462,25 @@
   - Keyboard shortcut hint visible during countdown
 
 ### [T736] Autotrader: Monthly performance summary report
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T733]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Monthly summary sent to Telegram (first of each month):
-  - Extend weekly report format for monthly data
-  - Month-over-month comparison
-  - Best/worst performing weeks within the month
-  - Total ROI percentage
-  - Cumulative stats since inception
-  - Cron: 0 12 1 * * (1st of month, 12:00 UTC)
+- **Notes**: ✅ Implemented monthly performance summary!
+  - **Script**: `scripts/autotrader-monthly-report.py`
+  - **Cron**: `0 12 1 * *` (1st of month, 12:00 UTC)
+  - **Features:**
+    - Total trades, win rate, PnL for the month
+    - ROI calculation (PnL / invested)
+    - Month-over-month comparison with trend indicators
+    - Best/worst performing weeks within month
+    - Asset class breakdown with per-class ROI
+    - All-time cumulative stats
+    - Auto-generated insights
+  - **Usage**: `python3 autotrader-monthly-report.py [--dry-run] [--verbose] [--force] [--month N] [--year N]`
+  - Supports both v1 and v2 trade log formats
 
 ### [T737] Dashboard: Add win rate trend sparkline to /betting
 - **Status**: TODO
