@@ -1,0 +1,7 @@
+# Playwright test artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Keep snapshot baselines tracked
+!*.png

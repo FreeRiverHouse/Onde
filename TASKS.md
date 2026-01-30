@@ -2630,17 +2630,31 @@
 - **Notes**: VR reading experience
 
 ### [T725] VR Testing Automatico Programmatico
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: [T726]
 - **Priority**: P1
-- **Notes**: Setup testing automatico per progetti VR (da Mattia 2026-01-29)
-  - Goal: Mattia si mette gli occhiali → localhost → tutto funziona
-  - Serve testare VR in modo programmatico (no click manuale)
-  - Ricercare strumenti/framework per VR testing automation
-  - Possibili: Playwright + WebXR, Unity Test Framework, custom
-  - Output: Script che verifica build VR funziona
+- **Notes**: ✅ Implemented Playwright + WebXR Mock testing for VR Reader!
+  - **Research document**: `docs/vr-testing-research.md`
+  - **Implementation**: `apps/reader-vr/tests/`
+  - **Features:**
+    - ✅ WebXR API mock (navigator.xr fully mocked)
+    - ✅ Playwright config with dev server integration
+    - ✅ 9 automated tests:
+      - Page loads without errors
+      - Three.js canvas renders
+      - VR/AR entry buttons present
+      - Book selector opens
+      - Time of day toggle works
+      - Keyboard navigation
+      - Mute toggle
+      - Visual regression baseline
+      - Performance budget (<10s load)
+  - **Run tests**: `cd apps/reader-vr && npm test`
+  - **CI-ready**: Can run in GitHub Actions
+  - ⏳ Next: T726 (CI/CD pipeline with auto-improvement)
 
 ### [T726] CI/CD Pipeline con Feedback Loop Auto-Miglioramento
 - **Status**: TODO
