@@ -232,6 +232,15 @@ class TestSuite:
         self.run_content_test("onde.la Content Check", "https://onde.la/", "Onde")
         self.run_api_health_test("onde.la API Health", "https://onde.la/api/health/cron")
         
+        # === Reader App Tests (T692, T704) ===
+        print("\n📖 Testing READER APPS...")
+        self.run_http_test("onde.la Reader App", "https://onde.la/reader/")
+        self.run_http_test("onde.la Reader VR", "https://onde.la/reader-vr/")
+        
+        # === Games Tests (T487) ===
+        print("\n🎮 Testing GAMES...")
+        self.run_http_test("Moonlight Magic House", "https://onde.la/games/moonlight-magic-house/")
+        
         # === ONDE.SURF Tests ===
         print("\n🏄 Testing ONDE.SURF...")
         self.run_auth_test("onde.surf Auth Check", "https://onde.surf/")
