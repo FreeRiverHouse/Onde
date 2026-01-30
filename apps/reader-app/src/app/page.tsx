@@ -11,12 +11,19 @@ import { getEpubFile, createEpubUrl } from '@/lib/epubStorage';
 // Note: SAMPLE_BOOK_IDS can be used for future logic to distinguish demo books
 // const SAMPLE_BOOK_IDS = ['pride-prejudice', 'moby-dick', 'frankenstein'];
 
-// Known public domain EPUBs from Project Gutenberg
-const GUTENBERG_URLS: Record<string, string> = {
-  'pride-prejudice': 'https://www.gutenberg.org/ebooks/1342.epub.noimages',
-  'moby-dick': 'https://www.gutenberg.org/ebooks/2701.epub.noimages',
-  'frankenstein': 'https://www.gutenberg.org/ebooks/84.epub.noimages',
-};
+// Demo EPUB book IDs - URLs are constructed dynamically based on window.location
+const DEMO_BOOK_IDS = ['pride-prejudice', 'moby-dick', 'frankenstein'];
+
+// Build EPUB URL dynamically to handle basePath correctly
+function getEpubUrl(bookId: string): string {
+  // In browser, construct URL relative to current location
+  if (typeof window !== 'undefined') {
+    const baseUrl = window.location.pathname.replace(/\/$/, '');
+    return `${baseUrl}/books/${bookId}.epub`;
+  }
+  // Fallback for SSR (shouldn't be used for EPUB loading)
+  return `/books/${bookId}.epub`;
+}
 
 export default function Home() {
   const { currentBook } = useReaderStore();
@@ -44,9 +51,9 @@ export default function Home() {
           return;
         }
 
-        // Check if it's a known Gutenberg book
-        if (GUTENBERG_URLS[currentBook.id]) {
-          setEpubUrl(GUTENBERG_URLS[currentBook.id]);
+        // Check if it's a demo book
+        if (DEMO_BOOK_IDS.includes(currentBook.id)) {
+          setEpubUrl(getEpubUrl(currentBook.id));
           return;
         }
 

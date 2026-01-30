@@ -397,16 +397,8 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     sepia: 'bg-sepia-100 text-sepia-900',
   };
 
-  if (loading) {
-    return (
-      <div className={`min-h-screen flex items-center justify-center ${themeClasses[settings.theme]}`}>
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" />
-          <p>Loading book...</p>
-        </div>
-      </div>
-    );
-  }
+  // Loading state now shows overlay instead of replacing content
+  // This allows viewerRef to be mounted for epub.js initialization
 
   if (error) {
     return (
@@ -515,6 +507,16 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           }}
         />
       </main>
+
+      {/* Loading overlay - shown over viewer while book initializes */}
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-inherit">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" />
+            <p>Loading book...</p>
+          </div>
+        </div>
+      )}
 
       {/* Footer navigation */}
       <footer 

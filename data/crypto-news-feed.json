@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T03:30:02.525941+00:00",
+  "timestamp": "2026-01-30T04:00:02.290776+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Optimism passes buyback proposal to bolster OP token",
+      "url": "https://cointelegraph.com/news/optimism-passes-buyback-proposal-to-bolster-op-token?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The Optimism blockchain will begin to sell half of its Superchain revenue to buy back its own token starting next month, with the tokens held for future ecosystem use.",
+      "published": "2026-01-30T03:40:25+00:00"
+    },
     {
       "title": "Bybit made \u2018slow but steady comeback\u2019 in 2025 after massive hack: CoinGecko",
       "url": "https://cointelegraph.com/news/bybit-slow-steady-comeback-after-2025-hack-coingecko?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -142,13 +149,6 @@
       "source": "cointelegraph",
       "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price Thursday. Is $80,000 the next stop for BTC?",
       "published": "2026-01-29T19:44:32+00:00"
-    },
-    {
-      "title": "US market regulators move to coordinate on crypto oversight",
-      "url": "https://cointelegraph.com/news/us-cftc-sec-agency-project-crypto-regulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The chairs of the CFTC and SEC appeared together at a joint agency event Thursday to discuss a unified approach to crypto regulation.",
-      "published": "2026-01-29T19:13:51+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
