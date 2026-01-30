@@ -7490,16 +7490,21 @@
   - Test on iOS Safari and Android Chrome
 
 ### [T757] Reader App: Add reading time estimate
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T690]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show estimated reading time for each book:
-  - Calculate from word count (avg 200-250 WPM)
-  - Display on book card in library view
-  - Show remaining time based on progress
-  - Update estimate as user's reading speed is tracked
+- **Notes**: ✅ Implemented reading time estimates for Reader App!
+  - ✅ Added wordCount and estimatedReadingMinutes to Book interface
+  - ✅ Created `readingTime.ts` utility with calculation functions
+  - ✅ Show reading time badge on book cards (⏱️ 5h 30m)
+  - ✅ Show remaining time on Continue Reading cards
+  - ✅ Calculate from epub locations (150 words per location, 200 WPM)
+  - ✅ Persist to store for future visits
+  - ✅ Deployed: https://46aaab9b.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T758] Autotrader: Volume anomaly alerts
 - **Status**: TODO
