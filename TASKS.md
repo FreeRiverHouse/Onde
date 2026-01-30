@@ -91,6 +91,45 @@
   - ⏳ Verify PWA install works on deploy (manual testing)
   - ⏳ Test on mobile Safari and Chrome (manual testing)
 
+### [T693] Reader App: Add link to onde.la navigation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T692]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add Reader App link to onde.la site:
+  - Add "Reader" to main navigation (desktop + mobile)
+  - Add to footer links
+  - Add card/banner on homepage (optional)
+  - Consider adding to /libri page as "Read in our app" CTA
+
+### [T694] Audit and fix npm vulnerabilities
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: npm audit shows 2 vulnerabilities (1 moderate, 1 critical):
+  - Run `npm audit` to see details
+  - Use `npm audit fix` for automatic fixes
+  - Use `npm audit fix --force` if needed (may have breaking changes)
+  - Document any packages that can't be fixed
+  - Check all apps/ subdirs for individual audits
+
+### [T695] Reader App: PWA mobile testing
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T692]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Test Reader App PWA functionality:
+  - iOS Safari: Add to Home Screen, offline caching
+  - Android Chrome: Install prompt, offline mode
+  - Check manifest.json icons render correctly
+  - Test touch gestures (swipe) on real devices
+  - Verify font/theme settings persist
+  - Screenshot or video of PWA install flow
+
 ### [T669] Reader App: VR/XR Version Planning
 - **Status**: TODO
 - **Owner**: -
