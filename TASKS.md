@@ -5548,3 +5548,23 @@
 - **Notes**: Hub giochi Onde
   - Moonlight House già live
   - Altri giochi da onde.la/giochi
+
+---
+
+## 🎢 ROLLER COASTER - Prototipo 3D (DA MATTIA 2026-01-29)
+
+### [T664] Roller Coaster: Prototipo con Blender + Radeon
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Prototipo di roller coaster 3D
+  - **Tool**: Blender (modeling + animation + physics)
+  - **GPU**: Radeon 7900 XT (16GB VRAM) per rendering
+  - **Features da esplorare**:
+    - Track design (spline curves)
+    - Physics simulation (velocità, forza G, inerzia)
+    - Camera POV ride-along
+    - Rendering cycles con Radeon
+  - **Output**: Video/animazione prototipo
