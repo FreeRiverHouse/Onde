@@ -550,6 +550,19 @@ export default function SkinCreator() {
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
+  // 🗑️ Clear canvas
+  const clearCanvas = () => {
+    if (!confirm('Clear the entire canvas?')) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    updatePreview();
+    saveState();
+    playSound('click');
+  };
+
   // 📋 Copy skin to clipboard
   const copyToClipboard = async () => {
     const canvas = canvasRef.current;
@@ -818,6 +831,13 @@ export default function SkinCreator() {
               title="Copy to clipboard"
             >
               📋 Copy
+            </button>
+            <button
+              onClick={clearCanvas}
+              className="px-3 py-2 rounded-full font-bold bg-red-500 text-white hover:bg-red-600"
+              title="Clear canvas"
+            >
+              🗑️ Clear
             </button>
             <div className="flex items-center gap-1 ml-2">
               <button
