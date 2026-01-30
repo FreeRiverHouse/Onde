@@ -6,6 +6,126 @@
 
 ---
 
+## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
+
+### [T470] SE-Bot: macOS System Audio Capture
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T471]
+- **Priority**: P1
+- **Notes**: Catturare audio di sistema per meeting calls
+  - **Tech**: BlackHole virtual audio driver (gratis, open source)
+  - **Script**: Python con sounddevice/PyAudio
+  - **Buffer**: Real-time streaming con chunk management
+  - **Test target**: Zoom, Google Meet, Microsoft Teams
+  - **Output**: PCM audio stream → pipe a Whisper
+
+### [T471] SE-Bot: Streaming Whisper Real-Time Transcription
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T470]
+- **Blocks**: [T473]
+- **Priority**: P1
+- **Notes**: Trascrizione live del meeting
+  - **Base**: whisper-cpp già installato ✅ (benchmark 0.35x RTF)
+  - **VAD**: Silero già integrato ✅ (da WhisperFlow)
+  - **Chunking**: 5-10 sec windows con overlap
+  - **Output**: JSON stream con timestamp + speaker diarization (future)
+  - **Languages**: EN primary, IT fallback
+
+### [T472] SE-Bot: Versa/SASE Knowledge Base
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T473]
+- **Priority**: P1
+- **Notes**: Brain del sistema - tutto ciò che un SE Versa deve sapere
+  - **Domains**:
+    - Versa Networks (prodotti, features, competitive positioning)
+    - SASE (architettura, use cases, best practices)
+    - SD-WAN (concetti, deployment, troubleshooting)
+    - Security (Zero Trust, ZTNA, firewall)
+    - Networking (BGP, OSPF, VPN, cloud connectivity)
+  - **Mattia's Style**: Come risponde, terminologia, approccio
+  - **Tech**: Embeddings con Chroma/FAISS locale
+  - **Sources**: Versa docs pubbliche, slide, recording past meetings
+
+### [T473] SE-Bot: Meeting Context Analyzer + Claude RAG
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T471], [T472]
+- **Blocks**: [T474]
+- **Priority**: P1
+- **Notes**: Intelligenza centrale - capisce contesto e suggerisce risposte
+  - **Pipeline**: Transcript → KB lookup (RAG) → Claude API
+  - **Context window**: Ultimi 2-3 minuti di conversazione
+  - **Prompt engineering**: Specializzato per risposte SE
+  - **Output**: 1-3 suggested responses ranked by relevance
+  - **Latency target**: <2s per suggestion update
+
+### [T474] SE-Bot: macOS Overlay UI
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T473]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: UI per vedere suggerimenti durante meeting
+  - **Type**: Always-on-top transparent window (NSPanel)
+  - **Features**:
+    - 1-3 suggested responses visibili
+    - Click to copy to clipboard
+    - Keyboard shortcuts (1/2/3 per selezionare)
+    - Hotkey globale per toggle visibility
+    - Transcript live scrolling (opzionale)
+  - **Tech**: SwiftUI o Electron
+  - **Position**: Secondo monitor o angolo screen
+
+### [T475] SE-Bot Fase 2: Configurable Voice Output
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: [T476]
+- **Priority**: P2
+- **Notes**: 🎤 VOCE CONFIGURABILE (non deve essere quella di Mattia!)
+  - **Provider**: ElevenLabs voice cloning API
+  - **Voice library**: Multiple voice options selezionabili
+  - **Custom cloning**: Possibilità di clonare voce specifica
+  - **Output**: Audio to virtual microphone (per calls)
+  - **Use case scherzo**: Chiamare colleghi con voice AI 😈
+  - **Tech**: Virtual audio cable (BlackHole input)
+
+### [T476] SE-Bot Fase 3: Video Avatar Integration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T475]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: 🎬 Avatar video real-time (come quello di Elon Musk!)
+  - **Providers da valutare**:
+    - HeyGen (API, real-time avatars)
+    - Synthesia (enterprise, alta qualità)
+    - D-ID (real-time, pricing OK)
+  - **Features**:
+    - Avatar che parla con lip sync
+    - Espressioni facciali basate su sentiment
+    - Virtual camera output (OBS Virtual Cam)
+  - **Goal finale**: Partecipare a meeting video senza essere presente!
+
+### [T477] SE-Bot: Install BlackHole Audio Driver
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T470]
+- **Priority**: P0
+- **Notes**: Prerequisito per audio capture
+  - `brew install blackhole-2ch`
+  - Configurare Multi-Output Device in Audio MIDI Setup
+  - Test che audio di sistema passi attraverso BlackHole
+  - Documentare setup per future reinstallazioni
+
+---
+
 ## 🎮 MOONLIGHT MAGIC HOUSE - DA MATTIA 2026-01-29
 
 ### [T461] Moonlight Magic House v2: Movimento + Oggetti Interattivi
