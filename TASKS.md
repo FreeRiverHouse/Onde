@@ -1552,6 +1552,42 @@
 - **Priority**: P4
 - **Notes**: Optional audio notification when status changes to critical:
   - Use Web Audio API for simple alert tone
+
+### [T742] Dashboard: Add keyboard hint badge to countdown timer
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T740]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add 'R' kbd badge next to refresh button (like health page):
+  - Show keyboard hint on desktop only (hidden sm:inline-block)
+  - Consistent styling with health page
+  - Tooltip: "Press R to refresh"
+
+### [T743] Dashboard: Show position age on open positions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add position age indicator to betting page:
+  - Calculate time since position opened
+  - Show "2h 15m" or "3d 12h" format
+  - Color code: green <24h, yellow 24-72h, red >72h
+  - Helps identify stale positions that might need attention
+  - Useful for concentration/rebalancing decisions
+
+### [T744] Dashboard: Add quick stats comparison tooltip
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Hover tooltip comparing current vs previous period stats:
+  - Win rate: current vs 7d ago
+  - PnL: today vs yesterday
+  - Use ComparisonIndicator pattern
+  - Small popup on hover over stat cards
   - Toggle switch to enable/disable (default off)
   - Only sound on transition TO critical/down
   - Respect muted state and user preference
