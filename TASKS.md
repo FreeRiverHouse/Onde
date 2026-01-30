@@ -7824,19 +7824,24 @@
   - Graceful fallback when dictionary API unavailable
 
 ### [T762] Autotrader: Circuit breaker time-based cooldown decay
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T734]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add time-based decay to circuit breaker cooldown:
-  - Currently waits for a win to reset, but if all positions are settled, no win can occur
-  - Add gradual loss-count decay: -1 loss every 2 hours of inactivity
-  - Or time-based full reset: auto-reset after 8 hours if no trades
-  - Manual reset command via API/script: `python3 kalshi-autotrader-v2.py --reset-circuit-breaker`
-  - Alert when circuit breaker about to auto-reset
-  - Log all resets with reason (win/time-decay/manual)
-  - **Current issue**: 15 losses, waiting for win, but no pending trades = deadlock
+- **Notes**: ✅ Implemented circuit breaker time-based decay to fix deadlock!
+  - **Problem**: After cooldown release, losses still counted → immediate re-trigger → loop
+  - **Solution**: Added forgiveness + time-based decay system:
+    - ✅ `get_effective_losses()` function calculates effective count
+    - ✅ `forgiven_losses` state tracks losses forgiven after cooldown release
+    - ✅ `last_cooldown_release` tracks time for decay calculation
+    - ✅ Decay rate: -1 loss every 2 hours since last cooldown release
+    - ✅ On cooldown release: forgive all current losses
+    - ✅ On win: clear all forgiveness (fresh start)
+    - ✅ Manual reset: `python3 kalshi-autotrader-v2.py --reset-circuit-breaker`
+    - ✅ Enhanced logging with effective_losses and forgiven_losses
+  - **Fixed**: 15-loss deadlock where autotrader was stuck in trigger→release→trigger loop
 
 ### [T763] Trading: Weather market post-mortem analysis
 - **Status**: TODO

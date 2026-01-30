@@ -4761,7 +4761,13 @@ def load_circuit_breaker_state() -> dict:
         with open(CIRCUIT_BREAKER_STATE_FILE, "r") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"paused": False, "pause_time": None, "streak_at_pause": 0}
+        return {
+            "paused": False, 
+            "pause_time": None, 
+            "streak_at_pause": 0,
+            "forgiven_losses": 0,  # T762: Losses forgiven after cooldown release
+            "last_cooldown_release": None  # T762: Track last cooldown release for decay
+        }
 
 
 def save_circuit_breaker_state(state: dict):
@@ -4770,15 +4776,48 @@ def save_circuit_breaker_state(state: dict):
         json.dump(state, f, indent=2)
 
 
+def get_effective_losses(raw_losses: int, state: dict) -> int:
+    """
+    T762: Calculate effective loss count with forgiveness and time decay.
+    
+    - Subtracts forgiven_losses from raw count
+    - Applies time-based decay: -1 loss every 2 hours since last cooldown release
+    
+    Returns effective loss count (min 0).
+    """
+    forgiven = state.get("forgiven_losses", 0)
+    last_release_str = state.get("last_cooldown_release")
+    
+    # Apply forgiven losses
+    effective = raw_losses - forgiven
+    
+    # Apply time-based decay if we had a cooldown release
+    if last_release_str:
+        try:
+            last_release = datetime.fromisoformat(last_release_str)
+            if last_release.tzinfo is None:
+                last_release = last_release.replace(tzinfo=timezone.utc)
+            hours_since_release = (datetime.now(timezone.utc) - last_release).total_seconds() / 3600
+            # Decay 1 loss every 2 hours
+            decay = int(hours_since_release / 2)
+            effective -= decay
+        except:
+            pass
+    
+    return max(0, effective)
+
+
 def check_circuit_breaker() -> tuple:
     """
     Check if circuit breaker should trigger or is active.
+    
+    T762: Now includes time-based decay and loss forgiveness after cooldown release.
     
     Returns:
         (should_pause: bool, consecutive_losses: int, message: str)
     """
     state = load_circuit_breaker_state()
-    consecutive_losses = get_consecutive_losses()
+    raw_consecutive_losses = get_consecutive_losses()
     
     # If already paused, check if we should resume
     if state.get("paused"):
@@ -4797,8 +4836,8 @@ def check_circuit_breaker() -> tuple:
                 pass
         
         # Resume if EITHER we got a win OR cooldown period has elapsed
-        if consecutive_losses == 0:
-            # We got a win! Resume trading
+        if raw_consecutive_losses == 0:
+            # We got a win! Resume trading and clear forgiveness
             trades_skipped = get_trades_skipped_count()
             log_circuit_breaker_event(
                 event_type="release",
@@ -4810,48 +4849,67 @@ def check_circuit_breaker() -> tuple:
             state["paused"] = False
             state["pause_time"] = None
             state["streak_at_pause"] = 0
+            state["forgiven_losses"] = 0  # T762: Clear on win
+            state["last_cooldown_release"] = None
             save_circuit_breaker_state(state)
             return (False, 0, "✅ Circuit breaker released - got a win!")
         elif cooldown_elapsed:
-            # Cooldown elapsed, resume cautiously
+            # T762: Cooldown elapsed - forgive the losses that triggered the pause
+            # This prevents immediate re-trigger after cooldown
             trades_skipped = get_trades_skipped_count()
+            streak_at_pause = state.get("streak_at_pause", 0)
+            
             log_circuit_breaker_event(
                 event_type="release",
-                consecutive_losses=consecutive_losses,
+                consecutive_losses=raw_consecutive_losses,
                 release_reason="cooldown",
                 trades_skipped=trades_skipped,
-                trigger_time=pause_time_str
+                trigger_time=pause_time_str,
+                forgiven_losses=streak_at_pause  # T762: Log forgiveness
             )
+            
             state["paused"] = False
             state["pause_time"] = None
+            state["forgiven_losses"] = raw_consecutive_losses  # T762: Forgive current streak
+            state["last_cooldown_release"] = datetime.now(timezone.utc).isoformat()  # T762: Track for decay
             state["streak_at_pause"] = 0
             save_circuit_breaker_state(state)
-            return (False, consecutive_losses, f"⏰ Circuit breaker released - {CIRCUIT_BREAKER_COOLDOWN_HOURS}h cooldown elapsed (streak still {consecutive_losses})")
+            return (False, 0, f"⏰ Circuit breaker released - {CIRCUIT_BREAKER_COOLDOWN_HOURS}h cooldown elapsed, {raw_consecutive_losses} losses forgiven")
         else:
             hours_remaining = CIRCUIT_BREAKER_COOLDOWN_HOURS - hours_since_pause
-            return (True, consecutive_losses, f"⏸️ Circuit breaker ACTIVE ({consecutive_losses} losses, {hours_remaining:.1f}h until cooldown, or win to resume)")
+            return (True, raw_consecutive_losses, f"⏸️ Circuit breaker ACTIVE ({raw_consecutive_losses} losses, {hours_remaining:.1f}h until cooldown, or win to resume)")
     
-    # Check if we should trigger circuit breaker
-    if consecutive_losses >= CIRCUIT_BREAKER_THRESHOLD:
+    # T762: Calculate effective losses with forgiveness and decay
+    effective_losses = get_effective_losses(raw_consecutive_losses, state)
+    
+    # Check if we should trigger circuit breaker (using effective losses)
+    if effective_losses >= CIRCUIT_BREAKER_THRESHOLD:
         trigger_time = datetime.now(timezone.utc).isoformat()
         state["paused"] = True
         state["pause_time"] = trigger_time
-        state["streak_at_pause"] = consecutive_losses
+        state["streak_at_pause"] = raw_consecutive_losses
+        # T762: Clear forgiveness when triggering fresh
+        state["forgiven_losses"] = 0
+        state["last_cooldown_release"] = None
         save_circuit_breaker_state(state)
         
         # Log trigger event to history (T471)
         log_circuit_breaker_event(
             event_type="trigger",
-            consecutive_losses=consecutive_losses,
+            consecutive_losses=raw_consecutive_losses,
+            effective_losses=effective_losses,  # T762: Log effective too
             trigger_time=trigger_time
         )
         
         # Write alert file for heartbeat pickup
-        write_circuit_breaker_alert(consecutive_losses)
+        write_circuit_breaker_alert(raw_consecutive_losses)
         
-        return (True, consecutive_losses, f"🚨 CIRCUIT BREAKER TRIGGERED! {consecutive_losses} consecutive losses")
+        return (True, raw_consecutive_losses, f"🚨 CIRCUIT BREAKER TRIGGERED! {effective_losses} effective losses (raw: {raw_consecutive_losses})")
     
-    return (False, consecutive_losses, f"✓ Streak: {consecutive_losses} losses (threshold: {CIRCUIT_BREAKER_THRESHOLD})")
+    # T762: Show both raw and effective in status message
+    if raw_consecutive_losses > 0 and effective_losses < raw_consecutive_losses:
+        return (False, effective_losses, f"✓ Streak: {effective_losses} effective losses (raw: {raw_consecutive_losses}, forgiven/decayed: {raw_consecutive_losses - effective_losses})")
+    return (False, effective_losses, f"✓ Streak: {effective_losses} losses (threshold: {CIRCUIT_BREAKER_THRESHOLD})")
 
 
 def write_circuit_breaker_alert(consecutive_losses: int):
@@ -4890,7 +4948,9 @@ def log_circuit_breaker_event(
     release_reason: str = None,  # "win", "cooldown", "manual"
     trades_skipped: int = 0,
     trigger_time: str = None,
-    release_time: str = None
+    release_time: str = None,
+    effective_losses: int = None,  # T762: Effective count after forgiveness/decay
+    forgiven_losses: int = None,  # T762: How many losses were forgiven
 ):
     """
     Log circuit breaker trigger/release events to history file.
@@ -4901,6 +4961,7 @@ def log_circuit_breaker_event(
     - release_reason: Why it was released (win/cooldown/manual)
     - streak_at_trigger: Consecutive losses when triggered
     - trades_skipped: How many trading opportunities were skipped while paused
+    - T762: effective_losses and forgiven_losses for decay tracking
     """
     now = datetime.now(timezone.utc).isoformat()
     
@@ -4911,6 +4972,12 @@ def log_circuit_breaker_event(
         "threshold": CIRCUIT_BREAKER_THRESHOLD,
         "cooldown_hours": CIRCUIT_BREAKER_COOLDOWN_HOURS,
     }
+    
+    # T762: Add effective/forgiven losses if provided
+    if effective_losses is not None:
+        entry["effective_losses"] = effective_losses
+    if forgiven_losses is not None:
+        entry["forgiven_losses"] = forgiven_losses
     
     if event_type == "trigger":
         entry["trigger_time"] = trigger_time or now
@@ -5413,5 +5480,47 @@ def write_streak_alert(alerts: list, current: dict):
 
 
 # ============== MAIN ENTRY POINT ==============
+def reset_circuit_breaker_manual():
+    """
+    T762: Manually reset the circuit breaker.
+    Call via: python3 kalshi-autotrader-v2.py --reset-circuit-breaker
+    """
+    state = load_circuit_breaker_state()
+    raw_losses = get_consecutive_losses()
+    
+    if not state.get("paused"):
+        print("ℹ️ Circuit breaker is not currently active.")
+        print(f"   Current streak: {raw_losses} losses")
+        return
+    
+    # Log the manual release
+    log_circuit_breaker_event(
+        event_type="release",
+        consecutive_losses=raw_losses,
+        release_reason="manual",
+        trades_skipped=get_trades_skipped_count(),
+        trigger_time=state.get("pause_time"),
+        forgiven_losses=raw_losses
+    )
+    
+    # Reset state with forgiveness for current losses
+    state["paused"] = False
+    state["pause_time"] = None
+    state["streak_at_pause"] = 0
+    state["forgiven_losses"] = raw_losses  # Forgive current streak
+    state["last_cooldown_release"] = datetime.now(timezone.utc).isoformat()
+    save_circuit_breaker_state(state)
+    
+    print(f"✅ Circuit breaker manually reset!")
+    print(f"   {raw_losses} losses forgiven")
+    print(f"   Trading will resume on next cycle")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    
+    # T762: Handle --reset-circuit-breaker command
+    if len(sys.argv) > 1 and sys.argv[1] == "--reset-circuit-breaker":
+        reset_circuit_breaker_manual()
+    else:
+        main()

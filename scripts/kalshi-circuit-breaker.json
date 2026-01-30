@@ -1,5 +1,7 @@
 {
-  "paused": true,
-  "pause_time": "2026-01-30T08:31:46.610063+00:00",
-  "streak_at_pause": 15
+  "paused": false,
+  "pause_time": null,
+  "streak_at_pause": 0,
+  "forgiven_losses": 15,
+  "last_cooldown_release": "2026-01-30T12:42:42.010511+00:00"
 }
