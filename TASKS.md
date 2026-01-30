@@ -813,21 +813,38 @@
   - **Integration**: Uses realtime_transcription.py for transcript input
 
 ### [T474] SE-Bot: macOS Overlay UI
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T473]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: UI per vedere suggerimenti durante meeting
-  - **Type**: Always-on-top transparent window (NSPanel)
-  - **Features**:
-    - 1-3 suggested responses visibili
-    - Click to copy to clipboard
-    - Keyboard shortcuts (1/2/3 per selezionare)
-    - Hotkey globale per toggle visibility
-    - Transcript live scrolling (opzionale)
-  - **Tech**: SwiftUI o Electron
-  - **Position**: Secondo monitor o angolo screen
+- **Notes**: ✅ Implemented macOS overlay UI with PyObjC!
+  - **Files created:**
+    - `apps/se-bot/overlay_ui.py` - Native macOS overlay using PyObjC/AppKit
+    - `apps/se-bot/se_bot_main.py` - Main integration controller
+    - `apps/se-bot/requirements.txt` - Dependencies list
+  - **Features:**
+    - ✅ Always-on-top transparent window (NSPanel + NSVisualEffectView)
+    - ✅ 3 suggestion cards with color-coded badges
+    - ✅ Click to copy to clipboard with visual feedback
+    - ✅ Keyboard shortcuts 1/2/3 to copy suggestions
+    - ✅ Global hotkey Cmd+Shift+S to toggle visibility
+    - ✅ Live transcript display at bottom
+    - ✅ Status indicator (Listening/Copied)
+    - ✅ Draggable window positioning
+    - ✅ Position options: left/right/center
+    - ✅ Vibrancy/blur effect for modern macOS look
+    - ✅ Hover effects on suggestion cards
+  - **Integration:**
+    - `se_bot_main.py` orchestrates audio → transcription → RAG → overlay
+    - Demo mode with simulated meeting transcript
+    - Status check command to verify all components
+  - **Usage:**
+    - `python overlay_ui.py --test` - Demo mode
+    - `python se_bot_main.py --demo` - Full system demo
+    - `python se_bot_main.py --status` - Check components
+  - ⚠️ Requires: `pip install pyobjc-framework-Cocoa pyobjc-framework-Quartz`
 
 ### [T475] SE-Bot Fase 2: Configurable Voice Output
 - **Status**: TODO

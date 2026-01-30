@@ -1,0 +1,21 @@
+# SE-Bot Dependencies
+
+# Audio capture
+sounddevice>=0.4.6
+numpy>=1.24.0
+
+# Transcription
+# whisper-cpp installed via: brew install whisper-cpp
+
+# Knowledge Base / RAG
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+
+# Claude API
+anthropic>=0.18.0
+
+# macOS Overlay UI (macOS only)
+pyobjc>=10.0  # Includes pyobjc-framework-Cocoa, pyobjc-framework-Quartz
+
+# Utils
+requests>=2.31.0
