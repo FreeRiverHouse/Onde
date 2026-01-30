@@ -803,16 +803,18 @@
   - Option to remove from cache
 
 ### [T805] Reader App: Deploy offline indicator to onde.la/reader
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T802]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy Reader App with offline indicator:
-  - Build with STATIC_EXPORT=1
-  - Copy to onde-portal/public/reader/
-  - Deploy via wrangler
-  - Verify https://onde.la/reader/
+- **Notes**: ✅ Deployed! https://123baa41.onde-portal.pages.dev
+  - ✅ Built with STATIC_EXPORT=1
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - Offline indicator now live in Library and Reader headers
 
 ---
 
