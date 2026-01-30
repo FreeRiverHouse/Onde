@@ -950,6 +950,46 @@
   - Don't spam - alert once per threshold per period
   - Include context: current position count, win rate
 
+### [T812] Reader App: OPDS search improvements
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T808]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Improve OPDS search experience:
+  - Auto-detect OpenSearch description in feeds
+  - Save recent searches
+  - Suggest popular searches
+  - Search across multiple catalogs at once
+  - Handle search errors gracefully
+
+### [T813] Reader App: OPDS catalog recommendations
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T808]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add more pre-configured OPDS catalogs:
+  - Archive.org (texts collection)
+  - Internet Archive Open Library
+  - Smashwords free section
+  - Catalog discovery via opds-catalog.com
+  - Category badges for catalogs (Fiction, Non-fiction, etc.)
+
+### [T814] Reader App: Book preview before download
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T808]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show book details before downloading from OPDS:
+  - Full description/summary
+  - Preview first chapter (if available)
+  - Publication info (date, publisher)
+  - File size estimate
+  - Similar books recommendations
+  - User reviews (from linked sources)
+
 ---
 
 ## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
