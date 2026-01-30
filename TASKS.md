@@ -189,17 +189,18 @@
   - Dipende da web prototype funzionante
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T691]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy updated Reader App with annotation features:
-  - Build static export with basePath=/reader/
-  - Copy to onde-portal/public/reader/
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify all features work on production
-  - Test highlight creation and persistence
+- **Notes**: ✅ Deployed! https://c0e6e423.onde-portal.pages.dev
+  - ✅ Built static export with STATIC_EXPORT=1 (basePath=/reader/)
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - Features now live: highlight menu, bookmarks, annotations panel, export
 
 ### [T698] Reader App: Sync annotations across devices
 - **Status**: TODO
