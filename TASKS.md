@@ -3603,12 +3603,27 @@
   - **Env vars**: EMAIL_FROM (default: alerts@onde.la), ALERT_EMAIL (recipient)
 
 ### [T220] A/B testing framework for trading strategies
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Compare different model parameters side-by-side. Track paper trades vs real trades.
+- **Notes**: ✅ Implemented comprehensive A/B testing framework!
+  - **Script**: `scripts/ab-testing-framework.py`
+  - **Features:**
+    - ✅ 7 pre-defined strategy variants (baseline, conservative, aggressive, momentum_heavy, no_momentum, high_frequency, safe_harbor)
+    - ✅ Backtest against historical trades (`--backtest strategy1 strategy2 --days N`)
+    - ✅ Paper trade Monte Carlo simulation (`--paper strategy1 strategy2 --cycles N`)
+    - ✅ Statistical significance testing (`--compare A B`)
+    - ✅ Create custom strategy variants (`--create NAME --params '{...}'`)
+    - ✅ Metrics: win rate, PnL, ROI, Sharpe ratio, max drawdown, avg edge
+    - ✅ Results persistence to JSON for historical comparison
+  - **Usage examples:**
+    - `python ab-testing-framework.py --list` - List strategies
+    - `python ab-testing-framework.py --backtest baseline aggressive --days 30`
+    - `python ab-testing-framework.py --paper baseline conservative --cycles 500`
+    - `python ab-testing-framework.py --report` - Show history
 
 ### [T221] Export trading stats to CSV
 - **Status**: DONE

@@ -1,0 +1,92 @@
+{
+  "2026-01-30T06:48:43.449502": {
+    "type": "backtest",
+    "days": 90,
+    "results": [
+      {
+        "strategy": "baseline",
+        "trades": 944,
+        "wins": 12,
+        "losses": 932,
+        "win_rate": 0.012711864406779662,
+        "total_pnl": 109.5,
+        "avg_pnl": 0.1159957627118644,
+        "max_drawdown": 0.28440366972477066,
+        "sharpe_ratio": 2.2683824647553386,
+        "avg_edge": 0.37385222457627115,
+        "roi": 1.095
+      },
+      {
+        "strategy": "conservative",
+        "trades": 944,
+        "wins": 12,
+        "losses": 932,
+        "win_rate": 0.012711864406779662,
+        "total_pnl": 62.0,
+        "avg_pnl": 0.06567796610169492,
+        "max_drawdown": 0.18867924528301888,
+        "sharpe_ratio": 2.2056615896989653,
+        "avg_edge": 0.37385222457627115,
+        "roi": 0.62
+      },
+      {
+        "strategy": "aggressive",
+        "trades": 944,
+        "wins": 12,
+        "losses": 932,
+        "win_rate": 0.012711864406779662,
+        "total_pnl": 249.0,
+        "avg_pnl": 0.263771186440678,
+        "max_drawdown": 0.44155844155844154,
+        "sharpe_ratio": 2.336093563665391,
+        "avg_edge": 0.37385222457627115,
+        "roi": 2.49
+      }
+    ]
+  },
+  "2026-01-30T06:48:47.165393": {
+    "type": "paper",
+    "cycles": 500,
+    "results": [
+      {
+        "strategy": "baseline",
+        "trades": 361,
+        "wins": 223,
+        "losses": 138,
+        "win_rate": 0.6177285318559557,
+        "total_pnl": 1633.0927867411224,
+        "avg_pnl": 4.52380273335491,
+        "max_drawdown": 0.35254627370319075,
+        "sharpe_ratio": 3.4676759481753856,
+        "avg_edge": 0.18521376508970203,
+        "roi": 16.330927867411223
+      },
+      {
+        "strategy": "momentum_heavy",
+        "trades": 376,
+        "wins": 223,
+        "losses": 153,
+        "win_rate": 0.5930851063829787,
+        "total_pnl": 1366.5725734151092,
+        "avg_pnl": 3.634501525040184,
+        "max_drawdown": 0.18638795239289208,
+        "sharpe_ratio": 2.5351336934907245,
+        "avg_edge": 0.19043832012504522,
+        "roi": 13.665725734151088
+      },
+      {
+        "strategy": "safe_harbor",
+        "trades": 9,
+        "wins": 3,
+        "losses": 6,
+        "win_rate": 0.3333333333333333,
+        "total_pnl": -1.2317450712498048,
+        "avg_pnl": -0.13686056347220055,
+        "max_drawdown": 0.034363480802425884,
+        "sharpe_ratio": -2.3873178024671775,
+        "avg_edge": 0.22642327574443138,
+        "roi": -0.012317450712498186
+      }
+    ]
+  }
+}
