@@ -1732,6 +1732,131 @@ def get_divergence_edge_adjustment(asset: str, ohlc_data: dict, momentum_data: d
     return result
 
 
+# ============== COMPOSITE SIGNAL SCORING (T460) ==============
+
+def calculate_composite_signal_score(asset: str, side: str, ohlc_data: dict, 
+                                      momentum_data: dict) -> dict:
+    """
+    Calculate composite signal score combining divergence, reversion, and momentum alignment.
+    
+    Multiple confirming signals = higher conviction = edge bonus.
+    
+    Args:
+        asset: 'btc' or 'eth'
+        side: 'yes' or 'no' (the bet direction)
+        ohlc_data: Dict with 'btc' and 'eth' OHLC lists
+        momentum_data: Dict with momentum info per asset
+    
+    Returns:
+        dict with:
+        - confirming_signals: int (0-3)
+        - total_bonus: float (combined edge bonus)
+        - confidence: str ('low', 'medium', 'high', 'very_high')
+        - signals: list of signal descriptions
+        - details: dict with individual signal info
+    """
+    result = {
+        "confirming_signals": 0,
+        "total_bonus": 0.0,
+        "confidence": "low",
+        "signals": [],
+        "details": {
+            "momentum_aligned": False,
+            "reversion_signal": False,
+            "divergence_signal": False
+        }
+    }
+    
+    # Track individual signals that confirm our bet direction
+    momentum = momentum_data.get(asset, {}) if momentum_data else {}
+    mom_dir = momentum.get("composite_direction", 0)
+    mom_str = momentum.get("composite_strength", 0)
+    mom_alignment = momentum.get("alignment", False)
+    
+    # Signal 1: MOMENTUM ALIGNMENT
+    # For YES bets, bullish momentum confirms; for NO bets, bearish confirms
+    momentum_confirms = False
+    momentum_bonus = 0.0
+    
+    if side == "yes" and mom_dir > 0.2 and mom_str > 0.3:
+        # Bullish momentum confirms YES bet
+        momentum_confirms = True
+        momentum_bonus = 0.02 if mom_alignment else 0.01
+        result["signals"].append(f"Bullish momentum ({mom_dir:+.2f}, aligned={mom_alignment})")
+    elif side == "no" and mom_dir < -0.2 and mom_str > 0.3:
+        # Bearish momentum confirms NO bet
+        momentum_confirms = True
+        momentum_bonus = 0.02 if mom_alignment else 0.01
+        result["signals"].append(f"Bearish momentum ({mom_dir:+.2f}, aligned={mom_alignment})")
+    
+    if momentum_confirms:
+        result["confirming_signals"] += 1
+        result["details"]["momentum_aligned"] = True
+    
+    # Signal 2: REVERSION SIGNAL
+    # Reversion suggests contrarian move - confirms if our bet aligns with expected reversion
+    reversion = get_reversion_edge_adjustment(asset, ohlc_data, momentum_data)
+    reversion_confirms = False
+    reversion_bonus = 0.0
+    
+    if reversion.get("has_signal"):
+        # Reversion direction: 'bullish' = expecting price to bounce up, 'bearish' = expecting drop
+        # Get the reversion direction from the detect function
+        reversions = detect_momentum_reversion(ohlc_data, momentum_data)
+        for rev in reversions:
+            if rev["asset"].lower() == asset.lower():
+                rev_dir = rev.get("reversion_dir", "")
+                if (side == "yes" and rev_dir == "bullish") or (side == "no" and rev_dir == "bearish"):
+                    reversion_confirms = True
+                    reversion_bonus = reversion.get("adjustment", 0.01)
+                    result["signals"].append(f"Reversion signal: {rev_dir} ({rev.get('confidence', 'medium')})")
+                    result["details"]["reversion_signal"] = True
+                break
+    
+    if reversion_confirms:
+        result["confirming_signals"] += 1
+    
+    # Signal 3: DIVERGENCE SIGNAL
+    # Bullish divergence = favor YES, Bearish divergence = favor NO
+    divergence = get_divergence_edge_adjustment(asset, ohlc_data, momentum_data)
+    divergence_confirms = False
+    divergence_bonus = 0.0
+    
+    if divergence.get("has_signal"):
+        div_type = divergence.get("divergence_type", "")
+        if (side == "yes" and div_type == "bullish") or (side == "no" and div_type == "bearish"):
+            divergence_confirms = True
+            divergence_bonus = divergence.get("adjustment", 0.01)
+            result["signals"].append(f"Divergence: {div_type} ({divergence.get('reason', '')})")
+            result["details"]["divergence_signal"] = True
+    
+    if divergence_confirms:
+        result["confirming_signals"] += 1
+    
+    # Calculate total bonus with synergy effect
+    # Base: sum of individual bonuses
+    # Synergy: +25% bonus per additional confirming signal above 1
+    base_bonus = momentum_bonus + reversion_bonus + divergence_bonus
+    
+    if result["confirming_signals"] >= 2:
+        synergy_multiplier = 1.0 + 0.25 * (result["confirming_signals"] - 1)
+        result["total_bonus"] = base_bonus * synergy_multiplier
+    else:
+        result["total_bonus"] = base_bonus
+    
+    # Determine confidence level
+    if result["confirming_signals"] >= 3:
+        result["confidence"] = "very_high"
+    elif result["confirming_signals"] == 2:
+        result["confidence"] = "high"
+    elif result["confirming_signals"] == 1:
+        result["confidence"] = "medium"
+    else:
+        result["confidence"] = "low"
+    
+    return result
+
+
 # ============== PROPER PROBABILITY MODEL ==============
 
 def norm_cdf(x):
@@ -3969,13 +4094,18 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                         divergence_bonus = divergence_info.get("adjustment", 0)  # Bonus for YES
                     elif divergence_info.get("divergence_type") == "bearish":
                         divergence_bonus = -divergence_info.get("adjustment", 0) * 0.5  # Penalty for YES
+                # Composite signal scoring (T460)
+                # Multiple confirming signals = higher conviction = extra synergy bonus
+                composite_signal = calculate_composite_signal_score(asset, "yes", ohlc_data, momentum_data)
+                composite_bonus = composite_signal.get("total_bonus", 0) - (momentum_bonus + divergence_bonus)  # Avoid double-counting
+                composite_bonus = max(0, composite_bonus)  # Only add synergy bonus, not reduce
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "yes",
                     "price": yes_ask,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus + composite_bonus,
                     "our_prob": prob_above,
                     "base_prob": base_prob_above,
                     "market_prob": market_prob_yes,
@@ -4000,7 +4130,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "divergence_bonus": divergence_bonus,
                     "divergence_aligned": divergence_info.get("divergence_type") == "bullish",
                     "divergence_type": divergence_info.get("divergence_type", "none"),
-                    "divergence_reason": divergence_info.get("reason", "")
+                    "divergence_reason": divergence_info.get("reason", ""),
+                    # Composite signal scoring (T460)
+                    "composite_signals": composite_signal.get("confirming_signals", 0),
+                    "composite_confidence": composite_signal.get("confidence", "low"),
+                    "composite_bonus": composite_bonus,
+                    "composite_reasons": composite_signal.get("signals", [])
                 })
                 found_opp = True
         
@@ -4047,13 +4182,18 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                         divergence_bonus = divergence_info.get("adjustment", 0)  # Bonus for NO
                     elif divergence_info.get("divergence_type") == "bullish":
                         divergence_bonus = -divergence_info.get("adjustment", 0) * 0.5  # Penalty for NO
+                # Composite signal scoring (T460)
+                # Multiple confirming signals = higher conviction = extra synergy bonus
+                composite_signal = calculate_composite_signal_score(asset, "no", ohlc_data, momentum_data)
+                composite_bonus = composite_signal.get("total_bonus", 0) - (momentum_bonus + divergence_bonus)  # Avoid double-counting
+                composite_bonus = max(0, composite_bonus)  # Only add synergy bonus, not reduce
                 opportunities.append({
                     "ticker": ticker,
                     "asset": asset,
                     "side": "no",
                     "price": no_price,
                     "edge": edge,
-                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus,
+                    "edge_with_bonus": edge + momentum_bonus + vol_bonus + news_bonus + divergence_bonus + composite_bonus,
                     "our_prob": prob_below,
                     "base_prob": base_prob_below,
                     "market_prob": market_prob_no,
@@ -4078,7 +4218,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "divergence_bonus": divergence_bonus,
                     "divergence_aligned": divergence_info.get("divergence_type") == "bearish",
                     "divergence_type": divergence_info.get("divergence_type", "none"),
-                    "divergence_reason": divergence_info.get("reason", "")
+                    "divergence_reason": divergence_info.get("reason", ""),
+                    # Composite signal scoring (T460)
+                    "composite_signals": composite_signal.get("confirming_signals", 0),
+                    "composite_confidence": composite_signal.get("confidence", "low"),
+                    "composite_bonus": composite_bonus,
+                    "composite_reasons": composite_signal.get("signals", [])
                 })
                 found_opp = True
         
@@ -4535,6 +4680,17 @@ def run_cycle():
         if news_bonus != 0:
             news_icon = "📰🟢" if news_bonus > 0 else "📰🔴"
             print(f"   {news_icon} News: {news_sent.upper()} ({news_conf*100:.0f}%) → edge {news_bonus*100:+.2f}%")
+        # Composite signal info (T460)
+        composite_signals = best.get('composite_signals', 0)
+        composite_conf = best.get('composite_confidence', 'low')
+        composite_bonus = best.get('composite_bonus', 0)
+        composite_reasons = best.get('composite_reasons', [])
+        if composite_signals >= 2:
+            # Multiple confirming signals - highlight this
+            stars = "⭐" * composite_signals
+            print(f"   {stars} COMPOSITE: {composite_signals} signals ({composite_conf}) → synergy +{composite_bonus*100:.2f}%")
+            for reason in composite_reasons[:3]:
+                print(f"      • {reason}")
     
     # Calculate bet size (Kelly with volatility adjustment - T293, T441)
     if cash < MIN_BET_CENTS / 100:

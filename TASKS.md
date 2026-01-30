@@ -6439,12 +6439,29 @@
 - **Notes**: Script: backtest-divergence.py. Analyze historical divergence signals (from cached OHLC) against actual price moves 1h/4h/24h later. Calculate hit rate by confidence level. Shows if divergence detection is predictive. Output: data/trading/divergence-backtest.json.
 
 ### [T460] Combined signal scoring (divergence + reversion + momentum)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T303], [T302], [T301]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create composite signal score combining: divergence, reversion, and momentum alignment. Higher score = higher conviction. Add to opportunity evaluation. Trades with multiple confirming signals get edge bonus. Single function: calculate_composite_signal_score().
+- **Notes**: ✅ Implemented composite signal scoring!
+  - **Function**: `calculate_composite_signal_score(asset, side, ohlc_data, momentum_data)`
+  - **Combines**:
+    - Momentum alignment (bullish confirms YES, bearish confirms NO)
+    - Reversion signals (contrarian plays)
+    - Divergence signals (RSI vs price disagreement)
+  - **Features**:
+    - Counts confirming signals (0-3)
+    - Synergy bonus: +25% per additional signal above 1
+    - Confidence levels: low/medium/high/very_high
+    - Detailed signal reasons for display
+  - **Integration**:
+    - Added to YES and NO opportunity evaluation
+    - Composite bonus added to edge_with_bonus calculation
+    - Output: composite_signals, composite_confidence, composite_bonus, composite_reasons
+    - Verbose display: shows ⭐⭐⭐ when multiple signals align
+  - **Example**: 3 signals (momentum + reversion + divergence) → 1.25x synergy multiplier on base bonus
 
 ### [T461] Weekly divergence signal accuracy report
 - **Status**: TODO
