@@ -31,6 +31,13 @@ export interface VocabularyWord {
   createdAt: number;
 }
 
+export interface TTSPosition {
+  cfi: string; // EPUB CFI location where TTS was
+  sentenceIndex: number; // Which sentence on the page
+  savedAt: number; // Timestamp
+  progress: number; // Book progress % at time of save
+}
+
 export interface Book {
   id: string;
   title: string;
@@ -44,6 +51,7 @@ export interface Book {
   wordCount?: number; // Total words in book
   estimatedReadingMinutes?: number; // Estimated time at 200 WPM
   sourceUrl?: string; // URL to download EPUB from (for OPDS books)
+  ttsPosition?: TTSPosition; // Where TTS last stopped
 }
 
 export interface ReaderSettings {
@@ -88,6 +96,10 @@ interface ReaderState {
   removeBook: (id: string) => void;
   updateBookProgress: (id: string, progress: number, cfi?: string, location?: number) => void;
   updateBookMetadata: (id: string, metadata: { wordCount?: number; estimatedReadingMinutes?: number }) => void;
+  
+  saveTtsPosition: (id: string, position: Omit<TTSPosition, 'savedAt'>) => void;
+  clearTtsPosition: (id: string) => void;
+  getTtsPosition: (id: string) => TTSPosition | undefined;
   
   addHighlight: (highlight: Omit<Highlight, 'id' | 'createdAt'>) => void;
   removeHighlight: (id: string) => void;
@@ -148,7 +160,7 @@ const sampleBooks: Book[] = [
 
 export const useReaderStore = create<ReaderState>()(
   persist(
-    (set, _get) => ({
+    (set, get) => ({
       currentBook: null,
       books: sampleBooks,
       highlights: [],
@@ -188,6 +200,35 @@ export const useReaderStore = create<ReaderState>()(
           ? { ...state.currentBook, ...metadata }
           : state.currentBook,
       })),
+      
+      saveTtsPosition: (id, position) => set((state) => {
+        const ttsPosition: TTSPosition = {
+          ...position,
+          savedAt: Date.now(),
+        };
+        return {
+          books: state.books.map((b) =>
+            b.id === id ? { ...b, ttsPosition } : b
+          ),
+          currentBook: state.currentBook?.id === id
+            ? { ...state.currentBook, ttsPosition }
+            : state.currentBook,
+        };
+      }),
+      
+      clearTtsPosition: (id) => set((state) => ({
+        books: state.books.map((b) =>
+          b.id === id ? { ...b, ttsPosition: undefined } : b
+        ),
+        currentBook: state.currentBook?.id === id
+          ? { ...state.currentBook, ttsPosition: undefined }
+          : state.currentBook,
+      })),
+      
+      getTtsPosition: (id) => {
+        const state = get();
+        return state.books.find((b) => b.id === id)?.ttsPosition;
+      },
       
       addHighlight: (highlight) => set((state) => ({
         highlights: [

@@ -9,14 +9,31 @@ interface TextToSpeechProps {
   onClose: () => void;
   onSentenceChange?: (sentenceIndex: number, sentence: string) => void;
   onPageComplete?: () => void;
+  // TTS Position tracking
+  bookId?: string;
+  currentCfi?: string;
+  currentProgress?: number;
+  initialSentenceIndex?: number;
+  onTtsPositionChange?: (position: { sentenceIndex: number; isPlaying: boolean }) => void;
 }
 
-export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageComplete }: TextToSpeechProps) {
+export function TextToSpeech({ 
+  text, 
+  isOpen, 
+  onClose, 
+  onSentenceChange, 
+  onPageComplete,
+  bookId: _bookId,
+  currentCfi: _currentCfi,
+  currentProgress: _currentProgress = 0,
+  initialSentenceIndex = 0,
+  onTtsPositionChange,
+}: TextToSpeechProps) {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(initialSentenceIndex);
   const [sentences, setSentences] = useState<string[]>([]);
   const [waitingForNextPage, setWaitingForNextPage] = useState(false);
   
@@ -163,18 +180,24 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
     if (synthRef.current) {
       synthRef.current.pause();
       setIsPaused(true);
+      // Save TTS position when pausing
+      onTtsPositionChange?.({ sentenceIndex: currentSentenceIndex, isPlaying: false });
     }
-  }, []);
+  }, [currentSentenceIndex, onTtsPositionChange]);
 
   // Stop
   const stop = useCallback(() => {
     if (synthRef.current) {
       synthRef.current.cancel();
+      // Save TTS position when stopping (before resetting)
+      if (currentSentenceIndex > 0) {
+        onTtsPositionChange?.({ sentenceIndex: currentSentenceIndex, isPlaying: false });
+      }
       setIsPlaying(false);
       setIsPaused(false);
       setCurrentSentenceIndex(0);
     }
-  }, []);
+  }, [currentSentenceIndex, onTtsPositionChange]);
 
   // Skip forward (next sentence)
   const skipForward = useCallback(() => {
@@ -203,12 +226,16 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
   // Cleanup on unmount or close
   useEffect(() => {
     if (!isOpen) {
+      // Save position before stopping if we're in the middle of playing
+      if ((isPlaying || isPaused) && currentSentenceIndex > 0) {
+        onTtsPositionChange?.({ sentenceIndex: currentSentenceIndex, isPlaying: false });
+      }
       stop();
     }
     return () => {
       synthRef.current?.cancel();
     };
-  }, [isOpen, stop]);
+  }, [isOpen, stop, isPlaying, isPaused, currentSentenceIndex, onTtsPositionChange]);
 
   // Keyboard shortcuts
   useEffect(() => {

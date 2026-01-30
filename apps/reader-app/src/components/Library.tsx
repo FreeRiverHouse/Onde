@@ -596,8 +596,14 @@ function BookCard({ book, onClick, isCached, isDemoBook, onDownloadComplete }: B
       )}
       
       {/* Cached/Downloaded badge - top left */}
-      <div className="absolute top-2 left-2">
+      <div className="absolute top-2 left-2 flex gap-1">
         <CachedBadge isCached={isCached} isDemoBook={isDemoBook} />
+        {/* TTS Resume indicator */}
+        {book.ttsPosition && (
+          <span className="bg-purple-600/90 text-white text-xs px-1.5 py-0.5 rounded-full flex items-center gap-0.5" title="Resume listening available">
+            🎧
+          </span>
+        )}
       </div>
       
       {/* Download button - show when not cached and has source */}
@@ -704,9 +710,17 @@ function ContinueReadingCard({ book, onClick, isCached, isDemoBook, onDownloadCo
           </div>
           <div className="flex justify-between items-center mt-1">
             <p className="text-xs opacity-60">{Math.round(book.progress)}% complete</p>
-            {remainingTime && (
-              <p className="text-xs text-blue-500">⏱️ {formatReadingTimeCompact(remainingTime)} left</p>
-            )}
+            <div className="flex items-center gap-2">
+              {/* TTS Resume indicator */}
+              {book.ttsPosition && (
+                <span className="text-xs text-purple-500 flex items-center gap-0.5" title="Resume listening available">
+                  🎧 Resume
+                </span>
+              )}
+              {remainingTime && (
+                <p className="text-xs text-blue-500">⏱️ {formatReadingTimeCompact(remainingTime)} left</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

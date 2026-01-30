@@ -44,6 +44,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     bookmarks,
     addBookmark,
     removeBookmark,
+    saveTtsPosition,
   } = useReaderStore();
   
   // Check if current location is bookmarked
@@ -76,6 +77,22 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     selectedText: string;
     cfi: string;
   } | null>(null);
+  
+  // TTS position tracking
+  const savedTtsPosition = books.find((b) => b.id === bookId)?.ttsPosition;
+  const hasSavedTtsPosition = savedTtsPosition && savedTtsPosition.cfi === currentCfi;
+  
+  // Handler for TTS position changes
+  const handleTtsPositionChange = useCallback(({ sentenceIndex, isPlaying }: { sentenceIndex: number; isPlaying: boolean }) => {
+    if (!isPlaying && sentenceIndex > 0 && currentCfi) {
+      // Save the position when TTS pauses/stops
+      saveTtsPosition(bookId, {
+        cfi: currentCfi,
+        sentenceIndex,
+        progress,
+      });
+    }
+  }, [bookId, currentCfi, progress, saveTtsPosition]);
   
   // Reading stats tracking
   const { startSession, endSession } = useReadingStatsStore();
@@ -547,10 +564,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); setIsTTSOpen(true); }}
-                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
-                title="Listen (Text-to-Speech)"
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 relative"
+                title={hasSavedTtsPosition ? "Resume listening" : "Listen (Text-to-Speech)"}
               >
                 🎧
+                {hasSavedTtsPosition && (
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-800 animate-pulse" title="Resume available" />
+                )}
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); setIsStatsOpen(true); }}
@@ -686,6 +706,11 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         isOpen={isTTSOpen}
         onClose={() => setIsTTSOpen(false)}
         onPageComplete={goToNext}
+        bookId={bookId}
+        currentCfi={currentCfi}
+        currentProgress={progress}
+        initialSentenceIndex={hasSavedTtsPosition ? savedTtsPosition.sentenceIndex : 0}
+        onTtsPositionChange={handleTtsPositionChange}
       />
       
       {/* Reading Statistics panel */}

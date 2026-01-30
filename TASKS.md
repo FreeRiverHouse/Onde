@@ -10036,8 +10036,8 @@
   - Alert on latency > 2s sustained
 
 ### [T863] Reader App: Add "Continue from TTS" bookmark
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T712]
 - **Blocks**: -
 - **Priority**: P3
