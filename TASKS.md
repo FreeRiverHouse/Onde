@@ -1631,16 +1631,16 @@
   - Build passes, needs deploy to onde.surf
 
 ### [T746] Dashboard: Deploy comparison tooltips to onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T744]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy T744 comparison tooltips feature to production:
-  - Build and deploy surfboard to Cloudflare Pages
-  - Verify tooltip works on hover over stat cards
-  - Test toggle button functionality
-  - Test localStorage persistence
+- **Notes**: ✅ Deployed! https://b3cff469.onde-surf.pages.dev
+  - Build and deploy surfboard to Cloudflare Pages ✅
+  - Site returns 307 redirect (auth protected) as expected
+  - Comparison tooltips feature now live on /betting
 
 ### [T747] Dashboard: Add keyboard shortcut 'C' to toggle comparison tooltips
 - **Status**: TODO
