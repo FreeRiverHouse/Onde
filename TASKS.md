@@ -8641,3 +8641,43 @@
   - Recommendations for better diversification
   - Telegram delivery via cron Sunday evening
   - Script: `scripts/weekly-diversity-report.py`
+
+### [T805] Trading: Stop-loss history trend chart
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T366]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add historical view to stop-loss widget:
+  - Line chart showing monthly stop-loss counts
+  - Effectiveness trend (% correct over time)
+  - Compare stop-loss frequency vs volatility periods
+  - Identify if stop-loss threshold needs seasonal adjustment
+  - Data from kalshi-stop-loss.log aggregated by month
+
+### [T806] Trading: Analyze premature stop-loss patterns
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T366]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Identify when stop-losses exit too early:
+  - Correlate premature exits with time of day
+  - Check if volatility spike before recovery is common
+  - Measure average recovery time for "would have won" trades
+  - Suggest optimal stop-loss threshold based on data
+  - Script: `scripts/analyze-premature-stops.py`
+
+### [T807] Dashboard: System alerts feed widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Real-time feed of recent system alerts on /health:
+  - Show last 10 alerts (stop-loss, circuit breaker, etc.)
+  - Color-coded by severity (critical/warning/info)
+  - Timestamp and quick description
+  - Link to relevant dashboard section
+  - Auto-refresh every 30 seconds
+  - Component: `SystemAlertsFeedWidget.tsx`
