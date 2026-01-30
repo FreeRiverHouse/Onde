@@ -9320,16 +9320,19 @@
     - 0% win rate → strategy issue, not sizing
 
 ### [T809] Dashboard: DailyVolumeWidget with sparkline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create dashboard widget showing daily trading volume:
-  - Today's volume vs yesterday with % change
-  - 7-day sparkline from dailyVolume.history
-  - Trade count indicator
-  - Week total volume
+- **Notes**: ✅ Enhanced DailyVolumeWidget with sparkline!
+  - Added `calculate7DayHistory()` function
+  - Added inline SVG `Sparkline` component
+  - 7-day volume sparkline in widget header
+  - Week total with Activity icon
+  - Today's volume with change % vs yesterday
+  - Trade count, avg trade size, largest trade indicators
   - Match styling of WinRateSparkline
   - Component: `apps/surfboard/src/components/DailyVolumeSparkline.tsx`
   - Add to /betting page stats section
