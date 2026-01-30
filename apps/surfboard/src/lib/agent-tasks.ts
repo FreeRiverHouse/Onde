@@ -52,12 +52,20 @@ export interface AgentTask {
 export interface Agent {
   id: string
   name: string
-  type: 'social' | 'editorial' | 'engineering' | 'qa' | 'automation' | 'orchestrator' | 'creative'
+  type: 'social' | 'editorial' | 'engineering' | 'qa' | 'automation' | 'orchestrator' | 'creative' | 'ai'
   description?: string
   capabilities?: string  // JSON array of task types
   status: 'active' | 'paused' | 'offline'
   last_seen?: string
   created_at: string
+  // Gamification fields
+  xp?: number
+  level?: number
+  total_tasks_done?: number
+  current_streak?: number
+  longest_streak?: number
+  badges?: string  // JSON array of badge IDs
+  last_task_at?: string
 }
 
 export interface TaskFilters {
@@ -322,6 +330,119 @@ export async function startAgentTaskInD1(
 }
 
 /**
+ * Award XP to an agent and update their stats
+ */
+export async function awardAgentXPInD1(
+  db: D1Database,
+  agentId: string,
+  xpAmount: number = 10
+): Promise<boolean> {
+  try {
+    const now = new Date().toISOString()
+    const today = now.split('T')[0]
+    
+    // Get current agent stats to calculate streak
+    const agent = await db.prepare(
+      'SELECT xp, level, total_tasks_done, current_streak, longest_streak, last_task_at, badges FROM agents WHERE id = ?'
+    ).bind(agentId).first<{
+      xp: number | null
+      level: number | null
+      total_tasks_done: number | null
+      current_streak: number | null
+      longest_streak: number | null
+      last_task_at: string | null
+      badges: string | null
+    }>()
+
+    if (!agent) return false
+
+    const currentXP = agent.xp || 0
+    const currentTasksDone = agent.total_tasks_done || 0
+    let currentStreak = agent.current_streak || 0
+    let longestStreak = agent.longest_streak || 0
+    const lastTaskAt = agent.last_task_at
+    let badges: string[] = []
+    try {
+      badges = agent.badges ? JSON.parse(agent.badges) : []
+    } catch { badges = [] }
+
+    // Calculate streak
+    if (lastTaskAt) {
+      const lastTaskDay = lastTaskAt.split('T')[0]
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+      
+      if (lastTaskDay === today) {
+        // Same day - keep streak
+      } else if (lastTaskDay === yesterday) {
+        // Consecutive day - increment streak
+        currentStreak++
+      } else {
+        // Streak broken - reset to 1
+        currentStreak = 1
+      }
+    } else {
+      currentStreak = 1
+    }
+    
+    // Update longest streak
+    if (currentStreak > longestStreak) {
+      longestStreak = currentStreak
+    }
+
+    // Calculate new XP and level
+    const newXP = currentXP + xpAmount
+    const newLevel = Math.floor(newXP / 100) + 1
+    const newTasksDone = currentTasksDone + 1
+
+    // Check for new badges
+    const newBadges = [...badges]
+    
+    // Task count badges
+    if (newTasksDone >= 1 && !badges.includes('first-task')) newBadges.push('first-task')
+    if (newTasksDone >= 10 && !badges.includes('task-10')) newBadges.push('task-10')
+    if (newTasksDone >= 50 && !badges.includes('task-50')) newBadges.push('task-50')
+    if (newTasksDone >= 100 && !badges.includes('task-100')) newBadges.push('task-100')
+    if (newTasksDone >= 500 && !badges.includes('task-500')) newBadges.push('task-500')
+    
+    // Level badges
+    if (newLevel >= 5 && !badges.includes('level-5')) newBadges.push('level-5')
+    if (newLevel >= 10 && !badges.includes('level-10')) newBadges.push('level-10')
+    if (newLevel >= 25 && !badges.includes('level-25')) newBadges.push('level-25')
+    
+    // Streak badges
+    if (currentStreak >= 7 && !badges.includes('streak-7')) newBadges.push('streak-7')
+    if (currentStreak >= 30 && !badges.includes('streak-30')) newBadges.push('streak-30')
+    
+    // Time-based badges
+    const hour = new Date().getHours()
+    if (hour >= 0 && hour < 5 && !badges.includes('night-owl')) newBadges.push('night-owl')
+    if (hour >= 0 && hour < 6 && !badges.includes('early-bird')) newBadges.push('early-bird')
+
+    // Update agent with new XP and stats
+    const result = await db.prepare(
+      `UPDATE agents 
+       SET xp = ?, level = ?, total_tasks_done = ?, current_streak = ?, longest_streak = ?, 
+           badges = ?, last_task_at = ?
+       WHERE id = ?`
+    ).bind(
+      newXP,
+      newLevel,
+      newTasksDone,
+      currentStreak,
+      longestStreak,
+      JSON.stringify(newBadges),
+      now,
+      agentId
+    ).run()
+
+    return result.success
+  } catch (error) {
+    console.error('D1 awardAgentXP error:', error)
+    return false
+  }
+}
+
+/**
  * Complete a task with result
  */
 export async function completeAgentTaskInD1(
@@ -330,7 +451,7 @@ export async function completeAgentTaskInD1(
   result: string
 ): Promise<boolean> {
   try {
-    // Get task info for logging
+    // Get task info for logging and XP award
     const task = await getAgentTaskByIdFromD1(db, id)
 
     const updateResult = await db.prepare(
@@ -340,6 +461,11 @@ export async function completeAgentTaskInD1(
     ).bind(new Date().toISOString(), result, id).run()
 
     if (updateResult.success && task) {
+      // Award XP to the agent who completed the task
+      if (task.assigned_to) {
+        await awardAgentXPInD1(db, task.assigned_to, 10)
+      }
+
       // Log activity (non-critical)
       try {
         await db.prepare(

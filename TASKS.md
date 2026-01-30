@@ -4388,12 +4388,36 @@
 - **Notes**: ✅ Added! Notification bell toggle in FreeRiverHouse header. Click to request permission (shows toast feedback). When enabled: receives browser notification on task completion with agent name and task description. Uses Web Notifications API, auto-closes after 5s.
 
 ### [T509] XP e livelli per agenti (gamification)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: +10 XP per task done. Level up ogni 100 XP. Badge per achievements
+- **Notes**: ✅ Implemented full gamification system for agents!
+  - **Database migration**: `0006_agent_gamification.sql`
+    - Added xp, level, total_tasks_done, current_streak, longest_streak, badges to agents table
+    - Created badges reference table with 13 default badges
+    - Retroactive XP calculation based on completed tasks
+  - **XP System**:
+    - +10 XP per task completed
+    - Level = floor(xp/100) + 1
+    - Automatic level-up calculation
+  - **Badges** (13 total):
+    - Task milestones: 🎯 First Steps, 🔥 Warming Up (10), ⭐ Seasoned (50), 💯 Centurion (100), 🏆 Legend (500)
+    - Level badges: 🌟 Rising Star (5), 💎 Expert (10), 👑 Master (25)
+    - Streak badges: 🔗 Week Warrior (7), ⛓️ Monthly Master (30)
+    - Time badges: 🦉 Night Owl, 🐦 Early Bird, ⚡ Speed Demon
+  - **Streak tracking**: Consecutive days with completed tasks
+  - **UI Updates** (FreeRiverHouse.tsx):
+    - Level badge on agent avatar (color-coded by level)
+    - XP progress bar with gradient
+    - Badge display (up to 6 shown, hover for name)
+    - Streak indicator with flame emoji
+    - Tasks completed counter
+  - **Auto-award**: XP automatically awarded on task completion via awardAgentXPInD1()
+  - **Utility lib**: gamification.ts with helper functions
+  - Build passes ✅
 
 ### [T510] Mood indicator basato su workload
 - **Status**: TODO

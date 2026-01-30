@@ -33,6 +33,13 @@ interface AgentState extends AgentConfig {
   currentTask?: string;
   taskCount: number;
   lastSeen?: string | null;
+  // Gamification
+  xp: number;
+  level: number;
+  totalTasksDone: number;
+  currentStreak: number;
+  longestStreak: number;
+  badges: string[];
 }
 
 interface AgentTask {
@@ -53,6 +60,13 @@ interface DBAgent {
   capabilities: string;
   status: string;
   last_seen: string | null;
+  // Gamification
+  xp: number | null;
+  level: number | null;
+  total_tasks_done: number | null;
+  current_streak: number | null;
+  longest_streak: number | null;
+  badges: string | null;
 }
 
 // Visual config for agents (room assignments, images, colors)
@@ -223,6 +237,12 @@ export function FreeRiverHouse() {
               skills = JSON.parse(dbAgent.capabilities || '[]');
             } catch { skills = []; }
 
+            // Parse badges
+            let badges: string[] = [];
+            try {
+              badges = dbAgent.badges ? JSON.parse(dbAgent.badges) : [];
+            } catch { badges = []; }
+
             // Count tasks for this agent
             const agentTasks = taskList.filter(t => t.assigned_to === dbAgent.id);
             const activeTasks = agentTasks.filter(t =>
@@ -254,6 +274,13 @@ export function FreeRiverHouse() {
               currentTask: activeTasks[0]?.description,
               taskCount: agentTasks.length,
               lastSeen: dbAgent.last_seen,
+              // Gamification data
+              xp: dbAgent.xp || 0,
+              level: dbAgent.level || 1,
+              totalTasksDone: dbAgent.total_tasks_done || 0,
+              currentStreak: dbAgent.current_streak || 0,
+              longestStreak: dbAgent.longest_streak || 0,
+              badges,
             };
           });
 
@@ -774,6 +801,17 @@ export function FreeRiverHouse() {
                         className="object-cover"
                         sizes="48px"
                       />
+                      {/* Level badge */}
+                      <div 
+                        className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shadow-lg border border-white/20"
+                        style={{ 
+                          backgroundColor: selectedAgent.level >= 25 ? '#E040FB' : 
+                                         selectedAgent.level >= 10 ? '#00BCD4' : 
+                                         selectedAgent.level >= 5 ? '#4CAF50' : '#2196F3'
+                        }}
+                      >
+                        {selectedAgent.level}
+                      </div>
                     </div>
                     <div className="flex-1">
                       <h3 className="text-white font-medium text-sm">{selectedAgent.name}</h3>
@@ -788,6 +826,71 @@ export function FreeRiverHouse() {
                       </svg>
                     </button>
                   </div>
+
+                  {/* XP Progress Bar */}
+                  <div className="mb-3">
+                    <div className="flex items-center justify-between text-[10px] mb-1">
+                      <span className="text-white/50">Level {selectedAgent.level}</span>
+                      <span className="text-cyan-400">{selectedAgent.xp} XP</span>
+                    </div>
+                    <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full transition-all duration-500"
+                        style={{ width: `${(selectedAgent.xp % 100)}%` }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between text-[10px] mt-1">
+                      <span className="text-white/30">{100 - (selectedAgent.xp % 100)} XP to level {selectedAgent.level + 1}</span>
+                      <span className="text-white/30">{selectedAgent.totalTasksDone} tasks</span>
+                    </div>
+                  </div>
+
+                  {/* Badges */}
+                  {selectedAgent.badges.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {selectedAgent.badges.slice(0, 6).map((badge) => {
+                        const badgeInfo: Record<string, { icon: string; name: string }> = {
+                          'first-task': { icon: '🎯', name: 'First Steps' },
+                          'task-10': { icon: '🔥', name: 'Warming Up' },
+                          'task-50': { icon: '⭐', name: 'Seasoned' },
+                          'task-100': { icon: '💯', name: 'Centurion' },
+                          'task-500': { icon: '🏆', name: 'Legend' },
+                          'level-5': { icon: '🌟', name: 'Rising Star' },
+                          'level-10': { icon: '💎', name: 'Expert' },
+                          'level-25': { icon: '👑', name: 'Master' },
+                          'streak-7': { icon: '🔗', name: 'Week Warrior' },
+                          'streak-30': { icon: '⛓️', name: 'Monthly' },
+                          'night-owl': { icon: '🦉', name: 'Night Owl' },
+                          'early-bird': { icon: '🐦', name: 'Early Bird' },
+                          'speed-demon': { icon: '⚡', name: 'Speed Demon' },
+                        };
+                        const info = badgeInfo[badge] || { icon: '🏅', name: badge };
+                        return (
+                          <span
+                            key={badge}
+                            title={info.name}
+                            className="text-sm cursor-default hover:scale-125 transition-transform"
+                          >
+                            {info.icon}
+                          </span>
+                        );
+                      })}
+                      {selectedAgent.badges.length > 6 && (
+                        <span className="text-[10px] text-white/30">+{selectedAgent.badges.length - 6}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Streak indicator */}
+                  {selectedAgent.currentStreak > 0 && (
+                    <div className="flex items-center gap-1.5 mb-2 text-[10px]">
+                      <span className="text-orange-400">🔥</span>
+                      <span className="text-orange-400 font-medium">{selectedAgent.currentStreak} day streak</span>
+                      {selectedAgent.longestStreak > selectedAgent.currentStreak && (
+                        <span className="text-white/30">(best: {selectedAgent.longestStreak})</span>
+                      )}
+                    </div>
+                  )}
 
                   {/* Status */}
                   <div className="flex items-center gap-2 flex-wrap">
