@@ -106,9 +106,10 @@ class TestSuite:
                 # Parse expiry
                 not_after = cert.get('notAfter', '')
                 # Format: 'Mar 15 23:59:59 2025 GMT'
-                from datetime import datetime
                 expiry = datetime.strptime(not_after, '%b %d %H:%M:%S %Y %Z')
-                days_left = (expiry - datetime.utcnow()).days
+                expiry_utc = expiry.replace(tzinfo=timezone.utc)
+                now_utc = datetime.now(timezone.utc)
+                days_left = (expiry_utc - now_utc).days
                 duration = int((time.time() - start) * 1000)
                 passed = days_left > 7  # Critical if < 7 days
                 warning = days_left < 30

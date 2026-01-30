@@ -11,7 +11,7 @@ Usage:
 import json
 import argparse
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 import math
 
@@ -34,7 +34,7 @@ def percentile(data: list, p: float) -> float:
 def load_trades_with_latency(days: int = 14) -> list:
     """Load trades with latency data from the last N days."""
     trades = []
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     
     if not TRADE_LOG_V2.exists():
         return trades
@@ -123,7 +123,7 @@ def main():
             "trend": [],
             "totalTrades": 0,
             "message": "No trades with latency data yet",
-            "generatedAt": datetime.utcnow().isoformat() + "Z"
+            "generatedAt": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
         }
     else:
         daily_stats = compute_daily_stats(trades)
@@ -146,7 +146,7 @@ def main():
             "overall": overall,
             "totalTrades": n,
             "daysAnalyzed": args.days,
-            "generatedAt": datetime.utcnow().isoformat() + "Z"
+            "generatedAt": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
         }
         
         print("📊 Latency Trend Computation")

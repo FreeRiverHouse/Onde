@@ -10,7 +10,7 @@ Usage:
 
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from collections import defaultdict
 import argparse
@@ -25,7 +25,7 @@ STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
 def log_api_call(source: str, success: bool, endpoint: str = "", error_msg: str = ""):
     """Log an API call result. Call this from autotrader or other scripts."""
     entry = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         "source": source,
         "success": success,
         "endpoint": endpoint,
@@ -39,7 +39,7 @@ def load_logs(days: int = 7) -> list:
     if not ERROR_LOG.exists():
         return []
     
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=days)
     logs = []
     
     with open(ERROR_LOG) as f:
@@ -119,7 +119,7 @@ def show_status():
                 print(f"      - {err}: {count}")
     
     # Save stats
-    stats["_generated"] = datetime.utcnow().isoformat() + "Z"
+    stats["_generated"] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
     with open(STATS_FILE, "w") as f:
         json.dump(stats, f, indent=2)
     
@@ -132,7 +132,7 @@ def show_report():
     
     print("\n📋 Weekly API Reliability Report")
     print("=" * 60)
-    print(f"Period: Last 7 days | Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC")
+    print(f"Period: Last 7 days | Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC")
     print()
     
     if not stats:
