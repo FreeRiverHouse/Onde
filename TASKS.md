@@ -8316,18 +8316,28 @@
   - Helps visualize diversification opportunities over time
 
 ### [T789] Autotrader: Integrate trading window recommendations
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T412]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use trading window recommendations to skip bad times:
-  - Load `data/trading/trading-recommendations.json` at startup
-  - Skip trading during hours not in `active_hours` list
-  - Skip trading on `avoid_days` (if confidence is high)
-  - Log skipped cycles with reason "outside_optimal_window"
-  - Add --ignore-schedule flag to override
-  - Alert if schedule is too restrictive (<6 active hours)
+- **Notes**: ✅ Implemented trading window schedule enforcement!
+  - **Config:**
+    - `TRADING_SCHEDULE_FILE` = `data/trading/trading-recommendations.json`
+    - `TRADING_SCHEDULE_ENABLED` = env var (default: true)
+  - **Functions:**
+    - `load_trading_schedule()` - loads recommendations JSON
+    - `check_trading_schedule()` - returns (should_trade, reason)
+    - `log_schedule_skip()` - logs to kalshi-schedule-skips.jsonl
+  - **Behavior:**
+    - Checks schedule at start of each cycle
+    - Skips cycle if current day is in `avoid_days`
+    - Skips cycle if current hour not in `active_hours`
+    - Logs reason for skip
+    - Prints schedule status each cycle
+  - **Override:** `--ignore-schedule` flag disables check
+  - **Env:** `TRADING_SCHEDULE_ENABLED=false` also disables
 
 ### [T790] Dashboard: Trading window recommendations widget
 - **Status**: TODO

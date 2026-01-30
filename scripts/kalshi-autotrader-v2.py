@@ -250,6 +250,77 @@ LATENCY_PROFILE_FILE = "scripts/kalshi-latency-profile.json"
 LATENCY_PROFILE_WINDOW = 100  # Keep last N calls per endpoint
 API_LATENCY_LOG = defaultdict(list)  # endpoint -> list of (timestamp, latency_ms)
 
+# Trading Window Schedule (T789) - skip bad hours/days based on historical performance
+TRADING_SCHEDULE_FILE = "data/trading/trading-recommendations.json"
+TRADING_SCHEDULE_ENABLED = os.getenv("TRADING_SCHEDULE_ENABLED", "true").lower() in ("true", "1", "yes")
+TRADING_SCHEDULE_SKIP_LOG = "scripts/kalshi-schedule-skips.jsonl"
+
+# ============== TRADING WINDOW SCHEDULE (T789) ==============
+
+def load_trading_schedule():
+    """
+    Load trading window recommendations from JSON file.
+    Returns schedule dict or None if not available.
+    """
+    schedule_path = Path(__file__).parent.parent / TRADING_SCHEDULE_FILE
+    if not schedule_path.exists():
+        return None
+    
+    try:
+        with open(schedule_path) as f:
+            data = json.load(f)
+        return data.get("recommendations", {}).get("schedule")
+    except Exception as e:
+        print(f"⚠️ Failed to load trading schedule: {e}")
+        return None
+
+def check_trading_schedule():
+    """
+    Check if current time is within optimal trading windows.
+    
+    Returns:
+        tuple: (should_trade, reason)
+        - should_trade: True if we should trade now, False otherwise
+        - reason: Explanation of why trading is allowed/blocked
+    """
+    if not TRADING_SCHEDULE_ENABLED:
+        return True, "Schedule check disabled"
+    
+    schedule = load_trading_schedule()
+    if not schedule:
+        return True, "No schedule data available"
+    
+    now = datetime.now(timezone.utc)
+    current_hour = now.hour
+    current_day = now.weekday()
+    
+    active_hours = schedule.get("active_hours", list(range(24)))
+    avoid_days = schedule.get("avoid_days", [])
+    
+    # Check if current day should be avoided
+    if current_day in avoid_days:
+        day_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        day_name = day_names[current_day]
+        return False, f"{day_name} is in avoid_days (historical poor performance)"
+    
+    # Check if current hour is active
+    if current_hour not in active_hours:
+        return False, f"{current_hour:02d}:00 UTC not in active_hours (poor historical win rate)"
+    
+    return True, f"✓ {current_hour:02d}:00 UTC is an optimal trading window"
+
+def log_schedule_skip(reason: str):
+    """Log when we skip trading due to schedule."""
+    log_path = Path(__file__).parent / Path(TRADING_SCHEDULE_SKIP_LOG).name
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "reason": reason,
+        "hour": datetime.now(timezone.utc).hour,
+        "day": datetime.now(timezone.utc).weekday()
+    }
+    with open(log_path, "a") as f:
+        f.write(json.dumps(entry) + "\n")
+
 
 # ============== API LATENCY PROFILING (T279) ==============
 
@@ -4035,6 +4106,16 @@ def run_cycle():
     print(f"🤖 KALSHI AUTOTRADER v2 - {now.strftime('%Y-%m-%d %H:%M:%S')} UTC")
     print(f"{'='*60}")
     
+    # Check trading window schedule (T789) - skip bad hours/days
+    should_trade, schedule_reason = check_trading_schedule()
+    if not should_trade:
+        print(f"⏰ Schedule: {schedule_reason}")
+        print("💤 Skipping this cycle (outside optimal trading window)")
+        log_schedule_skip(schedule_reason)
+        return
+    else:
+        print(f"⏰ Schedule: {schedule_reason}")
+    
     # Update trade results first (FEEDBACK LOOP!)
     update_result = update_trade_results()
     if update_result["updated"] > 0:
@@ -5539,5 +5620,10 @@ if __name__ == "__main__":
     # T762: Handle --reset-circuit-breaker command
     if len(sys.argv) > 1 and sys.argv[1] == "--reset-circuit-breaker":
         reset_circuit_breaker_manual()
+    # T789: Handle --ignore-schedule flag
+    elif "--ignore-schedule" in sys.argv:
+        TRADING_SCHEDULE_ENABLED = False
+        print("⚠️ Trading schedule check DISABLED (--ignore-schedule)")
+        main()
     else:
         main()
