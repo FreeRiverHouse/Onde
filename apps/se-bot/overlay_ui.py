@@ -67,17 +67,19 @@ HOTKEY_CODE = 1  # 'S' key
 
 
 class SuggestionCard(NSView):
-    """A single suggestion card with hover effects and click to copy."""
+    """A single suggestion card with hover effects, click to copy, and voice output."""
     
-    def initWithFrame_index_callback_(self, frame, index, callback):
+    def initWithFrame_index_callback_voiceCallback_(self, frame, index, callback, voice_callback):
         self = objc.super(SuggestionCard, self).initWithFrame_(frame)
         if self is None:
             return None
         
         self.index = index
         self.callback = callback
+        self.voice_callback = voice_callback
         self.suggestion_text = ""
         self.is_hovered = False
+        self.is_speaking = False
         
         # Background with rounded corners
         self.wantsLayer = True
@@ -96,8 +98,20 @@ class SuggestionCard(NSView):
         self.badge.setSelectable_(False)
         self.addSubview_(self.badge)
         
-        # Text label
-        self.label = NSTextField.alloc().initWithFrame_(NSMakeRect(40, 10, frame.size.width - 50, frame.size.height - 20))
+        # Speaker button (🔊)
+        self.speaker_btn = NSTextField.alloc().initWithFrame_(NSMakeRect(frame.size.width - 35, frame.size.height - 30, 28, 24))
+        self.speaker_btn.setStringValue_("🔊")
+        self.speaker_btn.setFont_(NSFont.systemFontOfSize_(14))
+        self.speaker_btn.setTextColor_(NSColor.whiteColor())
+        self.speaker_btn.setBezeled_(False)
+        self.speaker_btn.setDrawsBackground_(False)
+        self.speaker_btn.setEditable_(False)
+        self.speaker_btn.setSelectable_(False)
+        self.speaker_btn.setToolTip_("Click or Shift+{} to speak".format(index + 1))
+        self.addSubview_(self.speaker_btn)
+        
+        # Text label (adjusted width for speaker button)
+        self.label = NSTextField.alloc().initWithFrame_(NSMakeRect(40, 10, frame.size.width - 80, frame.size.height - 20))
         self.label.setFont_(NSFont.systemFontOfSize_(12))
         self.label.setTextColor_(NSColor.whiteColor())
         self.label.setBezeled_(False)
@@ -119,11 +133,25 @@ class SuggestionCard(NSView):
         
         return self
     
+    # Backward compatibility - old init without voice callback
+    def initWithFrame_index_callback_(self, frame, index, callback):
+        return self.initWithFrame_index_callback_voiceCallback_(frame, index, callback, None)
+    
     def setText_(self, text):
         self.suggestion_text = text
         # Truncate if too long
         display_text = text[:200] + "..." if len(text) > 200 else text
         self.label.setStringValue_(display_text)
+    
+    def setSpeaking_(self, speaking):
+        """Update speaker icon based on speaking state."""
+        self.is_speaking = speaking
+        if speaking:
+            self.speaker_btn.setStringValue_("🔈")  # Speaking indicator
+            self.speaker_btn.setTextColor_(NSColor.colorWithCalibratedRed_green_blue_alpha_(1.0, 0.9, 0.3, 1.0))
+        else:
+            self.speaker_btn.setStringValue_("🔊")
+            self.speaker_btn.setTextColor_(NSColor.whiteColor())
     
     def mouseEntered_(self, event):
         self.is_hovered = True
@@ -134,8 +162,20 @@ class SuggestionCard(NSView):
         self.layer().setOpacity_(1.0)
     
     def mouseDown_(self, event):
-        if self.callback and self.suggestion_text:
-            self.callback(self.index, self.suggestion_text)
+        if not self.suggestion_text:
+            return
+            
+        # Check if click is on speaker button area (right side)
+        click_location = self.convertPoint_fromView_(event.locationInWindow(), None)
+        if click_location.x > self.bounds().size.width - 45:
+            # Speaker button clicked - trigger voice
+            if self.voice_callback:
+                self.voice_callback(self.index, self.suggestion_text)
+        else:
+            # Regular click - copy to clipboard
+            if self.callback:
+                self.callback(self.index, self.suggestion_text)
+        
         # Visual feedback
         self.layer().setOpacity_(0.5)
         NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(
@@ -233,6 +273,7 @@ class OverlayWindow(NSPanel):
         self.visual_effect = visual_effect
         self.suggestion_cards = []
         self.on_copy_callback = None
+        self.on_voice_callback = None
         
         self._setup_ui()
         
@@ -271,7 +312,9 @@ class OverlayWindow(NSPanel):
         for i in range(MAX_SUGGESTIONS):
             y_offset -= CARD_HEIGHT + 5
             card_frame = NSMakeRect(10, y_offset, width - 20, CARD_HEIGHT)
-            card = SuggestionCard.alloc().initWithFrame_index_callback_(card_frame, i, self._on_card_click)
+            card = SuggestionCard.alloc().initWithFrame_index_callback_voiceCallback_(
+                card_frame, i, self._on_card_click, self._on_card_voice
+            )
             card.setText_(f"Waiting for suggestions...")
             content.addSubview_(card)
             self.suggestion_cards.append(card)
@@ -286,7 +329,7 @@ class OverlayWindow(NSPanel):
         
         # Footer hint
         footer = NSTextField.alloc().initWithFrame_(NSMakeRect(10, 5, width - 20, 20))
-        footer.setStringValue_("Press 1/2/3 to copy • Cmd+Shift+S to toggle")
+        footer.setStringValue_("1/2/3 copy • Shift+1/2/3 speak • Cmd+Shift+S toggle")
         footer.setFont_(NSFont.systemFontOfSize_(9))
         footer.setTextColor_(NSColor.colorWithCalibratedRed_green_blue_alpha_(0.6, 0.6, 0.6, 1.0))
         footer.setBezeled_(False)
@@ -299,6 +342,24 @@ class OverlayWindow(NSPanel):
         self._copy_to_clipboard(text)
         if self.on_copy_callback:
             self.on_copy_callback(index, text)
+    
+    def _on_card_voice(self, index, text):
+        """Called when a suggestion's speaker button is clicked."""
+        if self.on_voice_callback:
+            self.on_voice_callback(index, text)
+        # Update status
+        self.status.setStringValue_("🎤 Speaking...")
+        self.status.setTextColor_(NSColor.colorWithCalibratedRed_green_blue_alpha_(0.9, 0.7, 0.2, 1.0))
+        # Update card speaking state
+        if index < len(self.suggestion_cards):
+            self.suggestion_cards[index].setSpeaking_(True)
+    
+    def setSpeakingDone_(self, index):
+        """Called when TTS playback completes."""
+        self.status.setStringValue_("● Listening")
+        self.status.setTextColor_(NSColor.colorWithCalibratedRed_green_blue_alpha_(0.3, 0.9, 0.4, 1.0))
+        if index < len(self.suggestion_cards):
+            self.suggestion_cards[index].setSpeaking_(False)
     
     def _copy_to_clipboard(self, text):
         pasteboard = NSPasteboard.generalPasteboard()
@@ -336,7 +397,7 @@ class OverlayWindow(NSPanel):
             r, g, b = color
             self.status.setTextColor_(NSColor.colorWithCalibratedRed_green_blue_alpha_(r, g, b, 1.0))
     
-    def handleKeyPress_(self, key_code):
+    def handleKeyPress_modifiers_(self, key_code, modifiers):
         """Handle keyboard shortcuts for suggestion selection."""
         # Keys 1, 2, 3 (codes 18, 19, 20)
         if key_code in (18, 19, 20):
@@ -344,9 +405,17 @@ class OverlayWindow(NSPanel):
             if index < len(self.suggestion_cards):
                 card = self.suggestion_cards[index]
                 if card.suggestion_text:
-                    self._copy_to_clipboard(card.suggestion_text)
+                    # Shift+1/2/3 = speak, 1/2/3 = copy
+                    if modifiers & NSEventModifierFlagShift:
+                        self._on_card_voice(index, card.suggestion_text)
+                    else:
+                        self._copy_to_clipboard(card.suggestion_text)
                     return True
         return False
+    
+    # Backward compatibility
+    def handleKeyPress_(self, key_code):
+        return self.handleKeyPress_modifiers_(key_code, 0)
 
 
 class SEBotOverlayApp:
@@ -360,9 +429,32 @@ class SEBotOverlayApp:
         self.global_monitor = None
         self.local_monitor = None
         
+        # Voice output (optional - requires ElevenLabs API key)
+        self.voice_output = None
+        self.voice_enabled = False
+        self._init_voice_output()
+        
         # Callbacks for integration
         self.on_suggestion_copied = None
         self.on_visibility_changed = None
+        self.on_suggestion_spoken = None
+    
+    def _init_voice_output(self):
+        """Initialize voice output if ElevenLabs API key is available."""
+        try:
+            from voice_output import VoiceOutput
+            self.voice_output = VoiceOutput()
+            if self.voice_output.api_key:
+                self.voice_enabled = True
+                print("🎤 Voice output enabled (ElevenLabs)")
+            else:
+                # Fall back to macOS TTS
+                self.voice_enabled = True  # macOS TTS always available
+                print("🎤 Voice output enabled (macOS TTS fallback)")
+        except ImportError as e:
+            print(f"⚠️  Voice output not available: {e}")
+            self.voice_output = None
+            self.voice_enabled = False
     
     def start(self):
         """Start the overlay application."""
@@ -372,6 +464,7 @@ class SEBotOverlayApp:
         # Create overlay window
         self.window = OverlayWindow.alloc().initWithPosition_(self.position)
         self.window.on_copy_callback = self._on_copy
+        self.window.on_voice_callback = self._on_voice
         
         # Register global hotkey (Cmd+Shift+S)
         self._setup_hotkey()
@@ -380,7 +473,7 @@ class SEBotOverlayApp:
         self.window.orderFront_(None)
         
         print("SE-Bot Overlay started. Press Cmd+Shift+S to toggle visibility.")
-        print("Press 1/2/3 to copy suggestions. Drag to reposition.")
+        print("Press 1/2/3 to copy, Shift+1/2/3 to speak. Drag to reposition.")
         
         # Run event loop
         self.app.run()
@@ -412,8 +505,8 @@ class SEBotOverlayApp:
                     event.keyCode() == HOTKEY_CODE):
                     self.toggle_visibility()
                     return None
-                # Handle number keys
-                if self.window and self.window.handleKeyPress_(event.keyCode()):
+                # Handle number keys (with or without Shift for voice)
+                if self.window and self.window.handleKeyPress_modifiers_(event.keyCode(), flags):
                     return None
             return event
         
@@ -437,6 +530,40 @@ class SEBotOverlayApp:
         if self.on_suggestion_copied:
             self.on_suggestion_copied(index, text)
         print(f"Copied suggestion {index + 1}: {text[:50]}...")
+    
+    def _on_voice(self, index, text):
+        """Called when a suggestion should be spoken."""
+        if not self.voice_enabled:
+            print("⚠️  Voice output not available")
+            return
+        
+        if self.on_suggestion_spoken:
+            self.on_suggestion_spoken(index, text)
+        
+        print(f"🎤 Speaking suggestion {index + 1}: {text[:50]}...")
+        
+        # Speak in background thread to not block UI
+        def speak_thread():
+            try:
+                if self.voice_output and self.voice_output.api_key:
+                    # Use ElevenLabs
+                    self.voice_output.speak(text, blocking=True)
+                else:
+                    # Fall back to macOS TTS
+                    import subprocess
+                    subprocess.run(["say", text], check=True, capture_output=True)
+            except Exception as e:
+                print(f"⚠️  Voice error: {e}")
+            finally:
+                # Update UI when done (on main thread)
+                if self.window:
+                    self.window.performSelectorOnMainThread_withObject_waitUntilDone_(
+                        objc.selector(self.window.setSpeakingDone_, signature=b'v@:i'),
+                        index, False
+                    )
+        
+        import threading
+        threading.Thread(target=speak_thread, daemon=True).start()
     
     def update_suggestions(self, suggestions):
         """Update displayed suggestions from external source."""

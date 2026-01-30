@@ -6860,19 +6860,23 @@
   - Font size adjustment for suggestion cards
 
 ### [T734] SE-Bot: Add voice output to overlay suggestion cards
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T475]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Integrate voice output with the overlay UI:
-  - Add 🔊 button on each suggestion card
-  - Click plays the suggestion text using ElevenLabs
-  - Visual feedback while speaking (button animation)
-  - Stop button if currently playing
-  - Keyboard shortcut: Shift+1/2/3 to speak suggestion
-  - Option to auto-speak top suggestion when generated
-  - Volume slider in overlay settings
+- **Notes**: ✅ Implemented voice output in overlay UI!
+  - ✅ 🔊 button on each suggestion card (right side)
+  - ✅ Click speaker button to speak suggestion
+  - ✅ Uses ElevenLabs if API key set, macOS TTS fallback otherwise
+  - ✅ Visual feedback while speaking (🔈 icon, yellow color)
+  - ✅ Keyboard shortcut: Shift+1/2/3 to speak suggestion
+  - ✅ Status updates: "🎤 Speaking..." → "● Listening"
+  - ✅ Background thread for non-blocking playback
+  - ✅ Updated footer hint with voice shortcuts
+  - ⏳ Auto-speak option (future enhancement)
+  - ⏳ Volume slider in overlay (future - see T736)
 
 ### [T735] SE-Bot: Add competitor detection and battle card mode
 - **Status**: TODO
