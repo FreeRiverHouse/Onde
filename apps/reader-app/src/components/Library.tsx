@@ -2,6 +2,7 @@
 
 import { useReaderStore, Book } from '@/store/readerStore';
 import { useState, useRef } from 'react';
+import { storeEpubFile } from '@/lib/epubStorage';
 
 export function Library() {
   const { books, setCurrentBook, addBook, settings } = useReaderStore();
@@ -189,27 +190,4 @@ function ContinueReadingCard({ book, onClick }: { book: Book; onClick: (book: Bo
   );
 }
 
-// IndexedDB helper for storing EPUB files
-async function storeEpubFile(bookId: string, arrayBuffer: ArrayBuffer): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open('onde-reader-db', 1);
-    
-    request.onerror = () => reject(request.error);
-    
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (!db.objectStoreNames.contains('epubs')) {
-        db.createObjectStore('epubs', { keyPath: 'id' });
-      }
-    };
-    
-    request.onsuccess = () => {
-      const db = request.result;
-      const tx = db.transaction('epubs', 'readwrite');
-      const store = tx.objectStore('epubs');
-      store.put({ id: bookId, data: arrayBuffer });
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-    };
-  });
-}
+// storeEpubFile is now imported from @/lib/epubStorage

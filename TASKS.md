@@ -46,18 +46,25 @@
     - **Run with:** `cd apps/reader-app && npm run dev`
 
 ### [T690] Reader App: Full EPUB Support
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Enable real EPUB file reading in the Reader App:
-  - Parse EPUB files using epub.js library (already in package.json)
-  - Extract metadata (title, author, cover) from EPUB
-  - Render chapters with proper formatting
-  - Support embedded images and styles
-  - Handle multiple EPUB formats (EPUB2, EPUB3)
-  - Store EPUBs in IndexedDB (infrastructure ready from T668)
+- **Notes**: ✅ Implemented real EPUB file reading in the Reader App!
+  - ✅ Created EpubReader component using epub.js library
+  - ✅ Extract metadata (title, author, cover) from EPUB
+  - ✅ Render chapters with epub.js rendition (proper formatting, pagination)
+  - ✅ Support embedded images and styles
+  - ✅ Table of contents extracted from EPUB navigation
+  - ✅ Progress tracking via epub.js locations
+  - ✅ Theme support (light/dark/sepia) applied to EPUB content
+  - ✅ Store uploaded EPUBs in IndexedDB (shared epubStorage module)
+  - ✅ Gutenberg URLs for sample books (Pride & Prejudice, Moby Dick, Frankenstein)
+  - ✅ TypeScript types for epub.js (src/types/epub.d.ts)
+  - ✅ Touch gestures (swipe) and keyboard navigation
+  - Build OK, ready for deploy
 
 ### [T691] Reader App: Bookmarks & Highlighting
 - **Status**: TODO
