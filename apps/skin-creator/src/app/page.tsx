@@ -70,6 +70,7 @@ export default function SkinCreator() {
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [zoomLevel, setZoomLevel] = useState(6); // 6x default
   const [brushSize, setBrushSize] = useState(1);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -576,6 +577,21 @@ export default function SkinCreator() {
             >
               💾 Download
             </button>
+            <div className="flex items-center gap-1 ml-2">
+              <button
+                onClick={() => setZoomLevel(Math.max(4, zoomLevel - 1))}
+                className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+              >
+                −
+              </button>
+              <span className="text-sm font-bold w-8 text-center">{zoomLevel}x</span>
+              <button
+                onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
+                className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+              >
+                +
+              </button>
+            </div>
           </div>
 
           {/* Brush Size */}
@@ -632,9 +648,10 @@ export default function SkinCreator() {
                 height={SKIN_HEIGHT}
                 className="cursor-crosshair"
                 style={{ 
-                  width: SKIN_WIDTH * DISPLAY_SCALE, 
-                  height: SKIN_HEIGHT * DISPLAY_SCALE,
+                  width: SKIN_WIDTH * zoomLevel, 
+                  height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
+                  transition: 'all 0.2s ease',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); }}
