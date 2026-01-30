@@ -6,12 +6,13 @@ import {
   PerspectiveCamera,
 } from '@react-three/drei';
 import { XR, createXRStore, XROrigin } from '@react-three/xr';
-import { Suspense, useState, useCallback, useEffect } from 'react';
+import { Suspense, useState, useCallback, useEffect, useRef } from 'react';
 import { FloatingBook } from './FloatingBook';
 import { ReadingEnvironment } from './ReadingEnvironment';
 import { VRControls } from './VRControls';
 import { BookSelector } from './BookSelector';
 import { useBookStore, SAMPLE_PAGES } from '@/store/bookStore';
+import useAmbientSoundscapes from './AmbientSoundscapes';
 
 // XR Store for session management
 const store = createXRStore();
@@ -21,6 +22,21 @@ type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 export default function VRScene() {
   const [showBookSelector, setShowBookSelector] = useState(false);
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('evening');
+  const [isMuted, setIsMuted] = useState(false);
+  const [ambientVolume, setAmbientVolume] = useState(0.5);
+  const pageTurnRef = useRef<() => void>(() => {});
+  
+  // Ambient soundscapes hook
+  const { playPageTurn } = useAmbientSoundscapes({
+    timeOfDay,
+    isMuted,
+    volume: ambientVolume,
+  });
+  
+  // Store page turn callback
+  useEffect(() => {
+    pageTurnRef.current = playPageTurn;
+  }, [playPageTurn]);
   
   // Get state and actions from book store
   const { 
@@ -50,6 +66,17 @@ export default function VRScene() {
   const adjustFontSize = useCallback((delta: number) => {
     setFontSize(fontSize + delta);
   }, [fontSize, setFontSize]);
+  
+  // Wrapped page navigation with sound
+  const handleNextPage = useCallback(() => {
+    nextPage();
+    pageTurnRef.current();
+  }, [nextPage]);
+  
+  const handlePrevPage = useCallback(() => {
+    prevPage();
+    pageTurnRef.current();
+  }, [prevPage]);
 
   return (
     <div className="h-full w-full relative">
@@ -98,6 +125,29 @@ export default function VRScene() {
           </span>
           <span className="text-sm capitalize hidden sm:inline">{timeOfDay}</span>
         </button>
+        
+        {/* Audio Controls */}
+        <div className="flex items-center gap-1 bg-gray-800 rounded-lg px-2 py-1 border border-gray-600/30">
+          <button
+            onClick={() => setIsMuted(!isMuted)}
+            className="px-2 py-1 hover:bg-gray-700 rounded text-xl transition-colors"
+            title={isMuted ? 'Unmute' : 'Mute'}
+          >
+            {isMuted ? '🔇' : '🔊'}
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={ambientVolume}
+            onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+            disabled={isMuted}
+            className="w-16 h-1.5 rounded-lg appearance-none cursor-pointer accent-amber-500
+                       bg-gray-600 disabled:opacity-50"
+            title="Ambient volume"
+          />
+        </div>
       </div>
       
       {/* Controls Panel */}
@@ -167,14 +217,14 @@ export default function VRScene() {
               currentPage={currentPage}
               fontSize={fontSize}
               distance={bookDistance}
-              onNextPage={nextPage}
-              onPrevPage={prevPage}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
             />
             
             {/* VR Controller interactions */}
             <VRControls 
-              onNextPage={nextPage}
-              onPrevPage={prevPage}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
               onFontIncrease={() => adjustFontSize(0.005)}
               onFontDecrease={() => adjustFontSize(-0.005)}
             />
@@ -192,8 +242,8 @@ export default function VRScene() {
       
       {/* Keyboard event handler */}
       <KeyboardHandler 
-        onNextPage={nextPage} 
-        onPrevPage={prevPage}
+        onNextPage={handleNextPage} 
+        onPrevPage={handlePrevPage}
         onFontIncrease={() => adjustFontSize(0.005)}
         onFontDecrease={() => adjustFontSize(-0.005)}
       />

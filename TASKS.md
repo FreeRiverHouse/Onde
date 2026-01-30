@@ -314,19 +314,31 @@
   - @react-three/xr hands API integration
 
 ### [T707] Reader App VR: Add ambient soundscapes
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T702]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add immersive audio to VR reading experience (like Moonlight House T488):
-  - Crackling fire sounds from fireplace
-  - Clock ticking from grandfather clock
-  - Page rustling on page turn
-  - Soft ambient library hum
-  - Rain sounds (optional, when "rainy" mode)
-  - Use Web Audio API (procedural, no audio files)
-  - Time-of-day variations (birds in morning, crickets at night)
+- **Notes**: ✅ Implemented immersive ambient soundscapes for VR Reader!
+  - **Component**: `apps/reader-vr/components/AmbientSoundscapes.tsx`
+  - **Hook**: `useAmbientSoundscapes({ timeOfDay, isMuted, volume })`
+  - **Features:**
+    - ✅ Crackling fireplace (low pops, snaps, mid crackle)
+    - ✅ Grandfather clock ticking (slow, resonant)
+    - ✅ Page rustling sound on page turns via `playPageTurn()`
+    - ✅ Soft ambient library drone (warm frequencies)
+    - ✅ Wood settling/creaking sounds
+    - ✅ Time-of-day variations through windows:
+      - Morning: Birds chirping, gentle breeze
+      - Afternoon: Fewer birds, soft wind, distant life
+      - Evening: Crickets starting, last birds
+      - Night: Cricket choir, distant owl, night wind
+    - ✅ UI controls: Mute toggle + volume slider in header
+    - ✅ All procedural Web Audio API (no audio files!)
+    - ✅ Reverb for library room depth
+  - **Deployed**: https://467e1086.onde-portal.pages.dev
+  - **Verified**: https://onde.la/reader-vr/ returns 200 OK
 
 ### [T708] Reader App VR: Deploy enhanced version to onde.la
 - **Status**: DONE
