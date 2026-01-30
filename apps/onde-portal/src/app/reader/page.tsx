@@ -22,17 +22,17 @@ interface Book {
 const featuredBooks: Book[] = [
   {
     id: 'salmo-23',
-    title: 'Salmo 23',
+    title: 'Il Salmo 23',
     author: 'Onde',
-    cover: '/images/books/salmo-23-kids-cover.jpg',
-    readUrl: '/libro/salmo-23-kids',
+    cover: '/books/shepherds-promise-cover.jpg',
+    readUrl: '/libro/salmo-23',
     category: 'Faith',
   },
   {
     id: 'piccole-rime',
     title: 'Piccole Rime',
     author: 'Onde',
-    cover: '/images/books/piccole-rime-cover.jpg',
+    cover: '/images/books/piccole-rime-stella.jpg',
     readUrl: '/libro/piccole-rime',
     category: 'Poetry',
   },
