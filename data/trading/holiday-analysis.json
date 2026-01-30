@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-01-30T08:14:38.743756",
+  "year_filter": null,
+  "normal_days": {
+    "trades": 2016,
+    "wins": 0,
+    "losses": 41,
+    "pending": 1975,
+    "pnl": 0,
+    "invested": 7394
+  },
+  "holidays": {},
+  "holiday_total": {
+    "trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "pnl": 0,
+    "invested": 0
+  },
+  "comparison": {
+    "normal_win_rate": 0.0,
+    "holiday_win_rate": null,
+    "normal_trades": 41,
+    "holiday_trades": 0
+  }
+}

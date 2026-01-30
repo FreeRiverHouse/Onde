@@ -5799,12 +5799,24 @@
 - **Notes**: ✅ Implemented! Added API Latency section to /health page showing: overall avg latency, total calls, per-category breakdown (Kalshi, CoinGecko, Binance, Coinbase), color-coded performance indicators, top 3 slowest endpoints. Data fetched from trading stats gist (updated push-stats-to-gist.py to include apiLatency from kalshi-latency-profile.json). Shows loading state and graceful fallback when no data available.
 
 ### [T410] Holiday trading performance analysis
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T295]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend weekend analysis to US market holidays (Christmas, Thanksgiving, etc). Lower liquidity may affect crypto volatility patterns. Script: analyze-holiday-trading.py
+- **Notes**: ✅ Implemented holiday trading analysis!
+  - **Script**: `scripts/analyze-holiday-trading.py`
+  - **Features:**
+    - ✅ US market holidays for 2024-2026 pre-computed
+    - ✅ Analyzes trades on holidays vs normal days
+    - ✅ Includes day-before major holidays (reduced liquidity)
+    - ✅ Per-holiday breakdown (Thanksgiving, Christmas, etc.)
+    - ✅ Win rate and ROI comparison
+    - ✅ Insights and recommendations
+  - **Holidays tracked**: New Year's, MLK, Presidents Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Veterans Day, Thanksgiving, Christmas
+  - **Output**: `data/trading/holiday-analysis.json`
+  - **Usage**: `python3 scripts/analyze-holiday-trading.py [--v2] [--year YEAR]`
 
 ### [T411] Time-of-day heatmap visualization on dashboard
 - **Status**: DONE
