@@ -10078,8 +10078,8 @@
   - Respect system mute/volume settings
 
 ### [T866] Reader App: Deploy TTS resume feature to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T863]
 - **Blocks**: -
 - **Priority**: P2
