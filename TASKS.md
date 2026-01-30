@@ -3347,6 +3347,44 @@
   - Output: markdown + JSON for dashboard
   - Cron: weekly (Sunday)
 
+### [T803] Dashboard: Display latency adjustment indicator on /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T801]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show when latency-based position sizing is active:
+  - Add indicator next to latency sparkline when multiplier <1.0
+  - Color-coded badge: green (normal), yellow (25% reduction), red (50% reduction)
+  - Tooltip showing current avg latency and threshold hit
+  - Visible in real-time from gist stats
+
+### [T804] Trading: Analyze latency impact on trade outcomes
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T801]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to analyze correlation between latency and trade results:
+  - Load all trades with latency_multiplier data
+  - Compare win rate when latency_multiplier < 1.0 vs = 1.0
+  - Calculate PnL impact of latency-adjusted trades
+  - Output: JSON report + recommendations for threshold tuning
+  - Run weekly to validate/adjust thresholds
+
+### [T805] Trading: Add API timeout with retry for slow endpoints
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T801]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve resilience when API is slow:
+  - Add configurable timeout per endpoint type
+  - Retry with exponential backoff (max 3 attempts)
+  - Log timeout events to latency profile
+  - Skip to fallback exchange on persistent timeout
+  - Alert file when multiple timeouts in short window
+
 ---
 
 ## 🚨 PRIORITÀ MASSIMA - DEPLOY GRATIS
