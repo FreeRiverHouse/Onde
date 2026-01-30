@@ -847,8 +847,8 @@
   - ⚠️ Requires: `pip install pyobjc-framework-Cocoa pyobjc-framework-Quartz`
 
 ### [T475] SE-Bot Fase 2: Configurable Voice Output
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T474]
 - **Blocks**: [T476]
 - **Priority**: P2
