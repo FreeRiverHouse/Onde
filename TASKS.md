@@ -4498,16 +4498,21 @@
   - Agent Leaderboard with 🏆 tab now live in Free River House panel
 
 ### [T752] Level-up celebration animation
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T509]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Show celebration when agent levels up:
-  - Confetti/sparkle animation on agent avatar
-  - Browser notification "🎉 Agent leveled up!"
-  - Sound effect (optional)
-  - Toast message in UI
+- **Notes**: ✅ Implemented level-up celebration animation!
+  - ✅ Confetti falling animation (50 particles, multiple colors)
+  - ✅ Celebration overlay with agent name and new level
+  - ✅ Browser notification "🎉 Level Up!" when enabled
+  - ✅ Toast message "🎉 [Agent] ha raggiunto il livello X!"
+  - ✅ Auto-dismisses after 3 seconds
+  - ✅ CSS keyframe animations in globals.css
+  - ✅ Level tracking via previousLevelsRef
+  - Build passes ✅
 
 ### [T510] Mood indicator basato su workload
 - **Status**: DONE
@@ -4541,6 +4546,41 @@
   - ✅ Deploy via wrangler to Cloudflare Pages
   - ✅ Verified: https://onde.surf/house returns 307 (auth redirect as expected)
   - Agent mood indicators (😴😰😊🎯😌) now live in Free River House panel
+
+### [T755] Deploy onde.surf with Level-up celebration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T752]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy level-up celebration feature to production:
+  - Build surfboard with `npm run build:cf`
+  - Deploy via wrangler to Cloudflare Pages
+  - Test celebration by completing agent tasks
+  - Verify confetti animation works in production
+
+### [T756] Add sound effects to level-up celebration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T752]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add optional sound effect to level-up celebration:
+  - Web Audio API for success/fanfare sound
+  - Mute toggle in preferences
+  - Short, pleasant "level up" chime
+  - Fallback: no sound if audio context blocked
+
+### [T757] Agent stats export to CSV
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T509]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow exporting agent gamification stats:
+  - CSV with: agent name, level, XP, tasks done, streak, badges
+  - Download button in Leaderboard tab
+  - Include date range filter (last week/month/all)
 
 ### [T511] WebXR export per futuro VR
 - **Status**: TODO

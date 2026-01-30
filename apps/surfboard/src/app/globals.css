@@ -838,3 +838,43 @@ html.light .skeleton-enhanced {
     rgba(0, 0, 0, 0.05) 100%
   );
 }
+
+/* ============================================
+   LEVEL-UP CELEBRATION ANIMATIONS
+   ============================================ */
+
+/* Confetti falling animation */
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti 3s ease-out forwards;
+}
+
+/* Bounce once animation for celebration card */
+@keyframes bounceOnce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounceOnce 0.8s ease-out;
+}

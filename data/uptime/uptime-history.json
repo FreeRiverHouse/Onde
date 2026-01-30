@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T11:05:01.155676+00:00",
+  "generated_at": "2026-01-30T11:20:00.592241+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -812,6 +812,24 @@
           "status": 200,
           "latency_ms": 143,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:10:00.535956+00:00",
+          "status": 200,
+          "latency_ms": 272,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:15:01.243818+00:00",
+          "status": 200,
+          "latency_ms": 332,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:20:00.592241+00:00",
+          "status": 200,
+          "latency_ms": 156,
+          "ok": true
         }
       ],
       "stats": {
@@ -821,8 +839,8 @@
         "avg_latency_7d": 263,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 135,
-        "total_checks_7d": 135
+        "total_checks_24h": 138,
+        "total_checks_7d": 138
       }
     },
     "onde.surf": {
@@ -1636,17 +1654,35 @@
           "status": 200,
           "latency_ms": 383,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:10:00.535956+00:00",
+          "status": 200,
+          "latency_ms": 386,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:15:01.243818+00:00",
+          "status": 200,
+          "latency_ms": 898,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T11:20:00.592241+00:00",
+          "status": 200,
+          "latency_ms": 180,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 283,
-        "avg_latency_7d": 283,
+        "avg_latency_24h": 287,
+        "avg_latency_7d": 287,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 135,
-        "total_checks_7d": 135
+        "total_checks_24h": 138,
+        "total_checks_7d": 138
       }
     }
   }

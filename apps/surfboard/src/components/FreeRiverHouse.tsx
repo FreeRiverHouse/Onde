@@ -129,7 +129,9 @@ export function FreeRiverHouse() {
   const animationRef = useRef<number>();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const previousTasksRef = useRef<AgentTask[]>([]);
+  const previousLevelsRef = useRef<Record<string, number>>({});
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
+  const [levelUpCelebration, setLevelUpCelebration] = useState<{agentName: string; newLevel: number} | null>(null);
   const { showToast } = useToast();
 
   // Check notification permission on mount
@@ -161,6 +163,33 @@ export function FreeRiverHouse() {
     } catch (e) {
       console.error('Notification error:', e);
     }
+  };
+
+  // Trigger level-up celebration with confetti, toast, and notification
+  const triggerLevelUpCelebration = (agentName: string, newLevel: number) => {
+    // Show celebration state for confetti
+    setLevelUpCelebration({ agentName, newLevel });
+    
+    // Show toast
+    showToast(`🎉 ${agentName} ha raggiunto il livello ${newLevel}!`, 'success');
+    
+    // Show browser notification if enabled
+    if (notificationEnabled && 'Notification' in window) {
+      try {
+        const notification = new Notification(`🎉 Level Up!`, {
+          body: `${agentName} ha raggiunto il livello ${newLevel}!`,
+          icon: '/icon.svg',
+          tag: `level-up-${agentName}`,
+          requireInteraction: false,
+        });
+        setTimeout(() => notification.close(), 5000);
+      } catch (e) {
+        console.error('Level-up notification error:', e);
+      }
+    }
+    
+    // Clear celebration after animation (3 seconds)
+    setTimeout(() => setLevelUpCelebration(null), 3000);
   };
 
   // Request notification permission
@@ -284,6 +313,16 @@ export function FreeRiverHouse() {
               longestStreak: dbAgent.longest_streak || 0,
               badges,
             };
+          });
+
+          // Check for level-ups
+          visualAgents.forEach(agent => {
+            const prevLevel = previousLevelsRef.current[agent.id];
+            if (prevLevel !== undefined && agent.level > prevLevel) {
+              // Level up detected!
+              triggerLevelUpCelebration(agent.name, agent.level);
+            }
+            previousLevelsRef.current[agent.id] = agent.level;
           });
 
           setAgents(visualAgents);
@@ -501,8 +540,48 @@ export function FreeRiverHouse() {
   return (
     <section
       aria-label="Free River House"
-      className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden"
+      className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden relative"
     >
+      {/* Level-up Celebration Confetti */}
+      {levelUpCelebration && (
+        <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden">
+          {/* Confetti particles */}
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute animate-confetti"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-10px',
+                animationDelay: `${Math.random() * 0.5}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
+              }}
+            >
+              <span
+                style={{
+                  display: 'block',
+                  width: `${6 + Math.random() * 8}px`,
+                  height: `${6 + Math.random() * 8}px`,
+                  backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'][Math.floor(Math.random() * 8)],
+                  transform: `rotate(${Math.random() * 360}deg)`,
+                  borderRadius: Math.random() > 0.5 ? '50%' : '0',
+                }}
+              />
+            </div>
+          ))}
+          {/* Celebration text */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-black/80 backdrop-blur-sm px-6 py-4 rounded-2xl border border-yellow-400/50 animate-bounce-once">
+              <div className="text-4xl mb-2 text-center">🎉</div>
+              <div className="text-yellow-400 font-bold text-lg text-center">Level Up!</div>
+              <div className="text-white text-sm text-center mt-1">
+                {levelUpCelebration.agentName} → Lv.{levelUpCelebration.newLevel}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
         <button
