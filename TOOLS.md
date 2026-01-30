@@ -9,10 +9,10 @@
 
 | Agente | Hardware | GPU | Note |
 |--------|----------|-----|------|
-| **Clawdinho (me)** | M1 | Radeon 7900 XT (opzionale) | Task pesanti: GPU on-demand |
+| **Clawdinho (me)** | M1 | Radeon 7900 XT (❌ non funziona) | Solo CPU M1 per ora |
 | **Onde-bot/Ondinho** | M4 Pro | Nessuna esterna | Standalone, più potente |
 
-**Regola:** Task GPU-intensive → Clawdinho. Task veloci/autonomi → Onde-bot può fare.
+**Stato:** Radeon 7900 XT NON funziona con TinyGrad su macOS. Task GPU-intensive non disponibili finché non risolto.
 
 ---
 
@@ -51,50 +51,45 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ## 🖥️ GPU Setup - Radeon 7900 XT
 
-**Hardware:** Radeon 7900 XT su Mac M1 via driver TinyGrad
+**Hardware:** Radeon 7900 XT su Mac M1 via eGPU
 **VRAM:** 16GB
-**Performance:** Più potente di M4 Pro, molto più di M1
+**Status:** ❌ NON FUNZIONANTE CON TINYGRAD
 
-### Capacità confermate:
-- ✅ LLaMA 3 8B inference (~16GB, traduce benissimo)
-- ✅ Batch processing immagini
-- 🎯 Video processing (da sfruttare!)
-- 🎯 Code generation locale
-- 🎯 Traduzioni batch
+### Problema (2025-01-30):
+TinyGrad rileva "AMD" come device ma fallisce quando tenta operazioni reali:
+```
+No interface for AMD:0 is available
+- /dev/kfd: non esiste (Linux-only)
+- PCI: "No supported GPUs found"
+- USB: device non trovato
+```
 
-### Come usare:
-Backend TinyGrad per tutto ciò che richiede GPU pesante.
-**DIMENSIONARE I TASK SU QUESTA SCHEDA** — non limitarsi a CPU/M1!
+### TODO per far funzionare:
+- [ ] Investigare se TinyGrad supporta davvero macOS + AMD eGPU
+- [ ] Provare alternative (MLX? PyTorch con ROCm?)
+- [ ] Verificare se serve driver specifico
+
+### Capacità NON CONFERMATE (erano false):
+- ❌ LLaMA 3 8B - MAI testato realmente
+- ❌ Batch processing - MAI testato realmente
 
 ---
 
 ## 🌍 Traduzioni Locali
 
-### ⚠️ REGOLA: MAI M1! Solo Radeon o M4
+### Stato attuale (2025-01-30):
+GPU Radeon NON funzionante. Opzioni disponibili:
 
 | Modello | Hardware | Funziona? | Note |
 |---------|----------|-----------|------|
-| GPT-2 | Radeon/TinyGrad | ❌ | Ripete invece di tradurre |
-| ONNX opus-mt | Radeon/TinyGrad | ❌ | Problemi shape tensor |
 | Helsinki-NLP opus-mt | CPU (M1) | ✅ | Lento ma funziona |
-| **LLaMA 3 8B** | **Radeon/TinyGrad** | ✅ | **BEST** - ~16GB, traduce benissimo |
+| Claude API | Cloud | ✅ | Best quality, costs $ |
+| M4 Pro (Ondinho) | Apple Silicon | ✅ | Via sessions_send |
 
-### Setup LLaMA 3 8B su Radeon
-- Modello: `TriAiExperiments/SFR-Iterative-DPO-LLaMA-3-8B-R`
-- Download: ~10 min (~16GB)
-- Backend: TinyGrad
-
-### Modelli TinyGrad Disponibili (~/tinygrad/examples/)
-| Script | Modello | VRAM | Note |
-|--------|---------|------|------|
-| **llama3.py** | LLaMA 3 8B | ~16GB | ✅ BEST per coding! |
-| llama3.py | LLaMA 3 1B GGUF | ~2GB | Veloce ma meno capace |
-| gpt2.py | GPT-2 | ~500MB | Basico |
-| mamba.py | Mamba | Vari | Architettura alternativa |
-| qwq.py | QwQ 32B | >32GB | ❌ Troppo grande |
-
-### ⚠️ MAI USARE OLLAMA SU MAC PER GPU AMD!
-Ollama usa SOLO Metal (Apple Silicon). Per Radeon: TinyGrad.
+### ❌ NON FUNZIONANTI (Radeon/TinyGrad):
+- LLaMA 3 8B - TinyGrad non supporta macOS + AMD eGPU
+- GPT-2 - Stesso problema
+- Tutti i modelli TinyGrad - Stesso problema
 
 ---
 
