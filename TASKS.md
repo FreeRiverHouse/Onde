@@ -722,6 +722,53 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
   - Dictionary lookup, vocabulary panel, audio pronunciation all live!
 
+### [T800] Reader App: Deploy sync feature to onde.la/reader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T698]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App with cloud sync panel to production:
+  - Build static export with STATIC_EXPORT=1
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler
+  - Verify https://onde.la/reader/ shows sync panel in settings
+  - Test sync code generation/join flow
+
+### [T801] Reader App: Setup Supabase project for cloud sync
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T698]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create Supabase project for Reader App cloud sync:
+  - Create new Supabase project (free tier OK)
+  - Create `reader_sync` table with columns:
+    - sync_code (text, primary key)
+    - device_id (text)
+    - data (jsonb)
+    - created_at (timestamp)
+    - updated_at (timestamp)
+  - Enable Row Level Security
+  - Add RLS policies for anonymous access
+  - Get URL and anon key
+  - Add to reader-app .env.local
+  - Document setup in README
+
+### [T802] Reader App: Add offline reading indicator and cache status
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enhance PWA offline experience:
+  - Show offline/online status indicator in header
+  - Cache EPUB files in IndexedDB for offline reading
+  - Show "Downloaded" badge on cached books
+  - Add "Download for offline" button on book cards
+  - Visual indication when reading offline
+  - Sync queued actions when back online
+
 ---
 
 ## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
