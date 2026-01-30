@@ -1461,6 +1461,46 @@
   - Pause countdown on hover (prevents refresh while reading)
   - Keyboard shortcut hint visible during countdown
 
+### [T736] Autotrader: Monthly performance summary report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T733]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Monthly summary sent to Telegram (first of each month):
+  - Extend weekly report format for monthly data
+  - Month-over-month comparison
+  - Best/worst performing weeks within the month
+  - Total ROI percentage
+  - Cumulative stats since inception
+  - Cron: 0 12 1 * * (1st of month, 12:00 UTC)
+
+### [T737] Dashboard: Add win rate trend sparkline to /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T482]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Small sparkline chart showing 7-day win rate trend:
+  - Calculate daily win rates from trade logs
+  - Mini line chart (similar to stock sparklines)
+  - Color coded: green if trending up, red if down
+  - Show on /betting page next to current win rate stat
+  - Reuse data from concentration history if possible
+
+### [T738] Autotrader: Auto-archive old trade logs
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Prevent trade log files from growing infinitely:
+  - Archive trades older than 90 days to separate file
+  - Compress archived logs (gzip)
+  - Keep recent data in main file for fast access
+  - Run monthly via cron
+  - Option to export to CSV for analysis
+
 ---
 
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (16:00 HEARTBEAT)
