@@ -1,0 +1,93 @@
+{
+  "summary": {
+    "total_losses": 18,
+    "total_wins": 12,
+    "total_trades": 30,
+    "overall_win_rate": 40.0,
+    "analyzed_at": "2026-01-30T13:57:17.873745+00:00"
+  },
+  "patterns": {
+    "by_asset": {
+      "weather": {
+        "losses": 18,
+        "wins": 12,
+        "total": 30,
+        "win_rate": 40.0,
+        "pct_of_all_losses": 100.0
+      }
+    },
+    "by_side": {
+      "no": {
+        "losses": 18,
+        "wins": 12,
+        "total": 30,
+        "win_rate": 40.0
+      }
+    },
+    "by_momentum": {
+      "neutral": {
+        "losses": 18,
+        "wins": 12,
+        "total": 30,
+        "win_rate": 40.0
+      }
+    },
+    "by_hour": {
+      "20": {
+        "losses": 3,
+        "wins": 1,
+        "total": 4,
+        "win_rate": 25.0
+      },
+      "21": {
+        "losses": 0,
+        "wins": 10,
+        "total": 10,
+        "win_rate": 100.0
+      },
+      "22": {
+        "losses": 8,
+        "wins": 1,
+        "total": 9,
+        "win_rate": 11.1
+      },
+      "23": {
+        "losses": 7,
+        "wins": 0,
+        "total": 7,
+        "win_rate": 0.0
+      }
+    },
+    "by_alignment": {
+      "not_aligned": {
+        "losses": 18,
+        "wins": 12,
+        "total": 30,
+        "win_rate": 40.0
+      }
+    },
+    "by_volatility": {
+      "normal_vol": {
+        "losses": 18,
+        "wins": 12,
+        "total": 30,
+        "win_rate": 40.0
+      }
+    },
+    "by_asset_side_combo": {
+      "weather_no": {
+        "wins": 12,
+        "losses": 18,
+        "total": 30,
+        "win_rate": 40.0
+      }
+    }
+  },
+  "lessons": [
+    {
+      "type": "time_sensitivity",
+      "severity": "low",
+      "message": "Hours [20, 22, 23] (UTC) have <30% win rate. Consider avoiding trades during these times."
+    }
+  ]
+}

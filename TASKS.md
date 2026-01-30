@@ -8245,20 +8245,35 @@
   - Could help reduce alert fatigue
 
 ### [T787] Trading lessons learned - analyze losing trade patterns
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create script to extract patterns from losing trades:
-  - Load all trades from kalshi-trades-v2.jsonl
-  - Filter to result=lost trades only
-  - Analyze common factors: asset, side, time of day, momentum state, vol_ratio
-  - Cluster losing trades by similarity
-  - Generate "lessons learned" summary
-  - Examples: "65% of BTC NO losses occurred during bullish momentum"
-  - Output: data/trading/lessons-learned.json
-  - Could inform strategy improvements
+- **Notes**: ✅ Implemented trading lessons learned analysis!
+  - **Script**: `scripts/analyze-lessons-learned.py`
+  - **Patterns analyzed:**
+    - By asset (BTC, ETH, weather)
+    - By side (YES, NO)
+    - By momentum state (bullish, bearish, neutral)
+    - By hour of day (identifies bad trading hours)
+    - By alignment status
+    - By volatility ratio
+    - By asset+side combination (worst combos)
+  - **Lessons auto-generated:**
+    - Asset underperformance warnings
+    - Side bias detection
+    - Momentum mismatch patterns
+    - Time sensitivity alerts
+    - Alignment effectiveness check
+    - Worst combination identification
+  - **Output**: `data/trading/lessons-learned.json`
+  - **Usage:**
+    - `python3 analyze-lessons-learned.py` - Analyze all trades
+    - `python3 analyze-lessons-learned.py --v2` - V2 trades only
+    - `python3 analyze-lessons-learned.py --days 7` - Last 7 days
+    - `python3 analyze-lessons-learned.py --verbose` - Detailed output
 
 ### [T788] Dashboard: Correlation history sparkline on /betting
 - **Status**: TODO
