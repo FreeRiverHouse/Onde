@@ -5909,3 +5909,40 @@
   - Manual reset button (requires auth)
   - Visual indicator in header (green/red dot)
   - Historical trips timeline
+
+### [T697] Reader App: Deploy updated version with EPUB support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App with EPUB support to onde.la/reader:
+  - Build static export with basePath=/reader/
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler
+  - Test EPUB loading from Gutenberg URLs
+  - Test file upload + IndexedDB storage
+
+### [T698] Reader App: Add drag-and-drop EPUB upload
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve EPUB upload UX:
+  - Add drag-and-drop zone to Library view
+  - Visual feedback when dragging files
+  - Support multiple file uploads
+  - Show upload progress indicator
+
+### [T699] Reader App: Add EPUB export to reading list
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow exporting annotations from EPUB:
+  - Export highlights to Markdown
+  - Export bookmarks list
+  - Include book metadata in export
+  - Copy to clipboard or download as file
