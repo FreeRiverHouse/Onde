@@ -182,16 +182,29 @@
   - ✅ Displays concentration summary each cycle
 
 ### [T481] Trading: Add rebalancing suggestions when concentration high
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T480]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: When concentration exceeds warning threshold:
-  - Suggest which positions to reduce (oldest, lowest edge, or largest)
-  - Calculate optimal exit targets to bring concentration back under limit
-  - Show potential freed capital from rebalancing
-  - Consider implementing auto-rebalance mode (with confirmation)
+- **Notes**: ✅ Implemented rebalancing suggestions!
+  - **Function**: `get_rebalancing_suggestions()` + `print_rebalancing_suggestions()`
+  - **Triggers**: When any asset/group exceeds 40% concentration warning
+  - **Suggestions prioritized by**:
+    - Oldest positions (free locked capital first)
+    - Largest positions (biggest impact)
+  - **Shows for each suggestion**:
+    - Ticker, side, quantity to sell
+    - Freed capital amount
+    - Position age in hours
+  - **Summary includes**:
+    - Total freed capital
+    - Projected concentration after rebalancing
+  - **Integration**:
+    - Shows in cycle summary when over-concentrated
+    - Shows when trade blocked by concentration limits
+    - Logged in skip data for analysis
 
 ### [T482] Trading: Historical concentration tracking dashboard widget
 - **Status**: TODO

@@ -2442,6 +2442,271 @@ def print_concentration_summary(concentration: dict):
             print(f"      ⚠️ Correlated exposure: {largest_group} at {largest_pct*100:.1f}%")
 
 
+# ============== REBALANCING SUGGESTIONS (T481) ==============
+
+def get_rebalancing_suggestions(
+    positions: list, 
+    portfolio_value_cents: int, 
+    concentration: dict,
+    target_pct: float = None
+) -> dict:
+    """
+    Generate suggestions for reducing portfolio concentration.
+    
+    When concentration exceeds warning threshold, this function suggests
+    which positions to reduce and how much capital that would free up.
+    
+    Args:
+        positions: List of open positions
+        portfolio_value_cents: Total portfolio value in cents
+        concentration: Current concentration metrics from calculate_portfolio_concentration()
+        target_pct: Target concentration percentage (default: CONCENTRATION_WARN_PCT - 0.05)
+        
+    Returns:
+        Dict with rebalancing suggestions:
+        {
+            "needs_rebalancing": True/False,
+            "over_concentrated_assets": ["btc", "crypto"],
+            "suggestions": [
+                {
+                    "ticker": "KXBTC-...",
+                    "asset_class": "btc",
+                    "current_value_cents": 500,
+                    "suggested_reduction_qty": 5,
+                    "reduction_value_cents": 250,
+                    "reason": "oldest",  # or "lowest_edge" or "largest"
+                    "position_age_hours": 48.5,
+                    "current_qty": 10,
+                    "side": "yes"
+                }
+            ],
+            "total_freed_capital_cents": 500,
+            "projected_concentration": {"btc": 0.25, ...}
+        }
+    """
+    if target_pct is None:
+        target_pct = CONCENTRATION_WARN_PCT - 0.05  # 35% if warn is 40%
+    
+    result = {
+        "needs_rebalancing": False,
+        "over_concentrated_assets": [],
+        "suggestions": [],
+        "total_freed_capital_cents": 0,
+        "projected_concentration": {}
+    }
+    
+    if not positions or portfolio_value_cents <= 0:
+        return result
+    
+    # Find over-concentrated assets/groups
+    over_limit_assets = []
+    for asset, pct in concentration.get("by_asset_class", {}).items():
+        if pct > CONCENTRATION_WARN_PCT:
+            over_limit_assets.append(("asset", asset, pct))
+    
+    for group, pct in concentration.get("by_correlation_group", {}).items():
+        if pct > CONCENTRATION_WARN_PCT:
+            over_limit_assets.append(("group", group, pct))
+    
+    if not over_limit_assets:
+        return result
+    
+    result["needs_rebalancing"] = True
+    result["over_concentrated_assets"] = [name for _, name, _ in over_limit_assets]
+    
+    # Get fills for position age calculation
+    try:
+        fills = get_fills(limit=200)
+    except Exception:
+        fills = []
+    
+    # Build position age map (ticker -> oldest fill timestamp)
+    position_ages = {}
+    for fill in fills:
+        ticker = fill.get("ticker", "")
+        if fill.get("action") == "buy":  # Entry fill
+            ts = fill.get("created_time", "")
+            if ts and (ticker not in position_ages or ts < position_ages[ticker]):
+                position_ages[ticker] = ts
+    
+    # Collect positions in over-concentrated assets
+    rebalance_candidates = []
+    
+    for pos in positions:
+        ticker = pos.get("ticker", "")
+        position_qty = pos.get("position", 0)
+        
+        if position_qty == 0:
+            continue
+        
+        asset_class = classify_asset_class(ticker)
+        corr_group = get_correlated_group(ticker)
+        
+        # Check if this position is in an over-concentrated asset/group
+        is_over = any(
+            (kind == "asset" and name == asset_class) or 
+            (kind == "group" and name == corr_group)
+            for kind, name, _ in over_limit_assets
+        )
+        
+        if not is_over:
+            continue
+        
+        # Get market info
+        try:
+            market = get_market(ticker)
+            if not market:
+                continue
+        except Exception:
+            continue
+        
+        # Calculate position value
+        if position_qty > 0:
+            side = "yes"
+            price_cents = market.get("yes_bid", 50)
+        else:
+            side = "no"
+            price_cents = 100 - market.get("yes_ask", 50)
+        
+        position_value_cents = abs(position_qty) * price_cents
+        
+        # Calculate position age in hours
+        age_hours = 0
+        if ticker in position_ages:
+            try:
+                from datetime import datetime
+                entry_time = datetime.fromisoformat(position_ages[ticker].replace("Z", "+00:00"))
+                now = datetime.now(entry_time.tzinfo)
+                age_hours = (now - entry_time).total_seconds() / 3600
+            except Exception:
+                pass
+        
+        rebalance_candidates.append({
+            "ticker": ticker,
+            "asset_class": asset_class,
+            "corr_group": corr_group,
+            "current_value_cents": position_value_cents,
+            "current_qty": abs(position_qty),
+            "side": side,
+            "price_cents": price_cents,
+            "position_age_hours": age_hours,
+            "market_title": market.get("title", ticker)[:50]
+        })
+    
+    if not rebalance_candidates:
+        return result
+    
+    # For each over-concentrated asset, calculate reduction needed
+    for kind, asset_name, current_pct in over_limit_assets:
+        # How much do we need to reduce?
+        excess_pct = current_pct - target_pct
+        if excess_pct <= 0:
+            continue
+        
+        excess_cents = int(excess_pct * portfolio_value_cents)
+        
+        # Filter candidates for this asset
+        if kind == "asset":
+            candidates = [c for c in rebalance_candidates if c["asset_class"] == asset_name]
+        else:
+            candidates = [c for c in rebalance_candidates if c["corr_group"] == asset_name]
+        
+        if not candidates:
+            continue
+        
+        # Sort by multiple criteria and pick best to reduce
+        # Priority: 1. Oldest (reduce locked capital), 2. Largest (biggest impact), 3. Lowest value per contract
+        
+        # Strategy 1: Oldest positions (free up locked capital)
+        oldest = sorted(candidates, key=lambda x: -x["position_age_hours"])
+        
+        # Strategy 2: Largest positions (biggest single reduction)
+        largest = sorted(candidates, key=lambda x: -x["current_value_cents"])
+        
+        # Generate suggestions - prefer oldest, then largest
+        remaining_to_reduce = excess_cents
+        seen_tickers = set()
+        
+        for priority, source, reason in [(1, oldest, "oldest"), (2, largest, "largest")]:
+            if remaining_to_reduce <= 0:
+                break
+            
+            for candidate in source:
+                if remaining_to_reduce <= 0:
+                    break
+                if candidate["ticker"] in seen_tickers:
+                    continue
+                
+                seen_tickers.add(candidate["ticker"])
+                
+                # Calculate how many contracts to sell
+                max_reduction = min(candidate["current_value_cents"], remaining_to_reduce)
+                reduction_qty = max(1, int(max_reduction / candidate["price_cents"]))
+                reduction_qty = min(reduction_qty, candidate["current_qty"])  # Don't sell more than we have
+                reduction_value = reduction_qty * candidate["price_cents"]
+                
+                suggestion = {
+                    "ticker": candidate["ticker"],
+                    "market_title": candidate["market_title"],
+                    "asset_class": candidate["asset_class"],
+                    "current_value_cents": candidate["current_value_cents"],
+                    "current_qty": candidate["current_qty"],
+                    "suggested_reduction_qty": reduction_qty,
+                    "reduction_value_cents": reduction_value,
+                    "reason": reason,
+                    "position_age_hours": candidate["position_age_hours"],
+                    "side": candidate["side"]
+                }
+                
+                result["suggestions"].append(suggestion)
+                result["total_freed_capital_cents"] += reduction_value
+                remaining_to_reduce -= reduction_value
+    
+    # Calculate projected concentration after rebalancing
+    if result["suggestions"]:
+        total_reduction = sum(s["reduction_value_cents"] for s in result["suggestions"])
+        new_portfolio = portfolio_value_cents + total_reduction  # Freed capital adds to available
+        
+        for asset, pct in concentration.get("by_asset_class", {}).items():
+            current_value = int(pct * portfolio_value_cents)
+            reduction = sum(
+                s["reduction_value_cents"] 
+                for s in result["suggestions"] 
+                if s["asset_class"] == asset
+            )
+            new_value = current_value - reduction
+            result["projected_concentration"][asset] = new_value / new_portfolio if new_portfolio > 0 else 0
+    
+    return result
+
+
+def print_rebalancing_suggestions(suggestions: dict):
+    """Print human-readable rebalancing suggestions."""
+    if not suggestions.get("needs_rebalancing"):
+        return
+    
+    print("\n   🔄 REBALANCING SUGGESTIONS:")
+    print(f"      Over-concentrated: {', '.join(suggestions['over_concentrated_assets']).upper()}")
+    
+    if not suggestions.get("suggestions"):
+        print("      No specific positions to reduce (positions may have settled)")
+        return
+    
+    for i, s in enumerate(suggestions["suggestions"][:5], 1):  # Show top 5
+        age_str = f"{s['position_age_hours']:.0f}h old" if s['position_age_hours'] > 0 else "recent"
+        print(f"      {i}. [{s['reason'].upper():7}] Sell {s['suggested_reduction_qty']}x {s['side'].upper()} on {s['ticker'][:25]}")
+        print(f"         → Free ${s['reduction_value_cents']/100:.2f} ({age_str})")
+    
+    total_free = suggestions["total_freed_capital_cents"] / 100
+    print(f"\n      💰 Total freed capital: ${total_free:.2f}")
+    
+    if suggestions.get("projected_concentration"):
+        print("      📊 Projected after rebalance:")
+        for asset, pct in sorted(suggestions["projected_concentration"].items(), key=lambda x: -x[1]):
+            status = "✓" if pct < CONCENTRATION_WARN_PCT else "⚠️"
+            print(f"         {asset.upper()}: {pct*100:.1f}% {status}")
+
+
 # ============== STOP-LOSS MONITORING ==============
 
 # Stop-loss parameters (configurable via environment)
@@ -3735,6 +4000,11 @@ def run_cycle():
         portfolio_val = bal_for_conc.get("portfolio_value", 0)
         concentration = calculate_portfolio_concentration(positions, portfolio_val)
         print_concentration_summary(concentration)
+        
+        # Show rebalancing suggestions if over-concentrated (T481)
+        rebal_suggestions = get_rebalancing_suggestions(positions, portfolio_val, concentration)
+        if rebal_suggestions.get("needs_rebalancing"):
+            print_rebalancing_suggestions(rebal_suggestions)
     
     # CHECK STOP-LOSSES for open positions
     if positions:
@@ -3922,6 +4192,12 @@ def run_cycle():
     
     if not can_trade:
         print(f"⛔ BLOCKED by concentration limits: {conc_reason}")
+        
+        # Show rebalancing suggestions when blocked (T481)
+        rebal = get_rebalancing_suggestions(positions, portfolio_value, conc_metrics)
+        if rebal.get("needs_rebalancing"):
+            print_rebalancing_suggestions(rebal)
+        
         # Log the skip with concentration data
         skip_data = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -3931,7 +4207,8 @@ def run_cycle():
             "reason": conc_reason,
             "would_be_contracts": contracts,
             "would_be_value_cents": trade_value_cents,
-            "concentration_metrics": conc_metrics
+            "concentration_metrics": conc_metrics,
+            "rebalancing_suggestions": rebal.get("suggestions", [])[:3]  # Top 3 suggestions
         }
         with open(SKIP_LOG_FILE, "a") as f:
             f.write(json.dumps(skip_data) + "\n")
