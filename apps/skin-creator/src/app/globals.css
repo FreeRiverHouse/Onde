@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Comic Sans MS', 'Chalkboard', 'Comic Neue', cursive, sans-serif;
+}
+
+.pixel-grid {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.color-btn {
+  transition: transform 0.1s ease;
+}
+
+.color-btn:hover {
+  transform: scale(1.2);
+}
+
+.color-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 2s ease-in-out infinite;
+}
