@@ -9055,3 +9055,43 @@
   - Consider disabling certain market types in volatile regime
   - Script: `scripts/market-regime-detector.py`
   - Output: `data/trading/market-regime.json`
+
+### [T814] Trading: Track composite signal accuracy over time
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T460]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track how well composite signals predict trade outcomes:
+  - Log composite_signals count with each trade
+  - Compare win rate by signal count (0/1/2/3 signals)
+  - Calculate ROI by composite confidence level
+  - Weekly report section: "Composite Signal Performance"
+  - Script: `scripts/analyze-composite-signals.py`
+  - Output: `data/trading/composite-signal-stats.json`
+
+### [T815] Dashboard: Composite signal hit rate widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T814]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dashboard widget showing composite signal effectiveness:
+  - Win rate by signal count (bar chart)
+  - ROI by confidence level (table)
+  - Recent trades with signal info
+  - Recommendation: optimal signal threshold
+  - Component: `CompositeSignalWidget.tsx`
+  - Pull data from gist (extend push-stats-to-gist.py)
+
+### [T816] Trading: Add composite signal logging to trade data
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T460]
+- **Blocks**: [T814]
+- **Priority**: P2
+- **Notes**: Ensure composite signal data is logged with each trade:
+  - Add to trade log: composite_signals, composite_confidence, composite_reasons
+  - Update log_trade() function to include new fields
+  - Required for T814 analysis
+  - Verify fields appear in kalshi-trades-*.jsonl
