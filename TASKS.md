@@ -1356,17 +1356,23 @@
   - Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
 
 ### [T730] Reader VR: Run Playwright tests in CI with snapshot baselines
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T725]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add GitHub Actions workflow to run VR tests on every PR:
-  - Create `.github/workflows/vr-tests.yml`
-  - Install Playwright + Chromium in CI
-  - Run `npm test` in apps/reader-vr
-  - Upload playwright-report on failure
-  - Generate and commit baseline snapshots
+- **Notes**: ✅ Created GitHub Actions workflow for VR tests!
+  - **Workflow**: `.github/workflows/vr-tests.yml`
+  - **Triggers**: Push/PR to main on apps/reader-vr/**
+  - **Steps:**
+    - Checkout + Node 20 setup with npm cache
+    - Install deps + Playwright Chromium
+    - Run `npm test`
+    - Upload playwright-report (always)
+    - Upload test-results on failure
+  - **Timeout**: 15 min
+  - **Retention**: 30 days reports, 7 days failure screenshots
 
 ### [T731] Autotrader: Add hourly health check report to Telegram
 - **Status**: TODO
