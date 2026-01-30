@@ -65,7 +65,7 @@ export default function SkinCreator() {
   const previewRef = useRef<HTMLCanvasElement>(null);
   const [selectedColor, setSelectedColor] = useState('#FF6B6B');
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient'>('brush');
+  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow'>('brush');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -376,6 +376,18 @@ export default function SkinCreator() {
             ctx.fillStyle = gradient;
             ctx.fillRect(part.x, part.y, part.w, part.h);
           }
+        } else if (tool === 'glow') {
+          // Neon glow brush - draw with shadow
+          ctx.shadowColor = selectedColor;
+          ctx.shadowBlur = 2;
+          ctx.fillStyle = selectedColor;
+          for (let i = 0; i < brushSize; i++) {
+            for (let j = 0; j < brushSize; j++) {
+              ctx.fillRect(x + i, y + j, 1, 1);
+            }
+          }
+          ctx.shadowBlur = 0;
+          createSparkle(e.clientX, e.clientY);
         } else {
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
@@ -542,6 +554,14 @@ export default function SkinCreator() {
               }`}
             >
               🌈 Gradient
+            </button>
+            <button
+              onClick={() => setTool('glow')}
+              className={`px-3 py-2 rounded-full font-bold transition-all ${
+                tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              ✨ Glow
             </button>
             <button
               onClick={undo}
