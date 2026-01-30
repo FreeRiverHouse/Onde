@@ -214,16 +214,23 @@
     - Logged in skip data for analysis
 
 ### [T482] Trading: Historical concentration tracking dashboard widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T480]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track concentration over time for analysis:
-  - Log concentration snapshot each cycle to data/trading/concentration-history.jsonl
-  - Dashboard widget showing concentration trend (line chart)
-  - Identify patterns: does high concentration correlate with wins/losses?
-  - Compare to ideal allocation (Kelly-based optimal diversification)
+- **Notes**: ✅ Implemented concentration history tracking!
+  - ✅ Autotrader logs concentration snapshot each cycle to `data/trading/concentration-history.jsonl`
+  - ✅ `push-stats-to-gist.py` includes concentration history in gist upload
+  - ✅ `ConcentrationHistoryChart.tsx` dashboard widget with:
+    - Line chart showing concentration by asset class over time
+    - Time range filter (24h, 7d, 30d)
+    - Warning threshold (40%) and max limit (50%) lines
+    - Hover tooltips with detailed breakdown
+    - Stats summary: max seen, time at warning, data points
+  - ✅ Integrated into /betting page analytics section
+  - Future: Add correlation with win/loss patterns (T483)
 
 ### [T483] Trading: Track correlation between BTC/ETH for smarter diversification
 - **Status**: TODO

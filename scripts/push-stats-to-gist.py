@@ -29,6 +29,7 @@ GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
 VOLATILITY_FILE = SCRIPT_DIR.parent / "data" / "ohlc" / "volatility-stats.json"
 HEALTH_STATUS_FILE = SCRIPT_DIR.parent / "data" / "trading" / "autotrader-health.json"  # T472
 API_LATENCY_FILE = SCRIPT_DIR / "kalshi-latency-profile.json"  # T398
+CONCENTRATION_HISTORY_FILE = SCRIPT_DIR.parent / "data" / "trading" / "concentration-history.jsonl"  # T482
 STATS_FILENAME = "onde-trading-stats.json"
 
 def load_volatility_stats():
@@ -352,6 +353,71 @@ def load_health_status():
             return None
     except Exception as e:
         print(f"Warning: Could not load health status: {e}")
+        return None
+
+
+def load_concentration_history(limit=200):
+    """Load portfolio concentration history for dashboard chart (T482).
+    
+    Reads the concentration-history.jsonl file and returns recent snapshots
+    for the dashboard to display concentration trends over time.
+    
+    Args:
+        limit: Maximum number of snapshots to return (default 200)
+    
+    Returns:
+        List of concentration snapshots, most recent first
+    """
+    if not CONCENTRATION_HISTORY_FILE.exists():
+        return None
+    
+    try:
+        snapshots = []
+        with open(CONCENTRATION_HISTORY_FILE, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    snapshot = json.loads(line)
+                    snapshots.append(snapshot)
+                except json.JSONDecodeError:
+                    continue
+        
+        if not snapshots:
+            return None
+        
+        # Sort by timestamp descending and limit
+        snapshots.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+        snapshots = snapshots[:limit]
+        
+        # Reverse to get chronological order for charting
+        snapshots.reverse()
+        
+        # Calculate summary stats
+        latest = snapshots[-1] if snapshots else {}
+        asset_classes = set()
+        max_concentration = 0
+        warning_count = 0
+        
+        for s in snapshots:
+            asset_classes.update(s.get('by_asset_class', {}).keys())
+            max_pct = max(s.get('by_asset_class', {}).values()) if s.get('by_asset_class') else 0
+            max_concentration = max(max_concentration, max_pct)
+            if max_pct > 0.4:  # Warning threshold
+                warning_count += 1
+        
+        return {
+            "snapshots": snapshots,
+            "dataPoints": len(snapshots),
+            "assetClasses": list(asset_classes),
+            "maxConcentration": max_concentration,
+            "warningPct": warning_count / len(snapshots) * 100 if snapshots else 0,
+            "latestConcentrations": latest.get('by_asset_class', {}),
+            "lastUpdated": latest.get('timestamp')
+        }
+    except Exception as e:
+        print(f"Warning: Could not load concentration history: {e}")
         return None
 
 
@@ -788,6 +854,11 @@ def calculate_stats(trades, source='v2'):
     # Add edge distribution (T368)
     edge_dist = calculate_edge_distribution(trades)
     result["edgeDistribution"] = edge_dist
+    
+    # Add concentration history (T482)
+    concentration_history = load_concentration_history()
+    if concentration_history:
+        result["concentrationHistory"] = concentration_history
     
     return result
 

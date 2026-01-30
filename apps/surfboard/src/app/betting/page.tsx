@@ -43,6 +43,7 @@ import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/WeatherPerformanceWidget';
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
+import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
@@ -164,6 +165,28 @@ interface TradingStats {
   apiLatency?: ApiLatencyData | null;
   // Autotrader health status (T623)
   healthStatus?: AutotraderHealth | null;
+  // Concentration history (T482)
+  concentrationHistory?: {
+    snapshots: Array<{
+      timestamp: string;
+      portfolio_value_cents: number;
+      by_asset_class: Record<string, number>;
+      by_correlation_group: Record<string, number>;
+      total_exposure_cents: number;
+      position_count: Record<string, number>;
+      largest_asset_class: string | null;
+      largest_asset_class_pct: number;
+      largest_correlated_group: string | null;
+      largest_correlated_group_pct: number;
+      exposure_pct: number;
+    }>;
+    dataPoints: number;
+    assetClasses: string[];
+    maxConcentration: number;
+    warningPct: number;
+    latestConcentrations: Record<string, number>;
+    lastUpdated: string | null;
+  } | null;
 }
 
 interface AutotraderHealth {
@@ -1811,6 +1834,14 @@ export default function BettingDashboard() {
                     ? parsePnLByMarketType(tradingStats.recentTrades)
                     : generateMockPnLData(14) // Fallback to mock data
                 }
+              />
+            </div>
+
+            {/* Portfolio Concentration History (T482) */}
+            <div className="mt-4">
+              <ConcentrationHistoryChart 
+                data={tradingStats.concentrationHistory?.snapshots}
+                loading={isLoading}
               />
             </div>
 

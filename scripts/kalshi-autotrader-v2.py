@@ -2418,6 +2418,42 @@ def write_concentration_alert(asset_class: str, concentration_pct: float, metric
     print(f"⚠️ Concentration alert written: {asset_class.upper()} at {concentration_pct*100:.1f}%")
 
 
+# T482: Concentration history tracking
+CONCENTRATION_HISTORY_FILE = "data/trading/concentration-history.jsonl"
+
+
+def log_concentration_snapshot(concentration: dict, portfolio_value_cents: int):
+    """
+    Log concentration snapshot to history file for dashboard tracking (T482).
+    
+    Appends one line per cycle with timestamp and concentration metrics.
+    """
+    if not concentration["by_asset_class"]:
+        return  # Skip if no positions
+    
+    snapshot = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "portfolio_value_cents": portfolio_value_cents,
+        "by_asset_class": concentration["by_asset_class"],
+        "by_correlation_group": concentration["by_correlation_group"],
+        "total_exposure_cents": concentration["total_exposure_cents"],
+        "position_count": concentration["position_count"],
+        "largest_asset_class": concentration["largest_asset_class"],
+        "largest_asset_class_pct": concentration.get("largest_asset_class_pct", 0),
+        "largest_correlated_group": concentration["largest_correlated_group"],
+        "largest_correlated_group_pct": concentration.get("largest_correlated_group_pct", 0),
+        "exposure_pct": concentration["total_exposure_cents"] / portfolio_value_cents if portfolio_value_cents > 0 else 0
+    }
+    
+    # Ensure directory exists
+    history_path = Path(CONCENTRATION_HISTORY_FILE)
+    history_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Append to JSONL
+    with open(history_path, "a") as f:
+        f.write(json.dumps(snapshot) + "\n")
+
+
 def print_concentration_summary(concentration: dict):
     """Print a human-readable concentration summary."""
     if not concentration["by_asset_class"]:
@@ -4000,6 +4036,9 @@ def run_cycle():
         portfolio_val = bal_for_conc.get("portfolio_value", 0)
         concentration = calculate_portfolio_concentration(positions, portfolio_val)
         print_concentration_summary(concentration)
+        
+        # Log concentration to history for dashboard tracking (T482)
+        log_concentration_snapshot(concentration, portfolio_val)
         
         # Show rebalancing suggestions if over-concentrated (T481)
         rebal_suggestions = get_rebalancing_suggestions(positions, portfolio_val, concentration)
