@@ -8492,18 +8492,28 @@
   - "Run New Test" button to trigger from dashboard
 
 ### [T799] Trading: Auto-alert when A/B test shows significant winner
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T220]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create cron job to run weekly A/B tests and alert on findings:
-  - Script: `scripts/weekly-ab-test.py`
-  - Runs baseline vs all variants on last 30 days data
-  - If any strategy significantly outperforms baseline, create alert
-  - Alert includes: strategy name, improvement %, confidence level
-  - Alert file: `kalshi-strategy-recommendation.alert`
-  - Cron: weekly on Sundays after weekly report
+- **Notes**: ✅ Implemented weekly A/B test auto-alert!
+  - **Script**: `scripts/weekly-ab-test.py`
+  - **Features:**
+    - ✅ Runs baseline vs all 7 strategy variants
+    - ✅ Analyzes last 30 days of historical trades
+    - ✅ Statistical significance testing (z-test)
+    - ✅ Creates alert when strategy improves win rate by 5%+
+    - ✅ Alert file: `kalshi-strategy-recommendation.alert`
+    - ✅ Results persistence: `data/trading/weekly-ab-test-results.json`
+    - ✅ State tracking to avoid duplicate runs within week
+    - ✅ Dry-run and verbose modes
+  - **Cron**: `0 21 * * 0` (Sunday 21:00 UTC / 13:00 PST)
+  - **Usage:**
+    - `python weekly-ab-test.py` - Run test
+    - `python weekly-ab-test.py --dry-run` - Preview
+    - `python weekly-ab-test.py --force` - Run even if already ran this week
 
 ### [T800] Trading: Auto-tune strategy parameters based on recent performance
 - **Status**: TODO
