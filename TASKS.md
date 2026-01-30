@@ -9970,8 +9970,8 @@
   - ⏳ Needs deploy to onde.surf (T860)
 
 ### [T860] Deploy onde.surf with momentum regime widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T859]
 - **Blocks**: -
 - **Priority**: P2
