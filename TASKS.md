@@ -3287,6 +3287,46 @@
 - **Priority**: -
 - **Notes**: ✅ OBSOLETE: Migrato a Wrangler diretto. GitHub Actions non più necessario per deploy. Procedura permanente: `npm run build && npm run build:cf && wrangler pages deploy`.
 
+### [T800] Add latency trend sparkline to /betting dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T397]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show latency trend visualization on dashboard:
+  - Mini sparkline showing latency history (24h)
+  - Color-coded: green=normal, yellow=elevated, red=anomaly
+  - Hover tooltip with detailed stats
+  - Uses data from latency-history.jsonl
+  - Helps visualize API performance patterns over time
+
+### [T801] Auto-adjust position size based on current API latency
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T396], [T397]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Reduce position size when latency is high:
+  - If avg latency >500ms: reduce Kelly fraction by 25%
+  - If avg latency >1000ms: reduce Kelly fraction by 50%
+  - If avg latency >2000ms: skip trade entirely
+  - Rationale: High latency = execution risk, stale prices
+  - Log latency_adjustment in trade data for analysis
+
+### [T802] Export weekly exchange latency comparison report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T396]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Generate weekly exchange comparison report:
+  - Script: scripts/export-latency-report.py
+  - Compare avg/p95/max latency across exchanges
+  - Track latency trends week-over-week
+  - Identify degradation patterns
+  - Output: markdown + JSON for dashboard
+  - Cron: weekly (Sunday)
+
 ---
 
 ## 🚨 PRIORITÀ MASSIMA - DEPLOY GRATIS
