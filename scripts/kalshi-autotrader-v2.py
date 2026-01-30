@@ -504,6 +504,86 @@ def identify_bottlenecks() -> list:
     return bottlenecks
 
 
+# ============== LATENCY-BASED EXCHANGE PRIORITIZATION (T396) ==============
+
+# Exchange latency endpoint mapping
+EXCHANGE_LATENCY_ENDPOINTS = {
+    "binance": "ext_binance",
+    "coingecko": "ext_coingecko",
+    "coinbase": "ext_coinbase"
+}
+
+# Default order (used when no latency data available)
+DEFAULT_EXCHANGE_ORDER = ["binance", "coingecko", "coinbase"]
+
+# Enable/disable dynamic prioritization
+DYNAMIC_EXCHANGE_ORDER = os.getenv("DYNAMIC_EXCHANGE_ORDER", "true").lower() in ("true", "1", "yes")
+
+
+def get_optimal_exchange_order() -> list[str]:
+    """
+    Get optimal exchange order based on historical latency.
+    
+    Returns exchanges sorted by avg latency (fastest first).
+    Falls back to default order if insufficient data.
+    
+    Returns:
+        List of exchange names in priority order
+    """
+    if not DYNAMIC_EXCHANGE_ORDER:
+        return DEFAULT_EXCHANGE_ORDER.copy()
+    
+    profile = get_latency_profile()
+    if not profile:
+        return DEFAULT_EXCHANGE_ORDER.copy()
+    
+    # Get latency stats for each exchange
+    exchange_latencies = []
+    for exchange, endpoint in EXCHANGE_LATENCY_ENDPOINTS.items():
+        if endpoint in profile:
+            stats = profile[endpoint]
+            if stats.get("count", 0) >= 3:  # Need at least 3 calls for reliable data
+                exchange_latencies.append({
+                    "exchange": exchange,
+                    "avg_ms": stats.get("avg_ms", float('inf')),
+                    "p95_ms": stats.get("p95_ms", float('inf')),
+                    "count": stats.get("count", 0)
+                })
+    
+    # If we don't have enough data, use default order
+    if len(exchange_latencies) < 2:
+        return DEFAULT_EXCHANGE_ORDER.copy()
+    
+    # Sort by avg latency (fastest first)
+    exchange_latencies.sort(key=lambda x: x["avg_ms"])
+    
+    # Build ordered list, keeping any missing exchanges at the end
+    ordered = [e["exchange"] for e in exchange_latencies]
+    for default_ex in DEFAULT_EXCHANGE_ORDER:
+        if default_ex not in ordered:
+            ordered.append(default_ex)
+    
+    return ordered
+
+
+def print_exchange_priority():
+    """Print current exchange priority order with latency stats."""
+    order = get_optimal_exchange_order()
+    profile = get_latency_profile()
+    
+    print("\n🔄 EXCHANGE PRIORITY (latency-based):")
+    for i, exchange in enumerate(order, 1):
+        endpoint = EXCHANGE_LATENCY_ENDPOINTS.get(exchange, "")
+        if endpoint and endpoint in profile:
+            stats = profile[endpoint]
+            avg = stats.get("avg_ms", 0)
+            p95 = stats.get("p95_ms", 0)
+            count = stats.get("count", 0)
+            print(f"  {i}. {exchange}: avg={avg:.0f}ms, p95={p95:.0f}ms ({count} calls)")
+        else:
+            print(f"  {i}. {exchange}: (no data)")
+
+
 # ============== API RATE LIMIT MONITORING (T308) ==============
 
 # Rate limit tracking
@@ -3271,16 +3351,24 @@ def get_crypto_prices(max_retries: int = 3) -> dict:
     Get current BTC/ETH prices from multiple exchanges.
     Aggregates prices from Binance, CoinGecko, and Coinbase for accuracy.
     Uses median price when multiple sources available.
+    
+    Exchange order is dynamically prioritized based on latency (T396).
     """
     all_prices = []
     sources_used = []
     
-    # Fetch from all sources in parallel order of reliability
-    price_funcs = [
-        ("binance", get_prices_binance),
-        ("coingecko", get_prices_coingecko),
-        ("coinbase", get_prices_coinbase),
-    ]
+    # Get optimal exchange order based on latency (T396)
+    exchange_order = get_optimal_exchange_order()
+    
+    # Map exchange names to fetch functions
+    exchange_funcs = {
+        "binance": get_prices_binance,
+        "coingecko": get_prices_coingecko,
+        "coinbase": get_prices_coinbase,
+    }
+    
+    # Build ordered list of (name, func) tuples
+    price_funcs = [(name, exchange_funcs[name]) for name in exchange_order if name in exchange_funcs]
     
     for source_name, fetch_func in price_funcs:
         for attempt in range(max_retries):

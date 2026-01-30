@@ -5762,12 +5762,23 @@
 - **Notes**: ✅ Added full_alignment field to opportunity data + trade_log. Captures when all timeframes (1h/4h/24h) agree regardless of direction. Enables T394 analysis of alignment effectiveness.
 
 ### [T396] Latency-based exchange source prioritization
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T279]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use latency profile data to dynamically prioritize faster exchanges. If Binance avg <200ms but CoinGecko >500ms, try Binance first. Update priority order in get_crypto_prices() based on recent latency stats.
+- **Notes**: ✅ Implemented dynamic exchange prioritization!
+  - **Function**: `get_optimal_exchange_order()` in kalshi-autotrader-v2.py
+  - **Features:**
+    - ✅ Reads latency profile from kalshi-latency-profile.json
+    - ✅ Sorts exchanges by avg latency (fastest first)
+    - ✅ Requires min 3 calls per exchange for reliable data
+    - ✅ Falls back to default order when insufficient data
+    - ✅ `print_exchange_priority()` helper for debugging
+  - **Integration**: Modified `get_crypto_prices()` to use dynamic order
+  - **Current priority**: Binance (151ms) > CoinGecko (212ms) > Coinbase (446ms)
+  - **Toggle**: `DYNAMIC_EXCHANGE_ORDER=false` to disable
 
 ### [T397] Latency anomaly detection and alerting
 - **Status**: DONE
