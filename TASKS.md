@@ -3334,18 +3334,25 @@
   - Rationale: High latency = execution risk, stale prices
 
 ### [T802] Export weekly exchange latency comparison report
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T396]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Generate weekly exchange comparison report:
-  - Script: scripts/export-latency-report.py
-  - Compare avg/p95/max latency across exchanges
-  - Track latency trends week-over-week
-  - Identify degradation patterns
-  - Output: markdown + JSON for dashboard
-  - Cron: weekly (Sunday)
+- **Notes**: ✅ Implemented weekly latency comparison report!
+  - **Script**: `scripts/export-latency-report.py`
+  - **Features:**
+    - ✅ Compare avg/P95/max latency across exchanges (Binance, CoinGecko, Coinbase)
+    - ✅ Kalshi API endpoint performance (Markets, Balance, Positions, Order)
+    - ✅ Performance rating: Excellent/Good/Acceptable/Poor/Critical
+    - ✅ Week-over-week trends (improved/stable/degraded)
+    - ✅ Auto-generate recommendations
+    - ✅ Output: Markdown + JSON reports
+    - ✅ History tracking in latency-reports-history.jsonl
+    - ✅ Recommended exchange priority order
+  - **Usage**: `python3 export-latency-report.py [--dry-run] [--verbose]`
+  - **Cron**: `0 12 * * 0` (Sunday 12:00 UTC)
 
 ### [T803] Dashboard: Display latency adjustment indicator on /betting
 - **Status**: TODO
