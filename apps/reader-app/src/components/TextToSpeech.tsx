@@ -254,6 +254,22 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
           e.preventDefault();
           updateTtsSettings({ volume: ttsSettings.volume > 0 ? 0 : 1.0 });
           break;
+        case '1': // Speed preset: Slow (0.75x)
+          e.preventDefault();
+          updateTtsSettings({ rate: 0.75 });
+          break;
+        case '2': // Speed preset: Normal (1.0x)
+          e.preventDefault();
+          updateTtsSettings({ rate: 1.0 });
+          break;
+        case '3': // Speed preset: Fast (1.5x)
+          e.preventDefault();
+          updateTtsSettings({ rate: 1.5 });
+          break;
+        case '4': // Speed preset: 2x
+          e.preventDefault();
+          updateTtsSettings({ rate: 2.0 });
+          break;
       }
     };
 
@@ -394,36 +410,60 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
             </select>
           </div>
 
-          {/* Speed and Pitch sliders */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Speed: {ttsSettings.rate.toFixed(1)}x
-              </label>
-              <input
-                type="range"
-                min="0.5"
-                max="2"
-                step="0.1"
-                value={ttsSettings.rate}
-                onChange={(e) => updateTtsSettings({ rate: parseFloat(e.target.value) })}
-                className="w-full accent-blue-500"
-              />
+          {/* Speed presets and slider */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Speed: {ttsSettings.rate.toFixed(1)}x
+            </label>
+            {/* Preset buttons */}
+            <div className="flex gap-2 mb-2">
+              {[
+                { rate: 0.75, emoji: '🐢', label: 'Slow', key: '1' },
+                { rate: 1.0, emoji: '▶️', label: 'Normal', key: '2' },
+                { rate: 1.5, emoji: '🐇', label: 'Fast', key: '3' },
+                { rate: 2.0, emoji: '⚡', label: '2x', key: '4' },
+              ].map((preset) => (
+                <button
+                  key={preset.rate}
+                  onClick={() => updateTtsSettings({ rate: preset.rate })}
+                  className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition-colors ${
+                    Math.abs(ttsSettings.rate - preset.rate) < 0.05
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300'
+                  }`}
+                  title={`${preset.label} (${preset.rate}x) - Press ${preset.key}`}
+                >
+                  <span className="block">{preset.emoji}</span>
+                  <span className="block opacity-70">{preset.rate}x</span>
+                </button>
+              ))}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Pitch: {ttsSettings.pitch.toFixed(1)}
-              </label>
-              <input
-                type="range"
-                min="0.5"
-                max="2"
-                step="0.1"
-                value={ttsSettings.pitch}
-                onChange={(e) => updateTtsSettings({ pitch: parseFloat(e.target.value) })}
-                className="w-full accent-blue-500"
-              />
-            </div>
+            {/* Fine-tune slider */}
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={ttsSettings.rate}
+              onChange={(e) => updateTtsSettings({ rate: parseFloat(e.target.value) })}
+              className="w-full accent-blue-500"
+            />
+          </div>
+
+          {/* Pitch slider */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Pitch: {ttsSettings.pitch.toFixed(1)}
+            </label>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={ttsSettings.pitch}
+              onChange={(e) => updateTtsSettings({ pitch: parseFloat(e.target.value) })}
+              className="w-full accent-blue-500"
+            />
           </div>
 
           {/* Volume slider */}
@@ -476,7 +516,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
           <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
             <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Space</kbd> Play/Pause</span>
             <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">←</kbd><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">→</kbd> Prev/Next</span>
-            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">↑</kbd><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">↓</kbd> Speed</span>
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">1</kbd>-<kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">4</kbd> Speed</span>
             <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">M</kbd> Mute</span>
             <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Esc</kbd> Close</span>
           </div>

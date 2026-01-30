@@ -505,16 +505,19 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T718] Reader App: Add TTS speed presets (slow/normal/fast)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T714]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Quick access to common speed settings:
-  - Preset buttons: 🐢 (0.75x) | Normal (1.0x) | 🐇 (1.5x) | ⚡ (2.0x)
-  - Visual indication of current preset
-  - Keyboard shortcuts: 1/2/3/4 for presets
-  - Still allow fine-tuning via slider
+- **Notes**: ✅ Implemented TTS speed presets!
+  - ✅ Preset buttons: 🐢 (0.75x) | ▶️ (1.0x) | 🐇 (1.5x) | ⚡ (2.0x)
+  - ✅ Visual indication: active preset highlighted in blue
+  - ✅ Keyboard shortcuts 1/2/3/4 for presets
+  - ✅ Fine-tune slider still available below presets
+  - ✅ Updated keyboard hints to show 1-4
+  - ✅ Build passes
 
 ### [T719] Reader App: Add reading statistics dashboard
 - **Status**: DONE
