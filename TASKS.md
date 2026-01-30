@@ -9,8 +9,9 @@
 ## 📚 READER APP / PORTALE VR (DA MATTIA 2026-01-29)
 
 ### [T668] Reader App: Prototype Web-Based Book Reader
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: [T669]
 - **Priority**: P1
@@ -18,13 +19,31 @@
   - **Vision**: Portale VR + versione web-based per testing
   - **MVP web**: Lettore libri "superfigo" con UX moderna
   - **Features richieste:**
-    - Lettura libri con pagination fluida
-    - Font sizing, dark mode, sepia
-    - Progress tracking per libro
-    - Bookmarks e highlighting
-    - Sync tra dispositivi (future)
-  - **Tech**: Next.js o React standalone
+    - ✅ Lettura libri con pagination fluida (swipe + keyboard)
+    - ✅ Font sizing, dark mode, sepia themes
+    - ✅ Progress tracking per libro (localStorage + Zustand)
+    - ⏳ Bookmarks e highlighting (structure ready)
+    - ⏳ Sync tra dispositivi (future)
+  - **Tech**: Next.js 15 + Tailwind + Zustand
   - **Test target**: Browser + PWA prima di VR
+  - **Progress 2026-01-31:**
+    - ✅ Created `apps/reader-app/` - full working prototype!
+    - ✅ Library view with book covers, progress, "Continue Reading"
+    - ✅ Reader view with customizable typography settings
+    - ✅ Theme modes: Light, Dark, Sepia
+    - ✅ Font controls: size (14-28px), family (serif/sans), line height
+    - ✅ Margin controls: small/medium/large
+    - ✅ Touch gestures: swipe left/right for pagination
+    - ✅ Keyboard shortcuts: arrows, space, escape
+    - ✅ Table of Contents slide-out panel
+    - ✅ Settings bottom sheet panel
+    - ✅ Progress bar at top
+    - ✅ Auto-hide controls with tap to show
+    - ✅ PWA manifest ready
+    - ✅ IndexedDB setup for EPUB file storage
+    - ✅ Sample content (Pride & Prejudice chapters)
+    - ✅ Zustand store with localStorage persistence
+    - **Run with:** `cd apps/reader-app && npm run dev`
 
 ### [T669] Reader App: VR/XR Version Planning
 - **Status**: TODO

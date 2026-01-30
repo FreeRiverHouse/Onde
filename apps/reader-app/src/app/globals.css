@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --page-bg: #ffffff;
+  --text-color: #1a1a1a;
+  --accent: #3b82f6;
+}
+
+.dark {
+  --page-bg: #1a1a1a;
+  --text-color: #e5e5e5;
+}
+
+.sepia {
+  --page-bg: #f5ebe0;
+  --text-color: #5a432f;
+}
+
+/* Smooth page transitions */
+.page-turn {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Reader typography */
+.reader-content {
+  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+.reader-content p {
+  text-indent: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.reader-content p:first-of-type {
+  text-indent: 0;
+}
+
+.reader-content h1,
+.reader-content h2,
+.reader-content h3 {
+  text-indent: 0;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+/* Highlight styles */
+.highlight-yellow {
+  background-color: rgba(255, 235, 59, 0.4);
+}
+
+.highlight-green {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.highlight-blue {
+  background-color: rgba(33, 150, 243, 0.3);
+}
+
+.highlight-pink {
+  background-color: rgba(233, 30, 99, 0.3);
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #8b5cf6);
+  transition: width 0.3s ease;
+}
+
+/* Scrollbar styling */
+.reader-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reader-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.reader-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.reader-scroll::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Touch gestures feedback */
+.swipe-left {
+  animation: swipeLeft 0.3s ease-out;
+}
+
+.swipe-right {
+  animation: swipeRight 0.3s ease-out;
+}
+
+@keyframes swipeLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-50px); opacity: 0; }
+}
+
+@keyframes swipeRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(50px); opacity: 0; }
+}
