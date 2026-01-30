@@ -9810,3 +9810,46 @@
   - **Model**: llama3:70b (preferito) o llama3:8b
   - **⚠️ REQUIRES: M1 + Radeon eGPU (@clawdinho))
   - Output: traduzioni/capussela-completa/capussela-spirito-EN-final.txt
+
+### [T826] Trading: Add trade performance by time-of-day analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze trading performance patterns by time of day:
+  - Group trades by hour (PST)
+  - Calculate win rate and avg PnL per hour
+  - Identify best and worst hours for trading
+  - Create dashboard widget showing heatmap
+  - Optionally disable trading during worst hours
+  - Export to data/trading/time-analysis.json
+
+### [T827] Trading: Add market momentum regime indicator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T483]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track overall market momentum for better timing:
+  - Calculate aggregate momentum across BTC/ETH
+  - Identify trending vs mean-reverting regimes
+  - Adjust strategy based on regime (momentum vs contrarian)
+  - Alert on regime changes (like T724 for correlation)
+  - Dashboard widget showing current regime
+  - Data source: hourly OHLC candles from Binance
+
+### [T828] Infra: Add health check endpoint to autotrader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add HTTP health endpoint for monitoring:
+  - Simple Flask/FastAPI server on port 8089
+  - /health endpoint returning JSON status
+  - Include: uptime, last cycle time, positions count, balance
+  - Include: errors in last hour, circuit breaker status
+  - Useful for external monitoring (UptimeRobot, etc.)
+  - Start automatically with autotrader
+  - Lightweight (<10MB memory overhead)
