@@ -5724,3 +5724,48 @@
     - Camera POV ride-along
     - Rendering cycles con Radeon
   - **Output**: Video/animazione prototipo
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (18:34 HEARTBEAT)
+
+### [T690] Moonlight House: Add achievements gallery/showcase
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T461]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show off earned achievements in a dedicated view:
+  - Gallery grid of all achievements (locked/unlocked)
+  - Unlock animations with sparkle effects
+  - Progress tracking (X/20 achievements earned)
+  - Share achievement button (screenshot/social)
+  - Secret achievements (hidden until unlocked)
+  - Achievement rarity percentages (future: compare with other players)
+
+### [T691] Health Dashboard: Add API response time percentiles
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T446]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enhanced latency monitoring on /health page:
+  - Show p50, p95, p99 latency percentiles
+  - Historical latency trend chart (last 24h)
+  - Alert threshold visualization (green/yellow/red zones)
+  - Compare latency across endpoints (onde.la vs onde.surf)
+  - Export latency data as CSV for analysis
+
+### [T692] Autotrader: Add circuit breaker status to dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T001]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Show circuit breaker state on onde.surf betting page:
+  - Current status: OPEN/CLOSED/HALF_OPEN
+  - Time since last trip
+  - Trip count (24h)
+  - Manual reset button (requires auth)
+  - Visual indicator in header (green/red dot)
+  - Historical trips timeline
