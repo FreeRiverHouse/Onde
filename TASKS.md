@@ -5342,3 +5342,14 @@
   - Best/worst performing market types (KXHIGH vs KXLOW)
   - Edge realization stats
   - Cron: Sunday 12:00 UTC → creates kalshi-weather-weekly.alert
+
+### [T663] onde.la: Create /privacy and /terms pages
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Both /privacy and /terms return 404 but are linked in the footer
+  - Need to create Privacy Policy page
+  - Need to create Terms of Service page
+  - Discovered by watchdog-services.sh
