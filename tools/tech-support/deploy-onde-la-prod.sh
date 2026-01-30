@@ -116,12 +116,12 @@ echo ""
 echo -e "${YELLOW}📋 Verifica manuale onde.la per confermare${NC}"
 echo ""
 
-# Send Telegram notification if credentials are available
-if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
-    MESSAGE="✅ *ONDE.LA PRODUZIONE DEPLOYED*%0A%0ADeployment successful!%0A%0AView: https://onde.la"
-    curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
-        -d "chat_id=$TELEGRAM_CHAT_ID" \
-        -d "text=$MESSAGE" \
-        -d "parse_mode=Markdown" > /dev/null
-    echo -e "${GREEN}📱 Telegram notification sent${NC}"
-fi
+# Telegram notifications disabled - Mattia prefers direct chat updates
+# if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+#     MESSAGE="✅ *ONDE.LA PRODUZIONE DEPLOYED*%0A%0ADeployment successful!%0A%0AView: https://onde.la"
+#     curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+#         -d "chat_id=$TELEGRAM_CHAT_ID" \
+#         -d "text=$MESSAGE" \
+#         -d "parse_mode=Markdown" > /dev/null
+#     echo -e "${GREEN}📱 Telegram notification sent${NC}"
+# fi
