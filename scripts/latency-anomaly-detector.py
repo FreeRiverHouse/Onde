@@ -31,6 +31,7 @@ MIN_HISTORY_ENTRIES = 10    # Need at least this many entries for baseline
 COOLDOWN_HOURS = 2          # Don't alert more than once per 2 hours
 WARNING_LATENCY_MS = 1000   # Absolute threshold for any endpoint
 CRITICAL_LATENCY_MS = 2000  # Critical threshold
+P95_CRITICAL_MS = 3000      # T824: Critical threshold for P95 latency
 
 # Endpoints to monitor (ignore cache hits which are always fast)
 MONITORED_ENDPOINTS = [
@@ -167,7 +168,7 @@ def detect_anomalies(profile: dict, history: list[dict], verbose: bool = False) 
                     "deviation": round((current_avg - baseline_avg) / baseline_std, 2) if baseline_std > 0 else 0
                 }
         
-        # Absolute threshold check
+        # Absolute threshold check - average latency
         if current_avg > CRITICAL_LATENCY_MS:
             anomaly = anomaly or {}
             anomaly.update({
@@ -185,6 +186,22 @@ def detect_anomalies(profile: dict, history: list[dict], verbose: bool = False) 
                 "threshold_ms": WARNING_LATENCY_MS,
                 "severity": "warning"
             }
+        
+        # T824: P95 latency threshold check
+        if current_p95 > P95_CRITICAL_MS:
+            p95_anomaly = {
+                "endpoint": endpoint,
+                "type": "p95_critical",
+                "current_p95_ms": round(current_p95, 1),
+                "threshold_ms": P95_CRITICAL_MS,
+                "severity": "critical"
+            }
+            # If we already have an anomaly, merge info; otherwise create new
+            if anomaly:
+                anomaly["current_p95_ms"] = round(current_p95, 1)
+                anomaly["p95_threshold_ms"] = P95_CRITICAL_MS
+            else:
+                anomaly = p95_anomaly
         
         if anomaly:
             anomaly["severity"] = anomaly.get("severity", "warning")
@@ -208,20 +225,32 @@ def create_alert(anomalies: list[dict], dry_run: bool = False) -> str:
     
     for anomaly in anomalies:
         endpoint = anomaly["endpoint"]
-        current = anomaly["current_avg_ms"]
+        current = anomaly.get("current_avg_ms", 0)
+        current_p95 = anomaly.get("current_p95_ms", 0)
         severity = anomaly.get("severity", "warning")
         emoji = "🔴" if severity == "critical" else "🟡"
         
         if anomaly["type"] == "statistical":
             baseline = anomaly["baseline_avg_ms"]
             deviation = anomaly["deviation"]
-            lines.append(f"{emoji} {endpoint}: {current:.0f}ms (baseline: {baseline:.0f}ms, +{deviation:.1f}σ)")
+            lines.append(f"{emoji} {endpoint}: avg={current:.0f}ms (baseline: {baseline:.0f}ms, +{deviation:.1f}σ)")
+        elif anomaly["type"] == "p95_critical":
+            # T824: P95-specific alert
+            lines.append(f"{emoji} {endpoint}: P95={current_p95:.0f}ms > {anomaly['threshold_ms']}ms threshold!")
         else:
-            lines.append(f"{emoji} {endpoint}: {current:.0f}ms (threshold: {anomaly['threshold_ms']}ms)")
+            line = f"{emoji} {endpoint}: avg={current:.0f}ms (threshold: {anomaly['threshold_ms']}ms)"
+            # Add P95 info if present
+            if current_p95 > 0 and "p95_threshold_ms" in anomaly:
+                line += f" | P95={current_p95:.0f}ms"
+            lines.append(line)
     
     lines.append("")
-    if critical_count > 0:
-        lines.append("⚠️ CRITICAL: Some endpoints exceed 2s latency!")
+    p95_critical = any(a.get("type") == "p95_critical" for a in anomalies)
+    if critical_count > 0 or p95_critical:
+        if p95_critical:
+            lines.append("⚠️ CRITICAL: P95 latency exceeds 3s threshold!")
+        else:
+            lines.append("⚠️ CRITICAL: Some endpoints exceed 2s avg latency!")
         lines.append("Check: network issues, API throttling, or service degradation")
     else:
         lines.append("💡 Monitor for continued degradation")

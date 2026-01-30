@@ -9541,17 +9541,23 @@
   - Show count of trades in range before download
 
 ### [T824] Autotrader: P95 latency threshold alert
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T820]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when P95 latency consistently high:
-  - Threshold: P95 > 3s for any critical endpoint
-  - Check: order, balance, positions endpoints
-  - Create kalshi-p95-latency.alert file
-  - Include endpoint name and current P95 value
-  - Suggest: network issues, API throttling
+- **Notes**: ✅ Added P95 latency threshold alerting!
+  - **Threshold**: P95 > 3000ms (3s)
+  - **Updated `latency-anomaly-detector.py`:**
+    - New constant: P95_CRITICAL_MS = 3000
+    - Added P95 threshold check in detect_anomalies()
+    - Alert type: "p95_critical" with severity "critical"
+    - Alert message shows: "P95=Xms > 3000ms threshold!"
+    - Combined with avg latency alerts when both fail
+  - **Monitored endpoints**: markets_search, balance, positions, create_order, ext_*
+  - **Uses existing alert file**: scripts/kalshi-latency.alert
+  - **Tested**: No current anomalies (P95 values are healthy)
 
 ### [T825] Dashboard: Percentile latency widget
 - **Status**: TODO
