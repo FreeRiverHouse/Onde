@@ -6858,3 +6858,47 @@
   - Option to auto-start with meeting apps (Zoom detector?)
   - Theme options: dark/light/auto
   - Font size adjustment for suggestion cards
+
+### [T734] SE-Bot: Add voice output to overlay suggestion cards
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T475]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Integrate voice output with the overlay UI:
+  - Add 🔊 button on each suggestion card
+  - Click plays the suggestion text using ElevenLabs
+  - Visual feedback while speaking (button animation)
+  - Stop button if currently playing
+  - Keyboard shortcut: Shift+1/2/3 to speak suggestion
+  - Option to auto-speak top suggestion when generated
+  - Volume slider in overlay settings
+
+### [T735] SE-Bot: Add competitor detection and battle card mode
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T473]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Enhanced competitive intelligence:
+  - Real-time competitor name detection in transcript
+  - When competitor mentioned, switch to battle-card mode
+  - Show 3 quick differentiators vs that competitor
+  - Color-code suggestions (green=strengths, yellow=caution)
+  - Track which competitors come up most often
+  - Log to data/se-bot/competitor-mentions.jsonl
+  - Existing: competitive-battle-card.md prompts ready
+
+### [T736] Voice Output: Add speaking queue for multiple suggestions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T475]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Queue system for voice output:
+  - Queue multiple text items for sequential playback
+  - Skip/cancel buttons for current or queue
+  - Priority levels (urgent = skip queue)
+  - Natural pauses between items
+  - Show queue status in UI
+  - "Speak all suggestions" mode
