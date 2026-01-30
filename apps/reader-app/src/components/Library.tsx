@@ -4,9 +4,11 @@ import { useReaderStore, Book } from '@/store/readerStore';
 import { useState, useRef, useCallback, DragEvent, useMemo, useEffect } from 'react';
 import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
+import { useCachedBooks } from '@/lib/useCachedBooks';
 import { OfflineIndicator } from './OfflineIndicator';
 import { GoalProgressWidget } from './GoalProgressWidget';
 import { OPDSBrowser } from './OPDSBrowser';
+import { CachedBadge } from './CachedBadge';
 
 // Upload progress state
 interface UploadProgress {
@@ -68,6 +70,10 @@ export function Library() {
     setFilter(prefs.filter);
     setSort(prefs.sort);
   }, []);
+  
+  // Track cached books for offline badge display
+  const bookIds = useMemo(() => books.map(b => b.id), [books]);
+  const { isCached, isDemoBook, refresh: refreshCacheStatus } = useCachedBooks(bookIds);
   
   // Save preferences when changed
   useEffect(() => {
@@ -194,6 +200,9 @@ export function Library() {
     if (uploadedBooks.length > 0) {
       setCurrentBook(uploadedBooks[uploadedBooks.length - 1]);
     }
+    
+    // Refresh cache status for new books
+    refreshCacheStatus();
 
     // Clear progress after a short delay
     setTimeout(() => {
@@ -480,7 +489,13 @@ export function Library() {
               .sort((a, b) => (b.lastRead || 0) - (a.lastRead || 0))
               .slice(0, 3)
               .map((book) => (
-                <ContinueReadingCard key={book.id} book={book} onClick={handleBookClick} />
+                <ContinueReadingCard 
+                  key={book.id} 
+                  book={book} 
+                  onClick={handleBookClick}
+                  isCached={isCached(book.id)}
+                  isDemoBook={isDemoBook(book.id)}
+                />
               ))}
           </div>
         </section>
@@ -507,7 +522,13 @@ export function Library() {
             </div>
           ) : (
             filteredBooks.map((book) => (
-              <BookCard key={book.id} book={book} onClick={handleBookClick} />
+              <BookCard 
+                key={book.id} 
+                book={book} 
+                onClick={handleBookClick} 
+                isCached={isCached(book.id)}
+                isDemoBook={isDemoBook(book.id)}
+              />
             ))
           )}
           
@@ -540,7 +561,14 @@ export function Library() {
   );
 }
 
-function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void }) {
+interface BookCardProps {
+  book: Book;
+  onClick: (book: Book) => void;
+  isCached: boolean | null;
+  isDemoBook: boolean;
+}
+
+function BookCard({ book, onClick, isCached, isDemoBook }: BookCardProps) {
   // Calculate remaining reading time
   const remainingTime = book.estimatedReadingMinutes && book.progress > 0
     ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
@@ -563,7 +591,12 @@ function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void
         </div>
       )}
       
-      {/* Reading time badge */}
+      {/* Cached/Downloaded badge - top left */}
+      <div className="absolute top-2 left-2">
+        <CachedBadge isCached={isCached} isDemoBook={isDemoBook} />
+      </div>
+      
+      {/* Reading time badge - top right */}
       {remainingTime && (
         <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
           <span>⏱️</span>
@@ -598,7 +631,14 @@ function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void
   );
 }
 
-function ContinueReadingCard({ book, onClick }: { book: Book; onClick: (book: Book) => void }) {
+interface ContinueReadingCardProps {
+  book: Book;
+  onClick: (book: Book) => void;
+  isCached: boolean | null;
+  isDemoBook: boolean;
+}
+
+function ContinueReadingCard({ book, onClick, isCached, isDemoBook }: ContinueReadingCardProps) {
   // Calculate remaining reading time
   const remainingTime = book.estimatedReadingMinutes
     ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
@@ -609,12 +649,16 @@ function ContinueReadingCard({ book, onClick }: { book: Book; onClick: (book: Bo
       onClick={() => onClick(book)}
       className="flex gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
     >
-      <div className="w-20 h-28 rounded-lg overflow-hidden flex-shrink-0">
+      <div className="relative w-20 h-28 rounded-lg overflow-hidden flex-shrink-0">
         {book.cover ? (
           <img src={book.cover} alt={book.title} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600" />
         )}
+        {/* Cached badge on cover */}
+        <div className="absolute bottom-1 left-1">
+          <CachedBadge isCached={isCached} isDemoBook={isDemoBook} />
+        </div>
       </div>
       <div className="flex-1 text-left">
         <h3 className="font-semibold line-clamp-2">{book.title}</h3>
