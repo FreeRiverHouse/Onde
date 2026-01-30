@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-01-30T18:51:21.796701Z",
+  "total_trades_analyzed": 164,
+  "buckets": {
+    "tiny": {
+      "trades": 164,
+      "wins": 0,
+      "losses": 164,
+      "win_rate_pct": 0.0,
+      "total_cost_cents": 1140,
+      "total_pnl_cents": -1140,
+      "roi_pct": -100.0,
+      "avg_trade_size_cents": 6.95,
+      "size_range": "$0.00 - $0.25"
+    },
+    "small": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_cost_cents": 0,
+      "total_pnl_cents": 0,
+      "roi_pct": 0,
+      "avg_trade_size_cents": 0,
+      "size_range": "$0.25 - $0.50"
+    },
+    "medium": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_cost_cents": 0,
+      "total_pnl_cents": 0,
+      "roi_pct": 0,
+      "avg_trade_size_cents": 0,
+      "size_range": "$0.50 - $1.00"
+    },
+    "large": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_cost_cents": 0,
+      "total_pnl_cents": 0,
+      "roi_pct": 0,
+      "avg_trade_size_cents": 0,
+      "size_range": "$1.00 - $2.00"
+    },
+    "xlarge": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_cost_cents": 0,
+      "total_pnl_cents": 0,
+      "roi_pct": 0,
+      "avg_trade_size_cents": 0,
+      "size_range": ">$2.00"
+    }
+  },
+  "optimal_sizing": {
+    "optimal_bucket": "tiny",
+    "optimal_roi_pct": -100.0,
+    "optimal_win_rate_pct": 0.0,
+    "recommendation": "reduce_size_or_improve_strategy"
+  }
+}

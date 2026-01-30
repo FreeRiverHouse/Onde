@@ -9301,18 +9301,23 @@
   - ✅ Build passes, ready for deploy
 
 ### [T808] Trading: Volume-weighted win rate analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if larger trades have different success rates:
-  - Group trades by size: small (<$0.50), medium ($0.50-$1), large (>$1)
-  - Calculate win rate per size bucket
-  - Check if PnL scales proportionally with trade size
-  - Identify optimal position sizing strategy
-  - Output: `data/trading/volume-weighted-analysis.json`
-  - Script: `scripts/analyze-volume-weighted-winrate.py`
+- **Notes**: ✅ Implemented volume-weighted win rate analysis!
+  - **Script**: `scripts/analyze-volume-weighted-winrate.py`
+  - **Output**: `data/trading/volume-weighted-analysis.json`
+  - **Features:**
+    - Groups trades by size: tiny (<$0.25), small, medium, large, xlarge (>$2)
+    - Calculates win rate, ROI, avg trade size per bucket
+    - Identifies optimal sizing based on ROI
+    - Generates recommendation (increase/reduce/maintain)
+  - **Initial findings (164 trades):**
+    - All trades in "tiny" bucket
+    - 0% win rate → strategy issue, not sizing
 
 ### [T809] Dashboard: DailyVolumeWidget with sparkline
 - **Status**: TODO
