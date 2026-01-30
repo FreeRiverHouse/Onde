@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-01-30T16:54:33.305115+00:00",
+  "total_trades": 164,
+  "buckets": {
+    "normal": {
+      "trades": 164,
+      "wins": 0,
+      "losses": 0,
+      "pending": 164,
+      "pnl_cents": 0,
+      "avg_multiplier": 1.0,
+      "win_rate": null
+    }
+  },
+  "skips": {
+    "count": 0,
+    "reasons": {},
+    "assets": {}
+  },
+  "recommendations": [
+    {
+      "type": "insufficient_data",
+      "message": "Only 0 latency-adjusted trades. Need more data for reliable threshold tuning.",
+      "priority": "info"
+    }
+  ],
+  "summary": {
+    "trades_with_latency_adjustment": 0,
+    "trades_skipped_high_latency": 0
+  }
+}

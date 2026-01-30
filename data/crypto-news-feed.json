@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T15:30:02.421481+00:00",
+  "timestamp": "2026-01-30T17:00:02.195171+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning",
+      "url": "https://bitcoinmagazine.com/news/amboss-railsx-a-bitcoin-native-exchange",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning Amboss launched RailsX, a peer-to-peer platform for trading Bitcoin and stablecoins without centralized exchanges or losing custody. This post Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T16:21:08+00:00"
+    },
+    {
+      "title": "What Trump\u2019s Fed Pick Kevin Warsh Means for Crypto",
+      "url": "https://decrypt.co/356486/what-trumps-fed-pick-kevin-warsh-means-for-crypto",
+      "source": "decrypt",
+      "description": "U.S. President Donald Trump has nominated Kevin Warsh to replace Jerome Powell, elevating a former Fed governor with mixed views on crypto.",
+      "published": "2026-01-30T16:10:58+00:00"
+    },
+    {
+      "title": "Bitcoin Traders See Nearly Even Odds for $69K Drop or $100K Recovery",
+      "url": "https://decrypt.co/356461/bitcoin-traders-see-nearly-even-odds-69k-drop-100k-recovery",
+      "source": "decrypt",
+      "description": "Bitcoin sentiment on Myriad flipped bearish for first time in two months as traders bet on further downside amid shutdown fears and extreme market volatility.",
+      "published": "2026-01-30T15:55:08+00:00"
+    },
     {
       "title": "Morning Minute: Washington Just Gave Crypto the Green Light",
       "url": "https://decrypt.co/356463/morning-minute-washington-just-gave-crypto-the-green-light",
@@ -151,20 +172,6 @@
       "published": "2026-01-29T23:19:19+00:00"
     },
     {
-      "title": "Ethereum's Oldest Crisis Reborn as a $220 Million Security Fund",
-      "url": "https://decrypt.co/356404/ethereum-crisis-reborn-220-million-security-fund",
-      "source": "decrypt",
-      "description": "Unclaimed Ethereum from a decade-long hack will be staked and distributed to fund audits, tooling, and incident responses.",
-      "published": "2026-01-29T22:35:32+00:00"
-    },
-    {
-      "title": "WallStreetBets Founder Cries Foul After Reddit Cracks Down on Miami Convention",
-      "url": "https://decrypt.co/356412/wallstreetbets-founder-cries-foul-reddit-cracks-down-miami-convention",
-      "source": "decrypt",
-      "description": "Jaime Rogozinski litigated the trademark to the Supreme Court\u2014and lost.",
-      "published": "2026-01-29T22:03:42+00:00"
-    },
-    {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
       "url": "https://bitcoinmagazine.com/markets/strategy-stock-mstr-hits-52-week-low",
       "source": "bitcoinmagazine",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance The bitcoin price hovered near $90,000 as the Fed held rates steady and Powell signaled a neutral stance \u2014 neither tightening nor rushing new cuts. This post Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-28T20:51:40+00:00"
-    },
-    {
-      "title": "White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill",
-      "url": "https://bitcoinmagazine.com/politics/white-house-to-host-crypto-executives",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill The White House is reportedly convening banking and crypto executives on February 2 to revive stalled U.S. crypto legislation, after Senate progress on market-structure rules collapsed earlier this month. This post White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-28T19:30:16+00:00"
     }
   ]
 }

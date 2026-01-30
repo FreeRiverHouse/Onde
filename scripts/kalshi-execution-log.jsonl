@@ -28,3 +28,4 @@
 {"timestamp": "2026-01-29T23:42:07.947932+00:00", "ticker": "KXHIGHCHI-26JAN29-B16.5", "side": "no", "count": 1, "price_cents": 11, "status": "executed", "latency_ms": 308, "retries": 0, "order_id": "a0b52bbd-ce70-4c6a-af77-971c40d63f3d"}
 {"timestamp": "2026-01-29T23:47:27.637180+00:00", "ticker": "KXHIGHCHI-26JAN29-B16.5", "side": "no", "count": 1, "price_cents": 14, "status": "executed", "latency_ms": 323, "retries": 0, "order_id": "88c9637d-afd0-4e6c-ae48-d1ee52ee3cbd"}
 {"timestamp": "2026-01-30T12:32:37.408938+00:00", "ticker": "KXLOWTNYC-26JAN30-B9.5", "side": "no", "count": 1, "price_cents": 35, "status": "executed", "latency_ms": 280, "retries": 0, "order_id": "965d7d68-230e-492b-b5e0-9603acdb5fa6"}
+{"timestamp": "2026-01-30T16:48:49.314788+00:00", "ticker": "KXLOWTNYC-26JAN31-T7", "side": "yes", "count": 2, "price_cents": 21, "status": "executed", "latency_ms": 290, "retries": 0, "order_id": "d6bacebd-ea32-4f65-b357-1b52b03daa00"}

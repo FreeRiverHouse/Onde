@@ -41,6 +41,7 @@ import { StreakIndicator } from '@/components/StreakIndicator';
 import { ApiLatencyChart, ApiLatencyData } from '@/components/ApiLatencyChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
 import { LatencySparkline, generateMockLatencyHistory } from '@/components/LatencySparkline';
+import { LatencyAdjustmentIndicator } from '@/components/LatencyAdjustmentIndicator';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
@@ -1287,7 +1288,7 @@ export default function BettingDashboard() {
                 className="hidden sm:inline-flex"
               />
             )}
-            {/* Latency Sparkline (T800) */}
+            {/* Latency Sparkline + Adjustment Indicator (T800, T803) */}
             {tradingStats && (
               <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/5 border border-white/10" title="API Latency (24h)">
                 <Zap className="w-3 h-3 text-gray-400" />
@@ -1296,6 +1297,10 @@ export default function BettingDashboard() {
                   width={60}
                   height={18}
                   showLabel={true}
+                />
+                <LatencyAdjustmentIndicator
+                  avgLatencyMs={tradingStats.latencyHistory?.summary?.avgLatencyMs ?? tradingStats.avgLatencyMs}
+                  compact={true}
                 />
               </div>
             )}

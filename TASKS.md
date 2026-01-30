@@ -3355,16 +3355,22 @@
   - **Cron**: `0 12 * * 0` (Sunday 12:00 UTC)
 
 ### [T803] Dashboard: Display latency adjustment indicator on /betting
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T801]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show when latency-based position sizing is active:
-  - Add indicator next to latency sparkline when multiplier <1.0
-  - Color-coded badge: green (normal), yellow (25% reduction), red (50% reduction)
-  - Tooltip showing current avg latency and threshold hit
-  - Visible in real-time from gist stats
+- **Notes**: ✅ Implemented latency adjustment indicator!
+  - **Component**: `apps/surfboard/src/components/LatencyAdjustmentIndicator.tsx`
+  - **Features:**
+    - ✅ Badge appears next to latency sparkline when multiplier <1.0
+    - ✅ Color-coded: green (normal), yellow (25% reduction/500-1000ms), orange (50% reduction/1000-2000ms), red (paused/>2000ms)
+    - ✅ Compact mode shows badge only, full shows percentage
+    - ✅ Tooltip shows: current latency, adjustment description, Kelly fraction, threshold
+    - ✅ Hidden when latency is normal (no visual clutter)
+  - **Integration**: Added to /betting header next to LatencySparkline
+  - Build passes, ready for deploy
 
 ### [T804] Trading: Analyze latency impact on trade outcomes
 - **Status**: IN_PROGRESS
