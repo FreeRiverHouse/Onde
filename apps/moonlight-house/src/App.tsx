@@ -975,12 +975,48 @@ function App() {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`full-page-bg room-view ${timeClass}`} 
+      className={`full-page-bg room-view ${timeClass} room-${currentRoomData.key}`} 
       style={{ backgroundImage: `url(${currentRoomData.bg})` }}
       onClick={handleRoomClick}
       ref={roomContainerRef}
       tabIndex={0}>
       <div className="overlay" />
+      
+      {/* Enhanced Room Ambiance Effects */}
+      <div className="room-vignette" />
+      <div className="room-depth-shadow" />
+      
+      {/* Dust particles - visible in daylight */}
+      <div className="dust-particles">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="dust-mote" />
+        ))}
+      </div>
+      
+      {/* Room-specific ambient effects */}
+      {currentRoomData.key === 'bedroom' && <div className="room-ambient room-bedroom" />}
+      {currentRoomData.key === 'kitchen' && (
+        <>
+          <div className="room-ambient room-kitchen" />
+          <div className="steam-effect" />
+        </>
+      )}
+      {currentRoomData.key === 'garden' && (
+        <div className="fireflies room-garden">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="firefly" />
+          ))}
+        </div>
+      )}
+      {currentRoomData.key === 'bathroom' && <div className="steam-overlay room-bathroom" />}
+      {currentRoomData.key === 'living' && <div className="tv-glow room-living" />}
+      {currentRoomData.key === 'garage' && <div className="industrial-light room-garage" />}
+      {currentRoomData.key === 'shop' && <div className="spotlights room-shop" />}
+      {currentRoomData.key === 'supermarket' && <div className="fluorescent room-supermarket" />}
+      
+      {/* Window reflection for daytime */}
+      <div className="window-reflection" />
+      
       {showAchievement && <AchievementPopup achievement={showAchievement} lang={lang} onClose={() => setShowAchievement(null)} />}
       {eventMessage && <div className="event-toast glass-card">{eventMessage}</div>}
       

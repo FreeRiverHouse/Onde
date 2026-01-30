@@ -302,18 +302,17 @@
 ## 🎮 MOONLIGHT MAGIC HOUSE - DA MATTIA 2026-01-29
 
 ### [T461] Moonlight Magic House v2: Movimento + Oggetti Interattivi
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Feature request da Mattia per evoluzione futura:
-  1. **Più realismo nelle stanze** - Grafica più dettagliata/immersiva
-  2. **Moonlight si muove** - Personaggio animato che può camminare (frecce/tap)
-  3. **Oggetti interattivi** - ✅ IMPLEMENTED! Nella camera di Moonlight, oggetti cliccabili che aprono mini-giochi a sorpresa
-  - Concetto: trasformare da mappa statica a esperienza esplorativa
-  - Scoperta organica: clicca tablet → mini-game, clicca libro → storia, etc.
-  - **Progress 2026-01-29:**
+- **Notes**: ✅ COMPLETED! All 3 features implemented:
+  1. **Più realismo nelle stanze** - ✅ IMPLEMENTED! Enhanced ambient effects
+  2. **Moonlight si muove** - ✅ IMPLEMENTED! WASD + tap-to-move
+  3. **Oggetti interattivi** - ✅ IMPLEMENTED! 20+ interactive objects
+  - **Progress 2026-01-29 (interactive objects):**
     - ✅ Created `InteractiveObjects.tsx` component with 20+ objects across all rooms
     - ✅ Each room has 2-5 interactive objects (tablet, bookshelf, toybox, etc.)
     - ✅ Object types: mini-game triggers, rewards, stories, surprises
@@ -328,7 +327,24 @@
     - ✅ Walking animation while moving
     - ✅ Direction facing (flip sprite based on direction)
     - ✅ Smooth CSS transitions
-    - ⏳ TODO: More realistic graphics
+  - **Progress 2026-01-29 (enhanced realism):**
+    - ✅ Realistic sunlight rays (skewed light beams through windows)
+    - ✅ Floating dust motes (8 particles with staggered animations)
+    - ✅ Cinematic vignette effect (stronger at night)
+    - ✅ Room-specific ambient effects:
+      - Bedroom: warm cozy glow
+      - Kitchen: steam rising from cooking
+      - Garden: fireflies at night (6 particles)
+      - Bathroom: moisture/steam overlay
+      - Living Room: TV glow with flicker
+      - Garage: industrial overhead light cone
+      - Shop: glamour spotlights
+      - Supermarket: fluorescent lighting with flicker
+    - ✅ Window reflections (daylight only)
+    - ✅ Depth shadows at floor level
+    - ✅ Enhanced time-of-day lighting (golden hour, sunset, moonlight)
+    - ✅ Mobile performance optimizations (fewer particles on small screens)
+    - ✅ Accessibility: respects prefers-reduced-motion
 
 ---
 
@@ -5283,8 +5299,8 @@
   - Add sparkline showing pass rate trend
 
 ### [T423] Autotrader: Add SOL (Solana) market support
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2

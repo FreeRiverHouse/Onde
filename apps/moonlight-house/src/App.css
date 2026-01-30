@@ -1414,3 +1414,494 @@
     display: none;
   }
 }
+
+/* ==================== ENHANCED ROOM REALISM ==================== */
+/* Realistic lighting, depth, and ambient effects for immersive rooms */
+
+/* ============ SUNLIGHT RAYS ============ */
+.room-view::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 20%;
+  width: 300px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 220, 0.15) 0%,
+    rgba(255, 248, 220, 0.05) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Only show sunlight during day */
+.time-morning .room-view::after,
+.time-afternoon .room-view::after {
+  opacity: 1;
+}
+
+/* ============ FLOATING DUST MOTES ============ */
+.dust-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.dust-mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(255, 248, 220, 0.9) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float-dust 8s ease-in-out infinite;
+}
+
+.dust-mote:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; animation-duration: 7s; }
+.dust-mote:nth-child(2) { left: 35%; top: 40%; animation-delay: 1s; animation-duration: 9s; }
+.dust-mote:nth-child(3) { left: 55%; top: 15%; animation-delay: 2s; animation-duration: 6s; }
+.dust-mote:nth-child(4) { left: 75%; top: 35%; animation-delay: 3s; animation-duration: 8s; }
+.dust-mote:nth-child(5) { left: 25%; top: 60%; animation-delay: 4s; animation-duration: 10s; }
+.dust-mote:nth-child(6) { left: 65%; top: 55%; animation-delay: 5s; animation-duration: 7s; }
+.dust-mote:nth-child(7) { left: 45%; top: 25%; animation-delay: 1.5s; animation-duration: 11s; }
+.dust-mote:nth-child(8) { left: 85%; top: 45%; animation-delay: 2.5s; animation-duration: 9s; }
+
+@keyframes float-dust {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-15px, -60px) scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(10px, -40px) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* Only show dust in daylight */
+.time-morning .dust-particles,
+.time-afternoon .dust-particles {
+  opacity: 1;
+}
+
+.time-evening .dust-particles,
+.time-night .dust-particles {
+  opacity: 0.3;
+}
+
+/* ============ CINEMATIC VIGNETTE ============ */
+.room-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.2) 80%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* Stronger vignette at night */
+.time-night .room-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 50%,
+    rgba(10, 10, 30, 0.3) 70%,
+    rgba(10, 10, 30, 0.6) 100%
+  );
+}
+
+/* ============ ROOM-SPECIFIC AMBIENT EFFECTS ============ */
+
+/* Bedroom - Cozy warm glow */
+.room-bedroom .room-ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle at 70% 30%,
+    rgba(255, 200, 150, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+/* Kitchen - Warm cooking steam */
+.room-kitchen .room-ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(255, 245, 238, 0.1) 0%,
+    transparent 30%
+  );
+}
+
+.room-kitchen .steam-effect {
+  position: fixed;
+  bottom: 40%;
+  left: 50%;
+  width: 60px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.steam-effect::before,
+.steam-effect::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  filter: blur(8px);
+  animation: steam-rise 3s ease-out infinite;
+}
+
+.steam-effect::after {
+  left: 20px;
+  animation-delay: 1s;
+}
+
+@keyframes steam-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-60px) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Garden - Fireflies at night */
+.room-garden .fireflies {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.firefly {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(255, 255, 150, 0.9) 0%, rgba(200, 255, 100, 0.5) 50%, transparent 70%);
+  border-radius: 50%;
+  animation: firefly-float 6s ease-in-out infinite;
+  opacity: 0;
+}
+
+.time-evening .room-garden .firefly,
+.time-night .room-garden .firefly {
+  opacity: 1;
+}
+
+.firefly:nth-child(1) { left: 10%; top: 30%; animation-delay: 0s; }
+.firefly:nth-child(2) { left: 30%; top: 50%; animation-delay: 1s; }
+.firefly:nth-child(3) { left: 60%; top: 25%; animation-delay: 2s; }
+.firefly:nth-child(4) { left: 80%; top: 45%; animation-delay: 3s; }
+.firefly:nth-child(5) { left: 20%; top: 70%; animation-delay: 4s; }
+.firefly:nth-child(6) { left: 70%; top: 60%; animation-delay: 5s; }
+
+@keyframes firefly-float {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(15px, -20px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-10px, -10px);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(20px, 5px);
+    opacity: 0.5;
+  }
+}
+
+/* Bathroom - Steam and moisture */
+.room-bathroom .steam-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to top,
+    rgba(200, 220, 255, 0.15) 0%,
+    rgba(200, 220, 255, 0.05) 30%,
+    transparent 50%
+  );
+  animation: steam-pulse 4s ease-in-out infinite;
+}
+
+@keyframes steam-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Living Room - TV glow effect */
+.room-living .tv-glow {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(100, 150, 255, 0.15) 0%,
+    transparent 70%
+  );
+  animation: tv-flicker 0.1s ease-in-out infinite;
+}
+
+@keyframes tv-flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Garage - Industrial light */
+.room-garage .industrial-light {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 250, 230, 0.3) 0%,
+    rgba(255, 250, 230, 0.1) 50%,
+    transparent 100%
+  );
+}
+
+/* Shop - Glamour spotlights */
+.room-shop .spotlights {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 200, 220, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 70% 40%, rgba(200, 220, 255, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 50% 70%, rgba(255, 230, 200, 0.1) 0%, transparent 30%);
+}
+
+/* Supermarket - Fluorescent lighting */
+.room-supermarket .fluorescent {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 255, 255, 0.1) 0%,
+    rgba(240, 255, 255, 0.05) 100%
+  );
+  animation: flicker 8s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%, 97% { opacity: 0.8; }
+}
+
+/* ============ DEPTH SHADOWS ============ */
+.room-depth-shadow {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.15) 0%,
+    transparent 100%
+  );
+}
+
+/* ============ WINDOW REFLECTIONS ============ */
+.window-reflection {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  width: 150px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  opacity: 0;
+}
+
+.time-morning .window-reflection,
+.time-afternoon .window-reflection {
+  opacity: 1;
+}
+
+/* ============ BREATHING ANIMATION FOR AMBIANCE ============ */
+.ambient-breathe {
+  animation: ambient-breathe 6s ease-in-out infinite;
+}
+
+@keyframes ambient-breathe {
+  0%, 100% { 
+    filter: brightness(1); 
+  }
+  50% { 
+    filter: brightness(1.03); 
+  }
+}
+
+/* ============ SOFT FOCUS BACKGROUND ============ */
+.room-bg-blur {
+  filter: blur(0.5px);
+  transition: filter 0.5s ease;
+}
+
+.room-bg-blur:hover {
+  filter: blur(0);
+}
+
+/* ============ PARALLAX-LIKE LAYERS ============ */
+.parallax-layer {
+  will-change: transform;
+  transition: transform 0.3s ease-out;
+}
+
+.parallax-layer.foreground {
+  transform: translateZ(20px) scale(1.05);
+}
+
+.parallax-layer.midground {
+  transform: translateZ(10px) scale(1.02);
+}
+
+.parallax-layer.background {
+  transform: translateZ(0);
+}
+
+/* ============ ENHANCED TIME-OF-DAY LIGHTING ============ */
+
+/* Morning - Golden hour warmth */
+.time-morning .full-page-bg {
+  filter: saturate(1.1) brightness(1.05);
+}
+
+.time-morning::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 200, 100, 0.1) 0%,
+    transparent 50%
+  ) !important;
+}
+
+/* Afternoon - Bright and clear */
+.time-afternoon .full-page-bg {
+  filter: saturate(1.05) brightness(1.02);
+}
+
+/* Evening - Warm sunset tones */
+.time-evening .full-page-bg {
+  filter: saturate(0.95) brightness(0.95) sepia(0.1);
+}
+
+.time-evening::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 150, 100, 0.15) 0%,
+    rgba(100, 50, 150, 0.1) 100%
+  ) !important;
+}
+
+/* Night - Cool blue moonlight */
+.time-night .full-page-bg {
+  filter: saturate(0.8) brightness(0.8) hue-rotate(10deg);
+}
+
+.time-night::before {
+  background: linear-gradient(
+    180deg,
+    rgba(50, 50, 100, 0.3) 0%,
+    rgba(20, 20, 60, 0.4) 100%
+  ) !important;
+}
+
+/* Moonlight glow at night */
+.time-night .room-view::after {
+  background: radial-gradient(
+    circle at 20% 20%,
+    rgba(200, 220, 255, 0.1) 0%,
+    transparent 40%
+  );
+  opacity: 1;
+  transform: none;
+  width: 100%;
+}
+
+/* ============ MOBILE PERFORMANCE OPTIMIZATIONS ============ */
+@media (max-width: 768px) {
+  .dust-particles,
+  .fireflies,
+  .steam-effect,
+  .tv-glow,
+  .window-reflection {
+    display: none;
+  }
+  
+  .room-vignette {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+}
+
+/* Reduce animations for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .dust-mote,
+  .firefly,
+  .steam-effect::before,
+  .steam-effect::after,
+  .tv-glow,
+  .fluorescent {
+    animation: none !important;
+  }
+}
