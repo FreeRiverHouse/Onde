@@ -6,6 +6,51 @@
 
 ---
 
+## 🎮 MINECRAFT SKIN CREATOR APP (DA MATTIA 2026-01-30)
+
+### [T864] Minecraft Skin Creator: MVP Web Version
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T865]
+- **Priority**: P1
+- **Notes**: App per creare skin Minecraft - prima versione web su onde.surf
+  - **Vision**: App molto migliore della concorrenza, super carina, child-friendly
+  - **Target**: Bambini che vogliono creare skin per Minecraft
+  - **Analisi competitiva:**
+    - Tante app esistenti ma freemium/pay-to-win
+    - Download: 10K-60K su varie app
+    - Qualità: bassa, NON usano AI
+  - **Features MVP:**
+    - [ ] Canvas editor pixel art (64x32 standard skin)
+    - [ ] Preview 3D del personaggio
+    - [ ] Palette colori child-friendly
+    - [ ] Esportazione PNG compatibile Minecraft
+    - [ ] Template base (steve, alex)
+    - [ ] AI assist per generare skin da prompt
+  - **Tech**: Next.js + Tailwind + Canvas API
+  - **Deploy target**: onde.surf (protected) per testing
+  - **Reference**: Esistono skin editor online, studiare UX
+
+### [T865] Minecraft Skin Creator: iPad App
+- **Status**: BLOCKED
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Convertire versione web in app iPad nativa
+  - **Options:**
+    - PWA (web app installabile)
+    - React Native / Expo
+    - Capacitor (web-to-native)
+  - **Features extra iPad:**
+    - Touch-optimized drawing
+    - Apple Pencil support
+    - App Store distribution
+  - **Blocked until**: MVP web testato e validato
+
+---
+
 ## 📚 READER APP / PORTALE VR (DA MATTIA 2026-01-29)
 
 ### [T668] Reader App: Prototype Web-Based Book Reader
