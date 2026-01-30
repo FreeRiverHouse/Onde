@@ -9,17 +9,28 @@
 ## 🎮 MOONLIGHT MAGIC HOUSE - DA MATTIA 2026-01-29
 
 ### [T461] Moonlight Magic House v2: Movimento + Oggetti Interattivi
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Feature request da Mattia per evoluzione futura:
   1. **Più realismo nelle stanze** - Grafica più dettagliata/immersiva
   2. **Moonlight si muove** - Personaggio animato che può camminare (frecce/tap)
-  3. **Oggetti interattivi** - Nella camera di Moonlight, oggetti cliccabili che aprono mini-giochi a sorpresa
+  3. **Oggetti interattivi** - ✅ IMPLEMENTED! Nella camera di Moonlight, oggetti cliccabili che aprono mini-giochi a sorpresa
   - Concetto: trasformare da mappa statica a esperienza esplorativa
   - Scoperta organica: clicca tablet → mini-game, clicca libro → storia, etc.
+  - **Progress 2026-01-29:**
+    - ✅ Created `InteractiveObjects.tsx` component with 20+ objects across all rooms
+    - ✅ Each room has 2-5 interactive objects (tablet, bookshelf, toybox, etc.)
+    - ✅ Object types: mini-game triggers, rewards, stories, surprises
+    - ✅ Cooldown system for reward objects
+    - ✅ Level-lock system for advanced objects
+    - ✅ Story modal for lore/narrative content
+    - ✅ Visual feedback: glow, badges, animations
+    - ✅ Sound integration
+    - ⏳ TODO: Movement system (arrows/tap to move)
+    - ⏳ TODO: More realistic graphics
 
 ---
 

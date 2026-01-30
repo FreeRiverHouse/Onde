@@ -4,6 +4,7 @@ import './App.css';
 import useSoundManager from './useSoundManager';
 import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame } from './games';
+import InteractiveObjects from './components/InteractiveObjects';
 
 // Animation variants for room transitions
 const pageTransition = {
@@ -393,6 +394,9 @@ function App() {
   const [showMiniGame, setShowMiniGame] = useState(false);
   const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | null
   const [eventMessage, setEventMessage] = useState('');
+  const [showStory, setShowStory] = useState(false);
+  const [storyText, setStoryText] = useState('');
+  const [showObjectsHint, setShowObjectsHint] = useState(true);
 
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
@@ -696,6 +700,35 @@ function App() {
     }
   };
 
+  // Interactive objects handlers
+  const handleObjectGameStart = (gameType: string) => {
+    setShowObjectsHint(false); // Hide hint after first interaction
+    if (gameType === 'stars') {
+      setShowMiniGame(true);
+    } else if (gameType === 'quiz') {
+      // Quiz = memory game for now
+      setActiveGame('memory');
+    } else {
+      setActiveGame(gameType);
+    }
+  };
+
+  const handleObjectReward = (reward: { coins?: number; xp?: number; happiness?: number }) => {
+    setShowObjectsHint(false);
+    setStats(prev => ({
+      ...prev,
+      coins: prev.coins + (reward.coins || 0),
+      xp: prev.xp + (reward.xp || 0),
+      happiness: Math.min(100, prev.happiness + (reward.happiness || 0)),
+    }));
+  };
+
+  const handleObjectStory = (story: string) => {
+    setShowObjectsHint(false);
+    setStoryText(story);
+    setShowStory(true);
+  };
+
   // Popups
   if (showDailyReward) {
     return <DailyRewardPopup coins={dailyRewardAmount} streak={gameState.streak} lang={lang} onClose={claimDailyReward} />;
@@ -826,6 +859,51 @@ function App() {
       <div className="overlay" />
       {showAchievement && <AchievementPopup achievement={showAchievement} lang={lang} onClose={() => setShowAchievement(null)} />}
       {eventMessage && <div className="event-toast glass-card">{eventMessage}</div>}
+      
+      {/* Interactive Objects */}
+      <InteractiveObjects
+        room={currentRoomData.key}
+        lang={lang}
+        stats={{ level: stats.level, coins: stats.coins }}
+        onGameStart={handleObjectGameStart}
+        onReward={handleObjectReward}
+        onStory={handleObjectStory}
+        playSound={playSound}
+      />
+      
+      {/* Story Modal */}
+      <AnimatePresence>
+        {showStory && (
+          <motion.div
+            className="story-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowStory(false)}
+          >
+            <motion.div
+              className="story-modal"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="story-text">{storyText}</p>
+              <button className="story-close-btn" onClick={() => setShowStory(false)}>
+                {lang === 'it' ? 'Continua' : 'Continue'}
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Objects Hint */}
+      {showObjectsHint && (
+        <div className="objects-hint">
+          <span className="objects-hint-icon">👆</span>
+          {lang === 'it' ? 'Tocca gli oggetti!' : 'Tap the objects!'}
+        </div>
+      )}
 
       <div className="particles">
         {[...Array(8)].map((_, i) => (
