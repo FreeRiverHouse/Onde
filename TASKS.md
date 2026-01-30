@@ -67,20 +67,26 @@
   - Build OK, ready for deploy
 
 ### [T691] Reader App: Bookmarks & Highlighting
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add annotation features to Reader App:
-  - Text selection → highlight menu (4 colors: yellow, green, blue, pink)
-  - Save highlights with CFI location
-  - Bookmark button to save current position
-  - Bookmarks panel showing all saved positions
-  - Highlights panel with search/filter
-  - Add notes to highlights
-  - Export annotations to Markdown
-  - Store in Zustand with localStorage persistence (structure ready)
+- **Notes**: ✅ Implemented annotation features in Reader App!
+  - ✅ HighlightMenu component: appears on text selection
+  - ✅ 4 highlight colors: yellow, green, blue, pink
+  - ✅ Add notes to highlights with inline editor
+  - ✅ Copy text to clipboard option
+  - ✅ Bookmark toggle button in header (🔖/🏷️)
+  - ✅ AnnotationsPanel: slide-out panel with tabs
+  - ✅ Search and color filter for highlights
+  - ✅ Navigate to annotation location on click
+  - ✅ Delete annotations with confirmation
+  - ✅ Export annotations to Markdown
+  - ✅ Annotation count badge on toolbar
+  - ✅ Render existing highlights on page load (epub.js annotations API)
+  - ✅ Zustand store with localStorage persistence
 
 ### [T692] Reader App: Deploy to onde.la/reader
 - **Status**: DONE
@@ -181,6 +187,45 @@
     - Spatial audio per ambiance
     - Virtual bookshelf
   - Dipende da web prototype funzionante
+
+### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T691]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy updated Reader App with annotation features:
+  - Build static export with basePath=/reader/
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify all features work on production
+  - Test highlight creation and persistence
+
+### [T698] Reader App: Sync annotations across devices
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T691]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enable cloud sync for annotations:
+  - Store annotations in Supabase or similar
+  - Auth integration (optional, can be anonymous device ID)
+  - Sync on app load and after changes
+  - Conflict resolution for concurrent edits
+  - Export/import JSON backup
+
+### [T699] Reader App: Dictionary lookup on word select
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T691]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add dictionary feature for vocabulary learning:
+  - Detect single word selection vs multi-word highlight
+  - Query free dictionary API (e.g., dictionaryapi.dev)
+  - Show definition popup with pronunciation
+  - Option to add word to vocabulary list
+  - Integration with highlights (save word as highlight with definition note)
 
 ---
 
