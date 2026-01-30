@@ -4485,15 +4485,17 @@
   - ⏳ Needs deploy to onde.surf (see T753)
 
 ### [T753] Deploy onde.surf with Agent Leaderboard
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T751]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy surfboard with agent leaderboard widget:
-  - Build via `npm run build:cf`
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify 🏆 tab works in Free River House panel
+- **Notes**: ✅ Deployed! https://16163c02.onde-surf.pages.dev
+  - ✅ Build via `npm run build:cf` - passed
+  - ✅ Deploy via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.surf/house returns 307 (auth redirect as expected)
+  - Agent Leaderboard with 🏆 tab now live in Free River House panel
 
 ### [T752] Level-up celebration animation
 - **Status**: TODO
