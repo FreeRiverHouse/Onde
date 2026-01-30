@@ -9840,7 +9840,7 @@
   - Data source: hourly OHLC candles from Binance
 
 ### [T828] Infra: Add health check endpoint to autotrader
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
