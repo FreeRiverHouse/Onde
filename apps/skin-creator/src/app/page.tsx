@@ -51,7 +51,7 @@ export default function SkinCreator() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill'>('brush');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
-  const [symmetry, setSymmetry] = useState(true);
+  const [mirrorMode, setMirrorMode] = useState(false);
   const [brushSize, setBrushSize] = useState(1);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -349,6 +349,12 @@ export default function SkinCreator() {
         } else {
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
+          
+          // Mirror mode - draw on opposite side too! 🪞
+          if (mirrorMode) {
+            const mirrorX = SKIN_WIDTH - 1 - px;
+            ctx.fillRect(mirrorX, py, 1, 1);
+          }
         }
       }
     }
@@ -487,6 +493,14 @@ export default function SkinCreator() {
               }`}
             >
               ↪️ Redo
+            </button>
+            <button
+              onClick={() => setMirrorMode(!mirrorMode)}
+              className={`px-3 py-2 rounded-full font-bold transition-all ${
+                mirrorMode ? 'bg-purple-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              🪞 Mirror
             </button>
             <button
               onClick={downloadSkin}
