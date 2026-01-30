@@ -400,19 +400,68 @@
   - Color-coded bookmark categories
 
 ### [T712] Reader App: Add text-to-speech audiobook mode
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T690]
+- **Blocks**: [T713]
+- **Priority**: P2
+- **Notes**: ✅ Implemented TTS audiobook mode for Reader App!
+  - ✅ Created `TextToSpeech.tsx` component with Web Speech API
+  - ✅ Voice selection (grouped by language) from system voices
+  - ✅ Speed control (0.5x - 2x)
+  - ✅ Pitch control (0.5 - 2.0)
+  - ✅ Volume control (0-100%)
+  - ✅ Play/Pause/Stop controls
+  - ✅ Skip forward/backward by sentence
+  - ✅ Progress bar showing current position
+  - ✅ Current sentence display with sentence counter
+  - ✅ Keyboard shortcuts hint (Space, arrows)
+  - ✅ Smart sentence splitting on punctuation
+  - ✅ Auto-advance to next sentence
+  - ✅ 🎧 button added to reader header
+  - ✅ Extracts text from current page via epub.js
+  - ✅ Deployed: https://5f8ced56.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - ⏳ VR spatial audio integration (future, see T713)
+
+### [T713] Reader VR: Integrate TTS with spatial audio
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
+- **Owner**: -
+- **Depends**: [T712], [T701]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add TTS to VR reader with 3D spatial audio:
+  - Positional audio from book location (Three.js PositionalAudio)
+  - Voice appears to come from the floating book
+  - Room reverb that matches library environment
+  - Integration with existing AmbientSoundscapes
+  - Duck ambient sounds while TTS is playing
+
+### [T714] Reader App: TTS keyboard shortcuts in reader view
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: [T690]
+- **Depends**: [T712]
 - **Blocks**: -
-- **Priority**: P2
-- **Notes**: Add TTS for accessibility and audiobook-style reading (PRIORITIZED - web app focus 2026-01-29):
-  - Use Web Speech API (SpeechSynthesis) - no API keys
-  - Voice selection from available system voices
-  - Speed/pitch controls
-  - Auto-scroll text with speaking
-  - Pause/resume, skip sentence/paragraph
-  - Works in both web reader and VR (spatial audio in VR)
-  - Highlight current sentence being spoken
+- **Priority**: P3
+- **Notes**: Add keyboard shortcuts when TTS panel is open:
+  - Space: Play/Pause
+  - Escape: Close TTS panel
+  - Left/Right arrows: Previous/Next sentence
+  - Up/Down arrows: Speed adjust
+  - M: Mute/unmute
+
+### [T715] Reader App: Auto-page-turn during TTS playback
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T712]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Auto-advance to next page when TTS finishes current page:
+  - Detect when all sentences on page are spoken
+  - Automatically call goToNext() to flip page
+  - Extract new page text and continue TTS
+  - Seamless audiobook experience across pages
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE

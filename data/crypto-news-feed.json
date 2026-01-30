@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T04:00:02.290776+00:00",
+  "timestamp": "2026-01-30T05:00:03.051881+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Securitize says revenues up 840% in filing to go public via Cantor SPAC",
+      "url": "https://cointelegraph.com/news/securitize-says-revenues-up-840-in-filing-to-go-public-via-cantor-spac?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Securitize\u2019s latest SEC filing showed that the company\u2019s revenue increased nearly tenfold year-over-year as institutions experiment with tokenization.",
+      "published": "2026-01-30T04:43:22+00:00"
+    },
+    {
+      "title": "Bitcoin Slips to $82K as Liquidations Spike to $1.7B",
+      "url": "https://decrypt.co/356448/bitcoin-slips-82k-liquidations-spike-1-75b",
+      "source": "decrypt",
+      "description": "Bitcoin has hit a nine-month low of $82,134 amid escalating policy shifts, including President Trump's Friday Fed Chair announcement.",
+      "published": "2026-01-30T04:33:02+00:00"
+    },
+    {
+      "title": "Unclaimed Ethereum from The DAO hack to fund new security initiative: Griff Green",
+      "url": "https://cointelegraph.com/news/ethereum-dao-hack-fund-security-initiative-griff-green?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "While The DAO has an \u201cincredible\u201d team that could build security projects themselves, they would rather focus on security distribution methods, says Griff Green.",
+      "published": "2026-01-30T03:57:16+00:00"
+    },
     {
       "title": "Optimism passes buyback proposal to bolster OP token",
       "url": "https://cointelegraph.com/news/optimism-passes-buyback-proposal-to-bolster-op-token?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -128,27 +149,6 @@
       "source": "decrypt",
       "description": "Bitcoin is down bad Thursday, but Dogecoin, XRP, Cardano, and Litecoin are showing sharper losses, hitting lows not seen in over a year.",
       "published": "2026-01-29T20:32:52+00:00"
-    },
-    {
-      "title": "Talos adds $45M to Series B with new backing from Robinhood, Sony",
-      "url": "https://cointelegraph.com/news/talos-series-b-150m-robinhood-sony?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The Series B extension values the New York\u2013based crypto infrastructure company at about $1.5 billion and includes backing from institutional investors.",
-      "published": "2026-01-29T20:26:14+00:00"
-    },
-    {
-      "title": "DePIN Tokens Lag, Revenues Rise as Sector Is \u2018Forced Into Fundamentals\u2019",
-      "url": "https://decrypt.co/356349/depin-tokens-lag-revenues-rise-fundamentals",
-      "source": "decrypt",
-      "description": "Token prices across DePIN remain deeply depressed, but on-chain revenues are growing.",
-      "published": "2026-01-29T19:57:56+00:00"
-    },
-    {
-      "title": "Bitcoin falls to $83.4K as gold bugs take profit and AI stocks sell off",
-      "url": "https://cointelegraph.com/news/bitcoin-falls-to-dollar83-4k-as-gold-bugs-take-profit-and-ai-stocks-sell-off?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price Thursday. Is $80,000 the next stop for BTC?",
-      "published": "2026-01-29T19:44:32+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",

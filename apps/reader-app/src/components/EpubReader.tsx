@@ -7,6 +7,7 @@ import { TableOfContents } from './TableOfContents';
 import { HighlightMenu } from './HighlightMenu';
 import { AnnotationsPanel } from './AnnotationsPanel';
 import { VocabularyPanel } from './VocabularyPanel';
+import { TextToSpeech } from './TextToSpeech';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
 interface TocItem {
@@ -60,6 +61,8 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   // Annotation states
   const [isAnnotationsOpen, setIsAnnotationsOpen] = useState(false);
   const [isVocabularyOpen, setIsVocabularyOpen] = useState(false);
+  const [isTTSOpen, setIsTTSOpen] = useState(false);
+  const [pageText, setPageText] = useState('');
   const [highlightMenu, setHighlightMenu] = useState<{
     position: { x: number; y: number };
     selectedText: string;
@@ -234,7 +237,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           await rendition.display();
         }
         
-        // Render existing highlights
+        // Render existing highlights and extract page text
         rendition.on('rendered', () => {
           const currentHighlights = highlights.filter((h) => h.bookId === bookId);
           currentHighlights.forEach((highlight) => {
@@ -254,6 +257,22 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
               { fill: colorMap[highlight.color] }
             );
           });
+          
+          // Extract text for TTS
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const contents = (rendition as any).getContents?.();
+            if (contents && contents[0]?.document) {
+              const doc = contents[0].document;
+              const body = doc.body;
+              if (body) {
+                const text = body.innerText.replace(/\s+/g, ' ').trim();
+                setPageText(text);
+              }
+            }
+          } catch (e) {
+            console.error('Error extracting page text:', e);
+          }
         });
 
         // Add keyboard navigation
@@ -478,6 +497,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
                 📚
               </button>
               <button
+                onClick={(e) => { e.stopPropagation(); setIsTTSOpen(true); }}
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
+                title="Listen (Text-to-Speech)"
+              >
+                🎧
+              </button>
+              <button
                 onClick={(e) => { e.stopPropagation(); toggleToc(); }}
                 className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
                 title="Table of Contents"
@@ -589,6 +615,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         isOpen={isVocabularyOpen}
         onClose={() => setIsVocabularyOpen(false)}
         bookId={bookId}
+      />
+      
+      {/* Text-to-Speech audiobook mode */}
+      <TextToSpeech
+        text={pageText}
+        isOpen={isTTSOpen}
+        onClose={() => setIsTTSOpen(false)}
       />
     </div>
   );

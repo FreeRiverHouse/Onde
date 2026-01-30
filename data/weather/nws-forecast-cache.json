@@ -1,6 +1,6 @@
 {
   "NYC": {
-    "fetched_at": "2026-01-30T00:29:59.021652+00:00",
+    "fetched_at": "2026-01-30T04:30:46.974123+00:00",
     "forecast": {
       "city": "NYC",
       "location": "Central Park",
@@ -163,7 +163,7 @@
     }
   },
   "MIA": {
-    "fetched_at": "2026-01-30T00:30:00.213008+00:00",
+    "fetched_at": "2026-01-30T04:30:47.956020+00:00",
     "forecast": {
       "city": "MIA",
       "location": "Miami International Airport",
@@ -326,32 +326,21 @@
     }
   },
   "DEN": {
-    "fetched_at": "2026-01-30T00:30:02.035025+00:00",
+    "fetched_at": "2026-01-30T04:30:49.020842+00:00",
     "forecast": {
       "city": "DEN",
       "location": "Denver International Airport",
       "periods": [
         {
-          "name": "This Afternoon",
-          "start_time": "2026-01-29T16:00:00-07:00",
-          "end_time": "2026-01-29T18:00:00-07:00",
-          "temperature": 46,
-          "temperature_unit": "F",
-          "is_daytime": true,
-          "short_forecast": "Mostly Sunny",
-          "wind_speed": "10 to 14 mph",
-          "wind_direction": "NW"
-        },
-        {
           "name": "Tonight",
-          "start_time": "2026-01-29T18:00:00-07:00",
+          "start_time": "2026-01-29T21:00:00-07:00",
           "end_time": "2026-01-30T06:00:00-07:00",
           "temperature": 22,
           "temperature_unit": "F",
           "is_daytime": false,
           "short_forecast": "Mostly Clear",
-          "wind_speed": "9 mph",
-          "wind_direction": "W"
+          "wind_speed": "7 mph",
+          "wind_direction": "WSW"
         },
         {
           "name": "Friday",
@@ -484,19 +473,30 @@
           "short_forecast": "Mostly Clear",
           "wind_speed": "8 mph",
           "wind_direction": "SW"
+        },
+        {
+          "name": "Thursday",
+          "start_time": "2026-02-05T06:00:00-07:00",
+          "end_time": "2026-02-05T18:00:00-07:00",
+          "temperature": 58,
+          "temperature_unit": "F",
+          "is_daytime": true,
+          "short_forecast": "Sunny",
+          "wind_speed": "8 mph",
+          "wind_direction": "NW"
         }
       ]
     }
   },
   "CHI": {
-    "fetched_at": "2026-01-30T00:30:04.681115+00:00",
+    "fetched_at": "2026-01-30T04:30:49.995517+00:00",
     "forecast": {
       "city": "CHI",
       "location": "O'Hare International Airport",
       "periods": [
         {
           "name": "Tonight",
-          "start_time": "2026-01-29T18:00:00-06:00",
+          "start_time": "2026-01-29T22:00:00-06:00",
           "end_time": "2026-01-30T06:00:00-06:00",
           "temperature": 4,
           "temperature_unit": "F",
@@ -513,8 +513,8 @@
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Snow Showers",
-          "wind_speed": "5 to 15 mph",
-          "wind_direction": "NNE"
+          "wind_speed": "5 to 10 mph",
+          "wind_direction": "N"
         },
         {
           "name": "Friday Night",
@@ -523,8 +523,8 @@
           "temperature": 9,
           "temperature_unit": "F",
           "is_daytime": false,
-          "short_forecast": "Scattered Snow Showers then Mostly Cloudy",
-          "wind_speed": "10 mph",
+          "short_forecast": "Slight Chance Snow Showers then Mostly Cloudy",
+          "wind_speed": "10 to 15 mph",
           "wind_direction": "NNW"
         },
         {
@@ -535,7 +535,7 @@
           "temperature_unit": "F",
           "is_daytime": true,
           "short_forecast": "Partly Sunny then Isolated Snow Showers",
-          "wind_speed": "10 mph",
+          "wind_speed": "10 to 15 mph",
           "wind_direction": "NNW"
         },
         {
