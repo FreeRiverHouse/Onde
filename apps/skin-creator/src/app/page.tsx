@@ -68,6 +68,7 @@ export default function SkinCreator() {
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill'>('brush');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [brushSize, setBrushSize] = useState(1);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -393,7 +394,11 @@ export default function SkinCreator() {
   };
 
   return (
-    <div className="min-h-screen p-4 flex flex-col items-center bg-gradient-to-br from-emerald-500 via-cyan-500 to-purple-600">
+    <div className={`min-h-screen p-4 flex flex-col items-center transition-colors duration-500 ${
+      darkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900' 
+        : 'bg-gradient-to-br from-emerald-500 via-cyan-500 to-purple-600'
+    }`}>
       {/* 🎉 Confetti celebration on download! */}
       {showConfetti && (
         <Confetti
@@ -522,8 +527,16 @@ export default function SkinCreator() {
               🪞 Mirror
             </button>
             <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`px-3 py-2 rounded-full font-bold transition-all ${
+                darkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-700 text-white'
+              }`}
+            >
+              {darkMode ? '☀️ Light' : '🌙 Dark'}
+            </button>
+            <button
               onClick={downloadSkin}
-              className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600"
+              className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
             >
               💾 Download
             </button>
