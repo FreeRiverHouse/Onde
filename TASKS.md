@@ -9320,8 +9320,8 @@
     - 0% win rate → strategy issue, not sizing
 
 ### [T809] Dashboard: DailyVolumeWidget with sparkline
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
