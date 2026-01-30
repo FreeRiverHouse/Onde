@@ -9579,3 +9579,43 @@
   - Color coding: green (<500ms), yellow (<1s), red (>1s)
   - Sparkline showing percentile trends
   - Expandable to see all endpoints
+
+### [T826] Deploy onde.surf with latency adjustment indicator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T803]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy LatencyAdjustmentIndicator widget to onde.surf:
+  - Component built and ready (T803)
+  - Build: `npm run build && npm run build:cf`
+  - Deploy: `wrangler pages deploy`
+  - Verify: onde.surf/betting shows latency adjustment indicator
+  - Shows badge when position sizing reduced due to latency
+
+### [T827] Cron job health monitor script
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create script to validate all cron jobs are running:
+  - Parse crontab for all Onde-related jobs
+  - Check expected log files have recent entries
+  - Flag jobs that haven't run in expected interval
+  - Output: JSON with job status + last run time
+  - Alert file: cron-health.alert
+  - Useful for detecting silently failing crons
+
+### [T828] Dashboard: Weekly volatility comparison widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T434]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add volatility comparison widget to /betting:
+  - Show realized vs model volatility for BTC/ETH
+  - Color-coded bars (green if conservative, red if underestimating)
+  - Week-over-week trend (↑/↓/→)
+  - Data from volatility-week-YYYY-WW.json
+  - Alert badge when divergence >20%
