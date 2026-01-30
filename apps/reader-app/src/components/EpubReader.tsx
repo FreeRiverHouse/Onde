@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useReaderStore, HighlightColor } from '@/store/readerStore';
+import { useReadingStatsStore } from '@/store/readingStatsStore';
 import { ReaderSettings } from './ReaderSettings';
 import { TableOfContents } from './TableOfContents';
 import { HighlightMenu } from './HighlightMenu';
 import { AnnotationsPanel } from './AnnotationsPanel';
 import { VocabularyPanel } from './VocabularyPanel';
 import { TextToSpeech } from './TextToSpeech';
+import { ReadingStatsPanel } from './ReadingStatsPanel';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
 interface TocItem {
@@ -62,12 +64,18 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   const [isAnnotationsOpen, setIsAnnotationsOpen] = useState(false);
   const [isVocabularyOpen, setIsVocabularyOpen] = useState(false);
   const [isTTSOpen, setIsTTSOpen] = useState(false);
+  const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [pageText, setPageText] = useState('');
   const [highlightMenu, setHighlightMenu] = useState<{
     position: { x: number; y: number };
     selectedText: string;
     cfi: string;
   } | null>(null);
+  
+  // Reading stats tracking
+  const { startSession, endSession } = useReadingStatsStore();
+  const pagesReadRef = useRef(0);
+  const lastLocationRef = useRef(0);
 
   const viewerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<EpubBook | null>(null);
@@ -195,6 +203,12 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           setCurrentLocation(loc);
           setCurrentCfi(location.start.cfi);
           
+          // Track pages for reading stats
+          if (lastLocationRef.current !== loc && lastLocationRef.current > 0) {
+            pagesReadRef.current += 1;
+          }
+          lastLocationRef.current = loc;
+          
           // Find current chapter title
           const spine = book.spine;
           const spineItem = spine.get(location.start.cfi);
@@ -285,6 +299,9 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         });
 
         setLoading(false);
+        
+        // Start reading session for stats tracking
+        startSession();
       } catch (err) {
         console.error('Error loading EPUB:', err);
         setError('Failed to load book. Please try again.');
@@ -295,6 +312,9 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     initBook();
 
     return () => {
+      // End reading session with pages read
+      endSession(pagesReadRef.current);
+      
       if (renditionRef.current) {
         renditionRef.current.destroy();
       }
@@ -302,7 +322,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         bookRef.current.destroy();
       }
     };
-  }, [bookUrl, bookId]);
+  }, [bookUrl, bookId, startSession, endSession]);
 
   // Apply theme when settings change
   useEffect(() => {
@@ -504,6 +524,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
                 🎧
               </button>
               <button
+                onClick={(e) => { e.stopPropagation(); setIsStatsOpen(true); }}
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
+                title="Reading Statistics"
+              >
+                📊
+              </button>
+              <button
                 onClick={(e) => { e.stopPropagation(); toggleToc(); }}
                 className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
                 title="Table of Contents"
@@ -623,6 +650,12 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         isOpen={isTTSOpen}
         onClose={() => setIsTTSOpen(false)}
         onPageComplete={goToNext}
+      />
+      
+      {/* Reading Statistics panel */}
+      <ReadingStatsPanel
+        isOpen={isStatsOpen}
+        onClose={() => setIsStatsOpen(false)}
       />
     </div>
   );

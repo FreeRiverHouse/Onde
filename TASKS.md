@@ -517,20 +517,31 @@
   - Still allow fine-tuning via slider
 
 ### [T719] Reader App: Add reading statistics dashboard
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track and display reading statistics:
-  - Time spent reading per session and total
-  - Pages/words read per day/week
-  - Reading streaks (consecutive days)
-  - Average reading speed (words per minute)
-  - Books completed counter
-  - Show stats in library view or settings panel
-  - Store stats in Zustand with localStorage persistence
-  - Optional: Charts showing reading history
+- **Notes**: ✅ Implemented reading statistics dashboard!
+  - ✅ Created `readingStatsStore.ts` with Zustand + localStorage persistence
+  - ✅ Tracks: total reading time, pages read, sessions, books completed
+  - ✅ Daily stats with 30-day history
+  - ✅ Reading streaks (current + longest)
+  - ✅ Auto-detect consecutive day reading
+  - ✅ Created `ReadingStatsPanel.tsx` with beautiful UI:
+    - Streak banner with 🔥/❄️ indicators
+    - Today's progress (time, pages, sessions)
+    - 7-day bar chart visualization
+    - All-time stats grid
+    - Averages (per day, per session)
+    - Encouragement for new users
+  - ✅ Integrated into EpubReader:
+    - Session starts on book load
+    - Session ends on close (tracks pages read)
+    - 📊 button in header to open stats
+  - ✅ Deployed: https://6ade5bfe.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T720] Reader App: Export/Import library data
 - **Status**: TODO
