@@ -7324,15 +7324,17 @@
   - Position cards now show Clock icon with expiry countdown
 
 ### [T749] Dashboard: Add position P&L percentage display
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Show P&L as percentage of position cost:
-  - Calculate: (current_value - entry_cost) / entry_cost * 100
-  - Display next to dollar P&L (e.g., "+$5.00 (+12%)")
-  - Color code: green positive, red negative
+- **Notes**: ✅ Implemented P&L percentage display on position cards!
+  - ✅ Calculate: (pnl / exposure) * 100
+  - ✅ Display next to dollar P&L (e.g., "+$5.00 (+12.5%)")
+  - ✅ Color matches P&L direction (emerald/red)
+  - ✅ Opacity styling for secondary info
   - Helpful for comparing relative performance across positions
 
 ### [T750] Autotrader: Add position entry timestamp to status API

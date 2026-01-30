@@ -2254,7 +2254,12 @@ export default function BettingDashboard() {
                           </div>
                           {pos.pnl !== undefined && pos.pnl !== 0 && (
                             <p className={`text-xs font-mono ${pos.pnl >= 0 ? 'text-emerald-500/80' : 'text-red-500/80'}`}>
-                              {pos.pnl >= 0 ? '+' : ''}{pos.pnl.toFixed(2)}
+                              {pos.pnl >= 0 ? '+' : ''}${Math.abs(pos.pnl).toFixed(2)}
+                              {pos.exposure > 0 && (
+                                <span className="ml-1 opacity-70">
+                                  ({pos.pnl >= 0 ? '+' : ''}{((pos.pnl / pos.exposure) * 100).toFixed(1)}%)
+                                </span>
+                              )}
                             </p>
                           )}
                           <p className="text-[10px] text-gray-700">
