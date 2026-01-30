@@ -622,6 +622,8 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         text={pageText}
         isOpen={isTTSOpen}
         onClose={() => setIsTTSOpen(false)}
+        onPageComplete={goToNext}
+        autoPageTurn={true}
       />
     </div>
   );

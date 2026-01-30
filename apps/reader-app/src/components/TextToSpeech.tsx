@@ -14,9 +14,11 @@ interface TextToSpeechProps {
   isOpen: boolean;
   onClose: () => void;
   onSentenceChange?: (sentenceIndex: number, sentence: string) => void;
+  onPageComplete?: () => void;
+  autoPageTurn?: boolean;
 }
 
-export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextToSpeechProps) {
+export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageComplete, autoPageTurn = true }: TextToSpeechProps) {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [settings, setSettings] = useState<TTSSettings>({
     voice: null,
@@ -28,20 +30,18 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
   const [isPaused, setIsPaused] = useState(false);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [sentences, setSentences] = useState<string[]>([]);
+  const [isAutoPageEnabled, setIsAutoPageEnabled] = useState(autoPageTurn);
+  const [waitingForNextPage, setWaitingForNextPage] = useState(false);
   
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
+  const shouldAutoContinueRef = useRef(false);
+  const isPlayingRef = useRef(false);
 
-  // Split text into sentences
+  // Keep isPlayingRef in sync
   useEffect(() => {
-    if (text) {
-      // Split on sentence-ending punctuation followed by space or end
-      const splitSentences = text
-        .split(/(?<=[.!?])\s+/)
-        .filter((s) => s.trim().length > 0);
-      setSentences(splitSentences);
-    }
-  }, [text]);
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   // Load available voices
   useEffect(() => {
@@ -73,8 +73,15 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
   // Speak a sentence
   const speakSentence = useCallback((index: number) => {
     if (!synthRef.current || index >= sentences.length) {
-      setIsPlaying(false);
-      setIsPaused(false);
+      // Finished all sentences on this page
+      if (isAutoPageEnabled && onPageComplete && isPlayingRef.current) {
+        // Request next page and wait for new text
+        setWaitingForNextPage(true);
+        onPageComplete();
+      } else {
+        setIsPlaying(false);
+        setIsPaused(false);
+      }
       return;
     }
 
@@ -93,7 +100,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
 
     utterance.onend = () => {
       // Auto-advance to next sentence
-      if (isPlaying && !isPaused) {
+      if (isPlayingRef.current && !isPaused) {
         speakSentence(index + 1);
       }
     };
@@ -105,7 +112,37 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
 
     utteranceRef.current = utterance;
     synthRef.current.speak(utterance);
-  }, [sentences, settings, isPlaying, isPaused, onSentenceChange]);
+  }, [sentences, settings, isPaused, onSentenceChange, isAutoPageEnabled, onPageComplete]);
+
+  // Split text into sentences
+  useEffect(() => {
+    if (text) {
+      // Split on sentence-ending punctuation followed by space or end
+      const splitSentences = text
+        .split(/(?<=[.!?])\s+/)
+        .filter((s) => s.trim().length > 0);
+      setSentences(splitSentences);
+      
+      // Auto-continue from page turn
+      if (waitingForNextPage && splitSentences.length > 0) {
+        setWaitingForNextPage(false);
+        setCurrentSentenceIndex(0);
+        shouldAutoContinueRef.current = true;
+      }
+    }
+  }, [text, waitingForNextPage]);
+
+  // Auto-continue after page turn (when sentences update)
+  useEffect(() => {
+    if (shouldAutoContinueRef.current && sentences.length > 0 && isPlaying && synthRef.current) {
+      shouldAutoContinueRef.current = false;
+      // Small delay to let state settle
+      const timer = setTimeout(() => {
+        speakSentence(0);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [sentences, isPlaying, speakSentence]);
 
   // Play/Resume
   const play = useCallback(() => {
@@ -161,18 +198,6 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
       }
     }
   }, [currentSentenceIndex, isPlaying, speakSentence]);
-
-  // Skip to specific sentence (exported for future timeline UI)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _skipTo = useCallback((index: number) => {
-    if (synthRef.current) {
-      synthRef.current.cancel();
-      setCurrentSentenceIndex(index);
-      if (isPlaying) {
-        speakSentence(index);
-      }
-    }
-  }, [isPlaying, speakSentence]);
 
   // Cleanup on unmount or close
   useEffect(() => {
@@ -328,7 +353,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
           
           <button
             onClick={skipForward}
-            disabled={currentSentenceIndex >= sentences.length - 1}
+            disabled={currentSentenceIndex >= sentences.length - 1 && !isAutoPageEnabled}
             className="p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors disabled:opacity-40"
             title="Next sentence"
           >
@@ -412,7 +437,35 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
               className="w-full accent-blue-500"
             />
           </div>
+
+          {/* Auto page turn toggle */}
+          {onPageComplete && (
+            <div className="mt-4 flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Auto page turn
+              </label>
+              <button
+                onClick={() => setIsAutoPageEnabled(!isAutoPageEnabled)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  isAutoPageEnabled ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    isAutoPageEnabled ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+          )}
         </div>
+
+        {/* Loading next page indicator */}
+        {waitingForNextPage && (
+          <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-center text-sm text-blue-600 dark:text-blue-400 border-t border-blue-200 dark:border-blue-800">
+            <span className="animate-pulse">📖 Loading next page...</span>
+          </div>
+        )}
 
         {/* Keyboard shortcuts hint */}
         <div className="px-4 py-2 text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-700">
@@ -428,5 +481,3 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
     </div>
   );
 }
-
-// Note: Page text extraction is done directly in EpubReader.tsx via the 'rendered' event

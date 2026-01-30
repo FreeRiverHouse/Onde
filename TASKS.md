@@ -456,16 +456,20 @@
   - Build passes, ready for deploy
 
 ### [T715] Reader App: Auto-page-turn during TTS playback
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T712]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Auto-advance to next page when TTS finishes current page:
-  - Detect when all sentences on page are spoken
-  - Automatically call goToNext() to flip page
-  - Extract new page text and continue TTS
-  - Seamless audiobook experience across pages
+- **Notes**: ✅ Implemented seamless audiobook experience!
+  - ✅ Auto-detects when all sentences on page are spoken
+  - ✅ Automatically calls goToNext() to flip page
+  - ✅ Extracts new page text and continues TTS seamlessly
+  - ✅ "Loading next page..." indicator shown during transition
+  - ✅ Toggle switch to enable/disable auto page turn
+  - ✅ Uses ref to track playing state across page transitions
+  - Build passes, ready for deploy
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
