@@ -7370,14 +7370,66 @@
   - Complements expiry indicator (T743)
 
 ### [T751] Dashboard: Add total daily volume indicator
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ✅ Implemented DailyVolumeWidget on /betting page!
+  - **Component**: `apps/surfboard/src/components/DailyVolumeWidget.tsx`
+  - **Features:**
+    - ✅ Calculate volume from recentTrades (contracts * price_cents / 100)
+    - ✅ Display in stats grid next to DailyGoalTracker
+    - ✅ Compare to yesterday with % change indicator
+    - ✅ Show trade count, avg trade size
+    - ✅ Largest trade indicator when notable
+    - ✅ Purple glow styling consistent with dashboard theme
+  - Build passes, ready for deploy
+  - ⏳ Needs deploy to onde.surf (see T752)
+
+### [T752] Deploy onde.surf with DailyVolumeWidget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T751]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the daily volume indicator to production:
+  - Build surfboard with `npm run build:cf`
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify: https://onde.surf/betting shows volume widget
+
+### [T753] Dashboard: Add volume trend sparkline
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T751]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show 7-day volume trend in DailyVolumeWidget:
+  - Small sparkline showing daily volume for past 7 days
+  - Requires tracking historical volume in gist
+  - Visual indication of trading activity patterns
+
+### [T754] Autotrader: Add daily volume to stats push
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T751]
+- **Blocks**: [T753]
+- **Priority**: P3
+- **Notes**: Track daily volume in push-stats-to-gist.py:
+  - Calculate total volume per day from trade logs
+  - Add todayVolumeCents, yesterdayVolumeCents to gist
+  - Enable volume comparison without client-side calculation
+  - Keep 7-day history for trend visualization
+
+### [T755] Dashboard: Add trade velocity indicator
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: -
 - **Blocks**: -
-- **Priority**: P3
-- **Notes**: Show total trading volume for the day:
-  - Sum of all trades (buy + sell) in dollar terms
-  - Display in header stats grid
-  - Compare to 7-day average
-  - Useful for activity tracking
-  - Include in daily/weekly reports
+- **Priority**: P4
+- **Notes**: Show trades per hour/minute in real-time:
+  - Current trading velocity (trades/hour)
+  - Compare to daily average
+  - Useful for monitoring autotrader activity
+  - Visual indicator: slow/normal/fast
