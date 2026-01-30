@@ -6271,15 +6271,19 @@
   - ✅ Crypto concentration group includes SOL
 
 ### [T424] Create memory cleanup script for stale heartbeat-state
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: memory/heartbeat-state.json can grow stale. Script to:
-  - Verify last check timestamps not older than 24h
-  - Reset stale entries
-  - Log cleanup to memory daily notes
+- **Notes**: ✅ Created `scripts/cleanup-heartbeat-state.py`!
+  - ✅ Checks lastChecks timestamps (Unix) and lastHeartbeat (ISO)
+  - ✅ Flags entries older than 24h as stale
+  - ✅ Resets stale entries to current time
+  - ✅ Logs cleanup to memory daily notes
+  - ✅ --dry-run flag to preview changes
+  - ✅ --threshold flag to customize stale hours (default 24)
 
 ### [T425] Integrate news effectiveness into weekly trading report
 - **Status**: TODO
