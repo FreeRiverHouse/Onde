@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T18:30:02.322698+00:00",
+  "timestamp": "2026-01-30T19:00:02.940384+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Price predictions 1/30: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
+      "url": "https://cointelegraph.com/news/price-predictions-1-30-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Technical charts tilt toward further downside for Bitcoin and altcoins if BTC\u2019s critical $80,000 fails to hold. Does data suggest that bulls are buying the dips?",
+      "published": "2026-01-30T18:46:50+00:00"
+    },
+    {
+      "title": "Why proof-of-reserves alone doesn\u2019t build real trust",
+      "url": "https://cointelegraph.com/explained/why-proof-of-reserves-alone-doesn-t-build-real-trust?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Proof-of-reserves shows assets at a single point in time, but it does not prove solvency, liquidity or sound governance. Here is what PoR misses and what real trust looks like.",
+      "published": "2026-01-30T18:36:51+00:00"
+    },
     {
       "title": "Liquidations knock Bitcoin out of world\u2019s top 10 assets",
       "url": "https://cointelegraph.com/news/liquidations-knock-bitcoin-out-world-top-10-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -128,20 +142,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair President Donald Trump announced pro-bitcoin Kevin Warsh as his nominee to serve as chairman of the Federal Reserve, confirming speculation from prediction markets. This post Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T13:06:38+00:00"
-    },
-    {
-      "title": "Bitcoin, Ether ETFs see $1B outflows as crypto market tumbles 6%",
-      "url": "https://cointelegraph.com/news/bitcoin-ether-etfs-1-billion-outflows-crypto-6-percent-slump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "US spot Bitcoin ETF flows turned negative for January after a series of outflows this week totaling nearly $1 billion, data from SoSoValue shows.",
-      "published": "2026-01-30T12:34:12+00:00"
-    },
-    {
-      "title": "There is no trust in DeFi without proper risk management",
-      "url": "https://cointelegraph.com/news/trust-defi-risk-management?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "DeFi's composability creates cascading exploit risks while protocols handle risk idiosyncratically. Institutional adoption demands TradFi-style standardized frameworks.",
-      "published": "2026-01-30T12:30:00+00:00"
     },
     {
       "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",

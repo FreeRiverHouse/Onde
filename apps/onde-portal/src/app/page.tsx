@@ -172,7 +172,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
           >
             <span className="text-2xl">🌊</span>
-            <span className="text-teal-700 text-sm font-medium">{t.home.badge} ☀️</span>
+            <span className="text-teal-700 text-sm font-medium">{t.home.badge} 🌊</span>
           </motion.div>
 
           {/* Main Title */}
