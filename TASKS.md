@@ -9782,3 +9782,16 @@
   - Giochi (verificare caricamento)
   - Tutti i flussi utente critici
   - Playwright/Puppeteer per browser automation
+
+### [T825] Traduzione Capussela IT→EN via Ollama
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Traduzione completa spirito-capussela.txt (812 paragrafi)
+  - **Source**: traduzioni/capussela-spirito-EN.txt
+  - **Script**: scripts/translate-capussela-complete.py
+  - **Model**: llama3:70b (preferito) o llama3:8b
+  - **⚠️ REQUIRES**: M1 + Radeon eGPU (@onde-bot)
+  - Output: traduzioni/capussela-completa/capussela-spirito-EN-final.txt
