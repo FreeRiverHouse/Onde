@@ -288,11 +288,11 @@
   - ⏳ Add link from main Reader App
 
 ### [T705] Reader App VR: Add environment switcher
-- **Status**: TODO
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: -
 - **Depends**: [T701]
 - **Blocks**: -
-- **Priority**: P3
+- **Priority**: P4
 - **Notes**: Allow switching between different reading environments:
   - Cozy library (current)
   - Mountain cabin (nature view through windows)
@@ -301,11 +301,11 @@
   - Each environment needs: lighting, ambient sounds hook, atmosphere
 
 ### [T706] Reader App VR: Add hand tracking support
-- **Status**: TODO
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: -
 - **Depends**: [T701]
 - **Blocks**: -
-- **Priority**: P3
+- **Priority**: P4
 - **Notes**: Enable hand tracking for Quest 3 controller-free reading:
   - Pinch gesture for page turn
   - Swipe gesture for navigation
@@ -360,11 +360,11 @@
     - Wainscoting walls and crown molding
 
 ### [T709] Reader App VR: Add teleport spots for VR movement
-- **Status**: TODO
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: -
 - **Depends**: [T702]
 - **Blocks**: -
-- **Priority**: P3
+- **Priority**: P4
 - **Notes**: Allow user to move around the library in VR:
   - 3-4 teleport spots: reading chair, fireplace area, window, bookshelf
   - Visual indicators (glowing circles on floor)
@@ -373,7 +373,7 @@
   - Book panel follows user position
 
 ### [T710] Reader VR: Add reading session statistics
-- **Status**: TODO
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: -
 - **Depends**: [T701]
 - **Blocks**: -
@@ -387,7 +387,7 @@
   - Optional: Achievements/milestones (first 100 pages, etc.)
 
 ### [T711] Reader VR: Add VR bookmark gestures
-- **Status**: TODO
+- **Status**: TODO (DEPRIORITIZED - Mattia: "meno focus su VR" 2026-01-29)
 - **Owner**: -
 - **Depends**: [T706], [T701]
 - **Blocks**: -
@@ -404,8 +404,8 @@
 - **Owner**: -
 - **Depends**: [T690]
 - **Blocks**: -
-- **Priority**: P3
-- **Notes**: Add TTS for accessibility and audiobook-style reading:
+- **Priority**: P2
+- **Notes**: Add TTS for accessibility and audiobook-style reading (PRIORITIZED - web app focus 2026-01-29):
   - Use Web Speech API (SpeechSynthesis) - no API keys
   - Voice selection from available system voices
   - Speed/pitch controls
