@@ -3535,12 +3535,22 @@
 - **Notes**: ✅ Script: autotrader-uptime.py. Parses watchdog.log, calculates uptime % (24h + 7d). Saves to data/trading/autotrader-uptime.json. Cron: hourly at :30. Current: 95% uptime.
 
 ### [T219] Email notification fallback for critical alerts
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: If Telegram notification fails, send via email as backup
+- **Notes**: ✅ Implemented email fallback for critical health alerts!
+  - Updated `scripts/health-webhook-notifier.sh` with email fallback
+  - **Triggers when**: Telegram fails or is not configured
+  - **Supported providers**:
+    - SendGrid (via SENDGRID_API_KEY)
+    - Mailgun (via MAILGUN_API_KEY + MAILGUN_DOMAIN)
+    - Local `mail` command
+    - msmtp
+  - **Configuration**: Set ALERT_EMAIL env var + one of the provider keys
+  - **Env vars**: EMAIL_FROM (default: alerts@onde.la), ALERT_EMAIL (recipient)
 
 ### [T220] A/B testing framework for trading strategies
 - **Status**: TODO

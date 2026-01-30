@@ -70,6 +70,7 @@ fi
 # Send to Telegram (if configured)
 TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"
 TELEGRAM_CHAT_ID="${TELEGRAM_CHAT_ID:-}"
+TELEGRAM_FAILED=false
 if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
     # Format message for Telegram (escape special chars)
     TG_MSG=$(echo -e "$ALERT_MSG" | sed 's/"/\\"/g')
@@ -86,6 +87,79 @@ if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
     else
         TG_ERROR=$(echo "$TG_RESPONSE" | jq -r '.description // "Unknown error"')
         echo "Telegram send failed: $TG_ERROR"
+        TELEGRAM_FAILED=true
+    fi
+else
+    # Telegram not configured, consider it failed for fallback purposes
+    TELEGRAM_FAILED=true
+fi
+
+# Email fallback (T219) - send if Telegram failed or not configured
+ALERT_EMAIL="${ALERT_EMAIL:-}"
+SENDGRID_API_KEY="${SENDGRID_API_KEY:-}"
+MAILGUN_API_KEY="${MAILGUN_API_KEY:-}"
+MAILGUN_DOMAIN="${MAILGUN_DOMAIN:-}"
+EMAIL_FROM="${EMAIL_FROM:-alerts@onde.la}"
+
+if [ "$TELEGRAM_FAILED" = true ] && [ -n "$ALERT_EMAIL" ]; then
+    echo "Telegram unavailable. Attempting email fallback to $ALERT_EMAIL"
+    EMAIL_SUBJECT="🚨 CRITICAL: Onde Health Alert"
+    EMAIL_BODY=$(echo -e "$ALERT_MSG" | sed 's/\\n/\n/g')
+    
+    # Try SendGrid first (if configured)
+    if [ -n "$SENDGRID_API_KEY" ]; then
+        EMAIL_JSON=$(jq -n \
+            --arg to "$ALERT_EMAIL" \
+            --arg from "$EMAIL_FROM" \
+            --arg subject "$EMAIL_SUBJECT" \
+            --arg body "$EMAIL_BODY" \
+            '{
+                personalizations: [{to: [{email: $to}]}],
+                from: {email: $from},
+                subject: $subject,
+                content: [{type: "text/plain", value: $body}]
+            }')
+        
+        SG_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.sendgrid.com/v3/mail/send" \
+            -H "Authorization: Bearer $SENDGRID_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$EMAIL_JSON")
+        
+        if [ "$SG_RESPONSE" = "202" ]; then
+            echo "Sent email via SendGrid to $ALERT_EMAIL"
+        else
+            echo "SendGrid email failed (HTTP $SG_RESPONSE)"
+        fi
+    
+    # Try Mailgun (if configured)
+    elif [ -n "$MAILGUN_API_KEY" ] && [ -n "$MAILGUN_DOMAIN" ]; then
+        MG_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.mailgun.net/v3/$MAILGUN_DOMAIN/messages" \
+            -u "api:$MAILGUN_API_KEY" \
+            -F from="$EMAIL_FROM" \
+            -F to="$ALERT_EMAIL" \
+            -F subject="$EMAIL_SUBJECT" \
+            -F text="$EMAIL_BODY")
+        
+        if [ "$MG_RESPONSE" = "200" ]; then
+            echo "Sent email via Mailgun to $ALERT_EMAIL"
+        else
+            echo "Mailgun email failed (HTTP $MG_RESPONSE)"
+        fi
+    
+    # Try local mail command (if available)
+    elif command -v mail &> /dev/null; then
+        echo "$EMAIL_BODY" | mail -s "$EMAIL_SUBJECT" "$ALERT_EMAIL" && \
+            echo "Sent email via local mail to $ALERT_EMAIL" || \
+            echo "Local mail failed"
+    
+    # Try msmtp (if available)
+    elif command -v msmtp &> /dev/null; then
+        echo -e "Subject: $EMAIL_SUBJECT\nFrom: $EMAIL_FROM\nTo: $ALERT_EMAIL\n\n$EMAIL_BODY" | msmtp "$ALERT_EMAIL" && \
+            echo "Sent email via msmtp to $ALERT_EMAIL" || \
+            echo "msmtp failed"
+    
+    else
+        echo "Email fallback configured but no email method available (set SENDGRID_API_KEY, MAILGUN_API_KEY, or install mail/msmtp)"
     fi
 fi
 
