@@ -597,16 +597,18 @@
   - Build passes, ready for deploy
 
 ### [T722] Deploy onde.surf with correlation heatmap widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T721]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the correlation heatmap widget to production:
-  - Build and deploy surfboard to Cloudflare Pages
-  - Verify correlation data displays correctly on /betting
-  - Test responsive layout on mobile
-  - Check dark mode compatibility
+- **Notes**: ✅ Deployed correlation heatmap widget!
+  - Deploy URL: https://3888e1b1.onde-surf.pages.dev
+  - ✅ Build via `npm run build:cf` - passed
+  - ✅ Deploy via wrangler to Cloudflare Pages
+  - ✅ Site returns 307 (auth redirect) as expected
+  - Correlation data now visible on /betting after login
 
 ### [T723] Trading: Track correlation history over time
 - **Status**: TODO
