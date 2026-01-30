@@ -544,19 +544,27 @@
     - `python meeting_simulator.py --with-claude` - Enable Claude responses
 
 ### [T490] SE-Bot: Add security deep-dive content to knowledge base
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T472]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Expand KB with security-focused content:
-  - Ransomware protection and lateral movement prevention
-  - DLP (Data Loss Prevention) capabilities
-  - CASB (Cloud Access Security Broker) features
-  - Threat intelligence integration
-  - SOC integration and SIEM feeds
-  - Incident response workflows
-  - Compliance frameworks (HIPAA, PCI-DSS, GDPR)
+- **Notes**: ✅ Added comprehensive security content to KB!
+  - **Files created:**
+    - `domains/security/threat-protection.md` - Ransomware, DLP, ATP, CASB
+    - `domains/security/compliance.md` - HIPAA, PCI-DSS, GDPR, SOC 2, FedRAMP
+  - **Content covers:**
+    - ✅ Ransomware protection and lateral movement prevention
+    - ✅ DLP (Data Loss Prevention) capabilities
+    - ✅ CASB (Cloud Access Security Broker) features
+    - ✅ Threat intelligence integration
+    - ✅ SOC/SIEM integration and incident response
+    - ✅ Compliance frameworks (HIPAA, PCI-DSS, GDPR, SOC 2, FedRAMP)
+  - **KB now has 120 documents** (up from 78)
+  - **Test results:**
+    - Ransomware query: 0.66 relevance ✅
+    - HIPAA query: 0.62 relevance ✅
 
 ### [T491] SE-Bot: Create response style templates
 - **Status**: TODO

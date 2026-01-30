@@ -1,14 +1,14 @@
 {
-  "total_documents": 78,
+  "total_documents": 120,
   "categories": [
-    "domains/sase",
     "domains/security",
     "objections",
     "competitive",
-    "style",
     "domains/versa-networks",
-    "domains/sd-wan"
+    "domains/sd-wan",
+    "style",
+    "domains/sase"
   ],
-  "built_at": "2026-01-29T17:08:48.078570",
+  "built_at": "2026-01-29T20:47:36.455715",
   "model": "all-MiniLM-L6-v2"
 }
