@@ -225,6 +225,11 @@ export default function HealthPage() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   
+  // Countdown timer state (T735)
+  const REFRESH_INTERVAL = 30; // seconds
+  const [countdown, setCountdown] = useState(REFRESH_INTERVAL);
+  const [isPaused, setIsPaused] = useState(false);
+  
   // Load auto-refresh preference from localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -560,20 +565,44 @@ export default function HealthPage() {
     analyzeCaches();
   }, [runChecks, checkNetworkStatus, analyzeCaches]);
   
-  // Auto-refresh interval (T456) - respects toggle
+  // Countdown timer logic (T735)
+  useEffect(() => {
+    if (!autoRefresh || isPaused || isRefreshing) return;
+    
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          // Trigger refresh when countdown reaches 0
+          runChecks();
+          return REFRESH_INTERVAL;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [autoRefresh, isPaused, isRefreshing, runChecks]);
+  
+  // Reset countdown when refresh completes
+  useEffect(() => {
+    if (!isRefreshing) {
+      setCountdown(REFRESH_INTERVAL);
+    }
+  }, [isRefreshing]);
+  
+  // Auto-refresh interval (T456) - now handled by countdown timer above
+  // Keep network and cache checks separate
   useEffect(() => {
     if (!autoRefresh) return;
     
-    const interval = setInterval(runChecks, 30000); // Auto-refresh every 30s when enabled
     const networkInterval = setInterval(checkNetworkStatus, 30000); // Check network every 30s
     const cacheInterval = setInterval(analyzeCaches, 120000); // Check cache every 2min
 
     return () => {
-      clearInterval(interval);
       clearInterval(networkInterval);
       clearInterval(cacheInterval);
     };
-  }, [autoRefresh, runChecks, checkNetworkStatus, analyzeCaches]);
+  }, [autoRefresh, checkNetworkStatus, analyzeCaches]);
   
   // Online/offline event listeners
   useEffect(() => {
@@ -696,7 +725,7 @@ export default function HealthPage() {
             </div>
           </div>
           
-          {/* Auto-refresh toggle (T456) */}
+          {/* Auto-refresh toggle with countdown (T456, T735) */}
           <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
             <div className="flex items-center gap-3">
               <button
@@ -712,8 +741,53 @@ export default function HealthPage() {
               </button>
               <span className="text-sm text-slate-300">
                 Auto-refresh {autoRefresh ? 'on' : 'off'}
-                {autoRefresh && <span className="text-slate-500 ml-1">(30s)</span>}
               </span>
+              
+              {/* Countdown timer (T735) */}
+              {autoRefresh && !isRefreshing && (
+                <div 
+                  className="flex items-center gap-2 ml-2"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                  title={isPaused ? 'Paused - move mouse away to resume' : 'Hover to pause countdown'}
+                >
+                  {/* Circular progress indicator */}
+                  <div className="relative w-6 h-6">
+                    <svg className="w-6 h-6 -rotate-90" viewBox="0 0 24 24">
+                      {/* Background circle */}
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-slate-700"
+                      />
+                      {/* Progress circle */}
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        className={isPaused ? 'text-yellow-500' : 'text-green-500'}
+                        strokeDasharray={2 * Math.PI * 10}
+                        strokeDashoffset={2 * Math.PI * 10 * (1 - countdown / REFRESH_INTERVAL)}
+                        style={{ transition: 'stroke-dashoffset 1s linear' }}
+                      />
+                    </svg>
+                  </div>
+                  <span className={`text-xs font-mono ${isPaused ? 'text-yellow-500' : 'text-slate-400'}`}>
+                    {isPaused ? '⏸' : `${countdown}s`}
+                  </span>
+                </div>
+              )}
+              {isRefreshing && (
+                <span className="text-xs text-blue-400 ml-2 animate-pulse">Refreshing...</span>
+              )}
             </div>
             <div className="text-xs text-slate-500">
               {lastCheck ? (

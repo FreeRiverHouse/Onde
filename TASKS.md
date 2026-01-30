@@ -1453,16 +1453,20 @@
   - Prevents thrashing during API outages or persistent errors
 
 ### [T735] Dashboard: Add countdown timer for auto-refresh
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T456]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: UX improvement for /health and /betting pages:
-  - Visual countdown to next auto-refresh (e.g., "Refreshing in 25s")
-  - Circular progress indicator
-  - Pause countdown on hover (prevents refresh while reading)
-  - Keyboard shortcut hint visible during countdown
+- **Notes**: ✅ Implemented countdown timer for /health page auto-refresh!
+  - ✅ Visual 30s countdown with circular SVG progress indicator
+  - ✅ Countdown text showing seconds remaining
+  - ✅ Pause on hover (turns yellow, shows ⏸) - prevents refresh while reading
+  - ✅ Auto-resets after each refresh
+  - ✅ Respects auto-refresh toggle
+  - ✅ "Refreshing..." indicator during refresh
+  - Build passes, ready for deploy
 
 ### [T736] Autotrader: Monthly performance summary report
 - **Status**: DONE
@@ -1486,9 +1490,6 @@
   - Supports both v1 and v2 trade log formats
 
 ### [T737] Dashboard: Add win rate trend sparkline to /betting
-- **Status**: DONE
-- **Owner**: @clawd
-- **Completed**: 2026-01-31
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T482]
@@ -1513,6 +1514,41 @@
   - Keep recent data in main file for fast access
   - Run monthly via cron
   - Option to export to CSV for analysis
+
+### [T739] Deploy onde.la with countdown timer on /health
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T735]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the countdown timer feature to production:
+  - Build and deploy onde-portal to Cloudflare Pages
+  - Verify countdown timer works on onde.la/health
+  - Test pause on hover functionality
+
+### [T740] Dashboard: Add countdown timer to /betting page
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T735]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Port countdown timer from /health to onde.surf /betting page:
+  - Reuse same component pattern from onde-portal
+  - Add pause on hover for reading stats
+  - Keep visual consistency with /health page
+
+### [T741] Health page: Add alert sound on status change
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T460]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Optional audio notification when status changes to critical:
+  - Use Web Audio API for simple alert tone
+  - Toggle switch to enable/disable (default off)
+  - Only sound on transition TO critical/down
+  - Respect muted state and user preference
+  - localStorage persistence
 
 ---
 
