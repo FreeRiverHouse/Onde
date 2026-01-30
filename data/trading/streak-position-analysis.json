@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-01-30T02:54:36.515277",
+  "trades_analyzed": 30,
+  "min_trades_threshold": 3,
+  "position_analysis": [
+    {
+      "context": "after_1_losses",
+      "total": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0
+    },
+    {
+      "context": "after_1_wins",
+      "total": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0
+    },
+    {
+      "context": "after_2_losses",
+      "total": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate": 0.0
+    },
+    {
+      "context": "after_2_wins",
+      "total": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0
+    },
+    {
+      "context": "after_3_losses",
+      "total": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate": 50.0
+    },
+    {
+      "context": "after_3_wins",
+      "total": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0
+    },
+    {
+      "context": "after_4_losses",
+      "total": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0
+    },
+    {
+      "context": "after_4_wins",
+      "total": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 100.0
+    },
+    {
+      "context": "after_5_losses",
+      "total": 10,
+      "wins": 0,
+      "losses": 10,
+      "win_rate": 0.0
+    },
+    {
+      "context": "after_5_wins",
+      "total": 8,
+      "wins": 7,
+      "losses": 1,
+      "win_rate": 87.5
+    },
+    {
+      "context": "first_trade",
+      "total": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate": 0.0
+    }
+  ],
+  "continuation_analysis": [
+    {
+      "streak_type": "loss",
+      "streak_length": 5,
+      "total": 10,
+      "continues": 10,
+      "breaks": 0,
+      "continuation_rate": 100.0
+    },
+    {
+      "streak_type": "win",
+      "streak_length": 5,
+      "total": 8,
+      "continues": 7,
+      "breaks": 1,
+      "continuation_rate": 87.5
+    }
+  ],
+  "insights": [
+    {
+      "type": "warning",
+      "context": "after_5_losses",
+      "message": "Weak win rate (0.0%) after 5 losses"
+    },
+    {
+      "type": "positive",
+      "context": "after_5_wins",
+      "message": "Strong win rate (87.5%) after 5 wins"
+    },
+    {
+      "type": "warning",
+      "message": "Tilt risk: Loss streaks continue 100% of time"
+    },
+    {
+      "type": "positive",
+      "message": "Hot hand: Win streaks continue 88% of time"
+    }
+  ]
+}

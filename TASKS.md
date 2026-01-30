@@ -4464,16 +4464,36 @@
     - This adds xp/level/badges columns and initializes existing agents
 
 ### [T751] Agent Leaderboard widget for Free River House
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
+- **Depends**: [T509]
+- **Blocks**: [T753]
+- **Priority**: P3
+- **Notes**: ✅ Implemented agent leaderboard widget!
+  - **Component**: `apps/surfboard/src/components/AgentLeaderboard.tsx`
+  - **Features:**
+    - ✅ Sorted by XP (highest first)
+    - ✅ Top 3 with gold🥇/silver🥈/bronze🥉 medals
+    - ✅ Shows avatar, name, level, XP, task count
+    - ✅ Streak indicator (🔥) for active streaks
+    - ✅ Status dot (working/idle)
+    - ✅ Click agent to view their profile
+    - ✅ Total stats footer (agents, tasks, combined XP)
+  - **Integration:** Added 🏆 tab to FreeRiverHouse panel mode
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.surf (see T753)
+
+### [T753] Deploy onde.surf with Agent Leaderboard
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: [T509]
+- **Depends**: [T751]
 - **Blocks**: -
-- **Priority**: P3
-- **Notes**: Add leaderboard showing top agents by XP:
-  - Sort agents by total XP
-  - Show rank, avatar, name, level, XP
-  - Highlight top 3 with gold/silver/bronze
-  - Add to Free River House panel as toggle/tab
+- **Priority**: P2
+- **Notes**: Deploy surfboard with agent leaderboard widget:
+  - Build via `npm run build:cf`
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify 🏆 tab works in Free River House panel
 
 ### [T752] Level-up celebration animation
 - **Status**: TODO

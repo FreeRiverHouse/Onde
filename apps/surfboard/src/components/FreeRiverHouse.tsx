@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useToast } from './Toast';
+import { AgentLeaderboard } from './AgentLeaderboard';
 
 // Monument Valley color palette
 const MV_COLORS = {
@@ -123,7 +124,7 @@ export function FreeRiverHouse() {
   const [isAsking, setIsAsking] = useState(false);
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [activities, setActivities] = useState<{id: number, type: string, title: string, description: string, actor: string, created_at: string}[]>([]);
-  const [panelMode, setPanelMode] = useState<'tasks' | 'chat' | 'activity'>('tasks'); // Extended from chatMode
+  const [panelMode, setPanelMode] = useState<'tasks' | 'chat' | 'activity' | 'leaderboard'>('tasks'); // Extended with leaderboard
   const animationRef = useRef<number>();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const previousTasksRef = useRef<AgentTask[]>([]);
@@ -917,7 +918,7 @@ export function FreeRiverHouse() {
                     </p>
                   )}
 
-                  {/* Mode toggle: Tasks / Chat / Activity */}
+                  {/* Mode toggle: Tasks / Chat / Activity / Leaderboard */}
                   <div className="mt-3 flex gap-1 bg-white/5 rounded-lg p-0.5">
                     <button
                       onClick={() => setPanelMode('tasks')}
@@ -942,6 +943,15 @@ export function FreeRiverHouse() {
                       }`}
                     >
                       Activity
+                    </button>
+                    <button
+                      onClick={() => setPanelMode('leaderboard')}
+                      className={`flex-1 py-1.5 px-2 rounded text-xs transition-colors ${
+                        panelMode === 'leaderboard' ? 'bg-yellow-500/20 text-yellow-400' : 'text-white/40 hover:text-white/60'
+                      }`}
+                      title="Agent Leaderboard"
+                    >
+                      🏆
                     </button>
                   </div>
                 </div>
@@ -1141,6 +1151,36 @@ export function FreeRiverHouse() {
                           ))}
                         </div>
                       )}
+                    </div>
+                  </>
+                )}
+
+                {panelMode === 'leaderboard' && (
+                  <>
+                    {/* Agent Leaderboard */}
+                    <div className="flex-1 overflow-y-auto max-h-56 p-2">
+                      <div className="text-xs text-white/50 mb-2 text-center">🏆 Agent Leaderboard</div>
+                      <AgentLeaderboard
+                        agents={agents.map(a => ({
+                          id: a.id,
+                          name: a.name,
+                          xp: a.xp,
+                          level: a.level,
+                          totalTasksDone: a.totalTasksDone,
+                          currentStreak: a.currentStreak,
+                          badges: a.badges,
+                          image: a.image || '/house/agents/automation.png',
+                          status: a.status,
+                        }))}
+                        onSelectAgent={(agentId) => {
+                          const agent = agents.find(a => a.id === agentId);
+                          if (agent) {
+                            setSelectedAgent(agent);
+                            setPanelMode('tasks');
+                          }
+                        }}
+                        compact
+                      />
                     </div>
                   </>
                 )}
