@@ -5,6 +5,7 @@ export const runtime = 'edge'
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
+import SystemAlertsFeedWidget from '@/components/SystemAlertsFeedWidget'
 
 interface ServiceHealth {
   name: string
@@ -623,6 +624,11 @@ export default function HealthPage() {
           ))}
         </div>
         
+        {/* System Alerts Feed */}
+        <div className="mt-8">
+          <SystemAlertsFeedWidget />
+        </div>
+
         {/* Browser Storage Section */}
         <div className="mt-8 p-6 rounded-2xl border border-white/10 bg-white/5">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">

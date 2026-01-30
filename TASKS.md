@@ -8669,15 +8669,23 @@
   - Script: `scripts/analyze-premature-stops.py`
 
 ### [T807] Dashboard: System alerts feed widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Real-time feed of recent system alerts on /health:
-  - Show last 10 alerts (stop-loss, circuit breaker, etc.)
-  - Color-coded by severity (critical/warning/info)
-  - Timestamp and quick description
-  - Link to relevant dashboard section
-  - Auto-refresh every 30 seconds
-  - Component: `SystemAlertsFeedWidget.tsx`
+- **Notes**: ✅ Real-time alerts feed widget on /health:
+  - ✅ Component: `apps/surfboard/src/components/SystemAlertsFeedWidget.tsx`
+  - ✅ Shows last 10 alerts from `/api/health/alerts-history`
+  - ✅ Color-coded by severity (critical=red, degraded=amber, resolved=green)
+  - ✅ Emoji indicators: 🚨 Critical, ⚠️ Warning, ✅ Resolved
+  - ✅ Timestamps with "X ago" format
+  - ✅ Affected services badges per alert
+  - ✅ Resolution time shown for resolved alerts
+  - ✅ Auto-refresh every 30 seconds
+  - ✅ Scrollable list with max-height
+  - ✅ Loading skeleton, error state, empty state with 🎉
+  - ✅ Active alerts badge counter in header
+  - ✅ Data source indicator (KV vs cached)
+  - ✅ Build passes, ready for deploy
