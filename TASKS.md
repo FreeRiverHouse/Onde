@@ -594,18 +594,30 @@
   - **Test results**: 100% detection accuracy on sample queries
 
 ### [T492] SE-Bot: Add meeting transcript logging for fine-tuning
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T479]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Log meeting interactions for future model fine-tuning:
-  - Save transcript + KB retrieval + response to JSONL
-  - Include: timestamp, scenario category, relevance scores
-  - Add feedback mechanism (👍/👎 on suggestions)
-  - Export format compatible with Claude fine-tuning
-  - Privacy: Option to anonymize customer names
-  - Output: `data/se-bot/meeting-logs/YYYY-MM-DD.jsonl`
+- **Notes**: ✅ Implemented meeting transcript logging!
+  - **Logger module**: `apps/se-bot/meeting_logger.py`
+  - **Features:**
+    - Log interactions to JSONL: `data/se-bot/meeting-logs/YYYY-MM-DD.jsonl`
+    - Includes: timestamp, scenario, transcript, KB results, response, latencies
+    - `--anonymize` flag to redact emails, phones, IPs
+    - `--feedback` flag to add 👍/👎 to interactions
+    - `--log-stats` to show 7-day statistics
+    - `--export-finetune PATH` to export for Claude fine-tuning
+  - **Claude fine-tuning format:**
+    - Messages array with user/assistant roles
+    - Metadata: category, style, relevance, feedback
+  - **Functions:**
+    - `log_interaction()` - Log single interaction
+    - `add_feedback()` - Add feedback to existing entry
+    - `export_for_finetuning()` - Export filtered dataset
+    - `get_log_stats()` - Get statistics
+  - **Integration**: Added to meeting_simulator.py CLI
 
 ### [T480] Trading: Add portfolio-wide position concentration limits
 - **Status**: DONE

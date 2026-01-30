@@ -36,6 +36,10 @@ from prompts.loader import (
     format_prompt, detect_style, detect_competitor, 
     list_styles, get_style_description
 )
+from meeting_logger import (
+    log_interaction, add_feedback, get_log_stats,
+    export_for_finetuning, get_today_log_path
+)
 
 # Sample meeting scenarios (customer questions)
 SAMPLE_SCENARIOS = [
@@ -414,6 +418,12 @@ def main():
                         default="auto",
                         help="Response style template (auto|technical-deepdive|executive-summary|competitive-battle-card|objection-handling|demo-suggestion)")
     parser.add_argument("--list-styles", action="store_true", help="List available response styles and exit")
+    parser.add_argument("--log", action="store_true", help="Log interactions to JSONL for fine-tuning")
+    parser.add_argument("--anonymize", action="store_true", help="Anonymize sensitive data in logs (emails, phones, IPs)")
+    parser.add_argument("--log-stats", action="store_true", help="Show logging statistics and exit")
+    parser.add_argument("--export-finetune", type=str, metavar="PATH", help="Export logged data for fine-tuning to PATH")
+    parser.add_argument("--feedback", type=str, choices=["thumbs_up", "thumbs_down", "neutral"], 
+                        help="Add feedback to last logged interaction")
     
     args = parser.parse_args()
     
@@ -423,6 +433,44 @@ def main():
         for style in list_styles():
             print(f"   {style}")
             print(f"      {get_style_description(style)}\n")
+        return 0
+    
+    # Show log stats and exit
+    if args.log_stats:
+        log_stats = get_log_stats(days=7)
+        print("\n📊 Meeting Log Statistics (Last 7 Days)\n")
+        print(f"   Total interactions: {log_stats['total_interactions']}")
+        print(f"   With responses: {log_stats['with_response']}")
+        print(f"   With feedback: {log_stats['with_feedback']}")
+        if log_stats['with_feedback'] > 0:
+            print(f"      👍 Positive: {log_stats['positive_feedback']}")
+            print(f"      👎 Negative: {log_stats['negative_feedback']}")
+        if log_stats['avg_latency'] > 0:
+            print(f"   Avg latency: {log_stats['avg_latency']:.2f}s")
+        if log_stats['avg_relevance'] > 0:
+            print(f"   Avg KB relevance: {log_stats['avg_relevance']:.2f}")
+        print(f"\n   📂 Log directory: {get_today_log_path().parent}")
+        return 0
+    
+    # Export for fine-tuning
+    if args.export_finetune:
+        from pathlib import Path
+        export_path = Path(args.export_finetune)
+        print(f"\n📤 Exporting logged data for fine-tuning...")
+        export_stats = export_for_finetuning(
+            export_path,
+            days=30,
+            min_relevance=0.3,
+            require_feedback=False,  # Include all for now
+            positive_only=False
+        )
+        print(f"   Total scanned: {export_stats['total_scanned']}")
+        print(f"   Total exported: {export_stats['total_exported']}")
+        if export_stats['total_exported'] > 0:
+            print(f"   Avg relevance: {export_stats['avg_relevance']:.2f}")
+            print(f"   By category: {export_stats['by_category']}")
+            print(f"   By style: {export_stats['by_style']}")
+        print(f"\n   💾 Saved to: {export_path}")
         return 0
     
     # Check KB status first
@@ -450,6 +498,17 @@ def main():
             "style": args.style  # Pass style to scenario
         }
         result = run_single_test(scenario, with_claude=args.with_claude, verbose=True)
+        
+        # Log interaction if enabled
+        if args.log:
+            interaction_id = log_interaction(
+                result,
+                anonymize=args.anonymize,
+                feedback=args.feedback
+            )
+            print(f"\n   📝 Logged interaction: {interaction_id}")
+            if args.anonymize:
+                print(f"   🔒 Data anonymized")
         
         if args.output:
             with open(args.output, 'w') as f:
