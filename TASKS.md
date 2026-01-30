@@ -216,8 +216,8 @@
   - Export/import JSON backup
 
 ### [T699] Reader App: Dictionary lookup on word select
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T691]
 - **Blocks**: -
 - **Priority**: P3
