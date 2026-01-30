@@ -7954,3 +7954,16 @@
   - Compare hot_hand trades vs normal trades outcomes
   - Generate report: data/trading/streak-impact-analysis.json
   - Could inform adaptive position sizing (reduce size in tilt risk)
+
+### [T776] Deploy agent stats CSV export to onde.surf
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
+- **Depends**: [T757]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed! https://9e152482.onde-surf.pages.dev
+  - Build via `npm run build:cf` - passed
+  - Deploy via wrangler to Cloudflare Pages
+  - Site returns 307 (auth redirect as expected)
+  - Agent stats CSV export now live on /house leaderboard
