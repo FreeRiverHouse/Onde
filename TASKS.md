@@ -1037,7 +1037,7 @@
   - Log rebalancing actions to separate file
 
 ### [T817] Infrastructure: Add uptime history chart to /health
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -1220,7 +1220,7 @@
   - **Requirements:** ELEVENLABS_API_KEY env var, ffmpeg for audio decode
 
 ### [T476] SE-Bot Fase 3: Video Avatar Integration
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T475]
 - **Blocks**: -
@@ -1237,7 +1237,7 @@
   - **Goal finale**: Partecipare a meeting video senza essere presente!
 
 ### [T477] SE-Bot: Install BlackHole Audio Driver
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: [T470]
@@ -1374,7 +1374,7 @@
   - **Integration**: Added to meeting_simulator.py CLI
 
 ### [T769] SE-Bot: Test HeyGen API real-time latency
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T732]
 - **Blocks**: [T770]
@@ -1388,7 +1388,7 @@
   - Compare with D-ID streaming API as fallback
 
 ### [T770] SE-Bot: Build video_avatar.py API client module
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T769], [T475]
 - **Blocks**: [T476]
@@ -1405,7 +1405,7 @@
   - **Testing**: Mock mode for development
 
 ### [T771] SE-Bot: Create Mattia voice profile for avatar
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T769]
 - **Blocks**: [T476]
@@ -2524,7 +2524,7 @@
 - **Notes**: ✅ Updated TestStatusPanel to use shared LastUpdatedIndicator component. Removed local getTimeAgo() function. Now shows staleness indicator with refresh button when report is >1h old. Also fixed unused import lint error in LastUpdatedIndicator.tsx.
 
 ### [T426] Update Cloudflare API token with D1 permissions
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: [T661]
@@ -2649,7 +2649,7 @@
 ## 🚨 NUOVO - DA MATTIA 2026-01-29 (09:32)
 
 ### [T411] Clone WhisperFlow - App Trascrizione Real-Time Open Source
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: [T434], [T435], [T436]
@@ -2885,7 +2885,7 @@
 ## 🔥 IN PROGRESS
 
 ### [T001] Autotrader Kalshi Monitoring
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
@@ -3129,7 +3129,7 @@
 - **Notes**: ✅ QA completato. Voto 9/10. Report: traduzioni/QA-REPORT-republic-innovation.md
 
 ### [T015] Pipeline revisione 2 cicli (Capussela EN→IT)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: [T012]
 - **Blocks**: -
@@ -3141,7 +3141,7 @@
 ## 📋 TODO - LIBRI (TIER 1)
 
 ### [T020] Frankenstein illustrato EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3158,7 +3158,7 @@
 - **Notes**: ✅ GIÀ PUBBLICATO! Ondinho ha duplicato per errore - verificare sempre prima di iniziare.
 
 ### [T022] The Prophet illustrato EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3166,7 +3166,7 @@
 - **Notes**: Kahlil Gibran - pubblico dominio (1923). Setup + prompts.
 
 ### [T023] AIKO EN su KDP
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3174,7 +3174,7 @@
 - **Notes**: Pubblicare su Amazon
 
 ### [T024] Psalm 23 multilingua su KDP
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3182,7 +3182,7 @@
 - **Notes**: Versione multilingue. Checklist: books/salmo-23-kdp/KDP-CHECKLIST.md. SEGUENDO PROCEDURA.
 
 ### [T025] The Art of War illustrato EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3190,7 +3190,7 @@
 - **Notes**: Sun Tzu - pubblico dominio. Stile: Chinese ink wash + dramatic warfare
 
 ### [T026] Tao Te Ching illustrato EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3198,7 +3198,7 @@
 - **Notes**: Lao Tzu - pubblico dominio. Stile: Minimalist Chinese calligraphy + nature
 
 ### [T027] Divine Comedy illustrato EN
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @ondinho
 - **Depends**: -
 - **Blocks**: -
@@ -3313,7 +3313,7 @@
 ## 📋 TODO - CONTENT & SOCIAL
 
 ### [T060] Video Piccole Rime su @Onde_FRH
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3321,7 +3321,7 @@
 - **Notes**: Content per social
 
 ### [T061] Postare 3 video già pronti
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3329,7 +3329,7 @@
 - **Notes**: Video esistenti da pubblicare
 
 ### [T062] Bio @Onde_FRH update
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3341,7 +3341,7 @@
 ## 📋 TODO - APP & VR
 
 ### [T070] AIKO Interactive app
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3349,7 +3349,7 @@
 - **Notes**: App interattiva
 
 ### [T071] FreeRiver Flow voice prototype
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3357,7 +3357,7 @@
 - **Notes**: Voice AI prototype
 
 ### [T072] Onde Books VR per Quest
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -3436,7 +3436,7 @@
   - Base per versioni mobile e VR
 
 ### [T671] Reader App - Mobile iOS/Android
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T670]
 - **Blocks**: -
@@ -3448,7 +3448,7 @@
   - Sync progressi tra devices
 
 ### [T672] Reader App - Integrazione VR
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T670], [T072]
 - **Blocks**: -
@@ -3581,7 +3581,7 @@
 - **Notes**: ✅ Script: scripts/backup-trades-git.sh + cron 00:05 UTC daily. Backup in data/trading/. 2007 trades backed up.
 
 ### [T094] Grafana/Prometheus setup per trading metrics
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -4265,7 +4265,7 @@
 ## 📋 TODO - CHIEDIALO (AI Publishing)
 
 ### [T238] ChiedIAlo USA - Personaggi Editore Capo e Pina Pennello
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -4920,7 +4920,7 @@
 - **Notes**: ✅ Added Activity tab to FreeRiverHouse panel! 3 modes now: Tasks/Chat/Activity. Fetches from /api/activity, filters by agent name. Shows type-colored dots (deploy=green, image=purple, etc). Auto-refresh 30s.
 
 ### [T506] Voice input per assegnare task
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -5137,7 +5137,7 @@
   - Build passes, needs deploy to onde.surf
 
 ### [T511] WebXR export per futuro VR
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -5322,7 +5322,7 @@
 - **Notes**: ✅ Created sw.js with 3 caching strategies: 1) Cache-first for static assets, 2) Network-first for API routes with cache fallback, 3) Network-first for HTML with offline support. Precaches /, /betting, /house. ServiceWorkerRegistration component auto-registers and handles updates. API responses cached for 60s TTL.
 
 ### [T313] Export trading stats to Google Sheets
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -5696,7 +5696,7 @@
 - **Notes**: ✅ Created ModelComparisonChart component! Shows side-by-side v1 vs v2 comparison with: win rate progress bars, PnL display, trade counts, improvement summary when both have data, model descriptions (v1=legacy, v2=Black-Scholes). Handles edge cases (no data, only v1, only v2). Added to /betting dashboard after volatility analysis.
 
 ### [T351] Real sprite images for Luna moods
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T050]
 - **Blocks**: -
@@ -5704,7 +5704,7 @@
 - **Notes**: Upgrade CSS-based mood effects to actual sprite images. 6 states: luna-happy.png, luna-neutral.png, luna-sad.png, luna-sleepy.png, luna-hungry.png, luna-excited.png. Use AI image generation or commission artist.
 
 ### [T352] Luna idle animations per room
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T050]
 - **Blocks**: -
@@ -6219,7 +6219,7 @@
 - **Notes**: ✅ Script: analyze-sizing-effectiveness.py. Categorizes trades by size multiplier (reduced/standard/increased), compares win rate, PnL, ROI. Usage: `python3 scripts/analyze-sizing-effectiveness.py [--v2] [--threshold 0.1]`. Output: data/trading/sizing-effectiveness.json. Awaiting trades with T390 data.
 
 ### [T392] Compare cached vs live OHLC momentum accuracy
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T381]
 - **Blocks**: -
@@ -6412,7 +6412,7 @@
 *Sistema coordinamento: vedi TASK-RULES.md*
 
 ### [T416] Auto-reduce position size during whipsaw
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T393]
 - **Blocks**: -
@@ -6438,7 +6438,7 @@
 - **Notes**: ✅ Script: analyze-momentum-direction.py. Compares bullish/bearish/neutral win rate, PnL, ROI, avg edge. Includes side breakdown (YES/NO) per direction. Usage: `python3 scripts/analyze-momentum-direction.py [--v2]`. Output: data/trading/momentum-direction-analysis.json.
 
 ### [T419] Integrate API call tracking into autotrader
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T330]
 - **Blocks**: -
@@ -6500,7 +6500,7 @@
 - **Notes**: ✅ Converted! Added 60+ translation keys for health page: title, subtitle, overall status, services, cron jobs, network/PWA, web vitals, timezone, storage. Page now uses useTranslations() hook. Italian translations included.
 
 ### [T426] Multi-exchange price consistency alerting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T246]
 - **Blocks**: -
@@ -6517,7 +6517,7 @@
 - **Notes**: ✅ Implemented! Added 60s in-memory cache for: CoinGecko, Binance, Coinbase price fetches + Fear&Greed index. Functions: get_cached_response(), set_cached_response(), get_cache_stats(). Tracks cache hits via latency profiling (e.g., "prices_coingecko_cache_hit"). Reduces redundant API calls per cycle.
 
 ### [T428] Weekly rate limit usage report (trend analysis)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T308]
 - **Blocks**: -
@@ -6534,7 +6534,7 @@
 - **Notes**: ✅ Script: autotrader-health-cron.sh. Checks health, alerts if down >30min OR win rate <30% with 5+ settled trades. State tracking: kalshi-health-state.json. Alert file: kalshi-health.alert. 1h cooldown. Cron: `*/15 * * * *`. Added to HEARTBEAT.md pickup.
 
 ### [T430] Trading dashboard API health endpoint
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T421]
 - **Blocks**: -
@@ -6551,7 +6551,7 @@
 - **Notes**: ✅ Script: analyze-edge-calibration.py. Groups trades by edge bucket (0-5%, 5-10%, etc), compares actual WR vs expected (50%+edge). Shows calibration error per bucket with interpretation. Flags: --v2, --buckets N. V1 analysis: 0% WR with 45%+ edge = catastrophically overconfident (broken model). V2 awaiting data.
 
 ### [T432] API latency breakdown widget on /betting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T279]
 - **Blocks**: -
@@ -6559,7 +6559,7 @@
 - **Notes**: Add expandable section showing per-endpoint latency breakdown: Kalshi API, Binance, CoinGecko, Coinbase, Fear&Greed. Bar chart or list with p50/p95/p99. Helps identify bottlenecks.
 
 ### [T433] Trade execution audit log viewer
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -6637,7 +6637,7 @@
 - **Notes**: ✅ VolatilityCard component showing BTC/ETH realized vs model volatility. Comparison bars for 7d/14d/30d periods with deviation %. Data from push-stats-to-gist.py (added volatility field). Color-coded: green if model overestimates (conservative), red if underestimates (risky).
 
 ### [T441] Reversion signal win rate tracking
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T302]
 - **Blocks**: -
@@ -6654,7 +6654,7 @@
 - **Notes**: ✅ Script: analyze-asset-correlation.py. Calculates rolling correlation (7d/14d/30d windows), detects divergence events when correlation < threshold, generates insights. Current: 0.916 (highly correlated). Output: data/trading/asset-correlation.json. Usage: `python3 scripts/analyze-asset-correlation.py [--window 42] [--threshold 0.7]`
 
 ### [T443] Dashboard refresh rate configuration
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -6662,7 +6662,7 @@
 - **Notes**: Add user setting for dashboard auto-refresh interval (30s/60s/5min/off). Currently hardcoded. Save preference to localStorage. Show countdown timer in header.
 
 ### [T444] Auto-adjust Kelly fraction based on rolling win rate
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T248]
 - **Blocks**: -
@@ -6670,7 +6670,7 @@
 - **Notes**: Dynamic Kelly adjustment using last 50 trades rolling win rate. If WR drops below 40%, reduce Kelly by 50%. If WR rises above 60%, allow 25% increase. Caps at 2x base Kelly. Prevents overleveraging during drawdowns.
 
 ### [T445] Trading strategy A/B test: momentum vs mean-reversion
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T220]
 - **Blocks**: -
@@ -6696,7 +6696,7 @@
 - **Notes**: ✅ Script: analyze-trades-by-weekday.py. Shows trades/win rate/PnL/avg PnL per day. Identifies best/worst days, gives recommendations. V1 data shows all trades on Wednesday (broken model batch). V2 awaiting more trades.
 
 ### [T448] Real-time trade notifications polling on dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T082]
 - **Blocks**: -
@@ -6704,7 +6704,7 @@
 - **Notes**: Add toast/notification on /betting when new trade is placed or settled. Poll /api/trading/stats every 30s, compare trade count, show notification with trade details (ticker, side, result). Use browser Notification API with permission.
 
 ### [T449] Backtest position sizing strategies
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T248]
 - **Blocks**: -
@@ -6712,7 +6712,7 @@
 - **Notes**: Compare historical performance using: fixed $5 per trade, Kelly criterion, half-Kelly, volatility-scaled sizing. Use settlement data to simulate each strategy. Report final PnL and max drawdown for each. Script: backtest-position-sizing.py.
 
 ### [T450] Book cover image generation for /catalogo
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T297]
 - **Blocks**: -
@@ -6729,7 +6729,7 @@
 - **Notes**: ✅ Added! Sort dropdown with 4 options: Title (A-Z), Author (A-Z), Shortest first, Longest first. Persists to localStorage. Added i18n translations (EN/IT). Builds on T297 reading time estimates.
 
 ### [T452] Autotrader: market hours optimization (skip low-volume times)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T249]
 - **Blocks**: -
@@ -6737,7 +6737,7 @@
 - **Notes**: Analyze trade performance by hour (T249 exists). Automatically reduce position size or skip trades during historically low-WR hours (e.g., 03:00-06:00 UTC). Configurable via TRADING_HOURS_BONUS/PENALTY dict.
 
 ### [T449] Lighthouse score history tracking
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T227]
 - **Blocks**: -
@@ -6745,7 +6745,7 @@
 - **Notes**: Save Lighthouse scores to data/lighthouse/history.jsonl after each run. Track performance/a11y/seo/practices over time. Script: track-lighthouse-history.sh. Alerts if score drops >10% from 7-day average.
 
 ### [T450] Performance budget in build pipeline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -6753,7 +6753,7 @@
 - **Notes**: Add budgets.json config for asset size limits (e.g., JS bundle <300KB, CSS <50KB, images <500KB each). Script: check-bundle-sizes.sh. Fail deploy if exceeded. Uses `du` and `find` to check build output.
 
 ### [T451] SEO audit automation (broken links, alt text)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
@@ -6788,7 +6788,7 @@
 - **Notes**: ✅ Added! Global focus-visible styles in globals.css for all interactive elements (a, button, input, select, textarea, [role="button"], [tabindex]). Uses gold ring with dark offset for visibility on all backgrounds. Added utility classes: focus-ring-gold, focus-ring-teal, focus-ring-white, focus-ring-inset for custom styling.
 
 ### [T456] Weekly cron for volatility calibration check
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T439]
 - **Blocks**: -
@@ -6796,7 +6796,7 @@
 - **Notes**: Run auto-calibrate-volatility.py weekly (Sundays 10:00 UTC, after T417). Creates alert if recalibration needed. Cron: `0 10 * * 0`. Log to volatility-calibration.log.
 
 ### [T457] Auto-restart autotrader after manual calibration
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T439]
 - **Blocks**: -
@@ -6804,7 +6804,7 @@
 - **Notes**: Extend auto-calibrate-volatility.py --apply to optionally restart autotrader. Add --restart flag. Kill old process, wait 2s, start new one. Safer than leaving outdated model running.
 
 ### [T458] Track calibration accuracy over time
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T439]
 - **Blocks**: -
@@ -6812,7 +6812,7 @@
 - **Notes**: Script to analyze volatility-calibration.log. Compare recommended vs actual vol 30 days later. Shows if calibration improved model accuracy. Weekly report: avg prediction error before/after calibration.
 
 ### [T459] Backtest divergence signals on historical OHLC
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T303], [T278]
 - **Blocks**: -
@@ -6845,7 +6845,7 @@
   - **Example**: 3 signals (momentum + reversion + divergence) → 1.25x synergy multiplier on base bonus
 
 ### [T461] Weekly divergence signal accuracy report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T303], [T095]
 - **Blocks**: -
@@ -6862,7 +6862,7 @@
 - **Notes**: ✅ Script: check-ohlc-cache.sh. Checks newest JSON in data/ohlc/, alerts if >24h old. Cron every 6h. Alert file: ohlc-cache-stale.alert. Auto-clears when cache refreshed. Already in HEARTBEAT.md pickup list.
 
 ### [T463] Bankroll growth visualization script
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T307]
 - **Blocks**: -
@@ -6870,7 +6870,7 @@
 - **Notes**: Script: plot-bankroll-growth.py. Generate ASCII/SVG chart showing cumulative PnL over time from trade logs. Compare actual vs simulated strategies (Kelly/fixed). Output to data/trading/bankroll-chart.svg.
 
 ### [T464] Trade timing optimization analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T249]
 - **Blocks**: -
@@ -6896,7 +6896,7 @@
 - **Notes**: ✅ Script: scripts/check-i18n.sh. Extracts all nested keys from en.json and it.json, compares using comm. Shows key counts, lists missing keys (max 20), exits with error code if mismatched. npm script: `npm run i18n:check`. Current status: 511 keys in sync!
 
 ### [T467] Language preference persistence in cookie for SSR
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T374]
 - **Blocks**: -
@@ -6905,7 +6905,7 @@
 
 
 ### [T468] Most Downloaded section on /libri page
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T299]
 - **Blocks**: -
@@ -6913,7 +6913,7 @@
 - **Notes**: Add "Popular Books" or "Most Downloaded" section at top of /libri page. Uses download data from useDownloadTracker. Shows top 5 books by download count. Re-orders books dynamically based on popularity.
 
 ### [T469] Server-side download analytics with D1
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T299]
 - **Blocks**: -
@@ -6921,7 +6921,7 @@
 - **Notes**: Persist download counts server-side using Cloudflare D1. Create downloads table (book_id, format, count, last_download). Add API endpoint /api/analytics/track to increment. Aggregate counts across all users instead of just localStorage per-user.
 
 ### [T470] Book recommendation system based on downloads
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T299], [T469]
 - **Blocks**: -
@@ -6947,7 +6947,7 @@
 - **Notes**: ✅ Implemented! Added write_health_status() to autotrader-v2.py. Writes to data/trading/autotrader-health.json every cycle with: is_running, last_cycle_time, cycle_count, trades_today, won/lost/pending counts, win_rate_today, pnl_today_cents, positions_count, cash_cents, circuit_breaker status, consecutive_losses. Uses atomic write (temp file + rename). HEALTH_STATUS_FILE constant configurable.
 
 ### [T473] Trading session summary on process exit
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -6973,7 +6973,7 @@
 - **Notes**: ✅ Implemented! Added check_and_alert() to analyze-api-errors.py. Triggers when any source has ≥10% error rate with ≥10 events. Alert file: kalshi-api-error.alert. 4h cooldown via .api-error-alert-cooldown. Added to HEARTBEAT.md pickup list. Helps catch API degradation early.
 
 ### [T476] API error stats on /health page
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T413]
 - **Blocks**: -
@@ -6981,7 +6981,7 @@
 - **Notes**: Add API reliability section to /health page showing error rates per source from data/trading/api-error-stats.json. Color-coded status indicators (green/yellow/red). Requires server-side or GitHub Gist storage for static export.
 
 ### [T477] ARIA live regions for dynamic content
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T454]
 - **Blocks**: -
@@ -6989,7 +6989,7 @@
 - **Notes**: Add aria-live regions for dynamic updates (toast notifications, loading states, form validations). Ensures screen reader users are informed of changes. Use aria-live="polite" for non-urgent, "assertive" for errors.
 
 ### [T478] High contrast mode toggle
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -7015,7 +7015,7 @@
 - **Notes**: ✅ Cron job added: `*/15 * * * *`. Runs detect-price-spread.py with 1% threshold. Logs to price-spread.log. Alert file triggers Telegram notification via heartbeat.
 
 ### [T481] Multi-timeframe volatility dashboard widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T278]
 - **Blocks**: -
@@ -7023,7 +7023,7 @@
 - **Notes**: Add volatility widget to /betting showing realized vol for 1h/4h/24h timeframes vs model assumptions. Uses cached OHLC data. Color-coded: green when vol matches model, orange when diverging >20%. Helps traders understand current market conditions.
 
 ### [T482] Trade execution audit log
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -7049,7 +7049,7 @@
 - **Notes**: ✅ Script: migrate-trades-v1-to-v2.py. Converts 41 v1 trades to v2 format with: asset inference from ticker, reason string, defaults for momentum/regime/vol fields, migration metadata. Output: kalshi-trades-v1-migrated.jsonl. Flags: --stats, --dry-run, --append-to-v2. V1 context: 0% WR, all BTC NO bets, broken edge calculation.
 
 ### [T485] Auto-discovery of new Kalshi crypto markets
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -7057,7 +7057,7 @@
 - **Notes**: Script to detect when Kalshi adds new crypto markets (SOL, DOGE, etc.). Check /markets API for series starting with KX. Alert when new tickers found. Could auto-expand autotrader coverage.
 
 ### [T486] E2E tests for onde.surf (surfboard)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T208]
 - **Blocks**: -
@@ -7065,7 +7065,7 @@
 - **Notes**: Extend Playwright tests for surfboard environment. Test /betting dashboard, trading stats display, momentum cards, charts. Verify data loading and error states.
 
 ### [T487] Playwright visual regression tests
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T208]
 - **Blocks**: -
@@ -7082,7 +7082,7 @@
 - **Notes**: ✅ Created scripts/autotrader-health.py. Outputs JSON to data/trading/autotrader-health.json with: process status, last trade info, 24h win rate, log activity, recent errors. Exit codes: 0=healthy, 1=warning, 2=critical. Can be pushed to gist for external monitoring.
 
 ### [T489] Shareable reading list URL
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T380]
 - **Blocks**: -
@@ -7099,7 +7099,7 @@
 - **Notes**: ✅ Implemented! Created useRecentlyViewed hook (tracks last 5 books in localStorage). Integrated into BookReaderClient to track views. Added "Recently Viewed" horizontal scroll section on /libri page with compact book cards. Shows only if user has viewed books.
 
 ### [T491] Unified book data source for /libri and /my-books
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T380]
 - **Blocks**: -
@@ -7107,7 +7107,7 @@
 - **Notes**: Currently both pages have duplicate book arrays. Create shared books.ts data file with all book info. Import in both pages. Single source of truth. Easier to add new books and maintain consistency.
 
 ### [T492] Portfolio value history chart
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T277]
 - **Blocks**: -
@@ -7124,7 +7124,7 @@
 - **Notes**: ✅ Added risk indicator badge to position cards! Shows exposure as % of portfolio (cash + positions). Color coded: emerald (<10%), yellow (10-25%), red (>25%). Tooltip shows exact %. Helps visualize concentration risk at a glance.
 
 ### [T494] Trade alert sound effects
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T051]
 - **Blocks**: -
@@ -7132,7 +7132,7 @@
 - **Notes**: Play subtle sound when new trade placed or position settled. Use existing useSoundManager pattern. Coin sound for wins, error sound for losses. Toggle in settings. Works in browser tab even when not focused.
 
 ### [T495] Alert when execution success rate drops below 95%
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T329]
 - **Blocks**: -
@@ -7140,7 +7140,7 @@
 - **Notes**: Analyze last 20 execution attempts. If success rate <95%, write kalshi-execution-fail.alert for heartbeat pickup. 4h cooldown. Helps detect API issues or account problems early.
 
 ### [T496] Execution performance by time of day analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T329]
 - **Blocks**: -
@@ -7148,7 +7148,7 @@
 - **Notes**: Extend analyze-execution-rate.py to show success rate and latency by hour (UTC). Identify if certain times have worse execution. May reveal API congestion patterns or optimal trading windows.
 
 ### [T497] Execution latency correlation with market volatility
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T329], [T285]
 - **Blocks**: -
@@ -7165,7 +7165,7 @@
 - **Notes**: ✅ Fixed! Cron was using /usr/bin/python3 (3.9.6) but script uses 3.10+ syntax (`dict | None`). Updated crontab to use /opt/homebrew/bin/python3 (3.14.2). OHLC cache now updates correctly.
 
 ### [T499] Weekly circuit breaker history analysis cron
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T471]
 - **Blocks**: -
@@ -7173,7 +7173,7 @@
 - **Notes**: Add cron job (Sundays 10:00 UTC, after calibration) to run analyze-circuit-breaker-history.py. If multiple triggers detected, send summary to Telegram. Helps review trading psychology/model performance weekly.
 
 ### [T600] Autotrader startup session summary
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -7181,7 +7181,7 @@
 - **Notes**: On autotrader-v2 startup, print summary of last session: previous run duration, trades made, win rate, final balance, any errors. Helps understand context when restarting. Add load_previous_session_summary() function.
 
 ### [T601] Skip trade logging improvements
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T224]
 - **Blocks**: -
@@ -7189,7 +7189,7 @@
 - **Notes**: Enhance kalshi-skips.jsonl to include momentum, regime, volatility context at skip time. Enables analysis of "what would have happened" if thresholds were lower. Backtest potential missed opportunities.
 
 ### [T602] Correlation-based position sizing adjustment
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T442]
 - **Blocks**: -
@@ -7197,7 +7197,7 @@
 - **Notes**: When BTC/ETH correlation is low (<0.7), increase position sizes for the asset with stronger momentum. When highly correlated (>0.9), reduce size to avoid overexposure. Read from asset-correlation.json.
 
 ### [T603] Correlation divergence alert
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T442]
 - **Blocks**: -
@@ -7205,7 +7205,7 @@
 - **Notes**: Alert when BTC/ETH correlation drops below 0.6 (unusual divergence). Creates kalshi-correlation-divergence.alert for heartbeat pickup. May indicate liquidations, exchange-specific events, or major news affecting one asset.
 
 ### [T604] Weekly correlation report in trading summary
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T442], [T095]
 - **Blocks**: -
@@ -7240,7 +7240,7 @@
 - **Notes**: ✅ Created scripts/archive-old-memory.sh. Moves memory/YYYY-MM-DD.md files >30 days old to memory/archive/. Skips non-date files. Tested OK. Cron: add `0 4 1 * * /Users/mattia/Projects/Onde/scripts/archive-old-memory.sh` for monthly run.
 
 ### [T608] Dashboard toggle for source=all combined view
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T346]
 - **Blocks**: -
@@ -7248,7 +7248,7 @@
 - **Notes**: Add "All" option to v1/v2 toggle on /betting dashboard. Shows combined stats from bySource. Useful for total portfolio view.
 
 ### [T609] V2 autotrader trades count indicator on dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T346], [T605]
 - **Blocks**: -
@@ -7289,7 +7289,7 @@
   - **Uses cached VIX data** if less than 24h old (VIX_CACHE_MAX_AGE_HOURS)
 
 ### [T612] Add VIX indicator widget to /betting dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T332]
 - **Blocks**: -
@@ -7297,7 +7297,7 @@
 - **Notes**: Display current VIX level with regime indicator (🟢 low_fear / 🟡 moderate / 🟠 elevated / 🔴 high_fear). Show correlation with BTC vol. Fetch from cached vix-correlation.json via API or Gist.
 
 ### [T613] Cron job for daily VIX-crypto correlation refresh
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T332]
 - **Blocks**: -
@@ -7305,7 +7305,7 @@
 - **Notes**: Add cron to run analyze-vix-correlation.py daily. Update vix-history.json and vix-correlation.json. Suggested: `0 1 * * * python3 scripts/analyze-vix-correlation.py --days 30`
 
 ### [T815] VIX regime change alert for Telegram
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611]
 - **Blocks**: -
@@ -7319,7 +7319,7 @@
   - Similar pattern to kalshi-correlation-change.alert
 
 ### [T816] Backtest VIX integration effectiveness
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611]
 - **Blocks**: -
@@ -7332,7 +7332,7 @@
   - Output to data/trading/vix-effectiveness-analysis.json
 
 ### [T817] VIX history sparkline in /betting dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T611], [T612]
 - **Blocks**: -
@@ -7345,7 +7345,7 @@
   - Compact widget next to correlation heatmap
 
 ### [T614] Vol alignment performance widget on /betting dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T375]
 - **Blocks**: -
@@ -7353,7 +7353,7 @@
 - **Notes**: Display vol_aligned vs not_aligned win rate comparison from vol-alignment-analysis.json. Show when enough V2 data available. Color-coded bars showing performance difference. Helps validate T237 (volatility rebalancing) effectiveness visually.
 
 ### [T615] Cross-asset momentum divergence analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T442]
 - **Blocks**: -
@@ -7361,7 +7361,7 @@
 - **Notes**: Script to analyze trades when BTC and ETH momentum signals diverge. Compare win rate for trades taken during divergent vs convergent momentum. May reveal if trading against cross-asset signal is risky.
 
 ### [T616] Auto-summarize old memory files into MEMORY.md
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T415]
 - **Blocks**: -
@@ -7369,7 +7369,7 @@
 - **Notes**: Monthly script to read memory/YYYY-MM-DD.md files 7-30 days old, extract key decisions/learnings via LLM or heuristics, append summary to MEMORY.md, then archive originals. Prevents important context from being lost during archival.
 
 ### [T617] GA4 custom event for catalog search queries
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T378]
 - **Blocks**: -
@@ -7415,7 +7415,7 @@
 - **Notes**: ✅ Extended push-stats-to-gist.py! Added load_health_status() that supports both T472 format (autotrader internal) and T488 format (external script). healthStatus field now included in gist JSON. Backward compatible with either health file format.
 
 ### [T621] Autotrader startup time tracking
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T472]
 - **Blocks**: -
@@ -7423,7 +7423,7 @@
 - **Notes**: Track autotrader startup timestamp in health status. Calculate uptime (hours running since last restart). Useful for debugging restarts and monitoring stability. Add startup_time, uptime_hours fields to write_health_status().
 
 ### [T622] All-time trading stats in health status
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T472]
 - **Blocks**: -
@@ -7449,7 +7449,7 @@
 - **Notes**: ✅ Implemented! Added calculate_streak_stats() function to push-stats-to-gist.py. Calculates from trade log directly: longest win/loss streaks, current streak count and type. Gist now includes longestWinStreak, longestLossStreak, currentStreak, currentStreakType. V1 data shows 41-loss streak (0% WR from broken model).
 
 ### [T625] Dashboard bySource comparison view
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T605], [T346]
 - **Blocks**: -
@@ -7457,7 +7457,7 @@
 - **Notes**: When gist includes bySource field (source=all), show side-by-side v1 vs v2 performance comparison on dashboard. Cards showing: trades, win rate, PnL for each source. Helps evaluate model improvement.
 
 ### [T626] API latency regression detection and alerting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T398], [T279]
 - **Blocks**: -
@@ -7474,7 +7474,7 @@
 - **Notes**: ✅ Implemented! Added Autotrader Status section to /health page showing: running indicator with pulse animation, status badge (healthy/warning/error), circuit breaker alert, stats grid (trades today/24h, win rate, PnL, consecutive losses, cycles), issues list, and last cycle time. Data from trading stats gist healthStatus field. Graceful fallback when no data available.
 
 ### [T628] API error rate section on /health page
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T398], [T413]
 - **Blocks**: -
@@ -7482,7 +7482,7 @@
 - **Notes**: Add API error rate section to /health page alongside latency. Show: success rate %, error count by source, common error types, last 5 errors. Data from gist (extend push-stats-to-gist.py to include error stats from api-error-stats.json).
 
 ### [T629] Autotrader cycle time visualization on /betting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T623]
 - **Blocks**: -
@@ -7490,7 +7490,7 @@
 - **Notes**: Add small chart showing autotrader cycle times over last 24h. Helps identify slowdowns or bottlenecks. Use cycle_count from healthStatus, calculate avg cycle time from log timestamps.
 
 ### [T630] Trading stats refresh countdown timer
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T443]
 - **Blocks**: -
@@ -7498,7 +7498,7 @@
 - **Notes**: Add visual countdown timer showing seconds until next auto-refresh on /betting dashboard. Shows "Refreshing..." during fetch. Helps users know when fresh data is coming. Timer resets on manual refresh.
 
 ### [T631] Mobile autotrader status in bottom navigation
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T623]
 - **Blocks**: -
@@ -7507,7 +7507,7 @@
 
 
 ### [T632] Probability model comparison backtest
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T606]
 - **Blocks**: -
@@ -7515,7 +7515,7 @@
 - **Notes**: Script: backtest-probability-models.py. Compare Black-Scholes vs naive (distance-based) vs ML-based probability models on historical settlements. Uses cached OHLC + settlement data. Output: model accuracy metrics, calibration plots. Helps identify if probability model needs refinement.
 
 ### [T633] Trading performance heatmap by hour/day
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T249], [T295]
 - **Blocks**: -
@@ -7532,7 +7532,7 @@
 - **Notes**: ✅ Script: parameter-sweep.py. Analyzes settlement data, simulates different MIN_EDGE (5-20%), KELLY_FRACTION (2-10%), and vol assumptions (current/realized/aggressive/conservative). Shows actual trade analysis confirming v1 edge calc was broken (40%+ edge but 0% WR). Outputs optimal recommendations to data/backtests/.
 
 ### [T635] Swipe-to-dismiss modal on mobile
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T316]
 - **Blocks**: -
@@ -7540,7 +7540,7 @@
 - **Notes**: Extend useTouchGestures hook to add swipe-down-to-dismiss for modals on /betting (shortcuts modal, position details). Track modal-specific touch handlers, animate modal sliding out on swipe. Better mobile UX.
 
 ### [T636] Haptic feedback for mobile interactions
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T316]
 - **Blocks**: -
@@ -7548,7 +7548,7 @@
 - **Notes**: Add navigator.vibrate() calls for key mobile interactions: pull-to-refresh trigger, successful trade notification, circuit breaker alert. Short vibration patterns (50ms click, 200ms success, 400ms alert). Fallback silently on unsupported devices.
 
 ### [T637] Trading stats dashboard dark/light mode persistence
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T315]
 - **Blocks**: -
@@ -7578,7 +7578,7 @@
   - **Note**: Run `--apply` only after confirming via Telegram
 
 ### [T639] Model calibration status widget on /betting dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T377]
 - **Blocks**: -
@@ -7586,7 +7586,7 @@
 - **Notes**: Add card to /betting showing: BTC/ETH realized vol vs assumed, deviation %, last calibration date, health indicator (green/yellow/red). Fetches from volatility-stats.json via gist. Warns when model needs recalibration.
 
 ### [T640] Volatility regime transition alerts
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T377], [T243]
 - **Blocks**: -
@@ -7594,7 +7594,7 @@
 - **Notes**: Alert when 7d rolling volatility moves between regimes: very_low (<0.2%), low (0.2-0.4%), normal (0.4-0.8%), high (0.8-1.5%), very_high (>1.5%). Different from momentum - this tracks vol magnitude changes. Script: detect-vol-regime-change.py. Alert file: kalshi-vol-regime.alert.
 
 ### [T641] Parameter sweep for v2 trades (when available)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T634]
 - **Blocks**: -
@@ -7602,7 +7602,7 @@
 - **Notes**: Once v2 autotrader has enough settled trades (>50), run parameter-sweep.py to find optimal MIN_EDGE and KELLY_FRACTION for the Black-Scholes model. Compare theoretical vs actual performance.
 
 ### [T642] Monte Carlo simulation for bankroll evolution
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T634]
 - **Blocks**: -
@@ -7610,7 +7610,7 @@
 - **Notes**: Extend parameter-sweep.py with Monte Carlo simulation. Given win rate and edge, simulate 1000 bankroll paths under different Kelly fractions. Show risk of ruin, expected value, and confidence intervals. Helps set conservative sizing.
 
 ### [T643] Optimal entry timing analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T634], [T249]
 - **Blocks**: -
@@ -7627,7 +7627,7 @@
 - **Notes**: ✅ Converted! Added ~100 translation keys for /vr page: hero (badge, title, tagline, subtitle, CTAs), features (3 sections), Flow VR (badge, title, description, 4 features, code mockup text), Home School (problem/solution, values, subjects), Expansion (4 items), CTA section. Page now uses useTranslations() with dynamic data structures. Build verified ✅
 
 ### [T645] Book download stats page (/stats)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T299]
 - **Blocks**: -
@@ -7635,7 +7635,7 @@
 - **Notes**: Create public /stats page showing download analytics: total downloads, popular books, downloads per day chart, format breakdown (PDF/EPUB). Uses localStorage aggregation or server-side analytics if available.
 
 ### [T646] Add "Recently Added" section to /libri
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: -
 - **Blocks**: -
@@ -7643,7 +7643,7 @@
 - **Notes**: Add carousel/grid showing last 10 books added to the library. Requires adding dateAdded field to book metadata. Sort by date, show "New" badge for <7 days. Helps users discover fresh content.
 
 ### [T647] Add "Run Executor" button to FreeRiverHouse UI
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T407]
 - **Blocks**: -
@@ -7651,7 +7651,7 @@
 - **Notes**: Add manual trigger button in FreeRiverHouse component to POST /api/agent-executor. Shows loading state, result count, and errors. Useful for testing and immediate task processing without waiting for cron.
 
 ### [T648] Configure ANTHROPIC_API_KEY in Cloudflare Pages
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T407]
 - **Blocks**: -
@@ -7659,7 +7659,7 @@
 - **Notes**: MANUAL: Go to Cloudflare Dashboard → Pages → onde-surf → Settings → Environment Variables → Add "ANTHROPIC_API_KEY" as encrypted secret. Without this, agent-executor can't process tasks. After adding, redeploy for changes to take effect.
 
 ### [T649] Agent heartbeat registration for onde.surf
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T407]
 - **Blocks**: -
@@ -7667,7 +7667,7 @@
 - **Notes**: Create mechanism for Clawdbot local agents (like clawd) to register themselves with onde.surf D1 database. Update last_seen timestamp via POST /api/agents/heartbeat. This would show real agent status in FreeRiverHouse UI rather than relying only on task activity.
 
 ### [T650] Streak stats breakdown by asset (BTC vs ETH)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T624], [T236]
 - **Blocks**: -
@@ -7675,7 +7675,7 @@
 - **Notes**: Extend streak calculation to track separately for BTC and ETH assets. Add byAsset section to streak stats in gist. Shows if one asset has worse streak patterns (may indicate model calibration issues per asset). Script: analyze-streak-by-asset.py
 
 ### [T651] Weekly report streak summary section
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T624], [T095]
 - **Blocks**: -
@@ -7683,7 +7683,7 @@
 - **Notes**: Add streak summary to kalshi-weekly-report.py. Include: longest win/loss streaks this week, any new records set, comparison to all-time records, streak distribution (how many 2+, 3+, 4+ streaks occurred). Helps track trading psychology week-over-week.
 
 ### [T652] Dashboard streak record indicator badge
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T624], [T359]
 - **Blocks**: -
@@ -7691,7 +7691,7 @@
 - **Notes**: Show badge/indicator on dashboard when current streak equals or exceeds all-time record. Use streak stats from gist. Gold badge for approaching win record, red alert for approaching loss record. Provides at-a-glance awareness of exceptional performance/risk.
 
 ### [T653] ML model baseline: logistic regression on trade features
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T331]
 - **Blocks**: [T654]
@@ -7699,7 +7699,7 @@
 - **Notes**: Create first ML model using T331 logged features. Start with simple logistic regression (scikit-learn) as baseline. Use features: momentum, regime, vol, time-to-expiry, price_distance. Output: model accuracy, feature importance, confusion matrix. Script: train-baseline-model.py. Requires >100 settled trades with outcomes.
 
 ### [T654] ML model comparison: XGBoost vs baseline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T653]
 - **Blocks**: -
@@ -7707,7 +7707,7 @@
 - **Notes**: Train XGBoost classifier on same T331 features, compare to logistic regression baseline. Use cross-validation. Track: AUC, precision/recall, Sharpe if using probability as confidence. May reveal nonlinear patterns baseline misses. Script: train-xgboost-model.py.
 
 ### [T655] Cron job to update ML outcomes daily
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T331]
 - **Blocks**: -
@@ -7764,7 +7764,7 @@
 - **Notes**: ✅ Updated REGOLE-AGENTI.md with REGOLA N3: Memory. Full section with logging requirements, memory structure, search-before-answer protocol, and checklist updates.
 
 ### [T661] Run D1 migration for agent_memory table
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T658]
 - **Blocks**: [T662]
@@ -7772,7 +7772,7 @@
 - **Notes**: Run `wrangler d1 execute ondaDB --file=./apps/surfboard/migrations/0003_agent_memory.sql` to create agent_memory table in D1. Requires wrangler auth.
 
 ### [T662] Integrate agent-memory.ts into agent-executor
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: 
 - **Depends**: [T661]
 - **Blocks**: -
@@ -7780,7 +7780,7 @@
 - **Notes**: Modify `apps/surfboard/src/app/api/agent-executor/route.ts` to use loadAgentContext() and saveTaskMemory() from lib/agent-memory.ts. See docs/AGENT-MEMORY.md for implementation guide.
 
 ### [T422] Add test report history (last 7 days) to dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T418]
 - **Blocks**: -
@@ -7821,7 +7821,7 @@
   - ✅ --threshold flag to customize stale hours (default 24)
 
 ### [T425] Integrate news effectiveness into weekly trading report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T419]
 - **Blocks**: -
@@ -7833,7 +7833,7 @@
   - Recommendation from analyze-news-effectiveness.py
 
 ### [T426] Add news effectiveness cron schedule
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T419]
 - **Blocks**: -
@@ -7843,7 +7843,7 @@
   - Could trigger alert if news hurting performance
 
 ### [T427] News sentiment effectiveness widget on /betting dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T419]
 - **Blocks**: -
@@ -7859,7 +7859,7 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-30 (21:50)
 
 ### [T434] WhisperFlow: Add Silero VAD for voice detection
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T411]
 - **Blocks**: -
@@ -7871,7 +7871,7 @@
   - Install: `pip install silero-vad` or via torch.hub
 
 ### [T435] WhisperFlow: SwiftUI menu bar app skeleton
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T411]
 - **Blocks**: -
@@ -7884,7 +7884,7 @@
   - Xcode project in apps/whisperflow/macos/
 
 ### [T436] WhisperFlow: WebSocket server for VR integration
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T434]
 - **Blocks**: -
@@ -7900,7 +7900,7 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-30 (00:15 HEARTBEAT)
 
 ### [T462] Bind HEALTH_ALERTS_KV in Cloudflare Pages dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T455]
 - **Blocks**: -
@@ -7912,7 +7912,7 @@
   - Redeploy to activate
 
 ### [T463] Add /health page widget for alert history timeline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T455]
 - **Blocks**: -
@@ -7925,7 +7925,7 @@
   - Filter by date range
 
 ### [T464] Weather market performance report (weekly cron)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T422], [T443]
 - **Blocks**: -
@@ -7938,7 +7938,7 @@
   - Cron: Sunday 12:00 UTC → creates kalshi-weather-weekly.alert
 
 ### [T663] onde.la: Create /privacy and /terms pages
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -7953,7 +7953,7 @@
 ## 🌊 ONDE PORTAL/APP - Visione Musk Tech/Entertainment (DA MATTIA 2026-01-29)
 
 ### [T600] Onde Portal: Visione e Architettura
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: [T601], [T602]
@@ -7968,7 +7968,7 @@
   - **Platform**: Web first, poi native
 
 ### [T601] Onde Portal: UI/UX Design
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T600]
 - **Blocks**: [T602]
@@ -7980,7 +7980,7 @@
   - Dark mode nativo
 
 ### [T602] Onde Portal: Integrazione Libri
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T600]
 - **Blocks**: -
@@ -7991,7 +7991,7 @@
   - Bookmarks e note
 
 ### [T603] Onde Portal: Integrazione Giochi
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T600]
 - **Blocks**: -
@@ -8005,7 +8005,7 @@
 ## 🎢 ROLLER COASTER - Prototipo 3D (DA MATTIA 2026-01-29)
 
 ### [T664] Roller Coaster: Prototipo con Blender + Radeon
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8025,7 +8025,7 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (18:34 HEARTBEAT)
 
 ### [T690] Moonlight House: Add achievements gallery/showcase
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T461]
 - **Blocks**: -
@@ -8039,7 +8039,7 @@
   - Achievement rarity percentages (future: compare with other players)
 
 ### [T691] Health Dashboard: Add API response time percentiles
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T446]
 - **Blocks**: -
@@ -8052,7 +8052,7 @@
   - Export latency data as CSV for analysis
 
 ### [T692] Autotrader: Add circuit breaker status to dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T001]
 - **Blocks**: -
@@ -8066,7 +8066,7 @@
   - Historical trips timeline
 
 ### [T697] Reader App: Deploy updated version with EPUB support
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T690]
 - **Blocks**: -
@@ -8097,7 +8097,7 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T699] Reader App: Add EPUB export to reading list
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T690]
 - **Blocks**: -
@@ -8113,7 +8113,7 @@
 ## 🎨 CORDE - INTERFACCIA GENERAZIONE (DA MATTIA 2026-01-29)
 
 ### [T700] Corde: UI Improvements stile ComfyUI
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: [T701], [T702], [T703]
@@ -8128,7 +8128,7 @@
   - [ ] Undo/redo support
 
 ### [T701] Corde: Model Loader Node con Multi-Device
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T700]
 - **Blocks**: [T704]
@@ -8141,7 +8141,7 @@
   - [ ] Config persistence
 
 ### [T702] Corde: Backend Abstraction Layer Multi-GPU
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T700]
 - **Blocks**: -
@@ -8155,7 +8155,7 @@
   - [ ] Test su Radeon 7900 XT (ROCm/TinyGrad)
 
 ### [T703] Corde: Nuovi Nodi Generazione
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T700]
 - **Blocks**: -
@@ -8169,7 +8169,7 @@
   - [ ] VAE Decode/Encode Nodes
 
 ### [T704] Corde: Video Generation Pipeline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T701], [T702]
 - **Blocks**: -
@@ -8186,7 +8186,7 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (22:16 HEARTBEAT)
 
 ### [T722] Reader App: Add OPDS catalog support
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T668]
 - **Blocks**: -
@@ -8200,7 +8200,7 @@
   - Catalog history/favorites
 
 ### [T723] SE-Bot: CLI tool for testing RAG responses
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T472]
 - **Blocks**: -
@@ -8215,7 +8215,7 @@
   - Usage: `python cli_test.py "What is ZTNA?" --with-claude`
 
 ### [T724] Trading: Add Sharpe ratio to performance dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8264,7 +8264,7 @@
   - ⚠️ Major finding: TASKS.md has many duplicate sections that need cleanup (T730)
 
 ### [T730] TASKS.md: Deduplicate task entries
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: [T728]
 - **Blocks**: -
@@ -8285,7 +8285,7 @@
   - **Prevention**: Add pre-commit hook to check for duplicate IDs
 
 ### [T729] Autotrader: Add daily digest email summary
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8300,7 +8300,7 @@
   - Fallback for T219 (email notification for critical alerts)
 
 ### [T731] SE-Bot: Add suggestion feedback loop (thumbs up/down)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T474]
 - **Blocks**: -
@@ -8339,7 +8339,7 @@
   - ⏳ Demo video/GIF (future - requires screen recording)
 
 ### [T733] SE-Bot: Add configurable hotkey and position persistence
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T474]
 - **Blocks**: -
@@ -8393,7 +8393,7 @@
   - **Integration**: context_analyzer.py now logs mentions and generates styled suggestions
 
 ### [T736] Voice Output: Add speaking queue for multiple suggestions
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T475]
 - **Blocks**: -
@@ -8408,7 +8408,7 @@
 
 
 ### [T780] SE-Bot: Weekly competitor mention report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T735]
 - **Blocks**: -
@@ -8422,7 +8422,7 @@
   - Add to existing weekly report system
 
 ### [T781] SE-Bot: Add "Win the Deal" playbook generator
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T735], [T473]
 - **Blocks**: -
@@ -8436,7 +8436,7 @@
   - One-pager format for easy printing/sharing
 
 ### [T782] SE-Bot: Sentiment detection in meeting context
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T473]
 - **Blocks**: -
@@ -8465,7 +8465,7 @@
   - Graceful fallback if credentials not configured
 
 ### [T746] CI/CD: Add deploy preview URLs for pull requests
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T726]
 - **Blocks**: -
@@ -8477,7 +8477,7 @@
   - Useful for review before merge
 
 ### [T747] CI/CD: Add test coverage tracking
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T726]
 - **Blocks**: -
@@ -8523,7 +8523,7 @@
   - Helpful for comparing relative performance across positions
 
 ### [T750] Autotrader: Add position entry timestamp to status API
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8568,7 +8568,7 @@
   - Daily volume widget now live on /betting page
 
 ### [T753] Dashboard: Add volume trend sparkline
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T751]
 - **Blocks**: -
@@ -8597,7 +8597,7 @@
   - ⏳ Dashboard sparkline can now use this data (T753)
 
 ### [T755] Dashboard: Add trade velocity indicator
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8664,7 +8664,7 @@
   - **Cron**: Add `0 12,18 * * * python3 /path/to/kalshi-volume-anomaly-alert.py` for twice-daily checks
 
 ### [T759] Reader App: Track personal reading speed
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T757]
 - **Blocks**: -
@@ -8677,7 +8677,7 @@
   - More accurate "time remaining" as user reads more
 
 ### [T760] Reader App: Library summary stats
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T719]
 - **Blocks**: -
@@ -8690,7 +8690,7 @@
   - Small widget/banner at top of library
 
 ### [T761] Reader App: Enhanced offline PWA caching
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T695]
 - **Blocks**: -
@@ -8723,7 +8723,7 @@
   - **Fixed**: 15-loss deadlock where autotrader was stuck in trigger→release→trigger loop
 
 ### [T763] Trading: Weather market post-mortem analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -8771,7 +8771,7 @@
   - Press 'C' on /betting to toggle comparison tooltips
 
 ### [T766] Dashboard: Add position PnL sparkline to open positions
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T743]
 - **Blocks**: -
@@ -8835,7 +8835,7 @@
   - **Constants**: STREAK_TILT_THRESHOLD=3, STREAK_HOT_HAND_THRESHOLD=3, STREAK_POSITION_ANALYSIS_FILE
 
 ### [T771] Trading: Add streak position to daily summary report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T387]
 - **Blocks**: -
@@ -8847,7 +8847,7 @@
   - Streak continuation accuracy for the day
 
 ### [T772] Dashboard: Add streak position tooltip to Trade History Pattern
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T387]
 - **Blocks**: -
@@ -8859,7 +8859,7 @@
   - Helps identify if tilt patterns affected decisions
 
 ### [T773] Trading: Configurable streak thresholds via environment
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T770]
 - **Blocks**: -
@@ -8919,7 +8919,7 @@
   - Agent stats CSV export now live on /house leaderboard
 
 ### [T777] Dashboard: Add streak impact analysis widget to /betting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T775]
 - **Blocks**: -
@@ -8931,7 +8931,7 @@
   - Auto-load from streak-impact-analysis.json gist
 
 ### [T778] Cron: Weekly streak impact report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T775]
 - **Blocks**: -
@@ -8943,7 +8943,7 @@
   - Include streak summary in weekly report
 
 ### [T779] Trading: Alert when daily tilt trades exceed threshold
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T770], [T774]
 - **Blocks**: -
@@ -8955,7 +8955,7 @@
   - Resets at midnight UTC
 
 ### [T780] Trading: Measure streak sizing effectiveness over time
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T388]
 - **Blocks**: -
@@ -8968,7 +8968,7 @@
   - Output: data/trading/streak-sizing-analysis.json
 
 ### [T781] Dashboard: Show active position size adjustments
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T388]
 - **Blocks**: -
@@ -8980,7 +8980,7 @@
   - Helps user understand why positions may be smaller
 
 ### [T782] Reader App: Offline book download for PWA
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T690]
 - **Blocks**: -
@@ -9007,7 +9007,7 @@
   - Level-up sound effects now live in Free River House!
 
 ### [T784] Add test coverage for FreeRiverHouse gamification features
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -9020,7 +9020,7 @@
   - Test notification toggle
 
 ### [T785] Agent mood tooltip with explanation
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T510]
 - **Blocks**: -
@@ -9032,7 +9032,7 @@
   - Helps users understand mood calculations
 
 ### [T786] Alert frequency analysis - track which alerts fire most
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -9078,7 +9078,7 @@
     - `python3 analyze-lessons-learned.py --verbose` - Detailed output
 
 ### [T788] Dashboard: Correlation history sparkline on /betting
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T723]
 - **Blocks**: -
@@ -9115,7 +9115,7 @@
   - **Env:** `TRADING_SCHEDULE_ENABLED=false` also disables
 
 ### [T790] Dashboard: Trading window recommendations widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
 - **Depends**: [T412]
 - **Blocks**: -
@@ -9150,7 +9150,7 @@
 
 
 ### [T792] Dashboard: Trading window heatmap widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T790]
 - **Blocks**: -
@@ -9164,7 +9164,7 @@
   - Show confidence intervals on hover
 
 ### [T793] SE-Bot: Add keyboard shortcuts overlay
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T474]
 - **Blocks**: -
@@ -9177,7 +9177,7 @@
   - Show current state indicators (listening, paused, muted)
 
 ### [T794] Reader App: Add chapter jump dropdown
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T690]
 - **Blocks**: -
@@ -9191,7 +9191,7 @@
   - Remember last reading positions per book
 
 ### [T795] Trading: Add gist push health status to daily report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T767]
 - **Blocks**: -
@@ -9204,7 +9204,7 @@
   - Track average retry count per push (efficiency metric)
 
 ### [T796] Dashboard: Add system health indicators bar
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T767]
 - **Blocks**: -
@@ -9243,7 +9243,7 @@
     - `python analyze-trade-frequency.py --json` - JSON output
 
 ### [T798] Dashboard: A/B testing results visualization widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T220]
 - **Blocks**: -
@@ -9281,7 +9281,7 @@
     - `python weekly-ab-test.py --force` - Run even if already ran this week
 
 ### [T800] Trading: Auto-tune strategy parameters based on recent performance
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T220], [T485]
 - **Blocks**: -
@@ -9323,7 +9323,7 @@
   Reference: test-failure.alert 2025-01-30
 
 ### [T802] Trading: Analyze holiday trading performance retrospectively
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T414]
 - **Blocks**: -
@@ -9337,7 +9337,7 @@
   - Script: `scripts/analyze-holiday-performance.py`
 
 ### [T803] SE-Bot: Add comprehensive integration tests
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T474]
 - **Blocks**: -
@@ -9352,7 +9352,7 @@
   - Test file: `apps/se-bot/tests/test_integration.py`
 
 ### [T804] Trading: Weekly position diversity report
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T480], [T482]
 - **Blocks**: -
@@ -9366,7 +9366,7 @@
   - Script: `scripts/weekly-diversity-report.py`
 
 ### [T805] Trading: Stop-loss history trend chart
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T366]
 - **Blocks**: -
@@ -9379,7 +9379,7 @@
   - Data from kalshi-stop-loss.log aggregated by month
 
 ### [T806] Trading: Analyze premature stop-loss patterns
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T366]
 - **Blocks**: -
@@ -9451,7 +9451,7 @@
   - Add to /betting page stats section
 
 ### [T810] Trading: Autotrader activity correlation analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T754], [T482]
 - **Blocks**: -
@@ -9465,7 +9465,7 @@
   - Script: `scripts/analyze-activity-correlation.py`
 
 ### [T811] SE-Bot: Create quickstart script with dependency checker
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T732]
 - **Blocks**: -
@@ -9480,7 +9480,7 @@
   - Single command to get SE-Bot ready: `python quickstart.py`
 
 ### [T812] Reader App: Add daily reading goal feature
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T719]
 - **Blocks**: -
@@ -9495,7 +9495,7 @@
   - Optional: adjust goal based on historical averages
 
 ### [T813] Trading: Market regime detection for strategy switching
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T483]
 - **Blocks**: -
@@ -9510,7 +9510,7 @@
   - Output: `data/trading/market-regime.json`
 
 ### [T814] Trading: Track composite signal accuracy over time
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T460]
 - **Blocks**: -
@@ -9524,7 +9524,7 @@
   - Output: `data/trading/composite-signal-stats.json`
 
 ### [T815] Dashboard: Composite signal hit rate widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T814]
 - **Blocks**: -
@@ -9538,7 +9538,7 @@
   - Pull data from gist (extend push-stats-to-gist.py)
 
 ### [T816] Trading: Add composite signal logging to trade data
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T460]
 - **Blocks**: [T814]
@@ -9550,7 +9550,7 @@
   - Verify fields appear in kalshi-trades-*.jsonl
 
 ### [T817] Dashboard: Latency vs Win Rate correlation chart
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T804]
 - **Blocks**: -
@@ -9563,7 +9563,7 @@
   - Help determine optimal latency thresholds
 
 ### [T818] Trading: Time-of-day latency pattern analysis
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T801]
 - **Blocks**: -
@@ -9577,7 +9577,7 @@
   - Could inform trading schedule optimization
 
 ### [T819] Dashboard: Historical latency comparison widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T800]
 - **Blocks**: -
@@ -9610,7 +9610,7 @@
   - ⏳ Future: Alert if P95 > 3s threshold
 
 ### [T821] Trading: Dynamic position sizing based on streak
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -9642,7 +9642,7 @@
   - ⏳ Future: date range filter (T823)
 
 ### [T823] Dashboard: Date range filter for CSV export
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T822]
 - **Blocks**: -
@@ -9673,7 +9673,7 @@
   - **Tested**: No current anomalies (P95 values are healthy)
 
 ### [T825] Dashboard: Percentile latency widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T820]
 - **Blocks**: -
@@ -9699,7 +9699,7 @@
   - LatencyAdjustmentIndicator widget now live on /betting
 
 ### [T827] Cron job health monitor script
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -9713,7 +9713,7 @@
   - Useful for detecting silently failing crons
 
 ### [T828] Dashboard: Weekly volatility comparison widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T434]
 - **Blocks**: -
