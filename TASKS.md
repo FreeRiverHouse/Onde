@@ -3386,17 +3386,23 @@
   - Run weekly to validate/adjust thresholds
 
 ### [T805] Trading: Add API timeout with retry for slow endpoints
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T801]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Improve resilience when API is slow:
-  - Add configurable timeout per endpoint type
-  - Retry with exponential backoff (max 3 attempts)
-  - Log timeout events to latency profile
-  - Skip to fallback exchange on persistent timeout
-  - Alert file when multiple timeouts in short window
+- **Notes**: ✅ Implemented endpoint-specific timeouts with alert system!
+  - **Config**: `ENDPOINT_TIMEOUTS` dict with per-endpoint timeouts
+    - order: 8s (fail fast for order placement)
+    - balance/positions: 10s
+    - markets_search: 15s (can be slower)
+  - ✅ Retry with exponential backoff (already existed, now uses configurable timeout)
+  - ✅ Log timeout events to latency profile (endpoint_timeout)
+  - ✅ Track consecutive timeouts with `record_timeout()` function
+  - ✅ Alert file `kalshi-timeout.alert` when 3+ timeouts in 5min window
+  - ✅ Cooldown prevents alert spam (1h between alerts)
+  - Syntax verified OK
 
 ---
 

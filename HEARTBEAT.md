@@ -36,6 +36,7 @@
 - `scripts/kalshi-vol-preference.alert` → Volatility preference! Asset con vol ratio alto per 3+ cicli. Manda alert, poi elimina
 - `scripts/kalshi-recommendations-change.alert` → Trading recommendations changed! Manda alert con dettagli, poi elimina
 - `scripts/kalshi-gist-push-failed.alert` → Gist push fallito 3+ volte consecutive! Manda alert, poi elimina
+- `scripts/kalshi-timeout.alert` → API timeout cluster (3+ in 5min)! Manda alert con dettagli, poi elimina
 
 ### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
 Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:

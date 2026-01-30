@@ -513,6 +513,83 @@ def identify_bottlenecks() -> list:
     return bottlenecks
 
 
+# ============== ENDPOINT-SPECIFIC TIMEOUTS (T805) ==============
+
+# Configurable timeout per endpoint type
+# Critical endpoints (orders) get shorter timeout to fail fast
+# Read-only endpoints can tolerate slightly longer waits
+ENDPOINT_TIMEOUTS = {
+    "order": 8,           # Order placement - fail fast to avoid partial fills
+    "balance": 10,        # Balance check - medium priority
+    "positions": 10,      # Position check - medium priority  
+    "markets_search": 15, # Market search - can be slower
+    "fills": 12,          # Fill history - medium priority
+    "default": 10         # Fallback for unknown endpoints
+}
+
+# Timeout alert threshold - create alert when this many timeouts happen in TIMEOUT_ALERT_WINDOW
+TIMEOUT_ALERT_THRESHOLD = 3
+TIMEOUT_ALERT_WINDOW_SECONDS = 300  # 5 minutes
+TIMEOUT_ALERT_COOLDOWN = 3600  # 1 hour between alerts
+
+# Track recent timeouts for alerting
+RECENT_TIMEOUTS = []  # List of (timestamp, endpoint) tuples
+LAST_TIMEOUT_ALERT = None
+
+
+def get_endpoint_timeout(endpoint_name: str) -> int:
+    """Get configured timeout for an endpoint type."""
+    return ENDPOINT_TIMEOUTS.get(endpoint_name, ENDPOINT_TIMEOUTS["default"])
+
+
+def record_timeout(endpoint: str):
+    """
+    Record a timeout event and create alert if threshold exceeded.
+    
+    Creates kalshi-timeout.alert if multiple timeouts happen in short window.
+    """
+    global RECENT_TIMEOUTS, LAST_TIMEOUT_ALERT
+    
+    now = time.time()
+    RECENT_TIMEOUTS.append((now, endpoint))
+    
+    # Clean old timeouts outside window
+    cutoff = now - TIMEOUT_ALERT_WINDOW_SECONDS
+    RECENT_TIMEOUTS = [(t, e) for t, e in RECENT_TIMEOUTS if t > cutoff]
+    
+    # Check if we should alert
+    if len(RECENT_TIMEOUTS) >= TIMEOUT_ALERT_THRESHOLD:
+        # Check cooldown
+        if LAST_TIMEOUT_ALERT is None or (now - LAST_TIMEOUT_ALERT) > TIMEOUT_ALERT_COOLDOWN:
+            create_timeout_alert(RECENT_TIMEOUTS)
+            LAST_TIMEOUT_ALERT = now
+
+
+def create_timeout_alert(timeouts: list):
+    """Create alert file for multiple API timeouts."""
+    alert_file = Path(__file__).parent / "kalshi-timeout.alert"
+    
+    endpoints_hit = {}
+    for _, endpoint in timeouts:
+        endpoints_hit[endpoint] = endpoints_hit.get(endpoint, 0) + 1
+    
+    endpoint_summary = ", ".join(f"{e}: {c}x" for e, c in endpoints_hit.items())
+    
+    alert_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "event": "api_timeout_cluster",
+        "timeout_count": len(timeouts),
+        "window_seconds": TIMEOUT_ALERT_WINDOW_SECONDS,
+        "endpoints_affected": endpoints_hit,
+        "message": f"⚠️ API TIMEOUT CLUSTER: {len(timeouts)} timeouts in {TIMEOUT_ALERT_WINDOW_SECONDS//60}min ({endpoint_summary})"
+    }
+    
+    with open(alert_file, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"⚠️ TIMEOUT ALERT: {len(timeouts)} timeouts - {endpoint_summary}")
+
+
 # ============== LATENCY-BASED POSITION SIZING (T801) ==============
 
 def get_latency_position_multiplier() -> tuple[float, str]:
@@ -2448,7 +2525,7 @@ def sign_request(method: str, path: str, timestamp: str) -> str:
 
 
 def api_request(method: str, path: str, body: dict = None, max_retries: int = 3) -> dict:
-    """Make authenticated API request with exponential backoff retry and latency tracking"""
+    """Make authenticated API request with exponential backoff retry, configurable timeout (T805), and latency tracking"""
     url = f"{BASE_URL}{path}"
     
     # Extract endpoint name for profiling (e.g., "/trade-api/v2/portfolio/balance" -> "balance")
@@ -2463,6 +2540,9 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
         endpoint_name = "markets_search"
     elif "fills" in path:
         endpoint_name = "fills"
+    
+    # Get endpoint-specific timeout (T805)
+    timeout_seconds = get_endpoint_timeout(endpoint_name)
     
     total_start = time.time()
     
@@ -2481,9 +2561,9 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
         
         try:
             if method == "GET":
-                resp = requests.get(url, headers=headers, timeout=10)
+                resp = requests.get(url, headers=headers, timeout=timeout_seconds)
             elif method == "POST":
-                resp = requests.post(url, headers=headers, json=body, timeout=10)
+                resp = requests.post(url, headers=headers, json=body, timeout=timeout_seconds)
             
             attempt_latency = (time.time() - attempt_start) * 1000  # Convert to ms
             
@@ -2510,12 +2590,14 @@ def api_request(method: str, path: str, body: dict = None, max_retries: int = 3)
         except requests.exceptions.Timeout:
             if attempt < max_retries - 1:
                 wait_time = (2 ** attempt) + (time.time() % 1)
-                print(f"[RETRY] Timeout, waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
+                print(f"[RETRY] Timeout ({timeout_seconds}s), waiting {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})")
                 time.sleep(wait_time)
                 continue
+            # Final timeout - record for profiling and alerting (T805)
             total_latency = (time.time() - total_start) * 1000
             record_api_latency(f"{endpoint_name}_timeout", total_latency)
-            return {"error": f"Timeout after {max_retries} retries"}
+            record_timeout(endpoint_name)  # Track for timeout cluster alerting
+            return {"error": f"Timeout after {max_retries} retries ({timeout_seconds}s each)"}
             
         except requests.exceptions.ConnectionError:
             if attempt < max_retries - 1:
