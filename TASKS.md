@@ -9683,3 +9683,36 @@
   - Week-over-week trend (↑/↓/→)
   - Data from volatility-week-YYYY-WW.json
   - Alert badge when divergence >20%
+
+### [T820] Fix: AIKO rinominato in MILO - aggiornare ovunque
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: AIKO è stato rinominato MILO. Aggiornare:
+  - Riferimenti in codice
+  - Asset e immagini
+  - Documentazione
+  - KDP listings
+
+### [T821] Fix: Moonlight Magic House non carica su onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Gioco non funziona. Investigare e fixare.
+
+### [T822] Infra: Test suite E2E per tutto il sito
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Test programmatici per:
+  - Navigazione sito (onde.la, onde.surf)
+  - Download libri (reader app)
+  - Giochi (verificare caricamento)
+  - Tutti i flussi utente critici
+  - Playwright/Puppeteer per browser automation
