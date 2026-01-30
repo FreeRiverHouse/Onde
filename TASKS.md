@@ -826,17 +826,24 @@
   - Offline indicator now live in Library and Reader headers
 
 ### [T806] Reader App: Add book search/filter in library
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add search and filter functionality to library view:
-  - Search by title, author
-  - Filter by: Currently Reading, Completed, Unread
-  - Sort by: Recently Read, Title, Author, Progress
-  - Persist last filter/sort preference
-  - Show result count
+- **Notes**: ✅ Implemented search/filter/sort in Library view!
+  - ✅ **Search**: By title or author (real-time filtering)
+  - ✅ **Filter dropdown**: All Books, Currently Reading, Completed, Unread
+  - ✅ **Sort dropdown**: Recently Read, Title A-Z, Author A-Z, Progress
+  - ✅ **Result count**: Shows "X books found" when filtering
+  - ✅ **Clear filters**: Button when no results found
+  - ✅ **Mobile responsive**: Filter toggle button on mobile
+  - ✅ **Preferences persist**: Filter/sort saved to localStorage
+  - ✅ **Theme aware**: Works with light/dark/sepia themes
+  - ✅ "Continue Reading" section hidden when filtering
+  - ✅ Deployed: https://e2ae8dd5.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T807] Reader App: Add reading goals and reminders
 - **Status**: TODO

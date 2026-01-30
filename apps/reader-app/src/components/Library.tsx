@@ -1,7 +1,7 @@
 'use client';
 
 import { useReaderStore, Book } from '@/store/readerStore';
-import { useState, useRef, useCallback, DragEvent } from 'react';
+import { useState, useRef, useCallback, DragEvent, useMemo, useEffect } from 'react';
 import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
 import { OfflineIndicator } from './OfflineIndicator';
@@ -13,6 +13,38 @@ interface UploadProgress {
   status: 'pending' | 'uploading' | 'done' | 'error';
 }
 
+// Filter and sort options
+type FilterOption = 'all' | 'reading' | 'completed' | 'unread';
+type SortOption = 'recent' | 'title' | 'author' | 'progress';
+
+// Persist library preferences
+const LIBRARY_PREFS_KEY = 'onde-reader-library-prefs';
+
+interface LibraryPrefs {
+  filter: FilterOption;
+  sort: SortOption;
+}
+
+function loadLibraryPrefs(): LibraryPrefs {
+  if (typeof window === 'undefined') return { filter: 'all', sort: 'recent' };
+  try {
+    const saved = localStorage.getItem(LIBRARY_PREFS_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch {
+    // Ignore localStorage errors
+  }
+  return { filter: 'all', sort: 'recent' };
+}
+
+function saveLibraryPrefs(prefs: LibraryPrefs) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(LIBRARY_PREFS_KEY, JSON.stringify(prefs));
+  } catch {
+    // Ignore localStorage errors
+  }
+}
+
 export function Library() {
   const { books, setCurrentBook, addBook, settings } = useReaderStore();
   const [isUploading, setIsUploading] = useState(false);
@@ -20,6 +52,69 @@ export function Library() {
   const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
+  
+  // Search, filter, and sort state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState<FilterOption>('all');
+  const [sort, setSort] = useState<SortOption>('recent');
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // Load saved preferences on mount
+  useEffect(() => {
+    const prefs = loadLibraryPrefs();
+    setFilter(prefs.filter);
+    setSort(prefs.sort);
+  }, []);
+  
+  // Save preferences when changed
+  useEffect(() => {
+    saveLibraryPrefs({ filter, sort });
+  }, [filter, sort]);
+  
+  // Filter and sort books
+  const filteredBooks = useMemo(() => {
+    let result = [...books];
+    
+    // Apply search
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(book => 
+        book.title.toLowerCase().includes(query) ||
+        book.author.toLowerCase().includes(query)
+      );
+    }
+    
+    // Apply filter
+    switch (filter) {
+      case 'reading':
+        result = result.filter(b => b.progress > 0 && b.progress < 100);
+        break;
+      case 'completed':
+        result = result.filter(b => b.progress >= 100);
+        break;
+      case 'unread':
+        result = result.filter(b => b.progress === 0 || !b.progress);
+        break;
+    }
+    
+    // Apply sort
+    switch (sort) {
+      case 'recent':
+        result.sort((a, b) => (b.lastRead || 0) - (a.lastRead || 0));
+        break;
+      case 'title':
+        result.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'author':
+        result.sort((a, b) => a.author.localeCompare(b.author));
+        break;
+      case 'progress':
+        result.sort((a, b) => (b.progress || 0) - (a.progress || 0));
+        break;
+    }
+    
+    return result;
+  }, [books, searchQuery, filter, sort]);
 
   const handleBookClick = (book: Book) => {
     setCurrentBook(book);
@@ -257,8 +352,105 @@ export function Library() {
         </div>
       </header>
 
-      {/* Reading Progress Section */}
-      {books.some(b => b.progress > 0) && (
+      {/* Search and Filter Bar */}
+      <div className="max-w-6xl mx-auto mb-8">
+        <div className="flex flex-col sm:flex-row gap-4">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="Search by title or author..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`w-full pl-10 pr-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                settings.theme === 'dark' 
+                  ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400' 
+                  : settings.theme === 'sepia'
+                  ? 'bg-sepia-50 border-sepia-300 text-sepia-900 placeholder-sepia-500'
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
+              }`}
+            />
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xl">🔍</span>
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          
+          {/* Filter Toggle Button (Mobile) */}
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`sm:hidden px-4 py-3 rounded-xl border flex items-center justify-center gap-2 ${
+              settings.theme === 'dark' 
+                ? 'bg-gray-800 border-gray-700 text-white' 
+                : settings.theme === 'sepia'
+                ? 'bg-sepia-50 border-sepia-300 text-sepia-900'
+                : 'bg-white border-gray-200 text-gray-900'
+            }`}
+          >
+            <span>🎛️</span>
+            Filters
+            {(filter !== 'all' || sort !== 'recent') && (
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+            )}
+          </button>
+          
+          {/* Filter and Sort (Desktop or expanded on mobile) */}
+          <div className={`flex gap-3 ${showFilters ? 'flex' : 'hidden sm:flex'}`}>
+            {/* Filter Dropdown */}
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value as FilterOption)}
+              className={`px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer ${
+                settings.theme === 'dark' 
+                  ? 'bg-gray-800 border-gray-700 text-white' 
+                  : settings.theme === 'sepia'
+                  ? 'bg-sepia-50 border-sepia-300 text-sepia-900'
+                  : 'bg-white border-gray-200 text-gray-900'
+              }`}
+            >
+              <option value="all">📚 All Books</option>
+              <option value="reading">📖 Currently Reading</option>
+              <option value="completed">✅ Completed</option>
+              <option value="unread">🆕 Unread</option>
+            </select>
+            
+            {/* Sort Dropdown */}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortOption)}
+              className={`px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer ${
+                settings.theme === 'dark' 
+                  ? 'bg-gray-800 border-gray-700 text-white' 
+                  : settings.theme === 'sepia'
+                  ? 'bg-sepia-50 border-sepia-300 text-sepia-900'
+                  : 'bg-white border-gray-200 text-gray-900'
+              }`}
+            >
+              <option value="recent">🕐 Recently Read</option>
+              <option value="title">🔤 Title A-Z</option>
+              <option value="author">👤 Author A-Z</option>
+              <option value="progress">📊 Progress</option>
+            </select>
+          </div>
+        </div>
+        
+        {/* Result count */}
+        {(searchQuery || filter !== 'all') && (
+          <p className="mt-3 text-sm opacity-70">
+            {filteredBooks.length} book{filteredBooks.length !== 1 ? 's' : ''} found
+            {searchQuery && ` for "${searchQuery}"`}
+            {filter !== 'all' && ` (${filter})`}
+          </p>
+        )}
+      </div>
+
+      {/* Reading Progress Section - only show when not filtering */}
+      {!searchQuery && filter === 'all' && books.some(b => b.progress > 0 && b.progress < 100) && (
         <section className="max-w-6xl mx-auto mb-12">
           <h2 className="text-2xl font-semibold mb-6">📖 Continue Reading</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -275,11 +467,28 @@ export function Library() {
 
       {/* All Books */}
       <section className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-6">📚 All Books</h2>
+        <h2 className="text-2xl font-semibold mb-6">
+          {filter === 'all' ? '📚 All Books' : 
+           filter === 'reading' ? '📖 Currently Reading' :
+           filter === 'completed' ? '✅ Completed' : '🆕 Unread'}
+        </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-          {books.map((book) => (
-            <BookCard key={book.id} book={book} onClick={handleBookClick} />
-          ))}
+          {filteredBooks.length === 0 && (searchQuery || filter !== 'all') ? (
+            <div className="col-span-full text-center py-12 opacity-60">
+              <span className="text-4xl block mb-4">📭</span>
+              <p>No books found</p>
+              <button 
+                onClick={() => { setSearchQuery(''); setFilter('all'); }}
+                className="mt-2 text-blue-500 hover:underline"
+              >
+                Clear filters
+              </button>
+            </div>
+          ) : (
+            filteredBooks.map((book) => (
+              <BookCard key={book.id} book={book} onClick={handleBookClick} />
+            ))
+          )}
           
           {/* Add Book Card - also acts as drop zone hint */}
           <button
