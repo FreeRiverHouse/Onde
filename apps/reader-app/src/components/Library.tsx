@@ -3,6 +3,7 @@
 import { useReaderStore, Book } from '@/store/readerStore';
 import { useState, useRef } from 'react';
 import { storeEpubFile } from '@/lib/epubStorage';
+import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
 
 export function Library() {
   const { books, setCurrentBook, addBook, settings } = useReaderStore();
@@ -131,6 +132,11 @@ export function Library() {
 }
 
 function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void }) {
+  // Calculate remaining reading time
+  const remainingTime = book.estimatedReadingMinutes && book.progress > 0
+    ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
+    : book.estimatedReadingMinutes;
+  
   return (
     <button
       onClick={() => onClick(book)}
@@ -145,6 +151,14 @@ function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
           <span className="text-white text-center font-medium line-clamp-3">{book.title}</span>
+        </div>
+      )}
+      
+      {/* Reading time badge */}
+      {remainingTime && (
+        <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+          <span>⏱️</span>
+          <span>{formatReadingTimeCompact(remainingTime)}</span>
         </div>
       )}
       
@@ -165,12 +179,22 @@ function BookCard({ book, onClick }: { book: Book; onClick: (book: Book) => void
         {book.progress > 0 && (
           <span className="text-green-400 text-sm mt-2">{Math.round(book.progress)}% complete</span>
         )}
+        {remainingTime && (
+          <span className="text-blue-300 text-sm mt-1">
+            {book.progress > 0 ? `${formatReadingTimeCompact(remainingTime)} left` : formatReadingTimeCompact(remainingTime)}
+          </span>
+        )}
       </div>
     </button>
   );
 }
 
 function ContinueReadingCard({ book, onClick }: { book: Book; onClick: (book: Book) => void }) {
+  // Calculate remaining reading time
+  const remainingTime = book.estimatedReadingMinutes
+    ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
+    : undefined;
+  
   return (
     <button
       onClick={() => onClick(book)}
@@ -193,7 +217,12 @@ function ContinueReadingCard({ book, onClick }: { book: Book; onClick: (book: Bo
               style={{ width: `${book.progress}%` }}
             />
           </div>
-          <p className="text-xs opacity-60 mt-1">{Math.round(book.progress)}% complete</p>
+          <div className="flex justify-between items-center mt-1">
+            <p className="text-xs opacity-60">{Math.round(book.progress)}% complete</p>
+            {remainingTime && (
+              <p className="text-xs text-blue-500">⏱️ {formatReadingTimeCompact(remainingTime)} left</p>
+            )}
+          </div>
         </div>
       </div>
     </button>

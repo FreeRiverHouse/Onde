@@ -10,6 +10,7 @@ import { AnnotationsPanel } from './AnnotationsPanel';
 import { VocabularyPanel } from './VocabularyPanel';
 import { TextToSpeech } from './TextToSpeech';
 import { ReadingStatsPanel } from './ReadingStatsPanel';
+import { calculateReadingMinutes } from '@/lib/readingTime';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
 interface TocItem {
@@ -29,6 +30,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     currentBook,
     setCurrentBook,
     updateBookProgress,
+    updateBookMetadata,
     settings,
     isSettingsOpen,
     isTocOpen,
@@ -180,6 +182,27 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         // Generate locations for progress tracking
         await book.locations.generate(1024);
         setTotalLocations(book.locations.length());
+
+        // Calculate word count for reading time estimate (if not already calculated)
+        const existingWordCount = existingBook?.wordCount;
+        if (!existingWordCount) {
+          try {
+            // Estimate word count from locations (each location is ~150 words)
+            // This is a reasonable estimate that doesn't require loading all spine items
+            const locationCount = book.locations.length();
+            const estimatedWordCount = locationCount * 150;
+            
+            if (estimatedWordCount > 0) {
+              const estimatedMinutes = calculateReadingMinutes(estimatedWordCount);
+              updateBookMetadata(bookId, {
+                wordCount: estimatedWordCount,
+                estimatedReadingMinutes: estimatedMinutes,
+              });
+            }
+          } catch (err) {
+            console.error('Error calculating word count:', err);
+          }
+        }
 
         // Create rendition
         const rendition = book.renderTo(viewerRef.current!, {

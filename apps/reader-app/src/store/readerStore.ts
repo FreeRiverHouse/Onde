@@ -41,6 +41,8 @@ export interface Book {
   totalLocations?: number;
   currentLocation?: number;
   lastRead?: number;
+  wordCount?: number; // Total words in book
+  estimatedReadingMinutes?: number; // Estimated time at 200 WPM
 }
 
 export interface ReaderSettings {
@@ -84,6 +86,7 @@ interface ReaderState {
   addBook: (book: Book) => void;
   removeBook: (id: string) => void;
   updateBookProgress: (id: string, progress: number, cfi?: string, location?: number) => void;
+  updateBookMetadata: (id: string, metadata: { wordCount?: number; estimatedReadingMinutes?: number }) => void;
   
   addHighlight: (highlight: Omit<Highlight, 'id' | 'createdAt'>) => void;
   removeHighlight: (id: string) => void;
@@ -173,6 +176,15 @@ export const useReaderStore = create<ReaderState>()(
         ),
         currentBook: state.currentBook?.id === id
           ? { ...state.currentBook, progress, currentCfi: cfi ?? state.currentBook.currentCfi, currentLocation: location ?? state.currentBook.currentLocation }
+          : state.currentBook,
+      })),
+      
+      updateBookMetadata: (id, metadata) => set((state) => ({
+        books: state.books.map((b) =>
+          b.id === id ? { ...b, ...metadata } : b
+        ),
+        currentBook: state.currentBook?.id === id
+          ? { ...state.currentBook, ...metadata }
           : state.currentBook,
       })),
       
