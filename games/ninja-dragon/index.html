@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐉 Ninja Dragon - Web Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      overflow: hidden; 
+      background: #0a0a0a;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    #game-container { 
+      width: 100vw; 
+      height: 100vh; 
+      position: relative;
+    }
+    canvas { display: block; }
+    
+    #ui-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+    
+    #hud {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .health-bar {
+      width: 200px;
+      height: 20px;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid #ff4444;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    
+    .health-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff4444, #ff6666);
+      transition: width 0.3s;
+    }
+    
+    .dragon-bar {
+      width: 200px;
+      height: 20px;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid #44aaff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .dragon-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #44aaff, #66ccff);
+      transition: width 0.3s;
+    }
+    
+    #controls-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      background: rgba(0,0,0,0.7);
+      padding: 15px 25px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    #controls-hint kbd {
+      background: #333;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin: 0 3px;
+    }
+    
+    #title-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a0a2e 0%, #0a1628 50%, #0a2818 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      pointer-events: all;
+    }
+    
+    #title-screen h1 {
+      font-size: 4rem;
+      color: #fff;
+      text-shadow: 0 0 30px #ff4400, 0 0 60px #ff4400;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    
+    #title-screen h2 {
+      font-size: 1.5rem;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .start-btn {
+      padding: 20px 60px;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #ff4400, #ff6600);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    
+    .start-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+    }
+    
+    #vr-button {
+      position: absolute;
+      bottom: 80px;
+      right: 20px;
+      padding: 15px 30px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #6644ff, #8866ff);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      pointer-events: all;
+      display: none;
+    }
+    
+    #combo-display {
+      position: absolute;
+      top: 50%;
+      right: 50px;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffaa00;
+      text-shadow: 0 0 20px #ff4400;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    #combo-display.visible {
+      opacity: 1;
+      animation: comboHit 0.3s;
+    }
+    
+    @keyframes comboHit {
+      0% { transform: translateY(-50%) scale(1.5); }
+      100% { transform: translateY(-50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="title-screen">
+      <h1>🐉 NINJA DRAGON 🥷</h1>
+      <h2>Master the Way of the Dragon Rider</h2>
+      <button class="start-btn" onclick="startGame()">START GAME</button>
+    </div>
+    
+    <div id="ui-overlay">
+      <div id="hud">
+        <div style="margin-bottom: 5px; font-size: 14px;">❤️ HEALTH</div>
+        <div class="health-bar">
+          <div class="health-fill" id="health-fill"></div>
+        </div>
+        <div style="margin-bottom: 5px; font-size: 14px;">🐉 DRAGON POWER</div>
+        <div class="dragon-bar">
+          <div class="dragon-fill" id="dragon-fill"></div>
+        </div>
+      </div>
+      
+      <div id="combo-display">COMBO x1</div>
+      
+      <div id="controls-hint">
+        <kbd>WASD</kbd> Move | <kbd>SPACE</kbd> Jump | <kbd>SHIFT</kbd> Dash | 
+        <kbd>CLICK</kbd> Attack | <kbd>E</kbd> Mount Dragon | <kbd>Q</kbd> Dragon Fire
+      </div>
+      
+      <button id="vr-button" onclick="enterVR()">🥽 Enter VR</button>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
