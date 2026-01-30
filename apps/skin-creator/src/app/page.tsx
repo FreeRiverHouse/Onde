@@ -199,6 +199,30 @@ export default function SkinCreator() {
     }
   }, []);
 
+  // ⌨️ Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      
+      switch(e.key.toLowerCase()) {
+        case 'b': setTool('brush'); break;
+        case 'e': setTool('eraser'); break;
+        case 'f': setTool('fill'); break;
+        case 'g': setTool('gradient'); break;
+        case 's': setTool('stamp'); break;
+        case 'z': if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); } break;
+        case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); } break;
+        case 'm': setMirrorMode(prev => !prev); break;
+        case 'd': setDarkMode(prev => !prev); break;
+        case '1': setBrushSize(1); break;
+        case '2': setBrushSize(2); break;
+        case '3': setBrushSize(3); break;
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [undo, redo]);
+
   // Auto-save to localStorage when canvas changes 💾
   const autoSave = useCallback(() => {
     if (canvasRef.current) {
