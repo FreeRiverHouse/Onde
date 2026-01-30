@@ -596,6 +596,7 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
     { key: 'E', description: 'Expand/collapse stat cards' },
     { key: 'H', description: 'Toggle help overlay' },
     { key: 'T', description: 'Toggle light/dark mode' },
+    { key: 'C', description: 'Toggle comparison tooltips' },
   ];
 
   return (
@@ -1007,12 +1008,16 @@ export default function BettingDashboard() {
           e.preventDefault();
           toggleTheme();
           break;
+        case 'c':
+          e.preventDefault();
+          toggleCompare();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [fetchData, toggleTheme]);
+  }, [fetchData, toggleTheme, toggleCompare]);
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;

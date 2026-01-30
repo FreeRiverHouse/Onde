@@ -1643,15 +1643,17 @@
   - Comparison tooltips feature now live on /betting
 
 ### [T747] Dashboard: Add keyboard shortcut 'C' to toggle comparison tooltips
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T744]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Add keyboard shortcut for Compare toggle:
-  - Press 'C' to toggle comparison tooltips on/off
-  - Add to keyboard shortcuts modal
-  - Show in Compare button tooltip
+- **Notes**: ✅ Implemented keyboard shortcut for Compare toggle!
+  - ✅ Press 'C' to toggle comparison tooltips on/off
+  - ✅ Added to keyboard shortcuts modal
+  - ✅ Added toggleCompare to useEffect dependencies
+  - Build passes, needs deploy to onde.surf
 
 ### [T748] Dashboard: Add week-over-week trade count comparison
 - **Status**: TODO
@@ -7667,3 +7669,39 @@
   - Check if feature only runs when positions are open (currently 0 positions)
   - Add logging even when portfolio is empty (0% concentration)
   - Verify push-stats-to-gist.py can handle empty history file
+
+
+### [T765] Dashboard: Deploy 'C' keyboard shortcut to onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T747]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy T747 keyboard shortcut feature to production:
+  - Build surfboard with npm run build:cf
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify keyboard shortcut 'C' toggles comparison tooltips
+
+### [T766] Dashboard: Add position PnL sparkline to open positions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T743]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show mini sparkline for each open position:
+  - Track price history of each position since open
+  - Display small inline sparkline (30x12px)
+  - Color: green if current > open price, red if below
+  - Shows trend direction at a glance
+
+### [T767] Trading: Add retry logic for API errors in push-stats-to-gist.py
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve gist push reliability:
+  - Add exponential backoff retry (3 attempts)
+  - Handle GitHub API rate limits gracefully
+  - Log failures to data/trading/gist-push-errors.log
+  - Alert if 3 consecutive failures
