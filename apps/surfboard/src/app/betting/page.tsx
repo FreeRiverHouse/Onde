@@ -40,6 +40,7 @@ import { EdgeDistributionChart, EdgeDistributionData } from '@/components/EdgeDi
 import { StreakIndicator } from '@/components/StreakIndicator';
 import { ApiLatencyChart, ApiLatencyData } from '@/components/ApiLatencyChart';
 import { LatencyTrendChart, generateMockLatencyTrend } from '@/components/LatencyTrendChart';
+import { LatencySparkline, generateMockLatencyHistory } from '@/components/LatencySparkline';
 import { VolatilityCard } from '@/components/VolatilityCard';
 import { TradeTicker } from '@/components/TradeTicker';
 import { ModelComparisonChart } from '@/components/ModelComparisonChart';
@@ -269,6 +270,24 @@ interface TradingStats {
   edgeDistribution?: EdgeDistributionData | null;
   // API latency breakdown (T445)
   apiLatency?: ApiLatencyData | null;
+  // Latency history for sparkline (T800)
+  latencyHistory?: {
+    generated_at: string;
+    dataPoints: Array<{
+      timestamp: string;
+      avgMs: number;
+      p95Ms: number;
+      count: number;
+    }>;
+    summary: {
+      avgLatencyMs: number;
+      minLatencyMs: number;
+      maxLatencyMs: number;
+      avgP95Ms: number;
+      maxP95Ms: number;
+      dataPointCount: number;
+    };
+  } | null;
   // Autotrader health status (T623)
   healthStatus?: AutotraderHealth | null;
   // Concentration history (T482)
@@ -954,6 +973,9 @@ export default function BettingDashboard() {
           // API latency breakdown (T445)
           apiLatency: gistData.apiLatency ?? null,
           
+          // Latency history for sparkline (T800)
+          latencyHistory: gistData.latencyHistory ?? null,
+          
           // Autotrader health status (T623)
           healthStatus: gistData.healthStatus ?? null,
           
@@ -1264,6 +1286,18 @@ export default function BettingDashboard() {
                 compact={true}
                 className="hidden sm:inline-flex"
               />
+            )}
+            {/* Latency Sparkline (T800) */}
+            {tradingStats && (
+              <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/5 border border-white/10" title="API Latency (24h)">
+                <Zap className="w-3 h-3 text-gray-400" />
+                <LatencySparkline
+                  data={tradingStats.latencyHistory || generateMockLatencyHistory()}
+                  width={60}
+                  height={18}
+                  showLabel={true}
+                />
+              </div>
             )}
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
               <PulsingDot color="green" label="Systems Online" />

@@ -30,6 +30,7 @@ GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
 VOLATILITY_FILE = SCRIPT_DIR.parent / "data" / "ohlc" / "volatility-stats.json"
 HEALTH_STATUS_FILE = SCRIPT_DIR.parent / "data" / "trading" / "autotrader-health.json"  # T472
 API_LATENCY_FILE = SCRIPT_DIR / "kalshi-latency-profile.json"  # T398
+LATENCY_HISTORY_FILE = SCRIPT_DIR.parent / "data" / "trading" / "latency-history.jsonl"  # T800
 CONCENTRATION_HISTORY_FILE = SCRIPT_DIR.parent / "data" / "trading" / "concentration-history.jsonl"  # T482
 ASSET_CORRELATION_FILE = SCRIPT_DIR.parent / "data" / "trading" / "asset-correlation.json"  # T721
 STREAK_POSITION_FILE = SCRIPT_DIR.parent / "data" / "trading" / "streak-position-analysis.json"  # T387
@@ -214,6 +215,84 @@ def load_api_latency_stats():
         return summary
     except Exception as e:
         print(f"Warning: Could not load API latency stats: {e}")
+        return None
+
+
+def load_latency_history():
+    """Load latency history for sparkline visualization (T800).
+    
+    Reads the latency history JSONL file and extracts time-series data
+    for displaying a 24h latency trend sparkline on the dashboard.
+    """
+    if not LATENCY_HISTORY_FILE.exists():
+        return None
+    
+    try:
+        history = []
+        with open(LATENCY_HISTORY_FILE, 'r') as f:
+            for line in f:
+                if line.strip():
+                    entry = json.loads(line)
+                    history.append(entry)
+        
+        if not history:
+            return None
+        
+        # Sort by timestamp (most recent last)
+        history.sort(key=lambda x: x.get("timestamp", ""))
+        
+        # Keep last 48 entries (24h at 30min intervals)
+        history = history[-48:]
+        
+        # Extract data points for sparkline
+        data_points = []
+        for entry in history:
+            endpoints = entry.get("endpoints", {})
+            
+            # Calculate overall average latency across all endpoints
+            total_latency = 0
+            total_count = 0
+            max_p95 = 0
+            
+            for endpoint_name, stats in endpoints.items():
+                count = stats.get("count", 0)
+                avg_ms = stats.get("avg_ms", 0)
+                p95_ms = stats.get("p95_ms", 0)
+                
+                if count > 0:
+                    total_latency += avg_ms * count
+                    total_count += count
+                    max_p95 = max(max_p95, p95_ms)
+            
+            if total_count > 0:
+                data_points.append({
+                    "timestamp": entry.get("timestamp"),
+                    "avgMs": round(total_latency / total_count, 1),
+                    "p95Ms": round(max_p95, 1),
+                    "count": total_count
+                })
+        
+        if not data_points:
+            return None
+        
+        # Calculate summary stats
+        avg_values = [d["avgMs"] for d in data_points]
+        p95_values = [d["p95Ms"] for d in data_points]
+        
+        return {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "dataPoints": data_points,
+            "summary": {
+                "avgLatencyMs": round(sum(avg_values) / len(avg_values), 1),
+                "minLatencyMs": round(min(avg_values), 1),
+                "maxLatencyMs": round(max(avg_values), 1),
+                "avgP95Ms": round(sum(p95_values) / len(p95_values), 1),
+                "maxP95Ms": round(max(p95_values), 1),
+                "dataPointCount": len(data_points)
+            }
+        }
+    except Exception as e:
+        print(f"Warning: Could not load latency history: {e}")
         return None
 
 
@@ -1208,6 +1287,11 @@ def calculate_stats(trades, source='v2'):
     api_latency = load_api_latency_stats()
     if api_latency:
         result["apiLatency"] = api_latency
+    
+    # Add latency history for sparkline (T800)
+    latency_history = load_latency_history()
+    if latency_history:
+        result["latencyHistory"] = latency_history
     
     # Add settlement stats (T349)
     settlements = load_settlements_stats()

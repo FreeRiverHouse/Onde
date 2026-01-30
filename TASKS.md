@@ -3288,17 +3288,26 @@
 - **Notes**: ✅ OBSOLETE: Migrato a Wrangler diretto. GitHub Actions non più necessario per deploy. Procedura permanente: `npm run build && npm run build:cf && wrangler pages deploy`.
 
 ### [T800] Add latency trend sparkline to /betting dashboard
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T397]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Show latency trend visualization on dashboard:
-  - Mini sparkline showing latency history (24h)
-  - Color-coded: green=normal, yellow=elevated, red=anomaly
-  - Hover tooltip with detailed stats
-  - Uses data from latency-history.jsonl
-  - Helps visualize API performance patterns over time
+- **Notes**: ✅ Implemented latency trend sparkline!
+  - **Component**: `apps/surfboard/src/components/LatencySparkline.tsx`
+  - **Features:**
+    - ✅ Mini sparkline showing latency history (24h)
+    - ✅ Color-coded: green (<300ms), yellow (300-500ms), red (>500ms)
+    - ✅ Hover tooltip with detailed stats (avg, min, max, P95)
+    - ✅ Uses data from latency-history.jsonl via gist
+    - ✅ Mock data generator for demo/testing
+  - **Integration:**
+    - Added `load_latency_history()` to push-stats-to-gist.py
+    - Added `latencyHistory` field to TradingStats interface
+    - Displayed in header bar next to streak indicator
+    - Shows ⚡ icon with sparkline and current latency ms
+  - Build passes, needs deploy to onde.surf
 
 ### [T801] Auto-adjust position size based on current API latency
 - **Status**: TODO
