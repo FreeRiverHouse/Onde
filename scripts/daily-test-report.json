@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T09:52:33.934650+00:00",
+  "timestamp": "2026-01-30T13:00:01.389385+00:00",
   "run_type": "daily",
   "tests": [
     {
@@ -7,80 +7,80 @@
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 239,
-      "timestamp": "2026-01-30T09:52:34.174301+00:00"
+      "duration_ms": 176,
+      "timestamp": "2026-01-30T13:00:01.567216+00:00"
     },
     {
       "name": "onde.la /libri",
       "category": "http",
-      "passed": true,
-      "details": "Status: 200",
-      "duration_ms": 416,
-      "timestamp": "2026-01-30T09:52:34.591121+00:00"
+      "passed": false,
+      "details": "HTTP Error 308: Permanent Redirect",
+      "duration_ms": 107,
+      "timestamp": "2026-01-30T13:00:01.675091+00:00"
     },
     {
       "name": "onde.la /catalogo",
       "category": "http",
-      "passed": true,
-      "details": "Status: 200",
-      "duration_ms": 332,
-      "timestamp": "2026-01-30T09:52:34.923663+00:00"
+      "passed": false,
+      "details": "HTTP Error 308: Permanent Redirect",
+      "duration_ms": 119,
+      "timestamp": "2026-01-30T13:00:01.794979+00:00"
     },
     {
       "name": "onde.la /about",
       "category": "http",
-      "passed": true,
-      "details": "Status: 200",
-      "duration_ms": 295,
-      "timestamp": "2026-01-30T09:52:35.219502+00:00"
+      "passed": false,
+      "details": "HTTP Error 308: Permanent Redirect",
+      "duration_ms": 191,
+      "timestamp": "2026-01-30T13:00:01.986780+00:00"
     },
     {
       "name": "onde.la /health",
       "category": "http",
-      "passed": true,
-      "details": "Status: 200",
-      "duration_ms": 361,
-      "timestamp": "2026-01-30T09:52:35.581521+00:00"
+      "passed": false,
+      "details": "HTTP Error 308: Permanent Redirect",
+      "duration_ms": 104,
+      "timestamp": "2026-01-30T13:00:02.091429+00:00"
     },
     {
       "name": "onde.la RSS Feed",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 104,
-      "timestamp": "2026-01-30T09:52:35.686163+00:00"
+      "duration_ms": 124,
+      "timestamp": "2026-01-30T13:00:02.216526+00:00"
     },
     {
       "name": "onde.la SSL",
       "category": "ssl",
       "passed": true,
       "details": "Expires in 70 days",
-      "duration_ms": 71,
-      "timestamp": "2026-01-30T09:52:35.758444+00:00"
+      "duration_ms": 78,
+      "timestamp": "2026-01-30T13:00:02.295766+00:00"
     },
     {
       "name": "onde.la Performance",
       "category": "performance",
       "passed": true,
-      "details": "153ms (threshold: 3000ms)",
-      "duration_ms": 153,
-      "timestamp": "2026-01-30T09:52:35.913338+00:00"
+      "details": "91ms (threshold: 3000ms)",
+      "duration_ms": 91,
+      "timestamp": "2026-01-30T13:00:02.388391+00:00"
     },
     {
       "name": "onde.la Content Check",
       "category": "content",
       "passed": true,
       "details": "Found 'Onde'",
-      "duration_ms": 192,
-      "timestamp": "2026-01-30T09:52:36.106850+00:00"
+      "duration_ms": 227,
+      "timestamp": "2026-01-30T13:00:02.616429+00:00"
     },
     {
       "name": "onde.la API Health",
       "category": "api",
       "passed": true,
       "details": "Status: unavailable (static export - expected)",
-      "duration_ms": 98,
-      "timestamp": "2026-01-30T09:52:36.205075+00:00"
+      "duration_ms": 102,
+      "timestamp": "2026-01-30T13:00:02.719317+00:00"
     },
     {
       "name": "onde.la Reader App",
@@ -88,62 +88,67 @@
       "passed": true,
       "details": "Status: 200",
       "duration_ms": 124,
-      "timestamp": "2026-01-30T09:52:36.329356+00:00"
+      "timestamp": "2026-01-30T13:00:02.843813+00:00"
     },
     {
       "name": "onde.la Reader VR",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 198,
-      "timestamp": "2026-01-30T09:52:36.528302+00:00"
+      "duration_ms": 196,
+      "timestamp": "2026-01-30T13:00:03.040341+00:00"
     },
     {
       "name": "Moonlight Magic House",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 192,
-      "timestamp": "2026-01-30T09:52:36.721688+00:00"
+      "duration_ms": 132,
+      "timestamp": "2026-01-30T13:00:03.173056+00:00"
     },
     {
       "name": "onde.surf Auth Check",
       "category": "auth",
       "passed": true,
       "details": "Status: 307 (protected)",
-      "duration_ms": 293,
-      "timestamp": "2026-01-30T09:52:37.015184+00:00"
+      "duration_ms": 129,
+      "timestamp": "2026-01-30T13:00:03.302818+00:00"
     },
     {
       "name": "onde.surf Login Page",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 263,
-      "timestamp": "2026-01-30T09:52:37.281958+00:00"
+      "duration_ms": 114,
+      "timestamp": "2026-01-30T13:00:03.419189+00:00"
     },
     {
       "name": "onde.surf SSL",
       "category": "ssl",
       "passed": true,
       "details": "Expires in 70 days",
-      "duration_ms": 67,
-      "timestamp": "2026-01-30T09:52:37.349305+00:00"
+      "duration_ms": 154,
+      "timestamp": "2026-01-30T13:00:03.574342+00:00"
     },
     {
       "name": "onde.surf Performance",
       "category": "performance",
       "passed": true,
-      "details": "388ms (threshold: 3000ms)",
-      "duration_ms": 388,
-      "timestamp": "2026-01-30T09:52:37.739890+00:00"
+      "details": "150ms (threshold: 3000ms)",
+      "duration_ms": 150,
+      "timestamp": "2026-01-30T13:00:03.726565+00:00"
     }
   ],
   "summary": {
     "total": 17,
-    "passed": 17,
-    "failed": 0,
+    "passed": 13,
+    "failed": 4,
     "skipped": 0
   },
-  "alerts": []
+  "alerts": [
+    "FAILED: onde.la /libri - HTTP Error 308: Permanent Redirect",
+    "FAILED: onde.la /catalogo - HTTP Error 308: Permanent Redirect",
+    "FAILED: onde.la /about - HTTP Error 308: Permanent Redirect",
+    "FAILED: onde.la /health - HTTP Error 308: Permanent Redirect"
+  ]
 }

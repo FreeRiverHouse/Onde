@@ -1,16 +1,15 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-01-30T08:31:34.414602",
+    "timestamp": "2026-01-30T12:32:29.928388",
     "result": {
       "sentiment": "neutral",
       "confidence": 0.5,
       "reasons": [
-        "adoption",
-        "enforcement"
+        "No significant news detected"
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-01-30T08:31:34.414585+00:00",
+      "timestamp": "2026-01-30T12:32:29.928366+00:00",
       "should_trade": true,
       "edge_adjustment": 0.0,
       "news_count": 9

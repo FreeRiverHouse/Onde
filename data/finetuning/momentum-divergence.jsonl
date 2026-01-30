@@ -1187,4 +1187,22 @@
     }
   ],
   "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udfe2 BTC: BULLISH DIVERGENCE\n   Price lower low + RSI higher low\n   RSI: 40.2 | Price: $88,308\n   Price drop: 0.63% | RSI rise: +6.9\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider YES bets on upside recovery\n\nTime: 2026-01-30 08:31 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}{
+  "timestamp": "2026-01-30T12:32:29.931002+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bullish",
+      "emoji": "\ud83d\udfe2",
+      "signal": "Price lower low + RSI higher low",
+      "action": "Consider YES bets on upside recovery",
+      "confidence": "medium",
+      "price_drop": 0.006322541938759028,
+      "rsi_rise": 6.855163193119978,
+      "current_price": 88308.0,
+      "current_rsi": 40.16293515148381
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udfe2 BTC: BULLISH DIVERGENCE\n   Price lower low + RSI higher low\n   RSI: 40.2 | Price: $88,308\n   Price drop: 0.63% | RSI rise: +6.9\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider YES bets on upside recovery\n\nTime: 2026-01-30 12:32 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
 }

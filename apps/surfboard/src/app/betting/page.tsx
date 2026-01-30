@@ -47,6 +47,7 @@ import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
+import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
 import { StreakPositionWidget } from '@/components/StreakPositionWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
@@ -313,6 +314,30 @@ interface TradingStats {
       eth_7d_change_pct: number;
     };
     data_source: string;
+  } | null;
+  // Hour/day trading heatmap (T411)
+  hourDayHeatmap?: {
+    generated_at: string;
+    total_trades: number;
+    heatmap: Array<{
+      day: number;
+      day_name: string;
+      hour: number;
+      trades: number;
+      won: number;
+      lost: number;
+      win_rate: number | null;
+      pnl: number;
+    }>;
+    summary: {
+      max_trades_in_cell: number;
+      best_win_rate: number | null;
+      worst_win_rate: number | null;
+      best_cells: Array<{ day: string; hour: number; win_rate: number }>;
+      worst_cells: Array<{ day: string; hour: number; win_rate: number }>;
+    };
+    days: string[];
+    hours: number[];
   } | null;
   // Streak position analysis (T387)
   streakPosition?: {
@@ -2258,6 +2283,14 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Time-of-Day Trading Heatmap (T411) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <TimeOfDayHeatmap 
+                heatmapData={tradingStats.hourDayHeatmap || undefined}
                 loading={isLoading}
               />
             </div>

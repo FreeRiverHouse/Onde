@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T12:00:02.299772+00:00",
+  "timestamp": "2026-01-30T14:00:02.518651+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,7 +11,49 @@
   "article_count": 30,
   "results": [
     {
-      "title": "Vitalik Buterin earmarks $45M in ETH for privacy and open tech",
+      "title": "Trump picks crypto-friendly Kevin Warsh as new Fed chair",
+      "url": "https://cointelegraph.com/news/kevin-warsh-officially-picked-federal-reserve-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "US President Donald Trump nominated former Fed Governor Kevin Warsh to replace Jerome Powell as Federal Reserve chair, setting up a Senate confirmation fight.",
+      "published": "2026-01-30T13:40:31+00:00"
+    },
+    {
+      "title": "Ethereum loses $2.8K support as charts point to possible 22% downside",
+      "url": "https://cointelegraph.com/news/ethereum-breaks-below-2-8k-charts-hint-another-eth-price-drop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Ethereum slipped under $2,800 as charts and onchain data suggested downside risk remains elevated, with a potential move toward $2,100.",
+      "published": "2026-01-30T13:13:54+00:00"
+    },
+    {
+      "title": "Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair",
+      "url": "https://bitcoinmagazine.com/news/trump-names-kevin-warsh-as-pick-for-fed",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair President Donald Trump announced pro-bitcoin Kevin Warsh as his nominee to serve as chairman of the Federal Reserve, confirming speculation from prediction markets. This post Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T13:06:38+00:00"
+    },
+    {
+      "title": "Bitcoin, Ether ETFs see $1B outflows as crypto market tumbles 6%",
+      "url": "https://cointelegraph.com/news/bitcoin-ether-etfs-1-billion-outflows-crypto-6-percent-slump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "US spot Bitcoin ETF flows turned negative for January after a series of outflows this week totaling nearly $1 billion, data from SoSoValue shows.",
+      "published": "2026-01-30T12:34:12+00:00"
+    },
+    {
+      "title": "There is no trust in DeFi without proper risk management",
+      "url": "https://cointelegraph.com/news/trust-defi-risk-management?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "DeFi's composability creates cascading exploit risks while protocols handle risk idiosyncratically. Institutional adoption demands TradFi-style standardized frameworks.",
+      "published": "2026-01-30T12:30:00+00:00"
+    },
+    {
+      "title": "Trump says shutdown deal near, but markets remain on edge",
+      "url": "https://cointelegraph.com/news/trump-say-us-government-shutdown-deal-near-market-jitters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "A tentative deal in Washington has eased some shutdown fears, but with key votes still pending, crypto, gold and silver are trading through liquidity jitters and foreign policy risk.",
+      "published": "2026-01-30T12:16:47+00:00"
+    },
+    {
+      "title": "Vitalik Buterin earmarks $45M in ETH for privacy and open-source infrastructure",
       "url": "https://cointelegraph.com/news/vitalik-buterin-45m-eth-privacy-open-hardware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "The move comes as the Ethereum Foundation enters a period of \u201cmild austerity\u201d while sticking to its core technical roadmap, Buterin said.",
@@ -60,46 +102,11 @@
       "published": "2026-01-30T09:56:34+00:00"
     },
     {
-      "title": "DOJ finalizes $400M crypto forfeiture in Helix Bitcoin mixer case",
-      "url": "https://cointelegraph.com/news/doj-finalizes-helix-forfeiture-early-bitcoin-darknet-case?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "A final court order transfers the legal title of seized cryptocurrency and assets to the US government, closing a case tied to Helix\u2019s operations from 2014 to 2017.",
-      "published": "2026-01-30T08:45:28+00:00"
-    },
-    {
-      "title": "Circle targets \u2018durable\u2019 infrastructure to drive institutional stablecoin adoption",
-      "url": "https://cointelegraph.com/news/circle-usdc-stablecoin-infrastructure-enterprise-adoption-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Circle has flagged scaling its payments network and institution-focused blockchain as a 2026 priority as companies look to examine how to use stablecoins.",
-      "published": "2026-01-30T06:10:12+00:00"
-    },
-    {
       "title": "Democrats Press DOJ Deputy Over Crypto Holdings, Enforcement Retreat",
       "url": "https://decrypt.co/356452/democrats-doj-deputy-crypto-holdings-enforcement-retreat",
       "source": "decrypt",
       "description": "A group of Democratic senators is pressing the Justice Department over ethics questions tied to a rollback in crypto enforcement.",
       "published": "2026-01-30T05:54:04+00:00"
-    },
-    {
-      "title": "Bitcoin \u2018to keep bleeding against stock market\u2019 as cycle wraps: Analyst",
-      "url": "https://cointelegraph.com/news/bitcoin-rotation-gold-silver-btc-price-crypto-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoiners hoping for a big rotation from gold and silver might be chasing the wrong signal, says Benjamin Cowen.",
-      "published": "2026-01-30T05:45:30+00:00"
-    },
-    {
-      "title": "Kevin Warsh set to be nominated by Trump as Fed chair on Friday: Reports",
-      "url": "https://cointelegraph.com/news/trump-tipped-to-name-kevin-warsh-next-fed-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Kevin Warsh, seen as a more hawkish Federal Reserve chair pick, previously said Bitcoin could serve as a check on fiscal policy decisions.",
-      "published": "2026-01-30T05:15:56+00:00"
-    },
-    {
-      "title": "Bitcoin falls to $81K, triggering $1.7B in liquidations",
-      "url": "https://cointelegraph.com/news/bitcoin-falls-to-81k-causing-billions-in-liquidations?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin plunged to a nine-month low as geopolitical tensions, tariff threats, and tech earnings concerned traders, triggering billions of dollars worth of long liquidations.",
-      "published": "2026-01-30T05:11:05+00:00"
     },
     {
       "title": "Bitcoin Slips to $82K as Liquidations Spike to $1.7B",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children Coinbase plans to join President Trump\u2019s new Trump Accounts program by matching the government\u2019s $1,000 child investment grant for employees\u2019 children \u2014 potentially in Bitcoin. This post Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-28T18:51:28+00:00"
-    },
-    {
-      "title": "Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet",
-      "url": "https://bitcoinmagazine.com/news/strive-semler-debt-adds-bitcoin-to-sheet",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet Strive raised $225 million in an oversubscribed preferred stock offering to pay down Semler-related debt and buy more bitcoin. This post Strive ($ASST) Uses SATA Shares to Pay Off Bulk of Semler Debt, Adds Bitcoin to Balance Sheet first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-28T16:32:42+00:00"
     }
   ]
 }
