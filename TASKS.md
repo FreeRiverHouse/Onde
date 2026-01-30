@@ -8541,3 +8541,18 @@
   - Log parameter adjustments to `data/trading/auto-tune.jsonl`
   - Manual override via env vars
   - Limit: max 2 adjustments per week to avoid thrashing
+
+### [T801] Fix 308 redirects on onde.la (4 test failures)
+- **Priority**: P1
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Notes**: Test suite failing on 4 endpoints returning 308 Permanent Redirect instead of 200:
+  - /libri → 308
+  - /catalogo → 308
+  - /about → 308
+  - /health → 308
+  Likely trailing slash or http→https redirect issue. Need to either:
+  1. Fix the redirects in Cloudflare/server config, OR
+  2. Update test script to follow redirects (-L flag)
+  Reference: test-failure.alert 2025-01-30
