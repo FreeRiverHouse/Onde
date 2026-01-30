@@ -1,6 +1,7 @@
 'use client';
 
 import { useReaderStore, Theme } from '@/store/readerStore';
+import { SyncPanel } from './SyncPanel';
 import { DataTransferPanel } from './DataTransferPanel';
 
 export function ReaderSettings() {
@@ -140,6 +141,9 @@ export function ReaderSettings() {
               ))}
             </div>
           </div>
+
+          {/* Cloud Sync */}
+          <SyncPanel className="mb-6" />
 
           {/* Backup & Restore */}
           <DataTransferPanel />

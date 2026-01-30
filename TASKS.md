@@ -655,17 +655,36 @@
   - Features now live: highlight menu, bookmarks, annotations panel, export
 
 ### [T698] Reader App: Sync annotations across devices
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T691]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Enable cloud sync for annotations:
-  - Store annotations in Supabase or similar
-  - Auth integration (optional, can be anonymous device ID)
-  - Sync on app load and after changes
-  - Conflict resolution for concurrent edits
-  - Export/import JSON backup
+- **Notes**: ✅ Implemented cloud sync for annotations!
+  - ✅ **Supabase client**: `src/lib/supabase.ts` - Device ID management, sync code generation
+  - ✅ **Sync service**: `src/lib/syncService.ts` - Full sync logic with conflict resolution
+    - Enable/disable sync with 6-char alphanumeric code
+    - Join existing sync groups
+    - Push/pull data to/from cloud
+    - Timestamp-based conflict resolution (newer wins per item)
+    - Books merge: keeps higher progress, newer lastRead
+    - Settings: keeps local preference
+  - ✅ **React hook**: `src/lib/useSync.ts` - Connects sync to Zustand store
+    - Auto-sync on data changes (5s debounce)
+    - Manual sync trigger
+    - Applies merged data back to store
+  - ✅ **UI component**: `src/components/SyncPanel.tsx`
+    - Enable sync (generates new code)
+    - Join with existing code
+    - Copy code to clipboard
+    - Sync status display
+    - Manual sync button
+    - "Local Only" badge when Supabase not configured
+  - ✅ Integrated into ReaderSettings above Backup & Restore
+  - ✅ Build passes
+  - ⏳ Needs Supabase project setup + env vars for cloud mode
+  - ⏳ Needs deploy to onde.la/reader (see T800)
 
 ### [T699] Reader App: Dictionary lookup on word select
 - **Status**: DONE
