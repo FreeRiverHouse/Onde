@@ -3671,12 +3671,13 @@
   - Build passes, ready for deploy
 
 ### [T804] Trading: Analyze latency impact on trade outcomes
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T801]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to analyze correlation between latency and trade results:
+- **Notes**: ✅ Script complete and working! `scripts/analyze-latency-performance.py`
   - Load all trades with latency_multiplier data
   - Compare win rate when latency_multiplier < 1.0 vs = 1.0
   - Calculate PnL impact of latency-adjusted trades
