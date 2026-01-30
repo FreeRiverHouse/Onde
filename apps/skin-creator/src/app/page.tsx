@@ -494,10 +494,12 @@ export default function SkinCreator() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 w-full max-w-6xl">
+      <div className="flex flex-col lg:flex-row gap-6 w-full max-w-6xl">
         {/* Left Panel - Preview */}
-        <div className="bg-white/90 backdrop-blur rounded-2xl p-4 shadow-xl">
-          <h2 className="text-xl font-bold text-gray-800 mb-3 text-center">👀 Preview</h2>
+        <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center flex items-center justify-center gap-2">
+            <span className="animate-bounce-soft">👀</span> Preview
+          </h2>
           <canvas
             ref={previewRef}
             width={200}
@@ -530,9 +532,9 @@ export default function SkinCreator() {
         </div>
 
         {/* Center - Canvas Editor */}
-        <div className="flex-1 bg-white/90 backdrop-blur rounded-2xl p-4 shadow-xl">
+        <div className="flex-1 glass-card rounded-3xl p-6 shadow-2xl">
           {/* Toolbar */}
-          <div className="flex flex-wrap gap-2 mb-3 justify-center">
+          <div className="flex flex-wrap gap-2 mb-4 justify-center">
             <button
               onClick={() => setTool('brush')}
               className={`px-3 py-2 rounded-full font-bold transition-all ${
@@ -716,8 +718,8 @@ export default function SkinCreator() {
         </div>
 
         {/* Right Panel - Colors */}
-        <div className="bg-white/90 backdrop-blur rounded-2xl p-4 shadow-xl">
-          <h2 className="text-xl font-bold text-gray-800 mb-3 text-center">🎨 Colors</h2>
+        <div className="glass-card rounded-3xl p-6 shadow-2xl">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
           
           <div className="grid grid-cols-4 gap-2 max-w-[200px]">
             {COLORS.map((color) => (
