@@ -1,0 +1,23 @@
+{
+  "btc": {
+    "consecutive_high": 1,
+    "ratios": [
+      {
+        "ratio": 1.278,
+        "timestamp": "2026-01-30T13:54:58.263419+00:00"
+      }
+    ],
+    "last_alert": null
+  },
+  "eth": {
+    "consecutive_high": 1,
+    "ratios": [
+      {
+        "ratio": 1.353,
+        "timestamp": "2026-01-30T13:54:58.263419+00:00"
+      }
+    ],
+    "last_alert": null
+  },
+  "last_check": "2026-01-30T13:54:58.263717+00:00"
+}

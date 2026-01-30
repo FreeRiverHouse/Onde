@@ -5435,12 +5435,26 @@
 - **Notes**: ✅ Script: analyze-vol-alignment.py. Compares aligned vs not_aligned win rate, PnL, ROI. Includes vol_bonus bucket analysis, asset/side breakdown. V1 trades lack vol_aligned field (pre-T237). V2 awaiting settled trades. Output: data/trading/vol-alignment-analysis.json
 
 ### [T376] Volatility preference alert (multi-day divergence)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T237]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: If one asset's vol ratio stays >1.2 for 3+ consecutive cycles, send Telegram alert recommending focus on that asset. Helps identify sustained edge opportunities.
+- **Notes**: ✅ Implemented volatility preference alerting!
+  - **Script**: `scripts/volatility-preference-alert.py`
+  - **Features:**
+    - Tracks vol_ratio per asset (BTC, ETH) over consecutive cycles
+    - Alerts when vol_ratio stays >1.2 for 3+ consecutive cycles
+    - 6-hour cooldown per asset to avoid spam
+    - State persistence in `data/trading/vol-preference-state.json`
+    - Alert file: `scripts/kalshi-vol-preference.alert`
+  - **Cron**: Every 4 hours (`0 */4 * * *`)
+  - **Usage:**
+    - `python3 volatility-preference-alert.py` - Check and update
+    - `python3 volatility-preference-alert.py --status` - Show tracking state
+    - `python3 volatility-preference-alert.py --reset` - Reset state
+  - Helps identify sustained edge opportunities when realized vol exceeds model assumptions.
 
 ### [T377] Historical volatility vs model assumptions analysis
 - **Status**: DONE
