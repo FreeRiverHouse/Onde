@@ -210,10 +210,13 @@ def run_pipeline(original_file: str, translation_file: str, output_dir: str):
     log(f"   Paragrafi originale: {len(orig_paragraphs)}")
     log(f"   Paragrafi traduzione: {len(trans_paragraphs)}")
     
-    # FULL RUN - tutti i paragrafi (batch notturno)
-    MAX_PARAGRAPHS = 100  # Primi 100 per stasera
-    orig_paragraphs = orig_paragraphs[:MAX_PARAGRAPHS]
-    trans_paragraphs = trans_paragraphs[:MAX_PARAGRAPHS]
+    # ⚠️ BUG FIX 2026-01-30: Rimosso limite hardcoded!
+    # Era: MAX_PARAGRAPHS = 100 che causava traduzione incompleta (~9%)
+    # Ora: processa TUTTI i paragrafi del libro
+    # (opzionale: decommentare per test rapidi)
+    # MAX_PARAGRAPHS = 100
+    # orig_paragraphs = orig_paragraphs[:MAX_PARAGRAPHS]
+    # trans_paragraphs = trans_paragraphs[:MAX_PARAGRAPHS]
     
     # Tracking
     metrics = {
