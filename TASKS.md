@@ -165,17 +165,58 @@
   - Useful for iterating on prompts without real meetings
 
 ### [T480] Trading: Add portfolio-wide position concentration limits
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T001]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Prevent over-concentration in correlated assets:
-  - Max 50% of portfolio in any single asset class (crypto/weather)
-  - Max 30% in highly correlated positions (e.g., multiple BTC contracts)
-  - Track total exposure across all open positions
-  - Alert if approaching concentration limits
-  - Log concentration metrics in trade data
+- **Notes**: ✅ Implemented! Prevent over-concentration in correlated assets:
+  - ✅ Max 50% of portfolio in any single asset class (crypto/weather)
+  - ✅ Max 30% in highly correlated positions (e.g., BTC+ETH as "crypto" group)
+  - ✅ Track total exposure across all open positions
+  - ✅ Alert at 40% warning threshold (writes kalshi-concentration.alert)
+  - ✅ Log concentration metrics in trade data (concentration_asset_pct, concentration_corr_group_pct)
+  - ✅ Blocks trades that would exceed limits
+  - ✅ Logs skipped trades to kalshi-skips.jsonl with concentration reason
+  - ✅ Displays concentration summary each cycle
+
+### [T481] Trading: Add rebalancing suggestions when concentration high
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T480]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When concentration exceeds warning threshold:
+  - Suggest which positions to reduce (oldest, lowest edge, or largest)
+  - Calculate optimal exit targets to bring concentration back under limit
+  - Show potential freed capital from rebalancing
+  - Consider implementing auto-rebalance mode (with confirmation)
+
+### [T482] Trading: Historical concentration tracking dashboard widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T480]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track concentration over time for analysis:
+  - Log concentration snapshot each cycle to data/trading/concentration-history.jsonl
+  - Dashboard widget showing concentration trend (line chart)
+  - Identify patterns: does high concentration correlate with wins/losses?
+  - Compare to ideal allocation (Kelly-based optimal diversification)
+
+### [T483] Trading: Track correlation between BTC/ETH for smarter diversification
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T480]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dynamic correlation tracking:
+  - Calculate rolling 7-day correlation between BTC and ETH prices
+  - Adjust "crypto" group concentration limit based on current correlation
+  - When correlation is low (<0.5), allow higher combined crypto exposure
+  - When correlation is high (>0.9), treat BTC+ETH almost as single asset
+  - Log correlation values in trade data for analysis
 
 ---
 

@@ -212,6 +212,14 @@ DIVERGENCE_LOOKBACK = 8  # Number of candles to analyze for divergence
 DIVERGENCE_MIN_PRICE_MOVE = 0.008  # 0.8% minimum price move to detect
 DIVERGENCE_STATE_FILE = "scripts/kalshi-divergence-state.json"
 
+# Portfolio concentration limits (T480) - prevent over-concentration in correlated assets
+# Key insight: Don't put all eggs in one basket - diversify across asset classes
+CONCENTRATION_MAX_ASSET_CLASS_PCT = 0.50  # Max 50% of portfolio in any single asset class
+CONCENTRATION_MAX_CORRELATED_PCT = 0.30   # Max 30% in highly correlated positions (e.g., multiple BTC contracts)
+CONCENTRATION_WARN_PCT = 0.40             # Warn when approaching 40% in any asset class
+CONCENTRATION_ALERT_FILE = "scripts/kalshi-concentration.alert"
+CONCENTRATION_ALERT_COOLDOWN = 3600       # 1 hour cooldown between alerts
+
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -2187,6 +2195,253 @@ def sell_position(ticker: str, side: str, count: int, price_cents: int = None) -
     return api_request("POST", "/trade-api/v2/portfolio/orders", body)
 
 
+# ============== PORTFOLIO CONCENTRATION MONITORING (T480) ==============
+
+def classify_asset_class(ticker: str) -> str:
+    """
+    Classify a position into an asset class for concentration tracking.
+    
+    Returns:
+        Asset class: "btc", "eth", "weather", or "other"
+    """
+    ticker_upper = ticker.upper()
+    if "KXBTC" in ticker_upper:
+        return "btc"
+    elif "KXETH" in ticker_upper:
+        return "eth"
+    elif any(city in ticker_upper for city in ["KXHIGH", "KXLOW", "NYC", "MIA", "DEN", "CHI", "LAX"]):
+        return "weather"
+    else:
+        return "other"
+
+
+def get_correlated_group(ticker: str) -> str:
+    """
+    Group positions by correlation for concentration limits.
+    
+    Correlated groups:
+    - "crypto": BTC + ETH (highly correlated, move together)
+    - "weather": All weather markets (moderately correlated by region)
+    - "other": Everything else
+    """
+    asset_class = classify_asset_class(ticker)
+    if asset_class in ("btc", "eth"):
+        return "crypto"
+    elif asset_class == "weather":
+        return "weather"
+    else:
+        return "other"
+
+
+def calculate_portfolio_concentration(positions: list, portfolio_value_cents: int) -> dict:
+    """
+    Calculate current portfolio concentration by asset class and correlation group.
+    
+    Args:
+        positions: List of open positions from get_positions()
+        portfolio_value_cents: Total portfolio value in cents
+        
+    Returns:
+        Dict with concentration metrics:
+        {
+            "by_asset_class": {"btc": 0.35, "eth": 0.15, "weather": 0.20, ...},
+            "by_correlation_group": {"crypto": 0.50, "weather": 0.20, ...},
+            "total_exposure_cents": 1500,
+            "position_count": {"btc": 5, "eth": 3, "weather": 2, ...},
+            "largest_position_pct": 0.05,
+            "largest_asset_class": "btc",
+            "largest_correlated_group": "crypto"
+        }
+    """
+    if portfolio_value_cents <= 0 or not positions:
+        return {
+            "by_asset_class": {},
+            "by_correlation_group": {},
+            "total_exposure_cents": 0,
+            "position_count": {},
+            "largest_position_pct": 0,
+            "largest_asset_class": None,
+            "largest_correlated_group": None
+        }
+    
+    # Calculate exposure by asset class and correlation group
+    asset_exposure = defaultdict(int)  # asset_class -> cents
+    group_exposure = defaultdict(int)  # correlation_group -> cents
+    position_count = defaultdict(int)  # asset_class -> count
+    
+    largest_position_cents = 0
+    
+    for pos in positions:
+        ticker = pos.get("ticker", "")
+        position_qty = pos.get("position", 0)  # Can be negative for NO positions
+        
+        if position_qty == 0:
+            continue
+        
+        # Get position value in cents
+        # For Kalshi: position value = |quantity| * current_price
+        # We use market mid-price as proxy (would need orderbook for exact)
+        market = get_market(ticker)
+        if not market:
+            continue
+        
+        # Get current price - use yes_bid for YES positions, no_bid (= 100 - yes_ask) for NO
+        if position_qty > 0:
+            # YES position - value at yes_bid
+            price_cents = market.get("yes_bid", 50)
+        else:
+            # NO position - value at no_bid (= 100 - yes_ask)
+            price_cents = 100 - market.get("yes_ask", 50)
+        
+        position_value_cents = abs(position_qty) * price_cents
+        
+        # Classify and accumulate
+        asset_class = classify_asset_class(ticker)
+        corr_group = get_correlated_group(ticker)
+        
+        asset_exposure[asset_class] += position_value_cents
+        group_exposure[corr_group] += position_value_cents
+        position_count[asset_class] += 1
+        
+        if position_value_cents > largest_position_cents:
+            largest_position_cents = position_value_cents
+    
+    # Calculate percentages
+    total_exposure = sum(asset_exposure.values())
+    
+    asset_pct = {k: v / portfolio_value_cents for k, v in asset_exposure.items()}
+    group_pct = {k: v / portfolio_value_cents for k, v in group_exposure.items()}
+    
+    # Find largest concentrations
+    largest_asset = max(asset_pct.items(), key=lambda x: x[1], default=(None, 0))
+    largest_group = max(group_pct.items(), key=lambda x: x[1], default=(None, 0))
+    
+    return {
+        "by_asset_class": dict(asset_pct),
+        "by_correlation_group": dict(group_pct),
+        "total_exposure_cents": total_exposure,
+        "position_count": dict(position_count),
+        "largest_position_pct": largest_position_cents / portfolio_value_cents if portfolio_value_cents > 0 else 0,
+        "largest_asset_class": largest_asset[0],
+        "largest_asset_class_pct": largest_asset[1],
+        "largest_correlated_group": largest_group[0],
+        "largest_correlated_group_pct": largest_group[1]
+    }
+
+
+def check_concentration_limits(
+    positions: list, 
+    portfolio_value_cents: int,
+    new_trade_asset: str,
+    new_trade_value_cents: int
+) -> tuple[bool, str, dict]:
+    """
+    Check if a new trade would exceed portfolio concentration limits.
+    
+    Args:
+        positions: Current open positions
+        portfolio_value_cents: Total portfolio value
+        new_trade_asset: Asset type of proposed trade ("btc", "eth", "weather")
+        new_trade_value_cents: Value of proposed trade
+        
+    Returns:
+        Tuple of (can_trade, reason, concentration_metrics)
+        - can_trade: True if trade is allowed, False if blocked
+        - reason: Explanation string
+        - concentration_metrics: Current concentration data for logging
+    """
+    concentration = calculate_portfolio_concentration(positions, portfolio_value_cents)
+    
+    # Calculate what concentration would be after this trade
+    new_asset_class = new_trade_asset.lower()
+    new_corr_group = "crypto" if new_asset_class in ("btc", "eth") else new_asset_class
+    
+    current_asset_pct = concentration["by_asset_class"].get(new_asset_class, 0)
+    current_group_pct = concentration["by_correlation_group"].get(new_corr_group, 0)
+    
+    if portfolio_value_cents > 0:
+        new_trade_pct = new_trade_value_cents / portfolio_value_cents
+        projected_asset_pct = current_asset_pct + new_trade_pct
+        projected_group_pct = current_group_pct + new_trade_pct
+    else:
+        projected_asset_pct = 1.0  # New trade would be 100% of portfolio
+        projected_group_pct = 1.0
+    
+    # Check concentration limits
+    
+    # 1. Check asset class limit (max 50%)
+    if projected_asset_pct > CONCENTRATION_MAX_ASSET_CLASS_PCT:
+        reason = f"Would exceed {CONCENTRATION_MAX_ASSET_CLASS_PCT*100:.0f}% asset class limit " \
+                 f"({new_asset_class.upper()}: {current_asset_pct*100:.1f}% → {projected_asset_pct*100:.1f}%)"
+        return False, reason, concentration
+    
+    # 2. Check correlated group limit (max 30%)
+    if projected_group_pct > CONCENTRATION_MAX_CORRELATED_PCT:
+        reason = f"Would exceed {CONCENTRATION_MAX_CORRELATED_PCT*100:.0f}% correlation group limit " \
+                 f"({new_corr_group}: {current_group_pct*100:.1f}% → {projected_group_pct*100:.1f}%)"
+        return False, reason, concentration
+    
+    # 3. Check warning threshold (40%) - allowed but warn
+    if projected_asset_pct > CONCENTRATION_WARN_PCT:
+        write_concentration_alert(new_asset_class, projected_asset_pct, concentration)
+        reason = f"WARN: Approaching concentration limit ({new_asset_class.upper()}: {projected_asset_pct*100:.1f}%)"
+        # Still allow the trade, just with warning
+        return True, reason, concentration
+    
+    return True, "OK", concentration
+
+
+def write_concentration_alert(asset_class: str, concentration_pct: float, metrics: dict):
+    """Write concentration warning alert for heartbeat pickup."""
+    alert_path = Path(__file__).parent / CONCENTRATION_ALERT_FILE.split("/")[-1]
+    
+    # Check cooldown
+    if alert_path.exists():
+        last_alert = alert_path.stat().st_mtime
+        if time.time() - last_alert < CONCENTRATION_ALERT_COOLDOWN:
+            return  # Still in cooldown
+    
+    alert_data = {
+        "type": "concentration_warning",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "asset_class": asset_class,
+        "concentration_pct": concentration_pct,
+        "threshold": CONCENTRATION_WARN_PCT,
+        "message": f"⚠️ Portfolio concentration warning: {asset_class.upper()} at {concentration_pct*100:.1f}% " \
+                   f"(warn threshold: {CONCENTRATION_WARN_PCT*100:.0f}%, max: {CONCENTRATION_MAX_ASSET_CLASS_PCT*100:.0f}%)",
+        "metrics": metrics
+    }
+    
+    with open(alert_path, "w") as f:
+        json.dump(alert_data, f, indent=2)
+    
+    print(f"⚠️ Concentration alert written: {asset_class.upper()} at {concentration_pct*100:.1f}%")
+
+
+def print_concentration_summary(concentration: dict):
+    """Print a human-readable concentration summary."""
+    if not concentration["by_asset_class"]:
+        print("   📊 Portfolio: No open positions")
+        return
+    
+    print("   📊 Portfolio Concentration:")
+    
+    # By asset class
+    for asset, pct in sorted(concentration["by_asset_class"].items(), key=lambda x: -x[1]):
+        count = concentration["position_count"].get(asset, 0)
+        bar_len = int(pct * 20)
+        bar = "█" * bar_len + "░" * (20 - bar_len)
+        status = "⚠️" if pct > CONCENTRATION_WARN_PCT else "✓" if pct < 0.25 else ""
+        print(f"      {asset.upper():8} [{bar}] {pct*100:5.1f}% ({count} pos) {status}")
+    
+    # Correlation groups
+    if concentration["by_correlation_group"]:
+        largest_group = concentration["largest_correlated_group"]
+        largest_pct = concentration["largest_correlated_group_pct"]
+        if largest_pct > CONCENTRATION_WARN_PCT:
+            print(f"      ⚠️ Correlated exposure: {largest_group} at {largest_pct*100:.1f}%")
+
+
 # ============== STOP-LOSS MONITORING ==============
 
 # Stop-loss parameters (configurable via environment)
@@ -3474,6 +3729,13 @@ def run_cycle():
     positions = get_positions()
     print(f"📋 Open positions: {len(positions)}")
     
+    # Show portfolio concentration if we have positions (T480)
+    if positions:
+        bal_for_conc = get_balance()
+        portfolio_val = bal_for_conc.get("portfolio_value", 0)
+        concentration = calculate_portfolio_concentration(positions, portfolio_val)
+        print_concentration_summary(concentration)
+    
     # CHECK STOP-LOSSES for open positions
     if positions:
         stop_loss_candidates = check_stop_losses(positions, prices)
@@ -3643,6 +3905,41 @@ def run_cycle():
         print("❌ Bet too small")
         return
     
+    # Check portfolio concentration limits (T480)
+    trade_value_cents = contracts * best["price"]
+    bal_data = get_balance()
+    portfolio_value = bal_data.get("portfolio_value", 0)  # Already in cents
+    
+    can_trade, conc_reason, conc_metrics = check_concentration_limits(
+        positions,
+        portfolio_value,
+        asset_type,
+        trade_value_cents
+    )
+    
+    # Print concentration summary
+    print_concentration_summary(conc_metrics)
+    
+    if not can_trade:
+        print(f"⛔ BLOCKED by concentration limits: {conc_reason}")
+        # Log the skip with concentration data
+        skip_data = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "type": "concentration_skip",
+            "ticker": best["ticker"],
+            "asset": asset_type,
+            "reason": conc_reason,
+            "would_be_contracts": contracts,
+            "would_be_value_cents": trade_value_cents,
+            "concentration_metrics": conc_metrics
+        }
+        with open(SKIP_LOG_FILE, "a") as f:
+            f.write(json.dumps(skip_data) + "\n")
+        return
+    
+    if "WARN" in conc_reason:
+        print(f"   ⚠️ {conc_reason}")
+    
     # Build trade data for logging
     trade_data = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -3690,6 +3987,12 @@ def run_cycle():
         "news_sentiment": best.get("news_sentiment", "neutral"),
         "news_confidence": best.get("news_confidence", 0.5),
         "news_reasons": best.get("news_reasons", []),
+        # Portfolio concentration data (T480)
+        "concentration_asset_pct": conc_metrics.get("by_asset_class", {}).get(asset_type, 0),
+        "concentration_corr_group_pct": conc_metrics.get("by_correlation_group", {}).get(
+            "crypto" if asset_type in ("btc", "eth") else asset_type, 0
+        ),
+        "concentration_warning": "WARN" in conc_reason,
         "result_status": "pending"
     }
     
