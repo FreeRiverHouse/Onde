@@ -5688,12 +5688,25 @@
 - **Notes**: Extend weekend analysis to US market holidays (Christmas, Thanksgiving, etc). Lower liquidity may affect crypto volatility patterns. Script: analyze-holiday-trading.py
 
 ### [T411] Time-of-day heatmap visualization on dashboard
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T249]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visual heatmap (7 days × 24 hours grid) showing win rate by day/hour. Color-coded: green=profitable hours, red=losing hours. Helps identify optimal trading windows.
+- **Notes**: ✅ Implemented time-of-day trading heatmap!
+  - **Script**: `scripts/analyze-trades-by-hour-day.py` - generates heatmap data
+  - **Component**: `apps/surfboard/src/components/TimeOfDayHeatmap.tsx`
+  - **Features:**
+    - 7 days × 24 hours grid visualization
+    - Color-coded cells by win rate (green=profitable, red=losing)
+    - Trade count displayed in each cell
+    - Tooltips with detailed stats (trades, won/lost, win rate, PnL)
+    - Best/worst trading windows highlighted
+    - Legend and insights section
+  - **Data**: Pushed to gist via `push-stats-to-gist.py`
+  - **Deployed**: https://6b6bf566.onde-surf.pages.dev
+  - **Verified**: https://onde.surf returns 307 (auth redirect OK)
 
 ### [T412] Auto-detect optimal trading hours from historical data
 - **Status**: TODO
