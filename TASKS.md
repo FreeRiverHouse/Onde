@@ -238,16 +238,18 @@
   - Build OK, ready for deploy
 
 ### [T700] Reader App: Deploy dictionary feature to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T699]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy Reader App with dictionary lookup feature:
-  - Build static export with STATIC_EXPORT=1 (basePath=/reader/)
-  - Copy to onde-portal/public/reader/
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify: https://onde.la/reader/ working with dictionary
+- **Notes**: ✅ Deployed! https://f8d29668.onde-portal.pages.dev
+  - ✅ Built static export with STATIC_EXPORT=1 (basePath=/reader/)
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - Dictionary lookup, vocabulary panel, audio pronunciation all live!
 
 ---
 
