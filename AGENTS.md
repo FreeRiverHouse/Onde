@@ -1,3 +1,19 @@
+# ⛔⛔⛔ STOP! LEGGI PRIMA DI FARE QUALSIASI COSA! ⛔⛔⛔
+
+## 🔴 PROCESSO TELEGRAM (OGNI MESSAGGIO DI MATTIA)
+
+```
+1. git pull origin main
+2. Appendi messaggio a memory/YYYY-MM-DD.md (ID, contenuto, contesto)
+3. git add && git commit && git push
+4. ORA puoi rispondere
+```
+
+**NON RISPONDERE MAI SENZA AVER LOGGATO PRIMA!**
+**Violazione = Mattia si incazza = sistema rotto = non funziona niente**
+
+---
+
 # AGENTS.md - Your Workspace
 
 This folder is home. Treat it that way.
