@@ -8315,3 +8315,44 @@
   - Uses correlation-history.jsonl data from T723
   - Helps visualize diversification opportunities over time
 
+### [T789] Autotrader: Integrate trading window recommendations
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T412]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Use trading window recommendations to skip bad times:
+  - Load `data/trading/trading-recommendations.json` at startup
+  - Skip trading during hours not in `active_hours` list
+  - Skip trading on `avoid_days` (if confidence is high)
+  - Log skipped cycles with reason "outside_optimal_window"
+  - Add --ignore-schedule flag to override
+  - Alert if schedule is too restrictive (<6 active hours)
+
+### [T790] Dashboard: Trading window recommendations widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T412]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show trading recommendations on dashboard:
+  - Best/worst windows table with confidence intervals
+  - Current hour highlighted (green if good, red if bad)
+  - "Trading paused" indicator when in avoid period
+  - Links to full heatmap (T411) for details
+  - Add to /betting page analytics section
+
+### [T791] Cron: Daily trading recommendations refresh
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T412]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Keep recommendations up to date:
+  - Run `recommend-trading-windows.py` daily at 00:00 UTC
+  - Push updated data to gist with other stats
+  - Alert if recommendations change significantly:
+    - New day added/removed from avoid list
+    - Active hours changed by >4 hours
+  - Log recommendation history for trend analysis
+
