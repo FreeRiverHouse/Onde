@@ -5755,12 +5755,28 @@
 - **Notes**: ✅ Script: analyze-api-errors.py. Parses autotrader-v2.log for error patterns per source (Kalshi, CoinGecko, Binance, Coinbase, network). Detects retry attempts, timeouts, rate limits. Outputs success/error rates with sample errors. Stats saved to data/trading/api-error-stats.json. Usage: `python3 scripts/analyze-api-errors.py --days 7`
 
 ### [T414] Auto-pause autotrader during market holidays
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: US market holidays often have lower crypto liquidity and unusual patterns. Script to check if today is a holiday (python-holidays or hardcoded list). Skip trading on Christmas, Thanksgiving, etc.
+- **Notes**: ✅ Implemented market holiday detection and pause functionality!
+  - **Script**: `scripts/check-market-holiday.py`
+  - **Features:**
+    - ✅ US market holiday detection (New Year's, MLK Day, Presidents' Day, Memorial Day, July 4th, Labor Day, Thanksgiving, Christmas, etc.)
+    - ✅ Variable holidays calculated correctly (3rd Monday, last Monday, etc.)
+    - ✅ Christmas Eve, New Year's Eve, Day After Thanksgiving (reduced liquidity days)
+    - ✅ CLI: `--list` shows upcoming holidays, `--json` for programmatic use
+    - ✅ Exit code 0=holiday, 1=not holiday (for shell scripts)
+  - **Autotrader Integration:**
+    - ✅ Holiday check in `check_trading_schedule()` function
+    - ✅ `HOLIDAY_PAUSE_ENABLED` env var (default: true) - skips trading entirely
+    - ✅ `HOLIDAY_REDUCE_SIZE` env var (default: true) - alternative: 50% position size
+    - ✅ `is_holiday_trading()` helper function
+    - ✅ Holiday multiplier logged in trade data for analysis
+    - ✅ Visual indicator: 🎄 emoji in schedule output
+  - **Rationale:** Crypto markets have unusual patterns during US holidays (lower liquidity, erratic price movements)
 
 ### [T415] Memory file auto-archiving for old daily notes
 - **Status**: DONE
@@ -8556,3 +8572,46 @@
   1. Fix the redirects in Cloudflare/server config, OR
   2. Update test script to follow redirects (-L flag)
   Reference: test-failure.alert 2025-01-30
+
+### [T802] Trading: Analyze holiday trading performance retrospectively
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T414]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create script to analyze trading performance on vs off holidays:
+  - Parse trade logs for trades with `is_holiday: true`
+  - Compare win rate: holiday vs non-holiday
+  - Compare PnL: holiday vs non-holiday
+  - Validate if holiday pause logic is effective
+  - Output: `data/trading/holiday-performance.json`
+  - Script: `scripts/analyze-holiday-performance.py`
+
+### [T803] SE-Bot: Add comprehensive integration tests
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create pytest test suite for SE-Bot modules:
+  - Test audio capture (mock sounddevice)
+  - Test transcription pipeline (mock whisper)
+  - Test knowledge base search quality
+  - Test context analyzer RAG retrieval
+  - Test overlay UI rendering
+  - CI/CD integration via GitHub Actions
+  - Test file: `apps/se-bot/tests/test_integration.py`
+
+### [T804] Trading: Weekly position diversity report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T480], [T482]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Generate weekly diversity report:
+  - Average concentration by asset class
+  - Time spent at >40% concentration (warning zone)
+  - Correlation with win rate during concentrated periods
+  - Recommendations for better diversification
+  - Telegram delivery via cron Sunday evening
+  - Script: `scripts/weekly-diversity-report.py`

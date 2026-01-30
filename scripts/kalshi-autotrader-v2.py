@@ -57,6 +57,20 @@ except Exception as e:
     WEATHER_AVAILABLE = False
     print(f"⚠️ Weather forecast module not available: {e}")
 
+# Import market holiday checker (T414 - Auto-pause during market holidays)
+try:
+    holiday_spec = spec_from_file_location("check_market_holiday",
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "check-market-holiday.py"))
+    holiday_module = module_from_spec(holiday_spec)
+    holiday_spec.loader.exec_module(holiday_module)
+    is_market_holiday = holiday_module.is_holiday
+    HOLIDAY_CHECK_AVAILABLE = True
+except Exception as e:
+    HOLIDAY_CHECK_AVAILABLE = False
+    print(f"⚠️ Holiday check module not available: {e}")
+    def is_market_holiday(check_date=None):
+        return False, None
+
 # ============== CONFIG ==============
 API_KEY_ID = "4308d1ca-585e-4b73-be82-5c0968b9a59a"
 PRIVATE_KEY = """-----BEGIN RSA PRIVATE KEY-----
@@ -233,6 +247,12 @@ LATENCY_CHECK_WINDOW = 10  # Check last N trades
 
 # Streak record alerting (T288)
 STREAK_STATE_FILE = "scripts/kalshi-streak-records.json"
+
+# Market holiday pausing (T414) - skip trading on US market holidays
+# Crypto markets have unusual patterns during holidays (lower liquidity, erratic moves)
+HOLIDAY_PAUSE_ENABLED = os.getenv("HOLIDAY_PAUSE_ENABLED", "true").lower() == "true"
+HOLIDAY_REDUCE_SIZE = os.getenv("HOLIDAY_REDUCE_SIZE", "true").lower() == "true"  # Alternative: reduce size instead of pausing
+HOLIDAY_SIZE_REDUCTION = 0.5  # 50% position size reduction if trading on holidays
 STREAK_ALERT_FILE = "scripts/kalshi-streak-record.alert"
 
 # Streak position analysis (T770) - context for trade decisions
@@ -277,13 +297,30 @@ def load_trading_schedule():
 def check_trading_schedule():
     """
     Check if current time is within optimal trading windows.
+    Also checks for US market holidays (T414).
     
     Returns:
         tuple: (should_trade, reason)
         - should_trade: True if we should trade now, False otherwise
         - reason: Explanation of why trading is allowed/blocked
     """
+    from datetime import date
+    
+    # Check for market holidays first (T414)
+    if HOLIDAY_PAUSE_ENABLED and HOLIDAY_CHECK_AVAILABLE:
+        is_hol, holiday_name = is_market_holiday()
+        if is_hol:
+            return False, f"🎄 {holiday_name} - paused (lower liquidity, unusual patterns)"
+    
     if not TRADING_SCHEDULE_ENABLED:
+        # Still report if it's a holiday even when schedule is disabled
+        if HOLIDAY_CHECK_AVAILABLE:
+            is_hol, holiday_name = is_market_holiday()
+            if is_hol:
+                if HOLIDAY_REDUCE_SIZE:
+                    return True, f"⚠️ {holiday_name} - trading with reduced size"
+                else:
+                    return True, f"⚠️ {holiday_name} - schedule check disabled"
         return True, "Schedule check disabled"
     
     schedule = load_trading_schedule()
@@ -308,6 +345,14 @@ def check_trading_schedule():
         return False, f"{current_hour:02d}:00 UTC not in active_hours (poor historical win rate)"
     
     return True, f"✓ {current_hour:02d}:00 UTC is an optimal trading window"
+
+
+def is_holiday_trading():
+    """Check if we're trading during a market holiday (T414)"""
+    if HOLIDAY_CHECK_AVAILABLE:
+        is_hol, _ = is_market_holiday()
+        return is_hol
+    return False
 
 def log_schedule_skip(reason: str):
     """Log when we skip trading due to schedule."""
@@ -4414,6 +4459,14 @@ def run_cycle():
     kelly_bet = cash * adjusted_kelly * best["edge"]
     # Apply per-asset max position limit (T441)
     bet_size = max(MIN_BET_CENTS / 100, min(kelly_bet, cash * max_position_pct))
+    
+    # Apply holiday position size reduction (T414)
+    holiday_multiplier = 1.0
+    if HOLIDAY_REDUCE_SIZE and is_holiday_trading():
+        holiday_multiplier = HOLIDAY_SIZE_REDUCTION
+        bet_size = bet_size * holiday_multiplier
+        print(f"   🎄 Holiday size reduction: {HOLIDAY_SIZE_REDUCTION*100:.0f}%")
+    
     contracts = int(bet_size * 100 / best["price"])
     
     if contracts < 1:
@@ -4504,7 +4557,9 @@ def run_cycle():
         "regime_multiplier": regime_multiplier,
         "vol_multiplier": vol_multiplier,
         "streak_multiplier": streak_multiplier,  # T388: streak-based size adjustment
-        "size_multiplier_total": total_multiplier,
+        "holiday_multiplier": holiday_multiplier,  # T414: holiday position size reduction
+        "is_holiday": is_holiday_trading(),  # T414: trading during market holiday
+        "size_multiplier_total": total_multiplier * holiday_multiplier,
         # Price source data (T386)
         "price_sources": prices.get("sources", []),
         # News sentiment data (T661 - Grok Fundamental)
