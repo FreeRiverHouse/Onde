@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { HighlightColor, useReaderStore } from '@/store/readerStore';
+import { DictionaryPopup } from './DictionaryPopup';
 
 interface HighlightMenuProps {
   position: { x: number; y: number };
@@ -9,6 +10,13 @@ interface HighlightMenuProps {
   cfi: string;
   bookId: string;
   onClose: () => void;
+}
+
+// Check if selection is a single word (for dictionary lookup)
+function isSingleWord(text: string): boolean {
+  const cleanText = text.trim();
+  // Allow hyphenated words and apostrophes (e.g., "don't", "self-aware")
+  return /^[a-zA-Z]+(['-][a-zA-Z]+)*$/.test(cleanText) && cleanText.length >= 2;
 }
 
 const HIGHLIGHT_COLORS: { color: HighlightColor; label: string; bg: string }[] = [
@@ -21,8 +29,11 @@ const HIGHLIGHT_COLORS: { color: HighlightColor; label: string; bg: string }[] =
 export function HighlightMenu({ position, selectedText, cfi, bookId, onClose }: HighlightMenuProps) {
   const { addHighlight } = useReaderStore();
   const [showNoteInput, setShowNoteInput] = useState(false);
+  const [showDictionary, setShowDictionary] = useState(false);
   const [note, setNote] = useState('');
   const [selectedColor, setSelectedColor] = useState<HighlightColor>('yellow');
+  
+  const canLookup = isSingleWord(selectedText);
 
   const handleHighlight = (color: HighlightColor, addNote = false) => {
     if (addNote) {
@@ -79,6 +90,15 @@ export function HighlightMenu({ position, selectedText, cfi, bookId, onClose }: 
             
             {/* Actions */}
             <div className="p-1">
+              {canLookup && (
+                <button
+                  onClick={() => setShowDictionary(true)}
+                  className="w-full px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium"
+                >
+                  <span>📖</span>
+                  <span>Look up "{selectedText.trim()}"</span>
+                </button>
+              )}
               <button
                 onClick={() => {
                   setShowNoteInput(true);
@@ -152,6 +172,27 @@ export function HighlightMenu({ position, selectedText, cfi, bookId, onClose }: 
           </div>
         )}
       </div>
+      
+      {/* Dictionary Popup */}
+      {showDictionary && (
+        <DictionaryPopup
+          word={selectedText.trim()}
+          position={{ x: position.x + 20, y: position.y + 60 }}
+          cfi={cfi}
+          bookId={bookId}
+          onClose={() => setShowDictionary(false)}
+          onHighlightWithNote={(note) => {
+            addHighlight({
+              bookId,
+              cfi,
+              text: selectedText.trim(),
+              color: 'blue',
+              note,
+            });
+            onClose();
+          }}
+        />
+      )}
     </div>
   );
 }

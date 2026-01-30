@@ -216,17 +216,38 @@
   - Export/import JSON backup
 
 ### [T699] Reader App: Dictionary lookup on word select
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T691]
-- **Blocks**: -
+- **Blocks**: [T700]
 - **Priority**: P3
-- **Notes**: Add dictionary feature for vocabulary learning:
-  - Detect single word selection vs multi-word highlight
-  - Query free dictionary API (e.g., dictionaryapi.dev)
-  - Show definition popup with pronunciation
-  - Option to add word to vocabulary list
-  - Integration with highlights (save word as highlight with definition note)
+- **Notes**: ✅ Implemented dictionary lookup feature!
+  - ✅ `DictionaryPopup.tsx` - Fetches definitions from dictionaryapi.dev (free, no key)
+  - ✅ Single word detection in HighlightMenu (allows hyphenated words like "self-aware")
+  - ✅ Shows definition, part of speech, pronunciation, examples
+  - ✅ Play audio pronunciation button (when available)
+  - ✅ "Add to Vocabulary" button - saves word with definition to VocabularyWord store
+  - ✅ "Save as Highlight" button - creates blue highlight with definition as note
+  - ✅ `VocabularyPanel.tsx` - Side panel to view/manage saved vocabulary
+  - ✅ Filter by all books or current book
+  - ✅ Search vocabulary words
+  - ✅ Export vocabulary list to Markdown
+  - ✅ Vocabulary persisted in localStorage with other reader data
+  - ✅ 📚 button added to reader header for quick access
+  - Build OK, ready for deploy
+
+### [T700] Reader App: Deploy dictionary feature to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T699]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App with dictionary lookup feature:
+  - Build static export with STATIC_EXPORT=1 (basePath=/reader/)
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify: https://onde.la/reader/ working with dictionary
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T03:00:02.801810+00:00",
+  "timestamp": "2026-01-30T03:30:02.525941+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bybit made \u2018slow but steady comeback\u2019 in 2025 after massive hack: CoinGecko",
+      "url": "https://cointelegraph.com/news/bybit-slow-steady-comeback-after-2025-hack-coingecko?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bybit\u2018s market share climbed in 2025, even after it was hacked for $1.5 billion, while trading volumes on the top 10 exchanges rose by 7.6% on average last year.",
+      "published": "2026-01-30T02:59:30+00:00"
+    },
     {
       "title": "Tech Giants Circle OpenAI in Funding Round That Could Top $100 Billion",
       "url": "https://decrypt.co/356442/openai-funding-round-top-100-billion",
@@ -156,13 +163,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas SEC Chairman Paul Atkins is going to speak at the Bitcoin 2026 Conference. This post SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T18:29:17+00:00"
-    },
-    {
-      "title": "Why did Bitcoin price just hit two-month lows near $83K?",
-      "url": "https://cointelegraph.com/news/why-did-bitcoin-price-hit-two-month-lows-near-83k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin suddenly dropped nearly 6% to see its lowest levels in two months as gold and silver endured a snap retracement from all-time highs.",
-      "published": "2026-01-29T17:56:00+00:00"
     },
     {
       "title": "Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor",

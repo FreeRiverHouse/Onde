@@ -6,6 +6,7 @@ import { ReaderSettings } from './ReaderSettings';
 import { TableOfContents } from './TableOfContents';
 import { HighlightMenu } from './HighlightMenu';
 import { AnnotationsPanel } from './AnnotationsPanel';
+import { VocabularyPanel } from './VocabularyPanel';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
 interface TocItem {
@@ -58,6 +59,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   
   // Annotation states
   const [isAnnotationsOpen, setIsAnnotationsOpen] = useState(false);
+  const [isVocabularyOpen, setIsVocabularyOpen] = useState(false);
   const [highlightMenu, setHighlightMenu] = useState<{
     position: { x: number; y: number };
     selectedText: string;
@@ -477,6 +479,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
                 )}
               </button>
               <button
+                onClick={(e) => { e.stopPropagation(); setIsVocabularyOpen(true); }}
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
+                title="Vocabulary"
+              >
+                📚
+              </button>
+              <button
                 onClick={(e) => { e.stopPropagation(); toggleToc(); }}
                 className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
                 title="Table of Contents"
@@ -572,6 +581,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           onClose={() => setIsAnnotationsOpen(false)}
         />
       )}
+      
+      {/* Vocabulary panel */}
+      <VocabularyPanel
+        isOpen={isVocabularyOpen}
+        onClose={() => setIsVocabularyOpen(false)}
+        bookId={bookId}
+      />
     </div>
   );
 }

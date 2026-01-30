@@ -22,6 +22,15 @@ export interface Bookmark {
   createdAt: number;
 }
 
+export interface VocabularyWord {
+  id: string;
+  word: string;
+  definition: string;
+  phonetic?: string;
+  bookId?: string;
+  createdAt: number;
+}
+
 export interface Book {
   id: string;
   title: string;
@@ -52,6 +61,7 @@ interface ReaderState {
   // Annotations
   highlights: Highlight[];
   bookmarks: Bookmark[];
+  vocabulary: VocabularyWord[];
   
   // Settings
   settings: ReaderSettings;
@@ -71,6 +81,9 @@ interface ReaderState {
   
   addBookmark: (bookmark: Omit<Bookmark, 'id' | 'createdAt'>) => void;
   removeBookmark: (id: string) => void;
+  
+  addVocabularyWord: (word: Omit<VocabularyWord, 'id' | 'createdAt'>) => void;
+  removeVocabularyWord: (id: string) => void;
   
   updateSettings: (settings: Partial<ReaderSettings>) => void;
   
@@ -118,6 +131,7 @@ export const useReaderStore = create<ReaderState>()(
       books: sampleBooks,
       highlights: [],
       bookmarks: [],
+      vocabulary: [],
       settings: defaultSettings,
       isSettingsOpen: false,
       isTocOpen: false,
@@ -165,6 +179,23 @@ export const useReaderStore = create<ReaderState>()(
         bookmarks: state.bookmarks.filter((b) => b.id !== id),
       })),
       
+      addVocabularyWord: (word) => set((state) => {
+        // Don't add duplicates
+        if (state.vocabulary.some(v => v.word.toLowerCase() === word.word.toLowerCase())) {
+          return state;
+        }
+        return {
+          vocabulary: [
+            ...state.vocabulary,
+            { ...word, id: crypto.randomUUID(), createdAt: Date.now() },
+          ],
+        };
+      }),
+      
+      removeVocabularyWord: (id) => set((state) => ({
+        vocabulary: state.vocabulary.filter((v) => v.id !== id),
+      })),
+      
       updateSettings: (newSettings) => set((state) => ({
         settings: { ...state.settings, ...newSettings },
       })),
@@ -178,6 +209,7 @@ export const useReaderStore = create<ReaderState>()(
         books: state.books,
         highlights: state.highlights,
         bookmarks: state.bookmarks,
+        vocabulary: state.vocabulary,
         settings: state.settings,
       }),
     }
