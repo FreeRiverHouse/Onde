@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T14:00:02.518651+00:00",
+  "timestamp": "2026-01-30T15:00:02.921653+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,41 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Morning Minute: Washington Just Gave Crypto the Green Light",
+      "url": "https://decrypt.co/356463/morning-minute-washington-just-gave-crypto-the-green-light",
+      "source": "decrypt",
+      "description": "It was a big day for crypto policy in the US yesterday, but work still remains to be done",
+      "published": "2026-01-30T14:41:10+00:00"
+    },
+    {
+      "title": "What role is left for decentralized GPU networks in AI?",
+      "url": "https://cointelegraph.com/news/what-role-is-left-for-decentralized-gpu-networks-in-ai?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "AI training is dominated by hyperscale data centers, but inference and everyday workloads are opening real space for decentralized GPU networks.",
+      "published": "2026-01-30T14:39:49+00:00"
+    },
+    {
+      "title": "Binance to Move $1 Billion User Protection Fund Into Bitcoin\u00a0",
+      "url": "https://bitcoinmagazine.com/news/binance-to-move-1-billion-fund-to-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Binance to Move $1 Billion User Protection Fund Into Bitcoin As the bitcoin price slumps, Binance said it will convert the $1 billion stablecoin-backed Secure Asset Fund for Users entirely into bitcoin over the next 30 days. This post Binance to Move $1 Billion User Protection Fund Into Bitcoin first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T14:27:35+00:00"
+    },
+    {
+      "title": "Bitcoin bear market almost over? BTC price metric outpaces 2022 bottom",
+      "url": "https://cointelegraph.com/news/bitcoin-bear-market-almost-over-btc-price-metric-outpaces-2022-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin's MVRV Z-score printed record lows on a rolling two-year basis, making BTC price more \"undervalued\" than at the pit of past bear markets.",
+      "published": "2026-01-30T14:15:00+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-01-30T14:09:06+00:00"
+    },
     {
       "title": "Trump picks crypto-friendly Kevin Warsh as new Fed chair",
       "url": "https://cointelegraph.com/news/kevin-warsh-officially-picked-federal-reserve-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -81,27 +116,6 @@
       "published": "2026-01-30T10:39:08+00:00"
     },
     {
-      "title": "Bitcoin loses crucial $84K support: How low can BTC price go?",
-      "url": "https://cointelegraph.com/news/bitcoin-loses-crucial-84k-support-how-low-can-btc-price-go?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "BTC could drop to as low as $50,000 in the worst-case scenario after BTC price failed to hold the important $84,000 support level.",
-      "published": "2026-01-30T10:30:32+00:00"
-    },
-    {
-      "title": "Binance to convert $1B SAFU reserves into Bitcoin within 30 days",
-      "url": "https://cointelegraph.com/news/binance-to-convert-1-billion-safu-fund-btc?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The shift will take Binance\u2019s insurance-style fund out of US dollar-pegged assets and into Bitcoin within 30 days, raising questions about user protection.",
-      "published": "2026-01-30T10:25:11+00:00"
-    },
-    {
-      "title": "Bybit\u2019s neobank plans test crypto exchanges\u2019 push into banking",
-      "url": "https://cointelegraph.com/news/bybit-neobank-move-cex-into-tradfi-test?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bybit\u2019s upcoming neobank launch via Tether-backed Pave Bank highlights the regulatory hurdles and challenges that crypto exchanges face when entering traditional finance.",
-      "published": "2026-01-30T09:56:34+00:00"
-    },
-    {
       "title": "Democrats Press DOJ Deputy Over Crypto Holdings, Enforcement Retreat",
       "url": "https://decrypt.co/356452/democrats-doj-deputy-crypto-holdings-enforcement-retreat",
       "source": "decrypt",
@@ -149,13 +163,6 @@
       "source": "decrypt",
       "description": "Jaime Rogozinski litigated the trademark to the Supreme Court\u2014and lost.",
       "published": "2026-01-29T22:03:42+00:00"
-    },
-    {
-      "title": "Google Brings Agentic Browsing to Chrome\u2014And It's Not Playing Nice With Competitors",
-      "url": "https://decrypt.co/356344/google-agentic-browsing-chrome-not-playing-nice-competitors",
-      "source": "decrypt",
-      "description": "Google has integrated Gemini 3 into Chrome with agentic capabilities, joining OpenAI and Anthropic in the race to automate web browsing.",
-      "published": "2026-01-29T21:53:33+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill The White House is reportedly convening banking and crypto executives on February 2 to revive stalled U.S. crypto legislation, after Senate progress on market-structure rules collapsed earlier this month. This post White House to Host Crypto and Banking Executives for Talks on Stalled U.S. Crypto Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-28T19:30:16+00:00"
-    },
-    {
-      "title": "Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children",
-      "url": "https://bitcoinmagazine.com/news/coinbase-to-join-trump-accounts-push",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children Coinbase plans to join President Trump\u2019s new Trump Accounts program by matching the government\u2019s $1,000 child investment grant for employees\u2019 children \u2014 potentially in Bitcoin. This post Coinbase to Join Trump Accounts Push, Eyes Bitcoin Payments for Children first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-28T18:51:28+00:00"
     }
   ]
 }

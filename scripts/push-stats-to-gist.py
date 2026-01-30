@@ -580,6 +580,133 @@ def load_trading_recommendations():
         return None
 
 
+# Path for stop-loss log (T366)
+STOP_LOSS_LOG = SCRIPT_DIR / "kalshi-stop-loss.log"
+
+
+def load_stop_loss_stats():
+    """Load stop-loss stats for dashboard widget (T366).
+    
+    Analyzes stop-loss events and calculates effectiveness metrics:
+    - Total triggered
+    - Estimated money saved (vs holding to settlement)
+    - Positions that would have lost vs won if held
+    """
+    if not STOP_LOSS_LOG.exists():
+        return None
+    
+    try:
+        stop_losses = []
+        with open(STOP_LOSS_LOG) as f:
+            for line in f:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get('type') == 'stop_loss':
+                        stop_losses.append(entry)
+                except json.JSONDecodeError:
+                    continue
+        
+        if not stop_losses:
+            return None
+        
+        # Load settled trades to find final outcomes
+        settled = {}
+        for trades_file in [TRADES_FILE_V2, TRADES_FILE_V1]:
+            if trades_file.exists():
+                with open(trades_file) as f:
+                    for line in f:
+                        try:
+                            entry = json.loads(line.strip())
+                            if entry.get('result_status') in ['won', 'lost']:
+                                ticker = entry.get('ticker')
+                                if ticker:
+                                    settled[ticker] = entry
+                        except json.JSONDecodeError:
+                            continue
+        
+        # Analyze each stop-loss
+        total_triggered = len(stop_losses)
+        total_actual_loss_cents = 0
+        total_potential_loss_cents = 0
+        would_have_lost = 0
+        would_have_won = 0
+        unknown_outcome = 0
+        
+        events = []  # For historical view
+        
+        for sl in stop_losses:
+            ticker = sl.get('ticker', 'unknown')
+            entry_price = sl.get('entry_price', 0)
+            exit_price = sl.get('exit_price', 0)
+            contracts = sl.get('contracts', 1)
+            loss_pct = sl.get('loss_pct', 0)
+            timestamp = sl.get('timestamp', '')
+            
+            # Actual loss at stop-loss exit
+            actual_loss = (entry_price - exit_price) * contracts
+            total_actual_loss_cents += actual_loss
+            
+            event = {
+                "timestamp": timestamp,
+                "ticker": ticker,
+                "entryPrice": entry_price,
+                "exitPrice": exit_price,
+                "contracts": contracts,
+                "lossPct": round(loss_pct, 1),
+                "actualLossCents": round(actual_loss, 2),
+                "outcome": "unknown"
+            }
+            
+            # Check settlement outcome
+            if ticker in settled:
+                result = settled[ticker].get('result_status')
+                if result == 'lost':
+                    # Would have lost 100%
+                    potential_loss = entry_price * contracts
+                    saved = potential_loss - actual_loss
+                    total_potential_loss_cents += potential_loss
+                    would_have_lost += 1
+                    event["outcome"] = "saved"
+                    event["potentialLossCents"] = round(potential_loss, 2)
+                    event["savedCents"] = round(saved, 2)
+                else:
+                    # Would have won
+                    potential_profit = (100 - entry_price) * contracts
+                    would_have_won += 1
+                    event["outcome"] = "premature"
+                    event["potentialProfitCents"] = round(potential_profit, 2)
+            else:
+                unknown_outcome += 1
+            
+            events.append(event)
+        
+        # Calculate savings
+        total_saved_cents = total_potential_loss_cents - total_actual_loss_cents
+        
+        # Effectiveness metrics
+        effectiveness_pct = 0
+        if would_have_lost + would_have_won > 0:
+            effectiveness_pct = round(would_have_lost / (would_have_lost + would_have_won) * 100, 1)
+        
+        return {
+            "totalTriggered": total_triggered,
+            "wouldHaveLost": would_have_lost,
+            "wouldHaveWon": would_have_won,
+            "unknownOutcome": unknown_outcome,
+            "effectivenessPct": effectiveness_pct,
+            "actualLossCents": round(total_actual_loss_cents, 2),
+            "potentialLossCents": round(total_potential_loss_cents, 2),
+            "savedCents": round(total_saved_cents, 2),
+            "savedDollars": round(total_saved_cents / 100, 2),
+            "events": events[-50:],  # Last 50 events for chart
+            "generatedAt": datetime.now(timezone.utc).isoformat()
+        }
+        
+    except Exception as e:
+        print(f"Warning: Could not load stop-loss stats: {e}")
+        return None
+
+
 def calculate_edge_distribution(trades):
     """Calculate edge distribution buckets with win rates (T368).
     
@@ -1038,6 +1165,11 @@ def calculate_stats(trades, source='v2'):
     trading_recommendations = load_trading_recommendations()
     if trading_recommendations:
         result["tradingRecommendations"] = trading_recommendations
+    
+    # Add stop-loss effectiveness stats (T366)
+    stop_loss_stats = load_stop_loss_stats()
+    if stop_loss_stats:
+        result["stopLossStats"] = stop_loss_stats
     
     return result
 

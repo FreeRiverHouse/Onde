@@ -47,6 +47,7 @@ import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
+import { StopLossEffectivenessWidget } from '@/components/StopLossEffectivenessWidget';
 import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
 import { StreakPositionWidget } from '@/components/StreakPositionWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
@@ -364,6 +365,32 @@ interface TradingStats {
       context?: string;
       message: string;
     }>;
+  } | null;
+  // Stop-loss effectiveness stats (T366)
+  stopLossStats?: {
+    totalTriggered: number;
+    wouldHaveLost: number;
+    wouldHaveWon: number;
+    unknownOutcome: number;
+    effectivenessPct: number;
+    actualLossCents: number;
+    potentialLossCents: number;
+    savedCents: number;
+    savedDollars: number;
+    events: Array<{
+      timestamp: string;
+      ticker: string;
+      entryPrice: number;
+      exitPrice: number;
+      contracts: number;
+      lossPct: number;
+      actualLossCents: number;
+      outcome: 'saved' | 'premature' | 'unknown';
+      potentialLossCents?: number;
+      savedCents?: number;
+      potentialProfitCents?: number;
+    }>;
+    generatedAt: string;
   } | null;
 }
 
@@ -2283,6 +2310,14 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Stop-Loss Effectiveness (T366) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <StopLossEffectivenessWidget 
+                data={tradingStats.stopLossStats || undefined}
                 loading={isLoading}
               />
             </div>

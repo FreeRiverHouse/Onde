@@ -5355,12 +5355,26 @@
 - **Notes**: ✅ Added! Filters sync to URL (?source=v1&period=week&from=...&to=...). Loads from URL on mount. Uses router.replace for history-friendly updates. Defaults omitted from URL.
 
 ### [T366] Stop-loss effectiveness over time dashboard widget
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T247], [T240]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add widget to /betting showing stop-loss performance: total triggered, cumulative savings vs holding, win rate of positions that would have hit stop-loss. Visualizes whether stop-loss threshold is optimal.
+- **Notes**: ✅ Implemented stop-loss effectiveness widget!
+  - **Component**: `apps/surfboard/src/components/StopLossEffectivenessWidget.tsx`
+  - **Backend**: `load_stop_loss_stats()` function added to `push-stats-to-gist.py`
+  - **Features:**
+    - Effectiveness percentage (correct exits / total known outcomes)
+    - Estimated money saved vs holding to settlement
+    - Outcome breakdown: saved (green), premature exits (red), pending (gray)
+    - Net benefit calculation (saved - missed profit)
+    - Expandable event list with last 10 stop-losses
+    - Color-coded outcome badges and values
+    - Empty state when no stop-losses triggered yet
+  - **Data flow:** stop-loss.log → push-stats-to-gist.py → gist → widget
+  - **Integrated into** /betting page after CorrelationHeatmapWidget
+  - Build passes, ready for deploy
 
 ### [T367] Circuit breaker cooldown configuration via env
 - **Status**: DONE
