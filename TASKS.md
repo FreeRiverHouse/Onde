@@ -1424,18 +1424,22 @@
   - Cron: Sunday 20:00 UTC
 
 ### [T734] Autotrader: Auto-restart with exponential backoff
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T001]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Improve watchdog-autotrader.sh with:
-  - Track restart count in state file
-  - Exponential backoff: 1m → 2m → 4m → 8m (max 30m)
-  - Reset backoff after 1h of stable running
-  - Alert if >3 restarts in 1 hour (circuit breaker)
-  - Log restart reasons and uptime stats
-  - Helps avoid thrashing during API outages
+- **Notes**: ✅ Improved watchdog-autotrader.sh with:
+  - **State tracking**: JSON state file at /tmp/kalshi-watchdog-state.json
+  - **Exponential backoff**: 1m → 2m → 4m → 8m → 16m → 30m max
+  - **Stable reset**: Backoff resets after 1h of stable running
+  - **Circuit breaker**: Trips if >3 restarts in 1 hour
+    - Creates kalshi-circuit-breaker.alert
+    - Stops auto-restart until manual intervention
+  - **Uptime tracking**: Total uptime stats in state file
+  - **Hourly restart counter**: Tracks restarts for circuit breaker
+  - Prevents thrashing during API outages or persistent errors
 
 ### [T735] Dashboard: Add countdown timer for auto-refresh
 - **Status**: TODO
