@@ -7973,3 +7973,39 @@
   - Deploy via wrangler to Cloudflare Pages
   - Site returns 307 (auth redirect as expected)
   - Agent stats CSV export now live on /house leaderboard
+
+### [T777] Dashboard: Add streak impact analysis widget to /betting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T775]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize streak impact analysis on dashboard:
+  - Show win rate by streak context as bar chart
+  - Highlight tilt_risk vs normal performance
+  - Display recommendations from analysis
+  - Auto-load from streak-impact-analysis.json gist
+
+### [T778] Cron: Weekly streak impact report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T775]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Run streak analysis weekly and alert if patterns found:
+  - Cron: Sunday after weekly report
+  - Run analyze-streak-impact.py
+  - Alert to Telegram if tilt_risk win rate significantly lower
+  - Include streak summary in weekly report
+
+### [T779] Trading: Alert when daily tilt trades exceed threshold
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T770], [T774]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track daily tilt trades and alert when exceeding threshold:
+  - Count tilt_risk=True trades per day
+  - Alert at TILT_ALERT_THRESHOLD env var (default 3)
+  - Suggests taking a break from trading
+  - Resets at midnight UTC
