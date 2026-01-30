@@ -154,8 +154,8 @@
   - Screenshot or video of PWA install flow
 
 ### [T696] Surfboard: Upgrade to Next.js 15
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
