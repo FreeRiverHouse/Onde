@@ -6,6 +6,10 @@ export const runtime = 'edge'
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import SystemAlertsFeedWidget from '@/components/SystemAlertsFeedWidget'
+import UptimeHistoryChart from '@/components/UptimeHistoryChart'
+
+// Uptime history data URL (internal API)
+const UPTIME_HISTORY_URL = '/api/uptime'
 
 interface ServiceHealth {
   name: string
@@ -397,6 +401,7 @@ export default function HealthPage() {
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [autoRefresh, setAutoRefresh] = useState(true)
   const [previousStatus, setPreviousStatus] = useState<string | null>(null)
+  const [uptimeHistory, setUptimeHistory] = useState<any>(null)
   
   const { permission, enabled: notificationsEnabled, requestPermission, toggleEnabled, notify } = useNotifications()
   const { enabled: soundEnabled, toggleEnabled: toggleSoundEnabled, playAlertTone } = useAlertSound()
@@ -407,6 +412,25 @@ export default function HealthPage() {
     if (savedAutoRefresh !== null) {
       setAutoRefresh(savedAutoRefresh === 'true')
     }
+  }, [])
+
+  // Fetch uptime history [T817]
+  useEffect(() => {
+    const fetchUptimeHistory = async () => {
+      try {
+        const res = await fetch(UPTIME_HISTORY_URL)
+        if (res.ok) {
+          const json = await res.json()
+          setUptimeHistory(json)
+        }
+      } catch (err) {
+        console.error('Failed to fetch uptime history:', err)
+      }
+    }
+    fetchUptimeHistory()
+    // Refresh every 5 minutes
+    const interval = setInterval(fetchUptimeHistory, 5 * 60 * 1000)
+    return () => clearInterval(interval)
   }, [])
   
   // Check for status changes and notify
@@ -627,6 +651,14 @@ export default function HealthPage() {
         {/* System Alerts Feed */}
         <div className="mt-8">
           <SystemAlertsFeedWidget />
+        </div>
+
+        {/* Uptime History [T817] */}
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+            📊 Uptime History
+          </h2>
+          <UptimeHistoryChart data={uptimeHistory} />
         </div>
 
         {/* Browser Storage Section */}
