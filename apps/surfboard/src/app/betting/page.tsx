@@ -1166,6 +1166,7 @@ export default function BettingDashboard() {
             >
               <RefreshCw className={`w-4 h-4 text-cyan-400 transition-transform duration-500 ${isLoading ? 'animate-spin' : 'group-hover:rotate-180'}`} />
               <span className="text-xs sm:text-sm font-medium">Refresh</span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white/10 text-gray-400 rounded border border-white/20 ml-1">R</kbd>
             </button>
           </div>
         </div>

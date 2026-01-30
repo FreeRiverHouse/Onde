@@ -1559,15 +1559,17 @@
   - Use Web Audio API for simple alert tone
 
 ### [T742] Dashboard: Add keyboard hint badge to countdown timer
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T740]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Add 'R' kbd badge next to refresh button (like health page):
+- **Notes**: ✅ Added 'R' kbd badge to refresh button on /betting page!
   - Show keyboard hint on desktop only (hidden sm:inline-block)
   - Consistent styling with health page
-  - Tooltip: "Press R to refresh"
+  - Tooltip already exists: "Refresh (R)"
+  - Kbd element: px-1.5 py-0.5 text-[10px] font-mono bg-white/10 text-gray-400 rounded border border-white/20
 
 ### [T743] Dashboard: Show position age on open positions
 - **Status**: TODO
