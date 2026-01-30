@@ -1,6 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+
+// Confetti on download!
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
 // Minecraft skin layout (64x64)
 // The skin is divided into body parts with specific regions
@@ -49,6 +53,16 @@ export default function SkinCreator() {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [symmetry, setSymmetry] = useState(true);
   const [brushSize, setBrushSize] = useState(1);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  // Get window size for confetti
+  useEffect(() => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Initialize with Steve template
   const loadTemplate = useCallback((template: 'steve' | 'alex' | 'blank') => {
@@ -240,10 +254,24 @@ export default function SkinCreator() {
     link.download = 'my-minecraft-skin.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
+    
+    // 🎉 Confetti celebration!
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 3000);
   };
 
   return (
     <div className="min-h-screen p-4 flex flex-col items-center bg-gradient-to-br from-emerald-500 via-cyan-500 to-purple-600">
+      {/* 🎉 Confetti celebration on download! */}
+      {showConfetti && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={500}
+          gravity={0.3}
+        />
+      )}
       {/* Header */}
       <div className="text-center mb-4">
         <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
