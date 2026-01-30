@@ -67,6 +67,10 @@ class SEBot:
             "suggestions_generated": 0,
             "suggestions_copied": 0,
         }
+        
+        # Voice output (optional)
+        self.voice_output = None
+        self.voice_enabled = False
     
     def check_status(self):
         """Check status of all components."""
@@ -75,6 +79,7 @@ class SEBot:
             "blackhole": False,
             "knowledge_base": False,
             "claude_api": False,
+            "elevenlabs_api": False,
         }
         
         # Check Whisper
@@ -96,6 +101,9 @@ class SEBot:
         
         # Check Claude API
         status["claude_api"] = bool(os.environ.get("ANTHROPIC_API_KEY"))
+        
+        # Check ElevenLabs API (for voice output)
+        status["elevenlabs_api"] = bool(os.environ.get("ELEVENLABS_API_KEY"))
         
         return status
     
@@ -121,6 +129,8 @@ class SEBot:
             print("⚠️  Knowledge base not built. Run: python build_embeddings.py")
         if not status["claude_api"]:
             print("⚠️  Claude API key not set. Export ANTHROPIC_API_KEY or use KB-only mode.")
+        if not status["elevenlabs_api"]:
+            print("💡 Voice output disabled. Set ELEVENLABS_API_KEY to enable.")
         
         all_ready = all(status.values())
         print()
@@ -170,6 +180,19 @@ class SEBot:
                 print(f"  ⚠ Overlay UI failed: {e}")
                 self.use_overlay = False
                 self.overlay = None
+        
+        # Voice output (optional - requires ElevenLabs API key)
+        try:
+            from voice_output import VoiceOutput
+            self.voice_output = VoiceOutput()
+            if self.voice_output.api_key:
+                self.voice_enabled = True
+                print("  ✓ Voice output ready (ElevenLabs)")
+            else:
+                print("  ⚠ Voice output: No API key (voice disabled)")
+        except Exception as e:
+            print(f"  ⚠ Voice output failed: {e}")
+            self.voice_output = None
         
         print()
     

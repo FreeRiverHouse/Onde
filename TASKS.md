@@ -847,18 +847,31 @@
   - ⚠️ Requires: `pip install pyobjc-framework-Cocoa pyobjc-framework-Quartz`
 
 ### [T475] SE-Bot Fase 2: Configurable Voice Output
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T474]
 - **Blocks**: [T476]
 - **Priority**: P2
-- **Notes**: 🎤 VOCE CONFIGURABILE (non deve essere quella di Mattia!)
-  - **Provider**: ElevenLabs voice cloning API
-  - **Voice library**: Multiple voice options selezionabili
-  - **Custom cloning**: Possibilità di clonare voce specifica
-  - **Output**: Audio to virtual microphone (per calls)
-  - **Use case scherzo**: Chiamare colleghi con voice AI 😈
-  - **Tech**: Virtual audio cable (BlackHole input)
+- **Notes**: ✅ Implemented ElevenLabs voice output module!
+  - **Script**: `apps/se-bot/voice_output.py`
+  - **Features:**
+    - ✅ ElevenLabs TTS API integration
+    - ✅ Multiple voice library (9 popular voices + full API catalog)
+    - ✅ Voice settings presets (professional, expressive, calm, energetic)
+    - ✅ Voice cloning support (paid plans only)
+    - ✅ Audio caching to reduce API calls
+    - ✅ Virtual microphone output (BlackHole) for meeting injection
+    - ✅ Streaming mode for lower latency
+    - ✅ macOS TTS fallback when no API key
+    - ✅ Subscription info check
+  - **Usage:**
+    - `python voice_output.py --list-voices` - List available voices
+    - `python voice_output.py --speak "Hello" --voice Rachel`
+    - `python voice_output.py --output blackhole` - Output to virtual mic
+    - `python voice_output.py --test` - Demo mode
+  - **Integration:** Added to se_bot_main.py init
+  - **Requirements:** ELEVENLABS_API_KEY env var, ffmpeg for audio decode
 
 ### [T476] SE-Bot Fase 3: Video Avatar Integration
 - **Status**: TODO

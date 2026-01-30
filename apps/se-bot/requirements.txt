@@ -19,3 +19,7 @@ pyobjc>=10.0  # Includes pyobjc-framework-Cocoa, pyobjc-framework-Quartz
 
 # Utils
 requests>=2.31.0
+
+# Voice Output (ElevenLabs TTS)
+# API key required: ELEVENLABS_API_KEY
+# ffmpeg required for audio decoding: brew install ffmpeg
