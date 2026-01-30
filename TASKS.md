@@ -49,8 +49,12 @@
     - ✅ Added competitive positioning (vs Palo Alto, Zscaler, Cato, Fortinet)
     - ✅ Added objections handling playbook
     - ✅ Created Mattia style guide template (to fill in)
+  - **Progress 2026-01-31:**
+    - ✅ Embeddings setup complete! Created `build_embeddings.py` + `kb_search.py`
+    - ✅ ChromaDB + sentence-transformers (all-MiniLM-L6-v2 model)
+    - ✅ Section-based chunking for better retrieval
+    - ✅ Search module with `get_context_for_topic()` for Claude prompts
     - ⏳ TODO: Versa-specific content (Mattia to add proprietary info)
-    - ⏳ TODO: Embeddings setup (Chroma/FAISS)
   - **Domains**:
     - Versa Networks (prodotti, features, competitive positioning)
     - SASE (architettura, use cases, best practices)
@@ -58,7 +62,7 @@
     - Security (Zero Trust, ZTNA, firewall)
     - Networking (BGP, OSPF, VPN, cloud connectivity)
   - **Mattia's Style**: Template created at style/mattia-style.md
-  - **Tech**: Embeddings con Chroma/FAISS locale
+  - **Tech**: ChromaDB + sentence-transformers (local, no API key needed)
   - **Sources**: Versa docs pubbliche, slide, recording past meetings
 
 ### [T473] SE-Bot: Meeting Context Analyzer + Claude RAG
@@ -133,6 +137,45 @@
   - Configurare Multi-Output Device in Audio MIDI Setup
   - Test che audio di sistema passi attraverso BlackHole
   - Documentare setup per future reinstallazioni
+
+### [T478] SE-Bot: Test embeddings search quality
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Test the newly created ChromaDB embeddings with sample SE queries:
+  - Test queries: "what is ZTNA", "Versa vs Palo Alto", "SD-WAN deployment models"
+  - Measure relevance scores and retrieval quality
+  - Tune chunking if needed (currently section-based)
+  - Document optimal n_results and min_relevance thresholds
+  - Create test suite for regression testing
+
+### [T479] SE-Bot: Create meeting simulator for testing
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T472], [T473]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Build a test harness to simulate meeting conversations:
+  - Sample transcript snippets (customer questions)
+  - Test RAG retrieval + Claude response generation
+  - Measure end-to-end latency (<2s target)
+  - No actual audio required - text input simulation
+  - Useful for iterating on prompts without real meetings
+
+### [T480] Trading: Add portfolio-wide position concentration limits
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T001]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Prevent over-concentration in correlated assets:
+  - Max 50% of portfolio in any single asset class (crypto/weather)
+  - Max 30% in highly correlated positions (e.g., multiple BTC contracts)
+  - Track total exposure across all open positions
+  - Alert if approaching concentration limits
+  - Log concentration metrics in trade data
 
 ---
 

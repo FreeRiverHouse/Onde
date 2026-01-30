@@ -34,6 +34,41 @@ knowledge-base/
 
 ## Tech Stack
 
-- **Embeddings**: Local (Chroma/FAISS) or OpenAI
-- **Retrieval**: Semantic search with re-ranking
+- **Embeddings**: ChromaDB with sentence-transformers (all-MiniLM-L6-v2)
+- **Retrieval**: Semantic search with cosine similarity
 - **Integration**: Fed into SE-Bot Claude prompts as context
+
+## Building the Vector Database
+
+```bash
+cd apps/se-bot
+
+# First time setup
+python3 -m venv venv
+source venv/bin/activate
+pip install chromadb sentence-transformers
+
+# Build embeddings
+python build_embeddings.py
+
+# Test search
+python build_embeddings.py search "zero trust architecture"
+```
+
+## Using in Code
+
+```python
+from kb_search import search, get_context_for_topic
+
+# Basic search
+results = search("ZTNA vs VPN")
+
+# Get formatted context for Claude prompt
+context = get_context_for_topic("customer asking about zero trust")
+```
+
+## Files
+
+- `build_embeddings.py` - Builds ChromaDB from markdown files
+- `kb_search.py` - Search module for SE-Bot integration
+- `chroma_db/` - Vector database (created after build)
