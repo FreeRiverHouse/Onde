@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T17:00:02.195171+00:00",
+  "timestamp": "2026-01-30T17:30:02.399806+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-rainbow-chart-fire-sale",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory Bitcoin has dropped into historically \u201cfire sale\u201d levels on the Bitcoin Rainbow Chart, signaling deep undervaluation. This post Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T17:26:26+00:00"
+    },
+    {
+      "title": "Vitalik Buterin Withdraws $44.7M in ETH to Support Ethereum Growth Through \u2018Mild Austerity\u2019",
+      "url": "https://decrypt.co/356490/vitalik-buterin-withdraws-44-7m-in-eth-to-support-ethereum-growth-through-mild-austerity",
+      "source": "decrypt",
+      "description": "The Ethereum co-founder wants to pursue an \u201caggressive\u201d roadmap that will strengthen its status as a decentralized world computer.",
+      "published": "2026-01-30T17:05:57+00:00"
+    },
+    {
+      "title": "Nubank wins conditional US approval to form national bank",
+      "url": "https://cointelegraph.com/news/nubank-conditional-us-approval-national-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The conditional approval moves the Latin American fintech into the bank organization phase as it seeks to expand regulated banking and crypto services in the United States.",
+      "published": "2026-01-30T16:57:12+00:00"
+    },
     {
       "title": "Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning",
       "url": "https://bitcoinmagazine.com/news/amboss-railsx-a-bitcoin-native-exchange",
@@ -116,13 +137,6 @@
       "published": "2026-01-30T11:39:20+00:00"
     },
     {
-      "title": "Bitcoin's 'miner exodus' could push BTC price below $60K",
-      "url": "https://cointelegraph.com/news/bitcoin-miner-exodus-may-push-btc-price-below-dollar60k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Still, Bitcoin often rebounds toward its energy value after long downtrends, with one model pointing to a fair price near $121,000.",
-      "published": "2026-01-30T11:29:03+00:00"
-    },
-    {
       "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",
       "url": "https://decrypt.co/356458/bitcoin-etfs-shed-817m-as-btc-hits-nine-month-low",
       "source": "decrypt",
@@ -165,13 +179,6 @@
       "published": "2026-01-30T02:08:33+00:00"
     },
     {
-      "title": "Strategy, BitMine Stock Prices Dive as Bitcoin and Ethereum Sink",
-      "url": "https://decrypt.co/356357/strategy-bitmine-stock-prices-dive-bitcoin-ethereum-sink",
-      "source": "decrypt",
-      "description": "Leading crypto treasury firms BitMine and Strategy both saw their stocks plunge nearly 10% amid broader market uncertainty, as a possible U.S. government shutdown looms.",
-      "published": "2026-01-29T23:19:19+00:00"
-    },
-    {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
       "url": "https://bitcoinmagazine.com/markets/strategy-stock-mstr-hits-52-week-low",
       "source": "bitcoinmagazine",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation Russia wants to introduce its first regulatory framework for crypto like Bitcoin, with lawmakers aiming to finalize the draft for a parliamentary vote by the end of June. This post Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T14:26:35+00:00"
-    },
-    {
-      "title": "Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance",
-      "url": "https://bitcoinmagazine.com/news/bitcoin-price-steadies-fed-stops-cuts",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance The bitcoin price hovered near $90,000 as the Fed held rates steady and Powell signaled a neutral stance \u2014 neither tightening nor rushing new cuts. This post Bitcoin Price Steadies Near $90,000 as Fed Pauses Rate Cuts, Powell Signals Neutral Stance first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-28T20:51:40+00:00"
     }
   ]
 }
