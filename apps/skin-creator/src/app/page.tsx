@@ -207,6 +207,72 @@ export default function SkinCreator() {
     }
   }, []);
 
+  // 🎲 Generate random skin!
+  const generateRandomSkin = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Random color palettes
+    const palettes = [
+      { skin: '#ffdfc4', hair: '#4a3728', shirt: '#e74c3c', pants: '#2c3e50', shoes: '#1a1a1a' },
+      { skin: '#c4a57b', hair: '#1a1a1a', shirt: '#3498db', pants: '#9b59b6', shoes: '#2c2c2c' },
+      { skin: '#8d6e4c', hair: '#2c1810', shirt: '#27ae60', pants: '#f39c12', shoes: '#34495e' },
+      { skin: '#7dcea0', hair: '#27ae60', shirt: '#e91e63', pants: '#673ab7', shoes: '#4a148c' },
+      { skin: '#ff6b6b', hair: '#c0392b', shirt: '#f1c40f', pants: '#1abc9c', shoes: '#16a085' },
+      { skin: '#a29bfe', hair: '#6c5ce7', shirt: '#fd79a8', pants: '#00cec9', shoes: '#0984e3' },
+      { skin: '#ffeaa7', hair: '#fdcb6e', shirt: '#e17055', pants: '#74b9ff', shoes: '#0984e3' },
+    ];
+    const p = palettes[Math.floor(Math.random() * palettes.length)];
+
+    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+    // Head
+    ctx.fillStyle = p.skin;
+    ctx.fillRect(8, 8, 8, 8);
+    ctx.fillRect(0, 8, 8, 8);
+    ctx.fillRect(16, 8, 8, 8);
+    ctx.fillRect(24, 8, 8, 8);
+    ctx.fillRect(8, 0, 8, 8);
+    ctx.fillStyle = p.hair;
+    ctx.fillRect(8, 8, 8, Math.random() > 0.5 ? 2 : 1);
+    // Eyes
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(9, 11, 2, 1);
+    ctx.fillRect(13, 11, 2, 1);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(10, 11, 1, 1);
+    ctx.fillRect(13, 11, 1, 1);
+
+    // Body
+    ctx.fillStyle = p.shirt;
+    ctx.fillRect(20, 20, 8, 12);
+    ctx.fillRect(16, 20, 4, 12);
+    ctx.fillRect(28, 20, 4, 12);
+    ctx.fillRect(20, 16, 8, 4);
+
+    // Arms
+    ctx.fillStyle = p.skin;
+    ctx.fillRect(44, 20, 4, 4);
+    ctx.fillRect(36, 52, 4, 4);
+    ctx.fillStyle = p.shirt;
+    ctx.fillRect(44, 24, 4, 8);
+    ctx.fillRect(36, 56, 4, 8);
+
+    // Legs
+    ctx.fillStyle = p.pants;
+    ctx.fillRect(4, 20, 4, 12);
+    ctx.fillRect(20, 52, 4, 12);
+    ctx.fillStyle = p.shoes;
+    ctx.fillRect(4, 28, 4, 4);
+    ctx.fillRect(20, 60, 4, 4);
+
+    updatePreview();
+    saveState();
+    playSound('download');
+  }, []);
+
   // Spawn sparkle particles when drawing
   const spawnParticle = useCallback((clientX: number, clientY: number) => {
     if (tool === 'eraser') return;
@@ -569,6 +635,12 @@ export default function SkinCreator() {
                 className="px-2 py-1 bg-gray-500 text-white rounded-lg text-xs font-bold hover:bg-gray-600"
               >
                 ⬜ Blank
+              </button>
+              <button
+                onClick={generateRandomSkin}
+                className="px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
+              >
+                🎲 Random!
               </button>
             </div>
           </div>
