@@ -245,6 +245,45 @@
   - When correlation is high (>0.9), treat BTC+ETH almost as single asset
   - Log correlation values in trade data for analysis
 
+### [T484] Deploy onde.surf with concentration history widget
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T482]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed! https://00f43697.onde-surf.pages.dev
+  - ✅ Build + deploy via Wrangler OK
+  - ✅ ConcentrationHistoryChart widget on /betting page
+  - ⏳ Widget shows "No data yet" until concentration data populated
+  - ✅ Site working (307 redirect to login as expected)
+
+### [T485] Trading: Concentration vs win rate analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T482]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if high concentration correlates with wins or losses:
+  - Create `scripts/analyze-concentration-performance.py`
+  - Compare win rate when concentration >40% vs <40%
+  - Track PnL during high concentration periods
+  - Generate recommendations: diversify more or concentrate more?
+  - Output: `data/trading/concentration-analysis.json`
+
+### [T486] Push stats to gist with concentration history
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T482]
+- **Blocks**: [T484]
+- **Priority**: P2
+- **Notes**: ✅ Gist upload code in place!
+  - ✅ `push-stats-to-gist.py` updated with `load_concentration_history()` function
+  - ✅ Concentration history included in stats when data exists
+  - ⏳ Data will populate after trading cycles with open positions run
+  - ⏳ Dashboard widget shows "No data yet" until then (graceful fallback)
+
 ---
 
 ## 🎮 MOONLIGHT MAGIC HOUSE - DA MATTIA 2026-01-29
