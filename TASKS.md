@@ -6802,3 +6802,46 @@
   - Uses nodemailer or similar
   - Configurable send time (default: 9 AM PST)
   - Fallback for T219 (email notification for critical alerts)
+
+### [T731] SE-Bot: Add suggestion feedback loop (thumbs up/down)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add feedback mechanism to improve suggestions over time:
+  - Add 👍/👎 buttons to each suggestion card
+  - Log feedback with: suggestion text, transcript context, style, rating
+  - Store in `data/se-bot/feedback.jsonl` for fine-tuning
+  - Track which types of suggestions get positive feedback
+  - Eventually use to fine-tune prompt templates
+  - Stats display: "This suggestion type has 80% approval"
+
+### [T732] SE-Bot: Create comprehensive README and setup guide
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Documentation for SE-Bot setup and usage:
+  - README.md with architecture diagram (ASCII or mermaid)
+  - Step-by-step installation guide (BlackHole, Whisper, PyObjC)
+  - Audio routing setup for Zoom/Meet/Teams
+  - Troubleshooting common issues
+  - Demo video or GIF of the overlay in action
+  - API reference for extending/customizing
+  - Performance tuning tips (model selection, latency)
+
+### [T733] SE-Bot: Add configurable hotkey and position persistence
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve UX with persistent settings:
+  - Remember window position after drag
+  - Store settings in `~/.sebot/config.json`
+  - Configurable global hotkey (not just Cmd+Shift+S)
+  - Option to auto-start with meeting apps (Zoom detector?)
+  - Theme options: dark/light/auto
+  - Font size adjustment for suggestion cards
