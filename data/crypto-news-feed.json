@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T01:00:02.627323+00:00",
+  "timestamp": "2026-01-30T02:30:02.009826+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "US Finalizes Forfeiture of $400 Million Tied to Helix Darknet Mixer",
+      "url": "https://decrypt.co/356443/us-forfeiture-400-million-helix-darknet-mixer",
+      "source": "decrypt",
+      "description": "The mixer processed hundreds of millions of dollars in Bitcoin that prosecutors say were tied to illicit activity on the dark web.",
+      "published": "2026-01-30T02:08:33+00:00"
+    },
     {
       "title": "Strategy, BitMine Stock Prices Dive as Bitcoin and Ethereum Sink",
       "url": "https://decrypt.co/356357/strategy-bitmine-stock-prices-dive-bitcoin-ethereum-sink",
@@ -121,13 +128,6 @@
       "source": "cointelegraph",
       "description": "Futures market liquidations, a sharp sell-off in US stocks and limited progress on talks to fund the US government are taking a toll on Bitcoin price Thursday. Is $80,000 the next stop for BTC?",
       "published": "2026-01-29T19:44:32+00:00"
-    },
-    {
-      "title": "Japan's Biggest Bitcoin Treasury Firm Just Raised $137 Million to Buy Even More BTC",
-      "url": "https://decrypt.co/356322/japan-biggest-bitcoin-treasury-metaplanet-137-million-buy-btc",
-      "source": "decrypt",
-      "description": "Metaplanet raises $137 million for Bitcoin buys after its stock plunged 81% last year. Can the treasury firm bounce back in a crowded market?",
-      "published": "2026-01-29T19:38:45+00:00"
     },
     {
       "title": "US market regulators move to coordinate on crypto oversight",

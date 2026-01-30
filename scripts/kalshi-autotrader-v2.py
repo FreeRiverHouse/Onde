@@ -113,6 +113,11 @@ ASSET_CONFIG = {
         "max_position_pct": 0.025,  # 2.5% max per position (less liquid than BTC)
         "min_edge": 0.12,           # 12% min edge (higher threshold for higher vol)
     },
+    "sol": {  # T423 - Solana support
+        "kelly_fraction": 0.03,     # Conservative Kelly (high volatility, less predictable)
+        "max_position_pct": 0.02,   # 2% max per position (newer market, less liquid)
+        "min_edge": 0.15,           # 15% min edge (higher threshold for higher vol)
+    },
     "weather": {
         "kelly_fraction": 0.08,     # Higher Kelly (NWS forecasts reliable)
         "max_position_pct": 0.02,   # 2% max (weather markets less liquid)
@@ -134,6 +139,7 @@ def get_asset_config(asset_type):
 # Volatility assumptions
 BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical)
 ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility
+SOL_HOURLY_VOL = 0.012  # ~1.2% hourly volatility (T423 - Solana is more volatile)
 
 # Momentum config
 MOMENTUM_TIMEFRAMES = ["1h", "4h", "24h"]
@@ -2203,13 +2209,15 @@ def classify_asset_class(ticker: str) -> str:
     Classify a position into an asset class for concentration tracking.
     
     Returns:
-        Asset class: "btc", "eth", "weather", or "other"
+        Asset class: "btc", "eth", "sol", "weather", or "other"
     """
     ticker_upper = ticker.upper()
     if "KXBTC" in ticker_upper:
         return "btc"
     elif "KXETH" in ticker_upper:
         return "eth"
+    elif "KXSOL" in ticker_upper:  # T423 - Solana support
+        return "sol"
     elif any(city in ticker_upper for city in ["KXHIGH", "KXLOW", "NYC", "MIA", "DEN", "CHI", "LAX"]):
         return "weather"
     else:
@@ -2221,12 +2229,12 @@ def get_correlated_group(ticker: str) -> str:
     Group positions by correlation for concentration limits.
     
     Correlated groups:
-    - "crypto": BTC + ETH (highly correlated, move together)
+    - "crypto": BTC + ETH + SOL (highly correlated, move together)
     - "weather": All weather markets (moderately correlated by region)
     - "other": Everything else
     """
     asset_class = classify_asset_class(ticker)
-    if asset_class in ("btc", "eth"):
+    if asset_class in ("btc", "eth", "sol"):  # T423 - SOL added to crypto group
         return "crypto"
     elif asset_class == "weather":
         return "weather"
@@ -3024,7 +3032,7 @@ def write_stop_loss_alert(ticker: str, side: str, contracts: int,
 # ============== EXTERNAL DATA ==============
 
 def get_prices_coingecko() -> dict:
-    """Get BTC/ETH prices from CoinGecko with latency tracking and caching"""
+    """Get BTC/ETH/SOL prices from CoinGecko with latency tracking and caching"""
     # Check cache first (T427)
     cached = get_cached_response("prices_coingecko")
     if cached:
@@ -3033,7 +3041,7 @@ def get_prices_coingecko() -> dict:
     start = time.time()
     try:
         resp = requests.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd",  # T423: Added SOL
             timeout=5
         )
         latency = (time.time() - start) * 1000
@@ -3044,6 +3052,7 @@ def get_prices_coingecko() -> dict:
             result = {
                 "btc": data["bitcoin"]["usd"],
                 "eth": data["ethereum"]["usd"],
+                "sol": data.get("solana", {}).get("usd"),  # T423: SOL price
                 "source": "coingecko"
             }
             set_cached_response("prices_coingecko", result)  # Cache the result
@@ -3056,7 +3065,7 @@ def get_prices_coingecko() -> dict:
 
 
 def get_prices_binance() -> dict:
-    """Get BTC/ETH prices from Binance with latency tracking and caching"""
+    """Get BTC/ETH/SOL prices from Binance with latency tracking and caching"""
     # Check cache first (T427)
     cached = get_cached_response("prices_binance")
     if cached:
@@ -3065,7 +3074,7 @@ def get_prices_binance() -> dict:
     start = time.time()
     try:
         resp = requests.get(
-            "https://api.binance.com/api/v3/ticker/price?symbols=[\"BTCUSDT\",\"ETHUSDT\"]",
+            "https://api.binance.com/api/v3/ticker/price?symbols=[\"BTCUSDT\",\"ETHUSDT\",\"SOLUSDT\"]",  # T423: Added SOL
             timeout=5
         )
         latency = (time.time() - start) * 1000
@@ -3079,8 +3088,10 @@ def get_prices_binance() -> dict:
                     prices["btc"] = float(item["price"])
                 elif item["symbol"] == "ETHUSDT":
                     prices["eth"] = float(item["price"])
+                elif item["symbol"] == "SOLUSDT":  # T423: SOL price
+                    prices["sol"] = float(item["price"])
             if "btc" in prices and "eth" in prices:
-                set_cached_response("prices_binance", prices)  # Cache the result
+                set_cached_response("prices_binance", prices)  # Cache the result (SOL optional)
                 return prices
     except Exception as e:
         latency = (time.time() - start) * 1000
@@ -3106,6 +3117,10 @@ def get_prices_coinbase() -> dict:
             "https://api.coinbase.com/v2/prices/ETH-USD/spot",
             timeout=5
         )
+        sol_resp = requests.get(  # T423: SOL price
+            "https://api.coinbase.com/v2/prices/SOL-USD/spot",
+            timeout=5
+        )
         latency = (time.time() - start) * 1000
         record_api_latency("ext_coinbase", latency)
         record_api_call("coinbase", dict(btc_resp.headers))  # Track rate limit
@@ -3115,6 +3130,9 @@ def get_prices_coinbase() -> dict:
                 "eth": float(eth_resp.json()["data"]["amount"]),
                 "source": "coinbase"
             }
+            # T423: Add SOL if available (optional)
+            if sol_resp.status_code == 200:
+                result["sol"] = float(sol_resp.json()["data"]["amount"])
             set_cached_response("prices_coinbase", result)  # Cache the result
             return result
     except Exception as e:

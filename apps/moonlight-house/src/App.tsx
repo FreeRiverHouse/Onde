@@ -437,6 +437,14 @@ function App() {
   }, []);
 
   // Keyboard movement (WASD/Arrows) - only in room view
+  // Hide movement hint callback - defined here so keyboard and tap handlers can use it
+  const hideMovementHint = useCallback(() => {
+    if (showMovementHint) {
+      setShowMovementHint(false);
+      try { localStorage.setItem('moonlight-movement-hint-seen', 'true'); } catch {}
+    }
+  }, [showMovementHint]);
+
   useEffect(() => {
     if (showMap) return;
     
@@ -532,14 +540,6 @@ function App() {
       try { localStorage.setItem('moonlight-movement-hint-seen', 'true'); } catch {}
     }
   };
-
-  // Hide movement hint on keyboard movement too
-  const hideMovementHint = useCallback(() => {
-    if (showMovementHint) {
-      setShowMovementHint(false);
-      try { localStorage.setItem('moonlight-movement-hint-seen', 'true'); } catch {}
-    }
-  }, [showMovementHint]);
 
   // Time of day update
   useEffect(() => {

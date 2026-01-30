@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SoundEffect } from '../useSoundManager';
 import '../InteractiveObjects.css';
 
 // Types
@@ -270,7 +271,7 @@ interface InteractiveObjectsProps {
   onGameStart: (gameType: string) => void;
   onReward: (reward: { coins?: number; xp?: number; happiness?: number }) => void;
   onStory: (story: string) => void;
-  playSound: (sound: string) => void;
+  playSound: (sound: SoundEffect) => void;
 }
 
 export function InteractiveObjects({

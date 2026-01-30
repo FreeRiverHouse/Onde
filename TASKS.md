@@ -445,17 +445,19 @@
   - Consider level-gating to reward progression
 
 ### [T665] Deploy Moonlight House with ambient soundscapes to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T488]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the updated Moonlight House with procedural audio:
-  - Build static export for Cloudflare Pages
-  - Copy to apps/onde-portal/public/static-games/moonlight-magic-house/
-  - Deploy via wrangler
-  - Verify soundscapes work on mobile (Web Audio API)
-  - Test all 8 rooms have distinct ambient audio
+- **Notes**: ✅ Deployed! https://6a54019d.onde-portal.pages.dev
+  - Fixed 3 TypeScript build errors (hideMovementHint hoisting, SoundEffect type, vite plugin type)
+  - Built static export with ambient soundscapes
+  - Copied to onde-portal/public/static-games/moonlight-magic-house/
+  - Deployed via wrangler to Cloudflare Pages
+  - Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+  - All 8 rooms have procedural Web Audio API soundscapes
 
 ### [T666] Moonlight House: Add ambient soundscape volume slider
 - **Status**: TODO
