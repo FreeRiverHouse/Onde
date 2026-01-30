@@ -34,6 +34,7 @@
 - `scripts/ssl-expiring.alert` → SSL in scadenza (<30 giorni)! Manda alert, poi elimina
 - `scripts/broken-links.alert` → Link rotti su onde.la! Manda alert, poi elimina
 - `scripts/kalshi-vol-preference.alert` → Volatility preference! Asset con vol ratio alto per 3+ cicli. Manda alert, poi elimina
+- `scripts/kalshi-recommendations-change.alert` → Trading recommendations changed! Manda alert con dettagli, poi elimina
 
 ### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
 Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:

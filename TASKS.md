@@ -8340,8 +8340,8 @@
   - **Env:** `TRADING_SCHEDULE_ENABLED=false` also disables
 
 ### [T790] Dashboard: Trading window recommendations widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T412]
 - **Blocks**: -
 - **Priority**: P3
@@ -8353,16 +8353,64 @@
   - Add to /betting page analytics section
 
 ### [T791] Cron: Daily trading recommendations refresh
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T412]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Keep recommendations up to date:
-  - Run `recommend-trading-windows.py` daily at 00:00 UTC
-  - Push updated data to gist with other stats
-  - Alert if recommendations change significantly:
-    - New day added/removed from avoid list
-    - Active hours changed by >4 hours
-  - Log recommendation history for trend analysis
+- **Notes**: ✅ Implemented daily trading recommendations refresh!
+  - **Script**: `scripts/cron-trading-recommendations.sh`
+  - **Features:**
+    - ✅ Runs `recommend-trading-windows.py` daily at 00:00 UTC
+    - ✅ Logs history to `data/trading/trading-recommendations-history.jsonl`
+    - ✅ Compares new vs previous recommendations
+    - ✅ Creates `kalshi-recommendations-change.alert` if:
+      - Avoid days list changed
+      - Active hours changed by ≥4 hours
+    - ✅ Alert includes: old/new values, best windows, details
+    - ✅ Gist upload already integrated via push-stats-to-gist.py
+  - **Cron**: `0 0 * * *` (added to system crontab)
+  - **Alert**: Added to HEARTBEAT.md for pickup
 
+
+### [T792] Dashboard: Trading window heatmap widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T790]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add interactive heatmap visualization for trading windows:
+  - 7x24 grid showing win rate by day/hour
+  - Color gradient: red (avoid) → yellow (neutral) → green (good)
+  - Click to expand hour details (trades, win rate, PnL)
+  - Toggle between win rate and PnL views
+  - Highlight current hour with border
+  - Show confidence intervals on hover
+
+### [T793] SE-Bot: Add keyboard shortcuts overlay
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T474]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add keyboard shortcut guide to SE-Bot overlay:
+  - Press '?' to show/hide shortcuts panel
+  - Shortcuts: 1/2/3 (copy suggestions), Cmd+Shift+S (toggle), Esc (minimize)
+  - Add 'M' to mute/unmute mic capture
+  - Add 'Space' to pause/resume analysis
+  - Show current state indicators (listening, paused, muted)
+
+### [T794] Reader App: Add chapter jump dropdown
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve navigation in Reader App:
+  - Dropdown/modal showing all chapters from TOC
+  - Current chapter highlighted
+  - Search filter for long TOC lists
+  - Quick jump buttons for +10/-10 pages
+  - Keyboard shortcut 'G' for "go to" dialog
+  - Remember last reading positions per book
