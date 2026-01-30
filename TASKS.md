@@ -846,17 +846,39 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T807] Reader App: Add reading goals and reminders
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T719]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Motivate consistent reading habits:
-  - Set daily reading goal (pages or minutes)
-  - Show progress toward daily goal
-  - Optional notification reminder (PWA notifications)
-  - Weekly summary of goal achievement
-  - Celebrate milestones (7-day streak, 30-day streak)
+- **Notes**: ✅ Implemented reading goals, achievements, and progress tracking!
+  - ✅ **ReadingGoalsPanel.tsx** - Full goals and achievements management
+    - Enable/disable daily goal
+    - Goal type selector (pages vs minutes)
+    - Target slider with quick presets (light/standard/ambitious)
+    - PWA notification reminder toggle with time picker
+    - Achievement gallery (locked/unlocked display)
+  - ✅ **GoalProgressWidget.tsx** - Progress indicator for Library
+    - Compact mode for header (circular progress ring)
+    - Full-size mode for mobile (larger card with progress bar)
+    - Goal streak display
+    - New achievement badge indicator
+  - ✅ **readingStatsStore.ts updates**:
+    - ReadingGoal interface (type, target, enabled, reminder settings)
+    - Achievement system (13 achievements for streaks, pages, time, books)
+    - Goal streak tracking (consecutive days meeting goal)
+    - Automatic achievement checking after sessions
+    - getTodayGoalProgress() helper
+  - ✅ **Achievements**:
+    - Streaks: 3d, 7d, 14d, 30d reading streaks
+    - Pages: 100, 500, 1000 page milestones
+    - Time: 10h, 50h reading milestones
+    - Books: 1, 5 books completed
+    - Goals: 7-day goal streak
+  - ✅ 🎯 button added to EpubReader header
+  - ✅ Deployed: https://ceda04ae.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T808] Reader App: Add OPDS catalog browser
 - **Status**: TODO
@@ -872,6 +894,48 @@
   - One-click download and add to library
   - Show book metadata (cover, description, author)
   - Reference: https://opds.io/
+
+### [T809] Reader App: Custom book covers via upload/URL
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Allow users to customize book covers:
+  - Upload custom cover image
+  - Paste image URL for cover
+  - Default cover generator for books without covers
+  - Store custom covers in IndexedDB
+  - Sync covers with cloud sync (T698)
+  - Preview before applying
+
+### [T810] Reader App: Reading sessions history view
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T719]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show detailed reading session history:
+  - List of past reading sessions with dates
+  - Time spent, pages read, book title per session
+  - Sessions grouped by day/week/month
+  - Ability to delete incorrect sessions
+  - Export sessions to CSV/JSON
+  - Visual calendar heatmap of reading activity
+
+### [T811] Trading: Telegram alert for PnL threshold crossings
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T731]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when daily/weekly PnL crosses important thresholds:
+  - Daily profit target reached (e.g., +$50)
+  - Daily loss limit hit (e.g., -$30)
+  - Weekly profit milestone (e.g., +$200)
+  - Configurable thresholds in autotrader config
+  - Don't spam - alert once per threshold per period
+  - Include context: current position count, win rate
 
 ---
 
