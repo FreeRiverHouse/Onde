@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useReaderStore } from '@/store/readerStore';
+import { useReaderStore, HighlightColor } from '@/store/readerStore';
 import { ReaderSettings } from './ReaderSettings';
 import { TableOfContents } from './TableOfContents';
+import { HighlightMenu } from './HighlightMenu';
+import { AnnotationsPanel } from './AnnotationsPanel';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
 interface TocItem {
@@ -30,7 +32,19 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
     toggleToc,
     addBook,
     books,
+    highlights,
+    bookmarks,
+    addBookmark,
+    removeBookmark,
   } = useReaderStore();
+  
+  // Check if current location is bookmarked
+  const isBookmarked = bookmarks.some(
+    (b) => b.bookId === bookId && b.cfi === currentCfi
+  );
+  
+  // Get highlights for current book
+  const bookHighlights = highlights.filter((h) => h.bookId === bookId);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,6 +54,15 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   const [currentChapterTitle, setCurrentChapterTitle] = useState('');
   const [currentLocation, setCurrentLocation] = useState(0);
   const [totalLocations, setTotalLocations] = useState(0);
+  const [currentCfi, setCurrentCfi] = useState<string>('');
+  
+  // Annotation states
+  const [isAnnotationsOpen, setIsAnnotationsOpen] = useState(false);
+  const [highlightMenu, setHighlightMenu] = useState<{
+    position: { x: number; y: number };
+    selectedText: string;
+    cfi: string;
+  } | null>(null);
 
   const viewerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<EpubBook | null>(null);
@@ -165,6 +188,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           
           setProgress(pct);
           setCurrentLocation(loc);
+          setCurrentCfi(location.start.cfi);
           
           // Find current chapter title
           const spine = book.spine;
@@ -181,6 +205,25 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           // Update progress in store
           updateBookProgress(bookId, pct, location.start.cfi, loc);
         });
+        
+        // Text selection handler for highlights
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        rendition.on('selected', (cfiRange: any, contents: any) => {
+          const selection = contents?.window?.getSelection();
+          if (!selection || selection.rangeCount === 0) return;
+          
+          const text = selection.toString().trim();
+          if (text.length < 3) return; // Ignore very short selections
+          
+          const range = selection.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          
+          setHighlightMenu({
+            position: { x: rect.left + rect.width / 2, y: rect.top },
+            selectedText: text,
+            cfi: String(cfiRange),
+          });
+        });
 
         // Display book - start from saved location or beginning
         if (existingBook?.currentCfi) {
@@ -188,6 +231,28 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
         } else {
           await rendition.display();
         }
+        
+        // Render existing highlights
+        rendition.on('rendered', () => {
+          const currentHighlights = highlights.filter((h) => h.bookId === bookId);
+          currentHighlights.forEach((highlight) => {
+            const colorMap: Record<HighlightColor, string> = {
+              yellow: 'rgba(255, 255, 0, 0.3)',
+              green: 'rgba(0, 255, 0, 0.3)',
+              blue: 'rgba(0, 100, 255, 0.3)',
+              pink: 'rgba(255, 182, 193, 0.5)',
+            };
+            // epub.js annotations API (not in TS types)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (rendition as any).annotations?.highlight?.(
+              highlight.cfi,
+              {},
+              () => {},
+              undefined,
+              { fill: colorMap[highlight.color] }
+            );
+          });
+        });
 
         // Add keyboard navigation
         rendition.on('keyup', (e: KeyboardEvent) => {
@@ -238,6 +303,41 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
       renditionRef.current.display(item.href);
     }
     toggleToc();
+  };
+  
+  // Navigate to specific CFI (for annotations)
+  const navigateToCfi = (cfi: string) => {
+    if (renditionRef.current) {
+      renditionRef.current.display(cfi);
+      setIsAnnotationsOpen(false);
+    }
+  };
+  
+  // Toggle bookmark at current location
+  const toggleBookmark = () => {
+    if (!currentCfi) return;
+    
+    const existingBookmark = bookmarks.find(
+      (b) => b.bookId === bookId && b.cfi === currentCfi
+    );
+    
+    if (existingBookmark) {
+      removeBookmark(existingBookmark.id);
+    } else {
+      addBookmark({
+        bookId,
+        cfi: currentCfi,
+        title: currentChapterTitle || `Page ${currentLocation}`,
+      });
+    }
+  };
+  
+  // Close highlight menu when clicking elsewhere
+  const handleContainerClick = () => {
+    if (highlightMenu) {
+      setHighlightMenu(null);
+    }
+    handleTap();
   };
 
   // Keyboard navigation
@@ -325,7 +425,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   return (
     <div 
       className={`min-h-screen ${themeClasses[settings.theme]} transition-colors duration-300`}
-      onClick={handleTap}
+      onClick={handleContainerClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -354,7 +454,28 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
               <p className="text-sm opacity-70">{currentChapterTitle || 'Reading...'}</p>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleBookmark(); }}
+                className={`p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 transition-colors ${
+                  isBookmarked ? 'text-amber-500' : ''
+                }`}
+                title={isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+              >
+                {isBookmarked ? '🔖' : '🏷️'}
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setIsAnnotationsOpen(true); }}
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 relative"
+                title="Annotations"
+              >
+                🖍️
+                {(bookHighlights.length > 0 || bookmarks.filter(b => b.bookId === bookId).length > 0) && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {bookHighlights.length + bookmarks.filter(b => b.bookId === bookId).length}
+                  </span>
+                )}
+              </button>
               <button
                 onClick={(e) => { e.stopPropagation(); toggleToc(); }}
                 className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
@@ -429,6 +550,26 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
           items={toc} 
           currentIndex={-1}
           onSelect={goToChapter}
+        />
+      )}
+      
+      {/* Highlight menu (appears on text selection) */}
+      {highlightMenu && (
+        <HighlightMenu
+          position={highlightMenu.position}
+          selectedText={highlightMenu.selectedText}
+          cfi={highlightMenu.cfi}
+          bookId={bookId}
+          onClose={() => setHighlightMenu(null)}
+        />
+      )}
+      
+      {/* Annotations panel (highlights & bookmarks) */}
+      {isAnnotationsOpen && (
+        <AnnotationsPanel
+          bookId={bookId}
+          onNavigate={navigateToCfi}
+          onClose={() => setIsAnnotationsOpen(false)}
         />
       )}
     </div>
