@@ -6,6 +6,14 @@ import Link from 'next/link'
 
 const games = [
   {
+    id: 'skin-creator',
+    name: 'Minecraft Skin Creator',
+    description: 'Create your own Minecraft skins! Fun & easy for kids',
+    emoji: '🎨⛏️',
+    url: '/static-games/skin-creator/index.html',
+    status: 'beta'
+  },
+  {
     id: 'moonlight-magic-house',
     name: 'Moonlight Magic House',
     description: 'Virtual pet game with Luna the moon bunny',
