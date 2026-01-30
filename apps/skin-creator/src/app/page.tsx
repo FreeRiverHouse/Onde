@@ -74,6 +74,7 @@ export default function SkinCreator() {
   const [zoomLevel, setZoomLevel] = useState(6); // 6x default
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
+  const [skinName, setSkinName] = useState('my-skin');
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
@@ -540,7 +541,7 @@ export default function SkinCreator() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const link = document.createElement('a');
-    link.download = 'my-minecraft-skin.png';
+    link.download = `${skinName || 'my-skin'}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
     
@@ -819,12 +820,21 @@ export default function SkinCreator() {
               onChange={importSkin}
               className="hidden"
             />
-            <button
-              onClick={downloadSkin}
-              className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
-            >
-              💾 Download
-            </button>
+            <div className="flex items-center gap-1">
+              <input
+                type="text"
+                value={skinName}
+                onChange={(e) => setSkinName(e.target.value)}
+                placeholder="skin-name"
+                className="w-24 px-2 py-1 text-sm rounded-lg border-2 border-gray-300 focus:border-green-500 outline-none"
+              />
+              <button
+                onClick={downloadSkin}
+                className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
+              >
+                💾
+              </button>
+            </div>
             <button
               onClick={copyToClipboard}
               className="px-3 py-2 rounded-full font-bold bg-violet-500 text-white hover:bg-violet-600"
