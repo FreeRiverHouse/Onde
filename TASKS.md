@@ -6742,18 +6742,34 @@
   - Test suite runs clean without deprecation warnings
 
 ### [T728] TASKS.md: Add task ID validation script
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: [T730]
+- **Priority**: P3
+- **Notes**: ✅ Implemented `scripts/validate-tasks.py`:
+  - Detects duplicate task IDs (found 100+ duplicates!)
+  - Shows next available ID (currently T730)
+  - Reports orphan dependencies (none found)
+  - Status breakdown: 310 DONE, 162 TODO, 9 IN_PROGRESS
+  - JSON output mode (`--json`) for programmatic use
+  - Suggests next available ID (`--next-id`)
+  - ⚠️ Major finding: TASKS.md has many duplicate sections that need cleanup (T730)
+
+### [T730] TASKS.md: Deduplicate task entries
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: -
+- **Depends**: [T728]
 - **Blocks**: -
-- **Priority**: P3
-- **Notes**: Prevent duplicate task IDs in TASKS.md:
-  - Script: `scripts/validate-tasks.py`
-  - Check for duplicate task IDs (found T668, T669 duplicates)
-  - Suggest next available ID
-  - Run as pre-commit hook or CI check
-  - Report orphan dependencies (blocked by non-existent tasks)
-  - JSON output for programmatic use
+- **Priority**: P2
+- **Notes**: Clean up duplicate task IDs in TASKS.md:
+  - 100+ duplicate task IDs detected by validate-tasks.py
+  - Appears to be duplicate sections in the file
+  - Need to identify and remove duplicated content
+  - Keep only the most recent/complete version of each task
+  - Consider restructuring file to prevent future duplication
+  - Run validate-tasks.py after cleanup to verify
 
 ### [T729] Autotrader: Add daily digest email summary
 - **Status**: TODO
