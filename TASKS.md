@@ -6,6 +6,44 @@
 
 ---
 
+## 📚 READER APP / PORTALE VR (DA MATTIA 2026-01-29)
+
+### [T668] Reader App: Prototype Web-Based Book Reader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T669]
+- **Priority**: P1
+- **Notes**: App portale per leggere contenuti (libri, etc.)
+  - **Vision**: Portale VR + versione web-based per testing
+  - **MVP web**: Lettore libri "superfigo" con UX moderna
+  - **Features richieste:**
+    - Lettura libri con pagination fluida
+    - Font sizing, dark mode, sepia
+    - Progress tracking per libro
+    - Bookmarks e highlighting
+    - Sync tra dispositivi (future)
+  - **Tech**: Next.js o React standalone
+  - **Test target**: Browser + PWA prima di VR
+
+### [T669] Reader App: VR/XR Version Planning
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Versione VR del portale reader
+  - **Platforms**: Quest 3, Vision Pro
+  - **Tech options**: Three.js/React-Three-Fiber, A-Frame, Unity
+  - **UX considerations:**
+    - Cozy reading environment (library, cafe, nature)
+    - Eye tracking for page turns
+    - Spatial audio per ambiance
+    - Virtual bookshelf
+  - Dipende da web prototype funzionante
+
+---
+
 ## 🤖 SE-BOT - AI Meeting Copilot (DA MATTIA 2026-01-29)
 
 ### [T470] SE-Bot: macOS System Audio Capture
