@@ -173,20 +173,67 @@
   - Reference: https://nextjs.org/docs/app/building-your-application/upgrading/version-15
 
 ### [T669] Reader App: VR/XR Version Planning
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: [T668], [T690]
+- **Blocks**: [T701], [T702], [T703]
+- **Priority**: P2
+- **Notes**: ✅ Comprehensive planning document created!
+  - **Document**: `apps/reader-app/docs/VR-XR-PLANNING.md`
+  - **Recommendation**: Phase 1 with React-Three-Fiber + WebXR
+  - **Platforms**: Quest 3 (primary), Vision Pro (future)
+  - **Tech stack**: R3F + @react-three/xr + troika-three-text
+  - **MVP features**: 3 environments, floating text, page turns, settings
+  - **Timeline**: 3 weeks for WebXR MVP
+  - **Key decisions:**
+    - Text: troika-three-text for crisp SDF rendering
+    - Environments: Library, Mountain cabin, Floating clouds
+    - Controls: Controller + hand tracking
+  - **Risks identified**: VR text fatigue, Quest browser perf
+  - **Next step**: Create minimal R3F prototype (T701)
+
+### [T701] Reader App VR: Create R3F prototype with floating text
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: [T668], [T690]
+- **Depends**: [T669]
+- **Blocks**: [T702]
+- **Priority**: P2
+- **Notes**: Minimal proof-of-concept VR reading experience
+  - Create `apps/reader-vr/` with React-Three-Fiber
+  - Implement floating text panel using troika-three-text
+  - Basic environment (simple skybox or HDRI)
+  - Controller-based page turn
+  - Test on Quest 3 browser
+  - Validate text readability at different distances
+
+### [T702] Reader App VR: Cozy library environment
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: First full environment for VR reader
+  - 3D library scene (bookshelves, armchair, fireplace)
+  - Warm lighting with time-of-day variation
+  - Ambient sounds (crackling fire, page rustling)
+  - Virtual bookshelf to select books
+  - Teleport spots (reading chair, standing area)
+  - Optimize for Quest 3 (< 500k triangles)
+
+### [T703] Reader App VR: EPUB text extraction for VR rendering
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Versione VR del portale reader
-  - **Platforms**: Quest 3, Vision Pro
-  - **Tech options**: Three.js/React-Three-Fiber, A-Frame, Unity
-  - **UX considerations:**
-    - Cozy reading environment (library, cafe, nature)
-    - Eye tracking for page turns
-    - Spatial audio per ambiance
-    - Virtual bookshelf
-  - Dipende da web prototype funzionante
+- **Notes**: Integrate existing EPUB parsing with VR text rendering
+  - Reuse epub.js from web Reader App
+  - Extract plain text from chapters
+  - Paginate for VR (shorter pages, larger font)
+  - Preserve progress sync with web version
+  - Handle images (convert to VR textures)
+  - Test with sample EPUBs from web app
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
