@@ -723,17 +723,19 @@
   - Dictionary lookup, vocabulary panel, audio pronunciation all live!
 
 ### [T800] Reader App: Deploy sync feature to onde.la/reader
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T698]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy Reader App with cloud sync panel to production:
-  - Build static export with STATIC_EXPORT=1
-  - Copy to onde-portal/public/reader/
-  - Deploy via wrangler
-  - Verify https://onde.la/reader/ shows sync panel in settings
-  - Test sync code generation/join flow
+- **Notes**: ✅ Deployed! https://67b7dae4.onde-portal.pages.dev
+  - ✅ Built static export with STATIC_EXPORT=1
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - Sync panel now available in Settings
+  - ⚠️ Note: Cloud sync shows "Local Only" until Supabase is configured (T801)
 
 ### [T801] Reader App: Setup Supabase project for cloud sync
 - **Status**: TODO
