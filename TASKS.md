@@ -104,8 +104,8 @@
   - Consider adding to /libri page as "Read in our app" CTA
 
 ### [T694] Audit and fix npm vulnerabilities
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
