@@ -7393,16 +7393,22 @@
   - Test file upload + IndexedDB storage
 
 ### [T698] Reader App: Add drag-and-drop EPUB upload
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T690]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Improve EPUB upload UX:
-  - Add drag-and-drop zone to Library view
-  - Visual feedback when dragging files
-  - Support multiple file uploads
-  - Show upload progress indicator
+- **Notes**: ✅ Implemented drag-and-drop EPUB upload!
+  - ✅ Drag-and-drop zone covers entire Library view
+  - ✅ Beautiful visual overlay when dragging files over Library
+  - ✅ Support multiple file uploads (sequential processing)
+  - ✅ Upload progress modal with per-file progress bars
+  - ✅ Status indicators: pending → uploading → done/error
+  - ✅ "Add EPUB(s)" card shows drop hint + animates on drag
+  - ✅ File input also accepts multiple files now
+  - ✅ Deployed: https://448f052e.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T699] Reader App: Add EPUB export to reading list
 - **Status**: TODO

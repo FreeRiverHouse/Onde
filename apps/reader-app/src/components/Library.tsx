@@ -1,27 +1,37 @@
 'use client';
 
 import { useReaderStore, Book } from '@/store/readerStore';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, DragEvent } from 'react';
 import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
+
+// Upload progress state
+interface UploadProgress {
+  fileName: string;
+  progress: number;
+  status: 'pending' | 'uploading' | 'done' | 'error';
+}
 
 export function Library() {
   const { books, setCurrentBook, addBook, settings } = useReaderStore();
   const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dragCounterRef = useRef(0);
 
   const handleBookClick = (book: Book) => {
     setCurrentBook(book);
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
+  // Process a single EPUB file
+  const processEpubFile = async (file: File, _index: number, _total: number): Promise<Book | null> => {
     try {
-      // For now, create a placeholder book entry
-      // Full EPUB parsing will happen in the Reader component
+      // Update progress to uploading
+      setUploadProgress(prev => prev.map((p) => 
+        p.fileName === file.name ? { ...p, status: 'uploading' as const, progress: 30 } : p
+      ));
+
       const newBook: Book = {
         id: crypto.randomUUID(),
         title: file.name.replace('.epub', ''),
@@ -29,25 +39,174 @@ export function Library() {
         progress: 0,
       };
       
-      // Store the file in IndexedDB for later
+      // Read file
       const arrayBuffer = await file.arrayBuffer();
+      
+      setUploadProgress(prev => prev.map(p => 
+        p.fileName === file.name ? { ...p, progress: 60 } : p
+      ));
+
+      // Store the file in IndexedDB
       await storeEpubFile(newBook.id, arrayBuffer);
       
-      addBook(newBook);
-      setCurrentBook(newBook);
+      setUploadProgress(prev => prev.map(p => 
+        p.fileName === file.name ? { ...p, status: 'done' as const, progress: 100 } : p
+      ));
+      
+      return newBook;
     } catch (error) {
-      console.error('Failed to upload book:', error);
-    } finally {
-      setIsUploading(false);
+      console.error(`Failed to upload ${file.name}:`, error);
+      setUploadProgress(prev => prev.map(p => 
+        p.fileName === file.name ? { ...p, status: 'error' as const } : p
+      ));
+      return null;
     }
   };
 
+  // Handle multiple files upload
+  const handleFilesUpload = async (files: FileList | File[]) => {
+    const epubFiles = Array.from(files).filter(f => 
+      f.name.toLowerCase().endsWith('.epub')
+    );
+    
+    if (epubFiles.length === 0) return;
+
+    setIsUploading(true);
+    
+    // Initialize progress tracking
+    setUploadProgress(epubFiles.map(f => ({
+      fileName: f.name,
+      progress: 0,
+      status: 'pending' as const
+    })));
+
+    const uploadedBooks: Book[] = [];
+
+    // Process files sequentially to avoid overwhelming IndexedDB
+    for (let i = 0; i < epubFiles.length; i++) {
+      const book = await processEpubFile(epubFiles[i], i, epubFiles.length);
+      if (book) {
+        uploadedBooks.push(book);
+        addBook(book);
+      }
+    }
+
+    // Open the last uploaded book
+    if (uploadedBooks.length > 0) {
+      setCurrentBook(uploadedBooks[uploadedBooks.length - 1]);
+    }
+
+    // Clear progress after a short delay
+    setTimeout(() => {
+      setUploadProgress([]);
+      setIsUploading(false);
+    }, 1500);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    await handleFilesUpload(files);
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Drag and drop handlers
+  const handleDragEnter = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounterRef.current++;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      setIsDragging(true);
+    }
+  }, []);
+
+  const handleDragLeave = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounterRef.current--;
+    if (dragCounterRef.current === 0) {
+      setIsDragging(false);
+    }
+  }, []);
+
+  const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback(async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    dragCounterRef.current = 0;
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      await handleFilesUpload(files);
+    }
+  }, []);
+
   return (
-    <div className={`min-h-screen p-8 ${
+    <div 
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      className={`min-h-screen p-8 relative ${
       settings.theme === 'dark' ? 'bg-gray-900 text-white' : 
       settings.theme === 'sepia' ? 'bg-sepia-100 text-sepia-900' : 
       'bg-gray-50 text-gray-900'
     }`}>
+      {/* Drag & Drop Overlay */}
+      {isDragging && (
+        <div className="fixed inset-0 z-50 bg-blue-500/20 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-12 text-center border-4 border-dashed border-blue-500 animate-pulse">
+            <div className="text-6xl mb-4">📚</div>
+            <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400">Drop your EPUBs here!</h3>
+            <p className="text-gray-600 dark:text-gray-300 mt-2">Release to add to your library</p>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Progress Modal */}
+      {uploadProgress.length > 0 && (
+        <div className="fixed inset-0 z-40 bg-black/50 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <span className="animate-spin">📖</span>
+              Uploading {uploadProgress.length} book{uploadProgress.length > 1 ? 's' : ''}...
+            </h3>
+            <div className="space-y-3">
+              {uploadProgress.map((item, idx) => (
+                <div key={idx} className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="truncate max-w-[200px]">{item.fileName}</span>
+                    <span className="flex items-center gap-1">
+                      {item.status === 'done' && <span className="text-green-500">✓</span>}
+                      {item.status === 'error' && <span className="text-red-500">✗</span>}
+                      {item.status === 'uploading' && <span className="animate-spin">⏳</span>}
+                      {item.status === 'pending' && <span className="opacity-50">⋯</span>}
+                    </span>
+                  </div>
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full transition-all duration-300 ${
+                        item.status === 'error' ? 'bg-red-500' :
+                        item.status === 'done' ? 'bg-green-500' :
+                        'bg-blue-500'
+                      }`}
+                      style={{ width: `${item.progress}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       {/* Header */}
       <header className="max-w-6xl mx-auto mb-12">
         <div className="flex items-center justify-between">
@@ -87,6 +246,7 @@ export function Library() {
             ref={fileInputRef}
             type="file"
             accept=".epub"
+            multiple
             onChange={handleFileUpload}
             className="hidden"
           />
@@ -117,13 +277,20 @@ export function Library() {
             <BookCard key={book.id} book={book} onClick={handleBookClick} />
           ))}
           
-          {/* Add Book Card */}
+          {/* Add Book Card - also acts as drop zone hint */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="aspect-[2/3] rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center gap-3 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+            className={`aspect-[2/3] rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-3 transition-colors ${
+              isDragging 
+                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 scale-105' 
+                : 'border-gray-300 dark:border-gray-700 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+            }`}
           >
-            <span className="text-4xl">➕</span>
-            <span className="text-sm opacity-70">Add EPUB</span>
+            <span className="text-4xl">{isDragging ? '📥' : '➕'}</span>
+            <span className="text-sm opacity-70 text-center px-2">
+              {isDragging ? 'Drop here!' : 'Add EPUB(s)'}
+            </span>
+            <span className="text-xs opacity-40">or drag & drop</span>
           </button>
         </div>
       </section>
