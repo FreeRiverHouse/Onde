@@ -7518,3 +7518,42 @@
   - Alert if today < 0.5x average (low activity)
   - Create kalshi-volume-anomaly.alert for heartbeat
   - Useful for detecting autotrader issues or market changes
+
+### [T759] Reader App: Track personal reading speed
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T757]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Improve reading time estimates by tracking user's actual speed:
+  - Record words read per session (from page text extraction)
+  - Calculate actual WPM over time
+  - Update reading time estimates to use personalized WPM
+  - Show "Your reading speed: X WPM" in stats panel
+  - More accurate "time remaining" as user reads more
+
+### [T760] Reader App: Library summary stats
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T719]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show reading statistics summary on library page:
+  - Total books in library
+  - Total reading time this week/month
+  - Books completed vs in progress
+  - Current reading streak
+  - Small widget/banner at top of library
+
+### [T761] Reader App: Enhanced offline PWA caching
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T695]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve PWA offline experience:
+  - Cache uploaded EPUBs in IndexedDB (already done)
+  - Cache book covers for offline display
+  - Pre-cache font files and CSS
+  - Show offline indicator in header
+  - Graceful fallback when dictionary API unavailable
