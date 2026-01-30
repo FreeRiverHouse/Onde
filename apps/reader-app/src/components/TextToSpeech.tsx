@@ -184,6 +184,57 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
     };
   }, [isOpen, stop]);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle if typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) {
+        return;
+      }
+
+      switch (e.key) {
+        case ' ': // Space - Play/Pause
+          e.preventDefault();
+          if (isPlaying && !isPaused) {
+            pause();
+          } else {
+            play();
+          }
+          break;
+        case 'Escape': // Close panel
+          e.preventDefault();
+          onClose();
+          break;
+        case 'ArrowLeft': // Previous sentence
+          e.preventDefault();
+          skipBackward();
+          break;
+        case 'ArrowRight': // Next sentence
+          e.preventDefault();
+          skipForward();
+          break;
+        case 'ArrowUp': // Increase speed
+          e.preventDefault();
+          setSettings((s) => ({ ...s, rate: Math.min(s.rate + 0.1, 2.0) }));
+          break;
+        case 'ArrowDown': // Decrease speed
+          e.preventDefault();
+          setSettings((s) => ({ ...s, rate: Math.max(s.rate - 0.1, 0.5) }));
+          break;
+        case 'm':
+        case 'M': // Mute/unmute
+          e.preventDefault();
+          setSettings((s) => ({ ...s, volume: s.volume > 0 ? 0 : 1.0 }));
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, isPlaying, isPaused, play, pause, onClose, skipBackward, skipForward]);
+
   // Group voices by language
   const groupedVoices = voices.reduce((acc, voice) => {
     const lang = voice.lang.split('-')[0];
@@ -365,11 +416,13 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange }: TextTo
 
         {/* Keyboard shortcuts hint */}
         <div className="px-4 py-2 text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-700">
-          <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Space</kbd> Play/Pause
-          <span className="mx-2">•</span>
-          <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">←</kbd> Previous
-          <span className="mx-2">•</span>
-          <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">→</kbd> Next
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Space</kbd> Play/Pause</span>
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">←</kbd><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">→</kbd> Prev/Next</span>
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">↑</kbd><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">↓</kbd> Speed</span>
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">M</kbd> Mute</span>
+            <span><kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Esc</kbd> Close</span>
+          </div>
         </div>
       </div>
     </div>

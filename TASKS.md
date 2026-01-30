@@ -439,17 +439,21 @@
   - Duck ambient sounds while TTS is playing
 
 ### [T714] Reader App: TTS keyboard shortcuts in reader view
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T712]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add keyboard shortcuts when TTS panel is open:
-  - Space: Play/Pause
-  - Escape: Close TTS panel
-  - Left/Right arrows: Previous/Next sentence
-  - Up/Down arrows: Speed adjust
-  - M: Mute/unmute
+- **Notes**: ✅ Implemented keyboard shortcuts in TTS panel!
+  - ✅ Space: Play/Pause
+  - ✅ Escape: Close TTS panel
+  - ✅ Left/Right arrows: Previous/Next sentence
+  - ✅ Up/Down arrows: Speed adjust (±0.1x)
+  - ✅ M: Mute/unmute toggle
+  - ✅ Updated shortcuts hint UI to show all shortcuts
+  - ✅ Input element detection to avoid conflicts
+  - Build passes, ready for deploy
 
 ### [T715] Reader App: Auto-page-turn during TTS playback
 - **Status**: TODO
