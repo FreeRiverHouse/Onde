@@ -7557,3 +7557,49 @@
   - Pre-cache font files and CSS
   - Show offline indicator in header
   - Graceful fallback when dictionary API unavailable
+
+### [T762] Autotrader: Circuit breaker time-based cooldown decay
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T734]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add time-based decay to circuit breaker cooldown:
+  - Currently waits for a win to reset, but if all positions are settled, no win can occur
+  - Add gradual loss-count decay: -1 loss every 2 hours of inactivity
+  - Or time-based full reset: auto-reset after 8 hours if no trades
+  - Manual reset command via API/script: `python3 kalshi-autotrader-v2.py --reset-circuit-breaker`
+  - Alert when circuit breaker about to auto-reset
+  - Log all resets with reason (win/time-decay/manual)
+  - **Current issue**: 15 losses, waiting for win, but no pending trades = deadlock
+
+### [T763] Trading: Weather market post-mortem analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Analyze the 2026-01-29 weather market losing streak:
+  - 5+ consecutive losses on KXHIGHCHI (Chicago high temp) in ~25 min
+  - Questions to answer:
+    - Was the edge calculation correct?
+    - Was NWS forecast data stale?
+    - Time-to-expiry too short?
+    - Did we enter at wrong times?
+  - Review skip logic for weather markets
+  - Compare weather win rate vs crypto win rate historically
+  - Output: data/trading/postmortem-weather-2026-01-29.md
+
+### [T764] Trading: Fix concentration history logging
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T482]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Concentration history not being logged:
+  - `data/trading/concentration-history.jsonl` is empty
+  - T482 implemented logging but it may not be running
+  - Verify `log_concentration_snapshot()` is called each cycle
+  - Check if feature only runs when positions are open (currently 0 positions)
+  - Add logging even when portfolio is empty (0% concentration)
+  - Verify push-stats-to-gist.py can handle empty history file
