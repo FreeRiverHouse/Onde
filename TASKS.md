@@ -813,8 +813,8 @@
   - **Integration**: Uses realtime_transcription.py for transcript input
 
 ### [T474] SE-Bot: macOS Overlay UI
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T473]
 - **Blocks**: -
 - **Priority**: P1
