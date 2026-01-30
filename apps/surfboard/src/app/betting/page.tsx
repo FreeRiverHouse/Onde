@@ -47,6 +47,7 @@ import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
+import { StreakPositionWidget } from '@/components/StreakPositionWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
@@ -312,6 +313,32 @@ interface TradingStats {
       eth_7d_change_pct: number;
     };
     data_source: string;
+  } | null;
+  // Streak position analysis (T387)
+  streakPosition?: {
+    generated_at: string;
+    trades_analyzed: number;
+    min_trades_threshold: number;
+    position_analysis: Array<{
+      context: string;
+      total: number;
+      wins: number;
+      losses: number;
+      win_rate: number;
+    }>;
+    continuation_analysis: Array<{
+      streak_type: 'win' | 'loss';
+      streak_length: number;
+      total: number;
+      continues: number;
+      breaks: number;
+      continuation_rate: number;
+    }>;
+    insights: Array<{
+      type: 'positive' | 'warning' | 'neutral';
+      context?: string;
+      message: string;
+    }>;
   } | null;
 }
 
@@ -2183,6 +2210,14 @@ export default function BettingDashboard() {
             <div className="mt-4">
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Streak Position Analysis (T387) */}
+            <div className="mt-4">
+              <StreakPositionWidget 
+                data={tradingStats.streakPosition || undefined}
                 loading={isLoading}
               />
             </div>

@@ -5391,12 +5391,22 @@
 - **Notes**: ✅ Added "price_sources" field to trade_data. Shows which exchanges (binance, coingecko, coinbase) contributed to the price at trade entry. Enables future analysis of source-specific win rates.
 
 ### [T387] Streak position stats on /betting dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T290]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add widget showing win rate by streak position context (after 2+ wins, after 2+ losses). Uses analyze-streak-position.py output. Helps traders recognize when they're in high/low probability contexts.
+- **Notes**: ✅ Implemented streak position analysis widget!
+  - **Script update**: `analyze-streak-position.py` now saves JSON to `data/trading/streak-position-analysis.json`
+  - **Stats integration**: `push-stats-to-gist.py` includes `streakPosition` data
+  - **Widget**: `StreakPositionWidget.tsx` with:
+    - Win rate by context (after N wins/losses)
+    - Streak continuation probability
+    - Key insights (hot hand, tilt risk)
+    - Progress bars with color-coded win rates
+  - **Integration**: Added to /betting page after Correlation Heatmap
+  - ⏳ Needs deploy to onde.surf (separate task)
 
 ### [T388] Streak-based position sizing adjustment
 - **Status**: TODO

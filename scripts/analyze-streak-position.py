@@ -286,9 +286,80 @@ def print_insights(position_results, continuation_stats):
     print("\n" + "="*60)
 
 
+def save_json_output(position_results, continuation_stats, trades_count, min_trades):
+    """Save analysis results to JSON for dashboard consumption."""
+    output_dir = Path(__file__).parent.parent / "data" / "trading"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_file = output_dir / "streak-position-analysis.json"
+    
+    # Calculate continuation results
+    continuation_results = []
+    for key in sorted(continuation_stats.keys()):
+        s = continuation_stats[key]
+        total = s['continues'] + s['breaks']
+        if total >= min_trades:
+            parts = key.split('_')
+            streak_type = parts[0]
+            streak_len = int(parts[2])
+            cont_rate = s['continues'] / total * 100
+            continuation_results.append({
+                'streak_type': streak_type,
+                'streak_length': streak_len,
+                'total': total,
+                'continues': s['continues'],
+                'breaks': s['breaks'],
+                'continuation_rate': round(cont_rate, 1)
+            })
+    
+    # Generate insights
+    insights = []
+    for r in position_results:
+        if r['total'] >= 5:
+            if r['win_rate'] >= 60:
+                insights.append({
+                    'type': 'positive',
+                    'context': r['context'],
+                    'message': f"Strong win rate ({r['win_rate']:.1f}%) {r['context'].replace('_', ' ')}"
+                })
+            elif r['win_rate'] <= 40:
+                insights.append({
+                    'type': 'warning',
+                    'context': r['context'],
+                    'message': f"Weak win rate ({r['win_rate']:.1f}%) {r['context'].replace('_', ' ')}"
+                })
+    
+    for r in continuation_results:
+        if r['continuation_rate'] > 60:
+            if r['streak_type'] == 'win':
+                insights.append({
+                    'type': 'positive',
+                    'message': f"Hot hand: Win streaks continue {r['continuation_rate']:.0f}% of time"
+                })
+            else:
+                insights.append({
+                    'type': 'warning',
+                    'message': f"Tilt risk: Loss streaks continue {r['continuation_rate']:.0f}% of time"
+                })
+    
+    output = {
+        'generated_at': datetime.now().isoformat(),
+        'trades_analyzed': trades_count,
+        'min_trades_threshold': min_trades,
+        'position_analysis': position_results,
+        'continuation_analysis': continuation_results,
+        'insights': insights
+    }
+    
+    with open(output_file, 'w') as f:
+        json.dump(output, f, indent=2)
+    
+    return output_file
+
+
 def main():
     use_v2 = '--v2' in sys.argv
     min_trades = 3
+    quiet = '--quiet' in sys.argv or '-q' in sys.argv
     
     # Parse --min-trades N
     for i, arg in enumerate(sys.argv):
@@ -299,29 +370,40 @@ def main():
                 pass
     
     source = "v2" if use_v2 else "v1"
-    print(f"\n🎯 Analyzing streak position patterns ({source} trades)...")
-    print(f"   Minimum trades per context: {min_trades}")
+    if not quiet:
+        print(f"\n🎯 Analyzing streak position patterns ({source} trades)...")
+        print(f"   Minimum trades per context: {min_trades}")
     
     trades = load_trades(use_v2)
     
     if not trades:
-        print("\n❌ No settled trades found!")
-        print("   Run settlement tracker first: python3 scripts/kalshi-settlement-tracker.py")
+        if not quiet:
+            print("\n❌ No settled trades found!")
+            print("   Run settlement tracker first: python3 scripts/kalshi-settlement-tracker.py")
         return
     
-    print(f"\n📈 Found {len(trades)} settled trades")
+    if not quiet:
+        print(f"\n📈 Found {len(trades)} settled trades")
     
     # Analyze by position
     position_stats = analyze_by_streak_position(trades)
     position_results = calculate_stats(position_stats)
-    print_analysis(position_results, "Win Rate by Preceding Context", min_trades)
+    if not quiet:
+        print_analysis(position_results, "Win Rate by Preceding Context", min_trades)
     
     # Analyze continuation
     continuation_stats = analyze_streak_continuation(trades)
-    print_continuation_analysis(continuation_stats, min_trades)
+    if not quiet:
+        print_continuation_analysis(continuation_stats, min_trades)
     
     # Print insights
-    print_insights(position_results, continuation_stats)
+    if not quiet:
+        print_insights(position_results, continuation_stats)
+    
+    # Save JSON output
+    output_file = save_json_output(position_results, continuation_stats, len(trades), min_trades)
+    if not quiet:
+        print(f"\n💾 Saved JSON output to: {output_file}")
 
 
 if __name__ == '__main__':
