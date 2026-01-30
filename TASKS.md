@@ -1343,6 +1343,57 @@
   - **Persistence**: Saves preference to localStorage
   - ⏳ Needs deploy to onde.la/games/moonlight-magic-house (T729)
 
+### [T729] Moonlight House: Deploy weather integration to onde.la
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T667]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed! https://a1eaf3e9.onde-portal.pages.dev
+  - Weather-based ambient sounds now live
+  - Weather toggle button with LIVE badge
+  - Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+
+### [T730] Reader VR: Run Playwright tests in CI with snapshot baselines
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T725]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add GitHub Actions workflow to run VR tests on every PR:
+  - Create `.github/workflows/vr-tests.yml`
+  - Install Playwright + Chromium in CI
+  - Run `npm test` in apps/reader-vr
+  - Upload playwright-report on failure
+  - Generate and commit baseline snapshots
+
+### [T731] Autotrader: Add hourly health check report to Telegram
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T001]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Hourly summary of autotrader health:
+  - Running status (up/down)
+  - Trades in last hour
+  - Win rate (24h rolling)
+  - Current balance
+  - Any alerts triggered
+  - Send to Telegram, not just file alert
+
+### [T732] SE-Bot: Create video avatar provider comparison doc
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T476]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Research and compare video avatar APIs for T476:
+  - HeyGen: Pricing, API capabilities, real-time support
+  - D-ID: Pricing, SDK, lip sync quality
+  - Synthesia: Enterprise tier, features
+  - Output: Markdown doc with pros/cons/pricing matrix
+
 ---
 
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (16:00 HEARTBEAT)
