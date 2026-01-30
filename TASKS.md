@@ -97,15 +97,45 @@
     - `--list-backends` shows available models
     - `--json` for structured output
   - **Tested:** qwen2.5-coder:7b coding task = 13.2s, 48 tokens, 3.6 tok/s
-  - **Options:**
-    - PWA (web app installabile)
-    - React Native / Expo
-    - Capacitor (web-to-native)
-  - **Features extra iPad:**
-    - Touch-optimized drawing
-    - Apple Pencil support
-    - App Store distribution
-  - **Blocked until**: MVP web testato e validato
+
+### [T869] Benchmark Local LLM Performance Comparison
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T867]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Compare coding models for quality + speed tradeoffs:
+  - Models to test: qwen2.5-coder:7b, deepseek-coder:6.7b, llama31-8b
+  - Tasks: code generation, bug fixing, translation, analysis
+  - Metrics: latency, tokens/sec, quality (human eval)
+  - Output: benchmark report in data/benchmarks/local-llm-benchmark.json
+  - Recommendation matrix for which model to use per task type
+
+### [T870] Integrate local-agent-coordinator with exec/sessions
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T866], [T868]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Allow Clawdinho to delegate sub-tasks automatically:
+  - Create wrapper function for exec integration
+  - Test with sessions_spawn for async tasks
+  - Add retry logic and error handling
+  - Track delegation metrics (time saved, quality)
+  - Example: delegate code review to local LLM before responding
+
+### [T871] Create Local Agent System Documentation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T868]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Document local LLM sub-agent system:
+  - README in scripts/local-agents/
+  - Architecture diagram (M1→Ollama, Radeon→TinyGrad)
+  - Model comparison table (size, speed, specialty)
+  - Best practices for delegation
+  - Common task templates
 
 ---
 
