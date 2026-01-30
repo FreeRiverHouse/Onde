@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T20:30:02.633387+00:00",
+  "timestamp": "2026-01-30T21:00:04.613869+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,27 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Changpeng Zhao rejects claims Binance worsened crypto market crash",
+      "url": "https://cointelegraph.com/news/cz-denies-binance-role-october-crypto-liquidation-usde-depeg?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "CZ pushed back on claims that Binance fueled October\u2019s historic $19 billion crypto liquidation event, calling allegations against the exchange \u201cfar-fetched.\u201d",
+      "published": "2026-01-30T20:55:51+00:00"
+    },
+    {
+      "title": "Bitcoin Price Holds Steady as Gold Falls and Silver Craters",
+      "url": "https://decrypt.co/356503/bitcoin-price-holds-steady-gold-falls-silver-craters",
+      "source": "decrypt",
+      "description": "Bitcoin stays resilient while gold and silver see historic crashes amid Fed chair nomination fears and shifting rate expectations.",
+      "published": "2026-01-30T20:51:00+00:00"
+    },
+    {
+      "title": "Coinbase, JPMorgan CEOs clashed over market structure bill at Davos: Report",
+      "url": "https://cointelegraph.com/news/coinbase-jpmorgan-ceos-clashed-market-structure-davos?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Brian Armstrong made the media rounds before and after he announced Coinbase was pulling its support for a major US crypto bill, reportedly facing off with Jamie Dimon in Davos.",
+      "published": "2026-01-30T20:32:34+00:00"
+    },
     {
       "title": "Bitcoin futures imbalance may spark liquidation revenge rally to $90K",
       "url": "https://cointelegraph.com/news/bitcoin-futures-imbalance-may-spark-liquidation-revenge-rally-to-dollar90k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -130,25 +151,11 @@
       "published": "2026-01-30T14:41:10+00:00"
     },
     {
-      "title": "What role is left for decentralized GPU networks in AI?",
-      "url": "https://cointelegraph.com/news/what-role-is-left-for-decentralized-gpu-networks-in-ai?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "AI training is dominated by hyperscale data centers, but inference and everyday workloads are opening real space for decentralized GPU networks.",
-      "published": "2026-01-30T14:39:49+00:00"
-    },
-    {
       "title": "Binance to Move $1 Billion User Protection Fund Into Bitcoin\u00a0",
       "url": "https://bitcoinmagazine.com/news/binance-to-move-1-billion-fund-to-bitcoin",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Binance to Move $1 Billion User Protection Fund Into Bitcoin As the bitcoin price slumps, Binance said it will convert the $1 billion stablecoin-backed Secure Asset Fund for Users entirely into bitcoin over the next 30 days. This post Binance to Move $1 Billion User Protection Fund Into Bitcoin first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T14:27:35+00:00"
-    },
-    {
-      "title": "Bitcoin bear market almost over? BTC price metric outpaces 2022 bottom",
-      "url": "https://cointelegraph.com/news/bitcoin-bear-market-almost-over-btc-price-metric-outpaces-2022-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin's MVRV Z-score printed record lows on a rolling two-year basis, making BTC price more \"undervalued\" than at the pit of past bear markets.",
-      "published": "2026-01-30T14:15:00+00:00"
     },
     {
       "title": "Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair",
@@ -177,13 +184,6 @@
       "source": "decrypt",
       "description": "A group of Democratic senators is pressing the Justice Department over ethics questions tied to a rollback in crypto enforcement.",
       "published": "2026-01-30T05:54:04+00:00"
-    },
-    {
-      "title": "Bitcoin Slips to $82K as Liquidations Spike to $1.7B",
-      "url": "https://decrypt.co/356448/bitcoin-slips-82k-liquidations-spike-1-75b",
-      "source": "decrypt",
-      "description": "Bitcoin has hit a nine-month low of $82,134 amid escalating policy shifts, including President Trump's Friday Fed Chair announcement.",
-      "published": "2026-01-30T04:33:02+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
