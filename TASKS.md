@@ -92,16 +92,19 @@
   - ⏳ Test on mobile Safari and Chrome (manual testing)
 
 ### [T693] Reader App: Add link to onde.la navigation
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T692]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Reader App link to onde.la site:
-  - Add "Reader" to main navigation (desktop + mobile)
-  - Add to footer links
-  - Add card/banner on homepage (optional)
-  - Consider adding to /libri page as "Read in our app" CTA
+- **Notes**: ✅ Added Reader App link to onde.la!
+  - ✅ Added "Read" / "Leggi" to main navigation (desktop + mobile)
+  - ✅ Added to footer links under Explore section
+  - ✅ Deployed: https://48afb914.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la and https://onde.la/reader/ both 200 OK
+  - ⏳ Add card/banner on homepage (optional, future)
+  - ⏳ Consider adding to /libri page as "Read in our app" CTA (future)
 
 ### [T694] Audit and fix npm vulnerabilities
 - **Status**: DONE
