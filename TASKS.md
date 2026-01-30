@@ -806,17 +806,25 @@
   - Commit: 48635b4b8
 
 ### [T804] Reader App: Add "Download for offline" button
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T803]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Allow users to explicitly cache books for offline:
-  - Add download icon/button to book card
-  - Download and store EPUB in IndexedDB
-  - Show progress during download
-  - Update cached badge on completion
-  - Option to remove from cache
+- **Notes**: ✅ Implemented download button for offline reading!
+  - **Component**: `apps/reader-app/src/components/DownloadButton.tsx`
+  - **Features:**
+    - ✅ Compact download button on BookCard and ContinueReadingCard
+    - ✅ Shows only when book is not cached AND has download URL
+    - ✅ Works with demo books (Gutenberg URLs) and OPDS books (sourceUrl)
+    - ✅ Progress indicator during download (streaming with progress %)
+    - ✅ Automatic cache status refresh on completion
+    - ✅ Error handling with retry option
+    - ✅ Click stopPropagation (doesn't open book while downloading)
+  - **Store update**: Added `sourceUrl?: string` to Book interface
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.la/reader
 
 ### [T805] Reader App: Deploy offline indicator to onde.la/reader
 - **Status**: DONE

@@ -9,6 +9,7 @@ import { OfflineIndicator } from './OfflineIndicator';
 import { GoalProgressWidget } from './GoalProgressWidget';
 import { OPDSBrowser } from './OPDSBrowser';
 import { CachedBadge } from './CachedBadge';
+import { DownloadButton } from './DownloadButton';
 
 // Upload progress state
 interface UploadProgress {
@@ -495,6 +496,7 @@ export function Library() {
                   onClick={handleBookClick}
                   isCached={isCached(book.id)}
                   isDemoBook={isDemoBook(book.id)}
+                  onDownloadComplete={refreshCacheStatus}
                 />
               ))}
           </div>
@@ -528,6 +530,7 @@ export function Library() {
                 onClick={handleBookClick} 
                 isCached={isCached(book.id)}
                 isDemoBook={isDemoBook(book.id)}
+                onDownloadComplete={refreshCacheStatus}
               />
             ))
           )}
@@ -566,9 +569,10 @@ interface BookCardProps {
   onClick: (book: Book) => void;
   isCached: boolean | null;
   isDemoBook: boolean;
+  onDownloadComplete?: () => void;
 }
 
-function BookCard({ book, onClick, isCached, isDemoBook }: BookCardProps) {
+function BookCard({ book, onClick, isCached, isDemoBook, onDownloadComplete }: BookCardProps) {
   // Calculate remaining reading time
   const remainingTime = book.estimatedReadingMinutes && book.progress > 0
     ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
@@ -595,6 +599,20 @@ function BookCard({ book, onClick, isCached, isDemoBook }: BookCardProps) {
       <div className="absolute top-2 left-2">
         <CachedBadge isCached={isCached} isDemoBook={isDemoBook} />
       </div>
+      
+      {/* Download button - show when not cached and has source */}
+      {!isCached && (isDemoBook || book.sourceUrl) && (
+        <div className="absolute top-2 right-10">
+          <DownloadButton
+            bookId={book.id}
+            sourceUrl={book.sourceUrl}
+            isCached={isCached}
+            isDemoBook={isDemoBook}
+            onDownloadComplete={onDownloadComplete}
+            compact
+          />
+        </div>
+      )}
       
       {/* Reading time badge - top right */}
       {remainingTime && (
@@ -636,9 +654,10 @@ interface ContinueReadingCardProps {
   onClick: (book: Book) => void;
   isCached: boolean | null;
   isDemoBook: boolean;
+  onDownloadComplete?: () => void;
 }
 
-function ContinueReadingCard({ book, onClick, isCached, isDemoBook }: ContinueReadingCardProps) {
+function ContinueReadingCard({ book, onClick, isCached, isDemoBook, onDownloadComplete }: ContinueReadingCardProps) {
   // Calculate remaining reading time
   const remainingTime = book.estimatedReadingMinutes
     ? calculateRemainingMinutes(book.estimatedReadingMinutes, book.progress)
@@ -659,6 +678,19 @@ function ContinueReadingCard({ book, onClick, isCached, isDemoBook }: ContinueRe
         <div className="absolute bottom-1 left-1">
           <CachedBadge isCached={isCached} isDemoBook={isDemoBook} />
         </div>
+        {/* Download button */}
+        {!isCached && (isDemoBook || book.sourceUrl) && (
+          <div className="absolute top-1 right-1">
+            <DownloadButton
+              bookId={book.id}
+              sourceUrl={book.sourceUrl}
+              isCached={isCached}
+              isDemoBook={isDemoBook}
+              onDownloadComplete={onDownloadComplete}
+              compact
+            />
+          </div>
+        )}
       </div>
       <div className="flex-1 text-left">
         <h3 className="font-semibold line-clamp-2">{book.title}</h3>

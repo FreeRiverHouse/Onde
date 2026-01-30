@@ -43,6 +43,7 @@ export interface Book {
   lastRead?: number;
   wordCount?: number; // Total words in book
   estimatedReadingMinutes?: number; // Estimated time at 200 WPM
+  sourceUrl?: string; // URL to download EPUB from (for OPDS books)
 }
 
 export interface ReaderSettings {
