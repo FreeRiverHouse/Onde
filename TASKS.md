@@ -7822,16 +7822,27 @@
   - Streak position analysis widget now live on /betting
 
 ### [T770] Trading: Add streak position data to autotrader alerts
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T387]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Include streak context in trading alerts:
-  - Add current streak info to trade placed alerts
-  - Warn when entering trade after 3+ losses (tilt risk)
-  - Note if entering trade after 3+ wins (hot hand)
-  - Include continuation probability in alert text
+- **Notes**: ✅ Implemented streak position context in autotrader!
+  - **Function**: `get_streak_position_context()` returns:
+    - `streak_context`: string like "after_3_losses", "after_2_wins", "fresh_start"
+    - `current_streak`: count of consecutive wins/losses
+    - `streak_type`: "win" or "loss"
+    - `tilt_risk`: bool (true if ≥3 consecutive losses)
+    - `hot_hand`: bool (true if ≥3 consecutive wins)
+    - `continuation_probability`: from streak-position-analysis.json
+  - **Trade data fields**: streak_context, streak_current, streak_type, streak_tilt_risk, streak_hot_hand, streak_continuation_prob
+  - **ML features**: streak_current, streak_type_win/loss, streak_tilt_risk, streak_hot_hand, streak_continuation_prob
+  - **Console warnings**:
+    - ⚠️ TILT RISK WARNING when entering after 3+ losses
+    - 🔥 HOT HAND note when entering after 3+ wins
+    - Shows historical continuation rate if available
+  - **Constants**: STREAK_TILT_THRESHOLD=3, STREAK_HOT_HAND_THRESHOLD=3, STREAK_POSITION_ANALYSIS_FILE
 
 ### [T771] Trading: Add streak position to daily summary report
 - **Status**: TODO

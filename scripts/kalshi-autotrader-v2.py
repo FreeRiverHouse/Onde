@@ -235,6 +235,11 @@ LATENCY_CHECK_WINDOW = 10  # Check last N trades
 STREAK_STATE_FILE = "scripts/kalshi-streak-records.json"
 STREAK_ALERT_FILE = "scripts/kalshi-streak-record.alert"
 
+# Streak position analysis (T770) - context for trade decisions
+STREAK_POSITION_ANALYSIS_FILE = "data/trading/streak-position-analysis.json"
+STREAK_TILT_THRESHOLD = 3  # Warn when entering trade after N consecutive losses
+STREAK_HOT_HAND_THRESHOLD = 3  # Note when entering trade after N consecutive wins
+
 # API Latency Profiling (T279)
 LATENCY_PROFILE_FILE = "scripts/kalshi-latency-profile.json"
 LATENCY_PROFILE_WINDOW = 100  # Keep last N calls per endpoint
@@ -3463,6 +3468,14 @@ def log_ml_features(trade_data: dict):
         "kelly_fraction_used": trade_data.get("kelly_fraction_used", KELLY_FRACTION),
         "size_multiplier": trade_data.get("size_multiplier_total", 1.0),
         
+        # Streak position features (T770) - trading psychology
+        "streak_current": trade_data.get("streak_current", 0),
+        "streak_type_win": 1 if trade_data.get("streak_type") == "win" else 0,
+        "streak_type_loss": 1 if trade_data.get("streak_type") == "loss" else 0,
+        "streak_tilt_risk": 1 if trade_data.get("streak_tilt_risk", False) else 0,
+        "streak_hot_hand": 1 if trade_data.get("streak_hot_hand", False) else 0,
+        "streak_continuation_prob": trade_data.get("streak_continuation_prob"),
+        
         # Target (filled by settlement tracker)
         "actual_outcome": None,  # 1=won, 0=lost (filled later)
         "settlement_price": None,  # Final BTC/ETH price at settlement
@@ -4336,6 +4349,9 @@ def run_cycle():
     if "WARN" in conc_reason:
         print(f"   ⚠️ {conc_reason}")
     
+    # Get streak position context for trade logging (T770)
+    streak_ctx = get_streak_position_context()
+    
     # Build trade data for logging
     trade_data = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -4389,6 +4405,13 @@ def run_cycle():
             "crypto" if asset_type in ("btc", "eth") else asset_type, 0
         ),
         "concentration_warning": "WARN" in conc_reason,
+        # Streak position context (T770) - trading psychology data
+        "streak_context": streak_ctx.get("streak_context", "fresh_start"),
+        "streak_current": streak_ctx.get("current_streak", 0),
+        "streak_type": streak_ctx.get("streak_type"),
+        "streak_tilt_risk": streak_ctx.get("tilt_risk", False),
+        "streak_hot_hand": streak_ctx.get("hot_hand", False),
+        "streak_continuation_prob": streak_ctx.get("continuation_probability"),
         "result_status": "pending"
     }
     
@@ -4399,6 +4422,9 @@ def run_cycle():
         log_dry_run_trade(trade_data)
         print(f"✅ [DRY RUN] Trade logged to {DRY_RUN_LOG_FILE}")
         return
+    
+    # Print streak position warning/note if applicable (T770)
+    print_streak_position_warning(streak_ctx)
     
     print(f"\n💸 Placing order: {contracts} contracts @ {best['price']}¢")
     
@@ -5089,6 +5115,86 @@ def write_extreme_vol_alert(trade_data: dict):
         json.dump(alert_data, f, indent=2)
     
     print(f"📝 🌋 Extreme volatility alert written: {asset} @ very_high vol")
+
+
+# ============== STREAK POSITION CONTEXT (T770) ==============
+
+def get_streak_position_context() -> dict:
+    """
+    Get current streak position context for trade decisions.
+    
+    Returns dict with:
+    - streak_context: str like "after_3_losses", "after_2_wins", "fresh_start"
+    - current_streak: int - current streak count
+    - streak_type: str - "win" or "loss"
+    - tilt_risk: bool - True if after STREAK_TILT_THRESHOLD+ losses
+    - hot_hand: bool - True if after STREAK_HOT_HAND_THRESHOLD+ wins
+    - continuation_probability: float or None - probability of streak continuing
+    """
+    # Get current streak info
+    streaks = calculate_current_streaks()
+    current = streaks.get("current_streak", 0)
+    streak_type = streaks.get("current_streak_type")
+    
+    # Build context string
+    if current == 0 or streak_type is None:
+        context = "fresh_start"
+    else:
+        context = f"after_{current}_{streak_type}{'es' if streak_type == 'loss' else 's'}"
+    
+    # Check for tilt risk (after multiple losses)
+    tilt_risk = streak_type == "loss" and current >= STREAK_TILT_THRESHOLD
+    
+    # Check for hot hand (after multiple wins)
+    hot_hand = streak_type == "win" and current >= STREAK_HOT_HAND_THRESHOLD
+    
+    # Try to load continuation probability from streak analysis
+    continuation_prob = None
+    try:
+        analysis_path = Path(STREAK_POSITION_ANALYSIS_FILE)
+        if analysis_path.exists():
+            with open(analysis_path) as f:
+                analysis = json.load(f)
+            
+            # Find matching context in analysis
+            by_context = analysis.get("by_context", {})
+            for ctx_key, ctx_data in by_context.items():
+                # Match patterns like "after_3_losses" 
+                if streak_type and current > 0:
+                    ctx_streak = int(ctx_key.split("_")[1]) if "_" in ctx_key else 0
+                    ctx_type = "win" if "win" in ctx_key else ("loss" if "loss" in ctx_key else None)
+                    if ctx_type == streak_type and ctx_streak == current:
+                        continuation_prob = ctx_data.get("continuation_rate", ctx_data.get("win_rate"))
+                        break
+    except Exception as e:
+        # Silently fail if analysis file doesn't exist or is malformed
+        pass
+    
+    return {
+        "streak_context": context,
+        "current_streak": current,
+        "streak_type": streak_type,
+        "tilt_risk": tilt_risk,
+        "hot_hand": hot_hand,
+        "continuation_probability": continuation_prob,
+        "longest_win_streak": streaks.get("longest_win_streak", 0),
+        "longest_loss_streak": streaks.get("longest_loss_streak", 0)
+    }
+
+
+def print_streak_position_warning(streak_ctx: dict):
+    """Print warning/note about streak position when entering trade."""
+    if streak_ctx.get("tilt_risk"):
+        print(f"\n⚠️  TILT RISK WARNING: Entering trade after {streak_ctx['current_streak']} consecutive losses!")
+        print(f"    💡 Consider: Is this a high-conviction trade? Strategy might need review.")
+        if streak_ctx.get("continuation_probability") is not None:
+            print(f"    📊 Historical continuation rate: {streak_ctx['continuation_probability']:.1%}")
+    
+    elif streak_ctx.get("hot_hand"):
+        print(f"\n🔥 HOT HAND: {streak_ctx['current_streak']} consecutive wins!")
+        print(f"    💡 Note: Stay disciplined - don't let success lead to overconfidence.")
+        if streak_ctx.get("continuation_probability") is not None:
+            print(f"    📊 Historical continuation rate: {streak_ctx['continuation_probability']:.1%}")
 
 
 # ============== STREAK RECORD ALERTING (T288) ==============
