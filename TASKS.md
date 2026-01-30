@@ -7760,3 +7760,52 @@
   - Handle GitHub API rate limits gracefully
   - Log failures to data/trading/gist-push-errors.log
   - Alert if 3 consecutive failures
+
+### [T769] Deploy onde.surf with streak position widget
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
+- **Depends**: [T387]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed streak position widget to production!
+  - ✅ Build via `npm run build:cf`
+  - ✅ Deploy via wrangler: https://d44ce5d8.onde-surf.pages.dev
+  - ✅ Verified: https://onde.surf/betting → 307 (auth redirect as expected)
+  - Streak position analysis widget now live on /betting
+
+### [T770] Trading: Add streak position data to autotrader alerts
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T387]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include streak context in trading alerts:
+  - Add current streak info to trade placed alerts
+  - Warn when entering trade after 3+ losses (tilt risk)
+  - Note if entering trade after 3+ wins (hot hand)
+  - Include continuation probability in alert text
+
+### [T771] Trading: Add streak position to daily summary report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T387]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Include streak position stats in daily summary:
+  - Best/worst performing contexts today
+  - Context where most trades occurred
+  - Any tilt warnings triggered
+  - Streak continuation accuracy for the day
+
+### [T772] Dashboard: Add streak position tooltip to Trade History Pattern
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T387]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Enhance Trade History Pattern (colored dots) with streak context:
+  - Hover on dot to see what streak context that trade was in
+  - Show if trade was after N wins/losses
+  - Show continuation probability at that time
+  - Helps identify if tilt patterns affected decisions
