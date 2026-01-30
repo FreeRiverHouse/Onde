@@ -676,6 +676,7 @@ export default function SkinCreator() {
           <div className="flex flex-wrap gap-2 mb-4 justify-center">
             <button
               onClick={() => setTool('brush')}
+              title="Brush tool (B)"
               className={`px-3 py-2 rounded-full font-bold transition-all ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
               }`}
@@ -684,6 +685,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('eraser')}
+              title="Eraser tool (E)"
               className={`px-3 py-2 rounded-full font-bold transition-all ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
               }`}
@@ -692,6 +694,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('fill')}
+              title="Fill tool (F)"
               className={`px-3 py-2 rounded-full font-bold transition-all ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
               }`}
@@ -700,6 +703,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('gradient')}
+              title="Gradient fill (G)"
               className={`px-3 py-2 rounded-full font-bold transition-all ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
               }`}
@@ -708,6 +712,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('glow')}
+              title="Glow brush (W)"
               className={`px-3 py-2 rounded-full font-bold transition-all ${
                 tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-gray-200 hover:bg-gray-300'
               }`}
