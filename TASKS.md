@@ -9726,7 +9726,7 @@
   - Alert badge when divergence >20%
 
 ### [T820] Fix: AIKO rinominato in MILO - aggiornare ovunque
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
