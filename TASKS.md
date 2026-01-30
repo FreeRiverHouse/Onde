@@ -2564,11 +2564,11 @@
 - **Priority**: P3
 - **Notes**: VR reading experience
 
-### [T668] VR Testing Automatico Programmatico
+### [T725] VR Testing Automatico Programmatico
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: -
-- **Blocks**: [T669]
+- **Blocks**: [T726]
 - **Priority**: P1
 - **Notes**: Setup testing automatico per progetti VR (da Mattia 2026-01-29)
   - Goal: Mattia si mette gli occhiali → localhost → tutto funziona
@@ -2577,10 +2577,10 @@
   - Possibili: Playwright + WebXR, Unity Test Framework, custom
   - Output: Script che verifica build VR funziona
 
-### [T669] CI/CD Pipeline con Feedback Loop Auto-Miglioramento
+### [T726] CI/CD Pipeline con Feedback Loop Auto-Miglioramento
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: [T668]
+- **Depends**: [T725]
 - **Blocks**: -
 - **Priority**: P1
 - **Notes**: Ciclo di deployment software che si auto-migliora (da Mattia 2026-01-29)
@@ -6722,3 +6722,50 @@
   - Display on onde.surf/betting dashboard
   - Historical chart showing rolling Sharpe
   - Compare crypto vs weather markets
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (23:10 HEARTBEAT)
+
+### [T727] Scripts: Fix remaining datetime.utcnow() deprecations
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: ✅ Fixed Python 3.12+ deprecation warnings:
+  - ✅ scripts/daily-test-suite.py - SSL expiry calculation
+  - ✅ scripts/compute-latency-trend.py - timestamps and cutoff
+  - ✅ scripts/track-api-error-rates.py - logging and reports
+  - All now use timezone-aware `datetime.now(timezone.utc)`
+  - Test suite runs clean without deprecation warnings
+
+### [T728] TASKS.md: Add task ID validation script
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Prevent duplicate task IDs in TASKS.md:
+  - Script: `scripts/validate-tasks.py`
+  - Check for duplicate task IDs (found T668, T669 duplicates)
+  - Suggest next available ID
+  - Run as pre-commit hook or CI check
+  - Report orphan dependencies (blocked by non-existent tasks)
+  - JSON output for programmatic use
+
+### [T729] Autotrader: Add daily digest email summary
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Daily email with trading summary:
+  - Total PnL for the day
+  - Win rate and trade count
+  - Notable events (circuit breaker triggers, streaks)
+  - Comparison to previous day/week
+  - Uses nodemailer or similar
+  - Configurable send time (default: 9 AM PST)
+  - Fallback for T219 (email notification for critical alerts)
