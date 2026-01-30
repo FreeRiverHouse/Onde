@@ -16,7 +16,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
 interface AmbientSoundscapesProps {
@@ -200,6 +200,55 @@ const SOUNDSCAPE_CONFIGS: Record<RoomKey, SoundscapeConfig> = {
     filterType: 'lowpass',
     useReverb: true,
     reverbTime: 1.5,
+  },
+  // New explorable areas
+  attic: {
+    // Spooky/cozy, creaky floors, wind through rafters, dusty mystery
+    droneFreqs: [82, 123, 165],
+    droneVolume: 0.02,
+    droneType: 'sine',
+    accents: [
+      // Floor creak
+      { freq: 200, duration: 0.3, type: 'sawtooth', interval: [4000, 10000], volume: 0.015 },
+      // Wind through cracks
+      { freq: 600, duration: 1.2, type: 'sawtooth', interval: [3000, 7000], volume: 0.01 },
+      // Mysterious chime (music box)
+      { freq: 1047, duration: 0.5, type: 'sine', interval: [6000, 12000], volume: 0.012, detune: 30 },
+      // Settling dust/wood
+      { freq: 150, duration: 0.08, type: 'square', interval: [5000, 15000], volume: 0.008 },
+      // Distant scratching (spooky!)
+      { freq: 3500, duration: 0.02, type: 'sawtooth', interval: [8000, 20000], volume: 0.005 },
+    ],
+    lfoRate: 0.15,
+    lfoDepth: 8,
+    filterFreq: 500,
+    filterQ: 1.5,
+    filterType: 'lowpass',
+    useReverb: true,
+    reverbTime: 3.5,
+  },
+  basement: {
+    // Industrial workshop, pipes, mechanical, slightly echoey
+    droneFreqs: [41, 62, 82],
+    droneVolume: 0.025,
+    droneType: 'sawtooth',
+    accents: [
+      // Pipe clank
+      { freq: 300, duration: 0.1, type: 'square', interval: [5000, 12000], volume: 0.02 },
+      // Furnace rumble
+      { freq: 50, duration: 2, type: 'sawtooth', interval: [8000, 18000], volume: 0.015 },
+      // Dripping water
+      { freq: 1000, duration: 0.12, type: 'sine', interval: [3000, 7000], volume: 0.018, detune: 80 },
+      // Electrical hum
+      { freq: 60, duration: 0.5, type: 'sine', interval: [2000, 4000], volume: 0.01 },
+      // Tool rattle
+      { freq: 500, duration: 0.05, type: 'square', interval: [6000, 15000], volume: 0.012 },
+    ],
+    filterFreq: 350,
+    filterQ: 0.8,
+    filterType: 'lowpass',
+    useReverb: true,
+    reverbTime: 2.8,
   },
 };
 

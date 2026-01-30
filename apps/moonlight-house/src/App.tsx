@@ -20,7 +20,7 @@ const BASE_URL = import.meta.env.BASE_URL || '/';
 
 // ==================== TYPES ====================
 type Language = 'it' | 'en';
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
 type MoodType = 'happy' | 'neutral' | 'sad' | 'sleepy' | 'hungry' | 'excited';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
@@ -57,6 +57,7 @@ const translations = {
     rooms: {
       bedroom: 'Camera', kitchen: 'Cucina', garden: 'Giardino', living: 'Salotto',
       bathroom: 'Bagno', garage: 'Garage', shop: 'Negozio', supermarket: 'Supermercato',
+      attic: 'Soffitta', basement: 'Cantina',
     },
     actions: {
       bedroom: { primary: 'Dormi', secondary: 'Leggi' },
@@ -67,6 +68,8 @@ const translations = {
       garage: { primary: 'Guida', secondary: 'Ripara' },
       shop: { primary: 'Compra vestiti', secondary: 'Prova' },
       supermarket: { primary: 'Compra cibo', secondary: 'Esplora' },
+      attic: { primary: 'Cerca tesori', secondary: 'Esplora' },
+      basement: { primary: 'Costruisci', secondary: 'Organizza' },
     },
     stats: { health: 'Salute', hunger: 'Fame', energy: 'Energia', happiness: 'Felicità' },
     messages: {
@@ -78,6 +81,8 @@ const translations = {
       eventVisitor: '👋 Un amico viene a trovarti! +20 felicità',
       eventGift: '🎁 Hai trovato un regalo! +15 monete',
       eventRain: '🌧️ Piove! Moonlight si diverte!',
+      treasureHunt: 'Che scoperta! 🗝️',
+      building: 'Fatto! 🔨',
     },
     moods: { happy: 'Felice!', neutral: 'Tranquillo', sad: 'Triste...', sleepy: 'Assonnato', hungry: 'Affamato', excited: 'Eccitato!' },
     timeOfDay: { morning: '🌅 Mattina', afternoon: '☀️ Pomeriggio', evening: '🌆 Sera', night: '🌙 Notte' },
@@ -96,6 +101,7 @@ const translations = {
     rooms: {
       bedroom: 'Bedroom', kitchen: 'Kitchen', garden: 'Garden', living: 'Living Room',
       bathroom: 'Bathroom', garage: 'Garage', shop: 'Boutique', supermarket: 'Supermarket',
+      attic: 'Attic', basement: 'Basement',
     },
     actions: {
       bedroom: { primary: 'Sleep', secondary: 'Read' },
@@ -106,6 +112,8 @@ const translations = {
       garage: { primary: 'Drive', secondary: 'Fix' },
       shop: { primary: 'Buy clothes', secondary: 'Try on' },
       supermarket: { primary: 'Buy food', secondary: 'Explore' },
+      attic: { primary: 'Treasure hunt', secondary: 'Explore' },
+      basement: { primary: 'Build', secondary: 'Organize' },
     },
     stats: { health: 'Health', hunger: 'Hunger', energy: 'Energy', happiness: 'Happiness' },
     messages: {
@@ -117,6 +125,8 @@ const translations = {
       eventVisitor: '👋 A friend visits! +20 happiness',
       eventGift: '🎁 You found a gift! +15 coins',
       eventRain: '🌧️ It\'s raining! Moonlight loves it!',
+      treasureHunt: 'What a find! 🗝️',
+      building: 'Done! 🔨',
     },
     moods: { happy: 'Happy!', neutral: 'Calm', sad: 'Sad...', sleepy: 'Sleepy', hungry: 'Hungry', excited: 'Excited!' },
     timeOfDay: { morning: '🌅 Morning', afternoon: '☀️ Afternoon', evening: '🌆 Evening', night: '🌙 Night' },
@@ -154,11 +164,16 @@ const roomData: {
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
   { key: 'supermarket', icon: '🛒', bg: `${BASE_URL}assets/backgrounds/room-supermarket.jpg`, category: 'outside',
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
+  // New explorable areas
+  { key: 'attic', icon: '🏚️', bg: `${BASE_URL}assets/backgrounds/room-attic.jpg`, category: 'home',
+    hotspot: { x: 40, y: 2, width: 20, height: 15 }, lunaPos: { x: 50, y: 55 } },
+  { key: 'basement', icon: '🔧', bg: `${BASE_URL}assets/backgrounds/room-basement.jpg`, category: 'home',
+    hotspot: { x: 40, y: 85, width: 20, height: 13 }, lunaPos: { x: 50, y: 60 } },
 ];
 
 // ==================== ACHIEVEMENTS ====================
 const defaultAchievements: Achievement[] = [
-  { id: 'explorer', icon: '🗺️', unlocked: false, progress: 0, target: 6 },
+  { id: 'explorer', icon: '🗺️', unlocked: false, progress: 0, target: 8 },
   { id: 'firstMeal', icon: '🍽️', unlocked: false, progress: 0, target: 1 },
   { id: 'sleepyHead', icon: '😴', unlocked: false, progress: 0, target: 5 },
   { id: 'socialite', icon: '🎉', unlocked: false, progress: 0, target: 10 },
@@ -777,6 +792,22 @@ function App() {
           statChanges = { ...statChanges, hunger: Math.min(100, stats.hunger + 25), coins: stats.coins - cost };
           playSound('action-shop');
           break;
+        case 'attic':
+          message = t.messages.treasureHunt;
+          // 30% chance of finding treasure!
+          if (Math.random() < 0.3) {
+            statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 20), coins: stats.coins + 25 };
+            playSound('coin-collect');
+          } else {
+            statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 10), xp: stats.xp + 10 };
+          }
+          playSound('ui-success');
+          break;
+        case 'basement':
+          message = t.messages.building;
+          statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 15), energy: Math.max(0, stats.energy - 10), xp: stats.xp + 15 };
+          playSound('ui-success');
+          break;
       }
 
       showBubble(message);
@@ -1055,6 +1086,19 @@ function App() {
       {currentRoomData.key === 'garage' && <div className="industrial-light room-garage" />}
       {currentRoomData.key === 'shop' && <div className="spotlights room-shop" />}
       {currentRoomData.key === 'supermarket' && <div className="fluorescent room-supermarket" />}
+      {currentRoomData.key === 'attic' && (
+        <>
+          <div className="attic-ambiance room-attic" />
+          <div className="cobweb-effect room-attic" />
+        </>
+      )}
+      {currentRoomData.key === 'basement' && (
+        <>
+          <div className="basement-ambiance room-basement" />
+          <div className="workshop-light room-basement" />
+          <div className="pipes-ambiance room-basement" />
+        </>
+      )}
       
       {/* Window reflection for daytime */}
       <div className="window-reflection" />

@@ -1248,19 +1248,43 @@
     - Respects existing mute/volume controls
     - Garden soundscape changes with time of day (birds→crickets)
 
-### [T489] Moonlight House: Add more explorable areas
+### [T489] Moonlight House: Add more explorable areas (Attic & Basement)
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T461]
+- **Blocks**: [T728]
+- **Priority**: P3
+- **Notes**: ✅ Implemented Attic and Basement rooms!
+  - **Attic** (🏚️ Soffitta):
+    - Spooky/cozy atmosphere with dust and cobwebs CSS
+    - Action: "Treasure hunt" - 30% chance of bonus coins!
+    - Ambient: creaky floors, wind, mysterious chimes
+    - 6 interactive objects incl. magic book (level 3 unlock)
+  - **Basement** (🔧 Cantina):
+    - Workshop theme with swinging industrial light
+    - Action: "Build" - gain XP and happiness
+    - Ambient: pipe clanks, furnace, dripping water
+    - 6 interactive objects incl. secret door (level 5 unlock!)
+  - Updated all 3 files: App.tsx, InteractiveObjects.tsx, AmbientSoundscapes.tsx
+  - Added IT/EN translations for rooms, actions, messages
+  - Explorer achievement now targets 8 rooms
+  - Build passes ✅
+  - ⏳ Future: Nursery, Patio rooms (separate task)
+
+### [T728] Moonlight House: Deploy Attic & Basement to onde.la
 - **Status**: TODO
 - **Owner**: -
-- **Depends**: [T461]
+- **Depends**: [T489]
 - **Blocks**: -
-- **Priority**: P3
-- **Notes**: Expand the house with new rooms for more exploration:
-  - **Attic**: Spooky/cozy, dust particles, cobwebs, treasure hunt
-  - **Basement**: Workshop, storage, secret passages
-  - **Nursery**: Toys, mobile, soft lighting (for baby Luna lore?)
-  - **Patio/Balcony**: Outdoor dining, night sky view, telescope
-  - Each room needs: background image, interactive objects, ambient effects
-  - Consider level-gating to reward progression
+- **Priority**: P2
+- **Notes**: Deploy updated Moonlight House with new rooms:
+  - Build static export
+  - Copy to onde-portal/public/static-games/moonlight-magic-house/
+  - Deploy via wrangler
+  - Verify: https://onde.la/games/moonlight-magic-house/
+  - Note: Attic/Basement use placeholder backgrounds (room-attic.jpg, room-basement.jpg)
+    - Can use gradient fallback or generate images later
 
 ### [T665] Deploy Moonlight House with ambient soundscapes to onde.la
 - **Status**: DONE

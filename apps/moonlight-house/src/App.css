@@ -1813,6 +1813,101 @@
   96%, 97% { opacity: 0.8; }
 }
 
+/* Attic - Spooky/cozy with dust and cobwebs */
+.room-attic .attic-ambiance {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(200, 180, 255, 0.1) 0%, transparent 30%);
+}
+
+.room-attic .cobweb-effect {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(
+    ellipse at 100% 0%,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0.6;
+}
+
+.room-attic .cobweb-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background: 
+    linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.05) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, 0.05) 50%, transparent 60%);
+}
+
+.room-attic .dust-mote {
+  background: rgba(255, 220, 180, 0.6);
+  animation-duration: 10s !important;
+}
+
+/* Basement - Workshop with dim industrial lighting */
+.room-basement .basement-ambiance {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 40, 50, 0.2) 0%,
+    rgba(30, 30, 40, 0.3) 100%
+  );
+}
+
+.room-basement .workshop-light {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 250px;
+  pointer-events: none;
+  z-index: 4;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 240, 200, 0.4) 0%,
+    rgba(255, 240, 200, 0.15) 40%,
+    transparent 100%
+  );
+  animation: workshop-light-swing 4s ease-in-out infinite;
+}
+
+@keyframes workshop-light-swing {
+  0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+  50% { transform: translateX(-50%) rotate(2deg); }
+}
+
+.room-basement .pipes-ambiance {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20%;
+  pointer-events: none;
+  z-index: 4;
+  background: linear-gradient(
+    to top,
+    rgba(100, 100, 120, 0.1) 0%,
+    transparent 100%
+  );
+}
+
 /* ============ DEPTH SHADOWS ============ */
 .room-depth-shadow {
   position: fixed;

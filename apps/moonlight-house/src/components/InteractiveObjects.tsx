@@ -4,7 +4,7 @@ import { SoundEffect } from '../useSoundManager';
 import '../InteractiveObjects.css';
 
 // Types
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
 
 interface InteractiveObject {
   id: string;
@@ -238,6 +238,133 @@ const ROOM_OBJECTS: Record<RoomKey, InteractiveObject[]> = {
       size: 'medium',
       action: 'mini-game',
       gameType: 'memory',
+    },
+  ],
+  // New explorable areas
+  attic: [
+    {
+      id: 'treasure-chest',
+      name: { it: 'Baule del Tesoro', en: 'Treasure Chest' },
+      icon: '📦',
+      position: { x: 50, y: 45 },
+      size: 'large',
+      action: 'reward',
+      reward: { coins: 15, happiness: 15, xp: 10 },
+      cooldown: 600, // 10 minutes
+    },
+    {
+      id: 'old-photo-album',
+      name: { it: 'Album di Foto', en: 'Photo Album' },
+      icon: '📷',
+      position: { x: 25, y: 40 },
+      size: 'medium',
+      action: 'story',
+      story: {
+        it: '📸 Moonlight da cucciola! Che ricordi meravigliosi... il primo bagnetto, le prime coccole! ✨',
+        en: '📸 Baby Moonlight! What wonderful memories... the first bath, the first cuddles! ✨'
+      },
+      reward: { happiness: 10 },
+    },
+    {
+      id: 'dusty-mirror',
+      name: { it: 'Specchio Polveroso', en: 'Dusty Mirror' },
+      icon: '🪞',
+      position: { x: 75, y: 35 },
+      size: 'medium',
+      action: 'surprise',
+      reward: { xp: 5 },
+    },
+    {
+      id: 'old-toy-box',
+      name: { it: 'Scatola Giochi Vecchi', en: 'Old Toy Box' },
+      icon: '🎁',
+      position: { x: 15, y: 65 },
+      size: 'medium',
+      action: 'mini-game',
+      gameType: 'puzzle',
+    },
+    {
+      id: 'cobweb',
+      name: { it: 'Ragnatela', en: 'Cobweb' },
+      icon: '🕸️',
+      position: { x: 85, y: 20 },
+      size: 'small',
+      action: 'surprise',
+    },
+    {
+      id: 'magic-book',
+      name: { it: 'Libro Magico', en: 'Magic Book' },
+      icon: '📕',
+      position: { x: 60, y: 70 },
+      size: 'medium',
+      action: 'story',
+      story: {
+        it: '✨ "Chi trova questo libro troverà la magia dentro di sé..." - un antico incantesimo! 🌙',
+        en: '✨ "Whoever finds this book shall find the magic within..." - an ancient spell! 🌙'
+      },
+      reward: { happiness: 20, xp: 15 },
+      unlockLevel: 3,
+    },
+  ],
+  basement: [
+    {
+      id: 'workbench',
+      name: { it: 'Banco da Lavoro', en: 'Workbench' },
+      icon: '🪵',
+      position: { x: 50, y: 50 },
+      size: 'large',
+      action: 'mini-game',
+      gameType: 'puzzle',
+    },
+    {
+      id: 'storage-boxes',
+      name: { it: 'Scatoloni', en: 'Storage Boxes' },
+      icon: '📦',
+      position: { x: 20, y: 45 },
+      size: 'large',
+      action: 'surprise',
+      reward: { coins: 5 },
+    },
+    {
+      id: 'secret-door',
+      name: { it: 'Porta Segreta', en: 'Secret Door' },
+      icon: '🚪',
+      position: { x: 80, y: 40 },
+      size: 'large',
+      action: 'story',
+      story: {
+        it: '🔮 Dietro questa porta... c\'è un passaggio segreto! Dove porterà? Un giorno lo scopriremo! 🗝️',
+        en: '🔮 Behind this door... there\'s a secret passage! Where does it lead? One day we\'ll find out! 🗝️'
+      },
+      reward: { xp: 20, happiness: 15 },
+      unlockLevel: 5,
+    },
+    {
+      id: 'flashlight',
+      name: { it: 'Torcia', en: 'Flashlight' },
+      icon: '🔦',
+      position: { x: 35, y: 65 },
+      size: 'small',
+      action: 'reward',
+      reward: { happiness: 5 },
+      cooldown: 120,
+    },
+    {
+      id: 'old-painting',
+      name: { it: 'Vecchio Dipinto', en: 'Old Painting' },
+      icon: '🖼️',
+      position: { x: 65, y: 25 },
+      size: 'medium',
+      action: 'mini-game',
+      gameType: 'drawing',
+    },
+    {
+      id: 'spider',
+      name: { it: 'Ragnetto', en: 'Little Spider' },
+      icon: '🕷️',
+      position: { x: 15, y: 30 },
+      size: 'small',
+      action: 'surprise',
     },
   ],
 };
