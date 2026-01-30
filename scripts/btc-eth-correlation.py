@@ -24,6 +24,8 @@ PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "trading"
 OUTPUT_FILE = DATA_DIR / "asset-correlation.json"
 CACHE_FILE = DATA_DIR / "price-history-cache.json"
+HISTORY_FILE = DATA_DIR / "correlation-history.jsonl"  # T723 - track over time
+ALERT_FILE = PROJECT_ROOT / "scripts" / "kalshi-correlation-change.alert"  # T724
 
 # API settings
 COINGECKO_BASE = "https://api.coingecko.com/api/v3"
@@ -303,8 +305,99 @@ def analyze_correlation(days: int = 7) -> dict:
     return result
 
 
+def load_previous_correlation() -> Optional[float]:
+    """Load the most recent correlation from history to detect changes."""
+    if not HISTORY_FILE.exists():
+        return None
+    
+    try:
+        # Read last line
+        with open(HISTORY_FILE, 'r') as f:
+            last_line = None
+            for line in f:
+                if line.strip():
+                    last_line = line
+            
+            if last_line:
+                data = json.loads(last_line)
+                return data.get('correlation', {}).get('value')
+    except Exception as e:
+        print(f"Warning: Could not read previous correlation: {e}")
+    
+    return None
+
+
+def log_to_history(result: dict):
+    """Append correlation snapshot to history file (T723)."""
+    try:
+        history_entry = {
+            "timestamp": result.get("generated_at"),
+            "correlation": result.get("correlation", {}),
+            "adjustment": result.get("adjustment", {}),
+            "prices": result.get("current_prices", {}),
+            "source": result.get("data_source")
+        }
+        
+        with open(HISTORY_FILE, 'a') as f:
+            f.write(json.dumps(history_entry) + '\n')
+        
+        print(f"   📝 Logged to history: {HISTORY_FILE}")
+    except Exception as e:
+        print(f"Warning: Could not log to history: {e}")
+
+
+def check_and_alert_change(new_corr: float, old_corr: Optional[float]):
+    """Create alert if correlation changed significantly (T724).
+    
+    Alert triggers if:
+    - Crossed from <0.7 to ≥0.9 (became very correlated)
+    - Crossed from ≥0.9 to <0.7 (became less correlated)
+    """
+    if old_corr is None:
+        return  # No previous data to compare
+    
+    # Define thresholds
+    significant_change = False
+    message = ""
+    
+    # Check for regime change
+    if old_corr < 0.7 and new_corr >= 0.9:
+        significant_change = True
+        message = f"⚠️ CORRELATION SPIKE: BTC/ETH correlation jumped from {old_corr:.2%} to {new_corr:.2%}. Crypto assets now highly correlated - reduce combined exposure to 30%!"
+    elif old_corr >= 0.9 and new_corr < 0.7:
+        significant_change = True
+        message = f"📉 CORRELATION DROP: BTC/ETH correlation fell from {old_corr:.2%} to {new_corr:.2%}. Better diversification now - can increase combined crypto exposure."
+    elif abs(new_corr - old_corr) >= 0.15:
+        # Also alert on any large change (15%+)
+        direction = "increased" if new_corr > old_corr else "decreased"
+        message = f"📊 Correlation {direction}: BTC/ETH correlation changed from {old_corr:.2%} to {new_corr:.2%} ({abs(new_corr - old_corr):.2%} change)."
+        significant_change = True
+    
+    if significant_change:
+        try:
+            alert_data = {
+                "timestamp": datetime.now().isoformat(),
+                "type": "correlation_change",
+                "old_value": old_corr,
+                "new_value": new_corr,
+                "change": new_corr - old_corr,
+                "message": message
+            }
+            with open(ALERT_FILE, 'w') as f:
+                json.dump(alert_data, f, indent=2)
+            print(f"\n🚨 Alert created: {ALERT_FILE}")
+            print(f"   {message}")
+        except Exception as e:
+            print(f"Warning: Could not create alert: {e}")
+
+
 def main():
     print("📊 Calculating BTC/ETH correlation...")
+    
+    # Load previous correlation for comparison (T724)
+    previous_corr = load_previous_correlation()
+    if previous_corr is not None:
+        print(f"   Previous correlation: {previous_corr:.4f}")
     
     result = analyze_correlation(days=7)
     
@@ -314,6 +407,14 @@ def main():
         json.dump(result, f, indent=2)
     
     print(f"\n✅ Analysis saved to: {OUTPUT_FILE}")
+    
+    # Log to history (T723)
+    if result["status"] == "success":
+        log_to_history(result)
+        
+        # Check for significant changes and alert (T724)
+        new_corr = result["correlation"]["value"]
+        check_and_alert_change(new_corr, previous_corr)
     
     if result["status"] == "success":
         corr = result["correlation"]

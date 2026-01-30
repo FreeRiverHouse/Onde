@@ -611,28 +611,34 @@
   - Correlation data now visible on /betting after login
 
 ### [T723] Trading: Track correlation history over time
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T721]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track BTC/ETH correlation changes over time:
-  - Log correlation snapshots to correlation-history.jsonl
-  - Run btc-eth-correlation.py daily via cron
-  - Show correlation trend chart on dashboard (mini sparkline)
-  - Useful to see if market dynamics are changing
+- **Notes**: ✅ Implemented correlation history tracking!
+  - Modified `btc-eth-correlation.py` to log snapshots
+  - ✅ `log_to_history()` function appends to correlation-history.jsonl
+  - ✅ `load_previous_correlation()` reads last value for comparison
+  - ✅ Cron job added: daily at 12:00 UTC
+  - History includes: timestamp, correlation, adjustment, prices, source
+  - ⏳ Dashboard sparkline (future enhancement)
 
 ### [T724] Trading: Alert when correlation changes significantly
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T723]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert on significant correlation changes:
-  - If correlation jumps from <0.7 to >0.9 (or vice versa)
-  - Create kalshi-correlation-change.alert for heartbeat
-  - Include: old value, new value, interpretation, trading implication
-  - Helps catch market regime changes early
+- **Notes**: ✅ Implemented correlation change alerts!
+  - Added `check_and_alert_change()` function to btc-eth-correlation.py
+  - ✅ Alerts when correlation crosses 0.7→0.9 threshold (regime change)
+  - ✅ Alerts on any 15%+ change in correlation value
+  - ✅ Creates `kalshi-correlation-change.alert` for heartbeat pickup
+  - Alert includes: old value, new value, change, trading implication
+  - Script compares current vs previous value from history file
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE

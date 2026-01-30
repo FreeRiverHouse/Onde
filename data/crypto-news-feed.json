@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T06:00:02.473748+00:00",
+  "timestamp": "2026-01-30T06:30:01.799935+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Circle says durable stablecoin infrastructure will coax adoption",
+      "url": "https://cointelegraph.com/news/circle-usdc-stablecoin-infrastructure-enterprise-adoption-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Circle has flagged scaling its payments network and institution-focused blockchain as a 2026 priority as companies look to examine how to use stablecoins.",
+      "published": "2026-01-30T06:10:12+00:00"
+    },
     {
       "title": "Democrats Press DOJ Deputy Over Crypto Holdings, Enforcement Retreat",
       "url": "https://decrypt.co/356452/democrats-doj-deputy-crypto-holdings-enforcement-retreat",
@@ -88,6 +95,13 @@
       "published": "2026-01-30T02:47:19+00:00"
     },
     {
+      "title": "Analyst claims single entity is \u2018suppressing\u2019 Bitcoin below $90K",
+      "url": "https://cointelegraph.com/news/single-bitcoin-entity-keeping-btc-price-suppressed-below-90k-analysis?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin order-book analysis said that BTC price action was being held back by just one trading entity, while risking a trip to \"Bearadise.\"",
+      "published": "2026-01-30T02:14:07+00:00"
+    },
+    {
       "title": "US Finalizes Forfeiture of $400 Million Tied to Helix Darknet Mixer",
       "url": "https://decrypt.co/356443/us-forfeiture-400-million-helix-darknet-mixer",
       "source": "decrypt",
@@ -100,13 +114,6 @@
       "source": "decrypt",
       "description": "Leading crypto treasury firms BitMine and Strategy both saw their stocks plunge nearly 10% amid broader market uncertainty, as a possible U.S. government shutdown looms.",
       "published": "2026-01-29T23:19:19+00:00"
-    },
-    {
-      "title": "Bitfinex Bitcoin longs hit 2-year high: Is a rally to $100K possible?",
-      "url": "https://cointelegraph.com/news/bitfinex-bitcoin-longs-hit-2-year-high-is-a-rally-to-100k-possible?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin margin longs at Bitfinex exchange reached a two-year high prior to stocks and crypto selling off sharply. Should traders expect a rally or the correction to continue?",
-      "published": "2026-01-29T22:51:22+00:00"
     },
     {
       "title": "Ethereum's Oldest Crisis Reborn as a $220 Million Security Fund",
@@ -128,13 +135,6 @@
       "source": "decrypt",
       "description": "Google has integrated Gemini 3 into Chrome with agentic capabilities, joining OpenAI and Anthropic in the race to automate web browsing.",
       "published": "2026-01-29T21:53:33+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-01-29T21:52:00+00:00"
     },
     {
       "title": "Bitcoin Plunge Could Get Much Worse as Death Cross Gains Power",
