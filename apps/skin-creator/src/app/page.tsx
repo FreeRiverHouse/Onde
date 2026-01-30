@@ -58,6 +58,50 @@ export default function SkinCreator() {
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
   const particleIdRef = useRef(0);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const [history, setHistory] = useState<ImageData[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const maxHistory = 50;
+
+  // Save canvas state for undo/redo
+  const saveState = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    setHistory(prev => {
+      const newHistory = prev.slice(0, historyIndex + 1);
+      newHistory.push(imageData);
+      if (newHistory.length > maxHistory) newHistory.shift();
+      return newHistory;
+    });
+    setHistoryIndex(prev => Math.min(prev + 1, maxHistory - 1));
+  }, [historyIndex]);
+
+  const undo = useCallback(() => {
+    if (historyIndex <= 0) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const newIndex = historyIndex - 1;
+    ctx.putImageData(history[newIndex], 0, 0);
+    setHistoryIndex(newIndex);
+  }, [history, historyIndex]);
+
+  const redo = useCallback(() => {
+    if (historyIndex >= history.length - 1) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const newIndex = historyIndex + 1;
+    ctx.putImageData(history[newIndex], 0, 0);
+    setHistoryIndex(newIndex);
+  }, [history, historyIndex]);
 
   // Sound effects using Web Audio API 🔊
   const playSound = useCallback((type: 'draw' | 'click' | 'download') => {
@@ -427,6 +471,24 @@ export default function SkinCreator() {
               🪣 Fill
             </button>
             <button
+              onClick={undo}
+              disabled={historyIndex <= 0}
+              className={`px-3 py-2 rounded-full font-bold transition-all ${
+                historyIndex <= 0 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
+              }`}
+            >
+              ↩️ Undo
+            </button>
+            <button
+              onClick={redo}
+              disabled={historyIndex >= history.length - 1}
+              className={`px-3 py-2 rounded-full font-bold transition-all ${
+                historyIndex >= history.length - 1 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
+              }`}
+            >
+              ↪️ Redo
+            </button>
+            <button
               onClick={downloadSkin}
               className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600"
             >
@@ -493,8 +555,8 @@ export default function SkinCreator() {
                   imageRendering: 'pixelated',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
-                onMouseUp={() => setIsDrawing(false)}
-                onMouseLeave={() => setIsDrawing(false)}
+                onMouseUp={() => { setIsDrawing(false); saveState(); }}
+                onMouseLeave={() => { setIsDrawing(false); }}
                 onMouseMove={draw}
               />
             </div>
