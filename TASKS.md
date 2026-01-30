@@ -7942,18 +7942,24 @@
   - **HEARTBEAT.md**: Updated to pick up kalshi-tilt-risk.alert files
 
 ### [T775] Trading: Analyze streak position vs outcome correlation
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T770]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to analyze if streak position affects trade outcomes:
-  - Load all trades with streak_context field
-  - Calculate win rate by streak context (after_1_loss, after_2_wins, etc.)
-  - Compare tilt_risk trades vs non-tilt trades outcomes
-  - Compare hot_hand trades vs normal trades outcomes
-  - Generate report: data/trading/streak-impact-analysis.json
-  - Could inform adaptive position sizing (reduce size in tilt risk)
+- **Notes**: ✅ Implemented streak impact analysis script!
+  - **Script**: `scripts/analyze-streak-impact.py`
+  - **Features:**
+    - ✅ Analyzes win rate by streak context (after_N_wins, after_N_losses, fresh_start)
+    - ✅ Compares tilt_risk trades vs normal trades
+    - ✅ Compares hot_hand trades vs normal trades
+    - ✅ Calculates ROI and avg edge per category
+    - ✅ Generates recommendations based on data patterns
+    - ✅ Handles missing data gracefully (awaiting v2 trades with streak_context)
+  - **Output**: `data/trading/streak-impact-analysis.json`
+  - **Usage**: `python3 scripts/analyze-streak-impact.py [--v2]`
+  - Currently awaiting trades with streak_context field (from T770)
 
 ### [T776] Deploy agent stats CSV export to onde.surf
 - **Status**: DONE

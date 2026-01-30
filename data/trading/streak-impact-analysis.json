@@ -1,0 +1,14 @@
+{
+  "generated": "2026-01-30T03:36:39.361451",
+  "total_trades": 41,
+  "trades_with_streak_data": 0,
+  "status": "awaiting_data",
+  "recommendations": [
+    {
+      "priority": "INFO",
+      "category": "general",
+      "action": "Continue collecting data with streak_context",
+      "detail": "Streak analysis requires trades with streak_context field from v2 autotrader"
+    }
+  ]
+}
