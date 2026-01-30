@@ -1524,6 +1524,94 @@ Reader: epub.js o simile
 
 ---
 
+## 🤖 SE-BOT - AI Meeting Copilot (NUOVO 29 Gen 2026)
+
+**Obiettivo finale**: Bot che può partecipare a riunioni video e sembrare Mattia (Sr SE @ Versa Networks)
+
+### 🎯 Visione
+
+Un "Digital Twin" per meeting tecnici:
+- Ascolta la riunione in tempo reale
+- Comprende contesto tecnico (SASE, SD-WAN, networking)
+- Suggerisce risposte in real-time
+- A tendere: risponde autonomamente con voice clone + avatar
+
+### 🚀 Fasi di Sviluppo
+
+| Fase | Descrizione | Tecnologie | Timeline |
+|------|-------------|------------|----------|
+| **1. Copilot Testo** | Ascolta + suggerisce risposte scritte | Whisper, Claude, knowledge base | MVP |
+| **2. Voice Clone** | Risponde con la voce di Mattia | ElevenLabs voice clone | +1 mese |
+| **3. Avatar Video** | Deepfake-style presence | HeyGen/Synthesia/simili | +3 mesi |
+| **4. Autonomia** | Meeting completi autonomi | Tutto integrato | +6 mesi |
+
+### 📦 MVP - Fase 1: Meeting Copilot
+
+**Cosa fa:**
+- Cattura audio del meeting (system audio o microfono)
+- Transcribe in tempo reale con Whisper
+- Analizza contesto con LLM (Claude)
+- Mostra suggerimenti di risposta su secondo schermo/overlay
+
+**Stack tecnico:**
+```
+Audio Capture → Whisper (real-time) → Claude API → UI Overlay
+                                          ↑
+                                   Knowledge Base
+                                   (Versa docs, SASE, 
+                                    networking, past meetings)
+```
+
+**Tecnologie già disponibili:**
+- ✅ Whisper transcription (skill esistente)
+- ✅ Claude API
+- 🔨 Audio capture (da implementare)
+- 🔨 Knowledge base Versa (da creare)
+- 🔨 UI overlay (da creare)
+
+### 📚 Knowledge Base da Creare
+
+| Dominio | Contenuto | Priorità |
+|---------|-----------|----------|
+| **Versa Networks** | Prodotti, features, competitive positioning | ALTA |
+| **SASE** | Architettura, use cases, best practices | ALTA |
+| **SD-WAN** | Concetti, deployment, troubleshooting | ALTA |
+| **Security** | Zero Trust, ZTNA, firewall, threat prevention | MEDIA |
+| **Networking** | BGP, OSPF, VPN, cloud connectivity | MEDIA |
+| **Mattia's Style** | Come risponde, terminologia, approccio | ALTA |
+
+### 💡 Differenziatori
+
+- **Domain expertise**: Non un generico AI, ma specializzato su Versa/SASE
+- **Personal style**: Impara come risponde Mattia, non risposte generiche
+- **Real-time**: Suggerimenti durante il meeting, non post-mortem
+- **Evolution path**: Da copilot a autonomous agent
+
+### 🎯 Use Cases
+
+1. **Demo calls**: Suggerisce talking points e risposte tecniche
+2. **Discovery calls**: Aiuta con domande da fare al cliente
+3. **Technical deep-dives**: Supporto su dettagli tecnici complessi
+4. **Follow-up**: Genera summary e action items post-meeting
+
+### 📋 Task MVP
+
+- [ ] Script audio capture (macOS system audio)
+- [ ] Integrazione Whisper real-time
+- [ ] Prompt engineering per SE responses
+- [ ] Knowledge base Versa (docs, presentations)
+- [ ] UI overlay per suggerimenti
+- [ ] Test su meeting interno
+
+### 🔮 Visione Futura: "SE as a Service"
+
+Se funziona per Mattia, potrebbe diventare prodotto:
+- Altri SE di Versa lo usano
+- Venduto ad altre aziende tech
+- Training con knowledge base custom per ogni azienda
+
+---
+
 ## 🎯 STRATEGIA PR & GUERRILLA MARKETING (NUOVO 8 Gen 2026)
 
 **Visione**: Onde è l'**Uber dell'editoria**. Stiamo disrupting Amazon/Kindle come Uber ha disrupted i taxi.
