@@ -101,6 +101,60 @@
   - `traduzioni/TITOLO-IT_finale.pdf`
   - `traduzioni/TITOLO-IT_finale.epub`
 
+### STEP 5B: QA COMPLETO (QUALITY ASSURANCE) ⭐ NUOVO
+
+**Checklist obbligatoria prima di pubblicazione:**
+
+#### A) COMPLETEZZA
+```bash
+# Verifica dimensioni
+wc -l ORIGINALE.txt TRADUZIONE.txt
+wc -c ORIGINALE.txt TRADUZIONE.txt
+# Traduzione deve essere almeno 80% dell'originale in bytes
+```
+- [ ] Conteggio righe comparabile (±20%)
+- [ ] Conteggio bytes comparabile (±20%)
+- [ ] TUTTI i capitoli presenti
+- [ ] Introduzione + Conclusione presenti
+- [ ] Note/References gestite (tradotte o escluse consapevolmente)
+
+#### B) STRUTTURA
+- [ ] Titoli corrispondono all'originale
+- [ ] Sottotitolo preservato
+- [ ] Numerazione capitoli corretta
+- [ ] Nessuna sezione tagliata a metà
+
+#### C) FORMATTAZIONE
+| Check | Comando |
+|-------|---------|
+| Encoding | `file TRADUZIONE.txt` → UTF-8 |
+| Apostrofi | `grep "â€™" TRADUZIONE.txt` → 0 risultati |
+| Accenti | `grep "Ã" TRADUZIONE.txt` → 0 risultati |
+| Virgolette | Usare «» italiane |
+| Markdown | Titoli ##, corsivi *, blockquote > |
+
+#### D) QUALITÀ TRADUZIONE (3 campioni casuali)
+Per ogni campione:
+1. Estrarre 5-10 righe dall'originale
+2. Trovare corrispondente nella traduzione
+3. Verificare:
+   - [ ] Fedeltà semantica (significato preservato)
+   - [ ] Naturalezza italiano (suona nativo)
+   - [ ] Citazioni corrette
+   - [ ] Nomi propri preservati
+
+#### E) REPORT QA
+- **Output:** `traduzioni/QA-REPORT-TITOLO.md`
+- **Contenuto:**
+  - Metriche completezza
+  - Risultati check formattazione
+  - Campioni confrontati
+  - Lista problemi trovati
+  - Verdetto PASS/FAIL
+- **Invio:** Telegram a Mattia con verdetto
+
+**⛔ NON PUBBLICARE SE VERDETTO = FAIL**
+
 ### STEP 6: PUBBLICAZIONE
 - **Piattaforma:** Amazon KDP
 - **Prerequisiti:** Tutti gli step precedenti completati
