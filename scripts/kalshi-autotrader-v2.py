@@ -241,6 +241,13 @@ CONCENTRATION_ALERT_FILE = "scripts/kalshi-concentration.alert"
 CONCENTRATION_ALERT_COOLDOWN = 3600       # 1 hour cooldown between alerts
 CORRELATION_DATA_FILE = "data/trading/asset-correlation.json"  # Dynamic BTC/ETH correlation (T483)
 
+# Auto-rebalancing (T816) - automatically reduce concentration when it exceeds threshold
+AUTO_REBALANCE_ENABLED = os.getenv("AUTO_REBALANCE_ENABLED", "false").lower() == "true"
+AUTO_REBALANCE_THRESHOLD = float(os.getenv("AUTO_REBALANCE_THRESHOLD", "0.45"))  # Auto-rebalance when >45%
+AUTO_REBALANCE_DRY_RUN = os.getenv("AUTO_REBALANCE_DRY_RUN", "true").lower() == "true"  # Preview without executing
+AUTO_REBALANCE_LOG_FILE = "scripts/kalshi-rebalance.log"
+AUTO_REBALANCE_ALERT_FILE = "scripts/kalshi-rebalance.alert"
+
 # VIX integration for regime detection (T611) - use fear index to adjust sizing/edge
 # VIX >25: high fear = more conservative (higher edge required)
 # VIX <15: low fear = normal sizing
@@ -3403,6 +3410,239 @@ def print_rebalancing_suggestions(suggestions: dict):
             print(f"         {asset.upper()}: {pct*100:.1f}% {status}")
 
 
+# ============== AUTO-REBALANCING (T816) ==============
+
+def execute_auto_rebalancing(
+    positions: list,
+    portfolio_value_cents: int,
+    concentration: dict,
+    dry_run: bool = None
+) -> dict:
+    """
+    Automatically execute rebalancing when concentration exceeds threshold.
+    
+    This is the automated version of get_rebalancing_suggestions() that actually
+    executes the sells instead of just printing them.
+    
+    Args:
+        positions: List of open positions
+        portfolio_value_cents: Total portfolio value in cents
+        concentration: Current concentration metrics
+        dry_run: Override AUTO_REBALANCE_DRY_RUN setting
+        
+    Returns:
+        Dict with execution results:
+        {
+            "executed": True/False,
+            "dry_run": True/False,
+            "trades": [...],
+            "total_freed_cents": int,
+            "errors": [...]
+        }
+    """
+    if dry_run is None:
+        dry_run = AUTO_REBALANCE_DRY_RUN
+    
+    result = {
+        "executed": False,
+        "dry_run": dry_run,
+        "trades": [],
+        "total_freed_cents": 0,
+        "errors": []
+    }
+    
+    # Check if auto-rebalancing is enabled
+    if not AUTO_REBALANCE_ENABLED:
+        return result
+    
+    # Check if any asset exceeds the auto-rebalance threshold
+    needs_rebalancing = False
+    over_threshold_assets = []
+    
+    for asset, pct in concentration.get("by_asset_class", {}).items():
+        if pct > AUTO_REBALANCE_THRESHOLD:
+            needs_rebalancing = True
+            over_threshold_assets.append((asset, pct))
+    
+    for group, pct in concentration.get("by_correlation_group", {}).items():
+        if pct > AUTO_REBALANCE_THRESHOLD:
+            needs_rebalancing = True
+            over_threshold_assets.append((group, pct))
+    
+    if not needs_rebalancing:
+        return result
+    
+    # Get rebalancing suggestions
+    suggestions = get_rebalancing_suggestions(
+        positions, 
+        portfolio_value_cents, 
+        concentration,
+        target_pct=AUTO_REBALANCE_THRESHOLD - 0.10  # Target 10% below threshold (35% if threshold is 45%)
+    )
+    
+    if not suggestions.get("needs_rebalancing") or not suggestions.get("suggestions"):
+        return result
+    
+    # Build alert message BEFORE executing
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    over_str = ", ".join([f"{a[0].upper()}: {a[1]*100:.1f}%" for a in over_threshold_assets])
+    
+    alert_lines = [
+        f"🔄 AUTO-REBALANCE {'(DRY RUN)' if dry_run else 'EXECUTING'}",
+        f"⏰ Time: {timestamp}",
+        f"⚠️ Over threshold: {over_str}",
+        f"📊 Threshold: {AUTO_REBALANCE_THRESHOLD*100:.0f}%",
+        "",
+        "📋 Planned sells:"
+    ]
+    
+    for s in suggestions["suggestions"][:5]:  # Show top 5
+        alert_lines.append(
+            f"  • {s['suggested_reduction_qty']}x {s['side'].upper()} on {s['ticker'][:30]} "
+            f"(~${s['reduction_value_cents']/100:.2f})"
+        )
+    
+    total_free = suggestions["total_freed_capital_cents"] / 100
+    alert_lines.append("")
+    alert_lines.append(f"💰 Total to free: ${total_free:.2f}")
+    
+    if suggestions.get("projected_concentration"):
+        alert_lines.append("📈 Projected after:")
+        for asset, pct in sorted(suggestions["projected_concentration"].items(), key=lambda x: -x[1]):
+            alert_lines.append(f"  • {asset.upper()}: {pct*100:.1f}%")
+    
+    alert_message = "\n".join(alert_lines)
+    
+    # Write alert for heartbeat/Telegram pickup
+    try:
+        alert_path = Path(__file__).parent / "kalshi-rebalance.alert"
+        with open(alert_path, "w") as f:
+            f.write(alert_message)
+        print(f"   📤 Rebalance alert written to {alert_path}")
+    except Exception as e:
+        print(f"   ⚠️ Failed to write rebalance alert: {e}")
+    
+    # Log to rebalance log file
+    log_entry = {
+        "timestamp": timestamp,
+        "dry_run": dry_run,
+        "over_threshold_assets": [(a, p) for a, p in over_threshold_assets],
+        "suggestions": suggestions["suggestions"],
+        "total_to_free_cents": suggestions["total_freed_capital_cents"],
+        "projected_concentration": suggestions.get("projected_concentration", {})
+    }
+    
+    try:
+        log_path = Path(__file__).parent / "kalshi-rebalance.log"
+        with open(log_path, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"   ⚠️ Failed to write rebalance log: {e}")
+    
+    # If dry run, don't execute
+    if dry_run:
+        print("\n   🔄 AUTO-REBALANCE (DRY RUN - no trades executed)")
+        print_rebalancing_suggestions(suggestions)
+        print(f"   ℹ️  Set AUTO_REBALANCE_DRY_RUN=false to execute")
+        return result
+    
+    # Execute the sells
+    print("\n   🔄 AUTO-REBALANCE EXECUTING...")
+    result["executed"] = True
+    
+    for suggestion in suggestions["suggestions"]:
+        ticker = suggestion["ticker"]
+        side = suggestion["side"]
+        qty = suggestion["suggested_reduction_qty"]
+        
+        print(f"      Selling {qty}x {side.upper()} on {ticker[:30]}...", end=" ")
+        
+        try:
+            # Execute sell at market (aggressive price)
+            sell_result = sell_position(ticker, side, qty)
+            
+            if sell_result.get("order"):
+                order_id = sell_result["order"].get("order_id", "unknown")
+                result["trades"].append({
+                    "ticker": ticker,
+                    "side": side,
+                    "qty": qty,
+                    "order_id": order_id,
+                    "expected_value_cents": suggestion["reduction_value_cents"],
+                    "reason": suggestion["reason"],
+                    "status": "success"
+                })
+                result["total_freed_cents"] += suggestion["reduction_value_cents"]
+                print(f"✓ Order {order_id}")
+            else:
+                error_msg = sell_result.get("error", "Unknown error")
+                result["errors"].append({
+                    "ticker": ticker,
+                    "error": error_msg
+                })
+                print(f"✗ {error_msg}")
+                
+        except Exception as e:
+            result["errors"].append({
+                "ticker": ticker,
+                "error": str(e)
+            })
+            print(f"✗ {e}")
+    
+    # Update log entry with execution results
+    log_entry["executed"] = True
+    log_entry["trades"] = result["trades"]
+    log_entry["errors"] = result["errors"]
+    log_entry["total_freed_cents"] = result["total_freed_cents"]
+    
+    try:
+        log_path = Path(__file__).parent / "kalshi-rebalance.log"
+        with open(log_path, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception:
+        pass
+    
+    # Summary
+    success_count = len(result["trades"])
+    error_count = len(result["errors"])
+    freed = result["total_freed_cents"] / 100
+    
+    print(f"\n   📊 Rebalance complete: {success_count} sells, {error_count} errors, ~${freed:.2f} freed")
+    
+    return result
+
+
+def check_and_auto_rebalance(positions: list, portfolio_value_cents: int) -> dict:
+    """
+    Convenience function to check concentration and auto-rebalance if needed.
+    Call this from the main trading cycle.
+    
+    Returns:
+        Result dict from execute_auto_rebalancing or empty dict if not needed
+    """
+    if not AUTO_REBALANCE_ENABLED:
+        return {}
+    
+    if not positions or portfolio_value_cents <= 0:
+        return {}
+    
+    # Calculate current concentration
+    concentration = calculate_portfolio_concentration(positions, portfolio_value_cents)
+    
+    # Check if any asset exceeds threshold
+    max_concentration = 0
+    for pct in concentration.get("by_asset_class", {}).values():
+        max_concentration = max(max_concentration, pct)
+    for pct in concentration.get("by_correlation_group", {}).values():
+        max_concentration = max(max_concentration, pct)
+    
+    if max_concentration <= AUTO_REBALANCE_THRESHOLD:
+        return {}
+    
+    # Execute auto-rebalancing
+    return execute_auto_rebalancing(positions, portfolio_value_cents, concentration)
+
+
 # ============== STOP-LOSS MONITORING ==============
 
 # Stop-loss parameters (configurable via environment)
@@ -4773,6 +5013,15 @@ def run_cycle():
         rebal_suggestions = get_rebalancing_suggestions(positions, portfolio_val, concentration)
         if rebal_suggestions.get("needs_rebalancing"):
             print_rebalancing_suggestions(rebal_suggestions)
+        
+        # Auto-rebalancing if enabled and over threshold (T816)
+        if AUTO_REBALANCE_ENABLED:
+            rebal_result = check_and_auto_rebalance(positions, portfolio_val)
+            if rebal_result.get("executed"):
+                # Refresh positions after rebalancing
+                positions = get_positions()
+                concentration = calculate_portfolio_concentration(positions, portfolio_val)
+                print(f"   🔄 Positions refreshed after auto-rebalance: {len(positions)} open")
     else:
         # Empty portfolio - create zero-concentration state (T764)
         concentration = {
@@ -5046,6 +5295,12 @@ def run_cycle():
         rebal = get_rebalancing_suggestions(positions, portfolio_value, conc_metrics)
         if rebal.get("needs_rebalancing"):
             print_rebalancing_suggestions(rebal)
+        
+        # Try auto-rebalancing if enabled to unblock future trades (T816)
+        if AUTO_REBALANCE_ENABLED:
+            rebal_result = check_and_auto_rebalance(positions, portfolio_value)
+            if rebal_result.get("executed") and not rebal_result.get("dry_run"):
+                print("   ℹ️  Auto-rebalance executed - retry trade on next cycle")
         
         # Log the skip with concentration data
         skip_data = {

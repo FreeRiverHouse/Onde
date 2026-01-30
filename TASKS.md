@@ -1048,18 +1048,33 @@
   - Storage quota indicator (if available)
 
 ### [T816] Trading: Add asset rebalancing automation
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-02-03
 - **Depends**: [T481]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Automate rebalancing suggestions from T481:
-  - Auto-execute rebalancing when concentration >45%
-  - Sell oldest positions first (FIFO)
-  - Configurable auto-rebalance threshold
-  - Telegram notification before executing
-  - "Dry run" mode to preview without executing
-  - Log rebalancing actions to separate file
+- **Notes**: ✅ Implemented auto-rebalancing feature!
+  - **Implementation**: `scripts/kalshi-autotrader-v2.py`
+  - **Config env vars:**
+    - `AUTO_REBALANCE_ENABLED` (default: false) - Enable auto-rebalancing
+    - `AUTO_REBALANCE_THRESHOLD` (default: 0.45) - Trigger at 45% concentration
+    - `AUTO_REBALANCE_DRY_RUN` (default: true) - Preview without executing
+  - **Features:**
+    - ✅ Auto-execute rebalancing when concentration >45%
+    - ✅ Sell oldest positions first (FIFO) - uses get_rebalancing_suggestions()
+    - ✅ Configurable threshold via AUTO_REBALANCE_THRESHOLD
+    - ✅ Telegram notification BEFORE executing (via .alert file)
+    - ✅ "Dry run" mode (default) to preview without executing
+    - ✅ Log all rebalancing actions to `scripts/kalshi-rebalance.log`
+    - ✅ Creates `scripts/kalshi-rebalance.alert` for heartbeat pickup
+    - ✅ Triggers on trade cycle start and when trades are blocked
+    - ✅ Refreshes positions after successful rebalance
+  - **Usage:**
+    - Enable: `export AUTO_REBALANCE_ENABLED=true`
+    - Execute for real: `export AUTO_REBALANCE_DRY_RUN=false`
+    - Adjust threshold: `export AUTO_REBALANCE_THRESHOLD=0.50`
+  - Alert file added to HEARTBEAT.md
 
 ### [T817] Infrastructure: Add uptime history chart to /health
 - **Status**: DONE
