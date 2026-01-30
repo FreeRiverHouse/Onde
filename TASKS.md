@@ -1574,7 +1574,8 @@
     - ✅ Only plays on TRANSITION to critical/degraded, not every refresh
     - ✅ localStorage persistence for preference
     - ✅ Browser autoplay policy handled (context resume)
-  - Build passes, ready for deploy to onde.surf
+  - ✅ Deployed: https://a16750cf.onde-surf.pages.dev
+  - ✅ Verified: https://onde.surf/health returns 200 OK
 
 ### [T742] Dashboard: Add keyboard hint badge to countdown timer
 - **Status**: DONE
