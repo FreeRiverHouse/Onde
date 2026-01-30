@@ -1,0 +1,472 @@
+{
+  "generated_at": "2026-01-30T14:16:55.837814Z",
+  "trades_analyzed": 112,
+  "min_trades_threshold": 3,
+  "confidence_level": "95%",
+  "analysis": {
+    "windows": [
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 8,
+        "wins": 0,
+        "losses": 10,
+        "total": 10,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 27.8,
+        "pnl": -53.0,
+        "avg_pnl_per_trade": -5.3
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 9,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -48.0,
+        "avg_pnl_per_trade": -4.0
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 10,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -42.0,
+        "avg_pnl_per_trade": -3.5
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 11,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -27.0,
+        "avg_pnl_per_trade": -2.25
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 12,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -18.0,
+        "avg_pnl_per_trade": -1.5
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 13,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -8.0,
+        "avg_pnl_per_trade": -0.67
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 14,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -22.0,
+        "avg_pnl_per_trade": -1.83
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 20,
+        "wins": 1,
+        "losses": 3,
+        "total": 4,
+        "win_rate": 25.0,
+        "win_rate_lower": 4.6,
+        "win_rate_upper": 69.9,
+        "pnl": -3.5,
+        "avg_pnl_per_trade": -0.88
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 21,
+        "wins": 10,
+        "losses": 0,
+        "total": 10,
+        "win_rate": 100.0,
+        "win_rate_lower": 72.2,
+        "win_rate_upper": 100,
+        "pnl": 5.0,
+        "avg_pnl_per_trade": 0.5
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 22,
+        "wins": 1,
+        "losses": 8,
+        "total": 9,
+        "win_rate": 11.1,
+        "win_rate_lower": 2.0,
+        "win_rate_upper": 43.5,
+        "pnl": -4.5,
+        "avg_pnl_per_trade": -0.5
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 23,
+        "wins": 0,
+        "losses": 7,
+        "total": 7,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 35.4,
+        "pnl": -3.5,
+        "avg_pnl_per_trade": -0.5
+      }
+    ],
+    "by_hour": [
+      {
+        "hour": 8,
+        "total": 10,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 27.8,
+        "pnl": -53.0
+      },
+      {
+        "hour": 9,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -48.0
+      },
+      {
+        "hour": 10,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -42.0
+      },
+      {
+        "hour": 11,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -27.0
+      },
+      {
+        "hour": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -18.0
+      },
+      {
+        "hour": 13,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -8.0
+      },
+      {
+        "hour": 14,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -22.0
+      },
+      {
+        "hour": 20,
+        "total": 4,
+        "win_rate": 25.0,
+        "win_rate_lower": 4.6,
+        "win_rate_upper": 69.9,
+        "pnl": -3.5
+      },
+      {
+        "hour": 21,
+        "total": 10,
+        "win_rate": 100.0,
+        "win_rate_lower": 72.2,
+        "win_rate_upper": 100,
+        "pnl": 5.0
+      },
+      {
+        "hour": 22,
+        "total": 9,
+        "win_rate": 11.1,
+        "win_rate_lower": 2.0,
+        "win_rate_upper": 43.5,
+        "pnl": -4.5
+      },
+      {
+        "hour": 23,
+        "total": 7,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 35.4,
+        "pnl": -3.5
+      }
+    ],
+    "by_day": [
+      {
+        "day": 2,
+        "day_name": "Wednesday",
+        "total": 82,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 4.5,
+        "pnl": -218.0
+      },
+      {
+        "day": 3,
+        "day_name": "Thursday",
+        "total": 30,
+        "win_rate": 40.0,
+        "win_rate_lower": 24.6,
+        "win_rate_upper": 57.7,
+        "pnl": -6.5
+      }
+    ]
+  },
+  "recommendations": {
+    "best_windows": [
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 21,
+        "wins": 10,
+        "losses": 0,
+        "total": 10,
+        "win_rate": 100.0,
+        "win_rate_lower": 72.2,
+        "win_rate_upper": 100,
+        "pnl": 5.0,
+        "avg_pnl_per_trade": 0.5
+      }
+    ],
+    "worst_windows": [
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 9,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -48.0,
+        "avg_pnl_per_trade": -4.0
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 10,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -42.0,
+        "avg_pnl_per_trade": -3.5
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 11,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -27.0,
+        "avg_pnl_per_trade": -2.25
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 12,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -18.0,
+        "avg_pnl_per_trade": -1.5
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 13,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -8.0,
+        "avg_pnl_per_trade": -0.67
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 14,
+        "wins": 0,
+        "losses": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -22.0,
+        "avg_pnl_per_trade": -1.83
+      },
+      {
+        "day": 2,
+        "day_name": "Wed",
+        "hour": 8,
+        "wins": 0,
+        "losses": 10,
+        "total": 10,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 27.8,
+        "pnl": -53.0,
+        "avg_pnl_per_trade": -5.3
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 23,
+        "wins": 0,
+        "losses": 7,
+        "total": 7,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 35.4,
+        "pnl": -3.5,
+        "avg_pnl_per_trade": -0.5
+      },
+      {
+        "day": 3,
+        "day_name": "Thu",
+        "hour": 22,
+        "wins": 1,
+        "losses": 8,
+        "total": 9,
+        "win_rate": 11.1,
+        "win_rate_lower": 2.0,
+        "win_rate_upper": 43.5,
+        "pnl": -4.5,
+        "avg_pnl_per_trade": -0.5
+      }
+    ],
+    "best_hours": [
+      {
+        "hour": 21,
+        "total": 10,
+        "win_rate": 100.0,
+        "win_rate_lower": 72.2,
+        "win_rate_upper": 100,
+        "pnl": 5.0
+      }
+    ],
+    "worst_hours": [
+      {
+        "hour": 9,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -48.0
+      },
+      {
+        "hour": 10,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -42.0
+      },
+      {
+        "hour": 11,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -27.0
+      },
+      {
+        "hour": 12,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -18.0
+      },
+      {
+        "hour": 13,
+        "total": 12,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 24.3,
+        "pnl": -8.0
+      }
+    ],
+    "best_days": [],
+    "worst_days": [
+      {
+        "day": 2,
+        "day_name": "Wednesday",
+        "total": 82,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 4.5,
+        "pnl": -218.0
+      }
+    ],
+    "schedule": {
+      "active_hours": [
+        21
+      ],
+      "avoid_days": [
+        2
+      ],
+      "confidence_threshold": 50
+    }
+  }
+}

@@ -5709,12 +5709,26 @@
   - **Verified**: https://onde.surf returns 307 (auth redirect OK)
 
 ### [T412] Auto-detect optimal trading hours from historical data
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T249], [T295]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Script to recommend trading windows based on historical performance. Output: suggested active hours, days to avoid, confidence intervals. Could feed into autotrader to pause during historically bad times.
+- **Notes**: ✅ Implemented trading window recommendations!
+  - **Script**: `scripts/recommend-trading-windows.py`
+  - **Features:**
+    - Wilson score 95% confidence intervals for win rates
+    - Best/worst windows with statistical significance
+    - Hourly and daily aggregated analysis
+    - Recommended active hours and days to avoid
+    - JSON output for autotrader integration
+  - **Output**: `data/trading/trading-recommendations.json`
+  - **Usage:**
+    - `python3 scripts/recommend-trading-windows.py` - Print report
+    - `python3 scripts/recommend-trading-windows.py --json` - JSON output
+    - `python3 scripts/recommend-trading-windows.py --min-trades 5` - Higher threshold
+  - Current findings: Wednesday to avoid (0% WR from v1), 21:00 UTC best (100% WR)
 
 ### [T413] Track API error rates per source
 - **Status**: DONE
