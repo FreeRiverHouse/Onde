@@ -30,7 +30,8 @@ import {
   Sun,
   Moon,
   Monitor,
-  Clock
+  Clock,
+  Download
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
@@ -766,6 +767,67 @@ function PulsingDot({ color = 'green', label }: { color?: 'green' | 'red' | 'yel
 
 // ============== DATE PERIOD TYPE ==============
 type DatePeriod = 'all' | 'today' | 'week' | 'month' | 'custom';
+
+// ============== CSV EXPORT UTILITY (T822) ==============
+interface TradeForExport {
+  timestamp: string;
+  ticker: string;
+  side: string;
+  contracts: number;
+  price_cents: number;
+  result_status?: string;
+}
+
+function exportTradesToCSV(trades: TradeForExport[], filename?: string) {
+  if (!trades || trades.length === 0) {
+    alert('No trades to export');
+    return;
+  }
+
+  // CSV header
+  const headers = ['Timestamp', 'Ticker', 'Side', 'Contracts', 'Price (cents)', 'PnL (cents)', 'Result'];
+  
+  // Calculate PnL for each trade
+  const rows = trades.map(trade => {
+    let pnlCents = 0;
+    if (trade.result_status === 'won') {
+      pnlCents = trade.side === 'no' 
+        ? (100 - trade.price_cents) * trade.contracts 
+        : (100 - trade.price_cents) * trade.contracts;
+    } else if (trade.result_status === 'lost') {
+      pnlCents = -trade.price_cents * trade.contracts;
+    }
+    
+    return [
+      trade.timestamp,
+      trade.ticker,
+      trade.side.toUpperCase(),
+      trade.contracts.toString(),
+      trade.price_cents.toString(),
+      pnlCents.toString(),
+      trade.result_status || 'pending'
+    ];
+  });
+
+  // Create CSV content
+  const csvContent = [
+    headers.join(','),
+    ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+  ].join('\n');
+
+  // Create and download file
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  
+  const date = new Date().toISOString().split('T')[0];
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename || `kalshi-trades-${date}.csv`);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 // ============== MAIN COMPONENT ==============
 export default function BettingDashboard() {
@@ -2150,7 +2212,17 @@ export default function BettingDashboard() {
               <div className="mt-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-gray-400 text-xs font-medium">Trade History Pattern</span>
-                  <span className="text-gray-600 text-[10px]">← newest</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600 text-[10px]">← newest</span>
+                    <button
+                      onClick={() => exportTradesToCSV(tradingStats.recentTrades)}
+                      className="flex items-center gap-1 px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 text-[10px] transition-all"
+                      title="Export trades to CSV"
+                    >
+                      <Download className="w-3 h-3" />
+                      <span className="hidden sm:inline">CSV</span>
+                    </button>
+                  </div>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {tradingStats.recentTrades.slice(0, 10).map((trade, i) => (

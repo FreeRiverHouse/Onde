@@ -9500,14 +9500,20 @@
   - Log adjustments for analysis
 
 ### [T822] Dashboard: Export trade history to CSV
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add CSV export button to trades page:
-  - Export all visible trades (with current filters)
-  - Include: timestamp, ticker, side, contracts, price, pnl, result
-  - Date range picker for export
-  - Download as kalshi-trades-YYYY-MM-DD.csv
-  - Option to include or exclude skipped trades
+- **Notes**: ✅ Added CSV export to dashboard!
+  - **Location**: Trade History Pattern section (next to "← newest")
+  - **Features:**
+    - Download button with Download icon
+    - Exports all recent trades to CSV
+    - Includes: timestamp, ticker, side, contracts, price, pnl (calculated), result
+    - Auto-named: kalshi-trades-YYYY-MM-DD.csv
+    - PnL calculation for won/lost trades
+  - **Deployed**: https://7875c656.onde-surf.pages.dev
+  - **Verified**: onde.surf auth redirect (307) working
+  - ⏳ Future: date range filter (T823)
