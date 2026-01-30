@@ -1009,8 +1009,8 @@
   - User reviews (from linked sources)
 
 ### [T815] Reader App: Cache management UI panel
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T803]
 - **Blocks**: -
 - **Priority**: P3
