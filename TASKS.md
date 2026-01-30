@@ -3311,17 +3311,27 @@
   - ✅ Verified: onde.surf/betting returns 307 (auth redirect as expected)
 
 ### [T801] Auto-adjust position size based on current API latency
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T396], [T397]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Reduce position size when latency is high:
-  - If avg latency >500ms: reduce Kelly fraction by 25%
-  - If avg latency >1000ms: reduce Kelly fraction by 50%
-  - If avg latency >2000ms: skip trade entirely
+- **Notes**: ✅ Implemented latency-based position sizing!
+  - **Function**: `get_latency_position_multiplier()` in kalshi-autotrader-v2.py
+  - **Features:**
+    - ✅ Checks avg latency of critical endpoints (order, markets_search)
+    - ✅ If avg latency >500ms: reduce Kelly fraction by 25%
+    - ✅ If avg latency >1000ms: reduce Kelly fraction by 50%
+    - ✅ If avg latency >2000ms: skip trade entirely with log
+    - ✅ Prints adjustment reason when applied (⚡ Latency size adjustment)
+    - ✅ Logs latency_multiplier and latency_reason in trade data
+    - ✅ Includes latency in total_multiplier calculation
+  - **Config:**
+    - `LATENCY_POSITION_SIZING_ENABLED` env var (default: true)
+    - `LATENCY_SIZE_THRESHOLDS` dict for configurable thresholds
+    - `LATENCY_CRITICAL_ENDPOINTS` list for endpoints to monitor
   - Rationale: High latency = execution risk, stale prices
-  - Log latency_adjustment in trade data for analysis
 
 ### [T802] Export weekly exchange latency comparison report
 - **Status**: TODO

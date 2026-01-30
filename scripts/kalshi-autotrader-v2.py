@@ -270,6 +270,15 @@ LATENCY_PROFILE_FILE = "scripts/kalshi-latency-profile.json"
 LATENCY_PROFILE_WINDOW = 100  # Keep last N calls per endpoint
 API_LATENCY_LOG = defaultdict(list)  # endpoint -> list of (timestamp, latency_ms)
 
+# Latency-based position sizing (T801) - reduce position when API is slow
+LATENCY_POSITION_SIZING_ENABLED = os.getenv("LATENCY_POSITION_SIZING", "true").lower() in ("true", "1", "yes")
+LATENCY_SIZE_THRESHOLDS = {
+    500: 0.75,    # >500ms avg: reduce Kelly by 25%
+    1000: 0.50,   # >1000ms avg: reduce Kelly by 50%
+    2000: 0.0,    # >2000ms avg: skip trade entirely (return 0)
+}
+LATENCY_CRITICAL_ENDPOINTS = ["order", "markets_search"]  # Endpoints that matter for trade execution
+
 # Trading Window Schedule (T789) - skip bad hours/days based on historical performance
 TRADING_SCHEDULE_FILE = "data/trading/trading-recommendations.json"
 TRADING_SCHEDULE_ENABLED = os.getenv("TRADING_SCHEDULE_ENABLED", "true").lower() in ("true", "1", "yes")
@@ -502,6 +511,59 @@ def identify_bottlenecks() -> list:
             bottlenecks.append((endpoint, "high_variance", f"P95/Avg ratio {stats['p95_ms']/stats['avg_ms']:.1f}x"))
     
     return bottlenecks
+
+
+# ============== LATENCY-BASED POSITION SIZING (T801) ==============
+
+def get_latency_position_multiplier() -> tuple[float, str]:
+    """
+    Get position size multiplier based on current API latency.
+    
+    Reduces position size when critical API endpoints are slow, because:
+    - High latency = stale prices (execution risk)
+    - High latency = higher probability of order rejection
+    - High latency = potential network issues
+    
+    Returns:
+        tuple: (multiplier 0.0-1.0, reason string)
+    
+    Thresholds (configurable via LATENCY_SIZE_THRESHOLDS):
+        - >500ms avg: 0.75 (reduce by 25%)
+        - >1000ms avg: 0.50 (reduce by 50%)
+        - >2000ms avg: 0.0 (skip trade entirely)
+    """
+    if not LATENCY_POSITION_SIZING_ENABLED:
+        return 1.0, "disabled"
+    
+    # Get current latency profile
+    profile = get_latency_profile()
+    if not profile:
+        return 1.0, "no_data"
+    
+    # Calculate avg latency for critical endpoints
+    total_latency = 0.0
+    endpoint_count = 0
+    
+    for endpoint in LATENCY_CRITICAL_ENDPOINTS:
+        if endpoint in profile:
+            stats = profile[endpoint]
+            if stats["count"] >= 3:  # Need sufficient data
+                total_latency += stats["avg_ms"]
+                endpoint_count += 1
+    
+    if endpoint_count == 0:
+        return 1.0, "insufficient_data"
+    
+    avg_latency = total_latency / endpoint_count
+    
+    # Apply threshold-based reduction
+    # Check thresholds in descending order (highest first)
+    for threshold_ms, multiplier in sorted(LATENCY_SIZE_THRESHOLDS.items(), reverse=True):
+        if avg_latency > threshold_ms:
+            reason = f"latency_{threshold_ms}ms_threshold"
+            return multiplier, reason
+    
+    return 1.0, "normal"
 
 
 # ============== LATENCY-BASED EXCHANGE PRIORITIZATION (T396) ==============
@@ -4533,8 +4595,27 @@ def run_cycle():
         streak_count = streak_ctx.get("current_streak", 0)
         print(f"   ⚠️ Streak size adjustment: {STREAK_SIZE_REDUCTION:.0%} ({streak_reason}, {streak_count} streak)")
     
+    # Latency-based position sizing (T801) - reduce size when API is slow
+    latency_multiplier, latency_reason = get_latency_position_multiplier()
+    if latency_multiplier == 0.0:
+        # Skip trade entirely when latency is critically high
+        print(f"   ⛔ SKIPPED: API latency too high ({latency_reason})")
+        skip_data = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "type": "latency_skip",
+            "ticker": best["ticker"],
+            "asset": asset_type,
+            "reason": latency_reason,
+            "edge": best["edge"],
+        }
+        log_skip(skip_data)
+        return
+    elif latency_multiplier < 1.0:
+        adjusted_kelly = adjusted_kelly * latency_multiplier
+        print(f"   ⚡ Latency size adjustment: {latency_multiplier:.0%} ({latency_reason})")
+    
     # Log the adjustment (T441: show per-asset config)
-    total_multiplier = regime_multiplier * vol_multiplier * streak_multiplier
+    total_multiplier = regime_multiplier * vol_multiplier * streak_multiplier * latency_multiplier
     if asset_type != "weather":
         print(f"   📊 {asset_type.upper()} Kelly: {kelly_fraction*100:.1f}% | Max: {max_position_pct*100:.1f}%")
     if abs(total_multiplier - 1.0) > 0.01:
@@ -4542,6 +4623,8 @@ def run_cycle():
         multiplier_parts = f"regime={regime_multiplier:.0%}, vol={vol_multiplier:.0%}"
         if streak_multiplier != 1.0:
             multiplier_parts += f", streak={streak_multiplier:.0%}"
+        if latency_multiplier != 1.0:
+            multiplier_parts += f", latency={latency_multiplier:.0%}"
         print(f"   Position size: {adj_direction} {total_multiplier:.0%} ({multiplier_parts})")
     
     kelly_bet = cash * adjusted_kelly * best["edge"]
@@ -4645,6 +4728,8 @@ def run_cycle():
         "regime_multiplier": regime_multiplier,
         "vol_multiplier": vol_multiplier,
         "streak_multiplier": streak_multiplier,  # T388: streak-based size adjustment
+        "latency_multiplier": latency_multiplier,  # T801: latency-based position sizing
+        "latency_reason": latency_reason,  # T801: why latency adjustment applied
         "holiday_multiplier": holiday_multiplier,  # T414: holiday position size reduction
         "is_holiday": is_holiday_trading(),  # T414: trading during market holiday
         "size_multiplier_total": total_multiplier * holiday_multiplier,
