@@ -313,6 +313,47 @@
   - Grab gesture to move book panel
   - @react-three/xr hands API integration
 
+### [T707] Reader App VR: Add ambient soundscapes
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T702]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add immersive audio to VR reading experience (like Moonlight House T488):
+  - Crackling fire sounds from fireplace
+  - Clock ticking from grandfather clock
+  - Page rustling on page turn
+  - Soft ambient library hum
+  - Rain sounds (optional, when "rainy" mode)
+  - Use Web Audio API (procedural, no audio files)
+  - Time-of-day variations (birds in morning, crickets at night)
+
+### [T708] Reader App VR: Deploy enhanced version to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T702]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the enhanced VR reader with cozy library environment:
+  - Build static export with basePath=/reader-vr/
+  - Copy to onde-portal/public/reader-vr/
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify: https://onde.la/reader-vr/ returns 200 OK
+  - Test time-of-day toggle, fireplace, new objects
+
+### [T709] Reader App VR: Add teleport spots for VR movement
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T702]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow user to move around the library in VR:
+  - 3-4 teleport spots: reading chair, fireplace area, window, bookshelf
+  - Visual indicators (glowing circles on floor)
+  - Controller trigger or gaze-select to teleport
+  - Smooth transition animation
+  - Book panel follows user position
+
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
 - **Owner**: @clawd
