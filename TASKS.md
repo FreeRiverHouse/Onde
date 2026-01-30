@@ -9970,15 +9970,16 @@
   - ⏳ Needs deploy to onde.surf (T860)
 
 ### [T860] Deploy onde.surf with momentum regime widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T859]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy surfboard with new MomentumRegimeWidget
-  - Build: npm run build:cf
-  - Deploy: wrangler pages deploy
-  - Verify: https://onde.surf/betting shows new widget
+- **Notes**: ✅ Deployed surfboard with MomentumRegimeWidget!
+  - ✅ Build: npm run build:cf - passed
+  - ✅ Deploy: wrangler pages deploy → https://1f8e29dd.onde-surf.pages.dev
+  - ✅ Verify: https://onde.surf/betting returns 307 (auth redirect as expected)
 
 ### [T832] Deploy onde.surf with position expiry heatmap
 - **Status**: DONE
