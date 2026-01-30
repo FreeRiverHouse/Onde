@@ -2,40 +2,46 @@
 
 import { Canvas } from '@react-three/fiber';
 import { 
-  Environment, 
-  Sky, 
   OrbitControls,
   PerspectiveCamera,
 } from '@react-three/drei';
 import { XR, createXRStore, XROrigin } from '@react-three/xr';
-import { Suspense, useState, useCallback } from 'react';
+import { Suspense, useState, useCallback, useEffect } from 'react';
 import { FloatingBook } from './FloatingBook';
 import { ReadingEnvironment } from './ReadingEnvironment';
 import { VRControls } from './VRControls';
+import { BookSelector } from './BookSelector';
+import { useBookStore, SAMPLE_PAGES } from '@/store/bookStore';
 
 // XR Store for session management
 const store = createXRStore();
 
 export default function VRScene() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [fontSize, setFontSize] = useState(0.045);
-  const [bookDistance, setBookDistance] = useState(1.5);
+  const [showBookSelector, setShowBookSelector] = useState(false);
   
-  const nextPage = useCallback(() => {
-    setCurrentPage(p => p + 1);
-  }, []);
+  // Get state and actions from book store
+  const { 
+    currentBook,
+    currentPage,
+    fontSize,
+    bookDistance,
+    isLoading,
+    nextPage,
+    prevPage,
+    setFontSize,
+  } = useBookStore();
   
-  const prevPage = useCallback(() => {
-    setCurrentPage(p => Math.max(0, p - 1));
-  }, []);
-
+  // Calculate total pages
+  const totalPages = currentBook?.totalPages || SAMPLE_PAGES.length;
+  
+  // Font size adjustment
   const adjustFontSize = useCallback((delta: number) => {
-    setFontSize(s => Math.max(0.02, Math.min(0.08, s + delta)));
-  }, []);
+    setFontSize(fontSize + delta);
+  }, [fontSize, setFontSize]);
 
   return (
     <div className="h-full w-full relative">
-      {/* VR Entry Button */}
+      {/* VR Entry Buttons */}
       <div className="absolute top-4 left-4 z-10 flex gap-2">
         <button
           onClick={() => store.enterVR()}
@@ -55,8 +61,20 @@ export default function VRScene() {
         </button>
       </div>
       
+      {/* Book Selection Button */}
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+        <button
+          onClick={() => setShowBookSelector(true)}
+          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium 
+                     shadow-lg transition-all flex items-center gap-2 border border-purple-500/30"
+        >
+          <span className="text-xl">📖</span>
+          {currentBook ? currentBook.metadata.title : 'Select Book'}
+        </button>
+      </div>
+      
       {/* Controls Panel */}
-      <div className="absolute top-4 right-4 z-10 bg-black/50 backdrop-blur-sm p-4 rounded-lg text-white">
+      <div className="absolute top-4 right-4 z-10 bg-black/50 backdrop-blur-sm p-4 rounded-lg text-white max-w-xs">
         <h3 className="font-bold mb-2">Controls</h3>
         <div className="text-sm space-y-1">
           <p>← → Arrow keys: Turn pages</p>
@@ -80,9 +98,26 @@ export default function VRScene() {
               A+
             </button>
           </div>
-          <div className="text-xs">Page: {currentPage + 1}</div>
+          <div className="text-xs">
+            Page: {currentPage + 1} / {totalPages}
+          </div>
+          {currentBook && (
+            <div className="text-xs text-purple-300 truncate">
+              {currentBook.metadata.title}
+            </div>
+          )}
         </div>
       </div>
+      
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-black/50 z-20 flex items-center justify-center">
+          <div className="text-white flex items-center gap-3">
+            <span className="animate-spin text-3xl">⏳</span>
+            <span className="text-xl">Loading book...</span>
+          </div>
+        </div>
+      )}
 
       {/* 3D Canvas */}
       <Canvas
@@ -135,6 +170,11 @@ export default function VRScene() {
         onFontIncrease={() => adjustFontSize(0.005)}
         onFontDecrease={() => adjustFontSize(-0.005)}
       />
+      
+      {/* Book Selector Modal */}
+      {showBookSelector && (
+        <BookSelector onClose={() => setShowBookSelector(false)} />
+      )}
     </div>
   );
 }
@@ -151,9 +191,8 @@ function KeyboardHandler({
   onFontIncrease: () => void;
   onFontDecrease: () => void;
 }) {
-  // Use effect for keyboard events
-  if (typeof window !== 'undefined') {
-    window.onkeydown = (e) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
         onNextPage();
       } else if (e.key === 'ArrowLeft') {
@@ -164,6 +203,10 @@ function KeyboardHandler({
         onFontDecrease();
       }
     };
-  }
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onNextPage, onPrevPage, onFontIncrease, onFontDecrease]);
+  
   return null;
 }

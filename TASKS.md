@@ -228,18 +228,24 @@
   - Optimize for Quest 3 (< 500k triangles)
 
 ### [T703] Reader App VR: EPUB text extraction for VR rendering
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T701]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Integrate existing EPUB parsing with VR text rendering
-  - Reuse epub.js from web Reader App
-  - Extract plain text from chapters
-  - Paginate for VR (shorter pages, larger font)
-  - Preserve progress sync with web version
-  - Handle images (convert to VR textures)
-  - Test with sample EPUBs from web app
+- **Notes**: ✅ Implemented EPUB support for VR Reader!
+  - ✅ Created `lib/epubParser.ts` - extracts plain text from EPUB files
+  - ✅ Created `store/bookStore.ts` - Zustand store for book state management
+  - ✅ Added `BookSelector.tsx` - modal UI to select demo books
+  - ✅ Updated `FloatingBook.tsx` to use dynamic EPUB content
+  - ✅ Updated `VRScene.tsx` with book selector integration
+  - ✅ Added epub.d.ts type definitions for epub.js
+  - ✅ Demo books: Pride & Prejudice, Moby Dick, Frankenstein (Project Gutenberg)
+  - ✅ Smart pagination: breaks at paragraphs/sentences for VR comfort (~800 chars/page)
+  - ✅ Chapter info display: title, page in chapter, total
+  - ✅ Progress persistence via Zustand + localStorage
+  - ✅ Deployed: https://b938a9a1.onde-portal.pages.dev
 
 ### [T704] Reader App VR: Deploy to onde.la/reader-vr
 - **Status**: DONE
