@@ -6140,8 +6140,8 @@
 - **Notes**: Add budgets.json config for asset size limits (e.g., JS bundle <300KB, CSS <50KB, images <500KB each). Script: check-bundle-sizes.sh. Fail deploy if exceeded. Uses `du` and `find` to check build output.
 
 ### [T451] SEO audit automation (broken links, alt text)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3

@@ -1,0 +1,21 @@
+{
+  "audit_date": "2026-01-30T07:35:19.679679",
+  "site": "https://onde.la",
+  "pages_crawled": 12,
+  "summary": {
+    "broken_links": 0,
+    "missing_alt": 0,
+    "missing_meta": 2,
+    "orphan_pages": 0
+  },
+  "issues": {
+    "broken_links": [],
+    "missing_alt": [],
+    "missing_meta": [
+      "https://onde.la/books/meditations-en.pdf",
+      "https://onde.la/books/the-shepherds-promise.pdf"
+    ],
+    "orphan_pages": []
+  },
+  "severity": "warning"
+}
