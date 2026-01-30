@@ -252,6 +252,84 @@ function OverallStatus({ data }: { data: HealthData | null }) {
   )
 }
 
+// Hook to manage alert sounds (T741)
+function useAlertSound() {
+  const [enabled, setEnabled] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const audioContextRef = { current: null as AudioContext | null }
+  
+  useEffect(() => {
+    // Load preference from localStorage
+    if (typeof window !== 'undefined') {
+      const savedPref = localStorage.getItem('healthSoundEnabled')
+      setEnabled(savedPref === 'true')
+      const savedMuted = localStorage.getItem('healthSoundMuted')
+      setMuted(savedMuted === 'true')
+    }
+  }, [])
+  
+  const toggleEnabled = (value: boolean) => {
+    setEnabled(value)
+    localStorage.setItem('healthSoundEnabled', value ? 'true' : 'false')
+  }
+  
+  const toggleMuted = (value: boolean) => {
+    setMuted(value)
+    localStorage.setItem('healthSoundMuted', value ? 'true' : 'false')
+  }
+  
+  const playAlertTone = useCallback((type: 'warning' | 'critical' = 'critical') => {
+    if (!enabled || muted) return
+    
+    try {
+      // Create audio context on demand (browser requires user interaction first)
+      const AudioContext = window.AudioContext || (window as unknown as { webkitAudioContext: typeof window.AudioContext }).webkitAudioContext
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContext()
+      }
+      const ctx = audioContextRef.current
+      
+      // Resume context if suspended (browser autoplay policy)
+      if (ctx.state === 'suspended') {
+        ctx.resume()
+      }
+      
+      // Create oscillator for alert tone
+      const oscillator = ctx.createOscillator()
+      const gainNode = ctx.createGain()
+      
+      oscillator.connect(gainNode)
+      gainNode.connect(ctx.destination)
+      
+      // Different tones for warning vs critical
+      if (type === 'critical') {
+        // Critical: Two-tone siren effect (like an emergency alert)
+        oscillator.type = 'square'
+        oscillator.frequency.setValueAtTime(880, ctx.currentTime) // A5
+        oscillator.frequency.setValueAtTime(660, ctx.currentTime + 0.2) // E5
+        oscillator.frequency.setValueAtTime(880, ctx.currentTime + 0.4) // A5
+        oscillator.frequency.setValueAtTime(660, ctx.currentTime + 0.6) // E5
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8)
+        oscillator.start(ctx.currentTime)
+        oscillator.stop(ctx.currentTime + 0.8)
+      } else {
+        // Warning: Single softer beep
+        oscillator.type = 'sine'
+        oscillator.frequency.setValueAtTime(523, ctx.currentTime) // C5
+        gainNode.gain.setValueAtTime(0.2, ctx.currentTime)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3)
+        oscillator.start(ctx.currentTime)
+        oscillator.stop(ctx.currentTime + 0.3)
+      }
+    } catch (e) {
+      console.warn('Failed to play alert sound:', e)
+    }
+  }, [enabled, muted])
+  
+  return { enabled, muted, toggleEnabled, toggleMuted, playAlertTone }
+}
+
 // Hook to manage browser notifications
 function useNotifications() {
   const [permission, setPermission] = useState<NotificationPermission>('default')
@@ -320,6 +398,7 @@ export default function HealthPage() {
   const [previousStatus, setPreviousStatus] = useState<string | null>(null)
   
   const { permission, enabled: notificationsEnabled, requestPermission, toggleEnabled, notify } = useNotifications()
+  const { enabled: soundEnabled, toggleEnabled: toggleSoundEnabled, playAlertTone } = useAlertSound()
   
   // Load autoRefresh preference from localStorage
   useEffect(() => {
@@ -350,8 +429,15 @@ export default function HealthPage() {
         tag: 'health-status-change', // Prevents duplicate notifications
         requireInteraction: currentStatus === 'down' // Keep down notifications visible
       })
+      
+      // Play alert sound on status transition TO degraded/down (T741)
+      if (currentStatus === 'down') {
+        playAlertTone('critical')
+      } else if (currentStatus === 'degraded' && previousStatus === 'healthy') {
+        playAlertTone('warning')
+      }
     }
-  }, [data, previousStatus, notify])
+  }, [data, previousStatus, notify, playAlertTone])
   
   const fetchHealth = useCallback(async () => {
     try {
@@ -459,6 +545,23 @@ export default function HealthPage() {
                   : notificationsEnabled 
                     ? 'Alerts ON' 
                     : 'Alerts OFF'}
+              </span>
+            </button>
+            
+            {/* Sound toggle (T741) */}
+            <button
+              onClick={() => toggleSoundEnabled(!soundEnabled)}
+              className={`
+                px-4 py-2 rounded-xl border transition-all flex items-center gap-2
+                ${soundEnabled
+                  ? 'bg-amber-500/20 border-amber-500/30 text-amber-400' 
+                  : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}
+              `}
+              title={soundEnabled ? 'Click to disable alert sounds' : 'Click to enable alert sounds'}
+            >
+              <span className="text-lg">{soundEnabled ? '🔊' : '🔇'}</span>
+              <span className="hidden sm:inline">
+                {soundEnabled ? 'Sound ON' : 'Sound OFF'}
               </span>
             </button>
             

@@ -1559,13 +1559,22 @@
   - ✅ Verified: https://onde.surf/betting → 307 (auth redirect as expected)
 
 ### [T741] Health page: Add alert sound on status change
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T460]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Optional audio notification when status changes to critical:
-  - Use Web Audio API for simple alert tone
+- **Notes**: ✅ Implemented alert sounds on status change!
+  - **Hook**: `useAlertSound()` with Web Audio API
+  - **Features:**
+    - ✅ Toggle button (🔊/🔇) in health page header
+    - ✅ Critical sound: Two-tone siren (880Hz/660Hz) on transition to DOWN
+    - ✅ Warning sound: Soft beep (523Hz) on transition from healthy→degraded
+    - ✅ Only plays on TRANSITION to critical/degraded, not every refresh
+    - ✅ localStorage persistence for preference
+    - ✅ Browser autoplay policy handled (context resume)
+  - Build passes, ready for deploy to onde.surf
 
 ### [T742] Dashboard: Add keyboard hint badge to countdown timer
 - **Status**: DONE
