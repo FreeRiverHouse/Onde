@@ -63,6 +63,14 @@ SUGGESTION_COLORS = [
     (0.3, 0.7, 0.4, 0.9),  # Green
     (0.8, 0.5, 0.2, 0.9),  # Orange
 ]
+
+# Battle card style colors
+STYLE_COLORS = {
+    "battle-card-strength": (0.2, 0.75, 0.3, 0.95),   # Strong Green - strengths
+    "battle-card-caution": (0.9, 0.75, 0.1, 0.95),    # Yellow - cautions
+    "battle-card-neutral": (0.4, 0.5, 0.9, 0.95),     # Blue - neutral info
+    "competitive-battle-card": (0.85, 0.4, 0.2, 0.95), # Orange - competitive
+}
 HOTKEY_CODE = 1  # 'S' key
 
 
@@ -142,6 +150,24 @@ class SuggestionCard(NSView):
         # Truncate if too long
         display_text = text[:200] + "..." if len(text) > 200 else text
         self.label.setStringValue_(display_text)
+    
+    def setStyle_(self, style):
+        """Set card color based on style type (for battle cards)."""
+        if style in STYLE_COLORS:
+            r, g, b, a = STYLE_COLORS[style]
+        else:
+            # Fall back to default color for this index
+            r, g, b, a = SUGGESTION_COLORS[self.index % len(SUGGESTION_COLORS)]
+        self.layer().setBackgroundColor_(
+            NSColor.colorWithCalibratedRed_green_blue_alpha_(r, g, b, a).CGColor()
+        )
+    
+    def setBadge_(self, badge_text):
+        """Set the badge text (e.g., '✓ Strength', '⚠️ Caution')."""
+        if badge_text:
+            self.badge.setStringValue_(badge_text)
+        else:
+            self.badge.setStringValue_(str(self.index + 1))
     
     def setSpeaking_(self, speaking):
         """Update speaker icon based on speaking state."""
@@ -376,14 +402,38 @@ class OverlayWindow(NSPanel):
         self.status.setStringValue_("● Listening")
     
     def setSuggestions_(self, suggestions):
-        """Update displayed suggestions. suggestions is a list of dicts with 'text' key."""
+        """
+        Update displayed suggestions.
+        
+        Suggestions can be:
+        - List of strings
+        - List of dicts with keys: text, style (optional), badge (optional)
+        
+        For battle cards, style determines color:
+        - battle-card-strength: Green
+        - battle-card-caution: Yellow
+        - battle-card-neutral: Blue
+        """
         for i, card in enumerate(self.suggestion_cards):
             if i < len(suggestions):
-                text = suggestions[i].get('text', '') if isinstance(suggestions[i], dict) else str(suggestions[i])
+                sugg = suggestions[i]
+                if isinstance(sugg, dict):
+                    text = sugg.get('text', '')
+                    style = sugg.get('style', '')
+                    badge = sugg.get('badge', '')
+                else:
+                    text = str(sugg)
+                    style = ''
+                    badge = ''
+                
                 card.setText_(text)
+                card.setStyle_(style)
+                card.setBadge_(badge)
                 card.setHidden_(False)
             else:
                 card.setText_("...")
+                card.setStyle_('')  # Reset to default color
+                card.setBadge_('')
                 card.setHidden_(True)
     
     def setTranscript_(self, text):

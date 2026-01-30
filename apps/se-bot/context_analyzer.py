@@ -37,6 +37,12 @@ from datetime import datetime
 # Local imports
 from kb_search import search, get_context_for_topic, get_stats
 from prompts.loader import detect_style, format_prompt, detect_competitor
+from competitor_tracker import (
+    get_competitor_info, 
+    log_mention, 
+    format_battle_card_suggestions,
+    get_quick_differentiators
+)
 
 # Check for Anthropic SDK
 try:
@@ -152,6 +158,14 @@ class MeetingContextAnalyzer:
         
         competitor = detect_competitor(transcript)
         
+        # Log competitor mention if detected
+        if competitor:
+            log_mention(
+                competitor=competitor,
+                transcript_snippet=transcript,
+                response_style=style
+            )
+        
         # Search knowledge base
         kb_context = get_context_for_topic(transcript, max_chars=3000)
         kb_results = search(transcript, n_results=5)
@@ -159,6 +173,18 @@ class MeetingContextAnalyzer:
         
         # Generate suggestions
         suggestions = []
+        
+        # If competitor detected, add battle card suggestions first
+        if competitor and style == "competitive-battle-card":
+            battle_cards = format_battle_card_suggestions(competitor)
+            for card in battle_cards:
+                suggestions.append(Suggestion(
+                    text=card['text'],
+                    style=f"battle-card-{card['type']}",
+                    confidence=0.95,  # High confidence for curated content
+                    kb_sources=[f"competitor:{competitor}"],
+                    reasoning=f"Key differentiator vs {competitor}"
+                ))
         
         if self._client:
             # Use Claude API

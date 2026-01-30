@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T11:30:02.636453+00:00",
+  "timestamp": "2026-01-30T12:00:02.299772+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Vitalik Buterin earmarks $45M in ETH for privacy and open tech",
+      "url": "https://cointelegraph.com/news/vitalik-buterin-45m-eth-privacy-open-hardware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The move comes as the Ethereum Foundation enters a period of \u201cmild austerity\u201d while sticking to its core technical roadmap, Buterin said.",
+      "published": "2026-01-30T11:39:20+00:00"
+    },
+    {
+      "title": "Bitcoin's 'miner exodus' could push BTC price below $60K",
+      "url": "https://cointelegraph.com/news/bitcoin-miner-exodus-may-push-btc-price-below-dollar60k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Still, Bitcoin often rebounds toward its energy value after long downtrends, with one model pointing to a fair price near $121,000.",
+      "published": "2026-01-30T11:29:03+00:00"
+    },
     {
       "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",
       "url": "https://decrypt.co/356458/bitcoin-etfs-shed-817m-as-btc-hits-nine-month-low",
@@ -88,25 +102,11 @@
       "published": "2026-01-30T05:11:05+00:00"
     },
     {
-      "title": "Securitize says revenues up 840% in filing to go public via Cantor SPAC",
-      "url": "https://cointelegraph.com/news/securitize-says-revenues-up-840-in-filing-to-go-public-via-cantor-spac?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Securitize\u2019s latest SEC filing showed that the company\u2019s revenue increased nearly tenfold year-over-year as institutions experiment with tokenization.",
-      "published": "2026-01-30T04:43:22+00:00"
-    },
-    {
       "title": "Bitcoin Slips to $82K as Liquidations Spike to $1.7B",
       "url": "https://decrypt.co/356448/bitcoin-slips-82k-liquidations-spike-1-75b",
       "source": "decrypt",
       "description": "Bitcoin has hit a nine-month low of $82,134 amid escalating policy shifts, including President Trump's Friday Fed Chair announcement.",
       "published": "2026-01-30T04:33:02+00:00"
-    },
-    {
-      "title": "Unclaimed Ethereum from The DAO hack to fund new security initiative: Griff Green",
-      "url": "https://cointelegraph.com/news/ethereum-dao-hack-fund-security-initiative-griff-green?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "While The DAO has an \u201cincredible\u201d team that could build security projects themselves, they would rather focus on security distribution methods, says Griff Green.",
-      "published": "2026-01-30T03:57:16+00:00"
     },
     {
       "title": "Tech Giants Circle OpenAI in Funding Round That Could Top $100 Billion",

@@ -7507,19 +7507,25 @@
   - ⏳ Volume slider in overlay (future - see T736)
 
 ### [T735] SE-Bot: Add competitor detection and battle card mode
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T473]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Enhanced competitive intelligence:
-  - Real-time competitor name detection in transcript
-  - When competitor mentioned, switch to battle-card mode
-  - Show 3 quick differentiators vs that competitor
-  - Color-code suggestions (green=strengths, yellow=caution)
-  - Track which competitors come up most often
-  - Log to data/se-bot/competitor-mentions.jsonl
-  - Existing: competitive-battle-card.md prompts ready
+- **Notes**: ✅ Implemented enhanced competitive intelligence!
+  - **Module**: `apps/se-bot/competitor_tracker.py`
+  - **Features:**
+    - ✅ Real-time competitor detection (8 competitors tracked)
+    - ✅ Auto-switch to battle-card mode when competitor mentioned
+    - ✅ 3 quick differentiators per competitor (strength/caution types)
+    - ✅ Color-coded overlay cards (green=strength, yellow=caution)
+    - ✅ Competitor mention logging to `data/se-bot/competitor-mentions.jsonl`
+    - ✅ Stats command: `python competitor_tracker.py --stats`
+    - ✅ UI updated with STYLE_COLORS for battle card types
+  - **Competitors tracked**: Palo Alto, Zscaler, Cato, Fortinet, Cisco, VMware, Cloudflare, Netskope
+  - **Differentiators**: 3-4 per competitor with type (strength/caution)
+  - **Integration**: context_analyzer.py now logs mentions and generates styled suggestions
 
 ### [T736] Voice Output: Add speaking queue for multiple suggestions
 - **Status**: TODO
