@@ -5770,12 +5770,24 @@
 - **Notes**: Use latency profile data to dynamically prioritize faster exchanges. If Binance avg <200ms but CoinGecko >500ms, try Binance first. Update priority order in get_crypto_prices() based on recent latency stats.
 
 ### [T397] Latency anomaly detection and alerting
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T279]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when latency suddenly increases beyond historical baseline. Calculate rolling avg + std dev. Alert when current avg > rolling_avg + 2*std_dev. Could indicate API issues or network problems.
+- **Notes**: ✅ Implemented latency anomaly detection!
+  - **Script**: `scripts/latency-anomaly-detector.py`
+  - **Features:**
+    - ✅ Tracks historical latency in `data/trading/latency-history.jsonl`
+    - ✅ Calculates rolling avg + std dev from last 50 entries
+    - ✅ Statistical anomaly: alerts when current > baseline + 2σ
+    - ✅ Absolute thresholds: warning >1s, critical >2s
+    - ✅ Per-endpoint monitoring (Kalshi, Binance, CoinGecko, Coinbase)
+    - ✅ 2-hour cooldown to avoid spam
+    - ✅ Alert file: `scripts/kalshi-latency.alert`
+  - **Cron**: `*/30 * * * *` (every 30 min)
+  - **Usage**: `python3 scripts/latency-anomaly-detector.py [--verbose] [--dry-run] [--force]`
 
 ### [T398] Latency dashboard on /health page
 - **Status**: DONE
