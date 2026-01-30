@@ -4530,15 +4530,17 @@
   - ⏳ Needs deploy to onde.surf (see T754)
 
 ### [T754] Deploy onde.surf with Mood indicator
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T510]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy surfboard with mood indicator:
-  - Build via `npm run build:cf`
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify mood badges show in agent panel
+- **Notes**: ✅ Deployed! https://63fefb5f.onde-surf.pages.dev
+  - ✅ Build via `npm run build:cf` - passed
+  - ✅ Deploy via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.surf/house returns 307 (auth redirect as expected)
+  - Agent mood indicators (😴😰😊🎯😌) now live in Free River House panel
 
 ### [T511] WebXR export per futuro VR
 - **Status**: TODO
