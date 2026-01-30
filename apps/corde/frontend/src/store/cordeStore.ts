@@ -30,7 +30,7 @@ interface CordeState {
   loadConfig: () => Promise<void>
 }
 
-export const useCordeStore = create<CordeState>((set, get) => ({
+export const useCordeStore = create<CordeState>((set) => ({
   nodes: [],
   edges: [],
   setWorkflow: (nodes, edges) => set({ nodes, edges }),

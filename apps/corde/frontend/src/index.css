@@ -100,3 +100,275 @@ body {
 .node-process .corde-node-header { border-left: 4px solid #00bfff; }
 .node-output .corde-node-header { border-left: 4px solid #ff6b35; }
 .node-quality .corde-node-header { border-left: 4px solid #a855f7; }
+.node-loader .corde-node-header { border-left: 4px solid #f59e0b; }
+
+/* ============================================
+   COMFYUI-STYLE ENHANCEMENTS
+   ============================================ */
+
+/* Animated neon edge glow */
+.react-flow__edge-path {
+  stroke: var(--corde-accent) !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 0 4px var(--corde-accent));
+  transition: all 0.2s ease;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-width: 4 !important;
+  filter: drop-shadow(0 0 8px var(--corde-accent)) drop-shadow(0 0 12px var(--corde-accent));
+}
+
+/* Connection line animation */
+.react-flow__connection-line {
+  stroke: var(--corde-accent-warm) !important;
+  stroke-width: 3 !important;
+  stroke-dasharray: 5, 5;
+  animation: dash 0.5s linear infinite;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -10; }
+}
+
+/* Enhanced handles with pulse effect */
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid var(--corde-accent) !important;
+  background: var(--corde-surface) !important;
+  transition: all 0.2s ease;
+}
+
+.react-flow__handle:hover {
+  background: var(--corde-accent) !important;
+  transform: scale(1.3);
+  box-shadow: 0 0 10px var(--corde-accent);
+}
+
+/* Handle types - color coded */
+.react-flow__handle[data-handleid="prompt"],
+.react-flow__handle[data-handleid="text"] {
+  border-color: #10b981 !important;
+}
+
+.react-flow__handle[data-handleid="image"] {
+  border-color: #00bfff !important;
+}
+
+.react-flow__handle[data-handleid="video"] {
+  border-color: #ff6b35 !important;
+}
+
+.react-flow__handle[data-handleid="model"] {
+  border-color: #f59e0b !important;
+}
+
+.react-flow__handle[data-handleid="reference"],
+.react-flow__handle[data-handleid="lora"] {
+  border-color: #a855f7 !important;
+}
+
+/* Node selection glow */
+.react-flow__node.selected .corde-node {
+  border-color: var(--corde-accent) !important;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Node execution states */
+.corde-node.executing {
+  border-color: #f59e0b !important;
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+.corde-node.completed {
+  border-color: #10b981 !important;
+}
+
+.corde-node.error {
+  border-color: #ef4444 !important;
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+}
+
+/* Progress bar in nodes */
+.corde-node-progress {
+  height: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.corde-node-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--corde-accent), #00e5ff);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+@keyframes progress-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.corde-node-progress-bar.animated {
+  background: linear-gradient(90deg, var(--corde-accent), #00e5ff, var(--corde-accent));
+  background-size: 200% 100%;
+  animation: progress-shimmer 2s linear infinite;
+}
+
+/* Mini preview thumbnail in nodes */
+.corde-node-preview {
+  width: 100%;
+  aspect-ratio: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  border: 1px solid var(--corde-border);
+}
+
+.corde-node-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corde-node-preview-placeholder {
+  color: var(--corde-muted);
+  font-size: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Settings panel */
+.corde-settings-panel {
+  position: fixed;
+  top: 56px;
+  right: 0;
+  width: 320px;
+  height: calc(100% - 56px);
+  background: var(--corde-surface);
+  border-left: 1px solid var(--corde-border);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.corde-settings-panel.open {
+  transform: translateX(0);
+}
+
+/* Device selector badges */
+.device-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.device-badge.metal {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.device-badge.cuda {
+  background: linear-gradient(135deg, #76b900 0%, #1a1a1a 100%);
+  color: white;
+}
+
+.device-badge.amd {
+  background: linear-gradient(135deg, #ed1c24 0%, #cc0000 100%);
+  color: white;
+}
+
+.device-badge.cpu {
+  background: var(--corde-border);
+  color: var(--corde-text);
+}
+
+/* Memory indicator */
+.memory-bar {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.memory-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.memory-bar-fill.low { background: #10b981; }
+.memory-bar-fill.medium { background: #f59e0b; }
+.memory-bar-fill.high { background: #ef4444; }
+
+/* Tooltip */
+.corde-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Minimap custom */
+.react-flow__minimap {
+  background: var(--corde-surface) !important;
+  border: 1px solid var(--corde-border) !important;
+  border-radius: 8px !important;
+}
+
+/* Controls custom */
+.react-flow__controls {
+  background: var(--corde-surface) !important;
+  border: 1px solid var(--corde-border) !important;
+  border-radius: 8px !important;
+}
+
+.react-flow__controls-button {
+  background: var(--corde-surface) !important;
+  border: none !important;
+  color: var(--corde-text) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--corde-border) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--corde-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--corde-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--corde-muted);
+}

@@ -6015,3 +6015,76 @@
   - Export bookmarks list
   - Include book metadata in export
   - Copy to clipboard or download as file
+
+---
+
+## 🎨 CORDE - INTERFACCIA GENERAZIONE (DA MATTIA 2026-01-29)
+
+### [T700] Corde: UI Improvements stile ComfyUI
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
+- **Depends**: -
+- **Blocks**: [T701], [T702], [T703]
+- **Priority**: P1
+- **Notes**: Migliorare interfaccia Corde stile ComfyUI
+  - [ ] Mini-previews thumbnail in ogni nodo
+  - [ ] Progress bar animata durante generazione
+  - [ ] Pannello settings globale (device, cache, etc.)
+  - [ ] Connessioni animate tipo neon/wire
+  - [ ] Node grouping/commenting
+  - [ ] Copy/paste nodes
+  - [ ] Undo/redo support
+
+### [T701] Corde: Model Loader Node con Multi-Device
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T700]
+- **Blocks**: [T704]
+- **Priority**: P1
+- **Notes**: Nodo per caricare modelli con selezione device
+  - [ ] Dropdown modello (SDXL, Flux, SD1.5, etc.)
+  - [ ] Dropdown device (Auto, Metal, CUDA, AMD/ROCm)
+  - [ ] Mostra VRAM/memoria disponibile
+  - [ ] LoRA selector opzionale
+  - [ ] Config persistence
+
+### [T702] Corde: Backend Abstraction Layer Multi-GPU
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T700]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Abstraction layer per supportare Metal + AMD
+  - [ ] GPU detector (Metal, CUDA, ROCm, CPU fallback)
+  - [ ] Device manager class
+  - [ ] Memory manager per VRAM
+  - [ ] Config per device preference
+  - [ ] Test su M1 (Metal)
+  - [ ] Test su Radeon 7900 XT (ROCm/TinyGrad)
+
+### [T703] Corde: Nuovi Nodi Generazione
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T700]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Aggiungere nodi mancanti
+  - [ ] ControlNet Node (canny, depth, pose)
+  - [ ] LoRA Loader Node
+  - [ ] Image Upscale Node (Real-ESRGAN, etc.)
+  - [ ] Image Composite Node
+  - [ ] Mask Editor Node
+  - [ ] VAE Decode/Encode Nodes
+
+### [T704] Corde: Video Generation Pipeline
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701], [T702]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Pipeline completa per video
+  - [ ] Stable Video Diffusion integration
+  - [ ] LTX-Video 2 support
+  - [ ] AnimateDiff for loops
+  - [ ] Frame interpolation
+  - [ ] Audio sync node

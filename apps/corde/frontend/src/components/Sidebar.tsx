@@ -11,6 +11,7 @@ interface NodeItem {
 const NODE_CATALOG: NodeItem[] = [
   // Input Nodes
   { type: 'prompt', label: 'Prompt', description: 'Text input for generation', category: 'input' },
+  { type: 'modelLoader', label: 'Model Loader', description: 'Load model with device selection', category: 'input' },
 
   // Process Nodes
   { type: 'sdxl', label: 'SDXL Generate', description: 'Generate image with SDXL', category: 'process' },
