@@ -1048,8 +1048,8 @@
   - Storage quota indicator (if available)
 
 ### [T816] Trading: Add asset rebalancing automation
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T481]
 - **Blocks**: -
 - **Priority**: P3
