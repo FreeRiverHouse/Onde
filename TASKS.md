@@ -937,18 +937,29 @@
   - Visual calendar heatmap of reading activity
 
 ### [T811] Trading: Telegram alert for PnL threshold crossings
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T731]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Alert when daily/weekly PnL crosses important thresholds:
-  - Daily profit target reached (e.g., +$50)
-  - Daily loss limit hit (e.g., -$30)
-  - Weekly profit milestone (e.g., +$200)
-  - Configurable thresholds in autotrader config
-  - Don't spam - alert once per threshold per period
-  - Include context: current position count, win rate
+- **Notes**: ✅ Implemented PnL threshold alerts!
+  - **Script**: `scripts/kalshi-pnl-threshold-alert.py`
+  - **Thresholds (configurable):**
+    - Daily profit target: +$50
+    - Daily loss limit: -$30
+    - Weekly profit milestone: +$200
+    - Weekly loss warning: -$100
+  - **Features:**
+    - Calculates real PnL from trade logs
+    - Only alerts once per threshold per period
+    - Resets state at midnight (daily) and Sunday (weekly)
+    - Creates `.alert` file for heartbeat pickup
+    - Includes win rate, trade counts, context
+  - **Alert file**: `scripts/kalshi-pnl-threshold.alert`
+  - **State file**: `scripts/kalshi-pnl-alert-state.json`
+  - **Cron**: Add `0 * * * * python3 /path/to/kalshi-pnl-threshold-alert.py` for hourly checks
+  - **HEARTBEAT.md**: Updated with new alert file
 
 ### [T812] Reader App: OPDS search improvements
 - **Status**: TODO
