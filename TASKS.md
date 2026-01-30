@@ -372,6 +372,48 @@
   - Smooth transition animation
   - Book panel follows user position
 
+### [T710] Reader VR: Add reading session statistics
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Track VR reading session statistics:
+  - Time spent reading per session
+  - Pages read, words per minute estimate
+  - Session history with dates
+  - Display stats in 3D panel or overlay
+  - Persist to localStorage for cross-session tracking
+  - Optional: Achievements/milestones (first 100 pages, etc.)
+
+### [T711] Reader VR: Add VR bookmark gestures
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T706], [T701]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add bookmark functionality with VR gestures:
+  - Pinch gesture to create bookmark
+  - Visual bookmark marker on current page
+  - 3D bookmark list panel (accessible via menu)
+  - Sync with web reader bookmarks (shared format)
+  - Color-coded bookmark categories
+
+### [T712] Reader App: Add text-to-speech audiobook mode
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add TTS for accessibility and audiobook-style reading:
+  - Use Web Speech API (SpeechSynthesis) - no API keys
+  - Voice selection from available system voices
+  - Speed/pitch controls
+  - Auto-scroll text with speaking
+  - Pause/resume, skip sentence/paragraph
+  - Works in both web reader and VR (spatial audio in VR)
+  - Highlight current sentence being spoken
+
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
 - **Owner**: @clawd
