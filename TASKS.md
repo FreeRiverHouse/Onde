@@ -9932,18 +9932,30 @@
   - ⏳ Needs deploy to onde.surf (T832)
 
 ### [T858] Infra: Add Prometheus metrics endpoint to autotrader
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T828]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Add /metrics endpoint for Prometheus scraping:
-  - Expose: trades_total, win_rate, pnl_cents, positions_count
-  - Expose: cycle_duration_seconds, api_latency_seconds
-  - Expose: circuit_breaker_active gauge
-  - Standard Prometheus text format
-  - Enable Grafana dashboards for trading metrics
-  - Optional: Push to Pushgateway for remote monitoring
+- **Notes**: ✅ Implemented Prometheus /metrics endpoint!
+  - **Endpoint**: `http://localhost:8080/metrics`
+  - **Metrics exposed:**
+    - ✅ `kalshi_autotrader_info{dry_run}` - metadata gauge
+    - ✅ `kalshi_trades_today_total{outcome=won|lost|pending}` - counter
+    - ✅ `kalshi_win_rate_today` - gauge (0-1)
+    - ✅ `kalshi_pnl_today_cents` - gauge
+    - ✅ `kalshi_positions_count` - gauge
+    - ✅ `kalshi_cash_cents` - gauge
+    - ✅ `kalshi_circuit_breaker_active` - gauge (1=paused, 0=running)
+    - ✅ `kalshi_consecutive_losses` - gauge
+    - ✅ `kalshi_cycle_count` - counter
+    - ✅ `kalshi_uptime_seconds` - counter
+  - Standard Prometheus text format (version 0.0.4)
+  - Reads from `data/trading/autotrader-health.json` (already updated each cycle)
+  - Updated /health endpoint info to include /metrics
+  - ⏳ Autotrader needs restart to pick up new code
+  - ⏳ Future: Grafana dashboard template (T861)
 
 ### [T859] Trading: Add momentum regime dashboard widget
 - **Status**: DONE
@@ -9991,3 +10003,48 @@
   - Build: npm run build:cf
   - Deploy: wrangler pages deploy
   - Verify: https://onde.surf/betting shows new widget
+
+### [T861] Infra: Create Grafana dashboard template for trading metrics
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T858]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Create Grafana dashboard JSON for Kalshi trading monitoring:
+  - Panel: Win rate over time (kalshi_win_rate_today)
+  - Panel: PnL trend (kalshi_pnl_today_cents)
+  - Panel: Open positions (kalshi_positions_count)
+  - Panel: Circuit breaker status (kalshi_circuit_breaker_active)
+  - Panel: Consecutive losses streak
+  - Panel: Trade volume (trades_today_total)
+  - Alert: Win rate < 30% for 1h
+  - Alert: Circuit breaker triggered
+  - Export as JSON for easy import
+
+### [T862] Infra: Add API latency tracking to autotrader metrics
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T858]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Extend Prometheus metrics with API latency:
+  - Track latency for: get_positions, place_order, get_balance
+  - Histogram buckets: 0.1s, 0.25s, 0.5s, 1s, 2s, 5s
+  - kalshi_api_latency_seconds{endpoint="..."} histogram
+  - kalshi_api_errors_total{endpoint="..."} counter
+  - Update health status file with avg latencies
+  - Alert on latency > 2s sustained
+
+### [T863] Reader App: Add "Continue from TTS" bookmark
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T712]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Auto-bookmark where TTS stopped for seamless audiobook experience:
+  - Track last spoken sentence position
+  - Auto-create "TTS position" bookmark on pause/stop
+  - "Resume TTS" button that jumps to last position
+  - Option to auto-continue TTS when reopening book
+  - Visual indicator in library for books with TTS position
+  - Clear TTS bookmark when finishing book

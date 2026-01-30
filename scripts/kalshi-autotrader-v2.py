@@ -5545,6 +5545,8 @@ class HealthHandler(BaseHTTPRequestHandler):
             self.send_health_response()
         elif self.path == "/ready":
             self.send_ready_response()
+        elif self.path == "/metrics":
+            self.send_prometheus_metrics()
         else:
             self.send_error(404, "Not Found")
     
@@ -5567,7 +5569,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             # Add server info
             health_data["health_server"] = {
                 "port": HEALTH_SERVER_PORT,
-                "endpoints": ["/health", "/ready"]
+                "endpoints": ["/health", "/ready", "/metrics"]
             }
             
             response = json.dumps(health_data, indent=2)
@@ -5591,6 +5593,83 @@ class HealthHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/plain")
         self.end_headers()
         self.wfile.write(b"OK")
+    
+    def send_prometheus_metrics(self):
+        """Return metrics in Prometheus text exposition format (T858)."""
+        try:
+            # Load health status for metrics
+            health_path = Path(HEALTH_STATUS_FILE)
+            health = {}
+            if health_path.exists():
+                with open(health_path) as f:
+                    health = json.load(f)
+            
+            # Build Prometheus metrics (text format)
+            lines = [
+                "# HELP kalshi_autotrader_info Autotrader metadata",
+                "# TYPE kalshi_autotrader_info gauge",
+                f'kalshi_autotrader_info{{dry_run="{str(health.get("dry_run", True)).lower()}"}} 1',
+                "",
+                "# HELP kalshi_trades_today_total Total trades today by outcome",
+                "# TYPE kalshi_trades_today_total counter",
+                f'kalshi_trades_today_total{{outcome="won"}} {health.get("today_won", 0)}',
+                f'kalshi_trades_today_total{{outcome="lost"}} {health.get("today_lost", 0)}',
+                f'kalshi_trades_today_total{{outcome="pending"}} {health.get("today_pending", 0)}',
+                "",
+                "# HELP kalshi_win_rate_today Current day win rate (0-1)",
+                "# TYPE kalshi_win_rate_today gauge",
+                f'kalshi_win_rate_today {health.get("win_rate_today", 0) / 100 if health.get("win_rate_today") else 0}',
+                "",
+                "# HELP kalshi_pnl_today_cents PnL today in cents",
+                "# TYPE kalshi_pnl_today_cents gauge",
+                f'kalshi_pnl_today_cents {health.get("pnl_today_cents", 0)}',
+                "",
+                "# HELP kalshi_positions_count Number of open positions",
+                "# TYPE kalshi_positions_count gauge",
+                f'kalshi_positions_count {health.get("positions_count", 0) or 0}',
+                "",
+                "# HELP kalshi_cash_cents Available cash balance in cents",
+                "# TYPE kalshi_cash_cents gauge",
+                f'kalshi_cash_cents {health.get("cash_cents", 0) or 0}',
+                "",
+                "# HELP kalshi_circuit_breaker_active Circuit breaker status (1=paused, 0=running)",
+                "# TYPE kalshi_circuit_breaker_active gauge",
+                f'kalshi_circuit_breaker_active {1 if health.get("circuit_breaker_active") else 0}',
+                "",
+                "# HELP kalshi_consecutive_losses Current consecutive loss streak",
+                "# TYPE kalshi_consecutive_losses gauge",
+                f'kalshi_consecutive_losses {health.get("consecutive_losses", 0)}',
+                "",
+                "# HELP kalshi_cycle_count Total trading cycles completed",
+                "# TYPE kalshi_cycle_count counter",
+                f'kalshi_cycle_count {health.get("cycle_count", 0)}',
+                "",
+            ]
+            
+            # Add uptime if available
+            if HealthHandler.server_start_time:
+                uptime = (datetime.now(timezone.utc) - HealthHandler.server_start_time).total_seconds()
+                lines.extend([
+                    "# HELP kalshi_uptime_seconds Autotrader uptime in seconds",
+                    "# TYPE kalshi_uptime_seconds counter",
+                    f'kalshi_uptime_seconds {int(uptime)}',
+                    "",
+                ])
+            
+            response = "\n".join(lines)
+            
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
+            self.send_header("Content-Length", len(response))
+            self.end_headers()
+            self.wfile.write(response.encode())
+            
+        except Exception as e:
+            error_msg = f"# Error generating metrics: {e}\n"
+            self.send_response(500)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(error_msg.encode())
 
 
 def start_health_server():
@@ -5606,7 +5685,7 @@ def start_health_server():
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
         
-        print(f"   📡 Health server started on http://0.0.0.0:{HEALTH_SERVER_PORT}/health")
+        print(f"   📡 Health server started on http://0.0.0.0:{HEALTH_SERVER_PORT}/health (/metrics for Prometheus)")
         return server
     except OSError as e:
         if "Address already in use" in str(e):
