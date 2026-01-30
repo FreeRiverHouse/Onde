@@ -17,16 +17,32 @@ const BODY_PARTS = {
   leftLeg: { x: 16, y: 48, w: 16, h: 16, label: '🦿 Left Leg' },
 };
 
-// Steve skin base colors (simplified)
-const STEVE_TEMPLATE = {
-  skin: '#c4a57b',
-  hair: '#442920',
-  shirt: '#00a8a8',
-  pants: '#3c2a5e',
-  shoes: '#444444',
-  eyes: '#ffffff',
-  pupils: '#5a3825',
+// Skin templates
+const TEMPLATES = {
+  steve: {
+    name: '👦 Steve',
+    skin: '#c4a57b', hair: '#442920', shirt: '#00a8a8', pants: '#3c2a5e', shoes: '#444444', eyes: '#ffffff', pupils: '#5a3825',
+  },
+  robot: {
+    name: '🤖 Robot',
+    skin: '#8a8a8a', hair: '#444444', shirt: '#3498db', pants: '#2c3e50', shoes: '#1a1a1a', eyes: '#00ff00', pupils: '#00aa00',
+  },
+  ninja: {
+    name: '🥷 Ninja',
+    skin: '#c4a57b', hair: '#1a1a1a', shirt: '#1a1a1a', pants: '#1a1a1a', shoes: '#2c2c2c', eyes: '#ffffff', pupils: '#000000',
+  },
+  alien: {
+    name: '👽 Alien',
+    skin: '#7dcea0', hair: '#27ae60', shirt: '#9b59b6', pants: '#8e44ad', shoes: '#6c3483', eyes: '#000000', pupils: '#1a1a1a',
+  },
+  princess: {
+    name: '👸 Princess',
+    skin: '#ffdfc4', hair: '#f1c40f', shirt: '#e91e63', pants: '#9c27b0', shoes: '#ff69b4', eyes: '#87ceeb', pupils: '#4169e1',
+  },
 };
+
+// Legacy alias
+const STEVE_TEMPLATE = TEMPLATES.steve;
 
 // Fun color palette
 const COLORS = [
@@ -168,7 +184,7 @@ export default function SkinCreator() {
   }, [selectedColor, tool]);
 
   // Initialize with Steve template
-  const loadTemplate = useCallback((template: 'steve' | 'alex' | 'blank') => {
+  const loadTemplate = useCallback((template: keyof typeof TEMPLATES | 'blank') => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -181,7 +197,7 @@ export default function SkinCreator() {
       return;
     }
 
-    const t = STEVE_TEMPLATE;
+    const t = TEMPLATES[template] || TEMPLATES.steve;
     
     // Head - front face (8x8 at position 8,8)
     ctx.fillStyle = t.skin;
@@ -431,16 +447,19 @@ export default function SkinCreator() {
           {/* Templates */}
           <div className="mt-4">
             <p className="text-sm font-semibold text-gray-700 mb-2">Start from:</p>
-            <div className="flex gap-2 justify-center">
-              <button
-                onClick={() => loadTemplate('steve')}
-                className="px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-bold hover:bg-blue-600"
-              >
-                👦 Steve
-              </button>
+            <div className="flex flex-wrap gap-1 justify-center">
+              {Object.entries(TEMPLATES).map(([key, template]) => (
+                <button
+                  key={key}
+                  onClick={() => loadTemplate(key as keyof typeof TEMPLATES)}
+                  className="px-2 py-1 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 hover:scale-105 transition-all"
+                >
+                  {template.name}
+                </button>
+              ))}
               <button
                 onClick={() => loadTemplate('blank')}
-                className="px-3 py-2 bg-gray-500 text-white rounded-lg text-sm font-bold hover:bg-gray-600"
+                className="px-2 py-1 bg-gray-500 text-white rounded-lg text-xs font-bold hover:bg-gray-600"
               >
                 ⬜ Blank
               </button>
