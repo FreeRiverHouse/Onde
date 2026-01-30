@@ -9793,5 +9793,5 @@
   - **Source**: traduzioni/capussela-spirito-EN.txt
   - **Script**: scripts/translate-capussela-complete.py
   - **Model**: llama3:70b (preferito) o llama3:8b
-  - **⚠️ REQUIRES**: M1 + Radeon eGPU (@onde-bot)
+  - **⚠️ REQUIRES: M1 + Radeon eGPU (@clawdinho))
   - Output: traduzioni/capussela-completa/capussela-spirito-EN-final.txt
