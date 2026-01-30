@@ -8015,16 +8015,20 @@
   - Shows trend direction at a glance
 
 ### [T767] Trading: Add retry logic for API errors in push-stats-to-gist.py
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Improve gist push reliability:
-  - Add exponential backoff retry (3 attempts)
-  - Handle GitHub API rate limits gracefully
-  - Log failures to data/trading/gist-push-errors.log
-  - Alert if 3 consecutive failures
+- **Notes**: ✅ Implemented retry logic for gist push reliability!
+  - **Retry config**: MAX_RETRIES=3, exponential backoff (2s, 4s, 8s)
+  - **Error logging**: Failures logged to `data/trading/gist-push-errors.log`
+  - **Consecutive failure tracking**: Creates alert after 3 failures
+  - **Alert file**: `scripts/kalshi-gist-push-failed.alert`
+  - **Rate limit handling**: Detects and logs GitHub API rate limits
+  - **Functions updated**: create_gist(), update_gist()
+  - **Helper functions added**: log_gist_error(), track_consecutive_failures()
 
 ### [T769] Deploy onde.surf with streak position widget
 - **Status**: DONE
