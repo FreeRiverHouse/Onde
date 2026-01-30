@@ -9798,9 +9798,9 @@
   - Tutti i flussi utente critici
   - Playwright/Puppeteer per browser automation
 
-### [T825] Traduzione Capussela IT→EN via Ollama
-- **Status**: TODO
-- **Owner**: -
+### [T825] Traduzione Capussela EN→IT via Ollama
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
