@@ -1,0 +1,162 @@
+{
+  "passed": 10,
+  "failed": 0,
+  "total": 10,
+  "details": [
+    {
+      "query": "what is ZTNA",
+      "status": "pass",
+      "top_score": 0.658,
+      "found_keywords": [
+        "zero trust",
+        "trust",
+        "ztna",
+        "access"
+      ],
+      "expected_keywords": [
+        "zero trust",
+        "trust",
+        "ztna",
+        "access"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "SD-WAN deployment models",
+      "status": "pass",
+      "top_score": 0.708,
+      "found_keywords": [
+        "sd-wan"
+      ],
+      "expected_keywords": [
+        "deployment",
+        "sd-wan",
+        "models"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "SASE architecture overview",
+      "status": "pass",
+      "top_score": 0.682,
+      "found_keywords": [
+        "sase",
+        "architecture",
+        "secure"
+      ],
+      "expected_keywords": [
+        "sase",
+        "architecture",
+        "secure"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "Versa vs Palo Alto",
+      "status": "pass",
+      "top_score": 0.388,
+      "found_keywords": [
+        "palo alto",
+        "prisma",
+        "versa"
+      ],
+      "expected_keywords": [
+        "palo alto",
+        "prisma",
+        "versa",
+        "competitive"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "how is Versa different from Zscaler",
+      "status": "pass",
+      "top_score": 0.345,
+      "found_keywords": [
+        "zscaler",
+        "versa"
+      ],
+      "expected_keywords": [
+        "zscaler",
+        "versa",
+        "difference"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "Cato Networks comparison",
+      "status": "pass",
+      "top_score": 0.459,
+      "found_keywords": [
+        "cato",
+        "versa"
+      ],
+      "expected_keywords": [
+        "cato",
+        "comparison",
+        "versa"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "what is the difference between VPN and ZTNA",
+      "status": "pass",
+      "top_score": 0.846,
+      "found_keywords": [
+        "vpn",
+        "ztna"
+      ],
+      "expected_keywords": [
+        "vpn",
+        "ztna",
+        "difference",
+        "legacy"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "how does SD-WAN improve network performance",
+      "status": "pass",
+      "top_score": 0.715,
+      "found_keywords": [
+        "sd-wan"
+      ],
+      "expected_keywords": [
+        "performance",
+        "sd-wan",
+        "latency",
+        "optimization"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "customer says they already have a firewall",
+      "status": "pass",
+      "top_score": 0.377,
+      "found_keywords": [
+        "firewall",
+        "objection"
+      ],
+      "expected_keywords": [
+        "firewall",
+        "objection",
+        "legacy"
+      ],
+      "num_results": 3
+    },
+    {
+      "query": "competitor says they have better SASE",
+      "status": "pass",
+      "top_score": 0.521,
+      "found_keywords": [
+        "sase"
+      ],
+      "expected_keywords": [
+        "competitor",
+        "better",
+        "sase"
+      ],
+      "num_results": 3
+    }
+  ]
+}

@@ -53,7 +53,8 @@ def load_markdown_files():
             if len(section_content.strip()) < 50:  # Skip tiny sections
                 continue
                 
-            doc_id = f"{relative_path.stem}_{i}"
+            # Use full relative path to ensure unique IDs across all files
+            doc_id = f"{str(relative_path).replace('/', '_').replace('.md', '')}_{i}"
             documents.append(section_content)
             metadatas.append({
                 "source": str(relative_path),

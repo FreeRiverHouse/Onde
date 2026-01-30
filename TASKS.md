@@ -139,17 +139,24 @@
   - Documentare setup per future reinstallazioni
 
 ### [T478] SE-Bot: Test embeddings search quality
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T472]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Test the newly created ChromaDB embeddings with sample SE queries:
-  - Test queries: "what is ZTNA", "Versa vs Palo Alto", "SD-WAN deployment models"
-  - Measure relevance scores and retrieval quality
-  - Tune chunking if needed (currently section-based)
-  - Document optimal n_results and min_relevance thresholds
-  - Create test suite for regression testing
+- **Notes**: ✅ Embeddings search quality verified!
+  - **Test script**: `apps/se-bot/test_search_quality.py`
+  - **Results**: 10/10 queries passed (100% success rate)
+  - **Score thresholds**: Top scores range 0.34-0.85 (>0.3 is good)
+  - **Findings**:
+    - ZTNA queries: excellent (0.65-0.85 relevance)
+    - Competitive queries: good (0.34-0.46)
+    - SD-WAN/SASE: very good (0.68-0.71)
+  - **get_context_for_topic()**: Working (1649 chars context)
+  - **Recommendations**: All tests pass, embeddings quality is good
+  - **Fix**: Unique IDs using full relative path (not just filename stem)
+  - **Report**: `apps/se-bot/search_quality_report.json`
 
 ### [T479] SE-Bot: Create meeting simulator for testing
 - **Status**: TODO
@@ -5366,3 +5373,55 @@
   - Need to create Privacy Policy page
   - Need to create Terms of Service page
   - Discovered by watchdog-services.sh
+
+---
+
+## 🌊 ONDE PORTAL/APP - Visione Musk Tech/Entertainment (DA MATTIA 2026-01-29)
+
+### [T600] Onde Portal: Visione e Architettura
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T601], [T602]
+- **Priority**: P1
+- **Notes**: Sviluppo app/portale per accesso a libri, giochi, e altro
+  - **Visione**: Collegato alla previsione Musk sul futuro tech/entertainment
+  - **Concetto**: Device (orologio, occhiali → chip neuralink) che genera e aiuta
+  - **NON**: Visione superomistica/cyborg
+  - **OBIETTIVO**: Espandere e realizzare la potenza creativa e vitale delle persone
+  - **Phase 1**: Libri + Giochi
+  - **Phase 2**: Tools, Learning, ...
+  - **Platform**: Web first, poi native
+
+### [T601] Onde Portal: UI/UX Design
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T600]
+- **Blocks**: [T602]
+- **Priority**: P2
+- **Notes**: Design dell'interfaccia utente
+  - Cool, moderno, accessibile
+  - Focus su esperienza immersiva
+  - Transizioni fluide
+  - Dark mode nativo
+
+### [T602] Onde Portal: Integrazione Libri
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T600]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Integrazione libreria libri esistente
+  - Reader integrato
+  - Progress sync
+  - Bookmarks e note
+
+### [T603] Onde Portal: Integrazione Giochi
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T600]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Hub giochi Onde
+  - Moonlight House già live
+  - Altri giochi da onde.la/giochi

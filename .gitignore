@@ -62,3 +62,13 @@ CREDENZIALI-DA-SALVARE.md
 # Lighthouse CI reports
 .lighthouseci/
 *.alert
+
+# Python virtual environments
+venv/
+.venv/
+**/venv/
+**/.venv/
+env/
+.env/
+**/env/
+**/.env/
