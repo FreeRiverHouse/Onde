@@ -18,12 +18,14 @@ import json
 import sys
 import time
 import math
+import threading
 from datetime import datetime, timezone, timedelta
 import base64
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from pathlib import Path
 from collections import defaultdict
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Import news sentiment analysis (T661 - Grok Fundamental strategy)
 try:
@@ -205,6 +207,10 @@ LATENCY_ALERT_FILE = "scripts/kalshi-latency.alert"
 
 # Health status endpoint (T472)
 HEALTH_STATUS_FILE = "data/trading/autotrader-health.json"
+
+# HTTP Health Server (T828)
+HEALTH_SERVER_PORT = int(os.environ.get("HEALTH_SERVER_PORT", 8089))
+HEALTH_SERVER_ENABLED = os.environ.get("HEALTH_SERVER_ENABLED", "true").lower() == "true"
 
 # ML Feature Logging (T331) - structured data for ML model training
 ML_FEATURE_LOG_FILE = "data/trading/ml-training-data.jsonl"
@@ -5522,6 +5528,97 @@ def get_today_stats() -> dict:
     }
 
 
+# ============== HTTP HEALTH SERVER (T828) ==============
+
+class HealthHandler(BaseHTTPRequestHandler):
+    """Simple HTTP handler for /health endpoint."""
+    
+    # Track server start time
+    server_start_time = None
+    
+    def log_message(self, format, *args):
+        """Suppress default logging to avoid noise."""
+        pass
+    
+    def do_GET(self):
+        if self.path == "/health" or self.path == "/":
+            self.send_health_response()
+        elif self.path == "/ready":
+            self.send_ready_response()
+        else:
+            self.send_error(404, "Not Found")
+    
+    def send_health_response(self):
+        """Return health status JSON."""
+        try:
+            health_path = Path(HEALTH_STATUS_FILE)
+            if health_path.exists():
+                with open(health_path) as f:
+                    health_data = json.load(f)
+            else:
+                health_data = {"is_running": True, "status": "starting"}
+            
+            # Add server uptime
+            if HealthHandler.server_start_time:
+                uptime_seconds = (datetime.now(timezone.utc) - HealthHandler.server_start_time).total_seconds()
+                health_data["uptime_seconds"] = int(uptime_seconds)
+                health_data["uptime_human"] = str(timedelta(seconds=int(uptime_seconds)))
+            
+            # Add server info
+            health_data["health_server"] = {
+                "port": HEALTH_SERVER_PORT,
+                "endpoints": ["/health", "/ready"]
+            }
+            
+            response = json.dumps(health_data, indent=2)
+            
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", len(response))
+            self.end_headers()
+            self.wfile.write(response.encode())
+            
+        except Exception as e:
+            error_response = json.dumps({"error": str(e), "is_running": False})
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_ready_response(self):
+        """Simple readiness check - returns 200 if server is up."""
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain")
+        self.end_headers()
+        self.wfile.write(b"OK")
+
+
+def start_health_server():
+    """Start the HTTP health server in a background thread."""
+    if not HEALTH_SERVER_ENABLED:
+        print(f"   ⚠️ Health server disabled (set HEALTH_SERVER_ENABLED=true to enable)")
+        return None
+    
+    try:
+        server = HTTPServer(("0.0.0.0", HEALTH_SERVER_PORT), HealthHandler)
+        HealthHandler.server_start_time = datetime.now(timezone.utc)
+        
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        
+        print(f"   📡 Health server started on http://0.0.0.0:{HEALTH_SERVER_PORT}/health")
+        return server
+    except OSError as e:
+        if "Address already in use" in str(e):
+            print(f"   ⚠️ Health server port {HEALTH_SERVER_PORT} already in use (another instance running?)")
+        else:
+            print(f"   ⚠️ Failed to start health server: {e}")
+        return None
+    except Exception as e:
+        print(f"   ⚠️ Failed to start health server: {e}")
+        return None
+
+
 def write_health_status(cycle_count: int):
     """Write autotrader health status to JSON file for external monitoring (T472)"""
     try:
@@ -5592,6 +5689,10 @@ def main():
     if DRY_RUN:
         print("   🧪 DRY RUN MODE - No real trades will be executed!")
         print(f"   📝 Trades logged to: {DRY_RUN_LOG_FILE}")
+    
+    # Start HTTP health server (T828)
+    health_server = start_health_server()
+    
     print("   Press Ctrl+C to stop\n")
     
     cycle_count = 0

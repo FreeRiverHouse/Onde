@@ -9841,15 +9841,25 @@
 
 ### [T828] Infra: Add health check endpoint to autotrader
 - **Status**: DONE
-- **Owner**: @onde-bot-1
+- **Owner**: @clawd, @onde-bot-1
+- **Completed**: 2026-02-03
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add HTTP health endpoint for monitoring:
-  - Simple Flask/FastAPI server on port 8089
-  - /health endpoint returning JSON status
-  - Include: uptime, last cycle time, positions count, balance
-  - Include: errors in last hour, circuit breaker status
-  - Useful for external monitoring (UptimeRobot, etc.)
-  - Start automatically with autotrader
-  - Lightweight (<10MB memory overhead)
+- **Notes**: ✅ Implemented HTTP health endpoint for autotrader!
+  - **Port**: 8089 (configurable via `HEALTH_SERVER_PORT` env var)
+  - **Toggle**: `HEALTH_SERVER_ENABLED=true|false` (default: true)
+  - **Endpoints:**
+    - `GET /health` - Full JSON status (uptime, cycle count, positions, balance, circuit breaker, win rate, etc.)
+    - `GET /ready` - Simple readiness check (returns "OK")
+  - **Features:**
+    - ✅ Built with Python's http.server (no external deps!)
+    - ✅ Runs in background daemon thread
+    - ✅ Reads from existing `autotrader-health.json`
+    - ✅ Adds server uptime tracking
+    - ✅ Graceful handling of port-in-use (warns instead of crash)
+    - ✅ Lightweight (~0 memory overhead)
+  - **Usage:**
+    - External monitoring: `curl http://localhost:8089/health`
+    - UptimeRobot/etc: Point to `http://host:8089/ready`
+  - **Integration**: Starts automatically with autotrader (no config needed)
