@@ -51,6 +51,14 @@ export interface ReaderSettings {
   marginSize: 'small' | 'medium' | 'large';
 }
 
+export interface TTSSettings {
+  voiceName: string | null; // Store voice name, not the object (not serializable)
+  rate: number; // 0.5-2.0
+  pitch: number; // 0.5-2.0
+  volume: number; // 0-1
+  autoPageTurn: boolean;
+}
+
 interface ReaderState {
   // Current reading
   currentBook: Book | null;
@@ -65,6 +73,7 @@ interface ReaderState {
   
   // Settings
   settings: ReaderSettings;
+  ttsSettings: TTSSettings;
   
   // UI State
   isSettingsOpen: boolean;
@@ -86,6 +95,7 @@ interface ReaderState {
   removeVocabularyWord: (id: string) => void;
   
   updateSettings: (settings: Partial<ReaderSettings>) => void;
+  updateTtsSettings: (settings: Partial<TTSSettings>) => void;
   
   toggleSettings: () => void;
   toggleToc: () => void;
@@ -97,6 +107,14 @@ const defaultSettings: ReaderSettings = {
   fontFamily: 'serif',
   lineHeight: 1.8,
   marginSize: 'medium',
+};
+
+const defaultTtsSettings: TTSSettings = {
+  voiceName: null, // Will be set to first English voice on load
+  rate: 1.0,
+  pitch: 1.0,
+  volume: 1.0,
+  autoPageTurn: true,
 };
 
 // Sample books for demo
@@ -133,6 +151,7 @@ export const useReaderStore = create<ReaderState>()(
       bookmarks: [],
       vocabulary: [],
       settings: defaultSettings,
+      ttsSettings: defaultTtsSettings,
       isSettingsOpen: false,
       isTocOpen: false,
       
@@ -200,6 +219,10 @@ export const useReaderStore = create<ReaderState>()(
         settings: { ...state.settings, ...newSettings },
       })),
       
+      updateTtsSettings: (newSettings) => set((state) => ({
+        ttsSettings: { ...state.ttsSettings, ...newSettings },
+      })),
+      
       toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
       toggleToc: () => set((state) => ({ isTocOpen: !state.isTocOpen })),
     }),
@@ -211,6 +234,7 @@ export const useReaderStore = create<ReaderState>()(
         bookmarks: state.bookmarks,
         vocabulary: state.vocabulary,
         settings: state.settings,
+        ttsSettings: state.ttsSettings,
       }),
     }
   )

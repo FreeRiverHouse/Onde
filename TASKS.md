@@ -487,18 +487,22 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T717] Reader App: Save TTS settings to localStorage
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T712]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Persist TTS preferences between sessions:
-  - Voice selection (by name)
-  - Speed (rate) setting
-  - Pitch setting
-  - Auto page turn preference
-  - Use Zustand store with localStorage persistence
-  - Restore settings on TTS panel open
+- **Notes**: ✅ Implemented TTS settings persistence!
+  - ✅ Added `TTSSettings` interface to readerStore (voiceName, rate, pitch, volume, autoPageTurn)
+  - ✅ Added `ttsSettings` state and `updateTtsSettings` action to Zustand store
+  - ✅ Included in `partialize` for localStorage persistence
+  - ✅ TextToSpeech component now uses store settings instead of local state
+  - ✅ Voice restored by name on load (voices aren't serializable)
+  - ✅ All settings persist: voice, speed, pitch, volume, auto page turn
+  - ✅ Keyboard shortcuts (↑/↓/M) now update persisted settings
+  - ✅ Deployed: https://df044574.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T718] Reader App: Add TTS speed presets (slow/normal/fast)
 - **Status**: TODO

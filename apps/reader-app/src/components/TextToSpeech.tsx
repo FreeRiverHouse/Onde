@@ -1,13 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-
-export interface TTSSettings {
-  voice: SpeechSynthesisVoice | null;
-  rate: number; // 0.5-2.0
-  pitch: number; // 0.5-2.0
-  volume: number; // 0-1
-}
+import { useReaderStore } from '@/store/readerStore';
 
 interface TextToSpeechProps {
   text: string;
@@ -15,23 +9,20 @@ interface TextToSpeechProps {
   onClose: () => void;
   onSentenceChange?: (sentenceIndex: number, sentence: string) => void;
   onPageComplete?: () => void;
-  autoPageTurn?: boolean;
 }
 
-export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageComplete, autoPageTurn = true }: TextToSpeechProps) {
+export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageComplete }: TextToSpeechProps) {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [settings, setSettings] = useState<TTSSettings>({
-    voice: null,
-    rate: 1.0,
-    pitch: 1.0,
-    volume: 1.0,
-  });
+  const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [sentences, setSentences] = useState<string[]>([]);
-  const [isAutoPageEnabled, setIsAutoPageEnabled] = useState(autoPageTurn);
   const [waitingForNextPage, setWaitingForNextPage] = useState(false);
+  
+  // Use persisted TTS settings from store
+  const { ttsSettings, updateTtsSettings } = useReaderStore();
+  const isAutoPageEnabled = ttsSettings.autoPageTurn;
   
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
@@ -43,7 +34,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
     isPlayingRef.current = isPlaying;
   }, [isPlaying]);
 
-  // Load available voices
+  // Load available voices and restore saved voice
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -53,12 +44,22 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
       const availableVoices = synthRef.current?.getVoices() || [];
       setVoices(availableVoices);
       
-      // Set default voice (prefer English voices)
-      if (availableVoices.length > 0 && !settings.voice) {
-        const englishVoice = availableVoices.find(
-          (v) => v.lang.startsWith('en') && v.localService
-        ) || availableVoices[0];
-        setSettings((s) => ({ ...s, voice: englishVoice }));
+      // Restore saved voice by name, or fallback to default English voice
+      if (availableVoices.length > 0) {
+        const savedVoice = ttsSettings.voiceName 
+          ? availableVoices.find((v) => v.name === ttsSettings.voiceName)
+          : null;
+        
+        if (savedVoice) {
+          setCurrentVoice(savedVoice);
+        } else if (!currentVoice) {
+          // Set default voice (prefer local English voices)
+          const englishVoice = availableVoices.find(
+            (v) => v.lang.startsWith('en') && v.localService
+          ) || availableVoices[0];
+          setCurrentVoice(englishVoice);
+          updateTtsSettings({ voiceName: englishVoice.name });
+        }
       }
     };
 
@@ -68,7 +69,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
     return () => {
       synthRef.current?.removeEventListener('voiceschanged', loadVoices);
     };
-  }, []);
+  }, [ttsSettings.voiceName, updateTtsSettings]);
 
   // Speak a sentence
   const speakSentence = useCallback((index: number) => {
@@ -88,10 +89,10 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
     const sentence = sentences[index];
     const utterance = new SpeechSynthesisUtterance(sentence);
     
-    if (settings.voice) utterance.voice = settings.voice;
-    utterance.rate = settings.rate;
-    utterance.pitch = settings.pitch;
-    utterance.volume = settings.volume;
+    if (currentVoice) utterance.voice = currentVoice;
+    utterance.rate = ttsSettings.rate;
+    utterance.pitch = ttsSettings.pitch;
+    utterance.volume = ttsSettings.volume;
 
     utterance.onstart = () => {
       setCurrentSentenceIndex(index);
@@ -112,7 +113,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
 
     utteranceRef.current = utterance;
     synthRef.current.speak(utterance);
-  }, [sentences, settings, isPaused, onSentenceChange, isAutoPageEnabled, onPageComplete]);
+  }, [sentences, currentVoice, ttsSettings.rate, ttsSettings.pitch, ttsSettings.volume, isPaused, onSentenceChange, isAutoPageEnabled, onPageComplete]);
 
   // Split text into sentences
   useEffect(() => {
@@ -242,23 +243,23 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
           break;
         case 'ArrowUp': // Increase speed
           e.preventDefault();
-          setSettings((s) => ({ ...s, rate: Math.min(s.rate + 0.1, 2.0) }));
+          updateTtsSettings({ rate: Math.min(ttsSettings.rate + 0.1, 2.0) });
           break;
         case 'ArrowDown': // Decrease speed
           e.preventDefault();
-          setSettings((s) => ({ ...s, rate: Math.max(s.rate - 0.1, 0.5) }));
+          updateTtsSettings({ rate: Math.max(ttsSettings.rate - 0.1, 0.5) });
           break;
         case 'm':
         case 'M': // Mute/unmute
           e.preventDefault();
-          setSettings((s) => ({ ...s, volume: s.volume > 0 ? 0 : 1.0 }));
+          updateTtsSettings({ volume: ttsSettings.volume > 0 ? 0 : 1.0 });
           break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isPlaying, isPaused, play, pause, onClose, skipBackward, skipForward]);
+  }, [isOpen, isPlaying, isPaused, play, pause, onClose, skipBackward, skipForward, ttsSettings.rate, ttsSettings.volume, updateTtsSettings]);
 
   // Group voices by language
   const groupedVoices = voices.reduce((acc, voice) => {
@@ -371,10 +372,13 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
               Voice
             </label>
             <select
-              value={settings.voice?.name || ''}
+              value={currentVoice?.name || ''}
               onChange={(e) => {
                 const voice = voices.find((v) => v.name === e.target.value);
-                setSettings((s) => ({ ...s, voice: voice || null }));
+                if (voice) {
+                  setCurrentVoice(voice);
+                  updateTtsSettings({ voiceName: voice.name });
+                }
               }}
               className="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm"
             >
@@ -394,29 +398,29 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Speed: {settings.rate.toFixed(1)}x
+                Speed: {ttsSettings.rate.toFixed(1)}x
               </label>
               <input
                 type="range"
                 min="0.5"
                 max="2"
                 step="0.1"
-                value={settings.rate}
-                onChange={(e) => setSettings((s) => ({ ...s, rate: parseFloat(e.target.value) }))}
+                value={ttsSettings.rate}
+                onChange={(e) => updateTtsSettings({ rate: parseFloat(e.target.value) })}
                 className="w-full accent-blue-500"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Pitch: {settings.pitch.toFixed(1)}
+                Pitch: {ttsSettings.pitch.toFixed(1)}
               </label>
               <input
                 type="range"
                 min="0.5"
                 max="2"
                 step="0.1"
-                value={settings.pitch}
-                onChange={(e) => setSettings((s) => ({ ...s, pitch: parseFloat(e.target.value) }))}
+                value={ttsSettings.pitch}
+                onChange={(e) => updateTtsSettings({ pitch: parseFloat(e.target.value) })}
                 className="w-full accent-blue-500"
               />
             </div>
@@ -425,15 +429,15 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
           {/* Volume slider */}
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Volume: {Math.round(settings.volume * 100)}%
+              Volume: {Math.round(ttsSettings.volume * 100)}%
             </label>
             <input
               type="range"
               min="0"
               max="1"
               step="0.1"
-              value={settings.volume}
-              onChange={(e) => setSettings((s) => ({ ...s, volume: parseFloat(e.target.value) }))}
+              value={ttsSettings.volume}
+              onChange={(e) => updateTtsSettings({ volume: parseFloat(e.target.value) })}
               className="w-full accent-blue-500"
             />
           </div>
@@ -445,7 +449,7 @@ export function TextToSpeech({ text, isOpen, onClose, onSentenceChange, onPageCo
                 Auto page turn
               </label>
               <button
-                onClick={() => setIsAutoPageEnabled(!isAutoPageEnabled)}
+                onClick={() => updateTtsSettings({ autoPageTurn: !isAutoPageEnabled })}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   isAutoPageEnabled ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'
                 }`}
