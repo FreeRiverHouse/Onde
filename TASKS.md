@@ -1572,17 +1572,21 @@
   - Kbd element: px-1.5 py-0.5 text-[10px] font-mono bg-white/10 text-gray-400 rounded border border-white/20
 
 ### [T743] Dashboard: Show position age on open positions
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add position age indicator to betting page:
-  - Calculate time since position opened
-  - Show "2h 15m" or "3d 12h" format
-  - Color code: green <24h, yellow 24-72h, red >72h
-  - Helps identify stale positions that might need attention
-  - Useful for concentration/rebalancing decisions
+- **Notes**: ✅ Implemented position expiry indicator on /betting page!
+  - ✅ `parseTickerExpiration()` - parses KXBTCD/KXETHD ticker format (DDMMMYYHH)
+  - ✅ `getPositionExpiryInfo()` - calculates time to expiry with color coding
+  - ✅ `formatDuration()` - human-readable duration ("2h 15m", "3d 12h")
+  - ✅ Visual indicator with Clock icon next to ticker
+  - ✅ Color coding: green (>24h), yellow (4-24h), red (<4h with pulse animation)
+  - ✅ Tooltip shows full expiry info
+  - ✅ Build passes
+  - ⏳ Needs deploy to onde.surf (see T745)
 
 ### [T744] Dashboard: Add quick stats comparison tooltip
 - **Status**: TODO
@@ -7300,3 +7304,57 @@
   - Fail CI if coverage drops significantly
   - Dashboard widget showing coverage trend
 
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-31 (HEARTBEAT)
+
+### [T748] Deploy onde.surf with position expiry indicator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T743]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy position expiry feature to production:
+  - Build surfboard with `npm run build:cf`
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify: positions show Clock icon with expiry time
+  - Test color coding: green >24h, yellow 4-24h, red <4h
+
+### [T749] Dashboard: Add position P&L percentage display
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show P&L as percentage of position cost:
+  - Calculate: (current_value - entry_cost) / entry_cost * 100
+  - Display next to dollar P&L (e.g., "+$5.00 (+12%)")
+  - Color code: green positive, red negative
+  - Helpful for comparing relative performance across positions
+
+### [T750] Autotrader: Add position entry timestamp to status API
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track when positions were opened:
+  - Add `openedAt` timestamp to position data
+  - Lookup from trade logs when position created
+  - Return in /api/trading/kalshi endpoint
+  - Enables "position age" display (time since opened)
+  - Complements expiry indicator (T743)
+
+### [T751] Dashboard: Add total daily volume indicator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show total trading volume for the day:
+  - Sum of all trades (buy + sell) in dollar terms
+  - Display in header stats grid
+  - Compare to 7-day average
+  - Useful for activity tracking
+  - Include in daily/weekly reports

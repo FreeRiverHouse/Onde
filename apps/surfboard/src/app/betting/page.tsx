@@ -29,7 +29,8 @@ import {
   Calendar,
   Sun,
   Moon,
-  Monitor
+  Monitor,
+  Clock
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
@@ -61,6 +62,104 @@ interface KalshiPosition {
   position: number;
   exposure: number;
   pnl?: number;
+  openedAt?: string; // ISO timestamp when position was opened
+}
+
+// ============== POSITION AGE HELPERS (T743) ==============
+/**
+ * Format duration in human-readable format
+ * @param hours - Duration in hours
+ * @returns Formatted string like "2h 15m" or "3d 12h"
+ */
+function formatDuration(hours: number): string {
+  if (hours < 0) return 'expired';
+  if (hours < 1) {
+    const minutes = Math.floor(hours * 60);
+    return `${minutes}m`;
+  }
+  if (hours < 24) {
+    const h = Math.floor(hours);
+    const m = Math.floor((hours - h) * 60);
+    return m > 0 ? `${h}h ${m}m` : `${h}h`;
+  }
+  const days = Math.floor(hours / 24);
+  const remainingHours = Math.floor(hours % 24);
+  return remainingHours > 0 ? `${days}d ${remainingHours}h` : `${days}d`;
+}
+
+/**
+ * Parse expiration time from Kalshi ticker
+ * Format: KXBTCD-26JAN2917-T89249.99
+ *         PREFIX-DDMMMYYHH-TARGET
+ * @param ticker - Kalshi ticker string
+ * @returns Date object or null if parsing fails
+ */
+function parseTickerExpiration(ticker: string): Date | null {
+  try {
+    // Extract date part: KXBTCD-26JAN2917-T89249.99 -> 26JAN2917
+    const match = ticker.match(/(?:KXBTCD|KXETHD)-(\d{2})([A-Z]{3})(\d{2})(\d{2})-/);
+    if (!match) return null;
+    
+    const [, day, monthStr, year, hour] = match;
+    const months: Record<string, number> = {
+      JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5,
+      JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11
+    };
+    
+    const monthNum = months[monthStr];
+    if (monthNum === undefined) return null;
+    
+    // Parse year - assume 2020s for now
+    const fullYear = 2000 + parseInt(year, 10);
+    const dayNum = parseInt(day, 10);
+    const hourNum = parseInt(hour, 10);
+    
+    return new Date(Date.UTC(fullYear, monthNum, dayNum, hourNum, 0, 0));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Get time until expiration and color coding
+ * @param ticker - Kalshi ticker string
+ * @returns Object with formatted time, hours remaining, and color
+ */
+function getPositionExpiryInfo(ticker: string): { 
+  timeStr: string; 
+  hoursLeft: number; 
+  color: 'emerald' | 'yellow' | 'red' | 'gray';
+  label: string;
+} {
+  const expiry = parseTickerExpiration(ticker);
+  if (!expiry) {
+    return { timeStr: '—', hoursLeft: -1, color: 'gray', label: 'Unknown' };
+  }
+  
+  const now = new Date();
+  const hoursLeft = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60);
+  
+  if (hoursLeft < 0) {
+    return { timeStr: 'Expired', hoursLeft: 0, color: 'red', label: 'Expired' };
+  }
+  
+  // Color coding: green >24h, yellow 4-24h, red <4h
+  let color: 'emerald' | 'yellow' | 'red' = 'emerald';
+  let label = 'Safe';
+  if (hoursLeft <= 4) {
+    color = 'red';
+    label = 'Soon';
+  } else if (hoursLeft <= 24) {
+    color = 'yellow';
+    label = 'Today';
+  }
+  
+  return { 
+    timeStr: formatDuration(hoursLeft), 
+    hoursLeft, 
+    color,
+    label 
+  };
 }
 
 interface KalshiStatus {
@@ -2093,6 +2192,9 @@ export default function BettingDashboard() {
                     const riskPercent = portfolioTotal > 0 ? (Math.abs(pos.exposure) / portfolioTotal) * 100 : 0;
                     const riskColor = riskPercent < 10 ? 'emerald' : riskPercent < 25 ? 'yellow' : 'red';
                     
+                    // Calculate time to expiry (T743)
+                    const expiryInfo = getPositionExpiryInfo(pos.ticker);
+                    
                     return (
                       <div 
                         key={i}
@@ -2104,9 +2206,25 @@ export default function BettingDashboard() {
                             <span className="text-[9px] font-bold text-gray-600">{assetType}</span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-mono text-gray-300 truncate group-hover:text-white transition-colors">
-                              {pos.ticker.replace('KXBTCD-', '').replace('KXETHD-', '')}
-                            </p>
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-mono text-gray-300 truncate group-hover:text-white transition-colors">
+                                {pos.ticker.replace('KXBTCD-', '').replace('KXETHD-', '')}
+                              </p>
+                              {/* Expiry indicator (T743) */}
+                              {expiryInfo.color !== 'gray' && (
+                                <span 
+                                  className={`flex items-center gap-0.5 text-[9px] px-1.5 py-0.5 rounded-full font-bold whitespace-nowrap
+                                    ${expiryInfo.color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
+                                    ${expiryInfo.color === 'yellow' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
+                                    ${expiryInfo.color === 'red' ? 'bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse' : ''}
+                                  `}
+                                  title={`Expires in ${expiryInfo.timeStr} (${expiryInfo.label})`}
+                                >
+                                  <Clock className="w-2.5 h-2.5" />
+                                  {expiryInfo.timeStr}
+                                </span>
+                              )}
+                            </div>
                             <div className="flex items-center gap-2 text-xs text-gray-600">
                               <span className={`font-semibold ${isYes ? 'text-emerald-500/70' : 'text-red-500/70'}`}>
                                 {isYes ? 'YES' : 'NO'}
