@@ -9835,8 +9835,8 @@
   - ⏳ Dashboard widget (future task)
 
 ### [T853] Trading: Add market momentum regime indicator
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T483]
 - **Blocks**: -
 - **Priority**: P3
