@@ -32,6 +32,10 @@ from typing import List, Dict, Optional, Tuple
 sys.path.insert(0, str(Path(__file__).parent))
 
 from kb_search import search, get_context_for_topic, get_stats
+from prompts.loader import (
+    format_prompt, detect_style, detect_competitor, 
+    list_styles, get_style_description
+)
 
 # Sample meeting scenarios (customer questions)
 SAMPLE_SCENARIOS = [
@@ -137,10 +141,50 @@ def get_kb_context(transcript: str) -> Tuple[str, float, List[Dict]]:
     return context, latency, results
 
 
-def generate_response_prompt(transcript: str, context: str, style_notes: str = "") -> str:
+def generate_response_prompt(
+    transcript: str, 
+    context: str, 
+    style: Optional[str] = None,
+    kb_results: Optional[List[Dict]] = None
+) -> Tuple[str, str, float]:
     """
     Build the Claude prompt for response generation.
+    
+    If style is provided, uses that template.
+    If style is "auto", detects the best style.
+    If style is None, uses the default prompt.
+    
+    Returns: (prompt, detected_style, confidence)
     """
+    detected_style = None
+    confidence = 0.0
+    
+    # Handle style selection
+    if style == "auto" or style is None:
+        detected_style, confidence, meta = detect_style(transcript, kb_results)
+        competitor = meta.get("competitor_detected")
+        objection = transcript if detected_style == "objection-handling" else ""
+    elif style in list_styles():
+        detected_style = style
+        confidence = 1.0
+        competitor = detect_competitor(transcript)
+        objection = transcript if style == "objection-handling" else ""
+    else:
+        # Invalid style, fall back to default
+        detected_style = None
+    
+    # Use template if we have a valid style
+    if detected_style:
+        prompt = format_prompt(
+            detected_style,
+            context=transcript,
+            kb_context=context,
+            competitor=competitor or "",
+            objection=objection
+        )
+        return prompt, detected_style, confidence
+    
+    # Default prompt (original behavior)
     prompt = f"""You are an expert Sales Engineer for Versa Networks, a leading SASE/SD-WAN vendor.
 You're in a customer meeting and need to respond to the following question/comment.
 
@@ -156,10 +200,9 @@ A customer just said: "{transcript}"
 - Address the customer's underlying concern, not just the surface question
 - If comparing to competitors, be factual and avoid FUD
 - Keep response concise (2-3 key points max)
-{style_notes}
 
 ## Your Response (as if speaking in the meeting):"""
-    return prompt
+    return prompt, "default", 1.0
 
 
 def call_claude(prompt: str) -> Tuple[Optional[str], float]:
@@ -230,15 +273,23 @@ def run_single_test(scenario: Dict, with_claude: bool = False, verbose: bool = T
     
     # Step 3: Generate response (if Claude enabled)
     claude_response = None
+    style = scenario.get("style", "auto")  # Use style from scenario, default to auto
     if with_claude:
-        prompt = generate_response_prompt(transcript, context)
+        prompt, detected_style, style_confidence = generate_response_prompt(
+            transcript, context, style=style, kb_results=raw_results
+        )
+        result["detected_style"] = detected_style
+        result["style_confidence"] = round(style_confidence, 2)
+        
         claude_response, claude_latency = call_claude(prompt)
         result["latencies"]["claude"] = round(claude_latency, 3)
         result["claude_response"] = claude_response
         
-        if verbose and claude_response:
-            print(f"\n   🤖 Claude Response ({claude_latency:.2f}s):")
-            print(f"   {claude_response[:200]}..." if len(claude_response) > 200 else f"   {claude_response}")
+        if verbose:
+            print(f"\n   🎨 Style: {detected_style} (confidence: {style_confidence:.0%})")
+            if claude_response:
+                print(f"\n   🤖 Claude Response ({claude_latency:.2f}s):")
+                print(f"   {claude_response[:200]}..." if len(claude_response) > 200 else f"   {claude_response}")
     
     # Calculate total latency
     total_latency = sum(result["latencies"].values())
@@ -358,8 +409,21 @@ def main():
     parser.add_argument("--with-claude", action="store_true", help="Enable Claude response generation")
     parser.add_argument("--output", "-o", type=str, help="Save results to JSON file")
     parser.add_argument("--stats", action="store_true", help="Show KB stats and exit")
+    parser.add_argument("--style", "-s", type=str, 
+                        choices=["auto"] + list_styles(),
+                        default="auto",
+                        help="Response style template (auto|technical-deepdive|executive-summary|competitive-battle-card|objection-handling|demo-suggestion)")
+    parser.add_argument("--list-styles", action="store_true", help="List available response styles and exit")
     
     args = parser.parse_args()
+    
+    # List styles and exit
+    if args.list_styles:
+        print("\n📋 Available Response Styles:\n")
+        for style in list_styles():
+            print(f"   {style}")
+            print(f"      {get_style_description(style)}\n")
+        return 0
     
     # Check KB status first
     stats = get_stats()
@@ -382,7 +446,8 @@ def main():
             "category": "CLI",
             "context": "Command line query",
             "transcript": args.query,
-            "expected_topics": []
+            "expected_topics": [],
+            "style": args.style  # Pass style to scenario
         }
         result = run_single_test(scenario, with_claude=args.with_claude, verbose=True)
         

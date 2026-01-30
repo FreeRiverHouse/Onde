@@ -567,19 +567,31 @@
     - HIPAA query: 0.62 relevance ✅
 
 ### [T491] SE-Bot: Create response style templates
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T479]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add Claude prompt templates for different response styles:
-  - **Technical deep-dive**: For network engineers
-  - **Executive summary**: For C-level/business
-  - **Competitive battle card**: When customer mentions competitor
-  - **Objection handling**: Empathetic + redirect
-  - **Demo suggestion**: When customer seems interested
-  - Store templates in `apps/se-bot/prompts/` directory
-  - Integrate with meeting_simulator.py --style flag
+- **Notes**: ✅ Implemented Claude prompt templates for different response styles!
+  - **Location**: `apps/se-bot/prompts/`
+  - **Templates created:**
+    - `technical-deepdive.md` - For network engineers (detailed, protocol-level)
+    - `executive-summary.md` - For C-level/business (ROI, outcomes)
+    - `competitive-battle-card.md` - When competitor mentioned (fair positioning)
+    - `objection-handling.md` - Empathetic + redirect (Feel-Felt-Found)
+    - `demo-suggestion.md` - When interest detected (smooth transition)
+  - **Loader module**: `prompts/loader.py` with:
+    - `load_prompt()` / `format_prompt()` - Load and fill templates
+    - `detect_style()` - Auto-detect style from transcript (keyword matching)
+    - `detect_competitor()` - Identify mentioned competitors
+    - `get_style_for_context()` - Simple wrapper for auto-detection
+  - **Integration**: `meeting_simulator.py` updated with:
+    - `--style` flag (auto|technical-deepdive|executive-summary|competitive-battle-card|objection-handling|demo-suggestion)
+    - `--list-styles` flag to show available styles
+    - Auto-detection when `--with-claude` enabled
+    - Style and confidence shown in output
+  - **Test results**: 100% detection accuracy on sample queries
 
 ### [T492] SE-Bot: Add meeting transcript logging for fine-tuning
 - **Status**: TODO
