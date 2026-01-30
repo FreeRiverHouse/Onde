@@ -9738,16 +9738,16 @@
   - KDP listings
 
 ### [T821] Fix: Moonlight Magic House non carica su onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
 - **Notes**: Gioco non funziona. Investigare e fixare.
 
 ### [T822] Infra: Test suite E2E per tutto il sito
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
