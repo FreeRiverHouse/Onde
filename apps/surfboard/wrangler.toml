@@ -11,3 +11,7 @@ database_id = "e7845b27-a3f3-4d70-8078-0b05bbef3283"
 [[kv_namespaces]]
 binding = "TEST_REPORTS_KV"
 id = "4c58636ecde440cf9ac910cccce98690"
+
+[[kv_namespaces]]
+binding = "HEALTH_ALERTS_KV"
+id = "0afc4af3af8e48cd943be70bf3d06faf"

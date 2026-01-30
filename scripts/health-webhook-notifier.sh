@@ -122,6 +122,22 @@ jq --argjson alert "$NEW_ALERT" '
 ' "$WEBHOOK_HISTORY" > "$WEBHOOK_HISTORY.tmp" && mv "$WEBHOOK_HISTORY.tmp" "$WEBHOOK_HISTORY"
 echo "Recorded to webhook history"
 
+# Upload to KV for persistent storage (T455)
+AFFECTED_SERVICES=""
+[ "$ONDE_LA_OK" = "false" ] && AFFECTED_SERVICES="${AFFECTED_SERVICES}onde.la,"
+[ "$ONDE_SURF_OK" = "false" ] && AFFECTED_SERVICES="${AFFECTED_SERVICES}onde.surf,"
+[ "$AUTOTRADER_RUNNING" = "false" ] && AFFECTED_SERVICES="${AFFECTED_SERVICES}autotrader,"
+AFFECTED_SERVICES="${AFFECTED_SERVICES%,}"  # Remove trailing comma
+
+if [ -n "$AFFECTED_SERVICES" ]; then
+    KV_UPLOAD_SCRIPT="$SCRIPT_DIR/upload-health-alert-to-kv.sh"
+    if [ -x "$KV_UPLOAD_SCRIPT" ]; then
+        "$KV_UPLOAD_SCRIPT" "critical" "$AFFECTED_SERVICES" "$(echo -e "$ALERT_MSG")" || echo "KV upload failed (non-fatal)"
+    else
+        echo "KV upload script not found or not executable"
+    fi
+fi
+
 # Update cooldown
 date +%s > "$COOLDOWN_FILE"
 echo "Alert sent. Cooldown set for $COOLDOWN_SECONDS seconds."

@@ -176,16 +176,22 @@
 ## 🚨 NUOVO - DA CLAWD 2026-01-29 (15:15)
 
 ### [T455] Add health alert history persistence to KV
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T453]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Store health alerts in Cloudflare KV for history tracking:
-  - Key: `health-alert-{timestamp}`
-  - Store: status, which services down, resolution time
-  - API endpoint: GET /api/health/alerts-history
-  - Show in /health page as timeline
+- **Notes**: ✅ Implemented! Health alert history API with KV storage:
+  - **API endpoint**: `GET /api/health/alerts-history?days=7&limit=50`
+  - **POST**: Store new alerts with status, affectedServices, message
+  - **PATCH**: Mark alerts as resolved (tracks resolution time)
+  - **KV namespace**: HEALTH_ALERTS_KV (id: 0afc4af3af8e48cd943be70bf3d06faf)
+  - **Fallback**: Uses Gist webhookAlerts when KV not bound
+  - **TTL**: 30 days auto-expiry
+  - **Script**: `scripts/upload-health-alert-to-kv.sh` for CLI upload
+  - **Webhook integration**: health-webhook-notifier.sh now uploads to KV
+  - ⚠️ **Manual step**: Bind KV in Pages dashboard (Settings > Functions > KV bindings)
 
 ### [T456] Health dashboard: Add auto-refresh toggle
 - **Status**: DONE
