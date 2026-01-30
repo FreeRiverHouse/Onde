@@ -8178,15 +8178,17 @@
 
 
 ### [T783] Deploy level-up sound effects to onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T756]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy Free River House with level-up sound effects:
-  - Build surfboard with `npm run build:cf`
-  - Deploy via wrangler
-  - Test sound plays on level-up
+- **Notes**: ✅ Deployed! https://f96b2ca7.onde-surf.pages.dev
+  - Build via `npm run build:cf` - passed
+  - Deploy via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.surf → 307 (auth redirect as expected)
+  - Level-up sound effects now live in Free River House!
 
 ### [T784] Add test coverage for FreeRiverHouse gamification features
 - **Status**: TODO
