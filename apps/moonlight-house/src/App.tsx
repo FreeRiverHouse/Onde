@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 import useSoundManager from './useSoundManager';
+import useAmbientSoundscapes from './components/AmbientSoundscapes';
 import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
@@ -358,7 +359,7 @@ function App() {
   const t = translations[lang];
   
   // Sound manager for effects and ambient music
-  const { playSound, playAmbient, stopAmbient, toggleMute, isMuted } = useSoundManager();
+  const { playSound, playAmbient, stopAmbient, toggleMute, isMuted, volume } = useSoundManager();
 
   // Core state (restored from save or defaults)
   const [stats, setStats] = useState<PetStats>(() => {
@@ -418,6 +419,16 @@ function App() {
   const roomContainerRef = useCallback((node: HTMLDivElement | null) => {
     if (node) node.focus();
   }, []);
+
+  // Ambient soundscapes - procedural audio per room
+  // Gets current room key from roomData array
+  const currentRoomKey = roomData[currentRoom]?.key ?? 'bedroom';
+  useAmbientSoundscapes({
+    currentRoom: currentRoomKey,
+    timeOfDay,
+    isMuted,
+    volume,
+  });
 
   // Float animation
   useEffect(() => {

@@ -365,20 +365,32 @@
   - All enhanced ambient effects now live!
 
 ### [T488] Moonlight House: Add ambient soundscapes per room
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T461]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Audio atmosphere to match visual ambient effects:
-  - **Bedroom**: Soft music box, gentle night sounds
-  - **Kitchen**: Sizzling, pot bubbling, fridge hum
-  - **Garden**: Birds chirping (day), crickets (night), wind rustling
-  - **Bathroom**: Water dripping, steam hiss
-  - **Living Room**: TV murmur, clock ticking
-  - **Garage**: Tool sounds, car engine idle
-  - Use Web Audio API for dynamic mixing based on room
-  - Volume controlled by existing sound toggle
+- **Notes**: ✅ Implemented procedural ambient soundscapes using Web Audio API!
+  - **Component**: `apps/moonlight-house/src/components/AmbientSoundscapes.tsx`
+  - **Hook**: `useAmbientSoundscapes({ currentRoom, timeOfDay, isMuted, volume })`
+  - **All 8 rooms have unique soundscapes:**
+    - **Bedroom**: Soft music box tinkle, clock ticking, warm drone
+    - **Kitchen**: Sizzling, bubbling pots, fridge compressor hum
+    - **Garden**: Birds (morning), crickets (night), wind rustling - changes with timeOfDay!
+    - **Living Room**: TV murmur, slow clock tick, cozy hum
+    - **Bathroom**: Water dripping (echoey), steam hiss, reverb ambiance
+    - **Garage**: Tool clanks, mechanical whir, distant engine idle
+    - **Shop**: Glamorous sparkle chimes, soft piano notes, elegant vibe
+    - **Supermarket**: Checkout beeps, cart squeaks, distant PA chimes
+  - **Features:**
+    - Procedural audio - no audio files needed!
+    - Smooth crossfade between rooms
+    - LFO modulation for natural movement
+    - Convolver reverb for spatial depth
+    - Dynamic accents with randomized timing
+    - Respects existing mute/volume controls
+    - Garden soundscape changes with time of day (birds→crickets)
 
 ### [T489] Moonlight House: Add more explorable areas
 - **Status**: TODO
@@ -393,6 +405,47 @@
   - **Patio/Balcony**: Outdoor dining, night sky view, telescope
   - Each room needs: background image, interactive objects, ambient effects
   - Consider level-gating to reward progression
+
+### [T665] Deploy Moonlight House with ambient soundscapes to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T488]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the updated Moonlight House with procedural audio:
+  - Build static export for Cloudflare Pages
+  - Copy to apps/onde-portal/public/static-games/moonlight-magic-house/
+  - Deploy via wrangler
+  - Verify soundscapes work on mobile (Web Audio API)
+  - Test all 8 rooms have distinct ambient audio
+
+### [T666] Moonlight House: Add ambient soundscape volume slider
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T488]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Separate volume control for ambient soundscapes:
+  - Independent slider in settings/header
+  - Defaults to 50% (current behavior)
+  - Persist preference to localStorage
+  - Allow ambient to be muted while keeping SFX on
+  - Nice UI: mini waveform icon or speaker with waves
+
+### [T667] Moonlight House: Add weather-based ambient variations
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T488]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Real weather integration for immersive audio:
+  - Use browser geolocation or IP-based location
+  - Fetch real weather data (wttr.in API - no key needed)
+  - **Rain**: Add rain sounds to garden/outdoor soundscapes
+  - **Storm**: Thunder rumbles, wind gusts
+  - **Snow**: Muffled ambiance, crackling fireplace
+  - **Hot day**: Cicadas, air conditioning hum
+  - Optional toggle: "Use real weather" vs "Story weather"
 
 ---
 
