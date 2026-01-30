@@ -9,8 +9,8 @@
 ## 📚 READER APP / PORTALE VR (DA MATTIA 2026-01-29)
 
 ### [T668] Reader App: Prototype Web-Based Book Reader
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: [T669]
 - **Priority**: P1
