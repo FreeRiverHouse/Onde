@@ -1,0 +1,5 @@
+{
+  "timestamp": "2026-01-30T07:48:17Z",
+  "type": "vol-recalibration",
+  "data": "📊 VOLATILITY RECALIBRATION SUGGESTED\n\n\nBTC:\n  Current model: 0.500% hourly\n  Realized (30d): 0.3202% hourly\n  Deviation: -36.0%\n  Suggested: 0.3202% hourly (⬇️ DECREASE)\n\nETH:\n  Current model: 0.700% hourly\n  Realized (30d): 0.4627% hourly\n  Deviation: -33.9%\n  Suggested: 0.4627% hourly (⬇️ DECREASE)\n\n\nTo apply recalibration:\n  python scripts/auto-recalibrate-volatility.py --apply\n\nTo revert:\n  python scripts/auto-recalibrate-volatility.py --revert"
+}

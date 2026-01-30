@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T06:30:00.972769+00:00",
+  "generated_at": "2026-01-30T08:30:01.162088+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -482,17 +482,161 @@
           "status": 200,
           "latency_ms": 237,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:35:01.269412+00:00",
+          "status": 200,
+          "latency_ms": 153,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:40:00.736392+00:00",
+          "status": 200,
+          "latency_ms": 182,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:45:01.076537+00:00",
+          "status": 200,
+          "latency_ms": 194,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:50:01.385719+00:00",
+          "status": 200,
+          "latency_ms": 690,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:55:00.430937+00:00",
+          "status": 200,
+          "latency_ms": 151,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:00:01.250936+00:00",
+          "status": 200,
+          "latency_ms": 193,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:05:00.289295+00:00",
+          "status": 200,
+          "latency_ms": 170,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:10:00.600595+00:00",
+          "status": 200,
+          "latency_ms": 182,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:15:01.180078+00:00",
+          "status": 200,
+          "latency_ms": 236,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:20:01.262692+00:00",
+          "status": 200,
+          "latency_ms": 213,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:25:00.704166+00:00",
+          "status": 200,
+          "latency_ms": 657,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:30:01.100740+00:00",
+          "status": 200,
+          "latency_ms": 239,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:35:00.567349+00:00",
+          "status": 200,
+          "latency_ms": 342,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:40:00.964624+00:00",
+          "status": 200,
+          "latency_ms": 238,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:45:01.508248+00:00",
+          "status": 200,
+          "latency_ms": 185,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:50:00.687833+00:00",
+          "status": 200,
+          "latency_ms": 385,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:55:01.139181+00:00",
+          "status": 200,
+          "latency_ms": 250,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:00:00.934959+00:00",
+          "status": 200,
+          "latency_ms": 298,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:05:01.369322+00:00",
+          "status": 200,
+          "latency_ms": 923,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:10:01.378217+00:00",
+          "status": 200,
+          "latency_ms": 249,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:15:00.866957+00:00",
+          "status": 200,
+          "latency_ms": 162,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:20:01.051082+00:00",
+          "status": 200,
+          "latency_ms": 147,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:25:01.274511+00:00",
+          "status": 200,
+          "latency_ms": 228,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:30:01.162088+00:00",
+          "status": 200,
+          "latency_ms": 288,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 255,
-        "avg_latency_7d": 255,
+        "avg_latency_24h": 263,
+        "avg_latency_7d": 263,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 80,
-        "total_checks_7d": 80
+        "total_checks_24h": 104,
+        "total_checks_7d": 104
       }
     },
     "onde.surf": {
@@ -976,17 +1120,161 @@
           "status": 200,
           "latency_ms": 160,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:35:01.269412+00:00",
+          "status": 200,
+          "latency_ms": 461,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:40:00.736392+00:00",
+          "status": 200,
+          "latency_ms": 256,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:45:01.076537+00:00",
+          "status": 200,
+          "latency_ms": 365,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:50:01.385719+00:00",
+          "status": 200,
+          "latency_ms": 524,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T06:55:00.430937+00:00",
+          "status": 200,
+          "latency_ms": 247,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:00:01.250936+00:00",
+          "status": 200,
+          "latency_ms": 299,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:05:00.289295+00:00",
+          "status": 200,
+          "latency_ms": 262,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:10:00.600595+00:00",
+          "status": 200,
+          "latency_ms": 267,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:15:01.180078+00:00",
+          "status": 200,
+          "latency_ms": 169,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:20:01.262692+00:00",
+          "status": 200,
+          "latency_ms": 358,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:25:00.704166+00:00",
+          "status": 200,
+          "latency_ms": 526,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:30:01.100740+00:00",
+          "status": 200,
+          "latency_ms": 175,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:35:00.567349+00:00",
+          "status": 200,
+          "latency_ms": 225,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:40:00.964624+00:00",
+          "status": 200,
+          "latency_ms": 188,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:45:01.508248+00:00",
+          "status": 200,
+          "latency_ms": 160,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:50:00.687833+00:00",
+          "status": 200,
+          "latency_ms": 199,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T07:55:01.139181+00:00",
+          "status": 200,
+          "latency_ms": 181,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:00:00.934959+00:00",
+          "status": 200,
+          "latency_ms": 247,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:05:01.369322+00:00",
+          "status": 200,
+          "latency_ms": 521,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:10:01.378217+00:00",
+          "status": 200,
+          "latency_ms": 176,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:15:00.866957+00:00",
+          "status": 200,
+          "latency_ms": 212,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:20:01.051082+00:00",
+          "status": 200,
+          "latency_ms": 240,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:25:01.274511+00:00",
+          "status": 200,
+          "latency_ms": 182,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-30T08:30:01.162088+00:00",
+          "status": 200,
+          "latency_ms": 523,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 272,
-        "avg_latency_7d": 272,
+        "avg_latency_24h": 276,
+        "avg_latency_7d": 276,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 80,
-        "total_checks_7d": 80
+        "total_checks_24h": 104,
+        "total_checks_7d": 104
       }
     }
   }

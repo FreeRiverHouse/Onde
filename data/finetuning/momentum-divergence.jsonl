@@ -1169,3 +1169,22 @@
   ],
   "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udd34 BTC: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 32.0 | Price: $87,896\n   Price rise: 0.47% | RSI drop: -14.6\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\n\ud83d\udd34 ETH: BEARISH DIVERGENCE\n   Price higher high + RSI lower high\n   RSI: 36.5 | Price: $2,946\n   Price rise: 0.00% | RSI drop: -17.7\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider NO bets on continued upside\n\nTime: 2026-01-30 00:29 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
 }{"timestamp":"2026-01-30T04:30:43.176836+00:00","type":"momentum_divergence","divergences":[{"asset":"BTC","type":"bearish","confidence":"medium","price_rise":0.0047,"rsi_drop":14.56,"current_price":87896,"current_rsi":32.05},{"asset":"ETH","type":"bearish","confidence":"medium","price_rise":0.00002,"rsi_drop":17.68,"current_price":2946.46,"current_rsi":36.46}]}
+{
+  "timestamp": "2026-01-30T08:31:34.417296+00:00",
+  "type": "momentum_divergence",
+  "divergences": [
+    {
+      "asset": "BTC",
+      "type": "bullish",
+      "emoji": "\ud83d\udfe2",
+      "signal": "Price lower low + RSI higher low",
+      "action": "Consider YES bets on upside recovery",
+      "confidence": "medium",
+      "price_drop": 0.006322541938759028,
+      "rsi_rise": 6.855163193119978,
+      "current_price": 88308.0,
+      "current_rsi": 40.16293515148381
+    }
+  ],
+  "message": "\ud83d\udcca MOMENTUM DIVERGENCE DETECTED!\n\nPrice and momentum disagree - potential reversal signal\n\n\ud83d\udfe2 BTC: BULLISH DIVERGENCE\n   Price lower low + RSI higher low\n   RSI: 40.2 | Price: $88,308\n   Price drop: 0.63% | RSI rise: +6.9\n   Confidence: \u26aa MEDIUM\n\n   \ud83d\udca1 Consider YES bets on upside recovery\n\nTime: 2026-01-30 08:31 UTC\n\n\u26a0\ufe0f Divergence is a leading indicator. Wait for price confirmation!\n\ud83d\udcc8 Classic technical pattern: divergence often precedes reversals."
+}
