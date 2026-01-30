@@ -6256,16 +6256,19 @@
   - Add sparkline showing pass rate trend
 
 ### [T423] Autotrader: Add SOL (Solana) market support
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Kalshi has KXSOLD market for Solana. Add support like BTC/ETH.
-  - Add SOL_HOURLY_VOL constant (estimate from data)
-  - Multi-exchange price feeds for SOL
-  - Settlement tracking for SOL
-  - Dashboard momentum indicator for SOL
+- **Notes**: ✅ Kalshi KXSOLD market (Solana) fully supported!
+  - ✅ SOL_HOURLY_VOL constant (1.2% - more volatile than BTC/ETH)
+  - ✅ Multi-exchange price feeds (CoinGecko, Binance, Coinbase)
+  - ✅ Settlement tracking (kalshi-settlement-tracker.py - parses KXSOLD tickers)
+  - ✅ Dashboard TradeTicker (shows SOL trades with cyan badge)
+  - ✅ Asset config (4% Kelly, 2% max position, 13% min edge)
+  - ✅ Crypto concentration group includes SOL
 
 ### [T424] Create memory cleanup script for stale heartbeat-state
 - **Status**: TODO
