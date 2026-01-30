@@ -1375,18 +1375,26 @@
   - **Retention**: 30 days reports, 7 days failure screenshots
 
 ### [T731] Autotrader: Add hourly health check report to Telegram
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T001]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Hourly summary of autotrader health:
-  - Running status (up/down)
-  - Trades in last hour
-  - Win rate (24h rolling)
-  - Current balance
-  - Any alerts triggered
-  - Send to Telegram, not just file alert
+- **Notes**: ✅ Implemented hourly health report to Telegram!
+  - **Script**: `scripts/autotrader-hourly-report.py`
+  - **Cron**: `0 * * * *` (every hour)
+  - **Features:**
+    - Running status with PID (🟢/🔴)
+    - Trades in last hour
+    - 24h rolling win rate with emoji (🔥/✅/⚠️/❌)
+    - 24h PnL with trend (📈/📉)
+    - Portfolio value
+    - Active alerts summary
+    - Smart skip: no report if no changes and no activity
+    - Saves last state to avoid spam
+  - **Usage**: `python3 autotrader-hourly-report.py [--dry-run] [--verbose] [--force]`
+  - **Env vars**: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 
 ### [T732] SE-Bot: Create video avatar provider comparison doc
 - **Status**: TODO
@@ -1399,6 +1407,47 @@
   - D-ID: Pricing, SDK, lip sync quality
   - Synthesia: Enterprise tier, features
   - Output: Markdown doc with pros/cons/pricing matrix
+
+### [T733] Autotrader: Weekly performance summary report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T731]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Weekly summary sent to Telegram (every Sunday):
+  - Total trades (open/closed/settled)
+  - Weekly win rate vs previous week
+  - Weekly PnL vs previous week
+  - Best/worst performing markets
+  - Market breakdown (crypto vs weather)
+  - Key lessons/patterns observed
+  - Cron: Sunday 20:00 UTC
+
+### [T734] Autotrader: Auto-restart with exponential backoff
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T001]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Improve watchdog-autotrader.sh with:
+  - Track restart count in state file
+  - Exponential backoff: 1m → 2m → 4m → 8m (max 30m)
+  - Reset backoff after 1h of stable running
+  - Alert if >3 restarts in 1 hour (circuit breaker)
+  - Log restart reasons and uptime stats
+  - Helps avoid thrashing during API outages
+
+### [T735] Dashboard: Add countdown timer for auto-refresh
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T456]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: UX improvement for /health and /betting pages:
+  - Visual countdown to next auto-refresh (e.g., "Refreshing in 25s")
+  - Circular progress indicator
+  - Pause countdown on hover (prevents refresh while reading)
+  - Keyboard shortcut hint visible during countdown
 
 ---
 
