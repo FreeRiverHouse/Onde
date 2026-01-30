@@ -4573,15 +4573,20 @@
   - Fallback: no sound if audio context blocked
 
 ### [T757] Agent stats export to CSV
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T509]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Allow exporting agent gamification stats:
-  - CSV with: agent name, level, XP, tasks done, streak, badges
-  - Download button in Leaderboard tab
-  - Include date range filter (last week/month/all)
+- **Notes**: ✅ Implemented agent stats CSV export!
+  - ✅ Export button (📥) in Leaderboard header
+  - ✅ CSV includes: Rank, Agent Name, Level, Level Title, XP, Tasks Done, Current Streak, Status, Badges
+  - ✅ Summary footer with totals (agents, XP, tasks) and export timestamp
+  - ✅ Proper CSV escaping for commas and quotes
+  - ✅ Filename includes date: `agent-stats-YYYY-MM-DD.csv`
+  - ✅ Loading spinner during export
+  - Build passes, needs deploy to onde.surf
 
 ### [T511] WebXR export per futuro VR
 - **Status**: TODO

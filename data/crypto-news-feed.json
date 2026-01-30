@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T11:00:02.177427+00:00",
+  "timestamp": "2026-01-30T11:30:02.636453+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",
+      "url": "https://decrypt.co/356458/bitcoin-etfs-shed-817m-as-btc-hits-nine-month-low",
+      "source": "decrypt",
+      "description": "Bitcoin\u2019s crash to a nine-month low, coupled with growing uncertainty about macroeconomic policy, catalyzed $817 million in ETF outflows.",
+      "published": "2026-01-30T11:24:48+00:00"
+    },
     {
       "title": "Former Google Engineer Convicted of Stealing AI Secrets for China",
       "url": "https://decrypt.co/356455/former-google-engineer-convicted-of-stealing-ai-secrets-for-china",
@@ -142,13 +149,6 @@
       "source": "decrypt",
       "description": "Google has integrated Gemini 3 into Chrome with agentic capabilities, joining OpenAI and Anthropic in the race to automate web browsing.",
       "published": "2026-01-29T21:53:33+00:00"
-    },
-    {
-      "title": "Bitcoin Plunge Could Get Much Worse as Death Cross Gains Power",
-      "url": "https://decrypt.co/356391/bitcoin-plunge-could-get-much-worse-death-cross-gains-power",
-      "source": "decrypt",
-      "description": "Bitcoin's technical setup is turning ugly, as the charts suggest bulls might want to buckle up for more pain ahead.",
-      "published": "2026-01-29T21:34:38+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
