@@ -1397,6 +1397,9 @@
   - **Env vars**: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 
 ### [T732] SE-Bot: Create video avatar provider comparison doc
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T476]
