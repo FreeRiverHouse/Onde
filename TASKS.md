@@ -4694,12 +4694,26 @@
 - **Notes**: Whisper local → testo → create task. Bottone microfono nell'input
 
 ### [T507] TTS per risposte agenti
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: ElevenLabs/sag per voce. Toggle "Read aloud" per chat responses
+- **Notes**: ✅ Implemented TTS for agent chat responses in FreeRiverHouse!
+  - ✅ Created `src/lib/useTTS.ts` - React hook for Web Speech API
+    - Supports rate, pitch, volume, language settings
+    - Voice selection with fallback
+    - Play/pause/stop controls
+    - Clean text utility (strips markdown, URLs)
+  - ✅ Added TTS toggle in chat panel header
+  - ✅ Speaker button on each agent message
+  - ✅ Click to play, click again to stop
+  - ✅ Visual indicator (pulse animation) when speaking
+  - ✅ Persists preference to localStorage
+  - ✅ Uses browser's native speechSynthesis (no API key needed)
+  - ✅ Default language: Italian (it-IT)
+  - Build passes, ready for deploy
 
 ### [T508] Notifiche browser quando task completato
 - **Status**: DONE

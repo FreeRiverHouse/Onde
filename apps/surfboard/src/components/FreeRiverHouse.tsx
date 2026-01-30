@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useToast } from './Toast';
 import { AgentLeaderboard } from './AgentLeaderboard';
 import { calculateAgentMood } from '../lib/gamification';
+import { useTTS, cleanTextForTTS } from '../lib/useTTS';
 
 // Monument Valley color palette
 const MV_COLORS = {
@@ -133,8 +134,53 @@ export function FreeRiverHouse() {
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
   const [levelUpCelebration, setLevelUpCelebration] = useState<{agentName: string; newLevel: number} | null>(null);
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+  const [ttsEnabled, setTtsEnabled] = useState<boolean>(false);
+  const [speakingMessageId, setSpeakingMessageId] = useState<number | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const { showToast } = useToast();
+  
+  // TTS hook for agent responses
+  const tts = useTTS({ lang: 'it-IT', rate: 1.0 });
+
+  // Load TTS preference from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedTtsPref = localStorage.getItem('agentTTSEnabled');
+      setTtsEnabled(savedTtsPref === 'true');
+    }
+  }, []);
+
+  // Toggle TTS and persist preference
+  const toggleTTS = (value: boolean) => {
+    setTtsEnabled(value);
+    localStorage.setItem('agentTTSEnabled', value ? 'true' : 'false');
+    if (!value && tts.isSpeaking) {
+      tts.stop();
+      setSpeakingMessageId(null);
+    }
+  };
+
+  // Speak a chat message
+  const speakMessage = useCallback((text: string, messageIndex: number) => {
+    if (tts.isSpeaking && speakingMessageId === messageIndex) {
+      // Stop if clicking the same message
+      tts.stop();
+      setSpeakingMessageId(null);
+    } else {
+      // Stop any current speech and start new
+      tts.stop();
+      const cleanText = cleanTextForTTS(text);
+      tts.speak(cleanText);
+      setSpeakingMessageId(messageIndex);
+    }
+  }, [tts, speakingMessageId]);
+
+  // Reset speaking state when TTS finishes
+  useEffect(() => {
+    if (!tts.isSpeaking) {
+      setSpeakingMessageId(null);
+    }
+  }, [tts.isSpeaking]);
 
   // Load sound preference from localStorage
   useEffect(() => {
@@ -1162,6 +1208,25 @@ export function FreeRiverHouse() {
 
                 {panelMode === 'chat' && (
                   <>
+                    {/* TTS toggle header */}
+                    {tts.isSupported && (
+                      <div className="px-3 py-2 border-b border-white/5 flex items-center justify-between">
+                        <span className="text-[10px] text-white/40">Read aloud</span>
+                        <button
+                          onClick={() => toggleTTS(!ttsEnabled)}
+                          className={`p-1.5 rounded transition-colors ${
+                            ttsEnabled 
+                              ? 'bg-purple-500/20 text-purple-400' 
+                              : 'bg-white/5 text-white/30 hover:text-white/50'
+                          }`}
+                          title={ttsEnabled ? 'TTS enabled - click messages to hear' : 'Enable TTS'}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
                     {/* Chat history */}
                     <div className="flex-1 overflow-y-auto max-h-48 p-2 space-y-2">
                       {chatHistory.filter(m => m.agentId === selectedAgent.id).length > 0 ? (
@@ -1174,8 +1239,33 @@ export function FreeRiverHouse() {
                                 : 'bg-purple-500/10 text-purple-200 mr-4'
                             }`}
                           >
-                            <div className="text-[10px] text-white/30 mb-1">
-                              {msg.role === 'user' ? 'You' : selectedAgent.name} • {new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                            <div className="flex items-center justify-between text-[10px] text-white/30 mb-1">
+                              <span>
+                                {msg.role === 'user' ? 'You' : selectedAgent.name} • {new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                              {/* TTS button for agent messages */}
+                              {msg.role === 'agent' && ttsEnabled && tts.isSupported && (
+                                <button
+                                  onClick={() => speakMessage(msg.content, idx)}
+                                  className={`p-1 rounded transition-colors ${
+                                    speakingMessageId === idx
+                                      ? 'bg-purple-500/30 text-purple-300 animate-pulse'
+                                      : 'hover:bg-white/10 text-white/40 hover:text-white/60'
+                                  }`}
+                                  title={speakingMessageId === idx ? 'Stop' : 'Read aloud'}
+                                >
+                                  {speakingMessageId === idx ? (
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                      <rect x="6" y="6" width="4" height="12" />
+                                      <rect x="14" y="6" width="4" height="12" />
+                                    </svg>
+                                  ) : (
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                    </svg>
+                                  )}
+                                </button>
+                              )}
                             </div>
                             <div className="whitespace-pre-wrap">{msg.content}</div>
                           </div>
