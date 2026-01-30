@@ -881,8 +881,8 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T808] Reader App: Add OPDS catalog browser
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T690]
 - **Blocks**: -
 - **Priority**: P3
