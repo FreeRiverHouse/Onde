@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T18:00:02.602915+00:00",
+  "timestamp": "2026-01-30T18:30:02.322698+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Liquidations knock Bitcoin out of world\u2019s top 10 assets",
+      "url": "https://cointelegraph.com/news/liquidations-knock-bitcoin-out-world-top-10-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "A wave of leveraged liquidations erased hundreds of billions in value, reshuffling Bitcoin\u2019s standing among the world\u2019s largest investable assets.",
+      "published": "2026-01-30T18:21:47+00:00"
+    },
+    {
+      "title": "Hong Kong regulators to submit draft bill for crypto framework in 2026",
+      "url": "https://cointelegraph.com/news/hong-kong-financial-regulators-crypto-framework?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "An official said that Hong Kong authorities would work on a draft framework, and had begun processing license applications for stablecoin issuers and addressing crypto taxes.",
+      "published": "2026-01-30T18:03:22+00:00"
+    },
     {
       "title": "Blank Check Firm Linked to Crypto Exchange Kraken Raises $345 Million in Upsized IPO",
       "url": "https://decrypt.co/356494/blank-check-firm-linked-crypto-exchange-kraken-raises-345-million-ipo",
@@ -128,20 +142,6 @@
       "source": "cointelegraph",
       "description": "DeFi's composability creates cascading exploit risks while protocols handle risk idiosyncratically. Institutional adoption demands TradFi-style standardized frameworks.",
       "published": "2026-01-30T12:30:00+00:00"
-    },
-    {
-      "title": "Trump says shutdown deal near, but markets remain on edge",
-      "url": "https://cointelegraph.com/news/trump-say-us-government-shutdown-deal-near-market-jitters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "A tentative deal in Washington has eased some shutdown fears, but with key votes still pending, crypto, gold and silver are trading through liquidity jitters and foreign policy risk.",
-      "published": "2026-01-30T12:16:47+00:00"
-    },
-    {
-      "title": "Vitalik Buterin earmarks $45M in ETH for privacy and open-source infrastructure",
-      "url": "https://cointelegraph.com/news/vitalik-buterin-45m-eth-privacy-open-hardware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The move comes as the Ethereum Foundation enters a period of \u201cmild austerity\u201d while sticking to its core technical roadmap, Buterin said.",
-      "published": "2026-01-30T11:39:20+00:00"
     },
     {
       "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",

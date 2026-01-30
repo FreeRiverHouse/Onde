@@ -8,6 +8,38 @@ export interface DailyStats {
   sessionsCount: number;
 }
 
+export interface ReadingGoal {
+  type: 'pages' | 'minutes';
+  target: number; // pages per day or minutes per day
+  enabled: boolean;
+  reminderEnabled: boolean;
+  reminderTime: string; // HH:MM format
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  unlockedAt: string | null; // ISO date string or null if not unlocked
+}
+
+export const DEFAULT_ACHIEVEMENTS: Achievement[] = [
+  { id: 'first_page', name: 'First Steps', description: 'Read your first page', icon: '📖', unlockedAt: null },
+  { id: 'first_book', name: 'Bookworm', description: 'Complete your first book', icon: '🎉', unlockedAt: null },
+  { id: 'streak_3', name: 'Getting Started', description: '3-day reading streak', icon: '🌱', unlockedAt: null },
+  { id: 'streak_7', name: 'Week Warrior', description: '7-day reading streak', icon: '🔥', unlockedAt: null },
+  { id: 'streak_14', name: 'Dedicated Reader', description: '14-day reading streak', icon: '💪', unlockedAt: null },
+  { id: 'streak_30', name: 'Reading Master', description: '30-day reading streak', icon: '🏆', unlockedAt: null },
+  { id: 'pages_100', name: 'Century', description: 'Read 100 pages total', icon: '💯', unlockedAt: null },
+  { id: 'pages_500', name: 'Page Turner', description: 'Read 500 pages total', icon: '📚', unlockedAt: null },
+  { id: 'pages_1000', name: 'Bibliophile', description: 'Read 1000 pages total', icon: '🌟', unlockedAt: null },
+  { id: 'hours_10', name: 'Time Well Spent', description: '10 hours of reading', icon: '⏰', unlockedAt: null },
+  { id: 'hours_50', name: 'Avid Reader', description: '50 hours of reading', icon: '📕', unlockedAt: null },
+  { id: 'books_5', name: 'Five Down', description: 'Complete 5 books', icon: '✨', unlockedAt: null },
+  { id: 'goal_streak_7', name: 'Goal Getter', description: 'Meet daily goal 7 days in a row', icon: '🎯', unlockedAt: null },
+];
+
 export interface ReadingStats {
   // Lifetime totals
   totalReadingTimeMs: number;
@@ -20,12 +52,23 @@ export interface ReadingStats {
   longestStreak: number;
   lastReadDate: string | null; // YYYY-MM-DD
   
+  // Goal streaks
+  goalStreak: number; // consecutive days meeting daily goal
+  longestGoalStreak: number;
+  
   // Daily breakdown (last 30 days)
   dailyStats: DailyStats[];
   
   // Current session tracking
   sessionStartTime: number | null;
   sessionStartPages: number;
+  
+  // Goals
+  goal: ReadingGoal;
+  
+  // Achievements
+  achievements: Achievement[];
+  newAchievements: string[]; // IDs of newly unlocked achievements to show
 }
 
 interface ReadingStatsState extends ReadingStats {
@@ -35,11 +78,18 @@ interface ReadingStatsState extends ReadingStats {
   recordPageTurn: () => void;
   recordBookCompleted: () => void;
   
+  // Goal actions
+  setGoal: (goal: Partial<ReadingGoal>) => void;
+  checkAchievements: () => void;
+  dismissNewAchievements: () => void;
+  
   // Getters
   getTodayStats: () => DailyStats | undefined;
   getWeekStats: () => DailyStats[];
   getAverageReadingTime: () => number; // avg per day in ms
   getAveragePagesPerSession: () => number;
+  getTodayGoalProgress: () => { current: number; target: number; percentage: number; met: boolean };
+  getUnlockedAchievements: () => Achievement[];
 }
 
 const getDateString = (date: Date = new Date()): string => {
@@ -64,9 +114,20 @@ const defaultStats: ReadingStats = {
   currentStreak: 0,
   longestStreak: 0,
   lastReadDate: null,
+  goalStreak: 0,
+  longestGoalStreak: 0,
   dailyStats: [],
   sessionStartTime: null,
   sessionStartPages: 0,
+  goal: {
+    type: 'pages',
+    target: 20, // default: 20 pages per day
+    enabled: false,
+    reminderEnabled: false,
+    reminderTime: '20:00', // default: 8 PM reminder
+  },
+  achievements: [...DEFAULT_ACHIEVEMENTS],
+  newAchievements: [],
 };
 
 export const useReadingStatsStore = create<ReadingStatsState>()(
@@ -135,17 +196,49 @@ export const useReadingStatsStore = create<ReadingStatsState>()(
         const thirtyDaysAgoStr = getDateString(thirtyDaysAgo);
         const filteredStats = existingDailyStats.filter(d => d.date >= thirtyDaysAgoStr);
         
+        // Check if goal was met today
+        const todayStatsAfter = filteredStats.find(d => d.date === today);
+        let newGoalStreak = state.goalStreak;
+        
+        if (state.goal.enabled && todayStatsAfter) {
+          const goalMet = state.goal.type === 'pages'
+            ? todayStatsAfter.pagesRead >= state.goal.target
+            : todayStatsAfter.readingTimeMs >= state.goal.target * 60000;
+          
+          if (goalMet) {
+            // Check if we already counted goal streak today
+            const lastReadWasToday = state.lastReadDate === today;
+            const previousGoalMet = state.goal.type === 'pages'
+              ? (todayStatsAfter.pagesRead - pagesRead) >= state.goal.target
+              : (todayStatsAfter.readingTimeMs - sessionDuration) >= state.goal.target * 60000;
+            
+            // Only increment if goal was just met (not already met before this session)
+            if (!previousGoalMet) {
+              if (lastReadWasToday || isYesterday(state.lastReadDate || '')) {
+                newGoalStreak = state.goalStreak + 1;
+              } else {
+                newGoalStreak = 1;
+              }
+            }
+          }
+        }
+        
         set({
           totalReadingTimeMs: state.totalReadingTimeMs + sessionDuration,
           totalPagesRead: state.totalPagesRead + pagesRead,
           totalSessions: state.totalSessions + 1,
           currentStreak: newStreak,
           longestStreak: Math.max(newStreak, state.longestStreak),
+          goalStreak: newGoalStreak,
+          longestGoalStreak: Math.max(newGoalStreak, state.longestGoalStreak),
           lastReadDate: today,
           dailyStats: filteredStats,
           sessionStartTime: null,
           sessionStartPages: 0,
         });
+        
+        // Check achievements after updating stats
+        get().checkAchievements();
       },
       
       recordPageTurn: () => {
@@ -183,6 +276,106 @@ export const useReadingStatsStore = create<ReadingStatsState>()(
         if (state.totalSessions === 0) return 0;
         return state.totalPagesRead / state.totalSessions;
       },
+      
+      getTodayGoalProgress: () => {
+        const state = get();
+        const todayStats = state.dailyStats.find(d => d.date === getDateString());
+        
+        if (!state.goal.enabled) {
+          return { current: 0, target: 0, percentage: 0, met: false };
+        }
+        
+        const current = state.goal.type === 'pages'
+          ? (todayStats?.pagesRead || 0)
+          : Math.floor((todayStats?.readingTimeMs || 0) / 60000); // convert to minutes
+        
+        const percentage = Math.min(100, Math.round((current / state.goal.target) * 100));
+        const met = current >= state.goal.target;
+        
+        return { current, target: state.goal.target, percentage, met };
+      },
+      
+      setGoal: (goalUpdate: Partial<ReadingGoal>) => {
+        set((state) => ({
+          goal: { ...state.goal, ...goalUpdate },
+        }));
+      },
+      
+      checkAchievements: () => {
+        const state = get();
+        const newlyUnlocked: string[] = [];
+        const now = new Date().toISOString();
+        
+        const updatedAchievements = state.achievements.map(achievement => {
+          if (achievement.unlockedAt) return achievement; // Already unlocked
+          
+          let unlocked = false;
+          
+          switch (achievement.id) {
+            case 'first_page':
+              unlocked = state.totalPagesRead >= 1;
+              break;
+            case 'first_book':
+              unlocked = state.booksCompleted >= 1;
+              break;
+            case 'streak_3':
+              unlocked = state.currentStreak >= 3;
+              break;
+            case 'streak_7':
+              unlocked = state.currentStreak >= 7;
+              break;
+            case 'streak_14':
+              unlocked = state.currentStreak >= 14;
+              break;
+            case 'streak_30':
+              unlocked = state.currentStreak >= 30;
+              break;
+            case 'pages_100':
+              unlocked = state.totalPagesRead >= 100;
+              break;
+            case 'pages_500':
+              unlocked = state.totalPagesRead >= 500;
+              break;
+            case 'pages_1000':
+              unlocked = state.totalPagesRead >= 1000;
+              break;
+            case 'hours_10':
+              unlocked = state.totalReadingTimeMs >= 10 * 60 * 60 * 1000;
+              break;
+            case 'hours_50':
+              unlocked = state.totalReadingTimeMs >= 50 * 60 * 60 * 1000;
+              break;
+            case 'books_5':
+              unlocked = state.booksCompleted >= 5;
+              break;
+            case 'goal_streak_7':
+              unlocked = state.goalStreak >= 7;
+              break;
+          }
+          
+          if (unlocked) {
+            newlyUnlocked.push(achievement.id);
+            return { ...achievement, unlockedAt: now };
+          }
+          
+          return achievement;
+        });
+        
+        if (newlyUnlocked.length > 0) {
+          set({
+            achievements: updatedAchievements,
+            newAchievements: [...state.newAchievements, ...newlyUnlocked],
+          });
+        }
+      },
+      
+      dismissNewAchievements: () => {
+        set({ newAchievements: [] });
+      },
+      
+      getUnlockedAchievements: () => {
+        return get().achievements.filter(a => a.unlockedAt !== null);
+      },
     }),
     {
       name: 'onde-reader-stats',
@@ -194,7 +387,11 @@ export const useReadingStatsStore = create<ReadingStatsState>()(
         currentStreak: state.currentStreak,
         longestStreak: state.longestStreak,
         lastReadDate: state.lastReadDate,
+        goalStreak: state.goalStreak,
+        longestGoalStreak: state.longestGoalStreak,
         dailyStats: state.dailyStats,
+        goal: state.goal,
+        achievements: state.achievements,
       }),
     }
   )

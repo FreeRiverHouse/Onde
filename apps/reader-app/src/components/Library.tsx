@@ -5,6 +5,7 @@ import { useState, useRef, useCallback, DragEvent, useMemo, useEffect } from 're
 import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
 import { OfflineIndicator } from './OfflineIndicator';
+import { GoalProgressWidget } from './GoalProgressWidget';
 
 // Upload progress state
 interface UploadProgress {
@@ -305,13 +306,18 @@ export function Library() {
       )}
       {/* Header */}
       <header className="max-w-6xl mx-auto mb-12">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-3">
               <h1 className="text-4xl font-bold tracking-tight">📚 Library</h1>
               <OfflineIndicator />
             </div>
             <p className="text-lg opacity-70 mt-2">Your personal reading collection</p>
+          </div>
+          
+          {/* Goal Progress Widget - shows between title and buttons on larger screens */}
+          <div className="hidden lg:block">
+            <GoalProgressWidget compact />
           </div>
           
           <div className="flex items-center gap-3">
@@ -447,6 +453,11 @@ export function Library() {
             {filter !== 'all' && ` (${filter})`}
           </p>
         )}
+      </div>
+
+      {/* Goal Progress Widget - full size on mobile only */}
+      <div className="lg:hidden max-w-6xl mx-auto mb-8">
+        <GoalProgressWidget />
       </div>
 
       {/* Reading Progress Section - only show when not filtering */}

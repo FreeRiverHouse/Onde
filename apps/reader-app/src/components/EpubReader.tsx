@@ -10,6 +10,7 @@ import { AnnotationsPanel } from './AnnotationsPanel';
 import { VocabularyPanel } from './VocabularyPanel';
 import { TextToSpeech } from './TextToSpeech';
 import { ReadingStatsPanel } from './ReadingStatsPanel';
+import { ReadingGoalsPanel } from './ReadingGoalsPanel';
 import { OfflineIndicator } from './OfflineIndicator';
 import { calculateReadingMinutes } from '@/lib/readingTime';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
@@ -68,6 +69,7 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
   const [isVocabularyOpen, setIsVocabularyOpen] = useState(false);
   const [isTTSOpen, setIsTTSOpen] = useState(false);
   const [isStatsOpen, setIsStatsOpen] = useState(false);
+  const [isGoalsOpen, setIsGoalsOpen] = useState(false);
   const [pageText, setPageText] = useState('');
   const [highlightMenu, setHighlightMenu] = useState<{
     position: { x: number; y: number };
@@ -558,6 +560,13 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
                 📊
               </button>
               <button
+                onClick={(e) => { e.stopPropagation(); setIsGoalsOpen(true); }}
+                className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
+                title="Reading Goals & Achievements"
+              >
+                🎯
+              </button>
+              <button
                 onClick={(e) => { e.stopPropagation(); toggleToc(); }}
                 className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10"
                 title="Table of Contents"
@@ -683,6 +692,12 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
       <ReadingStatsPanel
         isOpen={isStatsOpen}
         onClose={() => setIsStatsOpen(false)}
+      />
+      
+      {/* Reading Goals & Achievements panel */}
+      <ReadingGoalsPanel
+        isOpen={isGoalsOpen}
+        onClose={() => setIsGoalsOpen(false)}
       />
     </div>
   );
