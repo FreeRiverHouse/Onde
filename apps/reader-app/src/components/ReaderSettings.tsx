@@ -1,6 +1,7 @@
 'use client';
 
 import { useReaderStore, Theme } from '@/store/readerStore';
+import { DataTransferPanel } from './DataTransferPanel';
 
 export function ReaderSettings() {
   const { settings, updateSettings, toggleSettings } = useReaderStore();
@@ -139,6 +140,9 @@ export function ReaderSettings() {
               ))}
             </div>
           </div>
+
+          {/* Backup & Restore */}
+          <DataTransferPanel />
 
           {/* Close button */}
           <button

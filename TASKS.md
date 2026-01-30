@@ -544,18 +544,30 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T720] Reader App: Export/Import library data
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Backup and restore reader data:
-  - Export all data: books, progress, annotations, vocabulary, settings, TTS settings
-  - JSON format for easy editing/inspection
-  - Import with merge strategy (keep existing or overwrite)
-  - Validate import data before applying
-  - UI buttons in settings panel
-  - Useful for device migration or backup
+- **Notes**: ✅ Implemented export/import functionality!
+  - ✅ Created `src/lib/dataTransfer.ts` - core export/import logic
+    - Export version tracking for future migrations
+    - Full data export: books, highlights, bookmarks, vocabulary, settings, TTS settings, reading stats
+    - JSON validation with detailed error reporting
+    - Two import strategies: "merge" (keep existing + add new) and "overwrite" (replace all)
+    - Smart merge: updates books with higher progress, deduplicates by ID
+    - Daily stats merge takes max values for each day
+  - ✅ Created `src/components/DataTransferPanel.tsx` - UI component
+    - Expandable "💾 Backup & Restore" section in settings
+    - Export button downloads JSON file with date in filename
+    - Import with file picker, validation preview, strategy selection
+    - Progress states: validating → preview → importing → done/error
+    - Success/error feedback with import summary
+    - Theme-aware styling (light/dark/sepia)
+  - ✅ Integrated into ReaderSettings.tsx
+  - ✅ Build passes
+  - ⏳ Needs deploy to onde.la/reader (separate task)
 
 ### [T721] Trading: Add asset correlation heatmap widget
 - **Status**: TODO
