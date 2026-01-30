@@ -573,18 +573,64 @@
   - ⏳ Needs deploy to onde.la/reader (separate task)
 
 ### [T721] Trading: Add asset correlation heatmap widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T483]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visual correlation matrix on trading dashboard:
-  - Heatmap showing BTC/ETH/Weather correlations
-  - Color scale: red (high correlation) to green (negative)
-  - Click to see detailed correlation history
-  - Data from btc-eth-correlation.py and asset-correlation.json
-  - Update daily via cron
-  - Helps visualize diversification opportunities
+- **Notes**: ✅ Implemented asset correlation heatmap widget!
+  - **Component**: `apps/surfboard/src/components/CorrelationHeatmapWidget.tsx`
+  - **Features:**
+    - Visual 3x3 correlation matrix (BTC, ETH, Weather)
+    - Color-coded cells: red (high correlation) → green (diversified) → blue (hedging)
+    - Risk level badge (high/medium/low)
+    - BTC-ETH correlation percentage with interpretation
+    - Dynamic crypto limit based on correlation
+    - Current prices with 7d change
+    - Data source and timestamp
+  - **Integration:**
+    - Added to /betting page after ConcentrationHistoryChart
+    - Added `assetCorrelation` field to TradingStats interface
+    - Updated push-stats-to-gist.py with `load_asset_correlation()` function
+  - **Gist**: Correlation data now included in onde-trading-stats.json
+  - Build passes, ready for deploy
+
+### [T722] Deploy onde.surf with correlation heatmap widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T721]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the correlation heatmap widget to production:
+  - Build and deploy surfboard to Cloudflare Pages
+  - Verify correlation data displays correctly on /betting
+  - Test responsive layout on mobile
+  - Check dark mode compatibility
+
+### [T723] Trading: Track correlation history over time
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T721]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track BTC/ETH correlation changes over time:
+  - Log correlation snapshots to correlation-history.jsonl
+  - Run btc-eth-correlation.py daily via cron
+  - Show correlation trend chart on dashboard (mini sparkline)
+  - Useful to see if market dynamics are changing
+
+### [T724] Trading: Alert when correlation changes significantly
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T723]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert on significant correlation changes:
+  - If correlation jumps from <0.7 to >0.9 (or vice versa)
+  - Create kalshi-correlation-change.alert for heartbeat
+  - Include: old value, new value, interpretation, trading implication
+  - Helps catch market regime changes early
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE

@@ -44,6 +44,7 @@ import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/WeatherPerformanceWidget';
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
+import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
 import { DailyGoalTracker } from '@/components/DailyGoalTracker';
@@ -186,6 +187,29 @@ interface TradingStats {
     warningPct: number;
     latestConcentrations: Record<string, number>;
     lastUpdated: string | null;
+  } | null;
+  // Asset correlation (T721)
+  assetCorrelation?: {
+    generated_at: string;
+    status: string;
+    correlation: {
+      value: number;
+      period_days: number;
+      interpretation: string;
+      data_points: number;
+    };
+    adjustment: {
+      crypto_group_limit: number;
+      adjustment_reason: string;
+      risk_level: string;
+    };
+    current_prices: {
+      btc: number;
+      eth: number;
+      btc_7d_change_pct: number;
+      eth_7d_change_pct: number;
+    };
+    data_source: string;
   } | null;
 }
 
@@ -1841,6 +1865,14 @@ export default function BettingDashboard() {
             <div className="mt-4">
               <ConcentrationHistoryChart 
                 data={tradingStats.concentrationHistory?.snapshots}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Asset Correlation Heatmap (T721) */}
+            <div className="mt-4">
+              <CorrelationHeatmapWidget 
+                correlationData={tradingStats.assetCorrelation || undefined}
                 loading={isLoading}
               />
             </div>

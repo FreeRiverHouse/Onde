@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T05:00:03.051881+00:00",
+  "timestamp": "2026-01-30T06:00:02.473748+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,34 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Democrats Press DOJ Deputy Over Crypto Holdings, Enforcement Retreat",
+      "url": "https://decrypt.co/356452/democrats-doj-deputy-crypto-holdings-enforcement-retreat",
+      "source": "decrypt",
+      "description": "A group of Democratic senators is pressing the Justice Department over ethics questions tied to a rollback in crypto enforcement.",
+      "published": "2026-01-30T05:54:04+00:00"
+    },
+    {
+      "title": "Bitcoin \u2018to keep bleeding against stock market\u2019 as cycle wraps: Analyst",
+      "url": "https://cointelegraph.com/news/bitcoin-rotation-gold-silver-btc-price-crypto-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoiners hoping for a big rotation from gold and silver might be chasing the wrong signal, says Benjamin Cowen.",
+      "published": "2026-01-30T05:45:30+00:00"
+    },
+    {
+      "title": "Kevin Warsh set to be nominated by Trump as Fed chair on Friday: Reports",
+      "url": "https://cointelegraph.com/news/trump-tipped-to-name-kevin-warsh-next-fed-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Kevin Warsh, seen as a more hawkish Federal Reserve chair pick, previously said Bitcoin could serve as a check on fiscal policy decisions.",
+      "published": "2026-01-30T05:15:56+00:00"
+    },
+    {
+      "title": "Bitcoin falls to $81K, triggering $1.7B in liquidations",
+      "url": "https://cointelegraph.com/news/bitcoin-falls-to-81k-causing-billions-in-liquidations?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin plunged to a nine-month low as geopolitical tensions, tariff threats, and tech earnings concerned traders, triggering billions of dollars worth of long liquidations.",
+      "published": "2026-01-30T05:11:05+00:00"
+    },
     {
       "title": "Securitize says revenues up 840% in filing to go public via Cantor SPAC",
       "url": "https://cointelegraph.com/news/securitize-says-revenues-up-840-in-filing-to-go-public-via-cantor-spac?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -109,13 +137,6 @@
       "published": "2026-01-29T21:52:00+00:00"
     },
     {
-      "title": "21Shares launches first Jito staked Solana ETP in Europe",
-      "url": "https://cointelegraph.com/news/21shares-first-jito-staked-solana-etp-europe?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The product offers exchange-traded exposure to JitoSOL with staking rewards embedded, as liquid staking ETFs remain under review in the United States.",
-      "published": "2026-01-29T21:48:31+00:00"
-    },
-    {
       "title": "Bitcoin Plunge Could Get Much Worse as Death Cross Gains Power",
       "url": "https://decrypt.co/356391/bitcoin-plunge-could-get-much-worse-death-cross-gains-power",
       "source": "decrypt",
@@ -128,27 +149,6 @@
       "source": "decrypt",
       "description": "Atkins had previously said the exemptions, which could target tokenized securities, DeFi, and other crypto sectors, would be out in January.",
       "published": "2026-01-29T21:18:16+00:00"
-    },
-    {
-      "title": "Crypto custodian Copper weighs IPO as institutional demand grows: Report",
-      "url": "https://cointelegraph.com/news/crypto-custodian-copper-ipo-institutional-demand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "A potential listing would further legitimize digital asset custody as core market infrastructure rather than a niche service following BitGo's public launch.",
-      "published": "2026-01-29T20:58:18+00:00"
-    },
-    {
-      "title": "Escape Velocity raises $62M to back DePIN infrastructure projects",
-      "url": "https://cointelegraph.com/news/escape-velocity-capital-raise-depin-projects?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The raise underscores venture investors\u2019 selective return to infrastructure-heavy crypto bets as DePIN struggles to move beyond early token launches.",
-      "published": "2026-01-29T20:53:33+00:00"
-    },
-    {
-      "title": "Dogecoin, XRP and Cardano Hit Lowest Prices Since 2024 as Altcoins Fall Harder Than Bitcoin",
-      "url": "https://decrypt.co/356359/dogecoin-xrp-cardano-lowest-prices-since-2024-altcoins-fall-harder-bitcoin",
-      "source": "decrypt",
-      "description": "Bitcoin is down bad Thursday, but Dogecoin, XRP, Cardano, and Litecoin are showing sharper losses, hitting lows not seen in over a year.",
-      "published": "2026-01-29T20:32:52+00:00"
     },
     {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
