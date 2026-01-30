@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-01-29T17:33:51.142495",
+  "status": "success",
+  "summary": {
+    "total_trades": 123,
+    "overall_win_rate": 0.0,
+    "high_concentration_win_rate": 0.0,
+    "low_concentration_win_rate": 0,
+    "win_rate_difference": 0.0
+  },
+  "high_concentration": {
+    "threshold": ">40%",
+    "description": "Trades when a single asset class was >40% of portfolio",
+    "trades": 123,
+    "wins": 0,
+    "losses": 123,
+    "win_rate": 0.0,
+    "total_cost": 8.55,
+    "avg_concentration": 100.0
+  },
+  "low_concentration": {
+    "threshold": "<=40%",
+    "description": "Trades when portfolio was diversified",
+    "trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "win_rate": 0,
+    "total_cost": 0,
+    "avg_concentration": 0
+  },
+  "asset_breakdown": {
+    "crypto": {
+      "trades": 123,
+      "win_rate": 0.0,
+      "total_cost": 8.55
+    }
+  },
+  "recommendations": [
+    {
+      "type": "insufficient_data",
+      "reason": "Need more trades in both categories (high: 123, low: 0)",
+      "confidence": "none"
+    },
+    {
+      "type": "add_diversification",
+      "reason": "All trades are in crypto - consider adding other asset classes",
+      "confidence": "high"
+    },
+    {
+      "type": "review_strategy",
+      "reason": "Overall win rate (0.0%) is below 30%",
+      "confidence": "high"
+    }
+  ],
+  "data_quality": {
+    "has_concentration_history": false,
+    "trades_with_embedded_concentration": 0,
+    "using_retroactive_calculation": true
+  }
+}

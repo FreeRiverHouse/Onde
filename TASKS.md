@@ -259,17 +259,21 @@
   - ✅ Site working (307 redirect to login as expected)
 
 ### [T485] Trading: Concentration vs win rate analysis
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T482]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if high concentration correlates with wins or losses:
-  - Create `scripts/analyze-concentration-performance.py`
-  - Compare win rate when concentration >40% vs <40%
-  - Track PnL during high concentration periods
-  - Generate recommendations: diversify more or concentrate more?
+- **Notes**: ✅ Implemented! `scripts/analyze-concentration-performance.py`:
+  - Loads all trades from kalshi-trades-*.jsonl files
+  - Classifies assets (crypto/weather/other)
+  - Calculates retroactive concentration when no embedded data
+  - Compares win rate when concentration >40% vs ≤40%
+  - Tracks PnL by concentration level
+  - Generates smart recommendations
   - Output: `data/trading/concentration-analysis.json`
+  - **Initial findings**: 123 trades, 100% crypto concentration, 0% win rate → "diversify + review strategy"
 
 ### [T486] Push stats to gist with concentration history
 - **Status**: DONE
