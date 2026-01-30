@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-01-30T16:04:59.563087+00:00",
+  "total_validated": 30,
+  "overall": {
+    "count": 30,
+    "mae": 2.81,
+    "rmse": 2.81,
+    "mean_bias": 2.81,
+    "bias_direction": "over-predicting",
+    "within_1F": "0.0%",
+    "within_2F": "0.0%",
+    "within_3F": "100.0%"
+  },
+  "by_city": {
+    "CHI": {
+      "count": 29,
+      "mae": 2.8,
+      "rmse": 2.8,
+      "mean_bias": 2.8,
+      "bias_direction": "over-predicting",
+      "within_1F": "0.0%",
+      "within_2F": "0.0%",
+      "within_3F": "100.0%"
+    },
+    "NY": {
+      "count": 1,
+      "mae": 3.0,
+      "rmse": 3.0,
+      "mean_bias": 3.0,
+      "bias_direction": "over-predicting",
+      "within_1F": "0.0%",
+      "within_2F": "0.0%",
+      "within_3F": "100.0%"
+    }
+  },
+  "by_horizon": {
+    "<12h": {
+      "count": 30,
+      "mae": 2.81,
+      "rmse": 2.81,
+      "mean_bias": 2.81,
+      "bias_direction": "over-predicting",
+      "within_1F": "0.0%",
+      "within_2F": "0.0%",
+      "within_3F": "100.0%"
+    }
+  },
+  "sample_validations": [
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B16.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 3.4,
+      "result": "lost"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B16.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 3.4,
+      "result": "lost"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B16.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 3.3,
+      "result": "lost"
+    },
+    {
+      "ticker": "KXHIGHNY-26JAN29-B23.5",
+      "city": "NY",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 21,
+      "actual_temp": 18.0,
+      "error": 3.0,
+      "abs_error": 3.0,
+      "hours_before_settlement": 3.2,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.9,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.8,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.7,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.6,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.5,
+      "result": "won"
+    },
+    {
+      "ticker": "KXHIGHCHI-26JAN29-B18.5",
+      "city": "CHI",
+      "is_high_temp": true,
+      "settlement_date": "2026-01-29T23:59:00+00:00",
+      "forecast_temp": 16,
+      "actual_temp": 13.2,
+      "error": 2.8,
+      "abs_error": 2.8,
+      "hours_before_settlement": 2.4,
+      "result": "won"
+    }
+  ]
+}

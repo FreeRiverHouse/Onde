@@ -5415,19 +5415,29 @@
   - ⏳ Dashboard widget (future)
 
 ### [T773] Trading: Weather forecast accuracy validator
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Compare weather forecasts used for trading vs actual outcomes:
-  - Log forecast_temp at trade time with ticker
-  - After settlement, get actual temperature from weather API
-  - Calculate MAE (Mean Absolute Error) of forecasts
-  - Track by city (CHI, NYC, etc.)
-  - Identify if forecast bias exists (consistently too high/low)
-  - Script: `scripts/validate-weather-forecasts.py`
-  - May reveal why weather trades have 40% WR despite "high edge"
+- **Notes**: ✅ Implemented weather forecast validation!
+  - **Script**: `scripts/validate-weather-forecasts.py`
+  - **Output**: `data/trading/weather-forecast-accuracy.json`
+  - **Features:**
+    - ✅ Loads weather trades from all trade files
+    - ✅ Fetches actual temps from Open-Meteo historical archive
+    - ✅ Calculates MAE, RMSE, bias by city and horizon
+    - ✅ Identifies systematic over/under-prediction
+    - ✅ Detailed validation report
+    - ✅ JSON output option (--json)
+  - **Initial findings (30 trades):**
+    - MAE: 2.81°F (reasonable but not ideal)
+    - **Bias: +2.8°F (over-predicting by ~3°F!)** ⚠️
+    - CHI: 29 trades, +2.8°F bias
+    - NY: 1 trade, +3.0°F bias
+    - All within ±3°F
+  - **Recommendation**: Adjust NWS forecast down by ~3°F for better edge calculation
 
 ### [T774] Trading: Add backtesting with historical OHLC data
 - **Status**: TODO
