@@ -7738,8 +7738,8 @@
   - Visual indicator: slow/normal/fast
 
 ### [T756] Dashboard: Mobile-responsive trading widgets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3

@@ -722,6 +722,15 @@ export default function BettingDashboard() {
   const [dataFromCache, setDataFromCache] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   
+  // Collapsible chart sections for mobile (T756)
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
+    charts: true, // Start collapsed on initial load
+    analytics: true,
+  });
+  const toggleSection = (section: string) => {
+    setCollapsedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+  
   // Countdown timer state (T740)
   const REFRESH_INTERVAL = 30; // seconds
   const [countdown, setCountdown] = useState(REFRESH_INTERVAL);
@@ -1540,32 +1549,54 @@ export default function BettingDashboard() {
         {/* Trading Stats Section */}
         {tradingStats && (
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-yellow-400" />
+            {/* Mobile-optimized header with scrollable filters (T756) */}
+            <div className="flex flex-col gap-3 mb-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center flex-shrink-0">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold truncate">Trading Performance</h2>
+                    <p className="text-[10px] sm:text-xs text-gray-500 truncate">
+                      {statsPeriod !== 'all' && (
+                        <span className="text-cyan-400/80 mr-1">{getDateRangeText()} •</span>
+                      )}
+                      Win rate & PnL analysis
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-lg font-bold">Trading Performance</h2>
-                  <p className="text-xs text-gray-500">
-                    {statsPeriod !== 'all' && (
-                      <span className="text-cyan-400/80 mr-1">{getDateRangeText()} •</span>
-                    )}
-                    Win rate & PnL analysis
-                  </p>
-                </div>
+                {/* Mobile expand/collapse button - larger touch target */}
+                <button
+                  onClick={() => setShowAllStats(!showAllStats)}
+                  className="md:hidden flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 text-sm hover:bg-white/10 active:bg-white/15 transition-all min-w-[80px] justify-center"
+                >
+                  {showAllStats ? (
+                    <>
+                      <ChevronUp className="w-4 h-4" />
+                      <span>Less</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-4" />
+                      <span>More</span>
+                    </>
+                  )}
+                </button>
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
-                {/* Date Period Filter */}
-                <div className="flex items-center rounded-lg bg-white/5 border border-white/10 p-0.5">
+              
+              {/* Horizontally scrollable filter controls on mobile (T756) */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-none">
+                {/* Date Period Filter - larger touch targets on mobile */}
+                <div className="flex items-center rounded-xl bg-white/5 border border-white/10 p-0.5 sm:p-0.5 flex-shrink-0">
                   {(['all', 'today', 'week', 'month'] as DatePeriod[]).map((period) => (
                     <button
                       key={period}
                       onClick={() => setStatsPeriod(period)}
-                      className={`px-2 py-1 rounded-md text-xs font-medium transition-all capitalize ${
+                      className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all capitalize min-w-[48px] ${
                         statsPeriod === period 
                           ? 'bg-white/10 text-gray-200' 
-                          : 'text-gray-500 hover:text-gray-400'
+                          : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
                       }`}
                     >
                       {period === 'all' ? 'All' : period === 'today' ? 'Today' : period === 'week' ? '7D' : '30D'}
@@ -1573,74 +1604,57 @@ export default function BettingDashboard() {
                   ))}
                   <button
                     onClick={() => setStatsPeriod('custom')}
-                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all flex items-center gap-1 ${
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all flex items-center gap-1 ${
                       statsPeriod === 'custom' 
                         ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400'
+                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
                     }`}
                     title="Custom date range"
                   >
-                    <Calendar className="w-3 h-3" />
+                    <Calendar className="w-4 h-4 sm:w-3 sm:h-3" />
                   </button>
                 </div>
                 {/* Custom date range inputs */}
                 {statsPeriod === 'custom' && (
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
                     <input
                       type="date"
                       value={customDateFrom}
                       onChange={(e) => setCustomDateFrom(e.target.value)}
-                      className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none"
+                      className="px-3 py-2 sm:px-2 sm:py-1 rounded-xl sm:rounded-lg bg-white/5 border border-white/10 text-sm sm:text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none min-w-[130px]"
                     />
-                    <span className="text-gray-600 text-xs">→</span>
+                    <span className="text-gray-600 text-sm sm:text-xs">→</span>
                     <input
                       type="date"
                       value={customDateTo}
                       onChange={(e) => setCustomDateTo(e.target.value)}
-                      className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none"
+                      className="px-3 py-2 sm:px-2 sm:py-1 rounded-xl sm:rounded-lg bg-white/5 border border-white/10 text-sm sm:text-xs text-gray-300 focus:border-cyan-500/50 focus:outline-none min-w-[130px]"
                     />
                   </div>
                 )}
-                {/* v1/v2 Source Toggle */}
-                <div className="flex items-center rounded-lg bg-white/5 border border-white/10 p-0.5">
+                {/* v1/v2 Source Toggle - larger on mobile */}
+                <div className="flex items-center rounded-xl bg-white/5 border border-white/10 p-0.5 flex-shrink-0">
                   <button
                     onClick={() => setStatsSource('v1')}
-                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${
                       statsSource === 'v1' 
                         ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400'
+                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
                     }`}
                   >
                     v1
                   </button>
                   <button
                     onClick={() => setStatsSource('v2')}
-                    className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${
                       statsSource === 'v2' 
                         ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400'
+                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
                     }`}
                   >
                     v2
                   </button>
                 </div>
-                {/* Mobile expand/collapse button */}
-                <button
-                  onClick={() => setShowAllStats(!showAllStats)}
-                  className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs hover:bg-white/10 transition-all"
-                >
-                {showAllStats ? (
-                  <>
-                    <ChevronUp className="w-4 h-4" />
-                    <span>Less</span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="w-4 h-4" />
-                    <span>More</span>
-                  </>
-                )}
-                </button>
               </div>
             </div>
             
@@ -2068,8 +2082,25 @@ export default function BettingDashboard() {
               </div>
             )}
 
+            {/* Collapsible Charts Section Header (T756) */}
+            <button
+              onClick={() => toggleSection('charts')}
+              className="mt-4 w-full flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] active:bg-white/[0.06] transition-all md:hidden"
+            >
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-cyan-400" />
+                <span className="text-gray-300 text-sm font-medium">Charts & Analysis</span>
+                <span className="text-gray-600 text-xs">({collapsedSections.charts ? 'tap to expand' : '5 charts'})</span>
+              </div>
+              {collapsedSections.charts ? (
+                <ChevronDown className="w-5 h-5 text-gray-500" />
+              ) : (
+                <ChevronUp className="w-5 h-5 text-gray-500" />
+              )}
+            </button>
+
             {/* Win Rate Trend Chart */}
-            <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+            <div className={`mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] ${collapsedSections.charts ? 'hidden md:block' : ''}`}>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4 text-cyan-400" />
@@ -2103,7 +2134,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Return Distribution Histogram */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.charts ? 'hidden md:block' : ''}`}>
               <ReturnDistributionChart 
                 trades={tradingStats.recentTrades && tradingStats.recentTrades.length > 5 
                   ? tradingStats.recentTrades.map(t => ({
@@ -2127,7 +2158,7 @@ export default function BettingDashboard() {
 
             {/* Latency Trend Chart */}
             {tradingStats.avgLatencyMs !== null && tradingStats.avgLatencyMs !== undefined && (
-              <div className="mt-4">
+              <div className={`mt-4 ${collapsedSections.charts ? 'hidden md:block' : ''}`}>
                 <LatencyTrendChart 
                   data={generateMockLatencyTrend(14)}
                   height={160}
@@ -2139,8 +2170,25 @@ export default function BettingDashboard() {
               </div>
             )}
 
+            {/* Collapsible Analytics Section Header (T756) */}
+            <button
+              onClick={() => toggleSection('analytics')}
+              className="mt-4 w-full flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] active:bg-white/[0.06] transition-all md:hidden"
+            >
+              <div className="flex items-center gap-2">
+                <Activity className="w-4 h-4 text-purple-400" />
+                <span className="text-gray-300 text-sm font-medium">Advanced Analytics</span>
+                <span className="text-gray-600 text-xs">({collapsedSections.analytics ? 'tap to expand' : '8 widgets'})</span>
+              </div>
+              {collapsedSections.analytics ? (
+                <ChevronDown className="w-5 h-5 text-gray-500" />
+              ) : (
+                <ChevronUp className="w-5 h-5 text-gray-500" />
+              )}
+            </button>
+
             {/* Volatility Analysis */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <VolatilityCard 
                 volatility={tradingStats.volatility}
                 loading={isLoading}
@@ -2148,14 +2196,14 @@ export default function BettingDashboard() {
             </div>
 
             {/* Edge Distribution (T368) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <EdgeDistributionChart 
                 data={tradingStats.edgeDistribution ?? null}
               />
             </div>
 
             {/* Streak Analysis Card (T444) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <StreakIndicator
                 currentStreak={tradingStats.currentStreak ?? 0}
                 currentStreakType={tradingStats.currentStreakType ?? 'none'}
@@ -2166,13 +2214,13 @@ export default function BettingDashboard() {
 
             {/* API Latency Chart (T445) */}
             {tradingStats.apiLatency && (
-              <div className="mt-4">
+              <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
                 <ApiLatencyChart data={tradingStats.apiLatency} />
               </div>
             )}
 
             {/* Model Comparison (T350) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <ModelComparisonChart 
                 v1Stats={tradingStats.bySource?.v1 || null}
                 v2Stats={tradingStats.bySource?.v2 || null}
@@ -2180,7 +2228,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Weather Market Performance (T443) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <WeatherPerformanceWidget 
                 data={parseWeatherPerformance(tradingStats.recentTrades || [])}
                 loading={isLoading}
@@ -2188,7 +2236,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Weather vs Crypto PnL Comparison (T448) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <WeatherCryptoPnLChart 
                 data={
                   tradingStats.recentTrades && tradingStats.recentTrades.length >= 5
@@ -2199,7 +2247,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Portfolio Concentration History (T482) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <ConcentrationHistoryChart 
                 data={tradingStats.concentrationHistory?.snapshots}
                 loading={isLoading}
@@ -2207,7 +2255,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Asset Correlation Heatmap (T721) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
                 loading={isLoading}
@@ -2215,7 +2263,7 @@ export default function BettingDashboard() {
             </div>
 
             {/* Streak Position Analysis (T387) */}
-            <div className="mt-4">
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <StreakPositionWidget 
                 data={tradingStats.streakPosition || undefined}
                 loading={isLoading}
