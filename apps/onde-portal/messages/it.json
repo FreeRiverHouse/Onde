@@ -34,11 +34,11 @@
     "discoverApps": "Scopri le App",
     "scroll": "Scorri",
     "hero": {
-      "craftedBy": "Creato con",
-      "code": "Codice",
-      "touchedBy": "Toccato dall'",
-      "soul": "Anima",
-      "subtitle": "Libri belli per menti curiose 📚 Giochi divertenti per bambini felici 🎮 Gratis per sempre!",
+      "craftedBy": "",
+      "code": "Onde",
+      "touchedBy": "",
+      "soul": "",
+      "subtitle": "Libri e giochi per bambini curiosi 📚🎮",
       "exploreBooks": "Esplora i Libri",
       "playGames": "Gioca",
       "scrollHint": "Scorri verso il basso"

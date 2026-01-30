@@ -182,26 +182,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="text-teal-800 drop-shadow-sm">{t.home.hero.craftedBy}</span>
-            <br />
             <GradientText colors={["#0D9488", "#D97706", "#EC4899", "#0D9488"]}>
               {t.home.hero.code}
             </GradientText>
-            <br />
-            <span className="text-teal-700">{t.home.hero.touchedBy}</span>
-            <br />
-            <motion.span 
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage: 'linear-gradient(135deg, #F472B6 0%, #FBBF24 50%, #34D399 100%)',
-              }}
-              animate={{ 
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-              }}
-              transition={{ duration: 5, repeat: Infinity }}
-            >
-              {t.home.hero.soul} ✨
-            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}

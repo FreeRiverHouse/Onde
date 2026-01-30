@@ -34,11 +34,11 @@
     "discoverApps": "Discover Apps",
     "scroll": "Scroll",
     "hero": {
-      "craftedBy": "Crafted by",
-      "code": "Code",
-      "touchedBy": "Touched by",
-      "soul": "Soul",
-      "subtitle": "Beautiful books for curious minds 📚 Fun games for happy kids 🎮 Free forever!",
+      "craftedBy": "",
+      "code": "Onde",
+      "touchedBy": "",
+      "soul": "",
+      "subtitle": "Books and games for curious kids 📚🎮",
       "exploreBooks": "Explore Books",
       "playGames": "Play Games",
       "scrollHint": "Scroll down"
