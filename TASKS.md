@@ -242,17 +242,19 @@
   - Test with sample EPUBs from web app
 
 ### [T704] Reader App VR: Deploy to onde.la/reader-vr
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T701]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy VR reader prototype for Quest 3 testing
-  - Configure static export with basePath=/reader-vr/
-  - Copy to onde-portal/public/reader-vr/
-  - Deploy via wrangler to Cloudflare Pages
-  - Test on Quest 3 browser (https://onde.la/reader-vr/)
-  - Add link from main Reader App
+- **Notes**: ✅ Deployed VR reader prototype!
+  - ✅ Configured static export with basePath=/reader-vr/
+  - ✅ Copied to onde-portal/public/reader-vr/
+  - ✅ Deployed via wrangler: https://3dc1ab5c.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader-vr/ returns 200 OK
+  - ⏳ Test on Quest 3 browser (manual testing needed)
+  - ⏳ Add link from main Reader App
 
 ### [T705] Reader App VR: Add environment switcher
 - **Status**: TODO
