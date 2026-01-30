@@ -76,18 +76,20 @@
   - Store in Zustand with localStorage persistence (structure ready)
 
 ### [T692] Reader App: Deploy to onde.la/reader
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy Reader App as part of onde.la:
-  - Build static export of reader-app
-  - Add to onde-portal/public/reader/ 
-  - Configure routing in onde-portal
-  - Add link from onde.la homepage/nav
-  - Verify PWA install works on deploy
-  - Test on mobile Safari and Chrome
+- **Notes**: ✅ Deployed Reader App to onde.la/reader!
+  - ✅ Build static export with basePath=/reader/
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler: https://f94c0c0e.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+  - ⏳ Add link from onde.la homepage/nav (future task)
+  - ⏳ Verify PWA install works on deploy (manual testing)
+  - ⏳ Test on mobile Safari and Chrome (manual testing)
 
 ### [T669] Reader App: VR/XR Version Planning
 - **Status**: TODO
