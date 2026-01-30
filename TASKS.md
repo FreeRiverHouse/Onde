@@ -35,19 +35,29 @@
   - **Languages**: EN primary, IT fallback
 
 ### [T472] SE-Bot: Versa/SASE Knowledge Base
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: [T473]
 - **Priority**: P1
 - **Notes**: Brain del sistema - tutto ciò che un SE Versa deve sapere
+  - **Progress 2026-01-29:**
+    - ✅ Created `apps/se-bot/knowledge-base/` structure
+    - ✅ Added SASE overview (architecture, concepts, comparisons)
+    - ✅ Added SD-WAN overview (capabilities, metrics, deployment models)
+    - ✅ Added Zero Trust/ZTNA deep dive
+    - ✅ Added competitive positioning (vs Palo Alto, Zscaler, Cato, Fortinet)
+    - ✅ Added objections handling playbook
+    - ✅ Created Mattia style guide template (to fill in)
+    - ⏳ TODO: Versa-specific content (Mattia to add proprietary info)
+    - ⏳ TODO: Embeddings setup (Chroma/FAISS)
   - **Domains**:
     - Versa Networks (prodotti, features, competitive positioning)
     - SASE (architettura, use cases, best practices)
     - SD-WAN (concetti, deployment, troubleshooting)
     - Security (Zero Trust, ZTNA, firewall)
     - Networking (BGP, OSPF, VPN, cloud connectivity)
-  - **Mattia's Style**: Come risponde, terminologia, approccio
+  - **Mattia's Style**: Template created at style/mattia-style.md
   - **Tech**: Embeddings con Chroma/FAISS locale
   - **Sources**: Versa docs pubbliche, slide, recording past meetings
 
@@ -118,8 +128,8 @@
 - **Depends**: -
 - **Blocks**: [T470]
 - **Priority**: P0
-- **Notes**: Prerequisito per audio capture
-  - `brew install blackhole-2ch`
+- **Notes**: ⚠️ **RICHIEDE SUDO** - Mattia deve installare manualmente!
+  - `brew install blackhole-2ch` (richiede password)
   - Configurare Multi-Output Device in Audio MIDI Setup
   - Test che audio di sistema passi attraverso BlackHole
   - Documentare setup per future reinstallazioni
