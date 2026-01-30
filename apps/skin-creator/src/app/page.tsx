@@ -440,11 +440,22 @@ export default function SkinCreator() {
   };
 
   return (
-    <div className={`min-h-screen p-4 flex flex-col items-center transition-colors duration-500 ${
+    <div className={`min-h-screen p-6 flex flex-col items-center transition-all duration-700 ${
       darkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900' 
-        : 'bg-gradient-to-br from-emerald-500 via-cyan-500 to-purple-600'
-    }`}>
+        ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+        : 'bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500'
+    }`}
+    style={{
+      backgroundSize: '400% 400%',
+      animation: 'gradient 15s ease infinite',
+    }}>
+      <style jsx global>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
       {/* 🎉 Confetti celebration on download! */}
       {showConfetti && (
         <Confetti
@@ -474,8 +485,8 @@ export default function SkinCreator() {
         />
       ))}
       {/* Header */}
-      <div className="text-center mb-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
+      <div className="text-center mb-6">
+        <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl animate-float">
           🎨 Minecraft Skin Creator
         </h1>
         <p className="text-lg text-white/90 mt-1">
