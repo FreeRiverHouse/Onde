@@ -1,0 +1,162 @@
+{
+  "timestamp": "2026-01-29T20:45:12.902818",
+  "scenarios_tested": 10,
+  "scenarios_passed": 10,
+  "avg_total_latency": 0.175,
+  "max_total_latency": 0.184,
+  "avg_kb_latency": 0.025,
+  "warnings": 0,
+  "with_claude": false,
+  "results": [
+    {
+      "id": "ztna-vpn-1",
+      "category": "ZTNA",
+      "timestamp": "2026-01-29T20:45:11.963309",
+      "transcript": "So we're currently using Cisco AnyConnect for our VPN. What would be the main benefits of switching to ZTNA?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.025,
+        "total": 0.175
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.724
+    },
+    {
+      "id": "sdwan-roi-1",
+      "category": "SD-WAN",
+      "timestamp": "2026-01-29T20:45:12.078004",
+      "transcript": "Can you give me some concrete numbers on the ROI? We're spending a lot on MPLS circuits right now.",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.018,
+        "total": 0.168
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.605
+    },
+    {
+      "id": "security-1",
+      "category": "Security",
+      "timestamp": "2026-01-29T20:45:12.131571",
+      "transcript": "How does your solution handle lateral movement threats? We had a ransomware incident last year.",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.018,
+        "total": 0.168
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.278
+    },
+    {
+      "id": "competitive-1",
+      "category": "Competitive",
+      "timestamp": "2026-01-29T20:45:12.172193",
+      "transcript": "We're also looking at Palo Alto Prisma. What makes Versa different?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.023,
+        "total": 0.173
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.357
+    },
+    {
+      "id": "deployment-1",
+      "category": "Deployment",
+      "timestamp": "2026-01-29T20:45:12.284993",
+      "transcript": "What's the typical deployment timeline? We have 200 branch offices globally.",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.028,
+        "total": 0.178
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.423
+    },
+    {
+      "id": "cloud-1",
+      "category": "Cloud",
+      "timestamp": "2026-01-29T20:45:12.403366",
+      "transcript": "We're heavily invested in AWS and Azure. How does this integrate with our cloud workloads?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.034,
+        "total": 0.184
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.542
+    },
+    {
+      "id": "compliance-1",
+      "category": "Compliance",
+      "timestamp": "2026-01-29T20:45:12.527164",
+      "transcript": "We need to be HIPAA compliant. Does your solution support the necessary audit logging and encryption?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.024,
+        "total": 0.174
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.344
+    },
+    {
+      "id": "objection-1",
+      "category": "Objections",
+      "timestamp": "2026-01-29T20:45:12.583709",
+      "transcript": "This seems really complex. Our team is already stretched thin. How much training would we need?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.02,
+        "total": 0.17
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.276
+    },
+    {
+      "id": "performance-1",
+      "category": "Performance",
+      "timestamp": "2026-01-29T20:45:12.665193",
+      "transcript": "What kind of throughput can we expect? We need at least 10 Gbps at the data center.",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.025,
+        "total": 0.175
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.353
+    },
+    {
+      "id": "sase-explain-1",
+      "category": "SASE",
+      "timestamp": "2026-01-29T20:45:12.780659",
+      "transcript": "I keep hearing about SASE everywhere. Can you explain what it actually means in simple terms?",
+      "latencies": {
+        "transcription": 0.15,
+        "kb_lookup": 0.032,
+        "total": 0.182
+      },
+      "success": true,
+      "warnings": [],
+      "kb_results_count": 5,
+      "kb_top_relevance": 0.753
+    }
+  ]
+}
