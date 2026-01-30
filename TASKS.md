@@ -9,7 +9,7 @@
 ## 🎮 MINECRAFT SKIN CREATOR APP (DA MATTIA 2026-01-30)
 
 ### [T864] Minecraft Skin Creator: MVP Web Version
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: [T865]
