@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T19:00:02.940384+00:00",
+  "timestamp": "2026-01-30T19:30:02.291929+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "DeFi stays outside the rules as regulators tighten elsewhere: Finance Redefined",
+      "url": "https://cointelegraph.com/news/defi-stays-outside-rules-regulators-tighten-finance-redefined?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Europe narrows crypto tax gaps, US lawmakers revisit market structure, and institutions push DeFi into compliance territory.",
+      "published": "2026-01-30T19:00:00+00:00"
+    },
     {
       "title": "Price predictions 1/30: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
       "url": "https://cointelegraph.com/news/price-predictions-1-30-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -128,13 +135,6 @@
       "source": "cointelegraph",
       "description": "US President Donald Trump nominated former Fed Governor Kevin Warsh to replace Jerome Powell as Federal Reserve chair, setting up a Senate confirmation fight.",
       "published": "2026-01-30T13:40:31+00:00"
-    },
-    {
-      "title": "Ethereum loses $2.8K support as charts point to possible 22% downside",
-      "url": "https://cointelegraph.com/news/ethereum-breaks-below-2-8k-charts-hint-another-eth-price-drop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Ethereum slipped under $2,800 as charts and onchain data suggested downside risk remains elevated, with a potential move toward $2,100.",
-      "published": "2026-01-30T13:13:54+00:00"
     },
     {
       "title": "Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair",

@@ -2,6 +2,7 @@
 
 import { useReaderStore, Theme } from '@/store/readerStore';
 import { SyncPanel } from './SyncPanel';
+import { CacheManagementPanel } from './CacheManagementPanel';
 import { DataTransferPanel } from './DataTransferPanel';
 
 export function ReaderSettings() {
@@ -144,6 +145,9 @@ export function ReaderSettings() {
 
           {/* Cloud Sync */}
           <SyncPanel className="mb-6" />
+
+          {/* Offline Storage / Cache Management */}
+          <CacheManagementPanel className="mb-6" />
 
           {/* Backup & Restore */}
           <DataTransferPanel />

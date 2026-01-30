@@ -1009,14 +1009,30 @@
   - User reviews (from linked sources)
 
 ### [T815] Reader App: Cache management UI panel
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T803]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add UI to manage cached/downloaded books:
-  - List all cached books with storage size
-  - Total cache size display
+- **Notes**: ✅ Implemented offline storage management UI!
+  - **Component**: `apps/reader-app/src/components/CacheManagementPanel.tsx`
+  - **Features:**
+    - ✅ Expandable "💾 Offline Storage" section in Settings
+    - ✅ List all cached books with storage size per book
+    - ✅ Total cache size display (X books • Y MB)
+    - ✅ Storage quota indicator with color-coded progress bar
+    - ✅ Delete individual books from cache
+    - ✅ "Clear All" with confirmation dialog
+    - ✅ "Download All" for batch caching library books
+    - ✅ Theme-aware styling (light/dark/sepia)
+    - ✅ Download progress indicator
+  - **Extended epubStorage.ts with:**
+    - `getAllCachedBooks()` - returns list with sizes
+    - `getTotalCacheSize()` - total bytes
+    - `clearAllCache()` - clear all cached books
+    - `getStorageQuota()` - browser storage estimate
+  - Build passes ✅
   - Delete individual books from cache
   - "Clear all cache" option with confirmation
   - "Download all" for library batch caching

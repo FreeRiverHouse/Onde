@@ -89,3 +89,73 @@ export function createEpubUrl(arrayBuffer: ArrayBuffer): string {
   const blob = new Blob([arrayBuffer], { type: 'application/epub+zip' });
   return URL.createObjectURL(blob);
 }
+
+// Interface for cached book info
+export interface CachedBookInfo {
+  id: string;
+  size: number; // in bytes
+}
+
+// Get all cached book IDs and their sizes
+export async function getAllCachedBooks(): Promise<CachedBookInfo[]> {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(EPUB_STORE, 'readonly');
+    const store = tx.objectStore(EPUB_STORE);
+    const request = store.getAll();
+    
+    request.onsuccess = () => {
+      db.close();
+      const records = request.result as EpubRecord[];
+      const books = records.map(record => ({
+        id: record.id,
+        size: record.data.byteLength
+      }));
+      resolve(books);
+    };
+    request.onerror = () => {
+      db.close();
+      reject(request.error);
+    };
+  });
+}
+
+// Get total cache size in bytes
+export async function getTotalCacheSize(): Promise<number> {
+  const books = await getAllCachedBooks();
+  return books.reduce((total, book) => total + book.size, 0);
+}
+
+// Clear all cached books
+export async function clearAllCache(): Promise<void> {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(EPUB_STORE, 'readwrite');
+    const store = tx.objectStore(EPUB_STORE);
+    store.clear();
+    tx.oncomplete = () => {
+      db.close();
+      resolve();
+    };
+    tx.onerror = () => {
+      db.close();
+      reject(tx.error);
+    };
+  });
+}
+
+// Get storage quota info (if available)
+export async function getStorageQuota(): Promise<{ used: number; total: number } | null> {
+  if ('storage' in navigator && 'estimate' in navigator.storage) {
+    try {
+      const estimate = await navigator.storage.estimate();
+      return {
+        used: estimate.usage || 0,
+        total: estimate.quota || 0
+      };
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
