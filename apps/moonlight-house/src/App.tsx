@@ -397,17 +397,138 @@ function App() {
   const [showStory, setShowStory] = useState(false);
   const [storyText, setStoryText] = useState('');
   const [showObjectsHint, setShowObjectsHint] = useState(true);
+  const [showMovementHint, setShowMovementHint] = useState(() => {
+    // Only show movement hint if user hasn't seen it
+    try {
+      return !localStorage.getItem('moonlight-movement-hint-seen');
+    } catch {
+      return true;
+    }
+  });
 
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const [mapContainerRef, setMapContainerRef] = useState<HTMLDivElement | null>(null);
 
+  // Movement state
+  const [isWalking, setIsWalking] = useState(false);
+  const [facingDirection, setFacingDirection] = useState<'left' | 'right'>('right');
+  const [targetPosition, setTargetPosition] = useState<{ x: number; y: number } | null>(null);
+  const roomContainerRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) node.focus();
+  }, []);
+
   // Float animation
   useEffect(() => {
     const interval = setInterval(() => setFloatPhase(p => (p + 1) % 360), 50);
     return () => clearInterval(interval);
   }, []);
+
+  // Keyboard movement (WASD/Arrows) - only in room view
+  useEffect(() => {
+    if (showMap) return;
+    
+    const MOVE_SPEED = 3; // % of screen per keypress
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing in an input
+      if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return;
+      
+      let dx = 0, dy = 0;
+      switch (e.key.toLowerCase()) {
+        case 'w': case 'arrowup': dy = -MOVE_SPEED; break;
+        case 's': case 'arrowdown': dy = MOVE_SPEED; break;
+        case 'a': case 'arrowleft': dx = -MOVE_SPEED; setFacingDirection('left'); break;
+        case 'd': case 'arrowright': dx = MOVE_SPEED; setFacingDirection('right'); break;
+        default: return;
+      }
+      
+      e.preventDefault();
+      setIsWalking(true);
+      setLunaPosition(prev => ({
+        x: Math.max(10, Math.min(90, prev.x + dx)),
+        y: Math.max(30, Math.min(85, prev.y + dy)),
+      }));
+      
+      // Hide movement hint on first keyboard movement
+      hideMovementHint();
+      
+      // Stop walking animation after a short delay
+      setTimeout(() => setIsWalking(false), 150);
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showMap, hideMovementHint]);
+
+  // Tap-to-move animation (smooth movement to target)
+  useEffect(() => {
+    if (!targetPosition) return;
+    
+    const animationFrame = () => {
+      setLunaPosition(prev => {
+        const dx = targetPosition.x - prev.x;
+        const dy = targetPosition.y - prev.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Arrived at destination
+        if (distance < 2) {
+          setIsWalking(false);
+          setTargetPosition(null);
+          return prev;
+        }
+        
+        // Move towards target
+        const speed = Math.min(3, distance * 0.15);
+        const newX = prev.x + (dx / distance) * speed;
+        const newY = prev.y + (dy / distance) * speed;
+        
+        // Update facing direction
+        if (Math.abs(dx) > 0.5) {
+          setFacingDirection(dx > 0 ? 'right' : 'left');
+        }
+        
+        return { x: newX, y: newY };
+      });
+    };
+    
+    const interval = setInterval(animationFrame, 16); // ~60fps
+    return () => clearInterval(interval);
+  }, [targetPosition]);
+
+  // Handle tap-to-move in room view
+  const handleRoomClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Ignore clicks on interactive elements
+    if ((e.target as HTMLElement).closest('.action-btn, .header, .mini-stats, .interactive-object, .luna-container')) {
+      return;
+    }
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    // Clamp to walkable area
+    const clampedX = Math.max(10, Math.min(90, x));
+    const clampedY = Math.max(30, Math.min(85, y));
+    
+    setTargetPosition({ x: clampedX, y: clampedY });
+    setIsWalking(true);
+    playSound('ui-click');
+    
+    // Hide movement hint after first movement
+    if (showMovementHint) {
+      setShowMovementHint(false);
+      try { localStorage.setItem('moonlight-movement-hint-seen', 'true'); } catch {}
+    }
+  };
+
+  // Hide movement hint on keyboard movement too
+  const hideMovementHint = useCallback(() => {
+    if (showMovementHint) {
+      setShowMovementHint(false);
+      try { localStorage.setItem('moonlight-movement-hint-seen', 'true'); } catch {}
+    }
+  }, [showMovementHint]);
 
   // Time of day update
   useEffect(() => {
@@ -855,7 +976,10 @@ function App() {
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={`full-page-bg room-view ${timeClass}`} 
-      style={{ backgroundImage: `url(${currentRoomData.bg})` }}>
+      style={{ backgroundImage: `url(${currentRoomData.bg})` }}
+      onClick={handleRoomClick}
+      ref={roomContainerRef}
+      tabIndex={0}>
       <div className="overlay" />
       {showAchievement && <AchievementPopup achievement={showAchievement} lang={lang} onClose={() => setShowAchievement(null)} />}
       {eventMessage && <div className="event-toast glass-card">{eventMessage}</div>}
@@ -905,6 +1029,17 @@ function App() {
         </div>
       )}
 
+      {/* Movement Hint */}
+      {showMovementHint && !showMap && (
+        <div className="movement-hint">
+          {lang === 'it' ? (
+            <>Muovi Luna: <kbd>WASD</kbd> o tocca!</>
+          ) : (
+            <>Move Luna: <kbd>WASD</kbd> or tap!</>
+          )}
+        </div>
+      )}
+
       <div className="particles">
         {[...Array(8)].map((_, i) => (
           <div key={i} className="particle" style={{ left: `${10 + (i * 12)}%`, animationDelay: `${i * 0.5}s`, animationDuration: `${3 + (i % 3)}s` }} />
@@ -928,11 +1063,20 @@ function App() {
         <span>💖 {Math.round(stats.happiness)}</span>
       </div>
 
-      <div className="luna-container" style={{ left: `${lunaPosition.x}%`, top: `${lunaPosition.y}%`, transform: `translate(-50%, -50%) translateY(${floatY}px)` }}>
+      <div 
+        className={`luna-container ${isWalking ? 'walking' : ''} ${facingDirection === 'left' ? 'facing-left' : ''}`}
+        style={{ 
+          left: `${lunaPosition.x}%`, 
+          top: `${lunaPosition.y}%`, 
+          transform: `translate(-50%, -50%) translateY(${isWalking ? 0 : floatY}px)`,
+          transition: isWalking ? 'none' : 'transform 0.3s ease-out'
+        }}
+      >
         {actionBubble && <div className="bubble glass-card"><span className="bubble-text">{actionBubble}</span></div>}
-        <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''}`} />
+        <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''} ${isWalking ? 'walking' : ''}`} />
         <div className="luna-glow" />
         <span className="luna-mood-badge">{getMoodEmoji(mood)}</span>
+        {isWalking && <div className="walk-dust" />}
       </div>
 
       <div className="room-actions">

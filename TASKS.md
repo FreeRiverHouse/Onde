@@ -29,7 +29,12 @@
     - ✅ Story modal for lore/narrative content
     - ✅ Visual feedback: glow, badges, animations
     - ✅ Sound integration
-    - ⏳ TODO: Movement system (arrows/tap to move)
+  - **Progress 2026-01-30 (movement system):**
+    - ✅ WASD/Arrow key movement (desktop)
+    - ✅ Tap-to-move (touch/mobile)
+    - ✅ Walking animation while moving
+    - ✅ Direction facing (flip sprite based on direction)
+    - ✅ Smooth CSS transitions
     - ⏳ TODO: More realistic graphics
 
 ---

@@ -855,6 +855,146 @@
 .luna-map-img.mood-hungry { filter: brightness(0.95) saturate(0.9) sepia(0.1); }
 .luna-map-img.mood-excited { filter: brightness(1.2) saturate(1.4) contrast(1.1); }
 
+/* ==================== WALKING ANIMATION ==================== */
+
+/* Walking state for container */
+.luna-container.walking {
+  transition: none !important;
+}
+
+/* Facing direction (flip sprite) */
+.luna-container.facing-left .luna-img {
+  transform: scaleX(-1);
+}
+
+/* Walking animation on the sprite */
+.luna-img.walking {
+  animation: walk-bounce 0.25s ease-in-out infinite;
+}
+
+@keyframes walk-bounce {
+  0%, 100% { 
+    transform: translateY(0) rotate(-2deg); 
+  }
+  50% { 
+    transform: translateY(-6px) rotate(2deg); 
+  }
+}
+
+/* Facing left while walking */
+.luna-container.facing-left .luna-img.walking {
+  animation: walk-bounce-left 0.25s ease-in-out infinite;
+}
+
+@keyframes walk-bounce-left {
+  0%, 100% { 
+    transform: scaleX(-1) translateY(0) rotate(2deg); 
+  }
+  50% { 
+    transform: scaleX(-1) translateY(-6px) rotate(-2deg); 
+  }
+}
+
+/* Walk dust particles */
+.walk-dust {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.walk-dust::before,
+.walk-dust::after {
+  content: '💨';
+  position: absolute;
+  font-size: 14px;
+  animation: dust-puff 0.4s ease-out forwards;
+  opacity: 0.7;
+}
+
+.walk-dust::before {
+  left: 0;
+  animation-delay: 0s;
+}
+
+.walk-dust::after {
+  right: 0;
+  animation-delay: 0.1s;
+}
+
+@keyframes dust-puff {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-15px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Tap indicator (shows where user tapped) */
+.tap-indicator {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: tap-ripple 0.5s ease-out forwards;
+  z-index: 5;
+}
+
+@keyframes tap-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Room view focus state for keyboard input */
+.room-view:focus {
+  outline: none;
+}
+
+/* Movement hint for new players */
+.movement-hint {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 15;
+  animation: hint-fade 4s ease-in-out forwards;
+}
+
+.movement-hint kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+@keyframes hint-fade {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
 /* Time Indicator */
 .time-indicator {
   font-size: 0.8rem;
