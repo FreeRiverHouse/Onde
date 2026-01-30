@@ -61,9 +61,9 @@ log "========== WATCHDOG START =========="
 echo "🌐 Testing main sites..."
 
 test_url "onde.la (main)" "https://onde.la" "200"
-test_url "onde.la /libri" "https://onde.la/libri" "200"
-test_url "onde.la /catalogo" "https://onde.la/catalogo" "200"
-test_url "onde.la /about" "https://onde.la/about" "200"
+test_url "onde.la /libri" "https://onde.la/libri/" "200"
+test_url "onde.la /catalogo" "https://onde.la/catalogo/" "200"
+test_url "onde.la /about" "https://onde.la/about/" "200"
 test_content "onde.la content" "https://onde.la" "Onde"
 
 test_url "onde.surf (dashboard)" "https://onde.surf/login" "200"
@@ -92,7 +92,7 @@ test_url "VR page" "https://onde.la/vr/" "200"
 echo "🔌 Testing API endpoints..."
 
 # Health checks
-test_url "onde.la /health" "https://onde.la/health" "200" || test_url "onde.la /api/health" "https://onde.la/api/health" "200" || true
+test_url "onde.la /health" "https://onde.la/health/" "200" || test_url "onde.la /api/health" "https://onde.la/api/health" "200" || true
 
 # ==========================================
 # 4. LINK INTERNI (dal sitemap o menu)

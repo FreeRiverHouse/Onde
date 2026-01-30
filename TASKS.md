@@ -8560,11 +8560,23 @@
 
 ### [T801] Fix 308 redirects on onde.la (4 test failures)
 - **Priority**: P1
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
-- **Notes**: Test suite failing on 4 endpoints returning 308 Permanent Redirect instead of 200:
-  - /libri → 308
+- **Notes**: ✅ Fixed! Test URLs now use canonical trailing-slash format:
+  - /libri/ → 200 ✅
+  - /catalogo/ → 200 ✅
+  - /about/ → 200 ✅
+  - /health/ → 200 ✅
+  - **Files fixed:**
+    - scripts/daily-test-suite.py
+    - scripts/lighthouse-audit.sh
+    - scripts/watchdog-all-services.sh
+    - scripts/visual-regression-tests.py
+  - **Root cause**: Cloudflare/Next.js trailing slash redirect behavior (308 → canonical URL)
+  - **Solution**: Updated tests to use canonical URLs with trailing slashes
+  - Original issue: /libri → 308
   - /catalogo → 308
   - /about → 308
   - /health → 308

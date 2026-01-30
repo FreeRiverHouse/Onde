@@ -47,8 +47,8 @@ cd "$PROJECT_ROOT"
 # URLs to test
 URLS=(
     "https://onde.la/"
-    "https://onde.la/libri"
-    "https://onde.la/catalogo"
+    "https://onde.la/libri/"
+    "https://onde.la/catalogo/"
 )
 
 # Thresholds

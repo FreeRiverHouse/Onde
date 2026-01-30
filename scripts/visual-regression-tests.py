@@ -33,17 +33,17 @@ PAGES = [
     },
     {
         "name": "onde.la-libri",
-        "url": "https://onde.la/libri",
+        "url": "https://onde.la/libri/",
         "viewport": {"width": 1280, "height": 720}
     },
     {
         "name": "onde.la-catalogo",
-        "url": "https://onde.la/catalogo",
+        "url": "https://onde.la/catalogo/",
         "viewport": {"width": 1280, "height": 720}
     },
     {
         "name": "onde.la-about",
-        "url": "https://onde.la/about",
+        "url": "https://onde.la/about/",
         "viewport": {"width": 1280, "height": 720}
     },
     {
@@ -59,7 +59,7 @@ PAGES = [
     },
     {
         "name": "onde.la-libri-mobile",
-        "url": "https://onde.la/libri",
+        "url": "https://onde.la/libri/",
         "viewport": {"width": 375, "height": 812}
     }
 ]
