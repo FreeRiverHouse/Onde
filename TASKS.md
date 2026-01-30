@@ -4419,6 +4419,46 @@
   - **Utility lib**: gamification.ts with helper functions
   - Build passes ✅
 
+### [T750] Deploy onde.surf with agent gamification
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T509]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed surfboard with gamification!
+  - Deploy URL: https://ac73ff67.onde-surf.pages.dev
+  - ✅ Build via `npm run build:cf` - passed
+  - ✅ Deploy via wrangler to Cloudflare Pages
+  - ✅ Site returns 307 (auth redirect) as expected
+  - ⚠️ **D1 Migration needed**: Run `0006_agent_gamification.sql` via Cloudflare Dashboard
+    - Dashboard → D1 → onde-surf-db → Console → paste migration
+    - This adds xp/level/badges columns and initializes existing agents
+
+### [T751] Agent Leaderboard widget for Free River House
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T509]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add leaderboard showing top agents by XP:
+  - Sort agents by total XP
+  - Show rank, avatar, name, level, XP
+  - Highlight top 3 with gold/silver/bronze
+  - Add to Free River House panel as toggle/tab
+
+### [T752] Level-up celebration animation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T509]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Show celebration when agent levels up:
+  - Confetti/sparkle animation on agent avatar
+  - Browser notification "🎉 Agent leveled up!"
+  - Sound effect (optional)
+  - Toast message in UI
+
 ### [T510] Mood indicator basato su workload
 - **Status**: TODO
 - **Owner**: 
