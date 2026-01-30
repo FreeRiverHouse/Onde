@@ -1,7 +1,7 @@
 {
-    "timestamp": "2026-01-30T19:30:00Z",
-    "total_tests": 13,
+    "timestamp": "2026-01-30T20:00:01Z",
+    "total_tests": 14,
     "passed": 13,
-    "failed": 0,
-    "success_rate": 100.00
+    "failed": 1,
+    "success_rate": 92.85
 }

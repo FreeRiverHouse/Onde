@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T19:30:02.291929+00:00",
+  "timestamp": "2026-01-30T20:00:02.991302+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",
+      "url": "https://bitcoinmagazine.com/news/jamie-dimon-tells-coinbase-ceo-full-of-it",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ JPMorgan CEO Jamie Dimon reportedly confronted and yelled at Brian Armstrong at Davos. This post Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T19:35:21+00:00"
+    },
+    {
+      "title": "AI Agents Launched a Social Network and Spawned a Digital Religion Overnight",
+      "url": "https://decrypt.co/356491/ai-agents-social-network-spawned-digital-religion-overnight",
+      "source": "decrypt",
+      "description": "Autonomous agents on an AI-centric social network spontaneously founded \"Crustafarianism\"\u2014complete with scripture, prophets, and theology.",
+      "published": "2026-01-30T19:32:11+00:00"
+    },
     {
       "title": "DeFi stays outside the rules as regulators tighten elsewhere: Finance Redefined",
       "url": "https://cointelegraph.com/news/defi-stays-outside-rules-regulators-tighten-finance-redefined?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -172,13 +186,6 @@
       "published": "2026-01-30T04:33:02+00:00"
     },
     {
-      "title": "Tech Giants Circle OpenAI in Funding Round That Could Top $100 Billion",
-      "url": "https://decrypt.co/356442/openai-funding-round-top-100-billion",
-      "source": "decrypt",
-      "description": "Amazon\u2019s talks could make it one of OpenAI\u2019s biggest backers as the AI company continues to forge ahead with plans for an IPO this year.",
-      "published": "2026-01-30T02:57:10+00:00"
-    },
-    {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
       "url": "https://bitcoinmagazine.com/markets/strategy-stock-mstr-hits-52-week-low",
       "source": "bitcoinmagazine",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt Metaplanet raised up to 21 billion yen ($137 million) through share issuance as it doubles down on its strategy of accumulating bitcoin. This post Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T14:50:07+00:00"
-    },
-    {
-      "title": "Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation",
-      "url": "https://bitcoinmagazine.com/news/russia-to-roll-out-bitcoin-and-crypto",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation Russia wants to introduce its first regulatory framework for crypto like Bitcoin, with lawmakers aiming to finalize the draft for a parliamentary vote by the end of June. This post Russia to Roll Out Bitcoin and Crypto Framework This July, Allowing Retail Participation first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T14:26:35+00:00"
     }
   ]
 }

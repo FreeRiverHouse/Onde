@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-01-29T22:30:53.594391",
+  "generated_at": "2026-01-30T12:00:03.727765",
   "status": "success",
   "correlation": {
-    "value": 0.9199,
+    "value": 0.8832,
     "period_days": 7,
-    "interpretation": "very_high",
+    "interpretation": "high",
     "data_points": 169
   },
   "adjustment": {
-    "crypto_group_limit": 30,
-    "adjustment_reason": "Very high correlation (\u22650.9) - BTC and ETH move together, reduce combined exposure",
-    "risk_level": "high"
+    "crypto_group_limit": 40,
+    "adjustment_reason": "High correlation (0.7-0.9) - Some diversification benefit but still correlated",
+    "risk_level": "medium"
   },
   "current_prices": {
-    "btc": 82287.69,
-    "eth": 2718.04,
-    "btc_7d_change_pct": -7.97,
-    "eth_7d_change_pct": -7.44
+    "btc": 84222.0,
+    "eth": 2743.33,
+    "btc_7d_change_pct": -6.23,
+    "eth_7d_change_pct": -7.13
   },
   "data_source": "coingecko"
 }

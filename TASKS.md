@@ -9874,17 +9874,31 @@
   - **Integration**: Starts automatically with autotrader (no config needed)
 
 ### [T829] Trading: Add health history tracking and dashboard widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T828]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track autotrader health over time and visualize:
-  - Log health snapshots to `data/trading/health-history.jsonl`
-  - Track: uptime, restarts, circuit breaker activations
-  - Dashboard widget on /betting showing health timeline
-  - Alert when uptime drops below threshold (frequent restarts)
-  - 30-day history retention
+- **Notes**: ✅ Implemented health history tracking and dashboard widget!
+  - **Script**: `scripts/log-health-history.py`
+    - Logs snapshots to `data/trading/health-history.jsonl`
+    - Tracks: running status, cycle count, circuit breaker, losses
+    - `--stats` flag for quick statistics
+    - `--cleanup` flag for 30-day retention
+  - **Gist integration**: `push-stats-to-gist.py` updated with `load_health_history()`
+    - Includes uptime %, downtime periods, CB count
+    - 7-day history window for dashboard
+  - **Dashboard widget**: `apps/surfboard/src/components/HealthHistoryWidget.tsx`
+    - Timeline chart with color-coded bars (green/yellow/red)
+    - Time range selector (24h/7d)
+    - Uptime percentage stat
+    - Circuit breaker percentage
+    - Hover tooltips with details
+    - Downtime periods display
+    - Legend and status badge
+  - **Cron**: `*/5 * * * * python3 scripts/log-health-history.py`
+  - Deployed: https://e97c2797.onde-surf.pages.dev
 
 ### [T830] Trading: Add position heatmap by expiry time
 - **Status**: TODO

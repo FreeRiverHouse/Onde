@@ -49,6 +49,7 @@ import { ModelComparisonChart } from '@/components/ModelComparisonChart';
 import { WeatherPerformanceWidget, parseWeatherPerformance } from '@/components/WeatherPerformanceWidget';
 import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from '@/components/WeatherCryptoPnLChart';
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
+import { HealthHistoryWidget } from '@/components/HealthHistoryWidget';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
 import { StopLossEffectivenessWidget } from '@/components/StopLossEffectivenessWidget';
 import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
@@ -312,6 +313,34 @@ interface TradingStats {
     maxConcentration: number;
     warningPct: number;
     latestConcentrations: Record<string, number>;
+    lastUpdated: string | null;
+  } | null;
+  // Health history (T829)
+  healthHistory?: {
+    snapshots: Array<{
+      timestamp: string;
+      is_running: boolean;
+      cycle_count: number;
+      dry_run: boolean;
+      trades_today: number;
+      win_rate_today: number;
+      pnl_today_cents: number;
+      positions_count: number;
+      cash_cents: number;
+      circuit_breaker_active: boolean;
+      consecutive_losses: number;
+      status: string;
+    }>;
+    dataPoints: number;
+    uptimePct: number;
+    runningCount: number;
+    circuitBreakerCount: number;
+    downtimePeriods: Array<{
+      start: string;
+      end: string | null;
+      ongoing?: boolean;
+    }>;
+    latestStatus: string | null;
     lastUpdated: string | null;
   } | null;
   // Asset correlation (T721)
@@ -1041,6 +1070,9 @@ export default function BettingDashboard() {
           
           // Autotrader health status (T623)
           healthStatus: gistData.healthStatus ?? null,
+          
+          // Autotrader health history (T829)
+          healthHistory: gistData.healthHistory ?? null,
           
           // Empty fields (not in gist but needed for interface)
           recentTrades: [],
@@ -2413,6 +2445,14 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <ConcentrationHistoryChart 
                 data={tradingStats.concentrationHistory?.snapshots}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Autotrader Health History (T829) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <HealthHistoryWidget 
+                data={tradingStats.healthHistory || undefined}
                 loading={isLoading}
               />
             </div>
