@@ -9101,3 +9101,43 @@
   - Update log_trade() function to include new fields
   - Required for T814 analysis
   - Verify fields appear in kalshi-trades-*.jsonl
+
+### [T817] Dashboard: Latency vs Win Rate correlation chart
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T804]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize relationship between API latency and trade outcomes:
+  - Scatter plot: latency (x-axis) vs win rate bucket (y-axis)
+  - Show trend line to identify correlation
+  - Color-code by time period (morning/afternoon/night)
+  - Use data from latency-performance-analysis.json
+  - Help determine optimal latency thresholds
+
+### [T818] Trading: Time-of-day latency pattern analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T801]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze latency patterns by time of day:
+  - Script: scripts/analyze-latency-patterns.py
+  - Group latency data by hour (PST)
+  - Identify peak latency hours
+  - Calculate best/worst trading windows
+  - Output: JSON with hourly averages + recommendations
+  - Could inform trading schedule optimization
+
+### [T819] Dashboard: Historical latency comparison widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T800]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Compare today's latency vs historical averages:
+  - Show today avg vs 7d avg vs 30d avg
+  - Visual indicator: better/worse than usual
+  - Sparkline showing trend direction
+  - Quick glance widget for /betting or /health page
+  - Data from latency-history.jsonl aggregation
