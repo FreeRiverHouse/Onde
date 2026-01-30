@@ -1,0 +1,507 @@
+{
+  "generated_at": "2026-01-30T20:13:39.276351+00:00",
+  "days_analyzed": "all",
+  "total_trades": 123,
+  "overall_win_rate_pct": 0.0,
+  "total_pnl_cents": -855,
+  "by_hour": {
+    "0": {
+      "hour_pst": 0,
+      "hour_label": "00:00-00:59 PST",
+      "total_trades": 15,
+      "wins": 0,
+      "losses": 15,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -219,
+      "avg_pnl_cents": -14.6
+    },
+    "1": {
+      "hour_pst": 1,
+      "hour_label": "01:00-01:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -192,
+      "avg_pnl_cents": -10.7
+    },
+    "2": {
+      "hour_pst": 2,
+      "hour_label": "02:00-02:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -138,
+      "avg_pnl_cents": -7.7
+    },
+    "3": {
+      "hour_pst": 3,
+      "hour_label": "03:00-03:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -96,
+      "avg_pnl_cents": -5.3
+    },
+    "4": {
+      "hour_pst": 4,
+      "hour_label": "04:00-04:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -72,
+      "avg_pnl_cents": -4.0
+    },
+    "5": {
+      "hour_pst": 5,
+      "hour_label": "05:00-05:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -60,
+      "avg_pnl_cents": -3.3
+    },
+    "6": {
+      "hour_pst": 6,
+      "hour_label": "06:00-06:59 PST",
+      "total_trades": 18,
+      "wins": 0,
+      "losses": 18,
+      "win_rate_pct": 0.0,
+      "total_pnl_cents": -78,
+      "avg_pnl_cents": -4.3
+    },
+    "7": {
+      "hour_pst": 7,
+      "hour_label": "07:00-07:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "8": {
+      "hour_pst": 8,
+      "hour_label": "08:00-08:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "9": {
+      "hour_pst": 9,
+      "hour_label": "09:00-09:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "10": {
+      "hour_pst": 10,
+      "hour_label": "10:00-10:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "11": {
+      "hour_pst": 11,
+      "hour_label": "11:00-11:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "12": {
+      "hour_pst": 12,
+      "hour_label": "12:00-12:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "13": {
+      "hour_pst": 13,
+      "hour_label": "13:00-13:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "14": {
+      "hour_pst": 14,
+      "hour_label": "14:00-14:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "15": {
+      "hour_pst": 15,
+      "hour_label": "15:00-15:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "16": {
+      "hour_pst": 16,
+      "hour_label": "16:00-16:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "17": {
+      "hour_pst": 17,
+      "hour_label": "17:00-17:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "18": {
+      "hour_pst": 18,
+      "hour_label": "18:00-18:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "19": {
+      "hour_pst": 19,
+      "hour_label": "19:00-19:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "20": {
+      "hour_pst": 20,
+      "hour_label": "20:00-20:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "21": {
+      "hour_pst": 21,
+      "hour_label": "21:00-21:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "22": {
+      "hour_pst": 22,
+      "hour_label": "22:00-22:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    },
+    "23": {
+      "hour_pst": 23,
+      "hour_label": "23:00-23:59 PST",
+      "total_trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0,
+      "total_pnl_cents": 0,
+      "avg_pnl_cents": 0
+    }
+  },
+  "heatmap": [
+    {
+      "hour": 0,
+      "label": "00:00",
+      "trades": 15,
+      "win_rate": 0.0,
+      "pnl_cents": -219,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 1,
+      "label": "01:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -192,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 2,
+      "label": "02:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -138,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 3,
+      "label": "03:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -96,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 4,
+      "label": "04:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -72,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 5,
+      "label": "05:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -60,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 6,
+      "label": "06:00",
+      "trades": 18,
+      "win_rate": 0.0,
+      "pnl_cents": -78,
+      "color": "red",
+      "intensity": 1.0
+    },
+    {
+      "hour": 7,
+      "label": "07:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 8,
+      "label": "08:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 9,
+      "label": "09:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 10,
+      "label": "10:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 11,
+      "label": "11:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 12,
+      "label": "12:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 13,
+      "label": "13:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 14,
+      "label": "14:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 15,
+      "label": "15:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 16,
+      "label": "16:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 17,
+      "label": "17:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 18,
+      "label": "18:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 19,
+      "label": "19:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 20,
+      "label": "20:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 21,
+      "label": "21:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 22,
+      "label": "22:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    },
+    {
+      "hour": 23,
+      "label": "23:00",
+      "trades": 0,
+      "win_rate": 0,
+      "pnl_cents": 0,
+      "color": "gray",
+      "intensity": 0
+    }
+  ],
+  "best_worst": {
+    "best_hours": [],
+    "worst_hours": [
+      {
+        "hour": 2,
+        "hour_pst": 2,
+        "hour_label": "02:00-02:59 PST",
+        "total_trades": 18,
+        "wins": 0,
+        "losses": 18,
+        "win_rate_pct": 0.0,
+        "total_pnl_cents": -138,
+        "avg_pnl_cents": -7.7
+      },
+      {
+        "hour": 1,
+        "hour_pst": 1,
+        "hour_label": "01:00-01:59 PST",
+        "total_trades": 18,
+        "wins": 0,
+        "losses": 18,
+        "win_rate_pct": 0.0,
+        "total_pnl_cents": -192,
+        "avg_pnl_cents": -10.7
+      },
+      {
+        "hour": 0,
+        "hour_pst": 0,
+        "hour_label": "00:00-00:59 PST",
+        "total_trades": 15,
+        "wins": 0,
+        "losses": 15,
+        "win_rate_pct": 0.0,
+        "total_pnl_cents": -219,
+        "avg_pnl_cents": -14.6
+      }
+    ],
+    "recommendation": "Avoid: 02:00, 01:00, 00:00 PST"
+  },
+  "timezone": "PST (UTC-8)"
+}

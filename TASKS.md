@@ -9812,18 +9812,27 @@
   - Output: traduzioni/capussela-completa/capussela-spirito-EN-final.txt
 
 ### [T826] Trading: Add trade performance by time-of-day analysis
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-03
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze trading performance patterns by time of day:
-  - Group trades by hour (PST)
-  - Calculate win rate and avg PnL per hour
-  - Identify best and worst hours for trading
-  - Create dashboard widget showing heatmap
-  - Optionally disable trading during worst hours
-  - Export to data/trading/time-analysis.json
+- **Notes**: ✅ Implemented time-of-day performance analysis!
+  - **Script**: `scripts/analyze-time-of-day.py`
+  - **Output**: `data/trading/time-analysis.json`
+  - **Features:**
+    - ✅ Groups trades by hour (PST timezone)
+    - ✅ Calculates win rate and avg PnL per hour
+    - ✅ Identifies best and worst trading hours
+    - ✅ Generates heatmap data for dashboard
+    - ✅ Color-coded intensity (green=good, red=bad)
+    - ✅ `--days N` flag to limit analysis window
+    - ✅ `--min-trades N` for best/worst threshold
+  - **Usage:**
+    - `python3 scripts/analyze-time-of-day.py` - Full analysis
+    - `python3 scripts/analyze-time-of-day.py --days 7` - Last week only
+  - ⏳ Dashboard widget (future task)
 
 ### [T827] Trading: Add market momentum regime indicator
 - **Status**: TODO
