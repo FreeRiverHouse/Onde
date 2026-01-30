@@ -55,23 +55,33 @@ export function Library() {
             <p className="text-lg opacity-70 mt-2">Your personal reading collection</p>
           </div>
           
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploading}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
-          >
-            {isUploading ? (
-              <>
-                <span className="animate-spin">⏳</span>
-                Uploading...
-              </>
-            ) : (
-              <>
-                <span>➕</span>
-                Add Book
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="/reader-vr/"
+              className="flex items-center gap-2 px-5 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
+              title="Try VR Reading Mode"
+            >
+              <span>🥽</span>
+              VR Mode
+            </a>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isUploading}
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
+            >
+              {isUploading ? (
+                <>
+                  <span className="animate-spin">⏳</span>
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <span>➕</span>
+                  Add Book
+                </>
+              )}
+            </button>
+          </div>
           <input
             ref={fileInputRef}
             type="file"
