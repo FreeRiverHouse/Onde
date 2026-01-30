@@ -104,6 +104,7 @@ export function TradeTicker({
   const getAssetFromTicker = (ticker: string): string => {
     if (ticker.includes('KXETHD')) return 'ETH';
     if (ticker.includes('KXBTCD')) return 'BTC';
+    if (ticker.includes('KXSOLD')) return 'SOL';  // T423: Solana support
     return '';
   };
   
@@ -163,7 +164,9 @@ export function TradeTicker({
                 {/* Asset badge */}
                 {asset && (
                   <span className={`text-[10px] font-bold px-1 rounded ${
-                    asset === 'BTC' ? 'bg-orange-500/30 text-orange-300' : 'bg-purple-500/30 text-purple-300'
+                    asset === 'BTC' ? 'bg-orange-500/30 text-orange-300' 
+                    : asset === 'SOL' ? 'bg-cyan-500/30 text-cyan-300'  // T423: Solana styling
+                    : 'bg-purple-500/30 text-purple-300'
                   }`}>
                     {asset}
                   </span>
@@ -234,6 +237,7 @@ export function TradeTickerStatic({
   const getAssetFromTicker = (ticker: string): string => {
     if (ticker.includes('KXETHD')) return 'ETH';
     if (ticker.includes('KXBTCD')) return 'BTC';
+    if (ticker.includes('KXSOLD')) return 'SOL';  // T423: Solana support
     return '';
   };
   
@@ -258,7 +262,9 @@ export function TradeTickerStatic({
           >
             {asset && (
               <span className={`font-bold ${
-                asset === 'BTC' ? 'text-orange-300' : 'text-purple-300'
+                asset === 'BTC' ? 'text-orange-300' 
+                : asset === 'SOL' ? 'text-cyan-300'  // T423: Solana styling
+                : 'text-purple-300'
               }`}>
                 {asset}
               </span>

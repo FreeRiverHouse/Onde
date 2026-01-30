@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
 Kalshi Settlement Tracker
-Tracks BTC/ETH price at contract expiry times to calculate actual win/loss.
+Tracks BTC/ETH/SOL price at contract expiry times to calculate actual win/loss.
 
 Contract ticker format: KX[ASSET]D-[DATE][HOUR]-T[STRIKE]
 BTC Example: KXBTCD-26JAN2804-T88499.99 = Jan 28 2026, 4:00 UTC, strike $88,500
 ETH Example: KXETHD-26JAN2804-T3199.99 = Jan 28 2026, 4:00 UTC, strike $3,200
+SOL Example: KXSOLD-26JAN2804-T249.99 = Jan 28 2026, 4:00 UTC, strike $250 (T423)
 """
 
 import json
@@ -24,9 +25,10 @@ SETTLEMENTS_FILE_V2 = Path(__file__).parent / "kalshi-settlements-v2.json"
 
 def parse_ticker(ticker: str) -> dict:
     """
-    Parse Kalshi BTC/ETH ticker to extract expiry time, strike, and asset.
+    Parse Kalshi BTC/ETH/SOL ticker to extract expiry time, strike, and asset.
     BTC Example: KXBTCD-26JAN2804-T88499.99
     ETH Example: KXETHD-26JAN2804-T3199.99
+    SOL Example: KXSOLD-26JAN2804-T249.99 (T423)
     
     Format: KX[ASSET]D-[YY][MMM][DD][HH]-T[STRIKE]
     where YY=year (20YY), MMM=month, DD=day, HH=hour (ET timezone)
@@ -39,6 +41,11 @@ def parse_ticker(ticker: str) -> dict:
     if not match:
         match = re.match(r'KXETHD-(\d{2})([A-Z]{3})(\d{2})(\d{2})-T(\d+\.?\d*)', ticker)
         asset = 'ETH'
+    
+    # Try SOL ticker format if neither BTC nor ETH matched (T423)
+    if not match:
+        match = re.match(r'KXSOLD-(\d{2})([A-Z]{3})(\d{2})(\d{2})-T(\d+\.?\d*)', ticker)
+        asset = 'SOL'
     
     if not match:
         return None
@@ -93,14 +100,16 @@ def get_price_at_time(target_time: datetime, asset: str = 'BTC') -> float:
     """
     Get crypto price at a specific historical time using CoinGecko API.
     Uses hourly granularity for accuracy.
-    Supports BTC and ETH.
+    Supports BTC, ETH, and SOL (T423).
     """
     # CoinGecko market_chart/range endpoint
     # from/to are UNIX timestamps
     start_ts = int((target_time - timedelta(minutes=5)).timestamp())
     end_ts = int((target_time + timedelta(minutes=5)).timestamp())
     
-    coin_id = 'bitcoin' if asset == 'BTC' else 'ethereum'
+    # Map asset to CoinGecko coin_id (T423: added SOL)
+    coin_map = {'BTC': 'bitcoin', 'ETH': 'ethereum', 'SOL': 'solana'}
+    coin_id = coin_map.get(asset, 'bitcoin')
     url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart/range?vs_currency=usd&from={start_ts}&to={end_ts}"
     
     try:
@@ -126,12 +135,14 @@ def get_price_at_time(target_time: datetime, asset: str = 'BTC') -> float:
 def get_price_binance(target_time: datetime, asset: str = 'BTC') -> float:
     """
     Get crypto price at a specific time using Binance klines API (backup).
-    Supports BTC and ETH.
+    Supports BTC, ETH, and SOL (T423).
     """
     start_ts = int(target_time.timestamp() * 1000)
     end_ts = start_ts + 60000  # 1 minute later
     
-    symbol = 'BTCUSDT' if asset == 'BTC' else 'ETHUSDT'
+    # Map asset to Binance symbol (T423: added SOL)
+    symbol_map = {'BTC': 'BTCUSDT', 'ETH': 'ETHUSDT', 'SOL': 'SOLUSDT'}
+    symbol = symbol_map.get(asset, 'BTCUSDT')
     url = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval=1m&startTime={start_ts}&endTime={end_ts}&limit=1"
     
     try:
@@ -153,7 +164,7 @@ def get_price_binance(target_time: datetime, asset: str = 'BTC') -> float:
 def get_price_cryptocompare(target_time: datetime, asset: str = 'BTC') -> float:
     """
     Get crypto price at a specific time using CryptoCompare API (no auth needed).
-    Supports BTC and ETH.
+    Supports BTC, ETH, and SOL (T423 - uses fsym directly).
     """
     ts = int(target_time.timestamp())
     
