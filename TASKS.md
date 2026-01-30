@@ -7542,6 +7542,48 @@
   - "Speak all suggestions" mode
 
 
+### [T780] SE-Bot: Weekly competitor mention report
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T735]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Generate weekly summary of competitor mentions:
+  - Most mentioned competitor in meetings
+  - Trend over time (increasing/decreasing mentions)
+  - Which objections come up most with each competitor
+  - Export to PDF/Markdown for sales team
+  - Integrate with Telegram notification (optional)
+  - Add to existing weekly report system
+
+### [T781] SE-Bot: Add "Win the Deal" playbook generator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T735], [T473]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Generate deal-specific playbooks:
+  - Input: Competitors being evaluated, customer industry, deal size
+  - Output: Custom battle card with tailored differentiators
+  - Include industry-specific use cases from KB
+  - Suggested demo scenarios
+  - Common objections for that competitor + responses
+  - One-pager format for easy printing/sharing
+
+### [T782] SE-Bot: Sentiment detection in meeting context
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T473]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Detect customer sentiment during meetings:
+  - Positive signals: "impressive", "like that", "makes sense"
+  - Negative signals: "concerned about", "not sure", "expensive"
+  - Neutral/probing: questions, clarifications
+  - Show sentiment indicator in overlay (🟢/🟡/🔴)
+  - Suggest response style based on sentiment
+  - Log sentiment changes for post-meeting analysis
+
 ### [T745] CI/CD: Add Telegram notifications for pipeline failures
 - **Status**: DONE
 - **Owner**: @clawd
