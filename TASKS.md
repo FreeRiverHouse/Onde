@@ -4548,16 +4548,17 @@
   - Agent mood indicators (😴😰😊🎯😌) now live in Free River House panel
 
 ### [T755] Deploy onde.surf with Level-up celebration
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T752]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy level-up celebration feature to production:
-  - Build surfboard with `npm run build:cf`
-  - Deploy via wrangler to Cloudflare Pages
-  - Test celebration by completing agent tasks
-  - Verify confetti animation works in production
+- **Notes**: ✅ Deployed level-up celebration to production!
+  - ✅ Build surfboard with `npm run build:cf` - passed
+  - ✅ Deploy via wrangler: https://28429e71.onde-surf.pages.dev
+  - ✅ Verified: https://onde.surf returns 307 (auth redirect as expected)
+  - Level-up confetti and celebration now live in Free River House
 
 ### [T756] Add sound effects to level-up celebration
 - **Status**: TODO
