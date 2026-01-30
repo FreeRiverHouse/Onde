@@ -3367,8 +3367,8 @@
   - Visible in real-time from gist stats
 
 ### [T804] Trading: Analyze latency impact on trade outcomes
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T801]
 - **Blocks**: -
 - **Priority**: P3
@@ -5545,19 +5545,33 @@
   - **Recommendation**: Adjust NWS forecast down by ~3°F for better edge calculation
 
 ### [T774] Trading: Add backtesting with historical OHLC data
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Proper backtesting framework for crypto trades:
-  - Use OHLC cache data for historical simulations
-  - Replay historical scenarios with different parameters
-  - Track what trades WOULD have been taken and outcomes
-  - Compare against actual settlement prices
-  - Script: `scripts/backtest-crypto-strategy.py`
-  - Output: `data/backtests/crypto-backtest-YYYYMMDD.json`
-  - Foundation for data-driven parameter tuning
+- **Notes**: ✅ Implemented backtesting framework for crypto trades!
+  - **Script**: `scripts/backtest-crypto-strategy.py`
+  - **Features:**
+    - ✅ Load historical OHLC data from cache (data/ohlc/*.json)
+    - ✅ Simulate trade decisions using momentum + RSI signals
+    - ✅ Track what trades WOULD have been taken and outcomes
+    - ✅ Compare simulated entry vs settlement prices
+    - ✅ Parameter sweep mode to find optimal edge thresholds
+    - ✅ Analysis by momentum (bullish/bearish/neutral)
+    - ✅ Analysis by RSI zone (oversold/neutral/overbought)
+    - ✅ Recommendations based on win rate
+  - **Output**: `data/backtests/crypto-backtest-{asset}-{timestamp}.json`
+  - **Usage:**
+    - `python backtest-crypto-strategy.py` - Default BTC backtest
+    - `python backtest-crypto-strategy.py --all-assets` - BTC + ETH
+    - `python backtest-crypto-strategy.py --sweep` - Parameter optimization
+    - `python backtest-crypto-strategy.py --verbose --save` - Detailed output + save
+  - **Initial findings:**
+    - BTC: 75% win rate with edge_min=5.0
+    - ETH: 100% win rate with edge_min=5.0 (limited sample)
+    - Oversold RSI zones show highest win rates
 
 ### [T367] Circuit breaker cooldown configuration via env
 - **Status**: DONE

@@ -1,0 +1,149 @@
+{
+  "asset": "eth",
+  "sweep_results": [
+    {
+      "edge_min": 2.0,
+      "win_rate": 50.0,
+      "trades": 6,
+      "pnl": 2.0
+    },
+    {
+      "edge_min": 3.0,
+      "win_rate": 60.0,
+      "trades": 5,
+      "pnl": 12.23
+    },
+    {
+      "edge_min": 4.0,
+      "win_rate": 60.0,
+      "trades": 5,
+      "pnl": 12.23
+    },
+    {
+      "edge_min": 5.0,
+      "win_rate": 100.0,
+      "trades": 3,
+      "pnl": 20.82
+    },
+    {
+      "edge_min": 6.0,
+      "win_rate": 0,
+      "trades": 0,
+      "pnl": 0
+    }
+  ],
+  "best_params": {
+    "edge_min": 5.0,
+    "win_rate": 100.0
+  },
+  "best_result": {
+    "asset": "eth",
+    "parameters": {
+      "edge_min": 5.0,
+      "days": 90,
+      "candles_count": 23
+    },
+    "trades": [
+      {
+        "asset": "eth",
+        "timestamp": 1767052800000,
+        "datetime": "2025-12-30T00:00:00+00:00",
+        "price_at_entry": 2934.22,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 34.29510945354576,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 3121.9,
+        "price_change_pct": 6.4,
+        "win": true,
+        "pnl_estimate": 6.396248406731613
+      },
+      {
+        "asset": "eth",
+        "timestamp": 1767398400000,
+        "datetime": "2026-01-03T00:00:00+00:00",
+        "price_at_entry": 3121.9,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 39.10391068970744,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 3295.1,
+        "price_change_pct": 5.55,
+        "win": true,
+        "pnl_estimate": 5.547903520292124
+      },
+      {
+        "asset": "eth",
+        "timestamp": 1768089600000,
+        "datetime": "2026-01-11T00:00:00+00:00",
+        "price_at_entry": 3082.97,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 39.68389568105122,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 3356.5,
+        "price_change_pct": 8.87,
+        "win": true,
+        "pnl_estimate": 8.872288734564403
+      }
+    ],
+    "summary": {
+      "total_trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "win_rate": 100.0,
+      "total_pnl_estimate": 20.82,
+      "avg_win_pct": 6.94,
+      "avg_loss_pct": 0,
+      "momentum_analysis": {
+        "bullish": {
+          "trades": 3,
+          "wins": 3,
+          "win_rate": 100.0
+        },
+        "bearish": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        },
+        "neutral": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        }
+      },
+      "rsi_analysis": {
+        "oversold": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        },
+        "neutral": {
+          "trades": 3,
+          "wins": 3,
+          "win_rate": 100.0
+        },
+        "overbought": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        }
+      }
+    }
+  }
+}

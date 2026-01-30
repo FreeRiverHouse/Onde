@@ -1,0 +1,168 @@
+{
+  "asset": "btc",
+  "sweep_results": [
+    {
+      "edge_min": 2.0,
+      "win_rate": 50.0,
+      "trades": 6,
+      "pnl": 3.2
+    },
+    {
+      "edge_min": 3.0,
+      "win_rate": 60.0,
+      "trades": 5,
+      "pnl": 7.8
+    },
+    {
+      "edge_min": 4.0,
+      "win_rate": 60.0,
+      "trades": 5,
+      "pnl": 7.8
+    },
+    {
+      "edge_min": 5.0,
+      "win_rate": 75.0,
+      "trades": 4,
+      "pnl": 11.15
+    },
+    {
+      "edge_min": 6.0,
+      "win_rate": 100.0,
+      "trades": 1,
+      "pnl": 3.18
+    }
+  ],
+  "best_params": {
+    "edge_min": 5.0,
+    "win_rate": 75.0
+  },
+  "best_result": {
+    "asset": "btc",
+    "parameters": {
+      "edge_min": 5.0,
+      "days": 90,
+      "candles_count": 23
+    },
+    "trades": [
+      {
+        "asset": "btc",
+        "timestamp": 1767052800000,
+        "datetime": "2025-12-30T00:00:00+00:00",
+        "price_at_entry": 87157.0,
+        "side": "yes",
+        "edge": 7.0,
+        "rsi": 28.02598106242155,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 3.0,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 89926.0,
+        "price_change_pct": 3.18,
+        "win": true,
+        "pnl_estimate": 3.1770253680140437
+      },
+      {
+        "asset": "btc",
+        "timestamp": 1767398400000,
+        "datetime": "2026-01-03T00:00:00+00:00",
+        "price_at_entry": 89926.0,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 32.54044925757263,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 93667.0,
+        "price_change_pct": 4.16,
+        "win": true,
+        "pnl_estimate": 4.160087182794743
+      },
+      {
+        "asset": "btc",
+        "timestamp": 1767744000000,
+        "datetime": "2026-01-07T00:00:00+00:00",
+        "price_at_entry": 93667.0,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 38.181961089261236,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 90442.0,
+        "price_change_pct": -3.44,
+        "win": false,
+        "pnl_estimate": -3.4430482453799094
+      },
+      {
+        "asset": "btc",
+        "timestamp": 1768089600000,
+        "datetime": "2026-01-11T00:00:00+00:00",
+        "price_at_entry": 90442.0,
+        "side": "yes",
+        "edge": 5.5,
+        "rsi": 35.431130985734754,
+        "momentum": "bullish",
+        "components": {
+          "base": 2.0,
+          "rsi_adj": 1.5,
+          "momentum_adj": 2.0
+        },
+        "settlement_price": 97008.0,
+        "price_change_pct": 7.26,
+        "win": true,
+        "pnl_estimate": 7.259901373255788
+      }
+    ],
+    "summary": {
+      "total_trades": 4,
+      "wins": 3,
+      "losses": 1,
+      "win_rate": 75.0,
+      "total_pnl_estimate": 11.15,
+      "avg_win_pct": 4.87,
+      "avg_loss_pct": -3.44,
+      "momentum_analysis": {
+        "bullish": {
+          "trades": 4,
+          "wins": 3,
+          "win_rate": 75.0
+        },
+        "bearish": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        },
+        "neutral": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        }
+      },
+      "rsi_analysis": {
+        "oversold": {
+          "trades": 1,
+          "wins": 1,
+          "win_rate": 100.0
+        },
+        "neutral": {
+          "trades": 3,
+          "wins": 2,
+          "win_rate": 66.7
+        },
+        "overbought": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate": 0
+        }
+      }
+    }
+  }
+}
