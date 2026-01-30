@@ -215,10 +215,11 @@ DIVERGENCE_STATE_FILE = "scripts/kalshi-divergence-state.json"
 # Portfolio concentration limits (T480) - prevent over-concentration in correlated assets
 # Key insight: Don't put all eggs in one basket - diversify across asset classes
 CONCENTRATION_MAX_ASSET_CLASS_PCT = 0.50  # Max 50% of portfolio in any single asset class
-CONCENTRATION_MAX_CORRELATED_PCT = 0.30   # Max 30% in highly correlated positions (e.g., multiple BTC contracts)
+CONCENTRATION_MAX_CORRELATED_PCT = 0.30   # Default max 30% in highly correlated positions (dynamic via T483)
 CONCENTRATION_WARN_PCT = 0.40             # Warn when approaching 40% in any asset class
 CONCENTRATION_ALERT_FILE = "scripts/kalshi-concentration.alert"
 CONCENTRATION_ALERT_COOLDOWN = 3600       # 1 hour cooldown between alerts
+CORRELATION_DATA_FILE = "data/trading/asset-correlation.json"  # Dynamic BTC/ETH correlation (T483)
 
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
@@ -2375,9 +2376,17 @@ def check_concentration_limits(
                  f"({new_asset_class.upper()}: {current_asset_pct*100:.1f}% → {projected_asset_pct*100:.1f}%)"
         return False, reason, concentration
     
-    # 2. Check correlated group limit (max 30%)
-    if projected_group_pct > CONCENTRATION_MAX_CORRELATED_PCT:
-        reason = f"Would exceed {CONCENTRATION_MAX_CORRELATED_PCT*100:.0f}% correlation group limit " \
+    # 2. Check correlated group limit (dynamic based on BTC/ETH correlation - T483)
+    if new_corr_group == "crypto":
+        dynamic_limit, corr_data = get_dynamic_crypto_correlation_limit()
+        if corr_data.get("status") == "success":
+            print(f"   📊 Dynamic crypto limit: {dynamic_limit*100:.0f}% (correlation: {corr_data.get('correlation', 0):.3f})")
+    else:
+        dynamic_limit = CONCENTRATION_MAX_CORRELATED_PCT
+        corr_data = {}
+    
+    if projected_group_pct > dynamic_limit:
+        reason = f"Would exceed {dynamic_limit*100:.0f}% correlation group limit " \
                  f"({new_corr_group}: {current_group_pct*100:.1f}% → {projected_group_pct*100:.1f}%)"
         return False, reason, concentration
     
@@ -2416,6 +2425,59 @@ def write_concentration_alert(asset_class: str, concentration_pct: float, metric
         json.dump(alert_data, f, indent=2)
     
     print(f"⚠️ Concentration alert written: {asset_class.upper()} at {concentration_pct*100:.1f}%")
+
+
+def get_dynamic_crypto_correlation_limit() -> tuple[float, dict]:
+    """
+    Get dynamic crypto correlation limit based on BTC/ETH correlation (T483).
+    
+    Reads data from btc-eth-correlation.py output file.
+    
+    Returns:
+        Tuple of (limit_pct, correlation_data)
+        - limit_pct: Max percentage for combined crypto exposure (0.30-0.60)
+        - correlation_data: Full correlation analysis for logging
+    """
+    correlation_file = Path(__file__).parent.parent / CORRELATION_DATA_FILE
+    
+    default_limit = CONCENTRATION_MAX_CORRELATED_PCT
+    
+    if not correlation_file.exists():
+        return default_limit, {"status": "no_data", "reason": "correlation file not found"}
+    
+    try:
+        with open(correlation_file, "r") as f:
+            data = json.load(f)
+        
+        # Check if data is stale (>24h old)
+        generated_at = data.get("generated_at", "")
+        if generated_at:
+            try:
+                gen_dt = datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+                age_hours = (datetime.now(timezone.utc) - gen_dt).total_seconds() / 3600
+                if age_hours > 24:
+                    return default_limit, {"status": "stale", "reason": f"correlation data is {age_hours:.0f}h old"}
+            except:
+                pass
+        
+        if data.get("status") != "success":
+            return default_limit, {"status": "error", "reason": data.get("message", "unknown error")}
+        
+        # Get adjustment from correlation analysis
+        adjustment = data.get("adjustment", {})
+        crypto_limit = adjustment.get("crypto_group_limit", 30) / 100.0  # Convert to decimal
+        
+        return crypto_limit, {
+            "status": "success",
+            "correlation": data.get("correlation", {}).get("value", 0),
+            "interpretation": data.get("correlation", {}).get("interpretation", "unknown"),
+            "crypto_limit_pct": crypto_limit * 100,
+            "risk_level": adjustment.get("risk_level", "unknown"),
+            "reason": adjustment.get("adjustment_reason", "")
+        }
+        
+    except Exception as e:
+        return default_limit, {"status": "error", "reason": str(e)}
 
 
 # T482: Concentration history tracking

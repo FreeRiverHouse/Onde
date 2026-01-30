@@ -233,15 +233,24 @@
   - Future: Add correlation with win/loss patterns (T483)
 
 ### [T483] Trading: Track correlation between BTC/ETH for smarter diversification
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T480]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Dynamic correlation tracking:
-  - Calculate rolling 7-day correlation between BTC and ETH prices
-  - Adjust "crypto" group concentration limit based on current correlation
-  - When correlation is low (<0.5), allow higher combined crypto exposure
+- **Notes**: ✅ Implemented dynamic correlation tracking!
+  - **Script**: `scripts/btc-eth-correlation.py` - fetches 7d price history, calculates Pearson correlation
+  - **Data sources**: Binance (primary), CoinGecko (fallback)
+  - **Output**: `data/trading/asset-correlation.json` with correlation value and limit recommendation
+  - **Integration**: `kalshi-autotrader-v2.py` now uses `get_dynamic_crypto_correlation_limit()`
+  - **Dynamic limits**:
+    - Correlation ≥0.9 → 30% crypto limit (high risk)
+    - Correlation 0.7-0.9 → 40% limit (medium)
+    - Correlation 0.5-0.7 → 50% limit (normal)
+    - Correlation <0.5 → 60% limit (good diversification)
+  - **Current**: BTC/ETH correlation = 0.9075 (very high) → 30% limit enforced
+  - **Caching**: 1h price cache to avoid API spam
   - When correlation is high (>0.9), treat BTC+ETH almost as single asset
   - Log correlation values in trade data for analysis
 
