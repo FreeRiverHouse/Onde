@@ -7217,12 +7217,28 @@
 - **Notes**: ✅ Updated hourly cron (45 * * * *) to use --source all. Now pushes combined v1+v2 stats to gist every hour.
 
 ### [T611] Integrate VIX into autotrader regime detection
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-02
 - **Depends**: [T332]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Use VIX data from T332 to enhance regime detection. VIX >25 suggests high fear = widen stop-losses. VIX <15 = normal sizing. Moderate positive correlation (0.40) means VIX spikes may precede crypto vol spikes.
+- **Notes**: ✅ Integrated VIX fear index into autotrader regime detection!
+  - **Constants added**: VIX_CORRELATION_FILE, VIX_HIGH_FEAR_THRESHOLD (25), VIX_ELEVATED_THRESHOLD (20), VIX_LOW_FEAR_THRESHOLD (15)
+  - **Function**: `load_vix_data()` - loads VIX from data/trading/vix-correlation.json, calculates edge adjustment and size multiplier
+  - **VIX regime effects**:
+    - high_fear (VIX ≥25): +3% edge requirement, 70% position size
+    - elevated (VIX 20-25): +1.5% edge requirement, 85% position size
+    - moderate (VIX 15-20): normal operation
+    - low_fear (VIX <15): -0.5% edge (can be slightly more aggressive)
+  - **Integration points**:
+    - `detect_market_regime()` now includes VIX adjustment to dynamic_min_edge
+    - Position sizing includes vix_multiplier in total_multiplier calculation
+    - VIX emoji display: 🟢 low_fear, 🟡 moderate, 🟠 elevated, 🔴 high_fear
+    - Trade logging includes vix_current, vix_regime, vix_multiplier
+    - ML feature logging includes one-hot VIX regime features
+  - **Opportunities** now include vix_size_multiplier, vix_current, vix_regime fields
+  - **Uses cached VIX data** if less than 24h old (VIX_CACHE_MAX_AGE_HOURS)
 
 ### [T612] Add VIX indicator widget to /betting dashboard
 - **Status**: TODO

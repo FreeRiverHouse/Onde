@@ -241,6 +241,16 @@ CONCENTRATION_ALERT_FILE = "scripts/kalshi-concentration.alert"
 CONCENTRATION_ALERT_COOLDOWN = 3600       # 1 hour cooldown between alerts
 CORRELATION_DATA_FILE = "data/trading/asset-correlation.json"  # Dynamic BTC/ETH correlation (T483)
 
+# VIX integration for regime detection (T611) - use fear index to adjust sizing/edge
+# VIX >25: high fear = more conservative (higher edge required)
+# VIX <15: low fear = normal sizing
+# Moderate positive correlation (0.40) with crypto means VIX spikes may precede vol spikes
+VIX_CORRELATION_FILE = "data/trading/vix-correlation.json"
+VIX_HIGH_FEAR_THRESHOLD = 25.0  # VIX >= 25 = high fear, reduce position size
+VIX_ELEVATED_THRESHOLD = 20.0  # VIX 20-25 = elevated, increase min edge
+VIX_LOW_FEAR_THRESHOLD = 15.0  # VIX < 15 = low fear, normal operation
+VIX_CACHE_MAX_AGE_HOURS = 24  # Only use VIX data if less than 24h old
+
 LATENCY_THRESHOLD_MS = int(os.getenv("LATENCY_THRESHOLD_MS", "2000"))  # Alert if avg latency > 2s
 LATENCY_ALERT_COOLDOWN = 3600  # 1 hour cooldown
 LATENCY_CHECK_WINDOW = 10  # Check last N trades
@@ -925,6 +935,97 @@ def save_regime_state(state: dict):
     """Save current regime state to file."""
     with open(REGIME_STATE_FILE, "w") as f:
         json.dump(state, f, indent=2)
+
+
+# ============== VIX INTEGRATION (T611) ==============
+
+def load_vix_data() -> dict:
+    """
+    Load VIX correlation data for regime enhancement.
+    
+    Returns dict with:
+        - vix_current: Current VIX level
+        - vix_regime: 'low_fear', 'moderate', 'elevated', 'high_fear'
+        - valid: Whether data is fresh enough to use
+        - edge_adjustment: Suggested edge adjustment based on VIX
+        - size_multiplier: Suggested position size multiplier
+    """
+    result = {
+        "vix_current": None,
+        "vix_regime": "unknown",
+        "valid": False,
+        "edge_adjustment": 0,
+        "size_multiplier": 1.0,
+        "correlation": None
+    }
+    
+    try:
+        if not os.path.exists(VIX_CORRELATION_FILE):
+            return result
+        
+        # Check file freshness
+        file_mtime = os.path.getmtime(VIX_CORRELATION_FILE)
+        file_age_hours = (time.time() - file_mtime) / 3600
+        
+        if file_age_hours > VIX_CACHE_MAX_AGE_HOURS:
+            # Data too old, don't use it
+            return result
+        
+        with open(VIX_CORRELATION_FILE, "r") as f:
+            data = json.load(f)
+        
+        vix_current = data.get("vix_current")
+        vix_regime = data.get("vix_regime", "unknown")
+        correlation = data.get("correlation", 0)
+        
+        if vix_current is None:
+            return result
+        
+        result["vix_current"] = vix_current
+        result["vix_regime"] = vix_regime
+        result["correlation"] = correlation
+        result["valid"] = True
+        
+        # Calculate adjustments based on VIX level
+        # VIX >= 25 (high_fear): Be more conservative
+        #   - Higher edge required (+3%)
+        #   - Smaller position size (0.7x)
+        # VIX 20-25 (elevated): Moderate caution
+        #   - Slightly higher edge (+1.5%)
+        #   - Slightly smaller size (0.85x)
+        # VIX 15-20 (moderate): Normal operation
+        # VIX < 15 (low_fear): Can be slightly more aggressive
+        #   - Slightly lower edge (-0.5%)
+        
+        if vix_current >= VIX_HIGH_FEAR_THRESHOLD:
+            result["edge_adjustment"] = 0.03  # +3% minimum edge
+            result["size_multiplier"] = 0.70  # 70% position size
+        elif vix_current >= VIX_ELEVATED_THRESHOLD:
+            result["edge_adjustment"] = 0.015  # +1.5% minimum edge
+            result["size_multiplier"] = 0.85  # 85% position size
+        elif vix_current < VIX_LOW_FEAR_THRESHOLD:
+            result["edge_adjustment"] = -0.005  # -0.5% edge (can be more aggressive)
+            result["size_multiplier"] = 1.0  # Normal size
+        else:
+            # Moderate zone (15-20): normal
+            result["edge_adjustment"] = 0
+            result["size_multiplier"] = 1.0
+        
+        return result
+        
+    except (json.JSONDecodeError, KeyError, OSError) as e:
+        # Silently fail and return defaults
+        return result
+
+
+def get_vix_regime_emoji(vix_regime: str) -> str:
+    """Get emoji for VIX regime display."""
+    return {
+        "low_fear": "🟢",
+        "moderate": "🟡",
+        "elevated": "🟠",
+        "high_fear": "🔴"
+    }.get(vix_regime, "⚪")
 
 
 def check_regime_change(current_regimes: dict) -> list:
@@ -2387,6 +2488,22 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
         result["dynamic_min_edge"] += 0.02  # +2% for high vol
     elif vol_class == "low":
         result["dynamic_min_edge"] -= 0.01  # -1% for low vol (more predictable)
+    
+    # VIX integration (T611) - use fear index to adjust edge requirements
+    # VIX spikes (>25) often precede crypto volatility, so be more conservative
+    vix_data = load_vix_data()
+    if vix_data["valid"]:
+        result["details"]["vix_current"] = vix_data["vix_current"]
+        result["details"]["vix_regime"] = vix_data["vix_regime"]
+        result["details"]["vix_size_multiplier"] = vix_data["size_multiplier"]
+        
+        # Apply VIX edge adjustment
+        result["dynamic_min_edge"] += vix_data["edge_adjustment"]
+        
+        # Store the VIX size multiplier for use in position sizing
+        result["vix_size_multiplier"] = vix_data["size_multiplier"]
+    else:
+        result["vix_size_multiplier"] = 1.0  # No VIX data, normal sizing
     
     # Ensure min edge stays in reasonable bounds
     result["dynamic_min_edge"] = max(0.05, min(0.20, result["dynamic_min_edge"]))
@@ -3927,6 +4044,14 @@ def log_ml_features(trade_data: dict):
         "regime_choppy": 1 if trade_data.get("regime") == "choppy" else 0,
         "regime_confidence": trade_data.get("regime_confidence", 0),
         
+        # VIX features (T611) - fear index integration
+        "vix_current": trade_data.get("vix_current"),
+        "vix_low_fear": 1 if trade_data.get("vix_regime") == "low_fear" else 0,
+        "vix_moderate": 1 if trade_data.get("vix_regime") == "moderate" else 0,
+        "vix_elevated": 1 if trade_data.get("vix_regime") == "elevated" else 0,
+        "vix_high_fear": 1 if trade_data.get("vix_regime") == "high_fear" else 0,
+        "vix_multiplier": trade_data.get("vix_multiplier", 1.0),
+        
         # Volatility features
         "vol_ratio": trade_data.get("vol_ratio", 1.0),  # realized/assumed
         "vol_aligned": 1 if trade_data.get("vol_aligned", False) else 0,
@@ -4201,6 +4326,9 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
                     "volatility": regime.get("volatility", "normal"),  # T293
+                    "vix_size_multiplier": regime.get("vix_size_multiplier", 1.0),  # T611: VIX-based sizing
+                    "vix_current": regime.get("details", {}).get("vix_current"),  # T611
+                    "vix_regime": regime.get("details", {}).get("vix_regime", "unknown"),  # T611
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
@@ -4289,6 +4417,9 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                     "regime": regime.get("regime", "unknown"),
                     "regime_confidence": regime.get("confidence", 0),
                     "volatility": regime.get("volatility", "normal"),  # T293
+                    "vix_size_multiplier": regime.get("vix_size_multiplier", 1.0),  # T611: VIX-based sizing
+                    "vix_current": regime.get("details", {}).get("vix_current"),  # T611
+                    "vix_regime": regime.get("details", {}).get("vix_regime", "unknown"),  # T611
                     "dynamic_min_edge": dynamic_edge,
                     "vol_ratio": vol_info.get("ratio", 1.0),
                     "vol_aligned": vol_aligned,
@@ -4852,8 +4983,17 @@ def run_cycle():
         adjusted_kelly = adjusted_kelly * latency_multiplier
         print(f"   ⚡ Latency size adjustment: {latency_multiplier:.0%} ({latency_reason})")
     
+    # VIX-based position sizing (T611) - reduce size when fear index is elevated
+    vix_multiplier = best.get("vix_size_multiplier", 1.0)
+    vix_current = best.get("vix_current")
+    vix_regime = best.get("vix_regime", "unknown")
+    if vix_multiplier != 1.0 and vix_current:
+        adjusted_kelly = adjusted_kelly * vix_multiplier
+        vix_emoji = get_vix_regime_emoji(vix_regime)
+        print(f"   {vix_emoji} VIX size adjustment: {vix_multiplier:.0%} (VIX={vix_current:.1f}, {vix_regime})")
+    
     # Log the adjustment (T441: show per-asset config)
-    total_multiplier = regime_multiplier * vol_multiplier * streak_multiplier * latency_multiplier
+    total_multiplier = regime_multiplier * vol_multiplier * streak_multiplier * latency_multiplier * vix_multiplier
     if asset_type != "weather":
         print(f"   📊 {asset_type.upper()} Kelly: {kelly_fraction*100:.1f}% | Max: {max_position_pct*100:.1f}%")
     if abs(total_multiplier - 1.0) > 0.01:
@@ -4863,6 +5003,8 @@ def run_cycle():
             multiplier_parts += f", streak={streak_multiplier:.0%}"
         if latency_multiplier != 1.0:
             multiplier_parts += f", latency={latency_multiplier:.0%}"
+        if vix_multiplier != 1.0:
+            multiplier_parts += f", vix={vix_multiplier:.0%}"
         print(f"   Position size: {adj_direction} {total_multiplier:.0%} ({multiplier_parts})")
     
     kelly_bet = cash * adjusted_kelly * best["edge"]
@@ -4968,6 +5110,9 @@ def run_cycle():
         "streak_multiplier": streak_multiplier,  # T388: streak-based size adjustment
         "latency_multiplier": latency_multiplier,  # T801: latency-based position sizing
         "latency_reason": latency_reason,  # T801: why latency adjustment applied
+        "vix_multiplier": vix_multiplier,  # T611: VIX-based position sizing
+        "vix_current": vix_current,  # T611: Current VIX level
+        "vix_regime": vix_regime,  # T611: VIX regime (low_fear/moderate/elevated/high_fear)
         "holiday_multiplier": holiday_multiplier,  # T414: holiday position size reduction
         "is_holiday": is_holiday_trading(),  # T414: trading during market holiday
         "size_multiplier_total": total_multiplier * holiday_multiplier,
