@@ -154,9 +154,9 @@
   - Screenshot or video of PWA install flow
 
 ### [T696] Surfboard: Upgrade to Next.js 15
-- **Status**: IN_PROGRESS
+- **Status**: BLOCKED
 - **Owner**: @clawd
-- **Depends**: -
+- **Depends**: @cloudflare/next-on-pages Next.js 15 support
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Upgrade surfboard app from Next.js 14.2.35 to 15.x to unlock security fixes:
@@ -171,6 +171,15 @@
     - [ ] API routes
     - [ ] Cloudflare Pages deploy
   - Reference: https://nextjs.org/docs/app/building-your-application/upgrading/version-15
+  - **Progress 2026-01-30:**
+    - ✅ Installed Next.js 15.5.11 - `npm run build` passes!
+    - ❌ `build:cf` fails: `@cloudflare/next-on-pages@1.13.16` doesn't support Next.js 15
+    - **Error**: `/_not-found` route not configured for Edge Runtime
+    - This is a known incompatibility - Next.js 15 generates internal `/_not-found` route
+    - Adding `export const runtime = 'edge'` to `not-found.tsx` doesn't fix it
+    - **BLOCKED** until @cloudflare/next-on-pages adds Next.js 15 support
+    - **Workaround applied**: Added edge runtime to 2 API routes (polyroborto/status, tech-support/status)
+    - Rolled back to Next.js 14.2 for production stability
 
 ### [T669] Reader App: VR/XR Version Planning
 - **Status**: DONE
