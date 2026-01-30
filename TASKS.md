@@ -9474,8 +9474,8 @@
   - Data from latency-history.jsonl aggregation
 
 ### [T820] Autotrader: API latency percentiles tracking
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
