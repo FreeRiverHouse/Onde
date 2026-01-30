@@ -550,6 +550,29 @@ export default function SkinCreator() {
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
+  // 📋 Copy skin to clipboard
+  const copyToClipboard = async () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    try {
+      const blob = await new Promise<Blob>((resolve) => 
+        canvas.toBlob((b) => resolve(b!), 'image/png')
+      );
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': blob })
+      ]);
+      playSound('click');
+      // Show feedback
+      alert('✅ Skin copied to clipboard!');
+    } catch (err) {
+      // Fallback: copy data URL
+      const dataUrl = canvas.toDataURL('image/png');
+      await navigator.clipboard.writeText(dataUrl);
+      alert('📋 Skin URL copied!');
+    }
+  };
+
   // Import existing skin PNG 📥
   const importSkin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -788,6 +811,13 @@ export default function SkinCreator() {
               className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
             >
               💾 Download
+            </button>
+            <button
+              onClick={copyToClipboard}
+              className="px-3 py-2 rounded-full font-bold bg-violet-500 text-white hover:bg-violet-600"
+              title="Copy to clipboard"
+            >
+              📋 Copy
             </button>
             <div className="flex items-center gap-1 ml-2">
               <button
