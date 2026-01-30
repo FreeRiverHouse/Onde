@@ -1,0 +1,10 @@
+{
+  "track_length": 711.7452669596507,
+  "num_points": 2781,
+  "ride_time": 46.333333333331986,
+  "max_speed_ms": 54.06427229708199,
+  "max_speed_kmh": 194.63138026949517,
+  "max_g": 1.4457108692202982,
+  "num_supports": 46,
+  "gpu_accelerated": false
+}
