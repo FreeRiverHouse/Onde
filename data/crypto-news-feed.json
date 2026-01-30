@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T20:00:02.991302+00:00",
+  "timestamp": "2026-01-30T20:30:02.633387+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin futures imbalance may spark liquidation revenge rally to $90K",
+      "url": "https://cointelegraph.com/news/bitcoin-futures-imbalance-may-spark-liquidation-revenge-rally-to-dollar90k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin short positions continued to pile up as BTC price dropped near $81,000, potentially providing the liquidation fuel for a revenge rally back above $90,000.",
+      "published": "2026-01-30T20:14:44+00:00"
+    },
+    {
+      "title": "Kraken-backed SPAC raises $345M in upsized Nasdaq IPO",
+      "url": "https://cointelegraph.com/news/kraken-krakacquisition-spac-345m-upsized-nasdaq-ipo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The blank-check company has yet to name an acquisition target, but the listing creates a new public vehicle tied to the US-based crypto exchange.",
+      "published": "2026-01-30T20:11:58+00:00"
+    },
     {
       "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",
       "url": "https://bitcoinmagazine.com/news/jamie-dimon-tells-coinbase-ceo-full-of-it",
@@ -135,20 +149,6 @@
       "source": "cointelegraph",
       "description": "Bitcoin's MVRV Z-score printed record lows on a rolling two-year basis, making BTC price more \"undervalued\" than at the pit of past bear markets.",
       "published": "2026-01-30T14:15:00+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-01-30T14:09:06+00:00"
-    },
-    {
-      "title": "Trump picks crypto-friendly Kevin Warsh as new Fed chair",
-      "url": "https://cointelegraph.com/news/kevin-warsh-officially-picked-federal-reserve-chair?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "US President Donald Trump nominated former Fed Governor Kevin Warsh to replace Jerome Powell as Federal Reserve chair, setting up a Senate confirmation fight.",
-      "published": "2026-01-30T13:40:31+00:00"
     },
     {
       "title": "Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair",

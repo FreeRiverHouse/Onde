@@ -9900,18 +9900,27 @@
   - **Cron**: `*/5 * * * * python3 scripts/log-health-history.py`
   - Deployed: https://e97c2797.onde-surf.pages.dev
 
-### [T857] Trading: Add position heatmap by expiry time
-- **Status**: TODO
-- **Owner**: -
+### [T830] Trading: Add position heatmap by expiry time
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Visualize open positions by time-to-expiry:
-  - Heatmap showing position concentration by expiry hour
-  - Color-coded by PnL (green=profit, red=loss)
-  - Helps identify over-concentration in specific time windows
-  - Dashboard widget on /betting page
-  - Data from existing positions API
+- **Notes**: ✅ Implemented position expiry heatmap widget!
+  - **Component**: `apps/surfboard/src/components/PositionExpiryHeatmap.tsx`
+  - **Features:**
+    - ✅ Time buckets: Expired, <1h, 1-4h, 4-12h, 12-24h, 1-3d, >3d
+    - ✅ Color-coded borders by urgency (red=soon, yellow=today, green=safe)
+    - ✅ Position count and exposure per bucket
+    - ✅ PnL indicator with trend icon per bucket
+    - ✅ Asset dots (BTC=orange, ETH=purple, Weather=blue)
+    - ✅ Risk level badge (% in near-term positions)
+    - ✅ Summary stats: total exposure, total PnL, urgent count
+    - ✅ Legend for asset types
+  - **Integration**: Added to /betting page after TimeOfDayHeatmap
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.surf (T832)
 
 ### [T858] Infra: Add Prometheus metrics endpoint to autotrader
 - **Status**: TODO
@@ -9926,3 +9935,15 @@
   - Standard Prometheus text format
   - Enable Grafana dashboards for trading metrics
   - Optional: Push to Pushgateway for remote monitoring
+
+
+### [T832] Deploy onde.surf with position expiry heatmap
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T830]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy surfboard with new PositionExpiryHeatmap widget
+  - Build: npm run build:cf
+  - Deploy: wrangler pages deploy
+  - Verify: https://onde.surf/betting shows new widget

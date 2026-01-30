@@ -53,6 +53,7 @@ import { HealthHistoryWidget } from '@/components/HealthHistoryWidget';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
 import { StopLossEffectivenessWidget } from '@/components/StopLossEffectivenessWidget';
 import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
+import { PositionExpiryHeatmap } from '@/components/PositionExpiryHeatmap';
 import { StreakPositionWidget } from '@/components/StreakPositionWidget';
 import { useTouchGestures, PullToRefreshIndicator } from '@/hooks/useTouchGestures';
 import { LastUpdatedIndicator } from '@/components/LastUpdatedIndicator';
@@ -2477,6 +2478,14 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <TimeOfDayHeatmap 
                 heatmapData={tradingStats.hourDayHeatmap || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* Position Expiry Heatmap (T830) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <PositionExpiryHeatmap 
+                positions={kalshiStatus?.positions}
                 loading={isLoading}
               />
             </div>
