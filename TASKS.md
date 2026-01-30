@@ -1733,6 +1733,66 @@
 - **Priority**: P3
 - **Notes**: VR reading experience
 
+### [T668] VR Testing Automatico Programmatico
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T669]
+- **Priority**: P1
+- **Notes**: Setup testing automatico per progetti VR (da Mattia 2026-01-29)
+  - Goal: Mattia si mette gli occhiali → localhost → tutto funziona
+  - Serve testare VR in modo programmatico (no click manuale)
+  - Ricercare strumenti/framework per VR testing automation
+  - Possibili: Playwright + WebXR, Unity Test Framework, custom
+  - Output: Script che verifica build VR funziona
+
+### [T669] CI/CD Pipeline con Feedback Loop Auto-Miglioramento
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Ciclo di deployment software che si auto-migliora (da Mattia 2026-01-29)
+  - Feedback loop per evoluzione continua
+  - Lavoro notturno con autotask
+  - "Le cose si evolvono da sole"
+  - Monitoraggio qualità + auto-fix se possibile
+
+### [T670] Reader App Portale - Versione Web
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T671], [T672]
+- **Priority**: P1
+- **Notes**: App per leggere i contenuti - prima web-based (da Mattia 2026-01-29)
+  - Diversa dal sito esistente - dedicata alla lettura
+  - Bel lettore libri "superfico"
+  - Focus su UX lettura immersiva
+  - Base per versioni mobile e VR
+
+### [T671] Reader App - Mobile iOS/Android
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T670]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: App mobile con lettore libri (da Mattia 2026-01-29)
+  - "App per i fond" (iPhone)
+  - Lettore tipo Kindle/iBooks ma migliore
+  - Offline reading support
+  - Sync progressi tra devices
+
+### [T672] Reader App - Integrazione VR
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T670], [T072]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: App portale anche in VR (da Mattia 2026-01-29)
+  - Lettura immersiva in realtà virtuale
+  - Ambiente 3D customizzabile
+  - Hand tracking per girare pagine
+
 ---
 
 ## 📋 TODO - AUTOTRADER IMPROVEMENTS
