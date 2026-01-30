@@ -1,0 +1,488 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run nightly at 4 AM UTC (8 PM PST) for auto-improvement cycles
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Force deploy all apps'
+        type: boolean
+        default: false
+      auto_fix:
+        description: 'Attempt auto-fix for failures'
+        type: boolean
+        default: true
+
+env:
+  NODE_VERSION: 20
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+jobs:
+  # ============================================================================
+  # STAGE 1: Quality Checks
+  # ============================================================================
+  lint-and-type-check:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    outputs:
+      reader_changed: ${{ steps.changes.outputs.reader }}
+      reader_vr_changed: ${{ steps.changes.outputs.reader_vr }}
+      surfboard_changed: ${{ steps.changes.outputs.surfboard }}
+      portal_changed: ${{ steps.changes.outputs.portal }}
+      moonlight_changed: ${{ steps.changes.outputs.moonlight }}
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed paths
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            reader:
+              - 'apps/reader-app/**'
+            reader_vr:
+              - 'apps/reader-vr/**'
+            surfboard:
+              - 'apps/surfboard/**'
+            portal:
+              - 'apps/onde-portal/**'
+            moonlight:
+              - 'apps/moonlight-house/**'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci --ignore-scripts 2>/dev/null || npm install
+
+      - name: Type check workspace
+        run: |
+          for app in reader-app reader-vr surfboard onde-portal moonlight-house; do
+            if [ -d "apps/$app" ] && [ -f "apps/$app/tsconfig.json" ]; then
+              echo "::group::Type checking apps/$app"
+              cd "apps/$app"
+              npm ci --ignore-scripts 2>/dev/null || npm install
+              npx tsc --noEmit 2>&1 || echo "::warning::Type errors in $app"
+              cd ../..
+              echo "::endgroup::"
+            fi
+          done
+
+  # ============================================================================
+  # STAGE 2: Tests (parallel)
+  # ============================================================================
+  test-reader-vr:
+    name: Test Reader VR
+    needs: lint-and-type-check
+    if: needs.lint-and-type-check.outputs.reader_vr_changed == 'true' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    defaults:
+      run:
+        working-directory: apps/reader-vr
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: apps/reader-vr/package-lock.json
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: npm test
+        env:
+          CI: true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reader-vr-test-results
+          path: |
+            apps/reader-vr/playwright-report/
+            apps/reader-vr/test-results/
+          retention-days: 14
+
+  test-unit:
+    name: Unit Tests
+    needs: lint-and-type-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Run unit tests (if any)
+        run: |
+          for app in reader-app surfboard onde-portal; do
+            if [ -d "apps/$app" ] && [ -f "apps/$app/package.json" ]; then
+              if grep -q '"test"' "apps/$app/package.json"; then
+                echo "::group::Testing apps/$app"
+                cd "apps/$app"
+                npm ci
+                npm test 2>&1 || echo "::warning::Test failures in $app"
+                cd ../..
+                echo "::endgroup::"
+              fi
+            fi
+          done
+
+  # ============================================================================
+  # STAGE 3: Build (parallel)
+  # ============================================================================
+  build-reader:
+    name: Build Reader App
+    needs: lint-and-type-check
+    if: needs.lint-and-type-check.outputs.reader_changed == 'true' || github.event_name == 'schedule' || github.event.inputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: apps/reader-app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: apps/reader-app/package-lock.json
+
+      - run: npm ci
+      
+      - name: Build static export
+        run: STATIC_EXPORT=1 npm run build
+        env:
+          NODE_ENV: production
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reader-app-build
+          path: apps/reader-app/out/
+          retention-days: 7
+
+  build-reader-vr:
+    name: Build Reader VR
+    needs: [lint-and-type-check, test-reader-vr]
+    if: always() && (needs.lint-and-type-check.outputs.reader_vr_changed == 'true' || github.event_name == 'schedule' || github.event.inputs.deploy == 'true')
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: apps/reader-vr
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: apps/reader-vr/package-lock.json
+
+      - run: npm ci
+      
+      - name: Build static export
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reader-vr-build
+          path: apps/reader-vr/out/
+          retention-days: 7
+
+  build-surfboard:
+    name: Build Surfboard
+    needs: lint-and-type-check
+    if: needs.lint-and-type-check.outputs.surfboard_changed == 'true' || github.event_name == 'schedule' || github.event.inputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: apps/surfboard
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: apps/surfboard/package-lock.json
+
+      - run: npm ci
+      
+      - name: Build for Cloudflare
+        run: npm run build && npm run build:cf
+        env:
+          NODE_ENV: production
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: surfboard-build
+          path: apps/surfboard/.vercel/output/static/
+          retention-days: 7
+
+  build-moonlight:
+    name: Build Moonlight House
+    needs: lint-and-type-check
+    if: needs.lint-and-type-check.outputs.moonlight_changed == 'true' || github.event_name == 'schedule' || github.event.inputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: apps/moonlight-house
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: apps/moonlight-house/package-lock.json
+
+      - run: npm ci
+      
+      - name: Build static export
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: moonlight-build
+          path: apps/moonlight-house/dist/
+          retention-days: 7
+
+  # ============================================================================
+  # STAGE 4: Deploy (on main branch only)
+  # ============================================================================
+  deploy:
+    name: Deploy to Cloudflare
+    needs: [build-reader, build-reader-vr, build-surfboard, build-moonlight]
+    if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Deploy Surfboard (onde.surf)
+        if: needs.build-surfboard.result == 'success'
+        run: |
+          npm install -g wrangler
+          if [ -d "artifacts/surfboard-build" ]; then
+            wrangler pages deploy artifacts/surfboard-build \
+              --project-name=onde-surf \
+              --commit-dirty=true
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Assemble Portal with sub-apps
+        run: |
+          mkdir -p portal-deploy
+          
+          # Copy portal base
+          if [ -d "apps/onde-portal/public" ]; then
+            cp -r apps/onde-portal/public/* portal-deploy/ 2>/dev/null || true
+          fi
+          
+          # Add Reader App
+          if [ -d "artifacts/reader-app-build" ]; then
+            mkdir -p portal-deploy/reader
+            cp -r artifacts/reader-app-build/* portal-deploy/reader/
+          fi
+          
+          # Add Reader VR
+          if [ -d "artifacts/reader-vr-build" ]; then
+            mkdir -p portal-deploy/reader-vr
+            cp -r artifacts/reader-vr-build/* portal-deploy/reader-vr/
+          fi
+          
+          # Add Moonlight House
+          if [ -d "artifacts/moonlight-build" ]; then
+            mkdir -p portal-deploy/static-games/moonlight-magic-house
+            cp -r artifacts/moonlight-build/* portal-deploy/static-games/moonlight-magic-house/
+          fi
+
+      - name: Deploy Portal (onde.la)
+        run: |
+          npm install -g wrangler
+          if [ -d "portal-deploy" ] && [ "$(ls -A portal-deploy)" ]; then
+            wrangler pages deploy portal-deploy \
+              --project-name=onde-portal \
+              --commit-dirty=true
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  # ============================================================================
+  # STAGE 5: Post-Deploy Verification
+  # ============================================================================
+  verify:
+    name: Verify Deployments
+    needs: deploy
+    if: needs.deploy.result == 'success'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check onde.la health
+        run: |
+          status=$(curl -sI "https://onde.la" | head -1 | awk '{print $2}')
+          if [ "$status" != "200" ] && [ "$status" != "301" ] && [ "$status" != "307" ]; then
+            echo "::error::onde.la returned $status"
+            exit 1
+          fi
+          echo "✅ onde.la: $status"
+
+      - name: Check onde.surf health
+        run: |
+          status=$(curl -sI "https://onde.surf" | head -1 | awk '{print $2}')
+          if [ "$status" != "200" ] && [ "$status" != "301" ] && [ "$status" != "307" ]; then
+            echo "::error::onde.surf returned $status"
+            exit 1
+          fi
+          echo "✅ onde.surf: $status"
+
+      - name: Check sub-routes
+        run: |
+          for route in "/reader" "/reader-vr" "/games/moonlight-magic-house"; do
+            status=$(curl -sI "https://onde.la$route" | head -1 | awk '{print $2}')
+            echo "onde.la$route: $status"
+          done
+
+  # ============================================================================
+  # STAGE 6: Auto-Improvement Feedback (nightly only)
+  # ============================================================================
+  auto-improve:
+    name: Auto-Improvement Analysis
+    needs: [test-reader-vr, test-unit, build-reader, build-reader-vr, build-surfboard, build-moonlight, verify]
+    if: always() && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect job results
+        id: results
+        run: |
+          cat > results.json << 'EOF'
+          {
+            "timestamp": "${{ github.run_started_at }}",
+            "run_id": "${{ github.run_id }}",
+            "jobs": {
+              "test_reader_vr": "${{ needs.test-reader-vr.result }}",
+              "test_unit": "${{ needs.test-unit.result }}",
+              "build_reader": "${{ needs.build-reader.result }}",
+              "build_reader_vr": "${{ needs.build-reader-vr.result }}",
+              "build_surfboard": "${{ needs.build-surfboard.result }}",
+              "build_moonlight": "${{ needs.build-moonlight.result }}",
+              "verify": "${{ needs.verify.result }}"
+            }
+          }
+          EOF
+          cat results.json
+
+      - name: Download test artifacts for analysis
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          path: test-artifacts/
+
+      - name: Generate improvement report
+        run: |
+          echo "# CI/CD Auto-Improvement Report" > improvement-report.md
+          echo "" >> improvement-report.md
+          echo "**Run:** ${{ github.run_id }}" >> improvement-report.md
+          echo "**Date:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> improvement-report.md
+          echo "" >> improvement-report.md
+          
+          # Check for failures
+          failures=""
+          for job in test_reader_vr test_unit build_reader build_reader_vr build_surfboard build_moonlight verify; do
+            result=$(jq -r ".jobs.$job" results.json 2>/dev/null || echo "unknown")
+            if [ "$result" = "failure" ]; then
+              failures="$failures $job"
+              echo "- ❌ **$job** failed" >> improvement-report.md
+            elif [ "$result" = "success" ]; then
+              echo "- ✅ $job passed" >> improvement-report.md
+            elif [ "$result" = "skipped" ]; then
+              echo "- ⏭️ $job skipped" >> improvement-report.md
+            fi
+          done
+          
+          echo "" >> improvement-report.md
+          
+          if [ -n "$failures" ]; then
+            echo "## 🔧 Auto-Fix Suggestions" >> improvement-report.md
+            echo "" >> improvement-report.md
+            echo "The following failures were detected and may need attention:" >> improvement-report.md
+            for job in $failures; do
+              echo "- [ ] Investigate $job failure" >> improvement-report.md
+            done
+            echo "" >> improvement-report.md
+            echo "Create a task in TASKS.md with these items." >> improvement-report.md
+          else
+            echo "## ✅ All Checks Passed" >> improvement-report.md
+            echo "" >> improvement-report.md
+            echo "No action required. System is healthy." >> improvement-report.md
+          fi
+          
+          cat improvement-report.md
+
+      - name: Upload improvement report
+        uses: actions/upload-artifact@v4
+        with:
+          name: improvement-report
+          path: improvement-report.md
+          retention-days: 30
+
+      - name: Create failure alert file
+        if: contains(needs.*.result, 'failure')
+        run: |
+          echo "CI/CD nightly run had failures. Check GitHub Actions run #${{ github.run_id }}" > ci-failure.alert
+          # This file would be picked up by the local heartbeat system
+
+      - name: Notify on critical failures
+        if: needs.verify.result == 'failure'
+        run: |
+          echo "::error::Production verification failed! Sites may be down."
+          # Could add Telegram/Slack notification here

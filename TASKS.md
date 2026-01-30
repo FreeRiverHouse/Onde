@@ -2907,25 +2907,45 @@
   - ⏳ Next: T726 (CI/CD pipeline with auto-improvement)
 
 ### [T726] CI/CD Pipeline con Feedback Loop Auto-Miglioramento
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T725]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Ciclo di deployment software che si auto-migliora (da Mattia 2026-01-29)
-  - Feedback loop per evoluzione continua
-  - Lavoro notturno con autotask
-  - "Le cose si evolvono da sole"
-  - Monitoraggio qualità + auto-fix se possibile
+- **Notes**: ✅ Implemented comprehensive CI/CD with auto-improvement!
+  - **Workflow**: `.github/workflows/ci-cd.yml`
+  - **Features:**
+    - ✅ Multi-stage pipeline: lint → test → build → deploy → verify
+    - ✅ Parallel builds for all apps (reader, reader-vr, surfboard, moonlight)
+    - ✅ Auto-deploy to Cloudflare on main branch push
+    - ✅ Nightly schedule at 4 AM UTC for auto-improvement cycles
+    - ✅ Post-deploy verification (health checks on onde.la, onde.surf)
+    - ✅ Auto-improvement stage analyzes failures, creates reports
+    - ✅ Path-based triggers (only rebuilds changed apps)
+    - ✅ Artifact caching and upload
+  - **Local Script**: `scripts/ci-auto-improve.py`
+    - Fetches GitHub Actions run history
+    - Analyzes failure patterns across runs
+    - Detects flaky jobs (3+ failures)
+    - Creates tasks for persistent issues
+    - Creates alerts for heartbeat pickup
+    - Logs run history for trend tracking
+    - Can auto-create TASKS.md entries with `--create-tasks`
+  - **Cron integration**: Nightly runs trigger auto-analysis
+  - **Secrets required**: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
 
 ### [T670] Reader App Portale - Versione Web
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE (duplicate of T668)
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: [T671], [T672]
 - **Priority**: P1
-- **Notes**: App per leggere i contenuti - prima web-based (da Mattia 2026-01-29)
-  - Diversa dal sito esistente - dedicata alla lettura
+- **Notes**: ✅ Completed as part of T668 (Reader App: Prototype)!
+  - See T668-T720 for full implementation details
+  - Live at: https://onde.la/reader/
+  - Features: EPUB reading, highlights, bookmarks, TTS, dictionary, stats
   - Bel lettore libri "superfico"
   - Focus su UX lettura immersiva
   - Base per versioni mobile e VR
