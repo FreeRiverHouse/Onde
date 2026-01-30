@@ -194,8 +194,8 @@
   - **Next step**: Create minimal R3F prototype (T701)
 
 ### [T701] Reader App VR: Create R3F prototype with floating text
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T669]
 - **Blocks**: [T702]
 - **Priority**: P2
