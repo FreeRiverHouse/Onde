@@ -119,17 +119,34 @@
   - Recommendation matrix for which model to use per task type
 
 ### [T870] Integrate local-agent-coordinator with exec/sessions
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-03
 - **Depends**: [T866], [T868]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Allow Clawdinho to delegate sub-tasks automatically:
-  - Create wrapper function for exec integration
-  - Test with sessions_spawn for async tasks
-  - Add retry logic and error handling
-  - Track delegation metrics (time saved, quality)
-  - Example: delegate code review to local LLM before responding
+- **Notes**: ✅ Created wrappers for exec integration!
+  - ✅ `scripts/local-llm-delegate.sh` - Shell wrapper for quick exec calls
+  - ✅ `scripts/local_llm.py` - Python module with:
+    - `delegate(query, task)` - Full response with metrics
+    - `quick_code(query)` - Quick code generation
+    - `quick_analysis(query)` - Quick text analysis
+    - `quick_answer(query)` - Fastest model for simple Qs
+    - `is_ollama_running()` / `start_ollama()` - Health checks
+    - `LLMResponse` dataclass with latency, tokens, etc.
+  - ✅ Auto-start Ollama if not running
+  - ✅ JSON output mode for structured responses
+  - ✅ Timeout handling and error reporting
+  - **Usage from exec:**
+    ```bash
+    ./scripts/local-llm-delegate.sh "Write a sorting function"
+    python3 scripts/local_llm.py --task analysis "Summarize this..."
+    ```
+  - **Usage from Python:**
+    ```python
+    from scripts.local_llm import quick_code
+    result = quick_code("Parse JSON in Python")
+    ```
 
 ### [T871] Create Local Agent System Documentation
 - **Status**: TODO
@@ -143,6 +160,46 @@
   - Model comparison table (size, speed, specialty)
   - Best practices for delegation
   - Common task templates
+
+### [T872] Local LLM: Add retry logic with model fallback
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T870]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve local LLM reliability:
+  - Auto-retry on timeout with smaller/faster model
+  - Fallback chain: qwen2.5-coder → deepseek-coder → llama3.2:3b
+  - Configurable max retries and backoff
+  - Track fallback metrics (how often needed)
+  - Log when fallbacks are used
+
+### [T873] Local LLM: Add delegation metrics tracking
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T870]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track local LLM usage to measure token savings:
+  - Log every delegation: timestamp, task type, model, latency, tokens
+  - Store in `data/metrics/local-llm-usage.jsonl`
+  - Daily summary: total delegations, avg latency, estimated Claude tokens saved
+  - Dashboard widget on onde.surf showing delegation stats
+  - Compare cost: local vs API calls
+
+### [T874] Local LLM: Code review delegation workflow
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T870]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Automated code review via local LLM before commit:
+  - Script: `scripts/local-code-review.sh FILE_OR_DIFF`
+  - Uses deepseek-coder for code analysis
+  - Checks: bugs, security issues, code style, complexity
+  - Output: markdown report with suggestions
+  - Can integrate with git pre-commit hook
+  - Example: `git diff HEAD~1 | ./scripts/local-code-review.sh`
 
 ---
 
