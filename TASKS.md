@@ -9863,3 +9863,43 @@
     - External monitoring: `curl http://localhost:8089/health`
     - UptimeRobot/etc: Point to `http://host:8089/ready`
   - **Integration**: Starts automatically with autotrader (no config needed)
+
+### [T829] Trading: Add health history tracking and dashboard widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T828]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track autotrader health over time and visualize:
+  - Log health snapshots to `data/trading/health-history.jsonl`
+  - Track: uptime, restarts, circuit breaker activations
+  - Dashboard widget on /betting showing health timeline
+  - Alert when uptime drops below threshold (frequent restarts)
+  - 30-day history retention
+
+### [T830] Trading: Add position heatmap by expiry time
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visualize open positions by time-to-expiry:
+  - Heatmap showing position concentration by expiry hour
+  - Color-coded by PnL (green=profit, red=loss)
+  - Helps identify over-concentration in specific time windows
+  - Dashboard widget on /betting page
+  - Data from existing positions API
+
+### [T831] Infra: Add Prometheus metrics endpoint to autotrader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T828]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add /metrics endpoint for Prometheus scraping:
+  - Expose: trades_total, win_rate, pnl_cents, positions_count
+  - Expose: cycle_duration_seconds, api_latency_seconds
+  - Expose: circuit_breaker_active gauge
+  - Standard Prometheus text format
+  - Enable Grafana dashboards for trading metrics
+  - Optional: Push to Pushgateway for remote monitoring
