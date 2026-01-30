@@ -6136,12 +6136,26 @@
 - **Notes**: Verify theme persists correctly across page refreshes on /betting. Current ThemeProvider uses localStorage - check if edge runtime breaks this. Add explicit theme cookie as fallback if needed.
 
 ### [T638] Auto-apply volatility recalibration
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T377]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: When T377 detects >20% deviation for 2+ consecutive weeks, auto-update BTC_HOURLY_VOL/ETH_HOURLY_VOL constants in autotrader-v2.py. Script: auto-recalibrate-volatility.py. Requires confirmation via Telegram before applying. Backup original values.
+- **Notes**: ✅ Implemented volatility auto-recalibration!
+  - **Script**: `scripts/auto-recalibrate-volatility.py`
+  - **Features:**
+    - Reads volatility stats from T377
+    - Detects >20% deviation for 14d+ 30d periods
+    - Creates kalshi-vol-recalibration.alert for heartbeat
+    - `--status`: Show current calibration status
+    - `--apply`: Apply suggested values (creates backup first)
+    - `--revert`: Restore from backup
+  - **Current finding**: Model OVERESTIMATES volatility
+    - BTC: 0.5% assumed vs 0.32% realized (-36%)
+    - ETH: 0.7% assumed vs 0.46% realized (-34%)
+  - Logs all recalibrations to history file
+  - **Note**: Run `--apply` only after confirming via Telegram
 
 ### [T639] Model calibration status widget on /betting dashboard
 - **Status**: TODO
