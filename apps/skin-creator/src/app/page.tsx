@@ -98,6 +98,11 @@ export default function SkinCreator() {
       return newHistory;
     });
     setHistoryIndex(prev => Math.min(prev + 1, maxHistory - 1));
+    
+    // Auto-save to localStorage 💾
+    try {
+      localStorage.setItem('minecraft-skin-autosave', canvas.toDataURL('image/png'));
+    } catch (e) { /* ignore quota errors */ }
   }, [historyIndex]);
 
   const undo = useCallback(() => {
@@ -175,6 +180,31 @@ export default function SkinCreator() {
     const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Auto-load saved skin from localStorage 💾
+  useEffect(() => {
+    const saved = localStorage.getItem('minecraft-skin-autosave');
+    if (saved && canvasRef.current) {
+      const ctx = canvasRef.current.getContext('2d');
+      if (ctx) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          ctx.drawImage(img, 0, 0);
+          updatePreview();
+        };
+        img.src = saved;
+      }
+    }
+  }, []);
+
+  // Auto-save to localStorage when canvas changes 💾
+  const autoSave = useCallback(() => {
+    if (canvasRef.current) {
+      const dataUrl = canvasRef.current.toDataURL('image/png');
+      localStorage.setItem('minecraft-skin-autosave', dataUrl);
+    }
   }, []);
 
   // Spawn sparkle particles when drawing
