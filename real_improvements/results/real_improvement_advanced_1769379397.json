@@ -1,0 +1,11 @@
+{
+  "improvement_id": "real_improvement_advanced_1769379397",
+  "timestamp": "2026-01-25T14:16:37.749308",
+  "improvement_type": "basic_grammar_rules",
+  "rules_added": 50,
+  "quality_before": 0.734,
+  "quality_after": 0.734,
+  "success": false,
+  "description": "Miglioramento basic_grammar_rules per target advanced",
+  "quality_gain": 0.0
+}

@@ -1,0 +1,33 @@
+{
+  "start_time": "2026-01-28T21:22:18.408988",
+  "cycles": {
+    "1_riletttore": {
+      "duration_sec": 6006.6,
+      "agent": "RILETTTORE",
+      "focus": "errori grossolani"
+    },
+    "2_revisore": {
+      "duration_sec": 6005.8,
+      "agent": "REVISORE",
+      "focus": "fedeltà originale"
+    },
+    "3_grammatico": {
+      "duration_sec": 6005.9,
+      "agent": "GRAMMATICO",
+      "focus": "grammatica italiana"
+    },
+    "4_antislop": {
+      "duration_sec": 6005.2,
+      "agent": "ANTI-SLOP",
+      "focus": "naturalezza italiano"
+    },
+    "5_formattatore": {
+      "duration_sec": 3004.5,
+      "agent": "FORMATTATORE",
+      "focus": "encoding, punteggiatura"
+    }
+  },
+  "paragraphs_processed": 100,
+  "end_time": "2026-01-29T04:52:46.534153",
+  "total_duration_sec": 27028.0
+}

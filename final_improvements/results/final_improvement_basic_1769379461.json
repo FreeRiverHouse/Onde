@@ -1,0 +1,19 @@
+{
+  "improvement_id": "final_improvement_basic_1769379461",
+  "timestamp": "2026-01-25T14:17:41.352151",
+  "target_document": "/Users/mattiapetrucciani/Downloads/capussela spirito repubblicano.docx",
+  "quality_before": 0.734,
+  "quality_after": 0.784,
+  "improvements_applied": [
+    "Correzione articoli (the → il/lo/la)",
+    "Correzione preposizioni (of → di, to → a)",
+    "Correzione congiunzioni (and → e, but → ma)",
+    "Correzione verbi (is → è, are → sono)",
+    "Fix parole residue inglesi",
+    "Normalizzazione punteggiatura",
+    "Correzione maiuscole/minuscole"
+  ],
+  "success": true,
+  "description": "Miglioramento basic_grammar_fixes per target basic",
+  "quality_gain": 0.050000000000000044
+}

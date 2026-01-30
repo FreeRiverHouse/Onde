@@ -1,0 +1,25 @@
+{
+  "document_path": "/Users/mattiapetrucciani/Downloads/capussela spirito repubblicano.docx",
+  "total_lines": 1000,
+  "italian_purity": 0.734,
+  "issues_found": [
+    "Residui inglesi in 26.6% del testo",
+    "Frasi corrotte e incomplete",
+    "Mancanza coerenza terminologica",
+    "Perdita contesto filosofico",
+    "Struttura non ottimizzata"
+  ],
+  "problematic_samples": [
+    "Ringrazio Branko Milanović per ilir encouragem",
+    "the spirit of the republic",
+    "public administration and governance"
+  ],
+  "quality_breakdown": {
+    "semantic_fidelity": 0.68,
+    "structural_integrity": 0.85,
+    "terminology_consistency": 0.72,
+    "cultural_appropriateness": 0.7,
+    "readability_score": 0.75,
+    "style_preservation": 0.65
+  }
+}

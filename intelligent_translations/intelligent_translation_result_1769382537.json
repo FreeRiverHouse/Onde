@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-01-25T15:08:57.611996",
+  "source_lines": 812,
+  "translated_lines": 812,
+  "quality_score": 0.16885621958111335,
+  "translation_file": "/Users/mattiapetrucciani/Onde/intelligent_translations/capussela_intelligent_1769382537.docx",
+  "success": true,
+  "segments_count": 812,
+  "engine_info": {
+    "name": "Intelligent Translation System",
+    "id": "intelligent_translation_001",
+    "mode": "INTELLIGENT_AI_TRANSLATION"
+  }
+}

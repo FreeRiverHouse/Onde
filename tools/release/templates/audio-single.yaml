@@ -1,0 +1,128 @@
+# RELEASE Template: Audio Single
+# Usare questo template per rilasciare singoli musicali
+
+product_type: audio-single
+version: 1.0
+
+# === METADATA RICHIESTI ===
+metadata:
+  title: ""                    # Nome traccia
+  artist: "Onde"               # Default artist
+  album: ""                    # Opzionale per singoli
+  genre: "Electronic"          # Genre principale
+  subgenre: "Chillout"         # Subgenre
+  year: 2026
+  label: "Onde LA"
+  language: "en"               # Per metadata (non lyrics)
+  instrumental: true           # OBBLIGATORIO per Onde
+  isrc: ""                     # Generato da distributor
+  upc: ""                      # Generato da distributor
+
+# === ASSET RICHIESTI ===
+assets:
+  audio:
+    format: "mp3"              # o wav per master
+    quality: "320kbps"
+    duration_min: 120          # 2 minuti minimo
+    duration_max: 480          # 8 minuti massimo
+    lufs_target: -14           # Per streaming
+  cover:
+    format: "jpg"
+    size: "3000x3000"
+    style: "minimale, gradienti, geometrico"
+    generator: "grok"
+
+# === CANALI DISTRIBUZIONE ===
+channels:
+  primary:
+    - name: "Jumpstr"
+      account: "onde.frh@proton.me"
+      priority: P1
+      automation: full
+      reaches:
+        - Spotify
+        - Apple Music
+        - Amazon Music
+        - YouTube Music
+        - Deezer
+        - Tidal
+        - TikTok
+        - Instagram/Facebook
+        - 150+ altre piattaforme
+
+  secondary:
+    - name: "SoundCloud"
+      account: ""
+      priority: P2
+      automation: api
+
+    - name: "Bandcamp"
+      account: ""
+      priority: P3
+      automation: manual
+
+# === WORKFLOW ===
+workflow:
+  1_generation:
+    tool: "Suno"
+    account: "freeriverhouse@gmail.com"
+    settings:
+      mode: "Instrumental"
+      model: "v4.5-all"
+      variations: 2-3
+
+  2_quality_check:
+    - "Traccia strumentale (no vocals)"
+    - "Durata 2-8 minuti"
+    - "No glitch o artefatti audio"
+    - "Fade in/out puliti"
+
+  3_cover_art:
+    tool: "Grok"
+    prompt_template: |
+      Minimalist album cover for electronic track "[TITLE]"
+      Style: gradient background, geometric shapes, soft glow
+      Colors: deep blues, purples, golds, teals
+      No text on artwork
+      3000x3000 pixels
+
+  4_metadata:
+    - "Compila tutti i campi metadata"
+    - "Verifica spelling"
+    - "Scegli release date (+7 giorni minimo)"
+
+  5_upload:
+    destination: "Jumpstr"
+    steps:
+      - "Login jumpstr.com"
+      - "New Release > Single"
+      - "Upload audio + artwork"
+      - "Compila metadata"
+      - "Seleziona tutte le piattaforme"
+      - "Submit"
+
+  6_verify:
+    after_days: 3-5
+    checks:
+      - "Traccia live su Spotify"
+      - "Artist 'Onde' corretto"
+      - "Label 'Onde LA' corretto"
+      - "Cover visualizzata"
+      - "Aggiunta a playlist"
+
+# === CHECKLIST PRE-RELEASE ===
+checklist:
+  - asset_ready: false
+  - metadata_complete: false
+  - cover_ready: false
+  - quality_checked: false
+  - uploaded: false
+  - verified: false
+
+# === NOTE ===
+notes: |
+  - Jumpstr è l'aggregatore primario (distribuisce a 150+ piattaforme)
+  - Sempre selezionare INSTRUMENTAL su Suno
+  - Mai vocals per evitare problemi copyright
+  - Cover senza testo (solo per album)
+  - Release date minimo +7 giorni per pre-save

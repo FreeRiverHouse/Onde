@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-01-25T14:23:59.657218",
+  "total_lines": 812,
+  "translated_lines": 250,
+  "quality_score": 0.74,
+  "current_phase": "initial_translation",
+  "issues_found": [
+    "Qualità bassa - servono correzioni grammaticali base",
+    "Coerenza terminologica insufficiente",
+    "Stile e fluidità da migliorare",
+    "Contesto culturale da adattare",
+    "Revisione editoriale finale necessaria"
+  ],
+  "improvements_made": []
+}

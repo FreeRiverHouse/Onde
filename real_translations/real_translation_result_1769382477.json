@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-01-25T15:07:57.286711",
+  "source_lines": 812,
+  "translated_lines": 812,
+  "real_quality_score": 0.18339311568426084,
+  "translation_file": "/Users/mattiapetrucciani/Onde/real_translations/capussela_real_translation_1769382477.docx",
+  "success": true,
+  "engine_info": {
+    "name": "Real Translation Engine",
+    "id": "real_translation_001",
+    "mode": "REAL_TRANSLATION"
+  }
+}
