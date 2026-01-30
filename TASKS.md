@@ -1656,15 +1656,28 @@
   - Build passes, needs deploy to onde.surf
 
 ### [T748] Dashboard: Add week-over-week trade count comparison
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T744]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Extend comparison tooltips to trade volume:
-  - thisWeek.trades vs prevWeek.trades comparison
-  - Show on Total Trades stat card
-  - Volume trend indicator (more/less active)
+- **Notes**: ✅ Implemented trade count comparison tooltips!
+  - ✅ Total PnL card: thisWeek.trades vs prevWeek.trades comparison
+  - ✅ Today PnL card: todayTrades vs yesterdayTrades comparison
+  - ✅ Hover hint styling (cursor-help, hover state)
+  - ✅ Uses type="count" for proper integer formatting
+  - Build passes, needs deploy to onde.surf
+
+### [T768] Deploy onde.surf with trade count comparison tooltips
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T748]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy T748 changes to production:
+  - Build and deploy surfboard to Cloudflare Pages
+  - Verify trade count tooltips work on /betting
 
 ---
 

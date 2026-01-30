@@ -1690,7 +1690,20 @@ export default function BettingDashboard() {
                     glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
                     className="text-lg sm:text-xl md:text-2xl"
                   />
-                  <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.totalTrades} trades</p>
+                  <StatsComparisonTooltip
+                    enabled={compareEnabled}
+                    type="count"
+                    data={tradingStats.prevWeek ? {
+                      current: tradingStats.thisWeek?.trades ?? tradingStats.totalTrades,
+                      previous: tradingStats.prevWeek.trades,
+                      previousPeriod: 'last week'
+                    } : undefined}
+                    position="bottom"
+                  >
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1 cursor-help hover:text-gray-400 transition-colors">
+                      {tradingStats.totalTrades} trades
+                    </p>
+                  </StatsComparisonTooltip>
                 </GlassCard>
               </StatsComparisonTooltip>
 
@@ -1724,7 +1737,20 @@ export default function BettingDashboard() {
                     glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
                     className="text-lg sm:text-xl md:text-2xl"
                   />
-                  <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">{tradingStats.todayTrades} trades</p>
+                  <StatsComparisonTooltip
+                    enabled={compareEnabled}
+                    type="count"
+                    data={tradingStats.yesterdayTrades !== undefined ? {
+                      current: tradingStats.todayTrades,
+                      previous: tradingStats.yesterdayTrades,
+                      previousPeriod: 'yesterday'
+                    } : undefined}
+                    position="bottom"
+                  >
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1 cursor-help hover:text-gray-400 transition-colors">
+                      {tradingStats.todayTrades} trades
+                    </p>
+                  </StatsComparisonTooltip>
                 </GlassCard>
               </StatsComparisonTooltip>
 
