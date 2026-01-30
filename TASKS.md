@@ -45,10 +45,54 @@
     - ✅ Zustand store with localStorage persistence
     - **Run with:** `cd apps/reader-app && npm run dev`
 
-### [T669] Reader App: VR/XR Version Planning
+### [T690] Reader App: Full EPUB Support
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Enable real EPUB file reading in the Reader App:
+  - Parse EPUB files using epub.js library (already in package.json)
+  - Extract metadata (title, author, cover) from EPUB
+  - Render chapters with proper formatting
+  - Support embedded images and styles
+  - Handle multiple EPUB formats (EPUB2, EPUB3)
+  - Store EPUBs in IndexedDB (infrastructure ready from T668)
+
+### [T691] Reader App: Bookmarks & Highlighting
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add annotation features to Reader App:
+  - Text selection → highlight menu (4 colors: yellow, green, blue, pink)
+  - Save highlights with CFI location
+  - Bookmark button to save current position
+  - Bookmarks panel showing all saved positions
+  - Highlights panel with search/filter
+  - Add notes to highlights
+  - Export annotations to Markdown
+  - Store in Zustand with localStorage persistence (structure ready)
+
+### [T692] Reader App: Deploy to onde.la/reader
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App as part of onde.la:
+  - Build static export of reader-app
+  - Add to onde-portal/public/reader/ 
+  - Configure routing in onde-portal
+  - Add link from onde.la homepage/nav
+  - Verify PWA install works on deploy
+  - Test on mobile Safari and Chrome
+
+### [T669] Reader App: VR/XR Version Planning
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668], [T690]
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Versione VR del portale reader
