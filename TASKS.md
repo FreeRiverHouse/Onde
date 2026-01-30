@@ -9301,8 +9301,8 @@
   - ✅ Build passes, ready for deploy
 
 ### [T808] Trading: Volume-weighted win rate analysis
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T754]
 - **Blocks**: -
 - **Priority**: P3
