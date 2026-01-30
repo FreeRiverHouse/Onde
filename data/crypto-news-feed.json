@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-30T21:00:04.613869+00:00",
+  "timestamp": "2026-01-30T23:30:02.908299+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,69 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
+      "url": "https://decrypt.co/356530/bitcoin-mining-profits-14-month-low-winter-storm-disrupts-miners-cryptoquant",
+      "source": "decrypt",
+      "description": "Bitcoin miners are \"extremely underpaid\" given the price of Bitcoin and current BTC mining conditions, according to a CryptoQuant report.",
+      "published": "2026-01-30T22:02:19+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-01-30T22:01:52+00:00"
+    },
+    {
+      "title": "SoFi posts record Q4 revenue after reentering crypto market",
+      "url": "https://cointelegraph.com/news/sofi-hits-record-revenue-q4-crypto-blockchain-services?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The fintech bank reported record quarterly revenue of $1 billion as it reintroduced crypto trading, launched a stablecoin and rolled out blockchain-based remittances.",
+      "published": "2026-01-30T21:57:31+00:00"
+    },
+    {
+      "title": "Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas",
+      "url": "https://bitcoinmagazine.com/news/plan-b-network-cyphertank-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas Plan B Network has launched CypherTank, a global Bitcoin-focused pitch series that spotlights builders, ideas, and community discussion across multiple platforms. This post Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T21:56:39+00:00"
+    },
+    {
+      "title": "Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill",
+      "url": "https://bitcoinmagazine.com/news/tennessee-strategic-bitcoin-reserve",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill Tennessee lawmakers are considering a bill that would allow the state to invest up to 10% of certain public funds in bitcoin. This post Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-30T21:37:51+00:00"
+    },
+    {
+      "title": "European Commission calls on 12 countries to implement crypto tax rules",
+      "url": "https://cointelegraph.com/news/european-commission-countries-crypto-tax-rules?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The commission also singled out Hungary for failing to comply with the EU's MiCA framework after an amendment to a local law.",
+      "published": "2026-01-30T21:37:41+00:00"
+    },
+    {
+      "title": "Gold Is the Real Bubble, Says Ark Invest's Cathie Wood\u2014Not AI",
+      "url": "https://decrypt.co/356505/gold-real-bubble-not-ai-ark-invest-cathie-wood",
+      "source": "decrypt",
+      "description": "Tech investor Cathie Wood isn't worried about an AI bubble, instead singling out gold as the real ongoing asset bubble.",
+      "published": "2026-01-30T21:36:32+00:00"
+    },
+    {
+      "title": "Experts Warn Data Center Backlash Could Slow AI Infrastructure Growth",
+      "url": "https://decrypt.co/356519/experts-warn-data-center-backlash-slow-ai-infrastructure-growth",
+      "source": "decrypt",
+      "description": "A new Brookings report says binding community benefit agreements are increasingly necessary as local opposition mounts over AI data centers.",
+      "published": "2026-01-30T21:09:31+00:00"
+    },
+    {
+      "title": "Gold is acting like the hedge Bitcoin promised to be",
+      "url": "https://cointelegraph.com/news/crypto-biz-gold-hedge-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "As the dollar weakens, investors are turning to gold \u2014 onchain and off \u2014 while Bitcoin increasingly plays a supporting role in hedging currency risk.",
+      "published": "2026-01-30T21:00:00+00:00"
+    },
     {
       "title": "Changpeng Zhao rejects claims Binance worsened crypto market crash",
       "url": "https://cointelegraph.com/news/cz-denies-binance-role-october-crypto-liquidation-usde-depeg?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -74,27 +137,6 @@
       "published": "2026-01-30T18:46:50+00:00"
     },
     {
-      "title": "Why proof-of-reserves alone doesn\u2019t build real trust",
-      "url": "https://cointelegraph.com/explained/why-proof-of-reserves-alone-doesn-t-build-real-trust?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Proof-of-reserves shows assets at a single point in time, but it does not prove solvency, liquidity or sound governance. Here is what PoR misses and what real trust looks like.",
-      "published": "2026-01-30T18:36:51+00:00"
-    },
-    {
-      "title": "Liquidations knock Bitcoin out of world\u2019s top 10 assets",
-      "url": "https://cointelegraph.com/news/liquidations-knock-bitcoin-out-world-top-10-assets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "A wave of leveraged liquidations erased hundreds of billions in value, reshuffling Bitcoin\u2019s standing among the world\u2019s largest investable assets.",
-      "published": "2026-01-30T18:21:47+00:00"
-    },
-    {
-      "title": "Hong Kong regulators to submit draft bill for crypto framework in 2026",
-      "url": "https://cointelegraph.com/news/hong-kong-financial-regulators-crypto-framework?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "An official said that Hong Kong authorities would work on a draft framework, and had begun processing license applications for stablecoin issuers and addressing crypto taxes.",
-      "published": "2026-01-30T18:03:22+00:00"
-    },
-    {
       "title": "Blank Check Firm Linked to Crypto Exchange Kraken Raises $345 Million in Upsized IPO",
       "url": "https://decrypt.co/356494/blank-check-firm-linked-crypto-exchange-kraken-raises-345-million-ipo",
       "source": "decrypt",
@@ -114,13 +156,6 @@
       "source": "decrypt",
       "description": "The Ethereum co-founder wants to pursue an \u201caggressive\u201d roadmap that will strengthen its status as a decentralized world computer.",
       "published": "2026-01-30T17:05:57+00:00"
-    },
-    {
-      "title": "Nubank wins conditional US approval to form national bank",
-      "url": "https://cointelegraph.com/news/nubank-conditional-us-approval-national-bank?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The conditional approval moves the Latin American fintech into the bank organization phase as it seeks to expand regulated banking and crypto services in the United States.",
-      "published": "2026-01-30T16:57:12+00:00"
     },
     {
       "title": "Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning",
@@ -165,27 +200,6 @@
       "published": "2026-01-30T13:06:38+00:00"
     },
     {
-      "title": "Bitcoin ETFs Shed $817M as BTC Hits Nine-Month Low",
-      "url": "https://decrypt.co/356458/bitcoin-etfs-shed-817m-as-btc-hits-nine-month-low",
-      "source": "decrypt",
-      "description": "Bitcoin\u2019s crash to a nine-month low, coupled with growing uncertainty about macroeconomic policy, catalyzed $817 million in ETF outflows.",
-      "published": "2026-01-30T11:24:48+00:00"
-    },
-    {
-      "title": "Former Google Engineer Convicted of Stealing AI Secrets for China",
-      "url": "https://decrypt.co/356455/former-google-engineer-convicted-of-stealing-ai-secrets-for-china",
-      "source": "decrypt",
-      "description": "A U.S. jury found Linwei Ding guilty of economic espionage and trade secret theft after he stole Google\u2019s sensitive AI infrastructure data.",
-      "published": "2026-01-30T10:39:08+00:00"
-    },
-    {
-      "title": "Democrats Press DOJ Deputy Over Crypto Holdings, Enforcement Retreat",
-      "url": "https://decrypt.co/356452/democrats-doj-deputy-crypto-holdings-enforcement-retreat",
-      "source": "decrypt",
-      "description": "A group of Democratic senators is pressing the Justice Department over ethics questions tied to a rollback in crypto enforcement.",
-      "published": "2026-01-30T05:54:04+00:00"
-    },
-    {
       "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
       "url": "https://bitcoinmagazine.com/markets/strategy-stock-mstr-hits-52-week-low",
       "source": "bitcoinmagazine",
@@ -205,20 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor The Senate Agriculture Committee advanced a crypto market bill 12-11 along party lines. This post Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T17:19:44+00:00"
-    },
-    {
-      "title": "Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst\u00a0",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-5-to-85k",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst The bitcoin price erased a rally above $90,000 in less than 24 hours as it dumped to $84,000. This post Bitcoin Price Crashes 6% to $84,000 As Market Braces for Next Catalyst first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T15:43:18+00:00"
-    },
-    {
-      "title": "Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt",
-      "url": "https://bitcoinmagazine.com/news/metaplanet-raises-137-million-to-buy-btc",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt Metaplanet raised up to 21 billion yen ($137 million) through share issuance as it doubles down on its strategy of accumulating bitcoin. This post Metaplanet Raises Up to $137 Million to Buy Bitcoin and Pay Off Debt first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T14:50:07+00:00"
     }
   ]
 }
