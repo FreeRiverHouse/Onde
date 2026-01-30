@@ -516,6 +516,50 @@
   - Keyboard shortcuts: 1/2/3/4 for presets
   - Still allow fine-tuning via slider
 
+### [T719] Reader App: Add reading statistics dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track and display reading statistics:
+  - Time spent reading per session and total
+  - Pages/words read per day/week
+  - Reading streaks (consecutive days)
+  - Average reading speed (words per minute)
+  - Books completed counter
+  - Show stats in library view or settings panel
+  - Store stats in Zustand with localStorage persistence
+  - Optional: Charts showing reading history
+
+### [T720] Reader App: Export/Import library data
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Backup and restore reader data:
+  - Export all data: books, progress, annotations, vocabulary, settings, TTS settings
+  - JSON format for easy editing/inspection
+  - Import with merge strategy (keep existing or overwrite)
+  - Validate import data before applying
+  - UI buttons in settings panel
+  - Useful for device migration or backup
+
+### [T721] Trading: Add asset correlation heatmap widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T483]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Visual correlation matrix on trading dashboard:
+  - Heatmap showing BTC/ETH/Weather correlations
+  - Color scale: red (high correlation) to green (negative)
+  - Click to see detailed correlation history
+  - Data from btc-eth-correlation.py and asset-correlation.json
+  - Update daily via cron
+  - Helps visualize diversification opportunities
+
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
 - **Owner**: @clawd
