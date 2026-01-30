@@ -38,9 +38,9 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
-## 🖥️ GPU Setup - Radeon 7090TX
+## 🖥️ GPU Setup - Radeon 7900 XT
 
-**Hardware:** Radeon 7090TX su Mac M1 via driver TinyGrad
+**Hardware:** Radeon 7900 XT su Mac M1 via driver TinyGrad
 **VRAM:** 16GB
 **Performance:** Più potente di M4 Pro, molto più di M1
 
