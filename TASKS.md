@@ -9467,3 +9467,42 @@
   - Sparkline showing trend direction
   - Quick glance widget for /betting or /health page
   - Data from latency-history.jsonl aggregation
+
+### [T820] Autotrader: API latency percentiles tracking
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track P50, P95, P99 latency instead of just average:
+  - Calculate percentiles from latency-history.jsonl
+  - Add to daily report (P50/P95/P99)
+  - Alert if P95 > 3s (consistent slowness)
+  - Dashboard widget showing percentile distribution
+  - Historical percentile trends chart
+
+### [T821] Trading: Dynamic position sizing based on streak
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Adjust position sizing based on recent performance:
+  - Increase size after win streak (confidence boost)
+  - Decrease size after loss streak (protect capital)
+  - Configurable thresholds (e.g., +10% after 3 wins)
+  - Maximum adjustment cap (e.g., ±20%)
+  - Log adjustments for analysis
+
+### [T822] Dashboard: Export trade history to CSV
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add CSV export button to trades page:
+  - Export all visible trades (with current filters)
+  - Include: timestamp, ticker, side, contracts, price, pnl, result
+  - Date range picker for export
+  - Download as kalshi-trades-YYYY-MM-DD.csv
+  - Option to include or exclude skipped trades
