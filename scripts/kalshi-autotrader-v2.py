@@ -2575,25 +2575,23 @@ CONCENTRATION_HISTORY_FILE = "data/trading/concentration-history.jsonl"
 
 def log_concentration_snapshot(concentration: dict, portfolio_value_cents: int):
     """
-    Log concentration snapshot to history file for dashboard tracking (T482).
+    Log concentration snapshot to history file for dashboard tracking (T482, T764).
     
     Appends one line per cycle with timestamp and concentration metrics.
+    Always logs, even when portfolio is empty (0% concentration) to track state over time.
     """
-    if not concentration["by_asset_class"]:
-        return  # Skip if no positions
-    
     snapshot = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "portfolio_value_cents": portfolio_value_cents,
-        "by_asset_class": concentration["by_asset_class"],
-        "by_correlation_group": concentration["by_correlation_group"],
-        "total_exposure_cents": concentration["total_exposure_cents"],
-        "position_count": concentration["position_count"],
-        "largest_asset_class": concentration["largest_asset_class"],
+        "by_asset_class": concentration.get("by_asset_class", {}),
+        "by_correlation_group": concentration.get("by_correlation_group", {}),
+        "total_exposure_cents": concentration.get("total_exposure_cents", 0),
+        "position_count": concentration.get("position_count", 0),
+        "largest_asset_class": concentration.get("largest_asset_class", "none"),
         "largest_asset_class_pct": concentration.get("largest_asset_class_pct", 0),
-        "largest_correlated_group": concentration["largest_correlated_group"],
+        "largest_correlated_group": concentration.get("largest_correlated_group", "none"),
         "largest_correlated_group_pct": concentration.get("largest_correlated_group_pct", 0),
-        "exposure_pct": concentration["total_exposure_cents"] / portfolio_value_cents if portfolio_value_cents > 0 else 0
+        "exposure_pct": concentration["total_exposure_cents"] / portfolio_value_cents if portfolio_value_cents > 0 and concentration.get("total_exposure_cents", 0) > 0 else 0
     }
     
     # Ensure directory exists
@@ -4209,20 +4207,34 @@ def run_cycle():
     positions = get_positions()
     print(f"📋 Open positions: {len(positions)}")
     
+    # Always get portfolio value for concentration tracking (T764)
+    bal_for_conc = get_balance()
+    portfolio_val = bal_for_conc.get("portfolio_value", 0)
+    
     # Show portfolio concentration if we have positions (T480)
     if positions:
-        bal_for_conc = get_balance()
-        portfolio_val = bal_for_conc.get("portfolio_value", 0)
         concentration = calculate_portfolio_concentration(positions, portfolio_val)
         print_concentration_summary(concentration)
-        
-        # Log concentration to history for dashboard tracking (T482)
-        log_concentration_snapshot(concentration, portfolio_val)
         
         # Show rebalancing suggestions if over-concentrated (T481)
         rebal_suggestions = get_rebalancing_suggestions(positions, portfolio_val, concentration)
         if rebal_suggestions.get("needs_rebalancing"):
             print_rebalancing_suggestions(rebal_suggestions)
+    else:
+        # Empty portfolio - create zero-concentration state (T764)
+        concentration = {
+            "by_asset_class": {},
+            "by_correlation_group": {},
+            "total_exposure_cents": 0,
+            "position_count": 0,
+            "largest_asset_class": "none",
+            "largest_asset_class_pct": 0,
+            "largest_correlated_group": "none",
+            "largest_correlated_group_pct": 0
+        }
+    
+    # Always log concentration to history for dashboard tracking (T482, T764)
+    log_concentration_snapshot(concentration, portfolio_val)
     
     # CHECK STOP-LOSSES for open positions
     if positions:

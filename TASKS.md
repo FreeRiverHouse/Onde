@@ -7972,18 +7972,21 @@
   - Output: data/trading/postmortem-weather-2026-01-29.md
 
 ### [T764] Trading: Fix concentration history logging
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T482]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Concentration history not being logged:
-  - `data/trading/concentration-history.jsonl` is empty
-  - T482 implemented logging but it may not be running
-  - Verify `log_concentration_snapshot()` is called each cycle
-  - Check if feature only runs when positions are open (currently 0 positions)
-  - Add logging even when portfolio is empty (0% concentration)
-  - Verify push-stats-to-gist.py can handle empty history file
+- **Notes**: ✅ Fixed concentration history logging!
+  - **Root cause**: Log only happened inside `if positions:` block
+  - **Fix**: Moved log call outside positions check, always logs concentration
+  - **Changes to kalshi-autotrader-v2.py:**
+    - `log_concentration_snapshot()` now handles empty portfolio gracefully
+    - Creates zero-concentration state when no positions exist
+    - Always logs each cycle regardless of position count
+  - **Data now tracked**: concentration-history.jsonl gets entry every cycle
+  - **Dashboard benefit**: Can visualize portfolio concentration over time including idle periods
 
 
 ### [T765] Dashboard: Deploy 'C' keyboard shortcut to onde.surf
