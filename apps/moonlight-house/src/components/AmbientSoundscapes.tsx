@@ -11,10 +11,18 @@
  * - Shop: Soft jazz/lounge music, glamour sparkle
  * - Supermarket: Checkout beeps, cart sounds, PA announcements
  * 
+ * Weather-based variations (T667):
+ * - Rain: Adds rain sounds to garden/outdoor areas
+ * - Storm: Thunder rumbles, wind gusts
+ * - Snow: Muffled ambiance, crackling fireplace
+ * - Hot: Cicadas, air conditioning hum
+ * - Windy: Enhanced wind sounds
+ * 
  * All generated procedurally with Web Audio API - no audio files needed!
  */
 
 import { useEffect, useRef, useCallback } from 'react';
+import type { WeatherCondition } from '../hooks/useWeather';
 
 type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
@@ -24,6 +32,7 @@ interface AmbientSoundscapesProps {
   timeOfDay: TimeOfDay;
   isMuted: boolean;
   volume: number; // 0-1
+  weatherCondition?: WeatherCondition;
 }
 
 // Soundscape configuration per room
@@ -283,11 +292,148 @@ const GARDEN_TIME_ACCENTS: Record<TimeOfDay, typeof SOUNDSCAPE_CONFIGS.garden.ac
   ],
 };
 
+// Weather-based sound overlays (T667)
+// These accents are added on top of room soundscapes based on real/story weather
+type AccentConfig = SoundscapeConfig['accents'][0];
+
+const WEATHER_SOUND_CONFIGS: Record<WeatherCondition, {
+  // Rooms affected by this weather (outdoor rooms get full effect, others get reduced)
+  outdoorIntensity: number; // 0-1 volume multiplier for outdoor rooms
+  indoorIntensity: number; // 0-1 volume multiplier for indoor rooms
+  accents: AccentConfig[];
+  // Drone overlay (optional ambient layer)
+  droneOverlay?: {
+    freqs: number[];
+    volume: number;
+    type: OscillatorType;
+    filterFreq?: number;
+  };
+}> = {
+  clear: {
+    outdoorIntensity: 0,
+    indoorIntensity: 0,
+    accents: [], // No extra sounds for clear weather
+  },
+  cloudy: {
+    outdoorIntensity: 0.3,
+    indoorIntensity: 0.1,
+    accents: [
+      // Light wind gusts
+      { freq: 500, duration: 1.5, type: 'sawtooth', interval: [4000, 8000], volume: 0.008 },
+    ],
+  },
+  rain: {
+    outdoorIntensity: 1.0,
+    indoorIntensity: 0.3, // Hear rain through windows
+    accents: [
+      // Rain drops (multiple frequencies for variety)
+      { freq: 3000, duration: 0.02, type: 'sawtooth', interval: [50, 200], volume: 0.004 },
+      { freq: 2500, duration: 0.03, type: 'sawtooth', interval: [80, 250], volume: 0.003 },
+      { freq: 3500, duration: 0.02, type: 'sawtooth', interval: [60, 180], volume: 0.003 },
+      // Occasional larger drops
+      { freq: 800, duration: 0.1, type: 'sine', interval: [500, 2000], volume: 0.01 },
+      // Puddle splashes
+      { freq: 400, duration: 0.15, type: 'sine', interval: [2000, 5000], volume: 0.008 },
+    ],
+    droneOverlay: {
+      freqs: [100, 150, 200],
+      volume: 0.02,
+      type: 'sawtooth',
+      filterFreq: 300,
+    },
+  },
+  storm: {
+    outdoorIntensity: 1.0,
+    indoorIntensity: 0.5, // Storms are loud even indoors
+    accents: [
+      // Heavy rain
+      { freq: 3000, duration: 0.02, type: 'sawtooth', interval: [30, 100], volume: 0.006 },
+      { freq: 2500, duration: 0.03, type: 'sawtooth', interval: [40, 120], volume: 0.005 },
+      // Thunder rumbles (low frequency, long duration)
+      { freq: 60, duration: 3, type: 'sawtooth', interval: [8000, 20000], volume: 0.025 },
+      { freq: 40, duration: 4, type: 'sawtooth', interval: [12000, 25000], volume: 0.02 },
+      // Thunder crack (sudden, high impact)
+      { freq: 150, duration: 0.5, type: 'square', interval: [15000, 30000], volume: 0.03 },
+      // Wind gusts
+      { freq: 400, duration: 2, type: 'sawtooth', interval: [3000, 8000], volume: 0.015 },
+      { freq: 600, duration: 1.5, type: 'sawtooth', interval: [2000, 6000], volume: 0.012 },
+    ],
+    droneOverlay: {
+      freqs: [80, 120, 160],
+      volume: 0.03,
+      type: 'sawtooth',
+      filterFreq: 250,
+    },
+  },
+  snow: {
+    outdoorIntensity: 0.8,
+    indoorIntensity: 0.4, // Cozy indoor with muffled sounds
+    accents: [
+      // Soft wind (muffled)
+      { freq: 300, duration: 2, type: 'sine', interval: [4000, 10000], volume: 0.008 },
+      // Snow falling (very subtle)
+      { freq: 4000, duration: 0.05, type: 'sine', interval: [500, 1500], volume: 0.002 },
+      // Indoor: Crackling fireplace (stronger indoors)
+      { freq: 200, duration: 0.08, type: 'sawtooth', interval: [300, 800], volume: 0.012 },
+      { freq: 300, duration: 0.05, type: 'sawtooth', interval: [400, 1000], volume: 0.01 },
+      { freq: 150, duration: 0.1, type: 'sawtooth', interval: [600, 1500], volume: 0.008 },
+    ],
+    droneOverlay: {
+      freqs: [80, 100],
+      volume: 0.015,
+      type: 'sine',
+      filterFreq: 200, // Muffled
+    },
+  },
+  hot: {
+    outdoorIntensity: 1.0,
+    indoorIntensity: 0.6,
+    accents: [
+      // Cicadas (loud, rhythmic)
+      { freq: 4000, duration: 0.5, type: 'sawtooth', interval: [500, 1500], volume: 0.01 },
+      { freq: 4500, duration: 0.4, type: 'sawtooth', interval: [600, 1800], volume: 0.008 },
+      { freq: 3800, duration: 0.6, type: 'sawtooth', interval: [400, 1200], volume: 0.009 },
+      // Indoor: Air conditioning hum
+      { freq: 60, duration: 5, type: 'sine', interval: [5000, 8000], volume: 0.015 },
+      { freq: 120, duration: 3, type: 'triangle', interval: [4000, 7000], volume: 0.01 },
+      // AC compressor cycle
+      { freq: 80, duration: 8, type: 'sawtooth', interval: [15000, 30000], volume: 0.012 },
+    ],
+  },
+  windy: {
+    outdoorIntensity: 1.0,
+    indoorIntensity: 0.2, // Windows rattle
+    accents: [
+      // Strong wind gusts
+      { freq: 400, duration: 2.5, type: 'sawtooth', interval: [2000, 5000], volume: 0.02 },
+      { freq: 600, duration: 2, type: 'sawtooth', interval: [1500, 4000], volume: 0.018 },
+      { freq: 300, duration: 3, type: 'sawtooth', interval: [3000, 7000], volume: 0.015 },
+      // Whistling
+      { freq: 1200, duration: 1, type: 'sine', interval: [4000, 10000], volume: 0.008 },
+      // Rattling (indoor)
+      { freq: 2000, duration: 0.05, type: 'square', interval: [3000, 8000], volume: 0.006 },
+      // Leaves/debris
+      { freq: 2500, duration: 0.1, type: 'sawtooth', interval: [1000, 3000], volume: 0.008 },
+    ],
+    droneOverlay: {
+      freqs: [150, 200, 250],
+      volume: 0.02,
+      type: 'sawtooth',
+      filterFreq: 400,
+    },
+  },
+};
+
+// Rooms that are considered "outdoor" for weather effects
+const OUTDOOR_ROOMS: RoomKey[] = ['garden'];
+const SEMI_OUTDOOR_ROOMS: RoomKey[] = ['garage', 'attic']; // Partially exposed
+
 export function useAmbientSoundscapes({
   currentRoom,
   timeOfDay,
   isMuted,
   volume,
+  weatherCondition = 'clear',
 }: AmbientSoundscapesProps) {
   const audioContextRef = useRef<AudioContext | null>(null);
   const droneNodesRef = useRef<{
@@ -525,9 +671,64 @@ export function useAmbientSoundscapes({
       lfoGain,
     };
 
-    // Schedule accent sounds
+    // Schedule accent sounds for the room
     scheduleAccents(ctx, masterGain, config.accents, volume);
-  }, [currentRoom, timeOfDay, isMuted, volume, getAudioContext, stopAllSounds, createReverbImpulse, scheduleAccents]);
+
+    // === WEATHER SOUND LAYER (T667) ===
+    const weatherConfig = WEATHER_SOUND_CONFIGS[weatherCondition];
+    if (weatherConfig && weatherConfig.accents.length > 0) {
+      // Determine intensity based on room type
+      let weatherIntensity: number;
+      if (OUTDOOR_ROOMS.includes(currentRoom)) {
+        weatherIntensity = weatherConfig.outdoorIntensity;
+      } else if (SEMI_OUTDOOR_ROOMS.includes(currentRoom)) {
+        weatherIntensity = (weatherConfig.outdoorIntensity + weatherConfig.indoorIntensity) / 2;
+      } else {
+        weatherIntensity = weatherConfig.indoorIntensity;
+      }
+
+      if (weatherIntensity > 0) {
+        // Schedule weather accent sounds with adjusted volume
+        scheduleAccents(ctx, masterGain, weatherConfig.accents, volume * weatherIntensity);
+
+        // Add weather drone overlay if present
+        if (weatherConfig.droneOverlay) {
+          const weatherDroneGain = ctx.createGain();
+          const droneVol = weatherConfig.droneOverlay.volume * weatherIntensity;
+          weatherDroneGain.gain.setValueAtTime(0, ctx.currentTime);
+          weatherDroneGain.gain.linearRampToValueAtTime(droneVol, ctx.currentTime + 3); // Slow fade in
+
+          // Create filter for weather drone
+          let weatherFilter: BiquadFilterNode | null = null;
+          if (weatherConfig.droneOverlay.filterFreq) {
+            weatherFilter = ctx.createBiquadFilter();
+            weatherFilter.type = 'lowpass';
+            weatherFilter.frequency.setValueAtTime(weatherConfig.droneOverlay.filterFreq, ctx.currentTime);
+            weatherFilter.Q.setValueAtTime(0.7, ctx.currentTime);
+          }
+
+          // Create weather drone oscillators
+          weatherConfig.droneOverlay.freqs.forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            osc.type = weatherConfig.droneOverlay!.type;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            osc.detune.setValueAtTime((i - 1) * 3, ctx.currentTime);
+            osc.connect(weatherDroneGain);
+            osc.start();
+            oscillators.push(osc); // Add to managed oscillators for cleanup
+          });
+
+          // Route weather drone
+          if (weatherFilter) {
+            weatherDroneGain.connect(weatherFilter);
+            weatherFilter.connect(masterGain);
+          } else {
+            weatherDroneGain.connect(masterGain);
+          }
+        }
+      }
+    }
+  }, [currentRoom, timeOfDay, weatherCondition, isMuted, volume, getAudioContext, stopAllSounds, createReverbImpulse, scheduleAccents]);
 
   // Update volume
   useEffect(() => {
@@ -539,7 +740,7 @@ export function useAmbientSoundscapes({
     }
   }, [volume, isMuted]);
 
-  // Start/restart soundscape when room or time changes
+  // Start/restart soundscape when room, time, or weather changes
   useEffect(() => {
     if (isMuted) {
       stopAllSounds();
@@ -553,7 +754,7 @@ export function useAmbientSoundscapes({
       clearTimeout(timer);
       stopAllSounds();
     };
-  }, [currentRoom, timeOfDay, isMuted, startSoundscape, stopAllSounds]);
+  }, [currentRoom, timeOfDay, weatherCondition, isMuted, startSoundscape, stopAllSounds]);
 
   // Cleanup on unmount
   useEffect(() => {

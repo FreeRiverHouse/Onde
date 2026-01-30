@@ -1318,19 +1318,30 @@
   - Deployed: https://cb2a5249.onde-portal.pages.dev
 
 ### [T667] Moonlight House: Add weather-based ambient variations
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T488]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Real weather integration for immersive audio:
-  - Use browser geolocation or IP-based location
-  - Fetch real weather data (wttr.in API - no key needed)
-  - **Rain**: Add rain sounds to garden/outdoor soundscapes
-  - **Storm**: Thunder rumbles, wind gusts
-  - **Snow**: Muffled ambiance, crackling fireplace
-  - **Hot day**: Cicadas, air conditioning hum
-  - Optional toggle: "Use real weather" vs "Story weather"
+- **Notes**: ✅ Implemented real weather integration for immersive audio!
+  - **New hook**: `src/hooks/useWeather.ts`
+    - Fetches from wttr.in API (free, no key required)
+    - Browser geolocation with IP fallback
+    - Story weather when real weather disabled
+    - 15-min auto-refresh
+  - **Weather sound configs** in AmbientSoundscapes.tsx:
+    - ✅ **Clear**: No extra sounds
+    - ✅ **Rain**: Rain drops, puddle splashes, drone overlay
+    - ✅ **Storm**: Heavy rain, thunder rumbles, thunder cracks, wind gusts
+    - ✅ **Snow**: Muffled wind, crackling fireplace (stronger indoors)
+    - ✅ **Hot**: Cicadas, AC hum, compressor cycles
+    - ✅ **Windy**: Strong gusts, whistling, rattling, debris
+    - ✅ **Cloudy**: Light wind gusts
+  - **Room-aware intensity**: Outdoor rooms (garden) get full effect, indoor rooms get reduced
+  - **UI toggle**: Weather button in header with LIVE badge when active
+  - **Persistence**: Saves preference to localStorage
+  - ⏳ Needs deploy to onde.la/games/moonlight-magic-house (T729)
 
 ---
 

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 import useSoundManager from './useSoundManager';
 import useAmbientSoundscapes from './components/AmbientSoundscapes';
+import useWeather from './hooks/useWeather';
 import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
@@ -395,6 +396,25 @@ function App() {
     } catch {}
   };
 
+  // Real weather integration (T667)
+  const [useRealWeather, setUseRealWeather] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('moonlight-use-real-weather');
+      return saved === 'true';
+    } catch {
+      return false;
+    }
+  });
+  
+  // Toggle real weather and persist
+  const toggleRealWeather = () => {
+    const newValue = !useRealWeather;
+    setUseRealWeather(newValue);
+    try {
+      localStorage.setItem('moonlight-use-real-weather', String(newValue));
+    } catch {}
+  };
+
   // Core state (restored from save or defaults)
   const [stats, setStats] = useState<PetStats>(() => {
     const saved = loadSaveData();
@@ -409,6 +429,13 @@ function App() {
 
   // Enhanced state (restored from save or defaults)
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>(getTimeOfDay());
+  
+  // Weather hook for ambient sound variations (T667)
+  const { weather, isLoading: weatherLoading } = useWeather({
+    enabled: useRealWeather,
+    timeOfDay,
+  });
+  
   const [mood, setMood] = useState<MoodType>('happy');
   const [achievements, setAchievements] = useState<Achievement[]>(() => {
     const saved = loadSaveData();
@@ -462,6 +489,7 @@ function App() {
     timeOfDay,
     isMuted,
     volume: ambientVolume,
+    weatherCondition: weather.condition,
   });
 
   // Float animation
@@ -1002,6 +1030,17 @@ function App() {
                   disabled={isMuted}
                 />
               </div>
+              <button 
+                className={`weather-toggle ${useRealWeather ? 'active' : ''}`} 
+                onClick={() => { toggleRealWeather(); playSound('ui-click'); }}
+                title={useRealWeather 
+                  ? (lang === 'it' ? `Meteo reale: ${weather.icon} ${weather.temperature}°C` : `Real weather: ${weather.icon} ${weather.temperature}°C`)
+                  : (lang === 'it' ? 'Meteo storia' : 'Story weather')
+                }
+              >
+                {weatherLoading ? '⏳' : weather.icon}
+                {useRealWeather && <span className="weather-badge">LIVE</span>}
+              </button>
               <button className="lang-toggle" onClick={toggleLanguage}>{lang === 'it' ? '🇮🇹' : '🇬🇧'}</button>
               <div className="level-badge glass-card">Lv.{stats.level}</div>
               <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>
