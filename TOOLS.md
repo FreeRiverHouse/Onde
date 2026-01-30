@@ -9,10 +9,10 @@
 
 | Agente | Hardware | GPU | Note |
 |--------|----------|-----|------|
-| **Clawdinho (me)** | M1 | Radeon 7900 XT (❌ non funziona) | Solo CPU M1 per ora |
+| **Clawdinho (me)** | M1 | Radeon 7900 XTX (✅ FUNZIONA!) | Via Razer Core X V2 eGPU |
 | **Onde-bot/Ondinho** | M4 Pro | Nessuna esterna | Standalone, più potente |
 
-**Stato:** Radeon 7900 XT NON funziona con TinyGrad su macOS. Task GPU-intensive non disponibili finché non risolto.
+**Stato:** Radeon 7900 XTX FUNZIONA con TinyGrad su macOS! Richiede TinyGPU.app + porta TB corretta.
 
 ---
 
@@ -49,47 +49,58 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
-## 🖥️ GPU Setup - Radeon 7900 XT
+## 🖥️ GPU Setup - Radeon 7900 XTX
 
-**Hardware:** Radeon 7900 XT su Mac M1 via eGPU
-**VRAM:** 16GB
-**Status:** ❌ NON FUNZIONANTE CON TINYGRAD
+**Hardware:** Radeon 7900 XTX su Mac M1 via Razer Core X V2 eGPU
+**VRAM:** 24GB
+**Status:** ✅ FUNZIONANTE CON TINYGRAD
 
-### Problema (2025-01-30):
-TinyGrad rileva "AMD" come device ma fallisce quando tenta operazioni reali:
+### Requisiti per funzionare
+1. **TinyGPU.app** deve essere aperta (crea device USB virtuale)
+2. **eGPU** collegata alla **porta Thunderbolt corretta** (Port 2, Receptacle 2)
+3. **Variabili**: `AMD=1 AMD_LLVM=1`
+
+### Comandi che FUNZIONANO
+```bash
+cd ~/Projects/tinygrad-fix
+
+# Test base
+AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; print(Device['AMD'])"
+
+# GPT-2 (~3.6 tok/s)
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py --model_size gpt2 --prompt "Hello" --count 20
+
+# GPT-2 XL (1.5B)
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py --model_size gpt2-xl --prompt "Hello" --count 30
 ```
-No interface for AMD:0 is available
-- /dev/kfd: non esiste (Linux-only)
-- PCI: "No supported GPUs found"
-- USB: device non trovato
-```
 
-### TODO per far funzionare:
-- [ ] Investigare se TinyGrad supporta davvero macOS + AMD eGPU
-- [ ] Provare alternative (MLX? PyTorch con ROCm?)
-- [ ] Verificare se serve driver specifico
+### Capacità VERIFICATE
+- ✅ GPT-2 inference (~3.6 tok/s)
+- ✅ GPT-2 XL (1.5B)
+- ✅ LLaMA 3.1 8B (su SSD esterno)
 
-### Capacità NON CONFERMATE (erano false):
-- ❌ LLaMA 3 8B - MAI testato realmente
-- ❌ Batch processing - MAI testato realmente
+### ⚠️ PROCEDURA DI VERIFICA (PRIMA di dire "non funziona")
+1. `system_profiler SPThunderboltDataType | grep -A5 "Device Name"` → deve mostrare Core X V2
+2. `system_profiler SPDisplaysDataType | grep -i "vendor\|AMD"` → deve mostrare AMD
+3. `ps aux | grep -i tinygpu | grep -v grep` → TinyGPU.app deve girare
+4. Test finale con AMD=1
+
+**Il 99% dei problemi = cavo nella porta sbagliata o TinyGPU.app non aperta!**
 
 ---
 
 ## 🌍 Traduzioni Locali
 
-### Stato attuale (2025-01-30):
-GPU Radeon NON funzionante. Opzioni disponibili:
+### Stato attuale (2026-01-30):
+GPU Radeon FUNZIONANTE! Opzioni disponibili:
 
 | Modello | Hardware | Funziona? | Note |
 |---------|----------|-----------|------|
-| Helsinki-NLP opus-mt | CPU (M1) | ✅ | Lento ma funziona |
+| LLaMA 3.1 8B | Radeon 7900 XTX | ✅ | Via TinyGrad, richiede TinyGPU.app |
+| GPT-2/XL | Radeon 7900 XTX | ✅ | ~3.6 tok/s |
+| Helsinki-NLP opus-mt | CPU (M1) | ✅ | Fallback se eGPU non disponibile |
 | Claude API | Cloud | ✅ | Best quality, costs $ |
 | M4 Pro (Ondinho) | Apple Silicon | ✅ | Via sessions_send |
-
-### ❌ NON FUNZIONANTI (Radeon/TinyGrad):
-- LLaMA 3 8B - TinyGrad non supporta macOS + AMD eGPU
-- GPT-2 - Stesso problema
-- Tutti i modelli TinyGrad - Stesso problema
 
 ---
 
