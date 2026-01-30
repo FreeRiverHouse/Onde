@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-01-30T07:45:13.904910Z",
+  "overall": {
+    "total_calls": 29,
+    "total_errors": 0,
+    "error_rate_pct": 0.0
+  },
+  "last_24h": {
+    "total_calls": 29,
+    "errors": 0,
+    "error_rate_pct": 0.0
+  },
+  "daily_breakdown": [
+    {
+      "date": "2026-01-29",
+      "total": 29,
+      "errors": 0,
+      "error_rate": 0.0
+    }
+  ],
+  "high_error_hours": [],
+  "threshold_pct": 10.0
+}

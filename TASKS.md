@@ -5957,12 +5957,24 @@
 - **Notes**: Track "catalog_search" event with query string (anonymized), results count, language. Helps understand what books users look for. Add to catalogo page search handler.
 
 ### [T618] Autotrader error rate tracking
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T329]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Track API errors per hour (Kalshi, price feeds). Alert if error rate >10% in any hour. Script: analyze-error-rates.py. Use execution log from T329 + api call tracking. Helps identify infrastructure issues before they impact trading.
+- **Notes**: ✅ Implemented API error rate tracking!
+  - **Script**: `scripts/analyze-error-rates.py`
+  - **Features:**
+    - Parses execution log from T329
+    - Tracks errors per hour
+    - Alerts if error rate >10% (creates kalshi-api-error.alert)
+    - 4h alert cooldown
+    - Daily breakdown (last 7 days)
+    - JSON report: data/trading/error-rate-analysis.json
+  - **Cron**: Every hour at :30 (30 * * * *)
+  - **Current**: 0% error rate (29 calls, all executed)
+  - Helps identify infrastructure issues before they impact trading
 
 ### [T619] Settlement price accuracy validation
 - **Status**: DONE
