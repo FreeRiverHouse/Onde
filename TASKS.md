@@ -7430,15 +7430,17 @@
   - ⏳ Needs deploy to onde.surf (see T752)
 
 ### [T752] Deploy onde.surf with DailyVolumeWidget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T751]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the daily volume indicator to production:
-  - Build surfboard with `npm run build:cf`
-  - Deploy via wrangler to Cloudflare Pages
-  - Verify: https://onde.surf/betting shows volume widget
+- **Notes**: ✅ Deployed! https://c1060b17.onde-surf.pages.dev
+  - ✅ Built surfboard with `npm run build:cf`
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.surf returns 307 (auth protected as expected)
+  - Daily volume widget now live on /betting page
 
 ### [T753] Dashboard: Add volume trend sparkline
 - **Status**: TODO
@@ -7474,3 +7476,40 @@
   - Compare to daily average
   - Useful for monitoring autotrader activity
   - Visual indicator: slow/normal/fast
+
+### [T756] Dashboard: Mobile-responsive trading widgets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve mobile experience for /betting page:
+  - Stack widgets vertically on mobile (< 768px)
+  - Larger touch targets for interactive elements
+  - Collapsible sections to reduce scroll
+  - Test on iOS Safari and Android Chrome
+
+### [T757] Reader App: Add reading time estimate
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Show estimated reading time for each book:
+  - Calculate from word count (avg 200-250 WPM)
+  - Display on book card in library view
+  - Show remaining time based on progress
+  - Update estimate as user's reading speed is tracked
+
+### [T758] Autotrader: Volume anomaly alerts
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T754]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Alert when trading volume is unusual:
+  - Track 7-day average volume
+  - Alert if today > 2x average (high activity)
+  - Alert if today < 0.5x average (low activity)
+  - Create kalshi-volume-anomaly.alert for heartbeat
+  - Useful for detecting autotrader issues or market changes
