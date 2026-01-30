@@ -69,6 +69,7 @@ export default function SkinCreator() {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [brushSize, setBrushSize] = useState(1);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -393,6 +394,28 @@ export default function SkinCreator() {
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
+  // Import existing skin PNG 📥
+  const importSkin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      ctx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      updatePreview();
+      saveState();
+      playSound('click');
+    };
+    img.src = URL.createObjectURL(file);
+    e.target.value = ''; // Reset input
+  };
+
   return (
     <div className={`min-h-screen p-4 flex flex-col items-center transition-colors duration-500 ${
       darkMode 
@@ -534,6 +557,19 @@ export default function SkinCreator() {
             >
               {darkMode ? '☀️ Light' : '🌙 Dark'}
             </button>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="px-3 py-2 rounded-full font-bold bg-indigo-500 text-white hover:bg-indigo-600"
+            >
+              📥 Import
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/png"
+              onChange={importSkin}
+              className="hidden"
+            />
             <button
               onClick={downloadSkin}
               className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
