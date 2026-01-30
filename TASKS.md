@@ -5688,8 +5688,8 @@
 - **Notes**: Extend weekend analysis to US market holidays (Christmas, Thanksgiving, etc). Lower liquidity may affect crypto volatility patterns. Script: analyze-holiday-trading.py
 
 ### [T411] Time-of-day heatmap visualization on dashboard
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T249]
 - **Blocks**: -
 - **Priority**: P3
