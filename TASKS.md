@@ -348,6 +348,52 @@
 
 ---
 
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (17:32 HEARTBEAT)
+
+### [T487] Deploy Moonlight House enhanced version to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T461]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the enhanced Moonlight House with ambient effects to onde.la
+  - Build static export from apps/moonlight-house
+  - Copy to apps/onde-portal/public/static-games/moonlight-magic-house/
+  - Deploy onde.la via wrangler
+  - Verify effects work on production
+
+### [T488] Moonlight House: Add ambient soundscapes per room
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T461]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Audio atmosphere to match visual ambient effects:
+  - **Bedroom**: Soft music box, gentle night sounds
+  - **Kitchen**: Sizzling, pot bubbling, fridge hum
+  - **Garden**: Birds chirping (day), crickets (night), wind rustling
+  - **Bathroom**: Water dripping, steam hiss
+  - **Living Room**: TV murmur, clock ticking
+  - **Garage**: Tool sounds, car engine idle
+  - Use Web Audio API for dynamic mixing based on room
+  - Volume controlled by existing sound toggle
+
+### [T489] Moonlight House: Add more explorable areas
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T461]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Expand the house with new rooms for more exploration:
+  - **Attic**: Spooky/cozy, dust particles, cobwebs, treasure hunt
+  - **Basement**: Workshop, storage, secret passages
+  - **Nursery**: Toys, mobile, soft lighting (for baby Luna lore?)
+  - **Patio/Balcony**: Outdoor dining, night sky view, telescope
+  - Each room needs: background image, interactive objects, ambient effects
+  - Consider level-gating to reward progression
+
+---
+
 ## 🚨 NUOVO - DA CLAWD 2026-01-31 (16:00 HEARTBEAT)
 
 ### [T458] Deploy onde.la with auto-refresh toggle on /health
