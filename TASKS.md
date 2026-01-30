@@ -1508,17 +1508,26 @@
   - Live at: https://onde.surf/betting (after login)
 
 ### [T738] Autotrader: Auto-archive old trade logs
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Prevent trade log files from growing infinitely:
-  - Archive trades older than 90 days to separate file
-  - Compress archived logs (gzip)
-  - Keep recent data in main file for fast access
-  - Run monthly via cron
-  - Option to export to CSV for analysis
+- **Notes**: ✅ Implemented trade log auto-archiving!
+  - **Script**: `scripts/archive-trade-logs.py`
+  - **Features:**
+    - ✅ Archives files older than 90 days (configurable --days)
+    - ✅ Compresses with gzip to archive/YYYY/ folder
+    - ✅ Exports to CSV before archiving (--export-csv)
+    - ✅ Dry-run mode to preview actions
+    - ✅ Verbose output option
+    - ✅ Preserves year-based organization
+  - **Cron**: `0 10 1 * *` (1st of month, 02:00 PST)
+  - **Usage:**
+    - `python3 archive-trade-logs.py --dry-run` - Preview
+    - `python3 archive-trade-logs.py --export-csv` - Archive + export
+    - `python3 archive-trade-logs.py --days 60` - Custom retention
 
 ### [T739] Deploy onde.la with countdown timer on /health
 - **Status**: DONE
