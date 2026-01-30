@@ -10136,7 +10136,7 @@
   - Test TTS resume functionality works on deployed version
 
 ### [T867] Reader App: Fix PWA requirements
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T695]
 - **Blocks**: -
