@@ -194,18 +194,24 @@
   - **Next step**: Create minimal R3F prototype (T701)
 
 ### [T701] Reader App VR: Create R3F prototype with floating text
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T669]
 - **Blocks**: [T702]
 - **Priority**: P2
-- **Notes**: Minimal proof-of-concept VR reading experience
-  - Create `apps/reader-vr/` with React-Three-Fiber
-  - Implement floating text panel using troika-three-text
-  - Basic environment (simple skybox or HDRI)
-  - Controller-based page turn
-  - Test on Quest 3 browser
-  - Validate text readability at different distances
+- **Notes**: ✅ Created VR Reader prototype with R3F + WebXR!
+  - ✅ Created `apps/reader-vr/` with Next.js 16 + React-Three-Fiber
+  - ✅ Floating book panel with Pride & Prejudice sample text
+  - ✅ Cozy library environment (bookshelves, reading chair, floating candles)
+  - ✅ Warm ambient lighting, dust particles, stars
+  - ✅ VR/AR entry buttons (WebXR compatible)
+  - ✅ Page navigation: keyboard arrows, mouse click, VR controller triggers
+  - ✅ Font size adjustment (+/- keys, VR grip)
+  - ✅ Serif font (Merriweather) for comfortable reading
+  - ✅ Build passes, dev server tested
+  - **Run with:** `cd apps/reader-vr && npm run dev`
+  - ⏳ TODO: Test on Quest 3 browser (manual)
 
 ### [T702] Reader App VR: Cozy library environment
 - **Status**: TODO
@@ -234,6 +240,45 @@
   - Preserve progress sync with web version
   - Handle images (convert to VR textures)
   - Test with sample EPUBs from web app
+
+### [T704] Reader App VR: Deploy to onde.la/reader-vr
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy VR reader prototype for Quest 3 testing
+  - Configure static export with basePath=/reader-vr/
+  - Copy to onde-portal/public/reader-vr/
+  - Deploy via wrangler to Cloudflare Pages
+  - Test on Quest 3 browser (https://onde.la/reader-vr/)
+  - Add link from main Reader App
+
+### [T705] Reader App VR: Add environment switcher
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow switching between different reading environments:
+  - Cozy library (current)
+  - Mountain cabin (nature view through windows)
+  - Floating in clouds (minimal, dreamy)
+  - Dark mode study (low light, focused)
+  - Each environment needs: lighting, ambient sounds hook, atmosphere
+
+### [T706] Reader App VR: Add hand tracking support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T701]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enable hand tracking for Quest 3 controller-free reading:
+  - Pinch gesture for page turn
+  - Swipe gesture for navigation
+  - Point at menu items to select
+  - Grab gesture to move book panel
+  - @react-three/xr hands API integration
 
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
