@@ -4,6 +4,7 @@ import { useReaderStore, Book } from '@/store/readerStore';
 import { useState, useRef, useCallback, DragEvent } from 'react';
 import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
+import { OfflineIndicator } from './OfflineIndicator';
 
 // Upload progress state
 interface UploadProgress {
@@ -211,7 +212,10 @@ export function Library() {
       <header className="max-w-6xl mx-auto mb-12">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">📚 Library</h1>
+            <div className="flex items-center gap-3">
+              <h1 className="text-4xl font-bold tracking-tight">📚 Library</h1>
+              <OfflineIndicator />
+            </div>
             <p className="text-lg opacity-70 mt-2">Your personal reading collection</p>
           </div>
           

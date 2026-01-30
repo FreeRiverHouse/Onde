@@ -10,6 +10,7 @@ import { AnnotationsPanel } from './AnnotationsPanel';
 import { VocabularyPanel } from './VocabularyPanel';
 import { TextToSpeech } from './TextToSpeech';
 import { ReadingStatsPanel } from './ReadingStatsPanel';
+import { OfflineIndicator } from './OfflineIndicator';
 import { calculateReadingMinutes } from '@/lib/readingTime';
 import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs';
 
@@ -506,7 +507,10 @@ export function EpubReader({ bookUrl, bookId }: EpubReaderProps) {
             </button>
             
             <div className="flex-1 text-center px-4">
-              <h1 className="font-semibold truncate">{currentBook?.title}</h1>
+              <div className="flex items-center justify-center gap-2">
+                <h1 className="font-semibold truncate">{currentBook?.title}</h1>
+                <OfflineIndicator compact />
+              </div>
               <p className="text-sm opacity-70">{currentChapterTitle || 'Reading...'}</p>
             </div>
             

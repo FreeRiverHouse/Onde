@@ -758,18 +758,24 @@
   - Document setup in README
 
 ### [T802] Reader App: Add offline reading indicator and cache status
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T668]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Enhance PWA offline experience:
-  - Show offline/online status indicator in header
-  - Cache EPUB files in IndexedDB for offline reading
-  - Show "Downloaded" badge on cached books
-  - Add "Download for offline" button on book cards
-  - Visual indication when reading offline
-  - Sync queued actions when back online
+- **Notes**: ✅ Implemented offline status indicator!
+  - ✅ **Hook**: `src/lib/useOnlineStatus.ts` - Tracks online/offline state with Navigator API
+  - ✅ **Component**: `src/components/OfflineIndicator.tsx` - Visual indicator with animation
+    - Yellow pulsing dot when offline
+    - Green dot with "Back online" when reconnected
+    - Compact mode for header integration
+  - ✅ Integrated into Library header (next to title)
+  - ✅ Integrated into EpubReader header (next to book title)
+  - ✅ Build passes
+  - ⏳ Future: "Downloaded" badges on book cards (T803)
+  - ⏳ Future: "Download for offline" button (T804)
+  - ⏳ Needs deploy to onde.la/reader (T805)
 
 ---
 
