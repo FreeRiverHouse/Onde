@@ -6439,8 +6439,8 @@
 - **Notes**: Script: backtest-divergence.py. Analyze historical divergence signals (from cached OHLC) against actual price moves 1h/4h/24h later. Calculate hit rate by confidence level. Shows if divergence detection is predictive. Output: data/trading/divergence-backtest.json.
 
 ### [T460] Combined signal scoring (divergence + reversion + momentum)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T303], [T302], [T301]
 - **Blocks**: -
 - **Priority**: P2
