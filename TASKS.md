@@ -1490,17 +1490,22 @@
   - Supports both v1 and v2 trade log formats
 
 ### [T737] Dashboard: Add win rate trend sparkline to /betting
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31 (discovered already implemented)
 - **Depends**: [T482]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Small sparkline chart showing 7-day win rate trend:
-  - Calculate daily win rates from trade logs
-  - Mini line chart (similar to stock sparklines)
-  - Color coded: green if trending up, red if down
-  - Show on /betting page next to current win rate stat
-  - Reuse data from concentration history if possible
+- **Notes**: ✅ Already implemented!
+  - **Component**: `apps/surfboard/src/components/WinRateSparkline.tsx`
+  - **Integration**: Added to /betting page next to Win Rate stat card
+  - **Features:**
+    - Compact SVG sparkline (50x20px)
+    - Color-coded: green if trending up, red if down
+    - Uses parseWinRateTrendFromStats() to get data from trend API
+    - Falls back to mock data when no data available
+    - Optional trend icon (disabled in current integration)
+  - Live at: https://onde.surf/betting (after login)
 
 ### [T738] Autotrader: Auto-archive old trade logs
 - **Status**: TODO
