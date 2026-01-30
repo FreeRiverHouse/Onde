@@ -7867,3 +7867,41 @@
   - Show if trade was after N wins/losses
   - Show continuation probability at that time
   - Helps identify if tilt patterns affected decisions
+
+### [T773] Trading: Configurable streak thresholds via environment
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T770]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Make streak detection thresholds configurable:
+  - STREAK_TILT_THRESHOLD env var (default 3)
+  - STREAK_HOT_HAND_THRESHOLD env var (default 3)
+  - Allow users to adjust sensitivity based on their trading style
+  - Document in TOOLS.md or trading docs
+
+### [T774] Trading: Telegram alert for high-tilt-risk trades
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T770]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Send Telegram alert when entering trade in tilt risk state:
+  - Write kalshi-tilt-risk.alert file for heartbeat pickup
+  - Include: ticker, edge, streak context, continuation probability
+  - Optional: require manual confirmation for tilt-risk trades (future)
+  - Helps Mattia intervene if needed during bad streaks
+
+### [T775] Trading: Analyze streak position vs outcome correlation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T770]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Script to analyze if streak position affects trade outcomes:
+  - Load all trades with streak_context field
+  - Calculate win rate by streak context (after_1_loss, after_2_wins, etc.)
+  - Compare tilt_risk trades vs non-tilt trades outcomes
+  - Compare hot_hand trades vs normal trades outcomes
+  - Generate report: data/trading/streak-impact-analysis.json
+  - Could inform adaptive position sizing (reduce size in tilt risk)
