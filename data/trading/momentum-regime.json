@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-01-30T20:43:12.199810Z",
+  "regime": "TRENDING",
+  "aggregate_score": 0.855,
+  "direction": "bearish",
+  "btc": {
+    "price": 84368.0,
+    "momentum_score": 0.827,
+    "direction": "bearish",
+    "adx": 46.94,
+    "adx_score": 0.939,
+    "roc_24h": -4.46,
+    "roc_7d": -5.64,
+    "roc_score": 0.505,
+    "plus_di": 8.11,
+    "minus_di": 38.55,
+    "consistency_score": 1.0,
+    "atr_pct": 1.805
+  },
+  "eth": {
+    "price": 2746.26,
+    "momentum_score": 0.897,
+    "direction": "bearish",
+    "adx": 55.97,
+    "adx_score": 1.0,
+    "roc_24h": -6.2,
+    "roc_7d": -6.94,
+    "roc_score": 0.657,
+    "plus_di": 0.47,
+    "minus_di": 44.93,
+    "consistency_score": 1.0,
+    "atr_pct": 2.258
+  },
+  "recommendation": {
+    "strategy": "momentum",
+    "description": "Market is trending (bearish). Favor momentum strategies.",
+    "sizing": "normal",
+    "hold_time": "longer",
+    "contrarian_caution": true
+  },
+  "thresholds": {
+    "trending": 0.6,
+    "ranging": 0.3
+  },
+  "source": "binance"
+}

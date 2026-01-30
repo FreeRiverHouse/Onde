@@ -9835,18 +9835,27 @@
   - ⏳ Dashboard widget (future task)
 
 ### [T853] Trading: Add market momentum regime indicator
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T483]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track overall market momentum for better timing:
-  - Calculate aggregate momentum across BTC/ETH
-  - Identify trending vs mean-reverting regimes
-  - Adjust strategy based on regime (momentum vs contrarian)
-  - Alert on regime changes (like T724 for correlation)
-  - Dashboard widget showing current regime
-  - Data source: hourly OHLC candles from Binance
+- **Notes**: ✅ Implemented market momentum regime indicator!
+  - **Script**: `scripts/market-momentum-regime.py`
+  - **Output**: `data/trading/momentum-regime.json`
+  - **Features:**
+    - ✅ Fetches hourly OHLC from Binance (CoinGecko fallback)
+    - ✅ Calculates ADX (trend strength), ROC (rate of change), DI (directional movement)
+    - ✅ Aggregate momentum score (0-1) weighted BTC 60% / ETH 40%
+    - ✅ Regime classification: TRENDING (>0.6), RANGING (<0.3), VOLATILE (between)
+    - ✅ Direction detection: bullish/bearish/mixed
+    - ✅ Trading recommendations per regime
+    - ✅ Alerts on regime changes (`scripts/kalshi-momentum-regime.alert`)
+    - ✅ History logging to `data/trading/momentum-regime-history.jsonl`
+  - **Gist integration**: Added to `push-stats-to-gist.py` as `momentumRegime`
+  - **HEARTBEAT.md**: Updated with new alert file
+  - ⏳ Dashboard widget (future task T859)
 
 ### [T855] Infra: Add health check endpoint to autotrader
 - **Status**: DONE
@@ -9936,6 +9945,21 @@
   - Enable Grafana dashboards for trading metrics
   - Optional: Push to Pushgateway for remote monitoring
 
+### [T859] Trading: Add momentum regime dashboard widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T853]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Display market momentum regime on onde.surf/betting:
+  - Show current regime (TRENDING/RANGING/VOLATILE) with color badge
+  - Direction indicator (bullish/bearish/mixed) with arrow
+  - Aggregate momentum score gauge (0-1)
+  - BTC/ETH individual scores breakdown
+  - ADX trend strength meter
+  - Trading recommendation based on regime
+  - Timestamp of last update
+  - Component: `apps/surfboard/src/components/MomentumRegimeWidget.tsx`
 
 ### [T832] Deploy onde.surf with position expiry heatmap
 - **Status**: DONE

@@ -41,6 +41,7 @@
 - `scripts/kalshi-volume-anomaly.alert` → Volume anomaly! (>2x or <0.5x 7-day avg). Manda alert, poi elimina
 - `scripts/kalshi-vol-weekly-report.alert` → Weekly volatility divergence detected! Manda alert con asset divergenti, poi elimina
 - `scripts/kalshi-rebalance.alert` → Auto-rebalance executed/planned! Manda alert a Mattia, poi elimina
+- `scripts/kalshi-momentum-regime.alert` → Market regime changed! (TRENDING/RANGING/VOLATILE). Manda alert a Mattia, poi elimina
 
 ### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
 Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
