@@ -239,6 +239,8 @@ STREAK_ALERT_FILE = "scripts/kalshi-streak-record.alert"
 STREAK_POSITION_ANALYSIS_FILE = "data/trading/streak-position-analysis.json"
 STREAK_TILT_THRESHOLD = 3  # Warn when entering trade after N consecutive losses
 STREAK_HOT_HAND_THRESHOLD = 3  # Note when entering trade after N consecutive wins
+# Streak-based position sizing (T388) - reduce size to prevent tilt/hot-hand-fallacy
+STREAK_SIZE_REDUCTION = float(os.environ.get("STREAK_SIZE_REDUCTION", "0.7"))  # 70% of normal size
 
 # Tilt risk alerting (T774) - alert Mattia when trading in risky state
 TILT_RISK_ALERT_FILE = "scripts/kalshi-tilt-risk.alert"
@@ -4293,13 +4295,28 @@ def run_cycle():
         # Apply adjustments to Kelly fraction
         adjusted_kelly = kelly_fraction * regime_multiplier * vol_multiplier
     
+    # Get streak context for position sizing (T388: streak-based size adjustment)
+    streak_ctx = get_streak_position_context()
+    
+    # Streak-based position sizing (T388) - reduce size during tilt risk or hot hand
+    streak_multiplier = 1.0
+    if streak_ctx.get("tilt_risk") or streak_ctx.get("hot_hand"):
+        streak_multiplier = STREAK_SIZE_REDUCTION
+        adjusted_kelly = adjusted_kelly * streak_multiplier
+        streak_reason = "tilt_risk" if streak_ctx.get("tilt_risk") else "hot_hand"
+        streak_count = streak_ctx.get("current_streak", 0)
+        print(f"   ⚠️ Streak size adjustment: {STREAK_SIZE_REDUCTION:.0%} ({streak_reason}, {streak_count} streak)")
+    
     # Log the adjustment (T441: show per-asset config)
-    total_multiplier = regime_multiplier * vol_multiplier
+    total_multiplier = regime_multiplier * vol_multiplier * streak_multiplier
     if asset_type != "weather":
         print(f"   📊 {asset_type.upper()} Kelly: {kelly_fraction*100:.1f}% | Max: {max_position_pct*100:.1f}%")
     if abs(total_multiplier - 1.0) > 0.01:
         adj_direction = "↑" if total_multiplier > 1.0 else "↓"
-        print(f"   Position size: {adj_direction} {total_multiplier:.0%} (regime={regime_multiplier:.0%}, vol={vol_multiplier:.0%})")
+        multiplier_parts = f"regime={regime_multiplier:.0%}, vol={vol_multiplier:.0%}"
+        if streak_multiplier != 1.0:
+            multiplier_parts += f", streak={streak_multiplier:.0%}"
+        print(f"   Position size: {adj_direction} {total_multiplier:.0%} ({multiplier_parts})")
     
     kelly_bet = cash * adjusted_kelly * best["edge"]
     # Apply per-asset max position limit (T441)
@@ -4352,8 +4369,7 @@ def run_cycle():
     if "WARN" in conc_reason:
         print(f"   ⚠️ {conc_reason}")
     
-    # Get streak position context for trade logging (T770)
-    streak_ctx = get_streak_position_context()
+    # streak_ctx already available from position sizing (T388)
     
     # Build trade data for logging
     trade_data = {
@@ -4394,6 +4410,7 @@ def run_cycle():
         "max_position_pct": max_position_pct,  # Per-asset max (T441)
         "regime_multiplier": regime_multiplier,
         "vol_multiplier": vol_multiplier,
+        "streak_multiplier": streak_multiplier,  # T388: streak-based size adjustment
         "size_multiplier_total": total_multiplier,
         # Price source data (T386)
         "price_sources": prices.get("sources", []),

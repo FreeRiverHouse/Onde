@@ -5502,12 +5502,19 @@
   - ⏳ Needs deploy to onde.surf (separate task)
 
 ### [T388] Streak-based position sizing adjustment
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T290]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Reduce position size after N consecutive wins (hot hand fallacy risk) or losses (tilt prevention). Configurable via STREAK_SIZE_REDUCTION_THRESHOLD env var. Log size adjustments in trade data.
+- **Notes**: ✅ Implemented streak-based position sizing in kalshi-autotrader-v2.py!
+  - ✅ New env var: `STREAK_SIZE_REDUCTION` (default 0.7 = 70% of normal size)
+  - ✅ Applies reduction when tilt_risk (3+ consecutive losses) or hot_hand (3+ consecutive wins)
+  - ✅ Logs `streak_multiplier` in trade data for analysis
+  - ✅ Console output shows streak adjustment when applied
+  - ✅ Integrated with existing regime/vol multipliers in total_multiplier
+  - Prevents psychological trading errors during streaks.
 
 ### [T389] Historical streak analysis by asset (BTC vs ETH)
 - **Status**: TODO
@@ -8067,3 +8074,41 @@
   - Alert at TILT_ALERT_THRESHOLD env var (default 3)
   - Suggests taking a break from trading
   - Resets at midnight UTC
+
+### [T780] Trading: Measure streak sizing effectiveness over time
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T388]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create analysis script to measure T388 impact:
+  - Compare win rate of streak-reduced trades vs normal
+  - Calculate money saved by reducing position during tilt
+  - Compare before/after T388 implementation
+  - Generate weekly report with findings
+  - Output: data/trading/streak-sizing-analysis.json
+
+### [T781] Dashboard: Show active position size adjustments
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T388]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add visual indicator to /betting when position sizing adjustments are active:
+  - Show badge when streak_multiplier != 1.0 in recent trades
+  - Tooltip with current streak context
+  - Color-coded: yellow for hot_hand, red for tilt_risk
+  - Helps user understand why positions may be smaller
+
+### [T782] Reader App: Offline book download for PWA
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T690]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Allow downloading books for offline reading:
+  - "Download" button next to each book in library
+  - Store full EPUB in IndexedDB cache
+  - Show download status and storage used
+  - Delete option to free space
+  - Auto-download in background when on WiFi (optional)
