@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { useToast } from './Toast';
 import { AgentLeaderboard } from './AgentLeaderboard';
@@ -132,7 +132,83 @@ export function FreeRiverHouse() {
   const previousLevelsRef = useRef<Record<string, number>>({});
   const [notificationEnabled, setNotificationEnabled] = useState<boolean>(false);
   const [levelUpCelebration, setLevelUpCelebration] = useState<{agentName: string; newLevel: number} | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+  const audioContextRef = useRef<AudioContext | null>(null);
   const { showToast } = useToast();
+
+  // Load sound preference from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedPref = localStorage.getItem('levelUpSoundEnabled');
+      setSoundEnabled(savedPref !== 'false'); // Default to true
+    }
+  }, []);
+
+  // Toggle sound and persist preference
+  const toggleSound = (value: boolean) => {
+    setSoundEnabled(value);
+    localStorage.setItem('levelUpSoundEnabled', value ? 'true' : 'false');
+  };
+
+  // Play celebratory level-up sound using Web Audio API
+  const playLevelUpSound = useCallback(() => {
+    if (!soundEnabled) return;
+    
+    try {
+      // Create audio context on demand (browser requires user interaction first)
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof window.AudioContext }).webkitAudioContext;
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContextClass();
+      }
+      const ctx = audioContextRef.current;
+      
+      // Resume context if suspended (browser autoplay policy)
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      
+      // Create a pleasant "level up" fanfare chime
+      // Notes: C5 → E5 → G5 → C6 (major chord arpeggio)
+      const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      const baseTime = ctx.currentTime;
+      
+      frequencies.forEach((freq, i) => {
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        
+        oscillator.type = 'sine'; // Softer, more pleasant tone
+        oscillator.frequency.setValueAtTime(freq, baseTime + i * 0.1);
+        
+        // Gentle attack and decay
+        const startTime = baseTime + i * 0.1;
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.02); // Quick attack
+        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3); // Smooth decay
+        
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.35);
+      });
+      
+      // Final sparkle note (high octave)
+      const sparkle = ctx.createOscillator();
+      const sparkleGain = ctx.createGain();
+      sparkle.connect(sparkleGain);
+      sparkleGain.connect(ctx.destination);
+      sparkle.type = 'sine';
+      sparkle.frequency.setValueAtTime(2093, baseTime + 0.4); // C7 - sparkle!
+      sparkleGain.gain.setValueAtTime(0, baseTime + 0.4);
+      sparkleGain.gain.linearRampToValueAtTime(0.15, baseTime + 0.42);
+      sparkleGain.gain.exponentialRampToValueAtTime(0.01, baseTime + 0.8);
+      sparkle.start(baseTime + 0.4);
+      sparkle.stop(baseTime + 0.85);
+      
+    } catch (e) {
+      console.error('Level-up sound error:', e);
+    }
+  }, [soundEnabled]);
 
   // Check notification permission on mount
   useEffect(() => {
@@ -165,10 +241,13 @@ export function FreeRiverHouse() {
     }
   };
 
-  // Trigger level-up celebration with confetti, toast, and notification
+  // Trigger level-up celebration with confetti, toast, notification, and sound
   const triggerLevelUpCelebration = (agentName: string, newLevel: number) => {
     // Show celebration state for confetti
     setLevelUpCelebration({ agentName, newLevel });
+    
+    // Play celebratory sound
+    playLevelUpSound();
     
     // Show toast
     showToast(`🎉 ${agentName} ha raggiunto il livello ${newLevel}!`, 'success');
@@ -598,6 +677,24 @@ export function FreeRiverHouse() {
           <span className="text-white/40 text-xs">{expanded ? '▼' : '▶'}</span>
         </button>
         <div className="flex items-center gap-2">
+          {/* Sound Toggle */}
+          <button
+            onClick={() => toggleSound(!soundEnabled)}
+            title={soundEnabled ? 'Suoni abilitati - Clicca per disattivare' : 'Suoni disattivati - Clicca per attivare'}
+            className={`p-1.5 rounded-lg text-xs transition-colors ${
+              soundEnabled
+                ? 'bg-emerald-500/20 text-emerald-400'
+                : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {soundEnabled ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zm9.414-3l4-4m0 0l-4 4m4-4l-4 4" />
+              )}
+            </svg>
+          </button>
           {/* Notification Toggle */}
           <button
             onClick={requestNotificationPermission}

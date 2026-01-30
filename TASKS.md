@@ -4611,16 +4611,21 @@
   - Level-up confetti and celebration now live in Free River House
 
 ### [T756] Add sound effects to level-up celebration
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T752]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Add optional sound effect to level-up celebration:
-  - Web Audio API for success/fanfare sound
-  - Mute toggle in preferences
-  - Short, pleasant "level up" chime
-  - Fallback: no sound if audio context blocked
+- **Notes**: ✅ Implemented level-up sound effects in Free River House!
+  - ✅ Web Audio API fanfare: C5→E5→G5→C6 major chord arpeggio + C7 sparkle
+  - ✅ Sound toggle button (🔊/🔇) in FreeRiverHouse header
+  - ✅ Emerald color when enabled, grey when disabled
+  - ✅ localStorage persistence for preference
+  - ✅ Graceful fallback if audio context blocked
+  - ✅ playLevelUpSound() called in triggerLevelUpCelebration()
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.surf (see T783)
 
 ### [T757] Agent stats export to CSV
 - **Status**: DONE
@@ -8170,3 +8175,41 @@
   - Show download status and storage used
   - Delete option to free space
   - Auto-download in background when on WiFi (optional)
+
+
+### [T783] Deploy level-up sound effects to onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T756]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Free River House with level-up sound effects:
+  - Build surfboard with `npm run build:cf`
+  - Deploy via wrangler
+  - Test sound plays on level-up
+
+### [T784] Add test coverage for FreeRiverHouse gamification features
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Create Playwright tests for Free River House:
+  - Test agent level display
+  - Test XP progress bar
+  - Test level-up celebration animation
+  - Test sound toggle persistence
+  - Test notification toggle
+
+### [T785] Agent mood tooltip with explanation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T510]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add tooltip to agent mood emoji showing explanation:
+  - "😴 Sleepy - Agent has been idle for >1 hour"
+  - "😰 Stressed - Agent has >5 pending tasks"
+  - "😊 Happy - Agent is on a winning streak!"
+  - Helps users understand mood calculations
+
