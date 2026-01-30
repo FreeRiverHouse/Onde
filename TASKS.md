@@ -6578,3 +6578,51 @@
   - [ ] AnimateDiff for loops
   - [ ] Frame interpolation
   - [ ] Audio sync node
+
+---
+
+## 🚨 NUOVO - DA CLAWD 2026-01-29 (22:16 HEARTBEAT)
+
+### [T722] Reader App: Add OPDS catalog support
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T668]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Enable importing books from OPDS catalogs:
+  - Support OPDS 1.x and 2.0 feeds
+  - Browse catalogs: Project Gutenberg, Standard Ebooks, Feedbooks
+  - Search within catalogs
+  - Add custom catalog URLs (Calibre servers)
+  - Download and import EPUBs directly
+  - Catalog history/favorites
+
+### [T723] SE-Bot: CLI tool for testing RAG responses
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T472]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Command-line tool to test SE-Bot RAG pipeline:
+  - Input: question/scenario text
+  - Output: KB search results, context, suggested response
+  - Batch mode: test multiple scenarios from file
+  - Latency tracking
+  - Score thresholds configuration
+  - Export results to JSON
+  - Usage: `python cli_test.py "What is ZTNA?" --with-claude`
+
+### [T724] Trading: Add Sharpe ratio to performance dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Calculate and display risk-adjusted returns:
+  - Daily returns calculation from trade history
+  - Sharpe ratio (annualized)
+  - Sortino ratio (downside only)
+  - Max drawdown percentage
+  - Display on onde.surf/betting dashboard
+  - Historical chart showing rolling Sharpe
+  - Compare crypto vs weather markets
