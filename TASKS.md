@@ -9938,8 +9938,8 @@
 
 
 ### [T832] Deploy onde.surf with position expiry heatmap
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T830]
 - **Blocks**: -
 - **Priority**: P2
