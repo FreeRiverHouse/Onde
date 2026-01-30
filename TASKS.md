@@ -7684,19 +7684,29 @@
   - Stats display: "This suggestion type has 80% approval"
 
 ### [T732] SE-Bot: Create comprehensive README and setup guide
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T474]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Documentation for SE-Bot setup and usage:
-  - README.md with architecture diagram (ASCII or mermaid)
-  - Step-by-step installation guide (BlackHole, Whisper, PyObjC)
-  - Audio routing setup for Zoom/Meet/Teams
-  - Troubleshooting common issues
-  - Demo video or GIF of the overlay in action
-  - API reference for extending/customizing
-  - Performance tuning tips (model selection, latency)
+- **Notes**: ✅ Created comprehensive README for SE-Bot!
+  - **File**: `apps/se-bot/README.md`
+  - **Content:**
+    - ✅ ASCII architecture diagram (full system flow)
+    - ✅ Prerequisites and system requirements
+    - ✅ Step-by-step installation guide (BlackHole, Whisper, PyObjC)
+    - ✅ Audio routing setup with Multi-Output Device instructions
+    - ✅ Usage examples (full system, demo mode, headless, status check)
+    - ✅ Component testing commands
+    - ✅ Keyboard shortcuts reference
+    - ✅ Response styles configuration
+    - ✅ Knowledge base structure guide
+    - ✅ Voice output setup (ElevenLabs)
+    - ✅ Troubleshooting section (7 common issues)
+    - ✅ File reference table
+    - ✅ Future roadmap
+  - ⏳ Demo video/GIF (future - requires screen recording)
 
 ### [T733] SE-Bot: Add configurable hotkey and position persistence
 - **Status**: TODO
@@ -8807,3 +8817,48 @@
   - Identify optimal trades-per-day target
   - Output: `data/trading/activity-correlation.json`
   - Script: `scripts/analyze-activity-correlation.py`
+
+### [T811] SE-Bot: Create quickstart script with dependency checker
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T732]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create `quickstart.py` script that:
+  - Checks all system dependencies (Python, whisper-cpp, ffmpeg, BlackHole)
+  - Validates API keys (ANTHROPIC, ELEVENLABS)
+  - Builds knowledge base if not present
+  - Downloads Whisper model if missing
+  - Runs component health checks
+  - Shows step-by-step setup wizard for missing components
+  - Single command to get SE-Bot ready: `python quickstart.py`
+
+### [T812] Reader App: Add daily reading goal feature
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T719]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add reading goal tracking to Reader App:
+  - Set daily goal (pages or minutes)
+  - Progress ring/bar on library page
+  - Streak bonus for consecutive goal days
+  - Weekly goal summary
+  - Notifications/encouragement at 50%/100%
+  - Integrate with existing ReadingStatsStore
+  - Optional: adjust goal based on historical averages
+
+### [T813] Trading: Market regime detection for strategy switching
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T483]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Detect market regime to auto-adjust trading strategy:
+  - Regimes: trending (strong momentum), ranging (mean-reversion), volatile (reduce exposure)
+  - Use BTC/ETH price action + volatility metrics
+  - Adjust position sizing based on regime
+  - Log regime changes to alert file
+  - Consider disabling certain market types in volatile regime
+  - Script: `scripts/market-regime-detector.py`
+  - Output: `data/trading/market-regime.json`
