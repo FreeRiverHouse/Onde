@@ -55,6 +55,8 @@ export default function SkinCreator() {
   const [brushSize, setBrushSize] = useState(1);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
+  const particleIdRef = useRef(0);
 
   // Get window size for confetti
   useEffect(() => {
@@ -63,6 +65,17 @@ export default function SkinCreator() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Spawn sparkle particles when drawing
+  const spawnParticle = useCallback((clientX: number, clientY: number) => {
+    if (tool === 'eraser') return;
+    const id = particleIdRef.current++;
+    const newParticle = { id, x: clientX, y: clientY, color: selectedColor };
+    setParticles(prev => [...prev.slice(-20), newParticle]); // Keep max 20 particles
+    setTimeout(() => {
+      setParticles(prev => prev.filter(p => p.id !== id));
+    }, 600);
+  }, [selectedColor, tool]);
 
   // Initialize with Steve template
   const loadTemplate = useCallback((template: 'steve' | 'alex' | 'blank') => {
@@ -205,6 +218,11 @@ export default function SkinCreator() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Spawn sparkle particle! ✨
+    if (isDrawing && Math.random() > 0.7) {
+      spawnParticle(e.clientX, e.clientY);
+    }
+
     const rect = canvas.getBoundingClientRect();
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
@@ -272,6 +290,24 @@ export default function SkinCreator() {
           gravity={0.3}
         />
       )}
+
+      {/* ✨ Sparkle particles when drawing */}
+      {particles.map(p => (
+        <div
+          key={p.id}
+          className="fixed pointer-events-none animate-ping"
+          style={{
+            left: p.x - 8,
+            top: p.y - 8,
+            width: 16,
+            height: 16,
+            backgroundColor: p.color,
+            borderRadius: '50%',
+            boxShadow: `0 0 10px ${p.color}, 0 0 20px ${p.color}`,
+            zIndex: 9999,
+          }}
+        />
+      ))}
       {/* Header */}
       <div className="text-center mb-4">
         <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
