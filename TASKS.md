@@ -460,17 +460,20 @@
   - All 8 rooms have procedural Web Audio API soundscapes
 
 ### [T666] Moonlight House: Add ambient soundscape volume slider
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: [T488]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Separate volume control for ambient soundscapes:
-  - Independent slider in settings/header
-  - Defaults to 50% (current behavior)
-  - Persist preference to localStorage
-  - Allow ambient to be muted while keeping SFX on
-  - Nice UI: mini waveform icon or speaker with waves
+- **Notes**: ✅ Implemented ambient volume slider!
+  - Added `ambientVolume` state separate from SFX volume
+  - Independent slider next to mute button in header
+  - Defaults to 50%, persists to localStorage
+  - Disabled when muted (visual feedback)
+  - Responsive: smaller on mobile
+  - Gold gradient thumb, smooth hover effects
+  - Deployed: https://cb2a5249.onde-portal.pages.dev
 
 ### [T667] Moonlight House: Add weather-based ambient variations
 - **Status**: TODO

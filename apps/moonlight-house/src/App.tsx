@@ -360,6 +360,25 @@ function App() {
   
   // Sound manager for effects and ambient music
   const { playSound, playAmbient, stopAmbient, toggleMute, isMuted, volume } = useSoundManager();
+  
+  // Separate ambient soundscape volume (0-1)
+  const [ambientVolume, setAmbientVolume] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('moonlight-ambient-volume');
+      return saved ? parseFloat(saved) : 0.5;
+    } catch {
+      return 0.5;
+    }
+  });
+  
+  // Persist ambient volume
+  const handleAmbientVolumeChange = (newVolume: number) => {
+    const clamped = Math.max(0, Math.min(1, newVolume));
+    setAmbientVolume(clamped);
+    try {
+      localStorage.setItem('moonlight-ambient-volume', String(clamped));
+    } catch {}
+  };
 
   // Core state (restored from save or defaults)
   const [stats, setStats] = useState<PetStats>(() => {
@@ -427,7 +446,7 @@ function App() {
     currentRoom: currentRoomKey,
     timeOfDay,
     isMuted,
-    volume,
+    volume: ambientVolume,
   });
 
   // Float animation
@@ -940,6 +959,18 @@ function App() {
               <button className="sound-toggle" onClick={() => { toggleMute(); playSound('ui-click'); }} title={isMuted ? 'Unmute' : 'Mute'}>
                 {isMuted ? '🔇' : '🔊'}
               </button>
+              <div className="ambient-volume-control" title={lang === 'it' ? 'Volume ambiente' : 'Ambient volume'}>
+                <span className="ambient-icon">🎵</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={Math.round(ambientVolume * 100)}
+                  onChange={(e) => handleAmbientVolumeChange(parseInt(e.target.value) / 100)}
+                  className="ambient-slider"
+                  disabled={isMuted}
+                />
+              </div>
               <button className="lang-toggle" onClick={toggleLanguage}>{lang === 'it' ? '🇮🇹' : '🇬🇧'}</button>
               <div className="level-badge glass-card">Lv.{stats.level}</div>
               <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>
