@@ -1670,14 +1670,17 @@
   - Build passes, needs deploy to onde.surf
 
 ### [T768] Deploy onde.surf with trade count comparison tooltips
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T748]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy T748 changes to production:
-  - Build and deploy surfboard to Cloudflare Pages
-  - Verify trade count tooltips work on /betting
+- **Notes**: ✅ Deployed! https://1231798a.onde-surf.pages.dev
+  - ✅ Build via `npm run build:cf` - passed
+  - ✅ Deploy via wrangler to Cloudflare Pages
+  - ✅ Site returns 307 (auth redirect) as expected
+  - Trade count comparison tooltips now live on /betting
 
 ---
 
