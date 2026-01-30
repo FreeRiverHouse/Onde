@@ -1273,18 +1273,18 @@
   - ⏳ Future: Nursery, Patio rooms (separate task)
 
 ### [T728] Moonlight House: Deploy Attic & Basement to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T489]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy updated Moonlight House with new rooms:
-  - Build static export
-  - Copy to onde-portal/public/static-games/moonlight-magic-house/
-  - Deploy via wrangler
-  - Verify: https://onde.la/games/moonlight-magic-house/
-  - Note: Attic/Basement use placeholder backgrounds (room-attic.jpg, room-basement.jpg)
-    - Can use gradient fallback or generate images later
+- **Notes**: ✅ Deployed! https://5d2bce8b.onde-portal.pages.dev
+  - ✅ Built static export (444 modules, 731ms)
+  - ✅ Copied to apps/onde-portal/public/static-games/moonlight-magic-house/
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+  - Attic (🏚️ Soffitta) + Basement (🔧 Cantina) now live with all features!
 
 ### [T665] Deploy Moonlight House with ambient soundscapes to onde.la
 - **Status**: DONE
