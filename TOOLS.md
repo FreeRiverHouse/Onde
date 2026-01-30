@@ -5,6 +5,17 @@
 ## POLYMARKET = SOLO PHONE MIRROR!!!
 ## ⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔
 
+## 🤖 DIVISIONE HARDWARE AGENTI
+
+| Agente | Hardware | GPU | Note |
+|--------|----------|-----|------|
+| **Clawdinho (me)** | M1 | Radeon 7900 XT (opzionale) | Task pesanti: GPU on-demand |
+| **Onde-bot/Ondinho** | M4 Pro | Nessuna esterna | Standalone, più potente |
+
+**Regola:** Task GPU-intensive → Clawdinho. Task veloci/autonomi → Onde-bot può fare.
+
+---
+
 Skills define *how* tools work. This file is for *your* specifics — the stuff that's unique to your setup.
 
 ## What Goes Here
