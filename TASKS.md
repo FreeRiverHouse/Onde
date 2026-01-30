@@ -8476,3 +8476,46 @@
   - Check if waiting longer between trades improves outcomes
   - Consider adding minimum cooldown between trades if pattern found
   - Output: data/trading/trade-frequency-analysis.json
+
+### [T798] Dashboard: A/B testing results visualization widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T220]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add widget to onde.surf /betting to visualize A/B test results:
+  - Show comparison chart of strategies tested
+  - Bar chart comparing win rate, ROI, Sharpe ratio
+  - Highlight statistically significant winners with ⭐
+  - Filter by test type (backtest vs paper)
+  - Show test date and parameters used
+  - "Run New Test" button to trigger from dashboard
+
+### [T799] Trading: Auto-alert when A/B test shows significant winner
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T220]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create cron job to run weekly A/B tests and alert on findings:
+  - Script: `scripts/weekly-ab-test.py`
+  - Runs baseline vs all variants on last 30 days data
+  - If any strategy significantly outperforms baseline, create alert
+  - Alert includes: strategy name, improvement %, confidence level
+  - Alert file: `kalshi-strategy-recommendation.alert`
+  - Cron: weekly on Sundays after weekly report
+
+### [T800] Trading: Auto-tune strategy parameters based on recent performance
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T220], [T485]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Implement adaptive parameter tuning:
+  - Analyze last 7 days of trades daily
+  - If win rate < 40%: increase MIN_EDGE by 0.02
+  - If concentration > 50%: tighten CONCENTRATION_LIMIT
+  - If max drawdown > 30%: reduce KELLY_FRACTION
+  - Log parameter adjustments to `data/trading/auto-tune.jsonl`
+  - Manual override via env vars
+  - Limit: max 2 adjustments per week to avoid thrashing
