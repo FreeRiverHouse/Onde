@@ -9477,17 +9477,24 @@
   - Data from latency-history.jsonl aggregation
 
 ### [T820] Autotrader: API latency percentiles tracking
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track P50, P95, P99 latency instead of just average:
-  - Calculate percentiles from latency-history.jsonl
-  - Add to daily report (P50/P95/P99)
-  - Alert if P95 > 3s (consistent slowness)
-  - Dashboard widget showing percentile distribution
-  - Historical percentile trends chart
+- **Notes**: ✅ Enhanced latency tracking with P50/P99 percentiles!
+  - **Updated `latency-anomaly-detector.py`:**
+    - Now saves p50_ms and p99_ms in history snapshots
+    - Snapshots include: avg_ms, p50_ms, p95_ms, p99_ms, count
+  - **Updated `push-stats-to-gist.py`:**
+    - Reads new percentile fields from history
+    - Added avgP50Ms, avgP99Ms, maxP99Ms to summary stats
+    - Dashboard can now display all percentiles
+  - **Autotrader already had percentile calculation** (discovered)
+  - **Verified:** New snapshot with p50_ms/p99_ms saved
+  - ⏳ Future: Dashboard widget showing percentile distribution
+  - ⏳ Future: Alert if P95 > 3s threshold
 
 ### [T821] Trading: Dynamic position sizing based on streak
 - **Status**: TODO

@@ -249,35 +249,45 @@ def load_latency_history():
         for entry in history:
             endpoints = entry.get("endpoints", {})
             
-            # Calculate overall average latency across all endpoints
+            # Calculate overall average latency across all endpoints (T820: added p50, p99)
             total_latency = 0
             total_count = 0
+            max_p50 = 0
             max_p95 = 0
+            max_p99 = 0
             
             for endpoint_name, stats in endpoints.items():
                 count = stats.get("count", 0)
                 avg_ms = stats.get("avg_ms", 0)
+                p50_ms = stats.get("p50_ms", 0)
                 p95_ms = stats.get("p95_ms", 0)
+                p99_ms = stats.get("p99_ms", 0)
                 
                 if count > 0:
                     total_latency += avg_ms * count
                     total_count += count
+                    max_p50 = max(max_p50, p50_ms)
                     max_p95 = max(max_p95, p95_ms)
+                    max_p99 = max(max_p99, p99_ms)
             
             if total_count > 0:
                 data_points.append({
                     "timestamp": entry.get("timestamp"),
                     "avgMs": round(total_latency / total_count, 1),
+                    "p50Ms": round(max_p50, 1),  # T820
                     "p95Ms": round(max_p95, 1),
+                    "p99Ms": round(max_p99, 1),  # T820
                     "count": total_count
                 })
         
         if not data_points:
             return None
         
-        # Calculate summary stats
+        # Calculate summary stats (T820: added percentile stats)
         avg_values = [d["avgMs"] for d in data_points]
+        p50_values = [d.get("p50Ms", 0) for d in data_points if d.get("p50Ms", 0) > 0]
         p95_values = [d["p95Ms"] for d in data_points]
+        p99_values = [d.get("p99Ms", 0) for d in data_points if d.get("p99Ms", 0) > 0]
         
         return {
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -286,8 +296,11 @@ def load_latency_history():
                 "avgLatencyMs": round(sum(avg_values) / len(avg_values), 1),
                 "minLatencyMs": round(min(avg_values), 1),
                 "maxLatencyMs": round(max(avg_values), 1),
+                "avgP50Ms": round(sum(p50_values) / len(p50_values), 1) if p50_values else 0,  # T820
                 "avgP95Ms": round(sum(p95_values) / len(p95_values), 1),
                 "maxP95Ms": round(max(p95_values), 1),
+                "avgP99Ms": round(sum(p99_values) / len(p99_values), 1) if p99_values else 0,  # T820
+                "maxP99Ms": round(max(p99_values), 1) if p99_values else 0,  # T820
                 "dataPointCount": len(data_points)
             }
         }

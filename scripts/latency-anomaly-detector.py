@@ -74,7 +74,7 @@ def save_latency_snapshot(profile: dict):
     """Save current latency to history for baseline tracking."""
     LATENCY_HISTORY.parent.mkdir(parents=True, exist_ok=True)
     
-    # Extract key metrics for each endpoint
+    # Extract key metrics for each endpoint (T820: added p50_ms, p99_ms)
     snapshot = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "endpoints": {}
@@ -84,7 +84,9 @@ def save_latency_snapshot(profile: dict):
         if endpoint in MONITORED_ENDPOINTS:
             snapshot["endpoints"][endpoint] = {
                 "avg_ms": stats.get("avg_ms", 0),
+                "p50_ms": stats.get("p50_ms", 0),  # T820
                 "p95_ms": stats.get("p95_ms", 0),
+                "p99_ms": stats.get("p99_ms", 0),  # T820
                 "count": stats.get("count", 0)
             }
     
