@@ -787,16 +787,23 @@
   - ⏳ Needs deploy to onde.la/reader (T805)
 
 ### [T803] Reader App: Show "Downloaded" badge on cached books
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T802]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Show visual indicator for books cached in IndexedDB:
-  - Check IndexedDB for stored EPUB data
-  - Show small ✓ or "Downloaded" badge on book card
-  - Different style for demo books (always available)
-  - Update badge when book is removed from cache
+- **Notes**: ✅ Implemented cached/downloaded badge for offline indicator!
+  - ✅ Created `useCachedBooks` hook - tracks which books are in IndexedDB
+  - ✅ Created `CachedBadge` component with themed badges:
+    - Demo books: Purple "📖 Sample" badge (always available)
+    - Cached books: Green "✓ Saved" badge (offline ready)
+    - Uncached books: Gray "☁️" badge (requires internet)
+  - ✅ Badge shows on book cards in Library grid
+  - ✅ Badge shows on Continue Reading cards
+  - ✅ Cache status refreshes after uploading new books
+  - ✅ Build passes
+  - Commit: 48635b4b8
 
 ### [T804] Reader App: Add "Download for offline" button
 - **Status**: TODO
