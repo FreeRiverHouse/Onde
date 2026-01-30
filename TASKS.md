@@ -1608,8 +1608,8 @@
   - ⏳ Needs deploy to onde.surf (see T745)
 
 ### [T744] Dashboard: Add quick stats comparison tooltip
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P4
