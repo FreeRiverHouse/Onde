@@ -7578,18 +7578,25 @@
   - ⚠️ Major finding: TASKS.md has many duplicate sections that need cleanup (T730)
 
 ### [T730] TASKS.md: Deduplicate task entries
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T728]
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: Clean up duplicate task IDs in TASKS.md:
-  - 100+ duplicate task IDs detected by validate-tasks.py
-  - Appears to be duplicate sections in the file
-  - Need to identify and remove duplicated content
-  - Keep only the most recent/complete version of each task
-  - Consider restructuring file to prevent future duplication
-  - Run validate-tasks.py after cleanup to verify
+  - **Analysis (2026-01-30):**
+    - 122 duplicate task IDs found across file
+    - NOT exact duplicate content - different tasks using same ID
+    - IDs were reused in "NUOVO - DA CLAWD" heartbeat sections
+    - Duplicates scattered at lines: 2450+, 3201+, 4343+, 5211+, 5711+, 7338+
+  - **Helper script**: `scripts/renumber-tasks.py` created for incremental fix
+    - Usage: `python scripts/renumber-tasks.py --start-line 7338 --end-line 8692 --new-start-id 808 --dry-run`
+  - **Next steps**:
+    1. Run renumber script on each duplicate section
+    2. Start from bottom of file (highest line numbers) to avoid shifting
+    3. Verify with validate-tasks.py after each section
+    4. Update any external references to renumbered tasks
+  - **Prevention**: Add pre-commit hook to check for duplicate IDs
 
 ### [T729] Autotrader: Add daily digest email summary
 - **Status**: TODO
