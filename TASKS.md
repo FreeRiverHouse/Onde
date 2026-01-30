@@ -214,8 +214,8 @@
     - Logged in skip data for analysis
 
 ### [T482] Trading: Historical concentration tracking dashboard widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T480]
 - **Blocks**: -
 - **Priority**: P3
