@@ -824,7 +824,8 @@
     - ✅ Click stopPropagation (doesn't open book while downloading)
   - **Store update**: Added `sourceUrl?: string` to Book interface
   - Build passes ✅
-  - ⏳ Needs deploy to onde.la/reader
+  - ✅ Deployed: https://a798ad01.onde-portal.pages.dev
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T805] Reader App: Deploy offline indicator to onde.la/reader
 - **Status**: DONE
