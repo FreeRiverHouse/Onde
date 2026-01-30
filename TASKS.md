@@ -7939,16 +7939,22 @@
   - Visual indication of trading activity patterns
 
 ### [T754] Autotrader: Add daily volume to stats push
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T751]
 - **Blocks**: [T753]
 - **Priority**: P3
-- **Notes**: Track daily volume in push-stats-to-gist.py:
-  - Calculate total volume per day from trade logs
-  - Add todayVolumeCents, yesterdayVolumeCents to gist
-  - Enable volume comparison without client-side calculation
-  - Keep 7-day history for trend visualization
+- **Notes**: ✅ Implemented daily volume tracking in push-stats-to-gist.py!
+  - ✅ `calculate_daily_volume()` function calculates volume from trades
+  - ✅ Volume = sum(price * contracts) for ALL trades on a day
+  - ✅ `todayVolumeCents`, `yesterdayVolumeCents` in gist
+  - ✅ `todayTradeCount`, `yesterdayTradeCount` for comparison
+  - ✅ `todayMaxTradeCents`, `todayAvgTradeCents` for details
+  - ✅ 7-day `history` array for trend visualization
+  - ✅ `weekVolumeCents`, `weekTradeCount` for weekly summary
+  - Gist updated: https://gist.github.com/43b0815cc640bba8ac799ecb27434579
+  - ⏳ Dashboard sparkline can now use this data (T753)
 
 ### [T755] Dashboard: Add trade velocity indicator
 - **Status**: TODO
@@ -8758,3 +8764,46 @@
   - ✅ Active alerts badge counter in header
   - ✅ Data source indicator (KV vs cached)
   - ✅ Build passes, ready for deploy
+
+### [T808] Trading: Volume-weighted win rate analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T754]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze if larger trades have different success rates:
+  - Group trades by size: small (<$0.50), medium ($0.50-$1), large (>$1)
+  - Calculate win rate per size bucket
+  - Check if PnL scales proportionally with trade size
+  - Identify optimal position sizing strategy
+  - Output: `data/trading/volume-weighted-analysis.json`
+  - Script: `scripts/analyze-volume-weighted-winrate.py`
+
+### [T809] Dashboard: DailyVolumeWidget with sparkline
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T754]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create dashboard widget showing daily trading volume:
+  - Today's volume vs yesterday with % change
+  - 7-day sparkline from dailyVolume.history
+  - Trade count indicator
+  - Week total volume
+  - Match styling of WinRateSparkline
+  - Component: `apps/surfboard/src/components/DailyVolumeSparkline.tsx`
+  - Add to /betting page stats section
+
+### [T810] Trading: Autotrader activity correlation analysis
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T754], [T482]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze how trading activity correlates with performance:
+  - Compare win rate on high-volume vs low-volume days
+  - Check if overtrading (high activity) hurts performance
+  - Correlate with concentration metrics
+  - Identify optimal trades-per-day target
+  - Output: `data/trading/activity-correlation.json`
+  - Script: `scripts/analyze-activity-correlation.py`

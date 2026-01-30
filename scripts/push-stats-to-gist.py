@@ -779,6 +779,87 @@ def calculate_edge_distribution(trades):
     }
 
 
+def calculate_daily_volume(trades):
+    """Calculate daily trading volume stats (T754).
+    
+    Volume = sum of (price * contracts) for ALL trades on a given day.
+    This represents total capital deployed, regardless of outcome.
+    
+    Returns:
+        dict: todayVolumeCents, yesterdayVolumeCents, volumeHistory (7 days)
+    """
+    if not trades:
+        return None
+    
+    from datetime import timedelta
+    from collections import defaultdict
+    
+    # Group trades by day
+    by_day = defaultdict(list)
+    for t in trades:
+        ts = t.get('timestamp', '')
+        if not ts:
+            continue
+        day_key = ts[:10]  # YYYY-MM-DD
+        by_day[day_key].append(t)
+    
+    def calc_day_volume(day_trades):
+        """Calculate total volume for a day's trades."""
+        volume = 0
+        trade_count = 0
+        max_trade = 0
+        for t in day_trades:
+            price = t.get('price', 50)
+            contracts = t.get('contracts', 1)
+            trade_value = price * contracts
+            volume += trade_value
+            trade_count += 1
+            max_trade = max(max_trade, trade_value)
+        return {
+            "volumeCents": volume,
+            "tradeCount": trade_count,
+            "maxTradeCents": max_trade,
+            "avgTradeCents": round(volume / trade_count) if trade_count > 0 else 0
+        }
+    
+    today = datetime.now(timezone.utc).date().isoformat()
+    yesterday = (datetime.now(timezone.utc).date() - timedelta(days=1)).isoformat()
+    
+    today_stats = calc_day_volume(by_day.get(today, []))
+    yesterday_stats = calc_day_volume(by_day.get(yesterday, []))
+    
+    # Calculate 7-day history for trend
+    history = []
+    for i in range(7):
+        day = (datetime.now(timezone.utc).date() - timedelta(days=i)).isoformat()
+        day_stats = calc_day_volume(by_day.get(day, []))
+        history.append({
+            "date": day,
+            "volumeCents": day_stats["volumeCents"],
+            "tradeCount": day_stats["tradeCount"]
+        })
+    
+    # Reverse so oldest is first (for sparkline)
+    history.reverse()
+    
+    # Calculate 7-day total
+    week_volume = sum(d["volumeCents"] for d in history)
+    week_trades = sum(d["tradeCount"] for d in history)
+    
+    return {
+        "todayVolumeCents": today_stats["volumeCents"],
+        "todayTradeCount": today_stats["tradeCount"],
+        "todayMaxTradeCents": today_stats["maxTradeCents"],
+        "todayAvgTradeCents": today_stats["avgTradeCents"],
+        "yesterdayVolumeCents": yesterday_stats["volumeCents"],
+        "yesterdayTradeCount": yesterday_stats["tradeCount"],
+        "weekVolumeCents": week_volume,
+        "weekTradeCount": week_trades,
+        "history": history,
+        "lastUpdated": datetime.now(timezone.utc).isoformat()
+    }
+
+
 def calculate_streak_stats(trades):
     """Calculate streak statistics from trades (T624).
     
@@ -1170,6 +1251,11 @@ def calculate_stats(trades, source='v2'):
     stop_loss_stats = load_stop_loss_stats()
     if stop_loss_stats:
         result["stopLossStats"] = stop_loss_stats
+    
+    # Add daily volume stats (T754)
+    volume_stats = calculate_daily_volume(trades)
+    if volume_stats:
+        result["dailyVolume"] = volume_stats
     
     return result
 
