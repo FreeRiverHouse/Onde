@@ -9495,8 +9495,8 @@
   - Log adjustments for analysis
 
 ### [T822] Dashboard: Export trade history to CSV
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
