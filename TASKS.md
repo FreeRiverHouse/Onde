@@ -165,8 +165,8 @@
   - Useful for iterating on prompts without real meetings
 
 ### [T480] Trading: Add portfolio-wide position concentration limits
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T001]
 - **Blocks**: -
 - **Priority**: P2
