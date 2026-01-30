@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useToast } from './Toast';
 import { AgentLeaderboard } from './AgentLeaderboard';
+import { calculateAgentMood } from '../lib/gamification';
 
 // Monument Valley color palette
 const MV_COLORS = {
@@ -893,7 +894,7 @@ export function FreeRiverHouse() {
                     </div>
                   )}
 
-                  {/* Status */}
+                  {/* Status + Mood */}
                   <div className="flex items-center gap-2 flex-wrap">
                     <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs ${
                       selectedAgent.status === 'working'
@@ -905,6 +906,33 @@ export function FreeRiverHouse() {
                       }`} />
                       {selectedAgent.status === 'working' ? 'Al lavoro' : 'Disponibile'}
                     </div>
+                    {/* Mood indicator */}
+                    {(() => {
+                      const pendingCount = tasks.filter(t => 
+                        t.assigned_to === selectedAgent.id && 
+                        (t.status === 'pending' || t.status === 'in_progress')
+                      ).length;
+                      const lastSeenMs = selectedAgent.lastSeen 
+                        ? Date.now() - new Date(selectedAgent.lastSeen).getTime() 
+                        : null;
+                      const mood = calculateAgentMood({
+                        pendingTaskCount: pendingCount,
+                        totalTasksDone: selectedAgent.totalTasksDone,
+                        currentStreak: selectedAgent.currentStreak,
+                        lastSeenMs,
+                        isWorking: selectedAgent.status === 'working',
+                      });
+                      return (
+                        <div 
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs"
+                          style={{ backgroundColor: `${mood.color}20`, color: mood.color }}
+                          title={mood.label}
+                        >
+                          <span>{mood.emoji}</span>
+                          <span className="hidden sm:inline">{mood.label}</span>
+                        </div>
+                      );
+                    })()}
                     {selectedAgent.lastSeen && (
                       <span className="text-[10px] text-white/30">
                         Last: {new Date(selectedAgent.lastSeen).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}

@@ -4510,12 +4510,35 @@
   - Toast message in UI
 
 ### [T510] Mood indicator basato su workload
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
-- **Blocks**: -
+- **Blocks**: [T754]
 - **Priority**: P3
-- **Notes**: Agente "stressed" se >5 task pending, "happy" se alta win rate, "sleepy" se idle >1h
+- **Notes**: ✅ Implemented agent mood indicator!
+  - **Function**: `calculateAgentMood()` in gamification.ts
+  - **Moods:**
+    - 😴 Sleepy (Riposo) - idle >1h
+    - 😰 Stressed (Sovraccarico) - >5 pending tasks
+    - 😊 Happy (Contento) - streak ≥3 or 10+ tasks done while working
+    - 🎯 Focused (Concentrato) - working on tasks
+    - 😌 Neutral (Tranquillo) - default state
+  - **Display:** Badge next to status in agent panel
+  - **Color-coded:** Each mood has distinct color
+  - Build passes ✅
+  - ⏳ Needs deploy to onde.surf (see T754)
+
+### [T754] Deploy onde.surf with Mood indicator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T510]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy surfboard with mood indicator:
+  - Build via `npm run build:cf`
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify mood badges show in agent panel
 
 ### [T511] WebXR export per futuro VR
 - **Status**: TODO

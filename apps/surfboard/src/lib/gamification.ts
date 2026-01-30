@@ -106,6 +106,75 @@ export function checkBadgeEligibility(stats: {
   return eligible;
 }
 
+// Mood calculation based on workload and activity
+export type AgentMood = 'happy' | 'focused' | 'stressed' | 'sleepy' | 'neutral';
+
+export interface MoodInfo {
+  mood: AgentMood;
+  emoji: string;
+  label: string;
+  color: string;
+}
+
+export function calculateAgentMood(params: {
+  pendingTaskCount: number;
+  totalTasksDone: number;
+  currentStreak: number;
+  lastSeenMs: number | null;  // milliseconds since last activity
+  isWorking: boolean;
+}): MoodInfo {
+  const { pendingTaskCount, totalTasksDone, currentStreak, lastSeenMs, isWorking } = params;
+  
+  // Check if idle >1h (sleepy)
+  const ONE_HOUR_MS = 60 * 60 * 1000;
+  if (lastSeenMs !== null && lastSeenMs > ONE_HOUR_MS && !isWorking) {
+    return {
+      mood: 'sleepy',
+      emoji: '😴',
+      label: 'Riposo',
+      color: '#9CA3AF', // gray
+    };
+  }
+  
+  // Check if stressed (>5 pending tasks)
+  if (pendingTaskCount > 5) {
+    return {
+      mood: 'stressed',
+      emoji: '😰',
+      label: 'Sovraccarico',
+      color: '#EF4444', // red
+    };
+  }
+  
+  // Check if happy (good streak or many tasks done and currently working)
+  if (currentStreak >= 3 || (totalTasksDone >= 10 && isWorking)) {
+    return {
+      mood: 'happy',
+      emoji: '😊',
+      label: 'Contento',
+      color: '#22C55E', // green
+    };
+  }
+  
+  // Check if focused (working on tasks)
+  if (isWorking && pendingTaskCount > 0) {
+    return {
+      mood: 'focused',
+      emoji: '🎯',
+      label: 'Concentrato',
+      color: '#3B82F6', // blue
+    };
+  }
+  
+  // Default: neutral
+  return {
+    mood: 'neutral',
+    emoji: '😌',
+    label: 'Tranquillo',
+    color: '#A855F7', // purple
+  };
+}
+
 // Badge definitions for display
 export const BADGE_INFO: Record<string, { name: string; icon: string; description: string }> = {
   'first-task': { name: 'First Steps', icon: '🎯', description: 'Completed first task' },
