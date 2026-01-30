@@ -5517,12 +5517,20 @@
   - Prevents psychological trading errors during streaks.
 
 ### [T389] Historical streak analysis by asset (BTC vs ETH)
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: [T290], [T236]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend streak position analysis to compare BTC vs ETH streak patterns. Do different assets have different streak tendencies? May indicate model calibration differences.
+- **Notes**: ✅ Extended analyze-streak-position.py with per-asset analysis!
+  - ✅ New `analyze_by_asset()` function groups trades by asset (btc/eth/weather)
+  - ✅ Calculates streak continuation rates per asset
+  - ✅ Compares BTC vs ETH patterns (win rate diff, tilt patterns)
+  - ✅ New `print_asset_analysis()` for formatted console output
+  - ✅ JSON output now includes `by_asset` and `asset_comparison` fields
+  - Usage: `python3 scripts/analyze-streak-position.py --v2 --min-trades 2`
+  - Note: BTC/ETH comparison activates when both have sufficient data.
 
 ### [T390] Log position size multipliers in trade data
 - **Status**: DONE

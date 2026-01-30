@@ -286,7 +286,124 @@ def print_insights(position_results, continuation_stats):
     print("\n" + "="*60)
 
 
-def save_json_output(position_results, continuation_stats, trades_count, min_trades):
+def analyze_by_asset(trades, min_trades=3):
+    """
+    T389: Analyze streak patterns per asset (BTC vs ETH).
+    
+    Returns dict with per-asset analysis:
+    - streak continuation rates per asset
+    - win rate by context per asset
+    - comparison insights
+    """
+    # Group trades by asset
+    by_asset = defaultdict(list)
+    for trade in trades:
+        asset = trade.get('asset', 'unknown')
+        by_asset[asset].append(trade)
+    
+    results = {}
+    
+    for asset, asset_trades in by_asset.items():
+        if len(asset_trades) < min_trades:
+            continue
+        
+        # Run streak analysis per asset
+        position_stats = analyze_by_streak_position(asset_trades)
+        position_results = calculate_stats(position_stats)
+        continuation_stats = analyze_streak_continuation(asset_trades)
+        
+        # Calculate continuation metrics
+        cont_results = []
+        for key, s in continuation_stats.items():
+            total = s['continues'] + s['breaks']
+            if total >= 2:  # Lower threshold per asset
+                parts = key.split('_')
+                cont_results.append({
+                    'streak_type': parts[0],
+                    'streak_length': int(parts[2]),
+                    'continuation_rate': round(s['continues'] / total * 100, 1),
+                    'total': total
+                })
+        
+        # Calculate overall streak stats
+        won_trades = sum(1 for t in asset_trades if t.get('result_status') == 'won')
+        lost_trades = len(asset_trades) - won_trades
+        
+        results[asset] = {
+            'total_trades': len(asset_trades),
+            'wins': won_trades,
+            'losses': lost_trades,
+            'overall_win_rate': round(won_trades / len(asset_trades) * 100, 1) if asset_trades else 0,
+            'position_analysis': position_results,
+            'continuation_analysis': cont_results
+        }
+    
+    # Generate comparison insights (BTC vs ETH)
+    comparison_insights = []
+    if 'btc' in results and 'eth' in results:
+        btc = results['btc']
+        eth = results['eth']
+        
+        # Compare overall win rates
+        if abs(btc['overall_win_rate'] - eth['overall_win_rate']) > 10:
+            better = 'BTC' if btc['overall_win_rate'] > eth['overall_win_rate'] else 'ETH'
+            comparison_insights.append({
+                'type': 'win_rate_diff',
+                'message': f"{better} has significantly better win rate (+{abs(btc['overall_win_rate'] - eth['overall_win_rate']):.1f}%)"
+            })
+        
+        # Compare streak continuation patterns
+        btc_loss_cont = next((c for c in btc['continuation_analysis'] 
+                             if c['streak_type'] == 'loss' and c['streak_length'] >= 2), None)
+        eth_loss_cont = next((c for c in eth['continuation_analysis'] 
+                             if c['streak_type'] == 'loss' and c['streak_length'] >= 2), None)
+        
+        if btc_loss_cont and eth_loss_cont:
+            if btc_loss_cont['continuation_rate'] > eth_loss_cont['continuation_rate'] + 15:
+                comparison_insights.append({
+                    'type': 'tilt_pattern',
+                    'message': f"BTC shows more tilt risk (loss streak continues {btc_loss_cont['continuation_rate']:.0f}% vs ETH {eth_loss_cont['continuation_rate']:.0f}%)"
+                })
+            elif eth_loss_cont['continuation_rate'] > btc_loss_cont['continuation_rate'] + 15:
+                comparison_insights.append({
+                    'type': 'tilt_pattern',
+                    'message': f"ETH shows more tilt risk (loss streak continues {eth_loss_cont['continuation_rate']:.0f}% vs BTC {btc_loss_cont['continuation_rate']:.0f}%)"
+                })
+    
+    return results, comparison_insights
+
+
+def print_asset_analysis(asset_results, comparison_insights, min_trades=3):
+    """Print per-asset streak analysis."""
+    print(f"\n{'='*60}")
+    print("📊 STREAK ANALYSIS BY ASSET (T389)")
+    print('='*60)
+    
+    for asset, data in sorted(asset_results.items()):
+        print(f"\n{'─'*40}")
+        emoji = {'btc': '₿', 'eth': 'Ξ', 'weather': '🌤️'}.get(asset, '📈')
+        print(f"{emoji} {asset.upper()}")
+        print(f"   Trades: {data['total_trades']} | Win Rate: {data['overall_win_rate']:.1f}%")
+        
+        # Show continuation patterns
+        if data['continuation_analysis']:
+            print(f"\n   Streak Continuation:")
+            for c in sorted(data['continuation_analysis'], key=lambda x: (x['streak_type'], x['streak_length'])):
+                if c['total'] >= 2:
+                    emoji2 = '🔥' if c['streak_type'] == 'win' else '❄️'
+                    print(f"      {emoji2} After {c['streak_length']} {c['streak_type']}(s): {c['continuation_rate']:.0f}% continues (n={c['total']})")
+    
+    # Print comparison insights
+    if comparison_insights:
+        print(f"\n{'─'*40}")
+        print("🔄 BTC vs ETH COMPARISON")
+        for insight in comparison_insights:
+            print(f"   → {insight['message']}")
+    
+    print()
+
+
+def save_json_output(position_results, continuation_stats, trades_count, min_trades, asset_results=None, comparison_insights=None):
     """Save analysis results to JSON for dashboard consumption."""
     output_dir = Path(__file__).parent.parent / "data" / "trading"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -347,7 +464,10 @@ def save_json_output(position_results, continuation_stats, trades_count, min_tra
         'min_trades_threshold': min_trades,
         'position_analysis': position_results,
         'continuation_analysis': continuation_results,
-        'insights': insights
+        'insights': insights,
+        # T389: Per-asset analysis
+        'by_asset': asset_results or {},
+        'asset_comparison': comparison_insights or []
     }
     
     with open(output_file, 'w') as f:
@@ -400,8 +520,16 @@ def main():
     if not quiet:
         print_insights(position_results, continuation_stats)
     
-    # Save JSON output
-    output_file = save_json_output(position_results, continuation_stats, len(trades), min_trades)
+    # T389: Analyze by asset (BTC vs ETH)
+    asset_results, comparison_insights = analyze_by_asset(trades, min_trades)
+    if not quiet and asset_results:
+        print_asset_analysis(asset_results, comparison_insights, min_trades)
+    
+    # Save JSON output (including asset analysis)
+    output_file = save_json_output(
+        position_results, continuation_stats, len(trades), min_trades,
+        asset_results, comparison_insights
+    )
     if not quiet:
         print(f"\n💾 Saved JSON output to: {output_file}")
 
