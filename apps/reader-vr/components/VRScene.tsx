@@ -16,8 +16,11 @@ import { useBookStore, SAMPLE_PAGES } from '@/store/bookStore';
 // XR Store for session management
 const store = createXRStore();
 
+type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
+
 export default function VRScene() {
   const [showBookSelector, setShowBookSelector] = useState(false);
+  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('evening');
   
   // Get state and actions from book store
   const { 
@@ -30,6 +33,15 @@ export default function VRScene() {
     prevPage,
     setFontSize,
   } = useBookStore();
+  
+  // Cycle through times of day
+  const cycleTimeOfDay = useCallback(() => {
+    setTimeOfDay(prev => {
+      const order: TimeOfDay[] = ['morning', 'afternoon', 'evening', 'night'];
+      const idx = order.indexOf(prev);
+      return order[(idx + 1) % order.length];
+    });
+  }, []);
   
   // Calculate total pages
   const totalPages = currentBook?.totalPages || SAMPLE_PAGES.length;
@@ -62,7 +74,7 @@ export default function VRScene() {
       </div>
       
       {/* Book Selection Button */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         <button
           onClick={() => setShowBookSelector(true)}
           className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium 
@@ -70,6 +82,21 @@ export default function VRScene() {
         >
           <span className="text-xl">📖</span>
           {currentBook ? currentBook.metadata.title : 'Select Book'}
+        </button>
+        
+        {/* Time of Day Toggle */}
+        <button
+          onClick={cycleTimeOfDay}
+          className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium 
+                     shadow-lg transition-all flex items-center gap-2 border border-amber-500/30"
+          title="Change time of day"
+        >
+          <span className="text-xl">
+            {timeOfDay === 'morning' ? '🌅' : 
+             timeOfDay === 'afternoon' ? '☀️' : 
+             timeOfDay === 'evening' ? '🌆' : '🌙'}
+          </span>
+          <span className="text-sm capitalize hidden sm:inline">{timeOfDay}</span>
         </button>
       </div>
       
@@ -133,7 +160,7 @@ export default function VRScene() {
             <XROrigin position={[0, 0, 0]} />
             
             {/* Environment & Lighting */}
-            <ReadingEnvironment />
+            <ReadingEnvironment timeOfDay={timeOfDay} />
             
             {/* The floating book/text panel */}
             <FloatingBook 
