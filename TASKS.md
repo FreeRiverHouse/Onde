@@ -4689,12 +4689,29 @@
 - **Notes**: Script to push daily trading stats to Google Sheets for historical tracking and charting. Use Google Sheets API with service account.
 
 ### [T314] Voice TTS alerts for significant trading events
-- **Status**: TODO
-- **Owner**: 
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use ElevenLabs/TTS to announce major events: circuit breaker triggered, big win/loss, regime change. Optional Telegram voice message delivery.
+- **Notes**: ✅ Implemented trading voice alerts script!
+  - **Script**: `scripts/trading-voice-alerts.py`
+  - **TTS providers**: ElevenLabs (if configured) or macOS `say` fallback
+  - **Event types**:
+    - `circuit_breaker` - Trading paused
+    - `big_win` / `big_loss` - Significant trades
+    - `regime_change` - Volatility transitions
+    - `streak` - Win/loss streaks
+    - `daily_summary` - End of day summary
+    - `stop_loss` - Stop loss executed
+    - `low_winrate` / `high_winrate` - Performance alerts
+  - **Features**:
+    - `--telegram` flag sends voice message to Telegram
+    - `--play` flag plays audio locally
+    - Emoji stripped from TTS text for natural speech
+  - **Usage**: `python3 scripts/trading-voice-alerts.py --event big_win --details "BTC +$50" --telegram`
+  - **Env vars**: ELEVENLABS_API_KEY, ELEVENLABS_VOICE, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 
 ### [T315] Light/dark mode toggle for trading dashboard
 - **Status**: DONE
