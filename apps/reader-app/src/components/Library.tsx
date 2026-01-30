@@ -6,6 +6,7 @@ import { storeEpubFile } from '@/lib/epubStorage';
 import { formatReadingTimeCompact, calculateRemainingMinutes } from '@/lib/readingTime';
 import { OfflineIndicator } from './OfflineIndicator';
 import { GoalProgressWidget } from './GoalProgressWidget';
+import { OPDSBrowser } from './OPDSBrowser';
 
 // Upload progress state
 interface UploadProgress {
@@ -59,6 +60,7 @@ export function Library() {
   const [filter, setFilter] = useState<FilterOption>('all');
   const [sort, setSort] = useState<SortOption>('recent');
   const [showFilters, setShowFilters] = useState(false);
+  const [showOPDSBrowser, setShowOPDSBrowser] = useState(false);
   
   // Load saved preferences on mount
   useEffect(() => {
@@ -321,13 +323,21 @@ export function Library() {
           </div>
           
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowOPDSBrowser(true)}
+              className="flex items-center gap-2 px-5 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors"
+              title="Browse OPDS Catalogs"
+            >
+              <span>🌐</span>
+              <span className="hidden sm:inline">Browse Catalogs</span>
+            </button>
             <a
               href="/reader-vr/"
               className="flex items-center gap-2 px-5 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
               title="Try VR Reading Mode"
             >
               <span>🥽</span>
-              VR Mode
+              <span className="hidden sm:inline">VR Mode</span>
             </a>
             <button
               onClick={() => fileInputRef.current?.click()}
@@ -342,7 +352,7 @@ export function Library() {
               ) : (
                 <>
                   <span>➕</span>
-                  Add Book
+                  <span className="hidden sm:inline">Add Book</span>
                 </>
               )}
             </button>
@@ -518,6 +528,14 @@ export function Library() {
           </button>
         </div>
       </section>
+      
+      {/* OPDS Catalog Browser */}
+      {showOPDSBrowser && (
+        <OPDSBrowser
+          onClose={() => setShowOPDSBrowser(false)}
+          theme={settings.theme}
+        />
+      )}
     </div>
   );
 }

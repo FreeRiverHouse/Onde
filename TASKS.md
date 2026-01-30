@@ -881,19 +881,32 @@
   - ✅ Verified: https://onde.la/reader/ returns 200 OK
 
 ### [T808] Reader App: Add OPDS catalog browser
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-30
 - **Depends**: [T690]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Browse and download books from OPDS catalogs:
-  - Support OPDS 1.x and 2.0 catalogs
-  - Pre-configured catalogs: Project Gutenberg, Standard Ebooks, etc.
-  - Add custom OPDS catalog URL
-  - Search within catalog
-  - One-click download and add to library
-  - Show book metadata (cover, description, author)
-  - Reference: https://opds.io/
+- **Notes**: ✅ Implemented OPDS catalog browser!
+  - **Library**: `src/lib/opds.ts` - OPDS feed parser and fetcher
+    - Parse OPDS 1.x Atom feeds
+    - Extract book metadata (title, author, cover, download links)
+    - Navigation support (breadcrumbs, pagination, subsections)
+    - Search support via OpenSearch templates
+    - CORS proxy for cross-origin requests
+  - **Component**: `src/components/OPDSBrowser.tsx` - Full-featured browser UI
+    - 🌐 "Browse Catalogs" button added to Library header
+    - Pre-configured catalogs: Project Gutenberg, Standard Ebooks, Feedbooks, ManyBooks
+    - Add custom OPDS catalog URLs
+    - Search within catalogs (when supported)
+    - Book cards with covers, metadata, categories
+    - One-click "Add to Library" downloads EPUB and stores in IndexedDB
+    - Custom catalogs saved to localStorage
+    - Theme-aware (light/dark/sepia)
+    - Breadcrumb navigation
+    - Pagination support
+  - **Deployed**: https://8425f7f9.onde-portal.pages.dev
+  - **Verified**: https://onde.la/reader/ returns 200 OK
 
 ### [T809] Reader App: Custom book covers via upload/URL
 - **Status**: TODO

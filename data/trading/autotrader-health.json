@@ -1,7 +1,7 @@
 {
   "is_running": true,
-  "last_cycle_time": "2026-01-30T18:29:17.262831+00:00",
-  "cycle_count": 261,
+  "last_cycle_time": "2026-01-30T18:39:20.166761+00:00",
+  "cycle_count": 263,
   "dry_run": false,
   "trades_today": 2,
   "today_won": 0,
@@ -12,7 +12,7 @@
   "positions_count": 9,
   "cash_cents": 0,
   "circuit_breaker_active": true,
-  "circuit_breaker_reason": "\u23f8\ufe0f Circuit breaker ACTIVE (15 losses, 2.3h until cooldown, or win to resume)",
+  "circuit_breaker_reason": "\u23f8\ufe0f Circuit breaker ACTIVE (15 losses, 2.2h until cooldown, or win to resume)",
   "consecutive_losses": 15,
   "status": "\u23f8\ufe0f paused"
 }
