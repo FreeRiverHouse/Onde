@@ -10036,15 +10036,56 @@
   - Alert on latency > 2s sustained
 
 ### [T863] Reader App: Add "Continue from TTS" bookmark
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-02-03
 - **Depends**: [T712]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Auto-bookmark where TTS stopped for seamless audiobook experience:
-  - Track last spoken sentence position
-  - Auto-create "TTS position" bookmark on pause/stop
-  - "Resume TTS" button that jumps to last position
-  - Option to auto-continue TTS when reopening book
-  - Visual indicator in library for books with TTS position
-  - Clear TTS bookmark when finishing book
+- **Notes**: ✅ Implemented TTS position tracking for seamless audiobook resume!
+  - ✅ Added `TTSPosition` interface to store (cfi, sentenceIndex, savedAt, progress)
+  - ✅ Auto-save TTS position on pause/stop/close
+  - ✅ Green pulse indicator on 🎧 button when resume is available (same page)
+  - ✅ Purple TTS badge (🎧) on library book cards with saved position
+  - ✅ "🎧 Resume" text on Continue Reading cards
+  - ✅ Accept `initialSentenceIndex` prop to resume from saved position
+  - ⏳ Future: Auto-continue TTS when reopening book (separate task)
+  - ⏳ Future: Clear TTS position when book finished (separate task)
+  - Build passes ✅
+
+### [T864] Reader App: Auto-clear TTS position when book completed
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T863]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Clear TTS position when user finishes the book:
+  - Detect when progress reaches 100% or last page
+  - Automatically clear ttsPosition from book state
+  - Optional: Show "Finished!" celebration modal
+  - Add "Clear TTS position" button in settings as manual option
+
+### [T865] Reader App: Auto-start TTS on book open option
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T863]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Option to automatically start TTS when opening a book:
+  - Add toggle in TTS settings: "Auto-start on book open"
+  - If enabled and book has saved TTS position, auto-resume
+  - Show brief toast "Resuming audiobook..."
+  - Respect system mute/volume settings
+
+### [T866] Reader App: Deploy TTS resume feature to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T863]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy Reader App with TTS resume feature:
+  - Build static export with STATIC_EXPORT=1
+  - Copy to onde-portal/public/reader/
+  - Deploy via wrangler to Cloudflare Pages
+  - Verify: https://onde.la/reader/ returns 200 OK
+  - Test TTS resume functionality works on deployed version
