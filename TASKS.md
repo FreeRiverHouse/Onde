@@ -104,17 +104,24 @@
   - Consider adding to /libri page as "Read in our app" CTA
 
 ### [T694] Audit and fix npm vulnerabilities
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawd
+- **Completed**: 2026-01-29
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: npm audit shows 2 vulnerabilities (1 moderate, 1 critical):
-  - Run `npm audit` to see details
-  - Use `npm audit fix` for automatic fixes
-  - Use `npm audit fix --force` if needed (may have breaking changes)
-  - Document any packages that can't be fixed
-  - Check all apps/ subdirs for individual audits
+- **Notes**: npm audit shows 55 vulnerabilities remaining after safe fixes:
+  - ✅ Fixed: diff, lodash (safe updates applied)
+  - ⚠️ BLOCKED: Most vulnerabilities can't auto-fix due to peer dependency conflicts:
+    - `@opennextjs/cloudflare` requires Next.js 15+ but `surfboard` uses 14.2.35
+    - Breaking change upgrades needed for: next, elevenlabs, expo-router, expo, @supabase/ssr
+  - 🚫 NO FIX AVAILABLE: ejs (via epub-gen), esbuild (dev only), lodash.pick (via cheerio), nth-check (via cheerio), undici
+  - **Action needed**: Upgrade surfboard to Next.js 15+ (separate task [T696]) to unlock remaining fixes
+  - **Risk assessment**:
+    - CRITICAL in next, @remix-run/node, form-data - production impact
+    - HIGH in ip, qs, tar, semver, nth-check - mixed impact
+    - Most ejs/esbuild vulns are dev-only
+  - **Mitigation**: Production apps should use latest Next.js 15+ when ready
 
 ### [T695] Reader App: PWA mobile testing
 - **Status**: TODO
@@ -129,6 +136,25 @@
   - Test touch gestures (swipe) on real devices
   - Verify font/theme settings persist
   - Screenshot or video of PWA install flow
+
+### [T696] Surfboard: Upgrade to Next.js 15
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Upgrade surfboard app from Next.js 14.2.35 to 15.x to unlock security fixes:
+  - @opennextjs/cloudflare requires Next 15+ (peer dependency)
+  - Will fix ~30+ npm audit vulnerabilities
+  - **Breaking changes to review:**
+    - Async params/searchParams in pages
+    - New caching defaults
+    - fetch() behavior changes
+  - **Test checklist:**
+    - [ ] Auth flow (Supabase)
+    - [ ] API routes
+    - [ ] Cloudflare Pages deploy
+  - Reference: https://nextjs.org/docs/app/building-your-application/upgrading/version-15
 
 ### [T669] Reader App: VR/XR Version Planning
 - **Status**: TODO
