@@ -84,6 +84,18 @@ Backend TinyGrad per tutto ciò che richiede GPU pesante.
 - Download: ~10 min (~16GB)
 - Backend: TinyGrad
 
+### Modelli TinyGrad Disponibili (~/tinygrad/examples/)
+| Script | Modello | VRAM | Note |
+|--------|---------|------|------|
+| **llama3.py** | LLaMA 3 8B | ~16GB | ✅ BEST per coding! |
+| llama3.py | LLaMA 3 1B GGUF | ~2GB | Veloce ma meno capace |
+| gpt2.py | GPT-2 | ~500MB | Basico |
+| mamba.py | Mamba | Vari | Architettura alternativa |
+| qwq.py | QwQ 32B | >32GB | ❌ Troppo grande |
+
+### ⚠️ MAI USARE OLLAMA SU MAC PER GPU AMD!
+Ollama usa SOLO Metal (Apple Silicon). Per Radeon: TinyGrad.
+
 ---
 
 ## 🎤 Voice Transcription
