@@ -515,8 +515,8 @@
   - **Report**: `apps/se-bot/search_quality_report.json`
 
 ### [T479] SE-Bot: Create meeting simulator for testing
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T472], [T473]
 - **Blocks**: -
 - **Priority**: P2
