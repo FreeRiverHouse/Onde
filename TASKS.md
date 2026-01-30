@@ -7256,6 +7256,46 @@
 - **Priority**: P3
 - **Notes**: Add cron to run analyze-vix-correlation.py daily. Update vix-history.json and vix-correlation.json. Suggested: `0 1 * * * python3 scripts/analyze-vix-correlation.py --days 30`
 
+### [T815] VIX regime change alert for Telegram
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T611]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create alert when VIX crosses regime thresholds (15, 20, 25):
+  - Script to check VIX against previous value
+  - Alert when crossing into new regime (low_fear→moderate, moderate→elevated, etc.)
+  - Include: old regime, new regime, VIX value, trading implication
+  - Create .alert file for heartbeat pickup
+  - Cooldown to avoid spam during volatile days
+  - Similar pattern to kalshi-correlation-change.alert
+
+### [T816] Backtest VIX integration effectiveness
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T611]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Analyze historical trades to validate VIX integration:
+  - Compare win rate when VIX >25 vs <25
+  - Compare PnL in different VIX regimes
+  - Check if trades skipped due to high VIX edge requirement would have lost
+  - Generate report with recommendations
+  - Output to data/trading/vix-effectiveness-analysis.json
+
+### [T817] VIX history sparkline in /betting dashboard
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T611], [T612]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add sparkline showing VIX history alongside current level:
+  - 7-day VIX history from vix-history.json
+  - Color-coded zones (green/yellow/orange/red)
+  - Trend indicator (rising/falling)
+  - Hover tooltip with historical values
+  - Compact widget next to correlation heatmap
+
 ### [T614] Vol alignment performance widget on /betting dashboard
 - **Status**: TODO
 - **Owner**: 
