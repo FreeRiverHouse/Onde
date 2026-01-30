@@ -1516,15 +1516,16 @@
   - Option to export to CSV for analysis
 
 ### [T739] Deploy onde.la with countdown timer on /health
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T735]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the countdown timer feature to production:
-  - Build and deploy onde-portal to Cloudflare Pages
-  - Verify countdown timer works on onde.la/health
-  - Test pause on hover functionality
+- **Notes**: ✅ Deployed! https://e422ade3.onde-portal.pages.dev
+  - ✅ Built and deployed onde-portal to Cloudflare Pages
+  - ✅ Verified: https://onde.la/health/ returns 200 OK
+  - Countdown timer with circular progress indicator now live
 
 ### [T740] Dashboard: Add countdown timer to /betting page
 - **Status**: TODO
