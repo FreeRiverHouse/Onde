@@ -1483,6 +1483,9 @@
   - Supports both v1 and v2 trade log formats
 
 ### [T737] Dashboard: Add win rate trend sparkline to /betting
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: [T482]

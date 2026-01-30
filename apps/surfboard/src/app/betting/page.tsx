@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
+import { WinRateSparkline, parseWinRateTrendFromStats, generateMockSparklineData } from '@/components/WinRateSparkline';
 import { ReturnDistributionChart, generateMockTrades } from '@/components/ReturnDistributionChart';
 import { EdgeDistributionChart, EdgeDistributionData } from '@/components/EdgeDistributionChart';
 import { StreakIndicator } from '@/components/StreakIndicator';
@@ -1401,9 +1402,18 @@ export default function BettingDashboard() {
             <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
               {/* Win Rate */}
               <GlassCard glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'} className="p-3 sm:p-4">
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                  <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
+                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
+                    <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
+                  </div>
+                  {/* 7-day trend sparkline */}
+                  <WinRateSparkline 
+                    data={parseWinRateTrendFromStats(winRateTrend) || generateMockSparklineData(7)}
+                    width={50}
+                    height={20}
+                    showTrendIcon={false}
+                  />
                 </div>
                 <AnimatedNumber 
                   value={tradingStats.winRate} 
