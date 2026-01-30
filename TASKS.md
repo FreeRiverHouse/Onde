@@ -5388,19 +5388,31 @@
   - Build passes, ready for deploy
 
 ### [T772] Trading: Model calibration tracking - predicted vs actual probabilities
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
 - **Depends**: [T356]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Track model calibration to identify prediction accuracy issues (per T356 findings):
-  - Log our_prob vs actual outcome (binary) for every trade
-  - Bucket predictions (0-20%, 20-40%, etc.) and compare actual win rates
-  - Ideal: 30% predicted prob → ~30% actual wins
-  - Calculate Brier score and calibration curve
-  - Script: `scripts/analyze-model-calibration.py`
-  - Output: `data/trading/calibration-analysis.json`
-  - Dashboard widget showing calibration curve (future)
+- **Notes**: ✅ Implemented model calibration analysis script!
+  - **Script**: `scripts/analyze-model-calibration.py`
+  - **Output**: `data/trading/calibration-analysis.json`
+  - **Features:**
+    - ✅ Loads trades from all kalshi-trades-*.jsonl files
+    - ✅ Filters to settled trades with our_prob data
+    - ✅ Buckets predictions (0-20%, 20-40%, etc.)
+    - ✅ Calculates actual win rate per bucket
+    - ✅ Brier score calculation (lower = better)
+    - ✅ Expected Calibration Error (ECE)
+    - ✅ Over/under-confidence assessment
+    - ✅ Detailed report with interpretation
+    - ✅ JSON output option (--json flag)
+  - **Initial findings (276 trades):**
+    - Brier score: 0.237 (mediocre)
+    - 40-60% bucket: 246 trades, 0% actual win rate ⚠️
+    - 0-20% bucket: 30 trades, 40% actual win rate
+    - **Action needed**: Investigate probability calculation issues
+  - ⏳ Dashboard widget (future)
 
 ### [T773] Trading: Weather forecast accuracy validator
 - **Status**: TODO

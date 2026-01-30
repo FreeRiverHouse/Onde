@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-01-30T16:02:25.302588+00:00",
+  "total_trades": 276,
+  "metrics": {
+    "brier_score": 0.236614,
+    "expected_calibration_error": 0.447428,
+    "confidence_assessment": "balanced"
+  },
+  "calibration_curve": [
+    {
+      "bucket": "0-20%",
+      "count": 30,
+      "wins": 12,
+      "predicted_prob": 0.1516,
+      "actual_rate": 0.4,
+      "gap": 0.2484
+    },
+    {
+      "bucket": "40-60%",
+      "count": 246,
+      "wins": 0,
+      "predicted_prob": 0.4717,
+      "actual_rate": 0.0,
+      "gap": -0.4717
+    }
+  ],
+  "interpretation": {
+    "brier_quality": "mediocre"
+  }
+}
