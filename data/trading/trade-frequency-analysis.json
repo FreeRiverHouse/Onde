@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-01-30T06:52:03.319832",
+  "days_analyzed": 90,
+  "summary": {
+    "total_trades": 2047,
+    "date_range": "2026-01-28 - 2026-01-30",
+    "total_gaps": 2046,
+    "avg_gap_minutes": 1.5509010359644835,
+    "median_gap_minutes": 1.3333333333333334e-06,
+    "min_gap_minutes": 6.5e-07,
+    "max_gap_minutes": 1178.5535714166665
+  },
+  "gap_buckets": {
+    "immediate": {
+      "trades": 1926,
+      "wins": 0,
+      "win_rate": 0.0,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "gap_range": "0-5 min"
+    },
+    "short": {
+      "trades": 112,
+      "wins": 11,
+      "win_rate": 0.09821428571428571,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "gap_range": "5-15 min"
+    },
+    "medium": {
+      "trades": 4,
+      "wins": 1,
+      "win_rate": 0.25,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "gap_range": "15-30 min"
+    },
+    "very_long": {
+      "trades": 4,
+      "wins": 0,
+      "win_rate": 0.0,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "gap_range": "120-\u221e min"
+    }
+  },
+  "activity_analysis": {
+    "high_activity": {
+      "trades": 1945,
+      "wins": 0,
+      "win_rate": 0.0,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "label": ">191.9 trades/hour"
+    },
+    "normal_activity": {
+      "trades": 0,
+      "label": "64.0-191.9 trades/hour"
+    },
+    "low_activity": {
+      "trades": 102,
+      "wins": 12,
+      "win_rate": 0.11764705882352941,
+      "pnl": 0,
+      "avg_pnl": 0.0,
+      "label": "<64.0 trades/hour"
+    },
+    "thresholds": {
+      "avg_trades_per_hour": 127.94,
+      "high_threshold": 191.91,
+      "low_threshold": 63.97
+    }
+  },
+  "consecutive_results": {
+    "after_win": {
+      "trades": 12,
+      "wins": 11,
+      "win_rate": 0.9166666666666666
+    },
+    "after_loss": {
+      "trades": 59,
+      "wins": 1,
+      "win_rate": 0.01694915254237288
+    },
+    "after_neutral": {
+      "trades": 1975,
+      "wins": 0,
+      "win_rate": 0.0
+    }
+  },
+  "recommendations": [
+    "\u2705 Best performance after medium gaps (25.0% WR). Consider minimum cooldown of 15 minutes.",
+    "\ud83d\udcc9 High-activity periods (0.0% WR) underperform low-activity periods (11.8% WR). Consider rate limiting.",
+    "\ud83c\udfaf Trades after losses underperform (1.7% vs 91.7% after wins). Consider cooldown after losses."
+  ]
+}

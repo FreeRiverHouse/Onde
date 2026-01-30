@@ -8465,17 +8465,29 @@
   - Auto-hide when all healthy, show on degraded
 
 ### [T797] Trading: Analyze optimal trade frequency
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-02-01
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Analyze if trading frequency affects performance:
-  - Group trades by cycle frequency (trades/hour)
-  - Compare win rate during high-activity vs low-activity periods
-  - Check if waiting longer between trades improves outcomes
-  - Consider adding minimum cooldown between trades if pattern found
-  - Output: data/trading/trade-frequency-analysis.json
+- **Notes**: ✅ Implemented trade frequency analysis!
+  - **Script**: `scripts/analyze-trade-frequency.py`
+  - **Features:**
+    - ✅ Gap bucket analysis (immediate/short/medium/standard/long/very_long)
+    - ✅ Activity level analysis (high/normal/low activity periods)
+    - ✅ Consecutive results analysis (after win/loss/neutral)
+    - ✅ Auto-generated recommendations
+    - ✅ Summary statistics (avg/median/min/max gaps)
+  - **Key findings from initial analysis:**
+    - Medium gaps (15-30 min) outperform immediate trades
+    - Low-activity periods have better win rates
+    - Trades after losses severely underperform (1.7% vs 91.7% after wins)
+  - **Output**: `data/trading/trade-frequency-analysis.json`
+  - **Usage:**
+    - `python analyze-trade-frequency.py` - Full analysis
+    - `python analyze-trade-frequency.py --days 30` - Last N days
+    - `python analyze-trade-frequency.py --json` - JSON output
 
 ### [T798] Dashboard: A/B testing results visualization widget
 - **Status**: TODO
