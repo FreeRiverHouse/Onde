@@ -387,7 +387,6 @@ export default function SkinCreator() {
             }
           }
           ctx.shadowBlur = 0;
-          createSparkle(e.clientX, e.clientY);
         } else {
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
