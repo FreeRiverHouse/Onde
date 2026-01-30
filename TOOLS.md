@@ -38,6 +38,25 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## 🖥️ GPU Setup - Radeon 7090TX
+
+**Hardware:** Radeon 7090TX su Mac M1 via driver TinyGrad
+**VRAM:** 16GB
+**Performance:** Più potente di M4 Pro, molto più di M1
+
+### Capacità confermate:
+- ✅ LLaMA 3 8B inference (~16GB, traduce benissimo)
+- ✅ Batch processing immagini
+- 🎯 Video processing (da sfruttare!)
+- 🎯 Code generation locale
+- 🎯 Traduzioni batch
+
+### Come usare:
+Backend TinyGrad per tutto ciò che richiede GPU pesante.
+**DIMENSIONARE I TASK SU QUESTA SCHEDA** — non limitarsi a CPU/M1!
+
+---
+
 ## 🌍 Traduzioni Locali
 
 ### ⚠️ REGOLA: MAI M1! Solo Radeon o M4
