@@ -5,7 +5,8 @@ import type { NextRequest } from "next/server"
 const publicRoutes = ["/login", "/api/auth", "/health", "/api/health", "/api/agent-executor", "/api/agent-tasks", "/api/house", "/api/activity", "/api/agents", "/api/test-status"]
 
 // Protected paths that require auth even if they look like static files
-const protectedPaths = ["/static-games", "/games"]
+// NOTE: /static-games removed - games should be publicly accessible
+const protectedPaths = ["/games"]
 
 // Check if a path is public
 function isPublicPath(pathname: string): boolean {
@@ -19,7 +20,7 @@ function isPublicPath(pathname: string): boolean {
     return true
   }
 
-  // Allow static assets (images, css, etc.)
+  // Allow static assets (images, css, js, etc.)
   if (
     pathname.endsWith(".ico") ||
     pathname.endsWith(".png") ||
@@ -30,7 +31,13 @@ function isPublicPath(pathname: string): boolean {
     pathname.endsWith(".webp") ||
     pathname.endsWith(".woff") ||
     pathname.endsWith(".woff2") ||
-    pathname.endsWith(".ttf")
+    pathname.endsWith(".ttf") ||
+    pathname.endsWith(".js") ||
+    pathname.endsWith(".css") ||
+    pathname.endsWith(".json") ||
+    pathname.endsWith(".mp3") ||
+    pathname.endsWith(".wav") ||
+    pathname.endsWith(".ogg")
   ) {
     return true
   }
