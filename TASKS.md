@@ -471,6 +471,47 @@
   - ✅ Uses ref to track playing state across page transitions
   - Build passes, ready for deploy
 
+### [T716] Reader App: Deploy TTS features to onde.la/reader
+- **Status**: DONE
+- **Owner**: @clawd
+- **Completed**: 2026-01-31
+- **Depends**: [T714], [T715]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Deployed! https://0146b182.onde-portal.pages.dev
+  - ✅ Keyboard shortcuts (Space, Esc, arrows, M)
+  - ✅ Auto page turn during TTS playback
+  - ✅ Built static export with STATIC_EXPORT=1
+  - ✅ Copied to onde-portal/public/reader/
+  - ✅ Deployed via wrangler to Cloudflare Pages
+  - ✅ Verified: https://onde.la/reader/ returns 200 OK
+
+### [T717] Reader App: Save TTS settings to localStorage
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T712]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Persist TTS preferences between sessions:
+  - Voice selection (by name)
+  - Speed (rate) setting
+  - Pitch setting
+  - Auto page turn preference
+  - Use Zustand store with localStorage persistence
+  - Restore settings on TTS panel open
+
+### [T718] Reader App: Add TTS speed presets (slow/normal/fast)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T714]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Quick access to common speed settings:
+  - Preset buttons: 🐢 (0.75x) | Normal (1.0x) | 🐇 (1.5x) | ⚡ (2.0x)
+  - Visual indication of current preset
+  - Keyboard shortcuts: 1/2/3/4 for presets
+  - Still allow fine-tuning via slider
+
 ### [T697] Reader App: Deploy with bookmarks & highlighting to onde.la
 - **Status**: DONE
 - **Owner**: @clawd
