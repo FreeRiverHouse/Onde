@@ -9946,8 +9946,8 @@
   - Optional: Push to Pushgateway for remote monitoring
 
 ### [T859] Trading: Add momentum regime dashboard widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawd
 - **Depends**: [T853]
 - **Blocks**: -
 - **Priority**: P3
