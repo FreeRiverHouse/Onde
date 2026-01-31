@@ -56,7 +56,7 @@ const DEFAULT_CONFIG = {
       status: 'unknown'
     },
     radeon_llama: {
-      name: 'LLaMA 3.1 8B (Radeon Local)',
+      name: 'LLaMA 3.1 8B (Radeon)',
       type: 'local',
       endpoint: 'http://localhost:8080/v1/chat/completions',
       model: 'llama-3.1-8b-instruct',
@@ -65,7 +65,8 @@ const DEFAULT_CONFIG = {
       rateLimit: 'Unlimited',
       speed: '~1 tok/s',
       cost: 'FREE (local)',
-      status: 'unknown'
+      status: 'unknown',
+      configurable: true  // Can change endpoint
     },
     claude: {
       name: 'Claude (CLI)',
@@ -402,6 +403,12 @@ const HTML = `<!DOCTYPE html>
               value="\${provider.apiKey || ''}"
               onchange="updateApiKey('\${key}', this.value)">
           \` : ''}
+          \${provider.configurable ? \`
+            <input type="text" class="api-key-input"
+              placeholder="Endpoint (es: 192.168.1.100:8080)"
+              value="\${provider.endpoint.replace('http://', '').replace('/v1/chat/completions', '')}"
+              onchange="updateEndpoint('\${key}', this.value)">
+          \` : ''}
           <div class="provider-actions">
             <button onclick="activateProvider('\${key}')" \${isActive ? 'disabled' : ''}>
               \${isActive ? '✓ Attivo' : 'Attiva'}
@@ -438,6 +445,23 @@ const HTML = `<!DOCTYPE html>
       const result = await res.json();
       if (result.success) {
         config.providers[key].apiKey = apiKey;
+        refreshStatus();
+      }
+    }
+
+    async function updateEndpoint(key, endpoint) {
+      // Ensure proper format
+      if (!endpoint.includes(':')) endpoint += ':8080';
+      const fullEndpoint = 'http://' + endpoint + '/v1/chat/completions';
+
+      const res = await fetch('/api/endpoint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider: key, endpoint: fullEndpoint })
+      });
+      const result = await res.json();
+      if (result.success) {
+        config.providers[key].endpoint = fullEndpoint;
         refreshStatus();
       }
     }
@@ -588,6 +612,29 @@ const server = http.createServer(async (req, res) => {
 
         if (config.providers[provider]) {
           config.providers[provider].apiKey = apiKey;
+          saveConfig(config);
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (url.pathname === '/api/endpoint' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { provider, endpoint } = JSON.parse(body);
+        const config = loadConfig();
+
+        if (config.providers[provider]) {
+          config.providers[provider].endpoint = endpoint;
           saveConfig(config);
         }
 
