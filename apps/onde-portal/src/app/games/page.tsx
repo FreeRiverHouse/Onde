@@ -16,6 +16,11 @@ export default function GamingIsland() {
       {/* Sun */}
       <div className="absolute top-8 right-8 text-7xl animate-pulse">☀️</div>
 
+      {/* Flying Birds */}
+      <div className="absolute top-16 left-1/4 text-2xl animate-fly opacity-80">🐦</div>
+      <div className="absolute top-28 left-1/2 text-xl animate-fly delay-700 opacity-70">🐦</div>
+      <div className="absolute top-12 right-1/4 text-2xl animate-fly delay-1200 opacity-75">🐦</div>
+
       {/* Header */}
       <div className="text-center pt-8 pb-4">
         <h1 className="text-5xl md:text-6xl font-black text-white drop-shadow-lg">
@@ -167,6 +172,14 @@ export default function GamingIsland() {
       <div className="absolute bottom-16 left-1/3 text-2xl animate-float delay-500">🦀</div>
       <div className="absolute bottom-28 right-1/3 text-4xl animate-float delay-800">🏴‍☠️</div>
 
+      {/* 🎁 Hidden Treasure Easter Egg! Can you find it? */}
+      <div 
+        className="absolute bottom-12 right-1/4 text-2xl opacity-30 hover:opacity-100 hover:scale-150 transition-all duration-500 cursor-pointer animate-sparkle z-10"
+        title="You found the treasure! 🎉"
+      >
+        💎
+      </div>
+
       {/* Back link */}
       <div className="absolute top-4 left-4">
         <Link 
@@ -190,16 +203,30 @@ export default function GamingIsland() {
           0%, 100% { transform: translateY(0) translateX(0); }
           50% { transform: translateY(-10px) translateX(5px); }
         }
+        @keyframes sparkle {
+          0%, 100% { filter: brightness(1) drop-shadow(0 0 2px gold); }
+          50% { filter: brightness(1.5) drop-shadow(0 0 8px gold); }
+        }
+        @keyframes fly {
+          0%, 100% { transform: translateX(0) translateY(0); }
+          25% { transform: translateX(15px) translateY(-8px); }
+          50% { transform: translateX(30px) translateY(0); }
+          75% { transform: translateX(15px) translateY(-5px); }
+        }
         .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
         .animate-bounce-soft { animation: bounce-slow 2s ease-in-out infinite; }
         .animate-wave { animation: wave 2s ease-in-out infinite; }
         .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-sparkle { animation: sparkle 2s ease-in-out infinite; }
+        .animate-fly { animation: fly 3s ease-in-out infinite; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-400 { animation-delay: 0.4s; }
         .delay-500 { animation-delay: 0.5s; }
         .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
         .delay-800 { animation-delay: 0.8s; }
         .delay-1000 { animation-delay: 1s; }
+        .delay-1200 { animation-delay: 1.2s; }
       `}</style>
     </div>
   )
