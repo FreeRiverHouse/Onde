@@ -12012,7 +12012,7 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Include quick fix suggestion
 
 ### [T959] Infra: Heartbeat Rotation Tracker
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -12032,7 +12032,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Add fun sounds when drawing, saving, etc.
 
 ### [T959] Skin Creator: Undo/Redo Stack per Layer
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12086,3 +12086,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Paste URL to import skin from another source
+
+### [T967] Skin Creator: Keyboard Shortcut Hints
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Show keyboard shortcuts on button hover
+
+### [T968] Skin Creator: Touch Gesture Support
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Pinch to zoom, two-finger pan on mobile
+
+### [T969] Skin Creator: Drawing Pressure Sensitivity
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Support pressure-sensitive stylus input
