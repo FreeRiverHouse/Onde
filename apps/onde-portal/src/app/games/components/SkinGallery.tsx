@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import SkinRating, { getSkinAverageRating, TopRatedBadge } from '../skin-creator/components/SkinRating';
 
 // Gallery skin interface
 export interface GallerySkin {
@@ -13,6 +14,8 @@ export interface GallerySkin {
   downloads: number;
   createdAt: number;
   gameType: 'minecraft' | 'roblox';
+  rating?: number; // Average rating
+  ratingCount?: number; // Number of ratings
 }
 
 // Sample skins for demo (will be replaced with real backend)
@@ -126,7 +129,7 @@ interface SkinGalleryProps {
 export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }: SkinGalleryProps) {
   const [skins, setSkins] = useState<GallerySkin[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'likes' | 'downloads' | 'newest'>('likes');
+  const [sortBy, setSortBy] = useState<'rating' | 'likes' | 'downloads' | 'newest'>('rating');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadName, setUploadName] = useState('');
   const [uploadTags, setUploadTags] = useState('');
@@ -164,8 +167,16 @@ export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }:
     }
   }, []);
 
+  // Get rating data for sorting
+  const getSkinsWithRatings = () => {
+    return skins.map(skin => {
+      const { average, count } = getSkinAverageRating(skin.id);
+      return { ...skin, rating: average, ratingCount: count };
+    });
+  };
+
   // Filter and sort skins
-  const filteredSkins = skins
+  const filteredSkins = getSkinsWithRatings()
     .filter(skin => {
       if (!searchQuery) return true;
       const query = searchQuery.toLowerCase();
@@ -177,6 +188,10 @@ export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }:
     })
     .sort((a, b) => {
       switch (sortBy) {
+        case 'rating': 
+          // Sort by rating first, then by rating count as tiebreaker
+          if (b.rating !== a.rating) return (b.rating || 0) - (a.rating || 0);
+          return (b.ratingCount || 0) - (a.ratingCount || 0);
         case 'likes': return b.likes - a.likes;
         case 'downloads': return b.downloads - a.downloads;
         case 'newest': return b.createdAt - a.createdAt;
@@ -276,6 +291,7 @@ export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }:
             onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
             className="px-4 py-2 rounded-full border-2 border-gray-200 focus:border-purple-400 outline-none bg-white"
           >
+            <option value="rating">⭐ Top Rated</option>
             <option value="likes">🔥 Most Liked</option>
             <option value="downloads">📥 Most Downloaded</option>
             <option value="newest">🆕 Newest</option>
@@ -328,6 +344,13 @@ export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }:
               <span className="absolute top-1 right-1 text-lg" title={skin.gameType}>
                 {skin.gameType === 'minecraft' ? '⛏️' : '🎮'}
               </span>
+              
+              {/* Top rated badge */}
+              {(skin.rating || 0) >= 4 && (
+                <div className="absolute top-1 left-1">
+                  <TopRatedBadge rating={skin.rating || 0} />
+                </div>
+              )}
             </div>
             
             {/* Info */}
@@ -347,6 +370,15 @@ export default function SkinGallery({ onSelectSkin, currentSkinData, onUpload }:
                     #{tag}
                   </span>
                 ))}
+              </div>
+              
+              {/* Star Rating */}
+              <div className="mt-2 flex justify-center">
+                <SkinRating 
+                  skinId={skin.id} 
+                  size="sm" 
+                  showCount={false}
+                />
               </div>
               
               {/* Stats */}

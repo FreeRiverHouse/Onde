@@ -810,18 +810,29 @@ export default function SkinCreator() {
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'spray'>('brush');
+  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'spray' | 'select'>('brush');
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
   const linePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
   const eyedropperUseCount = useRef(0);
+  
+  // 📐 SELECTION TOOL STATE - Copy/paste region selection
+  const [selection, setSelection] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  const [selectionStart, setSelectionStart] = useState<{ x: number; y: number } | null>(null);
+  const [clipboard, setClipboard] = useState<ImageData | null>(null);
+  const [pastePreviewPos, setPastePreviewPos] = useState<{ x: number; y: number } | null>(null);
+  const [isPastingMode, setIsPastingMode] = useState(false);
   const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond' | 'smiley' | 'fire' | 'lightning'>('star');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [show3D, setShow3D] = useState(true); // Toggle 2D/3D preview - default ON for 3D rotation!
   const [textureVersion, setTextureVersion] = useState(0); // Increment to refresh 3D texture
+  // 🔄 Compare Mode - Before/After side by side
+  const [compareMode, setCompareMode] = useState(false);
+  const [originalSkinData, setOriginalSkinData] = useState<string | null>(null);
+  const originalSkinCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 480 ? 3 : (typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6));
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
@@ -1072,6 +1083,143 @@ export default function SkinCreator() {
 
     return tintedCanvas;
   }, []);
+
+  // 🌈 RGB to HSL conversion helper
+  const rgbToHsl = useCallback((r: number, g: number, b: number): [number, number, number] => {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h = 0, s = 0;
+    const l = (max + min) / 2;
+
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+        case g: h = ((b - r) / d + 2) / 6; break;
+        case b: h = ((r - g) / d + 4) / 6; break;
+      }
+    }
+    return [h * 360, s * 100, l * 100];
+  }, []);
+
+  // 🌈 HSL to RGB conversion helper
+  const hslToRgb = useCallback((h: number, s: number, l: number): [number, number, number] => {
+    h /= 360; s /= 100; l /= 100;
+    let r, g, b;
+
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p: number, q: number, t: number) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  }, []);
+
+  // 🌈 Apply HSL/Brightness adjustments to the canvas
+  const applyHSLAdjustments = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Store original if not already stored
+    if (!originalCanvasData.current) {
+      originalCanvasData.current = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    }
+
+    // Get original data
+    const originalData = originalCanvasData.current;
+    const imageData = ctx.createImageData(SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    const original = originalData.data;
+
+    const { hue, saturation, lightness, brightness } = hslAdjustments;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const r = original[i];
+      const g = original[i + 1];
+      const b = original[i + 2];
+      const a = original[i + 3];
+
+      // Skip fully transparent pixels
+      if (a === 0) {
+        data[i] = r;
+        data[i + 1] = g;
+        data[i + 2] = b;
+        data[i + 3] = a;
+        continue;
+      }
+
+      // Convert to HSL
+      let [h, s, l] = rgbToHsl(r, g, b);
+
+      // Apply hue shift (rotation)
+      h = (h + hue + 360) % 360;
+
+      // Apply saturation adjustment
+      s = Math.max(0, Math.min(100, s + saturation));
+
+      // Apply lightness adjustment
+      l = Math.max(0, Math.min(100, l + lightness));
+
+      // Convert back to RGB
+      let [newR, newG, newB] = hslToRgb(h, s, l);
+
+      // Apply brightness adjustment (simple multiply/add)
+      const brightnessFactor = 1 + brightness / 100;
+      newR = Math.max(0, Math.min(255, Math.round(newR * brightnessFactor)));
+      newG = Math.max(0, Math.min(255, Math.round(newG * brightnessFactor)));
+      newB = Math.max(0, Math.min(255, Math.round(newB * brightnessFactor)));
+
+      data[i] = newR;
+      data[i + 1] = newG;
+      data[i + 2] = newB;
+      data[i + 3] = a;
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    updatePreview();
+    setTextureVersion(v => v + 1);
+  }, [hslAdjustments, rgbToHsl, hslToRgb]);
+
+  // 🌈 Reset HSL adjustments to defaults
+  const resetHSLAdjustments = useCallback(() => {
+    setHslAdjustments({ hue: 0, saturation: 0, lightness: 0, brightness: 0 });
+    
+    // Restore original canvas data
+    const canvas = canvasRef.current;
+    if (!canvas || !originalCanvasData.current) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.putImageData(originalCanvasData.current, 0, 0);
+    updatePreview();
+    setTextureVersion(v => v + 1);
+  }, []);
+
+  // 🌈 Apply and commit HSL changes (make permanent)
+  const commitHSLAdjustments = useCallback(() => {
+    // Clear the original data so the current state becomes the new base
+    originalCanvasData.current = null;
+    // Reset sliders to 0
+    setHslAdjustments({ hue: 0, saturation: 0, lightness: 0, brightness: 0 });
+    // Save state for undo
+    saveState();
+    playSound('success');
+  }, [saveState, playSound]);
 
   // Move layer up/down in the stack
   // Note: "up" means higher z-index (rendered later, appears on top)
@@ -1893,7 +2041,12 @@ export default function SkinCreator() {
           setShowStickerPanel(false);
           setShowMySkins(false);
           setShowLayerPanel(false);
+          setShowHSLPanel(false);
           setContextMenu(null);
+          // Reset HSL if panel was open
+          if (showHSLPanel) {
+            resetHSLAdjustments();
+          }
           break;
         
         // 🔄 Undo/Redo
@@ -1933,6 +2086,15 @@ export default function SkinCreator() {
         // 🎭 Panel toggles
         case 'a': if (!isCmd) setShowAIPanel(prev => !prev); break; // AI panel
         case 'h': setShowStickerPanel(prev => !prev); break; // H for stickers (Heart/decals)
+        case 'j': // J for adJustments (HSL panel)
+          if (!showHSLPanel && canvasRef.current) {
+            const ctx = canvasRef.current.getContext('2d');
+            if (ctx) {
+              originalCanvasData.current = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+            }
+          }
+          setShowHSLPanel(prev => !prev);
+          break;
         case 'k': setShowMySkins(prev => !prev); break; // K for sKins saved
         
         // 🎨 Color swap
@@ -2590,6 +2752,47 @@ export default function SkinCreator() {
     ctx.drawImage(canvas, 20, 52, 4, 12, offsetX + 4 * scale, offsetY + 20 * scale, 4 * scale, 12 * scale);
   }, []);
 
+  // 🔄 COMPARE MODE - Save current skin as "original" for before/after comparison
+  const saveAsOriginal = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    // Save current state as original
+    const dataUrl = canvas.toDataURL('image/png');
+    setOriginalSkinData(dataUrl);
+    
+    // Also create/update the original skin canvas for 3D preview
+    if (!originalSkinCanvasRef.current) {
+      originalSkinCanvasRef.current = document.createElement('canvas');
+      originalSkinCanvasRef.current.width = SKIN_WIDTH;
+      originalSkinCanvasRef.current.height = SKIN_HEIGHT;
+    }
+    const ctx = originalSkinCanvasRef.current.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      ctx.drawImage(canvas, 0, 0);
+    }
+    
+    playSound('save');
+  }, [playSound]);
+
+  // Clear the original skin (reset compare mode)
+  const clearOriginal = useCallback(() => {
+    setOriginalSkinData(null);
+    setCompareMode(false);
+    originalSkinCanvasRef.current = null;
+  }, []);
+
+  // Toggle compare mode (auto-save original if not set)
+  const toggleCompareMode = useCallback(() => {
+    if (!compareMode && !originalSkinData) {
+      // First time enabling - save current as original
+      saveAsOriginal();
+    }
+    setCompareMode(prev => !prev);
+    playSound('click');
+  }, [compareMode, originalSkinData, saveAsOriginal, playSound]);
+
   // 🎨 Get sticker by ID helper (pure function, no deps)
   const getStickerById = (stickerId: string): StickerDecal | undefined => {
     return STICKER_DECALS.find(s => s.id === stickerId);
@@ -2600,8 +2803,230 @@ export default function SkinCreator() {
     return STICKER_DECALS.filter(s => s.category === category);
   };
 
+  // 🎨 Apply Texture Filter - Grain, Blur, Sharpen, etc.
+  const applyTextureFilter = useCallback((filterId: TextureFilterType, intensity: number = 50) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Get current image data
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    const width = SKIN_WIDTH;
+    const height = SKIN_HEIGHT;
+
+    // Normalize intensity to 0-1 range
+    const normalizedIntensity = intensity / 100;
+
+    switch (filterId) {
+      case 'grain': {
+        // Add film grain/noise texture
+        const grainAmount = normalizedIntensity * 60; // Max 60 brightness variation
+        for (let i = 0; i < data.length; i += 4) {
+          // Skip fully transparent pixels
+          if (data[i + 3] === 0) continue;
+          
+          const noise = (Math.random() - 0.5) * grainAmount;
+          data[i] = Math.min(255, Math.max(0, data[i] + noise));     // R
+          data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise)); // G
+          data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise)); // B
+        }
+        break;
+      }
+
+      case 'blur': {
+        // Simple box blur - works on small pixel art
+        const blurRadius = Math.max(1, Math.floor(normalizedIntensity * 2)); // 1-2 pixel blur
+        const tempData = new Uint8ClampedArray(data);
+        
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const idx = (y * width + x) * 4;
+            // Skip fully transparent pixels
+            if (tempData[idx + 3] === 0) continue;
+            
+            let r = 0, g = 0, b = 0, count = 0;
+            
+            // Sample surrounding pixels
+            for (let dy = -blurRadius; dy <= blurRadius; dy++) {
+              for (let dx = -blurRadius; dx <= blurRadius; dx++) {
+                const nx = x + dx;
+                const ny = y + dy;
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                  const nidx = (ny * width + nx) * 4;
+                  // Only include non-transparent pixels
+                  if (tempData[nidx + 3] > 0) {
+                    r += tempData[nidx];
+                    g += tempData[nidx + 1];
+                    b += tempData[nidx + 2];
+                    count++;
+                  }
+                }
+              }
+            }
+            
+            if (count > 0) {
+              // Blend between original and blurred based on intensity
+              data[idx] = Math.round(tempData[idx] * (1 - normalizedIntensity) + (r / count) * normalizedIntensity);
+              data[idx + 1] = Math.round(tempData[idx + 1] * (1 - normalizedIntensity) + (g / count) * normalizedIntensity);
+              data[idx + 2] = Math.round(tempData[idx + 2] * (1 - normalizedIntensity) + (b / count) * normalizedIntensity);
+            }
+          }
+        }
+        break;
+      }
+
+      case 'sharpen': {
+        // Unsharp mask / edge enhancement
+        const strength = normalizedIntensity * 2; // Sharpen strength
+        const tempData = new Uint8ClampedArray(data);
+        
+        for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+            const idx = (y * width + x) * 4;
+            // Skip fully transparent pixels
+            if (tempData[idx + 3] === 0) continue;
+            
+            // 3x3 Laplacian kernel for edge detection
+            for (let c = 0; c < 3; c++) {
+              const center = tempData[idx + c];
+              const top = tempData[((y - 1) * width + x) * 4 + c];
+              const bottom = tempData[((y + 1) * width + x) * 4 + c];
+              const left = tempData[(y * width + x - 1) * 4 + c];
+              const right = tempData[(y * width + x + 1) * 4 + c];
+              
+              // Edge = center - average of neighbors
+              const edge = center - (top + bottom + left + right) / 4;
+              // Add edge back to sharpen
+              data[idx + c] = Math.min(255, Math.max(0, Math.round(center + edge * strength)));
+            }
+          }
+        }
+        break;
+      }
+
+      case 'emboss': {
+        // 3D embossed effect
+        const strength = normalizedIntensity * 2;
+        const tempData = new Uint8ClampedArray(data);
+        
+        for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+            const idx = (y * width + x) * 4;
+            if (tempData[idx + 3] === 0) continue;
+            
+            // Emboss kernel: top-left to bottom-right
+            const topLeft = tempData[((y - 1) * width + x - 1) * 4];
+            const bottomRight = tempData[((y + 1) * width + x + 1) * 4];
+            
+            // Apply emboss effect
+            const gray = (tempData[idx] + tempData[idx + 1] + tempData[idx + 2]) / 3;
+            const embossValue = 128 + (bottomRight - topLeft) * strength;
+            const finalValue = Math.round(gray * (1 - normalizedIntensity) + embossValue * normalizedIntensity);
+            
+            data[idx] = Math.min(255, Math.max(0, finalValue));
+            data[idx + 1] = Math.min(255, Math.max(0, finalValue));
+            data[idx + 2] = Math.min(255, Math.max(0, finalValue));
+          }
+        }
+        break;
+      }
+
+      case 'pixelate': {
+        // Chunky pixel effect - group pixels into larger blocks
+        const blockSize = Math.max(2, Math.floor(normalizedIntensity * 6)); // 2-6 pixel blocks
+        
+        for (let y = 0; y < height; y += blockSize) {
+          for (let x = 0; x < width; x += blockSize) {
+            // Calculate average color for this block
+            let r = 0, g = 0, b = 0, count = 0;
+            
+            for (let dy = 0; dy < blockSize && y + dy < height; dy++) {
+              for (let dx = 0; dx < blockSize && x + dx < width; dx++) {
+                const idx = ((y + dy) * width + (x + dx)) * 4;
+                if (data[idx + 3] > 0) {
+                  r += data[idx];
+                  g += data[idx + 1];
+                  b += data[idx + 2];
+                  count++;
+                }
+              }
+            }
+            
+            if (count > 0) {
+              r = Math.round(r / count);
+              g = Math.round(g / count);
+              b = Math.round(b / count);
+              
+              // Fill the block with average color
+              for (let dy = 0; dy < blockSize && y + dy < height; dy++) {
+                for (let dx = 0; dx < blockSize && x + dx < width; dx++) {
+                  const idx = ((y + dy) * width + (x + dx)) * 4;
+                  if (data[idx + 3] > 0) {
+                    data[idx] = r;
+                    data[idx + 1] = g;
+                    data[idx + 2] = b;
+                  }
+                }
+              }
+            }
+          }
+        }
+        break;
+      }
+
+      case 'vignette': {
+        // Dark edges, bright center effect
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
+        
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const idx = (y * width + x) * 4;
+            if (data[idx + 3] === 0) continue;
+            
+            // Calculate distance from center (0-1)
+            const dx = x - centerX;
+            const dy = y - centerY;
+            const dist = Math.sqrt(dx * dx + dy * dy) / maxDist;
+            
+            // Darken based on distance and intensity
+            const darkness = dist * dist * normalizedIntensity; // Quadratic falloff
+            const multiplier = 1 - darkness;
+            
+            data[idx] = Math.round(data[idx] * multiplier);
+            data[idx + 1] = Math.round(data[idx + 1] * multiplier);
+            data[idx + 2] = Math.round(data[idx + 2] * multiplier);
+          }
+        }
+        break;
+      }
+    }
+
+    // Apply the modified image data
+    ctx.putImageData(imageData, 0, 0);
+    
+    // Also update the active layer canvas
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const layerCtx = layerCanvas.getContext('2d');
+    if (layerCtx) {
+      layerCtx.putImageData(imageData, 0, 0);
+    }
+
+    updatePreview();
+    saveState();
+    playSound('click');
+    
+    // Trigger 3D preview refresh
+    setTextureVersion(v => v + 1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeLayer, getLayerCanvas]);
+
   // 🎨 Apply Sticker/Decal to canvas at specific position
-  const applySticker = useCallback((stickerId: string, posX: number, posY: number) => {
+  // Note: Not using useCallback to avoid SSG dependency ordering issues
+  const applySticker = (stickerId: string, posX: number, posY: number) => {
     const sticker = STICKER_DECALS.find(s => s.id === stickerId);
     if (!sticker) return;
 
@@ -2642,7 +3067,7 @@ export default function SkinCreator() {
     // Clear selection after applying
     setSelectedSticker(null);
     setStickerPreviewPos(null);
-  }, [activeLayer, getLayerCanvas, mirrorMode, compositeLayersToMain, updatePreview, saveState, playSound]);
+  };
 
   // 🎮 Load a character template (PNG image) - Kids start from a base!
   const loadCharacterTemplate = useCallback((templateId: string) => {
@@ -3008,6 +3433,128 @@ export default function SkinCreator() {
     }
   }, []);
 
+  // 📐 SELECTION COPY/PASTE FUNCTIONS
+  // Copy the selected region to clipboard
+  const copySelection = useCallback(() => {
+    if (!selection) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const { x, y, w, h } = selection;
+    const imageData = ctx.getImageData(x, y, w, h);
+    setClipboard(imageData);
+    playSound('click');
+    
+    // Show visual feedback
+    setIsWiggling(true);
+    setTimeout(() => setIsWiggling(false), 300);
+  }, [selection, playSound]);
+
+  // Paste clipboard content at cursor position
+  const pasteClipboard = useCallback((targetX: number, targetY: number) => {
+    if (!clipboard) return;
+    
+    // Get the active layer canvas to paste on
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+
+    // Create a temporary canvas to handle the paste
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = clipboard.width;
+    tempCanvas.height = clipboard.height;
+    const tempCtx = tempCanvas.getContext('2d');
+    if (!tempCtx) return;
+    
+    tempCtx.putImageData(clipboard, 0, 0);
+    
+    // Draw onto the layer, clipping to canvas bounds
+    ctx.drawImage(tempCanvas, targetX, targetY);
+    
+    // Recomposite and update
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    playSound('success');
+    
+    // Exit pasting mode
+    setIsPastingMode(false);
+    setPastePreviewPos(null);
+  }, [clipboard, activeLayer, getLayerCanvas, compositeLayersToMain, saveState, playSound]);
+
+  // Enter paste mode (shows preview following cursor)
+  const enterPasteMode = useCallback(() => {
+    if (!clipboard) return;
+    setIsPastingMode(true);
+    setSelection(null); // Clear selection when pasting
+    playSound('click');
+  }, [clipboard, playSound]);
+
+  // Cancel selection/paste mode
+  const cancelSelection = useCallback(() => {
+    setSelection(null);
+    setSelectionStart(null);
+    setIsPastingMode(false);
+    setPastePreviewPos(null);
+  }, []);
+
+  // Cut selection (copy + clear selected area)
+  const cutSelection = useCallback(() => {
+    if (!selection) return;
+    
+    // First copy
+    copySelection();
+    
+    // Then clear the selected area on active layer
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.clearRect(selection.x, selection.y, selection.w, selection.h);
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    
+    // Clear selection
+    setSelection(null);
+  }, [selection, copySelection, activeLayer, getLayerCanvas, compositeLayersToMain, saveState]);
+
+  // Fill selection with current color
+  const fillSelection = useCallback(() => {
+    if (!selection) return;
+    
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.fillStyle = selectedColor;
+    ctx.fillRect(selection.x, selection.y, selection.w, selection.h);
+    
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    playSound('click');
+  }, [selection, selectedColor, activeLayer, getLayerCanvas, compositeLayersToMain, saveState, playSound]);
+
+  // Clear/delete selection content
+  const clearSelection = useCallback(() => {
+    if (!selection) return;
+    
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.clearRect(selection.x, selection.y, selection.w, selection.h);
+    
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    playSound('click');
+    setSelection(null);
+  }, [selection, activeLayer, getLayerCanvas, compositeLayersToMain, saveState, playSound]);
+
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing && e.type === 'mousemove') return;
 
@@ -3047,6 +3594,42 @@ export default function SkinCreator() {
         }
       }
       return;
+    }
+
+    // 📋 PASTE MODE - Click to place clipboard content
+    if (isPastingMode && clipboard) {
+      if (e.type === 'mousemove') {
+        // Update paste preview position (top-left corner)
+        setPastePreviewPos({ x, y });
+        return;
+      } else if (e.type === 'mousedown') {
+        // Place the clipboard content
+        pasteClipboard(x, y);
+        return;
+      }
+    }
+
+    // 📐 SELECT TOOL - Draw selection rectangle
+    if (tool === 'select') {
+      if (e.type === 'mousedown') {
+        // Start new selection
+        setSelectionStart({ x, y });
+        setSelection(null);
+        setIsPastingMode(false);
+      } else if (e.type === 'mousemove' && selectionStart) {
+        // Update selection rectangle (ensure positive dimensions)
+        const minX = Math.min(selectionStart.x, x);
+        const minY = Math.min(selectionStart.y, y);
+        const maxX = Math.max(selectionStart.x, x);
+        const maxY = Math.max(selectionStart.y, y);
+        setSelection({
+          x: minX,
+          y: minY,
+          w: Math.max(1, maxX - minX + 1),
+          h: Math.max(1, maxY - minY + 1),
+        });
+      }
+      return; // Don't proceed to drawing tools
     }
 
     // Spawn sparkle particle! ✨
@@ -4256,26 +4839,58 @@ export default function SkinCreator() {
       {/* Editor View */}
       <div className={`flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
         {/* Left Panel - Preview - Clean and focused */}
-        <div className="glass-card skin-glass-card rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 skin-animate-in-left delay-300">
-          <div className="flex items-center justify-center gap-3 mb-4">
+        <div className={`glass-card skin-glass-card rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 skin-animate-in-left delay-300 ${compareMode ? 'lg:min-w-[450px]' : ''}`}>
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-4 flex-wrap">
             <h2 className="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
               <span className="animate-float-gentle">👀</span> Preview
             </h2>
             <button
               onClick={() => { setShow3D(!show3D); playSound('click'); }}
-              className={`kid-btn px-4 py-2 text-sm font-bold transition-all ${
+              className={`kid-btn px-3 md:px-4 py-2 text-sm font-bold transition-all ${
                 show3D
                   ? 'bg-purple-500 text-white shadow-lg ring-2 ring-purple-300'
                   : 'bg-gray-100 hover:bg-gray-200'
               }`}
               title="Toggle 3D view - drag to rotate!"
             >
-              {show3D ? '🎮 3D ON' : '📐 2D'}
+              {show3D ? '🎮 3D' : '📐 2D'}
+            </button>
+            {/* 🔄 Compare Mode Toggle */}
+            <button
+              onClick={toggleCompareMode}
+              className={`kid-btn px-3 md:px-4 py-2 text-sm font-bold transition-all ${
+                compareMode
+                  ? 'bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg ring-2 ring-orange-300'
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+              title={compareMode ? 'Exit compare mode' : 'Compare before/after changes'}
+            >
+              {compareMode ? '🔄 Comparing' : '🔄 Compare'}
             </button>
           </div>
+
+          {/* 🔄 Compare Mode Controls */}
+          {compareMode && originalSkinData && (
+            <div className="flex justify-center gap-2 mb-3">
+              <button
+                onClick={saveAsOriginal}
+                className="px-3 py-1.5 text-xs font-bold bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-all"
+                title="Save current skin as new 'Before' state"
+              >
+                📸 Set as Before
+              </button>
+              <button
+                onClick={clearOriginal}
+                className="px-3 py-1.5 text-xs font-bold bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-all"
+                title="Clear comparison and exit compare mode"
+              >
+                ✕ Clear
+              </button>
+            </div>
+          )}
           
           {/* Pose Selector - Simplified */}
-          {show3D && (
+          {show3D && !compareMode && (
             <div className="flex flex-wrap justify-center gap-2 mb-3">
               {POSES.slice(0, 5).map(pose => (
                 <button
@@ -4294,18 +4909,64 @@ export default function SkinCreator() {
             </div>
           )}
 
-          {show3D ? (
-            <div className="rounded-xl mx-auto overflow-hidden skin-preview-3d-container" style={{ width: 200, height: 280 }}>
-              <SkinPreview3D skinCanvas={canvasRef.current} />
+          {/* 🔄 COMPARE MODE - Side by Side View */}
+          {compareMode && originalSkinData ? (
+            <div className="flex items-center justify-center gap-4">
+              {/* BEFORE (Original) */}
+              <div className="text-center">
+                <p className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Before</p>
+                {show3D ? (
+                  <div className="rounded-xl overflow-hidden bg-gray-100" style={{ width: 160, height: 220 }}>
+                    <SkinPreview3D skinCanvas={originalSkinCanvasRef.current} />
+                  </div>
+                ) : (
+                  <div className="rounded-xl overflow-hidden bg-gray-100 p-2" style={{ width: 160, height: 220 }}>
+                    <img
+                      src={originalSkinData}
+                      alt="Original skin"
+                      className="w-full h-full object-contain"
+                      style={{ imageRendering: 'pixelated' }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Arrow indicator */}
+              <div className="text-3xl text-gray-400 animate-pulse">→</div>
+
+              {/* AFTER (Current) */}
+              <div className="text-center">
+                <p className="text-xs font-bold text-green-600 mb-2 uppercase tracking-wide">After</p>
+                {show3D ? (
+                  <div className="rounded-xl overflow-hidden ring-2 ring-green-400 ring-offset-2" style={{ width: 160, height: 220 }}>
+                    <SkinPreview3D skinCanvas={canvasRef.current} />
+                  </div>
+                ) : (
+                  <canvas
+                    ref={previewRef}
+                    width={160}
+                    height={220}
+                    className="rounded-xl ring-2 ring-green-400 ring-offset-2"
+                    style={{ imageRendering: 'pixelated' }}
+                  />
+                )}
+              </div>
             </div>
           ) : (
-            <canvas
-              ref={previewRef}
-              width={200}
-              height={280}
-              className="rounded-xl mx-auto"
-              style={{ imageRendering: 'pixelated' }}
-            />
+            /* Normal Preview (non-compare mode) */
+            show3D ? (
+              <div className="rounded-xl mx-auto overflow-hidden skin-preview-3d-container" style={{ width: 200, height: 280 }}>
+                <SkinPreview3D skinCanvas={canvasRef.current} />
+              </div>
+            ) : (
+              <canvas
+                ref={previewRef}
+                width={200}
+                height={280}
+                className="rounded-xl mx-auto"
+                style={{ imageRendering: 'pixelated' }}
+              />
+            )
           )}
 
           {/* Templates - Simplified with categories */}
@@ -5473,6 +6134,97 @@ export default function SkinCreator() {
             </p>
           </div>
 
+          {/* 🎨 Texture Filters - Grain, Blur, Sharpen */}
+          <div className="mb-4 p-3 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+            <button
+              onClick={() => setShowTextureFiltersPanel(!showTextureFiltersPanel)}
+              className="w-full flex items-center justify-between text-xs font-bold text-amber-700 mb-2"
+            >
+              <span className="flex items-center gap-1">
+                <span className="text-base">✨</span> Texture Filters
+                <span className="text-amber-400 font-normal ml-1">(grain, blur, sharpen)</span>
+              </span>
+              <span className={`transform transition-transform ${showTextureFiltersPanel ? 'rotate-180' : ''}`}>
+                ▼
+              </span>
+            </button>
+            
+            {showTextureFiltersPanel && (
+              <>
+                {/* Intensity Slider */}
+                <div className="mb-3 p-2 bg-white rounded-lg border border-amber-100">
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[10px] font-medium text-gray-600">Intensity:</label>
+                    <span className="text-[10px] font-bold text-amber-600">{textureFilterIntensity}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="10"
+                    max="100"
+                    value={textureFilterIntensity}
+                    onChange={(e) => setTextureFilterIntensity(parseInt(e.target.value))}
+                    className="w-full h-2 bg-amber-100 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                  <div className="flex justify-between text-[8px] text-gray-400 mt-0.5">
+                    <span>Subtle</span>
+                    <span>Strong</span>
+                  </div>
+                </div>
+
+                {/* Filter Buttons - First Row */}
+                <div className="grid grid-cols-3 gap-1 mb-1">
+                  {TEXTURE_FILTERS.slice(0, 3).map((filter) => (
+                    <button
+                      key={filter.id}
+                      onClick={() => {
+                        applyTextureFilter(filter.id, textureFilterIntensity);
+                      }}
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
+                        filter.id === 'grain' 
+                          ? 'bg-gradient-to-br from-yellow-100 to-amber-100 border-amber-300 hover:border-amber-400' 
+                          : filter.id === 'blur'
+                          ? 'bg-gradient-to-br from-blue-100 to-sky-100 border-blue-300 hover:border-blue-400'
+                          : 'bg-gradient-to-br from-red-100 to-orange-100 border-red-300 hover:border-red-400'
+                      }`}
+                      title={filter.description}
+                    >
+                      <span className="text-lg">{filter.emoji}</span>
+                      <span className="text-[10px] font-medium text-gray-700">{filter.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Filter Buttons - Second Row */}
+                <div className="grid grid-cols-3 gap-1">
+                  {TEXTURE_FILTERS.slice(3, 6).map((filter) => (
+                    <button
+                      key={filter.id}
+                      onClick={() => {
+                        applyTextureFilter(filter.id, textureFilterIntensity);
+                      }}
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
+                        filter.id === 'emboss' 
+                          ? 'bg-gradient-to-br from-stone-100 to-gray-100 border-stone-300 hover:border-stone-400' 
+                          : filter.id === 'pixelate'
+                          ? 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 hover:border-purple-400'
+                          : 'bg-gradient-to-br from-slate-100 to-zinc-100 border-slate-300 hover:border-slate-400'
+                      }`}
+                      title={filter.description}
+                    >
+                      <span className="text-lg">{filter.emoji}</span>
+                      <span className="text-[10px] font-medium text-gray-700">{filter.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Tip */}
+                <p className="text-[10px] text-amber-500 mt-2 text-center">
+                  💡 Adjust intensity, then click a filter!
+                </p>
+              </>
+            )}
+          </div>
+
           {/* Recent Colors */}
           {recentColors.length > 0 && (
             <div className="mb-3">
@@ -5881,6 +6633,261 @@ export default function SkinCreator() {
         </div>
       )}
 
+      {/* 🌈 HSL/Brightness Adjustments Panel */}
+      {showHSLPanel && (
+        <div className="fixed top-20 right-4 md:right-auto md:left-4 z-40 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200 p-4 w-80 max-h-[calc(100vh-100px)] overflow-y-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="font-bold text-lg flex items-center gap-2">
+              🌈 Color Adjustments
+            </h3>
+            <button
+              onClick={() => setShowHSLPanel(false)}
+              className="text-gray-400 hover:text-gray-600 text-xl"
+            >
+              ×
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-500 mb-4">
+            Adjust colors globally across all layers. Changes are previewed in real-time!
+          </p>
+
+          {/* Hue Slider */}
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm font-medium flex items-center gap-1">
+                🎨 Hue Shift
+              </label>
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                {hslAdjustments.hue > 0 ? '+' : ''}{hslAdjustments.hue}°
+              </span>
+            </div>
+            <input
+              type="range"
+              min="-180"
+              max="180"
+              value={hslAdjustments.hue}
+              onChange={(e) => {
+                setHslAdjustments(prev => ({ ...prev, hue: parseInt(e.target.value) }));
+                setTimeout(applyHSLAdjustments, 0);
+              }}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              style={{
+                background: 'linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)'
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <span>-180°</span>
+              <span>0°</span>
+              <span>+180°</span>
+            </div>
+          </div>
+
+          {/* Saturation Slider */}
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm font-medium flex items-center gap-1">
+                💧 Saturation
+              </label>
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                {hslAdjustments.saturation > 0 ? '+' : ''}{hslAdjustments.saturation}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="-100"
+              max="100"
+              value={hslAdjustments.saturation}
+              onChange={(e) => {
+                setHslAdjustments(prev => ({ ...prev, saturation: parseInt(e.target.value) }));
+                setTimeout(applyHSLAdjustments, 0);
+              }}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              style={{
+                background: 'linear-gradient(to right, #808080, #ff4444)'
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <span>Gray</span>
+              <span>Normal</span>
+              <span>Vivid</span>
+            </div>
+          </div>
+
+          {/* Lightness Slider */}
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm font-medium flex items-center gap-1">
+                ☀️ Lightness
+              </label>
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                {hslAdjustments.lightness > 0 ? '+' : ''}{hslAdjustments.lightness}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="-100"
+              max="100"
+              value={hslAdjustments.lightness}
+              onChange={(e) => {
+                setHslAdjustments(prev => ({ ...prev, lightness: parseInt(e.target.value) }));
+                setTimeout(applyHSLAdjustments, 0);
+              }}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              style={{
+                background: 'linear-gradient(to right, #000000, #888888, #ffffff)'
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <span>Dark</span>
+              <span>Normal</span>
+              <span>Light</span>
+            </div>
+          </div>
+
+          {/* Brightness Slider */}
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm font-medium flex items-center gap-1">
+                ✨ Brightness
+              </label>
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                {hslAdjustments.brightness > 0 ? '+' : ''}{hslAdjustments.brightness}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="-100"
+              max="100"
+              value={hslAdjustments.brightness}
+              onChange={(e) => {
+                setHslAdjustments(prev => ({ ...prev, brightness: parseInt(e.target.value) }));
+                setTimeout(applyHSLAdjustments, 0);
+              }}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              style={{
+                background: 'linear-gradient(to right, #333333, #ffff88)'
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-1">
+              <span>Dim</span>
+              <span>Normal</span>
+              <span>Bright</span>
+            </div>
+          </div>
+
+          {/* Quick Presets */}
+          <div className="mb-4 pt-3 border-t border-gray-100">
+            <p className="text-xs text-gray-500 mb-2">Quick Presets:</p>
+            <div className="grid grid-cols-4 gap-1">
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: -30, saturation: -30, lightness: -10, brightness: 0 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-amber-100 hover:bg-amber-200 rounded-lg transition-all"
+                title="Vintage/Sepia look"
+              >
+                🎞️ Vintage
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 0, saturation: -100, lightness: 0, brightness: 0 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg transition-all"
+                title="Black & White"
+              >
+                ⬛ B&W
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 0, saturation: 50, lightness: 10, brightness: 20 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-pink-100 hover:bg-pink-200 rounded-lg transition-all"
+                title="Pop/Vivid colors"
+              >
+                🌈 Pop
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 180, saturation: -20, lightness: -20, brightness: -10 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-cyan-100 hover:bg-cyan-200 rounded-lg transition-all"
+                title="Inverted/Negative"
+              >
+                🔄 Invert
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 0, saturation: 0, lightness: -30, brightness: -20 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-purple-100 hover:bg-purple-200 rounded-lg transition-all"
+                title="Dark/Night mode"
+              >
+                🌙 Dark
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 0, saturation: 20, lightness: 20, brightness: 30 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-yellow-100 hover:bg-yellow-200 rounded-lg transition-all"
+                title="Bright/Sunny"
+              >
+                ☀️ Sunny
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: -140, saturation: 30, lightness: -10, brightness: 0 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-green-100 hover:bg-green-200 rounded-lg transition-all"
+                title="Zombie/Green tint"
+              >
+                🧟 Zombie
+              </button>
+              <button
+                onClick={() => {
+                  setHslAdjustments({ hue: 200, saturation: 30, lightness: 0, brightness: 10 });
+                  setTimeout(applyHSLAdjustments, 0);
+                }}
+                className="px-2 py-1.5 text-xs bg-blue-100 hover:bg-blue-200 rounded-lg transition-all"
+                title="Ice/Frozen look"
+              >
+                ❄️ Ice
+              </button>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 pt-3 border-t border-gray-100">
+            <button
+              onClick={resetHSLAdjustments}
+              className="flex-1 py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-all"
+            >
+              ↩️ Reset
+            </button>
+            <button
+              onClick={() => {
+                commitHSLAdjustments();
+                setShowHSLPanel(false);
+              }}
+              className="flex-1 py-2 px-3 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-bold transition-all"
+            >
+              ✓ Apply
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-400 mt-3 text-center">
+            Tip: Click &quot;Apply&quot; to make changes permanent
+          </p>
+        </div>
+      )}
+
       {/* 📤 Export Panel - Mobile optimized with all export options */}
       {showExportPanel && (
         <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
@@ -6226,6 +7233,22 @@ export default function SkinCreator() {
                 className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 🎨 Layers
+              </button>
+              <button
+                onClick={() => {
+                  // Store original canvas data when opening HSL panel
+                  if (!showHSLPanel && canvasRef.current) {
+                    const ctx = canvasRef.current.getContext('2d');
+                    if (ctx) {
+                      originalCanvasData.current = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+                    }
+                  }
+                  setShowHSLPanel(!showHSLPanel);
+                  setShowMobileMenu(false);
+                }}
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
+              >
+                🌈 Color Adjustments
               </button>
               <button
                 onClick={() => { setShowURLImport(true); setShowMobileMenu(false); }}
@@ -6974,6 +7997,26 @@ export default function SkinCreator() {
           title="Toggle Layers (L)"
         >
           🎨
+        </button>
+
+        {/* HSL/Color Adjustments Toggle Button */}
+        <button
+          onClick={() => {
+            // Store original canvas data when opening HSL panel
+            if (!showHSLPanel && canvasRef.current) {
+              const ctx = canvasRef.current.getContext('2d');
+              if (ctx) {
+                originalCanvasData.current = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+              }
+            }
+            setShowHSLPanel(!showHSLPanel);
+          }}
+          className={`w-12 h-12 md:w-10 md:h-10 rounded-full shadow-lg text-xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center ${
+            showHSLPanel ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-white/90'
+          }`}
+          title="Color Adjustments (HSL)"
+        >
+          🌈
         </button>
       </div>
 

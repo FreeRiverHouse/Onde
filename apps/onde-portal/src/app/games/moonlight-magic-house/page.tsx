@@ -559,6 +559,172 @@ const sounds = {
       })
     }
     haptic.success()
+  },
+
+  // ========== PET COMPANION SOUNDS ==========
+
+  // Cute kitten meow - soft ascending mew
+  meow: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    const filter = ctx.createBiquadFilter()
+    o.connect(filter); filter.connect(g); g.connect(ctx.destination)
+    
+    // Start high, go higher, then drop - classic meow contour
+    o.frequency.setValueAtTime(600, ctx.currentTime)
+    o.frequency.linearRampToValueAtTime(900, ctx.currentTime + 0.1)
+    o.frequency.exponentialRampToValueAtTime(500, ctx.currentTime + 0.3)
+    o.type = 'sine'
+    
+    filter.type = 'bandpass'
+    filter.frequency.setValueAtTime(800, ctx.currentTime)
+    filter.Q.setValueAtTime(2, ctx.currentTime)
+    
+    g.gain.setValueAtTime(0, ctx.currentTime)
+    g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.05)
+    g.gain.setValueAtTime(0.1, ctx.currentTime + 0.15)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35)
+    
+    o.start(); o.stop(ctx.currentTime + 0.35)
+    haptic.light()
+  },
+
+  // Cute puppy bark - short happy yip
+  bark: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    
+    // Two short yips
+    for (let i = 0; i < 2; i++) {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      
+      // Sharp attack, quick decay - yip!
+      o.frequency.setValueAtTime(450, ctx.currentTime + i * 0.15)
+      o.frequency.linearRampToValueAtTime(550, ctx.currentTime + i * 0.15 + 0.03)
+      o.frequency.exponentialRampToValueAtTime(350, ctx.currentTime + i * 0.15 + 0.1)
+      o.type = 'triangle'
+      
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.15)
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.15 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.12)
+      
+      o.start(ctx.currentTime + i * 0.15); o.stop(ctx.currentTime + i * 0.15 + 0.12)
+    }
+    haptic.double()
+  },
+
+  // Pet happy sound - cute little chirp
+  petHappy: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [523, 659, 784] // C-E-G happy chord
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.08)
+      g.gain.linearRampToValueAtTime(0.08, ctx.currentTime + i * 0.08 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.2)
+      o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.2)
+    })
+    haptic.light()
+  },
+
+  // ========== PUZZLE & MEMORY GAME SOUNDS ==========
+
+  // Puzzle tile slide - soft whoosh
+  puzzleSlide: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    const filter = ctx.createBiquadFilter()
+    o.connect(filter); filter.connect(g); g.connect(ctx.destination)
+    filter.type = 'lowpass'
+    filter.frequency.setValueAtTime(800, ctx.currentTime)
+    o.frequency.setValueAtTime(200, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.1, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15)
+    o.start(); o.stop(ctx.currentTime + 0.15)
+    haptic.light()
+  },
+
+  // Puzzle complete - triumphant fanfare
+  puzzleComplete: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [523, 659, 784, 1047, 1319] // C-E-G-C-E triumph
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.12)
+      o.type = i === notes.length - 1 ? 'sine' : 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.12)
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.12 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.4)
+      o.start(ctx.currentTime + i * 0.12); o.stop(ctx.currentTime + i * 0.12 + 0.4)
+    })
+    haptic.celebration()
+  },
+
+  // Memory card flip - soft pop
+  cardFlip: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(400, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.08)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.12, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1)
+    o.start(); o.stop(ctx.currentTime + 0.1)
+    haptic.light()
+  },
+
+  // Memory match success - happy chime
+  memoryMatch: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [659, 784, 880] // E-G-A happy
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.1)
+      o.type = 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.1)
+      g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + i * 0.1 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.25)
+      o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.25)
+    })
+    haptic.success()
+  },
+
+  // Memory mismatch - gentle no
+  memoryMismatch: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(300, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.15)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.08, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
+    o.start(); o.stop(ctx.currentTime + 0.18)
+    haptic.light()
   }
 }
 
@@ -1569,6 +1735,330 @@ const animationStyles = `
 `
 
 // ============ CUTE SVG COMPONENTS ============
+
+// ============ PET COMPANION COMPONENT ============
+// Adorable pet that follows the player around!
+
+type PetType = 'kitten' | 'puppy'
+type PetState = 'idle' | 'walking' | 'sitting' | 'happy'
+
+const PetCompanion = ({ 
+  type = 'kitten', 
+  state = 'idle', 
+  facingRight = true,
+  className = '' 
+}: { 
+  type?: PetType
+  state?: PetState
+  facingRight?: boolean
+  className?: string 
+}) => {
+  const transform = facingRight ? '' : 'scale(-1, 1)'
+  
+  if (type === 'puppy') {
+    return (
+      <svg viewBox="0 0 80 80" className={`${className} gpu-accelerated`} style={{ filter: 'drop-shadow(0 4px 15px rgba(200, 150, 100, 0.4))' }}>
+        <g transform={`translate(40, 40) ${transform} translate(-40, -40)`}>
+          {/* Puppy body */}
+          <ellipse cx="40" cy="55" rx="22" ry="18" fill="#D4A574" className={state === 'walking' ? 'animate-breathe' : ''} />
+          
+          {/* Puppy head */}
+          <circle cx="40" cy="32" r="20" fill="#D4A574" />
+          
+          {/* Floppy ears */}
+          <ellipse cx="22" cy="30" rx="10" ry="14" fill="#C4956A" transform="rotate(-15 22 30)" />
+          <ellipse cx="58" cy="30" rx="10" ry="14" fill="#C4956A" transform="rotate(15 58 30)" />
+          <ellipse cx="24" cy="32" rx="6" ry="9" fill="#E8C5A0" transform="rotate(-15 24 32)" />
+          <ellipse cx="56" cy="32" rx="6" ry="9" fill="#E8C5A0" transform="rotate(15 56 32)" />
+          
+          {/* Face markings */}
+          <circle cx="40" cy="38" r="14" fill="#E8C5A0" opacity="0.7" />
+          
+          {/* Eyes */}
+          {state === 'happy' ? (
+            <>
+              <path d="M32 30 Q36 24 40 30" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
+              <path d="M48 30 Q44 24 40 30" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
+            </>
+          ) : (
+            <>
+              <ellipse cx="34" cy="30" rx="4" ry="5" fill="#333" />
+              <ellipse cx="46" cy="30" rx="4" ry="5" fill="#333" />
+              <circle cx="35.5" cy="28.5" r="1.5" fill="white" />
+              <circle cx="47.5" cy="28.5" r="1.5" fill="white" />
+            </>
+          )}
+          
+          {/* Nose */}
+          <ellipse cx="40" cy="38" rx="5" ry="4" fill="#3D3D3D" />
+          <ellipse cx="40" cy="37" rx="2" ry="1" fill="#666" />
+          
+          {/* Mouth */}
+          <path d="M36 42 Q40 46 44 42" fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
+          
+          {/* Tongue when happy */}
+          {state === 'happy' && (
+            <ellipse cx="40" cy="46" rx="4" ry="5" fill="#FF6B8A" />
+          )}
+          
+          {/* Blush */}
+          <circle cx="26" cy="36" r="4" fill="#FFB6C1" opacity="0.5" />
+          <circle cx="54" cy="36" r="4" fill="#FFB6C1" opacity="0.5" />
+          
+          {/* Legs */}
+          <ellipse cx="28" cy="70" rx="6" ry="8" fill="#D4A574" className={state === 'walking' ? 'animate-bounce-gentle' : ''} />
+          <ellipse cx="52" cy="70" rx="6" ry="8" fill="#D4A574" className={state === 'walking' ? 'animate-bounce-gentle' : ''} style={{ animationDelay: '0.15s' }} />
+          
+          {/* Paws */}
+          <ellipse cx="28" cy="75" rx="5" ry="3" fill="#C4956A" />
+          <ellipse cx="52" cy="75" rx="5" ry="3" fill="#C4956A" />
+          
+          {/* Tail - wagging when happy */}
+          <path 
+            d="M60 55 Q70 45 68 35" 
+            fill="none" 
+            stroke="#D4A574" 
+            strokeWidth="6" 
+            strokeLinecap="round"
+            className={state === 'happy' || state === 'walking' ? 'animate-tail-wag' : ''}
+            style={{ transformOrigin: '60px 55px' }}
+          />
+          
+          {/* Sparkles when happy */}
+          {state === 'happy' && (
+            <>
+              <circle cx="18" cy="20" r="2" fill="#FFD700" className="animate-sparkle" />
+              <circle cx="62" cy="20" r="2" fill="#FFD700" className="animate-sparkle" style={{ animationDelay: '0.3s' }} />
+            </>
+          )}
+        </g>
+      </svg>
+    )
+  }
+  
+  // Default: Kitten
+  return (
+    <svg viewBox="0 0 80 80" className={`${className} gpu-accelerated`} style={{ filter: 'drop-shadow(0 4px 15px rgba(255, 180, 100, 0.4))' }}>
+      <g transform={`translate(40, 40) ${transform} translate(-40, -40)`}>
+        {/* Kitten body */}
+        <ellipse cx="40" cy="55" rx="20" ry="16" fill="#FFB366" className={state === 'walking' ? 'animate-breathe' : ''} />
+        
+        {/* Kitten head */}
+        <circle cx="40" cy="32" r="18" fill="#FFB366" />
+        
+        {/* Pointy ears */}
+        <path d="M22 28 L18 8 L30 22 Z" fill="#FFB366" />
+        <path d="M58 28 L62 8 L50 22 Z" fill="#FFB366" />
+        <path d="M24 26 L22 14 L29 22 Z" fill="#FFD4B8" />
+        <path d="M56 26 L58 14 L51 22 Z" fill="#FFD4B8" />
+        
+        {/* Face markings */}
+        <circle cx="40" cy="38" r="12" fill="#FFD4B8" opacity="0.6" />
+        
+        {/* Eyes */}
+        {state === 'happy' ? (
+          <>
+            <path d="M32 30 Q36 24 40 30" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M48 30 Q44 24 40 30" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
+          </>
+        ) : state === 'sitting' ? (
+          <>
+            <path d="M32 32 L38 32" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+            <path d="M42 32 L48 32" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+          </>
+        ) : (
+          <>
+            <ellipse cx="34" cy="30" rx="4" ry="5" fill="#333" />
+            <ellipse cx="46" cy="30" rx="4" ry="5" fill="#333" />
+            <circle cx="35.5" cy="28.5" r="1.5" fill="white" />
+            <circle cx="47.5" cy="28.5" r="1.5" fill="white" />
+          </>
+        )}
+        
+        {/* Nose */}
+        <ellipse cx="40" cy="38" rx="3" ry="2.5" fill="#FF8FAB" />
+        
+        {/* Mouth */}
+        <path d="M37 41 L40 44 L43 41" fill="none" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
+        
+        {/* Whiskers */}
+        <g stroke="#333" strokeWidth="0.8" opacity="0.5">
+          <line x1="18" y1="36" x2="30" y2="38" />
+          <line x1="18" y1="40" x2="30" y2="40" />
+          <line x1="18" y1="44" x2="30" y2="42" />
+          <line x1="62" y1="36" x2="50" y2="38" />
+          <line x1="62" y1="40" x2="50" y2="40" />
+          <line x1="62" y1="44" x2="50" y2="42" />
+        </g>
+        
+        {/* Blush */}
+        <circle cx="26" cy="38" r="4" fill="#FF8FAB" opacity="0.4" />
+        <circle cx="54" cy="38" r="4" fill="#FF8FAB" opacity="0.4" />
+        
+        {/* Legs */}
+        <ellipse cx="30" cy="68" rx="5" ry="7" fill="#FFB366" className={state === 'walking' ? 'animate-bounce-gentle' : ''} />
+        <ellipse cx="50" cy="68" rx="5" ry="7" fill="#FFB366" className={state === 'walking' ? 'animate-bounce-gentle' : ''} style={{ animationDelay: '0.15s' }} />
+        
+        {/* Paws */}
+        <ellipse cx="30" cy="73" rx="4" ry="2.5" fill="#FFD4B8" />
+        <ellipse cx="50" cy="73" rx="4" ry="2.5" fill="#FFD4B8" />
+        
+        {/* Tail - curved and animated */}
+        <path 
+          d="M58 55 Q72 50 70 35 Q68 28 72 25" 
+          fill="none" 
+          stroke="#FFB366" 
+          strokeWidth="5" 
+          strokeLinecap="round"
+          className={state === 'happy' || state === 'walking' ? 'animate-tail-wag' : ''}
+          style={{ transformOrigin: '58px 55px' }}
+        />
+        
+        {/* Stripes on tail */}
+        <path d="M64 45 Q66 44 65 42" fill="none" stroke="#F5A050" strokeWidth="2" strokeLinecap="round" />
+        <path d="M68 38 Q70 36 68 34" fill="none" stroke="#F5A050" strokeWidth="2" strokeLinecap="round" />
+        
+        {/* Sparkles when happy */}
+        {state === 'happy' && (
+          <>
+            <circle cx="15" cy="15" r="2" fill="#FFD700" className="animate-sparkle" />
+            <circle cx="65" cy="15" r="2" fill="#FFD700" className="animate-sparkle" style={{ animationDelay: '0.3s' }} />
+            <circle cx="70" cy="40" r="1.5" fill="#FFD700" className="animate-sparkle" style={{ animationDelay: '0.5s' }} />
+          </>
+        )}
+      </g>
+    </svg>
+  )
+}
+
+// Pet companion hook - handles mouse following logic
+const usePetCompanion = (enabled: boolean = true, soundEnabled: boolean = true) => {
+  const [petPosition, setPetPosition] = useState({ x: 0, y: 0 })
+  const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 })
+  const [petState, setPetState] = useState<PetState>('idle')
+  const [facingRight, setFacingRight] = useState(true)
+  const [petType] = useState<PetType>(() => Math.random() > 0.5 ? 'kitten' : 'puppy')
+  
+  const lastMoveTime = useRef(Date.now())
+  const animationRef = useRef<number | null>(null)
+  const lastSoundTime = useRef(0)
+  
+  // Initialize pet position
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const initialX = window.innerWidth / 2
+      const initialY = window.innerHeight * 0.8
+      setPetPosition({ x: initialX, y: initialY })
+      setTargetPosition({ x: initialX, y: initialY })
+    }
+  }, [])
+  
+  // Track mouse/touch position
+  useEffect(() => {
+    if (!enabled) return
+    
+    const handleMove = (clientX: number, clientY: number) => {
+      // Add offset so pet follows a bit behind and below cursor
+      const offsetY = 60
+      setTargetPosition({ x: clientX, y: clientY + offsetY })
+      lastMoveTime.current = Date.now()
+    }
+    
+    const handleMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY)
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handleMove(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+    
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [enabled])
+  
+  // Smooth follow animation loop
+  useEffect(() => {
+    if (!enabled) return
+    
+    const lerp = (start: number, end: number, factor: number) => {
+      return start + (end - start) * factor
+    }
+    
+    const animate = () => {
+      setPetPosition(prev => {
+        const dx = targetPosition.x - prev.x
+        const dy = targetPosition.y - prev.y
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        
+        // Update facing direction
+        if (Math.abs(dx) > 5) {
+          setFacingRight(dx > 0)
+        }
+        
+        // Update pet state based on movement
+        const timeSinceMove = Date.now() - lastMoveTime.current
+        if (distance > 20) {
+          setPetState('walking')
+        } else if (timeSinceMove > 3000) {
+          setPetState('sitting')
+        } else if (timeSinceMove > 1000) {
+          setPetState('idle')
+        }
+        
+        // Smooth interpolation - faster when far, slower when close
+        const speed = distance > 100 ? 0.08 : distance > 50 ? 0.06 : 0.04
+        
+        return {
+          x: lerp(prev.x, targetPosition.x, speed),
+          y: lerp(prev.y, targetPosition.y, speed)
+        }
+      })
+      
+      animationRef.current = requestAnimationFrame(animate)
+    }
+    
+    animationRef.current = requestAnimationFrame(animate)
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [enabled, targetPosition])
+  
+  // Make pet happy occasionally and play sounds
+  useEffect(() => {
+    if (!enabled) return
+    
+    const interval = setInterval(() => {
+      // Randomly become happy for a moment
+      if (Math.random() > 0.7 && petState === 'idle') {
+        setPetState('happy')
+        
+        // Play pet sound occasionally
+        const now = Date.now()
+        if (soundEnabled && now - lastSoundTime.current > 10000) {
+          lastSoundTime.current = now
+          if (petType === 'kitten') {
+            sounds.meow(true)
+          } else {
+            sounds.bark(true)
+          }
+        }
+        
+        setTimeout(() => setPetState('idle'), 2000)
+      }
+    }, 5000)
+    
+    return () => clearInterval(interval)
+  }, [enabled, petState, petType, soundEnabled])
+  
+  return { petPosition, petState, facingRight, petType }
+}
 
 const CuteCat = ({ mood = 'neutral', className = '' }: { mood?: 'neutral' | 'happy' | 'eating' | 'sleepy' | 'excited'; className?: string }) => (
   <svg viewBox="0 0 100 100" className={`${className} gpu-accelerated`} style={{ filter: 'drop-shadow(0 4px 20px rgba(255, 200, 100, 0.3))' }}>
@@ -2927,6 +3417,13 @@ export default function MoonlightMagicHouse() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [moonPhase, setMoonPhase] = useState<'full' | 'waning' | 'crescent' | 'new'>('full')
   
+  // Pet companion state - follows the player around!
+  const { petPosition, petState, facingRight, petType } = usePetCompanion(
+    gameState === 'menu', // Only active in menu
+    soundEnabled
+  )
+  const [showPetIntro, setShowPetIntro] = useState(true)
+  
   // Interactive furniture state
   const [furnitureState, setFurnitureState] = useState<FurnitureState>({
     lamp: false,
@@ -2955,6 +3452,18 @@ export default function MoonlightMagicHouse() {
   const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null)
   const [petFed, setPetFed] = useState(false)
   const [petMood, setPetMood] = useState<'hungry' | 'eating' | 'happy'>('hungry')
+  
+  // Puzzle game state
+  const [puzzleTiles, setPuzzleTiles] = useState<PuzzleTile[]>([])
+  const [puzzleMoves, setPuzzleMoves] = useState(0)
+  const [puzzleSolved, setPuzzleSolved] = useState(false)
+  
+  // Memory game state
+  const [memoryCards, setMemoryCards] = useState<MemoryCard[]>([])
+  const [flippedCards, setFlippedCards] = useState<number[]>([])
+  const [memoryMoves, setMemoryMoves] = useState(0)
+  const [memoryMatches, setMemoryMatches] = useState(0)
+  const [isCheckingMatch, setIsCheckingMatch] = useState(false)
   
   // RAF-based smooth dragging
   const dragRef = useRef<HTMLDivElement>(null)
@@ -3001,6 +3510,14 @@ export default function MoonlightMagicHouse() {
     }, 1200)
     return () => clearTimeout(timer)
   }, [])
+  
+  // Hide pet intro bubble after a few seconds
+  useEffect(() => {
+    if (gameState === 'menu' && showPetIntro) {
+      const timer = setTimeout(() => setShowPetIntro(false), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [gameState, showPetIntro])
   
   // Day/Night cycle automatic progression
   useEffect(() => {
@@ -3256,6 +3773,193 @@ export default function MoonlightMagicHouse() {
     dragPositionRef.current = null
     setGameState('feed-time')
   }, [soundEnabled])
+  
+  // Initialize Puzzle game - 3x3 sliding puzzle
+  const PUZZLE_EMOJIS = ['🌟', '🌙', '✨', '🦋', '🌸', '🎀', '💫', '🌈']
+  
+  const startPuzzle = useCallback(() => {
+    sounds.menuClick(soundEnabled)
+    sounds.windChime(soundEnabled)
+    
+    // Create shuffled tiles (8 tiles + 1 empty)
+    const tiles: PuzzleTile[] = PUZZLE_EMOJIS.map((emoji, i) => ({
+      id: i,
+      currentPos: i,
+      correctPos: i,
+      emoji
+    }))
+    
+    // Shuffle tiles by making valid moves (ensures solvable puzzle)
+    let emptyPos = 8 // Empty position starts at bottom-right
+    const getAdjacent = (pos: number) => {
+      const adj: number[] = []
+      const row = Math.floor(pos / 3)
+      const col = pos % 3
+      if (row > 0) adj.push(pos - 3) // up
+      if (row < 2) adj.push(pos + 3) // down
+      if (col > 0) adj.push(pos - 1) // left
+      if (col < 2) adj.push(pos + 1) // right
+      return adj
+    }
+    
+    // Perform 50 random valid moves to shuffle
+    for (let i = 0; i < 50; i++) {
+      const adjacent = getAdjacent(emptyPos)
+      const moveFrom = adjacent[Math.floor(Math.random() * adjacent.length)]
+      const tileToMove = tiles.find(t => t.currentPos === moveFrom)
+      if (tileToMove) {
+        tileToMove.currentPos = emptyPos
+        emptyPos = moveFrom
+      }
+    }
+    
+    setPuzzleTiles(tiles)
+    setPuzzleMoves(0)
+    setPuzzleSolved(false)
+    setGameState('puzzle')
+  }, [soundEnabled])
+  
+  // Handle puzzle tile click
+  const handlePuzzleTileClick = useCallback((tileId: number) => {
+    if (puzzleSolved) return
+    
+    const tile = puzzleTiles.find(t => t.id === tileId)
+    if (!tile) return
+    
+    // Find empty position
+    const occupiedPositions = new Set(puzzleTiles.map(t => t.currentPos))
+    let emptyPos = -1
+    for (let i = 0; i < 9; i++) {
+      if (!occupiedPositions.has(i)) {
+        emptyPos = i
+        break
+      }
+    }
+    
+    // Check if tile is adjacent to empty space
+    const tileRow = Math.floor(tile.currentPos / 3)
+    const tileCol = tile.currentPos % 3
+    const emptyRow = Math.floor(emptyPos / 3)
+    const emptyCol = emptyPos % 3
+    
+    const isAdjacent = 
+      (Math.abs(tileRow - emptyRow) === 1 && tileCol === emptyCol) ||
+      (Math.abs(tileCol - emptyCol) === 1 && tileRow === emptyRow)
+    
+    if (isAdjacent) {
+      sounds.puzzleSlide(soundEnabled)
+      
+      // Move tile to empty position
+      const newTiles = puzzleTiles.map(t => 
+        t.id === tileId ? { ...t, currentPos: emptyPos } : t
+      )
+      setPuzzleTiles(newTiles)
+      setPuzzleMoves(prev => prev + 1)
+      
+      // Check if solved
+      const isSolved = newTiles.every(t => t.currentPos === t.correctPos)
+      if (isSolved) {
+        setPuzzleSolved(true)
+        sounds.puzzleComplete(soundEnabled)
+        setRewards(prev => ({ ...prev, stars: prev.stars + 50 }))
+        setTimeout(() => {
+          sounds.celebrate(soundEnabled)
+          setGameState('reward')
+        }, 1500)
+      }
+    }
+  }, [puzzleTiles, puzzleSolved, soundEnabled])
+  
+  // Initialize Memory game - 4x3 card grid (6 pairs)
+  const MEMORY_EMOJIS = ['🌟', '🌙', '🦋', '🌸', '🎀', '💫']
+  
+  const startMemory = useCallback(() => {
+    sounds.menuClick(soundEnabled)
+    sounds.windChime(soundEnabled)
+    
+    // Create pairs and shuffle
+    const pairs = [...MEMORY_EMOJIS, ...MEMORY_EMOJIS]
+    const shuffled = pairs.sort(() => Math.random() - 0.5)
+    
+    const cards: MemoryCard[] = shuffled.map((emoji, i) => ({
+      id: i,
+      emoji,
+      isFlipped: false,
+      isMatched: false
+    }))
+    
+    setMemoryCards(cards)
+    setFlippedCards([])
+    setMemoryMoves(0)
+    setMemoryMatches(0)
+    setIsCheckingMatch(false)
+    setGameState('memory')
+  }, [soundEnabled])
+  
+  // Handle memory card click
+  const handleMemoryCardClick = useCallback((cardId: number) => {
+    if (isCheckingMatch) return
+    
+    const card = memoryCards.find(c => c.id === cardId)
+    if (!card || card.isFlipped || card.isMatched) return
+    if (flippedCards.length >= 2) return
+    
+    sounds.cardFlip(soundEnabled)
+    
+    // Flip the card
+    const newCards = memoryCards.map(c => 
+      c.id === cardId ? { ...c, isFlipped: true } : c
+    )
+    setMemoryCards(newCards)
+    
+    const newFlipped = [...flippedCards, cardId]
+    setFlippedCards(newFlipped)
+    
+    // Check for match if two cards are flipped
+    if (newFlipped.length === 2) {
+      setMemoryMoves(prev => prev + 1)
+      setIsCheckingMatch(true)
+      
+      const [firstId, secondId] = newFlipped
+      const firstCard = newCards.find(c => c.id === firstId)
+      const secondCard = newCards.find(c => c.id === secondId)
+      
+      if (firstCard && secondCard && firstCard.emoji === secondCard.emoji) {
+        // Match!
+        sounds.memoryMatch(soundEnabled)
+        setTimeout(() => {
+          setMemoryCards(prev => prev.map(c => 
+            c.id === firstId || c.id === secondId ? { ...c, isMatched: true } : c
+          ))
+          setFlippedCards([])
+          setMemoryMatches(prev => {
+            const newMatches = prev + 1
+            // Check if all matched
+            if (newMatches === MEMORY_EMOJIS.length) {
+              sounds.puzzleComplete(soundEnabled)
+              setRewards(prev => ({ ...prev, stars: prev.stars + 30 }))
+              setTimeout(() => {
+                sounds.celebrate(soundEnabled)
+                setGameState('reward')
+              }, 1000)
+            }
+            return newMatches
+          })
+          setIsCheckingMatch(false)
+        }, 500)
+      } else {
+        // No match - flip back
+        sounds.memoryMismatch(soundEnabled)
+        setTimeout(() => {
+          setMemoryCards(prev => prev.map(c => 
+            c.id === firstId || c.id === secondId ? { ...c, isFlipped: false } : c
+          ))
+          setFlippedCards([])
+          setIsCheckingMatch(false)
+        }, 1000)
+      }
+    }
+  }, [memoryCards, flippedCards, isCheckingMatch, soundEnabled])
   
   // Sound toggle handler
   const toggleSound = useCallback(() => {
@@ -3660,29 +4364,57 @@ export default function MoonlightMagicHouse() {
           </div>
           
           {/* Game buttons with glow effects */}
-          <div className="flex flex-col gap-4 max-w-xs mx-auto">
+          <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
             <button
               onClick={startFindToy}
-              className="glow-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-purple-500/30 hover:shadow-purple-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
+              className="glow-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-3 px-4 rounded-2xl text-sm shadow-lg shadow-purple-500/30 hover:shadow-purple-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
             >
               <span className="flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" className="w-6 h-6">
+                <svg viewBox="0 0 24 24" className="w-5 h-5">
                   <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
                   <line x1="15" y1="15" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
-                Find the Toy
+                Find Toy
               </span>
             </button>
             <button
               onClick={startFeedTime}
-              className="glow-button bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
+              className="glow-button bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-white font-bold py-3 px-4 rounded-2xl text-sm shadow-lg shadow-orange-500/30 hover:shadow-orange-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
             >
               <span className="flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" className="w-6 h-6">
+                <svg viewBox="0 0 24 24" className="w-5 h-5">
                   <ellipse cx="12" cy="17" rx="9" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
                   <path d="M12 12 L12 8 M9 10 L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
                 Feed Time
+              </span>
+            </button>
+            <button
+              onClick={startPuzzle}
+              className="glow-button bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-3 px-4 rounded-2xl text-sm shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" className="w-5 h-5">
+                  <rect x="3" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                </svg>
+                Puzzle
+              </span>
+            </button>
+            <button
+              onClick={startMemory}
+              className="glow-button bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-3 px-4 rounded-2xl text-sm shadow-lg shadow-emerald-500/30 hover:shadow-emerald-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" className="w-5 h-5">
+                  <rect x="2" y="4" width="8" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <rect x="14" y="4" width="8" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <path d="M6 8 L6 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M18 8 L18 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Memory
               </span>
             </button>
           </div>
