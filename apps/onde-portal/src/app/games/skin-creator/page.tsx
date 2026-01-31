@@ -749,6 +749,25 @@ export default function SkinCreator() {
     localStorage.setItem('skin-tips-dismissed', JSON.stringify(updated));
   };
   
+  // 📅 Daily Challenge
+  const DAILY_CHALLENGES = [
+    { theme: '🏴‍☠️ Pirate', hint: 'Arrr! Create a swashbuckling pirate!' },
+    { theme: '🧙 Wizard', hint: 'Magical robes and pointy hat!' },
+    { theme: '🤖 Robot', hint: 'Beep boop! Metallic and futuristic!' },
+    { theme: '🦸 Superhero', hint: 'Cape and mask ready!' },
+    { theme: '🎃 Halloween', hint: 'Spooky and scary!' },
+    { theme: '🐉 Dragon Knight', hint: 'Scale armor and dragon themes!' },
+    { theme: '🌊 Ocean Explorer', hint: 'Dive deep with aquatic vibes!' },
+    { theme: '🚀 Astronaut', hint: 'Space suit and cosmic colors!' },
+    { theme: '🍀 Leprechaun', hint: 'Green and gold luck!' },
+    { theme: '⚔️ Medieval Knight', hint: 'Armor up!' },
+    { theme: '🎭 Jester', hint: 'Colorful and silly!' },
+    { theme: '🐱 Cat Person', hint: 'Meow! Ears and whiskers!' },
+    { theme: '🔥 Fire Mage', hint: 'Hot and fiery!' },
+    { theme: '❄️ Ice Queen/King', hint: 'Frozen elegance!' },
+  ];
+  const todayChallenge = DAILY_CHALLENGES[new Date().getDate() % DAILY_CHALLENGES.length];
+  
   const ACHIEVEMENTS = {
     firstDraw: { name: 'First Stroke!', emoji: '🎨' },
     colorMaster: { name: 'Color Master', emoji: '🌈' },
@@ -1878,6 +1897,17 @@ export default function SkinCreator() {
             🏆 {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
           </button>
         </p>
+
+        {/* Daily Challenge Banner */}
+        <div className="mt-3 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl px-4 py-2 text-white text-sm flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📅</span>
+            <span className="font-bold">Daily Challenge:</span>
+            <span>{todayChallenge.theme}</span>
+            <span className="opacity-80 text-xs hidden sm:inline">• {todayChallenge.hint}</span>
+          </div>
+          <span className="text-xs opacity-75">#SkinStudioChallenge</span>
+        </div>
 
         {/* Game Selector */}
         <div className="flex gap-2 mt-3">
