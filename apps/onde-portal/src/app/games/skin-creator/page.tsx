@@ -636,7 +636,7 @@ export default function SkinCreator() {
     }
 
     // Clear other layers
-    clearLayer('clothing');
+    clearLayer('details');
     clearLayer('accessories');
 
     compositeLayersToMain();
@@ -1027,7 +1027,7 @@ export default function SkinCreator() {
     
     // Capture all layer states
     const layerStates: { [key in LayerType]?: ImageData } = {};
-    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+    (['base', 'details', 'accessories'] as LayerType[]).forEach(layerId => {
       const layerCanvas = layerCanvasRefs.current[layerId];
       if (layerCanvas) {
         const layerCtx = layerCanvas.getContext('2d');
@@ -1072,7 +1072,7 @@ export default function SkinCreator() {
     if (!state) return;
 
     // Restore all layer canvases
-    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+    (['base', 'details', 'accessories'] as LayerType[]).forEach(layerId => {
       const layerCanvas = layerCanvasRefs.current[layerId];
       const layerData = state.layers[layerId];
       if (layerCanvas && layerData) {
@@ -1117,7 +1117,7 @@ export default function SkinCreator() {
     if (!state) return;
 
     // Restore all layer canvases
-    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+    (['base', 'details', 'accessories'] as LayerType[]).forEach(layerId => {
       const layerCanvas = layerCanvasRefs.current[layerId];
       const layerData = state.layers[layerId];
       if (layerCanvas && layerData) {
@@ -1149,7 +1149,7 @@ export default function SkinCreator() {
     if (!state) return;
 
     // Restore all layer canvases
-    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+    (['base', 'details', 'accessories'] as LayerType[]).forEach(layerId => {
       const layerCanvas = layerCanvasRefs.current[layerId];
       const layerData = state.layers[layerId];
       if (layerCanvas && layerData) {
@@ -1343,12 +1343,12 @@ export default function SkinCreator() {
         // Layer shortcuts
         case 'l': setShowLayerPanel(prev => !prev); break;
         case '[': setActiveLayer(prev => {
-          const idx = ['base', 'clothing', 'accessories'].indexOf(prev);
-          return ['base', 'clothing', 'accessories'][(idx + 2) % 3] as LayerType;
+          const idx = ['base', 'details', 'accessories'].indexOf(prev);
+          return ['base', 'details', 'accessories'][(idx + 2) % 3] as LayerType;
         }); break;
         case ']': setActiveLayer(prev => {
-          const idx = ['base', 'clothing', 'accessories'].indexOf(prev);
-          return ['base', 'clothing', 'accessories'][(idx + 1) % 3] as LayerType;
+          const idx = ['base', 'details', 'accessories'].indexOf(prev);
+          return ['base', 'details', 'accessories'][(idx + 1) % 3] as LayerType;
         }); break;
         case 'c': if (!e.metaKey && !e.ctrlKey) setShowDuplicateMenu(prev => !prev); break;
       }
@@ -1709,17 +1709,17 @@ export default function SkinCreator() {
   const loadTemplate = useCallback((template: keyof typeof TEMPLATES | 'blank') => {
     // 🎨 Clear all layer canvases first
     const baseCanvas = getLayerCanvas('base');
-    const clothingCanvas = getLayerCanvas('clothing');
+    const detailsCanvas = getLayerCanvas('details');
     const accessoriesCanvas = getLayerCanvas('accessories');
 
     const baseCtx = baseCanvas.getContext('2d');
-    const clothingCtx = clothingCanvas.getContext('2d');
+    const detailsCtx = detailsCanvas.getContext('2d');
     const accessoriesCtx = accessoriesCanvas.getContext('2d');
 
-    if (!baseCtx || !clothingCtx || !accessoriesCtx) return;
+    if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
 
     baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-    clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
 
     if (template === 'blank') {
@@ -1777,32 +1777,32 @@ export default function SkinCreator() {
     baseCtx.fillRect(40, 52, 4, 12);
     baseCtx.fillRect(44, 52, 4, 12);
 
-    // 🎨 LAYER: CLOTHING - Shirt, pants, shoes (drawn on clothing layer)
+    // 🎨 LAYER: DETAILS - Shirt, pants, shoes (drawn on details layer)
     // Body - front (8x12 at position 20,20)
-    clothingCtx.fillStyle = t.shirt;
-    clothingCtx.fillRect(20, 20, 8, 12);
+    detailsCtx.fillStyle = t.shirt;
+    detailsCtx.fillRect(20, 20, 8, 12);
     // Body sides, back
-    clothingCtx.fillRect(16, 20, 4, 12);
-    clothingCtx.fillRect(28, 20, 4, 12);
-    clothingCtx.fillRect(32, 20, 8, 12);
+    detailsCtx.fillRect(16, 20, 4, 12);
+    detailsCtx.fillRect(28, 20, 4, 12);
+    detailsCtx.fillRect(32, 20, 8, 12);
 
     // Legs - pants
-    clothingCtx.fillStyle = t.pants;
+    detailsCtx.fillStyle = t.pants;
     // Right leg
-    clothingCtx.fillRect(4, 20, 4, 12);
-    clothingCtx.fillRect(0, 20, 4, 12);
-    clothingCtx.fillRect(8, 20, 4, 12);
-    clothingCtx.fillRect(12, 20, 4, 12);
+    detailsCtx.fillRect(4, 20, 4, 12);
+    detailsCtx.fillRect(0, 20, 4, 12);
+    detailsCtx.fillRect(8, 20, 4, 12);
+    detailsCtx.fillRect(12, 20, 4, 12);
     // Left leg
-    clothingCtx.fillRect(20, 52, 4, 12);
-    clothingCtx.fillRect(16, 52, 4, 12);
-    clothingCtx.fillRect(24, 52, 4, 12);
-    clothingCtx.fillRect(28, 52, 4, 12);
+    detailsCtx.fillRect(20, 52, 4, 12);
+    detailsCtx.fillRect(16, 52, 4, 12);
+    detailsCtx.fillRect(24, 52, 4, 12);
+    detailsCtx.fillRect(28, 52, 4, 12);
 
     // Shoes
-    clothingCtx.fillStyle = t.shoes;
-    clothingCtx.fillRect(4, 31, 4, 1);
-    clothingCtx.fillRect(20, 63, 4, 1);
+    detailsCtx.fillStyle = t.shoes;
+    detailsCtx.fillRect(4, 31, 4, 1);
+    detailsCtx.fillRect(20, 63, 4, 1);
 
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
@@ -1859,18 +1859,18 @@ export default function SkinCreator() {
     img.onload = () => {
       // Clear all layer canvases first
       const baseCanvas = getLayerCanvas('base');
-      const clothingCanvas = getLayerCanvas('clothing');
+      const detailsCanvas = getLayerCanvas('details');
       const accessoriesCanvas = getLayerCanvas('accessories');
 
       const baseCtx = baseCanvas.getContext('2d');
-      const clothingCtx = clothingCanvas.getContext('2d');
+      const detailsCtx = detailsCanvas.getContext('2d');
       const accessoriesCtx = accessoriesCanvas.getContext('2d');
 
-      if (!baseCtx || !clothingCtx || !accessoriesCtx) return;
+      if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
 
       // Clear all layers
       baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-      clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
       accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
 
       // Draw the template to the base layer
@@ -1983,13 +1983,13 @@ export default function SkinCreator() {
         if (Date.now() - timestamp < 5 * 60 * 1000) {
           // Apply gallery template colors
           const baseCanvas = getLayerCanvas('base');
-          const clothingCanvas = getLayerCanvas('clothing');
+          const detailsCanvas = getLayerCanvas('details');
           const baseCtx = baseCanvas.getContext('2d');
-          const clothingCtx = clothingCanvas.getContext('2d');
+          const detailsCtx = detailsCanvas.getContext('2d');
           
-          if (baseCtx && clothingCtx) {
+          if (baseCtx && detailsCtx) {
             baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-            clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+            detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
             
             // Draw base (skin/face)
             baseCtx.fillStyle = colors.skin;
@@ -2012,28 +2012,28 @@ export default function SkinCreator() {
             baseCtx.fillRect(44, 20, 4, 4);
             baseCtx.fillRect(36, 52, 4, 4);
             
-            // Draw clothing
-            clothingCtx.fillStyle = colors.shirt;
-            clothingCtx.fillRect(20, 20, 8, 12); // Body front
-            clothingCtx.fillRect(16, 20, 4, 12); // Body right
-            clothingCtx.fillRect(28, 20, 4, 12); // Body left
-            clothingCtx.fillRect(32, 20, 8, 12); // Body back
-            clothingCtx.fillRect(44, 24, 4, 8); // Right arm sleeve
-            clothingCtx.fillRect(36, 56, 4, 8); // Left arm sleeve
+            // Draw details (clothing)
+            detailsCtx.fillStyle = colors.shirt;
+            detailsCtx.fillRect(20, 20, 8, 12); // Body front
+            detailsCtx.fillRect(16, 20, 4, 12); // Body right
+            detailsCtx.fillRect(28, 20, 4, 12); // Body left
+            detailsCtx.fillRect(32, 20, 8, 12); // Body back
+            detailsCtx.fillRect(44, 24, 4, 8); // Right arm sleeve
+            detailsCtx.fillRect(36, 56, 4, 8); // Left arm sleeve
             // Pants
-            clothingCtx.fillStyle = colors.pants;
-            clothingCtx.fillRect(4, 20, 4, 12);
-            clothingCtx.fillRect(0, 20, 4, 12);
-            clothingCtx.fillRect(8, 20, 4, 12);
-            clothingCtx.fillRect(12, 20, 4, 12);
-            clothingCtx.fillRect(20, 52, 4, 12);
-            clothingCtx.fillRect(16, 52, 4, 12);
-            clothingCtx.fillRect(24, 52, 4, 12);
-            clothingCtx.fillRect(28, 52, 4, 12);
+            detailsCtx.fillStyle = colors.pants;
+            detailsCtx.fillRect(4, 20, 4, 12);
+            detailsCtx.fillRect(0, 20, 4, 12);
+            detailsCtx.fillRect(8, 20, 4, 12);
+            detailsCtx.fillRect(12, 20, 4, 12);
+            detailsCtx.fillRect(20, 52, 4, 12);
+            detailsCtx.fillRect(16, 52, 4, 12);
+            detailsCtx.fillRect(24, 52, 4, 12);
+            detailsCtx.fillRect(28, 52, 4, 12);
             // Shoes
-            clothingCtx.fillStyle = colors.shoes;
-            clothingCtx.fillRect(4, 28, 4, 4);
-            clothingCtx.fillRect(20, 60, 4, 4);
+            detailsCtx.fillStyle = colors.shoes;
+            detailsCtx.fillRect(4, 28, 4, 4);
+            detailsCtx.fillRect(20, 60, 4, 4);
             
             compositeLayersToMain();
             updatePreview();
@@ -2511,11 +2511,21 @@ export default function SkinCreator() {
           const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
           ctx.fillStyle = selectedColor;
           ctx.fillRect(part.x, part.y, part.w, part.h);
+          // 🪞 Mirror mode for fill - fill mirrored region too
+          if (mirrorMode) {
+            const mirrorPartX = SKIN_WIDTH - part.x - part.w;
+            ctx.fillRect(mirrorPartX, part.y, part.w, part.h);
+          }
         } else if (tool === 'glow') {
           ctx.shadowColor = selectedColor;
           ctx.shadowBlur = 2;
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
+          // 🪞 Mirror mode for glow
+          if (mirrorMode) {
+            const mirrorPx = SKIN_WIDTH - 1 - px;
+            ctx.fillRect(mirrorPx, py, 1, 1);
+          }
           ctx.shadowBlur = 0;
         } else if (tool === 'stamp') {
           ctx.fillStyle = selectedColor;
@@ -2529,7 +2539,14 @@ export default function SkinCreator() {
           };
           const pattern = patterns[stampShape] || patterns.star;
           pattern.forEach(([pdx, pdy]) => {
-            ctx.fillRect(x + pdx, y + pdy, 1, 1);
+            const stampPx = x + pdx;
+            const stampPy = y + pdy;
+            ctx.fillRect(stampPx, stampPy, 1, 1);
+            // 🪞 Mirror mode for stamp
+            if (mirrorMode) {
+              const mirrorStampPx = SKIN_WIDTH - 1 - stampPx;
+              ctx.fillRect(mirrorStampPx, stampPy, 1, 1);
+            }
           });
         } else {
           ctx.fillStyle = selectedColor;
@@ -2551,7 +2568,7 @@ export default function SkinCreator() {
   const [showExportPanel, setShowExportPanel] = useState(false);
   const [exportLayers, setExportLayers] = useState<{ [key in LayerType]: boolean }>({
     base: true,
-    clothing: true,
+    details: true,
     accessories: true,
   });
   const [exportResolution, setExportResolution] = useState<64 | 128 | 256 | 512>(64);
@@ -2638,7 +2655,7 @@ export default function SkinCreator() {
     alert(`✅ "${newSkin.name}" saved to My Skins!`);
   };
 
-  // Export only base layer (skin without clothing/accessories)
+  // Export only base layer (skin without details/accessories)
   const downloadBaseOnly = () => {
     const baseCanvas = getLayerCanvas('base');
     const link = document.createElement('a');

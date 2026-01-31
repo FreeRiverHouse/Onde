@@ -836,6 +836,250 @@ const animationStyles = `
       animation: none !important;
     }
   }
+
+  /* ========== INTERACTIVE FURNITURE ANIMATIONS ========== */
+
+  /* Lamp glow pulse when lit */
+  @keyframes lamp-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 15px rgba(255, 220, 100, 0.8));
+    }
+    50% {
+      filter: drop-shadow(0 0 35px rgba(255, 220, 100, 1));
+    }
+  }
+
+  /* Lamp flicker on activation */
+  @keyframes lamp-flicker {
+    0%, 100% { opacity: 1; }
+    10% { opacity: 0.8; }
+    20% { opacity: 1; }
+    30% { opacity: 0.6; }
+    40% { opacity: 1; }
+    50% { opacity: 0.9; }
+    60% { opacity: 1; }
+  }
+
+  /* Cuckoo bird pop out */
+  @keyframes cuckoo-pop {
+    0% { transform: translateX(-100%); opacity: 0; }
+    20% { transform: translateX(0); opacity: 1; }
+    40% { transform: translateX(0) rotate(-5deg); }
+    50% { transform: translateX(0) rotate(5deg); }
+    60% { transform: translateX(0) rotate(-5deg); }
+    70% { transform: translateX(0) rotate(5deg); }
+    80% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0; }
+  }
+
+  /* Clock pendulum swing */
+  @keyframes pendulum-swing {
+    0%, 100% { transform: rotate(-15deg); }
+    50% { transform: rotate(15deg); }
+  }
+
+  /* Piano key press */
+  @keyframes key-press {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.9); }
+  }
+
+  /* Piano note float */
+  @keyframes note-float {
+    0% { 
+      opacity: 1; 
+      transform: translate3d(0, 0, 0) scale(1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translate3d(var(--note-x, 20px), -60px, 0) scale(0.5); 
+    }
+  }
+
+  /* Book wiggle */
+  @keyframes book-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg) translateY(-2px); }
+    50% { transform: rotate(5deg) translateY(-4px); }
+    75% { transform: rotate(-3deg) translateY(-2px); }
+  }
+
+  /* Book pop out */
+  @keyframes book-pop {
+    0% { transform: translateX(0); }
+    30% { transform: translateX(15px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Picture frame morph */
+  @keyframes frame-shimmer {
+    0% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(180deg) brightness(1.2); }
+    100% { filter: hue-rotate(360deg) brightness(1); }
+  }
+
+  /* Flower grow */
+  @keyframes flower-grow {
+    0% { transform: scaleY(0); transform-origin: bottom; }
+    50% { transform: scaleY(1.1); }
+    100% { transform: scaleY(1); }
+  }
+
+  /* Flower bloom */
+  @keyframes flower-bloom {
+    0% { transform: scale(0) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+  }
+
+  /* Carpet wave */
+  @keyframes carpet-wave {
+    0%, 100% { 
+      transform: perspective(200px) rotateX(0deg) translateY(0); 
+    }
+    25% { 
+      transform: perspective(200px) rotateX(5deg) translateY(-5px); 
+    }
+    50% { 
+      transform: perspective(200px) rotateX(-3deg) translateY(-10px); 
+    }
+    75% { 
+      transform: perspective(200px) rotateX(2deg) translateY(-5px); 
+    }
+  }
+
+  /* Magic carpet float up */
+  @keyframes carpet-levitate {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(1deg); }
+  }
+
+  /* Mirror sparkle burst */
+  @keyframes mirror-sparkle {
+    0% { 
+      opacity: 0;
+      transform: scale(0) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) rotate(180deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0) rotate(360deg);
+    }
+  }
+
+  /* Mirror reflection wave */
+  @keyframes mirror-wave {
+    0%, 100% { 
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      filter: brightness(1);
+    }
+    50% {
+      clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%);
+      filter: brightness(1.3);
+    }
+  }
+
+  /* Animation classes for furniture */
+  .animate-lamp-glow {
+    animation: lamp-glow 2s var(--ease-in-out-smooth) infinite;
+  }
+
+  .animate-lamp-flicker {
+    animation: lamp-flicker 0.5s ease-out;
+  }
+
+  .animate-cuckoo-pop {
+    animation: cuckoo-pop 2s var(--ease-out-back) forwards;
+  }
+
+  .animate-pendulum {
+    animation: pendulum-swing 1s var(--ease-in-out-smooth) infinite;
+    transform-origin: top center;
+  }
+
+  .animate-key-press {
+    animation: key-press 0.2s var(--ease-out-expo);
+    transform-origin: top;
+  }
+
+  .animate-note-float {
+    animation: note-float 1.5s var(--ease-out-expo) forwards;
+  }
+
+  .animate-book-wiggle {
+    animation: book-wiggle 0.5s var(--ease-out-back);
+  }
+
+  .animate-book-pop {
+    animation: book-pop 0.6s var(--ease-out-back);
+  }
+
+  .animate-frame-shimmer {
+    animation: frame-shimmer 2s var(--ease-in-out-smooth);
+  }
+
+  .animate-flower-grow {
+    animation: flower-grow 0.8s var(--ease-out-back);
+  }
+
+  .animate-flower-bloom {
+    animation: flower-bloom 0.6s var(--ease-out-back);
+  }
+
+  .animate-carpet-wave {
+    animation: carpet-wave 2s var(--ease-in-out-smooth);
+  }
+
+  .animate-carpet-levitate {
+    animation: carpet-levitate 3s var(--ease-in-out-smooth) infinite;
+  }
+
+  .animate-mirror-sparkle {
+    animation: mirror-sparkle 1s var(--ease-out-expo);
+  }
+
+  .animate-mirror-wave {
+    animation: mirror-wave 1.5s var(--ease-in-out-smooth);
+  }
+
+  /* Interactive furniture base styles */
+  .furniture-interactive {
+    cursor: pointer;
+    transition: transform 0.2s var(--ease-out-back), filter 0.2s ease;
+  }
+
+  .furniture-interactive:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.4));
+  }
+
+  .furniture-interactive:active {
+    transform: scale(0.95);
+  }
+
+  /* Reduced motion for furniture */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-lamp-glow,
+    .animate-lamp-flicker,
+    .animate-cuckoo-pop,
+    .animate-pendulum,
+    .animate-key-press,
+    .animate-note-float,
+    .animate-book-wiggle,
+    .animate-book-pop,
+    .animate-frame-shimmer,
+    .animate-flower-grow,
+    .animate-flower-bloom,
+    .animate-carpet-wave,
+    .animate-carpet-levitate,
+    .animate-mirror-sparkle,
+    .animate-mirror-wave {
+      animation: none !important;
+    }
+  }
 `
 
 // ============ CUTE SVG COMPONENTS ============

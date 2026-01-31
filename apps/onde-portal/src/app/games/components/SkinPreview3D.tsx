@@ -1,38 +1,133 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 
 interface SkinPreview3DProps {
   skinCanvas: HTMLCanvasElement | null;
+  /** Increment to force texture refresh (e.g., on each draw) */
+  textureVersion?: number;
 }
 
-export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
+// 🎨 Minecraft skin UV mapping coordinates (64x64 skin format)
+// Each body part has 6 faces: front, back, left, right, top, bottom
+const SKIN_UV_MAP = {
+  head: {
+    front: { x: 8, y: 8, w: 8, h: 8 },
+    back: { x: 24, y: 8, w: 8, h: 8 },
+    left: { x: 16, y: 8, w: 8, h: 8 },
+    right: { x: 0, y: 8, w: 8, h: 8 },
+    top: { x: 8, y: 0, w: 8, h: 8 },
+    bottom: { x: 16, y: 0, w: 8, h: 8 },
+  },
+  body: {
+    front: { x: 20, y: 20, w: 8, h: 12 },
+    back: { x: 32, y: 20, w: 8, h: 12 },
+    left: { x: 28, y: 20, w: 4, h: 12 },
+    right: { x: 16, y: 20, w: 4, h: 12 },
+    top: { x: 20, y: 16, w: 8, h: 4 },
+    bottom: { x: 28, y: 16, w: 8, h: 4 },
+  },
+  rightArm: {
+    front: { x: 44, y: 20, w: 4, h: 12 },
+    back: { x: 52, y: 20, w: 4, h: 12 },
+    left: { x: 48, y: 20, w: 4, h: 12 },
+    right: { x: 40, y: 20, w: 4, h: 12 },
+    top: { x: 44, y: 16, w: 4, h: 4 },
+    bottom: { x: 48, y: 16, w: 4, h: 4 },
+  },
+  leftArm: {
+    front: { x: 36, y: 52, w: 4, h: 12 },
+    back: { x: 44, y: 52, w: 4, h: 12 },
+    left: { x: 40, y: 52, w: 4, h: 12 },
+    right: { x: 32, y: 52, w: 4, h: 12 },
+    top: { x: 36, y: 48, w: 4, h: 4 },
+    bottom: { x: 40, y: 48, w: 4, h: 4 },
+  },
+  rightLeg: {
+    front: { x: 4, y: 20, w: 4, h: 12 },
+    back: { x: 12, y: 20, w: 4, h: 12 },
+    left: { x: 8, y: 20, w: 4, h: 12 },
+    right: { x: 0, y: 20, w: 4, h: 12 },
+    top: { x: 4, y: 16, w: 4, h: 4 },
+    bottom: { x: 8, y: 16, w: 4, h: 4 },
+  },
+  leftLeg: {
+    front: { x: 20, y: 52, w: 4, h: 12 },
+    back: { x: 28, y: 52, w: 4, h: 12 },
+    left: { x: 24, y: 52, w: 4, h: 12 },
+    right: { x: 16, y: 52, w: 4, h: 12 },
+    top: { x: 20, y: 48, w: 4, h: 4 },
+    bottom: { x: 24, y: 48, w: 4, h: 4 },
+  },
+};
+
+export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPreview3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const characterRef = useRef<THREE.Group | null>(null);
-  const textureRef = useRef<THREE.CanvasTexture | null>(null);
+  const materialsRef = useRef<Map<string, THREE.MeshStandardMaterial>>(new Map());
   const isDragging = useRef(false);
   const previousMousePosition = useRef({ x: 0, y: 0 });
-  const rotationRef = useRef({ x: 0.1, y: 0.3 }); // Slight angle to show front nicely
+  const rotationRef = useRef({ x: 0.1, y: 0.3 });
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
   const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
   const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
-  const [zoom, setZoom] = useState(5); // Camera distance
+  const [zoom, setZoom] = useState(5);
   const zoomRef = useRef(5);
-  const [animSpeed, setAnimSpeed] = useState(1); // Animation speed multiplier
+  const [animSpeed, setAnimSpeed] = useState(1);
   const animSpeedRef = useRef(1);
+  const [autoRotate, setAutoRotate] = useState(true);
 
+  // 🎨 Extract a face texture from the skin canvas
+  const extractFaceTexture = useCallback((
+    ctx: CanvasRenderingContext2D,
+    region: { x: number; y: number; w: number; h: number }
+  ): HTMLCanvasElement => {
+    const faceCanvas = document.createElement('canvas');
+    const size = 64;
+    faceCanvas.width = size;
+    faceCanvas.height = size;
+    const faceCtx = faceCanvas.getContext('2d')!;
+    faceCtx.imageSmoothingEnabled = false;
+    
+    faceCtx.drawImage(
+      ctx.canvas,
+      region.x, region.y, region.w, region.h,
+      0, 0, size, size
+    );
+    
+    return faceCanvas;
+  }, []);
+
+  // 🎨 Create material with proper UV for a body part face
+  const createFaceMaterial = useCallback((
+    ctx: CanvasRenderingContext2D,
+    region: { x: number; y: number; w: number; h: number }
+  ): THREE.MeshStandardMaterial => {
+    const faceCanvas = extractFaceTexture(ctx, region);
+    const texture = new THREE.CanvasTexture(faceCanvas);
+    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = THREE.NearestFilter;
+    texture.colorSpace = THREE.SRGBColorSpace;
+    
+    return new THREE.MeshStandardMaterial({
+      map: texture,
+      roughness: 0.8,
+      metalness: 0.1,
+      side: THREE.FrontSide,
+    });
+  }, [extractFaceTexture]);
+
+  // Initialize Three.js scene
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene setup with gradient background
     const scene = new THREE.Scene();
-    // Create gradient texture for background
     const bgCanvas = document.createElement('canvas');
     bgCanvas.width = 2;
     bgCanvas.height = 256;
@@ -47,16 +142,14 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     scene.background = bgTexture;
     sceneRef.current = scene;
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-    camera.position.set(0, 1.2, 3.5); // Closer and centered on character
+    const camera = new THREE.PerspectiveCamera(45, 200 / 280, 0.1, 1000);
+    camera.position.set(0, 1.2, 5);
     camera.lookAt(0, 0.9, 0);
     cameraRef.current = camera;
 
-    // Renderer with shadows
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(200, 280);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -64,32 +157,25 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 🌟 IMPROVED LIGHTING - More dramatic!
-    // Ambient (soft fill)
-    const ambientLight = new THREE.AmbientLight(0x404060, 0.4);
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
     scene.add(ambientLight);
     
-    // Main key light with shadows
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
     keyLight.position.set(5, 10, 7);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 512;
     keyLight.shadow.mapSize.height = 512;
-    keyLight.shadow.camera.near = 0.5;
-    keyLight.shadow.camera.far = 50;
     scene.add(keyLight);
     
-    // Rim light (dramatic edge lighting)
     const rimLight = new THREE.DirectionalLight(0x6699ff, 0.6);
     rimLight.position.set(-5, 5, -5);
     scene.add(rimLight);
     
-    // Fill light (warm)
-    const fillLight = new THREE.PointLight(0xff9966, 0.3, 10);
+    const fillLight = new THREE.PointLight(0xff9966, 0.4, 10);
     fillLight.position.set(-3, 2, 3);
     scene.add(fillLight);
     
-    // Ground plane for shadow
     const groundGeometry = new THREE.PlaneGeometry(10, 10);
     const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -98,63 +184,51 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Create character group
+    // Character group
     const character = new THREE.Group();
     characterRef.current = character;
 
-    // Materials will be updated when skin loads
-    const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0xc4a57b });
-
-    // 🎨 Improved material with better shading
-    const improvedMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xc4a57b,
-      roughness: 0.8,
-      metalness: 0.1,
-    });
-
-    // Head (8x8x8 in Minecraft scale, we use 0.5 units)
-    const headGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-    const head = new THREE.Mesh(headGeometry, improvedMaterial.clone());
+    const defaultMat = new THREE.MeshStandardMaterial({ color: 0xc4a57b, roughness: 0.8 });
+    
+    // Head
+    const headGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    const head = new THREE.Mesh(headGeo, [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     head.position.y = 1.75;
     head.name = 'head';
     head.castShadow = true;
-    head.receiveShadow = true;
     character.add(head);
 
-    // Body (8x12x4)
-    const bodyGeometry = new THREE.BoxGeometry(0.5, 0.75, 0.25);
-    const body = new THREE.Mesh(bodyGeometry, improvedMaterial.clone());
+    // Body
+    const bodyGeo = new THREE.BoxGeometry(0.5, 0.75, 0.25);
+    const body = new THREE.Mesh(bodyGeo, [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     body.position.y = 1.125;
     body.name = 'body';
     body.castShadow = true;
-    body.receiveShadow = true;
     character.add(body);
 
-    // Right Arm
-    const armGeometry = new THREE.BoxGeometry(0.25, 0.75, 0.25);
-    const rightArm = new THREE.Mesh(armGeometry, improvedMaterial.clone());
+    // Arms
+    const armGeo = new THREE.BoxGeometry(0.25, 0.75, 0.25);
+    const rightArm = new THREE.Mesh(armGeo, [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     rightArm.position.set(-0.375, 1.125, 0);
     rightArm.name = 'rightArm';
     rightArm.castShadow = true;
     character.add(rightArm);
 
-    // Left Arm
-    const leftArm = new THREE.Mesh(armGeometry, improvedMaterial.clone());
+    const leftArm = new THREE.Mesh(armGeo.clone(), [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     leftArm.position.set(0.375, 1.125, 0);
     leftArm.name = 'leftArm';
     leftArm.castShadow = true;
     character.add(leftArm);
 
-    // Right Leg
-    const legGeometry = new THREE.BoxGeometry(0.25, 0.75, 0.25);
-    const rightLeg = new THREE.Mesh(legGeometry, improvedMaterial.clone());
+    // Legs
+    const legGeo = new THREE.BoxGeometry(0.25, 0.75, 0.25);
+    const rightLeg = new THREE.Mesh(legGeo, [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     rightLeg.position.set(-0.125, 0.375, 0);
     rightLeg.name = 'rightLeg';
     rightLeg.castShadow = true;
     character.add(rightLeg);
 
-    // Left Leg
-    const leftLeg = new THREE.Mesh(legGeometry, improvedMaterial.clone());
+    const leftLeg = new THREE.Mesh(legGeo.clone(), [defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone(), defaultMat.clone()]);
     leftLeg.position.set(0.125, 0.375, 0);
     leftLeg.name = 'leftLeg';
     leftLeg.castShadow = true;
@@ -162,28 +236,26 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
 
     scene.add(character);
 
-    // ✨ PARTICLE EFFECTS - Sparkles around character
+    // Particles
     const particleCount = 30;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     
     for (let i = 0; i < particleCount; i++) {
-      // Spawn in a cylinder around character
       const angle = Math.random() * Math.PI * 2;
       const radius = 0.8 + Math.random() * 0.5;
       positions[i * 3] = Math.cos(angle) * radius;
       positions[i * 3 + 1] = Math.random() * 2.5;
       positions[i * 3 + 2] = Math.sin(angle) * radius;
       
-      // Random colors (gold, cyan, purple)
       const colorChoice = Math.random();
       if (colorChoice < 0.33) {
-        colors[i * 3] = 1; colors[i * 3 + 1] = 0.84; colors[i * 3 + 2] = 0; // Gold
+        colors[i * 3] = 1; colors[i * 3 + 1] = 0.84; colors[i * 3 + 2] = 0;
       } else if (colorChoice < 0.66) {
-        colors[i * 3] = 0; colors[i * 3 + 1] = 1; colors[i * 3 + 2] = 1; // Cyan
+        colors[i * 3] = 0; colors[i * 3 + 1] = 1; colors[i * 3 + 2] = 1;
       } else {
-        colors[i * 3] = 0.5; colors[i * 3 + 1] = 0; colors[i * 3 + 2] = 1; // Purple
+        colors[i * 3] = 0.5; colors[i * 3 + 1] = 0; colors[i * 3 + 2] = 1;
       }
     }
     
@@ -202,7 +274,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     particlesRef.current = particles;
     scene.add(particles);
 
-    // Mouse/Touch drag handlers
+    // Mouse handlers
     const onMouseDown = (e: MouseEvent) => {
       isDragging.current = true;
       autoRotateRef.current = false;
@@ -215,13 +287,12 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       const deltaY = e.clientY - previousMousePosition.current.y;
       rotationRef.current.y += deltaX * 0.01;
       rotationRef.current.x += deltaY * 0.01;
-      rotationRef.current.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, rotationRef.current.x));
+      rotationRef.current.x = Math.max(-Math.PI/3, Math.min(Math.PI/3, rotationRef.current.x));
       previousMousePosition.current = { x: e.clientX, y: e.clientY };
     };
     
     const onMouseUp = () => {
       isDragging.current = false;
-      // Resume auto-rotate after 3 seconds
       setTimeout(() => { autoRotateRef.current = true; }, 3000);
     };
 
@@ -237,7 +308,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       const deltaY = e.touches[0].clientY - previousMousePosition.current.y;
       rotationRef.current.y += deltaX * 0.01;
       rotationRef.current.x += deltaY * 0.01;
-      rotationRef.current.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, rotationRef.current.x));
+      rotationRef.current.x = Math.max(-Math.PI/3, Math.min(Math.PI/3, rotationRef.current.x));
       previousMousePosition.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     };
     
@@ -246,17 +317,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       setTimeout(() => { autoRotateRef.current = true; }, 3000);
     };
     
-    // 🔍 Mouse wheel zoom
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      const delta = e.deltaY > 0 ? 0.5 : -0.5;
-      const newZoom = Math.min(10, Math.max(3, zoomRef.current + delta));
+      const delta = e.deltaY > 0 ? 0.3 : -0.3;
+      const newZoom = Math.min(8, Math.max(3, zoomRef.current + delta));
       zoomRef.current = newZoom;
       setZoom(newZoom);
       if (camera) camera.position.z = newZoom;
     };
     
-    // 🔄 Double-click to reset view
     const onDoubleClick = () => {
       rotationRef.current = { x: 0.1, y: 0.3 };
       zoomRef.current = 5;
@@ -275,47 +344,49 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     renderer.domElement.addEventListener('wheel', onWheel, { passive: false });
     renderer.domElement.addEventListener('dblclick', onDoubleClick);
 
-    // Animation loop with interactive rotation and walking
+    // Animation loop
     let walkTime = 0;
     const animate = () => {
       requestAnimationFrame(animate);
       walkTime += 0.05 * animSpeedRef.current;
       
       if (autoRotateRef.current) {
-        rotationRef.current.y += 0.01;
+        rotationRef.current.y += 0.008;
       }
       character.rotation.y = rotationRef.current.y;
       character.rotation.x = rotationRef.current.x;
       
-      // 🕺 Pose-based animation
+      character.rotation.z = 0;
+      character.position.y = 0;
+      
       const rightArmMesh = character.getObjectByName('rightArm');
       const leftArmMesh = character.getObjectByName('leftArm');
       const rightLegMesh = character.getObjectByName('rightLeg');
       const leftLegMesh = character.getObjectByName('leftLeg');
       
+      if (rightArmMesh) rightArmMesh.rotation.z = 0;
+      if (leftArmMesh) leftArmMesh.rotation.z = 0;
+      
       const currentPose = poseRef.current;
       if (currentPose === 'walk') {
-        const swing = Math.sin(walkTime) * 0.3;
+        const swing = Math.sin(walkTime) * 0.4;
         if (rightArmMesh) rightArmMesh.rotation.x = swing;
         if (leftArmMesh) leftArmMesh.rotation.x = -swing;
         if (rightLegMesh) rightLegMesh.rotation.x = -swing;
         if (leftLegMesh) leftLegMesh.rotation.x = swing;
       } else if (currentPose === 'idle') {
-        // Subtle breathing animation
         const breath = Math.sin(walkTime * 0.5) * 0.05;
         if (rightArmMesh) rightArmMesh.rotation.x = breath;
         if (leftArmMesh) leftArmMesh.rotation.x = breath;
         if (rightLegMesh) rightLegMesh.rotation.x = 0;
         if (leftLegMesh) leftLegMesh.rotation.x = 0;
       } else if (currentPose === 'wave') {
-        // Waving animation
         const wave = Math.sin(walkTime * 3) * 0.5 + 0.8;
         if (rightArmMesh) { rightArmMesh.rotation.x = -1.5; rightArmMesh.rotation.z = wave; }
         if (leftArmMesh) leftArmMesh.rotation.x = 0;
         if (rightLegMesh) rightLegMesh.rotation.x = 0;
         if (leftLegMesh) leftLegMesh.rotation.x = 0;
       } else if (currentPose === 'dance') {
-        // 💃 Dance animation - Fortnite-style!
         const t = walkTime * 2;
         const bounce = Math.abs(Math.sin(t * 2)) * 0.1;
         const armSwing = Math.sin(t) * 1.2;
@@ -324,49 +395,40 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         if (leftArmMesh) { leftArmMesh.rotation.x = -armSwing; leftArmMesh.rotation.z = -Math.sin(t * 2) * 0.3; }
         if (rightLegMesh) rightLegMesh.rotation.x = legSwing;
         if (leftLegMesh) leftLegMesh.rotation.x = -legSwing;
-        // Bounce the whole character
         character.position.y = bounce;
       } else if (currentPose === 'floss') {
-        // 🕺 FLOSS DANCE - The classic!
-        const t = walkTime * 4; // Fast!
+        const t = walkTime * 4;
         const swing = Math.sin(t) * 1.5;
         const hipSwing = Math.sin(t) * 0.2;
-        // Arms swing side to side, opposite direction
         if (rightArmMesh) { rightArmMesh.rotation.x = 0; rightArmMesh.rotation.z = swing; }
         if (leftArmMesh) { leftArmMesh.rotation.x = 0; leftArmMesh.rotation.z = -swing; }
-        // Legs stay mostly still, slight hip movement
         if (rightLegMesh) rightLegMesh.rotation.x = hipSwing * 0.3;
         if (leftLegMesh) leftLegMesh.rotation.x = -hipSwing * 0.3;
-        // Hip rotation
-        character.rotation.y = rotationRef.current.y + hipSwing;
       } else if (currentPose === 'dab') {
-        // 😎 DAB POSE - Static with subtle bounce
         const bounce = Math.sin(walkTime * 2) * 0.02;
-        // Right arm up diagonal, left arm down diagonal
         if (rightArmMesh) { rightArmMesh.rotation.x = -2.5; rightArmMesh.rotation.z = 0.5; }
         if (leftArmMesh) { leftArmMesh.rotation.x = -0.5; leftArmMesh.rotation.z = -1.2; }
-        // Head tucked into elbow (simulated by body tilt)
         character.rotation.z = 0.2 + bounce;
         if (rightLegMesh) rightLegMesh.rotation.x = 0;
         if (leftLegMesh) leftLegMesh.rotation.x = 0;
       }
       
-      // ✨ Animate particles - float upward and respawn
-      const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
-      for (let i = 0; i < particleCount; i++) {
-        posAttr.array[i * 3 + 1] += 0.01; // Float up
-        if (posAttr.array[i * 3 + 1] > 2.8) {
-          posAttr.array[i * 3 + 1] = 0; // Respawn at bottom
+      if (particles.visible) {
+        const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
+        for (let i = 0; i < particleCount; i++) {
+          posAttr.array[i * 3 + 1] += 0.01;
+          if (posAttr.array[i * 3 + 1] > 2.8) {
+            posAttr.array[i * 3 + 1] = 0;
+          }
         }
+        posAttr.needsUpdate = true;
+        particles.rotation.y = walkTime * 0.2;
       }
-      posAttr.needsUpdate = true;
-      particles.rotation.y = walkTime * 0.2; // Slow spin
       
       renderer.render(scene, camera);
     };
     animate();
 
-    // Cleanup
     return () => {
       renderer.domElement.removeEventListener('mousedown', onMouseDown);
       renderer.domElement.removeEventListener('mousemove', onMouseMove);
@@ -378,92 +440,75 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       renderer.domElement.removeEventListener('wheel', onWheel);
       renderer.domElement.removeEventListener('dblclick', onDoubleClick);
       renderer.dispose();
-      if (containerRef.current) {
+      materialsRef.current.clear();
+      if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
       }
     };
   }, []);
 
-  // Update texture when skin changes
+  // 🎨 Update textures when skin canvas or version changes
   useEffect(() => {
     if (!skinCanvas || !characterRef.current) return;
+    
+    const ctx = skinCanvas.getContext('2d');
+    if (!ctx) return;
 
-    // Create texture from skin canvas
-    const texture = new THREE.CanvasTexture(skinCanvas);
-    texture.magFilter = THREE.NearestFilter;
-    texture.minFilter = THREE.NearestFilter;
-    textureRef.current = texture;
-
-    // Update materials (simplified - just color for now)
     characterRef.current.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        // Full UV mapping would require more complex setup
-        // For now, the basic blocky character is displayed
-        void child.material; // Material available for future texture mapping
+      if (child instanceof THREE.Mesh && child.name in SKIN_UV_MAP) {
+        const partName = child.name as keyof typeof SKIN_UV_MAP;
+        const uvMap = SKIN_UV_MAP[partName];
+        
+        const faceOrder = ['right', 'left', 'top', 'bottom', 'front', 'back'] as const;
+        const newMaterials = faceOrder.map((face, i) => {
+          const region = uvMap[face];
+          const material = createFaceMaterial(ctx, region);
+          materialsRef.current.set(`${partName}-${i}`, material);
+          return material;
+        });
+        
+        if (Array.isArray(child.material)) {
+          child.material.forEach(mat => {
+            if (mat.map) mat.map.dispose();
+            mat.dispose();
+          });
+        }
+        
+        child.material = newMaterials;
       }
     });
-  }, [skinCanvas]);
+  }, [skinCanvas, textureVersion, createFaceMaterial]);
 
-  // ✨ Update particle visibility
-  useEffect(() => {
-    if (particlesRef.current) {
-      particlesRef.current.visible = showParticles;
-    }
-  }, [showParticles]);
+  useEffect(() => { poseRef.current = pose; }, [pose]);
+  useEffect(() => { animSpeedRef.current = animSpeed; }, [animSpeed]);
+  useEffect(() => { if (cameraRef.current) cameraRef.current.position.z = zoom; }, [zoom]);
+  useEffect(() => { if (particlesRef.current) particlesRef.current.visible = showParticles; }, [showParticles]);
+  useEffect(() => { autoRotateRef.current = autoRotate; }, [autoRotate]);
 
-  // 🕺 Update pose ref
-  useEffect(() => {
-    poseRef.current = pose;
-  }, [pose]);
-
-  // 🔍 Update camera zoom
-  useEffect(() => {
-    if (cameraRef.current) {
-      cameraRef.current.position.z = zoom;
-    }
-  }, [zoom]);
-
-  // ⏩ Update animation speed
-  useEffect(() => {
-    animSpeedRef.current = animSpeed;
-  }, [animSpeed]);
-
-  // 🎥 Camera angle presets
-  const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
+  const setCameraAngle = (angle: 'front' | 'side' | 'back' | 'left') => {
     switch (angle) {
-      case 'front':
-        rotationRef.current = { x: 0.1, y: 0 };
-        break;
-      case 'side':
-        rotationRef.current = { x: 0.1, y: Math.PI / 2 };
-        break;
-      case 'back':
-        rotationRef.current = { x: 0.1, y: Math.PI };
-        break;
+      case 'front': rotationRef.current = { x: 0.1, y: 0 }; break;
+      case 'side': rotationRef.current = { x: 0.1, y: Math.PI / 2 }; break;
+      case 'back': rotationRef.current = { x: 0.1, y: Math.PI }; break;
+      case 'left': rotationRef.current = { x: 0.1, y: -Math.PI / 2 }; break;
     }
     autoRotateRef.current = false;
-    setTimeout(() => { autoRotateRef.current = true; }, 3000);
+    setAutoRotate(false);
   };
 
-  // 📸 Screenshot function
   const takeScreenshot = () => {
     const renderer = rendererRef.current;
     const scene = sceneRef.current;
     const camera = cameraRef.current;
     if (!renderer || !scene || !camera) return;
     
-    // Render at high resolution
     const originalSize = renderer.getSize(new THREE.Vector2());
-    renderer.setSize(800, 1120); // 4x resolution
+    renderer.setSize(800, 1120);
     renderer.render(scene, camera);
     
-    // Get image data
     const dataUrl = renderer.domElement.toDataURL('image/png');
-    
-    // Restore original size
     renderer.setSize(originalSize.x, originalSize.y);
     
-    // Download
     const link = document.createElement('a');
     link.download = 'minecraft-skin-3d.png';
     link.href = dataUrl;
@@ -472,7 +517,6 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
 
   return (
     <div className="relative group">
-      {/* 🎬 Post-processing container with glow */}
       <div 
         className="relative rounded-xl overflow-hidden mx-auto cursor-grab active:cursor-grabbing shadow-2xl"
         style={{ 
@@ -483,159 +527,72 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       >
         <div ref={containerRef} className="w-full h-full" />
         
-        {/* 🌟 Vignette overlay */}
         <div 
           className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)',
-          }}
+          style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)' }}
         />
         
-        {/* ✨ Subtle bloom overlay on hover */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)',
-          }}
-        />
-        
-        {/* 📸 Screenshot button */}
         <button
           onClick={takeScreenshot}
           className="absolute bottom-2 right-2 px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-all hover:scale-105 shadow-lg"
-          title="📸 Save 3D preview as image"
+          title="Save 3D preview as image"
         >
           📸
         </button>
         
-        {/* 🔍 Zoom controls */}
+        <button
+          onClick={() => { setAutoRotate(!autoRotate); autoRotateRef.current = !autoRotate; }}
+          className={`absolute top-12 right-2 px-2 py-1 rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-all hover:scale-105 shadow ${
+            autoRotate ? 'bg-green-400 text-green-900' : 'bg-gray-400 text-gray-700'
+          }`}
+          title={autoRotate ? 'Stop auto-rotate' : 'Start auto-rotate'}
+        >
+          🔄
+        </button>
+        
         <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all">
-          <button
-            onClick={() => setZoom(z => Math.max(3, z - 1))}
-            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Zoom in"
-          >
-            🔍+
-          </button>
-          <button
-            onClick={() => setZoom(z => Math.min(10, z + 1))}
-            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Zoom out"
-          >
-            🔍−
-          </button>
-          <div className="mt-2 text-xs text-center text-white/80">⏩</div>
-          <button
-            onClick={() => setAnimSpeed(s => Math.max(0.25, s - 0.25))}
-            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Slower"
-          >
-            🐢
-          </button>
-          <div className="text-xs text-center text-white font-bold">{animSpeed}x</div>
-          <button
-            onClick={() => setAnimSpeed(s => Math.min(3, s + 0.25))}
-            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Faster"
-          >
-            🐇
-          </button>
+          <button onClick={() => setZoom(z => Math.max(3, z - 0.5))} className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Zoom in">🔍+</button>
+          <button onClick={() => setZoom(z => Math.min(8, z + 0.5))} className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Zoom out">🔍−</button>
         </div>
         
-        {/* 🎥 Camera angle buttons */}
         <div className="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
-          <button
-            onClick={() => setCameraAngle('front')}
-            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Front view"
-          >
-            👤
-          </button>
-          <button
-            onClick={() => setCameraAngle('side')}
-            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Side view"
-          >
-            👈
-          </button>
-          <button
-            onClick={() => setCameraAngle('back')}
-            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
-            title="Back view"
-          >
-            🔙
-          </button>
+          <button onClick={() => setCameraAngle('front')} className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Front view">👤</button>
+          <button onClick={() => setCameraAngle('side')} className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Right side">👉</button>
+          <button onClick={() => setCameraAngle('left')} className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Left side">👈</button>
+          <button onClick={() => setCameraAngle('back')} className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold shadow" title="Back view">🔙</button>
           <button
             onClick={() => setShowParticles(!showParticles)}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              showParticles ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-400 text-gray-700'
-            }`}
-            title={showParticles ? 'Hide particles' : 'Show particles'}
+            className={`px-1.5 py-1 rounded text-xs font-bold shadow ${showParticles ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-400 text-gray-700'}`}
+            title={showParticles ? 'Hide sparkles' : 'Show sparkles'}
           >
             ✨
           </button>
         </div>
         
-        {/* 🕺 Pose buttons */}
-        <div className="absolute top-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
-          <button
-            onClick={() => setPose('walk')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'walk' ? 'bg-green-400 text-green-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Walking pose"
-          >
-            🚶
-          </button>
-          <button
-            onClick={() => setPose('idle')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'idle' ? 'bg-blue-400 text-blue-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Idle pose"
-          >
-            🧍
-          </button>
-          <button
-            onClick={() => setPose('wave')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'wave' ? 'bg-pink-400 text-pink-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Waving pose"
-          >
-            👋
-          </button>
-          <button
-            onClick={() => setPose('dance')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'dance' ? 'bg-purple-400 text-purple-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Dance! 💃"
-          >
-            💃
-          </button>
-          <button
-            onClick={() => setPose('floss')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'floss' ? 'bg-orange-400 text-orange-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Floss! 🕺"
-          >
-            🕺
-          </button>
-          <button
-            onClick={() => setPose('dab')}
-            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
-              pose === 'dab' ? 'bg-cyan-400 text-cyan-900' : 'bg-white/90 text-gray-800'
-            }`}
-            title="Dab! 😎"
-          >
-            😎
-          </button>
+        <div className="absolute top-2 left-2 flex flex-wrap gap-1 opacity-0 group-hover:opacity-100 transition-all" style={{ maxWidth: '120px' }}>
+          {[
+            { id: 'walk', emoji: '🚶', label: 'Walk' },
+            { id: 'idle', emoji: '🧍', label: 'Idle' },
+            { id: 'wave', emoji: '👋', label: 'Wave' },
+            { id: 'dance', emoji: '💃', label: 'Dance' },
+            { id: 'floss', emoji: '🕺', label: 'Floss' },
+            { id: 'dab', emoji: '😎', label: 'Dab' },
+          ].map(p => (
+            <button
+              key={p.id}
+              onClick={() => setPose(p.id as typeof pose)}
+              className={`px-1.5 py-1 rounded text-xs font-bold shadow transition-all hover:scale-105 ${
+                pose === p.id ? 'bg-purple-500 text-white' : 'bg-white/90 text-gray-800'
+              }`}
+              title={p.label}
+            >
+              {p.emoji}
+            </button>
+          ))}
         </div>
       </div>
       
-      <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag • Scroll zoom • Double-click reset</p>
+      <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate • Scroll to zoom • Double-click to reset</p>
     </div>
   );
 }
