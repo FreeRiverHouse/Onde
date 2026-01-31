@@ -372,7 +372,81 @@ export default function ArcadePage() {
           </div>
         </div>
 
-        {/* High Score / Coming Soon Section */}
+        {/* HIGH SCORES Section */}
+        <div className="max-w-md mx-auto px-4 py-6 md:py-10">
+          <div className="relative bg-black rounded-2xl p-6 md:p-8 border-4 border-yellow-500/80 overflow-hidden shadow-2xl" style={{
+            boxShadow: '0 0 30px rgba(234, 179, 8, 0.3), inset 0 0 60px rgba(0,0,0,0.8)'
+          }}>
+            {/* CRT scanlines */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.8) 2px, rgba(0,0,0,0.8) 4px)'
+            }} />
+            
+            {/* CRT curvature overlay */}
+            <div className="absolute inset-0 pointer-events-none rounded-xl" style={{
+              background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)'
+            }} />
+
+            {/* Screen phosphor glow */}
+            <div className="absolute inset-0 bg-green-900/10 pointer-events-none" />
+            
+            <div className="relative">
+              {/* Title */}
+              <h3 className="text-2xl md:text-3xl font-black text-center mb-6 font-mono tracking-widest">
+                <span className="text-red-500 animate-pulse" style={{ 
+                  textShadow: '0 0 10px #ef4444, 0 0 20px #ef4444, 0 0 30px #ef4444'
+                }}>
+                  ★ HIGH SCORES ★
+                </span>
+              </h3>
+              
+              {/* Score table */}
+              <div className="space-y-2 font-mono">
+                {[
+                  { rank: 1, name: 'AAA', score: 999999, color: 'text-yellow-400' },
+                  { rank: 2, name: 'ZZZ', score: 847320, color: 'text-cyan-400' },
+                  { rank: 3, name: 'CAT', score: 654210, color: 'text-pink-400' },
+                  { rank: 4, name: 'OMG', score: 420069, color: 'text-green-400' },
+                  { rank: 5, name: 'LOL', score: 123456, color: 'text-purple-400' },
+                ].map((entry, i) => (
+                  <div 
+                    key={i} 
+                    className={`flex items-center justify-between text-lg md:text-xl ${entry.color} tracking-wider`}
+                    style={{
+                      textShadow: `0 0 8px currentColor`
+                    }}
+                  >
+                    <span className="w-8">{entry.rank}.</span>
+                    <span className="flex-1 text-center tracking-[0.3em] font-bold">{entry.name}</span>
+                    <span className="text-right tabular-nums">{entry.score.toLocaleString().padStart(10, ' ')}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Decorative line */}
+              <div className="my-6 border-t-2 border-dashed border-yellow-500/40" />
+
+              {/* Insert Coin blinking */}
+              <div className="text-center">
+                <span className={`
+                  inline-block font-mono text-lg md:text-xl tracking-[0.2em] font-bold
+                  text-yellow-400 animate-blink
+                `} style={{
+                  textShadow: '0 0 10px #facc15, 0 0 20px #facc15'
+                }}>
+                  INSERT COIN
+                </span>
+              </div>
+
+              {/* Credit counter */}
+              <div className="mt-4 text-center font-mono text-sm text-gray-500">
+                CREDIT(S): 00
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Coming Soon Section */}
         <div className="max-w-4xl mx-auto px-4 py-6 md:py-10">
           <div className="relative bg-black/60 rounded-2xl p-6 md:p-8 border border-purple-500/30 backdrop-blur overflow-hidden">
             {/* CRT effect */}
@@ -436,6 +510,10 @@ export default function ArcadePage() {
           0%, 100% { transform: scale(1.1) translateY(0); }
           50% { transform: scale(1.1) translateY(-5px); }
         }
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
         .animate-float {
           animation: float 3s ease-in-out infinite;
         }
@@ -444,6 +522,9 @@ export default function ArcadePage() {
         }
         .animate-bounce-subtle {
           animation: bounce-subtle 0.6s ease-in-out infinite;
+        }
+        .animate-blink {
+          animation: blink 1s step-end infinite;
         }
       `}</style>
     </div>
