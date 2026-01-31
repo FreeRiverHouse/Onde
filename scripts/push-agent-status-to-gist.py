@@ -46,6 +46,53 @@ def get_task_stats() -> dict:
         "completion_rate": round(done / max(1, done + in_progress + todo) * 100, 1)
     }
 
+def get_current_tasks_by_agent() -> dict:
+    """Get current IN_PROGRESS tasks for each agent."""
+    tasks_file = PROJECT_DIR / "TASKS.md"
+    if not tasks_file.exists():
+        return {"clawdinho": None, "ondinho": None}
+    
+    content = tasks_file.read_text()
+    import re
+    
+    result = {"clawdinho": None, "ondinho": None}
+    
+    # Split into task blocks (### [TXXX] to next ### or end)
+    task_blocks = re.split(r'(?=### \[T\d+\])', content)
+    
+    for block in task_blocks:
+        if not block.strip():
+            continue
+            
+        # Extract task ID and title
+        title_match = re.match(r'### \[(T\d+)\] ([^\n]+)', block)
+        if not title_match:
+            continue
+        
+        task_id = title_match.group(1)
+        title = title_match.group(2).strip()[:60]
+        
+        # Check if IN_PROGRESS
+        if 'Status**: IN_PROGRESS' not in block and 'Status**: in_progress' not in block:
+            continue
+        
+        # Extract owner
+        owner_match = re.search(r'Owner\*\*:\s*@(\S+)', block)
+        if not owner_match:
+            continue
+        
+        owner = owner_match.group(1).lower()
+        
+        # Map owner names to agent keys
+        if 'clawd' in owner:
+            if result["clawdinho"] is None:  # Only first task (most recent)
+                result["clawdinho"] = {"id": task_id, "title": title}
+        elif 'onde' in owner or 'bot' in owner:
+            if result["ondinho"] is None:
+                result["ondinho"] = {"id": task_id, "title": title}
+    
+    return result
+
 def get_memory_stats() -> dict:
     """Get memory statistics for today."""
     today = datetime.now().strftime("%Y-%m-%d")
@@ -173,11 +220,30 @@ def get_alert_count() -> int:
 
 def build_dashboard_data() -> dict:
     """Build complete dashboard data."""
+    git = get_git_activity()
+    current_tasks = get_current_tasks_by_agent()
+    
+    # Determine agent status based on recent commits (active if committed in last 30 min)
+    def is_active(commit_info):
+        if not commit_info or not commit_info.get("ago"):
+            return "idle"
+        ago = commit_info["ago"].lower()
+        # Parse "X minutes ago", "X seconds ago", etc.
+        if "second" in ago or "minute" in ago:
+            return "active"
+        if "hour" in ago:
+            try:
+                hours = int(ago.split()[0])
+                return "active" if hours < 1 else "idle"
+            except:
+                pass
+        return "idle"
+    
     return {
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "tasks": get_task_stats(),
         "memory": get_memory_stats(),
-        "git": get_git_activity(),
+        "git": git,
         "autotrader": get_autotrader_status(),
         "gpu": get_gpu_status(),
         "ollama": get_ollama_status(),
@@ -186,12 +252,14 @@ def build_dashboard_data() -> dict:
             "clawdinho": {
                 "host": "FRH-M1-PRO",
                 "model": "claude-opus-4-5",
-                "status": "active"
+                "status": is_active(git.get("clawdinho")),
+                "current_task": current_tasks.get("clawdinho")
             },
             "ondinho": {
                 "host": "M4-Pro",
                 "model": "claude-sonnet-4",
-                "status": "active"
+                "status": is_active(git.get("ondinho")),
+                "current_task": current_tasks.get("ondinho")
             }
         }
     }

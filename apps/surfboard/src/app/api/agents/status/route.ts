@@ -59,10 +59,17 @@ interface OllamaStatus {
   models: string[];
 }
 
+interface CurrentTask {
+  id: string;
+  title: string;
+  started?: string;
+}
+
 interface AgentInfo {
   host: string;
   model: string;
   status: 'active' | 'idle' | 'offline';
+  current_task?: CurrentTask | null;
 }
 
 interface AgentStatusResponse {

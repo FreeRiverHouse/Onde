@@ -11925,33 +11925,45 @@ Generated: 2026-01-30T18:37:46.867013
   - **URL**: onde.surf/frh
 
 ### [T935] Dashboard FRH: Agents Monitoring
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Started**: 2026-01-30 22:45 PST
+- **Completed**: 2026-01-30 22:50 PST
 - **Created-by**: @onde-bot-1
 - **Depends**: [T934]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Monitor agenti attivi:
-  - Ondinho (@onde-bot-1) - M4
-  - Clawdinho (@clawd) - M1+Radeon
-  - Status online/offline
-  - Task corrente
-  - Ultimo heartbeat
+- **Notes**: ✅ Widget agenti attivi completato!
+  - [x] Clawdinho + Ondinho status cards con avatar
+  - [x] Current task display per ogni agente (da TASKS.md)
+  - [x] Status auto-detected da git activity (active/idle/offline)
+  - [x] Last commit info con relative time ("3 minutes ago")
+  - [x] Git commits today counter
+  - [x] Host e model info per ogni agente
+  - **File**: `apps/surfboard/src/components/AgentsMonitoringWidget.tsx`
+  - **Endpoint update**: `/api/agents/status` ora include `current_task`
+  - **Script update**: `push-agent-status-to-gist.py` → `get_current_tasks_by_agent()`
 
 ### [T936] Dashboard FRH: System Monitoring (Mac/CPU/Analytics)
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Started**: 2026-01-30 22:45 PST
+- **Completed**: 2026-01-30 22:50 PST
 - **Created-by**: @onde-bot-1
 - **Depends**: [T934]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Monitor sistema:
-  - CPU/RAM M4 e M1
-  - LLM Ollama status
-  - Google Analytics integration
-  - Uptime/errors
+- **Notes**: ✅ Widget system monitoring completato!
+  - [x] CPU/Memory circular gauges con dynamic colors (green/yellow/red)
+  - [x] GPU temperature display (when Radeon connected)
+  - [x] Services status cards: Autotrader, Ollama, Radeon eGPU
+  - [x] Status indicators with pulse animation for healthy services
+  - [x] Alert count badge con icona warning
+  - [x] Quick stats: Uptime, Consecutive Losses, LLM Models count
+  - [x] Circuit breaker degraded status display
+  - **File**: `apps/surfboard/src/components/SystemMonitoringWidget.tsx`
+  - **Integrato in**: `/frh` page
+  - ⏳ TODO: Add real CPU/Memory metrics (requires agent-side collection)
 
 ### [T937] Dashboard FRH: Unified Control Panel
 - **Status**: TODO

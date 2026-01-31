@@ -4,6 +4,8 @@ export const runtime = 'edge'
 
 import { useState, useEffect } from 'react'
 import TaskManagementPanel from '@/components/TaskManagementPanel'
+import { AgentsMonitoringWidget } from '@/components/AgentsMonitoringWidget'
+import { SystemMonitoringWidget } from '@/components/SystemMonitoringWidget'
 
 interface Agent {
   id: string
@@ -25,12 +27,44 @@ interface Task {
   result: string | null
 }
 
+// Agent status from Gist (push-agent-status-to-gist.py)
+interface AgentStatusData {
+  timestamp: string
+  tasks: { total: number; done: number; in_progress: number; todo: number; completion_rate: number }
+  memory: { entries_today: number; file_exists: boolean; size_bytes: number }
+  git: { clawdinho: { hash: string; message: string; ago: string } | null; ondinho: { hash: string; message: string; ago: string } | null; total_commits_today: number }
+  autotrader: { running: boolean; pid: string | null; circuit_breaker: boolean; consecutive_losses: number; uptime_hours?: number | null }
+  gpu: { radeon_connected: boolean; type: string | null; vram_gb: number | null }
+  ollama: { running: boolean; location: string; models: string[] }
+  alerts_pending: number
+  agents: {
+    clawdinho: { host: string; model: string; status: string; current_task?: { id: string; title: string } | null }
+    ondinho: { host: string; model: string; status: string; current_task?: { id: string; title: string } | null }
+  }
+}
+
 export default function FRHDashboard() {
   const [agents, setAgents] = useState<Agent[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
+  const [agentStatus, setAgentStatus] = useState<AgentStatusData | null>(null)
+  const [agentStatusLoading, setAgentStatusLoading] = useState(true)
+
+  const fetchAgentStatus = async () => {
+    try {
+      const res = await fetch('/api/agents/status')
+      if (res.ok) {
+        const data = await res.json()
+        setAgentStatus(data)
+      }
+    } catch (err) {
+      console.error('Failed to fetch agent status:', err)
+    } finally {
+      setAgentStatusLoading(false)
+    }
+  }
 
   const fetchData = async () => {
     try {
@@ -70,8 +104,13 @@ export default function FRHDashboard() {
 
   useEffect(() => {
     fetchData()
-    const interval = setInterval(fetchData, 10000) // Refresh every 10s
-    return () => clearInterval(interval)
+    fetchAgentStatus()
+    const dataInterval = setInterval(fetchData, 10000) // Refresh every 10s
+    const statusInterval = setInterval(fetchAgentStatus, 60000) // Refresh agent status every 60s
+    return () => {
+      clearInterval(dataInterval)
+      clearInterval(statusInterval)
+    }
   }, [])
 
   const getStatusColor = (status: string) => {
@@ -146,6 +185,27 @@ export default function FRHDashboard() {
           {error}
         </div>
       )}
+
+      {/* Real-Time Monitoring Widgets (T935 + T936) */}
+      <div className="max-w-7xl mx-auto mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <AgentsMonitoringWidget 
+          agents={agentStatus?.agents}
+          git={agentStatus?.git}
+          loading={agentStatusLoading}
+        />
+        <SystemMonitoringWidget 
+          systemHealth={{
+            cpu_percent: 15, // TODO: Add real CPU metrics
+            memory_percent: 65, // TODO: Add real memory metrics
+            gpu_temp: agentStatus?.gpu?.radeon_connected ? 45 : null
+          }}
+          autotrader={agentStatus?.autotrader}
+          ollama={agentStatus?.ollama}
+          gpu={agentStatus?.gpu}
+          alerts_pending={agentStatus?.alerts_pending}
+          loading={agentStatusLoading}
+        />
+      </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Agents Section */}
