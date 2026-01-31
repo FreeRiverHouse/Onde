@@ -13635,3 +13635,15 @@ Generated: 2026-01-30T18:37:46.867013
   - Luna + il suo pet
   - Diversi outfit per Luna
   - Diversi pet da adottare
+
+### [T1090] UPDATE
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 02:22 PST
+- **Features**:
+  - Pet state persists in localStorage
+  - Time-away stat decay (hunger, happiness)
+  - Energy RECOVERS while away (pet rested!)
+  - Welcome back popup with time away
+  - Visit counter
+  - Visual stat bars with pulse animation
