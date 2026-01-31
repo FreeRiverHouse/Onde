@@ -982,6 +982,177 @@ const Sparkle = ({ delay = 0, className = '' }: { delay?: number; className?: st
   </div>
 )
 
+// ============ MAGIC PARTICLE COMPONENTS ============
+
+// Shooting star with glowing trail
+const ShootingStar = ({ delay = 0, size = 'md' }: { delay?: number; size?: 'sm' | 'md' | 'lg' }) => {
+  const sizes = { sm: 'w-8', md: 'w-12', lg: 'w-16' }
+  return (
+    <div 
+      className={`absolute animate-shooting-star gpu-accelerated ${sizes[size]}`}
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <svg viewBox="0 0 60 20" className="w-full h-auto">
+        {/* Trail gradient */}
+        <defs>
+          <linearGradient id={`trail-${delay}`} x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+            <stop offset="30%" stopColor="#FFE566" stopOpacity="0.3" />
+            <stop offset="70%" stopColor="#FFD700" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="1" />
+          </linearGradient>
+        </defs>
+        {/* Trail */}
+        <path d="M0 10 Q30 8 55 10" stroke={`url(#trail-${delay})`} strokeWidth="2" fill="none" strokeLinecap="round" />
+        {/* Star head */}
+        <circle cx="57" cy="10" r="3" fill="#FFFFFF" style={{ filter: 'drop-shadow(0 0 6px #FFD700)' }} />
+      </svg>
+    </div>
+  )
+}
+
+// Glitter particle - tiny sparkling diamonds
+const Glitter = ({ delay = 0, color = 'gold' }: { delay?: number; color?: 'gold' | 'silver' | 'pink' | 'blue' }) => {
+  const colors = {
+    gold: { fill: '#FFD700', glow: 'rgba(255, 215, 0, 0.8)' },
+    silver: { fill: '#E8E8E8', glow: 'rgba(255, 255, 255, 0.8)' },
+    pink: { fill: '#FF69B4', glow: 'rgba(255, 105, 180, 0.8)' },
+    blue: { fill: '#87CEEB', glow: 'rgba(135, 206, 235, 0.8)' },
+  }
+  const c = colors[color]
+  return (
+    <div 
+      className="absolute animate-glitter gpu-accelerated"
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <svg viewBox="0 0 12 12" className="w-2 h-2">
+        <path d="M6 0L7 5L12 6L7 7L6 12L5 7L0 6L5 5Z" fill={c.fill} style={{ filter: `drop-shadow(0 0 4px ${c.glow})` }} />
+      </svg>
+    </div>
+  )
+}
+
+// Magic dust - swirling ethereal particles
+const MagicDust = ({ delay = 0, variant = 1 }: { delay?: number; variant?: 1 | 2 | 3 }) => {
+  const paths = {
+    1: { x1: '10px', y1: '-15px', x2: '-15px', y2: '-40px', x3: '8px', y3: '-65px', x4: '-5px', y4: '-90px' },
+    2: { x1: '-8px', y1: '-12px', x2: '12px', y2: '-35px', x3: '-10px', y3: '-58px', x4: '5px', y4: '-85px' },
+    3: { x1: '5px', y1: '-18px', x2: '-8px', y2: '-42px', x3: '15px', y3: '-62px', x4: '0px', y4: '-88px' },
+  }
+  const p = paths[variant]
+  return (
+    <div 
+      className="absolute animate-magic-dust gpu-accelerated"
+      style={{ 
+        animationDelay: `${delay}s`,
+        '--dust-x1': p.x1,
+        '--dust-y1': p.y1,
+        '--dust-x2': p.x2,
+        '--dust-y2': p.y2,
+        '--dust-x3': p.x3,
+        '--dust-y3': p.y3,
+        '--dust-x4': p.x4,
+        '--dust-y4': p.y4,
+      } as React.CSSProperties}
+    >
+      <div 
+        className="w-1.5 h-1.5 rounded-full"
+        style={{ 
+          background: 'radial-gradient(circle, rgba(200, 150, 255, 0.9) 0%, rgba(138, 43, 226, 0.5) 50%, transparent 100%)',
+          boxShadow: '0 0 8px 2px rgba(138, 43, 226, 0.6)',
+        }}
+      />
+    </div>
+  )
+}
+
+// Stardust - gentle falling sparkles
+const Stardust = ({ delay = 0, fallDirection = 'right' }: { delay?: number; fallDirection?: 'left' | 'right' | 'straight' }) => {
+  const directions = { left: '-40px', right: '40px', straight: '0px' }
+  return (
+    <div 
+      className="absolute animate-stardust-fall gpu-accelerated"
+      style={{ 
+        animationDelay: `${delay}s`,
+        '--fall-x': directions[fallDirection],
+      } as React.CSSProperties}
+    >
+      <svg viewBox="0 0 16 16" className="w-3 h-3">
+        <circle cx="8" cy="8" r="2" fill="#FFE566" style={{ filter: 'drop-shadow(0 0 3px rgba(255, 215, 0, 0.8))' }} />
+        <path d="M8 2L8.5 6L8 6.5L7.5 6Z" fill="#FFE566" opacity="0.6" />
+        <path d="M8 14L8.5 10L8 9.5L7.5 10Z" fill="#FFE566" opacity="0.6" />
+        <path d="M2 8L6 7.5L6.5 8L6 8.5Z" fill="#FFE566" opacity="0.6" />
+        <path d="M14 8L10 7.5L9.5 8L10 8.5Z" fill="#FFE566" opacity="0.6" />
+      </svg>
+    </div>
+  )
+}
+
+// Magic orb - glowing floating sphere
+const MagicOrb = ({ delay = 0, color = 'purple', size = 'md' }: { delay?: number; color?: 'purple' | 'blue' | 'gold' | 'pink'; size?: 'sm' | 'md' | 'lg' }) => {
+  const colors = {
+    purple: { inner: '#9B59B6', outer: 'rgba(155, 89, 182, 0.3)', glow: 'rgba(138, 43, 226, 0.6)' },
+    blue: { inner: '#3498DB', outer: 'rgba(52, 152, 219, 0.3)', glow: 'rgba(52, 152, 219, 0.6)' },
+    gold: { inner: '#F39C12', outer: 'rgba(243, 156, 18, 0.3)', glow: 'rgba(255, 215, 0, 0.6)' },
+    pink: { inner: '#E91E63', outer: 'rgba(233, 30, 99, 0.3)', glow: 'rgba(255, 105, 180, 0.6)' },
+  }
+  const sizes = { sm: 'w-4 h-4', md: 'w-6 h-6', lg: 'w-8 h-8' }
+  const c = colors[color]
+  return (
+    <div 
+      className={`absolute animate-magic-orb gpu-accelerated ${sizes[size]}`}
+      style={{ 
+        animationDelay: `${delay}s`,
+        '--orb-color': c.glow,
+      } as React.CSSProperties}
+    >
+      <div 
+        className="w-full h-full rounded-full"
+        style={{ 
+          background: `radial-gradient(circle at 30% 30%, white 0%, ${c.inner} 40%, ${c.outer} 100%)`,
+          boxShadow: `0 0 15px 5px ${c.glow}`,
+        }}
+      />
+    </div>
+  )
+}
+
+// Fairy sparkle trail
+const FairyTrail = ({ delay = 0, path = 1 }: { delay?: number; path?: 1 | 2 | 3 }) => {
+  const trails = {
+    1: { startX: '0', startY: '0', endX: '80px', endY: '-40px' },
+    2: { startX: '0', startY: '0', endX: '-60px', endY: '-60px' },
+    3: { startX: '0', startY: '0', endX: '50px', endY: '30px' },
+  }
+  const t = trails[path]
+  return (
+    <div className="absolute">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <div
+          key={i}
+          className="absolute animate-fairy-trail gpu-accelerated"
+          style={{
+            animationDelay: `${delay + i * 0.15}s`,
+            '--trail-start-x': t.startX,
+            '--trail-start-y': t.startY,
+            '--trail-end-x': t.endX,
+            '--trail-end-y': t.endY,
+            opacity: 1 - i * 0.15,
+          } as React.CSSProperties}
+        >
+          <div 
+            className="w-1 h-1 rounded-full"
+            style={{
+              background: '#FFD700',
+              boxShadow: `0 0 ${6 - i}px ${3 - i * 0.5}px rgba(255, 215, 0, ${0.8 - i * 0.1})`,
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // Hiding spot illustrations
 const HidingSpotSVG = ({ type, revealed, hasToy }: { type: HidingSpot['type']; revealed: boolean; hasToy: boolean }) => {
   if (revealed && hasToy) {
