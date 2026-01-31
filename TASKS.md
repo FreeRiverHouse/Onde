@@ -10571,8 +10571,8 @@
 - **Notes**: Salvare preset overlay personalizzati
 
 ### [T888] Skin Creator: Expand to Multi-Game (Roblox, Fortnite)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P1
@@ -10716,8 +10716,8 @@
   - ✅ Selected prompt highlighted in purple
 
 ### [T897] Skin Studio: Deploy with new icons to skin-studio.pages.dev
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T894]
 - **Blocks**: -
 - **Priority**: P2
