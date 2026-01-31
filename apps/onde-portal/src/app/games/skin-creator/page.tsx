@@ -123,7 +123,7 @@ const PATTERN_PRESETS: PatternPreset[] = [
 ];
 
 // 🎨 TEXTURE FILTERS - Grain, Blur, Sharpen for advanced effects!
-type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'vignette';
+type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'smooth' | 'vignette';
 
 interface TextureFilter {
   id: TextureFilterType;
@@ -139,6 +139,7 @@ const TEXTURE_FILTERS: TextureFilter[] = [
   { id: 'sharpen', name: 'Sharpen', emoji: '🔪', description: 'Enhance edges and details', hasIntensity: true },
   { id: 'emboss', name: 'Emboss', emoji: '🗿', description: '3D embossed effect', hasIntensity: true },
   { id: 'pixelate', name: 'Pixelate', emoji: '🧱', description: 'Chunky pixel effect', hasIntensity: true },
+  { id: 'smooth', name: 'Smooth', emoji: '✨', description: 'Soften and blend pixel edges', hasIntensity: true },
   { id: 'vignette', name: 'Vignette', emoji: '🔲', description: 'Dark edges, bright center', hasIntensity: true },
 ];
 
@@ -813,7 +814,7 @@ export default function SkinCreator() {
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'spray' | 'select'>('brush');
+  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'rectangle' | 'circle' | 'spray' | 'select'>('brush');
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
@@ -856,6 +857,7 @@ export default function SkinCreator() {
   const [showStickerPanel, setShowStickerPanel] = useState(false); // 🎨 Sticker/Decal panel
   const [showTextureFiltersPanel, setShowTextureFiltersPanel] = useState(false); // 🎨 Texture filters panel
   const [textureFilterIntensity, setTextureFilterIntensity] = useState(50); // Filter intensity 0-100
+  const [showStatsPanel, setShowStatsPanel] = useState(false); // 📊 Skin stats panel
   const [selectedSticker, setSelectedSticker] = useState<string | null>(null); // Currently selected sticker ID
   const [stickerCategory, setStickerCategory] = useState<StickerCategory>('hearts'); // Active sticker category
   const [stickerPreviewPos, setStickerPreviewPos] = useState<{ x: number; y: number } | null>(null); // Preview position on canvas
@@ -1284,6 +1286,112 @@ export default function SkinCreator() {
 
     mainCtx.globalAlpha = 1;
   }, [layers, applyTintToCanvas]);
+
+  // 📊 Calculate skin statistics
+  interface SkinStats {
+    totalPixels: number;
+    filledPixels: number;
+    transparentPixels: number;
+    fillPercentage: number;
+    uniqueColors: number;
+    colorBreakdown: { color: string; count: number; percentage: number }[];
+    dominantColor: string | null;
+    avgBrightness: number;
+    hasTransparency: boolean;
+  }
+
+  const calculateSkinStats = useCallback((): SkinStats => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return {
+        totalPixels: 0,
+        filledPixels: 0,
+        transparentPixels: 0,
+        fillPercentage: 0,
+        uniqueColors: 0,
+        colorBreakdown: [],
+        dominantColor: null,
+        avgBrightness: 0,
+        hasTransparency: false,
+      };
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return {
+        totalPixels: 0,
+        filledPixels: 0,
+        transparentPixels: 0,
+        fillPercentage: 0,
+        uniqueColors: 0,
+        colorBreakdown: [],
+        dominantColor: null,
+        avgBrightness: 0,
+        hasTransparency: false,
+      };
+    }
+
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    const totalPixels = SKIN_WIDTH * SKIN_HEIGHT;
+    
+    const colorMap = new Map<string, number>();
+    let filledPixels = 0;
+    let transparentPixels = 0;
+    let totalBrightness = 0;
+    let hasTransparency = false;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const a = data[i + 3];
+
+      if (a < 10) {
+        // Fully transparent
+        transparentPixels++;
+        hasTransparency = true;
+      } else if (a < 255) {
+        // Semi-transparent
+        hasTransparency = true;
+        filledPixels++;
+        const colorKey = `rgba(${r},${g},${b},${(a / 255).toFixed(2)})`;
+        colorMap.set(colorKey, (colorMap.get(colorKey) || 0) + 1);
+        totalBrightness += (r + g + b) / 3;
+      } else {
+        // Fully opaque
+        filledPixels++;
+        const colorKey = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+        colorMap.set(colorKey, (colorMap.get(colorKey) || 0) + 1);
+        totalBrightness += (r + g + b) / 3;
+      }
+    }
+
+    // Sort colors by count and get top 12
+    const sortedColors = Array.from(colorMap.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12)
+      .map(([color, count]) => ({
+        color,
+        count,
+        percentage: Math.round((count / totalPixels) * 1000) / 10,
+      }));
+
+    const dominantColor = sortedColors.length > 0 ? sortedColors[0].color : null;
+    const avgBrightness = filledPixels > 0 ? Math.round(totalBrightness / filledPixels) : 0;
+
+    return {
+      totalPixels,
+      filledPixels,
+      transparentPixels,
+      fillPercentage: Math.round((filledPixels / totalPixels) * 1000) / 10,
+      uniqueColors: colorMap.size,
+      colorBreakdown: sortedColors,
+      dominantColor,
+      avgBrightness,
+      hasTransparency,
+    };
+  }, []);
 
   // Clear a specific layer
   const clearLayer = useCallback((layerId: LayerType) => {
@@ -2032,18 +2140,8 @@ export default function SkinCreator() {
         case 's': 
           if (isCmd) { 
             e.preventDefault(); 
-            // Quick save to My Skins
-            if (canvasRef.current) {
-              const dataUrl = canvasRef.current.toDataURL('image/png');
-              const newSkin: SavedSkin = {
-                id: `skin-${Date.now()}`,
-                name: skinName || 'my-skin',
-                dataUrl,
-                timestamp: Date.now(),
-              };
-              setSavedSkins(prev => [newSkin, ...prev].slice(0, 50));
-              playSound('download');
-            }
+            // Quick save to My Skins (Ctrl+S)
+            quickSave(false);
           } else { 
             setTool('stamp'); playSound('click'); 
           }
@@ -2147,7 +2245,7 @@ export default function SkinCreator() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [undo, redo, selectedColor, secondaryColor, activeLayer, skinName]);
+  }, [undo, redo, selectedColor, secondaryColor, activeLayer, skinName, quickSave]);
 
   // Auto-save to localStorage when canvas changes 💾
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -2157,6 +2255,70 @@ export default function SkinCreator() {
       localStorage.setItem('minecraft-skin-autosave', dataUrl);
     }
   }, []);
+
+  // 💾 QUICK SAVE - Save to My Skins with toast notification
+  const quickSave = useCallback((isAutoSave: boolean = false) => {
+    if (!canvasRef.current) return;
+    
+    const dataUrl = canvasRef.current.toDataURL('image/png');
+    const newSkin: SavedSkin = {
+      id: `skin-${Date.now()}`,
+      name: skinName || 'my-skin',
+      dataUrl,
+      timestamp: Date.now(),
+    };
+    
+    // Check if this exact skin already exists (avoid duplicates on rapid saves)
+    setSavedSkins(prev => {
+      // Don't add duplicate if last skin is identical
+      if (prev.length > 0 && prev[0].dataUrl === dataUrl) {
+        return prev;
+      }
+      return [newSkin, ...prev].slice(0, 50);
+    });
+    
+    // Also save to localStorage for recovery
+    localStorage.setItem('minecraft-skin-autosave', dataUrl);
+    lastAutoSaveRef.current = Date.now();
+    
+    // Show toast notification
+    const message = isAutoSave ? '💾 Auto-saved!' : '💾 Saved! (Ctrl+S)';
+    setSaveToast({ show: true, message, type: isAutoSave ? 'autosave' : 'save' });
+    
+    // Hide toast after 2 seconds
+    setTimeout(() => {
+      setSaveToast(prev => ({ ...prev, show: false }));
+    }, 2000);
+    
+    if (!isAutoSave) {
+      playSound('save');
+    }
+  }, [skinName, playSound]);
+
+  // ⏰ AUTOSAVE INTERVAL - Save every 30 seconds
+  useEffect(() => {
+    // Set up autosave interval
+    autoSaveIntervalRef.current = setInterval(() => {
+      if (canvasRef.current) {
+        // Only autosave if canvas has content (not blank)
+        const ctx = canvasRef.current.getContext('2d');
+        if (ctx) {
+          const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          const hasContent = imageData.data.some((value, index) => index % 4 === 3 && value > 0);
+          if (hasContent) {
+            quickSave(true);
+          }
+        }
+      }
+    }, 30000); // 30 seconds
+
+    // Cleanup on unmount
+    return () => {
+      if (autoSaveIntervalRef.current) {
+        clearInterval(autoSaveIntervalRef.current);
+      }
+    };
+  }, [quickSave]);
 
   // 🎲 RANDOM SKIN GENERATOR - Surprise the kids with fun random skins!
   const generateRandomSkin = useCallback(() => {
@@ -2988,6 +3150,90 @@ export default function SkinCreator() {
                     data[idx + 2] = b;
                   }
                 }
+              }
+            }
+          }
+        }
+        break;
+      }
+
+      case 'smooth': {
+        // Smooth/anti-alias effect - blend edges with weighted neighbor sampling
+        // This softens harsh pixel edges while preserving detail better than blur
+        const tempData = new Uint8ClampedArray(data);
+        const blendStrength = normalizedIntensity; // 0-1 blend factor
+        
+        // Gaussian-like kernel weights for 3x3 (center-weighted)
+        const kernel = [
+          [1, 2, 1],
+          [2, 4, 2],
+          [1, 2, 1]
+        ];
+        const kernelSum = 16;
+        
+        for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+            const idx = (y * width + x) * 4;
+            
+            // Skip fully transparent pixels
+            if (tempData[idx + 3] === 0) continue;
+            
+            // Check if this pixel is on an edge (has different colored neighbors)
+            let isEdge = false;
+            const centerR = tempData[idx];
+            const centerG = tempData[idx + 1];
+            const centerB = tempData[idx + 2];
+            
+            // Check 4 immediate neighbors for color difference
+            const neighbors = [
+              { dx: 0, dy: -1 }, { dx: 0, dy: 1 },
+              { dx: -1, dy: 0 }, { dx: 1, dy: 0 }
+            ];
+            
+            for (const n of neighbors) {
+              const nidx = ((y + n.dy) * width + (x + n.dx)) * 4;
+              if (tempData[nidx + 3] > 0) {
+                const diff = Math.abs(tempData[nidx] - centerR) +
+                            Math.abs(tempData[nidx + 1] - centerG) +
+                            Math.abs(tempData[nidx + 2] - centerB);
+                if (diff > 30) { // Threshold for "different enough"
+                  isEdge = true;
+                  break;
+                }
+              }
+            }
+            
+            // Only smooth edge pixels (preserve flat areas)
+            if (isEdge) {
+              let r = 0, g = 0, b = 0, weightSum = 0;
+              
+              // Apply weighted kernel
+              for (let ky = -1; ky <= 1; ky++) {
+                for (let kx = -1; kx <= 1; kx++) {
+                  const ny = y + ky;
+                  const nx = x + kx;
+                  const nidx = (ny * width + nx) * 4;
+                  
+                  // Only include non-transparent pixels
+                  if (tempData[nidx + 3] > 0) {
+                    const weight = kernel[ky + 1][kx + 1];
+                    r += tempData[nidx] * weight;
+                    g += tempData[nidx + 1] * weight;
+                    b += tempData[nidx + 2] * weight;
+                    weightSum += weight;
+                  }
+                }
+              }
+              
+              if (weightSum > 0) {
+                // Blend between original and smoothed based on intensity
+                const smoothR = r / weightSum;
+                const smoothG = g / weightSum;
+                const smoothB = b / weightSum;
+                
+                data[idx] = Math.round(centerR * (1 - blendStrength) + smoothR * blendStrength);
+                data[idx + 1] = Math.round(centerG * (1 - blendStrength) + smoothG * blendStrength);
+                data[idx + 2] = Math.round(centerB * (1 - blendStrength) + smoothB * blendStrength);
               }
             }
           }
@@ -4788,6 +5034,37 @@ export default function SkinCreator() {
         />
       )}
 
+      {/* 💾 Save Toast Notification */}
+      {saveToast.show && (
+        <div 
+          className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-xl shadow-2xl font-bold text-white transition-all duration-300 animate-bounce-in ${
+            saveToast.type === 'autosave' 
+              ? 'bg-gradient-to-r from-emerald-500 to-teal-500' 
+              : 'bg-gradient-to-r from-purple-500 to-pink-500'
+          }`}
+          style={{
+            animation: 'toast-slide-in 0.3s ease-out',
+          }}
+        >
+          <span className="flex items-center gap-2">
+            {saveToast.message}
+            {saveToast.type === 'save' && <span className="text-xs opacity-75">(My Skins)</span>}
+          </span>
+        </div>
+      )}
+      <style jsx>{`
+        @keyframes toast-slide-in {
+          from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+      `}</style>
+
       {/* ⌨️ Keyboard Shortcuts Help */}
       {showShortcuts && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50" onClick={() => setShowShortcuts(false)}>
@@ -6146,12 +6423,23 @@ export default function SkinCreator() {
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { 
                   setIsDrawing(false); 
+                  // Clear shape tool start positions (line, rectangle, circle)
+                  lineStartPosition.current = null;
+                  shapeStartPosition.current = null;
                   saveState(); 
                   addRecentColor(selectedColor);
                   // Notify tutorial that user drew on canvas
                   if (showInteractiveTutorial) setTutorialCanvasDrawn(true);
                 }}
-                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); setHoverPixel(null); setEyedropperPreviewColor(null); }}
+                onMouseLeave={() => { 
+                  setIsDrawing(false); 
+                  // Clear shape tool start positions to cancel incomplete shapes
+                  lineStartPosition.current = null;
+                  shapeStartPosition.current = null;
+                  setContextMenu(null); 
+                  setHoverPixel(null); 
+                  setEyedropperPreviewColor(null); 
+                }}
                 onMouseMove={(e) => {
                   draw(e);
                   // Track pixel position for coordinate display
@@ -7458,6 +7746,138 @@ export default function SkinCreator() {
         </div>
       )}
 
+      {/* 📊 Skin Stats Panel */}
+      {showStatsPanel && (() => {
+        const stats = calculateSkinStats();
+        return (
+          <div className="fixed top-20 right-4 z-40 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200 p-4 w-80 max-h-[calc(100vh-100px)] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold text-lg flex items-center gap-2">
+                📊 Skin Stats
+              </h3>
+              <button
+                onClick={() => setShowStatsPanel(false)}
+                className="text-gray-400 hover:text-gray-600 text-xl"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Overview Cards */}
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-3 text-center">
+                <div className="text-2xl font-bold text-blue-600">{stats.filledPixels}</div>
+                <div className="text-xs text-blue-500">Filled Pixels</div>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-3 text-center">
+                <div className="text-2xl font-bold text-purple-600">{stats.uniqueColors}</div>
+                <div className="text-xs text-purple-500">Unique Colors</div>
+              </div>
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 text-center">
+                <div className="text-2xl font-bold text-green-600">{stats.fillPercentage}%</div>
+                <div className="text-xs text-green-500">Fill Rate</div>
+              </div>
+              <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-3 text-center">
+                <div className="text-2xl font-bold text-amber-600">{stats.avgBrightness}</div>
+                <div className="text-xs text-amber-500">Avg Brightness</div>
+              </div>
+            </div>
+
+            {/* Fill Progress Bar */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-xs font-medium text-gray-600">Canvas Fill</span>
+                <span className="text-xs text-gray-500">{stats.filledPixels}/{stats.totalPixels}</span>
+              </div>
+              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-400 to-purple-500 rounded-full transition-all duration-500"
+                  style={{ width: `${stats.fillPercentage}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Transparency Badge */}
+            <div className="flex items-center gap-2 mb-4 p-2 rounded-lg bg-gray-50">
+              <span className="text-lg">{stats.hasTransparency ? '🔲' : '⬛'}</span>
+              <div>
+                <div className="text-sm font-medium">
+                  {stats.hasTransparency ? 'Has Transparency' : 'No Transparency'}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {stats.transparentPixels} transparent pixel{stats.transparentPixels !== 1 ? 's' : ''}
+                </div>
+              </div>
+            </div>
+
+            {/* Color Breakdown */}
+            {stats.colorBreakdown.length > 0 && (
+              <div>
+                <h4 className="text-sm font-bold text-gray-700 mb-2 flex items-center gap-1">
+                  🎨 Top Colors
+                </h4>
+                <div className="space-y-1.5">
+                  {stats.colorBreakdown.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <div
+                        className="w-6 h-6 rounded border border-gray-200 flex-shrink-0"
+                        style={{ 
+                          backgroundColor: item.color,
+                          backgroundImage: item.color.startsWith('rgba') ? 'linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc)' : undefined,
+                          backgroundSize: '6px 6px',
+                          backgroundPosition: '0 0, 3px 3px'
+                        }}
+                        title={item.color}
+                      />
+                      <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{ 
+                            width: `${Math.max(item.percentage, 3)}%`,
+                            backgroundColor: item.color.startsWith('rgba') ? '#888' : item.color
+                          }}
+                        />
+                      </div>
+                      <span className="text-xs text-gray-500 w-12 text-right">{item.percentage}%</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Dominant Color */}
+                {stats.dominantColor && (
+                  <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-2">
+                    <span className="text-xs text-gray-500">Dominant:</span>
+                    <div
+                      className="w-5 h-5 rounded border border-gray-200"
+                      style={{ backgroundColor: stats.dominantColor }}
+                    />
+                    <code className="text-xs bg-gray-100 px-2 py-0.5 rounded">
+                      {stats.dominantColor}
+                    </code>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(stats.dominantColor || '');
+                        playSound('click');
+                      }}
+                      className="text-xs text-blue-500 hover:text-blue-600"
+                      title="Copy color"
+                    >
+                      📋
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Skin Dimensions */}
+            <div className="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 flex justify-between">
+              <span>📐 {SKIN_WIDTH}×{SKIN_HEIGHT}px</span>
+              <span>🎮 {skinModel === 'steve' ? 'Steve' : 'Alex'} Model</span>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* 📤 Export Panel - Mobile optimized with all export options */}
       {showExportPanel && (
         <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
@@ -8588,6 +9008,17 @@ export default function SkinCreator() {
           title="Color Adjustments (HSL)"
         >
           🌈
+        </button>
+
+        {/* Stats Panel Toggle Button */}
+        <button
+          onClick={() => setShowStatsPanel(!showStatsPanel)}
+          className={`w-12 h-12 md:w-10 md:h-10 rounded-full shadow-lg text-xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center ${
+            showStatsPanel ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white' : 'bg-white/90'
+          }`}
+          title="Skin Stats (S)"
+        >
+          📊
         </button>
       </div>
 
