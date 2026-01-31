@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import TaskPriorityBadge, { PriorityHeatmapSummary } from './TaskPriorityBadge';
 
 interface Task {
   id: string;
@@ -43,13 +44,7 @@ const statusColors: Record<string, { bg: string; text: string; border: string }>
   BLOCKED: { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/20' },
 };
 
-const priorityColors: Record<string, { bg: string; text: string }> = {
-  P0: { bg: 'bg-red-500/20', text: 'text-red-300' },
-  P1: { bg: 'bg-orange-500/20', text: 'text-orange-300' },
-  P2: { bg: 'bg-yellow-500/20', text: 'text-yellow-300' },
-  P3: { bg: 'bg-white/10', text: 'text-white/60' },
-  P4: { bg: 'bg-white/5', text: 'text-white/40' },
-};
+// Priority colors now handled by TaskPriorityBadge component
 
 const ownerEmoji: Record<string, string> = {
   '@clawdinho': '🐾',
@@ -72,7 +67,6 @@ function formatTimeAgo(dateStr: string | undefined): string {
 
 function TaskCard({ task }: { task: Task }) {
   const status = statusColors[task.status] || statusColors.TODO;
-  const priority = priorityColors[task.priority || 'P3'] || priorityColors.P3;
   const ownerIcon = ownerEmoji[task.owner || ''] || '👤';
 
   return (
@@ -84,9 +78,11 @@ function TaskCard({ task }: { task: Task }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-mono text-white/40">{task.id}</span>
             {task.priority && (
-              <span className={`text-xs px-1.5 py-0.5 rounded ${priority.bg} ${priority.text}`}>
-                {task.priority}
-              </span>
+              <TaskPriorityBadge 
+                priority={task.priority} 
+                size="sm"
+                animate={task.status === 'IN_PROGRESS'}
+              />
             )}
           </div>
           <h3 className="text-sm font-medium text-white/90 truncate" title={task.title}>
@@ -243,6 +239,14 @@ export default function TaskManagementPanel() {
           <StatsCard label="Blocked" value={data.stats.blocked} color="bg-red-500/10" />
           <StatsCard label="Completion" value={`${data.stats.completion_rate}%`} color="bg-purple-500/10" />
         </div>
+
+        {/* Priority Heat Distribution */}
+        {data.stats.by_priority && Object.keys(data.stats.by_priority).length > 0 && (
+          <div className="flex items-center gap-3 mb-4 p-2 rounded-lg bg-white/5">
+            <span className="text-xs text-white/50">Priority Heat:</span>
+            <PriorityHeatmapSummary distribution={data.stats.by_priority} />
+          </div>
+        )}
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
