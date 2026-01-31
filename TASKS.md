@@ -11277,7 +11277,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Accessory stamps (glasses, hat)
 
 ### [T928] Skin Creator: "How to Play" Tutorial
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
