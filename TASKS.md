@@ -12077,17 +12077,32 @@ Generated: 2026-01-30T18:37:46.867013
   - [x] Added error handling best practices with Ollama health checks
 
 ### [T944] Heartbeat: Use Local LLM for Simple Summarization
-- **Status**: TODO
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
+- **Started**: 2026-01-31 07:40 PST
+- **Completed**: 2026-01-31 07:45 PST
 - **Created**: 2026-01-30
 - **Depends**: [T910]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Use local LLM during heartbeat for simple tasks
-  - Summarize log files before sending alerts
-  - Generate task descriptions from code changes
-  - Free up Claude API tokens for complex reasoning
-  - Track token savings in metrics
+- **Notes**: ✅ Created heartbeat LLM summarization script!
+  - ✅ `scripts/heartbeat-llm-summarize.py` - Summarization via local LLM
+  - ✅ Summarize text from files, stdin, or alerts
+  - ✅ Generate task descriptions from git diffs
+  - ✅ Human-readable alert conversion
+  - ✅ Graceful fallback when Ollama unavailable
+  - ✅ Tested: works with llama31-8b
+  - **Usage:**
+    ```bash
+    # Summarize a file
+    python scripts/heartbeat-llm-summarize.py --file /path/to/log.txt
+    
+    # Summarize text from stdin
+    echo "Long text" | python scripts/heartbeat-llm-summarize.py
+    
+    # Summarize alert for notification
+    python scripts/heartbeat-llm-summarize.py --alert scripts/my.alert
+    ```
 
 ### [T945] Minecraft Skin Creator: Premium Templates Pack
 - **Status**: DONE ✅
