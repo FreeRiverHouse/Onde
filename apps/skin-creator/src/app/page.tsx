@@ -2127,6 +2127,29 @@ export default function SkinCreator() {
                       <span className="text-xs text-gray-500 w-8">{layer.tintIntensity}%</span>
                     </div>
                   )}
+                  
+                  {/* ✨ Glow Toggle */}
+                  <div className="flex items-center gap-2 mt-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLayers(prev => prev.map(l => 
+                          l.id === layer.id ? { ...l, glow: !l.glow } : l
+                        ));
+                        setTimeout(() => {
+                          compositeLayersToMain();
+                          updatePreview();
+                        }, 0);
+                      }}
+                      className={`px-2 py-0.5 rounded text-xs font-bold transition-all ${
+                        layer.glow 
+                          ? 'bg-yellow-400 text-yellow-900 shadow-lg shadow-yellow-400/50' 
+                          : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                      }`}
+                    >
+                      ✨ Glow {layer.glow ? 'ON' : 'OFF'}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
