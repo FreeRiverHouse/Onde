@@ -3785,13 +3785,15 @@ export default function SkinCreator() {
               <button
                 onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
                 className="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 font-bold active:scale-95"
+                title="Zoom out"
               >
                 -
               </button>
               <span className="text-sm font-bold w-8 text-center">{zoomLevel}x</span>
               <button
-                onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
+                onClick={() => setZoomLevel(Math.min(20, zoomLevel + 1))}
                 className="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 font-bold active:scale-95"
+                title="Zoom in"
               >
                 +
               </button>
