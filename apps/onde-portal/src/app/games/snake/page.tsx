@@ -519,6 +519,7 @@ export default function SnakeGame() {
   const [shieldHits, setShieldHits] = useState(0)
 
   const directionRef = useRef(direction)
+  const scoreRef = useRef(score)
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null)
   const powerUpLoopRef = useRef<NodeJS.Timeout | null>(null)
   const particleLoopRef = useRef<NodeJS.Timeout | null>(null)
@@ -533,6 +534,7 @@ export default function SnakeGame() {
   useEffect(() => { snakeRef.current = snake }, [snake])
   useEffect(() => { activePowerUpsRef.current = activePowerUps }, [activePowerUps])
   useEffect(() => { foodRef.current = food }, [food])
+  useEffect(() => { scoreRef.current = score }, [score])
 
   // Update now for power-up timers
   useEffect(() => {
@@ -735,7 +737,7 @@ export default function SnakeGame() {
           triggerSlowMo()
           if (soundEnabled) playSound('die')
           setGameState('gameover')
-          saveHighScore(score, prevSnake.length)
+          saveHighScore(scoreRef.current, prevSnake.length)
           return prevSnake
         }
       }
@@ -754,7 +756,7 @@ export default function SnakeGame() {
           triggerSlowMo()
           if (soundEnabled) playSound('die')
           setGameState('gameover')
-          saveHighScore(score, prevSnake.length)
+          saveHighScore(scoreRef.current, prevSnake.length)
           return prevSnake
         }
       }
@@ -848,7 +850,7 @@ export default function SnakeGame() {
       newSnake.pop()
       return newSnake
     })
-  }, [generateFood, generateRandomPosition, saveHighScore, score, soundEnabled, gameMode, hasPowerUp, applyPowerUp, spawnParticles, triggerShake, triggerSlowMo])
+  }, [generateFood, generateRandomPosition, saveHighScore, soundEnabled, gameMode, hasPowerUp, applyPowerUp, spawnParticles, triggerShake, triggerSlowMo])
 
   // Start game loop
   useEffect(() => {
@@ -920,7 +922,7 @@ export default function SnakeGame() {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (gameState === 'idle') {
+      if (gameState === 'idle' || gameState === 'gameover') {
         startGame()
         return
       }
@@ -993,7 +995,7 @@ export default function SnakeGame() {
     const dy = touchEnd.y - touchStartRef.current.y
     const minSwipe = 30
 
-    if (gameState === 'idle') {
+    if (gameState === 'idle' || gameState === 'gameover') {
       startGame()
       return
     }
@@ -1278,6 +1280,10 @@ export default function SnakeGame() {
         <div />
         <button
           onClick={() => {
+            if (gameState === 'idle' || gameState === 'gameover') {
+              startGame()
+              return
+            }
             if (gameState === 'playing' && directionRef.current !== 'DOWN') {
               directionRef.current = 'UP'
               setDirection('UP')
@@ -1295,6 +1301,10 @@ export default function SnakeGame() {
         <div />
         <button
           onClick={() => {
+            if (gameState === 'idle' || gameState === 'gameover') {
+              startGame()
+              return
+            }
             if (gameState === 'playing' && directionRef.current !== 'RIGHT') {
               directionRef.current = 'LEFT'
               setDirection('LEFT')
@@ -1311,6 +1321,10 @@ export default function SnakeGame() {
         </button>
         <button
           onClick={() => {
+            if (gameState === 'idle' || gameState === 'gameover') {
+              startGame()
+              return
+            }
             if (gameState === 'playing' && directionRef.current !== 'UP') {
               directionRef.current = 'DOWN'
               setDirection('DOWN')
@@ -1327,6 +1341,10 @@ export default function SnakeGame() {
         </button>
         <button
           onClick={() => {
+            if (gameState === 'idle' || gameState === 'gameover') {
+              startGame()
+              return
+            }
             if (gameState === 'playing' && directionRef.current !== 'LEFT') {
               directionRef.current = 'RIGHT'
               setDirection('RIGHT')
