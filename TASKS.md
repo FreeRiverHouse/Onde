@@ -149,17 +149,23 @@
     ```
 
 ### [T871] Create Local Agent System Documentation
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T868]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Document local LLM sub-agent system:
-  - README in scripts/local-agents/
-  - Architecture diagram (M1→Ollama, Radeon→TinyGrad)
-  - Model comparison table (size, speed, specialty)
-  - Best practices for delegation
-  - Common task templates
+- **Notes**: ✅ Comprehensive documentation created!
+  - ✅ `scripts/local-agents/README.md` - Full documentation
+  - ✅ ASCII architecture diagram
+  - ✅ Model comparison table (size, speed, specialty)
+  - ✅ Task type routing table
+  - ✅ Python API examples with LLMResponse dataclass
+  - ✅ Fallback chain documentation
+  - ✅ Metrics and cost tracking guide
+  - ✅ Hardware notes (M1/Radeon, M4 Pro)
+  - ✅ Best practices and troubleshooting
+  - ✅ Instructions for adding new models
 
 ### [T872] Local LLM: Add retry logic with model fallback
 - **Status**: DONE
