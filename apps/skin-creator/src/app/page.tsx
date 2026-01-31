@@ -24,6 +24,34 @@ const DEFAULT_LAYERS: Layer[] = [
   { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100 },
 ];
 
+// Multi-game support
+type GameType = 'minecraft' | 'roblox';
+
+interface GameConfig {
+  name: string;
+  emoji: string;
+  width: number;
+  height: number;
+  exportFormat: string;
+}
+
+const GAME_CONFIGS: Record<GameType, GameConfig> = {
+  minecraft: {
+    name: 'Minecraft',
+    emoji: '⛏️',
+    width: 64,
+    height: 64,
+    exportFormat: 'PNG 64x64',
+  },
+  roblox: {
+    name: 'Roblox',
+    emoji: '🎮',
+    width: 128,
+    height: 128,
+    exportFormat: 'PNG 128x128',
+  },
+};
+
 // Minecraft skin layout (64x64)
 // The skin is divided into body parts with specific regions
 const BODY_PARTS = {
@@ -103,6 +131,7 @@ const DISPLAY_SCALE = 6;
 export default function SkinCreator() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLCanvasElement>(null);
+  const [selectedGame, setSelectedGame] = useState<GameType>('minecraft');
   const [selectedColor, setSelectedColor] = useState('#FF6B6B');
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
@@ -1269,6 +1298,23 @@ export default function SkinCreator() {
         <p className="text-lg text-white/90 mt-1">
           AI Skin Creator for Minecraft & Roblox ✨
         </p>
+        
+        {/* Game Selector */}
+        <div className="flex gap-2 mt-3">
+          {(Object.entries(GAME_CONFIGS) as [GameType, GameConfig][]).map(([key, config]) => (
+            <button
+              key={key}
+              onClick={() => setSelectedGame(key)}
+              className={`px-4 py-2 rounded-full font-bold transition-all ${
+                selectedGame === key 
+                  ? 'bg-white text-purple-600 scale-105 shadow-lg' 
+                  : 'bg-white/20 text-white hover:bg-white/30'
+              }`}
+            >
+              {config.emoji} {config.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2">
