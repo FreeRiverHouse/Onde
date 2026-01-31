@@ -4034,6 +4034,15 @@ export default function SkinCreator() {
       <p className="mt-4 text-white/70 text-sm">
         Made with 💖 by Onde • Works with Minecraft Java & Bedrock!
       </p>
+
+      {/* 🎨 Bouncing Mascots */}
+      <div className="fixed bottom-0 left-0 right-0 h-16 flex justify-around items-end pointer-events-none overflow-hidden">
+        <span className="text-4xl animate-bounce" style={{ animationDelay: '0s' }}>🎨</span>
+        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.2s' }}>🖌️</span>
+        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.4s' }}>⛏️</span>
+        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.6s' }}>💎</span>
+        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.8s' }}>🧱</span>
+      </div>
     </div>
   );
 }
