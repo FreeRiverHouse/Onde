@@ -12635,7 +12635,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Let users remap keyboard shortcuts
 
 ### [T1022] Skin Creator: Help Button in UI
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12686,3 +12686,24 @@ Generated: 2026-01-30T18:37:46.867013
   - Verify build succeeds
   - Check dist/ output exists
   - Alert on failure: `scripts/moonlight-build-failure.alert`
+
+### [T1024] Skin Creator: Floating Help Tips
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Tooltips that appear on hover with shortcuts
+
+### [T1025] Skin Creator: Help Search
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Searchable help panel for features
+
+### [T1026] Skin Creator: Video Tutorials Link
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Link to YouTube tutorials in help panel
