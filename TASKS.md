@@ -12635,8 +12635,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Let users remap keyboard shortcuts
 
 ### [T1022] Skin Creator: Help Button in UI
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Visual button to show shortcuts (not just ?)
