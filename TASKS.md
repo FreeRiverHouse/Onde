@@ -12596,3 +12596,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Slider to control animation speed
+
+### [T1018] Skin Creator: Achievement Gallery
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Panel showing all achievements and progress
+
+### [T1019] Skin Creator: Achievement Sound Effects
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Unique sounds for each achievement type
+
+### [T1020] Skin Creator: Secret Achievements
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Hidden achievements for special actions
