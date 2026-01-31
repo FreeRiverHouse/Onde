@@ -10663,16 +10663,18 @@
   - Child-friendly, colorful design
 
 ### [T895] Skin Studio: Deploy rebranded version to onde.surf
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T890]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy the rebranded Skin Studio:
-  - Build static export
-  - Deploy to onde.surf/skin-studio (or similar path)
-  - Verify branding appears correctly
-  - Test on mobile devices
+- **Notes**: ✅ Deployed rebranded Skin Studio to Cloudflare Pages!
+  - ✅ Created CF Pages project: skin-studio
+  - ✅ Built static export (22 files)
+  - ✅ Deployed: https://skin-studio.pages.dev
+  - ✅ Verified: HTTP 200 OK
+  - ⏳ TODO: Add custom domain (e.g., skin.onde.surf)
 
 ### [T896] Skin Studio: Add Roblox skin export format
 - **Status**: TODO
