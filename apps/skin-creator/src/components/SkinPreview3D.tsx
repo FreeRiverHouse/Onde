@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 interface SkinPreview3DProps {
@@ -14,6 +14,10 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const characterRef = useRef<THREE.Group | null>(null);
   const textureRef = useRef<THREE.CanvasTexture | null>(null);
+  const isDragging = useRef(false);
+  const previousMousePosition = useRef({ x: 0, y: 0 });
+  const rotationRef = useRef({ x: 0, y: 0 });
+  const autoRotateRef = useRef(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -92,18 +96,79 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
 
     scene.add(character);
 
-    // Animation loop
-    let rotation = 0;
+    // Mouse/Touch drag handlers
+    const onMouseDown = (e: MouseEvent) => {
+      isDragging.current = true;
+      autoRotateRef.current = false;
+      previousMousePosition.current = { x: e.clientX, y: e.clientY };
+    };
+    
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      const deltaX = e.clientX - previousMousePosition.current.x;
+      const deltaY = e.clientY - previousMousePosition.current.y;
+      rotationRef.current.y += deltaX * 0.01;
+      rotationRef.current.x += deltaY * 0.01;
+      rotationRef.current.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, rotationRef.current.x));
+      previousMousePosition.current = { x: e.clientX, y: e.clientY };
+    };
+    
+    const onMouseUp = () => {
+      isDragging.current = false;
+      // Resume auto-rotate after 3 seconds
+      setTimeout(() => { autoRotateRef.current = true; }, 3000);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      isDragging.current = true;
+      autoRotateRef.current = false;
+      previousMousePosition.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+    
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      const deltaX = e.touches[0].clientX - previousMousePosition.current.x;
+      const deltaY = e.touches[0].clientY - previousMousePosition.current.y;
+      rotationRef.current.y += deltaX * 0.01;
+      rotationRef.current.x += deltaY * 0.01;
+      rotationRef.current.x = Math.max(-Math.PI/4, Math.min(Math.PI/4, rotationRef.current.x));
+      previousMousePosition.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+    
+    const onTouchEnd = () => {
+      isDragging.current = false;
+      setTimeout(() => { autoRotateRef.current = true; }, 3000);
+    };
+
+    renderer.domElement.addEventListener('mousedown', onMouseDown);
+    renderer.domElement.addEventListener('mousemove', onMouseMove);
+    renderer.domElement.addEventListener('mouseup', onMouseUp);
+    renderer.domElement.addEventListener('mouseleave', onMouseUp);
+    renderer.domElement.addEventListener('touchstart', onTouchStart);
+    renderer.domElement.addEventListener('touchmove', onTouchMove);
+    renderer.domElement.addEventListener('touchend', onTouchEnd);
+
+    // Animation loop with interactive rotation
     const animate = () => {
       requestAnimationFrame(animate);
-      rotation += 0.01;
-      character.rotation.y = rotation;
+      if (autoRotateRef.current) {
+        rotationRef.current.y += 0.01;
+      }
+      character.rotation.y = rotationRef.current.y;
+      character.rotation.x = rotationRef.current.x;
       renderer.render(scene, camera);
     };
     animate();
 
     // Cleanup
     return () => {
+      renderer.domElement.removeEventListener('mousedown', onMouseDown);
+      renderer.domElement.removeEventListener('mousemove', onMouseMove);
+      renderer.domElement.removeEventListener('mouseup', onMouseUp);
+      renderer.domElement.removeEventListener('mouseleave', onMouseUp);
+      renderer.domElement.removeEventListener('touchstart', onTouchStart);
+      renderer.domElement.removeEventListener('touchmove', onTouchMove);
+      renderer.domElement.removeEventListener('touchend', onTouchEnd);
       renderer.dispose();
       if (containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
@@ -132,10 +197,13 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   }, [skinCanvas]);
 
   return (
-    <div 
-      ref={containerRef} 
-      className="rounded-xl overflow-hidden mx-auto"
-      style={{ width: 200, height: 280 }}
-    />
+    <div className="relative">
+      <div 
+        ref={containerRef} 
+        className="rounded-xl overflow-hidden mx-auto cursor-grab active:cursor-grabbing"
+        style={{ width: 200, height: 280 }}
+      />
+      <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate</p>
+    </div>
   );
 }
