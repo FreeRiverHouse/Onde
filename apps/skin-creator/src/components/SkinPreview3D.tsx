@@ -24,6 +24,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
   const [zoom, setZoom] = useState(5); // Camera distance
   const zoomRef = useRef(5);
+  const [animSpeed, setAnimSpeed] = useState(1); // Animation speed multiplier
+  const animSpeedRef = useRef(1);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -277,7 +279,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     let walkTime = 0;
     const animate = () => {
       requestAnimationFrame(animate);
-      walkTime += 0.05;
+      walkTime += 0.05 * animSpeedRef.current;
       
       if (autoRotateRef.current) {
         rotationRef.current.y += 0.01;
@@ -421,6 +423,11 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     }
   }, [zoom]);
 
+  // ⏩ Update animation speed
+  useEffect(() => {
+    animSpeedRef.current = animSpeed;
+  }, [animSpeed]);
+
   // 🎥 Camera angle presets
   const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
     switch (angle) {
@@ -516,6 +523,22 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title="Zoom out"
           >
             🔍−
+          </button>
+          <div className="mt-2 text-xs text-center text-white/80">⏩</div>
+          <button
+            onClick={() => setAnimSpeed(s => Math.max(0.25, s - 0.25))}
+            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Slower"
+          >
+            🐢
+          </button>
+          <div className="text-xs text-center text-white font-bold">{animSpeed}x</div>
+          <button
+            onClick={() => setAnimSpeed(s => Math.min(3, s + 0.25))}
+            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Faster"
+          >
+            🐇
           </button>
         </div>
         
