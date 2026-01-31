@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 interface SkinPreview3DProps {
@@ -18,6 +18,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const previousMousePosition = useRef({ x: 0, y: 0 });
   const rotationRef = useRef({ x: 0.1, y: 0.3 }); // Slight angle to show front nicely
   const autoRotateRef = useRef(true);
+  const particlesRef = useRef<THREE.Points | null>(null);
+  const [showParticles, setShowParticles] = useState(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -191,6 +193,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     });
     
     const particles = new THREE.Points(particleGeometry, particleMaterial);
+    particlesRef.current = particles;
     scene.add(particles);
 
     // Mouse/Touch drag handlers
@@ -320,6 +323,13 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     });
   }, [skinCanvas]);
 
+  // ✨ Update particle visibility
+  useEffect(() => {
+    if (particlesRef.current) {
+      particlesRef.current.visible = showParticles;
+    }
+  }, [showParticles]);
+
   // 🎥 Camera angle presets
   const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
     switch (angle) {
@@ -422,6 +432,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title="Back view"
           >
             🔙
+          </button>
+          <button
+            onClick={() => setShowParticles(!showParticles)}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              showParticles ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-400 text-gray-700'
+            }`}
+            title={showParticles ? 'Hide particles' : 'Show particles'}
+          >
+            ✨
           </button>
         </div>
       </div>
