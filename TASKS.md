@@ -10348,3 +10348,93 @@
   - Add `<link rel="manifest">` to layout.tsx
   - Install and configure next-pwa for service worker
   - Re-test with Lighthouse
+
+### [T875] Skin Creator: Mobile Touch + Responsive (DONE)
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Mobile support implementato!
+  - Touch events per disegno con dito
+  - Layout responsive per mobile/tablet
+  - Zoom ridotto automatico su schermi piccoli
+  - Toolbar compatta con solo emoji
+
+### [T876] Skin Creator: 3D Interactive Preview (DONE)
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Preview 3D interattivo!
+  - Drag to rotate con mouse/touch
+  - Walking animation (braccia/gambe oscillano)
+  - Auto-rotate riprende dopo 3s
+  - "🖱️ Drag to rotate" indicator
+
+### [T877] Skin Creator: Color Tools (DONE)
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Strumenti colore avanzati!
+  - Hex color input editabile
+  - Eyedropper tool (pick color from skin)
+  - Recent colors history (ultimi 8)
+  - Keyboard shortcut I per eyedropper
+
+### [T878] Skin Creator: Templates & Help (DONE)
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Templates e help!
+  - Aggiunti Zombie 🧟 e Creeper 💚 templates
+  - Help modal con tutti keyboard shortcuts
+  - ? button in bottom-right
+  - Press ? key to toggle
+
+### [T879] Skin Creator: Advanced Layer System
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Aggiungere sistema di layer per skin overlay:
+  - Layer base (skin body)
+  - Layer vestiti/armor
+  - Layer accessori (cappelli, occhiali)
+  - Toggle visibilità layer
+  - Export con/senza overlay
+
+### [T880] Skin Creator: AI Skin Generation
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Generare skin da prompt testuale:
+  - Input text: "Create a pirate with red bandana"
+  - Chiamata a image generation API
+  - Preview e conferma prima di applicare
+  - Style presets (cartoon, realistic, pixel art)
+
+### [T881] Skin Creator: Skin Gallery/Community
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Gallery di skin create dalla community:
+  - Upload e share skin
+  - Browse skin popolari
+  - Download skin di altri utenti
+  - Rating/like system
+  - Categories/tags
