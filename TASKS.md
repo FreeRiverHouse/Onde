@@ -13894,15 +13894,18 @@ Generated: 2026-01-30T18:37:46.867013
 ## 🔧 NEW TASKS (Added 2026-01-31 by @clawdinho)
 
 ### [T1017] Infra: Memory File Auto-Archiver
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
 - **Priority**: P3
 - **Created**: 2026-01-31
+- **Completed**: 2026-02-04 (heartbeat)
 - **Notes**: Automatically archive old memory files
-  - [ ] Script to compress memory files older than 30 days
-  - [ ] Move to `memory/archive/YYYY-MM/` folder
-  - [ ] Keep searchable index of archived content
-  - [ ] Run weekly via cron
+  - [x] Script to compress memory files older than 30 days → `scripts/memory-archiver.sh`
+  - [x] Move to `memory/archive/YYYY-MM/` folder
+  - [x] Keep searchable index of archived content → `memory/archive/index.md`
+  - [x] Search script → `scripts/memory-search-archive.sh`
+  - ⏳ Add to weekly cron (manual: `crontab -e`)
+  - **Test run**: Archived 3 files from 2025-01 successfully
   - Prevents memory/ folder from growing indefinitely
 
 ### [T1018] Trading: Local LLM for Trade Reasoning
@@ -13929,3 +13932,43 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Skip checks if <5 min since last
   - [ ] Priority queue for overdue checks
   - Reduces heartbeat overhead while maintaining coverage
+
+---
+
+## 🔧 NEW TASKS (Added 2026-02-04 by @clawdinho heartbeat)
+
+### [T1020] Infra: Add Memory Archiver to Weekly Cron
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Created**: 2026-02-04
+- **Notes**: Add memory-archiver.sh to crontab
+  - [ ] Add cron entry: `0 3 * * 0 /Users/mattia/Projects/Onde/scripts/memory-archiver.sh`
+  - [ ] Run every Sunday at 3 AM
+  - [ ] Log output to logs/memory-archiver.log
+  - Depends on scripts/memory-archiver.sh (created in T1017)
+
+### [T1021] Moonlight: Quiz/Trivia Game for Library Room
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Created**: 2026-02-04
+- **Notes**: Add quiz mini-game to library room (from T922 uncompleted items)
+  - [ ] Create QuizGame.tsx component
+  - [ ] Kid-friendly trivia questions (animals, colors, shapes, etc.)
+  - [ ] Multiple choice format (3-4 options)
+  - [ ] Reward: +coins, +happiness on correct answers
+  - [ ] Track high score
+  - Integrates with existing library room interactives
+
+### [T1022] Infra: Git Sync Health Check Script
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Created**: 2026-02-04
+- **Notes**: Script to verify agents are properly syncing git
+  - [ ] Check git pull frequency (should be < 10 min)
+  - [ ] Check uncommitted changes age
+  - [ ] Check push frequency to origin
+  - [ ] Alert if git workflow is stale
+  - Helps enforce Regola 0 (Git) automatically
