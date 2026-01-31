@@ -1,7 +1,50 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
+
+// Recipe book data type
+interface RecipeBookEntry {
+  recipeId: string
+  timesCooked: number
+  lastCooked: string
+}
+
+const RECIPE_BOOK_KEY = 'kids-chef-recipe-book'
+
+function useRecipeBook() {
+  const [recipeBook, setRecipeBook] = useState<RecipeBookEntry[]>([])
+
+  useEffect(() => {
+    const saved = localStorage.getItem(RECIPE_BOOK_KEY)
+    if (saved) {
+      try {
+        setRecipeBook(JSON.parse(saved))
+      } catch {
+        setRecipeBook([])
+      }
+    }
+  }, [])
+
+  const saveRecipe = useCallback((recipeId: string) => {
+    setRecipeBook(prev => {
+      const existing = prev.find(e => e.recipeId === recipeId)
+      const updated = existing
+        ? prev.map(e => e.recipeId === recipeId 
+            ? { ...e, timesCooked: e.timesCooked + 1, lastCooked: new Date().toISOString() }
+            : e)
+        : [...prev, { recipeId, timesCooked: 1, lastCooked: new Date().toISOString() }]
+      localStorage.setItem(RECIPE_BOOK_KEY, JSON.stringify(updated))
+      return updated
+    })
+  }, [])
+
+  const getTimesCooked = useCallback((recipeId: string) => {
+    return recipeBook.find(e => e.recipeId === recipeId)?.timesCooked || 0
+  }, [recipeBook])
+
+  return { recipeBook, saveRecipe, getTimesCooked }
+}
 
 // Sound effects hook using Web Audio API
 function useSoundEffects() {
@@ -148,6 +191,79 @@ const recipes = [
   { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500' },
 ]
 
+function RecipeBookModal({ 
+  isOpen, 
+  onClose, 
+  recipeBook, 
+  playClick 
+}: { 
+  isOpen: boolean
+  onClose: () => void
+  recipeBook: RecipeBookEntry[]
+  playClick: () => void
+}) {
+  if (!isOpen) return null
+
+  const completedRecipes = recipeBook
+    .map(entry => {
+      const recipe = recipes.find(r => r.id === entry.recipeId)
+      return recipe ? { ...recipe, timesCooked: entry.timesCooked } : null
+    })
+    .filter(Boolean) as (typeof recipes[0] & { timesCooked: number })[]
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[80vh] overflow-hidden">
+        <div className="bg-gradient-to-r from-amber-400 to-orange-400 p-4 text-center">
+          <h2 className="text-2xl font-black text-white drop-shadow-lg">📖 My Recipe Book</h2>
+          <p className="text-white/90 text-sm">{completedRecipes.length} recipes mastered!</p>
+        </div>
+        
+        <div className="p-4 overflow-y-auto max-h-[60vh]">
+          {completedRecipes.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              <div className="text-5xl mb-4">👨‍🍳</div>
+              <p>No recipes yet!</p>
+              <p className="text-sm">Start cooking to fill your book!</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {completedRecipes.map(recipe => (
+                <div 
+                  key={recipe.id}
+                  className={`bg-gradient-to-br ${recipe.color} p-3 rounded-2xl flex items-center gap-3 shadow-lg`}
+                >
+                  <div className="text-4xl">{recipe.emoji}</div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-white drop-shadow">{recipe.name}</h3>
+                    <div className="flex gap-1">
+                      {Array(recipe.difficulty).fill(0).map((_, i) => (
+                        <span key={i} className="text-yellow-300 text-sm">⭐</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="bg-white/90 px-3 py-1 rounded-full">
+                    <span className="font-bold text-orange-600">×{recipe.timesCooked}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        <div className="p-4 border-t">
+          <button
+            onClick={() => { playClick(); onClose() }}
+            className="w-full py-3 bg-gradient-to-r from-gray-400 to-gray-500 text-white font-bold rounded-full hover:scale-105 transition-all"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function RecipeCard({ recipe, onSelect, playPop }: { recipe: typeof recipes[0], onSelect: () => void, playPop: () => void }) {
   const stars = Array(3).fill(0).map((_, i) => (
     <span key={i} className={i < recipe.difficulty ? 'text-yellow-400' : 'text-gray-300'}>⭐</span>
@@ -185,14 +301,16 @@ function RecipeCard({ recipe, onSelect, playPop }: { recipe: typeof recipes[0], 
   )
 }
 
-function PlayScreen({ recipe, onBack, sounds }: { 
+function PlayScreen({ recipe, onBack, sounds, onComplete }: { 
   recipe: typeof recipes[0], 
   onBack: () => void,
-  sounds: ReturnType<typeof useSoundEffects>
+  sounds: ReturnType<typeof useSoundEffects>,
+  onComplete: () => void
 }) {
   const [step, setStep] = useState(0)
   const [score, setScore] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const [saved, setSaved] = useState(false)
 
   const steps = [
     { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti', sound: 'click' },
@@ -217,6 +335,11 @@ function PlayScreen({ recipe, onBack, sounds }: {
       setScore(100)
       // Play success jingle after a short delay
       setTimeout(() => sounds.playSuccess(), 300)
+      // Save to recipe book
+      if (!saved) {
+        onComplete()
+        setSaved(true)
+      }
     }
   }
 
@@ -291,19 +414,41 @@ function PlayScreen({ recipe, onBack, sounds }: {
 export default function KidsChefStudio() {
   const [selectedRecipe, setSelectedRecipe] = useState<typeof recipes[0] | null>(null)
   const [unlockedRecipes] = useState(13) // All unlocked!
+  const [showRecipeBook, setShowRecipeBook] = useState(false)
   const sounds = useSoundEffects()
+  const { recipeBook, saveRecipe } = useRecipeBook()
 
   if (selectedRecipe) {
-    return <PlayScreen recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} sounds={sounds} />
+    return (
+      <PlayScreen 
+        recipe={selectedRecipe} 
+        onBack={() => setSelectedRecipe(null)} 
+        sounds={sounds} 
+        onComplete={() => saveRecipe(selectedRecipe.id)}
+      />
+    )
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-300 via-yellow-300 to-amber-400">
+      <RecipeBookModal 
+        isOpen={showRecipeBook} 
+        onClose={() => setShowRecipeBook(false)} 
+        recipeBook={recipeBook}
+        playClick={sounds.playClick}
+      />
+      
       {/* Header */}
       <div className="text-center pt-8 pb-4 relative">
         <Link href="/games" onClick={() => sounds.playClick()} className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
           ← Gaming Island
         </Link>
+        <button 
+          onClick={() => { sounds.playClick(); setShowRecipeBook(true) }}
+          className="absolute top-4 right-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-600 shadow-lg hover:scale-105 transition-all"
+        >
+          📖 My Recipes
+        </button>
         <div className="text-6xl mb-2 animate-bounce">👨‍🍳</div>
         <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-lg">
           Kids Chef Studio
