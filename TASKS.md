@@ -13817,3 +13817,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Priority**: P1
 - **Goal**: Screenshot sito ogni 5 minuti
 - **Use**: Per video del lavoro fatto
+
+### [T1012] UPDATE
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 03:20 PST
