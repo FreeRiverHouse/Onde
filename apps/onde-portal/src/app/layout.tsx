@@ -71,6 +71,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Critical viewport meta tag for mobile stability */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <meta name="format-detection" content="telephone=no" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="alternate" type="application/rss+xml" title="Onde Books RSS Feed" href="/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Onde Books Atom Feed" href="/feed.atom" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
