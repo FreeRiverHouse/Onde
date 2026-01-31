@@ -138,15 +138,29 @@
   - **Tested**: Works correctly, detects recent activity
 
 ### [T951] Ondinho Autonomy: Auto-Restart Sessione se Stalled
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T950]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Sistema per riavviare sessione Ondinho se si blocca:
-  - Trigger su alert watchdog
-  - sessions_spawn nuovo task per riprendere
-  - Log motivo stall in memory
+- **Notes**: ✅ Script auto-restart creato!
+  - [x] Trigger su alert watchdog
+  - [x] sessions_spawn nuovo task per riprendere
+  - [x] Log motivo stall in memory
+  - **Script**: `scripts/restart-ondinho.sh`
+  - **Funzionalità:**
+    - Legge ondinho-stalled.alert se presente
+    - Trova prossimo task TODO non assegnato
+    - Logga evento stall in memory/YYYY-MM-DD.md
+    - Genera prompt per sessions_spawn con task da riprendere
+    - Elimina alert file dopo handling
+    - Commit automatico del memory update
+  - **Uso in heartbeat:**
+    ```bash
+    RESTART_PROMPT=$(./scripts/restart-ondinho.sh)
+    # Then use sessions_spawn with $RESTART_PROMPT
+    ```
 
 ### [T952] Infra: Unified Crontab Setup Script
 - **Status**: DONE
@@ -11231,15 +11245,21 @@
   - ✅ Testato: Ollama risponde su http://localhost:11434/api/tags
 
 ### [T912] Aggiungere Error Logging a TASKS.md
-- **Status**: TODO
-- **Owner**: TBD
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T909]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Quando un bot trova errori LLM, logga qui automaticamente
-  - [ ] Modificare llm-client.py per appendere a TASKS.md
-  - [ ] Formato: [TXXXX] LLM Error: descrizione
-  - [ ] Auto-increment task number
+- **Notes**: ✅ Già implementato in llm-client.py!
+  - [x] Modificare llm-client.py per appendere a TASKS.md
+  - [x] Formato: [TXXXX] LLM-ERROR: descrizione
+  - [x] Auto-increment task number via `_get_next_task_number()`
+  - **Funzionalità verificate:**
+    - `_create_task_entry()` scrive errori a TASKS.md
+    - `_get_next_task_number()` trova max task number + 1
+    - `log_feature_request()` per feature requests
+  - **Trigger**: Ogni errore API/timeout/connection crea task automatico
 
 ### [T913] Feature Request: Streaming Responses in GUI
 - **Status**: TODO
@@ -11940,3 +11960,44 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Generare link condivisibile (base64 encoded skin data)
+
+---
+
+## 🔧 INFRA IMPROVEMENTS (AUTO-ADDED 2026-01-30)
+
+### [T957] Infra: Add Ondinho Watchdog to Crontab
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T950]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add ondinho watchdog to system crontab
+  - [ ] Add `*/15 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-ondinho.sh` to crontab
+  - [ ] Verify with `crontab -l`
+  - [ ] Test alert file creation
+  - Complements existing autotrader watchdog
+
+### [T958] Infra: Forward LLM Errors to Telegram
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T912]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: When LLM errors occur, also notify Mattia on Telegram
+  - [ ] Add Telegram notification to `_create_task_entry()` in llm-client.py
+  - [ ] Only notify for CONNECTION_ERROR (Ollama down)
+  - [ ] Rate limit: max 1 notification per hour
+  - [ ] Include quick fix suggestion
+
+### [T959] Infra: Heartbeat Rotation Tracker
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Track which heartbeat checks were done and rotate through them
+  - [ ] Create `memory/heartbeat-state.json` schema
+  - [ ] Track: email, calendar, weather, twitter, git status
+  - [ ] Ensure each check runs 2-4x per day
+  - [ ] Avoid redundant checks <30 min apart
+  - Reference: HEARTBEAT.md "Track your checks" section
