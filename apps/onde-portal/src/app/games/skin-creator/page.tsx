@@ -908,10 +908,14 @@ export default function SkinCreator() {
       setShowWelcomeHints(true);
     }
     
-    // Show detailed tutorial on first visit (if welcome hints already dismissed)
+    // Show detailed interactive tutorial on first visit (if welcome hints already dismissed)
     const tutorialSeen = localStorage.getItem('skin-creator-tutorial-seen');
     if (!tutorialSeen && hasVisited) {
-      setShowTutorial(true);
+      setTimeout(() => {
+        setShowInteractiveTutorial(true);
+        setTutorialColorSelected(false);
+        setTutorialCanvasDrawn(false);
+      }, 500);
     }
   }, []);
 
