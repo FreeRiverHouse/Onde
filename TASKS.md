@@ -12493,8 +12493,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Sword/bow combat stance
 
 ### [T1003] Skin Creator: Achievement System
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Unlock achievements for drawing, saving, sharing
