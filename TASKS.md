@@ -12616,8 +12616,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: 1x, 2x, fit-to-view presets
 
 ### [T1012] Skin Creator: Right-Click Context Menu
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Copy/paste/reset options via right-click
