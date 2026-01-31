@@ -12317,7 +12317,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Animated starfield or particles in 3D preview bg
 
 ### [T986] Skin Creator: Screenshot Mode
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12372,3 +12372,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Fire, ice, magic, hearts particle presets
+
+### [T991] Skin Creator: Video Recording
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Record 360° rotation as GIF/video
+
+### [T992] Skin Creator: Screenshot Backgrounds
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Choose background for screenshots (transparent, solid, gradient)
+
+### [T993] Skin Creator: Pose Selector
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Different poses for screenshots (idle, walking, waving)
