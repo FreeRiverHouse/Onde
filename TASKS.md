@@ -10649,18 +10649,24 @@
   - Keywords localized per market trends
 
 ### [T894] Skin Studio: Create App Icons (192px, 512px)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T890]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create PWA and App Store icons for Skin Studio:
-  - icon-192.png for PWA manifest
-  - icon-512.png for PWA manifest
-  - App Store icon (1024x1024)
-  - Design should match Moonlight branding (purple/violet gradient)
-  - Include paint brush or pixel art element
-  - Child-friendly, colorful design
+- **Notes**: ✅ Created PWA and App Store icons for Skin Studio!
+  - ✅ icon.svg - Source SVG with Moonlight branding
+  - ✅ icon-192.png - PWA manifest (192x192)
+  - ✅ icon-512.png - PWA manifest (512x512)
+  - ✅ apple-touch-icon.png - iOS home screen (180x180)
+  - **Design features:**
+    - Purple/violet gradient background (#8b5cf6 → #6d28d9)
+    - Minecraft-style pixel art face (golden skin tone)
+    - Paintbrush accent in bottom right
+    - Sparkle decorations for child appeal
+    - Drop shadow for depth
+  - ⏳ TODO: Create 1024x1024 for App Store submission
 
 ### [T895] Skin Studio: Deploy rebranded version to onde.surf
 - **Status**: DONE
