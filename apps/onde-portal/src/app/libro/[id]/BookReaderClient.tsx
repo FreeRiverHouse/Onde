@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { books, Book } from '@/data/books'
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed'
+import ePub, { Book as EpubBook, Rendition, NavItem } from 'epubjs'
 
 // Create a lookup map for faster access
 const booksMap: Record<string, Book> = {}
@@ -16,93 +17,8 @@ interface BookData {
   author: string
   lang: string
   content: string
-  chapters: { title: string; content: string }[]
+  chapters: { title: string; content: string; href?: string }[]
   wordCount: number
-}
-
-// Parse Gutenberg text into chapters
-function parseGutenbergText(text: string, book: Book): BookData {
-  // Remove Gutenberg header and footer
-  const startMarkers = [
-    '*** START OF THE PROJECT GUTENBERG EBOOK',
-    '*** START OF THIS PROJECT GUTENBERG EBOOK',
-    '*END*THE SMALL PRINT',
-  ]
-  const endMarkers = [
-    '*** END OF THE PROJECT GUTENBERG EBOOK',
-    '*** END OF THIS PROJECT GUTENBERG EBOOK',
-    'End of the Project Gutenberg',
-    'End of Project Gutenberg',
-  ]
-
-  let content = text
-  for (const marker of startMarkers) {
-    const idx = content.indexOf(marker)
-    if (idx !== -1) {
-      content = content.substring(idx + marker.length)
-      break
-    }
-  }
-  for (const marker of endMarkers) {
-    const idx = content.indexOf(marker)
-    if (idx !== -1) {
-      content = content.substring(0, idx)
-      break
-    }
-  }
-
-  content = content.trim()
-
-  // Try to split by chapters
-  const chapterRegex = /\n\s*(CHAPTER|Chapter|PART|Part|BOOK|Book)\s+([IVXLCDM\d]+|[A-Z]+|\d+)[.\s]*/gi
-  const chapters: { title: string; content: string }[] = []
-
-  const parts = content.split(chapterRegex)
-
-  if (parts.length > 3) {
-    // We have chapters
-    for (let i = 1; i < parts.length; i += 3) {
-      const type = parts[i] || 'Chapter'
-      const num = parts[i + 1] || ''
-      const chapterContent = parts[i + 2] || ''
-
-      // Extract chapter title (usually on first line)
-      const lines = chapterContent.trim().split('\n')
-      let title = `${type} ${num}`
-
-      // Look for title in first few lines
-      for (let j = 0; j < Math.min(3, lines.length); j++) {
-        const line = lines[j].trim()
-        if (line && !line.match(/^[\d\s]+$/) && line.length < 100) {
-          title = `${type} ${num}: ${line}`
-          break
-        }
-      }
-
-      chapters.push({
-        title: title,
-        content: chapterContent.trim()
-      })
-    }
-  } else {
-    // No chapters found, treat as single section
-    chapters.push({
-      title: book.title,
-      content: content
-    })
-  }
-
-  // Count words
-  const wordCount = content.split(/\s+/).filter(Boolean).length
-
-  return {
-    title: book.title,
-    author: book.author,
-    lang: book.lang || 'en',
-    content: content,
-    chapters: chapters,
-    wordCount: wordCount
-  }
 }
 
 interface Props {
@@ -119,6 +35,11 @@ export default function BookReaderClient({ bookId }: Props) {
   const [readingProgress, setReadingProgress] = useState(0)
   const [theme, setTheme] = useState<'notte' | 'giorno' | 'seppia'>('notte')
   const contentRef = useRef<HTMLDivElement>(null)
+  const viewerRef = useRef<HTMLDivElement>(null)
+  const epubRef = useRef<EpubBook | null>(null)
+  const renditionRef = useRef<Rendition | null>(null)
+  const [tocItems, setTocItems] = useState<NavItem[]>([])
+  const [useEpubViewer, setUseEpubViewer] = useState(false)
 
   const book = booksMap[bookId]
   const { addToRecentlyViewed } = useRecentlyViewed()
@@ -157,148 +78,112 @@ export default function BookReaderClient({ bookId }: Props) {
     localStorage.setItem('onde-reader-theme', theme)
   }, [fontSize, theme])
 
-  // ONDE STUDIO BOOKS - Custom content instead of Gutenberg
-  const ondeStudioContent: Record<string, BookData> = {
-    'salmo-23': {
-      title: 'Il Pastore - Il Salmo 23 per Bambini',
-      author: 'Tradizione Biblica',
-      lang: 'it',
-      content: '',
-      wordCount: 450,
-      chapters: [
-        {
-          title: 'Capitolo 1: Il Signore è il mio pastore',
-          content: `C'era una volta un pastore buono, il più buono del mondo.
-Aveva occhi gentili come il miele
-e un sorriso che scaldava come il sole.
+  // Initialize and render EPUB
+  const initEpub = useCallback(async (epubUrl: string) => {
+    if (!viewerRef.current) return
 
-"Io sarò sempre con te," sussurrava il pastore,
-"Non ti mancherà mai niente,
-perché io mi prendo cura di te."
+    try {
+      // Cleanup previous instance
+      if (renditionRef.current) {
+        renditionRef.current.destroy()
+      }
+      if (epubRef.current) {
+        epubRef.current.destroy()
+      }
 
-E le sue pecorelle, bianche come nuvole,
-lo seguivano felici dovunque andasse.`
+      const epubBook = ePub(epubUrl)
+      epubRef.current = epubBook
+
+      // Load the book and get navigation
+      await epubBook.ready
+      const navigation = await epubBook.loaded.navigation
+      setTocItems(navigation.toc)
+
+      // Create rendition
+      const rendition = epubBook.renderTo(viewerRef.current, {
+        width: '100%',
+        height: '100%',
+        spread: 'none',
+        flow: 'scrolled-doc',
+      })
+
+      renditionRef.current = rendition
+
+      // Apply theme styles
+      rendition.themes.default({
+        body: {
+          'font-family': 'Georgia, serif',
+          'line-height': '1.8',
+          'padding': '20px',
         },
-        {
-          title: 'Capitolo 2: I pascoli e le acque tranquille',
-          content: `Il pastore conosceva i posti più belli:
-prati verdi dove l'erba era morbida,
-ruscelli che cantavano canzoni d'argento.
-
-"Riposa qui," diceva il pastore,
-"L'acqua fresca ti darà forza,
-e l'erba verde ti farà crescere."
-
-Le pecorelle si sdraiavano contente,
-e il mondo sembrava un abbraccio grande.`
+        'p': {
+          'margin-bottom': '1em',
         },
-        {
-          title: 'Capitolo 3: I sentieri giusti',
-          content: `A volte la strada sembrava difficile,
-piena di sassi e curve misteriose.
-
-Ma il pastore camminava davanti:
-"Seguimi," diceva con voce sicura,
-"Io conosco la via giusta.
-Ti porto dove c'è la luce."
-
-E le pecorelle camminavano tranquille,
-perché sapevano di essere al sicuro.`
+        'h1, h2, h3': {
+          'margin-top': '1.5em',
+          'margin-bottom': '0.5em',
         },
-        {
-          title: 'Capitolo 4: La valle oscura',
-          content: `Un giorno arrivò una valle buia,
-dove le ombre sembravano giganti
-e il vento faceva paura.
+      })
 
-Ma il pastore strinse forte il suo bastone:
-"Non temere," disse piano,
-"Io sono qui, proprio accanto a te.
-Il buio non ti può far male
-quando camminiamo insieme."
-
-E le pecorelle sentirono il cuore calmo,
-perché il pastore era vicino.`
-        },
-        {
-          title: 'Capitolo 5: La tavola e la coppa',
-          content: `Poi arrivò un giorno di festa!
-Il pastore preparò una tavola bellissima
-piena di frutti colorati,
-pane dorato e miele dolce.
-
-"Questa è per te," disse sorridendo,
-"Perché tu sei speciale.
-La tua coppa è così piena
-che trabocca di gioia!"
-
-E le pecorelle mangiarono felici,
-sentendosi le più amate del mondo.`
-        },
-        {
-          title: 'Capitolo 6: La casa del Signore',
-          content: `E così, giorno dopo giorno,
-il pastore guidava le sue pecorelle
-verso casa - una casa bellissima
-fatta di luce e amore.
-
-"Questa è la tua casa," disse il pastore,
-"E io sarò sempre qui.
-Oggi, domani e per sempre,
-la bontà e l'amore ti seguiranno."
-
-E le pecorelle capirono
-che con il loro pastore,
-sarebbero state felici per sempre.
-
-— Fine —
-
-Il Salmo 23 per Bambini
-Casa Editrice Onde - 2026`
-        }
-      ]
+      // Display first section
+      await rendition.display()
+      setUseEpubViewer(true)
+      setLoading(false)
+    } catch (err) {
+      console.error('Failed to load EPUB:', err)
+      setError('Impossibile caricare il libro EPUB.')
+      setLoading(false)
     }
-  }
+  }, [])
 
-  // Fetch book directly from Gutenberg (client-side)
+  // Navigate to TOC item
+  const navigateToTocItem = useCallback((href: string) => {
+    if (renditionRef.current) {
+      renditionRef.current.display(href)
+      setShowToc(false)
+    }
+  }, [])
+
+  // Navigate next/prev
+  const navigateNext = useCallback(() => {
+    if (renditionRef.current) {
+      renditionRef.current.next()
+    }
+  }, [])
+
+  const navigatePrev = useCallback(() => {
+    if (renditionRef.current) {
+      renditionRef.current.prev()
+    }
+  }, [])
+
+  // Load book content - prioritize EPUB files
   useEffect(() => {
-    if (!bookId) return
+    if (!bookId || !book) return
 
-    // Check if it's an Onde Studio book with custom content
-    if (ondeStudioContent[bookId]) {
-      setBookData(ondeStudioContent[bookId])
-      setLoading(false)
+    // Check if book has an EPUB URL - use EPUB viewer
+    if (book.epubUrl) {
+      setLoading(true)
+      initEpub(book.epubUrl)
       return
     }
 
-    if (!book?.gutenberg) {
-      setError('Contenuto in arrivo')
-      setLoading(false)
-      return
-    }
+    // No EPUB available
+    setError('Contenuto non disponibile')
+    setLoading(false)
+  }, [book, bookId, initEpub])
 
-    const fetchBook = async () => {
-      try {
-        // Fetch directly from Project Gutenberg
-        const gutenbergUrl = `https://www.gutenberg.org/cache/epub/${book.gutenberg}/pg${book.gutenberg}.txt`
-
-        const response = await fetch(gutenbergUrl)
-        if (!response.ok) {
-          throw new Error('Non disponibile')
-        }
-
-        const text = await response.text()
-        const parsed = parseGutenbergText(text, book)
-        setBookData(parsed)
-      } catch (err) {
-        setError('Impossibile caricare il libro. Prova a ricaricare la pagina.')
-      } finally {
-        setLoading(false)
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (renditionRef.current) {
+        renditionRef.current.destroy()
+      }
+      if (epubRef.current) {
+        epubRef.current.destroy()
       }
     }
-
-    fetchBook()
-  }, [book, bookId])
+  }, [])
 
   // STILE ONDE - Colori Pina Pennello
   const themeStyles = {
@@ -411,7 +296,7 @@ Casa Editrice Onde - 2026`
                 A+
               </button>
 
-              {bookData && bookData.chapters.length > 1 && (
+              {((bookData && bookData.chapters.length > 1) || (useEpubViewer && tocItems.length > 0)) && (
                 <button
                   onClick={() => setShowToc(!showToc)}
                   className={`w-9 h-9 rounded-full ${t.highlightBg} ${t.highlight} text-sm font-bold hover:scale-110 transition-transform`}
@@ -425,8 +310,36 @@ Casa Editrice Onde - 2026`
         </div>
       </header>
 
-      {/* TOC Sidebar */}
-      {showToc && bookData && bookData.chapters.length > 1 && (
+      {/* TOC Sidebar - EPUB viewer */}
+      {showToc && useEpubViewer && tocItems.length > 0 && (
+        <div className="fixed inset-0 z-30" onClick={() => setShowToc(false)}>
+          <div className="absolute inset-0 bg-[#0a1628]/60 backdrop-blur-sm" />
+          <aside
+            className={`absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] ${t.bg} ${t.border} border-l shadow-2xl overflow-y-auto`}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="p-5">
+              <h3 className={`font-bold text-lg mb-5 ${t.accent} flex items-center gap-2`}>
+                <span>📖</span> Indice
+              </h3>
+              <nav className="space-y-1">
+                {tocItems.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => navigateToTocItem(item.href)}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-sm transition-all ${t.text} opacity-70 hover:opacity-100 hover:${t.accentBg}`}
+                  >
+                    {item.label || `Section ${idx + 1}`}
+                  </button>
+                ))}
+              </nav>
+            </div>
+          </aside>
+        </div>
+      )}
+
+      {/* TOC Sidebar - Legacy bookData */}
+      {showToc && bookData && bookData.chapters.length > 1 && !useEpubViewer && (
         <div className="fixed inset-0 z-30" onClick={() => setShowToc(false)}>
           <div className="absolute inset-0 bg-[#0a1628]/60 backdrop-blur-sm" />
           <aside
@@ -490,55 +403,26 @@ Casa Editrice Onde - 2026`
             )}
           </div>
 
-          {/* FREE DOWNLOAD BUTTONS - Gutenberg books */}
-          {book.gutenberg && (
+          {/* Download EPUB button for Onde books */}
+          {book.epubUrl && (
             <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
               <a
-                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}.epub3.images`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={book.epubUrl}
+                download
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#2dd4bf] to-[#14b8a6] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
               >
-                <span>📱</span> ePub Gratis
+                <span>📱</span> Scarica ePub
               </a>
-              <a
-                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}.kf8.images`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
-              >
-                <span>📚</span> Kindle Gratis
-              </a>
-              <a
-                href={`https://www.gutenberg.org/ebooks/${book.gutenberg}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white font-medium text-sm hover:scale-105 transition-transform"
-              >
-                <span>🌐</span> Altri formati
-              </a>
-            </div>
-          )}
-
-          {/* ONDE STUDIO BOOKS - PDF and Purchase buttons */}
-          {ondeStudioContent[bookId] && (
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-              <a
-                href={`/books/${bookId}.pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#f472b6] to-[#ec4899] text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg"
-              >
-                <span>📄</span> PDF Illustrato
-              </a>
-              <a
-                href="https://www.amazon.com/dp/PLACEHOLDER_SALMO23"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] text-[#0a1628] font-bold text-sm hover:scale-105 transition-transform shadow-lg"
-              >
-                <span>📚</span> Acquista su Amazon
-              </a>
+              {book.pdfUrl && (
+                <a
+                  href={book.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#f472b6] to-[#ec4899] text-white font-bold text-sm hover:scale-105 transition-transform shadow-lg"
+                >
+                  <span>📄</span> PDF
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -567,6 +451,55 @@ Casa Editrice Onde - 2026`
               ← Torna alla biblioteca
             </Link>
           </div>
+        ) : useEpubViewer ? (
+          <>
+            {/* EPUB Viewer Navigation */}
+            <div className="flex items-center justify-between mb-6">
+              <button
+                onClick={navigatePrev}
+                className={`px-5 py-2.5 rounded-full ${t.highlightBg} ${t.highlight} font-medium hover:scale-105 transition-transform`}
+              >
+                ← Prec
+              </button>
+              <span className={`${t.muted} text-sm font-medium`}>
+                {tocItems.length > 0 ? `${tocItems.length} sezioni` : 'Lettura'}
+              </span>
+              <button
+                onClick={navigateNext}
+                className={`px-5 py-2.5 rounded-full ${t.highlightBg} ${t.highlight} font-medium hover:scale-105 transition-transform`}
+              >
+                Succ →
+              </button>
+            </div>
+
+            {/* EPUB Content Container */}
+            <div
+              ref={viewerRef}
+              className={`epub-viewer ${t.text} rounded-xl overflow-hidden`}
+              style={{
+                minHeight: '70vh',
+                fontSize: `${fontSize}px`,
+                background: theme === 'notte' ? '#0d1f3c' : theme === 'seppia' ? '#fef3e2' : '#ffffff',
+                color: theme === 'notte' ? '#e8f4f8' : theme === 'seppia' ? '#44403c' : '#134e4a',
+              }}
+            />
+
+            {/* Bottom Navigation */}
+            <div className={`flex items-center justify-between mt-10 pt-6 ${t.border} border-t`}>
+              <button
+                onClick={navigatePrev}
+                className={`px-6 py-3 rounded-full ${t.highlightBg} ${t.highlight} font-medium hover:scale-105 transition-transform`}
+              >
+                ← Precedente
+              </button>
+              <button
+                onClick={navigateNext}
+                className={`px-6 py-3 rounded-full ${t.highlightBg} ${t.highlight} font-medium hover:scale-105 transition-transform`}
+              >
+                Successivo →
+              </button>
+            </div>
+          </>
         ) : bookData ? (
           <>
             {bookData.chapters.length > 1 && (
@@ -656,10 +589,7 @@ Casa Editrice Onde - 2026`
       <footer className={`${t.border} border-t py-10`}>
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className={`${t.highlight} text-2xl mb-3`}>🌊</div>
-          <p className={`${t.muted} text-sm`}>
-            Testo da Project Gutenberg
-          </p>
-          <p className={`${t.accent} text-sm font-medium mt-1`}>
+          <p className={`${t.accent} text-sm font-medium`}>
             Onde Publishing
           </p>
         </div>

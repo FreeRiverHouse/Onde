@@ -34,7 +34,7 @@ export const books: Book[] = [
     source: 'onde-studio',
     pages: 48,
     readingTime: '~15 min',
-    coverImage: '/books/meditations-cover.jpg',
+    coverImage: '/images/books/meditations-cover.jpg',
     epubUrl: '/books/epub/meditations-en.epub',
   },
   {
@@ -46,7 +46,7 @@ export const books: Book[] = [
     source: 'onde-studio',
     pages: 32,
     readingTime: '~10 min',
-    coverImage: '/books/shepherds-promise-cover.jpg',
+    coverImage: '/images/books/psalm23-cover.jpg',
     epubUrl: '/books/epub/salmo-23-bambini-it.epub',
   },
   {
@@ -58,7 +58,7 @@ export const books: Book[] = [
     source: 'onde-studio',
     pages: 32,
     readingTime: '~10 min',
-    coverImage: '/books/shepherds-promise-cover.jpg',
+    coverImage: '/images/books/psalm23-cover.jpg',
     epubUrl: '/books/epub/salmo-23-bambini-en.epub',
   },
   {
