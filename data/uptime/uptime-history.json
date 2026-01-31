@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T04:00:02.494239+00:00",
+  "generated_at": "2026-01-31T04:10:02.074905+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -1862,17 +1862,29 @@
           "status": 200,
           "latency_ms": 293,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:05:01.143192+00:00",
+          "status": 200,
+          "latency_ms": 336,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:10:02.074905+00:00",
+          "status": 200,
+          "latency_ms": 274,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 492,
+        "avg_latency_24h": 493,
         "avg_latency_7d": 453,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 310
+        "total_checks_7d": 312
       }
     },
     "onde.surf": {
@@ -3736,17 +3748,29 @@
           "status": 200,
           "latency_ms": 287,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:05:01.143192+00:00",
+          "status": 200,
+          "latency_ms": 537,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:10:02.074905+00:00",
+          "status": 200,
+          "latency_ms": 533,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 465,
-        "avg_latency_7d": 437,
+        "avg_latency_24h": 468,
+        "avg_latency_7d": 438,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 310
+        "total_checks_7d": 312
       }
     },
     "skin-studio": {
@@ -3876,17 +3900,29 @@
           "status": 200,
           "latency_ms": 214,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:05:01.143192+00:00",
+          "status": 200,
+          "latency_ms": 247,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:10:02.074905+00:00",
+          "status": 200,
+          "latency_ms": 198,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 212,
-        "avg_latency_7d": 212,
+        "avg_latency_24h": 213,
+        "avg_latency_7d": 213,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 21,
-        "total_checks_7d": 21
+        "total_checks_24h": 23,
+        "total_checks_7d": 23
       }
     }
   }

@@ -1973,6 +1973,29 @@ export default function SkinCreator() {
                   <span className="text-xs text-gray-500 w-8">{layer.opacity}%</span>
                 </div>
                 
+                {/* Opacity quick presets */}
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="text-xs text-gray-400">Quick:</span>
+                  {[25, 50, 75, 100].map((preset) => (
+                    <button
+                      key={preset}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLayerOpacity(layer.id, preset);
+                        compositeLayersToMain();
+                        updatePreview();
+                      }}
+                      className={`px-2 py-0.5 text-xs rounded transition-all ${
+                        layer.opacity === preset 
+                          ? 'bg-blue-500 text-white font-medium' 
+                          : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+                      }`}
+                    >
+                      {preset}%
+                    </button>
+                  ))}
+                </div>
+                
                 {/* Color Tint */}
                 <div className="mt-2 pt-2 border-t border-gray-100">
                   <div className="flex items-center gap-1 mb-1">

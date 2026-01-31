@@ -10914,16 +10914,53 @@
   - Keep layer settings (opacity, tint) unchanged
 
 ### [T907] Skin Creator: Layer Opacity Presets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P4
-- **Notes**: Quick opacity presets for layers:
-  - Add buttons: 25%, 50%, 75%, 100%
-  - One-click to set common opacity values
-  - Faster than slider for common use cases
-  - Visual feedback on selected preset
+- **Notes**: ✅ Implemented quick opacity presets for layers!
+  - ✅ Added buttons: 25%, 50%, 75%, 100%
+  - ✅ One-click to set common opacity values
+  - ✅ Faster than slider for common use cases
+  - ✅ Visual feedback: selected preset highlighted in blue
+  - ✅ Build passes
+
+### [T920] Skin Creator: Deploy Layer Opacity Presets to skin-studio.pages.dev
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T907]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy la feature opacity presets
+  - Build static export
+  - Deploy to Cloudflare Pages
+  - Verify https://skin-studio.pages.dev
+
+### [T921] Skin Creator: Add Random Template Generator
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Generatore template random per ispirazione creativa:
+  - Pulsante "🎲 Random" che genera combinazione colori casuale
+  - Varianti per stili (fantasy, sci-fi, medieval, modern)
+  - Salvare template preferiti per riutilizzo
+  - Kid-friendly con risultati sempre carini
+
+### [T922] Skin Creator: Canvas History Sidebar
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T887]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Sidebar con thumbnails delle versioni precedenti:
+  - Auto-save ogni 10 modifiche
+  - Click per restaurare versione precedente
+  - Compare side-by-side
+  - Export versione specifica
 
 ### [T908] Skin Creator: Deploy Duplicate Feature to skin-studio.pages.dev
 - **Status**: DONE

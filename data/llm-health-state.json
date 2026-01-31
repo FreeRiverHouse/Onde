@@ -1,0 +1,12 @@
+{
+  "healthy": true,
+  "error": null,
+  "latency_ms": 2183.5,
+  "models": [
+    "deepseek-coder:6.7b",
+    "qwen2.5-coder:7b",
+    "llama31-8b:latest",
+    "llama3.2:3b"
+  ],
+  "checked_at": "2026-01-30T20:08:20.301204"
+}
