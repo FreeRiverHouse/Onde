@@ -20,8 +20,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
-  const [pose, setPose] = useState<'walk' | 'idle' | 'wave'>('walk');
-  const poseRef = useRef<'walk' | 'idle' | 'wave'>('walk');
+  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance'>('walk');
+  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance'>('walk');
   const [zoom, setZoom] = useState(5); // Camera distance
   const zoomRef = useRef(5);
 
@@ -312,6 +312,18 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         if (leftArmMesh) leftArmMesh.rotation.x = 0;
         if (rightLegMesh) rightLegMesh.rotation.x = 0;
         if (leftLegMesh) leftLegMesh.rotation.x = 0;
+      } else if (currentPose === 'dance') {
+        // 💃 Dance animation - Fortnite-style!
+        const t = walkTime * 2;
+        const bounce = Math.abs(Math.sin(t * 2)) * 0.1;
+        const armSwing = Math.sin(t) * 1.2;
+        const legSwing = Math.sin(t) * 0.4;
+        if (rightArmMesh) { rightArmMesh.rotation.x = armSwing; rightArmMesh.rotation.z = Math.sin(t * 2) * 0.3; }
+        if (leftArmMesh) { leftArmMesh.rotation.x = -armSwing; leftArmMesh.rotation.z = -Math.sin(t * 2) * 0.3; }
+        if (rightLegMesh) rightLegMesh.rotation.x = legSwing;
+        if (leftLegMesh) leftLegMesh.rotation.x = -legSwing;
+        // Bounce the whole character
+        character.position.y = bounce;
       }
       
       // ✨ Animate particles - float upward and respawn
@@ -546,6 +558,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title="Waving pose"
           >
             👋
+          </button>
+          <button
+            onClick={() => setPose('dance')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'dance' ? 'bg-purple-400 text-purple-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Dance! 💃"
+          >
+            💃
           </button>
         </div>
       </div>
