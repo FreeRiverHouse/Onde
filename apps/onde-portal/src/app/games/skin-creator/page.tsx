@@ -971,6 +971,16 @@ export default function SkinCreator() {
   const [showLayerPanel, setShowLayerPanel] = useState(true);
   const layerCanvasRefs = useRef<{ [key in LayerType]?: HTMLCanvasElement }>({});
 
+  // 🌈 Global HSL/Brightness Adjustments
+  const [showHSLPanel, setShowHSLPanel] = useState(false);
+  const [hslAdjustments, setHslAdjustments] = useState({
+    hue: 0,        // -180 to 180 degrees rotation
+    saturation: 0, // -100 to 100 percent
+    lightness: 0,  // -100 to 100 percent
+    brightness: 0, // -100 to 100 percent
+  });
+  const originalCanvasData = useRef<ImageData | null>(null); // Store original for reset
+
   // 💾 MY SKINS - Save/Load System
   interface SavedSkin {
     id: string;
@@ -2579,6 +2589,60 @@ export default function SkinCreator() {
     // Left Leg
     ctx.drawImage(canvas, 20, 52, 4, 12, offsetX + 4 * scale, offsetY + 20 * scale, 4 * scale, 12 * scale);
   }, []);
+
+  // 🎨 Get sticker by ID helper (pure function, no deps)
+  const getStickerById = (stickerId: string): StickerDecal | undefined => {
+    return STICKER_DECALS.find(s => s.id === stickerId);
+  };
+
+  // 🎨 Get stickers by category (pure function, no deps)
+  const getStickersByCategory = (category: StickerCategory): StickerDecal[] => {
+    return STICKER_DECALS.filter(s => s.category === category);
+  };
+
+  // 🎨 Apply Sticker/Decal to canvas at specific position
+  const applySticker = useCallback((stickerId: string, posX: number, posY: number) => {
+    const sticker = STICKER_DECALS.find(s => s.id === stickerId);
+    if (!sticker) return;
+
+    // 🎨 Get the active layer canvas to draw on (usually accessories layer for stickers)
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+
+    // Draw sticker pixels
+    for (let y = 0; y < sticker.height; y++) {
+      for (let x = 0; x < sticker.width; x++) {
+        const color = sticker.pixels[y]?.[x];
+        if (color) {
+          const drawX = posX + x;
+          const drawY = posY + y;
+          // Check bounds
+          if (drawX >= 0 && drawX < SKIN_WIDTH && drawY >= 0 && drawY < SKIN_HEIGHT) {
+            ctx.fillStyle = color;
+            ctx.fillRect(drawX, drawY, 1, 1);
+            // 🪞 Mirror mode - also apply on opposite side
+            if (mirrorMode) {
+              const mirrorX = SKIN_WIDTH - 1 - drawX;
+              if (mirrorX >= 0 && mirrorX < SKIN_WIDTH) {
+                ctx.fillRect(mirrorX, drawY, 1, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Composite layers to main canvas
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    playSound('click');
+
+    // Clear selection after applying
+    setSelectedSticker(null);
+    setStickerPreviewPos(null);
+  }, [activeLayer, getLayerCanvas, mirrorMode, compositeLayersToMain, updatePreview, saveState, playSound]);
 
   // 🎮 Load a character template (PNG image) - Kids start from a base!
   const loadCharacterTemplate = useCallback((templateId: string) => {
