@@ -22,9 +22,21 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene setup
+    // Scene setup with gradient background
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1a1a2e);
+    // Create gradient texture for background
+    const bgCanvas = document.createElement('canvas');
+    bgCanvas.width = 2;
+    bgCanvas.height = 256;
+    const bgCtx = bgCanvas.getContext('2d')!;
+    const gradient = bgCtx.createLinearGradient(0, 0, 0, 256);
+    gradient.addColorStop(0, '#1a1a3e');
+    gradient.addColorStop(0.5, '#2a2a4e');
+    gradient.addColorStop(1, '#0a0a1e');
+    bgCtx.fillStyle = gradient;
+    bgCtx.fillRect(0, 0, 2, 256);
+    const bgTexture = new THREE.CanvasTexture(bgCanvas);
+    scene.background = bgTexture;
     sceneRef.current = scene;
 
     // Camera
@@ -33,19 +45,50 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     camera.lookAt(0, 0.9, 0);
     cameraRef.current = camera;
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // Renderer with shadows
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(200, 280);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // 🌟 IMPROVED LIGHTING - More dramatic!
+    // Ambient (soft fill)
+    const ambientLight = new THREE.AmbientLight(0x404060, 0.4);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(5, 10, 7);
-    scene.add(directionalLight);
+    
+    // Main key light with shadows
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    keyLight.position.set(5, 10, 7);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 512;
+    keyLight.shadow.mapSize.height = 512;
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 50;
+    scene.add(keyLight);
+    
+    // Rim light (dramatic edge lighting)
+    const rimLight = new THREE.DirectionalLight(0x6699ff, 0.6);
+    rimLight.position.set(-5, 5, -5);
+    scene.add(rimLight);
+    
+    // Fill light (warm)
+    const fillLight = new THREE.PointLight(0xff9966, 0.3, 10);
+    fillLight.position.set(-3, 2, 3);
+    scene.add(fillLight);
+    
+    // Ground plane for shadow
+    const groundGeometry = new THREE.PlaneGeometry(10, 10);
+    const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = 0;
+    ground.receiveShadow = true;
+    scene.add(ground);
 
     // Create character group
     const character = new THREE.Group();
@@ -54,44 +97,59 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     // Materials will be updated when skin loads
     const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0xc4a57b });
 
+    // 🎨 Improved material with better shading
+    const improvedMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0xc4a57b,
+      roughness: 0.8,
+      metalness: 0.1,
+    });
+
     // Head (8x8x8 in Minecraft scale, we use 0.5 units)
     const headGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-    const head = new THREE.Mesh(headGeometry, defaultMaterial.clone());
+    const head = new THREE.Mesh(headGeometry, improvedMaterial.clone());
     head.position.y = 1.75;
     head.name = 'head';
+    head.castShadow = true;
+    head.receiveShadow = true;
     character.add(head);
 
     // Body (8x12x4)
     const bodyGeometry = new THREE.BoxGeometry(0.5, 0.75, 0.25);
-    const body = new THREE.Mesh(bodyGeometry, defaultMaterial.clone());
+    const body = new THREE.Mesh(bodyGeometry, improvedMaterial.clone());
     body.position.y = 1.125;
     body.name = 'body';
+    body.castShadow = true;
+    body.receiveShadow = true;
     character.add(body);
 
     // Right Arm
     const armGeometry = new THREE.BoxGeometry(0.25, 0.75, 0.25);
-    const rightArm = new THREE.Mesh(armGeometry, defaultMaterial.clone());
+    const rightArm = new THREE.Mesh(armGeometry, improvedMaterial.clone());
     rightArm.position.set(-0.375, 1.125, 0);
     rightArm.name = 'rightArm';
+    rightArm.castShadow = true;
     character.add(rightArm);
 
     // Left Arm
-    const leftArm = new THREE.Mesh(armGeometry, defaultMaterial.clone());
+    const leftArm = new THREE.Mesh(armGeometry, improvedMaterial.clone());
     leftArm.position.set(0.375, 1.125, 0);
     leftArm.name = 'leftArm';
+    leftArm.castShadow = true;
     character.add(leftArm);
 
     // Right Leg
     const legGeometry = new THREE.BoxGeometry(0.25, 0.75, 0.25);
-    const rightLeg = new THREE.Mesh(legGeometry, defaultMaterial.clone());
+    const rightLeg = new THREE.Mesh(legGeometry, improvedMaterial.clone());
     rightLeg.position.set(-0.125, 0.375, 0);
     rightLeg.name = 'rightLeg';
+    rightLeg.castShadow = true;
     character.add(rightLeg);
 
     // Left Leg
-    const leftLeg = new THREE.Mesh(legGeometry, defaultMaterial.clone());
+    const leftLeg = new THREE.Mesh(legGeometry, improvedMaterial.clone());
     leftLeg.position.set(0.125, 0.375, 0);
     leftLeg.name = 'leftLeg';
+    leftLeg.castShadow = true;
     character.add(leftLeg);
 
     scene.add(character);
