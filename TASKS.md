@@ -10889,7 +10889,7 @@
   - ⏳ TODO: Deploy updated version
 
 ### [T891] Skin Creator: Create App Store Marketing Assets
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Depends**: [T889]
 - **Blocks**: -
@@ -12039,7 +12039,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Separate undo stack for each layer
 
 ### [T960] Skin Creator: Export to Roblox Format
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12107,3 +12107,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Support pressure-sensitive stylus input
+
+### [T970] Skin Creator: Export for Fortnite
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Export skin in Fortnite-compatible format
+
+### [T971] Skin Creator: Export History
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Keep track of exported skins with timestamps
+
+### [T972] Skin Creator: Batch Export (All Formats)
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Export all formats (Minecraft, Roblox, etc.) in one click
