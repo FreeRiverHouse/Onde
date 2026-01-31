@@ -148,14 +148,30 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     renderer.domElement.addEventListener('touchmove', onTouchMove);
     renderer.domElement.addEventListener('touchend', onTouchEnd);
 
-    // Animation loop with interactive rotation
+    // Animation loop with interactive rotation and walking
+    let walkTime = 0;
     const animate = () => {
       requestAnimationFrame(animate);
+      walkTime += 0.05;
+      
       if (autoRotateRef.current) {
         rotationRef.current.y += 0.01;
       }
       character.rotation.y = rotationRef.current.y;
       character.rotation.x = rotationRef.current.x;
+      
+      // Walking animation - swing arms and legs
+      const swing = Math.sin(walkTime) * 0.3;
+      const rightArmMesh = character.getObjectByName('rightArm');
+      const leftArmMesh = character.getObjectByName('leftArm');
+      const rightLegMesh = character.getObjectByName('rightLeg');
+      const leftLegMesh = character.getObjectByName('leftLeg');
+      
+      if (rightArmMesh) rightArmMesh.rotation.x = swing;
+      if (leftArmMesh) leftArmMesh.rotation.x = -swing;
+      if (rightLegMesh) rightLegMesh.rotation.x = -swing;
+      if (leftLegMesh) leftLegMesh.rotation.x = swing;
+      
       renderer.render(scene, camera);
     };
     animate();
