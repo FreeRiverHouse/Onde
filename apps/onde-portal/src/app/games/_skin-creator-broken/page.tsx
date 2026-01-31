@@ -1114,6 +1114,13 @@ export default function SkinCreator() {
     ));
   }, []);
 
+  // Set layer blend mode
+  const setLayerBlendMode = useCallback((layerId: LayerType, blendMode: BlendModeType) => {
+    setLayers(prev => prev.map(layer =>
+      layer.id === layerId ? { ...layer, blendMode } : layer
+    ));
+  }, []);
+
   // Apply color tint to a canvas with blend mode
   const applyTintToCanvas = useCallback((sourceCanvas: HTMLCanvasElement, tint: string, intensity: number): HTMLCanvasElement => {
     const tintedCanvas = document.createElement('canvas');
@@ -1304,7 +1311,23 @@ export default function SkinCreator() {
     // Clear main canvas
     mainCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
 
-    // Draw layers in order (bottom to top), respecting visibility, opacity, and tint
+    // Map blend mode names to canvas composite operations
+    const blendModeMap: Record<BlendModeType, GlobalCompositeOperation> = {
+      'normal': 'source-over',
+      'multiply': 'multiply',
+      'screen': 'screen',
+      'overlay': 'overlay',
+      'darken': 'darken',
+      'lighten': 'lighten',
+      'color-dodge': 'color-dodge',
+      'color-burn': 'color-burn',
+      'hard-light': 'hard-light',
+      'soft-light': 'soft-light',
+      'difference': 'difference',
+      'exclusion': 'exclusion',
+    };
+
+    // Draw layers in order (bottom to top), respecting visibility, opacity, blend mode, and tint
     layers.forEach(layer => {
       if (!layer.visible) return;
       const layerCanvas = layerCanvasRefs.current[layer.id];
@@ -1316,10 +1339,14 @@ export default function SkinCreator() {
         canvasToDraw = applyTintToCanvas(layerCanvas, layer.tint, layer.tintIntensity);
       }
 
+      // Set blend mode (globalCompositeOperation)
+      mainCtx.globalCompositeOperation = blendModeMap[layer.blendMode] || 'source-over';
       mainCtx.globalAlpha = layer.opacity / 100;
       mainCtx.drawImage(canvasToDraw, 0, 0);
     });
 
+    // Reset to default
+    mainCtx.globalCompositeOperation = 'source-over';
     mainCtx.globalAlpha = 1;
   }, [layers, applyTintToCanvas]);
 
@@ -4146,8 +4173,14 @@ export default function SkinCreator() {
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
 
-    const x = Math.floor((e.clientX - rect.left) * scaleX);
-    const y = Math.floor((e.clientY - rect.top) * scaleY);
+    let x = Math.floor((e.clientX - rect.left) * scaleX);
+    let y = Math.floor((e.clientY - rect.top) * scaleY);
+
+    // 📐 Grid Snap - Align to brush size multiples for precise pixel-perfect drawing
+    if (gridSnap && brushSize > 1) {
+      x = Math.floor(x / brushSize) * brushSize;
+      y = Math.floor(y / brushSize) * brushSize;
+    }
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
 
@@ -4687,8 +4720,14 @@ export default function SkinCreator() {
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
 
-    const x = Math.floor((touch.clientX - rect.left) * scaleX);
-    const y = Math.floor((touch.clientY - rect.top) * scaleY);
+    let x = Math.floor((touch.clientX - rect.left) * scaleX);
+    let y = Math.floor((touch.clientY - rect.top) * scaleY);
+
+    // 📐 Grid Snap - Align to brush size multiples for precise pixel-perfect drawing
+    if (gridSnap && brushSize > 1) {
+      x = Math.floor(x / brushSize) * brushSize;
+      y = Math.floor(y / brushSize) * brushSize;
+    }
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
 
@@ -6700,6 +6739,121 @@ export default function SkinCreator() {
                   <span className="text-lg mr-1">🎯</span>
                   <span className="text-xs">Parts</span>
                 </button>
+                
+                <div className="w-px h-8 bg-gray-300 mx-1 hidden sm:block"></div>
+                
+                {/* 🖼️ Reference Image Overlay */}
+                <div className="relative">
+                  <button
+                    onClick={() => { setShowReferencePanel(!showReferencePanel); playSound('click'); }}
+                    className={`kid-btn px-3 font-bold ${
+                      referenceImage
+                        ? 'bg-violet-500 text-white shadow-lg'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                    title="Reference image overlay - trace from an image!"
+                  >
+                    <span className="text-lg mr-1">🖼️</span>
+                    <span className="text-xs">Ref</span>
+                  </button>
+                  
+                  {/* Reference Image Panel */}
+                  {showReferencePanel && (
+                    <div className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-2xl border p-4 z-50 min-w-[260px] animate-bounce-in">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-bold text-gray-800 flex items-center gap-2">
+                          <span>🖼️</span> Reference Image
+                        </h3>
+                        <button
+                          onClick={() => setShowReferencePanel(false)}
+                          className="text-gray-400 hover:text-gray-600 text-xl"
+                        >
+                          ×
+                        </button>
+                      </div>
+                      
+                      <p className="text-xs text-gray-500 mb-3">
+                        Upload an image to trace over. Perfect for recreating existing skins or art!
+                      </p>
+                      
+                      {/* Hidden file input */}
+                      <input
+                        ref={referenceInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              setReferenceImage(event.target?.result as string);
+                              playSound('success');
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      
+                      {!referenceImage ? (
+                        <button
+                          onClick={() => referenceInputRef.current?.click()}
+                          className="w-full py-3 px-4 border-2 border-dashed border-violet-300 rounded-xl text-violet-600 hover:bg-violet-50 hover:border-violet-400 transition-all flex items-center justify-center gap-2 font-semibold"
+                        >
+                          <span className="text-xl">📤</span>
+                          Upload Image
+                        </button>
+                      ) : (
+                        <div className="space-y-3">
+                          {/* Preview */}
+                          <div className="relative rounded-lg overflow-hidden border bg-gray-100">
+                            <img
+                              src={referenceImage}
+                              alt="Reference"
+                              className="w-full h-24 object-contain"
+                            />
+                          </div>
+                          
+                          {/* Opacity slider */}
+                          <div>
+                            <label className="text-xs font-medium text-gray-600 flex items-center justify-between">
+                              <span>Opacity</span>
+                              <span className="text-violet-600">{referenceOpacity}%</span>
+                            </label>
+                            <input
+                              type="range"
+                              min="5"
+                              max="90"
+                              value={referenceOpacity}
+                              onChange={(e) => setReferenceOpacity(Number(e.target.value))}
+                              className="w-full mt-1"
+                            />
+                          </div>
+                          
+                          {/* Actions */}
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => referenceInputRef.current?.click()}
+                              className="flex-1 py-2 px-3 bg-violet-100 text-violet-700 rounded-lg font-semibold text-sm hover:bg-violet-200 transition-all"
+                            >
+                              🔄 Change
+                            </button>
+                            <button
+                              onClick={() => { setReferenceImage(null); playSound('click'); }}
+                              className="flex-1 py-2 px-3 bg-red-100 text-red-600 rounded-lg font-semibold text-sm hover:bg-red-200 transition-all"
+                            >
+                              🗑️ Remove
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <p className="text-[10px] text-gray-400 mt-3 text-center">
+                        Tip: The image shows behind your drawing so you can trace it!
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
               
               {/* Pixel Coordinate Display + Eyedropper Preview */}
