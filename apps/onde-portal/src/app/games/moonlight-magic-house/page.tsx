@@ -1,86 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef } from 'react'
-
-// ============ SOUND EFFECTS (Web Audio API - no files needed) ============
-
-const useAudioEngine = () => {
-  const audioContextRef = useRef<AudioContext | null>(null)
-  
-  const getContext = useCallback(() => {
-    if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
-    }
-    return audioContextRef.current
-  }, [])
-  
-  const playTone = useCallback((frequency: number, duration: number, type: OscillatorType = 'sine', volume = 0.3) => {
-    try {
-      const ctx = getContext()
-      const oscillator = ctx.createOscillator()
-      const gainNode = ctx.createGain()
-      
-      oscillator.connect(gainNode)
-      gainNode.connect(ctx.destination)
-      
-      oscillator.frequency.value = frequency
-      oscillator.type = type
-      
-      gainNode.gain.setValueAtTime(volume, ctx.currentTime)
-      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration)
-      
-      oscillator.start(ctx.currentTime)
-      oscillator.stop(ctx.currentTime + duration)
-    } catch {
-      // Audio not available - fail silently
-    }
-  }, [getContext])
-  
-  const playSuccess = useCallback(() => {
-    playTone(523.25, 0.1, 'sine', 0.2)
-    setTimeout(() => playTone(659.25, 0.1, 'sine', 0.2), 100)
-    setTimeout(() => playTone(783.99, 0.2, 'sine', 0.3), 200)
-  }, [playTone])
-  
-  const playClick = useCallback(() => {
-    playTone(440, 0.05, 'square', 0.1)
-  }, [playTone])
-  
-  const playPop = useCallback(() => {
-    playTone(880, 0.08, 'sine', 0.15)
-  }, [playTone])
-  
-  const playMiss = useCallback(() => {
-    playTone(200, 0.2, 'triangle', 0.15)
-  }, [playTone])
-  
-  const playEat = useCallback(() => {
-    playTone(300, 0.1, 'sawtooth', 0.1)
-    setTimeout(() => playTone(350, 0.1, 'sawtooth', 0.1), 80)
-    setTimeout(() => playTone(400, 0.15, 'sawtooth', 0.1), 160)
-  }, [playTone])
-  
-  const playWin = useCallback(() => {
-    const notes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5]
-    notes.forEach((freq, i) => {
-      setTimeout(() => playTone(freq, 0.15, 'sine', 0.2), i * 80)
-    })
-  }, [playTone])
-  
-  return { playSuccess, playClick, playPop, playMiss, playEat, playWin }
-}
-
-// ============ HAPTIC FEEDBACK ============
-
-const triggerHaptic = (style: 'light' | 'medium' | 'success' = 'light') => {
-  if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-    switch (style) {
-      case 'light': navigator.vibrate(10); break
-      case 'medium': navigator.vibrate(25); break
-      case 'success': navigator.vibrate([50, 30, 100]); break
-    }
-  }
-}
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 
 // Game state machine
 type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
@@ -115,10 +35,302 @@ const FOOD_ITEMS: FoodItem[] = [
   { id: 4, type: 'chicken', name: 'Chicken' },
 ]
 
+// ============ OPTIMIZED ANIMATION STYLES ============
+// GPU-accelerated animations with smooth easing curves
+const animationStyles = `
+  /* Smooth easing functions */
+  :root {
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* GPU acceleration hints */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Smooth star twinkle - 60fps optimized */
+  @keyframes twinkle {
+    0%, 100% { 
+      opacity: 0.3; 
+      transform: scale3d(0.8, 0.8, 1); 
+    }
+    50% { 
+      opacity: 1; 
+      transform: scale3d(1.2, 1.2, 1); 
+    }
+  }
+
+  /* Smooth floating animation */
+  @keyframes float {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0); 
+    }
+    25% { 
+      transform: translate3d(5px, -10px, 0); 
+    }
+    50% { 
+      transform: translate3d(-5px, -5px, 0); 
+    }
+    75% { 
+      transform: translate3d(3px, -15px, 0); 
+    }
+  }
+
+  /* Optimized cloud drift - uses GPU transform */
+  @keyframes slide-clouds {
+    0% { 
+      transform: translate3d(-100%, 0, 0); 
+    }
+    100% { 
+      transform: translate3d(200%, 0, 0); 
+    }
+  }
+
+  /* Firefly with smooth opacity transitions */
+  @keyframes firefly {
+    0%, 100% { 
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale3d(0.5, 0.5, 1);
+    }
+    10% { 
+      opacity: 1; 
+    }
+    50% { 
+      opacity: 0.8;
+      transform: translate3d(50px, -30px, 0) scale3d(1, 1, 1);
+    }
+    90% { 
+      opacity: 1; 
+    }
+  }
+
+  /* Sparkle rotation - GPU optimized */
+  @keyframes sparkle {
+    0%, 100% { 
+      opacity: 0; 
+      transform: scale3d(0, 0, 1) rotate(0deg); 
+    }
+    50% { 
+      opacity: 1; 
+      transform: scale3d(1, 1, 1) rotate(180deg); 
+    }
+  }
+
+  /* Floating sparkle particles */
+  @keyframes sparkle-float {
+    0% { 
+      opacity: 0; 
+      transform: translate3d(0, 0, 0) scale3d(0, 0, 1); 
+    }
+    20% { 
+      opacity: 1; 
+      transform: translate3d(0, -10px, 0) scale3d(1, 1, 1); 
+    }
+    80% { 
+      opacity: 1; 
+      transform: translate3d(0, -40px, 0) scale3d(1, 1, 1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translate3d(0, -60px, 0) scale3d(0, 0, 1); 
+    }
+  }
+
+  /* Breathing animation for cat body - subtle */
+  @keyframes breathe {
+    0%, 100% { 
+      transform: scale3d(1, 1, 1); 
+    }
+    50% { 
+      transform: scale3d(1.02, 1.02, 1); 
+    }
+  }
+
+  /* Smooth tail wag */
+  @keyframes tail-wag {
+    0%, 100% { 
+      transform: rotate(-5deg); 
+    }
+    50% { 
+      transform: rotate(5deg); 
+    }
+  }
+
+  /* Gentle bounce */
+  @keyframes bounce-gentle {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0); 
+    }
+    50% { 
+      transform: translate3d(0, -5px, 0); 
+    }
+  }
+
+  /* Glow pulse - opacity only for performance */
+  @keyframes glow-pulse {
+    0%, 100% { 
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3)); 
+    }
+    50% { 
+      filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.6)); 
+    }
+  }
+
+  /* Celebration burst */
+  @keyframes celebration-burst {
+    0% {
+      transform: translate3d(0, 0, 0) scale3d(0, 0, 1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(var(--burst-x, 0), var(--burst-y, -100px), 0) scale3d(1, 1, 1);
+      opacity: 0;
+    }
+  }
+
+  /* Animation classes with will-change hints */
+  .animate-twinkle { 
+    animation: twinkle 2s var(--ease-in-out-smooth) infinite;
+    will-change: transform, opacity;
+  }
+  
+  .animate-float { 
+    animation: float 6s var(--ease-in-out-smooth) infinite;
+    will-change: transform;
+  }
+  
+  .animate-slide-clouds { 
+    animation: slide-clouds 60s linear infinite;
+    will-change: transform;
+  }
+  
+  .animate-firefly { 
+    animation: firefly 8s var(--ease-in-out-smooth) infinite;
+    will-change: transform, opacity;
+  }
+  
+  .animate-sparkle { 
+    animation: sparkle 1.5s var(--ease-out-back) infinite;
+    will-change: transform, opacity;
+  }
+  
+  .animate-sparkle-float { 
+    animation: sparkle-float 3s var(--ease-out-expo) infinite;
+    will-change: transform, opacity;
+  }
+  
+  .animate-breathe { 
+    animation: breathe 3s var(--ease-in-out-smooth) infinite;
+    will-change: transform;
+  }
+  
+  .animate-tail-wag { 
+    animation: tail-wag 0.5s var(--ease-in-out-smooth) infinite;
+    transform-origin: 75px 80px;
+    will-change: transform;
+  }
+  
+  .animate-bounce-gentle { 
+    animation: bounce-gentle 2s var(--ease-spring) infinite;
+    will-change: transform;
+  }
+  
+  .animate-glow-pulse { 
+    animation: glow-pulse 2s var(--ease-in-out-smooth) infinite;
+    will-change: filter;
+  }
+
+  .animate-celebration-burst {
+    animation: celebration-burst 1.5s var(--ease-out-expo) forwards;
+    will-change: transform, opacity;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-twinkle,
+    .animate-float,
+    .animate-slide-clouds,
+    .animate-firefly,
+    .animate-sparkle,
+    .animate-sparkle-float,
+    .animate-breathe,
+    .animate-tail-wag,
+    .animate-bounce-gentle,
+    .animate-glow-pulse,
+    .animate-celebration-burst {
+      animation: none !important;
+    }
+  }
+
+  /* Button glow effect - GPU optimized */
+  .glow-button {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+  
+  .glow-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out-expo);
+    pointer-events: none;
+  }
+  
+  .glow-button:hover::before {
+    opacity: 1;
+  }
+
+  /* Smooth transitions for interactive elements */
+  .smooth-transition {
+    transition: transform 0.3s var(--ease-out-expo), 
+                opacity 0.3s var(--ease-out-expo),
+                filter 0.3s var(--ease-out-expo);
+  }
+
+  /* Warm vignette effect */
+  .warm-vignette {
+    box-shadow: inset 0 0 150px 50px rgba(255, 180, 100, 0.15);
+  }
+
+  /* Contain paint for performance */
+  .contain-paint {
+    contain: paint;
+  }
+
+  /* Smooth scale on hover for hiding spots */
+  .spot-hover {
+    transition: transform 0.2s var(--ease-out-back),
+                filter 0.2s var(--ease-out-expo);
+  }
+  
+  .spot-hover:hover:not(:disabled) {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(255, 200, 100, 0.5));
+  }
+  
+  .spot-hover:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+`
+
 // ============ CUTE SVG COMPONENTS ============
 
 const CuteCat = ({ mood = 'neutral', className = '' }: { mood?: 'neutral' | 'happy' | 'eating' | 'sleepy' | 'excited'; className?: string }) => (
-  <svg viewBox="0 0 100 100" className={className} style={{ filter: 'drop-shadow(0 4px 20px rgba(255, 200, 100, 0.3))' }}>
+  <svg viewBox="0 0 100 100" className={`${className} gpu-accelerated`} style={{ filter: 'drop-shadow(0 4px 20px rgba(255, 200, 100, 0.3))' }}>
     {/* Body */}
     <ellipse cx="50" cy="70" rx="30" ry="25" fill="#FFB366" className="animate-breathe" />
     {/* Head */}
@@ -192,7 +404,7 @@ const CuteCat = ({ mood = 'neutral', className = '' }: { mood?: 'neutral' | 'hap
 )
 
 const MagicMoon = ({ className = '' }: { className?: string }) => (
-  <svg viewBox="0 0 100 100" className={className}>
+  <svg viewBox="0 0 100 100" className={`${className} gpu-accelerated`}>
     <defs>
       <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="#FFF9E6" />
@@ -219,17 +431,18 @@ const MagicMoon = ({ className = '' }: { className?: string }) => (
   </svg>
 )
 
+// Memoized star component for performance
 const Star = ({ delay = 0, size = 'md' }: { delay?: number; size?: 'sm' | 'md' | 'lg' }) => {
   const sizeClass = size === 'sm' ? 'w-2 h-2' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'
   return (
-    <svg viewBox="0 0 24 24" className={`${sizeClass} animate-twinkle`} style={{ animationDelay: `${delay}s` }}>
+    <svg viewBox="0 0 24 24" className={`${sizeClass} animate-twinkle gpu-accelerated`} style={{ animationDelay: `${delay}s` }}>
       <path d="M12 2L14 9L21 9L15.5 13.5L17.5 21L12 17L6.5 21L8.5 13.5L3 9L10 9Z" fill="#FFE566" />
     </svg>
   )
 }
 
 const Cloud = ({ className = '' }: { className?: string }) => (
-  <svg viewBox="0 0 100 50" className={className}>
+  <svg viewBox="0 0 100 50" className={`${className} gpu-accelerated`}>
     <ellipse cx="30" cy="35" rx="20" ry="15" fill="white" opacity="0.15" />
     <ellipse cx="50" cy="30" rx="25" ry="18" fill="white" opacity="0.15" />
     <ellipse cx="75" cy="35" rx="18" ry="12" fill="white" opacity="0.15" />
@@ -238,7 +451,7 @@ const Cloud = ({ className = '' }: { className?: string }) => (
 
 const Firefly = ({ delay = 0 }: { delay?: number }) => (
   <div 
-    className="absolute w-2 h-2 rounded-full animate-firefly"
+    className="absolute w-2 h-2 rounded-full animate-firefly gpu-accelerated"
     style={{ 
       animationDelay: `${delay}s`,
       background: 'radial-gradient(circle, #FFE566 0%, transparent 70%)',
@@ -249,7 +462,7 @@ const Firefly = ({ delay = 0 }: { delay?: number }) => (
 
 const Sparkle = ({ delay = 0, className = '' }: { delay?: number; className?: string }) => (
   <div 
-    className={`absolute animate-sparkle-float ${className}`}
+    className={`absolute animate-sparkle-float gpu-accelerated ${className}`}
     style={{ animationDelay: `${delay}s` }}
   >
     <svg viewBox="0 0 24 24" className="w-4 h-4">
@@ -262,7 +475,7 @@ const Sparkle = ({ delay = 0, className = '' }: { delay?: number; className?: st
 const HidingSpotSVG = ({ type, revealed, hasToy }: { type: HidingSpot['type']; revealed: boolean; hasToy: boolean }) => {
   if (revealed && hasToy) {
     return (
-      <div className="relative">
+      <div className="relative gpu-accelerated">
         <svg viewBox="0 0 80 80" className="w-20 h-20 animate-bounce-gentle">
           {/* Teddy bear toy */}
           <circle cx="40" cy="35" r="20" fill="#C4A484" />
@@ -378,7 +591,7 @@ const HidingSpotSVG = ({ type, revealed, hasToy }: { type: HidingSpot['type']; r
   }
 
   return (
-    <div className={`transition-all duration-300 ${revealed ? 'opacity-40 grayscale' : 'hover:scale-110'}`}>
+    <div className={`smooth-transition ${revealed ? 'opacity-40 grayscale' : ''}`}>
       {svgContent()}
     </div>
   )
@@ -437,9 +650,6 @@ export default function MoonlightMagicHouse() {
   const [gameState, setGameState] = useState<GameState>('loading')
   const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0 })
   
-  // Audio engine for sound effects
-  const audio = useAudioEngine()
-  
   // Find the Toy game state
   const [hidingSpots, setHidingSpots] = useState<HidingSpot[]>([])
   const [triesLeft, setTriesLeft] = useState(3)
@@ -450,26 +660,141 @@ export default function MoonlightMagicHouse() {
   const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null)
   const [petFed, setPetFed] = useState(false)
   const [petMood, setPetMood] = useState<'hungry' | 'eating' | 'happy'>('hungry')
-  const [dragPosition, setDragPosition] = useState<{ x: number; y: number } | null>(null)
+  
+  // RAF-based smooth dragging
+  const dragRef = useRef<HTMLDivElement>(null)
   const petRef = useRef<HTMLDivElement>(null)
-  const rafRef = useRef<number>(0)
+  const isDraggingRef = useRef(false)
+  const dragPositionRef = useRef<{ x: number; y: number } | null>(null)
+  const rafIdRef = useRef<number | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
+
+  // Memoized star positions for background (prevents recalculation)
+  const starPositions = useMemo(() => 
+    [...Array(40)].map((_, i) => ({
+      id: `star-deep-${i}`,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      size: `${1 + Math.random() * 2}px`,
+      delay: `${Math.random() * 3}s`,
+      duration: `${2 + Math.random() * 2}s`,
+      opacity: 0.3 + Math.random() * 0.4,
+    }))
+  , [])
+
+  const brightStarPositions = useMemo(() =>
+    [...Array(12)].map((_, i) => ({
+      id: `star-bright-${i}`,
+      left: `${5 + Math.random() * 90}%`,
+      top: `${5 + Math.random() * 50}%`,
+      delay: `${Math.random() * 4}s`,
+      duration: `${4 + Math.random() * 4}s`,
+      size: (['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)],
+      starDelay: Math.random() * 2,
+    }))
+  , [])
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
       setGameState('menu')
     }, 1200)
-    return () => {
-      clearTimeout(timer)
-      cancelAnimationFrame(rafRef.current)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Smooth drag animation loop using RAF
+  const updateDragPosition = useCallback(() => {
+    if (dragRef.current && dragPositionRef.current) {
+      dragRef.current.style.transform = `translate3d(${dragPositionRef.current.x}px, ${dragPositionRef.current.y}px, 0) translate(-50%, -50%)`
+    }
+    if (isDraggingRef.current) {
+      rafIdRef.current = requestAnimationFrame(updateDragPosition)
     }
   }, [])
 
+  // Handle smooth drag start
+  const handleDragStart = useCallback((food: FoodItem, e: React.MouseEvent | React.TouchEvent) => {
+    if (petFed) return
+    
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+    
+    setSelectedFood(food)
+    isDraggingRef.current = true
+    setIsDragging(true)
+    dragPositionRef.current = { x: clientX, y: clientY }
+    
+    // Start RAF loop
+    rafIdRef.current = requestAnimationFrame(updateDragPosition)
+  }, [petFed, updateDragPosition])
+
+  // Handle smooth drag move
+  const handleDragMove = useCallback((e: MouseEvent | TouchEvent) => {
+    if (!isDraggingRef.current) return
+    
+    e.preventDefault()
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+    
+    dragPositionRef.current = { x: clientX, y: clientY }
+  }, [])
+
+  // Handle drag end with drop detection
+  const handleDragEnd = useCallback(() => {
+    if (!isDraggingRef.current || !selectedFood || petFed) {
+      isDraggingRef.current = false
+      setIsDragging(false)
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
+      return
+    }
+    
+    // Check if dropped on pet
+    if (petRef.current && dragPositionRef.current) {
+      const petRect = petRef.current.getBoundingClientRect()
+      const isOverPet = 
+        dragPositionRef.current.x >= petRect.left && 
+        dragPositionRef.current.x <= petRect.right &&
+        dragPositionRef.current.y >= petRect.top && 
+        dragPositionRef.current.y <= petRect.bottom
+      
+      if (isOverPet) {
+        setPetMood('eating')
+        setTimeout(() => {
+          setPetMood('happy')
+          setPetFed(true)
+          setRewards(prev => ({ ...prev, treats: prev.treats + 1 }))
+          setTimeout(() => setGameState('reward'), 1500)
+        }, 1000)
+      }
+    }
+    
+    isDraggingRef.current = false
+    setIsDragging(false)
+    dragPositionRef.current = null
+    setSelectedFood(null)
+    if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
+  }, [selectedFood, petFed])
+
+  // Attach global event listeners for smooth dragging
+  useEffect(() => {
+    if (gameState === 'feed-time') {
+      window.addEventListener('mousemove', handleDragMove, { passive: false })
+      window.addEventListener('mouseup', handleDragEnd)
+      window.addEventListener('touchmove', handleDragMove, { passive: false })
+      window.addEventListener('touchend', handleDragEnd)
+      
+      return () => {
+        window.removeEventListener('mousemove', handleDragMove)
+        window.removeEventListener('mouseup', handleDragEnd)
+        window.removeEventListener('touchmove', handleDragMove)
+        window.removeEventListener('touchend', handleDragEnd)
+        if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
+      }
+    }
+  }, [gameState, handleDragMove, handleDragEnd])
+
   // Initialize Find the Toy game
   const startFindToy = useCallback(() => {
-    audio.playClick()
-    triggerHaptic('light')
-    
     const spots: HidingSpot[] = []
     const toyIndex = Math.floor(Math.random() * 6)
     
@@ -488,259 +813,115 @@ export default function MoonlightMagicHouse() {
     setFoundToy(false)
     setCheckedSpots(new Set())
     setGameState('find-toy')
-  }, [audio])
+  }, [])
 
   // Handle spot check in Find the Toy
-  const checkSpot = (spot: HidingSpot) => {
+  const checkSpot = useCallback((spot: HidingSpot) => {
     if (checkedSpots.has(spot.id) || foundToy || triesLeft <= 0) return
     
-    audio.playPop()
-    triggerHaptic('light')
     setCheckedSpots(prev => new Set([...prev, spot.id]))
     
     if (spot.hasToy) {
       setFoundToy(true)
-      audio.playSuccess()
-      triggerHaptic('success')
       setRewards(prev => ({ ...prev, toys: prev.toys + 1 }))
-      setTimeout(() => {
-        audio.playWin()
-        setGameState('reward')
-      }, 1500)
+      setTimeout(() => setGameState('reward'), 1500)
     } else {
-      audio.playMiss()
-      triggerHaptic('medium')
       const newTries = triesLeft - 1
       setTriesLeft(newTries)
       if (newTries <= 0) {
         setTimeout(() => setGameState('menu'), 2000)
       }
     }
-  }
+  }, [checkedSpots, foundToy, triesLeft])
 
   // Initialize Feed Time game
   const startFeedTime = useCallback(() => {
-    audio.playClick()
-    triggerHaptic('light')
-    
     setSelectedFood(null)
     setPetFed(false)
     setPetMood('hungry')
-    setDragPosition(null)
+    setIsDragging(false)
+    isDraggingRef.current = false
+    dragPositionRef.current = null
     setGameState('feed-time')
-  }, [audio])
-
-  // Handle food selection
-  const selectFood = (food: FoodItem) => {
-    if (!petFed) {
-      setSelectedFood(food)
-    }
-  }
-
-  // Handle drag
-  const handleDrag = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!selectedFood || petFed) return
-    
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
-    
-    setDragPosition({ x: clientX, y: clientY })
-  }
-
-  // Handle drop on pet
-  const handleDrop = () => {
-    if (!selectedFood || petFed || !petRef.current || !dragPosition) {
-      setDragPosition(null)
-      return
-    }
-    
-    const petRect = petRef.current.getBoundingClientRect()
-    const isOverPet = 
-      dragPosition.x >= petRect.left && 
-      dragPosition.x <= petRect.right &&
-      dragPosition.y >= petRect.top && 
-      dragPosition.y <= petRect.bottom
-    
-    if (isOverPet) {
-      setPetMood('eating')
-      setTimeout(() => {
-        setPetMood('happy')
-        setPetFed(true)
-        setRewards(prev => ({ ...prev, treats: prev.treats + 1 }))
-        setTimeout(() => setGameState('reward'), 1500)
-      }, 1000)
-    }
-    
-    setDragPosition(null)
-    setSelectedFood(null)
-  }
+  }, [])
 
   // ============ BACKGROUND COMPONENT ============
-  const MagicalBackground = ({ intense = false }: { intense?: boolean }) => (
+  const MagicalBackground = useCallback(({ intense = false }: { intense?: boolean }) => (
     <>
-      {/* CSS Animations */}
-      <style jsx global>{`
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(0.8); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          25% { transform: translateY(-10px) translateX(5px); }
-          50% { transform: translateY(-5px) translateX(-5px); }
-          75% { transform: translateY(-15px) translateX(3px); }
-        }
-        @keyframes float-slow {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(30px); }
-        }
-        @keyframes firefly {
-          0%, 100% { 
-            opacity: 0;
-            transform: translate(0, 0) scale(0.5);
-          }
-          10% { opacity: 1; }
-          50% { 
-            opacity: 0.8;
-            transform: translate(50px, -30px) scale(1);
-          }
-          90% { opacity: 1; }
-        }
-        @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-          50% { opacity: 1; transform: scale(1) rotate(180deg); }
-        }
-        @keyframes sparkle-float {
-          0% { opacity: 0; transform: translateY(0) scale(0); }
-          20% { opacity: 1; transform: translateY(-10px) scale(1); }
-          80% { opacity: 1; transform: translateY(-40px) scale(1); }
-          100% { opacity: 0; transform: translateY(-60px) scale(0); }
-        }
-        @keyframes breathe {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.02); }
-        }
-        @keyframes tail-wag {
-          0%, 100% { transform: rotate(-5deg); }
-          50% { transform: rotate(5deg); }
-        }
-        @keyframes bounce-gentle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-        @keyframes glow-pulse {
-          0%, 100% { box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.3); }
-          50% { box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.6); }
-        }
-        @keyframes slide-clouds {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(200%); }
-        }
-        .animate-twinkle { animation: twinkle 2s ease-in-out infinite; }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-float-slow { animation: float-slow 20s ease-in-out infinite; }
-        .animate-firefly { animation: firefly 8s ease-in-out infinite; }
-        .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
-        .animate-sparkle-float { animation: sparkle-float 3s ease-out infinite; }
-        .animate-breathe { animation: breathe 3s ease-in-out infinite; }
-        .animate-tail-wag { animation: tail-wag 0.5s ease-in-out infinite; transform-origin: 75px 80px; }
-        .animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
-        .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
-        .animate-slide-clouds { animation: slide-clouds 60s linear infinite; }
-        .glow-button {
-          position: relative;
-          overflow: hidden;
-        }
-        .glow-button::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-          opacity: 0;
-          transition: opacity 0.3s;
-        }
-        .glow-button:hover::before {
-          opacity: 1;
-        }
-        .warm-vignette {
-          box-shadow: inset 0 0 150px 50px rgba(255, 180, 100, 0.15);
-        }
-      `}</style>
+      {/* CSS Animations - injected once */}
+      <style jsx global>{animationStyles}</style>
       
       {/* Base gradient with warm vignette */}
-      <div className="fixed inset-0 bg-gradient-to-br from-[#0a0a1a] via-[#1a1a3e] to-[#0f2040] warm-vignette" />
+      <div className="fixed inset-0 bg-gradient-to-br from-[#0a0a1a] via-[#1a1a3e] to-[#0f2040] warm-vignette contain-paint" />
       
-      {/* Parallax layer 1: Deep stars (slowest) */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(40)].map((_, i) => (
+      {/* Parallax layer 1: Deep stars (slowest) - using memoized positions */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        {starPositions.map((star) => (
           <div
-            key={`star-deep-${i}`}
-            className="absolute rounded-full bg-white animate-twinkle"
+            key={star.id}
+            className="absolute rounded-full bg-white animate-twinkle gpu-accelerated"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
-              opacity: 0.3 + Math.random() * 0.4,
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              animationDelay: star.delay,
+              animationDuration: star.duration,
+              opacity: star.opacity,
             }}
           />
         ))}
       </div>
       
-      {/* Parallax layer 2: Clouds (slow drift) */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="animate-slide-clouds" style={{ animationDelay: '0s' }}>
+      {/* Parallax layer 2: Clouds (slow drift) - reduced to 3 for performance */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '0s' }}>
           <Cloud className="absolute w-40 h-20 top-[10%] opacity-60" />
         </div>
-        <div className="animate-slide-clouds" style={{ animationDelay: '-20s' }}>
+        <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '-20s' }}>
           <Cloud className="absolute w-60 h-30 top-[25%] opacity-40" />
         </div>
-        <div className="animate-slide-clouds" style={{ animationDelay: '-40s' }}>
+        <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '-40s' }}>
           <Cloud className="absolute w-32 h-16 top-[60%] opacity-30" />
         </div>
       </div>
       
       {/* Parallax layer 3: Moon (static with glow) */}
-      <div className="fixed top-8 right-8 w-24 h-24 animate-float pointer-events-none" style={{ animationDuration: '8s' }}>
+      <div className="fixed top-8 right-8 w-24 h-24 animate-float pointer-events-none gpu-accelerated" style={{ animationDuration: '8s' }}>
         <MagicMoon className="w-full h-full" />
       </div>
       
-      {/* Parallax layer 4: Bright stars with shapes */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+      {/* Parallax layer 4: Bright stars with shapes - memoized */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        {brightStarPositions.map((star) => (
           <div
-            key={`star-bright-${i}`}
-            className="absolute animate-float"
+            key={star.id}
+            className="absolute animate-float gpu-accelerated"
             style={{
-              left: `${5 + Math.random() * 90}%`,
-              top: `${5 + Math.random() * 50}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${4 + Math.random() * 4}s`,
+              left: star.left,
+              top: star.top,
+              animationDelay: star.delay,
+              animationDuration: star.duration,
             }}
           >
-            <Star size={(['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)]} delay={Math.random() * 2} />
+            <Star size={star.size} delay={star.starDelay} />
           </div>
         ))}
       </div>
       
-      {/* Fireflies layer */}
+      {/* Fireflies layer - reduced count for performance */}
       {intense && (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+          {[...Array(6)].map((_, i) => (
             <div
               key={`firefly-${i}`}
-              className="absolute"
+              className="absolute gpu-accelerated"
               style={{
                 left: `${10 + Math.random() * 80}%`,
                 top: `${30 + Math.random() * 60}%`,
               }}
             >
-              <Firefly delay={i * 1.2} />
+              <Firefly delay={i * 1.5} />
             </div>
           ))}
         </div>
@@ -754,7 +935,7 @@ export default function MoonlightMagicHouse() {
         }}
       />
     </>
-  )
+  ), [starPositions, brightStarPositions])
 
   // Render loading screen
   if (isLoading || gameState === 'loading') {
@@ -765,7 +946,7 @@ export default function MoonlightMagicHouse() {
           <div className="relative w-32 h-32 mx-auto mb-6">
             <MagicMoon className="w-full h-full animate-float" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 border-4 border-yellow-300/30 border-t-yellow-300 rounded-full animate-spin" />
+              <div className="w-16 h-16 border-4 border-yellow-300/30 border-t-yellow-300 rounded-full animate-spin" style={{ animationDuration: '1s' }} />
             </div>
           </div>
           <p className="text-white text-xl font-semibold animate-pulse">Loading Moonlight Magic House...</p>
@@ -796,17 +977,17 @@ export default function MoonlightMagicHouse() {
           <p className="text-purple-200/80 mb-8 text-lg">Choose a mini-game to play!</p>
           
           {/* Cute cat mascot */}
-          <div className="w-28 h-28 mx-auto mb-6 animate-float" style={{ animationDuration: '4s' }}>
+          <div className="w-28 h-28 mx-auto mb-6 animate-float gpu-accelerated" style={{ animationDuration: '4s' }}>
             <CuteCat mood="happy" className="w-full h-full" />
           </div>
           
           {/* Rewards display with glow */}
           <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-purple-400/20 animate-glow-pulse" style={{ animationDuration: '3s' }}>
+            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-purple-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s' }}>
               <span className="text-3xl">🧸</span>
               <span className="text-white font-bold text-xl">{rewards.toys}</span>
             </div>
-            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-orange-400/20 animate-glow-pulse" style={{ animationDuration: '3s', animationDelay: '1s' }}>
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-orange-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s', animationDelay: '1s' }}>
               <span className="text-3xl">🍬</span>
               <span className="text-white font-bold text-xl">{rewards.treats}</span>
             </div>
@@ -816,7 +997,7 @@ export default function MoonlightMagicHouse() {
           <div className="flex flex-col gap-4 max-w-xs mx-auto">
             <button
               onClick={startFindToy}
-              className="glow-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-purple-500/30 transform hover:scale-105 hover:shadow-purple-400/50 transition-all duration-300 border border-white/20"
+              className="glow-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-purple-500/30 hover:shadow-purple-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
             >
               <span className="flex items-center justify-center gap-2">
                 <svg viewBox="0 0 24 24" className="w-6 h-6">
@@ -828,7 +1009,7 @@ export default function MoonlightMagicHouse() {
             </button>
             <button
               onClick={startFeedTime}
-              className="glow-button bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-orange-500/30 transform hover:scale-105 hover:shadow-orange-400/50 transition-all duration-300 border border-white/20"
+              className="glow-button bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-orange-500/30 hover:shadow-orange-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
             >
               <span className="flex items-center justify-center gap-2">
                 <svg viewBox="0 0 24 24" className="w-6 h-6">
@@ -864,7 +1045,7 @@ export default function MoonlightMagicHouse() {
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={() => setGameState('menu')}
-              className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors"
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 smooth-transition"
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4">
                 <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
@@ -876,7 +1057,7 @@ export default function MoonlightMagicHouse() {
             </h2>
             <div className="flex gap-1">
               {[...Array(3)].map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24" className={`w-5 h-5 transition-all duration-300 ${i < triesLeft ? 'text-red-400' : 'text-gray-600'}`}>
+                <svg key={i} viewBox="0 0 24 24" className={`w-5 h-5 smooth-transition ${i < triesLeft ? 'text-red-400' : 'text-gray-600'}`}>
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" />
                 </svg>
               ))}
@@ -893,7 +1074,7 @@ export default function MoonlightMagicHouse() {
         </div>
         
         {/* Game area with cozy room feeling */}
-        <div className="relative w-full max-w-lg h-[55vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10">
+        <div className="relative w-full max-w-lg h-[55vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 contain-paint">
           {/* Room warm glow */}
           <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 via-transparent to-transparent pointer-events-none" />
           
@@ -902,15 +1083,15 @@ export default function MoonlightMagicHouse() {
             <MagicMoon className="w-8 h-8 mx-auto mt-2" />
           </div>
           
-          {/* Floating sparkles in room */}
-          {[...Array(4)].map((_, i) => (
+          {/* Floating sparkles in room - reduced count */}
+          {[...Array(3)].map((_, i) => (
             <div
               key={`room-sparkle-${i}`}
-              className="absolute animate-sparkle-float pointer-events-none"
+              className="absolute animate-sparkle-float pointer-events-none gpu-accelerated"
               style={{
-                left: `${15 + i * 25}%`,
+                left: `${20 + i * 30}%`,
                 bottom: '20%',
-                animationDelay: `${i * 0.7}s`,
+                animationDelay: `${i * 0.9}s`,
               }}
             >
               <Star size="sm" delay={0} />
@@ -923,9 +1104,9 @@ export default function MoonlightMagicHouse() {
               key={spot.id}
               onClick={() => checkSpot(spot)}
               disabled={checkedSpots.has(spot.id) || foundToy || triesLeft <= 0}
-              className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300
+              className={`absolute transform -translate-x-1/2 -translate-y-1/2 gpu-accelerated
                 ${!checkedSpots.has(spot.id) && !foundToy && triesLeft > 0 
-                  ? 'hover:scale-110 cursor-pointer active:scale-95 hover:drop-shadow-[0_0_15px_rgba(255,200,100,0.5)]' 
+                  ? 'spot-hover cursor-pointer' 
                   : ''
                 }
               `}
@@ -940,7 +1121,7 @@ export default function MoonlightMagicHouse() {
           ))}
           
           {/* Pet watching at bottom */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-20">
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-20 gpu-accelerated">
             <CuteCat mood={foundToy ? 'excited' : 'neutral'} className="w-full h-full" />
           </div>
         </div>
@@ -951,13 +1132,7 @@ export default function MoonlightMagicHouse() {
   // Feed Time game
   if (gameState === 'feed-time') {
     return (
-      <div 
-        className="min-h-screen flex flex-col items-center p-4 select-none relative overflow-hidden"
-        onMouseMove={dragPosition ? handleDrag : undefined}
-        onMouseUp={handleDrop}
-        onTouchMove={dragPosition ? handleDrag : undefined}
-        onTouchEnd={handleDrop}
-      >
+      <div className="min-h-screen flex flex-col items-center p-4 select-none relative overflow-hidden">
         <MagicalBackground />
         
         {/* Header */}
@@ -965,7 +1140,7 @@ export default function MoonlightMagicHouse() {
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={() => setGameState('menu')}
-              className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors"
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 smooth-transition"
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4">
                 <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
@@ -981,14 +1156,14 @@ export default function MoonlightMagicHouse() {
           <p className="text-center text-purple-200/80 mb-4">
             {petFed 
               ? 'Yummy! Your pet is so happy!' 
-              : selectedFood 
+              : isDragging 
                 ? 'Drag the food to your hungry pet!' 
                 : 'Select food and drag it to your pet!'}
           </p>
         </div>
         
         {/* Game area */}
-        <div className="relative w-full max-w-lg h-[50vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center backdrop-blur-sm border border-white/10 z-10">
+        <div className="relative w-full max-w-lg h-[50vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center backdrop-blur-sm border border-white/10 z-10 contain-paint">
           {/* Warm ambient light around pet */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-48 h-48 rounded-full bg-gradient-to-r from-orange-500/10 to-yellow-500/10 blur-3xl" />
@@ -997,7 +1172,7 @@ export default function MoonlightMagicHouse() {
           {/* Pet */}
           <div 
             ref={petRef}
-            className={`w-32 h-32 transition-transform duration-500 ${
+            className={`w-32 h-32 gpu-accelerated smooth-transition ${
               petMood === 'eating' ? 'scale-110' : 
               petMood === 'happy' ? 'animate-bounce-gentle' : ''
             }`}
@@ -1017,7 +1192,7 @@ export default function MoonlightMagicHouse() {
           
           {/* Food bowl with glow */}
           <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-            <svg viewBox="0 0 80 40" className="w-20 h-10 drop-shadow-[0_0_10px_rgba(255,200,100,0.3)]">
+            <svg viewBox="0 0 80 40" className="w-20 h-10" style={{ filter: 'drop-shadow(0 0 10px rgba(255, 200, 100, 0.3))' }}>
               <ellipse cx="40" cy="30" rx="35" ry="8" fill="#8B4513" />
               <ellipse cx="40" cy="25" rx="30" ry="12" fill="#A0522D" />
               <ellipse cx="40" cy="22" rx="25" ry="8" fill="#CD853F" />
@@ -1032,14 +1207,11 @@ export default function MoonlightMagicHouse() {
             {FOOD_ITEMS.map((food) => (
               <button
                 key={food.id}
-                onMouseDown={() => selectFood(food)}
-                onTouchStart={(e) => {
-                  selectFood(food)
-                  handleDrag(e)
-                }}
+                onMouseDown={(e) => handleDragStart(food, e)}
+                onTouchStart={(e) => handleDragStart(food, e)}
                 disabled={petFed}
-                className={`p-4 rounded-2xl transition-all duration-300 border ${
-                  selectedFood?.id === food.id 
+                className={`p-4 rounded-2xl border gpu-accelerated smooth-transition ${
+                  selectedFood?.id === food.id && isDragging
                     ? 'bg-yellow-500/30 scale-110 border-yellow-400/50 shadow-[0_0_20px_rgba(255,200,0,0.4)]' 
                     : 'bg-white/10 hover:bg-white/20 border-white/10 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,200,100,0.2)]'
                 } ${petFed ? 'opacity-50' : 'cursor-grab active:cursor-grabbing'}`}
@@ -1050,11 +1222,16 @@ export default function MoonlightMagicHouse() {
           </div>
         </div>
         
-        {/* Dragging food indicator */}
-        {dragPosition && selectedFood && (
+        {/* Dragging food indicator - RAF positioned */}
+        {isDragging && selectedFood && (
           <div 
-            className="fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_20px_rgba(255,200,100,0.6)]"
-            style={{ left: dragPosition.x, top: dragPosition.y }}
+            ref={dragRef}
+            className="fixed pointer-events-none z-50 gpu-accelerated"
+            style={{ 
+              left: 0, 
+              top: 0,
+              filter: 'drop-shadow(0 0 20px rgba(255, 200, 100, 0.6))',
+            }}
           >
             <FoodSVG type={selectedFood.type} />
           </div>
@@ -1069,27 +1246,30 @@ export default function MoonlightMagicHouse() {
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <MagicalBackground intense />
         
-        {/* Extra celebration sparkles */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={`celebration-${i}`}
-              className="absolute animate-sparkle-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${60 + Math.random() * 40}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 2}s`,
-              }}
-            >
-              <Star size={(['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)]} delay={0} />
-            </div>
-          ))}
+        {/* Extra celebration sparkles - optimized with CSS variables */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+          {[...Array(20)].map((_, i) => {
+            const angle = (i / 20) * Math.PI * 2
+            const distance = 80 + Math.random() * 60
+            return (
+              <div
+                key={`celebration-${i}`}
+                className="absolute left-1/2 top-1/2 animate-celebration-burst gpu-accelerated"
+                style={{
+                  '--burst-x': `${Math.cos(angle) * distance}px`,
+                  '--burst-y': `${Math.sin(angle) * distance - 50}px`,
+                  animationDelay: `${Math.random() * 0.5}s`,
+                } as React.CSSProperties}
+              >
+                <Star size={(['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)]} delay={0} />
+              </div>
+            )
+          })}
         </div>
         
         <div className="relative z-10 text-center">
           {/* Happy cat celebration */}
-          <div className="w-36 h-36 mx-auto mb-4 animate-bounce-gentle">
+          <div className="w-36 h-36 mx-auto mb-4 animate-bounce-gentle gpu-accelerated">
             <CuteCat mood="excited" className="w-full h-full" />
           </div>
           
@@ -1100,11 +1280,11 @@ export default function MoonlightMagicHouse() {
           
           {/* Updated rewards with glow */}
           <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-purple-400/30 animate-glow-pulse">
+            <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-purple-400/30 animate-glow-pulse gpu-accelerated">
               <span className="text-4xl">🧸</span>
               <span className="text-white font-bold text-3xl">{rewards.toys}</span>
             </div>
-            <div className="bg-gradient-to-br from-orange-900/50 to-orange-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-orange-400/30 animate-glow-pulse" style={{ animationDelay: '0.5s' }}>
+            <div className="bg-gradient-to-br from-orange-900/50 to-orange-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-orange-400/30 animate-glow-pulse gpu-accelerated" style={{ animationDelay: '0.5s' }}>
               <span className="text-4xl">🍬</span>
               <span className="text-white font-bold text-3xl">{rewards.treats}</span>
             </div>
@@ -1112,7 +1292,7 @@ export default function MoonlightMagicHouse() {
           
           <button
             onClick={() => setGameState('menu')}
-            className="glow-button bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-green-500/30 transform hover:scale-105 hover:shadow-green-400/50 transition-all duration-300 border border-white/20"
+            className="glow-button bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-green-500/30 hover:shadow-green-400/50 border border-white/20 smooth-transition hover:scale-105 active:scale-95"
           >
             <span className="flex items-center justify-center gap-2">
               Play Again!
