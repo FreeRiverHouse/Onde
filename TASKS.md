@@ -12386,15 +12386,18 @@ Generated: 2026-01-30T18:37:46.867013
   - Bug riportato da Mattia (ID:2981) - lui la sente girare!
 
 ### [T989] Research: Analizza Tweet @rasmr_eth per ROADMAP
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 22:10 PST
 - **Created-by**: @clawdinho
 - **Depends**: -
 - **Priority**: P1
 - **Notes**: Da Mattia (ID:2982)
   - Link: https://x.com/rasmr_eth/status/2017277680325169619
-  - Studiare contenuto per sviluppi futuri
-  - Loggare insights in ROADMAP
+  - **Tweet content**: 14yo making $100k/month on Roblox, sold game for $250k after $100 ads + 14h work
+  - **Insights aggiunto a ROADMAP.md** sezione "Roblox Opportunity"
+  - **Key takeaway**: Skin Studio già supporta Roblox export - opportunità di marketing
+  - **Actions suggerite**: P1 marketing Roblox, P2 simple games, P3 marketplace
 
 ### [T988] Skin Creator: Particle Toggle Button
 - **Status**: DONE

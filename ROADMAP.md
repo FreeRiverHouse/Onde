@@ -2839,6 +2839,36 @@ npx expo start
 | KidsMusicStudio | Advanced | Valutare se completare o freeze |
 | PIZZA-GELATO-RUSH | MVP | Freeze (non prioritario) |
 
+### 🎮 Roblox Opportunity (Jan 2026 - da @rasmr_eth)
+
+> **"14 year old describes how he makes $100k per month on Roblox: 'We made a game in 14 hours start to finish, we put $100 into ads, and once it hit the algorithm we sold the game for $250k'"**
+> — [@rasmr_eth tweet](https://x.com/rasmr_eth/status/2017277680325169619) (2.4M views, 26K likes)
+
+**Key Insights:**
+- **Barrier to entry bassissimo**: $100 ads + 14 ore = gioco monetizzabile
+- **Algorithm-driven discovery**: Una volta che "hits the algorithm", esplode
+- **Exit opportunity**: Vendita giochi per $250k+
+- **Target audience**: Teen/kids developers
+
+**Relevance for Onde:**
+| Asset Esistente | Opportunity |
+|-----------------|-------------|
+| **Skin Studio** | Già supporta export Roblox! Posizionato perfettamente |
+| **Moonlight Magic House** | Template per game kids-friendly, replicabile su Roblox |
+| **AI Generation** | Può accelerare development (14h → meno?) |
+| **Radeon GPU** | Asset generation locale per Roblox games |
+
+**Potential Actions:**
+- [ ] **P1**: Skin Studio → marketing per Roblox creators
+- [ ] **P2**: Create simple Roblox games (obby, tycoon) con branding Onde
+- [ ] **P2**: Tutorial content "Come creare giochi Roblox con AI"
+- [ ] **P3**: Marketplace skin Roblox su onde.la
+
+**Revenue Model Roblox:**
+- Vendita giochi: $50k-$250k one-time
+- In-game purchases: $1k-$100k/mese recurring
+- Ad revenue: Variable
+
 ---
 
 ## 🤖 PolyRoborto (Trading Bot)
