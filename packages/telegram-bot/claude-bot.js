@@ -2,6 +2,7 @@ const https = require('https');
 const { spawn, execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { askLLM, getLLMStatus } = require('./llm-config');
 
 const TOKEN = '8528268093:AAGNZUcYBm8iMcn9D_oWr565rpxm9riNkBM';
 const ONDE_ROOT = process.env.ONDE_ROOT || path.resolve(__dirname, '../..');
@@ -40,26 +41,21 @@ async function sendTelegram(chatId, text) {
   await api('sendMessage', { chat_id: chatId, text: text, parse_mode: 'HTML' });
 }
 
-// Call Claude CLI with the message
+// Call LLM (KIMI or Claude based on LLM_PROVIDER env)
 async function askClaude(prompt) {
-  return new Promise((resolve) => {
-    const fullPrompt = `You are a Telegram bot assistant for Onde (publishing house).
+  try {
+    const response = await askLLM(prompt, {
+      workingDir: ONDE_ROOT,
+      systemPrompt: `You are a Telegram bot assistant for Onde (publishing house).
 Working directory: ${ONDE_ROOT}
-Respond concisely in Italian. If asked to do something, do it and report results.
-User message: ${prompt}`;
-
-    try {
-      // Try to use claude CLI
-      const result = execSync(
-        `cd "${ONDE_ROOT}" && claude --print "${fullPrompt.replace(/"/g, '\\"')}"`,
-        { encoding: 'utf8', timeout: 60000, maxBuffer: 1024 * 1024 }
-      );
-      resolve(result.trim());
-    } catch (e) {
-      // Fallback to simple responses
-      resolve(handleSimple(prompt));
-    }
-  });
+Respond concisely in Italian. If asked to do something, do it and report results.`
+    });
+    return response;
+  } catch (e) {
+    console.error('LLM error:', e.message);
+    // Fallback to simple responses
+    return handleSimple(prompt);
+  }
 }
 
 // Check running Claude sessions
@@ -215,14 +211,33 @@ async function processMessage(chatId, text, user) {
   }
 
   if (lower === 'help' || lower === '/start') {
-    await sendTelegram(chatId, `🤖 <b>FRH-ONDE Bot + Claude</b>
+    const llmStatus = getLLMStatus();
+    await sendTelegram(chatId, `🤖 <b>FRH-ONDE Bot</b>
 
-Scrivi qualsiasi cosa e Claude risponde!
+LLM: ${llmStatus.provider} ${llmStatus.configured ? '✅' : '❌'}
+
+Scrivi qualsiasi cosa e rispondo!
 
 Comandi rapidi:
 • ping - test
 • stato - dashboard libri
-• Qualsiasi messaggio → Claude`);
+• llm - quale AI sto usando
+• Qualsiasi messaggio → ${llmStatus.provider}`);
+    return;
+  }
+
+  if (lower === 'llm') {
+    const llmStatus = getLLMStatus();
+    await sendTelegram(chatId, `🤖 <b>LLM Status</b>
+
+Provider: ${llmStatus.provider}
+Configured: ${llmStatus.configured ? '✅' : '❌'}
+Model: ${llmStatus.model}
+Rate Limit: ${llmStatus.rateLimit}
+
+Per cambiare:
+• <code>./start-kimi.sh</code> (FREE)
+• <code>./start-claude.sh</code> (paid)`);
     return;
   }
 
@@ -240,8 +255,11 @@ Comandi rapidi:
 }
 
 async function poll() {
-  console.log('🤖 FRH-ONDE + Claude Bot attivo!');
+  const llmStatus = getLLMStatus();
+  console.log('🤖 FRH-ONDE Bot attivo!');
   console.log(`📁 Working dir: ${ONDE_ROOT}`);
+  console.log(`🧠 LLM: ${llmStatus.provider} (${llmStatus.configured ? 'configured' : 'NOT configured'})`);
+  if (llmStatus.rateLimit) console.log(`⏱️  Rate limit: ${llmStatus.rateLimit}`);
 
   while (true) {
     try {
