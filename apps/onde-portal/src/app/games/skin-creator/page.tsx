@@ -309,6 +309,7 @@ export default function SkinCreator() {
     dataUrl: string;
     timestamp: number;
     tags?: string[]; // e.g., ['warrior', 'fantasy', 'cool']
+    rating?: number; // 1-5 stars
   }
   const SKIN_TAGS = ['⚔️ Warrior', '🧙 Mage', '🐱 Cute', '👻 Spooky', '🤖 Robot', '🎮 Gaming', '🌟 Fantasy', '😎 Cool'];
   const [savedSkins, setSavedSkins] = useState<SavedSkin[]>([]);
@@ -2428,6 +2429,12 @@ export default function SkinCreator() {
                         className="absolute -bottom-1 -right-1 w-4 h-4 bg-purple-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Add tag"
                       >🏷️</button>
+                      {/* Rating stars */}
+                      {skin.rating && (
+                        <div className="absolute top-8 left-0 right-0 flex justify-center text-xs">
+                          {'⭐'.repeat(skin.rating)}
+                        </div>
+                      )}
                       <button
                         onClick={(e) => { 
                           e.stopPropagation();
