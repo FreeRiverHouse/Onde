@@ -9,6 +9,9 @@ import WatercolorBackground from '@/components/ui/WatercolorBackground';
 import VercelAnalytics from '@/components/VercelAnalytics';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AICompanionProvider } from '@/components/AICompanion';
+import { TreasureFoundToast } from '@/components/TreasureChest';
+import { GlobalTreasureListener } from '@/components/HiddenTreasure';
+import { CoinProvider } from '@/hooks/useCoins';
 
 function Footer() {
   const t = useTranslations();
@@ -95,19 +98,23 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
       <I18nProvider>
-        <AICompanionProvider>
-          <SkipToContent />
-          <WatercolorBackground />
-          <Navigation />
-          <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
-            <ErrorBoundary>
-              {children}
-            </ErrorBoundary>
-          </main>
-          <Footer />
-          <SearchModal />
-          <VercelAnalytics />
-        </AICompanionProvider>
+        <CoinProvider>
+          <AICompanionProvider>
+            <SkipToContent />
+            <WatercolorBackground />
+            <Navigation />
+            <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
+            </main>
+            <Footer />
+            <SearchModal />
+            <TreasureFoundToast />
+            <GlobalTreasureListener />
+            <VercelAnalytics />
+          </AICompanionProvider>
+        </CoinProvider>
       </I18nProvider>
     </ThemeProvider>
   );

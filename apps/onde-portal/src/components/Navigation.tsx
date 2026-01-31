@@ -9,6 +9,7 @@ import { useTranslations } from '@/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 import NotificationCenter from './NotificationCenter'
 import { useSearchModal } from './SearchModal'
+import CoinDisplay, { CoinDisplayCompact } from './CoinDisplay'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -116,6 +117,7 @@ export default function Navigation() {
                   ⌘K
                 </kbd>
               </motion.button>
+              <CoinDisplay />
               <LanguageSwitcher />
               <NotificationCenter />
               <Link href="/libri">
@@ -148,6 +150,7 @@ export default function Navigation() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </motion.button>
+              <CoinDisplayCompact />
               <LanguageSwitcher />
               <NotificationCenter />
               <motion.button
