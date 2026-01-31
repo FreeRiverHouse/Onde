@@ -13372,3 +13372,15 @@ Generated: 2026-01-30T18:37:46.867013
 - **Salmo 23**: Works ✅
 - **Meditations**: Fails to load content ❌
 - **Notes**: PDF exists, but reader JSON missing
+
+### [T1070] Kids Chef: Unlock All Recipes
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 01:05 PST
+- **Notes**: Tester Kid feedback - kids hate locks!
+
+### [T1071] Skin Creator: 5 New Templates
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 01:05 PST
+- **Templates**: Pirate, Astronaut, Superhero, Knight, Mermaid
