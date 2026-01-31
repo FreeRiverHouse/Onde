@@ -13090,3 +13090,13 @@ Generated: 2026-01-30T18:37:46.867013
 - **Source**: https://x.com/nickdifabio1
 - **Goal**: Studiare strategie, content, growth tactics per applicare al nostro business
 - **Notes**: Analisi approfondita con Chrome - tweet patterns, engagement, monetization
+
+### [T1052] Cleanup: Rimuovere Bot FRH Updates e FRH-ONDE
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1 (cleanup)
+- **Goal**: 
+  1. Eliminare bot "FRH Updates" e "FRH-ONDE" da Telegram
+  2. Eliminare tutti i messaggi inviati da questi bot
+  3. Disabilitare eventuali cron/script che li alimentano
+- **Notes**: Bot obsoleti, non più necessari
