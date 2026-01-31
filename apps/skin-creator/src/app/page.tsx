@@ -5,6 +5,9 @@ import dynamic from 'next/dynamic';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
 import { enhancePromptWithLLM, checkLocalLLM } from '../lib/localLLM';
 
+// Lazy load 3D preview to avoid SSR issues
+const SkinPreview3D = dynamic(() => import('../components/SkinPreview3D'), { ssr: false });
+
 // Confetti on download!
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
@@ -158,6 +161,7 @@ export default function SkinCreator() {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
@@ -1416,16 +1420,36 @@ export default function SkinCreator() {
       <div className="flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2">
         {/* Left Panel - Preview */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center flex items-center justify-center gap-2">
-            <span className="animate-bounce-soft">👀</span> Preview
-          </h2>
-          <canvas
-            ref={previewRef}
-            width={200}
-            height={280}
-            className="rounded-xl mx-auto"
-            style={{ imageRendering: 'pixelated' }}
-          />
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <span className="animate-bounce-soft">👀</span> Preview
+            </h2>
+            <button
+              onClick={() => setShow3D(!show3D)}
+              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all ${
+                show3D 
+                  ? 'bg-purple-500 text-white' 
+                  : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+              title="Toggle 3D view - drag to rotate!"
+            >
+              {show3D ? '🎮 3D' : '📐 2D'}
+            </button>
+          </div>
+          
+          {show3D ? (
+            <div className="rounded-xl mx-auto overflow-hidden" style={{ width: 200, height: 280 }}>
+              <SkinPreview3D skinCanvas={canvasRef.current} />
+            </div>
+          ) : (
+            <canvas
+              ref={previewRef}
+              width={200}
+              height={280}
+              className="rounded-xl mx-auto"
+              style={{ imageRendering: 'pixelated' }}
+            />
+          )}
           
           {/* Templates */}
           <div className="mt-4">
