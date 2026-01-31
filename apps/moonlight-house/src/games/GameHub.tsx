@@ -14,6 +14,7 @@ const games = [
   { id: 'bubbles', emoji: '🫧', name: { it: 'Scoppia Bolle!', en: 'Pop Bubbles!' }, color: '#93c5fd' },
   { id: 'simon', emoji: '🎵', name: { it: 'Simon Dice', en: 'Simon Says' }, color: '#8b5cf6' },
   { id: 'catch', emoji: '🧺', name: { it: 'Acchiappa!', en: 'Catch!' }, color: '#f59e0b' },
+  { id: 'gardening', emoji: '🌱', name: { it: 'Giardinaggio', en: 'Gardening' }, color: '#4ade80' },
 ];
 
 export default function GameHub({ onSelectGame, onBack, lang }: GameHubProps) {

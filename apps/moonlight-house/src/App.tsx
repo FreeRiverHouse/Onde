@@ -5,7 +5,7 @@ import useSoundManager from './useSoundManager';
 import useAmbientSoundscapes from './components/AmbientSoundscapes';
 import useWeather from './hooks/useWeather';
 import GameHub from './games/GameHub';
-import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame } from './games';
+import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
 import LibraryBooks from './components/LibraryBooks';
@@ -469,7 +469,7 @@ function App() {
   const [showDailyReward, setShowDailyReward] = useState(false);
   const [dailyRewardAmount, setDailyRewardAmount] = useState(0);
   const [showMiniGame, setShowMiniGame] = useState(false);
-  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | 'simon' | 'catch' | 'library' | null
+  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | 'simon' | 'catch' | 'gardening' | 'library' | null
   const [eventMessage, setEventMessage] = useState('');
   
   // Library books state
@@ -1029,6 +1029,12 @@ function App() {
 
   if (activeGame === 'catch') {
     return <CatchGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
+  }
+
+  if (activeGame === 'gardening') {
+    return <GardeningGame onClose={() => setActiveGame(null)} onReward={(coins) => {
+      setStats(prev => ({ ...prev, coins: prev.coins + coins }));
+    }} />;
   }
 
   // Library Books

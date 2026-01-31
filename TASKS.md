@@ -11194,13 +11194,20 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Daily mini-quests with bonus rewards (e.g., visit 5 rooms, do 3 activities)
 
 ### [T927] Moonlight: Add gardening mini-game
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
+- **Started**: 2026-01-30 19:55
+- **Completed**: 2026-01-30 20:00
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Plant seeds, water them, watch them grow over time
+- **Notes**: ✅ Plant seeds, water them, watch them grow over time
+  - 🌱 6 garden plots
+  - 🌸 12 plant types (flowers, vegetables, trees)
+  - 💧 Watering mechanic
+  - 🎉 Harvest for coins
+  - Added to GameHub + App.tsx
 
 ### [T928] Moonlight: Add haptic feedback
 - **Status**: TODO
