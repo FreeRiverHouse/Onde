@@ -1,5 +1,4 @@
 // Onde Studio Books - Our original content only
-// No more fake Gutenberg catalog
 
 export type BookSource = 'onde-studio'
 
@@ -36,30 +35,6 @@ export const books: Book[] = [
     readingTime: '~15 min',
     coverImage: '/images/books/meditations-cover.jpg',
     epubUrl: '/books/epub/meditations-en.epub',
-  },
-  {
-    id: 'salmo-23-it',
-    title: 'Il Salmo 23',
-    author: 'Onde',
-    category: 'spiritualita',
-    lang: 'it',
-    source: 'onde-studio',
-    pages: 32,
-    readingTime: '~10 min',
-    coverImage: '/images/books/psalm23-cover.jpg',
-    epubUrl: '/books/epub/salmo-23-bambini-it.epub',
-  },
-  {
-    id: 'salmo-23-en',
-    title: 'Psalm 23',
-    author: 'Onde',
-    category: 'spiritualita',
-    lang: 'en',
-    source: 'onde-studio',
-    pages: 32,
-    readingTime: '~10 min',
-    coverImage: '/images/books/psalm23-cover.jpg',
-    epubUrl: '/books/epub/salmo-23-bambini-en.epub',
   },
   {
     id: 'shepherds-promise',
