@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const games = [
   { 
@@ -10,8 +10,9 @@ const games = [
     title: 'Moonlight', 
     desc: 'Magic Pet House',
     emoji: '🐱',
-    color: 'from-purple-500 to-purple-700',
-    textColor: 'text-purple-600'
+    color: 'from-purple-600 to-purple-900',
+    glowColor: 'purple',
+    screenTint: 'bg-purple-500/20'
   },
   { 
     id: 'skin', 
@@ -19,8 +20,9 @@ const games = [
     title: 'Skin Studio', 
     desc: 'Minecraft Skin Maker',
     emoji: '🎨',
-    color: 'from-orange-500 to-orange-700',
-    textColor: 'text-orange-600'
+    color: 'from-orange-500 to-orange-800',
+    glowColor: 'orange',
+    screenTint: 'bg-orange-500/20'
   },
   { 
     id: 'chef', 
@@ -28,8 +30,9 @@ const games = [
     title: 'Kids Chef', 
     desc: 'Cooking Studio',
     emoji: '👨‍🍳',
-    color: 'from-amber-500 to-amber-700',
-    textColor: 'text-amber-600'
+    color: 'from-amber-500 to-amber-800',
+    glowColor: 'amber',
+    screenTint: 'bg-amber-500/20'
   },
   { 
     id: 'fortune', 
@@ -37,132 +40,411 @@ const games = [
     title: 'Fortune Cookie', 
     desc: 'Positive Messages',
     emoji: '🥠',
-    color: 'from-yellow-500 to-yellow-700',
-    textColor: 'text-yellow-600'
+    color: 'from-yellow-500 to-yellow-800',
+    glowColor: 'yellow',
+    screenTint: 'bg-yellow-500/20'
   },
 ]
 
-export default function ArcadePage() {
-  const [selectedGame, setSelectedGame] = useState<string | null>(null)
+// Floating pixel particles
+function FloatingPixels() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(30)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute animate-float"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${3 + Math.random() * 4}s`,
+          }}
+        >
+          <div 
+            className={`w-1 h-1 md:w-2 md:h-2 ${
+              ['bg-pink-500', 'bg-cyan-400', 'bg-yellow-400', 'bg-purple-400', 'bg-green-400'][i % 5]
+            } opacity-60`}
+            style={{ boxShadow: '0 0 6px currentColor' }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Arcade cabinet silhouettes in background
+function ArcadeCabinets() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+      {/* Left cabinet */}
+      <div className="absolute -left-20 bottom-0 w-48 h-96">
+        <div className="w-full h-full bg-gradient-to-t from-gray-800 to-gray-900 rounded-t-xl" />
+        <div className="absolute top-8 left-6 right-6 h-32 bg-cyan-500/30 rounded" />
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-red-500/40" />
+      </div>
+      {/* Right cabinet */}
+      <div className="absolute -right-20 bottom-0 w-48 h-80">
+        <div className="w-full h-full bg-gradient-to-t from-gray-800 to-gray-900 rounded-t-xl" />
+        <div className="absolute top-8 left-6 right-6 h-28 bg-pink-500/30 rounded" />
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-yellow-500/40" />
+      </div>
+      {/* Far left small cabinet */}
+      <div className="hidden md:block absolute left-10 bottom-0 w-32 h-64 opacity-50">
+        <div className="w-full h-full bg-gradient-to-t from-gray-800 to-gray-900 rounded-t-lg" />
+        <div className="absolute top-6 left-4 right-4 h-20 bg-green-500/20 rounded" />
+      </div>
+      {/* Far right small cabinet */}
+      <div className="hidden md:block absolute right-10 bottom-0 w-32 h-72 opacity-50">
+        <div className="w-full h-full bg-gradient-to-t from-gray-800 to-gray-900 rounded-t-lg" />
+        <div className="absolute top-6 left-4 right-4 h-24 bg-purple-500/20 rounded" />
+      </div>
+    </div>
+  )
+}
+
+// Neon tube lights
+function NeonLights() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Top horizontal neon */}
+      <div className="absolute top-0 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-80">
+        <div className="absolute inset-0 blur-md bg-pink-500" />
+      </div>
+      {/* Left vertical neon */}
+      <div className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-gradient-to-b from-transparent via-cyan-400 to-transparent opacity-60">
+        <div className="absolute inset-0 blur-lg bg-cyan-400" />
+      </div>
+      {/* Right vertical neon */}
+      <div className="absolute right-0 top-1/3 bottom-1/3 w-1 bg-gradient-to-b from-transparent via-purple-500 to-transparent opacity-60">
+        <div className="absolute inset-0 blur-lg bg-purple-500" />
+      </div>
+    </div>
+  )
+}
+
+// Game card with CRT effect
+function GameCard({ game, isSelected, onHover, onLeave }: { 
+  game: typeof games[0], 
+  isSelected: boolean,
+  onHover: () => void,
+  onLeave: () => void
+}) {
+  const [showInsertCoin, setShowInsertCoin] = useState(false)
+
+  useEffect(() => {
+    if (isSelected) {
+      setShowInsertCoin(true)
+      const interval = setInterval(() => setShowInsertCoin(prev => !prev), 500)
+      return () => clearInterval(interval)
+    }
+    setShowInsertCoin(false)
+  }, [isSelected])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
-      {/* Arcade atmosphere - neon glow effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/30 via-transparent to-transparent" />
+    <Link
+      href={game.href}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      className="group block"
+    >
+      {/* Arcade cabinet shape */}
+      <div className={`
+        relative transform transition-all duration-500 ease-out
+        ${isSelected ? 'scale-110 -translate-y-4 z-20' : 'hover:scale-105 hover:-translate-y-2'}
+      `}>
+        {/* Cabinet body */}
+        <div className={`
+          relative bg-gradient-to-b from-gray-800 to-gray-900
+          rounded-t-2xl rounded-b-lg overflow-hidden
+          border-2 border-gray-700
+          shadow-2xl
+        `}>
+          {/* Screen bezel */}
+          <div className="p-3 pb-2">
+            {/* CRT Screen */}
+            <div className={`
+              relative bg-gradient-to-br ${game.color}
+              rounded-lg overflow-hidden
+              aspect-square
+            `}>
+              {/* CRT curvature effect */}
+              <div className="absolute inset-0 rounded-lg" style={{
+                background: 'radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%)'
+              }} />
+              
+              {/* Scanlines */}
+              <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px)'
+              }} />
+
+              {/* Screen flicker on hover */}
+              {isSelected && (
+                <div className="absolute inset-0 bg-white/5 animate-flicker" />
+              )}
+
+              {/* Screen tint/glow */}
+              <div className={`absolute inset-0 ${game.screenTint}`} />
+
+              {/* Game emoji */}
+              <div className="relative flex items-center justify-center h-full">
+                <span className={`
+                  text-7xl md:text-8xl transform transition-all duration-300
+                  ${isSelected ? 'scale-110 animate-bounce-subtle' : 'group-hover:scale-105'}
+                `} style={{
+                  filter: isSelected ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
+                }}>
+                  {game.emoji}
+                </span>
+              </div>
+
+              {/* INSERT COIN overlay */}
+              {isSelected && showInsertCoin && (
+                <div className="absolute bottom-2 left-0 right-0 text-center">
+                  <span className="bg-black/80 text-yellow-400 px-3 py-1 rounded font-mono text-xs font-bold tracking-wider">
+                    INSERT COIN
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Game title marquee */}
+          <div className={`
+            bg-gradient-to-r ${game.color} 
+            px-3 py-2 text-center
+            border-t-2 border-white/20
+          `}>
+            <h2 className="text-lg md:text-xl font-black text-white tracking-wide drop-shadow-lg">
+              {game.title}
+            </h2>
+            <p className="text-xs text-white/80 font-medium">
+              {game.desc}
+            </p>
+          </div>
+
+          {/* Control panel */}
+          <div className="bg-gray-900 p-3 flex items-center justify-center gap-3">
+            {/* Joystick */}
+            <div className="relative">
+              <div className="w-4 h-4 bg-gray-700 rounded-full" />
+              <div className={`
+                absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-5 
+                bg-gradient-to-b from-red-500 to-red-700 rounded-full
+                transition-transform duration-100
+                ${isSelected ? 'rotate-12' : ''}
+              `} />
+            </div>
+            {/* Buttons */}
+            <div className="flex gap-1.5">
+              <div className={`w-4 h-4 rounded-full bg-red-500 shadow-lg transition-all ${isSelected ? 'scale-90 brightness-150' : ''}`} />
+              <div className={`w-4 h-4 rounded-full bg-blue-500 shadow-lg transition-all ${isSelected ? 'scale-110' : ''}`} />
+              <div className={`w-4 h-4 rounded-full bg-yellow-500 shadow-lg`} />
+            </div>
+          </div>
+
+          {/* Coin slot */}
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-2 bg-black rounded-full border border-gray-600" />
+        </div>
+
+        {/* Cabinet glow effect */}
+        {isSelected && (
+          <>
+            <div className={`
+              absolute -inset-4 rounded-2xl blur-xl -z-10 opacity-60
+              bg-gradient-to-b ${game.color}
+            `} />
+            <div className="absolute -inset-1 rounded-2xl border-2 border-white/20 pointer-events-none" />
+          </>
+        )}
+      </div>
+    </Link>
+  )
+}
+
+export default function ArcadePage() {
+  const [selectedGame, setSelectedGame] = useState<string | null>(null)
+  const [pressAnyKey, setPressAnyKey] = useState(true)
+
+  // Pulsing "press any button" effect
+  useEffect(() => {
+    const interval = setInterval(() => setPressAnyKey(prev => !prev), 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="min-h-screen bg-gray-950 relative overflow-hidden">
+      {/* Deep space background with arcade floor reflection feel */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-purple-950/50 to-gray-950" />
       
-      {/* Scanlines effect */}
-      <div className="absolute inset-0 pointer-events-none opacity-10" style={{
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
+      {/* Arcade carpet pattern */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `
+          radial-gradient(circle at 25% 25%, cyan 1px, transparent 1px),
+          radial-gradient(circle at 75% 75%, magenta 1px, transparent 1px),
+          radial-gradient(circle at 50% 50%, yellow 1px, transparent 1px)
+        `,
+        backgroundSize: '60px 60px, 60px 60px, 60px 60px',
+        backgroundPosition: '0 0, 30px 30px, 15px 15px'
       }} />
 
-      {/* Back link */}
-      <div className="absolute top-4 left-4 z-20">
-        <Link 
-          href="/games"
-          className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full font-bold text-white shadow-lg transition-all hover:scale-105 border border-white/20"
-        >
-          ← Island
-        </Link>
-      </div>
+      {/* Ambient ceiling glow */}
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-purple-900/20 via-pink-900/10 to-transparent" />
 
-      {/* Header - Neon sign style */}
-      <div className="text-center pt-8 pb-6 relative">
-        <div className="inline-block relative">
-          <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 drop-shadow-lg animate-pulse">
-            🕹️ ONDE ARCADE
-          </h1>
-          {/* Neon glow */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 via-red-500/20 to-pink-500/20 blur-2xl -z-10" />
+      {/* Floor reflection */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-cyan-900/10 via-purple-900/5 to-transparent" />
+
+      {/* Components */}
+      <FloatingPixels />
+      <ArcadeCabinets />
+      <NeonLights />
+
+      {/* Scanlines overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
+        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,1) 2px, rgba(0,0,0,1) 4px)'
+      }} />
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Back link */}
+        <div className="absolute top-4 left-4 z-20">
+          <Link 
+            href="/games"
+            className="group flex items-center gap-2 bg-black/50 hover:bg-black/70 px-4 py-2 rounded-full font-bold text-white shadow-lg transition-all hover:scale-105 border border-cyan-500/30 hover:border-cyan-400/50 backdrop-blur-sm"
+          >
+            <span className="text-cyan-400">◀</span>
+            <span>Island</span>
+          </Link>
         </div>
-        <p className="text-xl text-gray-300 mt-4 font-mono">
-          INSERT COIN TO PLAY • SELECT YOUR GAME
-        </p>
-      </div>
 
-      {/* Games Grid */}
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {games.map((game) => (
-            <Link
-              key={game.id}
-              href={game.href}
-              onMouseEnter={() => setSelectedGame(game.id)}
-              onMouseLeave={() => setSelectedGame(null)}
-              className="group"
-            >
-              <div className={`
-                relative bg-gradient-to-b ${game.color} 
-                rounded-xl p-4 shadow-2xl
-                transform transition-all duration-300
-                ${selectedGame === game.id ? 'scale-110 -rotate-2' : 'hover:scale-105'}
-                border-4 border-white/20
-              `}>
-                {/* Glow effect on hover */}
-                {selectedGame === game.id && (
-                  <div className="absolute -inset-2 bg-white/20 rounded-xl blur-xl -z-10 animate-pulse" />
-                )}
-                
-                {/* Game icon */}
-                <div className="text-6xl md:text-7xl text-center mb-3 transform group-hover:scale-110 transition-transform">
-                  {game.emoji}
-                </div>
-                
-                {/* Game info */}
-                <div className="bg-black/50 rounded-lg p-2 backdrop-blur">
-                  <h2 className="text-lg font-black text-white text-center">
-                    {game.title}
-                  </h2>
-                  <p className="text-xs text-gray-300 text-center">
-                    {game.desc}
-                  </p>
-                </div>
+        {/* Neon Sign Header */}
+        <div className="text-center pt-8 pb-4 relative">
+          <div className="inline-block relative">
+            {/* Main title with neon effect */}
+            <h1 className="text-5xl md:text-8xl font-black tracking-tight">
+              <span className="relative inline-block">
+                <span className="text-cyan-400" style={{
+                  textShadow: '0 0 10px #22d3ee, 0 0 20px #22d3ee, 0 0 40px #22d3ee, 0 0 80px #22d3ee'
+                }}>ONDE</span>
+              </span>
+              <span className="mx-2 md:mx-4" />
+              <span className="relative inline-block">
+                <span className="text-pink-500" style={{
+                  textShadow: '0 0 10px #ec4899, 0 0 20px #ec4899, 0 0 40px #ec4899, 0 0 80px #ec4899'
+                }}>ARCADE</span>
+              </span>
+            </h1>
+            
+            {/* Decorative joystick */}
+            <div className="absolute -left-12 md:-left-20 top-1/2 -translate-y-1/2 text-4xl md:text-6xl opacity-80">
+              🕹️
+            </div>
+            <div className="absolute -right-12 md:-right-20 top-1/2 -translate-y-1/2 text-4xl md:text-6xl opacity-80 transform scale-x-[-1]">
+              🕹️
+            </div>
+          </div>
+          
+          {/* Subtitle with blinking effect */}
+          <div className="mt-4 md:mt-6">
+            <p className={`
+              text-lg md:text-2xl font-mono tracking-widest transition-opacity duration-500
+              ${pressAnyKey ? 'text-yellow-400 opacity-100' : 'text-yellow-400/50 opacity-70'}
+            `} style={{
+              textShadow: pressAnyKey ? '0 0 10px #facc15' : 'none'
+            }}>
+              ★ PRESS ANY BUTTON TO START ★
+            </p>
+          </div>
+        </div>
 
-                {/* Play button */}
-                <div className="mt-3 bg-green-500 hover:bg-green-400 text-white font-bold py-2 rounded-lg text-center text-sm transition-colors">
-                  ▶ PLAY
-                </div>
+        {/* Games Grid */}
+        <div className="max-w-6xl mx-auto px-4 py-6 md:py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {games.map((game) => (
+              <GameCard
+                key={game.id}
+                game={game}
+                isSelected={selectedGame === game.id}
+                onHover={() => setSelectedGame(game.id)}
+                onLeave={() => setSelectedGame(null)}
+              />
+            ))}
+          </div>
+        </div>
 
-                {/* Pixel corners */}
-                <div className="absolute top-0 left-0 w-2 h-2 bg-white/50" />
-                <div className="absolute top-0 right-0 w-2 h-2 bg-white/50" />
-                <div className="absolute bottom-0 left-0 w-2 h-2 bg-white/50" />
-                <div className="absolute bottom-0 right-0 w-2 h-2 bg-white/50" />
+        {/* High Score / Coming Soon Section */}
+        <div className="max-w-4xl mx-auto px-4 py-6 md:py-10">
+          <div className="relative bg-black/60 rounded-2xl p-6 md:p-8 border border-purple-500/30 backdrop-blur overflow-hidden">
+            {/* CRT effect */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)'
+            }} />
+            
+            <div className="relative">
+              <h3 className="text-2xl md:text-3xl font-black text-center mb-4">
+                <span className="text-yellow-400" style={{ textShadow: '0 0 10px #facc15' }}>
+                  🚀 COMING SOON
+                </span>
+              </h3>
+              
+              <p className="text-gray-400 text-center mb-6 font-mono">
+                NEW GAMES LOADING...
+              </p>
+              
+              <div className="flex justify-center gap-6 md:gap-10">
+                {[
+                  { emoji: '🚗✈️', label: 'Flying Cars' },
+                  { emoji: '📝', label: 'Word Games' },
+                  { emoji: '🎵', label: 'Music' },
+                  { emoji: '🧩', label: 'Puzzles' },
+                ].map((item, i) => (
+                  <div key={i} className="text-center group">
+                    <div className="text-4xl md:text-5xl mb-2 opacity-40 group-hover:opacity-80 transition-opacity grayscale group-hover:grayscale-0">
+                      {item.emoji}
+                    </div>
+                    <div className="text-xs text-gray-500 font-mono">{item.label}</div>
+                  </div>
+                ))}
               </div>
-            </Link>
-          ))}
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Coming Soon Section */}
-      <div className="max-w-3xl mx-auto px-4 py-8 text-center">
-        <div className="bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur">
-          <h3 className="text-2xl font-black text-yellow-400 mb-2">🚀 COMING SOON</h3>
-          <p className="text-gray-400 mb-4">More games are on the way!</p>
-          <div className="flex justify-center gap-4 text-4xl opacity-50">
-            <span title="Flying Car LA">🚗✈️</span>
-            <span title="Word Games">📝</span>
-            <span title="Music">🎵</span>
-            <span title="Puzzles">🧩</span>
+        {/* Footer with coin counter style */}
+        <div className="text-center pb-8 md:pb-12">
+          <div className="inline-flex items-center gap-3 bg-black/50 px-6 py-3 rounded-full border border-yellow-500/30">
+            <span className="text-2xl">🪙</span>
+            <span className="text-yellow-400 font-mono font-bold tracking-wider">
+              {games.length} GAMES • FREE PLAY • NO COINS NEEDED
+            </span>
+            <span className="text-2xl">🪙</span>
           </div>
         </div>
       </div>
 
-      {/* Footer info */}
-      <div className="text-center pb-8">
-        <p className="text-gray-500 text-sm font-mono">
-          🎮 {games.length} GAMES AVAILABLE • NO COINS NEEDED • FREE TO PLAY
-        </p>
-      </div>
-
-      {/* Decorative arcade elements */}
-      <div className="absolute bottom-10 left-10 text-4xl opacity-30 animate-bounce">🎰</div>
-      <div className="absolute bottom-20 right-10 text-3xl opacity-30 animate-bounce delay-500">🎯</div>
-      <div className="absolute top-1/3 left-5 text-2xl opacity-20 animate-pulse">⭐</div>
-      <div className="absolute top-1/2 right-5 text-2xl opacity-20 animate-pulse delay-700">⭐</div>
-
+      {/* Custom animations */}
       <style jsx>{`
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-700 { animation-delay: 0.7s; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+          50% { transform: translateY(-20px) rotate(5deg); opacity: 0.9; }
+        }
+        @keyframes flicker {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 0.1; }
+        }
+        @keyframes bounce-subtle {
+          0%, 100% { transform: scale(1.1) translateY(0); }
+          50% { transform: scale(1.1) translateY(-5px); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-flicker {
+          animation: flicker 0.1s ease-in-out infinite;
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 0.6s ease-in-out infinite;
+        }
       `}</style>
     </div>
   )
