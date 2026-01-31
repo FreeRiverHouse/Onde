@@ -10403,8 +10403,8 @@
   - Press ? key to toggle
 
 ### [T879] Skin Creator: Advanced Layer System
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P2
