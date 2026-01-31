@@ -2,7 +2,8 @@ const https = require('https');
 const { spawn, execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { askLLM, getLLMStatus } = require('./llm-config');
+const { askLLM, getLLMStatus, switchProvider } = require('./llm-config');
+const handover = require('./handover');
 
 const TOKEN = '8528268093:AAGNZUcYBm8iMcn9D_oWr565rpxm9riNkBM';
 const ONDE_ROOT = process.env.ONDE_ROOT || path.resolve(__dirname, '../..');
@@ -235,9 +236,66 @@ Configured: ${llmStatus.configured ? '✅' : '❌'}
 Model: ${llmStatus.model}
 Rate Limit: ${llmStatus.rateLimit}
 
-Per cambiare:
-• <code>./start-kimi.sh</code> (FREE)
-• <code>./start-claude.sh</code> (paid)`);
+Comandi switch:
+• <code>switch grok</code> - Grok xAI
+• <code>switch groq</code> - Groq (FREE)
+• <code>switch kimi</code> - KIMI K2.5 (FREE)
+• <code>switch radeon</code> - Locale Radeon`);
+    return;
+  }
+
+  // Switch LLM provider with handover
+  if (lower.startsWith('switch ')) {
+    const newProvider = lower.replace('switch ', '').trim();
+    const validProviders = ['grok', 'groq', 'kimi', 'radeon', 'claude'];
+
+    if (!validProviders.includes(newProvider)) {
+      await sendTelegram(chatId, `❌ Provider non valido: ${newProvider}\n\nValidi: ${validProviders.join(', ')}`);
+      return;
+    }
+
+    const oldStatus = getLLMStatus();
+    const oldProvider = oldStatus.provider;
+
+    await sendTelegram(chatId, `🔄 <b>Switching LLM...</b>\n\nDa: ${oldProvider}\nA: ${newProvider}\n\nGenero handover...`);
+
+    try {
+      // Generate handover
+      const handoverData = handover.generateHandover(oldProvider, newProvider);
+      const handoverMd = handover.generateHandoverMarkdown(oldProvider, newProvider);
+      const handoverFile = handover.saveHandoverFile(oldProvider, newProvider);
+
+      // Switch provider
+      const result = switchProvider(newProvider);
+
+      if (result.success) {
+        // Send confirmation with handover summary
+        const summary = `✅ <b>Switch completato!</b>
+
+<b>Da:</b> ${oldProvider}
+<b>A:</b> ${newProvider}
+
+<b>📋 Handover salvato:</b>
+• Branch: ${handoverData.git?.branch || 'N/A'}
+• File modificati: ${handoverData.files?.recentlyModified?.length || 0}
+• Commit recenti: ${handoverData.git?.recentCommits?.length || 0}
+• Procedure: ${handoverData.procedures?.length || 0}
+
+<b>📁 File:</b> <code>${handoverFile}</code>
+
+Il nuovo LLM ha accesso completo al contesto!`;
+
+        await sendTelegram(chatId, summary);
+
+        // Also send compact handover for the new LLM to read
+        const compact = handover.getCompactHandover(oldProvider, newProvider);
+        console.log('🔄 Handover context for new LLM:', JSON.stringify(compact, null, 2));
+      } else {
+        await sendTelegram(chatId, `⚠️ Switch parziale: ${result.message}\n\nHandover comunque salvato.`);
+      }
+    } catch (e) {
+      await sendTelegram(chatId, `❌ Errore switch: ${e.message}`);
+    }
     return;
   }
 

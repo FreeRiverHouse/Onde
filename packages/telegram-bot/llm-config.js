@@ -200,10 +200,43 @@ function getLLMStatus() {
   };
 }
 
+// Switch provider at runtime
+function switchProvider(newProvider) {
+  if (!PROVIDERS[newProvider]) {
+    return { success: false, message: `Unknown provider: ${newProvider}` };
+  }
+
+  const oldProvider = process.env.LLM_PROVIDER || 'groq';
+  process.env.LLM_PROVIDER = newProvider;
+
+  // Verify the new provider is configured
+  const provider = PROVIDERS[newProvider];
+  const hasKey = provider.apiKeyEnv ? !!process.env[provider.apiKeyEnv] : true;
+
+  if (!hasKey) {
+    return {
+      success: true,
+      message: `Switched to ${provider.name} but ${provider.apiKeyEnv} is not set`,
+      from: oldProvider,
+      to: newProvider,
+      configured: false
+    };
+  }
+
+  return {
+    success: true,
+    message: `Switched from ${oldProvider} to ${newProvider}`,
+    from: oldProvider,
+    to: newProvider,
+    configured: true
+  };
+}
+
 module.exports = {
   askLLM,
   getProvider,
   getLLMStatus,
+  switchProvider,
   callKimi,
   callClaude,
   PROVIDERS
