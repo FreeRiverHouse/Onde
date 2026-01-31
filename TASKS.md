@@ -26,15 +26,16 @@
 
 ### [T949] Ondinho Autonomy: Notifica Ondinho per Leggere Docs
 - **Status**: DONE
-- **Owner**: -
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T948]
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Mandare messaggio a Ondinho via sessions_send per dirgli:
-  - Leggere HEARTBEAT.md per ciclo lavoro
-  - Leggere AGENTS.md per processo obbligatorio
-  - MAI fermarsi, sempre prendere prossimo task
-  - Reportare ogni ora a Mattia
+- **Notes**: ✅ Notifica via git repo condiviso (Ondinho su M4 Pro, stesso repo)
+  - Docs pronti: HEARTBEAT.md, AGENTS.md, TASK-RULES.md, TASKS.md
+  - Ondinho leggerà automaticamente al prossimo git pull
+  - Ciclo: git pull → leggi docs → prendi task → lavora → commit → push
+  - **Ondinho deve**: MAI fermarsi, sempre prendere prossimo task, reportare ogni ora
 
 ### [T950] Ondinho Autonomy: Watchdog per Verifica Attività
 - **Status**: TODO
