@@ -13004,8 +13004,8 @@ Generated: 2026-01-30T18:37:46.867013
   - ⏳ Swipe gestures for tools (future enhancement)
 
 ### [T1047] Skin Creator: Alex/Slim Model Toggle
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
