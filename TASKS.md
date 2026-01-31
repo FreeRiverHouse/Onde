@@ -13225,3 +13225,32 @@ Generated: 2026-01-30T18:37:46.867013
   - Pasta
   - Pancakes
 - **Gameplay**: Drag & drop ingredients, timer games, mixing mini-games
+
+### [T1059] Design System: Bouncing Emoji Mascots
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Usare emoji animati come mascot in tutte le app
+- **Style**:
+  - Emoji grandi (text-5xl/text-6xl)
+  - animate-bounce con delay sfasati
+  - Posizione bottom fixed per effetto 3D
+- **Apply to**:
+  - Gaming Island ✅
+  - Kids Chef Studio ✅
+  - Skin Creator (aggiungere)
+  - Moonlight (aggiungere)
+  - Future apps
+
+### [T1060] Skin Creator: Add Bouncing Mascots
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Aggiungere emoji animati come in Kids Chef
+- **Ideas**: 🎨 🖌️ ⛏️ 💎 🧱
+
+### [T1061] Moonlight: Add Bouncing Pet Mascots  
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Ideas**: 🐱 🐕 🐰 🐹 🦊
