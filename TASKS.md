@@ -12238,8 +12238,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Organize saved skins with tags (Warrior, Casual, etc.)
 
 ### [T964] Skin Creator: QR Code Share
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Generate QR code for sharing skins easily
