@@ -20,8 +20,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
-  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance'>('walk');
-  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance'>('walk');
+  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance' | 'floss'>('walk');
+  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss'>('walk');
   const [zoom, setZoom] = useState(5); // Camera distance
   const zoomRef = useRef(5);
 
@@ -324,6 +324,19 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         if (leftLegMesh) leftLegMesh.rotation.x = -legSwing;
         // Bounce the whole character
         character.position.y = bounce;
+      } else if (currentPose === 'floss') {
+        // 🕺 FLOSS DANCE - The classic!
+        const t = walkTime * 4; // Fast!
+        const swing = Math.sin(t) * 1.5;
+        const hipSwing = Math.sin(t) * 0.2;
+        // Arms swing side to side, opposite direction
+        if (rightArmMesh) { rightArmMesh.rotation.x = 0; rightArmMesh.rotation.z = swing; }
+        if (leftArmMesh) { leftArmMesh.rotation.x = 0; leftArmMesh.rotation.z = -swing; }
+        // Legs stay mostly still, slight hip movement
+        if (rightLegMesh) rightLegMesh.rotation.x = hipSwing * 0.3;
+        if (leftLegMesh) leftLegMesh.rotation.x = -hipSwing * 0.3;
+        // Hip rotation
+        character.rotation.y = rotationRef.current.y + hipSwing;
       }
       
       // ✨ Animate particles - float upward and respawn
@@ -567,6 +580,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title="Dance! 💃"
           >
             💃
+          </button>
+          <button
+            onClick={() => setPose('floss')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'floss' ? 'bg-orange-400 text-orange-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Floss! 🕺"
+          >
+            🕺
           </button>
         </div>
       </div>
