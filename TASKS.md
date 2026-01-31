@@ -106,8 +106,8 @@
   - **Tested:** qwen2.5-coder:7b coding task = 13.2s, 48 tokens, 3.6 tok/s
 
 ### [T869] Benchmark Local LLM Performance Comparison
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Depends**: [T867]
 - **Blocks**: -
 - **Priority**: P2
@@ -188,8 +188,8 @@
   - Compare cost: local vs API calls
 
 ### [T874] Local LLM: Code review delegation workflow
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P2
