@@ -1016,21 +1016,45 @@ export default function SkinCreator() {
 
           {/* Custom Color */}
           <div className="mt-4">
-            <input
-              type="color"
-              value={selectedColor}
-              onChange={(e) => setSelectedColor(e.target.value)}
-              className="w-full h-10 rounded cursor-pointer"
-            />
+            <div className="flex gap-1 items-center">
+              <input
+                type="color"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                className="w-10 h-10 rounded cursor-pointer"
+              />
+              <input
+                type="text"
+                value={selectedColor}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  if (/^#[0-9A-Fa-f]{0,6}$/.test(v)) setSelectedColor(v);
+                }}
+                className="flex-1 px-2 py-1 text-xs font-mono rounded border border-gray-300 uppercase"
+                maxLength={7}
+              />
+            </div>
             <p className="text-xs text-gray-500 text-center mt-1">Primary color</p>
           </div>
           <div className="mt-2">
-            <input
-              type="color"
-              value={secondaryColor}
-              onChange={(e) => setSecondaryColor(e.target.value)}
-              className="w-full h-8 rounded cursor-pointer"
-            />
+            <div className="flex gap-1 items-center">
+              <input
+                type="color"
+                value={secondaryColor}
+                onChange={(e) => setSecondaryColor(e.target.value)}
+                className="w-8 h-8 rounded cursor-pointer"
+              />
+              <input
+                type="text"
+                value={secondaryColor}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  if (/^#[0-9A-Fa-f]{0,6}$/.test(v)) setSecondaryColor(v);
+                }}
+                className="flex-1 px-2 py-1 text-xs font-mono rounded border border-gray-300 uppercase"
+                maxLength={7}
+              />
+            </div>
             <p className="text-xs text-gray-500 text-center mt-1">Gradient end</p>
           </div>
         </div>
