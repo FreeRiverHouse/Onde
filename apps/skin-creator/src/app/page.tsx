@@ -1525,6 +1525,26 @@ export default function SkinCreator() {
               >
                 🎁 Mystery!
               </button>
+              <button
+                onClick={() => {
+                  // 🎭 Random Outfit - randomize clothing/accessories tints!
+                  const outfitColors = ['#FF6B6B', '#4D96FF', '#6BCB77', '#FFD93D', '#9B59B6', '#FF8E53', '#00BCD4', '#E91E63'];
+                  const randomColor = () => outfitColors[Math.floor(Math.random() * outfitColors.length)];
+                  
+                  setLayers(prev => prev.map(layer => {
+                    if (layer.id === 'clothing' || layer.id === 'accessories') {
+                      return { ...layer, tint: randomColor(), tintIntensity: 70 };
+                    }
+                    return layer;
+                  }));
+                  
+                  playSound('download');
+                }}
+                className="px-2 py-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+                title="🎭 Randomize outfit colors!"
+              >
+                🎭 Outfit!
+              </button>
             </div>
           </div>
         </div>
