@@ -5,7 +5,7 @@ import useSoundManager from './useSoundManager';
 import useAmbientSoundscapes from './components/AmbientSoundscapes';
 import useWeather from './hooks/useWeather';
 import GameHub from './games/GameHub';
-import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame } from './games';
+import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
 
@@ -464,7 +464,7 @@ function App() {
   const [showDailyReward, setShowDailyReward] = useState(false);
   const [dailyRewardAmount, setDailyRewardAmount] = useState(0);
   const [showMiniGame, setShowMiniGame] = useState(false);
-  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | null
+  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | 'simon' | null
   const [eventMessage, setEventMessage] = useState('');
   const [showStory, setShowStory] = useState(false);
   const [storyText, setStoryText] = useState('');
@@ -984,6 +984,10 @@ function App() {
 
   if (activeGame === 'bubbles') {
     return <BubbleGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
+  }
+
+  if (activeGame === 'simon') {
+    return <SimonGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
   }
 
   // Map View
