@@ -12252,8 +12252,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Comparare con giochi AAA
 
 ### [T977] Skin Creator: AI Texture Enhancement
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P1 🔥
 - **Notes**: Usare Radeon LLM per upscale/enhance textures
