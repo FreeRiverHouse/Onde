@@ -179,7 +179,7 @@ export default function SkinCreator() {
   const [aiStyle, setAiStyle] = useState<'cartoon' | 'realistic' | 'pixel-art' | 'anime' | 'blocky'>('blocky');
   const [aiError, setAiError] = useState<string | null>(null);
   const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
-  
+
   // 🤖 AI History & Favorites
   interface AIHistoryItem {
     id: string;
@@ -191,7 +191,7 @@ export default function SkinCreator() {
   }
   const [aiHistory, setAiHistory] = useState<AIHistoryItem[]>([]);
   const [showAIHistory, setShowAIHistory] = useState(false);
-  
+
   // Load AI history from localStorage on mount
   useEffect(() => {
     try {
@@ -203,18 +203,18 @@ export default function SkinCreator() {
         }
       }
     } catch (e) { /* ignore */ }
-    
+
     // Check if local LLM is available
     checkLocalLLM().then(setLocalLLMAvailable);
   }, []);
-  
+
   // Save AI history to localStorage when it changes
   useEffect(() => {
     try {
       localStorage.setItem('minecraft-skin-ai-history', JSON.stringify(aiHistory));
     } catch (e) { /* ignore quota errors */ }
   }, [aiHistory]);
-  
+
   // Add a generation to history
   const addToAIHistory = useCallback((prompt: string, style: typeof aiStyle, skinDataUrl: string) => {
     const newItem: AIHistoryItem = {
@@ -233,21 +233,21 @@ export default function SkinCreator() {
       return [...newNonFavorites, ...favorites].sort((a, b) => b.timestamp - a.timestamp);
     });
   }, []);
-  
+
   // Toggle favorite status
   const toggleFavorite = useCallback((id: string) => {
-    setAiHistory(prev => prev.map(item => 
+    setAiHistory(prev => prev.map(item =>
       item.id === id ? { ...item, isFavorite: !item.isFavorite } : item
     ));
   }, []);
-  
+
   // Load a history item onto the canvas
   const loadFromHistory = useCallback((item: AIHistoryItem) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const img = new Image();
     img.onload = () => {
       ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
@@ -259,25 +259,50 @@ export default function SkinCreator() {
     };
     img.src = item.skinDataUrl;
   }, []);
-  
+
   // Regenerate with same prompt
   const regenerateFromHistory = useCallback((item: AIHistoryItem) => {
     setAiPrompt(item.prompt);
     setAiStyle(item.style);
     setShowAIHistory(false);
   }, []);
-  
+
   // Delete from history
   const deleteFromHistory = useCallback((id: string) => {
     setAiHistory(prev => prev.filter(item => item.id !== id));
   }, []);
-  
+
   // 🎨 Layer system state
   const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
   const [activeLayer, setActiveLayer] = useState<LayerType>('base');
   const [showLayerPanel, setShowLayerPanel] = useState(true);
   const layerCanvasRefs = useRef<{ [key in LayerType]?: HTMLCanvasElement }>({});
-  
+
+  // 💾 MY SKINS - Save/Load System
+  interface SavedSkin {
+    id: string;
+    name: string;
+    dataUrl: string;
+    timestamp: number;
+  }
+  const [savedSkins, setSavedSkins] = useState<SavedSkin[]>([]);
+  const [showMySkins, setShowMySkins] = useState(false);
+
+  // Load saved skins on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('minecraft-my-skins');
+      if (saved) setSavedSkins(JSON.parse(saved));
+    } catch (e) { /* ignore */ }
+  }, []);
+
+  // Save skins list when it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('minecraft-my-skins', JSON.stringify(savedSkins));
+    } catch (e) { /* ignore quota */ }
+  }, [savedSkins]);
+
   // Create off-screen canvases for each layer
   const getLayerCanvas = useCallback((layerId: LayerType): HTMLCanvasElement => {
     if (!layerCanvasRefs.current[layerId]) {
@@ -288,35 +313,35 @@ export default function SkinCreator() {
     }
     return layerCanvasRefs.current[layerId]!;
   }, []);
-  
+
   // Toggle layer visibility
   const toggleLayerVisibility = useCallback((layerId: LayerType) => {
-    setLayers(prev => prev.map(layer => 
+    setLayers(prev => prev.map(layer =>
       layer.id === layerId ? { ...layer, visible: !layer.visible } : layer
     ));
   }, []);
-  
+
   // Set layer opacity
   const setLayerOpacity = useCallback((layerId: LayerType, opacity: number) => {
     setLayers(prev => prev.map(layer =>
       layer.id === layerId ? { ...layer, opacity } : layer
     ));
   }, []);
-  
+
   // Set layer tint color
   const setLayerTint = useCallback((layerId: LayerType, tint: string | null) => {
     setLayers(prev => prev.map(layer =>
       layer.id === layerId ? { ...layer, tint } : layer
     ));
   }, []);
-  
+
   // Set layer tint intensity
   const setLayerTintIntensity = useCallback((layerId: LayerType, tintIntensity: number) => {
     setLayers(prev => prev.map(layer =>
       layer.id === layerId ? { ...layer, tintIntensity } : layer
     ));
   }, []);
-  
+
   // Apply color tint to a canvas with blend mode
   const applyTintToCanvas = useCallback((sourceCanvas: HTMLCanvasElement, tint: string, intensity: number): HTMLCanvasElement => {
     const tintedCanvas = document.createElement('canvas');
@@ -324,24 +349,24 @@ export default function SkinCreator() {
     tintedCanvas.height = sourceCanvas.height;
     const ctx = tintedCanvas.getContext('2d');
     if (!ctx) return sourceCanvas;
-    
+
     // Draw original image
     ctx.drawImage(sourceCanvas, 0, 0);
-    
+
     // Apply tint using multiply blend mode
     ctx.globalCompositeOperation = 'multiply';
     ctx.globalAlpha = intensity / 100;
     ctx.fillStyle = tint;
     ctx.fillRect(0, 0, tintedCanvas.width, tintedCanvas.height);
-    
+
     // Restore alpha from original (multiply can darken transparent areas)
     ctx.globalCompositeOperation = 'destination-in';
     ctx.globalAlpha = 1;
     ctx.drawImage(sourceCanvas, 0, 0);
-    
+
     return tintedCanvas;
   }, []);
-  
+
   // Move layer up/down in the stack
   // Note: "up" means higher z-index (rendered later, appears on top)
   // In the layers array: lower index = bottom, higher index = top
@@ -359,36 +384,36 @@ export default function SkinCreator() {
       return newLayers;
     });
   }, []);
-  
+
   // Composite all visible layers onto the main canvas
   const compositeLayersToMain = useCallback(() => {
     const mainCanvas = canvasRef.current;
     if (!mainCanvas) return;
     const mainCtx = mainCanvas.getContext('2d');
     if (!mainCtx) return;
-    
+
     // Clear main canvas
     mainCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-    
+
     // Draw layers in order (bottom to top), respecting visibility, opacity, and tint
     layers.forEach(layer => {
       if (!layer.visible) return;
       const layerCanvas = layerCanvasRefs.current[layer.id];
       if (!layerCanvas) return;
-      
+
       // Apply tint if set
       let canvasToDraw = layerCanvas;
       if (layer.tint && layer.tintIntensity > 0) {
         canvasToDraw = applyTintToCanvas(layerCanvas, layer.tint, layer.tintIntensity);
       }
-      
+
       mainCtx.globalAlpha = layer.opacity / 100;
       mainCtx.drawImage(canvasToDraw, 0, 0);
     });
-    
+
     mainCtx.globalAlpha = 1;
   }, [layers, applyTintToCanvas]);
-  
+
   // Clear a specific layer
   const clearLayer = useCallback((layerId: LayerType) => {
     const layerCanvas = getLayerCanvas(layerId);
@@ -399,7 +424,7 @@ export default function SkinCreator() {
     compositeLayersToMain();
     updatePreview();
   }, [getLayerCanvas, compositeLayersToMain]);
-  
+
   // Copy layer content to another layer (duplicate layer feature)
   const copyLayerTo = useCallback((fromId: LayerType, toId: LayerType) => {
     const fromCanvas = getLayerCanvas(fromId);
@@ -414,18 +439,18 @@ export default function SkinCreator() {
     saveState();
     playSound('click');
   }, [getLayerCanvas, compositeLayersToMain]);
-  
+
   // State for duplicate layer dropdown
   const [showDuplicateMenu, setShowDuplicateMenu] = useState(false);
-  
+
   // Merge all layers into base
   const flattenLayers = useCallback(() => {
     if (!confirm('Merge all visible layers into base? This cannot be undone.')) return;
-    
+
     // Get composite result
     const mainCanvas = canvasRef.current;
     if (!mainCanvas) return;
-    
+
     // Copy composite to base layer
     const baseCanvas = getLayerCanvas('base');
     const baseCtx = baseCanvas.getContext('2d');
@@ -433,16 +458,16 @@ export default function SkinCreator() {
       baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
       baseCtx.drawImage(mainCanvas, 0, 0);
     }
-    
+
     // Clear other layers
     clearLayer('clothing');
     clearLayer('accessories');
-    
+
     compositeLayersToMain();
     updatePreview();
     playSound('click');
   }, [getLayerCanvas, clearLayer, compositeLayersToMain]);
-  
+
   // ✨ Enhance prompt with local LLM
   const enhancePrompt = async () => {
     if (!aiPrompt.trim() || !localLLMAvailable) return;
@@ -464,7 +489,7 @@ export default function SkinCreator() {
     if (!aiPrompt.trim()) return;
     setAiLoading(true);
     setAiError(null);
-    
+
     const canvas = canvasRef.current;
     if (!canvas) {
       setAiLoading(false);
@@ -483,7 +508,7 @@ export default function SkinCreator() {
           prompt: aiPrompt,
           style: aiStyle,
         });
-        
+
         if (result.success && result.skinDataUrl) {
           // Load the generated skin onto the canvas
           const img = new Image();
@@ -513,19 +538,19 @@ export default function SkinCreator() {
         // Fall through to fallback generation
       }
     }
-    
+
     // Fallback: keyword-based generation (no API required)
     await new Promise(r => setTimeout(r, 800)); // Brief delay for UX
-    
+
     const prompt = aiPrompt.toLowerCase();
     let colors = {
-      skin: '#c4a57b', hair: '#442920', shirt: '#00a8a8', 
+      skin: '#c4a57b', hair: '#442920', shirt: '#00a8a8',
       pants: '#3c2a5e', shoes: '#444444'
     };
-    
+
     // Style-aware color palettes
     const styleModifier = aiStyle === 'anime' ? 1.2 : aiStyle === 'cartoon' ? 1.1 : 1;
-    
+
     if (prompt.includes('zombie') || prompt.includes('undead')) {
       colors = { skin: '#5a8f5a', hair: '#2d4a2d', shirt: '#3d5a3d', pants: '#2d4a2d', shoes: '#1a3a1a' };
     } else if (prompt.includes('robot') || prompt.includes('mech') || prompt.includes('android')) {
@@ -560,10 +585,10 @@ export default function SkinCreator() {
       colors.pants = `hsl(${(hue + 180) % 360}, 60%, ${40 * styleModifier}%)`;
       colors.hair = `hsl(${(hue + 90) % 360}, 40%, 25%)`;
     }
-    
+
     // Draw the generated skin
     ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-    
+
     // Head (all 6 faces)
     ctx.fillStyle = colors.skin;
     ctx.fillRect(8, 8, 8, 8); // front
@@ -572,7 +597,7 @@ export default function SkinCreator() {
     ctx.fillRect(16, 8, 8, 8); // left
     ctx.fillRect(8, 0, 8, 8); // top
     ctx.fillRect(16, 0, 8, 8); // bottom
-    
+
     // Hair (on top and front of head)
     ctx.fillStyle = colors.hair;
     ctx.fillRect(8, 0, 8, 8); // top of head
@@ -580,7 +605,7 @@ export default function SkinCreator() {
     ctx.fillRect(0, 8, 8, 3); // right side
     ctx.fillRect(16, 8, 8, 3); // left side
     ctx.fillRect(24, 8, 8, 3); // back
-    
+
     // Face details
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(10, 12, 2, 2); // right eye white
@@ -592,7 +617,7 @@ export default function SkinCreator() {
     ctx.fillRect(12, 14, 2, 1); // nose
     ctx.fillStyle = '#b35a5a';
     ctx.fillRect(11, 15, 4, 1); // mouth
-    
+
     // Body (all faces)
     ctx.fillStyle = colors.shirt;
     ctx.fillRect(20, 20, 8, 12); // front
@@ -600,7 +625,7 @@ export default function SkinCreator() {
     ctx.fillRect(16, 20, 4, 12); // right
     ctx.fillRect(28, 20, 4, 12); // left
     ctx.fillRect(20, 16, 8, 4); // top
-    
+
     // Right Arm
     ctx.fillStyle = colors.skin;
     ctx.fillRect(44, 20, 4, 12); // inner
@@ -610,7 +635,7 @@ export default function SkinCreator() {
     ctx.fillStyle = colors.shirt;
     ctx.fillRect(44, 20, 4, 8); // sleeve inner
     ctx.fillRect(40, 20, 4, 8); // sleeve front
-    
+
     // Left Arm (second layer for 64x64 skins)
     ctx.fillStyle = colors.skin;
     ctx.fillRect(36, 52, 4, 12);
@@ -620,7 +645,7 @@ export default function SkinCreator() {
     ctx.fillStyle = colors.shirt;
     ctx.fillRect(36, 52, 4, 8);
     ctx.fillRect(32, 52, 4, 8);
-    
+
     // Right Leg
     ctx.fillStyle = colors.pants;
     ctx.fillRect(4, 20, 4, 12);
@@ -630,7 +655,7 @@ export default function SkinCreator() {
     ctx.fillStyle = colors.shoes;
     ctx.fillRect(4, 28, 4, 4);
     ctx.fillRect(0, 28, 4, 4);
-    
+
     // Left Leg (second layer)
     ctx.fillStyle = colors.pants;
     ctx.fillRect(20, 52, 4, 12);
@@ -640,7 +665,7 @@ export default function SkinCreator() {
     ctx.fillStyle = colors.shoes;
     ctx.fillRect(20, 60, 4, 4);
     ctx.fillRect(16, 60, 4, 4);
-    
+
     updatePreview();
     saveState();
     // Save fallback generation to AI history
@@ -674,7 +699,7 @@ export default function SkinCreator() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     setHistory(prev => {
       const newHistory = prev.slice(0, historyIndex + 1);
@@ -683,7 +708,7 @@ export default function SkinCreator() {
       return newHistory;
     });
     setHistoryIndex(prev => Math.min(prev + 1, maxHistory - 1));
-    
+
     // Auto-save to localStorage 💾
     try {
       localStorage.setItem('minecraft-skin-autosave', canvas.toDataURL('image/png'));
@@ -696,7 +721,7 @@ export default function SkinCreator() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const newIndex = historyIndex - 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
@@ -708,7 +733,7 @@ export default function SkinCreator() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const newIndex = historyIndex + 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
@@ -722,10 +747,10 @@ export default function SkinCreator() {
     const ctx = audioContextRef.current;
     const oscillator = ctx.createOscillator();
     const gainNode = ctx.createGain();
-    
+
     oscillator.connect(gainNode);
     gainNode.connect(ctx.destination);
-    
+
     if (type === 'draw') {
       // Quick bloop
       oscillator.frequency.setValueAtTime(800 + Math.random() * 400, ctx.currentTime);
@@ -788,7 +813,7 @@ export default function SkinCreator() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
-      
+
       switch(e.key.toLowerCase()) {
         case 'b': setTool('brush'); break;
         case 'e': setTool('eraser'); break;
@@ -913,13 +938,13 @@ export default function SkinCreator() {
     const baseCanvas = getLayerCanvas('base');
     const clothingCanvas = getLayerCanvas('clothing');
     const accessoriesCanvas = getLayerCanvas('accessories');
-    
+
     const baseCtx = baseCanvas.getContext('2d');
     const clothingCtx = clothingCanvas.getContext('2d');
     const accessoriesCtx = accessoriesCanvas.getContext('2d');
-    
+
     if (!baseCtx || !clothingCtx || !accessoriesCtx) return;
-    
+
     baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
@@ -931,7 +956,7 @@ export default function SkinCreator() {
     }
 
     const t = TEMPLATES[template] || TEMPLATES.steve;
-    
+
     // 🎨 LAYER: BASE - Skin, face features (drawn on base layer)
     // Head - front face (8x8 at position 8,8)
     baseCtx.fillStyle = t.skin;
@@ -959,7 +984,7 @@ export default function SkinCreator() {
     baseCtx.fillRect(24, 8, 8, 8); // back
     baseCtx.fillStyle = t.hair;
     baseCtx.fillRect(24, 8, 8, 1);
-    
+
     // Head top/bottom
     baseCtx.fillStyle = t.hair;
     baseCtx.fillRect(8, 0, 8, 8); // top
@@ -1005,7 +1030,7 @@ export default function SkinCreator() {
     clothingCtx.fillStyle = t.shoes;
     clothingCtx.fillRect(4, 31, 4, 1);
     clothingCtx.fillRect(20, 63, 4, 1);
-    
+
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
     updatePreview();
@@ -1015,7 +1040,7 @@ export default function SkinCreator() {
     const canvas = canvasRef.current;
     const preview = previewRef.current;
     if (!canvas || !preview) return;
-    
+
     const ctx = preview.getContext('2d');
     if (!ctx) return;
 
@@ -1032,27 +1057,63 @@ export default function SkinCreator() {
 
     // Head (front face from 8,8)
     ctx.drawImage(canvas, 8, 8, 8, 8, offsetX, offsetY, 8 * scale, 8 * scale);
-    
+
     // Body (front from 20,20)
     ctx.drawImage(canvas, 20, 20, 8, 12, offsetX, offsetY + 8 * scale, 8 * scale, 12 * scale);
-    
+
     // Right Arm
     ctx.drawImage(canvas, 44, 20, 4, 12, offsetX - 4 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
-    
+
     // Left Arm
     ctx.drawImage(canvas, 36, 52, 4, 12, offsetX + 8 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
-    
+
     // Right Leg
     ctx.drawImage(canvas, 4, 20, 4, 12, offsetX, offsetY + 20 * scale, 4 * scale, 12 * scale);
-    
+
     // Left Leg
     ctx.drawImage(canvas, 20, 52, 4, 12, offsetX + 4 * scale, offsetY + 20 * scale, 4 * scale, 12 * scale);
+  }, []);
+
+  // 💾 Save current skin
+  const saveSkin = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const name = prompt('💾 Name your skin:', `Skin ${savedSkins.length + 1}`);
+    if (!name) return;
+    const newSkin: SavedSkin = {
+      id: `skin-${Date.now()}`,
+      name,
+      dataUrl: canvas.toDataURL('image/png'),
+      timestamp: Date.now(),
+    };
+    setSavedSkins(prev => [newSkin, ...prev].slice(0, 20));
+  }, [savedSkins.length]);
+
+  // 💾 Load a saved skin
+  const loadSavedSkin = useCallback((skin: SavedSkin) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.clearRect(0, 0, 64, 64);
+      ctx.drawImage(img, 0, 0);
+      setShowMySkins(false);
+      updatePreview();
+    };
+    img.src = skin.dataUrl;
+  }, [updatePreview]);
+
+  // 💾 Delete a saved skin
+  const deleteSavedSkin = useCallback((id: string) => {
+    setSavedSkins(prev => prev.filter(s => s.id !== id));
   }, []);
 
   useEffect(() => {
     loadTemplate('steve');
   }, [loadTemplate]);
-  
+
   // 🎨 Recomposite layers when visibility/opacity changes
   useEffect(() => {
     compositeLayersToMain();
@@ -1061,12 +1122,12 @@ export default function SkinCreator() {
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing && e.type === 'mousemove') return;
-    
+
     const mainCanvas = canvasRef.current;
     if (!mainCanvas) return;
     const mainCtx = mainCanvas.getContext('2d');
     if (!mainCtx) return;
-    
+
     // 🎨 Get the active layer canvas to draw on
     const layerCanvas = getLayerCanvas(activeLayer);
     const ctx = layerCanvas.getContext('2d');
@@ -1081,7 +1142,7 @@ export default function SkinCreator() {
     const rect = mainCanvas.getBoundingClientRect();
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
-    
+
     const x = Math.floor((e.clientX - rect.left) * scaleX);
     const y = Math.floor((e.clientY - rect.top) * scaleY);
 
@@ -1161,7 +1222,7 @@ export default function SkinCreator() {
         } else {
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
-          
+
           // Mirror mode - draw on opposite side too! 🪞
           if (mirrorMode) {
             const mirrorX = SKIN_WIDTH - 1 - px;
@@ -1180,10 +1241,10 @@ export default function SkinCreator() {
   const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
     const touch = e.touches[0];
     if (!touch) return;
-    
+
     const mainCanvas = canvasRef.current;
     if (!mainCanvas) return;
-    
+
     // 🎨 Get the active layer canvas to draw on
     const layerCanvas = getLayerCanvas(activeLayer);
     const ctx = layerCanvas.getContext('2d');
@@ -1192,7 +1253,7 @@ export default function SkinCreator() {
     const rect = mainCanvas.getBoundingClientRect();
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
-    
+
     const x = Math.floor((touch.clientX - rect.left) * scaleX);
     const y = Math.floor((touch.clientY - rect.top) * scaleY);
 
@@ -1223,7 +1284,7 @@ export default function SkinCreator() {
         }
       }
     }
-    
+
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
     updatePreview();
@@ -1236,7 +1297,7 @@ export default function SkinCreator() {
     clothing: true,
     accessories: true,
   });
-  
+
   const downloadSkin = (useSelectedLayers = false) => {
     // If using selected layers, create a composite with only those layers
     if (useSelectedLayers) {
@@ -1245,7 +1306,7 @@ export default function SkinCreator() {
       exportCanvas.height = SKIN_HEIGHT;
       const exportCtx = exportCanvas.getContext('2d');
       if (!exportCtx) return;
-      
+
       // Draw only selected layers
       layers.forEach(layer => {
         if (!exportLayers[layer.id]) return;
@@ -1255,7 +1316,7 @@ export default function SkinCreator() {
         exportCtx.drawImage(layerCanvas, 0, 0);
       });
       exportCtx.globalAlpha = 1;
-      
+
       const link = document.createElement('a');
       link.download = `${skinName || 'my-skin'}.png`;
       link.href = exportCanvas.toDataURL('image/png');
@@ -1269,14 +1330,14 @@ export default function SkinCreator() {
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
-    
+
     // 🎉 Confetti celebration!
     setShowConfetti(true);
     playSound('download'); // 🔊 Celebration jingle!
     setTimeout(() => setShowConfetti(false), 3000);
     setShowExportPanel(false);
   };
-  
+
   // Export only base layer (skin without clothing/accessories)
   const downloadBaseOnly = () => {
     const baseCanvas = getLayerCanvas('base');
@@ -1304,9 +1365,9 @@ export default function SkinCreator() {
   const copyToClipboard = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     try {
-      const blob = await new Promise<Blob>((resolve) => 
+      const blob = await new Promise<Blob>((resolve) =>
         canvas.toBlob((b) => resolve(b!), 'image/png')
       );
       await navigator.clipboard.write([
@@ -1327,7 +1388,7 @@ export default function SkinCreator() {
   const importSkin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -1347,8 +1408,8 @@ export default function SkinCreator() {
 
   return (
     <div className={`min-h-screen p-6 flex flex-col items-center transition-all duration-700 ${
-      darkMode 
-        ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+      darkMode
+        ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900'
         : 'bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500'
     }`}
     style={{
@@ -1403,7 +1464,7 @@ export default function SkinCreator() {
         <p className="text-lg text-white/90 mt-1">
           AI Skin Creator for Minecraft & Roblox ✨
         </p>
-        
+
         {/* Game Selector */}
         <div className="flex gap-2 mt-3">
           {(Object.entries(GAME_CONFIGS) as [GameType, GameConfig][]).map(([key, config]) => (
@@ -1411,8 +1472,8 @@ export default function SkinCreator() {
               key={key}
               onClick={() => setSelectedGame(key)}
               className={`px-4 py-2 rounded-full font-bold transition-all ${
-                selectedGame === key 
-                  ? 'bg-white text-purple-600 scale-105 shadow-lg' 
+                selectedGame === key
+                  ? 'bg-white text-purple-600 scale-105 shadow-lg'
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
@@ -1432,8 +1493,8 @@ export default function SkinCreator() {
             <button
               onClick={() => setShow3D(!show3D)}
               className={`px-2 py-1 rounded-lg text-xs font-bold transition-all ${
-                show3D 
-                  ? 'bg-purple-500 text-white' 
+                show3D
+                  ? 'bg-purple-500 text-white'
                   : 'bg-gray-200 hover:bg-gray-300'
               }`}
               title="Toggle 3D view - drag to rotate!"
@@ -1441,7 +1502,7 @@ export default function SkinCreator() {
               {show3D ? '🎮 3D' : '📐 2D'}
             </button>
           </div>
-          
+
           {show3D ? (
             <div className="rounded-xl mx-auto overflow-hidden" style={{ width: 200, height: 280 }}>
               <SkinPreview3D skinCanvas={canvasRef.current} />
@@ -1455,7 +1516,7 @@ export default function SkinCreator() {
               style={{ imageRendering: 'pixelated' }}
             />
           )}
-          
+
           {/* Templates */}
           <div className="mt-4">
             <p className="text-sm font-semibold text-gray-700 mb-2">Start from:</p>
@@ -1506,7 +1567,7 @@ export default function SkinCreator() {
                   if (!canvas) return;
                   const ctx = canvas.getContext('2d');
                   if (!ctx) return;
-                  
+
                   // Fill with random colored pixels
                   for (let x = 0; x < 64; x++) {
                     for (let y = 0; y < 64; y++) {
@@ -1514,7 +1575,7 @@ export default function SkinCreator() {
                       ctx.fillRect(x, y, 1, 1);
                     }
                   }
-                  
+
                   compositeLayersToMain();
                   updatePreview();
                   setShowConfetti(true);
@@ -1531,14 +1592,14 @@ export default function SkinCreator() {
                   // 🎭 Random Outfit - randomize clothing/accessories tints!
                   const outfitColors = ['#FF6B6B', '#4D96FF', '#6BCB77', '#FFD93D', '#9B59B6', '#FF8E53', '#00BCD4', '#E91E63'];
                   const randomColor = () => outfitColors[Math.floor(Math.random() * outfitColors.length)];
-                  
+
                   setLayers(prev => prev.map(layer => {
                     if (layer.id === 'clothing' || layer.id === 'accessories') {
                       return { ...layer, tint: randomColor(), tintIntensity: 70 };
                     }
                     return layer;
                   }));
-                  
+
                   playSound('download');
                 }}
                 className="px-2 py-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
@@ -1546,7 +1607,55 @@ export default function SkinCreator() {
               >
                 🎭 Outfit!
               </button>
+
+              {/* 💾 Save/My Skins */}
+              <button
+                onClick={saveSkin}
+                className="px-2 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+                title="💾 Save current skin"
+              >
+                💾 Save
+              </button>
+              <button
+                onClick={() => setShowMySkins(!showMySkins)}
+                className={`px-2 py-1 rounded-lg text-xs font-bold hover:scale-105 transition-transform ${
+                  showMySkins ? 'bg-blue-500 text-white' : 'bg-gradient-to-r from-blue-400 to-indigo-500 text-white'
+                }`}
+                title="📂 My saved skins"
+              >
+                📂 My Skins ({savedSkins.length})
+              </button>
             </div>
+
+            {/* My Skins Panel */}
+            {showMySkins && savedSkins.length > 0 && (
+              <div className="mt-2 p-2 bg-white/90 rounded-lg max-h-32 overflow-y-auto">
+                <div className="grid grid-cols-5 gap-1">
+                  {savedSkins.map(skin => (
+                    <div key={skin.id} className="relative group">
+                      <img
+                        src={skin.dataUrl}
+                        alt={skin.name}
+                        className="w-10 h-10 rounded cursor-pointer hover:scale-110 transition-transform border-2 border-transparent hover:border-blue-500"
+                        style={{ imageRendering: 'pixelated' }}
+                        onClick={() => loadSavedSkin(skin)}
+                        title={`${skin.name} - Click to load`}
+                      />
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteSavedSkin(skin.id); }}
+                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Delete"
+                      >×</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {showMySkins && savedSkins.length === 0 && (
+              <div className="mt-2 p-2 bg-white/90 rounded-lg text-center text-xs text-gray-500">
+                No saved skins yet! Click 💾 Save to save your creation.
+              </div>
+            )}
           </div>
         </div>
 
@@ -1717,7 +1826,7 @@ export default function SkinCreator() {
                 onClick={() => setZoomLevel(Math.max(4, zoomLevel - 1))}
                 className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
               >
-                −
+                -
               </button>
               <span className="text-sm font-bold w-8 text-center">{zoomLevel}x</span>
               <button
@@ -1770,9 +1879,9 @@ export default function SkinCreator() {
 
           {/* Canvas */}
           <div className="flex justify-center">
-            <div 
+            <div
               className="relative rounded-xl p-1"
-              style={{ 
+              style={{
                 backgroundImage: 'repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%)',
                 backgroundSize: '12px 12px'
               }}
@@ -1782,8 +1891,8 @@ export default function SkinCreator() {
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
                 className="cursor-crosshair"
-                style={{ 
-                  width: SKIN_WIDTH * zoomLevel, 
+                style={{
+                  width: SKIN_WIDTH * zoomLevel,
                   height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
                   transition: 'all 0.2s ease',
@@ -1807,7 +1916,7 @@ export default function SkinCreator() {
         {/* Right Panel - Colors */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
-          
+
           {/* Recent Colors */}
           {recentColors.length > 0 && (
             <div className="mb-3">
@@ -1824,7 +1933,7 @@ export default function SkinCreator() {
               </div>
             </div>
           )}
-          
+
           <div className="grid grid-cols-4 gap-2 max-w-[200px]">
             {COLORS.map((color) => (
               <button
@@ -1841,7 +1950,7 @@ export default function SkinCreator() {
           {/* Current Color */}
           <div className="mt-4 text-center">
             <p className="text-sm font-semibold text-gray-700">Selected:</p>
-            <div 
+            <div
               className="w-16 h-16 mx-auto mt-2 rounded-xl shadow-lg border-4 border-white"
               style={{ backgroundColor: selectedColor }}
             />
@@ -1925,26 +2034,26 @@ export default function SkinCreator() {
           </div>
         </div>
       )}
-      
+
       {/* 🎨 Layer Panel - Floating */}
       {showLayerPanel && (
         <div className="fixed left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-4 shadow-2xl z-40 w-64">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold">🎨 Layers</h3>
-            <button 
+            <button
               onClick={() => setShowLayerPanel(false)}
               className="text-gray-400 hover:text-gray-600 text-xl"
             >×</button>
           </div>
-          
+
           {/* Layer List */}
           <div className="space-y-2 mb-3">
             {layers.slice().reverse().map((layer, idx) => (
-              <div 
+              <div
                 key={layer.id}
                 className={`p-2 rounded-lg border-2 transition-all cursor-pointer ${
-                  activeLayer === layer.id 
-                    ? 'border-blue-500 bg-blue-50' 
+                  activeLayer === layer.id
+                    ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
                 onClick={() => setActiveLayer(layer.id)}
@@ -1976,7 +2085,7 @@ export default function SkinCreator() {
                     >⬇️</button>
                   </div>
                 </div>
-                
+
                 {/* Opacity slider */}
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-gray-500">Opacity:</span>
@@ -1995,7 +2104,7 @@ export default function SkinCreator() {
                   />
                   <span className="text-xs text-gray-500 w-8">{layer.opacity}%</span>
                 </div>
-                
+
                 {/* Opacity quick presets */}
                 <div className="flex items-center gap-1 mt-1">
                   <span className="text-xs text-gray-400">Quick:</span>
@@ -2009,8 +2118,8 @@ export default function SkinCreator() {
                         updatePreview();
                       }}
                       className={`px-2 py-0.5 text-xs rounded transition-all ${
-                        layer.opacity === preset 
-                          ? 'bg-blue-500 text-white font-medium' 
+                        layer.opacity === preset
+                          ? 'bg-blue-500 text-white font-medium'
                           : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
                       }`}
                     >
@@ -2018,7 +2127,7 @@ export default function SkinCreator() {
                     </button>
                   ))}
                 </div>
-                
+
                 {/* Color Tint */}
                 <div className="mt-2 pt-2 border-t border-gray-100">
                   <div className="flex items-center gap-1 mb-1">
@@ -2036,11 +2145,11 @@ export default function SkinCreator() {
                             }, 0);
                           }}
                           className={`w-5 h-5 rounded text-xs flex items-center justify-center transition-all ${
-                            layer.tint === preset.color 
-                              ? 'ring-2 ring-blue-500 ring-offset-1 scale-110' 
+                            layer.tint === preset.color
+                              ? 'ring-2 ring-blue-500 ring-offset-1 scale-110'
                               : 'hover:scale-110'
                           }`}
-                          style={{ 
+                          style={{
                             backgroundColor: preset.color || 'transparent',
                             border: preset.color ? 'none' : '1px dashed #ccc'
                           }}
@@ -2076,7 +2185,7 @@ export default function SkinCreator() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Recent custom tint colors */}
                   {customTintColors.length > 0 && (
                     <div className="flex items-center gap-1 mb-1">
@@ -2094,8 +2203,8 @@ export default function SkinCreator() {
                               }, 0);
                             }}
                             className={`w-4 h-4 rounded text-xs transition-all ${
-                              layer.tint === color 
-                                ? 'ring-2 ring-blue-500 ring-offset-1 scale-110' 
+                              layer.tint === color
+                                ? 'ring-2 ring-blue-500 ring-offset-1 scale-110'
                                 : 'hover:scale-110'
                             }`}
                             style={{ backgroundColor: color }}
@@ -2105,7 +2214,7 @@ export default function SkinCreator() {
                       </div>
                     </div>
                   )}
-                  
+
                   {/* Tint intensity slider (only show if tint is set) */}
                   {layer.tint && (
                     <div className="flex items-center gap-2">
@@ -2127,13 +2236,13 @@ export default function SkinCreator() {
                       <span className="text-xs text-gray-500 w-8">{layer.tintIntensity}%</span>
                     </div>
                   )}
-                  
+
                   {/* ✨ Glow Toggle */}
                   <div className="flex items-center gap-2 mt-1">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        setLayers(prev => prev.map(l => 
+                        setLayers(prev => prev.map(l =>
                           l.id === layer.id ? { ...l, glow: !l.glow } : l
                         ));
                         setTimeout(() => {
@@ -2142,8 +2251,8 @@ export default function SkinCreator() {
                         }, 0);
                       }}
                       className={`px-2 py-0.5 rounded text-xs font-bold transition-all ${
-                        layer.glow 
-                          ? 'bg-yellow-400 text-yellow-900 shadow-lg shadow-yellow-400/50' 
+                        layer.glow
+                          ? 'bg-yellow-400 text-yellow-900 shadow-lg shadow-yellow-400/50'
                           : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                       }`}
                     >
@@ -2154,7 +2263,7 @@ export default function SkinCreator() {
               </div>
             ))}
           </div>
-          
+
           {/* Layer Actions */}
           <div className="flex flex-wrap gap-1 relative">
             <button
@@ -2206,7 +2315,7 @@ export default function SkinCreator() {
               🔗 Flatten
             </button>
           </div>
-          
+
           {/* Active Layer Indicator */}
           <div className="mt-3 pt-3 border-t border-gray-200">
             <p className="text-xs text-gray-500">
@@ -2215,14 +2324,14 @@ export default function SkinCreator() {
           </div>
         </div>
       )}
-      
+
       {/* 📤 Export Panel */}
       {showExportPanel && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
           <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-4">📤 Export Skin</h3>
             <p className="text-sm text-gray-600 mb-4">Choose which layers to include in your export:</p>
-            
+
             <div className="space-y-2 mb-4">
               {layers.map(layer => (
                 <label key={layer.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
@@ -2237,7 +2346,7 @@ export default function SkinCreator() {
                 </label>
               ))}
             </div>
-            
+
             <div className="flex gap-2">
               <button
                 onClick={() => downloadSkin(true)}
@@ -2252,7 +2361,7 @@ export default function SkinCreator() {
                 📦 Export All
               </button>
             </div>
-            
+
             <button
               onClick={downloadBaseOnly}
               className="w-full mt-2 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200"
@@ -2269,7 +2378,7 @@ export default function SkinCreator() {
           <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-2">🤖 AI Skin Generator</h3>
             <p className="text-sm text-gray-600 mb-4">Describe your character and AI will create a skin!</p>
-            
+
             {/* Prompt Input */}
             <div className="flex gap-2 mb-3">
               <input
@@ -2289,17 +2398,17 @@ export default function SkinCreator() {
                 {enhancing ? '⏳' : '✨'}
               </button>
             </div>
-            
+
             {/* 📚 Kid-Friendly Prompt Library */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">🎭 Pick an Idea!</label>
               <div className="space-y-2">
                 {/* Category tabs */}
                 {[
-                  { 
-                    id: 'heroes', 
-                    emoji: '🦸', 
-                    name: 'Heroes', 
+                  {
+                    id: 'heroes',
+                    emoji: '🦸',
+                    name: 'Heroes',
                     color: 'bg-red-100 text-red-700 hover:bg-red-200',
                     prompts: [
                       { emoji: '🦸', text: 'superhero with cape', label: 'Superhero' },
@@ -2309,10 +2418,10 @@ export default function SkinCreator() {
                       { emoji: '🧙', text: 'powerful wizard with magic staff', label: 'Wizard' },
                     ]
                   },
-                  { 
-                    id: 'animals', 
-                    emoji: '🐾', 
-                    name: 'Animals', 
+                  {
+                    id: 'animals',
+                    emoji: '🐾',
+                    name: 'Animals',
                     color: 'bg-green-100 text-green-700 hover:bg-green-200',
                     prompts: [
                       { emoji: '🐺', text: 'wolf warrior with fur', label: 'Wolf' },
@@ -2322,10 +2431,10 @@ export default function SkinCreator() {
                       { emoji: '🦁', text: 'brave lion with mane', label: 'Lion' },
                     ]
                   },
-                  { 
-                    id: 'fantasy', 
-                    emoji: '✨', 
-                    name: 'Fantasy', 
+                  {
+                    id: 'fantasy',
+                    emoji: '✨',
+                    name: 'Fantasy',
                     color: 'bg-purple-100 text-purple-700 hover:bg-purple-200',
                     prompts: [
                       { emoji: '🧚', text: 'magical fairy with wings', label: 'Fairy' },
@@ -2335,10 +2444,10 @@ export default function SkinCreator() {
                       { emoji: '🧝', text: 'elf with pointy ears', label: 'Elf' },
                     ]
                   },
-                  { 
-                    id: 'space', 
-                    emoji: '🚀', 
-                    name: 'Space', 
+                  {
+                    id: 'space',
+                    emoji: '🚀',
+                    name: 'Space',
                     color: 'bg-blue-100 text-blue-700 hover:bg-blue-200',
                     prompts: [
                       { emoji: '🤖', text: 'friendly robot with glowing eyes', label: 'Robot' },
@@ -2348,10 +2457,10 @@ export default function SkinCreator() {
                       { emoji: '🛸', text: 'space explorer with laser gun', label: 'Explorer' },
                     ]
                   },
-                  { 
-                    id: 'jobs', 
-                    emoji: '👷', 
-                    name: 'Jobs', 
+                  {
+                    id: 'jobs',
+                    emoji: '👷',
+                    name: 'Jobs',
                     color: 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200',
                     prompts: [
                       { emoji: '👨‍🍳', text: 'chef with white hat and apron', label: 'Chef' },
@@ -2361,10 +2470,10 @@ export default function SkinCreator() {
                       { emoji: '🧑‍🔬', text: 'scientist with lab coat', label: 'Scientist' },
                     ]
                   },
-                  { 
-                    id: 'spooky', 
-                    emoji: '👻', 
-                    name: 'Spooky', 
+                  {
+                    id: 'spooky',
+                    emoji: '👻',
+                    name: 'Spooky',
                     color: 'bg-gray-100 text-gray-700 hover:bg-gray-200',
                     prompts: [
                       { emoji: '🧟', text: 'zombie with torn clothes', label: 'Zombie' },
@@ -2387,8 +2496,8 @@ export default function SkinCreator() {
                           key={prompt.label}
                           onClick={() => setAiPrompt(prompt.text)}
                           className={`px-2 py-1 rounded-lg text-xs transition-all flex items-center gap-1 ${
-                            aiPrompt === prompt.text 
-                              ? 'bg-purple-500 text-white scale-105' 
+                            aiPrompt === prompt.text
+                              ? 'bg-purple-500 text-white scale-105'
                               : 'bg-white border border-gray-200 hover:border-purple-300 hover:bg-purple-50'
                           }`}
                         >
@@ -2401,7 +2510,7 @@ export default function SkinCreator() {
                 ))}
               </div>
             </div>
-            
+
             {/* Style Selection */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">🎨 Art Style</label>
@@ -2417,8 +2526,8 @@ export default function SkinCreator() {
                     key={style.id}
                     onClick={() => setAiStyle(style.id as typeof aiStyle)}
                     className={`p-2 rounded-lg text-center transition-all ${
-                      aiStyle === style.id 
-                        ? 'bg-purple-500 text-white ring-2 ring-purple-300' 
+                      aiStyle === style.id
+                        ? 'bg-purple-500 text-white ring-2 ring-purple-300'
                         : 'bg-gray-100 hover:bg-gray-200'
                     }`}
                     title={style.name}
@@ -2429,15 +2538,15 @@ export default function SkinCreator() {
                 ))}
               </div>
             </div>
-            
+
             {/* Real AI Toggle */}
             <div className="mb-4 p-3 bg-gray-50 rounded-xl">
               <label className="flex items-center justify-between cursor-pointer">
                 <div>
                   <span className="font-medium text-gray-700">🧠 Use Real AI (DALL-E 3)</span>
                   <p className="text-xs text-gray-500 mt-1">
-                    {isAIAvailable() 
-                      ? 'API key configured ✓' 
+                    {isAIAvailable()
+                      ? 'API key configured ✓'
                       : 'Requires NEXT_PUBLIC_OPENAI_API_KEY'}
                   </p>
                 </div>
@@ -2459,20 +2568,20 @@ export default function SkinCreator() {
                 </div>
               </label>
             </div>
-            
+
             {/* Error Display */}
             {aiError && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                 <strong>⚠️ Error:</strong> {aiError}
-                <button 
-                  onClick={() => setAiError(null)} 
+                <button
+                  onClick={() => setAiError(null)}
                   className="ml-2 text-red-500 hover:text-red-700"
                 >
                   ✕
                 </button>
               </div>
             )}
-            
+
             {/* Generate Button */}
             <button
               onClick={generateAISkin}
@@ -2481,14 +2590,14 @@ export default function SkinCreator() {
             >
               {aiLoading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="animate-spin">🔄</span> 
+                  <span className="animate-spin">🔄</span>
                   {useRealAI ? 'AI is thinking...' : 'Generating...'}
                 </span>
               ) : (
                 '✨ Generate Skin'
               )}
             </button>
-            
+
             {/* 📚 AI History & Favorites */}
             {aiHistory.length > 0 && (
               <div className="mt-4 pt-4 border-t border-gray-200">
@@ -2501,7 +2610,7 @@ export default function SkinCreator() {
                   </span>
                   <span className="text-gray-400">{showAIHistory ? '▲' : '▼'}</span>
                 </button>
-                
+
                 {showAIHistory && (
                   <div className="mt-3 space-y-2 max-h-60 overflow-y-auto">
                     {/* Favorites first */}
@@ -2509,12 +2618,12 @@ export default function SkinCreator() {
                       <div className="mb-2">
                         <p className="text-xs text-yellow-600 font-semibold mb-1">⭐ Favorites</p>
                         {aiHistory.filter(item => item.isFavorite).map(item => (
-                          <div 
+                          <div
                             key={item.id}
                             className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg border border-yellow-200"
                           >
-                            <img 
-                              src={item.skinDataUrl} 
+                            <img
+                              src={item.skinDataUrl}
                               alt={item.prompt}
                               className="w-12 h-12 rounded border bg-gray-100"
                               style={{ imageRendering: 'pixelated' }}
@@ -2550,16 +2659,16 @@ export default function SkinCreator() {
                         ))}
                       </div>
                     )}
-                    
+
                     {/* Recent history */}
                     <p className="text-xs text-gray-500 font-semibold mb-1">🕐 Recent</p>
                     {aiHistory.filter(item => !item.isFavorite).map(item => (
-                      <div 
+                      <div
                         key={item.id}
                         className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100"
                       >
-                        <img 
-                          src={item.skinDataUrl} 
+                        <img
+                          src={item.skinDataUrl}
                           alt={item.prompt}
                           className="w-12 h-12 rounded border bg-white"
                           style={{ imageRendering: 'pixelated' }}
@@ -2606,10 +2715,10 @@ export default function SkinCreator() {
                 )}
               </div>
             )}
-            
+
             {/* Info text */}
             <p className="text-xs text-gray-400 mt-3 text-center">
-              {useRealAI 
+              {useRealAI
                 ? 'Real AI generates unique skins from your description'
                 : 'Quick mode uses smart color matching based on keywords'}
             </p>
