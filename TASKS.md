@@ -11265,8 +11265,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Testi più semplici
 
 ### [T927] Skin Creator: Fun Stickers/Stamps
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
