@@ -817,8 +817,11 @@ export default function SkinCreator() {
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
+  const shapeStartPosition = useRef<{ x: number; y: number } | null>(null);
   const linePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
+  const shapePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
   const eyedropperUseCount = useRef(0);
+  const [shapeFilled, setShapeFilled] = useState(false); // Toggle filled vs outline shapes
   
   // 📐 SELECTION TOOL STATE - Copy/paste region selection
   const [selection, setSelection] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -3447,6 +3450,137 @@ export default function SkinCreator() {
         err += dx;
         y += sy;
       }
+    }
+  }, []);
+
+  // 📐 Draw rectangle (outline or filled)
+  const drawRectangle = useCallback((
+    ctx: CanvasRenderingContext2D,
+    x0: number, y0: number,
+    x1: number, y1: number,
+    color: string,
+    size: number,
+    filled: boolean = false
+  ) => {
+    const minX = Math.min(x0, x1);
+    const maxX = Math.max(x0, x1);
+    const minY = Math.min(y0, y1);
+    const maxY = Math.max(y0, y1);
+    
+    ctx.fillStyle = color;
+    
+    if (filled) {
+      // Filled rectangle
+      for (let y = minY; y <= maxY; y++) {
+        for (let x = minX; x <= maxX; x++) {
+          if (x >= 0 && x < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+    } else {
+      // Outline rectangle with brush size
+      // Top edge
+      for (let x = minX; x <= maxX; x++) {
+        for (let b = 0; b < size; b++) {
+          const py = minY + b;
+          if (x >= 0 && x < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
+            ctx.fillRect(x, py, 1, 1);
+          }
+        }
+      }
+      // Bottom edge
+      for (let x = minX; x <= maxX; x++) {
+        for (let b = 0; b < size; b++) {
+          const py = maxY - b;
+          if (x >= 0 && x < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
+            ctx.fillRect(x, py, 1, 1);
+          }
+        }
+      }
+      // Left edge
+      for (let y = minY; y <= maxY; y++) {
+        for (let b = 0; b < size; b++) {
+          const px = minX + b;
+          if (px >= 0 && px < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
+            ctx.fillRect(px, y, 1, 1);
+          }
+        }
+      }
+      // Right edge
+      for (let y = minY; y <= maxY; y++) {
+        for (let b = 0; b < size; b++) {
+          const px = maxX - b;
+          if (px >= 0 && px < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
+            ctx.fillRect(px, y, 1, 1);
+          }
+        }
+      }
+    }
+  }, []);
+
+  // 🔵 Draw circle/ellipse (Bresenham's midpoint algorithm)
+  const drawCircle = useCallback((
+    ctx: CanvasRenderingContext2D,
+    x0: number, y0: number,
+    x1: number, y1: number,
+    color: string,
+    size: number,
+    filled: boolean = false
+  ) => {
+    const minX = Math.min(x0, x1);
+    const maxX = Math.max(x0, x1);
+    const minY = Math.min(y0, y1);
+    const maxY = Math.max(y0, y1);
+    
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const rx = (maxX - minX) / 2;
+    const ry = (maxY - minY) / 2;
+    
+    ctx.fillStyle = color;
+    
+    if (filled) {
+      // Filled ellipse - scan line approach
+      for (let y = minY; y <= maxY; y++) {
+        for (let x = minX; x <= maxX; x++) {
+          // Check if point is inside ellipse
+          const dx = (x - cx) / rx;
+          const dy = (y - cy) / ry;
+          if (dx * dx + dy * dy <= 1) {
+            if (x >= 0 && x < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
+              ctx.fillRect(x, y, 1, 1);
+            }
+          }
+        }
+      }
+    } else {
+      // Outline ellipse - midpoint algorithm
+      // For small pixel art, we trace the boundary
+      const points: Set<string> = new Set();
+      
+      // Sample points along the ellipse
+      const steps = Math.max(Math.ceil(Math.PI * 2 * Math.max(rx, ry)), 32);
+      for (let i = 0; i < steps; i++) {
+        const angle = (i / steps) * Math.PI * 2;
+        const px = Math.round(cx + rx * Math.cos(angle));
+        const py = Math.round(cy + ry * Math.sin(angle));
+        points.add(`${px},${py}`);
+      }
+      
+      // Draw all points with brush size
+      points.forEach(key => {
+        const [px, py] = key.split(',').map(Number);
+        for (let bx = 0; bx < size; bx++) {
+          for (let by = 0; by < size; by++) {
+            const drawX = px + bx - Math.floor(size / 2);
+            const drawY = py + by - Math.floor(size / 2);
+            if (drawX >= 0 && drawX < SKIN_WIDTH && drawY >= 0 && drawY < SKIN_HEIGHT) {
+              ctx.fillRect(drawX, drawY, 1, 1);
+            }
+          }
+        }
+      });
     }
   }, []);
 

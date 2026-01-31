@@ -3862,13 +3862,21 @@ export default function MoonlightMagicHouse() {
         setPuzzleSolved(true)
         sounds.puzzleComplete(soundEnabled)
         setRewards(prev => ({ ...prev, stars: prev.stars + 50 }))
+        
+        // Track puzzle achievements
+        const finalMoves = puzzleMoves + 1
+        checkAchievements({
+          puzzlesCompleted: achievementStats.puzzlesCompleted + 1,
+        })
+        unlockSpeedAchievement('puzzle', finalMoves)
+        
         setTimeout(() => {
           sounds.celebrate(soundEnabled)
           setGameState('reward')
         }, 1500)
       }
     }
-  }, [puzzleTiles, puzzleSolved, soundEnabled])
+  }, [puzzleTiles, puzzleSolved, soundEnabled, puzzleMoves, checkAchievements, achievementStats, unlockSpeedAchievement])
   
   // Initialize Memory game - 4x3 card grid (6 pairs)
   const MEMORY_EMOJIS = ['🌟', '🌙', '🦋', '🌸', '🎀', '💫']
