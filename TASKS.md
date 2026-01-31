@@ -12112,8 +12112,10 @@ Generated: 2026-01-30T18:37:46.867013
   - "Surprise me" button con random prompts creativi
 
 ### [T947] Minecraft Skin Creator: Community Gallery
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:25 PST
+- **Notes**: Already implemented - SkinGallery component with browse/share
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P3
@@ -12258,8 +12260,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Share to Twitter, Discord, etc. with preview image
 
 ### [T966] Skin Creator: Import from URL
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:25 PST
+- **Notes**: Already implemented - URL import modal exists
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Paste URL to import skin from another source
