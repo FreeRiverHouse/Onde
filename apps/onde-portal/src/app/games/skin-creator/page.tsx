@@ -884,6 +884,7 @@ export default function SkinCreator() {
   const [saveToast, setSaveToast] = useState<{ show: boolean; message: string; type: 'save' | 'autosave' }>({ show: false, message: '', type: 'save' });
   const lastAutoSaveRef = useRef<number>(Date.now());
   const autoSaveIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const quickSaveRef = useRef<((isAutoSave?: boolean) => void) | null>(null);
 
   // 🤖 AI History & Favorites
   interface AIHistoryItem {
@@ -2147,6 +2148,7 @@ export default function SkinCreator() {
           }
           break;
         case 'i': setTool('eyedropper'); playSound('click'); break;
+        case 'h': setTool('color-replace'); playSound('click'); break;
         
         // ❓ Help & panels
         case '?': setShowHelp(prev => !prev); break;
@@ -2296,6 +2298,11 @@ export default function SkinCreator() {
       playSound('save');
     }
   }, [skinName, playSound]);
+
+  // Update ref so keyboard handler can always access latest quickSave
+  useEffect(() => {
+    quickSaveRef.current = quickSave;
+  }, [quickSave]);
 
   // ⏰ AUTOSAVE INTERVAL - Save every 30 seconds
   useEffect(() => {
@@ -5160,6 +5167,7 @@ export default function SkinCreator() {
               <div data-shortcut="r spray airbrush" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">R</div><div className="py-2">Spray</div></div>
               <div data-shortcut="f fill bucket" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">F</div><div className="py-2">Fill bucket</div></div>
               <div data-shortcut="i eyedropper color picker" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">I</div><div className="py-2">Eyedropper</div></div>
+              <div data-shortcut="h replace color swap" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">H</div><div className="py-2">Color Replace</div></div>
               <div data-shortcut="1 2 3 4 5 brush size" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">1-5</div><div className="py-2">Brush size</div></div>
               <div data-shortcut="z undo ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Z</div><div className="py-2">Undo</div></div>
               <div data-shortcut="y redo ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Shift + Z</div><div className="py-2">Redo</div></div>
@@ -5432,43 +5440,41 @@ export default function SkinCreator() {
 
       {/* 🕒 RECENT SKINS CAROUSEL - Quick access to latest creations */}
       {viewMode === 'editor' && savedSkins.length > 0 && (
-        <div className="w-full max-w-6xl px-2 skin-animate-in delay-400">
-          <RecentSkinsCarousel
-            skins={savedSkins}
-            onLoadSkin={(skin) => {
-              const img = new Image();
-              img.onload = () => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return;
-                ctx.clearRect(0, 0, 64, 64);
-                ctx.drawImage(img, 0, 0);
-                const baseLayerCanvas = getLayerCanvas('base');
-                const baseCtx = baseLayerCanvas.getContext('2d');
-                if (baseCtx) {
-                  baseCtx.clearRect(0, 0, 64, 64);
-                  baseCtx.drawImage(img, 0, 0);
-                }
-                const detailsCanvas = getLayerCanvas('details');
-                const accessoriesCanvas = getLayerCanvas('accessories');
-                const detailsCtx = detailsCanvas.getContext('2d');
-                const accessoriesCtx = accessoriesCanvas.getContext('2d');
-                if (detailsCtx) detailsCtx.clearRect(0, 0, 64, 64);
-                if (accessoriesCtx) accessoriesCtx.clearRect(0, 0, 64, 64);
-                compositeLayersToMain();
-                updatePreview();
-                saveState();
-                setSkinName(skin.name.toLowerCase().replace(/\s+/g, '-'));
-                playSound('click');
-              };
-              img.src = skin.dataUrl;
-            }}
-            onDeleteSkin={(id) => setSavedSkins(prev => prev.filter(s => s.id !== id))}
-            playSound={playSound}
-            darkMode={darkMode}
-          />
-        </div>
+        <RecentSkinsCarousel
+          skins={savedSkins}
+          onLoadSkin={(skin) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = canvasRef.current;
+              if (!canvas) return;
+              const ctx = canvas.getContext('2d');
+              if (!ctx) return;
+              ctx.clearRect(0, 0, 64, 64);
+              ctx.drawImage(img, 0, 0);
+              const baseLayerCanvas = getLayerCanvas('base');
+              const baseCtx = baseLayerCanvas.getContext('2d');
+              if (baseCtx) {
+                baseCtx.clearRect(0, 0, 64, 64);
+                baseCtx.drawImage(img, 0, 0);
+              }
+              const detailsCanvas = getLayerCanvas('details');
+              const accessoriesCanvas = getLayerCanvas('accessories');
+              const detailsCtx = detailsCanvas.getContext('2d');
+              const accessoriesCtx = accessoriesCanvas.getContext('2d');
+              if (detailsCtx) detailsCtx.clearRect(0, 0, 64, 64);
+              if (accessoriesCtx) accessoriesCtx.clearRect(0, 0, 64, 64);
+              compositeLayersToMain();
+              updatePreview();
+              saveState();
+              setSkinName(skin.name.toLowerCase().replace(/\s+/g, '-'));
+              playSound('click');
+            };
+            img.src = skin.dataUrl;
+          }}
+          onDeleteSkin={(id) => setSavedSkins(prev => prev.filter(s => s.id !== id))}
+          playSound={playSound}
+          darkMode={darkMode}
+        />
       )}
 
       {/* Gallery View */}
@@ -6494,6 +6500,19 @@ export default function SkinCreator() {
                     <>
                       <span className="text-gray-400">|</span>
                       <span className="text-gray-500 italic">transparent</span>
+                    </>
+                  )}
+                  {/* 🔄 Color Replace tool hint */}
+                  {tool === 'color-replace' && (
+                    <>
+                      <span className="text-gray-400">|</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-emerald-300 font-medium">🔄 Click a color to replace it with</span>
+                        <div 
+                          className="w-4 h-4 rounded border border-white/50 shadow-inner" 
+                          style={{ backgroundColor: selectedColor }}
+                        />
+                      </div>
                     </>
                   )}
                 </div>

@@ -861,36 +861,46 @@ const FOOD_ITEMS: FoodItem[] = [
 ]
 
 // ============ ROOM CUSTOMIZATION TYPES ============
-type WallpaperPattern = 'stars' | 'hearts' | 'moons' | 'dots' | 'waves' | 'none'
+interface WallpaperPattern {
+  id: string
+  name: string
+  svg: string
+  opacity: number
+  emoji: string
+}
 
 interface RoomTheme {
   id: string
   name: string
+  emoji: string
   primaryColor: string
   secondaryColor: string
   accentColor: string
   windowTint: string
+  wallGradient: string
+  floorColor: string
+  glowColor: string
 }
 
 interface RoomCustomization {
   themeId: string
-  wallpaperId: WallpaperPattern
+  wallpaperId: string
 }
 
 const ROOM_THEMES: RoomTheme[] = [
-  { id: 'cozy', name: 'Cozy Night', primaryColor: '#2a2a4e', secondaryColor: '#1a1a3e', accentColor: '#ff9966', windowTint: '#FFE566' },
-  { id: 'dreamy', name: 'Dreamy Pink', primaryColor: '#3e2a4e', secondaryColor: '#2e1a3e', accentColor: '#ff66b2', windowTint: '#FFB6C1' },
-  { id: 'forest', name: 'Enchanted Forest', primaryColor: '#1e3e2a', secondaryColor: '#0e2e1a', accentColor: '#66ff99', windowTint: '#90EE90' },
-  { id: 'ocean', name: 'Deep Ocean', primaryColor: '#1a2e4e', secondaryColor: '#0a1e3e', accentColor: '#66b2ff', windowTint: '#87CEEB' },
+  { id: 'cozy', name: 'Cozy Night', emoji: '🌙', primaryColor: '#2a2a4e', secondaryColor: '#1a1a3e', accentColor: '#ff9966', windowTint: '#FFE566', wallGradient: 'from-[#2a2a4e] to-[#1a1a3e]', floorColor: '#1a1a2e', glowColor: 'rgba(255, 200, 100, 0.15)' },
+  { id: 'dreamy', name: 'Dreamy Pink', emoji: '💖', primaryColor: '#3e2a4e', secondaryColor: '#2e1a3e', accentColor: '#ff66b2', windowTint: '#FFB6C1', wallGradient: 'from-[#3e2a4e] to-[#2e1a3e]', floorColor: '#2e1a2e', glowColor: 'rgba(255, 105, 180, 0.15)' },
+  { id: 'forest', name: 'Enchanted Forest', emoji: '🌲', primaryColor: '#1e3e2a', secondaryColor: '#0e2e1a', accentColor: '#66ff99', windowTint: '#90EE90', wallGradient: 'from-[#1e3e2a] to-[#0e2e1a]', floorColor: '#0e2e1a', glowColor: 'rgba(144, 238, 144, 0.15)' },
+  { id: 'ocean', name: 'Deep Ocean', emoji: '🌊', primaryColor: '#1a2e4e', secondaryColor: '#0a1e3e', accentColor: '#66b2ff', windowTint: '#87CEEB', wallGradient: 'from-[#1a2e4e] to-[#0a1e3e]', floorColor: '#0a1e2e', glowColor: 'rgba(135, 206, 235, 0.15)' },
 ]
 
-const WALLPAPER_PATTERNS: { id: WallpaperPattern; name: string }[] = [
-  { id: 'none', name: 'None' },
-  { id: 'stars', name: 'Stars' },
-  { id: 'hearts', name: 'Hearts' },
-  { id: 'moons', name: 'Moons' },
-  { id: 'dots', name: 'Dots' },
-  { id: 'waves', name: 'Waves' },
+const WALLPAPER_PATTERNS: WallpaperPattern[] = [
+  { id: 'none', name: 'None', svg: '', opacity: 0, emoji: '⬜' },
+  { id: 'stars', name: 'Stars', svg: '<pattern id="stars-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.5"/><circle cx="30" cy="25" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="20" cy="35" r="1" fill="currentColor" opacity="0.4"/></pattern>', opacity: 0.3, emoji: '⭐' },
+  { id: 'hearts', name: 'Hearts', svg: '<pattern id="hearts-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M25 35 L15 25 Q10 20 15 15 Q20 10 25 18 Q30 10 35 15 Q40 20 35 25 Z" fill="currentColor" opacity="0.3"/></pattern>', opacity: 0.25, emoji: '💕' },
+  { id: 'moons', name: 'Moons', svg: '<pattern id="moons-pattern" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="8" fill="currentColor" opacity="0.4"/><circle cx="24" cy="18" r="6" fill="black" opacity="0.6"/></pattern>', opacity: 0.2, emoji: '🌙' },
+  { id: 'dots', name: 'Dots', svg: '<pattern id="dots-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="currentColor" opacity="0.3"/></pattern>', opacity: 0.35, emoji: '🔵' },
+  { id: 'waves', name: 'Waves', svg: '<pattern id="waves-pattern" width="40" height="20" patternUnits="userSpaceOnUse"><path d="M0 10 Q10 5 20 10 T40 10" stroke="currentColor" fill="none" strokeWidth="2" opacity="0.3"/></pattern>', opacity: 0.25, emoji: '🌊' },
 ]
 
 const DEFAULT_ROOM_CUSTOMIZATION: RoomCustomization = {
@@ -5287,9 +5297,13 @@ export default function MoonlightMagicHouse() {
           </p>
         </div>
         
-        {/* Puzzle Grid */}
-        <div className="relative w-full max-w-xs aspect-square bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 p-3">
-          <div className="grid grid-cols-3 gap-2 w-full h-full">
+        {/* Puzzle Grid - themed */}
+        <ThemedRoomContainer 
+          theme={currentRoomTheme} 
+          wallpaper={currentWallpaper}
+          className="max-w-xs aspect-square p-3"
+        >
+          <div className="grid grid-cols-3 gap-2 w-full h-full relative z-10">
             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((pos) => {
               const tile = puzzleTiles.find(t => t.currentPos === pos)
               const isCorrect = tile && tile.currentPos === tile.correctPos
@@ -5332,7 +5346,7 @@ export default function MoonlightMagicHouse() {
               ))}
             </div>
           )}
-        </div>
+        </ThemedRoomContainer>
         
         {/* Cat watching */}
         <div className="w-24 h-24 mt-6 z-10 animate-float gpu-accelerated">
@@ -5343,6 +5357,20 @@ export default function MoonlightMagicHouse() {
         <p className="text-purple-200/40 text-xs mt-4 z-10">
           Arrange tiles so each one glows green! ✨
         </p>
+        
+        {/* Room customize button */}
+        <RoomCustomizeButton onClick={() => setShowRoomCustomizer(true)} soundEnabled={soundEnabled} />
+        
+        {/* Room customization panel */}
+        <RoomCustomizationPanel
+          isOpen={showRoomCustomizer}
+          onClose={() => setShowRoomCustomizer(false)}
+          currentTheme={currentRoomTheme}
+          currentWallpaper={currentWallpaper}
+          onThemeChange={handleThemeChange}
+          onWallpaperChange={handleWallpaperChange}
+          soundEnabled={soundEnabled}
+        />
       </div>
     )
   }
@@ -5381,9 +5409,13 @@ export default function MoonlightMagicHouse() {
           </p>
         </div>
         
-        {/* Memory Card Grid */}
-        <div className="relative w-full max-w-sm bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 p-4">
-          <div className="grid grid-cols-4 gap-2">
+        {/* Memory Card Grid - themed */}
+        <ThemedRoomContainer 
+          theme={currentRoomTheme} 
+          wallpaper={currentWallpaper}
+          className="max-w-sm p-4"
+        >
+          <div className="grid grid-cols-4 gap-2 relative z-10">
             {memoryCards.map((card) => (
               <button
                 key={card.id}
@@ -5418,7 +5450,7 @@ export default function MoonlightMagicHouse() {
               <Star size="sm" delay={0} />
             </div>
           )}
-        </div>
+        </ThemedRoomContainer>
         
         {/* Cat mascot */}
         <div className="w-24 h-24 mt-6 z-10 animate-float gpu-accelerated">
@@ -5438,6 +5470,20 @@ export default function MoonlightMagicHouse() {
             />
           ))}
         </div>
+        
+        {/* Room customize button */}
+        <RoomCustomizeButton onClick={() => setShowRoomCustomizer(true)} soundEnabled={soundEnabled} />
+        
+        {/* Room customization panel */}
+        <RoomCustomizationPanel
+          isOpen={showRoomCustomizer}
+          onClose={() => setShowRoomCustomizer(false)}
+          currentTheme={currentRoomTheme}
+          currentWallpaper={currentWallpaper}
+          onThemeChange={handleThemeChange}
+          onWallpaperChange={handleWallpaperChange}
+          soundEnabled={soundEnabled}
+        />
       </div>
     )
   }
