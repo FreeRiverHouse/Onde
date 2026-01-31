@@ -11390,3 +11390,11 @@ Generated: 2026-01-30T18:37:46.867013
   - Genera skin COMPLETAMENTE random
   - Effetti sorpresa (confetti + suono)
   - Più divertente del semplice Random
+
+### [T931] Skin Creator: Mystery Box / Surprise Generator
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: LLM-suggested feature for kids
