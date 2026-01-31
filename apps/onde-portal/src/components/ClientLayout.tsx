@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { I18nProvider, useTranslations } from '@/i18n';
 import Navigation from '@/components/Navigation';
+import SearchModal from '@/components/SearchModal';
 import WatercolorBackground from '@/components/ui/WatercolorBackground';
 import VercelAnalytics from '@/components/VercelAnalytics';
 import ErrorBoundary from '@/components/ErrorBoundary';
@@ -100,6 +101,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         </ErrorBoundary>
       </main>
       <Footer />
+      <SearchModal />
       <VercelAnalytics />
     </I18nProvider>
   );
