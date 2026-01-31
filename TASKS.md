@@ -13363,3 +13363,12 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot
 - **Completed**: 2026-01-31 01:00 PST
 - **Notes**: Mattia feedback - removed 1000+ fake books, kept only 4 real Onde books
+
+### [T1069] Fix: Meditations Book Reader Content
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Issue**: Content doesn't load in reader (404 or missing JSON)
+- **Salmo 23**: Works ✅
+- **Meditations**: Fails to load content ❌
+- **Notes**: PDF exists, but reader JSON missing
