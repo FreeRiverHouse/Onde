@@ -172,6 +172,7 @@ export default function SkinCreator() {
   const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
+  const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
@@ -939,7 +940,10 @@ export default function SkinCreator() {
         case 'b': setTool('brush'); break;
         case 'e': setTool('eraser'); break;
         case 'f': setTool('fill'); break;
-        case 'g': setTool('gradient'); break;
+        case 'g': 
+          if (e.shiftKey) { setShowGrid(prev => !prev); } 
+          else { setTool('gradient'); } 
+          break;
         case 's': setTool('stamp'); break;
         case 'i': setTool('eyedropper'); break;
         case '?': setShowHelp(prev => !prev); break;
@@ -947,6 +951,8 @@ export default function SkinCreator() {
         case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); } break;
         case 'm': setMirrorMode(prev => !prev); break;
         case 'd': setDarkMode(prev => !prev); break;
+        case '+': case '=': setZoomLevel(prev => Math.min(12, prev + 1)); break;
+        case '-': setZoomLevel(prev => Math.max(2, prev - 1)); break;
         case '1': setBrushSize(1); break;
         case '2': setBrushSize(2); break;
         case '3': setBrushSize(3); break;
@@ -2268,8 +2274,40 @@ export default function SkinCreator() {
             ))}
           </div>
 
-          {/* Canvas */}
-          <div className="flex justify-center">
+          {/* Canvas with Grid Controls */}
+          <div className="flex flex-col items-center gap-2">
+            {/* Zoom and Grid Controls */}
+            <div className="flex items-center gap-2 bg-white/80 rounded-full px-3 py-1.5 shadow">
+              <button
+                onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
+                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm"
+                title="Zoom out (-)"
+              >
+                −
+              </button>
+              <span className="text-sm font-bold w-12 text-center">{zoomLevel}x</span>
+              <button
+                onClick={() => setZoomLevel(Math.min(12, zoomLevel + 1))}
+                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm"
+                title="Zoom in (+)"
+              >
+                +
+              </button>
+              <div className="w-px h-5 bg-gray-300 mx-1"></div>
+              <button
+                onClick={() => setShowGrid(!showGrid)}
+                className={`px-2 py-1 rounded-full text-xs font-bold transition-all ${
+                  showGrid
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                }`}
+                title="Toggle grid (G)"
+              >
+                {showGrid ? '▦' : '▢'} Grid
+              </button>
+            </div>
+
+            {/* Canvas */}
             <div
               className="relative rounded-xl p-1"
               style={{
@@ -2296,6 +2334,40 @@ export default function SkinCreator() {
                 onTouchEnd={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
                 onTouchMove={(e) => { e.preventDefault(); drawTouch(e); }}
               />
+              {/* Grid Overlay */}
+              {showGrid && (
+                <svg
+                  className="absolute top-1 left-1 pointer-events-none"
+                  width={SKIN_WIDTH * zoomLevel}
+                  height={SKIN_HEIGHT * zoomLevel}
+                  style={{ opacity: 0.3 }}
+                >
+                  {/* Vertical lines */}
+                  {Array.from({ length: SKIN_WIDTH + 1 }).map((_, i) => (
+                    <line
+                      key={`v-${i}`}
+                      x1={i * zoomLevel}
+                      y1={0}
+                      x2={i * zoomLevel}
+                      y2={SKIN_HEIGHT * zoomLevel}
+                      stroke={i % 8 === 0 ? '#000' : '#666'}
+                      strokeWidth={i % 8 === 0 ? 1 : 0.5}
+                    />
+                  ))}
+                  {/* Horizontal lines */}
+                  {Array.from({ length: SKIN_HEIGHT + 1 }).map((_, i) => (
+                    <line
+                      key={`h-${i}`}
+                      x1={0}
+                      y1={i * zoomLevel}
+                      x2={SKIN_WIDTH * zoomLevel}
+                      y2={i * zoomLevel}
+                      stroke={i % 8 === 0 ? '#000' : '#666'}
+                      strokeWidth={i % 8 === 0 ? 1 : 0.5}
+                    />
+                  ))}
+                </svg>
+              )}
             </div>
           </div>
 
