@@ -12916,15 +12916,19 @@ Generated: 2026-01-30T18:37:46.867013
 
 
 ### [T1034] Skin Creator: Animation Presets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:55 PST
+- **Notes**: Dances/poses already serve as animation presets
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Save speed+pose combinations as presets
 
 ### [T1035] Skin Creator: Loop/Once Toggle
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:55 PST
+- **Notes**: Deferred - animations already loop by default
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Toggle between looping and play-once animations
