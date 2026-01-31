@@ -1493,51 +1493,22 @@ function App() {
           <div className="header glass-card">
             <h1 className="title">{t.title}</h1>
             {petName && <span className="pet-name-badge">🐱 {petName} {getMoodEmoji(mood)}</span>}
-            <div className="header-right">
+            {/* Simplified header for kids (T1101) - only essential controls */}
+            <div className="header-right simple">
               <span className="time-indicator">{t.timeOfDay[timeOfDay]}</span>
               <button className="sound-toggle" onClick={() => { toggleMute(); playSound('ui-click'); }} title={isMuted ? 'Unmute' : 'Mute'}>
                 {isMuted ? '🔇' : '🔊'}
               </button>
-              <div className="ambient-volume-control" title={lang === 'it' ? 'Volume ambiente' : 'Ambient volume'}>
-                <span className="ambient-icon">🎵</span>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={Math.round(ambientVolume * 100)}
-                  onChange={(e) => handleAmbientVolumeChange(parseInt(e.target.value) / 100)}
-                  className="ambient-slider"
-                  disabled={isMuted}
-                />
-              </div>
-              <button 
-                className={`weather-toggle ${useRealWeather ? 'active' : ''}`} 
-                onClick={() => { toggleRealWeather(); playSound('ui-click'); }}
-                title={useRealWeather 
-                  ? (lang === 'it' ? `Meteo reale: ${weather.icon} ${weather.temperature}°C` : `Real weather: ${weather.icon} ${weather.temperature}°C`)
-                  : (lang === 'it' ? 'Meteo storia' : 'Story weather')
-                }
-              >
-                {weatherLoading ? '⏳' : weather.icon}
-                {useRealWeather && <span className="weather-badge">LIVE</span>}
-              </button>
               <button className="lang-toggle" onClick={toggleLanguage}>{lang === 'it' ? '🇮🇹' : '🇬🇧'}</button>
-              <div className="level-badge glass-card">Lv.{stats.level}</div>
               <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>
             </div>
           </div>
 
-          <div className="mini-stats glass-card">
-            <span className="mood-display">{getMoodEmoji(mood)} {t.moods[mood]}</span>
-            <span>💚 {Math.round(stats.health)}</span>
-            <span>🍪 {Math.round(stats.hunger)}</span>
-            <span>⚡ {Math.round(stats.energy)}</span>
-            <span>💖 {Math.round(stats.happiness)}</span>
-          </div>
-          
-          <div className="xp-bar-container">
-            <div className="xp-bar" style={{ width: `${(stats.xp / getXpForLevel(stats.level)) * 100}%` }} />
-            <span className="xp-text">{stats.xp}/{getXpForLevel(stats.level)} XP</span>
+          {/* Simplified stats for kids (T1101) - just emoji + visual indicator */}
+          <div className="mini-stats glass-card simple">
+            <span className="mood-display big">{getMoodEmoji(mood)}</span>
+            <span className={stats.hunger < 30 ? 'low pulse' : ''}>🍪</span>
+            <span className={stats.happiness < 30 ? 'low pulse' : ''}>💖</span>
           </div>
         </div>
 
@@ -1697,50 +1668,28 @@ function App() {
         </div>
       </div>
 
-      {/* Enhanced Stat Bars (Pet Persistence T1090) */}
-      <div className="stat-bars glass-card">
+      {/* Simplified Stat Bars for Kids (T1101) - Only 2 main stats, no numbers */}
+      <div className="stat-bars glass-card simple">
         <div className="stat-bar-item">
-          <span className="stat-bar-icon">💚</span>
+          <span className="stat-bar-icon" title={t.stats.hunger}>🍪</span>
           <div className="stat-bar-track">
             <div 
-              className={`stat-bar-fill health ${stats.health < 30 ? 'low' : ''}`}
-              style={{ width: `${stats.health}%` }}
-            />
-          </div>
-          <span className="stat-bar-value">{Math.round(stats.health)}</span>
-        </div>
-        <div className="stat-bar-item">
-          <span className="stat-bar-icon">🍪</span>
-          <div className="stat-bar-track">
-            <div 
-              className={`stat-bar-fill hunger ${stats.hunger < 30 ? 'low' : ''}`}
+              className={`stat-bar-fill hunger ${stats.hunger < 30 ? 'low pulse' : ''}`}
               style={{ width: `${stats.hunger}%` }}
             />
           </div>
-          <span className="stat-bar-value">{Math.round(stats.hunger)}</span>
         </div>
         <div className="stat-bar-item">
-          <span className="stat-bar-icon">⚡</span>
+          <span className="stat-bar-icon" title={t.stats.happiness}>💖</span>
           <div className="stat-bar-track">
             <div 
-              className={`stat-bar-fill energy ${stats.energy < 30 ? 'low' : ''}`}
-              style={{ width: `${stats.energy}%` }}
-            />
-          </div>
-          <span className="stat-bar-value">{Math.round(stats.energy)}</span>
-        </div>
-        <div className="stat-bar-item">
-          <span className="stat-bar-icon">💖</span>
-          <div className="stat-bar-track">
-            <div 
-              className={`stat-bar-fill happiness ${stats.happiness < 30 ? 'low' : ''}`}
+              className={`stat-bar-fill happiness ${stats.happiness < 30 ? 'low pulse' : ''}`}
               style={{ width: `${stats.happiness}%` }}
             />
           </div>
-          <span className="stat-bar-value">{Math.round(stats.happiness)}</span>
         </div>
-        <div className="mood-display" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-          {getMoodEmoji(mood)} {t.moods[mood]}
+        <div className="mood-display">
+          {getMoodEmoji(mood)}
         </div>
       </div>
 

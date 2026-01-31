@@ -2449,3 +2449,53 @@
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+/* T1101: Simplified UI for Kids */
+.stat-bars.simple {
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.stat-bars.simple .stat-bar-item {
+  gap: 0.3rem;
+}
+
+.stat-bars.simple .stat-bar-icon {
+  font-size: 1.2rem;
+}
+
+.mini-stats.simple {
+  gap: 0.8rem;
+  font-size: 1.5rem;
+}
+
+.mini-stats.simple .mood-display.big {
+  font-size: 2rem;
+}
+
+.mini-stats.simple .low {
+  opacity: 0.5;
+}
+
+.mini-stats.simple .pulse {
+  animation: pulse-warning 1s ease-in-out infinite;
+}
+
+.stat-bar-fill.pulse {
+  animation: pulse-bar 1s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulse-bar {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+.header-right.simple {
+  gap: 0.5rem;
+}
+
