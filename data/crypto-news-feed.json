@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T07:00:04.320347+00:00",
+  "timestamp": "2026-01-31T16:30:03.597832+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,62 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "VC Roundup: Crypto funding rebounds as institutions test onchain finance",
+      "url": "https://cointelegraph.com/news/crypto-vc-roundup-institutional-funding-onchain-credit-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "From venture rounds to onchain credit, capital is moving cautiously back into crypto as institutions focus on infrastructure and real-world use cases.",
+      "published": "2026-01-31T16:05:57+00:00"
+    },
+    {
+      "title": "Bitcoin vs. gold: BTC is a 'better opportunity' than in 2017, data says",
+      "url": "https://cointelegraph.com/news/bitcoin-vs-gold-btc-better-opportunity-than-2017?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin could start catching up to gold as soon as February, as traders anticipate BTC to recover from its record lows versus gold this year.",
+      "published": "2026-01-31T14:17:05+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-01-31T12:56:04+00:00"
+    },
+    {
+      "title": "Active Solana addresses spike 115%, four in 10 merchants take Bitcoin: Month in Charts",
+      "url": "https://cointelegraph.com/news/active-solana-addresses-spike-115-four-in-ten-merchants-take-bitcoin-month-in-charts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Activity on Solana has spiked as new AI tech makes it easier than ever to launch memecoins. Meanwhile, Ethereum is plugging away at future-proofing and bringing down fees.",
+      "published": "2026-01-31T12:00:00+00:00"
+    },
+    {
+      "title": "US Treasury sanctions Iran-linked crypto exchanges for first time",
+      "url": "https://cointelegraph.com/news/us-treasury-sanctions-iran-linked-crypto-exchanges-first-time?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The US Treasury has sanctioned two UK-registered crypto exchanges tied to Iran\u2019s financial system, marking the first time Washington has targeted digital asset platforms.",
+      "published": "2026-01-31T10:51:45+00:00"
+    },
+    {
+      "title": "Crypto billionaires deploy $40M to fight California wealth tax and union power",
+      "url": "https://cointelegraph.com/news/crypto-larsen-draper-40m-california-politics-wealth-tax-unions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Ripple co-founder Chris Larsen and venture capitalist Tim Draper are backing Grow California, a new political effort aimed at countering union-backed wealth tax proposals.",
+      "published": "2026-01-31T09:32:34+00:00"
+    },
+    {
+      "title": "$1.82B pulled from spot Bitcoin and Ether ETFs amid metals rally",
+      "url": "https://cointelegraph.com/news/crypto-etf-bitcoin-ether-outflows-metals-sentiment-down?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "ETF analyst Eric Balchunas said many people seem to be forgetting that Bitcoin \u201cspanked everything so bad\u201d in 2023 and 2024, while other asset classes \u201cstill haven\u2019t caught up.\u201d",
+      "published": "2026-01-31T08:59:36+00:00"
+    },
+    {
+      "title": "Coinbase insider trading lawsuit against Armstrong, directors moves forward",
+      "url": "https://cointelegraph.com/news/coinbase-insider-trading-lawsuit-against-armstrong-directors-moves-forward?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The lawsuit alleges Marc Andreessen sold $118.7 million in Coinbase shares through Andreessen Horowitz, while CEO Brian Armstrong offloaded about $291.8 million.",
+      "published": "2026-01-31T07:06:42+00:00"
+    },
     {
       "title": "Lingering extreme fear in crypto is a 'strong bullish' sign: Santiment",
       "url": "https://cointelegraph.com/news/crypto-sentiment-extreme-fears-bullish-signals-crypto-analytics?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -25,32 +81,11 @@
       "published": "2026-01-31T03:58:14+00:00"
     },
     {
-      "title": "Bitcoin options turn bearish as BTC flirts with drop below $80K",
-      "url": "https://cointelegraph.com/news/bitcoin-options-turn-bearish-as-btc-flirts-with-drop-below-80k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin options flashed extreme fear signals as the spot BTC ETF outflows rose, and the odds for a drop below $80,000 increased. Will dip buyers step in to save the day?",
-      "published": "2026-01-31T02:21:52+00:00"
-    },
-    {
       "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
       "url": "https://decrypt.co/356530/bitcoin-mining-profits-14-month-low-winter-storm-disrupts-miners-cryptoquant",
       "source": "decrypt",
       "description": "Bitcoin miners are \"extremely underpaid\" given the price of Bitcoin and current BTC mining conditions, according to a CryptoQuant report.",
       "published": "2026-01-30T22:02:19+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-01-30T22:01:52+00:00"
-    },
-    {
-      "title": "SoFi posts record Q4 revenue after reentering crypto market",
-      "url": "https://cointelegraph.com/news/sofi-hits-record-revenue-q4-crypto-blockchain-services?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The fintech bank reported record quarterly revenue of $1 billion as it reintroduced crypto trading, launched a stablecoin and rolled out blockchain-based remittances.",
-      "published": "2026-01-30T21:57:31+00:00"
     },
     {
       "title": "Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas",
@@ -67,13 +102,6 @@
       "published": "2026-01-30T21:37:51+00:00"
     },
     {
-      "title": "European Commission calls on 12 countries to implement crypto tax rules",
-      "url": "https://cointelegraph.com/news/european-commission-countries-crypto-tax-rules?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The commission also singled out Hungary for failing to comply with the EU's MiCA framework after an amendment to a local law.",
-      "published": "2026-01-30T21:37:41+00:00"
-    },
-    {
       "title": "Gold Is the Real Bubble, Says Ark Invest's Cathie Wood\u2014Not AI",
       "url": "https://decrypt.co/356505/gold-real-bubble-not-ai-ark-invest-cathie-wood",
       "source": "decrypt",
@@ -88,39 +116,11 @@
       "published": "2026-01-30T21:09:31+00:00"
     },
     {
-      "title": "Gold is acting like the hedge Bitcoin promised to be",
-      "url": "https://cointelegraph.com/news/crypto-biz-gold-hedge-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "As the dollar weakens, investors are turning to gold \u2014 onchain and off \u2014 while Bitcoin increasingly plays a supporting role in hedging currency risk.",
-      "published": "2026-01-30T21:00:00+00:00"
-    },
-    {
-      "title": "Changpeng Zhao rejects claims Binance worsened crypto market crash",
-      "url": "https://cointelegraph.com/news/cz-denies-binance-role-october-crypto-liquidation-usde-depeg?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "CZ pushed back on claims that Binance fueled October\u2019s historic $19 billion crypto liquidation event, calling allegations against the exchange \u201cfar-fetched.\u201d",
-      "published": "2026-01-30T20:55:51+00:00"
-    },
-    {
       "title": "Bitcoin Price Holds Steady as Gold Falls and Silver Craters",
       "url": "https://decrypt.co/356503/bitcoin-price-holds-steady-gold-falls-silver-craters",
       "source": "decrypt",
       "description": "Bitcoin stays resilient while gold and silver see historic crashes amid Fed chair nomination fears and shifting rate expectations.",
       "published": "2026-01-30T20:51:00+00:00"
-    },
-    {
-      "title": "Coinbase, JPMorgan CEOs clashed over market structure bill at Davos: Report",
-      "url": "https://cointelegraph.com/news/coinbase-jpmorgan-ceos-clashed-market-structure-davos?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Brian Armstrong made the media rounds before and after he announced Coinbase was pulling its support for a major US crypto bill, reportedly facing off with Jamie Dimon in Davos.",
-      "published": "2026-01-30T20:32:34+00:00"
-    },
-    {
-      "title": "Bitcoin futures imbalance may spark liquidation revenge rally to $90K",
-      "url": "https://cointelegraph.com/news/bitcoin-futures-imbalance-may-spark-liquidation-revenge-rally-to-dollar90k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin short positions continued to pile up as BTC price dropped near $81,000, potentially providing the liquidation fuel for a revenge rally back above $90,000.",
-      "published": "2026-01-30T20:14:44+00:00"
     },
     {
       "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",

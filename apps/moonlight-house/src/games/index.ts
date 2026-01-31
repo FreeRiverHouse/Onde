@@ -6,3 +6,4 @@ export { default as SimonGame } from './SimonGame';
 export { default as CatchGame } from './CatchGame';
 export { default as GardeningGame } from './GardeningGame';
 export { default as CookingGame } from './CookingGame';
+export { default as QuizGame } from './QuizGame';

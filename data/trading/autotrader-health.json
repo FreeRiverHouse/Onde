@@ -1,18 +1,18 @@
 {
   "is_running": true,
-  "last_cycle_time": "2026-01-31T07:06:25.451744+00:00",
-  "cycle_count": 68,
-  "dry_run": true,
+  "last_cycle_time": "2026-01-31T16:40:18.982311+00:00",
+  "cycle_count": 19,
+  "dry_run": false,
   "trades_today": 1,
   "today_won": 0,
   "today_lost": 0,
   "today_pending": 1,
   "win_rate_today": 0.0,
   "pnl_today_cents": 0,
-  "positions_count": 9,
+  "positions_count": 8,
   "cash_cents": 0,
   "circuit_breaker_active": false,
   "circuit_breaker_reason": null,
   "consecutive_losses": 15,
-  "status": "\ud83e\uddea dry_run"
+  "status": "\u2705 running"
 }

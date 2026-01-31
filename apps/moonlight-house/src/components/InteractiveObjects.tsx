@@ -542,6 +542,15 @@ const ROOM_OBJECTS: Record<RoomKey, InteractiveObject[]> = {
       action: 'mini-game',
       gameType: 'memory',
     },
+    {
+      id: 'quiz-book',
+      name: { it: 'Quiz Time!', en: 'Quiz Time!' },
+      icon: '❓',
+      position: { x: 55, y: 40 },
+      size: 'medium',
+      action: 'mini-game',
+      gameType: 'quiz',
+    },
   ],
 };
 

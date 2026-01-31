@@ -13895,11 +13895,13 @@ Generated: 2026-01-30T18:37:46.867013
   - Automatic feedback loop!
 
 ### [T1012] Fortune Cookie: Language Selector
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-16 (verified in heartbeat)
 - **Priority**: P1
 - **Goal**: Selettore lingua IT/EN
 - **Fix**: Messaggi mischiati non OK
+- **Notes**: Already implemented! Language selector with 🌍 All / 🇮🇹 / 🇬🇧 buttons, persists to localStorage
 
 ### [T1013] Screenshot Watchdog
 - **Status**: TODO
@@ -14018,17 +14020,24 @@ Generated: 2026-01-30T18:37:46.867013
   - **Verified**: Entry added to crontab with ONDE-CRON marker
 
 ### [T1021] Moonlight: Quiz/Trivia Game for Library Room
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-16 (heartbeat)
 - **Priority**: P2
 - **Created**: 2026-02-04
-- **Notes**: Add quiz mini-game to library room (from T922 uncompleted items)
-  - [ ] Create QuizGame.tsx component
-  - [ ] Kid-friendly trivia questions (animals, colors, shapes, etc.)
-  - [ ] Multiple choice format (3-4 options)
-  - [ ] Reward: +coins, +happiness on correct answers
-  - [ ] Track high score
-  - Integrates with existing library room interactives
+- **Notes**: ✅ Added quiz mini-game to library room!
+  - [x] Create QuizGame.tsx component - `apps/moonlight-house/src/games/QuizGame.tsx`
+  - [x] 20 kid-friendly trivia questions (animals, colors, shapes, nature, space, fun facts)
+  - [x] Multiple choice format (4 options) with bilingual IT/EN support
+  - [x] Timer (15s per question) with visual countdown
+  - [x] Scoring: +10 base + time bonus + streak bonus
+  - [x] Streak tracking (🔥 indicator at 2+)
+  - [x] High score saved to localStorage
+  - [x] Animated stars background, smooth transitions
+  - [x] Result messages (Perfect/Great/Good/Try again)
+  - [x] Added to games/index.ts export
+  - [x] Added quiz-book interactive object to library room
+  - [x] Build passes ✅
 
 ### [T1022] Infra: Git Sync Health Check Script
 - **Status**: DONE ✅
