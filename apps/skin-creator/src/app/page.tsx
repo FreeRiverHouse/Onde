@@ -22,12 +22,13 @@ interface Layer {
   opacity: number;
   tint: string | null; // Color tint/overlay (hex color or null for no tint)
   tintIntensity: number; // Tint intensity 0-100%
+  glow: boolean; // Glow effect on layer
 }
 
 const DEFAULT_LAYERS: Layer[] = [
-  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
-  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
-  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
+  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
+  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
+  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
 ];
 
 // Preset tint colors for quick selection
