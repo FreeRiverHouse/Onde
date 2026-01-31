@@ -13227,8 +13227,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Gameplay**: Drag & drop ingredients, timer games, mixing mini-games
 
 ### [T1059] Design System: Bouncing Emoji Mascots
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:20 PST
+- **Applied**: Kids Chef ✅, Skin Creator ✅, Moonlight ✅, Gaming Island ✅
 - **Priority**: P1
 - **Goal**: Usare emoji animati come mascot in tutte le app
 - **Style**:
@@ -13251,7 +13253,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Ideas**: 🎨 🖌️ ⛏️ 💎 🧱
 
 ### [T1061] Moonlight: Add Bouncing Pet Mascots  
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:20 PST
 - **Priority**: P2
 - **Ideas**: 🐱 🐕 🐰 🐹 🦊
