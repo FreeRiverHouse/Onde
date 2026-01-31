@@ -738,6 +738,7 @@ export default function SkinCreator() {
   // 🏆 Achievement System
   const [achievements, setAchievements] = useState<Record<string, boolean>>({});
   const [showAchievement, setShowAchievement] = useState<{id: string; name: string; emoji: string} | null>(null);
+  const [showAchievementGallery, setShowAchievementGallery] = useState(false);
   
   const ACHIEVEMENTS = {
     firstDraw: { name: 'First Stroke!', emoji: '🎨' },
@@ -1747,6 +1748,44 @@ export default function SkinCreator() {
         </div>
       )}
 
+      {/* 🏆 Achievement Gallery */}
+      {showAchievementGallery && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowAchievementGallery(false)}>
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold flex items-center gap-2">🏆 Achievements</h2>
+              <span className="text-sm text-gray-500">
+                {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-3 max-h-[60vh] overflow-auto">
+              {Object.entries(ACHIEVEMENTS).map(([id, ach]) => (
+                <div
+                  key={id}
+                  className={`p-3 rounded-xl text-center transition-all ${
+                    achievements[id]
+                      ? 'bg-gradient-to-br from-yellow-100 to-orange-100 border-2 border-yellow-400'
+                      : 'bg-gray-100 opacity-50'
+                  }`}
+                >
+                  <div className={`text-3xl mb-1 ${achievements[id] ? '' : 'grayscale'}`}>
+                    {ach.emoji}
+                  </div>
+                  <p className="font-bold text-sm">{ach.name}</p>
+                  {!achievements[id] && <p className="text-xs text-gray-400 mt-1">🔒 Locked</p>}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowAchievementGallery(false)}
+              className="w-full mt-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 🎉 T1000 MILESTONE POPUP */}
       {showMilestone && (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
@@ -1805,6 +1844,13 @@ export default function SkinCreator() {
             title="Keyboard shortcuts (?)"
           >
             ⌨️ Help
+          </button>
+          <button
+            onClick={() => setShowAchievementGallery(true)}
+            className="ml-2 px-2 py-1 text-sm bg-yellow-500/30 hover:bg-yellow-500/50 rounded-full transition-all"
+            title="View achievements"
+          >
+            🏆 {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
           </button>
         </p>
 
