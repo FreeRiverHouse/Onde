@@ -131,6 +131,26 @@ const TEMPLATES = {
     name: '💚 Creeper',
     skin: '#5ba555', hair: '#3d7a3d', shirt: '#4a934a', pants: '#3d7a3d', shoes: '#2d5a2d', eyes: '#000000', pupils: '#000000',
   },
+  pirate: {
+    name: '🏴‍☠️ Pirate',
+    skin: '#c4956a', hair: '#1a1a1a', shirt: '#8b0000', pants: '#2c2c2c', shoes: '#3d2314', eyes: '#ffffff', pupils: '#2c1810',
+  },
+  astronaut: {
+    name: '🚀 Astronaut',
+    skin: '#e8e8e8', hair: '#c0c0c0', shirt: '#ffffff', pants: '#e0e0e0', shoes: '#a8a8a8', eyes: '#4da6ff', pupils: '#0066cc',
+  },
+  superhero: {
+    name: '🦸 Superhero',
+    skin: '#d4a76a', hair: '#2c1810', shirt: '#dc143c', pants: '#00008b', shoes: '#ffd700', eyes: '#ffffff', pupils: '#1a1a1a',
+  },
+  knight: {
+    name: '⚔️ Knight',
+    skin: '#d4a76a', hair: '#4a3728', shirt: '#7f8c8d', pants: '#5d6d7e', shoes: '#2c3e50', eyes: '#ffffff', pupils: '#3d3d3d',
+  },
+  mermaid: {
+    name: '🧜 Mermaid',
+    skin: '#a8e6cf', hair: '#40e0d0', shirt: '#20b2aa', pants: '#9b59b6', shoes: '#8e44ad', eyes: '#e0ffff', pupils: '#00ced1',
+  },
 };
 
 // Legacy alias (for backwards compatibility)
