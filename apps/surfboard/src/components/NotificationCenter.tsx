@@ -17,6 +17,140 @@ const DEFAULT_SOUND_PREFS: SoundPreferences = {
   volume: 0.5,
 }
 
+// Desktop notification preference types
+type DesktopNotificationPermission = 'default' | 'granted' | 'denied'
+
+interface DesktopNotificationPrefs {
+  enabled: boolean
+  showPreview: boolean // Show notification content or just "New notification"
+}
+
+const DEFAULT_DESKTOP_PREFS: DesktopNotificationPrefs = {
+  enabled: false,
+  showPreview: true,
+}
+
+// Hook for managing desktop notification permission and preferences
+function useDesktopNotifications() {
+  const [permission, setPermission] = useState<DesktopNotificationPermission>('default')
+  const [prefs, setPrefs] = useState<DesktopNotificationPrefs>(DEFAULT_DESKTOP_PREFS)
+
+  // Check initial permission and load prefs
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('Notification' in window)) return
+
+    setPermission(Notification.permission as DesktopNotificationPermission)
+
+    try {
+      const stored = localStorage.getItem('desktop-notification-prefs')
+      if (stored) {
+        setPrefs({ ...DEFAULT_DESKTOP_PREFS, ...JSON.parse(stored) })
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, [])
+
+  // Request permission
+  const requestPermission = useCallback(async (): Promise<boolean> => {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
+      return false
+    }
+
+    try {
+      const result = await Notification.requestPermission()
+      setPermission(result as DesktopNotificationPermission)
+      
+      if (result === 'granted') {
+        // Auto-enable on grant
+        setPrefs(prev => {
+          const next = { ...prev, enabled: true }
+          try {
+            localStorage.setItem('desktop-notification-prefs', JSON.stringify(next))
+          } catch { /* ignore */ }
+          return next
+        })
+        return true
+      }
+      return false
+    } catch (err) {
+      console.error('Failed to request notification permission:', err)
+      return false
+    }
+  }, [])
+
+  // Update preferences
+  const updatePrefs = useCallback((updates: Partial<DesktopNotificationPrefs>) => {
+    setPrefs(prev => {
+      const next = { ...prev, ...updates }
+      try {
+        localStorage.setItem('desktop-notification-prefs', JSON.stringify(next))
+      } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  // Show a desktop notification
+  const showNotification = useCallback((
+    title: string,
+    options?: {
+      body?: string
+      icon?: string
+      tag?: string
+      onClick?: () => void
+    }
+  ) => {
+    if (
+      typeof window === 'undefined' ||
+      !('Notification' in window) ||
+      permission !== 'granted' ||
+      !prefs.enabled
+    ) {
+      return null
+    }
+
+    try {
+      const notification = new Notification(
+        prefs.showPreview ? title : '🔔 New notification',
+        {
+          body: prefs.showPreview ? options?.body : 'Click to view',
+          icon: options?.icon || '/favicon.ico',
+          tag: options?.tag,
+          badge: '/favicon.ico',
+          silent: true, // We handle our own sounds
+        }
+      )
+
+      if (options?.onClick) {
+        notification.onclick = () => {
+          options.onClick?.()
+          notification.close()
+          window.focus()
+        }
+      }
+
+      // Auto-close after 5 seconds
+      setTimeout(() => notification.close(), 5000)
+
+      return notification
+    } catch (err) {
+      console.warn('Failed to show desktop notification:', err)
+      return null
+    }
+  }, [permission, prefs])
+
+  const isSupported = typeof window !== 'undefined' && 'Notification' in window
+
+  return {
+    permission,
+    prefs,
+    isSupported,
+    requestPermission,
+    updatePrefs,
+    showNotification,
+  }
+}
+
 const SOUND_LABELS: Record<SoundType, string> = {
   none: '🔇 None',
   subtle: '🔔 Subtle',
@@ -661,6 +795,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const prevUnreadCountRef = useRef<number>(0)
   const { prefs: soundPrefs, updatePrefs: updateSoundPrefs, playSound, testSound } = useSoundPreferences()
   const persistence = useNotificationPersistence()
+  const desktop = useDesktopNotifications()
 
   // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
@@ -801,10 +936,24 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
 
       const unreadCount = persistedNotifications.filter(n => !n.read).length
 
-      // Check if new notifications arrived and play sound
+      // Check if new notifications arrived and play sound + desktop notification
       const prevUnread = prevUnreadCountRef.current
       if (unreadCount > prevUnread && prevUnread !== 0) {
         playSound()
+        
+        // Find the newest unread notification to show as desktop notification
+        const newestUnread = persistedNotifications.find(n => !n.read)
+        if (newestUnread) {
+          const typeConfig = TYPE_CONFIG[newestUnread.type] || TYPE_CONFIG.info
+          desktop.showNotification(
+            `${typeConfig.icon} ${newestUnread.title}`,
+            {
+              body: newestUnread.message,
+              tag: 'onde-notification',
+              onClick: () => setIsOpen(true),
+            }
+          )
+        }
       }
       prevUnreadCountRef.current = unreadCount
 
@@ -1088,6 +1237,85 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                         </svg>
                         Test sound
                       </button>
+                    )}
+                    
+                    {/* Desktop notifications section */}
+                    {desktop.isSupported && (
+                      <div className="mt-3 pt-3 border-t border-white/10">
+                        <div className="text-xs font-medium text-white/70 mb-2 flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          Desktop Notifications
+                        </div>
+                        
+                        {desktop.permission === 'denied' ? (
+                          <div className="text-[10px] text-red-400/80 bg-red-500/10 rounded-lg p-2">
+                            ⛔ Notifications blocked. Enable in browser settings.
+                          </div>
+                        ) : desktop.permission === 'default' ? (
+                          <button
+                            onClick={desktop.requestPermission}
+                            className="w-full px-3 py-2 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 transition-colors flex items-center justify-center gap-2"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            Enable Desktop Notifications
+                          </button>
+                        ) : (
+                          <>
+                            {/* Enable/disable toggle */}
+                            <label className="flex items-center justify-between py-1.5 cursor-pointer group">
+                              <span className="text-xs text-white/60 group-hover:text-white/80">Show notifications</span>
+                              <button
+                                onClick={() => desktop.updatePrefs({ enabled: !desktop.prefs.enabled })}
+                                className={`w-8 h-4 rounded-full transition-colors ${
+                                  desktop.prefs.enabled ? 'bg-cyan-500' : 'bg-white/20'
+                                }`}
+                              >
+                                <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                                  desktop.prefs.enabled ? 'translate-x-4' : 'translate-x-0.5'
+                                }`} />
+                              </button>
+                            </label>
+                            
+                            {/* Show preview toggle */}
+                            <label className="flex items-center justify-between py-1.5 cursor-pointer group">
+                              <span className="text-xs text-white/60 group-hover:text-white/80">Show content preview</span>
+                              <button
+                                onClick={() => desktop.updatePrefs({ showPreview: !desktop.prefs.showPreview })}
+                                className={`w-8 h-4 rounded-full transition-colors ${
+                                  desktop.prefs.showPreview ? 'bg-cyan-500' : 'bg-white/20'
+                                }`}
+                              >
+                                <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                                  desktop.prefs.showPreview ? 'translate-x-4' : 'translate-x-0.5'
+                                }`} />
+                              </button>
+                            </label>
+                            
+                            {/* Test notification button */}
+                            {desktop.prefs.enabled && (
+                              <button
+                                onClick={() => desktop.showNotification(
+                                  '🔔 Test Notification',
+                                  {
+                                    body: 'Desktop notifications are working!',
+                                    tag: 'onde-test',
+                                  }
+                                )}
+                                className="w-full mt-1.5 px-2 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/80 hover:bg-white/10 transition-colors flex items-center justify-center gap-1"
+                              >
+                                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
+                                </svg>
+                                Test notification
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </div>
                     )}
                   </div>
                 )}
