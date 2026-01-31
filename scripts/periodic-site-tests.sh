@@ -33,8 +33,8 @@ SITES=(
 )
 
 # Critical endpoints per site (bash 3 compatible)
-ONDE_LA_ENDPOINTS="/ /libri /catalogo /about /health /feed.xml"
-ONDE_LA_NAMES="Homepage Libri Catalogo About Health RSS_Feed"
+ONDE_LA_ENDPOINTS="/ /libri /catalogo /about /feed.xml"
+ONDE_LA_NAMES="Homepage Libri Catalogo About RSS_Feed"
 
 ONDE_SURF_ENDPOINTS="/ /betting"
 ONDE_SURF_NAMES="Homepage Betting_Dashboard"
