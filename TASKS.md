@@ -12305,15 +12305,15 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Export all formats (Minecraft, Roblox, etc.) in one click
 
 ### [T973] Skin Creator: Sound Volume Control
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Add volume slider for sound effects
 
 ### [T974] Skin Creator: Mute Toggle
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Quick mute/unmute button for all sounds
