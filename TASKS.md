@@ -25,7 +25,7 @@
   - **Deliverable:** Dire a Ondinho di leggere questi file!
 
 ### [T949] Ondinho Autonomy: Notifica Ondinho per Leggere Docs
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: [T948]
 - **Blocks**: -
