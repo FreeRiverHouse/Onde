@@ -11440,3 +11440,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Tail wag trigger (depends on T876)
   - "Purr" animation (subtle body shake)
   - **AI Coding**: Use local Radeon LLM for implementation
+
+### [T932] Skin Creator: Creeper Surprise Effect
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Notes**: LLM idea - quando clicchi, appare creeper e "esplode" in pixel
