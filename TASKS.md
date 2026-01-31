@@ -12327,3 +12327,25 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Switch between front/side/back camera views
+
+### [T988] Infra: Fix GPU Detection in agent-dashboard-data.sh
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Depends**: -
+- **Priority**: P1 🔥
+- **Notes**: Lo script watchdog riportava "Radeon disconnected" ma la GPU è connessa!
+  - system_profiler SPDisplaysDataType mostra AMD correttamente
+  - Deve usare `/usr/sbin/system_profiler` con percorso completo
+  - Bug riportato da Mattia (ID:2981) - lui la sente girare!
+
+### [T989] Research: Analizza Tweet @rasmr_eth per ROADMAP
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Depends**: -
+- **Priority**: P1
+- **Notes**: Da Mattia (ID:2982)
+  - Link: https://x.com/rasmr_eth/status/2017277680325169619
+  - Studiare contenuto per sviluppi futuri
+  - Loggare insights in ROADMAP
