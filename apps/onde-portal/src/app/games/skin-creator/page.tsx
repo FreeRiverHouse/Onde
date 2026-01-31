@@ -189,6 +189,7 @@ export default function SkinCreator() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
   const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null); // Right-click menu
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
