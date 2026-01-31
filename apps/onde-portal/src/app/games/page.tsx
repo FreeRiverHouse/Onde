@@ -26,6 +26,14 @@ export default function GamingIsland() {
         </div>
       </div>
 
+      {/* Subtle rainbow in the sky */}
+      <div className="absolute top-16 left-1/4 w-64 h-32 opacity-30 pointer-events-none">
+        <div className="absolute inset-0 rounded-t-full" style={{
+          background: 'linear-gradient(180deg, transparent 50%, rgba(255,0,0,0.3) 52%, rgba(255,127,0,0.3) 56%, rgba(255,255,0,0.3) 60%, rgba(0,255,0,0.3) 64%, rgba(0,0,255,0.3) 68%, rgba(139,0,255,0.3) 72%, transparent 75%)',
+          transform: 'rotate(-15deg)'
+        }} />
+      </div>
+
       {/* Fluffy clouds */}
       <div className="absolute top-12 left-8">
         <div className="relative">
@@ -425,6 +433,66 @@ export default function GamingIsland() {
 
         {/* === DECORATIVE ELEMENTS === */}
         
+        {/* Windmill in the background */}
+        <div className="absolute bottom-[45%] right-[18%] z-0">
+          <div className="relative">
+            {/* Windmill body */}
+            <div className="w-8 h-20 bg-gradient-to-b from-amber-100 to-amber-200 rounded-t-lg shadow-lg" />
+            {/* Windmill roof */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-red-700" />
+            {/* Windmill blades */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 animate-windmill">
+              <div className="relative w-16 h-16">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-amber-800 rounded-full z-10" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-8 bg-gradient-to-b from-amber-600 to-amber-400 rounded origin-bottom" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-8 bg-gradient-to-t from-amber-600 to-amber-400 rounded origin-top" />
+                <div className="absolute top-1/2 left-0 -translate-y-1/2 w-8 h-2 bg-gradient-to-r from-amber-600 to-amber-400 rounded origin-right" />
+                <div className="absolute top-1/2 right-0 -translate-y-1/2 w-8 h-2 bg-gradient-to-l from-amber-600 to-amber-400 rounded origin-left" />
+              </div>
+            </div>
+            {/* Window */}
+            <div className="absolute top-8 left-1/2 -translate-x-1/2 w-3 h-3 bg-amber-400 rounded-sm border border-amber-600" />
+            {/* Door */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-5 bg-amber-700 rounded-t-sm" />
+          </div>
+        </div>
+        
+        {/* Pond with ducks */}
+        <div className="absolute bottom-[18%] left-[15%] z-5">
+          <div className="relative">
+            {/* Pond water */}
+            <div className="w-20 h-10 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-[50%] shadow-inner opacity-80 animate-water-shimmer">
+              {/* Water ripples */}
+              <div className="absolute inset-2 rounded-[50%] border border-white/20" />
+              <div className="absolute inset-4 rounded-[50%] border border-white/10" />
+            </div>
+            {/* Pond edge/grass */}
+            <div className="absolute -inset-1 rounded-[50%] border-2 border-green-600 -z-10" />
+            {/* Lily pad */}
+            <div className="absolute top-1 left-2 text-sm">🪷</div>
+            {/* Ducks */}
+            <div className="absolute top-0 right-3 text-lg animate-duck-swim">🦆</div>
+            <div className="absolute top-2 left-6 text-sm animate-duck-swim" style={{ animationDelay: '0.5s' }}>🦆</div>
+            {/* Baby duck following */}
+            <div className="absolute top-3 right-6 text-xs animate-duck-swim" style={{ animationDelay: '0.8s' }}>🐥</div>
+          </div>
+        </div>
+        
+        {/* Mailbox near the path */}
+        <div className="absolute bottom-[22%] left-[38%] z-5">
+          <div className="relative">
+            {/* Mailbox post */}
+            <div className="w-1.5 h-8 bg-gradient-to-b from-amber-600 to-amber-800 mx-auto" />
+            {/* Mailbox body */}
+            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-4 bg-gradient-to-b from-red-500 to-red-700 rounded-t-full shadow-md">
+              {/* Flag up */}
+              <div className="absolute top-1 -right-1 w-2 h-2 bg-red-400 animate-flag-wave" />
+            </div>
+            {/* Mail peeking out */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 text-xs">📬</div>
+          </div>
+        </div>
+
         {/* Trees */}
         <div className="absolute bottom-[34%] left-[26%]">
           <div className="text-4xl drop-shadow-lg">🌳</div>
@@ -436,7 +504,7 @@ export default function GamingIsland() {
           <div className="text-3xl drop-shadow-md">🌳</div>
         </div>
         
-        {/* Flower patches */}
+        {/* Flower patches - scattered around for more life */}
         <div className="absolute bottom-[28%] left-[32%] flex gap-1">
           <span className="text-lg animate-sway">🌸</span>
           <span className="text-sm animate-sway" style={{ animationDelay: '0.2s' }}>🌺</span>
@@ -444,6 +512,31 @@ export default function GamingIsland() {
         <div className="absolute bottom-[30%] right-[32%] flex gap-1">
           <span className="text-sm animate-sway">🌷</span>
           <span className="text-lg animate-sway" style={{ animationDelay: '0.3s' }}>🌻</span>
+        </div>
+        {/* Additional scattered flowers */}
+        <div className="absolute bottom-[24%] left-[20%]">
+          <span className="text-sm animate-sway" style={{ animationDelay: '0.1s' }}>🌼</span>
+        </div>
+        <div className="absolute bottom-[32%] left-[42%]">
+          <span className="text-base animate-sway" style={{ animationDelay: '0.4s' }}>🌷</span>
+        </div>
+        <div className="absolute bottom-[26%] right-[22%]">
+          <span className="text-sm animate-sway" style={{ animationDelay: '0.6s' }}>🌺</span>
+        </div>
+        <div className="absolute bottom-[35%] right-[40%]">
+          <span className="text-base animate-sway" style={{ animationDelay: '0.2s' }}>🌸</span>
+        </div>
+        <div className="absolute bottom-[20%] right-[48%]">
+          <span className="text-sm animate-sway" style={{ animationDelay: '0.5s' }}>🌻</span>
+        </div>
+        <div className="absolute bottom-[36%] left-[18%]">
+          <span className="text-base animate-sway" style={{ animationDelay: '0.7s' }}>🌼</span>
+        </div>
+        <div className="absolute bottom-[28%] left-[55%]">
+          <span className="text-sm animate-sway" style={{ animationDelay: '0.3s' }}>💐</span>
+        </div>
+        <div className="absolute bottom-[18%] right-[55%]">
+          <span className="text-xs animate-sway" style={{ animationDelay: '0.8s' }}>🌷</span>
         </div>
         
         {/* Rocks and nature */}
@@ -649,6 +742,24 @@ export default function GamingIsland() {
           50% { transform: translateX(-50%) scale(1.05); }
           100% { transform: translateX(-50%) scale(1); opacity: 1; }
         }
+        @keyframes windmill {
+          0% { transform: translateX(-50%) rotate(0deg); }
+          100% { transform: translateX(-50%) rotate(360deg); }
+        }
+        @keyframes duck-swim {
+          0%, 100% { transform: translateX(0) translateY(0); }
+          25% { transform: translateX(3px) translateY(-1px); }
+          50% { transform: translateX(6px) translateY(0); }
+          75% { transform: translateX(3px) translateY(1px); }
+        }
+        @keyframes water-shimmer {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.9; }
+        }
+        @keyframes flag-wave {
+          0%, 100% { transform: rotate(-5deg); }
+          50% { transform: rotate(10deg); }
+        }
         .animate-cloud { animation: cloud 8s ease-in-out infinite; }
         .animate-cloud-slow { animation: cloud-slow 12s ease-in-out infinite; }
         .animate-bird { animation: bird 6s ease-in-out infinite; }
@@ -681,6 +792,10 @@ export default function GamingIsland() {
         .animate-treasure { animation: treasure 2s ease-in-out infinite; }
         .animate-twinkle { animation: twinkle 2s ease-in-out infinite; }
         .animate-bounce-in { animation: bounce-in 0.3s ease-out forwards; }
+        .animate-windmill { animation: windmill 8s linear infinite; }
+        .animate-duck-swim { animation: duck-swim 3s ease-in-out infinite; }
+        .animate-water-shimmer { animation: water-shimmer 4s ease-in-out infinite; }
+        .animate-flag-wave { animation: flag-wave 1s ease-in-out infinite; }
       `}</style>
     </div>
   )
