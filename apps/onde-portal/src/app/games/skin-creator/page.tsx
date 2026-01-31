@@ -2142,7 +2142,7 @@ export default function SkinCreator() {
           if (isCmd) { 
             e.preventDefault(); 
             // Quick save to My Skins (Ctrl+S)
-            quickSave(false);
+            quickSaveRef.current?.(false);
           } else { 
             setTool('stamp'); playSound('click'); 
           }
@@ -2249,7 +2249,7 @@ export default function SkinCreator() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [undo, redo, selectedColor, secondaryColor, activeLayer, skinName, quickSave]);
+  }, [undo, redo, selectedColor, secondaryColor, activeLayer, skinName]);
 
   // Auto-save to localStorage when canvas changes 💾
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -6558,7 +6558,7 @@ export default function SkinCreator() {
                   touchAction: 'none', // Prevent browser touch handling for drawing
                   userSelect: 'none',
                   WebkitUserSelect: 'none',
-                  cursor: tool === 'eyedropper' ? 'copy' : 'crosshair',
+                  cursor: tool === 'eyedropper' ? 'copy' : tool === 'color-replace' ? 'cell' : 'crosshair',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { 

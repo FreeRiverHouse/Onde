@@ -4816,10 +4816,19 @@ export default function MoonlightMagicHouse() {
           <div className="mt-8 w-full max-w-md">
             <p className="text-purple-200/60 text-sm mb-3">✨ Tap the magic objects and collect treasures!</p>
             
-            {/* Interactive Room Container */}
-            <div className="relative bg-gradient-to-b from-[#2a2a4e]/60 to-[#1a1a3e]/60 rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint" style={{ minHeight: '220px' }}>
+            {/* Interactive Room Container - themed */}
+            <div 
+              className={`relative bg-gradient-to-b ${currentRoomTheme.wallGradientLight} rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint`} 
+              style={{ minHeight: '220px' }}
+            >
+              {/* Wallpaper pattern */}
+              <WallpaperPatternSVG pattern={currentWallpaper} color={currentRoomTheme.windowTint} />
+              
               {/* Room warm glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-orange-500/5 via-transparent to-transparent pointer-events-none" />
+              <div 
+                className="absolute inset-0 rounded-3xl pointer-events-none"
+                style={{ background: `radial-gradient(ellipse at center 80%, ${currentRoomTheme.glowColor}, transparent 60%)` }}
+              />
               
               {/* ✨ COLLECTIBLE ITEMS ✨ */}
               {collectibles.filter(item => !item.collected).map((item) => (
@@ -5000,6 +5009,20 @@ export default function MoonlightMagicHouse() {
             )}
           </div>
         </div>
+        
+        {/* Room customize button */}
+        <RoomCustomizeButton onClick={() => setShowRoomCustomizer(true)} soundEnabled={soundEnabled} />
+        
+        {/* Room customization panel */}
+        <RoomCustomizationPanel
+          isOpen={showRoomCustomizer}
+          onClose={() => setShowRoomCustomizer(false)}
+          currentTheme={currentRoomTheme}
+          currentWallpaper={currentWallpaper}
+          onThemeChange={handleThemeChange}
+          onWallpaperChange={handleWallpaperChange}
+          soundEnabled={soundEnabled}
+        />
       </div>
     )
   }
@@ -5494,7 +5517,6 @@ export default function MoonlightMagicHouse() {
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <MagicalBackground intense />
         <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
-        <WeatherToggle weather={weather} onCycle={cycleWeather} soundEnabled={soundEnabled} />
         
         {/* Extra celebration sparkles - optimized with CSS variables */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
