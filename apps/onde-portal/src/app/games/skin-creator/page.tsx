@@ -4546,6 +4546,13 @@ export default function SkinCreator() {
             >
               🗑️ <span className="hidden sm:inline">Clear</span>
             </button>
+            <button
+              onClick={generateRandomSkin}
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white hover:from-yellow-500 hover:via-pink-600 hover:to-purple-600 active:scale-95 animate-pulse"
+              title="🎲 Surprise! Generate a random fun skin!"
+            >
+              🎲 <span className="hidden sm:inline">Random!</span>
+            </button>
             <div className="hidden md:flex items-center gap-1 ml-2">
               <button
                 onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
