@@ -11039,7 +11039,7 @@
   - Useful when base skin is finalized
 
 ### [T906] Skin Creator: Swap Layers Content
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T904]
 - **Blocks**: -
@@ -11868,3 +11868,24 @@ Generated: 2026-01-30T18:37:46.867013
   - Vera latenza query: ~800-900ms
   - Aggiornare watchdog per mostrare latenza reale
   - Non è un problema, è normale per LLM locale
+
+### [T952] Skin Creator: Glow Toggle Button in UI
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Aggiungere toggle ✨ Glow per ogni layer nel pannello Layers
+
+### [T953] Skin Creator: Save/Load Skin to Browser Storage
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Salvare skin in localStorage, lista "My Skins", caricare veloce
+
+### [T954] Skin Creator: Share Skin Link
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Generare link condivisibile (base64 encoded skin data)
