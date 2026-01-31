@@ -13004,8 +13004,9 @@ Generated: 2026-01-30T18:37:46.867013
   - ⏳ Swipe gestures for tools (future enhancement)
 
 ### [T1047] Skin Creator: Alex/Slim Model Toggle
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:05 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
@@ -13016,8 +13017,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Export corretto per entrambi
 
 ### [T1048] Skin Creator: GIF Export Animato
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
@@ -13028,8 +13029,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Download diretto
 
 ### [T1049] Skin Creator: Gradient Tool
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
