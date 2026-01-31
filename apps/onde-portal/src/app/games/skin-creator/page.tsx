@@ -3420,6 +3420,18 @@ export default function SkinCreator() {
                       <p className="text-sm text-gray-500">Browse and share skins!</p>
                     </div>
                   </div>
+                  <a
+                    href="https://youtube.com/@OndeUniverse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-red-50 rounded-xl hover:bg-red-100 transition-colors"
+                  >
+                    <span className="text-2xl">📺</span>
+                    <div>
+                      <p className="font-bold">Video Tutorials</p>
+                      <p className="text-sm text-gray-500">Watch step-by-step guides!</p>
+                    </div>
+                  </a>
                 </div>
               </>
             )}
