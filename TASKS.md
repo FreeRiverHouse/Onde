@@ -12787,3 +12787,41 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @mattia
 - **Priority**: P0
 - **Notes**: Screenshot apps + ask GROK for professional feedback and improvement suggestions
+
+
+### [T1031] Infra: Add push-tasks-to-gist.py to Crontab
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Created**: 2026-01-30
+- **Priority**: P2
+- **Notes**: Add task sync to cron for continuous dashboard updates
+  - [ ] Add */10 * * * * python3 scripts/push-tasks-to-gist.py to crontab
+  - [ ] Verify GITHUB_GIST_TOKEN is set in environment
+  - [ ] Test Gist updates
+
+### [T1032] Dashboard FRH: Deploy with Task Management Panel
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Created**: 2026-01-30
+- **Depends**: [T934]
+- **Priority**: P1
+- **Notes**: Deploy onde.surf with new Task Management Panel
+  - [ ] npm run build:cf
+  - [ ] Deploy to Cloudflare Pages
+  - [ ] Verify /frh page loads correctly
+  - [ ] Verify /api/tasks returns data
+
+### [T1033] Dashboard FRH: Add Task Priority Heat Badge
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Created**: 2026-01-30
+- **Depends**: [T934]
+- **Priority**: P3
+- **Notes**: Visual indicator for high-priority work queue
+  - [ ] Show "🔥 X urgent" badge when P0 tasks exist
+  - [ ] Show "⚡ X high priority" for P1 tasks
+  - [ ] Add to stats row in TaskManagementPanel
+
