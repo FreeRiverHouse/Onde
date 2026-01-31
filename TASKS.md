@@ -38,8 +38,8 @@
   - **Ondinho deve**: MAI fermarsi, sempre prendere prossimo task, reportare ogni ora
 
 ### [T950] Ondinho Autonomy: Watchdog per Verifica Attività
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Depends**: [T948]
 - **Blocks**: -
 - **Priority**: P1
