@@ -2132,16 +2132,14 @@ export default function SkinCreator() {
                 className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none"
                 onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
               />
-              {localLLMAvailable && (
-                <button
-                  onClick={enhancePrompt}
-                  disabled={enhancing || !aiPrompt.trim()}
-                  className="px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-xl font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
-                  title="Enhance with AI (local LLM)"
-                >
-                  {enhancing ? '⏳' : '✨'}
-                </button>
-              )}
+              <button
+                onClick={enhancePrompt}
+                disabled={enhancing || !aiPrompt.trim()}
+                className="px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-xl font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
+                title="Enhance with AI (local LLM)"
+              >
+                {enhancing ? '⏳' : '✨'}
+              </button>
             </div>
             
             {/* 📚 Kid-Friendly Prompt Library */}
