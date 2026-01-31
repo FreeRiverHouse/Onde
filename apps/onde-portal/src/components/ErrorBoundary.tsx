@@ -47,10 +47,10 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="max-w-md text-center">
             <div className="text-6xl mb-4">🌊</div>
             <h2 className="text-2xl font-display font-bold text-onde-ocean mb-4">
-              Oops, something went wrong
+              Oops, qualcosa è andato storto
             </h2>
             <p className="text-onde-ocean/60 mb-6">
-              We hit an unexpected wave. Please try refreshing the page.
+              Abbiamo incontrato un'onda anomala. Prova a ricaricare la pagina.
             </p>
             <div className="flex gap-4 justify-center">
               <button
@@ -58,14 +58,14 @@ export default class ErrorBoundary extends Component<Props, State> {
                 className="px-6 py-3 rounded-xl bg-onde-ocean text-white font-semibold
                          hover:bg-onde-ocean/90 transition-colors"
               >
-                Try Again
+                Riprova
               </button>
               <a
                 href="/"
                 className="px-6 py-3 rounded-xl bg-onde-ocean/10 text-onde-ocean font-semibold
                          hover:bg-onde-ocean/20 transition-colors"
               >
-                Go Home
+                Torna alla Home
               </a>
             </div>
             {process.env.NODE_ENV === 'development' && this.state.error && (
