@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useMemo, useState, useEffect, useCallback } from 'react'
+import { useRef, useMemo, useState, useEffect, useCallback, memo } from 'react'
 import { 
   GradientText, 
   Card3D, 
@@ -17,8 +17,24 @@ import {
 } from '@/components/ui/aceternity'
 import { useTranslations } from '@/i18n'
 
-// Particle for ambient background - Ocean bubbles
-function Particle({ index }: { index: number }) {
+// Hook to detect reduced motion preference
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
+  
+  return prefersReducedMotion
+}
+
+// Memoized Particle for ambient background - Ocean bubbles
+const Particle = memo(function Particle({ index }: { index: number }) {
   // Ocean colors - soft blues, teals, and sparkles
   const colors = ['#5EEAD4', '#67E8F9', '#A5F3FC', '#FFFFFF', '#FDE68A']
   const color = colors[index % colors.length]
@@ -53,7 +69,7 @@ function Particle({ index }: { index: number }) {
       }}
     />
   )
-}
+})
 
 // Books data
 const books = [

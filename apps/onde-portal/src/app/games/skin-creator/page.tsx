@@ -2109,11 +2109,11 @@ export default function SkinCreator() {
         />
       ))}
       {/* Header */}
-      <div className="text-center mb-6 relative">
-        {/* Mobile Menu Button */}
+      <div className="text-center mb-4 md:mb-6 relative px-12 md:px-0">
+        {/* Mobile Menu Button - More prominent */}
         <button
           onClick={() => setShowMobileMenu(!showMobileMenu)}
-          className="md:hidden absolute left-0 top-0 p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-all"
+          className="md:hidden absolute left-0 top-0 w-11 h-11 bg-white/30 rounded-xl hover:bg-white/40 active:scale-95 transition-all flex items-center justify-center shadow-lg"
           aria-label="Menu"
         >
           <span className="text-2xl">{showMobileMenu ? '✕' : '☰'}</span>
@@ -2841,15 +2841,15 @@ export default function SkinCreator() {
             </div>
           </div>
 
-          {/* Brush Size */}
-          <div className="flex items-center justify-center gap-2 mb-3">
+          {/* Brush Size - Mobile friendly */}
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-3">
             <span className="text-sm font-semibold">Brush:</span>
             {[1, 2, 3].map((size) => (
               <button
                 key={size}
                 onClick={() => setBrushSize(size)}
-                className={`w-8 h-8 rounded-full font-bold ${
-                  brushSize === size ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                className={`min-w-[44px] min-h-[44px] md:w-10 md:h-10 rounded-full font-bold text-lg active:scale-95 transition-all ${
+                  brushSize === size ? 'bg-blue-500 text-white scale-110' : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
                 {size}
@@ -2857,12 +2857,12 @@ export default function SkinCreator() {
             ))}
           </div>
 
-          {/* Body Part Selector */}
-          <div className="flex flex-wrap gap-1 mb-3 justify-center">
+          {/* Body Part Selector - Mobile friendly with scrollable on small screens */}
+          <div className="flex flex-wrap gap-1.5 mb-3 justify-center px-1 max-w-full overflow-x-auto pb-1" style={{ WebkitOverflowScrolling: 'touch' }}>
             <button
               onClick={() => setSelectedPart(null)}
-              className={`px-2 py-1 rounded text-sm font-bold ${
-                !selectedPart ? 'bg-purple-500 text-white' : 'bg-gray-200'
+              className={`min-h-[36px] px-3 py-1.5 rounded-lg text-sm font-bold whitespace-nowrap active:scale-95 transition-all ${
+                !selectedPart ? 'bg-purple-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
               }`}
             >
               🎯 All
@@ -2871,8 +2871,8 @@ export default function SkinCreator() {
               <button
                 key={key}
                 onClick={() => setSelectedPart(key)}
-                className={`px-2 py-1 rounded text-sm font-bold ${
-                  selectedPart === key ? 'bg-purple-500 text-white' : 'bg-gray-200'
+                className={`min-h-[36px] px-3 py-1.5 rounded-lg text-sm font-bold whitespace-nowrap active:scale-95 transition-all ${
+                  selectedPart === key ? 'bg-purple-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
                 {part.label}
@@ -2881,28 +2881,28 @@ export default function SkinCreator() {
           </div>
 
           {/* Canvas with Grid Controls */}
-          <div className="flex flex-col items-center gap-2">
-            {/* Zoom and Grid Controls */}
-            <div className="flex items-center gap-2 bg-white/80 rounded-full px-3 py-1.5 shadow">
+          <div className="flex flex-col items-center gap-2 w-full">
+            {/* Zoom and Grid Controls - Mobile friendly */}
+            <div className="flex items-center gap-1.5 md:gap-2 bg-white/80 rounded-full px-2 md:px-3 py-1.5 shadow flex-wrap justify-center">
               <button
                 onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
-                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm"
+                className="w-9 h-9 md:w-7 md:h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm active:scale-95"
                 title="Zoom out (-)"
               >
                 −
               </button>
-              <span className="text-sm font-bold w-12 text-center">{zoomLevel}x</span>
+              <span className="text-sm font-bold w-10 md:w-12 text-center">{zoomLevel}x</span>
               <button
-                onClick={() => setZoomLevel(Math.min(12, zoomLevel + 1))}
-                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm"
+                onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
+                className="w-9 h-9 md:w-7 md:h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm active:scale-95"
                 title="Zoom in (+)"
               >
                 +
               </button>
-              <div className="w-px h-5 bg-gray-300 mx-1"></div>
+              <div className="w-px h-5 bg-gray-300 mx-1 hidden sm:block"></div>
               <button
                 onClick={() => setShowGrid(!showGrid)}
-                className={`px-2 py-1 rounded-full text-xs font-bold transition-all ${
+                className={`min-w-[44px] min-h-[36px] md:min-w-0 md:min-h-0 px-2 py-1 rounded-full text-xs font-bold transition-all active:scale-95 ${
                   showGrid
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
@@ -2911,34 +2911,36 @@ export default function SkinCreator() {
               >
                 {showGrid ? '▦' : '▢'} Grid
               </button>
-              <div className="w-px h-5 bg-gray-300 mx-1"></div>
-              {/* Zoom Presets */}
-              {[2, 4, 6, 8].map(z => (
-                <button
-                  key={z}
-                  onClick={() => setZoomLevel(z)}
-                  className={`w-6 h-6 rounded text-xs font-bold transition-all ${
-                    zoomLevel === z
-                      ? 'bg-purple-500 text-white'
-                      : 'bg-gray-200 hover:bg-gray-300'
-                  }`}
-                  title={`Zoom ${z}x`}
-                >
-                  {z}
-                </button>
-              ))}
+              <div className="w-px h-5 bg-gray-300 mx-1 hidden md:block"></div>
+              {/* Zoom Presets - Hidden on mobile, shown on larger screens */}
+              <div className="hidden md:flex items-center gap-1">
+                {[2, 4, 6, 8].map(z => (
+                  <button
+                    key={z}
+                    onClick={() => setZoomLevel(z)}
+                    className={`w-8 h-8 rounded text-xs font-bold transition-all active:scale-95 ${
+                      zoomLevel === z
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-gray-200 hover:bg-gray-300'
+                    }`}
+                    title={`Zoom ${z}x`}
+                  >
+                    {z}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Canvas */}
-            <div className="relative">
+            {/* Canvas - with overflow scroll for mobile */}
+            <div className="relative overflow-auto max-w-full pb-2" style={{ WebkitOverflowScrolling: 'touch' }}>
               {/* Floating Help Tip */}
               {!helpTipDismissed['canvas'] && (
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-                  <div className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg flex items-center gap-2">
-                    👆 Click and drag to draw!
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-10 animate-bounce pointer-events-auto">
+                  <div className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg flex items-center gap-2 whitespace-nowrap">
+                    👆 Tap and drag to draw!
                     <button 
                       onClick={() => dismissTip('canvas')}
-                      className="ml-1 hover:bg-blue-600 rounded-full w-5 h-5 text-xs"
+                      className="ml-1 hover:bg-blue-600 rounded-full w-6 h-6 text-xs active:scale-95"
                     >
                       ✕
                     </button>
@@ -2947,22 +2949,26 @@ export default function SkinCreator() {
                 </div>
               )}
             <div
-              className="relative rounded-xl p-1"
+              className="relative rounded-xl p-1 mx-auto"
               style={{
                 backgroundImage: 'repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%)',
-                backgroundSize: '12px 12px'
+                backgroundSize: '12px 12px',
+                width: 'fit-content'
               }}
             >
               <canvas
                 ref={canvasRef}
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
-                className="cursor-crosshair"
+                className="cursor-crosshair block"
                 style={{
                   width: SKIN_WIDTH * zoomLevel,
                   height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
-                  transition: 'all 0.2s ease',
+                  transition: 'width 0.2s ease, height 0.2s ease',
+                  touchAction: 'none', // Prevent browser touch handling for drawing
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
@@ -3552,10 +3558,10 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* 📤 Export Panel */}
+      {/* 📤 Export Panel - Mobile optimized */}
       {showExportPanel && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
+          <div className="bg-white rounded-t-3xl md:rounded-2xl p-4 md:p-6 w-full md:max-w-md md:m-4 shadow-2xl max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()} style={{ WebkitOverflowScrolling: 'touch' }}>
             <h3 className="text-xl font-bold mb-4">📤 Export Skin</h3>
             <p className="text-sm text-gray-600 mb-4">Choose which layers to include in your export:</p>
 
@@ -3606,76 +3612,100 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Drawer - Improved touch interactions */}
       {showMobileMenu && (
         <div className="md:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileMenu(false)}>
           <div 
-            className="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-2xl p-4 transform transition-transform"
+            className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl p-4 transform transition-transform overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold">🎨 Menu</h3>
-              <button onClick={() => setShowMobileMenu(false)} className="text-2xl">✕</button>
+              <button 
+                onClick={() => setShowMobileMenu(false)} 
+                className="w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-gray-100 active:scale-95"
+              >
+                ✕
+              </button>
             </div>
             
             <nav className="space-y-2">
               <button
                 onClick={() => { setViewMode('editor'); setShowMobileMenu(false); }}
-                className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
-                  viewMode === 'editor' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'
+                className={`w-full text-left px-4 py-4 rounded-xl font-bold transition-all active:scale-[0.98] ${
+                  viewMode === 'editor' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100 active:bg-gray-200'
                 }`}
               >
                 🎨 Editor
               </button>
               <button
                 onClick={() => { setViewMode('gallery'); setShowMobileMenu(false); }}
-                className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
-                  viewMode === 'gallery' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-100'
+                className={`w-full text-left px-4 py-4 rounded-xl font-bold transition-all active:scale-[0.98] ${
+                  viewMode === 'gallery' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-100 active:bg-gray-200'
                 }`}
               >
                 🖼️ Gallery
               </button>
+              <a
+                href="/games/skin-creator/gallery"
+                onClick={() => setShowMobileMenu(false)}
+                className="block w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
+              >
+                ✨ Templates
+              </a>
               
               <hr className="my-4" />
               
               <button
                 onClick={() => { setShowAIPanel(true); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 🤖 AI Generator
               </button>
               <button
                 onClick={() => { setShowLayerPanel(!showLayerPanel); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 🎨 Layers
               </button>
               <button
                 onClick={() => { setShowURLImport(true); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 🌐 Import from URL
               </button>
               <button
-                onClick={() => { setShowShortcuts(true); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                onClick={() => { setShowMySkins(!showMySkins); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
-                ⌨️ Shortcuts
+                📂 My Skins ({savedSkins.length})
               </button>
               
               <hr className="my-4" />
               
               <button
                 onClick={() => { setDarkMode(!darkMode); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
               </button>
               <button
+                onClick={() => { setSoundMuted(!soundMuted); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
+              >
+                {soundMuted ? '🔇 Unmute Sounds' : '🔊 Mute Sounds'}
+              </button>
+              <button
                 onClick={() => { setShowTutorial(true); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
               >
                 📚 Tutorial
+              </button>
+              <button
+                onClick={() => { setShowShortcuts(true); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-4 rounded-xl font-bold hover:bg-gray-100 active:bg-gray-200 active:scale-[0.98] transition-all"
+              >
+                ⌨️ Keyboard Shortcuts
               </button>
             </nav>
           </div>
@@ -3850,10 +3880,10 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* URL Import Modal */}
+      {/* URL Import Modal - Mobile optimized */}
       {showURLImport && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowURLImport(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowURLImport(false)}>
+          <div className="bg-white rounded-t-3xl md:rounded-2xl p-4 md:p-6 w-full md:max-w-md md:m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">🌐 Import from URL</h3>
               <button
@@ -3907,10 +3937,10 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* AI Panel */}
+      {/* AI Panel - Mobile optimized */}
       {showAIPanel && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowAIPanel(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowAIPanel(false)}>
+          <div className="bg-white rounded-t-3xl md:rounded-2xl p-4 md:p-6 w-full md:max-w-md md:m-4 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()} style={{ WebkitOverflowScrolling: 'touch' }}>
             <h3 className="text-xl font-bold mb-2">🤖 AI Skin Generator</h3>
             <p className="text-sm text-gray-600 mb-4">Describe your character and AI will create a skin!</p>
 
@@ -4261,30 +4291,33 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* Layer Panel Toggle Button */}
-      <button
-        onClick={() => setShowLayerPanel(!showLayerPanel)}
-        className={`fixed bottom-4 left-16 w-10 h-10 rounded-full shadow-lg text-xl hover:scale-110 transition-transform ${
-          showLayerPanel ? 'bg-blue-500 text-white' : 'bg-white/90'
-        }`}
-        title="Toggle Layers (L)"
-      >
-        🎨
-      </button>
-
-      {/* AI Button */}
-      <button
-        onClick={() => setShowAIPanel(true)}
-        className="fixed bottom-4 left-4 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 transition-transform"
-        title="AI Skin Generator"
-      >
-        🤖
-      </button>
+      {/* Floating Action Buttons - Mobile-friendly with proper spacing */}
+      <div className="fixed bottom-20 md:bottom-4 left-4 flex flex-col md:flex-row gap-2 z-30">
+        {/* AI Button */}
+        <button
+          onClick={() => setShowAIPanel(true)}
+          className="w-12 h-12 md:w-10 md:h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center"
+          title="AI Skin Generator"
+        >
+          🤖
+        </button>
+        
+        {/* Layer Panel Toggle Button */}
+        <button
+          onClick={() => setShowLayerPanel(!showLayerPanel)}
+          className={`w-12 h-12 md:w-10 md:h-10 rounded-full shadow-lg text-xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center ${
+            showLayerPanel ? 'bg-blue-500 text-white' : 'bg-white/90'
+          }`}
+          title="Toggle Layers (L)"
+        >
+          🎨
+        </button>
+      </div>
 
       {/* Help Button */}
       <button
         onClick={() => setShowHelp(true)}
-        className="fixed bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full shadow-lg text-xl font-bold hover:scale-110 transition-transform"
+        className="fixed bottom-20 md:bottom-4 right-4 w-12 h-12 md:w-10 md:h-10 bg-white/90 rounded-full shadow-lg text-xl font-bold hover:scale-110 active:scale-95 transition-transform flex items-center justify-center z-30"
         title="Keyboard shortcuts (?)"
       >
         ?
@@ -4295,8 +4328,8 @@ export default function SkinCreator() {
         Made with 💖 by Onde • Works with Minecraft Java & Bedrock!
       </p>
 
-      {/* 🎨 Bouncing Mascots */}
-      <div className="fixed bottom-0 left-0 right-0 h-16 flex justify-around items-end pointer-events-none overflow-hidden">
+      {/* 🎨 Bouncing Mascots - Hidden on mobile to avoid interference */}
+      <div className="hidden md:flex fixed bottom-0 left-0 right-0 h-16 justify-around items-end pointer-events-none overflow-hidden">
         <span className="text-4xl animate-bounce" style={{ animationDelay: '0s' }}>🎨</span>
         <span className="text-4xl animate-bounce" style={{ animationDelay: '0.2s' }}>🖌️</span>
         <span className="text-4xl animate-bounce" style={{ animationDelay: '0.4s' }}>⛏️</span>

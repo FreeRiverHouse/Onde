@@ -16,6 +16,26 @@ const nextConfig = {
   },
   // Skip API routes in static export
   trailingSlash: true,
+  
+  // Performance optimizations
+  experimental: {
+    // Optimize package imports for tree-shaking
+    optimizePackageImports: ['framer-motion', 'three', '@radix-ui/react-slot'],
+  },
+  
+  // Compiler optimizations
+  compiler: {
+    // Remove console logs in production
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
+  
+  // Modularize imports for better tree-shaking
+  modularizeImports: {
+    'framer-motion': {
+      transform: 'framer-motion/{{member}}',
+      skipDefaultConversion: true,
+    },
+  },
 }
 
 export default nextConfig
