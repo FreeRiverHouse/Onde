@@ -12561,8 +12561,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Unlock achievements for drawing, saving, sharing
 
 ### [T1004] Skin Creator: Daily Challenge
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Daily theme/prompt for skin creation
