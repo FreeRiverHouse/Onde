@@ -10414,9 +10414,9 @@
   - Toggle visibilità layer
   - Export con/senza overlay
 
-### [T880] Skin Creator: AI Skin Generation
-- **Status**: TODO
-- **Owner**: -
+### [T880] Skin Creator: AI Skin Generation (LOCKED)
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P1
