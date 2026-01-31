@@ -734,6 +734,16 @@ export default function SkinCreator() {
   const particleIdRef = useRef(0);
   const audioContextRef = useRef<AudioContext | null>(null);
   const [soundMuted, setSoundMuted] = useState(false);
+  const [exportHistory, setExportHistory] = useState<{timestamp: number, format: string}[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return JSON.parse(localStorage.getItem('skin-export-history') || '[]');
+  });
+  const logExport = (format: string) => {
+    const entry = { timestamp: Date.now(), format };
+    const updated = [...exportHistory, entry].slice(-20); // Keep last 20
+    setExportHistory(updated);
+    localStorage.setItem('skin-export-history', JSON.stringify(updated));
+  };
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const maxHistory = 50;
@@ -1617,6 +1627,7 @@ export default function SkinCreator() {
     setTimeout(() => setShowConfetti(false), 3000);
     setShowExportPanel(false);
     unlockAchievement('downloaded'); // 🏆 Downloaded achievement!
+    logExport('PNG'); // 📊 Track export
   };
 
   // Export only base layer (skin without clothing/accessories)
