@@ -17,6 +17,9 @@ const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 // Gallery component
 const SkinGallery = dynamic(() => import('../components/SkinGallery'), { ssr: false });
 
+// 🌟 Skin of the Day - Featured rotation
+const SkinOfTheDay = dynamic(() => import('./components/SkinOfTheDay'), { ssr: false });
+
 // View modes
 type ViewMode = 'editor' | 'gallery';
 
@@ -1914,8 +1917,15 @@ export default function SkinCreator() {
         case 'delete':
         case 'backspace':
           if (e.shiftKey) {
-            // Shift+Delete = clear current layer
-            clearLayer(activeLayer);
+            // Shift+Delete = clear current layer (inline to avoid dep issues)
+            const layerCanvas = layerCanvasRefs.current[activeLayer];
+            if (layerCanvas) {
+              const ctx = layerCanvas.getContext('2d');
+              if (ctx) {
+                ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+                // Recomposite will happen via the effect watching layers
+              }
+            }
             playSound('click');
           }
           break;
@@ -1923,7 +1933,8 @@ export default function SkinCreator() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, selectedColor, secondaryColor, activeLayer, clearLayer, skinName]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [undo, redo, selectedColor, secondaryColor, activeLayer, skinName]);
 
   // Auto-save to localStorage when canvas changes 💾
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -4074,6 +4085,48 @@ export default function SkinCreator() {
           </a>
         </div>
       </div>
+
+      {/* 🌟 SKIN OF THE DAY - Featured Rotation */}
+      {viewMode === 'editor' && (
+        <div className="w-full max-w-6xl px-2 mt-6 mb-4 skin-animate-in delay-350">
+          <SkinOfTheDay
+            onUseSkin={(skinData: string, skinName: string) => {
+              // Load the featured skin into the canvas
+              const img = new Image();
+              img.onload = () => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+                
+                // Clear and draw the skin
+                ctx.clearRect(0, 0, 64, 64);
+                ctx.drawImage(img, 0, 0);
+                
+                // Also update the base layer canvas
+                const baseLayerCanvas = getLayerCanvas('base');
+                const baseCtx = baseLayerCanvas.getContext('2d');
+                if (baseCtx) {
+                  baseCtx.clearRect(0, 0, 64, 64);
+                  baseCtx.drawImage(img, 0, 0);
+                }
+                
+                // Composite and update preview
+                compositeLayersToMain();
+                updatePreview();
+                saveState();
+                setSkinName(skinName.toLowerCase().replace(/\s+/g, '-'));
+                playSound('download');
+                
+                // Show a nice success message via confetti
+                setShowConfetti(true);
+                setTimeout(() => setShowConfetti(false), 3000);
+              };
+              img.src = skinData;
+            }}
+          />
+        </div>
+      )}
 
       {/* Gallery View */}
       {viewMode === 'gallery' && (

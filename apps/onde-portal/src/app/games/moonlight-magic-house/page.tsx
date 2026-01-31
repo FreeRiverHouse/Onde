@@ -497,6 +497,68 @@ const sounds = {
       o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.25)
     })
     haptic.double()
+  },
+
+  // ========== COLLECTIBLE SOUNDS ==========
+
+  // Star collect - bright ascending chime
+  collectStar: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [659, 880, 1047, 1319] // E-A-C-E high sparkle
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.06)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.06)
+      g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + i * 0.06 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.2)
+      o.start(ctx.currentTime + i * 0.06); o.stop(ctx.currentTime + i * 0.06 + 0.2)
+    })
+    haptic.success()
+  },
+
+  // Heart collect - warm loving tone
+  collectHeart: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [392, 523, 659] // G-C-E warm chord
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.05)
+      o.type = 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.05)
+      g.gain.linearRampToValueAtTime(0.14, ctx.currentTime + i * 0.05 + 0.03)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.05 + 0.35)
+      o.start(ctx.currentTime + i * 0.05); o.stop(ctx.currentTime + i * 0.05 + 0.35)
+    })
+    haptic.celebration()
+  },
+
+  // Gem collect - crystalline shimmer
+  collectGem: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Crystal resonance - two detuned oscillators
+    for (let j = 0; j < 2; j++) {
+      const notes = [784, 988, 1175, 1568] // G-B-D-G crystal
+      notes.forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain()
+        o.connect(g); g.connect(ctx.destination)
+        o.frequency.setValueAtTime(f + (j * 3), ctx.currentTime + i * 0.04)
+        o.type = 'sine'
+        g.gain.setValueAtTime(0, ctx.currentTime + i * 0.04)
+        g.gain.linearRampToValueAtTime(0.08, ctx.currentTime + i * 0.04 + 0.01)
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.04 + 0.3)
+        o.start(ctx.currentTime + i * 0.04); o.stop(ctx.currentTime + i * 0.04 + 0.3)
+      })
+    }
+    haptic.success()
   }
 }
 
@@ -536,6 +598,18 @@ type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
 interface Rewards {
   treats: number
   toys: number
+  stars: number
+}
+
+// Collectible item type
+interface CollectibleItem {
+  id: string
+  type: 'star' | 'heart' | 'gem'
+  x: number
+  y: number
+  points: number
+  collected: boolean
+  spawnTime: number
 }
 
 // Hidden spot type for Find the Toy game
@@ -1334,6 +1408,161 @@ const animationStyles = `
     .animate-carpet-levitate,
     .animate-mirror-sparkle,
     .animate-mirror-wave {
+      animation: none !important;
+    }
+  }
+
+  /* ========== COLLECTIBLE ITEM ANIMATIONS ========== */
+
+  /* Collectible spawn - pop in with sparkle */
+  @keyframes collectible-spawn {
+    0% {
+      transform: scale(0) rotate(-180deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.3) rotate(10deg);
+      opacity: 1;
+    }
+    75% {
+      transform: scale(0.9) rotate(-5deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  /* Collectible idle - gentle float and glow */
+  @keyframes collectible-idle {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 8px var(--glow-color, rgba(255, 215, 0, 0.6)));
+    }
+    50% {
+      transform: translateY(-6px) scale(1.05);
+      filter: drop-shadow(0 0 15px var(--glow-color, rgba(255, 215, 0, 0.9)));
+    }
+  }
+
+  /* Collectible collect - burst away */
+  @keyframes collectible-collect {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    30% {
+      transform: scale(1.5) rotate(15deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0) rotate(360deg) translateY(-50px);
+      opacity: 0;
+    }
+  }
+
+  /* Star specific rotation */
+  @keyframes star-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Heart pulse */
+  @keyframes heart-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+  }
+
+  /* Gem shimmer */
+  @keyframes gem-shimmer {
+    0%, 100% {
+      filter: hue-rotate(0deg) brightness(1);
+    }
+    50% {
+      filter: hue-rotate(30deg) brightness(1.3);
+    }
+  }
+
+  /* Points popup */
+  @keyframes points-popup {
+    0% {
+      transform: translateY(0) scale(0.5);
+      opacity: 0;
+    }
+    20% {
+      transform: translateY(-10px) scale(1.2);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(-40px) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-60px) scale(0.8);
+      opacity: 0;
+    }
+  }
+
+  /* Animation classes for collectibles */
+  .animate-collectible-spawn {
+    animation: collectible-spawn 0.6s var(--ease-out-back) forwards;
+  }
+
+  .animate-collectible-idle {
+    animation: collectible-idle 2s var(--ease-in-out-smooth) infinite;
+  }
+
+  .animate-collectible-collect {
+    animation: collectible-collect 0.5s var(--ease-out-expo) forwards;
+  }
+
+  .animate-star-rotate {
+    animation: star-rotate 8s linear infinite;
+  }
+
+  .animate-heart-pulse {
+    animation: heart-pulse 1s var(--ease-in-out-smooth) infinite;
+  }
+
+  .animate-gem-shimmer {
+    animation: gem-shimmer 2s var(--ease-in-out-smooth) infinite;
+  }
+
+  .animate-points-popup {
+    animation: points-popup 1s var(--ease-out-expo) forwards;
+  }
+
+  /* Collectible hover effect */
+  .collectible-hover {
+    cursor: pointer;
+    transition: transform 0.15s var(--ease-out-back);
+  }
+
+  .collectible-hover:hover {
+    transform: scale(1.2);
+  }
+
+  .collectible-hover:active {
+    transform: scale(0.9);
+  }
+
+  /* Reduced motion for collectibles */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-collectible-spawn,
+    .animate-collectible-idle,
+    .animate-collectible-collect,
+    .animate-star-rotate,
+    .animate-heart-pulse,
+    .animate-gem-shimmer,
+    .animate-points-popup {
       animation: none !important;
     }
   }
