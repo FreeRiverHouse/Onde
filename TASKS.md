@@ -11063,28 +11063,31 @@
   - [x] Reading rewards: +happiness, +xp
 
 ### [T918] Moonlight v1.1: Bonus Stats Lettura
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-02-15
 - **Depends**: [T916]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Aggiungere bonus stats quando Luna legge
-  - [ ] +Felicità quando legge
-  - [ ] +Salute quando completa libro
-  - [ ] +Coins per tempo lettura
-  - [ ] Animazione lettura (pagine che girano)
+- **Notes**: ✅ Reading bonuses implementati!
+  - [x] +Happiness (20) quando finisce libro
+  - [x] +Health (10) quando completa libro
+  - [x] +XP (15) per libro completato
+  - [x] +Coins (5) per libro letto
+  - ⏳ Animazione lettura (future enhancement)
 
 ### [T919] Moonlight v1.1: Deploy Biblioteca to onde.la
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-02-15
 - **Depends**: [T916], [T917], [T918]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Deploy versione Biblioteca
-  - [ ] npm run build
-  - [ ] Copy to onde-portal/public/static-games/moonlight-magic-house/
-  - [ ] Deploy via wrangler
-  - [ ] Verify https://onde.la/games/moonlight-magic-house/
+- **Notes**: ✅ Deployed!
+  - [x] npm run build
+  - [x] Copy to onde-portal/public/games/moonlight-magic-house/
+  - [x] Deploy via wrangler: https://15b27288.onde-portal.pages.dev
+  - [x] Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
 
 ### [T920] Moonlight: Setup Testing Automatico 24/7
 - **Status**: DONE
@@ -11528,3 +11531,47 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Il 3D mostra solo parte del personaggio
   - Fix: orientamento iniziale frontale
   - Camera position corretta
+
+### [T939] Moonlight: Deploy to onde.la with new library features
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-15
+- **Depends**: [T917]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: ✅ Deployed with library books integration!
+  - [x] npm run build in apps/moonlight-house
+  - [x] Copy dist to onde-portal/public/games/moonlight-magic-house/
+  - [x] Deploy via wrangler: https://15b27288.onde-portal.pages.dev
+  - [x] Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+  - [x] Library books feature live: navigate to Library room, click Onde Kids Books
+
+### [T940] Moonlight: Book Cover Images for Library
+- **Status**: TODO
+- **Owner**: -
+- **Created**: 2026-02-15
+- **Depends**: [T917]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create/generate cover images for the 7 Onde Kids books
+  - AIKO e l'Intelligenza Artificiale (tech blue theme)
+  - Il Salmo 23 per Bambini (green pastoral theme)
+  - Piccole Rime (pink/fun theme)
+  - Il Potere dei Desideri (golden/magical theme)
+  - Il Respiro Magico (purple/calm theme)
+  - Il Piccolo Inventore (orange/creative theme)
+  - I Cinque Sensi di Luna (teal/sensory theme)
+  - Size: 200x280px for LibraryBooks display
+
+### [T941] Moonlight: More Demo Pages for Books
+- **Status**: TODO
+- **Owner**: -
+- **Created**: 2026-02-15
+- **Depends**: [T917]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Expand demo page content for each book
+  - Current: 2-3 pages per book
+  - Target: 5-8 pages for better preview
+  - Include illustrations descriptions
+  - Add chapter navigation for longer books

@@ -975,13 +975,14 @@ function App() {
     }
   };
 
-  const handleObjectReward = (reward: { coins?: number; xp?: number; happiness?: number }) => {
+  const handleObjectReward = (reward: { coins?: number; xp?: number; happiness?: number; health?: number }) => {
     setShowObjectsHint(false);
     setStats(prev => ({
       ...prev,
       coins: prev.coins + (reward.coins || 0),
       xp: prev.xp + (reward.xp || 0),
       happiness: Math.min(100, prev.happiness + (reward.happiness || 0)),
+      health: Math.min(100, prev.health + (reward.health || 0)),
     }));
   };
 

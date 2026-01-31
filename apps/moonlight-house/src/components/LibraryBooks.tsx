@@ -192,7 +192,7 @@ interface LibraryBooksProps {
   onUnlockBook: (bookId: string, cost: number) => void;
   onBack: () => void;
   unlockedBooks: string[];
-  onReward: (reward: { happiness: number; xp: number }) => void;
+  onReward: (reward: { happiness?: number; xp?: number; health?: number; coins?: number }) => void;
 }
 
 export function LibraryBooks({
@@ -238,7 +238,8 @@ export function LibraryBooks({
   };
 
   const handleFinishReading = () => {
-    onReward({ happiness: 15, xp: 10 });
+    // Reading boosts happiness, health, XP, and earns coins!
+    onReward({ happiness: 20, xp: 15, health: 10, coins: 5 });
     setSelectedBook(null);
     setShowShelf(true);
   };

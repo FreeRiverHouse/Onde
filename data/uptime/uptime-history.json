@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T03:45:02.280788+00:00",
+  "generated_at": "2026-01-31T03:50:01.469225+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -1844,17 +1844,23 @@
           "status": 200,
           "latency_ms": 206,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T03:50:01.469225+00:00",
+          "status": 200,
+          "latency_ms": 361,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 491,
-        "avg_latency_7d": 455,
+        "avg_latency_24h": 492,
+        "avg_latency_7d": 454,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 307
+        "total_checks_7d": 308
       }
     },
     "onde.surf": {
@@ -3700,17 +3706,23 @@
           "status": 200,
           "latency_ms": 472,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T03:50:01.469225+00:00",
+          "status": 200,
+          "latency_ms": 332,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 464,
+        "avg_latency_24h": 465,
         "avg_latency_7d": 438,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 307
+        "total_checks_7d": 308
       }
     },
     "skin-studio": {
@@ -3822,6 +3834,12 @@
           "status": 200,
           "latency_ms": 186,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T03:50:01.469225+00:00",
+          "status": 200,
+          "latency_ms": 216,
+          "ok": true
         }
       ],
       "stats": {
@@ -3831,8 +3849,8 @@
         "avg_latency_7d": 215,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 18,
-        "total_checks_7d": 18
+        "total_checks_24h": 19,
+        "total_checks_7d": 19
       }
     }
   }
