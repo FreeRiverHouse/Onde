@@ -12858,8 +12858,8 @@ Generated: 2026-01-30T18:37:46.867013
 > Target: App kid-friendly professionale che compete con Skindex/NovaSkin
 
 ### [T1037] Skin Creator: Grid/Zoom Canvas
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1 🔥
