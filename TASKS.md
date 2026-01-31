@@ -12419,8 +12419,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Choose background for screenshots (transparent, solid, gradient)
 
 ### [T993] Skin Creator: Pose Selector
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Different poses for screenshots (idle, walking, waving)
