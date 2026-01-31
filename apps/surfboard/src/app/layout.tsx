@@ -8,6 +8,7 @@ import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistratio
 import { OfflineIndicator } from '@/components/OfflineIndicator'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 export const metadata: Metadata = {
   title: 'FRH HQ | FreeRiverHouse',
@@ -128,6 +129,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
           </header>
+
+          {/* Breadcrumb */}
+          <Breadcrumb />
 
           {/* Main */}
           <main className="relative z-10 min-h-[calc(100vh-120px)]">{children}</main>

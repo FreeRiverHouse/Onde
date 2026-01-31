@@ -19,7 +19,7 @@
 | MLH-003 | Add keyboard shortcut handler for ⌘K quick actions | DONE | @clawdinho | - |
 | MLH-004 | Add dark/light theme toggle | DONE | @clawdinho | - |
 | MLH-005 | Add loading states for async panels | DONE | @clawdinho | - |
-| MLH-006 | Add breadcrumb navigation with keyboard support | TODO | - | - |
+| MLH-006 | Add breadcrumb navigation with keyboard support | DONE | @clawdinho | - |
 | MLH-007 | Add notification center panel (alerts, events) | TODO | - | - |
 | MLH-008 | Add search history + recent commands to palette | TODO | - | - |
 
@@ -53,7 +53,8 @@
 - **MLH-003** - Global keyboard shortcuts: G-key vim-style nav (G D/S/C/A/H/P/B), toast feedback, ⌘K palette
 - **MLH-004** - Dark/light theme toggle: ThemeProvider + ThemeToggle already implemented with system detection
 - **MLH-005** - Skeleton loading components: Skeleton, SkeletonPanel, SkeletonList, SkeletonStats, SkeletonChart + shimmer animation
+- **MLH-006** - Breadcrumb navigation: route-based breadcrumbs + Alt+← back + Alt+Home dashboard
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 10:55 PST*
+*Ultimo aggiornamento: 2026-01-31 11:05 PST*
