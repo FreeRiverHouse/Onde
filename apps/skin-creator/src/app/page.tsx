@@ -84,6 +84,7 @@ export default function SkinCreator() {
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
   const [recentColors, setRecentColors] = useState<string[]>([]);
+  const [showHelp, setShowHelp] = useState(false);
   
   // Add color to recent colors
   const addRecentColor = useCallback((color: string) => {
@@ -229,6 +230,7 @@ export default function SkinCreator() {
         case 'g': setTool('gradient'); break;
         case 's': setTool('stamp'); break;
         case 'i': setTool('eyedropper'); break;
+        case '?': setShowHelp(prev => !prev); break;
         case 'z': if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); } break;
         case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); } break;
         case 'm': setMirrorMode(prev => !prev); break;
@@ -1115,6 +1117,41 @@ export default function SkinCreator() {
           </div>
         </div>
       </div>
+
+      {/* Help Modal */}
+      {showHelp && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowHelp(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold mb-4">⌨️ Keyboard Shortcuts</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">B</span><span>Brush</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">E</span><span>Eraser</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">F</span><span>Fill</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">G</span><span>Gradient</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">W</span><span>Glow</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">S</span><span>Stamp</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">I</span><span>Eyedropper</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">M</span><span>Mirror</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">D</span><span>Dark mode</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">1-3</span><span>Brush size</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">⌘Z</span><span>Undo</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">⌘Y</span><span>Redo</span>
+            </div>
+            <button onClick={() => setShowHelp(false)} className="mt-4 w-full py-2 bg-blue-500 text-white rounded-lg font-bold">
+              Got it! 👍
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Help Button */}
+      <button
+        onClick={() => setShowHelp(true)}
+        className="fixed bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full shadow-lg text-xl font-bold hover:scale-110 transition-transform"
+        title="Keyboard shortcuts (?)"
+      >
+        ?
+      </button>
 
       {/* Footer */}
       <p className="mt-4 text-white/70 text-sm">
