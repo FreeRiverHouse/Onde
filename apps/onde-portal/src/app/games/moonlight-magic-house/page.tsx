@@ -795,6 +795,9 @@ export default function MoonlightMagicHouse() {
 
   // Initialize Find the Toy game
   const startFindToy = useCallback(() => {
+    audio.playClick()
+    triggerHaptic('light')
+    
     const spots: HidingSpot[] = []
     const toyIndex = Math.floor(Math.random() * 6)
     
@@ -813,7 +816,7 @@ export default function MoonlightMagicHouse() {
     setFoundToy(false)
     setCheckedSpots(new Set())
     setGameState('find-toy')
-  }, [])
+  }, [audio])
 
   // Handle spot check in Find the Toy
   const checkSpot = useCallback((spot: HidingSpot) => {

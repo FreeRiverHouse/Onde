@@ -3465,56 +3465,139 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* 📤 Export Panel - Mobile optimized */}
+      {/* 📤 Export Panel - Mobile optimized with all export options */}
       {showExportPanel && (
         <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
           <div className="bg-white rounded-t-3xl md:rounded-2xl p-4 md:p-6 w-full md:max-w-md md:m-4 shadow-2xl max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()} style={{ WebkitOverflowScrolling: 'touch' }}>
-            <h3 className="text-xl font-bold mb-4">📤 Export Skin</h3>
-            <p className="text-sm text-gray-600 mb-4">Choose which layers to include in your export:</p>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold">📤 Export Skin</h3>
+              <button onClick={() => setShowExportPanel(false)} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+            </div>
+            
+            {/* Skin preview */}
+            <div className="flex justify-center mb-4">
+              <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-2 rounded-xl">
+                <canvas
+                  ref={(el) => {
+                    if (el && canvasRef.current) {
+                      const ctx = el.getContext('2d');
+                      if (ctx) {
+                        ctx.imageSmoothingEnabled = false;
+                        ctx.clearRect(0, 0, 128, 128);
+                        ctx.drawImage(canvasRef.current, 0, 0, 128, 128);
+                      }
+                    }
+                  }}
+                  width={128}
+                  height={128}
+                  className="rounded-lg"
+                  style={{ imageRendering: 'pixelated' }}
+                />
+              </div>
+            </div>
 
-            <div className="space-y-2 mb-4">
+            <p className="text-sm text-gray-600 mb-3">Choose which layers to include:</p>
+
+            <div className="space-y-2 mb-4 bg-gray-50 p-3 rounded-xl">
               {layers.map(layer => (
-                <label key={layer.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <label key={layer.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-white cursor-pointer transition-colors">
                   <input
                     type="checkbox"
                     checked={exportLayers[layer.id]}
                     onChange={(e) => setExportLayers(prev => ({ ...prev, [layer.id]: e.target.checked }))}
-                    className="w-4 h-4"
+                    className="w-5 h-5 rounded"
                   />
                   <span className="text-lg">{layer.emoji}</span>
-                  <span>{layer.name}</span>
+                  <span className="font-medium">{layer.name}</span>
+                  {!layer.visible && <span className="text-xs text-gray-400">(hidden)</span>}
                 </label>
               ))}
             </div>
 
-            <div className="flex gap-2">
+            {/* Main export buttons */}
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => downloadSkin(true)}
+                  className="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600 active:scale-[0.98] transition-all"
+                >
+                  💾 Download Selected
+                </button>
+                <button
+                  onClick={() => downloadSkin(false)}
+                  className="flex-1 py-3 bg-blue-500 text-white rounded-xl font-bold hover:bg-blue-600 active:scale-[0.98] transition-all"
+                >
+                  📦 Download All
+                </button>
+              </div>
+
+              {/* Copy to clipboard */}
               <button
-                onClick={() => downloadSkin(true)}
-                className="flex-1 py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600"
+                onClick={async () => {
+                  const canvas = canvasRef.current;
+                  if (!canvas) return;
+                  try {
+                    const blob = await new Promise<Blob>((resolve) =>
+                      canvas.toBlob((b) => resolve(b!), 'image/png')
+                    );
+                    await navigator.clipboard.write([
+                      new ClipboardItem({ 'image/png': blob })
+                    ]);
+                    playSound('success');
+                    setShowExportPanel(false);
+                    // Brief success message
+                    alert('✅ Copied to clipboard!');
+                  } catch {
+                    // Fallback: copy data URL
+                    const dataUrl = canvas.toDataURL('image/png');
+                    await navigator.clipboard.writeText(dataUrl);
+                    playSound('click');
+                    alert('📋 Image URL copied!');
+                  }
+                }}
+                className="w-full py-2.5 bg-violet-500 text-white rounded-xl font-bold hover:bg-violet-600 active:scale-[0.98] transition-all"
               >
-                💾 Export Selected
+                📋 Copy to Clipboard
               </button>
+
               <button
-                onClick={() => downloadSkin(false)}
-                className="flex-1 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600"
+                onClick={downloadBaseOnly}
+                className="w-full py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 active:scale-[0.98] transition-all"
               >
-                📦 Export All
+                👤 Base Layer Only (no clothes)
               </button>
+
+              <div className="pt-2 border-t border-gray-100">
+                <p className="text-xs text-gray-500 mb-2">Export for specific games:</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => {
+                      downloadSkin(false);
+                      logExport('Minecraft');
+                    }}
+                    className="py-2.5 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-xl font-bold hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-1"
+                  >
+                    ⛏️ Minecraft
+                  </button>
+                  <button
+                    onClick={() => {
+                      downloadForRoblox();
+                      logExport('Roblox');
+                    }}
+                    className="py-2.5 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl font-bold hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-1"
+                  >
+                    🎮 Roblox
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <button
-              onClick={downloadBaseOnly}
-              className="w-full mt-2 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200"
-            >
-              👤 Export Base Only (no clothes)
-            </button>
-
-            <button
-              onClick={downloadForRoblox}
-              className="w-full mt-2 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-bold hover:scale-105 transition-transform"
-            >
-              🎮 Export for Roblox (256x256)
-            </button>
+            {/* Export history */}
+            {exportHistory.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-500">Recent exports: {exportHistory.length}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
