@@ -253,6 +253,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       setZoom(newZoom);
       if (camera) camera.position.z = newZoom;
     };
+    
+    // 🔄 Double-click to reset view
+    const onDoubleClick = () => {
+      rotationRef.current = { x: 0.1, y: 0.3 };
+      zoomRef.current = 5;
+      setZoom(5);
+      if (camera) camera.position.z = 5;
+      autoRotateRef.current = true;
+    };
 
     renderer.domElement.addEventListener('mousedown', onMouseDown);
     renderer.domElement.addEventListener('mousemove', onMouseMove);
@@ -262,6 +271,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     renderer.domElement.addEventListener('touchmove', onTouchMove);
     renderer.domElement.addEventListener('touchend', onTouchEnd);
     renderer.domElement.addEventListener('wheel', onWheel, { passive: false });
+    renderer.domElement.addEventListener('dblclick', onDoubleClick);
 
     // Animation loop with interactive rotation and walking
     let walkTime = 0;
@@ -329,6 +339,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       renderer.domElement.removeEventListener('touchmove', onTouchMove);
       renderer.domElement.removeEventListener('touchend', onTouchEnd);
       renderer.domElement.removeEventListener('wheel', onWheel);
+      renderer.domElement.removeEventListener('dblclick', onDoubleClick);
       renderer.dispose();
       if (containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
@@ -539,7 +550,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         </div>
       </div>
       
-      <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate</p>
+      <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag • Scroll zoom • Double-click reset</p>
     </div>
   );
 }
