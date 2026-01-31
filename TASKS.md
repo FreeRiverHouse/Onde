@@ -195,7 +195,7 @@
   - Add to onde.surf/betting or separate /status page
 
 ### [T954] Infra: Improve Ondinho Detection via Session Activity
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: [T950]
 - **Blocks**: -
@@ -11948,7 +11948,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Aggiungere toggle ✨ Glow per ogni layer nel pannello Layers
 
 ### [T953] Skin Creator: Save/Load Skin to Browser Storage
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12001,3 +12001,24 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Ensure each check runs 2-4x per day
   - [ ] Avoid redundant checks <30 min apart
   - Reference: HEARTBEAT.md "Track your checks" section
+
+### [T958] Skin Creator: Sound Effects for Actions
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Add fun sounds when drawing, saving, etc.
+
+### [T959] Skin Creator: Undo/Redo Stack per Layer
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Separate undo stack for each layer
+
+### [T960] Skin Creator: Export to Roblox Format
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Export skin compatible with Roblox avatar system
