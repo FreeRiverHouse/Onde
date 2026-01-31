@@ -2,6 +2,233 @@
 
 import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 
+// ============ SOUND & HAPTIC FEEDBACK SYSTEM ============
+
+// Audio context singleton (lazy init for SSR)
+let audioCtx: AudioContext | null = null
+const getAudioCtx = (): AudioContext | null => {
+  if (typeof window === 'undefined') return null
+  if (!audioCtx) {
+    try {
+      audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    } catch { return null }
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume()
+  return audioCtx
+}
+
+// Haptic feedback with pattern support
+const haptic = {
+  light: () => navigator?.vibrate?.(8),
+  medium: () => navigator?.vibrate?.(20),
+  heavy: () => navigator?.vibrate?.(40),
+  success: () => navigator?.vibrate?.([25, 40, 50]),
+  error: () => navigator?.vibrate?.([40, 25, 40]),
+  double: () => navigator?.vibrate?.([15, 30, 15]),
+  celebration: () => navigator?.vibrate?.([20, 30, 20, 30, 40]),
+}
+
+// Sound synthesis - all gentle, child-friendly tones
+const sounds = {
+  // Soft click for buttons - quick sine pop
+  tap: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(600, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.08)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.12, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
+    o.start(); o.stop(ctx.currentTime + 0.08)
+    haptic.light()
+  },
+
+  // Menu button - warm ascending boop
+  menuClick: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(350, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(520, ctx.currentTime + 0.1)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.15, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
+    o.start(); o.stop(ctx.currentTime + 0.12)
+    haptic.medium()
+  },
+
+  // Peek/search - curious question mark sound
+  peek: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(280, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(450, ctx.currentTime + 0.1)
+    o.type = 'triangle'
+    g.gain.setValueAtTime(0.14, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
+    o.start(); o.stop(ctx.currentTime + 0.12)
+    haptic.light()
+  },
+
+  // Found! - magical sparkle chime (C-E-G-C arpeggio)
+  found: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [523, 659, 784, 1047]
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.08)
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.08 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.25)
+      o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.25)
+    })
+    haptic.success()
+  },
+
+  // Miss - gentle descending "aww"
+  miss: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(380, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(260, ctx.currentTime + 0.2)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.12, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22)
+    o.start(); o.stop(ctx.currentTime + 0.22)
+    haptic.error()
+  },
+
+  // Food pickup - satisfying plop
+  pickup: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(220, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(380, ctx.currentTime + 0.06)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.16, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1)
+    o.start(); o.stop(ctx.currentTime + 0.1)
+    haptic.double()
+  },
+
+  // Eating - happy nom nom sounds
+  eating: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    for (let i = 0; i < 3; i++) {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(180 + i * 25, ctx.currentTime + i * 0.12)
+      o.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + i * 0.12 + 0.08)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.12)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.1)
+      o.start(ctx.currentTime + i * 0.12); o.stop(ctx.currentTime + i * 0.12 + 0.1)
+    }
+    haptic.medium()
+  },
+
+  // Happy purr - warm low vibration
+  purr: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), lfo = ctx.createOscillator()
+    const lfoG = ctx.createGain(), g = ctx.createGain()
+    lfo.frequency.setValueAtTime(22, ctx.currentTime)
+    lfoG.gain.setValueAtTime(25, ctx.currentTime)
+    lfo.connect(lfoG); lfoG.connect(o.frequency)
+    o.frequency.setValueAtTime(70, ctx.currentTime)
+    o.type = 'sine'
+    o.connect(g); g.connect(ctx.destination)
+    g.gain.setValueAtTime(0, ctx.currentTime)
+    g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.15)
+    g.gain.setValueAtTime(0.12, ctx.currentTime + 0.5)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8)
+    lfo.start(); o.start(); lfo.stop(ctx.currentTime + 0.8); o.stop(ctx.currentTime + 0.8)
+    haptic.celebration()
+  },
+
+  // Celebration fanfare - ascending major scale
+  celebrate: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [392, 440, 523, 659, 784, 1047] // G-A-C-E-G-C
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.1)
+      o.type = i === notes.length - 1 ? 'sine' : 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.1)
+      g.gain.linearRampToValueAtTime(0.14, ctx.currentTime + i * 0.1 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.35)
+      o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.35)
+    })
+    haptic.celebration()
+  },
+
+  // Toggle sound (always plays)
+  toggle: (nowEnabled: boolean) => {
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(nowEnabled ? 660 : 330, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(nowEnabled ? 880 : 220, ctx.currentTime + 0.1)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.12, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
+    o.start(); o.stop(ctx.currentTime + 0.12)
+    haptic.light()
+  }
+}
+
+// Sound toggle button component
+const SoundToggle = ({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) => (
+  <button
+    onClick={onToggle}
+    className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 active:scale-95 transition-all duration-200"
+    aria-label={enabled ? 'Mute sounds' : 'Unmute sounds'}
+  >
+    {enabled ? (
+      <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" opacity="0.3" />
+        <path d="M11 5L6 9H2v6h4l5 4V5z" />
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 24 24" className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" opacity="0.2" />
+        <path d="M11 5L6 9H2v6h4l5 4V5z" />
+        <line x1="23" y1="9" x2="17" y2="15" />
+        <line x1="17" y1="9" x2="23" y2="15" />
+      </svg>
+    )}
+  </button>
+)
+
+// ============ TYPES ============
+
 // Game state machine
 type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
 
@@ -649,6 +876,7 @@ export default function MoonlightMagicHouse() {
   const [isLoading, setIsLoading] = useState(true)
   const [gameState, setGameState] = useState<GameState>('loading')
   const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0 })
+  const [soundEnabled, setSoundEnabled] = useState(true)
   
   // Find the Toy game state
   const [hidingSpots, setHidingSpots] = useState<HidingSpot[]>([])
@@ -716,6 +944,8 @@ export default function MoonlightMagicHouse() {
   const handleDragStart = useCallback((food: FoodItem, e: React.MouseEvent | React.TouchEvent) => {
     if (petFed) return
     
+    sounds.pickup(soundEnabled)
+    
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
     
@@ -726,7 +956,7 @@ export default function MoonlightMagicHouse() {
     
     // Start RAF loop
     rafIdRef.current = requestAnimationFrame(updateDragPosition)
-  }, [petFed, updateDragPosition])
+  }, [petFed, updateDragPosition, soundEnabled])
 
   // Handle smooth drag move
   const handleDragMove = useCallback((e: MouseEvent | TouchEvent) => {
@@ -758,12 +988,17 @@ export default function MoonlightMagicHouse() {
         dragPositionRef.current.y <= petRect.bottom
       
       if (isOverPet) {
+        sounds.eating(soundEnabled)
         setPetMood('eating')
         setTimeout(() => {
+          sounds.purr(soundEnabled)
           setPetMood('happy')
           setPetFed(true)
           setRewards(prev => ({ ...prev, treats: prev.treats + 1 }))
-          setTimeout(() => setGameState('reward'), 1500)
+          setTimeout(() => {
+            sounds.celebrate(soundEnabled)
+            setGameState('reward')
+          }, 1500)
         }, 1000)
       }
     }
@@ -773,7 +1008,7 @@ export default function MoonlightMagicHouse() {
     dragPositionRef.current = null
     setSelectedFood(null)
     if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
-  }, [selectedFood, petFed])
+  }, [selectedFood, petFed, soundEnabled])
 
   // Attach global event listeners for smooth dragging
   useEffect(() => {
@@ -795,8 +1030,7 @@ export default function MoonlightMagicHouse() {
 
   // Initialize Find the Toy game
   const startFindToy = useCallback(() => {
-    audio.playClick()
-    triggerHaptic('light')
+    sounds.menuClick(soundEnabled)
     
     const spots: HidingSpot[] = []
     const toyIndex = Math.floor(Math.random() * 6)
@@ -816,29 +1050,36 @@ export default function MoonlightMagicHouse() {
     setFoundToy(false)
     setCheckedSpots(new Set())
     setGameState('find-toy')
-  }, [audio])
+  }, [soundEnabled])
 
   // Handle spot check in Find the Toy
   const checkSpot = useCallback((spot: HidingSpot) => {
     if (checkedSpots.has(spot.id) || foundToy || triesLeft <= 0) return
     
+    sounds.peek(soundEnabled)
     setCheckedSpots(prev => new Set([...prev, spot.id]))
     
     if (spot.hasToy) {
       setFoundToy(true)
+      sounds.found(soundEnabled)
       setRewards(prev => ({ ...prev, toys: prev.toys + 1 }))
-      setTimeout(() => setGameState('reward'), 1500)
+      setTimeout(() => {
+        sounds.celebrate(soundEnabled)
+        setGameState('reward')
+      }, 1500)
     } else {
+      sounds.miss(soundEnabled)
       const newTries = triesLeft - 1
       setTriesLeft(newTries)
       if (newTries <= 0) {
         setTimeout(() => setGameState('menu'), 2000)
       }
     }
-  }, [checkedSpots, foundToy, triesLeft])
+  }, [checkedSpots, foundToy, triesLeft, soundEnabled])
 
   // Initialize Feed Time game
   const startFeedTime = useCallback(() => {
+    sounds.menuClick(soundEnabled)
     setSelectedFood(null)
     setPetFed(false)
     setPetMood('hungry')
@@ -846,6 +1087,14 @@ export default function MoonlightMagicHouse() {
     isDraggingRef.current = false
     dragPositionRef.current = null
     setGameState('feed-time')
+  }, [soundEnabled])
+  
+  // Sound toggle handler
+  const toggleSound = useCallback(() => {
+    setSoundEnabled(prev => {
+      sounds.toggle(!prev)
+      return !prev
+    })
   }, [])
 
   // ============ BACKGROUND COMPONENT ============
@@ -968,6 +1217,7 @@ export default function MoonlightMagicHouse() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <MagicalBackground intense />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
         
         <div className="relative z-10 text-center">
           {/* Title with glow effect */}
@@ -1042,6 +1292,7 @@ export default function MoonlightMagicHouse() {
     return (
       <div className="min-h-screen flex flex-col items-center p-4 relative overflow-hidden">
         <MagicalBackground />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
         
         {/* Header */}
         <div className="w-full max-w-lg relative z-10">
@@ -1137,6 +1388,7 @@ export default function MoonlightMagicHouse() {
     return (
       <div className="min-h-screen flex flex-col items-center p-4 select-none relative overflow-hidden">
         <MagicalBackground />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
         
         {/* Header */}
         <div className="w-full max-w-lg relative z-10">
@@ -1248,6 +1500,7 @@ export default function MoonlightMagicHouse() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <MagicalBackground intense />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
         
         {/* Extra celebration sparkles - optimized with CSS variables */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">

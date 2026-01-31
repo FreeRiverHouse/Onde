@@ -1,0 +1,935 @@
+/* ============================================
+   SKIN CREATOR - PREMIUM UX POLISH
+   $1M App Feel - Fluide, Lusso, Magia ✨
+   ============================================ */
+
+/* 🎨 Premium Color Variables */
+:root {
+  --skin-primary: #8B5CF6;
+  --skin-primary-light: #A78BFA;
+  --skin-secondary: #EC4899;
+  --skin-accent: #06B6D4;
+  --skin-success: #10B981;
+  --skin-warning: #F59E0B;
+  --skin-glass: rgba(255, 255, 255, 0.08);
+  --skin-glass-border: rgba(255, 255, 255, 0.12);
+  --skin-glow-purple: rgba(139, 92, 246, 0.5);
+  --skin-glow-pink: rgba(236, 72, 153, 0.5);
+  --skin-glow-cyan: rgba(6, 182, 212, 0.5);
+}
+
+/* ============================================
+   ENTRANCE ANIMATIONS - Staggered Reveal
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealFromCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+/* Staggered entrance delays */
+.skin-animate-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.skin-animate-in-scale {
+  animation: fadeInScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+.skin-animate-in-left {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.skin-animate-in-right {
+  animation: slideInFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.skin-animate-reveal {
+  animation: revealFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* ============================================
+   PREMIUM GLASS MORPHISM
+   ============================================ */
+
+.skin-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skin-glass-card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 30px var(--skin-glow-purple);
+  transform: translateY(-4px);
+}
+
+.skin-glass-panel {
+  background: rgba(15, 15, 25, 0.85);
+  backdrop-filter: blur(30px) saturate(150%);
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   PREMIUM BUTTON STYLES
+   ============================================ */
+
+.skin-btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.skin-btn-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.6s ease;
+}
+
+.skin-btn-premium:hover::before {
+  transform: translateX(100%) skewX(-15deg);
+}
+
+.skin-btn-premium:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 10px 30px -5px currentColor,
+    0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.skin-btn-premium:active {
+  transform: translateY(0) scale(0.98);
+  transition: transform 0.1s;
+}
+
+/* Tool buttons with micro-interactions */
+.skin-tool-btn {
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.skin-tool-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.4s ease;
+}
+
+.skin-tool-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.3);
+}
+
+.skin-tool-btn:hover::after {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.skin-tool-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.skin-tool-btn-active {
+  background: linear-gradient(135deg, var(--skin-primary), var(--skin-secondary)) !important;
+  box-shadow: 
+    0 0 20px var(--skin-glow-purple),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   COLOR PICKER PREMIUM STYLES
+   ============================================ */
+
+.skin-color-btn {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.skin-color-btn::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0;
+  filter: blur(8px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.skin-color-btn:hover {
+  transform: scale(1.3) translateY(-4px) rotateX(10deg);
+  z-index: 10;
+}
+
+.skin-color-btn:hover::before {
+  opacity: 0.6;
+}
+
+.skin-color-btn-selected {
+  transform: scale(1.2);
+  box-shadow: 
+    0 0 0 3px white,
+    0 0 0 5px currentColor,
+    0 8px 20px -4px rgba(0, 0, 0, 0.4);
+}
+
+.skin-color-btn-selected::before {
+  opacity: 0.8;
+}
+
+/* Color picker grid with wave effect */
+.skin-color-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.skin-color-grid .skin-color-btn {
+  transition-delay: calc(var(--index, 0) * 20ms);
+}
+
+/* ============================================
+   CANVAS PREMIUM EFFECTS
+   ============================================ */
+
+.skin-canvas-container {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.skin-canvas-container::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: 
+    radial-gradient(ellipse at 30% 30%, var(--skin-glow-purple) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, var(--skin-glow-cyan) 0%, transparent 50%);
+  opacity: 0.3;
+  filter: blur(40px);
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.skin-canvas-container:hover::before {
+  opacity: 0.5;
+}
+
+.skin-canvas-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px -15px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.skin-canvas-wrapper:hover {
+  box-shadow: 
+    0 25px 70px -15px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 40px var(--skin-glow-purple);
+}
+
+/* Grid overlay animation */
+.skin-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+}
+
+.skin-canvas-wrapper:hover .skin-grid-overlay {
+  opacity: 0.5;
+}
+
+/* ============================================
+   PREVIEW 3D PREMIUM EFFECTS
+   ============================================ */
+
+.skin-preview-3d-container {
+  position: relative;
+  perspective: 1000px;
+}
+
+.skin-preview-3d-container::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  background: 
+    conic-gradient(
+      from 0deg at 50% 50%,
+      var(--skin-glow-purple) 0deg,
+      var(--skin-glow-cyan) 120deg,
+      var(--skin-glow-pink) 240deg,
+      var(--skin-glow-purple) 360deg
+    );
+  opacity: 0;
+  filter: blur(60px);
+  z-index: -1;
+  animation: rotate-glow 8s linear infinite;
+  transition: opacity 0.5s ease;
+}
+
+.skin-preview-3d-container:hover::before {
+  opacity: 0.4;
+}
+
+@keyframes rotate-glow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   LAYER PANEL PREMIUM STYLES
+   ============================================ */
+
+.skin-layer-item {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+}
+
+.skin-layer-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, var(--skin-primary), var(--skin-secondary));
+  border-radius: 2px;
+  transform: translateY(-50%);
+  transition: height 0.3s ease;
+}
+
+.skin-layer-item:hover {
+  transform: translateX(8px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.skin-layer-item:hover::before {
+  height: 60%;
+}
+
+.skin-layer-item-active {
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.2) 0%,
+    transparent 100%
+  ) !important;
+}
+
+.skin-layer-item-active::before {
+  height: 80% !important;
+}
+
+/* Slider premium style */
+.skin-slider-premium {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.skin-slider-premium:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.skin-slider-premium::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, var(--skin-primary), var(--skin-secondary));
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px var(--skin-glow-purple);
+  transition: all 0.2s ease;
+}
+
+.skin-slider-premium::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 15px var(--skin-glow-purple);
+}
+
+/* ============================================
+   MODAL & PANEL TRANSITIONS
+   ============================================ */
+
+.skin-modal-overlay {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skin-modal-content {
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.skin-panel-slide {
+  animation: panelSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes panelSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================
+   TOOLTIP PREMIUM STYLES
+   ============================================ */
+
+.skin-tooltip {
+  position: relative;
+}
+
+.skin-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px) scale(0.8);
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.skin-tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px) scale(1);
+}
+
+/* ============================================
+   FLOATING ACTION ELEMENTS
+   ============================================ */
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--skin-glow-purple);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--skin-glow-purple), 0 0 60px var(--skin-glow-cyan);
+  }
+}
+
+.skin-float {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.skin-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   DOWNLOAD BUTTON PREMIUM
+   ============================================ */
+
+.skin-download-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skin-download-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg) translateY(-100%);
+  transition: transform 0.6s ease;
+}
+
+.skin-download-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 15px 40px -10px rgba(16, 185, 129, 0.5),
+    0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+.skin-download-btn:hover::before {
+  transform: rotate(45deg) translateY(100%);
+}
+
+.skin-download-btn:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* ============================================
+   TEMPLATE BUTTONS PREMIUM
+   ============================================ */
+
+.skin-template-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.skin-template-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skin-template-btn:hover {
+  transform: translateY(-3px) scale(1.05) rotateX(5deg);
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.skin-template-btn:hover::before {
+  opacity: 1;
+}
+
+.skin-template-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* ============================================
+   AI PANEL PREMIUM STYLES
+   ============================================ */
+
+.skin-ai-panel {
+  background: 
+    linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.1) 0%,
+      rgba(236, 72, 153, 0.05) 100%
+    );
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 20px 60px -20px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.skin-ai-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.skin-ai-input:focus {
+  border-color: var(--skin-primary);
+  box-shadow: 
+    0 0 0 4px rgba(139, 92, 246, 0.1),
+    0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+/* AI Generate button with magic effect */
+.skin-ai-generate-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--skin-primary), var(--skin-secondary));
+}
+
+.skin-ai-generate-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skin-ai-generate-btn:hover::after {
+  opacity: 1;
+  animation: sparkle-move 1s ease infinite;
+}
+
+@keyframes sparkle-move {
+  0%, 100% {
+    background-position: 0% 50%, 100% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%;
+  }
+}
+
+/* ============================================
+   ACHIEVEMENT TOAST PREMIUM
+   ============================================ */
+
+.skin-achievement-toast {
+  animation: achievementPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.95) 0%,
+    rgba(217, 119, 6, 0.95) 100%
+  );
+  box-shadow: 
+    0 10px 40px -10px rgba(245, 158, 11, 0.5),
+    0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+@keyframes achievementPop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   CONFETTI & CELEBRATION EFFECTS
+   ============================================ */
+
+.skin-celebration {
+  position: relative;
+}
+
+.skin-celebration::before,
+.skin-celebration::after {
+  content: '🎉';
+  position: absolute;
+  font-size: 24px;
+  animation: celebration-bounce 0.6s ease infinite alternate;
+}
+
+.skin-celebration::before {
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.skin-celebration::after {
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation-delay: 0.3s;
+}
+
+@keyframes celebration-bounce {
+  from {
+    transform: translateY(-50%) scale(1);
+  }
+  to {
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+/* ============================================
+   RESPONSIVE PREMIUM ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .skin-glass-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .skin-btn-premium:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+  
+  .skin-color-btn:hover {
+    transform: scale(1.2) translateY(-2px);
+  }
+  
+  .skin-template-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .skin-animate-in,
+  .skin-animate-in-scale,
+  .skin-animate-in-left,
+  .skin-animate-in-right,
+  .skin-animate-reveal,
+  .skin-float,
+  .skin-pulse-glow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .skin-preview-3d-container::before {
+    animation: none !important;
+  }
+  
+  .skin-btn-premium:hover,
+  .skin-tool-btn:hover,
+  .skin-color-btn:hover,
+  .skin-template-btn:hover,
+  .skin-download-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.skin-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.skin-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Skeleton loading */
+.skin-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   FOCUS STATES (Accessibility)
+   ============================================ */
+
+.skin-focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px var(--skin-primary),
+    0 0 20px var(--skin-glow-purple);
+}
+
+/* ============================================
+   SCROLLBAR PREMIUM STYLE
+   ============================================ */
+
+.skin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.skin-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.skin-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--skin-primary), var(--skin-secondary));
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.skin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--skin-primary-light), var(--skin-secondary));
+}

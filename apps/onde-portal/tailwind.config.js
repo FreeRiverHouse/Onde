@@ -72,6 +72,19 @@ module.exports = {
         'fade-up': 'fadeUp 0.8s ease-out forwards',
         'scale-up': 'scaleUp 0.6s ease-out forwards',
         'orb-float': 'orbFloat 20s ease-in-out infinite',
+        // 🎨 Skin Creator Premium Animations
+        'skin-fade-in-up': 'skinFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'skin-scale-in': 'skinScaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+        'skin-slide-left': 'skinSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'skin-slide-right': 'skinSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'skin-glow': 'skinGlow 2s ease-in-out infinite',
+        'skin-float': 'skinFloat 4s ease-in-out infinite',
+        'skin-shimmer': 'skinShimmer 2s linear infinite',
+        'skin-bounce': 'skinBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'skin-wiggle': 'skinWiggle 0.5s ease-in-out',
+        'skin-pop': 'skinPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'skin-pulse': 'skinPulse 2s ease-in-out infinite',
+        'skin-rotate-glow': 'skinRotateGlow 8s linear infinite',
       },
       keyframes: {
         float: {
@@ -107,6 +120,58 @@ module.exports = {
           '25%': { transform: 'translate(30px, -30px) scale(1.1)' },
           '50%': { transform: 'translate(-20px, 20px) scale(0.9)' },
           '75%': { transform: 'translate(-30px, -10px) scale(1.05)' },
+        },
+        // 🎨 Skin Creator Premium Keyframes
+        skinFadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(30px) scale(0.95)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        skinScaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.8)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        skinSlideLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        skinSlideRight: {
+          '0%': { opacity: '0', transform: 'translateX(40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        skinGlow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(139, 92, 246, 0.5), 0 0 60px rgba(236, 72, 153, 0.3)' },
+        },
+        skinFloat: {
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+          '50%': { transform: 'translateY(-10px) rotate(2deg)' },
+        },
+        skinShimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        skinBounce: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.1)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        skinWiggle: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-5deg)' },
+          '75%': { transform: 'rotate(5deg)' },
+        },
+        skinPop: {
+          '0%': { transform: 'scale(0.8)', opacity: '0' },
+          '50%': { transform: 'scale(1.1)' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        skinPulse: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.02)' },
+        },
+        skinRotateGlow: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
         },
       },
       boxShadow: {

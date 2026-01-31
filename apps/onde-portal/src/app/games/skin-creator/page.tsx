@@ -78,6 +78,34 @@ const COLOR_PALETTE_PRESETS = [
   },
 ];
 
+// 🎭 Pattern Presets - One-click cool patterns for kids!
+type PatternType = 'stripes-h' | 'stripes-v' | 'stripes-diag' | 'dots' | 'gradient-v' | 'gradient-h' | 'gradient-radial' | 'camo' | 'galaxy' | 'checkers' | 'rainbow' | 'fire' | 'ice' | 'pixel-noise';
+
+interface PatternPreset {
+  id: PatternType;
+  name: string;
+  emoji: string;
+  description: string;
+  colors?: string[]; // Optional default colors for the pattern
+}
+
+const PATTERN_PRESETS: PatternPreset[] = [
+  { id: 'stripes-h', name: 'Stripes H', emoji: '➖', description: 'Horizontal stripes' },
+  { id: 'stripes-v', name: 'Stripes V', emoji: '|', description: 'Vertical stripes' },
+  { id: 'stripes-diag', name: 'Diagonal', emoji: '╱', description: 'Diagonal stripes' },
+  { id: 'dots', name: 'Dots', emoji: '⚫', description: 'Polka dots pattern' },
+  { id: 'checkers', name: 'Checkers', emoji: '🏁', description: 'Checkerboard pattern' },
+  { id: 'gradient-v', name: 'Gradient ↓', emoji: '🌈', description: 'Vertical gradient' },
+  { id: 'gradient-h', name: 'Gradient →', emoji: '🎨', description: 'Horizontal gradient' },
+  { id: 'gradient-radial', name: 'Radial', emoji: '🔵', description: 'Radial gradient from center' },
+  { id: 'camo', name: 'Camo', emoji: '🪖', description: 'Military camouflage' },
+  { id: 'galaxy', name: 'Galaxy', emoji: '🌌', description: 'Space with stars!' },
+  { id: 'rainbow', name: 'Rainbow', emoji: '🏳️‍🌈', description: 'Full rainbow colors!' },
+  { id: 'fire', name: 'Fire', emoji: '🔥', description: 'Hot flames pattern!', colors: ['#FF0000', '#FF4500', '#FF8C00', '#FFD700'] },
+  { id: 'ice', name: 'Ice', emoji: '❄️', description: 'Frozen ice crystals!', colors: ['#E0FFFF', '#87CEEB', '#4169E1', '#00008B'] },
+  { id: 'pixel-noise', name: 'Pixel Noise', emoji: '📺', description: 'Random pixel texture' },
+];
+
 // Multi-game support
 type GameType = 'minecraft' | 'roblox';
 
@@ -208,11 +236,17 @@ const DISPLAY_SCALE = 6;
 export default function SkinCreator() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLCanvasElement>(null);
+  const exportPreviewRef = useRef<HTMLCanvasElement>(null);
   const [selectedGame, setSelectedGame] = useState<GameType>('minecraft');
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
+  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line'>('brush');
+  // Drawing state for smooth lines and line tool
+  const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
+  const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
+  const linePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
+  const eyedropperUseCount = useRef(0);
   const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond' | 'smiley' | 'fire' | 'lightning'>('star');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
@@ -1223,6 +1257,268 @@ export default function SkinCreator() {
     playSound('download');
   }, []);
 
+  // 🎭 Apply Pattern to canvas - One-click cool patterns!
+  const applyPattern = useCallback((patternId: PatternType, targetArea?: 'all' | 'selected' | 'body') => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Get the area to apply the pattern
+    let startX = 0, startY = 0, width = SKIN_WIDTH, height = SKIN_HEIGHT;
+    
+    if (targetArea === 'selected' && selectedPart) {
+      const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
+      if (part) {
+        startX = part.x;
+        startY = part.y;
+        width = part.w;
+        height = part.h;
+      }
+    }
+
+    // Get pattern preset for default colors
+    const preset = PATTERN_PRESETS.find(p => p.id === patternId);
+    const color1 = preset?.colors?.[0] || selectedColor;
+    const color2 = preset?.colors?.[1] || secondaryColor;
+
+    // Helper function to parse hex color to RGB
+    const hexToRgb = (hex: string) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : { r: 0, g: 0, b: 0 };
+    };
+
+    // Helper to interpolate colors
+    const lerpColor = (c1: string, c2: string, t: number) => {
+      const rgb1 = hexToRgb(c1);
+      const rgb2 = hexToRgb(c2);
+      const r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * t);
+      const g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * t);
+      const b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * t);
+      return `rgb(${r},${g},${b})`;
+    };
+
+    // Apply patterns based on type
+    switch (patternId) {
+      case 'stripes-h': {
+        // Horizontal stripes
+        const stripeHeight = 2;
+        for (let y = startY; y < startY + height; y++) {
+          const stripeIndex = Math.floor((y - startY) / stripeHeight);
+          ctx.fillStyle = stripeIndex % 2 === 0 ? color1 : color2;
+          for (let x = startX; x < startX + width; x++) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'stripes-v': {
+        // Vertical stripes
+        const stripeWidth = 2;
+        for (let x = startX; x < startX + width; x++) {
+          const stripeIndex = Math.floor((x - startX) / stripeWidth);
+          ctx.fillStyle = stripeIndex % 2 === 0 ? color1 : color2;
+          for (let y = startY; y < startY + height; y++) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'stripes-diag': {
+        // Diagonal stripes
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            const stripeIndex = Math.floor((x - startX + y - startY) / 3);
+            ctx.fillStyle = stripeIndex % 2 === 0 ? color1 : color2;
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'dots': {
+        // Fill background first
+        ctx.fillStyle = color2;
+        ctx.fillRect(startX, startY, width, height);
+        // Add dots
+        ctx.fillStyle = color1;
+        for (let y = startY; y < startY + height; y += 3) {
+          for (let x = startX + ((Math.floor((y - startY) / 3) % 2) * 2); x < startX + width; x += 4) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'checkers': {
+        // Checkerboard pattern
+        const squareSize = 2;
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            const checkX = Math.floor((x - startX) / squareSize);
+            const checkY = Math.floor((y - startY) / squareSize);
+            ctx.fillStyle = (checkX + checkY) % 2 === 0 ? color1 : color2;
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'gradient-v': {
+        // Vertical gradient (top to bottom)
+        for (let y = startY; y < startY + height; y++) {
+          const t = (y - startY) / height;
+          ctx.fillStyle = lerpColor(color1, color2, t);
+          for (let x = startX; x < startX + width; x++) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'gradient-h': {
+        // Horizontal gradient (left to right)
+        for (let x = startX; x < startX + width; x++) {
+          const t = (x - startX) / width;
+          ctx.fillStyle = lerpColor(color1, color2, t);
+          for (let y = startY; y < startY + height; y++) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'gradient-radial': {
+        // Radial gradient from center
+        const centerX = startX + width / 2;
+        const centerY = startY + height / 2;
+        const maxDist = Math.sqrt((width / 2) ** 2 + (height / 2) ** 2);
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            const dist = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+            const t = Math.min(dist / maxDist, 1);
+            ctx.fillStyle = lerpColor(color1, color2, t);
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'camo': {
+        // Military camouflage pattern
+        const camoColors = ['#4A5D23', '#2D3A14', '#6B7B3F', '#3C4B1E', '#556B2F'];
+        // First pass: base color
+        ctx.fillStyle = camoColors[0];
+        ctx.fillRect(startX, startY, width, height);
+        // Second pass: random blobs
+        for (let i = 0; i < Math.floor(width * height / 8); i++) {
+          const bx = startX + Math.floor(Math.random() * width);
+          const by = startY + Math.floor(Math.random() * height);
+          const bsize = 1 + Math.floor(Math.random() * 3);
+          ctx.fillStyle = camoColors[Math.floor(Math.random() * camoColors.length)];
+          ctx.fillRect(bx, by, bsize, bsize);
+        }
+        break;
+      }
+
+      case 'galaxy': {
+        // Space pattern with stars
+        const galaxyColors = ['#0B0B1A', '#1A1A3A', '#2D1B4E', '#0D0D2B'];
+        // Background: dark space gradient
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            ctx.fillStyle = galaxyColors[Math.floor(Math.random() * galaxyColors.length)];
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        // Stars: white and colored dots
+        const starColors = ['#FFFFFF', '#FFD700', '#87CEEB', '#FFA500', '#FF69B4'];
+        for (let i = 0; i < Math.floor(width * height / 12); i++) {
+          const sx = startX + Math.floor(Math.random() * width);
+          const sy = startY + Math.floor(Math.random() * height);
+          ctx.fillStyle = starColors[Math.floor(Math.random() * starColors.length)];
+          ctx.fillRect(sx, sy, 1, 1);
+        }
+        break;
+      }
+
+      case 'rainbow': {
+        // Full rainbow gradient
+        const rainbowColors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+        for (let y = startY; y < startY + height; y++) {
+          const colorIndex = Math.floor(((y - startY) / height) * rainbowColors.length);
+          const nextColorIndex = Math.min(colorIndex + 1, rainbowColors.length - 1);
+          const localT = ((y - startY) / height) * rainbowColors.length - colorIndex;
+          ctx.fillStyle = lerpColor(rainbowColors[colorIndex], rainbowColors[nextColorIndex], localT);
+          for (let x = startX; x < startX + width; x++) {
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'fire': {
+        // Fire/flame pattern
+        const fireColors = ['#FF0000', '#FF4500', '#FF8C00', '#FFD700', '#FFFF00'];
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            // More yellow/white at bottom, red at top
+            const baseIndex = Math.floor((1 - (y - startY) / height) * (fireColors.length - 1));
+            const noise = Math.random() * 0.3;
+            const colorIndex = Math.max(0, Math.min(fireColors.length - 1, Math.floor(baseIndex + noise * 2)));
+            ctx.fillStyle = fireColors[colorIndex];
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+
+      case 'ice': {
+        // Ice/frozen pattern
+        const iceColors = ['#E0FFFF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#4169E1'];
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            const noise = Math.random();
+            const colorIndex = Math.floor(noise * iceColors.length);
+            ctx.fillStyle = iceColors[colorIndex];
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        // Add some "crystal" highlights
+        ctx.fillStyle = '#FFFFFF';
+        for (let i = 0; i < Math.floor(width * height / 20); i++) {
+          const cx = startX + Math.floor(Math.random() * width);
+          const cy = startY + Math.floor(Math.random() * height);
+          ctx.fillRect(cx, cy, 1, 1);
+        }
+        break;
+      }
+
+      case 'pixel-noise': {
+        // Random pixel noise texture using selected colors
+        for (let y = startY; y < startY + height; y++) {
+          for (let x = startX; x < startX + width; x++) {
+            const t = Math.random();
+            ctx.fillStyle = lerpColor(color1, color2, t);
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+        break;
+      }
+    }
+
+    updatePreview();
+    saveState();
+    playSound('download');
+    unlockAchievement('patternUser');
+  }, [selectedColor, secondaryColor, selectedPart, unlockAchievement]);
+
   // Spawn sparkle particles when drawing
   const spawnParticle = useCallback((clientX: number, clientY: number) => {
     if (tool === 'eraser') return;
@@ -1540,6 +1836,118 @@ export default function SkinCreator() {
     updatePreview();
   }, [layers, compositeLayersToMain]);
 
+  // 🎨 Flood Fill Algorithm - Proper bucket fill!
+  const floodFill = useCallback((ctx: CanvasRenderingContext2D, startX: number, startY: number, fillColor: string) => {
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    
+    // Get target color at click position
+    const startIdx = (startY * SKIN_WIDTH + startX) * 4;
+    const targetR = data[startIdx];
+    const targetG = data[startIdx + 1];
+    const targetB = data[startIdx + 2];
+    const targetA = data[startIdx + 3];
+    
+    // Parse fill color
+    const fillR = parseInt(fillColor.slice(1, 3), 16);
+    const fillG = parseInt(fillColor.slice(3, 5), 16);
+    const fillB = parseInt(fillColor.slice(5, 7), 16);
+    
+    // Don't fill if same color
+    if (targetR === fillR && targetG === fillG && targetB === fillB && targetA === 255) {
+      return;
+    }
+    
+    // Flood fill using queue (BFS)
+    const queue: [number, number][] = [[startX, startY]];
+    const visited = new Set<string>();
+    const tolerance = 5; // Color tolerance for more forgiving fills
+    
+    const colorMatches = (idx: number) => {
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const a = data[idx + 3];
+      return Math.abs(r - targetR) <= tolerance &&
+             Math.abs(g - targetG) <= tolerance &&
+             Math.abs(b - targetB) <= tolerance &&
+             Math.abs(a - targetA) <= tolerance;
+    };
+    
+    while (queue.length > 0) {
+      const [x, y] = queue.shift()!;
+      const key = `${x},${y}`;
+      
+      if (visited.has(key)) continue;
+      if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) continue;
+      
+      const idx = (y * SKIN_WIDTH + x) * 4;
+      if (!colorMatches(idx)) continue;
+      
+      visited.add(key);
+      
+      // Fill this pixel
+      data[idx] = fillR;
+      data[idx + 1] = fillG;
+      data[idx + 2] = fillB;
+      data[idx + 3] = 255;
+      
+      // Add neighbors
+      queue.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+    }
+    
+    ctx.putImageData(imageData, 0, 0);
+  }, []);
+
+  // 🖌️ Draw line with interpolation (Bresenham's algorithm for smooth lines)
+  const drawLineInterpolated = useCallback((
+    ctx: CanvasRenderingContext2D,
+    x0: number, y0: number,
+    x1: number, y1: number,
+    color: string,
+    size: number,
+    isEraser: boolean = false
+  ) => {
+    const dx = Math.abs(x1 - x0);
+    const dy = Math.abs(y1 - y0);
+    const sx = x0 < x1 ? 1 : -1;
+    const sy = y0 < y1 ? 1 : -1;
+    let err = dx - dy;
+    
+    let x = x0;
+    let y = y0;
+    
+    while (true) {
+      // Draw at current position with brush size
+      for (let bx = 0; bx < size; bx++) {
+        for (let by = 0; by < size; by++) {
+          const px = x + bx;
+          const py = y + by;
+          if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
+            if (isEraser) {
+              ctx.clearRect(px, py, 1, 1);
+            } else {
+              ctx.fillStyle = color;
+              ctx.fillRect(px, py, 1, 1);
+            }
+          }
+        }
+      }
+      
+      if (x === x1 && y === y1) break;
+      
+      const e2 = 2 * err;
+      if (e2 > -dy) {
+        err -= dy;
+        x += sx;
+      }
+      if (e2 < dx) {
+        err += dx;
+        y += sy;
+      }
+    }
+  }, []);
+
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing && e.type === 'mousemove') return;
 
@@ -1553,6 +1961,15 @@ export default function SkinCreator() {
     const ctx = layerCanvas.getContext('2d');
     if (!ctx) return;
 
+    const rect = mainCanvas.getBoundingClientRect();
+    const scaleX = SKIN_WIDTH / rect.width;
+    const scaleY = SKIN_HEIGHT / rect.height;
+
+    const x = Math.floor((e.clientX - rect.left) * scaleX);
+    const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+    if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
+
     // Spawn sparkle particle! ✨
     if (isDrawing && Math.random() > 0.7) {
       spawnParticle(e.clientX, e.clientY);
@@ -1565,15 +1982,6 @@ export default function SkinCreator() {
       }
     }
 
-    const rect = mainCanvas.getBoundingClientRect();
-    const scaleX = SKIN_WIDTH / rect.width;
-    const scaleY = SKIN_HEIGHT / rect.height;
-
-    const x = Math.floor((e.clientX - rect.left) * scaleX);
-    const y = Math.floor((e.clientY - rect.top) * scaleY);
-
-    if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
-
     // Eyedropper - pick color from composite (main canvas)
     if (tool === 'eyedropper') {
       const imageData = mainCtx.getImageData(x, y, 1, 1).data;
@@ -1581,7 +1989,45 @@ export default function SkinCreator() {
         const hex = '#' + [imageData[0], imageData[1], imageData[2]]
           .map(v => v.toString(16).padStart(2, '0')).join('');
         setSelectedColor(hex.toUpperCase());
+        addRecentColor(hex.toUpperCase());
         playSound('click');
+        // 🤫 Zen Master achievement - use eyedropper 20+ times
+        eyedropperUseCount.current++;
+        if (eyedropperUseCount.current >= 20) {
+          unlockAchievement('zenMaster');
+        }
+      }
+      return;
+    }
+
+    // 📏 Line tool - store start position on mouse down
+    if (tool === 'line') {
+      if (e.type === 'mousedown') {
+        lineStartPosition.current = { x, y };
+        // Create preview canvas if not exists
+        if (!linePreviewCanvas.current) {
+          linePreviewCanvas.current = document.createElement('canvas');
+          linePreviewCanvas.current.width = SKIN_WIDTH;
+          linePreviewCanvas.current.height = SKIN_HEIGHT;
+        }
+        // Copy current layer to preview
+        const previewCtx = linePreviewCanvas.current.getContext('2d');
+        if (previewCtx) {
+          previewCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          previewCtx.drawImage(layerCanvas, 0, 0);
+        }
+      } else if (e.type === 'mousemove' && lineStartPosition.current && linePreviewCanvas.current) {
+        // Preview the line
+        const previewCtx = linePreviewCanvas.current.getContext('2d');
+        if (previewCtx) {
+          // Restore original layer
+          ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          ctx.drawImage(linePreviewCanvas.current, 0, 0);
+          // Draw preview line
+          drawLineInterpolated(ctx, lineStartPosition.current.x, lineStartPosition.current.y, x, y, selectedColor, brushSize);
+          compositeLayersToMain();
+          updatePreview();
+        }
       }
       return;
     }
@@ -1594,69 +2040,131 @@ export default function SkinCreator() {
       }
     }
 
-    for (let dx = 0; dx < brushSize; dx++) {
-      for (let dy = 0; dy < brushSize; dy++) {
-        const px = x + dx;
-        const py = y + dy;
-        if (px >= SKIN_WIDTH || py >= SKIN_HEIGHT) continue;
+    // 🪣 Fill tool - proper flood fill
+    if (tool === 'fill') {
+      floodFill(ctx, x, y, selectedColor);
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
 
-        if (tool === 'eraser') {
-          ctx.clearRect(px, py, 1, 1);
-        } else if (tool === 'fill') {
-          // Simple fill - just fill selected part
-          if (selectedPart) {
-            const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
-            ctx.fillStyle = selectedColor;
-            ctx.fillRect(part.x, part.y, part.w, part.h);
-          }
-        } else if (tool === 'gradient') {
-          // Gradient fill on selected part
-          if (selectedPart) {
-            const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
-            const gradient = ctx.createLinearGradient(part.x, part.y, part.x + part.w, part.y + part.h);
-            gradient.addColorStop(0, selectedColor);
-            gradient.addColorStop(1, secondaryColor);
-            ctx.fillStyle = gradient;
-            ctx.fillRect(part.x, part.y, part.w, part.h);
-          }
-        } else if (tool === 'glow') {
-          // Neon glow brush - draw with shadow
-          ctx.shadowColor = selectedColor;
-          ctx.shadowBlur = 2;
-          ctx.fillStyle = selectedColor;
-          for (let i = 0; i < brushSize; i++) {
-            for (let j = 0; j < brushSize; j++) {
-              ctx.fillRect(x + i, y + j, 1, 1);
-            }
-          }
-          ctx.shadowBlur = 0;
-        } else if (tool === 'stamp') {
-          // Pattern stamps - draw shapes!
-          ctx.fillStyle = selectedColor;
-          const patterns: Record<string, number[][]> = {
-            star: [[1,0],[0,1],[1,1],[2,1],[1,2]], // ⭐ star
-            heart: [[0,1],[2,1],[0,0],[1,1],[2,0]], // ❤️ heart
-            diamond: [[1,0],[0,1],[2,1],[1,2]], // 💎 diamond
-            smiley: [[0,0],[2,0],[0,2],[1,2],[2,2],[1,1]], // 😊 smiley face
-            fire: [[1,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]], // 🔥 fire
-            lightning: [[1,0],[0,1],[1,1],[1,2],[2,2]], // ⚡ lightning
-          };
-          const pattern = patterns[stampShape] || patterns.star;
-          pattern.forEach(([pdx, pdy]) => {
-            ctx.fillRect(x + pdx, y + pdy, 1, 1);
-          });
-        } else {
-          ctx.fillStyle = selectedColor;
+    // 🌈 Gradient fill on selected part
+    if (tool === 'gradient') {
+      if (selectedPart) {
+        const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
+        const gradient = ctx.createLinearGradient(part.x, part.y, part.x + part.w, part.y + part.h);
+        gradient.addColorStop(0, selectedColor);
+        gradient.addColorStop(1, secondaryColor);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(part.x, part.y, part.w, part.h);
+      } else {
+        // Gradient on entire canvas if no part selected
+        const gradient = ctx.createLinearGradient(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        gradient.addColorStop(0, selectedColor);
+        gradient.addColorStop(1, secondaryColor);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      }
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
+
+    // ⭐ Stamp tool
+    if (tool === 'stamp') {
+      ctx.fillStyle = selectedColor;
+      const patterns: Record<string, number[][]> = {
+        star: [[1,0],[0,1],[1,1],[2,1],[1,2]],
+        heart: [[0,1],[2,1],[0,0],[1,1],[2,0]],
+        diamond: [[1,0],[0,1],[2,1],[1,2]],
+        smiley: [[0,0],[2,0],[0,2],[1,2],[2,2],[1,1]],
+        fire: [[1,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]],
+        lightning: [[1,0],[0,1],[1,1],[1,2],[2,2]],
+      };
+      const pattern = patterns[stampShape] || patterns.star;
+      pattern.forEach(([pdx, pdy]) => {
+        const px = x + pdx;
+        const py = y + pdy;
+        if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
           ctx.fillRect(px, py, 1, 1);
+        }
+      });
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
 
-          // Mirror mode - draw on opposite side too! 🪞
-          if (mirrorMode) {
-            const mirrorX = SKIN_WIDTH - 1 - px;
-            ctx.fillRect(mirrorX, py, 1, 1);
+    // ✨ Glow brush
+    if (tool === 'glow') {
+      ctx.shadowColor = selectedColor;
+      ctx.shadowBlur = 2;
+      ctx.fillStyle = selectedColor;
+      for (let i = 0; i < brushSize; i++) {
+        for (let j = 0; j < brushSize; j++) {
+          const px = x + i;
+          const py = y + j;
+          if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
+            ctx.fillRect(px, py, 1, 1);
+          }
+        }
+      }
+      ctx.shadowBlur = 0;
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
+
+    // 🖌️ Brush and 🧽 Eraser - with smooth interpolation!
+    const isEraser = tool === 'eraser';
+    
+    // Interpolate from last position for smooth lines
+    if (lastDrawPosition.current && isDrawing) {
+      drawLineInterpolated(
+        ctx,
+        lastDrawPosition.current.x,
+        lastDrawPosition.current.y,
+        x, y,
+        selectedColor,
+        brushSize,
+        isEraser
+      );
+      
+      // Mirror mode - draw on opposite side too! 🪞
+      if (mirrorMode && !isEraser) {
+        drawLineInterpolated(
+          ctx,
+          SKIN_WIDTH - 1 - lastDrawPosition.current.x,
+          lastDrawPosition.current.y,
+          SKIN_WIDTH - 1 - x,
+          y,
+          selectedColor,
+          brushSize,
+          false
+        );
+      }
+    } else {
+      // First point - just draw a dot
+      for (let dx = 0; dx < brushSize; dx++) {
+        for (let dy = 0; dy < brushSize; dy++) {
+          const px = x + dx;
+          const py = y + dy;
+          if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
+            if (isEraser) {
+              ctx.clearRect(px, py, 1, 1);
+            } else {
+              ctx.fillStyle = selectedColor;
+              ctx.fillRect(px, py, 1, 1);
+              if (mirrorMode) {
+                ctx.fillRect(SKIN_WIDTH - 1 - px, py, 1, 1);
+              }
+            }
           }
         }
       }
     }
+    
+    // Update last position for next frame
+    lastDrawPosition.current = { x, y };
 
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
@@ -1761,39 +2269,58 @@ export default function SkinCreator() {
     clothing: true,
     accessories: true,
   });
+  const [exportResolution, setExportResolution] = useState<64 | 128 | 256 | 512>(64);
+  
+  const EXPORT_RESOLUTIONS = [
+    { size: 64, label: '64×64', desc: 'Original (Minecraft)' },
+    { size: 128, label: '128×128', desc: '2× scale' },
+    { size: 256, label: '256×256', desc: '4× scale' },
+    { size: 512, label: '512×512', desc: '8× HD' },
+  ] as const;
 
   const downloadSkin = (useSelectedLayers = false) => {
-    // If using selected layers, create a composite with only those layers
-    if (useSelectedLayers) {
-      const exportCanvas = document.createElement('canvas');
-      exportCanvas.width = SKIN_WIDTH;
-      exportCanvas.height = SKIN_HEIGHT;
-      const exportCtx = exportCanvas.getContext('2d');
-      if (!exportCtx) return;
+    // Create source canvas with the content to export
+    const sourceCanvas = document.createElement('canvas');
+    sourceCanvas.width = SKIN_WIDTH;
+    sourceCanvas.height = SKIN_HEIGHT;
+    const sourceCtx = sourceCanvas.getContext('2d');
+    if (!sourceCtx) return;
 
+    if (useSelectedLayers) {
       // Draw only selected layers
       layers.forEach(layer => {
         if (!exportLayers[layer.id]) return;
         const layerCanvas = layerCanvasRefs.current[layer.id];
         if (!layerCanvas) return;
-        exportCtx.globalAlpha = layer.opacity / 100;
-        exportCtx.drawImage(layerCanvas, 0, 0);
+        sourceCtx.globalAlpha = layer.opacity / 100;
+        sourceCtx.drawImage(layerCanvas, 0, 0);
       });
-      exportCtx.globalAlpha = 1;
-
-      const link = document.createElement('a');
-      link.download = `${skinName || 'my-skin'}.png`;
-      link.href = exportCanvas.toDataURL('image/png');
-      link.click();
+      sourceCtx.globalAlpha = 1;
     } else {
-      // Default: export full composite
+      // Full composite from main canvas
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const link = document.createElement('a');
-      link.download = `${skinName || 'my-skin'}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      sourceCtx.drawImage(canvas, 0, 0);
     }
+
+    // Scale to export resolution
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = exportResolution;
+    finalCanvas.height = exportResolution;
+    const finalCtx = finalCanvas.getContext('2d');
+    if (!finalCtx) return;
+    
+    finalCtx.imageSmoothingEnabled = false; // Keep pixelated look
+    finalCtx.drawImage(sourceCanvas, 0, 0, exportResolution, exportResolution);
+
+    // Generate filename with resolution suffix if not original
+    const suffix = exportResolution > 64 ? `-${exportResolution}px` : '';
+    const filename = `${skinName || 'my-skin'}${suffix}.png`;
+
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = finalCanvas.toDataURL('image/png');
+    link.click();
 
     // 🎉 Confetti celebration!
     setShowConfetti(true);
@@ -1801,7 +2328,29 @@ export default function SkinCreator() {
     setTimeout(() => setShowConfetti(false), 3000);
     setShowExportPanel(false);
     unlockAchievement('downloaded'); // 🏆 Downloaded achievement!
-    logExport('PNG'); // 📊 Track export
+    logExport(`PNG ${exportResolution}×${exportResolution}`); // 📊 Track export with resolution
+  };
+  
+  // 💾 Save to My Skins collection
+  const saveToMySkins = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const newSkin: SavedSkin = {
+      id: `skin-${Date.now()}`,
+      name: skinName || 'Untitled Skin',
+      dataUrl: canvas.toDataURL('image/png'),
+      timestamp: Date.now(),
+      tags: [],
+    };
+    
+    setSavedSkins(prev => [newSkin, ...prev]);
+    playSound('save');
+    unlockAchievement('saved');
+    
+    // Brief success feedback
+    setShowExportPanel(false);
+    alert(`✅ "${newSkin.name}" saved to My Skins!`);
   };
 
   // Export only base layer (skin without clothing/accessories)
@@ -1979,6 +2528,173 @@ export default function SkinCreator() {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
+        }
+        
+        /* Glass Card - Modern glassmorphism */
+        .glass-card {
+          background: rgba(255, 255, 255, 0.92);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+        
+        .glass-card:hover {
+          box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.12),
+            0 4px 12px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Kid-friendly buttons */
+        .kid-btn {
+          padding: 0.625rem 1rem;
+          border-radius: 0.75rem;
+          font-weight: 700;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          border: none;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.375rem;
+        }
+        
+        .kid-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .kid-btn:active {
+          transform: translateY(0) scale(0.97);
+        }
+        
+        /* Smooth float animation */
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-float-gentle {
+          animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Wiggle animation for fun interactions */
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-8deg); }
+          75% { transform: rotate(8deg); }
+        }
+        
+        .animate-wiggle {
+          animation: wiggle 0.4s ease-in-out;
+        }
+        
+        /* Bounce-in for modals */
+        @keyframes bounce-in {
+          0% { transform: scale(0.9); opacity: 0; }
+          50% { transform: scale(1.02); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .animate-bounce-in {
+          animation: bounce-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Soft bounce for mascots */
+        @keyframes bounce-soft {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+        
+        .animate-bounce-soft {
+          animation: bounce-soft 2s ease-in-out infinite;
+        }
+        
+        /* Consistent scrollbar styling */
+        .glass-card::-webkit-scrollbar,
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .glass-card::-webkit-scrollbar-track,
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 3px;
+        }
+        
+        .glass-card::-webkit-scrollbar-thumb,
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.15);
+          border-radius: 3px;
+        }
+        
+        .glass-card::-webkit-scrollbar-thumb:hover,
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Consistent input focus states */
+        input:focus, select:focus {
+          outline: none;
+          border-color: #a855f7 !important;
+          box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+        }
+        
+        /* Slider styling */
+        input[type="range"] {
+          -webkit-appearance: none;
+          appearance: none;
+          height: 6px;
+          background: linear-gradient(to right, #e9d5ff, #f3e8ff);
+          border-radius: 3px;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          background: linear-gradient(135deg, #a855f7, #ec4899);
+          border-radius: 50%;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(168, 85, 247, 0.4);
+          transition: transform 0.15s ease;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+          transform: scale(1.15);
+        }
+        
+        /* Color picker styling */
+        input[type="color"] {
+          -webkit-appearance: none;
+          appearance: none;
+          border: 2px solid #e5e7eb;
+          border-radius: 8px;
+          cursor: pointer;
+          overflow: hidden;
+        }
+        
+        input[type="color"]::-webkit-color-swatch-wrapper {
+          padding: 0;
+        }
+        
+        input[type="color"]::-webkit-color-swatch {
+          border: none;
+          border-radius: 6px;
+        }
+        
+        /* Tool button active state glow */
+        .tool-active {
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.25);
         }
       `}</style>
       {/* 🎉 Confetti celebration on download! */}
@@ -3514,6 +4230,27 @@ export default function SkinCreator() {
               ))}
             </div>
 
+            {/* 📐 Resolution selector */}
+            <div className="mb-4">
+              <p className="text-sm text-gray-600 mb-2">Export resolution:</p>
+              <div className="grid grid-cols-4 gap-2">
+                {EXPORT_RESOLUTIONS.map(({ size, label, desc }) => (
+                  <button
+                    key={size}
+                    onClick={() => setExportResolution(size as 64 | 128 | 256 | 512)}
+                    className={`py-2 px-1 rounded-lg text-center transition-all ${
+                      exportResolution === size
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <span className="block text-sm font-bold">{label}</span>
+                    <span className="block text-[10px] opacity-70">{desc}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Main export buttons */}
             <div className="space-y-2">
               <div className="flex gap-2">
@@ -3530,6 +4267,14 @@ export default function SkinCreator() {
                   📦 Download All
                 </button>
               </div>
+              
+              {/* Save to My Skins */}
+              <button
+                onClick={saveToMySkins}
+                className="w-full py-2.5 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                ⭐ Save to My Skins
+              </button>
 
               {/* Copy to clipboard */}
               <button
