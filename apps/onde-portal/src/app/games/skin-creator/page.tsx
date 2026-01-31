@@ -116,6 +116,496 @@ const PATTERN_PRESETS: PatternPreset[] = [
   { id: 'pixel-noise', name: 'Pixel Noise', emoji: '📺', description: 'Random pixel texture' },
 ];
 
+// 🎨 STICKER/DECAL LIBRARY - Decorative elements to apply on skins!
+// Each sticker is a multi-color pixel pattern that can be placed anywhere
+type StickerCategory = 'hearts' | 'stars' | 'flames' | 'wings' | 'symbols' | 'nature';
+
+interface StickerDecal {
+  id: string;
+  name: string;
+  emoji: string;
+  category: StickerCategory;
+  width: number;
+  height: number;
+  // Pixel data: 2D array where each cell is a hex color or null (transparent)
+  pixels: (string | null)[][];
+}
+
+const STICKER_CATEGORIES: { id: StickerCategory; name: string; emoji: string }[] = [
+  { id: 'hearts', name: 'Hearts', emoji: '❤️' },
+  { id: 'stars', name: 'Stars', emoji: '⭐' },
+  { id: 'flames', name: 'Flames', emoji: '🔥' },
+  { id: 'wings', name: 'Wings', emoji: '🪽' },
+  { id: 'symbols', name: 'Symbols', emoji: '⚡' },
+  { id: 'nature', name: 'Nature', emoji: '🌸' },
+];
+
+const STICKER_DECALS: StickerDecal[] = [
+  // ❤️ HEARTS
+  {
+    id: 'heart-small',
+    name: 'Mini Heart',
+    emoji: '💕',
+    category: 'hearts',
+    width: 5,
+    height: 4,
+    pixels: [
+      [null, '#FF0000', null, '#FF0000', null],
+      ['#FF0000', '#FF6B6B', '#FF0000', '#FF6B6B', '#FF0000'],
+      [null, '#FF0000', '#FF0000', '#FF0000', null],
+      [null, null, '#FF0000', null, null],
+    ],
+  },
+  {
+    id: 'heart-big',
+    name: 'Big Heart',
+    emoji: '❤️',
+    category: 'hearts',
+    width: 7,
+    height: 6,
+    pixels: [
+      [null, '#FF0000', '#FF0000', null, '#FF0000', '#FF0000', null],
+      ['#FF0000', '#FF6B6B', '#FF0000', '#FF0000', '#FF6B6B', '#FF0000', '#FF0000'],
+      ['#FF0000', '#FF0000', '#FF0000', '#FF0000', '#FF0000', '#FF0000', '#FF0000'],
+      [null, '#FF0000', '#FF0000', '#FF0000', '#FF0000', '#FF0000', null],
+      [null, null, '#FF0000', '#FF0000', '#FF0000', null, null],
+      [null, null, null, '#CC0000', null, null, null],
+    ],
+  },
+  {
+    id: 'heart-pixel',
+    name: 'Pixel Heart',
+    emoji: '💗',
+    category: 'hearts',
+    width: 7,
+    height: 6,
+    pixels: [
+      [null, '#FF69B4', '#FF69B4', null, '#FF69B4', '#FF69B4', null],
+      ['#FF69B4', '#FFB6C1', '#FF69B4', '#FF69B4', '#FFB6C1', '#FF69B4', '#FF69B4'],
+      ['#FF69B4', '#FF69B4', '#FF69B4', '#FF69B4', '#FF69B4', '#FF69B4', '#FF69B4'],
+      [null, '#FF1493', '#FF69B4', '#FF69B4', '#FF69B4', '#FF1493', null],
+      [null, null, '#FF1493', '#FF69B4', '#FF1493', null, null],
+      [null, null, null, '#C71585', null, null, null],
+    ],
+  },
+  {
+    id: 'broken-heart',
+    name: 'Broken Heart',
+    emoji: '💔',
+    category: 'hearts',
+    width: 7,
+    height: 6,
+    pixels: [
+      [null, '#8B0000', '#8B0000', null, '#8B0000', '#8B0000', null],
+      ['#8B0000', '#FF0000', '#8B0000', null, '#FF0000', '#8B0000', '#8B0000'],
+      ['#8B0000', '#8B0000', null, '#000000', null, '#8B0000', '#8B0000'],
+      [null, '#8B0000', null, '#000000', null, '#8B0000', null],
+      [null, null, '#8B0000', null, '#8B0000', null, null],
+      [null, null, null, '#660000', null, null, null],
+    ],
+  },
+  // ⭐ STARS
+  {
+    id: 'star-small',
+    name: 'Mini Star',
+    emoji: '✨',
+    category: 'stars',
+    width: 5,
+    height: 5,
+    pixels: [
+      [null, null, '#FFD700', null, null],
+      [null, '#FFD700', '#FFFF00', '#FFD700', null],
+      ['#FFD700', '#FFFF00', '#FFFF00', '#FFFF00', '#FFD700'],
+      [null, '#FFD700', '#FFFF00', '#FFD700', null],
+      [null, null, '#FFD700', null, null],
+    ],
+  },
+  {
+    id: 'star-big',
+    name: 'Big Star',
+    emoji: '⭐',
+    category: 'stars',
+    width: 7,
+    height: 7,
+    pixels: [
+      [null, null, null, '#FFD700', null, null, null],
+      [null, null, '#FFD700', '#FFFF00', '#FFD700', null, null],
+      [null, '#FFD700', '#FFFF00', '#FFFF00', '#FFFF00', '#FFD700', null],
+      ['#FFD700', '#FFFF00', '#FFFF00', '#FFFFFF', '#FFFF00', '#FFFF00', '#FFD700'],
+      [null, '#FFD700', '#FFFF00', '#FFFF00', '#FFFF00', '#FFD700', null],
+      [null, null, '#FFD700', '#FFFF00', '#FFD700', null, null],
+      [null, null, null, '#FFA500', null, null, null],
+    ],
+  },
+  {
+    id: 'shooting-star',
+    name: 'Shooting Star',
+    emoji: '🌠',
+    category: 'stars',
+    width: 8,
+    height: 5,
+    pixels: [
+      [null, null, null, null, null, '#FFD700', '#FFFF00', '#FFD700'],
+      [null, null, null, '#FFFFFF', '#FFD700', '#FFFF00', '#FFD700', null],
+      ['#CCCCCC', '#FFFFFF', '#FFFFFF', '#FFD700', '#FFFF00', '#FFFF00', null, null],
+      [null, null, null, '#FFFFFF', '#FFD700', '#FFFF00', '#FFD700', null],
+      [null, null, null, null, null, '#FFD700', '#FFFF00', '#FFD700'],
+    ],
+  },
+  {
+    id: 'sparkle',
+    name: 'Sparkle',
+    emoji: '💫',
+    category: 'stars',
+    width: 5,
+    height: 5,
+    pixels: [
+      [null, null, '#FFFFFF', null, null],
+      [null, '#87CEEB', '#FFFFFF', '#87CEEB', null],
+      ['#FFFFFF', '#FFFFFF', '#E0FFFF', '#FFFFFF', '#FFFFFF'],
+      [null, '#87CEEB', '#FFFFFF', '#87CEEB', null],
+      [null, null, '#FFFFFF', null, null],
+    ],
+  },
+  // 🔥 FLAMES
+  {
+    id: 'flame-small',
+    name: 'Small Flame',
+    emoji: '🔥',
+    category: 'flames',
+    width: 5,
+    height: 6,
+    pixels: [
+      [null, null, '#FF4500', null, null],
+      [null, '#FF4500', '#FF8C00', '#FF4500', null],
+      [null, '#FF4500', '#FFD700', '#FF4500', null],
+      ['#FF0000', '#FF4500', '#FFD700', '#FF4500', '#FF0000'],
+      ['#FF0000', '#FF4500', '#FF8C00', '#FF4500', '#FF0000'],
+      [null, '#8B0000', '#FF0000', '#8B0000', null],
+    ],
+  },
+  {
+    id: 'flame-big',
+    name: 'Big Flame',
+    emoji: '🔥',
+    category: 'flames',
+    width: 7,
+    height: 8,
+    pixels: [
+      [null, null, null, '#FF4500', null, null, null],
+      [null, null, '#FF4500', '#FF8C00', '#FF4500', null, null],
+      [null, '#FF4500', '#FF8C00', '#FFD700', '#FF8C00', '#FF4500', null],
+      [null, '#FF4500', '#FFD700', '#FFFF00', '#FFD700', '#FF4500', null],
+      ['#FF0000', '#FF4500', '#FFD700', '#FFFF00', '#FFD700', '#FF4500', '#FF0000'],
+      ['#FF0000', '#FF4500', '#FF8C00', '#FFD700', '#FF8C00', '#FF4500', '#FF0000'],
+      ['#8B0000', '#FF0000', '#FF4500', '#FF8C00', '#FF4500', '#FF0000', '#8B0000'],
+      [null, '#8B0000', '#FF0000', '#FF0000', '#FF0000', '#8B0000', null],
+    ],
+  },
+  {
+    id: 'blue-flame',
+    name: 'Blue Flame',
+    emoji: '🔵',
+    category: 'flames',
+    width: 5,
+    height: 6,
+    pixels: [
+      [null, null, '#00BFFF', null, null],
+      [null, '#00BFFF', '#87CEEB', '#00BFFF', null],
+      [null, '#0000FF', '#00BFFF', '#0000FF', null],
+      ['#000080', '#0000FF', '#00BFFF', '#0000FF', '#000080'],
+      ['#000080', '#0000FF', '#4169E1', '#0000FF', '#000080'],
+      [null, '#00008B', '#000080', '#00008B', null],
+    ],
+  },
+  {
+    id: 'fire-trail',
+    name: 'Fire Trail',
+    emoji: '🔥',
+    category: 'flames',
+    width: 8,
+    height: 4,
+    pixels: [
+      [null, '#FF4500', null, null, '#FF4500', null, null, '#FF8C00'],
+      ['#FF0000', '#FF8C00', '#FF4500', '#FFD700', '#FF8C00', '#FF4500', '#FF8C00', '#FFD700'],
+      ['#8B0000', '#FF0000', '#FF4500', '#FF8C00', '#FF4500', '#FF0000', '#FF4500', '#FF8C00'],
+      [null, '#8B0000', '#FF0000', '#FF0000', '#8B0000', null, '#8B0000', '#FF0000'],
+    ],
+  },
+  // 🪽 WINGS
+  {
+    id: 'angel-wing-left',
+    name: 'Angel Wing L',
+    emoji: '🪽',
+    category: 'wings',
+    width: 6,
+    height: 8,
+    pixels: [
+      [null, null, null, null, '#FFFFFF', null],
+      [null, null, null, '#FFFFFF', '#F0F0F0', '#FFFFFF'],
+      [null, null, '#FFFFFF', '#F0F0F0', '#E0E0E0', '#F0F0F0'],
+      [null, '#FFFFFF', '#F0F0F0', '#E0E0E0', '#D0D0D0', '#E0E0E0'],
+      ['#FFFFFF', '#F0F0F0', '#E0E0E0', '#D0D0D0', '#E0E0E0', null],
+      ['#F0F0F0', '#E0E0E0', '#D0D0D0', '#E0E0E0', null, null],
+      [null, '#E0E0E0', '#D0D0D0', '#E0E0E0', null, null],
+      [null, null, '#D0D0D0', null, null, null],
+    ],
+  },
+  {
+    id: 'angel-wing-right',
+    name: 'Angel Wing R',
+    emoji: '🪽',
+    category: 'wings',
+    width: 6,
+    height: 8,
+    pixels: [
+      [null, '#FFFFFF', null, null, null, null],
+      ['#FFFFFF', '#F0F0F0', '#FFFFFF', null, null, null],
+      ['#F0F0F0', '#E0E0E0', '#F0F0F0', '#FFFFFF', null, null],
+      ['#E0E0E0', '#D0D0D0', '#E0E0E0', '#F0F0F0', '#FFFFFF', null],
+      [null, '#E0E0E0', '#D0D0D0', '#E0E0E0', '#F0F0F0', '#FFFFFF'],
+      [null, null, '#E0E0E0', '#D0D0D0', '#E0E0E0', '#F0F0F0'],
+      [null, null, '#E0E0E0', '#D0D0D0', '#E0E0E0', null],
+      [null, null, null, '#D0D0D0', null, null],
+    ],
+  },
+  {
+    id: 'demon-wing-left',
+    name: 'Demon Wing L',
+    emoji: '🦇',
+    category: 'wings',
+    width: 7,
+    height: 8,
+    pixels: [
+      [null, null, null, null, null, '#2D0A0A', null],
+      [null, null, null, null, '#2D0A0A', '#1A0505', '#2D0A0A'],
+      [null, null, null, '#2D0A0A', '#1A0505', '#2D0A0A', '#1A0505'],
+      [null, null, '#2D0A0A', '#1A0505', '#2D0A0A', '#1A0505', null],
+      [null, '#2D0A0A', '#1A0505', '#2D0A0A', '#1A0505', null, null],
+      ['#2D0A0A', '#1A0505', '#2D0A0A', '#400000', null, null, null],
+      ['#1A0505', '#2D0A0A', '#400000', '#2D0A0A', null, null, null],
+      [null, '#400000', '#2D0A0A', null, null, null, null],
+    ],
+  },
+  {
+    id: 'demon-wing-right',
+    name: 'Demon Wing R',
+    emoji: '🦇',
+    category: 'wings',
+    width: 7,
+    height: 8,
+    pixels: [
+      [null, '#2D0A0A', null, null, null, null, null],
+      ['#2D0A0A', '#1A0505', '#2D0A0A', null, null, null, null],
+      ['#1A0505', '#2D0A0A', '#1A0505', '#2D0A0A', null, null, null],
+      [null, '#1A0505', '#2D0A0A', '#1A0505', '#2D0A0A', null, null],
+      [null, null, '#1A0505', '#2D0A0A', '#1A0505', '#2D0A0A', null],
+      [null, null, null, '#400000', '#2D0A0A', '#1A0505', '#2D0A0A'],
+      [null, null, null, '#2D0A0A', '#400000', '#2D0A0A', '#1A0505'],
+      [null, null, null, null, '#2D0A0A', '#400000', null],
+    ],
+  },
+  {
+    id: 'fairy-wing',
+    name: 'Fairy Wing',
+    emoji: '🧚',
+    category: 'wings',
+    width: 5,
+    height: 7,
+    pixels: [
+      [null, null, '#E0FFFF', null, null],
+      [null, '#E0FFFF', '#87CEEB', '#E0FFFF', null],
+      ['#E0FFFF', '#87CEEB', '#B0E0E6', '#87CEEB', '#E0FFFF'],
+      ['#87CEEB', '#B0E0E6', '#E0FFFF', '#B0E0E6', '#87CEEB'],
+      [null, '#87CEEB', '#B0E0E6', '#87CEEB', null],
+      [null, null, '#87CEEB', null, null],
+      [null, null, '#B0E0E6', null, null],
+    ],
+  },
+  // ⚡ SYMBOLS
+  {
+    id: 'lightning',
+    name: 'Lightning',
+    emoji: '⚡',
+    category: 'symbols',
+    width: 5,
+    height: 7,
+    pixels: [
+      [null, null, '#FFD700', '#FFFF00', '#FFD700'],
+      [null, '#FFD700', '#FFFF00', '#FFD700', null],
+      ['#FFD700', '#FFFF00', '#FFFF00', null, null],
+      ['#FFFF00', '#FFFF00', '#FFFF00', '#FFD700', null],
+      [null, null, '#FFFF00', '#FFD700', null],
+      [null, '#FFD700', '#FFFF00', null, null],
+      ['#FFA500', '#FFD700', null, null, null],
+    ],
+  },
+  {
+    id: 'skull',
+    name: 'Skull',
+    emoji: '💀',
+    category: 'symbols',
+    width: 6,
+    height: 6,
+    pixels: [
+      [null, '#FFFFFF', '#F0F0F0', '#F0F0F0', '#FFFFFF', null],
+      ['#FFFFFF', '#000000', '#F0F0F0', '#F0F0F0', '#000000', '#FFFFFF'],
+      ['#F0F0F0', '#000000', '#FFFFFF', '#FFFFFF', '#000000', '#F0F0F0'],
+      ['#F0F0F0', '#F0F0F0', '#F0F0F0', '#F0F0F0', '#F0F0F0', '#F0F0F0'],
+      [null, '#E0E0E0', '#000000', '#000000', '#E0E0E0', null],
+      [null, null, '#D0D0D0', '#D0D0D0', null, null],
+    ],
+  },
+  {
+    id: 'crown',
+    name: 'Crown',
+    emoji: '👑',
+    category: 'symbols',
+    width: 7,
+    height: 5,
+    pixels: [
+      ['#FFD700', null, '#FFD700', null, '#FFD700', null, '#FFD700'],
+      ['#FFD700', '#FFD700', '#FFD700', '#FFD700', '#FFD700', '#FFD700', '#FFD700'],
+      ['#FFA500', '#FFD700', '#FF0000', '#FFD700', '#FF0000', '#FFD700', '#FFA500'],
+      ['#FFA500', '#FFD700', '#FFD700', '#FFD700', '#FFD700', '#FFD700', '#FFA500'],
+      [null, '#B8860B', '#B8860B', '#B8860B', '#B8860B', '#B8860B', null],
+    ],
+  },
+  {
+    id: 'diamond-gem',
+    name: 'Diamond',
+    emoji: '💎',
+    category: 'symbols',
+    width: 7,
+    height: 6,
+    pixels: [
+      [null, null, '#87CEEB', '#E0FFFF', '#87CEEB', null, null],
+      [null, '#87CEEB', '#B0E0E6', '#E0FFFF', '#B0E0E6', '#87CEEB', null],
+      ['#4169E1', '#87CEEB', '#B0E0E6', '#FFFFFF', '#B0E0E6', '#87CEEB', '#4169E1'],
+      [null, '#4169E1', '#87CEEB', '#B0E0E6', '#87CEEB', '#4169E1', null],
+      [null, null, '#4169E1', '#87CEEB', '#4169E1', null, null],
+      [null, null, null, '#00008B', null, null, null],
+    ],
+  },
+  {
+    id: 'sword',
+    name: 'Sword',
+    emoji: '⚔️',
+    category: 'symbols',
+    width: 3,
+    height: 8,
+    pixels: [
+      [null, '#C0C0C0', null],
+      [null, '#E0E0E0', null],
+      [null, '#E0E0E0', null],
+      [null, '#C0C0C0', null],
+      [null, '#E0E0E0', null],
+      ['#8B4513', '#FFD700', '#8B4513'],
+      [null, '#8B4513', null],
+      [null, '#654321', null],
+    ],
+  },
+  // 🌸 NATURE
+  {
+    id: 'flower',
+    name: 'Flower',
+    emoji: '🌸',
+    category: 'nature',
+    width: 5,
+    height: 5,
+    pixels: [
+      [null, '#FF69B4', null, '#FF69B4', null],
+      ['#FF69B4', '#FFB6C1', '#FF69B4', '#FFB6C1', '#FF69B4'],
+      [null, '#FF69B4', '#FFFF00', '#FF69B4', null],
+      ['#FF69B4', '#FFB6C1', '#FF69B4', '#FFB6C1', '#FF69B4'],
+      [null, '#FF69B4', null, '#FF69B4', null],
+    ],
+  },
+  {
+    id: 'rose',
+    name: 'Rose',
+    emoji: '🌹',
+    category: 'nature',
+    width: 5,
+    height: 7,
+    pixels: [
+      [null, '#FF0000', '#FF4444', '#FF0000', null],
+      ['#FF0000', '#FF4444', '#FF0000', '#FF4444', '#FF0000'],
+      ['#CC0000', '#FF0000', '#FF4444', '#FF0000', '#CC0000'],
+      [null, '#CC0000', '#FF0000', '#CC0000', null],
+      [null, null, '#228B22', null, null],
+      [null, '#228B22', '#228B22', null, null],
+      [null, null, '#228B22', null, null],
+    ],
+  },
+  {
+    id: 'leaf',
+    name: 'Leaf',
+    emoji: '🍃',
+    category: 'nature',
+    width: 5,
+    height: 6,
+    pixels: [
+      [null, null, '#228B22', null, null],
+      [null, '#228B22', '#32CD32', '#228B22', null],
+      ['#228B22', '#32CD32', '#90EE90', '#32CD32', '#228B22'],
+      [null, '#228B22', '#32CD32', '#228B22', null],
+      [null, null, '#228B22', null, null],
+      [null, null, '#8B4513', null, null],
+    ],
+  },
+  {
+    id: 'sun',
+    name: 'Sun',
+    emoji: '☀️',
+    category: 'nature',
+    width: 7,
+    height: 7,
+    pixels: [
+      [null, null, null, '#FFD700', null, null, null],
+      [null, '#FFD700', null, '#FFFF00', null, '#FFD700', null],
+      [null, null, '#FFFF00', '#FFFF00', '#FFFF00', null, null],
+      ['#FFD700', '#FFFF00', '#FFFF00', '#FFFFFF', '#FFFF00', '#FFFF00', '#FFD700'],
+      [null, null, '#FFFF00', '#FFFF00', '#FFFF00', null, null],
+      [null, '#FFD700', null, '#FFFF00', null, '#FFD700', null],
+      [null, null, null, '#FFD700', null, null, null],
+    ],
+  },
+  {
+    id: 'moon',
+    name: 'Moon',
+    emoji: '🌙',
+    category: 'nature',
+    width: 5,
+    height: 6,
+    pixels: [
+      [null, null, '#F0E68C', '#FFD700', null],
+      [null, '#F0E68C', '#FFFF00', null, null],
+      ['#F0E68C', '#FFFF00', null, null, null],
+      ['#F0E68C', '#FFFF00', null, null, null],
+      [null, '#F0E68C', '#FFFF00', null, null],
+      [null, null, '#F0E68C', '#FFD700', null],
+    ],
+  },
+  {
+    id: 'snowflake',
+    name: 'Snowflake',
+    emoji: '❄️',
+    category: 'nature',
+    width: 7,
+    height: 7,
+    pixels: [
+      [null, null, null, '#E0FFFF', null, null, null],
+      [null, '#87CEEB', null, '#E0FFFF', null, '#87CEEB', null],
+      [null, null, '#B0E0E6', '#E0FFFF', '#B0E0E6', null, null],
+      ['#E0FFFF', '#E0FFFF', '#E0FFFF', '#FFFFFF', '#E0FFFF', '#E0FFFF', '#E0FFFF'],
+      [null, null, '#B0E0E6', '#E0FFFF', '#B0E0E6', null, null],
+      [null, '#87CEEB', null, '#E0FFFF', null, '#87CEEB', null],
+      [null, null, null, '#E0FFFF', null, null, null],
+    ],
+  },
+];
+
 // Multi-game support
 type GameType = 'minecraft' | 'roblox';
 
@@ -2745,6 +3235,202 @@ export default function SkinCreator() {
     saveState();
     playSound('click');
   };
+
+  // 🎲 RANDOM SKIN GENERATOR - Surprise the kids! 
+  const generateRandomSkin = useCallback(() => {
+    // 🎨 Fun color pools for each body part
+    const skinTones = ['#ffdfc4', '#f0c8a8', '#d4a76a', '#c4a57b', '#8d6e4c', '#5c4033', '#7dcea0', '#87CEEB', '#DDA0DD', '#FFB6C1'];
+    const hairColors = ['#442920', '#1a1a1a', '#8B4513', '#FFD700', '#FF4500', '#FF1493', '#00CED1', '#32CD32', '#9400D3', '#FF6347'];
+    const shirtColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#00FFFF', '#0088FF', '#FF00FF', '#9B59B6', '#E91E63', '#FF6B6B'];
+    const pantsColors = ['#3c2a5e', '#00008B', '#2c3e50', '#8B0000', '#006400', '#4B0082', '#191970', '#2F4F4F', '#696969', '#1a1a1a'];
+    const shoesColors = ['#444444', '#1a1a1a', '#8B4513', '#A0522D', '#FFD700', '#C0C0C0', '#FF1493', '#00FF00'];
+    const eyeColors = ['#ffffff', '#87CEEB', '#00ff00', '#FF69B4', '#FFD700', '#FF0000', '#00FFFF'];
+    
+    // 🎭 Fun special effects/accessories to randomly add
+    const specialEffects = ['none', 'stars', 'hearts', 'stripes', 'spots', 'rainbow-hair', 'glowing-eyes', 'robot-face', 'cat-ears', 'sunglasses'];
+    
+    // Pick random colors
+    const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+    const skin = pick(skinTones);
+    const hair = pick(hairColors);
+    const shirt = pick(shirtColors);
+    const pants = pick(pantsColors);
+    const shoes = pick(shoesColors);
+    const eyes = pick(eyeColors);
+    const pupils = pick(['#000000', '#1a1a1a', '#4169E1', '#2c1810']);
+    const effect = pick(specialEffects);
+
+    // 🎨 Clear all layer canvases first
+    const baseCanvas = getLayerCanvas('base');
+    const detailsCanvas = getLayerCanvas('details');
+    const accessoriesCanvas = getLayerCanvas('accessories');
+
+    const baseCtx = baseCanvas.getContext('2d');
+    const detailsCtx = detailsCanvas.getContext('2d');
+    const accessoriesCtx = accessoriesCanvas.getContext('2d');
+
+    if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
+
+    baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+    // 🎨 LAYER: BASE - Skin, face features
+    // Head - front face (8x8 at position 8,8)
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(8, 8, 8, 8);
+    // Eyes
+    baseCtx.fillStyle = eyes;
+    baseCtx.fillRect(9, 11, 2, 1);
+    baseCtx.fillRect(13, 11, 2, 1);
+    baseCtx.fillStyle = pupils;
+    baseCtx.fillRect(10, 11, 1, 1);
+    baseCtx.fillRect(13, 11, 1, 1);
+    // Hair
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(8, 8, 8, 1);
+    baseCtx.fillRect(8, 8, 1, 2);
+    baseCtx.fillRect(15, 8, 1, 2);
+    // Mouth
+    baseCtx.fillStyle = '#a87d5a';
+    baseCtx.fillRect(11, 14, 2, 1);
+
+    // Head sides
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(0, 8, 8, 8);
+    baseCtx.fillRect(16, 8, 8, 8);
+    baseCtx.fillRect(24, 8, 8, 8);
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(24, 8, 8, 1);
+
+    // Head top/bottom
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(8, 0, 8, 8);
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(16, 0, 8, 8);
+
+    // Arms - skin parts
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(44, 20, 4, 12);
+    baseCtx.fillRect(40, 20, 4, 12);
+    baseCtx.fillRect(48, 20, 4, 12);
+    baseCtx.fillRect(52, 20, 4, 12);
+    baseCtx.fillRect(36, 52, 4, 12);
+    baseCtx.fillRect(32, 52, 4, 12);
+    baseCtx.fillRect(40, 52, 4, 12);
+    baseCtx.fillRect(44, 52, 4, 12);
+
+    // 🎨 LAYER: DETAILS - Shirt, pants, shoes
+    detailsCtx.fillStyle = shirt;
+    detailsCtx.fillRect(20, 20, 8, 12);
+    detailsCtx.fillRect(16, 20, 4, 12);
+    detailsCtx.fillRect(28, 20, 4, 12);
+    detailsCtx.fillRect(32, 20, 8, 12);
+
+    // Legs - pants
+    detailsCtx.fillStyle = pants;
+    detailsCtx.fillRect(4, 20, 4, 12);
+    detailsCtx.fillRect(0, 20, 4, 12);
+    detailsCtx.fillRect(8, 20, 4, 12);
+    detailsCtx.fillRect(12, 20, 4, 12);
+    detailsCtx.fillRect(20, 52, 4, 12);
+    detailsCtx.fillRect(16, 52, 4, 12);
+    detailsCtx.fillRect(24, 52, 4, 12);
+    detailsCtx.fillRect(28, 52, 4, 12);
+
+    // Shoes
+    detailsCtx.fillStyle = shoes;
+    detailsCtx.fillRect(4, 31, 4, 1);
+    detailsCtx.fillRect(20, 63, 4, 1);
+
+    // 🎭 Apply special effects!
+    if (effect === 'stars') {
+      // Add star pattern to shirt
+      accessoriesCtx.fillStyle = '#FFD700';
+      accessoriesCtx.fillRect(22, 22, 1, 1);
+      accessoriesCtx.fillRect(25, 25, 1, 1);
+      accessoriesCtx.fillRect(21, 27, 1, 1);
+      accessoriesCtx.fillRect(26, 23, 1, 1);
+    } else if (effect === 'hearts') {
+      // Heart on shirt
+      accessoriesCtx.fillStyle = '#FF69B4';
+      accessoriesCtx.fillRect(23, 23, 2, 2);
+      accessoriesCtx.fillRect(22, 24, 1, 1);
+      accessoriesCtx.fillRect(25, 24, 1, 1);
+      accessoriesCtx.fillRect(24, 26, 1, 1);
+    } else if (effect === 'stripes') {
+      // Horizontal stripes on shirt
+      const stripeColor = pick(['#ffffff', '#000000', '#FFD700']);
+      accessoriesCtx.fillStyle = stripeColor;
+      accessoriesCtx.fillRect(20, 22, 8, 1);
+      accessoriesCtx.fillRect(20, 25, 8, 1);
+      accessoriesCtx.fillRect(20, 28, 8, 1);
+    } else if (effect === 'spots') {
+      // Polka dots
+      accessoriesCtx.fillStyle = pick(['#ffffff', '#000000', '#FF69B4']);
+      accessoriesCtx.fillRect(21, 22, 1, 1);
+      accessoriesCtx.fillRect(25, 24, 1, 1);
+      accessoriesCtx.fillRect(22, 27, 1, 1);
+      accessoriesCtx.fillRect(26, 29, 1, 1);
+    } else if (effect === 'rainbow-hair') {
+      // Rainbow gradient in hair
+      const rainbowColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#0088FF', '#8800FF'];
+      rainbowColors.forEach((c, i) => {
+        baseCtx.fillStyle = c;
+        baseCtx.fillRect(8 + i, 8, 1, 1);
+      });
+    } else if (effect === 'glowing-eyes') {
+      // Bright glowing eyes
+      baseCtx.fillStyle = '#00FF00';
+      baseCtx.fillRect(9, 11, 2, 1);
+      baseCtx.fillRect(13, 11, 2, 1);
+      accessoriesCtx.fillStyle = '#ADFF2F';
+      accessoriesCtx.fillRect(9, 10, 2, 1);
+      accessoriesCtx.fillRect(13, 10, 2, 1);
+    } else if (effect === 'robot-face') {
+      // Robot antenna and visor
+      accessoriesCtx.fillStyle = '#C0C0C0';
+      accessoriesCtx.fillRect(11, 7, 2, 1);
+      accessoriesCtx.fillRect(12, 6, 1, 1);
+      accessoriesCtx.fillStyle = '#FF0000';
+      accessoriesCtx.fillRect(12, 5, 1, 1);
+      // Visor
+      baseCtx.fillStyle = '#00BFFF';
+      baseCtx.fillRect(9, 11, 6, 1);
+    } else if (effect === 'cat-ears') {
+      // Cat ears on head
+      accessoriesCtx.fillStyle = hair;
+      accessoriesCtx.fillRect(8, 7, 2, 1);
+      accessoriesCtx.fillRect(9, 6, 1, 1);
+      accessoriesCtx.fillRect(14, 7, 2, 1);
+      accessoriesCtx.fillRect(14, 6, 1, 1);
+      // Inner ear
+      accessoriesCtx.fillStyle = '#FFB6C1';
+      accessoriesCtx.fillRect(9, 7, 1, 1);
+      accessoriesCtx.fillRect(14, 7, 1, 1);
+    } else if (effect === 'sunglasses') {
+      // Cool sunglasses
+      accessoriesCtx.fillStyle = '#000000';
+      accessoriesCtx.fillRect(9, 11, 2, 1);
+      accessoriesCtx.fillRect(13, 11, 2, 1);
+      accessoriesCtx.fillRect(11, 11, 2, 1);
+      accessoriesCtx.fillRect(8, 11, 1, 1);
+      accessoriesCtx.fillRect(15, 11, 1, 1);
+    }
+
+    // Composite all layers
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    
+    // 🎉 Confetti for surprise!
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 2000);
+    playSound('success');
+
+    // Trigger 3D preview refresh
+    setTextureVersion(v => v + 1);
+  }, [getLayerCanvas, compositeLayersToMain, updatePreview, saveState, playSound]);
 
   // 📋 Copy skin to clipboard
   const copyToClipboard = async () => {

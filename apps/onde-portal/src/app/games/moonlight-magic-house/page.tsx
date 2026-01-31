@@ -1367,7 +1367,7 @@ const CuteCat = ({ mood = 'neutral', className = '' }: { mood?: 'neutral' | 'hap
   </svg>
 )
 
-const MagicMoon = ({ className = '' }: { className?: string }) => (
+const MagicMoon = ({ className = '', phase = 'full' }: { className?: string; phase?: 'full' | 'waning' | 'crescent' | 'new' }) => (
   <svg viewBox="0 0 100 100" className={`${className} gpu-accelerated`}>
     <defs>
       <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
@@ -1378,20 +1378,73 @@ const MagicMoon = ({ className = '' }: { className?: string }) => (
       <filter id="moonBlur">
         <feGaussianBlur stdDeviation="2" />
       </filter>
+      <mask id="moonPhaseMask">
+        <circle cx="50" cy="50" r="28" fill="white" />
+        {phase === 'waning' && <circle cx="60" cy="50" r="20" fill="black" />}
+        {phase === 'crescent' && <circle cx="65" cy="50" r="24" fill="black" />}
+        {phase === 'new' && <circle cx="50" cy="50" r="28" fill="black" />}
+      </mask>
     </defs>
     {/* Outer glow */}
     <circle cx="50" cy="50" r="45" fill="#FFE566" opacity="0.3" filter="url(#moonBlur)" />
     <circle cx="50" cy="50" r="35" fill="#FFF9E6" opacity="0.4" filter="url(#moonBlur)" />
-    {/* Moon */}
-    <circle cx="50" cy="50" r="28" fill="url(#moonGlow)" />
-    {/* Craters */}
-    <circle cx="40" cy="45" r="5" fill="#E6D280" opacity="0.5" />
-    <circle cx="55" cy="55" r="7" fill="#E6D280" opacity="0.4" />
-    <circle cx="60" cy="38" r="4" fill="#E6D280" opacity="0.3" />
+    {/* Moon with phase */}
+    <g mask="url(#moonPhaseMask)">
+      <circle cx="50" cy="50" r="28" fill="url(#moonGlow)" />
+      {/* Craters */}
+      <circle cx="40" cy="45" r="5" fill="#E6D280" opacity="0.5" />
+      <circle cx="55" cy="55" r="7" fill="#E6D280" opacity="0.4" />
+      <circle cx="60" cy="38" r="4" fill="#E6D280" opacity="0.3" />
+      {/* Face */}
+      <circle cx="42" cy="45" r="2" fill="#D4A84B" />
+      <circle cx="58" cy="45" r="2" fill="#D4A84B" />
+      <path d="M45 55 Q50 60 55 55" fill="none" stroke="#D4A84B" strokeWidth="2" strokeLinecap="round" />
+    </g>
+  </svg>
+)
+
+// Cute animated sun for daytime
+const MagicSun = ({ className = '' }: { className?: string }) => (
+  <svg viewBox="0 0 100 100" className={`${className} gpu-accelerated`}>
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#FFFACD" />
+        <stop offset="50%" stopColor="#FFD700" />
+        <stop offset="100%" stopColor="#FFA500" />
+      </radialGradient>
+      <filter id="sunBlur">
+        <feGaussianBlur stdDeviation="3" />
+      </filter>
+    </defs>
+    {/* Outer glow rays */}
+    <circle cx="50" cy="50" r="48" fill="#FFD700" opacity="0.2" filter="url(#sunBlur)" />
+    <circle cx="50" cy="50" r="38" fill="#FFFACD" opacity="0.3" filter="url(#sunBlur)" />
+    {/* Sun rays */}
+    <g className="animate-spin" style={{ animationDuration: '30s', transformOrigin: '50px 50px' }}>
+      {[...Array(12)].map((_, i) => (
+        <line
+          key={i}
+          x1="50"
+          y1="10"
+          x2="50"
+          y2="20"
+          stroke="#FFD700"
+          strokeWidth="3"
+          strokeLinecap="round"
+          opacity="0.6"
+          transform={`rotate(${i * 30} 50 50)`}
+        />
+      ))}
+    </g>
+    {/* Sun body */}
+    <circle cx="50" cy="50" r="25" fill="url(#sunGlow)" />
     {/* Face */}
-    <circle cx="42" cy="45" r="2" fill="#D4A84B" />
-    <circle cx="58" cy="45" r="2" fill="#D4A84B" />
-    <path d="M45 55 Q50 60 55 55" fill="none" stroke="#D4A84B" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="42" cy="47" r="3" fill="#E67E00" />
+    <circle cx="58" cy="47" r="3" fill="#E67E00" />
+    <path d="M42 56 Q50 62 58 56" fill="none" stroke="#E67E00" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Cheeks */}
+    <circle cx="35" cy="52" r="4" fill="#FFA07A" opacity="0.5" />
+    <circle cx="65" cy="52" r="4" fill="#FFA07A" opacity="0.5" />
   </svg>
 )
 
