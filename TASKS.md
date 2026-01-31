@@ -11154,8 +11154,8 @@
   - Kid-friendly con risultati sempre carini
 
 ### [T922] Skin Creator: Canvas History Sidebar
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T887]
 - **Blocks**: -
 - **Priority**: P3
@@ -11966,8 +11966,8 @@ Generated: 2026-01-30T18:37:46.867013
 ## 🔧 INFRA IMPROVEMENTS (AUTO-ADDED 2026-01-30)
 
 ### [T957] Infra: Add Ondinho Watchdog to Crontab
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T950]
 - **Blocks**: -
 - **Priority**: P2
