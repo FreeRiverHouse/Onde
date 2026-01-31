@@ -12631,7 +12631,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Dab pose animation
 
 ### [T1017] Skin Creator: Animation Speed Control
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12825,3 +12825,24 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Show "⚡ X high priority" for P1 tasks
   - [ ] Add to stats row in TaskManagementPanel
 
+
+### [T1034] Skin Creator: Animation Presets
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Save speed+pose combinations as presets
+
+### [T1035] Skin Creator: Loop/Once Toggle
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Toggle between looping and play-once animations
+
+### [T1036] Skin Creator: Animation Preview GIF
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Export current animation as GIF
