@@ -29,12 +29,38 @@ type ViewMode = 'editor' | 'gallery';
 // Layer definitions for the skin editor
 type LayerType = 'base' | 'details' | 'accessories';
 
+// Blend modes for advanced layer compositing
+type BlendModeType = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';
+
+interface BlendModePreset {
+  id: BlendModeType;
+  name: string;
+  emoji: string;
+  description: string;
+}
+
+const BLEND_MODES: BlendModePreset[] = [
+  { id: 'normal', name: 'Normal', emoji: '⬜', description: 'Standard blending' },
+  { id: 'multiply', name: 'Multiply', emoji: '✖️', description: 'Darkens - great for shadows' },
+  { id: 'screen', name: 'Screen', emoji: '💡', description: 'Lightens - great for highlights' },
+  { id: 'overlay', name: 'Overlay', emoji: '🔀', description: 'Mix of multiply & screen' },
+  { id: 'darken', name: 'Darken', emoji: '🌑', description: 'Keeps darker colors' },
+  { id: 'lighten', name: 'Lighten', emoji: '🌕', description: 'Keeps lighter colors' },
+  { id: 'color-dodge', name: 'Color Dodge', emoji: '🔥', description: 'Brightens intensely' },
+  { id: 'color-burn', name: 'Color Burn', emoji: '🪨', description: 'Darkens intensely' },
+  { id: 'hard-light', name: 'Hard Light', emoji: '💎', description: 'Strong contrast' },
+  { id: 'soft-light', name: 'Soft Light', emoji: '🌤️', description: 'Gentle contrast' },
+  { id: 'difference', name: 'Difference', emoji: '🔄', description: 'Inverts based on brightness' },
+  { id: 'exclusion', name: 'Exclusion', emoji: '⚡', description: 'Low contrast inversion' },
+];
+
 interface Layer {
   id: LayerType;
   name: string;
   emoji: string;
   visible: boolean;
   opacity: number;
+  blendMode: BlendModeType; // Blend mode for layer compositing
   tint: string | null; // Color tint/overlay (hex color or null for no tint)
   tintIntensity: number; // Tint intensity 0-100%
   glow: boolean; // Glow effect on layer
@@ -815,13 +841,15 @@ export default function SkinCreator() {
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'rectangle' | 'circle' | 'spray' | 'select' | 'color-replace'>('brush');
+  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'rectangle' | 'circle' | 'spray' | 'select' | 'color-replace' | 'dither'>('brush');
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
   const shapeStartPosition = useRef<{ x: number; y: number } | null>(null);
+  const gradientStartPosition = useRef<{ x: number; y: number } | null>(null);
   const linePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
   const shapePreviewCanvas = useRef<HTMLCanvasElement | null>(null);
+  const gradientPreviewCanvas = useRef<HTMLCanvasElement | null>(null);
   const eyedropperUseCount = useRef(0);
   const [shapeFilled, setShapeFilled] = useState(false); // Toggle filled vs outline shapes
   
@@ -2177,6 +2205,37 @@ export default function SkinCreator() {
           break;
         case 'y': if (isCmd) { e.preventDefault(); redo(); playSound('redo'); } break;
         
+        // 📐 Selection clipboard shortcuts (Ctrl+C, Ctrl+X, Ctrl+V)
+        case 'c':
+          if (isCmd && selection) { e.preventDefault(); copySelection(); }
+          else if (!isCmd) setShowDuplicateMenu(prev => !prev);
+          break;
+        case 'x':
+          if (isCmd && selection) { e.preventDefault(); cutSelection(); }
+          break;
+        case 'v':
+          if (isCmd && clipboard) { e.preventDefault(); enterPasteMode(); }
+          break;
+        case 'delete':
+        case 'backspace':
+          if (selection && !e.shiftKey) {
+            e.preventDefault();
+            clearSelection();
+          } else if (e.shiftKey) {
+            // Shift+Delete = clear current layer (handled below or inline)
+            const layerCanvas = layerCanvasRefs.current[activeLayer];
+            if (layerCanvas) {
+              const ctx = layerCanvas.getContext('2d');
+              if (ctx) {
+                ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+                compositeLayersToMain();
+                updatePreview();
+              }
+            }
+            playSound('click');
+          }
+          break;
+        
         // 🎨 View controls
         case 'm': setMirrorMode(prev => !prev); playSound('click'); break;
         case 'd': if (!isCmd) setDarkMode(prev => !prev); break;
@@ -2202,11 +2261,9 @@ export default function SkinCreator() {
           const idx = ['base', 'details', 'accessories'].indexOf(prev);
           return ['base', 'details', 'accessories'][(idx + 1) % 3] as LayerType;
         }); break;
-        case 'c': if (!isCmd) setShowDuplicateMenu(prev => !prev); break;
         
         // 🎭 Panel toggles
         case 'a': if (!isCmd) setShowAIPanel(prev => !prev); break; // AI panel
-        case 'h': setShowStickerPanel(prev => !prev); break; // H for stickers (Heart/decals)
         case 'j': // J for adJustments (HSL panel)
           if (!showHSLPanel && canvasRef.current) {
             const ctx = canvasRef.current.getContext('2d');
@@ -2217,34 +2274,6 @@ export default function SkinCreator() {
           setShowHSLPanel(prev => !prev);
           break;
         case 'k': setShowMySkins(prev => !prev); break; // K for sKins saved
-        case 's': if (!isCmd) setShowStatsPanel(prev => !prev); break; // S for Stats panel
-        
-        // 🎨 Color swap
-        case 'x': {
-          // Swap primary and secondary colors
-          const temp = selectedColor;
-          setSelectedColor(secondaryColor);
-          setSecondaryColor(temp);
-          playSound('click');
-          break;
-        }
-        
-        // 🗑️ Clear layer
-        case 'delete':
-        case 'backspace':
-          if (e.shiftKey) {
-            // Shift+Delete = clear current layer (inline to avoid dep issues)
-            const layerCanvas = layerCanvasRefs.current[activeLayer];
-            if (layerCanvas) {
-              const ctx = layerCanvas.getContext('2d');
-              if (ctx) {
-                ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-                // Recomposite will happen via the effect watching layers
-              }
-            }
-            playSound('click');
-          }
-          break;
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -3279,23 +3308,66 @@ export default function SkinCreator() {
         break;
       }
 
-      case 'invert': {
-        // Invert all colors (negative effect)
-        // At 100% intensity: full inversion (255 - color)
-        // At lower intensity: blend between original and inverted
-        for (let i = 0; i < data.length; i += 4) {
-          // Skip fully transparent pixels
-          if (data[i + 3] === 0) continue;
+      case 'outline': {
+        // Add border/outline around opaque shapes using secondary color
+        // Intensity controls outline thickness (1-3 pixels)
+        const outlineThickness = Math.max(1, Math.ceil(normalizedIntensity * 3));
+        
+        // Parse outline color (hex to RGB) - use the outlineColor param or default to black
+        const hexColor = (outlineColor || '#000000').replace('#', '');
+        const outlineR = parseInt(hexColor.substring(0, 2), 16);
+        const outlineG = parseInt(hexColor.substring(2, 4), 16);
+        const outlineB = parseInt(hexColor.substring(4, 6), 16);
+        
+        // Create a copy of the original data to reference
+        const originalData = new Uint8ClampedArray(data);
+        
+        // For each layer of outline thickness
+        for (let layer = 0; layer < outlineThickness; layer++) {
+          // Create a temp array for this layer's outline pixels
+          const outlinePixels: { x: number; y: number }[] = [];
           
-          // Calculate inverted values
-          const invertedR = 255 - data[i];
-          const invertedG = 255 - data[i + 1];
-          const invertedB = 255 - data[i + 2];
+          // Find all transparent pixels that are adjacent to opaque pixels
+          for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+              const idx = (y * width + x) * 4;
+              
+              // Check if this pixel is transparent (or was originally transparent)
+              if (originalData[idx + 3] > 0) continue;
+              // Also skip if we already drew outline here in a previous layer
+              if (data[idx + 3] > 0) continue;
+              
+              // Check 8 neighbors (including diagonals) for opaque pixels
+              let hasOpaqueNeighbor = false;
+              for (let dy = -1; dy <= 1 && !hasOpaqueNeighbor; dy++) {
+                for (let dx = -1; dx <= 1 && !hasOpaqueNeighbor; dx++) {
+                  if (dx === 0 && dy === 0) continue;
+                  const nx = x + dx;
+                  const ny = y + dy;
+                  if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const nidx = (ny * width + nx) * 4;
+                    // Check if neighbor is opaque (either original or from previous outline layer)
+                    if (data[nidx + 3] > 0) {
+                      hasOpaqueNeighbor = true;
+                    }
+                  }
+                }
+              }
+              
+              if (hasOpaqueNeighbor) {
+                outlinePixels.push({ x, y });
+              }
+            }
+          }
           
-          // Blend between original and inverted based on intensity
-          data[i] = Math.round(data[i] * (1 - normalizedIntensity) + invertedR * normalizedIntensity);
-          data[i + 1] = Math.round(data[i + 1] * (1 - normalizedIntensity) + invertedG * normalizedIntensity);
-          data[i + 2] = Math.round(data[i + 2] * (1 - normalizedIntensity) + invertedB * normalizedIntensity);
+          // Apply outline pixels for this layer
+          for (const { x, y } of outlinePixels) {
+            const idx = (y * width + x) * 4;
+            data[idx] = outlineR;
+            data[idx + 1] = outlineG;
+            data[idx + 2] = outlineB;
+            data[idx + 3] = 255;
+          }
         }
         break;
       }
