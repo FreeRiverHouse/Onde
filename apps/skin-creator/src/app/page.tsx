@@ -39,6 +39,14 @@ const TEMPLATES = {
     name: '👸 Princess',
     skin: '#ffdfc4', hair: '#f1c40f', shirt: '#e91e63', pants: '#9c27b0', shoes: '#ff69b4', eyes: '#87ceeb', pupils: '#4169e1',
   },
+  zombie: {
+    name: '🧟 Zombie',
+    skin: '#5a8f5a', hair: '#2d4a2d', shirt: '#00a8a8', pants: '#3c2a5e', shoes: '#444444', eyes: '#1a1a1a', pupils: '#000000',
+  },
+  creeper: {
+    name: '💚 Creeper',
+    skin: '#5ba555', hair: '#3d7a3d', shirt: '#4a934a', pants: '#3d7a3d', shoes: '#2d5a2d', eyes: '#000000', pupils: '#000000',
+  },
 };
 
 // Legacy alias
