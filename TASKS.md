@@ -13739,3 +13739,12 @@ Generated: 2026-01-30T18:37:46.867013
 - **Fix**: Salmo 23 = Shepherd's Promise (same book!)
 - **Removed**: salmo-23-it, salmo-23-en duplicates
 - **Kept**: shepherds-promise
+
+### [T1002] Fix Books: Use Correct OndeClassics Versions
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 03:00 PST
+- **Source**: ~/CascadeProjects/OndePRDB/books/meditations/
+- **Fixed**:
+  - meditations-en.epub (OndeClassics, firma "— Onde")
+  - meditations-it.epub (versione italiana aggiunta!)
