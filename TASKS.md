@@ -11990,8 +11990,8 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Include quick fix suggestion
 
 ### [T959] Infra: Heartbeat Rotation Tracker
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
@@ -12010,8 +12010,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Add fun sounds when drawing, saving, etc.
 
 ### [T959] Skin Creator: Undo/Redo Stack per Layer
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Separate undo stack for each layer
