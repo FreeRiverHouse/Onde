@@ -3834,6 +3834,47 @@ export default function MoonlightMagicHouse() {
             className={`bottom-${20 + i * 10}% ${i % 2 === 0 ? 'left-[10%]' : 'right-[10%]'}`}
           />
         ))}
+        
+        {/* 🐾 PET COMPANION - follows the player! */}
+        <div 
+          className="fixed pointer-events-none z-40 gpu-accelerated transition-opacity duration-500"
+          style={{
+            left: petPosition.x,
+            top: petPosition.y,
+            transform: 'translate(-50%, -50%)',
+            opacity: petPosition.x === 0 ? 0 : 1, // Hide until initialized
+          }}
+        >
+          <div className="relative">
+            <PetCompanion 
+              type={petType}
+              state={petState}
+              facingRight={facingRight}
+              className="w-16 h-16"
+            />
+            
+            {/* Pet intro bubble */}
+            {showPetIntro && (
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap animate-bounce-gentle">
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-lg border border-white/50">
+                  <p className="text-xs font-medium text-gray-700">
+                    {petType === 'kitten' ? '😺 Meow! I\'ll follow you!' : '🐶 Woof! I\'m your buddy!'}
+                  </p>
+                </div>
+                {/* Speech bubble tail */}
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-white/90 rotate-45 border-r border-b border-white/50" />
+              </div>
+            )}
+            
+            {/* Paw prints trail effect when walking */}
+            {petState === 'walking' && (
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-50">
+                <div className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
+                <div className="w-1 h-1 rounded-full bg-white/30 animate-pulse" style={{ animationDelay: '0.1s' }} />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     )
   }
