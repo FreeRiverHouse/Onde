@@ -2360,38 +2360,18 @@ export default function SkinCreator() {
             />
           )}
 
-          {/* Templates */}
+          {/* Templates - Simplified with categories */}
           <div className="mt-4">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Start from:</p>
-            <div className="flex flex-wrap gap-1 justify-center">
-              {Object.entries(TEMPLATES).map(([key, template]) => (
-                <button
-                  key={key}
-                  onClick={() => {
-                    loadTemplate(key as keyof typeof TEMPLATES);
-                    // 💚 Creeper Surprise Effect!
-                    if (key === 'creeper') {
-                      setShowConfetti(true);
-                      playSound('download');
-                      // Shake the preview!
-                      const preview = document.querySelector('.glass-card');
-                      if (preview) {
-                        preview.classList.add('animate-wiggle');
-                        setTimeout(() => preview.classList.remove('animate-wiggle'), 500);
-                      }
-                      setTimeout(() => setShowConfetti(false), 2000);
-                    }
-                  }}
-                  className={`px-2 py-1 text-white rounded-lg text-xs font-bold hover:scale-105 transition-all ${key === 'creeper' ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
-                >
-                  {template.name}
-                </button>
-              ))}
+            <p className="text-sm font-bold text-gray-700 mb-3">🎭 Start from a template:</p>
+            
+            {/* Quick Start Row - Most popular */}
+            <div className="grid grid-cols-3 gap-2 mb-3">
               <button
-                onClick={() => loadTemplate('blank')}
-                className="px-2 py-1 bg-gray-500 text-white rounded-lg text-xs font-bold hover:bg-gray-600"
+                onClick={() => { loadTemplate('steve'); playSound('click'); }}
+                className="kid-btn bg-blue-500 text-white shadow-md flex flex-col items-center py-3"
               >
-                ⬜ Blank
+                <span className="text-xl">👦</span>
+                <span className="text-xs font-bold">Steve</span>
               </button>
               <button
                 onClick={() => {
@@ -2399,124 +2379,66 @@ export default function SkinCreator() {
                   generateRandomSkin();
                   setTimeout(() => setIsWiggling(false), 500);
                 }}
-                className={`px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform ${isWiggling ? 'animate-wiggle' : 'animate-pulse'}`}
+                className={`kid-btn bg-gradient-to-r from-pink-500 to-yellow-500 text-white shadow-md flex flex-col items-center py-3 ${isWiggling ? 'animate-wiggle' : ''}`}
               >
-                🎲 Random!
+                <span className="text-xl">🎲</span>
+                <span className="text-xs font-bold">Random</span>
               </button>
               <button
-                onClick={() => {
-                  // 🎁 Mystery Box - completely random pixels!
-                  const canvas = layerCanvasRefs.current[activeLayer];
-                  if (!canvas) return;
-                  const ctx = canvas.getContext('2d');
-                  if (!ctx) return;
-
-                  // Fill with random colored pixels
-                  for (let x = 0; x < 64; x++) {
-                    for (let y = 0; y < 64; y++) {
-                      ctx.fillStyle = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-                      ctx.fillRect(x, y, 1, 1);
-                    }
-                  }
-
-                  compositeLayersToMain();
-                  updatePreview();
-                  setShowConfetti(true);
-                  playSound('download');
-                  setTimeout(() => setShowConfetti(false), 2000);
-                }}
-                className="px-2 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
-                title="🎁 Mystery surprise skin!"
+                onClick={() => { loadTemplate('blank'); playSound('click'); }}
+                className="kid-btn bg-gray-400 text-white shadow-md flex flex-col items-center py-3"
               >
-                🎁 Mystery!
+                <span className="text-xl">⬜</span>
+                <span className="text-xs font-bold">Blank</span>
               </button>
-              <button
-                onClick={() => {
-                  // 🎭 Random Outfit - randomize clothing/accessories tints!
-                  const outfitColors = ['#FF6B6B', '#4D96FF', '#6BCB77', '#FFD93D', '#9B59B6', '#FF8E53', '#00BCD4', '#E91E63'];
-                  const randomColor = () => outfitColors[Math.floor(Math.random() * outfitColors.length)];
-
-                  setLayers(prev => prev.map(layer => {
-                    if (layer.id === 'clothing' || layer.id === 'accessories') {
-                      return { ...layer, tint: randomColor(), tintIntensity: 70 };
+            </div>
+            
+            {/* More Templates - Scrollable */}
+            <div className="flex gap-2 overflow-x-auto pb-2 scroll-smooth" style={{ WebkitOverflowScrolling: 'touch' }}>
+              {Object.entries(TEMPLATES).slice(1, 8).map(([key, template]) => (
+                <button
+                  key={key}
+                  onClick={() => {
+                    loadTemplate(key as keyof typeof TEMPLATES);
+                    playSound('click');
+                    if (key === 'creeper') {
+                      setShowConfetti(true);
+                      setTimeout(() => setShowConfetti(false), 2000);
                     }
-                    return layer;
-                  }));
+                  }}
+                  className={`flex-shrink-0 px-3 py-2 text-white rounded-xl text-sm font-bold active:scale-95 transition-all shadow-md ${
+                    key === 'creeper' ? 'bg-green-500' : 'bg-indigo-500'
+                  }`}
+                >
+                  {template.name}
+                </button>
+              ))}
+            </div>
 
-                  playSound('download');
-                }}
-                className="px-2 py-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
-                title="🎭 Randomize outfit colors!"
-              >
-                🎭 Outfit!
-              </button>
-              
-              {/* ✨ AI Color Palette */}
-              <button
-                onClick={() => {
-                  // AI-inspired color harmonies
-                  const palettes = [
-                    // Cyberpunk
-                    { name: 'Cyberpunk', base: '#0ff', accent: '#f0f', dark: '#0a0a2e' },
-                    // Forest Warrior
-                    { name: 'Forest', base: '#228B22', accent: '#8B4513', dark: '#1a3a1a' },
-                    // Ice Mage
-                    { name: 'Ice', base: '#87CEEB', accent: '#E0FFFF', dark: '#1a2a3a' },
-                    // Fire Lord
-                    { name: 'Fire', base: '#FF4500', accent: '#FFD700', dark: '#2a1a0a' },
-                    // Void Walker
-                    { name: 'Void', base: '#4B0082', accent: '#8B008B', dark: '#0a0a1a' },
-                    // Ocean Deep
-                    { name: 'Ocean', base: '#006994', accent: '#40E0D0', dark: '#0a1a2a' },
-                    // Golden Knight
-                    { name: 'Golden', base: '#FFD700', accent: '#DAA520', dark: '#2a2a1a' },
-                    // Neon Gamer
-                    { name: 'Neon', base: '#39FF14', accent: '#FF1493', dark: '#0a0a0a' },
-                  ];
-                  const palette = palettes[Math.floor(Math.random() * palettes.length)];
-                  
-                  // Apply to layers
-                  setLayers(prev => prev.map(layer => {
-                    if (layer.id === 'clothing') {
-                      return { ...layer, tint: palette.base, tintIntensity: 60 };
-                    }
-                    if (layer.id === 'accessories') {
-                      return { ...layer, tint: palette.accent, tintIntensity: 70 };
-                    }
-                    return layer;
-                  }));
-                  
-                  playSound('success');
-                }}
-                className="px-2 py-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
-                title="✨ AI-inspired color palette"
-              >
-                ✨ AI Colors
-              </button>
-
-              {/* 💾 Save/My Skins */}
+            {/* Save & Share Row */}
+            <div className="flex gap-2 mt-3 justify-center">
               <button
                 onClick={() => { saveSkin(); playSound('save'); }}
-                className="px-2 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
-                title="💾 Save current skin"
+                className="kid-btn px-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg flex items-center gap-1"
               >
-                💾 Save
+                <span className="text-lg">💾</span>
+                <span className="text-sm font-bold">Save</span>
               </button>
               <button
-                onClick={() => setShowMySkins(!showMySkins)}
-                className={`px-2 py-1 rounded-lg text-xs font-bold hover:scale-105 transition-transform ${
-                  showMySkins ? 'bg-blue-500 text-white' : 'bg-gradient-to-r from-blue-400 to-indigo-500 text-white'
+                onClick={() => { setShowMySkins(!showMySkins); playSound('click'); }}
+                className={`kid-btn px-4 shadow-lg flex items-center gap-1 ${
+                  showMySkins ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700'
                 }`}
-                title="📂 My saved skins"
               >
-                📂 My Skins ({savedSkins.length})
+                <span className="text-lg">📂</span>
+                <span className="text-sm font-bold">{savedSkins.length}</span>
               </button>
               <button
-                onClick={shareSkin}
-                className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
-                title="🔗 Share skin via link"
+                onClick={() => { shareSkin(); }}
+                className="kid-btn px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg flex items-center gap-1"
               >
-                🔗 Share
+                <span className="text-lg">🔗</span>
+                <span className="text-sm font-bold">Share</span>
               </button>
             </div>
             

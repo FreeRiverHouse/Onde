@@ -437,6 +437,9 @@ export default function MoonlightMagicHouse() {
   const [gameState, setGameState] = useState<GameState>('loading')
   const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0 })
   
+  // Audio engine for sound effects
+  const audio = useAudioEngine()
+  
   // Find the Toy game state
   const [hidingSpots, setHidingSpots] = useState<HidingSpot[]>([])
   const [triesLeft, setTriesLeft] = useState(3)
@@ -449,17 +452,24 @@ export default function MoonlightMagicHouse() {
   const [petMood, setPetMood] = useState<'hungry' | 'eating' | 'happy'>('hungry')
   const [dragPosition, setDragPosition] = useState<{ x: number; y: number } | null>(null)
   const petRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number>(0)
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
       setGameState('menu')
     }, 1200)
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      cancelAnimationFrame(rafRef.current)
+    }
   }, [])
 
   // Initialize Find the Toy game
   const startFindToy = useCallback(() => {
+    audio.playClick()
+    triggerHaptic('light')
+    
     const spots: HidingSpot[] = []
     const toyIndex = Math.floor(Math.random() * 6)
     
@@ -478,19 +488,28 @@ export default function MoonlightMagicHouse() {
     setFoundToy(false)
     setCheckedSpots(new Set())
     setGameState('find-toy')
-  }, [])
+  }, [audio])
 
   // Handle spot check in Find the Toy
   const checkSpot = (spot: HidingSpot) => {
     if (checkedSpots.has(spot.id) || foundToy || triesLeft <= 0) return
     
+    audio.playPop()
+    triggerHaptic('light')
     setCheckedSpots(prev => new Set([...prev, spot.id]))
     
     if (spot.hasToy) {
       setFoundToy(true)
+      audio.playSuccess()
+      triggerHaptic('success')
       setRewards(prev => ({ ...prev, toys: prev.toys + 1 }))
-      setTimeout(() => setGameState('reward'), 1500)
+      setTimeout(() => {
+        audio.playWin()
+        setGameState('reward')
+      }, 1500)
     } else {
+      audio.playMiss()
+      triggerHaptic('medium')
       const newTries = triesLeft - 1
       setTriesLeft(newTries)
       if (newTries <= 0) {
@@ -501,12 +520,15 @@ export default function MoonlightMagicHouse() {
 
   // Initialize Feed Time game
   const startFeedTime = useCallback(() => {
+    audio.playClick()
+    triggerHaptic('light')
+    
     setSelectedFood(null)
     setPetFed(false)
     setPetMood('hungry')
     setDragPosition(null)
     setGameState('feed-time')
-  }, [])
+  }, [audio])
 
   // Handle food selection
   const selectFood = (food: FoodItem) => {
