@@ -41,6 +41,20 @@ const fortunes = [
   { text: "Your kind words can make someone's whole day! 🌻", lang: 'en' },
 ]
 
+// Helper to get date string in YYYY-MM-DD format
+const getDateString = (date: Date = new Date()) => {
+  return date.toISOString().split('T')[0]
+}
+
+// Check if two dates are consecutive days
+const areConsecutiveDays = (date1: string, date2: string): boolean => {
+  const d1 = new Date(date1)
+  const d2 = new Date(date2)
+  const diffTime = Math.abs(d2.getTime() - d1.getTime())
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
+  return diffDays === 1
+}
+
 export default function FortuneCookie() {
   const [isOpen, setIsOpen] = useState(false)
   const [fortune, setFortune] = useState<typeof fortunes[0] | null>(null)
@@ -48,13 +62,38 @@ export default function FortuneCookie() {
   const [cookieCount, setCookieCount] = useState(0)
   const [copied, setCopied] = useState(false)
   const [selectedLang, setSelectedLang] = useState<'all' | 'it' | 'en'>('all')
+  const [streak, setStreak] = useState(0)
+  const [streakUpdatedToday, setStreakUpdatedToday] = useState(false)
 
-  // Load cookie count and language preference from localStorage
+  // Load cookie count, language preference, and streak from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('fortune-cookie-count')
     if (saved) setCookieCount(parseInt(saved))
     const savedLang = localStorage.getItem('fortune-cookie-lang') as 'all' | 'it' | 'en'
     if (savedLang) setSelectedLang(savedLang)
+    
+    // Load streak data
+    const savedStreak = localStorage.getItem('fortune-cookie-streak')
+    const lastVisit = localStorage.getItem('fortune-cookie-last-visit')
+    const today = getDateString()
+    
+    if (savedStreak && lastVisit) {
+      const currentStreak = parseInt(savedStreak)
+      
+      if (lastVisit === today) {
+        // Already visited today, keep streak
+        setStreak(currentStreak)
+        setStreakUpdatedToday(true)
+      } else if (areConsecutiveDays(lastVisit, today)) {
+        // Consecutive day - streak will be updated when cookie is opened
+        setStreak(currentStreak)
+        setStreakUpdatedToday(false)
+      } else {
+        // Missed a day - streak resets when cookie is opened
+        setStreak(0)
+        setStreakUpdatedToday(false)
+      }
+    }
   }, [])
 
   // Get filtered fortunes based on language
@@ -92,6 +131,25 @@ export default function FortuneCookie() {
       const newCount = cookieCount + 1
       setCookieCount(newCount)
       localStorage.setItem('fortune-cookie-count', newCount.toString())
+      
+      // Update streak if not already updated today
+      if (!streakUpdatedToday) {
+        const today = getDateString()
+        const lastVisit = localStorage.getItem('fortune-cookie-last-visit')
+        let newStreak = 1
+        
+        if (lastVisit && areConsecutiveDays(lastVisit, today)) {
+          // Consecutive day - increment streak
+          newStreak = streak + 1
+        }
+        // If missed a day or first visit, streak starts at 1
+        
+        setStreak(newStreak)
+        setStreakUpdatedToday(true)
+        localStorage.setItem('fortune-cookie-streak', newStreak.toString())
+        localStorage.setItem('fortune-cookie-last-visit', today)
+      }
+      
       setIsAnimating(false)
     }, 500)
   }
@@ -137,8 +195,15 @@ export default function FortuneCookie() {
         ← Games
       </Link>
 
-      <div className="absolute top-4 right-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg">
-        🥠 {cookieCount} opened
+      <div className="absolute top-4 right-4 flex gap-2">
+        {streak > 0 && (
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 px-4 py-2 rounded-full font-bold text-white shadow-lg animate-pulse">
+            🔥 {streak} day streak!
+          </div>
+        )}
+        <div className="bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg">
+          🥠 {cookieCount} opened
+        </div>
       </div>
 
       {/* Language Selector */}
