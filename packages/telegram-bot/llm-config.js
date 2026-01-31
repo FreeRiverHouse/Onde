@@ -1,21 +1,32 @@
 /**
  * LLM Configuration for ClawdBot
  *
- * Switch between Claude (paid) and KIMI K2.5 (free via NVIDIA)
+ * Switch between multiple LLM providers:
  *
  * Usage:
- *   LLM_PROVIDER=kimi node claude-bot.js     # Use KIMI (free)
+ *   LLM_PROVIDER=groq node claude-bot.js     # Use Groq (FREE, fastest)
+ *   LLM_PROVIDER=kimi node claude-bot.js     # Use KIMI (free via NVIDIA)
  *   LLM_PROVIDER=claude node claude-bot.js   # Use Claude (paid)
- *   node claude-bot.js                       # Default: KIMI (free)
+ *   node claude-bot.js                       # Default: Groq (free)
  *
- * For KIMI, get your free API key at: https://build.nvidia.com/moonshotai/kimi-k2.5
- * Set it as: NVIDIA_API_KEY=your-key-here
+ * API Keys:
+ *   GROQ_API_KEY   - Get free at https://console.groq.com/keys
+ *   NVIDIA_API_KEY - Get free at https://build.nvidia.com/moonshotai/kimi-k2.5
  */
 
 const https = require('https');
 
 // LLM Providers configuration
 const PROVIDERS = {
+  groq: {
+    name: 'Groq (Llama 3.3 70B)',
+    endpoint: 'api.groq.com',
+    path: '/openai/v1/chat/completions',
+    model: 'llama-3.3-70b-versatile',
+    apiKeyEnv: 'GROQ_API_KEY',
+    rateLimit: '14,400 req/day FREE',
+    temperature: 0.7
+  },
   kimi: {
     name: 'KIMI K2.5',
     endpoint: 'integrate.api.nvidia.com',
@@ -23,7 +34,7 @@ const PROVIDERS = {
     model: 'moonshotai/kimi-k2.5',
     apiKeyEnv: 'NVIDIA_API_KEY',
     rateLimit: '40 RPM (free tier)',
-    temperature: 0.6  // Instant mode
+    temperature: 0.6
   },
   claude: {
     name: 'Claude',
@@ -34,17 +45,17 @@ const PROVIDERS = {
 
 // Get current provider
 function getProvider() {
-  const provider = process.env.LLM_PROVIDER || 'kimi';
-  return PROVIDERS[provider] || PROVIDERS.kimi;
+  const provider = process.env.LLM_PROVIDER || 'groq';  // Default to Groq (free & fast)
+  return PROVIDERS[provider] || PROVIDERS.groq;
 }
 
-// Call KIMI via NVIDIA API (OpenAI-compatible)
-async function callKimi(prompt, systemPrompt = '') {
-  const provider = PROVIDERS.kimi;
+// Call any OpenAI-compatible API (Groq, KIMI, etc.)
+async function callOpenAICompatible(prompt, systemPrompt = '', providerName = null) {
+  const provider = providerName ? PROVIDERS[providerName] : getProvider();
   const apiKey = process.env[provider.apiKeyEnv];
 
   if (!apiKey) {
-    throw new Error(`Missing ${provider.apiKeyEnv}. Get free key at https://build.nvidia.com/moonshotai/kimi-k2.5`);
+    throw new Error(`Missing ${provider.apiKeyEnv}. Get free key for ${provider.name}`);
   }
 
   const messages = [];
@@ -98,6 +109,11 @@ async function callKimi(prompt, systemPrompt = '') {
   });
 }
 
+// Alias for backward compatibility
+function callKimi(prompt, systemPrompt = '') {
+  return callOpenAICompatible(prompt, systemPrompt, 'kimi');
+}
+
 // Call Claude via CLI
 async function callClaude(prompt, workingDir) {
   const { execSync } = require('child_process');
@@ -124,7 +140,7 @@ Respond concisely in Italian. If asked to do something, do it and report results
   if (provider.type === 'cli') {
     return callClaude(`${systemPrompt}\n\nUser message: ${prompt}`, options.workingDir);
   } else {
-    return callKimi(prompt, systemPrompt);
+    return callOpenAICompatible(prompt, systemPrompt);
   }
 }
 
