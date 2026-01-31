@@ -14,8 +14,11 @@
 ### MOONLIGHT HOUSE (Priorità 2)
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
-| MLH-001 | Review UI dashboard onde.surf per miglioramenti | TODO | - | - |
+| MLH-001 | Review UI dashboard onde.surf per miglioramenti | DONE | @clawdinho | - |
 | MLH-002 | Testare flusso autenticazione completo | TODO | - | - |
+| MLH-003 | Add keyboard shortcut handler for ⌘K quick actions | TODO | - | - |
+| MLH-004 | Add dark/light theme toggle | TODO | - | - |
+| MLH-005 | Add loading states for async panels | TODO | - | - |
 
 ### LIBRI/PUBLISHING (Priorità 3)
 | ID | Task | Status | Owner | Depends |
@@ -42,7 +45,8 @@
 - **INF-001** - Autotrader healthy: running, stable >1h, DRY RUN mode, API OK
 - **INF-002** - SSL OK: onde.la (Apr 10), onde.surf (Apr 11) - ~70 days remaining
 - **INF-003** - Crons healthy: 10+ watchdog crons active, last run 09:50
+- **MLH-001** - Dashboard UI review: premium design, all panels working, added 3 improvement tasks
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 09:51 PST*
+*Ultimo aggiornamento: 2026-01-31 10:05 PST*
