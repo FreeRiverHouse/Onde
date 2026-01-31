@@ -11039,8 +11039,8 @@
   - Useful when base skin is finalized
 
 ### [T906] Skin Creator: Swap Layers Content
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T904]
 - **Blocks**: -
 - **Priority**: P4
