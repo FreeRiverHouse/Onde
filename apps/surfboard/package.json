@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "build:cf": "npx @cloudflare/next-on-pages",
+    "build:cf": "npx @cloudflare/next-on-pages && ./scripts/fix-routes.sh",
     "start": "next start -p 3001",
     "deploy": "npm run build:cf && npx wrangler pages deploy .vercel/output/static --project-name=onde-surf"
   },
