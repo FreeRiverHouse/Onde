@@ -813,6 +813,10 @@ export default function SkinCreator() {
   const [customTintColors, setCustomTintColors] = useState<string[]>([]); // Recent custom tint colors
   const [showHelp, setShowHelp] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
+  const [showStickerPanel, setShowStickerPanel] = useState(false); // 🎨 Sticker/Decal panel
+  const [selectedSticker, setSelectedSticker] = useState<string | null>(null); // Currently selected sticker ID
+  const [stickerCategory, setStickerCategory] = useState<StickerCategory>('hearts'); // Active sticker category
+  const [stickerPreviewPos, setStickerPreviewPos] = useState<{ x: number; y: number } | null>(null); // Preview position on canvas
   const [showURLImport, setShowURLImport] = useState(false);
   const [importURL, setImportURL] = useState('');
   const [importLoading, setImportLoading] = useState(false);
@@ -1800,39 +1804,87 @@ export default function SkinCreator() {
     }
   }, []);
 
-  // ⌨️ Keyboard shortcuts
+  // ⌨️ Keyboard shortcuts - Power user feature!
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return;
+      // Skip if typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
-      switch(e.key.toLowerCase()) {
-        case 'b': setTool('brush'); break;
-        case 'p': setTool('pencil'); break;
-        case 'e': setTool('eraser'); break;
-        case 'r': if (!(e.metaKey || e.ctrlKey)) setTool('spray'); break;
-        case 'f': setTool('fill'); break;
+      const key = e.key.toLowerCase();
+      const isCmd = e.metaKey || e.ctrlKey;
+
+      // 🛠️ Tool shortcuts
+      switch(key) {
+        // Drawing tools
+        case 'b': setTool('brush'); playSound('click'); break;
+        case 'p': setTool('pencil'); playSound('click'); break;
+        case 'e': setTool('eraser'); playSound('click'); break;
+        case 'r': if (!isCmd) { setTool('spray'); playSound('click'); } break;
+        case 'f': setTool('fill'); playSound('click'); break;
         case 'g': 
           if (e.shiftKey) { setShowGrid(prev => !prev); } 
-          else { setTool('gradient'); } 
+          else { setTool('gradient'); playSound('click'); } 
           break;
-        case 's': setTool('stamp'); break;
-        case 'i': setTool('eyedropper'); break;
+        case 'w': setTool('line'); playSound('click'); break; // W for Wire/Line
+        case 'o': setTool('glow'); playSound('click'); break; // O for Outline/Glow
+        case 's': 
+          if (isCmd) { 
+            e.preventDefault(); 
+            // Quick save to My Skins
+            if (canvasRef.current) {
+              const dataUrl = canvasRef.current.toDataURL('image/png');
+              const newSkin: SavedSkin = {
+                id: `skin-${Date.now()}`,
+                name: skinName || 'my-skin',
+                dataUrl,
+                timestamp: Date.now(),
+              };
+              setSavedSkins(prev => [newSkin, ...prev].slice(0, 50));
+              playSound('download');
+            }
+          } else { 
+            setTool('stamp'); playSound('click'); 
+          }
+          break;
+        case 'i': setTool('eyedropper'); playSound('click'); break;
+        
+        // ❓ Help & panels
         case '?': setShowHelp(prev => !prev); break;
-        case 'z': 
-          if ((e.metaKey || e.ctrlKey) && e.shiftKey) { e.preventDefault(); redo(); playSound('redo'); }
-          else if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); playSound('undo'); } 
+        case 'escape':
+          // Close any open panel
+          setShowHelp(false);
+          setShowShortcuts(false);
+          setShowAIPanel(false);
+          setShowStickerPanel(false);
+          setShowMySkins(false);
+          setShowLayerPanel(false);
+          setContextMenu(null);
           break;
-        case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); playSound('redo'); } break;
-        case 'm': setMirrorMode(prev => !prev); break;
-        case 'd': setDarkMode(prev => !prev); break;
+        
+        // 🔄 Undo/Redo
+        case 'z': 
+          if (isCmd && e.shiftKey) { e.preventDefault(); redo(); playSound('redo'); }
+          else if (isCmd) { e.preventDefault(); undo(); playSound('undo'); } 
+          break;
+        case 'y': if (isCmd) { e.preventDefault(); redo(); playSound('redo'); } break;
+        
+        // 🎨 View controls
+        case 'm': setMirrorMode(prev => !prev); playSound('click'); break;
+        case 'd': if (!isCmd) setDarkMode(prev => !prev); break;
+        case 't': setShow3D(prev => !prev); playSound('click'); break; // Toggle 3D preview
         case '+': case '=': setZoomLevel(prev => Math.min(20, prev + 1)); break;
         case '-': setZoomLevel(prev => Math.max(2, prev - 1)); break;
         case '0': setZoomLevel(6); break; // Reset to default zoom
+        
+        // 🖌️ Brush sizes
         case '1': setBrushSize(1); break;
         case '2': setBrushSize(2); break;
         case '3': setBrushSize(3); break;
-        // Layer shortcuts
-        case 'l': setShowLayerPanel(prev => !prev); break;
+        case '4': setBrushSize(4); break;
+        case '5': setBrushSize(5); break;
+        
+        // 📚 Layer shortcuts
+        case 'l': if (!isCmd) setShowLayerPanel(prev => !prev); break;
         case '[': setActiveLayer(prev => {
           const idx = ['base', 'details', 'accessories'].indexOf(prev);
           return ['base', 'details', 'accessories'][(idx + 2) % 3] as LayerType;
@@ -1841,12 +1893,37 @@ export default function SkinCreator() {
           const idx = ['base', 'details', 'accessories'].indexOf(prev);
           return ['base', 'details', 'accessories'][(idx + 1) % 3] as LayerType;
         }); break;
-        case 'c': if (!e.metaKey && !e.ctrlKey) setShowDuplicateMenu(prev => !prev); break;
+        case 'c': if (!isCmd) setShowDuplicateMenu(prev => !prev); break;
+        
+        // 🎭 Panel toggles
+        case 'a': if (!isCmd) setShowAIPanel(prev => !prev); break; // AI panel
+        case 'h': setShowStickerPanel(prev => !prev); break; // H for stickers (Heart/decals)
+        case 'k': setShowMySkins(prev => !prev); break; // K for sKins saved
+        
+        // 🎨 Color swap
+        case 'x': {
+          // Swap primary and secondary colors
+          const temp = selectedColor;
+          setSelectedColor(secondaryColor);
+          setSecondaryColor(temp);
+          playSound('click');
+          break;
+        }
+        
+        // 🗑️ Clear layer
+        case 'delete':
+        case 'backspace':
+          if (e.shiftKey) {
+            // Shift+Delete = clear current layer
+            clearLayer(activeLayer);
+            playSound('click');
+          }
+          break;
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo]);
+  }, [undo, redo, selectedColor, secondaryColor, activeLayer, clearLayer, skinName]);
 
   // Auto-save to localStorage when canvas changes 💾
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1857,71 +1934,201 @@ export default function SkinCreator() {
     }
   }, []);
 
-  // 🎲 Generate random skin!
+  // 🎲 RANDOM SKIN GENERATOR - Surprise the kids with fun random skins!
   const generateRandomSkin = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    // 🎨 Fun color pools for each body part
+    const skinTones = ['#ffdfc4', '#f0c8a8', '#d4a76a', '#c4a57b', '#8d6e4c', '#5c4033', '#7dcea0', '#87CEEB', '#DDA0DD', '#FFB6C1'];
+    const hairColors = ['#442920', '#1a1a1a', '#8B4513', '#FFD700', '#FF4500', '#FF1493', '#00CED1', '#32CD32', '#9400D3', '#FF6347'];
+    const shirtColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#00FFFF', '#0088FF', '#FF00FF', '#9B59B6', '#E91E63', '#FF6B6B'];
+    const pantsColors = ['#3c2a5e', '#00008B', '#2c3e50', '#8B0000', '#006400', '#4B0082', '#191970', '#2F4F4F', '#696969', '#1a1a1a'];
+    const shoesColors = ['#444444', '#1a1a1a', '#8B4513', '#A0522D', '#FFD700', '#C0C0C0', '#FF1493', '#00FF00'];
+    const eyeColors = ['#ffffff', '#87CEEB', '#00ff00', '#FF69B4', '#FFD700', '#FF0000', '#00FFFF'];
+    
+    // 🎭 Fun special effects/accessories to randomly add
+    const specialEffects = ['none', 'none', 'stars', 'hearts', 'stripes', 'spots', 'rainbow-hair', 'glowing-eyes', 'robot-face', 'cat-ears', 'sunglasses'];
+    
+    // Pick random colors
+    const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+    const skin = pick(skinTones);
+    const hair = pick(hairColors);
+    const shirt = pick(shirtColors);
+    const pants = pick(pantsColors);
+    const shoes = pick(shoesColors);
+    const eyes = pick(eyeColors);
+    const pupils = pick(['#000000', '#1a1a1a', '#4169E1', '#2c1810']);
+    const effect = pick(specialEffects);
 
-    // Random color palettes
-    const palettes = [
-      { skin: '#ffdfc4', hair: '#4a3728', shirt: '#e74c3c', pants: '#2c3e50', shoes: '#1a1a1a' },
-      { skin: '#c4a57b', hair: '#1a1a1a', shirt: '#3498db', pants: '#9b59b6', shoes: '#2c2c2c' },
-      { skin: '#8d6e4c', hair: '#2c1810', shirt: '#27ae60', pants: '#f39c12', shoes: '#34495e' },
-      { skin: '#7dcea0', hair: '#27ae60', shirt: '#e91e63', pants: '#673ab7', shoes: '#4a148c' },
-      { skin: '#ff6b6b', hair: '#c0392b', shirt: '#f1c40f', pants: '#1abc9c', shoes: '#16a085' },
-      { skin: '#a29bfe', hair: '#6c5ce7', shirt: '#fd79a8', pants: '#00cec9', shoes: '#0984e3' },
-      { skin: '#ffeaa7', hair: '#fdcb6e', shirt: '#e17055', pants: '#74b9ff', shoes: '#0984e3' },
-    ];
-    const p = palettes[Math.floor(Math.random() * palettes.length)];
+    // 🎨 Clear all layer canvases first
+    const baseCanvas = getLayerCanvas('base');
+    const detailsCanvas = getLayerCanvas('details');
+    const accessoriesCanvas = getLayerCanvas('accessories');
 
-    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const baseCtx = baseCanvas.getContext('2d');
+    const detailsCtx = detailsCanvas.getContext('2d');
+    const accessoriesCtx = accessoriesCanvas.getContext('2d');
 
-    // Head
-    ctx.fillStyle = p.skin;
-    ctx.fillRect(8, 8, 8, 8);
-    ctx.fillRect(0, 8, 8, 8);
-    ctx.fillRect(16, 8, 8, 8);
-    ctx.fillRect(24, 8, 8, 8);
-    ctx.fillRect(8, 0, 8, 8);
-    ctx.fillStyle = p.hair;
-    ctx.fillRect(8, 8, 8, Math.random() > 0.5 ? 2 : 1);
+    if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
+
+    baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+    // 🎨 LAYER: BASE - Skin, face features
+    // Head - front face (8x8 at position 8,8)
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(8, 8, 8, 8);
     // Eyes
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(9, 11, 2, 1);
-    ctx.fillRect(13, 11, 2, 1);
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(10, 11, 1, 1);
-    ctx.fillRect(13, 11, 1, 1);
+    baseCtx.fillStyle = eyes;
+    baseCtx.fillRect(9, 11, 2, 1);
+    baseCtx.fillRect(13, 11, 2, 1);
+    baseCtx.fillStyle = pupils;
+    baseCtx.fillRect(10, 11, 1, 1);
+    baseCtx.fillRect(13, 11, 1, 1);
+    // Hair
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(8, 8, 8, 1);
+    baseCtx.fillRect(8, 8, 1, 2);
+    baseCtx.fillRect(15, 8, 1, 2);
+    // Mouth
+    baseCtx.fillStyle = '#a87d5a';
+    baseCtx.fillRect(11, 14, 2, 1);
 
-    // Body
-    ctx.fillStyle = p.shirt;
-    ctx.fillRect(20, 20, 8, 12);
-    ctx.fillRect(16, 20, 4, 12);
-    ctx.fillRect(28, 20, 4, 12);
-    ctx.fillRect(20, 16, 8, 4);
+    // Head sides
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(0, 8, 8, 8);
+    baseCtx.fillRect(16, 8, 8, 8);
+    baseCtx.fillRect(24, 8, 8, 8);
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(24, 8, 8, 1);
 
-    // Arms
-    ctx.fillStyle = p.skin;
-    ctx.fillRect(44, 20, 4, 4);
-    ctx.fillRect(36, 52, 4, 4);
-    ctx.fillStyle = p.shirt;
-    ctx.fillRect(44, 24, 4, 8);
-    ctx.fillRect(36, 56, 4, 8);
+    // Head top/bottom
+    baseCtx.fillStyle = hair;
+    baseCtx.fillRect(8, 0, 8, 8);
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(16, 0, 8, 8);
 
-    // Legs
-    ctx.fillStyle = p.pants;
-    ctx.fillRect(4, 20, 4, 12);
-    ctx.fillRect(20, 52, 4, 12);
-    ctx.fillStyle = p.shoes;
-    ctx.fillRect(4, 28, 4, 4);
-    ctx.fillRect(20, 60, 4, 4);
+    // Arms - skin parts
+    baseCtx.fillStyle = skin;
+    baseCtx.fillRect(44, 20, 4, 12);
+    baseCtx.fillRect(40, 20, 4, 12);
+    baseCtx.fillRect(48, 20, 4, 12);
+    baseCtx.fillRect(52, 20, 4, 12);
+    baseCtx.fillRect(36, 52, 4, 12);
+    baseCtx.fillRect(32, 52, 4, 12);
+    baseCtx.fillRect(40, 52, 4, 12);
+    baseCtx.fillRect(44, 52, 4, 12);
 
+    // 🎨 LAYER: DETAILS - Shirt, pants, shoes
+    detailsCtx.fillStyle = shirt;
+    detailsCtx.fillRect(20, 20, 8, 12);
+    detailsCtx.fillRect(16, 20, 4, 12);
+    detailsCtx.fillRect(28, 20, 4, 12);
+    detailsCtx.fillRect(32, 20, 8, 12);
+
+    // Legs - pants
+    detailsCtx.fillStyle = pants;
+    detailsCtx.fillRect(4, 20, 4, 12);
+    detailsCtx.fillRect(0, 20, 4, 12);
+    detailsCtx.fillRect(8, 20, 4, 12);
+    detailsCtx.fillRect(12, 20, 4, 12);
+    detailsCtx.fillRect(20, 52, 4, 12);
+    detailsCtx.fillRect(16, 52, 4, 12);
+    detailsCtx.fillRect(24, 52, 4, 12);
+    detailsCtx.fillRect(28, 52, 4, 12);
+
+    // Shoes
+    detailsCtx.fillStyle = shoes;
+    detailsCtx.fillRect(4, 31, 4, 1);
+    detailsCtx.fillRect(20, 63, 4, 1);
+
+    // 🎭 Apply special effects!
+    if (effect === 'stars') {
+      // Add star pattern to shirt
+      accessoriesCtx.fillStyle = '#FFD700';
+      accessoriesCtx.fillRect(22, 22, 1, 1);
+      accessoriesCtx.fillRect(25, 25, 1, 1);
+      accessoriesCtx.fillRect(21, 27, 1, 1);
+      accessoriesCtx.fillRect(26, 23, 1, 1);
+    } else if (effect === 'hearts') {
+      // Heart on shirt
+      accessoriesCtx.fillStyle = '#FF69B4';
+      accessoriesCtx.fillRect(23, 23, 2, 2);
+      accessoriesCtx.fillRect(22, 24, 1, 1);
+      accessoriesCtx.fillRect(25, 24, 1, 1);
+      accessoriesCtx.fillRect(24, 26, 1, 1);
+    } else if (effect === 'stripes') {
+      // Horizontal stripes on shirt
+      const stripeColor = pick(['#ffffff', '#000000', '#FFD700']);
+      accessoriesCtx.fillStyle = stripeColor;
+      accessoriesCtx.fillRect(20, 22, 8, 1);
+      accessoriesCtx.fillRect(20, 25, 8, 1);
+      accessoriesCtx.fillRect(20, 28, 8, 1);
+    } else if (effect === 'spots') {
+      // Polka dots
+      accessoriesCtx.fillStyle = pick(['#ffffff', '#000000', '#FF69B4']);
+      accessoriesCtx.fillRect(21, 22, 1, 1);
+      accessoriesCtx.fillRect(25, 24, 1, 1);
+      accessoriesCtx.fillRect(22, 27, 1, 1);
+      accessoriesCtx.fillRect(26, 29, 1, 1);
+    } else if (effect === 'rainbow-hair') {
+      // Rainbow gradient in hair
+      const rainbowColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#0088FF', '#8800FF'];
+      rainbowColors.forEach((c, i) => {
+        baseCtx.fillStyle = c;
+        baseCtx.fillRect(8 + i, 8, 1, 1);
+      });
+    } else if (effect === 'glowing-eyes') {
+      // Bright glowing eyes
+      baseCtx.fillStyle = '#00FF00';
+      baseCtx.fillRect(9, 11, 2, 1);
+      baseCtx.fillRect(13, 11, 2, 1);
+      accessoriesCtx.fillStyle = '#ADFF2F';
+      accessoriesCtx.fillRect(9, 10, 2, 1);
+      accessoriesCtx.fillRect(13, 10, 2, 1);
+    } else if (effect === 'robot-face') {
+      // Robot antenna and visor
+      accessoriesCtx.fillStyle = '#C0C0C0';
+      accessoriesCtx.fillRect(11, 7, 2, 1);
+      accessoriesCtx.fillRect(12, 6, 1, 1);
+      accessoriesCtx.fillStyle = '#FF0000';
+      accessoriesCtx.fillRect(12, 5, 1, 1);
+      // Visor
+      baseCtx.fillStyle = '#00BFFF';
+      baseCtx.fillRect(9, 11, 6, 1);
+    } else if (effect === 'cat-ears') {
+      // Cat ears on head
+      accessoriesCtx.fillStyle = hair;
+      accessoriesCtx.fillRect(8, 7, 2, 1);
+      accessoriesCtx.fillRect(9, 6, 1, 1);
+      accessoriesCtx.fillRect(14, 7, 2, 1);
+      accessoriesCtx.fillRect(14, 6, 1, 1);
+      // Inner ear
+      accessoriesCtx.fillStyle = '#FFB6C1';
+      accessoriesCtx.fillRect(9, 7, 1, 1);
+      accessoriesCtx.fillRect(14, 7, 1, 1);
+    } else if (effect === 'sunglasses') {
+      // Cool sunglasses
+      accessoriesCtx.fillStyle = '#000000';
+      accessoriesCtx.fillRect(9, 11, 2, 1);
+      accessoriesCtx.fillRect(13, 11, 2, 1);
+      accessoriesCtx.fillRect(11, 11, 2, 1);
+      accessoriesCtx.fillRect(8, 11, 1, 1);
+      accessoriesCtx.fillRect(15, 11, 1, 1);
+    }
+
+    // Composite all layers
+    compositeLayersToMain();
     updatePreview();
     saveState();
-    playSound('download');
-  }, []);
+    
+    // 🎉 Confetti for surprise!
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 2000);
+    playSound('success');
+
+    // Trigger 3D preview refresh
+    setTextureVersion(v => v + 1);
+  }, [getLayerCanvas, compositeLayersToMain, updatePreview, saveState, playSound]);
 
   // 🎭 Apply Pattern to canvas - One-click cool patterns!
   const applyPattern = useCallback((patternId: PatternType, targetArea?: 'all' | 'selected' | 'body') => {
@@ -2184,6 +2391,60 @@ export default function SkinCreator() {
     playSound('download');
     unlockAchievement('patternUser');
   }, [selectedColor, secondaryColor, selectedPart, unlockAchievement]);
+
+  // 🎨 Apply Sticker/Decal to canvas at specific position
+  const applySticker = useCallback((stickerId: string, posX: number, posY: number) => {
+    const sticker = STICKER_DECALS.find(s => s.id === stickerId);
+    if (!sticker) return;
+
+    // 🎨 Get the active layer canvas to draw on (usually accessories layer for stickers)
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
+    if (!ctx) return;
+
+    // Draw sticker pixels
+    for (let y = 0; y < sticker.height; y++) {
+      for (let x = 0; x < sticker.width; x++) {
+        const color = sticker.pixels[y]?.[x];
+        if (color) {
+          const drawX = posX + x;
+          const drawY = posY + y;
+          // Check bounds
+          if (drawX >= 0 && drawX < SKIN_WIDTH && drawY >= 0 && drawY < SKIN_HEIGHT) {
+            ctx.fillStyle = color;
+            ctx.fillRect(drawX, drawY, 1, 1);
+            // 🪞 Mirror mode - also apply on opposite side
+            if (mirrorMode) {
+              const mirrorX = SKIN_WIDTH - 1 - drawX;
+              if (mirrorX >= 0 && mirrorX < SKIN_WIDTH) {
+                ctx.fillRect(mirrorX, drawY, 1, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Composite layers to main canvas
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    playSound('click');
+
+    // Clear selection after applying
+    setSelectedSticker(null);
+    setStickerPreviewPos(null);
+  }, [activeLayer, getLayerCanvas, mirrorMode, compositeLayersToMain, updatePreview, saveState, playSound]);
+
+  // 🎨 Get sticker by ID helper
+  const getStickerById = useCallback((stickerId: string): StickerDecal | undefined => {
+    return STICKER_DECALS.find(s => s.id === stickerId);
+  }, []);
+
+  // 🎨 Get stickers by category
+  const getStickersByCategory = useCallback((category: StickerCategory): StickerDecal[] => {
+    return STICKER_DECALS.filter(s => s.category === category);
+  }, []);
 
   // Spawn sparkle particles when drawing
   const spawnParticle = useCallback((clientX: number, clientY: number) => {
@@ -2726,6 +2987,25 @@ export default function SkinCreator() {
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
 
+    // 🎨 STICKER MODE - Apply sticker on click
+    if (selectedSticker) {
+      const sticker = getStickerById(selectedSticker);
+      if (sticker) {
+        if (e.type === 'mousedown') {
+          // Center the sticker on click position
+          const offsetX = Math.floor(sticker.width / 2);
+          const offsetY = Math.floor(sticker.height / 2);
+          applySticker(selectedSticker, x - offsetX, y - offsetY);
+          return;
+        } else if (e.type === 'mousemove') {
+          // Update preview position
+          setStickerPreviewPos({ x, y });
+          return;
+        }
+      }
+      return;
+    }
+
     // Spawn sparkle particle! ✨
     if (isDrawing && Math.random() > 0.7) {
       spawnParticle(e.clientX, e.clientY);
@@ -3235,202 +3515,6 @@ export default function SkinCreator() {
     saveState();
     playSound('click');
   };
-
-  // 🎲 RANDOM SKIN GENERATOR - Surprise the kids! 
-  const generateRandomSkin = useCallback(() => {
-    // 🎨 Fun color pools for each body part
-    const skinTones = ['#ffdfc4', '#f0c8a8', '#d4a76a', '#c4a57b', '#8d6e4c', '#5c4033', '#7dcea0', '#87CEEB', '#DDA0DD', '#FFB6C1'];
-    const hairColors = ['#442920', '#1a1a1a', '#8B4513', '#FFD700', '#FF4500', '#FF1493', '#00CED1', '#32CD32', '#9400D3', '#FF6347'];
-    const shirtColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#00FFFF', '#0088FF', '#FF00FF', '#9B59B6', '#E91E63', '#FF6B6B'];
-    const pantsColors = ['#3c2a5e', '#00008B', '#2c3e50', '#8B0000', '#006400', '#4B0082', '#191970', '#2F4F4F', '#696969', '#1a1a1a'];
-    const shoesColors = ['#444444', '#1a1a1a', '#8B4513', '#A0522D', '#FFD700', '#C0C0C0', '#FF1493', '#00FF00'];
-    const eyeColors = ['#ffffff', '#87CEEB', '#00ff00', '#FF69B4', '#FFD700', '#FF0000', '#00FFFF'];
-    
-    // 🎭 Fun special effects/accessories to randomly add
-    const specialEffects = ['none', 'stars', 'hearts', 'stripes', 'spots', 'rainbow-hair', 'glowing-eyes', 'robot-face', 'cat-ears', 'sunglasses'];
-    
-    // Pick random colors
-    const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
-    const skin = pick(skinTones);
-    const hair = pick(hairColors);
-    const shirt = pick(shirtColors);
-    const pants = pick(pantsColors);
-    const shoes = pick(shoesColors);
-    const eyes = pick(eyeColors);
-    const pupils = pick(['#000000', '#1a1a1a', '#4169E1', '#2c1810']);
-    const effect = pick(specialEffects);
-
-    // 🎨 Clear all layer canvases first
-    const baseCanvas = getLayerCanvas('base');
-    const detailsCanvas = getLayerCanvas('details');
-    const accessoriesCanvas = getLayerCanvas('accessories');
-
-    const baseCtx = baseCanvas.getContext('2d');
-    const detailsCtx = detailsCanvas.getContext('2d');
-    const accessoriesCtx = accessoriesCanvas.getContext('2d');
-
-    if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
-
-    baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-    detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-    accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-
-    // 🎨 LAYER: BASE - Skin, face features
-    // Head - front face (8x8 at position 8,8)
-    baseCtx.fillStyle = skin;
-    baseCtx.fillRect(8, 8, 8, 8);
-    // Eyes
-    baseCtx.fillStyle = eyes;
-    baseCtx.fillRect(9, 11, 2, 1);
-    baseCtx.fillRect(13, 11, 2, 1);
-    baseCtx.fillStyle = pupils;
-    baseCtx.fillRect(10, 11, 1, 1);
-    baseCtx.fillRect(13, 11, 1, 1);
-    // Hair
-    baseCtx.fillStyle = hair;
-    baseCtx.fillRect(8, 8, 8, 1);
-    baseCtx.fillRect(8, 8, 1, 2);
-    baseCtx.fillRect(15, 8, 1, 2);
-    // Mouth
-    baseCtx.fillStyle = '#a87d5a';
-    baseCtx.fillRect(11, 14, 2, 1);
-
-    // Head sides
-    baseCtx.fillStyle = skin;
-    baseCtx.fillRect(0, 8, 8, 8);
-    baseCtx.fillRect(16, 8, 8, 8);
-    baseCtx.fillRect(24, 8, 8, 8);
-    baseCtx.fillStyle = hair;
-    baseCtx.fillRect(24, 8, 8, 1);
-
-    // Head top/bottom
-    baseCtx.fillStyle = hair;
-    baseCtx.fillRect(8, 0, 8, 8);
-    baseCtx.fillStyle = skin;
-    baseCtx.fillRect(16, 0, 8, 8);
-
-    // Arms - skin parts
-    baseCtx.fillStyle = skin;
-    baseCtx.fillRect(44, 20, 4, 12);
-    baseCtx.fillRect(40, 20, 4, 12);
-    baseCtx.fillRect(48, 20, 4, 12);
-    baseCtx.fillRect(52, 20, 4, 12);
-    baseCtx.fillRect(36, 52, 4, 12);
-    baseCtx.fillRect(32, 52, 4, 12);
-    baseCtx.fillRect(40, 52, 4, 12);
-    baseCtx.fillRect(44, 52, 4, 12);
-
-    // 🎨 LAYER: DETAILS - Shirt, pants, shoes
-    detailsCtx.fillStyle = shirt;
-    detailsCtx.fillRect(20, 20, 8, 12);
-    detailsCtx.fillRect(16, 20, 4, 12);
-    detailsCtx.fillRect(28, 20, 4, 12);
-    detailsCtx.fillRect(32, 20, 8, 12);
-
-    // Legs - pants
-    detailsCtx.fillStyle = pants;
-    detailsCtx.fillRect(4, 20, 4, 12);
-    detailsCtx.fillRect(0, 20, 4, 12);
-    detailsCtx.fillRect(8, 20, 4, 12);
-    detailsCtx.fillRect(12, 20, 4, 12);
-    detailsCtx.fillRect(20, 52, 4, 12);
-    detailsCtx.fillRect(16, 52, 4, 12);
-    detailsCtx.fillRect(24, 52, 4, 12);
-    detailsCtx.fillRect(28, 52, 4, 12);
-
-    // Shoes
-    detailsCtx.fillStyle = shoes;
-    detailsCtx.fillRect(4, 31, 4, 1);
-    detailsCtx.fillRect(20, 63, 4, 1);
-
-    // 🎭 Apply special effects!
-    if (effect === 'stars') {
-      // Add star pattern to shirt
-      accessoriesCtx.fillStyle = '#FFD700';
-      accessoriesCtx.fillRect(22, 22, 1, 1);
-      accessoriesCtx.fillRect(25, 25, 1, 1);
-      accessoriesCtx.fillRect(21, 27, 1, 1);
-      accessoriesCtx.fillRect(26, 23, 1, 1);
-    } else if (effect === 'hearts') {
-      // Heart on shirt
-      accessoriesCtx.fillStyle = '#FF69B4';
-      accessoriesCtx.fillRect(23, 23, 2, 2);
-      accessoriesCtx.fillRect(22, 24, 1, 1);
-      accessoriesCtx.fillRect(25, 24, 1, 1);
-      accessoriesCtx.fillRect(24, 26, 1, 1);
-    } else if (effect === 'stripes') {
-      // Horizontal stripes on shirt
-      const stripeColor = pick(['#ffffff', '#000000', '#FFD700']);
-      accessoriesCtx.fillStyle = stripeColor;
-      accessoriesCtx.fillRect(20, 22, 8, 1);
-      accessoriesCtx.fillRect(20, 25, 8, 1);
-      accessoriesCtx.fillRect(20, 28, 8, 1);
-    } else if (effect === 'spots') {
-      // Polka dots
-      accessoriesCtx.fillStyle = pick(['#ffffff', '#000000', '#FF69B4']);
-      accessoriesCtx.fillRect(21, 22, 1, 1);
-      accessoriesCtx.fillRect(25, 24, 1, 1);
-      accessoriesCtx.fillRect(22, 27, 1, 1);
-      accessoriesCtx.fillRect(26, 29, 1, 1);
-    } else if (effect === 'rainbow-hair') {
-      // Rainbow gradient in hair
-      const rainbowColors = ['#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#0088FF', '#8800FF'];
-      rainbowColors.forEach((c, i) => {
-        baseCtx.fillStyle = c;
-        baseCtx.fillRect(8 + i, 8, 1, 1);
-      });
-    } else if (effect === 'glowing-eyes') {
-      // Bright glowing eyes
-      baseCtx.fillStyle = '#00FF00';
-      baseCtx.fillRect(9, 11, 2, 1);
-      baseCtx.fillRect(13, 11, 2, 1);
-      accessoriesCtx.fillStyle = '#ADFF2F';
-      accessoriesCtx.fillRect(9, 10, 2, 1);
-      accessoriesCtx.fillRect(13, 10, 2, 1);
-    } else if (effect === 'robot-face') {
-      // Robot antenna and visor
-      accessoriesCtx.fillStyle = '#C0C0C0';
-      accessoriesCtx.fillRect(11, 7, 2, 1);
-      accessoriesCtx.fillRect(12, 6, 1, 1);
-      accessoriesCtx.fillStyle = '#FF0000';
-      accessoriesCtx.fillRect(12, 5, 1, 1);
-      // Visor
-      baseCtx.fillStyle = '#00BFFF';
-      baseCtx.fillRect(9, 11, 6, 1);
-    } else if (effect === 'cat-ears') {
-      // Cat ears on head
-      accessoriesCtx.fillStyle = hair;
-      accessoriesCtx.fillRect(8, 7, 2, 1);
-      accessoriesCtx.fillRect(9, 6, 1, 1);
-      accessoriesCtx.fillRect(14, 7, 2, 1);
-      accessoriesCtx.fillRect(14, 6, 1, 1);
-      // Inner ear
-      accessoriesCtx.fillStyle = '#FFB6C1';
-      accessoriesCtx.fillRect(9, 7, 1, 1);
-      accessoriesCtx.fillRect(14, 7, 1, 1);
-    } else if (effect === 'sunglasses') {
-      // Cool sunglasses
-      accessoriesCtx.fillStyle = '#000000';
-      accessoriesCtx.fillRect(9, 11, 2, 1);
-      accessoriesCtx.fillRect(13, 11, 2, 1);
-      accessoriesCtx.fillRect(11, 11, 2, 1);
-      accessoriesCtx.fillRect(8, 11, 1, 1);
-      accessoriesCtx.fillRect(15, 11, 1, 1);
-    }
-
-    // Composite all layers
-    compositeLayersToMain();
-    updatePreview();
-    saveState();
-    
-    // 🎉 Confetti for surprise!
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 2000);
-    playSound('success');
-
-    // Trigger 3D preview refresh
-    setTextureVersion(v => v + 1);
-  }, [getLayerCanvas, compositeLayersToMain, updatePreview, saveState, playSound]);
 
   // 📋 Copy skin to clipboard
   const copyToClipboard = async () => {
@@ -5823,6 +5907,130 @@ export default function SkinCreator() {
                 <p className="text-xs text-gray-500">Recent exports: {exportHistory.length}</p>
               </div>
             )}
+
+            {/* 🔗 Share Section */}
+            <div className="mt-4 pt-3 border-t border-gray-100">
+              <p className="text-xs text-gray-500 mb-2 font-medium">🔗 Share your creation:</p>
+              
+              {/* Native Share API (mobile-first) */}
+              {typeof navigator !== 'undefined' && navigator.share && (
+                <button
+                  onClick={async () => {
+                    const canvas = canvasRef.current;
+                    if (!canvas) return;
+                    try {
+                      const blob = await new Promise<Blob>((resolve) =>
+                        canvas.toBlob((b) => resolve(b!), 'image/png')
+                      );
+                      const file = new File([blob], `${skinName || 'my-skin'}.png`, { type: 'image/png' });
+                      await navigator.share({
+                        title: `Check out my Minecraft skin: ${skinName || 'My Skin'}!`,
+                        text: 'I made this awesome Minecraft skin with Onde Skin Studio! 🎨',
+                        files: [file],
+                      });
+                      playSound('success');
+                      unlockAchievement('shared');
+                    } catch (err) {
+                      // User cancelled or share failed - try without file
+                      try {
+                        await navigator.share({
+                          title: `Check out my Minecraft skin: ${skinName || 'My Skin'}!`,
+                          text: 'I made this awesome Minecraft skin with Onde Skin Studio! 🎨',
+                          url: window.location.href,
+                        });
+                        playSound('success');
+                      } catch {
+                        // User cancelled
+                      }
+                    }
+                  }}
+                  className="w-full py-3 mb-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                  📤 Share Skin
+                </button>
+              )}
+
+              {/* Copy Link */}
+              <button
+                onClick={async () => {
+                  const shareUrl = window.location.href;
+                  await navigator.clipboard.writeText(shareUrl);
+                  playSound('success');
+                  alert('🔗 Link copied! Share it with your friends!');
+                }}
+                className="w-full py-2.5 mb-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                🔗 Copy Link
+              </button>
+
+              {/* Social Share Buttons */}
+              <div className="grid grid-cols-4 gap-2">
+                {/* X/Twitter */}
+                <button
+                  onClick={() => {
+                    const text = `Check out my Minecraft skin! 🎮⛏️ Made with @OndeFRH Skin Studio`;
+                    const url = window.location.href;
+                    window.open(
+                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+                      '_blank',
+                      'width=550,height=420'
+                    );
+                    playSound('click');
+                  }}
+                  className="py-2.5 bg-black text-white rounded-xl font-bold hover:bg-gray-800 active:scale-[0.98] transition-all flex items-center justify-center"
+                  title="Share on X"
+                >
+                  𝕏
+                </button>
+
+                {/* TikTok */}
+                <button
+                  onClick={() => {
+                    // TikTok doesn't have a direct share URL, redirect to their page
+                    const text = `Check out my Minecraft skin! Made with Onde Skin Studio 🎨`;
+                    // Copy to clipboard for TikTok
+                    navigator.clipboard.writeText(`${text}\n${window.location.href}`);
+                    alert('📋 Copied! Paste in your TikTok caption!');
+                    playSound('click');
+                  }}
+                  className="py-2.5 bg-gradient-to-r from-[#00f2ea] to-[#ff0050] text-white rounded-xl font-bold hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center"
+                  title="Copy for TikTok"
+                >
+                  🎵
+                </button>
+
+                {/* WhatsApp */}
+                <button
+                  onClick={() => {
+                    const text = `Check out my Minecraft skin! 🎮 Made with Onde Skin Studio`;
+                    const url = window.location.href;
+                    window.open(
+                      `https://wa.me/?text=${encodeURIComponent(`${text}\n\n${url}`)}`,
+                      '_blank'
+                    );
+                    playSound('click');
+                  }}
+                  className="py-2.5 bg-[#25D366] text-white rounded-xl font-bold hover:bg-[#20bd5a] active:scale-[0.98] transition-all flex items-center justify-center"
+                  title="Share on WhatsApp"
+                >
+                  💬
+                </button>
+
+                {/* Discord */}
+                <button
+                  onClick={() => {
+                    const text = `**Check out my Minecraft skin!** 🎮⛏️\nMade with Onde Skin Studio\n${window.location.href}`;
+                    navigator.clipboard.writeText(text);
+                    alert('📋 Copied! Paste in Discord!');
+                    playSound('click');
+                  }}
+                  className="py-2.5 bg-[#5865F2] text-white rounded-xl font-bold hover:bg-[#4752c4] active:scale-[0.98] transition-all flex items-center justify-center"
+                  title="Copy for Discord"
+                >
+                  🎮
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -6146,6 +6354,110 @@ export default function SkinCreator() {
                 <li>• Enter username: <code className="bg-gray-200 px-1 rounded">Notch</code></li>
                 <li>• NameMC URL: <code className="bg-gray-200 px-1 rounded">namemc.com/profile/...</code></li>
                 <li>• Direct PNG URL works too!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🎨 Sticker/Decal Library Panel */}
+      {showStickerPanel && (
+        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50" onClick={() => { setShowStickerPanel(false); setSelectedSticker(null); }}>
+          <div className="bg-white rounded-t-3xl md:rounded-2xl p-4 md:p-6 w-full md:max-w-lg md:m-4 shadow-2xl max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()} style={{ WebkitOverflowScrolling: 'touch' }}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold">🎨 Sticker Library</h3>
+              <button
+                onClick={() => { setShowStickerPanel(false); setSelectedSticker(null); }}
+                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-xl"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="text-sm text-gray-600 mb-4">Pick a sticker then click on your skin to place it! 🎯</p>
+
+            {/* Category Tabs */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {STICKER_CATEGORIES.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setStickerCategory(cat.id)}
+                  className={`px-3 py-2 rounded-xl font-bold text-sm transition-all ${
+                    stickerCategory === cat.id
+                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white scale-105 shadow-lg'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  }`}
+                >
+                  {cat.emoji} {cat.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Sticker Grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              {getStickersByCategory(stickerCategory).map(sticker => (
+                <button
+                  key={sticker.id}
+                  onClick={() => {
+                    setSelectedSticker(sticker.id);
+                    setShowStickerPanel(false);
+                    playSound('click');
+                  }}
+                  className={`flex flex-col items-center p-3 rounded-xl border-2 transition-all hover:scale-105 active:scale-95 ${
+                    selectedSticker === sticker.id
+                      ? 'border-purple-500 bg-purple-50 shadow-lg'
+                      : 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50'
+                  }`}
+                >
+                  {/* Sticker Preview - Rendered from pixels */}
+                  <div
+                    className="mb-2 bg-gray-100 rounded-lg p-1"
+                    style={{
+                      width: sticker.width * 5 + 8,
+                      height: sticker.height * 5 + 8,
+                      display: 'grid',
+                      gridTemplateColumns: `repeat(${sticker.width}, 5px)`,
+                      gridTemplateRows: `repeat(${sticker.height}, 5px)`,
+                      gap: 0,
+                    }}
+                  >
+                    {sticker.pixels.flat().map((color, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          width: 5,
+                          height: 5,
+                          backgroundColor: color || 'transparent',
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs font-medium text-gray-700">{sticker.emoji} {sticker.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Selected Sticker Info */}
+            {selectedSticker && (
+              <div className="mt-4 p-3 bg-purple-50 rounded-xl border border-purple-200">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{getStickerById(selectedSticker)?.emoji}</span>
+                  <div>
+                    <p className="font-bold text-purple-700">{getStickerById(selectedSticker)?.name} selected!</p>
+                    <p className="text-sm text-purple-600">Click on your skin to place it</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tips */}
+            <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">
+              <p className="text-sm text-yellow-800">
+                <strong>💡 Tips:</strong>
+              </p>
+              <ul className="text-xs text-yellow-700 mt-1 space-y-1">
+                <li>• Use 🪞 Mirror mode for symmetrical wings!</li>
+                <li>• Switch to Accessories layer for overlays</li>
+                <li>• Combine stickers for unique designs</li>
               </ul>
             </div>
           </div>

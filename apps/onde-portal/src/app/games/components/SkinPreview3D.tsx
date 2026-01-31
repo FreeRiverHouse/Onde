@@ -75,13 +75,14 @@ export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPr
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
-  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
-  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
+  const [pose, setPose] = useState<'walk' | 'run' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
+  const poseRef = useRef<'walk' | 'run' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
   const [zoom, setZoom] = useState(5);
   const zoomRef = useRef(5);
   const [animSpeed, setAnimSpeed] = useState(1);
   const animSpeedRef = useRef(1);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [showSpeedControl, setShowSpeedControl] = useState(false);
 
   // 🎨 Extract a face texture from the skin canvas
   const extractFaceTexture = useCallback((
@@ -367,13 +368,58 @@ export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPr
       if (rightArmMesh) rightArmMesh.rotation.z = 0;
       if (leftArmMesh) leftArmMesh.rotation.z = 0;
       
+      const headMesh = character.getObjectByName('head');
+      const bodyMesh = character.getObjectByName('body');
+      
+      // Reset head rotation
+      if (headMesh) { headMesh.rotation.x = 0; headMesh.rotation.z = 0; }
+      if (bodyMesh) { bodyMesh.rotation.z = 0; }
+      
       const currentPose = poseRef.current;
       if (currentPose === 'walk') {
-        const swing = Math.sin(walkTime) * 0.4;
+        // 🚶 Minecraft-style walking animation
+        const walkCycle = walkTime * 2; // Walk cycle speed
+        const swing = Math.sin(walkCycle) * 0.5; // Arm/leg swing angle
+        
+        // Arms swing opposite to legs (like real walking)
         if (rightArmMesh) rightArmMesh.rotation.x = swing;
         if (leftArmMesh) leftArmMesh.rotation.x = -swing;
         if (rightLegMesh) rightLegMesh.rotation.x = -swing;
         if (leftLegMesh) leftLegMesh.rotation.x = swing;
+        
+        // Vertical bounce - happens twice per walk cycle (each foot step)
+        const bounce = Math.abs(Math.sin(walkCycle * 2)) * 0.03;
+        character.position.y = bounce;
+        
+        // Subtle body sway side to side
+        if (bodyMesh) bodyMesh.rotation.z = Math.sin(walkCycle) * 0.02;
+        
+        // Head bobs slightly with walking
+        if (headMesh) {
+          headMesh.rotation.x = Math.sin(walkCycle * 2) * 0.02;
+        }
+      } else if (currentPose === 'run') {
+        // 🏃 Running animation - faster, more exaggerated
+        const runCycle = walkTime * 4; // Faster cycle
+        const swing = Math.sin(runCycle) * 0.8; // Bigger swing
+        
+        if (rightArmMesh) { rightArmMesh.rotation.x = swing; rightArmMesh.rotation.z = -0.1; }
+        if (leftArmMesh) { leftArmMesh.rotation.x = -swing; leftArmMesh.rotation.z = 0.1; }
+        if (rightLegMesh) rightLegMesh.rotation.x = -swing * 0.9;
+        if (leftLegMesh) leftLegMesh.rotation.x = swing * 0.9;
+        
+        // Higher bounce when running
+        const bounce = Math.abs(Math.sin(runCycle * 2)) * 0.06;
+        character.position.y = bounce;
+        
+        // More body lean
+        if (bodyMesh) bodyMesh.rotation.z = Math.sin(runCycle) * 0.04;
+        character.rotation.x = rotationRef.current.x + 0.1; // Slight forward lean
+        
+        // Head movement
+        if (headMesh) {
+          headMesh.rotation.x = Math.sin(runCycle * 2) * 0.04;
+        }
       } else if (currentPose === 'idle') {
         const breath = Math.sin(walkTime * 0.5) * 0.05;
         if (rightArmMesh) rightArmMesh.rotation.x = breath;
@@ -569,29 +615,83 @@ export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPr
           </button>
         </div>
         
-        <div className="absolute top-2 left-2 flex flex-wrap gap-1 opacity-0 group-hover:opacity-100 transition-all" style={{ maxWidth: '120px' }}>
-          {[
-            { id: 'walk', emoji: '🚶', label: 'Walk' },
-            { id: 'idle', emoji: '🧍', label: 'Idle' },
-            { id: 'wave', emoji: '👋', label: 'Wave' },
-            { id: 'dance', emoji: '💃', label: 'Dance' },
-            { id: 'floss', emoji: '🕺', label: 'Floss' },
-            { id: 'dab', emoji: '😎', label: 'Dab' },
-          ].map(p => (
-            <button
-              key={p.id}
-              onClick={() => setPose(p.id as typeof pose)}
-              className={`px-1.5 py-1 rounded text-xs font-bold shadow transition-all hover:scale-105 ${
-                pose === p.id ? 'bg-purple-500 text-white' : 'bg-white/90 text-gray-800'
-              }`}
-              title={p.label}
-            >
-              {p.emoji}
-            </button>
-          ))}
+        <div className="absolute top-2 left-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all" style={{ maxWidth: '120px' }}>
+          {/* Animation pose buttons */}
+          <div className="flex flex-wrap gap-1">
+            {[
+              { id: 'walk', emoji: '🚶', label: 'Walk' },
+              { id: 'run', emoji: '🏃', label: 'Run' },
+              { id: 'idle', emoji: '🧍', label: 'Idle' },
+              { id: 'wave', emoji: '👋', label: 'Wave' },
+              { id: 'dance', emoji: '💃', label: 'Dance' },
+              { id: 'floss', emoji: '🕺', label: 'Floss' },
+              { id: 'dab', emoji: '😎', label: 'Dab' },
+            ].map(p => (
+              <button
+                key={p.id}
+                onClick={() => setPose(p.id as typeof pose)}
+                className={`px-1.5 py-1 rounded text-xs font-bold shadow transition-all hover:scale-105 ${
+                  pose === p.id ? 'bg-purple-500 text-white' : 'bg-white/90 text-gray-800'
+                }`}
+                title={p.label}
+              >
+                {p.emoji}
+              </button>
+            ))}
+          </div>
+          
+          {/* Speed control toggle */}
+          <button
+            onClick={() => setShowSpeedControl(!showSpeedControl)}
+            className={`px-1.5 py-1 rounded text-xs font-bold shadow transition-all hover:scale-105 ${
+              showSpeedControl ? 'bg-blue-500 text-white' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Animation speed"
+          >
+            ⚡ Speed
+          </button>
+          
+          {/* Speed slider (shown when toggled) */}
+          {showSpeedControl && (
+            <div className="flex items-center gap-1 bg-white/90 rounded px-2 py-1 shadow">
+              <span className="text-xs">🐢</span>
+              <input
+                type="range"
+                min="0.2"
+                max="2.5"
+                step="0.1"
+                value={animSpeed}
+                onChange={(e) => setAnimSpeed(parseFloat(e.target.value))}
+                className="w-16 h-2 accent-purple-500"
+                title={`Speed: ${animSpeed.toFixed(1)}x`}
+              />
+              <span className="text-xs">🐇</span>
+            </div>
+          )}
         </div>
       </div>
       
+      {/* Animation indicator */}
+      <div className="flex justify-center items-center gap-2 mt-2">
+        <div className={`px-3 py-1 rounded-full text-xs font-bold shadow transition-all ${
+          pose === 'walk' || pose === 'run' 
+            ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white animate-pulse' 
+            : 'bg-gray-700/50 text-gray-300'
+        }`}>
+          {pose === 'walk' && '🚶 Walking'}
+          {pose === 'run' && '🏃 Running'}
+          {pose === 'idle' && '🧍 Idle'}
+          {pose === 'wave' && '👋 Waving'}
+          {pose === 'dance' && '💃 Dancing'}
+          {pose === 'floss' && '🕺 Flossing'}
+          {pose === 'dab' && '😎 Dabbing'}
+        </div>
+        {animSpeed !== 1 && (
+          <span className="text-xs text-gray-400">
+            {animSpeed.toFixed(1)}x
+          </span>
+        )}
+      </div>
       <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate • Scroll to zoom • Double-click to reset</p>
     </div>
   );

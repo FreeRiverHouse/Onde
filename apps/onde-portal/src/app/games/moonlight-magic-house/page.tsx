@@ -885,6 +885,54 @@ const animationStyles = `
     transition: transform 0.2s var(--ease-out-back),
                 filter 0.2s var(--ease-out-expo);
   }
+
+  /* ========== DAY/NIGHT CYCLE ANIMATIONS ========== */
+  
+  /* Sun ray rotation */
+  @keyframes sun-ray-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Celestial body rise/set */
+  @keyframes celestial-rise {
+    0% { transform: translateY(50px) scale(0.8); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  @keyframes celestial-set {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-30px) scale(0.9); opacity: 0; }
+  }
+
+  /* Sky color transition pulse */
+  @keyframes sky-transition {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  /* Star fade for day/night */
+  @keyframes star-fade-in {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes star-fade-out {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.5); }
+  }
+
+  .animate-celestial-rise {
+    animation: celestial-rise 2s var(--ease-out-expo);
+  }
+
+  .animate-celestial-set {
+    animation: celestial-set 2s var(--ease-out-expo);
+  }
+
+  .animate-sky-transition {
+    animation: sky-transition 2s var(--ease-in-out-smooth);
+  }
   
   .spot-hover:hover:not(:disabled) {
     transform: scale(1.1);
@@ -1488,6 +1536,554 @@ const Sparkle = ({ delay = 0, className = '' }: { delay?: number; className?: st
   </div>
 )
 
+// ============ INTERACTIVE FURNITURE COMPONENTS ============
+
+// Interactive furniture type
+interface FurnitureState {
+  lamp: boolean
+  clock: boolean
+  piano: number
+  bookshelf: boolean
+  picture: number
+  flowers: boolean
+  carpet: boolean
+  mirror: boolean
+}
+
+// Magic Lamp - glows when clicked
+const MagicLamp = ({ isOn, onClick, soundEnabled }: { isOn: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [flickering, setFlickering] = useState(false)
+  
+  const handleClick = () => {
+    sounds.lampClick(soundEnabled)
+    setFlickering(true)
+    setTimeout(() => setFlickering(false), 500)
+    onClick()
+  }
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic lamp - click to toggle"
+    >
+      <svg viewBox="0 0 60 80" className="w-14 h-20">
+        {/* Lamp base */}
+        <ellipse cx="30" cy="75" rx="18" ry="4" fill="#8B4513" />
+        <rect x="18" y="60" width="24" height="16" fill="#A0522D" rx="2" />
+        
+        {/* Lamp stand */}
+        <rect x="27" y="35" width="6" height="28" fill="#CD853F" />
+        
+        {/* Lamp shade */}
+        <path d="M10 35 L30 10 L50 35 Z" fill="#FFF8DC" stroke="#DEB887" strokeWidth="2" />
+        
+        {/* Light glow when on */}
+        {isOn && (
+          <g className={flickering ? 'animate-lamp-flicker' : 'animate-lamp-glow'}>
+            <ellipse cx="30" cy="28" rx="25" ry="20" fill="url(#lampGlow)" opacity="0.6" />
+            <ellipse cx="30" cy="25" rx="15" ry="12" fill="#FFEB3B" opacity="0.4" />
+          </g>
+        )}
+        
+        {/* Bulb glow */}
+        {isOn && (
+          <circle cx="30" cy="30" r="8" fill="#FFD700" className="animate-lamp-glow" style={{ filter: 'blur(2px)' }} />
+        )}
+        
+        <defs>
+          <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#FFEB3B" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#FFD700" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+      
+      {/* Sparkles when on */}
+      {isOn && (
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2">
+          <div className="animate-sparkle-float" style={{ animationDelay: '0s' }}>
+            <Star size="sm" delay={0} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Cuckoo Clock - bird pops out when clicked
+const CuckooClock = ({ isActive, onClick, soundEnabled }: { isActive: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [showBird, setShowBird] = useState(false)
+  
+  const handleClick = () => {
+    if (showBird) return
+    sounds.cuckoo(soundEnabled)
+    setShowBird(true)
+    onClick()
+    setTimeout(() => setShowBird(false), 2000)
+  }
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      onClick={handleClick}
+      role="button"
+      aria-label="Cuckoo clock - click to see bird"
+    >
+      <svg viewBox="0 0 70 90" className="w-16 h-20">
+        {/* Clock house shape */}
+        <path d="M10 35 L35 10 L60 35 L60 80 L10 80 Z" fill="#8B4513" />
+        <path d="M10 35 L35 10 L60 35" fill="none" stroke="#654321" strokeWidth="3" />
+        
+        {/* Roof details */}
+        <rect x="30" y="5" width="10" height="8" fill="#654321" />
+        
+        {/* Clock face */}
+        <circle cx="35" cy="50" r="18" fill="#FFF8DC" stroke="#654321" strokeWidth="2" />
+        <circle cx="35" cy="50" r="15" fill="none" stroke="#8B4513" strokeWidth="1" />
+        
+        {/* Clock numbers */}
+        <text x="35" y="40" textAnchor="middle" fill="#654321" fontSize="6" fontWeight="bold">12</text>
+        <text x="48" y="53" textAnchor="middle" fill="#654321" fontSize="6" fontWeight="bold">3</text>
+        <text x="35" y="65" textAnchor="middle" fill="#654321" fontSize="6" fontWeight="bold">6</text>
+        <text x="22" y="53" textAnchor="middle" fill="#654321" fontSize="6" fontWeight="bold">9</text>
+        
+        {/* Clock hands */}
+        <line x1="35" y1="50" x2="35" y2="38" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+        <line x1="35" y1="50" x2="44" y2="50" stroke="#333" strokeWidth="1.5" strokeLinecap="round" />
+        
+        {/* Pendulum */}
+        <g className={isActive ? 'animate-pendulum' : ''}>
+          <line x1="35" y1="68" x2="35" y2="82" stroke="#8B4513" strokeWidth="2" />
+          <circle cx="35" cy="84" r="5" fill="#DAA520" />
+        </g>
+        
+        {/* Bird door */}
+        <rect x="27" y="25" width="16" height="12" fill="#654321" rx="1" />
+        
+        {/* Bird popping out */}
+        {showBird && (
+          <g className="animate-cuckoo-pop">
+            <ellipse cx="45" cy="31" rx="8" ry="6" fill="#FFD700" />
+            <circle cx="48" cy="29" r="2" fill="#333" />
+            <polygon points="52,30 58,31 52,33" fill="#FF6B00" />
+            <path d="M38 28 Q40 25 38 22" fill="none" stroke="#8B4513" strokeWidth="1" />
+          </g>
+        )}
+      </svg>
+    </div>
+  )
+}
+
+// Piano - plays notes when clicked
+const MagicPiano = ({ noteIndex, onClick, soundEnabled }: { noteIndex: number; onClick: () => void; soundEnabled: boolean }) => {
+  const [pressedKey, setPressedKey] = useState<number | null>(null)
+  const [floatingNotes, setFloatingNotes] = useState<number[]>([])
+  
+  const handleClick = () => {
+    const key = noteIndex % 8
+    sounds.pianoNote(soundEnabled, key)
+    setPressedKey(key)
+    setFloatingNotes(prev => [...prev, Date.now()])
+    setTimeout(() => setPressedKey(null), 200)
+    setTimeout(() => setFloatingNotes(prev => prev.slice(1)), 1500)
+    onClick()
+  }
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic piano - click to play notes"
+    >
+      <svg viewBox="0 0 100 50" className="w-24 h-12">
+        {/* Piano body */}
+        <rect x="5" y="15" width="90" height="30" fill="#1a1a1a" rx="3" />
+        <rect x="5" y="12" width="90" height="8" fill="#333" rx="2" />
+        
+        {/* White keys */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <rect 
+            key={i}
+            x={10 + i * 10} 
+            y="18" 
+            width="9" 
+            height="24" 
+            fill={pressedKey === i ? '#E0E0E0' : '#FFFFF0'}
+            rx="1"
+            className={pressedKey === i ? 'animate-key-press' : ''}
+          />
+        ))}
+        
+        {/* Black keys */}
+        {[0, 1, 3, 4, 5].map((i, idx) => (
+          <rect 
+            key={`black-${idx}`}
+            x={17 + i * 10} 
+            y="18" 
+            width="6" 
+            height="14" 
+            fill="#1a1a1a"
+            rx="1"
+          />
+        ))}
+      </svg>
+      
+      {/* Floating music notes */}
+      {floatingNotes.map((id, i) => (
+        <div 
+          key={id}
+          className="absolute bottom-full left-1/2 animate-note-float pointer-events-none"
+          style={{ 
+            '--note-x': `${(Math.random() - 0.5) * 40}px`,
+            animationDelay: `${i * 0.1}s`
+          } as React.CSSProperties}
+        >
+          <svg viewBox="0 0 24 24" className="w-6 h-6">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="#FFD700" />
+          </svg>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Magical Bookshelf - books wiggle when clicked
+const MagicBookshelf = ({ isWiggling, onClick, soundEnabled }: { isWiggling: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [activeBooks, setActiveBooks] = useState<Set<number>>(new Set())
+  
+  const handleClick = () => {
+    sounds.bookShuffle(soundEnabled)
+    const bookCount = 4
+    const newActive = new Set<number>()
+    for (let i = 0; i < bookCount; i++) {
+      if (Math.random() > 0.3) newActive.add(i)
+    }
+    setActiveBooks(newActive)
+    onClick()
+    setTimeout(() => setActiveBooks(new Set()), 600)
+  }
+  
+  const bookColors = ['#C62828', '#1565C0', '#2E7D32', '#F9A825']
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated"
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic bookshelf - click to animate books"
+    >
+      <svg viewBox="0 0 80 60" className="w-20 h-14">
+        {/* Shelf frame */}
+        <rect x="5" y="5" width="70" height="50" fill="#8B4513" rx="2" />
+        <rect x="8" y="8" width="64" height="44" fill="#654321" rx="1" />
+        
+        {/* Shelf divider */}
+        <rect x="8" y="30" width="64" height="3" fill="#8B4513" />
+        
+        {/* Books top row */}
+        {[0, 1].map((i) => (
+          <g 
+            key={`top-${i}`} 
+            className={activeBooks.has(i) ? (i % 2 === 0 ? 'animate-book-wiggle' : 'animate-book-pop') : ''}
+          >
+            <rect x={12 + i * 25} y="10" width="8" height="18" fill={bookColors[i]} rx="1" />
+            <rect x={22 + i * 25} y="12" width="10" height="16" fill={bookColors[i + 1] || '#7B1FA2'} rx="1" />
+          </g>
+        ))}
+        
+        {/* Books bottom row */}
+        {[2, 3].map((i) => (
+          <g 
+            key={`bottom-${i}`}
+            className={activeBooks.has(i) ? (i % 2 === 0 ? 'animate-book-pop' : 'animate-book-wiggle') : ''}
+          >
+            <rect x={12 + (i - 2) * 22} y="35" width="10" height="14" fill={bookColors[i] || '#FF5722'} rx="1" />
+            <rect x={24 + (i - 2) * 22} y="36" width="8" height="13" fill={bookColors[(i + 1) % 4]} rx="1" />
+          </g>
+        ))}
+        
+        {/* Sparkle on books */}
+        {isWiggling && (
+          <circle cx="40" cy="25" r="3" fill="#FFD700" className="animate-sparkle" />
+        )}
+      </svg>
+    </div>
+  )
+}
+
+// Magic Picture Frame - cycles through different scenes
+const MagicPicture = ({ sceneIndex, onClick, soundEnabled }: { sceneIndex: number; onClick: () => void; soundEnabled: boolean }) => {
+  const [isShimmering, setIsShimmering] = useState(false)
+  
+  const handleClick = () => {
+    sounds.frameMagic(soundEnabled)
+    setIsShimmering(true)
+    onClick()
+    setTimeout(() => setIsShimmering(false), 2000)
+  }
+  
+  const scenes = [
+    // Mountain scene
+    <g key="mountain">
+      <rect x="8" y="8" width="44" height="34" fill="#87CEEB" />
+      <polygon points="15,40 30,18 45,40" fill="#4CAF50" />
+      <polygon points="25,40 40,22 50,40" fill="#388E3C" />
+      <circle cx="45" cy="15" r="5" fill="#FFD700" />
+    </g>,
+    // Beach scene
+    <g key="beach">
+      <rect x="8" y="8" width="44" height="20" fill="#64B5F6" />
+      <rect x="8" y="28" width="44" height="14" fill="#FFE082" />
+      <ellipse cx="45" cy="18" rx="6" ry="5" fill="#FFEB3B" />
+      <path d="M15 35 Q20 30 25 35 Q30 30 35 35" fill="none" stroke="#42A5F5" strokeWidth="2" />
+    </g>,
+    // Space scene
+    <g key="space">
+      <rect x="8" y="8" width="44" height="34" fill="#1a1a3e" />
+      <circle cx="35" cy="25" r="10" fill="#B39DDB" />
+      <circle cx="18" cy="15" r="2" fill="#FFEB3B" />
+      <circle cx="45" cy="35" r="1.5" fill="#FFEB3B" />
+      <circle cx="12" cy="30" r="1" fill="#FFEB3B" />
+    </g>,
+    // Forest scene
+    <g key="forest">
+      <rect x="8" y="8" width="44" height="34" fill="#81C784" />
+      <ellipse cx="20" cy="35" rx="8" ry="15" fill="#2E7D32" />
+      <ellipse cx="35" cy="38" rx="10" ry="18" fill="#388E3C" />
+      <ellipse cx="48" cy="36" rx="6" ry="12" fill="#4CAF50" />
+    </g>,
+  ]
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated"
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic picture - click to change scene"
+    >
+      <svg viewBox="0 0 60 50" className={`w-16 h-12 ${isShimmering ? 'animate-frame-shimmer' : ''}`}>
+        {/* Ornate frame */}
+        <rect x="2" y="2" width="56" height="46" fill="#DAA520" rx="3" />
+        <rect x="5" y="5" width="50" height="40" fill="#B8860B" rx="2" />
+        
+        {/* Inner frame */}
+        <rect x="7" y="7" width="46" height="36" fill="#8B4513" />
+        
+        {/* Scene content */}
+        {scenes[sceneIndex % scenes.length]}
+        
+        {/* Frame decorations */}
+        <circle cx="5" cy="5" r="3" fill="#FFD700" />
+        <circle cx="55" cy="5" r="3" fill="#FFD700" />
+        <circle cx="5" cy="45" r="3" fill="#FFD700" />
+        <circle cx="55" cy="45" r="3" fill="#FFD700" />
+      </svg>
+    </div>
+  )
+}
+
+// Magic Flower Vase - flowers grow when clicked
+const MagicFlowers = ({ isBlooming, onClick, soundEnabled }: { isBlooming: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [bloomed, setBloomed] = useState(false)
+  
+  const handleClick = () => {
+    sounds.flowerBloom(soundEnabled)
+    setBloomed(false)
+    onClick()
+    setTimeout(() => setBloomed(true), 100)
+  }
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic flowers - click to bloom"
+    >
+      <svg viewBox="0 0 60 70" className="w-14 h-16">
+        {/* Vase */}
+        <path d="M18 70 L22 45 L38 45 L42 70 Z" fill="#7B1FA2" />
+        <ellipse cx="30" cy="45" rx="12" ry="4" fill="#9C27B0" />
+        <ellipse cx="30" cy="70" rx="14" ry="3" fill="#4A148C" />
+        
+        {/* Stems */}
+        <g className={bloomed ? 'animate-flower-grow' : ''} style={{ transformOrigin: 'center bottom' }}>
+          <path d="M25 45 Q22 30 20 15" fill="none" stroke="#4CAF50" strokeWidth="2" />
+          <path d="M30 45 Q30 28 30 10" fill="none" stroke="#4CAF50" strokeWidth="2" />
+          <path d="M35 45 Q38 30 40 15" fill="none" stroke="#4CAF50" strokeWidth="2" />
+        </g>
+        
+        {/* Flowers */}
+        <g className={bloomed ? 'animate-flower-bloom' : ''} style={{ opacity: bloomed ? 1 : 0.3 }}>
+          {/* Pink flower */}
+          <circle cx="20" cy="12" r="6" fill="#E91E63" />
+          <circle cx="16" cy="10" r="4" fill="#F48FB1" />
+          <circle cx="24" cy="10" r="4" fill="#F48FB1" />
+          <circle cx="18" cy="16" r="4" fill="#F48FB1" />
+          <circle cx="22" cy="16" r="4" fill="#F48FB1" />
+          <circle cx="20" cy="12" r="3" fill="#FFEB3B" />
+          
+          {/* Yellow flower */}
+          <circle cx="30" cy="7" r="5" fill="#FFEB3B" />
+          <ellipse cx="26" cy="5" rx="3" ry="4" fill="#FFF59D" />
+          <ellipse cx="34" cy="5" rx="3" ry="4" fill="#FFF59D" />
+          <ellipse cx="27" cy="10" rx="3" ry="4" fill="#FFF59D" />
+          <ellipse cx="33" cy="10" rx="3" ry="4" fill="#FFF59D" />
+          <circle cx="30" cy="7" r="2.5" fill="#FF9800" />
+          
+          {/* Purple flower */}
+          <circle cx="40" cy="12" r="5" fill="#9C27B0" />
+          <circle cx="37" cy="9" r="3" fill="#CE93D8" />
+          <circle cx="43" cy="9" r="3" fill="#CE93D8" />
+          <circle cx="37" cy="15" r="3" fill="#CE93D8" />
+          <circle cx="43" cy="15" r="3" fill="#CE93D8" />
+          <circle cx="40" cy="12" r="2.5" fill="#FFEB3B" />
+        </g>
+        
+        {/* Leaves */}
+        <ellipse cx="22" cy="38" rx="4" ry="8" fill="#81C784" transform="rotate(-20 22 38)" />
+        <ellipse cx="38" cy="38" rx="4" ry="8" fill="#81C784" transform="rotate(20 38 38)" />
+      </svg>
+      
+      {/* Sparkles when blooming */}
+      {bloomed && (
+        <>
+          <div className="absolute top-0 left-1/4 animate-sparkle-float">
+            <Star size="sm" delay={0} />
+          </div>
+          <div className="absolute top-0 right-1/4 animate-sparkle-float" style={{ animationDelay: '0.3s' }}>
+            <Star size="sm" delay={0.3} />
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// Magic Flying Carpet - floats and waves when clicked
+const MagicCarpet = ({ isFlying, onClick, soundEnabled }: { isFlying: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [flying, setFlying] = useState(false)
+  
+  const handleClick = () => {
+    sounds.carpetWhoosh(soundEnabled)
+    setFlying(true)
+    onClick()
+    setTimeout(() => setFlying(false), 3000)
+  }
+  
+  return (
+    <div 
+      className={`furniture-interactive gpu-accelerated ${flying ? 'animate-carpet-levitate' : ''}`}
+      onClick={handleClick}
+      role="button"
+      aria-label="Magic carpet - click to fly"
+    >
+      <svg viewBox="0 0 80 40" className={`w-20 h-10 ${flying ? 'animate-carpet-wave' : ''}`}>
+        {/* Carpet body with pattern */}
+        <rect x="5" y="10" width="70" height="20" fill="#7B1FA2" rx="2" />
+        
+        {/* Border design */}
+        <rect x="8" y="12" width="64" height="16" fill="none" stroke="#FFD700" strokeWidth="2" />
+        
+        {/* Central pattern */}
+        <ellipse cx="40" cy="20" rx="15" ry="6" fill="#9C27B0" />
+        <ellipse cx="40" cy="20" rx="10" ry="4" fill="#CE93D8" />
+        <ellipse cx="40" cy="20" rx="5" ry="2" fill="#FFD700" />
+        
+        {/* Diamond patterns */}
+        <polygon points="20,20 25,15 30,20 25,25" fill="#FFD700" />
+        <polygon points="50,20 55,15 60,20 55,25" fill="#FFD700" />
+        
+        {/* Tassels */}
+        <g fill="#FFD700">
+          <rect x="3" y="28" width="2" height="8" rx="1" />
+          <rect x="10" y="28" width="2" height="10" rx="1" />
+          <rect x="68" y="28" width="2" height="10" rx="1" />
+          <rect x="75" y="28" width="2" height="8" rx="1" />
+        </g>
+        
+        {/* Magic sparkles when flying */}
+        {flying && (
+          <g className="animate-sparkle">
+            <circle cx="15" cy="30" r="2" fill="#FFD700" />
+            <circle cx="65" cy="30" r="2" fill="#FFD700" />
+            <circle cx="40" cy="35" r="1.5" fill="#FFD700" />
+          </g>
+        )}
+      </svg>
+    </div>
+  )
+}
+
+// Enchanted Mirror - sparkles and shows magical reflection
+const EnchantedMirror = ({ isActive, onClick, soundEnabled }: { isActive: boolean; onClick: () => void; soundEnabled: boolean }) => {
+  const [sparkling, setSparkling] = useState(false)
+  const [sparklePositions, setSparklePositions] = useState<{x: number; y: number}[]>([])
+  
+  const handleClick = () => {
+    sounds.mirrorShimmer(soundEnabled)
+    setSparkling(true)
+    // Generate random sparkle positions
+    const newSparkles = Array.from({ length: 8 }, () => ({
+      x: 15 + Math.random() * 30,
+      y: 15 + Math.random() * 40
+    }))
+    setSparklePositions(newSparkles)
+    onClick()
+    setTimeout(() => setSparkling(false), 1500)
+  }
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      onClick={handleClick}
+      role="button"
+      aria-label="Enchanted mirror - click for magic"
+    >
+      <svg viewBox="0 0 60 70" className="w-14 h-16">
+        {/* Ornate frame */}
+        <ellipse cx="30" cy="35" rx="26" ry="32" fill="#DAA520" />
+        <ellipse cx="30" cy="35" rx="22" ry="28" fill="#B8860B" />
+        
+        {/* Mirror glass */}
+        <ellipse cx="30" cy="35" rx="18" ry="24" fill="#E3F2FD" className={sparkling ? 'animate-mirror-wave' : ''} />
+        <ellipse cx="30" cy="35" rx="18" ry="24" fill="url(#mirrorGradient)" opacity="0.5" />
+        
+        {/* Reflection highlight */}
+        <ellipse cx="22" cy="25" rx="8" ry="12" fill="white" opacity="0.3" transform="rotate(-15 22 25)" />
+        
+        {/* Frame decorations */}
+        <circle cx="30" cy="5" r="5" fill="#FFD700" />
+        <path d="M25 5 L30 0 L35 5" fill="#FFD700" />
+        
+        {/* Side ornaments */}
+        <circle cx="6" cy="35" r="3" fill="#FFD700" />
+        <circle cx="54" cy="35" r="3" fill="#FFD700" />
+        
+        {/* Magic sparkles */}
+        {sparkling && sparklePositions.map((pos, i) => (
+          <g key={i} className="animate-mirror-sparkle" style={{ animationDelay: `${i * 0.1}s` }}>
+            <path 
+              d={`M${pos.x} ${pos.y - 3}L${pos.x + 1} ${pos.y}L${pos.x} ${pos.y + 3}L${pos.x - 1} ${pos.y}Z`} 
+              fill="#FFD700" 
+            />
+          </g>
+        ))}
+        
+        <defs>
+          <radialGradient id="mirrorGradient" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stopColor="#BBDEFB" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#64B5F6" stopOpacity="0.1" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  )
+}
+
 // ============ MAGIC PARTICLE COMPONENTS ============
 
 // Shooting star with glowing trail
@@ -1839,6 +2435,24 @@ export default function MoonlightMagicHouse() {
   const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0 })
   const [soundEnabled, setSoundEnabled] = useState(true)
   
+  // Day/Night cycle state
+  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('night')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [moonPhase, setMoonPhase] = useState<'full' | 'waning' | 'crescent' | 'new'>('full')
+  
+  // Interactive furniture state
+  const [furnitureState, setFurnitureState] = useState<FurnitureState>({
+    lamp: false,
+    clock: false,
+    piano: 0,
+    bookshelf: false,
+    picture: 0,
+    flowers: false,
+    carpet: false,
+    mirror: false,
+  })
+  const [interactionCount, setInteractionCount] = useState(0)
+  
   // Find the Toy game state
   const [hidingSpots, setHidingSpots] = useState<HidingSpot[]>([])
   const [triesLeft, setTriesLeft] = useState(3)
@@ -1895,6 +2509,39 @@ export default function MoonlightMagicHouse() {
     }, 1200)
     return () => clearTimeout(timer)
   }, [])
+  
+  // Day/Night cycle automatic progression
+  useEffect(() => {
+    if (isLoading || gameState === 'loading') return
+    
+    const advanceTime = () => {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setTimeOfDay(current => {
+          const currentIndex = TIME_SEQUENCE.indexOf(current)
+          const nextIndex = (currentIndex + 1) % TIME_SEQUENCE.length
+          const nextTime = TIME_SEQUENCE[nextIndex]
+          
+          // Update moon phase when transitioning to night
+          if (nextTime === 'night') {
+            setMoonPhase(prev => {
+              const phases: Array<'full' | 'waning' | 'crescent' | 'new'> = ['full', 'waning', 'crescent', 'new']
+              const currentPhaseIndex = phases.indexOf(prev)
+              return phases[(currentPhaseIndex + 1) % phases.length]
+            })
+          }
+          
+          return nextTime
+        })
+        setIsTransitioning(false)
+      }, 1000) // Transition animation duration
+    }
+    
+    const config = TIME_OF_DAY_CONFIG[timeOfDay]
+    const timer = setInterval(advanceTime, config.duration)
+    
+    return () => clearInterval(timer)
+  }, [timeOfDay, isLoading, gameState])
   
   // Handle ambient music based on sound toggle
   useEffect(() => {
@@ -2087,16 +2734,31 @@ export default function MoonlightMagicHouse() {
   }, [gameState])
 
   // ============ BACKGROUND COMPONENT ============
-  const MagicalBackground = useCallback(({ intense = false }: { intense?: boolean }) => (
+  const MagicalBackground = useCallback(({ intense = false }: { intense?: boolean }) => {
+    const config = TIME_OF_DAY_CONFIG[timeOfDay]
+    
+    return (
     <>
       {/* CSS Animations - injected once */}
       <style jsx global>{animationStyles}</style>
       
-      {/* Base gradient with warm vignette */}
-      <div className="fixed inset-0 bg-gradient-to-br from-[#0a0a1a] via-[#1a1a3e] to-[#0f2040] warm-vignette contain-paint" />
+      {/* Base gradient with warm vignette - transitions based on time of day */}
+      <div 
+        className={`fixed inset-0 bg-gradient-to-br ${config.sky} warm-vignette contain-paint`}
+        style={{ 
+          transition: 'all 2s ease-in-out',
+          opacity: isTransitioning ? 0.8 : 1,
+        }}
+      />
       
-      {/* Parallax layer 1: Deep stars (slowest) - using memoized positions */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+      {/* Parallax layer 1: Deep stars (slowest) - fade based on time */}
+      <div 
+        className="fixed inset-0 overflow-hidden pointer-events-none contain-paint"
+        style={{ 
+          opacity: config.starOpacity,
+          transition: 'opacity 2s ease-in-out',
+        }}
+      >
         {starPositions.map((star) => (
           <div
             key={star.id}
@@ -2114,26 +2776,53 @@ export default function MoonlightMagicHouse() {
         ))}
       </div>
       
-      {/* Parallax layer 2: Clouds (slow drift) - reduced to 3 for performance */}
+      {/* Parallax layer 2: Clouds (slow drift) - adjusted opacity for day/night */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
         <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '0s' }}>
-          <Cloud className="absolute w-40 h-20 top-[10%] opacity-60" />
+          <Cloud className={`absolute w-40 h-20 top-[10%] ${timeOfDay === 'day' ? 'opacity-90' : 'opacity-60'}`} />
         </div>
         <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '-20s' }}>
-          <Cloud className="absolute w-60 h-30 top-[25%] opacity-40" />
+          <Cloud className={`absolute w-60 h-30 top-[25%] ${timeOfDay === 'day' ? 'opacity-70' : 'opacity-40'}`} />
         </div>
         <div className="animate-slide-clouds gpu-accelerated" style={{ animationDelay: '-40s' }}>
-          <Cloud className="absolute w-32 h-16 top-[60%] opacity-30" />
+          <Cloud className={`absolute w-32 h-16 top-[60%] ${timeOfDay === 'day' ? 'opacity-60' : 'opacity-30'}`} />
         </div>
       </div>
       
-      {/* Parallax layer 3: Moon (static with glow) */}
-      <div className="fixed top-8 right-8 w-24 h-24 animate-float pointer-events-none gpu-accelerated" style={{ animationDuration: '8s' }}>
-        <MagicMoon className="w-full h-full" />
+      {/* Parallax layer 3: Moon (fades based on time) */}
+      <div 
+        className="fixed top-8 right-8 w-24 h-24 animate-float pointer-events-none gpu-accelerated" 
+        style={{ 
+          animationDuration: '8s',
+          opacity: config.moonOpacity,
+          transition: 'opacity 2s ease-in-out',
+          transform: timeOfDay === 'day' ? 'translateY(-20px)' : 'translateY(0)',
+        }}
+      >
+        <MagicMoon className="w-full h-full" phase={moonPhase} />
       </div>
       
-      {/* Parallax layer 4: Bright stars with shapes - memoized */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+      {/* Parallax layer 3b: Sun (appears during day/transitions) */}
+      <div 
+        className="fixed top-12 left-12 w-20 h-20 animate-float pointer-events-none gpu-accelerated" 
+        style={{ 
+          animationDuration: '10s',
+          opacity: config.sunOpacity,
+          transition: 'opacity 2s ease-in-out, transform 2s ease-in-out',
+          transform: timeOfDay === 'night' ? 'translateY(50px) scale(0.8)' : 'translateY(0) scale(1)',
+        }}
+      >
+        <MagicSun className="w-full h-full" />
+      </div>
+      
+      {/* Parallax layer 4: Bright stars with shapes - fade based on time */}
+      <div 
+        className="fixed inset-0 overflow-hidden pointer-events-none contain-paint"
+        style={{ 
+          opacity: config.starOpacity,
+          transition: 'opacity 2s ease-in-out',
+        }}
+      >
         {brightStarPositions.map((star) => (
           <div
             key={star.id}
@@ -2150,9 +2839,15 @@ export default function MoonlightMagicHouse() {
         ))}
       </div>
       
-      {/* Fireflies layer - reduced count for performance */}
-      {intense && (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+      {/* Fireflies layer - only at night/dusk */}
+      {intense && (timeOfDay === 'night' || timeOfDay === 'dusk') && (
+        <div 
+          className="fixed inset-0 overflow-hidden pointer-events-none contain-paint"
+          style={{ 
+            opacity: timeOfDay === 'night' ? 1 : 0.6,
+            transition: 'opacity 2s ease-in-out',
+          }}
+        >
           {[...Array(6)].map((_, i) => (
             <div
               key={`firefly-${i}`}
@@ -2167,11 +2862,44 @@ export default function MoonlightMagicHouse() {
           ))}
         </div>
       )}
+      
+      {/* Daytime butterflies - only during day */}
+      {intense && timeOfDay === 'day' && (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+          {[...Array(4)].map((_, i) => (
+            <div
+              key={`butterfly-${i}`}
+              className="absolute animate-float gpu-accelerated"
+              style={{
+                left: `${15 + i * 20}%`,
+                top: `${25 + Math.random() * 40}%`,
+                animationDuration: `${5 + i * 0.5}s`,
+                animationDelay: `${i * 0.8}s`,
+              }}
+            >
+              <svg viewBox="0 0 30 20" className="w-6 h-4">
+                <ellipse cx="15" cy="10" rx="2" ry="6" fill="#8B4513" />
+                <ellipse cx="10" cy="8" rx="6" ry="5" fill={['#FFB6C1', '#87CEEB', '#DDA0DD', '#98FB98'][i]} opacity="0.8" className="animate-pulse" />
+                <ellipse cx="20" cy="8" rx="6" ry="5" fill={['#FFB6C1', '#87CEEB', '#DDA0DD', '#98FB98'][i]} opacity="0.8" className="animate-pulse" />
+                <ellipse cx="10" cy="13" rx="4" ry="3" fill={['#FF69B4', '#4682B4', '#9370DB', '#32CD32'][i]} opacity="0.7" className="animate-pulse" />
+                <ellipse cx="20" cy="13" rx="4" ry="3" fill={['#FF69B4', '#4682B4', '#9370DB', '#32CD32'][i]} opacity="0.7" className="animate-pulse" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* ✨ MAGIC PARTICLES LAYER ✨ */}
       
-      {/* Shooting stars - occasional streaks across the sky */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+      {/* Shooting stars - only at night/dusk/dawn */}
+      {(timeOfDay === 'night' || timeOfDay === 'dusk' || timeOfDay === 'dawn') && (
+      <div 
+        className="fixed inset-0 overflow-hidden pointer-events-none contain-paint"
+        style={{ 
+          opacity: config.starOpacity,
+          transition: 'opacity 2s ease-in-out',
+        }}
+      >
         <div className="absolute top-[5%] left-[10%]">
           <ShootingStar delay={0} size="lg" />
         </div>
@@ -2192,6 +2920,7 @@ export default function MoonlightMagicHouse() {
           </>
         )}
       </div>
+      )}
 
       {/* Glitter layer - sparkling diamonds scattered around */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
@@ -2306,15 +3035,30 @@ export default function MoonlightMagicHouse() {
         </div>
       )}
       
-      {/* Ambient warm light overlay */}
+      {/* Ambient light overlay - changes with time of day */}
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 80% 20%, rgba(255, 200, 100, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255, 150, 100, 0.05) 0%, transparent 50%)',
+          background: timeOfDay === 'day' 
+            ? 'radial-gradient(ellipse at 20% 30%, rgba(255, 255, 200, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255, 220, 100, 0.1) 0%, transparent 50%)'
+            : timeOfDay === 'dawn'
+            ? 'radial-gradient(ellipse at 50% 100%, rgba(255, 180, 100, 0.2) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(255, 150, 200, 0.1) 0%, transparent 50%)'
+            : timeOfDay === 'dusk'
+            ? 'radial-gradient(ellipse at 50% 100%, rgba(255, 100, 50, 0.15) 0%, transparent 60%), radial-gradient(ellipse at 20% 20%, rgba(150, 100, 200, 0.1) 0%, transparent 50%)'
+            : 'radial-gradient(ellipse at 80% 20%, rgba(255, 200, 100, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255, 150, 100, 0.05) 0%, transparent 50%)',
+          transition: 'background 2s ease-in-out',
         }}
       />
+      
+      {/* Time of day indicator */}
+      <div className="fixed top-4 right-4 z-40 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-sm border border-white/10">
+        <span className="text-lg">
+          {timeOfDay === 'night' ? '🌙' : timeOfDay === 'dawn' ? '🌅' : timeOfDay === 'day' ? '☀️' : '🌇'}
+        </span>
+        <span className="text-white/70 text-xs font-medium capitalize">{timeOfDay}</span>
+      </div>
     </>
-  ), [starPositions, brightStarPositions])
+  )}, [starPositions, brightStarPositions, timeOfDay, moonPhase, isTransitioning])
 
   // Render loading screen
   if (isLoading || gameState === 'loading') {
@@ -2399,6 +3143,134 @@ export default function MoonlightMagicHouse() {
                 Feed Time
               </span>
             </button>
+          </div>
+          
+          {/* ✨ Interactive Magic Room ✨ */}
+          <div className="mt-8 w-full max-w-md">
+            <p className="text-purple-200/60 text-sm mb-3">✨ Tap the magic objects!</p>
+            
+            {/* Interactive Room Container */}
+            <div className="relative bg-gradient-to-b from-[#2a2a4e]/60 to-[#1a1a3e]/60 rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint">
+              {/* Room warm glow */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-orange-500/5 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Top row of furniture */}
+              <div className="flex justify-around items-end mb-4">
+                {/* Magic Lamp */}
+                <div className="flex flex-col items-center">
+                  <MagicLamp 
+                    isOn={furnitureState.lamp} 
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, lamp: !prev.lamp }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Lamp</span>
+                </div>
+                
+                {/* Cuckoo Clock */}
+                <div className="flex flex-col items-center">
+                  <CuckooClock 
+                    isActive={furnitureState.clock}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, clock: !prev.clock }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Clock</span>
+                </div>
+                
+                {/* Magic Picture */}
+                <div className="flex flex-col items-center">
+                  <MagicPicture 
+                    sceneIndex={furnitureState.picture}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, picture: prev.picture + 1 }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Picture</span>
+                </div>
+                
+                {/* Enchanted Mirror */}
+                <div className="flex flex-col items-center">
+                  <EnchantedMirror 
+                    isActive={furnitureState.mirror}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, mirror: !prev.mirror }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Mirror</span>
+                </div>
+              </div>
+              
+              {/* Bottom row of furniture */}
+              <div className="flex justify-around items-end">
+                {/* Magic Bookshelf */}
+                <div className="flex flex-col items-center">
+                  <MagicBookshelf 
+                    isWiggling={furnitureState.bookshelf}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, bookshelf: !prev.bookshelf }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Books</span>
+                </div>
+                
+                {/* Magic Piano */}
+                <div className="flex flex-col items-center">
+                  <MagicPiano 
+                    noteIndex={furnitureState.piano}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, piano: prev.piano + 1 }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Piano</span>
+                </div>
+                
+                {/* Magic Flowers */}
+                <div className="flex flex-col items-center">
+                  <MagicFlowers 
+                    isBlooming={furnitureState.flowers}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, flowers: !prev.flowers }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Flowers</span>
+                </div>
+                
+                {/* Magic Carpet */}
+                <div className="flex flex-col items-center">
+                  <MagicCarpet 
+                    isFlying={furnitureState.carpet}
+                    onClick={() => {
+                      setFurnitureState(prev => ({ ...prev, carpet: !prev.carpet }))
+                      setInteractionCount(prev => prev + 1)
+                    }}
+                    soundEnabled={soundEnabled}
+                  />
+                  <span className="text-[10px] text-purple-200/50 mt-1">Carpet</span>
+                </div>
+              </div>
+              
+              {/* Interaction counter - fun feedback */}
+              {interactionCount > 0 && (
+                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-bounce-gentle">
+                  ✨ {interactionCount}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         
