@@ -12086,8 +12086,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Complements existing autotrader watchdog
 
 ### [T958] Infra: Forward LLM Errors to Telegram
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T912]
 - **Blocks**: -
 - **Priority**: P3
@@ -12111,8 +12111,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Reference: HEARTBEAT.md "Track your checks" section
 
 ### [T958] Skin Creator: Sound Effects for Actions
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Add fun sounds when drawing, saving, etc.
