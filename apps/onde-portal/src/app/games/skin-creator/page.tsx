@@ -308,7 +308,9 @@ export default function SkinCreator() {
     name: string;
     dataUrl: string;
     timestamp: number;
+    tags?: string[]; // e.g., ['warrior', 'fantasy', 'cool']
   }
+  const SKIN_TAGS = ['⚔️ Warrior', '🧙 Mage', '🐱 Cute', '👻 Spooky', '🤖 Robot', '🎮 Gaming', '🌟 Fantasy', '😎 Cool'];
   const [savedSkins, setSavedSkins] = useState<SavedSkin[]>([]);
   const [showMySkins, setShowMySkins] = useState(false);
 
@@ -2380,6 +2382,22 @@ export default function SkinCreator() {
                         className="absolute -bottom-1 -left-1 w-4 h-4 bg-green-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Rename"
                       >✏️</button>
+                      <button
+                        onClick={(e) => { 
+                          e.stopPropagation();
+                          // Add tag
+                          const tagOptions = SKIN_TAGS.join('\n');
+                          const tag = prompt(`🏷️ Add tag:\n${tagOptions}`, skin.tags?.[0] || '');
+                          if (tag && tag.trim()) {
+                            setSavedSkins(prev => prev.map(s => s.id === skin.id 
+                              ? { ...s, tags: [...(s.tags || []), tag.trim()].slice(0, 3) } 
+                              : s
+                            ));
+                          }
+                        }}
+                        className="absolute -bottom-1 -right-1 w-4 h-4 bg-purple-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Add tag"
+                      >🏷️</button>
                       <button
                         onClick={(e) => { 
                           e.stopPropagation();
