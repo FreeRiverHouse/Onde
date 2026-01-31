@@ -51,6 +51,7 @@ import { WeatherCryptoPnLChart, parsePnLByMarketType, generateMockPnLData } from
 import { ConcentrationHistoryChart } from '@/components/ConcentrationHistoryChart';
 import { HealthHistoryWidget } from '@/components/HealthHistoryWidget';
 import { CorrelationHeatmapWidget } from '@/components/CorrelationHeatmapWidget';
+import { GpuStatusWidget } from '@/components/GpuStatusWidget';
 import { MomentumRegimeWidget } from '@/components/MomentumRegimeWidget';
 import { StopLossEffectivenessWidget } from '@/components/StopLossEffectivenessWidget';
 import { TimeOfDayHeatmap } from '@/components/TimeOfDayHeatmap';
@@ -66,6 +67,33 @@ import { StatsComparisonTooltip, useComparisonTooltip, ComparisonTooltipToggle }
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
 const TRADING_STATS_GIST_URL = 'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-trading-stats.json';
+// Agent status API endpoint
+const AGENT_STATUS_API = '/api/agents/status';
+
+// ============== AGENT STATUS TYPES (T966) ==============
+interface AgentStatus {
+  timestamp: string;
+  gpu: {
+    radeon_connected: boolean;
+    type: string | null;
+    vram_gb: number | null;
+  };
+  ollama: {
+    running: boolean;
+    location: string;
+    models: string[];
+  };
+  agents: {
+    clawdinho?: { host: string; model: string; status: string };
+    ondinho?: { host: string; model: string; status: string };
+  };
+  systemHealth?: {
+    cpu_percent: number;
+    memory_percent: number;
+    gpu_temp: number | null;
+    health_status: string;
+  };
+}
 
 // ============== TYPES ==============
 interface KalshiPosition {
@@ -907,6 +935,7 @@ export default function BettingDashboard() {
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
   const [tradingStats, setTradingStats] = useState<TradingStats | null>(null);
+  const [agentStatus, setAgentStatus] = useState<AgentStatus | null>(null);
   const [statsSource, setStatsSource] = useState<'v1' | 'v2'>(urlSource || 'v2');
   const [statsPeriod, setStatsPeriod] = useState<DatePeriod>(urlPeriod || 'all');
   const [customDateFrom, setCustomDateFrom] = useState<string>(searchParams.get('from') || '');
@@ -1128,17 +1157,18 @@ export default function BettingDashboard() {
     let fromCache = false;
     
     try {
-      const [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes] = await Promise.all([
+      const [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes, agentRes] = await Promise.all([
         fetch('/api/kalshi/status'),
         fetch('/api/crypto/prices'),
         fetch('/api/inbox'),
         fetch('/api/momentum'),
-        fetch(`/api/trading/trend?days=30&source=${statsSource}`)
+        fetch(`/api/trading/trend?days=30&source=${statsSource}`),
+        fetch(AGENT_STATUS_API)
       ]);
 
       // Check if any response came from service worker cache
       // SW adds 'sw-cache-time' header to cached responses
-      const responses = [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes];
+      const responses = [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes, agentRes];
       const anyCached = responses.some(res => res.headers.get('sw-cache-time'));
       const anyFailed = responses.some(res => !res.ok);
       fromCache = anyCached || anyFailed || !navigator.onLine;
@@ -1158,6 +1188,7 @@ export default function BettingDashboard() {
       if (inboxRes.ok) setInbox(await inboxRes.json());
       if (momentumRes.ok) setMomentum(await momentumRes.json());
       if (trendRes.ok) setWinRateTrend(await trendRes.json());
+      if (agentRes.ok) setAgentStatus(await agentRes.json());
 
       setLastRefresh(new Date());
       setDataFromCache(fromCache);
@@ -2497,6 +2528,17 @@ export default function BettingDashboard() {
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
               <CorrelationHeatmapWidget 
                 correlationData={tradingStats.assetCorrelation || undefined}
+                loading={isLoading}
+              />
+            </div>
+
+            {/* GPU & Agent Status Widget (T966) */}
+            <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
+              <GpuStatusWidget 
+                gpu={agentStatus?.gpu}
+                ollama={agentStatus?.ollama}
+                agents={agentStatus?.agents}
+                systemHealth={agentStatus?.systemHealth}
                 loading={isLoading}
               />
             </div>
