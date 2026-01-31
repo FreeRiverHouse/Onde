@@ -3,6 +3,126 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
+// CSS keyframes for ingredient animations
+const ingredientAnimationStyles = `
+@keyframes flyIn {
+  0% {
+    transform: translateY(-100vh) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(20px) rotate(360deg) scale(1.2);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-10px) rotate(380deg) scale(0.95);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0) translateX(-100px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.3) translateX(10px);
+  }
+  70% {
+    transform: scale(0.9) translateX(-5px);
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes poof {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes combineSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.8);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.fly-in {
+  animation: flyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.bounce-in {
+  animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wobble {
+  animation: wobble 0.5s ease-in-out infinite;
+}
+
+.poof {
+  animation: poof 0.5s ease-out forwards;
+}
+
+.sparkle {
+  animation: sparkle 0.6s ease-out forwards;
+}
+
+.float-up {
+  animation: floatUp 0.8s ease-out forwards;
+}
+
+.combine-spin {
+  animation: combineSpin 0.6s ease-in-out;
+}
+`
+
 // Recipe book data type
 interface RecipeBookEntry {
   recipeId: string
@@ -174,6 +294,147 @@ function useSoundEffects() {
   return { playClick, playSizzle, playStir, playDing, playSuccess, playPop }
 }
 
+// Ingredient data for each recipe
+const recipeIngredients: Record<string, string[]> = {
+  pizza: ['🧀', '🍅', '🫓', '🌿'],
+  biscotti: ['🥚', '🧈', '🍫', '🌾'],
+  frullato: ['🍓', '🍌', '🥛', '🍯'],
+  insalata: ['🥬', '🍅', '🥕', '🧀'],
+  panino: ['🍞', '🥬', '🍖', '🧀'],
+  gelato: ['🥛', '🍓', '🍫', '🍦'],
+  torta: ['🥚', '🧈', '🍫', '🍓'],
+  pasta: ['🍝', '🍅', '🧄', '🌿'],
+  hamburger: ['🍞', '🥩', '🧀', '🥬'],
+  pancakes: ['🥚', '🥛', '🧈', '🍯'],
+  cheesecake: ['🧀', '🍓', '🍪', '🍯'],
+  tacos: ['🌽', '🥩', '🧀', '🥬'],
+  sushi: ['🍚', '🐟', '🥒', '🥑'],
+}
+
+// Animated Ingredient Component
+function AnimatedIngredient({ 
+  emoji, 
+  index, 
+  isCollected, 
+  onClick,
+  isCombining 
+}: { 
+  emoji: string
+  index: number
+  isCollected: boolean
+  onClick: (e: React.MouseEvent) => void
+  isCombining: boolean
+}) {
+  const [hasEntered, setHasEntered] = useState(false)
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setHasEntered(true), index * 150)
+    return () => clearTimeout(timer)
+  }, [index])
+
+  if (!hasEntered) return null
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={isCollected}
+      className={`
+        text-5xl p-4 rounded-2xl transition-all duration-300
+        ${isCollected 
+          ? 'opacity-50 scale-75' 
+          : 'hover:scale-125 cursor-pointer bg-white/20 hover:bg-white/40'
+        }
+        ${isCombining ? 'combine-spin' : ''}
+      `}
+      style={{
+        animation: hasEntered && !isCollected 
+          ? `${index % 2 === 0 ? 'flyIn' : 'bounceIn'} 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`
+          : undefined,
+        animationDelay: `${index * 0.15}s`,
+      }}
+    >
+      <span className={isCollected ? '' : 'wobble inline-block'}>{emoji}</span>
+    </button>
+  )
+}
+
+// Poof Effect Component
+function PoofEffect({ isActive, position }: { isActive: boolean, position: { x: number, y: number } }) {
+  const [particles, setParticles] = useState<{ id: number, emoji: string, angle: number }[]>([])
+
+  useEffect(() => {
+    if (isActive) {
+      const sparkleEmojis = ['✨', '💫', '⭐', '🌟', '💥', '✨', '💫', '⭐']
+      const newParticles = sparkleEmojis.map((emoji, i) => ({
+        id: Date.now() + i,
+        emoji,
+        angle: (360 / sparkleEmojis.length) * i
+      }))
+      setParticles(newParticles)
+      
+      const timer = setTimeout(() => setParticles([]), 800)
+      return () => clearTimeout(timer)
+    }
+  }, [isActive])
+
+  if (!isActive && particles.length === 0) return null
+
+  return (
+    <div 
+      className="fixed pointer-events-none z-50"
+      style={{ left: position.x, top: position.y, transform: 'translate(-50%, -50%)' }}
+    >
+      {/* Central poof cloud */}
+      <div className="poof text-6xl">💨</div>
+      
+      {/* Sparkle particles */}
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute sparkle text-2xl"
+          style={{
+            transform: `rotate(${particle.angle}deg) translateY(-40px)`,
+            animationDelay: `${Math.random() * 0.2}s`
+          }}
+        >
+          {particle.emoji}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Collected Ingredient Bowl
+function IngredientBowl({ 
+  ingredients, 
+  isMixing 
+}: { 
+  ingredients: string[]
+  isMixing: boolean 
+}) {
+  return (
+    <div className={`
+      relative bg-white/30 rounded-full p-6 w-40 h-40 flex items-center justify-center flex-wrap gap-1
+      ${isMixing ? 'combine-spin' : ''}
+      transition-all duration-300
+    `}>
+      <div className="text-4xl absolute -top-2 left-1/2 -translate-x-1/2">🥣</div>
+      {ingredients.map((ing, i) => (
+        <span 
+          key={i} 
+          className="text-2xl float-up"
+          style={{ 
+            animationDelay: `${i * 0.1}s`,
+            animation: isMixing ? `floatUp 0.8s ease-out ${i * 0.1}s forwards` : 'none'
+          }}
+        >
+          {ing}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 // Recipe data
 const recipes = [
   { id: 'pizza', name: 'Pizza Margherita', emoji: '🍕', difficulty: 1, time: '5 min', locked: false, color: 'from-red-400 to-orange-400' },
@@ -311,13 +572,69 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
   const [score, setScore] = useState(0)
   const [completed, setCompleted] = useState(false)
   const [saved, setSaved] = useState(false)
+  
+  // Ingredient collection state
+  const ingredients = recipeIngredients[recipe.id] || ['🥕', '🍅', '🧅', '🌿']
+  const [collectedIngredients, setCollectedIngredients] = useState<string[]>([])
+  const [showPoof, setShowPoof] = useState(false)
+  const [poofPosition, setPoofPosition] = useState({ x: 0, y: 0 })
+  const [isMixing, setIsMixing] = useState(false)
+
+  // Inject animation styles
+  useEffect(() => {
+    const styleId = 'kids-chef-animations'
+    if (!document.getElementById(styleId)) {
+      const styleEl = document.createElement('style')
+      styleEl.id = styleId
+      styleEl.textContent = ingredientAnimationStyles
+      document.head.appendChild(styleEl)
+    }
+    return () => {
+      const el = document.getElementById(styleId)
+      if (el) el.remove()
+    }
+  }, [])
 
   const steps = [
-    { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti', sound: 'click' },
-    { text: 'Mescola tutto insieme! 🥄', action: 'Gira in cerchio!', sound: 'stir' },
-    { text: 'Metti in forno! 🔥', action: 'Aspetta...', sound: 'sizzle' },
-    { text: 'Decora il piatto! ✨', action: 'Aggiungi decorazioni', sound: 'ding' },
+    { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti per raccoglierli!', sound: 'click', isInteractive: true },
+    { text: 'Mescola tutto insieme! 🥄', action: 'Premi per mescolare!', sound: 'stir', isInteractive: true },
+    { text: 'Metti in forno! 🔥', action: 'Aspetta...', sound: 'sizzle', isInteractive: false },
+    { text: 'Decora il piatto! ✨', action: 'Aggiungi decorazioni', sound: 'ding', isInteractive: false },
   ]
+
+  const handleCollectIngredient = (ingredient: string, event: React.MouseEvent) => {
+    if (step !== 0 || collectedIngredients.includes(ingredient)) return
+    
+    sounds.playPop()
+    setCollectedIngredients(prev => [...prev, ingredient])
+    
+    // Show mini poof at ingredient location
+    const rect = (event.target as HTMLElement).getBoundingClientRect()
+    setPoofPosition({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 })
+    setShowPoof(true)
+    setTimeout(() => setShowPoof(false), 500)
+  }
+
+  const handleMix = () => {
+    if (step !== 1) return
+    
+    sounds.playStir()
+    setIsMixing(true)
+    
+    // Big poof effect when combining
+    setPoofPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 })
+    setTimeout(() => {
+      setShowPoof(true)
+      sounds.playPop()
+    }, 400)
+    
+    setTimeout(() => {
+      setShowPoof(false)
+      setIsMixing(false)
+      setStep(2)
+      setScore(prev => prev + 25)
+    }, 800)
+  }
 
   const handleStep = () => {
     // Play sound based on current step
@@ -343,6 +660,16 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
     }
   }
 
+  // Auto-advance when all ingredients collected
+  useEffect(() => {
+    if (step === 0 && collectedIngredients.length === ingredients.length) {
+      setTimeout(() => {
+        setStep(1)
+        setScore(25)
+      }, 500)
+    }
+  }, [collectedIngredients.length, ingredients.length, step])
+
   if (completed) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-yellow-300 to-orange-400 flex flex-col items-center justify-center p-4">
@@ -365,6 +692,9 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
 
   return (
     <div className={`min-h-screen bg-gradient-to-b ${recipe.color} flex flex-col items-center p-4`}>
+      {/* Poof Effect */}
+      <PoofEffect isActive={showPoof} position={poofPosition} />
+      
       {/* Header */}
       <div className="w-full max-w-md flex items-center justify-between mb-4">
         <button onClick={() => { sounds.playClick(); onBack() }} className="bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
@@ -376,13 +706,13 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
       </div>
 
       {/* Recipe Title */}
-      <div className="text-center mb-6">
-        <span className="text-7xl">{recipe.emoji}</span>
+      <div className="text-center mb-4">
+        <span className="text-6xl">{recipe.emoji}</span>
         <h2 className="text-2xl font-black text-white drop-shadow-lg mt-2">{recipe.name}</h2>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full max-w-md bg-white/30 rounded-full h-4 mb-6">
+      <div className="w-full max-w-md bg-white/30 rounded-full h-4 mb-4">
         <div 
           className="bg-white h-4 rounded-full transition-all duration-500"
           style={{ width: `${((step + 1) / steps.length) * 100}%` }}
@@ -393,15 +723,52 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
       <div className="bg-white rounded-3xl p-6 shadow-2xl max-w-md w-full text-center">
         <p className="text-sm text-gray-500 mb-2">Step {step + 1}/{steps.length}</p>
         <h3 className="text-2xl font-bold text-gray-800 mb-4">{steps[step].text}</h3>
-        <p className="text-gray-500 mb-6">{steps[step].action}</p>
+        <p className="text-gray-500 mb-4">{steps[step].action}</p>
         
-        {/* Action Button */}
-        <button
-          onClick={handleStep}
-          className="w-full py-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-xl rounded-2xl shadow-lg hover:scale-105 transition-all animate-pulse"
-        >
-          {step < steps.length - 1 ? '✨ Fatto! Avanti!' : '🎉 Finisci!'}
-        </button>
+        {/* Step 0: Ingredient Collection */}
+        {step === 0 && (
+          <div className="mb-6">
+            <div className="flex justify-center gap-2 flex-wrap mb-4">
+              {ingredients.map((ing, i) => (
+                <AnimatedIngredient
+                  key={ing}
+                  emoji={ing}
+                  index={i}
+                  isCollected={collectedIngredients.includes(ing)}
+                  onClick={(e) => handleCollectIngredient(ing, e)}
+                  isCombining={false}
+                />
+              ))}
+            </div>
+            <div className="text-sm text-gray-400">
+              {collectedIngredients.length}/{ingredients.length} ingredienti raccolti
+            </div>
+          </div>
+        )}
+
+        {/* Step 1: Mixing Bowl */}
+        {step === 1 && (
+          <div className="mb-6 flex flex-col items-center">
+            <IngredientBowl ingredients={collectedIngredients} isMixing={isMixing} />
+            <button
+              onClick={handleMix}
+              disabled={isMixing}
+              className="mt-4 px-8 py-4 bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold text-xl rounded-2xl shadow-lg hover:scale-105 transition-all disabled:opacity-50"
+            >
+              🥄 Mescola!
+            </button>
+          </div>
+        )}
+        
+        {/* Action Button for non-interactive steps */}
+        {step >= 2 && (
+          <button
+            onClick={handleStep}
+            className="w-full py-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-xl rounded-2xl shadow-lg hover:scale-105 transition-all animate-pulse"
+          >
+            {step < steps.length - 1 ? '✨ Fatto! Avanti!' : '🎉 Finisci!'}
+          </button>
+        )}
       </div>
 
       {/* Decorative Elements */}
