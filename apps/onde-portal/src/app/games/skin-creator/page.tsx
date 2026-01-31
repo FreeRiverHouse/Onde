@@ -188,6 +188,7 @@ export default function SkinCreator() {
   const [tutorialStep, setTutorialStep] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
+  const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
@@ -2456,9 +2457,40 @@ export default function SkinCreator() {
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
                 onMouseLeave={() => { setIsDrawing(false); }}
                 onMouseMove={draw}
-                onTouchStart={(e) => { e.preventDefault(); setIsDrawing(true); drawTouch(e); }}
-                onTouchEnd={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
-                onTouchMove={(e) => { e.preventDefault(); drawTouch(e); }}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  if (e.touches.length === 2) {
+                    // Pinch start - calculate initial distance
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    lastPinchDistance.current = Math.sqrt(dx * dx + dy * dy);
+                  } else if (e.touches.length === 1) {
+                    setIsDrawing(true);
+                    drawTouch(e);
+                  }
+                }}
+                onTouchEnd={() => {
+                  setIsDrawing(false);
+                  lastPinchDistance.current = null;
+                  saveState();
+                  addRecentColor(selectedColor);
+                }}
+                onTouchMove={(e) => {
+                  e.preventDefault();
+                  if (e.touches.length === 2 && lastPinchDistance.current !== null) {
+                    // Pinch-to-zoom
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    const newDistance = Math.sqrt(dx * dx + dy * dy);
+                    const delta = newDistance - lastPinchDistance.current;
+                    if (Math.abs(delta) > 10) {
+                      setZoomLevel(prev => Math.min(12, Math.max(2, prev + (delta > 0 ? 1 : -1))));
+                      lastPinchDistance.current = newDistance;
+                    }
+                  } else if (e.touches.length === 1) {
+                    drawTouch(e);
+                  }
+                }}
               />
               {/* Grid Overlay */}
               {showGrid && (
