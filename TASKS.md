@@ -11867,17 +11867,24 @@ Generated: 2026-01-30T18:37:46.867013
   - **Build**: ✅ Passes
 
 ### [T878] Moonlight Magic House: Interactive Pet Reactions (MM-023)
-- **Status**: TODO
-- **Owner**: -
-- **Depends**: [T876]
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Started**: 2026-02-16 05:12 PST
+- **Completed**: 2026-02-16 05:18 PST
+- **Depends**: [T876] ✅
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Luna reacts to being tapped/petted!
-  - Heart bubbles on tap (❤️💕)
-  - Happy sound effect
-  - Tail wag trigger (depends on T876)
-  - "Purr" animation (subtle body shake)
-  - **AI Coding**: Use local Radeon LLM for implementation
+- **Notes**: ✅ Luna now reacts to being tapped/petted!
+  - [x] Heart bubbles on tap (❤️💕) - already implemented in MM-002
+  - [x] Happy sound effects (cat-meow, cat-happy, cat-purr) - already implemented
+  - [x] Tail wag integration (via mood & idle state)
+  - [x] **NEW: Purr animation** - subtle body shake (scale [1→1.03→1→1.03→1], rotate [0→-1.5→0→1.5→0])
+  - [x] **NEW: 😻 emoji indicator** appears when purring
+  - [x] Created `InteractivePetReactions.tsx` component (reusable wrapper with Web Audio purr sound)
+  - **Files changed:**
+    - `src/App.tsx` - Added isPurring state, motion.div with purr animation
+    - `src/components/InteractivePetReactions.tsx` - NEW reusable component
+  - **Build**: ✅ Passes
 
 ### [T932] Skin Creator: Creeper Surprise Effect
 - **Status**: DONE

@@ -508,9 +508,10 @@ function App() {
   const [isIdle, setIsIdle] = useState(false);
   const [lastActionTime, setLastActionTime] = useState(Date.now());
   
-  // Pet interaction state (MM-002) 🐱
+  // Pet interaction state (MM-002, T878) 🐱
   const [petHearts, setPetHearts] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [lastPetTime, setLastPetTime] = useState(0);
+  const [isPurring, setIsPurring] = useState(false);
   const roomContainerRef = useCallback((node: HTMLDivElement | null) => {
     if (node) node.focus();
   }, []);
@@ -775,13 +776,17 @@ function App() {
     setTimeout(() => setActionBubble(''), 2000);
   };
 
-  // Pet Luna handler (MM-002) 🐱
+  // Pet Luna handler (MM-002, T878) 🐱
   const handlePetLuna = useCallback((e: React.MouseEvent) => {
     e.stopPropagation(); // Don't trigger room movement
     
     const now = Date.now();
     if (now - lastPetTime < 300) return; // Debounce rapid clicks
     setLastPetTime(now);
+    
+    // Trigger purr animation (T878) - subtle body shake 🐱
+    setIsPurring(true);
+    setTimeout(() => setIsPurring(false), 500);
     
     // Play cute sounds
     const soundChoice = Math.random();
@@ -1388,7 +1393,7 @@ function App() {
         surfaceType={currentRoomKey === 'garden' ? 'grass' : currentRoomKey === 'bathroom' ? 'water' : (currentRoomKey === 'basement' || currentRoomKey === 'garage') ? 'stone' : 'floor'}
       />
       
-      <div 
+      <motion.div 
         className={`luna-container ${isWalking ? 'walking' : ''} ${facingDirection === 'left' ? 'facing-left' : ''}`}
         style={{ 
           left: `${lunaPosition.x}%`, 
@@ -1399,11 +1404,44 @@ function App() {
         }}
         onClick={handlePetLuna}
         title={lang === 'it' ? 'Accarezza Luna!' : 'Pet Luna!'}
+        // Purr animation (T878) - subtle body shake when petted 🐱
+        animate={isPurring ? {
+          scale: [1, 1.03, 1, 1.03, 1],
+          rotate: [0, -1.5, 0, 1.5, 0],
+          transition: {
+            duration: 0.4,
+            ease: 'easeInOut',
+            times: [0, 0.25, 0.5, 0.75, 1],
+          },
+        } : { scale: 1, rotate: 0 }}
       >
         {actionBubble && <div className="bubble glass-card"><span className="bubble-text">{actionBubble}</span></div>}
         <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''} ${isWalking ? 'walking' : ''}`} />
         <div className="luna-glow" />
         <span className="luna-mood-badge">{getMoodEmoji(mood)}</span>
+        
+        {/* Purr reaction indicator (T878) 😻 */}
+        <AnimatePresence>
+          {isPurring && (
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: -25 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                position: 'absolute',
+                top: '-5%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontSize: '1.5rem',
+                zIndex: 101,
+                pointerEvents: 'none',
+              }}
+            >
+              😻
+            </motion.span>
+          )}
+        </AnimatePresence>
         
         {/* Tail wagging animation (T876) */}
         <TailWagging 
@@ -1412,7 +1450,7 @@ function App() {
           onWagComplete={() => setLastActionTime(Date.now())}
         />
         {isWalking && <div className="walk-dust" />}
-      </div>
+      </motion.div>
 
       {/* Floating hearts when petting Luna (MM-002) 💕 */}
       <AnimatePresence>
