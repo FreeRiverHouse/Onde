@@ -21,7 +21,7 @@
 | MLH-005 | Add loading states for async panels | DONE | @clawdinho | - |
 | MLH-006 | Add breadcrumb navigation with keyboard support | DONE | @clawdinho | - |
 | MLH-007 | Add notification center panel (alerts, events) | DONE | @clawdinho | - |
-| MLH-008 | Add search history + recent commands to palette | TODO | - | - |
+| MLH-008 | Add search history + recent commands to palette | IN_PROGRESS | @clawdinho | - |
 | MLH-009 | Add agent activity feed to notification center | TODO | - | MLH-007 |
 | MLH-010 | Add notification sound preferences (mute/sound type) | TODO | - | MLH-007 |
 | MLH-011 | Add notification persistence with localStorage | TODO | - | MLH-007 |
@@ -43,6 +43,9 @@
 | AUTO-001 | Creare script check siti live (onde.la, onde.surf HTTP 200) | DONE | @clawdinho | - |
 | AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | TODO | - | - |
 | AUTO-003 | Documentare stato attuale Kalshi trading in memory | TODO | - | - |
+| AUTO-004 | Integrare SystemMonitor check nel ciclo HEARTBEAT | DONE | @clawdinho | - |
+| AUTO-005 | Creare watchdog-gpu-load.sh per monitoring periodico | DONE | @clawdinho | AUTO-004 |
+| AUTO-006 | Aggiungere gpu-load-critical.alert se CPU/GPU oltre soglia | DONE | @clawdinho | AUTO-005 |
 
 ---
 
@@ -62,4 +65,4 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 11:10 PST*
+*Ultimo aggiornamento: 2026-01-31 10:40 PST*
