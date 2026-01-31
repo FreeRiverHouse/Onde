@@ -3759,6 +3759,29 @@
 
 ## 📋 TODO - TRADUZIONI
 
+### [T1100] Traduzione Libri: Workflow Incrementale con Agenti
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: DA MATTIA (ID:3070) - Workflow incrementale per traduzioni
+  - **Approccio:**
+    1. Tradurre UN capitolo alla volta
+    2. Ricontrollare qualità prima di procedere
+    3. Se OK, replicare procedura per altri capitoli
+    4. Parallelizzare: 1 agente per capitolo (o 5 per capitolo)
+  - **Risorse:**
+    - LLaMA 3.1 8B: `/Volumes/DATI-SSD/llm-models/`
+    - Procedure TinyGrad: `tools/RADEON-TINYGRAD-PROCEDURES.md`
+  - **⚠️ NON tradurre tutto insieme** - verificare step by step!
+  - **Workflow consigliato:**
+    - [ ] Scegliere libro target
+    - [ ] Testare traduzione capitolo 1
+    - [ ] QA capitolo 1 (leggibilità, accuratezza)
+    - [ ] Se passa QA → script per altri capitoli
+    - [ ] Spawn agenti paralleli per velocità
+
 ### [T010] Installare modello traduzione su M4 Mac
 - **Status**: DONE
 - **Owner**: @ondinho
