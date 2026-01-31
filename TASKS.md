@@ -13103,3 +13103,22 @@ Generated: 2026-01-30T18:37:46.867013
   2. Eliminare tutti i messaggi inviati da questi bot
   3. Disabilitare eventuali cron/script che li alimentano
 - **Notes**: Bot obsoleti, non più necessari
+
+### [T1053] Kidday: Agente Tester che Simula Bambino 🎮
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2 (planning)
+- **Source**: Mattia vocale 2026-01-30 23:21 PST (ID:3020,3021)
+- **Notes**: Agente "Kidday" per testing automatico app
+  - **Obiettivo:** Simulare un bambino che gioca le nostre app
+  - **Features:**
+    1. Profili utente basati su azioni (età, interessi, stile gioco)
+    2. Simula interesse per capire quali app/feature piacciono di più
+    3. Fa "tutti i giri" nei giochi (walkthrough completi)
+    4. Aiuta con A/B testing simulato
+    5. Utente sempre attivo per testing continuo
+  - **Infra:** Eventualmente gira su vecchio Mac separato
+  - **Stato:** Non ancora in roadmap attiva - da pianificare architettura
+  - **Riferimento:** "Esistono già bot per andare in giro e simulare cose" - Mattia
