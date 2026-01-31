@@ -874,6 +874,11 @@ export default function SkinCreator() {
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
   const [gridColor, setGridColor] = useState<'light' | 'dark' | 'blue' | 'red'>('dark'); // Grid line color
   const [showBodyPartOverlay, setShowBodyPartOverlay] = useState(false); // Highlight body part regions
+  // 🖼️ Reference Image Overlay - trace from an image
+  const [referenceImage, setReferenceImage] = useState<string | null>(null);
+  const [referenceOpacity, setReferenceOpacity] = useState(40); // 0-100%
+  const [showReferencePanel, setShowReferencePanel] = useState(false);
+  const referenceInputRef = useRef<HTMLInputElement>(null);
   const [hoverPixel, setHoverPixel] = useState<{ x: number; y: number } | null>(null); // Pixel under cursor
   const [eyedropperPreviewColor, setEyedropperPreviewColor] = useState<string | null>(null); // Color preview for eyedropper
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
@@ -3308,6 +3313,27 @@ export default function SkinCreator() {
         break;
       }
 
+      case 'invert': {
+        // Invert all colors (negative effect)
+        // At 100% intensity: full inversion (255 - color)
+        // At lower intensity: blend between original and inverted
+        for (let i = 0; i < data.length; i += 4) {
+          // Skip fully transparent pixels
+          if (data[i + 3] === 0) continue;
+          
+          // Calculate inverted values
+          const invertedR = 255 - data[i];
+          const invertedG = 255 - data[i + 1];
+          const invertedB = 255 - data[i + 2];
+          
+          // Blend between original and inverted based on intensity
+          data[i] = Math.round(data[i] * (1 - normalizedIntensity) + invertedR * normalizedIntensity);
+          data[i + 1] = Math.round(data[i + 1] * (1 - normalizedIntensity) + invertedG * normalizedIntensity);
+          data[i + 2] = Math.round(data[i + 2] * (1 - normalizedIntensity) + invertedB * normalizedIntensity);
+        }
+        break;
+      }
+
       case 'outline': {
         // Add border/outline around opaque shapes using secondary color
         // Intensity controls outline thickness (1-3 pixels)
@@ -4512,6 +4538,98 @@ export default function SkinCreator() {
       return;
     }
 
+    // 🎮 Dither - Retro-style pixelated gradients!
+    if (tool === 'dither') {
+      // Parse colors to RGB
+      const parseHex = (hex: string) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : { r: 0, g: 0, b: 0 };
+      };
+      
+      const color1 = parseHex(selectedColor);
+      const color2 = parseHex(secondaryColor);
+      const strength = ditherStrength / 100; // Normalize to 0-1
+      
+      // Get dither matrix based on pattern
+      const getDitherThreshold = (px: number, py: number): number => {
+        switch (ditherPattern) {
+          case 'bayer2x2':
+            return BAYER_2X2[py % 2][px % 2];
+          case 'bayer4x4':
+            return BAYER_4X4[py % 4][px % 4];
+          case 'bayer8x8':
+            return BAYER_8X8[py % 8][px % 8];
+          case 'ordered':
+            // Simple ordered pattern
+            return ((px + py) % 4) / 4;
+          case 'halftone':
+            // Circular halftone pattern
+            const cx = (px % 4) - 1.5;
+            const cy = (py % 4) - 1.5;
+            const dist = Math.sqrt(cx * cx + cy * cy) / 2.12;
+            return Math.min(1, dist);
+          case 'noise':
+            // Random noise (seeded by position for consistency while drawing)
+            return Math.abs(Math.sin(px * 12.9898 + py * 78.233) * 43758.5453) % 1;
+          case 'checker':
+            // Simple checkerboard
+            return (px + py) % 2 === 0 ? 0 : 1;
+          case 'diagonal':
+            // Diagonal lines
+            return ((px + py * 2) % 4) / 4;
+          default:
+            return BAYER_4X4[py % 4][px % 4];
+        }
+      };
+      
+      // Draw dithered pixels in brush area
+      const ditherRadius = Math.max(brushSize * 2, 3);
+      for (let dx = -ditherRadius; dx <= ditherRadius; dx++) {
+        for (let dy = -ditherRadius; dy <= ditherRadius; dy++) {
+          const px = x + dx;
+          const py = y + dy;
+          
+          // Check bounds
+          if (px < 0 || px >= SKIN_WIDTH || py < 0 || py >= SKIN_HEIGHT) continue;
+          
+          // Circular brush shape
+          const distFromCenter = Math.sqrt(dx * dx + dy * dy);
+          if (distFromCenter > ditherRadius) continue;
+          
+          // Calculate blend factor based on distance from center (creates gradient effect)
+          const blendFactor = 1 - (distFromCenter / ditherRadius);
+          const threshold = getDitherThreshold(px, py);
+          
+          // Determine which color to use based on dither threshold
+          const useColor1 = (blendFactor * strength) > threshold;
+          
+          if (useColor1) {
+            ctx.fillStyle = selectedColor;
+          } else {
+            ctx.fillStyle = secondaryColor;
+          }
+          
+          ctx.fillRect(px, py, 1, 1);
+          
+          // Mirror mode
+          if (mirrorMode) {
+            const mirrorPx = SKIN_WIDTH - 1 - px;
+            if (mirrorPx >= 0 && mirrorPx < SKIN_WIDTH) {
+              ctx.fillRect(mirrorPx, py, 1, 1);
+            }
+          }
+        }
+      }
+      
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
+
     // 🖌️ Brush and 🧽 Eraser - with smooth interpolation!
     const isEraser = tool === 'eraser';
     
@@ -5142,6 +5260,12 @@ export default function SkinCreator() {
         
         .animate-bounce-soft {
           animation: bounce-soft 2s ease-in-out infinite;
+        }
+        
+        /* 📐 Marching ants animation for selection rectangle */
+        @keyframes marching-ants {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: 16; }
         }
         
         /* Consistent scrollbar styling */
@@ -6689,8 +6813,13 @@ export default function SkinCreator() {
                   lineStartPosition.current = null;
                   shapeStartPosition.current = null;
                   gradientStartPosition.current = null;
-                  saveState(); 
-                  addRecentColor(selectedColor);
+                  // 📐 Selection tool - finalize selection on mouse up
+                  if (tool === 'select') {
+                    setSelectionStart(null); // Clear start position to finalize selection
+                  } else {
+                    saveState(); 
+                    addRecentColor(selectedColor);
+                  }
                   // Notify tutorial that user drew on canvas
                   if (showInteractiveTutorial) setTutorialCanvasDrawn(true);
                 }}
