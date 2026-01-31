@@ -11398,3 +11398,39 @@ Generated: 2026-01-30T18:37:46.867013
 - **Blocks**: -
 - **Priority**: P2
 - **Notes**: LLM-suggested feature for kids
+### [T876] Moonlight Magic House: Luna Tail Wagging Animation (MM-021)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T870]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add cute tail wag animation when Luna is happy!
+  - Trigger: Idle for 3+ seconds, after successful interactions
+  - CSS keyframe animation (rotate-based swing)
+  - 3-4 wags then stop
+  - **AI Coding**: Use local Radeon LLM for implementation
+
+### [T877] Moonlight Magic House: Footstep Dust Puffs (MM-022)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T870]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Small dust/sparkle puffs when Luna walks!
+  - Spawn at Luna's feet position
+  - Different effects for grass vs floor
+  - Framer-motion particles, fade out quickly
+  - **AI Coding**: Use local Radeon LLM for implementation
+
+### [T878] Moonlight Magic House: Interactive Pet Reactions (MM-023)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T876]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Luna reacts to being tapped/petted!
+  - Heart bubbles on tap (❤️💕)
+  - Happy sound effect
+  - Tail wag trigger (depends on T876)
+  - "Purr" animation (subtle body shake)
+  - **AI Coding**: Use local Radeon LLM for implementation
