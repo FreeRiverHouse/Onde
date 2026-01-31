@@ -14112,6 +14112,9 @@ Generated: 2026-01-30T18:37:46.867013
 > Ogni attività deve avere MENO elementi, più semplice, più pulito.
 
 ### [T1101] UI: Semplificare Moonlight - Header Troppo Pieno
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 08:45 PST
 - **Status**: TODO
 - **Owner**: -
 - **Depends**: -
@@ -14177,4 +14180,99 @@ Generated: 2026-01-30T18:37:46.867013
   - Bug trovato: carte iniziavano scoperte
   - Fix: invertito rotateY (0→180)
   - Test: PASSED
+
+
+---
+
+## 🔥 NUOVI TASK DA T1101-T1105 COMPLETATI (2026-01-31 09:10 PST)
+
+### [T1110] Polish: Moonlight Memory Game - Add Sound Effects
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Aggiungere suoni quando giri carte, match, win
+
+### [T1111] Polish: Moonlight Memory Game - Victory Animation
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Animazione coriandoli/stelle quando completi il gioco
+
+### [T1112] Polish: Skin Creator - Color Picker Improvements
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Colori più vivaci, palette kid-friendly
+
+### [T1113] Polish: Skin Creator - Brush Preview
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Mostra preview del brush prima di disegnare
+
+### [T1114] Feature: Moonlight - Pet Feeding Animation
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Animazione quando dai da mangiare al pet
+
+### [T1115] Feature: Moonlight - Sleeping Animation
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Animazione quando metti il pet a dormire
+
+### [T1116] Polish: Games Menu - Add Game Previews
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Screenshot/GIF preview per ogni gioco
+
+### [T1117] Feature: Skin Creator - Sticker Library
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Libreria di sticker/decals per decorare skin
+
+### [T1118] Polish: Moonlight - Room Transition Effects
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Fade/slide quando cambi stanza
+
+### [T1119] Feature: Skin Creator - Template Gallery
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Galleria di template base (robot, animali, etc)
+
+### [T1120] Polish: Memory Game - Difficulty Levels
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Easy (6 carte), Medium (12), Hard (20)
+
+### [T1121] Feature: Moonlight - Achievement Notifications
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Toast notification quando sblocchi achievement
+
+### [T1122] Polish: Skin Creator - Auto-Save
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Salvataggio automatico ogni 30 secondi
+
+### [T1123] Feature: Moonlight - Mini Tutorial
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Tutorial interattivo per nuovi utenti
+
+### [T1124] Feature: Skin Creator - Share to Gallery
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Notes**: Upload skin alla galleria comunitaria
 
