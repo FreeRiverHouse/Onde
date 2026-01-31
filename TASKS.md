@@ -11448,7 +11448,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: LLM idea - quando clicchi, appare creeper e "esplode" in pixel
 
 ### [T933] Ondinho: Auto-Check TASK-RULES.md Prima di Ogni Task
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
