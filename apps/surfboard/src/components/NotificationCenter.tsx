@@ -389,6 +389,98 @@ function useSoundPreferences() {
   return { prefs, updatePrefs, playSound, testSound }
 }
 
+// Hook for pull-to-refresh gesture on mobile
+function usePullToRefresh(
+  onRefresh: () => Promise<void> | void,
+  { threshold = 80, maxPull = 120 } = {}
+) {
+  const [pullState, setPullState] = useState<{
+    startY: number
+    currentY: number
+    pulling: boolean
+  } | null>(null)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    // Only start pull if we're at the top of the scroll container
+    const container = containerRef.current
+    if (!container || container.scrollTop > 0) return
+
+    setPullState({
+      startY: e.touches[0].clientY,
+      currentY: e.touches[0].clientY,
+      pulling: true,
+    })
+  }, [])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!pullState?.pulling || isRefreshing) return
+
+    const deltaY = e.touches[0].clientY - pullState.startY
+    
+    // Only allow pulling down, not up
+    if (deltaY < 0) {
+      setPullState(null)
+      return
+    }
+
+    // Apply resistance to make it feel natural
+    const resistedDelta = Math.min(deltaY * 0.5, maxPull)
+    
+    setPullState(prev => prev ? {
+      ...prev,
+      currentY: e.touches[0].clientY,
+    } : null)
+
+    // Trigger haptic at threshold
+    if (resistedDelta >= threshold && deltaY * 0.5 < threshold + 5) {
+      triggerHapticFeedback('light')
+    }
+  }, [pullState?.pulling, pullState?.startY, isRefreshing, maxPull, threshold])
+
+  const handleTouchEnd = useCallback(async () => {
+    if (!pullState?.pulling) return
+
+    const deltaY = pullState.currentY - pullState.startY
+    const resistedDelta = Math.min(deltaY * 0.5, maxPull)
+
+    if (resistedDelta >= threshold && !isRefreshing) {
+      setIsRefreshing(true)
+      triggerHapticFeedback('success')
+      
+      try {
+        await onRefresh()
+      } finally {
+        setIsRefreshing(false)
+      }
+    }
+
+    setPullState(null)
+  }, [pullState, threshold, maxPull, isRefreshing, onRefresh])
+
+  const pullDistance = pullState?.pulling 
+    ? Math.min((pullState.currentY - pullState.startY) * 0.5, maxPull)
+    : 0
+
+  const pullProgress = Math.min(pullDistance / threshold, 1)
+
+  return {
+    containerRef,
+    handlers: {
+      onTouchStart: handleTouchStart,
+      onTouchMove: handleTouchMove,
+      onTouchEnd: handleTouchEnd,
+      onTouchCancel: handleTouchEnd,
+    },
+    pullDistance,
+    pullProgress,
+    isPulling: pullState?.pulling || false,
+    isRefreshing,
+    canRefresh: pullProgress >= 1,
+  }
+}
+
 interface Notification {
   id: string
   type: 'alert' | 'event' | 'info' | 'success' | 'warning' | 'agent' | 'activity'
@@ -837,6 +929,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const { prefs: soundPrefs, updatePrefs: updateSoundPrefs, playSound, testSound } = useSoundPreferences()
   const persistence = useNotificationPersistence()
   const desktop = useDesktopNotifications()
+  const pullToRefresh = usePullToRefresh(fetchNotifications)
 
   // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
@@ -1443,36 +1536,93 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-3 overflow-y-auto max-h-[50vh] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-            {loading ? (
-              <NotificationSkeleton />
-            ) : filteredNotifications.length === 0 ? (
-              <EmptyState />
-            ) : groupMode === 'none' ? (
-              <div className="space-y-2">
-                {filteredNotifications.map(notification => (
-                  <NotificationItem
-                    key={notification.id}
-                    notification={notification}
-                    onMarkRead={handleMarkRead}
-                    onDismiss={handleDismiss}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div>
-                {groupNotifications(filteredNotifications, groupMode).map((group, idx) => (
-                  <NotificationGroupSection
-                    key={group.key}
-                    group={group}
-                    defaultExpanded={idx < 3} // Expand first 3 groups by default
-                    onMarkRead={handleMarkRead}
-                    onDismiss={handleDismiss}
-                  />
-                ))}
+          {/* Content with pull-to-refresh */}
+          <div 
+            ref={pullToRefresh.containerRef}
+            {...pullToRefresh.handlers}
+            className="p-3 overflow-y-auto max-h-[50vh] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent relative"
+          >
+            {/* Pull-to-refresh indicator (mobile only) */}
+            {(pullToRefresh.isPulling || pullToRefresh.isRefreshing) && (
+              <div 
+                className="absolute left-0 right-0 flex items-center justify-center transition-all duration-150 sm:hidden"
+                style={{ 
+                  top: -40 + pullToRefresh.pullDistance,
+                  opacity: Math.min(pullToRefresh.pullProgress, 1),
+                }}
+              >
+                <div className={`
+                  flex items-center gap-2 px-3 py-1.5 rounded-full 
+                  ${pullToRefresh.canRefresh || pullToRefresh.isRefreshing 
+                    ? 'bg-cyan-500/20 text-cyan-400' 
+                    : 'bg-white/10 text-white/50'
+                  }
+                `}>
+                  <svg 
+                    className={`w-4 h-4 transition-transform ${
+                      pullToRefresh.isRefreshing ? 'animate-spin' : ''
+                    }`}
+                    style={{ 
+                      transform: pullToRefresh.isRefreshing 
+                        ? undefined 
+                        : `rotate(${Math.min(pullToRefresh.pullProgress * 180, 180)}deg)` 
+                    }}
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span className="text-xs font-medium">
+                    {pullToRefresh.isRefreshing 
+                      ? 'Refreshing...' 
+                      : pullToRefresh.canRefresh 
+                        ? 'Release to refresh' 
+                        : 'Pull to refresh'
+                    }
+                  </span>
+                </div>
               </div>
             )}
+            
+            {/* Content with pull offset */}
+            <div 
+              className="transition-transform duration-150 sm:transform-none"
+              style={{ 
+                transform: pullToRefresh.isPulling || pullToRefresh.isRefreshing
+                  ? `translateY(${pullToRefresh.pullDistance}px)` 
+                  : undefined 
+              }}
+            >
+              {loading ? (
+                <NotificationSkeleton />
+              ) : filteredNotifications.length === 0 ? (
+                <EmptyState />
+              ) : groupMode === 'none' ? (
+                <div className="space-y-2">
+                  {filteredNotifications.map(notification => (
+                    <NotificationItem
+                      key={notification.id}
+                      notification={notification}
+                      onMarkRead={handleMarkRead}
+                      onDismiss={handleDismiss}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  {groupNotifications(filteredNotifications, groupMode).map((group, idx) => (
+                    <NotificationGroupSection
+                      key={group.key}
+                      group={group}
+                      defaultExpanded={idx < 3} // Expand first 3 groups by default
+                      onMarkRead={handleMarkRead}
+                      onDismiss={handleDismiss}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Footer */}
