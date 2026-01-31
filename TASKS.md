@@ -11721,3 +11721,13 @@ Generated: 2026-01-30T18:37:46.867013
   - Download counter
   - Like/favorites system
   - Requires backend API (Supabase?)
+
+### [T943] Fix: LLM Latency Reporting - Show Real Query Time
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Clawdinho reports 38ms latency ma è solo health check
+  - Vera latenza query: ~800-900ms
+  - Aggiornare watchdog per mostrare latenza reale
+  - Non è un problema, è normale per LLM locale
