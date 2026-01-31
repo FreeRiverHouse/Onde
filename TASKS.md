@@ -10450,8 +10450,8 @@
   - Categories/tags
 
 ### [T882] Skin Creator: Real AI API Integration
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Depends**: [T880]
 - **Blocks**: -
 - **Priority**: P2
