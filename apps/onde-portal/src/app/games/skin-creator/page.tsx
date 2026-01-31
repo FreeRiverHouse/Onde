@@ -2472,8 +2472,12 @@ export default function SkinCreator() {
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
-                onMouseLeave={() => { setIsDrawing(false); }}
+                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); }}
                 onMouseMove={draw}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  setContextMenu({ x: e.clientX, y: e.clientY });
+                }}
                 onTouchStart={(e) => {
                   e.preventDefault();
                   if (e.touches.length === 2) {
@@ -2509,6 +2513,54 @@ export default function SkinCreator() {
                   }
                 }}
               />
+              {/* Right-Click Context Menu */}
+              {contextMenu && (
+                <div
+                  className="fixed bg-white rounded-lg shadow-2xl py-1 z-50 min-w-[140px] border"
+                  style={{ left: contextMenu.x, top: contextMenu.y }}
+                  onClick={() => setContextMenu(null)}
+                >
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { setTool('eyedropper'); setContextMenu(null); }}
+                  >
+                    🎨 Pick Color
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { setTool('fill'); setContextMenu(null); }}
+                  >
+                    🪣 Fill Area
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { setTool('eraser'); setContextMenu(null); }}
+                  >
+                    🧹 Eraser
+                  </button>
+                  <hr className="my-1" />
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { undo(); setContextMenu(null); }}
+                  >
+                    ↩️ Undo
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { redo(); setContextMenu(null); }}
+                  >
+                    ↪️ Redo
+                  </button>
+                  <hr className="my-1" />
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+                    onClick={() => { clearCanvas(); setContextMenu(null); }}
+                  >
+                    🗑️ Clear All
+                  </button>
+                </div>
+              )}
+
               {/* Grid Overlay */}
               {showGrid && (
                 <svg
