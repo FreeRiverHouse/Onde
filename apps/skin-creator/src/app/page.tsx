@@ -1727,7 +1727,7 @@ export default function SkinCreator() {
           </div>
 
           <p className="text-center mt-2 text-gray-500 text-sm">
-            This is the skin texture map - see preview on left!
+            🎨 Draw here! See your character on the left! ✨
           </p>
         </div>
 
@@ -1794,7 +1794,7 @@ export default function SkinCreator() {
                 maxLength={7}
               />
             </div>
-            <p className="text-xs text-gray-500 text-center mt-1">Primary color</p>
+            <p className="text-xs text-gray-500 text-center mt-1">🎯 Your color!</p>
           </div>
           <div className="mt-2">
             <div className="flex gap-1 items-center">
@@ -1815,7 +1815,7 @@ export default function SkinCreator() {
                 maxLength={7}
               />
             </div>
-            <p className="text-xs text-gray-500 text-center mt-1">Gradient end</p>
+            <p className="text-xs text-gray-500 text-center mt-1">🌈 Mix color!</p>
           </div>
         </div>
       </div>
