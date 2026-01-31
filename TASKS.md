@@ -13357,3 +13357,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Click libro = apre e legge
   - File esistenti: Marco Aurelio, Salmo 23 (ePub)
 - **Test**: Agent che clicca, apre, legge
+
+### [T1068] Catalogo: Remove Fake Gutenberg Books
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 01:00 PST
+- **Notes**: Mattia feedback - removed 1000+ fake books, kept only 4 real Onde books
