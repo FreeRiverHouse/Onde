@@ -3262,9 +3262,9 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* 🎨 Layer Panel - Floating */}
+      {/* 🎨 Layer Panel - Floating (hidden by default on mobile) */}
       {showLayerPanel && (
-        <div className="fixed left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-4 shadow-2xl z-40 w-64">
+        <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-3 md:p-4 shadow-2xl z-40 w-[280px] md:w-64 max-h-[80vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold">🎨 Layers</h3>
             <button
