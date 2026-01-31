@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat - Ollama</title>
+    <style>
+        :root {
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-input: #252540;
+            --accent: #e94560;
+            --accent-hover: #ff6b6b;
+            --text: #f0f0f0;
+            --text-dim: #888;
+            --success: #4ade80;
+            --warning: #fbbf24;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: var(--bg-card);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            flex-shrink: 0;
+        }
+        header h1 { font-size: 1.2rem; color: var(--accent); }
+        .model-select {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        select {
+            background: var(--bg-input);
+            color: var(--text);
+            border: 1px solid #444;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        .status-dot.busy { background: var(--warning); animation: pulse 1s infinite; }
+        .status-dot.error { background: var(--accent); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        #chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .msg {
+            max-width: 85%;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .msg.user {
+            background: linear-gradient(135deg, #1e3a5f, #16213e);
+            align-self: flex-end;
+            border-bottom-right-radius: 0.3rem;
+        }
+        .msg.assistant {
+            background: var(--bg-card);
+            align-self: flex-start;
+            border-bottom-left-radius: 0.3rem;
+            border: 1px solid #333;
+        }
+        .msg.system {
+            background: #2d1f3d;
+            align-self: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            border-radius: 0.5rem;
+        }
+        .msg pre {
+            background: #0a0a15;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 0.85rem;
+        }
+        .msg code {
+            background: #0a0a15;
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.3rem;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 0.9em;
+        }
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 1rem;
+            align-self: flex-start;
+        }
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+
+        #input-area {
+            padding: 1rem;
+            background: var(--bg-card);
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+        #prompt {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #444;
+            border-radius: 0.6rem;
+            background: var(--bg-input);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            resize: none;
+            min-height: 44px;
+            max-height: 150px;
+            font-family: inherit;
+        }
+        #prompt:focus { border-color: var(--accent); }
+        #prompt::placeholder { color: var(--text-dim); }
+        button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 0.6rem;
+            background: var(--accent);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        button:hover { background: var(--accent-hover); transform: scale(1.02); }
+        button:disabled { background: #555; cursor: not-allowed; transform: none; }
+        button svg { width: 18px; height: 18px; }
+        .clear-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-dim);
+            padding: 0.8rem;
+        }
+        .clear-btn:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+
+        .meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.3rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LLM Chat</h1>
+        <div class="model-select">
+            <label>Model:</label>
+            <select id="model">
+                <option value="llama3.2:3b">LLaMA 3.2 3B (fast)</option>
+                <option value="llama31-8b:latest">LLaMA 3.1 8B</option>
+                <option value="deepseek-coder:6.7b">DeepSeek Coder 6.7B</option>
+                <option value="qwen2.5-coder:7b">Qwen 2.5 Coder 7B</option>
+            </select>
+        </div>
+        <div class="status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Connecting...</span>
+        </div>
+    </header>
+
+    <div id="chat"></div>
+
+    <div id="input-area">
+        <button class="clear-btn" onclick="clearChat()" title="Clear chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z"/>
+            </svg>
+        </button>
+        <textarea id="prompt" placeholder="Ask anything... (Shift+Enter for new line)" rows="1"></textarea>
+        <button id="send" onclick="sendMessage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+            Send
+        </button>
+    </div>
+
+    <script>
+        const OLLAMA_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:11434'
+            : `http://${window.location.hostname}:11434`;
+
+        const chat = document.getElementById('chat');
+        const prompt = document.getElementById('prompt');
+        const sendBtn = document.getElementById('send');
+        const modelSelect = document.getElementById('model');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+
+        // Auto-resize textarea
+        prompt.addEventListener('input', () => {
+            prompt.style.height = 'auto';
+            prompt.style.height = Math.min(prompt.scrollHeight, 150) + 'px';
+        });
+
+        prompt.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function formatMessage(content) {
+            // Code blocks
+            content = content.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+            // Inline code
+            content = content.replace(/`([^`]+)`/g, '<code>$1</code>');
+            return content;
+        }
+
+        function addMessage(role, content, meta = '') {
+            const div = document.createElement('div');
+            div.className = 'msg ' + role;
+            div.innerHTML = formatMessage(content);
+            if (meta) {
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'meta';
+                metaDiv.textContent = meta;
+                div.appendChild(metaDiv);
+            }
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            return div;
+        }
+
+        function showTyping() {
+            const div = document.createElement('div');
+            div.className = 'typing';
+            div.id = 'typing';
+            div.innerHTML = '<span></span><span></span><span></span>';
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function hideTyping() {
+            const el = document.getElementById('typing');
+            if (el) el.remove();
+        }
+
+        function setStatus(status, text) {
+            statusDot.className = 'status-dot ' + status;
+            statusText.textContent = text;
+        }
+
+        async function sendMessage() {
+            const text = prompt.value.trim();
+            if (!text) return;
+
+            addMessage('user', text);
+            prompt.value = '';
+            prompt.style.height = 'auto';
+            sendBtn.disabled = true;
+            setStatus('busy', 'Generating...');
+            showTyping();
+
+            const model = modelSelect.value;
+            const start = Date.now();
+
+            try {
+                const res = await fetch(`${OLLAMA_URL}/api/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: model,
+                        prompt: text,
+                        stream: false
+                    })
+                });
+
+                hideTyping();
+                const data = await res.json();
+                const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+
+                if (data.error) {
+                    addMessage('system', 'Error: ' + data.error);
+                    setStatus('error', 'Error');
+                } else {
+                    const tokPerSec = data.eval_count && data.eval_duration
+                        ? (data.eval_count / (data.eval_duration / 1e9)).toFixed(1)
+                        : '?';
+                    addMessage('assistant', data.response, `${elapsed}s • ${tokPerSec} tok/s • ${model}`);
+                    setStatus('', 'Ready');
+                }
+            } catch (err) {
+                hideTyping();
+                addMessage('system', 'Connection error: ' + err.message);
+                setStatus('error', 'Disconnected');
+            }
+
+            sendBtn.disabled = false;
+            prompt.focus();
+        }
+
+        function clearChat() {
+            chat.innerHTML = '';
+            addMessage('system', 'Chat cleared. Select a model and start chatting!');
+        }
+
+        // Check connection on load
+        async function checkConnection() {
+            try {
+                const res = await fetch(`${OLLAMA_URL}/api/tags`);
+                const data = await res.json();
+                setStatus('', `Ready (${data.models.length} models)`);
+                addMessage('system', `Connected to Ollama. Models: ${data.models.map(m => m.name).join(', ')}`);
+            } catch (err) {
+                setStatus('error', 'Cannot connect to Ollama');
+                addMessage('system', `Cannot connect to Ollama at ${OLLAMA_URL}. Make sure it's running.`);
+            }
+        }
+
+        checkConnection();
+    </script>
+</body>
+</html>

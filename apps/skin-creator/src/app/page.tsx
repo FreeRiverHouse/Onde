@@ -385,8 +385,7 @@ export default function SkinCreator() {
     updatePreview();
   }, [getLayerCanvas, compositeLayersToMain]);
   
-  // Copy layer content to another layer (available for future "duplicate layer" feature)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // Copy layer content to another layer (duplicate layer feature)
   const copyLayerTo = useCallback((fromId: LayerType, toId: LayerType) => {
     const fromCanvas = getLayerCanvas(fromId);
     const toCanvas = getLayerCanvas(toId);
@@ -397,7 +396,12 @@ export default function SkinCreator() {
     }
     compositeLayersToMain();
     updatePreview();
+    saveState();
+    playSound('click');
   }, [getLayerCanvas, compositeLayersToMain]);
+  
+  // State for duplicate layer dropdown
+  const [showDuplicateMenu, setShowDuplicateMenu] = useState(false);
   
   // Merge all layers into base
   const flattenLayers = useCallback(() => {
@@ -778,6 +782,7 @@ export default function SkinCreator() {
           const idx = ['base', 'clothing', 'accessories'].indexOf(prev);
           return ['base', 'clothing', 'accessories'][(idx + 1) % 3] as LayerType;
         }); break;
+        case 'c': if (!e.metaKey && !e.ctrlKey) setShowDuplicateMenu(prev => !prev); break;
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -1789,6 +1794,7 @@ export default function SkinCreator() {
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">L</span><span>Toggle layer panel</span>
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">[</span><span>Previous layer</span>
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">]</span><span>Next layer</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">C</span><span>Duplicate layer</span>
             </div>
             <button onClick={() => setShowHelp(false)} className="mt-4 w-full py-2 bg-blue-500 text-white rounded-lg font-bold">
               Got it! 👍
@@ -1925,7 +1931,7 @@ export default function SkinCreator() {
           </div>
           
           {/* Layer Actions */}
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1 relative">
             <button
               onClick={() => clearLayer(activeLayer)}
               className="px-2 py-1 text-xs bg-red-100 text-red-600 rounded hover:bg-red-200"
@@ -1933,6 +1939,40 @@ export default function SkinCreator() {
             >
               🗑️ Clear
             </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowDuplicateMenu(!showDuplicateMenu)}
+                className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded hover:bg-blue-200"
+                title="Duplicate to another layer"
+              >
+                📋 Duplicate
+              </button>
+              {/* Duplicate Layer Target Menu */}
+              {showDuplicateMenu && (
+                <div className="absolute bottom-full left-0 mb-1 bg-white rounded-lg shadow-lg border border-gray-200 p-2 z-10 min-w-[140px]">
+                  <p className="text-xs text-gray-500 mb-1">Copy to:</p>
+                  {layers.filter(l => l.id !== activeLayer).map(layer => (
+                    <button
+                      key={layer.id}
+                      onClick={() => {
+                        copyLayerTo(activeLayer, layer.id);
+                        setShowDuplicateMenu(false);
+                      }}
+                      className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-blue-50 text-left"
+                    >
+                      <span>{layer.emoji}</span>
+                      <span>{layer.name}</span>
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setShowDuplicateMenu(false)}
+                    className="w-full text-xs text-gray-400 mt-1 hover:text-gray-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
             <button
               onClick={flattenLayers}
               className="px-2 py-1 text-xs bg-purple-100 text-purple-600 rounded hover:bg-purple-200"

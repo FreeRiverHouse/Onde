@@ -10861,16 +10861,19 @@
   - Keep ↑/↓ buttons as fallback for accessibility
 
 ### [T904] Skin Creator: Duplicate Layer Feature
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-14
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Add ability to duplicate layers:
-  - "📋 Duplicate" button in layer panel
-  - Copies layer content to new layer slot
-  - Useful for experimenting with variations
-  - Consider dynamic layer creation (beyond 3 fixed layers)
+- **Notes**: ✅ Implemented duplicate layer feature!
+  - ✅ "📋 Duplicate" button in layer panel (Layer Actions section)
+  - ✅ Dropdown menu to select target layer
+  - ✅ Copies layer content to selected layer
+  - ✅ Keyboard shortcut: C to toggle duplicate menu
+  - ✅ Updated help modal with new shortcut
+  - ✅ Build passes
 
 ### [T905] Skin Creator: Layer Lock Feature  
 - **Status**: TODO
