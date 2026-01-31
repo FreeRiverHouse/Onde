@@ -12767,8 +12767,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Tooltips that appear on hover with shortcuts
 
 ### [T1025] Skin Creator: Help Search
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Searchable help panel for features
