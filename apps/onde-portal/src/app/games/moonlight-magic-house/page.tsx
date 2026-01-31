@@ -3644,14 +3644,18 @@ export default function MoonlightMagicHouse() {
           </div>
           
           {/* Rewards display with glow */}
-          <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-purple-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s' }}>
-              <span className="text-3xl">🧸</span>
-              <span className="text-white font-bold text-xl">{rewards.toys}</span>
+          <div className="flex justify-center gap-4 mb-8 flex-wrap">
+            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 backdrop-blur-sm rounded-2xl px-4 py-2 flex items-center gap-2 border border-purple-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s' }}>
+              <span className="text-2xl">🧸</span>
+              <span className="text-white font-bold text-lg">{rewards.toys}</span>
             </div>
-            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-orange-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s', animationDelay: '1s' }}>
-              <span className="text-3xl">🍬</span>
-              <span className="text-white font-bold text-xl">{rewards.treats}</span>
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 backdrop-blur-sm rounded-2xl px-4 py-2 flex items-center gap-2 border border-orange-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s', animationDelay: '0.5s' }}>
+              <span className="text-2xl">🍬</span>
+              <span className="text-white font-bold text-lg">{rewards.treats}</span>
+            </div>
+            <div className="bg-gradient-to-br from-yellow-900/40 to-yellow-800/20 backdrop-blur-sm rounded-2xl px-4 py-2 flex items-center gap-2 border border-yellow-400/20 animate-glow-pulse gpu-accelerated" style={{ animationDuration: '3s', animationDelay: '1s' }}>
+              <span className="text-2xl">⭐</span>
+              <span className="text-white font-bold text-lg">{rewards.stars}</span>
             </div>
           </div>
           
@@ -3685,12 +3689,22 @@ export default function MoonlightMagicHouse() {
           
           {/* ✨ Interactive Magic Room ✨ */}
           <div className="mt-8 w-full max-w-md">
-            <p className="text-purple-200/60 text-sm mb-3">✨ Tap the magic objects!</p>
+            <p className="text-purple-200/60 text-sm mb-3">✨ Tap the magic objects and collect treasures!</p>
             
             {/* Interactive Room Container */}
-            <div className="relative bg-gradient-to-b from-[#2a2a4e]/60 to-[#1a1a3e]/60 rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint">
+            <div className="relative bg-gradient-to-b from-[#2a2a4e]/60 to-[#1a1a3e]/60 rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint" style={{ minHeight: '220px' }}>
               {/* Room warm glow */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-orange-500/5 via-transparent to-transparent pointer-events-none" />
+              
+              {/* ✨ COLLECTIBLE ITEMS ✨ */}
+              {collectibles.filter(item => !item.collected).map((item) => (
+                <CollectibleRenderer
+                  key={item.id}
+                  item={item}
+                  onCollect={handleCollectItem}
+                  soundEnabled={soundEnabled}
+                />
+              ))}
               
               {/* Top row of furniture */}
               <div className="flex justify-around items-end mb-4">
@@ -4072,14 +4086,18 @@ export default function MoonlightMagicHouse() {
           <p className="text-purple-200/80 mb-8 text-lg">You earned a reward!</p>
           
           {/* Updated rewards with glow */}
-          <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-purple-400/30 animate-glow-pulse gpu-accelerated">
-              <span className="text-4xl">🧸</span>
-              <span className="text-white font-bold text-3xl">{rewards.toys}</span>
+          <div className="flex justify-center gap-4 mb-8 flex-wrap">
+            <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-purple-400/30 animate-glow-pulse gpu-accelerated">
+              <span className="text-3xl">🧸</span>
+              <span className="text-white font-bold text-2xl">{rewards.toys}</span>
             </div>
-            <div className="bg-gradient-to-br from-orange-900/50 to-orange-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-orange-400/30 animate-glow-pulse gpu-accelerated" style={{ animationDelay: '0.5s' }}>
-              <span className="text-4xl">🍬</span>
-              <span className="text-white font-bold text-3xl">{rewards.treats}</span>
+            <div className="bg-gradient-to-br from-orange-900/50 to-orange-800/30 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-orange-400/30 animate-glow-pulse gpu-accelerated" style={{ animationDelay: '0.3s' }}>
+              <span className="text-3xl">🍬</span>
+              <span className="text-white font-bold text-2xl">{rewards.treats}</span>
+            </div>
+            <div className="bg-gradient-to-br from-yellow-900/50 to-yellow-800/30 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-yellow-400/30 animate-glow-pulse gpu-accelerated" style={{ animationDelay: '0.6s' }}>
+              <span className="text-3xl">⭐</span>
+              <span className="text-white font-bold text-2xl">{rewards.stars}</span>
             </div>
           </div>
           

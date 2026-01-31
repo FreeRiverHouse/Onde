@@ -119,6 +119,26 @@ const PATTERN_PRESETS: PatternPreset[] = [
   { id: 'pixel-noise', name: 'Pixel Noise', emoji: '📺', description: 'Random pixel texture' },
 ];
 
+// 🎨 TEXTURE FILTERS - Grain, Blur, Sharpen for advanced effects!
+type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'vignette';
+
+interface TextureFilter {
+  id: TextureFilterType;
+  name: string;
+  emoji: string;
+  description: string;
+  hasIntensity: boolean; // Whether the filter supports intensity slider
+}
+
+const TEXTURE_FILTERS: TextureFilter[] = [
+  { id: 'grain', name: 'Grain', emoji: '🌾', description: 'Add film grain/noise texture', hasIntensity: true },
+  { id: 'blur', name: 'Blur', emoji: '💨', description: 'Soften and blur the image', hasIntensity: true },
+  { id: 'sharpen', name: 'Sharpen', emoji: '🔪', description: 'Enhance edges and details', hasIntensity: true },
+  { id: 'emboss', name: 'Emboss', emoji: '🗿', description: '3D embossed effect', hasIntensity: true },
+  { id: 'pixelate', name: 'Pixelate', emoji: '🧱', description: 'Chunky pixel effect', hasIntensity: true },
+  { id: 'vignette', name: 'Vignette', emoji: '🔲', description: 'Dark edges, bright center', hasIntensity: true },
+];
+
 // 🎨 STICKER/DECAL LIBRARY - Decorative elements to apply on skins!
 // Each sticker is a multi-color pixel pattern that can be placed anywhere
 type StickerCategory = 'hearts' | 'stars' | 'flames' | 'wings' | 'symbols' | 'nature';
@@ -817,6 +837,8 @@ export default function SkinCreator() {
   const [showHelp, setShowHelp] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [showStickerPanel, setShowStickerPanel] = useState(false); // 🎨 Sticker/Decal panel
+  const [showTextureFiltersPanel, setShowTextureFiltersPanel] = useState(false); // 🎨 Texture filters panel
+  const [textureFilterIntensity, setTextureFilterIntensity] = useState(50); // Filter intensity 0-100
   const [selectedSticker, setSelectedSticker] = useState<string | null>(null); // Currently selected sticker ID
   const [stickerCategory, setStickerCategory] = useState<StickerCategory>('hearts'); // Active sticker category
   const [stickerPreviewPos, setStickerPreviewPos] = useState<{ x: number; y: number } | null>(null); // Preview position on canvas
@@ -2402,60 +2424,6 @@ export default function SkinCreator() {
     playSound('download');
     unlockAchievement('patternUser');
   }, [selectedColor, secondaryColor, selectedPart, unlockAchievement]);
-
-  // 🎨 Apply Sticker/Decal to canvas at specific position
-  const applySticker = useCallback((stickerId: string, posX: number, posY: number) => {
-    const sticker = STICKER_DECALS.find(s => s.id === stickerId);
-    if (!sticker) return;
-
-    // 🎨 Get the active layer canvas to draw on (usually accessories layer for stickers)
-    const layerCanvas = getLayerCanvas(activeLayer);
-    const ctx = layerCanvas.getContext('2d');
-    if (!ctx) return;
-
-    // Draw sticker pixels
-    for (let y = 0; y < sticker.height; y++) {
-      for (let x = 0; x < sticker.width; x++) {
-        const color = sticker.pixels[y]?.[x];
-        if (color) {
-          const drawX = posX + x;
-          const drawY = posY + y;
-          // Check bounds
-          if (drawX >= 0 && drawX < SKIN_WIDTH && drawY >= 0 && drawY < SKIN_HEIGHT) {
-            ctx.fillStyle = color;
-            ctx.fillRect(drawX, drawY, 1, 1);
-            // 🪞 Mirror mode - also apply on opposite side
-            if (mirrorMode) {
-              const mirrorX = SKIN_WIDTH - 1 - drawX;
-              if (mirrorX >= 0 && mirrorX < SKIN_WIDTH) {
-                ctx.fillRect(mirrorX, drawY, 1, 1);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // Composite layers to main canvas
-    compositeLayersToMain();
-    updatePreview();
-    saveState();
-    playSound('click');
-
-    // Clear selection after applying
-    setSelectedSticker(null);
-    setStickerPreviewPos(null);
-  }, [activeLayer, getLayerCanvas, mirrorMode, compositeLayersToMain, updatePreview, saveState, playSound]);
-
-  // 🎨 Get sticker by ID helper (pure function, no deps)
-  const getStickerById = (stickerId: string): StickerDecal | undefined => {
-    return STICKER_DECALS.find(s => s.id === stickerId);
-  };
-
-  // 🎨 Get stickers by category (pure function, no deps)
-  const getStickersByCategory = (category: StickerCategory): StickerDecal[] => {
-    return STICKER_DECALS.filter(s => s.category === category);
-  };
 
   // Spawn sparkle particles when drawing
   const spawnParticle = useCallback((clientX: number, clientY: number) => {
