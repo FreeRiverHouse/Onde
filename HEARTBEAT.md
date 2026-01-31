@@ -67,13 +67,53 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 
 ```
 1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
-2. READ: TASKS.md → prendi prossimo task non completato  
-3. WORK: Completa il task!
-4. UPDATE: Segna completato in TASKS.md
-5. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
-6. COMMIT: git add/commit/push
-7. Continua col prossimo task
+2. ALERTS: Controlla tutti i file .alert in scripts/
+3. READ: TASKS.md → prendi prossimo task non completato  
+4. WORK: Completa il task!
+5. UPDATE: Segna completato in TASKS.md
+6. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
+7. COMMIT: git add/commit/push
+8. Continua col prossimo task
 ```
+
+## ✅ VERIFICA PROCEDURE RISPETTATE
+
+**Controlli periodici (ogni 2-3 heartbeat):**
+
+### 1. Git Workflow (Regola 0)
+```bash
+# Verifica ultimo pull < 10 minuti
+git log -1 --format="%ar" origin/main
+# Verifica commit recenti
+git log --oneline -5
+```
+
+### 2. Memory Logging (Regola 3)
+```bash
+# Verifica entries oggi
+wc -l memory/$(date +%Y-%m-%d).md 2>/dev/null || echo "NO FILE!"
+# Ultimo aggiornamento memory
+stat -f "%Sm" memory/$(date +%Y-%m-%d).md 2>/dev/null
+```
+
+### 3. Task Extraction (Regola 2)
+```bash
+# Task aggiunti oggi
+git log --oneline --since="today" --grep="task:" | wc -l
+```
+
+### 4. Watchdog Scripts Attivi
+```bash
+# Verifica cron attivi
+crontab -l | grep -c "ONDE-CRON"
+# Ultimo run watchdog
+stat -f "%Sm" scripts/watchdog.log 2>/dev/null
+```
+
+**Se una verifica fallisce:**
+1. Crea alert file appropriato
+2. Logga in memory/YYYY-MM-DD.md
+3. Prendi azione correttiva se possibile
 
 ## 📣 REPORT ORARIO A MATTIA
 
@@ -130,5 +170,5 @@ Aggiungi 3 task concreti e fattibili.
 
 ---
 
-*Aggiornato: 2026-01-28 12:59 PST*
+*Aggiornato: 2026-02-04 13:52 PST*
 *AUTONOMIA TOTALE. MAI FERMARSI.*

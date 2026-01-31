@@ -190,20 +190,26 @@
   - **Widget**: Heatmap o gauge per temp, grafico usage
 
 ### [T965] Watchdog: Integra Controlli in Heartbeat
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04 13:52 PST
 - **Depends**: [T961], [T962], [T963]
 - **Blocks**: -
 - **Priority**: P1
 - **Notes**: DA MATTIA (ID:2972)
   - **Obiettivo**: Heartbeat esegue controlli watchdog
   - **Modifiche a HEARTBEAT.md:**
-    - [ ] Aggiungi check alert files watchdog
-    - [ ] Aggiungi sezione "Verifica procedure rispettate"
+    - [x] Aggiungi check alert files watchdog (già presente in sezione ALERT WATCHDOG AGENTI)
+    - [x] Aggiungi sezione "Verifica procedure rispettate" con controlli:
+      - Git workflow (ultimo pull, commit recenti)
+      - Memory logging (entries oggi, ultimo update)
+      - Task extraction (task aggiunti oggi)
+      - Watchdog scripts attivi (cron count, ultimo run)
+    - [x] Aggiunto step ALERTS nel ciclo heartbeat
   - **Alert files:**
-    - `scripts/telegram-not-logged.alert`
-    - `scripts/task-not-extracted.alert`
-    - `scripts/agent-stalled.alert`
+    - `scripts/telegram-not-logged.alert` ✅
+    - `scripts/task-not-extracted.alert` ✅
+    - `scripts/agent-stalled.alert` ✅
 
 ---
 
