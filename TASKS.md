@@ -11446,3 +11446,18 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: -
 - **Priority**: P3
 - **Notes**: LLM idea - quando clicchi, appare creeper e "esplode" in pixel
+
+### [T933] Ondinho: Auto-Check TASK-RULES.md Prima di Ogni Task
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: DEVO SEMPRE:
+  1. git pull PRIMA di tutto
+  2. Leggere TASK-RULES.md ogni sessione
+  3. Verificare Depends prima di prendere task
+  4. Push LOCK immediato prima di lavorare
+  5. MAI prendere task già IN_PROGRESS
+  
+  Implementare: script di pre-check in heartbeat
