@@ -9,7 +9,7 @@
 
 import { chromium, Page, Browser } from 'playwright';
 
-const BASE_URL = 'http://localhost:5173/static-games/moonlight-magic-house/'; // Vite dev server
+const BASE_URL = 'https://onde.la/games/moonlight-magic-house/'; // Vite dev server
 const SCREENSHOT_DIR = './test-screenshots/continuous';
 
 // Rooms we can navigate to
