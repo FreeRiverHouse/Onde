@@ -658,6 +658,7 @@ export default function SkinCreator() {
     });
   }, []);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isWiggling, setIsWiggling] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
   const particleIdRef = useRef(0);
@@ -1474,8 +1475,12 @@ export default function SkinCreator() {
                 ⬜ Blank
               </button>
               <button
-                onClick={generateRandomSkin}
-                className="px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
+                onClick={() => {
+                  setIsWiggling(true);
+                  generateRandomSkin();
+                  setTimeout(() => setIsWiggling(false), 500);
+                }}
+                className={`px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform ${isWiggling ? 'animate-wiggle' : 'animate-pulse'}`}
               >
                 🎲 Random!
               </button>
