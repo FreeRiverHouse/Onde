@@ -75,6 +75,15 @@ export default function SkinCreator() {
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
+  const [recentColors, setRecentColors] = useState<string[]>([]);
+  
+  // Add color to recent colors
+  const addRecentColor = useCallback((color: string) => {
+    setRecentColors(prev => {
+      const filtered = prev.filter(c => c !== color);
+      return [color, ...filtered].slice(0, 8);
+    });
+  }, []);
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
@@ -840,7 +849,7 @@ export default function SkinCreator() {
                 tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              💉
+              🎯
             </button>
             <button
               onClick={undo}
@@ -995,11 +1004,11 @@ export default function SkinCreator() {
                   transition: 'all 0.2s ease',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
-                onMouseUp={() => { setIsDrawing(false); saveState(); }}
+                onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
                 onMouseLeave={() => { setIsDrawing(false); }}
                 onMouseMove={draw}
                 onTouchStart={(e) => { e.preventDefault(); setIsDrawing(true); drawTouch(e); }}
-                onTouchEnd={() => { setIsDrawing(false); saveState(); }}
+                onTouchEnd={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
                 onTouchMove={(e) => { e.preventDefault(); drawTouch(e); }}
               />
             </div>
@@ -1013,6 +1022,23 @@ export default function SkinCreator() {
         {/* Right Panel - Colors */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
+          
+          {/* Recent Colors */}
+          {recentColors.length > 0 && (
+            <div className="mb-3">
+              <p className="text-xs text-gray-500 mb-1">Recent:</p>
+              <div className="flex gap-1 flex-wrap">
+                {recentColors.map((color, i) => (
+                  <button
+                    key={`${color}-${i}`}
+                    onClick={() => setSelectedColor(color)}
+                    className="w-6 h-6 rounded shadow-sm hover:scale-110 transition-transform"
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="grid grid-cols-4 gap-2 max-w-[200px]">
             {COLORS.map((color) => (
