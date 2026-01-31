@@ -11029,17 +11029,20 @@
 ## 🌙 MOONLIGHT MAGIC HOUSE AUTO-DEV (DA MATTIA 2026-01-30)
 
 ### [T916] Moonlight v1.1: Biblioteca - Stanza Nuova
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:25
+- **Completed**: 2026-01-30 18:35
 - **Depends**: -
 - **Blocks**: [T917], [T918], [T919]
 - **Priority**: P1
-- **Notes**: Aggiungere stanza Biblioteca come da ROADMAP.md
-  - [ ] Creare sfondo biblioteca (background image)
-  - [ ] Aggiungere roomData entry per 'library'
-  - [ ] Luna che legge (animazione sprite)
-  - [ ] Scaffali libri interattivi
+- **Notes**: ✅ Stanza Biblioteca completata!
+  - [x] Creare sfondo biblioteca (room-library.jpg)
+  - [x] roomData entry per 'library' con hotspot e lunaPos
+  - [x] Interactive objects: Bookshelf, Reading Nook, Globe, Magic Lamp, Story Book
+  - [x] Translations IT/EN complete
+  - [x] Actions: Leggi/Read, Sfoglia/Browse
+  - ⏳ Luna che legge (animazione sprite) - future enhancement
   - **Target**: onde.la/games/moonlight-magic-house
 
 ### [T917] Moonlight v1.1: Integrazione Libri Onde
@@ -11080,18 +11083,24 @@
   - [ ] Verify https://onde.la/games/moonlight-magic-house/
 
 ### [T920] Moonlight: Setup Testing Automatico 24/7
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Started**: 2026-01-30 18:35
+- **Completed**: 2026-01-30 18:45
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Creare processo di testing continuo come Ondinho
-  - [ ] Script puppeteer per test automatici
-  - [ ] Test ogni stanza navigabile
-  - [ ] Test azioni (mangia, gioca, dormi)
-  - [ ] Test stats decay/increase
-  - [ ] Cron job ogni 30min
-  - [ ] Alert se test fallisce
+- **Notes**: ✅ Sistema di testing automatico creato!
+  - [x] Script Playwright: `scripts/moonlight-e2e-tests.ts`
+  - [x] Config Playwright: `scripts/moonlight-playwright.config.ts`
+  - [x] Test ogni stanza navigabile (9 rooms)
+  - [x] Test azioni (stats change, actions clickable)
+  - [x] Test mini-games accessible
+  - [x] Health check test per watchdog
+  - [x] Watchdog script: `scripts/watchdog-moonlight.sh`
+  - [x] Alert file: `scripts/moonlight-test-failure.alert`
+  - **Cron**: `*/30 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-moonlight.sh`
+  - **Run manually**: `cd scripts && npx playwright test --config=moonlight-playwright.config.ts`
 
 ### [T921] Moonlight: Sistema Task Auto-Generation
 - **Status**: TODO
