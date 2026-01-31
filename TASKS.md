@@ -12682,8 +12682,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Unique sounds for each achievement type
 
 ### [T1020] Skin Creator: Secret Achievements
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Hidden achievements for special actions
