@@ -12468,7 +12468,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Stars, hearts, circles, squares shapes
 
 ### [T1000] 🎉 Skin Creator: Milestone Feature
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P1
@@ -12487,3 +12487,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Sword/bow combat stance
+
+### [T1003] Skin Creator: Achievement System
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Unlock achievements for drawing, saving, sharing
+
+### [T1004] Skin Creator: Daily Challenge
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Daily theme/prompt for skin creation
+
+### [T1005] Skin Creator: Leaderboard
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Share skins and get votes
