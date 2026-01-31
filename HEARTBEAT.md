@@ -16,6 +16,7 @@
 - `scripts/onde-la-down.alert` → ONDE.LA DOWN! Manda alert URGENTE, poi elimina
 - `scripts/ssl-critical.alert` → SSL CRITICO (<7 giorni)! Manda alert URGENTE, poi elimina
 - `scripts/watchdog-stale.alert` → Watchdog cron non funziona! Manda alert, poi elimina
+- `scripts/ondinho-stalled.alert` → Ondinho inactive >30min! Check if session needs restart, poi elimina
 
 ### 📈 ALERT OPERATIVI → Manda a Mattia su Telegram
 - `scripts/kalshi-daily-report.alert` → Daily report pronto. Manda a Mattia, poi elimina

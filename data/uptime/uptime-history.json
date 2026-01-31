@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T04:25:01.532533+00:00",
+  "generated_at": "2026-01-31T04:30:01.995237+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -1892,17 +1892,23 @@
           "status": 200,
           "latency_ms": 237,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:30:01.995237+00:00",
+          "status": 200,
+          "latency_ms": 338,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
         "avg_latency_24h": 494,
-        "avg_latency_7d": 451,
+        "avg_latency_7d": 450,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 315
+        "total_checks_7d": 316
       }
     },
     "onde.surf": {
@@ -3796,17 +3802,23 @@
           "status": 200,
           "latency_ms": 659,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:30:01.995237+00:00",
+          "status": 200,
+          "latency_ms": 269,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
         "avg_latency_24h": 472,
-        "avg_latency_7d": 439,
+        "avg_latency_7d": 438,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 260,
-        "total_checks_7d": 315
+        "total_checks_7d": 316
       }
     },
     "skin-studio": {
@@ -3966,17 +3978,23 @@
           "status": 200,
           "latency_ms": 188,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T04:30:01.995237+00:00",
+          "status": 200,
+          "latency_ms": 254,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 213,
-        "avg_latency_7d": 213,
+        "avg_latency_24h": 214,
+        "avg_latency_7d": 214,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 26,
-        "total_checks_7d": 26
+        "total_checks_24h": 27,
+        "total_checks_7d": 27
       }
     }
   }

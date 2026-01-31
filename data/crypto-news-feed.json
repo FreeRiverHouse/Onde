@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T04:00:03.535187+00:00",
+  "timestamp": "2026-01-31T04:30:02.934153+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Tether US treasury holdings reach record highs, profits fall 23% year-on-year",
+      "url": "https://cointelegraph.com/news/tether-stablecoin-usdt-profits-us-treasury-holdings-annual-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Tether CEO Paolo Ardoino said the \u201cstructure behind\u201d the company\u2019s growth mattered more than its \u201cscale\u201d in 2025, as US Treasury holdings surpassed $122 billion.",
+      "published": "2026-01-31T03:58:14+00:00"
+    },
     {
       "title": "Bitcoin options turn bearish as BTC flirts with drop below $80K",
       "url": "https://cointelegraph.com/news/bitcoin-options-turn-bearish-as-btc-flirts-with-drop-below-80k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -128,13 +135,6 @@
       "source": "decrypt",
       "description": "Autonomous agents on an AI-centric social network spontaneously founded \"Crustafarianism\"\u2014complete with scripture, prophets, and theology.",
       "published": "2026-01-30T19:32:11+00:00"
-    },
-    {
-      "title": "DeFi stays outside the rules as regulators tighten elsewhere: Finance Redefined",
-      "url": "https://cointelegraph.com/news/defi-stays-outside-rules-regulators-tighten-finance-redefined?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Europe narrows crypto tax gaps, US lawmakers revisit market structure, and institutions push DeFi into compliance territory.",
-      "published": "2026-01-30T19:00:00+00:00"
     },
     {
       "title": "Blank Check Firm Linked to Crypto Exchange Kraken Raises $345 Million in Upsized IPO",

@@ -38,15 +38,21 @@
   - **Ondinho deve**: MAI fermarsi, sempre prendere prossimo task, reportare ogni ora
 
 ### [T950] Ondinho Autonomy: Watchdog per Verifica Attività
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T948]
-- **Blocks**: -
+- **Blocks**: [T951]
 - **Priority**: P1
-- **Notes**: Creare watchdog che verifica se Ondinho sta lavorando:
-  - Controllare ultimo commit di Ondinho
-  - Verificare task completati nelle ultime ore
-  - Alert se inattivo >30 minuti durante orario lavoro
+- **Notes**: ✅ Created watchdog script for Ondinho activity monitoring!
+  - ✅ `scripts/watchdog-ondinho.sh` - Checks Ondinho commit history
+  - ✅ Verifies last commit from Ondinho/onde-bot authors
+  - ✅ Checks recent task completions in git log
+  - ✅ Only alerts during work hours (8 AM - 11 PM PST)
+  - ✅ Creates `scripts/ondinho-stalled.alert` if inactive >30 min
+  - ✅ Added alert file to HEARTBEAT.md for pickup
+  - ⏳ Add to system crontab: `*/15 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-ondinho.sh`
+  - **Tested**: Works correctly, detects recent activity
 
 ### [T951] Ondinho Autonomy: Auto-Restart Sessione se Stalled
 - **Status**: TODO
