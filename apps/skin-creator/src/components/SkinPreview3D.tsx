@@ -22,6 +22,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const [showParticles, setShowParticles] = useState(true);
   const [pose, setPose] = useState<'walk' | 'idle' | 'wave'>('walk');
   const poseRef = useRef<'walk' | 'idle' | 'wave'>('walk');
+  const [zoom, setZoom] = useState(5); // Camera distance
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -354,6 +355,13 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     poseRef.current = pose;
   }, [pose]);
 
+  // 🔍 Update camera zoom
+  useEffect(() => {
+    if (cameraRef.current) {
+      cameraRef.current.position.z = zoom;
+    }
+  }, [zoom]);
+
   // 🎥 Camera angle presets
   const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
     switch (angle) {
@@ -433,6 +441,24 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         >
           📸
         </button>
+        
+        {/* 🔍 Zoom controls */}
+        <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all">
+          <button
+            onClick={() => setZoom(z => Math.max(3, z - 1))}
+            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Zoom in"
+          >
+            🔍+
+          </button>
+          <button
+            onClick={() => setZoom(z => Math.min(10, z + 1))}
+            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Zoom out"
+          >
+            🔍−
+          </button>
+        </div>
         
         {/* 🎥 Camera angle buttons */}
         <div className="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
