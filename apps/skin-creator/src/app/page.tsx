@@ -1719,6 +1719,49 @@ export default function SkinCreator() {
               >
                 🎭 Outfit!
               </button>
+              
+              {/* ✨ AI Color Palette */}
+              <button
+                onClick={() => {
+                  // AI-inspired color harmonies
+                  const palettes = [
+                    // Cyberpunk
+                    { name: 'Cyberpunk', base: '#0ff', accent: '#f0f', dark: '#0a0a2e' },
+                    // Forest Warrior
+                    { name: 'Forest', base: '#228B22', accent: '#8B4513', dark: '#1a3a1a' },
+                    // Ice Mage
+                    { name: 'Ice', base: '#87CEEB', accent: '#E0FFFF', dark: '#1a2a3a' },
+                    // Fire Lord
+                    { name: 'Fire', base: '#FF4500', accent: '#FFD700', dark: '#2a1a0a' },
+                    // Void Walker
+                    { name: 'Void', base: '#4B0082', accent: '#8B008B', dark: '#0a0a1a' },
+                    // Ocean Deep
+                    { name: 'Ocean', base: '#006994', accent: '#40E0D0', dark: '#0a1a2a' },
+                    // Golden Knight
+                    { name: 'Golden', base: '#FFD700', accent: '#DAA520', dark: '#2a2a1a' },
+                    // Neon Gamer
+                    { name: 'Neon', base: '#39FF14', accent: '#FF1493', dark: '#0a0a0a' },
+                  ];
+                  const palette = palettes[Math.floor(Math.random() * palettes.length)];
+                  
+                  // Apply to layers
+                  setLayers(prev => prev.map(layer => {
+                    if (layer.id === 'clothing') {
+                      return { ...layer, tint: palette.base, tintIntensity: 60 };
+                    }
+                    if (layer.id === 'accessories') {
+                      return { ...layer, tint: palette.accent, tintIntensity: 70 };
+                    }
+                    return layer;
+                  }));
+                  
+                  playSound('success');
+                }}
+                className="px-2 py-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
+                title="✨ AI-inspired color palette"
+              >
+                ✨ AI Colors
+              </button>
 
               {/* 💾 Save/My Skins */}
               <button
