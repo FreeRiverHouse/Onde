@@ -37,7 +37,7 @@
 ### AUTOMATION/IMPROVEMENTS (Priorità 5)
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
-| AUTO-001 | Creare script check siti live (onde.la, onde.surf HTTP 200) | TODO | - | - |
+| AUTO-001 | Creare script check siti live (onde.la, onde.surf HTTP 200) | DONE | @clawdinho | - |
 | AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | TODO | - | - |
 | AUTO-003 | Documentare stato attuale Kalshi trading in memory | TODO | - | - |
 
@@ -54,7 +54,8 @@
 - **MLH-004** - Dark/light theme toggle: ThemeProvider + ThemeToggle already implemented with system detection
 - **MLH-005** - Skeleton loading components: Skeleton, SkeletonPanel, SkeletonList, SkeletonStats, SkeletonChart + shimmer animation
 - **MLH-006** - Breadcrumb navigation: route-based breadcrumbs + Alt+← back + Alt+Home dashboard
+- **AUTO-001** - Site check script: check-sites-live.sh verifies onde.la + onde.surf HTTP status
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 11:05 PST*
+*Ultimo aggiornamento: 2026-01-31 11:10 PST*
