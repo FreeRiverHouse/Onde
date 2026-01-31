@@ -1489,7 +1489,7 @@ export default function SkinCreator() {
           <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
             <button
               onClick={() => setTool('brush')}
-              title="Brush (B)"
+              title="🖌️ Draw! Click and drag to color"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1498,7 +1498,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('eraser')}
-              title="Eraser (E)"
+              title="🧽 Erase! Remove colors"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1507,7 +1507,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('fill')}
-              title="Fill (F)"
+              title="🪣 Fill! Color a whole area"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1516,7 +1516,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('gradient')}
-              title="Gradient (G)"
+              title="🌈 Rainbow! Blend two colors"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1525,7 +1525,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('glow')}
-              title="Glow (W)"
+              title="✨ Glow! Make it sparkle"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1554,7 +1554,7 @@ export default function SkinCreator() {
             </div>
             <button
               onClick={() => setTool('eyedropper')}
-              title="Eyedropper - pick color (I)"
+              title="🎯 Pick a color from your drawing!"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -1619,7 +1619,7 @@ export default function SkinCreator() {
               <button
                 onClick={() => downloadSkin(false)}
                 className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
-                title="Quick save (all layers)"
+                title="💾 Save your skin!"
               >
                 💾
               </button>
@@ -1641,7 +1641,7 @@ export default function SkinCreator() {
             <button
               onClick={clearCanvas}
               className="px-3 py-2 rounded-full font-bold bg-red-500 text-white hover:bg-red-600"
-              title="Clear canvas"
+              title="🗑️ Start over!"
             >
               🗑️ Clear
             </button>
