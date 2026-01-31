@@ -13436,3 +13436,17 @@ Generated: 2026-01-30T18:37:46.867013
   - Added epub.js for in-app reading
   - Uses local /books/epub/meditations-en.epub
   - Theme + font controls work
+
+### [T1077] Flying Car LA: Web Game Simulation
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Simulazione macchina volante su Los Angeles
+- **Inspiration**: Tesla flying taxi concept
+- **Features**:
+  - Grafica realistica (WebGL/Three.js)
+  - Volo sopra LA cityscape
+  - Controlli smooth
+  - Potenziale virale!
+- **Tech**: Three.js, WebGL, maybe GPU compute
+- **Ambizioso**: Sì! Ma fico se fatto bene
