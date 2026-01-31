@@ -11215,3 +11215,26 @@ Generated: 2026-01-30T18:37:46.867013
   - Watchdog per errori
   - Log delle azioni utente
   - Fix problemi in tempo reale
+
+### [T923] Skin Creator: More Kid-Friendly Colors
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Feedback da Neri:
+  - Palette colori troppo complessa per bambini
+  - Aggiungere colori semplici/standard
+  - Rosso classico nei template default
+  - Colori più vivaci e riconoscibili
+
+### [T924] Skin Creator: 3D Rotation View
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Vista 3D rotabile:
+  - Poter ruotare il personaggio
+  - Vedere tutti i lati
+  - Controlli touch-friendly per iPad
