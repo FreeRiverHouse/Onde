@@ -11901,9 +11901,10 @@ Generated: 2026-01-30T18:37:46.867013
   Implementare: script di pre-check in heartbeat
 
 ### [T934] Dashboard FRH: Task Management Panel
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Created-by**: @onde-bot-1
+- **Started**: 2026-02-15 17:05 PST
 - **Depends**: -
 - **Blocks**: [T935], [T936]
 - **Priority**: P1
