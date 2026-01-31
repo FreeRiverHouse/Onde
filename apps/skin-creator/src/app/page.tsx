@@ -1962,15 +1962,17 @@ export default function SkinCreator() {
                   </div>
                   <div className="flex items-center gap-1">
                     <button
-                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'up'); }}
+                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'up'); playSound('click'); }}
                       disabled={idx === 0}
-                      className="text-xs px-1 disabled:opacity-30 hover:bg-gray-200 rounded"
-                    >↑</button>
+                      className="text-sm px-2 py-1 disabled:opacity-30 hover:bg-blue-100 hover:scale-110 rounded transition-all"
+                      title="Move layer up"
+                    >⬆️</button>
                     <button
-                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'down'); }}
+                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'down'); playSound('click'); }}
                       disabled={idx === layers.length - 1}
-                      className="text-xs px-1 disabled:opacity-30 hover:bg-gray-200 rounded"
-                    >↓</button>
+                      className="text-sm px-2 py-1 disabled:opacity-30 hover:bg-blue-100 hover:scale-110 rounded transition-all"
+                      title="Move layer down"
+                    >⬇️</button>
                   </div>
                 </div>
                 
