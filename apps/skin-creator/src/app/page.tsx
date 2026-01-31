@@ -710,6 +710,40 @@ export default function SkinCreator() {
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const maxHistory = 50;
+  
+  // 🏆 Achievement System
+  const [achievements, setAchievements] = useState<Record<string, boolean>>({});
+  const [showAchievement, setShowAchievement] = useState<{id: string; name: string; emoji: string} | null>(null);
+  
+  const ACHIEVEMENTS = {
+    firstDraw: { name: 'First Stroke!', emoji: '🎨' },
+    colorMaster: { name: 'Color Master', emoji: '🌈' },
+    saved: { name: 'Saved!', emoji: '💾' },
+    shared: { name: 'Shared!', emoji: '🔗' },
+    downloaded: { name: 'Downloaded!', emoji: '📥' },
+    undoKing: { name: 'Undo King', emoji: '↩️' },
+    layerPro: { name: 'Layer Pro', emoji: '📚' },
+    patternUser: { name: 'Pattern User', emoji: '🎭' },
+  };
+  
+  const unlockAchievement = useCallback((id: string) => {
+    if (achievements[id]) return;
+    const ach = ACHIEVEMENTS[id as keyof typeof ACHIEVEMENTS];
+    if (!ach) return;
+    setAchievements(prev => ({ ...prev, [id]: true }));
+    setShowAchievement({ id, ...ach });
+    setTimeout(() => setShowAchievement(null), 3000);
+    // Save to localStorage
+    const saved = JSON.parse(localStorage.getItem('skin-creator-achievements') || '{}');
+    saved[id] = true;
+    localStorage.setItem('skin-creator-achievements', JSON.stringify(saved));
+  }, [achievements]);
+  
+  // Load achievements on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('skin-creator-achievements');
+    if (saved) setAchievements(JSON.parse(saved));
+  }, []);
 
   // Save canvas state for undo/redo
   const saveState = useCallback(() => {
@@ -1188,6 +1222,7 @@ export default function SkinCreator() {
     setShareUrl(url);
     navigator.clipboard.writeText(url).then(() => {
       playSound('download');
+      unlockAchievement('shared'); // 🏆 Shared achievement!
     }).catch(() => {});
   }, []);
 
@@ -1242,6 +1277,7 @@ export default function SkinCreator() {
     if (isDrawing && Math.random() > 0.7) {
       spawnParticle(e.clientX, e.clientY);
       playSound('draw'); // 🔊 Bloop!
+      unlockAchievement('firstDraw'); // 🏆 First draw achievement!
     }
 
     const rect = mainCanvas.getBoundingClientRect();
@@ -1441,6 +1477,7 @@ export default function SkinCreator() {
     playSound('download'); // 🔊 Celebration jingle!
     setTimeout(() => setShowConfetti(false), 3000);
     setShowExportPanel(false);
+    unlockAchievement('downloaded'); // 🏆 Downloaded achievement!
   };
 
   // Export only base layer (skin without clothing/accessories)
@@ -1562,6 +1599,19 @@ export default function SkinCreator() {
           numberOfPieces={500}
           gravity={0.3}
         />
+      )}
+
+      {/* 🏆 Achievement Popup */}
+      {showAchievement && (
+        <div className="fixed top-20 right-4 z-50 animate-bounce">
+          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
+            <span className="text-4xl">{showAchievement.emoji}</span>
+            <div>
+              <p className="text-xs opacity-75">Achievement Unlocked!</p>
+              <p className="font-bold text-lg">{showAchievement.name}</p>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* 🎉 T1000 MILESTONE POPUP */}
