@@ -61,9 +61,10 @@ export async function chatWithLocalLLM(
     maxTokens?: number;
     temperature?: number;
     systemPrompt?: string;
+    timeoutMs?: number;
   } = {}
 ): Promise<LLMResponse> {
-  const { maxTokens = 256, temperature = 0.7, systemPrompt } = options;
+  const { maxTokens = 256, temperature = 0.7, systemPrompt, timeoutMs = 60000 } = options;
   
   try {
     const isAvailable = await checkLocalLLM();
@@ -77,6 +78,9 @@ export async function chatWithLocalLLM(
     }
     messages.push({ role: 'user', content: prompt });
     
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    
     const response = await fetch(`${LOCAL_LLM_URL}/v1/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -86,7 +90,10 @@ export async function chatWithLocalLLM(
         max_tokens: maxTokens,
         temperature,
       }),
+      signal: controller.signal,
     });
+    
+    clearTimeout(timeout);
     
     if (!response.ok) {
       return { success: false, error: `HTTP ${response.status}` };
