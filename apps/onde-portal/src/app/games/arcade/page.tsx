@@ -540,6 +540,19 @@ export default function ArcadePage() {
               <div className="mt-4 text-center font-mono text-sm text-gray-500">
                 CREDIT(S): 00
               </div>
+
+              {/* View Full Leaderboard Link */}
+              <div className="mt-4 text-center">
+                <Link
+                  href="/games/arcade/leaderboard"
+                  className="inline-block bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 px-4 py-2 rounded-lg font-mono text-sm font-bold tracking-wider transition-all hover:scale-105 border border-yellow-500/40"
+                  style={{
+                    textShadow: '0 0 8px #facc15'
+                  }}
+                >
+                  VIEW FULL LEADERBOARD →
+                </Link>
+              </div>
             </div>
           </div>
         </div>

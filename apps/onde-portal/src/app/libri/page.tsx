@@ -305,8 +305,24 @@ export default function LibriPage() {
                     📖 Started
                   </span>
                 )}
-                {/* Bookmark + Price Badges */}
+                {/* Favorite + Bookmark + Price Badges */}
                 <div className="absolute top-4 right-4 flex items-center gap-2">
+                  {/* Favorite Button */}
+                  {favoritesMounted && (
+                    <button
+                      onClick={() => toggleFavorite(book.id)}
+                      aria-label={isFavorite(book.id) ? 'Remove from favorites' : 'Add to favorites'}
+                      className={`p-2 rounded-xl shadow-lg backdrop-blur-md transition-all duration-300
+                                 ${isFavorite(book.id)
+                                   ? 'bg-rose-500 text-white hover:bg-rose-600'
+                                   : 'bg-white/80 text-rose-400 hover:bg-rose-50 hover:text-rose-500'}`}
+                    >
+                      <svg className="w-4 h-4" fill={isFavorite(book.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </button>
+                  )}
                   {/* Bookmark Button */}
                   {readingListMounted && (
                     <button

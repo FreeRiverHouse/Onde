@@ -21,6 +21,14 @@ interface BookData {
   wordCount: number
 }
 
+interface Bookmark {
+  id: string
+  label: string
+  cfi?: string // For EPUB
+  chapter?: number // For legacy reader
+  createdAt: number
+}
+
 interface Props {
   bookId: string
 }
@@ -32,6 +40,9 @@ export default function BookReaderClient({ bookId }: Props) {
   const [fontSize, setFontSize] = useState(19)
   const [currentChapter, setCurrentChapter] = useState(0)
   const [showToc, setShowToc] = useState(false)
+  const [showBookmarks, setShowBookmarks] = useState(false)
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
+  const [currentCfi, setCurrentCfi] = useState<string | null>(null)
   const [readingProgress, setReadingProgress] = useState(0)
   const [theme, setTheme] = useState<'notte' | 'giorno' | 'seppia'>('notte')
   const contentRef = useRef<HTMLDivElement>(null)
@@ -43,6 +54,71 @@ export default function BookReaderClient({ bookId }: Props) {
 
   const book = booksMap[bookId]
   const { addToRecentlyViewed } = useRecentlyViewed()
+
+  // Bookmark storage key
+  const bookmarkStorageKey = `onde-reader-bookmarks-${bookId}`
+
+  // Load bookmarks from localStorage
+  useEffect(() => {
+    const savedBookmarks = localStorage.getItem(bookmarkStorageKey)
+    if (savedBookmarks) {
+      try {
+        setBookmarks(JSON.parse(savedBookmarks))
+      } catch {
+        setBookmarks([])
+      }
+    }
+  }, [bookmarkStorageKey])
+
+  // Save bookmarks to localStorage
+  useEffect(() => {
+    if (bookmarks.length > 0) {
+      localStorage.setItem(bookmarkStorageKey, JSON.stringify(bookmarks))
+    } else {
+      localStorage.removeItem(bookmarkStorageKey)
+    }
+  }, [bookmarks, bookmarkStorageKey])
+
+  // Add current position as bookmark
+  const addBookmark = useCallback(() => {
+    const now = Date.now()
+    const id = `bookmark-${now}`
+    
+    if (useEpubViewer && currentCfi) {
+      // For EPUB: use CFI
+      const label = `Pagina salvata ${new Date(now).toLocaleDateString('it-IT', { 
+        day: 'numeric', 
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit'
+      })}`
+      setBookmarks(prev => [...prev, { id, label, cfi: currentCfi, createdAt: now }])
+    } else if (bookData) {
+      // For legacy reader: use chapter
+      const chapterTitle = bookData.chapters[currentChapter]?.title || `Capitolo ${currentChapter + 1}`
+      const label = `${chapterTitle} - ${new Date(now).toLocaleDateString('it-IT', { 
+        day: 'numeric', 
+        month: 'short' 
+      })}`
+      setBookmarks(prev => [...prev, { id, label, chapter: currentChapter, createdAt: now }])
+    }
+  }, [useEpubViewer, currentCfi, bookData, currentChapter])
+
+  // Remove a bookmark
+  const removeBookmark = useCallback((bookmarkId: string) => {
+    setBookmarks(prev => prev.filter(b => b.id !== bookmarkId))
+  }, [])
+
+  // Navigate to a bookmark
+  const goToBookmark = useCallback((bookmark: Bookmark) => {
+    if (bookmark.cfi && renditionRef.current) {
+      renditionRef.current.display(bookmark.cfi)
+    } else if (bookmark.chapter !== undefined) {
+      setCurrentChapter(bookmark.chapter)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    setShowBookmarks(false)
+  }, [])
 
   // Track recently viewed books
   useEffect(() => {
@@ -123,6 +199,13 @@ export default function BookReaderClient({ bookId }: Props) {
           'margin-top': '1.5em',
           'margin-bottom': '0.5em',
         },
+      })
+
+      // Track current location for bookmarks
+      rendition.on('relocated', (location: { start: { cfi: string } }) => {
+        if (location?.start?.cfi) {
+          setCurrentCfi(location.start.cfi)
+        }
       })
 
       // Display first section
@@ -295,6 +378,29 @@ export default function BookReaderClient({ bookId }: Props) {
               >
                 A+
               </button>
+
+              <button
+                onClick={addBookmark}
+                className={`w-9 h-9 rounded-full ${t.accentBg} ${t.accent} text-base flex items-center justify-center hover:scale-110 transition-transform`}
+                aria-label="Aggiungi segnalibro"
+                title="Aggiungi segnalibro"
+              >
+                🔖
+              </button>
+
+              {bookmarks.length > 0 && (
+                <button
+                  onClick={() => setShowBookmarks(!showBookmarks)}
+                  className={`relative w-9 h-9 rounded-full ${t.highlightBg} ${t.highlight} text-sm font-bold hover:scale-110 transition-transform`}
+                  aria-label="Segnalibri"
+                  title={`${bookmarks.length} segnalibri`}
+                >
+                  📑
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {bookmarks.length}
+                  </span>
+                </button>
+              )}
 
               {((bookData && bookData.chapters.length > 1) || (useEpubViewer && tocItems.length > 0)) && (
                 <button

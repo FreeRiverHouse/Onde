@@ -1,9 +1,9 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useMemo, useState, useEffect } from 'react'
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 import { 
   GradientText, 
   Card3D, 
@@ -92,6 +92,170 @@ const dockItems = [
   { title: "VR", icon: "🥽", href: "/vr" },
   { title: "About", icon: "✨", href: "#about" },
 ]
+
+// Announcements data
+const announcements = [
+  {
+    id: 'gaming-island',
+    emoji: '🎮',
+    text: 'New: Gaming Island!',
+    description: 'Explore our collection of fun games',
+    href: '/games',
+    gradient: 'from-purple-500 to-pink-500',
+  },
+  {
+    id: 'vr-experience',
+    emoji: '🥽',
+    text: 'VR Experiences Available!',
+    description: 'Immersive virtual reality adventures',
+    href: '/vr',
+    gradient: 'from-cyan-500 to-blue-500',
+  },
+  {
+    id: 'free-books',
+    emoji: '📚',
+    text: 'Free Books During Launch!',
+    description: 'Download beautiful illustrated books',
+    href: '#books',
+    gradient: 'from-amber-500 to-orange-500',
+  },
+]
+
+const DISMISSED_KEY = 'onde-announcements-dismissed'
+
+// Announcements Banner Component
+function AnnouncementsBanner() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDismissed, setIsDismissed] = useState(true) // Start hidden to avoid flash
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Check localStorage on mount
+  useEffect(() => {
+    const dismissed = localStorage.getItem(DISMISSED_KEY)
+    if (dismissed) {
+      const dismissedData = JSON.parse(dismissed)
+      // Check if dismissed less than 24 hours ago
+      if (Date.now() - dismissedData.timestamp < 24 * 60 * 60 * 1000) {
+        setIsDismissed(true)
+        return
+      }
+    }
+    setIsDismissed(false)
+  }, [])
+
+  // Auto-rotate announcements
+  useEffect(() => {
+    if (isDismissed || isHovered) return
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % announcements.length)
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [isDismissed, isHovered])
+
+  const handleDismiss = useCallback(() => {
+    setIsDismissed(true)
+    localStorage.setItem(DISMISSED_KEY, JSON.stringify({ timestamp: Date.now() }))
+  }, [])
+
+  if (isDismissed) return null
+
+  const current = announcements[currentIndex]
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -100, opacity: 0 }}
+        className="fixed top-0 left-0 right-0 z-50"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className={`bg-gradient-to-r ${current.gradient} shadow-lg`}>
+          <div className="max-w-6xl mx-auto px-4 py-3">
+            <div className="flex items-center justify-between gap-4">
+              {/* Announcement Content */}
+              <Link 
+                href={current.href}
+                className="flex-1 flex items-center justify-center gap-3 group"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-3"
+                  >
+                    <motion.span 
+                      className="text-2xl"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+                    >
+                      {current.emoji}
+                    </motion.span>
+                    <span className="text-white font-bold text-sm sm:text-base">
+                      {current.text}
+                    </span>
+                    <span className="hidden sm:inline text-white/80 text-sm">
+                      — {current.description}
+                    </span>
+                    <motion.span 
+                      className="text-white/90 text-lg group-hover:translate-x-1 transition-transform"
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      →
+                    </motion.span>
+                  </motion.div>
+                </AnimatePresence>
+              </Link>
+
+              {/* Indicators */}
+              <div className="hidden sm:flex items-center gap-1.5">
+                {announcements.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === currentIndex 
+                        ? 'bg-white scale-125' 
+                        : 'bg-white/40 hover:bg-white/60'
+                    }`}
+                    aria-label={`Go to announcement ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Dismiss Button */}
+              <button
+                onClick={handleDismiss}
+                className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white"
+                aria-label="Dismiss announcements"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-5 w-5" 
+                  viewBox="0 0 20 20" 
+                  fill="currentColor"
+                >
+                  <path 
+                    fillRule="evenodd" 
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
+                    clipRule="evenodd" 
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
 
 export default function Home() {
   const t = useTranslations()
