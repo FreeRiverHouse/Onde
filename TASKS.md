@@ -11126,40 +11126,56 @@ Generated: 2026-01-30T18:37:46.867013
 ---
 
 ### [T922] Moonlight: Add more interactive objects to bathroom
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
+- **Completed**: 2026-01-30 19:00
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Room 'bathroom' only has 2 interactive objects. Add 2-3 more for variety.
+- **Notes**: ✅ Added 3 new bathroom objects!
+  - 🫧 Soap Bubbles (mini-game)
+  - 🪥 Toothbrush (reward)
+  - ⛵ Toy Boat (story)
 
 ### [T923] Moonlight: Add more interactive objects to garage
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
+- **Completed**: 2026-01-30 19:00
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Room 'garage' only has 2 interactive objects. Add 2-3 more for variety.
+- **Notes**: ✅ Added 3 new garage objects!
+  - 🚗 Toy Car (story)
+  - 🚲 Bicycle (reward)
+  - 🎨 Paint Cans (mini-game drawing)
 
 ### [T924] Moonlight: Add more interactive objects to shop
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
+- **Completed**: 2026-01-30 19:00
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Room 'shop' only has 1 interactive objects. Add 2-3 more for variety.
+- **Notes**: ✅ Added 3 new shop objects!
+  - 🪞 Fitting Mirror (reward)
+  - 👠 Shoe Rack (mini-game memory)
+  - 💎 Jewelry Box (surprise)
 
 ### [T925] Moonlight: Add more interactive objects to supermarket
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
+- **Completed**: 2026-01-30 19:00
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Room 'supermarket' only has 1 interactive objects. Add 2-3 more for variety.
+- **Notes**: ✅ Added 3 new supermarket objects!
+  - 🍎 Fruit Stand (reward)
+  - 🍬 Candy Shelf (surprise)
+  - 🐠 Fish Tank (story)
 
 ### [T926] Moonlight: Add daily challenges
 - **Status**: TODO
