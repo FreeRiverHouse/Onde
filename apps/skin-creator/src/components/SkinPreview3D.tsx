@@ -20,6 +20,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
+  const [pose, setPose] = useState<'walk' | 'idle' | 'wave'>('walk');
+  const poseRef = useRef<'walk' | 'idle' | 'wave'>('walk');
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -260,17 +262,34 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       character.rotation.y = rotationRef.current.y;
       character.rotation.x = rotationRef.current.x;
       
-      // Walking animation - swing arms and legs
-      const swing = Math.sin(walkTime) * 0.3;
+      // 🕺 Pose-based animation
       const rightArmMesh = character.getObjectByName('rightArm');
       const leftArmMesh = character.getObjectByName('leftArm');
       const rightLegMesh = character.getObjectByName('rightLeg');
       const leftLegMesh = character.getObjectByName('leftLeg');
       
-      if (rightArmMesh) rightArmMesh.rotation.x = swing;
-      if (leftArmMesh) leftArmMesh.rotation.x = -swing;
-      if (rightLegMesh) rightLegMesh.rotation.x = -swing;
-      if (leftLegMesh) leftLegMesh.rotation.x = swing;
+      const currentPose = poseRef.current;
+      if (currentPose === 'walk') {
+        const swing = Math.sin(walkTime) * 0.3;
+        if (rightArmMesh) rightArmMesh.rotation.x = swing;
+        if (leftArmMesh) leftArmMesh.rotation.x = -swing;
+        if (rightLegMesh) rightLegMesh.rotation.x = -swing;
+        if (leftLegMesh) leftLegMesh.rotation.x = swing;
+      } else if (currentPose === 'idle') {
+        // Subtle breathing animation
+        const breath = Math.sin(walkTime * 0.5) * 0.05;
+        if (rightArmMesh) rightArmMesh.rotation.x = breath;
+        if (leftArmMesh) leftArmMesh.rotation.x = breath;
+        if (rightLegMesh) rightLegMesh.rotation.x = 0;
+        if (leftLegMesh) leftLegMesh.rotation.x = 0;
+      } else if (currentPose === 'wave') {
+        // Waving animation
+        const wave = Math.sin(walkTime * 3) * 0.5 + 0.8;
+        if (rightArmMesh) { rightArmMesh.rotation.x = -1.5; rightArmMesh.rotation.z = wave; }
+        if (leftArmMesh) leftArmMesh.rotation.x = 0;
+        if (rightLegMesh) rightLegMesh.rotation.x = 0;
+        if (leftLegMesh) leftLegMesh.rotation.x = 0;
+      }
       
       // ✨ Animate particles - float upward and respawn
       const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
@@ -329,6 +348,11 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       particlesRef.current.visible = showParticles;
     }
   }, [showParticles]);
+
+  // 🕺 Update pose ref
+  useEffect(() => {
+    poseRef.current = pose;
+  }, [pose]);
 
   // 🎥 Camera angle presets
   const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
@@ -441,6 +465,37 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title={showParticles ? 'Hide particles' : 'Show particles'}
           >
             ✨
+          </button>
+        </div>
+        
+        {/* 🕺 Pose buttons */}
+        <div className="absolute top-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+          <button
+            onClick={() => setPose('walk')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'walk' ? 'bg-green-400 text-green-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Walking pose"
+          >
+            🚶
+          </button>
+          <button
+            onClick={() => setPose('idle')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'idle' ? 'bg-blue-400 text-blue-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Idle pose"
+          >
+            🧍
+          </button>
+          <button
+            onClick={() => setPose('wave')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'wave' ? 'bg-pink-400 text-pink-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Waving pose"
+          >
+            👋
           </button>
         </div>
       </div>
