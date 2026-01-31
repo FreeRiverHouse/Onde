@@ -4,10 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 const TOKEN = '8528268093:AAGNZUcYBm8iMcn9D_oWr565rpxm9riNkBM';
-const ONDE_ROOT = '/Users/mattia/Projects/Onde';
-const CASCADE_ROOT = '/Users/mattia/Projects';
+const ONDE_ROOT = process.env.ONDE_ROOT || path.resolve(__dirname, '../..');
+const CASCADE_ROOT = process.env.CASCADE_ROOT || path.dirname(ONDE_ROOT);
 const QUEUE_FILE = '/tmp/telegram-claude-queue.json';
-const AGENTS_DIR = '/Users/mattia/Projects/.claude/agents';
+const AGENTS_DIR = process.env.AGENTS_DIR || path.join(CASCADE_ROOT, '.claude/agents');
 
 let lastUpdateId = 0;
 
