@@ -776,6 +776,10 @@ export default function SkinCreator() {
     { id: 'combat', name: '⚔️ Combat', desc: 'Battle ready!' },
     { id: 'sitting', name: '🪑 Sitting', desc: 'Relaxed' },
     { id: 'wave', name: '👋 Waving', desc: 'Friendly wave' },
+    // 💃 Emotes/Dances
+    { id: 'orange-justice', name: '🍊 Orange Justice', desc: 'Fortnite classic!' },
+    { id: 'default-dance', name: '💃 Default Dance', desc: 'The OG!' },
+    { id: 'floss', name: '🦷 Floss', desc: 'Side to side!' },
   ];
   
   const ACHIEVEMENTS = {
