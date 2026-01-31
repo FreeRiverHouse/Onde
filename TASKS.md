@@ -12263,11 +12263,11 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Show keyboard shortcuts on button hover
 
 ### [T968] Skin Creator: Touch Gesture Support
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
-- **Notes**: Pinch to zoom, two-finger pan on mobile
+- **Notes**: Pinch to zoom (2x-12x), two-finger pan, smooth transitions, pan reset button
 
 ### [T969] Skin Creator: Drawing Pressure Sensitivity
 - **Status**: TODO
