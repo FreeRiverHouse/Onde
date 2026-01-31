@@ -11,6 +11,12 @@ const SkinPreview3D = dynamic(() => import('../components/SkinPreview3D'), { ssr
 // Confetti on download!
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
+// Gallery component
+const SkinGallery = dynamic(() => import('../components/SkinGallery'), { ssr: false });
+
+// View modes
+type ViewMode = 'editor' | 'gallery';
+
 // Layer definitions for the skin editor
 type LayerType = 'base' | 'clothing' | 'accessories';
 
@@ -155,6 +161,7 @@ export default function SkinCreator() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLCanvasElement>(null);
   const [selectedGame, setSelectedGame] = useState<GameType>('minecraft');
+  const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
@@ -1719,9 +1726,76 @@ export default function SkinCreator() {
             </button>
           ))}
         </div>
+
+        {/* View Mode Tabs */}
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => setViewMode('editor')}
+            className={`px-6 py-2 rounded-full font-bold transition-all ${
+              viewMode === 'editor'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 shadow-lg'
+                : 'bg-white/20 text-white hover:bg-white/30'
+            }`}
+          >
+            🎨 Editor
+          </button>
+          <button
+            onClick={() => setViewMode('gallery')}
+            className={`px-6 py-2 rounded-full font-bold transition-all ${
+              viewMode === 'gallery'
+                ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white scale-105 shadow-lg'
+                : 'bg-white/20 text-white hover:bg-white/30'
+            }`}
+          >
+            🖼️ Gallery
+          </button>
+        </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2">
+      {/* Gallery View */}
+      {viewMode === 'gallery' && (
+        <div className="w-full max-w-6xl px-2 mt-4">
+          <SkinGallery
+            onSelectSkin={(imageData: string) => {
+              // Load skin into editor
+              const img = new Image();
+              img.onload = () => {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = 64;
+                tempCanvas.height = 64;
+                const tempCtx = tempCanvas.getContext('2d');
+                if (tempCtx) {
+                  tempCtx.drawImage(img, 0, 0, 64, 64);
+                  const imageData = tempCtx.getImageData(0, 0, 64, 64);
+                  // Apply to all layer canvases
+                  layerCanvasRefs.current.forEach(canvas => {
+                    if (canvas) {
+                      const ctx = canvas.getContext('2d');
+                      if (ctx) {
+                        ctx.putImageData(imageData, 0, 0);
+                      }
+                    }
+                  });
+                  redrawPreview();
+                  setViewMode('editor');
+                }
+              };
+              img.src = imageData;
+            }}
+            currentSkinData={(() => {
+              // Get current skin as base64
+              const previewCanvas = previewCanvasRef.current;
+              if (previewCanvas) {
+                return previewCanvas.toDataURL('image/png');
+              }
+              return undefined;
+            })()}
+          />
+        </div>
+      )}
+
+      {/* Editor View */}
+      <div className={`flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
         {/* Left Panel - Preview */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
           <div className="flex items-center justify-center gap-2 mb-4">
