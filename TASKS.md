@@ -11287,3 +11287,65 @@ Generated: 2026-01-30T18:37:46.867013
   - Tooltips sui bottoni
   - "Try this!" hints
   - Video demo?
+
+### [T920] Moonlight REVAMP: Grafica Professionale (DA MATTIA 2888)
+- **Status**: TODO
+- **Owner**: -
+- **Created**: 2026-01-30 19:05
+- **Depends**: -
+- **Blocks**: [T921], [T922], [T923]
+- **Priority**: P0
+- **Notes**: REVAMPING COMPLETO GRAFICA - "la grafica fa cagare, facciamo una roba seria"
+  - [ ] Ridisegnare tutti gli sfondi delle stanze (bedroom, kitchen, garden, library)
+  - [ ] Stile coerente e professionale (non placeholder)
+  - [ ] Colori vivaci ma armonici
+  - [ ] Dettagli che rendono la scena viva
+  - [ ] Luna ridisegnata (sprite professionale)
+  - [ ] Oggetti interattivi con grafica custom
+  - **Target**: App figa come Toca Boca / Sago Mini
+
+### [T921] Moonlight REVAMP: UI/UX Moderno
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T920]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Rifare la UI per essere moderna e child-friendly
+  - [ ] Icone custom per stats (cuore, moneta, stella, etc)
+  - [ ] Font child-friendly (rounded, colorato)
+  - [ ] Animazioni fluide sui pulsanti
+  - [ ] Transizioni tra stanze belle
+  - [ ] Mini-animazioni idle
+
+### [T922] Moonlight: Aggiungere GIOCHI (DA MATTIA 2888)
+- **Status**: TODO
+- **Owner**: -
+- **Created**: 2026-01-30 19:05
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: "Con dentro un bel po' di giochi" - aggiungere mini-games
+  - [ ] Match-3 / Memory game nella camera
+  - [ ] Cooking mini-game in cucina
+  - [ ] Garden growing game nel giardino
+  - [ ] Quiz/Trivia nella biblioteca
+  - [ ] Piano/Music game (da concept esistente)
+  - [ ] Dress-up game per Luna
+  - Ogni gioco dà reward (+coins, +happiness, +achievements)
+
+### [T923] Moonlight: Test Chrome Continuo Esplorativo
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Created**: 2026-01-30 19:05
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Setup processo test esplorativo continuo su Chrome headed
+  - [x] Playwright headed tests ogni 2 minuti
+  - [ ] Test naviga random tra stanze
+  - [ ] Clicca oggetti random
+  - [ ] Verifica che non crashi
+  - [ ] Screenshot ogni azione
+  - **Script**: `scripts/moonlight-continuous-test.ts`
+  - **Run**: Launched in background, visible Chrome window
+
