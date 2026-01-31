@@ -12849,3 +12849,186 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Export current animation as GIF
+
+---
+
+## 🎮 SKIN CREATOR ROADMAP - FEEDBACK GROK (2026-01-30 22:30)
+
+> GROK ha dato voto 8.5/10 con suggerimenti dettagliati per arrivare a 9.5+
+> Target: App kid-friendly professionale che compete con Skindex/NovaSkin
+
+### [T1037] Skin Creator: Grid/Zoom Canvas
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1 🔥
+- **Notes**: GROK PRIORITY #3
+  - Implementare grid overlay toggle
+  - Zoom in/out con scroll/pinch
+  - Snap-to-grid opzionale
+  - Pixel ruler/guidelines
+
+### [T1038] Skin Creator: Import da URL
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1 🔥
+- **Notes**: GROK PRIORITY #2
+  - Input URL per caricare skin esistenti
+  - Supporto Skindex/NameMC/NovaSkin URLs
+  - Fetch PNG e parse in canvas
+  - Preview prima di importare
+
+### [T1039] Skin Creator: Gallery/Community MVP
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: [T1040]
+- **Priority**: P0 🔥🔥
+- **Notes**: GROK PRIORITY #1 - VIRAL POTENTIAL!
+  - Tab "Gallery" con skin pubbliche
+  - Upload skin alla gallery
+  - Search/filter per tag
+  - Like/download counter
+  - Backend: Supabase o Cloudflare D1
+
+### [T1040] Skin Creator: User Accounts (Clerk)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T1039]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK suggerimento
+  - Auth con Clerk (kid-friendly, no email required)
+  - Salvataggio cloud "My Skins"
+  - Profile pubblico con le tue skin
+  - Sync across devices
+
+### [T1041] Skin Creator: SVG Icons (Heroicons)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK UI/Design
+  - Sostituire emoji con SVG icons
+  - Toggle "Fun Mode" (emoji) vs "Pro Mode" (icons)
+  - Mantenere vibe kid-friendly
+
+### [T1042] Skin Creator: Tutorial Interattivo
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1 🔥
+- **Notes**: GROK Onboarding/UX
+  - Usare react-joyride o tour.js
+  - Tutorial al primo load
+  - Highlight: canvas, tools, layers, preview
+  - Skip option per returning users
+
+### [T1043] Skin Creator: Keyboard Shortcuts
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK Onboarding/UX
+  - Brush size: 1-6 keys o +/-
+  - Undo: Ctrl+Z / Cmd+Z
+  - Redo: Ctrl+Shift+Z
+  - Tool switching: B(rush), E(raser), F(ill)
+  - Help overlay: ? key
+
+### [T1044] Skin Creator: PWA Manifest
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK Tech/Perf
+  - manifest.json per install su home screen
+  - Service worker per offline basic
+  - App icon 192x192 e 512x512
+  - Splash screen
+
+### [T1045] Skin Creator: OG Images per Share
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK SEO - VIRAL!
+  - Genera preview skin come OG image
+  - Meta tags dinamici per share links
+  - Twitter Card large image
+  - Facebook Open Graph
+
+### [T1046] Skin Creator: Mobile Hamburger Menu
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1 🔥
+- **Notes**: GROK Visual Feedback
+  - Menu collassabile su mobile
+  - Touch-friendly buttons
+  - Swipe gestures per tools
+  - Responsive canvas
+
+### [T1047] Skin Creator: Alex/Slim Model Toggle
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: GROK Features Missing
+  - Toggle Steve (4px arms) vs Alex (3px arms)
+  - UV map adjustment automatico
+  - Preview aggiornato
+  - Export corretto per entrambi
+
+### [T1048] Skin Creator: GIF Export Animato
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: GROK Preview Extra
+  - Registra frames da Three.js preview
+  - Genera GIF animato della skin
+  - Scegli animazione (walk/dance/dab)
+  - Download diretto
+
+### [T1049] Skin Creator: Gradient Tool
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: GROK Tools Advanced
+  - Gradient lineare/radiale
+  - Color picker start/end
+  - Apply su selezione
+  - Preset gradients (sunset, ocean, etc)
+
+### [T1050] Skin Creator: Monetizzazione Freemium
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T1040]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: GROK Monetizzazione
+  - Stripe/LemonSqueezy integration
+  - "Skin Pro" €1.99/mese:
+    - No ads
+    - Unlimited cloud saves
+    - Extra AI presets
+    - HD/GIF export
+  - IAP Packs €0.99-2.99:
+    - "Superhero Pack" (10 skins)
+    - "Color Palettes Pro"
+  - COPPA compliant per kids
+
