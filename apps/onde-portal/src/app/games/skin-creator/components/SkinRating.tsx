@@ -17,12 +17,16 @@ interface SkinRatingProps {
   onRate?: (rating: number) => void;
 }
 
+// Storage keys
+const RATINGS_KEY = 'onde-skin-ratings';
+const AGGREGATES_KEY = 'onde-skin-ratings-aggregate';
+
 // Get user's rating from localStorage
 function getUserRating(skinId: string): number | null {
   if (typeof window === 'undefined') return null;
-  const ratings = localStorage.getItem('onde-skin-ratings');
-  if (!ratings) return null;
   try {
+    const ratings = localStorage.getItem(RATINGS_KEY);
+    if (!ratings) return null;
     const parsed = JSON.parse(ratings);
     return parsed[skinId] ?? null;
   } catch {
@@ -33,25 +37,22 @@ function getUserRating(skinId: string): number | null {
 // Save user's rating to localStorage
 function saveUserRating(skinId: string, rating: number): void {
   if (typeof window === 'undefined') return;
-  const ratings = localStorage.getItem('onde-skin-ratings');
-  let parsed: Record<string, number> = {};
-  if (ratings) {
-    try {
-      parsed = JSON.parse(ratings);
-    } catch {
-      parsed = {};
-    }
+  try {
+    const ratings = localStorage.getItem(RATINGS_KEY);
+    const parsed: Record<string, number> = ratings ? JSON.parse(ratings) : {};
+    parsed[skinId] = rating;
+    localStorage.setItem(RATINGS_KEY, JSON.stringify(parsed));
+  } catch (e) {
+    console.error('Failed to save rating:', e);
   }
-  parsed[skinId] = rating;
-  localStorage.setItem('onde-skin-ratings', JSON.stringify(parsed));
 }
 
 // Get all ratings for skins (for average calculation)
 function getAllRatings(): Record<string, { total: number; count: number }> {
   if (typeof window === 'undefined') return {};
-  const ratings = localStorage.getItem('onde-skin-ratings-aggregate');
-  if (!ratings) return {};
   try {
+    const ratings = localStorage.getItem(AGGREGATES_KEY);
+    if (!ratings) return {};
     return JSON.parse(ratings);
   } catch {
     return {};
@@ -61,35 +62,60 @@ function getAllRatings(): Record<string, { total: number; count: number }> {
 // Update aggregate ratings
 function updateAggregateRating(skinId: string, newRating: number, previousRating: number | null): void {
   if (typeof window === 'undefined') return;
-  const aggregates = getAllRatings();
-  
-  if (!aggregates[skinId]) {
-    aggregates[skinId] = { total: 0, count: 0 };
+  try {
+    const aggregates = getAllRatings();
+    
+    if (!aggregates[skinId]) {
+      aggregates[skinId] = { total: 0, count: 0 };
+    }
+    
+    if (previousRating !== null) {
+      // Update existing rating
+      aggregates[skinId].total = aggregates[skinId].total - previousRating + newRating;
+    } else {
+      // New rating
+      aggregates[skinId].total += newRating;
+      aggregates[skinId].count += 1;
+    }
+    
+    localStorage.setItem(AGGREGATES_KEY, JSON.stringify(aggregates));
+  } catch (e) {
+    console.error('Failed to update aggregate:', e);
   }
-  
-  if (previousRating !== null) {
-    // Update existing rating
-    aggregates[skinId].total = aggregates[skinId].total - previousRating + newRating;
-  } else {
-    // New rating
-    aggregates[skinId].total += newRating;
-    aggregates[skinId].count += 1;
-  }
-  
-  localStorage.setItem('onde-skin-ratings-aggregate', JSON.stringify(aggregates));
 }
 
+// Export function to get skin average rating
 export function getSkinAverageRating(skinId: string): { average: number; count: number } {
-  const aggregates = getAllRatings();
-  const data = aggregates[skinId];
-  if (!data || data.count === 0) {
+  if (typeof window === 'undefined') {
     return { average: 0, count: 0 };
   }
-  return {
-    average: Math.round((data.total / data.count) * 10) / 10,
-    count: data.count,
-  };
+  try {
+    const aggregates = getAllRatings();
+    const data = aggregates[skinId];
+    if (!data || data.count === 0) {
+      return { average: 0, count: 0 };
+    }
+    return {
+      average: Math.round((data.total / data.count) * 10) / 10,
+      count: data.count,
+    };
+  } catch {
+    return { average: 0, count: 0 };
+  }
 }
+
+// Size configurations
+const sizeClasses: Record<string, string> = {
+  sm: 'text-lg gap-0.5',
+  md: 'text-2xl gap-1',
+  lg: 'text-3xl gap-1.5',
+};
+
+const starSizeClasses: Record<string, string> = {
+  sm: 'w-4 h-4',
+  md: 'w-6 h-6',
+  lg: 'w-8 h-8',
+};
 
 export default function SkinRating({
   skinId,
@@ -143,24 +169,11 @@ export default function SkinRating({
 
   const displayRating = hoverRating || userRating || averageRating;
 
-  // Size classes
-  const sizeClasses = {
-    sm: 'text-lg gap-0.5',
-    md: 'text-2xl gap-1',
-    lg: 'text-3xl gap-1.5',
-  };
-
-  const starSizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8',
-  };
-
   return (
     <div className="flex flex-col items-center gap-1">
       {/* Stars */}
       <div 
-        className={`flex items-center ${sizeClasses[size]} ${isAnimating ? 'animate-pulse' : ''}`}
+        className={`flex items-center ${sizeClasses[size] || sizeClasses.md} ${isAnimating ? 'animate-pulse' : ''}`}
         onMouseLeave={() => !readOnly && setHoverRating(0)}
       >
         {[1, 2, 3, 4, 5].map((star) => {
@@ -175,7 +188,7 @@ export default function SkinRating({
               onClick={() => handleClick(star)}
               onMouseEnter={() => !readOnly && setHoverRating(star)}
               className={`
-                ${starSizeClasses[size]}
+                ${starSizeClasses[size] || starSizeClasses.md}
                 transition-all duration-150
                 ${readOnly ? 'cursor-default' : 'cursor-pointer hover:scale-125'}
                 ${userRating === star ? 'scale-110' : ''}
@@ -247,7 +260,6 @@ export default function SkinRating({
 
 // =============================================================================
 // 🏆 TOP RATED BADGE COMPONENT
-// Shows a badge for highly rated skins
 // =============================================================================
 
 interface TopRatedBadgeProps {
@@ -258,28 +270,28 @@ interface TopRatedBadgeProps {
 export function TopRatedBadge({ rating, className = '' }: TopRatedBadgeProps) {
   if (rating < 4) return null;
   
-  const badge = rating >= 4.5 
-    ? { emoji: '🏆', text: 'Top Rated', color: 'from-yellow-400 to-amber-500' }
-    : { emoji: '⭐', text: 'Popular', color: 'from-purple-400 to-pink-500' };
+  const isTop = rating >= 4.5;
+  const emoji = isTop ? '🏆' : '⭐';
+  const text = isTop ? 'Top Rated' : 'Popular';
+  const color = isTop ? 'from-yellow-400 to-amber-500' : 'from-purple-400 to-pink-500';
   
   return (
     <span 
       className={`
         inline-flex items-center gap-1 px-2 py-0.5 
         text-xs font-bold text-white rounded-full
-        bg-gradient-to-r ${badge.color}
+        bg-gradient-to-r ${color}
         shadow-lg animate-pulse
         ${className}
       `}
     >
-      {badge.emoji} {badge.text}
+      {emoji} {text}
     </span>
   );
 }
 
 // =============================================================================
 // 📊 RATING STATS COMPONENT
-// Shows rating distribution
 // =============================================================================
 
 interface RatingStatsProps {
@@ -287,9 +299,13 @@ interface RatingStatsProps {
 }
 
 export function RatingStats({ skinId }: RatingStatsProps) {
-  const { average, count } = getSkinAverageRating(skinId);
+  const [stats, setStats] = useState({ average: 0, count: 0 });
   
-  if (count === 0) {
+  useEffect(() => {
+    setStats(getSkinAverageRating(skinId));
+  }, [skinId]);
+  
+  if (stats.count === 0) {
     return (
       <div className="text-center py-4 text-gray-400">
         <span className="text-2xl">⭐</span>
@@ -302,19 +318,19 @@ export function RatingStats({ skinId }: RatingStatsProps) {
   return (
     <div className="flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl">
       <div className="text-center">
-        <div className="text-3xl font-bold text-yellow-600">{average.toFixed(1)}</div>
+        <div className="text-3xl font-bold text-yellow-600">{stats.average.toFixed(1)}</div>
         <div className="flex items-center justify-center">
           {[1, 2, 3, 4, 5].map((star) => (
             <span 
               key={star}
-              className={`text-sm ${star <= average ? 'text-yellow-400' : 'text-gray-300'}`}
+              className={`text-sm ${star <= stats.average ? 'text-yellow-400' : 'text-gray-300'}`}
             >
               ★
             </span>
           ))}
         </div>
         <div className="text-xs text-gray-500 mt-1">
-          {count} {count === 1 ? 'rating' : 'ratings'}
+          {stats.count} {stats.count === 1 ? 'rating' : 'ratings'}
         </div>
       </div>
     </div>

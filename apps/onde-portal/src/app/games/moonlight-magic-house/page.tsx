@@ -4819,6 +4819,205 @@ export default function MoonlightMagicHouse() {
     )
   }
 
+  // Puzzle game screen
+  if (gameState === 'puzzle') {
+    // Find empty position
+    const occupiedPositions = new Set(puzzleTiles.map(t => t.currentPos))
+    let emptyPos = -1
+    for (let i = 0; i < 9; i++) {
+      if (!occupiedPositions.has(i)) {
+        emptyPos = i
+        break
+      }
+    }
+    
+    return (
+      <div className="min-h-screen flex flex-col items-center p-4 relative overflow-hidden">
+        <MagicalBackground />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
+        
+        {/* Header */}
+        <div className="w-full max-w-lg relative z-10">
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={() => setGameState('menu')}
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 smooth-transition"
+            >
+              <svg viewBox="0 0 24 24" className="w-4 h-4">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </svg>
+              Back
+            </button>
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-200">
+              Magic Puzzle
+            </h2>
+            <div className="text-white/70 text-sm font-medium">
+              Moves: {puzzleMoves}
+            </div>
+          </div>
+          
+          <p className="text-center text-purple-200/80 mb-4">
+            {puzzleSolved 
+              ? '🎉 Puzzle Complete!' 
+              : 'Tap tiles next to the empty space to slide them!'}
+          </p>
+        </div>
+        
+        {/* Puzzle Grid */}
+        <div className="relative w-full max-w-xs aspect-square bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 p-3">
+          <div className="grid grid-cols-3 gap-2 w-full h-full">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((pos) => {
+              const tile = puzzleTiles.find(t => t.currentPos === pos)
+              const isCorrect = tile && tile.currentPos === tile.correctPos
+              
+              if (!tile) {
+                // Empty space
+                return (
+                  <div 
+                    key={`empty-${pos}`}
+                    className="rounded-xl bg-black/20 border border-white/5"
+                  />
+                )
+              }
+              
+              return (
+                <button
+                  key={tile.id}
+                  onClick={() => handlePuzzleTileClick(tile.id)}
+                  disabled={puzzleSolved}
+                  className={`rounded-xl text-3xl flex items-center justify-center 
+                    transition-all duration-200 ease-out
+                    ${isCorrect 
+                      ? 'bg-gradient-to-br from-emerald-500/80 to-teal-600/80 shadow-lg shadow-emerald-500/30' 
+                      : 'bg-gradient-to-br from-cyan-500/80 to-blue-600/80 shadow-lg shadow-cyan-500/30'
+                    }
+                    ${!puzzleSolved ? 'hover:scale-105 active:scale-95 cursor-pointer' : ''}
+                    border border-white/20`}
+                >
+                  {tile.emoji}
+                </button>
+              )
+            })}
+          </div>
+          
+          {/* Celebration effect when solved */}
+          {puzzleSolved && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {[...Array(8)].map((_, i) => (
+                <Sparkle key={i} delay={i * 0.2} className={`absolute`} />
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* Cat watching */}
+        <div className="w-24 h-24 mt-6 z-10 animate-float gpu-accelerated">
+          <CuteCat mood={puzzleSolved ? 'excited' : 'neutral'} className="w-full h-full" />
+        </div>
+        
+        {/* Hint */}
+        <p className="text-purple-200/40 text-xs mt-4 z-10">
+          Arrange tiles so each one glows green! ✨
+        </p>
+      </div>
+    )
+  }
+
+  // Memory game screen
+  if (gameState === 'memory') {
+    return (
+      <div className="min-h-screen flex flex-col items-center p-4 relative overflow-hidden">
+        <MagicalBackground />
+        <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
+        
+        {/* Header */}
+        <div className="w-full max-w-lg relative z-10">
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={() => setGameState('menu')}
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 smooth-transition"
+            >
+              <svg viewBox="0 0 24 24" className="w-4 h-4">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </svg>
+              Back
+            </button>
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-teal-200">
+              Memory Match
+            </h2>
+            <div className="text-white/70 text-sm font-medium">
+              {memoryMatches}/{MEMORY_EMOJIS.length}
+            </div>
+          </div>
+          
+          <p className="text-center text-purple-200/80 mb-4">
+            {memoryMatches === MEMORY_EMOJIS.length 
+              ? '🎉 All Matched!' 
+              : `Moves: ${memoryMoves} • Find all matching pairs!`}
+          </p>
+        </div>
+        
+        {/* Memory Card Grid */}
+        <div className="relative w-full max-w-sm bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 p-4">
+          <div className="grid grid-cols-4 gap-2">
+            {memoryCards.map((card) => (
+              <button
+                key={card.id}
+                onClick={() => handleMemoryCardClick(card.id)}
+                disabled={card.isMatched || card.isFlipped || isCheckingMatch}
+                className={`aspect-square rounded-xl text-2xl flex items-center justify-center 
+                  transition-all duration-300 transform-gpu
+                  ${card.isMatched 
+                    ? 'bg-gradient-to-br from-emerald-500/80 to-teal-600/80 shadow-lg shadow-emerald-500/30 scale-95' 
+                    : card.isFlipped
+                    ? 'bg-gradient-to-br from-amber-500/80 to-orange-600/80 shadow-lg shadow-amber-500/30'
+                    : 'bg-gradient-to-br from-slate-600/80 to-slate-700/80 hover:from-slate-500/80 hover:to-slate-600/80'
+                  }
+                  ${!card.isMatched && !card.isFlipped && !isCheckingMatch ? 'hover:scale-105 active:scale-95 cursor-pointer' : ''}
+                  border border-white/20`}
+                style={{
+                  transform: card.isFlipped || card.isMatched ? 'rotateY(0deg)' : 'rotateY(0deg)',
+                }}
+              >
+                {card.isFlipped || card.isMatched ? (
+                  <span className={card.isMatched ? 'animate-bounce-gentle' : ''}>{card.emoji}</span>
+                ) : (
+                  <span className="text-lg opacity-50">✨</span>
+                )}
+              </button>
+            ))}
+          </div>
+          
+          {/* Sparkles for matched cards */}
+          {memoryMatches > 0 && memoryMatches < MEMORY_EMOJIS.length && (
+            <div className="absolute top-2 right-2">
+              <Star size="sm" delay={0} />
+            </div>
+          )}
+        </div>
+        
+        {/* Cat mascot */}
+        <div className="w-24 h-24 mt-6 z-10 animate-float gpu-accelerated">
+          <CuteCat mood={memoryMatches === MEMORY_EMOJIS.length ? 'excited' : memoryMatches > 2 ? 'happy' : 'neutral'} className="w-full h-full" />
+        </div>
+        
+        {/* Progress indicator */}
+        <div className="flex gap-1 mt-4 z-10">
+          {[...Array(MEMORY_EMOJIS.length)].map((_, i) => (
+            <div 
+              key={i}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                i < memoryMatches 
+                  ? 'bg-emerald-400 shadow-lg shadow-emerald-400/50' 
+                  : 'bg-white/20'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   // Reward screen
   if (gameState === 'reward') {
     return (

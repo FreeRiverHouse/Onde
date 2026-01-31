@@ -5230,7 +5230,7 @@ export default function SkinCreator() {
         {/* Center - Canvas Editor */}
         <div className="flex-1 glass-card skin-glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl skin-animate-in delay-400 skin-canvas-container">
           {/* Toolbar - Mobile-friendly with larger touch targets */}
-          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4 justify-center px-1">
+          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4 justify-center px-1" data-tutorial="tools">
             <button
               onClick={() => setTool('brush')}
               title="🖌️ Draw! Click and drag to color (B)"
