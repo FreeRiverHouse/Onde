@@ -10581,12 +10581,19 @@
   - ✅ Build passes
 
 ### [T886] Skin Creator: Overlay Layer Ordering  
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-07
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Gestire ordine layer
+- **Notes**: ✅ Fixed layer ordering functionality!
+  - ✅ UI already had ↑/↓ buttons in layer panel
+  - ✅ Fixed moveLayer logic: "up" now correctly moves to higher z-index (top of stack)
+  - ✅ "down" moves to lower z-index (bottom of stack)
+  - ✅ Disabled state correct: can't go up from top, can't go down from bottom
+  - ✅ Layers recomposite automatically via useEffect
+  - ✅ Build passes
 
 ### [T887] Skin Creator: Save/Load Overlay Presets
 - **Status**: TODO

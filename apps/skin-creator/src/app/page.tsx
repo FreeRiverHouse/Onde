@@ -328,11 +328,16 @@ export default function SkinCreator() {
   }, []);
   
   // Move layer up/down in the stack
+  // Note: "up" means higher z-index (rendered later, appears on top)
+  // In the layers array: lower index = bottom, higher index = top
+  // Recompositing is handled by the useEffect that watches [layers]
   const moveLayer = useCallback((layerId: LayerType, direction: 'up' | 'down') => {
     setLayers(prev => {
       const index = prev.findIndex(l => l.id === layerId);
       if (index === -1) return prev;
-      const newIndex = direction === 'up' ? index - 1 : index + 1;
+      // "up" = move to higher index (toward top of stack)
+      // "down" = move to lower index (toward bottom of stack)
+      const newIndex = direction === 'up' ? index + 1 : index - 1;
       if (newIndex < 0 || newIndex >= prev.length) return prev;
       const newLayers = [...prev];
       [newLayers[index], newLayers[newIndex]] = [newLayers[newIndex], newLayers[index]];
