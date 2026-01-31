@@ -63,6 +63,84 @@ export default function GamingIsland() {
         {weatherIcons[weather]}
       </button>
 
+      {/* === CHAMPION FLAG - Leaderboard 🚩 === */}
+      <Link
+        href="/games/leaderboard"
+        className="absolute top-16 right-4 md:right-8 z-30 cursor-pointer group"
+      >
+        <div className="relative">
+          {/* Flag pole */}
+          <div className="absolute left-0 top-0 w-2 h-48 bg-gradient-to-b from-amber-600 via-amber-700 to-amber-900 rounded-full shadow-lg">
+            {/* Pole top ornament */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-gradient-to-b from-yellow-400 to-amber-600 rounded-full shadow-md border border-yellow-300" />
+          </div>
+          
+          {/* Animated Flag */}
+          <div className="ml-2 animate-flag-wave origin-left">
+            <div className="relative">
+              {/* Main flag body with gradient */}
+              <div className="w-40 md:w-48 bg-gradient-to-r from-red-500 via-red-600 to-red-700 rounded-r-lg shadow-xl overflow-hidden transition-all group-hover:scale-105 group-hover:shadow-2xl">
+                {/* Flag wave pattern overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-flag-shine" />
+                
+                {/* Flag content */}
+                <div className="p-3">
+                  {/* Title */}
+                  <div className="flex items-center gap-1 mb-2">
+                    <span className="text-xl animate-trophy-wiggle">🏆</span>
+                    <span className="text-xs md:text-sm font-black text-white drop-shadow-md tracking-wide">CHAMPIONS</span>
+                    <span className="text-lg">🚩</span>
+                  </div>
+                  
+                  {/* Top players */}
+                  {topPlayers.length > 0 ? (
+                    <div className="space-y-1">
+                      {topPlayers.slice(0, 3).map((player, index) => (
+                        <div 
+                          key={player.id}
+                          className="flex items-center gap-1 bg-white/20 rounded-md px-2 py-0.5 backdrop-blur-sm"
+                        >
+                          <span className="text-sm">
+                            {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
+                          </span>
+                          <span className="text-xs font-bold text-white truncate flex-1 max-w-[60px]">
+                            {player.name}
+                          </span>
+                          <span className="text-[10px] text-yellow-200 font-bold">
+                            {player.score.toLocaleString()}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-xs text-white/80 text-center py-2 font-medium">
+                      🎮 Play games to get on the leaderboard!
+                    </div>
+                  )}
+                  
+                  {/* Call to action */}
+                  <div className="mt-2 text-center">
+                    <span className="text-[10px] text-yellow-200 font-bold animate-pulse">
+                      ▶ TAP TO VIEW ALL ◀
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Flag tail (triangular cut) */}
+              <div className="absolute right-0 top-0 w-4 h-full">
+                <div className="absolute right-0 top-0 w-0 h-0 border-t-[60px] border-b-[60px] border-l-[16px] border-t-transparent border-b-transparent border-l-red-700" style={{ filter: 'brightness(0.9)' }} />
+              </div>
+            </div>
+          </div>
+          
+          {/* Sparkles around flag */}
+          <div className="absolute -top-2 right-4 text-sm animate-twinkle">✨</div>
+          <div className="absolute top-8 -right-2 text-xs animate-twinkle" style={{ animationDelay: '0.5s' }}>✨</div>
+          <div className="absolute bottom-2 right-8 text-sm animate-twinkle" style={{ animationDelay: '1s' }}>⭐</div>
+        </div>
+      </Link>
+
       {/* Rain overlay */}
       {weather === 'rain' && (
         <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
@@ -906,6 +984,25 @@ export default function GamingIsland() {
         .animate-duck-swim { animation: duck-swim 3s ease-in-out infinite; }
         .animate-water-shimmer { animation: water-shimmer 4s ease-in-out infinite; }
         .animate-flag-wave { animation: flag-wave 1s ease-in-out infinite; }
+        
+        @keyframes big-flag-wave {
+          0%, 100% { transform: skewY(0deg) scaleX(1); }
+          25% { transform: skewY(1deg) scaleX(0.98); }
+          50% { transform: skewY(-1deg) scaleX(1.02); }
+          75% { transform: skewY(0.5deg) scaleX(0.99); }
+        }
+        @keyframes flag-shine {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+        @keyframes trophy-wiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-10deg); }
+          75% { transform: rotate(10deg); }
+        }
+        .animate-big-flag-wave { animation: big-flag-wave 3s ease-in-out infinite; }
+        .animate-flag-shine { animation: flag-shine 4s ease-in-out infinite; }
+        .animate-trophy-wiggle { animation: trophy-wiggle 2s ease-in-out infinite; }
         
         @keyframes rain {
           0% { transform: translateY(0); opacity: 0; }
