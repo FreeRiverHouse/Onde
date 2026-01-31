@@ -79,6 +79,14 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 examples/gpt2.py --mo
 - ✅ GPT-2 XL (1.5B)
 - ✅ LLaMA 3.1 8B (su SSD esterno)
 
+### ⚠️ PROCEDURE COMPLETE
+**LEGGI SEMPRE:** `tools/RADEON-TINYGRAD-PROCEDURES.md`
+**Modelli su SSD:** `/Volumes/DATI-SSD/llm-models/`
+- `Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf` (4.9 GB)
+- `tokenizer.model`
+
+**NON reinventare la ruota!** Tutto è già documentato!
+
 ### ⚠️ PROCEDURA DI VERIFICA (PRIMA di dire "non funziona")
 1. `system_profiler SPThunderboltDataType | grep -A5 "Device Name"` → deve mostrare Core X V2
 2. `system_profiler SPDisplaysDataType | grep -i "vendor\|AMD"` → deve mostrare AMD
