@@ -12528,7 +12528,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Touch gestures for mobile zoom
 
 ### [T1008] Skin Creator: Double-Click Reset View
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12554,3 +12554,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: 1x, 2x, fit-to-view presets
+
+### [T1012] Skin Creator: Right-Click Context Menu
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Copy/paste/reset options via right-click
+
+### [T1013] Skin Creator: Keyboard Shortcuts Help
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Show all keyboard shortcuts overlay
+
+### [T1014] Skin Creator: Touch Gestures Guide
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Tutorial for mobile touch controls
