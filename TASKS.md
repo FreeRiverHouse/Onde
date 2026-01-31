@@ -12818,15 +12818,15 @@ Generated: 2026-01-30T18:37:46.867013
 
 
 ### [T1031] Infra: Add push-tasks-to-gist.py to Crontab
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
 - **Created-by**: @clawdinho
 - **Created**: 2026-01-30
 - **Priority**: P2
 - **Notes**: Add task sync to cron for continuous dashboard updates
-  - [ ] Add */10 * * * * python3 scripts/push-tasks-to-gist.py to crontab
-  - [ ] Verify GITHUB_GIST_TOKEN is set in environment
-  - [ ] Test Gist updates
+  - [x] Add */30 * * * * python3 scripts/push-tasks-to-gist.py to crontab
+  - [x] Verify script works (925 done, 10 in_progress, 78 todo)
+  - [x] Test Gist updates
 
 ### [T1032] Dashboard FRH: Deploy with Task Management Panel
 - **Status**: DONE ✅
