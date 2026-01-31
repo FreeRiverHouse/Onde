@@ -14086,3 +14086,78 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Skip redundant file reads
   - [ ] Track time spent per check type
   - Reduces heartbeat latency while maintaining coverage
+
+---
+
+## 🧸 SEMPLIFICARE UI PER BAMBINI (DA MATTIA 2026-01-31 08:32 PST)
+
+> Ada (5 anni) ha detto che Moonlight è "troppo busy" / overwhelming.
+> Ogni attività deve avere MENO elementi, più semplice, più pulito.
+
+### [T1101] UI: Semplificare Moonlight - Header Troppo Pieno
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: 
+  - Header ha troppi elementi: Lv, XP, 4 stats, flags, etc
+  - Nascondere stats avanzati, mostrare solo essenziali
+  - Rendere più child-friendly
+
+### [T1102] UI: Semplificare Moonlight - Menu Giochi Troppi
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**:
+  - 9 mini-giochi è overwhelming per bambini
+  - Raggrupparli o mostrarne meno alla volta
+  - Aggiungere icone più grandi e chiare
+
+### [T1103] UI: Semplificare Moonlight - Casa Interattiva
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**:
+  - Troppi bottoni stanza (9 stanze!)
+  - Ridurre o semplificare navigazione
+  - Focus su 3-4 stanze principali
+
+### [T1104] UI: Semplificare Skin Creator - Layer Panel
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**:
+  - Layer panel sempre visibile è confuso
+  - Nascondere per default, mostrare su richiesta
+  - Semplificare opzioni layer
+
+### [T1105] UI: Semplificare Skin Creator - Toolbar Troppi Tools
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**:
+  - Troppi tools nella toolbar
+  - Mostrare solo essenziali (brush, eraser, fill, colors)
+  - Opzioni avanzate in menu secondario
+
+### [T1106] Test: Memory Game Regression Test
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 08:42 PST
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**:
+  - Bug trovato: carte iniziavano scoperte
+  - Fix: invertito rotateY (0→180)
+  - Test: PASSED
+
