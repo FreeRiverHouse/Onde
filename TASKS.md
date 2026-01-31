@@ -12613,7 +12613,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Classic Fortnite floss dance animation
 
 ### [T1016] Skin Creator: Dab Pose
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12748,3 +12748,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Play music with dances (optional)
+
+### [T1030] Skin Creator: Pose Favorites
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Save favorite poses to quick access
+
+### [T1031] Skin Creator: Custom Pose Creator
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Let users create custom arm/leg positions
+
+### [T1032] Skin Creator: Pose Timeline
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Chain multiple poses into animation sequence
