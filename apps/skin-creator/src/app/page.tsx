@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
+import { enhancePromptWithLLM, checkLocalLLM } from '../lib/localLLM';
 
 // Confetti on download!
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
@@ -165,6 +166,8 @@ export default function SkinCreator() {
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [enhancing, setEnhancing] = useState(false);
+  const [localLLMAvailable, setLocalLLMAvailable] = useState(false);
   const [aiStyle, setAiStyle] = useState<'cartoon' | 'realistic' | 'pixel-art' | 'anime' | 'blocky'>('blocky');
   const [aiError, setAiError] = useState<string | null>(null);
   const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
@@ -192,6 +195,9 @@ export default function SkinCreator() {
         }
       }
     } catch (e) { /* ignore */ }
+    
+    // Check if local LLM is available
+    checkLocalLLM().then(setLocalLLMAvailable);
   }, []);
   
   // Save AI history to localStorage when it changes
@@ -429,6 +435,22 @@ export default function SkinCreator() {
     playSound('click');
   }, [getLayerCanvas, clearLayer, compositeLayersToMain]);
   
+  // ✨ Enhance prompt with local LLM
+  const enhancePrompt = async () => {
+    if (!aiPrompt.trim() || !localLLMAvailable) return;
+    setEnhancing(true);
+    try {
+      const enhanced = await enhancePromptWithLLM(aiPrompt);
+      if (enhanced && enhanced !== aiPrompt) {
+        setAiPrompt(enhanced);
+      }
+    } catch (e) {
+      console.error('Enhance failed:', e);
+    } finally {
+      setEnhancing(false);
+    }
+  };
+
   // 🤖 AI Skin Generation with real DALL-E 3 API + fallback
   const generateAISkin = async () => {
     if (!aiPrompt.trim()) return;
@@ -2101,14 +2123,26 @@ export default function SkinCreator() {
             <p className="text-sm text-gray-600 mb-4">Describe your character and AI will create a skin!</p>
             
             {/* Prompt Input */}
-            <input
-              type="text"
-              value={aiPrompt}
-              onChange={(e) => setAiPrompt(e.target.value)}
-              placeholder="e.g., pirate with red bandana, wizard with purple robe..."
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none mb-3"
-              onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
-            />
+            <div className="flex gap-2 mb-3">
+              <input
+                type="text"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value)}
+                placeholder="e.g., pirate with red bandana, wizard with purple robe..."
+                className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none"
+                onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
+              />
+              {localLLMAvailable && (
+                <button
+                  onClick={enhancePrompt}
+                  disabled={enhancing || !aiPrompt.trim()}
+                  className="px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-xl font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
+                  title="Enhance with AI (local LLM)"
+                >
+                  {enhancing ? '⏳' : '✨'}
+                </button>
+              )}
+            </div>
             
             {/* 📚 Kid-Friendly Prompt Library */}
             <div className="mb-4">
