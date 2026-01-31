@@ -25,9 +25,9 @@ export function getBookReadingEstimate(book: Book): { pages: number; time: strin
 
 export const books: Book[] = [
   {
-    id: 'meditations',
+    id: 'meditations-en',
     title: 'Meditations',
-    author: 'Marco Aurelio (Onde Edition)',
+    author: 'Marcus Aurelius (Onde Classics)',
     category: 'filosofia',
     lang: 'en',
     source: 'onde-studio',
@@ -35,6 +35,18 @@ export const books: Book[] = [
     readingTime: '~15 min',
     coverImage: '/images/books/meditations-cover.jpg',
     epubUrl: '/books/epub/meditations-en.epub',
+  },
+  {
+    id: 'meditations-it',
+    title: 'Meditazioni',
+    author: 'Marco Aurelio (Onde Classics)',
+    category: 'filosofia',
+    lang: 'it',
+    source: 'onde-studio',
+    pages: 48,
+    readingTime: '~15 min',
+    coverImage: '/images/books/meditations-cover.jpg',
+    epubUrl: '/books/epub/meditations-it.epub',
   },
   {
     id: 'shepherds-promise',

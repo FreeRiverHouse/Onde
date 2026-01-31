@@ -13731,3 +13731,11 @@ Generated: 2026-01-30T18:37:46.867013
 
 🎊 NEXT GOAL: 2000! 🎊
 
+
+### [T1001] Fix Books: Remove Salmo 23 Duplicates  
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 02:45 PST
+- **Fix**: Salmo 23 = Shepherd's Promise (same book!)
+- **Removed**: salmo-23-it, salmo-23-en duplicates
+- **Kept**: shepherds-promise
