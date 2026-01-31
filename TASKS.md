@@ -12362,7 +12362,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Switch between front/side/back camera views
 
 ### [T988] Infra: Fix GPU Detection in agent-dashboard-data.sh
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @clawdinho
 - **Depends**: -
@@ -12384,7 +12384,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Loggare insights in ROADMAP
 
 ### [T988] Skin Creator: Particle Toggle Button
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12445,3 +12445,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: See through character's eyes for POV check
+
+### [T997] Skin Creator: Particle Intensity Slider
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Adjust number/density of particles
+
+### [T998] Skin Creator: Particle Speed Control
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Control how fast particles float
+
+### [T999] Skin Creator: Particle Shape Options
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Stars, hearts, circles, squares shapes
