@@ -2432,6 +2432,22 @@ export default function SkinCreator() {
               >
                 {showGrid ? '▦' : '▢'} Grid
               </button>
+              <div className="w-px h-5 bg-gray-300 mx-1"></div>
+              {/* Zoom Presets */}
+              {[2, 4, 6, 8].map(z => (
+                <button
+                  key={z}
+                  onClick={() => setZoomLevel(z)}
+                  className={`w-6 h-6 rounded text-xs font-bold transition-all ${
+                    zoomLevel === z
+                      ? 'bg-purple-500 text-white'
+                      : 'bg-gray-200 hover:bg-gray-300'
+                  }`}
+                  title={`Zoom ${z}x`}
+                >
+                  {z}
+                </button>
+              ))}
             </div>
 
             {/* Canvas */}

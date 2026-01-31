@@ -12608,8 +12608,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Show current zoom level as percentage
 
 ### [T1011] Skin Creator: Zoom Presets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: 1x, 2x, fit-to-view presets
