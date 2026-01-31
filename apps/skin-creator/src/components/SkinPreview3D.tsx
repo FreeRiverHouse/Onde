@@ -23,6 +23,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const [pose, setPose] = useState<'walk' | 'idle' | 'wave'>('walk');
   const poseRef = useRef<'walk' | 'idle' | 'wave'>('walk');
   const [zoom, setZoom] = useState(5); // Camera distance
+  const zoomRef = useRef(5);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -242,6 +243,16 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       isDragging.current = false;
       setTimeout(() => { autoRotateRef.current = true; }, 3000);
     };
+    
+    // 🔍 Mouse wheel zoom
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.5 : -0.5;
+      const newZoom = Math.min(10, Math.max(3, zoomRef.current + delta));
+      zoomRef.current = newZoom;
+      setZoom(newZoom);
+      if (camera) camera.position.z = newZoom;
+    };
 
     renderer.domElement.addEventListener('mousedown', onMouseDown);
     renderer.domElement.addEventListener('mousemove', onMouseMove);
@@ -250,6 +261,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     renderer.domElement.addEventListener('touchstart', onTouchStart);
     renderer.domElement.addEventListener('touchmove', onTouchMove);
     renderer.domElement.addEventListener('touchend', onTouchEnd);
+    renderer.domElement.addEventListener('wheel', onWheel, { passive: false });
 
     // Animation loop with interactive rotation and walking
     let walkTime = 0;
@@ -316,6 +328,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       renderer.domElement.removeEventListener('touchstart', onTouchStart);
       renderer.domElement.removeEventListener('touchmove', onTouchMove);
       renderer.domElement.removeEventListener('touchend', onTouchEnd);
+      renderer.domElement.removeEventListener('wheel', onWheel);
       renderer.dispose();
       if (containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
