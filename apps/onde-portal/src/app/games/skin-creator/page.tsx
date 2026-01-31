@@ -2104,7 +2104,7 @@ export default function SkinCreator() {
             }}
             currentSkinData={(() => {
               // Get current skin as base64
-              const previewCanvas = previewCanvasRef.current;
+              const previewCanvas = canvasRef.current;
               if (previewCanvas) {
                 return previewCanvas.toDataURL('image/png');
               }
