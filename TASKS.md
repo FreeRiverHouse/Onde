@@ -12528,8 +12528,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Touch gestures for mobile zoom
 
 ### [T1008] Skin Creator: Double-Click Reset View
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Double-click to reset camera to default
