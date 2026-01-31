@@ -13822,3 +13822,15 @@ Generated: 2026-01-30T18:37:46.867013
 - **Status**: DONE ✅
 - **Owner**: @onde-bot
 - **Completed**: 2026-01-31 03:20 PST
+
+### [T1011] UPDATE
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 03:25 PST
+- **Scripts**: cpu-feedback-loop.sh, screenshot-watchdog.sh
+
+### [T1013] UPDATE
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 03:25 PST
+- **Script**: ~/clawd/scripts/screenshot-watchdog.sh
