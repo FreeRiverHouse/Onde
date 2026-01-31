@@ -152,24 +152,28 @@
   - **Test 2026-01-30 21:35 PST**: ✅ Passato (7 keyword messages, 64 recent TASKS commits)
 
 ### [T963] Watchdog: Dashboard Endpoint con Stato Agenti
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Started**: 2026-01-30 21:20 PST
+- **Completed**: 2026-01-30 21:40 PST
 - **Depends**: [T961] ✅
 - **Blocks**: -
 - **Priority**: P0 🔥🔥🔥
 - **Notes**: DA MATTIA (ID:2972) - DASHBOARD CON DATI VERI!
   - **Script JSON**: `scripts/agent-dashboard-data.sh` ✅
+  - **Script Gist Push**: `scripts/push-agent-status-to-gist.py` ✅
+  - **API Endpoint**: `apps/surfboard/src/app/api/agents/status/route.ts` ✅
   - **Dati disponibili:**
-    - [x] Task stats (total, done, in_progress, todo)
+    - [x] Task stats (total, done, in_progress, todo, completion_rate)
     - [x] Memory stats (entries today, file size)
     - [x] Ultimo commit per Clawdinho/Ondinho
     - [x] Stato GPU (Radeon connected/disconnected)
     - [x] Stato Ollama (local/remote, modelli)
-    - [x] Stato Autotrader (running, PID)
+    - [x] Stato Autotrader (running, PID, circuit_breaker)
     - [x] Alert count
-  - **Prossimo step**: Creare API route su surfboard + widget React
-  - **Endpoint target**: onde.surf/agent-status
+  - **Cron**: `*/5 * * * * python3 scripts/push-agent-status-to-gist.py`
+  - **Endpoint**: onde.surf/api/agents/status
+  - **Test locale**: `data/agent-status.json` (882/941 tasks done, 112 memory entries)
 
 ### [T964] Watchdog: Dashboard con Dati GPU Real-Time
 - **Status**: TODO
