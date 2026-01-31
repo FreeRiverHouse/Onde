@@ -188,18 +188,28 @@
   - Compare cost: local vs API calls
 
 ### [T874] Local LLM: Code review delegation workflow
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Automated code review via local LLM before commit:
-  - Script: `scripts/local-code-review.sh FILE_OR_DIFF`
-  - Uses deepseek-coder for code analysis
-  - Checks: bugs, security issues, code style, complexity
-  - Output: markdown report with suggestions
-  - Can integrate with git pre-commit hook
-  - Example: `git diff HEAD~1 | ./scripts/local-code-review.sh`
+- **Notes**: ✅ Automated code review via local LLM!
+  - ✅ Shell script: `scripts/local-code-review.sh FILE_OR_DIFF`
+  - ✅ Python module: `scripts/local_code_review.py`
+    - `review_code(code)` - review string
+    - `review_file(path)` - review file
+    - `review_diff(ref)` - review git diff
+  - ✅ Models: deepseek-coder:6.7b (default), qwen2.5-coder:7b
+  - ✅ Checks: bugs, security, performance, style
+  - ✅ Markdown output with categorized findings
+  - ✅ Tested: Correctly identified ZeroDivisionError in 23.6s
+  - **Usage examples:**
+    ```bash
+    ./scripts/local-code-review.sh myfile.py
+    git diff HEAD~1 | ./scripts/local-code-review.sh
+    python3 scripts/local_code_review.py --diff
+    ```
 
 ---
 
