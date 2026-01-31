@@ -333,6 +333,170 @@ const sounds = {
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.05 + 0.15)
       o.start(ctx.currentTime + i * 0.05); o.stop(ctx.currentTime + i * 0.05 + 0.15)
     }
+  },
+
+  // ========== INTERACTIVE FURNITURE SOUNDS ==========
+
+  // Lamp click - soft switch click with warm tone
+  lampClick: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(800, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0.15, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
+    o.start(); o.stop(ctx.currentTime + 0.08)
+    haptic.light()
+  },
+
+  // Cuckoo clock - bird chirp sound
+  cuckoo: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Two-note cuckoo
+    for (let i = 0; i < 2; i++) {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(i === 0 ? 880 : 660, ctx.currentTime + i * 0.4)
+      o.frequency.exponentialRampToValueAtTime(i === 0 ? 770 : 550, ctx.currentTime + i * 0.4 + 0.15)
+      o.type = 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.4)
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.4 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.4 + 0.3)
+      o.start(ctx.currentTime + i * 0.4); o.stop(ctx.currentTime + i * 0.4 + 0.3)
+    }
+    haptic.double()
+  },
+
+  // Piano notes - musical scale
+  pianoNote: (enabled: boolean, noteIndex: number = 0) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [262, 294, 330, 349, 392, 440, 494, 523] // C major scale
+    const freq = notes[noteIndex % notes.length]
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(freq, ctx.currentTime)
+    o.type = 'triangle'
+    g.gain.setValueAtTime(0, ctx.currentTime)
+    g.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.01)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8)
+    o.start(); o.stop(ctx.currentTime + 0.8)
+    haptic.light()
+  },
+
+  // Book shuffle - paper rustling sound
+  bookShuffle: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // White noise filtered for paper sound
+    const bufferSize = ctx.sampleRate * 0.15
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+    const data = buffer.getChannelData(0)
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3))
+    }
+    const source = ctx.createBufferSource()
+    const filter = ctx.createBiquadFilter()
+    const g = ctx.createGain()
+    source.buffer = buffer
+    filter.type = 'bandpass'
+    filter.frequency.setValueAtTime(2000, ctx.currentTime)
+    filter.Q.setValueAtTime(0.5, ctx.currentTime)
+    source.connect(filter); filter.connect(g); g.connect(ctx.destination)
+    g.gain.setValueAtTime(0.08, ctx.currentTime)
+    source.start()
+    haptic.light()
+  },
+
+  // Picture frame magic - ethereal shimmer
+  frameMagic: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [523, 659, 784, 1047]
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      const filter = ctx.createBiquadFilter()
+      o.connect(filter); filter.connect(g); g.connect(ctx.destination)
+      filter.type = 'highpass'
+      filter.frequency.setValueAtTime(400, ctx.currentTime)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.06)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.06)
+      g.gain.linearRampToValueAtTime(0.08, ctx.currentTime + i * 0.06 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.5)
+      o.start(ctx.currentTime + i * 0.06); o.stop(ctx.currentTime + i * 0.06 + 0.5)
+    })
+    haptic.medium()
+  },
+
+  // Flower bloom - soft ascending chime
+  flowerBloom: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [392, 523, 659, 784]
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.1)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.1)
+      g.gain.linearRampToValueAtTime(0.1, ctx.currentTime + i * 0.1 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.4)
+      o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.4)
+    })
+    haptic.success()
+  },
+
+  // Carpet whoosh - airy levitation sound
+  carpetWhoosh: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const o = ctx.createOscillator(), g = ctx.createGain()
+    const filter = ctx.createBiquadFilter()
+    o.connect(filter); filter.connect(g); g.connect(ctx.destination)
+    filter.type = 'lowpass'
+    filter.frequency.setValueAtTime(200, ctx.currentTime)
+    filter.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.3)
+    filter.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.6)
+    o.frequency.setValueAtTime(100, ctx.currentTime)
+    o.type = 'sine'
+    g.gain.setValueAtTime(0, ctx.currentTime)
+    g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.1)
+    g.gain.setValueAtTime(0.12, ctx.currentTime + 0.4)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8)
+    o.start(); o.stop(ctx.currentTime + 0.8)
+    haptic.celebration()
+  },
+
+  // Mirror shimmer - magical reflection sound
+  mirrorShimmer: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Descending then ascending arpeggio for mirror effect
+    const notes = [1047, 880, 784, 659, 784, 880, 1047]
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.08)
+      g.gain.linearRampToValueAtTime(0.06, ctx.currentTime + i * 0.08 + 0.01)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.25)
+      o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.25)
+    })
+    haptic.double()
   }
 }
 

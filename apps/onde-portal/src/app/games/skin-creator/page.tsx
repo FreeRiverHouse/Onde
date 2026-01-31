@@ -315,6 +315,7 @@ export default function SkinCreator() {
   const [gridColor, setGridColor] = useState<'light' | 'dark' | 'blue' | 'red'>('dark'); // Grid line color
   const [showBodyPartOverlay, setShowBodyPartOverlay] = useState(false); // Highlight body part regions
   const [hoverPixel, setHoverPixel] = useState<{ x: number; y: number } | null>(null); // Pixel under cursor
+  const [eyedropperPreviewColor, setEyedropperPreviewColor] = useState<string | null>(null); // Color preview for eyedropper
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
