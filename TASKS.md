@@ -10622,8 +10622,8 @@
   - ⏳ TODO: Deploy updated version
 
 ### [T891] Skin Creator: Create App Store Marketing Assets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T889]
 - **Blocks**: -
 - **Priority**: P2
@@ -10635,8 +10635,8 @@
   - Before/after AI generation showcase
 
 ### [T892] Skin Creator: Localize App Store Listings
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T889]
 - **Blocks**: -
 - **Priority**: P3
@@ -10683,8 +10683,8 @@
   - ⏳ TODO: Add custom domain (e.g., skin.onde.surf)
 
 ### [T896] Skin Studio: Add Roblox skin export format
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T888]
 - **Blocks**: -
 - **Priority**: P2
