@@ -2,6 +2,127 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 
+// Sound preference types
+type SoundType = 'none' | 'subtle' | 'chime' | 'alert'
+
+interface SoundPreferences {
+  enabled: boolean
+  type: SoundType
+  volume: number // 0-1
+}
+
+const DEFAULT_SOUND_PREFS: SoundPreferences = {
+  enabled: true,
+  type: 'subtle',
+  volume: 0.5,
+}
+
+const SOUND_LABELS: Record<SoundType, string> = {
+  none: '🔇 None',
+  subtle: '🔔 Subtle',
+  chime: '🎵 Chime',
+  alert: '🚨 Alert',
+}
+
+// Sound generation using Web Audio API
+function playNotificationSound(type: SoundType, volume: number): void {
+  if (type === 'none' || typeof window === 'undefined') return
+
+  try {
+    const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    const oscillator = audioContext.createOscillator()
+    const gainNode = audioContext.createGain()
+
+    oscillator.connect(gainNode)
+    gainNode.connect(audioContext.destination)
+
+    gainNode.gain.value = volume * 0.3 // Scale down for comfort
+
+    const now = audioContext.currentTime
+
+    switch (type) {
+      case 'subtle':
+        // Soft ping - single high note fading out
+        oscillator.frequency.setValueAtTime(880, now)
+        oscillator.frequency.exponentialRampToValueAtTime(660, now + 0.1)
+        gainNode.gain.setValueAtTime(volume * 0.2, now)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15)
+        oscillator.start(now)
+        oscillator.stop(now + 0.15)
+        break
+
+      case 'chime':
+        // Pleasant two-tone chime
+        oscillator.frequency.setValueAtTime(523.25, now) // C5
+        oscillator.frequency.setValueAtTime(659.25, now + 0.1) // E5
+        gainNode.gain.setValueAtTime(volume * 0.25, now)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.25)
+        oscillator.start(now)
+        oscillator.stop(now + 0.25)
+        break
+
+      case 'alert':
+        // Attention-grabbing double beep
+        oscillator.frequency.setValueAtTime(1046.5, now) // C6
+        gainNode.gain.setValueAtTime(volume * 0.3, now)
+        gainNode.gain.setValueAtTime(0.01, now + 0.08)
+        gainNode.gain.setValueAtTime(volume * 0.3, now + 0.12)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.2)
+        oscillator.start(now)
+        oscillator.stop(now + 0.2)
+        break
+    }
+
+    // Cleanup
+    setTimeout(() => {
+      audioContext.close()
+    }, 500)
+  } catch (err) {
+    console.warn('Failed to play notification sound:', err)
+  }
+}
+
+// Hook for managing sound preferences
+function useSoundPreferences() {
+  const [prefs, setPrefs] = useState<SoundPreferences>(DEFAULT_SOUND_PREFS)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      const stored = localStorage.getItem('notification-sound-prefs')
+      if (stored) {
+        setPrefs({ ...DEFAULT_SOUND_PREFS, ...JSON.parse(stored) })
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, [])
+
+  const updatePrefs = useCallback((updates: Partial<SoundPreferences>) => {
+    setPrefs(prev => {
+      const next = { ...prev, ...updates }
+      try {
+        localStorage.setItem('notification-sound-prefs', JSON.stringify(next))
+      } catch {
+        // Ignore storage errors
+      }
+      return next
+    })
+  }, [])
+
+  const playSound = useCallback(() => {
+    if (prefs.enabled && prefs.type !== 'none') {
+      playNotificationSound(prefs.type, prefs.volume)
+    }
+  }, [prefs])
+
+  const testSound = useCallback(() => {
+    playNotificationSound(prefs.type, prefs.volume)
+  }, [prefs])
+
+  return { prefs, updatePrefs, playSound, testSound }
+}
+
 interface Notification {
   id: string
   type: 'alert' | 'event' | 'info' | 'success' | 'warning' | 'agent' | 'activity'
@@ -186,8 +307,11 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
+  const [showSoundSettings, setShowSoundSettings] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const prevUnreadCountRef = useRef<number>(0)
+  const { prefs: soundPrefs, updatePrefs: updateSoundPrefs, playSound, testSound } = useSoundPreferences()
 
   // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
@@ -320,13 +444,20 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
 
       const unreadCount = notifications.filter(n => !n.read).length
 
+      // Check if new notifications arrived and play sound
+      const prevUnread = prevUnreadCountRef.current
+      if (unreadCount > prevUnread && prevUnread !== 0) {
+        playSound()
+      }
+      prevUnreadCountRef.current = unreadCount
+
       setData({ notifications, unreadCount })
     } catch (err) {
       console.error('Failed to fetch notifications:', err)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [playSound])
 
   // Initial fetch
   useEffect(() => {
@@ -350,12 +481,20 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
         !buttonRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false)
+        setShowSoundSettings(false)
       }
     }
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside)
       return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
+
+  // Close sound settings when panel closes
+  useEffect(() => {
+    if (!isOpen) {
+      setShowSoundSettings(false)
     }
   }, [isOpen])
 
@@ -488,6 +627,103 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                   Mark all read
                 </button>
               )}
+              {/* Sound settings toggle */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowSoundSettings(!showSoundSettings)}
+                  className={`p-1 rounded-lg transition-colors ${
+                    showSoundSettings 
+                      ? 'bg-white/10 text-white/80' 
+                      : 'text-white/40 hover:text-white/60 hover:bg-white/10'
+                  }`}
+                  title="Sound settings"
+                >
+                  {soundPrefs.enabled && soundPrefs.type !== 'none' ? (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                    </svg>
+                  )}
+                </button>
+                
+                {/* Sound settings dropdown */}
+                {showSoundSettings && (
+                  <div className="absolute right-0 top-full mt-1 w-48 rounded-xl border border-white/10 bg-black/95 backdrop-blur-xl shadow-xl p-3 z-10 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <div className="text-xs font-medium text-white/70 mb-2">Sound Preferences</div>
+                    
+                    {/* Enable/disable toggle */}
+                    <label className="flex items-center justify-between py-1.5 cursor-pointer group">
+                      <span className="text-xs text-white/60 group-hover:text-white/80">Enable sounds</span>
+                      <button
+                        onClick={() => updateSoundPrefs({ enabled: !soundPrefs.enabled })}
+                        className={`w-8 h-4 rounded-full transition-colors ${
+                          soundPrefs.enabled ? 'bg-cyan-500' : 'bg-white/20'
+                        }`}
+                      >
+                        <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                          soundPrefs.enabled ? 'translate-x-4' : 'translate-x-0.5'
+                        }`} />
+                      </button>
+                    </label>
+                    
+                    {/* Sound type selector */}
+                    <div className="mt-2 pt-2 border-t border-white/10">
+                      <div className="text-[10px] text-white/40 uppercase tracking-wider mb-1.5">Sound Type</div>
+                      <div className="space-y-0.5">
+                        {(Object.keys(SOUND_LABELS) as SoundType[]).map((type) => (
+                          <button
+                            key={type}
+                            onClick={() => updateSoundPrefs({ type })}
+                            className={`w-full text-left px-2 py-1 rounded-lg text-xs transition-colors ${
+                              soundPrefs.type === type 
+                                ? 'bg-cyan-500/20 text-cyan-400' 
+                                : 'text-white/60 hover:bg-white/10 hover:text-white/80'
+                            }`}
+                          >
+                            {SOUND_LABELS[type]}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Volume slider */}
+                    {soundPrefs.type !== 'none' && (
+                      <div className="mt-2 pt-2 border-t border-white/10">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[10px] text-white/40 uppercase tracking-wider">Volume</span>
+                          <span className="text-[10px] text-white/50">{Math.round(soundPrefs.volume * 100)}%</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={soundPrefs.volume}
+                          onChange={(e) => updateSoundPrefs({ volume: parseFloat(e.target.value) })}
+                          className="w-full h-1.5 rounded-full appearance-none bg-white/20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cyan-400"
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Test sound button */}
+                    {soundPrefs.type !== 'none' && (
+                      <button
+                        onClick={testSound}
+                        className="w-full mt-2 px-2 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/80 hover:bg-white/10 transition-colors flex items-center justify-center gap-1"
+                      >
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
+                        </svg>
+                        Test sound
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1 rounded-lg text-white/40 hover:text-white/60 hover:bg-white/10 transition-colors"
