@@ -2371,6 +2371,18 @@ export default function SkinCreator() {
                       <button
                         onClick={(e) => { 
                           e.stopPropagation();
+                          // Rename skin
+                          const newName = prompt('✏️ Rename skin:', skin.name);
+                          if (newName && newName.trim()) {
+                            setSavedSkins(prev => prev.map(s => s.id === skin.id ? { ...s, name: newName.trim() } : s));
+                          }
+                        }}
+                        className="absolute -bottom-1 -left-1 w-4 h-4 bg-green-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Rename"
+                      >✏️</button>
+                      <button
+                        onClick={(e) => { 
+                          e.stopPropagation();
                           // Duplicate skin
                           const newSkin = { ...skin, id: Date.now().toString(), name: `${skin.name} (copy)` };
                           setSavedSkins(prev => [...prev, newSkin]);
