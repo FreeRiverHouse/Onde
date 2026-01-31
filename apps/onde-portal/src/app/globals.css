@@ -1226,6 +1226,61 @@ body {
 }
 
 /* ============================================
+   AI COMPANION ANIMATIONS
+   ============================================ */
+
+/* Floating/bobbing animation for idle state */
+@keyframes companion-float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-8px); }
+}
+
+/* Slow spin for celebration */
+@keyframes companion-spin-slow {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Wave/wiggle animation */
+@keyframes companion-wiggle {
+  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) rotate(12deg); }
+  75% { transform: translate(-50%, -50%) rotate(-12deg); }
+}
+
+/* Bounce for excited state */
+@keyframes companion-bounce {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-15px); }
+}
+
+/* Pulse for happy state */
+@keyframes companion-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.animate-companion-float {
+  animation: companion-float 3s ease-in-out infinite;
+}
+
+.animate-companion-spin-slow {
+  animation: companion-spin-slow 2s linear infinite;
+}
+
+.animate-companion-wiggle {
+  animation: companion-wiggle 0.5s ease-in-out;
+}
+
+.animate-companion-bounce {
+  animation: companion-bounce 0.6s ease-in-out infinite;
+}
+
+.animate-companion-pulse {
+  animation: companion-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
    THEME SYSTEM - CSS Variables
    Applied dynamically by ThemeProvider
    ============================================ */
