@@ -9,8 +9,9 @@
 ## 🚀 ARCHITETTURA AGENTICA MULTI-GPU (DA MATTIA 2026-01-30 20:34)
 
 ### [T955] Agentic: Sviluppo Architettura Parallela con Radeon
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30 20:55 PST
 - **Depends**: -
 - **Blocks**: [T956]
 - **Priority**: P0 🔥🔥🔥
@@ -18,23 +19,61 @@
   - **Obiettivo**: Architettura agentica per task paralleli su Radeon GPU
   - **Contesto**: Tokens gratis con LLaMA locale, ottimizzare workflow
   - **Target**: Da 5 ore → 20 minuti per un'app
-  - **Agenti esistenti**: tools/tech-support e altri nel repo
-  - **Deliverable**:
-    1. Analizzare agenti esistenti
-    2. Creare sistema dispatching task paralleli
-    3. Integrare con LLM API server Radeon
-    4. Documentare per Ondinho
+  - **RISULTATO**: IL FRAMEWORK ESISTE GIÀ E FUNZIONA! 🎉
+  - **Componenti verificati:**
+    - ✅ `tools/agentic/dispatcher.py` - Orchestratore completo (500+ linee)
+    - ✅ 4 tipi agenti: CODER (deepseek-coder), TESTER (llama31), DEPLOYER (llama3.2), RESEARCHER (qwen2.5)
+    - ✅ Routing automatico task → agente per keywords
+    - ✅ Esecuzione parallela ThreadPoolExecutor + async con aiohttp
+    - ✅ Pipeline sequenziali con context passing
+    - ✅ Stats tracking (durata, tokens, success rate)
+  - **Test 2026-01-30 20:50 PST:**
+    ```
+    d.run("Write hello world Python") 
+    Success: True | 31.7 sec | deepseek-coder:6.7b
+    ```
+  - **Ollama su 192.168.1.111:11434 ha tutti i modelli:**
+    - deepseek-coder:6.7b (3.8GB)
+    - qwen2.5-coder:7b (4.7GB)
+    - llama31-8b (4.9GB)
+    - llama3.2:3b (2.0GB)
+  - **Uso:**
+    ```python
+    from tools.agentic import Dispatcher
+    d = Dispatcher()
+    d.run("Write feature X")  # singolo
+    d.parallel(["Task A", "Task B", "Task C"])  # parallelo
+    d.pipeline([...])  # sequenziale
+    ```
 
 ### [T956] Agentic: Far Implementare Architettura a Ondinho
-- **Status**: TODO
-- **Owner**: -
-- **Depends**: [T955]
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Depends**: [T955] ✅
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Dopo che Clawdinho completa [T955], istruire Ondinho:
-  - Condividere documentazione architettura
-  - Ondinho deve usare stesso sistema
-  - Coordinamento multi-agente
+- **Notes**: Ondinho deve usare `tools/agentic` per task paralleli!
+  - **ISTRUZIONI PER ONDINHO:**
+    1. `git pull origin main` - scarica framework
+    2. Leggi `tools/agentic/README.md` - documentazione completa
+    3. Usa Dispatcher per task complessi
+    4. Ollama URL: `http://192.168.1.111:11434` (Radeon 7900 XTX)
+  - **Esempio base:**
+    ```python
+    from tools.agentic import Dispatcher
+    d = Dispatcher()
+    result = d.run("Write a REST API for todos")
+    print(result.output)
+    ```
+  - **Parallelo:**
+    ```python
+    results = d.parallel([
+        "Write API routes",
+        "Write database models",
+        "Write unit tests"
+    ])
+    ```
+  - **Clawdinho** notifica Ondinho al prossimo heartbeat o commit
 
 ---
 
