@@ -11023,3 +11023,84 @@
 - **Priority**: P3
 - **Notes**: Auto-logged feature request
   - This is a test
+
+---
+
+## 🌙 MOONLIGHT MAGIC HOUSE AUTO-DEV (DA MATTIA 2026-01-30)
+
+### [T916] Moonlight v1.1: Biblioteca - Stanza Nuova
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Created**: 2026-01-30 18:25
+- **Depends**: -
+- **Blocks**: [T917], [T918], [T919]
+- **Priority**: P1
+- **Notes**: Aggiungere stanza Biblioteca come da ROADMAP.md
+  - [ ] Creare sfondo biblioteca (background image)
+  - [ ] Aggiungere roomData entry per 'library'
+  - [ ] Luna che legge (animazione sprite)
+  - [ ] Scaffali libri interattivi
+  - **Target**: onde.la/games/moonlight-magic-house
+
+### [T917] Moonlight v1.1: Integrazione Libri Onde
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: [T916]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Integrare libri Onde nella biblioteca
+  - [ ] Interface Book con titolo, cover, pagine, preview, prezzo
+  - [ ] 7 libri dalla ROADMAP (AIKO, Salmo 23, Piccole Rime, etc.)
+  - [ ] Preview 2-3 pagine gratis
+  - [ ] Link a store Onde per acquisto
+  - [ ] Badge achievement per libri letti
+
+### [T918] Moonlight v1.1: Bonus Stats Lettura
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: [T916]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Aggiungere bonus stats quando Luna legge
+  - [ ] +Felicità quando legge
+  - [ ] +Salute quando completa libro
+  - [ ] +Coins per tempo lettura
+  - [ ] Animazione lettura (pagine che girano)
+
+### [T919] Moonlight v1.1: Deploy Biblioteca to onde.la
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: [T916], [T917], [T918]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Deploy versione Biblioteca
+  - [ ] npm run build
+  - [ ] Copy to onde-portal/public/static-games/moonlight-magic-house/
+  - [ ] Deploy via wrangler
+  - [ ] Verify https://onde.la/games/moonlight-magic-house/
+
+### [T920] Moonlight: Setup Testing Automatico 24/7
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Creare processo di testing continuo come Ondinho
+  - [ ] Script puppeteer per test automatici
+  - [ ] Test ogni stanza navigabile
+  - [ ] Test azioni (mangia, gioca, dormi)
+  - [ ] Test stats decay/increase
+  - [ ] Cron job ogni 30min
+  - [ ] Alert se test fallisce
+
+### [T921] Moonlight: Sistema Task Auto-Generation
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: [T920]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Sistema che genera task automaticamente come Ondinho
+  - [ ] Analizza ROADMAP.md per feature mancanti
+  - [ ] Crea task in TASKS.md automaticamente
+  - [ ] Prioritizza in base a ROADMAP
+  - [ ] Monitora completamento e genera next task
