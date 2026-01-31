@@ -24,7 +24,7 @@
 | MLH-008 | Add search history + recent commands to palette | DONE | @clawdinho | - |
 | MLH-009 | Add agent activity feed to notification center | DONE | @clawdinho | MLH-007 |
 | MLH-010 | Add notification sound preferences (mute/sound type) | DONE | @clawdinho | MLH-007 |
-| MLH-011 | Add notification persistence with localStorage | TODO | - | MLH-007 |
+| MLH-011 | Add notification persistence with localStorage | IN_PROGRESS | @clawdinho | MLH-007 |
 | MLH-012 | Add notification grouping by source/type | TODO | - | MLH-007 |
 | MLH-013 | Add swipe-to-dismiss for mobile notifications | TODO | - | MLH-007 |
 | MLH-014 | Add desktop push notification permission request | TODO | - | MLH-007 |
