@@ -12621,8 +12621,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Dab pose animation
 
 ### [T1017] Skin Creator: Animation Speed Control
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Slider to control animation speed
