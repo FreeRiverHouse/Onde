@@ -16,7 +16,7 @@
 |----|------|--------|-------|---------|
 | MLH-001 | Review UI dashboard onde.surf per miglioramenti | DONE | @clawdinho | - |
 | MLH-002 | Testare flusso autenticazione completo | DONE | @clawdinho | - |
-| MLH-003 | Add keyboard shortcut handler for ⌘K quick actions | TODO | - | - |
+| MLH-003 | Add keyboard shortcut handler for ⌘K quick actions | IN_PROGRESS | @clawdinho | - |
 | MLH-004 | Add dark/light theme toggle | TODO | - | - |
 | MLH-005 | Add loading states for async panels | TODO | - | - |
 
