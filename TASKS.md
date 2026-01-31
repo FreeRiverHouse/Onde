@@ -12419,7 +12419,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Choose background for screenshots (transparent, solid, gradient)
 
 ### [T993] Skin Creator: Pose Selector
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12466,3 +12466,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Stars, hearts, circles, squares shapes
+
+### [T1000] 🎉 Skin Creator: Milestone Feature
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P1
+- **Notes**: TASK 1000! Special milestone - add confetti celebration on app load
+
+### [T1001] Skin Creator: Dance Animation
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Fortnite-style dance pose
+
+### [T1002] Skin Creator: Combat Pose
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Sword/bow combat stance
