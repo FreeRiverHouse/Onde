@@ -11238,3 +11238,16 @@ Generated: 2026-01-30T18:37:46.867013
   - Poter ruotare il personaggio
   - Vedere tutti i lati
   - Controlli touch-friendly per iPad
+
+### [T925] Skin Creator: Continuous Testing + Kid Simulation
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Test continuo come un bambino:
+  - Browser testing 24/7
+  - Simulare bambino che gioca
+  - Se problema → task
+  - Se miglioramento → task
+  - Generare idee creative
