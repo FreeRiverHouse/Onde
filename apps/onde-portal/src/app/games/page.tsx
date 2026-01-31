@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useMemo } from 'react'
+import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
 
 const games = [
   { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Pet House', emoji: '🐱' },
@@ -23,6 +24,7 @@ const weatherCycle: Weather[] = ['sunny', 'rain', 'snow']
 export default function GamingIsland() {
   const [hoveredArea, setHoveredArea] = useState<string | null>(null)
   const [weather, setWeather] = useState<Weather>('sunny')
+  const { topPlayers } = useGlobalLeaderboard()
 
   const cycleWeather = () => {
     const currentIndex = weatherCycle.indexOf(weather)
