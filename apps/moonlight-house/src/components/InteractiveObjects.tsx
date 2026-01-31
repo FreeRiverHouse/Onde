@@ -4,7 +4,7 @@ import { SoundEffect } from '../useSoundManager';
 import '../InteractiveObjects.css';
 
 // Types
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement' | 'library';
 
 interface InteractiveObject {
   id: string;
@@ -365,6 +365,62 @@ const ROOM_OBJECTS: Record<RoomKey, InteractiveObject[]> = {
       position: { x: 15, y: 30 },
       size: 'small',
       action: 'surprise',
+    },
+  ],
+  library: [
+    {
+      id: 'bookshelf',
+      name: { it: 'Scaffale Libri', en: 'Bookshelf' },
+      icon: '📚',
+      position: { x: 20, y: 40 },
+      size: 'large',
+      action: 'story',
+      story: {
+        it: '📖 Tanti libri meravigliosi! Quale leggiamo oggi? 🌟',
+        en: '📖 So many wonderful books! Which one shall we read? 🌟'
+      },
+      reward: { happiness: 10, xp: 5 },
+    },
+    {
+      id: 'reading-nook',
+      name: { it: 'Angolo Lettura', en: 'Reading Nook' },
+      icon: '🛋️',
+      position: { x: 70, y: 55 },
+      size: 'large',
+      action: 'reward',
+      reward: { happiness: 15, xp: 5 },
+      cooldown: 300,
+    },
+    {
+      id: 'globe',
+      name: { it: 'Mappamondo', en: 'Globe' },
+      icon: '🌍',
+      position: { x: 80, y: 30 },
+      size: 'medium',
+      action: 'story',
+      story: {
+        it: '🗺️ Il mondo è grande e pieno di avventure! Dove andremo? 🌏',
+        en: '🗺️ The world is big and full of adventures! Where shall we go? 🌏'
+      },
+      reward: { xp: 10 },
+    },
+    {
+      id: 'magic-lamp',
+      name: { it: 'Lampada Magica', en: 'Magic Lamp' },
+      icon: '🪔',
+      position: { x: 50, y: 25 },
+      size: 'small',
+      action: 'surprise',
+      reward: { happiness: 5, coins: 3 },
+    },
+    {
+      id: 'story-book',
+      name: { it: 'Libro di Storie', en: 'Story Book' },
+      icon: '📕',
+      position: { x: 35, y: 60 },
+      size: 'medium',
+      action: 'mini-game',
+      gameType: 'memory',
     },
   ],
 };

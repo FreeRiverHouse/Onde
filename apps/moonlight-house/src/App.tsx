@@ -22,7 +22,7 @@ const BASE_URL = import.meta.env.BASE_URL || '/';
 
 // ==================== TYPES ====================
 type Language = 'it' | 'en';
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement' | 'library';
 type MoodType = 'happy' | 'neutral' | 'sad' | 'sleepy' | 'hungry' | 'excited';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
@@ -59,7 +59,7 @@ const translations = {
     rooms: {
       bedroom: 'Camera', kitchen: 'Cucina', garden: 'Giardino', living: 'Salotto',
       bathroom: 'Bagno', garage: 'Garage', shop: 'Negozio', supermarket: 'Supermercato',
-      attic: 'Soffitta', basement: 'Cantina',
+      attic: 'Soffitta', basement: 'Cantina', library: 'Biblioteca',
     },
     actions: {
       bedroom: { primary: 'Dormi', secondary: 'Leggi' },
@@ -72,6 +72,7 @@ const translations = {
       supermarket: { primary: 'Compra cibo', secondary: 'Esplora' },
       attic: { primary: 'Cerca tesori', secondary: 'Esplora' },
       basement: { primary: 'Costruisci', secondary: 'Organizza' },
+      library: { primary: 'Leggi', secondary: 'Sfoglia' },
     },
     stats: { health: 'Salute', hunger: 'Fame', energy: 'Energia', happiness: 'Felicità' },
     messages: {
@@ -85,6 +86,8 @@ const translations = {
       eventRain: '🌧️ Piove! Moonlight si diverte!',
       treasureHunt: 'Che scoperta! 🗝️',
       building: 'Fatto! 🔨',
+      reading: 'Che bella storia! 📖',
+      browsing: 'Tanti libri! 📚',
     },
     moods: { happy: 'Felice!', neutral: 'Tranquillo', sad: 'Triste...', sleepy: 'Assonnato', hungry: 'Affamato', excited: 'Eccitato!' },
     timeOfDay: { morning: '🌅 Mattina', afternoon: '☀️ Pomeriggio', evening: '🌆 Sera', night: '🌙 Notte' },
@@ -103,7 +106,7 @@ const translations = {
     rooms: {
       bedroom: 'Bedroom', kitchen: 'Kitchen', garden: 'Garden', living: 'Living Room',
       bathroom: 'Bathroom', garage: 'Garage', shop: 'Boutique', supermarket: 'Supermarket',
-      attic: 'Attic', basement: 'Basement',
+      attic: 'Attic', basement: 'Basement', library: 'Library',
     },
     actions: {
       bedroom: { primary: 'Sleep', secondary: 'Read' },
@@ -116,6 +119,7 @@ const translations = {
       supermarket: { primary: 'Buy food', secondary: 'Explore' },
       attic: { primary: 'Treasure hunt', secondary: 'Explore' },
       basement: { primary: 'Build', secondary: 'Organize' },
+      library: { primary: 'Read', secondary: 'Browse' },
     },
     stats: { health: 'Health', hunger: 'Hunger', energy: 'Energy', happiness: 'Happiness' },
     messages: {
@@ -129,6 +133,8 @@ const translations = {
       eventRain: '🌧️ It\'s raining! Moonlight loves it!',
       treasureHunt: 'What a find! 🗝️',
       building: 'Done! 🔨',
+      reading: 'What a great story! 📖',
+      browsing: 'So many books! 📚',
     },
     moods: { happy: 'Happy!', neutral: 'Calm', sad: 'Sad...', sleepy: 'Sleepy', hungry: 'Hungry', excited: 'Excited!' },
     timeOfDay: { morning: '🌅 Morning', afternoon: '☀️ Afternoon', evening: '🌆 Evening', night: '🌙 Night' },
@@ -166,6 +172,9 @@ const roomData: {
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
   { key: 'supermarket', icon: '🛒', bg: `${BASE_URL}assets/backgrounds/room-supermarket.jpg`, category: 'outside',
     hotspot: { x: 0, y: 0, width: 0, height: 0 }, lunaPos: { x: 50, y: 60 } },
+  // Library - where Luna reads Onde Books!
+  { key: 'library', icon: '📚', bg: `${BASE_URL}assets/backgrounds/room-library.jpg`, category: 'home',
+    hotspot: { x: 76, y: 18, width: 18, height: 28 }, lunaPos: { x: 85, y: 32 } },
   // New explorable areas
   { key: 'attic', icon: '🏚️', bg: `${BASE_URL}assets/backgrounds/room-attic.jpg`, category: 'home',
     hotspot: { x: 40, y: 2, width: 20, height: 15 }, lunaPos: { x: 50, y: 55 } },
@@ -835,6 +844,12 @@ function App() {
         case 'basement':
           message = t.messages.building;
           statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 15), energy: Math.max(0, stats.energy - 10), xp: stats.xp + 15 };
+          playSound('ui-success');
+          break;
+        case 'library':
+          message = t.messages.reading;
+          // Reading is great for happiness and health!
+          statChanges = { ...statChanges, happiness: Math.min(100, stats.happiness + 25), health: Math.min(100, stats.health + 10), xp: stats.xp + 20 };
           playSound('ui-success');
           break;
       }

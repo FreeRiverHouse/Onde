@@ -24,7 +24,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import type { WeatherCondition } from '../hooks/useWeather';
 
-type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement';
+type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement' | 'library';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
 interface AmbientSoundscapesProps {
@@ -258,6 +258,29 @@ const SOUNDSCAPE_CONFIGS: Record<RoomKey, SoundscapeConfig> = {
     filterType: 'lowpass',
     useReverb: true,
     reverbTime: 2.8,
+  },
+  library: {
+    // Quiet, cozy, book sounds - perfect for reading
+    droneFreqs: [130, 196, 261],
+    droneVolume: 0.015,
+    droneType: 'sine',
+    accents: [
+      // Page turning (soft rustle)
+      { freq: 2000, duration: 0.2, type: 'sawtooth', interval: [4000, 10000], volume: 0.008 },
+      // Clock tick (slow, grandfather clock style)
+      { freq: 1200, duration: 0.04, type: 'square', interval: [1500, 1500], volume: 0.01 },
+      // Wood creak (old furniture)
+      { freq: 100, duration: 0.3, type: 'triangle', interval: [8000, 20000], volume: 0.012 },
+      // Soft hum (air/ventilation)
+      { freq: 80, duration: 1.5, type: 'sine', interval: [10000, 25000], volume: 0.006 },
+    ],
+    lfoRate: 0.08,
+    lfoDepth: 3,
+    filterFreq: 600,
+    filterQ: 1.2,
+    filterType: 'lowpass',
+    useReverb: true,
+    reverbTime: 2.5,
   },
 };
 
