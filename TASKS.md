@@ -20,7 +20,7 @@
 | MLH-004 | Add dark/light theme toggle | DONE | @clawdinho | - |
 | MLH-005 | Add loading states for async panels | DONE | @clawdinho | - |
 | MLH-006 | Add breadcrumb navigation with keyboard support | DONE | @clawdinho | - |
-| MLH-007 | Add notification center panel (alerts, events) | TODO | - | - |
+| MLH-007 | Add notification center panel (alerts, events) | IN_PROGRESS | @clawdinho | - |
 | MLH-008 | Add search history + recent commands to palette | TODO | - | - |
 
 ### LIBRI/PUBLISHING (Priorità 3)
