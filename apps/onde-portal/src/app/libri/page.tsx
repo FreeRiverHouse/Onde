@@ -8,6 +8,7 @@ import { useTranslations } from '@/i18n'
 import { useDownloadTracker } from '@/hooks/useDownloadTracker'
 import { useReadingList } from '@/hooks/useReadingList'
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed'
+import { useReadingProgress } from '@/hooks/useReadingProgress'
 import { BookPreviewModal } from '@/components/BookPreviewModal'
 import { useState, useEffect } from 'react'
 
@@ -65,6 +66,7 @@ export default function LibriPage() {
   const { trackDownload, getBookStats, getTotalDownloads } = useDownloadTracker()
   const { toggleBookmark, isBookmarked, getReadingListCount, mounted: readingListMounted } = useReadingList()
   const { getRecentlyViewedIds, getRecentlyViewedCount, mounted: recentlyViewedMounted } = useRecentlyViewed()
+  const { isStarted, getProgress, markAsStarted, getStartedCount, mounted: progressMounted } = useReadingProgress()
   const [mounted, setMounted] = useState(false)
   const [previewBook, setPreviewBook] = useState<Book | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -152,6 +154,18 @@ export default function LibriPage() {
                 </svg>
                 {getReadingListCount()} in reading list
               </motion.a>
+            )}
+            {progressMounted && getStartedCount() > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                           bg-blue-100 text-blue-700 text-sm font-medium"
+              >
+                <span>📖</span>
+                {getStartedCount()} started reading
+              </motion.div>
             )}
           </div>
         </div>
@@ -241,6 +255,14 @@ export default function LibriPage() {
                                bg-amber-900/80 text-amber-100 backdrop-blur-md shadow-lg">
                   {book.category}
                 </span>
+                {/* Started Badge */}
+                {progressMounted && isStarted(book.id) && (
+                  <span className="absolute bottom-4 left-4 px-3 py-1.5 rounded-xl text-xs font-semibold
+                                 bg-blue-500/90 text-white backdrop-blur-md shadow-lg
+                                 flex items-center gap-1.5">
+                    📖 Started
+                  </span>
+                )}
                 {/* Bookmark + Price Badges */}
                 <div className="absolute top-4 right-4 flex items-center gap-2">
                   {/* Bookmark Button */}
@@ -301,6 +323,22 @@ export default function LibriPage() {
                   </div>
                 )}
 
+                {/* Reading Progress Bar */}
+                {progressMounted && isStarted(book.id) && (
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                      <span>Reading progress</span>
+                      <span>{getProgress(book.id)}%</span>
+                    </div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300"
+                        style={{ width: `${Math.max(getProgress(book.id), 5)}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <p className="text-gray-800 text-sm leading-relaxed mb-6 line-clamp-3">
                   {book.description}
                 </p>
@@ -324,7 +362,10 @@ export default function LibriPage() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   {/* Preview Button */}
                   <button
-                    onClick={() => setPreviewBook(book)}
+                    onClick={() => {
+                      markAsStarted(book.id)
+                      setPreviewBook(book)
+                    }}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
                              bg-gray-100 text-gray-700 font-semibold text-sm
                              hover:bg-gray-200 transition-all duration-300"
