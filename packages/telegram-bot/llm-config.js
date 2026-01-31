@@ -4,17 +4,22 @@
  * Switch between multiple LLM providers:
  *
  * Usage:
- *   LLM_PROVIDER=groq node claude-bot.js     # Use Groq (FREE, fastest)
- *   LLM_PROVIDER=kimi node claude-bot.js     # Use KIMI (free via NVIDIA)
- *   LLM_PROVIDER=claude node claude-bot.js   # Use Claude (paid)
- *   node claude-bot.js                       # Default: Groq (free)
+ *   LLM_PROVIDER=groq node claude-bot.js      # Groq (FREE, fastest)
+ *   LLM_PROVIDER=grok node claude-bot.js      # Grok xAI
+ *   LLM_PROVIDER=kimi node claude-bot.js      # KIMI (free via NVIDIA)
+ *   LLM_PROVIDER=radeon node claude-bot.js    # Local Radeon LLaMA
+ *   LLM_PROVIDER=claude node claude-bot.js    # Claude (paid)
+ *   node claude-bot.js                        # Default: Groq (free)
  *
  * API Keys:
  *   GROQ_API_KEY   - Get free at https://console.groq.com/keys
+ *   XAI_API_KEY    - Grok API key from x.ai
  *   NVIDIA_API_KEY - Get free at https://build.nvidia.com/moonshotai/kimi-k2.5
+ *   RADEON_HOST    - Local Radeon server IP (default: localhost:8080)
  */
 
 const https = require('https');
+const http = require('http');
 
 // LLM Providers configuration
 const PROVIDERS = {
@@ -25,7 +30,18 @@ const PROVIDERS = {
     model: 'llama-3.3-70b-versatile',
     apiKeyEnv: 'GROQ_API_KEY',
     rateLimit: '14,400 req/day FREE',
-    temperature: 0.7
+    temperature: 0.7,
+    protocol: 'https'
+  },
+  grok: {
+    name: 'Grok (xAI)',
+    endpoint: 'api.x.ai',
+    path: '/v1/chat/completions',
+    model: 'grok-2-latest',
+    apiKeyEnv: 'XAI_API_KEY',
+    rateLimit: 'API credits',
+    temperature: 0.7,
+    protocol: 'https'
   },
   kimi: {
     name: 'KIMI K2.5',
@@ -34,7 +50,18 @@ const PROVIDERS = {
     model: 'moonshotai/kimi-k2.5',
     apiKeyEnv: 'NVIDIA_API_KEY',
     rateLimit: '40 RPM (free tier)',
-    temperature: 0.6
+    temperature: 0.6,
+    protocol: 'https'
+  },
+  radeon: {
+    name: 'LLaMA 3.1 8B (Radeon Local)',
+    endpoint: process.env.RADEON_HOST || 'localhost:8080',
+    path: '/v1/chat/completions',
+    model: 'llama-3.1-8b-instruct',
+    apiKeyEnv: null,
+    rateLimit: 'Unlimited (local)',
+    temperature: 0.7,
+    protocol: 'http'
   },
   claude: {
     name: 'Claude',
@@ -49,13 +76,14 @@ function getProvider() {
   return PROVIDERS[provider] || PROVIDERS.groq;
 }
 
-// Call any OpenAI-compatible API (Groq, KIMI, etc.)
+// Call any OpenAI-compatible API (Groq, Grok, KIMI, Radeon local, etc.)
 async function callOpenAICompatible(prompt, systemPrompt = '', providerName = null) {
   const provider = providerName ? PROVIDERS[providerName] : getProvider();
-  const apiKey = process.env[provider.apiKeyEnv];
+  const apiKey = provider.apiKeyEnv ? process.env[provider.apiKeyEnv] : null;
 
-  if (!apiKey) {
-    throw new Error(`Missing ${provider.apiKeyEnv}. Get free key for ${provider.name}`);
+  // Only require API key for remote APIs
+  if (provider.apiKeyEnv && !apiKey) {
+    throw new Error(`Missing ${provider.apiKeyEnv}. Get key for ${provider.name}`);
   }
 
   const messages = [];
@@ -72,15 +100,23 @@ async function callOpenAICompatible(prompt, systemPrompt = '', providerName = nu
     stream: false
   });
 
+  // Parse endpoint for host:port
+  const [hostname, port] = provider.endpoint.split(':');
+  const useHttps = provider.protocol !== 'http';
+  const httpModule = useHttps ? https : http;
+
+  const headers = { 'Content-Type': 'application/json' };
+  if (apiKey) {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  }
+
   return new Promise((resolve, reject) => {
-    const req = https.request({
-      hostname: provider.endpoint,
+    const req = httpModule.request({
+      hostname: hostname,
+      port: port || (useHttps ? 443 : 80),
       path: provider.path,
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      }
+      headers: headers
     }, res => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -98,12 +134,19 @@ async function callOpenAICompatible(prompt, systemPrompt = '', providerName = nu
             reject(new Error('No response content'));
           }
         } catch (e) {
-          reject(e);
+          reject(new Error(`Parse error: ${e.message}. Response: ${data.substring(0, 200)}`));
         }
       });
     });
 
-    req.on('error', reject);
+    req.on('error', (e) => {
+      if (provider.protocol === 'http') {
+        reject(new Error(`Local server not reachable at ${provider.endpoint}. Is the Radeon LLM server running?`));
+      } else {
+        reject(e);
+      }
+    });
+
     req.write(body);
     req.end();
   });
