@@ -142,10 +142,10 @@ export default function MemoryGame({ onComplete, onBack, lang }: MemoryGameProps
                 className={`memory-card ${card.isFlipped || card.isMatched ? 'flipped' : ''} ${card.isMatched ? 'matched' : ''}`}
                 onClick={() => handleCardClick(card.id)}
                 whileTap={{ scale: 0.95 }}
-                initial={{ scale: 0, rotateY: 180 }}
+                initial={{ scale: 0, rotateY: 0 }}
                 animate={{ 
                   scale: 1, 
-                  rotateY: card.isFlipped || card.isMatched ? 0 : 180,
+                  rotateY: card.isFlipped || card.isMatched ? 180 : 0,
                   opacity: card.isMatched ? 0.6 : 1
                 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}

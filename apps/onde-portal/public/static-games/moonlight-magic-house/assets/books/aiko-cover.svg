@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="aikoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0288D1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="280" fill="url(#aikoGrad)" rx="8"/>
+  
+  <!-- Tech circuit pattern -->
+  <g stroke="#ffffff" stroke-width="1" fill="none" opacity="0.3">
+    <path d="M20 40 h40 v20 h30"/>
+    <path d="M150 60 h30 v40"/>
+    <path d="M40 200 v40 h60"/>
+    <circle cx="60" cy="40" r="4"/>
+    <circle cx="150" cy="60" r="4"/>
+    <circle cx="100" cy="240" r="4"/>
+  </g>
+  
+  <!-- Robot/AI character -->
+  <g transform="translate(60, 80)">
+    <!-- Robot head -->
+    <rect x="10" y="0" width="60" height="50" rx="10" fill="#fff" opacity="0.9"/>
+    <!-- Eyes -->
+    <circle cx="30" cy="22" r="8" fill="#4FC3F7"/>
+    <circle cx="50" cy="22" r="8" fill="#4FC3F7"/>
+    <circle cx="30" cy="22" r="4" fill="#0288D1"/>
+    <circle cx="50" cy="22" r="4" fill="#0288D1"/>
+    <!-- Antenna -->
+    <line x1="40" y1="0" x2="40" y2="-15" stroke="#fff" stroke-width="3"/>
+    <circle cx="40" cy="-15" r="6" fill="#FFD700"/>
+    <!-- Mouth -->
+    <rect x="25" y="35" width="30" height="6" rx="3" fill="#4FC3F7"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#fff">AIKO</text>
+  <text x="100" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">e l'Intelligenza</text>
+  <text x="100" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">Artificiale</text>
+  
+  <!-- Onde Kids logo -->
+  <text x="100" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff" opacity="0.8">ONDE KIDS</text>
+</svg>
