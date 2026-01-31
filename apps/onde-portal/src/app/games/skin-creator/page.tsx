@@ -3278,6 +3278,27 @@ export default function SkinCreator() {
         }
         break;
       }
+
+      case 'invert': {
+        // Invert all colors (negative effect)
+        // At 100% intensity: full inversion (255 - color)
+        // At lower intensity: blend between original and inverted
+        for (let i = 0; i < data.length; i += 4) {
+          // Skip fully transparent pixels
+          if (data[i + 3] === 0) continue;
+          
+          // Calculate inverted values
+          const invertedR = 255 - data[i];
+          const invertedG = 255 - data[i + 1];
+          const invertedB = 255 - data[i + 2];
+          
+          // Blend between original and inverted based on intensity
+          data[i] = Math.round(data[i] * (1 - normalizedIntensity) + invertedR * normalizedIntensity);
+          data[i + 1] = Math.round(data[i + 1] * (1 - normalizedIntensity) + invertedG * normalizedIntensity);
+          data[i + 2] = Math.round(data[i + 2] * (1 - normalizedIntensity) + invertedB * normalizedIntensity);
+        }
+        break;
+      }
     }
 
     // Apply the modified image data

@@ -2906,6 +2906,161 @@ const EnchantedMirror = ({ isActive, onClick, soundEnabled }: { isActive: boolea
   )
 }
 
+// Music Jukebox - plays different cute songs
+const MusicJukebox = ({ 
+  currentSong, 
+  onSongChange, 
+  soundEnabled 
+}: { 
+  currentSong: number
+  onSongChange: (songIndex: number) => void
+  soundEnabled: boolean 
+}) => {
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [musicNotes, setMusicNotes] = useState<number[]>([])
+  
+  const handleSongSelect = (songIndex: number) => {
+    if (currentSong === songIndex) {
+      // Stop the song
+      sounds.jukeboxStop(soundEnabled)
+      getMusicJukebox().stop()
+      onSongChange(-1)
+    } else {
+      // Play new song
+      sounds.jukeboxClick(soundEnabled)
+      getMusicJukebox().start(songIndex)
+      onSongChange(songIndex)
+      setIsAnimating(true)
+      setTimeout(() => setIsAnimating(false), 500)
+    }
+  }
+  
+  // Floating music notes when playing
+  useEffect(() => {
+    if (currentSong >= 0) {
+      const interval = setInterval(() => {
+        setMusicNotes(prev => [...prev.slice(-4), Date.now()])
+      }, 800)
+      return () => clearInterval(interval)
+    } else {
+      setMusicNotes([])
+    }
+  }, [currentSong])
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      getMusicJukebox().stop()
+    }
+  }, [])
+  
+  return (
+    <div 
+      className="furniture-interactive gpu-accelerated relative"
+      role="group"
+      aria-label="Music jukebox - select a song to play"
+    >
+      {/* Main jukebox body */}
+      <svg viewBox="0 0 90 70" className="w-24 h-16">
+        {/* Jukebox cabinet */}
+        <rect x="5" y="15" width="80" height="50" rx="8" fill="#8B4513" />
+        <rect x="8" y="18" width="74" height="44" rx="6" fill="#654321" />
+        
+        {/* Decorative top */}
+        <path d="M15 15 Q45 5 75 15" fill="#DAA520" />
+        <ellipse cx="45" cy="10" rx="12" ry="5" fill="#FFD700" />
+        
+        {/* Speaker grille */}
+        <rect x="12" y="22" width="25" height="20" rx="3" fill="#1a1a1a" />
+        <g stroke="#333" strokeWidth="1">
+          <line x1="15" y1="25" x2="34" y2="25" />
+          <line x1="15" y1="29" x2="34" y2="29" />
+          <line x1="15" y1="33" x2="34" y2="33" />
+          <line x1="15" y1="37" x2="34" y2="37" />
+        </g>
+        
+        {/* Glowing indicator */}
+        {currentSong >= 0 && (
+          <circle 
+            cx="24" 
+            cy="48" 
+            r="4" 
+            fill="#00FF00" 
+            className="animate-glow-pulse"
+            style={{ filter: 'drop-shadow(0 0 5px #00FF00)' }}
+          />
+        )}
+        {currentSong < 0 && (
+          <circle cx="24" cy="48" r="4" fill="#333" />
+        )}
+        
+        {/* Record/vinyl decoration */}
+        <circle cx="24" cy="32" r="8" fill="#1a1a1a" opacity="0.5" />
+        <circle cx="24" cy="32" r="3" fill="#FFD700" opacity="0.3" />
+        {currentSong >= 0 && (
+          <circle 
+            cx="24" 
+            cy="32" 
+            r="6" 
+            fill="none" 
+            stroke="#FFD700" 
+            strokeWidth="1"
+            className="animate-spin"
+            style={{ animationDuration: '2s', transformOrigin: '24px 32px' }}
+          />
+        )}
+      </svg>
+      
+      {/* Song selection buttons */}
+      <div className="absolute right-1 top-1/2 -translate-y-1/2 flex flex-col gap-0.5">
+        {JUKEBOX_SONGS.map((song) => (
+          <button
+            key={song.id}
+            onClick={() => handleSongSelect(song.id)}
+            className={`
+              w-10 h-5 rounded text-[9px] font-bold transition-all duration-200
+              flex items-center justify-center gap-0.5
+              ${currentSong === song.id 
+                ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-white shadow-lg scale-105' 
+                : 'bg-white/20 text-white/80 hover:bg-white/30 hover:scale-102'
+              }
+            `}
+            title={song.name}
+            aria-label={`${currentSong === song.id ? 'Stop' : 'Play'} ${song.name}`}
+            aria-pressed={currentSong === song.id}
+          >
+            <span>{song.emoji}</span>
+          </button>
+        ))}
+      </div>
+      
+      {/* Floating music notes when playing */}
+      {musicNotes.map((id, i) => (
+        <div 
+          key={id}
+          className="absolute -top-2 left-1/4 animate-note-float pointer-events-none"
+          style={{ 
+            '--note-x': `${(Math.random() - 0.5) * 30}px`,
+            animationDelay: `${i * 0.1}s`,
+            left: `${20 + Math.random() * 30}%`
+          } as React.CSSProperties}
+        >
+          <span className="text-lg">{['🎵', '🎶', '♪', '♫'][i % 4]}</span>
+        </div>
+      ))}
+      
+      {/* Current song indicator */}
+      {currentSong >= 0 && (
+        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+          <span className="text-[10px] text-purple-200/70">
+            {JUKEBOX_SONGS[currentSong]?.emoji} {JUKEBOX_SONGS[currentSong]?.name}
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ============ MAGIC PARTICLE COMPONENTS ============
 
 // Shooting star with glowing trail
