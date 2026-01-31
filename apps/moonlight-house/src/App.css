@@ -2121,3 +2121,29 @@
     animation: none !important;
   }
 }
+
+
+/* ============ PET HEARTS (MM-002) ============ */
+.pet-heart {
+  position: absolute;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 100;
+  text-shadow: 0 0 10px rgba(255, 100, 150, 0.8), 0 0 20px rgba(255, 150, 200, 0.5);
+  filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.6));
+}
+
+/* Luna container pet interaction hint */
+.luna-container {
+  cursor: pointer;
+}
+
+.luna-container:hover .luna-img {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.luna-container:active .luna-img {
+  transform: scale(0.95);
+}
+

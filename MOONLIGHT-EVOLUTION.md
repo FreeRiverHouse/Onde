@@ -31,8 +31,18 @@ Rendere Moonlight Magic House la migliore app virtual pet per bambine:
   - Framer-motion fade-out animations
   - Max 12 particles, auto-cleanup
 
+- [x] **MM-002** Sound effects carini (meow, sparkle) (2026-01-30)
+  - Enhanced `useSoundManager.ts` with 6 new cat sounds: cat-meow, cat-purr, cat-happy, sparkle, magic-wand, heart-pop
+  - Oscillator-based melodies (no mp3 files needed!)
+  - Cat meow: rising 4-note melody (400→800→700 Hz)
+  - Sparkle: high cascade (1500→2500→1800 Hz) ✨
+  - Heart pop: soft 3-note pop for affection ❤️
+  - Click Luna to pet her → random sounds + floating hearts!
+  - Hearts float up with framer-motion AnimatePresence
+  - Small happiness boost (+2) on each pet
+
 ### CURRENT TASK
-- [ ] **MM-002** Sound effects carini (meow, sparkle)
+- [ ] **MM-003** Day/Night cycle con stelle animate
 
 ### BACKLOG
 - [ ] **MM-021** Tail wagging animation when Luna is happy
@@ -56,6 +66,9 @@ Rendere Moonlight Magic House la migliore app virtual pet per bambine:
 - [ ] **MM-018** Dark mode (ironico per Moonlight 😄)
 - [ ] **MM-019** Accessibility options
 - [ ] **MM-020** Tutorial interattivo
+- [ ] **MM-024** Luna sleep animation with zzZ bubbles
+- [ ] **MM-025** Food bowl interaction with eating animation
+- [ ] **MM-026** Toy chest with draggable toys Luna can chase
 
 ## 📍 DOVE SI TROVA
 

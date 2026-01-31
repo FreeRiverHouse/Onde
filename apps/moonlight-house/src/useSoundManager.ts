@@ -39,7 +39,14 @@ export type SoundEffect =
   | 'action-drive'
   | 'coin-collect'
   | 'level-up'
-  | 'achievement';
+  | 'achievement'
+  // Cat sounds 🐱
+  | 'cat-meow'
+  | 'cat-purr'
+  | 'cat-happy'
+  | 'sparkle'
+  | 'magic-wand'
+  | 'heart-pop';
 
 export type AmbientTrack = 'home' | 'garden' | 'shop' | 'none';
 
@@ -97,6 +104,13 @@ const SOUND_CONFIGS: Record<SoundEffect, { freq: number; duration: number; type:
   'coin-collect': { freq: 987, duration: 0.15, type: 'sine' },
   'level-up': { freq: 784, duration: 0.4, type: 'sine' },
   'achievement': { freq: 880, duration: 0.5, type: 'triangle' },
+  // Cat sounds 🐱 - cute oscillator-based fallbacks
+  'cat-meow': { freq: 700, duration: 0.35, type: 'sine' },      // Rising meow
+  'cat-purr': { freq: 180, duration: 0.6, type: 'triangle' },   // Low rumbling purr
+  'cat-happy': { freq: 880, duration: 0.25, type: 'sine' },     // Happy chirp
+  'sparkle': { freq: 2000, duration: 0.15, type: 'sine' },      // High sparkle ✨
+  'magic-wand': { freq: 1200, duration: 0.2, type: 'triangle' }, // Magic sweep
+  'heart-pop': { freq: 600, duration: 0.12, type: 'sine' },     // Soft heart pop ❤️
 };
 
 // Play a multi-note melody for special effects
@@ -176,13 +190,31 @@ export function useSoundManager(): SoundManager {
           
           const config = SOUND_CONFIGS[effect];
           
-          // Special melodies for level-up and achievement
+          // Special melodies for various effects
           if (effect === 'level-up') {
             playMelody(ctx, [523, 659, 784, 1047], 0.2, state.volume);
           } else if (effect === 'achievement') {
             playMelody(ctx, [659, 784, 880, 1047, 1319], 0.15, state.volume);
           } else if (effect === 'coin-collect') {
             playMelody(ctx, [880, 1047], 0.1, state.volume);
+          } else if (effect === 'cat-meow') {
+            // Rising "meow" sound - cute and kid-friendly 🐱
+            playMelody(ctx, [400, 600, 800, 700], 0.08, state.volume * 0.7);
+          } else if (effect === 'cat-purr') {
+            // Low rumbling purr with vibrato effect
+            playMelody(ctx, [150, 170, 150, 170, 150], 0.12, state.volume * 0.5);
+          } else if (effect === 'cat-happy') {
+            // Happy chirpy trill 
+            playMelody(ctx, [880, 1047, 880, 1047, 1175], 0.06, state.volume * 0.6);
+          } else if (effect === 'sparkle') {
+            // Magical sparkle cascade ✨
+            playMelody(ctx, [1500, 2000, 2500, 2200, 1800], 0.05, state.volume * 0.4);
+          } else if (effect === 'magic-wand') {
+            // Magical wand sweep 🪄
+            playMelody(ctx, [800, 1000, 1200, 1500, 2000, 1800], 0.07, state.volume * 0.5);
+          } else if (effect === 'heart-pop') {
+            // Soft heart pop ❤️
+            playMelody(ctx, [500, 700, 600], 0.08, state.volume * 0.6);
           } else {
             createOscillatorSound(ctx, config.freq, config.duration, config.type, state.volume);
           }

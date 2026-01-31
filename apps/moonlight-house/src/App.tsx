@@ -506,6 +506,10 @@ function App() {
   // Idle state for tail wagging (T876)
   const [isIdle, setIsIdle] = useState(false);
   const [lastActionTime, setLastActionTime] = useState(Date.now());
+  
+  // Pet interaction state (MM-002) 🐱
+  const [petHearts, setPetHearts] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [lastPetTime, setLastPetTime] = useState(0);
   const roomContainerRef = useCallback((node: HTMLDivElement | null) => {
     if (node) node.focus();
   }, []);
@@ -769,6 +773,54 @@ function App() {
     setActionBubble(text);
     setTimeout(() => setActionBubble(''), 2000);
   };
+
+  // Pet Luna handler (MM-002) 🐱
+  const handlePetLuna = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation(); // Don't trigger room movement
+    
+    const now = Date.now();
+    if (now - lastPetTime < 300) return; // Debounce rapid clicks
+    setLastPetTime(now);
+    
+    // Play cute sounds
+    const soundChoice = Math.random();
+    if (soundChoice < 0.5) {
+      playSound('cat-meow');
+    } else if (soundChoice < 0.8) {
+      playSound('cat-happy');
+    } else {
+      playSound('cat-purr');
+    }
+    playSound('heart-pop');
+    playSound('sparkle');
+    
+    // Add floating hearts at Luna's position
+    const heartId = now;
+    const newHearts = Array.from({ length: 3 + Math.floor(Math.random() * 3) }, (_, i) => ({
+      id: heartId + i,
+      x: lunaPosition.x + (Math.random() - 0.5) * 15,
+      y: lunaPosition.y - 10 - Math.random() * 10,
+    }));
+    setPetHearts(prev => [...prev, ...newHearts]);
+    
+    // Clean up hearts after animation
+    setTimeout(() => {
+      setPetHearts(prev => prev.filter(h => !newHearts.some(nh => nh.id === h.id)));
+    }, 1500);
+    
+    // Boost happiness slightly
+    setStats(prev => ({
+      ...prev,
+      happiness: Math.min(100, prev.happiness + 2),
+    }));
+    
+    // Update last action time (helps with idle detection)
+    setLastActionTime(now);
+    
+    // Show affection bubble
+    const affectionEmojis = ['❤️', '💕', '💖', '🥰', '😻', '✨'];
+    showBubble(affectionEmojis[Math.floor(Math.random() * affectionEmojis.length)]);
+  }, [lastPetTime, lunaPosition, playSound]);
 
   const claimDailyReward = () => {
     const today = new Date().toDateString();
@@ -1332,8 +1384,11 @@ function App() {
           left: `${lunaPosition.x}%`, 
           top: `${lunaPosition.y}%`, 
           transform: `translate(-50%, -50%) translateY(${isWalking ? 0 : floatY}px)`,
-          transition: isWalking ? 'none' : 'transform 0.3s ease-out'
+          transition: isWalking ? 'none' : 'transform 0.3s ease-out',
+          cursor: 'pointer'
         }}
+        onClick={handlePetLuna}
+        title={lang === 'it' ? 'Accarezza Luna!' : 'Pet Luna!'}
       >
         {actionBubble && <div className="bubble glass-card"><span className="bubble-text">{actionBubble}</span></div>}
         <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''} ${isWalking ? 'walking' : ''}`} />
@@ -1348,6 +1403,35 @@ function App() {
         />
         {isWalking && <div className="walk-dust" />}
       </div>
+
+      {/* Floating hearts when petting Luna (MM-002) 💕 */}
+      <AnimatePresence>
+        {petHearts.map(heart => (
+          <motion.div
+            key={heart.id}
+            className="pet-heart"
+            initial={{ opacity: 1, scale: 0.5, x: 0, y: 0 }}
+            animate={{ 
+              opacity: 0, 
+              scale: 1.5, 
+              y: -60,
+              x: (Math.random() - 0.5) * 40 
+            }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+            style={{
+              position: 'absolute',
+              left: `${heart.x}%`,
+              top: `${heart.y}%`,
+              fontSize: '2rem',
+              pointerEvents: 'none',
+              zIndex: 100,
+            }}
+          >
+            {['❤️', '💕', '💖', '💗', '✨'][Math.floor(Math.random() * 5)]}
+          </motion.div>
+        ))}
+      </AnimatePresence>
 
       <div className="room-actions">
         <button className={`action-btn glass-card ${isActing ? 'disabled' : ''}`} onClick={() => handleRoomAction('primary')} disabled={isActing}>
