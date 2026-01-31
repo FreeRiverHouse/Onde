@@ -12586,8 +12586,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Tutorial for mobile touch controls
 
 ### [T1015] Skin Creator: Floss Dance
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Classic Fortnite floss dance animation
