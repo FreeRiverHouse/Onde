@@ -1183,13 +1183,12 @@ export default function SkinCreator() {
                 ref={canvasRef}
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
-                className="cursor-crosshair absolute top-0 left-0"
+                className="cursor-crosshair"
                 style={{ 
                   width: SKIN_WIDTH * zoomLevel, 
                   height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
                   transition: 'all 0.2s ease',
-                  zIndex: 1,
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
