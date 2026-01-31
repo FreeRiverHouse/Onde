@@ -4267,25 +4267,53 @@ export default function SkinCreator() {
       return;
     }
 
-    // 🌈 Gradient fill on selected part
+    // 🌈 Gradient tool - Interactive click-and-drag to create gradients between two colors!
     if (tool === 'gradient') {
-      if (selectedPart) {
-        const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
-        const gradient = ctx.createLinearGradient(part.x, part.y, part.x + part.w, part.y + part.h);
+      if (e.type === 'mousedown') {
+        gradientStartPosition.current = { x, y };
+        // Create preview canvas if not exists
+        if (!gradientPreviewCanvas.current) {
+          gradientPreviewCanvas.current = document.createElement('canvas');
+          gradientPreviewCanvas.current.width = SKIN_WIDTH;
+          gradientPreviewCanvas.current.height = SKIN_HEIGHT;
+        }
+        // Copy current layer to preview
+        const previewCtx = gradientPreviewCanvas.current.getContext('2d');
+        if (previewCtx) {
+          previewCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          previewCtx.drawImage(layerCanvas, 0, 0);
+        }
+      } else if (e.type === 'mousemove' && gradientStartPosition.current && gradientPreviewCanvas.current) {
+        // Preview the gradient while dragging
+        // Restore original layer
+        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        ctx.drawImage(gradientPreviewCanvas.current, 0, 0);
+        
+        // Get the area to apply gradient
+        let startX = 0, startY = 0, width = SKIN_WIDTH, height = SKIN_HEIGHT;
+        if (selectedPart) {
+          const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
+          startX = part.x;
+          startY = part.y;
+          width = part.w;
+          height = part.h;
+        }
+        
+        // Create gradient from start position to current position
+        const gradient = ctx.createLinearGradient(
+          gradientStartPosition.current.x,
+          gradientStartPosition.current.y,
+          x,
+          y
+        );
         gradient.addColorStop(0, selectedColor);
         gradient.addColorStop(1, secondaryColor);
         ctx.fillStyle = gradient;
-        ctx.fillRect(part.x, part.y, part.w, part.h);
-      } else {
-        // Gradient on entire canvas if no part selected
-        const gradient = ctx.createLinearGradient(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-        gradient.addColorStop(0, selectedColor);
-        gradient.addColorStop(1, secondaryColor);
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        ctx.fillRect(startX, startY, width, height);
+        
+        compositeLayersToMain();
+        updatePreview();
       }
-      compositeLayersToMain();
-      updatePreview();
       return;
     }
 
@@ -6026,7 +6054,7 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setTool('gradient')}
-              title="🌈 Rainbow! Blend two colors"
+              title="🌈 Gradient! Click and drag to blend two colors (G)"
               className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -6563,9 +6591,10 @@ export default function SkinCreator() {
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { 
                   setIsDrawing(false); 
-                  // Clear shape tool start positions (line, rectangle, circle)
+                  // Clear shape tool start positions (line, rectangle, circle, gradient)
                   lineStartPosition.current = null;
                   shapeStartPosition.current = null;
+                  gradientStartPosition.current = null;
                   saveState(); 
                   addRecentColor(selectedColor);
                   // Notify tutorial that user drew on canvas
@@ -6576,6 +6605,7 @@ export default function SkinCreator() {
                   // Clear shape tool start positions to cancel incomplete shapes
                   lineStartPosition.current = null;
                   shapeStartPosition.current = null;
+                  gradientStartPosition.current = null;
                   setContextMenu(null); 
                   setHoverPixel(null); 
                   setEyedropperPreviewColor(null); 

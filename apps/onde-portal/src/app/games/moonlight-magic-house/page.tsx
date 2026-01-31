@@ -499,6 +499,45 @@ const sounds = {
     haptic.double()
   },
 
+  // Jukebox click - musical button press with melody hint
+  jukeboxClick: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Quick musical arpeggio to indicate song change
+    const notes = [523, 659, 784] // C-E-G chord
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.05)
+      o.type = 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.05)
+      g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + i * 0.05 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.05 + 0.15)
+      o.start(ctx.currentTime + i * 0.05); o.stop(ctx.currentTime + i * 0.05 + 0.15)
+    })
+    haptic.medium()
+  },
+
+  // Jukebox stop - descending notes
+  jukeboxStop: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    const notes = [523, 392, 262] // C-G-C descending
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08)
+      o.type = 'triangle'
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.08)
+      g.gain.linearRampToValueAtTime(0.1, ctx.currentTime + i * 0.08 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.2)
+      o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.2)
+    })
+    haptic.light()
+  },
+
   // ========== COLLECTIBLE SOUNDS ==========
 
   // Star collect - bright ascending chime
