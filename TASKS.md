@@ -26,8 +26,11 @@
 | MLH-010 | Add notification sound preferences (mute/sound type) | DONE | @clawdinho | MLH-007 |
 | MLH-011 | Add notification persistence with localStorage | DONE | @clawdinho | MLH-007 |
 | MLH-012 | Add notification grouping by source/type | DONE | @clawdinho | MLH-007 |
-| MLH-013 | Add swipe-to-dismiss for mobile notifications | TODO | - | MLH-007 |
+| MLH-013 | Add swipe-to-dismiss for mobile notifications | DONE | @clawdinho | MLH-007 |
 | MLH-014 | Add desktop push notification permission request | TODO | - | MLH-007 |
+| MLH-015 | Add haptic feedback on swipe dismiss (vibration API) | TODO | - | MLH-013 |
+| MLH-016 | Add notification badge count to browser tab title | TODO | - | MLH-007 |
+| MLH-017 | Add pull-to-refresh in notification panel (mobile) | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
 | ID | Task | Status | Owner | Depends |
@@ -72,6 +75,10 @@
 
 - **MLH-012** - Notification grouping: dropdown to group by "None", "By Type", or "By Source" with collapsible sections, unread badges, localStorage persistence
 
+## ✅ COMPLETATI OGGI (2026-02-05)
+
+- **MLH-013** - Swipe-to-dismiss mobile: touch handlers with useSwipeToDismiss hook, visual feedback (red background, opacity change), threshold-based dismiss, "← swipe" hint on mobile
+
 ---
 
-*Ultimo aggiornamento: 2026-01-31 11:12 PST*
+*Ultimo aggiornamento: 2026-02-05 04:30 PST*

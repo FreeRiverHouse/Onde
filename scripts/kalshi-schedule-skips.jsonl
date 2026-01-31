@@ -104,3 +104,7 @@
 {"timestamp": "2026-01-31T18:56:26.397728+00:00", "reason": "18:00 UTC not in active_hours (poor historical win rate)", "hour": 18, "day": 5}
 {"timestamp": "2026-01-31T19:01:28.382597+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}
 {"timestamp": "2026-01-31T19:06:32.875222+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}
+{"timestamp": "2026-01-31T19:11:38.594672+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}
+{"timestamp": "2026-01-31T19:16:41.572624+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}
+{"timestamp": "2026-01-31T19:21:51.207103+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}
+{"timestamp": "2026-01-31T19:26:54.025064+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 5}

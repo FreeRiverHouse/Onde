@@ -333,6 +333,62 @@ function formatTimeAgo(timestamp: string): string {
   return new Date(timestamp).toLocaleDateString()
 }
 
+// Hook for swipe-to-dismiss on touch devices
+function useSwipeToDismiss(onDismiss: () => void, threshold = 100) {
+  const [touchState, setTouchState] = useState<{
+    startX: number
+    currentX: number
+    swiping: boolean
+  } | null>(null)
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setTouchState({
+      startX: e.touches[0].clientX,
+      currentX: e.touches[0].clientX,
+      swiping: true,
+    })
+  }, [])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!touchState?.swiping) return
+    setTouchState(prev => prev ? {
+      ...prev,
+      currentX: e.touches[0].clientX,
+    } : null)
+  }, [touchState?.swiping])
+
+  const handleTouchEnd = useCallback(() => {
+    if (!touchState?.swiping) return
+    
+    const deltaX = touchState.currentX - touchState.startX
+    
+    // If swiped left past threshold, dismiss
+    if (deltaX < -threshold) {
+      onDismiss()
+    }
+    
+    setTouchState(null)
+  }, [touchState, threshold, onDismiss])
+
+  const swipeOffset = touchState?.swiping 
+    ? Math.min(0, touchState.currentX - touchState.startX)
+    : 0
+  
+  const swipeProgress = Math.abs(swipeOffset) / threshold
+
+  return {
+    handlers: {
+      onTouchStart: handleTouchStart,
+      onTouchMove: handleTouchMove,
+      onTouchEnd: handleTouchEnd,
+      onTouchCancel: handleTouchEnd,
+    },
+    swipeOffset,
+    swipeProgress,
+    isSwiping: touchState?.swiping || false,
+  }
+}
+
 function NotificationItem({ 
   notification, 
   onMarkRead,
@@ -343,58 +399,92 @@ function NotificationItem({
   onDismiss: (id: string) => void
 }) {
   const config = TYPE_CONFIG[notification.type] || TYPE_CONFIG.info
+  const { handlers, swipeOffset, swipeProgress, isSwiping } = useSwipeToDismiss(
+    () => onDismiss(notification.id),
+    100
+  )
 
   return (
-    <div
-      className={`
-        relative flex items-start gap-3 p-3 rounded-xl
-        ${config.bg} ${config.border} border
-        ${!notification.read ? 'ring-1 ring-white/20' : 'opacity-80'}
-        hover:opacity-100 transition-all duration-200 group
-      `}
-      onClick={() => !notification.read && onMarkRead(notification.id)}
-    >
-      {/* Unread indicator */}
-      {!notification.read && (
-        <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+    <div className="relative overflow-hidden rounded-xl">
+      {/* Swipe background indicator (visible when swiping) */}
+      {isSwiping && (
+        <div 
+          className="absolute inset-0 flex items-center justify-end pr-4 rounded-xl bg-red-500/30"
+          style={{ opacity: Math.min(swipeProgress, 1) }}
+        >
+          <span className="text-red-400 text-sm font-medium flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Dismiss
+          </span>
+        </div>
       )}
-
-      {/* Icon */}
-      <div className="text-lg flex-shrink-0 mt-0.5">
-        {config.icon}
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 min-w-0 pr-6">
-        <div className={`text-sm font-medium ${config.color} truncate`}>
-          {notification.title}
-        </div>
-        <div className="text-xs text-white/60 mt-0.5 line-clamp-2">
-          {notification.message}
-        </div>
-        <div className="flex items-center gap-2 mt-1.5 text-xs text-white/40">
-          <span>{formatTimeAgo(notification.timestamp)}</span>
-          {notification.source && (
-            <>
-              <span>•</span>
-              <span className="text-white/30">{notification.source}</span>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Dismiss button */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation()
-          onDismiss(notification.id)
+      
+      {/* Main notification content */}
+      <div
+        {...handlers}
+        className={`
+          relative flex items-start gap-3 p-3 rounded-xl
+          ${config.bg} ${config.border} border
+          ${!notification.read ? 'ring-1 ring-white/20' : 'opacity-80'}
+          hover:opacity-100 group
+          ${isSwiping ? '' : 'transition-all duration-200'}
+          touch-pan-y
+        `}
+        style={{
+          transform: `translateX(${swipeOffset}px)`,
+          opacity: isSwiping ? 1 - (swipeProgress * 0.3) : undefined,
         }}
-        className="absolute top-2 right-2 p-1 rounded-lg text-white/30 hover:text-white/60 hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
+        onClick={() => !notification.read && onMarkRead(notification.id)}
       >
-        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+        {/* Unread indicator */}
+        {!notification.read && (
+          <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+        )}
+
+        {/* Icon */}
+        <div className="text-lg flex-shrink-0 mt-0.5">
+          {config.icon}
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0 pr-6">
+          <div className={`text-sm font-medium ${config.color} truncate`}>
+            {notification.title}
+          </div>
+          <div className="text-xs text-white/60 mt-0.5 line-clamp-2">
+            {notification.message}
+          </div>
+          <div className="flex items-center gap-2 mt-1.5 text-xs text-white/40">
+            <span>{formatTimeAgo(notification.timestamp)}</span>
+            {notification.source && (
+              <>
+                <span>•</span>
+                <span className="text-white/30">{notification.source}</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Dismiss button (desktop) */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onDismiss(notification.id)
+          }}
+          className="absolute top-2 right-2 p-1 rounded-lg text-white/30 hover:text-white/60 hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all hidden sm:block"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        {/* Swipe hint for mobile (only show when not read and on first few items) */}
+        <div className="absolute bottom-1 right-2 text-[10px] text-white/20 sm:hidden">
+          ← swipe
+        </div>
+      </div>
     </div>
   )
 }
