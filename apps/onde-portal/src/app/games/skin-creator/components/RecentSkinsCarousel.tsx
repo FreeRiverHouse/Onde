@@ -101,9 +101,7 @@ export default function RecentSkinsCarousel({
   }
 
   return (
-    <div className={`w-full max-w-6xl mx-auto mb-4 transition-all duration-300 ${
-      isExpanded ? 'opacity-100' : 'opacity-60'
-    }`}>
+    <div className={`w-full max-w-6xl mx-auto mb-4 transition-all duration-300 ${isExpanded ? 'opacity-100' : 'opacity-60'}`}>
       {/* Header */}
       <div className="flex items-center justify-between px-2 mb-2">
         <button
@@ -117,9 +115,7 @@ export default function RecentSkinsCarousel({
           <span className="text-xs px-2 py-0.5 bg-white/20 rounded-full">
             {recentSkins.length}
           </span>
-          <span className={`text-sm transition-transform duration-200 ${
-            isExpanded ? 'rotate-180' : ''
-          }`}>
+          <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
             ▼
           </span>
         </button>
@@ -134,18 +130,12 @@ export default function RecentSkinsCarousel({
       </div>
 
       {/* Carousel Container */}
-      <div className={`relative transition-all duration-300 ${
-        isExpanded ? 'h-auto opacity-100' : 'h-0 opacity-0 overflow-hidden'
-      }`}>
+      <div className={`relative transition-all duration-300 ${isExpanded ? 'h-auto opacity-100' : 'h-0 opacity-0 overflow-hidden'}`}>
         {/* Scroll Left Button */}
         {canScrollLeft && (
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 
-              w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 
-              text-white flex items-center justify-center
-              transition-all duration-200 hover:scale-110
-              backdrop-blur-sm shadow-lg"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 backdrop-blur-sm shadow-lg"
             aria-label="Scroll left"
           >
             ◀
@@ -156,11 +146,7 @@ export default function RecentSkinsCarousel({
         {canScrollRight && (
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 
-              w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 
-              text-white flex items-center justify-center
-              transition-all duration-200 hover:scale-110
-              backdrop-blur-sm shadow-lg"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 backdrop-blur-sm shadow-lg"
             aria-label="Scroll right"
           >
             ▶
@@ -192,15 +178,7 @@ export default function RecentSkinsCarousel({
                   onLoadSkin(skin);
                   playSound('click');
                 }}
-                className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden
-                  border-2 transition-all duration-200
-                  hover:scale-110 hover:shadow-xl hover:z-10
-                  ${hoveredSkin === skin.id 
-                    ? 'border-yellow-400 shadow-yellow-400/30 shadow-lg' 
-                    : 'border-white/30 hover:border-white/60'
-                  }
-                  ${darkMode ? 'bg-slate-800' : 'bg-white/90'}
-                `}
+                className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 transition-all duration-200 hover:scale-110 hover:shadow-xl hover:z-10 ${hoveredSkin === skin.id ? 'border-yellow-400 shadow-yellow-400/30 shadow-lg' : 'border-white/30 hover:border-white/60'} ${darkMode ? 'bg-slate-800' : 'bg-white/90'}`}
               >
                 {/* Skin Image */}
                 <img
@@ -219,26 +197,14 @@ export default function RecentSkinsCarousel({
                 )}
 
                 {/* Hover Overlay */}
-                <div className={`absolute inset-0 bg-black/60 flex items-center justify-center
-                  transition-opacity duration-200 ${
-                    hoveredSkin === skin.id ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
+                <div className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-200 ${hoveredSkin === skin.id ? 'opacity-100' : 'opacity-0'}`}>
                   <span className="text-white text-lg">▶</span>
                 </div>
               </button>
 
               {/* Tooltip */}
-              <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2
-                pointer-events-none transition-all duration-200 z-20
-                ${hoveredSkin === skin.id 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-2'
-                }`}
-              >
-                <div className="bg-slate-900 text-white text-xs px-3 py-2 rounded-lg 
-                  whitespace-nowrap shadow-xl min-w-max"
-                >
+              <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none transition-all duration-200 z-20 ${hoveredSkin === skin.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                <div className="bg-slate-900 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-xl min-w-max">
                   <div className="font-bold truncate max-w-[120px]">
                     {skin.name}
                   </div>
@@ -246,8 +212,7 @@ export default function RecentSkinsCarousel({
                     {formatRelativeTime(skin.timestamp)}
                   </div>
                   {/* Arrow */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 
-                    border-4 border-transparent border-t-slate-900" />
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900" />
                 </div>
               </div>
 
@@ -261,10 +226,7 @@ export default function RecentSkinsCarousel({
                       playSound('click');
                     }
                   }}
-                  className="absolute -top-1 -right-1 w-5 h-5 rounded-full 
-                    bg-red-500 hover:bg-red-600 text-white text-xs
-                    flex items-center justify-center shadow-lg
-                    transition-all duration-200 hover:scale-110 z-20"
+                  className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 hover:bg-red-600 text-white text-xs flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 z-20"
                   title="Delete skin"
                 >
                   ×
@@ -275,14 +237,7 @@ export default function RecentSkinsCarousel({
 
           {/* "Create New" card at the end */}
           <div className="flex-shrink-0">
-            <div
-              className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl 
-                border-2 border-dashed border-white/30 
-                flex items-center justify-center
-                transition-all duration-200
-                ${darkMode ? 'bg-white/5' : 'bg-white/20'}
-              `}
-            >
+            <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl border-2 border-dashed border-white/30 flex items-center justify-center transition-all duration-200 ${darkMode ? 'bg-white/5' : 'bg-white/20'}`}>
               <span className="text-white/40 text-2xl">+</span>
             </div>
             <p className="text-white/40 text-[10px] text-center mt-1">Create</p>

@@ -878,6 +878,11 @@ export default function SkinCreator() {
   const [aiError, setAiError] = useState<string | null>(null);
   const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
 
+  // 💾 AUTOSAVE & QUICK SAVE STATE
+  const [saveToast, setSaveToast] = useState<{ show: boolean; message: string; type: 'save' | 'autosave' }>({ show: false, message: '', type: 'save' });
+  const lastAutoSaveRef = useRef<number>(Date.now());
+  const autoSaveIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
   // 🤖 AI History & Favorites
   interface AIHistoryItem {
     id: string;
@@ -2021,6 +2026,8 @@ export default function SkinCreator() {
           else { setTool('gradient'); playSound('click'); } 
           break;
         case 'w': setTool('line'); playSound('click'); break; // W for Wire/Line
+        case 'u': setTool('rectangle'); playSound('click'); break; // U for Rectangle (shape)
+        case 'y': if (!isCmd) { setTool('circle'); playSound('click'); } break; // Y for Circle (oval)
         case 'o': setTool('glow'); playSound('click'); break; // O for Outline/Glow
         case 's': 
           if (isCmd) { 
@@ -3845,6 +3852,76 @@ export default function SkinCreator() {
       return;
     }
 
+    // 📐 Rectangle tool - draw rectangle shapes
+    if (tool === 'rectangle') {
+      if (e.type === 'mousedown') {
+        shapeStartPosition.current = { x, y };
+        // Create preview canvas if not exists
+        if (!shapePreviewCanvas.current) {
+          shapePreviewCanvas.current = document.createElement('canvas');
+          shapePreviewCanvas.current.width = SKIN_WIDTH;
+          shapePreviewCanvas.current.height = SKIN_HEIGHT;
+        }
+        // Copy current layer to preview
+        const previewCtx = shapePreviewCanvas.current.getContext('2d');
+        if (previewCtx) {
+          previewCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          previewCtx.drawImage(layerCanvas, 0, 0);
+        }
+      } else if (e.type === 'mousemove' && shapeStartPosition.current && shapePreviewCanvas.current) {
+        // Preview the rectangle
+        // Restore original layer
+        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        ctx.drawImage(shapePreviewCanvas.current, 0, 0);
+        // Draw preview rectangle
+        drawRectangle(ctx, shapeStartPosition.current.x, shapeStartPosition.current.y, x, y, selectedColor, brushSize, shapeFilled);
+        // Mirror mode
+        if (mirrorMode) {
+          const mirrorStartX = SKIN_WIDTH - 1 - shapeStartPosition.current.x;
+          const mirrorEndX = SKIN_WIDTH - 1 - x;
+          drawRectangle(ctx, mirrorStartX, shapeStartPosition.current.y, mirrorEndX, y, selectedColor, brushSize, shapeFilled);
+        }
+        compositeLayersToMain();
+        updatePreview();
+      }
+      return;
+    }
+
+    // 🔵 Circle tool - draw circle/ellipse shapes
+    if (tool === 'circle') {
+      if (e.type === 'mousedown') {
+        shapeStartPosition.current = { x, y };
+        // Create preview canvas if not exists
+        if (!shapePreviewCanvas.current) {
+          shapePreviewCanvas.current = document.createElement('canvas');
+          shapePreviewCanvas.current.width = SKIN_WIDTH;
+          shapePreviewCanvas.current.height = SKIN_HEIGHT;
+        }
+        // Copy current layer to preview
+        const previewCtx = shapePreviewCanvas.current.getContext('2d');
+        if (previewCtx) {
+          previewCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+          previewCtx.drawImage(layerCanvas, 0, 0);
+        }
+      } else if (e.type === 'mousemove' && shapeStartPosition.current && shapePreviewCanvas.current) {
+        // Preview the circle
+        // Restore original layer
+        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        ctx.drawImage(shapePreviewCanvas.current, 0, 0);
+        // Draw preview circle
+        drawCircle(ctx, shapeStartPosition.current.x, shapeStartPosition.current.y, x, y, selectedColor, brushSize, shapeFilled);
+        // Mirror mode
+        if (mirrorMode) {
+          const mirrorStartX = SKIN_WIDTH - 1 - shapeStartPosition.current.x;
+          const mirrorEndX = SKIN_WIDTH - 1 - x;
+          drawCircle(ctx, mirrorStartX, shapeStartPosition.current.y, mirrorEndX, y, selectedColor, brushSize, shapeFilled);
+        }
+        compositeLayersToMain();
+        updatePreview();
+      }
+      return;
+    }
+
     // Check if in selected part (if any)
     if (selectedPart) {
       const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
@@ -5570,6 +5647,52 @@ export default function SkinCreator() {
             >
               ✨
             </button>
+            {/* 📐 SHAPE TOOLS - Line, Rectangle, Circle */}
+            <div className="relative group">
+              <button
+                onClick={() => setTool('line')}
+                title="📏 Line! Draw straight lines (W)"
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                  tool === 'line' ? 'bg-indigo-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+                }`}
+              >
+                📏
+              </button>
+            </div>
+            <div className="relative group">
+              <button
+                onClick={() => setTool('rectangle')}
+                title="▢ Rectangle! Draw rectangles (U)"
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                  tool === 'rectangle' ? 'bg-orange-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+                }`}
+              >
+                ▢
+              </button>
+            </div>
+            <div className="relative group">
+              <button
+                onClick={() => setTool('circle')}
+                title="⭕ Circle! Draw circles/ellipses (Y)"
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                  tool === 'circle' ? 'bg-rose-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+                }`}
+              >
+                ⭕
+              </button>
+            </div>
+            {/* Fill toggle for shape tools */}
+            {(tool === 'rectangle' || tool === 'circle') && (
+              <button
+                onClick={() => setShapeFilled(prev => !prev)}
+                title={shapeFilled ? '🔲 Outline mode (click to toggle)' : '⬛ Filled mode (click to toggle)'}
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                  shapeFilled ? 'bg-gray-800 text-white' : 'bg-white/80 hover:bg-white border-2 border-gray-400'
+                }`}
+              >
+                {shapeFilled ? '⬛' : '🔲'}
+              </button>
+            )}
             <div className="relative group">
               <button
                 onClick={() => setTool('stamp')}
