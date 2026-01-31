@@ -10577,8 +10577,8 @@
   - Vision: come Moonlight - molti giochi in una app
 
 ### [T889] Skin Creator: App Store SEO Research
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
