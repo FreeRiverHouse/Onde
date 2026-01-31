@@ -2307,35 +2307,35 @@ export default function SkinCreator() {
 
       {/* Editor View */}
       <div className={`flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
-        {/* Left Panel - Preview */}
-        <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-              <span className="animate-bounce-soft">👀</span> Preview
+        {/* Left Panel - Preview - Clean and focused */}
+        <div className="glass-card rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <h2 className="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
+              <span className="animate-float-gentle">👀</span> Preview
             </h2>
             <button
-              onClick={() => setShow3D(!show3D)}
-              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all ${
+              onClick={() => { setShow3D(!show3D); playSound('click'); }}
+              className={`kid-btn px-4 py-2 text-sm font-bold transition-all ${
                 show3D
-                  ? 'bg-purple-500 text-white'
-                  : 'bg-gray-200 hover:bg-gray-300'
+                  ? 'bg-purple-500 text-white shadow-lg ring-2 ring-purple-300'
+                  : 'bg-gray-100 hover:bg-gray-200'
               }`}
               title="Toggle 3D view - drag to rotate!"
             >
-              {show3D ? '🎮 3D' : '📐 2D'}
+              {show3D ? '🎮 3D ON' : '📐 2D'}
             </button>
           </div>
           
-          {/* Pose Selector */}
+          {/* Pose Selector - Simplified */}
           {show3D && (
-            <div className="flex flex-wrap justify-center gap-1 mb-2">
-              {POSES.map(pose => (
+            <div className="flex flex-wrap justify-center gap-2 mb-3">
+              {POSES.slice(0, 5).map(pose => (
                 <button
                   key={pose.id}
-                  onClick={() => setSelectedPose(pose.id)}
-                  className={`px-2 py-1 rounded-lg text-xs transition-all ${
+                  onClick={() => { setSelectedPose(pose.id); playSound('click'); }}
+                  className={`px-3 py-2 rounded-xl text-sm font-bold transition-all active:scale-95 ${
                     selectedPose === pose.id
-                      ? 'bg-purple-500 text-white'
+                      ? 'bg-purple-500 text-white shadow-md'
                       : 'bg-gray-100 hover:bg-gray-200'
                   }`}
                   title={pose.desc}
@@ -2882,53 +2882,38 @@ export default function SkinCreator() {
 
           {/* Canvas with Grid Controls */}
           <div className="flex flex-col items-center gap-2 w-full">
-            {/* Zoom and Grid Controls - Mobile friendly */}
-            <div className="flex items-center gap-1.5 md:gap-2 bg-white/80 rounded-full px-2 md:px-3 py-1.5 shadow flex-wrap justify-center">
+            {/* Zoom and Grid Controls - Big and kid-friendly */}
+            <div className="flex items-center gap-2 bg-white/90 rounded-2xl px-4 py-2 shadow-lg flex-wrap justify-center">
               <button
-                onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
-                className="w-9 h-9 md:w-7 md:h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm active:scale-95"
-                title="Zoom out (-)"
+                onClick={() => { setZoomLevel(Math.max(2, zoomLevel - 1)); playSound('click'); }}
+                className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
+                title="Zoom out"
               >
-                −
+                ➖
               </button>
-              <span className="text-sm font-bold w-10 md:w-12 text-center">{zoomLevel}x</span>
-              <button
-                onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
-                className="w-9 h-9 md:w-7 md:h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm active:scale-95"
-                title="Zoom in (+)"
-              >
-                +
-              </button>
-              <div className="w-px h-5 bg-gray-300 mx-1 hidden sm:block"></div>
-              <button
-                onClick={() => setShowGrid(!showGrid)}
-                className={`min-w-[44px] min-h-[36px] md:min-w-0 md:min-h-0 px-2 py-1 rounded-full text-xs font-bold transition-all active:scale-95 ${
-                  showGrid
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                }`}
-                title="Toggle grid (G)"
-              >
-                {showGrid ? '▦' : '▢'} Grid
-              </button>
-              <div className="w-px h-5 bg-gray-300 mx-1 hidden md:block"></div>
-              {/* Zoom Presets - Hidden on mobile, shown on larger screens */}
-              <div className="hidden md:flex items-center gap-1">
-                {[2, 4, 6, 8].map(z => (
-                  <button
-                    key={z}
-                    onClick={() => setZoomLevel(z)}
-                    className={`w-8 h-8 rounded text-xs font-bold transition-all active:scale-95 ${
-                      zoomLevel === z
-                        ? 'bg-purple-500 text-white'
-                        : 'bg-gray-200 hover:bg-gray-300'
-                    }`}
-                    title={`Zoom ${z}x`}
-                  >
-                    {z}
-                  </button>
-                ))}
+              <div className="bg-purple-100 px-4 py-2 rounded-xl">
+                <span className="text-lg font-black text-purple-600">{zoomLevel}x</span>
               </div>
+              <button
+                onClick={() => { setZoomLevel(Math.min(10, zoomLevel + 1)); playSound('click'); }}
+                className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
+                title="Zoom in"
+              >
+                ➕
+              </button>
+              <div className="w-px h-8 bg-gray-300 mx-2 hidden sm:block"></div>
+              <button
+                onClick={() => { setShowGrid(!showGrid); playSound('click'); }}
+                className={`kid-btn px-4 font-bold ${
+                  showGrid
+                    ? 'bg-blue-500 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+                title="Toggle grid"
+              >
+                <span className="text-xl mr-1">{showGrid ? '▦' : '▢'}</span>
+                <span className="text-sm">Grid</span>
+              </button>
             </div>
 
             {/* Canvas - with overflow scroll for mobile */}
