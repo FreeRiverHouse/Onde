@@ -10547,3 +10547,40 @@
 - **Blocks**: -
 - **Priority**: P4
 - **Notes**: Salvare preset overlay personalizzati
+
+### [T888] Skin Creator: Expand to Multi-Game (Roblox, Fortnite)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Espandere app a supportare più giochi:
+  - Roblox skin/avatar editor
+  - Fortnite skin editor
+  - Multi-game selector nella home
+  - Consolidare tutto in una app di valore
+  - Vision: come Moonlight - molti giochi in una app
+
+### [T889] Skin Creator: App Store SEO Research
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Research per nome e keywords app:
+  - Analizzare cosa cerca la gente su App Store
+  - Confrontare con competitor (skin editor apps)
+  - Proporre nome ottimizzato (Moonlight Magic House?)
+  - Keywords per massimizzare visibilità
+  - Analisi volume ricerche
+
+### [T890] Skin Creator: Rebrand to "Moonlight Skin Studio" or similar
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T889]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Dopo research SEO, rebrandare app:
+  - Nome ottimizzato per App Store
+  - Logo e branding coerente con Moonlight
+  - Integrazione nel portale Moonlight
