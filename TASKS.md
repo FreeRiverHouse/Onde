@@ -12667,8 +12667,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Slider to control animation speed
 
 ### [T1018] Skin Creator: Achievement Gallery
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Panel showing all achievements and progress
