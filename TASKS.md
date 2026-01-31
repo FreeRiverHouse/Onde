@@ -12514,7 +12514,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Share skins and get votes
 
 ### [T1006] Skin Creator: Mouse Wheel Zoom
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12533,3 +12533,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Double-click to reset camera to default
+
+### [T1009] Skin Creator: Smooth Zoom Animation
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Animate zoom transitions smoothly
+
+### [T1010] Skin Creator: Zoom Level Indicator
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Show current zoom level as percentage
+
+### [T1011] Skin Creator: Zoom Presets
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: 1x, 2x, fit-to-view presets
