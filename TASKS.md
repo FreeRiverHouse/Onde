@@ -117,8 +117,8 @@
   - **Usage**: `./scripts/setup-crontab.sh --show` to see current state
 
 ### [T953] Infra: Agent Health Dashboard Widget
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T950]
 - **Blocks**: -
 - **Priority**: P3
@@ -11870,8 +11870,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Non è un problema, è normale per LLM locale
 
 ### [T952] Skin Creator: Glow Toggle Button in UI
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Aggiungere toggle ✨ Glow per ogni layer nel pannello Layers
