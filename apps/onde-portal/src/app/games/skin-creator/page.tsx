@@ -180,6 +180,10 @@ export default function SkinCreator() {
   const [customTintColors, setCustomTintColors] = useState<string[]>([]); // Recent custom tint colors
   const [showHelp, setShowHelp] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
+  const [showURLImport, setShowURLImport] = useState(false);
+  const [importURL, setImportURL] = useState('');
+  const [importLoading, setImportLoading] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
@@ -1601,6 +1605,73 @@ export default function SkinCreator() {
     e.target.value = ''; // Reset input
   };
 
+  // Import skin from URL 🌐
+  const importFromURL = async () => {
+    if (!importURL.trim()) return;
+    
+    setImportLoading(true);
+    setImportError(null);
+    
+    try {
+      // Try to extract skin URL from various sources
+      let skinURL = importURL.trim();
+      
+      // NameMC profile URL pattern
+      if (skinURL.includes('namemc.com/profile/')) {
+        const username = skinURL.split('/profile/')[1]?.split('/')[0];
+        if (username) {
+          skinURL = `https://mc-heads.net/skin/${username}`;
+        }
+      }
+      // Skindex URL pattern  
+      else if (skinURL.includes('minecraftskins.com/skin/')) {
+        // Try direct download
+        skinURL = skinURL.replace('/skin/', '/download/');
+      }
+      // Minotar for usernames
+      else if (!skinURL.includes('http')) {
+        // Assume it's a username
+        skinURL = `https://mc-heads.net/skin/${skinURL}`;
+      }
+      
+      // Fetch via proxy to avoid CORS
+      const proxyURL = `https://corsproxy.io/?${encodeURIComponent(skinURL)}`;
+      
+      const response = await fetch(proxyURL);
+      if (!response.ok) throw new Error('Failed to fetch skin');
+      
+      const blob = await response.blob();
+      const img = new Image();
+      
+      img.onload = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        
+        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        ctx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        updatePreview();
+        saveState();
+        playSound('click');
+        
+        setShowURLImport(false);
+        setImportURL('');
+        setImportLoading(false);
+      };
+      
+      img.onerror = () => {
+        setImportError('Failed to load image. Try a direct PNG URL.');
+        setImportLoading(false);
+      };
+      
+      img.src = URL.createObjectURL(blob);
+    } catch (err) {
+      setImportError(err instanceof Error ? err.message : 'Failed to import skin');
+      setImportLoading(false);
+    }
+  };
+
   return (
     <div className={`min-h-screen p-6 flex flex-col items-center transition-all duration-700 ${
       darkMode
@@ -2171,8 +2242,16 @@ export default function SkinCreator() {
             <button
               onClick={() => fileInputRef.current?.click()}
               className="px-3 py-2 rounded-full font-bold bg-indigo-500 text-white hover:bg-indigo-600"
+              title="Import from file"
             >
-              📥 Import
+              📥 File
+            </button>
+            <button
+              onClick={() => setShowURLImport(true)}
+              className="px-3 py-2 rounded-full font-bold bg-cyan-500 text-white hover:bg-cyan-600"
+              title="Import from URL or username"
+            >
+              🌐 URL
             </button>
             <input
               ref={fileInputRef}
@@ -2838,6 +2917,63 @@ export default function SkinCreator() {
             >
               🎮 Export for Roblox (256x256)
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* URL Import Modal */}
+      {showURLImport && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowURLImport(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold">🌐 Import from URL</h3>
+              <button
+                onClick={() => setShowURLImport(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl"
+              >
+                ×
+              </button>
+            </div>
+            
+            <p className="text-sm text-gray-600 mb-4">
+              Enter a Minecraft username, NameMC profile URL, or direct PNG URL:
+            </p>
+            
+            <input
+              type="text"
+              value={importURL}
+              onChange={(e) => setImportURL(e.target.value)}
+              placeholder="e.g., Notch or https://..."
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-400 outline-none mb-3"
+              onKeyDown={(e) => e.key === 'Enter' && importFromURL()}
+            />
+            
+            {importError && (
+              <p className="text-red-500 text-sm mb-3">❌ {importError}</p>
+            )}
+            
+            <div className="flex gap-2">
+              <button
+                onClick={importFromURL}
+                disabled={!importURL.trim() || importLoading}
+                className={`flex-1 py-3 rounded-xl font-bold text-lg transition-all ${
+                  importURL.trim() && !importLoading
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:shadow-lg'
+                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                {importLoading ? '⏳ Loading...' : '📥 Import Skin'}
+              </button>
+            </div>
+            
+            <div className="mt-4 p-3 bg-gray-100 rounded-xl">
+              <p className="text-xs text-gray-500 font-bold mb-1">💡 Tips:</p>
+              <ul className="text-xs text-gray-500 space-y-1">
+                <li>• Enter username: <code className="bg-gray-200 px-1 rounded">Notch</code></li>
+                <li>• NameMC URL: <code className="bg-gray-200 px-1 rounded">namemc.com/profile/...</code></li>
+                <li>• Direct PNG URL works too!</li>
+              </ul>
+            </div>
           </div>
         </div>
       )}
