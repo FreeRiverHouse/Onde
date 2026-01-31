@@ -214,6 +214,19 @@
     - Savings estimate vs Claude API pricing
   - ⏳ Dashboard widget (future enhancement)
 
+### [T875] onde.la: Fix badge emoji mancante
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Mattia (ID 2642-2643) ha chiesto di aggiungere 🌊 al badge di lancio
+  - Testo attuale: "stiamo lavorando al sito - tutti i contenuti sono gratuiti in fase di lancio. Fatevi un tuffo!!"
+  - Testo richiesto: "stiamo lavorando al sito - tutti i contenuti sono gratuiti in fase di lancio. Fatevi un tuffo!! 🌊"
+  - File: `apps/onde-portal/messages/it.json` (home.badge)
+  - Anche in `messages/en.json` (home.badge)
+  - Dopo: deploy onde.la
+
 ### [T874] Local LLM: Code review delegation workflow
 - **Status**: DONE
 - **Owner**: @clawdinho
