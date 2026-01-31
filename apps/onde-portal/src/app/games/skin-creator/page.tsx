@@ -206,6 +206,7 @@ export default function SkinCreator() {
   const [importError, setImportError] = useState<string | null>(null);
   const [showTutorial, setShowTutorial] = useState(false);
   const [tutorialStep, setTutorialStep] = useState(0);
+  const [showWelcomeHints, setShowWelcomeHints] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
   const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
@@ -245,9 +246,15 @@ export default function SkinCreator() {
     // Check if local LLM is available
     checkLocalLLM().then(setLocalLLMAvailable);
     
-    // Show tutorial on first visit
+    // Show simple welcome hints for first-time visitors
+    const hasVisited = localStorage.getItem('skin-studio-visited');
+    if (!hasVisited) {
+      setShowWelcomeHints(true);
+    }
+    
+    // Show detailed tutorial on first visit (if welcome hints already dismissed)
     const tutorialSeen = localStorage.getItem('skin-creator-tutorial-seen');
-    if (!tutorialSeen) {
+    if (!tutorialSeen && hasVisited) {
       setShowTutorial(true);
     }
   }, []);
@@ -3605,6 +3612,45 @@ export default function SkinCreator() {
               className="w-full mt-3 text-sm text-gray-400 hover:text-gray-600"
             >
               Skip tutorial
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* First-Time Welcome Hints Modal */}
+      {showWelcomeHints && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl transform animate-bounce-in">
+            <div className="text-center mb-6">
+              <span className="text-6xl animate-bounce-soft">👋</span>
+              <h2 className="text-2xl font-black mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
+                Welcome to Skin Studio!
+              </h2>
+              <p className="text-gray-600 mt-2">Here are some quick tips to get you started:</p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
+                <span className="text-3xl">🎨</span>
+                <p className="font-medium">Click colors to paint!</p>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
+                <span className="text-3xl">🔄</span>
+                <p className="font-medium">Use Mirror Mode for symmetry!</p>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl">
+                <span className="text-3xl">⬇️</span>
+                <p className="font-medium">Download your skin when done!</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setShowWelcomeHints(false);
+                localStorage.setItem('skin-studio-visited', 'true');
+                playSound('click');
+              }}
+              className="w-full mt-6 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg hover:scale-[1.02] transition-all"
+            >
+              Got it! 🚀
             </button>
           </div>
         </div>

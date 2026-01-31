@@ -240,20 +240,66 @@ interface SaveData {
     streak: number;
   };
   savedAt: string;
+  lastVisit: number; // timestamp for pet persistence
+  totalVisits: number;
 }
+
+// Time-away stat adjustment - pet gets hungry/lonely when you're gone
+const adjustStatsForTimeAway = (stats: PetStats, lastVisit: number): { stats: PetStats; hoursAway: number } => {
+  const now = Date.now();
+  const hoursAway = (now - lastVisit) / (1000 * 60 * 60);
+  
+  if (hoursAway < 0.1) return { stats, hoursAway: 0 }; // Less than 6 minutes - no change
+  
+  // Decay rates per hour away
+  const hungerDecay = Math.min(hoursAway * 3, 60); // Max 60 decay
+  const happinessDecay = Math.min(hoursAway * 2, 50); // Max 50 decay
+  const energyRecovery = Math.min(hoursAway * 5, 40); // Actually recovers energy (rested!)
+  
+  return {
+    stats: {
+      ...stats,
+      hunger: Math.max(0, stats.hunger - hungerDecay),
+      happiness: Math.max(0, stats.happiness - happinessDecay),
+      energy: Math.min(100, stats.energy + energyRecovery), // Rested while away
+      health: stats.hunger - hungerDecay < 20 ? Math.max(0, stats.health - hoursAway * 2) : stats.health,
+    },
+    hoursAway,
+  };
+};
+
+// Welcome back message based on time away
+const getWelcomeMessage = (hoursAway: number, lang: 'it' | 'en'): { message: string; emoji: string } | null => {
+  if (hoursAway < 0.1) return null; // Just returned, no message
+  
+  if (lang === 'it') {
+    if (hoursAway < 1) return { message: 'Bentornato!', emoji: '👋' };
+    if (hoursAway < 24) return { message: 'Luna ti ha pensato!', emoji: '💕' };
+    return { message: 'Luna si sentiva così sola senza di te! 😿', emoji: '😿' };
+  } else {
+    if (hoursAway < 1) return { message: 'Welcome back!', emoji: '👋' };
+    if (hoursAway < 24) return { message: 'Luna missed you!', emoji: '💕' };
+    return { message: 'Luna was so lonely without you! 😿', emoji: '😿' };
+  }
+};
 
 const loadSaveData = (): SaveData | null => {
   try {
     const saved = localStorage.getItem(SAVE_KEY);
     if (!saved) return null;
     const data = JSON.parse(saved) as SaveData;
-    return data;
+    // Ensure backwards compatibility for saves without lastVisit/totalVisits
+    return {
+      ...data,
+      lastVisit: data.lastVisit || Date.parse(data.savedAt) || Date.now(),
+      totalVisits: data.totalVisits || 1,
+    };
   } catch {
     return null;
   }
 };
 
-const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: GameState): void => {
+const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: GameState, totalVisits: number): void => {
   try {
     const data: SaveData = {
       stats,
@@ -263,6 +309,8 @@ const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: G
         roomsVisited: Array.from(gameState.roomsVisited),
       },
       savedAt: new Date().toISOString(),
+      lastVisit: Date.now(),
+      totalVisits,
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));
   } catch {
@@ -367,6 +415,67 @@ function AchievementPopup({ achievement, lang, onClose }: { achievement: Achieve
   );
 }
 
+// ==================== WELCOME BACK POPUP ====================
+function WelcomeBackPopup({ message, emoji, hoursAway, totalVisits, lang, onClose }: { 
+  message: string; 
+  emoji: string; 
+  hoursAway: number;
+  totalVisits: number;
+  lang: Language; 
+  onClose: () => void 
+}) {
+  const formatTimeAway = () => {
+    if (hoursAway < 1) {
+      const minutes = Math.round(hoursAway * 60);
+      return lang === 'it' ? `${minutes} minuti` : `${minutes} minutes`;
+    }
+    if (hoursAway < 24) {
+      const hours = Math.round(hoursAway);
+      return lang === 'it' ? `${hours} ore` : `${hours} hours`;
+    }
+    const days = Math.round(hoursAway / 24);
+    return lang === 'it' ? `${days} giorni` : `${days} days`;
+  };
+
+  return (
+    <motion.div 
+      className="welcome-back-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div 
+        className="welcome-back-popup glass-card"
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ type: 'spring', damping: 15 }}
+        onClick={e => e.stopPropagation()}
+      >
+        <span className="welcome-emoji">{emoji}</span>
+        <h2 className="welcome-title">{message}</h2>
+        <p className="welcome-time">
+          {lang === 'it' ? `Eri via da ${formatTimeAway()}` : `You were away for ${formatTimeAway()}`}
+        </p>
+        <p className="welcome-visits">
+          {lang === 'it' ? `Visita #${totalVisits}` : `Visit #${totalVisits}`} 
+          <span className="visit-star">⭐</span>
+        </p>
+        {hoursAway >= 24 && (
+          <p className="welcome-warning">
+            {lang === 'it' 
+              ? '⚠️ Luna aveva fame e si sentiva sola!' 
+              : '⚠️ Luna was hungry and lonely!'}
+          </p>
+        )}
+        <button className="welcome-btn" onClick={onClose}>
+          {lang === 'it' ? '🐱 Ciao Luna!' : '🐱 Hi Luna!'}
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ==================== DAILY REWARD POPUP ====================
 function DailyRewardPopup({ coins, streak, lang, onClose }: { coins: number; streak: number; lang: Language; onClose: () => void }) {
   const t = translations[lang];
@@ -431,10 +540,34 @@ function App() {
     } catch {}
   };
 
-  // Core state (restored from save or defaults)
+  // Pet persistence - track visits and time away
+  const [totalVisits, setTotalVisits] = useState<number>(() => {
+    const saved = loadSaveData();
+    return (saved?.totalVisits ?? 0) + 1; // Increment on each session start
+  });
+  
+  const [welcomeMessage, setWelcomeMessage] = useState<{ message: string; emoji: string; hoursAway: number } | null>(null);
+  
+  // Core state (restored from save or defaults, with time-away adjustment)
   const [stats, setStats] = useState<PetStats>(() => {
     const saved = loadSaveData();
-    return saved?.stats ?? { health: 80, hunger: 60, energy: 90, happiness: 75, coins: 100, level: 1, xp: 0 };
+    if (!saved) {
+      return { health: 80, hunger: 60, energy: 90, happiness: 75, coins: 100, level: 1, xp: 0 };
+    }
+    
+    // Apply time-away stat adjustments
+    const { stats: adjustedStats, hoursAway } = adjustStatsForTimeAway(saved.stats, saved.lastVisit);
+    
+    // Set welcome message if applicable (will be shown after mount)
+    const welcome = getWelcomeMessage(hoursAway, 'it'); // Default to Italian, will update in effect
+    if (welcome && hoursAway >= 0.1) {
+      // Use setTimeout to set after initial render
+      setTimeout(() => {
+        setWelcomeMessage({ ...welcome, hoursAway });
+      }, 500);
+    }
+    
+    return adjustedStats;
   });
   const [currentRoom, setCurrentRoom] = useState(0);
   const [isActing, setIsActing] = useState(false);
@@ -668,8 +801,8 @@ function App() {
 
   // Auto-save game state
   useEffect(() => {
-    saveSaveData(stats, achievements, gameState);
-  }, [stats, achievements, gameState]);
+    saveSaveData(stats, achievements, gameState, totalVisits);
+  }, [stats, achievements, gameState, totalVisits]);
 
   // Ambient music based on room
   useEffect(() => {
@@ -1051,6 +1184,19 @@ function App() {
   };
 
   // Popups
+  if (welcomeMessage) {
+    return (
+      <WelcomeBackPopup 
+        message={welcomeMessage.message} 
+        emoji={welcomeMessage.emoji}
+        hoursAway={welcomeMessage.hoursAway}
+        totalVisits={totalVisits}
+        lang={lang} 
+        onClose={() => setWelcomeMessage(null)} 
+      />
+    );
+  }
+  
   if (showDailyReward) {
     return <DailyRewardPopup coins={dailyRewardAmount} streak={gameState.streak} lang={lang} onClose={claimDailyReward} />;
   }
