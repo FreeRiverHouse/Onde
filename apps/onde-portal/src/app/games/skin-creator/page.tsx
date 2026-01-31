@@ -1982,6 +1982,28 @@ export default function SkinCreator() {
       {/* Gallery View */}
       {viewMode === 'gallery' && (
         <div className="w-full max-w-6xl px-2 mt-4">
+          {/* 🏆 Leaderboard */}
+          <div className="mb-6 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-4">
+            <h3 className="text-lg font-bold flex items-center gap-2 mb-3">
+              🏆 Top Creators This Week
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {[
+                { rank: '🥇', name: 'PixelMaster', skins: 47 },
+                { rank: '🥈', name: 'SkinWizard', skins: 38 },
+                { rank: '🥉', name: 'BlockArtist', skins: 31 },
+                { rank: '4', name: 'CraftQueen', skins: 28 },
+                { rank: '5', name: 'You?', skins: '🚀' },
+              ].map((user, i) => (
+                <div key={i} className="bg-white/80 rounded-xl p-2 text-center">
+                  <div className="text-2xl">{user.rank}</div>
+                  <div className="font-bold text-sm truncate">{user.name}</div>
+                  <div className="text-xs text-gray-500">{user.skins} skins</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <SkinGallery
             onSelectSkin={(imageData: string) => {
               // Load skin into editor
