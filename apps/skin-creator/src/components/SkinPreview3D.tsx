@@ -271,12 +271,35 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   }, [skinCanvas]);
 
   return (
-    <div className="relative">
+    <div className="relative group">
+      {/* 🎬 Post-processing container with glow */}
       <div 
-        ref={containerRef} 
-        className="rounded-xl overflow-hidden mx-auto cursor-grab active:cursor-grabbing"
-        style={{ width: 200, height: 280 }}
-      />
+        className="relative rounded-xl overflow-hidden mx-auto cursor-grab active:cursor-grabbing shadow-2xl"
+        style={{ 
+          width: 200, 
+          height: 280,
+          boxShadow: '0 0 30px rgba(100, 149, 237, 0.3), 0 0 60px rgba(138, 43, 226, 0.2)',
+        }}
+      >
+        <div ref={containerRef} className="w-full h-full" />
+        
+        {/* 🌟 Vignette overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)',
+          }}
+        />
+        
+        {/* ✨ Subtle bloom overlay on hover */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)',
+          }}
+        />
+      </div>
+      
       <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate</p>
     </div>
   );
