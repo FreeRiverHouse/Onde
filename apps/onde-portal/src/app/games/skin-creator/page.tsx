@@ -7446,7 +7446,7 @@ export default function SkinCreator() {
                 </div>
 
                 {/* Filter Buttons - Second Row */}
-                <div className="grid grid-cols-3 gap-1">
+                <div className="grid grid-cols-3 gap-1 mb-1">
                   {TEXTURE_FILTERS.slice(3, 6).map((filter) => (
                     <button
                       key={filter.id}
@@ -7459,6 +7459,27 @@ export default function SkinCreator() {
                           : filter.id === 'pixelate'
                           ? 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 hover:border-purple-400'
                           : 'bg-gradient-to-br from-slate-100 to-zinc-100 border-slate-300 hover:border-slate-400'
+                      }`}
+                      title={filter.description}
+                    >
+                      <span className="text-lg">{filter.emoji}</span>
+                      <span className="text-[10px] font-medium text-gray-700">{filter.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Filter Buttons - Third Row (Vignette & Invert) */}
+                <div className="grid grid-cols-2 gap-1">
+                  {TEXTURE_FILTERS.slice(6, 8).map((filter) => (
+                    <button
+                      key={filter.id}
+                      onClick={() => {
+                        applyTextureFilter(filter.id, textureFilterIntensity);
+                      }}
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
+                        filter.id === 'vignette' 
+                          ? 'bg-gradient-to-br from-gray-100 to-neutral-100 border-gray-300 hover:border-gray-400' 
+                          : 'bg-gradient-to-br from-cyan-100 to-teal-100 border-cyan-300 hover:border-cyan-400'
                       }`}
                       title={filter.description}
                     >

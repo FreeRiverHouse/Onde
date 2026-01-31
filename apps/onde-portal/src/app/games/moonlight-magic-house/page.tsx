@@ -849,6 +849,57 @@ interface MemoryCard {
   isMatched: boolean
 }
 
+// ============ PHOTO MODE TYPES ============
+interface PhotoFrame {
+  id: string
+  name: string
+  emoji: string
+  borderStyle: string
+  cornerDecoration?: string
+}
+
+interface PhotoSticker {
+  id: string
+  emoji: string
+  x: number
+  y: number
+  size: number
+  rotation: number
+}
+
+interface PhotoModeState {
+  isActive: boolean
+  selectedFrameId: string
+  stickers: PhotoSticker[]
+  showControls: boolean
+  filter: string
+}
+
+// Photo frames configuration
+const PHOTO_FRAMES: PhotoFrame[] = [
+  { id: 'none', name: 'No Frame', emoji: '⬜', borderStyle: 'none', cornerDecoration: undefined },
+  { id: 'stars', name: 'Starry Night', emoji: '⭐', borderStyle: '8px solid transparent', cornerDecoration: '⭐' },
+  { id: 'hearts', name: 'Love Hearts', emoji: '💖', borderStyle: '8px solid transparent', cornerDecoration: '💕' },
+  { id: 'magic', name: 'Magic Sparkle', emoji: '✨', borderStyle: '8px solid transparent', cornerDecoration: '✨' },
+  { id: 'moon', name: 'Moonlight', emoji: '🌙', borderStyle: '8px solid transparent', cornerDecoration: '🌙' },
+  { id: 'rainbow', name: 'Rainbow Dreams', emoji: '🌈', borderStyle: '8px solid transparent', cornerDecoration: '🌈' },
+  { id: 'flowers', name: 'Flower Garden', emoji: '🌸', borderStyle: '8px solid transparent', cornerDecoration: '🌸' },
+  { id: 'gold', name: 'Golden Frame', emoji: '👑', borderStyle: '8px solid #FFD700', cornerDecoration: '👑' },
+]
+
+// Available stickers for photo mode
+const PHOTO_STICKERS = ['⭐', '✨', '💖', '🌙', '🌟', '🦋', '🌸', '🎀', '💫', '🌈', '☁️', '🍬', '🧸', '🎵', '💎', '🌺']
+
+// Photo filters
+const PHOTO_FILTERS = [
+  { id: 'none', name: 'Normal', emoji: '🔲', filter: 'none' },
+  { id: 'warm', name: 'Warm', emoji: '🌅', filter: 'sepia(20%) saturate(120%)' },
+  { id: 'cool', name: 'Cool', emoji: '❄️', filter: 'hue-rotate(20deg) saturate(90%)' },
+  { id: 'dreamy', name: 'Dreamy', emoji: '💭', filter: 'blur(0.5px) brightness(105%)' },
+  { id: 'vintage', name: 'Vintage', emoji: '📷', filter: 'sepia(40%) contrast(90%)' },
+  { id: 'magic', name: 'Magic', emoji: '✨', filter: 'saturate(130%) brightness(105%) hue-rotate(-10deg)' },
+]
+
 const HIDING_SPOT_TYPES: HidingSpot['type'][] = ['couch', 'plant', 'box', 'teddy', 'gift', 'chair', 'bed', 'basket']
 
 // Time of day cycle configuration
@@ -4915,9 +4966,45 @@ export default function MoonlightMagicHouse() {
   // Main menu
   if (gameState === 'menu') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      <div 
+        ref={photoContainerRef}
+        className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
+        style={{ filter: photoMode.isActive ? photoMode.filter : 'none' }}
+      >
         <MagicalBackground intense />
         <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
+        
+        {/* Photo Mode Button */}
+        <PhotoModeButton 
+          onClick={togglePhotoMode} 
+          isActive={photoMode.isActive}
+          soundEnabled={soundEnabled} 
+        />
+        
+        {/* Photo Mode Frame Overlay */}
+        {photoMode.isActive && (
+          <PhotoFrameOverlay 
+            frameId={photoMode.selectedFrameId} 
+            showFlash={showCaptureFlash}
+          />
+        )}
+        
+        {/* Photo Mode UI */}
+        {photoMode.isActive && (
+          <PhotoModeUI
+            photoMode={photoMode}
+            onClose={togglePhotoMode}
+            onFrameChange={setPhotoFrame}
+            onFilterChange={setPhotoFilter}
+            onAddSticker={addPhotoSticker}
+            onRemoveSticker={removePhotoSticker}
+            onClearStickers={clearPhotoStickers}
+            onCapture={capturePhoto}
+            onToggleControls={togglePhotoControls}
+            isCapturing={isCapturing}
+            soundEnabled={soundEnabled}
+          />
+        )}
         
         <div className="relative z-10 text-center">
           {/* Title with glow effect */}
