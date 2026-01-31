@@ -13475,3 +13475,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Giochi per adulti
   - Arcade cabinet
 - **Route**: /grown-ups o /adults
+
+### [T1080] Gaming Island: Hidden Treasure Easter Egg
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 01:40 PST
+- **Notes**: Tester Kid said "E un TESORO nascosto!" - 💎 with sparkle animation
