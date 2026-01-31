@@ -13141,8 +13141,9 @@ Generated: 2026-01-30T18:37:46.867013
   - **Riferimento:** "Esistono già bot per andare in giro e simulare cose" - Mattia
 
 ### [T1053] Gaming Island: Landing Page su onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:00 PST
 - **Priority**: P0
 - **Goal**: Creare pagina /games con "Gaming Island" theme
 - **Design**: 
@@ -13164,7 +13165,9 @@ Generated: 2026-01-30T18:37:46.867013
 - **Research**: Check competition keywords
 
 ### [T1055] Moonlight: Integrazione su onde.la/games
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:00 PST
 - **Priority**: P1
 - **Goal**: Embed o link Moonlight nella Gaming Island
+- **Notes**: Linked from Gaming Island page
