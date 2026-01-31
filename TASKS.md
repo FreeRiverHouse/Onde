@@ -13178,3 +13178,39 @@ Generated: 2026-01-30T18:37:46.867013
 - **Priority**: P1
 - **Goal**: Embed o link Moonlight nella Gaming Island
 - **Notes**: Linked from Gaming Island page
+
+### [T1056] Kids Chef Studio: Project Setup
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P0
+- **Goal**: Nuova app gaming su onde.la - cucina per bambini
+- **Features**:
+  - Ricette interattive step-by-step
+  - Personaggi carini (chef characters)
+  - Mini-giochi di cucina
+  - Achievements/rewards
+  - Sound effects divertenti
+- **Stack**: React/Next.js su onde-portal
+- **Path**: /games/kids-chef-studio
+
+### [T1057] Kids Chef Studio: Character Design
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Characters**:
+  - Chef principale (bambino/a)
+  - Aiutante (animale carino?)
+  - Ingredienti animati
+- **Style**: Cartoon, colorful, child-friendly
+
+### [T1058] Kids Chef Studio: Recipe System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Recipes**:
+  - Pizza
+  - Cupcakes
+  - Gelato
+  - Pasta
+  - Pancakes
+- **Gameplay**: Drag & drop ingredients, timer games, mixing mini-games
