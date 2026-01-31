@@ -2348,6 +2348,16 @@ export default function SkinCreator() {
                         title={`${skin.name} - Click to load`}
                       />
                       <button
+                        onClick={(e) => { 
+                          e.stopPropagation();
+                          // Duplicate skin
+                          const newSkin = { ...skin, id: Date.now().toString(), name: `${skin.name} (copy)` };
+                          setSavedSkins(prev => [...prev, newSkin]);
+                        }}
+                        className="absolute -top-1 -left-1 w-4 h-4 bg-blue-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Duplicate"
+                      >📋</button>
+                      <button
                         onClick={(e) => { e.stopPropagation(); deleteSavedSkin(skin.id); }}
                         className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Delete"
