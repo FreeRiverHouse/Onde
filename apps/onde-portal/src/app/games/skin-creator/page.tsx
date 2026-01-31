@@ -34,6 +34,13 @@ interface Layer {
   glow: boolean; // Glow effect on layer
 }
 
+// 🔄 History state for undo/redo - tracks all layer states
+interface HistoryState {
+  layers: { [key in LayerType]?: ImageData };
+  composite: ImageData;
+  timestamp: number;
+}
+
 const DEFAULT_LAYERS: Layer[] = [
   { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
   { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
@@ -216,6 +223,52 @@ const TEMPLATES = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const STEVE_TEMPLATE = TEMPLATES.steve;
 
+// 🎮 CHARACTER TEMPLATES - Pre-made base skins for kids to customize!
+// These are PNG images that kids can start from instead of blank canvas
+interface CharacterTemplate {
+  id: string;
+  name: string;
+  emoji: string;
+  description: string;
+  imagePath: string;
+  tags: string[];
+}
+
+const CHARACTER_TEMPLATES: CharacterTemplate[] = [
+  {
+    id: 'steve',
+    name: 'Steve',
+    emoji: '👦',
+    description: 'The classic Minecraft hero!',
+    imagePath: '/games/skin-templates/steve.png',
+    tags: ['classic', 'human', 'boy'],
+  },
+  {
+    id: 'alex',
+    name: 'Alex',
+    emoji: '👧',
+    description: 'Brave adventurer with orange hair!',
+    imagePath: '/games/skin-templates/alex.png',
+    tags: ['classic', 'human', 'girl'],
+  },
+  {
+    id: 'zombie',
+    name: 'Zombie',
+    emoji: '🧟',
+    description: 'Spooky green zombie!',
+    imagePath: '/games/skin-templates/zombie.png',
+    tags: ['monster', 'spooky', 'green'],
+  },
+  {
+    id: 'creeper',
+    name: 'Creeper',
+    emoji: '💚',
+    description: 'Sssss... The iconic Creeper!',
+    imagePath: '/games/skin-templates/creeper.png',
+    tags: ['monster', 'classic', 'green'],
+  },
+];
+
 // Fun color palette - Kid-friendly!
 const COLORS = [
   // 🎨 SIMPLE COLORS (top row - easy for kids!)
@@ -244,7 +297,7 @@ export default function SkinCreator() {
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line'>('brush');
+  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'spray'>('brush');
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
@@ -837,9 +890,11 @@ export default function SkinCreator() {
     setExportHistory(updated);
     localStorage.setItem('skin-export-history', JSON.stringify(updated));
   };
-  const [history, setHistory] = useState<ImageData[]>([]);
+  // 🔄 Undo/Redo History System - Tracks all layer states
+  const [history, setHistory] = useState<HistoryState[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const maxHistory = 20;
+  const maxHistory = 30; // Increased for better UX
+  const [showHistoryPanel, setShowHistoryPanel] = useState(false); // Visual timeline
   
   // 🏆 Achievement System
   const [achievements, setAchievements] = useState<Record<string, boolean>>({});
@@ -988,6 +1043,8 @@ export default function SkinCreator() {
     const newIndex = historyIndex - 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
+    // 🎮 Trigger 3D preview texture refresh
+    setTextureVersion(v => v + 1);
     // 🤫 Perfectionist achievement - track undo count
     const undoCount = parseInt(localStorage.getItem('skin-undo-count') || '0') + 1;
     localStorage.setItem('skin-undo-count', undoCount.toString());
@@ -1006,6 +1063,8 @@ export default function SkinCreator() {
     const newIndex = historyIndex + 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
+    // 🎮 Trigger 3D preview texture refresh
+    setTextureVersion(v => v + 1);
   }, [history, historyIndex]);
 
   // Sound effects using Web Audio API 🔊
@@ -1134,6 +1193,8 @@ export default function SkinCreator() {
           ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
           ctx.drawImage(img, 0, 0);
           updatePreview();
+          // 🎮 Trigger 3D preview texture refresh
+          setTextureVersion(v => v + 1);
         };
         img.src = saved;
       }
@@ -1635,7 +1696,55 @@ export default function SkinCreator() {
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
     updatePreview();
+    // 🎮 Trigger 3D preview texture refresh
+    setTextureVersion(v => v + 1);
   }, [getLayerCanvas, compositeLayersToMain]);
+
+  // 🎮 Load a character template (PNG image) - Kids start from a base!
+  const loadCharacterTemplate = useCallback((templateId: string) => {
+    const template = CHARACTER_TEMPLATES.find(t => t.id === templateId);
+    if (!template) return;
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      // Clear all layer canvases first
+      const baseCanvas = getLayerCanvas('base');
+      const clothingCanvas = getLayerCanvas('clothing');
+      const accessoriesCanvas = getLayerCanvas('accessories');
+
+      const baseCtx = baseCanvas.getContext('2d');
+      const clothingCtx = clothingCanvas.getContext('2d');
+      const accessoriesCtx = accessoriesCanvas.getContext('2d');
+
+      if (!baseCtx || !clothingCtx || !accessoriesCtx) return;
+
+      // Clear all layers
+      baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+      // Draw the template to the base layer
+      baseCtx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+      // Composite to main canvas
+      compositeLayersToMain();
+      updatePreview();
+      saveState();
+      playSound('click');
+
+      // Special effects for certain characters!
+      if (templateId === 'creeper') {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+      }
+    };
+    img.onerror = () => {
+      console.error(`Failed to load template: ${template.imagePath}`);
+      playSound('error');
+    };
+    img.src = template.imagePath;
+  }, [getLayerCanvas, compositeLayersToMain, saveState, playSound]);
 
   const updatePreview = useCallback(() => {
     const canvas = canvasRef.current;
@@ -2112,6 +2221,49 @@ export default function SkinCreator() {
         }
       }
       ctx.shadowBlur = 0;
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
+
+    // ✏️ Pencil - precise 1px drawing with interpolation
+    if (tool === 'pencil') {
+      ctx.fillStyle = selectedColor;
+      // Interpolate from last position for smooth lines
+      if (lastDrawPosition.current && isDrawing) {
+        drawLineInterpolated(ctx, lastDrawPosition.current.x, lastDrawPosition.current.y, x, y, selectedColor, 1, false);
+        if (mirrorMode) {
+          drawLineInterpolated(ctx, SKIN_WIDTH - 1 - lastDrawPosition.current.x, lastDrawPosition.current.y, SKIN_WIDTH - 1 - x, y, selectedColor, 1, false);
+        }
+      } else {
+        ctx.fillRect(x, y, 1, 1);
+        if (mirrorMode) {
+          ctx.fillRect(SKIN_WIDTH - 1 - x, y, 1, 1);
+        }
+      }
+      lastDrawPosition.current = { x, y };
+      compositeLayersToMain();
+      updatePreview();
+      return;
+    }
+
+    // 💨 Spray - random pixels in radius (airbrush effect)
+    if (tool === 'spray') {
+      ctx.fillStyle = selectedColor;
+      const sprayRadius = Math.max(brushSize * 2, 3);
+      const density = 8 + brushSize * 4; // More density with larger brush
+      for (let i = 0; i < density; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * sprayRadius;
+        const sprayX = Math.floor(x + Math.cos(angle) * radius);
+        const sprayY = Math.floor(y + Math.sin(angle) * radius);
+        if (sprayX >= 0 && sprayX < SKIN_WIDTH && sprayY >= 0 && sprayY < SKIN_HEIGHT) {
+          ctx.fillRect(sprayX, sprayY, 1, 1);
+          if (mirrorMode) {
+            ctx.fillRect(SKIN_WIDTH - 1 - sprayX, sprayY, 1, 1);
+          }
+        }
+      }
       compositeLayersToMain();
       updatePreview();
       return;
@@ -3081,17 +3233,42 @@ export default function SkinCreator() {
 
           {/* Templates - Simplified with categories */}
           <div className="mt-4">
-            <p className="text-sm font-bold text-gray-700 mb-3">🎭 Start from a template:</p>
+            <p className="text-sm font-bold text-gray-700 mb-3">🎮 Start from a character:</p>
+            
+            {/* 🎮 CHARACTER TEMPLATES - Pre-made base skins! */}
+            <div className="grid grid-cols-4 gap-2 mb-4">
+              {CHARACTER_TEMPLATES.map((template) => (
+                <button
+                  key={template.id}
+                  onClick={() => loadCharacterTemplate(template.id)}
+                  className="group relative kid-btn bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg flex flex-col items-center py-3 hover:scale-105 transition-all duration-200 overflow-hidden"
+                  title={template.description}
+                >
+                  {/* Skin preview thumbnail */}
+                  <div className="relative w-10 h-10 mb-1">
+                    <img
+                      src={template.imagePath}
+                      alt={template.name}
+                      className="w-full h-full object-cover rounded"
+                      style={{ imageRendering: 'pixelated' }}
+                    />
+                  </div>
+                  <span className="text-lg leading-none">{template.emoji}</span>
+                  <span className="text-xs font-bold mt-1">{template.name}</span>
+                  {/* Hover tooltip */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2">
+                    <span className="text-xs text-center">{template.description}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <p className="text-xs text-gray-500 mb-3 text-center">👆 Click a character to start customizing!</p>
+
+            <p className="text-sm font-bold text-gray-700 mb-2">🎭 Or try these styles:</p>
             
             {/* Quick Start Row - Most popular */}
             <div className="grid grid-cols-3 gap-2 mb-3">
-              <button
-                onClick={() => { loadTemplate('steve'); playSound('click'); }}
-                className="kid-btn bg-blue-500 text-white shadow-md flex flex-col items-center py-3"
-              >
-                <span className="text-xl">👦</span>
-                <span className="text-xs font-bold">Steve</span>
-              </button>
               <button
                 onClick={() => {
                   setIsWiggling(true);
@@ -3110,11 +3287,18 @@ export default function SkinCreator() {
                 <span className="text-xl">⬜</span>
                 <span className="text-xs font-bold">Blank</span>
               </button>
+              <button
+                onClick={() => { loadTemplate('robot'); playSound('click'); }}
+                className="kid-btn bg-slate-600 text-white shadow-md flex flex-col items-center py-3"
+              >
+                <span className="text-xl">🤖</span>
+                <span className="text-xs font-bold">Robot</span>
+              </button>
             </div>
             
             {/* More Templates - Scrollable */}
             <div className="flex gap-2 overflow-x-auto pb-2 scroll-smooth" style={{ WebkitOverflowScrolling: 'touch' }}>
-              {Object.entries(TEMPLATES).slice(1, 8).map(([key, template]) => (
+              {Object.entries(TEMPLATES).slice(2, 8).map(([key, template]) => (
                 <button
                   key={key}
                   onClick={() => {
@@ -3744,36 +3928,135 @@ export default function SkinCreator() {
         <div className="glass-card rounded-3xl p-6 shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
 
-          {/* Color Palette Presets */}
-          <div className="mb-4">
-            <p className="text-xs text-gray-500 mb-2">🎨 Palette Presets:</p>
-            <div className="flex flex-wrap gap-1">
-              {COLOR_PALETTE_PRESETS.map((preset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => {
-                    setSelectedColor(preset.colors[0]);
-                    setRecentColors(preset.colors);
-                    playSound('click');
-                  }}
-                  className="group relative flex items-center gap-1 px-2 py-1 rounded-lg bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 border border-gray-200 hover:border-gray-300 transition-all hover:scale-105 text-xs font-medium"
-                  title={`Load ${preset.name} palette`}
-                >
-                  <span>{preset.emoji}</span>
-                  <span className="hidden sm:inline">{preset.name}</span>
-                  {/* Color preview dots */}
-                  <div className="flex gap-0.5 ml-1">
-                    {preset.colors.slice(0, 3).map((color, i) => (
-                      <div
-                        key={i}
-                        className="w-2 h-2 rounded-full border border-white shadow-sm"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-                  </div>
-                </button>
-              ))}
+          {/* 🎨 Advanced Color Palette Presets */}
+          <div className="mb-4 p-3 bg-gradient-to-br from-violet-50 to-fuchsia-50 rounded-xl border border-violet-200">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs font-bold text-violet-700 flex items-center gap-1">
+                <span className="text-base">🎨</span> Color Palettes
+              </p>
+              <span className="text-[10px] text-violet-400">16 themes</span>
             </div>
+            
+            {/* 🎮 Game Palettes */}
+            <div className="mb-2">
+              <p className="text-[10px] font-semibold mb-1 px-2 py-0.5 rounded-full inline-block text-white bg-gradient-to-r from-green-500 to-emerald-600">
+                🎮 Game
+              </p>
+              <div className="grid grid-cols-2 gap-1">
+                {COLOR_PALETTE_PRESETS.filter(p => p.category === 'game').map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => {
+                      setSelectedColor(preset.colors[0]);
+                      setRecentColors(preset.colors);
+                      playSound('click');
+                    }}
+                    className="group relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-white hover:bg-gray-50 border border-gray-200 hover:border-violet-300 transition-all hover:scale-[1.02] hover:shadow-md text-xs font-medium"
+                    title={`Load ${preset.name} palette`}
+                  >
+                    <span className="text-sm">{preset.emoji}</span>
+                    <span className="font-semibold text-gray-700 truncate flex-1 text-left">{preset.name}</span>
+                    <div className="flex gap-0 rounded overflow-hidden shadow-sm">
+                      {preset.colors.slice(0, 4).map((color, i) => (
+                        <div key={i} className="w-3 h-4" style={{ backgroundColor: color }} />
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* ✨ Mood Palettes */}
+            <div className="mb-2">
+              <p className="text-[10px] font-semibold mb-1 px-2 py-0.5 rounded-full inline-block text-white bg-gradient-to-r from-purple-500 to-pink-500">
+                ✨ Mood
+              </p>
+              <div className="grid grid-cols-2 gap-1">
+                {COLOR_PALETTE_PRESETS.filter(p => p.category === 'mood').map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => {
+                      setSelectedColor(preset.colors[0]);
+                      setRecentColors(preset.colors);
+                      playSound('click');
+                    }}
+                    className="group relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-white hover:bg-gray-50 border border-gray-200 hover:border-violet-300 transition-all hover:scale-[1.02] hover:shadow-md text-xs font-medium"
+                    title={`Load ${preset.name} palette`}
+                  >
+                    <span className="text-sm">{preset.emoji}</span>
+                    <span className="font-semibold text-gray-700 truncate flex-1 text-left">{preset.name}</span>
+                    <div className="flex gap-0 rounded overflow-hidden shadow-sm">
+                      {preset.colors.slice(0, 4).map((color, i) => (
+                        <div key={i} className="w-3 h-4" style={{ backgroundColor: color }} />
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* 🌿 Nature Palettes */}
+            <div className="mb-2">
+              <p className="text-[10px] font-semibold mb-1 px-2 py-0.5 rounded-full inline-block text-white bg-gradient-to-r from-teal-500 to-cyan-500">
+                🌿 Nature
+              </p>
+              <div className="grid grid-cols-2 gap-1">
+                {COLOR_PALETTE_PRESETS.filter(p => p.category === 'nature').map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => {
+                      setSelectedColor(preset.colors[0]);
+                      setRecentColors(preset.colors);
+                      playSound('click');
+                    }}
+                    className="group relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-white hover:bg-gray-50 border border-gray-200 hover:border-violet-300 transition-all hover:scale-[1.02] hover:shadow-md text-xs font-medium"
+                    title={`Load ${preset.name} palette`}
+                  >
+                    <span className="text-sm">{preset.emoji}</span>
+                    <span className="font-semibold text-gray-700 truncate flex-1 text-left">{preset.name}</span>
+                    <div className="flex gap-0 rounded overflow-hidden shadow-sm">
+                      {preset.colors.slice(0, 4).map((color, i) => (
+                        <div key={i} className="w-3 h-4" style={{ backgroundColor: color }} />
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* 🌟 Special Palettes */}
+            <div className="mb-2">
+              <p className="text-[10px] font-semibold mb-1 px-2 py-0.5 rounded-full inline-block text-white bg-gradient-to-r from-amber-500 to-orange-500">
+                🌟 Special
+              </p>
+              <div className="grid grid-cols-2 gap-1">
+                {COLOR_PALETTE_PRESETS.filter(p => p.category === 'special').map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => {
+                      setSelectedColor(preset.colors[0]);
+                      setRecentColors(preset.colors);
+                      playSound('click');
+                    }}
+                    className="group relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-white hover:bg-gray-50 border border-gray-200 hover:border-violet-300 transition-all hover:scale-[1.02] hover:shadow-md text-xs font-medium"
+                    title={`Load ${preset.name} palette`}
+                  >
+                    <span className="text-sm">{preset.emoji}</span>
+                    <span className="font-semibold text-gray-700 truncate flex-1 text-left">{preset.name}</span>
+                    <div className="flex gap-0 rounded overflow-hidden shadow-sm">
+                      {preset.colors.slice(0, 4).map((color, i) => (
+                        <div key={i} className="w-3 h-4" style={{ backgroundColor: color }} />
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Quick tip */}
+            <p className="text-[10px] text-violet-500 text-center mt-2 flex items-center justify-center gap-1">
+              💡 Click a palette to load all its colors!
+            </p>
           </div>
 
           {/* 🎭 Pattern Presets - One-click cool patterns! */}

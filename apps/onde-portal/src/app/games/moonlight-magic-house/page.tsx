@@ -200,6 +200,46 @@ const sounds = {
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
     o.start(); o.stop(ctx.currentTime + 0.12)
     haptic.light()
+  },
+
+  // Wind chime - magical transition sound
+  windChime: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Random pentatonic notes like wind chimes
+    const chimeNotes = [523, 587, 659, 784, 880, 1047, 1175] // C-D-E-G-A pentatonic
+    for (let i = 0; i < 5; i++) {
+      const note = chimeNotes[Math.floor(Math.random() * chimeNotes.length)]
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      const filter = ctx.createBiquadFilter()
+      o.connect(filter); filter.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(note, ctx.currentTime + i * 0.12)
+      o.type = 'triangle'
+      filter.type = 'highpass'
+      filter.frequency.setValueAtTime(600, ctx.currentTime)
+      g.gain.setValueAtTime(0, ctx.currentTime + i * 0.12)
+      g.gain.linearRampToValueAtTime(0.08, ctx.currentTime + i * 0.12 + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.6)
+      o.start(ctx.currentTime + i * 0.12); o.stop(ctx.currentTime + i * 0.12 + 0.6)
+    }
+  },
+
+  // Magical sparkle burst - for special moments
+  sparkle: (enabled: boolean) => {
+    if (!enabled) return
+    const ctx = getAudioCtx()
+    if (!ctx) return
+    // Rapid high sparkle sounds
+    for (let i = 0; i < 6; i++) {
+      const o = ctx.createOscillator(), g = ctx.createGain()
+      o.connect(g); g.connect(ctx.destination)
+      o.frequency.setValueAtTime(1500 + Math.random() * 2500, ctx.currentTime + i * 0.05)
+      o.type = 'sine'
+      g.gain.setValueAtTime(0.05, ctx.currentTime + i * 0.05)
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.05 + 0.15)
+      o.start(ctx.currentTime + i * 0.05); o.stop(ctx.currentTime + i * 0.05 + 0.15)
+    }
   }
 }
 
@@ -926,8 +966,27 @@ export default function MoonlightMagicHouse() {
     const timer = setTimeout(() => {
       setIsLoading(false)
       setGameState('menu')
+      // Start ambient music when entering menu
+      if (soundEnabled) {
+        getAmbientMusic().start(true)
+        sounds.windChime(true) // Welcome chime
+      }
     }, 1200)
     return () => clearTimeout(timer)
+  }, [])
+  
+  // Handle ambient music based on sound toggle
+  useEffect(() => {
+    if (gameState !== 'loading') {
+      getAmbientMusic().setVolume(soundEnabled)
+    }
+  }, [soundEnabled, gameState])
+  
+  // Cleanup ambient music on unmount
+  useEffect(() => {
+    return () => {
+      getAmbientMusic().stop()
+    }
   }, [])
 
   // Smooth drag animation loop using RAF

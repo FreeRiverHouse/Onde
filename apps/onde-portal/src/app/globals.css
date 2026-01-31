@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🎨 Skin Creator Premium Styles */
+@import './games/skin-creator/skin-creator-premium.css';
+
 /* ============================================
    ONDE PORTAL - MARE CALMO / MARITIME DESIGN
    Turchese, Azzurro, Bianco, Oro, Blu Lapislazzuli
