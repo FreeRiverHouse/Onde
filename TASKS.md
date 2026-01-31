@@ -12923,8 +12923,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Mantenere vibe kid-friendly
 
 ### [T1042] Skin Creator: Tutorial Interattivo
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1 🔥
