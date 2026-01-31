@@ -82,6 +82,138 @@ function playNotificationSound(type: SoundType, volume: number): void {
   }
 }
 
+// Notification persistence storage keys
+const STORAGE_KEYS = {
+  dismissed: 'notification-dismissed-ids',
+  read: 'notification-read-ids',
+  lastCleanup: 'notification-last-cleanup',
+}
+
+// Max age for persisted data (7 days)
+const MAX_PERSIST_AGE_MS = 7 * 24 * 60 * 60 * 1000
+
+// Hook for notification persistence (dismissed + read status)
+function useNotificationPersistence() {
+  const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set())
+  const [readIds, setReadIds] = useState<Set<string>>(new Set())
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    
+    try {
+      // Check if cleanup is needed (once per day)
+      const lastCleanup = localStorage.getItem(STORAGE_KEYS.lastCleanup)
+      const needsCleanup = !lastCleanup || Date.now() - parseInt(lastCleanup) > 24 * 60 * 60 * 1000
+      
+      const dismissedRaw = localStorage.getItem(STORAGE_KEYS.dismissed)
+      const readRaw = localStorage.getItem(STORAGE_KEYS.read)
+
+      if (dismissedRaw) {
+        const parsed: { ids: string[], timestamp: number } = JSON.parse(dismissedRaw)
+        // Only use if not too old
+        if (Date.now() - parsed.timestamp < MAX_PERSIST_AGE_MS) {
+          setDismissedIds(new Set(parsed.ids))
+        } else if (needsCleanup) {
+          localStorage.removeItem(STORAGE_KEYS.dismissed)
+        }
+      }
+
+      if (readRaw) {
+        const parsed: { ids: string[], timestamp: number } = JSON.parse(readRaw)
+        if (Date.now() - parsed.timestamp < MAX_PERSIST_AGE_MS) {
+          setReadIds(new Set(parsed.ids))
+        } else if (needsCleanup) {
+          localStorage.removeItem(STORAGE_KEYS.read)
+        }
+      }
+
+      if (needsCleanup) {
+        localStorage.setItem(STORAGE_KEYS.lastCleanup, String(Date.now()))
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, [])
+
+  // Save dismissed IDs
+  const saveDismissed = useCallback((ids: Set<string>) => {
+    try {
+      // Limit to most recent 100 entries to prevent unbounded growth
+      const idsArray = [...ids].slice(-100)
+      localStorage.setItem(STORAGE_KEYS.dismissed, JSON.stringify({
+        ids: idsArray,
+        timestamp: Date.now(),
+      }))
+    } catch {
+      // Ignore storage errors
+    }
+  }, [])
+
+  // Save read IDs
+  const saveRead = useCallback((ids: Set<string>) => {
+    try {
+      const idsArray = [...ids].slice(-200)
+      localStorage.setItem(STORAGE_KEYS.read, JSON.stringify({
+        ids: idsArray,
+        timestamp: Date.now(),
+      }))
+    } catch {
+      // Ignore storage errors
+    }
+  }, [])
+
+  const markDismissed = useCallback((id: string) => {
+    setDismissedIds(prev => {
+      const next = new Set(prev).add(id)
+      saveDismissed(next)
+      return next
+    })
+  }, [saveDismissed])
+
+  const markRead = useCallback((id: string) => {
+    setReadIds(prev => {
+      const next = new Set(prev).add(id)
+      saveRead(next)
+      return next
+    })
+  }, [saveRead])
+
+  const markAllRead = useCallback((ids: string[]) => {
+    setReadIds(prev => {
+      const next = new Set(prev)
+      ids.forEach(id => next.add(id))
+      saveRead(next)
+      return next
+    })
+  }, [saveRead])
+
+  const isDismissed = useCallback((id: string) => dismissedIds.has(id), [dismissedIds])
+  const isRead = useCallback((id: string) => readIds.has(id), [readIds])
+
+  const clearAll = useCallback(() => {
+    setDismissedIds(new Set())
+    setReadIds(new Set())
+    try {
+      localStorage.removeItem(STORAGE_KEYS.dismissed)
+      localStorage.removeItem(STORAGE_KEYS.read)
+    } catch {
+      // Ignore
+    }
+  }, [])
+
+  return { 
+    isDismissed, 
+    isRead, 
+    markDismissed, 
+    markRead, 
+    markAllRead,
+    clearAll,
+    dismissedCount: dismissedIds.size,
+    readCount: readIds.size,
+  }
+}
+
 // Hook for managing sound preferences
 function useSoundPreferences() {
   const [prefs, setPrefs] = useState<SoundPreferences>(DEFAULT_SOUND_PREFS)
@@ -312,6 +444,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const prevUnreadCountRef = useRef<number>(0)
   const { prefs: soundPrefs, updatePrefs: updateSoundPrefs, playSound, testSound } = useSoundPreferences()
+  const persistence = useNotificationPersistence()
 
   // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
@@ -442,7 +575,15 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       )
 
-      const unreadCount = notifications.filter(n => !n.read).length
+      // Apply persistence: filter dismissed and apply read status
+      const persistedNotifications = notifications
+        .filter(n => !persistence.isDismissed(n.id))
+        .map(n => ({
+          ...n,
+          read: n.read || persistence.isRead(n.id),
+        }))
+
+      const unreadCount = persistedNotifications.filter(n => !n.read).length
 
       // Check if new notifications arrived and play sound
       const prevUnread = prevUnreadCountRef.current
@@ -451,13 +592,13 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
       }
       prevUnreadCountRef.current = unreadCount
 
-      setData({ notifications, unreadCount })
+      setData({ notifications: persistedNotifications, unreadCount })
     } catch (err) {
       console.error('Failed to fetch notifications:', err)
     } finally {
       setLoading(false)
     }
-  }, [playSound])
+  }, [playSound, persistence])
 
   // Initial fetch
   useEffect(() => {
@@ -523,6 +664,9 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   }, [isOpen])
 
   const handleMarkRead = useCallback((id: string) => {
+    // Persist to localStorage
+    persistence.markRead(id)
+    
     setData(prev => {
       if (!prev) return prev
       const updated = prev.notifications.map(n =>
@@ -533,9 +677,12 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
         unreadCount: updated.filter(n => !n.read).length,
       }
     })
-  }, [])
+  }, [persistence])
 
   const handleDismiss = useCallback((id: string) => {
+    // Persist dismissal to localStorage
+    persistence.markDismissed(id)
+    
     setData(prev => {
       if (!prev) return prev
       const updated = prev.notifications.filter(n => n.id !== id)
@@ -544,9 +691,14 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
         unreadCount: updated.filter(n => !n.read).length,
       }
     })
-  }, [])
+  }, [persistence])
 
   const handleMarkAllRead = useCallback(() => {
+    // Persist all as read to localStorage
+    if (data?.notifications) {
+      persistence.markAllRead(data.notifications.map(n => n.id))
+    }
+    
     setData(prev => {
       if (!prev) return prev
       return {
@@ -554,7 +706,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
         unreadCount: 0,
       }
     })
-  }, [])
+  }, [persistence, data?.notifications])
 
   const filteredNotifications = data?.notifications.filter(n => {
     if (filter === 'all') return true

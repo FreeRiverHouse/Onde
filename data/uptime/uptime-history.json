@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T19:00:16.266617+00:00",
+  "generated_at": "2026-01-31T19:05:25.510559+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -2366,17 +2366,23 @@
           "status": 200,
           "latency_ms": 1717,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T19:05:25.510559+00:00",
+          "status": 200,
+          "latency_ms": 6223,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 993,
-        "avg_latency_7d": 574,
+        "avg_latency_24h": 1030,
+        "avg_latency_7d": 588,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 164,
-        "total_checks_7d": 394
+        "total_checks_7d": 395
       }
     },
     "onde.surf": {
@@ -4744,17 +4750,23 @@
           "status": 200,
           "latency_ms": 305,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T19:05:25.510559+00:00",
+          "status": 200,
+          "latency_ms": 4458,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 803,
-        "avg_latency_7d": 508,
+        "avg_latency_24h": 828,
+        "avg_latency_7d": 518,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 164,
-        "total_checks_7d": 394
+        "total_checks_7d": 395
       }
     },
     "skin-studio": {
@@ -5388,17 +5400,23 @@
           "status": 200,
           "latency_ms": 275,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T19:05:25.510559+00:00",
+          "status": 200,
+          "latency_ms": 218,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 344,
-        "avg_latency_7d": 344,
+        "avg_latency_24h": 343,
+        "avg_latency_7d": 343,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 105,
-        "total_checks_7d": 105
+        "total_checks_24h": 106,
+        "total_checks_7d": 106
       }
     }
   }

@@ -24,7 +24,7 @@
 | MLH-008 | Add search history + recent commands to palette | DONE | @clawdinho | - |
 | MLH-009 | Add agent activity feed to notification center | DONE | @clawdinho | MLH-007 |
 | MLH-010 | Add notification sound preferences (mute/sound type) | DONE | @clawdinho | MLH-007 |
-| MLH-011 | Add notification persistence with localStorage | IN_PROGRESS | @clawdinho | MLH-007 |
+| MLH-011 | Add notification persistence with localStorage | DONE | @clawdinho | MLH-007 |
 | MLH-012 | Add notification grouping by source/type | TODO | - | MLH-007 |
 | MLH-013 | Add swipe-to-dismiss for mobile notifications | TODO | - | MLH-007 |
 | MLH-014 | Add desktop push notification permission request | TODO | - | MLH-007 |
@@ -68,7 +68,8 @@
 - **MLH-008** - CommandPalette search history: localStorage persistence for recent commands + search queries, "Used Nx" counts, quick-select buttons
 - **MLH-009** - Agent activity feed: NotificationCenter now fetches from /api/agents + /api/activity, new 'agent' type with 🤖 icon, "Agents" filter tab
 - **MLH-010** - Notification sound preferences: Web Audio API sounds (subtle/chime/alert), volume slider, enable/disable toggle, test button, localStorage persistence
+- **MLH-011** - Notification persistence: localStorage for dismissed/read IDs, auto-cleanup after 7 days, limit 100/200 entries, persists across sessions
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 11:05 PST*
+*Ultimo aggiornamento: 2026-01-31 11:15 PST*
