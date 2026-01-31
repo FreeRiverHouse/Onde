@@ -16,12 +16,27 @@ interface Layer {
   emoji: string;
   visible: boolean;
   opacity: number;
+  tint: string | null; // Color tint/overlay (hex color or null for no tint)
+  tintIntensity: number; // Tint intensity 0-100%
 }
 
 const DEFAULT_LAYERS: Layer[] = [
-  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100 },
-  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100 },
-  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100 },
+  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
+  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
+  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, tint: null, tintIntensity: 50 },
+];
+
+// Preset tint colors for quick selection
+const TINT_PRESETS = [
+  { color: null, name: 'None', emoji: '⭕' },
+  { color: '#FF6B6B', name: 'Red', emoji: '🔴' },
+  { color: '#FFD93D', name: 'Gold', emoji: '🟡' },
+  { color: '#4D96FF', name: 'Blue', emoji: '🔵' },
+  { color: '#6BCB77', name: 'Green', emoji: '🟢' },
+  { color: '#9B59B6', name: 'Purple', emoji: '🟣' },
+  { color: '#FF8E53', name: 'Orange', emoji: '🟠' },
+  { color: '#00BCD4', name: 'Cyan', emoji: '🩵' },
+  { color: '#E91E63', name: 'Pink', emoji: '💗' },
 ];
 
 // Multi-game support
@@ -273,6 +288,45 @@ export default function SkinCreator() {
     ));
   }, []);
   
+  // Set layer tint color
+  const setLayerTint = useCallback((layerId: LayerType, tint: string | null) => {
+    setLayers(prev => prev.map(layer =>
+      layer.id === layerId ? { ...layer, tint } : layer
+    ));
+  }, []);
+  
+  // Set layer tint intensity
+  const setLayerTintIntensity = useCallback((layerId: LayerType, tintIntensity: number) => {
+    setLayers(prev => prev.map(layer =>
+      layer.id === layerId ? { ...layer, tintIntensity } : layer
+    ));
+  }, []);
+  
+  // Apply color tint to a canvas with blend mode
+  const applyTintToCanvas = useCallback((sourceCanvas: HTMLCanvasElement, tint: string, intensity: number): HTMLCanvasElement => {
+    const tintedCanvas = document.createElement('canvas');
+    tintedCanvas.width = sourceCanvas.width;
+    tintedCanvas.height = sourceCanvas.height;
+    const ctx = tintedCanvas.getContext('2d');
+    if (!ctx) return sourceCanvas;
+    
+    // Draw original image
+    ctx.drawImage(sourceCanvas, 0, 0);
+    
+    // Apply tint using multiply blend mode
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.globalAlpha = intensity / 100;
+    ctx.fillStyle = tint;
+    ctx.fillRect(0, 0, tintedCanvas.width, tintedCanvas.height);
+    
+    // Restore alpha from original (multiply can darken transparent areas)
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.globalAlpha = 1;
+    ctx.drawImage(sourceCanvas, 0, 0);
+    
+    return tintedCanvas;
+  }, []);
+  
   // Move layer up/down in the stack
   const moveLayer = useCallback((layerId: LayerType, direction: 'up' | 'down') => {
     setLayers(prev => {
@@ -296,18 +350,24 @@ export default function SkinCreator() {
     // Clear main canvas
     mainCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     
-    // Draw layers in order (bottom to top), respecting visibility and opacity
+    // Draw layers in order (bottom to top), respecting visibility, opacity, and tint
     layers.forEach(layer => {
       if (!layer.visible) return;
       const layerCanvas = layerCanvasRefs.current[layer.id];
       if (!layerCanvas) return;
       
+      // Apply tint if set
+      let canvasToDraw = layerCanvas;
+      if (layer.tint && layer.tintIntensity > 0) {
+        canvasToDraw = applyTintToCanvas(layerCanvas, layer.tint, layer.tintIntensity);
+      }
+      
       mainCtx.globalAlpha = layer.opacity / 100;
-      mainCtx.drawImage(layerCanvas, 0, 0);
+      mainCtx.drawImage(canvasToDraw, 0, 0);
     });
     
     mainCtx.globalAlpha = 1;
-  }, [layers]);
+  }, [layers, applyTintToCanvas]);
   
   // Clear a specific layer
   const clearLayer = useCallback((layerId: LayerType) => {
@@ -1798,6 +1858,62 @@ export default function SkinCreator() {
                     className="flex-1 h-1"
                   />
                   <span className="text-xs text-gray-500 w-8">{layer.opacity}%</span>
+                </div>
+                
+                {/* Color Tint */}
+                <div className="mt-2 pt-2 border-t border-gray-100">
+                  <div className="flex items-center gap-1 mb-1">
+                    <span className="text-xs text-gray-500">🎨 Tint:</span>
+                    <div className="flex gap-0.5 flex-wrap">
+                      {TINT_PRESETS.map((preset) => (
+                        <button
+                          key={preset.name}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setLayerTint(layer.id, preset.color);
+                            setTimeout(() => {
+                              compositeLayersToMain();
+                              updatePreview();
+                            }, 0);
+                          }}
+                          className={`w-5 h-5 rounded text-xs flex items-center justify-center transition-all ${
+                            layer.tint === preset.color 
+                              ? 'ring-2 ring-blue-500 ring-offset-1 scale-110' 
+                              : 'hover:scale-110'
+                          }`}
+                          style={{ 
+                            backgroundColor: preset.color || 'transparent',
+                            border: preset.color ? 'none' : '1px dashed #ccc'
+                          }}
+                          title={preset.name}
+                        >
+                          {!preset.color && '⭕'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Tint intensity slider (only show if tint is set) */}
+                  {layer.tint && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500">Intensity:</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={layer.tintIntensity}
+                        onChange={(e) => {
+                          setLayerTintIntensity(layer.id, parseInt(e.target.value));
+                          compositeLayersToMain();
+                          updatePreview();
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex-1 h-1"
+                        style={{ accentColor: layer.tint }}
+                      />
+                      <span className="text-xs text-gray-500 w-8">{layer.tintIntensity}%</span>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

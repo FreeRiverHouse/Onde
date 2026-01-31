@@ -10565,12 +10565,20 @@
   - Compare versions side by side
 
 ### [T885] Skin Creator: Custom Overlay Colors
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-06
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Permettere colori custom per overlay
+- **Notes**: ✅ Implemented color tint system for layers!
+  - ✅ Added `tint` and `tintIntensity` properties to Layer interface
+  - ✅ 9 preset tint colors: Red, Gold, Blue, Green, Purple, Orange, Cyan, Pink, None
+  - ✅ Color tint applied using multiply blend mode
+  - ✅ Tint intensity slider (0-100%) per layer
+  - ✅ Visual ring indicator for selected tint
+  - ✅ Tint applied during layer compositing
+  - ✅ Build passes
 
 ### [T886] Skin Creator: Overlay Layer Ordering  
 - **Status**: TODO
@@ -10790,3 +10798,43 @@
   - Se disponibile → usa locale
   - Se non disponibile → alert + fallback
   - Aggiornare tutti gli script che usano LLM
+
+---
+
+## 🚨 NUOVO - DA CLAWDINHO 2026-02-06 (HEARTBEAT)
+
+### [T900] Skin Creator: Custom Tint Color Picker
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T885]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Extend tint system with custom color picker:
+  - Add color picker input next to presets
+  - Allow any hex color for tint
+  - Save custom colors to recent tints
+  - Eyedropper tool to pick tint from canvas
+
+### [T901] Skin Creator: Layer Blend Mode Selection
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T885]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add blend mode options per layer:
+  - Multiply (current), Screen, Overlay, Soft Light, Hard Light
+  - Dropdown selector in layer panel
+  - Real-time preview of blend effects
+  - Good for shadows and highlights
+
+### [T902] Skin Creator: Deploy Tint Feature to skin-studio.pages.dev
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T885]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy updated Skin Studio with color tint feature:
+  - Build static export
+  - Deploy to Cloudflare Pages
+  - Verify tint controls work in production
+  - Test on mobile browsers
