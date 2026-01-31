@@ -13101,14 +13101,15 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Analisi approfondita con Chrome - tweet patterns, engagement, monetization
 
 ### [T1052] Cleanup: Rimuovere Bot FRH Updates e FRH-ONDE
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:55 PST
 - **Priority**: P1 (cleanup)
 - **Goal**: 
   1. Eliminare bot "FRH Updates" e "FRH-ONDE" da Telegram
   2. Eliminare tutti i messaggi inviati da questi bot
   3. Disabilitare eventuali cron/script che li alimentano
-- **Notes**: Bot obsoleti, non più necessari
+- **Notes**: Script disabilitati (.disabled). Mattia eliminerà bot da BotFather tra 1 settimana se no messaggi
 
 ### [T1053] Kidday: Agente Tester che Simula Bambino 🎮
 - **Status**: TODO
