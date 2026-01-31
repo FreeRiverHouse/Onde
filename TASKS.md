@@ -13287,3 +13287,19 @@ Generated: 2026-01-30T18:37:46.867013
   - Pet simulations (Moonlight competitors)
   - Educational games in general
 - **Output**: Report con findings e recommendations
+
+### [T1063] Tester Kid: Child Simulator Bot
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Bot che simula un bambino che usa le app
+- **Features**:
+  - Personalità bambino (7 anni)
+  - Testa le app come farebbe un kid
+  - Dà feedback su UX, difficoltà, divertimento
+  - Potrebbe girare su vecchio Mac
+- **Use cases**:
+  - Test Kids Chef Studio
+  - Test Skin Creator
+  - Test Moonlight
+  - Find bugs e UX issues
