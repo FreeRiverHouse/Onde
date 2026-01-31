@@ -12230,8 +12230,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Duplicate a saved skin for variations
 
 ### [T963] Skin Creator: Skin Tags/Categories
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Organize saved skins with tags (Warrior, Casual, etc.)
