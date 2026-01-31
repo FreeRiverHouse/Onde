@@ -12328,7 +12328,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: High-res screenshot of 3D preview for sharing
 
 ### [T987] Skin Creator: Multiple Camera Angles
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12397,3 +12397,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Different poses for screenshots (idle, walking, waving)
+
+### [T994] Skin Creator: Zoom Controls
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Zoom in/out on 3D preview
+
+### [T995] Skin Creator: Camera Orbit Path
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Predefined camera orbit animations
+
+### [T996] Skin Creator: First Person View
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: See through character's eyes for POV check
