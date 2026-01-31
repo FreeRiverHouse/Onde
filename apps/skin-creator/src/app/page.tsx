@@ -85,7 +85,101 @@ export default function SkinCreator() {
   const [skinName, setSkinName] = useState('my-skin');
   const [recentColors, setRecentColors] = useState<string[]>([]);
   const [showHelp, setShowHelp] = useState(false);
+  const [showAIPanel, setShowAIPanel] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
   
+  // 🤖 AI Skin Generation (placeholder - needs API key)
+  const generateAISkin = async () => {
+    if (!aiPrompt.trim()) return;
+    setAiLoading(true);
+    
+    // TODO: Replace with actual AI API call when configured
+    // For now, generate a random skin based on keywords in prompt
+    await new Promise(r => setTimeout(r, 1500)); // Simulate API delay
+    
+    // Simple keyword-based generation
+    const prompt = aiPrompt.toLowerCase();
+    let colors = {
+      skin: '#c4a57b', hair: '#442920', shirt: '#00a8a8', 
+      pants: '#3c2a5e', shoes: '#444444'
+    };
+    
+    if (prompt.includes('zombie') || prompt.includes('undead')) {
+      colors = { skin: '#5a8f5a', hair: '#2d4a2d', shirt: '#3d5a3d', pants: '#2d4a2d', shoes: '#1a3a1a' };
+    } else if (prompt.includes('robot') || prompt.includes('mech')) {
+      colors = { skin: '#8a8a8a', hair: '#444444', shirt: '#3498db', pants: '#2c3e50', shoes: '#1a1a1a' };
+    } else if (prompt.includes('ninja') || prompt.includes('assassin')) {
+      colors = { skin: '#c4a57b', hair: '#1a1a1a', shirt: '#1a1a1a', pants: '#1a1a1a', shoes: '#2c2c2c' };
+    } else if (prompt.includes('princess') || prompt.includes('queen')) {
+      colors = { skin: '#ffdfc4', hair: '#f1c40f', shirt: '#e91e63', pants: '#9c27b0', shoes: '#ff69b4' };
+    } else if (prompt.includes('pirate')) {
+      colors = { skin: '#d4a76a', hair: '#2c1810', shirt: '#8B0000', pants: '#1a1a1a', shoes: '#3d2314' };
+    } else if (prompt.includes('wizard') || prompt.includes('mage')) {
+      colors = { skin: '#e8d5c4', hair: '#c0c0c0', shirt: '#4B0082', pants: '#2E0854', shoes: '#1a1a2e' };
+    } else if (prompt.includes('alien') || prompt.includes('space')) {
+      colors = { skin: '#7dcea0', hair: '#27ae60', shirt: '#9b59b6', pants: '#8e44ad', shoes: '#6c3483' };
+    } else {
+      // Random colors based on prompt hash
+      const hash = aiPrompt.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+      const hue = hash % 360;
+      colors.shirt = `hsl(${hue}, 70%, 50%)`;
+      colors.pants = `hsl(${(hue + 180) % 360}, 60%, 40%)`;
+    }
+    
+    // Draw the generated skin
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        // Head
+        ctx.fillStyle = colors.skin;
+        ctx.fillRect(8, 8, 8, 8); // front
+        ctx.fillRect(24, 8, 8, 8); // back
+        ctx.fillRect(0, 8, 8, 8); // right
+        ctx.fillRect(16, 8, 8, 8); // left
+        ctx.fillRect(8, 0, 8, 8); // top
+        // Hair
+        ctx.fillStyle = colors.hair;
+        ctx.fillRect(8, 8, 8, 2);
+        // Eyes
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(10, 12, 2, 2);
+        ctx.fillRect(14, 12, 2, 2);
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(11, 13, 1, 1);
+        ctx.fillRect(15, 13, 1, 1);
+        // Body
+        ctx.fillStyle = colors.shirt;
+        ctx.fillRect(20, 20, 8, 12);
+        ctx.fillRect(32, 20, 8, 12);
+        // Arms
+        ctx.fillStyle = colors.skin;
+        ctx.fillRect(44, 20, 4, 12);
+        ctx.fillRect(36, 52, 4, 12);
+        ctx.fillStyle = colors.shirt;
+        ctx.fillRect(44, 20, 4, 8);
+        ctx.fillRect(36, 52, 4, 8);
+        // Legs
+        ctx.fillStyle = colors.pants;
+        ctx.fillRect(4, 20, 4, 12);
+        ctx.fillRect(20, 52, 4, 12);
+        // Shoes
+        ctx.fillStyle = colors.shoes;
+        ctx.fillRect(4, 28, 4, 4);
+        ctx.fillRect(20, 60, 4, 4);
+        
+        updatePreview();
+        saveState();
+      }
+    }
+    
+    setAiLoading(false);
+    setShowAIPanel(false);
+    playSound('download');
+  };
+
   // Add color to recent colors
   const addRecentColor = useCallback((color: string) => {
     setRecentColors(prev => {
@@ -1143,6 +1237,51 @@ export default function SkinCreator() {
           </div>
         </div>
       )}
+
+      {/* AI Panel */}
+      {showAIPanel && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowAIPanel(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold mb-4">🤖 AI Skin Generator</h3>
+            <p className="text-sm text-gray-600 mb-4">Describe your character and AI will create a skin!</p>
+            <input
+              type="text"
+              value={aiPrompt}
+              onChange={(e) => setAiPrompt(e.target.value)}
+              placeholder="e.g., pirate with red bandana, wizard with purple robe..."
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none mb-4"
+              onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
+            />
+            <div className="flex flex-wrap gap-2 mb-4">
+              {['Pirate', 'Wizard', 'Ninja', 'Robot', 'Alien', 'Princess'].map(preset => (
+                <button
+                  key={preset}
+                  onClick={() => setAiPrompt(preset.toLowerCase())}
+                  className="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200"
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={generateAISkin}
+              disabled={aiLoading || !aiPrompt.trim()}
+              className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold disabled:opacity-50"
+            >
+              {aiLoading ? '🔄 Generating...' : '✨ Generate Skin'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* AI Button */}
+      <button
+        onClick={() => setShowAIPanel(true)}
+        className="fixed bottom-4 left-4 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 transition-transform"
+        title="AI Skin Generator"
+      >
+        🤖
+      </button>
 
       {/* Help Button */}
       <button
