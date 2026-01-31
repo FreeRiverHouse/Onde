@@ -45,6 +45,11 @@
 - `scripts/kalshi-rebalance.alert` → Auto-rebalance executed/planned! Manda alert a Mattia, poi elimina
 - `scripts/kalshi-momentum-regime.alert` → Market regime changed! (TRENDING/RANGING/VOLATILE). Manda alert a Mattia, poi elimina
 
+### 🔍 ALERT WATCHDOG AGENTI → Manda a Mattia su Telegram
+- `scripts/telegram-not-logged.alert` → Messaggi Telegram non loggati! Manda alert, poi elimina
+- `scripts/task-not-extracted.alert` → Task non estratti da messaggi! Manda alert, poi elimina
+- `scripts/agent-stalled.alert` → Agente fermo! Manda alert, poi elimina
+
 ### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
 Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 - `scripts/kalshi-momentum-divergence.alert` → Salva in `data/finetuning/momentum-divergence.jsonl`, poi elimina

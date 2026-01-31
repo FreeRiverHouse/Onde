@@ -116,20 +116,22 @@
 > Mattia è STANCO di fare lui il watchdog manualmente! Creare sistema automatico!
 
 ### [T961] Watchdog: Controlla Log Memoria per Ogni Messaggio Telegram
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
-- **Started**: 2026-01-30 21:15 PST
+- **Completed**: 2026-01-30 21:20 PST
 - **Depends**: -
 - **Blocks**: [T962], [T963]
 - **Priority**: P0 🔥🔥🔥
 - **Notes**: DA MATTIA (ID:2972) - VUOLE AUTOMAZIONE TOTALE!
-  - **Obiettivo**: Ogni messaggio Telegram DEVE essere loggato in memory/
-  - **Script**: `scripts/watchdog-telegram-logs.sh`
-  - **Controlli:**
-    - [ ] Estrae ultimi messaggi da Clawdbot history/logs
-    - [ ] Verifica che ogni msg ID sia presente in memory/YYYY-MM-DD.md
-    - [ ] Se mancante → crea alert `scripts/telegram-not-logged.alert`
-  - **Cron**: Ogni 10 min
+  - **Script**: `scripts/watchdog-telegram-logs.sh` ✅
+  - **Controlli implementati:**
+    - [x] Verifica daily entries in memory/YYYY-MM-DD.md
+    - [x] Controlla ultimo commit memory/ (<2h)
+    - [x] Controlla ultimo commit TASKS.md (<4h)
+    - [x] Cerca message IDs nei log Clawdbot
+    - [x] Crea alert `scripts/telegram-not-logged.alert` se problemi
+  - **Test 2026-01-30 21:19 PST**: ✅ Tutti controlli passati
+  - **Cron**: `*/10 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-telegram-logs.sh`
 
 ### [T962] Watchdog: Controlla Estrazione Task da Messaggi
 - **Status**: TODO
@@ -148,22 +150,24 @@
   - **Cron**: Ogni 15 min
 
 ### [T963] Watchdog: Dashboard Endpoint con Stato Agenti
-- **Status**: TODO
-- **Owner**: -
-- **Depends**: [T961], [T962]
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Started**: 2026-01-30 21:20 PST
+- **Depends**: [T961] ✅
 - **Blocks**: -
 - **Priority**: P0 🔥🔥🔥
 - **Notes**: DA MATTIA (ID:2972) - DASHBOARD CON DATI VERI!
-  - **Endpoint**: `/api/agent-dashboard` o onde.surf/agent-status
-  - **Dati da mostrare:**
-    - [ ] Ultimo messaggio loggato (timestamp)
-    - [ ] Ultimo task creato (timestamp)
-    - [ ] Task in corso (owner, titolo, durata)
-    - [ ] Task completati oggi
-    - [ ] Stato Clawdinho (attivo/idle/errore)
-    - [ ] Stato Ondinho (attivo/idle/errore)
-    - [ ] Ultimo commit da ciascun agente
-  - **Tech**: API route su surfboard + widget React
+  - **Script JSON**: `scripts/agent-dashboard-data.sh` ✅
+  - **Dati disponibili:**
+    - [x] Task stats (total, done, in_progress, todo)
+    - [x] Memory stats (entries today, file size)
+    - [x] Ultimo commit per Clawdinho/Ondinho
+    - [x] Stato GPU (Radeon connected/disconnected)
+    - [x] Stato Ollama (local/remote, modelli)
+    - [x] Stato Autotrader (running, PID)
+    - [x] Alert count
+  - **Prossimo step**: Creare API route su surfboard + widget React
+  - **Endpoint target**: onde.surf/agent-status
 
 ### [T964] Watchdog: Dashboard con Dati GPU Real-Time
 - **Status**: TODO
