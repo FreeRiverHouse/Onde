@@ -2352,6 +2352,14 @@ export default function SkinCreator() {
                     rel="noopener noreferrer"
                     className="px-2 py-1 bg-indigo-500 text-white rounded text-xs hover:bg-indigo-600"
                   >Discord</a>
+                  <button
+                    onClick={() => {
+                      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`;
+                      window.open(qrUrl, '_blank');
+                    }}
+                    className="px-2 py-1 bg-gray-700 text-white rounded text-xs hover:bg-gray-800"
+                    title="Generate QR Code"
+                  >📱 QR</button>
                 </div>
               </div>
             )}
