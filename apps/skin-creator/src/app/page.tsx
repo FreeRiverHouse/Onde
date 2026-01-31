@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
 
 // Confetti on download!
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
@@ -119,6 +120,9 @@ export default function SkinCreator() {
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiStyle, setAiStyle] = useState<'cartoon' | 'realistic' | 'pixel-art' | 'anime' | 'blocky'>('blocky');
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
   
   // 🎨 Layer system state
   const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
@@ -237,92 +241,188 @@ export default function SkinCreator() {
     playSound('click');
   }, [getLayerCanvas, clearLayer, compositeLayersToMain]);
   
-  // 🤖 AI Skin Generation (placeholder - needs API key)
+  // 🤖 AI Skin Generation with real DALL-E 3 API + fallback
   const generateAISkin = async () => {
     if (!aiPrompt.trim()) return;
     setAiLoading(true);
+    setAiError(null);
     
-    // TODO: Replace with actual AI API call when configured
-    // For now, generate a random skin based on keywords in prompt
-    await new Promise(r => setTimeout(r, 1500)); // Simulate API delay
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      setAiLoading(false);
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      setAiLoading(false);
+      return;
+    }
+
+    // Try real AI if available and enabled
+    if (useRealAI && isAIAvailable()) {
+      try {
+        const result = await generateAndConvertSkin({
+          prompt: aiPrompt,
+          style: aiStyle,
+        });
+        
+        if (result.success && result.skinDataUrl) {
+          // Load the generated skin onto the canvas
+          const img = new Image();
+          img.onload = () => {
+            ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+            ctx.drawImage(img, 0, 0);
+            updatePreview();
+            saveState();
+            setAiLoading(false);
+            setShowAIPanel(false);
+            playSound('download');
+          };
+          img.onerror = () => {
+            setAiError('Failed to load generated skin');
+            setAiLoading(false);
+          };
+          img.src = result.skinDataUrl;
+          return;
+        } else {
+          setAiError(result.error || 'AI generation failed');
+          // Fall through to fallback generation
+        }
+      } catch (error) {
+        setAiError(error instanceof Error ? error.message : 'AI generation failed');
+        // Fall through to fallback generation
+      }
+    }
     
-    // Simple keyword-based generation
+    // Fallback: keyword-based generation (no API required)
+    await new Promise(r => setTimeout(r, 800)); // Brief delay for UX
+    
     const prompt = aiPrompt.toLowerCase();
     let colors = {
       skin: '#c4a57b', hair: '#442920', shirt: '#00a8a8', 
       pants: '#3c2a5e', shoes: '#444444'
     };
     
+    // Style-aware color palettes
+    const styleModifier = aiStyle === 'anime' ? 1.2 : aiStyle === 'cartoon' ? 1.1 : 1;
+    
     if (prompt.includes('zombie') || prompt.includes('undead')) {
       colors = { skin: '#5a8f5a', hair: '#2d4a2d', shirt: '#3d5a3d', pants: '#2d4a2d', shoes: '#1a3a1a' };
-    } else if (prompt.includes('robot') || prompt.includes('mech')) {
+    } else if (prompt.includes('robot') || prompt.includes('mech') || prompt.includes('android')) {
       colors = { skin: '#8a8a8a', hair: '#444444', shirt: '#3498db', pants: '#2c3e50', shoes: '#1a1a1a' };
-    } else if (prompt.includes('ninja') || prompt.includes('assassin')) {
+    } else if (prompt.includes('ninja') || prompt.includes('assassin') || prompt.includes('stealth')) {
       colors = { skin: '#c4a57b', hair: '#1a1a1a', shirt: '#1a1a1a', pants: '#1a1a1a', shoes: '#2c2c2c' };
-    } else if (prompt.includes('princess') || prompt.includes('queen')) {
+    } else if (prompt.includes('princess') || prompt.includes('queen') || prompt.includes('royalty')) {
       colors = { skin: '#ffdfc4', hair: '#f1c40f', shirt: '#e91e63', pants: '#9c27b0', shoes: '#ff69b4' };
-    } else if (prompt.includes('pirate')) {
+    } else if (prompt.includes('pirate') || prompt.includes('captain') || prompt.includes('sailor')) {
       colors = { skin: '#d4a76a', hair: '#2c1810', shirt: '#8B0000', pants: '#1a1a1a', shoes: '#3d2314' };
-    } else if (prompt.includes('wizard') || prompt.includes('mage')) {
+    } else if (prompt.includes('wizard') || prompt.includes('mage') || prompt.includes('sorcerer')) {
       colors = { skin: '#e8d5c4', hair: '#c0c0c0', shirt: '#4B0082', pants: '#2E0854', shoes: '#1a1a2e' };
-    } else if (prompt.includes('alien') || prompt.includes('space')) {
+    } else if (prompt.includes('alien') || prompt.includes('space') || prompt.includes('extraterrestrial')) {
       colors = { skin: '#7dcea0', hair: '#27ae60', shirt: '#9b59b6', pants: '#8e44ad', shoes: '#6c3483' };
+    } else if (prompt.includes('knight') || prompt.includes('armor') || prompt.includes('warrior')) {
+      colors = { skin: '#d4a76a', hair: '#4a3728', shirt: '#7f8c8d', pants: '#5d6d7e', shoes: '#2c3e50' };
+    } else if (prompt.includes('elf') || prompt.includes('fairy') || prompt.includes('nature')) {
+      colors = { skin: '#f5deb3', hair: '#228b22', shirt: '#006400', pants: '#556b2f', shoes: '#8b4513' };
+    } else if (prompt.includes('vampire') || prompt.includes('dark') || prompt.includes('gothic')) {
+      colors = { skin: '#e8e8e8', hair: '#1a1a1a', shirt: '#8b0000', pants: '#1a1a1a', shoes: '#2c2c2c' };
+    } else if (prompt.includes('superhero') || prompt.includes('hero')) {
+      colors = { skin: '#d4a76a', hair: '#2c1810', shirt: '#dc143c', pants: '#00008b', shoes: '#ffd700' };
+    } else if (prompt.includes('chef') || prompt.includes('cook')) {
+      colors = { skin: '#d4a76a', hair: '#3d2314', shirt: '#ffffff', pants: '#1a1a1a', shoes: '#2c2c2c' };
+    } else if (prompt.includes('doctor') || prompt.includes('nurse') || prompt.includes('medical')) {
+      colors = { skin: '#d4a76a', hair: '#3d2314', shirt: '#87ceeb', pants: '#87ceeb', shoes: '#ffffff' };
     } else {
-      // Random colors based on prompt hash
+      // Generate colors based on prompt hash for unique results
       const hash = aiPrompt.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
       const hue = hash % 360;
-      colors.shirt = `hsl(${hue}, 70%, 50%)`;
-      colors.pants = `hsl(${(hue + 180) % 360}, 60%, 40%)`;
+      colors.shirt = `hsl(${hue}, 70%, ${50 * styleModifier}%)`;
+      colors.pants = `hsl(${(hue + 180) % 360}, 60%, ${40 * styleModifier}%)`;
+      colors.hair = `hsl(${(hue + 90) % 360}, 40%, 25%)`;
     }
     
     // Draw the generated skin
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-        // Head
-        ctx.fillStyle = colors.skin;
-        ctx.fillRect(8, 8, 8, 8); // front
-        ctx.fillRect(24, 8, 8, 8); // back
-        ctx.fillRect(0, 8, 8, 8); // right
-        ctx.fillRect(16, 8, 8, 8); // left
-        ctx.fillRect(8, 0, 8, 8); // top
-        // Hair
-        ctx.fillStyle = colors.hair;
-        ctx.fillRect(8, 8, 8, 2);
-        // Eyes
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(10, 12, 2, 2);
-        ctx.fillRect(14, 12, 2, 2);
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(11, 13, 1, 1);
-        ctx.fillRect(15, 13, 1, 1);
-        // Body
-        ctx.fillStyle = colors.shirt;
-        ctx.fillRect(20, 20, 8, 12);
-        ctx.fillRect(32, 20, 8, 12);
-        // Arms
-        ctx.fillStyle = colors.skin;
-        ctx.fillRect(44, 20, 4, 12);
-        ctx.fillRect(36, 52, 4, 12);
-        ctx.fillStyle = colors.shirt;
-        ctx.fillRect(44, 20, 4, 8);
-        ctx.fillRect(36, 52, 4, 8);
-        // Legs
-        ctx.fillStyle = colors.pants;
-        ctx.fillRect(4, 20, 4, 12);
-        ctx.fillRect(20, 52, 4, 12);
-        // Shoes
-        ctx.fillStyle = colors.shoes;
-        ctx.fillRect(4, 28, 4, 4);
-        ctx.fillRect(20, 60, 4, 4);
-        
-        updatePreview();
-        saveState();
-      }
-    }
+    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
     
+    // Head (all 6 faces)
+    ctx.fillStyle = colors.skin;
+    ctx.fillRect(8, 8, 8, 8); // front
+    ctx.fillRect(24, 8, 8, 8); // back
+    ctx.fillRect(0, 8, 8, 8); // right
+    ctx.fillRect(16, 8, 8, 8); // left
+    ctx.fillRect(8, 0, 8, 8); // top
+    ctx.fillRect(16, 0, 8, 8); // bottom
+    
+    // Hair (on top and front of head)
+    ctx.fillStyle = colors.hair;
+    ctx.fillRect(8, 0, 8, 8); // top of head
+    ctx.fillRect(8, 8, 8, 2); // front hair line
+    ctx.fillRect(0, 8, 8, 3); // right side
+    ctx.fillRect(16, 8, 8, 3); // left side
+    ctx.fillRect(24, 8, 8, 3); // back
+    
+    // Face details
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(10, 12, 2, 2); // right eye white
+    ctx.fillRect(14, 12, 2, 2); // left eye white
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(11, 13, 1, 1); // right pupil
+    ctx.fillRect(15, 13, 1, 1); // left pupil
+    ctx.fillStyle = '#d4a76a';
+    ctx.fillRect(12, 14, 2, 1); // nose
+    ctx.fillStyle = '#b35a5a';
+    ctx.fillRect(11, 15, 4, 1); // mouth
+    
+    // Body (all faces)
+    ctx.fillStyle = colors.shirt;
+    ctx.fillRect(20, 20, 8, 12); // front
+    ctx.fillRect(32, 20, 8, 12); // back
+    ctx.fillRect(16, 20, 4, 12); // right
+    ctx.fillRect(28, 20, 4, 12); // left
+    ctx.fillRect(20, 16, 8, 4); // top
+    
+    // Right Arm
+    ctx.fillStyle = colors.skin;
+    ctx.fillRect(44, 20, 4, 12); // inner
+    ctx.fillRect(48, 20, 4, 12); // outer
+    ctx.fillRect(40, 20, 4, 12); // front
+    ctx.fillRect(52, 20, 4, 12); // back
+    ctx.fillStyle = colors.shirt;
+    ctx.fillRect(44, 20, 4, 8); // sleeve inner
+    ctx.fillRect(40, 20, 4, 8); // sleeve front
+    
+    // Left Arm (second layer for 64x64 skins)
+    ctx.fillStyle = colors.skin;
+    ctx.fillRect(36, 52, 4, 12);
+    ctx.fillRect(44, 52, 4, 12);
+    ctx.fillRect(32, 52, 4, 12);
+    ctx.fillRect(48, 52, 4, 12);
+    ctx.fillStyle = colors.shirt;
+    ctx.fillRect(36, 52, 4, 8);
+    ctx.fillRect(32, 52, 4, 8);
+    
+    // Right Leg
+    ctx.fillStyle = colors.pants;
+    ctx.fillRect(4, 20, 4, 12);
+    ctx.fillRect(8, 20, 4, 12);
+    ctx.fillRect(0, 20, 4, 12);
+    ctx.fillRect(12, 20, 4, 12);
+    ctx.fillStyle = colors.shoes;
+    ctx.fillRect(4, 28, 4, 4);
+    ctx.fillRect(0, 28, 4, 4);
+    
+    // Left Leg (second layer)
+    ctx.fillStyle = colors.pants;
+    ctx.fillRect(20, 52, 4, 12);
+    ctx.fillRect(24, 52, 4, 12);
+    ctx.fillRect(16, 52, 4, 12);
+    ctx.fillRect(28, 52, 4, 12);
+    ctx.fillStyle = colors.shoes;
+    ctx.fillRect(20, 60, 4, 4);
+    ctx.fillRect(16, 60, 4, 4);
+    
+    updatePreview();
+    saveState();
     setAiLoading(false);
     setShowAIPanel(false);
     playSound('download');
@@ -1635,35 +1735,130 @@ export default function SkinCreator() {
       {/* AI Panel */}
       {showAIPanel && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowAIPanel(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-4">🤖 AI Skin Generator</h3>
+          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold mb-2">🤖 AI Skin Generator</h3>
             <p className="text-sm text-gray-600 mb-4">Describe your character and AI will create a skin!</p>
+            
+            {/* Prompt Input */}
             <input
               type="text"
               value={aiPrompt}
               onChange={(e) => setAiPrompt(e.target.value)}
               placeholder="e.g., pirate with red bandana, wizard with purple robe..."
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none mb-4"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 outline-none mb-3"
               onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
             />
+            
+            {/* Quick Presets */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {['Pirate', 'Wizard', 'Ninja', 'Robot', 'Alien', 'Princess'].map(preset => (
+              {['Pirate', 'Wizard', 'Ninja', 'Robot', 'Alien', 'Princess', 'Knight', 'Vampire', 'Superhero', 'Chef'].map(preset => (
                 <button
                   key={preset}
                   onClick={() => setAiPrompt(preset.toLowerCase())}
-                  className="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200"
+                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                    aiPrompt.toLowerCase() === preset.toLowerCase() 
+                      ? 'bg-purple-500 text-white' 
+                      : 'bg-gray-100 hover:bg-gray-200'
+                  }`}
                 >
                   {preset}
                 </button>
               ))}
             </div>
+            
+            {/* Style Selection */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">🎨 Art Style</label>
+              <div className="grid grid-cols-5 gap-2">
+                {[
+                  { id: 'blocky', emoji: '🧱', name: 'Blocky' },
+                  { id: 'pixel-art', emoji: '👾', name: 'Pixel' },
+                  { id: 'cartoon', emoji: '🎨', name: 'Cartoon' },
+                  { id: 'anime', emoji: '✨', name: 'Anime' },
+                  { id: 'realistic', emoji: '📷', name: 'Real' },
+                ].map(style => (
+                  <button
+                    key={style.id}
+                    onClick={() => setAiStyle(style.id as typeof aiStyle)}
+                    className={`p-2 rounded-lg text-center transition-all ${
+                      aiStyle === style.id 
+                        ? 'bg-purple-500 text-white ring-2 ring-purple-300' 
+                        : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                    title={style.name}
+                  >
+                    <div className="text-xl">{style.emoji}</div>
+                    <div className="text-xs mt-1">{style.name}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Real AI Toggle */}
+            <div className="mb-4 p-3 bg-gray-50 rounded-xl">
+              <label className="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span className="font-medium text-gray-700">🧠 Use Real AI (DALL-E 3)</span>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {isAIAvailable() 
+                      ? 'API key configured ✓' 
+                      : 'Requires NEXT_PUBLIC_OPENAI_API_KEY'}
+                  </p>
+                </div>
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={useRealAI}
+                    onChange={(e) => setUseRealAI(e.target.checked)}
+                    disabled={!isAIAvailable()}
+                    className="sr-only"
+                  />
+                  <div className={`w-11 h-6 rounded-full transition-colors ${
+                    useRealAI && isAIAvailable() ? 'bg-purple-500' : 'bg-gray-300'
+                  } ${!isAIAvailable() ? 'opacity-50' : ''}`}>
+                    <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+                      useRealAI ? 'translate-x-5' : ''
+                    }`} />
+                  </div>
+                </div>
+              </label>
+            </div>
+            
+            {/* Error Display */}
+            {aiError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                <strong>⚠️ Error:</strong> {aiError}
+                <button 
+                  onClick={() => setAiError(null)} 
+                  className="ml-2 text-red-500 hover:text-red-700"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            
+            {/* Generate Button */}
             <button
               onClick={generateAISkin}
               disabled={aiLoading || !aiPrompt.trim()}
-              className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold disabled:opacity-50"
+              className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              {aiLoading ? '🔄 Generating...' : '✨ Generate Skin'}
+              {aiLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-spin">🔄</span> 
+                  {useRealAI ? 'AI is thinking...' : 'Generating...'}
+                </span>
+              ) : (
+                '✨ Generate Skin'
+              )}
             </button>
+            
+            {/* Info text */}
+            <p className="text-xs text-gray-400 mt-3 text-center">
+              {useRealAI 
+                ? 'Real AI generates unique skins from your description'
+                : 'Quick mode uses smart color matching based on keywords'}
+            </p>
           </div>
         </div>
       )}
