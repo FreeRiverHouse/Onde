@@ -10537,8 +10537,8 @@
   - ⏳ Share AI creations (future enhancement)
 
 ### [T885] Skin Creator: Layer Templates/Presets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P3
@@ -10606,8 +10606,8 @@
   - ✅ Build passes
 
 ### [T887] Skin Creator: Save/Load Overlay Presets
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P4
@@ -10837,8 +10837,8 @@
   - ⏳ Eyedropper tool (future enhancement)
 
 ### [T901] Skin Creator: Layer Blend Mode Selection
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T885]
 - **Blocks**: -
 - **Priority**: P3
@@ -10862,8 +10862,8 @@
   - ⏳ Manual testing on mobile browsers (user)
 
 ### [T903] Skin Creator: Drag-and-Drop Layer Reordering
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T886]
 - **Blocks**: -
 - **Priority**: P3
