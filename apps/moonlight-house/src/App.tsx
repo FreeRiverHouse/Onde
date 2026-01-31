@@ -8,6 +8,7 @@ import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
+import FootstepDustPuffs from './components/FootstepDustPuffs';
 import LibraryBooks from './components/LibraryBooks';
 import TailWagging from './components/TailWagging';
 
@@ -1376,6 +1377,15 @@ function App() {
         x={lunaPosition.x} 
         y={lunaPosition.y} 
         facingDirection={facingDirection} 
+      />
+      
+      {/* Footstep dust puffs - different effects per surface (T877) */}
+      <FootstepDustPuffs
+        isMoving={isWalking}
+        x={lunaPosition.x}
+        y={lunaPosition.y}
+        facingDirection={facingDirection}
+        surfaceType={currentRoomKey === 'garden' ? 'grass' : currentRoomKey === 'bathroom' ? 'water' : (currentRoomKey === 'basement' || currentRoomKey === 'garage') ? 'stone' : 'floor'}
       />
       
       <div 

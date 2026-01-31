@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T05:30:03.335297+00:00",
+  "timestamp": "2026-01-31T06:00:03.641669+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Crypto extreme fear is one of the \u2018few strong bullish signals': Santiment",
+      "url": "https://cointelegraph.com/news/crypto-sentiment-extreme-fears-bullish-signals-crypto-analytics?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Crypto sentiment platform Santiment said the \u201csilver lining\u201d in the current crypto market is the \u201cextreme negativity\u201d seen on social media.",
+      "published": "2026-01-31T05:53:23+00:00"
+    },
     {
       "title": "Tether US treasury holdings reach record highs, profits fall 23% year-on-year",
       "url": "https://cointelegraph.com/news/tether-stablecoin-usdt-profits-us-treasury-holdings-annual-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -114,13 +121,6 @@
       "source": "cointelegraph",
       "description": "Bitcoin short positions continued to pile up as BTC price dropped near $81,000, potentially providing the liquidation fuel for a revenge rally back above $90,000.",
       "published": "2026-01-30T20:14:44+00:00"
-    },
-    {
-      "title": "Kraken-backed SPAC raises $345M in upsized Nasdaq IPO",
-      "url": "https://cointelegraph.com/news/kraken-krakacquisition-spac-345m-upsized-nasdaq-ipo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The blank-check company has yet to name an acquisition target, but the listing creates a new public vehicle tied to the US-based crypto exchange.",
-      "published": "2026-01-30T20:11:58+00:00"
     },
     {
       "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",

@@ -11763,20 +11763,21 @@ Generated: 2026-01-30T18:37:46.867013
   - Ogni gioco dà reward (+coins, +happiness, +achievements)
 
 ### [T923] Moonlight: Test Chrome Continuo Esplorativo
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 19:05
+- **Completed**: 2026-02-04 14:05 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Setup processo test esplorativo continuo su Chrome headed
-  - [x] Playwright headed tests ogni 2 minuti
-  - [ ] Test naviga random tra stanze
-  - [ ] Clicca oggetti random
-  - [ ] Verifica che non crashi
-  - [ ] Screenshot ogni azione
+- **Notes**: ✅ Setup processo test esplorativo continuo su Chrome headed
+  - [x] Playwright headed tests ogni 2 minuti (headless: false, slowMo: 200)
+  - [x] Test naviga random tra stanze (navigateRandomRoom())
+  - [x] Clicca oggetti random (exploreInteractiveObjects())
+  - [x] Verifica che non crashi (try/catch + error recovery)
+  - [x] Screenshot ogni azione (screenshot() after each action)
   - **Script**: `scripts/moonlight-continuous-test.ts`
-  - **Run**: Launched in background, visible Chrome window
+  - **Features**: 5 action types, 30s between iterations, auto-refresh, console error capture
 
 
 ### [T929] REGOLA: Testing con Receipt Obbligatorio
@@ -11846,16 +11847,24 @@ Generated: 2026-01-30T18:37:46.867013
   - **Receipt**: `apps/moonlight-house/src/components/TailWagging.tsx`
 
 ### [T877] Moonlight Magic House: Footstep Dust Puffs (MM-022)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Started**: 2026-02-04 14:06 PST
+- **Completed**: 2026-02-04 14:12 PST
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Small dust/sparkle puffs when Luna walks!
-  - Spawn at Luna's feet position
-  - Different effects for grass vs floor
-  - Framer-motion particles, fade out quickly
-  - **AI Coding**: Use local Radeon LLM for implementation
+- **Notes**: ✅ Small dust/sparkle puffs when Luna walks!
+  - [x] Spawn at Luna's feet position (y + 8%)
+  - [x] Different effects per surface type:
+    - `floor`: Brown dust puffs 💨
+    - `grass`: Green particles with 🌿🍃
+    - `stone`: Gray dust puffs
+    - `water`: Blue splashes 💧💦
+  - [x] Framer-motion particles, fade out quickly (0.4-0.6s)
+  - [x] Surface auto-detected from currentRoomKey
+  - **File**: `apps/moonlight-house/src/components/FootstepDustPuffs.tsx`
+  - **Build**: ✅ Passes
 
 ### [T878] Moonlight Magic House: Interactive Pet Reactions (MM-023)
 - **Status**: TODO

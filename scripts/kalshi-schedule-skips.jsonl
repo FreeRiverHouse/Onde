@@ -36,3 +36,5 @@
 {"timestamp": "2026-01-31T05:21:09.767910+00:00", "reason": "05:00 UTC not in active_hours (poor historical win rate)", "hour": 5, "day": 5}
 {"timestamp": "2026-01-31T05:26:10.301105+00:00", "reason": "05:00 UTC not in active_hours (poor historical win rate)", "hour": 5, "day": 5}
 {"timestamp": "2026-01-31T05:31:10.912901+00:00", "reason": "05:00 UTC not in active_hours (poor historical win rate)", "hour": 5, "day": 5}
+{"timestamp": "2026-01-31T05:56:14.471022+00:00", "reason": "05:00 UTC not in active_hours (poor historical win rate)", "hour": 5, "day": 5}
+{"timestamp": "2026-01-31T06:01:15.135392+00:00", "reason": "06:00 UTC not in active_hours (poor historical win rate)", "hour": 6, "day": 5}
