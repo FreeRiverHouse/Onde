@@ -13760,3 +13760,19 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 03:10 PST
 - **Features**: Recipe tracking, difficulty stars, cook counter
+
+### [T1005] Library: Category Filters
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:12 PST
+
+### [T1006] Gaming Island: More Decorations
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:12 PST
+- **Added**: Rainbow, windmill, pond with ducks, mailbox, flowers
+
+### [T1007] Reader: Dark Mode Toggle
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:12 PST
