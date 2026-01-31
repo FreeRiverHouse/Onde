@@ -2,6 +2,86 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 
+// ============ SOUND EFFECTS (Web Audio API - no files needed) ============
+
+const useAudioEngine = () => {
+  const audioContextRef = useRef<AudioContext | null>(null)
+  
+  const getContext = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    }
+    return audioContextRef.current
+  }, [])
+  
+  const playTone = useCallback((frequency: number, duration: number, type: OscillatorType = 'sine', volume = 0.3) => {
+    try {
+      const ctx = getContext()
+      const oscillator = ctx.createOscillator()
+      const gainNode = ctx.createGain()
+      
+      oscillator.connect(gainNode)
+      gainNode.connect(ctx.destination)
+      
+      oscillator.frequency.value = frequency
+      oscillator.type = type
+      
+      gainNode.gain.setValueAtTime(volume, ctx.currentTime)
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration)
+      
+      oscillator.start(ctx.currentTime)
+      oscillator.stop(ctx.currentTime + duration)
+    } catch {
+      // Audio not available - fail silently
+    }
+  }, [getContext])
+  
+  const playSuccess = useCallback(() => {
+    playTone(523.25, 0.1, 'sine', 0.2)
+    setTimeout(() => playTone(659.25, 0.1, 'sine', 0.2), 100)
+    setTimeout(() => playTone(783.99, 0.2, 'sine', 0.3), 200)
+  }, [playTone])
+  
+  const playClick = useCallback(() => {
+    playTone(440, 0.05, 'square', 0.1)
+  }, [playTone])
+  
+  const playPop = useCallback(() => {
+    playTone(880, 0.08, 'sine', 0.15)
+  }, [playTone])
+  
+  const playMiss = useCallback(() => {
+    playTone(200, 0.2, 'triangle', 0.15)
+  }, [playTone])
+  
+  const playEat = useCallback(() => {
+    playTone(300, 0.1, 'sawtooth', 0.1)
+    setTimeout(() => playTone(350, 0.1, 'sawtooth', 0.1), 80)
+    setTimeout(() => playTone(400, 0.15, 'sawtooth', 0.1), 160)
+  }, [playTone])
+  
+  const playWin = useCallback(() => {
+    const notes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5]
+    notes.forEach((freq, i) => {
+      setTimeout(() => playTone(freq, 0.15, 'sine', 0.2), i * 80)
+    })
+  }, [playTone])
+  
+  return { playSuccess, playClick, playPop, playMiss, playEat, playWin }
+}
+
+// ============ HAPTIC FEEDBACK ============
+
+const triggerHaptic = (style: 'light' | 'medium' | 'success' = 'light') => {
+  if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+    switch (style) {
+      case 'light': navigator.vibrate(10); break
+      case 'medium': navigator.vibrate(25); break
+      case 'success': navigator.vibrate([50, 30, 100]); break
+    }
+  }
+}
+
 // Game state machine
 type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
 
