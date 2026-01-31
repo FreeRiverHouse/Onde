@@ -10886,3 +10886,39 @@
   - Locked layers ignore draw/erase operations
   - Visual indicator (gray overlay or icon)
   - Useful when base skin is finalized
+
+### [T906] Skin Creator: Swap Layers Content
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T904]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Quick swap content between two layers:
+  - 🔄 Swap button that opens layer selector
+  - Swaps pixel content between active layer and selected layer
+  - Useful for reorganizing layer structure
+  - Keep layer settings (opacity, tint) unchanged
+
+### [T907] Skin Creator: Layer Opacity Presets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Quick opacity presets for layers:
+  - Add buttons: 25%, 50%, 75%, 100%
+  - One-click to set common opacity values
+  - Faster than slider for common use cases
+  - Visual feedback on selected preset
+
+### [T908] Skin Creator: Deploy Duplicate Feature to skin-studio.pages.dev
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T904]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy updated Skin Studio with duplicate layer feature:
+  - Build static export
+  - Deploy to Cloudflare Pages
+  - Verify live site works
+  - Test duplicate feature on production
