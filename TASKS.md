@@ -11925,8 +11925,9 @@ Generated: 2026-01-30T18:37:46.867013
   - **URL**: onde.surf/frh
 
 ### [T935] Dashboard FRH: Agents Monitoring
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Started**: 2026-01-30 22:45 PST
 - **Created-by**: @onde-bot-1
 - **Depends**: [T934]
 - **Blocks**: -
@@ -11939,8 +11940,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Ultimo heartbeat
 
 ### [T936] Dashboard FRH: System Monitoring (Mac/CPU/Analytics)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Started**: 2026-01-30 22:45 PST
 - **Created-by**: @onde-bot-1
 - **Depends**: [T934]
 - **Blocks**: -
