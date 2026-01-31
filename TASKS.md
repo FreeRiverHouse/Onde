@@ -11,9 +11,11 @@
 ### [T864] Minecraft Skin Creator: MVP Web Version
 - **Status**: DONE
 - **Owner**: @onde-bot-1
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: [T865]
 - **Priority**: P1
+- **Deploy URL**: https://onde.surf/static-games/skin-creator/
 - **Notes**: App per creare skin Minecraft - prima versione web su onde.surf
   - **Vision**: App molto migliore della concorrenza, super carina, child-friendly
   - **Target**: Bambini che vogliono creare skin per Minecraft
@@ -21,16 +23,24 @@
     - Tante app esistenti ma freemium/pay-to-win
     - Download: 10K-60K su varie app
     - Qualità: bassa, NON usano AI
-  - **Features MVP:**
-    - [ ] Canvas editor pixel art (64x32 standard skin)
-    - [ ] Preview 3D del personaggio
-    - [ ] Palette colori child-friendly
-    - [ ] Esportazione PNG compatibile Minecraft
-    - [ ] Template base (steve, alex)
-    - [ ] AI assist per generare skin da prompt
-  - **Tech**: Next.js + Tailwind + Canvas API
-  - **Deploy target**: onde.surf (protected) per testing
-  - **Reference**: Esistono skin editor online, studiare UX
+  - **Features MVP - ALL DONE:**
+    - [x] Canvas editor pixel art (64x64 standard Minecraft skin)
+    - [x] Preview 2D/3D del personaggio con toggle
+    - [x] Palette colori child-friendly (skin tones + vibrant colors)
+    - [x] Esportazione PNG compatibile Minecraft Java & Bedrock
+    - [x] Template base (Steve, Robot, Ninja, Alien, Princess, Zombie, Creeper, Random, Mystery)
+    - [x] AI assist button (richiede OpenAI key)
+  - **Extra Features Implemented:**
+    - [x] Multi-game support (Minecraft + Roblox)
+    - [x] Layers system (Base, Clothing, Accessories) con opacity e tint
+    - [x] All drawing tools (Brush, Eraser, Fill, Gradient, Glow, Stamp, Color Picker)
+    - [x] Undo/Redo, Mirror mode, Dark mode toggle
+    - [x] Import existing skins, Export with options
+    - [x] Copy to clipboard, Body part selector
+    - [x] Mobile responsive, PWA ready
+    - [x] Full SEO meta tags per App Store optimization
+  - **Tech**: Next.js 15 + Tailwind + Canvas API
+  - **Deploy fix 2026-01-30**: Added fix-routes.sh to include /static-games/* in Cloudflare Pages _routes.json exclude list
 
 ### [T865] Minecraft Skin Creator: iPad App
 - **Status**: BLOCKED
