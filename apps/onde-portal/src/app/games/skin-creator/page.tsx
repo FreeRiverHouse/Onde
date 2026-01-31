@@ -187,6 +187,7 @@ export default function SkinCreator() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [tutorialStep, setTutorialStep] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
@@ -1821,6 +1822,34 @@ export default function SkinCreator() {
             </button>
           ))}
         </div>
+
+        {/* Model Selector (Steve vs Alex) - Only for Minecraft */}
+        {selectedGame === 'minecraft' && (
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={() => setSkinModel('steve')}
+              className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                skinModel === 'steve'
+                  ? 'bg-blue-500 text-white shadow-lg'
+                  : 'bg-white/20 text-white hover:bg-white/30'
+              }`}
+              title="Steve model - 4px arms"
+            >
+              👦 Steve
+            </button>
+            <button
+              onClick={() => setSkinModel('alex')}
+              className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                skinModel === 'alex'
+                  ? 'bg-pink-500 text-white shadow-lg'
+                  : 'bg-white/20 text-white hover:bg-white/30'
+              }`}
+              title="Alex model - 3px slim arms"
+            >
+              👧 Alex (slim)
+            </button>
+          </div>
+        )}
 
         {/* View Mode Tabs */}
         <div className="flex gap-2 mt-4">
