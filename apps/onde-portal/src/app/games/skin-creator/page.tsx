@@ -50,6 +50,34 @@ const TINT_PRESETS = [
   { color: '#E91E63', name: 'Pink', emoji: '💗' },
 ];
 
+// 🎨 Color Palette Presets - Quick-select themed color sets
+const COLOR_PALETTE_PRESETS = [
+  { 
+    id: 'sunset', 
+    name: 'Sunset', 
+    emoji: '🌅',
+    colors: ['#FF6B35', '#FF4500', '#FF8C00', '#FFD700', '#FFAE42', '#E74C3C']
+  },
+  { 
+    id: 'ocean', 
+    name: 'Ocean', 
+    emoji: '🌊',
+    colors: ['#006994', '#00CED1', '#20B2AA', '#40E0D0', '#48D1CC', '#5F9EA0']
+  },
+  { 
+    id: 'forest', 
+    name: 'Forest', 
+    emoji: '🌲',
+    colors: ['#228B22', '#8B4513', '#6B8E23', '#556B2F', '#2E8B57', '#8FBC8F']
+  },
+  { 
+    id: 'galaxy', 
+    name: 'Galaxy', 
+    emoji: '🌌',
+    colors: ['#9B59B6', '#3498DB', '#E91E63', '#8E44AD', '#2980B9', '#C0392B']
+  },
+];
+
 // Multi-game support
 type GameType = 'minecraft' | 'roblox';
 
@@ -3032,6 +3060,38 @@ export default function SkinCreator() {
         {/* Right Panel - Colors */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
+
+          {/* Color Palette Presets */}
+          <div className="mb-4">
+            <p className="text-xs text-gray-500 mb-2">🎨 Palette Presets:</p>
+            <div className="flex flex-wrap gap-1">
+              {COLOR_PALETTE_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  onClick={() => {
+                    setSelectedColor(preset.colors[0]);
+                    setRecentColors(preset.colors);
+                    playSound('click');
+                  }}
+                  className="group relative flex items-center gap-1 px-2 py-1 rounded-lg bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 border border-gray-200 hover:border-gray-300 transition-all hover:scale-105 text-xs font-medium"
+                  title={`Load ${preset.name} palette`}
+                >
+                  <span>{preset.emoji}</span>
+                  <span className="hidden sm:inline">{preset.name}</span>
+                  {/* Color preview dots */}
+                  <div className="flex gap-0.5 ml-1">
+                    {preset.colors.slice(0, 3).map((color, i) => (
+                      <div
+                        key={i}
+                        className="w-2 h-2 rounded-full border border-white shadow-sm"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Recent Colors */}
           {recentColors.length > 0 && (
