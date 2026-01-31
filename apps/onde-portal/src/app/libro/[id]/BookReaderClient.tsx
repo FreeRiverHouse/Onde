@@ -390,7 +390,10 @@ export default function BookReaderClient({ bookId }: Props) {
 
               {bookmarks.length > 0 && (
                 <button
-                  onClick={() => setShowBookmarks(!showBookmarks)}
+                  onClick={() => {
+                    setShowBookmarks(!showBookmarks)
+                    setShowToc(false)
+                  }}
                   className={`relative w-9 h-9 rounded-full ${t.highlightBg} ${t.highlight} text-sm font-bold hover:scale-110 transition-transform`}
                   aria-label="Segnalibri"
                   title={`${bookmarks.length} segnalibri`}
@@ -404,7 +407,10 @@ export default function BookReaderClient({ bookId }: Props) {
 
               {((bookData && bookData.chapters.length > 1) || (useEpubViewer && tocItems.length > 0)) && (
                 <button
-                  onClick={() => setShowToc(!showToc)}
+                  onClick={() => {
+                    setShowToc(!showToc)
+                    setShowBookmarks(false)
+                  }}
                   className={`w-9 h-9 rounded-full ${t.highlightBg} ${t.highlight} text-sm font-bold hover:scale-110 transition-transform`}
                   aria-label="Indice"
                 >
@@ -475,6 +481,69 @@ export default function BookReaderClient({ bookId }: Props) {
                   </button>
                 ))}
               </nav>
+            </div>
+          </aside>
+        </div>
+      )}
+
+      {/* Bookmarks Sidebar */}
+      {showBookmarks && bookmarks.length > 0 && (
+        <div className="fixed inset-0 z-30" onClick={() => setShowBookmarks(false)}>
+          <div className="absolute inset-0 bg-[#0a1628]/60 backdrop-blur-sm" />
+          <aside
+            className={`absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] ${t.bg} ${t.border} border-l shadow-2xl overflow-y-auto`}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="p-5">
+              <h3 className={`font-bold text-lg mb-5 ${t.accent} flex items-center gap-2`}>
+                <span>🔖</span> Segnalibri
+              </h3>
+              <nav className="space-y-2">
+                {bookmarks.map((bookmark) => (
+                  <div
+                    key={bookmark.id}
+                    className={`group flex items-start gap-2 ${t.text} opacity-80 hover:opacity-100 transition-all`}
+                  >
+                    <button
+                      onClick={() => goToBookmark(bookmark)}
+                      className={`flex-1 text-left px-4 py-3 rounded-xl text-sm hover:${t.accentBg} transition-all`}
+                    >
+                      <div className="font-medium">{bookmark.label}</div>
+                      <div className={`text-xs ${t.muted} mt-1`}>
+                        {new Date(bookmark.createdAt).toLocaleDateString('it-IT', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => removeBookmark(bookmark.id)}
+                      className={`p-2 rounded-full opacity-0 group-hover:opacity-100 hover:bg-red-500/20 text-red-400 transition-all`}
+                      aria-label="Rimuovi segnalibro"
+                      title="Rimuovi segnalibro"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </nav>
+              {bookmarks.length > 0 && (
+                <div className={`mt-6 pt-4 ${t.border} border-t`}>
+                  <button
+                    onClick={() => {
+                      if (confirm('Vuoi eliminare tutti i segnalibri?')) {
+                        setBookmarks([])
+                      }
+                    }}
+                    className={`w-full text-center py-2 text-sm ${t.muted} hover:text-red-400 transition-colors`}
+                  >
+                    Elimina tutti i segnalibri
+                  </button>
+                </div>
+              )}
             </div>
           </aside>
         </div>

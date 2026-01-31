@@ -294,6 +294,11 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
       {/* ============================================
+          ANNOUNCEMENTS BANNER
+          ============================================ */}
+      <AnnouncementsBanner />
+
+      {/* ============================================
           GLOBAL BACKGROUND - Ocean Relaxing + Kids Friendly
           ============================================ */}
       <div className="fixed inset-0 pointer-events-none">

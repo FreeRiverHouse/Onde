@@ -121,6 +121,17 @@ const ingredientAnimationStyles = `
 .combine-spin {
   animation: combineSpin 0.6s ease-in-out;
 }
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
 `
 
 // Recipe book data type
@@ -435,6 +446,165 @@ function IngredientBowl({
   )
 }
 
+// Confetti Component for celebration
+function Confetti({ isActive }: { isActive: boolean }) {
+  const [particles, setParticles] = useState<{ id: number; emoji: string; x: number; delay: number; duration: number }[]>([])
+
+  useEffect(() => {
+    if (isActive) {
+      const confettiEmojis = ['🎉', '🎊', '✨', '⭐', '💫', '🌟', '🎈', '🎁', '🏆', '👏', '🥳', '🎂']
+      const newParticles = Array.from({ length: 40 }, (_, i) => ({
+        id: Date.now() + i,
+        emoji: confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)],
+        x: Math.random() * 100,
+        delay: Math.random() * 0.5,
+        duration: 2 + Math.random() * 2
+      }))
+      setParticles(newParticles)
+      
+      const timer = setTimeout(() => setParticles([]), 4000)
+      return () => clearTimeout(timer)
+    }
+  }, [isActive])
+
+  if (!isActive && particles.length === 0) return null
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute text-3xl"
+          style={{
+            left: `${particle.x}%`,
+            top: '-50px',
+            animation: `confettiFall ${particle.duration}s ease-out ${particle.delay}s forwards`
+          }}
+        >
+          {particle.emoji}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Cooking Timer Component
+function CookingTimer({ 
+  totalSeconds, 
+  onComplete, 
+  isActive,
+  playDing 
+}: { 
+  totalSeconds: number
+  onComplete: () => void
+  isActive: boolean
+  playDing: () => void
+}) {
+  const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
+  const [completed, setCompleted] = useState(false)
+  
+  // Calculate progress percentage
+  const progress = ((totalSeconds - secondsLeft) / totalSeconds) * 100
+  
+  // Format time display
+  const minutes = Math.floor(secondsLeft / 60)
+  const seconds = secondsLeft % 60
+  const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`
+  
+  useEffect(() => {
+    if (!isActive || completed) return
+    
+    if (secondsLeft <= 0) {
+      setCompleted(true)
+      playDing()
+      onComplete()
+      return
+    }
+    
+    const timer = setInterval(() => {
+      setSecondsLeft(prev => prev - 1)
+    }, 1000)
+    
+    return () => clearInterval(timer)
+  }, [secondsLeft, isActive, completed, onComplete, playDing])
+  
+  // Determine color based on time left
+  const getTimerColor = () => {
+    if (secondsLeft <= 3) return 'from-red-400 to-red-600'
+    if (secondsLeft <= 10) return 'from-orange-400 to-amber-500'
+    return 'from-green-400 to-emerald-500'
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      {/* Oven/Timer visual */}
+      <div className="relative">
+        <div className="text-8xl">🔥</div>
+        <div className={`
+          absolute -bottom-2 left-1/2 -translate-x-1/2
+          text-6xl transition-transform duration-300
+          ${secondsLeft <= 3 ? 'animate-bounce scale-110' : 'animate-pulse'}
+        `}>
+          {completed ? '✅' : '⏲️'}
+        </div>
+      </div>
+      
+      {/* Circular progress timer */}
+      <div className="relative w-32 h-32">
+        {/* Background circle */}
+        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="#e5e7eb"
+            strokeWidth="8"
+          />
+          {/* Progress circle */}
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="url(#timerGradient)"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * 45}`}
+            strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
+            className="transition-all duration-1000"
+          />
+          <defs>
+            <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor={secondsLeft <= 3 ? '#ef4444' : secondsLeft <= 10 ? '#f97316' : '#22c55e'} />
+              <stop offset="100%" stopColor={secondsLeft <= 3 ? '#dc2626' : secondsLeft <= 10 ? '#f59e0b' : '#10b981'} />
+            </linearGradient>
+          </defs>
+        </svg>
+        
+        {/* Time display in center */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className={`
+            text-2xl font-black
+            ${secondsLeft <= 3 ? 'text-red-600 animate-pulse' : secondsLeft <= 10 ? 'text-orange-600' : 'text-green-600'}
+          `}>
+            {completed ? '🎉' : timeDisplay}
+          </span>
+        </div>
+      </div>
+      
+      {/* Status text */}
+      <div className={`
+        px-6 py-2 rounded-full font-bold text-white shadow-lg
+        bg-gradient-to-r ${getTimerColor()}
+        ${secondsLeft <= 3 && !completed ? 'animate-pulse scale-110' : ''}
+      `}>
+        {completed ? '✨ Pronto!' : secondsLeft <= 3 ? '🔔 Quasi pronto!' : '🍳 Cottura...'}
+      </div>
+    </div>
+  )
+}
+
 // Recipe categories
 type RecipeCategory = 'all' | 'breakfast' | 'lunch' | 'dessert' | 'snacks'
 
@@ -446,21 +616,21 @@ const categories: { id: RecipeCategory; label: string; emoji: string }[] = [
   { id: 'snacks', label: 'Snacks', emoji: '🍕' },
 ]
 
-// Recipe data
+// Recipe data - cookSeconds is the timer duration after mixing
 const recipes = [
-  { id: 'pizza', name: 'Pizza Margherita', emoji: '🍕', difficulty: 1, time: '5 min', locked: false, color: 'from-red-400 to-orange-400', category: 'snacks' as RecipeCategory },
-  { id: 'biscotti', name: 'Biscotti', emoji: '🍪', difficulty: 1, time: '4 min', locked: false, color: 'from-amber-400 to-yellow-400', category: 'snacks' as RecipeCategory },
-  { id: 'frullato', name: 'Frullato di Frutta', emoji: '🥤', difficulty: 1, time: '3 min', locked: false, color: 'from-pink-400 to-purple-400', category: 'breakfast' as RecipeCategory },
-  { id: 'insalata', name: 'Insalata Colorata', emoji: '🥗', difficulty: 2, time: '4 min', locked: false, color: 'from-green-400 to-emerald-400', category: 'lunch' as RecipeCategory },
-  { id: 'panino', name: 'Panino', emoji: '🥪', difficulty: 1, time: '3 min', locked: false, color: 'from-orange-400 to-amber-400', category: 'lunch' as RecipeCategory },
-  { id: 'gelato', name: 'Gelato', emoji: '🍦', difficulty: 2, time: '6 min', locked: false, color: 'from-cyan-400 to-blue-400', category: 'dessert' as RecipeCategory },
-  { id: 'torta', name: 'Torta di Compleanno', emoji: '🎂', difficulty: 3, time: '8 min', locked: false, color: 'from-pink-400 to-rose-400', category: 'dessert' as RecipeCategory },
-  { id: 'pasta', name: 'Pasta al Pomodoro', emoji: '🍝', difficulty: 2, time: '5 min', locked: false, color: 'from-red-400 to-yellow-400', category: 'lunch' as RecipeCategory },
-  { id: 'hamburger', name: 'Hamburger', emoji: '🍔', difficulty: 2, time: '4 min', locked: false, color: 'from-amber-500 to-red-500', category: 'lunch' as RecipeCategory },
-  { id: 'pancakes', name: 'Pancakes', emoji: '🥞', difficulty: 1, time: '3 min', locked: false, color: 'from-yellow-400 to-amber-500', category: 'breakfast' as RecipeCategory },
-  { id: 'cheesecake', name: 'Cheesecake', emoji: '🍰', difficulty: 3, time: '7 min', locked: false, color: 'from-rose-300 to-pink-400', category: 'dessert' as RecipeCategory },
-  { id: 'tacos', name: 'Tacos', emoji: '🌮', difficulty: 2, time: '5 min', locked: false, color: 'from-yellow-500 to-orange-500', category: 'snacks' as RecipeCategory },
-  { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500', category: 'lunch' as RecipeCategory },
+  { id: 'pizza', name: 'Pizza Margherita', emoji: '🍕', difficulty: 1, time: '5 min', cookSeconds: 8, locked: false, color: 'from-red-400 to-orange-400', category: 'snacks' as RecipeCategory },
+  { id: 'biscotti', name: 'Biscotti', emoji: '🍪', difficulty: 1, time: '4 min', cookSeconds: 6, locked: false, color: 'from-amber-400 to-yellow-400', category: 'snacks' as RecipeCategory },
+  { id: 'frullato', name: 'Frullato di Frutta', emoji: '🥤', difficulty: 1, time: '3 min', cookSeconds: 4, locked: false, color: 'from-pink-400 to-purple-400', category: 'breakfast' as RecipeCategory },
+  { id: 'insalata', name: 'Insalata Colorata', emoji: '🥗', difficulty: 2, time: '4 min', cookSeconds: 5, locked: false, color: 'from-green-400 to-emerald-400', category: 'lunch' as RecipeCategory },
+  { id: 'panino', name: 'Panino', emoji: '🥪', difficulty: 1, time: '3 min', cookSeconds: 4, locked: false, color: 'from-orange-400 to-amber-400', category: 'lunch' as RecipeCategory },
+  { id: 'gelato', name: 'Gelato', emoji: '🍦', difficulty: 2, time: '6 min', cookSeconds: 10, locked: false, color: 'from-cyan-400 to-blue-400', category: 'dessert' as RecipeCategory },
+  { id: 'torta', name: 'Torta di Compleanno', emoji: '🎂', difficulty: 3, time: '8 min', cookSeconds: 12, locked: false, color: 'from-pink-400 to-rose-400', category: 'dessert' as RecipeCategory },
+  { id: 'pasta', name: 'Pasta al Pomodoro', emoji: '🍝', difficulty: 2, time: '5 min', cookSeconds: 8, locked: false, color: 'from-red-400 to-yellow-400', category: 'lunch' as RecipeCategory },
+  { id: 'hamburger', name: 'Hamburger', emoji: '🍔', difficulty: 2, time: '4 min', cookSeconds: 6, locked: false, color: 'from-amber-500 to-red-500', category: 'lunch' as RecipeCategory },
+  { id: 'pancakes', name: 'Pancakes', emoji: '🥞', difficulty: 1, time: '3 min', cookSeconds: 5, locked: false, color: 'from-yellow-400 to-amber-500', category: 'breakfast' as RecipeCategory },
+  { id: 'cheesecake', name: 'Cheesecake', emoji: '🍰', difficulty: 3, time: '7 min', cookSeconds: 10, locked: false, color: 'from-rose-300 to-pink-400', category: 'dessert' as RecipeCategory },
+  { id: 'tacos', name: 'Tacos', emoji: '🌮', difficulty: 2, time: '5 min', cookSeconds: 7, locked: false, color: 'from-yellow-500 to-orange-500', category: 'snacks' as RecipeCategory },
+  { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', cookSeconds: 8, locked: false, color: 'from-slate-400 to-cyan-500', category: 'lunch' as RecipeCategory },
 ]
 
 function RecipeBookModal({ 
@@ -622,6 +792,11 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
   const [showPoof, setShowPoof] = useState(false)
   const [poofPosition, setPoofPosition] = useState({ x: 0, y: 0 })
   const [isMixing, setIsMixing] = useState(false)
+  
+  // Timer state
+  const [timerActive, setTimerActive] = useState(false)
+  const [timerComplete, setTimerComplete] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   // Inject animation styles
   useEffect(() => {
@@ -641,9 +816,19 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
   const steps = [
     { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti per raccoglierli!', sound: 'click', isInteractive: true },
     { text: 'Mescola tutto insieme! 🥄', action: 'Premi per mescolare!', sound: 'stir', isInteractive: true },
-    { text: 'Metti in forno! 🔥', action: 'Aspetta...', sound: 'sizzle', isInteractive: false },
-    { text: 'Decora il piatto! ✨', action: 'Aggiungi decorazioni', sound: 'ding', isInteractive: false },
+    { text: 'Metti in forno! 🔥', action: 'Aspetta il timer...', sound: 'sizzle', isInteractive: false },
+    { text: 'Decora il piatto! ✨', action: 'Aggiungi le decorazioni finali!', sound: 'ding', isInteractive: false },
   ]
+  
+  // Handle timer completion
+  const handleTimerComplete = useCallback(() => {
+    setTimerComplete(true)
+    setScore(prev => prev + 25)
+    // Auto-advance to decoration step after brief delay
+    setTimeout(() => {
+      setStep(3)
+    }, 1000)
+  }, [])
 
   const handleCollectIngredient = (ingredient: string, event: React.MouseEvent) => {
     if (step !== 0 || collectedIngredients.includes(ingredient)) return
@@ -676,6 +861,9 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
       setIsMixing(false)
       setStep(2)
       setScore(prev => prev + 25)
+      // Start the cooking timer!
+      sounds.playSizzle()
+      setTimerActive(true)
     }, 800)
   }
 
@@ -693,6 +881,8 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
     } else {
       setCompleted(true)
       setScore(100)
+      // Trigger confetti celebration!
+      setShowConfetti(true)
       // Play success jingle after a short delay
       setTimeout(() => sounds.playSuccess(), 300)
       // Save to recipe book
@@ -716,7 +906,10 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
   if (completed) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-yellow-300 to-orange-400 flex flex-col items-center justify-center p-4">
-        <div className="bg-white rounded-3xl p-8 shadow-2xl text-center max-w-md">
+        {/* Confetti celebration! */}
+        <Confetti isActive={showConfetti} />
+        
+        <div className="bg-white rounded-3xl p-8 shadow-2xl text-center max-w-md relative z-10">
           <div className="text-8xl mb-4 animate-bounce">{recipe.emoji}</div>
           <h2 className="text-3xl font-black text-green-600 mb-2">Complimenti! 🎉</h2>
           <p className="text-xl text-gray-600 mb-4">Hai preparato: {recipe.name}</p>
