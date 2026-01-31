@@ -12844,16 +12844,23 @@ Generated: 2026-01-30T18:37:46.867013
   - [x] /api/tasks returns 307 (auth redirect) - protected as expected
 
 ### [T1033] Dashboard FRH: Add Task Priority Heat Badge
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 22:55 PST
 - **Created-by**: @clawdinho
 - **Created**: 2026-01-30
 - **Depends**: [T934]
 - **Priority**: P3
 - **Notes**: Visual indicator for high-priority work queue
-  - [ ] Show "🔥 X urgent" badge when P0 tasks exist
-  - [ ] Show "⚡ X high priority" for P1 tasks
-  - [ ] Add to stats row in TaskManagementPanel
+  - [x] Created `TaskPriorityBadge.tsx` component with heat-style badges
+  - [x] P0 = 🔥 red gradient with pulse animation
+  - [x] P1 = 🟠 orange gradient
+  - [x] P2 = 🟡 yellow gradient
+  - [x] P3 = 🟢 green gradient
+  - [x] P4 = ⚪ gray gradient
+  - [x] Added `PriorityHeatmapSummary` component for distribution view
+  - [x] Integrated into TaskManagementPanel stats row
+  - [x] Build verified ✅
 
 
 ### [T1034] Skin Creator: Animation Presets
