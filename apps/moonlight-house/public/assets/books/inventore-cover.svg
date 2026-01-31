@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="inventoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB74D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="280" fill="url(#inventoreGrad)" rx="8"/>
+  
+  <!-- Gears decoration -->
+  <g fill="none" stroke="#fff" stroke-width="2" opacity="0.3">
+    <circle cx="35" cy="45" r="20"/>
+    <circle cx="35" cy="45" r="12"/>
+    <circle cx="165" cy="60" r="15"/>
+    <circle cx="165" cy="60" r="8"/>
+    <circle cx="45" cy="240" r="18"/>
+    <circle cx="160" cy="230" r="12"/>
+  </g>
+  
+  <!-- Light bulb (idea!) -->
+  <g transform="translate(60, 45)">
+    <!-- Bulb glass -->
+    <ellipse cx="40" cy="35" rx="28" ry="32" fill="#FFF59D" opacity="0.9"/>
+    <!-- Glow rays -->
+    <g stroke="#FFF59D" stroke-width="3" opacity="0.7">
+      <line x1="40" y1="0" x2="40" y2="-10"/>
+      <line x1="65" y1="10" x2="75" y2="0"/>
+      <line x1="75" y1="35" x2="85" y2="35"/>
+      <line x1="65" y1="60" x2="75" y2="70"/>
+      <line x1="15" y1="10" x2="5" y2="0"/>
+      <line x1="5" y1="35" x2="-5" y2="35"/>
+      <line x1="15" y1="60" x2="5" y2="70"/>
+    </g>
+    <!-- Bulb base -->
+    <rect x="30" y="65" width="20" height="15" fill="#9E9E9E"/>
+    <rect x="28" y="68" width="24" height="3" fill="#757575"/>
+    <rect x="28" y="74" width="24" height="3" fill="#757575"/>
+  </g>
+  
+  <!-- Tools -->
+  <g transform="translate(25, 150)">
+    <!-- Wrench -->
+    <rect x="0" y="15" width="6" height="35" rx="2" fill="#fff" opacity="0.8" transform="rotate(-20 3 32)"/>
+    <!-- Screwdriver -->
+    <rect x="140" y="10" width="4" height="40" rx="1" fill="#fff" opacity="0.8" transform="rotate(15 142 30)"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="100" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#fff">Il Piccolo</text>
+  <text x="100" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff">Inventore</text>
+  
+  <!-- Onde Kids logo -->
+  <text x="100" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff" opacity="0.8">ONDE KIDS</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="salmoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81C784;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="280" fill="url(#salmoGrad)" rx="8"/>
+  
+  <!-- Pastoral hills -->
+  <ellipse cx="100" cy="250" rx="120" ry="40" fill="#66BB6A"/>
+  <ellipse cx="60" cy="240" rx="80" ry="30" fill="#4CAF50"/>
+  
+  <!-- Sun -->
+  <circle cx="150" cy="50" r="25" fill="#FFD700" opacity="0.9"/>
+  <g stroke="#FFD700" stroke-width="2" opacity="0.6">
+    <line x1="150" y1="15" x2="150" y2="5"/>
+    <line x1="175" y1="25" x2="185" y2="15"/>
+    <line x1="185" y1="50" x2="195" y2="50"/>
+    <line x1="175" y1="75" x2="185" y2="85"/>
+  </g>
+  
+  <!-- Lamb -->
+  <g transform="translate(70, 150)">
+    <ellipse cx="30" cy="30" rx="25" ry="18" fill="#fff"/>
+    <circle cx="50" cy="20" r="12" fill="#fff"/>
+    <circle cx="55" cy="17" r="3" fill="#333"/>
+    <ellipse cx="58" cy="22" rx="3" ry="2" fill="#FFC0CB"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="100" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#fff">Il Salmo 23</text>
+  <text x="100" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#fff">per Bambini</text>
+  
+  <!-- Decorative -->
+  <text x="100" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff" opacity="0.8">ONDE KIDS</text>
+</svg>

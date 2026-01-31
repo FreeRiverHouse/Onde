@@ -12014,21 +12014,26 @@ Generated: 2026-01-30T18:37:46.867013
   - [x] Library books feature live: navigate to Library room, click Onde Kids Books
 
 ### [T940] Moonlight: Book Cover Images for Library
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Started**: 2026-01-31 07:48 PST
+- **Completed**: 2026-01-31 07:50 PST
 - **Created**: 2026-02-15
 - **Depends**: [T917]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create/generate cover images for the 7 Onde Kids books
-  - AIKO e l'Intelligenza Artificiale (tech blue theme)
-  - Il Salmo 23 per Bambini (green pastoral theme)
-  - Piccole Rime (pink/fun theme)
-  - Il Potere dei Desideri (golden/magical theme)
-  - Il Respiro Magico (purple/calm theme)
-  - Il Piccolo Inventore (orange/creative theme)
-  - I Cinque Sensi di Luna (teal/sensory theme)
-  - Size: 200x280px for LibraryBooks display
+- **Notes**: ✅ Created SVG book covers for all 7 Onde Kids books!
+  - ✅ aiko-cover.svg - Tech blue with robot AI character
+  - ✅ salmo23-cover.svg - Green pastoral with lamb and sun
+  - ✅ piccole-rime-cover.svg - Pink with open book and musical notes
+  - ✅ desideri-cover.svg - Golden with magic wand and stars
+  - ✅ respiro-cover.svg - Purple with meditating child
+  - ✅ inventore-cover.svg - Orange with lightbulb idea
+  - ✅ sensi-cover.svg - Teal with five senses icons + Luna
+  - ✅ Updated LibraryBooks.tsx to use .svg extension
+  - ✅ Build passes
+  - **Location**: `apps/moonlight-house/public/assets/books/`
+  - ⏳ TODO: Deploy to onde.la (see T939)
 
 ### [T941] Moonlight: More Demo Pages for Books
 - **Status**: TODO

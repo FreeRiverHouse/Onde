@@ -29,7 +29,7 @@ const BOOKS: Book[] = [
       it: 'Scopri il mondo dell\'AI con AIKO! Un\'avventura tecnologica per i piccoli curiosi.',
       en: 'Discover the world of AI with AIKO! A tech adventure for curious kids.'
     },
-    cover: '/assets/books/aiko-cover.jpg',
+    cover: '/assets/books/aiko-cover.svg',
     author: 'Onde Kids',
     ageRange: '5-10',
     price: 4.99,
@@ -47,7 +47,7 @@ const BOOKS: Book[] = [
       it: 'Una dolce interpretazione del Salmo più amato, con illustrazioni magiche.',
       en: 'A sweet interpretation of the most beloved Psalm, with magical illustrations.'
     },
-    cover: '/assets/books/salmo23-cover.jpg',
+    cover: '/assets/books/salmo23-cover.svg',
     author: 'Onde Kids',
     ageRange: '4-8',
     price: 3.99,
@@ -65,7 +65,7 @@ const BOOKS: Book[] = [
       it: 'Poesie dolci e divertenti per i più piccoli. Rime che fanno sorridere!',
       en: 'Sweet and fun poems for little ones. Rhymes that make you smile!'
     },
-    cover: '/assets/books/piccole-rime-cover.jpg',
+    cover: '/assets/books/piccole-rime-cover.svg',
     author: 'Onde Kids',
     ageRange: '3-6',
     price: 2.99,
@@ -83,7 +83,7 @@ const BOOKS: Book[] = [
       it: 'Impara a sognare in grande! Una storia sulla forza dei desideri.',
       en: 'Learn to dream big! A story about the power of wishes.'
     },
-    cover: '/assets/books/desideri-cover.jpg',
+    cover: '/assets/books/desideri-cover.svg',
     author: 'Onde Kids',
     ageRange: '6-10',
     price: 4.99,
@@ -101,7 +101,7 @@ const BOOKS: Book[] = [
       it: 'Tecniche di respirazione per bambini. Calma e relax in modo divertente!',
       en: 'Breathing techniques for kids. Calm and relaxation the fun way!'
     },
-    cover: '/assets/books/respiro-cover.jpg',
+    cover: '/assets/books/respiro-cover.svg',
     author: 'Onde Kids',
     ageRange: '4-8',
     price: 3.99,
@@ -119,7 +119,7 @@ const BOOKS: Book[] = [
       it: 'Sogna, crea, inventa! La storia di un bambino che cambia il mondo.',
       en: 'Dream, create, invent! The story of a child who changes the world.'
     },
-    cover: '/assets/books/inventore-cover.jpg',
+    cover: '/assets/books/inventore-cover.svg',
     author: 'Onde Kids',
     ageRange: '6-10',
     price: 4.99,
@@ -137,7 +137,7 @@ const BOOKS: Book[] = [
       it: 'Esplora il mondo attraverso i sensi insieme a Luna!',
       en: 'Explore the world through senses with Luna!'
     },
-    cover: '/assets/books/sensi-cover.jpg',
+    cover: '/assets/books/sensi-cover.svg',
     author: 'Onde Kids',
     ageRange: '3-6',
     price: 3.99,
@@ -322,7 +322,7 @@ export function LibraryBooks({
 
         <div className="luna-reading">
           <img 
-            src="/assets/character/luna-happy.jpg" 
+            src="/assets/character/luna-happy.svg" 
             alt="Luna"
             className="luna-library-img"
           />

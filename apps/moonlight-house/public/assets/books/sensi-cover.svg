@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="sensiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DD0E1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00ACC1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="280" fill="url(#sensiGrad)" rx="8"/>
+  
+  <!-- Five senses icons arranged in a circle -->
+  <g transform="translate(100, 100)">
+    <!-- Eye (sight) -->
+    <g transform="translate(0, -45)">
+      <ellipse cx="0" cy="0" rx="15" ry="10" fill="#fff" opacity="0.9"/>
+      <circle cx="0" cy="0" r="6" fill="#4DD0E1"/>
+      <circle cx="0" cy="0" r="3" fill="#00ACC1"/>
+    </g>
+    
+    <!-- Ear (hearing) -->
+    <g transform="translate(42, -15)">
+      <path d="M0 -12 Q12 -10 12 0 Q12 10 6 15 Q3 18 0 15" fill="#fff" opacity="0.9" stroke="#4DD0E1" stroke-width="1"/>
+    </g>
+    
+    <!-- Nose (smell) -->
+    <g transform="translate(26, 37)">
+      <path d="M0 -10 Q5 0 0 10 Q-3 8 -3 0 Q-3 -8 0 -10" fill="#fff" opacity="0.9"/>
+    </g>
+    
+    <!-- Tongue (taste) -->
+    <g transform="translate(-26, 37)">
+      <ellipse cx="0" cy="0" rx="8" ry="12" fill="#fff" opacity="0.9"/>
+      <ellipse cx="0" cy="5" rx="5" ry="4" fill="#F48FB1"/>
+    </g>
+    
+    <!-- Hand (touch) -->
+    <g transform="translate(-42, -15)">
+      <ellipse cx="0" cy="5" rx="8" ry="10" fill="#fff" opacity="0.9"/>
+      <!-- Fingers -->
+      <ellipse cx="-6" cy="-8" rx="3" ry="6" fill="#fff" opacity="0.9"/>
+      <ellipse cx="-2" cy="-12" rx="3" ry="7" fill="#fff" opacity="0.9"/>
+      <ellipse cx="2" cy="-12" rx="3" ry="7" fill="#fff" opacity="0.9"/>
+      <ellipse cx="6" cy="-10" rx="3" ry="6" fill="#fff" opacity="0.9"/>
+      <ellipse cx="9" cy="-5" rx="3" ry="5" fill="#fff" opacity="0.9"/>
+    </g>
+  </g>
+  
+  <!-- Luna character (small) -->
+  <g transform="translate(150, 200)">
+    <circle cx="0" cy="0" r="15" fill="#FFE0B2"/>
+    <circle cx="-4" cy="-3" r="3" fill="#333"/>
+    <circle cx="4" cy="-3" r="3" fill="#333"/>
+    <path d="M-5 4 Q0 8 5 4" stroke="#333" stroke-width="2" fill="none"/>
+    <ellipse cx="0" cy="-15" rx="12" ry="5" fill="#9C27B0"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="100" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">I Cinque Sensi</text>
+  <text x="100" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#fff">di Luna</text>
+  
+  <!-- Onde Kids logo -->
+  <text x="100" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff" opacity="0.8">ONDE KIDS</text>
+</svg>
