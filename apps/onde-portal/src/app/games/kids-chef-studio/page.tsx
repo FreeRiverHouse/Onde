@@ -13,6 +13,11 @@ const recipes = [
   { id: 'gelato', name: 'Gelato', emoji: '🍦', difficulty: 2, time: '6 min', locked: false, color: 'from-cyan-400 to-blue-400' },
   { id: 'torta', name: 'Torta di Compleanno', emoji: '🎂', difficulty: 3, time: '8 min', locked: false, color: 'from-pink-400 to-rose-400' },
   { id: 'pasta', name: 'Pasta al Pomodoro', emoji: '🍝', difficulty: 2, time: '5 min', locked: false, color: 'from-red-400 to-yellow-400' },
+  { id: 'hamburger', name: 'Hamburger', emoji: '🍔', difficulty: 2, time: '4 min', locked: false, color: 'from-amber-500 to-red-500' },
+  { id: 'pancakes', name: 'Pancakes', emoji: '🥞', difficulty: 1, time: '3 min', locked: false, color: 'from-yellow-400 to-amber-500' },
+  { id: 'cheesecake', name: 'Cheesecake', emoji: '🍰', difficulty: 3, time: '7 min', locked: false, color: 'from-rose-300 to-pink-400' },
+  { id: 'tacos', name: 'Tacos', emoji: '🌮', difficulty: 2, time: '5 min', locked: false, color: 'from-yellow-500 to-orange-500' },
+  { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500' },
 ]
 
 function RecipeCard({ recipe, onSelect }: { recipe: typeof recipes[0], onSelect: () => void }) {
@@ -137,7 +142,7 @@ function PlayScreen({ recipe, onBack }: { recipe: typeof recipes[0], onBack: () 
 
 export default function KidsChefStudio() {
   const [selectedRecipe, setSelectedRecipe] = useState<typeof recipes[0] | null>(null)
-  const [unlockedRecipes, setUnlockedRecipes] = useState(8) // All unlocked!
+  const [unlockedRecipes, setUnlockedRecipes] = useState(13) // All unlocked!
 
   if (selectedRecipe) {
     return <PlayScreen recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
