@@ -10928,15 +10928,16 @@
   - ✅ Build passes
 
 ### [T920] Skin Creator: Deploy Layer Opacity Presets to skin-studio.pages.dev
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T907]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Deploy la feature opacity presets
-  - Build static export
-  - Deploy to Cloudflare Pages
-  - Verify https://skin-studio.pages.dev
+- **Notes**: ✅ Deployed Skin Studio with opacity presets!
+  - ✅ Build static export (31 files)
+  - ✅ Deployed to Cloudflare Pages: https://87b3e9aa.skin-studio.pages.dev
+  - ✅ Verified: https://skin-studio.pages.dev returns 200 OK
 
 ### [T921] Skin Creator: Add Random Template Generator
 - **Status**: TODO
