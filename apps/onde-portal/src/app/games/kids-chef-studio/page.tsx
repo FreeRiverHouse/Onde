@@ -996,8 +996,25 @@ function PlayScreen({ recipe, onBack, sounds, onComplete }: {
           </div>
         )}
         
-        {/* Action Button for non-interactive steps */}
-        {step >= 2 && (
+        {/* Step 2: Cooking Timer */}
+        {step === 2 && (
+          <div className="mb-6">
+            <CookingTimer
+              totalSeconds={recipe.cookSeconds}
+              onComplete={handleTimerComplete}
+              isActive={timerActive}
+              playDing={sounds.playDing}
+            />
+            {timerComplete && (
+              <div className="mt-4 text-green-600 font-bold text-xl animate-bounce">
+                ✅ Cottura completata!
+              </div>
+            )}
+          </div>
+        )}
+        
+        {/* Action Button for decoration step (step 3) */}
+        {step >= 3 && (
           <button
             onClick={handleStep}
             className="w-full py-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-xl rounded-2xl shadow-lg hover:scale-105 transition-all animate-pulse"
