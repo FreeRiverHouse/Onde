@@ -87,6 +87,28 @@
     ```
   - **Modelli disponibili:** deepseek-coder:6.7b, qwen2.5-coder:7b, llama31-8b, llama3.2:3b
 
+### [T960] Dispatcher: System Monitor (CPU/Temp/Health) ✅
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 21:20 PST
+- **Depends**: [T955] ✅
+- **Blocks**: -
+- **Priority**: P0 🔥
+- **Notes**: DA MATTIA (ID:2971)
+  - **Implementato `SystemMonitor` class in `dispatcher.py`:**
+    - CPU usage via psutil (throttle >80%, stop >95%)
+    - Memory usage via psutil (warning >90%)
+    - GPU temperatura via ioreg/powermetrics (throttle >85°C, stop >95°C)
+    - Throttling automatico integrato in `Dispatcher.run()`
+    - Metodo `get_health()` per status real-time
+    - Cooldown automatico `wait_for_cooldown()`
+  - **Funziona su entrambi**: M1 + Radeon (Clawdinho) e M4 Pro (Ondinho)
+  - **Test 2026-01-30 21:19 PST:**
+    ```
+    Status: healthy | CPU: 14.1% | Memory: 63.5% | GPU: N/A (eGPU scollegata)
+    ```
+  - **🚨 ONDINHO**: Fai `git pull` e il monitoring sarà automatico nel dispatcher!
+
 ---
 
 ## 🤖 ONDINHO AUTONOMY SYSTEM (DA MATTIA 2026-01-30)

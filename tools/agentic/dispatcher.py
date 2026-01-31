@@ -111,6 +111,190 @@ class TaskResult:
 
 
 # ═══════════════════════════════════════════════════════════════
+# SYSTEM MONITOR - Protezione CPU/GPU/Temp
+# ═══════════════════════════════════════════════════════════════
+
+class SystemMonitor:
+    """
+    Monitora CPU, temperatura e stato sistema.
+    Protegge sia M1+Radeon (Clawdinho) che M4 Pro (Ondinho).
+    """
+    
+    # Limiti di sicurezza
+    CPU_THROTTLE_THRESHOLD = 80  # % - rallenta se superiore
+    CPU_STOP_THRESHOLD = 95      # % - ferma tutto
+    GPU_TEMP_THROTTLE = 85       # °C - rallenta
+    GPU_TEMP_STOP = 95           # °C - ferma per sicurezza
+    MEMORY_THRESHOLD = 90        # % - avviso memoria
+    
+    def __init__(self):
+        self._psutil_available = False
+        self._last_check = 0
+        self._check_interval = 5  # secondi tra i check
+        
+        try:
+            import psutil
+            self._psutil_available = True
+        except ImportError:
+            pass
+    
+    def get_cpu_usage(self) -> float:
+        """Ritorna CPU usage percentuale (0-100)."""
+        if not self._psutil_available:
+            return 0.0
+        import psutil
+        return psutil.cpu_percent(interval=0.1)
+    
+    def get_memory_usage(self) -> float:
+        """Ritorna memoria usata percentuale (0-100)."""
+        if not self._psutil_available:
+            return 0.0
+        import psutil
+        return psutil.virtual_memory().percent
+    
+    def get_gpu_temperature(self) -> Optional[float]:
+        """
+        Ritorna temperatura GPU in °C.
+        Su macOS: usa powermetrics per GPU Apple Silicon o AMD.
+        Ritorna None se non disponibile.
+        """
+        import subprocess
+        import platform
+        
+        if platform.system() != "Darwin":
+            return None
+        
+        try:
+            # Prima prova AMD Radeon (per M1 + eGPU)
+            result = subprocess.run(
+                ["system_profiler", "SPDisplaysDataType"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            if "AMD" in result.stdout or "Radeon" in result.stdout:
+                # AMD trovata - prova ioreg per temperatura
+                temp_result = subprocess.run(
+                    ["ioreg", "-rc", "AppleRadeonController"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                # Cerca pattern temperatura
+                import re
+                temp_match = re.search(r'"gpu-temperature"\s*=\s*(\d+)', temp_result.stdout)
+                if temp_match:
+                    return float(temp_match.group(1))
+            
+            # Fallback: prova thermal zones
+            result = subprocess.run(
+                ["sudo", "-n", "powermetrics", "--samplers", "smc", "-n", "1", "-i", "100"],
+                capture_output=True,
+                text=True,
+                timeout=3
+            )
+            import re
+            # Cerca GPU die temperature
+            temp_match = re.search(r"GPU\s+die\s+temp.*?(\d+\.?\d*)\s*C", result.stdout, re.IGNORECASE)
+            if temp_match:
+                return float(temp_match.group(1))
+            
+        except (subprocess.TimeoutExpired, subprocess.CalledProcessError, FileNotFoundError):
+            pass
+        
+        return None
+    
+    def check_health(self) -> Dict[str, Any]:
+        """
+        Check completo della salute del sistema.
+        Ritorna dict con status, metrics e se bisogna throttlare/fermare.
+        """
+        cpu = self.get_cpu_usage()
+        memory = self.get_memory_usage()
+        gpu_temp = self.get_gpu_temperature()
+        
+        status = "healthy"
+        action = "proceed"
+        warnings = []
+        
+        # Check CPU
+        if cpu >= self.CPU_STOP_THRESHOLD:
+            status = "critical"
+            action = "stop"
+            warnings.append(f"CPU critica: {cpu:.1f}%")
+        elif cpu >= self.CPU_THROTTLE_THRESHOLD:
+            status = "warning"
+            action = "throttle"
+            warnings.append(f"CPU alta: {cpu:.1f}%")
+        
+        # Check GPU temperatura
+        if gpu_temp is not None:
+            if gpu_temp >= self.GPU_TEMP_STOP:
+                status = "critical"
+                action = "stop"
+                warnings.append(f"GPU temperatura critica: {gpu_temp}°C")
+            elif gpu_temp >= self.GPU_TEMP_THROTTLE:
+                if action != "stop":
+                    status = "warning"
+                    action = "throttle"
+                warnings.append(f"GPU calda: {gpu_temp}°C")
+        
+        # Check memoria
+        if memory >= self.MEMORY_THRESHOLD:
+            warnings.append(f"Memoria alta: {memory:.1f}%")
+        
+        return {
+            "status": status,
+            "action": action,
+            "cpu_percent": cpu,
+            "memory_percent": memory,
+            "gpu_temp_c": gpu_temp,
+            "warnings": warnings,
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def should_proceed(self) -> tuple[bool, str]:
+        """
+        Check rapido: posso procedere con il task?
+        Ritorna (True/False, motivo).
+        """
+        health = self.check_health()
+        
+        if health["action"] == "stop":
+            return False, f"Sistema in stato critico: {', '.join(health['warnings'])}"
+        elif health["action"] == "throttle":
+            # Throttle = aspetta un po' poi procedi
+            time.sleep(2)
+            return True, f"Throttling attivo: {', '.join(health['warnings'])}"
+        
+        return True, "OK"
+    
+    def wait_for_cooldown(self, max_wait: int = 60) -> bool:
+        """
+        Aspetta che il sistema si raffreddi.
+        Ritorna True se OK, False se timeout.
+        """
+        start = time.time()
+        while time.time() - start < max_wait:
+            health = self.check_health()
+            if health["action"] == "proceed":
+                return True
+            time.sleep(5)
+        return False
+
+
+# Singleton per monitoring globale
+_system_monitor = None
+
+def get_system_monitor() -> SystemMonitor:
+    """Ritorna l'istanza globale del SystemMonitor."""
+    global _system_monitor
+    if _system_monitor is None:
+        _system_monitor = SystemMonitor()
+    return _system_monitor
+
+
+# ═══════════════════════════════════════════════════════════════
 # LLM CLIENT
 # ═══════════════════════════════════════════════════════════════
 
@@ -231,11 +415,14 @@ class Dispatcher:
     def __init__(
         self,
         ollama_url: str = OLLAMA_URL,
-        max_workers: int = MAX_WORKERS
+        max_workers: int = MAX_WORKERS,
+        enable_monitoring: bool = True
     ):
         self.client = LLMClient(ollama_url)
         self.max_workers = max_workers
         self.task_history: List[TaskResult] = []
+        self.monitor = get_system_monitor() if enable_monitoring else None
+        self.monitoring_enabled = enable_monitoring
     
     def detect_agent_type(self, prompt: str) -> AgentType:
         """Auto-detect del tipo di agente migliore per il task."""
@@ -264,7 +451,23 @@ class Dispatcher:
         agent_type: Optional[AgentType] = None,
         timeout: int = DEFAULT_TIMEOUT
     ) -> TaskResult:
-        """Esegue un singolo task."""
+        """
+        Esegue un singolo task.
+        Controlla CPU/temp prima di procedere (se monitoring abilitato).
+        """
+        # 🛡️ System health check
+        if self.monitoring_enabled and self.monitor:
+            can_proceed, reason = self.monitor.should_proceed()
+            if not can_proceed:
+                return TaskResult(
+                    task_id=f"blocked_{int(time.time() * 1000)}",
+                    success=False,
+                    output="",
+                    agent_type=agent_type or AgentType.GENERAL,
+                    duration_ms=0,
+                    error=f"Task bloccato per sicurezza: {reason}"
+                )
+        
         if agent_type is None:
             agent_type = self.detect_agent_type(prompt)
         
@@ -472,6 +675,16 @@ class Dispatcher:
         
         return results
     
+    def get_health(self) -> Dict[str, Any]:
+        """
+        Ritorna stato di salute del sistema.
+        Include CPU, memoria, temperatura GPU se disponibile.
+        """
+        if not self.monitoring_enabled or not self.monitor:
+            return {"monitoring": "disabled"}
+        
+        return self.monitor.check_health()
+    
     def get_stats(self) -> Dict[str, Any]:
         """Ritorna statistiche di esecuzione."""
         total_tasks = len(self.task_history)
@@ -479,7 +692,7 @@ class Dispatcher:
         total_duration = sum(r.duration_ms for r in self.task_history)
         total_tokens = sum(r.tokens_used for r in self.task_history)
         
-        return {
+        stats = {
             "total_tasks": total_tasks,
             "successful": successful,
             "failed": total_tasks - successful,
@@ -489,6 +702,12 @@ class Dispatcher:
             "total_tokens": total_tokens,
             "llm_stats": self.client.stats
         }
+        
+        # Aggiungi health status
+        if self.monitoring_enabled and self.monitor:
+            stats["system_health"] = self.monitor.check_health()
+        
+        return stats
 
 
 # ═══════════════════════════════════════════════════════════════
