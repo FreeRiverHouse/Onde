@@ -12882,8 +12882,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Preview prima di importare
 
 ### [T1039] Skin Creator: Gallery/Community MVP
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Depends**: -
 - **Blocks**: [T1040]
 - **Priority**: P0 🔥🔥
