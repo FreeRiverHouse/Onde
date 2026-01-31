@@ -659,11 +659,15 @@ function useSwipeToDismiss(onDismiss: () => void, threshold = 100) {
 function NotificationItem({ 
   notification, 
   onMarkRead,
-  onDismiss 
+  onDismiss,
+  isSelected = false,
+  registerRef,
 }: { 
   notification: Notification
   onMarkRead: (id: string) => void
   onDismiss: (id: string) => void
+  isSelected?: boolean
+  registerRef?: (id: string, el: HTMLDivElement | null) => void
 }) {
   const config = TYPE_CONFIG[notification.type] || TYPE_CONFIG.info
   const { handlers, swipeOffset, swipeProgress, isSwiping } = useSwipeToDismiss(
@@ -672,7 +676,10 @@ function NotificationItem({
   )
 
   return (
-    <div className="relative overflow-hidden rounded-xl">
+    <div 
+      className="relative overflow-hidden rounded-xl"
+      ref={(el) => registerRef?.(notification.id, el)}
+    >
       {/* Swipe background indicator (visible when swiping) */}
       {isSwiping && (
         <div 
@@ -698,6 +705,7 @@ function NotificationItem({
           hover:opacity-100 group
           ${isSwiping ? '' : 'transition-all duration-200'}
           touch-pan-y
+          ${isSelected ? 'ring-2 ring-cyan-400/50 bg-cyan-500/10' : ''}
         `}
         style={{
           transform: `translateX(${swipeOffset}px)`,
@@ -913,6 +921,8 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1) // Keyboard navigation
+  const notificationRefs = useRef<Map<string, HTMLDivElement>>(new Map())
   const [groupMode, setGroupMode] = useState<GroupMode>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('notification-group-mode')
@@ -1138,29 +1148,122 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     }
   }, [isOpen])
 
+  // Reset selection when filter changes or panel opens/closes
+  useEffect(() => {
+    setSelectedIndex(-1)
+  }, [filter, isOpen])
+
   // Keyboard shortcuts
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes((event.target as HTMLElement).tagName)
+      
       // N to toggle notification center (when not in input)
       if (
         event.key === 'n' &&
         !event.metaKey &&
         !event.ctrlKey &&
-        !['INPUT', 'TEXTAREA'].includes((event.target as HTMLElement).tagName)
+        !isInput
       ) {
         setIsOpen(prev => !prev)
         event.preventDefault()
+        return
       }
+      
       // Escape to close
       if (event.key === 'Escape' && isOpen) {
         setIsOpen(false)
         event.preventDefault()
+        return
+      }
+      
+      // Keyboard navigation within notification list (only when panel is open and not in input)
+      if (isOpen && !isInput && filteredNotifications.length > 0) {
+        const maxIndex = filteredNotifications.length - 1
+        
+        // j or ArrowDown to move down
+        if (event.key === 'j' || event.key === 'ArrowDown') {
+          event.preventDefault()
+          setSelectedIndex(prev => {
+            const next = prev < maxIndex ? prev + 1 : 0 // Wrap around
+            // Scroll into view
+            const notif = filteredNotifications[next]
+            if (notif) {
+              const el = notificationRefs.current.get(notif.id)
+              el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
+            return next
+          })
+          return
+        }
+        
+        // k or ArrowUp to move up
+        if (event.key === 'k' || event.key === 'ArrowUp') {
+          event.preventDefault()
+          setSelectedIndex(prev => {
+            const next = prev > 0 ? prev - 1 : maxIndex // Wrap around
+            // Scroll into view
+            const notif = filteredNotifications[next]
+            if (notif) {
+              const el = notificationRefs.current.get(notif.id)
+              el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }
+            return next
+          })
+          return
+        }
+        
+        // Enter to mark as read (or toggle expand if already read)
+        if (event.key === 'Enter' && selectedIndex >= 0) {
+          event.preventDefault()
+          const notif = filteredNotifications[selectedIndex]
+          if (notif && !notif.read) {
+            handleMarkRead(notif.id)
+          }
+          return
+        }
+        
+        // x or Delete/Backspace to dismiss
+        if ((event.key === 'x' || event.key === 'Delete' || event.key === 'Backspace') && selectedIndex >= 0) {
+          event.preventDefault()
+          const notif = filteredNotifications[selectedIndex]
+          if (notif) {
+            handleDismiss(notif.id)
+            // Adjust selection after dismiss
+            setSelectedIndex(prev => Math.min(prev, filteredNotifications.length - 2))
+          }
+          return
+        }
+        
+        // Home to go to first
+        if (event.key === 'Home') {
+          event.preventDefault()
+          setSelectedIndex(0)
+          const notif = filteredNotifications[0]
+          if (notif) {
+            const el = notificationRefs.current.get(notif.id)
+            el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+          return
+        }
+        
+        // End to go to last
+        if (event.key === 'End') {
+          event.preventDefault()
+          setSelectedIndex(maxIndex)
+          const notif = filteredNotifications[maxIndex]
+          if (notif) {
+            const el = notificationRefs.current.get(notif.id)
+            el?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+          }
+          return
+        }
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen])
+  }, [isOpen, filteredNotifications, selectedIndex, handleMarkRead, handleDismiss])
 
   const handleMarkRead = useCallback((id: string) => {
     // Persist to localStorage
@@ -1600,12 +1703,17 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                 <EmptyState />
               ) : groupMode === 'none' ? (
                 <div className="space-y-2">
-                  {filteredNotifications.map(notification => (
+                  {filteredNotifications.map((notification, idx) => (
                     <NotificationItem
                       key={notification.id}
                       notification={notification}
                       onMarkRead={handleMarkRead}
                       onDismiss={handleDismiss}
+                      isSelected={selectedIndex === idx}
+                      registerRef={(id, el) => {
+                        if (el) notificationRefs.current.set(id, el)
+                        else notificationRefs.current.delete(id)
+                      }}
                     />
                   ))}
                 </div>
@@ -1627,7 +1735,8 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
 
           {/* Footer */}
           <div className="px-4 py-2 border-t border-white/10 flex items-center justify-between text-xs text-white/30">
-            <span>Press N to toggle</span>
+            <span className="hidden sm:inline">j/k navigate • Enter read • x dismiss</span>
+            <span className="sm:hidden">N to toggle</span>
             <button
               onClick={fetchNotifications}
               className="text-white/50 hover:text-white/80 transition-colors flex items-center gap-1"

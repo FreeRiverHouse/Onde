@@ -31,6 +31,12 @@
 | MLH-015 | Add haptic feedback on swipe dismiss (vibration API) | DONE | @clawdinho | MLH-013 |
 | MLH-016 | Add notification badge count to browser tab title | DONE | @clawdinho | MLH-007 |
 | MLH-017 | Add pull-to-refresh in notification panel (mobile) | DONE | @clawdinho | MLH-007 |
+| MLH-018 | Add keyboard navigation within notification list (j/k up/down, Enter to expand) | DONE | @clawdinho | MLH-007 |
+| MLH-019 | Add notification mute/DND mode with schedule (quiet hours) | TODO | - | MLH-007 |
+| MLH-020 | Add notification export (download history as JSON/CSV) | TODO | - | MLH-007 |
+| MLH-021 | Add keyboard navigation for grouped notifications (expand/collapse with Enter) | TODO | - | MLH-018 |
+| MLH-022 | Add notification snooze (remind later) functionality | TODO | - | MLH-007 |
+| MLH-023 | Add notification action buttons (quick actions per notification type) | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
 | ID | Task | Status | Owner | Depends |
@@ -47,7 +53,7 @@
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
 | AUTO-001 | Creare script check siti live (onde.la, onde.surf HTTP 200) | DONE | @clawdinho | - |
-| AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | TODO | - | - |
+| AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | IN_PROGRESS | @clawdinho | - |
 | AUTO-003 | Documentare stato attuale Kalshi trading in memory | TODO | - | - |
 | AUTO-004 | Integrare SystemMonitor check nel ciclo HEARTBEAT | DONE | @clawdinho | - |
 | AUTO-005 | Creare watchdog-gpu-load.sh per monitoring periodico | DONE | @clawdinho | AUTO-004 |
@@ -82,7 +88,8 @@
 - **MLH-015** - Haptic feedback on swipe dismiss: triggerHapticFeedback helper, medium vibration when crossing threshold, success vibration pattern on dismiss
 - **MLH-016** - Notification badge in tab title: useEffect updates document.title with (N) prefix when unread count > 0, cleans up on unmount
 - **MLH-017** - Pull-to-refresh in notification panel: usePullToRefresh hook with touch gesture detection, visual indicator, resistance/threshold mechanics, haptic feedback, mobile-only (hidden on sm+)
+- **MLH-018** - Keyboard navigation in notification list: j/k to navigate up/down with wrap-around, Enter to mark as read, x/Delete/Backspace to dismiss, Home/End for first/last, visual cyan ring on selected item, scroll into view, footer shows shortcuts
 
 ---
 
-*Ultimo aggiornamento: 2026-02-05 04:30 PST*
+*Ultimo aggiornamento: 2026-01-31 12:28 PST*
