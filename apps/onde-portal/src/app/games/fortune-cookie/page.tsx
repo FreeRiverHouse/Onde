@@ -47,12 +47,26 @@ export default function FortuneCookie() {
   const [isAnimating, setIsAnimating] = useState(false)
   const [cookieCount, setCookieCount] = useState(0)
   const [copied, setCopied] = useState(false)
+  const [selectedLang, setSelectedLang] = useState<'all' | 'it' | 'en'>('all')
 
-  // Load cookie count from localStorage
+  // Load cookie count and language preference from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('fortune-cookie-count')
     if (saved) setCookieCount(parseInt(saved))
+    const savedLang = localStorage.getItem('fortune-cookie-lang') as 'all' | 'it' | 'en'
+    if (savedLang) setSelectedLang(savedLang)
   }, [])
+
+  // Get filtered fortunes based on language
+  const getFilteredFortunes = () => {
+    if (selectedLang === 'all') return fortunes
+    return fortunes.filter(f => f.lang === selectedLang)
+  }
+
+  const handleLangChange = (lang: 'all' | 'it' | 'en') => {
+    setSelectedLang(lang)
+    localStorage.setItem('fortune-cookie-lang', lang)
+  }
 
   const openCookie = () => {
     if (isAnimating) return
@@ -73,7 +87,8 @@ export default function FortuneCookie() {
 
     setTimeout(() => {
       setIsOpen(true)
-      setFortune(fortunes[Math.floor(Math.random() * fortunes.length)])
+      const filtered = getFilteredFortunes()
+      setFortune(filtered[Math.floor(Math.random() * filtered.length)])
       const newCount = cookieCount + 1
       setCookieCount(newCount)
       localStorage.setItem('fortune-cookie-count', newCount.toString())
@@ -124,6 +139,40 @@ export default function FortuneCookie() {
 
       <div className="absolute top-4 right-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg">
         🥠 {cookieCount} opened
+      </div>
+
+      {/* Language Selector */}
+      <div className="absolute top-16 right-4 flex gap-2">
+        <button
+          onClick={() => handleLangChange('all')}
+          className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+            selectedLang === 'all' 
+              ? 'bg-amber-500 text-white shadow-lg' 
+              : 'bg-white/80 text-amber-700 hover:bg-amber-100'
+          }`}
+        >
+          🌍 All
+        </button>
+        <button
+          onClick={() => handleLangChange('it')}
+          className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+            selectedLang === 'it' 
+              ? 'bg-green-500 text-white shadow-lg' 
+              : 'bg-white/80 text-green-700 hover:bg-green-100'
+          }`}
+        >
+          🇮🇹
+        </button>
+        <button
+          onClick={() => handleLangChange('en')}
+          className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+            selectedLang === 'en' 
+              ? 'bg-blue-500 text-white shadow-lg' 
+              : 'bg-white/80 text-blue-700 hover:bg-blue-100'
+          }`}
+        >
+          🇬🇧
+        </button>
       </div>
 
       {/* Title */}

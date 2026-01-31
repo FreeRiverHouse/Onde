@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "epubjs": "^0.3.93",
     "framer-motion": "^12.26.2",
+    "motion-dom": "^12.29.2",
     "next": "15.5.2",
     "next-intl": "^4.7.0",
     "react": "^18",
