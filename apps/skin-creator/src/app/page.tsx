@@ -760,48 +760,48 @@ export default function SkinCreator() {
           <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
             <button
               onClick={() => setTool('brush')}
-              title="Brush tool (B)"
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                tool === 'brush' ? 'bg-blue-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              title="Brush (B)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              🖌️ Brush
+              🖌️
             </button>
             <button
               onClick={() => setTool('eraser')}
-              title="Eraser tool (E)"
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                tool === 'eraser' ? 'bg-pink-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              title="Eraser (E)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              🧽 Eraser
+              🧽
             </button>
             <button
               onClick={() => setTool('fill')}
-              title="Fill tool (F)"
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                tool === 'fill' ? 'bg-yellow-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              title="Fill (F)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              🪣 Fill
+              🪣
             </button>
             <button
               onClick={() => setTool('gradient')}
-              title="Gradient fill (G)"
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              title="Gradient (G)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              🌈 Gradient
+              🌈
             </button>
             <button
               onClick={() => setTool('glow')}
-              title="Glow brush (W)"
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-gray-200 hover:bg-gray-300'
+              title="Glow (W)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              ✨ Glow
+              ✨
             </button>
             <div className="relative group">
               <button
