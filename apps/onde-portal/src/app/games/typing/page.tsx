@@ -857,13 +857,7 @@ export default function TypingGame() {
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
-          className="
-            w-full px-6 py-4 text-2xl font-bold text-center
-            bg-white rounded-2xl shadow-xl
-            border-4 border-blue-300 focus:border-yellow-400
-            outline-none transition-all
-            placeholder-gray-300
-          "
+          className="w-full px-6 py-4 text-2xl font-bold text-center bg-white rounded-2xl shadow-xl border-4 border-blue-300 focus:border-yellow-400 outline-none transition-all placeholder-gray-300"
         />
         <p className="text-center text-white/80 mt-2 text-sm">
           Tap anywhere to focus • Just start typing!
