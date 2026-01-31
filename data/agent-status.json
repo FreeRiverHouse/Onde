@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-01-31T05:38:58.233597Z",
+  "timestamp": "2026-01-31T06:44:50.177426Z",
   "tasks": {
-    "total": 941,
-    "done": 882,
-    "in_progress": 10,
-    "todo": 49,
-    "completion_rate": 93.7
+    "total": 1008,
+    "done": 909,
+    "in_progress": 12,
+    "todo": 87,
+    "completion_rate": 90.2
   },
   "memory": {
-    "entries_today": 112,
+    "entries_today": 121,
     "file_exists": true,
-    "size_bytes": 89286,
+    "size_bytes": 95507,
     "file_path": "memory/2026-01-30.md"
   },
   "git": {
     "clawdinho": {
-      "hash": "46c7245fd",
-      "message": "task: done [T962] - watchdog task extraction check",
-      "date": "2026-01-30 21:37:52 -0800",
-      "ago": "75 seconds ago"
+      "hash": "c7635550c",
+      "message": "task: lock T935 T936 - @clawdinho FACTORY MODE \ud83d\udd25",
+      "date": "2026-01-30 22:42:14 -0800",
+      "ago": "3 minutes ago"
     },
     "ondinho": null,
-    "total_commits_today": 542
+    "total_commits_today": 616
   },
   "autotrader": {
     "running": true,
@@ -51,12 +51,20 @@
     "clawdinho": {
       "host": "FRH-M1-PRO",
       "model": "claude-opus-4-5",
-      "status": "active"
+      "status": "active",
+      "current_task": {
+        "id": "T935",
+        "title": "Dashboard FRH: Agents Monitoring"
+      }
     },
     "ondinho": {
       "host": "M4-Pro",
       "model": "claude-sonnet-4",
-      "status": "active"
+      "status": "idle",
+      "current_task": {
+        "id": "T892",
+        "title": "Skin Creator: Localize App Store Listings"
+      }
     }
   }
 }

@@ -191,6 +191,18 @@ export default function SkinCreator() {
   }
   const [aiHistory, setAiHistory] = useState<AIHistoryItem[]>([]);
   const [showAIHistory, setShowAIHistory] = useState(false);
+  
+  // 📱 Mobile hamburger menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // 📱 Helper to set tool and close mobile menu
+  const selectTool = useCallback((newTool: typeof tool) => {
+    setTool(newTool);
+    // Auto-close menu on mobile after selection
+    if (window.innerWidth < 768) {
+      setMobileMenuOpen(false);
+    }
+  }, []);
 
   // Load AI history from localStorage on mount
   useEffect(() => {
@@ -1966,10 +1978,39 @@ export default function SkinCreator() {
 
         {/* Center - Canvas Editor */}
         <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
-          {/* Toolbar */}
-          <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
+          {/* 📱 Mobile Hamburger Menu Button */}
+          <div className="md:hidden flex justify-between items-center mb-3">
+            <span className="text-sm font-bold text-gray-700">
+              🛠️ {tool.charAt(0).toUpperCase() + tool.slice(1)}
+            </span>
             <button
-              onClick={() => setTool('brush')}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-xl transition-all ${
+                mobileMenuOpen 
+                  ? 'bg-purple-500 text-white shadow-lg' 
+                  : 'bg-white/80 text-gray-700 hover:bg-white'
+              }`}
+              aria-label="Toggle tools menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {/* Toolbar - Collapsible on mobile */}
+          <div className={`${
+            mobileMenuOpen ? 'block' : 'hidden'
+          } md:block transition-all duration-300 ease-in-out`}>
+            <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
+            <button
+              onClick={() => selectTool('brush')}
               title="🖌️ Draw! Click and drag to color"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
@@ -1978,7 +2019,7 @@ export default function SkinCreator() {
               🖌️
             </button>
             <button
-              onClick={() => setTool('eraser')}
+              onClick={() => selectTool('eraser')}
               title="🧽 Erase! Remove colors"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
@@ -1987,7 +2028,7 @@ export default function SkinCreator() {
               🧽
             </button>
             <button
-              onClick={() => setTool('fill')}
+              onClick={() => selectTool('fill')}
               title="🪣 Fill! Color a whole area"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
@@ -1996,7 +2037,7 @@ export default function SkinCreator() {
               🪣
             </button>
             <button
-              onClick={() => setTool('gradient')}
+              onClick={() => selectTool('gradient')}
               title="🌈 Rainbow! Blend two colors"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
@@ -2005,7 +2046,7 @@ export default function SkinCreator() {
               🌈
             </button>
             <button
-              onClick={() => setTool('glow')}
+              onClick={() => selectTool('glow')}
               title="✨ Glow! Make it sparkle"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-white/80 hover:bg-white'
@@ -2015,7 +2056,7 @@ export default function SkinCreator() {
             </button>
             <div className="relative group">
               <button
-                onClick={() => setTool('stamp')}
+                onClick={() => selectTool('stamp')}
                 className={`px-3 py-2 rounded-full font-bold transition-all ${
                   tool === 'stamp' ? 'bg-pink-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
                 }`}
@@ -2034,7 +2075,7 @@ export default function SkinCreator() {
               )}
             </div>
             <button
-              onClick={() => setTool('eyedropper')}
+              onClick={() => selectTool('eyedropper')}
               title="🎯 Pick a color from your drawing!"
               className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
@@ -2193,6 +2234,9 @@ export default function SkinCreator() {
               </button>
             ))}
           </div>
+
+          </div>
+          {/* End of collapsible mobile toolbar */}
 
           {/* Canvas */}
           <div className="flex justify-center">

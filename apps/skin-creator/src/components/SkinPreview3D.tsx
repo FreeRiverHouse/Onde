@@ -103,8 +103,6 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     characterRef.current = character;
 
     // Materials will be updated when skin loads
-    const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0xc4a57b });
-
     // 🎨 Improved material with better shading
     const improvedMaterial = new THREE.MeshStandardMaterial({ 
       color: 0xc4a57b,
