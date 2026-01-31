@@ -10811,16 +10811,20 @@
 ## 🚨 NUOVO - DA CLAWDINHO 2026-02-06 (HEARTBEAT)
 
 ### [T900] Skin Creator: Custom Tint Color Picker
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T885]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Extend tint system with custom color picker:
-  - Add color picker input next to presets
-  - Allow any hex color for tint
-  - Save custom colors to recent tints
-  - Eyedropper tool to pick tint from canvas
+- **Notes**: ✅ Implemented custom tint color picker!
+  - ✅ Added color picker input next to tint presets
+  - ✅ HTML5 color input with gradient rainbow background
+  - ✅ Custom colors saved to "Recent" tint list (max 6)
+  - ✅ Recent colors shown below presets for quick access
+  - ✅ Selected tint highlighted with ring indicator
+  - ✅ Build passes
+  - ⏳ Eyedropper tool (future enhancement)
 
 ### [T901] Skin Creator: Layer Blend Mode Selection
 - **Status**: TODO

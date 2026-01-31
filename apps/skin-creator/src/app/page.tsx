@@ -160,6 +160,7 @@ export default function SkinCreator() {
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
   const [recentColors, setRecentColors] = useState<string[]>([]);
+  const [customTintColors, setCustomTintColors] = useState<string[]>([]); // Recent custom tint colors
   const [showHelp, setShowHelp] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
@@ -1875,7 +1876,7 @@ export default function SkinCreator() {
                 <div className="mt-2 pt-2 border-t border-gray-100">
                   <div className="flex items-center gap-1 mb-1">
                     <span className="text-xs text-gray-500">🎨 Tint:</span>
-                    <div className="flex gap-0.5 flex-wrap">
+                    <div className="flex gap-0.5 flex-wrap items-center">
                       {TINT_PRESETS.map((preset) => (
                         <button
                           key={preset.name}
@@ -1901,8 +1902,62 @@ export default function SkinCreator() {
                           {!preset.color && '⭕'}
                         </button>
                       ))}
+                      {/* Custom color picker */}
+                      <div className="relative ml-1">
+                        <input
+                          type="color"
+                          value={layer.tint || '#808080'}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            const color = e.target.value;
+                            setLayerTint(layer.id, color);
+                            // Add to custom tint colors if not already there
+                            setCustomTintColors(prev => {
+                              const filtered = prev.filter(c => c !== color);
+                              return [color, ...filtered].slice(0, 6);
+                            });
+                            setTimeout(() => {
+                              compositeLayersToMain();
+                              updatePreview();
+                            }, 0);
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          className="w-5 h-5 rounded cursor-pointer border-0 p-0"
+                          title="Custom color"
+                          style={{ background: 'linear-gradient(135deg, #ff6b6b, #4d96ff, #6bcb77)' }}
+                        />
+                      </div>
                     </div>
                   </div>
+                  
+                  {/* Recent custom tint colors */}
+                  {customTintColors.length > 0 && (
+                    <div className="flex items-center gap-1 mb-1">
+                      <span className="text-xs text-gray-400">Recent:</span>
+                      <div className="flex gap-0.5">
+                        {customTintColors.map((color, idx) => (
+                          <button
+                            key={`custom-${idx}-${color}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setLayerTint(layer.id, color);
+                              setTimeout(() => {
+                                compositeLayersToMain();
+                                updatePreview();
+                              }, 0);
+                            }}
+                            className={`w-4 h-4 rounded text-xs transition-all ${
+                              layer.tint === color 
+                                ? 'ring-2 ring-blue-500 ring-offset-1 scale-110' 
+                                : 'hover:scale-110'
+                            }`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   
                   {/* Tint intensity slider (only show if tint is set) */}
                   {layer.tint && (
