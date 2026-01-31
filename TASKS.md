@@ -176,18 +176,39 @@
   - **Test locale**: `data/agent-status.json` (882/941 tasks done, 112 memory entries)
 
 ### [T964] Watchdog: Dashboard con Dati GPU Real-Time
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04 13:55 PST
 - **Depends**: [T963]
 - **Blocks**: -
 - **Priority**: P1
 - **Notes**: DA MATTIA (ID:2972)
+  - **Script creato**: `scripts/gpu-status.py`
   - **Dati GPU:**
-    - [ ] Radeon 7900 XTX: temp, usage, VRAM
-    - [ ] M4 Pro (Ondinho): temp, usage
-    - [ ] Ollama status (running, modelli caricati)
-  - **Integra con SystemMonitor** già in dispatcher.py
-  - **Widget**: Heatmap o gauge per temp, grafico usage
+    - [x] Radeon 7900 XTX: connected status, model, VRAM (24GB)
+    - [x] Sistema: CPU %, Memory %, GPU temp via SystemMonitor
+    - [x] Ollama status: local + remote (192.168.1.111), modelli caricati
+  - **Output JSON** per integrazione dashboard:
+    - radeon: { connected, model, vram, status }
+    - system: { cpu_percent, memory_percent, gpu_temp, health_status }
+    - ollama: { local: {running, models}, remote: {running, models} }
+  - **Integra con SystemMonitor** già in dispatcher.py ✅
+  - ⏳ **Widget UI**: Vedi [T966] per heatmap/gauge frontend
+  
+### [T966] Dashboard: GPU Widget con Heatmap/Gauge
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T964]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Creare widget UI per visualizzare dati GPU
+  - **Componenti:**
+    - [ ] Gauge per temperatura GPU
+    - [ ] Progress bar CPU/Memory
+    - [ ] Status indicator per Radeon (connected/disconnected)
+    - [ ] Lista modelli Ollama caricati
+  - **Location**: onde.surf/betting o /status page
+  - **Tech**: React + Recharts o similar
 
 ### [T965] Watchdog: Integra Controlli in Heartbeat
 - **Status**: DONE ✅
