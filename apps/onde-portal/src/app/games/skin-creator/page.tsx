@@ -3197,6 +3197,13 @@ export default function SkinCreator() {
                       <p className="text-sm text-gray-500">B=Brush, E=Eraser, F=Fill, ?=Help</p>
                     </div>
                   </div>
+                  <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-xl">
+                    <span className="text-2xl">📱</span>
+                    <div>
+                      <p className="font-bold">Touch Gestures</p>
+                      <p className="text-sm text-gray-500">Pinch to zoom • Tap to draw • Long-press for color</p>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-xl">
                     <span className="text-2xl">🤖</span>
                     <div>
