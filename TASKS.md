@@ -13139,3 +13139,32 @@ Generated: 2026-01-30T18:37:46.867013
   - **Infra:** Eventualmente gira su vecchio Mac separato
   - **Stato:** Non ancora in roadmap attiva - da pianificare architettura
   - **Riferimento:** "Esistono già bot per andare in giro e simulare cose" - Mattia
+
+### [T1053] Gaming Island: Landing Page su onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P0
+- **Goal**: Creare pagina /games con "Gaming Island" theme
+- **Design**: 
+  - Isola tropicale con due "stand"
+  - Stand 1: Casa di Moonlight (pet simulation)
+  - Stand 2: Skin Creator (nome SEO da definire)
+- **Notes**: Child-friendly, colorful, fun navigation
+
+### [T1054] Skin Creator: Nome SEO-Friendly
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P0
+- **Options**:
+  - "Skin Studio" (current)
+  - "Minecraft Skin Maker"
+  - "Block Skin Creator"
+  - "MC Skin Designer"
+  - "Pixel Skin Forge"
+- **Research**: Check competition keywords
+
+### [T1055] Moonlight: Integrazione su onde.la/games
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Embed o link Moonlight nella Gaming Island
