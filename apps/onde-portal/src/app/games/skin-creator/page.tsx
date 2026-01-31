@@ -749,6 +749,12 @@ export default function SkinCreator() {
     undoKing: { name: 'Undo King', emoji: '↩️' },
     layerPro: { name: 'Layer Pro', emoji: '📚' },
     patternUser: { name: 'Pattern User', emoji: '🎭' },
+    // 🤫 Secret Achievements
+    nightOwl: { name: '🤫 Night Owl', emoji: '🦉' }, // Draw between 2-5 AM
+    speedDemon: { name: '🤫 Speed Demon', emoji: '⚡' }, // Download within 30 seconds
+    perfectionist: { name: '🤫 Perfectionist', emoji: '✨' }, // Undo 50+ times
+    explorer: { name: '🤫 Explorer', emoji: '🧭' }, // Try all tools
+    zenMaster: { name: '🤫 Zen Master', emoji: '🧘' }, // Use eyedropper 20+ times
   };
   
   const unlockAchievement = useCallback((id: string) => {
@@ -817,8 +823,13 @@ export default function SkinCreator() {
     const newIndex = historyIndex - 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
-    // Sound is played via onClick handler
-  }, [history, historyIndex]);
+    // 🤫 Perfectionist achievement - track undo count
+    const undoCount = parseInt(localStorage.getItem('skin-undo-count') || '0') + 1;
+    localStorage.setItem('skin-undo-count', undoCount.toString());
+    if (undoCount >= 50) {
+      unlockAchievement('perfectionist');
+    }
+  }, [history, historyIndex, unlockAchievement]);
 
   const redo = useCallback(() => {
     if (historyIndex >= history.length - 1) return;
@@ -1323,6 +1334,11 @@ export default function SkinCreator() {
       spawnParticle(e.clientX, e.clientY);
       playSound('draw'); // 🔊 Bloop!
       unlockAchievement('firstDraw'); // 🏆 First draw achievement!
+      // 🤫 Night Owl - drawing between 2-5 AM
+      const hour = new Date().getHours();
+      if (hour >= 2 && hour < 5) {
+        unlockAchievement('nightOwl');
+      }
     }
 
     const rect = mainCanvas.getBoundingClientRect();
