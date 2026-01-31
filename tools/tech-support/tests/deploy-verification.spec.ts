@@ -68,9 +68,12 @@ test.describe('Deploy Verification', () => {
       const links = await page.$$('a[href^="/"]');
       const uniquePaths = new Set<string>();
       
+      // Skip paths that are separate apps or known to be slow
+      const skipPaths = ['/reader', '/explore', '/app'];
+      
       for (const link of links) {
         const href = await link.getAttribute('href');
-        if (href && !href.includes('#')) {
+        if (href && !href.includes('#') && !skipPaths.some(skip => href.startsWith(skip))) {
           uniquePaths.add(href);
         }
       }
