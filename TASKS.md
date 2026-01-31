@@ -12728,8 +12728,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Hidden achievements for special actions
 
 ### [T1021] Skin Creator: Customizable Shortcuts
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:50 PST
+- **Notes**: Keyboard shortcuts already implemented (Ctrl+Z, B/E/F tools, etc.)
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Let users remap keyboard shortcuts
