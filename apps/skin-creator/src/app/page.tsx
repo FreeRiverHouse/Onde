@@ -1110,6 +1110,46 @@ export default function SkinCreator() {
     setSavedSkins(prev => prev.filter(s => s.id !== id));
   }, []);
 
+  // 🔗 Share skin via URL
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const shareSkin = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dataUrl = canvas.toDataURL('image/png');
+    // Compress: remove data:image/png;base64, prefix and use URL-safe base64
+    const base64 = dataUrl.split(',')[1];
+    const compressed = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const url = `${window.location.origin}${window.location.pathname}?skin=${compressed.slice(0, 2000)}`;
+    setShareUrl(url);
+    navigator.clipboard.writeText(url).then(() => {
+      playSound('download');
+    }).catch(() => {});
+  }, []);
+
+  // Load skin from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const skinData = params.get('skin');
+    if (skinData) {
+      try {
+        const base64 = skinData.replace(/-/g, '+').replace(/_/g, '/');
+        const padded = base64 + '=='.slice(0, (4 - base64.length % 4) % 4);
+        const dataUrl = `data:image/png;base64,${padded}`;
+        const img = new Image();
+        img.onload = () => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+          ctx.clearRect(0, 0, 64, 64);
+          ctx.drawImage(img, 0, 0);
+          updatePreview();
+        };
+        img.src = dataUrl;
+      } catch (e) { /* ignore invalid skin data */ }
+    }
+  }, [updatePreview]);
+
   useEffect(() => {
     loadTemplate('steve');
   }, [loadTemplate]);
@@ -1625,7 +1665,31 @@ export default function SkinCreator() {
               >
                 📂 My Skins ({savedSkins.length})
               </button>
+              <button
+                onClick={shareSkin}
+                className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+                title="🔗 Share skin via link"
+              >
+                🔗 Share
+              </button>
             </div>
+            
+            {/* Share URL Modal */}
+            {shareUrl && (
+              <div className="mt-2 p-2 bg-green-100 rounded-lg text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-green-800 font-bold">✅ Link copied!</span>
+                  <button onClick={() => setShareUrl(null)} className="text-green-600 hover:text-green-800">✕</button>
+                </div>
+                <input 
+                  type="text" 
+                  value={shareUrl} 
+                  readOnly 
+                  className="w-full mt-1 p-1 text-xs bg-white rounded border truncate"
+                  onClick={(e) => (e.target as HTMLInputElement).select()}
+                />
+              </div>
+            )}
 
             {/* My Skins Panel */}
             {showMySkins && savedSkins.length > 0 && (
