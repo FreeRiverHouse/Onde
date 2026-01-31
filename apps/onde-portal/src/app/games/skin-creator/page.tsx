@@ -5,6 +5,9 @@ import dynamic from 'next/dynamic';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
 import { enhancePromptWithLLM, checkLocalLLM } from '../lib/localLLM';
 
+// 🎨 Premium UX Polish CSS
+import './skin-creator-premium.css';
+
 // Lazy load 3D preview to avoid SSR issues
 const SkinPreview3D = dynamic(() => import('../components/SkinPreview3D'), { ssr: false });
 
@@ -3771,6 +3774,105 @@ export default function SkinCreator() {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* 🎭 Pattern Presets - One-click cool patterns! */}
+          <div className="mb-4 p-3 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+            <p className="text-xs font-bold text-purple-700 mb-2 flex items-center gap-1">
+              <span className="text-base">🎭</span> Pattern Magic!
+              <span className="text-purple-400 font-normal ml-1">(uses your colors)</span>
+            </p>
+            
+            {/* Quick Pattern Buttons - First Row: Popular */}
+            <div className="grid grid-cols-4 gap-1 mb-2">
+              {PATTERN_PRESETS.slice(0, 4).map((pattern) => (
+                <button
+                  key={pattern.id}
+                  onClick={() => {
+                    applyPattern(pattern.id);
+                    playSound('click');
+                  }}
+                  className="flex flex-col items-center justify-center p-2 rounded-lg bg-white hover:bg-purple-100 border border-purple-200 hover:border-purple-400 transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+                  title={pattern.description}
+                >
+                  <span className="text-lg">{pattern.emoji}</span>
+                  <span className="text-[10px] font-medium text-gray-600 truncate w-full text-center">{pattern.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Second Row: Gradients & Effects */}
+            <div className="grid grid-cols-4 gap-1 mb-2">
+              {PATTERN_PRESETS.slice(4, 8).map((pattern) => (
+                <button
+                  key={pattern.id}
+                  onClick={() => {
+                    applyPattern(pattern.id);
+                    playSound('click');
+                  }}
+                  className="flex flex-col items-center justify-center p-2 rounded-lg bg-white hover:bg-blue-100 border border-blue-200 hover:border-blue-400 transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+                  title={pattern.description}
+                >
+                  <span className="text-lg">{pattern.emoji}</span>
+                  <span className="text-[10px] font-medium text-gray-600 truncate w-full text-center">{pattern.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Third Row: Special Patterns */}
+            <div className="grid grid-cols-3 gap-1">
+              {PATTERN_PRESETS.slice(8, 11).map((pattern) => (
+                <button
+                  key={pattern.id}
+                  onClick={() => {
+                    applyPattern(pattern.id);
+                    playSound('click');
+                  }}
+                  className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
+                    pattern.id === 'galaxy' 
+                      ? 'bg-gradient-to-br from-purple-900 to-blue-900 text-white border-purple-500 hover:from-purple-800 hover:to-blue-800' 
+                      : pattern.id === 'camo'
+                      ? 'bg-gradient-to-br from-green-700 to-green-900 text-white border-green-600 hover:from-green-600 hover:to-green-800'
+                      : pattern.id === 'rainbow'
+                      ? 'bg-gradient-to-r from-red-400 via-yellow-400 via-green-400 via-blue-400 to-purple-400 text-white border-pink-400'
+                      : 'bg-white hover:bg-orange-100 border-orange-200 hover:border-orange-400'
+                  }`}
+                  title={pattern.description}
+                >
+                  <span className="text-lg">{pattern.emoji}</span>
+                  <span className="text-[10px] font-medium truncate w-full text-center">{pattern.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Fourth Row: Fire, Ice, Noise */}
+            <div className="grid grid-cols-3 gap-1 mt-1">
+              {PATTERN_PRESETS.slice(11, 14).map((pattern) => (
+                <button
+                  key={pattern.id}
+                  onClick={() => {
+                    applyPattern(pattern.id);
+                    playSound('click');
+                  }}
+                  className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
+                    pattern.id === 'fire' 
+                      ? 'bg-gradient-to-t from-red-600 via-orange-500 to-yellow-400 text-white border-orange-500' 
+                      : pattern.id === 'ice'
+                      ? 'bg-gradient-to-b from-cyan-200 via-blue-300 to-blue-500 text-blue-900 border-cyan-400'
+                      : 'bg-gradient-to-br from-gray-600 to-gray-800 text-white border-gray-500'
+                  }`}
+                  title={pattern.description}
+                >
+                  <span className="text-lg">{pattern.emoji}</span>
+                  <span className="text-[10px] font-medium truncate w-full text-center">{pattern.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Tip */}
+            <p className="text-[10px] text-purple-500 mt-2 text-center">
+              💡 Pick colors above, then click a pattern!
+            </p>
           </div>
 
           {/* Recent Colors */}
