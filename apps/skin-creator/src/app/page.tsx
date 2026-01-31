@@ -1462,8 +1462,22 @@ export default function SkinCreator() {
               {Object.entries(TEMPLATES).map(([key, template]) => (
                 <button
                   key={key}
-                  onClick={() => loadTemplate(key as keyof typeof TEMPLATES)}
-                  className="px-2 py-1 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 hover:scale-105 transition-all"
+                  onClick={() => {
+                    loadTemplate(key as keyof typeof TEMPLATES);
+                    // 💚 Creeper Surprise Effect!
+                    if (key === 'creeper') {
+                      setShowConfetti(true);
+                      playSound('download');
+                      // Shake the preview!
+                      const preview = document.querySelector('.glass-card');
+                      if (preview) {
+                        preview.classList.add('animate-wiggle');
+                        setTimeout(() => preview.classList.remove('animate-wiggle'), 500);
+                      }
+                      setTimeout(() => setShowConfetti(false), 2000);
+                    }
+                  }}
+                  className={`px-2 py-1 text-white rounded-lg text-xs font-bold hover:scale-105 transition-all ${key === 'creeper' ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
                 >
                   {template.name}
                 </button>
