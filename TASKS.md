@@ -175,17 +175,26 @@
   - Log when fallbacks are used
 
 ### [T873] Local LLM: Add delegation metrics tracking
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Track local LLM usage to measure token savings:
-  - Log every delegation: timestamp, task type, model, latency, tokens
-  - Store in `data/metrics/local-llm-usage.jsonl`
-  - Daily summary: total delegations, avg latency, estimated Claude tokens saved
-  - Dashboard widget on onde.surf showing delegation stats
-  - Compare cost: local vs API calls
+- **Notes**: ✅ Local LLM usage metrics tracking!
+  - ✅ `scripts/llm_metrics.py` - Metrics logging module
+    - `log_usage()` - Log delegation events
+    - `load_events()` - Load from JSONL
+    - `get_daily_summary()` - Per-day aggregation
+    - `estimate_savings()` - Cost comparison vs Claude
+  - ✅ Integrated into `local_llm.py` - auto-logs on every call
+  - ✅ Storage: `data/metrics/local-llm-usage.jsonl`
+  - ✅ CLI: `python3 scripts/llm_metrics.py --days 7`
+  - **Metrics tracked:**
+    - Timestamp, task type, model, latency, tokens in/out, success/error
+    - By task type and model aggregations
+    - Savings estimate vs Claude API pricing
+  - ⏳ Dashboard widget (future enhancement)
 
 ### [T874] Local LLM: Code review delegation workflow
 - **Status**: DONE

@@ -23,6 +23,24 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 
 SCRIPT_DIR = Path(__file__).parent
+
+# Import metrics logging (lazy to avoid circular imports)
+def _log_metrics(task_type: str, model: str, latency_sec: float, 
+                 tokens_in: int, tokens_out: int, success: bool, error: str = None):
+    """Log usage metrics."""
+    try:
+        from scripts.llm_metrics import log_usage
+        log_usage(
+            task_type=task_type,
+            model=model,
+            latency_sec=latency_sec,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+            success=success,
+            error=error
+        )
+    except Exception:
+        pass  # Metrics logging should never break the main flow
 COORDINATOR = SCRIPT_DIR / "local-agent-coordinator.py"
 
 # Task types and their typical use cases
@@ -126,7 +144,7 @@ def delegate(
         # Parse JSON output
         try:
             data = json.loads(result.stdout)
-            return LLMResponse(
+            resp = LLMResponse(
                 text=data.get("response", ""),
                 model=data.get("model", "unknown"),
                 backend=data.get("backend", "unknown"),
@@ -135,9 +153,19 @@ def delegate(
                 tokens_per_sec=data.get("tokens_per_sec", 0),
                 success=True,
             )
+            # Log metrics
+            _log_metrics(
+                task_type=task,
+                model=resp.model,
+                latency_sec=resp.latency_ms / 1000,
+                tokens_in=len(query.split()),  # Rough estimate
+                tokens_out=resp.tokens,
+                success=True
+            )
+            return resp
         except json.JSONDecodeError:
             # Fallback: treat as plain text
-            return LLMResponse(
+            resp = LLMResponse(
                 text=result.stdout.strip(),
                 model="unknown",
                 backend="unknown",
@@ -146,8 +174,18 @@ def delegate(
                 tokens_per_sec=0,
                 success=True,
             )
+            _log_metrics(
+                task_type=task,
+                model="unknown",
+                latency_sec=latency / 1000,
+                tokens_in=len(query.split()),
+                tokens_out=len(resp.text.split()),
+                success=True
+            )
+            return resp
             
     except subprocess.TimeoutExpired:
+        _log_metrics(task, "", timeout, len(query.split()), 0, False, f"Timeout after {timeout}s")
         return LLMResponse(
             text="",
             model="",
@@ -159,11 +197,13 @@ def delegate(
             error=f"Timeout after {timeout}s",
         )
     except Exception as e:
+        elapsed = time.time() - start
+        _log_metrics(task, "", elapsed, len(query.split()), 0, False, str(e))
         return LLMResponse(
             text="",
             model="",
             backend="",
-            latency_ms=(time.time() - start) * 1000,
+            latency_ms=elapsed * 1000,
             tokens=0,
             tokens_per_sec=0,
             success=False,
