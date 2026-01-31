@@ -165,6 +165,24 @@ export default function SkinCreator() {
   const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
+  
+  // 📱 Touch Gesture State for pinch-to-zoom and pan
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+  const touchGestureRef = useRef<{
+    isGesture: boolean;
+    initialDistance: number;
+    initialZoom: number;
+    initialPan: { x: number; y: number };
+    lastCenter: { x: number; y: number };
+  }>({
+    isGesture: false,
+    initialDistance: 0,
+    initialZoom: 6,
+    initialPan: { x: 0, y: 0 },
+    lastCenter: { x: 0, y: 0 },
+  });
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+  
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
@@ -1458,6 +1476,97 @@ export default function SkinCreator() {
     updatePreview();
   };
 
+  // 📱 Touch Gesture Handlers for pinch-to-zoom and two-finger pan
+  const getTouchDistance = useCallback((touch1: React.Touch, touch2: React.Touch): number => {
+    const dx = touch2.clientX - touch1.clientX;
+    const dy = touch2.clientY - touch1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }, []);
+
+  const getTouchCenter = useCallback((touch1: React.Touch, touch2: React.Touch): { x: number; y: number } => {
+    return {
+      x: (touch1.clientX + touch2.clientX) / 2,
+      y: (touch1.clientY + touch2.clientY) / 2,
+    };
+  }, []);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+    // Two or more fingers = gesture mode (pinch/pan)
+    if (e.touches.length >= 2) {
+      e.preventDefault();
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = getTouchDistance(touch1, touch2);
+      const center = getTouchCenter(touch1, touch2);
+      
+      touchGestureRef.current = {
+        isGesture: true,
+        initialDistance: distance,
+        initialZoom: zoomLevel,
+        initialPan: { ...panOffset },
+        lastCenter: center,
+      };
+      setIsDrawing(false); // Cancel any drawing
+    } else {
+      // Single finger = drawing
+      touchGestureRef.current.isGesture = false;
+      setIsDrawing(true);
+      drawTouch(e);
+    }
+  }, [getTouchDistance, getTouchCenter, zoomLevel, panOffset, drawTouch]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+    // Two fingers = handle gesture
+    if (e.touches.length >= 2 && touchGestureRef.current.isGesture) {
+      e.preventDefault();
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const currentDistance = getTouchDistance(touch1, touch2);
+      const currentCenter = getTouchCenter(touch1, touch2);
+      
+      // Pinch to zoom
+      const scale = currentDistance / touchGestureRef.current.initialDistance;
+      const newZoom = Math.round(touchGestureRef.current.initialZoom * scale);
+      const clampedZoom = Math.max(2, Math.min(12, newZoom)); // Zoom limits: 2x to 12x
+      setZoomLevel(clampedZoom);
+      
+      // Two-finger pan
+      const dx = currentCenter.x - touchGestureRef.current.lastCenter.x;
+      const dy = currentCenter.y - touchGestureRef.current.lastCenter.y;
+      
+      setPanOffset(prev => ({
+        x: Math.max(-200, Math.min(200, prev.x + dx)),
+        y: Math.max(-200, Math.min(200, prev.y + dy)),
+      }));
+      
+      touchGestureRef.current.lastCenter = currentCenter;
+    } else if (e.touches.length === 1 && !touchGestureRef.current.isGesture) {
+      // Single finger = drawing
+      e.preventDefault();
+      drawTouch(e);
+    }
+  }, [getTouchDistance, getTouchCenter, drawTouch]);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+    // If we were in gesture mode and now have fewer than 2 fingers, end gesture
+    if (e.touches.length < 2) {
+      if (touchGestureRef.current.isGesture) {
+        touchGestureRef.current.isGesture = false;
+      } else {
+        // Was drawing, save state
+        setIsDrawing(false);
+        saveState();
+        addRecentColor(selectedColor);
+      }
+    }
+  }, [saveState, addRecentColor, selectedColor]);
+
+  // Reset pan offset (double-tap or button)
+  const resetPanOffset = useCallback(() => {
+    setPanOffset({ x: 0, y: 0 });
+    playSound('click');
+  }, [playSound]);
+
   // 🎨 Export skin with layer options
   const [showExportPanel, setShowExportPanel] = useState(false);
   const [exportLayers, setExportLayers] = useState<{ [key in LayerType]: boolean }>({
@@ -2181,18 +2290,30 @@ export default function SkinCreator() {
             </button>
             <div className="flex items-center gap-1 ml-2">
               <button
-                onClick={() => setZoomLevel(Math.max(4, zoomLevel - 1))}
+                onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
                 className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+                title="Zoom out (min 2x)"
               >
                 -
               </button>
               <span className="text-sm font-bold w-8 text-center">{zoomLevel}x</span>
               <button
-                onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
+                onClick={() => setZoomLevel(Math.min(12, zoomLevel + 1))}
                 className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+                title="Zoom in (max 12x)"
               >
                 +
               </button>
+              {/* Reset pan button */}
+              {(panOffset.x !== 0 || panOffset.y !== 0) && (
+                <button
+                  onClick={resetPanOffset}
+                  className="w-8 h-8 rounded-full bg-blue-500 text-white hover:bg-blue-600 font-bold ml-1"
+                  title="Reset pan position"
+                >
+                  ↺
+                </button>
+              )}
             </div>
           </div>
 
@@ -2238,39 +2359,56 @@ export default function SkinCreator() {
           </div>
           {/* End of collapsible mobile toolbar */}
 
-          {/* Canvas */}
-          <div className="flex justify-center">
+          {/* Canvas with Touch Gesture Support */}
+          <div className="flex justify-center overflow-hidden">
             <div
-              className="relative rounded-xl p-1"
+              ref={canvasContainerRef}
+              className="relative rounded-xl p-1 touch-none"
               style={{
                 backgroundImage: 'repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%)',
-                backgroundSize: '12px 12px'
+                backgroundSize: '12px 12px',
+                transform: `translate(${panOffset.x}px, ${panOffset.y}px)`,
+                transition: touchGestureRef.current?.isGesture ? 'none' : 'transform 0.15s ease-out',
               }}
             >
               <canvas
                 ref={canvasRef}
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
-                className="cursor-crosshair"
+                className="cursor-crosshair touch-none"
                 style={{
                   width: SKIN_WIDTH * zoomLevel,
                   height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
-                  transition: 'all 0.2s ease',
+                  transition: touchGestureRef.current?.isGesture ? 'none' : 'width 0.15s ease-out, height 0.15s ease-out',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
                 onMouseLeave={() => { setIsDrawing(false); }}
                 onMouseMove={draw}
-                onTouchStart={(e) => { e.preventDefault(); setIsDrawing(true); drawTouch(e); }}
-                onTouchEnd={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
-                onTouchMove={(e) => { e.preventDefault(); drawTouch(e); }}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onTouchMove={handleTouchMove}
               />
+              {/* Pan reset indicator - shows when panned */}
+              {(panOffset.x !== 0 || panOffset.y !== 0) && (
+                <button
+                  onClick={resetPanOffset}
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold shadow-lg hover:bg-blue-600 transition-all z-10"
+                  title="Reset pan position"
+                >
+                  ↺
+                </button>
+              )}
             </div>
           </div>
 
+          {/* Gesture hints for mobile */}
           <p className="text-center mt-2 text-gray-500 text-sm">
             🎨 Draw here! See your character on the left! ✨
+            <span className="block text-xs mt-1 md:hidden text-gray-400">
+              📱 Pinch to zoom • Two fingers to pan
+            </span>
           </p>
         </div>
 
