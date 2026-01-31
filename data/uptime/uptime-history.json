@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T01:05:01.086203+00:00",
+  "generated_at": "2026-01-31T01:10:01.464905+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -1730,6 +1730,12 @@
           "status": 200,
           "latency_ms": 261,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T01:10:01.464905+00:00",
+          "status": 200,
+          "latency_ms": 359,
+          "ok": true
         }
       ],
       "stats": {
@@ -1740,7 +1746,7 @@
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 273,
-        "total_checks_7d": 288
+        "total_checks_7d": 289
       }
     },
     "onde.surf": {
@@ -3472,17 +3478,23 @@
           "status": 200,
           "latency_ms": 219,
           "ok": true
+        },
+        {
+          "timestamp": "2026-01-31T01:10:01.464905+00:00",
+          "status": 200,
+          "latency_ms": 175,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
         "avg_latency_24h": 453,
-        "avg_latency_7d": 447,
+        "avg_latency_7d": 446,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 273,
-        "total_checks_7d": 288
+        "total_checks_7d": 289
       }
     }
   }

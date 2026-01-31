@@ -10604,15 +10604,22 @@
   - **Localization priority**: EN > ES > PT-BR > DE > IT
 
 ### [T890] Skin Creator: Rebrand to "Moonlight Skin Studio" or similar
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T889]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Dopo research SEO, rebrandare app:
-  - Nome ottimizzato per App Store
-  - Logo e branding coerente con Moonlight
-  - Integrazione nel portale Moonlight
+- **Notes**: ✅ Rebranded to "Skin Studio" with Moonlight branding!
+  - ✅ Package renamed to "skin-studio" v0.2.0
+  - ✅ Title: "Skin Studio - Skins for Minecraft & Roblox | Moonlight"
+  - ✅ Header: Moonlight badge + "Skin Studio" + subtitle "AI Skin Creator for Minecraft & Roblox"
+  - ✅ Full SEO metadata (Open Graph, Twitter, keywords)
+  - ✅ PWA manifest with proper app name and icons
+  - ✅ Viewport meta for mobile optimization
+  - ✅ Build passes
+  - ⏳ TODO: Create actual icon-192.png and icon-512.png
+  - ⏳ TODO: Deploy updated version
 
 ### [T891] Skin Creator: Create App Store Marketing Assets
 - **Status**: TODO
@@ -10640,6 +10647,44 @@
   - Italian (IT) - Home market
   - French (FR) - Good secondary market
   - Keywords localized per market trends
+
+### [T894] Skin Studio: Create App Icons (192px, 512px)
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T890]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create PWA and App Store icons for Skin Studio:
+  - icon-192.png for PWA manifest
+  - icon-512.png for PWA manifest
+  - App Store icon (1024x1024)
+  - Design should match Moonlight branding (purple/violet gradient)
+  - Include paint brush or pixel art element
+  - Child-friendly, colorful design
+
+### [T895] Skin Studio: Deploy rebranded version to onde.surf
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T890]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy the rebranded Skin Studio:
+  - Build static export
+  - Deploy to onde.surf/skin-studio (or similar path)
+  - Verify branding appears correctly
+  - Test on mobile devices
+
+### [T896] Skin Studio: Add Roblox skin export format
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T888]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: First step toward multi-game support (T888):
+  - Research Roblox avatar texture format
+  - Add export option for Roblox-compatible PNG
+  - May need different dimensions than Minecraft 64x64
+  - Consider adding Roblox template presets
 
 ### [T893] Skin Creator: AI Prompt Library for Kids
 - **Status**: DONE

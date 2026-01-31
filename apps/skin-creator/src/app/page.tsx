@@ -1258,11 +1258,16 @@ export default function SkinCreator() {
       ))}
       {/* Header */}
       <div className="text-center mb-6">
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <span className="text-sm font-semibold text-white/80 bg-white/20 px-2 py-0.5 rounded-full">
+            🌙 Moonlight
+          </span>
+        </div>
         <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl animate-float">
-          🎨 Minecraft Skin Creator
+          🎨 Skin Studio
         </h1>
         <p className="text-lg text-white/90 mt-1">
-          Design your character! ✨
+          AI Skin Creator for Minecraft & Roblox ✨
         </p>
       </div>
 
