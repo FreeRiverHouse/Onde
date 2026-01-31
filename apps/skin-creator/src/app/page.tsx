@@ -71,7 +71,7 @@ export default function SkinCreator() {
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [zoomLevel, setZoomLevel] = useState(6); // 6x default
+  const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
@@ -537,6 +537,53 @@ export default function SkinCreator() {
     updatePreview();
   };
 
+  // 📱 Touch draw for mobile
+  const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const touch = e.touches[0];
+    if (!touch) return;
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = SKIN_WIDTH / rect.width;
+    const scaleY = SKIN_HEIGHT / rect.height;
+    
+    const x = Math.floor((touch.clientX - rect.left) * scaleX);
+    const y = Math.floor((touch.clientY - rect.top) * scaleY);
+
+    if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
+
+    if (selectedPart) {
+      const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
+      if (x < part.x || x >= part.x + part.w || y < part.y || y >= part.y + part.h) {
+        return;
+      }
+    }
+
+    for (let dx = 0; dx < brushSize; dx++) {
+      for (let dy = 0; dy < brushSize; dy++) {
+        const px = x + dx;
+        const py = y + dy;
+        if (px >= SKIN_WIDTH || py >= SKIN_HEIGHT) continue;
+
+        if (tool === 'eraser') {
+          ctx.clearRect(px, py, 1, 1);
+        } else {
+          ctx.fillStyle = selectedColor;
+          ctx.fillRect(px, py, 1, 1);
+          if (mirrorMode) {
+            const mirrorX = SKIN_WIDTH - 1 - px;
+            ctx.fillRect(mirrorX, py, 1, 1);
+          }
+        }
+      }
+    }
+    updatePreview();
+  };
+
   const downloadSkin = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -664,7 +711,7 @@ export default function SkinCreator() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 w-full max-w-6xl">
+      <div className="flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2">
         {/* Left Panel - Preview */}
         <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center flex items-center justify-center gap-2">
@@ -708,9 +755,9 @@ export default function SkinCreator() {
         </div>
 
         {/* Center - Canvas Editor */}
-        <div className="flex-1 glass-card rounded-3xl p-6 shadow-2xl">
+        <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
           {/* Toolbar */}
-          <div className="flex flex-wrap gap-2 mb-4 justify-center">
+          <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
             <button
               onClick={() => setTool('brush')}
               title="Brush tool (B)"
@@ -929,6 +976,9 @@ export default function SkinCreator() {
                 onMouseUp={() => { setIsDrawing(false); saveState(); }}
                 onMouseLeave={() => { setIsDrawing(false); }}
                 onMouseMove={draw}
+                onTouchStart={(e) => { e.preventDefault(); setIsDrawing(true); drawTouch(e); }}
+                onTouchEnd={() => { setIsDrawing(false); saveState(); }}
+                onTouchMove={(e) => { e.preventDefault(); drawTouch(e); }}
               />
             </div>
           </div>
