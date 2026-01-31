@@ -725,6 +725,7 @@ export default function SkinCreator() {
     const newIndex = historyIndex - 1;
     ctx.putImageData(history[newIndex], 0, 0);
     setHistoryIndex(newIndex);
+    // Sound is played via onClick handler
   }, [history, historyIndex]);
 
   const redo = useCallback(() => {
@@ -740,7 +741,7 @@ export default function SkinCreator() {
   }, [history, historyIndex]);
 
   // Sound effects using Web Audio API 🔊
-  const playSound = useCallback((type: 'draw' | 'click' | 'download') => {
+  const playSound = useCallback((type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save') => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
@@ -780,6 +781,52 @@ export default function SkinCreator() {
         gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.2);
         osc.start(ctx.currentTime + i * 0.1);
         osc.stop(ctx.currentTime + i * 0.1 + 0.2);
+      });
+    } else if (type === 'undo') {
+      // Swoosh backwards
+      oscillator.frequency.setValueAtTime(300, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.12);
+      gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.12);
+    } else if (type === 'redo') {
+      // Swoosh forwards
+      oscillator.frequency.setValueAtTime(600, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.12);
+      gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.12);
+    } else if (type === 'error') {
+      // Buzzer
+      oscillator.type = 'sawtooth';
+      oscillator.frequency.setValueAtTime(150, ctx.currentTime);
+      gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.2);
+    } else if (type === 'success') {
+      // Happy ding
+      oscillator.frequency.setValueAtTime(880, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.1);
+      gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.15);
+    } else if (type === 'save') {
+      // Quick save beep
+      const notes = [784, 988]; // G5, B5
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.08 + 0.1);
+        osc.start(ctx.currentTime + i * 0.08);
+        osc.stop(ctx.currentTime + i * 0.08 + 0.1);
       });
     }
   }, []);
@@ -1675,7 +1722,7 @@ export default function SkinCreator() {
 
               {/* 💾 Save/My Skins */}
               <button
-                onClick={saveSkin}
+                onClick={() => { saveSkin(); playSound('save'); }}
                 className="px-2 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
                 title="💾 Save current skin"
               >
@@ -1827,7 +1874,7 @@ export default function SkinCreator() {
               🎯
             </button>
             <button
-              onClick={undo}
+              onClick={() => { undo(); playSound('undo'); }}
               disabled={historyIndex <= 0}
               className={`px-3 py-2 rounded-full font-bold transition-all relative ${
                 historyIndex <= 0 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
@@ -1842,7 +1889,7 @@ export default function SkinCreator() {
               )}
             </button>
             <button
-              onClick={redo}
+              onClick={() => { redo(); playSound('redo'); }}
               disabled={historyIndex >= history.length - 1}
               className={`px-3 py-2 rounded-full font-bold transition-all relative ${
                 historyIndex >= history.length - 1 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
