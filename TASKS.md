@@ -13258,3 +13258,20 @@ Generated: 2026-01-30T18:37:46.867013
 - **Completed**: 2026-01-31 00:20 PST
 - **Priority**: P2
 - **Ideas**: 🐱 🐕 🐰 🐹 🦊
+
+### [T1062] Research: UX App Bambini / Concorrenti
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot (sub-agent)
+- **Priority**: P1
+- **Goal**: Ricerca mercato app educative bambini
+- **Tasks**:
+  1. Cercare concorrenti (web apps per bambini)
+  2. Analizzare UX/UI delle migliori
+  3. Identificare gap nel mercato
+  4. Suggerire miglioramenti per nostre app
+- **Focus Areas**:
+  - Cooking games (Kids Chef competitors)
+  - Skin creators (Minecraft tools)
+  - Pet simulations (Moonlight competitors)
+  - Educational games in general
+- **Output**: Report con findings e recommendations
