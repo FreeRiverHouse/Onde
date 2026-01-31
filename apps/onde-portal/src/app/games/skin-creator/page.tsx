@@ -186,6 +186,7 @@ export default function SkinCreator() {
   const [importError, setImportError] = useState<string | null>(null);
   const [showTutorial, setShowTutorial] = useState(false);
   const [tutorialStep, setTutorialStep] = useState(0);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
@@ -1775,7 +1776,16 @@ export default function SkinCreator() {
         />
       ))}
       {/* Header */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-6 relative">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setShowMobileMenu(!showMobileMenu)}
+          className="md:hidden absolute left-0 top-0 p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-all"
+          aria-label="Menu"
+        >
+          <span className="text-2xl">{showMobileMenu ? '✕' : '☰'}</span>
+        </button>
+        
         <div className="flex items-center justify-center gap-2 mb-1">
           <span className="text-sm font-semibold text-white/80 bg-white/20 px-2 py-0.5 rounded-full">
             🌙 Moonlight
@@ -2925,6 +2935,82 @@ export default function SkinCreator() {
             >
               🎮 Export for Roblox (256x256)
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Menu Drawer */}
+      {showMobileMenu && (
+        <div className="md:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileMenu(false)}>
+          <div 
+            className="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-2xl p-4 transform transition-transform"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold">🎨 Menu</h3>
+              <button onClick={() => setShowMobileMenu(false)} className="text-2xl">✕</button>
+            </div>
+            
+            <nav className="space-y-2">
+              <button
+                onClick={() => { setViewMode('editor'); setShowMobileMenu(false); }}
+                className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
+                  viewMode === 'editor' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'
+                }`}
+              >
+                🎨 Editor
+              </button>
+              <button
+                onClick={() => { setViewMode('gallery'); setShowMobileMenu(false); }}
+                className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
+                  viewMode === 'gallery' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-100'
+                }`}
+              >
+                🖼️ Gallery
+              </button>
+              
+              <hr className="my-4" />
+              
+              <button
+                onClick={() => { setShowAIPanel(true); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                🤖 AI Generator
+              </button>
+              <button
+                onClick={() => { setShowLayerPanel(!showLayerPanel); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                🎨 Layers
+              </button>
+              <button
+                onClick={() => { setShowURLImport(true); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                🌐 Import from URL
+              </button>
+              <button
+                onClick={() => { setShowShortcuts(true); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                ⌨️ Shortcuts
+              </button>
+              
+              <hr className="my-4" />
+              
+              <button
+                onClick={() => { setDarkMode(!darkMode); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+              </button>
+              <button
+                onClick={() => { setShowTutorial(true); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 rounded-xl font-bold hover:bg-gray-100"
+              >
+                📚 Tutorial
+              </button>
+            </nav>
           </div>
         </div>
       )}
