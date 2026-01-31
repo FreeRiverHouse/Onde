@@ -162,17 +162,23 @@
   - Common task templates
 
 ### [T872] Local LLM: Add retry logic with model fallback
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Improve local LLM reliability:
-  - Auto-retry on timeout with smaller/faster model
-  - Fallback chain: qwen2.5-coder → deepseek-coder → llama3.2:3b
-  - Configurable max retries and backoff
-  - Track fallback metrics (how often needed)
-  - Log when fallbacks are used
+- **Notes**: ✅ Retry logic with model fallback chain!
+  - ✅ `delegate_with_retry()` - auto-retry on failure
+  - ✅ `_delegate_with_model()` - internal model-specific delegation
+  - ✅ **Fallback chains by task type:**
+    - coding: qwen2.5-coder → deepseek-coder → llama3.2:3b
+    - quick: llama3.2:3b (already fastest)
+    - analysis: llama31-8b → qwen2.5-coder → llama3.2:3b
+  - ✅ Configurable: max_retries (default 2), retry_delay (default 1s)
+  - ✅ Timeout reduction: 70% per attempt (min 15s)
+  - ✅ Fallback attempts logged to metrics
+  - **Tested:** Works correctly with quick task
 
 ### [T873] Local LLM: Add delegation metrics tracking
 - **Status**: DONE

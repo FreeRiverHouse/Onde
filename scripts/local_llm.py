@@ -23,6 +23,22 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 
 SCRIPT_DIR = Path(__file__).parent
+COORDINATOR = SCRIPT_DIR / "local-agent-coordinator.py"
+
+# Fallback chains by task type (fastest to slowest, or most capable to least)
+FALLBACK_CHAINS = {
+    "coding": ["qwen2.5-coder:7b", "deepseek-coder:6.7b", "llama3.2:3b"],
+    "quick": ["llama3.2:3b"],  # Already fastest
+    "analysis": ["llama31-8b:latest", "qwen2.5-coder:7b", "llama3.2:3b"],
+    "translation": ["llama31-8b:latest"],  # Best for translation
+    "creative": ["llama31-8b:latest", "qwen2.5-coder:7b"],
+    "heavy": ["llama31-8b:latest"],
+}
+
+# Retry configuration
+DEFAULT_MAX_RETRIES = 2
+DEFAULT_RETRY_DELAY = 1.0  # seconds
+TIMEOUT_MULTIPLIER = 0.7  # Reduce timeout for fallback models
 
 # Import metrics logging (lazy to avoid circular imports)
 def _log_metrics(task_type: str, model: str, latency_sec: float, 
@@ -41,7 +57,6 @@ def _log_metrics(task_type: str, model: str, latency_sec: float,
         )
     except Exception:
         pass  # Metrics logging should never break the main flow
-COORDINATOR = SCRIPT_DIR / "local-agent-coordinator.py"
 
 # Task types and their typical use cases
 TASK_TYPES = {
@@ -204,6 +219,164 @@ def delegate(
             model="",
             backend="",
             latency_ms=elapsed * 1000,
+            tokens=0,
+            tokens_per_sec=0,
+            success=False,
+            error=str(e),
+        )
+
+
+def delegate_with_retry(
+    query: str,
+    task: str = "coding",
+    timeout: int = 120,
+    max_retries: int = DEFAULT_MAX_RETRIES,
+    retry_delay: float = DEFAULT_RETRY_DELAY,
+) -> LLMResponse:
+    """
+    Delegate with automatic retry and model fallback.
+    
+    On failure/timeout, tries fallback models from the chain.
+    Logs all fallback attempts to metrics.
+    
+    Args:
+        query: The prompt to send
+        task: Task type (coding, quick, analysis, etc.)
+        timeout: Initial timeout in seconds
+        max_retries: Maximum retry attempts
+        retry_delay: Delay between retries in seconds
+        
+    Returns:
+        LLMResponse with result (may include fallback info)
+    """
+    chain = FALLBACK_CHAINS.get(task, FALLBACK_CHAINS["coding"])
+    last_error = None
+    
+    for attempt in range(max_retries + 1):
+        # Get model for this attempt (cycle through chain)
+        model_idx = min(attempt, len(chain) - 1)
+        model = chain[model_idx]
+        
+        # Reduce timeout for fallback attempts
+        current_timeout = int(timeout * (TIMEOUT_MULTIPLIER ** attempt))
+        current_timeout = max(current_timeout, 15)  # Minimum 15s
+        
+        # Try delegation with specific model
+        result = _delegate_with_model(query, task, model, current_timeout)
+        
+        if result.success:
+            # Log if this was a fallback
+            if attempt > 0:
+                _log_metrics(
+                    task_type=f"{task}_fallback",
+                    model=model,
+                    latency_sec=result.latency_ms / 1000,
+                    tokens_in=0,
+                    tokens_out=0,
+                    success=True,
+                    error=f"Fallback from attempt {attempt}"
+                )
+            return result
+        
+        last_error = result.error
+        
+        # Don't retry on certain errors
+        if "Invalid task type" in str(last_error):
+            break
+        
+        # Delay before retry
+        if attempt < max_retries:
+            time.sleep(retry_delay)
+    
+    # All attempts failed
+    return LLMResponse(
+        text="",
+        model="",
+        backend="",
+        latency_ms=0,
+        tokens=0,
+        tokens_per_sec=0,
+        success=False,
+        error=f"All {max_retries + 1} attempts failed. Last error: {last_error}",
+    )
+
+
+def _delegate_with_model(
+    query: str,
+    task: str,
+    model: str,
+    timeout: int,
+) -> LLMResponse:
+    """Internal: delegate to specific model."""
+    cmd = [
+        sys.executable, str(COORDINATOR),
+        "--task", task,
+        "--model", model,
+        "--query", query,
+        "--json",
+    ]
+    
+    start = time.time()
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        latency = (time.time() - start) * 1000
+        
+        if result.returncode != 0:
+            return LLMResponse(
+                text="",
+                model=model,
+                backend="ollama",
+                latency_ms=latency,
+                tokens=0,
+                tokens_per_sec=0,
+                success=False,
+                error=result.stderr or f"Exit code {result.returncode}",
+            )
+        
+        try:
+            data = json.loads(result.stdout)
+            return LLMResponse(
+                text=data.get("response", ""),
+                model=data.get("model", model),
+                backend=data.get("backend", "ollama"),
+                latency_ms=data.get("latency_ms", latency),
+                tokens=data.get("tokens", 0),
+                tokens_per_sec=data.get("tokens_per_sec", 0),
+                success=True,
+            )
+        except json.JSONDecodeError:
+            return LLMResponse(
+                text=result.stdout.strip(),
+                model=model,
+                backend="ollama",
+                latency_ms=latency,
+                tokens=0,
+                tokens_per_sec=0,
+                success=True,
+            )
+            
+    except subprocess.TimeoutExpired:
+        return LLMResponse(
+            text="",
+            model=model,
+            backend="ollama",
+            latency_ms=timeout * 1000,
+            tokens=0,
+            tokens_per_sec=0,
+            success=False,
+            error=f"Timeout after {timeout}s",
+        )
+    except Exception as e:
+        return LLMResponse(
+            text="",
+            model=model,
+            backend="ollama",
+            latency_ms=(time.time() - start) * 1000,
             tokens=0,
             tokens_per_sec=0,
             success=False,
