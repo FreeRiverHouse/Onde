@@ -16,24 +16,341 @@ interface HidingSpot {
   id: number
   x: number
   y: number
-  emoji: string
+  type: 'couch' | 'plant' | 'box' | 'teddy' | 'gift' | 'chair' | 'bed' | 'basket'
   hasToy: boolean
 }
 
 // Food item for Feed Time game
 interface FoodItem {
   id: number
-  emoji: string
+  type: 'fish' | 'meat' | 'steak' | 'chicken'
   name: string
 }
 
-const HIDING_SPOTS_EMOJIS = ['🛋️', '🪴', '📦', '🧸', '🎁', '🪑', '🛏️', '🧺']
+const HIDING_SPOT_TYPES: HidingSpot['type'][] = ['couch', 'plant', 'box', 'teddy', 'gift', 'chair', 'bed', 'basket']
 const FOOD_ITEMS: FoodItem[] = [
-  { id: 1, emoji: '🐟', name: 'Fish' },
-  { id: 2, emoji: '🍖', name: 'Meat' },
-  { id: 3, emoji: '🥩', name: 'Steak' },
-  { id: 4, emoji: '🍗', name: 'Chicken' },
+  { id: 1, type: 'fish', name: 'Fish' },
+  { id: 2, type: 'meat', name: 'Meat' },
+  { id: 3, type: 'steak', name: 'Steak' },
+  { id: 4, type: 'chicken', name: 'Chicken' },
 ]
+
+// ============ CUTE SVG COMPONENTS ============
+
+const CuteCat = ({ mood = 'neutral', className = '' }: { mood?: 'neutral' | 'happy' | 'eating' | 'sleepy' | 'excited'; className?: string }) => (
+  <svg viewBox="0 0 100 100" className={className} style={{ filter: 'drop-shadow(0 4px 20px rgba(255, 200, 100, 0.3))' }}>
+    {/* Body */}
+    <ellipse cx="50" cy="70" rx="30" ry="25" fill="#FFB366" className="animate-breathe" />
+    {/* Head */}
+    <circle cx="50" cy="40" r="28" fill="#FFB366" />
+    {/* Ears */}
+    <path d="M25 25 L20 5 L35 20 Z" fill="#FFB366" />
+    <path d="M75 25 L80 5 L65 20 Z" fill="#FFB366" />
+    <path d="M27 23 L24 10 L34 20 Z" fill="#FFD4B8" />
+    <path d="M73 23 L76 10 L66 20 Z" fill="#FFD4B8" />
+    {/* Face markings */}
+    <circle cx="50" cy="45" r="20" fill="#FFD4B8" opacity="0.5" />
+    {/* Eyes */}
+    {mood === 'happy' || mood === 'excited' ? (
+      <>
+        <path d="M35 38 Q40 32 45 38" fill="none" stroke="#333" strokeWidth="3" strokeLinecap="round" />
+        <path d="M55 38 Q60 32 65 38" fill="none" stroke="#333" strokeWidth="3" strokeLinecap="round" />
+      </>
+    ) : mood === 'sleepy' ? (
+      <>
+        <path d="M35 40 L45 40" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+        <path d="M55 40 L65 40" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ) : mood === 'eating' ? (
+      <>
+        <ellipse cx="40" cy="38" rx="5" ry="6" fill="#333" />
+        <ellipse cx="60" cy="38" rx="5" ry="6" fill="#333" />
+        <circle cx="42" cy="36" r="2" fill="white" />
+        <circle cx="62" cy="36" r="2" fill="white" />
+      </>
+    ) : (
+      <>
+        <ellipse cx="40" cy="38" rx="5" ry="6" fill="#333" />
+        <ellipse cx="60" cy="38" rx="5" ry="6" fill="#333" />
+        <circle cx="42" cy="36" r="2" fill="white" />
+        <circle cx="62" cy="36" r="2" fill="white" />
+      </>
+    )}
+    {/* Nose */}
+    <ellipse cx="50" cy="48" rx="4" ry="3" fill="#FF8FAB" />
+    {/* Mouth */}
+    {mood === 'eating' ? (
+      <ellipse cx="50" cy="55" rx="6" ry="4" fill="#333" />
+    ) : mood === 'happy' || mood === 'excited' ? (
+      <path d="M45 52 Q50 58 55 52" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+    ) : (
+      <path d="M47 52 L50 55 L53 52" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+    )}
+    {/* Whiskers */}
+    <g stroke="#333" strokeWidth="1" opacity="0.6">
+      <line x1="20" y1="45" x2="35" y2="48" />
+      <line x1="20" y1="50" x2="35" y2="50" />
+      <line x1="20" y1="55" x2="35" y2="52" />
+      <line x1="80" y1="45" x2="65" y2="48" />
+      <line x1="80" y1="50" x2="65" y2="50" />
+      <line x1="80" y1="55" x2="65" y2="52" />
+    </g>
+    {/* Blush */}
+    <circle cx="30" cy="48" r="5" fill="#FF8FAB" opacity="0.4" />
+    <circle cx="70" cy="48" r="5" fill="#FF8FAB" opacity="0.4" />
+    {/* Tail */}
+    <path d="M75 80 Q95 70 90 50 Q88 45 92 40" fill="none" stroke="#FFB366" strokeWidth="8" strokeLinecap="round" className="animate-tail-wag" />
+    {/* Sparkles for excited mood */}
+    {mood === 'excited' && (
+      <>
+        <circle cx="25" cy="25" r="2" fill="#FFD700" className="animate-sparkle" />
+        <circle cx="75" cy="25" r="2" fill="#FFD700" className="animate-sparkle" style={{ animationDelay: '0.3s' }} />
+        <circle cx="85" cy="45" r="1.5" fill="#FFD700" className="animate-sparkle" style={{ animationDelay: '0.5s' }} />
+      </>
+    )}
+  </svg>
+)
+
+const MagicMoon = ({ className = '' }: { className?: string }) => (
+  <svg viewBox="0 0 100 100" className={className}>
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#FFF9E6" />
+        <stop offset="70%" stopColor="#FFE566" />
+        <stop offset="100%" stopColor="#FFD700" />
+      </radialGradient>
+      <filter id="moonBlur">
+        <feGaussianBlur stdDeviation="2" />
+      </filter>
+    </defs>
+    {/* Outer glow */}
+    <circle cx="50" cy="50" r="45" fill="#FFE566" opacity="0.3" filter="url(#moonBlur)" />
+    <circle cx="50" cy="50" r="35" fill="#FFF9E6" opacity="0.4" filter="url(#moonBlur)" />
+    {/* Moon */}
+    <circle cx="50" cy="50" r="28" fill="url(#moonGlow)" />
+    {/* Craters */}
+    <circle cx="40" cy="45" r="5" fill="#E6D280" opacity="0.5" />
+    <circle cx="55" cy="55" r="7" fill="#E6D280" opacity="0.4" />
+    <circle cx="60" cy="38" r="4" fill="#E6D280" opacity="0.3" />
+    {/* Face */}
+    <circle cx="42" cy="45" r="2" fill="#D4A84B" />
+    <circle cx="58" cy="45" r="2" fill="#D4A84B" />
+    <path d="M45 55 Q50 60 55 55" fill="none" stroke="#D4A84B" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
+const Star = ({ delay = 0, size = 'md' }: { delay?: number; size?: 'sm' | 'md' | 'lg' }) => {
+  const sizeClass = size === 'sm' ? 'w-2 h-2' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'
+  return (
+    <svg viewBox="0 0 24 24" className={`${sizeClass} animate-twinkle`} style={{ animationDelay: `${delay}s` }}>
+      <path d="M12 2L14 9L21 9L15.5 13.5L17.5 21L12 17L6.5 21L8.5 13.5L3 9L10 9Z" fill="#FFE566" />
+    </svg>
+  )
+}
+
+const Cloud = ({ className = '' }: { className?: string }) => (
+  <svg viewBox="0 0 100 50" className={className}>
+    <ellipse cx="30" cy="35" rx="20" ry="15" fill="white" opacity="0.15" />
+    <ellipse cx="50" cy="30" rx="25" ry="18" fill="white" opacity="0.15" />
+    <ellipse cx="75" cy="35" rx="18" ry="12" fill="white" opacity="0.15" />
+  </svg>
+)
+
+const Firefly = ({ delay = 0 }: { delay?: number }) => (
+  <div 
+    className="absolute w-2 h-2 rounded-full animate-firefly"
+    style={{ 
+      animationDelay: `${delay}s`,
+      background: 'radial-gradient(circle, #FFE566 0%, transparent 70%)',
+      boxShadow: '0 0 10px 3px rgba(255, 229, 102, 0.6)',
+    }}
+  />
+)
+
+const Sparkle = ({ delay = 0, className = '' }: { delay?: number; className?: string }) => (
+  <div 
+    className={`absolute animate-sparkle-float ${className}`}
+    style={{ animationDelay: `${delay}s` }}
+  >
+    <svg viewBox="0 0 24 24" className="w-4 h-4">
+      <path d="M12 0L13 9L22 12L13 15L12 24L11 15L2 12L11 9Z" fill="#FFE566" opacity="0.8" />
+    </svg>
+  </div>
+)
+
+// Hiding spot illustrations
+const HidingSpotSVG = ({ type, revealed, hasToy }: { type: HidingSpot['type']; revealed: boolean; hasToy: boolean }) => {
+  if (revealed && hasToy) {
+    return (
+      <div className="relative">
+        <svg viewBox="0 0 80 80" className="w-20 h-20 animate-bounce-gentle">
+          {/* Teddy bear toy */}
+          <circle cx="40" cy="35" r="20" fill="#C4A484" />
+          <circle cx="30" cy="30" r="6" fill="#A08060" />
+          <circle cx="50" cy="30" r="6" fill="#A08060" />
+          <circle cx="40" cy="55" r="15" fill="#C4A484" />
+          <ellipse cx="25" cy="55" rx="8" ry="10" fill="#C4A484" />
+          <ellipse cx="55" cy="55" rx="8" ry="10" fill="#C4A484" />
+          <circle cx="35" cy="32" r="3" fill="#333" />
+          <circle cx="45" cy="32" r="3" fill="#333" />
+          <ellipse cx="40" cy="40" rx="4" ry="3" fill="#8B6F5A" />
+          <path d="M36 45 Q40 50 44 45" fill="none" stroke="#333" strokeWidth="2" />
+          <circle cx="40" cy="55" r="8" fill="#F5E6D3" />
+        </svg>
+        <div className="absolute -top-2 -right-2 animate-sparkle">
+          <svg viewBox="0 0 24 24" className="w-6 h-6">
+            <path d="M12 0L14 9L22 12L14 15L12 24L10 15L2 12L10 9Z" fill="#FFD700" />
+          </svg>
+        </div>
+      </div>
+    )
+  }
+
+  const svgContent = () => {
+    switch (type) {
+      case 'couch':
+        return (
+          <svg viewBox="0 0 80 60" className="w-20 h-16">
+            <rect x="5" y="20" width="70" height="35" rx="5" fill="#8B4513" />
+            <rect x="10" y="15" width="25" height="25" rx="5" fill="#A0522D" />
+            <rect x="45" y="15" width="25" height="25" rx="5" fill="#A0522D" />
+            <rect x="5" y="45" width="10" height="10" fill="#654321" />
+            <rect x="65" y="45" width="10" height="10" fill="#654321" />
+          </svg>
+        )
+      case 'plant':
+        return (
+          <svg viewBox="0 0 60 80" className="w-14 h-20">
+            <ellipse cx="30" cy="70" rx="15" ry="8" fill="#8B4513" />
+            <rect x="22" y="55" width="16" height="18" fill="#CD853F" />
+            <ellipse cx="30" cy="40" rx="20" ry="18" fill="#228B22" />
+            <ellipse cx="20" cy="35" rx="8" ry="12" fill="#32CD32" />
+            <ellipse cx="40" cy="35" rx="8" ry="12" fill="#32CD32" />
+            <ellipse cx="30" cy="28" rx="10" ry="15" fill="#228B22" />
+          </svg>
+        )
+      case 'box':
+        return (
+          <svg viewBox="0 0 70 60" className="w-16 h-14">
+            <rect x="10" y="15" width="50" height="40" fill="#D2691E" />
+            <polygon points="10,15 35,5 60,15 35,25" fill="#DEB887" />
+            <line x1="35" y1="5" x2="35" y2="25" stroke="#8B4513" strokeWidth="2" />
+            <rect x="25" y="28" width="20" height="3" fill="#8B4513" />
+          </svg>
+        )
+      case 'teddy':
+        return (
+          <svg viewBox="0 0 60 70" className="w-14 h-16">
+            <circle cx="30" cy="25" r="18" fill="#DEB887" />
+            <circle cx="18" cy="15" r="8" fill="#D2B48C" />
+            <circle cx="42" cy="15" r="8" fill="#D2B48C" />
+            <circle cx="25" cy="22" r="3" fill="#333" />
+            <circle cx="35" cy="22" r="3" fill="#333" />
+            <ellipse cx="30" cy="30" rx="3" ry="2" fill="#8B4513" />
+            <ellipse cx="30" cy="50" rx="15" ry="18" fill="#DEB887" />
+            <ellipse cx="15" cy="55" rx="6" ry="8" fill="#DEB887" />
+            <ellipse cx="45" cy="55" rx="6" ry="8" fill="#DEB887" />
+          </svg>
+        )
+      case 'gift':
+        return (
+          <svg viewBox="0 0 60 60" className="w-14 h-14">
+            <rect x="8" y="20" width="44" height="35" fill="#FF6B9D" />
+            <rect x="5" y="15" width="50" height="10" fill="#FF8FAB" />
+            <rect x="25" y="15" width="10" height="45" fill="#FFD700" />
+            <rect x="5" y="15" width="50" height="5" fill="#FFD700" />
+            <path d="M30 15 Q20 5 25 10 Q30 5 30 15" fill="#FFD700" />
+            <path d="M30 15 Q40 5 35 10 Q30 5 30 15" fill="#FFD700" />
+          </svg>
+        )
+      case 'chair':
+        return (
+          <svg viewBox="0 0 60 70" className="w-14 h-16">
+            <rect x="10" y="10" width="40" height="35" rx="3" fill="#8B4513" />
+            <rect x="15" y="45" width="30" height="8" fill="#A0522D" />
+            <rect x="15" y="53" width="5" height="15" fill="#654321" />
+            <rect x="40" y="53" width="5" height="15" fill="#654321" />
+          </svg>
+        )
+      case 'bed':
+        return (
+          <svg viewBox="0 0 80 50" className="w-20 h-12">
+            <rect x="5" y="25" width="70" height="20" fill="#4A3728" />
+            <rect x="5" y="15" width="25" height="15" rx="3" fill="#87CEEB" />
+            <rect x="50" y="15" width="25" height="15" rx="3" fill="#87CEEB" />
+            <rect x="5" y="30" width="70" height="10" fill="#FFB6C1" />
+          </svg>
+        )
+      case 'basket':
+        return (
+          <svg viewBox="0 0 70 55" className="w-16 h-13">
+            <ellipse cx="35" cy="45" rx="28" ry="8" fill="#8B4513" />
+            <path d="M10 45 Q10 25 35 20 Q60 25 60 45" fill="none" stroke="#A0522D" strokeWidth="4" />
+            <ellipse cx="35" cy="20" rx="20" ry="6" fill="#CD853F" />
+            {/* Woven pattern */}
+            <path d="M15 35 Q25 30 35 35 Q45 30 55 35" fill="none" stroke="#654321" strokeWidth="2" />
+            <path d="M12 42 Q25 37 35 42 Q45 37 58 42" fill="none" stroke="#654321" strokeWidth="2" />
+          </svg>
+        )
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div className={`transition-all duration-300 ${revealed ? 'opacity-40 grayscale' : 'hover:scale-110'}`}>
+      {svgContent()}
+    </div>
+  )
+}
+
+// Food SVG illustrations
+const FoodSVG = ({ type }: { type: FoodItem['type'] }) => {
+  switch (type) {
+    case 'fish':
+      return (
+        <svg viewBox="0 0 60 40" className="w-12 h-8">
+          <ellipse cx="28" cy="20" rx="22" ry="12" fill="#4FC3F7" />
+          <polygon points="50,20 60,10 60,30" fill="#29B6F6" />
+          <circle cx="18" cy="17" r="3" fill="#333" />
+          <ellipse cx="28" cy="20" rx="18" ry="8" fill="#81D4FA" opacity="0.5" />
+          <path d="M35 15 Q40 20 35 25" fill="none" stroke="#29B6F6" strokeWidth="2" />
+          <path d="M42 13 Q47 20 42 27" fill="none" stroke="#29B6F6" strokeWidth="2" />
+        </svg>
+      )
+    case 'meat':
+      return (
+        <svg viewBox="0 0 50 50" className="w-10 h-10">
+          <ellipse cx="25" cy="30" rx="18" ry="12" fill="#C62828" />
+          <ellipse cx="25" cy="28" rx="15" ry="9" fill="#EF5350" />
+          <ellipse cx="25" cy="26" rx="10" ry="5" fill="#FFCDD2" />
+          <rect x="20" y="10" width="10" height="20" fill="#F5F5DC" rx="2" />
+        </svg>
+      )
+    case 'steak':
+      return (
+        <svg viewBox="0 0 55 45" className="w-12 h-10">
+          <ellipse cx="28" cy="25" rx="22" ry="16" fill="#8D6E63" />
+          <ellipse cx="28" cy="23" rx="18" ry="12" fill="#A1887F" />
+          <path d="M18 20 Q28 15 38 20" fill="none" stroke="#D7CCC8" strokeWidth="3" />
+          <path d="M15 28 Q28 32 41 28" fill="none" stroke="#5D4037" strokeWidth="2" />
+        </svg>
+      )
+    case 'chicken':
+      return (
+        <svg viewBox="0 0 50 50" className="w-10 h-10">
+          <ellipse cx="28" cy="28" rx="16" ry="14" fill="#FFAB91" />
+          <ellipse cx="28" cy="26" rx="12" ry="10" fill="#FFCCBC" />
+          <rect x="8" y="22" width="8" height="18" fill="#F5F5DC" rx="3" />
+          <circle cx="12" cy="40" r="4" fill="#EFEBE9" />
+        </svg>
+      )
+    default:
+      return null
+  }
+}
+
+// ============ MAIN COMPONENT ============
 
 export default function MoonlightMagicHouse() {
   const [isLoading, setIsLoading] = useState(true)
@@ -57,7 +374,7 @@ export default function MoonlightMagicHouse() {
     const timer = setTimeout(() => {
       setIsLoading(false)
       setGameState('menu')
-    }, 800)
+    }, 1200)
     return () => clearTimeout(timer)
   }, [])
 
@@ -69,9 +386,9 @@ export default function MoonlightMagicHouse() {
     for (let i = 0; i < 6; i++) {
       spots.push({
         id: i,
-        x: 15 + (i % 3) * 30,
-        y: 30 + Math.floor(i / 3) * 25,
-        emoji: HIDING_SPOTS_EMOJIS[Math.floor(Math.random() * HIDING_SPOTS_EMOJIS.length)],
+        x: 18 + (i % 3) * 32,
+        y: 30 + Math.floor(i / 3) * 30,
+        type: HIDING_SPOT_TYPES[Math.floor(Math.random() * HIDING_SPOT_TYPES.length)],
         hasToy: i === toyIndex,
       })
     }
@@ -156,13 +473,205 @@ export default function MoonlightMagicHouse() {
     setSelectedFood(null)
   }
 
+  // ============ BACKGROUND COMPONENT ============
+  const MagicalBackground = ({ intense = false }: { intense?: boolean }) => (
+    <>
+      {/* CSS Animations */}
+      <style jsx global>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.3; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.2); }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-10px) translateX(5px); }
+          50% { transform: translateY(-5px) translateX(-5px); }
+          75% { transform: translateY(-15px) translateX(3px); }
+        }
+        @keyframes float-slow {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(30px); }
+        }
+        @keyframes firefly {
+          0%, 100% { 
+            opacity: 0;
+            transform: translate(0, 0) scale(0.5);
+          }
+          10% { opacity: 1; }
+          50% { 
+            opacity: 0.8;
+            transform: translate(50px, -30px) scale(1);
+          }
+          90% { opacity: 1; }
+        }
+        @keyframes sparkle {
+          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        @keyframes sparkle-float {
+          0% { opacity: 0; transform: translateY(0) scale(0); }
+          20% { opacity: 1; transform: translateY(-10px) scale(1); }
+          80% { opacity: 1; transform: translateY(-40px) scale(1); }
+          100% { opacity: 0; transform: translateY(-60px) scale(0); }
+        }
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
+        }
+        @keyframes tail-wag {
+          0%, 100% { transform: rotate(-5deg); }
+          50% { transform: rotate(5deg); }
+        }
+        @keyframes bounce-gentle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        @keyframes glow-pulse {
+          0%, 100% { box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.3); }
+          50% { box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.6); }
+        }
+        @keyframes slide-clouds {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+        .animate-twinkle { animation: twinkle 2s ease-in-out infinite; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-slow { animation: float-slow 20s ease-in-out infinite; }
+        .animate-firefly { animation: firefly 8s ease-in-out infinite; }
+        .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+        .animate-sparkle-float { animation: sparkle-float 3s ease-out infinite; }
+        .animate-breathe { animation: breathe 3s ease-in-out infinite; }
+        .animate-tail-wag { animation: tail-wag 0.5s ease-in-out infinite; transform-origin: 75px 80px; }
+        .animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
+        .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+        .animate-slide-clouds { animation: slide-clouds 60s linear infinite; }
+        .glow-button {
+          position: relative;
+          overflow: hidden;
+        }
+        .glow-button::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+        .glow-button:hover::before {
+          opacity: 1;
+        }
+        .warm-vignette {
+          box-shadow: inset 0 0 150px 50px rgba(255, 180, 100, 0.15);
+        }
+      `}</style>
+      
+      {/* Base gradient with warm vignette */}
+      <div className="fixed inset-0 bg-gradient-to-br from-[#0a0a1a] via-[#1a1a3e] to-[#0f2040] warm-vignette" />
+      
+      {/* Parallax layer 1: Deep stars (slowest) */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {[...Array(40)].map((_, i) => (
+          <div
+            key={`star-deep-${i}`}
+            className="absolute rounded-full bg-white animate-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+              opacity: 0.3 + Math.random() * 0.4,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Parallax layer 2: Clouds (slow drift) */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="animate-slide-clouds" style={{ animationDelay: '0s' }}>
+          <Cloud className="absolute w-40 h-20 top-[10%] opacity-60" />
+        </div>
+        <div className="animate-slide-clouds" style={{ animationDelay: '-20s' }}>
+          <Cloud className="absolute w-60 h-30 top-[25%] opacity-40" />
+        </div>
+        <div className="animate-slide-clouds" style={{ animationDelay: '-40s' }}>
+          <Cloud className="absolute w-32 h-16 top-[60%] opacity-30" />
+        </div>
+      </div>
+      
+      {/* Parallax layer 3: Moon (static with glow) */}
+      <div className="fixed top-8 right-8 w-24 h-24 animate-float pointer-events-none" style={{ animationDuration: '8s' }}>
+        <MagicMoon className="w-full h-full" />
+      </div>
+      
+      {/* Parallax layer 4: Bright stars with shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={`star-bright-${i}`}
+            className="absolute animate-float"
+            style={{
+              left: `${5 + Math.random() * 90}%`,
+              top: `${5 + Math.random() * 50}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }}
+          >
+            <Star size={(['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)]} delay={Math.random() * 2} />
+          </div>
+        ))}
+      </div>
+      
+      {/* Fireflies layer */}
+      {intense && (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={`firefly-${i}`}
+              className="absolute"
+              style={{
+                left: `${10 + Math.random() * 80}%`,
+                top: `${30 + Math.random() * 60}%`,
+              }}
+            >
+              <Firefly delay={i * 1.2} />
+            </div>
+          ))}
+        </div>
+      )}
+      
+      {/* Ambient warm light overlay */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 80% 20%, rgba(255, 200, 100, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255, 150, 100, 0.05) 0%, transparent 50%)',
+        }}
+      />
+    </>
+  )
+
   // Render loading screen
   if (isLoading || gameState === 'loading') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4 animate-bounce">🌙</div>
-          <p className="text-white text-xl font-semibold">Loading Moonlight Magic House...</p>
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <MagicalBackground />
+        <div className="relative z-10 text-center">
+          <div className="relative w-32 h-32 mx-auto mb-6">
+            <MagicMoon className="w-full h-full animate-float" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 border-4 border-yellow-300/30 border-t-yellow-300 rounded-full animate-spin" />
+            </div>
+          </div>
+          <p className="text-white text-xl font-semibold animate-pulse">Loading Moonlight Magic House...</p>
+          <div className="flex justify-center gap-2 mt-4">
+            {[0, 1, 2].map(i => (
+              <Sparkle key={i} delay={i * 0.5} className="relative" />
+            ))}
+          </div>
         </div>
       </div>
     )
@@ -171,57 +680,73 @@ export default function MoonlightMagicHouse() {
   // Main menu
   if (gameState === 'menu') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex flex-col items-center justify-center p-4">
-        {/* Stars background */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                opacity: 0.3 + Math.random() * 0.7,
-              }}
-            />
-          ))}
-        </div>
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <MagicalBackground intense />
         
         <div className="relative z-10 text-center">
-          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
-            🌙 Moonlight Magic House 🏠
-          </h1>
-          <p className="text-purple-200 mb-8">Choose a mini-game to play!</p>
+          {/* Title with glow effect */}
+          <div className="relative mb-2">
+            <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 drop-shadow-lg">
+              Moonlight Magic House
+            </h1>
+            <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 via-pink-400/20 to-purple-400/20 blur-xl -z-10" />
+          </div>
+          <p className="text-purple-200/80 mb-8 text-lg">Choose a mini-game to play!</p>
           
-          {/* Rewards display */}
+          {/* Cute cat mascot */}
+          <div className="w-28 h-28 mx-auto mb-6 animate-float" style={{ animationDuration: '4s' }}>
+            <CuteCat mood="happy" className="w-full h-full" />
+          </div>
+          
+          {/* Rewards display with glow */}
           <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2 flex items-center gap-2">
-              <span className="text-2xl">🧸</span>
-              <span className="text-white font-bold">{rewards.toys}</span>
+            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-purple-400/20 animate-glow-pulse" style={{ animationDuration: '3s' }}>
+              <span className="text-3xl">🧸</span>
+              <span className="text-white font-bold text-xl">{rewards.toys}</span>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2 flex items-center gap-2">
-              <span className="text-2xl">🍬</span>
-              <span className="text-white font-bold">{rewards.treats}</span>
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 backdrop-blur-sm rounded-2xl px-5 py-3 flex items-center gap-3 border border-orange-400/20 animate-glow-pulse" style={{ animationDuration: '3s', animationDelay: '1s' }}>
+              <span className="text-3xl">🍬</span>
+              <span className="text-white font-bold text-xl">{rewards.treats}</span>
             </div>
           </div>
           
-          {/* Game buttons */}
+          {/* Game buttons with glow effects */}
           <div className="flex flex-col gap-4 max-w-xs mx-auto">
             <button
               onClick={startFindToy}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="glow-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-purple-500/30 transform hover:scale-105 hover:shadow-purple-400/50 transition-all duration-300 border border-white/20"
             >
-              🔍 Find the Toy
+              <span className="flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" className="w-6 h-6">
+                  <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <line x1="15" y1="15" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Find the Toy
+              </span>
             </button>
             <button
               onClick={startFeedTime}
-              className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="glow-button bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-orange-500/30 transform hover:scale-105 hover:shadow-orange-400/50 transition-all duration-300 border border-white/20"
             >
-              🍽️ Feed Time
+              <span className="flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" className="w-6 h-6">
+                  <ellipse cx="12" cy="17" rx="9" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
+                  <path d="M12 12 L12 8 M9 10 L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Feed Time
+              </span>
             </button>
           </div>
         </div>
+        
+        {/* Floating sparkles */}
+        {[...Array(5)].map((_, i) => (
+          <Sparkle 
+            key={i} 
+            delay={i * 0.8} 
+            className={`bottom-${20 + i * 10}% ${i % 2 === 0 ? 'left-[10%]' : 'right-[10%]'}`}
+          />
+        ))}
       </div>
     )
   }
@@ -229,37 +754,66 @@ export default function MoonlightMagicHouse() {
   // Find the Toy game
   if (gameState === 'find-toy') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex flex-col items-center p-4">
+      <div className="min-h-screen flex flex-col items-center p-4 relative overflow-hidden">
+        <MagicalBackground />
+        
         {/* Header */}
-        <div className="w-full max-w-lg">
+        <div className="w-full max-w-lg relative z-10">
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={() => setGameState('menu')}
-              className="text-white/70 hover:text-white text-sm"
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors"
             >
-              ← Back
+              <svg viewBox="0 0 24 24" className="w-4 h-4">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </svg>
+              Back
             </button>
-            <h2 className="text-xl font-bold text-white">🔍 Find the Toy!</h2>
-            <div className="text-white font-bold">
-              Tries: {'❤️'.repeat(triesLeft)}{'🖤'.repeat(3 - triesLeft)}
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
+              Find the Toy!
+            </h2>
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <svg key={i} viewBox="0 0 24 24" className={`w-5 h-5 transition-all duration-300 ${i < triesLeft ? 'text-red-400' : 'text-gray-600'}`}>
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" />
+                </svg>
+              ))}
             </div>
           </div>
           
-          <p className="text-center text-purple-200 mb-6">
+          <p className="text-center text-purple-200/80 mb-4">
             {foundToy 
               ? '🎉 You found it!' 
               : triesLeft <= 0 
-                ? '😿 Out of tries!' 
+                ? 'Out of tries! Try again?' 
                 : 'Tap a hiding spot to find the toy!'}
           </p>
         </div>
         
-        {/* Game area */}
-        <div className="relative w-full max-w-lg h-[60vh] bg-gradient-to-b from-[#2a2a4e] to-[#1a1a3e] rounded-3xl shadow-2xl overflow-hidden">
-          {/* Room decoration */}
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-4xl">🌙</div>
-          <div className="absolute top-4 right-4 text-2xl">⭐</div>
-          <div className="absolute top-4 left-4 text-2xl">✨</div>
+        {/* Game area with cozy room feeling */}
+        <div className="relative w-full max-w-lg h-[55vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10">
+          {/* Room warm glow */}
+          <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 via-transparent to-transparent pointer-events-none" />
+          
+          {/* Decorative window with moonlight */}
+          <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-16 h-20 bg-gradient-to-b from-[#1a1a3e] to-[#0f0f2e] rounded-t-full border-2 border-yellow-900/30">
+            <MagicMoon className="w-8 h-8 mx-auto mt-2" />
+          </div>
+          
+          {/* Floating sparkles in room */}
+          {[...Array(4)].map((_, i) => (
+            <div
+              key={`room-sparkle-${i}`}
+              className="absolute animate-sparkle-float pointer-events-none"
+              style={{
+                left: `${15 + i * 25}%`,
+                bottom: '20%',
+                animationDelay: `${i * 0.7}s`,
+              }}
+            >
+              <Star size="sm" delay={0} />
+            </div>
+          ))}
           
           {/* Hiding spots */}
           {hidingSpots.map((spot) => (
@@ -267,23 +821,25 @@ export default function MoonlightMagicHouse() {
               key={spot.id}
               onClick={() => checkSpot(spot)}
               disabled={checkedSpots.has(spot.id) || foundToy || triesLeft <= 0}
-              className={`absolute transform -translate-x-1/2 -translate-y-1/2 text-5xl transition-all duration-300
-                ${checkedSpots.has(spot.id) 
-                  ? spot.hasToy 
-                    ? 'scale-125 animate-bounce' 
-                    : 'opacity-50 grayscale'
-                  : 'hover:scale-110 cursor-pointer active:scale-95'
+              className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300
+                ${!checkedSpots.has(spot.id) && !foundToy && triesLeft > 0 
+                  ? 'hover:scale-110 cursor-pointer active:scale-95 hover:drop-shadow-[0_0_15px_rgba(255,200,100,0.5)]' 
+                  : ''
                 }
               `}
               style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
             >
-              {checkedSpots.has(spot.id) && spot.hasToy ? '🧸✨' : spot.emoji}
+              <HidingSpotSVG 
+                type={spot.type} 
+                revealed={checkedSpots.has(spot.id)} 
+                hasToy={spot.hasToy} 
+              />
             </button>
           ))}
           
-          {/* Pet watching */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-6xl">
-            {foundToy ? '😺' : '🐱'}
+          {/* Pet watching at bottom */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-20">
+            <CuteCat mood={foundToy ? 'excited' : 'neutral'} className="w-full h-full" />
           </div>
         </div>
       </div>
@@ -294,58 +850,82 @@ export default function MoonlightMagicHouse() {
   if (gameState === 'feed-time') {
     return (
       <div 
-        className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex flex-col items-center p-4 select-none"
+        className="min-h-screen flex flex-col items-center p-4 select-none relative overflow-hidden"
         onMouseMove={dragPosition ? handleDrag : undefined}
         onMouseUp={handleDrop}
         onTouchMove={dragPosition ? handleDrag : undefined}
         onTouchEnd={handleDrop}
       >
+        <MagicalBackground />
+        
         {/* Header */}
-        <div className="w-full max-w-lg">
+        <div className="w-full max-w-lg relative z-10">
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={() => setGameState('menu')}
-              className="text-white/70 hover:text-white text-sm"
+              className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors"
             >
-              ← Back
+              <svg viewBox="0 0 24 24" className="w-4 h-4">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </svg>
+              Back
             </button>
-            <h2 className="text-xl font-bold text-white">🍽️ Feed Time!</h2>
-            <div className="w-16" />
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-200 to-yellow-200">
+              Feed Time!
+            </h2>
+            <div className="w-12" />
           </div>
           
-          <p className="text-center text-purple-200 mb-6">
+          <p className="text-center text-purple-200/80 mb-4">
             {petFed 
-              ? '😻 Yummy! Pet is happy!' 
+              ? 'Yummy! Your pet is so happy!' 
               : selectedFood 
-                ? 'Drag the food to the pet!' 
+                ? 'Drag the food to your hungry pet!' 
                 : 'Select food and drag it to your pet!'}
           </p>
         </div>
         
         {/* Game area */}
-        <div className="relative w-full max-w-lg h-[50vh] bg-gradient-to-b from-[#2a2a4e] to-[#1a1a3e] rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center">
+        <div className="relative w-full max-w-lg h-[50vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center backdrop-blur-sm border border-white/10 z-10">
+          {/* Warm ambient light around pet */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-48 h-48 rounded-full bg-gradient-to-r from-orange-500/10 to-yellow-500/10 blur-3xl" />
+          </div>
+          
           {/* Pet */}
           <div 
             ref={petRef}
-            className={`text-8xl transition-transform duration-300 ${
-              petMood === 'eating' ? 'animate-pulse' : 
-              petMood === 'happy' ? 'animate-bounce' : ''
+            className={`w-32 h-32 transition-transform duration-500 ${
+              petMood === 'eating' ? 'scale-110' : 
+              petMood === 'happy' ? 'animate-bounce-gentle' : ''
             }`}
           >
-            {petMood === 'hungry' && '🐱'}
-            {petMood === 'eating' && '😺'}
-            {petMood === 'happy' && '😻'}
+            <CuteCat 
+              mood={petMood === 'hungry' ? 'neutral' : petMood === 'eating' ? 'eating' : 'excited'} 
+              className="w-full h-full" 
+            />
+            {petMood === 'happy' && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                {[...Array(5)].map((_, i) => (
+                  <Sparkle key={i} delay={i * 0.3} className={`absolute ${i % 2 === 0 ? '-top-4' : 'top-0'} ${i < 2 ? '-left-8' : i > 2 ? '-right-8' : ''}`} />
+                ))}
+              </div>
+            )}
           </div>
           
-          {/* Food bowl hint */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-4xl">
-            🍽️
+          {/* Food bowl with glow */}
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+            <svg viewBox="0 0 80 40" className="w-20 h-10 drop-shadow-[0_0_10px_rgba(255,200,100,0.3)]">
+              <ellipse cx="40" cy="30" rx="35" ry="8" fill="#8B4513" />
+              <ellipse cx="40" cy="25" rx="30" ry="12" fill="#A0522D" />
+              <ellipse cx="40" cy="22" rx="25" ry="8" fill="#CD853F" />
+            </svg>
           </div>
         </div>
         
-        {/* Food selection */}
-        <div className="w-full max-w-lg mt-6">
-          <p className="text-center text-white/60 mb-3 text-sm">Tap to select, then drag to pet</p>
+        {/* Food selection with glow on hover */}
+        <div className="w-full max-w-lg mt-6 relative z-10">
+          <p className="text-center text-white/50 mb-3 text-sm">Tap to select, then drag to pet</p>
           <div className="flex justify-center gap-4">
             {FOOD_ITEMS.map((food) => (
               <button
@@ -356,13 +936,13 @@ export default function MoonlightMagicHouse() {
                   handleDrag(e)
                 }}
                 disabled={petFed}
-                className={`text-4xl p-3 rounded-2xl transition-all duration-200 ${
+                className={`p-4 rounded-2xl transition-all duration-300 border ${
                   selectedFood?.id === food.id 
-                    ? 'bg-yellow-500/30 scale-110' 
-                    : 'bg-white/10 hover:bg-white/20'
+                    ? 'bg-yellow-500/30 scale-110 border-yellow-400/50 shadow-[0_0_20px_rgba(255,200,0,0.4)]' 
+                    : 'bg-white/10 hover:bg-white/20 border-white/10 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,200,100,0.2)]'
                 } ${petFed ? 'opacity-50' : 'cursor-grab active:cursor-grabbing'}`}
               >
-                {food.emoji}
+                <FoodSVG type={food.type} />
               </button>
             ))}
           </div>
@@ -371,10 +951,10 @@ export default function MoonlightMagicHouse() {
         {/* Dragging food indicator */}
         {dragPosition && selectedFood && (
           <div 
-            className="fixed text-4xl pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2"
+            className="fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_20px_rgba(255,200,100,0.6)]"
             style={{ left: dragPosition.x, top: dragPosition.y }}
           >
-            {selectedFood.emoji}
+            <FoodSVG type={selectedFood.type} />
           </div>
         )}
       </div>
@@ -384,47 +964,60 @@ export default function MoonlightMagicHouse() {
   // Reward screen
   if (gameState === 'reward') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] flex flex-col items-center justify-center p-4">
-        {/* Celebration effects */}
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <MagicalBackground intense />
+        
+        {/* Extra celebration sparkles */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(30)].map((_, i) => (
             <div
-              key={i}
-              className="absolute text-2xl animate-bounce"
+              key={`celebration-${i}`}
+              className="absolute animate-sparkle-float"
               style={{
                 left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 0.5}s`,
-                animationDuration: `${0.5 + Math.random() * 0.5}s`,
+                top: `${60 + Math.random() * 40}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
               }}
             >
-              {['⭐', '✨', '🌟', '💫'][Math.floor(Math.random() * 4)]}
+              <Star size={(['sm', 'md', 'lg'] as const)[Math.floor(Math.random() * 3)]} delay={0} />
             </div>
           ))}
         </div>
         
         <div className="relative z-10 text-center">
-          <div className="text-8xl mb-4 animate-bounce">🎉</div>
-          <h2 className="text-3xl font-bold text-white mb-2">Great Job!</h2>
-          <p className="text-purple-200 mb-8">You earned a reward!</p>
+          {/* Happy cat celebration */}
+          <div className="w-36 h-36 mx-auto mb-4 animate-bounce-gentle">
+            <CuteCat mood="excited" className="w-full h-full" />
+          </div>
           
-          {/* Updated rewards */}
+          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 mb-2">
+            Great Job!
+          </h2>
+          <p className="text-purple-200/80 mb-8 text-lg">You earned a reward!</p>
+          
+          {/* Updated rewards with glow */}
           <div className="flex justify-center gap-6 mb-8">
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl px-6 py-4 flex items-center gap-3">
+            <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-purple-400/30 animate-glow-pulse">
               <span className="text-4xl">🧸</span>
-              <span className="text-white font-bold text-2xl">{rewards.toys}</span>
+              <span className="text-white font-bold text-3xl">{rewards.toys}</span>
             </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl px-6 py-4 flex items-center gap-3">
+            <div className="bg-gradient-to-br from-orange-900/50 to-orange-800/30 backdrop-blur-sm rounded-2xl px-6 py-4 flex items-center gap-3 border border-orange-400/30 animate-glow-pulse" style={{ animationDelay: '0.5s' }}>
               <span className="text-4xl">🍬</span>
-              <span className="text-white font-bold text-2xl">{rewards.treats}</span>
+              <span className="text-white font-bold text-3xl">{rewards.treats}</span>
             </div>
           </div>
           
           <button
             onClick={() => setGameState('menu')}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="glow-button bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-lg shadow-green-500/30 transform hover:scale-105 hover:shadow-green-400/50 transition-all duration-300 border border-white/20"
           >
-            Play Again! 🎮
+            <span className="flex items-center justify-center gap-2">
+              Play Again!
+              <svg viewBox="0 0 24 24" className="w-5 h-5">
+                <path d="M5 12l14 0M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </button>
         </div>
       </div>
