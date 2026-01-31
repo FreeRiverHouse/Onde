@@ -13399,3 +13399,16 @@ Generated: 2026-01-30T18:37:46.867013
   - /books/epub/the-shepherds-promise.epub
 - **Needs**: epub.js or similar library for web reading
 - **Reference**: Golden-Onde-LA/libro/ has HTML versions
+
+### [T1073] Watchdog Agent: Auto-Supervisor
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
+- **Priority**: P0
+- **Goal**: Agent che monitora e supervisiona tutto automaticamente
+- **Tasks**:
+  1. Legge tutte le chat/transcript
+  2. Monitora stato dei task
+  3. Controlla i bot/sub-agents
+  4. Segnala problemi
+  5. Fa il lavoro di supervisione che ora fa Mattia
+- **Runs**: Sempre in background
