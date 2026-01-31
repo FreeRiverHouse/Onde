@@ -1001,5 +1001,58 @@
       "joinWaitlist": "Iscriviti alla Waitlist",
       "backHome": "Torna alla Home"
     }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "subtitle": "Personalizza la tua esperienza Onde",
+    "appearance": {
+      "title": "Aspetto",
+      "theme": "Tema",
+      "themeDesc": "Scegli la combinazione di colori preferita",
+      "themeLight": "Chiaro",
+      "themeDark": "Scuro",
+      "themeAuto": "Auto"
+    },
+    "language": {
+      "title": "Lingua",
+      "language": "Lingua",
+      "languageDesc": "Seleziona la tua lingua preferita"
+    },
+    "sounds": {
+      "title": "Suoni e Notifiche",
+      "soundEffects": "Effetti Sonori",
+      "soundEffectsDesc": "Riproduci suoni per interazioni e feedback",
+      "notifications": "Notifiche",
+      "notificationsDesc": "Ricevi aggiornamenti e promemoria di lettura"
+    },
+    "data": {
+      "title": "Gestione Dati",
+      "clearCache": "Svuota Cache",
+      "clearCacheDesc": "Rimuovi i dati temporanei per liberare spazio",
+      "export": "Esporta Dati",
+      "exportDesc": "Scarica una copia delle tue impostazioni e preferenze",
+      "import": "Importa Dati",
+      "importDesc": "Ripristina le impostazioni da un'esportazione precedente"
+    },
+    "accessibility": {
+      "title": "Accessibilità",
+      "fontSize": "Dimensione Testo",
+      "fontSizeDesc": "Regola la dimensione del testo per una migliore leggibilità",
+      "fontSmall": "Piccolo",
+      "fontMedium": "Medio",
+      "fontLarge": "Grande",
+      "reduceMotion": "Riduci Movimento",
+      "reduceMotionDesc": "Minimizza le animazioni per il comfort"
+    },
+    "about": {
+      "title": "Info",
+      "version": "Versione",
+      "buildWith": "Fatto con ❤️ a Los Angeles",
+      "copyright": "© 2026 Onde"
+    },
+    "success": {
+      "cleared": "Cache svuotata con successo!",
+      "exported": "Dati esportati con successo!"
+    }
   }
 }

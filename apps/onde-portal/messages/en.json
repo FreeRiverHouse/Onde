@@ -943,5 +943,58 @@
       "joinWaitlist": "Join the Waitlist",
       "backHome": "Back to Home"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Customize your Onde experience",
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "themeDesc": "Choose your preferred color scheme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeAuto": "Auto"
+    },
+    "language": {
+      "title": "Language",
+      "language": "Language",
+      "languageDesc": "Select your preferred language"
+    },
+    "sounds": {
+      "title": "Sounds & Notifications",
+      "soundEffects": "Sound Effects",
+      "soundEffectsDesc": "Play sounds for interactions and feedback",
+      "notifications": "Notifications",
+      "notificationsDesc": "Receive updates and reading reminders"
+    },
+    "data": {
+      "title": "Data Management",
+      "clearCache": "Clear Cache",
+      "clearCacheDesc": "Remove temporary data to free up space",
+      "export": "Export Data",
+      "exportDesc": "Download a copy of your settings and preferences",
+      "import": "Import Data",
+      "importDesc": "Restore settings from a previous export"
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "fontSize": "Font Size",
+      "fontSizeDesc": "Adjust text size for better readability",
+      "fontSmall": "Small",
+      "fontMedium": "Medium",
+      "fontLarge": "Large",
+      "reduceMotion": "Reduce Motion",
+      "reduceMotionDesc": "Minimize animations for comfort"
+    },
+    "about": {
+      "title": "About",
+      "version": "Version",
+      "buildWith": "Built with ❤️ in Los Angeles",
+      "copyright": "© 2026 Onde"
+    },
+    "success": {
+      "cleared": "Cache cleared successfully!",
+      "exported": "Data exported successfully!"
+    }
   }
 }
