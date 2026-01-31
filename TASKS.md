@@ -12335,8 +12335,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Switch between front/side/back camera views
 
 ### [T988] Infra: Fix GPU Detection in agent-dashboard-data.sh
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @clawdinho
 - **Depends**: -
 - **Priority**: P1 🔥
@@ -12357,8 +12357,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Loggare insights in ROADMAP
 
 ### [T988] Skin Creator: Particle Toggle Button
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Toggle particles on/off in 3D preview
