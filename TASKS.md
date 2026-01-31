@@ -12266,7 +12266,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Analizzare cosa fa Google Veo e come replicare
 
 ### [T979] Skin Creator: Post-Processing Effects
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12306,3 +12306,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: AI gives feedback on skin design quality
+
+### [T985] Skin Creator: Animated Background
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Animated starfield or particles in 3D preview bg
+
+### [T986] Skin Creator: Screenshot Mode
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: High-res screenshot of 3D preview for sharing
+
+### [T987] Skin Creator: Multiple Camera Angles
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Switch between front/side/back camera views
