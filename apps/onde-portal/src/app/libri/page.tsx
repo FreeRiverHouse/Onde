@@ -67,6 +67,19 @@ export default function LibriPage() {
   const { getRecentlyViewedIds, getRecentlyViewedCount, mounted: recentlyViewedMounted } = useRecentlyViewed()
   const [mounted, setMounted] = useState(false)
   const [previewBook, setPreviewBook] = useState<Book | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  
+  // Category filter options
+  const categoryFilters = [
+    { id: 'all', label: 'All', value: null },
+    { id: 'philosophy', label: 'Filosofia', value: 'Philosophy' },
+    { id: 'spirituality', label: 'Spiritualità', value: 'Spirituality' },
+  ]
+  
+  // Filter books by selected category
+  const filteredBooks = selectedCategory === 'all'
+    ? books
+    : books.filter(book => book.category === categoryFilters.find(f => f.id === selectedCategory)?.value)
   
   // Get recently viewed books (filter books array by recently viewed IDs)
   const recentlyViewedBooks = recentlyViewedMounted 
@@ -187,8 +200,25 @@ export default function LibriPage() {
 
       {/* Books Grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        {/* Category Filters */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+          {categoryFilters.map((filter) => (
+            <button
+              key={filter.id}
+              onClick={() => setSelectedCategory(filter.id)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
+                         ${selectedCategory === filter.id
+                           ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/30'
+                           : 'bg-white/80 text-amber-900 border border-amber-200 hover:bg-amber-50 hover:border-amber-300'
+                         }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-8">
-          {books.map((book, index) => (
+          {filteredBooks.map((book, index) => (
             <motion.div
               key={book.id}
               className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-200/50
