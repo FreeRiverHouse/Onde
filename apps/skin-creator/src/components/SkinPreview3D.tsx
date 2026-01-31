@@ -16,7 +16,7 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const textureRef = useRef<THREE.CanvasTexture | null>(null);
   const isDragging = useRef(false);
   const previousMousePosition = useRef({ x: 0, y: 0 });
-  const rotationRef = useRef({ x: 0, y: 0 });
+  const rotationRef = useRef({ x: 0.1, y: 0.3 }); // Slight angle to show front nicely
   const autoRotateRef = useRef(true);
 
   useEffect(() => {
@@ -29,8 +29,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
 
     // Camera
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-    camera.position.set(0, 1.5, 4);
-    camera.lookAt(0, 1, 0);
+    camera.position.set(0, 1.2, 3.5); // Closer and centered on character
+    camera.lookAt(0, 0.9, 0);
     cameraRef.current = camera;
 
     // Renderer
