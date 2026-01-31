@@ -12710,8 +12710,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Visual button to show shortcuts (not just ?)
 
 ### [T1023] Skin Creator: Onboarding Tutorial
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:45 PST
+- **Notes**: Already implemented in T1042 Tutorial system
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: First-time user tutorial with highlights
@@ -12772,8 +12774,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Searchable help panel for features
 
 ### [T1026] Skin Creator: Video Tutorials Link
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Link to YouTube tutorials in help panel
