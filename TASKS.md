@@ -12239,3 +12239,28 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P4
 - **Notes**: Different sound themes (retro, modern, minimal)
+
+### [T976] Skin Creator: Advanced 3D Shaders
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P1 🔥
+- **Notes**: RICHIESTA MATTIA - Migliorare grafica!
+  - Shader custom per effetti luce
+  - Ambient occlusion
+  - Bloom/glow effects
+  - Comparare con giochi AAA
+
+### [T977] Skin Creator: AI Texture Enhancement
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P1 🔥
+- **Notes**: Usare Radeon LLM per upscale/enhance textures
+
+### [T978] Games: Research Google Veo/AI Graphics
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P1 🔥
+- **Notes**: Analizzare cosa fa Google Veo e come replicare
