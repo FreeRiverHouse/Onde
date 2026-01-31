@@ -13748,3 +13748,9 @@ Generated: 2026-01-30T18:37:46.867013
 - **Fixed**:
   - meditations-en.epub (OndeClassics, firma "— Onde")
   - meditations-it.epub (versione italiana aggiunta!)
+
+### [T1003] Fortune Cookie: Share Feature
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:05 PST
+- **Features**: Web Share API, clipboard fallback
