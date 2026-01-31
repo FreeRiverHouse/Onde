@@ -2,8 +2,8 @@
 
 export const runtime = 'edge'
 
-
 import { useState, useEffect } from 'react'
+import TaskManagementPanel from '@/components/TaskManagementPanel'
 
 interface Agent {
   id: string
@@ -244,6 +244,11 @@ export default function FRHDashboard() {
           <div className="text-3xl font-bold text-blue-400">{tasks.filter(t => t.status === 'done').length}</div>
           <div className="text-sm text-gray-400">Completed</div>
         </div>
+      </div>
+
+      {/* TASKS.md Management Panel */}
+      <div className="max-w-7xl mx-auto mt-6">
+        <TaskManagementPanel />
       </div>
     </div>
   )

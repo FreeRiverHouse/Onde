@@ -11901,18 +11901,28 @@ Generated: 2026-01-30T18:37:46.867013
   Implementare: script di pre-check in heartbeat
 
 ### [T934] Dashboard FRH: Task Management Panel
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Created-by**: @onde-bot-1
 - **Started**: 2026-02-15 17:05 PST
+- **Completed**: 2026-02-15 17:20 PST
 - **Depends**: -
 - **Blocks**: [T935], [T936]
 - **Priority**: P1
-- **Notes**: Pannello gestione task su onde.surf:
-  - Lista task con stato (TODO/IN_PROGRESS/DONE)
-  - Chi ha creato il task
-  - Chi lo sta processando
-  - Filtri per stato/owner/priority
+- **Notes**: ✅ Pannello gestione task su onde.surf completato!
+  - [x] Lista task con stato (TODO/IN_PROGRESS/DONE/BLOCKED)
+  - [x] Chi ha creato il task (created_by)
+  - [x] Chi lo sta processando (owner)
+  - [x] Filtri per stato/owner/priority
+  - [x] Search per ID o titolo
+  - [x] Stats: total, done, in_progress, blocked, todo, completion rate
+  - [x] Priority breakdown e owner breakdown
+  - **Files created:**
+    - `scripts/push-tasks-to-gist.py` - Parses TASKS.md, pushes to Gist
+    - `apps/surfboard/src/app/api/tasks/route.ts` - API endpoint
+    - `apps/surfboard/src/components/TaskManagementPanel.tsx` - UI component
+  - **Cron**: `*/10 * * * * python3 scripts/push-tasks-to-gist.py`
+  - **URL**: onde.surf/frh
 
 ### [T935] Dashboard FRH: Agents Monitoring
 - **Status**: TODO
