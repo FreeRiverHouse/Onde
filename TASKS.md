@@ -134,20 +134,22 @@
   - **Cron**: `*/10 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-telegram-logs.sh`
 
 ### [T962] Watchdog: Controlla Estrazione Task da Messaggi
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 21:35 PST
 - **Depends**: [T961]
 - **Blocks**: [T963]
 - **Priority**: P0 🔥🔥🔥
 - **Notes**: DA MATTIA (ID:2972)
   - **Obiettivo**: Messaggi con richieste → task in TASKS.md
-  - **Script**: `scripts/watchdog-task-extraction.sh`
+  - **Script**: `scripts/watchdog-task-extraction.sh` ✅
   - **Controlli:**
-    - [ ] Analizza messaggi loggati
-    - [ ] Identifica richieste esplicite (keywords: "voglio", "fai", "crea", etc.)
-    - [ ] Verifica task correlato in TASKS.md
-    - [ ] Se mancante → alert + suggerisci task
-  - **Cron**: Ogni 15 min
+    - [x] Analizza messaggi loggati
+    - [x] Identifica richieste esplicite (keywords: "voglio", "fai", "crea", etc.)
+    - [x] Verifica task correlato in TASKS.md
+    - [x] Se mancante → alert + suggerisci task
+  - **Cron**: `*/15 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-task-extraction.sh`
+  - **Test 2026-01-30 21:35 PST**: ✅ Passato (7 keyword messages, 64 recent TASKS commits)
 
 ### [T963] Watchdog: Dashboard Endpoint con Stato Agenti
 - **Status**: IN_PROGRESS
