@@ -12090,7 +12090,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Complements existing autotrader watchdog
 
 ### [T958] Infra: Forward LLM Errors to Telegram
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T912]
 - **Blocks**: -
@@ -12115,7 +12115,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Reference: HEARTBEAT.md "Track your checks" section
 
 ### [T958] Skin Creator: Sound Effects for Actions
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12218,3 +12218,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Export all formats (Minecraft, Roblox, etc.) in one click
+
+### [T973] Skin Creator: Sound Volume Control
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Add volume slider for sound effects
+
+### [T974] Skin Creator: Mute Toggle
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Quick mute/unmute button for all sounds
+
+### [T975] Skin Creator: Custom Sound Packs
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P4
+- **Notes**: Different sound themes (retro, modern, minimal)
