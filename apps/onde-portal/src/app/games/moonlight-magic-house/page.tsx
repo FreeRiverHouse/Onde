@@ -30,16 +30,6 @@ export default function MoonlightMagicHouse() {
         title="Moonlight Magic House"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
       />
-
-      {/* 🐾 Bouncing Pet Mascots */}
-      <div className="fixed bottom-0 left-0 right-0 h-16 flex justify-around items-end pointer-events-none overflow-hidden z-40">
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0s' }}>🐱</span>
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.15s' }}>🐕</span>
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.3s' }}>🐰</span>
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.45s' }}>🐹</span>
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.6s' }}>🦊</span>
-        <span className="text-4xl animate-bounce" style={{ animationDelay: '0.75s' }}>🐸</span>
-      </div>
     </div>
   )
 }
