@@ -2305,3 +2305,147 @@
   width: 2rem;
   text-align: right;
 }
+
+/* ============ PET NAMING MODAL ============ */
+.pet-naming-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(30, 20, 60, 0.95) 0%, rgba(50, 30, 80, 0.95) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.pet-naming-modal {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2rem 2.5rem;
+  border-radius: 24px;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+}
+
+.pet-naming-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+  animation: petBounce 1s ease-in-out infinite;
+}
+
+@keyframes petBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.pet-naming-title {
+  font-size: 1.4rem;
+  color: white;
+  margin: 0 0 1.5rem 0;
+  font-weight: 600;
+}
+
+.pet-naming-input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pet-naming-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pet-naming-input:focus {
+  border-color: rgba(155, 89, 182, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pet-naming-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.pet-naming-btn {
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.pet-naming-btn.confirm {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+}
+
+.pet-naming-btn.confirm:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(155, 89, 182, 0.6);
+}
+
+.pet-naming-btn.skip {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pet-naming-btn.skip:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.pet-naming-btn:active {
+  transform: scale(0.97);
+}
+
+/* ============ PET NAME BADGE ============ */
+.pet-name-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(155, 89, 182, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 500;
+  border: 1px solid rgba(155, 89, 182, 0.4);
+  margin-left: 0.5rem;
+}
+
+.pet-name-badge.small {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+}
+
+/* Luna name label on map */
+.luna-name-label {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

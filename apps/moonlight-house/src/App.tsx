@@ -93,6 +93,12 @@ const translations = {
       browsing: 'Tanti libri! 📚',
     },
     moods: { happy: 'Felice!', neutral: 'Tranquillo', sad: 'Triste...', sleepy: 'Assonnato', hungry: 'Affamato', excited: 'Eccitato!' },
+    petNaming: {
+      title: 'Dai un nome al tuo animaletto!',
+      placeholder: 'Nome del tuo amico...',
+      confirm: 'Conferma',
+      skip: 'Salta (userò Pip)',
+    },
     timeOfDay: { morning: '🌅 Mattina', afternoon: '☀️ Pomeriggio', evening: '🌆 Sera', night: '🌙 Notte' },
     achievements: {
       explorer: 'Esploratore', firstMeal: 'Primo pasto', sleepyHead: 'Dormiglione',
@@ -141,6 +147,12 @@ const translations = {
       browsing: 'So many books! 📚',
     },
     moods: { happy: 'Happy!', neutral: 'Calm', sad: 'Sad...', sleepy: 'Sleepy', hungry: 'Hungry', excited: 'Excited!' },
+    petNaming: {
+      title: 'Name your pet!',
+      placeholder: 'Your friend\'s name...',
+      confirm: 'Confirm',
+      skip: 'Skip (I\'ll use Pip)',
+    },
     timeOfDay: { morning: '🌅 Morning', afternoon: '☀️ Afternoon', evening: '🌆 Evening', night: '🌙 Night' },
     achievements: {
       explorer: 'Explorer', firstMeal: 'First meal', sleepyHead: 'Sleepy head',
@@ -242,6 +254,7 @@ interface SaveData {
   savedAt: string;
   lastVisit: number; // timestamp for pet persistence
   totalVisits: number;
+  petName?: string; // custom pet name
 }
 
 // Time-away stat adjustment - pet gets hungry/lonely when you're gone
@@ -299,7 +312,7 @@ const loadSaveData = (): SaveData | null => {
   }
 };
 
-const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: GameState, totalVisits: number): void => {
+const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: GameState, totalVisits: number, petName?: string): void => {
   try {
     const data: SaveData = {
       stats,
@@ -311,6 +324,7 @@ const saveSaveData = (stats: PetStats, achievements: Achievement[], gameState: G
       savedAt: new Date().toISOString(),
       lastVisit: Date.now(),
       totalVisits,
+      petName,
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));
   } catch {
@@ -476,6 +490,58 @@ function WelcomeBackPopup({ message, emoji, hoursAway, totalVisits, lang, onClos
   );
 }
 
+// ==================== PET NAMING MODAL ====================
+function PetNamingModal({ lang, onConfirm }: { lang: Language; onConfirm: (name: string) => void }) {
+  const [name, setName] = useState('');
+  const t = translations[lang];
+  
+  const handleConfirm = () => {
+    const finalName = name.trim() || 'Pip';
+    onConfirm(finalName);
+  };
+  
+  const handleSkip = () => {
+    onConfirm('Pip');
+  };
+  
+  return (
+    <motion.div 
+      className="pet-naming-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div 
+        className="pet-naming-modal glass-card"
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ type: 'spring', damping: 15 }}
+      >
+        <span className="pet-naming-emoji">🐱✨</span>
+        <h2 className="pet-naming-title">{t.petNaming.title}</h2>
+        <input
+          type="text"
+          className="pet-naming-input"
+          placeholder={t.petNaming.placeholder}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          maxLength={20}
+          autoFocus
+          onKeyDown={(e) => e.key === 'Enter' && handleConfirm()}
+        />
+        <div className="pet-naming-buttons">
+          <button className="pet-naming-btn confirm" onClick={handleConfirm}>
+            {t.petNaming.confirm}
+          </button>
+          <button className="pet-naming-btn skip" onClick={handleSkip}>
+            {t.petNaming.skip}
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ==================== DAILY REWARD POPUP ====================
 function DailyRewardPopup({ coins, streak, lang, onClose }: { coins: number; streak: number; lang: Language; onClose: () => void }) {
   const t = translations[lang];
@@ -544,6 +610,17 @@ function App() {
   const [totalVisits, setTotalVisits] = useState<number>(() => {
     const saved = loadSaveData();
     return (saved?.totalVisits ?? 0) + 1; // Increment on each session start
+  });
+  
+  // Pet name - saved with pet state
+  const [petName, setPetName] = useState<string | null>(() => {
+    const saved = loadSaveData();
+    return saved?.petName ?? null; // null means first visit, needs naming
+  });
+  
+  const [showNamingModal, setShowNamingModal] = useState<boolean>(() => {
+    const saved = loadSaveData();
+    return !saved?.petName; // Show modal on first visit
   });
   
   const [welcomeMessage, setWelcomeMessage] = useState<{ message: string; emoji: string; hoursAway: number } | null>(null);
@@ -801,8 +878,8 @@ function App() {
 
   // Auto-save game state
   useEffect(() => {
-    saveSaveData(stats, achievements, gameState, totalVisits);
-  }, [stats, achievements, gameState, totalVisits]);
+    saveSaveData(stats, achievements, gameState, totalVisits, petName ?? undefined);
+  }, [stats, achievements, gameState, totalVisits, petName]);
 
   // Ambient music based on room
   useEffect(() => {
@@ -1183,7 +1260,17 @@ function App() {
     setShowStory(true);
   };
 
-  // Popups
+  // Handle pet naming
+  const handlePetNaming = (name: string) => {
+    setPetName(name);
+    setShowNamingModal(false);
+  };
+
+  // Popups - Pet naming modal first (for first-time users)
+  if (showNamingModal) {
+    return <PetNamingModal lang={lang} onConfirm={handlePetNaming} />;
+  }
+  
   if (welcomeMessage) {
     return (
       <WelcomeBackPopup 
@@ -1304,9 +1391,10 @@ function App() {
               transform: `translate(-50%, -50%) translateY(${floatY}px)`
             }}
             onMouseDown={handleDragStart} onTouchStart={handleDragStart}>
-            <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-map-img mood-${mood}`} />
+            <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt={petName || 'Pip'} className={`luna-map-img mood-${mood}`} />
             <div className="luna-map-glow" />
             <span className="luna-mood-indicator">{getMoodEmoji(mood)}</span>
+            {petName && <span className="luna-name-label">{petName}</span>}
           </div>
 
           {!isDragging && <div className="drag-hint">{lang === 'it' ? '👆 Trascina Moonlight!' : '👆 Drag Moonlight!'}</div>}
@@ -1315,6 +1403,7 @@ function App() {
         <div className="map-header">
           <div className="header glass-card">
             <h1 className="title">{t.title}</h1>
+            {petName && <span className="pet-name-badge">🐱 {petName}</span>}
             <div className="header-right">
               <span className="time-indicator">{t.timeOfDay[timeOfDay]}</span>
               <button className="sound-toggle" onClick={() => { toggleMute(); playSound('ui-click'); }} title={isMuted ? 'Unmute' : 'Mute'}>
@@ -1513,6 +1602,7 @@ function App() {
         <button className="back-btn" onClick={() => setShowMap(true)}>← 🏠</button>
         <h1 className="title room-title">{currentRoomData.icon} {t.rooms[currentRoomData.key]}</h1>
         <div className="header-right">
+          {petName && <span className="pet-name-badge small">🐱 {petName}</span>}
           <div className="level-badge glass-card">Lv.{stats.level}</div>
           <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>
         </div>

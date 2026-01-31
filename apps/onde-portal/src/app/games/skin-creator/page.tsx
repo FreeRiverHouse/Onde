@@ -1422,9 +1422,86 @@ export default function SkinCreator() {
     }
   }, [updatePreview]);
 
+  // Load template from gallery if available, otherwise load steve
   useEffect(() => {
+    // Check for gallery template choice
+    const templateChoice = localStorage.getItem('skin-template-choice');
+    if (templateChoice) {
+      try {
+        const { colors, timestamp } = JSON.parse(templateChoice);
+        // Only use if recent (within 5 minutes)
+        if (Date.now() - timestamp < 5 * 60 * 1000) {
+          // Apply gallery template colors
+          const baseCanvas = getLayerCanvas('base');
+          const clothingCanvas = getLayerCanvas('clothing');
+          const baseCtx = baseCanvas.getContext('2d');
+          const clothingCtx = clothingCanvas.getContext('2d');
+          
+          if (baseCtx && clothingCtx) {
+            baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+            clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+            
+            // Draw base (skin/face)
+            baseCtx.fillStyle = colors.skin;
+            baseCtx.fillRect(8, 8, 8, 8); // Face front
+            baseCtx.fillRect(0, 8, 8, 8); // Face right
+            baseCtx.fillRect(16, 8, 8, 8); // Face left
+            baseCtx.fillRect(24, 8, 8, 8); // Face back
+            baseCtx.fillStyle = colors.hair;
+            baseCtx.fillRect(8, 0, 8, 8); // Hair top
+            baseCtx.fillRect(8, 8, 8, 1); // Hair front
+            // Eyes
+            baseCtx.fillStyle = '#ffffff';
+            baseCtx.fillRect(9, 11, 2, 1);
+            baseCtx.fillRect(13, 11, 2, 1);
+            baseCtx.fillStyle = '#000000';
+            baseCtx.fillRect(10, 11, 1, 1);
+            baseCtx.fillRect(13, 11, 1, 1);
+            // Arms (skin)
+            baseCtx.fillStyle = colors.skin;
+            baseCtx.fillRect(44, 20, 4, 4);
+            baseCtx.fillRect(36, 52, 4, 4);
+            
+            // Draw clothing
+            clothingCtx.fillStyle = colors.shirt;
+            clothingCtx.fillRect(20, 20, 8, 12); // Body front
+            clothingCtx.fillRect(16, 20, 4, 12); // Body right
+            clothingCtx.fillRect(28, 20, 4, 12); // Body left
+            clothingCtx.fillRect(32, 20, 8, 12); // Body back
+            clothingCtx.fillRect(44, 24, 4, 8); // Right arm sleeve
+            clothingCtx.fillRect(36, 56, 4, 8); // Left arm sleeve
+            // Pants
+            clothingCtx.fillStyle = colors.pants;
+            clothingCtx.fillRect(4, 20, 4, 12);
+            clothingCtx.fillRect(0, 20, 4, 12);
+            clothingCtx.fillRect(8, 20, 4, 12);
+            clothingCtx.fillRect(12, 20, 4, 12);
+            clothingCtx.fillRect(20, 52, 4, 12);
+            clothingCtx.fillRect(16, 52, 4, 12);
+            clothingCtx.fillRect(24, 52, 4, 12);
+            clothingCtx.fillRect(28, 52, 4, 12);
+            // Shoes
+            clothingCtx.fillStyle = colors.shoes;
+            clothingCtx.fillRect(4, 28, 4, 4);
+            clothingCtx.fillRect(20, 60, 4, 4);
+            
+            compositeLayersToMain();
+            updatePreview();
+            
+            // Clear the template choice after use
+            localStorage.removeItem('skin-template-choice');
+            return;
+          }
+        }
+      } catch (e) {
+        // Ignore invalid template data
+      }
+      localStorage.removeItem('skin-template-choice');
+    }
+    
+    // Default: load steve template
     loadTemplate('steve');
-  }, [loadTemplate]);
+  }, [loadTemplate, getLayerCanvas, compositeLayersToMain, updatePreview]);
 
   // 🎨 Recomposite layers when visibility/opacity changes
   useEffect(() => {
@@ -2065,7 +2142,7 @@ export default function SkinCreator() {
         )}
 
         {/* View Mode Tabs */}
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-4 flex-wrap justify-center">
           <button
             onClick={() => setViewMode('editor')}
             className={`px-6 py-2 rounded-full font-bold transition-all ${
@@ -2086,6 +2163,12 @@ export default function SkinCreator() {
           >
             🖼️ Gallery
           </button>
+          <a
+            href="/games/skin-creator/gallery"
+            className="px-6 py-2 rounded-full font-bold transition-all bg-white/20 text-white hover:bg-white/30 flex items-center gap-1"
+          >
+            ✨ Templates
+          </a>
         </div>
       </div>
 
