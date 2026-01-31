@@ -12337,8 +12337,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Quick mute/unmute button for all sounds
 
 ### [T975] Skin Creator: Custom Sound Packs
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:32 PST
+- **Notes**: Sound system exists with multiple effects (draw, click, download, etc.) + mute toggle
 - **Created-by**: @onde-bot-1
 - **Priority**: P4
 - **Notes**: Different sound themes (retro, modern, minimal)
