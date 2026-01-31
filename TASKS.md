@@ -11251,3 +11251,39 @@ Generated: 2026-01-30T18:37:46.867013
   - Se problema → task
   - Se miglioramento → task
   - Generare idee creative
+
+### [T926] Skin Creator: Kid-Friendly Labels
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Semplificare testi per bambini:
+  - "texture map" → "Your skin drawing!"
+  - Rimuovere hex codes dalla vista principale
+  - Aggiungere emoji ovunque
+  - Testi più semplici
+
+### [T927] Skin Creator: Fun Stickers/Stamps
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Bambini adorano sticker:
+  - Emoji stamps (⭐❤️🔥😎)
+  - Pattern stamps (stripes, dots)
+  - Face stamps (eyes, mouth)
+  - Accessory stamps (glasses, hat)
+
+### [T928] Skin Creator: "How to Play" Tutorial
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Tutorial interattivo:
+  - First-time walkthrough
+  - Tooltips sui bottoni
+  - "Try this!" hints
+  - Video demo?
