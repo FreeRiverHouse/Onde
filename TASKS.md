@@ -11461,3 +11461,57 @@ Generated: 2026-01-30T18:37:46.867013
   5. MAI prendere task già IN_PROGRESS
   
   Implementare: script di pre-check in heartbeat
+
+### [T934] Dashboard FRH: Task Management Panel
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: [T935], [T936]
+- **Priority**: P1
+- **Notes**: Pannello gestione task su onde.surf:
+  - Lista task con stato (TODO/IN_PROGRESS/DONE)
+  - Chi ha creato il task
+  - Chi lo sta processando
+  - Filtri per stato/owner/priority
+
+### [T935] Dashboard FRH: Agents Monitoring
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Depends**: [T934]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Monitor agenti attivi:
+  - Ondinho (@onde-bot-1) - M4
+  - Clawdinho (@clawd) - M1+Radeon
+  - Status online/offline
+  - Task corrente
+  - Ultimo heartbeat
+
+### [T936] Dashboard FRH: System Monitoring (Mac/CPU/Analytics)
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Depends**: [T934]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Monitor sistema:
+  - CPU/RAM M4 e M1
+  - LLM Ollama status
+  - Google Analytics integration
+  - Uptime/errors
+
+### [T937] Dashboard FRH: Unified Control Panel
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Depends**: [T934], [T935], [T936]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Pannello unico per gestire TUTTO:
+  - Sostituisce le 2 chat TG separate
+  - Crea/assegna task
+  - Monitora agenti
+  - Vede metriche sistema
+  - Un solo posto per tutto!
