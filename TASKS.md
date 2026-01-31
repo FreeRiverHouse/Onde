@@ -12575,8 +12575,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Zoom with scroll wheel on 3D preview
 
 ### [T1007] Skin Creator: Pinch-to-Zoom Mobile
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Touch gestures for mobile zoom
