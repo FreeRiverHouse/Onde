@@ -10577,17 +10577,24 @@
   - Vision: come Moonlight - molti giochi in una app
 
 ### [T889] Skin Creator: App Store SEO Research
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-31
 - **Depends**: -
-- **Blocks**: -
+- **Blocks**: [T890], [T891], [T892]
 - **Priority**: P1
-- **Notes**: Research per nome e keywords app:
-  - Analizzare cosa cerca la gente su App Store
-  - Confrontare con competitor (skin editor apps)
-  - Proporre nome ottimizzato (Moonlight Magic House?)
-  - Keywords per massimizzare visibilità
-  - Analisi volume ricerche
+- **Notes**: ✅ Comprehensive SEO research completed!
+  - **Document**: `apps/skin-creator/docs/APP-STORE-SEO-RESEARCH.md`
+  - **Recommended Name**: "Skin Studio - Skins for Minecraft & Roblox"
+  - **Alternative**: "SkinCraft AI - Minecraft Skin Maker"
+  - **Key findings:**
+    - "minecraft skin" = 500K+ monthly searches
+    - AI differentiator crucial (few competitors have it)
+    - Multi-game (Roblox) significantly expands TAM
+    - Kids-safe positioning important for parents
+  - **Top competitors analyzed**: Skinseed (10M+ downloads), Skin Editor (5M+)
+  - **Keywords optimized**: 100-char keyword field prepared
+  - **Localization priority**: EN > ES > PT-BR > DE > IT
 
 ### [T890] Skin Creator: Rebrand to "Moonlight Skin Studio" or similar
 - **Status**: TODO
@@ -10599,3 +10606,44 @@
   - Nome ottimizzato per App Store
   - Logo e branding coerente con Moonlight
   - Integrazione nel portale Moonlight
+
+### [T891] Skin Creator: Create App Store Marketing Assets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T889]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create compelling App Store presence:
+  - 6 screenshots showcasing AI generation, 3D preview, editor
+  - 30-sec preview video showing AI skin creation flow
+  - App icon variations (A/B test candidates)
+  - Feature graphics for promotional materials
+  - Before/after AI generation showcase
+
+### [T892] Skin Creator: Localize App Store Listings
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T889]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Localize app listing per SEO research priority:
+  - Spanish (ES) - Large Minecraft playerbase
+  - Portuguese (PT-BR) - Growing market
+  - German (DE) - Strong iOS market
+  - Italian (IT) - Home market
+  - French (FR) - Good secondary market
+  - Keywords localized per market trends
+
+### [T893] Skin Creator: AI Prompt Library for Kids
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T880]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create pre-made AI prompts kids can use:
+  - "Make me a superhero" → optimized prompt
+  - "I want to be a dragon" → dragon skin prompt
+  - "Cool ninja" → ninja outfit prompt
+  - Category buttons: Heroes, Animals, Fantasy, Sports
+  - Age-appropriate and fun suggestions
+  - Reduces complexity for young users

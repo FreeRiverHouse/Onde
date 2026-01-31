@@ -1,18 +1,18 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-01-30T20:50:09.410102",
+    "timestamp": "2026-01-31T00:53:39.870157",
     "result": {
-      "sentiment": "neutral",
-      "confidence": 0.5,
+      "sentiment": "bullish",
+      "confidence": 0.9,
       "reasons": [
-        "rally",
-        "liquidation"
+        "soar",
+        "Tesla"
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-01-30T20:50:09.410080+00:00",
+      "timestamp": "2026-01-31T00:53:39.869862+00:00",
       "should_trade": true,
-      "edge_adjustment": 0.0,
+      "edge_adjustment": 0.018,
       "news_count": 9
     }
   }
