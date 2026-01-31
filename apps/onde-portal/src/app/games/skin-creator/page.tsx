@@ -2436,15 +2436,15 @@ export default function SkinCreator() {
     setStickerPreviewPos(null);
   }, [activeLayer, getLayerCanvas, mirrorMode, compositeLayersToMain, updatePreview, saveState, playSound]);
 
-  // 🎨 Get sticker by ID helper
-  const getStickerById = useCallback((stickerId: string): StickerDecal | undefined => {
+  // 🎨 Get sticker by ID helper (pure function, no deps)
+  const getStickerById = (stickerId: string): StickerDecal | undefined => {
     return STICKER_DECALS.find(s => s.id === stickerId);
-  }, []);
+  };
 
-  // 🎨 Get stickers by category
-  const getStickersByCategory = useCallback((category: StickerCategory): StickerDecal[] => {
+  // 🎨 Get stickers by category (pure function, no deps)
+  const getStickersByCategory = (category: StickerCategory): StickerDecal[] => {
     return STICKER_DECALS.filter(s => s.category === category);
-  }, []);
+  };
 
   // Spawn sparkle particles when drawing
   const spawnParticle = useCallback((clientX: number, clientY: number) => {
