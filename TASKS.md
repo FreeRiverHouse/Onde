@@ -12770,8 +12770,10 @@ Generated: 2026-01-30T18:37:46.867013
   - Dust effects: garden (grass 🌿), bathroom (water 💧), garage (stone), floor (brown 💨)
 
 ### [T1025] Moonlight: Add Pet Sound Effects on Tap (MM-024)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 01:35 PST
+- **Notes**: Deferred - Moonlight is iframe game, sounds in game itself
 - **Created-by**: @clawdinho
 - **Depends**: [T878]
 - **Priority**: P2
