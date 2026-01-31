@@ -12430,7 +12430,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Different poses for screenshots (idle, walking, waving)
 
 ### [T994] Skin Creator: Zoom Controls
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12512,3 +12512,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Share skins and get votes
+
+### [T1006] Skin Creator: Mouse Wheel Zoom
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Zoom with scroll wheel on 3D preview
+
+### [T1007] Skin Creator: Pinch-to-Zoom Mobile
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Touch gestures for mobile zoom
+
+### [T1008] Skin Creator: Double-Click Reset View
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Double-click to reset camera to default
