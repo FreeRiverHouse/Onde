@@ -74,9 +74,9 @@ interface HistoryState {
 }
 
 const DEFAULT_LAYERS: Layer[] = [
-  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
-  { id: 'details', name: 'Details', emoji: '✏️', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
-  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
+  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, blendMode: 'normal', tint: null, tintIntensity: 50, glow: false },
+  { id: 'details', name: 'Details', emoji: '✏️', visible: true, opacity: 100, blendMode: 'normal', tint: null, tintIntensity: 50, glow: false },
+  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, blendMode: 'normal', tint: null, tintIntensity: 50, glow: false },
 ];
 
 // Preset tint colors for quick selection
@@ -149,7 +149,7 @@ const PATTERN_PRESETS: PatternPreset[] = [
 ];
 
 // 🎨 TEXTURE FILTERS - Grain, Blur, Sharpen for advanced effects!
-type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'smooth' | 'vignette' | 'invert';
+type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'smooth' | 'vignette' | 'outline';
 
 interface TextureFilter {
   id: TextureFilterType;
@@ -167,7 +167,7 @@ const TEXTURE_FILTERS: TextureFilter[] = [
   { id: 'pixelate', name: 'Pixelate', emoji: '🧱', description: 'Chunky pixel effect', hasIntensity: true },
   { id: 'smooth', name: 'Smooth', emoji: '✨', description: 'Soften and blend pixel edges', hasIntensity: true },
   { id: 'vignette', name: 'Vignette', emoji: '🔲', description: 'Dark edges, bright center', hasIntensity: true },
-  { id: 'invert', name: 'Invert', emoji: '🔄', description: 'Invert all colors (negative)', hasIntensity: true },
+  { id: 'outline', name: 'Outline', emoji: '🔳', description: 'Add border around shapes (uses 2nd color)', hasIntensity: true },
 ];
 
 // 🎨 STICKER/DECAL LIBRARY - Decorative elements to apply on skins!
@@ -2183,6 +2183,7 @@ export default function SkinCreator() {
           break;
         case 'i': setTool('eyedropper'); playSound('click'); break;
         case 'h': setTool('color-replace'); playSound('click'); break;
+        case 'd': if (!isCmd) { setTool('dither'); playSound('click'); } break; // D for Dither
         
         // ❓ Help & panels
         case '?': setShowHelp(prev => !prev); break;
@@ -3309,27 +3310,6 @@ export default function SkinCreator() {
             data[idx + 1] = Math.round(data[idx + 1] * multiplier);
             data[idx + 2] = Math.round(data[idx + 2] * multiplier);
           }
-        }
-        break;
-      }
-
-      case 'invert': {
-        // Invert all colors (negative effect)
-        // At 100% intensity: full inversion (255 - color)
-        // At lower intensity: blend between original and inverted
-        for (let i = 0; i < data.length; i += 4) {
-          // Skip fully transparent pixels
-          if (data[i + 3] === 0) continue;
-          
-          // Calculate inverted values
-          const invertedR = 255 - data[i];
-          const invertedG = 255 - data[i + 1];
-          const invertedB = 255 - data[i + 2];
-          
-          // Blend between original and inverted based on intensity
-          data[i] = Math.round(data[i] * (1 - normalizedIntensity) + invertedR * normalizedIntensity);
-          data[i + 1] = Math.round(data[i + 1] * (1 - normalizedIntensity) + invertedG * normalizedIntensity);
-          data[i + 2] = Math.round(data[i + 2] * (1 - normalizedIntensity) + invertedB * normalizedIntensity);
         }
         break;
       }
@@ -6957,6 +6937,23 @@ export default function SkinCreator() {
                 </div>
               )}
 
+              {/* 🖼️ Reference Image Overlay - for tracing */}
+              {referenceImage && (
+                <img
+                  src={referenceImage}
+                  alt="Reference"
+                  className="absolute top-1 left-1 pointer-events-none"
+                  style={{
+                    width: SKIN_WIDTH * zoomLevel,
+                    height: SKIN_HEIGHT * zoomLevel,
+                    opacity: referenceOpacity / 100,
+                    objectFit: 'contain',
+                    imageRendering: 'pixelated',
+                    mixBlendMode: 'normal',
+                  }}
+                />
+              )}
+
               {/* Grid Overlay - with configurable color */}
               {showGrid && (
                 <svg
@@ -7468,31 +7465,29 @@ export default function SkinCreator() {
                   ))}
                 </div>
 
-                {/* Filter Buttons - Third Row (Vignette & Invert) */}
+                {/* Filter Buttons - Third Row (Vignette & Outline) */}
                 <div className="grid grid-cols-2 gap-1">
-                  {TEXTURE_FILTERS.slice(6, 8).map((filter) => (
-                    <button
-                      key={filter.id}
-                      onClick={() => {
-                        applyTextureFilter(filter.id, textureFilterIntensity);
-                      }}
-                      className={`flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md ${
-                        filter.id === 'vignette' 
-                          ? 'bg-gradient-to-br from-gray-100 to-neutral-100 border-gray-300 hover:border-gray-400' 
-                          : 'bg-gradient-to-br from-cyan-100 to-teal-100 border-cyan-300 hover:border-cyan-400'
-                      }`}
-                      title={filter.description}
-                    >
-                      <span className="text-lg">{filter.emoji}</span>
-                      <span className="text-[10px] font-medium text-gray-700">{filter.name}</span>
-                    </button>
-                  ))}
+                  <button
+                    onClick={() => applyTextureFilter('vignette', textureFilterIntensity)}
+                    className="flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md bg-gradient-to-br from-gray-100 to-neutral-100 border-gray-300 hover:border-gray-400"
+                    title="Dark edges, bright center"
+                  >
+                    <span className="text-lg">🔲</span>
+                    <span className="text-[10px] font-medium text-gray-700">Vignette</span>
+                  </button>
+                  <button
+                    onClick={() => applyTextureFilter('outline', textureFilterIntensity, secondaryColor)}
+                    className="flex flex-col items-center justify-center p-2 rounded-lg border transition-all hover:scale-105 active:scale-95 shadow-sm hover:shadow-md bg-gradient-to-br from-cyan-100 to-teal-100 border-cyan-300 hover:border-cyan-400"
+                    title="Add border around shapes (uses 2nd color)"
+                  >
+                    <span className="text-lg">🔳</span>
+                    <span className="text-[10px] font-medium text-gray-700">Outline</span>
+                  </button>
                 </div>
 
                 {/* Tip */}
                 <p className="text-[10px] text-amber-500 mt-2 text-center">
-                  💡 Adjust intensity, then click a filter!
-                </p>
+                  💡 Adjust intensity, then click a filter! Outline uses 2nd color.</p>
               </>
             )}
           </div>

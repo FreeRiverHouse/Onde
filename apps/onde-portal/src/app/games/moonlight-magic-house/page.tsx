@@ -3501,6 +3501,278 @@ const RoomCustomizeButton = ({ onClick, soundEnabled }: { onClick: () => void; s
   </button>
 )
 
+// ============ PHOTO MODE COMPONENTS ============
+
+// Photo Mode Button - camera icon that activates photo mode
+const PhotoModeButton = ({ onClick, isActive, soundEnabled }: { onClick: () => void; isActive: boolean; soundEnabled: boolean }) => (
+  <button
+    onClick={() => { sounds.tap(soundEnabled); onClick() }}
+    className={`fixed bottom-4 left-16 z-40 w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all border border-white/20 ${
+      isActive 
+        ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-yellow-500/40' 
+        : 'bg-gradient-to-br from-cyan-500 to-blue-500 shadow-cyan-500/30'
+    }`}
+    aria-label={isActive ? 'Exit photo mode' : 'Enter photo mode'}
+  >
+    <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="2" y="6" width="20" height="14" rx="2" />
+      <circle cx="12" cy="13" r="4" />
+      <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
+      <circle cx="17" cy="9" r="1" fill="currentColor" />
+    </svg>
+  </button>
+)
+
+// Photo Mode UI Overlay - controls and frame selection
+const PhotoModeUI = ({
+  photoMode,
+  onClose,
+  onFrameChange,
+  onFilterChange,
+  onAddSticker,
+  onRemoveSticker,
+  onClearStickers,
+  onCapture,
+  onToggleControls,
+  isCapturing,
+  soundEnabled,
+}: {
+  photoMode: PhotoModeState
+  onClose: () => void
+  onFrameChange: (frameId: string) => void
+  onFilterChange: (filterId: string) => void
+  onAddSticker: (emoji: string, x: number, y: number) => void
+  onRemoveSticker: (stickerId: string) => void
+  onClearStickers: () => void
+  onCapture: () => void
+  onToggleControls: () => void
+  isCapturing: boolean
+  soundEnabled: boolean
+}) => {
+  const [activeTab, setActiveTab] = useState<'frames' | 'stickers' | 'filters'>('frames')
+  const [selectedSticker, setSelectedSticker] = useState<string | null>(null)
+  
+  // Handle sticker placement on screen
+  const handleScreenClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!selectedSticker) return
+    
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    
+    onAddSticker(selectedSticker, x, y)
+  }, [selectedSticker, onAddSticker])
+  
+  return (
+    <>
+      {/* Sticker placement overlay - click to place stickers */}
+      {selectedSticker && (
+        <div 
+          className="fixed inset-0 z-30 cursor-crosshair"
+          onClick={handleScreenClick}
+        >
+          <div className="fixed bottom-32 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm">
+            Tap anywhere to place sticker • Tap sticker button again to deselect
+          </div>
+        </div>
+      )}
+      
+      {/* Placed stickers */}
+      {photoMode.stickers.map((sticker) => (
+        <div
+          key={sticker.id}
+          className="fixed z-40 cursor-pointer hover:scale-125 transition-transform"
+          style={{
+            left: `${sticker.x}%`,
+            top: `${sticker.y}%`,
+            fontSize: `${sticker.size}px`,
+            transform: `translate(-50%, -50%) rotate(${sticker.rotation}deg)`,
+          }}
+          onClick={() => onRemoveSticker(sticker.id)}
+          title="Click to remove"
+        >
+          {sticker.emoji}
+        </div>
+      ))}
+      
+      {/* Controls Panel */}
+      {photoMode.showControls && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md">
+          <div className="bg-gradient-to-b from-[#2a2a4e]/95 to-[#1a1a3e]/95 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+              <h3 className="text-white font-bold flex items-center gap-2">
+                📷 Photo Mode
+              </h3>
+              <div className="flex items-center gap-2">
+                {photoMode.stickers.length > 0 && (
+                  <button
+                    onClick={onClearStickers}
+                    className="px-3 py-1 text-xs text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                  >
+                    Clear stickers
+                  </button>
+                )}
+                <button
+                  onClick={onClose}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 text-white">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            {/* Tabs */}
+            <div className="flex border-b border-white/10">
+              {(['frames', 'stickers', 'filters'] as const).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => { setActiveTab(tab); sounds.tap(soundEnabled); setSelectedSticker(null) }}
+                  className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
+                    activeTab === tab
+                      ? 'text-yellow-300 border-b-2 border-yellow-300'
+                      : 'text-white/60 hover:text-white/80'
+                  }`}
+                >
+                  {tab === 'frames' && '🖼️ Frames'}
+                  {tab === 'stickers' && '✨ Stickers'}
+                  {tab === 'filters' && '🎨 Filters'}
+                </button>
+              ))}
+            </div>
+            
+            {/* Tab Content */}
+            <div className="p-3 max-h-40 overflow-y-auto">
+              {activeTab === 'frames' && (
+                <div className="grid grid-cols-4 gap-2">
+                  {PHOTO_FRAMES.map((frame) => (
+                    <button
+                      key={frame.id}
+                      onClick={() => onFrameChange(frame.id)}
+                      className={`p-2 rounded-xl border-2 transition-all duration-200 flex flex-col items-center gap-1 ${
+                        photoMode.selectedFrameId === frame.id
+                          ? 'border-yellow-400 bg-yellow-400/20 scale-105'
+                          : 'border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="text-xl">{frame.emoji}</span>
+                      <span className="text-[10px] text-white/60 truncate w-full text-center">{frame.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+              {activeTab === 'stickers' && (
+                <div className="grid grid-cols-8 gap-2">
+                  {PHOTO_STICKERS.map((emoji) => (
+                    <button
+                      key={emoji}
+                      onClick={() => {
+                        sounds.tap(soundEnabled)
+                        setSelectedSticker(selectedSticker === emoji ? null : emoji)
+                      }}
+                      className={`p-2 text-xl rounded-lg transition-all duration-200 ${
+                        selectedSticker === emoji
+                          ? 'bg-yellow-400/30 scale-110 ring-2 ring-yellow-400'
+                          : 'bg-white/5 hover:bg-white/15 hover:scale-105'
+                      }`}
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+              {activeTab === 'filters' && (
+                <div className="grid grid-cols-3 gap-2">
+                  {PHOTO_FILTERS.map((filter) => (
+                    <button
+                      key={filter.id}
+                      onClick={() => onFilterChange(filter.id)}
+                      className={`p-2 rounded-xl border-2 transition-all duration-200 flex flex-col items-center gap-1 ${
+                        photoMode.filter === filter.filter
+                          ? 'border-yellow-400 bg-yellow-400/20 scale-105'
+                          : 'border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="text-xl">{filter.emoji}</span>
+                      <span className="text-[10px] text-white/60">{filter.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            
+            {/* Capture Button */}
+            <div className="p-3 border-t border-white/10 flex justify-center">
+              <button
+                onClick={onCapture}
+                disabled={isCapturing}
+                className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-white transition-all ${
+                  isCapturing
+                    ? 'bg-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-400 hover:to-orange-400 hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/30'
+                }`}
+              >
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m9.9 9.9l2.1 2.1M4.9 19.1l2.1-2.1m9.9-9.9l2.1-2.1" />
+                </svg>
+                {isCapturing ? 'Capturing...' : '📸 Capture Photo'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Toggle controls button when hidden */}
+      {!photoMode.showControls && (
+        <button
+          onClick={onToggleControls}
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-black/50 backdrop-blur-sm rounded-full text-white text-sm hover:bg-black/70 transition-colors"
+        >
+          Show Controls
+        </button>
+      )}
+    </>
+  )
+}
+
+// Photo frame overlay component
+const PhotoFrameOverlay = ({ frameId, showFlash }: { frameId: string; showFlash: boolean }) => {
+  const frame = PHOTO_FRAMES.find(f => f.id === frameId)
+  if (!frame || frameId === 'none') return null
+  
+  return (
+    <>
+      {/* Corner decorations */}
+      {frame.cornerDecoration && (
+        <>
+          <div className="fixed top-4 left-4 text-3xl z-50 pointer-events-none animate-pulse">
+            {frame.cornerDecoration}
+          </div>
+          <div className="fixed top-4 right-4 text-3xl z-50 pointer-events-none animate-pulse" style={{ animationDelay: '0.25s' }}>
+            {frame.cornerDecoration}
+          </div>
+          <div className="fixed bottom-20 left-4 text-3xl z-50 pointer-events-none animate-pulse" style={{ animationDelay: '0.5s' }}>
+            {frame.cornerDecoration}
+          </div>
+          <div className="fixed bottom-20 right-4 text-3xl z-50 pointer-events-none animate-pulse" style={{ animationDelay: '0.75s' }}>
+            {frame.cornerDecoration}
+          </div>
+        </>
+      )}
+      
+      {/* Camera flash effect */}
+      {showFlash && (
+        <div className="fixed inset-0 bg-white z-[100] pointer-events-none animate-pulse" style={{ animationDuration: '0.3s' }} />
+      )}
+    </>
+  )
+}
+
 // Styled Room Container with theme applied
 const ThemedRoomContainer = ({ 
   children, 
@@ -4055,6 +4327,18 @@ export default function MoonlightMagicHouse() {
   const [memoryMoves, setMemoryMoves] = useState(0)
   const [memoryMatches, setMemoryMatches] = useState(0)
   const [isCheckingMatch, setIsCheckingMatch] = useState(false)
+  
+  // Photo mode state
+  const [photoMode, setPhotoMode] = useState<PhotoModeState>({
+    isActive: false,
+    selectedFrameId: 'none',
+    stickers: [],
+    showControls: true,
+    filter: 'none',
+  })
+  const [isCapturing, setIsCapturing] = useState(false)
+  const [showCaptureFlash, setShowCaptureFlash] = useState(false)
+  const photoContainerRef = useRef<HTMLDivElement>(null)
   
   // RAF-based smooth dragging
   const dragRef = useRef<HTMLDivElement>(null)
