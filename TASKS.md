@@ -9,7 +9,7 @@
 ## 🔥🔥🔥 DASHBOARD AGENT CHAT - DA MATTIA 2026-01-31 07:49 PST
 
 ### [T1025] Infra: Fix FreeRiverHouse Agent Chat - Connect to Real Clawdbot Sessions
-- **Status**: IN_PROGRESS 🔧
+- **Status**: WAITING_MIGRATION ⏳
 - **Owner**: @clawdinho
 - **Started**: 2026-01-31 07:50 PST
 - **Depends**: -
@@ -18,25 +18,32 @@
 - **Notes**: DIRETTAMENTE DA MATTIA - LA CHAT DEGLI AGENTI NON HA MAI FUNZIONATO!
   - **Problema**: FreeRiverHouse Chat crea task ma usa Claude API executor, NON parla con Clawdbot reali
   - **Obiettivo**: Mattia vuole chattare con Clawdinho da onde.surf invece che Telegram
-  - **Componenti attuali:**
-    - `apps/surfboard/src/components/FreeRiverHouse.tsx` - UI con tab Chat
-    - `apps/surfboard/src/app/api/agent-executor/route.ts` - Executor che usa Claude API
-    - Tab Chat crea task `agent_request` e polla per risposta
-  - **Soluzione proposta:**
-    - [ ] Creare tabella D1 `agent_messages` per queue messaggi
-    - [ ] API endpoint `/api/agent-chat/send` per inviare messaggi
-    - [ ] API endpoint `/api/agent-chat/history` per leggere risposte
-    - [ ] Clawdbot heartbeat controlla queue e risponde
-    - [ ] WebSocket/SSE per push real-time delle risposte
-  - **Alternative considerate:**
-    - Esporre gateway WebSocket (richiede cambio bind + security)
-    - Proxy API locale (onde.surf su Cloudflare, non può raggiungere localhost)
-  - **Step implementazione:**
-    1. Creare migration D1 per `agent_messages`
-    2. Creare API endpoints
-    3. Aggiornare FreeRiverHouse.tsx per usare nuovi endpoint
-    4. Aggiungere check in HEARTBEAT.md per pickup messaggi
-    5. Test end-to-end
+  - **Completato:**
+    - [x] Creare tabella D1 `agent_messages` per queue messaggi → `migrations/0007_agent_chat.sql`
+    - [x] API endpoint `/api/agent-chat` per POST (send) e GET (history)
+    - [x] API endpoint `/api/agent-chat/pending` per Clawdbot pickup
+    - [x] Aggiornato FreeRiverHouse.tsx per usare nuovi endpoint
+    - [x] Script `scripts/check-agent-chat.sh` per heartbeat check
+    - [x] Aggiornato HEARTBEAT.md con istruzioni chat pickup
+    - [x] Deployed a https://385e67c6.onde-surf.pages.dev
+  - **⚠️ AZIONE RICHIESTA - MATTIA:**
+    ```
+    Applica migration D1 via Cloudflare Dashboard:
+    1. Vai a https://dash.cloudflare.com → D1 → onde-surf-db
+    2. Clicca "Console"
+    3. Incolla ed esegui il contenuto di:
+       apps/surfboard/migrations/0007_agent_chat.sql
+    ```
+  - **Come funziona:**
+    1. Dashboard manda messaggio → salvato in D1 (status: pending)
+    2. Clawdbot heartbeat chiama `/api/agent-chat/pending`
+    3. Clawdbot risponde → POST `/api/agent-chat/pending` con response
+    4. Dashboard polla `/api/agent-chat` e mostra risposta
+  - **Test dopo migration:**
+    - Vai a https://onde.surf/frh
+    - Clicca un agente (clawdinho)
+    - Tab "Chat" → scrivi messaggio
+    - Attendi ~5 min per risposta (heartbeat pickup)
 
 ---
 
