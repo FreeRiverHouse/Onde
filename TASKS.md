@@ -20,8 +20,11 @@
 | MLH-004 | Add dark/light theme toggle | DONE | @clawdinho | - |
 | MLH-005 | Add loading states for async panels | DONE | @clawdinho | - |
 | MLH-006 | Add breadcrumb navigation with keyboard support | DONE | @clawdinho | - |
-| MLH-007 | Add notification center panel (alerts, events) | IN_PROGRESS | @clawdinho | - |
+| MLH-007 | Add notification center panel (alerts, events) | DONE | @clawdinho | - |
 | MLH-008 | Add search history + recent commands to palette | TODO | - | - |
+| MLH-009 | Add agent activity feed to notification center | TODO | - | MLH-007 |
+| MLH-010 | Add notification sound preferences (mute/sound type) | TODO | - | MLH-007 |
+| MLH-011 | Add notification persistence with localStorage | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
 | ID | Task | Status | Owner | Depends |
@@ -55,6 +58,7 @@
 - **MLH-005** - Skeleton loading components: Skeleton, SkeletonPanel, SkeletonList, SkeletonStats, SkeletonChart + shimmer animation
 - **MLH-006** - Breadcrumb navigation: route-based breadcrumbs + Alt+← back + Alt+Home dashboard
 - **AUTO-001** - Site check script: check-sites-live.sh verifies onde.la + onde.surf HTTP status
+- **MLH-007** - NotificationCenter: dropdown panel with alerts/events, badge count, keyboard shortcut (N), mark read/dismiss, filters
 
 ---
 
