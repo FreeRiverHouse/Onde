@@ -47,17 +47,19 @@
     ```
 
 ### [T956] Agentic: Far Implementare Architettura a Ondinho
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30 20:51 PST
 - **Depends**: [T955] ✅
 - **Blocks**: -
 - **Priority**: P0
-- **Notes**: Ondinho deve usare `tools/agentic` per task paralleli!
-  - **ISTRUZIONI PER ONDINHO:**
+- **Notes**: ✅ Istruzioni pronte - Ondinho riceverà con git pull!
+  - **🚨 ONDINHO LEGGI QUI:**
     1. `git pull origin main` - scarica framework
     2. Leggi `tools/agentic/README.md` - documentazione completa
-    3. Usa Dispatcher per task complessi
-    4. Ollama URL: `http://192.168.1.111:11434` (Radeon 7900 XTX)
+    3. Usa Dispatcher per TUTTI i task complessi
+    4. Ollama URL: `http://192.168.1.111:11434` (Radeon 7900 XTX, 24GB VRAM!)
+  - **⚡ OBIETTIVO MATTIA: da 5 ore → 20 minuti per app!**
   - **Esempio base:**
     ```python
     from tools.agentic import Dispatcher
@@ -65,15 +67,25 @@
     result = d.run("Write a REST API for todos")
     print(result.output)
     ```
-  - **Parallelo:**
+  - **Parallelo (USA QUESTO per velocità!):**
     ```python
     results = d.parallel([
         "Write API routes",
-        "Write database models",
-        "Write unit tests"
+        "Write database models", 
+        "Write unit tests",
+        "Write frontend components"
+    ])  # Esegue TUTTI in parallelo sulla GPU!
+    ```
+  - **Pipeline sequenziale:**
+    ```python
+    d.pipeline([
+        "Design the architecture",
+        "Implement core features",
+        "Add error handling",
+        "Write documentation"
     ])
     ```
-  - **Clawdinho** notifica Ondinho al prossimo heartbeat o commit
+  - **Modelli disponibili:** deepseek-coder:6.7b, qwen2.5-coder:7b, llama31-8b, llama3.2:3b
 
 ---
 
