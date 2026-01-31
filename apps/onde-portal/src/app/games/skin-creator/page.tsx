@@ -862,6 +862,7 @@ export default function SkinCreator() {
   const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond' | 'smiley' | 'fire' | 'lightning'>('star');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
+  const [gridSnap, setGridSnap] = useState(false); // 📐 Snap drawing to pixel grid (aligns to brushSize multiples)
   const [darkMode, setDarkMode] = useState(false);
   const [show3D, setShow3D] = useState(true); // Toggle 2D/3D preview - default ON for 3D rotation!
   const [textureVersion, setTextureVersion] = useState(0); // Increment to refresh 3D texture
