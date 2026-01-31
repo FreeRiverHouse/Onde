@@ -1090,6 +1090,7 @@ export default function MoonlightMagicHouse() {
   // Initialize Find the Toy game
   const startFindToy = useCallback(() => {
     sounds.menuClick(soundEnabled)
+    sounds.windChime(soundEnabled) // Transition sound
     
     const spots: HidingSpot[] = []
     const toyIndex = Math.floor(Math.random() * 6)
@@ -1121,6 +1122,7 @@ export default function MoonlightMagicHouse() {
     if (spot.hasToy) {
       setFoundToy(true)
       sounds.found(soundEnabled)
+      sounds.sparkle(soundEnabled) // Extra magic sparkle!
       setRewards(prev => ({ ...prev, toys: prev.toys + 1 }))
       setTimeout(() => {
         sounds.celebrate(soundEnabled)
@@ -1139,6 +1141,7 @@ export default function MoonlightMagicHouse() {
   // Initialize Feed Time game
   const startFeedTime = useCallback(() => {
     sounds.menuClick(soundEnabled)
+    sounds.windChime(soundEnabled) // Transition sound
     setSelectedFood(null)
     setPetFed(false)
     setPetMood('hungry')
@@ -1151,10 +1154,16 @@ export default function MoonlightMagicHouse() {
   // Sound toggle handler
   const toggleSound = useCallback(() => {
     setSoundEnabled(prev => {
-      sounds.toggle(!prev)
-      return !prev
+      const newState = !prev
+      sounds.toggle(newState)
+      getAmbientMusic().setVolume(newState)
+      // Start ambient if wasn't playing and now enabled
+      if (newState && gameState !== 'loading') {
+        getAmbientMusic().start(true)
+      }
+      return newState
     })
-  }, [])
+  }, [gameState])
 
   // ============ BACKGROUND COMPONENT ============
   const MagicalBackground = useCallback(({ intense = false }: { intense?: boolean }) => (

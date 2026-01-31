@@ -307,10 +307,14 @@ export default function SkinCreator() {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
+  const [show3D, setShow3D] = useState(true); // Toggle 2D/3D preview - default ON for 3D rotation!
+  const [textureVersion, setTextureVersion] = useState(0); // Increment to refresh 3D texture
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 480 ? 3 : (typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6));
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
+  const [gridColor, setGridColor] = useState<'light' | 'dark' | 'blue' | 'red'>('dark'); // Grid line color
+  const [showBodyPartOverlay, setShowBodyPartOverlay] = useState(false); // Highlight body part regions
+  const [hoverPixel, setHoverPixel] = useState<{ x: number; y: number } | null>(null); // Pixel under cursor
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
   const [skinName, setSkinName] = useState('my-skin');
@@ -1011,17 +1015,39 @@ export default function SkinCreator() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Save canvas state for undo/redo
+  // 🔄 Save canvas state for undo/redo - captures ALL layers
   const saveState = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    // Capture the composite canvas state
+    const compositeData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    
+    // Capture all layer states
+    const layerStates: { [key in LayerType]?: ImageData } = {};
+    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+      const layerCanvas = layerCanvasRefs.current[layerId];
+      if (layerCanvas) {
+        const layerCtx = layerCanvas.getContext('2d');
+        if (layerCtx) {
+          layerStates[layerId] = layerCtx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        }
+      }
+    });
+
+    const newState: HistoryState = {
+      layers: layerStates,
+      composite: compositeData,
+      timestamp: Date.now(),
+    };
+
     setHistory(prev => {
+      // Remove any future states if we're in the middle of history
       const newHistory = prev.slice(0, historyIndex + 1);
-      newHistory.push(imageData);
+      newHistory.push(newState);
+      // Keep only last maxHistory states
       if (newHistory.length > maxHistory) newHistory.shift();
       return newHistory;
     });
@@ -1033,6 +1059,7 @@ export default function SkinCreator() {
     } catch (e) { /* ignore quota errors */ }
   }, [historyIndex]);
 
+  // 🔄 Undo - restores ALL layer states
   const undo = useCallback(() => {
     if (historyIndex <= 0) return;
     const canvas = canvasRef.current;
@@ -1041,18 +1068,43 @@ export default function SkinCreator() {
     if (!ctx) return;
 
     const newIndex = historyIndex - 1;
-    ctx.putImageData(history[newIndex], 0, 0);
+    const state = history[newIndex];
+    if (!state) return;
+
+    // Restore all layer canvases
+    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+      const layerCanvas = layerCanvasRefs.current[layerId];
+      const layerData = state.layers[layerId];
+      if (layerCanvas && layerData) {
+        const layerCtx = layerCanvas.getContext('2d');
+        if (layerCtx) {
+          layerCtx.putImageData(layerData, 0, 0);
+        }
+      }
+    });
+
+    // Restore the composite canvas
+    ctx.putImageData(state.composite, 0, 0);
     setHistoryIndex(newIndex);
+    updatePreview();
     // 🎮 Trigger 3D preview texture refresh
     setTextureVersion(v => v + 1);
+
     // 🤫 Perfectionist achievement - track undo count
     const undoCount = parseInt(localStorage.getItem('skin-undo-count') || '0') + 1;
     localStorage.setItem('skin-undo-count', undoCount.toString());
     if (undoCount >= 50) {
       unlockAchievement('perfectionist');
     }
+    
+    // Unlock undo achievement after 10 uses
+    if (undoCount >= 10) {
+      unlockAchievement('undoKing');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, historyIndex, unlockAchievement]);
 
+  // 🔄 Redo - restores ALL layer states
   const redo = useCallback(() => {
     if (historyIndex >= history.length - 1) return;
     const canvas = canvasRef.current;
@@ -1061,11 +1113,67 @@ export default function SkinCreator() {
     if (!ctx) return;
 
     const newIndex = historyIndex + 1;
-    ctx.putImageData(history[newIndex], 0, 0);
+    const state = history[newIndex];
+    if (!state) return;
+
+    // Restore all layer canvases
+    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+      const layerCanvas = layerCanvasRefs.current[layerId];
+      const layerData = state.layers[layerId];
+      if (layerCanvas && layerData) {
+        const layerCtx = layerCanvas.getContext('2d');
+        if (layerCtx) {
+          layerCtx.putImageData(layerData, 0, 0);
+        }
+      }
+    });
+
+    // Restore the composite canvas
+    ctx.putImageData(state.composite, 0, 0);
     setHistoryIndex(newIndex);
+    updatePreview();
     // 🎮 Trigger 3D preview texture refresh
     setTextureVersion(v => v + 1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, historyIndex]);
+
+  // 🔄 Jump to specific history state (for timeline panel)
+  const jumpToHistoryState = useCallback((index: number) => {
+    if (index < 0 || index >= history.length) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const state = history[index];
+    if (!state) return;
+
+    // Restore all layer canvases
+    (['base', 'clothing', 'accessories'] as LayerType[]).forEach(layerId => {
+      const layerCanvas = layerCanvasRefs.current[layerId];
+      const layerData = state.layers[layerId];
+      if (layerCanvas && layerData) {
+        const layerCtx = layerCanvas.getContext('2d');
+        if (layerCtx) {
+          layerCtx.putImageData(layerData, 0, 0);
+        }
+      }
+    });
+
+    // Restore the composite canvas
+    ctx.putImageData(state.composite, 0, 0);
+    setHistoryIndex(index);
+    updatePreview();
+    // 🎮 Trigger 3D preview texture refresh
+    setTextureVersion(v => v + 1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
+  
+  // 🔄 Clear all history (fresh start)
+  const clearHistory = useCallback(() => {
+    setHistory([]);
+    setHistoryIndex(-1);
+  }, []);
 
   // Sound effects using Web Audio API 🔊
   const playSound = useCallback((type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save' | 'achievement') => {
@@ -1208,7 +1316,9 @@ export default function SkinCreator() {
 
       switch(e.key.toLowerCase()) {
         case 'b': setTool('brush'); break;
+        case 'p': setTool('pencil'); break;
         case 'e': setTool('eraser'); break;
+        case 'r': if (!(e.metaKey || e.ctrlKey)) setTool('spray'); break;
         case 'f': setTool('fill'); break;
         case 'g': 
           if (e.shiftKey) { setShowGrid(prev => !prev); } 
@@ -1700,6 +1810,44 @@ export default function SkinCreator() {
     setTextureVersion(v => v + 1);
   }, [getLayerCanvas, compositeLayersToMain]);
 
+  const updatePreview = useCallback(() => {
+    const canvas = canvasRef.current;
+    const preview = previewRef.current;
+    if (!canvas || !preview) return;
+
+    const ctx = preview.getContext('2d');
+    if (!ctx) return;
+
+    // Clear
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, preview.width, preview.height);
+
+    // Draw a simple front view of the character
+    const scale = 8;
+    const offsetX = 60;
+    const offsetY = 20;
+
+    ctx.imageSmoothingEnabled = false;
+
+    // Head (front face from 8,8)
+    ctx.drawImage(canvas, 8, 8, 8, 8, offsetX, offsetY, 8 * scale, 8 * scale);
+
+    // Body (front from 20,20)
+    ctx.drawImage(canvas, 20, 20, 8, 12, offsetX, offsetY + 8 * scale, 8 * scale, 12 * scale);
+
+    // Right Arm
+    ctx.drawImage(canvas, 44, 20, 4, 12, offsetX - 4 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
+
+    // Left Arm
+    ctx.drawImage(canvas, 36, 52, 4, 12, offsetX + 8 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
+
+    // Right Leg
+    ctx.drawImage(canvas, 4, 20, 4, 12, offsetX, offsetY + 20 * scale, 4 * scale, 12 * scale);
+
+    // Left Leg
+    ctx.drawImage(canvas, 20, 52, 4, 12, offsetX + 4 * scale, offsetY + 20 * scale, 4 * scale, 12 * scale);
+  }, []);
+
   // 🎮 Load a character template (PNG image) - Kids start from a base!
   const loadCharacterTemplate = useCallback((templateId: string) => {
     const template = CHARACTER_TEMPLATES.find(t => t.id === templateId);
@@ -1744,45 +1892,7 @@ export default function SkinCreator() {
       playSound('error');
     };
     img.src = template.imagePath;
-  }, [getLayerCanvas, compositeLayersToMain, saveState, playSound]);
-
-  const updatePreview = useCallback(() => {
-    const canvas = canvasRef.current;
-    const preview = previewRef.current;
-    if (!canvas || !preview) return;
-
-    const ctx = preview.getContext('2d');
-    if (!ctx) return;
-
-    // Clear
-    ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(0, 0, preview.width, preview.height);
-
-    // Draw a simple front view of the character
-    const scale = 8;
-    const offsetX = 60;
-    const offsetY = 20;
-
-    ctx.imageSmoothingEnabled = false;
-
-    // Head (front face from 8,8)
-    ctx.drawImage(canvas, 8, 8, 8, 8, offsetX, offsetY, 8 * scale, 8 * scale);
-
-    // Body (front from 20,20)
-    ctx.drawImage(canvas, 20, 20, 8, 12, offsetX, offsetY + 8 * scale, 8 * scale, 12 * scale);
-
-    // Right Arm
-    ctx.drawImage(canvas, 44, 20, 4, 12, offsetX - 4 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
-
-    // Left Arm
-    ctx.drawImage(canvas, 36, 52, 4, 12, offsetX + 8 * scale, offsetY + 8 * scale, 4 * scale, 12 * scale);
-
-    // Right Leg
-    ctx.drawImage(canvas, 4, 20, 4, 12, offsetX, offsetY + 20 * scale, 4 * scale, 12 * scale);
-
-    // Left Leg
-    ctx.drawImage(canvas, 20, 52, 4, 12, offsetX + 4 * scale, offsetY + 20 * scale, 4 * scale, 12 * scale);
-  }, []);
+  }, [getLayerCanvas, compositeLayersToMain, updatePreview, saveState, playSound]);
 
   // 💾 Save current skin
   const saveSkin = useCallback(() => {
@@ -2980,22 +3090,22 @@ export default function SkinCreator() {
         />
       ))}
       {/* Header */}
-      <div className="text-center mb-4 md:mb-6 relative px-12 md:px-0">
+      <div className="text-center mb-4 md:mb-6 relative px-12 md:px-0 skin-animate-in">
         {/* Mobile Menu Button - More prominent */}
         <button
           onClick={() => setShowMobileMenu(!showMobileMenu)}
-          className="md:hidden absolute left-0 top-0 w-11 h-11 bg-white/30 rounded-xl hover:bg-white/40 active:scale-95 transition-all flex items-center justify-center shadow-lg"
+          className="md:hidden absolute left-0 top-0 w-11 h-11 bg-white/30 rounded-xl hover:bg-white/40 active:scale-95 transition-all flex items-center justify-center shadow-lg skin-btn-premium"
           aria-label="Menu"
         >
           <span className="text-2xl">{showMobileMenu ? '✕' : '☰'}</span>
         </button>
         
-        <div className="flex items-center justify-center gap-2 mb-1">
-          <span className="text-sm font-semibold text-white/80 bg-white/20 px-2 py-0.5 rounded-full">
+        <div className="flex items-center justify-center gap-2 mb-1 skin-animate-in delay-100">
+          <span className="text-sm font-semibold text-white/80 bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">
             🌙 Moonlight
           </span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl animate-float">
+        <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl animate-float skin-animate-in-scale delay-150" style={{ textShadow: '0 0 40px rgba(139, 92, 246, 0.5), 0 4px 20px rgba(0,0,0,0.3)' }}>
           🎨 Skin Studio
         </h1>
         <p className="text-lg text-white/90 mt-1">
@@ -3026,26 +3136,27 @@ export default function SkinCreator() {
         </p>
 
         {/* Daily Challenge Banner */}
-        <div className="mt-3 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl px-4 py-2 text-white text-sm flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">📅</span>
+        <div className="mt-3 bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 rounded-xl px-4 py-2 text-white text-sm flex items-center justify-between skin-glass-card skin-animate-in delay-200 overflow-hidden relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          <div className="flex items-center gap-2 relative z-10">
+            <span className="text-lg animate-bounce">📅</span>
             <span className="font-bold">Daily Challenge:</span>
-            <span>{todayChallenge.theme}</span>
+            <span className="font-semibold">{todayChallenge.theme}</span>
             <span className="opacity-80 text-xs hidden sm:inline">• {todayChallenge.hint}</span>
           </div>
-          <span className="text-xs opacity-75">#SkinStudioChallenge</span>
+          <span className="text-xs opacity-75 relative z-10">#SkinStudioChallenge</span>
         </div>
 
         {/* Game Selector */}
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-2 mt-3 skin-animate-in delay-250">
           {(Object.entries(GAME_CONFIGS) as [GameType, GameConfig][]).map(([key, config]) => (
             <button
               key={key}
               onClick={() => setSelectedGame(key)}
-              className={`px-4 py-2 rounded-full font-bold transition-all ${
+              className={`px-4 py-2 rounded-full font-bold transition-all duration-300 skin-btn-premium ${
                 selectedGame === key
-                  ? 'bg-white text-purple-600 scale-105 shadow-lg'
-                  : 'bg-white/20 text-white hover:bg-white/30'
+                  ? 'bg-white text-purple-600 scale-105 shadow-lg shadow-purple-500/30'
+                  : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
               }`}
             >
               {config.emoji} {config.name}
@@ -3473,7 +3584,7 @@ export default function SkinCreator() {
           <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4 justify-center px-1">
             <button
               onClick={() => setTool('brush')}
-              title="🖌️ Draw! Click and drag to color"
+              title="🖌️ Draw! Click and drag to color (B)"
               className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -3481,8 +3592,17 @@ export default function SkinCreator() {
               🖌️
             </button>
             <button
+              onClick={() => setTool('pencil')}
+              title="✏️ Pencil! Precise 1px drawing (P)"
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                tool === 'pencil' ? 'bg-gray-700 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+              }`}
+            >
+              ✏️
+            </button>
+            <button
               onClick={() => setTool('eraser')}
-              title="🧽 Erase! Remove colors"
+              title="🧽 Erase! Remove colors (E)"
               className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
@@ -3490,8 +3610,17 @@ export default function SkinCreator() {
               🧽
             </button>
             <button
+              onClick={() => setTool('spray')}
+              title="💨 Spray! Airbrush effect (R)"
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                tool === 'spray' ? 'bg-cyan-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+              }`}
+            >
+              💨
+            </button>
+            <button
               onClick={() => setTool('fill')}
-              title="🪣 Fill! Color a whole area"
+              title="🪣 Fill! Color a whole area (F)"
               className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
