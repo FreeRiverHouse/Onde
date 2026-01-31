@@ -65,6 +65,44 @@
   - sessions_spawn nuovo task per riprendere
   - Log motivo stall in memory
 
+### [T952] Infra: Unified Crontab Setup Script
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Create script to install/update all watchdog crons:
+  - watchdog-autotrader.sh (every 5 min)
+  - watchdog-ondinho.sh (every 15 min)
+  - Other periodic scripts
+  - Idempotent (can re-run safely)
+  - Output: shows current crontab with our jobs
+
+### [T953] Infra: Agent Health Dashboard Widget
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T950]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Dashboard widget showing all agent health:
+  - Clawdinho status (heartbeat recency)
+  - Ondinho status (commit recency)
+  - Autotrader status (running/stopped)
+  - Alert count summary
+  - Add to onde.surf/betting or separate /status page
+
+### [T954] Infra: Improve Ondinho Detection via Session Activity
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T950]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve watchdog-ondinho.sh:
+  - Also check sessions_list for active Ondinho session
+  - Check memory/*.md for recent Ondinho entries
+  - Better author detection (currently misses some commits)
+  - Add session ping capability if available
+
 ---
 
 ## 🎮 MINECRAFT SKIN CREATOR APP (DA MATTIA 2026-01-30)
