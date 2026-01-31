@@ -11638,3 +11638,41 @@ Generated: 2026-01-30T18:37:46.867013
   - Generate task descriptions from code changes
   - Free up Claude API tokens for complex reasoning
   - Track token savings in metrics
+
+### [T945] Minecraft Skin Creator: Premium Templates Pack
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Aggiungere pack premium di template (gratis ma più elaborati)
+  - Superhero pack (5+ skins)
+  - Fantasy pack (Dragon, Wizard, Elf, Orc)
+  - Sci-Fi pack (Astronaut, Cyborg, Alien variations)
+  - Holiday pack (Santa, Easter Bunny, etc)
+  - Sports pack (Soccer, Basketball, etc)
+
+### [T946] Minecraft Skin Creator: AI Generation Improvements
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Migliorare l'AI generator esistente
+  - Style presets (Realistic, Cartoon, Pixel Art Classic)
+  - Prompt templates per bambini
+  - History delle generazioni precedenti
+  - "Surprise me" button con random prompts creativi
+
+### [T947] Minecraft Skin Creator: Community Gallery
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T864]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Gallery condivisa per skin create dalla community
+  - Upload skin alla gallery (moderata)
+  - Top 10 weekly/monthly
+  - Download counter
+  - Like/favorites system
+  - Requires backend API (Supabase?)
