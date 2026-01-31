@@ -12479,7 +12479,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: TASK 1000! Special milestone - add confetti celebration on app load
 
 ### [T1001] Skin Creator: Dance Animation
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12575,3 +12575,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Tutorial for mobile touch controls
+
+### [T1015] Skin Creator: Floss Dance
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Classic Fortnite floss dance animation
+
+### [T1016] Skin Creator: Dab Pose
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Dab pose animation
+
+### [T1017] Skin Creator: Animation Speed Control
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Slider to control animation speed
