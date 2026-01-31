@@ -10437,7 +10437,7 @@
   - Style presets (cartoon, realistic, pixel art)
 
 ### [T881] Skin Creator: Skin Gallery/Community
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: [T864]
 - **Blocks**: -
@@ -10500,7 +10500,7 @@
   - Share presets with community
 
 ### [T886] Skin Creator: Layer Blending Modes
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: [T879]
 - **Blocks**: -
@@ -10512,7 +10512,7 @@
   - Preview before applying
 
 ### [T887] Skin Creator: Version History
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: [T879]
 - **Blocks**: -
@@ -10523,3 +10523,27 @@
   - Visual history browser
   - Restore to any previous version
   - Compare versions side by side
+
+### [T885] Skin Creator: Custom Overlay Colors
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Permettere colori custom per overlay
+
+### [T886] Skin Creator: Overlay Layer Ordering  
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Gestire ordine layer
+
+### [T887] Skin Creator: Save/Load Overlay Presets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Salvare preset overlay personalizzati
