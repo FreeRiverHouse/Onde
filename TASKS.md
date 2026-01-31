@@ -10972,16 +10972,23 @@
     ```
 
 ### [T910] Integrare LLM Client in Bot Pool
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T909]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Integrare `llm-client.py` nei bot per uso automatico
-  - [ ] Import LLMClient in bot esistenti
-  - [ ] Fallback se LLM non disponibile
-  - [ ] Logging errori in TASKS.md
-  - [ ] Health check periodico
+- **Notes**: ✅ Created `scripts/bot_llm.py` - Simple bot integration wrapper!
+  - ✅ `ask(prompt)` - Quick questions with llama3.2:3b
+  - ✅ `ask_code(prompt)` - Code gen with deepseek-coder
+  - ✅ `ask_with_fallback(prompt, models)` - Try multiple models
+  - ✅ `is_available()` - Quick ping check
+  - ✅ `health_check()` - Full health + latency test
+  - ✅ Auto-starts Ollama if not running
+  - ✅ Error logging to `data/llm-errors.log`
+  - ✅ Health state saved to `data/llm-health-state.json`
+  - ✅ CLI mode: `python3 bot_llm.py --check | --ask 'prompt'`
+  - **Tested**: Healthy, 2183ms latency, 4 models available
 
 ### [T911] Creare LaunchAgent per Ollama Auto-Start
 - **Status**: TODO
@@ -11592,3 +11599,42 @@ Generated: 2026-01-30T18:37:46.867013
   - Target: 5-8 pages for better preview
   - Include illustrations descriptions
   - Add chapter navigation for longer books
+
+### [T942] Infrastructure: Add LLM Health Check to Watchdog
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Created**: 2026-01-30
+- **Depends**: [T910]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Add local LLM health monitoring to infrastructure
+  - Call bot_llm.health_check() from watchdog cron
+  - Create kalshi-llm-health.alert if Ollama down >10min
+  - Log latency trends to data/llm-health-history.jsonl
+  - Alert if latency > 10s (model loading issues)
+
+### [T943] Documentation: Bot LLM Integration Examples
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Created**: 2026-01-30
+- **Depends**: [T910]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Document how to use local LLM from bots
+  - Add examples to scripts/local-agents/README.md
+  - Show ask(), ask_code(), ask_with_fallback() usage
+  - Document when to use local vs Claude API
+  - Include error handling best practices
+
+### [T944] Heartbeat: Use Local LLM for Simple Summarization
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Created**: 2026-01-30
+- **Depends**: [T910]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Use local LLM during heartbeat for simple tasks
+  - Summarize log files before sending alerts
+  - Generate task descriptions from code changes
+  - Free up Claude API tokens for complex reasoning
+  - Track token savings in metrics
