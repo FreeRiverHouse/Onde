@@ -11229,8 +11229,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Colori più vivaci e riconoscibili
 
 ### [T924] Skin Creator: 3D Rotation View
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
