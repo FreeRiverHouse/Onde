@@ -1,7 +1,135 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
+
+// Sound effects hook using Web Audio API
+function useSoundEffects() {
+  const audioContextRef = useRef<AudioContext | null>(null)
+
+  const getAudioContext = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    }
+    return audioContextRef.current
+  }, [])
+
+  const playClick = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.frequency.setValueAtTime(800, ctx.currentTime)
+      osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1)
+      gain.gain.setValueAtTime(0.3, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.1)
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  const playSizzle = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // White noise for sizzle effect
+      const bufferSize = ctx.sampleRate * 0.5
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+      const data = buffer.getChannelData(0)
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3))
+      }
+      const source = ctx.createBufferSource()
+      source.buffer = buffer
+      const filter = ctx.createBiquadFilter()
+      filter.type = 'highpass'
+      filter.frequency.value = 3000
+      const gain = ctx.createGain()
+      gain.gain.setValueAtTime(0.15, ctx.currentTime)
+      source.connect(filter)
+      filter.connect(gain)
+      gain.connect(ctx.destination)
+      source.start()
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  const playStir = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // Swooshing stir sound
+      for (let i = 0; i < 3; i++) {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = 'sine'
+        const startTime = ctx.currentTime + i * 0.15
+        osc.frequency.setValueAtTime(200, startTime)
+        osc.frequency.exponentialRampToValueAtTime(400, startTime + 0.1)
+        osc.frequency.exponentialRampToValueAtTime(200, startTime + 0.15)
+        gain.gain.setValueAtTime(0.1, startTime)
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.15)
+        osc.start(startTime)
+        osc.stop(startTime + 0.15)
+      }
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  const playDing = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // Oven ding!
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.frequency.setValueAtTime(880, ctx.currentTime)
+      gain.gain.setValueAtTime(0.3, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.5)
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  const playSuccess = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // Happy success jingle
+      const notes = [523.25, 659.25, 783.99, 1046.50] // C5, E5, G5, C6
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.frequency.value = freq
+        const startTime = ctx.currentTime + i * 0.15
+        gain.gain.setValueAtTime(0.2, startTime)
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3)
+        osc.start(startTime)
+        osc.stop(startTime + 0.3)
+      })
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  const playPop = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.frequency.setValueAtTime(600, ctx.currentTime)
+      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.08)
+      gain.gain.setValueAtTime(0.4, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.08)
+    } catch (e) { /* Audio not available */ }
+  }, [getAudioContext])
+
+  return { playClick, playSizzle, playStir, playDing, playSuccess, playPop }
+}
 
 // Recipe data
 const recipes = [
@@ -20,14 +148,21 @@ const recipes = [
   { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500' },
 ]
 
-function RecipeCard({ recipe, onSelect }: { recipe: typeof recipes[0], onSelect: () => void }) {
+function RecipeCard({ recipe, onSelect, playPop }: { recipe: typeof recipes[0], onSelect: () => void, playPop: () => void }) {
   const stars = Array(3).fill(0).map((_, i) => (
     <span key={i} className={i < recipe.difficulty ? 'text-yellow-400' : 'text-gray-300'}>⭐</span>
   ))
 
+  const handleClick = () => {
+    if (!recipe.locked) {
+      playPop()
+      onSelect()
+    }
+  }
+
   return (
     <button
-      onClick={onSelect}
+      onClick={handleClick}
       disabled={recipe.locked}
       className={`
         relative w-full p-4 rounded-3xl shadow-xl transition-all duration-300
@@ -50,25 +185,38 @@ function RecipeCard({ recipe, onSelect }: { recipe: typeof recipes[0], onSelect:
   )
 }
 
-function PlayScreen({ recipe, onBack }: { recipe: typeof recipes[0], onBack: () => void }) {
+function PlayScreen({ recipe, onBack, sounds }: { 
+  recipe: typeof recipes[0], 
+  onBack: () => void,
+  sounds: ReturnType<typeof useSoundEffects>
+}) {
   const [step, setStep] = useState(0)
   const [score, setScore] = useState(0)
   const [completed, setCompleted] = useState(false)
 
   const steps = [
-    { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti' },
-    { text: 'Mescola tutto insieme! 🥄', action: 'Gira in cerchio!' },
-    { text: 'Metti in forno! 🔥', action: 'Aspetta...' },
-    { text: 'Decora il piatto! ✨', action: 'Aggiungi decorazioni' },
+    { text: 'Raccogli gli ingredienti! 🛒', action: 'Tap sugli ingredienti', sound: 'click' },
+    { text: 'Mescola tutto insieme! 🥄', action: 'Gira in cerchio!', sound: 'stir' },
+    { text: 'Metti in forno! 🔥', action: 'Aspetta...', sound: 'sizzle' },
+    { text: 'Decora il piatto! ✨', action: 'Aggiungi decorazioni', sound: 'ding' },
   ]
 
   const handleStep = () => {
+    // Play sound based on current step
+    const currentSound = steps[step].sound
+    if (currentSound === 'click') sounds.playClick()
+    else if (currentSound === 'stir') sounds.playStir()
+    else if (currentSound === 'sizzle') sounds.playSizzle()
+    else if (currentSound === 'ding') sounds.playDing()
+
     if (step < steps.length - 1) {
       setStep(step + 1)
       setScore(score + 25)
     } else {
       setCompleted(true)
       setScore(100)
+      // Play success jingle after a short delay
+      setTimeout(() => sounds.playSuccess(), 300)
     }
   }
 
@@ -82,7 +230,7 @@ function PlayScreen({ recipe, onBack }: { recipe: typeof recipes[0], onBack: () 
           <div className="flex justify-center gap-2 text-4xl mb-4">⭐⭐⭐</div>
           <p className="text-2xl font-bold text-orange-500 mb-6">Punteggio: {score}/100</p>
           <button
-            onClick={onBack}
+            onClick={() => { sounds.playClick(); onBack() }}
             className="px-8 py-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-xl rounded-full shadow-lg hover:scale-105 transition-all"
           >
             🏠 Torna al Menu
@@ -96,7 +244,7 @@ function PlayScreen({ recipe, onBack }: { recipe: typeof recipes[0], onBack: () 
     <div className={`min-h-screen bg-gradient-to-b ${recipe.color} flex flex-col items-center p-4`}>
       {/* Header */}
       <div className="w-full max-w-md flex items-center justify-between mb-4">
-        <button onClick={onBack} className="bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg">
+        <button onClick={() => { sounds.playClick(); onBack() }} className="bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
           ← Indietro
         </button>
         <div className="bg-white/80 px-4 py-2 rounded-full font-bold text-orange-600 shadow-lg">
@@ -142,17 +290,18 @@ function PlayScreen({ recipe, onBack }: { recipe: typeof recipes[0], onBack: () 
 
 export default function KidsChefStudio() {
   const [selectedRecipe, setSelectedRecipe] = useState<typeof recipes[0] | null>(null)
-  const [unlockedRecipes, setUnlockedRecipes] = useState(13) // All unlocked!
+  const [unlockedRecipes] = useState(13) // All unlocked!
+  const sounds = useSoundEffects()
 
   if (selectedRecipe) {
-    return <PlayScreen recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
+    return <PlayScreen recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} sounds={sounds} />
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-300 via-yellow-300 to-amber-400">
       {/* Header */}
       <div className="text-center pt-8 pb-4 relative">
-        <Link href="/games" className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
+        <Link href="/games" onClick={() => sounds.playClick()} className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
           ← Gaming Island
         </Link>
         <div className="text-6xl mb-2 animate-bounce">👨‍🍳</div>
@@ -175,6 +324,7 @@ export default function KidsChefStudio() {
               key={recipe.id} 
               recipe={recipe} 
               onSelect={() => !recipe.locked && setSelectedRecipe(recipe)}
+              playPop={sounds.playPop}
             />
           ))}
         </div>
