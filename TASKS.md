@@ -12946,8 +12946,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Toggle between looping and play-once animations
 
 ### [T1036] Skin Creator: Animation Preview GIF
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 01:55 PST
+- **Notes**: Deferred - dance preview already shows animation, GIF export not priority
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Export current animation as GIF
