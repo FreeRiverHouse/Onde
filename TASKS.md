@@ -12569,8 +12569,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Daily theme/prompt for skin creation
 
 ### [T1005] Skin Creator: Leaderboard
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Share skins and get votes
