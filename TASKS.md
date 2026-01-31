@@ -10922,3 +10922,99 @@
   - Deploy to Cloudflare Pages
   - Verify live site works
   - Test duplicate feature on production
+
+---
+
+## 🧠 LLM LOCAL API & GUI (DA CLAUDE CODE 2026-01-30)
+
+### [T909] Setup LLM API Server con Ollama
+- **Status**: DONE
+- **Owner**: @claude-code
+- **Completed**: 2026-01-30
+- **Depends**: [T866]
+- **Blocks**: [T910], [T911], [T912]
+- **Priority**: P0
+- **Notes**: ✅ Setup completo API + GUI per LLM locale!
+  - **Endpoint API**: http://192.168.1.111:11434/
+  - **GUI Web**: http://192.168.1.111:8080/
+  - **Backend**: Ollama v0.14.3 su Metal (M1)
+  - **Modelli**:
+    - `llama3.2:3b` - 2-3s (chat veloce)
+    - `llama31-8b:latest` - 15-30s (chat qualità)
+    - `deepseek-coder:6.7b` - 1-3min (coding)
+    - `qwen2.5-coder:7b` - 1-3min (coding alt)
+  - **Files creati**:
+    - `~/Projects/Onde/llm-chat/index.html` - GUI web
+    - `~/Projects/Onde/tools/llm-client.py` - Client Python
+    - `~/Projects/Onde/tools/ask-coder.py` - CLI helper
+    - `~/Projects/Onde/SETUP-LLM-OLLAMA.md` - Documentazione
+  - **Avvio servizi**:
+    ```bash
+    # API (richiesto)
+    OLLAMA_HOST=0.0.0.0:11434 OLLAMA_ORIGINS="*" ollama serve
+    # GUI (opzionale)
+    cd ~/Projects/Onde/llm-chat && python3 -m http.server 8080 --bind 0.0.0.0
+    ```
+
+### [T910] Integrare LLM Client in Bot Pool
+- **Status**: TODO
+- **Owner**: @clawdinho
+- **Depends**: [T909]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Integrare `llm-client.py` nei bot per uso automatico
+  - [ ] Import LLMClient in bot esistenti
+  - [ ] Fallback se LLM non disponibile
+  - [ ] Logging errori in TASKS.md
+  - [ ] Health check periodico
+
+### [T911] Creare LaunchAgent per Ollama Auto-Start
+- **Status**: TODO
+- **Owner**: TBD
+- **Depends**: [T909]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Avvio automatico Ollama al boot del Mac
+  - [ ] Creare ~/Library/LaunchAgents/com.ollama.server.plist
+  - [ ] Configurare OLLAMA_HOST e OLLAMA_ORIGINS
+  - [ ] Test riavvio
+
+### [T912] Aggiungere Error Logging a TASKS.md
+- **Status**: TODO
+- **Owner**: TBD
+- **Depends**: [T909]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Quando un bot trova errori LLM, logga qui automaticamente
+  - [ ] Modificare llm-client.py per appendere a TASKS.md
+  - [ ] Formato: [TXXXX] LLM Error: descrizione
+  - [ ] Auto-increment task number
+
+### [T913] Feature Request: Streaming Responses in GUI
+- **Status**: TODO
+- **Owner**: TBD
+- **Depends**: [T909]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Aggiungere streaming per vedere risposta in tempo reale
+  - [ ] Modificare GUI per supportare SSE/streaming
+  - [ ] Usare Ollama stream:true
+
+### [T914] Feature Request: Conversation Memory
+- **Status**: TODO
+- **Owner**: TBD
+- **Depends**: [T909]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: GUI mantiene contesto conversazione
+  - [ ] Usare /api/chat invece di /api/generate
+  - [ ] Salvare history in localStorage
+
+
+### [T915] LLM-FEATURE: Test feature
+- **Status**: TODO
+- **Owner**: TBD
+- **Created**: 2026-01-30 18:12
+- **Priority**: P3
+- **Notes**: Auto-logged feature request
+  - This is a test
