@@ -1,7 +1,90 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+
+// Retro arcade sound effects using Web Audio API
+function useArcadeSounds() {
+  const audioContextRef = useRef<AudioContext | null>(null)
+
+  const getAudioContext = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    }
+    return audioContextRef.current
+  }, [])
+
+  // Coin beep - short high-pitched blip
+  const playCoinBeep = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      const oscillator = ctx.createOscillator()
+      const gainNode = ctx.createGain()
+      
+      oscillator.connect(gainNode)
+      gainNode.connect(ctx.destination)
+      
+      oscillator.type = 'square'
+      oscillator.frequency.setValueAtTime(880, ctx.currentTime) // A5
+      oscillator.frequency.setValueAtTime(1320, ctx.currentTime + 0.05) // E6
+      
+      gainNode.gain.setValueAtTime(0.1, ctx.currentTime)
+      gainNode.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.08)
+      
+      oscillator.start(ctx.currentTime)
+      oscillator.stop(ctx.currentTime + 0.08)
+    } catch {
+      // Audio not available
+    }
+  }, [getAudioContext])
+
+  // Select sound - descending "insert coin" style
+  const playSelectSound = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      
+      // First tone
+      const osc1 = ctx.createOscillator()
+      const gain1 = ctx.createGain()
+      osc1.connect(gain1)
+      gain1.connect(ctx.destination)
+      osc1.type = 'square'
+      osc1.frequency.setValueAtTime(600, ctx.currentTime)
+      gain1.gain.setValueAtTime(0.15, ctx.currentTime)
+      gain1.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.1)
+      osc1.start(ctx.currentTime)
+      osc1.stop(ctx.currentTime + 0.1)
+      
+      // Second tone (higher)
+      const osc2 = ctx.createOscillator()
+      const gain2 = ctx.createGain()
+      osc2.connect(gain2)
+      gain2.connect(ctx.destination)
+      osc2.type = 'square'
+      osc2.frequency.setValueAtTime(800, ctx.currentTime + 0.08)
+      gain2.gain.setValueAtTime(0.15, ctx.currentTime + 0.08)
+      gain2.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.2)
+      osc2.start(ctx.currentTime + 0.08)
+      osc2.stop(ctx.currentTime + 0.2)
+      
+      // Third tone (highest) 
+      const osc3 = ctx.createOscillator()
+      const gain3 = ctx.createGain()
+      osc3.connect(gain3)
+      gain3.connect(ctx.destination)
+      osc3.type = 'square'
+      osc3.frequency.setValueAtTime(1000, ctx.currentTime + 0.16)
+      gain3.gain.setValueAtTime(0.15, ctx.currentTime + 0.16)
+      gain3.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.3)
+      osc3.start(ctx.currentTime + 0.16)
+      osc3.stop(ctx.currentTime + 0.3)
+    } catch {
+      // Audio not available
+    }
+  }, [getAudioContext])
+
+  return { playCoinBeep, playSelectSound }
+}
 
 const games = [
   { 
@@ -124,11 +207,13 @@ function NeonLights() {
 }
 
 // Game card with CRT effect
-function GameCard({ game, isSelected, onHover, onLeave }: { 
+function GameCard({ game, isSelected, onHover, onLeave, onSelect, playCoinBeep }: { 
   game: typeof games[0], 
   isSelected: boolean,
   onHover: () => void,
-  onLeave: () => void
+  onLeave: () => void,
+  onSelect: () => void,
+  playCoinBeep: () => void
 }) {
   const [showInsertCoin, setShowInsertCoin] = useState(false)
 
@@ -141,11 +226,21 @@ function GameCard({ game, isSelected, onHover, onLeave }: {
     setShowInsertCoin(false)
   }, [isSelected])
 
+  const handleHover = () => {
+    onHover()
+    playCoinBeep()
+  }
+
+  const handleClick = () => {
+    onSelect()
+  }
+
   return (
     <Link
       href={game.href}
-      onMouseEnter={onHover}
+      onMouseEnter={handleHover}
       onMouseLeave={onLeave}
+      onClick={handleClick}
       className="group block"
     >
       {/* Arcade cabinet shape */}
@@ -265,6 +360,7 @@ function GameCard({ game, isSelected, onHover, onLeave }: {
 export default function ArcadePage() {
   const [selectedGame, setSelectedGame] = useState<string | null>(null)
   const [pressAnyKey, setPressAnyKey] = useState(true)
+  const { playCoinBeep, playSelectSound } = useArcadeSounds()
 
   // Pulsing "press any button" effect
   useEffect(() => {
@@ -367,6 +463,8 @@ export default function ArcadePage() {
                 isSelected={selectedGame === game.id}
                 onHover={() => setSelectedGame(game.id)}
                 onLeave={() => setSelectedGame(null)}
+                onSelect={playSelectSound}
+                playCoinBeep={playCoinBeep}
               />
             ))}
           </div>
