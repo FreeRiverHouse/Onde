@@ -29,6 +29,16 @@ const fortunes = [
   { text: "Adventure awaits you! 🗺️", lang: 'en' },
   { text: "La felicità è dentro di te! ☀️", lang: 'it' },
   { text: "You are a wonderful friend! 🤗", lang: 'en' },
+  { text: "Sbagliare ti aiuta a crescere! 🌱", lang: 'it' },
+  { text: "Being scared is okay, being brave is trying anyway! 🦸", lang: 'en' },
+  { text: "La tua gentilezza rende gli altri felici! 💕", lang: 'it' },
+  { text: "Your imagination has no limits! 🚀", lang: 'en' },
+  { text: "Il coraggio è fare un passo anche quando hai paura! 🌟", lang: 'it' },
+  { text: "Every problem is a chance to learn something new! 📚", lang: 'en' },
+  { text: "Le tue idee creative cambiano il mondo! 🎨", lang: 'it' },
+  { text: "It's okay to ask for help - that's how we grow! 🤝", lang: 'en' },
+  { text: "Non devi essere perfetto, devi solo essere te stesso! 💫", lang: 'it' },
+  { text: "Your kind words can make someone's whole day! 🌻", lang: 'en' },
 ]
 
 export default function FortuneCookie() {
