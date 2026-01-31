@@ -165,6 +165,7 @@ export default function GamingIsland() {
       <div className="absolute bottom-20 left-10 text-3xl animate-float">🐠</div>
       <div className="absolute bottom-24 right-16 text-2xl animate-float delay-1000">🐟</div>
       <div className="absolute bottom-16 left-1/3 text-2xl animate-float delay-500">🦀</div>
+      <div className="absolute bottom-28 right-1/3 text-4xl animate-float delay-800">🏴‍☠️</div>
 
       {/* Back link */}
       <div className="absolute top-4 left-4">
