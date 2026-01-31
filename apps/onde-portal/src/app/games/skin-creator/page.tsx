@@ -2330,6 +2330,27 @@ export default function SkinCreator() {
                   className="w-full mt-1 p-1 text-xs bg-white rounded border truncate"
                   onClick={(e) => (e.target as HTMLInputElement).select()}
                 />
+                {/* Social Share Buttons */}
+                <div className="flex gap-2 mt-2 justify-center">
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out my Minecraft skin! 🎮')}&url=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2 py-1 bg-black text-white rounded text-xs hover:bg-gray-800"
+                  >𝕏</a>
+                  <a
+                    href={`https://reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent('My Minecraft Skin')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2 py-1 bg-orange-500 text-white rounded text-xs hover:bg-orange-600"
+                  >Reddit</a>
+                  <a
+                    href={`https://discord.com/channels/@me?content=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2 py-1 bg-indigo-500 text-white rounded text-xs hover:bg-indigo-600"
+                  >Discord</a>
+                </div>
               </div>
             )}
 
