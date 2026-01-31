@@ -13868,3 +13868,44 @@ Generated: 2026-01-30T18:37:46.867013
   - Giochi creano contenuti
   - Library mostra contenuti creati
   - Tutto connesso!
+
+---
+
+## 🔧 NEW TASKS (Added 2026-01-31 by @clawdinho)
+
+### [T1017] Infra: Memory File Auto-Archiver
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Created**: 2026-01-31
+- **Notes**: Automatically archive old memory files
+  - [ ] Script to compress memory files older than 30 days
+  - [ ] Move to `memory/archive/YYYY-MM/` folder
+  - [ ] Keep searchable index of archived content
+  - [ ] Run weekly via cron
+  - Prevents memory/ folder from growing indefinitely
+
+### [T1018] Trading: Local LLM for Trade Reasoning
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Created**: 2026-01-31
+- **Notes**: Use local LLM to analyze why trades win/lose
+  - [ ] After each trade settles, send context to local LLM
+  - [ ] Generate short reasoning summary
+  - [ ] Log to `data/trade-reasoning.jsonl`
+  - [ ] Weekly summary report generation
+  - Uses qwen2.5-coder or llama31-8b for analysis
+  - Saves Claude tokens while gaining insights
+
+### [T1019] Heartbeat: State Caching for Efficiency
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Created**: 2026-01-31
+- **Notes**: Cache heartbeat state to reduce redundant checks
+  - [ ] Expand `memory/heartbeat-state.json` schema
+  - [ ] Track: last check times, last alert states, pending actions
+  - [ ] Skip checks if <5 min since last
+  - [ ] Priority queue for overdue checks
+  - Reduces heartbeat overhead while maintaining coverage
