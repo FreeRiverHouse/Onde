@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { I18nProvider, useTranslations } from '@/i18n';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import Navigation from '@/components/Navigation';
 import SearchModal from '@/components/SearchModal';
 import WatercolorBackground from '@/components/ui/WatercolorBackground';
@@ -91,18 +92,20 @@ function SkipToContent() {
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
-    <I18nProvider>
-      <SkipToContent />
-      <WatercolorBackground />
-      <Navigation />
-      <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
-      </main>
-      <Footer />
-      <SearchModal />
-      <VercelAnalytics />
-    </I18nProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <SkipToContent />
+        <WatercolorBackground />
+        <Navigation />
+        <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
+        </main>
+        <Footer />
+        <SearchModal />
+        <VercelAnalytics />
+      </I18nProvider>
+    </ThemeProvider>
   );
 }
