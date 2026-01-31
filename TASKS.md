@@ -13243,8 +13243,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Future apps
 
 ### [T1060] Skin Creator: Add Bouncing Mascots
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Priority**: P2
 - **Goal**: Aggiungere emoji animati come in Kids Chef
 - **Ideas**: 🎨 🖌️ ⛏️ 💎 🧱
