@@ -467,12 +467,37 @@ function formatTimeAgo(timestamp: string): string {
   return new Date(timestamp).toLocaleDateString()
 }
 
+// Haptic feedback helper using Vibration API
+function triggerHapticFeedback(pattern: 'light' | 'medium' | 'success' | 'warning' = 'light') {
+  if (typeof window === 'undefined' || !('vibrate' in navigator)) return
+
+  try {
+    switch (pattern) {
+      case 'light':
+        navigator.vibrate(10) // Quick tap
+        break
+      case 'medium':
+        navigator.vibrate(25) // Slightly longer
+        break
+      case 'success':
+        navigator.vibrate([10, 50, 20]) // Double tap pattern
+        break
+      case 'warning':
+        navigator.vibrate([30, 30, 30]) // Warning pattern
+        break
+    }
+  } catch {
+    // Vibration API might fail silently on some devices
+  }
+}
+
 // Hook for swipe-to-dismiss on touch devices
 function useSwipeToDismiss(onDismiss: () => void, threshold = 100) {
   const [touchState, setTouchState] = useState<{
     startX: number
     currentX: number
     swiping: boolean
+    passedThreshold: boolean // Track if we've already vibrated at threshold
   } | null>(null)
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -480,24 +505,40 @@ function useSwipeToDismiss(onDismiss: () => void, threshold = 100) {
       startX: e.touches[0].clientX,
       currentX: e.touches[0].clientX,
       swiping: true,
+      passedThreshold: false,
     })
   }, [])
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (!touchState?.swiping) return
-    setTouchState(prev => prev ? {
-      ...prev,
-      currentX: e.touches[0].clientX,
-    } : null)
-  }, [touchState?.swiping])
+    
+    const newX = e.touches[0].clientX
+    const deltaX = newX - touchState.startX
+    
+    // Trigger haptic feedback when crossing threshold
+    if (!touchState.passedThreshold && deltaX < -threshold) {
+      triggerHapticFeedback('medium')
+      setTouchState(prev => prev ? {
+        ...prev,
+        currentX: newX,
+        passedThreshold: true,
+      } : null)
+    } else {
+      setTouchState(prev => prev ? {
+        ...prev,
+        currentX: newX,
+      } : null)
+    }
+  }, [touchState?.swiping, touchState?.startX, touchState?.passedThreshold, threshold])
 
   const handleTouchEnd = useCallback(() => {
     if (!touchState?.swiping) return
     
     const deltaX = touchState.currentX - touchState.startX
     
-    // If swiped left past threshold, dismiss
+    // If swiped left past threshold, dismiss with success haptic
     if (deltaX < -threshold) {
+      triggerHapticFeedback('success')
       onDismiss()
     }
     
