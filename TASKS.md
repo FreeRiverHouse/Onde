@@ -13452,3 +13452,26 @@ Generated: 2026-01-30T18:37:46.867013
   - Potenziale virale!
 - **Tech**: Three.js, WebGL, maybe GPU compute
 - **Ambizioso**: Sì! Ma fico se fatto bene
+
+### [T1078] Onde Arcade: Vintage Cabinet App
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: App stile cabinet arcade vintage con giochi AI-made
+- **Platform**: Web, iPad, Mac (può entrare in cabinet fisico!)
+- **Vibe**: Retro cabinet look, modern games inside
+- **Games**:
+  - Flying Car LA Racing (T1077)
+  - More to come...
+- **Section**: "Grown-ups" (adulti)
+
+### [T1079] Onde Portal: Grown-ups Section
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Sezione dedicata per adulti
+- **Content**:
+  - Libri per adulti
+  - Giochi per adulti
+  - Arcade cabinet
+- **Route**: /grown-ups o /adults
