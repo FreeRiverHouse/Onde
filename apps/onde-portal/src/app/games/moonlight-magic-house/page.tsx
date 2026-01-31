@@ -2484,6 +2484,245 @@ const FairyTrail = ({ delay = 0, path = 1 }: { delay?: number; path?: 1 | 2 | 3 
   )
 }
 
+// ============ COLLECTIBLE ITEM COMPONENTS ============
+
+// Collectible Star - golden spinning star
+const CollectibleStar = ({ 
+  item, 
+  onCollect, 
+  soundEnabled 
+}: { 
+  item: CollectibleItem
+  onCollect: (item: CollectibleItem) => void
+  soundEnabled: boolean 
+}) => {
+  const [isCollecting, setIsCollecting] = useState(false)
+  const [showPoints, setShowPoints] = useState(false)
+  
+  const handleClick = () => {
+    if (item.collected || isCollecting) return
+    sounds.collectStar(soundEnabled)
+    setIsCollecting(true)
+    setShowPoints(true)
+    setTimeout(() => {
+      onCollect(item)
+    }, 400)
+    setTimeout(() => setShowPoints(false), 1000)
+  }
+  
+  if (item.collected && !isCollecting) return null
+  
+  return (
+    <div 
+      className={`absolute gpu-accelerated ${isCollecting ? '' : 'collectible-hover'}`}
+      style={{ left: `${item.x}%`, top: `${item.y}%`, transform: 'translate(-50%, -50%)' }}
+      onClick={handleClick}
+    >
+      <div 
+        className={`${isCollecting ? 'animate-collectible-collect' : 'animate-collectible-idle animate-collectible-spawn'}`}
+        style={{ '--glow-color': 'rgba(255, 215, 0, 0.8)' } as React.CSSProperties}
+      >
+        <svg viewBox="0 0 40 40" className={`w-8 h-8 ${!isCollecting ? 'animate-star-rotate' : ''}`} style={{ animationDuration: '6s' }}>
+          <defs>
+            <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFE566" />
+              <stop offset="50%" stopColor="#FFD700" />
+              <stop offset="100%" stopColor="#FFA500" />
+            </linearGradient>
+            <filter id="starGlow">
+              <feGaussianBlur stdDeviation="1" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path 
+            d="M20 2 L24 14 L37 14 L26 22 L30 35 L20 27 L10 35 L14 22 L3 14 L16 14 Z" 
+            fill="url(#starGold)" 
+            filter="url(#starGlow)"
+          />
+          {/* Inner sparkle */}
+          <path d="M20 8 L22 16 L30 16 L23 20 L26 28 L20 23 L14 28 L17 20 L10 16 L18 16 Z" fill="#FFFACD" opacity="0.5" />
+        </svg>
+      </div>
+      
+      {/* Points popup */}
+      {showPoints && (
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 animate-points-popup pointer-events-none">
+          <span className="text-yellow-300 font-bold text-lg drop-shadow-lg">+{item.points}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Collectible Heart - pulsing pink heart
+const CollectibleHeart = ({ 
+  item, 
+  onCollect, 
+  soundEnabled 
+}: { 
+  item: CollectibleItem
+  onCollect: (item: CollectibleItem) => void
+  soundEnabled: boolean 
+}) => {
+  const [isCollecting, setIsCollecting] = useState(false)
+  const [showPoints, setShowPoints] = useState(false)
+  
+  const handleClick = () => {
+    if (item.collected || isCollecting) return
+    sounds.collectHeart(soundEnabled)
+    setIsCollecting(true)
+    setShowPoints(true)
+    setTimeout(() => {
+      onCollect(item)
+    }, 400)
+    setTimeout(() => setShowPoints(false), 1000)
+  }
+  
+  if (item.collected && !isCollecting) return null
+  
+  return (
+    <div 
+      className={`absolute gpu-accelerated ${isCollecting ? '' : 'collectible-hover'}`}
+      style={{ left: `${item.x}%`, top: `${item.y}%`, transform: 'translate(-50%, -50%)' }}
+      onClick={handleClick}
+    >
+      <div 
+        className={`${isCollecting ? 'animate-collectible-collect' : 'animate-collectible-idle animate-collectible-spawn'}`}
+        style={{ '--glow-color': 'rgba(255, 105, 180, 0.8)' } as React.CSSProperties}
+      >
+        <svg viewBox="0 0 40 36" className={`w-8 h-7 ${!isCollecting ? 'animate-heart-pulse' : ''}`}>
+          <defs>
+            <linearGradient id="heartPink" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FF69B4" />
+              <stop offset="50%" stopColor="#FF1493" />
+              <stop offset="100%" stopColor="#C71585" />
+            </linearGradient>
+            <filter id="heartGlow">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path 
+            d="M20 35 C10 28 0 20 0 11 C0 5 5 0 11 0 C14 0 17 1.5 20 5 C23 1.5 26 0 29 0 C35 0 40 5 40 11 C40 20 30 28 20 35 Z" 
+            fill="url(#heartPink)" 
+            filter="url(#heartGlow)"
+          />
+          {/* Inner shine */}
+          <ellipse cx="12" cy="12" rx="5" ry="6" fill="white" opacity="0.3" />
+        </svg>
+      </div>
+      
+      {/* Points popup */}
+      {showPoints && (
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 animate-points-popup pointer-events-none">
+          <span className="text-pink-300 font-bold text-lg drop-shadow-lg">+{item.points}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Collectible Gem - shimmering crystal
+const CollectibleGem = ({ 
+  item, 
+  onCollect, 
+  soundEnabled 
+}: { 
+  item: CollectibleItem
+  onCollect: (item: CollectibleItem) => void
+  soundEnabled: boolean 
+}) => {
+  const [isCollecting, setIsCollecting] = useState(false)
+  const [showPoints, setShowPoints] = useState(false)
+  
+  const handleClick = () => {
+    if (item.collected || isCollecting) return
+    sounds.collectGem(soundEnabled)
+    setIsCollecting(true)
+    setShowPoints(true)
+    setTimeout(() => {
+      onCollect(item)
+    }, 400)
+    setTimeout(() => setShowPoints(false), 1000)
+  }
+  
+  if (item.collected && !isCollecting) return null
+  
+  return (
+    <div 
+      className={`absolute gpu-accelerated ${isCollecting ? '' : 'collectible-hover'}`}
+      style={{ left: `${item.x}%`, top: `${item.y}%`, transform: 'translate(-50%, -50%)' }}
+      onClick={handleClick}
+    >
+      <div 
+        className={`${isCollecting ? 'animate-collectible-collect' : 'animate-collectible-idle animate-collectible-spawn animate-gem-shimmer'}`}
+        style={{ '--glow-color': 'rgba(138, 43, 226, 0.8)' } as React.CSSProperties}
+      >
+        <svg viewBox="0 0 36 40" className="w-7 h-8">
+          <defs>
+            <linearGradient id="gemPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#E0B0FF" />
+              <stop offset="30%" stopColor="#9B59B6" />
+              <stop offset="70%" stopColor="#8E44AD" />
+              <stop offset="100%" stopColor="#6C3483" />
+            </linearGradient>
+            <filter id="gemGlow">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          {/* Gem body */}
+          <polygon points="18,0 36,12 30,40 6,40 0,12" fill="url(#gemPurple)" filter="url(#gemGlow)" />
+          {/* Facets */}
+          <polygon points="18,0 30,12 18,18 6,12" fill="#D8BFD8" opacity="0.5" />
+          <polygon points="30,12 36,12 30,40 18,18" fill="#BA55D3" opacity="0.3" />
+          <polygon points="6,12 0,12 6,40 18,18" fill="#9370DB" opacity="0.4" />
+          {/* Center highlight */}
+          <polygon points="18,8 24,14 18,22 12,14" fill="white" opacity="0.4" />
+        </svg>
+      </div>
+      
+      {/* Points popup */}
+      {showPoints && (
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 animate-points-popup pointer-events-none">
+          <span className="text-purple-300 font-bold text-lg drop-shadow-lg">+{item.points}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Collectible renderer - renders the right type
+const CollectibleRenderer = ({ 
+  item, 
+  onCollect, 
+  soundEnabled 
+}: { 
+  item: CollectibleItem
+  onCollect: (item: CollectibleItem) => void
+  soundEnabled: boolean 
+}) => {
+  switch (item.type) {
+    case 'star':
+      return <CollectibleStar item={item} onCollect={onCollect} soundEnabled={soundEnabled} />
+    case 'heart':
+      return <CollectibleHeart item={item} onCollect={onCollect} soundEnabled={soundEnabled} />
+    case 'gem':
+      return <CollectibleGem item={item} onCollect={onCollect} soundEnabled={soundEnabled} />
+    default:
+      return null
+  }
+}
+
 // Hiding spot illustrations
 const HidingSpotSVG = ({ type, revealed, hasToy }: { type: HidingSpot['type']; revealed: boolean; hasToy: boolean }) => {
   if (revealed && hasToy) {
@@ -2658,10 +2897,29 @@ const FoodSVG = ({ type }: { type: FoodItem['type'] }) => {
 
 // ============ MAIN COMPONENT ============
 
+// Helper to generate collectible items
+const generateCollectibles = (count: number): CollectibleItem[] => {
+  const types: CollectibleItem['type'][] = ['star', 'heart', 'gem']
+  const pointValues = { star: 10, heart: 15, gem: 25 }
+  
+  return Array.from({ length: count }, (_, i) => {
+    const type = types[Math.floor(Math.random() * types.length)]
+    return {
+      id: `collectible-${Date.now()}-${i}`,
+      type,
+      x: 10 + Math.random() * 80, // 10-90% of container width
+      y: 15 + Math.random() * 70, // 15-85% of container height
+      points: pointValues[type],
+      collected: false,
+      spawnTime: Date.now(),
+    }
+  })
+}
+
 export default function MoonlightMagicHouse() {
   const [isLoading, setIsLoading] = useState(true)
   const [gameState, setGameState] = useState<GameState>('loading')
-  const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0 })
+  const [rewards, setRewards] = useState<Rewards>({ treats: 0, toys: 0, stars: 0 })
   const [soundEnabled, setSoundEnabled] = useState(true)
   
   // Day/Night cycle state
@@ -2681,6 +2939,11 @@ export default function MoonlightMagicHouse() {
     mirror: false,
   })
   const [interactionCount, setInteractionCount] = useState(0)
+  
+  // Collectible items state
+  const [collectibles, setCollectibles] = useState<CollectibleItem[]>([])
+  const [totalCollected, setTotalCollected] = useState(0)
+  const collectibleSpawnTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   
   // Find the Toy game state
   const [hidingSpots, setHidingSpots] = useState<HidingSpot[]>([])
@@ -2784,6 +3047,52 @@ export default function MoonlightMagicHouse() {
     return () => {
       getAmbientMusic().stop()
     }
+  }, [])
+  
+  // Collectible items spawn system
+  useEffect(() => {
+    if (gameState !== 'menu') {
+      // Clear collectibles when leaving menu
+      if (collectibleSpawnTimerRef.current) {
+        clearInterval(collectibleSpawnTimerRef.current)
+        collectibleSpawnTimerRef.current = null
+      }
+      return
+    }
+    
+    // Initial spawn of collectibles
+    setCollectibles(generateCollectibles(5))
+    
+    // Periodically spawn new collectibles (every 8 seconds)
+    collectibleSpawnTimerRef.current = setInterval(() => {
+      setCollectibles(prev => {
+        // Remove old collected items and add new ones
+        const activeItems = prev.filter(item => !item.collected)
+        const maxItems = 8
+        
+        if (activeItems.length < maxItems) {
+          const newCount = Math.min(2, maxItems - activeItems.length)
+          const newItems = generateCollectibles(newCount)
+          return [...activeItems, ...newItems]
+        }
+        return activeItems
+      })
+    }, 8000)
+    
+    return () => {
+      if (collectibleSpawnTimerRef.current) {
+        clearInterval(collectibleSpawnTimerRef.current)
+      }
+    }
+  }, [gameState])
+  
+  // Handle collectible collection
+  const handleCollectItem = useCallback((item: CollectibleItem) => {
+    setCollectibles(prev => 
+      prev.map(c => c.id === item.id ? { ...c, collected: true } : c)
+    )
+    setRewards(prev => ({ ...prev, stars: prev.stars + item.points }))
+    setTotalCollected(prev => prev + 1)
   }, [])
 
   // Smooth drag animation loop using RAF

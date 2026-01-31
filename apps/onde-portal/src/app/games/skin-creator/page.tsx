@@ -3551,19 +3551,34 @@ export default function SkinCreator() {
   };
 
   // Import existing skin PNG 📥
+  // Loads into the base layer and clears other layers for editing
   const importSkin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
     const img = new Image();
     img.onload = () => {
-      ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-      ctx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      // Clear all layer canvases first
+      const baseCanvas = getLayerCanvas('base');
+      const detailsCanvas = getLayerCanvas('details');
+      const accessoriesCanvas = getLayerCanvas('accessories');
+
+      const baseCtx = baseCanvas.getContext('2d');
+      const detailsCtx = detailsCanvas.getContext('2d');
+      const accessoriesCtx = accessoriesCanvas.getContext('2d');
+
+      if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
+
+      // Clear all layers
+      baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+      // Draw the imported skin to the base layer
+      baseCtx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+      // Composite to main canvas
+      compositeLayersToMain();
       updatePreview();
       saveState();
       playSound('click');
@@ -3611,13 +3626,27 @@ export default function SkinCreator() {
       const img = new Image();
       
       img.onload = () => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        
-        ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
-        ctx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        // Clear all layer canvases first
+        const baseCanvas = getLayerCanvas('base');
+        const detailsCanvas = getLayerCanvas('details');
+        const accessoriesCanvas = getLayerCanvas('accessories');
+
+        const baseCtx = baseCanvas.getContext('2d');
+        const detailsCtx = detailsCanvas.getContext('2d');
+        const accessoriesCtx = accessoriesCanvas.getContext('2d');
+
+        if (!baseCtx || !detailsCtx || !accessoriesCtx) return;
+
+        // Clear all layers
+        baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        detailsCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+        accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+        // Draw the imported skin to the base layer
+        baseCtx.drawImage(img, 0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+
+        // Composite to main canvas
+        compositeLayersToMain();
         updatePreview();
         saveState();
         playSound('click');
@@ -4280,6 +4309,28 @@ export default function SkinCreator() {
             </div>
 
             <p className="text-xs text-gray-500 mb-3 text-center">👆 Click a character to start customizing!</p>
+
+            {/* 📥 IMPORT EXISTING SKIN - Prominent section */}
+            <div className="mb-4 p-3 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-xl border-2 border-dashed border-indigo-300">
+              <p className="text-sm font-bold text-indigo-700 mb-2">📥 Have your own skin?</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex-1 kid-btn bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg flex items-center justify-center gap-2 py-3 hover:scale-105 transition-all"
+                >
+                  <span className="text-lg">📁</span>
+                  <span className="text-sm font-bold">Import PNG</span>
+                </button>
+                <button
+                  onClick={() => setShowURLImport(true)}
+                  className="flex-1 kid-btn bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg flex items-center justify-center gap-2 py-3 hover:scale-105 transition-all"
+                >
+                  <span className="text-lg">🌐</span>
+                  <span className="text-sm font-bold">From URL</span>
+                </button>
+              </div>
+              <p className="text-xs text-indigo-600 mt-2 text-center">Load any Minecraft skin PNG to edit it!</p>
+            </div>
 
             <p className="text-sm font-bold text-gray-700 mb-2">🎭 Or try these styles:</p>
             
