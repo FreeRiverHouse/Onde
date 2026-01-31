@@ -124,6 +124,95 @@ export default function SkinCreator() {
   const [aiError, setAiError] = useState<string | null>(null);
   const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
   
+  // 🤖 AI History & Favorites
+  interface AIHistoryItem {
+    id: string;
+    prompt: string;
+    style: typeof aiStyle;
+    skinDataUrl: string;
+    timestamp: number;
+    isFavorite: boolean;
+  }
+  const [aiHistory, setAiHistory] = useState<AIHistoryItem[]>([]);
+  const [showAIHistory, setShowAIHistory] = useState(false);
+  
+  // Load AI history from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('minecraft-skin-ai-history');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setAiHistory(parsed);
+        }
+      }
+    } catch (e) { /* ignore */ }
+  }, []);
+  
+  // Save AI history to localStorage when it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('minecraft-skin-ai-history', JSON.stringify(aiHistory));
+    } catch (e) { /* ignore quota errors */ }
+  }, [aiHistory]);
+  
+  // Add a generation to history
+  const addToAIHistory = useCallback((prompt: string, style: typeof aiStyle, skinDataUrl: string) => {
+    const newItem: AIHistoryItem = {
+      id: `ai-${Date.now()}`,
+      prompt,
+      style,
+      skinDataUrl,
+      timestamp: Date.now(),
+      isFavorite: false,
+    };
+    setAiHistory(prev => {
+      // Keep only last 10 non-favorite items + all favorites
+      const favorites = prev.filter(item => item.isFavorite);
+      const nonFavorites = prev.filter(item => !item.isFavorite);
+      const newNonFavorites = [newItem, ...nonFavorites].slice(0, 10);
+      return [...newNonFavorites, ...favorites].sort((a, b) => b.timestamp - a.timestamp);
+    });
+  }, []);
+  
+  // Toggle favorite status
+  const toggleFavorite = useCallback((id: string) => {
+    setAiHistory(prev => prev.map(item => 
+      item.id === id ? { ...item, isFavorite: !item.isFavorite } : item
+    ));
+  }, []);
+  
+  // Load a history item onto the canvas
+  const loadFromHistory = useCallback((item: AIHistoryItem) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      ctx.drawImage(img, 0, 0);
+      updatePreview();
+      saveState();
+      setShowAIPanel(false);
+      playSound('click');
+    };
+    img.src = item.skinDataUrl;
+  }, []);
+  
+  // Regenerate with same prompt
+  const regenerateFromHistory = useCallback((item: AIHistoryItem) => {
+    setAiPrompt(item.prompt);
+    setAiStyle(item.style);
+    setShowAIHistory(false);
+  }, []);
+  
+  // Delete from history
+  const deleteFromHistory = useCallback((id: string) => {
+    setAiHistory(prev => prev.filter(item => item.id !== id));
+  }, []);
+  
   // 🎨 Layer system state
   const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
   const [activeLayer, setActiveLayer] = useState<LayerType>('base');
@@ -274,6 +363,8 @@ export default function SkinCreator() {
             ctx.drawImage(img, 0, 0);
             updatePreview();
             saveState();
+            // Save to AI history
+            addToAIHistory(aiPrompt, aiStyle, result.skinDataUrl!);
             setAiLoading(false);
             setShowAIPanel(false);
             playSound('download');
@@ -423,6 +514,9 @@ export default function SkinCreator() {
     
     updatePreview();
     saveState();
+    // Save fallback generation to AI history
+    const fallbackDataUrl = canvas.toDataURL('image/png');
+    addToAIHistory(aiPrompt, aiStyle, fallbackDataUrl);
     setAiLoading(false);
     setShowAIPanel(false);
     playSound('download');
@@ -1852,6 +1946,124 @@ export default function SkinCreator() {
                 '✨ Generate Skin'
               )}
             </button>
+            
+            {/* 📚 AI History & Favorites */}
+            {aiHistory.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <button
+                  onClick={() => setShowAIHistory(!showAIHistory)}
+                  className="flex items-center justify-between w-full text-left"
+                >
+                  <span className="font-medium text-gray-700">
+                    📚 History & Favorites ({aiHistory.length})
+                  </span>
+                  <span className="text-gray-400">{showAIHistory ? '▲' : '▼'}</span>
+                </button>
+                
+                {showAIHistory && (
+                  <div className="mt-3 space-y-2 max-h-60 overflow-y-auto">
+                    {/* Favorites first */}
+                    {aiHistory.filter(item => item.isFavorite).length > 0 && (
+                      <div className="mb-2">
+                        <p className="text-xs text-yellow-600 font-semibold mb-1">⭐ Favorites</p>
+                        {aiHistory.filter(item => item.isFavorite).map(item => (
+                          <div 
+                            key={item.id}
+                            className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg border border-yellow-200"
+                          >
+                            <img 
+                              src={item.skinDataUrl} 
+                              alt={item.prompt}
+                              className="w-12 h-12 rounded border bg-gray-100"
+                              style={{ imageRendering: 'pixelated' }}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium truncate">{item.prompt}</p>
+                              <p className="text-xs text-gray-500">{item.style}</p>
+                            </div>
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => loadFromHistory(item)}
+                                className="p-1 text-xs bg-green-100 text-green-600 rounded hover:bg-green-200"
+                                title="Load this skin"
+                              >
+                                ✓
+                              </button>
+                              <button
+                                onClick={() => regenerateFromHistory(item)}
+                                className="p-1 text-xs bg-purple-100 text-purple-600 rounded hover:bg-purple-200"
+                                title="Use this prompt"
+                              >
+                                🔄
+                              </button>
+                              <button
+                                onClick={() => toggleFavorite(item.id)}
+                                className="p-1 text-xs bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200"
+                                title="Remove from favorites"
+                              >
+                                ⭐
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Recent history */}
+                    <p className="text-xs text-gray-500 font-semibold mb-1">🕐 Recent</p>
+                    {aiHistory.filter(item => !item.isFavorite).map(item => (
+                      <div 
+                        key={item.id}
+                        className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100"
+                      >
+                        <img 
+                          src={item.skinDataUrl} 
+                          alt={item.prompt}
+                          className="w-12 h-12 rounded border bg-white"
+                          style={{ imageRendering: 'pixelated' }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">{item.prompt}</p>
+                          <p className="text-xs text-gray-400">
+                            {item.style} • {new Date(item.timestamp).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <div className="flex gap-1">
+                          <button
+                            onClick={() => loadFromHistory(item)}
+                            className="p-1 text-xs bg-green-100 text-green-600 rounded hover:bg-green-200"
+                            title="Load this skin"
+                          >
+                            ✓
+                          </button>
+                          <button
+                            onClick={() => regenerateFromHistory(item)}
+                            className="p-1 text-xs bg-purple-100 text-purple-600 rounded hover:bg-purple-200"
+                            title="Use this prompt"
+                          >
+                            🔄
+                          </button>
+                          <button
+                            onClick={() => toggleFavorite(item.id)}
+                            className="p-1 text-xs bg-gray-100 text-gray-600 rounded hover:bg-gray-200"
+                            title="Add to favorites"
+                          >
+                            ☆
+                          </button>
+                          <button
+                            onClick={() => deleteFromHistory(item.id)}
+                            className="p-1 text-xs bg-red-100 text-red-600 rounded hover:bg-red-200"
+                            title="Delete"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             
             {/* Info text */}
             <p className="text-xs text-gray-400 mt-3 text-center">

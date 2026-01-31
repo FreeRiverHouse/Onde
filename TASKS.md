@@ -10477,29 +10477,36 @@
   - Build passes ✅
 
 ### [T883] Skin Creator: Style Presets for AI
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04
 - **Depends**: [T880]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Aggiungere preset di stile per AI:
-  - Cartoon style
-  - Realistic style
-  - Pixel art style
-  - Anime style
-  - Blocky Minecraft style
+- **Notes**: ✅ Already implemented in page.tsx and aiSkinGenerator.ts!
+  - ✅ UI grid with 5 style buttons: Blocky 🧱, Pixel 👾, Cartoon 🎨, Anime ✨, Real 📷
+  - ✅ Style prompts in getStylePrompt() for DALL-E 3
+  - ✅ Style modifiers for fallback color generation (styleModifier)
+  - ✅ Each style affects both real AI and fallback generation
 
 ### [T884] Skin Creator: AI History & Favorites
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04
 - **Depends**: [T880]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Salvare generazioni AI:
-  - History delle ultime 10 generazioni
-  - Favorites per salvare le migliori
-  - Quick regenerate con stesso prompt
-  - Share AI creations
+- **Notes**: ✅ Implemented AI history and favorites!
+  - ✅ History of last 10 AI generations stored in localStorage
+  - ✅ Favorites persist separately (unlimited)
+  - ✅ Collapsible history panel in AI dialog
+  - ✅ Load skin directly from history
+  - ✅ Quick regenerate with same prompt + style
+  - ✅ Toggle favorite status (⭐/☆)
+  - ✅ Delete from history
+  - ✅ Skin thumbnails with pixelated rendering
+  - ✅ Timestamps and style labels
+  - ⏳ Share AI creations (future enhancement)
 
 ### [T885] Skin Creator: Layer Templates/Presets
 - **Status**: TODO
