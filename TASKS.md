@@ -66,17 +66,23 @@
   - Log motivo stall in memory
 
 ### [T952] Infra: Unified Crontab Setup Script
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-31
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Create script to install/update all watchdog crons:
-  - watchdog-autotrader.sh (every 5 min)
-  - watchdog-ondinho.sh (every 15 min)
-  - Other periodic scripts
-  - Idempotent (can re-run safely)
-  - Output: shows current crontab with our jobs
+- **Notes**: ✅ Created unified crontab management script!
+  - ✅ `scripts/setup-crontab.sh` - Main script with options:
+    - `--install` - Install/update all cron jobs (default)
+    - `--show` - Show current crontab and Onde jobs
+    - `--remove` - Remove all Onde cron jobs
+  - ✅ Uses `# ONDE-CRON` marker for idempotent management
+  - ✅ Includes all watchdogs: autotrader, ondinho, services, memory, etc.
+  - ✅ Creates logs/ directory automatically
+  - ✅ `scripts/cleanup-old-logs.sh` - Weekly cleanup helper
+  - **Note**: Existing crontab already has comprehensive entries (48+ jobs)
+  - **Usage**: `./scripts/setup-crontab.sh --show` to see current state
 
 ### [T953] Infra: Agent Health Dashboard Widget
 - **Status**: TODO
