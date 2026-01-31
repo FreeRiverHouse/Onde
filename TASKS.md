@@ -13520,3 +13520,89 @@ Generated: 2026-01-30T18:37:46.867013
   - 📚 Libreria bambini (libri)
 - **Future**: Cabinet con prompt per creare giochi AI al volo!
 - **URLs**: /games, /games/arcade
+
+---
+
+## 📊 UX RECOMMENDATIONS (from Research)
+
+### [T1085] Kids Chef: Real Recipes Feature
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Ricette reali semplificate
+- **Features**:
+  - Ogni gioco = una ricetta vera
+  - "Chiedi a mamma/papà di farla insieme!"
+  - Print recipe card feature
+
+### [T1086] Kids Chef: Personal Recipe Book
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Recipe book personale
+- **Features**:
+  - Salva ricette completate
+  - Stelle per difficoltà
+  - Achievement badges
+
+### [T1087] Kids Chef: Achievement System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Badge e achievements
+- **Features**:
+  - Apprentice → Master Chef progression
+  - Unlockable chef outfits
+  - Milestone rewards
+
+### [T1088] Skin Studio: Interactive Tutorial
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Tutorial "My First Skin"
+- **Features**:
+  - Step-by-step guide
+  - Highlighted tools
+  - Practice mode
+
+### [T1089] Skin Studio: Weekly Challenges
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Challenges settimanali
+- **Features**:
+  - "Crea una skin da astronauta"
+  - Temi stagionali
+  - Badge rewards
+
+### [T1090] Moonlight: Pet Persistence
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P0 (CRITICAL!)
+- **Goal**: Il pet vive tra le sessioni
+- **Features**:
+  - LocalStorage save
+  - Pet state persists
+  - "Luna ti manca!" notifications
+
+### [T1091] Moonlight: Complete Care System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Sistema cura completo
+- **Features**:
+  - Nutrizione (cibo sano = pet felice)
+  - Gioco (minigames insieme)
+  - Riposo (ciclo giorno/notte)
+  - Affetto (coccole, complimenti)
+
+### [T1092] Moonlight: Evolution System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Pet cresce nel tempo
+- **Features**:
+  - Cucciolo → adulto → senior
+  - Visual changes
+  - New abilities unlocked
+
