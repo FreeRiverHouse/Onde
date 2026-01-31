@@ -1484,6 +1484,33 @@ export default function SkinCreator() {
               >
                 🎲 Random!
               </button>
+              <button
+                onClick={() => {
+                  // 🎁 Mystery Box - completely random pixels!
+                  const canvas = layerCanvasRefs.current[activeLayer];
+                  if (!canvas) return;
+                  const ctx = canvas.getContext('2d');
+                  if (!ctx) return;
+                  
+                  // Fill with random colored pixels
+                  for (let x = 0; x < 64; x++) {
+                    for (let y = 0; y < 64; y++) {
+                      ctx.fillStyle = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                      ctx.fillRect(x, y, 1, 1);
+                    }
+                  }
+                  
+                  compositeLayersToMain();
+                  updatePreview();
+                  setShowConfetti(true);
+                  playSound('download');
+                  setTimeout(() => setShowConfetti(false), 2000);
+                }}
+                className="px-2 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+                title="🎁 Mystery surprise skin!"
+              >
+                🎁 Mystery!
+              </button>
             </div>
           </div>
         </div>
