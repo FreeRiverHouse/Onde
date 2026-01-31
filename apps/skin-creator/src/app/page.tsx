@@ -127,16 +127,19 @@ const TEMPLATES = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const STEVE_TEMPLATE = TEMPLATES.steve;
 
-// Fun color palette
+// Fun color palette - Kid-friendly!
 const COLORS = [
+  // 🎨 SIMPLE COLORS (top row - easy for kids!)
+  '#FF0000', '#FF8800', '#FFFF00', '#00FF00', '#00FFFF', '#0088FF',
+  '#0000FF', '#8800FF', '#FF00FF', '#FF69B4', '#FFFFFF', '#000000',
   // Skin tones
   '#ffdfc4', '#f0c8a8', '#d4a76a', '#c4a57b', '#8d6e4c', '#5c4033',
-  // Rainbow
-  '#FF6B6B', '#FF8E53', '#FFD93D', '#6BCB77', '#4D96FF', '#9B59B6',
   // More colors
+  '#FF6B6B', '#FF8E53', '#FFD93D', '#6BCB77', '#4D96FF', '#9B59B6',
+  // Extras
   '#E91E63', '#00BCD4', '#8BC34A', '#FF5722', '#795548', '#607D8B',
-  // Basics
-  '#FFFFFF', '#CCCCCC', '#888888', '#444444', '#222222', '#000000',
+  // Grays
+  '#CCCCCC', '#888888', '#444444', '#222222',
 ];
 
 const SKIN_WIDTH = 64;
@@ -148,7 +151,7 @@ export default function SkinCreator() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLCanvasElement>(null);
   const [selectedGame, setSelectedGame] = useState<GameType>('minecraft');
-  const [selectedColor, setSelectedColor] = useState('#FF6B6B');
+  const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
   const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond'>('star');
