@@ -154,6 +154,45 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
 
     scene.add(character);
 
+    // ✨ PARTICLE EFFECTS - Sparkles around character
+    const particleCount = 30;
+    const particleGeometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount; i++) {
+      // Spawn in a cylinder around character
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 0.8 + Math.random() * 0.5;
+      positions[i * 3] = Math.cos(angle) * radius;
+      positions[i * 3 + 1] = Math.random() * 2.5;
+      positions[i * 3 + 2] = Math.sin(angle) * radius;
+      
+      // Random colors (gold, cyan, purple)
+      const colorChoice = Math.random();
+      if (colorChoice < 0.33) {
+        colors[i * 3] = 1; colors[i * 3 + 1] = 0.84; colors[i * 3 + 2] = 0; // Gold
+      } else if (colorChoice < 0.66) {
+        colors[i * 3] = 0; colors[i * 3 + 1] = 1; colors[i * 3 + 2] = 1; // Cyan
+      } else {
+        colors[i * 3] = 0.5; colors[i * 3 + 1] = 0; colors[i * 3 + 2] = 1; // Purple
+      }
+    }
+    
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    
+    const particleMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending,
+    });
+    
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particles);
+
     // Mouse/Touch drag handlers
     const onMouseDown = (e: MouseEvent) => {
       isDragging.current = true;
@@ -229,6 +268,17 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
       if (leftArmMesh) leftArmMesh.rotation.x = -swing;
       if (rightLegMesh) rightLegMesh.rotation.x = -swing;
       if (leftLegMesh) leftLegMesh.rotation.x = swing;
+      
+      // ✨ Animate particles - float upward and respawn
+      const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
+      for (let i = 0; i < particleCount; i++) {
+        posAttr.array[i * 3 + 1] += 0.01; // Float up
+        if (posAttr.array[i * 3 + 1] > 2.8) {
+          posAttr.array[i * 3 + 1] = 0; // Respawn at bottom
+        }
+      }
+      posAttr.needsUpdate = true;
+      particles.rotation.y = walkTime * 0.2; // Slow spin
       
       renderer.render(scene, camera);
     };
