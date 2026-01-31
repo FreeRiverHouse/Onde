@@ -12684,16 +12684,17 @@ Generated: 2026-01-30T18:37:46.867013
 ## 🆕 AUTO-ADDED TASKS (2026-02-04 HEARTBEAT - @clawdinho)
 
 ### [T1024] Moonlight: Deploy Footstep Dust Puffs to onde.la
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 22:23 PST
 - **Created-by**: @clawdinho
 - **Priority**: P2
-- **Notes**: Deploy new Moonlight with dust puffs feature
-  - Build: `cd apps/moonlight-house && npm run build`
-  - Copy to onde-portal/public/games/moonlight-magic-house/
-  - Deploy via wrangler
-  - Verify: https://onde.la/games/moonlight-magic-house/
-  - Test dust effects in garden (grass), bathroom (water), garage (stone)
+- **Notes**: ✅ Deployed Moonlight with dust puffs feature!
+  - [x] Build: `cd apps/moonlight-house && npm run build` (442 modules)
+  - [x] Copy to onde-portal/public/games/moonlight-magic-house/
+  - [x] Deploy via wrangler: https://82e2d292.onde-portal.pages.dev
+  - [x] Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK
+  - Dust effects: garden (grass 🌿), bathroom (water 💧), garage (stone), floor (brown 💨)
 
 ### [T1025] Moonlight: Add Pet Sound Effects on Tap (MM-024)
 - **Status**: TODO
