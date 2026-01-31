@@ -13384,3 +13384,16 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 01:05 PST
 - **Templates**: Pirate, Astronaut, Superhero, Knight, Mermaid
+
+### [T1072] EPUB Reader: In-App Reading (No Gutenberg!)
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Issue**: Current reader links to Project Gutenberg
+- **Goal**: Read EPUB files IN-APP with nice UI
+- **EPUB files exist**: 
+  - /books/epub/meditations-en.epub
+  - /books/epub/salmo-23-bambini-it.epub
+  - /books/epub/the-shepherds-promise.epub
+- **Needs**: epub.js or similar library for web reading
+- **Reference**: Golden-Onde-LA/libro/ has HTML versions
