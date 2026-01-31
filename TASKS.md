@@ -12948,8 +12948,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Skip option per returning users
 
 ### [T1043] Skin Creator: Keyboard Shortcuts
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:00 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
@@ -12961,8 +12962,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Help overlay: ? key
 
 ### [T1044] Skin Creator: PWA Manifest
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:00 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
@@ -12973,8 +12975,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Splash screen
 
 ### [T1045] Skin Creator: OG Images per Share
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:00 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P2
