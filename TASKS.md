@@ -13017,8 +13017,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Export corretto per entrambi
 
 ### [T1048] Skin Creator: GIF Export Animato
-- **Status**: IN_PROGRESS
-- **Owner**: @onde-bot
+- **Status**: TODO
+- **Owner**: -
+- **Notes**: Requires gif.js or modern-gif library - deferred to later
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P3
