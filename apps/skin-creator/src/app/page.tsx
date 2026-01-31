@@ -1388,6 +1388,31 @@ export default function SkinCreator() {
     playSound('download');
   };
 
+  // 🎮 Export for Roblox (scaled up for avatar templates)
+  const downloadForRoblox = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    // Roblox uses larger templates - scale 4x for quality
+    const robloxCanvas = document.createElement('canvas');
+    robloxCanvas.width = 256;
+    robloxCanvas.height = 256;
+    const ctx = robloxCanvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.imageSmoothingEnabled = false; // Keep pixelated look
+    ctx.drawImage(canvas, 0, 0, 256, 256);
+    
+    const link = document.createElement('a');
+    link.download = `${skinName || 'my-skin'}-roblox.png`;
+    link.href = robloxCanvas.toDataURL('image/png');
+    link.click();
+    
+    setShowConfetti(true);
+    playSound('download');
+    setTimeout(() => setShowConfetti(false), 3000);
+  };
+
   // 🗑️ Clear canvas
   const clearCanvas = () => {
     if (!confirm('Clear the entire canvas?')) return;
@@ -2443,6 +2468,13 @@ export default function SkinCreator() {
               className="w-full mt-2 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200"
             >
               👤 Export Base Only (no clothes)
+            </button>
+
+            <button
+              onClick={downloadForRoblox}
+              className="w-full mt-2 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg font-bold hover:scale-105 transition-transform"
+            >
+              🎮 Export for Roblox (256x256)
             </button>
           </div>
         </div>
