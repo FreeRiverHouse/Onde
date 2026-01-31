@@ -120,13 +120,15 @@ export default function GamingIsland() {
         </div>
       )}
 
-      {/* Subtle rainbow in the sky */}
-      <div className="absolute top-16 left-1/4 w-64 h-32 opacity-30 pointer-events-none">
-        <div className="absolute inset-0 rounded-t-full" style={{
-          background: 'linear-gradient(180deg, transparent 50%, rgba(255,0,0,0.3) 52%, rgba(255,127,0,0.3) 56%, rgba(255,255,0,0.3) 60%, rgba(0,255,0,0.3) 64%, rgba(0,0,255,0.3) 68%, rgba(139,0,255,0.3) 72%, transparent 75%)',
-          transform: 'rotate(-15deg)'
-        }} />
-      </div>
+      {/* Subtle rainbow in the sky - only in sunny weather */}
+      {weather === 'sunny' && (
+        <div className="absolute top-16 left-1/4 w-64 h-32 opacity-30 pointer-events-none">
+          <div className="absolute inset-0 rounded-t-full" style={{
+            background: 'linear-gradient(180deg, transparent 50%, rgba(255,0,0,0.3) 52%, rgba(255,127,0,0.3) 56%, rgba(255,255,0,0.3) 60%, rgba(0,255,0,0.3) 64%, rgba(0,0,255,0.3) 68%, rgba(139,0,255,0.3) 72%, transparent 75%)',
+            transform: 'rotate(-15deg)'
+          }} />
+        </div>
+      )}
 
       {/* Fluffy clouds - change appearance based on weather */}
       <div className="absolute top-12 left-8">
@@ -146,10 +148,14 @@ export default function GamingIsland() {
         </>
       )}
 
-      {/* Flying Birds */}
-      <div className="absolute top-16 left-1/4 text-xl animate-bird">🐦</div>
-      <div className="absolute top-28 right-1/4 text-lg animate-bird" style={{ animationDelay: '1s' }}>🐦</div>
-      <div className="absolute top-20 left-1/2 text-sm animate-bird" style={{ animationDelay: '0.5s' }}>🐦</div>
+      {/* Flying Birds - hidden in bad weather */}
+      {weather === 'sunny' && (
+        <>
+          <div className="absolute top-16 left-1/4 text-xl animate-bird">🐦</div>
+          <div className="absolute top-28 right-1/4 text-lg animate-bird" style={{ animationDelay: '1s' }}>🐦</div>
+          <div className="absolute top-20 left-1/2 text-sm animate-bird" style={{ animationDelay: '0.5s' }}>🐦</div>
+        </>
+      )}
 
       {/* Header */}
       <div className="text-center pt-6 pb-2 relative z-10">
