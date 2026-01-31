@@ -6,6 +6,60 @@
 
 ---
 
+## 🤖 ONDINHO AUTONOMY SYSTEM (DA MATTIA 2026-01-30)
+
+### [T948] Ondinho Autonomy: Documentare Ciclo Lavoro Autonomo
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
+- **Depends**: -
+- **Blocks**: [T949], [T950], [T951]
+- **Priority**: P0
+- **Notes**: ✅ Sistema per far lavorare Ondinho in modo autonomo senza fermarsi!
+  - **Obiettivo**: Ondinho deve prendere task, completarli, e continuare automaticamente
+  - **Documentazione chiave:**
+    - `HEARTBEAT.md` - Ciclo lavoro autonomo, alert files, workflow
+    - `AGENTS.md` - Processo obbligatorio, git sync, memoria, task extraction
+    - `TASK-RULES.md` - Protocollo lock, workflow git, dipendenze
+    - `TASKS.md` - Lista task condivisa
+  - **Deliverable:** Dire a Ondinho di leggere questi file!
+
+### [T949] Ondinho Autonomy: Notifica Ondinho per Leggere Docs
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T948]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Mandare messaggio a Ondinho via sessions_send per dirgli:
+  - Leggere HEARTBEAT.md per ciclo lavoro
+  - Leggere AGENTS.md per processo obbligatorio
+  - MAI fermarsi, sempre prendere prossimo task
+  - Reportare ogni ora a Mattia
+
+### [T950] Ondinho Autonomy: Watchdog per Verifica Attività
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T948]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Creare watchdog che verifica se Ondinho sta lavorando:
+  - Controllare ultimo commit di Ondinho
+  - Verificare task completati nelle ultime ore
+  - Alert se inattivo >30 minuti durante orario lavoro
+
+### [T951] Ondinho Autonomy: Auto-Restart Sessione se Stalled
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T950]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Sistema per riavviare sessione Ondinho se si blocca:
+  - Trigger su alert watchdog
+  - sessions_spawn nuovo task per riprendere
+  - Log motivo stall in memory
+
+---
+
 ## 🎮 MINECRAFT SKIN CREATOR APP (DA MATTIA 2026-01-30)
 
 ### [T864] Minecraft Skin Creator: MVP Web Version
