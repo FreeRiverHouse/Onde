@@ -11515,3 +11515,12 @@ Generated: 2026-01-30T18:37:46.867013
   - Monitora agenti
   - Vede metriche sistema
   - Un solo posto per tutto!
+
+### [T938] Skin Creator: Fix 3D Initial Orientation
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Created-by**: @onde-bot-1
+- **Priority**: P1
+- **Notes**: Il 3D mostra solo parte del personaggio
+  - Fix: orientamento iniziale frontale
+  - Camera position corretta
