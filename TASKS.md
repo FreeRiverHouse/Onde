@@ -12413,15 +12413,17 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: AI suggests complementary colors while drawing
 
 ### [T984] Skin Creator: Skin Rating/Feedback
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: AI gives feedback on skin design quality
 
 ### [T985] Skin Creator: Animated Background
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:12 PST
+- **Notes**: Already has gradient animations + confetti
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Animated starfield or particles in 3D preview bg
