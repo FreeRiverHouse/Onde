@@ -12252,7 +12252,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Comparare con giochi AAA
 
 ### [T977] Skin Creator: AI Texture Enhancement
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P1 🔥
@@ -12285,3 +12285,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Sparkles, fire, magic effects around character
+
+### [T982] Skin Creator: AI Style Transfer
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Apply art styles (pixel art, anime, realistic) via AI
+
+### [T983] Skin Creator: Smart Color Picker
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: AI suggests complementary colors while drawing
+
+### [T984] Skin Creator: Skin Rating/Feedback
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: AI gives feedback on skin design quality
