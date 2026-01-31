@@ -111,6 +111,92 @@
 
 ---
 
+## 🔍 WATCHDOG AGENTI - MONITORAGGIO AUTOMATICO (DA MATTIA 2026-01-30 21:14) 🔥🔥🔥
+
+> Mattia è STANCO di fare lui il watchdog manualmente! Creare sistema automatico!
+
+### [T961] Watchdog: Controlla Log Memoria per Ogni Messaggio Telegram
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Started**: 2026-01-30 21:15 PST
+- **Depends**: -
+- **Blocks**: [T962], [T963]
+- **Priority**: P0 🔥🔥🔥
+- **Notes**: DA MATTIA (ID:2972) - VUOLE AUTOMAZIONE TOTALE!
+  - **Obiettivo**: Ogni messaggio Telegram DEVE essere loggato in memory/
+  - **Script**: `scripts/watchdog-telegram-logs.sh`
+  - **Controlli:**
+    - [ ] Estrae ultimi messaggi da Clawdbot history/logs
+    - [ ] Verifica che ogni msg ID sia presente in memory/YYYY-MM-DD.md
+    - [ ] Se mancante → crea alert `scripts/telegram-not-logged.alert`
+  - **Cron**: Ogni 10 min
+
+### [T962] Watchdog: Controlla Estrazione Task da Messaggi
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T961]
+- **Blocks**: [T963]
+- **Priority**: P0 🔥🔥🔥
+- **Notes**: DA MATTIA (ID:2972)
+  - **Obiettivo**: Messaggi con richieste → task in TASKS.md
+  - **Script**: `scripts/watchdog-task-extraction.sh`
+  - **Controlli:**
+    - [ ] Analizza messaggi loggati
+    - [ ] Identifica richieste esplicite (keywords: "voglio", "fai", "crea", etc.)
+    - [ ] Verifica task correlato in TASKS.md
+    - [ ] Se mancante → alert + suggerisci task
+  - **Cron**: Ogni 15 min
+
+### [T963] Watchdog: Dashboard Endpoint con Stato Agenti
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T961], [T962]
+- **Blocks**: -
+- **Priority**: P0 🔥🔥🔥
+- **Notes**: DA MATTIA (ID:2972) - DASHBOARD CON DATI VERI!
+  - **Endpoint**: `/api/agent-dashboard` o onde.surf/agent-status
+  - **Dati da mostrare:**
+    - [ ] Ultimo messaggio loggato (timestamp)
+    - [ ] Ultimo task creato (timestamp)
+    - [ ] Task in corso (owner, titolo, durata)
+    - [ ] Task completati oggi
+    - [ ] Stato Clawdinho (attivo/idle/errore)
+    - [ ] Stato Ondinho (attivo/idle/errore)
+    - [ ] Ultimo commit da ciascun agente
+  - **Tech**: API route su surfboard + widget React
+
+### [T964] Watchdog: Dashboard con Dati GPU Real-Time
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T963]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: DA MATTIA (ID:2972)
+  - **Dati GPU:**
+    - [ ] Radeon 7900 XTX: temp, usage, VRAM
+    - [ ] M4 Pro (Ondinho): temp, usage
+    - [ ] Ollama status (running, modelli caricati)
+  - **Integra con SystemMonitor** già in dispatcher.py
+  - **Widget**: Heatmap o gauge per temp, grafico usage
+
+### [T965] Watchdog: Integra Controlli in Heartbeat
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T961], [T962], [T963]
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: DA MATTIA (ID:2972)
+  - **Obiettivo**: Heartbeat esegue controlli watchdog
+  - **Modifiche a HEARTBEAT.md:**
+    - [ ] Aggiungi check alert files watchdog
+    - [ ] Aggiungi sezione "Verifica procedure rispettate"
+  - **Alert files:**
+    - `scripts/telegram-not-logged.alert`
+    - `scripts/task-not-extracted.alert`
+    - `scripts/agent-stalled.alert`
+
+---
+
 ## 🤖 ONDINHO AUTONOMY SYSTEM (DA MATTIA 2026-01-30)
 
 ### [T948] Ondinho Autonomy: Documentare Ciclo Lavoro Autonomo
