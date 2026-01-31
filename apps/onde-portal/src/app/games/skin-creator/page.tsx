@@ -814,7 +814,7 @@ export default function SkinCreator() {
   const [viewMode, setViewMode] = useState<ViewMode>('editor'); // editor or gallery
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'rectangle' | 'circle' | 'spray' | 'select'>('brush');
+  const [tool, setTool] = useState<'brush' | 'pencil' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper' | 'line' | 'rectangle' | 'circle' | 'spray' | 'select' | 'color-replace'>('brush');
   // Drawing state for smooth lines and line tool
   const lastDrawPosition = useRef<{ x: number; y: number } | null>(null);
   const lineStartPosition = useRef<{ x: number; y: number } | null>(null);
@@ -2159,6 +2159,7 @@ export default function SkinCreator() {
           setShowMySkins(false);
           setShowLayerPanel(false);
           setShowHSLPanel(false);
+          setShowStatsPanel(false);
           setContextMenu(null);
           // Reset HSL if panel was open
           if (showHSLPanel) {
@@ -2213,6 +2214,7 @@ export default function SkinCreator() {
           setShowHSLPanel(prev => !prev);
           break;
         case 'k': setShowMySkins(prev => !prev); break; // K for sKins saved
+        case 's': if (!isCmd) setShowStatsPanel(prev => !prev); break; // S for Stats panel
         
         // 🎨 Color swap
         case 'x': {
@@ -3657,6 +3659,66 @@ export default function SkinCreator() {
     ctx.putImageData(imageData, 0, 0);
   }, []);
 
+  // 🔄 Color Replace Algorithm - Replace all instances of a color with another!
+  const colorReplace = useCallback((ctx: CanvasRenderingContext2D, startX: number, startY: number, newColor: string) => {
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    
+    // Get target color at click position
+    const startIdx = (startY * SKIN_WIDTH + startX) * 4;
+    const targetR = data[startIdx];
+    const targetG = data[startIdx + 1];
+    const targetB = data[startIdx + 2];
+    const targetA = data[startIdx + 3];
+    
+    // Skip if clicking on transparent
+    if (targetA < 10) {
+      return;
+    }
+    
+    // Parse new color
+    const newR = parseInt(newColor.slice(1, 3), 16);
+    const newG = parseInt(newColor.slice(3, 5), 16);
+    const newB = parseInt(newColor.slice(5, 7), 16);
+    
+    // Don't replace if same color
+    if (targetR === newR && targetG === newG && targetB === newB) {
+      return;
+    }
+    
+    const tolerance = 10; // Color tolerance for more forgiving matches
+    let replacedCount = 0;
+    
+    // Scan entire image and replace matching colors
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const a = data[i + 3];
+      
+      // Skip transparent pixels
+      if (a < 10) continue;
+      
+      // Check if color matches within tolerance
+      if (Math.abs(r - targetR) <= tolerance &&
+          Math.abs(g - targetG) <= tolerance &&
+          Math.abs(b - targetB) <= tolerance) {
+        data[i] = newR;
+        data[i + 1] = newG;
+        data[i + 2] = newB;
+        // Keep original alpha
+        replacedCount++;
+      }
+    }
+    
+    ctx.putImageData(imageData, 0, 0);
+    
+    // Visual feedback
+    if (replacedCount > 0) {
+      playSound('success');
+    }
+  }, [playSound]);
+
   // 🖌️ Draw line with interpolation (Bresenham's algorithm for smooth lines)
   const drawLineInterpolated = useCallback((
     ctx: CanvasRenderingContext2D,
@@ -4186,6 +4248,15 @@ export default function SkinCreator() {
       }
       compositeLayersToMain();
       updatePreview();
+      return;
+    }
+
+    // 🔄 Color Replace tool - replace all instances of clicked color
+    if (tool === 'color-replace') {
+      colorReplace(ctx, x, y, selectedColor);
+      compositeLayersToMain();
+      updatePreview();
+      saveState();
       return;
     }
 
@@ -5359,6 +5430,47 @@ export default function SkinCreator() {
         </div>
       )}
 
+      {/* 🕒 RECENT SKINS CAROUSEL - Quick access to latest creations */}
+      {viewMode === 'editor' && savedSkins.length > 0 && (
+        <div className="w-full max-w-6xl px-2 skin-animate-in delay-400">
+          <RecentSkinsCarousel
+            skins={savedSkins}
+            onLoadSkin={(skin) => {
+              const img = new Image();
+              img.onload = () => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+                ctx.clearRect(0, 0, 64, 64);
+                ctx.drawImage(img, 0, 0);
+                const baseLayerCanvas = getLayerCanvas('base');
+                const baseCtx = baseLayerCanvas.getContext('2d');
+                if (baseCtx) {
+                  baseCtx.clearRect(0, 0, 64, 64);
+                  baseCtx.drawImage(img, 0, 0);
+                }
+                const detailsCanvas = getLayerCanvas('details');
+                const accessoriesCanvas = getLayerCanvas('accessories');
+                const detailsCtx = detailsCanvas.getContext('2d');
+                const accessoriesCtx = accessoriesCanvas.getContext('2d');
+                if (detailsCtx) detailsCtx.clearRect(0, 0, 64, 64);
+                if (accessoriesCtx) accessoriesCtx.clearRect(0, 0, 64, 64);
+                compositeLayersToMain();
+                updatePreview();
+                saveState();
+                setSkinName(skin.name.toLowerCase().replace(/\s+/g, '-'));
+                playSound('click');
+              };
+              img.src = skin.dataUrl;
+            }}
+            onDeleteSkin={(id) => setSavedSkins(prev => prev.filter(s => s.id !== id))}
+            playSound={playSound}
+            darkMode={darkMode}
+          />
+        </div>
+      )}
+
       {/* Gallery View */}
       {viewMode === 'gallery' && (
         <div className="w-full max-w-6xl px-2 mt-4">
@@ -6061,6 +6173,15 @@ export default function SkinCreator() {
               }`}
             >
               🎯 <span className="hidden sm:inline">Pick</span>
+            </button>
+            <button
+              onClick={() => setTool('color-replace')}
+              title="🔄 Replace! Click on a color to replace it everywhere with your selected color (H)"
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                tool === 'color-replace' ? 'bg-emerald-500 text-white scale-105 shadow-lg ring-2 ring-emerald-300' : 'bg-white/80 hover:bg-white hover:ring-2 hover:ring-emerald-200'
+              }`}
+            >
+              🔄 <span className="hidden sm:inline">Replace</span>
             </button>
             <button
               onClick={() => { undo(); playSound('undo'); }}
@@ -7193,6 +7314,7 @@ export default function SkinCreator() {
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">[</span><span>Previous layer</span>
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">]</span><span>Next layer</span>
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">C</span><span>Duplicate layer</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">S</span><span>Skin stats panel</span>
             </div>
             <button onClick={() => setShowHelp(false)} className="mt-4 w-full py-2 bg-blue-500 text-white rounded-lg font-bold">
               Got it! 👍

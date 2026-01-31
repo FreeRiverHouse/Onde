@@ -758,7 +758,7 @@ const SoundToggle = ({ enabled, onToggle }: { enabled: boolean; onToggle: () => 
 type TimeOfDay = 'night' | 'dawn' | 'day' | 'dusk'
 
 // Game state machine
-type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
+type GameState = 'menu' | 'find-toy' | 'feed-time' | 'puzzle' | 'memory' | 'reward' | 'loading'
 
 // Reward types
 interface Rewards {
@@ -792,6 +792,22 @@ interface FoodItem {
   id: number
   type: 'fish' | 'meat' | 'steak' | 'chicken'
   name: string
+}
+
+// Puzzle tile for sliding puzzle game
+interface PuzzleTile {
+  id: number
+  currentPos: number
+  correctPos: number
+  emoji: string
+}
+
+// Memory card for memory match game
+interface MemoryCard {
+  id: number
+  emoji: string
+  isFlipped: boolean
+  isMatched: boolean
 }
 
 const HIDING_SPOT_TYPES: HidingSpot['type'][] = ['couch', 'plant', 'box', 'teddy', 'gift', 'chair', 'bed', 'basket']
@@ -843,6 +859,44 @@ const FOOD_ITEMS: FoodItem[] = [
   { id: 3, type: 'steak', name: 'Steak' },
   { id: 4, type: 'chicken', name: 'Chicken' },
 ]
+
+// ============ ROOM CUSTOMIZATION TYPES ============
+type WallpaperPattern = 'stars' | 'hearts' | 'moons' | 'dots' | 'waves' | 'none'
+
+interface RoomTheme {
+  id: string
+  name: string
+  primaryColor: string
+  secondaryColor: string
+  accentColor: string
+  windowTint: string
+}
+
+interface RoomCustomization {
+  themeId: string
+  wallpaperId: WallpaperPattern
+}
+
+const ROOM_THEMES: RoomTheme[] = [
+  { id: 'cozy', name: 'Cozy Night', primaryColor: '#2a2a4e', secondaryColor: '#1a1a3e', accentColor: '#ff9966', windowTint: '#FFE566' },
+  { id: 'dreamy', name: 'Dreamy Pink', primaryColor: '#3e2a4e', secondaryColor: '#2e1a3e', accentColor: '#ff66b2', windowTint: '#FFB6C1' },
+  { id: 'forest', name: 'Enchanted Forest', primaryColor: '#1e3e2a', secondaryColor: '#0e2e1a', accentColor: '#66ff99', windowTint: '#90EE90' },
+  { id: 'ocean', name: 'Deep Ocean', primaryColor: '#1a2e4e', secondaryColor: '#0a1e3e', accentColor: '#66b2ff', windowTint: '#87CEEB' },
+]
+
+const WALLPAPER_PATTERNS: { id: WallpaperPattern; name: string }[] = [
+  { id: 'none', name: 'None' },
+  { id: 'stars', name: 'Stars' },
+  { id: 'hearts', name: 'Hearts' },
+  { id: 'moons', name: 'Moons' },
+  { id: 'dots', name: 'Dots' },
+  { id: 'waves', name: 'Waves' },
+]
+
+const DEFAULT_ROOM_CUSTOMIZATION: RoomCustomization = {
+  themeId: 'cozy',
+  wallpaperId: 'stars',
+}
 
 // ============ OPTIMIZED ANIMATION STYLES ============
 // GPU-accelerated animations with smooth easing curves
@@ -2974,6 +3028,257 @@ const FairyTrail = ({ delay = 0, path = 1 }: { delay?: number; path?: 1 | 2 | 3 
   )
 }
 
+// ============ ROOM CUSTOMIZATION UI ============
+
+// Room wallpaper pattern SVG renderer
+const WallpaperPatternSVG = ({ pattern, color = 'white' }: { pattern: WallpaperPattern; color?: string }) => {
+  if (!pattern.svg) return null
+  
+  return (
+    <svg 
+      className="absolute inset-0 w-full h-full pointer-events-none" 
+      style={{ opacity: pattern.opacity, color }}
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs dangerouslySetInnerHTML={{ __html: pattern.svg }} />
+      <rect width="100%" height="100%" fill={`url(#${pattern.id}-pattern)`} />
+    </svg>
+  )
+}
+
+// Room Preview for customization selector
+const RoomPreview = ({ 
+  theme, 
+  wallpaper, 
+  isSelected,
+  onClick 
+}: { 
+  theme: RoomTheme
+  wallpaper: WallpaperPattern
+  isSelected: boolean
+  onClick: () => void
+}) => (
+  <button
+    onClick={onClick}
+    className={`relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+      isSelected 
+        ? 'border-yellow-400 shadow-lg shadow-yellow-400/30 scale-105' 
+        : 'border-white/20 hover:border-white/40 hover:scale-102'
+    }`}
+  >
+    {/* Room background */}
+    <div className={`absolute inset-0 bg-gradient-to-b ${theme.wallGradient}`} />
+    
+    {/* Wallpaper pattern */}
+    <WallpaperPatternSVG pattern={wallpaper} color={theme.windowTint} />
+    
+    {/* Floor */}
+    <div 
+      className="absolute bottom-0 left-0 right-0 h-1/4"
+      style={{ background: `linear-gradient(to bottom, ${theme.floorColor}88, ${theme.floorColor})` }}
+    />
+    
+    {/* Glow effect */}
+    <div 
+      className="absolute inset-0 pointer-events-none"
+      style={{ background: `radial-gradient(ellipse at center 70%, ${theme.glowColor}, transparent 70%)` }}
+    />
+    
+    {/* Selection indicator */}
+    {isSelected && (
+      <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-yellow-400 flex items-center justify-center">
+        <svg viewBox="0 0 24 24" className="w-3 h-3 text-black">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor" />
+        </svg>
+      </div>
+    )}
+  </button>
+)
+
+// Room Customization Panel
+const RoomCustomizationPanel = ({ 
+  isOpen, 
+  onClose,
+  currentTheme,
+  currentWallpaper,
+  onThemeChange,
+  onWallpaperChange,
+  soundEnabled
+}: {
+  isOpen: boolean
+  onClose: () => void
+  currentTheme: RoomTheme
+  currentWallpaper: WallpaperPattern
+  onThemeChange: (themeId: string) => void
+  onWallpaperChange: (wallpaperId: string) => void
+  soundEnabled: boolean
+}) => {
+  const [activeTab, setActiveTab] = useState<'colors' | 'wallpapers'>('colors')
+  
+  if (!isOpen) return null
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <div className="relative w-full max-w-md bg-gradient-to-b from-[#2a2a4e] to-[#1a1a3e] rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
+            🏠 Room Customization
+          </h3>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-white">
+              <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+        
+        {/* Tabs */}
+        <div className="flex border-b border-white/10">
+          <button
+            onClick={() => { setActiveTab('colors'); sounds.tap(soundEnabled) }}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${
+              activeTab === 'colors' 
+                ? 'text-yellow-300 border-b-2 border-yellow-300' 
+                : 'text-white/60 hover:text-white/80'
+            }`}
+          >
+            🎨 Colors
+          </button>
+          <button
+            onClick={() => { setActiveTab('wallpapers'); sounds.tap(soundEnabled) }}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${
+              activeTab === 'wallpapers' 
+                ? 'text-yellow-300 border-b-2 border-yellow-300' 
+                : 'text-white/60 hover:text-white/80'
+            }`}
+          >
+            🖼️ Wallpapers
+          </button>
+        </div>
+        
+        {/* Content */}
+        <div className="p-4 max-h-[60vh] overflow-y-auto">
+          {activeTab === 'colors' ? (
+            <div className="grid grid-cols-3 gap-3">
+              {ROOM_THEMES.map((theme) => (
+                <button
+                  key={theme.id}
+                  onClick={() => { onThemeChange(theme.id); sounds.tap(soundEnabled) }}
+                  className={`relative p-3 rounded-xl border-2 transition-all duration-200 ${
+                    currentTheme.id === theme.id
+                      ? 'border-yellow-400 bg-yellow-400/10'
+                      : 'border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10'
+                  }`}
+                >
+                  <div className={`w-full aspect-square rounded-lg bg-gradient-to-br ${theme.wallGradient} mb-2`} />
+                  <span className="text-xl">{theme.emoji}</span>
+                  <p className="text-white/70 text-xs mt-1 truncate">{theme.name}</p>
+                  {currentTheme.id === theme.id && (
+                    <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-yellow-400 flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 text-black">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-3">
+              {WALLPAPER_PATTERNS.map((pattern) => (
+                <button
+                  key={pattern.id}
+                  onClick={() => { onWallpaperChange(pattern.id); sounds.tap(soundEnabled) }}
+                  className={`relative p-3 rounded-xl border-2 transition-all duration-200 ${
+                    currentWallpaper.id === pattern.id
+                      ? 'border-yellow-400 bg-yellow-400/10'
+                      : 'border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10'
+                  }`}
+                >
+                  <div className={`relative w-full aspect-square rounded-lg bg-gradient-to-br ${currentTheme.wallGradient} overflow-hidden mb-2`}>
+                    {pattern.svg && (
+                      <WallpaperPatternSVG pattern={pattern} color={currentTheme.windowTint} />
+                    )}
+                  </div>
+                  <span className="text-xl">{pattern.emoji}</span>
+                  <p className="text-white/70 text-xs mt-1 truncate">{pattern.name}</p>
+                  {currentWallpaper.id === pattern.id && (
+                    <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-yellow-400 flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 text-black">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* Preview */}
+        <div className="p-4 border-t border-white/10">
+          <p className="text-white/50 text-xs mb-2 text-center">Preview</p>
+          <RoomPreview 
+            theme={currentTheme} 
+            wallpaper={currentWallpaper}
+            isSelected={false}
+            onClick={() => {}}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Room Customization Button (floating button in games)
+const RoomCustomizeButton = ({ onClick, soundEnabled }: { onClick: () => void; soundEnabled: boolean }) => (
+  <button
+    onClick={() => { sounds.tap(soundEnabled); onClick() }}
+    className="fixed bottom-4 right-4 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/30 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform border border-white/20"
+    aria-label="Customize room"
+  >
+    <svg viewBox="0 0 24 24" className="w-6 h-6 text-white">
+      <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  </button>
+)
+
+// Styled Room Container with theme applied
+const ThemedRoomContainer = ({ 
+  children, 
+  theme, 
+  wallpaper,
+  className = ''
+}: { 
+  children: React.ReactNode
+  theme: RoomTheme
+  wallpaper: WallpaperPattern
+  className?: string
+}) => (
+  <div className={`relative w-full max-w-lg bg-gradient-to-b ${theme.wallGradient} rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 contain-paint ${className}`}>
+    {/* Wallpaper pattern */}
+    <WallpaperPatternSVG pattern={wallpaper} color={theme.windowTint} />
+    
+    {/* Room warm glow */}
+    <div 
+      className="absolute inset-0 pointer-events-none"
+      style={{ background: `radial-gradient(ellipse at center 80%, ${theme.glowColor}, transparent 60%)` }}
+    />
+    
+    {/* Gradient overlay at bottom for floor effect */}
+    <div 
+      className="absolute bottom-0 left-0 right-0 h-1/4 pointer-events-none"
+      style={{ background: `linear-gradient(to bottom, transparent, ${theme.floorColor}40)` }}
+    />
+    
+    {/* Content */}
+    {children}
+  </div>
+)
+
 // ============ COLLECTIBLE ITEM COMPONENTS ============
 
 // Collectible Star - golden spinning star
@@ -3437,6 +3742,19 @@ export default function MoonlightMagicHouse() {
   })
   const [interactionCount, setInteractionCount] = useState(0)
   
+  // Room customization state
+  const [roomCustomization, setRoomCustomization] = useState<RoomCustomization>(DEFAULT_ROOM_CUSTOMIZATION)
+  const [showRoomCustomizer, setShowRoomCustomizer] = useState(false)
+  
+  // Get current theme and wallpaper
+  const currentRoomTheme = useMemo(() => 
+    ROOM_THEMES.find(t => t.id === roomCustomization.themeId) || ROOM_THEMES[0]
+  , [roomCustomization.themeId])
+  
+  const currentWallpaper = useMemo(() => 
+    WALLPAPER_PATTERNS.find(p => p.id === roomCustomization.wallpaperId) || WALLPAPER_PATTERNS[0]
+  , [roomCustomization.wallpaperId])
+  
   // Collectible items state
   const [collectibles, setCollectibles] = useState<CollectibleItem[]>([])
   const [totalCollected, setTotalCollected] = useState(0)
@@ -3457,6 +3775,24 @@ export default function MoonlightMagicHouse() {
   const [puzzleTiles, setPuzzleTiles] = useState<PuzzleTile[]>([])
   const [puzzleMoves, setPuzzleMoves] = useState(0)
   const [puzzleSolved, setPuzzleSolved] = useState(false)
+  
+  // Achievement tracking state
+  const [achievementStats, setAchievementStats] = useState({
+    puzzlesCompleted: 0,
+    memoryGamesCompleted: 0,
+    totalStars: 0,
+  })
+  
+  // Check achievements (stub function - updates stats)
+  const checkAchievements = useCallback((stats: Partial<typeof achievementStats>) => {
+    setAchievementStats(prev => ({ ...prev, ...stats }))
+  }, [])
+  
+  // Unlock speed achievement (stub function)
+  const unlockSpeedAchievement = useCallback((gameType: string, moves: number) => {
+    // Achievement logic could be expanded here
+    console.log(`Achievement check: ${gameType} completed in ${moves} moves`)
+  }, [])
   
   // Memory game state
   const [memoryCards, setMemoryCards] = useState<MemoryCard[]>([])
@@ -3510,6 +3846,45 @@ export default function MoonlightMagicHouse() {
     }, 1200)
     return () => clearTimeout(timer)
   }, [])
+  
+  // Load room customization from localStorage
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      const saved = localStorage.getItem('moonlight-room-customization')
+      if (saved) {
+        const parsed = JSON.parse(saved) as RoomCustomization
+        // Validate the saved data
+        if (ROOM_THEMES.some(t => t.id === parsed.themeId) && 
+            WALLPAPER_PATTERNS.some(p => p.id === parsed.wallpaperId)) {
+          setRoomCustomization(parsed)
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load room customization:', e)
+    }
+  }, [])
+  
+  // Save room customization to localStorage
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      localStorage.setItem('moonlight-room-customization', JSON.stringify(roomCustomization))
+    } catch (e) {
+      console.warn('Failed to save room customization:', e)
+    }
+  }, [roomCustomization])
+  
+  // Room customization handlers
+  const handleThemeChange = useCallback((themeId: string) => {
+    setRoomCustomization(prev => ({ ...prev, themeId }))
+    sounds.sparkle(soundEnabled)
+  }, [soundEnabled])
+  
+  const handleWallpaperChange = useCallback((wallpaperId: string) => {
+    setRoomCustomization(prev => ({ ...prev, wallpaperId }))
+    sounds.sparkle(soundEnabled)
+  }, [soundEnabled])
   
   // Hide pet intro bubble after a few seconds
   useEffect(() => {
@@ -4659,13 +5034,19 @@ export default function MoonlightMagicHouse() {
           </p>
         </div>
         
-        {/* Game area with cozy room feeling */}
-        <div className="relative w-full max-w-lg h-[55vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm border border-white/10 z-10 contain-paint">
-          {/* Room warm glow */}
-          <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 via-transparent to-transparent pointer-events-none" />
-          
+        {/* Game area with cozy room feeling - themed */}
+        <ThemedRoomContainer 
+          theme={currentRoomTheme} 
+          wallpaper={currentWallpaper}
+          className="h-[55vh]"
+        >
           {/* Decorative window with moonlight */}
-          <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-16 h-20 bg-gradient-to-b from-[#1a1a3e] to-[#0f0f2e] rounded-t-full border-2 border-yellow-900/30">
+          <div 
+            className="absolute top-3 left-1/2 transform -translate-x-1/2 w-16 h-20 rounded-t-full border-2 border-yellow-900/30"
+            style={{ 
+              background: `linear-gradient(to bottom, ${currentRoomTheme.floorColor}, ${currentRoomTheme.floorColor}dd)`,
+            }}
+          >
             <MagicMoon className="w-8 h-8 mx-auto mt-2" />
           </div>
           
@@ -4710,7 +5091,21 @@ export default function MoonlightMagicHouse() {
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-20 gpu-accelerated">
             <CuteCat mood={foundToy ? 'excited' : 'neutral'} className="w-full h-full" />
           </div>
-        </div>
+        </ThemedRoomContainer>
+        
+        {/* Room customize button */}
+        <RoomCustomizeButton onClick={() => setShowRoomCustomizer(true)} soundEnabled={soundEnabled} />
+        
+        {/* Room customization panel */}
+        <RoomCustomizationPanel
+          isOpen={showRoomCustomizer}
+          onClose={() => setShowRoomCustomizer(false)}
+          currentTheme={currentRoomTheme}
+          currentWallpaper={currentWallpaper}
+          onThemeChange={handleThemeChange}
+          onWallpaperChange={handleWallpaperChange}
+          soundEnabled={soundEnabled}
+        />
       </div>
     )
   }
@@ -4749,11 +5144,18 @@ export default function MoonlightMagicHouse() {
           </p>
         </div>
         
-        {/* Game area */}
-        <div className="relative w-full max-w-lg h-[50vh] bg-gradient-to-b from-[#2a2a4e]/80 to-[#1a1a3e]/80 rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center backdrop-blur-sm border border-white/10 z-10 contain-paint">
+        {/* Game area - themed */}
+        <ThemedRoomContainer 
+          theme={currentRoomTheme} 
+          wallpaper={currentWallpaper}
+          className="h-[50vh] flex items-center justify-center"
+        >
           {/* Warm ambient light around pet */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-r from-orange-500/10 to-yellow-500/10 blur-3xl" />
+            <div 
+              className="w-48 h-48 rounded-full blur-3xl"
+              style={{ background: `radial-gradient(circle, ${currentRoomTheme.glowColor}, transparent)` }}
+            />
           </div>
           
           {/* Pet */}
@@ -4785,7 +5187,21 @@ export default function MoonlightMagicHouse() {
               <ellipse cx="40" cy="22" rx="25" ry="8" fill="#CD853F" />
             </svg>
           </div>
-        </div>
+        </ThemedRoomContainer>
+        
+        {/* Room customize button */}
+        <RoomCustomizeButton onClick={() => setShowRoomCustomizer(true)} soundEnabled={soundEnabled} />
+        
+        {/* Room customization panel */}
+        <RoomCustomizationPanel
+          isOpen={showRoomCustomizer}
+          onClose={() => setShowRoomCustomizer(false)}
+          currentTheme={currentRoomTheme}
+          currentWallpaper={currentWallpaper}
+          onThemeChange={handleThemeChange}
+          onWallpaperChange={handleWallpaperChange}
+          soundEnabled={soundEnabled}
+        />
         
         {/* Food selection with glow on hover */}
         <div className="w-full max-w-lg mt-6 relative z-10">
@@ -5032,6 +5448,7 @@ export default function MoonlightMagicHouse() {
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <MagicalBackground intense />
         <SoundToggle enabled={soundEnabled} onToggle={toggleSound} />
+        <WeatherToggle weather={weather} onCycle={cycleWeather} soundEnabled={soundEnabled} />
         
         {/* Extra celebration sparkles - optimized with CSS variables */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
