@@ -8,6 +8,8 @@ import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
+import LibraryBooks from './components/LibraryBooks';
+import TailWagging from './components/TailWagging';
 
 // Animation variants for room transitions
 const pageTransition = {
@@ -464,8 +466,18 @@ function App() {
   const [showDailyReward, setShowDailyReward] = useState(false);
   const [dailyRewardAmount, setDailyRewardAmount] = useState(0);
   const [showMiniGame, setShowMiniGame] = useState(false);
-  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | 'simon' | 'catch' | null
+  const [activeGame, setActiveGame] = useState<string | null>(null); // 'hub' | 'puzzle' | 'drawing' | 'memory' | 'stars' | 'bubbles' | 'simon' | 'catch' | 'library' | null
   const [eventMessage, setEventMessage] = useState('');
+  
+  // Library books state
+  const [unlockedBooks, setUnlockedBooks] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('moonlight-unlocked-books');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [showStory, setShowStory] = useState(false);
   const [storyText, setStoryText] = useState('');
   const [showObjectsHint, setShowObjectsHint] = useState(true);
@@ -487,6 +499,10 @@ function App() {
   const [isWalking, setIsWalking] = useState(false);
   const [facingDirection, setFacingDirection] = useState<'left' | 'right'>('right');
   const [targetPosition, setTargetPosition] = useState<{ x: number; y: number } | null>(null);
+  
+  // Idle state for tail wagging (T876)
+  const [isIdle, setIsIdle] = useState(false);
+  const [lastActionTime, setLastActionTime] = useState(Date.now());
   const roomContainerRef = useCallback((node: HTMLDivElement | null) => {
     if (node) node.focus();
   }, []);
@@ -507,6 +523,23 @@ function App() {
     const interval = setInterval(() => setFloatPhase(p => (p + 1) % 360), 50);
     return () => clearInterval(interval);
   }, []);
+
+  // Idle detection for tail wagging (T876)
+  useEffect(() => {
+    const checkIdle = setInterval(() => {
+      const timeSinceAction = Date.now() - lastActionTime;
+      setIsIdle(timeSinceAction > 3000 && !isWalking && !isActing);
+    }, 500);
+    return () => clearInterval(checkIdle);
+  }, [lastActionTime, isWalking, isActing]);
+  
+  // Reset idle timer on any action
+  useEffect(() => {
+    if (isWalking || isActing) {
+      setLastActionTime(Date.now());
+      setIsIdle(false);
+    }
+  }, [isWalking, isActing]);
 
   // Keyboard movement (WASD/Arrows) - only in room view
   // Hide movement hint callback - defined here so keyboard and tap handlers can use it
@@ -1273,6 +1306,13 @@ function App() {
         <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt="Moonlight" className={`luna-img mood-${mood} ${isActing ? 'acting' : ''} ${isWalking ? 'walking' : ''}`} />
         <div className="luna-glow" />
         <span className="luna-mood-badge">{getMoodEmoji(mood)}</span>
+        
+        {/* Tail wagging animation (T876) */}
+        <TailWagging 
+          isHappy={mood === 'happy' || mood === 'excited'} 
+          isIdle={isIdle}
+          onWagComplete={() => setLastActionTime(Date.now())}
+        />
         {isWalking && <div className="walk-dust" />}
       </div>
 

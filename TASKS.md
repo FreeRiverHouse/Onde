@@ -11399,16 +11399,22 @@ Generated: 2026-01-30T18:37:46.867013
 - **Priority**: P2
 - **Notes**: LLM-suggested feature for kids
 ### [T876] Moonlight Magic House: Luna Tail Wagging Animation (MM-021)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T870]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add cute tail wag animation when Luna is happy!
-  - Trigger: Idle for 3+ seconds, after successful interactions
-  - CSS keyframe animation (rotate-based swing)
-  - 3-4 wags then stop
-  - **AI Coding**: Use local Radeon LLM for implementation
+- **Notes**: ✅ Implemented tail wag animation for Luna!
+  - ✅ Created `src/components/TailWagging.tsx`
+  - ✅ Trigger: Idle for 3+ seconds OR happy/excited mood
+  - ✅ Framer-motion rotate animation (swing effect)
+  - ✅ 3-4 wags then auto-stop, resets after 3s delay
+  - ✅ Sparkle emoji (✨) during wag
+  - ✅ Integrated into App.tsx with idle detection
+  - ✅ Build passes
+  - **AI Coding**: qwen2.5-coder:7b via local Ollama generated initial code!
+  - **Receipt**: `apps/moonlight-house/src/components/TailWagging.tsx`
 
 ### [T877] Moonlight Magic House: Footstep Dust Puffs (MM-022)
 - **Status**: TODO
