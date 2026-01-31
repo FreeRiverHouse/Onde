@@ -12563,8 +12563,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Copy/paste/reset options via right-click
 
 ### [T1013] Skin Creator: Keyboard Shortcuts Help
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Show all keyboard shortcuts overlay
