@@ -13,6 +13,7 @@ const games = [
   { id: 'memory', emoji: '🧠', name: { it: 'Memory', en: 'Memory' }, color: '#6ee7b7' },
   { id: 'bubbles', emoji: '🫧', name: { it: 'Scoppia Bolle!', en: 'Pop Bubbles!' }, color: '#93c5fd' },
   { id: 'simon', emoji: '🎵', name: { it: 'Simon Dice', en: 'Simon Says' }, color: '#8b5cf6' },
+  { id: 'catch', emoji: '🧺', name: { it: 'Acchiappa!', en: 'Catch!' }, color: '#f59e0b' },
 ];
 
 export default function GameHub({ onSelectGame, onBack, lang }: GameHubProps) {
