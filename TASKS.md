@@ -23,7 +23,7 @@
 | MLH-007 | Add notification center panel (alerts, events) | DONE | @clawdinho | - |
 | MLH-008 | Add search history + recent commands to palette | DONE | @clawdinho | - |
 | MLH-009 | Add agent activity feed to notification center | DONE | @clawdinho | MLH-007 |
-| MLH-010 | Add notification sound preferences (mute/sound type) | TODO | - | MLH-007 |
+| MLH-010 | Add notification sound preferences (mute/sound type) | IN_PROGRESS | @clawdinho | MLH-007 |
 | MLH-011 | Add notification persistence with localStorage | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
