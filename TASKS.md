@@ -10714,3 +10714,41 @@
   - ✅ Color-coded categories for easy navigation
   - ✅ One-tap to select and use prompt
   - ✅ Selected prompt highlighted in purple
+
+### [T897] Skin Studio: Deploy with new icons to skin-studio.pages.dev
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T894]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Deploy updated Skin Studio with the new PWA icons:
+  - Build static export: `npm run build`
+  - Deploy to Cloudflare Pages
+  - Verify icons load correctly in manifest
+  - Test PWA install on mobile Chrome/Safari
+  - Verify apple-touch-icon works on iOS
+
+### [T898] Skin Studio: Create 1024x1024 App Store Icon
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T894]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Create high-res icon for App Store submission:
+  - Scale icon.svg to 1024x1024 PNG
+  - Ensure details are crisp at full size
+  - May need to adjust stroke widths for larger size
+  - Create favicon.ico from 32x32 version
+  - Store in public/app-store-icon.png
+
+### [T899] Infrastructure: Add Skin Studio to health checks
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T897]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add skin-studio.pages.dev to infrastructure monitoring:
+  - Add to record-uptime.py site list
+  - Add to health dashboard services
+  - Verify uptime tracking works
+  - Add latency monitoring
