@@ -17,6 +17,99 @@ const getAudioCtx = (): AudioContext | null => {
   return audioCtx
 }
 
+// ============ AMBIENT MUSIC SYSTEM ============
+// Magical generative ambient music using Web Audio API
+
+class AmbientMusicEngine {
+  private ctx: AudioContext | null = null
+  private masterGain: GainNode | null = null
+  private droneOscs: OscillatorNode[] = []
+  private isPlaying = false
+  private noteInterval: ReturnType<typeof setInterval> | null = null
+  private enabled = true
+  
+  private magicNotes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00]
+  
+  start(enabled: boolean) {
+    this.enabled = enabled
+    if (!enabled || this.isPlaying) return
+    this.ctx = getAudioCtx()
+    if (!this.ctx) return
+    this.isPlaying = true
+    this.masterGain = this.ctx.createGain()
+    this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime)
+    this.masterGain.gain.linearRampToValueAtTime(0.06, this.ctx.currentTime + 2)
+    this.masterGain.connect(this.ctx.destination)
+    this.createDrone()
+    this.scheduleNotes()
+  }
+  
+  private createDrone() {
+    if (!this.ctx || !this.masterGain) return
+    const droneFreqs = [65.41, 98.00, 130.81]
+    droneFreqs.forEach((freq, i) => {
+      const osc = this.ctx!.createOscillator()
+      const gain = this.ctx!.createGain()
+      const filter = this.ctx!.createBiquadFilter()
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(freq, this.ctx!.currentTime)
+      const lfo = this.ctx!.createOscillator()
+      const lfoGain = this.ctx!.createGain()
+      lfo.frequency.setValueAtTime(0.2 + i * 0.1, this.ctx!.currentTime)
+      lfoGain.gain.setValueAtTime(1.5, this.ctx!.currentTime)
+      lfo.connect(lfoGain)
+      lfoGain.connect(osc.frequency)
+      lfo.start()
+      filter.type = 'lowpass'
+      filter.frequency.setValueAtTime(200 + i * 100, this.ctx!.currentTime)
+      gain.gain.setValueAtTime(0.25 - i * 0.06, this.ctx!.currentTime)
+      osc.connect(filter)
+      filter.connect(gain)
+      gain.connect(this.masterGain!)
+      osc.start()
+      this.droneOscs.push(osc)
+    })
+  }
+  
+  private scheduleNotes() {
+    const playNote = () => {
+      if (!this.ctx || !this.masterGain || !this.isPlaying || !this.enabled) return
+      const note = this.magicNotes[Math.floor(Math.random() * this.magicNotes.length)]
+      const osc = this.ctx.createOscillator()
+      const gain = this.ctx.createGain()
+      osc.type = 'triangle'
+      osc.frequency.setValueAtTime(note, this.ctx.currentTime)
+      gain.gain.setValueAtTime(0, this.ctx.currentTime)
+      gain.gain.linearRampToValueAtTime(0.1, this.ctx.currentTime + 0.1)
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 3)
+      osc.connect(gain)
+      gain.connect(this.masterGain!)
+      osc.start()
+      osc.stop(this.ctx.currentTime + 3)
+    }
+    setTimeout(playNote, 2000)
+    this.noteInterval = setInterval(() => { if (Math.random() > 0.3) playNote() }, 4500)
+  }
+  
+  setVolume(enabled: boolean) {
+    this.enabled = enabled
+    if (this.masterGain && this.ctx) {
+      this.masterGain.gain.linearRampToValueAtTime(enabled ? 0.06 : 0, this.ctx.currentTime + 0.5)
+    }
+  }
+  
+  stop() {
+    this.isPlaying = false
+    if (this.noteInterval) { clearInterval(this.noteInterval); this.noteInterval = null }
+    if (this.masterGain && this.ctx) this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 1)
+    setTimeout(() => { this.droneOscs.forEach(osc => { try { osc.stop() } catch {} }); this.droneOscs = [] }, 1100)
+  }
+}
+
+let ambientMusic: AmbientMusicEngine | null = null
+const getAmbientMusic = () => { if (!ambientMusic) ambientMusic = new AmbientMusicEngine(); return ambientMusic }
+
+
 // Haptic feedback with pattern support
 const haptic = {
   light: () => navigator?.vibrate?.(8),
