@@ -13305,3 +13305,42 @@ Generated: 2026-01-30T18:37:46.867013
   - Test Skin Creator
   - Test Moonlight
   - Find bugs e UX issues
+
+### [T1064] Integration: Kids Chef Studio inside Moonlight
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Quando vai in cucina in Moonlight = puoi giocare a Kids Chef Studio
+- **Notes**: Ha senso! Cucina del pet house → cooking games
+
+### [T1065] Distribution: Roku Channel
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Goal**: Verificare se app si possono portare su Roku
+- **Notes**: Roku supporta giochi, verificare requisiti
+
+### [T1066] Distribution Channels Roadmap
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Channels**:
+  - Web (onde.la) ✅
+  - Apple App Store (iOS)
+  - Google Play Store (Android)
+  - Roku Channel
+  - Samsung TV
+  - Amazon Fire TV
+  - Others from existing roadmap
+
+### [T1067] Ebook Reader: Magic Library
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
+- **Priority**: P1
+- **Goal**: Reader con libreria magica scaffali
+- **Features**:
+  - Scaffali con libri
+  - Pochi libri (si vede che è vuoto, si riempirà)
+  - Click libro = apre e legge
+  - File esistenti: Marco Aurelio, Salmo 23 (ePub)
+- **Test**: Agent che clicca, apre, legge
