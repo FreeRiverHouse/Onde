@@ -11642,16 +11642,20 @@ Generated: 2026-01-30T18:37:46.867013
   - Add chapter navigation for longer books
 
 ### [T942] Infrastructure: Add LLM Health Check to Watchdog
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
-- **Created**: 2026-01-30
+- **Completed**: 2026-01-30
 - **Depends**: [T910]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Add local LLM health monitoring to infrastructure
-  - Call bot_llm.health_check() from watchdog cron
-  - Create kalshi-llm-health.alert if Ollama down >10min
-  - Log latency trends to data/llm-health-history.jsonl
+- **Notes**: ✅ Created `scripts/watchdog-llm.sh` - LLM health monitoring!
+  - ✅ Checks Ollama health every run (curl to /api/tags)
+  - ✅ Tracks latency in ms
+  - ✅ Creates `kalshi-llm-health.alert` if down >10min
+  - ✅ Logs to `data/llm-health-history.jsonl`
+  - ✅ State in `/tmp/llm-watchdog-state.json`
+  - ✅ Tested: 38ms latency, healthy
+  - **Add to crontab**: `*/5 * * * * /Users/mattia/Projects/Onde/scripts/watchdog-llm.sh`
   - Alert if latency > 10s (model loading issues)
 
 ### [T943] Documentation: Bot LLM Integration Examples
