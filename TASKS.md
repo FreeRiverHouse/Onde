@@ -13251,7 +13251,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Ideas**: 🎨 🖌️ ⛏️ 💎 🧱
 
 ### [T1061] Moonlight: Add Bouncing Pet Mascots  
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Priority**: P2
 - **Ideas**: 🐱 🐕 🐰 🐹 🦊
