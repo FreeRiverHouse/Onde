@@ -13792,3 +13792,28 @@ Generated: 2026-01-30T18:37:46.867013
 - **Status**: DONE ✅
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 03:15 PST
+
+### [T1011] CPU Feedback Loop System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P0
+- **Goal**: Watchdog monitora CPU, spawna/rimuove agenti
+- **Target**: CPU idle ≤30%
+- **Logic**:
+  - If idle > 30% → spawn more agents
+  - If CPU too high → reduce agents
+  - Automatic feedback loop!
+
+### [T1012] Fortune Cookie: Language Selector
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Selettore lingua IT/EN
+- **Fix**: Messaggi mischiati non OK
+
+### [T1013] Screenshot Watchdog
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Screenshot sito ogni 5 minuti
+- **Use**: Per video del lavoro fatto
