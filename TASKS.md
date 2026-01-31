@@ -11442,8 +11442,8 @@ Generated: 2026-01-30T18:37:46.867013
   - **AI Coding**: Use local Radeon LLM for implementation
 
 ### [T932] Skin Creator: Creeper Surprise Effect
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: LLM idea - quando clicchi, appare creeper e "esplode" in pixel
 
