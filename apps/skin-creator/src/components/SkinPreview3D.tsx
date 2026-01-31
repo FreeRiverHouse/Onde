@@ -20,8 +20,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const autoRotateRef = useRef(true);
   const particlesRef = useRef<THREE.Points | null>(null);
   const [showParticles, setShowParticles] = useState(true);
-  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance' | 'floss'>('walk');
-  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss'>('walk');
+  const [pose, setPose] = useState<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
+  const poseRef = useRef<'walk' | 'idle' | 'wave' | 'dance' | 'floss' | 'dab'>('walk');
   const [zoom, setZoom] = useState(5); // Camera distance
   const zoomRef = useRef(5);
 
@@ -337,6 +337,16 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         if (leftLegMesh) leftLegMesh.rotation.x = -hipSwing * 0.3;
         // Hip rotation
         character.rotation.y = rotationRef.current.y + hipSwing;
+      } else if (currentPose === 'dab') {
+        // 😎 DAB POSE - Static with subtle bounce
+        const bounce = Math.sin(walkTime * 2) * 0.02;
+        // Right arm up diagonal, left arm down diagonal
+        if (rightArmMesh) { rightArmMesh.rotation.x = -2.5; rightArmMesh.rotation.z = 0.5; }
+        if (leftArmMesh) { leftArmMesh.rotation.x = -0.5; leftArmMesh.rotation.z = -1.2; }
+        // Head tucked into elbow (simulated by body tilt)
+        character.rotation.z = 0.2 + bounce;
+        if (rightLegMesh) rightLegMesh.rotation.x = 0;
+        if (leftLegMesh) leftLegMesh.rotation.x = 0;
       }
       
       // ✨ Animate particles - float upward and respawn
@@ -589,6 +599,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             title="Floss! 🕺"
           >
             🕺
+          </button>
+          <button
+            onClick={() => setPose('dab')}
+            className={`px-1.5 py-1 rounded text-xs font-bold hover:scale-105 shadow ${
+              pose === 'dab' ? 'bg-cyan-400 text-cyan-900' : 'bg-white/90 text-gray-800'
+            }`}
+            title="Dab! 😎"
+          >
+            😎
           </button>
         </div>
       </div>
