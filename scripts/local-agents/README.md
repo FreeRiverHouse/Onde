@@ -204,6 +204,101 @@ ollama pull llama3.2:3b
 - Try a smaller model for quick tasks
 - Ensure no other heavy processes are running
 
+## Bot/Clawdbot Integration
+
+When to use local LLM vs Claude API in Clawdbot sessions:
+
+### Use Local LLM When:
+- Simple code generation (boilerplate, refactoring)
+- Text summarization (logs, files)
+- Code review (PR reviews, security checks)
+- Translation tasks
+- Quick Q&A that doesn't need conversation context
+- Token-saving during heartbeats
+
+### Use Claude API When:
+- Complex multi-step reasoning
+- Conversation context is important
+- High-stakes decisions (trading, external actions)
+- User-facing responses requiring tone/personality
+- Tasks requiring tool use
+
+### Example: Heartbeat Task Delegation
+
+```python
+# During heartbeat, delegate summarization to local LLM
+from scripts.local_llm import quick_analysis
+
+# Summarize log file before alerting
+log_content = open("scripts/watchdog.log").read()[-2000:]  # Last 2KB
+summary = quick_analysis(f"Summarize these log entries, highlight errors:\n{log_content}")
+
+# Use summary in alert (saves Claude tokens)
+if "error" in summary.text.lower():
+    # Send alert with summary
+    pass
+```
+
+### Example: Code Generation in Automation
+
+```python
+from scripts.local_llm import quick_code, delegate_with_retry
+
+# Generate simple utility code
+boilerplate = quick_code("Python function to parse ISO date string to datetime")
+
+# For more complex code with retry
+result = delegate_with_retry(
+    "Write a Python class for rate limiting with sliding window",
+    task="coding",
+    max_retries=2
+)
+if result.success:
+    print(result.text)
+else:
+    # Fall back to Claude for complex tasks
+    pass
+```
+
+### Example: Batch Processing
+
+```python
+from scripts.local_llm import delegate
+from concurrent.futures import ThreadPoolExecutor
+
+# Process multiple items in parallel with local LLM
+items = ["file1.py", "file2.py", "file3.py"]
+
+def review_file(path):
+    code = open(path).read()
+    return delegate(f"Review this code for bugs:\n{code}", task="coding")
+
+with ThreadPoolExecutor(max_workers=3) as executor:
+    reviews = list(executor.map(review_file, items))
+```
+
+### Error Handling Best Practices
+
+```python
+from scripts.local_llm import delegate_with_retry, is_ollama_running, start_ollama
+
+# Always check Ollama status first
+if not is_ollama_running():
+    start_ollama()
+    import time
+    time.sleep(3)  # Wait for startup
+
+# Use retry for reliability
+result = delegate_with_retry("Your query", task="quick", max_retries=2)
+
+if result.success:
+    # Use result.text
+    pass
+elif result.error:
+    # Log error, consider fallback to Claude
+    print(f"Local LLM failed: {result.error}")
+```
+
 ## Adding New Models
 
 1. Pull the model: `ollama pull model-name`

@@ -12061,17 +12061,20 @@ Generated: 2026-01-30T18:37:46.867013
   - Alert if latency > 10s (model loading issues)
 
 ### [T943] Documentation: Bot LLM Integration Examples
-- **Status**: TODO
+- **Status**: DONE ✅
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30
+- **Completed**: 2026-02-16 05:20 PST
 - **Depends**: [T910]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Document how to use local LLM from bots
-  - Add examples to scripts/local-agents/README.md
-  - Show ask(), ask_code(), ask_with_fallback() usage
-  - Document when to use local vs Claude API
-  - Include error handling best practices
+- **Notes**: ✅ Added bot integration documentation to README!
+  - [x] Added "Bot/Clawdbot Integration" section to scripts/local-agents/README.md
+  - [x] Documented when to use local LLM vs Claude API
+  - [x] Added heartbeat task delegation example
+  - [x] Added code generation automation example
+  - [x] Added batch processing example
+  - [x] Added error handling best practices with Ollama health checks
 
 ### [T944] Heartbeat: Use Local LLM for Simple Summarization
 - **Status**: TODO
