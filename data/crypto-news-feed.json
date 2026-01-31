@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T02:00:03.464077+00:00",
+  "timestamp": "2026-01-31T03:30:03.047282+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin options turn bearish as BTC flirts with drop below $80K",
+      "url": "https://cointelegraph.com/news/bitcoin-options-turn-bearish-as-btc-flirts-with-drop-below-80k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin options flashed extreme fear signals as the spot BTC ETF outflows rose, and the odds for a drop below $80,000 increased. Will dip buyers step in to save the day?",
+      "published": "2026-01-31T02:21:52+00:00"
+    },
     {
       "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
       "url": "https://decrypt.co/356530/bitcoin-mining-profits-14-month-low-winter-storm-disrupts-miners-cryptoquant",
@@ -128,13 +135,6 @@
       "source": "cointelegraph",
       "description": "Europe narrows crypto tax gaps, US lawmakers revisit market structure, and institutions push DeFi into compliance territory.",
       "published": "2026-01-30T19:00:00+00:00"
-    },
-    {
-      "title": "Price predictions 1/30: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
-      "url": "https://cointelegraph.com/news/price-predictions-1-30-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Technical charts tilt toward further downside for Bitcoin and altcoins if BTC\u2019s critical $80,000 fails to hold. Does data suggest that bulls are buying the dips?",
-      "published": "2026-01-30T18:46:50+00:00"
     },
     {
       "title": "Blank Check Firm Linked to Crypto Exchange Kraken Raises $345 Million in Upsized IPO",

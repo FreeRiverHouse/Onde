@@ -96,6 +96,7 @@ const translations = {
     achievements: {
       explorer: 'Esploratore', firstMeal: 'Primo pasto', sleepyHead: 'Dormiglione',
       socialite: 'Socievole', shopper: 'Shopaholic', wealthy: 'Ricco', healthy: 'In salute',
+      bookworm: 'Topo di biblioteca',
     },
     explore: 'Esplora la casa!',
     footer: 'Onde Kids ✨',
@@ -143,6 +144,7 @@ const translations = {
     achievements: {
       explorer: 'Explorer', firstMeal: 'First meal', sleepyHead: 'Sleepy head',
       socialite: 'Socialite', shopper: 'Shopaholic', wealthy: 'Wealthy', healthy: 'Healthy',
+      bookworm: 'Bookworm',
     },
     explore: 'Explore the house!',
     footer: 'Onde Kids ✨',
@@ -193,6 +195,7 @@ const defaultAchievements: Achievement[] = [
   { id: 'shopper', icon: '🛍️', unlocked: false, progress: 0, target: 10 },
   { id: 'wealthy', icon: '💰', unlocked: false, progress: 0, target: 500 },
   { id: 'healthy', icon: '💪', unlocked: false, progress: 0, target: 100 },
+  { id: 'bookworm', icon: '📚', unlocked: false, progress: 0, target: 3 },
 ];
 
 // ==================== HELPER FUNCTIONS ====================
@@ -1025,6 +1028,29 @@ function App() {
 
   if (activeGame === 'catch') {
     return <CatchGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
+  }
+
+  // Library Books
+  if (activeGame === 'library') {
+    return (
+      <LibraryBooks
+        lang={lang}
+        coins={stats.coins}
+        onUnlockBook={(bookId, cost) => {
+          setStats(prev => ({ ...prev, coins: prev.coins - cost }));
+          setUnlockedBooks(prev => [...prev, bookId]);
+        }}
+        onBack={() => setActiveGame(null)}
+        unlockedBooks={unlockedBooks}
+        onReward={(reward) => {
+          handleObjectReward(reward);
+          // Track bookworm achievement progress when finishing a book
+          setAchievements(a => a.map(ach => 
+            ach.id === 'bookworm' ? { ...ach, progress: ach.progress + 1 } : ach
+          ));
+        }}
+      />
+    );
   }
 
   // Map View

@@ -11046,17 +11046,21 @@
   - **Target**: onde.la/games/moonlight-magic-house
 
 ### [T917] Moonlight v1.1: Integrazione Libri Onde
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
+- **Completed**: 2026-02-15
 - **Depends**: [T916]
 - **Blocks**: -
 - **Priority**: P1
-- **Notes**: Integrare libri Onde nella biblioteca
-  - [ ] Interface Book con titolo, cover, pagine, preview, prezzo
-  - [ ] 7 libri dalla ROADMAP (AIKO, Salmo 23, Piccole Rime, etc.)
-  - [ ] Preview 2-3 pagine gratis
-  - [ ] Link a store Onde per acquisto
-  - [ ] Badge achievement per libri letti
+- **Notes**: ✅ Integrazione libri Onde completata!
+  - [x] Interface Book con titolo, cover, pagine, preview, prezzo (LibraryBooks.tsx)
+  - [x] 7 libri dalla ROADMAP: AIKO, Salmo 23, Piccole Rime, Desideri, Respiro Magico, Inventore, Cinque Sensi
+  - [x] Preview 2-3 pagine gratis per ogni libro
+  - [x] Link a store Onde per acquisto (storeUrl)
+  - [x] Badge achievement "bookworm" per libri letti (3 libri = achievement)
+  - [x] Interactive object "Onde Kids Books" in library room launches LibraryBooks
+  - [x] Unlock with coins or purchase links
+  - [x] Reading rewards: +happiness, +xp
 
 ### [T918] Moonlight v1.1: Bonus Stats Lettura
 - **Status**: TODO

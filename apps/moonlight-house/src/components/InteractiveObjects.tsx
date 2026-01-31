@@ -13,7 +13,7 @@ interface InteractiveObject {
   position: { x: number; y: number };
   size?: 'small' | 'medium' | 'large';
   action: 'mini-game' | 'reward' | 'story' | 'surprise' | 'achievement';
-  gameType?: 'puzzle' | 'drawing' | 'memory' | 'stars' | 'quiz';
+  gameType?: 'puzzle' | 'drawing' | 'memory' | 'stars' | 'quiz' | 'library';
   reward?: { coins?: number; xp?: number; happiness?: number };
   story?: { it: string; en: string };
   cooldown?: number; // seconds before can use again
@@ -493,17 +493,13 @@ const ROOM_OBJECTS: Record<RoomKey, InteractiveObject[]> = {
   ],
   library: [
     {
-      id: 'bookshelf',
-      name: { it: 'Scaffale Libri', en: 'Bookshelf' },
+      id: 'onde-books',
+      name: { it: 'Libri Onde Kids', en: 'Onde Kids Books' },
       icon: '📚',
       position: { x: 20, y: 40 },
       size: 'large',
-      action: 'story',
-      story: {
-        it: '📖 Tanti libri meravigliosi! Quale leggiamo oggi? 🌟',
-        en: '📖 So many wonderful books! Which one shall we read? 🌟'
-      },
-      reward: { happiness: 10, xp: 5 },
+      action: 'mini-game',
+      gameType: 'library',
     },
     {
       id: 'reading-nook',
