@@ -10846,3 +10846,40 @@
   - ✅ Deployed to Cloudflare Pages: https://654fde63.skin-studio.pages.dev
   - ✅ Verified: https://skin-studio.pages.dev returns 200 OK
   - ⏳ Manual testing on mobile browsers (user)
+
+### [T903] Skin Creator: Drag-and-Drop Layer Reordering
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T886]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Improve layer reordering with drag-and-drop:
+  - Drag handle on layer cards
+  - Visual feedback during drag
+  - Drop zone highlighting
+  - Smooth animation on reorder
+  - Keep ↑/↓ buttons as fallback for accessibility
+
+### [T904] Skin Creator: Duplicate Layer Feature
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Add ability to duplicate layers:
+  - "📋 Duplicate" button in layer panel
+  - Copies layer content to new layer slot
+  - Useful for experimenting with variations
+  - Consider dynamic layer creation (beyond 3 fixed layers)
+
+### [T905] Skin Creator: Layer Lock Feature  
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add layer locking to prevent accidental edits:
+  - 🔒/🔓 toggle button per layer
+  - Locked layers ignore draw/erase operations
+  - Visual indicator (gray overlay or icon)
+  - Useful when base skin is finalized
