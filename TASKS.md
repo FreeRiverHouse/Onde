@@ -10760,3 +10760,15 @@
     - Content check for "Skin Studio" text
   - Uptime history will be tracked in Gist
   - Latency monitoring enabled
+
+### [T893] Local LLM Integration: Health Check + Fallback
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Integrare LLM locale (192.168.1.111:8080):
+  - Health check prima di usare
+  - Se disponibile → usa locale
+  - Se non disponibile → alert + fallback
+  - Aggiornare tutti gli script che usano LLM
