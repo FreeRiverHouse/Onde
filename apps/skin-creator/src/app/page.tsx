@@ -65,7 +65,7 @@ export default function SkinCreator() {
   const previewRef = useRef<HTMLCanvasElement>(null);
   const [selectedColor, setSelectedColor] = useState('#FF6B6B');
   const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp'>('brush');
+  const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
   const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond'>('star');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
@@ -211,6 +211,7 @@ export default function SkinCreator() {
         case 'f': setTool('fill'); break;
         case 'g': setTool('gradient'); break;
         case 's': setTool('stamp'); break;
+        case 'i': setTool('eyedropper'); break;
         case 'z': if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); } break;
         case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); } break;
         case 'm': setMirrorMode(prev => !prev); break;
@@ -464,6 +465,18 @@ export default function SkinCreator() {
     const y = Math.floor((e.clientY - rect.top) * scaleY);
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
+
+    // Eyedropper - pick color from pixel
+    if (tool === 'eyedropper') {
+      const imageData = ctx.getImageData(x, y, 1, 1).data;
+      if (imageData[3] > 0) { // Not transparent
+        const hex = '#' + [imageData[0], imageData[1], imageData[2]]
+          .map(v => v.toString(16).padStart(2, '0')).join('');
+        setSelectedColor(hex.toUpperCase());
+        playSound('click');
+      }
+      return;
+    }
 
     // Check if in selected part (if any)
     if (selectedPart) {
@@ -820,6 +833,15 @@ export default function SkinCreator() {
                 </div>
               )}
             </div>
+            <button
+              onClick={() => setTool('eyedropper')}
+              title="Eyedropper - pick color (I)"
+              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+                tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+              }`}
+            >
+              💉
+            </button>
             <button
               onClick={undo}
               disabled={historyIndex <= 0}
