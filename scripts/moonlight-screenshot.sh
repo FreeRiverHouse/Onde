@@ -1,13 +1,18 @@
 #!/bin/bash
-# Screenshot automatico di Moonlight Magic House ogni 5 minuti
-# Per creare timelapse dell'evoluzione
+# Screenshot automatico di Moonlight House ogni 5 minuti
+# Per il timelapse dell'evoluzione
 
-SCREENSHOT_DIR="/Users/mattia/Projects/Onde/data/moonlight-evolution-screenshots"
+SCREENSHOT_DIR="/Users/mattia/Projects/Onde/data/moonlight-screenshots"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-FILENAME="moonlight_${TIMESTAMP}.png"
+URL="https://onde.surf/moonlight"
 
-# Usa screencapture per catturare la finestra del browser
-# Prima trova la finestra di Chrome/Safari con Moonlight House
-screencapture -x "${SCREENSHOT_DIR}/${FILENAME}"
+mkdir -p "$SCREENSHOT_DIR"
 
-echo "Screenshot saved: ${FILENAME}"
+cd /Users/mattia/Projects/Onde
+npx playwright screenshot --viewport-size="1920,1080" --wait-for-timeout=3000 "$URL" "$SCREENSHOT_DIR/moonlight_$TIMESTAMP.png" 2>&1
+
+if [ -f "$SCREENSHOT_DIR/moonlight_$TIMESTAMP.png" ]; then
+    echo "[$(date)] ✅ Screenshot saved: moonlight_$TIMESTAMP.png" >> "$SCREENSHOT_DIR/screenshot.log"
+else
+    echo "[$(date)] ❌ Screenshot FAILED" >> "$SCREENSHOT_DIR/screenshot.log"
+fi
