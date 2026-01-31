@@ -6,6 +6,38 @@
 
 ---
 
+## 🚀 ARCHITETTURA AGENTICA MULTI-GPU (DA MATTIA 2026-01-30 20:34)
+
+### [T955] Agentic: Sviluppo Architettura Parallela con Radeon
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
+- **Depends**: -
+- **Blocks**: [T956]
+- **Priority**: P0 🔥🔥🔥
+- **Notes**: DIRETTAMENTE DA MATTIA - IMPLEMENTARE SUBITO!
+  - **Obiettivo**: Architettura agentica per task paralleli su Radeon GPU
+  - **Contesto**: Tokens gratis con LLaMA locale, ottimizzare workflow
+  - **Target**: Da 5 ore → 20 minuti per un'app
+  - **Agenti esistenti**: tools/tech-support e altri nel repo
+  - **Deliverable**:
+    1. Analizzare agenti esistenti
+    2. Creare sistema dispatching task paralleli
+    3. Integrare con LLM API server Radeon
+    4. Documentare per Ondinho
+
+### [T956] Agentic: Far Implementare Architettura a Ondinho
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T955]
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Dopo che Clawdinho completa [T955], istruire Ondinho:
+  - Condividere documentazione architettura
+  - Ondinho deve usare stesso sistema
+  - Coordinamento multi-agente
+
+---
+
 ## 🤖 ONDINHO AUTONOMY SYSTEM (DA MATTIA 2026-01-30)
 
 ### [T948] Ondinho Autonomy: Documentare Ciclo Lavoro Autonomo
