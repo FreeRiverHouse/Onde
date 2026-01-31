@@ -249,6 +249,12 @@ class TestSuite:
         self.run_ssl_test("onde.surf SSL", "onde.surf")
         self.run_response_time_test("onde.surf Performance", "https://onde.surf/login")
         
+        # === SKIN STUDIO Tests (T899) ===
+        print("\n🎨 Testing SKIN STUDIO...")
+        self.run_http_test("Skin Studio", "https://skin-studio.pages.dev/", 200)
+        self.run_response_time_test("Skin Studio Performance", "https://skin-studio.pages.dev/")
+        self.run_content_test("Skin Studio Content Check", "https://skin-studio.pages.dev/", "Skin Studio")
+        
         # === Visual Regression Tests (T442) ===
         # Run 1x/day at 12:00 to catch UI regressions without burning too much CI time
         current_hour = datetime.now().hour

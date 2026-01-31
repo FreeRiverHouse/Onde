@@ -30,6 +30,7 @@ GIST_FILE = "onde-trading-stats.json"
 SITES = [
     {"name": "onde.la", "url": "https://onde.la"},
     {"name": "onde.surf", "url": "https://onde.surf"},
+    {"name": "skin-studio", "url": "https://skin-studio.pages.dev"},
 ]
 
 # Retention: keep 7 days of 5-min checks = 2016 data points per site
