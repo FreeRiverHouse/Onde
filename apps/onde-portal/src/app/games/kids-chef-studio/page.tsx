@@ -435,21 +435,32 @@ function IngredientBowl({
   )
 }
 
+// Recipe categories
+type RecipeCategory = 'all' | 'breakfast' | 'lunch' | 'dessert' | 'snacks'
+
+const categories: { id: RecipeCategory; label: string; emoji: string }[] = [
+  { id: 'all', label: 'All', emoji: '🍽️' },
+  { id: 'breakfast', label: 'Breakfast', emoji: '🍳' },
+  { id: 'lunch', label: 'Lunch', emoji: '🍝' },
+  { id: 'dessert', label: 'Dessert', emoji: '🍰' },
+  { id: 'snacks', label: 'Snacks', emoji: '🍕' },
+]
+
 // Recipe data
 const recipes = [
-  { id: 'pizza', name: 'Pizza Margherita', emoji: '🍕', difficulty: 1, time: '5 min', locked: false, color: 'from-red-400 to-orange-400' },
-  { id: 'biscotti', name: 'Biscotti', emoji: '🍪', difficulty: 1, time: '4 min', locked: false, color: 'from-amber-400 to-yellow-400' },
-  { id: 'frullato', name: 'Frullato di Frutta', emoji: '🥤', difficulty: 1, time: '3 min', locked: false, color: 'from-pink-400 to-purple-400' },
-  { id: 'insalata', name: 'Insalata Colorata', emoji: '🥗', difficulty: 2, time: '4 min', locked: false, color: 'from-green-400 to-emerald-400' },
-  { id: 'panino', name: 'Panino', emoji: '🥪', difficulty: 1, time: '3 min', locked: false, color: 'from-orange-400 to-amber-400' },
-  { id: 'gelato', name: 'Gelato', emoji: '🍦', difficulty: 2, time: '6 min', locked: false, color: 'from-cyan-400 to-blue-400' },
-  { id: 'torta', name: 'Torta di Compleanno', emoji: '🎂', difficulty: 3, time: '8 min', locked: false, color: 'from-pink-400 to-rose-400' },
-  { id: 'pasta', name: 'Pasta al Pomodoro', emoji: '🍝', difficulty: 2, time: '5 min', locked: false, color: 'from-red-400 to-yellow-400' },
-  { id: 'hamburger', name: 'Hamburger', emoji: '🍔', difficulty: 2, time: '4 min', locked: false, color: 'from-amber-500 to-red-500' },
-  { id: 'pancakes', name: 'Pancakes', emoji: '🥞', difficulty: 1, time: '3 min', locked: false, color: 'from-yellow-400 to-amber-500' },
-  { id: 'cheesecake', name: 'Cheesecake', emoji: '🍰', difficulty: 3, time: '7 min', locked: false, color: 'from-rose-300 to-pink-400' },
-  { id: 'tacos', name: 'Tacos', emoji: '🌮', difficulty: 2, time: '5 min', locked: false, color: 'from-yellow-500 to-orange-500' },
-  { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500' },
+  { id: 'pizza', name: 'Pizza Margherita', emoji: '🍕', difficulty: 1, time: '5 min', locked: false, color: 'from-red-400 to-orange-400', category: 'snacks' as RecipeCategory },
+  { id: 'biscotti', name: 'Biscotti', emoji: '🍪', difficulty: 1, time: '4 min', locked: false, color: 'from-amber-400 to-yellow-400', category: 'snacks' as RecipeCategory },
+  { id: 'frullato', name: 'Frullato di Frutta', emoji: '🥤', difficulty: 1, time: '3 min', locked: false, color: 'from-pink-400 to-purple-400', category: 'breakfast' as RecipeCategory },
+  { id: 'insalata', name: 'Insalata Colorata', emoji: '🥗', difficulty: 2, time: '4 min', locked: false, color: 'from-green-400 to-emerald-400', category: 'lunch' as RecipeCategory },
+  { id: 'panino', name: 'Panino', emoji: '🥪', difficulty: 1, time: '3 min', locked: false, color: 'from-orange-400 to-amber-400', category: 'lunch' as RecipeCategory },
+  { id: 'gelato', name: 'Gelato', emoji: '🍦', difficulty: 2, time: '6 min', locked: false, color: 'from-cyan-400 to-blue-400', category: 'dessert' as RecipeCategory },
+  { id: 'torta', name: 'Torta di Compleanno', emoji: '🎂', difficulty: 3, time: '8 min', locked: false, color: 'from-pink-400 to-rose-400', category: 'dessert' as RecipeCategory },
+  { id: 'pasta', name: 'Pasta al Pomodoro', emoji: '🍝', difficulty: 2, time: '5 min', locked: false, color: 'from-red-400 to-yellow-400', category: 'lunch' as RecipeCategory },
+  { id: 'hamburger', name: 'Hamburger', emoji: '🍔', difficulty: 2, time: '4 min', locked: false, color: 'from-amber-500 to-red-500', category: 'lunch' as RecipeCategory },
+  { id: 'pancakes', name: 'Pancakes', emoji: '🥞', difficulty: 1, time: '3 min', locked: false, color: 'from-yellow-400 to-amber-500', category: 'breakfast' as RecipeCategory },
+  { id: 'cheesecake', name: 'Cheesecake', emoji: '🍰', difficulty: 3, time: '7 min', locked: false, color: 'from-rose-300 to-pink-400', category: 'dessert' as RecipeCategory },
+  { id: 'tacos', name: 'Tacos', emoji: '🌮', difficulty: 2, time: '5 min', locked: false, color: 'from-yellow-500 to-orange-500', category: 'snacks' as RecipeCategory },
+  { id: 'sushi', name: 'Sushi Roll', emoji: '🍣', difficulty: 3, time: '6 min', locked: false, color: 'from-slate-400 to-cyan-500', category: 'lunch' as RecipeCategory },
 ]
 
 function RecipeBookModal({ 
@@ -521,6 +532,38 @@ function RecipeBookModal({
           </button>
         </div>
       </div>
+    </div>
+  )
+}
+
+function CategoryTabs({ 
+  selectedCategory, 
+  onSelectCategory, 
+  playClick 
+}: { 
+  selectedCategory: RecipeCategory
+  onSelectCategory: (cat: RecipeCategory) => void
+  playClick: () => void
+}) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2 mb-6">
+      {categories.map((cat) => (
+        <button
+          key={cat.id}
+          onClick={() => { playClick(); onSelectCategory(cat.id) }}
+          className={`
+            px-4 py-2 rounded-full font-bold text-sm md:text-base
+            transition-all duration-300 shadow-lg
+            ${selectedCategory === cat.id
+              ? 'bg-white text-orange-600 scale-110 shadow-xl'
+              : 'bg-white/40 text-white hover:bg-white/60 hover:scale-105'
+            }
+          `}
+        >
+          <span className="mr-1">{cat.emoji}</span>
+          {cat.label}
+        </button>
+      ))}
     </div>
   )
 }
@@ -782,8 +825,14 @@ export default function KidsChefStudio() {
   const [selectedRecipe, setSelectedRecipe] = useState<typeof recipes[0] | null>(null)
   const [unlockedRecipes] = useState(13) // All unlocked!
   const [showRecipeBook, setShowRecipeBook] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState<RecipeCategory>('all')
   const sounds = useSoundEffects()
   const { recipeBook, saveRecipe } = useRecipeBook()
+
+  // Filter recipes by category
+  const filteredRecipes = selectedCategory === 'all' 
+    ? recipes 
+    : recipes.filter(r => r.category === selectedCategory)
 
   if (selectedRecipe) {
     return (
@@ -828,10 +877,19 @@ export default function KidsChefStudio() {
         </div>
       </div>
 
+      {/* Category Filter */}
+      <div className="max-w-4xl mx-auto px-4">
+        <CategoryTabs 
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          playClick={sounds.playClick}
+        />
+      </div>
+
       {/* Recipe Grid */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {recipes.map((recipe) => (
+          {filteredRecipes.map((recipe) => (
             <RecipeCard 
               key={recipe.id} 
               recipe={recipe} 
@@ -840,6 +898,12 @@ export default function KidsChefStudio() {
             />
           ))}
         </div>
+        {filteredRecipes.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🍽️</div>
+            <p className="text-white/80 text-xl">No recipes in this category yet!</p>
+          </div>
+        )}
       </div>
 
       {/* Footer Chef Characters */}
