@@ -13834,3 +13834,34 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot
 - **Completed**: 2026-01-31 03:25 PST
 - **Script**: ~/clawd/scripts/screenshot-watchdog.sh
+
+### [T1014] Kids Chef: Export Recipes as Book
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Esportare ricette come libretto
+- **Features**:
+  - Ricette completate → libretto PDF/EPUB
+  - Leggibile con reader Onde
+  - Auto-aggiornato con nuove ricette
+
+### [T1015] Onde Universe: Gamification System
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Sistema punti/badges cross-app
+- **Features**:
+  - Punti per leggere libri
+  - Punti per giocare giochi
+  - Badges sbloccabili
+  - Profilo utente semplice
+
+### [T1016] Onde Universe: Cross-App Integration
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Goal**: Ricette Chef → appaiono in Library!
+- **Vision**: Un canvas dove ci si muove liberamente
+  - Giochi creano contenuti
+  - Library mostra contenuti creati
+  - Tutto connesso!
