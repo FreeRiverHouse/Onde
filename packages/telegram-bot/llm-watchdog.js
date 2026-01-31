@@ -16,6 +16,9 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
+// Handover system for context switching
+const handover = require('./handover');
+
 const PORT = 3457;
 const CHECK_INTERVAL = 30000; // 30 seconds
 const QUOTA_FILE = path.join(__dirname, 'quota-tracking.json');
@@ -92,6 +95,7 @@ let providerStatus = {};
 let quotaUsage = {};
 let lastCheck = null;
 let testHistory = [];
+let currentActiveProvider = 'groq'; // Track current active provider for handover
 
 // Initialize
 function initializeStatus() {
@@ -613,6 +617,121 @@ const HTML = `<!DOCTYPE html>
       font-weight: bold;
     }
     .lb-item:first-child .lb-rank { background: #238636; }
+
+    /* Handover section styles */
+    .handover-section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .handover-section h3 { margin-bottom: 15px; color: #f0883e; }
+    .handover-current {
+      background: #0d1117;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    .handover-current .label { color: #8b949e; font-size: 12px; margin-bottom: 5px; }
+    .handover-current .value { font-size: 16px; font-weight: 600; }
+    .handover-inputs {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .handover-inputs input, .handover-inputs textarea {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 10px;
+      color: #c9d1d9;
+      font-family: inherit;
+    }
+    .handover-inputs textarea {
+      grid-column: 1 / -1;
+      min-height: 60px;
+      resize: vertical;
+    }
+    .handover-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button.handover { background: #f0883e; }
+    button.handover:hover { background: #e4761b; }
+    .handover-preview {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-size: 13px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      display: none;
+    }
+    .handover-preview.visible { display: block; }
+    .git-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .git-card {
+      background: #0d1117;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    .git-card .label { color: #8b949e; font-size: 11px; margin-bottom: 4px; }
+    .git-card .value { font-size: 13px; word-break: break-all; }
+    .git-card .commits { font-size: 11px; margin-top: 8px; color: #8b949e; }
+    .git-card .commits div { margin: 2px 0; }
+    .switch-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .switch-modal.visible { display: flex; }
+    .switch-modal-content {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 25px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .switch-modal h3 { margin-bottom: 15px; color: #f0883e; }
+    .switch-select {
+      display: grid;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .switch-option {
+      background: #0d1117;
+      border: 2px solid #30363d;
+      border-radius: 6px;
+      padding: 15px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .switch-option:hover { border-color: #58a6ff; }
+    .switch-option.selected { border-color: #238636; background: rgba(35,134,54,0.1); }
+    .switch-option.current { opacity: 0.5; cursor: not-allowed; }
+    .switch-option .name { font-weight: 600; margin-bottom: 5px; }
+    .switch-option .status { font-size: 12px; color: #8b949e; }
   </style>
 </head>
 <body>
@@ -649,6 +768,45 @@ const HTML = `<!DOCTYPE html>
     <div class="history">
       <h3>📊 Uptime (ultimi 20 check)</h3>
       <div id="historySection"></div>
+    </div>
+
+    <div class="handover-section">
+      <h3>🔄 LLM Handover System</h3>
+      <div class="handover-current">
+        <div class="label">Provider Attivo</div>
+        <div class="value" id="currentProvider">-</div>
+      </div>
+
+      <div class="handover-inputs">
+        <input type="text" id="taskInput" placeholder="Task corrente (es: 'Fix bug in auth module')">
+        <button onclick="setTask()">💾 Salva Task</button>
+        <textarea id="noteInput" placeholder="Aggiungi nota per il prossimo LLM..."></textarea>
+        <button onclick="addNote()">📝 Aggiungi Nota</button>
+      </div>
+
+      <div class="handover-actions">
+        <button class="handover" onclick="showSwitchModal()">🔀 Switch Provider con Handover</button>
+        <button class="secondary" onclick="previewHandover()">👁️ Preview Handover</button>
+        <button class="secondary" onclick="downloadHandover()">⬇️ Download MD</button>
+        <button class="secondary" onclick="loadContext()">🔄 Refresh Context</button>
+      </div>
+
+      <div class="git-info" id="gitInfo"></div>
+      <div class="handover-preview" id="handoverPreview"></div>
+    </div>
+
+    <!-- Switch Modal -->
+    <div class="switch-modal" id="switchModal">
+      <div class="switch-modal-content">
+        <h3>🔀 Switch LLM Provider</h3>
+        <p style="color:#8b949e;margin-bottom:15px;">Seleziona il nuovo provider. Verrà generato un handover automatico.</p>
+        <div class="switch-select" id="switchSelect"></div>
+        <div style="display:flex;gap:10px;margin-top:20px;">
+          <button class="handover" id="confirmSwitch" onclick="confirmSwitch()">✅ Conferma Switch</button>
+          <button class="secondary" onclick="closeSwitchModal()">❌ Annulla</button>
+        </div>
+        <div class="handover-preview visible" id="switchPreview" style="margin-top:15px;max-height:200px;"></div>
+      </div>
     </div>
   </div>
 
@@ -785,6 +943,167 @@ const HTML = `<!DOCTYPE html>
 
     loadData();
     setInterval(loadData, 10000);
+
+    // Handover functions
+    let selectedProvider = null;
+    let currentProvider = 'groq';
+
+    async function loadContext() {
+      try {
+        const res = await fetch('/api/handover/context');
+        const data = await res.json();
+        renderGitInfo(data.git);
+
+        // Update current provider
+        const provRes = await fetch('/api/current-provider');
+        const provData = await provRes.json();
+        currentProvider = provData.provider;
+        document.getElementById('currentProvider').textContent =
+          (data.providers?.[currentProvider]?.name || currentProvider.toUpperCase());
+      } catch (e) {
+        console.error('Error loading context:', e);
+      }
+    }
+
+    function renderGitInfo(git) {
+      const container = document.getElementById('gitInfo');
+      container.innerHTML = \`
+        <div class="git-card">
+          <div class="label">Branch</div>
+          <div class="value">\${git.branch || 'unknown'}</div>
+        </div>
+        <div class="git-card">
+          <div class="label">Remote</div>
+          <div class="value">\${git.remote || 'N/A'}</div>
+        </div>
+        <div class="git-card">
+          <div class="label">File Modificati</div>
+          <div class="value">\${git.modified?.length || 0} files</div>
+        </div>
+        <div class="git-card">
+          <div class="label">Commit Recenti</div>
+          <div class="commits">
+            \${(git.commits || []).slice(0, 3).map(c => '<div>• ' + c + '</div>').join('')}
+          </div>
+        </div>
+      \`;
+    }
+
+    async function setTask() {
+      const task = document.getElementById('taskInput').value.trim();
+      if (!task) return alert('Inserisci un task');
+
+      await fetch('/api/handover/task', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task })
+      });
+      document.getElementById('taskInput').value = '';
+      alert('Task salvato!');
+    }
+
+    async function addNote() {
+      const note = document.getElementById('noteInput').value.trim();
+      if (!note) return alert('Inserisci una nota');
+
+      await fetch('/api/handover/note', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note })
+      });
+      document.getElementById('noteInput').value = '';
+      alert('Nota aggiunta!');
+    }
+
+    async function previewHandover() {
+      const preview = document.getElementById('handoverPreview');
+      const res = await fetch('/api/handover/markdown');
+      const md = await res.text();
+      preview.textContent = md;
+      preview.classList.toggle('visible');
+    }
+
+    async function downloadHandover() {
+      const res = await fetch('/api/handover/markdown');
+      const md = await res.text();
+      const blob = new Blob([md], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'handover-' + new Date().toISOString().replace(/[:.]/g, '-') + '.md';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function showSwitchModal() {
+      const modal = document.getElementById('switchModal');
+      const select = document.getElementById('switchSelect');
+      selectedProvider = null;
+
+      select.innerHTML = '';
+      for (const [key, provider] of Object.entries(data.providers)) {
+        const status = data.status[key] || {};
+        const isCurrent = key === currentProvider;
+        const isOnline = status.status === 'online';
+
+        const option = document.createElement('div');
+        option.className = 'switch-option' + (isCurrent ? ' current' : '') + (!isOnline ? ' current' : '');
+        option.innerHTML = \`
+          <div class="name">\${provider.name} \${isCurrent ? '(attuale)' : ''}</div>
+          <div class="status">\${status.status || 'unknown'} - \${provider.tier}</div>
+        \`;
+
+        if (!isCurrent && isOnline) {
+          option.onclick = () => selectProvider(key, option);
+        }
+
+        select.appendChild(option);
+      }
+
+      modal.classList.add('visible');
+      document.getElementById('switchPreview').textContent = 'Seleziona un provider per vedere il preview...';
+    }
+
+    function selectProvider(key, element) {
+      document.querySelectorAll('.switch-option').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedProvider = key;
+
+      // Load preview
+      fetch('/api/handover/compact?to=' + key)
+        .then(r => r.json())
+        .then(compact => {
+          document.getElementById('switchPreview').textContent = JSON.stringify(compact, null, 2);
+        });
+    }
+
+    function closeSwitchModal() {
+      document.getElementById('switchModal').classList.remove('visible');
+    }
+
+    async function confirmSwitch() {
+      if (!selectedProvider) return alert('Seleziona un provider');
+
+      const res = await fetch('/api/switch-provider', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to: selectedProvider, generateHandover: true })
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        currentProvider = selectedProvider;
+        alert('Switch completato! Da ' + result.from + ' a ' + result.to + '\\n\\nHandover salvato.');
+        closeSwitchModal();
+        loadContext();
+        loadData();
+      } else {
+        alert('Errore: ' + result.error);
+      }
+    }
+
+    // Load context on startup
+    loadContext();
   </script>
 </body>
 </html>`;
@@ -871,6 +1190,130 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Handover API endpoints
+  if (url.pathname === '/api/handover') {
+    const fromProvider = currentActiveProvider;
+    const toProvider = url.searchParams.get('to') || 'unknown';
+    const h = handover.generateHandover(fromProvider, toProvider);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(h));
+    return;
+  }
+
+  if (url.pathname === '/api/handover/markdown') {
+    const fromProvider = currentActiveProvider;
+    const toProvider = url.searchParams.get('to') || 'unknown';
+    const md = handover.generateHandoverMarkdown(fromProvider, toProvider);
+    res.writeHead(200, { 'Content-Type': 'text/markdown' });
+    res.end(md);
+    return;
+  }
+
+  if (url.pathname === '/api/handover/compact') {
+    const fromProvider = currentActiveProvider;
+    const toProvider = url.searchParams.get('to') || 'unknown';
+    const compact = handover.getCompactHandover(fromProvider, toProvider);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(compact));
+    return;
+  }
+
+  if (url.pathname === '/api/handover/context' && req.method === 'GET') {
+    handover.loadContext();
+    const git = handover.getRecentGitActivity();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ context: handover.loadContext(), git }));
+    return;
+  }
+
+  if (url.pathname === '/api/handover/task' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { task } = JSON.parse(body);
+        handover.setCurrentTask(task);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (url.pathname === '/api/handover/note' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { note } = JSON.parse(body);
+        handover.addNote(note);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (url.pathname === '/api/handover/file' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { path: filePath, description } = JSON.parse(body);
+        handover.addWorkingFile(filePath, description);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (url.pathname === '/api/switch-provider' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { to, generateHandover: doHandover } = JSON.parse(body);
+        const fromProvider = currentActiveProvider;
+        let handoverData = null;
+
+        if (doHandover) {
+          handoverData = handover.generateHandover(fromProvider, to);
+          handover.saveHandoverFile(fromProvider, to);
+        }
+
+        currentActiveProvider = to;
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          from: fromProvider,
+          to: to,
+          handover: handoverData
+        }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (url.pathname === '/api/current-provider') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ provider: currentActiveProvider }));
+    return;
+  }
+
   res.writeHead(404);
   res.end('Not found');
 });
@@ -880,7 +1323,7 @@ initializeStatus();
 server.listen(PORT, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
-║  🔍 LLM Watchdog v2 - Con Tracking Quota                  ║
+║  🔍 LLM Watchdog v3 - Quota Tracking + Handover           ║
 ╠═══════════════════════════════════════════════════════════╣
 ║  Dashboard: http://localhost:${PORT}                        ║
 ║                                                           ║
@@ -888,13 +1331,17 @@ server.listen(PORT, () => {
 ║  • Quota tracking via API headers                         ║
 ║  • Usage bars per provider                                ║
 ║  • Load balancing recommendations                         ║
+║  • LLM Handover system for context switching              ║
 ║  • Auto-refresh ogni 30s                                  ║
 ║                                                           ║
 ║  API Endpoints:                                           ║
-║  • GET  /api/status       - Full status + quotas          ║
-║  • GET  /api/best-provider - Get recommended provider     ║
-║  • POST /api/test-all     - Test all providers            ║
-║  • POST /api/reset-quotas - Reset daily counters          ║
+║  • GET  /api/status          - Full status + quotas       ║
+║  • GET  /api/best-provider   - Get recommended provider   ║
+║  • POST /api/test-all        - Test all providers         ║
+║  • POST /api/reset-quotas    - Reset daily counters       ║
+║  • GET  /api/handover        - Generate handover JSON     ║
+║  • GET  /api/handover/markdown - Handover as markdown     ║
+║  • POST /api/switch-provider - Switch with handover       ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
   testAllProviders();
