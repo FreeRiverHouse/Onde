@@ -26,6 +26,8 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
   const zoomRef = useRef(5);
   const [animSpeed, setAnimSpeed] = useState(1); // Animation speed multiplier
   const animSpeedRef = useRef(1);
+  const [screenshotBg, setScreenshotBg] = useState<'gradient' | 'transparent' | 'white' | 'black' | 'green'>('gradient');
+  const [showBgMenu, setShowBgMenu] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -443,12 +445,32 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     setTimeout(() => { autoRotateRef.current = true; }, 3000);
   };
 
-  // 📸 Screenshot function
+  // 📸 Screenshot function with background options
   const takeScreenshot = () => {
     const renderer = rendererRef.current;
     const scene = sceneRef.current;
     const camera = cameraRef.current;
     if (!renderer || !scene || !camera) return;
+    
+    // Store original background
+    const originalBackground = scene.background;
+    
+    // Set screenshot background based on selection
+    switch (screenshotBg) {
+      case 'transparent':
+        scene.background = null;
+        break;
+      case 'white':
+        scene.background = new THREE.Color(0xffffff);
+        break;
+      case 'black':
+        scene.background = new THREE.Color(0x000000);
+        break;
+      case 'green':
+        scene.background = new THREE.Color(0x00ff00); // Green screen for compositing
+        break;
+      // 'gradient' keeps the original background
+    }
     
     // Render at high resolution
     const originalSize = renderer.getSize(new THREE.Vector2());
@@ -458,12 +480,13 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     // Get image data
     const dataUrl = renderer.domElement.toDataURL('image/png');
     
-    // Restore original size
+    // Restore original background and size
+    scene.background = originalBackground;
     renderer.setSize(originalSize.x, originalSize.y);
     
     // Download
     const link = document.createElement('a');
-    link.download = 'minecraft-skin-3d.png';
+    link.download = `minecraft-skin-3d-${screenshotBg}.png`;
     link.href = dataUrl;
     link.click();
   };
@@ -497,14 +520,70 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
           }}
         />
         
-        {/* 📸 Screenshot button */}
-        <button
-          onClick={takeScreenshot}
-          className="absolute bottom-2 right-2 px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-all hover:scale-105 shadow-lg"
-          title="📸 Save 3D preview as image"
-        >
-          📸
-        </button>
+        {/* 📸 Screenshot controls */}
+        <div className="absolute bottom-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+          {/* Background selector dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowBgMenu(!showBgMenu)}
+              className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded-lg text-xs font-bold hover:scale-105 shadow-lg"
+              title="Choose screenshot background"
+            >
+              {screenshotBg === 'gradient' && '🌈'}
+              {screenshotBg === 'transparent' && '🔲'}
+              {screenshotBg === 'white' && '⬜'}
+              {screenshotBg === 'black' && '⬛'}
+              {screenshotBg === 'green' && '🟢'}
+            </button>
+            {showBgMenu && (
+              <div className="absolute bottom-full right-0 mb-1 bg-white rounded-lg shadow-xl p-1 flex flex-col gap-0.5 z-10">
+                <button
+                  onClick={() => { setScreenshotBg('gradient'); setShowBgMenu(false); }}
+                  className={`px-2 py-1 rounded text-xs font-bold hover:bg-gray-100 flex items-center gap-1 ${screenshotBg === 'gradient' ? 'bg-purple-100 text-purple-700' : 'text-gray-700'}`}
+                  title="Gradient background"
+                >
+                  🌈 Gradient
+                </button>
+                <button
+                  onClick={() => { setScreenshotBg('transparent'); setShowBgMenu(false); }}
+                  className={`px-2 py-1 rounded text-xs font-bold hover:bg-gray-100 flex items-center gap-1 ${screenshotBg === 'transparent' ? 'bg-purple-100 text-purple-700' : 'text-gray-700'}`}
+                  title="Transparent background (PNG)"
+                >
+                  🔲 Transparent
+                </button>
+                <button
+                  onClick={() => { setScreenshotBg('white'); setShowBgMenu(false); }}
+                  className={`px-2 py-1 rounded text-xs font-bold hover:bg-gray-100 flex items-center gap-1 ${screenshotBg === 'white' ? 'bg-purple-100 text-purple-700' : 'text-gray-700'}`}
+                  title="White background"
+                >
+                  ⬜ White
+                </button>
+                <button
+                  onClick={() => { setScreenshotBg('black'); setShowBgMenu(false); }}
+                  className={`px-2 py-1 rounded text-xs font-bold hover:bg-gray-100 flex items-center gap-1 ${screenshotBg === 'black' ? 'bg-purple-100 text-purple-700' : 'text-gray-700'}`}
+                  title="Black background"
+                >
+                  ⬛ Black
+                </button>
+                <button
+                  onClick={() => { setScreenshotBg('green'); setShowBgMenu(false); }}
+                  className={`px-2 py-1 rounded text-xs font-bold hover:bg-gray-100 flex items-center gap-1 ${screenshotBg === 'green' ? 'bg-purple-100 text-purple-700' : 'text-gray-700'}`}
+                  title="Green screen (for compositing)"
+                >
+                  🟢 Green
+                </button>
+              </div>
+            )}
+          </div>
+          {/* Screenshot button */}
+          <button
+            onClick={takeScreenshot}
+            className="px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded-lg text-xs font-bold hover:scale-105 shadow-lg"
+            title={`📸 Save 3D preview (${screenshotBg} background)`}
+          >
+            📸
+          </button>
+        </div>
         
         {/* 🔍 Zoom controls */}
         <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all">

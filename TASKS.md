@@ -12596,11 +12596,19 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Record 360° rotation as GIF/video
 
 ### [T992] Skin Creator: Screenshot Backgrounds
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-31 08:50 PST
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
-- **Notes**: Choose background for screenshots (transparent, solid, gradient)
+- **Notes**: ✅ Implemented screenshot background selection!
+  - ✅ Background selector dropdown next to 📸 button
+  - ✅ 5 options: 🌈 Gradient, 🔲 Transparent, ⬜ White, ⬛ Black, 🟢 Green (chroma key)
+  - ✅ Selected option indicated in dropdown
+  - ✅ Screenshot filename includes background type
+  - ✅ Transparent mode sets scene.background = null for PNG transparency
+  - ✅ Green screen mode for video compositing workflows
+  - Build passes ✅
 
 ### [T993] Skin Creator: Pose Selector
 - **Status**: DONE
