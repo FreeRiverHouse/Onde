@@ -1893,6 +1893,24 @@
 - **Priority**: P2
 - **Notes**: ✅ Deployed! https://d4aac734.onde-portal.pages.dev
   - Built static export with base path /static-games/moonlight-magic-house/
+
+### [T870] Moonlight Magic House: Movement Particles (MM-001)
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
+- **Depends**: [T461]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: ✅ Implemented magical particle effects when Luna walks!
+  - Created `src/components/MovementParticles.tsx`
+  - Sparkle emojis (✨⭐💫🌟) spawn behind Luna when moving
+  - Framer-motion animations: fade-out + float upward
+  - Max 12 particles, auto-cleanup after 1.5s
+  - Particles spawn opposite to facing direction (behind Luna)
+  - **Next tasks added to MOONLIGHT-EVOLUTION.md**:
+    - MM-021: Tail wagging animation
+    - MM-022: Footstep dust puffs
+    - MM-023: Pet reaction bubbles on tap
   - Copied all assets (backgrounds, character, sounds)
   - Deployed to Cloudflare Pages
   - Verified: https://onde.la/games/moonlight-magic-house/ returns 200 OK

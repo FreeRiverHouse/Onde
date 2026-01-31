@@ -24,11 +24,20 @@ Rendere Moonlight Magic House la migliore app virtual pet per bambine:
 
 ## 📋 TASK QUEUE INIZIALE
 
+### COMPLETED ✅
+- [x] **MM-001** Particle effects quando Luna si muove (2026-01-30)
+  - Created `src/components/MovementParticles.tsx`
+  - Sparkle emojis (✨⭐💫🌟) spawn behind Luna when walking
+  - Framer-motion fade-out animations
+  - Max 12 particles, auto-cleanup
+
 ### CURRENT TASK
-- [ ] **MM-001** Particle effects quando Luna si muove
+- [ ] **MM-002** Sound effects carini (meow, sparkle)
 
 ### BACKLOG
-- [ ] **MM-002** Sound effects carini (meow, sparkle)
+- [ ] **MM-021** Tail wagging animation when Luna is happy
+- [ ] **MM-022** Footstep dust puffs on floor (CSS-based)
+- [ ] **MM-023** Pet reaction bubbles (hearts, ?, !) on tap
 - [ ] **MM-003** Day/Night cycle con stelle animate
 - [ ] **MM-004** Confetti quando completi un'attività
 - [ ] **MM-005** Glow effects su oggetti interattivi

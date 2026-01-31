@@ -7,6 +7,7 @@ import useWeather from './hooks/useWeather';
 import GameHub from './games/GameHub';
 import { PuzzleGame, DrawingPad, MemoryGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
+import MovementParticles from './components/MovementParticles';
 
 // Animation variants for room transitions
 const pageTransition = {
@@ -1224,6 +1225,14 @@ function App() {
         <span>💖 {Math.round(stats.happiness)}</span>
       </div>
 
+      {/* Movement Particles - magical sparkles when Luna walks */}
+      <MovementParticles 
+        isMoving={isWalking} 
+        x={lunaPosition.x} 
+        y={lunaPosition.y} 
+        facingDirection={facingDirection} 
+      />
+      
       <div 
         className={`luna-container ${isWalking ? 'walking' : ''} ${facingDirection === 'left' ? 'facing-left' : ''}`}
         style={{ 
