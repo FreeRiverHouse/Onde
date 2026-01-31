@@ -430,6 +430,123 @@ function EmptyState() {
   )
 }
 
+// Grouping modes
+type GroupMode = 'none' | 'type' | 'source'
+
+interface NotificationGroup {
+  key: string
+  label: string
+  icon: string
+  color: string
+  notifications: Notification[]
+  unreadCount: number
+}
+
+// Group notifications by type or source
+function groupNotifications(
+  notifications: Notification[], 
+  mode: GroupMode
+): NotificationGroup[] {
+  if (mode === 'none') {
+    return [{
+      key: 'all',
+      label: 'All Notifications',
+      icon: '🔔',
+      color: 'text-white/70',
+      notifications,
+      unreadCount: notifications.filter(n => !n.read).length,
+    }]
+  }
+
+  const groups = new Map<string, Notification[]>()
+  
+  notifications.forEach(n => {
+    const key = mode === 'type' ? n.type : (n.source || 'Unknown')
+    if (!groups.has(key)) {
+      groups.set(key, [])
+    }
+    groups.get(key)!.push(n)
+  })
+
+  // Sort groups by unread count then by most recent
+  const sortedGroups = Array.from(groups.entries())
+    .map(([key, notifs]) => {
+      const unreadCount = notifs.filter(n => !n.read).length
+      const config = mode === 'type' ? TYPE_CONFIG[key as keyof typeof TYPE_CONFIG] : null
+      
+      return {
+        key,
+        label: mode === 'type' ? key.charAt(0).toUpperCase() + key.slice(1) : key,
+        icon: config?.icon || '📁',
+        color: config?.color || 'text-white/70',
+        notifications: notifs,
+        unreadCount,
+      }
+    })
+    .sort((a, b) => {
+      // Unread first, then by count
+      if (a.unreadCount !== b.unreadCount) return b.unreadCount - a.unreadCount
+      return b.notifications.length - a.notifications.length
+    })
+
+  return sortedGroups
+}
+
+// Collapsible group component
+function NotificationGroupSection({
+  group,
+  defaultExpanded = true,
+  onMarkRead,
+  onDismiss,
+}: {
+  group: NotificationGroup
+  defaultExpanded?: boolean
+  onMarkRead: (id: string) => void
+  onDismiss: (id: string) => void
+}) {
+  const [expanded, setExpanded] = useState(defaultExpanded)
+
+  return (
+    <div className="mb-3 last:mb-0">
+      {/* Group header */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors group"
+      >
+        <span className={`text-sm transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}>
+          ▶
+        </span>
+        <span className="text-base">{group.icon}</span>
+        <span className={`text-xs font-medium ${group.color}`}>
+          {group.label}
+        </span>
+        <span className="text-[10px] text-white/40">
+          ({group.notifications.length})
+        </span>
+        {group.unreadCount > 0 && (
+          <span className="ml-auto px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-cyan-500/20 text-cyan-400">
+            {group.unreadCount} new
+          </span>
+        )}
+      </button>
+      
+      {/* Group content */}
+      {expanded && (
+        <div className="mt-1.5 space-y-2 pl-2 border-l-2 border-white/10 ml-3 animate-in fade-in slide-in-from-top-1 duration-150">
+          {group.notifications.map(notification => (
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+              onMarkRead={onMarkRead}
+              onDismiss={onDismiss}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 interface NotificationCenterProps {
   className?: string
 }
@@ -439,6 +556,15 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
+  const [groupMode, setGroupMode] = useState<GroupMode>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('notification-group-mode')
+      if (stored && ['none', 'type', 'source'].includes(stored)) {
+        return stored as GroupMode
+      }
+    }
+    return 'none'
+  })
   const [showSoundSettings, setShowSoundSettings] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -888,7 +1014,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
           </div>
 
           {/* Filters */}
-          <div className="px-4 py-2 border-b border-white/5 flex gap-2">
+          <div className="px-4 py-2 border-b border-white/5 flex items-center gap-2">
             <button
               onClick={() => setFilter('all')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
@@ -919,6 +1045,24 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
             >
               <span>🤖</span> Agents {agentCount > 0 && `(${agentCount})`}
             </button>
+            
+            {/* Grouping toggle */}
+            <div className="ml-auto flex items-center gap-1">
+              <span className="text-[10px] text-white/30">Group:</span>
+              <select
+                value={groupMode}
+                onChange={(e) => {
+                  const mode = e.target.value as GroupMode
+                  setGroupMode(mode)
+                  try { localStorage.setItem('notification-group-mode', mode) } catch { /* ignore */ }
+                }}
+                className="px-2 py-0.5 text-[10px] rounded-md bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 cursor-pointer focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              >
+                <option value="none">None</option>
+                <option value="type">By Type</option>
+                <option value="source">By Source</option>
+              </select>
+            </div>
           </div>
 
           {/* Content */}
@@ -927,12 +1071,24 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
               <NotificationSkeleton />
             ) : filteredNotifications.length === 0 ? (
               <EmptyState />
-            ) : (
+            ) : groupMode === 'none' ? (
               <div className="space-y-2">
                 {filteredNotifications.map(notification => (
                   <NotificationItem
                     key={notification.id}
                     notification={notification}
+                    onMarkRead={handleMarkRead}
+                    onDismiss={handleDismiss}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div>
+                {groupNotifications(filteredNotifications, groupMode).map((group, idx) => (
+                  <NotificationGroupSection
+                    key={group.key}
+                    group={group}
+                    defaultExpanded={idx < 3} // Expand first 3 groups by default
                     onMarkRead={handleMarkRead}
                     onDismiss={handleDismiss}
                   />
