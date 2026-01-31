@@ -12280,8 +12280,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Reflective environments for metallic skins
 
 ### [T981] Skin Creator: Particle Effects
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Sparkles, fire, magic effects around character
