@@ -12241,7 +12241,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Different sound themes (retro, modern, minimal)
 
 ### [T976] Skin Creator: Advanced 3D Shaders
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P1 🔥
@@ -12264,3 +12264,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P1 🔥
 - **Notes**: Analizzare cosa fa Google Veo e come replicare
+
+### [T979] Skin Creator: Post-Processing Effects
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Add bloom, DOF, vignette post-processing
+
+### [T980] Skin Creator: Environment Maps
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Reflective environments for metallic skins
+
+### [T981] Skin Creator: Particle Effects
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Sparkles, fire, magic effects around character
