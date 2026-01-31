@@ -1,0 +1,80 @@
+{
+  "machine": {
+    "name": "Radeon Mac",
+    "gpu": "Radeon RX 7900 XT",
+    "vram": "16GB",
+    "backend": "TinyGrad",
+    "ip": "auto"
+  },
+  "models": {
+    "llama3-8b": {
+      "name": "LLaMA 3 8B",
+      "type": "text",
+      "vram": "16GB",
+      "script": "~/tinygrad/examples/llama3.py",
+      "model_id": "TriAiExperiments/SFR-Iterative-DPO-LLaMA-3-8B-R",
+      "use_cases": ["code", "text", "translation"],
+      "api_port": 8080,
+      "status": "available"
+    },
+    "llama3-1b": {
+      "name": "LLaMA 3 1B",
+      "type": "text",
+      "vram": "2GB",
+      "script": "~/tinygrad/examples/llama3.py --gguf",
+      "use_cases": ["quick-tasks"],
+      "api_port": 8081,
+      "status": "available"
+    },
+    "gpt2": {
+      "name": "GPT-2",
+      "type": "text",
+      "vram": "500MB",
+      "script": "~/tinygrad/examples/gpt2.py",
+      "use_cases": ["simple-text"],
+      "api_port": 8082,
+      "status": "available"
+    },
+    "stable-diffusion": {
+      "name": "Stable Diffusion 1.5",
+      "type": "image",
+      "vram": "4GB",
+      "script": "~/tinygrad/examples/stable_diffusion.py",
+      "use_cases": ["image-generation"],
+      "api_port": 8090,
+      "status": "available"
+    },
+    "sdxl": {
+      "name": "SDXL",
+      "type": "image",
+      "vram": "12GB",
+      "script": "~/tinygrad/examples/sdxl.py",
+      "use_cases": ["image-generation-hq"],
+      "api_port": 8091,
+      "status": "available"
+    },
+    "whisper": {
+      "name": "Whisper",
+      "type": "audio",
+      "vram": "1.5GB",
+      "script": "~/tinygrad/examples/whisper.py",
+      "use_cases": ["speech-to-text"],
+      "api_port": 8100,
+      "status": "available"
+    },
+    "yolov8": {
+      "name": "YOLOv8",
+      "type": "vision",
+      "vram": "500MB",
+      "script": "~/tinygrad/examples/yolov8.py",
+      "use_cases": ["object-detection"],
+      "api_port": 8110,
+      "status": "available"
+    }
+  },
+  "network": {
+    "expose": true,
+    "port_range": "8080-8120",
+    "allow_remote": true
+  }
+}
