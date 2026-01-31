@@ -526,6 +526,9 @@ const SoundToggle = ({ enabled, onToggle }: { enabled: boolean; onToggle: () => 
 
 // ============ TYPES ============
 
+// Time of day for day/night cycle
+type TimeOfDay = 'night' | 'dawn' | 'day' | 'dusk'
+
 // Game state machine
 type GameState = 'menu' | 'find-toy' | 'feed-time' | 'reward' | 'loading'
 
@@ -552,6 +555,48 @@ interface FoodItem {
 }
 
 const HIDING_SPOT_TYPES: HidingSpot['type'][] = ['couch', 'plant', 'box', 'teddy', 'gift', 'chair', 'bed', 'basket']
+
+// Time of day cycle configuration
+const TIME_OF_DAY_CONFIG = {
+  night: {
+    sky: 'from-[#0a0a1a] via-[#1a1a3e] to-[#0f2040]',
+    starOpacity: 1,
+    moonOpacity: 1,
+    sunOpacity: 0,
+    ambientLight: 'rgba(100, 100, 180, 0.1)',
+    warmGlow: 'rgba(255, 200, 100, 0.08)',
+    duration: 30000, // 30 seconds per phase
+  },
+  dawn: {
+    sky: 'from-[#1a1a3e] via-[#4a3a6e] to-[#ff9966]',
+    starOpacity: 0.3,
+    moonOpacity: 0.4,
+    sunOpacity: 0.6,
+    ambientLight: 'rgba(255, 180, 150, 0.15)',
+    warmGlow: 'rgba(255, 150, 100, 0.15)',
+    duration: 20000,
+  },
+  day: {
+    sky: 'from-[#87CEEB] via-[#98D8E8] to-[#E0F4FF]',
+    starOpacity: 0,
+    moonOpacity: 0,
+    sunOpacity: 1,
+    ambientLight: 'rgba(255, 255, 200, 0.2)',
+    warmGlow: 'rgba(255, 220, 100, 0.1)',
+    duration: 30000,
+  },
+  dusk: {
+    sky: 'from-[#2d1b4e] via-[#8b4a6b] to-[#ff6b6b]',
+    starOpacity: 0.5,
+    moonOpacity: 0.6,
+    sunOpacity: 0.3,
+    ambientLight: 'rgba(255, 100, 100, 0.12)',
+    warmGlow: 'rgba(255, 100, 50, 0.12)',
+    duration: 20000,
+  },
+}
+
+const TIME_SEQUENCE: TimeOfDay[] = ['night', 'dawn', 'day', 'dusk']
 const FOOD_ITEMS: FoodItem[] = [
   { id: 1, type: 'fish', name: 'Fish' },
   { id: 2, type: 'meat', name: 'Meat' },

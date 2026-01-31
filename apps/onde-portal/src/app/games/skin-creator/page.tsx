@@ -1975,6 +1975,48 @@ export default function SkinCreator() {
 
   // Load template from gallery if available, otherwise load steve
   useEffect(() => {
+    // Check for community gallery import (full skin image)
+    const galleryImport = localStorage.getItem('skin-gallery-import');
+    if (galleryImport) {
+      try {
+        const { imageData, name, timestamp } = JSON.parse(galleryImport);
+        // Only use if recent (within 5 minutes)
+        if (Date.now() - timestamp < 5 * 60 * 1000 && imageData) {
+          const canvas = canvasRef.current;
+          if (canvas) {
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              const img = new Image();
+              img.onload = () => {
+                ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+                ctx.drawImage(img, 0, 0);
+                // Also copy to base layer
+                const baseCanvas = getLayerCanvas('base');
+                const baseCtx = baseCanvas.getContext('2d');
+                if (baseCtx) {
+                  baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+                  baseCtx.drawImage(img, 0, 0);
+                }
+                compositeLayersToMain();
+                updatePreview();
+                saveState();
+                // Set skin name from gallery
+                if (name) {
+                  setSkinName(name.replace(/[^a-zA-Z0-9-_]/g, '-').toLowerCase());
+                }
+              };
+              img.src = imageData;
+              localStorage.removeItem('skin-gallery-import');
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        // Ignore invalid import data
+      }
+      localStorage.removeItem('skin-gallery-import');
+    }
+    
     // Check for gallery template choice
     const templateChoice = localStorage.getItem('skin-template-choice');
     if (templateChoice) {
@@ -3256,9 +3298,9 @@ export default function SkinCreator() {
           </button>
           <a
             href="/games/skin-creator/gallery"
-            className="px-6 py-2 rounded-full font-bold transition-all duration-300 bg-white/20 text-white hover:bg-white/30 flex items-center gap-1 skin-btn-premium hover:scale-105"
+            className="px-6 py-2 rounded-full font-bold transition-all duration-300 bg-gradient-to-r from-orange-400 to-pink-500 text-white hover:from-orange-500 hover:to-pink-600 flex items-center gap-1 skin-btn-premium hover:scale-105 shadow-lg shadow-orange-500/30 animate-pulse"
           >
-            ✨ Templates
+            🌟 Community Skins
           </a>
         </div>
       </div>
@@ -3707,12 +3749,12 @@ export default function SkinCreator() {
             </div>
             <button
               onClick={() => setTool('eyedropper')}
-              title="🎯 Pick a color from your drawing!"
+              title="🎯 Pick a color from your drawing! (Press I)"
               className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
-                tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
+                tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg ring-2 ring-amber-300' : 'bg-white/80 hover:bg-white hover:ring-2 hover:ring-amber-200'
               }`}
             >
-              🎯
+              🎯 <span className="hidden sm:inline">Pick</span>
             </button>
             <button
               onClick={() => { undo(); playSound('undo'); }}
@@ -3978,7 +4020,7 @@ export default function SkinCreator() {
                 </button>
               </div>
               
-              {/* Pixel Coordinate Display */}
+              {/* Pixel Coordinate Display + Eyedropper Preview */}
               {hoverPixel && (
                 <div className="flex items-center gap-2 bg-gray-900/90 text-white px-3 py-1 rounded-lg text-xs font-mono">
                   <span>📍</span>
@@ -3986,6 +4028,25 @@ export default function SkinCreator() {
                   <span>Y: <strong>{hoverPixel.y}</strong></span>
                   <span className="text-gray-400">|</span>
                   <span className="text-gray-300">{SKIN_WIDTH}×{SKIN_HEIGHT}</span>
+                  {/* 🎯 Eyedropper color preview */}
+                  {tool === 'eyedropper' && eyedropperPreviewColor && (
+                    <>
+                      <span className="text-gray-400">|</span>
+                      <div className="flex items-center gap-1.5">
+                        <div 
+                          className="w-4 h-4 rounded border border-white/50 shadow-inner" 
+                          style={{ backgroundColor: eyedropperPreviewColor }}
+                        />
+                        <span className="text-amber-300 font-bold">{eyedropperPreviewColor}</span>
+                      </div>
+                    </>
+                  )}
+                  {tool === 'eyedropper' && !eyedropperPreviewColor && (
+                    <>
+                      <span className="text-gray-400">|</span>
+                      <span className="text-gray-500 italic">transparent</span>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -4019,7 +4080,7 @@ export default function SkinCreator() {
                 ref={canvasRef}
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
-                className="cursor-crosshair block"
+                className="block"
                 style={{
                   width: SKIN_WIDTH * zoomLevel,
                   height: SKIN_HEIGHT * zoomLevel,
@@ -4028,10 +4089,11 @@ export default function SkinCreator() {
                   touchAction: 'none', // Prevent browser touch handling for drawing
                   userSelect: 'none',
                   WebkitUserSelect: 'none',
+                  cursor: tool === 'eyedropper' ? 'copy' : 'crosshair',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
-                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); setHoverPixel(null); }}
+                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); setHoverPixel(null); setEyedropperPreviewColor(null); }}
                 onMouseMove={(e) => {
                   draw(e);
                   // Track pixel position for coordinate display
@@ -4040,8 +4102,23 @@ export default function SkinCreator() {
                   const y = Math.floor((e.clientY - rect.top) / zoomLevel);
                   if (x >= 0 && x < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
                     setHoverPixel({ x, y });
+                    // 🎯 Eyedropper preview: show color under cursor
+                    if (tool === 'eyedropper' && canvasRef.current) {
+                      const mainCtx = canvasRef.current.getContext('2d');
+                      if (mainCtx) {
+                        const imageData = mainCtx.getImageData(x, y, 1, 1).data;
+                        if (imageData[3] > 0) {
+                          const hex = '#' + [imageData[0], imageData[1], imageData[2]]
+                            .map(v => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+                          setEyedropperPreviewColor(hex);
+                        } else {
+                          setEyedropperPreviewColor(null);
+                        }
+                      }
+                    }
                   } else {
                     setHoverPixel(null);
+                    setEyedropperPreviewColor(null);
                   }
                 }}
                 onContextMenu={(e) => {
