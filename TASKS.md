@@ -196,19 +196,23 @@
   - ⏳ **Widget UI**: Vedi [T966] per heatmap/gauge frontend
   
 ### [T966] Dashboard: GPU Widget con Heatmap/Gauge
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30 21:50 PST
 - **Depends**: [T964]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Creare widget UI per visualizzare dati GPU
-  - **Componenti:**
-    - [ ] Gauge per temperatura GPU
-    - [ ] Progress bar CPU/Memory
-    - [ ] Status indicator per Radeon (connected/disconnected)
-    - [ ] Lista modelli Ollama caricati
-  - **Location**: onde.surf/betting o /status page
-  - **Tech**: React + Recharts o similar
+- **Notes**: ✅ GPU & Agent Status Widget completato!
+  - **Componenti implementati:**
+    - [x] Gauge per temperatura GPU (color-coded: cool/warm/hot)
+    - [x] Progress bar CPU/Memory (dynamic colors basate su utilizzo)
+    - [x] Status indicator per Radeon (connected/disconnected con badge)
+    - [x] Lista modelli Ollama caricati (chips style)
+    - [x] Agent status cards (Clawdinho/Ondinho) con host e status
+    - [x] Integrato con /api/agents/status endpoint
+  - **Location**: onde.surf/betting (analytics section)
+  - **Tech**: React + Tailwind + Lucide icons
+  - **File**: `apps/surfboard/src/components/GpuStatusWidget.tsx`
 
 ### [T965] Watchdog: Integra Controlli in Heartbeat
 - **Status**: DONE ✅
