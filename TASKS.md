@@ -12514,8 +12514,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Share skins and get votes
 
 ### [T1006] Skin Creator: Mouse Wheel Zoom
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Zoom with scroll wheel on 3D preview
