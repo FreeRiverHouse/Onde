@@ -558,14 +558,18 @@ export function FreeRiverHouse() {
     }
   };
 
-  // Ask a question to an agent
+  // Chat session key for persistent conversations
+  const [chatSessionKey, setChatSessionKey] = useState<string | null>(null);
+  const lastPollTimeRef = useRef<string | null>(null);
+
+  // Ask a question to an agent - NOW USES REAL CLAWDBOT VIA AGENT-CHAT API
   const handleAskQuestion = async () => {
     if (!selectedAgent || !message.trim()) return;
 
     const question = message.trim();
     setIsAsking(true);
 
-    // Add user message to chat
+    // Add user message to chat immediately for responsiveness
     setChatHistory(prev => [...prev, {
       role: 'user',
       content: question,
@@ -575,72 +579,79 @@ export function FreeRiverHouse() {
     setMessage('');
 
     try {
-      // Create an agent_request task
-      const res = await fetch('/api/agent-tasks', {
+      // Send message to agent-chat API (queued for Clawdbot pickup)
+      const res = await fetch('/api/agent-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type: 'agent_request',
-          description: question,
-          priority: 'high',
-          assigned_to: selectedAgent.id,
-          created_by: 'free-river-house-chat',
-          metadata: JSON.stringify({ chat: true, expectResponse: true })
+          agentId: selectedAgent.id,
+          content: question,
+          senderName: 'Dashboard',
+          sessionKey: chatSessionKey,
+          metadata: { source: 'free-river-house' }
         })
       });
 
       if (res.ok) {
         const data = await res.json();
-        const taskId = data.task?.id;
-
-        // Poll for response (check every 3 seconds for up to 2 minutes)
-        if (taskId) {
-          let attempts = 0;
-          const maxAttempts = 40;
-          const pollInterval = setInterval(async () => {
-            attempts++;
-            try {
-              const taskRes = await fetch(`/api/agent-tasks/${taskId}`);
-              if (taskRes.ok) {
-                const taskData = await taskRes.json();
-                if (taskData.task?.status === 'done' && taskData.task?.result) {
-                  clearInterval(pollInterval);
-                  setChatHistory(prev => [...prev, {
-                    role: 'agent',
-                    content: taskData.task.result,
-                    timestamp: new Date().toISOString(),
-                    agentId: selectedAgent.id
-                  }]);
-                  setIsAsking(false);
-                } else if (taskData.task?.status === 'failed') {
-                  clearInterval(pollInterval);
-                  setChatHistory(prev => [...prev, {
-                    role: 'agent',
-                    content: `Error: ${taskData.task.error || 'Task failed'}`,
-                    timestamp: new Date().toISOString(),
-                    agentId: selectedAgent.id
-                  }]);
-                  setIsAsking(false);
-                }
-              }
-            } catch (e) {
-              console.error('Poll error:', e);
-            }
-
-            if (attempts >= maxAttempts) {
-              clearInterval(pollInterval);
-              setChatHistory(prev => [...prev, {
-                role: 'agent',
-                content: 'Response timeout - the agent may still be processing. Check back later.',
-                timestamp: new Date().toISOString(),
-                agentId: selectedAgent.id
-              }]);
-              setIsAsking(false);
-            }
-          }, 3000);
+        // Store session key for this conversation
+        if (data.sessionKey && !chatSessionKey) {
+          setChatSessionKey(data.sessionKey);
         }
+
+        // Poll for response (check every 5 seconds for up to 3 minutes)
+        // Clawdbot will pick up the message via heartbeat and respond
+        let attempts = 0;
+        const maxAttempts = 36; // 3 minutes
+        const startTime = new Date().toISOString();
+        
+        const pollInterval = setInterval(async () => {
+          attempts++;
+          try {
+            // Fetch messages from agent-chat API, looking for agent responses after our message
+            const historyRes = await fetch(
+              `/api/agent-chat?sessionKey=${encodeURIComponent(data.sessionKey)}&after=${encodeURIComponent(lastPollTimeRef.current || startTime)}`
+            );
+            
+            if (historyRes.ok) {
+              const historyData = await historyRes.json();
+              const newMessages = (historyData.messages || []).filter(
+                (m: { sender: string; created_at: string }) => 
+                  m.sender === 'agent' && new Date(m.created_at) > new Date(startTime)
+              );
+              
+              if (newMessages.length > 0) {
+                clearInterval(pollInterval);
+                // Add all new agent messages to chat
+                newMessages.forEach((msg: { content: string; created_at: string }) => {
+                  setChatHistory(prev => [...prev, {
+                    role: 'agent',
+                    content: msg.content,
+                    timestamp: msg.created_at,
+                    agentId: selectedAgent.id
+                  }]);
+                });
+                lastPollTimeRef.current = newMessages[newMessages.length - 1].created_at;
+                setIsAsking(false);
+              }
+            }
+          } catch (e) {
+            console.error('Poll error:', e);
+          }
+
+          if (attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            setChatHistory(prev => [...prev, {
+              role: 'agent',
+              content: '⏳ L\'agente non ha ancora risposto. Il messaggio è in coda e riceverai una risposta quando l\'agente sarà disponibile. Riprova tra qualche minuto o controlla più tardi.',
+              timestamp: new Date().toISOString(),
+              agentId: selectedAgent.id
+            }]);
+            setIsAsking(false);
+          }
+        }, 5000);
       } else {
-        showToast('Errore nell\'invio della domanda', 'error');
+        showToast('Errore nell\'invio del messaggio', 'error');
         setIsAsking(false);
       }
     } catch {

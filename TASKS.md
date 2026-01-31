@@ -6,6 +6,40 @@
 
 ---
 
+## 🔥🔥🔥 DASHBOARD AGENT CHAT - DA MATTIA 2026-01-31 07:49 PST
+
+### [T1025] Infra: Fix FreeRiverHouse Agent Chat - Connect to Real Clawdbot Sessions
+- **Status**: IN_PROGRESS 🔧
+- **Owner**: @clawdinho
+- **Started**: 2026-01-31 07:50 PST
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0 🔥🔥🔥
+- **Notes**: DIRETTAMENTE DA MATTIA - LA CHAT DEGLI AGENTI NON HA MAI FUNZIONATO!
+  - **Problema**: FreeRiverHouse Chat crea task ma usa Claude API executor, NON parla con Clawdbot reali
+  - **Obiettivo**: Mattia vuole chattare con Clawdinho da onde.surf invece che Telegram
+  - **Componenti attuali:**
+    - `apps/surfboard/src/components/FreeRiverHouse.tsx` - UI con tab Chat
+    - `apps/surfboard/src/app/api/agent-executor/route.ts` - Executor che usa Claude API
+    - Tab Chat crea task `agent_request` e polla per risposta
+  - **Soluzione proposta:**
+    - [ ] Creare tabella D1 `agent_messages` per queue messaggi
+    - [ ] API endpoint `/api/agent-chat/send` per inviare messaggi
+    - [ ] API endpoint `/api/agent-chat/history` per leggere risposte
+    - [ ] Clawdbot heartbeat controlla queue e risponde
+    - [ ] WebSocket/SSE per push real-time delle risposte
+  - **Alternative considerate:**
+    - Esporre gateway WebSocket (richiede cambio bind + security)
+    - Proxy API locale (onde.surf su Cloudflare, non può raggiungere localhost)
+  - **Step implementazione:**
+    1. Creare migration D1 per `agent_messages`
+    2. Creare API endpoints
+    3. Aggiornare FreeRiverHouse.tsx per usare nuovi endpoint
+    4. Aggiungere check in HEARTBEAT.md per pickup messaggi
+    5. Test end-to-end
+
+---
+
 ## 🚀 ARCHITETTURA AGENTICA MULTI-GPU (DA MATTIA 2026-01-30 20:34)
 
 ### [T955] Agentic: Sviluppo Architettura Parallela con Radeon

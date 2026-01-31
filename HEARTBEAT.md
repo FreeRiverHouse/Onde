@@ -68,12 +68,57 @@ Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:
 ```
 1. CHECK: Autotrader running? → pgrep -f kalshi-autotrader
 2. ALERTS: Controlla tutti i file .alert in scripts/
-3. READ: TASKS.md → prendi prossimo task non completato  
-4. WORK: Completa il task!
-5. UPDATE: Segna completato in TASKS.md
-6. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
-7. COMMIT: git add/commit/push
-8. Continua col prossimo task
+3. 💬 CHAT: Controlla messaggi da onde.surf dashboard (vedi sotto)
+4. READ: TASKS.md → prendi prossimo task non completato  
+5. WORK: Completa il task!
+6. UPDATE: Segna completato in TASKS.md
+7. ADD: Aggiungi 3 nuovi task utili (da ROADMAP o idee)
+8. COMMIT: git add/commit/push
+9. Continua col prossimo task
+```
+
+## 💬 AGENT CHAT (onde.surf dashboard)
+
+**Controlla messaggi dalla dashboard FreeRiverHouse:**
+```bash
+./scripts/check-agent-chat.sh clawdinho
+```
+
+Se ci sono messaggi pendenti:
+1. Leggi il contenuto del messaggio
+2. Rispondi usando `web_fetch` per POST a `/api/agent-chat/pending`:
+   ```
+   POST https://onde.surf/api/agent-chat/pending
+   {
+     "messageId": "<id del messaggio>",
+     "action": "both",
+     "agentId": "clawdinho",
+     "response": "<la tua risposta>"
+   }
+   ```
+3. La risposta apparirà nella chat del dashboard
+
+**Esempio workflow:**
+```python
+# In Python/exec:
+import requests
+import json
+
+# 1. Check pending
+r = requests.get("https://onde.surf/api/agent-chat/pending?agentId=clawdinho")
+messages = r.json().get('messages', [])
+
+for msg in messages:
+    # 2. Process and respond
+    response = f"Ciao! Hai chiesto: {msg['content'][:50]}... Ecco la mia risposta..."
+    
+    # 3. Send response
+    requests.post("https://onde.surf/api/agent-chat/pending", json={
+        "messageId": msg['id'],
+        "action": "both",
+        "agentId": "clawdinho", 
+        "response": response
+    })
 ```
 
 ## ✅ VERIFICA PROCEDURE RISPETTATE
