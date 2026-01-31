@@ -11591,8 +11591,8 @@ Generated: 2026-01-30T18:37:46.867013
   - Video demo?
 
 ### [T920] Moonlight REVAMP: Grafica Professionale (DA MATTIA 2888)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created**: 2026-01-30 19:05
 - **Depends**: -
 - **Blocks**: [T921], [T922], [T923]
@@ -12039,8 +12039,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Separate undo stack for each layer
 
 ### [T960] Skin Creator: Export to Roblox Format
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Export skin compatible with Roblox avatar system
