@@ -18,7 +18,7 @@ export default function Navigation() {
     { href: '/', label: t.navigation.home },
     { href: '/libri', label: t.navigation.books },
     { href: '/reader/', label: t.navigation.read },
-    { href: '/giochi', label: t.navigation.games },
+    { href: '/games', label: t.navigation.games },
     { href: '/about', label: t.navigation.about },
   ]
 
