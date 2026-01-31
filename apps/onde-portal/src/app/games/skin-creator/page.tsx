@@ -768,6 +768,16 @@ export default function SkinCreator() {
   ];
   const todayChallenge = DAILY_CHALLENGES[new Date().getDate() % DAILY_CHALLENGES.length];
   
+  // 🕺 Pose Selection
+  const [selectedPose, setSelectedPose] = useState('standing');
+  const POSES = [
+    { id: 'standing', name: '🧍 Standing', desc: 'Default pose' },
+    { id: 'walking', name: '🚶 Walking', desc: 'Mid-stride' },
+    { id: 'combat', name: '⚔️ Combat', desc: 'Battle ready!' },
+    { id: 'sitting', name: '🪑 Sitting', desc: 'Relaxed' },
+    { id: 'wave', name: '👋 Waving', desc: 'Friendly wave' },
+  ];
+  
   const ACHIEVEMENTS = {
     firstDraw: { name: 'First Stroke!', emoji: '🎨' },
     colorMaster: { name: 'Color Master', emoji: '🌈' },
@@ -2063,6 +2073,26 @@ export default function SkinCreator() {
               {show3D ? '🎮 3D' : '📐 2D'}
             </button>
           </div>
+          
+          {/* Pose Selector */}
+          {show3D && (
+            <div className="flex flex-wrap justify-center gap-1 mb-2">
+              {POSES.map(pose => (
+                <button
+                  key={pose.id}
+                  onClick={() => setSelectedPose(pose.id)}
+                  className={`px-2 py-1 rounded-lg text-xs transition-all ${
+                    selectedPose === pose.id
+                      ? 'bg-purple-500 text-white'
+                      : 'bg-gray-100 hover:bg-gray-200'
+                  }`}
+                  title={pose.desc}
+                >
+                  {pose.name}
+                </button>
+              ))}
+            </div>
+          )}
 
           {show3D ? (
             <div className="rounded-xl mx-auto overflow-hidden" style={{ width: 200, height: 280 }}>
