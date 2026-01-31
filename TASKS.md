@@ -21,8 +21,8 @@
 | MLH-005 | Add loading states for async panels | DONE | @clawdinho | - |
 | MLH-006 | Add breadcrumb navigation with keyboard support | DONE | @clawdinho | - |
 | MLH-007 | Add notification center panel (alerts, events) | DONE | @clawdinho | - |
-| MLH-008 | Add search history + recent commands to palette | IN_PROGRESS | @clawdinho | - |
-| MLH-009 | Add agent activity feed to notification center | TODO | - | MLH-007 |
+| MLH-008 | Add search history + recent commands to palette | DONE | @clawdinho | - |
+| MLH-009 | Add agent activity feed to notification center | DONE | @clawdinho | MLH-007 |
 | MLH-010 | Add notification sound preferences (mute/sound type) | TODO | - | MLH-007 |
 | MLH-011 | Add notification persistence with localStorage | TODO | - | MLH-007 |
 
@@ -62,7 +62,9 @@
 - **MLH-006** - Breadcrumb navigation: route-based breadcrumbs + Alt+← back + Alt+Home dashboard
 - **AUTO-001** - Site check script: check-sites-live.sh verifies onde.la + onde.surf HTTP status
 - **MLH-007** - NotificationCenter: dropdown panel with alerts/events, badge count, keyboard shortcut (N), mark read/dismiss, filters
+- **MLH-008** - CommandPalette search history: localStorage persistence for recent commands + search queries, "Used Nx" counts, quick-select buttons
+- **MLH-009** - Agent activity feed: NotificationCenter now fetches from /api/agents + /api/activity, new 'agent' type with 🤖 icon, "Agents" filter tab
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 10:40 PST*
+*Ultimo aggiornamento: 2026-01-31 10:50 PST*

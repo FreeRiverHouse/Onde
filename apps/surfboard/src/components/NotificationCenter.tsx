@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 
 interface Notification {
   id: string
-  type: 'alert' | 'event' | 'info' | 'success' | 'warning'
+  type: 'alert' | 'event' | 'info' | 'success' | 'warning' | 'agent' | 'activity'
   title: string
   message: string
   timestamp: string
@@ -49,6 +49,18 @@ const TYPE_CONFIG = {
     color: 'text-emerald-400',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/30',
+  },
+  agent: {
+    icon: '🤖',
+    color: 'text-violet-400',
+    bg: 'bg-violet-500/10',
+    border: 'border-violet-500/30',
+  },
+  activity: {
+    icon: '⚡',
+    color: 'text-pink-400',
+    bg: 'bg-pink-500/10',
+    border: 'border-pink-500/30',
   },
 }
 
@@ -173,17 +185,19 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [isOpen, setIsOpen] = useState(false)
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState<'all' | 'unread'>('all')
+  const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Fetch notifications (combine alerts + events)
+  // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
     try {
       // Fetch from multiple sources
-      const [alertsRes, eventsRes] = await Promise.allSettled([
+      const [alertsRes, eventsRes, agentsRes, activityRes] = await Promise.allSettled([
         fetch('/api/health/alerts-history?limit=10&days=7'),
         fetch('/api/events?limit=10'),
+        fetch('/api/agents'),
+        fetch('/api/activity?limit=10'),
       ])
 
       const notifications: Notification[] = []
@@ -232,6 +246,68 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
               timestamp: event.timestamp,
               read: true,
               source: 'Events',
+            })
+          })
+        }
+      }
+
+      // Parse agent status
+      if (agentsRes.status === 'fulfilled' && agentsRes.value.ok) {
+        const agentsData = await agentsRes.value.json()
+        if (agentsData.agents) {
+          agentsData.agents.forEach((agent: {
+            id: string
+            status: 'running' | 'completed' | 'error'
+            description: string
+            startTime: string
+            lastActivity: string
+            tokensUsed?: number
+            toolsUsed?: number
+          }) => {
+            const statusEmoji = agent.status === 'running' ? '🟢' : agent.status === 'completed' ? '✅' : '❌'
+            const isRecent = Date.now() - new Date(agent.lastActivity).getTime() < 3600000 // 1 hour
+            notifications.push({
+              id: `agent-${agent.id}`,
+              type: 'agent',
+              title: `${statusEmoji} Agent ${agent.status}`,
+              message: `${agent.description}${agent.tokensUsed ? ` • ${agent.tokensUsed.toLocaleString()} tokens` : ''}`,
+              timestamp: agent.lastActivity,
+              read: agent.status === 'completed' && !isRecent,
+              source: agent.id,
+              metadata: { tokensUsed: agent.tokensUsed, toolsUsed: agent.toolsUsed },
+            })
+          })
+        }
+      }
+
+      // Parse activity feed
+      if (activityRes.status === 'fulfilled' && activityRes.value.ok) {
+        const activityData = await activityRes.value.json()
+        if (activityData.activities) {
+          activityData.activities.forEach((activity: {
+            id: number | string
+            type: string
+            title: string
+            description?: string
+            actor?: string
+            created_at: string
+          }) => {
+            // Map activity types to notification types
+            const activityTypeMap: Record<string, 'activity' | 'agent' | 'success'> = {
+              'deploy': 'success',
+              'agent_action': 'agent',
+              'post_approved': 'activity',
+              'image_generated': 'activity',
+              'book_updated': 'activity',
+            }
+            notifications.push({
+              id: `activity-${activity.id}`,
+              type: activityTypeMap[activity.type] || 'activity',
+              title: activity.title,
+              message: activity.description || '',
+              timestamp: activity.created_at,
+              read: true,
+              source: activity.actor || 'System',
             })
           })
         }
@@ -341,9 +417,16 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     })
   }, [])
 
-  const filteredNotifications = data?.notifications.filter(n =>
-    filter === 'all' ? true : !n.read
-  ) || []
+  const filteredNotifications = data?.notifications.filter(n => {
+    if (filter === 'all') return true
+    if (filter === 'unread') return !n.read
+    if (filter === 'agents') return n.type === 'agent' || n.type === 'activity'
+    return true
+  }) || []
+
+  const agentCount = data?.notifications.filter(n => 
+    n.type === 'agent' || n.type === 'activity'
+  ).length || 0
 
   const unreadCount = data?.unreadCount || 0
 
@@ -437,6 +520,16 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
               }`}
             >
               Unread {unreadCount > 0 && `(${unreadCount})`}
+            </button>
+            <button
+              onClick={() => setFilter('agents')}
+              className={`px-3 py-1 text-xs rounded-lg transition-colors flex items-center gap-1 ${
+                filter === 'agents'
+                  ? 'bg-violet-500/20 text-violet-400'
+                  : 'text-white/50 hover:text-white/70'
+              }`}
+            >
+              <span>🤖</span> Agents {agentCount > 0 && `(${agentCount})`}
             </button>
           </div>
 
