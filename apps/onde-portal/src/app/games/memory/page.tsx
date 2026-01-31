@@ -9,6 +9,7 @@ interface Card {
   emoji: string
   isFlipped: boolean
   isMatched: boolean
+  isHinted: boolean
 }
 
 interface LeaderboardEntry {
@@ -18,18 +19,29 @@ interface LeaderboardEntry {
   date: string
 }
 
-type Difficulty = '4x4' | '6x6'
+type Difficulty = '4x4' | '6x6' | '8x8'
 
 // Emoji sets for different themes
 const EMOJI_SETS = {
-  animals: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🦄', '🐔', '🐧'],
-  food: ['🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍒', '🍑', '🥝', '🍍', '🥭', '🍔', '🍕', '🌮', '🍦', '🧁'],
-  nature: ['🌸', '🌺', '🌻', '🌷', '🌹', '🌵', '🌲', '🍀', '🍁', '🌈', '⭐', '🌙', '☀️', '🔥', '💧', '❄️', '⚡', '🌊'],
-  travel: ['🚗', '🚕', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '✈️', '🚀', '🛸', '🚁', '⛵', '🚂', '🚲', '🛴', '🏍️', '🛶'],
+  animals: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🦄', '🐔', '🐧', '🦋', '🐢', '🦀', '🐙', '🦈', '🐳', '🦩', '🦜', '🐺', '🦒', '🦘', '🦔', '🦥', '🦦'],
+  food: ['🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍒', '🍑', '🥝', '🍍', '🥭', '🍔', '🍕', '🌮', '🍦', '🧁', '🍩', '🍪', '🥐', '🥯', '🧇', '🥞', '🍰', '🎂', '🍫', '🍬', '🍭', '🍿', '🥤', '🧋'],
+  nature: ['🌸', '🌺', '🌻', '🌷', '🌹', '🌵', '🌲', '🍀', '🍁', '🌈', '⭐', '🌙', '☀️', '🔥', '💧', '❄️', '⚡', '🌊', '🌴', '🌱', '🍄', '🌾', '🪨', '💎', '🌋', '🏔️', '🏝️', '🌅', '🌌', '☁️', '🌤️', '⛈️'],
+  travel: ['🚗', '🚕', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '✈️', '🚀', '🛸', '🚁', '⛵', '🚂', '🚲', '🛴', '🏍️', '🛶', '🚤', '⛴️', '🚠', '🎢', '🗼', '🏰', '🗽', '🎡', '⛱️', '🏕️', '🧳', '🎪', '🚊', '🚆'],
+  space: ['🚀', '🛸', '🌍', '🌎', '🌏', '🌕', '🌖', '🌗', '🌘', '🌑', '🌒', '🌓', '🌔', '🌙', '⭐', '🌟', '✨', '💫', '☄️', '🪐', '🌌', '👽', '👾', '🛰️', '🔭', '🌠', '🪨', '☀️', '🌞', '🌛', '🌜', '🌝'],
+  ocean: ['🐳', '🐋', '🐬', '🐟', '🐠', '🐡', '🦈', '🐙', '🦑', '🦐', '🦞', '🦀', '🐚', '🪸', '🦪', '🐢', '🦭', '🧜‍♀️', '🧜‍♂️', '🌊', '⚓', '🚢', '⛵', '🏄', '🏊', '🤿', '🎣', '🐊', '🦩', '🐸', '🪼', '🦆'],
+}
+
+const THEME_INFO: Record<keyof typeof EMOJI_SETS, { icon: string; label: string; gradient: string }> = {
+  animals: { icon: '🐾', label: 'Animals', gradient: 'from-amber-500 to-orange-500' },
+  food: { icon: '🍕', label: 'Food', gradient: 'from-red-500 to-yellow-500' },
+  nature: { icon: '🌸', label: 'Nature', gradient: 'from-green-500 to-emerald-500' },
+  travel: { icon: '🚗', label: 'Travel', gradient: 'from-blue-500 to-cyan-500' },
+  space: { icon: '🚀', label: 'Space', gradient: 'from-indigo-600 to-purple-800' },
+  ocean: { icon: '🌊', label: 'Ocean', gradient: 'from-cyan-500 to-blue-600' },
 }
 
 // Sound effects using Web Audio API
-const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win') => {
+const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win' | 'hint') => {
   try {
     const audio = new AudioContext()
     const osc = audio.createOscillator()
@@ -65,6 +77,16 @@ const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win') => {
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.15)
         osc.stop(audio.currentTime + 0.15)
+        break
+      case 'hint':
+        osc.frequency.value = 880 // A5
+        osc.type = 'sine'
+        gain.gain.value = 0.15
+        osc.start()
+        setTimeout(() => { osc.frequency.value = 1047 }, 100) // C6
+        setTimeout(() => { osc.frequency.value = 880 }, 200)
+        gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.3)
+        osc.stop(audio.currentTime + 0.3)
         break
       case 'win':
         // Victory fanfare
@@ -128,49 +150,62 @@ const Confetti = ({ active }: { active: boolean }) => {
   )
 }
 
-// Card component with flip animation
+// Card component with enhanced flip animation
 const MemoryCard = ({
   card,
   onClick,
   disabled,
   size,
+  theme,
 }: {
   card: Card
   onClick: () => void
   disabled: boolean
-  size: 'small' | 'large'
+  size: 'small' | 'medium' | 'large'
+  theme: keyof typeof EMOJI_SETS
 }) => {
-  const cardSize = size === 'large' ? 'w-16 h-16 md:w-20 md:h-20' : 'w-12 h-12 md:w-14 md:h-14'
-  const emojiSize = size === 'large' ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
+  const cardSizes = {
+    large: 'w-16 h-16 md:w-20 md:h-20',
+    medium: 'w-12 h-12 md:w-14 md:h-14',
+    small: 'w-10 h-10 md:w-11 md:h-11',
+  }
+  const emojiSizes = {
+    large: 'text-3xl md:text-4xl',
+    medium: 'text-xl md:text-2xl',
+    small: 'text-lg md:text-xl',
+  }
+
+  const themeGradient = THEME_INFO[theme].gradient
 
   return (
     <button
       onClick={onClick}
       disabled={disabled || card.isFlipped || card.isMatched}
       className={`
-        ${cardSize} relative cursor-pointer transition-transform duration-200
-        ${!card.isFlipped && !card.isMatched && !disabled ? 'hover:scale-105 hover:-rotate-2' : ''}
-        ${card.isMatched ? 'opacity-70' : ''}
+        ${cardSizes[size]} relative cursor-pointer transition-all duration-200
+        ${!card.isFlipped && !card.isMatched && !disabled ? 'hover:scale-110 hover:-rotate-3 hover:shadow-xl' : ''}
+        ${card.isMatched ? 'opacity-80' : ''}
+        ${card.isHinted ? 'ring-4 ring-yellow-400 ring-opacity-100 animate-pulse' : ''}
       `}
       style={{ perspective: '1000px' }}
     >
       <div
-        className={`
-          relative w-full h-full transition-transform duration-500
-          ${card.isFlipped || card.isMatched ? 'rotate-y-180' : ''}
-        `}
+        className="card-inner relative w-full h-full"
         style={{
           transformStyle: 'preserve-3d',
+          transition: 'transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)',
           transform: card.isFlipped || card.isMatched ? 'rotateY(180deg)' : 'rotateY(0)',
         }}
       >
         {/* Back of card */}
         <div
-          className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-xl shadow-lg flex items-center justify-center border-4 border-white/30"
+          className={`absolute inset-0 bg-gradient-to-br ${themeGradient} rounded-xl shadow-lg flex items-center justify-center border-4 border-white/30`}
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <span className="text-white text-2xl font-black">?</span>
+          <span className="text-white text-2xl font-black drop-shadow-lg">?</span>
           <div className="absolute inset-1 border-2 border-white/20 rounded-lg" />
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded-xl opacity-50" />
         </div>
 
         {/* Front of card */}
@@ -187,9 +222,17 @@ const MemoryCard = ({
             transform: 'rotateY(180deg)',
           }}
         >
-          <span className={`${emojiSize} ${card.isMatched ? 'animate-bounce' : ''}`}>
+          <span 
+            className={`${emojiSizes[size]} transition-transform duration-300`}
+            style={{
+              animation: card.isMatched ? 'matchPop 0.5s ease-out' : 'none',
+            }}
+          >
             {card.emoji}
           </span>
+          {card.isMatched && (
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent rounded-xl animate-shine" />
+          )}
         </div>
       </div>
     </button>
@@ -210,9 +253,20 @@ export default function MemoryGame() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showConfetti, setShowConfetti] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [hintsRemaining, setHintsRemaining] = useState(3)
+  const [hintedPair, setHintedPair] = useState<number[]>([])
   
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const isCheckingRef = useRef(false)
+
+  // Get max hints based on difficulty
+  const getMaxHints = useCallback((diff: Difficulty) => {
+    switch (diff) {
+      case '4x4': return 3
+      case '6x6': return 4
+      case '8x8': return 5
+    }
+  }, [])
 
   // Load leaderboard from localStorage
   useEffect(() => {
@@ -228,7 +282,12 @@ export default function MemoryGame() {
 
   // Initialize game
   const initializeGame = useCallback(() => {
-    const pairCount = difficulty === '4x4' ? 8 : 18
+    const pairCounts: Record<Difficulty, number> = {
+      '4x4': 8,
+      '6x6': 18,
+      '8x8': 32,
+    }
+    const pairCount = pairCounts[difficulty]
     const emojis = EMOJI_SETS[theme].slice(0, pairCount)
     const cardPairs = [...emojis, ...emojis]
     
@@ -243,6 +302,7 @@ export default function MemoryGame() {
       emoji,
       isFlipped: false,
       isMatched: false,
+      isHinted: false,
     }))
 
     setCards(newCards)
@@ -252,12 +312,14 @@ export default function MemoryGame() {
     setGameOver(false)
     setShowConfetti(false)
     setIsPlaying(false)
+    setHintsRemaining(getMaxHints(difficulty))
+    setHintedPair([])
     
     if (timerRef.current) {
       clearInterval(timerRef.current)
       timerRef.current = null
     }
-  }, [difficulty, theme])
+  }, [difficulty, theme, getMaxHints])
 
   // Initialize on mount and when difficulty/theme changes
   useEffect(() => {
@@ -311,11 +373,75 @@ export default function MemoryGame() {
     }
   }, [cards, time, moves, difficulty, leaderboard, soundEnabled])
 
+  // Handle hint
+  const handleHint = () => {
+    if (hintsRemaining <= 0 || gameOver || flippedCards.length > 0) return
+    
+    // Find an unmatched pair
+    const unmatchedCards = cards.filter(c => !c.isMatched)
+    if (unmatchedCards.length < 2) return
+    
+    // Find first pair of matching cards
+    const emojiMap = new Map<string, number[]>()
+    for (const card of unmatchedCards) {
+      const existing = emojiMap.get(card.emoji) || []
+      existing.push(card.id)
+      emojiMap.set(card.emoji, existing)
+    }
+    
+    // Get first complete pair
+    let pairIds: number[] = []
+    for (const [, ids] of emojiMap) {
+      if (ids.length >= 2) {
+        pairIds = [ids[0], ids[1]]
+        break
+      }
+    }
+    
+    if (pairIds.length !== 2) return
+    
+    if (soundEnabled) {
+      playSound('hint')
+    }
+    
+    // Highlight the pair briefly
+    setHintedPair(pairIds)
+    setCards(prev => prev.map(card => ({
+      ...card,
+      isHinted: pairIds.includes(card.id),
+    })))
+    
+    // Flash the cards
+    setTimeout(() => {
+      setCards(prev => prev.map(card => ({
+        ...card,
+        isFlipped: pairIds.includes(card.id) ? true : card.isFlipped,
+      })))
+    }, 200)
+    
+    setTimeout(() => {
+      setCards(prev => prev.map(card => ({
+        ...card,
+        isFlipped: pairIds.includes(card.id) && !card.isMatched ? false : card.isFlipped,
+        isHinted: false,
+      })))
+      setHintedPair([])
+    }, 1500)
+    
+    setHintsRemaining(h => h - 1)
+    setMoves(m => m + 1) // Hints cost a move
+    
+    if (!isPlaying) {
+      setIsPlaying(true)
+    }
+  }
+
   // Handle card click
   const handleCardClick = (cardId: number) => {
     if (isCheckingRef.current) return
     if (flippedCards.length >= 2) return
     if (cards[cardId].isFlipped || cards[cardId].isMatched) return
+    if (hintedPair.length > 0) return // Don't allow clicks during hint
 
     // Start timer on first click
     if (!isPlaying) {
@@ -396,11 +522,23 @@ export default function MemoryGame() {
     .sort((a, b) => a.time - b.time || a.moves - b.moves)
     .slice(0, 5)
 
-  const gridCols = difficulty === '4x4' ? 'grid-cols-4' : 'grid-cols-6'
-  const cardSize = difficulty === '4x4' ? 'large' : 'small'
+  const gridConfig: Record<Difficulty, { cols: string; size: 'small' | 'medium' | 'large' }> = {
+    '4x4': { cols: 'grid-cols-4', size: 'large' },
+    '6x6': { cols: 'grid-cols-6', size: 'medium' },
+    '8x8': { cols: 'grid-cols-8', size: 'small' },
+  }
+  
+  const { cols: gridCols, size: cardSize } = gridConfig[difficulty]
+
+  // Background gradient based on theme
+  const bgGradient = theme === 'space' 
+    ? 'from-slate-900 via-purple-900 to-indigo-900'
+    : theme === 'ocean'
+    ? 'from-cyan-500 via-blue-500 to-indigo-600'
+    : 'from-indigo-400 via-purple-400 to-pink-400'
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-400 via-purple-400 to-pink-400 flex flex-col items-center p-4">
+    <div className={`min-h-screen bg-gradient-to-b ${bgGradient} flex flex-col items-center p-4 transition-colors duration-500`}>
       <Confetti active={showConfetti} />
 
       {/* Header */}
@@ -428,20 +566,31 @@ export default function MemoryGame() {
       </p>
 
       {/* Stats */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-3 mb-4 flex-wrap justify-center">
         <div className="bg-white/90 px-4 py-2 rounded-full font-bold text-purple-700 shadow-lg">
           ⏱️ {formatTime(time)}
         </div>
         <div className="bg-white/90 px-4 py-2 rounded-full font-bold text-purple-700 shadow-lg">
           🎯 {moves} moves
         </div>
+        <button
+          onClick={handleHint}
+          disabled={hintsRemaining <= 0 || gameOver || flippedCards.length > 0 || hintedPair.length > 0}
+          className={`px-4 py-2 rounded-full font-bold shadow-lg transition-all ${
+            hintsRemaining > 0 && !gameOver && flippedCards.length === 0 && hintedPair.length === 0
+              ? 'bg-yellow-400 text-yellow-900 hover:scale-105 hover:bg-yellow-300'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          💡 {hintsRemaining} hints
+        </button>
       </div>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-2 mb-4 justify-center">
         {/* Difficulty */}
         <div className="flex gap-1 bg-white/30 p-1 rounded-full">
-          {(['4x4', '6x6'] as Difficulty[]).map((d) => (
+          {(['4x4', '6x6', '8x8'] as Difficulty[]).map((d) => (
             <button
               key={d}
               onClick={() => {
@@ -454,25 +603,26 @@ export default function MemoryGame() {
                   : 'text-white hover:bg-white/20'
               } ${isPlaying && !gameOver ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {d}
+              {d} {d === '8x8' && '🔥'}
             </button>
           ))}
         </div>
 
         {/* Theme */}
-        <div className="flex gap-1 bg-white/30 p-1 rounded-full">
+        <div className="flex gap-1 bg-white/30 p-1 rounded-full flex-wrap justify-center">
           {(Object.keys(EMOJI_SETS) as (keyof typeof EMOJI_SETS)[]).map((t) => (
             <button
               key={t}
               onClick={() => setTheme(t)}
               disabled={isPlaying && !gameOver}
+              title={THEME_INFO[t].label}
               className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
                 theme === t
                   ? 'bg-white text-purple-700 shadow'
                   : 'text-white hover:bg-white/20'
               } ${isPlaying && !gameOver ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {t === 'animals' ? '🐾' : t === 'food' ? '🍕' : t === 'nature' ? '🌸' : '🚗'}
+              {THEME_INFO[t].icon}
             </button>
           ))}
         </div>
@@ -480,15 +630,16 @@ export default function MemoryGame() {
 
       {/* Game board */}
       <div
-        className={`grid ${gridCols} gap-2 md:gap-3 p-4 bg-white/20 backdrop-blur rounded-2xl shadow-2xl`}
+        className={`grid ${gridCols} gap-1.5 md:gap-2 p-3 md:p-4 bg-white/20 backdrop-blur rounded-2xl shadow-2xl max-w-full overflow-auto`}
       >
         {cards.map((card) => (
           <MemoryCard
             key={card.id}
             card={card}
             onClick={() => handleCardClick(card.id)}
-            disabled={flippedCards.length >= 2 || isCheckingRef.current}
+            disabled={flippedCards.length >= 2 || isCheckingRef.current || hintedPair.length > 0}
             size={cardSize}
+            theme={theme}
           />
         ))}
       </div>
@@ -525,6 +676,9 @@ export default function MemoryGame() {
                 <div className="text-sm text-gray-500">Moves</div>
               </div>
             </div>
+            <p className="text-gray-600 mb-4">
+              {difficulty === '8x8' ? '🔥 Hard Mode Champion!' : `Difficulty: ${difficulty}`}
+            </p>
             <button
               onClick={() => {
                 setShowConfetti(false)
@@ -588,7 +742,7 @@ export default function MemoryGame() {
 
             {/* Difficulty tabs */}
             <div className="flex gap-2 mt-4 justify-center">
-              {(['4x4', '6x6'] as Difficulty[]).map((d) => (
+              {(['4x4', '6x6', '8x8'] as Difficulty[]).map((d) => (
                 <button
                   key={d}
                   onClick={() => setDifficulty(d)}
@@ -617,9 +771,26 @@ export default function MemoryGame() {
       )}
 
       {/* Decorative elements */}
-      <div className="fixed bottom-8 left-8 text-4xl animate-bounce opacity-60">⭐</div>
-      <div className="fixed bottom-12 right-8 text-3xl animate-bounce opacity-60" style={{ animationDelay: '0.3s' }}>🌟</div>
-      <div className="fixed top-24 right-16 text-2xl animate-bounce opacity-40" style={{ animationDelay: '0.6s' }}>✨</div>
+      {theme === 'space' ? (
+        <>
+          <div className="fixed bottom-8 left-8 text-4xl animate-pulse opacity-60">⭐</div>
+          <div className="fixed bottom-16 right-12 text-3xl animate-pulse opacity-60" style={{ animationDelay: '0.5s' }}>🌟</div>
+          <div className="fixed top-32 right-8 text-2xl animate-pulse opacity-40" style={{ animationDelay: '1s' }}>✨</div>
+          <div className="fixed top-48 left-12 text-xl animate-pulse opacity-30" style={{ animationDelay: '1.5s' }}>🚀</div>
+        </>
+      ) : theme === 'ocean' ? (
+        <>
+          <div className="fixed bottom-8 left-8 text-4xl animate-bounce opacity-60">🐋</div>
+          <div className="fixed bottom-16 right-12 text-3xl animate-bounce opacity-60" style={{ animationDelay: '0.3s' }}>🐠</div>
+          <div className="fixed top-32 right-8 text-2xl animate-bounce opacity-40" style={{ animationDelay: '0.6s' }}>🫧</div>
+        </>
+      ) : (
+        <>
+          <div className="fixed bottom-8 left-8 text-4xl animate-bounce opacity-60">⭐</div>
+          <div className="fixed bottom-12 right-8 text-3xl animate-bounce opacity-60" style={{ animationDelay: '0.3s' }}>🌟</div>
+          <div className="fixed top-24 right-16 text-2xl animate-bounce opacity-40" style={{ animationDelay: '0.6s' }}>✨</div>
+        </>
+      )}
 
       <style jsx>{`
         @keyframes confetti {
@@ -650,6 +821,33 @@ export default function MemoryGame() {
         }
         .animate-bounceIn {
           animation: bounceIn 0.5s ease-out;
+        }
+        @keyframes matchPop {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.3) rotate(10deg);
+          }
+          100% {
+            transform: scale(1) rotate(0deg);
+          }
+        }
+        @keyframes shine {
+          0% {
+            opacity: 0;
+            transform: translateX(-100%);
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+        }
+        .animate-shine {
+          animation: shine 1s ease-in-out;
         }
       `}</style>
     </div>
