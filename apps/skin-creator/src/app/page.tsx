@@ -6,6 +6,23 @@ import dynamic from 'next/dynamic';
 // Confetti on download!
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
+// Layer definitions for the skin editor
+type LayerType = 'base' | 'clothing' | 'accessories';
+
+interface Layer {
+  id: LayerType;
+  name: string;
+  emoji: string;
+  visible: boolean;
+  opacity: number;
+}
+
+const DEFAULT_LAYERS: Layer[] = [
+  { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100 },
+  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100 },
+  { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100 },
+];
+
 // Minecraft skin layout (64x64)
 // The skin is divided into body parts with specific regions
 const BODY_PARTS = {
@@ -15,6 +32,18 @@ const BODY_PARTS = {
   leftArm: { x: 32, y: 48, w: 16, h: 16, label: '🤛 Left Arm' },
   rightLeg: { x: 0, y: 16, w: 16, h: 16, label: '🦵 Right Leg' },
   leftLeg: { x: 16, y: 48, w: 16, h: 16, label: '🦿 Left Leg' },
+};
+
+// Overlay regions in Minecraft skin format (the "hat" layer / outer layer)
+// These overlay on top of the base parts - available for future accessory layer enhancements
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const OVERLAY_REGIONS = {
+  headOverlay: { x: 32, y: 0, w: 32, h: 16, label: '🎩 Head Overlay' },
+  bodyOverlay: { x: 16, y: 32, w: 24, h: 16, label: '🧥 Body Overlay' },
+  rightArmOverlay: { x: 40, y: 32, w: 16, h: 16, label: '🧤 Right Arm Overlay' },
+  leftArmOverlay: { x: 48, y: 48, w: 16, h: 16, label: '🧤 Left Arm Overlay' },
+  rightLegOverlay: { x: 0, y: 32, w: 16, h: 16, label: '👖 Right Leg Overlay' },
+  leftLegOverlay: { x: 0, y: 48, w: 16, h: 16, label: '👖 Left Leg Overlay' },
 };
 
 // Skin templates
@@ -49,7 +78,8 @@ const TEMPLATES = {
   },
 };
 
-// Legacy alias
+// Legacy alias (for backwards compatibility)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const STEVE_TEMPLATE = TEMPLATES.steve;
 
 // Fun color palette
@@ -66,6 +96,7 @@ const COLORS = [
 
 const SKIN_WIDTH = 64;
 const SKIN_HEIGHT = 64;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DISPLAY_SCALE = 6;
 
 export default function SkinCreator() {
@@ -88,6 +119,123 @@ export default function SkinCreator() {
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  
+  // 🎨 Layer system state
+  const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
+  const [activeLayer, setActiveLayer] = useState<LayerType>('base');
+  const [showLayerPanel, setShowLayerPanel] = useState(true);
+  const layerCanvasRefs = useRef<{ [key in LayerType]?: HTMLCanvasElement }>({});
+  
+  // Create off-screen canvases for each layer
+  const getLayerCanvas = useCallback((layerId: LayerType): HTMLCanvasElement => {
+    if (!layerCanvasRefs.current[layerId]) {
+      const canvas = document.createElement('canvas');
+      canvas.width = SKIN_WIDTH;
+      canvas.height = SKIN_HEIGHT;
+      layerCanvasRefs.current[layerId] = canvas;
+    }
+    return layerCanvasRefs.current[layerId]!;
+  }, []);
+  
+  // Toggle layer visibility
+  const toggleLayerVisibility = useCallback((layerId: LayerType) => {
+    setLayers(prev => prev.map(layer => 
+      layer.id === layerId ? { ...layer, visible: !layer.visible } : layer
+    ));
+  }, []);
+  
+  // Set layer opacity
+  const setLayerOpacity = useCallback((layerId: LayerType, opacity: number) => {
+    setLayers(prev => prev.map(layer =>
+      layer.id === layerId ? { ...layer, opacity } : layer
+    ));
+  }, []);
+  
+  // Move layer up/down in the stack
+  const moveLayer = useCallback((layerId: LayerType, direction: 'up' | 'down') => {
+    setLayers(prev => {
+      const index = prev.findIndex(l => l.id === layerId);
+      if (index === -1) return prev;
+      const newIndex = direction === 'up' ? index - 1 : index + 1;
+      if (newIndex < 0 || newIndex >= prev.length) return prev;
+      const newLayers = [...prev];
+      [newLayers[index], newLayers[newIndex]] = [newLayers[newIndex], newLayers[index]];
+      return newLayers;
+    });
+  }, []);
+  
+  // Composite all visible layers onto the main canvas
+  const compositeLayersToMain = useCallback(() => {
+    const mainCanvas = canvasRef.current;
+    if (!mainCanvas) return;
+    const mainCtx = mainCanvas.getContext('2d');
+    if (!mainCtx) return;
+    
+    // Clear main canvas
+    mainCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    
+    // Draw layers in order (bottom to top), respecting visibility and opacity
+    layers.forEach(layer => {
+      if (!layer.visible) return;
+      const layerCanvas = layerCanvasRefs.current[layer.id];
+      if (!layerCanvas) return;
+      
+      mainCtx.globalAlpha = layer.opacity / 100;
+      mainCtx.drawImage(layerCanvas, 0, 0);
+    });
+    
+    mainCtx.globalAlpha = 1;
+  }, [layers]);
+  
+  // Clear a specific layer
+  const clearLayer = useCallback((layerId: LayerType) => {
+    const layerCanvas = getLayerCanvas(layerId);
+    const ctx = layerCanvas.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    }
+    compositeLayersToMain();
+    updatePreview();
+  }, [getLayerCanvas, compositeLayersToMain]);
+  
+  // Copy layer content to another layer (available for future "duplicate layer" feature)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const copyLayerTo = useCallback((fromId: LayerType, toId: LayerType) => {
+    const fromCanvas = getLayerCanvas(fromId);
+    const toCanvas = getLayerCanvas(toId);
+    const toCtx = toCanvas.getContext('2d');
+    if (toCtx) {
+      toCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      toCtx.drawImage(fromCanvas, 0, 0);
+    }
+    compositeLayersToMain();
+    updatePreview();
+  }, [getLayerCanvas, compositeLayersToMain]);
+  
+  // Merge all layers into base
+  const flattenLayers = useCallback(() => {
+    if (!confirm('Merge all visible layers into base? This cannot be undone.')) return;
+    
+    // Get composite result
+    const mainCanvas = canvasRef.current;
+    if (!mainCanvas) return;
+    
+    // Copy composite to base layer
+    const baseCanvas = getLayerCanvas('base');
+    const baseCtx = baseCanvas.getContext('2d');
+    if (baseCtx) {
+      baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+      baseCtx.drawImage(mainCanvas, 0, 0);
+    }
+    
+    // Clear other layers
+    clearLayer('clothing');
+    clearLayer('accessories');
+    
+    compositeLayersToMain();
+    updatePreview();
+    playSound('click');
+  }, [getLayerCanvas, clearLayer, compositeLayersToMain]);
   
   // 🤖 AI Skin Generation (placeholder - needs API key)
   const generateAISkin = async () => {
@@ -332,6 +480,16 @@ export default function SkinCreator() {
         case '1': setBrushSize(1); break;
         case '2': setBrushSize(2); break;
         case '3': setBrushSize(3); break;
+        // Layer shortcuts
+        case 'l': setShowLayerPanel(prev => !prev); break;
+        case '[': setActiveLayer(prev => {
+          const idx = ['base', 'clothing', 'accessories'].indexOf(prev);
+          return ['base', 'clothing', 'accessories'][(idx + 2) % 3] as LayerType;
+        }); break;
+        case ']': setActiveLayer(prev => {
+          const idx = ['base', 'clothing', 'accessories'].indexOf(prev);
+          return ['base', 'clothing', 'accessories'][(idx + 1) % 3] as LayerType;
+        }); break;
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -339,6 +497,7 @@ export default function SkinCreator() {
   }, [undo, redo]);
 
   // Auto-save to localStorage when canvas changes 💾
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const autoSave = useCallback(() => {
     if (canvasRef.current) {
       const dataUrl = canvasRef.current.toDataURL('image/png');
@@ -425,94 +584,107 @@ export default function SkinCreator() {
 
   // Initialize with Steve template
   const loadTemplate = useCallback((template: keyof typeof TEMPLATES | 'blank') => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    // 🎨 Clear all layer canvases first
+    const baseCanvas = getLayerCanvas('base');
+    const clothingCanvas = getLayerCanvas('clothing');
+    const accessoriesCanvas = getLayerCanvas('accessories');
+    
+    const baseCtx = baseCanvas.getContext('2d');
+    const clothingCtx = clothingCanvas.getContext('2d');
+    const accessoriesCtx = accessoriesCanvas.getContext('2d');
+    
+    if (!baseCtx || !clothingCtx || !accessoriesCtx) return;
+    
+    baseCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    clothingCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    accessoriesCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
 
     if (template === 'blank') {
+      compositeLayersToMain();
       updatePreview();
       return;
     }
 
     const t = TEMPLATES[template] || TEMPLATES.steve;
     
+    // 🎨 LAYER: BASE - Skin, face features (drawn on base layer)
     // Head - front face (8x8 at position 8,8)
-    ctx.fillStyle = t.skin;
-    ctx.fillRect(8, 8, 8, 8);
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(8, 8, 8, 8);
     // Eyes
-    ctx.fillStyle = t.eyes;
-    ctx.fillRect(9, 11, 2, 1);
-    ctx.fillRect(13, 11, 2, 1);
-    ctx.fillStyle = t.pupils;
-    ctx.fillRect(10, 11, 1, 1);
-    ctx.fillRect(13, 11, 1, 1);
+    baseCtx.fillStyle = t.eyes;
+    baseCtx.fillRect(9, 11, 2, 1);
+    baseCtx.fillRect(13, 11, 2, 1);
+    baseCtx.fillStyle = t.pupils;
+    baseCtx.fillRect(10, 11, 1, 1);
+    baseCtx.fillRect(13, 11, 1, 1);
     // Hair
-    ctx.fillStyle = t.hair;
-    ctx.fillRect(8, 8, 8, 1);
-    ctx.fillRect(8, 8, 1, 2);
-    ctx.fillRect(15, 8, 1, 2);
+    baseCtx.fillStyle = t.hair;
+    baseCtx.fillRect(8, 8, 8, 1);
+    baseCtx.fillRect(8, 8, 1, 2);
+    baseCtx.fillRect(15, 8, 1, 2);
     // Mouth
-    ctx.fillStyle = '#a87d5a';
-    ctx.fillRect(11, 14, 2, 1);
+    baseCtx.fillStyle = '#a87d5a';
+    baseCtx.fillRect(11, 14, 2, 1);
 
     // Head sides
-    ctx.fillStyle = t.skin;
-    ctx.fillRect(0, 8, 8, 8); // right
-    ctx.fillRect(16, 8, 8, 8); // left
-    ctx.fillRect(24, 8, 8, 8); // back
-    ctx.fillStyle = t.hair;
-    ctx.fillRect(24, 8, 8, 1);
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(0, 8, 8, 8); // right
+    baseCtx.fillRect(16, 8, 8, 8); // left
+    baseCtx.fillRect(24, 8, 8, 8); // back
+    baseCtx.fillStyle = t.hair;
+    baseCtx.fillRect(24, 8, 8, 1);
     
     // Head top/bottom
-    ctx.fillStyle = t.hair;
-    ctx.fillRect(8, 0, 8, 8); // top
-    ctx.fillStyle = t.skin;
-    ctx.fillRect(16, 0, 8, 8); // bottom
+    baseCtx.fillStyle = t.hair;
+    baseCtx.fillRect(8, 0, 8, 8); // top
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(16, 0, 8, 8); // bottom
 
+    // Arms - skin parts (base layer)
+    baseCtx.fillStyle = t.skin;
+    // Right arm - hand visible part
+    baseCtx.fillRect(44, 20, 4, 12);
+    baseCtx.fillRect(40, 20, 4, 12);
+    baseCtx.fillRect(48, 20, 4, 12);
+    baseCtx.fillRect(52, 20, 4, 12);
+    // Left arm
+    baseCtx.fillRect(36, 52, 4, 12);
+    baseCtx.fillRect(32, 52, 4, 12);
+    baseCtx.fillRect(40, 52, 4, 12);
+    baseCtx.fillRect(44, 52, 4, 12);
+
+    // 🎨 LAYER: CLOTHING - Shirt, pants, shoes (drawn on clothing layer)
     // Body - front (8x12 at position 20,20)
-    ctx.fillStyle = t.shirt;
-    ctx.fillRect(20, 20, 8, 12);
+    clothingCtx.fillStyle = t.shirt;
+    clothingCtx.fillRect(20, 20, 8, 12);
     // Body sides, back
-    ctx.fillRect(16, 20, 4, 12);
-    ctx.fillRect(28, 20, 4, 12);
-    ctx.fillRect(32, 20, 8, 12);
+    clothingCtx.fillRect(16, 20, 4, 12);
+    clothingCtx.fillRect(28, 20, 4, 12);
+    clothingCtx.fillRect(32, 20, 8, 12);
 
-    // Arms
-    ctx.fillStyle = t.skin;
-    // Right arm
-    ctx.fillRect(44, 20, 4, 12);
-    ctx.fillRect(40, 20, 4, 12);
-    ctx.fillRect(48, 20, 4, 12);
-    ctx.fillRect(52, 20, 4, 12);
-    // Left arm (mirrored position in new format)
-    ctx.fillRect(36, 52, 4, 12);
-    ctx.fillRect(32, 52, 4, 12);
-    ctx.fillRect(40, 52, 4, 12);
-    ctx.fillRect(44, 52, 4, 12);
-
-    // Legs
-    ctx.fillStyle = t.pants;
+    // Legs - pants
+    clothingCtx.fillStyle = t.pants;
     // Right leg
-    ctx.fillRect(4, 20, 4, 12);
-    ctx.fillRect(0, 20, 4, 12);
-    ctx.fillRect(8, 20, 4, 12);
-    ctx.fillRect(12, 20, 4, 12);
+    clothingCtx.fillRect(4, 20, 4, 12);
+    clothingCtx.fillRect(0, 20, 4, 12);
+    clothingCtx.fillRect(8, 20, 4, 12);
+    clothingCtx.fillRect(12, 20, 4, 12);
     // Left leg
-    ctx.fillRect(20, 52, 4, 12);
-    ctx.fillRect(16, 52, 4, 12);
-    ctx.fillRect(24, 52, 4, 12);
-    ctx.fillRect(28, 52, 4, 12);
+    clothingCtx.fillRect(20, 52, 4, 12);
+    clothingCtx.fillRect(16, 52, 4, 12);
+    clothingCtx.fillRect(24, 52, 4, 12);
+    clothingCtx.fillRect(28, 52, 4, 12);
 
     // Shoes
-    ctx.fillStyle = t.shoes;
-    ctx.fillRect(4, 31, 4, 1);
-    ctx.fillRect(20, 63, 4, 1);
-
+    clothingCtx.fillStyle = t.shoes;
+    clothingCtx.fillRect(4, 31, 4, 1);
+    clothingCtx.fillRect(20, 63, 4, 1);
+    
+    // 🎨 Composite all layers to main canvas
+    compositeLayersToMain();
     updatePreview();
-  }, []);
+  }, [getLayerCanvas, compositeLayersToMain]);
 
   const updatePreview = useCallback(() => {
     const canvas = canvasRef.current;
@@ -555,13 +727,24 @@ export default function SkinCreator() {
   useEffect(() => {
     loadTemplate('steve');
   }, [loadTemplate]);
+  
+  // 🎨 Recomposite layers when visibility/opacity changes
+  useEffect(() => {
+    compositeLayersToMain();
+    updatePreview();
+  }, [layers, compositeLayersToMain]);
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing && e.type === 'mousemove') return;
     
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const mainCanvas = canvasRef.current;
+    if (!mainCanvas) return;
+    const mainCtx = mainCanvas.getContext('2d');
+    if (!mainCtx) return;
+    
+    // 🎨 Get the active layer canvas to draw on
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
     if (!ctx) return;
 
     // Spawn sparkle particle! ✨
@@ -570,7 +753,7 @@ export default function SkinCreator() {
       playSound('draw'); // 🔊 Bloop!
     }
 
-    const rect = canvas.getBoundingClientRect();
+    const rect = mainCanvas.getBoundingClientRect();
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
     
@@ -579,9 +762,9 @@ export default function SkinCreator() {
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
 
-    // Eyedropper - pick color from pixel
+    // Eyedropper - pick color from composite (main canvas)
     if (tool === 'eyedropper') {
-      const imageData = ctx.getImageData(x, y, 1, 1).data;
+      const imageData = mainCtx.getImageData(x, y, 1, 1).data;
       if (imageData[3] > 0) { // Not transparent
         const hex = '#' + [imageData[0], imageData[1], imageData[2]]
           .map(v => v.toString(16).padStart(2, '0')).join('');
@@ -644,8 +827,8 @@ export default function SkinCreator() {
             diamond: [[1,0],[0,1],[2,1],[1,2]], // 3x3 diamond
           };
           const pattern = patterns[stampShape] || patterns.star;
-          pattern.forEach(([dx, dy]) => {
-            ctx.fillRect(x + dx, y + dy, 1, 1);
+          pattern.forEach(([pdx, pdy]) => {
+            ctx.fillRect(x + pdx, y + pdy, 1, 1);
           });
         } else {
           ctx.fillStyle = selectedColor;
@@ -660,6 +843,8 @@ export default function SkinCreator() {
       }
     }
 
+    // 🎨 Composite all layers to main canvas
+    compositeLayersToMain();
     updatePreview();
   };
 
@@ -668,12 +853,15 @@ export default function SkinCreator() {
     const touch = e.touches[0];
     if (!touch) return;
     
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const mainCanvas = canvasRef.current;
+    if (!mainCanvas) return;
+    
+    // 🎨 Get the active layer canvas to draw on
+    const layerCanvas = getLayerCanvas(activeLayer);
+    const ctx = layerCanvas.getContext('2d');
     if (!ctx) return;
 
-    const rect = canvas.getBoundingClientRect();
+    const rect = mainCanvas.getBoundingClientRect();
     const scaleX = SKIN_WIDTH / rect.width;
     const scaleY = SKIN_HEIGHT / rect.height;
     
@@ -707,21 +895,68 @@ export default function SkinCreator() {
         }
       }
     }
+    
+    // 🎨 Composite all layers to main canvas
+    compositeLayersToMain();
     updatePreview();
   };
 
-  const downloadSkin = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const link = document.createElement('a');
-    link.download = `${skinName || 'my-skin'}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+  // 🎨 Export skin with layer options
+  const [showExportPanel, setShowExportPanel] = useState(false);
+  const [exportLayers, setExportLayers] = useState<{ [key in LayerType]: boolean }>({
+    base: true,
+    clothing: true,
+    accessories: true,
+  });
+  
+  const downloadSkin = (useSelectedLayers = false) => {
+    // If using selected layers, create a composite with only those layers
+    if (useSelectedLayers) {
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = SKIN_WIDTH;
+      exportCanvas.height = SKIN_HEIGHT;
+      const exportCtx = exportCanvas.getContext('2d');
+      if (!exportCtx) return;
+      
+      // Draw only selected layers
+      layers.forEach(layer => {
+        if (!exportLayers[layer.id]) return;
+        const layerCanvas = layerCanvasRefs.current[layer.id];
+        if (!layerCanvas) return;
+        exportCtx.globalAlpha = layer.opacity / 100;
+        exportCtx.drawImage(layerCanvas, 0, 0);
+      });
+      exportCtx.globalAlpha = 1;
+      
+      const link = document.createElement('a');
+      link.download = `${skinName || 'my-skin'}.png`;
+      link.href = exportCanvas.toDataURL('image/png');
+      link.click();
+    } else {
+      // Default: export full composite
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const link = document.createElement('a');
+      link.download = `${skinName || 'my-skin'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
     
     // 🎉 Confetti celebration!
     setShowConfetti(true);
     playSound('download'); // 🔊 Celebration jingle!
     setTimeout(() => setShowConfetti(false), 3000);
+    setShowExportPanel(false);
+  };
+  
+  // Export only base layer (skin without clothing/accessories)
+  const downloadBaseOnly = () => {
+    const baseCanvas = getLayerCanvas('base');
+    const link = document.createElement('a');
+    link.download = `${skinName || 'my-skin'}-base.png`;
+    link.href = baseCanvas.toDataURL('image/png');
+    link.click();
+    playSound('download');
   };
 
   // 🗑️ Clear canvas
@@ -1011,10 +1246,18 @@ export default function SkinCreator() {
                 className="w-24 px-2 py-1 text-sm rounded-lg border-2 border-gray-300 focus:border-green-500 outline-none"
               />
               <button
-                onClick={downloadSkin}
+                onClick={() => downloadSkin(false)}
                 className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
+                title="Quick save (all layers)"
               >
                 💾
+              </button>
+              <button
+                onClick={() => setShowExportPanel(true)}
+                className="px-2 py-2 rounded-full font-bold bg-green-600 text-white hover:bg-green-700"
+                title="Export options (choose layers)"
+              >
+                📤
               </button>
             </div>
             <button
@@ -1215,7 +1458,7 @@ export default function SkinCreator() {
       {/* Help Modal */}
       {showHelp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowHelp(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-4">⌨️ Keyboard Shortcuts</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">B</span><span>Brush</span>
@@ -1231,8 +1474,159 @@ export default function SkinCreator() {
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">⌘Z</span><span>Undo</span>
               <span className="font-mono bg-gray-100 px-2 py-1 rounded">⌘Y</span><span>Redo</span>
             </div>
+            <h4 className="text-lg font-bold mt-4 mb-2">🎨 Layer Shortcuts</h4>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">L</span><span>Toggle layer panel</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">[</span><span>Previous layer</span>
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded">]</span><span>Next layer</span>
+            </div>
             <button onClick={() => setShowHelp(false)} className="mt-4 w-full py-2 bg-blue-500 text-white rounded-lg font-bold">
               Got it! 👍
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {/* 🎨 Layer Panel - Floating */}
+      {showLayerPanel && (
+        <div className="fixed left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-4 shadow-2xl z-40 w-64">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-lg font-bold">🎨 Layers</h3>
+            <button 
+              onClick={() => setShowLayerPanel(false)}
+              className="text-gray-400 hover:text-gray-600 text-xl"
+            >×</button>
+          </div>
+          
+          {/* Layer List */}
+          <div className="space-y-2 mb-3">
+            {layers.slice().reverse().map((layer, idx) => (
+              <div 
+                key={layer.id}
+                className={`p-2 rounded-lg border-2 transition-all cursor-pointer ${
+                  activeLayer === layer.id 
+                    ? 'border-blue-500 bg-blue-50' 
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+                onClick={() => setActiveLayer(layer.id)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); toggleLayerVisibility(layer.id); }}
+                      className={`text-lg ${layer.visible ? '' : 'opacity-30'}`}
+                      title={layer.visible ? 'Hide layer' : 'Show layer'}
+                    >
+                      {layer.visible ? '👁️' : '🚫'}
+                    </button>
+                    <span className="text-lg">{layer.emoji}</span>
+                    <span className="text-sm font-medium">{layer.name}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'up'); }}
+                      disabled={idx === 0}
+                      className="text-xs px-1 disabled:opacity-30 hover:bg-gray-200 rounded"
+                    >↑</button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, 'down'); }}
+                      disabled={idx === layers.length - 1}
+                      className="text-xs px-1 disabled:opacity-30 hover:bg-gray-200 rounded"
+                    >↓</button>
+                  </div>
+                </div>
+                
+                {/* Opacity slider */}
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-xs text-gray-500">Opacity:</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={layer.opacity}
+                    onChange={(e) => {
+                      setLayerOpacity(layer.id, parseInt(e.target.value));
+                      compositeLayersToMain();
+                      updatePreview();
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex-1 h-1"
+                  />
+                  <span className="text-xs text-gray-500 w-8">{layer.opacity}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Layer Actions */}
+          <div className="flex flex-wrap gap-1">
+            <button
+              onClick={() => clearLayer(activeLayer)}
+              className="px-2 py-1 text-xs bg-red-100 text-red-600 rounded hover:bg-red-200"
+              title="Clear current layer"
+            >
+              🗑️ Clear
+            </button>
+            <button
+              onClick={flattenLayers}
+              className="px-2 py-1 text-xs bg-purple-100 text-purple-600 rounded hover:bg-purple-200"
+              title="Merge all layers"
+            >
+              🔗 Flatten
+            </button>
+          </div>
+          
+          {/* Active Layer Indicator */}
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <p className="text-xs text-gray-500">
+              Active: <span className="font-bold">{layers.find(l => l.id === activeLayer)?.name}</span>
+            </p>
+          </div>
+        </div>
+      )}
+      
+      {/* 📤 Export Panel */}
+      {showExportPanel && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowExportPanel(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-md m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold mb-4">📤 Export Skin</h3>
+            <p className="text-sm text-gray-600 mb-4">Choose which layers to include in your export:</p>
+            
+            <div className="space-y-2 mb-4">
+              {layers.map(layer => (
+                <label key={layer.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={exportLayers[layer.id]}
+                    onChange={(e) => setExportLayers(prev => ({ ...prev, [layer.id]: e.target.checked }))}
+                    className="w-4 h-4"
+                  />
+                  <span className="text-lg">{layer.emoji}</span>
+                  <span>{layer.name}</span>
+                </label>
+              ))}
+            </div>
+            
+            <div className="flex gap-2">
+              <button
+                onClick={() => downloadSkin(true)}
+                className="flex-1 py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600"
+              >
+                💾 Export Selected
+              </button>
+              <button
+                onClick={() => downloadSkin(false)}
+                className="flex-1 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600"
+              >
+                📦 Export All
+              </button>
+            </div>
+            
+            <button
+              onClick={downloadBaseOnly}
+              className="w-full mt-2 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200"
+            >
+              👤 Export Base Only (no clothes)
             </button>
           </div>
         </div>
@@ -1273,6 +1667,17 @@ export default function SkinCreator() {
           </div>
         </div>
       )}
+
+      {/* Layer Panel Toggle Button */}
+      <button
+        onClick={() => setShowLayerPanel(!showLayerPanel)}
+        className={`fixed bottom-4 left-16 w-10 h-10 rounded-full shadow-lg text-xl hover:scale-110 transition-transform ${
+          showLayerPanel ? 'bg-blue-500 text-white' : 'bg-white/90'
+        }`}
+        title="Toggle Layers (L)"
+      >
+        🎨
+      </button>
 
       {/* AI Button */}
       <button

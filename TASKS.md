@@ -10403,17 +10403,26 @@
   - Press ? key to toggle
 
 ### [T879] Skin Creator: Advanced Layer System
-- **Status**: IN_PROGRESS
-- **Owner**: @onde-bot-1
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Aggiungere sistema di layer per skin overlay:
-  - Layer base (skin body)
-  - Layer vestiti/armor
-  - Layer accessori (cappelli, occhiali)
-  - Toggle visibilità layer
-  - Export con/senza overlay
+- **Notes**: ✅ Implemented advanced layer system for skin overlay!
+  - ✅ Layer base (skin body) - for skin, face, and exposed body parts
+  - ✅ Layer clothing - for shirts, pants, shoes
+  - ✅ Layer accessories - for hats, glasses, overlays
+  - ✅ Toggle visibility per layer (👁️ button)
+  - ✅ Opacity slider per layer (0-100%)
+  - ✅ Reorder layers (up/down buttons)
+  - ✅ Export options: All layers, Selected layers, Base only
+  - ✅ Floating Layer Panel UI (toggle with L key)
+  - ✅ Keyboard shortcuts: L (toggle panel), [ ] (cycle layers)
+  - ✅ Clear layer, Flatten all layers actions
+  - ✅ Active layer indicator
+  - ✅ Templates now properly draw to base/clothing layers
+  - Build passes ✅
 
 ### [T880] Skin Creator: AI Skin Generation
 - **Status**: DONE
@@ -10476,3 +10485,41 @@
   - Favorites per salvare le migliori
   - Quick regenerate con stesso prompt
   - Share AI creations
+
+### [T885] Skin Creator: Layer Templates/Presets
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Save and load layer combinations as presets:
+  - Save current layers as named preset
+  - Load preset to restore layer state
+  - Built-in presets (knight armor, casual, formal)
+  - Export/import presets as JSON
+  - Share presets with community
+
+### [T886] Skin Creator: Layer Blending Modes
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Add Photoshop-like blending modes for layers:
+  - Normal, Multiply, Screen, Overlay
+  - Useful for shadows and highlights
+  - Color tint effects
+  - Preview before applying
+
+### [T887] Skin Creator: Version History
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T879]
+- **Blocks**: -
+- **Priority**: P4
+- **Notes**: Track skin editing history:
+  - Auto-save snapshots every few edits
+  - Named save points (like git commits)
+  - Visual history browser
+  - Restore to any previous version
+  - Compare versions side by side

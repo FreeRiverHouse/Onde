@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 interface SkinPreview3DProps {
@@ -205,9 +205,9 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     // Update materials (simplified - just color for now)
     characterRef.current.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        const material = child.material as THREE.MeshLambertMaterial;
-        // For now, just update the color based on skin
         // Full UV mapping would require more complex setup
+        // For now, the basic blocky character is displayed
+        void child.material; // Material available for future texture mapping
       }
     });
   }, [skinCanvas]);
