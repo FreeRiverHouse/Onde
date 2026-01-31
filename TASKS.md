@@ -215,8 +215,9 @@
   - ⏳ Dashboard widget (future enhancement)
 
 ### [T875] onde.la: Fix badge emoji mancante
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1
