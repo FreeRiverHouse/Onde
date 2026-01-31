@@ -11142,8 +11142,8 @@
   - ✅ Verified: https://skin-studio.pages.dev returns 200 OK
 
 ### [T921] Skin Creator: Add Random Template Generator
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P3
@@ -11955,8 +11955,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Salvare skin in localStorage, lista "My Skins", caricare veloce
 
 ### [T954] Skin Creator: Share Skin Link
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Generare link condivisibile (base64 encoded skin data)
