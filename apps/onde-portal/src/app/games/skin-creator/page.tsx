@@ -123,7 +123,7 @@ const PATTERN_PRESETS: PatternPreset[] = [
 ];
 
 // 🎨 TEXTURE FILTERS - Grain, Blur, Sharpen for advanced effects!
-type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'smooth' | 'vignette';
+type TextureFilterType = 'grain' | 'blur' | 'sharpen' | 'emboss' | 'pixelate' | 'smooth' | 'vignette' | 'invert';
 
 interface TextureFilter {
   id: TextureFilterType;
@@ -141,6 +141,7 @@ const TEXTURE_FILTERS: TextureFilter[] = [
   { id: 'pixelate', name: 'Pixelate', emoji: '🧱', description: 'Chunky pixel effect', hasIntensity: true },
   { id: 'smooth', name: 'Smooth', emoji: '✨', description: 'Soften and blend pixel edges', hasIntensity: true },
   { id: 'vignette', name: 'Vignette', emoji: '🔲', description: 'Dark edges, bright center', hasIntensity: true },
+  { id: 'invert', name: 'Invert', emoji: '🔄', description: 'Invert all colors (negative)', hasIntensity: true },
 ];
 
 // 🎨 STICKER/DECAL LIBRARY - Decorative elements to apply on skins!
@@ -2994,7 +2995,7 @@ export default function SkinCreator() {
   };
 
   // 🎨 Apply Texture Filter - Grain, Blur, Sharpen, etc.
-  const applyTextureFilter = useCallback((filterId: TextureFilterType, intensity: number = 50) => {
+  const applyTextureFilter = useCallback((filterId: TextureFilterType, intensity: number = 50, outlineColor?: string) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');

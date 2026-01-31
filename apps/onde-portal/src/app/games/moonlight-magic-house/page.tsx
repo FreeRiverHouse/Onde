@@ -4857,7 +4857,7 @@ export default function MoonlightMagicHouse() {
             
             {/* Interactive Room Container - themed */}
             <div 
-              className={`relative bg-gradient-to-b ${currentRoomTheme.wallGradientLight} rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint`} 
+              className={`relative bg-gradient-to-b ${currentRoomTheme.wallGradient} rounded-3xl p-4 backdrop-blur-sm border border-white/10 contain-paint`} 
               style={{ minHeight: '220px' }}
             >
               {/* Wallpaper pattern */}
