@@ -1334,8 +1334,9 @@ export default function SkinCreator() {
         case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); playSound('redo'); } break;
         case 'm': setMirrorMode(prev => !prev); break;
         case 'd': setDarkMode(prev => !prev); break;
-        case '+': case '=': setZoomLevel(prev => Math.min(12, prev + 1)); break;
+        case '+': case '=': setZoomLevel(prev => Math.min(20, prev + 1)); break;
         case '-': setZoomLevel(prev => Math.max(2, prev - 1)); break;
+        case '0': setZoomLevel(6); break; // Reset to default zoom
         case '1': setBrushSize(1); break;
         case '2': setBrushSize(2); break;
         case '3': setBrushSize(3); break;
@@ -2992,7 +2993,9 @@ export default function SkinCreator() {
             />
             <div className="grid grid-cols-2 gap-2 text-sm max-h-60 overflow-auto">
               <div data-shortcut="b brush" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">B</div><div className="py-2">Brush tool</div></div>
+              <div data-shortcut="p pencil" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">P</div><div className="py-2">Pencil (1px)</div></div>
               <div data-shortcut="e eraser" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">E</div><div className="py-2">Eraser</div></div>
+              <div data-shortcut="r spray airbrush" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">R</div><div className="py-2">Spray</div></div>
               <div data-shortcut="f fill bucket" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">F</div><div className="py-2">Fill bucket</div></div>
               <div data-shortcut="i eyedropper color picker" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">I</div><div className="py-2">Eyedropper</div></div>
               <div data-shortcut="1 2 3 4 5 brush size" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">1-5</div><div className="py-2">Brush size</div></div>
@@ -3193,30 +3196,30 @@ export default function SkinCreator() {
         )}
 
         {/* View Mode Tabs */}
-        <div className="flex gap-2 mt-4 flex-wrap justify-center">
+        <div className="flex gap-2 mt-4 flex-wrap justify-center skin-animate-in delay-300">
           <button
             onClick={() => setViewMode('editor')}
-            className={`px-6 py-2 rounded-full font-bold transition-all ${
+            className={`px-6 py-2 rounded-full font-bold transition-all duration-300 skin-btn-premium ${
               viewMode === 'editor'
-                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 shadow-lg'
-                : 'bg-white/20 text-white hover:bg-white/30'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 shadow-lg shadow-purple-500/40'
+                : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
             }`}
           >
             🎨 Editor
           </button>
           <button
             onClick={() => setViewMode('gallery')}
-            className={`px-6 py-2 rounded-full font-bold transition-all ${
+            className={`px-6 py-2 rounded-full font-bold transition-all duration-300 skin-btn-premium ${
               viewMode === 'gallery'
-                ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white scale-105 shadow-lg'
-                : 'bg-white/20 text-white hover:bg-white/30'
+                ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white scale-105 shadow-lg shadow-green-500/40'
+                : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
             }`}
           >
             🖼️ Gallery
           </button>
           <a
             href="/games/skin-creator/gallery"
-            className="px-6 py-2 rounded-full font-bold transition-all bg-white/20 text-white hover:bg-white/30 flex items-center gap-1"
+            className="px-6 py-2 rounded-full font-bold transition-all duration-300 bg-white/20 text-white hover:bg-white/30 flex items-center gap-1 skin-btn-premium hover:scale-105"
           >
             ✨ Templates
           </a>
@@ -3290,7 +3293,7 @@ export default function SkinCreator() {
       {/* Editor View */}
       <div className={`flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
         {/* Left Panel - Preview - Clean and focused */}
-        <div className="glass-card rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+        <div className="glass-card skin-glass-card rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 skin-animate-in-left delay-300">
           <div className="flex items-center justify-center gap-3 mb-4">
             <h2 className="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
               <span className="animate-float-gentle">👀</span> Preview
@@ -3329,7 +3332,7 @@ export default function SkinCreator() {
           )}
 
           {show3D ? (
-            <div className="rounded-xl mx-auto overflow-hidden" style={{ width: 200, height: 280 }}>
+            <div className="rounded-xl mx-auto overflow-hidden skin-preview-3d-container" style={{ width: 200, height: 280 }}>
               <SkinPreview3D skinCanvas={canvasRef.current} />
             </div>
           ) : (

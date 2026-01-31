@@ -592,6 +592,157 @@ const animationStyles = `
   .spot-hover:active:not(:disabled) {
     transform: scale(0.95);
   }
+
+  /* ========== MAGIC PARTICLES ========== */
+  
+  /* Shooting star with trail */
+  @keyframes shooting-star {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale3d(0, 0, 1);
+    }
+    5% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(200px, 150px, 0) scale3d(0.3, 0.3, 1);
+    }
+  }
+
+  /* Glitter sparkle effect */
+  @keyframes glitter {
+    0%, 100% {
+      opacity: 0;
+      transform: scale3d(0, 0, 1) rotate(0deg);
+      filter: drop-shadow(0 0 0 transparent);
+    }
+    25% {
+      opacity: 1;
+      transform: scale3d(1.2, 1.2, 1) rotate(90deg);
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale3d(0.8, 0.8, 1) rotate(180deg);
+      filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5));
+    }
+    75% {
+      opacity: 1;
+      transform: scale3d(1, 1, 1) rotate(270deg);
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 1));
+    }
+  }
+
+  /* Magic dust floating particles */
+  @keyframes magic-dust {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale3d(0, 0, 1);
+    }
+    10% {
+      opacity: 0.8;
+      transform: translate3d(var(--dust-x1, 5px), var(--dust-y1, -10px), 0) scale3d(1, 1, 1);
+    }
+    50% {
+      opacity: 1;
+      transform: translate3d(var(--dust-x2, -10px), var(--dust-y2, -30px), 0) scale3d(1.2, 1.2, 1);
+    }
+    90% {
+      opacity: 0.6;
+      transform: translate3d(var(--dust-x3, 5px), var(--dust-y3, -60px), 0) scale3d(0.8, 0.8, 1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(var(--dust-x4, 0), var(--dust-y4, -80px), 0) scale3d(0, 0, 1);
+    }
+  }
+
+  /* Fairy trail effect */
+  @keyframes fairy-trail {
+    0% {
+      opacity: 0;
+      transform: translate3d(var(--trail-start-x, 0), var(--trail-start-y, 0), 0);
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(var(--trail-end-x, 100px), var(--trail-end-y, -50px), 0);
+    }
+  }
+
+  /* Stardust cascade */
+  @keyframes stardust-fall {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(var(--fall-x, 30px), 100vh, 0) rotate(720deg);
+    }
+  }
+
+  /* Magic orb pulse */
+  @keyframes magic-orb {
+    0%, 100% {
+      transform: scale3d(1, 1, 1);
+      filter: drop-shadow(0 0 10px var(--orb-color, rgba(138, 43, 226, 0.6)));
+    }
+    50% {
+      transform: scale3d(1.3, 1.3, 1);
+      filter: drop-shadow(0 0 25px var(--orb-color, rgba(138, 43, 226, 0.9)));
+    }
+  }
+
+  /* Animation classes for magic particles */
+  .animate-shooting-star {
+    animation: shooting-star 3s var(--ease-out-expo) infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-glitter {
+    animation: glitter 2s var(--ease-in-out-smooth) infinite;
+    will-change: transform, opacity, filter;
+  }
+
+  .animate-magic-dust {
+    animation: magic-dust 4s var(--ease-out-expo) infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-fairy-trail {
+    animation: fairy-trail 2.5s var(--ease-out-expo) infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-stardust-fall {
+    animation: stardust-fall 6s linear infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-magic-orb {
+    animation: magic-orb 3s var(--ease-in-out-smooth) infinite;
+    will-change: transform, filter;
+  }
+
+  /* Reduced motion support for magic particles */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-shooting-star,
+    .animate-glitter,
+    .animate-magic-dust,
+    .animate-fairy-trail,
+    .animate-stardust-fall,
+    .animate-magic-orb {
+      animation: none !important;
+    }
+  }
 `
 
 // ============ CUTE SVG COMPONENTS ============
