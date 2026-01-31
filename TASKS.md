@@ -12547,8 +12547,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Fortnite-style dance pose
 
 ### [T1002] Skin Creator: Combat Pose
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Sword/bow combat stance
