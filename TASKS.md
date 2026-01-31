@@ -12647,3 +12647,42 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: First-time user tutorial with highlights
+
+---
+
+## 🆕 AUTO-ADDED TASKS (2026-02-04 HEARTBEAT - @clawdinho)
+
+### [T1024] Moonlight: Deploy Footstep Dust Puffs to onde.la
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Priority**: P2
+- **Notes**: Deploy new Moonlight with dust puffs feature
+  - Build: `cd apps/moonlight-house && npm run build`
+  - Copy to onde-portal/public/games/moonlight-magic-house/
+  - Deploy via wrangler
+  - Verify: https://onde.la/games/moonlight-magic-house/
+  - Test dust effects in garden (grass), bathroom (water), garage (stone)
+
+### [T1025] Moonlight: Add Pet Sound Effects on Tap (MM-024)
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Depends**: [T878]
+- **Priority**: P2
+- **Notes**: Play cute sounds when tapping/petting Luna
+  - Happy meow/purr when tapped
+  - Different sounds based on mood
+  - Use Web Audio API (like AmbientSoundscapes)
+  - Volume control respect global mute
+
+### [T1026] Infra: Add Moonlight Build to Daily Test Suite
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @clawdinho
+- **Priority**: P3
+- **Notes**: Add moonlight-house build verification to daily-test-suite.py
+  - Run `npm run build` in apps/moonlight-house
+  - Verify build succeeds
+  - Check dist/ output exists
+  - Alert on failure: `scripts/moonlight-build-failure.alert`
