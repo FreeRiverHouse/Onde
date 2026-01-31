@@ -1518,12 +1518,51 @@ function App() {
         </div>
       </div>
 
-      <div className="mini-stats glass-card">
-        <span className="mood-display">{getMoodEmoji(mood)} {t.moods[mood]}</span>
-        <span>💚 {Math.round(stats.health)}</span>
-        <span>🍪 {Math.round(stats.hunger)}</span>
-        <span>⚡ {Math.round(stats.energy)}</span>
-        <span>💖 {Math.round(stats.happiness)}</span>
+      {/* Enhanced Stat Bars (Pet Persistence T1090) */}
+      <div className="stat-bars glass-card">
+        <div className="stat-bar-item">
+          <span className="stat-bar-icon">💚</span>
+          <div className="stat-bar-track">
+            <div 
+              className={`stat-bar-fill health ${stats.health < 30 ? 'low' : ''}`}
+              style={{ width: `${stats.health}%` }}
+            />
+          </div>
+          <span className="stat-bar-value">{Math.round(stats.health)}</span>
+        </div>
+        <div className="stat-bar-item">
+          <span className="stat-bar-icon">🍪</span>
+          <div className="stat-bar-track">
+            <div 
+              className={`stat-bar-fill hunger ${stats.hunger < 30 ? 'low' : ''}`}
+              style={{ width: `${stats.hunger}%` }}
+            />
+          </div>
+          <span className="stat-bar-value">{Math.round(stats.hunger)}</span>
+        </div>
+        <div className="stat-bar-item">
+          <span className="stat-bar-icon">⚡</span>
+          <div className="stat-bar-track">
+            <div 
+              className={`stat-bar-fill energy ${stats.energy < 30 ? 'low' : ''}`}
+              style={{ width: `${stats.energy}%` }}
+            />
+          </div>
+          <span className="stat-bar-value">{Math.round(stats.energy)}</span>
+        </div>
+        <div className="stat-bar-item">
+          <span className="stat-bar-icon">💖</span>
+          <div className="stat-bar-track">
+            <div 
+              className={`stat-bar-fill happiness ${stats.happiness < 30 ? 'low' : ''}`}
+              style={{ width: `${stats.happiness}%` }}
+            />
+          </div>
+          <span className="stat-bar-value">{Math.round(stats.happiness)}</span>
+        </div>
+        <div className="mood-display" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+          {getMoodEmoji(mood)} {t.moods[mood]}
+        </div>
       </div>
 
       {/* Movement Particles - magical sparkles when Luna walks */}

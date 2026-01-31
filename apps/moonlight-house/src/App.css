@@ -2147,3 +2147,161 @@
   transform: scale(0.95);
 }
 
+
+/* ============ WELCOME BACK POPUP (Pet Persistence T1090) ============ */
+.welcome-back-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.welcome-back-popup {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 24px;
+  max-width: 340px;
+  background: linear-gradient(145deg, rgba(60, 40, 100, 0.95), rgba(30, 20, 60, 0.95));
+  border: 2px solid rgba(255, 200, 255, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(180, 100, 255, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.welcome-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  animation: welcomeBounce 1s ease-in-out infinite;
+}
+
+@keyframes welcomeBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 10px rgba(180, 100, 255, 0.5);
+}
+
+.welcome-time {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 0.3rem 0;
+}
+
+.welcome-visits {
+  font-size: 0.85rem;
+  color: rgba(255, 200, 100, 0.9);
+  margin: 0 0 1rem 0;
+}
+
+.visit-star {
+  margin-left: 0.3rem;
+  animation: starSpin 2s linear infinite;
+}
+
+@keyframes starSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.welcome-warning {
+  font-size: 0.85rem;
+  color: #ff9999;
+  background: rgba(255, 100, 100, 0.15);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  margin: 0 0 1rem 0;
+}
+
+.welcome-btn {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+  transition: all 0.2s ease;
+}
+
+.welcome-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(155, 89, 182, 0.6);
+}
+
+.welcome-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============ ENHANCED STAT BARS ============ */
+.stat-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.stat-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-bar-icon {
+  font-size: 1rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.stat-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.stat-bar-fill.health { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+.stat-bar-fill.hunger { background: linear-gradient(90deg, #f39c12, #e67e22); }
+.stat-bar-fill.energy { background: linear-gradient(90deg, #3498db, #2980b9); }
+.stat-bar-fill.happiness { background: linear-gradient(90deg, #e91e63, #c2185b); }
+
+/* Low stat warning pulse */
+.stat-bar-fill.low {
+  animation: statPulse 1s ease-in-out infinite;
+}
+
+@keyframes statPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.stat-bar-value {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.8);
+  width: 2rem;
+  text-align: right;
+}
