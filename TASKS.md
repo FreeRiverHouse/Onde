@@ -182,7 +182,7 @@
   - **Usage**: `./scripts/setup-crontab.sh --show` to see current state
 
 ### [T953] Infra: Agent Health Dashboard Widget
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T950]
 - **Blocks**: -
@@ -11955,7 +11955,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Salvare skin in localStorage, lista "My Skins", caricare veloce
 
 ### [T954] Skin Creator: Share Skin Link
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
@@ -12022,3 +12022,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Export skin compatible with Roblox avatar system
+
+### [T961] Skin Creator: Rename Saved Skins
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Add rename option for saved skins
+
+### [T962] Skin Creator: Duplicate Skin Button  
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Duplicate a saved skin for variations
+
+### [T963] Skin Creator: Skin Tags/Categories
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Organize saved skins with tags (Warrior, Casual, etc.)
