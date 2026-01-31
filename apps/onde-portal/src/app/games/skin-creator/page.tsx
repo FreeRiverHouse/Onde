@@ -733,6 +733,7 @@ export default function SkinCreator() {
   const [particles, setParticles] = useState<Array<{id: number; x: number; y: number; color: string}>>([]);
   const particleIdRef = useRef(0);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const [soundMuted, setSoundMuted] = useState(false);
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const maxHistory = 50;
@@ -906,6 +907,7 @@ export default function SkinCreator() {
 
   // Sound effects using Web Audio API 🔊
   const playSound = useCallback((type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save' | 'achievement') => {
+    if (soundMuted) return; // Mute check
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
@@ -1955,6 +1957,15 @@ export default function SkinCreator() {
             title="View achievements"
           >
             🏆 {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
+          </button>
+          <button
+            onClick={() => setSoundMuted(!soundMuted)}
+            className={`ml-2 px-2 py-1 text-sm rounded-full transition-all ${
+              soundMuted ? 'bg-red-500/50 hover:bg-red-500/70' : 'bg-green-500/30 hover:bg-green-500/50'
+            }`}
+            title={soundMuted ? 'Unmute sounds' : 'Mute sounds'}
+          >
+            {soundMuted ? '🔇' : '🔊'}
           </button>
         </p>
 
