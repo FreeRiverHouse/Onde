@@ -13426,3 +13426,13 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 01:25 PST
 - **Recipes**: Hamburger, Pancakes, Cheesecake, Tacos, Sushi Roll (13 total!)
+
+### [T1076] EPUB Reader: Fixed Meditations (No More Gutenberg!)
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 01:28 PST
+- **Changes**: 
+  - Removed Gutenberg links
+  - Added epub.js for in-app reading
+  - Uses local /books/epub/meditations-en.epub
+  - Theme + font controls work
