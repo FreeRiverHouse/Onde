@@ -21,7 +21,7 @@ const SkinGallery = dynamic(() => import('../components/SkinGallery'), { ssr: fa
 type ViewMode = 'editor' | 'gallery';
 
 // Layer definitions for the skin editor
-type LayerType = 'base' | 'clothing' | 'accessories';
+type LayerType = 'base' | 'details' | 'accessories';
 
 interface Layer {
   id: LayerType;
@@ -43,7 +43,7 @@ interface HistoryState {
 
 const DEFAULT_LAYERS: Layer[] = [
   { id: 'base', name: 'Base (Skin)', emoji: '👤', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
-  { id: 'clothing', name: 'Clothing', emoji: '👕', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
+  { id: 'details', name: 'Details', emoji: '✏️', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
   { id: 'accessories', name: 'Accessories', emoji: '🎩', visible: true, opacity: 100, tint: null, tintIntensity: 50, glow: false },
 ];
 
@@ -2266,6 +2266,11 @@ export default function SkinCreator() {
     // 🪣 Fill tool - proper flood fill
     if (tool === 'fill') {
       floodFill(ctx, x, y, selectedColor);
+      // 🪞 Mirror mode - also fill on the opposite side
+      if (mirrorMode) {
+        const mirrorX = SKIN_WIDTH - 1 - x;
+        floodFill(ctx, mirrorX, y, selectedColor);
+      }
       compositeLayersToMain();
       updatePreview();
       return;
@@ -2310,6 +2315,13 @@ export default function SkinCreator() {
         const py = y + pdy;
         if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
           ctx.fillRect(px, py, 1, 1);
+          // 🪞 Mirror mode - stamp on opposite side (mirrored horizontally)
+          if (mirrorMode) {
+            const mirrorPx = SKIN_WIDTH - 1 - px;
+            if (mirrorPx >= 0 && mirrorPx < SKIN_WIDTH) {
+              ctx.fillRect(mirrorPx, py, 1, 1);
+            }
+          }
         }
       });
       compositeLayersToMain();
@@ -2328,6 +2340,13 @@ export default function SkinCreator() {
           const py = y + j;
           if (px >= 0 && px < SKIN_WIDTH && py >= 0 && py < SKIN_HEIGHT) {
             ctx.fillRect(px, py, 1, 1);
+            // 🪞 Mirror mode for glow
+            if (mirrorMode) {
+              const mirrorPx = SKIN_WIDTH - 1 - px;
+              if (mirrorPx >= 0 && mirrorPx < SKIN_WIDTH) {
+                ctx.fillRect(mirrorPx, py, 1, 1);
+              }
+            }
           }
         }
       }
@@ -3994,8 +4013,19 @@ export default function SkinCreator() {
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
-                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); }}
-                onMouseMove={draw}
+                onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); setHoverPixel(null); }}
+                onMouseMove={(e) => {
+                  draw(e);
+                  // Track pixel position for coordinate display
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = Math.floor((e.clientX - rect.left) / zoomLevel);
+                  const y = Math.floor((e.clientY - rect.top) / zoomLevel);
+                  if (x >= 0 && x < SKIN_WIDTH && y >= 0 && y < SKIN_HEIGHT) {
+                    setHoverPixel({ x, y });
+                  } else {
+                    setHoverPixel(null);
+                  }
+                }}
                 onContextMenu={(e) => {
                   e.preventDefault();
                   setContextMenu({ x: e.clientX, y: e.clientY });
@@ -4093,38 +4123,103 @@ export default function SkinCreator() {
                 </div>
               )}
 
-              {/* Grid Overlay */}
+              {/* Grid Overlay - with configurable color */}
               {showGrid && (
                 <svg
                   className="absolute top-1 left-1 pointer-events-none"
                   width={SKIN_WIDTH * zoomLevel}
                   height={SKIN_HEIGHT * zoomLevel}
-                  style={{ opacity: 0.3 }}
+                  style={{ opacity: gridColor === 'light' ? 0.4 : 0.35 }}
                 >
                   {/* Vertical lines */}
-                  {Array.from({ length: SKIN_WIDTH + 1 }).map((_, i) => (
-                    <line
-                      key={`v-${i}`}
-                      x1={i * zoomLevel}
-                      y1={0}
-                      x2={i * zoomLevel}
-                      y2={SKIN_HEIGHT * zoomLevel}
-                      stroke={i % 8 === 0 ? '#000' : '#666'}
-                      strokeWidth={i % 8 === 0 ? 1 : 0.5}
-                    />
-                  ))}
+                  {Array.from({ length: SKIN_WIDTH + 1 }).map((_, i) => {
+                    const majorLine = i % 8 === 0;
+                    const gridColors = {
+                      dark: { major: '#000', minor: '#555' },
+                      light: { major: '#fff', minor: '#ccc' },
+                      blue: { major: '#1d4ed8', minor: '#60a5fa' },
+                      red: { major: '#dc2626', minor: '#f87171' },
+                    };
+                    return (
+                      <line
+                        key={`v-${i}`}
+                        x1={i * zoomLevel}
+                        y1={0}
+                        x2={i * zoomLevel}
+                        y2={SKIN_HEIGHT * zoomLevel}
+                        stroke={majorLine ? gridColors[gridColor].major : gridColors[gridColor].minor}
+                        strokeWidth={majorLine ? 1.5 : 0.5}
+                      />
+                    );
+                  })}
                   {/* Horizontal lines */}
-                  {Array.from({ length: SKIN_HEIGHT + 1 }).map((_, i) => (
-                    <line
-                      key={`h-${i}`}
-                      x1={0}
-                      y1={i * zoomLevel}
-                      x2={SKIN_WIDTH * zoomLevel}
-                      y2={i * zoomLevel}
-                      stroke={i % 8 === 0 ? '#000' : '#666'}
-                      strokeWidth={i % 8 === 0 ? 1 : 0.5}
-                    />
-                  ))}
+                  {Array.from({ length: SKIN_HEIGHT + 1 }).map((_, i) => {
+                    const majorLine = i % 8 === 0;
+                    const gridColors = {
+                      dark: { major: '#000', minor: '#555' },
+                      light: { major: '#fff', minor: '#ccc' },
+                      blue: { major: '#1d4ed8', minor: '#60a5fa' },
+                      red: { major: '#dc2626', minor: '#f87171' },
+                    };
+                    return (
+                      <line
+                        key={`h-${i}`}
+                        x1={0}
+                        y1={i * zoomLevel}
+                        x2={SKIN_WIDTH * zoomLevel}
+                        y2={i * zoomLevel}
+                        stroke={majorLine ? gridColors[gridColor].major : gridColors[gridColor].minor}
+                        strokeWidth={majorLine ? 1.5 : 0.5}
+                      />
+                    );
+                  })}
+                </svg>
+              )}
+              
+              {/* 🎯 Body Part Overlay - Shows regions */}
+              {showBodyPartOverlay && (
+                <svg
+                  className="absolute top-1 left-1 pointer-events-none"
+                  width={SKIN_WIDTH * zoomLevel}
+                  height={SKIN_HEIGHT * zoomLevel}
+                >
+                  {Object.entries(BODY_PARTS).map(([key, part]) => {
+                    const colors: Record<string, string> = {
+                      head: 'rgba(255, 200, 50, 0.3)',
+                      body: 'rgba(50, 200, 50, 0.3)',
+                      rightArm: 'rgba(50, 150, 255, 0.3)',
+                      leftArm: 'rgba(100, 180, 255, 0.3)',
+                      rightLeg: 'rgba(255, 100, 100, 0.3)',
+                      leftLeg: 'rgba(255, 150, 150, 0.3)',
+                    };
+                    return (
+                      <g key={key}>
+                        <rect
+                          x={part.x * zoomLevel}
+                          y={part.y * zoomLevel}
+                          width={part.w * zoomLevel}
+                          height={part.h * zoomLevel}
+                          fill={colors[key] || 'rgba(128, 128, 128, 0.2)'}
+                          stroke={colors[key]?.replace('0.3', '0.8') || 'rgba(128, 128, 128, 0.6)'}
+                          strokeWidth={2}
+                        />
+                        {zoomLevel >= 6 && (
+                          <text
+                            x={part.x * zoomLevel + (part.w * zoomLevel) / 2}
+                            y={part.y * zoomLevel + (part.h * zoomLevel) / 2}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="#000"
+                            fontSize={Math.min(12, zoomLevel * 1.5)}
+                            fontWeight="bold"
+                            style={{ textShadow: '1px 1px 2px rgba(255,255,255,0.8)' }}
+                          >
+                            {part.label.split(' ')[0]}
+                          </text>
+                        )}
+                      </g>
+                    );
+                  })}
                 </svg>
               )}
             </div>

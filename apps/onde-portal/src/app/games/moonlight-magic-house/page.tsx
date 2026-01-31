@@ -1661,6 +1661,144 @@ export default function MoonlightMagicHouse() {
           ))}
         </div>
       )}
+
+      {/* ✨ MAGIC PARTICLES LAYER ✨ */}
+      
+      {/* Shooting stars - occasional streaks across the sky */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        <div className="absolute top-[5%] left-[10%]">
+          <ShootingStar delay={0} size="lg" />
+        </div>
+        <div className="absolute top-[15%] left-[60%]">
+          <ShootingStar delay={4} size="md" />
+        </div>
+        <div className="absolute top-[8%] left-[35%]">
+          <ShootingStar delay={8} size="sm" />
+        </div>
+        {intense && (
+          <>
+            <div className="absolute top-[20%] left-[80%]">
+              <ShootingStar delay={2} size="md" />
+            </div>
+            <div className="absolute top-[12%] left-[45%]">
+              <ShootingStar delay={6} size="lg" />
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Glitter layer - sparkling diamonds scattered around */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        {[
+          { left: '8%', top: '20%', color: 'gold' as const, delay: 0 },
+          { left: '92%', top: '35%', color: 'silver' as const, delay: 0.5 },
+          { left: '25%', top: '65%', color: 'pink' as const, delay: 1 },
+          { left: '75%', top: '15%', color: 'gold' as const, delay: 1.5 },
+          { left: '45%', top: '80%', color: 'blue' as const, delay: 0.3 },
+          { left: '15%', top: '45%', color: 'silver' as const, delay: 0.8 },
+          { left: '85%', top: '70%', color: 'pink' as const, delay: 1.2 },
+          { left: '55%', top: '25%', color: 'gold' as const, delay: 0.6 },
+        ].map((g, i) => (
+          <div key={`glitter-${i}`} className="absolute" style={{ left: g.left, top: g.top }}>
+            <Glitter delay={g.delay} color={g.color} />
+          </div>
+        ))}
+        {intense && [
+          { left: '30%', top: '10%', color: 'gold' as const, delay: 0.2 },
+          { left: '70%', top: '50%', color: 'pink' as const, delay: 0.7 },
+          { left: '10%', top: '85%', color: 'blue' as const, delay: 1.1 },
+          { left: '60%', top: '40%', color: 'silver' as const, delay: 0.4 },
+        ].map((g, i) => (
+          <div key={`glitter-intense-${i}`} className="absolute" style={{ left: g.left, top: g.top }}>
+            <Glitter delay={g.delay} color={g.color} />
+          </div>
+        ))}
+      </div>
+
+      {/* Magic dust layer - ethereal floating particles */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        {[
+          { left: '20%', top: '60%', variant: 1 as const, delay: 0 },
+          { left: '80%', top: '50%', variant: 2 as const, delay: 1.5 },
+          { left: '50%', top: '70%', variant: 3 as const, delay: 0.8 },
+          { left: '35%', top: '40%', variant: 1 as const, delay: 2.2 },
+          { left: '65%', top: '75%', variant: 2 as const, delay: 3 },
+        ].map((d, i) => (
+          <div key={`dust-${i}`} className="absolute" style={{ left: d.left, top: d.top }}>
+            <MagicDust delay={d.delay} variant={d.variant} />
+          </div>
+        ))}
+        {intense && [
+          { left: '15%', top: '30%', variant: 3 as const, delay: 0.5 },
+          { left: '85%', top: '25%', variant: 1 as const, delay: 1.8 },
+          { left: '40%', top: '55%', variant: 2 as const, delay: 2.5 },
+        ].map((d, i) => (
+          <div key={`dust-intense-${i}`} className="absolute" style={{ left: d.left, top: d.top }}>
+            <MagicDust delay={d.delay} variant={d.variant} />
+          </div>
+        ))}
+      </div>
+
+      {/* Stardust falling gently */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        {[
+          { left: '12%', delay: 0, dir: 'right' as const },
+          { left: '38%', delay: 2, dir: 'left' as const },
+          { left: '67%', delay: 4, dir: 'straight' as const },
+          { left: '88%', delay: 1, dir: 'left' as const },
+        ].map((s, i) => (
+          <div key={`stardust-${i}`} className="absolute top-0" style={{ left: s.left }}>
+            <Stardust delay={s.delay} fallDirection={s.dir} />
+          </div>
+        ))}
+        {intense && [
+          { left: '25%', delay: 3, dir: 'right' as const },
+          { left: '55%', delay: 5, dir: 'straight' as const },
+          { left: '78%', delay: 2.5, dir: 'left' as const },
+        ].map((s, i) => (
+          <div key={`stardust-intense-${i}`} className="absolute top-0" style={{ left: s.left }}>
+            <Stardust delay={s.delay} fallDirection={s.dir} />
+          </div>
+        ))}
+      </div>
+
+      {/* Magic orbs - floating glowing spheres */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+        <div className="absolute top-[30%] left-[5%] animate-float" style={{ animationDuration: '10s' }}>
+          <MagicOrb delay={0} color="purple" size="sm" />
+        </div>
+        <div className="absolute top-[60%] right-[8%] animate-float" style={{ animationDuration: '12s', animationDelay: '-3s' }}>
+          <MagicOrb delay={0.5} color="blue" size="md" />
+        </div>
+        {intense && (
+          <>
+            <div className="absolute top-[45%] left-[15%] animate-float" style={{ animationDuration: '9s', animationDelay: '-5s' }}>
+              <MagicOrb delay={1} color="gold" size="sm" />
+            </div>
+            <div className="absolute top-[25%] right-[20%] animate-float" style={{ animationDuration: '11s', animationDelay: '-2s' }}>
+              <MagicOrb delay={1.5} color="pink" size="lg" />
+            </div>
+            <div className="absolute top-[70%] left-[40%] animate-float" style={{ animationDuration: '8s', animationDelay: '-4s' }}>
+              <MagicOrb delay={0.8} color="purple" size="md" />
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Fairy trails - occasional magical streaks (only in intense mode) */}
+      {intense && (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none contain-paint">
+          <div className="absolute top-[40%] left-[30%]">
+            <FairyTrail delay={0} path={1} />
+          </div>
+          <div className="absolute top-[55%] right-[25%]">
+            <FairyTrail delay={2} path={2} />
+          </div>
+          <div className="absolute top-[35%] left-[60%]">
+            <FairyTrail delay={4} path={3} />
+          </div>
+        </div>
+      )}
       
       {/* Ambient warm light overlay */}
       <div 
