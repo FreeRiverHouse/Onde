@@ -320,6 +320,23 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     });
   }, [skinCanvas]);
 
+  // 🎥 Camera angle presets
+  const setCameraAngle = (angle: 'front' | 'side' | 'back') => {
+    switch (angle) {
+      case 'front':
+        rotationRef.current = { x: 0.1, y: 0 };
+        break;
+      case 'side':
+        rotationRef.current = { x: 0.1, y: Math.PI / 2 };
+        break;
+      case 'back':
+        rotationRef.current = { x: 0.1, y: Math.PI };
+        break;
+    }
+    autoRotateRef.current = false;
+    setTimeout(() => { autoRotateRef.current = true; }, 3000);
+  };
+
   // 📸 Screenshot function
   const takeScreenshot = () => {
     const renderer = rendererRef.current;
@@ -382,6 +399,31 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
         >
           📸
         </button>
+        
+        {/* 🎥 Camera angle buttons */}
+        <div className="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+          <button
+            onClick={() => setCameraAngle('front')}
+            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Front view"
+          >
+            👤
+          </button>
+          <button
+            onClick={() => setCameraAngle('side')}
+            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Side view"
+          >
+            👈
+          </button>
+          <button
+            onClick={() => setCameraAngle('back')}
+            className="px-1.5 py-1 bg-white/90 hover:bg-white text-gray-800 rounded text-xs font-bold hover:scale-105 shadow"
+            title="Back view"
+          >
+            🔙
+          </button>
+        </div>
       </div>
       
       <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate</p>
