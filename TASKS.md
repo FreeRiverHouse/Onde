@@ -12261,8 +12261,10 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Paste URL to import skin from another source
 
 ### [T967] Skin Creator: Keyboard Shortcut Hints
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:15 PST
+- **Notes**: Already implemented - title tooltips on buttons show shortcuts
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Show keyboard shortcuts on button hover
