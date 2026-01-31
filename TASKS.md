@@ -29,7 +29,7 @@
 | MLH-013 | Add swipe-to-dismiss for mobile notifications | DONE | @clawdinho | MLH-007 |
 | MLH-014 | Add desktop push notification permission request | DONE | @clawdinho | MLH-007 |
 | MLH-015 | Add haptic feedback on swipe dismiss (vibration API) | DONE | @clawdinho | MLH-013 |
-| MLH-016 | Add notification badge count to browser tab title | TODO | - | MLH-007 |
+| MLH-016 | Add notification badge count to browser tab title | DONE | @clawdinho | MLH-007 |
 | MLH-017 | Add pull-to-refresh in notification panel (mobile) | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
@@ -80,6 +80,7 @@
 - **MLH-013** - Swipe-to-dismiss mobile: touch handlers with useSwipeToDismiss hook, visual feedback (red background, opacity change), threshold-based dismiss, "← swipe" hint on mobile
 - **MLH-014** - Desktop push notification permission: useDesktopNotifications hook, permission request flow, enable/disable toggle, showPreview option, test notification button, auto-notify on new alerts
 - **MLH-015** - Haptic feedback on swipe dismiss: triggerHapticFeedback helper, medium vibration when crossing threshold, success vibration pattern on dismiss
+- **MLH-016** - Notification badge in tab title: useEffect updates document.title with (N) prefix when unread count > 0, cleans up on unmount
 
 ---
 

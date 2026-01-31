@@ -1127,6 +1127,25 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
 
   const unreadCount = data?.unreadCount || 0
 
+  // Update browser tab title with notification count
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    // Store original title on first run
+    const baseTitle = document.title.replace(/^\(\d+\)\s*/, '') // Remove any existing badge
+    
+    if (unreadCount > 0) {
+      document.title = `(${unreadCount}) ${baseTitle}`
+    } else {
+      document.title = baseTitle
+    }
+
+    // Cleanup: restore base title when component unmounts
+    return () => {
+      document.title = baseTitle
+    }
+  }, [unreadCount])
+
   return (
     <div className={`relative ${className}`}>
       {/* Bell Button */}
