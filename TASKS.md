@@ -11747,20 +11747,24 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Mini-animazioni idle
 
 ### [T922] Moonlight: Aggiungere GIOCHI (DA MATTIA 2888)
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @clawdinho
 - **Created**: 2026-01-30 19:05
+- **Started**: 2026-01-31 00:00 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P0
 - **Notes**: "Con dentro un bel po' di giochi" - aggiungere mini-games
-  - [ ] Match-3 / Memory game nella camera
-  - [ ] Cooking mini-game in cucina
-  - [ ] Garden growing game nel giardino
+  - [x] Match-3 / Memory game nella camera → MemoryGame.tsx ✅
+  - [x] Cooking mini-game in cucina → CookingGame.tsx ✅ (2026-01-31 @clawdinho)
+  - [x] Garden growing game nel giardino → GardeningGame.tsx ✅
   - [ ] Quiz/Trivia nella biblioteca
-  - [ ] Piano/Music game (da concept esistente)
+  - [x] Piano/Music game → SimonGame.tsx (Simon Says music pattern game) ✅
   - [ ] Dress-up game per Luna
   - Ogni gioco dà reward (+coins, +happiness, +achievements)
+  - **Giochi esistenti (10 total):**
+    - BubbleGame, CatchGame, DrawingPad, GameHub, GardeningGame
+    - MemoryGame, PuzzleGame, SimonGame, WhackGame, CookingGame (NEW)
 
 ### [T923] Moonlight: Test Chrome Continuo Esplorativo
 - **Status**: DONE ✅

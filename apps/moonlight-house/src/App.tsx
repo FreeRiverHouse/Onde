@@ -5,7 +5,7 @@ import useSoundManager from './useSoundManager';
 import useAmbientSoundscapes from './components/AmbientSoundscapes';
 import useWeather from './hooks/useWeather';
 import GameHub from './games/GameHub';
-import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame } from './games';
+import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame, CookingGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
 import FootstepDustPuffs from './components/FootstepDustPuffs';
@@ -1093,6 +1093,10 @@ function App() {
     return <GardeningGame onClose={() => setActiveGame(null)} onReward={(coins) => {
       setStats(prev => ({ ...prev, coins: prev.coins + coins }));
     }} />;
+  }
+
+  if (activeGame === 'cooking') {
+    return <CookingGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
   }
 
   // Library Books
