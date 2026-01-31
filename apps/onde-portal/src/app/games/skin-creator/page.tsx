@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid SSR issues
+export const dynamic = 'force-dynamic';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
@@ -1000,10 +1003,12 @@ export default function SkinCreator() {
     timestamp: number;
     tags?: string[]; // e.g., ['warrior', 'fantasy', 'cool']
     rating?: number; // 1-5 stars
+    isFavorite?: boolean; // ⭐ Favorite flag
   }
   const SKIN_TAGS = ['⚔️ Warrior', '🧙 Mage', '🐱 Cute', '👻 Spooky', '🤖 Robot', '🎮 Gaming', '🌟 Fantasy', '😎 Cool'];
   const [savedSkins, setSavedSkins] = useState<SavedSkin[]>([]);
   const [showMySkins, setShowMySkins] = useState(false);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false); // ⭐ Filter for favorites
 
   // Load saved skins on mount
   useEffect(() => {
@@ -3151,6 +3156,14 @@ export default function SkinCreator() {
     setSavedSkins(prev => prev.filter(s => s.id !== id));
   }, []);
 
+  // ⭐ Toggle favorite status on a saved skin
+  const toggleFavoriteSkin = useCallback((id: string) => {
+    setSavedSkins(prev => prev.map(s => 
+      s.id === id ? { ...s, isFavorite: !s.isFavorite } : s
+    ));
+    playSound('click');
+  }, [playSound]);
+
   // 🔗 Share skin via URL
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const shareSkin = useCallback(() => {
@@ -4142,6 +4155,88 @@ export default function SkinCreator() {
     playSound('click');
   };
 
+  // ↔️ Flip horizontal (mirror left-right)
+  const flipHorizontal = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    const flippedData = new Uint8ClampedArray(data.length);
+
+    for (let y = 0; y < SKIN_HEIGHT; y++) {
+      for (let x = 0; x < SKIN_WIDTH; x++) {
+        const srcIndex = (y * SKIN_WIDTH + x) * 4;
+        const destX = SKIN_WIDTH - 1 - x;
+        const destIndex = (y * SKIN_WIDTH + destX) * 4;
+        
+        flippedData[destIndex] = data[srcIndex];         // R
+        flippedData[destIndex + 1] = data[srcIndex + 1]; // G
+        flippedData[destIndex + 2] = data[srcIndex + 2]; // B
+        flippedData[destIndex + 3] = data[srcIndex + 3]; // A
+      }
+    }
+
+    const flippedImageData = new ImageData(flippedData, SKIN_WIDTH, SKIN_HEIGHT);
+    ctx.putImageData(flippedImageData, 0, 0);
+    
+    // Also update layer canvases
+    const activeLayerCanvas = getLayerCanvas(activeLayer);
+    const layerCtx = activeLayerCanvas.getContext('2d');
+    if (layerCtx) {
+      layerCtx.putImageData(flippedImageData, 0, 0);
+    }
+    
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    setTextureVersion(v => v + 1);
+    playSound('click');
+  };
+
+  // ↕️ Flip vertical (mirror top-bottom)
+  const flipVertical = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const imageData = ctx.getImageData(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    const data = imageData.data;
+    const flippedData = new Uint8ClampedArray(data.length);
+
+    for (let y = 0; y < SKIN_HEIGHT; y++) {
+      for (let x = 0; x < SKIN_WIDTH; x++) {
+        const srcIndex = (y * SKIN_WIDTH + x) * 4;
+        const destY = SKIN_HEIGHT - 1 - y;
+        const destIndex = (destY * SKIN_WIDTH + x) * 4;
+        
+        flippedData[destIndex] = data[srcIndex];         // R
+        flippedData[destIndex + 1] = data[srcIndex + 1]; // G
+        flippedData[destIndex + 2] = data[srcIndex + 2]; // B
+        flippedData[destIndex + 3] = data[srcIndex + 3]; // A
+      }
+    }
+
+    const flippedImageData = new ImageData(flippedData, SKIN_WIDTH, SKIN_HEIGHT);
+    ctx.putImageData(flippedImageData, 0, 0);
+    
+    // Also update layer canvases
+    const activeLayerCanvas = getLayerCanvas(activeLayer);
+    const layerCtx = activeLayerCanvas.getContext('2d');
+    if (layerCtx) {
+      layerCtx.putImageData(flippedImageData, 0, 0);
+    }
+    
+    compositeLayersToMain();
+    updatePreview();
+    saveState();
+    setTextureVersion(v => v + 1);
+    playSound('click');
+  };
+
   // 📋 Copy skin to clipboard
   const copyToClipboard = async () => {
     const canvas = canvasRef.current;
@@ -4955,7 +5050,7 @@ export default function SkinCreator() {
           ) : (
             /* Normal Preview (non-compare mode) */
             show3D ? (
-              <div className="rounded-xl mx-auto overflow-hidden skin-preview-3d-container" style={{ width: 200, height: 280 }}>
+              <div className="rounded-xl mx-auto overflow-hidden skin-preview-3d-container" style={{ width: 200, height: 280 }} data-tutorial="preview3d">
                 <SkinPreview3D skinCanvas={canvasRef.current} />
               </div>
             ) : (
@@ -4970,7 +5065,7 @@ export default function SkinCreator() {
           )}
 
           {/* Templates - Simplified with categories */}
-          <div className="mt-4">
+          <div className="mt-4" data-tutorial="templates">
             <p className="text-sm font-bold text-gray-700 mb-3">🎮 Start from a character:</p>
             
             {/* 🎮 CHARACTER TEMPLATES - Pre-made base skins! */}
@@ -5314,6 +5409,69 @@ export default function SkinCreator() {
                 </div>
               )}
             </div>
+            {/* 📐 SELECT TOOL - Copy/Paste regions */}
+            <div className="relative">
+              <button
+                onClick={() => { setTool('select'); cancelSelection(); }}
+                title="📐 Select! Copy/paste skin regions (Q)"
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
+                  tool === 'select' ? 'bg-teal-500 text-white scale-105 shadow-lg ring-2 ring-teal-300' : 'bg-white/80 hover:bg-white hover:ring-2 hover:ring-teal-200'
+                }`}
+              >
+                📐 <span className="hidden sm:inline">Select</span>
+              </button>
+              {/* Selection actions popup */}
+              {(selection || clipboard) && tool === 'select' && (
+                <div className="absolute top-full left-0 mt-1 flex flex-col gap-1 bg-white rounded-lg p-2 shadow-lg z-20 min-w-[120px]">
+                  {selection && (
+                    <>
+                      <button
+                        onClick={copySelection}
+                        className="w-full px-3 py-2 text-left text-sm hover:bg-teal-100 rounded flex items-center gap-2 font-medium"
+                      >
+                        📋 Copy <span className="text-gray-400 text-xs ml-auto">⌘C</span>
+                      </button>
+                      <button
+                        onClick={cutSelection}
+                        className="w-full px-3 py-2 text-left text-sm hover:bg-orange-100 rounded flex items-center gap-2 font-medium"
+                      >
+                        ✂️ Cut <span className="text-gray-400 text-xs ml-auto">⌘X</span>
+                      </button>
+                      <button
+                        onClick={fillSelection}
+                        className="w-full px-3 py-2 text-left text-sm hover:bg-blue-100 rounded flex items-center gap-2 font-medium"
+                      >
+                        🎨 Fill
+                      </button>
+                      <button
+                        onClick={clearSelection}
+                        className="w-full px-3 py-2 text-left text-sm hover:bg-red-100 rounded flex items-center gap-2 font-medium text-red-600"
+                      >
+                        🗑️ Delete <span className="text-gray-400 text-xs ml-auto">Del</span>
+                      </button>
+                      <hr className="my-1" />
+                    </>
+                  )}
+                  {clipboard && (
+                    <button
+                      onClick={enterPasteMode}
+                      className={`w-full px-3 py-2 text-left text-sm rounded flex items-center gap-2 font-medium ${
+                        isPastingMode ? 'bg-green-200 text-green-800' : 'hover:bg-green-100'
+                      }`}
+                    >
+                      📥 Paste <span className="text-gray-400 text-xs ml-auto">⌘V</span>
+                      {isPastingMode && <span className="ml-1 text-xs">(click to place)</span>}
+                    </button>
+                  )}
+                  <button
+                    onClick={cancelSelection}
+                    className="w-full px-3 py-2 text-left text-sm hover:bg-gray-100 rounded flex items-center gap-2 text-gray-500"
+                  >
+                    ❌ Cancel <span className="text-gray-400 text-xs ml-auto">Esc</span>
+                  </button>
+                </div>
+              )}
+            </div>
             <button
               onClick={() => setTool('eyedropper')}
               title="🎯 Pick a color from your drawing! (Press I)"
@@ -5426,6 +5584,21 @@ export default function SkinCreator() {
               title="🗑️ Start over!"
             >
               🗑️ <span className="hidden sm:inline">Clear</span>
+            </button>
+            {/* ↔️↕️ Flip Tools */}
+            <button
+              onClick={flipHorizontal}
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-teal-500 text-white hover:bg-teal-600 active:scale-95"
+              title="↔️ Flip horizontal (mirror left-right)"
+            >
+              ↔️ <span className="hidden sm:inline">Flip H</span>
+            </button>
+            <button
+              onClick={flipVertical}
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-teal-500 text-white hover:bg-teal-600 active:scale-95"
+              title="↕️ Flip vertical (mirror top-bottom)"
+            >
+              ↕️ <span className="hidden sm:inline">Flip V</span>
             </button>
             <button
               onClick={generateRandomSkin}
@@ -5649,6 +5822,7 @@ export default function SkinCreator() {
                 backgroundSize: '12px 12px',
                 width: 'fit-content'
               }}
+              data-tutorial="canvas"
             >
               <canvas
                 ref={canvasRef}
@@ -5666,7 +5840,13 @@ export default function SkinCreator() {
                   cursor: tool === 'eyedropper' ? 'copy' : 'crosshair',
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
-                onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
+                onMouseUp={() => { 
+                  setIsDrawing(false); 
+                  saveState(); 
+                  addRecentColor(selectedColor);
+                  // Notify tutorial that user drew on canvas
+                  if (showInteractiveTutorial) setTutorialCanvasDrawn(true);
+                }}
                 onMouseLeave={() => { setIsDrawing(false); setContextMenu(null); setHoverPixel(null); setEyedropperPreviewColor(null); }}
                 onMouseMove={(e) => {
                   draw(e);
@@ -5890,6 +6070,92 @@ export default function SkinCreator() {
                     );
                   })}
                 </svg>
+              )}
+              
+              {/* 📐 SELECTION RECTANGLE OVERLAY - Marching ants style */}
+              {selection && (
+                <svg
+                  className="absolute top-1 left-1 pointer-events-none"
+                  width={SKIN_WIDTH * zoomLevel}
+                  height={SKIN_HEIGHT * zoomLevel}
+                >
+                  <defs>
+                    <pattern id="marching-ants" width="8" height="8" patternUnits="userSpaceOnUse">
+                      <line x1="0" y1="8" x2="8" y2="0" stroke="#000" strokeWidth="2" />
+                    </pattern>
+                  </defs>
+                  {/* Selection rectangle background */}
+                  <rect
+                    x={selection.x * zoomLevel}
+                    y={selection.y * zoomLevel}
+                    width={selection.w * zoomLevel}
+                    height={selection.h * zoomLevel}
+                    fill="rgba(0, 200, 200, 0.15)"
+                    stroke="url(#marching-ants)"
+                    strokeWidth="2"
+                    strokeDasharray="4 4"
+                    style={{ animation: 'marching-ants 0.4s linear infinite' }}
+                  />
+                  {/* Selection rectangle solid border for visibility */}
+                  <rect
+                    x={selection.x * zoomLevel}
+                    y={selection.y * zoomLevel}
+                    width={selection.w * zoomLevel}
+                    height={selection.h * zoomLevel}
+                    fill="none"
+                    stroke="#00CCCC"
+                    strokeWidth="1"
+                  />
+                  {/* Size indicator */}
+                  {zoomLevel >= 4 && (
+                    <text
+                      x={selection.x * zoomLevel + selection.w * zoomLevel / 2}
+                      y={selection.y * zoomLevel - 4}
+                      textAnchor="middle"
+                      fill="#006666"
+                      fontSize="10"
+                      fontWeight="bold"
+                      style={{ textShadow: '0 0 3px white' }}
+                    >
+                      {selection.w}×{selection.h}
+                    </text>
+                  )}
+                </svg>
+              )}
+              
+              {/* 📋 PASTE PREVIEW OVERLAY - Shows clipboard content at cursor */}
+              {isPastingMode && clipboard && pastePreviewPos && (
+                <div
+                  className="absolute pointer-events-none"
+                  style={{
+                    left: 4 + pastePreviewPos.x * zoomLevel,
+                    top: 4 + pastePreviewPos.y * zoomLevel,
+                    width: clipboard.width * zoomLevel,
+                    height: clipboard.height * zoomLevel,
+                    border: '2px dashed #00CC00',
+                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    boxShadow: '0 0 8px rgba(0, 255, 0, 0.5)',
+                  }}
+                >
+                  <canvas
+                    ref={(el) => {
+                      if (el && clipboard) {
+                        const ctx = el.getContext('2d');
+                        if (ctx) {
+                          el.width = clipboard.width;
+                          el.height = clipboard.height;
+                          ctx.putImageData(clipboard, 0, 0);
+                        }
+                      }
+                    }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      imageRendering: 'pixelated',
+                      opacity: 0.7,
+                    }}
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -6345,7 +6611,7 @@ export default function SkinCreator() {
 
       {/* 🎨 Layer Panel - Floating (hidden by default on mobile) */}
       {showLayerPanel && (
-        <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-3 md:p-4 shadow-2xl z-40 w-[280px] md:w-64 max-h-[80vh] overflow-y-auto">
+        <div className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-3 md:p-4 shadow-2xl z-40 w-[280px] md:w-64 max-h-[80vh] overflow-y-auto" data-tutorial="layers">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold">🎨 Layers</h3>
             <button
@@ -7984,6 +8250,7 @@ export default function SkinCreator() {
           onClick={() => setShowAIPanel(true)}
           className="w-12 h-12 md:w-10 md:h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center"
           title="AI Skin Generator"
+          data-tutorial="ai-button"
         >
           🤖
         </button>

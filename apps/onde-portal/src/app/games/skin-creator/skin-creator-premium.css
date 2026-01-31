@@ -933,3 +933,38 @@
 .skin-scrollbar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, var(--skin-primary-light), var(--skin-secondary));
 }
+
+/* ============================================
+   📐 SELECTION TOOL - MARCHING ANTS
+   Copy/Paste Region Selection
+   ============================================ */
+
+@keyframes marching-ants {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -8;
+  }
+}
+
+/* Selection rectangle animation */
+.selection-marching-ants {
+  animation: marching-ants 0.4s linear infinite;
+}
+
+/* Paste preview pulse */
+@keyframes paste-pulse {
+  0%, 100% {
+    opacity: 0.7;
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    opacity: 0.9;
+    box-shadow: 0 0 16px rgba(0, 255, 0, 0.8);
+  }
+}
+
+.paste-preview-pulse {
+  animation: paste-pulse 1s ease-in-out infinite;
+}
