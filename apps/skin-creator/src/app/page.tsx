@@ -744,6 +744,21 @@ export default function SkinCreator() {
     const saved = localStorage.getItem('skin-creator-achievements');
     if (saved) setAchievements(JSON.parse(saved));
   }, []);
+  
+  // ⌨️ Keyboard Shortcuts Help
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+        setShowShortcuts(prev => !prev);
+      } else if (e.key === 'Escape') {
+        setShowShortcuts(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Save canvas state for undo/redo
   const saveState = useCallback(() => {
@@ -1599,6 +1614,28 @@ export default function SkinCreator() {
           numberOfPieces={500}
           gravity={0.3}
         />
+      )}
+
+      {/* ⌨️ Keyboard Shortcuts Help */}
+      {showShortcuts && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50" onClick={() => setShowShortcuts(false)}>
+          <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-2xl max-w-md" onClick={e => e.stopPropagation()}>
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">⌨️ Keyboard Shortcuts</h2>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="bg-gray-800 px-3 py-2 rounded">B</div><div className="py-2">Brush tool</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">E</div><div className="py-2">Eraser</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">F</div><div className="py-2">Fill bucket</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">I</div><div className="py-2">Eyedropper</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">1-5</div><div className="py-2">Brush size</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Z</div><div className="py-2">Undo</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Y</div><div className="py-2">Redo</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + S</div><div className="py-2">Save</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">?</div><div className="py-2">This help</div>
+              <div className="bg-gray-800 px-3 py-2 rounded">Esc</div><div className="py-2">Close panels</div>
+            </div>
+            <p className="text-gray-400 text-xs mt-4 text-center">Press ? or Esc to close</p>
+          </div>
+        </div>
       )}
 
       {/* 🏆 Achievement Popup */}
