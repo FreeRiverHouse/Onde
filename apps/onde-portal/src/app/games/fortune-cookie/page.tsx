@@ -120,7 +120,7 @@ export default function FortuneCookie() {
   const addToHistory = (newFortune: typeof fortunes[0]) => {
     const entry: FortuneHistoryEntry = {
       text: newFortune.text,
-      lang: newFortune.lang,
+      lang: newFortune.lang as 'it' | 'en',
       date: new Date().toISOString(),
       id: Date.now()
     }
