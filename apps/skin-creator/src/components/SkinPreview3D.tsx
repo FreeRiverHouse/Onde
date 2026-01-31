@@ -320,6 +320,31 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
     });
   }, [skinCanvas]);
 
+  // 📸 Screenshot function
+  const takeScreenshot = () => {
+    const renderer = rendererRef.current;
+    const scene = sceneRef.current;
+    const camera = cameraRef.current;
+    if (!renderer || !scene || !camera) return;
+    
+    // Render at high resolution
+    const originalSize = renderer.getSize(new THREE.Vector2());
+    renderer.setSize(800, 1120); // 4x resolution
+    renderer.render(scene, camera);
+    
+    // Get image data
+    const dataUrl = renderer.domElement.toDataURL('image/png');
+    
+    // Restore original size
+    renderer.setSize(originalSize.x, originalSize.y);
+    
+    // Download
+    const link = document.createElement('a');
+    link.download = 'minecraft-skin-3d.png';
+    link.href = dataUrl;
+    link.click();
+  };
+
   return (
     <div className="relative group">
       {/* 🎬 Post-processing container with glow */}
@@ -348,6 +373,15 @@ export default function SkinPreview3D({ skinCanvas }: SkinPreview3DProps) {
             background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%)',
           }}
         />
+        
+        {/* 📸 Screenshot button */}
+        <button
+          onClick={takeScreenshot}
+          className="absolute bottom-2 right-2 px-2 py-1 bg-white/90 hover:bg-white text-gray-800 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-all hover:scale-105 shadow-lg"
+          title="📸 Save 3D preview as image"
+        >
+          📸
+        </button>
       </div>
       
       <p className="text-xs text-gray-400 text-center mt-1">🖱️ Drag to rotate</p>
