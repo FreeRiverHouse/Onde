@@ -49,6 +49,7 @@
 - `scripts/telegram-not-logged.alert` → Messaggi Telegram non loggati! Manda alert, poi elimina
 - `scripts/task-not-extracted.alert` → Task non estratti da messaggi! Manda alert, poi elimina
 - `scripts/agent-stalled.alert` → Agente fermo! Manda alert, poi elimina
+- `scripts/git-sync-stale.alert` → Git workflow stale! (pull/commit/push lagging). Manda alert, poi elimina
 
 ### 🤖 ALERT TECNICI → NON mandare a Mattia! Salva in data/finetuning/
 Questi alert sono per l'agente di fine-tuning degli algoritmi, NON per Mattia:

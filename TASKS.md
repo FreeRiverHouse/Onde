@@ -14028,16 +14028,21 @@ Generated: 2026-01-30T18:37:46.867013
   - Integrates with existing library room interactives
 
 ### [T1022] Infra: Git Sync Health Check Script
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
 - **Priority**: P2
 - **Created**: 2026-02-04
+- **Completed**: 2026-01-31 08:15 PST
 - **Notes**: Script to verify agents are properly syncing git
-  - [ ] Check git pull frequency (should be < 10 min)
-  - [ ] Check uncommitted changes age
-  - [ ] Check push frequency to origin
-  - [ ] Alert if git workflow is stale
+  - [x] Check git pull frequency (should be < 15 min)
+  - [x] Check uncommitted changes age (> 30 min = alert)
+  - [x] Check push lag to origin (> 5 commits = alert)
+  - [x] Alert if git workflow is stale
+  - **Script**: `scripts/watchdog-git-sync.sh`
+  - **Output**: JSON status + `git-sync-stale.alert` if degraded
+  - **Log**: `logs/git-sync-health.log`
   - Helps enforce Regola 0 (Git) automatically
+  - ⏳ Add to crontab (*/10 for regular monitoring)
 
 ### [T1023] Infra: SSL Certificate Expiry Watchdog
 - **Status**: TODO
