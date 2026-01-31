@@ -108,6 +108,46 @@ export default function GamingIsland() {
             </div>
           )}
         </Link>
+
+        {/* Kids Chef Studio Island */}
+        <Link 
+          href="/games/kids-chef-studio"
+          className="relative group"
+          onMouseEnter={() => setHoveredIsland('chef')}
+          onMouseLeave={() => setHoveredIsland(null)}
+        >
+          <div className={`
+            w-64 h-64 md:w-80 md:h-80 
+            bg-gradient-to-b from-yellow-400 to-amber-500 
+            rounded-[50%_45%_55%_50%/60%_55%_45%_40%]
+            shadow-2xl
+            transition-all duration-300
+            ${hoveredIsland === 'chef' ? 'scale-110 rotate-1' : 'hover:scale-105'}
+          `}>
+            {/* Palm Trees */}
+            <div className="absolute -top-6 left-6 text-4xl">🌴</div>
+            <div className="absolute -top-8 right-6 text-5xl">🌴</div>
+            
+            {/* Stand */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="text-7xl mb-2 animate-bounce-soft">👨‍🍳</div>
+              <div className="bg-white/90 rounded-2xl px-4 py-2 shadow-lg">
+                <h2 className="text-xl font-black text-amber-600">Kids Chef</h2>
+                <p className="text-xs text-gray-500">Cooking Studio 🍳</p>
+              </div>
+            </div>
+
+            {/* Water splash */}
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-2xl opacity-60">💧</div>
+          </div>
+          
+          {/* Hover info */}
+          {hoveredIsland === 'chef' && (
+            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 bg-white rounded-xl px-4 py-2 shadow-lg whitespace-nowrap">
+              <p className="text-sm font-bold text-amber-600">🍕 Cook yummy recipes!</p>
+            </div>
+          )}
+        </Link>
       </div>
 
       {/* Ocean Waves */}
