@@ -3582,7 +3582,7 @@ export default function SkinCreator() {
         </div>
 
         {/* Center - Canvas Editor */}
-        <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
+        <div className="flex-1 glass-card skin-glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl skin-animate-in delay-400 skin-canvas-container">
           {/* Toolbar - Mobile-friendly with larger touch targets */}
           <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4 justify-center px-1">
             <button
@@ -3839,38 +3839,116 @@ export default function SkinCreator() {
 
           {/* Canvas with Grid Controls */}
           <div className="flex flex-col items-center gap-2 w-full">
-            {/* Zoom and Grid Controls - Big and kid-friendly */}
-            <div className="flex items-center gap-2 bg-white/90 rounded-2xl px-4 py-2 shadow-lg flex-wrap justify-center">
-              <button
-                onClick={() => { setZoomLevel(Math.max(2, zoomLevel - 1)); playSound('click'); }}
-                className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
-                title="Zoom out"
-              >
-                ➖
-              </button>
-              <div className="bg-purple-100 px-4 py-2 rounded-xl">
-                <span className="text-lg font-black text-purple-600">{zoomLevel}x</span>
+            {/* 🔍 ZOOM CONTROLS - Enhanced for Pixel-Precise Editing */}
+            <div className="flex flex-col items-center gap-2 w-full">
+              <div className="flex items-center gap-2 bg-white/95 rounded-2xl px-4 py-2 shadow-lg flex-wrap justify-center border border-purple-200">
+                {/* Zoom Out */}
+                <button
+                  onClick={() => { setZoomLevel(Math.max(2, zoomLevel - 1)); playSound('click'); }}
+                  className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
+                  title="Zoom out (- key)"
+                >
+                  ➖
+                </button>
+                
+                {/* Zoom Level Display + Quick Presets */}
+                <div className="relative group">
+                  <div className="bg-purple-100 px-4 py-2 rounded-xl cursor-pointer hover:bg-purple-200 transition-colors">
+                    <span className="text-lg font-black text-purple-600">{zoomLevel}x</span>
+                  </div>
+                  {/* Quick zoom presets dropdown */}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-20 bg-white rounded-xl shadow-xl border border-gray-200 p-2 min-w-[140px]">
+                    <p className="text-xs text-gray-500 mb-2 text-center font-medium">Quick Zoom</p>
+                    <div className="grid grid-cols-4 gap-1">
+                      {[4, 6, 8, 10, 12, 14, 16, 20].map((z) => (
+                        <button
+                          key={z}
+                          onClick={() => { setZoomLevel(z); playSound('click'); }}
+                          className={`px-2 py-1 rounded-lg text-xs font-bold transition-colors ${
+                            zoomLevel === z 
+                              ? 'bg-purple-500 text-white' 
+                              : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                          }`}
+                        >
+                          {z}x
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-gray-400 mt-2 text-center">+/- keys • 0 = reset</p>
+                  </div>
+                </div>
+                
+                {/* Zoom In */}
+                <button
+                  onClick={() => { setZoomLevel(Math.min(20, zoomLevel + 1)); playSound('click'); }}
+                  className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
+                  title="Zoom in (+ key)"
+                >
+                  ➕
+                </button>
+                
+                <div className="w-px h-8 bg-gray-300 mx-1 hidden sm:block"></div>
+                
+                {/* 📐 Grid Toggle */}
+                <button
+                  onClick={() => { setShowGrid(!showGrid); playSound('click'); }}
+                  className={`kid-btn px-3 font-bold ${
+                    showGrid
+                      ? 'bg-blue-500 text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                  title="Toggle grid (Shift+G)"
+                >
+                  <span className="text-lg mr-1">{showGrid ? '▦' : '▢'}</span>
+                  <span className="text-xs">Grid</span>
+                </button>
+                
+                {/* Grid Color Selector - Only visible when grid is on */}
+                {showGrid && (
+                  <div className="flex items-center gap-1">
+                    {(['dark', 'light', 'blue', 'red'] as const).map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => { setGridColor(color); playSound('click'); }}
+                        className={`w-6 h-6 rounded-full border-2 transition-transform ${
+                          gridColor === color ? 'scale-125 border-purple-500' : 'border-gray-300 hover:scale-110'
+                        }`}
+                        style={{
+                          backgroundColor: color === 'dark' ? '#333' : color === 'light' ? '#ccc' : color === 'blue' ? '#3b82f6' : '#ef4444'
+                        }}
+                        title={`${color} grid`}
+                      />
+                    ))}
+                  </div>
+                )}
+                
+                <div className="w-px h-8 bg-gray-300 mx-1 hidden sm:block"></div>
+                
+                {/* 🎯 Body Parts Overlay */}
+                <button
+                  onClick={() => { setShowBodyPartOverlay(!showBodyPartOverlay); playSound('click'); }}
+                  className={`kid-btn px-3 font-bold ${
+                    showBodyPartOverlay
+                      ? 'bg-amber-500 text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                  title="Show body part regions"
+                >
+                  <span className="text-lg mr-1">🎯</span>
+                  <span className="text-xs">Parts</span>
+                </button>
               </div>
-              <button
-                onClick={() => { setZoomLevel(Math.min(10, zoomLevel + 1)); playSound('click'); }}
-                className="kid-btn bg-gray-100 hover:bg-gray-200 font-black text-xl"
-                title="Zoom in"
-              >
-                ➕
-              </button>
-              <div className="w-px h-8 bg-gray-300 mx-2 hidden sm:block"></div>
-              <button
-                onClick={() => { setShowGrid(!showGrid); playSound('click'); }}
-                className={`kid-btn px-4 font-bold ${
-                  showGrid
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-                title="Toggle grid"
-              >
-                <span className="text-xl mr-1">{showGrid ? '▦' : '▢'}</span>
-                <span className="text-sm">Grid</span>
-              </button>
+              
+              {/* Pixel Coordinate Display */}
+              {hoverPixel && (
+                <div className="flex items-center gap-2 bg-gray-900/90 text-white px-3 py-1 rounded-lg text-xs font-mono">
+                  <span>📍</span>
+                  <span>X: <strong>{hoverPixel.x}</strong></span>
+                  <span>Y: <strong>{hoverPixel.y}</strong></span>
+                  <span className="text-gray-400">|</span>
+                  <span className="text-gray-300">{SKIN_WIDTH}×{SKIN_HEIGHT}</span>
+                </div>
+              )}
             </div>
 
             {/* Canvas - with overflow scroll for mobile */}
@@ -4057,8 +4135,8 @@ export default function SkinCreator() {
         </div>
 
         {/* Right Panel - Colors */}
-        <div className="glass-card rounded-3xl p-6 shadow-2xl">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
+        <div className="glass-card skin-glass-card rounded-3xl p-6 shadow-2xl skin-animate-in-right delay-500 skin-scrollbar">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center skin-animate-in-scale delay-600">🎨 Colors</h2>
 
           {/* 🎨 Advanced Color Palette Presets */}
           <div className="mb-4 p-3 bg-gradient-to-br from-violet-50 to-fuchsia-50 rounded-xl border border-violet-200">
