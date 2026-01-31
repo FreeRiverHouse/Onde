@@ -11029,15 +11029,18 @@
   - **Tested**: Healthy, 2183ms latency, 4 models available
 
 ### [T911] Creare LaunchAgent per Ollama Auto-Start
-- **Status**: TODO
-- **Owner**: TBD
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T909]
 - **Blocks**: -
 - **Priority**: P2
-- **Notes**: Avvio automatico Ollama al boot del Mac
-  - [ ] Creare ~/Library/LaunchAgents/com.ollama.server.plist
-  - [ ] Configurare OLLAMA_HOST e OLLAMA_ORIGINS
-  - [ ] Test riavvio
+- **Notes**: ✅ LaunchAgent creato e funzionante!
+  - ✅ File: `~/Library/LaunchAgents/com.ollama.server.plist`
+  - ✅ OLLAMA_HOST=0.0.0.0:11434, OLLAMA_ORIGINS=*
+  - ✅ RunAtLoad=true, KeepAlive on failure
+  - ✅ Logs: /tmp/ollama-stdout.log, /tmp/ollama-stderr.log
+  - ✅ Testato: Ollama risponde su http://localhost:11434/api/tags
 
 ### [T912] Aggiungere Error Logging a TASKS.md
 - **Status**: TODO
