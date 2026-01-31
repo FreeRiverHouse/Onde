@@ -38,9 +38,37 @@ const featuredBooks: Book[] = [
   },
 ]
 
+// Sun icon component
+const SunIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+)
+
+// Moon icon component
+const MoonIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+)
+
 export default function ReaderPage() {
   const t = useTranslations()
   const [isLoading, setIsLoading] = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  // Load dark mode preference from localStorage
+  useEffect(() => {
+    const savedMode = localStorage.getItem('reader-dark-mode')
+    if (savedMode !== null) {
+      setIsDarkMode(savedMode === 'true')
+    }
+  }, [])
+
+  // Apply dark mode class and save preference
+  useEffect(() => {
+    localStorage.setItem('reader-dark-mode', String(isDarkMode))
+  }, [isDarkMode])
 
   useEffect(() => {
     // Simulate loading
@@ -48,23 +76,61 @@ export default function ReaderPage() {
     return () => clearTimeout(timer)
   }, [])
 
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev)
+  }
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-onde-cream via-white to-onde-cream/30">
+    <main className={`min-h-screen transition-colors duration-500 ${
+      isDarkMode 
+        ? 'bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900' 
+        : 'bg-gradient-to-b from-onde-cream via-white to-onde-cream/30'
+    }`}>
+      {/* Dark Mode Toggle */}
+      <motion.button
+        onClick={toggleDarkMode}
+        className={`fixed top-24 right-6 z-50 p-3 rounded-full shadow-lg transition-all duration-300 ${
+          isDarkMode
+            ? 'bg-slate-700 text-yellow-300 hover:bg-slate-600'
+            : 'bg-white text-slate-700 hover:bg-gray-100'
+        }`}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        <motion.div
+          key={isDarkMode ? 'moon' : 'sun'}
+          initial={{ rotate: -90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          exit={{ rotate: 90, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {isDarkMode ? <SunIcon /> : <MoonIcon />}
+        </motion.div>
+      </motion.button>
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-4 overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-onde-gold/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-10 w-96 h-96 bg-onde-coral/10 rounded-full blur-3xl" />
+          <div className={`absolute top-20 left-10 w-64 h-64 rounded-full blur-3xl transition-colors duration-500 ${
+            isDarkMode ? 'bg-blue-500/10' : 'bg-onde-gold/10'
+          }`} />
+          <div className={`absolute bottom-0 right-10 w-96 h-96 rounded-full blur-3xl transition-colors duration-500 ${
+            isDarkMode ? 'bg-purple-500/10' : 'bg-onde-coral/10'
+          }`} />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <SectionHeader
-            badge="📖 Reader"
-            title="Read Online"
-            subtitle="Enjoy our illustrated books directly in your browser. Beautiful stories for the whole family!"
-            centered
-          />
+          <div className={`transition-colors duration-500 ${isDarkMode ? '[&_h2]:text-white [&_p]:text-gray-300 [&_span]:bg-slate-700 [&_span]:text-gray-200' : ''}`}>
+            <SectionHeader
+              badge="📖 Reader"
+              title="Read Online"
+              subtitle="Enjoy our illustrated books directly in your browser. Beautiful stories for the whole family!"
+              centered
+            />
+          </div>
         </div>
       </section>
 
@@ -76,7 +142,9 @@ export default function ReaderPage() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="aspect-[3/4] rounded-2xl bg-onde-cream animate-pulse"
+                  className={`aspect-[3/4] rounded-2xl animate-pulse transition-colors duration-500 ${
+                    isDarkMode ? 'bg-slate-700' : 'bg-onde-cream'
+                  }`}
                 />
               ))}
             </div>
@@ -123,15 +191,22 @@ export default function ReaderPage() {
 
                 {/* Coming Soon Card */}
                 <AnimatedCard delay={featuredBooks.length * 0.1}>
-                  <div className="relative aspect-[3/4] rounded-2xl overflow-hidden
-                                bg-gradient-to-br from-onde-teal/20 to-onde-gold/20
-                                border-2 border-dashed border-onde-ocean/20
-                                flex flex-col items-center justify-center p-8 text-center">
+                  <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden
+                                border-2 border-dashed transition-colors duration-500
+                                flex flex-col items-center justify-center p-8 text-center ${
+                                  isDarkMode
+                                    ? 'bg-gradient-to-br from-blue-900/30 to-purple-900/30 border-gray-600'
+                                    : 'bg-gradient-to-br from-onde-teal/20 to-onde-gold/20 border-onde-ocean/20'
+                                }`}>
                     <div className="text-6xl mb-4">📚</div>
-                    <h3 className="text-xl font-display font-bold text-onde-ocean mb-2">
+                    <h3 className={`text-xl font-display font-bold mb-2 transition-colors duration-500 ${
+                      isDarkMode ? 'text-white' : 'text-onde-ocean'
+                    }`}>
                       More Coming Soon!
                     </h3>
-                    <p className="text-onde-ocean/60 text-sm mb-6">
+                    <p className={`text-sm mb-6 transition-colors duration-500 ${
+                      isDarkMode ? 'text-gray-400' : 'text-onde-ocean/60'
+                    }`}>
                       New books are added regularly. Check back often!
                     </p>
                     <Link href="/libri">
@@ -150,7 +225,9 @@ export default function ReaderPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <p className="text-onde-ocean/70 mb-6">
+                <p className={`mb-6 transition-colors duration-500 ${
+                  isDarkMode ? 'text-gray-400' : 'text-onde-ocean/70'
+                }`}>
                   Want to download books for offline reading?
                 </p>
                 <Link href="/libri">
