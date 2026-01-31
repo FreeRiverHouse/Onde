@@ -12873,8 +12873,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Pixel ruler/guidelines
 
 ### [T1038] Skin Creator: Import da URL
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 22:55 PST
 - **Depends**: -
 - **Blocks**: -
 - **Priority**: P1 🔥
