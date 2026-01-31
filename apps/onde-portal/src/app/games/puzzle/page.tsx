@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
+import { WinModal } from '../components/KidUI'
 
 // Types
 type GridSize = 3 | 4 | 5

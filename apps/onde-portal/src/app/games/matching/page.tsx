@@ -2,6 +2,15 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
+import { 
+  GameLayout, 
+  GameHeader, 
+  GameTitle, 
+  GameButton, 
+  StatsBadge, 
+  Confetti,
+  StarRating 
+} from '../components/KidUI'
 
 // Types
 interface MatchItem {
@@ -271,62 +280,7 @@ const levelConfigs: LevelConfig[] = [
   },
 ]
 
-// Confetti component
-function Confetti({ active }: { active: boolean }) {
-  if (!active) return null
-
-  const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#95e1d3', '#f38181', '#aa96da', '#fcbad3', '#a8d8ea']
-  const confetti = Array.from({ length: 100 }, (_, i) => ({
-    id: i,
-    left: Math.random() * 100,
-    delay: Math.random() * 2,
-    duration: 2 + Math.random() * 2,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    rotation: Math.random() * 360,
-    size: 8 + Math.random() * 8,
-  }))
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {confetti.map((piece) => (
-        <div
-          key={piece.id}
-          className="absolute animate-confetti"
-          style={{
-            left: `${piece.left}%`,
-            top: '-20px',
-            width: `${piece.size}px`,
-            height: `${piece.size}px`,
-            backgroundColor: piece.color,
-            animationDelay: `${piece.delay}s`,
-            animationDuration: `${piece.duration}s`,
-            transform: `rotate(${piece.rotation}deg)`,
-            borderRadius: Math.random() > 0.5 ? '50%' : '0',
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-// Star rating component
-function StarRating({ stars, animate }: { stars: number, animate: boolean }) {
-  return (
-    <div className="flex gap-2 justify-center">
-      {[1, 2, 3].map((star) => (
-        <div
-          key={star}
-          className={`text-5xl transition-all duration-500 ${
-            stars >= star ? 'scale-100 opacity-100' : 'scale-50 opacity-30 grayscale'
-          } ${animate && stars >= star ? 'animate-star-pop' : ''}`}
-          style={{ animationDelay: `${star * 0.2}s` }}
-        >
-          ⭐
-        </div>
-      ))}
-    </div>
-  )
-}
+// Note: Confetti and StarRating imported from KidUI
 
 // Draggable item component
 function DraggableItem({

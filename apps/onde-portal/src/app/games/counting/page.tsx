@@ -1,7 +1,15 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { 
+  GameLayout, 
+  GameHeader, 
+  GameTitle, 
+  GameButton, 
+  StatsBadge, 
+  Confetti 
+} from '../components/KidUI'
 
 // Types
 type Difficulty = 'easy' | 'medium' | 'hard'
@@ -161,42 +169,7 @@ function useGameSounds() {
   return { playCorrect, playWrong, playPop, playStar, playStreak, playVictory }
 }
 
-// Confetti explosion component
-function Confetti({ active }: { active: boolean }) {
-  if (!active) return null
-
-  const pieces = Array.from({ length: 100 }, (_, i) => ({
-    id: i,
-    left: Math.random() * 100,
-    delay: Math.random() * 0.5,
-    duration: 2 + Math.random() * 2,
-    color: ['#ff6b6b', '#4ecdc4', '#ffe66d', '#95e1d3', '#f38181', '#aa96da', '#fcbad3', '#a8d8ea', '#ff9ff3', '#54a0ff'][i % 10],
-    size: 6 + Math.random() * 8,
-    rotation: Math.random() * 360,
-  }))
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {pieces.map((piece) => (
-        <div
-          key={piece.id}
-          className="absolute animate-confetti-fall"
-          style={{
-            left: `${piece.left}%`,
-            top: '-20px',
-            width: `${piece.size}px`,
-            height: `${piece.size}px`,
-            backgroundColor: piece.color,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
-            animationDelay: `${piece.delay}s`,
-            animationDuration: `${piece.duration}s`,
-            transform: `rotate(${piece.rotation}deg)`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
+// Note: Confetti imported from KidUI
 
 // Star burst animation component
 function StarBurst({ show, position }: { show: boolean, position: { x: number, y: number } }) {
@@ -832,26 +805,14 @@ export default function CountingGame() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-200 via-purple-200 to-pink-200 relative overflow-hidden">
-      {/* Back link */}
-      {gameState === 'menu' && (
-        <Link
-          href="/games"
-          className="absolute top-4 left-4 z-20 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all backdrop-blur-sm"
-        >
-          ← Games
-        </Link>
-      )}
-
-      {/* Sound toggle in header */}
-      {gameState !== 'menu' && (
-        <button
-          onClick={() => setSoundEnabled(!soundEnabled)}
-          className="absolute top-4 right-4 z-20 bg-white/80 px-3 py-2 rounded-full shadow-lg hover:scale-105 transition-all"
-        >
-          {soundEnabled ? '🔊' : '🔇'}
-        </button>
-      )}
+    <GameLayout background="candy" className="relative overflow-hidden">
+      {/* Header - Back link */}
+      <GameHeader
+        soundEnabled={soundEnabled}
+        onSoundToggle={() => setSoundEnabled(!soundEnabled)}
+        backLabel="← Giochi"
+        className="w-full"
+      />
 
       {/* Floating decorations */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-20">
@@ -964,6 +925,6 @@ export default function CountingGame() {
           animation: float-decoration 5s ease-in-out infinite;
         }
       `}</style>
-    </div>
+    </GameLayout>
   )
 }
