@@ -12315,8 +12315,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Animated starfield or particles in 3D preview bg
 
 ### [T986] Skin Creator: Screenshot Mode
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: High-res screenshot of 3D preview for sharing
