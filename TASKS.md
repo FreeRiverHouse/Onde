@@ -12572,7 +12572,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Copy/paste/reset options via right-click
 
 ### [T1013] Skin Creator: Keyboard Shortcuts Help
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12626,3 +12626,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Hidden achievements for special actions
+
+### [T1021] Skin Creator: Customizable Shortcuts
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Let users remap keyboard shortcuts
+
+### [T1022] Skin Creator: Help Button in UI
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: Visual button to show shortcuts (not just ?)
+
+### [T1023] Skin Creator: Onboarding Tutorial
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P2
+- **Notes**: First-time user tutorial with highlights
