@@ -15,7 +15,7 @@
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
 | MLH-001 | Review UI dashboard onde.surf per miglioramenti | DONE | @clawdinho | - |
-| MLH-002 | Testare flusso autenticazione completo | TODO | - | - |
+| MLH-002 | Testare flusso autenticazione completo | DONE | @clawdinho | - |
 | MLH-003 | Add keyboard shortcut handler for ⌘K quick actions | TODO | - | - |
 | MLH-004 | Add dark/light theme toggle | TODO | - | - |
 | MLH-005 | Add loading states for async panels | TODO | - | - |
@@ -46,7 +46,8 @@
 - **INF-002** - SSL OK: onde.la (Apr 10), onde.surf (Apr 11) - ~70 days remaining
 - **INF-003** - Crons healthy: 10+ watchdog crons active, last run 09:50
 - **MLH-001** - Dashboard UI review: premium design, all panels working, added 3 improvement tasks
+- **MLH-002** - Auth flow verified: Google OAuth + 6-email whitelist + middleware protection
 
 ---
 
-*Ultimo aggiornamento: 2026-01-31 10:05 PST*
+*Ultimo aggiornamento: 2026-01-31 10:07 PST*
