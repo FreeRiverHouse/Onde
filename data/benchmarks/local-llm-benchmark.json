@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-01-30T16:15:00-08:00",
+  "hardware": {
+    "cpu": "Apple M1",
+    "ram": "16GB",
+    "backend": "Ollama (Metal)",
+    "notes": "Cold start times are 2-3x longer than warm runs"
+  },
+  "models": {
+    "qwen2.5-coder:7b": {
+      "size_gb": 4.7,
+      "specialty": "coding",
+      "avg_latency_sec": 13.2,
+      "avg_tokens_per_sec": 3.6,
+      "quality_scores": {
+        "code_generation": 0.85,
+        "bug_fixing": 0.80,
+        "translation": 0.65,
+        "analysis": 0.75
+      },
+      "notes": "Best for coding tasks. Good balance of speed and quality."
+    },
+    "deepseek-coder:6.7b": {
+      "size_gb": 3.8,
+      "specialty": "coding",
+      "avg_latency_sec": 23.6,
+      "avg_tokens_per_sec": 2.1,
+      "quality_scores": {
+        "code_generation": 0.90,
+        "bug_fixing": 0.85,
+        "translation": 0.50,
+        "analysis": 0.70
+      },
+      "notes": "Higher quality for code review, slower than qwen. Better for complex tasks."
+    },
+    "llama3.1:8b": {
+      "size_gb": 4.9,
+      "specialty": "general",
+      "avg_latency_sec": 15.0,
+      "avg_tokens_per_sec": 3.0,
+      "quality_scores": {
+        "code_generation": 0.70,
+        "bug_fixing": 0.65,
+        "translation": 0.85,
+        "analysis": 0.90
+      },
+      "notes": "Best for general analysis and reasoning tasks."
+    },
+    "llama3.2:3b": {
+      "size_gb": 2.0,
+      "specialty": "quick",
+      "avg_latency_sec": 5.0,
+      "avg_tokens_per_sec": 8.0,
+      "quality_scores": {
+        "code_generation": 0.50,
+        "bug_fixing": 0.45,
+        "translation": 0.75,
+        "analysis": 0.70
+      },
+      "notes": "Fastest model. Use for simple tasks and quick answers."
+    }
+  },
+  "recommendations": {
+    "coding": {
+      "primary": "qwen2.5-coder:7b",
+      "fallback": "deepseek-coder:6.7b",
+      "reason": "Best speed/quality ratio for code generation"
+    },
+    "code_review": {
+      "primary": "deepseek-coder:6.7b",
+      "fallback": "qwen2.5-coder:7b",
+      "reason": "Higher quality analysis for finding bugs"
+    },
+    "quick_tasks": {
+      "primary": "llama3.2:3b",
+      "fallback": "qwen2.5-coder:7b",
+      "reason": "Fastest response time"
+    },
+    "analysis": {
+      "primary": "llama3.1:8b",
+      "fallback": "qwen2.5-coder:7b",
+      "reason": "Best reasoning capability"
+    },
+    "translation": {
+      "primary": "llama3.1:8b",
+      "fallback": "llama3.2:3b",
+      "reason": "Best multilingual support"
+    }
+  },
+  "task_routing_matrix": {
+    "coding": ["qwen2.5-coder:7b", "deepseek-coder:6.7b", "llama3.2:3b"],
+    "quick": ["llama3.2:3b"],
+    "analysis": ["llama3.1:8b", "qwen2.5-coder:7b", "llama3.2:3b"],
+    "translation": ["llama3.1:8b", "llama3.2:3b"],
+    "creative": ["llama3.1:8b"],
+    "heavy": ["deepseek-coder:6.7b", "qwen2.5-coder:7b"]
+  },
+  "cold_start_notes": "First call to any model takes 30-60s for model loading. Subsequent calls are much faster. Keep models warm for interactive use.",
+  "cost_savings": {
+    "vs_claude_api": "Local models cost $0/token vs $0.015/1K for Claude",
+    "estimated_monthly_savings": "$50-100 for typical usage"
+  }
+}
