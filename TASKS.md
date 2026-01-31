@@ -11206,7 +11206,7 @@ Generated: 2026-01-30T18:37:46.867013
 
 
 ### [T922] Skin Creator: Watchdog + Error Logging
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -11217,7 +11217,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Fix problemi in tempo reale
 
 ### [T923] Skin Creator: More Kid-Friendly Colors
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -11229,7 +11229,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Colori più vivaci e riconoscibili
 
 ### [T924] Skin Creator: 3D Rotation View
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
