@@ -11380,7 +11380,7 @@ Generated: 2026-01-30T18:37:46.867013
   ```
 
 ### [T931] Skin Creator: Mystery Box / Surprise Generator
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -11392,7 +11392,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Più divertente del semplice Random
 
 ### [T931] Skin Creator: Mystery Box / Surprise Generator
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
