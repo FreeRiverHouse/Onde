@@ -13663,14 +13663,17 @@ Generated: 2026-01-30T18:37:46.867013
   - Badge rewards
 
 ### [T1090] Moonlight: Pet Persistence
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
+- **Completed**: 2026-02-04 (verified during heartbeat audit)
 - **Priority**: P0 (CRITICAL!)
 - **Goal**: Il pet vive tra le sessioni
 - **Features**:
-  - LocalStorage save
-  - Pet state persists
-  - "Luna ti manca!" notifications
+  - [x] LocalStorage save - `saveSaveData()` with auto-save on every state change
+  - [x] Pet state persists - `loadSaveData()` restores stats, achievements, gameState, petName
+  - [x] "Luna ti manca!" notifications - `getWelcomeMessage()` based on hoursAway
+  - [x] Time-away stat adjustments (hunger decay, energy recovery)
+- **Notes**: Already fully implemented in App.tsx! SaveData interface stores everything needed.
 
 ### [T1091] Moonlight: Complete Care System
 - **Status**: TODO
@@ -14045,17 +14048,19 @@ Generated: 2026-01-30T18:37:46.867013
   - ⏳ Add to crontab (*/10 for regular monitoring)
 
 ### [T1023] Infra: SSL Certificate Expiry Watchdog
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
 - **Priority**: P2
 - **Created**: 2026-01-31
+- **Completed**: 2026-02-04 08:36 PST
 - **Notes**: Proactive SSL certificate monitoring
-  - [ ] Create scripts/watchdog-ssl-expiry.sh
-  - [ ] Check onde.la, onde.surf, skin-studio.pages.dev SSL expiry
-  - [ ] Alert 30 days before expiry (warning)
-  - [ ] Alert 7 days before expiry (critical)
-  - [ ] Output: ssl-expiring.alert or ssl-critical.alert
+  - [x] Create scripts/watchdog-ssl-expiry.sh ✅
+  - [x] Check onde.la, onde.surf, skin-studio.pages.dev, clawd.bot SSL expiry
+  - [x] Alert 30 days before expiry (warning) → ssl-expiring.alert
+  - [x] Alert 7 days before expiry (critical) → ssl-critical.alert
   - Most sites use Cloudflare auto-renew but good to verify
+- **Test 2026-02-04**: All certs OK (onde.la: 69d, onde.surf: 69d, skin-studio: 89d, clawd.bot: 89d)
+- **Cron**: `0 9 * * * /Users/mattia/Projects/Onde/scripts/watchdog-ssl-expiry.sh`
 
 ### [T1024] Dashboard: Task Statistics API Endpoint
 - **Status**: TODO
