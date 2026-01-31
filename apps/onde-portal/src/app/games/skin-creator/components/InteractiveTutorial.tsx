@@ -564,7 +564,7 @@ export default function InteractiveTutorial({
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
+    <>
       <div className="fixed inset-0 z-50">
         {/* Spotlight overlay */}
         <Spotlight targetRect={targetRect} />
@@ -598,7 +598,7 @@ export default function InteractiveTutorial({
           />
         )}
       </div>
-    </AnimatePresence>
+    </>
   );
 }
 

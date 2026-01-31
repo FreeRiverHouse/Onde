@@ -1,8 +1,5 @@
 'use client';
 
-// Force dynamic rendering to avoid SSR issues
-export const dynamic = 'force-dynamic';
-
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
@@ -22,6 +19,9 @@ const SkinGallery = dynamic(() => import('../components/SkinGallery'), { ssr: fa
 
 // 🌟 Skin of the Day - Featured rotation
 const SkinOfTheDay = dynamic(() => import('./components/SkinOfTheDay'), { ssr: false });
+
+// 🕒 Recent Skins Carousel - Quick access to latest creations
+const RecentSkinsCarousel = dynamic(() => import('./components/RecentSkinsCarousel'), { ssr: false });
 
 // View modes
 type ViewMode = 'editor' | 'gallery';
@@ -5252,18 +5252,55 @@ export default function SkinCreator() {
 
             {/* My Skins Panel */}
             {showMySkins && savedSkins.length > 0 && (
-              <div className="mt-2 p-2 bg-white/90 rounded-lg max-h-32 overflow-y-auto">
+              <div className="mt-2 p-2 bg-white/90 rounded-lg max-h-40 overflow-y-auto">
+                {/* ⭐ Favorites Filter Header */}
+                <div className="flex items-center justify-between mb-2 pb-1 border-b border-gray-200">
+                  <span className="text-xs font-semibold text-gray-600">
+                    {showFavoritesOnly ? '⭐ Favorites' : '📂 All Skins'} ({(showFavoritesOnly ? savedSkins.filter(s => s.isFavorite) : savedSkins).length})
+                  </span>
+                  <button
+                    onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                    className={`px-2 py-0.5 rounded text-xs font-medium transition-all ${
+                      showFavoritesOnly 
+                        ? 'bg-yellow-400 text-yellow-900 shadow-sm' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-yellow-100'
+                    }`}
+                    title={showFavoritesOnly ? 'Show all skins' : 'Show favorites only'}
+                  >
+                    {showFavoritesOnly ? '⭐ Favorites' : '☆ Filter'}
+                  </button>
+                </div>
                 <div className="grid grid-cols-5 gap-1">
-                  {savedSkins.map(skin => (
+                  {(showFavoritesOnly ? savedSkins.filter(s => s.isFavorite) : savedSkins).map(skin => (
                     <div key={skin.id} className="relative group">
+                      {/* ⭐ Favorite indicator */}
+                      {skin.isFavorite && (
+                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 z-10 text-yellow-400 text-xs drop-shadow-sm pointer-events-none">
+                          ⭐
+                        </div>
+                      )}
                       <img
                         src={skin.dataUrl}
                         alt={skin.name}
-                        className="w-10 h-10 rounded cursor-pointer hover:scale-110 transition-transform border-2 border-transparent hover:border-blue-500"
+                        className={`w-10 h-10 rounded cursor-pointer hover:scale-110 transition-transform border-2 ${
+                          skin.isFavorite ? 'border-yellow-400' : 'border-transparent hover:border-blue-500'
+                        }`}
                         style={{ imageRendering: 'pixelated' }}
                         onClick={() => loadSavedSkin(skin)}
-                        title={`${skin.name} - Click to load`}
+                        title={`${skin.name}${skin.isFavorite ? ' ⭐' : ''} - Click to load`}
                       />
+                      {/* ⭐ Favorite toggle button */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleFavoriteSkin(skin.id); }}
+                        className={`absolute top-6 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full text-xs transition-all ${
+                          skin.isFavorite 
+                            ? 'bg-yellow-400 text-yellow-900 opacity-100' 
+                            : 'bg-gray-200 text-gray-500 opacity-0 group-hover:opacity-100 hover:bg-yellow-300 hover:text-yellow-800'
+                        }`}
+                        title={skin.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                      >
+                        {skin.isFavorite ? '★' : '☆'}
+                      </button>
                       <button
                         onClick={(e) => { 
                           e.stopPropagation();
@@ -5316,6 +5353,12 @@ export default function SkinCreator() {
                     </div>
                   ))}
                 </div>
+                {/* Empty favorites message */}
+                {showFavoritesOnly && savedSkins.filter(s => s.isFavorite).length === 0 && (
+                  <div className="text-center text-xs text-gray-500 py-2">
+                    No favorites yet! Click ☆ on a skin to add it.
+                  </div>
+                )}
               </div>
             )}
             {showMySkins && savedSkins.length === 0 && (
