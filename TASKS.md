@@ -12266,8 +12266,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Analizzare cosa fa Google Veo e come replicare
 
 ### [T979] Skin Creator: Post-Processing Effects
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
 - **Notes**: Add bloom, DOF, vignette post-processing
