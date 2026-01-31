@@ -739,6 +739,15 @@ export default function SkinCreator() {
   const [achievements, setAchievements] = useState<Record<string, boolean>>({});
   const [showAchievement, setShowAchievement] = useState<{id: string; name: string; emoji: string} | null>(null);
   const [showAchievementGallery, setShowAchievementGallery] = useState(false);
+  const [helpTipDismissed, setHelpTipDismissed] = useState<Record<string, boolean>>(() => {
+    if (typeof window === 'undefined') return {};
+    return JSON.parse(localStorage.getItem('skin-tips-dismissed') || '{}');
+  });
+  const dismissTip = (tip: string) => {
+    const updated = { ...helpTipDismissed, [tip]: true };
+    setHelpTipDismissed(updated);
+    localStorage.setItem('skin-tips-dismissed', JSON.stringify(updated));
+  };
   
   const ACHIEVEMENTS = {
     firstDraw: { name: 'First Stroke!', emoji: '🎨' },
@@ -2514,6 +2523,22 @@ export default function SkinCreator() {
             </div>
 
             {/* Canvas */}
+            <div className="relative">
+              {/* Floating Help Tip */}
+              {!helpTipDismissed['canvas'] && (
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+                  <div className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg flex items-center gap-2">
+                    👆 Click and drag to draw!
+                    <button 
+                      onClick={() => dismissTip('canvas')}
+                      className="ml-1 hover:bg-blue-600 rounded-full w-5 h-5 text-xs"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-blue-500 mx-auto" />
+                </div>
+              )}
             <div
               className="relative rounded-xl p-1"
               style={{
@@ -2658,6 +2683,7 @@ export default function SkinCreator() {
                 </svg>
               )}
             </div>
+          </div>
           </div>
 
           <p className="text-center mt-2 text-gray-500 text-sm">
