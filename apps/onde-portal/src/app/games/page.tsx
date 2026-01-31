@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 const games = [
   { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Pet House', emoji: '🐱' },
@@ -10,21 +10,115 @@ const games = [
   { id: 'fortune', href: '/games/fortune-cookie', title: 'Fortune', desc: 'Cookie', emoji: '🥠' },
 ]
 
+type Weather = 'sunny' | 'rain' | 'snow'
+
+const weatherIcons: Record<Weather, string> = {
+  sunny: '☀️',
+  rain: '🌧️',
+  snow: '❄️',
+}
+
+const weatherCycle: Weather[] = ['sunny', 'rain', 'snow']
+
 export default function GamingIsland() {
   const [hoveredArea, setHoveredArea] = useState<string | null>(null)
+  const [weather, setWeather] = useState<Weather>('sunny')
+
+  const cycleWeather = () => {
+    const currentIndex = weatherCycle.indexOf(weather)
+    const nextIndex = (currentIndex + 1) % weatherCycle.length
+    setWeather(weatherCycle[nextIndex])
+  }
+
+  // Generate stable random positions for rain/snow
+  const rainDrops = useMemo(() => 
+    Array.from({ length: 50 }, (_, i) => ({
+      left: `${(i * 2.1) % 100}%`,
+      delay: `${(i * 0.13) % 2}s`,
+      duration: `${0.5 + (i % 5) * 0.1}s`,
+    })), [])
+
+  const snowFlakes = useMemo(() => 
+    Array.from({ length: 40 }, (_, i) => ({
+      left: `${(i * 2.6) % 100}%`,
+      delay: `${(i * 0.25) % 5}s`,
+      duration: `${3 + (i % 4)}s`,
+      size: 8 + (i % 8),
+    })), [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-200 via-orange-200 to-green-300 relative overflow-hidden">
-      {/* Warm sunset sky overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-300/30 via-transparent to-transparent pointer-events-none" />
-      
-      {/* Sun with glow */}
-      <div className="absolute top-4 right-8">
-        <div className="relative">
-          <div className="absolute inset-0 w-20 h-20 bg-yellow-300 rounded-full blur-2xl opacity-60 animate-pulse" />
-          <div className="text-7xl filter drop-shadow-[0_0_30px_rgba(255,200,0,0.8)]">☀️</div>
+    <div className={`min-h-screen relative overflow-hidden transition-all duration-700 ${
+      weather === 'sunny' ? 'bg-gradient-to-b from-amber-200 via-orange-200 to-green-300' :
+      weather === 'rain' ? 'bg-gradient-to-b from-slate-400 via-slate-500 to-green-400' :
+      'bg-gradient-to-b from-slate-200 via-blue-100 to-green-200'
+    }`}>
+      {/* Weather toggle button */}
+      <button
+        onClick={cycleWeather}
+        className="absolute top-4 right-4 z-30 bg-white/90 hover:bg-white px-4 py-2 rounded-full font-bold shadow-xl transition-all hover:scale-110 border-2 border-sky-200 text-2xl"
+        title={`Weather: ${weather}`}
+      >
+        {weatherIcons[weather]}
+      </button>
+
+      {/* Rain overlay */}
+      {weather === 'rain' && (
+        <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+          {rainDrops.map((drop, i) => (
+            <div
+              key={i}
+              className="absolute w-0.5 h-6 bg-gradient-to-b from-transparent via-blue-300 to-blue-500 opacity-60 animate-rain"
+              style={{
+                left: drop.left,
+                top: '-24px',
+                animationDelay: drop.delay,
+                animationDuration: drop.duration,
+              }}
+            />
+          ))}
         </div>
-      </div>
+      )}
+
+      {/* Snow overlay */}
+      {weather === 'snow' && (
+        <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+          {snowFlakes.map((flake, i) => (
+            <div
+              key={i}
+              className="absolute text-white opacity-80 animate-snow"
+              style={{
+                left: flake.left,
+                top: '-20px',
+                animationDelay: flake.delay,
+                animationDuration: flake.duration,
+                fontSize: `${flake.size}px`,
+              }}
+            >
+              ❄
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Warm sunset sky overlay - only in sunny */}
+      {weather === 'sunny' && (
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-300/30 via-transparent to-transparent pointer-events-none" />
+      )}
+
+      {/* Rain clouds overlay */}
+      {weather === 'rain' && (
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-600/40 via-transparent to-transparent pointer-events-none" />
+      )}
+      
+      {/* Sun with glow - only in sunny weather */}
+      {weather === 'sunny' && (
+        <div className="absolute top-4 right-24">
+          <div className="relative">
+            <div className="absolute inset-0 w-20 h-20 bg-yellow-300 rounded-full blur-2xl opacity-60 animate-pulse" />
+            <div className="text-7xl filter drop-shadow-[0_0_30px_rgba(255,200,0,0.8)]">☀️</div>
+          </div>
+        </div>
+      )}
 
       {/* Subtle rainbow in the sky */}
       <div className="absolute top-16 left-1/4 w-64 h-32 opacity-30 pointer-events-none">
@@ -34,15 +128,23 @@ export default function GamingIsland() {
         }} />
       </div>
 
-      {/* Fluffy clouds */}
+      {/* Fluffy clouds - change appearance based on weather */}
       <div className="absolute top-12 left-8">
         <div className="relative">
-          <div className="text-5xl opacity-90 animate-cloud">☁️</div>
-          <div className="absolute -top-2 left-6 text-3xl opacity-80">☁️</div>
+          <div className={`text-5xl animate-cloud transition-all duration-500 ${weather === 'rain' ? 'opacity-100 grayscale' : weather === 'snow' ? 'opacity-100' : 'opacity-90'}`}>☁️</div>
+          <div className={`absolute -top-2 left-6 text-3xl animate-cloud ${weather === 'rain' ? 'opacity-90 grayscale' : 'opacity-80'}`}>☁️</div>
         </div>
       </div>
-      <div className="absolute top-20 right-32 text-4xl opacity-80 animate-cloud-slow">☁️</div>
-      <div className="absolute top-8 left-1/3 text-3xl opacity-70 animate-cloud" style={{ animationDelay: '2s' }}>☁️</div>
+      <div className={`absolute top-20 right-32 text-4xl animate-cloud-slow ${weather === 'rain' ? 'opacity-90 grayscale' : 'opacity-80'}`}>☁️</div>
+      <div className={`absolute top-8 left-1/3 text-3xl animate-cloud ${weather === 'rain' ? 'opacity-80 grayscale' : 'opacity-70'}`} style={{ animationDelay: '2s' }}>☁️</div>
+      {/* Extra storm clouds for rain */}
+      {weather === 'rain' && (
+        <>
+          <div className="absolute top-6 left-1/2 text-6xl opacity-90 grayscale animate-cloud">☁️</div>
+          <div className="absolute top-14 right-48 text-5xl opacity-85 grayscale animate-cloud-slow">☁️</div>
+          <div className="absolute top-4 left-2/3 text-4xl opacity-80 grayscale animate-cloud" style={{ animationDelay: '1s' }}>☁️</div>
+        </>
+      )}
 
       {/* Flying Birds */}
       <div className="absolute top-16 left-1/4 text-xl animate-bird">🐦</div>
@@ -796,6 +898,21 @@ export default function GamingIsland() {
         .animate-duck-swim { animation: duck-swim 3s ease-in-out infinite; }
         .animate-water-shimmer { animation: water-shimmer 4s ease-in-out infinite; }
         .animate-flag-wave { animation: flag-wave 1s ease-in-out infinite; }
+        
+        @keyframes rain {
+          0% { transform: translateY(0); opacity: 0; }
+          10% { opacity: 0.6; }
+          90% { opacity: 0.6; }
+          100% { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes snow {
+          0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+          10% { opacity: 0.8; }
+          90% { opacity: 0.8; }
+          100% { transform: translateY(100vh) translateX(30px) rotate(360deg); opacity: 0; }
+        }
+        .animate-rain { animation: rain linear infinite; }
+        .animate-snow { animation: snow ease-in-out infinite; }
       `}</style>
     </div>
   )

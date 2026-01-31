@@ -9,6 +9,7 @@ import { useDownloadTracker } from '@/hooks/useDownloadTracker'
 import { useReadingList } from '@/hooks/useReadingList'
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed'
 import { useReadingProgress } from '@/hooks/useReadingProgress'
+import { useFavorites } from '@/hooks/useFavorites'
 import { BookPreviewModal } from '@/components/BookPreviewModal'
 import { useState, useEffect } from 'react'
 
@@ -67,9 +68,11 @@ export default function LibriPage() {
   const { toggleBookmark, isBookmarked, getReadingListCount, mounted: readingListMounted } = useReadingList()
   const { getRecentlyViewedIds, getRecentlyViewedCount, mounted: recentlyViewedMounted } = useRecentlyViewed()
   const { isStarted, getProgress, markAsStarted, getStartedCount, mounted: progressMounted } = useReadingProgress()
+  const { toggleFavorite, isFavorite, getFavoritesCount, getFavoriteIds, mounted: favoritesMounted } = useFavorites()
   const [mounted, setMounted] = useState(false)
   const [previewBook, setPreviewBook] = useState<Book | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   
   // Category filter options
   const categoryFilters = [
@@ -78,10 +81,15 @@ export default function LibriPage() {
     { id: 'spirituality', label: 'Spiritualità', value: 'Spirituality' },
   ]
   
-  // Filter books by selected category
-  const filteredBooks = selectedCategory === 'all'
-    ? books
-    : books.filter(book => book.category === categoryFilters.find(f => f.id === selectedCategory)?.value)
+  // Filter books by selected category and favorites
+  const filteredBooks = books.filter(book => {
+    // Category filter
+    const categoryMatch = selectedCategory === 'all' 
+      || book.category === categoryFilters.find(f => f.id === selectedCategory)?.value
+    // Favorites filter
+    const favoritesMatch = !showFavoritesOnly || (favoritesMounted && isFavorite(book.id))
+    return categoryMatch && favoritesMatch
+  })
   
   // Get recently viewed books (filter books array by recently viewed IDs)
   const recentlyViewedBooks = recentlyViewedMounted 
@@ -167,6 +175,18 @@ export default function LibriPage() {
                 {getStartedCount()} started reading
               </motion.div>
             )}
+            {favoritesMounted && getFavoritesCount() > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                           bg-rose-100 text-rose-700 text-sm font-medium"
+              >
+                <span>❤️</span>
+                {getFavoritesCount()} favorite{getFavoritesCount() !== 1 ? 's' : ''}
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
@@ -229,6 +249,28 @@ export default function LibriPage() {
               {filter.label}
             </button>
           ))}
+          
+          {/* Favorites Toggle */}
+          {favoritesMounted && (
+            <button
+              onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
+                         flex items-center gap-2
+                         ${showFavoritesOnly
+                           ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-lg shadow-rose-500/30'
+                           : 'bg-white/80 text-rose-600 border border-rose-200 hover:bg-rose-50 hover:border-rose-300'
+                         }`}
+            >
+              <span>{showFavoritesOnly ? '❤️' : '🤍'}</span>
+              Favorites
+              {getFavoritesCount() > 0 && (
+                <span className={`px-1.5 py-0.5 rounded-full text-xs
+                                ${showFavoritesOnly ? 'bg-white/20' : 'bg-rose-100'}`}>
+                  {getFavoritesCount()}
+                </span>
+              )}
+            </button>
+          )}
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">

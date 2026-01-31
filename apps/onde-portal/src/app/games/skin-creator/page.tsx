@@ -802,7 +802,7 @@ export default function SkinCreator() {
   };
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const maxHistory = 50;
+  const maxHistory = 20;
   
   // 🏆 Achievement System
   const [achievements, setAchievements] = useState<Record<string, boolean>>({});
@@ -1119,8 +1119,11 @@ export default function SkinCreator() {
         case 's': setTool('stamp'); break;
         case 'i': setTool('eyedropper'); break;
         case '?': setShowHelp(prev => !prev); break;
-        case 'z': if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); } break;
-        case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); } break;
+        case 'z': 
+          if ((e.metaKey || e.ctrlKey) && e.shiftKey) { e.preventDefault(); redo(); playSound('redo'); }
+          else if (e.metaKey || e.ctrlKey) { e.preventDefault(); undo(); playSound('undo'); } 
+          break;
+        case 'y': if (e.metaKey || e.ctrlKey) { e.preventDefault(); redo(); playSound('redo'); } break;
         case 'm': setMirrorMode(prev => !prev); break;
         case 'd': setDarkMode(prev => !prev); break;
         case '+': case '=': setZoomLevel(prev => Math.min(12, prev + 1)); break;
@@ -1975,7 +1978,7 @@ export default function SkinCreator() {
               <div data-shortcut="i eyedropper color picker" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">I</div><div className="py-2">Eyedropper</div></div>
               <div data-shortcut="1 2 3 4 5 brush size" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">1-5</div><div className="py-2">Brush size</div></div>
               <div data-shortcut="z undo ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Z</div><div className="py-2">Undo</div></div>
-              <div data-shortcut="y redo ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Y</div><div className="py-2">Redo</div></div>
+              <div data-shortcut="y redo ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + Shift + Z</div><div className="py-2">Redo</div></div>
               <div data-shortcut="s save ctrl cmd" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">⌘/Ctrl + S</div><div className="py-2">Save</div></div>
               <div data-shortcut="? help shortcuts" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">?</div><div className="py-2">This help</div></div>
               <div data-shortcut="esc escape close" className="contents"><div className="bg-gray-800 px-3 py-2 rounded">Esc</div><div className="py-2">Close panels</div></div>

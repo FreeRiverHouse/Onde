@@ -3,6 +3,14 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+// Type for fortune history entry
+interface FortuneHistoryEntry {
+  text: string
+  lang: 'it' | 'en'
+  date: string
+  id: number
+}
+
 // Positive messages for kids (IT + EN)
 const fortunes = [
   { text: "Sei speciale così come sei! ✨", lang: 'it' },
@@ -64,13 +72,25 @@ export default function FortuneCookie() {
   const [selectedLang, setSelectedLang] = useState<'all' | 'it' | 'en'>('all')
   const [streak, setStreak] = useState(0)
   const [streakUpdatedToday, setStreakUpdatedToday] = useState(false)
+  const [fortuneHistory, setFortuneHistory] = useState<FortuneHistoryEntry[]>([])
+  const [historyExpanded, setHistoryExpanded] = useState(false)
 
-  // Load cookie count, language preference, and streak from localStorage
+  // Load cookie count, language preference, streak, and history from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('fortune-cookie-count')
     if (saved) setCookieCount(parseInt(saved))
     const savedLang = localStorage.getItem('fortune-cookie-lang') as 'all' | 'it' | 'en'
     if (savedLang) setSelectedLang(savedLang)
+    
+    // Load fortune history
+    const savedHistory = localStorage.getItem('fortune-cookie-history')
+    if (savedHistory) {
+      try {
+        setFortuneHistory(JSON.parse(savedHistory))
+      } catch {
+        // Invalid history, ignore
+      }
+    }
     
     // Load streak data
     const savedStreak = localStorage.getItem('fortune-cookie-streak')
@@ -95,6 +115,43 @@ export default function FortuneCookie() {
       }
     }
   }, [])
+
+  // Add fortune to history (keep last 10)
+  const addToHistory = (newFortune: typeof fortunes[0]) => {
+    const entry: FortuneHistoryEntry = {
+      text: newFortune.text,
+      lang: newFortune.lang,
+      date: new Date().toISOString(),
+      id: Date.now()
+    }
+    const newHistory = [entry, ...fortuneHistory].slice(0, 10)
+    setFortuneHistory(newHistory)
+    localStorage.setItem('fortune-cookie-history', JSON.stringify(newHistory))
+  }
+
+  // Clear fortune history
+  const clearHistory = () => {
+    setFortuneHistory([])
+    localStorage.removeItem('fortune-cookie-history')
+  }
+
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+    
+    if (diffDays === 0) {
+      return 'Today'
+    } else if (diffDays === 1) {
+      return 'Yesterday'
+    } else if (diffDays < 7) {
+      return `${diffDays} days ago`
+    } else {
+      return date.toLocaleDateString()
+    }
+  }
 
   // Get filtered fortunes based on language
   const getFilteredFortunes = () => {
@@ -127,7 +184,9 @@ export default function FortuneCookie() {
     setTimeout(() => {
       setIsOpen(true)
       const filtered = getFilteredFortunes()
-      setFortune(filtered[Math.floor(Math.random() * filtered.length)])
+      const newFortune = filtered[Math.floor(Math.random() * filtered.length)]
+      setFortune(newFortune)
+      addToHistory(newFortune)
       const newCount = cookieCount + 1
       setCookieCount(newCount)
       localStorage.setItem('fortune-cookie-count', newCount.toString())
@@ -300,6 +359,47 @@ export default function FortuneCookie() {
           </div>
         )}
       </div>
+
+      {/* Fortune History Section */}
+      {fortuneHistory.length > 0 && (
+        <div className="mt-12 w-full max-w-md mx-auto">
+          <button
+            onClick={() => setHistoryExpanded(!historyExpanded)}
+            className="w-full flex items-center justify-between bg-white/80 px-6 py-4 rounded-t-xl font-bold text-amber-700 shadow-lg hover:bg-white/90 transition-all"
+          >
+            <span>📜 My Fortunes ({fortuneHistory.length})</span>
+            <span className={`transform transition-transform ${historyExpanded ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          
+          {historyExpanded && (
+            <div className="bg-white/70 rounded-b-xl shadow-lg overflow-hidden">
+              <div className="max-h-64 overflow-y-auto">
+                {fortuneHistory.map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="px-6 py-3 border-b border-amber-200 last:border-b-0 hover:bg-white/50 transition-colors"
+                  >
+                    <p className="text-amber-800 font-medium">{entry.text}</p>
+                    <div className="flex items-center gap-2 mt-1 text-sm text-amber-500">
+                      <span>{entry.lang === 'it' ? '🇮🇹' : '🇬🇧'}</span>
+                      <span>•</span>
+                      <span>{formatDate(entry.date)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={clearHistory}
+                className="w-full px-6 py-3 bg-red-100 text-red-600 font-bold hover:bg-red-200 transition-colors"
+              >
+                🗑️ Clear History
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Decorative elements */}
       <div className="fixed bottom-10 left-10 text-5xl animate-bounce opacity-70">🍀</div>

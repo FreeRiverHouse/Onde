@@ -26,7 +26,7 @@ const BASE_URL = import.meta.env.BASE_URL || '/';
 // ==================== TYPES ====================
 type Language = 'it' | 'en';
 type RoomKey = 'bedroom' | 'kitchen' | 'garden' | 'living' | 'bathroom' | 'garage' | 'shop' | 'supermarket' | 'attic' | 'basement' | 'library';
-type MoodType = 'happy' | 'neutral' | 'sad' | 'sleepy' | 'hungry' | 'excited';
+type MoodType = 'happy' | 'hungry' | 'sleepy' | 'playful';
 type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 
 interface PetStats {
@@ -92,7 +92,7 @@ const translations = {
       reading: 'Che bella storia! 📖',
       browsing: 'Tanti libri! 📚',
     },
-    moods: { happy: 'Felice!', neutral: 'Tranquillo', sad: 'Triste...', sleepy: 'Assonnato', hungry: 'Affamato', excited: 'Eccitato!' },
+    moods: { happy: 'Felice!', hungry: 'Affamato', sleepy: 'Assonnato', playful: 'Giocherellone!' },
     petNaming: {
       title: 'Dai un nome al tuo animaletto!',
       placeholder: 'Nome del tuo amico...',
@@ -146,7 +146,7 @@ const translations = {
       reading: 'What a great story! 📖',
       browsing: 'So many books! 📚',
     },
-    moods: { happy: 'Happy!', neutral: 'Calm', sad: 'Sad...', sleepy: 'Sleepy', hungry: 'Hungry', excited: 'Excited!' },
+    moods: { happy: 'Happy!', hungry: 'Hungry', sleepy: 'Sleepy', playful: 'Playful!' },
     petNaming: {
       title: 'Name your pet!',
       placeholder: 'Your friend\'s name...',
@@ -221,19 +221,48 @@ const getTimeOfDay = (): TimeOfDay => {
 };
 
 const getMood = (stats: PetStats): MoodType => {
-  if (stats.happiness > 80 && stats.energy > 60) return 'excited';
-  if (stats.happiness > 60) return 'happy';
-  if (stats.energy < 30) return 'sleepy';
+  // Priority: hunger and energy are more urgent needs
   if (stats.hunger < 30) return 'hungry';
-  if (stats.happiness < 30) return 'sad';
-  return 'neutral';
+  if (stats.energy < 30) return 'sleepy';
+  // Playful when high energy and happiness
+  if (stats.happiness > 70 && stats.energy > 60) return 'playful';
+  // Default to happy
+  return 'happy';
 };
 
 const getMoodEmoji = (mood: MoodType): string => {
   const emojis: Record<MoodType, string> = {
-    happy: '😊', neutral: '😐', sad: '😢', sleepy: '😴', hungry: '🤤', excited: '🤩'
+    happy: '😊', hungry: '😋', sleepy: '😴', playful: '🎉'
   };
   return emojis[mood];
+};
+
+// Get mood-specific interaction messages
+const getMoodInteractionMessage = (mood: MoodType, action: string, lang: 'it' | 'en'): string | null => {
+  const messages: Record<MoodType, Record<string, { it: string; en: string }>> = {
+    hungry: {
+      play: { it: 'Ho troppa fame per giocare... 😋', en: "I'm too hungry to play... 😋" },
+      sleep: { it: 'La pancia brontola... 😋', en: 'My tummy is rumbling... 😋' },
+      default: { it: 'Mmm, ho fame! 😋', en: 'Mmm, I\'m hungry! 😋' },
+    },
+    sleepy: {
+      play: { it: '*sbadiglio* Sono stanco... 😴', en: '*yawn* I\'m tired... 😴' },
+      eat: { it: 'Forse dopo un sonnellino... 😴', en: 'Maybe after a nap... 😴' },
+      default: { it: 'Zzz... 😴', en: 'Zzz... 😴' },
+    },
+    playful: {
+      sleep: { it: 'Ma ho voglia di giocare! 🎉', en: 'But I wanna play! 🎉' },
+      eat: { it: 'Ok, ma poi giochiamo! 🎉', en: 'Ok, but let\'s play after! 🎉' },
+      default: { it: 'Evviva! Giochiamo! 🎉', en: 'Yay! Let\'s play! 🎉' },
+    },
+    happy: {
+      default: { it: 'Sono felice! 😊', en: 'I\'m happy! 😊' },
+    },
+  };
+  
+  const moodMessages = messages[mood];
+  const actionMsg = moodMessages[action] || moodMessages.default;
+  return actionMsg?.[lang] || null;
 };
 
 const getXpForLevel = (level: number): number => level * 100;
@@ -1067,7 +1096,47 @@ function App() {
   const handleRoomAction = (actionType: 'primary' | 'secondary') => {
     const room = roomData[currentRoom];
     const cost = actionType === 'primary' ? 5 : 3;
-    const xpGain = actionType === 'primary' ? 15 : 10;
+    let xpGain = actionType === 'primary' ? 15 : 10;
+    
+    // Mood-based action modifiers
+    let moodBonus = 1.0;
+    let moodMessage: string | null = null;
+    
+    // Determine action type for mood interaction
+    const actionCategory = room.key === 'bedroom' ? 'sleep' : 
+                          room.key === 'kitchen' || room.key === 'supermarket' ? 'eat' :
+                          room.key === 'garden' ? 'play' : 'default';
+    
+    // Apply mood-based effects
+    if (mood === 'hungry') {
+      // Hungry pets are less enthusiastic about non-food activities
+      if (actionCategory !== 'eat') {
+        moodBonus = 0.5;
+        moodMessage = getMoodInteractionMessage('hungry', actionCategory, lang);
+      } else {
+        moodBonus = 1.5; // Extra happy to eat!
+      }
+    } else if (mood === 'sleepy') {
+      // Sleepy pets prefer rest
+      if (actionCategory === 'sleep') {
+        moodBonus = 1.5; // Love sleeping when tired
+      } else if (actionCategory === 'play') {
+        moodBonus = 0.3; // Too tired to play
+        moodMessage = getMoodInteractionMessage('sleepy', actionCategory, lang);
+      }
+    } else if (mood === 'playful') {
+      // Playful pets want to play!
+      if (actionCategory === 'play') {
+        moodBonus = 2.0; // Double the fun!
+        moodMessage = getMoodInteractionMessage('playful', 'default', lang);
+      } else if (actionCategory === 'sleep') {
+        moodBonus = 0.5; // Don't wanna sleep!
+        moodMessage = getMoodInteractionMessage('playful', actionCategory, lang);
+      }
+    }
+    
+    // Apply mood bonus to XP
+    xpGain = Math.round(xpGain * moodBonus);
 
     if ((room.key === 'shop' || room.key === 'supermarket') && stats.coins < cost) {
       playSound('ui-error');
@@ -1078,8 +1147,9 @@ function App() {
     // Play UI click
     playSound('ui-click');
 
-    // 20% chance for mini-game in garden
-    if (room.key === 'garden' && actionType === 'primary' && Math.random() < 0.2) {
+    // 20% chance for mini-game in garden (higher if playful!)
+    const miniGameChance = mood === 'playful' ? 0.4 : 0.2;
+    if (room.key === 'garden' && actionType === 'primary' && Math.random() < miniGameChance) {
       setShowMiniGame(true);
       return;
     }
@@ -1158,7 +1228,26 @@ function App() {
           break;
       }
 
-      showBubble(message);
+      // Show mood-specific message if applicable, otherwise show default message
+      if (moodMessage && moodBonus < 1.0) {
+        // Show mood reaction first, then the action
+        showBubble(moodMessage);
+        setTimeout(() => showBubble(message), 1500);
+      } else if (moodMessage && moodBonus >= 1.0) {
+        // Positive mood - show excited message
+        showBubble(`${message} ${getMoodEmoji(mood)}`);
+      } else {
+        showBubble(message);
+      }
+      
+      // Apply mood bonus to happiness gains
+      if (statChanges.happiness && typeof statChanges.happiness === 'number') {
+        const happinessGain = statChanges.happiness - stats.happiness;
+        if (happinessGain > 0) {
+          statChanges.happiness = Math.min(100, stats.happiness + Math.round(happinessGain * moodBonus));
+        }
+      }
+      
       setStats(prev => ({ ...prev, ...statChanges }));
     });
   };
@@ -1394,7 +1483,7 @@ function App() {
             <img src={`${BASE_URL}assets/character/luna-happy.jpg`} alt={petName || 'Pip'} className={`luna-map-img mood-${mood}`} />
             <div className="luna-map-glow" />
             <span className="luna-mood-indicator">{getMoodEmoji(mood)}</span>
-            {petName && <span className="luna-name-label">{petName}</span>}
+            {petName && <span className="luna-name-label">{petName} {getMoodEmoji(mood)}</span>}
           </div>
 
           {!isDragging && <div className="drag-hint">{lang === 'it' ? '👆 Trascina Moonlight!' : '👆 Drag Moonlight!'}</div>}
@@ -1403,7 +1492,7 @@ function App() {
         <div className="map-header">
           <div className="header glass-card">
             <h1 className="title">{t.title}</h1>
-            {petName && <span className="pet-name-badge">🐱 {petName}</span>}
+            {petName && <span className="pet-name-badge">🐱 {petName} {getMoodEmoji(mood)}</span>}
             <div className="header-right">
               <span className="time-indicator">{t.timeOfDay[timeOfDay]}</span>
               <button className="sound-toggle" onClick={() => { toggleMute(); playSound('ui-click'); }} title={isMuted ? 'Unmute' : 'Mute'}>
@@ -1602,7 +1691,7 @@ function App() {
         <button className="back-btn" onClick={() => setShowMap(true)}>← 🏠</button>
         <h1 className="title room-title">{currentRoomData.icon} {t.rooms[currentRoomData.key]}</h1>
         <div className="header-right">
-          {petName && <span className="pet-name-badge small">🐱 {petName}</span>}
+          {petName && <span className="pet-name-badge small">🐱 {petName} {getMoodEmoji(mood)}</span>}
           <div className="level-badge glass-card">Lv.{stats.level}</div>
           <div className="coin-container"><span className="coin-icon">✨</span><span className="coin-text">{stats.coins}</span></div>
         </div>
@@ -1724,7 +1813,7 @@ function App() {
         
         {/* Tail wagging animation (T876) */}
         <TailWagging 
-          isHappy={mood === 'happy' || mood === 'excited'} 
+          isHappy={mood === 'happy' || mood === 'playful'} 
           isIdle={isIdle}
           onWagComplete={() => setLastActionTime(Date.now())}
         />
