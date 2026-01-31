@@ -13619,3 +13619,19 @@ Generated: 2026-01-30T18:37:46.867013
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 02:18 PST
 - **Features**: Welcome modal, quick tips, localStorage persistence
+
+### [T1095] Moonlight: Character System (Luna + Pets)
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P1
+- **Goal**: Moonlight è una BAMBINA (Luna), non un pet!
+- **Characters**:
+  - 🌙 **Luna/Moonlight** - la bambina protagonista
+  - ⭐ **Stellina** - pet gattino  
+  - ☁️ **Nuvola** - pet coniglietto
+  - ☀️ **Sole** - pet cagnolino
+- **Features**:
+  - Scegli il tuo personaggio
+  - Luna + il suo pet
+  - Diversi outfit per Luna
+  - Diversi pet da adottare
