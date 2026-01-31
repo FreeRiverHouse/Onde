@@ -12221,8 +12221,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Add rename option for saved skins
 
 ### [T962] Skin Creator: Duplicate Skin Button  
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Duplicate a saved skin for variations
