@@ -12751,8 +12751,9 @@ Generated: 2026-01-30T18:37:46.867013
   - Alert on failure: `scripts/moonlight-build-failure.alert`
 
 ### [T1024] Skin Creator: Floating Help Tips
-- **Status**: IN_PROGRESS
+- **Status**: DONE ✅
 - **Owner**: @onde-bot
+- **Completed**: 2026-01-30 23:42 PST
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Tooltips that appear on hover with shortcuts
