@@ -1843,21 +1843,116 @@ export default function SkinCreator() {
               onKeyDown={(e) => e.key === 'Enter' && generateAISkin()}
             />
             
-            {/* Quick Presets */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {['Pirate', 'Wizard', 'Ninja', 'Robot', 'Alien', 'Princess', 'Knight', 'Vampire', 'Superhero', 'Chef'].map(preset => (
-                <button
-                  key={preset}
-                  onClick={() => setAiPrompt(preset.toLowerCase())}
-                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                    aiPrompt.toLowerCase() === preset.toLowerCase() 
-                      ? 'bg-purple-500 text-white' 
-                      : 'bg-gray-100 hover:bg-gray-200'
-                  }`}
-                >
-                  {preset}
-                </button>
-              ))}
+            {/* 📚 Kid-Friendly Prompt Library */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">🎭 Pick an Idea!</label>
+              <div className="space-y-2">
+                {/* Category tabs */}
+                {[
+                  { 
+                    id: 'heroes', 
+                    emoji: '🦸', 
+                    name: 'Heroes', 
+                    color: 'bg-red-100 text-red-700 hover:bg-red-200',
+                    prompts: [
+                      { emoji: '🦸', text: 'superhero with cape', label: 'Superhero' },
+                      { emoji: '⚔️', text: 'brave knight in shining armor', label: 'Knight' },
+                      { emoji: '🥷', text: 'cool ninja with black outfit', label: 'Ninja' },
+                      { emoji: '🏴‍☠️', text: 'adventure pirate with bandana', label: 'Pirate' },
+                      { emoji: '🧙', text: 'powerful wizard with magic staff', label: 'Wizard' },
+                    ]
+                  },
+                  { 
+                    id: 'animals', 
+                    emoji: '🐾', 
+                    name: 'Animals', 
+                    color: 'bg-green-100 text-green-700 hover:bg-green-200',
+                    prompts: [
+                      { emoji: '🐺', text: 'wolf warrior with fur', label: 'Wolf' },
+                      { emoji: '🐱', text: 'cute cat person with whiskers', label: 'Cat' },
+                      { emoji: '🦊', text: 'clever fox with orange fur', label: 'Fox' },
+                      { emoji: '🐼', text: 'friendly panda bear', label: 'Panda' },
+                      { emoji: '🦁', text: 'brave lion with mane', label: 'Lion' },
+                    ]
+                  },
+                  { 
+                    id: 'fantasy', 
+                    emoji: '✨', 
+                    name: 'Fantasy', 
+                    color: 'bg-purple-100 text-purple-700 hover:bg-purple-200',
+                    prompts: [
+                      { emoji: '🧚', text: 'magical fairy with wings', label: 'Fairy' },
+                      { emoji: '🐉', text: 'dragon person with scales', label: 'Dragon' },
+                      { emoji: '🧜', text: 'mermaid with shiny tail', label: 'Mermaid' },
+                      { emoji: '🦄', text: 'unicorn with rainbow mane', label: 'Unicorn' },
+                      { emoji: '🧝', text: 'elf with pointy ears', label: 'Elf' },
+                    ]
+                  },
+                  { 
+                    id: 'space', 
+                    emoji: '🚀', 
+                    name: 'Space', 
+                    color: 'bg-blue-100 text-blue-700 hover:bg-blue-200',
+                    prompts: [
+                      { emoji: '🤖', text: 'friendly robot with glowing eyes', label: 'Robot' },
+                      { emoji: '👽', text: 'cool alien from outer space', label: 'Alien' },
+                      { emoji: '👨‍🚀', text: 'astronaut in space suit', label: 'Astronaut' },
+                      { emoji: '🌟', text: 'star guardian with cosmic powers', label: 'Star' },
+                      { emoji: '🛸', text: 'space explorer with laser gun', label: 'Explorer' },
+                    ]
+                  },
+                  { 
+                    id: 'jobs', 
+                    emoji: '👷', 
+                    name: 'Jobs', 
+                    color: 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200',
+                    prompts: [
+                      { emoji: '👨‍🍳', text: 'chef with white hat and apron', label: 'Chef' },
+                      { emoji: '👨‍🚒', text: 'firefighter with helmet', label: 'Firefighter' },
+                      { emoji: '👮', text: 'police officer in uniform', label: 'Police' },
+                      { emoji: '👨‍⚕️', text: 'doctor with stethoscope', label: 'Doctor' },
+                      { emoji: '🧑‍🔬', text: 'scientist with lab coat', label: 'Scientist' },
+                    ]
+                  },
+                  { 
+                    id: 'spooky', 
+                    emoji: '👻', 
+                    name: 'Spooky', 
+                    color: 'bg-gray-100 text-gray-700 hover:bg-gray-200',
+                    prompts: [
+                      { emoji: '🧟', text: 'zombie with torn clothes', label: 'Zombie' },
+                      { emoji: '🧛', text: 'vampire with cape and fangs', label: 'Vampire' },
+                      { emoji: '👻', text: 'friendly ghost with spooky glow', label: 'Ghost' },
+                      { emoji: '🎃', text: 'pumpkin head monster', label: 'Pumpkin' },
+                      { emoji: '💀', text: 'skeleton warrior', label: 'Skeleton' },
+                    ]
+                  },
+                ].map(category => (
+                  <details key={category.id} className="group">
+                    <summary className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer ${category.color} font-medium`}>
+                      <span className="text-lg">{category.emoji}</span>
+                      <span>{category.name}</span>
+                      <span className="ml-auto text-xs opacity-60">{category.prompts.length}</span>
+                    </summary>
+                    <div className="flex flex-wrap gap-1 mt-2 pl-2">
+                      {category.prompts.map(prompt => (
+                        <button
+                          key={prompt.label}
+                          onClick={() => setAiPrompt(prompt.text)}
+                          className={`px-2 py-1 rounded-lg text-xs transition-all flex items-center gap-1 ${
+                            aiPrompt === prompt.text 
+                              ? 'bg-purple-500 text-white scale-105' 
+                              : 'bg-white border border-gray-200 hover:border-purple-300 hover:bg-purple-50'
+                          }`}
+                        >
+                          <span>{prompt.emoji}</span>
+                          <span>{prompt.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </details>
+                ))}
+              </div>
             </div>
             
             {/* Style Selection */}
