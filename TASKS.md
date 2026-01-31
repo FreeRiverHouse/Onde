@@ -12295,8 +12295,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Export skin in Fortnite-compatible format
 
 ### [T971] Skin Creator: Export History
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Keep track of exported skins with timestamps
