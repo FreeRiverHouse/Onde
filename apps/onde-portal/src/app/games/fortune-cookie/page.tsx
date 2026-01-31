@@ -46,6 +46,7 @@ export default function FortuneCookie() {
   const [fortune, setFortune] = useState<typeof fortunes[0] | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [cookieCount, setCookieCount] = useState(0)
+  const [copied, setCopied] = useState(false)
 
   // Load cookie count from localStorage
   useEffect(() => {
@@ -83,6 +84,35 @@ export default function FortuneCookie() {
   const reset = () => {
     setIsOpen(false)
     setFortune(null)
+    setCopied(false)
+  }
+
+  const shareFortune = async () => {
+    if (!fortune) return
+    
+    const shareText = `🥠 My fortune: ${fortune.text} - onde.la/games/fortune-cookie`
+    
+    // Try Web Share API first
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          text: shareText,
+        })
+        return
+      } catch (err) {
+        // User cancelled or share failed, fall back to clipboard
+        if ((err as Error).name === 'AbortError') return
+      }
+    }
+    
+    // Fallback: copy to clipboard
+    try {
+      await navigator.clipboard.writeText(shareText)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
   }
 
   return (
@@ -138,13 +168,21 @@ export default function FortuneCookie() {
               </p>
             </div>
 
-            {/* Try again button */}
-            <button
-              onClick={reset}
-              className="mt-8 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-xl rounded-full shadow-lg hover:scale-105 transition-all"
-            >
-              🥠 Another Cookie!
-            </button>
+            {/* Action buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={shareFortune}
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold text-xl rounded-full shadow-lg hover:scale-105 transition-all"
+              >
+                {copied ? '✅ Copied!' : '📤 Share'}
+              </button>
+              <button
+                onClick={reset}
+                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-xl rounded-full shadow-lg hover:scale-105 transition-all"
+              >
+                🥠 Another Cookie!
+              </button>
+            </div>
           </div>
         )}
       </div>
