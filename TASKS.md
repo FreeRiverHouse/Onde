@@ -11188,3 +11188,14 @@ Generated: 2026-01-30T18:37:46.867013
 - **Priority**: P4
 - **Notes**: Vibration feedback for mobile when performing actions
 
+
+### [T922] Skin Creator: Watchdog + Error Logging
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P1
+- **Notes**: Monitorare app mentre Neri gioca:
+  - Watchdog per errori
+  - Log delle azioni utente
+  - Fix problemi in tempo reale
