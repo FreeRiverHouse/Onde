@@ -10415,8 +10415,8 @@
   - Toggle visibilità layer
   - Export con/senza overlay
 
-### [T880] Skin Creator: AI Skin Generation (LOCKED)
-- **Status**: IN_PROGRESS
+### [T880] Skin Creator: AI Skin Generation
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
@@ -10439,3 +10439,40 @@
   - Download skin di altri utenti
   - Rating/like system
   - Categories/tags
+
+### [T882] Skin Creator: Real AI API Integration
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T880]
+- **Blocks**: -
+- **Priority**: P2
+- **Notes**: Integrare vera API di image generation:
+  - DALL-E 3 o Stable Diffusion API
+  - Config per API key
+  - Migliore qualità generazione
+  - Rate limiting e caching
+
+### [T883] Skin Creator: Style Presets for AI
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T880]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Aggiungere preset di stile per AI:
+  - Cartoon style
+  - Realistic style
+  - Pixel art style
+  - Anime style
+  - Blocky Minecraft style
+
+### [T884] Skin Creator: AI History & Favorites
+- **Status**: TODO
+- **Owner**: -
+- **Depends**: [T880]
+- **Blocks**: -
+- **Priority**: P3
+- **Notes**: Salvare generazioni AI:
+  - History delle ultime 10 generazioni
+  - Favorites per salvare le migliori
+  - Quick regenerate con stesso prompt
+  - Share AI creations
