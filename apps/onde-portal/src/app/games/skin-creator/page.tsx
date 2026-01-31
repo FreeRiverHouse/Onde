@@ -801,6 +801,23 @@ export default function SkinCreator() {
     if (!ach) return;
     setAchievements(prev => ({ ...prev, [id]: true }));
     setShowAchievement({ id, ...ach });
+    // Play achievement sound 🏆🔊
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const notes = [523, 659, 784, 988, 1047];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = freq;
+        osc.type = 'triangle';
+        gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.08 + 0.3);
+        osc.start(ctx.currentTime + i * 0.08);
+        osc.stop(ctx.currentTime + i * 0.08 + 0.3);
+      });
+    } catch {}
     setTimeout(() => setShowAchievement(null), 3000);
     // Save to localStorage
     const saved = JSON.parse(localStorage.getItem('skin-creator-achievements') || '{}');
@@ -882,7 +899,7 @@ export default function SkinCreator() {
   }, [history, historyIndex]);
 
   // Sound effects using Web Audio API 🔊
-  const playSound = useCallback((type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save') => {
+  const playSound = useCallback((type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save' | 'achievement') => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
@@ -955,6 +972,21 @@ export default function SkinCreator() {
       gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.15);
+    } else if (type === 'achievement') {
+      // Triumphant fanfare for achievements! 🏆
+      const notes = [523, 659, 784, 988, 1047]; // C5, E5, G5, B5, C6 - victory chord
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = freq;
+        osc.type = 'triangle'; // Softer sound
+        gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.08 + 0.3);
+        osc.start(ctx.currentTime + i * 0.08);
+        osc.stop(ctx.currentTime + i * 0.08 + 0.3);
+      });
     } else if (type === 'save') {
       // Quick save beep
       const notes = [784, 988]; // G5, B5
