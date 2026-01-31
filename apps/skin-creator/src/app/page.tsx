@@ -88,7 +88,60 @@ export default function SkinCreator() {
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
+  const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
   
+  // 👕 Layer/Overlay presets
+  const OVERLAY_PRESETS = {
+    armor: { name: '🛡️ Armor', color: '#8B8B8B', parts: ['body', 'arms', 'legs'] },
+    cape: { name: '🦸 Cape', color: '#FF0000', parts: ['back'] },
+    hat: { name: '🎩 Hat', color: '#2c1810', parts: ['head_top'] },
+    glasses: { name: '🕶️ Glasses', color: '#1a1a1a', parts: ['eyes'] },
+    crown: { name: '👑 Crown', color: '#FFD700', parts: ['head_top'] },
+    hoodie: { name: '🧥 Hoodie', color: '#3498db', parts: ['body', 'head'] },
+  };
+
+  const applyOverlay = (presetKey: keyof typeof OVERLAY_PRESETS) => {
+    const overlay = overlayCanvasRef.current;
+    if (!overlay) return;
+    const ctx = overlay.getContext('2d');
+    if (!ctx) return;
+    
+    const preset = OVERLAY_PRESETS[presetKey];
+    ctx.fillStyle = preset.color;
+    
+    // Apply to relevant parts with semi-transparency
+    ctx.globalAlpha = 0.7;
+    
+    if (preset.parts.includes('body')) {
+      // Body overlay (second layer)
+      ctx.fillRect(20, 36, 8, 12); // front
+    }
+    if (preset.parts.includes('arms')) {
+      ctx.fillRect(44, 36, 4, 12); // right arm overlay
+      ctx.fillRect(36, 52, 4, 12); // left arm overlay  
+    }
+    if (preset.parts.includes('head_top')) {
+      ctx.fillRect(40, 8, 8, 4); // hat/crown on head
+    }
+    if (preset.parts.includes('eyes')) {
+      ctx.fillRect(41, 12, 6, 2); // glasses
+    }
+    
+    ctx.globalAlpha = 1.0;
+    updatePreview();
+    playSound('click');
+  };
+
+  const clearOverlay = () => {
+    const overlay = overlayCanvasRef.current;
+    if (!overlay) return;
+    const ctx = overlay.getContext('2d');
+    if (!ctx) return;
+    ctx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
+    updatePreview();
+  };
+
   // 🤖 AI Skin Generation (placeholder - needs API key)
   const generateAISkin = async () => {
     if (!aiPrompt.trim()) return;
@@ -1087,6 +1140,36 @@ export default function SkinCreator() {
             ))}
           </div>
 
+          {/* Overlay/Layer Controls */}
+          <div className="flex flex-wrap gap-1 mb-3 justify-center items-center">
+            <span className="text-xs font-semibold mr-1">👕 Overlay:</span>
+            {Object.entries(OVERLAY_PRESETS).map(([key, preset]) => (
+              <button
+                key={key}
+                onClick={() => applyOverlay(key as keyof typeof OVERLAY_PRESETS)}
+                className="px-2 py-1 rounded text-xs bg-indigo-100 hover:bg-indigo-200"
+                title={preset.name}
+              >
+                {preset.name.split(' ')[0]}
+              </button>
+            ))}
+            <button
+              onClick={clearOverlay}
+              className="px-2 py-1 rounded text-xs bg-red-100 hover:bg-red-200"
+              title="Clear overlay"
+            >
+              ❌
+            </button>
+            <label className="flex items-center gap-1 text-xs ml-2">
+              <input
+                type="checkbox"
+                checked={showOverlay}
+                onChange={(e) => setShowOverlay(e.target.checked)}
+              />
+              Show
+            </label>
+          </div>
+
           {/* Canvas */}
           <div className="flex justify-center">
             <div 
@@ -1100,12 +1183,13 @@ export default function SkinCreator() {
                 ref={canvasRef}
                 width={SKIN_WIDTH}
                 height={SKIN_HEIGHT}
-                className="cursor-crosshair"
+                className="cursor-crosshair absolute top-0 left-0"
                 style={{ 
                   width: SKIN_WIDTH * zoomLevel, 
                   height: SKIN_HEIGHT * zoomLevel,
                   imageRendering: 'pixelated',
                   transition: 'all 0.2s ease',
+                  zIndex: 1,
                 }}
                 onMouseDown={(e) => { setIsDrawing(true); draw(e); }}
                 onMouseUp={() => { setIsDrawing(false); saveState(); addRecentColor(selectedColor); }}
