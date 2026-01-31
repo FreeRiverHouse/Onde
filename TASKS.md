@@ -13776,3 +13776,19 @@ Generated: 2026-01-30T18:37:46.867013
 - **Status**: DONE ✅
 - **Owner**: @onde-bot (sub-agent)
 - **Completed**: 2026-01-31 03:12 PST
+
+### [T1008] Arcade: Retro High Scores
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:15 PST
+- **Added**: Top 5 scores, CRT scanlines, INSERT COIN blink
+
+### [T1009] Moonlight: Pet Naming
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:15 PST
+
+### [T1010] Skin Studio: Example Gallery
+- **Status**: DONE ✅
+- **Owner**: @onde-bot (sub-agent)
+- **Completed**: 2026-01-31 03:15 PST
