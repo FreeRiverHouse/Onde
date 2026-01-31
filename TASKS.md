@@ -10868,7 +10868,7 @@
 
 ### [T891] Skin Creator: Create App Store Marketing Assets
 - **Status**: IN_PROGRESS
-- **Owner**: @onde-bot-1
+- **Owner**: @clawdinho
 - **Depends**: [T889]
 - **Blocks**: -
 - **Priority**: P2
