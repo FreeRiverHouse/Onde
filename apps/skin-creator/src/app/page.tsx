@@ -1694,6 +1694,13 @@ export default function SkinCreator() {
         </h1>
         <p className="text-lg text-white/90 mt-1">
           AI Skin Creator for Minecraft & Roblox ✨
+          <button
+            onClick={() => setShowShortcuts(true)}
+            className="ml-3 px-2 py-1 text-sm bg-white/20 hover:bg-white/30 rounded-full transition-all"
+            title="Keyboard shortcuts (?)"
+          >
+            ⌨️ Help
+          </button>
         </p>
 
         {/* Game Selector */}
