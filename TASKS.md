@@ -10731,17 +10731,19 @@
   - ⏳ Manual testing: apple-touch-icon on iOS
 
 ### [T898] Skin Studio: Create 1024x1024 App Store Icon
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE
+- **Owner**: @clawdinho
+- **Completed**: 2026-01-30
 - **Depends**: [T894]
 - **Blocks**: -
 - **Priority**: P3
-- **Notes**: Create high-res icon for App Store submission:
-  - Scale icon.svg to 1024x1024 PNG
-  - Ensure details are crisp at full size
-  - May need to adjust stroke widths for larger size
-  - Create favicon.ico from 32x32 version
-  - Store in public/app-store-icon.png
+- **Notes**: ✅ Created high-res icon for App Store submission!
+  - ✅ Generated icon-1024.png (1024x1024, 70KB) from icon.svg using sharp
+  - ✅ Created favicon.png (32x32) for browser tab icon
+  - ✅ High DPI rendering (density: 300) for crisp details
+  - Files in `apps/skin-creator/public/`:
+    - icon-1024.png (App Store)
+    - favicon.png (browser)
 
 ### [T899] Infrastructure: Add Skin Studio to health checks
 - **Status**: DONE
