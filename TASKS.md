@@ -12638,8 +12638,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Show all keyboard shortcuts overlay
 
 ### [T1014] Skin Creator: Touch Gestures Guide
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Tutorial for mobile touch controls
