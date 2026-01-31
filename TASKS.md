@@ -12426,8 +12426,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Different poses for screenshots (idle, walking, waving)
 
 ### [T994] Skin Creator: Zoom Controls
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Zoom in/out on 3D preview
