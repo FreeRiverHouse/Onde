@@ -14002,15 +14002,17 @@ Generated: 2026-01-30T18:37:46.867013
 ## 🔧 NEW TASKS (Added 2026-02-04 by @clawdinho heartbeat)
 
 ### [T1020] Infra: Add Memory Archiver to Weekly Cron
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @clawdinho
 - **Priority**: P3
 - **Created**: 2026-02-04
+- **Completed**: 2026-01-31 08:10 PST
 - **Notes**: Add memory-archiver.sh to crontab
-  - [ ] Add cron entry: `0 3 * * 0 /Users/mattia/Projects/Onde/scripts/memory-archiver.sh`
-  - [ ] Run every Sunday at 3 AM
-  - [ ] Log output to logs/memory-archiver.log
+  - [x] Add cron entry: `0 3 * * 0 /Users/mattia/Projects/Onde/scripts/memory-archiver.sh`
+  - [x] Run every Sunday at 3 AM
+  - [x] Log output to logs/memory-archiver.log
   - Depends on scripts/memory-archiver.sh (created in T1017)
+  - **Verified**: Entry added to crontab with ONDE-CRON marker
 
 ### [T1021] Moonlight: Quiz/Trivia Game for Library Room
 - **Status**: TODO
@@ -14036,3 +14038,41 @@ Generated: 2026-01-30T18:37:46.867013
   - [ ] Check push frequency to origin
   - [ ] Alert if git workflow is stale
   - Helps enforce Regola 0 (Git) automatically
+
+### [T1023] Infra: SSL Certificate Expiry Watchdog
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P2
+- **Created**: 2026-01-31
+- **Notes**: Proactive SSL certificate monitoring
+  - [ ] Create scripts/watchdog-ssl-expiry.sh
+  - [ ] Check onde.la, onde.surf, skin-studio.pages.dev SSL expiry
+  - [ ] Alert 30 days before expiry (warning)
+  - [ ] Alert 7 days before expiry (critical)
+  - [ ] Output: ssl-expiring.alert or ssl-critical.alert
+  - Most sites use Cloudflare auto-renew but good to verify
+
+### [T1024] Dashboard: Task Statistics API Endpoint
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Created**: 2026-01-31
+- **Notes**: Expose TASKS.md statistics via API
+  - [ ] Create /api/tasks/stats endpoint
+  - [ ] Count: total, done, in_progress, todo, blocked
+  - [ ] Completion rate percentage
+  - [ ] Tasks added this week
+  - [ ] Pull from Gist or parse TASKS.md
+  - Useful for dashboard widgets
+
+### [T1026] Heartbeat: Batch Check Optimization
+- **Status**: TODO
+- **Owner**: -
+- **Priority**: P3
+- **Created**: 2026-01-31
+- **Notes**: Optimize heartbeat efficiency
+  - [ ] Group related checks (all git checks together)
+  - [ ] Cache service status for 2 min
+  - [ ] Skip redundant file reads
+  - [ ] Track time spent per check type
+  - Reduces heartbeat latency while maintaining coverage
