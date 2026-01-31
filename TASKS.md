@@ -11240,7 +11240,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Controlli touch-friendly per iPad
 
 ### [T925] Skin Creator: Continuous Testing + Kid Simulation
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
@@ -11265,7 +11265,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Testi più semplici
 
 ### [T927] Skin Creator: Fun Stickers/Stamps
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: -
 - **Blocks**: -
