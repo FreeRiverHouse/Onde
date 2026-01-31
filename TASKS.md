@@ -12243,8 +12243,8 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Generate QR code for sharing skins easily
 
 ### [T965] Skin Creator: Social Share Buttons
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Share to Twitter, Discord, etc. with preview image
