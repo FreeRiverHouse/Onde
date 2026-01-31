@@ -219,7 +219,7 @@ export default function SkinCreator() {
   const [darkMode, setDarkMode] = useState(false);
   const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
+  const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 480 ? 3 : (typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6));
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
@@ -1663,13 +1663,15 @@ export default function SkinCreator() {
     updatePreview();
   };
 
-  // 📱 Touch draw for mobile
-  const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+  // 📱 Touch draw for mobile - improved for better responsiveness
+  const drawTouch = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
     const touch = e.touches[0];
     if (!touch) return;
 
     const mainCanvas = canvasRef.current;
     if (!mainCanvas) return;
+    const mainCtx = mainCanvas.getContext('2d');
+    if (!mainCtx) return;
 
     // 🎨 Get the active layer canvas to draw on
     const layerCanvas = getLayerCanvas(activeLayer);
@@ -1684,6 +1686,18 @@ export default function SkinCreator() {
     const y = Math.floor((touch.clientY - rect.top) * scaleY);
 
     if (x < 0 || x >= SKIN_WIDTH || y < 0 || y >= SKIN_HEIGHT) return;
+
+    // Eyedropper - pick color from composite (main canvas)
+    if (tool === 'eyedropper') {
+      const imageData = mainCtx.getImageData(x, y, 1, 1).data;
+      if (imageData[3] > 0) { // Not transparent
+        const hex = '#' + [imageData[0], imageData[1], imageData[2]]
+          .map(v => v.toString(16).padStart(2, '0')).join('');
+        setSelectedColor(hex.toUpperCase());
+        playSound('click');
+      }
+      return;
+    }
 
     if (selectedPart) {
       const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
@@ -1700,6 +1714,30 @@ export default function SkinCreator() {
 
         if (tool === 'eraser') {
           ctx.clearRect(px, py, 1, 1);
+        } else if (tool === 'fill' && selectedPart) {
+          const part = BODY_PARTS[selectedPart as keyof typeof BODY_PARTS];
+          ctx.fillStyle = selectedColor;
+          ctx.fillRect(part.x, part.y, part.w, part.h);
+        } else if (tool === 'glow') {
+          ctx.shadowColor = selectedColor;
+          ctx.shadowBlur = 2;
+          ctx.fillStyle = selectedColor;
+          ctx.fillRect(px, py, 1, 1);
+          ctx.shadowBlur = 0;
+        } else if (tool === 'stamp') {
+          ctx.fillStyle = selectedColor;
+          const patterns: Record<string, number[][]> = {
+            star: [[1,0],[0,1],[1,1],[2,1],[1,2]],
+            heart: [[0,1],[2,1],[0,0],[1,1],[2,0]],
+            diamond: [[1,0],[0,1],[2,1],[1,2]],
+            smiley: [[0,0],[2,0],[0,2],[1,2],[2,2],[1,1]],
+            fire: [[1,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]],
+            lightning: [[1,0],[0,1],[1,1],[1,2],[2,2]],
+          };
+          const pattern = patterns[stampShape] || patterns.star;
+          pattern.forEach(([pdx, pdy]) => {
+            ctx.fillRect(x + pdx, y + pdy, 1, 1);
+          });
         } else {
           ctx.fillStyle = selectedColor;
           ctx.fillRect(px, py, 1, 1);
@@ -1714,7 +1752,7 @@ export default function SkinCreator() {
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
     updatePreview();
-  };
+  }, [activeLayer, getLayerCanvas, selectedPart, brushSize, tool, selectedColor, mirrorMode, stampShape, compositeLayersToMain, updatePreview, playSound]);
 
   // 🎨 Export skin with layer options
   const [showExportPanel, setShowExportPanel] = useState(false);
@@ -2606,12 +2644,12 @@ export default function SkinCreator() {
 
         {/* Center - Canvas Editor */}
         <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
-          {/* Toolbar */}
-          <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
+          {/* Toolbar - Mobile-friendly with larger touch targets */}
+          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4 justify-center px-1">
             <button
               onClick={() => setTool('brush')}
               title="🖌️ Draw! Click and drag to color"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2620,7 +2658,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('eraser')}
               title="🧽 Erase! Remove colors"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2629,7 +2667,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('fill')}
               title="🪣 Fill! Color a whole area"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2638,7 +2676,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('gradient')}
               title="🌈 Rainbow! Blend two colors"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2647,7 +2685,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('glow')}
               title="✨ Glow! Make it sparkle"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2656,27 +2694,27 @@ export default function SkinCreator() {
             <div className="relative group">
               <button
                 onClick={() => setTool('stamp')}
-                className={`px-3 py-2 rounded-full font-bold transition-all ${
-                  tool === 'stamp' ? 'bg-pink-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+                className={`min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold transition-all active:scale-95 ${
+                  tool === 'stamp' ? 'bg-pink-500 text-white scale-105' : 'bg-white/80 hover:bg-white'
                 }`}
               >
-                {stampShape === 'star' ? '⭐' : stampShape === 'heart' ? '❤️' : stampShape === 'diamond' ? '💎' : stampShape === 'smiley' ? '😊' : stampShape === 'fire' ? '🔥' : '⚡'} Stamp
+                {stampShape === 'star' ? '⭐' : stampShape === 'heart' ? '❤️' : stampShape === 'diamond' ? '💎' : stampShape === 'smiley' ? '😊' : stampShape === 'fire' ? '🔥' : '⚡'} <span className="hidden sm:inline">Stamp</span>
               </button>
               {tool === 'stamp' && (
-                <div className="absolute top-full left-0 mt-1 flex gap-1 bg-white rounded-lg p-1 shadow-lg z-10">
-                  <button onClick={() => setStampShape('star')} className={`p-1 rounded ${stampShape === 'star' ? 'bg-pink-200' : ''}`}>⭐</button>
-                  <button onClick={() => setStampShape('heart')} className={`p-1 rounded ${stampShape === 'heart' ? 'bg-pink-200' : ''}`}>❤️</button>
-                  <button onClick={() => setStampShape('diamond')} className={`p-1 rounded ${stampShape === 'diamond' ? 'bg-pink-200' : ''}`}>💎</button>
-                  <button onClick={() => setStampShape('smiley')} className={`p-1 rounded ${stampShape === 'smiley' ? 'bg-pink-200' : ''}`}>😊</button>
-                  <button onClick={() => setStampShape('fire')} className={`p-1 rounded ${stampShape === 'fire' ? 'bg-pink-200' : ''}`}>🔥</button>
-                  <button onClick={() => setStampShape('lightning')} className={`p-1 rounded ${stampShape === 'lightning' ? 'bg-pink-200' : ''}`}>⚡</button>
+                <div className="absolute top-full left-0 mt-1 flex gap-1 bg-white rounded-lg p-2 shadow-lg z-10">
+                  <button onClick={() => setStampShape('star')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'star' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>⭐</button>
+                  <button onClick={() => setStampShape('heart')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'heart' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>❤️</button>
+                  <button onClick={() => setStampShape('diamond')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'diamond' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>💎</button>
+                  <button onClick={() => setStampShape('smiley')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'smiley' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>😊</button>
+                  <button onClick={() => setStampShape('fire')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'fire' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>🔥</button>
+                  <button onClick={() => setStampShape('lightning')} className={`min-w-[40px] min-h-[40px] p-2 rounded-lg text-lg active:scale-95 ${stampShape === 'lightning' ? 'bg-pink-200' : 'hover:bg-gray-100'}`}>⚡</button>
                 </div>
               )}
             </div>
             <button
               onClick={() => setTool('eyedropper')}
               title="🎯 Pick a color from your drawing!"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-base md:text-sm font-bold transition-all active:scale-95 ${
                 tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2685,12 +2723,12 @@ export default function SkinCreator() {
             <button
               onClick={() => { undo(); playSound('undo'); }}
               disabled={historyIndex <= 0}
-              className={`px-3 py-2 rounded-full font-bold transition-all relative ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold transition-all active:scale-95 relative ${
                 historyIndex <= 0 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
               title={`Undo (${historyIndex} steps available)`}
             >
-              ↩️ Undo
+              ↩️ <span className="hidden sm:inline">Undo</span>
               {historyIndex > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {historyIndex}
@@ -2700,12 +2738,12 @@ export default function SkinCreator() {
             <button
               onClick={() => { redo(); playSound('redo'); }}
               disabled={historyIndex >= history.length - 1}
-              className={`px-3 py-2 rounded-full font-bold transition-all relative ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold transition-all active:scale-95 relative ${
                 historyIndex >= history.length - 1 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
               title={`Redo (${history.length - 1 - historyIndex} steps available)`}
             >
-              ↪️ Redo
+              ↪️ <span className="hidden sm:inline">Redo</span>
               {historyIndex < history.length - 1 && (
                 <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {history.length - 1 - historyIndex}
@@ -2714,33 +2752,33 @@ export default function SkinCreator() {
             </button>
             <button
               onClick={() => setMirrorMode(!mirrorMode)}
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
-                mirrorMode ? 'bg-purple-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold transition-all active:scale-95 ${
+                mirrorMode ? 'bg-purple-500 text-white scale-105' : 'bg-white/80 hover:bg-white'
               }`}
             >
-              🪞 Mirror
+              🪞 <span className="hidden sm:inline">Mirror</span>
             </button>
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
+              className={`min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold transition-all active:scale-95 ${
                 darkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-700 text-white'
               }`}
             >
-              {darkMode ? '☀️ Light' : '🌙 Dark'}
+              {darkMode ? '☀️' : '🌙'} <span className="hidden sm:inline">{darkMode ? 'Light' : 'Dark'}</span>
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="px-3 py-2 rounded-full font-bold bg-indigo-500 text-white hover:bg-indigo-600"
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-indigo-500 text-white hover:bg-indigo-600 active:scale-95"
               title="Import from file"
             >
-              📥 File
+              📥 <span className="hidden sm:inline">File</span>
             </button>
             <button
               onClick={() => setShowURLImport(true)}
-              className="px-3 py-2 rounded-full font-bold bg-cyan-500 text-white hover:bg-cyan-600"
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-cyan-500 text-white hover:bg-cyan-600 active:scale-95"
               title="Import from URL or username"
             >
-              🌐 URL
+              🌐 <span className="hidden sm:inline">URL</span>
             </button>
             <input
               ref={fileInputRef}
@@ -2749,24 +2787,24 @@ export default function SkinCreator() {
               onChange={importSkin}
               className="hidden"
             />
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5 flex-wrap justify-center">
               <input
                 type="text"
                 value={skinName}
                 onChange={(e) => setSkinName(e.target.value)}
                 placeholder="skin-name"
-                className="w-24 px-2 py-1 text-sm rounded-lg border-2 border-gray-300 focus:border-green-500 outline-none"
+                className="w-20 sm:w-24 px-2 py-2 text-sm rounded-lg border-2 border-gray-300 focus:border-green-500 outline-none"
               />
               <button
                 onClick={() => downloadSkin(false)}
-                className="px-3 py-2 rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse"
+                className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-green-500 text-white hover:bg-green-600 animate-pulse active:scale-95"
                 title="💾 Save your skin!"
               >
                 💾
               </button>
               <button
                 onClick={() => setShowExportPanel(true)}
-                className="px-2 py-2 rounded-full font-bold bg-green-600 text-white hover:bg-green-700"
+                className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-green-600 text-white hover:bg-green-700 active:scale-95"
                 title="Export options (choose layers)"
               >
                 📤
@@ -2774,29 +2812,29 @@ export default function SkinCreator() {
             </div>
             <button
               onClick={copyToClipboard}
-              className="px-3 py-2 rounded-full font-bold bg-violet-500 text-white hover:bg-violet-600"
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-violet-500 text-white hover:bg-violet-600 active:scale-95"
               title="Copy to clipboard"
             >
-              📋 Copy
+              📋 <span className="hidden sm:inline">Copy</span>
             </button>
             <button
               onClick={clearCanvas}
-              className="px-3 py-2 rounded-full font-bold bg-red-500 text-white hover:bg-red-600"
+              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-xl md:rounded-full font-bold bg-red-500 text-white hover:bg-red-600 active:scale-95"
               title="🗑️ Start over!"
             >
-              🗑️ Clear
+              🗑️ <span className="hidden sm:inline">Clear</span>
             </button>
-            <div className="flex items-center gap-1 ml-2">
+            <div className="hidden md:flex items-center gap-1 ml-2">
               <button
-                onClick={() => setZoomLevel(Math.max(4, zoomLevel - 1))}
-                className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+                onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
+                className="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 font-bold active:scale-95"
               >
                 -
               </button>
               <span className="text-sm font-bold w-8 text-center">{zoomLevel}x</span>
               <button
                 onClick={() => setZoomLevel(Math.min(10, zoomLevel + 1))}
-                className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 font-bold"
+                className="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 font-bold active:scale-95"
               >
                 +
               </button>
@@ -2935,36 +2973,46 @@ export default function SkinCreator() {
                   setContextMenu({ x: e.clientX, y: e.clientY });
                 }}
                 onTouchStart={(e) => {
-                  e.preventDefault();
+                  // Only prevent default for drawing, allow pinch-to-zoom
                   if (e.touches.length === 2) {
                     // Pinch start - calculate initial distance
                     const dx = e.touches[0].clientX - e.touches[1].clientX;
                     const dy = e.touches[0].clientY - e.touches[1].clientY;
                     lastPinchDistance.current = Math.sqrt(dx * dx + dy * dy);
                   } else if (e.touches.length === 1) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setIsDrawing(true);
                     drawTouch(e);
                   }
                 }}
-                onTouchEnd={() => {
+                onTouchEnd={(e) => {
+                  if (isDrawing) {
+                    e.preventDefault();
+                    setIsDrawing(false);
+                    saveState();
+                    addRecentColor(selectedColor);
+                  }
+                  lastPinchDistance.current = null;
+                }}
+                onTouchCancel={() => {
                   setIsDrawing(false);
                   lastPinchDistance.current = null;
-                  saveState();
-                  addRecentColor(selectedColor);
                 }}
                 onTouchMove={(e) => {
-                  e.preventDefault();
                   if (e.touches.length === 2 && lastPinchDistance.current !== null) {
-                    // Pinch-to-zoom
+                    // Pinch-to-zoom - don't prevent default to allow native behavior
                     const dx = e.touches[0].clientX - e.touches[1].clientX;
                     const dy = e.touches[0].clientY - e.touches[1].clientY;
                     const newDistance = Math.sqrt(dx * dx + dy * dy);
                     const delta = newDistance - lastPinchDistance.current;
-                    if (Math.abs(delta) > 10) {
-                      setZoomLevel(prev => Math.min(12, Math.max(2, prev + (delta > 0 ? 1 : -1))));
+                    if (Math.abs(delta) > 15) {
+                      setZoomLevel(prev => Math.min(10, Math.max(2, prev + (delta > 0 ? 1 : -1))));
                       lastPinchDistance.current = newDistance;
                     }
-                  } else if (e.touches.length === 1) {
+                  } else if (e.touches.length === 1 && isDrawing) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     drawTouch(e);
                   }
                 }}

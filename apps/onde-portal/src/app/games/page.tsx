@@ -11,6 +11,54 @@ const games = [
   { id: 'fortune', href: '/games/fortune-cookie', title: 'Fortune', desc: 'Cookie', emoji: '🥠' },
 ]
 
+// All available games for the floating game cloud
+const allGames = [
+  { id: 'quiz', href: '/games/quiz', emoji: '❓', title: 'Quiz' },
+  { id: 'memory', href: '/games/memory', emoji: '🧠', title: 'Memory' },
+  { id: 'draw', href: '/games/draw', emoji: '✏️', title: 'Drawing' },
+  { id: 'coloring', href: '/games/coloring', emoji: '🖍️', title: 'Coloring' },
+  { id: 'music', href: '/games/music', emoji: '🎵', title: 'Music' },
+  { id: 'word-puzzle', href: '/games/word-puzzle', emoji: '📝', title: 'Words' },
+  { id: 'puzzle', href: '/games/puzzle', emoji: '🧩', title: 'Puzzle' },
+  { id: 'counting', href: '/games/counting', emoji: '🔢', title: 'Counting' },
+  { id: 'matching', href: '/games/matching', emoji: '🃏', title: 'Matching' },
+  { id: 'spot-difference', href: '/games/spot-difference', emoji: '🔍', title: 'Spot It' },
+  { id: 'typing', href: '/games/typing', emoji: '⌨️', title: 'Typing' },
+  { id: 'math', href: '/games/math', emoji: '➕', title: 'Math' },
+  { id: 'alphabet', href: '/games/alphabet', emoji: '🔤', title: 'ABC' },
+  { id: 'simon', href: '/games/simon', emoji: '🎯', title: 'Simon' },
+  { id: 'reaction', href: '/games/reaction', emoji: '⚡', title: 'Reaction' },
+  { id: 'snake', href: '/games/snake', emoji: '🐍', title: 'Snake' },
+  { id: 'tictactoe', href: '/games/tictactoe', emoji: '⭕', title: 'Tic Tac' },
+  { id: 'whack', href: '/games/whack', emoji: '🔨', title: 'Whack' },
+  { id: 'bubbles', href: '/games/bubbles', emoji: '🫧', title: 'Bubbles' },
+  { id: 'catch', href: '/games/catch', emoji: '🧺', title: 'Catch' },
+]
+
+// Positions for floating game bubbles around the island (percentages)
+const gameBubblePositions = [
+  { left: '2%', bottom: '52%' },
+  { left: '8%', bottom: '58%' },
+  { left: '5%', bottom: '64%' },
+  { left: '12%', bottom: '70%' },
+  { right: '2%', bottom: '52%' },
+  { right: '8%', bottom: '58%' },
+  { right: '5%', bottom: '64%' },
+  { right: '12%', bottom: '70%' },
+  { left: '18%', bottom: '48%' },
+  { right: '18%', bottom: '48%' },
+  { left: '25%', bottom: '52%' },
+  { right: '25%', bottom: '52%' },
+  { left: '32%', bottom: '48%' },
+  { right: '32%', bottom: '48%' },
+  { left: '38%', bottom: '52%' },
+  { right: '38%', bottom: '52%' },
+  { left: '15%', bottom: '56%' },
+  { right: '15%', bottom: '56%' },
+  { left: '22%', bottom: '60%' },
+  { right: '22%', bottom: '60%' },
+]
+
 type Weather = 'sunny' | 'rain' | 'snow'
 
 const weatherIcons: Record<Weather, string> = {
@@ -777,6 +825,47 @@ export default function GamingIsland() {
         <div className="absolute top-32 left-1/4 text-sm animate-twinkle">✨</div>
         <div className="absolute top-28 right-1/3 text-xs animate-twinkle" style={{ animationDelay: '0.5s' }}>✨</div>
         <div className="absolute top-36 left-2/3 text-sm animate-twinkle" style={{ animationDelay: '1s' }}>✨</div>
+
+        {/* === FLOATING GAME BUBBLES === */}
+        {allGames.map((game, index) => {
+          const pos = gameBubblePositions[index % gameBubblePositions.length]
+          return (
+            <Link
+              key={game.id}
+              href={game.href}
+              className="absolute z-20 group"
+              style={{
+                ...pos,
+                animationDelay: `${index * 0.15}s`,
+              }}
+            >
+              <div className="animate-game-bubble transition-all duration-300 group-hover:scale-125 group-hover:z-30">
+                <div className="relative">
+                  {/* Bubble glow */}
+                  <div className="absolute -inset-1 bg-gradient-to-br from-pink-400/40 via-purple-400/40 to-cyan-400/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  {/* Game bubble */}
+                  <div className="relative w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-white via-white to-gray-100 rounded-full shadow-lg border-2 border-white/80 flex items-center justify-center overflow-hidden group-hover:shadow-xl transition-shadow">
+                    {/* Shine effect */}
+                    <div className="absolute top-1 left-1 w-3 h-3 bg-white/60 rounded-full blur-sm" />
+                    
+                    {/* Emoji */}
+                    <span className="text-lg md:text-xl relative z-10 group-hover:animate-bounce-small">
+                      {game.emoji}
+                    </span>
+                  </div>
+                  
+                  {/* Hover label */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    <span className="bg-gray-900/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg">
+                      {game.title}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          )
+        })}
       </div>
 
       {/* Back link */}
@@ -1018,6 +1107,17 @@ export default function GamingIsland() {
         }
         .animate-rain { animation: rain linear infinite; }
         .animate-snow { animation: snow ease-in-out infinite; }
+        
+        @keyframes game-bubble {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-6px) scale(1.02); }
+        }
+        @keyframes bounce-small {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+        }
+        .animate-game-bubble { animation: game-bubble 3s ease-in-out infinite; }
+        .group-hover\\:animate-bounce-small:hover { animation: bounce-small 0.3s ease-in-out; }
       `}</style>
     </div>
   )
