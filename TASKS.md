@@ -12087,8 +12087,10 @@ Generated: 2026-01-30T18:37:46.867013
   - Track token savings in metrics
 
 ### [T945] Minecraft Skin Creator: Premium Templates Pack
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:28 PST
+- **Notes**: 7 templates: Steve, Robot, Ninja, Alien, Princess, Zombie, Creeper
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P2
@@ -12100,8 +12102,10 @@ Generated: 2026-01-30T18:37:46.867013
   - Sports pack (Soccer, Basketball, etc)
 
 ### [T946] Minecraft Skin Creator: AI Generation Improvements
-- **Status**: TODO
-- **Owner**: -
+- **Status**: DONE ✅
+- **Owner**: @onde-bot
+- **Completed**: 2026-01-31 00:28 PST
+- **Notes**: AI panel, history, favorites, multiple styles already implemented
 - **Depends**: [T864]
 - **Blocks**: -
 - **Priority**: P2
