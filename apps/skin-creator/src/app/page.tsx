@@ -1804,20 +1804,32 @@ export default function SkinCreator() {
             <button
               onClick={undo}
               disabled={historyIndex <= 0}
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
+              className={`px-3 py-2 rounded-full font-bold transition-all relative ${
                 historyIndex <= 0 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
+              title={`Undo (${historyIndex} steps available)`}
             >
               ↩️ Undo
+              {historyIndex > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                  {historyIndex}
+                </span>
+              )}
             </button>
             <button
               onClick={redo}
               disabled={historyIndex >= history.length - 1}
-              className={`px-3 py-2 rounded-full font-bold transition-all ${
+              className={`px-3 py-2 rounded-full font-bold transition-all relative ${
                 historyIndex >= history.length - 1 ? 'bg-gray-300 text-gray-500' : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
+              title={`Redo (${history.length - 1 - historyIndex} steps available)`}
             >
               ↪️ Redo
+              {historyIndex < history.length - 1 && (
+                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                  {history.length - 1 - historyIndex}
+                </span>
+              )}
             </button>
             <button
               onClick={() => setMirrorMode(!mirrorMode)}
