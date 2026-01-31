@@ -11349,3 +11349,32 @@ Generated: 2026-01-30T18:37:46.867013
   - **Script**: `scripts/moonlight-continuous-test.ts`
   - **Run**: Launched in background, visible Chrome window
 
+
+### [T929] REGOLA: Testing con Receipt Obbligatorio
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: ALL
+- **Priority**: P0
+- **Notes**: REGOLA PERMANENTE:
+  1. Ogni deploy DEVE avere task testing separato
+  2. Testing si completa SOLO con RECEIPT (screenshot browser + HTTP status)
+  3. MAI dire "funziona" senza receipt
+  4. Se 404 → task NON completato
+  
+### [T930] Testing Procedure Template
+- **Status**: DONE
+- **Owner**: @onde-bot-1
+- **Depends**: -
+- **Blocks**: -
+- **Priority**: P0
+- **Notes**: Template per ogni test:
+  ```
+  🧪 TEST RECEIPT
+  ━━━━━━━━━━━━━━
+  📅 Data: YYYY-MM-DD HH:MM
+  🔗 URL: [url testato]
+  📊 HTTP: [status code]
+  📸 Screenshot: [allegato]
+  ✅/❌ PASS/FAIL
+  ```
