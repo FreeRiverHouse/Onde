@@ -10890,8 +10890,8 @@
   - ✅ Build passes
 
 ### [T905] Skin Creator: Layer Lock Feature  
-- **Status**: TODO
-- **Owner**: -
+- **Status**: IN_PROGRESS
+- **Owner**: @onde-bot-1
 - **Depends**: [T879]
 - **Blocks**: -
 - **Priority**: P4
