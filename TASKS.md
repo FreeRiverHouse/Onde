@@ -11178,7 +11178,7 @@ Generated: 2026-01-30T18:37:46.867013
   - 🐠 Fish Tank (story)
 
 ### [T926] Moonlight: Add daily challenges
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: @clawdinho
 - **Created**: 2026-01-30 18:37
 - **Depends**: -
@@ -11253,7 +11253,7 @@ Generated: 2026-01-30T18:37:46.867013
   - Generare idee creative
 
 ### [T926] Skin Creator: Kid-Friendly Labels
-- **Status**: TODO
+- **Status**: DONE
 - **Owner**: -
 - **Depends**: -
 - **Blocks**: -
