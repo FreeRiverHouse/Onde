@@ -12280,7 +12280,7 @@ Generated: 2026-01-30T18:37:46.867013
 - **Notes**: Reflective environments for metallic skins
 
 ### [T981] Skin Creator: Particle Effects
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Created-by**: @onde-bot-1
 - **Priority**: P2
@@ -12349,3 +12349,24 @@ Generated: 2026-01-30T18:37:46.867013
   - Link: https://x.com/rasmr_eth/status/2017277680325169619
   - Studiare contenuto per sviluppi futuri
   - Loggare insights in ROADMAP
+
+### [T988] Skin Creator: Particle Toggle Button
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Toggle particles on/off in 3D preview
+
+### [T989] Skin Creator: Custom Particle Colors
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Match particle colors to skin tint
+
+### [T990] Skin Creator: Particle Presets
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Fire, ice, magic, hearts particle presets
