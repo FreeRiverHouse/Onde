@@ -157,7 +157,7 @@ export default function SkinCreator() {
   const [selectedColor, setSelectedColor] = useState('#FF0000'); // Classic red!
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState<'brush' | 'eraser' | 'fill' | 'gradient' | 'glow' | 'stamp' | 'eyedropper'>('brush');
-  const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond'>('star');
+  const [stampShape, setStampShape] = useState<'star' | 'heart' | 'diamond' | 'smiley' | 'fire' | 'lightning'>('star');
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -1145,9 +1145,12 @@ export default function SkinCreator() {
           // Pattern stamps - draw shapes!
           ctx.fillStyle = selectedColor;
           const patterns: Record<string, number[][]> = {
-            star: [[1,0],[0,1],[1,1],[2,1],[1,2]], // 3x3 star
-            heart: [[0,1],[2,1],[0,0],[1,1],[2,0]], // 3x3 heart-ish
-            diamond: [[1,0],[0,1],[2,1],[1,2]], // 3x3 diamond
+            star: [[1,0],[0,1],[1,1],[2,1],[1,2]], // ⭐ star
+            heart: [[0,1],[2,1],[0,0],[1,1],[2,0]], // ❤️ heart
+            diamond: [[1,0],[0,1],[2,1],[1,2]], // 💎 diamond
+            smiley: [[0,0],[2,0],[0,2],[1,2],[2,2],[1,1]], // 😊 smiley face
+            fire: [[1,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]], // 🔥 fire
+            lightning: [[1,0],[0,1],[1,1],[1,2],[2,2]], // ⚡ lightning
           };
           const pattern = patterns[stampShape] || patterns.star;
           pattern.forEach(([pdx, pdy]) => {
@@ -1536,13 +1539,16 @@ export default function SkinCreator() {
                   tool === 'stamp' ? 'bg-pink-500 text-white scale-105' : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
-                {stampShape === 'star' ? '⭐' : stampShape === 'heart' ? '❤️' : '💎'} Stamp
+                {stampShape === 'star' ? '⭐' : stampShape === 'heart' ? '❤️' : stampShape === 'diamond' ? '💎' : stampShape === 'smiley' ? '😊' : stampShape === 'fire' ? '🔥' : '⚡'} Stamp
               </button>
               {tool === 'stamp' && (
                 <div className="absolute top-full left-0 mt-1 flex gap-1 bg-white rounded-lg p-1 shadow-lg z-10">
                   <button onClick={() => setStampShape('star')} className={`p-1 rounded ${stampShape === 'star' ? 'bg-pink-200' : ''}`}>⭐</button>
                   <button onClick={() => setStampShape('heart')} className={`p-1 rounded ${stampShape === 'heart' ? 'bg-pink-200' : ''}`}>❤️</button>
                   <button onClick={() => setStampShape('diamond')} className={`p-1 rounded ${stampShape === 'diamond' ? 'bg-pink-200' : ''}`}>💎</button>
+                  <button onClick={() => setStampShape('smiley')} className={`p-1 rounded ${stampShape === 'smiley' ? 'bg-pink-200' : ''}`}>😊</button>
+                  <button onClick={() => setStampShape('fire')} className={`p-1 rounded ${stampShape === 'fire' ? 'bg-pink-200' : ''}`}>🔥</button>
+                  <button onClick={() => setStampShape('lightning')} className={`p-1 rounded ${stampShape === 'lightning' ? 'bg-pink-200' : ''}`}>⚡</button>
                 </div>
               )}
             </div>
