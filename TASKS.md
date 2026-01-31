@@ -10816,7 +10816,7 @@
 - **Notes**: Salvare preset overlay personalizzati
 
 ### [T888] Skin Creator: Expand to Multi-Game (Roblox, Fortnite)
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T864]
 - **Blocks**: -
@@ -11966,7 +11966,7 @@ Generated: 2026-01-30T18:37:46.867013
 ## 🔧 INFRA IMPROVEMENTS (AUTO-ADDED 2026-01-30)
 
 ### [T957] Infra: Add Ondinho Watchdog to Crontab
-- **Status**: IN_PROGRESS
+- **Status**: DONE
 - **Owner**: @onde-bot-1
 - **Depends**: [T950]
 - **Blocks**: -
@@ -12043,3 +12043,24 @@ Generated: 2026-01-30T18:37:46.867013
 - **Created-by**: @onde-bot-1
 - **Priority**: P3
 - **Notes**: Organize saved skins with tags (Warrior, Casual, etc.)
+
+### [T964] Skin Creator: QR Code Share
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Generate QR code for sharing skins easily
+
+### [T965] Skin Creator: Social Share Buttons
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Share to Twitter, Discord, etc. with preview image
+
+### [T966] Skin Creator: Import from URL
+- **Status**: TODO
+- **Owner**: -
+- **Created-by**: @onde-bot-1
+- **Priority**: P3
+- **Notes**: Paste URL to import skin from another source
