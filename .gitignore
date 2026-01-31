@@ -72,3 +72,9 @@ env/
 .env/
 **/env/
 **/.env/
+
+# LLM system runtime files
+packages/telegram-bot/handover-context.json
+packages/telegram-bot/handovers/
+packages/telegram-bot/quota-tracking.json
+chat-history/
