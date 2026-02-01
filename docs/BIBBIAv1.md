@@ -1,7 +1,92 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 1.0 - 2026-02-01
+> Versione 1.1 - 2026-02-01
+
+---
+
+## 🚨 HANDOVER - LEGGI PRIMA DI TUTTO 🚨
+
+### Obiettivo del Progetto
+**Far funzionare ClawdBot con modelli open source locali usando TUTTA la VRAM della AMD Radeon 7900 XT (20GB)** invece di dipendere da API cloud (Claude, GPT, etc.).
+
+### Il Problema Che Abbiamo Avuto
+Abbiamo passato ore cercando di usare **Ollama** con la GPU AMD su macOS. Vedevamo solo 4.6GB di "VRAM" e i modelli andavano lentissimi o in timeout.
+
+### La Scoperta Fondamentale
+**Quei 4.6GB NON erano VRAM - erano RAM!**
+
+Ollama su macOS con AMD Radeon **GIRA SU CPU**, non su GPU. Ollama supporta SOLO Metal (Apple Silicon). Non c'è modo di farlo funzionare su AMD su macOS.
+
+### La Soluzione (Già Documentata!)
+La soluzione era già scritta nel documento BIBBIA-RADEON originale: **TinyGrad con le variabili magiche `AMD=1 AMD_LLVM=1`**.
+
+TinyGrad ha un driver userspace che bypassa completamente la mancanza di driver kernel AMD su macOS.
+
+### Cosa Devi Fare (Step-by-Step)
+
+**PASSO 1 - Verifica che la GPU sia collegata:**
+```bash
+system_profiler SPDisplaysDataType | grep -A10 "External GPU"
+```
+Deve mostrare "AMD Radeon RX 7900" o simile.
+
+**PASSO 2 - Verifica prerequisiti:**
+```bash
+# Python 3.11 OBBLIGATORIO
+/opt/homebrew/bin/python3.11 --version
+
+# LLVM installato
+brew list llvm
+
+# tiktoken installato
+/opt/homebrew/bin/python3.11 -c "import tiktoken; print('OK')"
+```
+
+**PASSO 3 - Verifica TinyGrad e GPU AMD:**
+```bash
+cd ~/tinygrad
+DEBUG=2 AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; print('GPU AMD OK')"
+```
+Deve mostrare `gfx1100` e `GPU AMD OK`.
+
+**PASSO 4 - Lancia il server LLM:**
+```bash
+cd ~/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+```
+Il primo avvio è LENTO (compila kernel LLVM). Aspetta.
+
+**PASSO 5 - Test che funziona:**
+```bash
+curl -X POST http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model": "qwen3:30b-a3b", "messages": [{"role": "user", "content": "Ciao!"}]}'
+```
+
+**PASSO 6 - Configura ClawdBot:**
+Modifica `~/.clawdbot/clawdbot.json` (vedi sezione "Integrazione ClawdBot" sotto).
+
+### Task Ancora da Completare
+
+| Task | Priorità | Note |
+|------|----------|------|
+| ✅ Capire perché solo 4.6GB VRAM | FATTO | Era RAM, non VRAM - Ollama usa CPU |
+| ✅ Documentare soluzione | FATTO | TinyGrad + AMD=1 AMD_LLVM=1 |
+| ⏳ Testare qwen3:30b-a3b su TinyGrad | ALTA | Modello da 20GB per sfruttare VRAM |
+| ⏳ Verificare tool calling | ALTA | ClawdBot richiede `tool_calls` array nativo |
+| ⏳ Se tool calling non funziona | MEDIA | Implementare workaround parsing JSON |
+
+### Errori Commessi (Per Non Ripeterli)
+
+1. **Passato ore su Ollama** - Non funzionerà MAI su AMD macOS. Usa TinyGrad.
+2. **Non letto la documentazione esistente** - La soluzione era già in BIBBIA-RADEON.md
+3. **Confuso VRAM con RAM** - Se vedi ~4-5GB con AMD su macOS, probabilmente è CPU/RAM.
+4. **Creato documenti multipli** - Ora tutto è in questo singolo file BIBBIAv1.md.
+
+### Contesto: Perché Questo Progetto È Importante
+L'obiettivo è **indipendenza AI** - poter usare modelli potenti localmente senza dipendere da provider cloud. Con 20GB di VRAM della Radeon, possiamo far girare modelli 30B che sono competitivi con molte API commerciali.
 
 ---
 
@@ -411,8 +496,10 @@ chmod +x ~/start-radeon-llm.sh
 
 ## Changelog
 
+- **v1.1 (2026-02-01)**: Aggiunta sezione HANDOVER dettagliata con step-by-step, errori commessi, task pendenti
 - **v1.0 (2026-02-01)**: Consolidamento BIBBIA-RADEON + HANDOVER + CLAWDBOT-SETUP + raccomandazioni Grok
 
 ---
 
 *Documento consolidato da: BIBBIA-RADEON.md, HANDOVER-CLAWDBOT-RADEON.md, CLAWDBOT-RADEON-SETUP.md*
+*Questo è l'UNICO documento di riferimento. Non creare altri file.*
