@@ -34,7 +34,7 @@
 | MLH-018 | Add keyboard navigation within notification list (j/k up/down, Enter to expand) | DONE | @clawdinho | MLH-007 |
 | MLH-019 | Add notification mute/DND mode with schedule (quiet hours) | DONE | @clawdinho | MLH-007 |
 | MLH-020 | Add notification export (download history as JSON/CSV) | DONE | @clawdinho | MLH-007 |
-| MLH-021 | Add keyboard navigation for grouped notifications (expand/collapse with Enter) | TODO | - | MLH-018 |
+| MLH-021 | Add keyboard navigation for grouped notifications (expand/collapse with Enter) | IN_PROGRESS | @clawdinho | MLH-018 |
 | MLH-022 | Add notification snooze (remind later) functionality | TODO | - | MLH-007 |
 | MLH-023 | Add notification action buttons (quick actions per notification type) | TODO | - | MLH-007 |
 | MLH-024 | Add notification filters persistence (save selected filter to localStorage) | TODO | - | MLH-007 |
