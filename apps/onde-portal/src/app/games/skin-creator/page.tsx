@@ -188,6 +188,15 @@ export default function SkinCreator() {
   const [zigzagBlendMode, setZigzagBlendMode] = useState<'replace' | 'overlay' | 'multiply'>('replace');
   const [showZigzagPanel, setShowZigzagPanel] = useState(false);
   
+  // ⚡ CIRCUIT PATTERN GENERATOR STATE
+  const [circuitDensity, setCircuitDensity] = useState(50); // 20-80 - how many traces
+  const [circuitTraceWidth, setCircuitTraceWidth] = useState(1); // 1-3 - line thickness
+  const [circuitNodeSize, setCircuitNodeSize] = useState(2); // 1-4 - size of connection nodes
+  const [circuitStyle, setCircuitStyle] = useState<'classic' | 'modern' | 'neon' | 'matrix'>('classic');
+  const [circuitGlow, setCircuitGlow] = useState(false); // Add glow effect around traces
+  const [circuitBlendMode, setCircuitBlendMode] = useState<'replace' | 'overlay' | 'multiply'>('replace');
+  const [showCircuitPanel, setShowCircuitPanel] = useState(false);
+  
   const [skinName, setSkinName] = useState('my-skin');
   const [recentColors, setRecentColors] = useState<string[]>([]);
   const [customTintColors, setCustomTintColors] = useState<string[]>([]); // Recent custom tint colors
@@ -210,6 +219,25 @@ export default function SkinCreator() {
   const [aiStyle, setAiStyle] = useState<'cartoon' | 'realistic' | 'pixel-art' | 'anime' | 'blocky'>('blocky');
   const [aiError, setAiError] = useState<string | null>(null);
   const [useRealAI, setUseRealAI] = useState(false); // Toggle between real AI and fallback
+
+  // ⭐ STAR PATTERN GENERATOR STATE
+  const [showStarPanel, setShowStarPanel] = useState(false);
+  const [starSize, setStarSize] = useState(6); // 3-16 pixels
+  const [starPoints, setStarPoints] = useState(5); // 4-8 points
+  const [starInnerRatio, setStarInnerRatio] = useState(40); // 20-80% inner radius ratio
+  const [starSpacing, setStarSpacing] = useState(8); // 4-24 pixels between stars
+  const [starRotation, setStarRotation] = useState(0); // 0-360 degrees rotation
+  const [starOffset, setStarOffset] = useState(true); // Offset every other row
+  const [starFilled, setStarFilled] = useState(true); // Filled or outline only
+  const [starBlendMode, setStarBlendMode] = useState<'replace' | 'overlay' | 'multiply'>('replace');
+
+  // 🍯 HONEYCOMB PATTERN GENERATOR STATE
+  const [showHoneycombPanel, setShowHoneycombPanel] = useState(false);
+  const [honeycombSize, setHoneycombSize] = useState(6); // 3-16 - size of each hexagon
+  const [honeycombLineWidth, setHoneycombLineWidth] = useState(1); // 1-3 - thickness of hexagon borders
+  const [honeycombHollow, setHoneycombHollow] = useState(false); // Hollow or filled hexagons
+  const [honeycombPointy, setHoneycombPointy] = useState(true); // Pointy-top (true) or flat-top (false) hexagons
+  const [honeycombBlendMode, setHoneycombBlendMode] = useState<'replace' | 'overlay' | 'multiply'>('replace');
 
   // 🤖 AI History & Favorites
   interface AIHistoryItem {
