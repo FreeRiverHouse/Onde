@@ -1,9 +1,23 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Skin Studio - Free Minecraft Skin Maker Online | Onde',
-  description: 'Create custom Minecraft & Roblox skins with our free online skin maker! AI-powered skin creator with 3D preview, layers, templates, and community gallery. No download required.',
-  keywords: ['minecraft skin maker', 'minecraft skin creator', 'skin editor online', 'roblox skin maker', 'free minecraft skins', 'custom skin creator', 'minecraft skin generator', 'pixel skin maker'],
+  title: 'Free Minecraft Skin Creator Online - Make Custom Skins | Skin Studio',
+  description: 'Create custom Minecraft skins for free with our online skin maker! AI-powered editor with 3D preview, layers, and easy export. Works with Java & Bedrock. No download required.',
+  keywords: [
+    'minecraft skin creator',
+    'minecraft skin maker', 
+    'free minecraft skin maker online',
+    'minecraft skin editor',
+    'minecraft skin generator',
+    'ai minecraft skin creator',
+    'custom minecraft skin',
+    'minecraft java skin creator',
+    'minecraft bedrock skin maker',
+    'roblox skin maker',
+    'online skin editor no download',
+    'pixel skin maker',
+    'minecraft skin creator free',
+  ],
   openGraph: {
     title: '🎨 Skin Studio - Create Minecraft & Roblox Skins!',
     description: 'AI-powered skin editor with 3D preview, layers, and community gallery. Create your perfect character skin!',

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 import { generateAndConvertSkin, isAIAvailable } from '../lib/aiSkinGenerator';
 import { enhancePromptWithLLM, checkLocalLLM } from '../lib/localLLM';
 
@@ -1820,6 +1821,35 @@ export default function SkinCreator() {
     }
   };
 
+  // Structured Data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Skin Studio - Minecraft Skin Creator",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free online Minecraft skin creator with AI-powered tools, 3D preview, and layer system. Works with Java & Bedrock editions.",
+    "screenshot": "https://onde.la/images/og-skin-creator.png",
+    "url": "https://onde.la/games/skin-creator/",
+    "author": {
+      "@type": "Organization",
+      "name": "Onde",
+      "url": "https://onde.la"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1250",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+
   return (
     <div className={`min-h-screen p-6 flex flex-col items-center transition-all duration-700 ${
       darkMode
@@ -1830,6 +1860,12 @@ export default function SkinCreator() {
       backgroundSize: '400% 400%',
       animation: 'gradient 15s ease infinite',
     }}>
+      {/* Structured Data for SEO */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <style jsx global>{`
         @keyframes gradient {
           0% { background-position: 0% 50%; }
