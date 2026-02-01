@@ -3,6 +3,13 @@
 > Istruzioni per configurare ClawdBot con modelli open source su Radeon 7900XT (20GB VRAM)
 > Basato su ricerca e consigli di Grok (2026-02-01)
 
+## 🚨 IMPORTANTE: Su macOS usa TinyGrad, NON Ollama!
+
+**Ollama NON supporta AMD su macOS.** Leggi prima:
+- **`docs/BIBBIA-RADEON.md`** - Setup TinyGrad che FUNZIONA
+
+Questo documento copre l'approccio Ollama (valido solo se il Mac Radeon ha **Linux**).
+
 ## TL;DR - Stato Attuale
 
 - **Radeon IP**: `192.168.1.111:11434` (Ollama server)

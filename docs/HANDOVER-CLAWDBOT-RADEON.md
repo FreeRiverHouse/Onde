@@ -7,16 +7,36 @@
 
 ---
 
-## TL;DR - Stato Attuale
+## 🚨 IMPORTANTE: LEGGI PRIMA LA BIBBIA
+
+**Il setup corretto per AMD Radeon su macOS è documentato in:**
+- **`docs/BIBBIA-RADEON.md`** - Setup completo TinyGrad
+
+**Ollama NON funziona su AMD macOS!** Usa **TinyGrad** che ha un driver userspace.
+
+---
+
+## TL;DR - Due Approcci
+
+### Approccio 1: TinyGrad (FUNZIONA su macOS) ✅
+- Vedi `BIBBIA-RADEON.md`
+- Server: `localhost:11434` via TinyGrad
+- Modelli: llama3.1:8b, qwen3:30b, etc.
+
+### Approccio 2: Ollama Remoto (se Linux)
+- Server: `192.168.1.111:11434`
+- Funziona SOLO se quel Mac ha Linux, non macOS
+
+---
+
+## Stato Tentativi con Ollama (192.168.1.111)
 
 | Item | Status |
 |------|--------|
-| Radeon Ollama | ✅ Attivo su 192.168.1.111:11434 |
-| Download qwen2.5:32b | ⏳ ~23% (4.2GB/18.5GB) - LENTO |
-| qwen7b-16k (16k ctx) | ✅ Creato ma timeout quando 32b download attivo |
-| ClawdBot config | ✅ Aggiornato per usare radeon/qwen7b-16k |
-| Tool calling 7B | ❌ Non funziona (output JSON in content invece di tool_calls) |
-| VRAM utilization | ❌ Solo 4.6GB/20GB usati (23%) |
+| Radeon Ollama | ⚠️ Attivo ma potrebbe non usare GPU se macOS |
+| Download qwen2.5:32b | ⏳ ~23% - INTERROTTO (bloccava server) |
+| Tool calling 7B | ❌ Non funziona (output JSON in content) |
+| VRAM utilization | ❌ Solo 4.6GB/20GB usati |
 
 ---
 
