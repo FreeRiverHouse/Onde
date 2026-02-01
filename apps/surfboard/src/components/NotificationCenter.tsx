@@ -1022,23 +1022,30 @@ function groupNotifications(
 // Collapsible group component
 function NotificationGroupSection({
   group,
-  defaultExpanded = true,
+  expanded,
+  isSelected,
+  onToggleExpand,
   onMarkRead,
   onDismiss,
+  groupRef,
 }: {
   group: NotificationGroup
-  defaultExpanded?: boolean
+  expanded: boolean
+  isSelected?: boolean
+  onToggleExpand: () => void
   onMarkRead: (id: string) => void
   onDismiss: (id: string) => void
+  groupRef?: (el: HTMLButtonElement | null) => void
 }) {
-  const [expanded, setExpanded] = useState(defaultExpanded)
-
   return (
     <div className="mb-3 last:mb-0">
       {/* Group header */}
       <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors group"
+        ref={groupRef}
+        onClick={onToggleExpand}
+        className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors group ${
+          isSelected ? 'ring-1 ring-cyan-500/50 bg-white/5' : ''
+        }`}
       >
         <span className={`text-sm transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}>
           ▶
@@ -1054,6 +1061,9 @@ function NotificationGroupSection({
           <span className="ml-auto px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-cyan-500/20 text-cyan-400">
             {group.unreadCount} new
           </span>
+        )}
+        {isSelected && (
+          <span className="ml-1 text-[9px] text-white/30">Enter: expand/collapse</span>
         )}
       </button>
       
@@ -1083,8 +1093,11 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1) // Keyboard navigation
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1) // Keyboard navigation for flat list
+  const [selectedGroupIndex, setSelectedGroupIndex] = useState<number>(-1) // Keyboard navigation for groups
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set()) // Track expanded group labels
   const notificationRefs = useRef<Map<string, HTMLDivElement>>(new Map())
+  const groupRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
   const [groupMode, setGroupMode] = useState<GroupMode>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('notification-group-mode')
@@ -1320,10 +1333,33 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     }
   }, [isOpen])
 
+  // Initialize expanded groups when data loads or groupMode changes
+  useEffect(() => {
+    if (data?.notifications && groupMode !== 'none') {
+      const groups = groupNotifications(data.notifications, groupMode)
+      // Start with all groups expanded
+      setExpandedGroups(new Set(groups.map(g => g.label)))
+    }
+  }, [data?.notifications, groupMode])
+
+  // Toggle group expansion
+  const toggleGroupExpansion = useCallback((label: string) => {
+    setExpandedGroups(prev => {
+      const next = new Set(prev)
+      if (next.has(label)) {
+        next.delete(label)
+      } else {
+        next.add(label)
+      }
+      return next
+    })
+  }, [])
+
   // Reset selection when filter changes or panel opens/closes
   useEffect(() => {
     setSelectedIndex(-1)
-  }, [filter, isOpen])
+    setSelectedGroupIndex(-1)
+  }, [filter, isOpen, groupMode])
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -1351,91 +1387,172 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
       
       // Keyboard navigation within notification list (only when panel is open and not in input)
       if (isOpen && !isInput && filteredNotifications.length > 0) {
-        const maxIndex = filteredNotifications.length - 1
-        
-        // j or ArrowDown to move down
-        if (event.key === 'j' || event.key === 'ArrowDown') {
-          event.preventDefault()
-          setSelectedIndex(prev => {
-            const next = prev < maxIndex ? prev + 1 : 0 // Wrap around
-            // Scroll into view
-            const notif = filteredNotifications[next]
+        // Different navigation for grouped vs flat view
+        if (groupMode !== 'none') {
+          // Grouped view navigation
+          const groups = groupNotifications(filteredNotifications, groupMode)
+          const maxGroupIndex = groups.length - 1
+          
+          // j or ArrowDown to move down through groups
+          if (event.key === 'j' || event.key === 'ArrowDown') {
+            event.preventDefault()
+            setSelectedGroupIndex(prev => {
+              const next = prev < maxGroupIndex ? prev + 1 : 0
+              const group = groups[next]
+              if (group) {
+                const el = groupRefs.current.get(group.label)
+                el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              }
+              return next
+            })
+            return
+          }
+          
+          // k or ArrowUp to move up through groups
+          if (event.key === 'k' || event.key === 'ArrowUp') {
+            event.preventDefault()
+            setSelectedGroupIndex(prev => {
+              const next = prev > 0 ? prev - 1 : maxGroupIndex
+              const group = groups[next]
+              if (group) {
+                const el = groupRefs.current.get(group.label)
+                el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              }
+              return next
+            })
+            return
+          }
+          
+          // Enter to toggle expand/collapse group
+          if (event.key === 'Enter' && selectedGroupIndex >= 0) {
+            event.preventDefault()
+            const group = groups[selectedGroupIndex]
+            if (group) {
+              toggleGroupExpansion(group.label)
+            }
+            return
+          }
+          
+          // Home to go to first group
+          if (event.key === 'Home') {
+            event.preventDefault()
+            setSelectedGroupIndex(0)
+            const group = groups[0]
+            if (group) {
+              const el = groupRefs.current.get(group.label)
+              el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+            return
+          }
+          
+          // End to go to last group
+          if (event.key === 'End') {
+            event.preventDefault()
+            setSelectedGroupIndex(maxGroupIndex)
+            const group = groups[maxGroupIndex]
+            if (group) {
+              const el = groupRefs.current.get(group.label)
+              el?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+            }
+            return
+          }
+          
+          // Space to expand all / collapse all
+          if (event.key === ' ') {
+            event.preventDefault()
+            const allExpanded = groups.every(g => expandedGroups.has(g.label))
+            if (allExpanded) {
+              setExpandedGroups(new Set())
+            } else {
+              setExpandedGroups(new Set(groups.map(g => g.label)))
+            }
+            return
+          }
+        } else {
+          // Flat view navigation (original behavior)
+          const maxIndex = filteredNotifications.length - 1
+          
+          // j or ArrowDown to move down
+          if (event.key === 'j' || event.key === 'ArrowDown') {
+            event.preventDefault()
+            setSelectedIndex(prev => {
+              const next = prev < maxIndex ? prev + 1 : 0
+              const notif = filteredNotifications[next]
+              if (notif) {
+                const el = notificationRefs.current.get(notif.id)
+                el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              }
+              return next
+            })
+            return
+          }
+          
+          // k or ArrowUp to move up
+          if (event.key === 'k' || event.key === 'ArrowUp') {
+            event.preventDefault()
+            setSelectedIndex(prev => {
+              const next = prev > 0 ? prev - 1 : maxIndex
+              const notif = filteredNotifications[next]
+              if (notif) {
+                const el = notificationRefs.current.get(notif.id)
+                el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              }
+              return next
+            })
+            return
+          }
+          
+          // Enter to mark as read
+          if (event.key === 'Enter' && selectedIndex >= 0) {
+            event.preventDefault()
+            const notif = filteredNotifications[selectedIndex]
+            if (notif && !notif.read) {
+              handleMarkRead(notif.id)
+            }
+            return
+          }
+          
+          // x or Delete/Backspace to dismiss
+          if ((event.key === 'x' || event.key === 'Delete' || event.key === 'Backspace') && selectedIndex >= 0) {
+            event.preventDefault()
+            const notif = filteredNotifications[selectedIndex]
+            if (notif) {
+              handleDismiss(notif.id)
+              setSelectedIndex(prev => Math.min(prev, filteredNotifications.length - 2))
+            }
+            return
+          }
+          
+          // Home to go to first
+          if (event.key === 'Home') {
+            event.preventDefault()
+            setSelectedIndex(0)
+            const notif = filteredNotifications[0]
             if (notif) {
               const el = notificationRefs.current.get(notif.id)
-              el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
-            return next
-          })
-          return
-        }
-        
-        // k or ArrowUp to move up
-        if (event.key === 'k' || event.key === 'ArrowUp') {
-          event.preventDefault()
-          setSelectedIndex(prev => {
-            const next = prev > 0 ? prev - 1 : maxIndex // Wrap around
-            // Scroll into view
-            const notif = filteredNotifications[next]
+            return
+          }
+          
+          // End to go to last
+          if (event.key === 'End') {
+            event.preventDefault()
+            setSelectedIndex(maxIndex)
+            const notif = filteredNotifications[maxIndex]
             if (notif) {
               const el = notificationRefs.current.get(notif.id)
-              el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              el?.scrollIntoView({ behavior: 'smooth', block: 'end' })
             }
-            return next
-          })
-          return
-        }
-        
-        // Enter to mark as read (or toggle expand if already read)
-        if (event.key === 'Enter' && selectedIndex >= 0) {
-          event.preventDefault()
-          const notif = filteredNotifications[selectedIndex]
-          if (notif && !notif.read) {
-            handleMarkRead(notif.id)
+            return
           }
-          return
-        }
-        
-        // x or Delete/Backspace to dismiss
-        if ((event.key === 'x' || event.key === 'Delete' || event.key === 'Backspace') && selectedIndex >= 0) {
-          event.preventDefault()
-          const notif = filteredNotifications[selectedIndex]
-          if (notif) {
-            handleDismiss(notif.id)
-            // Adjust selection after dismiss
-            setSelectedIndex(prev => Math.min(prev, filteredNotifications.length - 2))
-          }
-          return
-        }
-        
-        // Home to go to first
-        if (event.key === 'Home') {
-          event.preventDefault()
-          setSelectedIndex(0)
-          const notif = filteredNotifications[0]
-          if (notif) {
-            const el = notificationRefs.current.get(notif.id)
-            el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          }
-          return
-        }
-        
-        // End to go to last
-        if (event.key === 'End') {
-          event.preventDefault()
-          setSelectedIndex(maxIndex)
-          const notif = filteredNotifications[maxIndex]
-          if (notif) {
-            const el = notificationRefs.current.get(notif.id)
-            el?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-          }
-          return
         }
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, filteredNotifications, selectedIndex, handleMarkRead, handleDismiss])
+  }, [isOpen, filteredNotifications, selectedIndex, selectedGroupIndex, groupMode, expandedGroups, toggleGroupExpansion, handleMarkRead, handleDismiss])
 
   const handleMarkRead = useCallback((id: string) => {
     // Persist to localStorage
@@ -2042,9 +2159,15 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                     <NotificationGroupSection
                       key={group.key}
                       group={group}
-                      defaultExpanded={idx < 3} // Expand first 3 groups by default
+                      expanded={expandedGroups.has(group.label)}
+                      isSelected={selectedGroupIndex === idx}
+                      onToggleExpand={() => toggleGroupExpansion(group.label)}
                       onMarkRead={handleMarkRead}
                       onDismiss={handleDismiss}
+                      groupRef={(el) => {
+                        if (el) groupRefs.current.set(group.label, el)
+                        else groupRefs.current.delete(group.label)
+                      }}
                     />
                   ))}
                 </div>
@@ -2054,7 +2177,12 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
 
           {/* Footer */}
           <div className="px-4 py-2 border-t border-white/10 flex items-center justify-between text-xs text-white/30">
-            <span className="hidden sm:inline">j/k navigate • Enter read • x dismiss</span>
+            <span className="hidden sm:inline">
+              {groupMode !== 'none' 
+                ? 'j/k navigate groups • Enter expand/collapse • Space toggle all'
+                : 'j/k navigate • Enter read • x dismiss'
+              }
+            </span>
             <span className="sm:hidden">N to toggle</span>
             <button
               onClick={fetchNotifications}
