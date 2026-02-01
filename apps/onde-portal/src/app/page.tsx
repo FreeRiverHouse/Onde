@@ -1,51 +1,33 @@
 'use client'
 
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useMemo, useState, useEffect, useCallback, memo } from 'react'
-import { 
-  GradientText, 
-  Card3D, 
-  GlowingCard, 
-  BentoGrid, 
-  BentoGridItem, 
-  FloatingDock,
-  SpotlightBeam,
-  MovingBorder,
-  WavyBackground
-} from '@/components/ui/aceternity'
-import { useTranslations } from '@/i18n'
+import { useRef, useMemo, useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
-// Hook to detect reduced motion preference
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-    
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
-    mediaQuery.addEventListener('change', handler)
-    return () => mediaQuery.removeEventListener('change', handler)
-  }, [])
-  
-  return prefersReducedMotion
-}
 
-// Memoized Particle for ambient background - Ocean bubbles
-const Particle = memo(function Particle({ index }: { index: number }) {
-  // Ocean colors - soft blues, teals, and sparkles
-  const colors = ['#5EEAD4', '#67E8F9', '#A5F3FC', '#FFFFFF', '#FDE68A']
-  const color = colors[index % colors.length]
+// Particle component for floating background particles - Maritime Relaxing theme
+function Particle({ index }: { index: number }) {
+  // Turchese, azzurro, bianco, oro, blu lapislazzuli - marittimo e rilassante
+  const colors = ['#5B9AA0', '#7EB8C4', '#F5F5F5', '#D4AF37', '#26619C']
+  const color = useMemo(() => colors[index % colors.length], [index])
   
-  const [values, setValues] = useState({ x: 50, size: 3, delay: 0, duration: 20 })
+  // Generate random values only on client side to avoid hydration errors
+  const [randomValues, setRandomValues] = useState({
+    x: 50, // Default center position
+    size: 3, // Default size
+    delay: 0,
+    duration: 20
+  })
+
   useEffect(() => {
-    setValues({
+    // Generate random values after component mounts (client-side only)
+    setRandomValues({
       x: Math.random() * 100,
-      size: 3 + Math.random() * 8,
+      size: 2 + Math.random() * 4,
       delay: Math.random() * 20,
-      duration: 12 + Math.random() * 18
+      duration: 15 + Math.random() * 15
     })
   }, [])
 
@@ -53,25 +35,67 @@ const Particle = memo(function Particle({ index }: { index: number }) {
     <motion.div
       className="absolute rounded-full pointer-events-none"
       style={{
-        left: `${values.x}%`,
-        width: values.size,
-        height: values.size,
+        left: `${randomValues.x}%`,
+        width: randomValues.size,
+        height: randomValues.size,
         background: color,
-        boxShadow: `0 0 ${values.size * 4}px ${color}`,
+        boxShadow: `0 0 ${randomValues.size * 3}px ${color}`,
       }}
       initial={{ y: '110vh', opacity: 0 }}
-      animate={{ y: '-10vh', opacity: [0, 0.9, 0.9, 0] }}
+      animate={{
+        y: '-10vh',
+        opacity: [0, 0.8, 0.8, 0],
+      }}
       transition={{
-        duration: values.duration,
-        delay: values.delay,
+        duration: randomValues.duration,
+        delay: randomValues.delay,
         repeat: Infinity,
         ease: 'linear',
       }}
     />
   )
-})
+}
 
-// Books data
+// 3D Tilt Card Component
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), { stiffness: 300, damping: 30 })
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 300, damping: 30 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    x.set((e.clientX - rect.left) / rect.width - 0.5)
+    y.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+        perspective: 1000,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Book data
 const books = [
   {
     id: 'meditations',
@@ -80,545 +104,433 @@ const books = [
     author: 'Marcus Aurelius',
     description: 'The private reflections of the Roman Emperor. A timeless guide to Stoic philosophy and inner peace.',
     category: 'Philosophy',
-    gradient: 'from-amber-500 via-orange-500 to-red-500',
+    price: 'Free',
+    gradient: 'from-amber-500 to-amber-700',
     cover: '/books/meditations-cover.jpg',
     pdfUrl: '/books/meditations-en.pdf',
+    epubUrl: '/books/epub/meditations-en.epub',
   },
   {
     id: 'shepherds-promise',
     title: "The Shepherd's Promise",
     subtitle: 'Psalm 23 for Children',
     author: 'Biblical Tradition',
-    description: 'The most beloved Psalm, beautifully illustrated for young readers.',
+    description: 'The most beloved Psalm, beautifully illustrated for young readers. A journey of trust and protection.',
     category: 'Spirituality',
-    gradient: 'from-emerald-400 via-green-500 to-teal-600',
+    price: 'Free',
+    gradient: 'from-emerald-500 to-green-600',
     cover: '/books/shepherds-promise-cover.jpg',
     pdfUrl: '/books/the-shepherds-promise.pdf',
   },
 ]
 
-// Features for Bento Grid - will be populated with translations in component
-const featureIcons = ["📚", "🚀", "📱", "🎨"]
-const featureClassNames = ["md:col-span-2", "", "", "md:col-span-2"]
-
-// Dock items
-const dockItems = [
-  { title: "Books", icon: "📚", href: "#books" },
-  { title: "Games", icon: "🎮", href: "/games" },
-  { title: "VR", icon: "🥽", href: "/vr" },
-  { title: "About", icon: "✨", href: "#about" },
-]
-
-// Announcements data
-const announcements = [
-  {
-    id: 'gaming-island',
-    emoji: '🎮',
-    text: 'New: Gaming Island!',
-    description: 'Explore our collection of fun games',
-    href: '/games',
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    id: 'vr-experience',
-    emoji: '🥽',
-    text: 'VR Experiences Available!',
-    description: 'Immersive virtual reality adventures',
-    href: '/vr',
-    gradient: 'from-cyan-500 to-blue-500',
-  },
-  {
-    id: 'free-books',
-    emoji: '📚',
-    text: 'Free Books During Launch!',
-    description: 'Download beautiful illustrated books',
-    href: '#books',
-    gradient: 'from-amber-500 to-orange-500',
-  },
-]
-
-const DISMISSED_KEY = 'onde-announcements-dismissed'
-
-// Announcements Banner Component
-function AnnouncementsBanner() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isDismissed, setIsDismissed] = useState(true) // Start hidden to avoid flash
-  const [isHovered, setIsHovered] = useState(false)
-
-  // Check localStorage on mount
-  useEffect(() => {
-    const dismissed = localStorage.getItem(DISMISSED_KEY)
-    if (dismissed) {
-      const dismissedData = JSON.parse(dismissed)
-      // Check if dismissed less than 24 hours ago
-      if (Date.now() - dismissedData.timestamp < 24 * 60 * 60 * 1000) {
-        setIsDismissed(true)
-        return
-      }
-    }
-    setIsDismissed(false)
-  }, [])
-
-  // Auto-rotate announcements
-  useEffect(() => {
-    if (isDismissed || isHovered) return
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % announcements.length)
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [isDismissed, isHovered])
-
-  const handleDismiss = useCallback(() => {
-    setIsDismissed(true)
-    localStorage.setItem(DISMISSED_KEY, JSON.stringify({ timestamp: Date.now() }))
-  }, [])
-
-  if (isDismissed) return null
-
-  const current = announcements[currentIndex]
-
-  return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        className="fixed top-0 left-0 right-0 z-50"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className={`bg-gradient-to-r ${current.gradient} shadow-lg`}>
-          <div className="max-w-6xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between gap-4">
-              {/* Announcement Content */}
-              <Link 
-                href={current.href}
-                className="flex-1 flex items-center justify-center gap-3 group"
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={current.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex items-center gap-3"
-                  >
-                    <motion.span 
-                      className="text-2xl"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
-                    >
-                      {current.emoji}
-                    </motion.span>
-                    <span className="text-white font-bold text-sm sm:text-base">
-                      {current.text}
-                    </span>
-                    <span className="hidden sm:inline text-white/80 text-sm">
-                      — {current.description}
-                    </span>
-                    <motion.span 
-                      className="text-white/90 text-lg group-hover:translate-x-1 transition-transform"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </motion.div>
-                </AnimatePresence>
-              </Link>
-
-              {/* Indicators */}
-              <div className="hidden sm:flex items-center gap-1.5">
-                {announcements.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      i === currentIndex 
-                        ? 'bg-white scale-125' 
-                        : 'bg-white/40 hover:bg-white/60'
-                    }`}
-                    aria-label={`Go to announcement ${i + 1}`}
-                  />
-                ))}
-              </div>
-
-              {/* Dismiss Button */}
-              <button
-                onClick={handleDismiss}
-                className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white"
-                aria-label="Dismiss announcements"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5" 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path 
-                    fillRule="evenodd" 
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                    clipRule="evenodd" 
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
-  )
-}
-
 export default function Home() {
-  const t = useTranslations()
+  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURN
+  // This is a React rule - hooks must be called in the same order every render
   const { scrollYProgress } = useScroll()
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
-  const heroScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.9])
-  const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -150])
-  const particles = useMemo(() => Array.from({ length: 50 }, (_, i) => i), [])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
+  const particleIndices = useMemo(() => Array.from({ length: 40 }, (_, i) => i), [])
   
-  // Features with translations
-  const features = [
-    {
-      title: t.home.featuresNew.beautifulBooks.title,
-      description: t.home.featuresNew.beautifulBooks.description,
-      icon: "📚",
-      className: "md:col-span-2",
-    },
-    {
-      title: t.home.featuresNew.freeDuringLaunch.title,
-      description: t.home.featuresNew.freeDuringLaunch.description,
-      icon: "🚀",
-    },
-    {
-      title: t.home.featuresNew.multiFormat.title,
-      description: t.home.featuresNew.multiFormat.description,
-      icon: "📱",
-    },
-    {
-      title: t.home.featuresNew.aiEnhanced.title,
-      description: t.home.featuresNew.aiEnhanced.description,
-      icon: "🎨",
-      className: "md:col-span-2",
-    },
-  ]
+  // onde.surf = preprod environment, same content as onde.la
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }}>
+    <div className="relative overflow-x-hidden w-full">
       {/* ============================================
-          ANNOUNCEMENTS BANNER
+          FIXED BACKGROUND - Ocean Relaxing Theme
           ============================================ */}
-      <AnnouncementsBanner />
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Base LIGHT maritime gradient - AZZURRO CHIARO */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #B8D8E0 50%, #7EB8C4 100%)' }} />
 
-      {/* ============================================
-          GLOBAL BACKGROUND - Ocean Relaxing + Kids Friendly
-          ============================================ */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Soft ocean gradient */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #E8F4F8 0%, #D4EEF2 30%, #B8E0E8 60%, #A8D8E0 100%)' }} />
-        
-        {/* Warm sun glow */}
-        <div className="absolute -top-40 right-1/4 w-[600px] h-[600px] bg-amber-300/30 rounded-full blur-[100px]" />
-        <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-cyan-300/20 rounded-full blur-[80px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-300/25 rounded-full blur-[90px]" />
-        
-        {/* Playful wave pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
+        {/* Onde marine overlay - VISIBILE */}
+        <div
+          className="absolute inset-0"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10' stroke='%235B9AA0' fill='none' stroke-width='2'/%3E%3C/svg%3E")`,
-            backgroundSize: '100px 20px',
+            background: `
+              radial-gradient(ellipse 100% 100% at 50% 0%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+              radial-gradient(ellipse 80% 60% at 100% 50%, rgba(91, 154, 160, 0.3) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 80% at 0% 100%, rgba(38, 97, 156, 0.2) 0%, transparent 50%)
+            `,
           }}
         />
-        
-        {/* Floating particles - ocean bubbles */}
-        {particles.map((i) => <Particle key={i} index={i} />)}
+
+        {/* Pattern onde marine */}
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(38, 97, 156, 1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(38, 97, 156, 1) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px',
+          }}
+        />
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {particleIndices.map((i) => (
+            <Particle key={i} index={i} />
+          ))}
+        </div>
       </div>
 
       {/* ============================================
-          HERO SECTION
+          HERO SECTION - Cinematic Full Screen
           ============================================ */}
-      <section className="relative min-h-[85vh] flex items-center justify-center pt-20">
-        <SpotlightBeam className="-top-40 left-1/4" fill="#D4AF37" />
-        <SpotlightBeam className="-top-20 right-1/4" fill="#5B9AA0" />
-        
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Orbs Background - Maritime Relaxing Theme */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Riflessi d'acqua - PIU' SOFT */}
+          <motion.div
+            className="floating-orb w-[500px] h-[500px] -top-40 -left-40"
+            style={{ background: 'rgba(38, 97, 156, 0.15)', filter: 'blur(80px)' }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, 20, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Riflesso turchese */}
+          <motion.div
+            className="floating-orb w-[400px] h-[400px] top-1/4 -right-40"
+            style={{ background: 'rgba(91, 154, 160, 0.2)', filter: 'blur(70px)' }}
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 25, 0],
+              scale: [1, 1.08, 1],
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          />
+          {/* Riflesso azzurro chiaro */}
+          <motion.div
+            className="floating-orb w-[350px] h-[350px] bottom-20 left-1/4"
+            style={{ background: 'rgba(126, 184, 196, 0.18)', filter: 'blur(60px)' }}
+            animate={{
+              x: [0, 20, 0],
+              y: [0, -15, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
+          />
+        </div>
+
+        {/* Grid Pattern Overlay */}
+        <div className="grid-pattern opacity-30" />
+
+        {/* Hero Content */}
         <motion.div
-          className="relative z-10 max-w-6xl mx-auto px-4 text-center"
+          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
           style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
         >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-lg backdrop-blur-xl mb-8"
+            transition={{ duration: 0.6 }}
+            className="section-badge-futuristic mb-8"
           >
-            <span className="text-2xl">🌊</span>
-            <span className="text-teal-700 text-sm font-medium">{t.home.badge} 🌊</span>
+            <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
+            Los Angeles
           </motion.div>
 
           {/* Main Title */}
           <motion.h1
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.85] mb-8"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <GradientText colors={["#0D9488", "#D97706", "#EC4899", "#0D9488"]}>
-              {t.home.hero.code}
-            </GradientText>
+            <span className="text-gray-900 drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">Crafted by Code</span>
+            <br />
+            <span className="text-onde-coral drop-shadow-[0_2px_20px_rgba(255,127,127,0.3)]">Touched by Soul</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-teal-600/80 max-w-2xl mx-auto mb-12"
+            className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
-            {t.home.hero.subtitle}
+            AI-native publishing house. Timeless stories, reimagined.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <Link 
-              href="#books"
-              className="group px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-105 transition-all flex items-center gap-2"
-            >
-              <span>{t.home.hero.exploreBooks}</span>
-              <span className="text-xl group-hover:rotate-12 transition-transform">📚</span>
+            <Link href="/libri">
+              <button className="btn-futuristic group">
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Browse Library
+                </span>
+              </button>
             </Link>
-            
-            <Link 
-              href="/games"
-              className="group px-8 py-4 bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 transition-all flex items-center gap-2"
-            >
-              <span>{t.home.hero.playGames}</span>
-              <span className="text-xl group-hover:animate-bounce">🎮</span>
+            <Link href="/about">
+              <button className="btn-outline-glow">
+                <span className="flex items-center gap-2">
+                  About Us
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
             </Link>
           </motion.div>
+        </motion.div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-12 left-1/2 -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, y: [0, 10, 0] }}
-            transition={{ delay: 1, y: { duration: 1.5, repeat: Infinity } }}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-teal-500 text-sm font-medium">{t.home.hero.scrollHint}</span>
-              <motion.span 
-                className="text-2xl"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                🐠
-              </motion.span>
-            </div>
-          </motion.div>
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <span className="text-gray-600 text-sm font-medium">Scroll</span>
+          <div className="scroll-indicator-line" />
         </motion.div>
       </section>
 
       {/* ============================================
-          FEATURES BENTO GRID
+          BOOKS SECTION - Cinematic Cards
           ============================================ */}
-      <section className="relative py-20">
-        <div className="max-w-6xl mx-auto px-4">
+      <section id="books" className="relative py-32">
+        {/* Decorative glow */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] floating-orb opacity-20"
+             style={{ background: 'var(--onde-coral)', filter: 'blur(150px)' }} />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Section Header */}
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-              <span>🌟</span> {t.home.whyOnde.badge} <span>🌟</span>
+            <span className="section-badge-futuristic">
+              <span className="w-2 h-2 rounded-full bg-onde-coral" />
+              Now Available
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-teal-800 mt-4 mb-6">
-              {t.home.whyOnde.title}
-            </h2>
-            <p className="text-teal-600/70 max-w-xl mx-auto">
-              {t.home.whyOnde.subtitle}
+            <h2 className="section-title-futuristic mb-4">Our Books</h2>
+            <p className="section-subtitle-futuristic">
+              Classic literature, illustrated with care. Beautiful editions for the digital age.
             </p>
+            <div className="glow-line w-32 mx-auto mt-8" />
           </motion.div>
 
-          <BentoGrid>
-            {features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <BentoGridItem
-                  title={feature.title}
-                  description={feature.description}
-                  icon={<span className="text-4xl">{feature.icon}</span>}
-                  className={feature.className}
-                />
-              </motion.div>
-            ))}
-          </BentoGrid>
-        </div>
-      </section>
-
-      {/* ============================================
-          BOOKS SECTION
-          ============================================ */}
-      <section id="books" className="relative py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            className="text-center mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-amber-500 text-sm font-medium tracking-wider uppercase flex items-center justify-center gap-2">
-              <span>📖</span> {t.home.library.badge} <span>📖</span>
-            </span>
-            <h2 className="text-4xl md:text-6xl font-bold text-teal-800 mt-4 mb-6">
-              {t.home.library.title}
-            </h2>
-            <p className="text-teal-600/70 max-w-xl mx-auto">
-              {t.home.library.subtitle}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
+          {/* Books Grid */}
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {books.map((book, index) => (
               <motion.div
                 key={book.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
               >
-                <Card3D containerClassName="h-full">
-                  <GlowingCard 
-                    className="h-full"
-                    glowColor={book.gradient.includes('amber') ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}
+                <TiltCard className="group">
+                  <motion.div
+                    className="card-holographic p-1 relative"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <div className="bg-white/90 backdrop-blur-xl border-2 border-teal-200 rounded-2xl overflow-hidden shadow-xl">
-                      {/* Cover */}
-                      <div className={`aspect-[16/10] relative bg-gradient-to-br ${book.gradient}`}>
+                    {/* Glow effect on hover */}
+                    <motion.div
+                      className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                      style={{
+                        background: `radial-gradient(circle, ${book.gradient.includes('amber') ? '#FFD93D' : '#4ECDC4'}40 0%, transparent 70%)`,
+                        filter: 'blur(20px)',
+                      }}
+                    />
+
+                    <div className="bg-onde-dark-surface/80 backdrop-blur-xl rounded-3xl overflow-hidden">
+                      {/* Book Cover */}
+                      <div className={`aspect-[4/3] relative bg-gradient-to-br ${book.gradient}`}>
                         <Image
                           src={book.cover}
                           alt={book.title}
                           fill
-                          className="object-contain p-8 drop-shadow-2xl"
+                          className="object-contain p-6"
+                          priority={index === 0}
                         />
-                        
-                        {/* Category badge */}
-                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-teal-700 shadow-md">
+
+                        {/* Animated shimmer effect */}
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                          style={{
+                            background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)',
+                            backgroundSize: '200% 200%',
+                          }}
+                          animate={{ backgroundPosition: ['200% 200%', '-100% -100%'] }}
+                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                        />
+
+                        {/* Category Badge */}
+                        <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold
+                                       glass-dark text-white/90 backdrop-blur-md border border-white/10">
                           {book.category}
                         </span>
-                        
-                        {/* Free badge */}
-                        <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-md flex items-center gap-1">
-                          <span>✨</span> {t.home.library.free}
+
+                        {/* Price Badge */}
+                        <span className={`absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold
+                                        ${book.price === 'Free' ? 'bg-emerald-500' : 'bg-amber-500'} text-white`}>
+                          {book.price}
                         </span>
                       </div>
 
-                      {/* Info */}
-                      <div className="p-8">
-                        <h3 className="text-2xl font-bold text-teal-800 mb-1">{book.title}</h3>
-                        <p className="text-amber-600 text-sm mb-1">{book.subtitle}</p>
-                        <p className="text-teal-500 text-xs mb-4">by {book.author}</p>
-                        <p className="text-teal-600/70 text-sm leading-relaxed mb-8">
+                      {/* Book Info */}
+                      <div className="p-6">
+                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-onde-teal transition-colors">
+                          {book.title}
+                        </h3>
+                        <p className="text-onde-teal/80 text-sm mb-1">{book.subtitle}</p>
+                        <p className="text-white/40 text-xs mb-4">by {book.author}</p>
+                        <p className="text-white/70 text-sm leading-relaxed mb-6">
                           {book.description}
                         </p>
 
-                        <a
-                          href={book.pdfUrl}
-                          download
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all hover:scale-105"
-                        >
-                          <span>📥</span>
-                          {t.home.library.downloadPdf}
-                        </a>
+                        {/* Download Buttons */}
+                        <div className="flex gap-3">
+                          <a
+                            href={book.pdfUrl}
+                            download
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                                     bg-gradient-to-r from-onde-teal to-onde-blue text-white font-semibold text-sm
+                                     hover:shadow-lg hover:shadow-onde-teal/30 transition-all duration-300"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Download PDF
+                          </a>
+                          {book.epubUrl && (
+                            <a
+                              href={book.epubUrl}
+                              download
+                              className="px-4 py-3 rounded-xl bg-white/5 text-white/80 font-semibold text-sm
+                                       border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                            >
+                              EPUB
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </GlowingCard>
-                </Card3D>
+                  </motion.div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
-
-          {/* See all books link */}
-          <motion.div
-            className="text-center mt-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link 
-              href="/libri"
-              className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors group font-medium"
-            >
-              <span>{t.home.library.viewAll}</span>
-              <motion.span 
-                className="inline-block text-xl"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                📚
-              </motion.span>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
       {/* ============================================
-          CTA SECTION
+          CTA SECTION - Join Onde
           ============================================ */}
-      <section className="relative py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="p-12 md:p-20 text-center bg-white/80 backdrop-blur-xl rounded-3xl border-2 border-teal-200 shadow-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="text-6xl mb-6 block">{t.home.ctaNew.emoji}</span>
-              <h2 className="text-3xl md:text-5xl font-bold text-teal-800 mb-6">
-                {t.home.ctaNew.title}
-              </h2>
-              <p className="text-teal-600/70 text-lg mb-10 max-w-lg mx-auto">
-                {t.home.ctaNew.subtitle}
-              </p>
-              <Link 
-                href="/libri"
-                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-teal-500/30 transition-all transform hover:scale-105"
-              >
-                <span>{t.home.ctaNew.button}</span>
-                <span className="text-2xl">📖</span>
-              </Link>
-            </motion.div>
-          </div>
+      <section className="relative py-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="relative border-gradient-animated overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            {/* Inner content */}
+            <div className="relative p-12 md:p-16 text-center bg-onde-dark-surface rounded-[calc(1.5rem-2px)]">
+              {/* Background glow */}
+              <div className="absolute inset-0 overflow-hidden rounded-[calc(1.5rem-2px)]">
+                <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-onde-purple/20 blur-[100px]" />
+                <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-onde-teal/20 blur-[100px]" />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <motion.span
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6
+                           glass-dark text-white/80 text-sm font-medium border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
+                  More books coming
+                </motion.span>
+
+                <motion.h2
+                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  Want to stay{' '}
+                  <span className="text-gradient-neon">updated</span>?
+                </motion.h2>
+
+                <motion.p
+                  className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                >
+                  We&apos;re preparing more beautiful editions of classic literature.
+                  Follow us on X for updates.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <a
+                    href="https://twitter.com/Onde_FRH"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-futuristic"
+                  >
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow @Onde_FRH
+                    </span>
+                  </a>
+                  <a
+                    href="https://twitter.com/FreeRiverHouse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-glow"
+                  >
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow @FreeRiverHouse
+                    </span>
+                  </a>
+                  <Link href="/about">
+                    <button className="btn-outline-glow">
+                      <span>About Us</span>
+                    </button>
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="relative py-16 border-t border-teal-200">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-teal-500 text-sm flex items-center justify-center gap-2">
-            <span>🌊</span>
-            {t.home.footerNew.copyright}
-            <span>☀️</span>
-          </p>
-        </div>
-      </footer>
-
-      {/* Floating Dock */}
-      <FloatingDock items={dockItems} />
     </div>
   )
 }
