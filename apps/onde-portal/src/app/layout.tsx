@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { NextIntlClientProvider } from 'next-intl'
+import en from '../../messages/en.json'
 import ClientLayout from '@/components/ClientLayout'
 
 // Google Analytics 4 - set NEXT_PUBLIC_GA_ID in environment
@@ -116,9 +118,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        {/* Provide default English translations for legacy pages */}
+        <NextIntlClientProvider locale="en" messages={en}>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

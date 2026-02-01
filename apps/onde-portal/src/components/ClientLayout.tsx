@@ -1,7 +1,9 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { I18nProvider, useTranslations } from '@/i18n';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navigation from '@/components/Navigation';
 import SearchModal from '@/components/SearchModal';
@@ -15,6 +17,8 @@ import { CoinProvider } from '@/hooks/useCoins';
 
 function Footer() {
   const t = useTranslations();
+  const params = useParams();
+  const locale = params?.locale as string || 'en';
 
   return (
     <footer className="relative z-10 mt-24 border-t border-onde-ocean/10">
@@ -26,23 +30,23 @@ function Footer() {
               <span className="text-xl font-display font-bold text-onde-ocean">Onde</span>
             </div>
             <p className="text-onde-ocean/60 max-w-sm leading-relaxed">
-              {t.footer.description}
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Links */}
           <nav aria-label="Footer navigation">
-            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.explore}</h2>
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t('footer.explore')}</h2>
             <ul className="space-y-2">
-              <li><a href="/libri" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</a></li>
-              <li><a href="/reader/" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.read}</a></li>
-              <li><a href="/about" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</a></li>
+              <li><Link href={`/${locale}/libri`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.books')}</Link></li>
+              <li><Link href={`/${locale}/reader/`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.read')}</Link></li>
+              <li><Link href={`/${locale}/about`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.about')}</Link></li>
             </ul>
           </nav>
 
           {/* Social */}
           <div>
-            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.followUs}</h2>
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t('footer.followUs')}</h2>
             <div className="flex gap-4">
               <a href="https://twitter.com/Onde_FRH" target="_blank" rel="noopener noreferrer"
                  aria-label="Follow us on X (Twitter)"
@@ -67,11 +71,11 @@ function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-onde-ocean/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-onde-ocean/40">
-            {t.footer.copyright}
+            {t('footer.copyright')}
           </p>
           <div className="flex gap-6 text-sm text-onde-ocean/40">
-            <a href="/privacy" className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</a>
-            <a href="/terms" className="hover:text-onde-ocean transition-colors">{t.footer.terms}</a>
+            <Link href={`/${locale}/privacy`} className="hover:text-onde-ocean transition-colors">{t('footer.privacy')}</Link>
+            <Link href={`/${locale}/terms`} className="hover:text-onde-ocean transition-colors">{t('footer.terms')}</Link>
           </div>
         </div>
       </div>
@@ -89,7 +93,7 @@ function SkipToContent() {
                  focus:font-medium focus:shadow-lg focus:ring-2 focus:ring-onde-gold focus:ring-offset-2
                  transition-all"
     >
-      {t.accessibility?.skipToContent || 'Skip to main content'}
+      {t('accessibility.skipToContent') || 'Skip to main content'}
     </a>
   );
 }
@@ -97,25 +101,23 @@ function SkipToContent() {
 export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <I18nProvider>
-        <CoinProvider>
-          <AICompanionProvider>
-            <SkipToContent />
-            <WatercolorBackground />
-            <Navigation />
-            <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
-              <ErrorBoundary>
-                {children}
-              </ErrorBoundary>
-            </main>
-            <Footer />
-            <SearchModal />
-            <TreasureFoundToast />
-            <GlobalTreasureListener />
-            <VercelAnalytics />
-          </AICompanionProvider>
-        </CoinProvider>
-      </I18nProvider>
+      <CoinProvider>
+        <AICompanionProvider>
+          <SkipToContent />
+          <WatercolorBackground />
+          <Navigation />
+          <main id="main-content" className="relative z-10 pt-20" tabIndex={-1}>
+            <ErrorBoundary>
+              {children}
+            </ErrorBoundary>
+          </main>
+          <Footer />
+          <SearchModal />
+          <TreasureFoundToast />
+          <GlobalTreasureListener />
+          <VercelAnalytics />
+        </AICompanionProvider>
+      </CoinProvider>
     </ThemeProvider>
   );
 }

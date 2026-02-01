@@ -1,1 +1,12 @@
 {"timestamp":"2026-01-30T08:31:00Z","type":"regime_change","assets":["BTC","ETH"],"from":"choppy","to":"sideways","min_edge":"10%"}
+🔄 MARKET REGIME CHANGE DETECTED
+
+📉 BTC: sideways → trending_bearish
+   4h: -6.86% | 24h: -12.88%
+   New MIN_EDGE: 9%
+
+📉 ETH: sideways → trending_bearish
+   4h: -10.78% | 24h: -19.08%
+   New MIN_EDGE: 7%
+
+Time: 2026-01-31 21:04 UTC

@@ -78,6 +78,38 @@ export default function TradeHistoryPage() {
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const tableRef = useRef<HTMLTableSectionElement>(null);
 
+  // Fetch trades function (declared before useEffects that reference it)
+  const fetchTrades = useCallback(async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+      });
+      
+      if (resultFilter !== 'all') params.append('result', resultFilter);
+      if (assetFilter !== 'all') params.append('asset', assetFilter);
+      if (sideFilter !== 'all') params.append('side', sideFilter);
+      if (fromDate) params.append('from', fromDate);
+      if (toDate) params.append('to', toDate);
+      
+      const response = await fetch(`/api/trading/history?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch trades');
+      
+      const json = await response.json();
+      setData(json);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  }, [page, limit, resultFilter, assetFilter, sideFilter, fromDate, toDate]);
+
+  useEffect(() => {
+    fetchTrades();
+  }, [fetchTrades]);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -154,37 +186,6 @@ export default function TradeHistoryPage() {
       row?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }, [selectedRow]);
-
-  const fetchTrades = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({
-        page: page.toString(),
-        limit: limit.toString(),
-      });
-      
-      if (resultFilter !== 'all') params.append('result', resultFilter);
-      if (assetFilter !== 'all') params.append('asset', assetFilter);
-      if (sideFilter !== 'all') params.append('side', sideFilter);
-      if (fromDate) params.append('from', fromDate);
-      if (toDate) params.append('to', toDate);
-      
-      const response = await fetch(`/api/trading/history?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch trades');
-      
-      const json = await response.json();
-      setData(json);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
-    } finally {
-      setLoading(false);
-    }
-  }, [page, limit, resultFilter, assetFilter, sideFilter, fromDate, toDate]);
-
-  useEffect(() => {
-    fetchTrades();
-  }, [fetchTrades]);
 
   // Reset to page 1 when filters change
   useEffect(() => {

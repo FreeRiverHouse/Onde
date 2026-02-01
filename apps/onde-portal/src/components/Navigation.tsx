@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
-import { useTranslations } from '@/i18n'
+import { usePathname, useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import LanguageSwitcher from './LanguageSwitcher'
 import NotificationCenter from './NotificationCenter'
 import { useSearchModal } from './SearchModal'
@@ -15,15 +15,24 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
   const t = useTranslations()
   const { open: openSearch } = useSearchModal()
 
+  // Helper to check if current path matches a nav item
+  const isActive = (href: string) => {
+    const cleanPath = pathname.replace(`/${locale}`, '') || '/'
+    const cleanHref = href.replace(`/${locale}`, '') || '/'
+    return cleanPath === cleanHref
+  }
+
   const navItems = [
-    { href: '/', label: t.navigation.home },
-    { href: '/libri', label: t.navigation.books },
-    { href: '/reader/', label: t.navigation.read },
-    { href: '/games', label: t.navigation.games },
-    { href: '/about', label: t.navigation.about },
+    { href: `/${locale}/`, label: t('navigation.home') },
+    { href: `/${locale}/libri`, label: t('navigation.books') },
+    { href: `/${locale}/reader/`, label: t('navigation.read') },
+    { href: `/${locale}/games`, label: t('navigation.games') },
+    { href: `/${locale}/about`, label: t('navigation.about') },
   ]
 
   useEffect(() => {
@@ -49,7 +58,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href={`/${locale}/`} className="flex items-center gap-2">
               <motion.div
                 className="relative"
                 whileHover={{ scale: 1.05 }}
@@ -75,7 +84,7 @@ export default function Navigation() {
                 <Link key={item.href} href={item.href}>
                   <motion.span
                     className={`relative px-4 py-2 font-medium transition-colors duration-300
-                      ${pathname === item.href
+                      ${isActive(item.href)
                         ? 'text-onde-coral'
                         : 'text-onde-ocean/70 hover:text-onde-ocean'
                       }`}
@@ -83,7 +92,7 @@ export default function Navigation() {
                     transition={{ duration: 0.2 }}
                   >
                     {item.label}
-                    {pathname === item.href && (
+                    {isActive(item.href) && (
                       <motion.div
                         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-0.5
                                    bg-gradient-to-r from-onde-coral to-onde-gold"
@@ -120,7 +129,7 @@ export default function Navigation() {
               <CoinDisplay />
               <LanguageSwitcher />
               <NotificationCenter />
-              <Link href="/libri">
+              <Link href={`/${locale}/libri`}>
                 <motion.span
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
                              bg-gradient-to-r from-onde-coral to-onde-coral-light
@@ -129,7 +138,7 @@ export default function Navigation() {
                   whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255, 127, 127, 0.4)' }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {t.navigation.explore}
+                  {t('navigation.explore')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -211,7 +220,7 @@ export default function Navigation() {
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`block px-4 py-3 rounded-xl font-medium transition-colors
-                        ${pathname === item.href
+                        ${isActive(item.href)
                           ? 'bg-onde-coral/10 text-onde-coral'
                           : 'text-onde-ocean/70 hover:bg-onde-cream'
                         }`}

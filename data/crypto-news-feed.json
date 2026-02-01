@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T19:00:21.820805+00:00",
+  "timestamp": "2026-02-01T20:00:03.214382+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,11 +11,109 @@
   "article_count": 30,
   "results": [
     {
-      "title": "CoreWeave shows how crypto-era infrastructure quietly became AI\u2019s backbone",
-      "url": "https://cointelegraph.com/news/crypto-mining-ai-data-centers-coreweave-infrastructure-shift?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Ethereum Founder Vitalik Buterin Made $70K Betting Against 'Crazy Mode' on Polymarket",
+      "url": "https://decrypt.co/356483/vitalik-buterin-made-70k-betting-against-crazy-mode-polymarket",
+      "source": "decrypt",
+      "description": "The Ethereum founder claims his strategy of betting against extreme market sentiment \"usually makes money\" on Polymarket.",
+      "published": "2026-02-01T17:54:11+00:00"
+    },
+    {
+      "title": "Bitcoin sell-off pushes IBIT investor returns into the red \u2014 asset manager",
+      "url": "https://cointelegraph.com/news/bitcoin-sell-off-ibit-investor-returns?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "From crypto mining to AI compute, former cryptocurrency miners are reshaping data center economics as Big Tech\u2019s grip on infrastructure begins to loosen.",
-      "published": "2026-01-31T18:04:41+00:00"
+      "description": "Based on dollar-weighted flows, aggregate returns for investors in BlackRock\u2019s iShares Bitcoin Trust have turned negative following Bitcoin\u2019s recent sell-off.",
+      "published": "2026-02-01T17:44:00+00:00"
+    },
+    {
+      "title": "Alternative inflation data shows sharp cooling in US CPI amid Fed uncertainty",
+      "url": "https://cointelegraph.com/news/alternative-inflation-data-us-cpi-cooling-fed-crypto?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Real-time Truflation data show US price pressures easing, a shift that could reshape expectations for Fed policy and influence cryptocurrency and risk-asset markets.",
+      "published": "2026-02-01T16:24:44+00:00"
+    },
+    {
+      "title": "Bitcoin price forecasts tap sub-$50K levels as BTC copies old bear markets",
+      "url": "https://cointelegraph.com/news/bitcoin-price-forecasts-sub-50k-levels-btc-copies-old-bear-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin bear market history was \"repeating,\" said BTC price analysis after key support failed and realized price flipped to new resistance.",
+      "published": "2026-02-01T15:37:35+00:00"
+    },
+    {
+      "title": "The Biggest Games Releasing in February 2026",
+      "url": "https://decrypt.co/356436/the-biggest-games-releasing-in-february-2026",
+      "source": "decrypt",
+      "description": "February is packed with high-profile releases, led by Japanese developers and bolstered by new Switch 2 exclusives and long-awaited revivals.",
+      "published": "2026-02-01T15:01:02+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-01T13:11:12+00:00"
+    },
+    {
+      "title": "UAE firm bought 49% of Trump-linked crypto startup for $500M: WSJ",
+      "url": "https://cointelegraph.com/news/uae-backed-firm-buys-49-percent-trump-linked-world-liberty-wsj?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "An Abu Dhabi investment vehicle backed by Sheikh Tahnoon bin Zayed Al Nahyan, the UAE\u2019s national security adviser, agreed to buy 49% of World Liberty Financial for $500M.",
+      "published": "2026-02-01T10:04:17+00:00"
+    },
+    {
+      "title": "Step Finance treasury wallets breached, $27M in SOL drained as STEP crashes 90%",
+      "url": "https://cointelegraph.com/news/step-finance-treasury-breach-solana-step-token-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Solana-based DeFi platform Step Finance disclosed a treasury wallet breach that saw over $27 million in SOL moved onchain, sending its STEP token down more than 90%.",
+      "published": "2026-02-01T08:06:51+00:00"
+    },
+    {
+      "title": "Sam Bankman-Fried ramps up Trump support following Ellison\u2019s release",
+      "url": "https://cointelegraph.com/news/ftx-sam-bankman-fried-caroline-ellison-donald-trump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "FTX founder Sam Bankman-Fried said in a series of recent X posts that US President Donald Trump was \u201cright on crypto,\u201d while Joe Biden \u201cbungled crypto.\u201d",
+      "published": "2026-02-01T07:14:34+00:00"
+    },
+    {
+      "title": "Bitcoin\u2019s price may have seen \u2018deepest pullback\u2019 at $77K: Analyst",
+      "url": "https://cointelegraph.com/news/bitcoin-s-price-may-have-seen-deepest-pullback-at-77k-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin advocate and accountant Rajat Soni warned, \u201cNever trust a weekend pump or dump,\u201d as Bitcoin plunged and over $2 billion was wiped from the crypto market.",
+      "published": "2026-02-01T04:29:14+00:00"
+    },
+    {
+      "title": "SOL sinks to April 2025 lows as Bitcoin, AI stocks and metals unwind",
+      "url": "https://cointelegraph.com/news/sol-drops-to-95-as-bitcoin-ai-stocks-and-gold-sell-off-will-traders-buy-the-dip?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "SOL falls to lows not seen since April 2025, but Solana\u2019s price-to-fundamentals gap and its wider correlation to macro markets may provide hope for investors.",
+      "published": "2026-02-01T02:33:46+00:00"
+    },
+    {
+      "title": "El Salvador\u2019s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge",
+      "url": "https://bitcoinmagazine.com/culture/el-salvadors-bitcoin-beach-hosts-global-summit-strategies-for-sustainable-bitcoin-circular-economies-emerge",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine El Salvador&#8217;s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge The invite-only Bitcoin Circular Economy Summit in El Zonte drew representatives from 29 countries, spotlighting concentrated adoption, high-trust teams, and Bitcoin-only focus for lasting impact in failing-currency regions. This post El Salvador&#8217;s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge first appeared o",
+      "published": "2026-01-31T23:45:43+00:00"
+    },
+    {
+      "title": "Crypto Crash: Liquidations Top $2.5 Billion as Bitcoin, Ethereum and XRP Prices Plummet",
+      "url": "https://decrypt.co/356557/crypto-crash-liquidations-2-5-billion-bitcoin-ethereum-xrp-plummet",
+      "source": "decrypt",
+      "description": "The crypto market's recent decline only accelerated Saturday, with Bitcoin falling to nearly $77,000 as liquidations piled up.",
+      "published": "2026-01-31T20:35:16+00:00"
+    },
+    {
+      "title": "Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-75000",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off The bitcoin price crashed into the $75,000 range, breaking below key technical support levels as heavy selling pressure swept through the market. This post Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-01-31T19:31:22+00:00"
+    },
+    {
+      "title": "Bitcoin crashes below $76K Strategy cost basis in $2B market-wide liquidation event",
+      "url": "https://cointelegraph.com/news/bitcoin-crashes-76k-strategy-cost-basis-2b-liquidation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin saw a sudden weekend liquidity cascade that took BTC price to near $75,000 for the first time since its April 2025 low.",
+      "published": "2026-01-31T19:10:40+00:00"
     },
     {
       "title": "India Faces Pressure to Rethink Crypto Taxes Ahead of Union Budget as Trading Shifts Offshore",
@@ -23,69 +121,6 @@
       "source": "decrypt",
       "description": "Industry leaders are pushing for tax reform as traders flee offshore, draining domestic exchanges and undermining regulatory oversight.",
       "published": "2026-01-31T16:31:02+00:00"
-    },
-    {
-      "title": "VC Roundup: Crypto funding rebounds as institutions test onchain finance",
-      "url": "https://cointelegraph.com/news/crypto-vc-roundup-institutional-funding-onchain-credit-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "From venture rounds to onchain credit, capital is moving cautiously back into crypto as institutions focus on infrastructure and real-world use cases.",
-      "published": "2026-01-31T16:05:57+00:00"
-    },
-    {
-      "title": "Bitcoin vs. gold: BTC is a 'better opportunity' than in 2017, data says",
-      "url": "https://cointelegraph.com/news/bitcoin-vs-gold-btc-better-opportunity-than-2017?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin could start catching up to gold as soon as February, as traders anticipate BTC to recover from its record lows versus gold this year.",
-      "published": "2026-01-31T14:17:05+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-01-31T12:56:04+00:00"
-    },
-    {
-      "title": "Active Solana addresses spike 115%, four in 10 merchants take Bitcoin: Month in Charts",
-      "url": "https://cointelegraph.com/news/active-solana-addresses-spike-115-four-in-ten-merchants-take-bitcoin-month-in-charts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Activity on Solana has spiked as new AI tech makes it easier than ever to launch memecoins. Meanwhile, Ethereum is plugging away at future-proofing and bringing down fees.",
-      "published": "2026-01-31T12:00:00+00:00"
-    },
-    {
-      "title": "US Treasury sanctions Iran-linked crypto exchanges for first time",
-      "url": "https://cointelegraph.com/news/us-treasury-sanctions-iran-linked-crypto-exchanges-first-time?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The US Treasury has sanctioned two UK-registered crypto exchanges tied to Iran\u2019s financial system, marking the first time Washington has targeted digital asset platforms.",
-      "published": "2026-01-31T10:51:45+00:00"
-    },
-    {
-      "title": "Crypto billionaires deploy $40M to fight California wealth tax and union power",
-      "url": "https://cointelegraph.com/news/crypto-larsen-draper-40m-california-politics-wealth-tax-unions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Ripple co-founder Chris Larsen and venture capitalist Tim Draper are backing Grow California, a new political effort aimed at countering union-backed wealth tax proposals.",
-      "published": "2026-01-31T09:32:34+00:00"
-    },
-    {
-      "title": "$1.82B pulled from spot Bitcoin and Ether ETFs amid metals rally",
-      "url": "https://cointelegraph.com/news/crypto-etf-bitcoin-ether-outflows-metals-sentiment-down?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "ETF analyst Eric Balchunas said many people seem to be forgetting that Bitcoin \u201cspanked everything so bad\u201d in 2023 and 2024, while other asset classes \u201cstill haven\u2019t caught up.\u201d",
-      "published": "2026-01-31T08:59:36+00:00"
-    },
-    {
-      "title": "Coinbase insider trading lawsuit against Armstrong, directors moves forward",
-      "url": "https://cointelegraph.com/news/coinbase-insider-trading-lawsuit-against-armstrong-directors-moves-forward?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The lawsuit alleges Marc Andreessen sold $118.7 million in Coinbase shares through Andreessen Horowitz, while CEO Brian Armstrong offloaded about $291.8 million.",
-      "published": "2026-01-31T07:06:42+00:00"
-    },
-    {
-      "title": "Lingering extreme fear in crypto is a 'strong bullish' sign: Santiment",
-      "url": "https://cointelegraph.com/news/crypto-sentiment-extreme-fears-bullish-signals-crypto-analytics?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Crypto sentiment platform Santiment said the \u201csilver lining\u201d in the current crypto market is the \u201cextreme negativity\u201d seen on social media.",
-      "published": "2026-01-31T05:53:23+00:00"
     },
     {
       "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
@@ -158,32 +193,11 @@
       "published": "2026-01-30T17:26:26+00:00"
     },
     {
-      "title": "Vitalik Buterin Withdraws $44.7M in ETH to Support Ethereum Growth Through \u2018Mild Austerity\u2019",
-      "url": "https://decrypt.co/356490/vitalik-buterin-withdraws-44-7m-in-eth-to-support-ethereum-growth-through-mild-austerity",
-      "source": "decrypt",
-      "description": "The Ethereum co-founder wants to pursue an \u201caggressive\u201d roadmap that will strengthen its status as a decentralized world computer.",
-      "published": "2026-01-30T17:05:57+00:00"
-    },
-    {
       "title": "Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning",
       "url": "https://bitcoinmagazine.com/news/amboss-railsx-a-bitcoin-native-exchange",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning Amboss launched RailsX, a peer-to-peer platform for trading Bitcoin and stablecoins without centralized exchanges or losing custody. This post Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T16:21:08+00:00"
-    },
-    {
-      "title": "What Trump\u2019s Fed Pick Kevin Warsh Means for Crypto",
-      "url": "https://decrypt.co/356486/what-trumps-fed-pick-kevin-warsh-means-for-crypto",
-      "source": "decrypt",
-      "description": "U.S. President Donald Trump has nominated Kevin Warsh to replace Jerome Powell, elevating a former Fed governor with mixed views on crypto.",
-      "published": "2026-01-30T16:10:58+00:00"
-    },
-    {
-      "title": "Bitcoin Traders See Nearly Even Odds for $69K Drop or $100K Recovery",
-      "url": "https://decrypt.co/356461/bitcoin-traders-see-nearly-even-odds-69k-drop-100k-recovery",
-      "source": "decrypt",
-      "description": "Bitcoin sentiment on Myriad flipped bearish for first time in two months as traders bet on further downside amid shutdown fears and extreme market volatility.",
-      "published": "2026-01-30T15:55:08+00:00"
     },
     {
       "title": "Binance to Move $1 Billion User Protection Fund Into Bitcoin\u00a0",
@@ -205,20 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000 Shares of Strategy ($MSTR) dropped as low as 12% today, currently trading at $140.88 and hitting a session low of $140.25. This post Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000 first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-29T18:36:46+00:00"
-    },
-    {
-      "title": "SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas",
-      "url": "https://bitcoinmagazine.com/news/paul-atkins-to-speak-at-bitcoin-conference",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas SEC Chairman Paul Atkins is going to speak at the Bitcoin 2026 Conference. This post SEC Chair Paul Atkins to Make History as First Sitting Chair to Speak at The Bitcoin Conference in Las Vegas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T18:29:17+00:00"
-    },
-    {
-      "title": "Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor",
-      "url": "https://bitcoinmagazine.com/news/crypto-bill-advances-senate-committee",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor The Senate Agriculture Committee advanced a crypto market bill 12-11 along party lines. This post Crypto Market Structure Bill Advances Through Senate Agriculture Committee, No Democrats Vote In Favor first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T17:19:44+00:00"
     }
   ]
 }

@@ -19,8 +19,43 @@
 ## IMPORTANTE: Cosa NON Funziona
 
 - **Ollama** - NON supporta AMD su macOS (usa solo Metal/Apple Silicon)
-- **ROCm** - NON disponibile su macOS
-- **Driver kernel** - NON necessari (TinyGrad usa userspace driver)
+- **ROCm** - NON disponibile su macOS (AMD lo supporta SOLO su Linux)
+- **Driver kernel** - NON esistono per RDNA3 su macOS
+- **Metal** - Apple non supporta GPU AMD dal 2020
+
+---
+
+## L'HACK GENIALE: AMD=1 AMD_LLVM=1
+
+Questa è la chiave per far funzionare TUTTO. **Memorizzala.**
+
+```bash
+AMD=1 AMD_LLVM=1
+```
+
+### Perché Serve
+
+| Problema | Soluzione |
+|----------|-----------|
+| macOS non ha ROCm | TinyGrad ha driver **userspace** che parla direttamente con GPU via PCIe |
+| ROCm usa `comgr` per compilare kernel | `AMD_LLVM=1` usa LLVM di Homebrew invece |
+| Nessun driver kernel | TinyGrad carica firmware e controlla GPU direttamente |
+
+### Cosa Fanno le Variabili
+
+| Variabile | Cosa Fa | Senza di Essa |
+|-----------|---------|---------------|
+| `AMD=1` | Forza backend AMD invece di Metal/CPU | TinyGrad usa M1 GPU (Metal) |
+| `AMD_LLVM=1` | Compila kernel con `/opt/homebrew/opt/llvm` | Cerca `comgr` (ROCm) e FALLISCE |
+
+### Perché Funziona
+
+1. **TinyGrad driver userspace** - Bypassa totalmente la mancanza di driver kernel
+2. **LLVM Homebrew** - Può generare codice AMD GCN/RDNA come `comgr`
+3. **PCIe diretto** - La GPU è accessibile via Thunderbolt anche senza driver Apple
+
+### SENZA QUESTO HACK = IMPOSSIBILE
+### CON QUESTO HACK = 24GB VRAM DISPONIBILI
 
 ---
 
