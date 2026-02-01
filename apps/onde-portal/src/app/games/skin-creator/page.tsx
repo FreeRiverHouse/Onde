@@ -175,6 +175,19 @@ export default function SkinCreator() {
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
   const [secondaryColor, setSecondaryColor] = useState('#4D96FF'); // For gradient
   const [brushSize, setBrushSize] = useState(1);
+  
+  // ⚡ ZIGZAG PATTERN GENERATOR STATE
+  const [zigzagAmplitude, setZigzagAmplitude] = useState(4); // 2-16 - height of each zigzag peak
+  const [zigzagWidth, setZigzagWidth] = useState(8); // 4-32 - width of each zigzag segment
+  const [zigzagThickness, setZigzagThickness] = useState(2); // 1-8 - line thickness
+  const [zigzagDirection, setZigzagDirection] = useState<'horizontal' | 'vertical'>('horizontal');
+  const [zigzagOffset, setZigzagOffset] = useState(0); // 0-16 - phase offset
+  const [zigzagFill, setZigzagFill] = useState(false); // Fill below the zigzag line
+  const [zigzagMultiple, setZigzagMultiple] = useState(1); // 1-4 - number of parallel zigzag lines
+  const [zigzagSpacing, setZigzagSpacing] = useState(16); // Spacing between multiple lines
+  const [zigzagBlendMode, setZigzagBlendMode] = useState<'replace' | 'overlay' | 'multiply'>('replace');
+  const [showZigzagPanel, setShowZigzagPanel] = useState(false);
+  
   const [skinName, setSkinName] = useState('my-skin');
   const [recentColors, setRecentColors] = useState<string[]>([]);
   const [customTintColors, setCustomTintColors] = useState<string[]>([]); // Recent custom tint colors

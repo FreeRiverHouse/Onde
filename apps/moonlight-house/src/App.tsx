@@ -5,11 +5,10 @@ import useSoundManager from './useSoundManager';
 import useAmbientSoundscapes from './components/AmbientSoundscapes';
 import useWeather, { type WeatherData, type WeatherCondition } from './hooks/useWeather';
 import GameHub from './games/GameHub';
-import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame, CookingGame, QuizGame, PianoGame, PetMemoryGame } from './games';
+import { PuzzleGame, DrawingPad, MemoryGame, BubbleGame, SimonGame, CatchGame, GardeningGame, CookingGame, QuizGame } from './games';
 import InteractiveObjects from './components/InteractiveObjects';
 import MovementParticles from './components/MovementParticles';
 import FootstepDustPuffs from './components/FootstepDustPuffs';
-import PawPrintTrail from './components/PawPrintTrail';
 import LibraryBooks from './components/LibraryBooks';
 import TailWagging from './components/TailWagging';
 
@@ -873,6 +872,8 @@ const COSTUMES: Costume[] = [
   { id: 'acc-viking-helmet', name: { it: 'Elmo Vichingo', en: 'Viking Helmet' }, category: 'accessory', icon: '⚔️', price: 70, unlockLevel: 3, offset: { x: 0, y: -24 }, special: true },
   // T1489: Pet astronaut helmet accessory 🚀
   { id: 'acc-astronaut-helmet', name: { it: 'Casco da Astronauta', en: 'Astronaut Helmet' }, category: 'accessory', icon: '🚀', price: 80, unlockLevel: 4, offset: { x: 0, y: -26 }, special: true },
+  // T1510: Pet butterfly wings accessory 🦋
+  { id: 'acc-butterfly-wings', name: { it: 'Ali di Farfalla', en: 'Butterfly Wings' }, category: 'accessory', icon: '🦋', price: 60, unlockLevel: 2, offset: { x: 0, y: -8 }, special: true },
   
   // Outfits (shown as body overlay)
   { id: 'outfit-cape', name: { it: 'Mantello', en: 'Cape' }, category: 'outfit', icon: '🦸', price: 80, unlockLevel: 3, offset: { x: 0, y: 20 } },
@@ -12693,16 +12694,6 @@ function App() {
     return <QuizGame lang={lang} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
   }
 
-  // T1200: Piano Game in Living Room 🎹
-  if (activeGame === 'piano') {
-    return <PianoGame lang={lang} onComplete={handleGameComplete} onClose={() => setActiveGame(null)} />;
-  }
-
-  // T1341: Pet Memory Game - Remember Luna's favorites! 🐱
-  if (activeGame === 'petmemory') {
-    return <PetMemoryGame lang={lang} petName={petName ?? undefined} onComplete={handleGameComplete} onBack={() => setActiveGame(null)} />;
-  }
-
   // Library Books
   if (activeGame === 'library') {
     return (
@@ -13596,13 +13587,6 @@ function App() {
       />
       
       {/* Paw print trail when Luna walks (T1196) 🐾 */}
-      <PawPrintTrail
-        isMoving={isWalking}
-        x={lunaPosition.x}
-        y={lunaPosition.y}
-        facingDirection={facingDirection}
-      />
-      
       {/* Footstep dust puffs - different effects per surface (T877) */}
       <FootstepDustPuffs
         isMoving={isWalking}
