@@ -1,0 +1,56 @@
+name: Site Health Check
+
+on:
+  schedule:
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: Check Site Health
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: Check onde.la
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' https://onde.la)
+          if [ "$status" != "200" ]; then
+            echo "::error::onde.la is DOWN! Status: $status"
+            exit 1
+          fi
+          echo "✅ onde.la is UP (HTTP $status)"
+      
+      - name: Check moonlight-house
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' https://moonlight-house.pages.dev)
+          if [ "$status" != "200" ]; then
+            echo "::error::moonlight-house is DOWN! Status: $status"
+            exit 1
+          fi
+          echo "✅ moonlight-house is UP (HTTP $status)"
+      
+      - name: Check onde.surf
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' https://onde.surf)
+          if [ "$status" != "200" ]; then
+            echo "::error::onde.surf is DOWN! Status: $status"
+            exit 1
+          fi
+          echo "✅ onde.surf is UP (HTTP $status)"
+      
+      - name: Verify onde.la content
+        run: |
+          content=$(curl -s https://onde.la)
+          if ! echo "$content" | grep -q "Onde"; then
+            echo "::error::onde.la content check failed - 'Onde' not found!"
+            exit 1
+          fi
+          echo "✅ onde.la content verified"
+
+      - name: Alert on failure
+        if: failure()
+        run: |
+          echo "🚨 SITE DOWN ALERT - Check GitHub Actions for details"
+          # Could add webhook/notification here
