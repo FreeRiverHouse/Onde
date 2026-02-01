@@ -29,14 +29,44 @@
 
 ---
 
-## Stato Tentativi con Ollama (192.168.1.111)
+## ❌ Perché Ollama NON Funzionava
 
-| Item | Status |
-|------|--------|
-| Radeon Ollama | ⚠️ Attivo ma potrebbe non usare GPU se macOS |
-| Download qwen2.5:32b | ⏳ ~23% - INTERROTTO (bloccava server) |
-| Tool calling 7B | ❌ Non funziona (output JSON in content) |
-| VRAM utilization | ❌ Solo 4.6GB/20GB usati |
+**Ollama su macOS con AMD = gira su CPU, NON su GPU!**
+
+Ecco perché vedevamo:
+- VRAM "usata": 4.6GB (era RAM, non VRAM vera)
+- Timeout continui
+- Performance scarse
+- Modelli grandi impossibili da caricare
+
+**Ollama su macOS supporta SOLO Metal (Apple Silicon), non AMD.**
+
+## ✅ Soluzione: TinyGrad
+
+TinyGrad ha un **driver userspace** che bypassa il problema e usa DAVVERO la GPU AMD.
+
+### Modelli Disponibili con TinyGrad
+
+| Modello | VRAM | Note |
+|---------|------|------|
+| LLaMA 3.2 1B | ~2GB | Veloce, test |
+| LLaMA 3.1 8B | ~8GB | Buono |
+| Qwen3 8B | ~8GB | Buono |
+| **Qwen3 30B** | **~20GB** | **USA TUTTA LA VRAM!** |
+
+### Comando per Qwen3 30B (massimo VRAM)
+
+```bash
+cd ~/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+```
+
+### TODO: Verificare Tool Calling
+
+TinyGrad potrebbe non supportare tool calling come Ollama. Da testare.
+
+Vedi `BIBBIA-RADEON.md` per setup completo.
 
 ---
 
