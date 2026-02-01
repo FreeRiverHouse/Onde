@@ -32,11 +32,14 @@
 | MLH-016 | Add notification badge count to browser tab title | DONE | @clawdinho | MLH-007 |
 | MLH-017 | Add pull-to-refresh in notification panel (mobile) | DONE | @clawdinho | MLH-007 |
 | MLH-018 | Add keyboard navigation within notification list (j/k up/down, Enter to expand) | DONE | @clawdinho | MLH-007 |
-| MLH-019 | Add notification mute/DND mode with schedule (quiet hours) | IN_PROGRESS | @clawdinho | MLH-007 |
+| MLH-019 | Add notification mute/DND mode with schedule (quiet hours) | DONE | @clawdinho | MLH-007 |
 | MLH-020 | Add notification export (download history as JSON/CSV) | TODO | - | MLH-007 |
 | MLH-021 | Add keyboard navigation for grouped notifications (expand/collapse with Enter) | TODO | - | MLH-018 |
 | MLH-022 | Add notification snooze (remind later) functionality | TODO | - | MLH-007 |
 | MLH-023 | Add notification action buttons (quick actions per notification type) | TODO | - | MLH-007 |
+| MLH-024 | Add notification filters persistence (save selected filter to localStorage) | TODO | - | MLH-007 |
+| MLH-025 | Add notification dismiss-all button with confirmation | TODO | - | MLH-007 |
+| MLH-026 | Add notification priority levels (low/medium/high/urgent) with visual indicators | TODO | - | MLH-007 |
 
 ### LIBRI/PUBLISHING (Priorità 3)
 | ID | Task | Status | Owner | Depends |
@@ -82,6 +85,8 @@
 - **MLH-012** - Notification grouping: dropdown to group by "None", "By Type", or "By Source" with collapsible sections, unread badges, localStorage persistence
 
 ## ✅ COMPLETATI OGGI (2026-02-05)
+
+- **MLH-019** - DND mode with quiet hours: useDndMode hook, enable/disable toggle, schedule with time pickers (overnight support), allow urgent alerts option, integrated with playSound and desktop notifications, amber color scheme for DND UI
 
 - **MLH-013** - Swipe-to-dismiss mobile: touch handlers with useSwipeToDismiss hook, visual feedback (red background, opacity change), threshold-based dismiss, "← swipe" hint on mobile
 - **MLH-014** - Desktop push notification permission: useDesktopNotifications hook, permission request flow, enable/disable toggle, showPreview option, test notification button, auto-notify on new alerts

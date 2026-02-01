@@ -30,6 +30,27 @@ const DEFAULT_DESKTOP_PREFS: DesktopNotificationPrefs = {
   showPreview: true,
 }
 
+// DND (Do Not Disturb) preference types
+interface DndPreferences {
+  enabled: boolean
+  scheduleEnabled: boolean
+  startHour: number // 0-23
+  startMinute: number // 0-59
+  endHour: number // 0-23
+  endMinute: number // 0-59
+  allowUrgent: boolean // Allow critical/urgent notifications even in DND
+}
+
+const DEFAULT_DND_PREFS: DndPreferences = {
+  enabled: false,
+  scheduleEnabled: false,
+  startHour: 22,
+  startMinute: 0,
+  endHour: 8,
+  endMinute: 0,
+  allowUrgent: true,
+}
+
 // Hook for managing desktop notification permission and preferences
 function useDesktopNotifications() {
   const [permission, setPermission] = useState<DesktopNotificationPermission>('default')
@@ -387,6 +408,86 @@ function useSoundPreferences() {
   }, [prefs])
 
   return { prefs, updatePrefs, playSound, testSound }
+}
+
+// Hook for DND (Do Not Disturb) mode with quiet hours
+function useDndMode() {
+  const [prefs, setPrefs] = useState<DndPreferences>(DEFAULT_DND_PREFS)
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    try {
+      const stored = localStorage.getItem('notification-dnd-prefs')
+      if (stored) {
+        setPrefs({ ...DEFAULT_DND_PREFS, ...JSON.parse(stored) })
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }, [])
+
+  const updatePrefs = useCallback((updates: Partial<DndPreferences>) => {
+    setPrefs(prev => {
+      const next = { ...prev, ...updates }
+      try {
+        localStorage.setItem('notification-dnd-prefs', JSON.stringify(next))
+      } catch {
+        // Ignore storage errors
+      }
+      return next
+    })
+  }, [])
+
+  // Check if currently in quiet hours
+  const isInQuietHours = useCallback((): boolean => {
+    if (!prefs.scheduleEnabled) return false
+
+    const now = new Date()
+    const currentMinutes = now.getHours() * 60 + now.getMinutes()
+    const startMinutes = prefs.startHour * 60 + prefs.startMinute
+    const endMinutes = prefs.endHour * 60 + prefs.endMinute
+
+    // Handle overnight schedules (e.g., 22:00 - 08:00)
+    if (startMinutes > endMinutes) {
+      // Overnight: quiet if after start OR before end
+      return currentMinutes >= startMinutes || currentMinutes < endMinutes
+    } else {
+      // Same day: quiet if between start and end
+      return currentMinutes >= startMinutes && currentMinutes < endMinutes
+    }
+  }, [prefs.scheduleEnabled, prefs.startHour, prefs.startMinute, prefs.endHour, prefs.endMinute])
+
+  // Check if notifications should be muted (DND active)
+  const isMuted = useCallback((isUrgent = false): boolean => {
+    // If DND is disabled, never muted
+    if (!prefs.enabled) return false
+
+    // If allow urgent and notification is urgent, not muted
+    if (prefs.allowUrgent && isUrgent) return false
+
+    // If schedule is enabled, check quiet hours
+    if (prefs.scheduleEnabled) {
+      return isInQuietHours()
+    }
+
+    // DND enabled without schedule = always muted
+    return true
+  }, [prefs.enabled, prefs.allowUrgent, prefs.scheduleEnabled, isInQuietHours])
+
+  // Format time for display
+  const formatTime = useCallback((hour: number, minute: number): string => {
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
+  }, [])
+
+  return {
+    prefs,
+    updatePrefs,
+    isInQuietHours,
+    isMuted,
+    formatTime,
+  }
 }
 
 // Hook for pull-to-refresh gesture on mobile
@@ -939,6 +1040,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const { prefs: soundPrefs, updatePrefs: updateSoundPrefs, playSound, testSound } = useSoundPreferences()
   const persistence = useNotificationPersistence()
   const desktop = useDesktopNotifications()
+  const dnd = useDndMode()
   const pullToRefresh = usePullToRefresh(fetchNotifications)
 
   // Fetch notifications (combine alerts + events + agents + activity)
@@ -1083,20 +1185,26 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
       // Check if new notifications arrived and play sound + desktop notification
       const prevUnread = prevUnreadCountRef.current
       if (unreadCount > prevUnread && prevUnread !== 0) {
-        playSound()
-        
-        // Find the newest unread notification to show as desktop notification
+        // Find the newest unread notification to check urgency
         const newestUnread = persistedNotifications.find(n => !n.read)
-        if (newestUnread) {
-          const typeConfig = TYPE_CONFIG[newestUnread.type] || TYPE_CONFIG.info
-          desktop.showNotification(
-            `${typeConfig.icon} ${newestUnread.title}`,
-            {
-              body: newestUnread.message,
-              tag: 'onde-notification',
-              onClick: () => setIsOpen(true),
-            }
-          )
+        const isUrgent = newestUnread?.type === 'alert' || newestUnread?.type === 'error'
+        
+        // Check DND mode before notifying
+        if (!dnd.isMuted(isUrgent)) {
+          playSound()
+          
+          // Show desktop notification
+          if (newestUnread) {
+            const typeConfig = TYPE_CONFIG[newestUnread.type] || TYPE_CONFIG.info
+            desktop.showNotification(
+              `${typeConfig.icon} ${newestUnread.title}`,
+              {
+                body: newestUnread.message,
+                tag: 'onde-notification',
+                onClick: () => setIsOpen(true),
+              }
+            )
+          }
         }
       }
       prevUnreadCountRef.current = unreadCount
@@ -1107,7 +1215,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     } finally {
       setLoading(false)
     }
-  }, [playSound, persistence])
+  }, [playSound, persistence, dnd, desktop])
 
   // Initial fetch
   useEffect(() => {
@@ -1573,6 +1681,109 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                         )}
                       </div>
                     )}
+
+                    {/* DND (Do Not Disturb) Section */}
+                    <div className="mt-3 pt-3 border-t border-white/10">
+                      <div className="text-xs font-medium text-white/70 mb-2 flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        Do Not Disturb
+                        {dnd.prefs.enabled && (
+                          <span className="px-1.5 py-0.5 text-[9px] font-medium rounded-full bg-amber-500/20 text-amber-400">
+                            {dnd.isInQuietHours() ? 'ACTIVE' : 'ON'}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Enable DND toggle */}
+                      <label className="flex items-center justify-between py-1.5 cursor-pointer group">
+                        <span className="text-xs text-white/60 group-hover:text-white/80">Enable DND mode</span>
+                        <button
+                          onClick={() => dnd.updatePrefs({ enabled: !dnd.prefs.enabled })}
+                          className={`w-8 h-4 rounded-full transition-colors ${
+                            dnd.prefs.enabled ? 'bg-amber-500' : 'bg-white/20'
+                          }`}
+                        >
+                          <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                            dnd.prefs.enabled ? 'translate-x-4' : 'translate-x-0.5'
+                          }`} />
+                        </button>
+                      </label>
+
+                      {dnd.prefs.enabled && (
+                        <>
+                          {/* Schedule toggle */}
+                          <label className="flex items-center justify-between py-1.5 cursor-pointer group">
+                            <span className="text-xs text-white/60 group-hover:text-white/80">Use quiet hours</span>
+                            <button
+                              onClick={() => dnd.updatePrefs({ scheduleEnabled: !dnd.prefs.scheduleEnabled })}
+                              className={`w-8 h-4 rounded-full transition-colors ${
+                                dnd.prefs.scheduleEnabled ? 'bg-amber-500' : 'bg-white/20'
+                              }`}
+                            >
+                              <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                                dnd.prefs.scheduleEnabled ? 'translate-x-4' : 'translate-x-0.5'
+                              }`} />
+                            </button>
+                          </label>
+
+                          {/* Quiet hours schedule */}
+                          {dnd.prefs.scheduleEnabled && (
+                            <div className="mt-2 pt-2 border-t border-white/5">
+                              <div className="text-[10px] text-white/40 uppercase tracking-wider mb-2">Quiet Hours</div>
+                              <div className="flex items-center gap-2 text-xs">
+                                <div className="flex-1">
+                                  <label className="text-[10px] text-white/40 mb-1 block">From</label>
+                                  <input
+                                    type="time"
+                                    value={dnd.formatTime(dnd.prefs.startHour, dnd.prefs.startMinute)}
+                                    onChange={(e) => {
+                                      const [h, m] = e.target.value.split(':').map(Number)
+                                      dnd.updatePrefs({ startHour: h, startMinute: m })
+                                    }}
+                                    className="w-full px-2 py-1 rounded-md bg-white/5 border border-white/10 text-white/80 text-xs focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                                  />
+                                </div>
+                                <div className="flex-1">
+                                  <label className="text-[10px] text-white/40 mb-1 block">To</label>
+                                  <input
+                                    type="time"
+                                    value={dnd.formatTime(dnd.prefs.endHour, dnd.prefs.endMinute)}
+                                    onChange={(e) => {
+                                      const [h, m] = e.target.value.split(':').map(Number)
+                                      dnd.updatePrefs({ endHour: h, endMinute: m })
+                                    }}
+                                    className="w-full px-2 py-1 rounded-md bg-white/5 border border-white/10 text-white/80 text-xs focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                                  />
+                                </div>
+                              </div>
+                              <div className="mt-1.5 text-[10px] text-white/40">
+                                🌙 {dnd.formatTime(dnd.prefs.startHour, dnd.prefs.startMinute)} → {dnd.formatTime(dnd.prefs.endHour, dnd.prefs.endMinute)}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Allow urgent toggle */}
+                          <label className="flex items-center justify-between py-1.5 cursor-pointer group mt-1">
+                            <span className="text-xs text-white/60 group-hover:text-white/80">Allow urgent alerts</span>
+                            <button
+                              onClick={() => dnd.updatePrefs({ allowUrgent: !dnd.prefs.allowUrgent })}
+                              className={`w-8 h-4 rounded-full transition-colors ${
+                                dnd.prefs.allowUrgent ? 'bg-cyan-500' : 'bg-white/20'
+                              }`}
+                            >
+                              <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
+                                dnd.prefs.allowUrgent ? 'translate-x-4' : 'translate-x-0.5'
+                              }`} />
+                            </button>
+                          </label>
+                          <div className="text-[10px] text-white/30 mt-0.5">
+                            Critical alerts will still notify you
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
