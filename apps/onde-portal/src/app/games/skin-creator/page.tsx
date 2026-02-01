@@ -210,6 +210,7 @@ export default function SkinCreator() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [tutorialStep, setTutorialStep] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMobileColorPicker, setShowMobileColorPicker] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
   const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null); // Right-click menu
@@ -2524,12 +2525,13 @@ export default function SkinCreator() {
 
         {/* Center - Canvas Editor */}
         <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
-          {/* Toolbar */}
+          {/* Toolbar - Simplified on mobile, full on desktop */}
           <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
+            {/* Core tools - Always visible */}
             <button
               onClick={() => setTool('brush')}
               title="🖌️ Draw! Click and drag to color"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-sm md:text-sm font-bold transition-all ${
                 tool === 'brush' ? 'bg-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2538,7 +2540,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('eraser')}
               title="🧽 Erase! Remove colors"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-sm md:text-sm font-bold transition-all ${
                 tool === 'eraser' ? 'bg-pink-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2547,16 +2549,17 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('fill')}
               title="🪣 Fill! Color a whole area"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-sm md:text-sm font-bold transition-all ${
                 tool === 'fill' ? 'bg-yellow-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
               🪣
             </button>
+            {/* Advanced tools - Hidden on mobile */}
             <button
               onClick={() => setTool('gradient')}
               title="🌈 Rainbow! Blend two colors"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`hidden md:block px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'gradient' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -2565,13 +2568,13 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('glow')}
               title="✨ Glow! Make it sparkle"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`hidden md:block px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
                 tool === 'glow' ? 'bg-purple-600 text-white scale-105 shadow-lg shadow-purple-500/50' : 'bg-white/80 hover:bg-white'
               }`}
             >
               ✨
             </button>
-            <div className="relative group">
+            <div className="relative group hidden md:block">
               <button
                 onClick={() => setTool('stamp')}
                 className={`px-3 py-2 rounded-full font-bold transition-all ${
@@ -2594,7 +2597,7 @@ export default function SkinCreator() {
             <button
               onClick={() => setTool('eyedropper')}
               title="🎯 Pick a color from your drawing!"
-              className={`px-2 py-1.5 md:px-3 md:py-2 rounded-lg md:rounded-full text-xs md:text-sm font-bold transition-all ${
+              className={`px-3 py-2 md:px-3 md:py-2 rounded-xl md:rounded-full text-sm md:text-sm font-bold transition-all ${
                 tool === 'eyedropper' ? 'bg-amber-500 text-white scale-105 shadow-lg' : 'bg-white/80 hover:bg-white'
               }`}
             >
@@ -4060,10 +4063,84 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* Layer Panel Toggle Button */}
+      {/* 📱 MOBILE FLOATING TOOLBAR */}
+      <div className="md:hidden skin-mobile-toolbar">
+        <button
+          onClick={() => setTool('brush')}
+          className={`skin-mobile-toolbar-btn ${tool === 'brush' ? 'active' : ''}`}
+          title="Draw"
+        >
+          🖌️
+        </button>
+        <button
+          onClick={() => setTool('eraser')}
+          className={`skin-mobile-toolbar-btn ${tool === 'eraser' ? 'active' : ''}`}
+          title="Erase"
+        >
+          🧽
+        </button>
+        <button
+          onClick={() => setTool('fill')}
+          className={`skin-mobile-toolbar-btn ${tool === 'fill' ? 'active' : ''}`}
+          title="Fill"
+        >
+          🪣
+        </button>
+        <button
+          onClick={() => { undo(); playSound('undo'); }}
+          className="skin-mobile-toolbar-btn"
+          disabled={historyIndex <= 0}
+          title="Undo"
+        >
+          ↩️
+        </button>
+        <button
+          onClick={() => downloadSkin(false)}
+          className="skin-mobile-toolbar-btn"
+          style={{ background: 'linear-gradient(145deg, #10B981, #059669)', color: 'white' }}
+          title="Save"
+        >
+          💾
+        </button>
+      </div>
+
+      {/* 📱 MOBILE COLOR PICKER (Bottom Sheet) */}
+      <div className={`md:hidden fixed bottom-24 left-0 right-0 z-50 transition-transform duration-300 ${showMobileColorPicker ? 'translate-y-0' : 'translate-y-full'}`}>
+        <div className="bg-white rounded-t-2xl shadow-2xl p-4 mx-2">
+          <div className="flex justify-between items-center mb-3">
+            <span className="font-bold text-gray-800">🎨 Colors</span>
+            <button
+              onClick={() => setShowMobileColorPicker(false)}
+              className="text-gray-500 text-xl"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="skin-mobile-colors">
+            {COLORS.slice(0, 24).map((color) => (
+              <button
+                key={color}
+                onClick={() => { setSelectedColor(color); setShowMobileColorPicker(false); }}
+                className={`skin-mobile-color-btn ${selectedColor === color ? 'selected' : ''}`}
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 📱 Mobile Color Toggle Button */}
+      <button
+        onClick={() => setShowMobileColorPicker(!showMobileColorPicker)}
+        className="md:hidden fixed bottom-24 left-4 w-12 h-12 rounded-full shadow-lg border-4 border-white z-40"
+        style={{ backgroundColor: selectedColor }}
+        title="Pick color"
+      />
+
+      {/* Layer Panel Toggle Button - Hidden on mobile (in mobile menu) */}
       <button
         onClick={() => setShowLayerPanel(!showLayerPanel)}
-        className={`fixed bottom-4 left-16 w-10 h-10 rounded-full shadow-lg text-xl hover:scale-110 transition-transform ${
+        className={`hidden md:flex fixed bottom-4 left-16 w-10 h-10 rounded-full shadow-lg text-xl hover:scale-110 transition-transform items-center justify-center ${
           showLayerPanel ? 'bg-blue-500 text-white' : 'bg-white/90'
         }`}
         title="Toggle Layers (L)"
@@ -4071,19 +4148,19 @@ export default function SkinCreator() {
         🎨
       </button>
 
-      {/* AI Button */}
+      {/* AI Button - Hidden on mobile (in mobile menu) */}
       <button
         onClick={() => setShowAIPanel(true)}
-        className="fixed bottom-4 left-4 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 transition-transform"
+        className="hidden md:flex fixed bottom-4 left-4 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg text-xl hover:scale-110 transition-transform items-center justify-center"
         title="AI Skin Generator"
       >
         🤖
       </button>
 
-      {/* Help Button */}
+      {/* Help Button - Hidden on mobile */}
       <button
         onClick={() => setShowHelp(true)}
-        className="fixed bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full shadow-lg text-xl font-bold hover:scale-110 transition-transform"
+        className="hidden md:flex fixed bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full shadow-lg text-xl font-bold hover:scale-110 transition-transform items-center justify-center"
         title="Keyboard shortcuts (?)"
       >
         ?
