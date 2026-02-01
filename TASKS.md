@@ -10,6 +10,9 @@
 | INF-001 | Verificare salute autotrader (uptime, win rate) | DONE | @clawdinho | - |
 | INF-002 | Check SSL expiry per onde.la e onde.surf | DONE | @clawdinho | - |
 | INF-003 | Verificare cron watchdog attivi e funzionanti | DONE | @clawdinho | - |
+| INF-004 | Setup staging environment (test.onde.la o onde.surf) che duplica onde.la | TODO | - | - |
+| INF-005 | Aggiornare procedure deploy: staging first, then prod | TODO | - | INF-004 |
+| INF-006 | Creare script test automatici pre-deploy (tutte pagine, health check) | TODO | - | INF-004 |
 
 ### MOONLIGHT HOUSE (Priorità 2)
 | ID | Task | Status | Owner | Depends |

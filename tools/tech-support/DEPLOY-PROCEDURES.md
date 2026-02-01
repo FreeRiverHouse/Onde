@@ -2,6 +2,36 @@
 
 **LEGGI QUESTO FILE PRIMA DI QUALSIASI DEPLOY!**
 
+---
+
+## ⚠️ REGOLA D'ORO: STAGING FIRST!
+
+**MAI deployare direttamente su onde.la (produzione)!**
+
+### Flusso corretto:
+```
+1. Build locale ✅
+2. Deploy su STAGING (onde.surf o test.onde.la) 🧪
+3. Test COMPLETO su staging (tutte le pagine, tutti i link) ✅
+4. Solo se TUTTO funziona → Deploy su PRODUZIONE (onde.la) 🚀
+```
+
+### Perché?
+- onde.la è il sito LIVE visto dagli utenti
+- Un bug in produzione = utenti vedono errori 404/500
+- Staging permette di testare PRIMA di rompere tutto
+
+### Checklist pre-deploy produzione:
+- [ ] Build completato senza errori
+- [ ] Deployato su staging
+- [ ] Homepage carica correttamente
+- [ ] /libri, /games, /about funzionano
+- [ ] No 404 su pagine principali
+- [ ] CSS/JS caricano correttamente
+- [ ] Test automatici passano
+
+---
+
 ## ✅ METODO DEPLOY: WRANGLER DIRETTO
 
 Deploy via **Wrangler CLI** direttamente su Cloudflare Pages.
