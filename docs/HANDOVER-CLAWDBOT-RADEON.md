@@ -174,6 +174,25 @@ curl -X POST http://192.168.1.111:11434/api/create -d '{
 
 ---
 
+## ⚠️ REGOLA IMPORTANTE - SEMPRE PRIMA DI OPERAZIONI
+
+**VERIFICARE SEMPRE risorse sistema PRIMA di avviare download/operazioni pesanti:**
+
+```bash
+# Check disk space
+curl -s http://192.168.1.111:11434/api/tags | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Models: {sum(m[\"size\"] for m in d.get(\"models\",[]))/(1024**3):.1f}GB')"
+
+# Check if Ollama is responsive (timeout = problema)
+curl -s --max-time 5 http://192.168.1.111:11434/ && echo "OK" || echo "SLOW/BLOCKED"
+
+# Check loaded models / VRAM
+curl -s http://192.168.1.111:11434/api/ps
+```
+
+**NON avviare download pesanti se il sistema è già sotto carico!**
+
+---
+
 ## Problemi Noti
 
 ### 1. Download blocca Ollama
