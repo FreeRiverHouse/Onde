@@ -6,6 +6,7 @@ import { useToast } from './Toast';
 import { AgentLeaderboard } from './AgentLeaderboard';
 import { calculateAgentMood } from '../lib/gamification';
 import { useTTS, cleanTextForTTS } from '../lib/useTTS';
+import { NotificationBell } from './NotificationCenter';
 
 // Monument Valley color palette
 const MV_COLORS = {
@@ -770,6 +771,8 @@ export function FreeRiverHouse() {
               )}
             </svg>
           </button>
+          {/* Notification Center */}
+          <NotificationBell />
           {/* All Tasks Button */}
           <button
             onClick={() => setShowAllTasks(!showAllTasks)}

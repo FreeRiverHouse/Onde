@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-31T16:30:03.597832+00:00",
+  "timestamp": "2026-01-31T19:00:21.820805+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "CoreWeave shows how crypto-era infrastructure quietly became AI\u2019s backbone",
+      "url": "https://cointelegraph.com/news/crypto-mining-ai-data-centers-coreweave-infrastructure-shift?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "From crypto mining to AI compute, former cryptocurrency miners are reshaping data center economics as Big Tech\u2019s grip on infrastructure begins to loosen.",
+      "published": "2026-01-31T18:04:41+00:00"
+    },
+    {
+      "title": "India Faces Pressure to Rethink Crypto Taxes Ahead of Union Budget as Trading Shifts Offshore",
+      "url": "https://decrypt.co/356450/india-crypto-taxes-trading-shifts-offshore",
+      "source": "decrypt",
+      "description": "Industry leaders are pushing for tax reform as traders flee offshore, draining domestic exchanges and undermining regulatory oversight.",
+      "published": "2026-01-31T16:31:02+00:00"
+    },
     {
       "title": "VC Roundup: Crypto funding rebounds as institutions test onchain finance",
       "url": "https://cointelegraph.com/news/crypto-vc-roundup-institutional-funding-onchain-credit-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -72,13 +86,6 @@
       "source": "cointelegraph",
       "description": "Crypto sentiment platform Santiment said the \u201csilver lining\u201d in the current crypto market is the \u201cextreme negativity\u201d seen on social media.",
       "published": "2026-01-31T05:53:23+00:00"
-    },
-    {
-      "title": "Tether US treasury holdings reach record highs; profits fall 23% year-on-year",
-      "url": "https://cointelegraph.com/news/tether-stablecoin-usdt-profits-us-treasury-holdings-annual-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Tether CEO Paolo Ardoino said the \u201cstructure behind\u201d the company\u2019s growth mattered more than its \u201cscale\u201d in 2025, as US Treasury holdings surpassed $122 billion.",
-      "published": "2026-01-31T03:58:14+00:00"
     },
     {
       "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
@@ -177,13 +184,6 @@
       "source": "decrypt",
       "description": "Bitcoin sentiment on Myriad flipped bearish for first time in two months as traders bet on further downside amid shutdown fears and extreme market volatility.",
       "published": "2026-01-30T15:55:08+00:00"
-    },
-    {
-      "title": "Morning Minute: Washington Just Gave Crypto the Green Light",
-      "url": "https://decrypt.co/356463/morning-minute-washington-just-gave-crypto-the-green-light",
-      "source": "decrypt",
-      "description": "It was a big day for crypto policy in the US yesterday, but work still remains to be done",
-      "published": "2026-01-30T14:41:10+00:00"
     },
     {
       "title": "Binance to Move $1 Billion User Protection Fund Into Bitcoin\u00a0",

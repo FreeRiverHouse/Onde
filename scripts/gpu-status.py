@@ -74,7 +74,7 @@ def get_system_metrics() -> dict:
             metrics["cpu_percent"] = round(monitor.get_cpu_usage(), 1)
             metrics["memory_percent"] = round(monitor.get_memory_usage(), 1)
             metrics["gpu_temp"] = monitor.get_gpu_temperature()
-            health = monitor.get_health()
+            health = monitor.check_health()
             metrics["health_status"] = health.get("status", "unknown")
         except Exception as e:
             metrics["error"] = str(e)

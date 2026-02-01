@@ -8,9 +8,90 @@ interface Command {
   title: string
   description?: string
   icon: React.ReactNode
-  category: 'navigation' | 'action' | 'book' | 'agent'
+  category: 'navigation' | 'action' | 'book' | 'agent' | 'recent'
   shortcut?: string
   action: () => void
+}
+
+interface RecentCommand {
+  id: string
+  timestamp: number
+  count: number
+}
+
+interface SearchHistoryEntry {
+  query: string
+  timestamp: number
+}
+
+const STORAGE_KEY_RECENT = 'onde-palette-recent'
+const STORAGE_KEY_SEARCHES = 'onde-palette-searches'
+const MAX_RECENT_COMMANDS = 5
+const MAX_SEARCH_HISTORY = 10
+
+function getRecentCommands(): RecentCommand[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY_RECENT)
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+}
+
+function saveRecentCommand(commandId: string): void {
+  if (typeof window === 'undefined') return
+  try {
+    const recent = getRecentCommands()
+    const existing = recent.find(r => r.id === commandId)
+    
+    if (existing) {
+      existing.timestamp = Date.now()
+      existing.count += 1
+    } else {
+      recent.push({ id: commandId, timestamp: Date.now(), count: 1 })
+    }
+    
+    // Sort by timestamp (most recent first) and limit
+    recent.sort((a, b) => b.timestamp - a.timestamp)
+    const limited = recent.slice(0, MAX_RECENT_COMMANDS * 2) // Keep more for "most used"
+    
+    localStorage.setItem(STORAGE_KEY_RECENT, JSON.stringify(limited))
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function getSearchHistory(): SearchHistoryEntry[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY_SEARCHES)
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+}
+
+function saveSearchQuery(query: string): void {
+  if (typeof window === 'undefined' || !query.trim()) return
+  try {
+    const history = getSearchHistory().filter(h => h.query !== query)
+    history.unshift({ query: query.trim(), timestamp: Date.now() })
+    const limited = history.slice(0, MAX_SEARCH_HISTORY)
+    localStorage.setItem(STORAGE_KEY_SEARCHES, JSON.stringify(limited))
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function clearRecentHistory(): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.removeItem(STORAGE_KEY_RECENT)
+    localStorage.removeItem(STORAGE_KEY_SEARCHES)
+  } catch {
+    // Ignore storage errors
+  }
 }
 
 const SearchIcon = () => (
@@ -55,58 +136,135 @@ const ImageIcon = () => (
   </svg>
 )
 
+const HistoryIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+)
+
 const categoryColors = {
   navigation: 'text-cyan-400',
   action: 'text-amber-400',
   book: 'text-purple-400',
-  agent: 'text-emerald-400'
+  agent: 'text-emerald-400',
+  recent: 'text-orange-400'
 }
 
 const categoryLabels = {
   navigation: 'Navigation',
   action: 'Actions',
   book: 'Books',
-  agent: 'Agents'
+  agent: 'Agents',
+  recent: 'Recent'
 }
 
 export function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [recentCommandIds, setRecentCommandIds] = useState<RecentCommand[]>([])
+  const [searchHistory, setSearchHistory] = useState<SearchHistoryEntry[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
-  const commands: Command[] = [
+  // Load recent data on mount
+  useEffect(() => {
+    setRecentCommandIds(getRecentCommands())
+    setSearchHistory(getSearchHistory())
+  }, [isOpen])
+
+  // Helper to wrap actions with recent tracking
+  const trackAndExecute = useCallback((commandId: string, action: () => void) => {
+    return () => {
+      saveRecentCommand(commandId)
+      setRecentCommandIds(getRecentCommands())
+      action()
+    }
+  }, [])
+
+  // Base commands (without tracking wrapper yet)
+  const baseCommands: Omit<Command, 'action'>[] = [
     // Navigation
-    { id: 'nav-dashboard', title: 'Go to Dashboard', description: 'Main control panel', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G D', action: () => router.push('/') },
-    { id: 'nav-social', title: 'Go to Social', description: 'Social media management', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G S', action: () => router.push('/social') },
-    { id: 'nav-corde', title: 'Go to CORDE', description: 'Content generation', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G C', action: () => router.push('/corde') },
+    { id: 'nav-dashboard', title: 'Go to Dashboard', description: 'Main control panel', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G D' },
+    { id: 'nav-social', title: 'Go to Social', description: 'Social media management', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G S' },
+    { id: 'nav-corde', title: 'Go to CORDE', description: 'Content generation', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G C' },
+    { id: 'nav-health', title: 'Go to Health', description: 'System health dashboard', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G H' },
+    { id: 'nav-betting', title: 'Go to Betting', description: 'Trading dashboard', icon: <NavigationIcon />, category: 'navigation', shortcut: 'G B' },
 
     // Actions
-    { id: 'action-deploy', title: 'Deploy onde.surf', description: 'Deploy to production', icon: <DeployIcon />, category: 'action', action: () => { alert('Deploying onde.surf...'); setIsOpen(false) } },
-    { id: 'action-deploy-portal', title: 'Deploy onde.la', description: 'Deploy portal to production', icon: <DeployIcon />, category: 'action', action: () => { alert('Deploying onde.la...'); setIsOpen(false) } },
-    { id: 'action-generate-image', title: 'Generate Image', description: 'Open Grok image generator', icon: <ImageIcon />, category: 'action', action: () => { window.open('https://x.com/i/grok', '_blank'); setIsOpen(false) } },
-    { id: 'action-new-post', title: 'Create New Post', description: 'Draft a new social post', icon: <ActionIcon />, category: 'action', action: () => { alert('Opening post editor...'); setIsOpen(false) } },
+    { id: 'action-deploy', title: 'Deploy onde.surf', description: 'Deploy to production', icon: <DeployIcon />, category: 'action' },
+    { id: 'action-deploy-portal', title: 'Deploy onde.la', description: 'Deploy portal to production', icon: <DeployIcon />, category: 'action' },
+    { id: 'action-generate-image', title: 'Generate Image', description: 'Open Grok image generator', icon: <ImageIcon />, category: 'action' },
+    { id: 'action-new-post', title: 'Create New Post', description: 'Draft a new social post', icon: <ActionIcon />, category: 'action' },
+    { id: 'action-clear-history', title: 'Clear Search History', description: 'Remove all recent commands and searches', icon: <HistoryIcon />, category: 'action' },
 
     // Books
-    { id: 'book-milo', title: 'MILO Internet', description: 'AI explained for kids', icon: <BookIcon />, category: 'book', action: () => { alert('Opening MILO book...'); setIsOpen(false) } },
-    { id: 'book-piccole-rime', title: 'Piccole Rime', description: 'Italian poetry collection', icon: <BookIcon />, category: 'book', action: () => { alert('Opening Piccole Rime...'); setIsOpen(false) } },
-    { id: 'book-salmo', title: 'Salmo 23 per Bambini', description: 'Illustrated psalm for kids', icon: <BookIcon />, category: 'book', action: () => { alert('Opening Salmo 23...'); setIsOpen(false) } },
+    { id: 'book-milo', title: 'MILO Internet', description: 'AI explained for kids', icon: <BookIcon />, category: 'book' },
+    { id: 'book-piccole-rime', title: 'Piccole Rime', description: 'Italian poetry collection', icon: <BookIcon />, category: 'book' },
+    { id: 'book-salmo', title: 'Salmo 23 per Bambini', description: 'Illustrated psalm for kids', icon: <BookIcon />, category: 'book' },
 
     // Agents
-    { id: 'agent-ceo', title: 'CEO Orchestrator', description: 'Project coordination', icon: <AgentIcon />, category: 'agent', action: () => { alert('Connecting to CEO Agent...'); setIsOpen(false) } },
-    { id: 'agent-eng', title: 'Engineering Manager', description: 'Development tasks', icon: <AgentIcon />, category: 'agent', action: () => { alert('Connecting to Engineering Agent...'); setIsOpen(false) } },
-    { id: 'agent-qa', title: 'QA Engineer', description: 'Testing and quality', icon: <AgentIcon />, category: 'agent', action: () => { alert('Connecting to QA Agent...'); setIsOpen(false) } },
-    { id: 'agent-gianni', title: 'Gianni Parola', description: 'Writing and content', icon: <AgentIcon />, category: 'agent', action: () => { alert('Connecting to Gianni Parola...'); setIsOpen(false) } },
+    { id: 'agent-ceo', title: 'CEO Orchestrator', description: 'Project coordination', icon: <AgentIcon />, category: 'agent' },
+    { id: 'agent-eng', title: 'Engineering Manager', description: 'Development tasks', icon: <AgentIcon />, category: 'agent' },
+    { id: 'agent-qa', title: 'QA Engineer', description: 'Testing and quality', icon: <AgentIcon />, category: 'agent' },
+    { id: 'agent-gianni', title: 'Gianni Parola', description: 'Writing and content', icon: <AgentIcon />, category: 'agent' },
   ]
 
+  // Action handlers
+  const actionHandlers: Record<string, () => void> = {
+    'nav-dashboard': () => router.push('/'),
+    'nav-social': () => router.push('/social'),
+    'nav-corde': () => router.push('/corde'),
+    'nav-health': () => router.push('/health'),
+    'nav-betting': () => router.push('/betting'),
+    'action-deploy': () => { alert('Deploying onde.surf...'); setIsOpen(false) },
+    'action-deploy-portal': () => { alert('Deploying onde.la...'); setIsOpen(false) },
+    'action-generate-image': () => { window.open('https://x.com/i/grok', '_blank'); setIsOpen(false) },
+    'action-new-post': () => { alert('Opening post editor...'); setIsOpen(false) },
+    'action-clear-history': () => { 
+      clearRecentHistory()
+      setRecentCommandIds([])
+      setSearchHistory([])
+      setIsOpen(false)
+    },
+    'book-milo': () => { alert('Opening MILO book...'); setIsOpen(false) },
+    'book-piccole-rime': () => { alert('Opening Piccole Rime...'); setIsOpen(false) },
+    'book-salmo': () => { alert('Opening Salmo 23...'); setIsOpen(false) },
+    'agent-ceo': () => { alert('Connecting to CEO Agent...'); setIsOpen(false) },
+    'agent-eng': () => { alert('Connecting to Engineering Agent...'); setIsOpen(false) },
+    'agent-qa': () => { alert('Connecting to QA Agent...'); setIsOpen(false) },
+    'agent-gianni': () => { alert('Connecting to Gianni Parola...'); setIsOpen(false) },
+  }
+
+  // Build commands with tracked actions
+  const commands: Command[] = baseCommands.map(cmd => ({
+    ...cmd,
+    action: trackAndExecute(cmd.id, actionHandlers[cmd.id] || (() => {}))
+  }))
+
+  // Get recent commands to show
+  const recentCommands: Command[] = recentCommandIds
+    .slice(0, MAX_RECENT_COMMANDS)
+    .map(recent => {
+      const cmd = commands.find(c => c.id === recent.id)
+      if (!cmd) return null
+      return {
+        ...cmd,
+        id: `recent-${cmd.id}`,
+        category: 'recent' as const,
+        description: `${cmd.description} • Used ${recent.count}x`,
+      }
+    })
+    .filter((cmd): cmd is Command => cmd !== null)
+
+  // Filtered commands based on query
   const filteredCommands = query
     ? commands.filter(cmd =>
         cmd.title.toLowerCase().includes(query.toLowerCase()) ||
         cmd.description?.toLowerCase().includes(query.toLowerCase()) ||
         cmd.category.toLowerCase().includes(query.toLowerCase())
       )
-    : commands
+    : [...recentCommands, ...commands]
 
   // Group by category
   const groupedCommands = filteredCommands.reduce((acc, cmd) => {
@@ -150,12 +308,17 @@ export function CommandPalette() {
     } else if (e.key === 'Enter') {
       e.preventDefault()
       if (flatCommands[selectedIndex]) {
+        // Save search query if there was one
+        if (query.trim()) {
+          saveSearchQuery(query)
+          setSearchHistory(getSearchHistory())
+        }
         flatCommands[selectedIndex].action()
         setIsOpen(false)
         setQuery('')
       }
     }
-  }, [flatCommands, selectedIndex])
+  }, [flatCommands, selectedIndex, query])
 
   // Focus input when opened
   useEffect(() => {
@@ -215,6 +378,22 @@ export function CommandPalette() {
           </kbd>
         </div>
 
+        {/* Search History Suggestions */}
+        {!query && searchHistory.length > 0 && (
+          <div className="px-3 py-2 border-b border-white/5 flex flex-wrap gap-2">
+            <span className="text-[10px] text-white/30 uppercase tracking-wider mr-1 self-center">Recent searches:</span>
+            {searchHistory.slice(0, 5).map((entry, i) => (
+              <button
+                key={i}
+                onClick={() => setQuery(entry.query)}
+                className="px-2 py-0.5 text-xs bg-white/5 text-white/60 rounded-lg hover:bg-white/10 hover:text-white transition-colors"
+              >
+                {entry.query}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Results */}
         <div className="max-h-[60vh] overflow-y-auto">
           {Object.entries(groupedCommands).length === 0 ? (
@@ -235,6 +414,10 @@ export function CommandPalette() {
                     <button
                       key={cmd.id}
                       onClick={() => {
+                        // Save search query if there was one
+                        if (query.trim()) {
+                          saveSearchQuery(query)
+                        }
                         cmd.action()
                         setIsOpen(false)
                         setQuery('')
