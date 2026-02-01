@@ -490,6 +490,67 @@ function useDndMode() {
   }
 }
 
+// Export notifications as JSON
+function exportNotificationsAsJson(notifications: Notification[]): void {
+  const data = {
+    exportedAt: new Date().toISOString(),
+    count: notifications.length,
+    notifications: notifications.map(n => ({
+      id: n.id,
+      type: n.type,
+      title: n.title,
+      message: n.message,
+      timestamp: n.timestamp,
+      read: n.read,
+      source: n.source,
+      actionUrl: n.actionUrl,
+      metadata: n.metadata,
+    })),
+  }
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `notifications-${new Date().toISOString().split('T')[0]}.json`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
+// Export notifications as CSV
+function exportNotificationsAsCsv(notifications: Notification[]): void {
+  const headers = ['ID', 'Type', 'Title', 'Message', 'Timestamp', 'Read', 'Source']
+  const escapeCSV = (str: string) => {
+    if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+      return `"${str.replace(/"/g, '""')}"`
+    }
+    return str
+  }
+  
+  const rows = notifications.map(n => [
+    n.id,
+    n.type,
+    escapeCSV(n.title),
+    escapeCSV(n.message),
+    n.timestamp,
+    n.read ? 'Yes' : 'No',
+    n.source || '',
+  ].join(','))
+  
+  const csv = [headers.join(','), ...rows].join('\n')
+  const blob = new Blob([csv], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `notifications-${new Date().toISOString().split('T')[0]}.csv`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 // Hook for pull-to-refresh gesture on mobile
 function usePullToRefresh(
   onRefresh: () => Promise<void> | void,
@@ -1034,6 +1095,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     return 'none'
   })
   const [showSoundSettings, setShowSoundSettings] = useState(false)
+  const [showExportMenu, setShowExportMenu] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const prevUnreadCountRef = useRef<number>(0)
@@ -1240,6 +1302,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
       ) {
         setIsOpen(false)
         setShowSoundSettings(false)
+        setShowExportMenu(false)
       }
     }
 
@@ -1249,10 +1312,11 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     }
   }, [isOpen])
 
-  // Close sound settings when panel closes
+  // Close sound settings and export menu when panel closes
   useEffect(() => {
     if (!isOpen) {
       setShowSoundSettings(false)
+      setShowExportMenu(false)
     }
   }, [isOpen])
 
@@ -1508,6 +1572,50 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                   Mark all read
                 </button>
               )}
+              
+              {/* Export dropdown */}
+              {data?.notifications && data.notifications.length > 0 && (
+                <div className="relative">
+                  <button
+                    onClick={() => setShowExportMenu(!showExportMenu)}
+                    className={`p-1 rounded-lg transition-colors ${
+                      showExportMenu
+                        ? 'bg-white/10 text-white/80'
+                        : 'text-white/40 hover:text-white/60 hover:bg-white/10'
+                    }`}
+                    title="Export notifications"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  </button>
+                  
+                  {showExportMenu && (
+                    <div className="absolute right-0 top-full mt-1 w-36 rounded-xl border border-white/10 bg-black/95 backdrop-blur-xl shadow-xl p-2 z-10 animate-in fade-in slide-in-from-top-1 duration-150">
+                      <div className="text-[10px] text-white/40 uppercase tracking-wider px-2 mb-1">Export as</div>
+                      <button
+                        onClick={() => {
+                          exportNotificationsAsJson(data.notifications)
+                          setShowExportMenu(false)
+                        }}
+                        className="w-full text-left px-2 py-1.5 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white/90 transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-amber-400">{ }</span> JSON
+                      </button>
+                      <button
+                        onClick={() => {
+                          exportNotificationsAsCsv(data.notifications)
+                          setShowExportMenu(false)
+                        }}
+                        className="w-full text-left px-2 py-1.5 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white/90 transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-green-400">📊</span> CSV
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+              
               {/* Sound settings toggle */}
               <div className="relative">
                 <button

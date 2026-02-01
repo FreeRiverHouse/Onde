@@ -33,7 +33,7 @@
 | MLH-017 | Add pull-to-refresh in notification panel (mobile) | DONE | @clawdinho | MLH-007 |
 | MLH-018 | Add keyboard navigation within notification list (j/k up/down, Enter to expand) | DONE | @clawdinho | MLH-007 |
 | MLH-019 | Add notification mute/DND mode with schedule (quiet hours) | DONE | @clawdinho | MLH-007 |
-| MLH-020 | Add notification export (download history as JSON/CSV) | IN_PROGRESS | @clawdinho | MLH-007 |
+| MLH-020 | Add notification export (download history as JSON/CSV) | DONE | @clawdinho | MLH-007 |
 | MLH-021 | Add keyboard navigation for grouped notifications (expand/collapse with Enter) | TODO | - | MLH-018 |
 | MLH-022 | Add notification snooze (remind later) functionality | TODO | - | MLH-007 |
 | MLH-023 | Add notification action buttons (quick actions per notification type) | TODO | - | MLH-007 |
@@ -87,6 +87,7 @@
 ## ✅ COMPLETATI OGGI (2026-02-05)
 
 - **MLH-019** - DND mode with quiet hours: useDndMode hook, enable/disable toggle, schedule with time pickers (overnight support), allow urgent alerts option, integrated with playSound and desktop notifications, amber color scheme for DND UI
+- **MLH-020** - Notification export: exportNotificationsAsJson/Csv helpers, download button with dropdown menu, proper CSV escaping, timestamped filenames
 
 - **MLH-013** - Swipe-to-dismiss mobile: touch handlers with useSwipeToDismiss hook, visual feedback (red background, opacity change), threshold-based dismiss, "← swipe" hint on mobile
 - **MLH-014** - Desktop push notification permission: useDesktopNotifications hook, permission request flow, enable/disable toggle, showPreview option, test notification button, auto-notify on new alerts
