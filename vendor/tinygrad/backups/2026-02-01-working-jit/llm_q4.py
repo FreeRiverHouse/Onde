@@ -11,11 +11,10 @@ Usage:
 """
 
 from __future__ import annotations
-import os, sys, argparse, typing, json, uuid, time
+import os, sys, argparse
 from tinygrad import Tensor, nn, UOp, dtypes, getenv
-from tinygrad.helpers import GlobalCounters, DEBUG, stderr_log, colored
+from tinygrad.helpers import GlobalCounters, DEBUG
 from tinygrad.engine.jit import TinyJit
-from tinygrad.viz.serve import TCPServerWithReuse, HTTPRequestHandler
 
 # Import from parent llm module
 sys.path.insert(0, os.path.dirname(__file__))
@@ -293,75 +292,12 @@ class Q4Transformer:
             yield next_id
 
 
-# *** OpenAI compatible server ***
-CHAT_HTML = b'''<!DOCTYPE html><html><head><title>Q4 Chat</title><style>
-* { margin: 0 } body { background: #212121; color: #e3e3e3; font-family: system-ui; height: 100vh; display: flex; flex-direction: column }
-#chat { flex: 1; overflow-y: auto; padding: 20px } .msg { padding: 10px 16px; margin: 8px 0; white-space: pre-wrap; border-radius: 18px }
-.user { background: #2f2f2f; margin-left: auto; width: fit-content; max-width: 70% }
-#input { max-width: 768px; width: 100%; margin: 20px auto; padding: 14px 20px; background: #2f2f2f; color: inherit; font: inherit; border: none; outline: none; resize: none; border-radius: 24px }
-</style></head><body><div id="chat"></div><textarea id="input" rows="1" placeholder="Ask"></textarea>
-<script>
-input.onkeydown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }
-const msgs = [];
-async function send() {
-  if (!input.value.trim()) return; msgs.push({role: 'user', content: input.value.trim()});
-  chat.innerHTML += '<div class="msg user">' + input.value.trim().replace(/</g, '&lt;') + '</div>'; input.value = '';
-  const d = document.createElement('div'); d.className = 'msg'; chat.appendChild(d);
-  const r = await fetch('/v1/chat/completions', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({model: 'q4', messages: msgs, stream: true})});
-  for (const rd = r.body.getReader(), dec = new TextDecoder();;) { const {done, value} = await rd.read(); if (done) break;
-    for (const ln of dec.decode(value).split('\\n')) if (ln.startsWith('data: ') && !ln.includes('[DONE]')) try { d.textContent += JSON.parse(ln.slice(6)).choices[0]?.delta?.content || '' } catch {}
-    chat.scrollTop = chat.scrollHeight; }
-  msgs.push({role: 'assistant', content: d.textContent});
-}
-</script></body></html>'''
-
-class Handler(HTTPRequestHandler):
-  def log_request(self, code='-', size='-'): pass
-  def do_GET(self): self.send_data(CHAT_HTML, content_type="text/html")
-  def run_model(self, ids:list[int], model_name:str, include_usage=False):
-    stderr_log(f"{self.path}  in:{len(ids):5d}  ")
-    tmpl = {"id":f"chatcmpl-{uuid.uuid4().hex[:24]}", "object":"chat.completion.chunk", "created":int(time.time()), "model":model_name}
-    yield {"choices": [{"index":0, "delta":{"role":"assistant","content":""}, "finish_reason":None}], **tmpl}
-    out: list[int] = []
-    st = time.perf_counter()
-    for next_id in model.generate(ids):
-      if len(out) == 0: stderr_log(f"prefill:{len(ids)/((pt:=time.perf_counter())-st):4.0f} tok/s  ")
-      if next_id == eos_id: break
-      out.append(next_id)
-      yield {"choices": [{"index":0, "delta":{"content":tok.decode([next_id])}, "finish_reason":None}], **tmpl}
-    yield {"choices": [{"index":0, "delta":{},"finish_reason":"stop"}], **tmpl}
-    if include_usage: yield {"choices": [], "usage": {"prompt_tokens": len(ids), "completion_tokens": len(out), "total_tokens": len(ids) + len(out)}, **tmpl}
-    stderr_log(f"out:{len(out):5d}  gen: {len(out)/(time.perf_counter()-pt):4.0f} tok/s\n")
-
-  def do_POST(self):
-    raw_body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
-    body: dict[str, typing.Any] = json.loads(raw_body.decode("utf-8"))
-    if self.path == "/v1/chat/completions":
-      ids: list[int] = [bos_id] if bos_id is not None else []
-      for msg in body["messages"]:
-        ids += tok.role(msg["role"])
-        content = msg["content"]
-        if isinstance(content, str): ids += tok.encode(content)
-        elif isinstance(content, list):
-          for c in content:
-            if c["type"] == "text": ids += tok.encode(c["text"])
-        ids += tok.end_turn(eos_id)
-      ids += tok.role("assistant")
-      chunks = self.run_model(ids, body["model"], not body.get("stream") or body.get("stream_options",{}).get("include_usage", False))
-      if body.get("stream"): self.stream_json(chunks)
-      else:
-        out = []
-        for c in chunks: out.append(c["choices"][0]["delta"].get("content", "") if c["choices"] else "")
-        self.send_data(json.dumps({**c, "object":"chat.completion", "choices":[{"index":0, "message":{"role":"assistant","content":"".join(out)}, "finish_reason":"stop"}]}).encode())
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Q4 Quantized LLM Inference")
     parser.add_argument("--model", type=str, default="qwen2.5:14b", help="Model name")
     parser.add_argument("--max_context", type=int, default=256, help="Max context length")
     parser.add_argument("--prompt", type=str, default="What is 2+2?", help="Prompt")
     parser.add_argument("--count", type=int, default=50, help="Max tokens to generate")
-    parser.add_argument("--serve", nargs='?', type=int, const=11434, metavar="PORT", help="Run OpenAI API server")
     args = parser.parse_args()
 
     from tinygrad import Device
@@ -391,20 +327,13 @@ if __name__ == "__main__":
     gguf = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
 
     model, kv = Q4Transformer.from_gguf_quantized(gguf, max_context=args.max_context)
-    tok = SimpleTokenizer.from_gguf_kv(kv)
-    arch = kv['general.architecture']
-    eos_id = 151645 if arch in ['qwen2', 'qwen3'] else 128009
-    bos_id = kv.get('tokenizer.ggml.bos_token_id') if kv.get('tokenizer.ggml.add_bos_token', True) else None
+    tokenizer = SimpleTokenizer.from_gguf_kv(kv)
 
-    # Server mode
-    if args.serve:
-        print(f"\n=== Q4 Server on http://localhost:{args.serve} ===")
-        TCPServerWithReuse(('', args.serve), Handler).serve_forever()
-
-    # Generate mode
+    # Generate
     print(f"\nPrompt: {args.prompt}")
-    tokenizer = tok
-    eos_token = eos_id
+    arch = kv['general.architecture']
+    eos_token = 151645 if arch in ['qwen2', 'qwen3'] else 128009
+
     formatted = tokenizer.role('user') + tokenizer.encode(args.prompt) + tokenizer.end_turn(eos_token) + tokenizer.role('assistant')
     print(f"Tokens: {len(formatted)}")
 
