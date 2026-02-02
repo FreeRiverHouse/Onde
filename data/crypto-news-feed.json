@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-02T03:00:07.504736+00:00",
+  "timestamp": "2026-02-02T09:30:02.910030+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,76 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Odds that Bitcoin slips below $65K climb to 72% on Polymarket",
+      "url": "https://cointelegraph.com/news/polymarket-odds-bitcoin-below-65k-72-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin bets on Polymarket show elevated downside risk in 2026 as analysts point to bearish trends and tight US liquidity conditions.",
+      "published": "2026-02-02T09:11:44+00:00"
+    },
+    {
+      "title": "Nomura temporarily reduces crypto exposure as Q3 profits drop",
+      "url": "https://cointelegraph.com/news/nomura-temporarily-reducing-crypto-risk-exposure-after-q4-profit-drop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Nomura's CFO, Hiroyuki Moriuchi, reportedly reaffirmed the company's long-term commitment to digital assets but said it had to manage short-term risks.",
+      "published": "2026-02-02T06:35:55+00:00"
+    },
+    {
+      "title": "Crypto thieves, scammers plunder $370M in January: CertiK",
+      "url": "https://cointelegraph.com/news/crypto-stolen-370m-january-quadrupling-year-on-year-certik?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The amount of crypto stolen in January is also a 214% increase from the month before, with a majority of the value lost due to a single phishing incident.",
+      "published": "2026-02-02T05:56:31+00:00"
+    },
+    {
+      "title": "Average Bitcoin ETF buy underwater as investors pull $2.8B in 2 weeks",
+      "url": "https://cointelegraph.com/news/average-bitcoin-etf-buy-underwater-after-investors-pull-2-8b-2-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Following its weekend rout, Bitcoin dropped to $74,600 on Monday, marking a nine-month low for the cryptocurrency.",
+      "published": "2026-02-02T05:51:32+00:00"
+    },
+    {
+      "title": "CrossCurve Threatens Legal Action After $3M Cross-Chain Bridge Exploit",
+      "url": "https://decrypt.co/356599/crosscurve-legal-action-3m-cross-chain-bridge-exploit",
+      "source": "decrypt",
+      "description": "The protocol warned it may pursue criminal and civil action after identifying addresses tied to a hack of its token transfer system.",
+      "published": "2026-02-02T05:44:16+00:00"
+    },
+    {
+      "title": "Nevada Court Grants Temporary Restraining Order Against Polymarket",
+      "url": "https://decrypt.co/356597/nevada-court-temporary-restraining-order-polymarket",
+      "source": "decrypt",
+      "description": "Nevada's court ruling against Polymarket comes as prediction markets face global regulatory pressure and bans across multiple jurisdictions.",
+      "published": "2026-02-02T05:13:29+00:00"
+    },
+    {
+      "title": "Buterin pitches DAOs, prediction markets to reward content creators",
+      "url": "https://cointelegraph.com/news/vitalik-buterin-pitches-idea-creator-coins-model?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Vitalik Buterin said the current creator token model favors those already popular and rewards mass content creation over high-quality content.",
+      "published": "2026-02-02T05:01:58+00:00"
+    },
+    {
+      "title": "Bitcoin Derivatives Signal Elevated Stress Following Market Rout",
+      "url": "https://decrypt.co/356594/bitcoin-derivatives-signal-elevated-stress",
+      "source": "decrypt",
+      "description": "Bitcoin\u2019s weekend plunge opened a rare CME futures gap, as macro and geopolitical pressures drove a broad deleveraging.",
+      "published": "2026-02-02T04:42:40+00:00"
+    },
+    {
+      "title": "BitRiver CEO arrested for alleged tax concealment: Reports",
+      "url": "https://cointelegraph.com/news/bitriver-ceo-arrested-alleged-tax-concealment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "A Moscow court has reportedly ordered BitRiver CEO Igor Runets to remain under house arrest as investigators pursue tax evasion charges.",
+      "published": "2026-02-02T03:47:04+00:00"
+    },
+    {
+      "title": "Crypto selloff is likely due to US liquidity drought: Analyst",
+      "url": "https://cointelegraph.com/news/liquidity-drought-hurting-crypto-markets-raoul-pal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin\u2019s decline is mirroring SaaS stocks, proving that it is unlikely a crypto-specific narrative is driving the recent selloff, one analyst argues.",
+      "published": "2026-02-02T03:33:17+00:00"
+    },
     {
       "title": "UAE Royal\u2019s Alleged Stake in Trump Crypto Venture Raises Ethical Concerns",
       "url": "https://decrypt.co/356591/uae-royals-trump-crypto-venture-ethical-concerns",
@@ -39,13 +109,6 @@
       "published": "2026-02-01T20:57:03+00:00"
     },
     {
-      "title": "Bitcoin miner production data reveals scale of US winter storm disruption",
-      "url": "https://cointelegraph.com/news/bitcoin-miner-output-us-winter-storm-latest-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "New CryptoQuant data shows how January\u2019s US winter storm disrupted Bitcoin mining as operators curtailed power use amid grid stress.",
-      "published": "2026-02-01T20:36:13+00:00"
-    },
-    {
       "title": "Will Artificial Intelligence Save Humanity\u2014Or End It?",
       "url": "https://decrypt.co/356554/will-artificial-intelligence-save-humanity-end",
       "source": "decrypt",
@@ -60,53 +123,11 @@
       "published": "2026-02-01T17:54:11+00:00"
     },
     {
-      "title": "Bitcoin sell-off pushes IBIT investor returns into the red \u2014 asset manager",
-      "url": "https://cointelegraph.com/news/bitcoin-sell-off-ibit-investor-returns?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Based on dollar-weighted flows, aggregate returns for investors in BlackRock\u2019s iShares Bitcoin Trust have turned negative following Bitcoin\u2019s recent sell-off.",
-      "published": "2026-02-01T17:44:00+00:00"
-    },
-    {
-      "title": "Alternative inflation data shows sharp cooling in US CPI amid Fed uncertainty",
-      "url": "https://cointelegraph.com/news/alternative-inflation-data-us-cpi-cooling-fed-crypto?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Real-time Truflation data show US price pressures easing, a shift that could reshape expectations for Fed policy and influence cryptocurrency and risk-asset markets.",
-      "published": "2026-02-01T16:24:44+00:00"
-    },
-    {
-      "title": "Bitcoin price forecasts tap sub-$50K levels as BTC copies old bear markets",
-      "url": "https://cointelegraph.com/news/bitcoin-price-forecasts-sub-50k-levels-btc-copies-old-bear-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin bear market history was \"repeating,\" said BTC price analysis after key support failed and realized price flipped to new resistance.",
-      "published": "2026-02-01T15:37:35+00:00"
-    },
-    {
       "title": "The Biggest Games Releasing in February 2026",
       "url": "https://decrypt.co/356436/the-biggest-games-releasing-in-february-2026",
       "source": "decrypt",
       "description": "February is packed with high-profile releases, led by Japanese developers and bolstered by new Switch 2 exclusives and long-awaited revivals.",
       "published": "2026-02-01T15:01:02+00:00"
-    },
-    {
-      "title": "UAE firm bought 49% of Trump-linked crypto startup for $500M: WSJ",
-      "url": "https://cointelegraph.com/news/uae-backed-firm-buys-49-percent-trump-linked-world-liberty-wsj?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "An Abu Dhabi investment vehicle backed by Sheikh Tahnoon bin Zayed Al Nahyan, the UAE\u2019s national security adviser, agreed to buy 49% of World Liberty Financial for $500M.",
-      "published": "2026-02-01T10:04:17+00:00"
-    },
-    {
-      "title": "Step Finance treasury wallets breached, $27M in SOL drained as STEP crashes 90%",
-      "url": "https://cointelegraph.com/news/step-finance-treasury-breach-solana-step-token-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Solana-based DeFi platform Step Finance disclosed a treasury wallet breach that saw over $27 million in SOL moved onchain, sending its STEP token down more than 90%.",
-      "published": "2026-02-01T08:06:51+00:00"
-    },
-    {
-      "title": "Sam Bankman-Fried ramps up Trump support following Ellison\u2019s release",
-      "url": "https://cointelegraph.com/news/ftx-sam-bankman-fried-caroline-ellison-donald-trump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "FTX founder Sam Bankman-Fried said in a series of recent X posts that US President Donald Trump was \u201cright on crypto,\u201d while Joe Biden \u201cbungled crypto.\u201d",
-      "published": "2026-02-01T07:14:34+00:00"
     },
     {
       "title": "El Salvador\u2019s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge",
@@ -156,27 +177,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill Tennessee lawmakers are considering a bill that would allow the state to invest up to 10% of certain public funds in bitcoin. This post Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T21:37:51+00:00"
-    },
-    {
-      "title": "Gold Is the Real Bubble, Says Ark Invest's Cathie Wood\u2014Not AI",
-      "url": "https://decrypt.co/356505/gold-real-bubble-not-ai-ark-invest-cathie-wood",
-      "source": "decrypt",
-      "description": "Tech investor Cathie Wood isn't worried about an AI bubble, instead singling out gold as the real ongoing asset bubble.",
-      "published": "2026-01-30T21:36:32+00:00"
-    },
-    {
-      "title": "Experts Warn Data Center Backlash Could Slow AI Infrastructure Growth",
-      "url": "https://decrypt.co/356519/experts-warn-data-center-backlash-slow-ai-infrastructure-growth",
-      "source": "decrypt",
-      "description": "A new Brookings report says binding community benefit agreements are increasingly necessary as local opposition mounts over AI data centers.",
-      "published": "2026-01-30T21:09:31+00:00"
-    },
-    {
-      "title": "Bitcoin Price Holds Steady as Gold Falls and Silver Craters",
-      "url": "https://decrypt.co/356503/bitcoin-price-holds-steady-gold-falls-silver-craters",
-      "source": "decrypt",
-      "description": "Bitcoin stays resilient while gold and silver see historic crashes amid Fed chair nomination fears and shifting rate expectations.",
-      "published": "2026-01-30T20:51:00+00:00"
     },
     {
       "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",

@@ -323,7 +323,7 @@ class Handler(HTTPRequestHandler):
     tmpl = {"id":f"chatcmpl-{uuid.uuid4().hex[:24]}", "object":"chat.completion.chunk", "created":int(time.time()), "model":model_name}
     yield {"choices": [{"index":0, "delta":{"role":"assistant","content":""}, "finish_reason":None}], **tmpl}
     out: list[int] = []
-    st = time.perf_counter()
+    st = pt = time.perf_counter()  # pt initialized here, updated after prefill
     for next_id in model.generate(ids):
       if len(out) == 0: stderr_log(f"prefill:{len(ids)/((pt:=time.perf_counter())-st):4.0f} tok/s  ")
       if next_id == eos_id: break

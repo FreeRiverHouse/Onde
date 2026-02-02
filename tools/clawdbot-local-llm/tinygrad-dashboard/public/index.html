@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyGrad + Clawdbot</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+      --green: #3fb950; --red: #f85149; --orange: #d29922;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; padding: 20px;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+    header .subtitle { color: var(--muted); font-size: 14px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; margin-bottom: 20px;
+    }
+    .card h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .status-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .status-dot.running { background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .status-dot.stopped { background: var(--red); }
+    .status-dot.loading { background: var(--orange); animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: 0.5; } }
+
+    .model-grid { display: grid; gap: 12px; }
+    .model-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 16px; cursor: pointer; transition: all 0.2s;
+    }
+    .model-card:hover { border-color: var(--accent); }
+    .model-card.selected { border-color: var(--green); background: rgba(63,185,80,0.1); }
+    .model-card h3 { font-size: 16px; margin-bottom: 4px; }
+    .model-card .specs { font-size: 13px; color: var(--muted); display: flex; gap: 16px; }
+    .model-card .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; background: var(--accent); color: white; margin-left: 8px;
+    }
+
+    button {
+      background: var(--accent); color: #fff; border: none;
+      padding: 12px 24px; border-radius: 8px; cursor: pointer;
+      font-size: 15px; font-weight: 500; transition: opacity 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary { background: var(--border); }
+    button.danger { background: var(--red); }
+    button.success { background: var(--green); }
+
+    .actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .actions button { flex: 1; min-width: 200px; justify-content: center; }
+
+    .info-box {
+      background: rgba(88,166,255,0.1); border: 1px solid var(--accent);
+      border-radius: 8px; padding: 16px; margin-top: 16px;
+    }
+    .info-box h4 { font-size: 14px; margin-bottom: 8px; color: var(--accent); }
+    .info-box code {
+      display: block; background: var(--bg); padding: 12px;
+      border-radius: 6px; font-size: 13px; overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    .current-config {
+      background: var(--bg); border-radius: 8px; padding: 16px;
+      font-size: 14px; margin-top: 16px;
+    }
+    .current-config .label { color: var(--muted); margin-bottom: 4px; }
+    .current-config .value { font-weight: 600; color: var(--green); }
+
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; padding: 16px 24px;
+      background: var(--green); color: #fff; border-radius: 8px;
+      transform: translateY(100px); opacity: 0; transition: all 0.3s;
+      font-weight: 500;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: var(--red); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TinyGrad + Clawdbot</h1>
+      <p class="subtitle">MacBook Pro M1 + AMD Radeon RX 7900 XTX (20GB)</p>
+    </header>
+
+    <!-- Server Status -->
+    <div class="card">
+      <h2><span class="status-dot" id="serverStatus"></span> TinyGrad Q4 Server</h2>
+      <p id="serverInfo" style="color: var(--muted); margin-bottom: 16px;">Checking status...</p>
+
+      <div class="model-grid" id="modelList"></div>
+
+      <div class="actions">
+        <button id="startBtn" onclick="startServer()">Avvia Server</button>
+        <button id="stopBtn" class="danger" onclick="stopServer()" disabled>Ferma Server</button>
+      </div>
+    </div>
+
+    <!-- Clawdbot Config -->
+    <div class="card">
+      <h2>Clawdbot Config</h2>
+      <div class="current-config" id="currentConfig">
+        <div class="label">Modello Primario Attuale</div>
+        <div class="value" id="currentModel">Caricamento...</div>
+      </div>
+
+      <div class="actions">
+        <button class="success" onclick="setupClawdbot()">
+          Configura Clawdbot per Qwen3
+        </button>
+        <button class="secondary" onclick="resetToOpus()">
+          Ripristina Claude Opus
+        </button>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="card">
+      <h2>Comandi Manuali</h2>
+      <div class="info-box">
+        <h4>Avviare TinyGrad manualmente:</h4>
+        <code>cd /Users/mattia/Projects/Onde/vendor/tinygrad
+rm -f /tmp/am_remote:0.lock && \
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen3:32b --serve</code>
+      </div>
+      <div class="info-box" style="margin-top: 12px;">
+        <h4>Test API:</h4>
+        <code>curl http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen3","messages":[{"role":"user","content":"Hello"}]}'</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let selectedModel = 'qwen3:32b';
+    let config = {};
+
+    async function loadModels() {
+      const res = await fetch('/api/models');
+      const models = await res.json();
+      const list = document.getElementById('modelList');
+      list.innerHTML = models.map(m => `
+        <div class="model-card ${m.id === selectedModel ? 'selected' : ''}" onclick="selectModel('${m.id}')">
+          <h3>${m.name} ${m.thinking ? '<span class="badge">Thinking</span>' : ''}</h3>
+          <div class="specs">
+            <span>VRAM: ${m.vram}</span>
+            <span>Speed: ${m.speed}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectModel(id) {
+      selectedModel = id;
+      loadModels();
+    }
+
+    async function checkStatus() {
+      const dot = document.getElementById('serverStatus');
+      const info = document.getElementById('serverInfo');
+      const startBtn = document.getElementById('startBtn');
+      const stopBtn = document.getElementById('stopBtn');
+
+      dot.className = 'status-dot loading';
+      try {
+        const res = await fetch('/api/tinygrad/status');
+        const status = await res.json();
+
+        if (status.running) {
+          dot.className = 'status-dot running';
+          info.textContent = `Server attivo su porta ${status.port}`;
+          info.innerHTML += ' - <a href="http://localhost:11434" target="_blank" style="color: var(--accent)">Apri Chat</a>';
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+        } else {
+          dot.className = 'status-dot stopped';
+          info.textContent = 'Server non attivo';
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+        }
+      } catch (err) {
+        dot.className = 'status-dot stopped';
+        info.textContent = 'Errore controllo status';
+      }
+    }
+
+    async function startServer() {
+      const btn = document.getElementById('startBtn');
+      btn.disabled = true;
+      btn.textContent = 'Avvio in corso...';
+
+      try {
+        const res = await fetch('/api/tinygrad/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: selectedModel })
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          showToast(`Server avviato (PID: ${result.pid})`);
+          // Wait for server to be ready
+          setTimeout(checkStatus, 5000);
+        } else {
+          showToast(result.error, true);
+        }
+      } catch (err) {
+        showToast('Errore avvio server', true);
+      }
+      btn.textContent = 'Avvia Server';
+      checkStatus();
+    }
+
+    async function stopServer() {
+      try {
+        await fetch('/api/tinygrad/stop', { method: 'POST' });
+        showToast('Server fermato');
+        checkStatus();
+      } catch (err) {
+        showToast('Errore', true);
+      }
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('/api/config');
+        config = await res.json();
+        const model = config.agents?.defaults?.model?.primary || 'Non configurato';
+        document.getElementById('currentModel').textContent = model;
+      } catch (err) {
+        document.getElementById('currentModel').textContent = 'Errore caricamento';
+      }
+    }
+
+    async function setupClawdbot() {
+      try {
+        const res = await fetch('/api/setup-clawdbot', { method: 'POST' });
+        const result = await res.json();
+        if (result.success) {
+          showToast('Clawdbot configurato per Qwen3!');
+          loadConfig();
+        } else {
+          showToast(result.error, true);
+        }
+      } catch (err) {
+        showToast('Errore configurazione', true);
+      }
+    }
+
+    async function resetToOpus() {
+      try {
+        const res = await fetch('/api/config');
+        const cfg = await res.json();
+
+        cfg.agents = cfg.agents || {};
+        cfg.agents.defaults = cfg.agents.defaults || {};
+        cfg.agents.defaults.model = { primary: 'anthropic/claude-opus-4-5' };
+
+        await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cfg)
+        });
+
+        showToast('Ripristinato Claude Opus');
+        loadConfig();
+      } catch (err) {
+        showToast('Errore', true);
+      }
+    }
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Init
+    loadModels();
+    checkStatus();
+    loadConfig();
+
+    // Auto-refresh status
+    setInterval(checkStatus, 10000);
+  </script>
+</body>
+</html>

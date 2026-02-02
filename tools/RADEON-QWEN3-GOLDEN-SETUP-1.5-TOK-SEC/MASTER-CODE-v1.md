@@ -51,6 +51,110 @@ Final VRAM: 18.53GB
 
 ---
 
+### Test #2 - CLI Mode: 2026-02-02 01:01
+
+```
+$ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+    tinygrad/apps/llm_q4.py --model qwen3:32b --prompt "What is 2+2?" --count 30
+
+Device: AMD
+Loading from: /Volumes/DATI-SSD/llm-models/Qwen3-32B-Q4_K_M.gguf
+Loading GGUF with quantized weights...
+Model: qwen3, blocks=64, attn_bias=False, qk_norm=128
+Q4K tensors: 385, FP16 tensors: 322
+Memory: Q4K=14.47GB, FP16=9.58GB, Total=24.05GB
+Loading FP16 tensors...
+  FP16 loaded: 322, failed: 0
+Loading Q4K blocks...
+  Dequantizing token_embd.weight...
+  Q4K loaded: 385, failed: 0
+Model loaded! VRAM: 18.40GB
+
+Prompt: What is 2+2?
+Tokens: 15
+
+Generating...
+<think>
+Okay, so the user is asking "What is 2+2?" Hmm, that seems straightforward, but maybe I should think through it
+
+Generated 30 tokens
+Final VRAM: 18.53GB
+```
+
+**Risultato:** ✅ Identico a Test #1 - Setup stabile
+
+---
+
+### Test #3 - Server API Mode: 2026-02-02 01:15
+
+**Avvio Server:**
+```bash
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen3:32b --max_context 512 --serve 11434
+```
+
+**Request #1 - Poesia italiana:**
+```bash
+curl -s http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen3:32b","messages":[{"role":"user","content":"Scrivi una poesia breve sulla luna in italiano"}],"stream":false,"max_tokens":200}'
+```
+
+**Response:**
+```json
+{
+  "choices": [{
+    "message": {
+      "role": "assistant",
+      "content": "<think>\nOkay, the user wants a short poem about the moon in Italian...\n</think>\n\nLa luna sospesa nel ciel sereno,\ndiffonde argento in ogni angolo.\nSilenzio cala, ombre si distendono,\nmentre i sogni si fanno leggeri."
+    },
+    "finish_reason": "stop"
+  }],
+  "usage": {"prompt_tokens": 512, "completion_tokens": 492, "total_tokens": 1004},
+  "model": "qwen3:32b"
+}
+```
+
+**Metriche:** 492 token @ 1 tok/s
+
+---
+
+**Request #2 - Spiegazione tecnica:**
+```bash
+curl -s http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen3:32b","messages":[{"role":"user","content":"Spiega in 3 punti perché Python è popolare"}],"stream":false,"max_tokens":300}'
+```
+
+**Response (estratto):**
+```
+Python è popolare per questi tre motivi principali:
+
+1. **Sintassi semplice e leggibile**
+   Python utilizza un linguaggio vicino al linguaggio naturale...
+
+2. **Ecosistema ricco di librerie e framework**
+   Python offre migliaia di librerie predefinite (NumPy, Django, TensorFlow)...
+
+3. **Versatilità** [tagliato a max_tokens]
+```
+
+**Metriche:** 491 token @ 1 tok/s
+
+---
+
+### Note sui Test Server Mode
+
+| Aspetto | Osservazione |
+|---------|--------------|
+| **Web UI** | Disponibile su http://localhost:11434 |
+| **API** | OpenAI-compatible `/v1/chat/completions` |
+| **Warmup** | ~5-6 min per request (prefill shape-dependent) |
+| **Generazione** | ~1 tok/s post-warmup |
+| **Bug fixato** | `pt` variable unbound - risolto in llm_q4.py |
+
+---
+
 ## HARDWARE CERTIFICATO
 
 | Componente | Dettagli |
@@ -333,7 +437,8 @@ cp /Users/mattia/Projects/Onde/tools/RADEON-QWEN3-GOLDEN-SETUP-1.5-TOK-SEC/state
 
 ## CHANGELOG
 
-- **v1 (2026-02-02)**: Setup certificato Qwen3-32B @ 1.5 tok/s, thinking mode funzionante
+- **v1.1 (2026-02-02 01:30)**: Aggiunti test Server API Mode, fixato bug `pt` unbound in llm_q4.py
+- **v1 (2026-02-02 00:15)**: Setup certificato Qwen3-32B @ 1.5 tok/s, thinking mode funzionante
 
 ---
 
