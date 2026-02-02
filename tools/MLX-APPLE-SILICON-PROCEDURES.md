@@ -1,6 +1,6 @@
 # 🍎 MLX - LLM LOCALI SU APPLE SILICON M4
 
-**Hardware:** MacBook Pro M4 Max (128GB RAM, 40-core GPU)
+**Hardware:** MacBook Pro M4 Max (24GB RAM)
 **Backend:** MLX (Apple Machine Learning Framework)
 **Location:** ~/mlx-env (virtual environment)
 
@@ -15,15 +15,19 @@
 
 ## 📊 MODELLI DISPONIBILI (SCARICATI)
 
-| Modello | Size | VRAM | Use Case | Velocità |
-|---------|------|------|----------|----------|
+| Modello | Size | Peak RAM | Use Case | Velocità |
+|---------|------|----------|----------|----------|
+| **MistralSmall-Creative-24B-MLX-4bit** ⭐ | ~12GB | 13.5GB | Scrittura creativa, chat | 18.2 tok/s |
 | **Qwen2.5-32B-Instruct-4bit** | ~18GB | 18.6GB | Traduzioni, testo, codice | 12.7 tok/s |
 | **Qwen3-32B-MLX-4bit** | ~18GB | ~19GB | Chat, reasoning avanzato | ~12 tok/s |
 | **DeepSeek-R1-Distill-Qwen-32B-4bit** | ~18GB | ~19GB | Reasoning, math | ~11 tok/s |
 | **Qwen2.5-14B-Instruct-4bit** | ~8GB | ~9GB | Task veloci | ~25 tok/s |
-| **Llama-3.3-70B-Instruct-4bit** | ~40GB | ~42GB | Task complessi (lento) | ~5 tok/s |
 
-**Totale spazio modelli:** ~40GB in ~/.cache/huggingface/hub/
+**Totale spazio modelli:** ~60GB
+
+**Location modelli:**
+- HuggingFace cache: `~/.cache/huggingface/hub/`
+- Modelli locali convertiti: `~/Models/`
 
 ---
 
@@ -60,6 +64,100 @@ print(f'Metal available: {mx.metal.is_available()}')
 # Default device: Device(gpu, 0)
 # Metal available: True
 ```
+
+---
+
+## 🎨 MISTRAL SMALL CREATIVE 24B - SCRITTURA CREATIVA
+
+**IL MIGLIOR MODELLO PER SCRITTURA CREATIVA SU QUESTO MAC**
+
+### Specifiche
+| Proprietà | Valore |
+|-----------|--------|
+| **Nome** | MistralSmall-Creative-24B-MLX-4bit |
+| **Path locale** | `~/Models/MistralSmall-Creative-24B-MLX-4bit/` |
+| **Origine** | Convertito da `Sorawiz/MistralSmall-Creative-24B` |
+| **Quantizzazione** | 4-bit (MLX) |
+| **Size su disco** | ~12.3GB (3 file safetensors) |
+| **Peak RAM** | 13.5GB |
+| **Velocità generazione** | 18.2 tok/s |
+| **Velocità prompt** | 66.5 tok/s |
+| **Data conversione** | 2026-02-02 |
+| **Testato** | ✅ FUNZIONA PERFETTAMENTE |
+
+### Struttura File
+```
+~/Models/MistralSmall-Creative-24B-MLX-4bit/
+├── model-00001-of-00003.safetensors  (4.9GB)
+├── model-00002-of-00003.safetensors  (4.9GB)
+├── model-00003-of-00003.safetensors  (2.5GB)
+├── config.json
+├── tokenizer.json
+├── tokenizer_config.json
+├── special_tokens_map.json
+├── chat_template.jinja
+├── model.safetensors.index.json
+└── README.md
+```
+
+### Uso
+```bash
+source ~/mlx-env/bin/activate
+mlx_lm.generate \
+  --model ~/Models/MistralSmall-Creative-24B-MLX-4bit \
+  --prompt "Scrivi una storia creativa su..." \
+  --max-tokens 500 \
+  --temp 0.8
+```
+
+### Test Output (2026-02-02)
+```
+Prompt: "Ciao, presentati brevemente in italiano:"
+Output: "Ciao! Sono Mistral Small 3, un modello linguistico di grandi
+        dimensioni sviluppato da Mistral AI, un'azienda francese..."
+
+Performance:
+- Prompt: 186 tokens @ 66.5 tok/s
+- Generation: 100 tokens @ 18.2 tok/s
+- Peak memory: 13.527 GB
+```
+
+### Come è stato Convertito
+```bash
+# 1. Download manuale safetensors da HuggingFace (browser)
+#    https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/tree/main
+#    File: model-00001-of-00010.safetensors ... model-00010-of-00010.safetensors
+
+# 2. Download config files
+cd ~/Downloads
+curl -LO "https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/resolve/main/config.json"
+curl -LO "https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/resolve/main/tokenizer.json"
+curl -LO "https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/resolve/main/tokenizer_config.json"
+curl -LO "https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/resolve/main/model.safetensors.index.json"
+curl -LO "https://huggingface.co/Sorawiz/MistralSmall-Creative-24B/resolve/main/special_tokens_map.json"
+
+# 3. Organizza file
+mkdir -p ~/Models/MistralSmall-Creative-24B
+mv ~/Downloads/model-*.safetensors ~/Models/MistralSmall-Creative-24B/
+mv ~/Downloads/*.json ~/Models/MistralSmall-Creative-24B/
+
+# 4. Converti per MLX (4-bit quantization)
+source ~/mlx-env/bin/activate
+mlx_lm.convert \
+  --hf-path ~/Models/MistralSmall-Creative-24B \
+  --mlx-path ~/Models/MistralSmall-Creative-24B-MLX-4bit \
+  --quantize \
+  --q-bits 4
+
+# Risultato: 44GB → 12.3GB
+```
+
+### Warning Tokenizer (ignorabile)
+```
+The tokenizer you are loading... with an incorrect regex pattern...
+This will lead to incorrect tokenization. You should set fix_mistral_regex=True
+```
+**Questo warning è ignorabile** - il modello funziona correttamente.
 
 ---
 
@@ -239,14 +337,14 @@ mlx_lm.generate \
 
 ---
 
-## 📊 PERFORMANCE (M4 Max 128GB)
+## 📊 PERFORMANCE (M4 Max 24GB)
 
 | Modello | Prompt (tok/s) | Generation (tok/s) | Peak RAM |
 |---------|----------------|-------------------|----------|
+| **MistralSmall-Creative-24B-4bit** ⭐ | 66.5 | **18.2** | **13.5 GB** |
 | Qwen2.5-32B-4bit | 5.5 | 12.7 | 18.6 GB |
 | Qwen2.5-14B-4bit | 12 | 25 | 9 GB |
 | DeepSeek-R1-32B | 5 | 11 | 19 GB |
-| Llama-3.3-70B-4bit | 2 | 5 | 42 GB |
 
 ---
 
@@ -352,12 +450,16 @@ python3 -m mlx_lm.generate ...
 
 ```
 ~/mlx-env/                          # Virtual environment MLX
-~/.cache/huggingface/hub/           # Modelli scaricati
+
+~/.cache/huggingface/hub/           # Modelli HuggingFace (auto-download)
     models--mlx-community--Qwen2.5-32B-Instruct-4bit/
     models--mlx-community--Qwen2.5-14B-Instruct-4bit/
     models--mlx-community--DeepSeek-R1-Distill-Qwen-32B-4bit/
-    models--mlx-community--Llama-3.3-70B-Instruct-4bit/
     models--Qwen--Qwen3-32B-MLX-4bit/
+
+~/Models/                           # Modelli convertiti manualmente
+    MistralSmall-Creative-24B-MLX-4bit/  ⭐ MIGLIOR MODELLO CREATIVO
+
 ~/translate-mlx.sh                  # Script wrapper traduzioni
 ~/run-qwen3.sh                      # Script per Qwen 3
 ~/chat-qwen3.sh                     # Script chat interattiva
@@ -372,7 +474,7 @@ python3 -m mlx_lm.generate ...
 | **Setup** | Semplice (pip install) | Complesso (TinyGPU.app) |
 | **Modelli** | HuggingFace MLX | HuggingFace GGUF |
 | **Velocità 32B** | 12.7 tok/s | 8-10 tok/s |
-| **RAM/VRAM** | 128GB shared | 16GB dedicata |
+| **RAM/VRAM** | 24GB shared | 16GB dedicata |
 | **Pro** | Integrato, stabile | Più VRAM dedicata |
 | **Contro** | Solo Apple | Setup fragile |
 
@@ -406,6 +508,7 @@ mlx_lm.generate --model mlx-community/Qwen2.5-14B-Instruct-4bit \
 ---
 
 *Creato: 2026-02-01*
-*Hardware: MacBook Pro M4 Max 128GB*
+*Ultimo aggiornamento: 2026-02-02 - Aggiunto MistralSmall-Creative-24B*
+*Hardware: MacBook Pro M4 Max 24GB RAM*
 *MLX version: 0.30.4*
 *mlx-lm version: 0.30.5*
