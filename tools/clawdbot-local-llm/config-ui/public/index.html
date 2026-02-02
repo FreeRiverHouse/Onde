@@ -148,12 +148,14 @@
     <div class="card">
       <h2>Azioni Rapide</h2>
       <div class="quick-actions">
-        <button onclick="discoverOllama()">🔍 Scopri Modelli Ollama</button>
+        <button onclick="discoverOllama()">🔍 Scopri Modelli Ollama (Locale)</button>
+        <button onclick="discoverRadeon()">🔴 Scopri Modelli Radeon (M1)</button>
         <button onclick="showAddProvider('kimi')">🌙 Aggiungi Kimi 2.5</button>
         <button onclick="showAddProvider('grok')">🤖 Aggiungi Grok (xAI)</button>
-        <button onclick="showAddProvider('radeon')">🔴 Configura Radeon Remota</button>
+        <button onclick="showAddProvider('radeon')">⚙️ Configura Radeon Manuale</button>
         <button onclick="showAddProvider('custom')">➕ Provider Custom</button>
       </div>
+      <div id="radeonStatus" style="margin-top: 12px; font-size: 13px; color: var(--muted);"></div>
     </div>
 
     <!-- Provider Configurati -->
@@ -323,6 +325,94 @@
       }
     }
 
+    // Scopri Radeon (via wrapper su 11436 → M1:11434)
+    async function discoverRadeon() {
+      const statusDiv = document.getElementById('radeonStatus');
+      statusDiv.innerHTML = '⏳ Connessione a Radeon (M1 via wrapper 11436)...';
+
+      try {
+        // Prima testa il wrapper locale
+        const wrapperTest = await fetch('http://127.0.0.1:11436/health', {
+          signal: AbortSignal.timeout(3000)
+        });
+
+        if (!wrapperTest.ok) {
+          statusDiv.innerHTML = '❌ Wrapper Radeon (porta 11436) non risponde. Avvialo con: <code>launchctl load ~/Library/LaunchAgents/com.clawdbot.radeon-wrapper.plist</code>';
+          return;
+        }
+
+        // Ora testa la connessione al server remoto
+        const res = await fetch('/api/ollama/models?url=http://127.0.0.1:11436');
+        const models = await res.json();
+
+        if (models.error) {
+          statusDiv.innerHTML = `❌ Server Radeon (M1) non raggiungibile: ${models.error}.<br>Assicurati che TinyGrad sia in esecuzione su 192.168.1.111:11434`;
+          return;
+        }
+
+        if (models.length === 0) {
+          statusDiv.innerHTML = '⚠️ Radeon connessa ma nessun modello disponibile';
+          return;
+        }
+
+        // Mostra modelli trovati
+        statusDiv.innerHTML = `✅ Radeon connessa! Trovati ${models.length} modelli:`;
+
+        const list = document.createElement('div');
+        list.className = 'models-list';
+        list.innerHTML = models.map(m => `
+          <div class="model-item">
+            <span class="name">🔴 ${m.name}</span>
+            <span class="size">${formatSize(m.size)}</span>
+            <button onclick="addRadeonModel('${m.name}')">Aggiungi</button>
+          </div>
+        `).join('');
+        statusDiv.appendChild(list);
+
+        showToast(`Radeon: ${models.length} modelli disponibili`);
+      } catch (err) {
+        statusDiv.innerHTML = `❌ Errore: ${err.message}`;
+        showToast('Errore connessione Radeon', true);
+      }
+    }
+
+    // Aggiungi modello Radeon
+    async function addRadeonModel(modelName) {
+      config.models = config.models || { mode: 'merge', providers: {} };
+      config.models.providers = config.models.providers || {};
+
+      config.models.providers['radeon'] = config.models.providers['radeon'] || {
+        baseUrl: 'http://127.0.0.1:11436/v1',  // Wrapper locale!
+        apiKey: 'ollama',
+        api: 'openai-completions',
+        models: []
+      };
+
+      const exists = config.models.providers['radeon'].models.some(m => m.id === modelName);
+      if (!exists) {
+        let contextWindow = 32768;
+        let maxTokens = 8192;
+        if (modelName.includes('llama3.1')) {
+          contextWindow = 131072;
+        } else if (modelName.includes('qwen2.5-coder:14b')) {
+          contextWindow = 32768;
+        }
+
+        config.models.providers['radeon'].models.push({
+          id: modelName,
+          name: `${modelName} (Radeon GPU)`,
+          reasoning: false,
+          input: ['text'],
+          cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+          contextWindow,
+          maxTokens
+        });
+      }
+
+      await saveConfig();
+      showToast(`Aggiunto ${modelName} (Radeon)`);
+    }
+
     function formatSize(bytes) {
       const gb = bytes / (1024 * 1024 * 1024);
       return gb.toFixed(1) + ' GB';
@@ -392,9 +482,9 @@
         document.getElementById('providerApi').value = 'openai-completions';
         document.getElementById('providerModelId').value = 'grok-2';
       } else if (type === 'radeon') {
-        title.textContent = 'Configura Radeon Remota';
+        title.textContent = 'Configura Radeon (via Wrapper Locale)';
         document.getElementById('providerName').value = 'radeon';
-        document.getElementById('providerUrl').value = 'http://192.168.1.111:11434/v1';
+        document.getElementById('providerUrl').value = 'http://127.0.0.1:11436/v1';  // Wrapper locale
         document.getElementById('providerApiKey').value = 'ollama';
         document.getElementById('providerApi').value = 'openai-completions';
         document.getElementById('providerModelId').value = 'llama3:70b';
