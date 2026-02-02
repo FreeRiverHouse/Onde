@@ -294,9 +294,9 @@ class Q4Transformer:
 
 
 # === WARMUP OPTIMIZATION ===
-# Pre-defined lengths for JIT caching. More granular = better cache hits.
-# Trade-off: more lengths = longer startup warmup time.
-WARMUP_LENGTHS = [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
+# Pre-defined lengths for JIT caching.
+# NOTE: Too many lengths causes memory leak during warmup. Keep it small.
+WARMUP_LENGTHS = [16, 32, 64, 128, 256]
 
 def get_padded_length(prompt_len: int) -> int:
     """Return the smallest warmup length >= prompt_len (for status display)."""
@@ -424,6 +424,7 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, default=50, help="Max tokens to generate")
     parser.add_argument("--serve", nargs='?', type=int, const=11434, metavar="PORT", help="Run OpenAI API server")
     parser.add_argument("--no-padding", action="store_true", help="Disable prompt padding (slower, more accurate timing)")
+    parser.add_argument("--no-warmup", action="store_true", help="Skip pre-warmup (first request will be slow)")
     args = parser.parse_args()
 
     from tinygrad import Device
@@ -460,27 +461,30 @@ if __name__ == "__main__":
 
     # Server mode
     if args.serve:
-        # Pre-warmup JIT with warmup lengths that fit in max_context
-        warmup_lengths = [wlen for wlen in WARMUP_LENGTHS if wlen <= args.max_context - 10]
-        print(f"\n=== Pre-warming JIT for {len(warmup_lengths)} lengths ===")
-        print(f"  Lengths: {warmup_lengths}")
-        print(f"  (This ensures fast response for any prompt length)\n")
-        for i, wlen in enumerate(warmup_lengths):
-            print(f"  [{i+1}/{len(warmup_lengths)}] Warming up length={wlen}...", end=" ", flush=True)
-            st = time.perf_counter()
-            # Create dummy tokens
-            dummy_tokens = [1] * wlen  # BOS token repeated
-            # Run one prefill + a few generate steps
-            gen = model.generate(dummy_tokens, 0)
-            for j, _ in enumerate(gen):
-                if j >= 2:  # Just 2 tokens to warm up generate JIT
-                    break
-            # Clear KV cache for fresh start
-            for blk in model.blk:
-                if hasattr(blk, 'cache_kv'):
-                    del blk.cache_kv
-            print(f"done ({time.perf_counter()-st:.1f}s)")
-        print("\n=== Warmup complete! All lengths cached. ===\n")
+        if not args.no_warmup:
+            # Pre-warmup JIT with warmup lengths that fit in max_context
+            warmup_lengths = [wlen for wlen in WARMUP_LENGTHS if wlen <= args.max_context - 10]
+            print(f"\n=== Pre-warming JIT for {len(warmup_lengths)} lengths ===")
+            print(f"  Lengths: {warmup_lengths}")
+            print(f"  (This ensures fast response for any prompt length)\n")
+            for i, wlen in enumerate(warmup_lengths):
+                print(f"  [{i+1}/{len(warmup_lengths)}] Warming up length={wlen}...", end=" ", flush=True)
+                st = time.perf_counter()
+                # Create dummy tokens
+                dummy_tokens = [1] * wlen  # BOS token repeated
+                # Run one prefill + a few generate steps
+                gen = model.generate(dummy_tokens, 0)
+                for j, _ in enumerate(gen):
+                    if j >= 2:  # Just 2 tokens to warm up generate JIT
+                        break
+                # Clear KV cache for fresh start
+                for blk in model.blk:
+                    if hasattr(blk, 'cache_kv'):
+                        del blk.cache_kv
+                print(f"done ({time.perf_counter()-st:.1f}s)")
+            print("\n=== Warmup complete! All lengths cached. ===\n")
+        else:
+            print("\n=== Skipping pre-warmup (first request will be slow) ===\n")
 
         print(f"=== Q4 Server on http://localhost:{args.serve} ===")
         TCPServerWithReuse(('', args.serve), Handler).serve_forever()
