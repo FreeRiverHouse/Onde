@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-02T09:30:02.910030+00:00",
+  "timestamp": "2026-02-02T10:00:03.163793+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "No Relief For Crypto Investors As India Retains Current Crypto Tax In Budget 2026",
+      "url": "https://decrypt.co/356601/no-relief-for-crypto-investors-as-india-retains-current-crypto-tax-in-budget-2026",
+      "source": "decrypt",
+      "description": "India's crypto tax regime remains unchanged, dashing industry hopes for relief from the framework that drove trading offshore.",
+      "published": "2026-02-02T09:58:17+00:00"
+    },
     {
       "title": "Odds that Bitcoin slips below $65K climb to 72% on Polymarket",
       "url": "https://cointelegraph.com/news/polymarket-odds-bitcoin-below-65k-72-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -156,13 +163,6 @@
       "source": "decrypt",
       "description": "Industry leaders are pushing for tax reform as traders flee offshore, draining domestic exchanges and undermining regulatory oversight.",
       "published": "2026-01-31T16:31:02+00:00"
-    },
-    {
-      "title": "Bitcoin Mining Profits Hit 14-Month Low After Winter Storm Rocks Miners: CryptoQuant",
-      "url": "https://decrypt.co/356530/bitcoin-mining-profits-14-month-low-winter-storm-disrupts-miners-cryptoquant",
-      "source": "decrypt",
-      "description": "Bitcoin miners are \"extremely underpaid\" given the price of Bitcoin and current BTC mining conditions, according to a CryptoQuant report.",
-      "published": "2026-01-30T22:02:19+00:00"
     },
     {
       "title": "Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas",

@@ -398,7 +398,28 @@ if __name__ == "__main__":
 
     # Server mode
     if args.serve:
-        print(f"\n=== Q4 Server on http://localhost:{args.serve} ===")
+        # Pre-warmup JIT with common prompt lengths
+        print("\n=== Pre-warming JIT (this takes a few minutes first time) ===")
+        warmup_lengths = [16, 32, 64, 128, 256]  # Common prompt token counts
+        for wlen in warmup_lengths:
+            if wlen > args.max_context - 10:
+                continue
+            print(f"  Warming up length={wlen}...", end=" ", flush=True)
+            # Create dummy tokens
+            dummy_tokens = [1] * wlen  # BOS token repeated
+            # Run one prefill + a few generate steps
+            gen = model.generate(dummy_tokens, 0)
+            for i, _ in enumerate(gen):
+                if i >= 2:  # Just 2 tokens to warm up generate JIT
+                    break
+            # Clear KV cache for fresh start
+            for blk in model.blk:
+                if hasattr(blk, 'cache_kv'):
+                    del blk.cache_kv
+            print("done")
+        print("=== Warmup complete! ===\n")
+
+        print(f"=== Q4 Server on http://localhost:{args.serve} ===")
         TCPServerWithReuse(('', args.serve), Handler).serve_forever()
 
     # Generate mode

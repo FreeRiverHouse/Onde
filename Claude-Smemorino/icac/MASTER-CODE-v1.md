@@ -404,6 +404,103 @@ rm -f /tmp/am_remote:0.lock
 
 ---
 
+## OTTIMIZZAZIONE WARMUP - ANALISI (2026-02-02)
+
+### Cosa Funziona
+
+1. **CLI Mode** - Ogni invocazione richiede warmup completo (~5-6 min)
+2. **Server Mode** - Il modello resta in memoria, ma JIT è shape-dependent
+3. **Pre-warmup** - Aggiunto al server startup per shape comuni [16, 32, 64, 128, 256]
+
+### Il Problema Fondamentale
+
+**TinyJit è shape-specific**: ogni diversa lunghezza di prompt richiede ricompilazione LLVM.
+
+```
+Length=10 tokens → compila kernel per shape (1, 10, dim)
+Length=16 tokens → compila kernel per shape (1, 16, dim) ← DIVERSO!
+```
+
+Quindi pre-scaldare length=16 NON aiuta per length=10.
+
+### Tempi Misurati
+
+| Fase | Tempo | Note |
+|------|-------|------|
+| Model load | ~30s | Caricamento GGUF da SSD |
+| Warmup per length | ~5-6 min | Compilazione LLVM per ogni shape |
+| Generazione post-warmup | ~1 tok/s | JIT cachato per T=1 |
+
+### Pre-warmup Implementato (llm_q4.py)
+
+```python
+# Server mode - pre-warm common lengths
+warmup_lengths = [16, 32, 64, 128, 256]
+for wlen in warmup_lengths:
+    dummy_tokens = [1] * wlen
+    gen = model.generate(dummy_tokens, 0)
+    for i, _ in enumerate(gen):
+        if i >= 2: break  # Just 2 tokens
+    # Clear KV cache
+    for blk in model.blk:
+        if hasattr(blk, 'cache_kv'):
+            del blk.cache_kv
+```
+
+**Tempo totale pre-warmup:** ~25-30 minuti per 5 lunghezze
+
+### Ottimizzazioni Future (TODO)
+
+1. **Input Padding**
+   - Arrotondare tutti i prompt alla lunghezza warmup più vicina
+   - Es: length=10 → pad a 16, length=50 → pad a 64
+   - Pro: cache hit garantito
+   - Contro: spreco di compute su padding
+
+2. **Warmup Granulare**
+   - Aggiungere più lunghezze: [8, 12, 16, 24, 32, 48, 64, 96, 128...]
+   - Pro: più cache hit
+   - Contro: tempo startup maggiore
+
+3. **Kernel Cache Persistente**
+   - Salvare kernel LLVM compilati su disco
+   - `CACHELEVEL=2` dovrebbe già farlo
+   - Da verificare se funziona cross-session
+
+4. **Lazy Warmup**
+   - Non pre-scaldare, ma cachare ogni nuova lunghezza
+   - Prima request lenta, successive veloci
+   - Buono per uso interattivo
+
+5. **Context Window Dinamico**
+   - Server attuale: `--max_context 512`
+   - Qwen3 supporta fino a 128k con YaRN
+   - Con 24GB VRAM: ~2-4k context realistico
+
+### Configurazione Clawdbot
+
+```json
+{
+  "models": {
+    "providers": {
+      "tinygrad": {
+        "baseUrl": "http://127.0.0.1:11434/v1",
+        "apiKey": "tinygrad",
+        "models": [{
+          "id": "qwen3:32b",
+          "contextWindow": 512,  // Limitato da VRAM
+          "maxTokens": 256
+        }]
+      }
+    }
+  }
+}
+```
+
+**Nota:** Se server non risponde (warmup), clawdbot fallback a Claude.
+
+---
+
 ## FILE INCLUSI IN QUESTO BACKUP
 
 | File | Descrizione |
@@ -437,6 +534,7 @@ cp /Users/mattia/Projects/Onde/tools/RADEON-QWEN3-GOLDEN-SETUP-1.5-TOK-SEC/state
 
 ## CHANGELOG
 
+- **v1.2 (2026-02-02 02:30)**: Documentazione warmup optimization, analisi JIT shape-dependency, pre-warmup implementato
 - **v1.1 (2026-02-02 01:30)**: Aggiunti test Server API Mode, fixato bug `pt` unbound in llm_q4.py
 - **v1 (2026-02-02 00:15)**: Setup certificato Qwen3-32B @ 1.5 tok/s, thinking mode funzionante
 
