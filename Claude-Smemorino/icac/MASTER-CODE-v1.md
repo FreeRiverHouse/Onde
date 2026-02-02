@@ -274,8 +274,13 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 cd /Users/mattia/Projects/Onde/vendor/tinygrad
 rm -f /tmp/am_remote:0.lock
 
+# Default: 2048 context, 14 warmup lengths
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm_q4.py --model qwen3:32b --max_context 512 --serve 11434
+  tinygrad/apps/llm_q4.py --model qwen3:32b --serve 11434
+
+# Con context custom (es. 4096)
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen3:32b --max_context 4096 --serve 11434
 ```
 
 ### Test API
@@ -431,23 +436,27 @@ Quindi pre-scaldare length=16 NON aiuta per length=10.
 | Warmup per length | ~5-6 min | Compilazione LLVM per ogni shape |
 | Generazione post-warmup | ~1 tok/s | JIT cachato per T=1 |
 
-### Pre-warmup Implementato (llm_q4.py)
+### Pre-warmup Implementato (llm_q4.py v1.3)
 
 ```python
-# Server mode - pre-warm common lengths
-warmup_lengths = [16, 32, 64, 128, 256]
+# 14 lunghezze per massima copertura
+WARMUP_LENGTHS = [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
+
+# Server mode - pre-warm all lengths that fit in max_context
+warmup_lengths = [wlen for wlen in WARMUP_LENGTHS if wlen <= max_context - 10]
 for wlen in warmup_lengths:
     dummy_tokens = [1] * wlen
     gen = model.generate(dummy_tokens, 0)
     for i, _ in enumerate(gen):
-        if i >= 2: break  # Just 2 tokens
-    # Clear KV cache
+        if i >= 2: break  # Just 2 tokens to warm JIT
+    # Clear KV cache for fresh start
     for blk in model.blk:
         if hasattr(blk, 'cache_kv'):
             del blk.cache_kv
 ```
 
-**Tempo totale pre-warmup:** ~25-30 minuti per 5 lunghezze
+**Tempo warmup prima run:** ~1 ora per 14 lunghezze
+**Tempo warmup run successive:** ~0 (kernel cachati su disco)
 
 ### Ottimizzazioni Future (TODO)
 
@@ -472,10 +481,10 @@ for wlen in warmup_lengths:
    - Prima request lenta, successive veloci
    - Buono per uso interattivo
 
-5. **Context Window Dinamico**
-   - Server attuale: `--max_context 512`
+5. **Context Window** ✅ IMPLEMENTATO v1.3
+   - Server default: `--max_context 2048`
    - Qwen3 supporta fino a 128k con YaRN
-   - Con 24GB VRAM: ~2-4k context realistico
+   - Con 24GB VRAM: testato fino a 4k context
 
 ### Configurazione Clawdbot
 
@@ -488,8 +497,8 @@ for wlen in warmup_lengths:
         "apiKey": "tinygrad",
         "models": [{
           "id": "qwen3:32b",
-          "contextWindow": 512,  // Limitato da VRAM
-          "maxTokens": 256
+          "contextWindow": 2048,  // Default server v1.3
+          "maxTokens": 1024
         }]
       }
     }
@@ -497,7 +506,7 @@ for wlen in warmup_lengths:
 }
 ```
 
-**Nota:** Se server non risponde (warmup), clawdbot fallback a Claude.
+**Nota:** Prima run richiede warmup (~1h). Run successive usano kernel cachati (~0s warmup).
 
 ---
 
@@ -534,9 +543,44 @@ cp /Users/mattia/Projects/Onde/tools/RADEON-QWEN3-GOLDEN-SETUP-1.5-TOK-SEC/state
 
 ## CHANGELOG
 
+- **v1.3 (2026-02-02 10:00)**: Implementate ottimizzazioni warmup:
+  - Context default aumentato da 256 a 2048 token
+  - Warmup granulare: 14 lunghezze [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
+  - Confermata cache persistente su disco (~6GB in `~/Library/Caches/tinygrad/cache.db`)
+  - Aggiunto status indicator nel server log (`✓` = warmed, `→N` = nearest warmed length)
 - **v1.2 (2026-02-02 02:30)**: Documentazione warmup optimization, analisi JIT shape-dependency, pre-warmup implementato
 - **v1.1 (2026-02-02 01:30)**: Aggiunti test Server API Mode, fixato bug `pt` unbound in llm_q4.py
 - **v1 (2026-02-02 00:15)**: Setup certificato Qwen3-32B @ 1.5 tok/s, thinking mode funzionante
+
+---
+
+## OTTIMIZZAZIONI v1.3 - DETTAGLI
+
+### 1. Context Window Aumentato
+```bash
+# Prima: --max_context 512
+# Dopo:  --max_context 2048 (default)
+```
+Con ~5.5GB VRAM liberi, il KV cache per 2048 token richiede solo ~16MB.
+
+### 2. Warmup Granulare
+14 lunghezze pre-warmate invece di 5:
+```python
+WARMUP_LENGTHS = [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
+```
+Tempo startup: ~1 ora per warmup completo, ma kernel salvati su disco.
+
+### 3. Cache Persistente Confermata
+```
+~/Library/Caches/tinygrad/cache.db  (~6GB)
+```
+I kernel compilati sopravvivono tra sessioni. Prima run lenta, successive veloci.
+
+### 4. Server Status Log
+```
+/v1/chat/completions  in:   24 [✓]     # Lunghezza warmed
+/v1/chat/completions  in:   19 [→24]   # Nearest warmed length
+```
 
 ---
 

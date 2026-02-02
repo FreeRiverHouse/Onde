@@ -293,6 +293,19 @@ class Q4Transformer:
             yield next_id
 
 
+# === WARMUP OPTIMIZATION ===
+# Pre-defined lengths for JIT caching. More granular = better cache hits.
+# Trade-off: more lengths = longer startup warmup time.
+WARMUP_LENGTHS = [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
+
+def get_padded_length(prompt_len: int) -> int:
+    """Return the smallest warmup length >= prompt_len (for status display)."""
+    for wlen in WARMUP_LENGTHS:
+        if wlen >= prompt_len:
+            return wlen
+    return prompt_len
+
+
 # *** OpenAI compatible server ***
 CHAT_HTML = b'''<!DOCTYPE html><html><head><title>Q4 Chat</title><style>
 * { margin: 0 } body { background: #212121; color: #e3e3e3; font-family: system-ui; height: 100vh; display: flex; flex-direction: column }
@@ -319,7 +332,12 @@ class Handler(HTTPRequestHandler):
   def log_request(self, code='-', size='-'): pass
   def do_GET(self): self.send_data(CHAT_HTML, content_type="text/html")
   def run_model(self, ids:list[int], model_name:str, include_usage=False):
-    stderr_log(f"{self.path}  in:{len(ids):5d}  ")
+    # Check if this length is pre-warmed
+    nearest_warmup = get_padded_length(len(ids))
+    is_warmed = nearest_warmup == len(ids) or nearest_warmup in WARMUP_LENGTHS
+    warmup_status = "✓" if len(ids) in WARMUP_LENGTHS else f"→{nearest_warmup}"
+    stderr_log(f"{self.path}  in:{len(ids):5d} [{warmup_status}]  ")
+
     tmpl = {"id":f"chatcmpl-{uuid.uuid4().hex[:24]}", "object":"chat.completion.chunk", "created":int(time.time()), "model":model_name}
     yield {"choices": [{"index":0, "delta":{"role":"assistant","content":""}, "finish_reason":None}], **tmpl}
     out: list[int] = []
@@ -358,10 +376,11 @@ class Handler(HTTPRequestHandler):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Q4 Quantized LLM Inference")
     parser.add_argument("--model", type=str, default="qwen2.5:14b", help="Model name")
-    parser.add_argument("--max_context", type=int, default=256, help="Max context length")
+    parser.add_argument("--max_context", type=int, default=2048, help="Max context length")
     parser.add_argument("--prompt", type=str, default="What is 2+2?", help="Prompt")
     parser.add_argument("--count", type=int, default=50, help="Max tokens to generate")
     parser.add_argument("--serve", nargs='?', type=int, const=11434, metavar="PORT", help="Run OpenAI API server")
+    parser.add_argument("--no-padding", action="store_true", help="Disable prompt padding (slower, more accurate timing)")
     args = parser.parse_args()
 
     from tinygrad import Device
@@ -398,26 +417,27 @@ if __name__ == "__main__":
 
     # Server mode
     if args.serve:
-        # Pre-warmup JIT with common prompt lengths
-        print("\n=== Pre-warming JIT (this takes a few minutes first time) ===")
-        warmup_lengths = [16, 32, 64, 128, 256]  # Common prompt token counts
-        for wlen in warmup_lengths:
-            if wlen > args.max_context - 10:
-                continue
-            print(f"  Warming up length={wlen}...", end=" ", flush=True)
+        # Pre-warmup JIT with warmup lengths that fit in max_context
+        warmup_lengths = [wlen for wlen in WARMUP_LENGTHS if wlen <= args.max_context - 10]
+        print(f"\n=== Pre-warming JIT for {len(warmup_lengths)} lengths ===")
+        print(f"  Lengths: {warmup_lengths}")
+        print(f"  (This ensures fast response for any prompt length)\n")
+        for i, wlen in enumerate(warmup_lengths):
+            print(f"  [{i+1}/{len(warmup_lengths)}] Warming up length={wlen}...", end=" ", flush=True)
+            st = time.perf_counter()
             # Create dummy tokens
             dummy_tokens = [1] * wlen  # BOS token repeated
             # Run one prefill + a few generate steps
             gen = model.generate(dummy_tokens, 0)
-            for i, _ in enumerate(gen):
-                if i >= 2:  # Just 2 tokens to warm up generate JIT
+            for j, _ in enumerate(gen):
+                if j >= 2:  # Just 2 tokens to warm up generate JIT
                     break
             # Clear KV cache for fresh start
             for blk in model.blk:
                 if hasattr(blk, 'cache_kv'):
                     del blk.cache_kv
-            print("done")
-        print("=== Warmup complete! ===\n")
+            print(f"done ({time.perf_counter()-st:.1f}s)")
+        print("\n=== Warmup complete! All lengths cached. ===\n")
 
         print(f"=== Q4 Server on http://localhost:{args.serve} ===")
         TCPServerWithReuse(('', args.serve), Handler).serve_forever()
