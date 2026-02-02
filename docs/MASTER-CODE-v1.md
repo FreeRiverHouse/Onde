@@ -543,6 +543,11 @@ cp /Users/mattia/Projects/Onde/tools/RADEON-QWEN3-GOLDEN-SETUP-1.5-TOK-SEC/state
 
 ## CHANGELOG
 
+- **v1.4 (2026-02-02 10:30)**: Fix thinking mode output:
+  - Filtro automatico dei blocchi `<think>...</think>` dalla risposta
+  - Output pulito di default (solo risposta finale)
+  - Opzione `show_thinking: true` nella request per vedere il reasoning
+  - Env var `SHOW_THINKING=1` per abilitare globalmente
 - **v1.3 (2026-02-02 10:00)**: Implementate ottimizzazioni warmup:
   - Context default aumentato da 256 a 2048 token
   - Warmup granulare: 14 lunghezze [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
@@ -581,6 +586,20 @@ I kernel compilati sopravvivono tra sessioni. Prima run lenta, successive veloci
 /v1/chat/completions  in:   24 [✓]     # Lunghezza warmed
 /v1/chat/completions  in:   19 [→24]   # Nearest warmed length
 ```
+
+### 5. Thinking Mode (v1.4)
+Qwen3 genera `<think>...</think>` blocks con ragionamento interno.
+- **Default:** filtrato (output pulito)
+- **Per vedere il thinking:**
+  ```bash
+  # Via env var
+  SHOW_THINKING=1 python llm_q4.py --model qwen3:32b --serve 11434
+
+  # Via API request
+  curl -X POST http://localhost:11434/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"model":"qwen3:32b","messages":[{"role":"user","content":"Ciao"}],"show_thinking":true}'
+  ```
 
 ---
 

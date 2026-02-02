@@ -331,22 +331,60 @@ async function send() {
 class Handler(HTTPRequestHandler):
   def log_request(self, code='-', size='-'): pass
   def do_GET(self): self.send_data(CHAT_HTML, content_type="text/html")
-  def run_model(self, ids:list[int], model_name:str, include_usage=False):
+  def run_model(self, ids:list[int], model_name:str, include_usage=False, show_thinking=False):
     # Check if this length is pre-warmed
     nearest_warmup = get_padded_length(len(ids))
-    is_warmed = nearest_warmup == len(ids) or nearest_warmup in WARMUP_LENGTHS
     warmup_status = "✓" if len(ids) in WARMUP_LENGTHS else f"→{nearest_warmup}"
     stderr_log(f"{self.path}  in:{len(ids):5d} [{warmup_status}]  ")
 
     tmpl = {"id":f"chatcmpl-{uuid.uuid4().hex[:24]}", "object":"chat.completion.chunk", "created":int(time.time()), "model":model_name}
     yield {"choices": [{"index":0, "delta":{"role":"assistant","content":""}, "finish_reason":None}], **tmpl}
     out: list[int] = []
+    buffer = ""  # Buffer for filtering <think>...</think>
+    in_think = False
+    think_content = ""
     st = pt = time.perf_counter()  # pt initialized here, updated after prefill
     for next_id in model.generate(ids):
       if len(out) == 0: stderr_log(f"prefill:{len(ids)/((pt:=time.perf_counter())-st):4.0f} tok/s  ")
       if next_id == eos_id: break
       out.append(next_id)
-      yield {"choices": [{"index":0, "delta":{"content":tok.decode([next_id])}, "finish_reason":None}], **tmpl}
+      content = tok.decode([next_id])
+
+      # Filter <think>...</think> blocks unless show_thinking is True
+      if show_thinking:
+        yield {"choices": [{"index":0, "delta":{"content":content}, "finish_reason":None}], **tmpl}
+      else:
+        buffer += content
+        # Check for <think> start
+        if not in_think and "<think>" in buffer:
+          # Output everything before <think>
+          pre_think = buffer.split("<think>")[0]
+          if pre_think:
+            yield {"choices": [{"index":0, "delta":{"content":pre_think}, "finish_reason":None}], **tmpl}
+          buffer = buffer.split("<think>", 1)[1] if "<think>" in buffer else ""
+          in_think = True
+          think_content = buffer
+          buffer = ""
+        elif in_think:
+          think_content += content
+          # Check for </think> end
+          if "</think>" in think_content:
+            in_think = False
+            # Optionally log thinking content for debug
+            if DEBUG >= 2: stderr_log(f"\n[THINKING: {len(think_content)} chars]\n")
+            # Get content after </think>
+            after_think = think_content.split("</think>", 1)[1].lstrip('\n')
+            buffer = after_think
+            think_content = ""
+        else:
+          # Not in think block, output normally (but buffer to detect <think>)
+          if len(buffer) > 20 or ("<" not in buffer):  # Safe to output
+            yield {"choices": [{"index":0, "delta":{"content":buffer}, "finish_reason":None}], **tmpl}
+            buffer = ""
+
+    # Flush remaining buffer
+    if buffer and not in_think:
+      yield {"choices": [{"index":0, "delta":{"content":buffer}, "finish_reason":None}], **tmpl}
     yield {"choices": [{"index":0, "delta":{},"finish_reason":"stop"}], **tmpl}
     if include_usage: yield {"choices": [], "usage": {"prompt_tokens": len(ids), "completion_tokens": len(out), "total_tokens": len(ids) + len(out)}, **tmpl}
     stderr_log(f"out:{len(out):5d}  gen: {len(out)/(time.perf_counter()-pt):4.0f} tok/s\n")
@@ -365,7 +403,12 @@ class Handler(HTTPRequestHandler):
             if c["type"] == "text": ids += tok.encode(c["text"])
         ids += tok.end_turn(eos_id)
       ids += tok.role("assistant")
-      chunks = self.run_model(ids, body["model"], not body.get("stream") or body.get("stream_options",{}).get("include_usage", False))
+      # show_thinking: set to true to see <think>...</think> blocks in output
+      # Can be set via: "show_thinking": true in request body
+      show_thinking = body.get("show_thinking", False) or getenv("SHOW_THINKING", 0)
+      chunks = self.run_model(ids, body["model"],
+                              not body.get("stream") or body.get("stream_options",{}).get("include_usage", False),
+                              show_thinking=show_thinking)
       if body.get("stream"): self.stream_json(chunks)
       else:
         out = []
