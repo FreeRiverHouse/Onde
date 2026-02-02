@@ -1,7 +1,7 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 1.9 - 2026-02-01
+> Versione 2.0 - 2026-02-01
 
 ---
 
@@ -1610,6 +1610,26 @@ Il rapido procione marrone salta sopra il cane pigro        ← OUTPUT CORRETTO!
 - `VRAM: 8.37GB` = Memoria GPU, non RAM
 - Output coerente in italiano = Modello funziona correttamente
 
+### 📊 VRAM vs Context Length
+
+Il context length determina quanti token il modello può "ricordare" nella conversazione.
+VRAM aumenta linearmente con il context (KV cache più grande).
+
+| Context | VRAM | Headroom | Uso Tipico |
+|---------|------|----------|------------|
+| 256 | 8.46 GB | 11.54 GB | Chat brevi |
+| 1024 | 8.75 GB | 11.25 GB | Chat normali |
+| 4096 | 9.87 GB | 10.13 GB | Documenti medi |
+| 8192 | 11.37 GB | 8.63 GB | Documenti lunghi |
+| **16384** | **14.38 GB** | **5.62 GB** | **Max pratico su 20GB** |
+
+**Formula approssimativa:**
+```
+VRAM ≈ 8.37GB (pesi) + (context × 0.00037 GB)
+```
+
+**Raccomandazione**: Usare `--max_context 4096` per uso normale, `8192` per documenti lunghi.
+
 ### 📖 COME USARE - True Q4 Inference
 
 ```bash
@@ -1648,6 +1668,7 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 ## Changelog
 
+- **v2.0 (2026-02-01)**: 📊 Analisi VRAM vs Context Length - testato fino a 16K context (14.38GB), tabella completa, formula approssimativa
 - **v1.9 (2026-02-01)**: 🎉 **TRUE Q4 INFERENCE FUNZIONA!** Il fix era il KV cache mancante. Ora Qwen2.5-14B gira su 8.37GB con output corretto ("2+2 equals 4.")
 - **v1.8 (2026-02-01)**: 🔬 True Q4 Inference Project - creati quantized.py e llm_q4.py, VRAM ridotta a 8.37GB (vs 28GB)
 - **v1.7 (2026-02-01)**: 🌐 Server LAN attivo! API OpenAI-compatible su http://192.168.1.111:11434, esempi cURL/Python/OpenAI SDK, tutti i path aggiornati a vendor/tinygrad
