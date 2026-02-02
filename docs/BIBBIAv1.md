@@ -816,5 +816,225 @@ MemoryError: Failed to allocate memory. (total allocation size=0x8700000, curren
 
 ---
 
+## 🔬 TEST SESSION v1.4 - 2026-02-01 (BUG FIX ATTENTION BIAS)
+
+### 🐛 BUG CRITICO TROVATO E FIXATO
+
+**Problema:** Qwen2.5 (tutte le versioni) produceva **garbage output** ("põe..", caratteri casuali).
+
+**Causa Root:** In `/Users/mattia/tinygrad/tinygrad/apps/llm.py`, le proiezioni attention erano hardcoded con `bias=False`:
+
+```python
+# PRIMA (linee 97-99) - BROKEN per Qwen2.5
+self.attn_q      = nn.Linear(dim, q_proj_out,  bias=False)
+self.attn_k      = nn.Linear(dim, kv_proj_out, bias=False)
+self.attn_v      = nn.Linear(dim, kv_proj_out, bias=False)
+```
+
+Ma il modello Qwen2.5 GGUF **contiene tensori bias** che venivano **ignorati**:
+- `blk.0.attn_q.bias: (3584,)`
+- `blk.0.attn_k.bias: (512,)`
+- `blk.0.attn_v.bias: (512,)`
+
+**Architetture a confronto:**
+| Architettura | Attention Bias | Modelli |
+|--------------|----------------|---------|
+| LLaMA | ❌ NO | LLaMA 1/2/3.x |
+| Qwen3 | ❌ NO | Qwen3 0.6B-8B |
+| **Qwen2/Qwen2.5** | **✅ SÌ** | Qwen2.5 7B/14B |
+
+### ✅ FIX APPLICATO
+
+**File modificato:** `/Users/mattia/tinygrad/tinygrad/apps/llm.py`
+
+**Modifica 1 - TransformerBlock.__init__ (linea 86):**
+```python
+# DOPO - Aggiunto parametro attn_bias
+def __init__(self, dim:int, hidden_dim:int, n_heads:int, n_kv_heads:int, norm_eps:float, head_dim:int, rope_theta:float,
+             max_context:int=0, qk_norm:int=0, num_experts:int=0, num_experts_per_tok:int=0, attn_bias:bool=False):
+```
+
+**Modifica 2 - Proiezioni attention (linee 97-99):**
+```python
+# DOPO - Usa attn_bias invece di hardcoded False
+self.attn_q      = nn.Linear(dim, q_proj_out,  bias=attn_bias)
+self.attn_k      = nn.Linear(dim, kv_proj_out, bias=attn_bias)
+self.attn_v      = nn.Linear(dim, kv_proj_out, bias=attn_bias)
+```
+
+**Modifica 3 - Transformer.__init__ (linea 163):**
+```python
+# DOPO - Propaga attn_bias ai blocchi
+def __init__(self, *, num_blocks, dim, hidden_dim, n_heads, n_kv_heads, norm_eps, vocab_size, head_dim:int, rope_theta:float,
+             max_context:int=0, qk_norm:int=0, num_experts:int=0, num_experts_per_tok:int=0, attn_bias:bool=False):
+```
+
+**Modifica 4 - from_gguf detection (linea 212):**
+```python
+# DOPO - Auto-detect bias da state_dict
+attn_bias='blk.0.attn_q.bias' in state_dict
+```
+
+### 📊 SCOPERTA CRITICA: DE-QUANTIZZAZIONE TinyGrad
+
+**IL VERO PROBLEMA CON MODELLI 14B+:**
+
+TinyGrad **de-quantizza TUTTI i pesi a FP16** durante il caricamento! Il codice in `llm.py` linea 189:
+
+```python
+state_dict = {k:v.cast('float16') if getenv("HALF", 1) else v for k,v in state_dict.items()}
+```
+
+**Conseguenza:**
+| Modello | File GGUF | In VRAM (FP16) | Risultato |
+|---------|-----------|----------------|-----------|
+| Qwen2.5-7B Q4 | ~4GB | ~15GB | ⚠️ Carica, 5GB liberi |
+| Qwen2.5-14B Q4 | ~9GB | **~30GB** | ❌ OOM (>20GB) |
+
+**Questo significa che:**
+- I modelli Q4 NON risparmiano VRAM in TinyGrad
+- Servono ~2x la dimensione teorica
+- 14B Q4 (dovrebbe essere ~8-9GB) diventa ~30GB → OOM
+
+**Per implementare vero quantized inference serve:**
+- Matmul quantizzato che de-quantizza on-the-fly per blocco
+- Simile a llama.cpp ma richiede modifiche profonde a TinyGrad
+- Progetto complesso ma fattibile (TinyGrad è open source)
+
+### 🔍 STATO MODELLI SSD
+
+**Path:** `/Volumes/DATI-SSD/llm-models/`
+
+**ATTENZIONE: LA CARTELLA È VUOTA!**
+
+Tutti i modelli sono stati cancellati/persi:
+- ❌ `Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf` - NON PRESENTE
+- ❌ `Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf` - NON PRESENTE
+- ❌ `Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf` - NON PRESENTE
+- ❌ `qwq-32b-q4_k_m.gguf` - Cancellato (troppo grande)
+- ❌ `Qwen2.5-14B-Instruct-Q4_K_M.gguf` - Download fallito (0B)
+
+**Per testare il fix, bisogna ri-scaricare almeno qwen2.5:7b:**
+```bash
+curl -L -o /Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf \
+  "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+```
+
+### ⚠️ DUBBIO SU LLAMA + AMD
+
+**CLAUDE.md documenta:**
+```
+### LLaMA 3.1 8B su AMD (FUNZIONA! - 2026-01-28)
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 ...
+**Performance:** ~0.64 tok/s
+```
+
+**Ma il user dubita che fosse davvero su AMD Radeon.**
+
+**Possibilità:**
+1. Test eseguito su **Metal** (Apple M1) invece che AMD
+2. Il modello era già in cache e Metal l'ha intercettato
+3. `AMD=1` era settato ma TinyGrad usava comunque Metal come fallback
+
+**Verifica necessaria:**
+```bash
+# Con DEBUG=2, deve mostrare:
+# "AMDDevice: opening 0 with target (11, 0, 0) arch gfx1100"
+cd ~/tinygrad
+DEBUG=2 AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 -c "
+from tinygrad import Device
+print(Device.DEFAULT)
+print(Device['AMD'])
+"
+```
+
+Se mostra `Metal` o `CPU` invece di `AMD`, allora i test precedenti NON erano su AMD.
+
+### 📁 FILE CRITICI E PATH
+
+| File | Path Assoluto | Descrizione |
+|------|---------------|-------------|
+| **llm.py (MODIFICATO)** | `/Users/mattia/tinygrad/tinygrad/apps/llm.py` | Server LLM con fix attn_bias |
+| **state.py** | `/Users/mattia/tinygrad/tinygrad/nn/state.py` | GGUF loader (ha già Float16 patch) |
+| **memory.py** | `/Users/mattia/tinygrad/tinygrad/runtime/support/memory.py` | Dove origina OOM |
+| **ops_amd.py** | `/Users/mattia/tinygrad/tinygrad/runtime/ops_amd.py` | AMD device driver |
+| **amdev.py** | `/Users/mattia/tinygrad/tinygrad/runtime/support/am/amdev.py` | AMD device manager |
+| **Modelli** | `/Volumes/DATI-SSD/llm-models/` | **VUOTA** - modelli da ri-scaricare |
+| **Test log** | `/tmp/qwen14b-test.log` | Log errore OOM |
+
+### 🔧 COMANDI UTILI
+
+**Reset GPU memory prima di ogni test:**
+```bash
+pkill -9 -f "python.*AMD"
+sleep 2
+```
+
+**Test AMD device:**
+```bash
+cd ~/tinygrad
+DEBUG=2 AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; Device['AMD']"
+```
+
+**Download modello qwen2.5:7b:**
+```bash
+curl -L -o /Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf \
+  "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+```
+
+**Test qwen2.5:7b con fix (dopo download):**
+```bash
+cd ~/tinygrad
+AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 -c "
+import os, sys
+from tinygrad import Tensor, dtypes, Device
+sys.path.insert(0, 'tinygrad/apps')
+from llm import Transformer, SimpleTokenizer
+
+model_path = '/Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf'
+gguf_tensor = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
+model, kv = Transformer.from_gguf(gguf_tensor.to(None), max_context=256)
+tokenizer = SimpleTokenizer.from_gguf_kv(kv)
+print(f'Model loaded! arch={kv[\"general.architecture\"]}')
+
+prompt = 'What is 2+2?'
+formatted = tokenizer.role('user') + tokenizer.encode(prompt) + tokenizer.end_turn(151645) + tokenizer.role('assistant')
+gen = model.generate(formatted, 0)
+output = [next(gen) for _ in range(20)]
+print(f'Output: {tokenizer.decode(output)}')
+"
+```
+
+### 📋 PROSSIMI PASSI
+
+1. **Ri-scaricare qwen2.5:7b** sulla SSD
+2. **Testare il fix** - verificare che non produca più garbage
+3. **Verificare LLaMA su AMD** - confermare se i test precedenti erano realmente su AMD
+4. **Considerare PR a TinyGrad** - il fix attn_bias è generico e utile
+
+### 🚨 ERRORI OOM TIPICI
+
+```
+MemoryError: Can't allocate 4096 bytes
+MemoryError: Failed to allocate memory. (total allocation size=0x8700000, current try=(4096, 4096))
+```
+
+**Significato:** La GPU ha esaurito la VRAM (~20GB). Causa:
+- Modello troppo grande dopo de-quantizzazione
+- KV cache + pesi superano 20GB
+- Memory leak da test precedenti (soluzione: `pkill -9 -f "python.*AMD"`)
+
+---
+
+## Changelog
+
+- **v1.4 (2026-02-01)**: Bug fix attention bias per Qwen2.5 - trovata causa root garbage output, fix applicato a llm.py, documentata de-quantizzazione TinyGrad, SSD modelli vuota
+- **v1.3 (2026-02-01)**: Aggiunta sessione test Claude Code - qwen2.5:14b OOM, qwen2.5:7b garbage, analisi limiti VRAM
+- **v1.2 (2026-02-01)**: Aggiunta sezione NVIDIA RTX 5060 Ti - analisi completa del fallimento, riferimenti issue, debunking tweet Arto Bendiken
+- **v1.1 (2026-02-01)**: Aggiunta sezione HANDOVER dettagliata con step-by-step, errori commessi, task pendenti
+- **v1.0 (2026-02-01)**: Consolidamento BIBBIA-RADEON + HANDOVER + CLAWDBOT-SETUP + raccomandazioni Grok
+
+---
+
 *Documento consolidato da: BIBBIA-RADEON.md, HANDOVER-CLAWDBOT-RADEON.md, CLAWDBOT-RADEON-SETUP.md*
 *Questo è l'UNICO documento di riferimento. Non creare altri file.*
