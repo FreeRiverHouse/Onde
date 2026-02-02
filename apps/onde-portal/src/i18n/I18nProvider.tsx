@@ -58,15 +58,28 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// Check if we're in a browser environment
+const isBrowser = typeof window !== 'undefined';
+
 export function useI18n() {
   const context = useContext(I18nContext);
-  if (context === undefined) {
-    throw new Error('useI18n must be used within an I18nProvider');
+  // Return default values during SSR/static generation or when context is undefined
+  if (!isBrowser || context === undefined) {
+    const defaultMessages = getMessages(defaultLocale);
+    return {
+      locale: defaultLocale,
+      setLocale: () => {},
+      t: defaultMessages
+    };
   }
   return context;
 }
 
 export function useTranslations() {
+  // During SSR/static generation, return default messages directly
+  if (!isBrowser) {
+    return getMessages(defaultLocale);
+  }
   const { t } = useI18n();
   return t;
 }

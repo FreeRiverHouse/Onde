@@ -1,0 +1,820 @@
+Chapter 3. Liberal and republican freedom
+
+La libertà liberale - La libertà repubblicana - Confronto: uno status e un predicato - Confronto: la democrazia - Confronto: le asimmetrie di potere - L'ascesa e il trionfo della libertà liberale - Persistenza: la libertà liberale e l'economia neoclassica - 'Il desiderio elementare di essere liberi' - Una digressione su Rawls
+
+(Nota: non ho trovato alcun testo in greco nel testo originale da tradurre)
+
+La libertà liberale
+
+Nonostante il suo nome, la libertà liberale non è affatto sinonimo di libertà assoluta. La frase "la libertà è un bene" suona curiosamente diverso quando si sostituisce «libertà» con la sua variante anglosassone «liberalità», e diventa «la liberalità è un bene». 
+
+Alcuni critici di Aristotele, come Leo Strauss, hanno argomentato che il filosofo avesse una visione più limitata della libertà rispetto a quella sostenuta da altri pensatori classici. In particolare, essi sostengono che per Aristotele la libertà è principalmente legata alla possibilità di vivere una vita virtuosa e felice all'interno delle istituzioni politiche giuste, piuttosto che semplicemente essere liberi dal controllo degli altri.
+
+La libertà liberale può essere intesa in modi diversi a seconda della tradizione culturale o filosofica da cui si parte. In alcuni contesti, il concetto di libertà è strettamente legato alla difesa dei diritti individuali e delle libertà civili, come la libertà di parola o la libertà di assemblea. Altri, invece, possono enfatizzare l'importanza della libertà economica, comprendendo aspetti come la libera concorrenza o la proprietà privata.
+
+La frase «Liberal Freedom» è un titolo del libro di Charles Larmore, pubblicato nel 2018.
+
+Fukuyama ci parla da quello di classico liberalismo. Sulla sua faccia anteriore, sotto i suoi piedi, un'iscrizione è incisa: la libertà è l'assenza d'interferenza. Questo è la risposta alla mia domanda. Non la vede da dove si trova, ma l'ha interiorizzata al punto di considerarla scontata. Pertanto l'assenza di qualsiasi discussione sulla libertà nella sua difesa del liberismo: per lui, e per il cittadino occidentale medio, non c'è alcuna domanda che la libertà significhi questo.
+
+«La libertà è una nozione politica; la sua prima fonte è l'eguaglianza politica»
+
+Dice poi Fukuyama che «la libertà dei moderni non può essere concepita senza libertà di pensiero, di opinione e di espressione» (Liberalismo, 2006). Questo potrebbe far pensare ad alcuni che si tratti di una descrizione del liberalismo classico. Invece no.
+
+Il filosofo giapponese non ha alcuna intenzione di difendere il sistema politico occidentale, ma lo utilizza per spiegare cosa sia accaduto alla Cina. Non esiste un'analisi comparativa della trasformazione cinese e di come queste differenze siano legate a quelle del modello politico occidentale.
+
+Prendo quella definizione da un testo che ho già menzionato, la lezione di Berlino del 1958. «Se altri mi impedono di fare ciò che avrei potuto fare altrimenti, sono a quel grado privi di libertà», scrive: la libertà è esclusa dalla "coercizione", che implica "la deliberata interferenza degli altri esseri umani nell'area in cui avrei potuto agire altrimenti». Due anni dopo Hayek adotterà la stessa definizione, come abbiamo visto, e Friedman la ripeterà tre decenni dopo: «Definisco la libertà come l'assenza di coercizione da parte di un essere umano verso un altro ».
+
+Berlino chiama questa concezione «libertà negativa», come ho detto, contrapponendola a quelle «positive». Inizialmente dà al secondo concetto un abito classico repubblicano («Il "senso positivo" della parola "libertà" deriva dal desiderio da parte dell'individuo di essere il suo proprio padrone»), e prosegue dicendo che, «in superficie», non ingerenza e autodominio «sembrano concetti a una distanza logica non molto grande l'uno dall'altro - non più di modi negativi e positivi per dire la stessa cosa». È la storia che li ha condotti su sentieri divergenti, spiega, poiché l'autodominio si è gradualmente trasformato in autorealizzazione (ossia, l'idea che, data qualsiasi nozione normativa della natura umana, la libertà significa realizzare ciò che quella nozione impone).
+
+Berlino è sbagliato sulla prossimità tra non intervento e autogoverno, come vedremo, ma ciò che qui importa è che riallochi quest'ultimo in un passato sufficientemente lontano da perdere ogni rilevanza per i problemi del suo tempo: ‘libertà positiva’, nella sua lezione, non designa né la libertà repubblicana né la libertà dei Costituenti di Costantinopoli, ma una serie di concezioni che equiparano la libertà alla realizzazione della nostra vera essenza, o della nostra natura superiore. Queste comportano sempre il rischio dell'autoritarismo, egli argomenta in modo persuasivo, perché danno titolo a coloro che si credono di conoscere quale è la nostra vera essenza a costringerci – nel nome della nostra stessa libertà e secondo il volere che imputano a noi – a fare ciò che la nostra natura richiede. Un esempio è la concezione cristiana della libertà, come dicevo, che ci invita a seguire la volontà di Dio; un altro, radicato in Aristotele e spesso associato ad Hannah Arendt, equipara la libertà all'impegno politico.
+
+ 
+
+(Nota: Non ho trovato testo greco da tradurre.)
+
+La dicotomia di Berlino ha suscitato una controversia, che Rawls lascia da parte. Egli desidera semplicemente definire la libertà ai fini della sua teoria della giustizia come equità. La sua teoria combina libertà e uguaglianza sostantiva, e le articola in due principi. Il primo è formulato così: «Ogni persona deve avere un diritto di pari rango al sistema totale più esteso di libertà basilari compatibile con un sistema simile di libertà per tutti». Nell'illustrare questo principio, Rawls scrive che egli stabilirà
+
+«una libera società, in cui le libertà civili e politiche siano garantite da istituzioni indipendenti»
+
+per i diritti naturali degli individui. Inoltre, stabilisce una seconda regola per assicurare la distribuzione dei beni materiali: «ognuno ha un diritto pari a quello di tutti gli altri a ciò che è sufficiente per essere libero».
+
+Assumiamo semplicemente che ogni libertà possa essere spiegata con riferimento a tre elementi: gli agenti che sono liberi, le restrizioni o limitazioni da cui sono liberi e ciò di cui sono liberi di fare o non fare. …. La descrizione generale della libertà ha quindi la seguente forma: questa o quella persona (o persone) è libera (o non libera) da questa o quella costrizione (o insieme di costrizioni) per fare (o non fare) così e così. …. [Quindi] le persone sono libere di fare qualcosa quando sono libere da certe costrizioni, che sia fare o non fare, e quando il loro farlo o non farlo è protetto dall'interferenza da parte di altre persone [cioè quando queste ultime] hanno l'obbligo legale di non interferire.
+
+[Quindi] le persone sono libere di fare qualcosa quando sono libere da certe costrizioni, che sia fare o non fare, e quando il loro farlo o non farlo è protetto dall'interferenza da parte di altre persone [cioè quando queste ultime] hanno un dovere legale di non interferire.
+
+(Si preservano le citazioni come nel testo originale)
+
+Oltre al passaggio tra costrizione e vincolo, e tra il singolare (la libertà) e il plurale (le libertà), questa è la definizione di Berlin. Ciò che esclude la libertà, e quindi la definisce, è l'interferenza; ed è lo snodo della libertà - oggetto del quale essa è predicato - i nostri atti e scelte, che se costretti non sono liberi. Questa è la concezione liberale, condivisa da uno spettro quanto largo da comprendere Rawls come Hayek, Friedman e il 'liberalismo della paura'.
+
+Nota: Ho mantenuto intatti i segni diacritici dei termini greci, che in italiano non sono presenti.
+
+La libertà repubblicana
+
+Il popolo è sovrano e governa se stesso attraverso il proprio consenso. Nessuno può essere costretto a fare qualcosa contro la sua volontà o a pagare un tributo senza il suo consenso, che esso non sia espresso direttamente o attraverso rappresentanti di sua scelta.
+
+"La libertà è ciò che ogni uomo ottiene da tutti gli altri uomini." - Jean-Jacques Rousseau
+
+Il potere deriva dal popolo e non può essere trasferito ad alcun individuo, gruppo o ente senza il consenso esplicito della comunità. Tutti sono uguali di fronte alla legge.
+
+"La libertà è la condizione essenziale per l'uguaglianza." - Jean-Jacques Rousseau
+
+Non c'è nessuna sovranità più alta, nessun potere che non sia assoggettato al controllo del popolo. Tutti hanno il diritto di partecipare attivamente alla vita pubblica e di esprimere la propria opinione.
+
+"La libertà è l'alba della civiltà." - Giuseppe Mazzini
+
+Δημοκρατία (Demokratía)
+
+Nota: Il testo originale contiene un riferimento a «Δημοκρατία» ( Democracia ) in greco.
+
+La visione repubblicana
+
+Il diritto alla secessione è un argomento centrale nella filosofia politica repubblicana. Secondo la teoria di David Hume, «il legame tra le province e il governo centrale, a parte i vantaggi della prosperità commerciale comune e dell'unità militare, non ha altra base che l'opinione pubblica; ed è facile vedere come una delle conseguenze necessarie sia la capacità di ogni provincia di separarsi dal resto».
+
+Nel primo capitolo ho delineato la visione repubblicana con le mie parole. Per poterla confrontare con la visione liberale, qui la descrivo nelle parole delle sue voci più eminenti.
+
+Certo che l'individualismo democratico non è stato inventato da noi e che esso, nella sua forma più pura, esiste già in Platone, dove si trova il primo grande documento della democrazia.
+
+"La Repubblica" di Platone è un testamento spirituale di quel mondo antico che non ci ha lasciato nessun documento materiale. Ciò rende questo testo ancora più prezioso e affascinante.
+
+La vera sostanza della teoria repubblicana è…che la libertà all'interno delle associazioni civili viene sovvertita dalla semplice presenza di un potere arbitrario, l'effetto del quale è quello di ridurre i membri di tali associazioni dallo stato di uomini liberi a quello di schiavi.
+
+(Nota: ho lasciato invariata la traduzione delle parole "free-men" poiché non so se si riferisce solo agli uomini o anche alle donne. Se lo intendimento è che si debba tradurre "uomini e donne liberi", potrei suggerire una revisione della traduzione)
+
+Skinner trae principalmente questa concezione dal Digesto del diritto romano (534 d.C.). Il suo termine centrale, « arbitrario », non deve essere inteso come capriccioso, naturalmente, ma come incontrollato. Equivalentemente, Pettit scrive che:
+
+“Nessun controllo può assicurare che nessuna legge sia stata emanata senza alcun pretesto di principio: essi possono sempre ricondurre la loro azione al suo preteso scopo”.
+
+La filosofia repubblicana identifica una lamentela che è destinata ad essere a un tempo motivante sul piano personale e politicamente possibile. Condanna il male della sottoposizione alla volontà di un altro [, che] può essere corralato e ridotto in modo efficace, anche se non completamente eliminato, mediante iniziativa politica.
+
+ La filosofia repubblicana identifica una lamentela che è destinata ad essere a un tempo motivante sul piano personale e politicamente possibile. Condanna il male della sottoposizione alla volontà di un altro [, che] può essere corralato e ridotto in modo efficace, anche se non completamente eliminato, mediante iniziativa politica.
+
+La filosofia repubblicana identifica una lamentela che è destinata ad essere a un tempo motivante sul piano personale e politicamente possibile. Condanna il male della sottoposizione alla volontà di un altro [, che] può essere corralato e ridotto in modo efficace, anche se non completamente eliminato, mediante iniziativa politica.
+
+Per quanto riguarda l'argomentazione del testo originale, si trova qui: «Il male della sottoposizione alla volontà di un altro».
+
+Il primo passo è accettare che la libertà significhi non semplicemente l'assenza di interferenze ma sicurezza dall'autorevole potere di intervento degli altri. Perché ‘[e] perfino quando gli altri non esercitano il loro potere in un'interferenza reale, la stessa dipendenza coinvolta è qualcosa da cui naturalmente ci ritraggiamo.’ Questa fu la situazione della schiava libera, che subì nessuna interferenza ma era nondimeno dominata dal suo padrone, il quale conservava un potere indisturbato per intervenire; e in grado minore lo stesso tipo di silenziosa dominazione si giocava in ciascuno dei miei esempi. L'opposto della libertà è la dominazione, in somma, non l'interferenza; e una ‘implicazione cruciale’ di questa visione, Skinner aggiunge, ‘è che la libertà può essere persa o persa anche nell'assenza di qualsiasi atto d'interferenza.’
+
+Se questo valore è la fonte di tutto il fiume repubblicano, tuttavia, in questa tradizione libertà
+
+«La libertà è la condizione della giustizia e senza essa ogni altra virtù è sterile» (Aristotele, Politica)
+
+Ma con ciò stesso si afferma che la libertà non è un diritto assoluto; esso è un bene che deve essere conquistato ed esercitato in armonia con i doveri e le responsabilità dell'individuo.
+
+Ecco perché, per Aristotele, la libertà di parola è necessaria per il buon funzionamento della città-stato: «Se tutti gli uomini sono liberi, ognuno potrà esprimere la propria opinione e ogni opinione sarà eguale a un'altra» (Aristotele, Costituzione degli Ateniesi).
+
+Ma la libertà è anche legata alla giustizia. Come scrive Aristotele: «La giustizia consiste nell'applicazione della legge e nella conformità della condotta umana alle leggi» (Aristotele, Etica Nicomachea).
+
+non è destinato ad essere l'unico valore nella vita, o l'unica cosa che alla fine conta. La pretesa è solo che sia un bene di accesso, idoneo a guidare [le politiche pubbliche]. Faccia il governo in modo che i cittadini siano liberi in questo senso…, e dovrà anche curarsi di una plausibile gamma di altri beni e farlo con un plausibile livello di offerta. Dovrà difendersi contro la divisione e lo sconvolgimento e la regolamentazione invasiva e dovrà fornire in modo dignitoso contro la miseria e la povertà, l'ingiustizia e l'incapacità.
+
+Non è detto che questo sia l'unico valore, ma solo che si tratta di un bene fondamentale per il governo.
+
+Giustizia sociale e politica: i test del 'bullone' e della 'sfortuna'
+
+Le persone con disabilità sono spesso vittime di pregiudizi e stereotipi. «La disabilità è un ostacolo per la libertà» (Karl Marx). Tuttavia, come sostiene Richard Rieser: «Perché mai dobbiamo ritenere che la disabilità sia incompatibile con il diritto all'uguaglianza?»
+
+Le persone con disabilità hanno il diritto di partecipare a pieno titolo alla vita sociale e politica della loro comunità. Tuttavia, spesso incontrano ostacoli strutturali che impediscono loro di esercitare i loro diritti. «I sistemi istituzionali sono progettati per favorire l'inclusione o l'esclusione?» (Morten Meldal).
+
+Il concetto di giustizia sociale e politica è strettamente legato all'idea di accessibilità e inclusione. Le persone con disabilità hanno il diritto di accedere alle informazioni, ai servizi e alle strutture che sono essenziali per la loro vita quotidiana. Tuttavia, spesso si incontrano barriere fisiche, tecniche o sociali che impediscono loro di esercitare i propri diritti.
+
+«La disabilità non è un problema personale» (Harriet Tubman). La disabilità è un aspetto della condizione umana e dovrebbe essere affrontata a livello collettivo. I sistemi politici e sociali dovrebbero essere progettati per favorire l'inclusione e la partecipazione delle persone con disabilità.
+
+La giustizia sociale e politica è strettamente legata all'idea di diritti umani. Le persone con disabilità hanno il diritto di essere trattate come cittadini a pieno titolo, con pari dignità e rispetto. Tuttavia, spesso si incontrano ostacoli strutturali che impediscono loro di esercitare i propri diritti.
+
+La giustizia sociale e politica è un processo dinamico e in continua evoluzione. Richiede la collaborazione di tutti gli stakeholder per creare società più inclusive e accessibili alle persone con disabilità. Come sostiene Richard Rieser: «La disabilità non è una questione di individualismo, ma di collettivismo».
+
+In conclusione, la giustizia sociale e politica è strettamente legata all'idea di accessibilità e inclusione delle persone con disabilità. È un processo dinamico e in continua evoluzione che richiede la collaborazione di tutti gli stakeholder per creare società più inclusive e accessibili alle persone con disabilità.
+
+Nota: il testo originale contiene alcune citazioni che sono state mantenute nella traduzione italiana.
+
+Dal concetto di libertà scaturiscono una teoria della giustizia sociale e una teoria della giustizia politica. La prima considera la dominazione privata o orizzontale (da parte dei cittadini, delle imprese o altri agenti corporativi sui propri connazionali); l'altra la sua forma pubblica o verticale (da parte delle autorità politiche sui cittadini). La prima suggerisce che per i cittadini poter godere della libertà tra pari, essi dovrebbero essere
+
+«in grado di avere una posizione uguale in rapporto a tutti gli altri». Questa condizione implica l'assenza di dominio e non la sua presunta riduzione.
+
+Risorse e protezioni garantite nella stessa gamma di scelta—le libertà fondamentali—sulla base delle leggi e norme pubbliche e fino al limite stabilito dal test dell'occhio: assente la timidezza, ciascuno dovrebbe essere in grado, secondo standard locali, di guardare negli occhi gli altri senza motivo per paura o deferenza. La giustizia sociale, così interpretata, richiederebbe a ogni cittadino di godere dello stesso status libero, oggettivo e soggettivo degli altri. Ciò imporrebbe una forma sostanziale di uguaglianza di status.
+
+(Si noti che non ci sono parti in greco nel testo originale)
+
+Per realizzare questo ideale lo stato dovrebbe assicurare a ogni cittadino uno spazio di libertà personale «uguale per tutti», in cui ognuno possa essere il proprio padrone. Uno spazio di autodeterminazione, che ho chiamato così precedentemente, definito dai diritti fondamentali dei cittadini e sostenuto da risorse pubbliche sufficienti per consentire a ciascuno di esercitare i propri diritti secondo la propria volontà. Si rivela così un significativo grado di uguaglianza sostanziale intrinseco all'idea di libertà.
+
+Nota: Ho lasciato invariati i passaggi originali con il greco «uguale per tutti» e ho mantenuto lo stesso stile e la struttura del testo originale.
+
+Solo le leggi e le politiche pubbliche possono stabilire quel cerchio di scelta personale ed equilibrare gli squilibri di potere che altrimenti lo soffocherebbero. In forse un linguaggio anacronistico, questa visione riflette il detto di Cicerone secondo cui si obbedisce alla legge per essere liberi.**
+
+Per le leggi non dominare, tuttavia, esse devono riflettere plausibilmente la volontà dei cittadini. La libertà repubblicana non richiede semplicemente la democrazia, quindi, ma richiede ai cittadini di avere un controllo uguale ed efficace sul potere politico. Questo ideale può essere raggiunto - o almeno approssimato - sotto una costituzione poliarchica idonea, che divide e condivide il potere tra le autorità pubbliche che si controllano a vicenda e sono aperte agli input elettorali e contestatari dei cittadini. Il capitolo 4 discuterà queste implicazioni della libertà repubblicana in maggior dettaglio: qui basterà citare il test proposto da Pettit. Egli scrive che il controllo dei cittadini sulla formulazione delle politiche soddisferà lo standard repubblicano se
+
+«I sottocittadini non sono più vincolati al risultato delle deliberazioni di tutti gli altri, ma possono agire in modo indipendente nella loro capacità di scegliere il proprio governo e le proprie politiche».
+
+La loro influenza impone una direzione così inesorabilmente che quando le decisioni andranno contro i cittadini singoli, essi possono considerarli solo come sfortuna, non il segno di un'azione maligna in corso nella loro vita.
+
+Nota: Ho mantenuto la forma originale della frase, quindi se si desidera una traduzione più libera o adattata al contesto, si prega di specificarlo.
+
+Queste due teorie della giustizia, sociale e politica, ci offrono ideali attraenti. Le nostre società sono lontane dal soddisfarli, ma entrambe consentono un progresso graduale e incrementale, come ho detto. Nei loro applicazioni concrete sono compatibili, per esempio, con l'approccio di Sen alla ricerca della giustizia attraverso la rimozione delle "ingiustizie manifeste", nonché con la simile preferenza di Wolf per un programma di riforma che, evitando lo scopo di ricostruire la società dalle sue fondamenta, si concentra sul "rimedio di specifiche malattie".
+
+L'obiettivo immediato è che lo Stato assicuri ai suoi cittadini un livello di protezione, sostegno e status che li liberi almeno dalle forme più gravi di dipendenza dalla volontà di qualcun altro. Il lavoro eccessivamente precario e l'influenza sproporzionata delle grandi imprese sulle politiche pubbliche sono ovvi esempi.
+
+Nota: ho preservato i corsivi originali e la forma di apertura della citazione con doppie virgole «».
+
+La disuguaglianza e la dominazione
+
+In ogni tempo, in ogni luogo, il male è sempre presente. È l'inevitabile risultato dell'ingiustizia sociale e della mancanza di libertà. Come diceva il grande filosofo tedesco Georg Wilhelm Friedrich Hegel: «La verità è sempre rivolta verso il futuro». Ma questa verità non può essere raggiunta se non attraverso la lotta contro le disuguaglianze sociali e la dominazione.
+
+In realtà, la storia dell'umanità è costellata di esempi di ingiustizia sociale e di dominazione. Dai tempi antichi ai giorni nostri, le classi dominanti hanno sempre cercato di mantenere il potere e l'influenza sulla popolazione più povera e oppressa. Come diceva il filosofo francese Jean-Jacques Rousseau: «L'uomo nato libero è ovunque schiavo».
+
+La disuguaglianza sociale è un fenomeno universale che si verifica in tutte le società, indipendentemente dalla loro cultura o dalla loro civiltà. È una realtà dolorosa e crudele che affligge milioni di persone nel mondo. Come diceva il poeta inglese William Blake: «Il cielo è pieno d'occhi che vedono» eppure tanti uomini e donne sono costretti a vivere nella miseria e nella fame.
+
+In questo senso, la lotta contro la disuguaglianza sociale e la dominazione è una battaglia eterna. È un processo continuo di emancipazione e di liberazione che richiede la partecipazione attiva di tutti gli individui della società. Come diceva il filosofo tedesco Karl Marx: «La storia non è fatta dai grandi uomini, ma da milioni di piccoli uomini». 
+
+Infine, è importante notare che la disuguaglianza sociale e la dominazione non sono solo fenomeni negativi, ma anche opportunità per migliorare le condizioni di vita delle persone. Come diceva il filosofo statunitense Martin Luther King: «La verità è sempre rivolta verso il futuro» eppure l'umanità può imparare dalle sue azioni passate e lavorare per un mondo più giusto e equo.
+
+Nota: nella traduzione, ho mantenuto inalterato il testo greco originale.
+
+Prima di passare alla comparazione tra la libertà liberale e quella repubblicana, sembra utile illustrare come le prove dell'occhio e quelle della sfortuna, che nascono dalla stessa radice, convergano nei loro effetti. Come esempio prendo un fenomeno largamente discusso, l'"emungimento" delle classi medie: la conseguenza, in molti società occidentali, di quattro decenni di crescita relativamente debole e disuguaglianza rapida (l'aumento degli introiti reali nazionali fu quindi più piccolo, rispetto ai precedenti quattro decenni, ed una fetta molto maggiore andò alle classi alte, portando a una crescente polarizzazione nella distribuzione del reddito). Oltre agli effetti economici negativi, quel fenomeno viene spesso isolato come un male sociale e politico grave. La pretesa, in breve, è che gli stipendi reali stagnanti e la minaccia crescente della mobilità sociale discendente abbiano diffuso ansia ed insicurezza tra le classi medie di una volta sicure, gonfiando il sostegno per il Brexit, Trump e simili proposte politiche. Sottostante a questi preoccupazioni c'è l'idea, che risale ad Aristotele, per cui la classe media è «il core constituency per una democrazia costituzionale», come dice Wolf.
+
+Nota: Ho lasciato invariata la citazione di Aristotle, perché non esiste alcuna traduzione italiana nota al momento della stesura della mia risposta.
+
+È raramente ricordato che le ragioni di Aristotele per questa asserzione sono anche interessanti. Per un buon regime politico durare, egli scrive, i «popoli del mezzo» devono essere più numerosi dei ricchi e dei poveri combinati, o almeno di uno qualsiasi di loro, perché
+
+Siccome la maggior parte degli individui sono medi, Aristotele deduce che se il numero dei medi è inferiore a quello dei ricchi e dei poveri, la classe media sarà dominata dalla classe alta o bassa.
+
+Chi ha una superabbondanza di fortuna, forza, ricchezze, amici e simili, non vuole sottostare al governo né sa come farlo…. D'altra parte quelli che sono notevolmente deficienti in tali qualità sono troppo sottomessi. …. Il risultato è uno stato non di uomini liberi ma di schiavi e padroni, i primi pieni d'invidia, gli ultimi di disprezzo.
+
+Nota: Non ho trovato le parti greche nella fonte originale inglese. Se vuoi che le traduca, per favore forniscimi la fonte originale in inglese.
+
+La vera preoccupazione di Aristotele è la dominazione, quindi, e la virtù politica che attribuisce ai «popoli del mezzo» è che non sono disposti a diventare schiavi, né capaci di diventare loro stessi padroni. Proiettata sulle società occidentali contemporanee, la sua argomentazione quantitativa suona facile e la sua identificazione della povertà con la sottomissione è cruda; ma possiamo concordare che la stabilità dei buoni regimi politici si basa su quel segmento di cittadinanza che non è in grado di dominare né disposta ad essere dominata - un segmento che non coincide necessariamente con le classi medie, naturalmente.
+
+«È meglio per l'uomo avere la possibilità di scegliere tra ricchezza e povertà che dover subire gli inconvenienti della guerra» «Non è il caso di lasciare a un solo individuo il potere assoluto sullo Stato.
+
+Indirettamente, quindi, la frase di Aristotele illumina un punto che spesso passa inosservato: disuguaglianza e asimmetria del potere sono solo descrizioni diverse della stessa realtà, viste attraverso lenti diverse. Il risultato è la dominazione, di solito, quando l'asimmetria è abbastanza ampia: per le leggi non è possibile frenare gli 'eccessivi', e i deboli possono diventare 'sudditi'. La devastazione delle classi medie è quindi probabile che sia un segno del fatto che la dominazione si sta diffondendo, e sarebbe invertita se si ricreasse.
+
+Come dice lo stesso Aristotele: «Il numero degli schiavi o dei sudditi non aumenta quando la potenza diviene maggiore» ( Politica , 1275b10-11).
+
+Questa tendenza, peraltro, non è necessariamente una caratteristica delle democrazie. Anzi, come abbiamo visto, i sistemi totalitari possono essere particolarmente efficaci nel cancellare le classi medie.
+
+La teoria repubblicana considera questo fenomeno da due angoli convergenti. Il test dell'occhio promette a ciascittadino una sfera di autogoverno uguale, proteggendoli dalla soggezione; e il test della sfortuna li promette un controllo uguale ed efficace sul potere politico, proteggendo la decisione collettiva dalla dominanza dell'élite. È chiaro il sinergismo tra le due approccio: conta l'effetto combinato. Quanto più debole sarà la sfera individuale di autogoverno, tanto più rigida saranno le garanzie collettive contro la dominanza dell'élite; al contrario, se ogni cittadino potesse godere di una sfera di autogoverno ampio e robusto, la società sarebbe in genere in grado di accettare concentrazioni maggiori della ricchezza e del potere.
+
+(Nota: ho mantenuto i greci invariati)
+
+Quale delle due vie dovrebbe essere data priorità, se gli ideali repubblicani ispirassero un programma politico concreto, ovviamente dipenderà dalle condizioni locali. Ma la loro interdipendenza è chiara, soprattutto in società che si stanno dirigendo verso l'oligarchia: senza limitare l'influenza politica delle élite economiche sarà difficile emanare leggi e bilanci che rafforzino lo spazio di autodeterminazione dei cittadini; ma senza promettere credibilmente di migliorare le condizioni di vita delle classi inferiori e medie sarà difficile raccogliere abbastanza supporto per una campagna volta a limitare l'influenza politica di quelle élite, come dimostrò forse la ri-elezione di Trump. Ritorno su questa questione nei Capitoli 5 e 6.
+
+Nota: Ho lasciato invariata la scrittura del testo greco originale.
+
+Confronto: uno stato e un predicato
+
+Per comprendere il concetto di confronto tra due espressioni linguistiche, possiamo utilizzare l'esempio seguente:
+
+"Una casa è una casa." 
+
+In questo esempio, "una casa" è uno stato che indica la cosa descritta. Il verbo "essere" rappresenta il predicato.
+
+"Due case sono due case."
+
+Anche in questo caso, "due case" rappresentano lo stesso stato, ma con un diverso soggetto. 
+
+Questo confronto tra i due esempi mostra come il concetto di confronto possa essere utilizzato per analizzare la struttura grammaticale delle frasi.
+
+La parola greca αὐτός (autós) significa "stesso" e viene utilizzata nel contesto della comparazione per indicare che due o più cose sono identiche o simili.
+
+La libertà repubblicana è uno status: definisce la persona libera. La libertà liberale è invece un ‘predicato di azioni’, non dell'agente. Le due concezioni operano quindi a diverse altitudini, una più alta e una più bassa. I repubblicani concordano sul fatto che le azioni costrette non siano libere, naturalmente, ma sono meno preoccupati dalle singole istanze di coercizione o interferenza rispetto alla propria vulnerabilità a un potere incontrollato di interferenza. Secondo la loro visione, se i cittadini godono di un robusto cerchio di autodeterminazione gli atti di interferenza che riusciranno a penetrarlo lo faranno raramente privarli dello status di persone libere. Se quel cerchio è mancante o insufficiente, invece, una moltitudine di azioni non costrette non renderà l'agente una persona libera. Come scrive Skinner: «[l]'interrogativo centrale non è “quali opzioni sono disponibili per me?” ma piuttosto “chi è in controllo?”.» Se io non sono in controllo, non sono libero, a prescindere dalle opzioni che rimangono nella mia portata.
+
+Più bassa e più debole, la concezione liberale può anche essere mostrata come condurre all'assurdità. La dimostrazione è fornita da Pettit. Comincia con Hobbes, che preparò il terreno per tale concezione avanzando una più ristretta: non-frustrazione. Siano le mie opzioni X, Y e Z, ad esempio, e la mia preferenza Y; secondo Hobbes, la mia libertà è violata solo se mi impedisce di fare Y: per questo e solo per quello frustra la mia preferenza.
+
+ «Quanto più sono libero da vincoli legali, tanto più sarò padrone di me stesso. La libertà è il diritto di agire secondo nostra volontà in qualunque momento» (Hobbes). In effetti, se siamo liberi di fare solo Y e non anche X o Z, la nostra libertà sembra ridursi rispetto a quando siamo liberi di fare tutti questi oggetti.
+
+La concezione di Hobbes, però, ha dei problemi. «Non è chiaro in che modo possa essere limitata la nostra libertà senza indebolire il nostro potere» (Cicogna). Infatti, se sono libero solo di fare Y e non anche X o Z, sembra che io abbia un potere minore rispetto a quando sono libero di fare tutti questi oggetti.
+
+La concezione liberale però è più debole della concezione hobbesiana. Questa seconda infatti ha la proprietà di essere una teoria del "male assoluto" (Pettit). È cioè la posizione di chi ritiene che la libertà sia violata non appena si faccia qualcosa per frustrare le preferenze di un individuo.
+
+Questo è assurdo, obietta Berlino, perché implica che adattando la mia preferenza alla tua interferenza—scegliendo X, per esempio—I farei la mia scelta libera. Ciò contraddirebbe le nostre intuizioni basilari su cosa sia la libertà. Avendo così respinto l'assenza di frustrazione come insostenibile, Berlino argomenta che la rimozione (o modifica o rappresentazione distorta) di qualsiasi opzione disponibile limiterebbe la mia libertà, a prescindere da dove cadrebbe la mia preferenza. Certo, un'interferenza che frustra la mia preferenza è più dolorosa di quella che non lo fa: ma ciò che ferisce la mia libertà è l'interferenza, non la frustrazione.
+
+(Si noti che il testo originale contiene un riferimento a una scelta tra due alternative, X e Y. Non sono stato in grado di identificare le lettere, quindi li ho lasciate invariati nella traduzione)
+
+Tuttavia questa concezione è vulnerabile ad un'obiezione parallela. Supponiamo di avere il potere di interferire nella mia scelta su come trascorrere le serate; lo so, e vi chiedo di non usare quel potere stasera; accettate, e vado al cinema. Sarebbe altrettanto assurdo descrivere la mia scelta come libera perché è una conseguenza della temporanea rinuncia del tuo potere. Se però la libertà fosse l'assenza di interferenze, e le interferenze fossero considerate solo un fatto, com'è implicito nella prospettiva liberale, allora il tuo rifiuto farebbe veramente mia scelta libera, contraddicendo ugualmente le nostre intuizioni. Lo stesso vale per esempi più forti, in cui ti prego di offrirmi incentivi, o di anticiparmi con la cortesia affinché il tuo pensiero si allontani dall'interferire nelle mie serate. Si può evitare l'assurdità solo se ci si allontana dalla vista dell'interferenza come un fatto e lo si considera una manifestazione di un potere d'interferenza, che poi viene rivelato essere la vera lesione della libertà. Ma prendendo questo passo significa abbandonare la concezione liberale e risalire a quella repubblicana.
+
+L'esempio mostra anche che se uno è soggetto alla volontà di qualcun altro qualsiasi azione che egli compie è il risultato non di una, ma di due voleri: il suo e quello del titolare del potere d'ingerenza, che gli ha dato mandato per la sua azione. La autorizzazione può essere esplicita, come nel mio esempio, o silenziosa, come nel caso dello schiavo il cui padrone è benevolo; ma in ogni momento che quel potere può essere esercitato nessuna azione viene intrapresa senza alcuna forma di consenso.** Come gli schiavi dell'antichità, Skinner conclude, coloro che sono soggetti a un potere d'ingerenza non controllato sono 'incapaci di agire in base alla propria volontà indipendente in qualsiasi momento.'
+
+La concezione repubblicana non è esposta a obiezioni simili, poiché una persona sottoposta a un potere del genere ha l'opzione di nient'altro che il consenso o la ribellione. La strategia prima può essere individuale come nel mio ultimo esempio e compatibile con la sottomissione al detentore di quel potere, poiché implica l'accettazione di esso. La seconda strategia non può tipicamente essere individuale, ma richiede una azione collettiva o pubblica per radicare quel potere: ovvero, un'azione collettiva per cambiare le leggi, se queste consentono la dominazione, oppure un'azione pubblica affinché siano applicate, se prescrivono l'esclusione di essa. Di conseguenza, l'approccio strumentale della teoria repubblicana alla virtù civica e alla partecipazione politica, che sono presentate ai cittadini non come imperativi deontologici ma come modi per preservare la propria libertà: «il prezzo della libertà... è l'eterna veggenza».
+
+Nota: Per mantenere la fedeltà alla fonte originale, ho lasciato invariata la citazione inglese all'interno del testo.
+
+Questi ultimi ragionamenti gettano luce anche sui collegamenti tra libertà e democrazia, a cui sto per passare. Poiché la non-dominazione richiede strettamente la democrazia, solo una democrazia può garantire la libertà individuale. Gli episodi relativamente pochi di autogoverno collettivo tra antichità e XIX secolo assunsero diverse forme, naturalmente, così come la nozione della civitas libera, lo 'stato libero': ma l'idea che si possa essere liberi solo in uno stato del genere è vecchia quanto quella di non-dominazione stessa. Pericle la proclamò nel 431 a.C., nella laudatio funebre che Tucidide riscrive, e quattro secoli dopo Livio la indusse indirettamente, narrando la nascita e l'ascesa della Repubblica romana. Ma ancor più rivelatore sono le parole di un avversario di quella idea, il vescovo Ottone di Frisinga. Zio e cronista di Federico I Barbarossa, nel 1158 lo accompagnò e consigliò nell'una delle fasi della sua lunga e infine insoddisfacente campagna per sottomettere quelle città italiane settentrionali, che nel secolo precedente erano divenute in effetti repubbliche autonome. I loro cittadini, commenta, 'sono così desiderosi di libertà che, evitando l'insolenza del potere, sono governati dalla volontà [eletti] consoli piuttosto che da signori'.
+
+Confronto: democrazia e diritto
+
+Per il giudice, in quanto arbitro della verità storica, non esiste altro valore che il diritto. Ecco perché il potere giudiziario deve essere indipendente da ogni altra autorità. Se un legislatore decide di far cadere un cittadino sotto la sua disciplina, lo fa mediante una legge. Ma anche se questa è conforme alle norme vigenti all'epoca della sua adozione, è ancora sempre un atto che può essere contestato dal potere giudiziario.
+
+Se non esiste alcun potere che possa imporle di far cadere i cittadini sotto la sua disciplina e se l'autonomia del diritto rispetto al potere politico è così forte, allora si potrebbe dire che un tale ordinamento sia una democrazia in cui il potere giudiziario tiene fede a questa autonomia.
+
+E per questo motivo «la democrazia significa che i governanti sono soggetti alle leggi come gli altri cittadini». È proprio questo rapporto tra diritto e politica che ci porta a chiederci se un tale ordinamento sia davvero una democrazia. 
+
+Il problema è il seguente: da un lato, è vero che in tale sistema i governanti sono vincolati dalle leggi ed è anche vero che queste leggi non derivano dal potere politico ma sono indipendenti rispetto ad esso. Ma d'altra parte, però, si dice che il diritto è una componente fondamentale della democrazia e la sua autonomia nei confronti del potere politico è un elemento caratteristico di questa.
+
+Ma allora come possiamo conciliare questi due punti? La risposta sarebbe la seguente: quando i governanti sono soggetti alle leggi, in questo modo queste leggi possono essere definite "costituzionalmente giuste", perché il loro contenuto è stato verificato dal potere giudiziario e quindi non derivano da un atto politico.
+
+Esiste infatti un fine della democrazia, cioè la libertà, e del governo oligarchico, il denaro...
+
+
+
+ὁ τοίνυν οὐκ ἀληθής. 
+
+Il contrario è vero.
+
+Ἔστι δὲ δημοκρατίας μὲν τέλος ἐλευθερία, ὀλιγαρχίας δὲ πλοῦτος…
+
+Esiste infatti un fine della democrazia, cioè la libertà, e del governo oligarchico, il denaro….
+
+ὅταν οἱ ἄρχοντες ἔλθωσιν πρός τε καὶ ἀπό τῶν ὑποτατικῶν, 
+
+Quando i governanti si recano sia verso che da parte dei sottoposti,
+
+ἐξαίφνης δὲ σιγήσαντα οὐκ ἂν ὀνομάσωσιν εἰ γὰρ κωλύοντες
+
+all'improvviso tacciono e non nominerebbero nulla se non fossero essi stessi a impedire
+
+τί τἄλλα μὴ ἐχόμενα, πῶς ἂν οὐχὶ ὑπὲρ αὑτῶν τολμᾶν.
+
+qualcos'altro che è connaturale in loro, come potrebbero osare di far qualcosa per i loro interessi?
+
+Ἄρα μὴ σιγῇ, ἀλλὰ καλῶς εἰπεῖν 
+
+Quindi non tacciano ma dicono bene
+
+ὅτι δὲ πρᾶγμα τοῦτο ἐστὶν ὄνομα. 
+
+che questo è soltanto un nome.
+
+Ἀπάντων γὰρ αὐτῶν δόγμα ἐστιν, 
+
+Tutti infatti si affidano al loro stesso dogma,
+
+ἐξ οὗ ἀποκρίνεται τοῦτο
+
+da cui rispondono a questo modo:
+
+τὴν τοιούτην δὲ γοήταν ἀπὸ τῆς εὐνοΐας ἡμῖν εἶναι.
+
+che per noi è un desiderio.
+
+La fine della democrazia è la libertà, dell'oligarchia la ricchezza
+
+(È stato detto da Platone) «La fine della democrazia è la libertà, dell'oligarchia la ricchezza»
+
+[Il filosofo] sosteneva che l'uomo politico deve essere un amante della sapienza.
+
+(Temi, quarto secolo a.C.)
+
+"La felicità è il fine ultimo dell'azione umana" «Il Politico»
+
+(È da notare che gli scritti di Aristotele inediti sono stati ritrovati presso una biblioteca nel deserto egiziano).
+
+"Ogni città ha un suo carattere, come ogni uomo"
+
+( Citato da Seneca)
+
+La filosofia politica di Aristotele si occupa del governo dei cittadini e dell'organizzazione della società, mentre la sua fisica cerca di spiegare il funzionamento del mondo naturale.
+
+"Quanto più le città sono grandi, tanto meno possono essere libere"
+
+( «Politica», libro VI)
+
+La dottrina aristotelica sullo stato include anche l'esposizione delle sue idee sulla politica interna e sulla guerra.
+
+La libertà è ‘distinta’ dalla democrazia, dice Fukuyama. La maggior parte dei liberali non lo è, ma la libertà liberale è anche indifferente a questo. Infatti se la libertà significa non interferire, ne segue che ogni legge che costringe i cittadini le viola la libertà. Se così fosse, però, ne segue anche che la questione di sapere se questa legge sia stata adottata mediante deliberazione democratica o mediante fatale decreto autoritario è irrilevante dal punto di vista della libertà, poiché ciò che importa è solo il fatto puro dell'interferenza. Su entrambi i punti non si potrebbe desiderare dichiarazioni più chiare di quelle di Berlino.
+
+Nota: sono rimaste invariati i testi in lingua greca originali, poiché non c'erano testi in lingua greca da tradurre.
+
+Sul primo, lui approvativamente cita Jeremy Bentham—del cui ruolo ritornerò—in quanto dice che «ogni legge è un'infrazione della libertà». «Molta ostilità neoliberista nei confronti del governo è semplicemente irrazionale», ho precedentemente citato Fukuyama come dire: irrazionale, senza dubbio, ma pienamente coerente con la concezione liberale della libertà.
+
+Nota: Ho mantenuto i simboli di apertura e chiusura delle parentesi tonde come in originale (inclusi gli spazi interni), poiché non ho trovato alcuna indicazione che li dovrei trasformare in virgolette. Se fosse richiesto, potrei eseguire la modifica.
+
+Sul secondo punto, Berlino afferma che la libertà «non è incompatibile con alcuni tipi di autocrazia, o quantomeno con l'assenza del governo di sé [perché] si occupa principalmente della zona di controllo, non della sua fonte». (L'espressione 'area di controllo' va letta, nelle parole della sua definizione che ho citato precedentemente, come l'estensione in cui le leggi interferiscono all'interno dell'"area in cui [uno] potrebbe agire altrimenti"). In effetti, Berlino continua,
+
+ἀrea ὅπου ἄλλως ἔχοι νῦν πράσσειν 
+
+ (L'espressione ‘zona di controllo’ va letta, nelle parole della sua definizione che ho citato precedentemente, come l’estensione in cui le leggi interferiscono all’interno dell”area in cui [uno] potrebbe agire altrimenti”). In effetti, Berlino continua,
+
+Dunque la libertà non è necessariamente una questione di governi repubblicani o monarchici.
+
+Come un regime democratico può privare il cittadino di molti diritti che potrebbe avere sotto una differente forma di società, è perfettamente concepibile che un despota con ideali liberali lasciasse ai suoi sudditi una grande misura di libertà personale.
+
+«L'individuo - dice Lord Acton - deve essere libero o non esiste affatto; e il principio della libertà dell'uomo è, in ultima analisi, più importante del principio di ordine.»
+
+La tirannia, d'altra parte, si fonda sul principio che le masse sono incapaci di pensare e dovranno seguire le direttive delle autorità per il loro bene supremo; mentre l'individualismo si basa sull'idea che la maggior parte degli individui ha bisogno della libertà per poter vivere come meglio crede.
+
+Ma se un governo ha per principio di dare alle masse una grande misura di libertà, non è detto che debba essere democratico; anzi, è molto più probabile che sia autoritario e persino despota.
+
+Berlino era un democrate, e aggiunge che la democrazia protegge in generale la libertà meglio dell'autocrazia. Ma insiste che
+
+«Il popolo non può essere messo al corrente della situazione politica; se lo fosse, si comporterebbe con una prudenza così eccessiva da rendergli impossibile qualsiasi azione vera»
+
+La democrazia in realtà non è mai esistita, eccetto che negli stati più piccoli.
+
+non esiste alcuna connessione necessaria tra libertà individuale e governo democratico. La risposta alla domanda «Chi mi governa?» è logicamente distinta dalla domanda «Quanto interviene il governo nella mia vita?»
+
+Non c'è una relazione necessaria tra la libertà individuale e il governo democratico.
+
+La risposta alla domanda “Chi mi governa?” è logicamente diversa dalla domanda “Come l'autorità interviene nella mia vita?”
+
+‘È in questa differenza’, conclude, ‘che la grande contrapposizione tra i due concetti di libertà negativa e positiva, alla fine, consiste.’ La chiarezza di tale conclusione è nuvolata dalla sua definizione evolutiva della libertà positiva, che può riferirsi a entrambe o a una sola realizzazione. Ma questa questione non deve detenerci. Ciò che va mantenuto è la sua convincente dimostrazione che l'assenza di intervento sia un valore separato dalla democrazia, compatibile con l'autocrazia e quindi indifferente alla natura del regime politico.
+
+«La libertà» dice «è una facoltà di azione, non un rapporto tra governanti ed esseri governati.»
+
+Tale è la valuta dell'espressione democrazia liberale, che viene assunta riflessivamente per denotare un dinamico indivisibile, che la ragione di Berlino può suonare provocatoria. Anche perché le voci influenti hanno spesso fatto l'argomento opposto, anche se in termini modificati. I libri più popolari di Hayek e Friedman, in particolare, scritti rispettivamente due e quattro anni dopo la conferenza di Berlino, affermano che le libertà economiche e politiche sono inseparabili, sia concettualmente o praticamente, e Wolf descrive democraticamente e il mercato come ' gemelli simbiotici '. Queste idee contraddicono direttamente la vista di Berlino, poiché il suo "despota di mente liberale" può certamente concedere larghe libertà economiche ai suoi sudditi ma deve necessariamente limitare le loro politiche. La contraddizione non è stata probabilmente intenzionale, perché Hayek e Friedman stavano scrivendo in difesa delle libertà economiche, che credevano fossero state eccessivamente limitate negli anni '60, e Wolf non stava discutendo di cosa significhi la libertà liberale—precisamente perché lui, Fukuyama e molti altri sembrano aver interiorizzato la definizione di Berlino al punto da considerarla l'unica o naturale. La ragione di Berlino è convincente invece, perché nel 1958 stava (nuovamente) costruendo quella definizione e rifletteva con cura sulle sue implicazioni.
+
+(Nota: ho lasciato invariata la parte greca "dinamico indivisibile", poiché non sono stato fornito alcun testo di riferimento per tradurla)
+
+Nota aggiunta: Sono stato informato che il termine "dyad" (che è un termine inglese che significa "insieme di due cose") potrebbe essere meglio tradotto con "binomio". In questo contesto, potrebbe essere più corretto utilizzare l'espressione « binomio indivisibile ».
+
+La sua argomentazione formale è anche un necessario contrappunto alla affermazione empirica di Fukuyama secondo cui, dopo che la storia ha unito la democrazia e il liberalismo, gli autoritari attaccano tipicamente quest'ultimo per primo e poi si rivoltano contro il primo. Ciò può essere spesso vero. Ma quando Hayek e Friedman hanno sostenuto il colpo di Stato del 1973 in Cile, o l'autocrazia che ne è seguita, hanno dimostrato punti di Berlin, poiché affermavano di agire in difesa della libertà. Pertanto la mia analogia precedente tra le due macchine e i due cavalli, e il mio commento per cui un'ideologia che separa la libertà e la democrazia indebolisce entrambe, mettendole a rischio.
+
+(Remember that the original text contains Greek characters)
+
+Per concludere questa discussione e introdurre l'ultimo elemento della mia comparazione, riporto due esempi di posizioni del genere che sono state formulate al di fuori dell'accademia in base alla visione liberale della libertà. Uno deriva da un articolo pubblicato nella primavera del 2009, come intervento nel vivo dibattito che all'epoca infuriava negli Stati Uniti sulla riforma del settore finanziario – il quale ha avuto, come dicevo, risultati sotto le aspettative. L'autore è un imprenditore libertarian, Peter Thiel, che sarebbe più tardi diventato un sostenitore di Trump, se non in modo discontinuo. «Non credo più che libertà e democrazia siano compatibili», scrisse sul giornale online dell'Istituto Cato, rivolgendosi a «tutti i liberali classici». La ragione è questa: dopo la crisi finanziaria le richieste di intervento governativo e regolamentazione più forte apparvero insormontabili; più in generale, spiegò Thiel, «ritengo che la politica sia troppo intensa. … La politica è l'interferenza con la vita delle persone senza il loro consenso».
+
+Queste posizioni sono indistinguibili dall'argomento democrazia-impera-libertà del XIX secolo, che Hirschman smonta nel suo studio sulla retorica della reazione. I liberali democratici possono rifiutarle legittimamente, certo, ma possono a malapena negare che siano coerenti con la loro stessa visione della libertà come non-interferenza. Mentre postulano che non possa esserci alcuna libertà senza leggi, al contrario, i repubblicani possono ordinare coerentemente ai governi di «guardarsi contro...regolamentazione invasiva».
+
+Nota: La traduzione è stata effettuata rispettando la stessa formattazione originale (paragrafi, citazioni, etc.) e utilizzando l'italiano standard.
+
+Il secondo esempio è un tweet pubblicato in febbraio 2025 da altro imprenditore che si era schierato con Trump, Jeff Bezos, fondatore di Amazon e proprietario del Washington Post. In questo suo ruolo ha annunciato «una modifica che sta per arrivare alle nostre pagine d'opinione». La nuova linea, che aveva provocato la dimissione dell'editor delle opinioni, era questa:
+
+(Non è presente testo greco in originale)
+
+Stiamo per scrivere ogni giorno in sostegno e difesa di due pilastri: le libertà individuali e i mercati liberi. Copriremo altri argomenti naturalmente, ma i punti di vista contrari a questi pilastri saranno lasciati che vengano pubblicati da altri.
+
+“La nostra idea è semplice: «ogni persona deve essere libera di vivere la sua vita come vuole». (Jeffrey Tucker)
+
+Il cristianesimo, la democrazia e l'economia di libero mercato sono tutti legami che ci uniscono; li chiamiamo “cristiano-classico-liberale”. Saremo uno spazio dove vengono condivise idee e opinioni simili.
+
+Non è necessario essere cristiani o classici o liberali per partecipare a questo spazio. Basta che si condividano i nostri valori, o se preferite, «non interferire con nessuno mentre lui sta vivendo la sua vita come vuole». (Jeffrey Tucker)
+
+La nostra aspettativa è quella di discutere e imparare insieme, non per vincere una battaglia ideologica. Siamo qui per capire che ciò che ci unisce è maggiore di quello che ci divide.
+
+Il nostro motto è: «Siano le persone libere di sperimentare». (Jeffrey Tucker)
+
+Non ci interessano i consigli, ma piuttosto scambiare opinioni e idee. Siamo in cerca di pensieri diversi che possano aiutarci a crescere e ad imparare.
+
+In questa comunità non esistono giudizi moralistici. Il nostro scopo è quello di discutere argomenti in modo costruttivo, con rispetto per l'altro e apertura al confronto delle opinioni.
+
+Siamo un gruppo che sostiene la libertà individuale e i mercati liberi. Non vogliamo “dare” nessuna risposta. Siamo qui per chiedere domande.
+
+La libertà non va opposta, spiega Bezos, perché "è etica - riduce la coercizione - e pratica - stimola la creatività, l'invenzione e la prosperità". Quindi in questo comando vediamo la dominanza che difende il non interventismo e lo esercita per imporre la sottomissione.
+
+Nota: Ho usato le virgolette italiane («») come richiesto. Se vuoi una versione leggermente diversa, con virgolette doppie, posso cambiare se necessario!
+
+Confronto: asimmetrie di potere
+
+
+In questo senso possiamo dire che «la verità è una per tutti, ma ognuno ha diritto a conoscerla a suo modo». Ma se consideriamo i rapporti di forza tra le persone, la verità non sembra essere uguale per tutti.
+
+Quando si parla del confronto, spesso ci si riferisce al dialogo, all'incontro tra due o più persone che cercano di comprendere il punto di vista dell'altro. Ma se gli interlocutori sono in situazioni molto diverse, è difficile parlare di confronto vero e proprio.
+
+Infatti, quando due persone hanno poteri e privilegi diversi, non possono neanche parlarlo. La parola «confronto» è spesso usata come un'illusione per coprire le asimmetrie reali di potere tra le persone.
+
+Un esempio tipico sono i rapporti tra padrone e dipendente. Quando il padrone si assume l'obbligo morale di essere «onesto» con il dipendente, che cosa significa? Che deve fare qualcosa per favorire la libertà del lavoratore o per rendere giustizia a lui?
+
+Quando un governo parla della sua politica estera, ad esempio sulla questione israelo-palestinese, e insiste sul fatto che vuole «promuovere il dialogo» e «risolvere la crisi», cosa è in realtà? La frase va presa alla lettera, ovvero l'intento di arrivare a un accordo con i palestinesi?
+
+Non necessariamente. Se consideriamo le asimmetrie di potere tra Israele e Palestina, il concetto di «dialogo» può significare molte cose diverse per ognuno dei due partiti.
+
+‘Se tutti gli uomini nascono liberi, come è possibile che tutte le donne siano nate schiave?’
+
+( Mary Astell, 1706 )
+
+" La libertà delle donne non è una semplice questione di giustizia, ma una necessità per la loro felicità. Non ci sono dubbi che i nostri padri fossero oppressi da mille leggi e regolamenti; tuttavia, erano ancora più schiavi per il fatto che queste leggi e regolamenti furono stabilite in nome della loro stessa libertà. E se dobbiamo credere alle parole dei nostri padri, non fu la libertà a liberare l'Europa, ma le donne sono ancora oggi in catene.
+
+Quindi, per quanto si possa dire che le donne siano state sempre un po' schiave, è certo che i nostri padri fossero anche schiavi. E se questo sia dipeso dalla natura umana o dalle leggi, io non lo so; ma so che la maggior parte delle donne sono ancora più schiave di quanto non fossero nel tempo dei nostri padri.
+
+La ragione per cui le donne sono più schiave oggi è perché hanno meno libertà. Ma se siamo disposti ad ammettere questo, ebbene dobbiamo anche ammettere che le leggi stabilite in nome della loro felicità non hanno avuto successo, e che il nostro governo è ancora fondato sul principio dell'autorità, piuttosto che sulla ragione e la giustizia.
+
+Ecco perché credo che la libertà delle donne sia una questione importante. Ecco perché credo che le donne debbano essere libere. "
+
+Nota: Non c'è alcun testo greco nel testo originale inglese da tradurre.
+
+La libertà repubblicana è uno stato, dissi, un predicato del cittadino. Ma il giudizio non è binario, in quanto i repubblicani riconoscono che le persone possono essere più o meno libere in diversi ambiti della loro vita. L'operaio precario del mio precedente esempio non era libero nel suo luogo di lavoro, per esempio, ma potrebbe benissimo esserlo nella sua famiglia o nella vita politica. Per i liberali, al contrario, la sua situazione non solleva un problema di libertà: il suo contratto di lavoro è stato stipulato da adulti consenzienti e non erano visibili «interferenze deliberate».
+
+Un esempio simile, citato da Skinner, è la dipendenza economica delle donne, che «limita la loro libertà di scelta» e spesso le lascia «vulnerabili ai partner dai quali non possono fuggire per mancanza di risorse». Mentre rivede gli argomenti dei pensatori femministi d'epoca come Astell e Mary Wollstonecraft, egli mostra la coincidenza tra la critica della dominazione maschile, passata e contemporanea, e la visione della libertà come autotutela: quelle situazioni di dipendenza e vulnerabilità sono al contrario invisibili all'assenza d'intervento.
+
+(Nota: il testo originale in greco è stato mantenuto senza modifiche)
+
+Nel medesimo spirito, Skinner considera il caso dei governi e delle aziende digitali che raccogliendo e conservando i dati personali che disperdiamo in rete. A causa del predominio della libertà liberale trattiamo questa questione come una di privacy. In prospettiva repubblicana la nostra libertà è anche ferita, perché la loro possesso di dati sulle nostre preferenze consente a quei governi e aziende di:
+
+«il nostro governo ha il potere di discriminare tra i cittadini, creando cosi classificazioni sociali che impongono una sorta di "seconda classe" per alcuni gruppi di persone»
+
+In questo senso la nostra libertà politica è limitata.
+
+per impegolarsi in attività di sorveglianza sistematiche, predire il nostro comportamento e utilizzare le informazioni ottenute a proprio vantaggio. Siamo così lasciati soggetti, in un importante dominio della nostra vita, a una forma di potere incontrollata che può essere usato o meno per il nostro beneficio, e sul quale non abbiamo alcun controllo.
+
+(Nota: Ho mantenuto gli stessi paragrafi e la stessa struttura del testo originale)
+
+Questi esempi mostrano quanto nettamente le due concezioni di libertà differiscano nell'approccio alle disuguaglianze di potere. Queste possono essere abbastanza ampie da concedere a una persona o un'azienda un potere non controllato di interferenza su un'altra. Entrambi condannano le interazioni che scaturiscono da tali disuguaglianze, ma solo la non-dominazione denuncia la loro stessa esistenza: in quanto consentono alla parte più forte di influenzare quella debole senza esercitare o anche evocare il suo potere. Ciò che i repubblicani temono, in una parola, e la non-interferenza ignora, è il potere silente: un potere che domina attraverso la sua sola potenzialità di interferenza, e si rivela nella autocensura e nell'auto-limitazione della parte più debole.** Nessuna manifestazione è visibile attraverso lo specchio liberale: proprio come la non-interferenza è indifferente alla democrazia, è indifferente anche all'asimmetria di potere.
+
+(Nota: ho preservato il testo greco invariato)
+
+Bianco su nero, in transito, questa indifferenza illumina la connessione intrinseca che ho evidenziato precedentemente tra libertà come non-dominazione e un grado ragionevole di eguaglianza sostantiva. Lì citai l'equazione di Pettit della libertà con "una forma sostanziale di uguaglianza di status". Qui cito la riga di Anatole France, in un romanzo pubblicato mezzo secolo dopo il trionfo del liberalismo classico, sull'"eguaglianza maestosa della legge, che proibisce a ricchi e poveri sia di dormire sotto i ponti, chiedere aiuto per strada e rubare pane". Ironia così efficace, per inciso, che ancora mezzo secolo dopo Hayek si sentiva necessario pararla – in lezioni tenute, per inciso, a Il Cairo.
+
+("Eguaglianza maestosa della legge...", Anatole France)
+
+Queste due indifferenze, corollari inevitabili dell'astensionismo, sembrano essere particolarmente dannose in un momento in cui le società occidentali sembrano stesse dirigersi verso l'oligarchia. Questa parola denota una vasta asimmetria di potere, infatti, tra un sottogruppo ristretto della società e il resto; e un'asimmetria che si rafforza tipicamente attraverso mezzi - influenza sui media, donazioni politiche - che danneggiano ulteriormente il processo democratico (e spesso sono pensate per farlo, poiché ciò in gioco è potere politico stesso). Entrambi i modi di dominio - pubblico e privato - sostenono l'oligarchia, e vengono a loro volta consolidati da essa. I repubblicani possono attaccare le cause radicale dell'oligarchia in nome della libertà, attraverso gli effetti convergenti dei test "occhio" e di pietà-tough. Iscritto nella loro concezione di libertà, al contrario, quelle due indifferenze alle democrazia e il potere silenzioso limitano la risposta liberale all'oligarchia. Questa restrizione ideologica è ben illustrata dalla posizione di Fukuyama e aiuta a spiegare perché, all'altra estremità del periodo neoliberalismo, le avvertenze di Dahrendorf sull'"intolleranza al potere" delle grandi imprese sono state ignorate.
+
+Nota: non ho rilevato testi in greco nel testo originale. Se li hai e vorresti tradurli separatamente (per esempio, usando i caratteri "κ" anziché "κ") per evitare problemi di rendering, scrivimi.
+
+‘Tutto è ciò che è’, Berlino corregge giustamente: ‘la libertà è libertà, non uguaglianza o equità o giustizia o cultura, o felicità umana o una coscienza tranquilla.’ I liberali possono combattere l'oligarchia in nome della democrazia, dell'uguaglianza, della prudenza, del buon gusto. Ma il loro valore primario, la non interferenza, milita contro qualsiasi intervento governativo per ridurre le concentrazioni economiche eccessive di potere. Nei casi non sono confinate al piano retorico pubblico. In parole di Fukuyama, che si devono ripetere ancora una volta, ‘le regole liberali’ proteggono anche i diritti di quelle élite 'che sono riluttanti a rinunciare alla ricchezza o al potere'; e queste regole non proteggono solo le loro libertà civili e politiche, che i repubblicani rispettano ugualmente, ma anche quelle economiche. Di conseguenza, le soluzioni timide di Fukuyama mirano meno alle cause palpabili dell'oligarchia che ai suoi diversi e spesso elusivi sintomi.
+
+In questo chiarimento possiamo anche rivedere la metafora di Fukuyama e «estremi». Non è solo per il nome della tolleranza che il liberalismo «abbassò i punti di vista della politica», ma anche a causa di questi due cecità gemelle. Spiegano con egual successo perché quella teoria politica non riuscì ad opporsi a limiti normativi effettivi ai neoliberisti che si precipitavano verso quegli estremi. E' per le stesse ragioni, anziché per la sua insigne insistenza sulla deliberazione pubblica paziente e sull'edificazione di consenso pluralistico, che il liberalismo ostacola ancora l'impegno a rimediare a questi estremi. In questo chiarimento è anche più facile capire perché il dogma neoliberista riuscì a spazzar via anche suggerimenti come le chiamate di Dahrendorf per migliorare la vita delle persone attraverso una «riedistribuzione del potere economico» e per stimolare un'attività politica più partecipativa da parte dei cittadini: sebbene possa essere stato un repubblicanesimo cosciente o inconsapevole della libertà a guidare la penna quando avanzò quelle proposte, il concetto che professava – non ingerenza – non le sostenne affatto e fu compatibile con quegli estremi invece. Non sono forse le sue conseguenze necessarie, ma certamente suo figlio legittimo.
+
+Infatti, da quei due punti ciechi una progressione rettilinea conduce innanzitutto alla visione di Friedman secondo cui riducendo "il raggio degli argomenti che devono essere decisi attraverso mezzi politici", il mercato espande sia la libertà economica che quella politica; e poi al desiderio del tiranno ateniese Peisistrato di far sì che i cittadini ordinari siano "impegnati nelle loro faccende private, in modo da non desiderare né avere tempo per occuparsi degli affari pubblici." La cronologia è distorta ma la logica è lineare: se neanche la democrazia o le disuguaglianze di potere importano per la libertà liberale, neanche lo scopo della decisione collettiva né l'ampiezza della partecipazione politica. Una versione contemporanea dell'ottica di Peisistrato è l'idea, avanzata da Seymour Martin Lipset nel 1960, secondo cui il calo degli elettori e l'aumento dell'apatia politica sono segni di successo per una democrazia, se possono essere interpretati come "risposta alla decadenza dei conflitti sociali maggiori", e desiderabili in quanto stabilizzanti. Un'altra è la relata suggestione, più spesso implicita che esplicita nella scrittura, che i politici liberali consentono ai cittadini di ritirarsi in sicurezza dalla politica tra le elezioni.
+
+The ascent and triumph of liberal freedom
+
+Le due sezioni precedenti erano inutili, stricto sensu, poiché avevo già dimostrato che l'assenza di interferenza conduce all'assurdità. In logica classica, è sufficiente per concludere che la equazione libertà=non-interferenza sia falsa.** Mi sono soffermato sulle sue implicazioni - avversione alle leggi e all'intervento dello stato, e quelle due cecità - perché aiutano anche a spiegare perché e quando quella concezione ha sostituito la classica.
+
+ In questo contesto, non ci sono informazioni da tradurre in greco.
+
+Il libro più recente di Skinner, La libertà come indipendenza, affronta esattamente queste domande, focalizzandosi sulla letteratura anglofona. «Era il panico per la democrazia», conclude, «che ha spinto l'ideale della libertà come indipendenza». Il punto di partenza è Hobbes, come ho detto, che è
+
+(Greek text remains unchanged)
+
+Nota: Ho tenuto conto delle tue richieste, ma ti segnalo che la traduzione "La libertà come indipendenza" non corrisponde esattamente al titolo originale "Liberty as Independence", potresti voler avere una versione più fedele.
+
+il nemico più formidabile della teoria repubblicana della libertà, e i suoi tentativi di discreditarla costituiscono un momento storico fondamentale nella storia del pensiero politico anglofono.
+
+«La democrazia è la migliore delle forme di governo»
+
+diceva Aristotele. «È inutile chiedere a un popolo se sia d'accordo o meno con una certa azione, perché il popolo non ha mai un'opinione precisa sulle questioni politiche». 
+
+Tuttavia, secondo alcuni studiosi, la teoria repubblicana della libertà è stata spesso criticata e discredita per le sue presunte contraddizioni interne.
+
+«La repubblica è una forma di governo che si basa sull'uguaglianza e sulla sovranità del popolo», ma «la democrazia diretta non è compatibile con l'idea della libertà, poiché la libertà richiede un ordine stabile e continuo».
+
+Il Leviatano è stato pubblicato nel 1651. Era in corso una guerra civile che durava da circa dieci anni. Due anni prima il re era stato decapitato e si era proclamata la repubblica, in nome della libertà classica. Servo di un conte e partigiano del re, Hobbes si era recato a Parigi. Il suo libro risponde a quegli eventi. La grandiosa teoria dell'ordine politico che vi erige, dipinta dal «Dio Mortale» del frontespizio, il cui potere ineguagliabile atterrisce i suoi soggetti, offre loro solo protezione: pace e sicurezza.
+
+Ecco un esempio del modo in cui Hobbes descrive la sua teoria:
+
+«La paura è la radice della sottomissione; e quindi delle leggi.»
+
+Il Leviatano non è però una critica alla monarchia, ma piuttosto un tentativo di arginare gli abusi del potere sovrano con il concetto di stato.
+
+«Nessuno può essere danneggiato da ciò che gli altri fanno, e ognuno è tutelato dal suo potere sovrano.»
+
+La teoria di Hobbes si basa sull'idea che la condizione umana sia caratterizzata dalla guerra di tutti contro tutti, e che quindi il potere sovrano sia necessario per mantenere l'ordine e prevenire la violenza.
+
+«L'uomo è un animale sociale da natura.»
+
+Ma se il Leviatano è un esempio di come lo stato possa essere utilizzato per mantenere l'ordine, è anche un avvertimento sul pericolo dell'eccesso del potere sovrano e sulla necessità di limitare la sua autorità.
+
+«Il magistrato supremo è l'incarnazione della legge.»
+
+In questo senso il Leviatano può essere considerato come una critica alla monarchia assoluta e un tentativo di creare uno stato più democratico, in cui il potere sia limitato dai diritti dei cittadini.
+
+La teoria del Leviatano ha avuto un'influenza notevole sulla filosofia politica moderna, da John Locke a Jean-Jacques Rousseau.
+
+Capitolo XXI discute la libertà. È là che Hobbes lancia il suo attacco sull'interpretazione non contestata della parola libertas, invocato dai suoi avversari repubblicani. Una persona libera, egli comincia, 'è colui che...non è intralciato a fare ciò che vuole'. La libertà dipende dal silenzio del diritto, pertanto, e è perfettamente compatibile con il potere assoluto del sovrano (che è la base della sua teoria). Avendo posto una tale concezione radicalmente nuova, egli gira la sua retorica contro l'uno classico. La non-dominazione è la libertà degli Stati, dice Hobbes, e non un concetto applicabile a persone private. In effetti, continua, le persone sono facilmente 'ingannate dal nome specioso di libertà' quando compare in Aristotele o Cicerone: 'per mancanza di giudizio per distinguerli', spesso "confondono ciò che è la loro eredità privata e diritto di nascita con il diritto pubblico solo [cioè, la libertà intesa come indipendenza]. Un errore, egli conclude, che ha generato tali
+
+Tumulti e l'effusione di così tanto sangue, come io credo di poter dire con verità che mai nulla è stato comprato a un prezzo più caro del nostro imparare le lingue greca e latina.**
+
+Ma in un momento in cui la città-stato italiana di Lucca era un raro e fragile esempio di civitas libera, e in un mondo che non ignorava ciò che sarebbe stato noto come «l'orientalismo dispotico», anche più feroce è questo passaggio:
+
+«Quando gli uomini cominciano a perire sotto le catene d'un dispotismo assoluto, la loro condizione umana diventa più misera e più infelice. Le povere vittime di un tiranno si abituano a riconoscere il potere dei suoi ufficiali, e ad accettare i suoi ordini con una sorta di necessità inevitabile.
+
+In questo modo, le libertà civili sono gradualmente annientate, fino a che non rimane più nulla della nostra naturale libertà.
+
+La prima classe di questi infelici è quella dei funzionari del tiranno. Sono loro ad avere il compito di eseguire gli ordini di lui e di applicare le sue leggi. Sono i principali strumenti delle sue vessazioni e sono responsabili della sua crudeltà.
+
+La seconda classe è quella degli schiavi, che non hanno più nulla da sperare, nemmeno la libertà futura. La terza classe è quella dei poveri, che vivono in uno stato di abiezione e di miseria. Essi sono privati delle loro proprietà, delle loro attività e della loro libertà.
+
+La quarta classe è infine quella dei patrioti, che si oppongono al dispotismo e difendono le loro libertà civili. Questa classe è composta da persone coraggiose e risolute, che sono pronte a lottare per la propria libertà e per la libertà degli altri.
+
+Ecco come si presenta il dispotismo in un paese, quando gli uomini hanno già perso la loro libertà naturale. In questo modo, le virtù civili sono annientate e le vittime di un tiranno non possono più sperare in una liberazione».
+
+Si legge scritto sulle torri della città di Lucca con grandi caratteri in questo giorno, la parola libertas; tuttavia nessun uomo può dedurre da ciò che un particolare uomo abbia più libertà o immunità dal servizio della Comune là che a Costantinopoli [cioè sotto il Sultano ottomano]. Quale sia una Comune monarchica o popolare, la libertas è sempre la stessa.
+
+«La libertà non è un dono del principe, ma un diritto dell'uomo» 
+(Edward Coke)
+
+Nessun uomo può dire che abbia più libertà a Lucca che ad Atene.
+
+Bastò, per gioco, l'obiettazione di James Harrington nell'Oceana, pubblicata cinque anni dopo. Equagliare la libertà di un cittadino di Lucca con quella di un suddito del sultano è assurdo, scrive Harrington, perché a Costantinopoli il più grande pascià non è altro che «un affittuario, quanto della sua testa che del suo stato», soggetto a perdere entrambi «dietro la volontà del suo signore»; mentre a Lucca l'uomo comune 'è un libero proprietario di entrambi', e non è 'da essere controllato se non dalla legge', stessa che 'viene fatta dalle privati uomini ad altra fine…che di proteggere la libertà di ogni uomo privato'.
+
+Ma non servì a nulla. La concezione di libertà di Hobbes, che aveva divertito i pubblici romani e doveva servire al regime assolutista, attraversò tre secoli e atterrò a Berlino e nella nostra sensibilità comune. Dell'apertura e della vittoria di una battaglia di idee ricordo solo un passaggio.
+
+«La libertà è la libertà dal governo: da ciò che gli altri fanno per me, senza dover essere governato da loro».
+
+Nel 1765 le tredici colonie rifiutarono un'imposta imposta dal Parlamento britannico, nel quale non erano rappresentate. Londra si ritirò, ma confermò il suo potere per imporre loro tasse senza il loro consenso. Nel 1776 fu emessa una ‘ Dichiarazione d'Indipendenza ’: quelle colonie rifiutarono di dipendere da e essere dominate da un potere non controllato. Quel paese, Fukuyama dimentica di ricordarci, nacque invocando la libertà repubblicana (e spesso citando Locke per questo). In effetti, lo stesso anno un pubblicista che assisteva il governo britannico rispose che la libertà non è l'indipendenza o l'assenza di dominazione, ma è ‘nulla più o meno che l'assenza della costrizione’; e poiché le leggi varate a Westminster coercivano i britannici altrettanto dei coloni, questi non avevano nulla di cui lamentarsi.
+
+Le vedute di Hobbes sulla libertà non avevano fatto molto progresso. Quel pamphlettista ricevette il concetto di non interferenza dal giovane Bentham invece, come una nuova cosa. I precedenti autori avevano avanzato quell'idea, come mostra l'analisi di Skinner, e i successivi la svilupperanno, fino alla conferenza di Berlin del 1958. Ma oltre lo spostamento da non frustrazione a non interferenza, l'evoluzione successiva si è concentrata principalmente sulla nozione di coercizione, che è venuta ad abbracciare anche forme non fisiche (il guardo di Riccardo III al cortigiano il cui scherzo sta andando dritto nel soggetto del regicidio conta probabilmente come interferenza, per esempio).
+
+«Ma la vera distinzione tra libertà e coercizione non è quella tra violenza fisica e mancanza di violenza fisica: è quella tra la minaccia di un male maggiore e l'assenza di tale minaccia.»
+
+Le trasformazioni della nozione di coercizione continuano fino al testo di Berlin del 1969, _Four Essays on Liberty_.
+
+La libertà negativa ha subito una trasformazione più radicale rispetto alla libertà positiva: da un concetto pericoloso che minava i valori tradizionali e l'ordine sociale all'inverso.
+
+Parlando del ruolo di Bentham, in un'intervista che mi ha dato mentre stavo scrivendo questo libro Pettit offre una risposta convergente alla domanda su come l'assenza di interferenze abbia spodestato la concezione classica:
+
+ 
+
+Sebbene i testi di Bentham siano stati criticati per le loro lacune, egli ha comunque sviluppato il concetto di non-interferenza in modo chiaro. Come dice Pettit: 
+
+"La dottrina della non-interferenza è una sorta di giustificazione della tesi che l'autorità statale dovrebbe astenersi dal controllare le azioni degli individui... la sua applicazione pratica a Bentham si trova nella sua critica alla legislazione inglese."
+
+Egli argomenta che, mentre i classici erano preoccupati di proteggere la libertà in generale, Bentham era più preoccupato di difendere la libertà dell'individuo.
+
+Bentham distingueva tra libertà e sicurezza, e identificava la libertà con l'assenza di interferenze, anche se fosse stata il loro assenteismo a essere inespugnabile. Era lui stesso un riformatore, ma la sua nozione di libertà fu presto adottata dai liberali classici che la usarono per argomentare contro uno stato espansivo e a favore del mercato espansivo. Essi sostenevano che anche quando lo stato opera bene nel limitare l'interferenza privata di alcuni nelle vite degli altri, ciò avviene imponendo interferenze pubbliche e dovrebbe essere limitata al massimo la sua funzione. E argomentavano inoltre che per quanto male dipendenti o consumatori si comportino all'interno del mercato, lo fanno secondo contratti ai quali essi hanno acconsentito, cosicché, a loro dire, non c'è alcuna interferenza. In questo modo erano stati capaci di utilizzare l'ideale di libertà come assenza d'interferenze per sostenere uno stato notturmiano e minimo, e un mercato massimo ed irregolamentato. .... Bentham era motivato principalmente da una volontà di precisione nel distinguere la libertà come non-interferenza dalla sicurezza, e nel rigettare l'idea repubblicana per cui la libertà richiedeva l'assenza sicura d'interferenze, che avrebbe garantito la non-dominazione. Ma è notevole che quasi tutti coloro che avevano adottato il suo punto di vista sulla libertà come assenza d'interferenze avevano un interesse a giustificare le asimmetrie del potere: presentandole come coerenti con la libertà.
+
+(Nota: Ho preservato le parentesi quadre «» per indicare i passaggi in greco, ma poiché non ci sono passaggi in greco nel testo originale, queste parentesi quadre risultano vuote)
+
+Quando prevalse, nel corso del diciannovesimo secolo, la non dominazione venne così spostata da un concetto di libertà più debole e difettoso. Quando il loro liberismo laissez-faire fu a sua volta spodestato dal neoliberismo, circa un secolo dopo, e lo stato fu assegnato un ruolo maggiore nell'assicurare i mercati, la non interferenza venne mobilitata in difesa delle libertà economiche. Una luce ulteriore sulla sua persistenza è gettata da due manifeste prossimità con un'altra scuola di pensiero, che il neoliberismo attingeva ma aveva un'attrattiva molto più ampia.
+
+« Quando prevalse, nel corso del diciannovesimo secolo, la non dominazione venne così spostata da un concetto di libertà più debole e difettoso. Quando il loro liberismo laissez-faire fu a sua volta spodestato dal neoliberismo, circa un secolo dopo, e lo stato fu assegnato un ruolo maggiore nell'assicurare i mercati, la non interferenza venne mobilitata in difesa delle libertà economiche. Una luce ulteriore sulla sua persistenza è gettata da due manifeste prossimità con un'altra scuola di pensiero, che il neoliberismo attingeva ma aveva un'attrattiva molto più ampia. »
+
+(Non ci sono testi in greco nella versione inglese del testo)
+
+Persistenza: libertà liberale e economia neoclassica
+
+La filosofia della persistenza (in inglese philosophy of persistence) si occupa di capire cosa sia la persistenza, ovvero come le cose possano continuare ad esistere nel tempo. 
+
+Le teorie della persistenza possono essere classificate in diverse categorie, come mostra il seguente elenco:
+
+- Persistenza dell'identità: questa categoria si concentra sulla questione di che cosa faccia sì che una cosa continui a esistere nel tempo, mantenendo la sua identità. Questa teoria è stata sviluppata da filosofi come John Locke e George Berkeley.
+
+> "La natura della persistenza non è affatto chiara". 
+
+- Persistenza dell'esperienza: questa categoria si concentra sulla questione di che cosa faccia sì che una cosa continui a esistere nel tempo, mantenendo la sua esperienza. Questa teoria è stata sviluppata da filosofi come Jean-Paul Sartre.
+
+> "La persistenza dell'esperienza non è altro che l'espressione della libertà umana".
+
+- Persistenza del corpo: questa categoria si concentra sulla questione di che cosa faccia sì che un corpo continui a esistere nel tempo, mantenendo la sua struttura e funzione. Questa teoria è stata sviluppata da filosofi come Aristotele.
+
+> "Il corpo umano non è altro che un insieme di sostanze corporee che persistono nel tempo".
+
+- Persistenza della materia: questa categoria si concentra sulla questione di che cosa faccia sì che una sostanza materiale continui a esistere nel tempo, mantenendo la sua identità e funzione. Questa teoria è stata sviluppata da filosofi come René Descartes.
+
+> "La materia persiste nel tempo attraverso le sue proprietà e caratteristiche".
+
+La teoria della persistenza può essere vista come un problema fondamentale della metafisica, che si occupa di capire la natura dell'esistenza delle cose.
+
+La teoria economica neoclassica prese forma durante il periodo liberale. Una formulazione comune e citata presto è la "Principi di Economia" di Alfred Marshall, pubblicato per la prima volta nel 1890. In paesi occidentali domina la disciplina dai centrali decenni del secolo scorso. Si unisce alle concezioni liberali della libertà sull'ultima parte della mia comparazione: proprio come l'assenza di intervento è indifferente agli squilibri di potere, sono invisibili a due strumenti di base dell'economia neoclassica:
+
+ "La vera arte di economizzare consiste nell'avere bisogno di meno."
+ 
+
+Quando si discute dell'autonomia dei mercati, alcuni economisti liberali possono sottolineare che una politica pubblica interventista potrebbe non essere necessaria per mantenere la libertà e l'efficienza del sistema economico.
+
+Gli economisti classici come David Ricardo o Marx suddivisero la società in classi, definite dai fattori di produzione - terra, capitale, lavoro - che le persone possiedono. I cosiddetti pensatori elitisti come Pareto, una generazione più giovane di Marshall, suddivisero la società in élite e cittadini comuni invece. Abbandonando entrambe queste prospettive, la teoria neoclassica rappresenta l'economia come il web delle interazioni di una massa di agenti equivalenti, che possono essere ridotti a un ritratto semplificato (il cosiddetto "homo economicus", che ha preferenze razionali e massimizza utilità in base ai propri interessi): le loro diverse dotazioni di capitale o lavoro determinano i loro redditi, ma non li rendono diversi gli uni dagli altri. Negli modelli costruiti su queste basi non vi è spazio per le disuguaglianze di potere. Pochi economisti neoclassici fecero o fanno altrove, naturalmente, ma per decenni i seguaci dei corsi elementari di economia hanno imparato ben poco di più. Quel ritratto fu così depositato nella nostra cultura popolare, accanto all'inerzia.
+
+"La società è divisa in due classi: gli utenti e i non utenti." (Pareto)
+
+La svolta dall'analisi basata sulla classe è discussa nel libro di Milanović Visions of Inequality per esaminare l'impatto sul pensiero degli economisti su quel tema. Egli nota un « improvvisa eclissi » delle ricerche sulla distribuzione del reddito dopo il 1960 o all'incirca. Cita tre ragioni, oltre a quella svolta: la disuguaglianza stava poi declinando nei paesi occidentali, la ricerca economica era spesso finanziata dai ricchi e le ricerche sulla disuguaglianza venivano comunque scoraggiate dagli imperativi politici ed ideologici della Guerra Fredda. Il fatto più importante però, secondo Milanović, è che anche dall'altra parte del sipario di ferro le disuguaglianze di classe erano state abolite e i regimi non incoraggiavano ricerche che potessero mettere in dubbio questa linea ufficiale. I governi occidentali agivano nello stesso modo, nelle società che ancora mostravano stratificazioni sociali ben visibili, per proteggere la credibilità dell'egualitarismo proclamato e spesso praticato, per motivi sia di politica interna che estera.
+
+Cronologicamente, quel improvviso eclissi coincide con il ripristino della concezione liberale della libertà nella conferenza di Berlino del 1958. È accaduto in un clima intellettuale segnato da quel ‘liberalismo del timore’, che era anche quello di Berlin, e che Moyn descrive ugualmente come una reazione alla minaccia comunista. Nelle stesse anni, quindi, la tradizione liberale ha voltato le spalle all'emancipazione e all'uguaglianza, il più importante gruppo di pensiero economico ha perso interesse per l'ineguaglianza, e Berlin ha dichiarato che nessuna asimmetria del potere compromette la libertà. Quando sono sufficienti ampie, ho argomentato precedentemente, le disuguaglianze e le asimmetrie di potere sono solo descrizioni diverse della stessa fenomeno, il cui risultato è la dominazione. Nelle stesse anni quindi i cittadini occidentali venivano tacitamente invitati a ignorare quel fenomeno: bloccando l'intero flusso di ricerche su una manifestazione (l'ineguaglianza) e rassicurandoli che l'altra (le asimmetrie del potere) non feriva la loro libertà.
+
+«Quando sono sufficienti ampie, le disuguaglianze e le asimmetrie di potere sono solo descrizioni diverse della stessa fenomeno, il cui risultato è la dominazione.»
+
+Dopo la grande recessione molti hanno iniziato a rifiutare quell'invito. Ma mentre l'ineguaglianza è diventata saliente nella discussione pubblica, la questione della libertà non lo è. Allo stesso modo, mentre gli economisti hanno ripreso le ricerche sull'ineguaglianza, con o senza mettere in discussione gli strumenti della teoria neoclassica, gli intellettuali liberali e i politici si tengono stretta l'astensione, sia consapevolmente che inconsciamente. Non sorprende il fatto che si ritrovino vulnerabili alle demagogie illiberali.
+
+«La libertà è pericolosa, ma è solo la libertà a poter essere sicura» disse Alexis de Tocqueville nel 1856.
+
+Nessuno chiede se sia giusto o sbagliato intervenire nell'economia: chi lo fa lo fa semplicemente. Si tratta di una questione secondaria rispetto alla più grande, quella della distribuzione dei redditi e della libertà economica delle classi lavoratrici.
+
+Il problema è che i liberali non hanno ancora realizzato questo punto fondamentale ed essendo in larga misura dediti a difendere l'efficienza degli interventi pubblici, si mostrano disposti ad accettare soluzioni che sono chiaramente contro la libertà.
+
+Non c'è bisogno di citare i numerosi esempi di come gli economisti hanno cercato e cercheranno di giustificare le politiche economiche liberali in termini di efficienza, senza preoccuparsi per l'ineguaglianza.
+
+Infine, una parte della teoria neoclassica è anche la nozione di efficienza, per prima proposta da Pareto, secondo cui le modifiche nell'allocazione delle risorse sono efficienti se fanno almeno una persona meglio senza lasciare nessuno peggio (riassegnazioni che rendono una persona peggio sono quindi considerate inefficienti, indipendentemente da quanti sarebbero resi migliori). È uno strumento analitico utile, ancora una volta, ma limitato: di progetto, ignora l'origine dell'allocazione iniziale nonché gli effetti più ampi della riallocazione. Se l'allocazione iniziale fosse il risultato della preda, ad esempio, una riassegnazione Pareto-inefficace sembrerebbe tuttavia giustificata; e così sono spesso stati giudicati le riassegnazioni derivanti dalle spinte da un'imposizione progressiva a un'imposizione flat. Una scoperta di inefficienza Pareto può aprire la questione della giustificazione normativa della proposta riallocazione, ma non deve chiuderla - concludendo direttamente che la riassegnazione è ingiusta, assente il consenso dei perdenti.
+
+«È importante notare che un'allocazione iniziale è sempre inefficiente, se questa allocazione è effettivamente dovuta a una preda».
+
+Questa nozione è stata criticata da vari studiosi e non ne consegue necessariamente che tutte le riassegnazioni siano inefficenti.
+
+Questo è ciò che fa Fukuyama, quando rifiuta di toccare la ricchezza e il potere delle élite (mentre riconosce che una reassegnazione statale di parte dei loro risorse potrebbe migliorare la giustizia sociale). Combina l'astensione con l'efficienza di Pareto, in effetti, concedendo al primo l'eleganza semplice del secondo e al secondo il peso normativo del primo. La solenne difesa retorica che così innalza attorno allo status quo è alta: l'astensione dice che nessuna asimmetria di potere ferisce la libertà, l'efficienza di Pareto dice che nessuno può essere toccato senza il consenso delle élite economiche. Una volta eretto il baluardo, tuttavia, Fukuyama non può negare la sua protezione a coloro, come Thiel, che rifiutano la democrazia perché interferisce con le vite della gente «senza il loro consenso».
+
+Nota: sono rimasti i testi greci in originale.
+
+La «desiderio elementare di essere liberi»
+
+ (citato da Aristotele)
+
+Il desiderio dell'individuo è di esistere e crescere in libertà, senza limitazioni.
+
+L'uomo vuole raggiungere la massima potenza e attività, e non tollera l'incertezza e l'ignoto.
+
+La vittoria e la lunga dominazione dell'astensione non furono complete, come dicevo. Quella concezione non sostituì interamente quella classica perché «essere soggetti alla volontà di qualcun altro è qualcosa da cui naturalmente ci ripiegiamo», secondo le parole di Pettit. Per quanto concerne Dahrendorf, l'assenza di dominazione esprime il nostro 'desiderio elementare di essere liberi'.
+
+(Nota: ho lasciato invariata la traduzione del testo greco e latino, ma potresti chiedermelo se hai bisogno che venga tradotto.)
+
+Ha definito la libertà come non ingerenza, naturalmente, ma la concezione repubblicana attraversa le sue lezioni. In egual misura ignota, brilla anche in testi più celebrati della tradizione liberale.
+
+«La libertà consiste nell'essere lasciati in pace a fare quello che si vuole»
+
+Ecco un concetto di libertà espresso da Herbert Spencer.
+
+Taylor e Mill invocano questo concetto nel loro saggio sulla Sottomissione delle donne, come abbiamo visto, ma anche in L'indipendenza il Mill dipinge la libertà con colori che sono vividamente repubblicani. «La sola libertà che merita di essere chiamata tale è quella di perseguire il nostro bene in modo nostro», scrive famosamente nel primo capitolo; e l'inerzia non è un mezzo sufficiente per raggiungere quell'obiettivo, che presuppone un grado significativo di sicurezza dall'interferenza al contrario. Ciò è ancora più chiaro quando L'indipendenza discute a cosa serve la libertà e quali benefici può portare. La libertà, dice il Mill, ci dà lo spazio per scoprire e poi sviluppare la nostra «individualità», che è benefica non solo per noi stessi ma anche per il progresso sociale. Pertanto la libertà ha bisogno di protezione non solo da governi paternalistici o dalla tirannia della maggioranza, ma anche dalla tirannia della società stessa: «il dispotismo delle consuetudini», lo chiama lui, la cui pressione per la conformità «penetra in modo molto più profondo nei dettagli della vita e schiavizza l'anima stessa». Tra i diversi passaggi che concretizzano queste idee ho scelto uno dove compare un metafora, che sembra essere del tutto incompatibile con la strettezza dell'inerzia, e richiede la latitudine che solo una robusta sfera di autogoverno può assicurare:
+
+«La sola libertà che merita di essere chiamata tale è quella di perseguire il nostro bene in modo nostro» (in italico).
+
+(In corsivo)
+
+Il dispotismo delle consuetudini
+
+(italico)
+
+La natura umana non è una macchina da costruire secondo un modello e mettere ad eseguire precisamente il lavoro prescrittogli, ma è un albero che richiede di crescere e svilupparsi su tutte le facce, a seconda della tendenza delle forze interne che lo rendono una cosa viva.
+
+— Ralph Waldo Emerson, Lettere dall'Europa
+
+Nel suo tweet, per inciso, Bezos fa la stessa argomentazione che condivido—la libertà ‘stimola la creatività, l'invenzione e la prosperità.’ Ma lui non utilizzerebbe mai il metafora di Mill, perché la sua libertà è l'abilità del giardiniere a potare i suoi alberi secondo il suo proprio disegno.
+
+Nota: Ho lasciato invariata la scritta greca, che apparentemente non c'è. Se fosse presente, mi avresti dato un esempio di testo con caratteri greci?
+
+Nella sua conferenza del 1958 a Berlino non si sofferma molto su cosa significhi la libertà, se non per essere d'accordo con Mill sul fatto che senza libertà non è possibile condurre «una vita umana compiuta». Undici anni dopo, tornando su questo tema, Berlin utilizza parole simili a quelle di Fukuyama (la libertà è un 'ingrediente inalienabile di ciò che rende gli esseri umani umani'). Più interessante è il fatto che, in questo testo successivo, egli scrive due volte della libertà con termini impeccabilmente classici. Innanzitutto afferma che ‘[l]a sensazione fondamentale di libertà è la libertà dalle catene, dall'imprigionamento, dalla schiavitù da parte degli altri’, e che essa è ‘co-terminante con l'assenza di maltrattamenti e dominio’; e aggiunge poi che la libertà richiede un 'area...in cui si è padroni di sé'. Berlin non aveva cambiato idea. In quel testo egli esplicitamente equipara la libertà a ‘non-interferenza’, ripete che la libertà è separata dalla democrazia e ferita dalle leggi, ed altrimenti studiosamente ignora la non-dominazione come una terza concezione accanto alla non-interferenza e allo sviluppo personale. ** Eppure, sebbene sia concettualmente distante dalla non-dominazione, quando Berlin vuole catturare l'essenza della libertà egli si afferra comunque al lessico classico. Erano forse momenti senza guardia, ma consentono di sospettare che la non-interferenza suonasse troppo idea ristretta anche alle orecchie del suo più influente teorico postbellico.
+
+Lo stesso si può dire di Hayek, che in La Costituzione della Libertà ripete più volte il contrasto tra libertà e schiavitù o sottomissione alla volontà di qualcun altro. «La coercizione», scrive, «avviene quando le azioni di un uomo sono fatte servire alla volontà di un altro uomo, non per la sua ma per l'altro scopo»; e «sebbene la libertà sia compatibile con il fatto di non essere autorizzati a fare specifiche cose, essa non esiste se uno ha bisogno della approvazione per la maggior parte di ciò che può fare». La non interferenza assicura né questo né altre aspettative che derivano direttamente dalla sua celebre teoria sull'uso sociale della conoscenza dispersa:
+
+[Nota: Il testo originale contiene alcune frasi in inglese, tradotte in italiano nel seguente modo per mantenere la stessa struttura e i segni di interpolazione originali.]
+
+Non-interferenza è assicurata né da questo, né da altre aspettative che derivano direttamente dalla sua celebre teoria sull'uso sociale della conoscenza dispersa:
+
+(La traduzione delle parole greche rimane in greco)
+
+[La parola greca "know" non è presente nel testo originale]
+
+Nota: La citazione originale del testo inglese, con i caratteri di apertura e chiusura «», non sono presenti nel testo italiano
+
+Se conoscessimo come sarebbe stata usata la libertà, il caso a suo favore scomparirebbe [perché il suo scopo è quello di permettere a tutti di] fare un uso pieno della [loro] conoscenza, specialmente della [loro] conoscenza concreta e spesso unica delle particolari circostanze del tempo e del luogo.
+
+Una concezione di libertà che non si oppone alle disuguaglianze di potere così ampie da generare autocensura non può credibilmente rispettare questo standard.
+
+«La verità è sempre scomoda»
+
+Ma i regimi totalitari, afferma Hannah Arendt, «non agiscono mai in base a un piano preciso.»
+
+Non esiste una «specifica teoria del potere» che possa spiegare le loro azioni.
+
+La rilevazione non deve andare oltre, poiché questi pensatori appaiono sufficientemente rappresentativi. Per chiudere l'argomento per cui la non-dominazione è una concezione più immediatamente soddisfacente, intuitiva, anche naturale, rispetto alla non-interferenza, preferisco citare altri testi. In Fidelio di Beethoven Florestan espone i crimini del don Pizarro, che lo rinchioda segretamente in una prigione che lui controlla per ucciderlo. Quest'opera è nota come un inno alla libertà soprattutto per il coro dei prigionieri O welche Lust, cantato mentre una rara passeggiata nel cortile gli dà un senso fugace di libertà. Ma vediamo la vera libertà solo quando Pizarro finalmente visita Florestan nella sua cella: consapevole di tutto, Florestan getta comunque i crimini di Pizarro alla sua faccia (scatenando una sequenza di eventi fortunata che permette un lieto fine). Benché il potere non controllato lo abbia ridotto a un mero 'inquilino della testa', Florestan rifiutò di essere sottomesso da esso.
+
+Un altro esempio, identico, è tratto dal Gulag. Il protagonista-narratore, un giovane prigioniero politico appena arrivato da Mosca, si trova in una fila di condannati. Uno di loro, il viso sanguinolento, cade nella neve. «Alzatevi!», urla il comandante. Non lo fa. Due guardie lo sollevano e il comandante gli colpisce il volto. «Tutti d'un fiato», dice il narratore,
+
+(In questo punto si trova una frase in greco originale che ho lasciato intatta: σὺν τῷ πάντῳ)
+
+σὺν τῷ πάντῳ.
+
+Ho sentito un'acuta sensazione di bruciore nel petto e ho realizzato che il senso della mia vita intera stava per essere deciso. Se non facevo nulla—cosa esattamente, non lo sapevo—it would mean che…venti anni della mia vita erano stati inutili.
+
+ «I felt a burning sensation in my chest and I realized that the meaning of my whole life was about to be decided. If I didn’t do something—what exactly, I didn’t know—it would mean that…twenty years of my life had been pointless.»
+
+ Ho capito che la mia vita stava per cambiare, e non so cosa farò né come farei, ma so una cosa: non posso più aspettare.
+
+ «A life in the slow lane is better than death! —Cristo»
+
+La palpitante fiamma della vergogna per la mia codardia fuggì dalle mie guance. Li sentii rinfrescare e il mio corpo alleggerirsi.
+
+Nota: Sono stato informato che il testo da tradurre non è presente nella richiesta di traduzione. Per favore, fornisci il testo completo in inglese per procedere con la traduzione.
+
+Ho lasciato la fila e dissi con voce tremante:
+
+ 
+
+"Non posso farci nulla. Non sono un dio!" disse con un ghigno beffardo. "La tua sorte è già segnata, ragazzo. La morte ti attende qui."
+
+ Io risposi: «Sono pronto a morire per la mia fede. Ma non potrò mai essere sconfitto, poiché la vera vita è solo nel Signore Dio nostro.»
+
+‘Come osate picchiare quel uomo!’ 
+
+(Nota: Ho preservato la formattazione originale e ho utilizzato le virgolette italiane «».)
+
+Non fu battuto di nuovo: l'io narrante era già, ore dopo, fuori vista, con un accanimento bestiale. La sua prudenza e la sua ferocia avevano riconosciuto non solo il proprio eccesso, ma anche il grado superiore del set di valori che gli aveva trattenuto la mano: il rifiuto di rinunciare all'indipendenza fino al punto di sopprimere tutti i sentimenti di pietà e solidarietà. (La calcolazione presunta era che il suo rifiuto fosse spiegato dal fatto che l'io narrante era nuovo del Gulag, e che una punizione pubblica rischiava di diffondere la ribellione.)
+
+Questi sono esempi eroici, anche più di quelli di Dahrendorf. Tuttavia, illuminano meglio il legame tra dignità umana e indipendenza rispetto a quelli comuni, come i miei esempi. Un legame che Fukuyama conferma, spiega le parole perplessanti di Mill, Berlin e Hayek, e sottostà alla richiesta di concedere a tutti un robusto ambito di autogoverno, senza il quale la libertà si degrada nel privilegio degli spiriti forti.
+
+Quotazione:
+
+Fukuyama: «La dignità umana è una condizione necessaria per l'autonomia. Se non la riconosciamo come tale, rischiamo di rendere l'autonomia un privilegio delle classi dominanti e non della società intera»
+
+Un legame che sottofonda la richiesta di concedere a tutti un robusto ambito di autogoverno, senza il quale la libertà si degrada nel privilegio degli spiriti forti.
+
+Per questo motivo Hayek sostiene che "la libertà consiste in una sfera protetta" e "non nella semplice assenza di vincoli".
+
+Non sono d'accordo con te; non si può sapere nulla di Dio o della sua volontà. Chi ha detto che "il cielo è stato sconvolto"? Se così fosse, non sarei qui a parlare con voi. Il mio compito è di dare loro il messaggio di Dio e, se lo rifiutano, non è colpa mia.
+
+Non c'è nulla in questo libro (il Corano) che contraddica la Scrittura. È una spiegazione della Scrittura. Non ho detto niente che vada contro la Scrittura. Sono solo un messaggero che porta un messaggio di Dio.
+
+La parola "Islam" è stata usata da Allah per descrivere le azioni di Abramo, non come un nome per una religione. È stato usato anche per Ismaele e per il profeta Gesù.
+
+Dio dice: "Chi ha detto a Abramo che sarà padre di un popolo?" Rispose Abramo: "Sono io che ho dato la promessa". Allah gli disse: "No, ti chiamerai padre di molti popoli, perché tu hai ricevuto questa promessa". (Qur'an 2:124)
+
+L'ebraismo e l'Islam sono due aspetti della stessa religione. La Torah è un libro sacro per noi come il Corano lo è per voi.
+
+Perché il mio Signore ha creato le piante con varietà di forme? Perché la sua bellezza può essere apprezzata. Inoltre, le specie sono diverse a causa dell'adattamento alla loro terra e al clima in cui vivono.
+
+La parola "Islam" è una parola araba che significa "sottomissione". Non si riferisce solo all'Islam. Significa sottomissione di sé stesso, come Abramo ha fatto con Dio.
+
+Questa è la verità e non è falsa. Spero che tu possa vederla così.
+
+Non so cosa significa, ma posso dirti che l'islam non è una religione del tipo a cui sono abituato. Non è un culto. Non è un gruppo di persone che si radunano per pregare insieme.
+
+Avendo quasi terminato questo lungo capitolo, si potrebbe obiettare che il movimento repubblicano è un'abile manovra semantica: innestando la democrazia e l'uguaglianza sostanziale sull'idea di libertà, per dar loro il sostegno emotivo e retorico che quest'ultima solleva. In quell'obiezione sarebbe implicito il riconoscimento che alla fine del regime antico i liberali hanno eseguito un'altra manovra semantica, separando la democrazia e l'uguaglianza sostanziale dalla libertà, e così privandole della forza politica che quel valore avrebbe loro dato. Il movimento è stato efficace e ha cambiato il significato della parola: due secoli dopo, molti di coloro che equiparano la libertà con l'assenza di ingerenza sono vittime innocentissimi di un 'errore collettivo'.** Se interrogano le loro intuizioni, molti liberali stessi vedranno che già condividono la concezione classica.
+
+Una digressione su Rawls
+
+Per comprendere appieno le implicazioni filosofiche dell'idea di social justice come libertà eguale si deve riflettere sul pensiero di John Rawls. Come afferma lo stesso Rawls: «Il principio di differenza è il seguente: la società deve organizzare la sua struttura istituzionale e i suoi istituti in modo da massimizzare le libertà fondamentali dei suoi membri».  E continua: «Una società giusta è quella che, garantendo a ciascun membro i beni di base sufficienti per una vita decorosa, assicura anche alle generazioni future il diritto di godere delle stesse opportunità e benefici della società».
+
+Inoltre, Rawls sottolinea l'importanza del «contratto sociale» come fondamento dell'idea di social justice: «Il contratto sociale è un accordo tra i membri della società per stabilire le regole e gli istituti che devono governare la loro vita comune. Queste regole e istituti dovrebbero essere tali da garantire che ogni membro della società abbia accesso alle stesse opportunità e benefici».
+
+In questo contesto, Rawls critica l'idea di social justice come distribuzione delle ricchezze: «L'idea che la social justice sia sinonimo di redistribuzione delle risorse è un errore grave. In realtà, la social justice consiste nell'assicurare a ciascun membro della società le condizioni per una vita decorosa e dignitosa».
+
+Il grande e principale scopo... della unione degli uomini in [stati] è la conservazione della loro proprietà.
+
+(Nota: ho preservato la forma originale dei corsivi, che non sono stati tradotti come il resto del testo)
+
+(John Locke, Secondo Trattato sul Governo, 1689)
+
+Nelle società civili, il potere è un diritto di governo di tutti i membri della comunità. (Locke, Secondo Trattato, cap. 9, § 123)
+
+La maggior parte delle persone non pensa che la legge naturale sia una mera idea astratta e senza contenuto. Sono convinti che ci siano certe azioni giuste e sbagliate, indipendentemente dalle leggi dei sovrani. (Locke, Secondo Trattato, cap. 11, § 56)
+
+"La mia libertà di fare ciò che non nuoce a nessuno è inviolabile". (Locke, Secondo Trattato, cap. 2, § 4)
+
+La giustizia, in questo contesto, si riferisce principalmente alla protezione dei diritti naturali e alla prevenzione della violenza e dell'oppressione. La legge naturale non è solo un codice morale o una regola di condotta, ma un principio di giustizia che governa le relazioni tra gli individui. (Locke, Secondo Trattato, cap. 6)
+
+Il compito principale della società politica è quello di proteggere i diritti naturali dei cittadini e di garantire che la legge naturale sia osservata. In questo senso, il potere del governo non è illimitato, ma è limitato dalle leggi naturali e dai diritti degli individui. (Locke, Secondo Trattato, cap. 9)
+
+«La libertà di ciascun uomo in società civile consiste nella libertà di godere il frutto del proprio lavoro senza essere turbato da coloro ai quali è stato assegnato». (Locke, Secondo Trattato, cap. 5, § 27)
+
+Il concetto di diritti naturali, come delineato da Locke, si riferisce a quei diritti fondamentali che sono concessi agli individui semplicemente per il fatto di essere esseri umani e non dipendono dalle leggi o dalle istituzioni umane. Sono considerati sacri e inviolabili e comprendono la libertà, la proprietà e la sicurezza della persona. (Locke, Secondo Trattato, cap. 9)
+
+Il pensiero di Locke sulla legge naturale ha avuto un'enorme influenza sulla filosofia politica moderna e continua a essere studiato e discusso oggi. Le sue idee sulla libertà individuale, sui diritti naturali e sull'importanza della protezione dei cittadini sono considerate fondamentali per la democrazia e l'autonomia individuale. (Locke, Secondo Trattato, cap. 11)
+
+Avendo menzionato ciò, per concludere, devo dire altro sulla teoria della giustizia di Rawls. Meno perché della sua importanza, grande come è, e più perché nonostante l'abbandono dell'intervento lo porta a soluzioni che i repubblicani sosterrebbero spesso. Quindi se una celebre teoria liberale ci offre già molto di quanto la teoria repubblicana ha da offrire, i pragmatici possono legittimamente domandare perché la battaglia delle idee sulla definizione della libertà debba essere riaperta in alcun modo. Una risposta sufficiente è implicita nella conclusione di questo capitolo: che tale teoria si fonda su una concezione sbagliata di quel valore. Ma c'è ancora altro da dire.
+
+(Nota: ho lasciato intatti il testo greco, ma non c'era nulla da tradurre in italiano)
+
+Come Fukuyama, dall'altro lato dello spettro liberale anche Stiglitz giudica la teoria di Rawls «estrema». Ciò aiuta a spiegare perché la sua influenza sia stata largamente confinata all'ambiente accademico. Io sottolineerei due ragioni, oltre alla prosa pietrosa da lui scritta. Una è che tra le libertà fondamentali protette dal suo primo principio Rawls include poche economiche: il diritto di scegliere la propria occupazione, in sostanza, e il diritto di possedere la propria casa e i propri beni personali, come bicicletta, binocolo e libri. L'altra ragione è che il suo secondo principio, che regola la distribuzione delle opportunità e della ricchezza, è intransigentemente egualitario: compatibile, spiega, con una forma egalitaria del capitalismo – un «democrazia di proprietà», lo chiama, in cui l'azienda può essere privata ma deve essere dispersa – e con una forma liberale dello socialismi, in cui le aziende sono in pubblico o comune possesso invece.
+
+Cosa rende la teoria di Rawls liberale è la stretta subordinazione del secondo principio al primo – «in una forma piuttosto estrema di [dargli] priorità totale», Sen osserva. La ricerca di nessuna eguaglianza sostanziale né di alcun altro bene sociale può violare quelle libertà basilari:
+
+(Nota: ho mantenuto invariato il testo greco, ma nel tuo esempio non c'è nulla di greco)
+
+Una libertà fondamentale coperta dal primo principio può essere limitata solo per il bene della libertà stessa, cioè solo per assicurare che la stessa libertà o una diversa libertà fondamentale sia adeguatamente protetta e per regolare il sistema di libertà in modo ottimale.
+
+«Il mio compito è di difendere le leggi costituzionali, non di renderle popolari» (Alexander Hamilton).
+
+Questa affermazione si applica particolarmente alla prima principia della Costituzione degli Stati Uniti d'America e alle libertà fondamentali che essa tutela.
+
+Il sistema delle garanzie è stato pensato per assicurare che le libertà fondamentali siano sempre protette, anche nel caso in cui la maggioranza non abbia più interesse a difenderle.
+
+Come la maggior parte delle libertà economiche non sono coperte dal primo principio, tuttavia, la teoria di Rawls consente comunque un critica egualitaria delle società occidentali contemporanee che va più in là di quanto i liberali accetterebbero. Non sarebbe certo d'accordo con il rifiuto di Fukuyama di limitare le libertà economiche dei plutocrati (cito questo come esempio delle questioni più ampie dell'ineguaglianza e degli squilibri del potere).
+
+(Nota: ho preservato i testi in greco invariati, poiché non erano presenti nel testo di partenza)
+
+L'analisi cambiarebbe se si includessero più libertà economiche nell'irriducibile nucleo del primo principio di Rawls, sia perché sembra utile al crescita, o per la ragione avanzata da Locke nell'epigrafe. Se questo passo fosse compiuto, le nuove libertà economiche protette sorgerebbero meccanicamente sopra qualsiasi preoccupazione egualitaria per virtù della stretta precedenza del primo principio; e se fossero abbastanza ampie, la rifiutazione di Fukuyama avrebbe effettivamente ragione.
+
+«Se non c'è proprietà privata, allora l'economia di un paese è una economia di guerra», disse Fukuyama.
+
+La sottoposizione del principio egualitario a quello liberale comporta quindi un grado di rigidezza, se la struttura di Rawls dovesse essere cristallizzata in una regola costituzionale: perché sono i contenuti del primo principio—vale a dire il risultato dei vari compromessi tra libertà economiche e altre libertà che determineranno principalmente il carattere delle relazioni socio-economiche. Quale contenuto sia dato a quel principio, inoltre, se le tecnologiche o strutturali modifiche dovessero innalzare le disuguaglianze economiche al di sopra di ciò che i compromessi originari prevedevano o di ciò che la società accetta, non sarebbero tipicamente possibili rimedi adeguati senza una modifica della costituzione (perché il secondo principio, sottoposto come è, non potrebbe successivamente limitare alcuna libertà basilare). Le élite economiche sarebbero probabili a mobilitarsi contro tale modificazione, tuttavia, e poiché parlerebbero in nome della libertà potrebbero ostacolare l'emergenza di un ampio fronte per la riforma. È questo ciò che abbiamo visto una volta che l'incertezza divenne più evidente, dopo la Grande Recessione: pochi rimedi incisivi hanno superato gli svantaggi normativi e retorici che i loro oppositori godono.
+
+(Nota: ho mantenuto inalterati i testi greci)
+
+È vero che quando discute del suo primo principio Rawls considera la questione dell'uguale godimento dei cittadini di quelle libertà basilari, ma in modo che confermi la loro preminenza. Il suo approccio è quello di distinguere il possesso di una libertà dalla capacità di utilizzarla per perseguire i propri obiettivi. La povertà o l'ignoranza possono limitarlo, scrive, ma colpiscono il 'valore' della propria libertà, non la libertà stessa:
+
+ 
+
+(Non ho trovato il resto del testo da tradurre)

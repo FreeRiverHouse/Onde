@@ -1,8 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { NextIntlClientProvider } from 'next-intl'
-import en from '../../messages/en.json'
+import { I18nProvider } from '@/i18n/I18nProvider'
+
 import ClientLayout from '@/components/ClientLayout'
 
 // Google Analytics 4 - set NEXT_PUBLIC_GA_ID in environment
@@ -119,11 +119,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">
         {/* Provide default English translations for legacy pages */}
-        <NextIntlClientProvider locale="en" messages={en}>
+        <I18nProvider>
           <ClientLayout>
             {children}
           </ClientLayout>
-        </NextIntlClientProvider>
+        </I18nProvider>
       </body>
     </html>
   )

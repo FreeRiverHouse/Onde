@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-01T20:00:03.214382+00:00",
+  "timestamp": "2026-02-02T02:30:03.359436+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,48 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "UAE Royal\u2019s Alleged Stake in Trump Crypto Venture Raises Ethical Concerns",
+      "url": "https://decrypt.co/356591/uae-royals-trump-crypto-venture-ethical-concerns",
+      "source": "decrypt",
+      "description": "A foreign investment in a Trump crypto firm reportedly preceded a reversal in U.S. AI chip restrictions, prompting corruption allegations.",
+      "published": "2026-02-02T01:28:36+00:00"
+    },
+    {
+      "title": "Strategy\u2019s Saylor signals buy after BTC briefly dips below cost basis",
+      "url": "https://cointelegraph.com/news/strategy-hints-bought-bitcoin-after-weekend-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The latest crash came after US President Donald Trump nominated Kevin Warsh to replace Federal Reserve chair Jerome Powell, sending Bitcoin down to $75,892 late on Sunday.",
+      "published": "2026-02-02T00:39:41+00:00"
+    },
+    {
+      "title": "Crypto protocol CrossCurve under attack, $3M reportedly exploited",
+      "url": "https://cointelegraph.com/news/crypto-protocol-crosscurve-exploited-for-3m?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Crypto bridge CrossCurve has told users to pause interacting with its protocol while it conducts an investigation into a smart contract breach.",
+      "published": "2026-02-01T22:47:14+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-01T20:57:03+00:00"
+    },
+    {
+      "title": "Bitcoin miner production data reveals scale of US winter storm disruption",
+      "url": "https://cointelegraph.com/news/bitcoin-miner-output-us-winter-storm-latest-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "New CryptoQuant data shows how January\u2019s US winter storm disrupted Bitcoin mining as operators curtailed power use amid grid stress.",
+      "published": "2026-02-01T20:36:13+00:00"
+    },
+    {
+      "title": "Will Artificial Intelligence Save Humanity\u2014Or End It?",
+      "url": "https://decrypt.co/356554/will-artificial-intelligence-save-humanity-end",
+      "source": "decrypt",
+      "description": "A debate featuring prominent transhumanists and futurists revealed deep divides over whether AGI can be made safe, or will inevitably threaten human survival.",
+      "published": "2026-02-01T20:17:59+00:00"
+    },
     {
       "title": "Ethereum Founder Vitalik Buterin Made $70K Betting Against 'Crazy Mode' on Polymarket",
       "url": "https://decrypt.co/356483/vitalik-buterin-made-70k-betting-against-crazy-mode-polymarket",
@@ -46,13 +88,6 @@
       "published": "2026-02-01T15:01:02+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-01T13:11:12+00:00"
-    },
-    {
       "title": "UAE firm bought 49% of Trump-linked crypto startup for $500M: WSJ",
       "url": "https://cointelegraph.com/news/uae-backed-firm-buys-49-percent-trump-linked-world-liberty-wsj?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -74,20 +109,6 @@
       "published": "2026-02-01T07:14:34+00:00"
     },
     {
-      "title": "Bitcoin\u2019s price may have seen \u2018deepest pullback\u2019 at $77K: Analyst",
-      "url": "https://cointelegraph.com/news/bitcoin-s-price-may-have-seen-deepest-pullback-at-77k-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin advocate and accountant Rajat Soni warned, \u201cNever trust a weekend pump or dump,\u201d as Bitcoin plunged and over $2 billion was wiped from the crypto market.",
-      "published": "2026-02-01T04:29:14+00:00"
-    },
-    {
-      "title": "SOL sinks to April 2025 lows as Bitcoin, AI stocks and metals unwind",
-      "url": "https://cointelegraph.com/news/sol-drops-to-95-as-bitcoin-ai-stocks-and-gold-sell-off-will-traders-buy-the-dip?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "SOL falls to lows not seen since April 2025, but Solana\u2019s price-to-fundamentals gap and its wider correlation to macro markets may provide hope for investors.",
-      "published": "2026-02-01T02:33:46+00:00"
-    },
-    {
       "title": "El Salvador\u2019s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge",
       "url": "https://bitcoinmagazine.com/culture/el-salvadors-bitcoin-beach-hosts-global-summit-strategies-for-sustainable-bitcoin-circular-economies-emerge",
       "source": "bitcoinmagazine",
@@ -107,13 +128,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off The bitcoin price crashed into the $75,000 range, breaking below key technical support levels as heavy selling pressure swept through the market. This post Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-31T19:31:22+00:00"
-    },
-    {
-      "title": "Bitcoin crashes below $76K Strategy cost basis in $2B market-wide liquidation event",
-      "url": "https://cointelegraph.com/news/bitcoin-crashes-76k-strategy-cost-basis-2b-liquidation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin saw a sudden weekend liquidity cascade that took BTC price to near $75,000 for the first time since its April 2025 low.",
-      "published": "2026-01-31T19:10:40+00:00"
     },
     {
       "title": "India Faces Pressure to Rethink Crypto Taxes Ahead of Union Budget as Trading Shifts Offshore",
@@ -170,20 +184,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ JPMorgan CEO Jamie Dimon reportedly confronted and yelled at Brian Armstrong at Davos. This post Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T19:35:21+00:00"
-    },
-    {
-      "title": "AI Agents Launched a Social Network and Spawned a Digital Religion Overnight",
-      "url": "https://decrypt.co/356491/ai-agents-social-network-spawned-digital-religion-overnight",
-      "source": "decrypt",
-      "description": "Autonomous agents on an AI-centric social network spontaneously founded \"Crustafarianism\"\u2014complete with scripture, prophets, and theology.",
-      "published": "2026-01-30T19:32:11+00:00"
-    },
-    {
-      "title": "Blank Check Firm Linked to Crypto Exchange Kraken Raises $345 Million in Upsized IPO",
-      "url": "https://decrypt.co/356494/blank-check-firm-linked-crypto-exchange-kraken-raises-345-million-ipo",
-      "source": "decrypt",
-      "description": "A new special purpose acquisition vehicle (SPAC) tied to crypto exchange Kraken completed its IPO, raising $345 million.",
-      "published": "2026-01-30T17:58:22+00:00"
     },
     {
       "title": "Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory",

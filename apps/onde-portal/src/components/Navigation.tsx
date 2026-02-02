@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useTranslations } from '@/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 import NotificationCenter from './NotificationCenter'
 import { useSearchModal } from './SearchModal'
@@ -28,11 +28,11 @@ export default function Navigation() {
   }
 
   const navItems = [
-    { href: `/${locale}/`, label: t('navigation.home') },
-    { href: `/${locale}/libri`, label: t('navigation.books') },
-    { href: `/${locale}/reader/`, label: t('navigation.read') },
-    { href: `/${locale}/games`, label: t('navigation.games') },
-    { href: `/${locale}/about`, label: t('navigation.about') },
+    { href: `/${locale}/`, label: t.navigation.home },
+    { href: `/${locale}/libri`, label: t.navigation.books },
+    { href: `/${locale}/reader/`, label: t.navigation.read },
+    { href: `/${locale}/games`, label: t.navigation.games },
+    { href: `/${locale}/about`, label: t.navigation.about },
   ]
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export default function Navigation() {
                   whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255, 127, 127, 0.4)' }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {t('navigation.explore')}
+                  {t.navigation.explore}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

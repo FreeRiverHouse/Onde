@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/i18n';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -30,23 +30,23 @@ function Footer() {
               <span className="text-xl font-display font-bold text-onde-ocean">Onde</span>
             </div>
             <p className="text-onde-ocean/60 max-w-sm leading-relaxed">
-              {t('footer.description')}
+              {t.footer.description}
             </p>
           </div>
 
           {/* Links */}
           <nav aria-label="Footer navigation">
-            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t('footer.explore')}</h2>
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.explore}</h2>
             <ul className="space-y-2">
-              <li><Link href={`/${locale}/libri`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.books')}</Link></li>
-              <li><Link href={`/${locale}/reader/`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.read')}</Link></li>
-              <li><Link href={`/${locale}/about`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t('navigation.about')}</Link></li>
+              <li><Link href={`/${locale}/libri`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</Link></li>
+              <li><Link href={`/${locale}/reader/`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.read}</Link></li>
+              <li><Link href={`/${locale}/about`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</Link></li>
             </ul>
           </nav>
 
           {/* Social */}
           <div>
-            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t('footer.followUs')}</h2>
+            <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.followUs}</h2>
             <div className="flex gap-4">
               <a href="https://twitter.com/Onde_FRH" target="_blank" rel="noopener noreferrer"
                  aria-label="Follow us on X (Twitter)"
@@ -71,11 +71,11 @@ function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-onde-ocean/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-onde-ocean/40">
-            {t('footer.copyright')}
+            {t.footer.copyright}
           </p>
           <div className="flex gap-6 text-sm text-onde-ocean/40">
-            <Link href={`/${locale}/privacy`} className="hover:text-onde-ocean transition-colors">{t('footer.privacy')}</Link>
-            <Link href={`/${locale}/terms`} className="hover:text-onde-ocean transition-colors">{t('footer.terms')}</Link>
+            <Link href={`/${locale}/privacy`} className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</Link>
+            <Link href={`/${locale}/terms`} className="hover:text-onde-ocean transition-colors">{t.footer.terms}</Link>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ function SkipToContent() {
                  focus:font-medium focus:shadow-lg focus:ring-2 focus:ring-onde-gold focus:ring-offset-2
                  transition-all"
     >
-      {t('accessibility.skipToContent') || 'Skip to main content'}
+      {t.accessibility?.skipToContent || 'Skip to main content'}
     </a>
   );
 }

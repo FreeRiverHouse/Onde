@@ -1,0 +1,125 @@
+{
+  "input_file": "traduzioni/capussela-spirito-EN.txt",
+  "input_bytes": 296931,
+  "model": "llama31-8b:latest",
+  "started": "2026-01-31T09:02:30.583199",
+  "chapters": [
+    {
+      "name": "Preface",
+      "input_bytes": 8,
+      "output_bytes": 2165,
+      "errors": 0,
+      "time_seconds": 167.76613402366638
+    },
+    {
+      "name": "Introduction",
+      "input_bytes": 1250,
+      "output_bytes": 13121,
+      "errors": 1,
+      "time_seconds": 994.9117510318756
+    },
+    {
+      "name": "Conclusion",
+      "input_bytes": 11,
+      "output_bytes": 1304,
+      "errors": 0,
+      "time_seconds": 64.1448712348938
+    },
+    {
+      "name": "Notes",
+      "input_bytes": 6,
+      "output_bytes": 1177,
+      "errors": 0,
+      "time_seconds": 71.37290382385254
+    },
+    {
+      "name": "References",
+      "input_bytes": 18,
+      "output_bytes": 1941,
+      "errors": 0,
+      "time_seconds": 137.50724029541016
+    },
+    {
+      "name": "Introduction",
+      "input_bytes": 12467,
+      "output_bytes": 26217,
+      "errors": 0,
+      "time_seconds": 1741.7070009708405
+    },
+    {
+      "name": "Chapter 1",
+      "input_bytes": 38555,
+      "output_bytes": 71254,
+      "errors": 4,
+      "time_seconds": 6911.430442094803
+    },
+    {
+      "name": "Chapter 2",
+      "input_bytes": 26136,
+      "output_bytes": 44807,
+      "errors": 4,
+      "time_seconds": 4277.383222103119
+    },
+    {
+      "name": "Chapter 3",
+      "input_bytes": 64537,
+      "output_bytes": 115587,
+      "errors": 2,
+      "time_seconds": 9265.970175027847
+    },
+    {
+      "name": "Chapter 4",
+      "input_bytes": 31094,
+      "output_bytes": 67106,
+      "errors": 1,
+      "time_seconds": 4537.146128892899
+    },
+    {
+      "name": "Chapter 5",
+      "input_bytes": 26895,
+      "output_bytes": 59141,
+      "errors": 0,
+      "time_seconds": 2339.3360641002655
+    },
+    {
+      "name": "Introduction",
+      "input_bytes": 18804,
+      "output_bytes": 41849,
+      "errors": 0,
+      "time_seconds": 1405.4978108406067
+    },
+    {
+      "name": "Chapter 6",
+      "input_bytes": 171,
+      "output_bytes": 1401,
+      "errors": 0,
+      "time_seconds": 47.3753981590271
+    },
+    {
+      "name": "Introduction",
+      "input_bytes": 55355,
+      "output_bytes": 127672,
+      "errors": 1,
+      "time_seconds": 4353.353883743286
+    },
+    {
+      "name": "Conclusion",
+      "input_bytes": 3616,
+      "output_bytes": 6688,
+      "errors": 0,
+      "time_seconds": 231.0624918937683
+    },
+    {
+      "name": "References",
+      "input_bytes": 17263,
+      "output_bytes": 100359,
+      "errors": 0,
+      "time_seconds": 3483.925397872925
+    }
+  ],
+  "test_mode": false,
+  "completed": "2026-01-31T21:24:47.901136",
+  "output_bytes": 681894,
+  "total_errors": 13,
+  "validated": true
+}

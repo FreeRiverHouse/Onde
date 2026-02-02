@@ -65,8 +65,17 @@ class Q4TransformerBlock:
         q = apply_rope(q, freqs_cis[start_pos:start_pos+T])
         k = apply_rope(k, freqs_cis[start_pos:start_pos+T])
 
-        # Causal mask for multi-token input
-        mask = Tensor.full((1, 1, T, T), float("-inf"), dtype=x.dtype, device=x.device).triu(1) if T > 1 else None
+        # KV Cache - CRITICAL for autoregressive generation!
+        # Without this, each token only sees itself, not previous context
+        if not hasattr(self, "cache_kv"):
+            self.cache_kv = Tensor.zeros(2, B, self.n_kv_heads, self.max_context, self.head_dim,
+                                         dtype=k.dtype, device=k.device).contiguous().realize()
+        self.cache_kv[:, :, :, start_pos:start_pos+T, :].assign(Tensor.stack(k, v)).realize()
+        k = self.cache_kv[0, :, :, 0:start_pos+T, :]
+        v = self.cache_kv[1, :, :, 0:start_pos+T, :]
+
+        # Causal mask - NOTE: (T, start_pos+T) to account for cached tokens!
+        mask = Tensor.full((1, 1, T, start_pos+T), float("-inf"), dtype=x.dtype, device=x.device).triu(start_pos+1) if T > 1 else None
 
         # Scaled dot-product attention with GQA support
         attn = q.scaled_dot_product_attention(k, v, attn_mask=mask, enable_gqa=True)
@@ -193,6 +202,18 @@ class Q4Transformer:
         q4k_loaded = 0
         q4k_failed = []
         for name, (blocks, n_elements, dims) in q4k_blocks.items():
+            # Special handling for token_embd - it's nn.Embedding, not QuantizedLinear
+            # Need to dequantize and assign to weight
+            if name == 'token_embd.weight':
+                from tinygrad.nn.state import dequant_q4k_tensor
+                print("  Dequantizing token_embd.weight...")
+                dequant = dequant_q4k_tensor(blocks, n_elements)
+                # GGUF dims are (dim, vocab), we need (vocab, dim) for Embedding
+                model.token_embd.weight = dequant.flatten()[:n_elements].reshape(*reversed(dims))
+                q4k_loaded += 1
+                if DEBUG: print(f"  Loaded token_embd: {model.token_embd.weight.shape}")
+                continue
+
             parts = name.replace('.weight', '').split('.')
             obj = model
             for p in parts[:-1]:

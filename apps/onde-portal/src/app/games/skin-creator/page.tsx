@@ -342,7 +342,8 @@ export default function SkinCreator() {
   // 🎨 Layer system state
   const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
   const [activeLayer, setActiveLayer] = useState<LayerType>('base');
-  const [showLayerPanel, setShowLayerPanel] = useState(true);
+  // Hide layer panel by default on mobile
+  const [showLayerPanel, setShowLayerPanel] = useState(typeof window !== 'undefined' && window.innerWidth >= 768);
   const layerCanvasRefs = useRef<{ [key in LayerType]?: HTMLCanvasElement }>({});
 
   // 💾 MY SKINS - Save/Load System
@@ -2001,54 +2002,59 @@ export default function SkinCreator() {
           }}
         />
       ))}
-      {/* Header */}
-      <div className="text-center mb-6 relative">
+      {/* Header - Simplified on mobile */}
+      <div className="text-center mb-4 md:mb-6 relative">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setShowMobileMenu(!showMobileMenu)}
-          className="md:hidden absolute left-0 top-0 p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-all"
+          className="md:hidden absolute left-2 top-0 p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-all"
           aria-label="Menu"
         >
           <span className="text-2xl">{showMobileMenu ? '✕' : '☰'}</span>
         </button>
         
-        <div className="flex items-center justify-center gap-2 mb-1">
+        {/* Moonlight badge - hidden on mobile */}
+        <div className="hidden md:flex items-center justify-center gap-2 mb-1">
           <span className="text-sm font-semibold text-white/80 bg-white/20 px-2 py-0.5 rounded-full">
             🌙 Moonlight
           </span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl animate-float">
+        <h1 className="text-2xl md:text-6xl font-black text-white drop-shadow-2xl">
           🎨 Skin Studio
         </h1>
-        <p className="text-lg text-white/90 mt-1">
-          AI Skin Creator for Minecraft & Roblox ✨
-          <button
-            onClick={() => setShowShortcuts(true)}
-            className="ml-3 px-2 py-1 text-sm bg-white/20 hover:bg-white/30 rounded-full transition-all"
-            title="Keyboard shortcuts (?)"
-          >
-            ⌨️ Help
-          </button>
-          <button
-            onClick={() => setShowAchievementGallery(true)}
-            className="ml-2 px-2 py-1 text-sm bg-yellow-500/30 hover:bg-yellow-500/50 rounded-full transition-all"
-            title="View achievements"
-          >
-            🏆 {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
-          </button>
-          <button
-            onClick={() => setSoundMuted(!soundMuted)}
-            className={`ml-2 px-2 py-1 text-sm rounded-full transition-all ${
-              soundMuted ? 'bg-red-500/50 hover:bg-red-500/70' : 'bg-green-500/30 hover:bg-green-500/50'
-            }`}
-            title={soundMuted ? 'Unmute sounds' : 'Mute sounds'}
-          >
-            {soundMuted ? '🔇' : '🔊'}
-          </button>
+        {/* Subtitle - simplified on mobile */}
+        <p className="text-sm md:text-lg text-white/90 mt-1">
+          <span className="md:hidden">Minecraft & Roblox Skins ✨</span>
+          <span className="hidden md:inline">
+            AI Skin Creator for Minecraft & Roblox ✨
+            <button
+              onClick={() => setShowShortcuts(true)}
+              className="ml-3 px-2 py-1 text-sm bg-white/20 hover:bg-white/30 rounded-full transition-all"
+              title="Keyboard shortcuts (?)"
+            >
+              ⌨️ Help
+            </button>
+            <button
+              onClick={() => setShowAchievementGallery(true)}
+              className="ml-2 px-2 py-1 text-sm bg-yellow-500/30 hover:bg-yellow-500/50 rounded-full transition-all"
+              title="View achievements"
+            >
+              🏆 {Object.values(achievements).filter(Boolean).length}/{Object.keys(ACHIEVEMENTS).length}
+            </button>
+            <button
+              onClick={() => setSoundMuted(!soundMuted)}
+              className={`ml-2 px-2 py-1 text-sm rounded-full transition-all ${
+                soundMuted ? 'bg-red-500/50 hover:bg-red-500/70' : 'bg-green-500/30 hover:bg-green-500/50'
+              }`}
+              title={soundMuted ? 'Unmute sounds' : 'Mute sounds'}
+            >
+              {soundMuted ? '🔇' : '🔊'}
+            </button>
+          </span>
         </p>
 
-        {/* Daily Challenge Banner */}
-        <div className="mt-3 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl px-4 py-2 text-white text-sm flex items-center justify-between">
+        {/* Daily Challenge Banner - hidden on mobile */}
+        <div className="hidden md:flex mt-3 bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl px-4 py-2 text-white text-sm items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-lg">📅</span>
             <span className="font-bold">Daily Challenge:</span>
@@ -2193,9 +2199,9 @@ export default function SkinCreator() {
       )}
 
       {/* Editor View */}
-      <div className={`flex flex-col lg:flex-row gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
-        {/* Left Panel - Preview */}
-        <div className="glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+      <div className={`flex flex-col lg:flex-row gap-2 md:gap-4 w-full max-w-6xl px-2 ${viewMode !== 'editor' ? 'hidden' : ''}`}>
+        {/* Left Panel - Preview (Hidden on mobile, accessible via menu) */}
+        <div className="hidden md:block glass-card rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
           <div className="flex items-center justify-center gap-2 mb-4">
             <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
               <span className="animate-bounce-soft">👀</span> Preview
@@ -2981,8 +2987,8 @@ export default function SkinCreator() {
           </p>
         </div>
 
-        {/* Right Panel - Colors */}
-        <div className="glass-card rounded-3xl p-6 shadow-2xl">
+        {/* Right Panel - Colors (Hidden on mobile - use floating color picker) */}
+        <div className="hidden md:block glass-card rounded-3xl p-6 shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">🎨 Colors</h2>
 
           {/* Recent Colors */}
@@ -3103,9 +3109,9 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* 🎨 Layer Panel - Floating */}
+      {/* 🎨 Layer Panel - Floating (Hidden on mobile - use mobile menu instead) */}
       {showLayerPanel && (
-        <div className="fixed left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-4 shadow-2xl z-40 w-64">
+        <div className="hidden md:block fixed left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur rounded-2xl p-4 shadow-2xl z-40 w-64">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold">🎨 Layers</h3>
             <button

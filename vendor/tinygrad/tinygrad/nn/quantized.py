@@ -89,8 +89,9 @@ class QuantizedLinear:
         """
         if self.q4_blocks is not None:
             # Dequantize Q4_K weights on-the-fly using TinyGrad's implementation
+            # dequant_q4k_tensor returns (num_blocks, 256), need to flatten properly
             weight = dequant_q4k_tensor(self.q4_blocks, self.n_elements)
-            weight = weight.reshape(self.out_features, self.in_features)
+            weight = weight.flatten()[:self.n_elements].reshape(self.out_features, self.in_features)
         elif self.weight is not None:
             # Use FP16 weights directly (for Q6_K or other formats)
             weight = self.weight
