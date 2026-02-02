@@ -317,8 +317,11 @@ jobs:
 
       - name: Build Portal (onde.la)
         run: |
+          # Install root workspace dependencies first (includes tailwindcss)
+          npm ci --ignore-scripts 2>/dev/null || npm install
+          # Then build portal
           cd apps/onde-portal
-          npm ci
+          npm ci --ignore-scripts 2>/dev/null || npm install
           npm run build
         env:
           NODE_ENV: production
