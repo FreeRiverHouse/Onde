@@ -1,0 +1,294 @@
+"""
+LLM with True Q4 inference - keeps weights quantized in VRAM.
+
+For Qwen2.5-14B on 20GB VRAM:
+- Standard FP16: 27.5 GB → OOM
+- True Q4: ~8-10 GB → FITS!
+
+Usage:
+  cd /Users/mattia/Projects/Onde/vendor/tinygrad
+  PYTHONPATH=. AMD=1 AMD_LLVM=1 python3.11 tinygrad/apps/llm_q4.py --model qwen2.5:14b
+"""
+
+from __future__ import annotations
+import os, sys, argparse
+from tinygrad import Tensor, nn, UOp, dtypes, getenv
+from tinygrad.helpers import GlobalCounters, DEBUG
+
+# Import from parent llm module
+sys.path.insert(0, os.path.dirname(__file__))
+from llm import SimpleTokenizer, precompute_freqs_cis, apply_rope, models
+
+from tinygrad.nn.quantized import QuantizedLinear
+
+class Q4TransformerBlock:
+    """Transformer block with Q4_K quantized linear layers."""
+
+    def __init__(self, dim: int, hidden_dim: int, n_heads: int, n_kv_heads: int,
+                 norm_eps: float, head_dim: int, rope_theta: float,
+                 max_context: int = 0, attn_bias: bool = False):
+        self.n_heads = n_heads
+        self.n_kv_heads = n_kv_heads
+        self.head_dim = head_dim
+        self.rope_theta = rope_theta
+        self.max_context = max_context
+
+        q_proj_out = head_dim * n_heads
+        kv_proj_out = head_dim * n_kv_heads
+
+        # Attention projections - use QuantizedLinear
+        self.attn_q = QuantizedLinear(dim, q_proj_out, bias=attn_bias)
+        self.attn_k = QuantizedLinear(dim, kv_proj_out, bias=attn_bias)
+        self.attn_v = QuantizedLinear(dim, kv_proj_out, bias=attn_bias)
+        self.attn_output = QuantizedLinear(q_proj_out, dim, bias=False)
+
+        # Norms stay in FP16 (small)
+        self.attn_norm = nn.RMSNorm(dim, norm_eps)
+        self.ffn_norm = nn.RMSNorm(dim, norm_eps)
+
+        # FFN - use QuantizedLinear
+        self.ffn_gate = QuantizedLinear(dim, hidden_dim, bias=False)
+        self.ffn_up = QuantizedLinear(dim, hidden_dim, bias=False)
+        self.ffn_down = QuantizedLinear(hidden_dim, dim, bias=False)
+
+    def _attention(self, x: Tensor, start_pos: int | UOp) -> Tensor:
+        x_norm = self.attn_norm(x)
+        B, T, D = x_norm.shape
+
+        # Reshape and transpose to (B, n_heads, T, head_dim) for RoPE
+        q = self.attn_q(x_norm).reshape(B, T, self.n_heads, self.head_dim).transpose(1, 2)
+        k = self.attn_k(x_norm).reshape(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
+        v = self.attn_v(x_norm).reshape(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
+
+        # Apply RoPE
+        freqs_cis = precompute_freqs_cis(self.head_dim, self.max_context, self.rope_theta)
+        q = apply_rope(q, freqs_cis[start_pos:start_pos+T])
+        k = apply_rope(k, freqs_cis[start_pos:start_pos+T])
+
+        # Causal mask for multi-token input
+        mask = Tensor.full((1, 1, T, T), float("-inf"), dtype=x.dtype, device=x.device).triu(1) if T > 1 else None
+
+        # Scaled dot-product attention with GQA support
+        attn = q.scaled_dot_product_attention(k, v, attn_mask=mask, enable_gqa=True)
+        out = attn.transpose(1, 2).reshape(B, T, -1)
+        return self.attn_output(out)
+
+    def _feed_forward(self, x: Tensor) -> Tensor:
+        x_norm = self.ffn_norm(x)
+        return self.ffn_down(self.ffn_gate(x_norm).silu() * self.ffn_up(x_norm))
+
+    def __call__(self, x: Tensor, start_pos: int | UOp) -> Tensor:
+        x = x + self._attention(x, start_pos)
+        x = x + self._feed_forward(x)
+        return x.contiguous()
+
+
+class Q4Transformer:
+    """Transformer with Q4_K quantized weights."""
+
+    def __init__(self, *, num_blocks: int, dim: int, hidden_dim: int, n_heads: int,
+                 n_kv_heads: int, norm_eps: float, vocab_size: int, head_dim: int,
+                 rope_theta: float, max_context: int = 0, attn_bias: bool = False):
+
+        self.blk = [Q4TransformerBlock(dim, hidden_dim, n_heads, n_kv_heads, norm_eps,
+                                        head_dim, rope_theta, max_context, attn_bias)
+                    for _ in range(num_blocks)]
+
+        # Embeddings stay in FP16 (relatively small, needed for lookup)
+        self.token_embd = nn.Embedding(vocab_size, dim)
+        self.output_norm = nn.RMSNorm(dim, norm_eps)
+        # Output projection - use QuantizedLinear
+        self.output = QuantizedLinear(dim, vocab_size, bias=False)
+        self.max_context = max_context
+
+    def forward(self, tokens: Tensor, start_pos: int | UOp) -> Tensor:
+        x = self.token_embd(tokens)
+        for block in self.blk:
+            x = block(x, start_pos)
+        return self.output(self.output_norm(x))[:, -1, :].softmax(-1, dtype="float").argmax(-1, keepdim=True)
+
+    def __call__(self, tokens: Tensor, start_pos: int | UOp = 0) -> Tensor:
+        return self.forward(tokens, start_pos)
+
+    @staticmethod
+    def from_gguf_quantized(gguf: Tensor, max_context: int | None = None) -> tuple['Q4Transformer', dict]:
+        """Load model keeping Q4_K weights quantized."""
+        from tinygrad.nn.state import gguf_load_quantized
+
+        print("Loading GGUF with quantized weights...")
+        kv, state_dict, q4k_blocks = gguf_load_quantized(gguf.to(None))
+
+        arch = kv['general.architecture']
+        max_context = min(max_context, kv[f'{arch}.context_length']) if max_context else kv[f'{arch}.context_length']
+        n_heads, n_kv_heads = kv[f'{arch}.attention.head_count'], kv[f'{arch}.attention.head_count_kv']
+
+        # Check if model has attention bias (Qwen2.5 does)
+        attn_bias = any('attn_q.bias' in name for name in state_dict) or \
+                    any('attn_q.bias' in name for name in q4k_blocks)
+
+        print(f"Model: {arch}, blocks={kv[f'{arch}.block_count']}, attn_bias={attn_bias}")
+        print(f"Q4K tensors: {len(q4k_blocks)}, FP16 tensors: {len(state_dict)}")
+
+        # Estimate memory
+        q4k_bytes = sum(blocks.numel() for blocks, _, _ in q4k_blocks.values())
+        fp16_bytes = sum(t.numel() * 2 for t in state_dict.values())
+        print(f"Memory: Q4K={q4k_bytes/1024**3:.2f}GB, FP16={fp16_bytes/1024**3:.2f}GB, Total={( q4k_bytes+fp16_bytes)/1024**3:.2f}GB")
+
+        model = Q4Transformer(
+            num_blocks=kv[f'{arch}.block_count'],
+            dim=kv[f'{arch}.embedding_length'],
+            hidden_dim=kv.get(f'{arch}.expert_feed_forward_length', kv[f'{arch}.feed_forward_length']),
+            n_heads=n_heads, n_kv_heads=n_kv_heads,
+            norm_eps=kv[f'{arch}.attention.layer_norm_rms_epsilon'],
+            vocab_size=len(kv['tokenizer.ggml.tokens']),
+            head_dim=kv.get(f'{arch}.attention.key_length', kv[f'{arch}.embedding_length'] // n_heads),
+            rope_theta=kv[f'{arch}.rope.freq_base'],
+            max_context=max_context,
+            attn_bias=attn_bias
+        )
+
+        # Load FP16 tensors (embeddings, norms, biases)
+        print("Loading FP16 tensors...")
+        fp16_loaded = 0
+        fp16_failed = []
+        for name, tensor in state_dict.items():
+            # Map GGUF names to model attributes
+            parts = name.replace('.weight', '').replace('.bias', '').split('.')
+            obj = model
+            for p in parts[:-1]:
+                if p == 'blk':
+                    continue  # blk is handled when we hit the digit
+                elif p.isdigit():
+                    obj = obj.blk[int(p)]
+                else:
+                    obj = getattr(obj, p, None)
+                    if obj is None: break
+
+            if obj is not None:
+                attr = parts[-1]
+                if hasattr(obj, attr):
+                    target = getattr(obj, attr)
+                    if '.weight' in name:
+                        target.weight = tensor
+                        fp16_loaded += 1
+                    elif '.bias' in name:
+                        # QuantizedLinear uses bias_tensor, nn.Linear uses bias
+                        if hasattr(target, 'bias_tensor'):
+                            target.bias_tensor = tensor
+                            fp16_loaded += 1
+                        elif hasattr(target, 'bias'):
+                            target.bias = tensor
+                            fp16_loaded += 1
+                else:
+                    fp16_failed.append(name)
+            else:
+                fp16_failed.append(name)
+
+        print(f"  FP16 loaded: {fp16_loaded}, failed: {len(fp16_failed)}")
+        if fp16_failed and DEBUG:
+            print(f"  Failed: {fp16_failed[:10]}...")
+
+        # Load Q4K blocks
+        print("Loading Q4K blocks...")
+        q4k_loaded = 0
+        q4k_failed = []
+        for name, (blocks, n_elements, dims) in q4k_blocks.items():
+            parts = name.replace('.weight', '').split('.')
+            obj = model
+            for p in parts[:-1]:
+                if p.isdigit():
+                    obj = obj.blk[int(p)]
+                elif p == 'blk':
+                    continue
+                else:
+                    obj = getattr(obj, p, None)
+                    if obj is None: break
+
+            if obj is not None:
+                attr = parts[-1]
+                if hasattr(obj, attr):
+                    target = getattr(obj, attr)
+                    if isinstance(target, QuantizedLinear):
+                        target.load_q4k_blocks(blocks)
+                        q4k_loaded += 1
+                        if DEBUG: print(f"  Loaded Q4K: {name} -> {target.out_features}x{target.in_features}")
+                    else:
+                        q4k_failed.append(f"{name} (not QuantizedLinear)")
+                else:
+                    q4k_failed.append(f"{name} (no attr {attr})")
+            else:
+                q4k_failed.append(f"{name} (obj None)")
+
+        print(f"  Q4K loaded: {q4k_loaded}, failed: {len(q4k_failed)}")
+        if q4k_failed:
+            print(f"  Q4K failed examples: {q4k_failed[:5]}")
+
+        print(f"Model loaded! VRAM: {GlobalCounters.mem_used/1024**3:.2f}GB")
+        return model, kv
+
+    def generate(self, tokens: list[int], start_pos: int = 0):
+        t = Tensor([tokens[start_pos:]], dtype="int32")
+        while len(tokens) < self.max_context:
+            t = self(t, start_pos)
+            next_id = int(t.item())
+            tokens.append(next_id)
+            start_pos = len(tokens) - 1
+            yield next_id
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Q4 Quantized LLM Inference")
+    parser.add_argument("--model", type=str, default="qwen2.5:14b", help="Model name")
+    parser.add_argument("--max_context", type=int, default=256, help="Max context length")
+    parser.add_argument("--prompt", type=str, default="What is 2+2?", help="Prompt")
+    parser.add_argument("--count", type=int, default=50, help="Max tokens to generate")
+    args = parser.parse_args()
+
+    from tinygrad import Device
+    Device['AMD']
+    print(f"Device: {Device.DEFAULT}")
+
+    # Get model URL
+    model_url = models.get(args.model)
+    if not model_url:
+        print(f"Unknown model: {args.model}")
+        print(f"Available: {list(models.keys())}")
+        sys.exit(1)
+
+    # Load from local file if exists, otherwise download
+    if model_url.startswith('/'):
+        model_path = model_url
+    else:
+        model_path = f"/Volumes/DATI-SSD/llm-models/{args.model.replace(':', '-')}.gguf"
+        if not os.path.exists(model_path):
+            model_path = f"/tmp/{args.model.replace(':', '-')}.gguf"
+            if not os.path.exists(model_path):
+                print(f"Downloading {args.model}...")
+                import urllib.request
+                urllib.request.urlretrieve(model_url, model_path)
+
+    print(f"Loading from: {model_path}")
+    gguf = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
+
+    model, kv = Q4Transformer.from_gguf_quantized(gguf, max_context=args.max_context)
+    tokenizer = SimpleTokenizer.from_gguf_kv(kv)
+
+    # Generate
+    print(f"\nPrompt: {args.prompt}")
+    eos_token = 151645 if kv['general.architecture'] == 'qwen2' else 128009
+
+    formatted = tokenizer.role('user') + tokenizer.encode(args.prompt) + tokenizer.end_turn(eos_token) + tokenizer.role('assistant')
+    print(f"Tokens: {len(formatted)}")
+
+    print("\nGenerating...")
+    output = []
+    for i, tok in enumerate(model.generate(formatted, 0)):
+        if tok in [eos_token, 128001, 151643]:
+            break
+        if i >= args.count:
+            break
+        output.append(tok)
+        print(tokenizer.decode([tok]), end='', flush=True)
+
+    print(f"\n\nGenerated {len(output)} tokens")
+    print(f"Final VRAM: {GlobalCounters.mem_used/1024**3:.2f}GB")

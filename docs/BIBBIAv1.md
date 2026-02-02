@@ -1299,8 +1299,218 @@ MemoryError: Failed to allocate memory. (total allocation size=0x8700000, curren
 
 ---
 
+---
+
+## 🔬 TEST SESSION v1.8 - 2026-02-01 (TRUE Q4 INFERENCE PROJECT)
+
+### 🎯 OBIETTIVO
+
+**Far girare Qwen2.5-14B su 20GB VRAM** senza OOM.
+
+Il problema: TinyGrad de-quantizza TUTTI i pesi Q4_K a FP16 al caricamento:
+- Qwen2.5-14B Q4_K_M: 9GB file → ~28GB FP16 → **OOM su 20GB**
+
+La soluzione: **True Q4 Inference** - tenere i pesi Q4_K compressi in VRAM e de-quantizzare **on-the-fly** durante il forward pass.
+
+### 📁 FILE CREATI/MODIFICATI
+
+#### 1. `/Users/mattia/Projects/Onde/vendor/tinygrad/tinygrad/nn/quantized.py` (NUOVO)
+
+**Classe QuantizedLinear** - Layer lineare che tiene i pesi in formato Q4_K:
+
+```python
+class QuantizedLinear:
+    """
+    Linear layer that stores weights in Q4_K format and dequantizes on-the-fly.
+
+    Q4_K format: 256 elements per 144-byte block
+    - d: 2 bytes (float16 scale)
+    - dmin: 2 bytes (float16 min)
+    - scales: 12 bytes (6-bit scales/mins packed)
+    - qs: 128 bytes (4-bit quantized values, 256 elements)
+
+    Memory: 144 bytes per 256 elements = 0.5625 bytes/element
+    vs FP16: 2 bytes/element = 3.55x savings
+    """
+
+    def __init__(self, in_features: int, out_features: int, bias: bool = False):
+        self.in_features = in_features
+        self.out_features = out_features
+        self.q4_blocks: Tensor | None = None  # Raw Q4_K blocks
+        self.weight: Tensor | None = None     # FP16 weights (for Q6_K)
+        self.bias_tensor: Tensor | None = None
+
+    def load_q4k_blocks(self, blocks: Tensor):
+        """Load raw Q4_K blocks without dequantizing."""
+        self.q4_blocks = blocks
+
+    def __call__(self, x: Tensor) -> Tensor:
+        if self.q4_blocks is not None:
+            # Dequantize Q4_K weights on-the-fly
+            weight = dequant_q4k_tensor(self.q4_blocks, self.n_elements)
+            weight = weight.reshape(self.out_features, self.in_features)
+        elif self.weight is not None:
+            weight = self.weight  # Use FP16 directly
+
+        return x @ weight.T + self.bias_tensor
+```
+
+#### 2. `/Users/mattia/Projects/Onde/vendor/tinygrad/tinygrad/nn/state.py` (MODIFICATO)
+
+**Funzione `gguf_load_quantized`** - Carica GGUF separando Q4_K blocks da tensori FP16:
+
+```python
+def gguf_load_quantized(tensor: Tensor) -> tuple[dict, dict[str, Tensor], dict[str, tuple[Tensor, int, tuple]]]:
+    """
+    Loads a .gguf file, returning raw Q4_K blocks for quantized tensors.
+
+    Returns:
+      - kv_data: metadata dict
+      - state_dict: dequantized tensors (for non-Q4_K types like embeddings, norms)
+      - q4k_blocks: dict of {name: (raw_blocks, n_elements, dims)} for Q4_K tensors
+    """
+    for name, dims, typ, off in t_infos:
+        if typ == 12:  # Q4_K
+            # Keep as raw blocks, don't dequantize!
+            raw_blocks = t[:num_blocks * nbytes].reshape((-1, nbytes))
+            q4k_blocks[name] = (raw_blocks, n, dims)
+        else:
+            # Other types: dequantize as usual
+            state_dict[name] = ggml_data_to_tensor(t, n, typ)
+```
+
+#### 3. `/Users/mattia/Projects/Onde/vendor/tinygrad/tinygrad/apps/llm_q4.py` (NUOVO)
+
+**Script completo per True Q4 Inference** con:
+- `Q4TransformerBlock` - Blocco transformer usando QuantizedLinear
+- `Q4Transformer` - Modello completo
+- `from_gguf_quantized` - Caricamento che mantiene Q4_K compressi
+- Generate loop con tokenizer Qwen2.5
+
+### 📊 RISULTATI TEST
+
+**Comando test:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen2.5:14b --max_context 64 --prompt "2+2=" --count 5
+```
+
+**Output:**
+```
+Device: AMD
+Loading from: /tmp/qwen2.5-14b.gguf
+Loading GGUF with quantized weights...
+Model: qwen2, blocks=48, attn_bias=True
+Q4K tensors: 289, FP16 tensors: 290
+Memory: Q4K=6.37GB, FP16=4.85GB, Total=11.22GB
+Loading FP16 tensors...
+  FP16 loaded: 290, failed: 0
+Loading Q4K blocks...
+  Q4K loaded: 288, failed: 1
+  Q4K failed examples: ['token_embd.weight (not QuantizedLinear)']
+Model loaded! VRAM: 8.37GB        ← SUCCESSO! Solo 8.37GB invece di 28GB!
+
+Prompt: 2+2=
+Tokens: 12
+
+Generating...
+<|im_start|>
+umard and                        ← PROBLEMA: Output garbage
+
+Generated 5 tokens
+Final VRAM: 11.27GB
+```
+
+### ✅ COSA FUNZIONA
+
+| Aspetto | Status | Note |
+|---------|--------|------|
+| Caricamento Q4_K blocks | ✅ OK | 288/289 caricati |
+| Caricamento FP16 (norms, biases) | ✅ OK | 290/290 caricati |
+| **VRAM ridotta** | ✅ **8.37GB** | Invece di ~28GB con de-quant! |
+| Struttura modello | ✅ OK | 48 blocchi, attn_bias rilevato |
+
+### ❌ COSA NON FUNZIONA
+
+| Aspetto | Status | Causa Probabile |
+|---------|--------|-----------------|
+| Output sensato | ❌ Garbage | Bug de-quantizzazione o reshape |
+| Prima token | ❌ `<|im_start|>` | Riconosce il token ma poi perde il filo |
+
+### 🔍 ANALISI DEL PROBLEMA
+
+Il modello carica correttamente e la VRAM è drasticamente ridotta (**8.37GB vs 28GB** - successo!), ma l'output è garbage.
+
+**Ipotesi sulla causa:**
+
+1. **De-quantizzazione sbagliata** - Il codice usa `dequant_q4k_tensor` di TinyGrad che dovrebbe essere corretto, ma potrebbe esserci un problema nel reshape
+
+2. **Ordine pesi (row-major vs column-major)** - GGUF potrebbe avere i pesi in ordine diverso da come li reshapa il codice
+
+3. **Mixing Q4_K e Q6_K** - Alcuni layer (attn_v, ffn_down) sono Q6_K nel file, vanno in FP16 nel state_dict. Il codice gestisce questo ma potrebbe esserci un edge case
+
+4. **Bias non applicati** - I bias vengono caricati in `bias_tensor` ma potrebbero non essere applicati correttamente
+
+### 📋 PROSSIMI PASSI
+
+1. **Debug de-quantizzazione** - Confrontare output `dequant_q4k_tensor` con pesi originali FP16 per verificare correttezza
+
+2. **Verificare reshape** - Controllare che `weight.reshape(out_features, in_features)` sia corretto per GGUF
+
+3. **Test con singolo layer** - Isolare un layer e verificare che produca output corretto
+
+4. **Confrontare con llm.py standard** - Usare stesso input, confrontare attivazioni intermedie
+
+### 🧮 RISPARMIO MEMORIA CONFERMATO
+
+| Metodo | VRAM Qwen2.5-14B | Note |
+|--------|------------------|------|
+| TinyGrad standard | ~28GB | OOM su 20GB |
+| **True Q4 Inference** | **8.37GB** | ✅ Entra! Ma output sbagliato |
+| Teorico Q4_K | ~9GB | Pesi + KV cache minimale |
+
+**Il risparmio memoria funziona!** Il problema è solo nella correttezza dell'output.
+
+### 🗂️ STRUTTURA FILE Q4
+
+```
+/Users/mattia/Projects/Onde/vendor/tinygrad/
+├── tinygrad/
+│   ├── apps/
+│   │   ├── llm.py          # Originale (7B funziona, 14B OOM)
+│   │   └── llm_q4.py       # NUOVO - True Q4 inference
+│   └── nn/
+│       ├── state.py        # MODIFICATO - gguf_load_quantized
+│       └── quantized.py    # NUOVO - QuantizedLinear class
+```
+
+### 📖 COME USARE (quando funzionerà)
+
+```bash
+# True Q4 inference (14B su 20GB!)
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen2.5:14b --prompt "Hello" --count 50
+
+# Parametri disponibili:
+#   --model        Modello (qwen2.5:7b, qwen2.5:14b, etc.)
+#   --max_context  Context length (default 256)
+#   --prompt       Prompt di input
+#   --count        Max tokens da generare
+```
+
+### 🔗 RIFERIMENTI
+
+- **Q4_K format**: [GGUF spec](https://github.com/ggerganov/ggml/blob/master/docs/gguf.md)
+- **TinyGrad dequant**: `tinygrad/nn/state.py:332-338` e `dequant_q4k_tensor`
+- **Issue TinyGrad**: Da aprire quando fix è pronto
+
+---
+
 ## Changelog
 
+- **v1.8 (2026-02-01)**: 🔬 True Q4 Inference Project - creati quantized.py e llm_q4.py, VRAM ridotta a 8.37GB (vs 28GB), ma output ancora garbage - debug in corso
 - **v1.7 (2026-02-01)**: 🌐 Server LAN attivo! API OpenAI-compatible su http://192.168.1.111:11434, esempi cURL/Python/OpenAI SDK, tutti i path aggiornati a vendor/tinygrad
 - **v1.6 (2026-02-01)**: Tabella receipts VRAM confermata (14.2 GB su gfx1100), istruzioni complete per modello
 - **v1.5 (2026-02-01)**: ✅ FIX CONFERMATO FUNZIONANTE! TinyGrad vendored in Onde/vendor/tinygrad, test qwen2.5:7b passa ("2+2 is 4.")

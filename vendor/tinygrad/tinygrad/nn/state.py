@@ -424,3 +424,52 @@ def gguf_load(tensor: Tensor) -> tuple[dict, dict[str, Tensor]]:
   for name, dims, typ, off in t_infos: state_dict[name] = ggml_data_to_tensor(tensor[data_start + off:], prod(dims), typ).reshape(*reversed(dims))
 
   return kv_data, state_dict
+
+@accept_filename
+def gguf_load_quantized(tensor: Tensor) -> tuple[dict, dict[str, Tensor], dict[str, tuple[Tensor, int, tuple]]]:
+  """
+  Loads a .gguf file, returning raw Q4_K blocks for quantized tensors.
+
+  Returns:
+    - kv_data: metadata dict
+    - state_dict: dequantized tensors (for non-Q4_K types like embeddings, norms)
+    - q4k_blocks: dict of {name: (raw_blocks, n_elements, dims)} for Q4_K tensors
+
+  This allows keeping Q4_K weights in their compressed format (~3.5x smaller than FP16).
+  """
+  reader, kv_data, state_dict, q4k_blocks = io.BufferedReader(TensorIO(tensor), 1_000_000), {}, {}, {}
+  def read_unpack(fmt: str, n: int): return struct.unpack(fmt, reader.read(n))[0]
+  def read_str(): return str(reader.read(read_uint64()), "utf-8")
+  def read_arr():
+    reader, n = readers[read_int32()], read_uint64()
+    return [ reader() for _ in range(n) ]
+
+  readers: dict[int, Callable[[], Any]] = { 8: read_str, 9: read_arr, **{ t: functools.partial(read_unpack, "<"+f, nb) for t,f,nb in \
+    [ (0,"c",1), (1,"b",1), (2,"H",2), (3,"h",2), (4,"I",4), (5,"i",4), (6,"f",4), (7,"?",1), (10,"Q",8), (11,"q",8), (12,"d",8) ] } }
+  read_uint32, read_int32, read_uint64, read_int64 = readers[4], readers[5], readers[10], readers[11]
+
+  magic, version, n_tensors, n_kv = reader.read(4), read_int32(), read_int64(), read_int64()
+  if magic != b"GGUF" or version not in [2, 3]: raise ValueError("Invalid GGUF format!")
+  for _ in range(n_kv):
+    k, typ = read_str(), read_int32()
+    kv_data[k] = readers[typ]()
+
+  t_infos = [ (read_str(), tuple(read_uint64() for _ in range(read_uint32())), read_int32(), read_uint64()) for _ in range(n_tensors) ]
+  alignment, pos = kv_data.get("general.alignment", 32), reader.tell()
+  data_start = round_up(pos, alignment)
+
+  for name, dims, typ, off in t_infos:
+    n = prod(dims)
+    t = tensor[data_start + off:]
+
+    # Q4_K type (id=12): keep as raw blocks
+    if typ == 12:
+      nelements, nbytes = 256, 144
+      num_blocks = n // nelements
+      raw_blocks = t[:num_blocks * nbytes].reshape((-1, nbytes))
+      q4k_blocks[name] = (raw_blocks, n, dims)
+    else:
+      # Other types: dequantize as usual
+      state_dict[name] = ggml_data_to_tensor(t, n, typ).reshape(*reversed(dims))
+
+  return kv_data, state_dict, q4k_blocks
