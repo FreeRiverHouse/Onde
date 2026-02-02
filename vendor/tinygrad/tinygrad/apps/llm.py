@@ -239,8 +239,9 @@ models = {
   "olmoe": "https://huggingface.co/allenai/OLMoE-1B-7B-0924-Instruct-GGUF/resolve/main/olmoe-1b-7b-0924-instruct-q4_k_m.gguf",
   "qwq:32b": "/Volumes/DATI-SSD/llm-models/qwq-32b-q4_k_m.gguf",
   # Qwen2.5 densi per eGPU (NO MoE!) - consigliati per AMD Radeon via Thunderbolt
-  "qwen2.5:14b": "https://huggingface.co/bartowski/Qwen2.5-14B-Instruct-GGUF/resolve/main/Qwen2.5-14B-Instruct-Q4_K_M.gguf",
   "qwen2.5:7b": "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+  "qwen2.5:14b": "https://huggingface.co/bartowski/Qwen2.5-14B-Instruct-GGUF/resolve/main/Qwen2.5-14B-Instruct-Q4_K_M.gguf",
+  "qwen2.5:32b": "/Volumes/DATI-SSD/llm-models/Qwen2.5-32B-Instruct-Q4_K_M.gguf",  # True Q4 only! 18.5GB VRAM
 }
 
 # *** simple OpenAI compatible server on 11434 to match ollama ***

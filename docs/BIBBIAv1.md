@@ -1,7 +1,7 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 2.1 - 2026-02-01
+> Versione 3.0 - 2026-02-01
 
 ---
 
@@ -1572,6 +1572,37 @@ def _attention(self, x, start_pos):
 
 **🎉 TRUE Q4 INFERENCE FUNZIONA!** Qwen2.5-14B su 8.37GB con output corretto.
 
+### 🔥 QWEN2.5-32B - IL PIÙ GRANDE MODELLO TESTATO!
+
+**32 MILIARDI di parametri** su una GPU da 20GB!
+
+```bash
+# Comando per 32B
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen2.5:32b --prompt "Hello" --count 30
+```
+
+**Risultati test 2026-02-01:**
+```
+=== Loading Qwen2.5-32B Q4 ===
+Model: qwen2, blocks=64, attn_bias=True
+Q4K tensors: 385, FP16 tensors: 386
+Model loaded! VRAM: 18.49GB
+Headroom: 1.51 GB
+
+Output: 2+2 equals 4. ✅
+Final VRAM: 18.61 GB
+```
+
+| Modello | Parametri | VRAM | Headroom |
+|---------|-----------|------|----------|
+| Qwen2.5-7B | 7B | ~5 GB | 15 GB |
+| Qwen2.5-14B | 14B | 8.37 GB | 11.6 GB |
+| **Qwen2.5-32B** | **32B** | **18.49 GB** | **1.5 GB** |
+
+**File modello:** `/Volumes/DATI-SSD/llm-models/Qwen2.5-32B-Instruct-Q4_K_M.gguf` (18GB)
+
 ### 🗂️ STRUTTURA FILE Q4
 
 ```
@@ -1679,6 +1710,7 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 ## Changelog
 
+- **v3.0 (2026-02-01)**: 🔥🔥 **QWEN2.5-32B FUNZIONA!** 32 miliardi di parametri su 18.49GB VRAM! Modello più che raddoppiato rispetto a 14B
 - **v2.1 (2026-02-01)**: 🔥 MAX CONTEXT TROVATO: 30,000 tokens (19.37GB)! Testato da 256 a 30K, tabella completa
 - **v2.0 (2026-02-01)**: 📊 Analisi VRAM vs Context Length - testato fino a 16K context (14.38GB), tabella completa, formula approssimativa
 - **v1.9 (2026-02-01)**: 🎉 **TRUE Q4 INFERENCE FUNZIONA!** Il fix era il KV cache mancante. Ora Qwen2.5-14B gira su 8.37GB con output corretto ("2+2 equals 4.")
