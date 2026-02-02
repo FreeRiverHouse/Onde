@@ -211,6 +211,7 @@ export default function SkinCreator() {
   const [tutorialStep, setTutorialStep] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileColorPicker, setShowMobileColorPicker] = useState(false);
+  const [showMobile3DPreview, setShowMobile3DPreview] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
   const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null); // Right-click menu
@@ -4093,6 +4094,14 @@ export default function SkinCreator() {
           🪣
         </button>
         <button
+          onClick={() => setShowMobile3DPreview(true)}
+          className="skin-mobile-toolbar-btn"
+          style={{ background: 'linear-gradient(145deg, #8B5CF6, #6D28D9)', color: 'white' }}
+          title="3D Preview"
+        >
+          🎮
+        </button>
+        <button
           onClick={() => { undo(); playSound('undo'); }}
           className="skin-mobile-toolbar-btn"
           disabled={historyIndex <= 0}
@@ -4171,6 +4180,59 @@ export default function SkinCreator() {
       >
         ?
       </button>
+
+      {/* 📱 MOBILE 3D PREVIEW MODAL */}
+      {showMobile3DPreview && (
+        <div className="md:hidden fixed inset-0 z-[100] bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 bg-black/20">
+            <h2 className="text-xl font-bold text-white">🎮 3D Preview</h2>
+            <button
+              onClick={() => setShowMobile3DPreview(false)}
+              className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl"
+            >
+              ✕
+            </button>
+          </div>
+          
+          {/* 3D Preview */}
+          <div className="flex-1 flex items-center justify-center p-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 w-full max-w-sm aspect-square flex items-center justify-center">
+              <SkinPreview3D skinCanvas={canvasRef.current} />
+            </div>
+          </div>
+          
+          {/* Pose Selector */}
+          <div className="p-4 bg-black/20">
+            <p className="text-white/80 text-sm text-center mb-2">🕹️ Drag to rotate • Pinch to zoom</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {POSES.map(pose => (
+                <button
+                  key={pose.id}
+                  onClick={() => setSelectedPose(pose.id)}
+                  className={`px-3 py-2 rounded-xl text-sm font-bold transition-all ${
+                    selectedPose === pose.id
+                      ? 'bg-white text-purple-600'
+                      : 'bg-white/20 text-white hover:bg-white/30'
+                  }`}
+                >
+                  {pose.icon} {pose.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Back to Editor Button */}
+          <div className="p-4 pb-8">
+            <button
+              onClick={() => setShowMobile3DPreview(false)}
+              className="w-full py-4 bg-white rounded-2xl font-bold text-lg text-purple-600 shadow-lg"
+            >
+              ✏️ Back to Editor
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <p className="mt-4 text-white/70 text-sm">
