@@ -2531,8 +2531,8 @@ export default function SkinCreator() {
 
         {/* Center - Canvas Editor */}
         <div className="flex-1 glass-card rounded-2xl md:rounded-3xl p-3 md:p-6 shadow-2xl">
-          {/* Toolbar - Simplified on mobile, full on desktop */}
-          <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
+          {/* Toolbar - HIDDEN on mobile (use floating toolbar), full on desktop */}
+          <div className="hidden md:flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4 justify-center">
             {/* Core tools - Always visible */}
             <button
               onClick={() => setTool('brush')}
@@ -2730,8 +2730,8 @@ export default function SkinCreator() {
             </div>
           </div>
 
-          {/* Brush Size */}
-          <div className="flex items-center justify-center gap-2 mb-3">
+          {/* Brush Size - Hidden on mobile */}
+          <div className="hidden md:flex items-center justify-center gap-2 mb-3">
             <span className="text-sm font-semibold">Brush:</span>
             {[1, 2, 3].map((size) => (
               <button
@@ -2746,8 +2746,8 @@ export default function SkinCreator() {
             ))}
           </div>
 
-          {/* Body Part Selector */}
-          <div className="flex flex-wrap gap-1 mb-3 justify-center">
+          {/* Body Part Selector - Hidden on mobile */}
+          <div className="hidden md:flex flex-wrap gap-1 mb-3 justify-center">
             <button
               onClick={() => setSelectedPart(null)}
               className={`px-2 py-1 rounded text-sm font-bold ${
@@ -2771,8 +2771,8 @@ export default function SkinCreator() {
 
           {/* Canvas with Grid Controls */}
           <div className="flex flex-col items-center gap-2">
-            {/* Zoom and Grid Controls */}
-            <div className="flex items-center gap-2 bg-white/80 rounded-full px-3 py-1.5 shadow">
+            {/* Zoom and Grid Controls - Hidden on mobile */}
+            <div className="hidden md:flex items-center gap-2 bg-white/80 rounded-full px-3 py-1.5 shadow">
               <button
                 onClick={() => setZoomLevel(Math.max(2, zoomLevel - 1))}
                 className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold text-sm"
@@ -2982,7 +2982,7 @@ export default function SkinCreator() {
           </div>
           </div>
 
-          <p className="text-center mt-2 text-gray-500 text-sm">
+          <p className="hidden md:block text-center mt-2 text-gray-500 text-sm">
             🎨 Draw here! See your character on the left! ✨
           </p>
         </div>
