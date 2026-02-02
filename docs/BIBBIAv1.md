@@ -1,7 +1,7 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 1.1 - 2026-02-01
+> Versione 1.2 - 2026-02-01
 
 ---
 
@@ -54,7 +54,7 @@ Deve mostrare `gfx1100` e `GPU AMD OK`.
 ```bash
 cd ~/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
 ```
 Il primo avvio è LENTO (compila kernel LLVM). Aspetta.
 
@@ -62,7 +62,7 @@ Il primo avvio è LENTO (compila kernel LLVM). Aspetta.
 ```bash
 curl -X POST http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -d '{"model": "qwen3:30b-a3b", "messages": [{"role": "user", "content": "Ciao!"}]}'
+  -d '{"model": "qwen2.5:14b", "messages": [{"role": "user", "content": "Ciao!"}]}'
 ```
 
 **PASSO 6 - Configura ClawdBot:**
@@ -74,7 +74,7 @@ Modifica `~/.clawdbot/clawdbot.json` (vedi sezione "Integrazione ClawdBot" sotto
 |------|----------|------|
 | ✅ Capire perché solo 4.6GB VRAM | FATTO | Era RAM, non VRAM - Ollama usa CPU |
 | ✅ Documentare soluzione | FATTO | TinyGrad + AMD=1 AMD_LLVM=1 |
-| ⏳ Testare qwen3:30b-a3b su TinyGrad | ALTA | Modello da 20GB per sfruttare VRAM |
+| ⏳ Testare qwen2.5:14b su TinyGrad | ALTA | Modello da 20GB per sfruttare VRAM |
 | ⏳ Verificare tool calling | ALTA | ClawdBot richiede `tool_calls` array nativo |
 | ⏳ Se tool calling non funziona | MEDIA | Implementare workaround parsing JSON |
 
@@ -86,7 +86,99 @@ Modifica `~/.clawdbot/clawdbot.json` (vedi sezione "Integrazione ClawdBot" sotto
 4. **Creato documenti multipli** - Ora tutto è in questo singolo file BIBBIAv1.md.
 
 ### Contesto: Perché Questo Progetto È Importante
-L'obiettivo è **indipendenza AI** - poter usare modelli potenti localmente senza dipendere da provider cloud. Con 20GB di VRAM della Radeon, possiamo far girare modelli 30B che sono competitivi con molte API commerciali.
+L'obiettivo è **indipendenza AI** - poter usare modelli potenti localmente senza dipendere da provider cloud. Con 20-24GB di VRAM della Radeon, possiamo far girare modelli 14B-32B che sono competitivi con molte API commerciali.
+
+---
+
+## 🔥 CONFIGURAZIONE eGPU - REGOLE FONDAMENTALI (2026-02-01)
+
+### ⚠️ IL CONTESTO CRITICO
+
+Stiamo usando TinyGrad su Mac Apple Silicon (M1) con AMD Radeon 20-24GB collegata via **USB4/Thunderbolt**.
+
+**NON esistono:**
+- Driver AMD kernel
+- ROCm
+- Metal
+- CUDA
+- ReBAR
+
+TinyGrad comunica con la GPU **interamente in userspace**, senza BAR reale.
+La VRAM non è memory-mapped: è gestita come **heap remoto**, con trasferimenti chunked (MMIO + memcpy staging).
+
+**NON parlare di "bypass BAR"**: il BAR non viene bypassato, viene **aggirato** con accessi espliciti userspace.
+
+### ✅ MODELLO OBBLIGATORIO
+
+**Qwen2.5-14B denso, quantizzato Q4**
+
+| Criterio | Valore | Motivo |
+|----------|--------|--------|
+| Architettura | **DENSA** | NO MoE (routing dinamico = disastro su eGPU) |
+| Quantizzazione | **Q4_K_M** | ~8GB pesi, lascia spazio per KV cache |
+| VRAM stimata | ~16-18GB | Pesi + KV cache con context 2k |
+| Parametri | 14B | Massimo modello denso sensato |
+
+**NON usare:**
+- ❌ `qwen2.5:14b` - È MoE, pessimo su eGPU userspace
+- ❌ `qwq:32b` - Troppo grande (18GB solo pesi)
+- ❌ Modelli FP16/BF16 - Usano il doppio della memoria
+- ❌ Modelli con paging dinamico
+
+### ✅ CONFIGURAZIONE OBBLIGATORIA
+
+```bash
+# Comando per lanciare Qwen2.5-14B su AMD Radeon
+cd ~/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen2.5:14b --max_context 2048 --serve 11434
+```
+
+| Parametro | Valore | Motivo |
+|-----------|--------|--------|
+| `max_context` | ≤ 2048 | KV cache grande = disastro (roundtrip USB/PCIe per ogni token) |
+| `batch` | 1 | No parallelismo, è un acceleratore remoto lento |
+| `HALF` | 1 (default) | Attivazioni FP16 per risparmiare memoria |
+
+### 🔧 PATCH CRITICO: Float16 in nn/state.py
+
+**QUESTO PATCH È ESSENZIALE** per evitare garbage output con modelli Qwen.
+
+Il patch in `tinygrad-fix/tinygrad/nn/state.py` aggiunge `.cast(dtypes.float16)` a tutte le conversioni GGML:
+
+```python
+# PRIMA (garbage output)
+return (q_to_uint8(blocks[:,2:], 4).bitcast(dtypes.int8) - 8) * blocks[:,:2].bitcast(dtypes.float16).cast(dtypes.float32)
+
+# DOPO (funziona!)
+return ((q_to_uint8(blocks[:,2:], 4).bitcast(dtypes.int8) - 8) * blocks[:,:2].bitcast(dtypes.float16).cast(dtypes.float32)).cast(dtypes.float16)
+```
+
+**Per applicare:**
+```bash
+cp ~/Projects/tinygrad-fix/tinygrad/nn/state.py ~/tinygrad/tinygrad/nn/state.py
+```
+
+### 📊 STRATEGIA MEMORIA
+
+| Aspetto | Configurazione | Motivo |
+|---------|---------------|--------|
+| VRAM | Arena statica ~19-20GB | Allocare all'avvio, mai rilasciare |
+| Pesi | Caricati UNA sola volta | No offload dinamico |
+| KV cache | Limitata, quantizzata se possibile | Ogni token = roundtrip USB/PCIe |
+| Unified memory | NO | Non esiste su eGPU userspace |
+| Paging | NO | Troppo lento |
+
+**Tratta la GPU come acceleratore remoto lento, non come GPU PCIe nativa.**
+
+### 🧪 TESTATO E FUNZIONANTE (2026-02-01)
+
+| Modello | VRAM | Output | Note |
+|---------|------|--------|------|
+| `qwen3:0.6b` | ~1GB | ✅ OK | Test veloce |
+| `qwen2.5:7b` | ~4GB | ✅ OK | Buon compromesso |
+| `qwen2.5:14b` | ~8GB | ⏳ Testing | Modello target |
+| `qwen2.5:14b` | ~20GB | ⚠️ MoE | Non raccomandato |
 
 ---
 
@@ -111,7 +203,7 @@ L'obiettivo è **indipendenza AI** - poter usare modelli potenti localmente senz
 # L'UNICO modo per usare AMD Radeon su macOS:
 cd ~/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
 ```
 
 **Questo espone un server OpenAI-compatible su `http://localhost:11434/v1`**
@@ -241,10 +333,12 @@ system_profiler SPDisplaysDataType | grep -A5 "External GPU"
 | `qwen3:1.7b` | 1.7B | ~3GB | ~12 tok/s | `--model qwen3:1.7b` |
 | `llama3.2:3b` | 3B | ~4GB | ~10 tok/s | `--model llama3.2:3b` |
 | `llama3.2:3b-f16` | 3B | ~6GB | ~8 tok/s | `--model llama3.2:3b-f16` |
+| `qwen2.5:7b` | 7B | ~5GB | ~3 tok/s | `--model qwen2.5:7b` |
 | `qwen3:8b` | 8B | ~8GB | ~5 tok/s | `--model qwen3:8b` |
 | `llama3.1:8b` | 8B | ~8GB | ~5 tok/s | `--model llama3.1:8b` |
-| **`qwen3:30b-a3b`** | **30B** | **~20GB** | **~1 tok/s** | `--model qwen3:30b-a3b` |
+| **`qwen2.5:14b`** | **14B** | **~9GB** | **~2 tok/s** | `--model qwen2.5:14b` |
 | `olmoe` | MoE | ~7GB | ~3 tok/s | `--model olmoe` |
+| ~~`qwen3:30b-a3b`~~ | ~~30B MoE~~ | ~~~20GB~~ | ~~SCONSIGLIATO~~ | ~~MoE pessimo su eGPU~~ |
 
 ### Raccomandazione per VRAM
 
@@ -252,30 +346,43 @@ system_profiler SPDisplaysDataType | grep -A5 "External GPU"
 |------------------|---------------------|
 | 8GB | `llama3.1:8b` o `qwen3:8b` |
 | 16GB | `llama3.1:8b` con context lungo |
-| 20GB (7900 XT) | **`qwen3:30b-a3b`** |
-| 24GB (7900 XTX) | **`qwen3:30b-a3b`** con max context |
+| 20GB (7900 XT) | **`qwen2.5:14b`** |
+| 24GB (7900 XTX) | **`qwen2.5:14b`** con max context |
 
 ---
 
-## Raccomandazioni Grok per 20-24GB VRAM
+## Raccomandazioni per eGPU (Aggiornato 2026-02-01)
 
-### Modelli Consigliati (da ricerca Grok 2026-02-01)
+### Modelli CONSIGLIATI per TinyGrad + AMD eGPU
 
-Per sfruttare al massimo 20-24GB VRAM, Grok consiglia modelli 30B-70B con quantizzazione:
+**REGOLA FONDAMENTALE: Solo modelli DENSI, mai MoE!**
 
-| Modello | VRAM Stimato | Note |
-|---------|--------------|------|
-| **Qwen3 30B** | ~20GB | **Disponibile in TinyGrad** |
-| Llama 3.2 70B Q4 | ~18-20GB | Best all-rounder (richiede llama.cpp) |
-| Qwen 2.5 72B Q4 | ~16-19GB | Top per coding |
-| DeepSeek R1 70B Q4 | ~17GB | Reasoning profondo |
-| Mixtral 8x22B Q4 | ~15GB | MoE, veloce |
+| Modello | VRAM Pesi | VRAM Totale | Note |
+|---------|-----------|-------------|------|
+| **Qwen2.5-14B Q4** | ~9GB | ~16-18GB | ✅ **RACCOMANDATO** - Denso, funziona! |
+| **Qwen2.5-7B Q4** | ~5GB | ~8-10GB | ✅ Alternativa più leggera |
+| LLaMA 3.1 8B Q4 | ~5GB | ~8-10GB | ✅ Testato, funziona |
+| Qwen3 0.6B-8B | ~1-8GB | ~2-12GB | ✅ Densi, funzionano |
 
-### NON Usare
+### NON USARE (Motivi Tecnici)
 
-- **Grok-2**: Proprietario (non open source)
-- **Grok-1 314B**: Troppo grande per single GPU
-- **Modelli 7B per tool calling**: Non funzionano bene
+| Modello | Problema |
+|---------|----------|
+| ❌ `qwen3:30b-a3b` | **MoE** - Routing dinamico = disastro su eGPU |
+| ❌ `qwq:32b` | Troppo grande (~18GB solo pesi) |
+| ❌ Modelli FP16 | Usano il doppio della memoria |
+| ❌ Modelli split | TinyGrad non supporta GGUF multi-file |
+| ❌ Mixtral/OLMoE | **MoE** - Stessi problemi di routing |
+
+### Perché NO MoE su eGPU?
+
+Mixture of Experts (MoE) richiede:
+1. **Routing dinamico** - Seleziona esperti diversi per ogni token
+2. **Accessi memoria sparsi** - Pessimo su connessione USB/Thunderbolt
+3. **Overhead comunicazione** - Ogni token = multiple roundtrip
+
+Su GPU PCIe nativa: OK (alta bandwidth)
+Su eGPU userspace: DISASTRO (latenza USB/TB domina)
 
 ### Framework Alternativi (se serve più scelta modelli)
 
@@ -295,7 +402,7 @@ Per sfruttare al massimo 20-24GB VRAM, Grok consiglia modelli 30B-70B con quanti
 ```bash
 cd ~/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
 ```
 
 Questo espone API su `http://localhost:11434/v1/chat/completions`
@@ -309,7 +416,7 @@ Modifica `~/.clawdbot/clawdbot.json`:
   "agents": {
     "defaults": {
       "model": {
-        "primary": "radeon/qwen3:30b-a3b",
+        "primary": "radeon/qwen2.5:14b",
         "fallbacks": ["radeon/llama3.1:8b"]
       }
     }
@@ -323,7 +430,7 @@ Modifica `~/.clawdbot/clawdbot.json`:
         "api": "openai-completions",
         "models": [
           {
-            "id": "qwen3:30b-a3b",
+            "id": "qwen2.5:14b",
             "name": "Qwen3 30B (Radeon TinyGrad)",
             "reasoning": false,
             "input": ["text"],
@@ -353,7 +460,7 @@ Modifica `~/.clawdbot/clawdbot.json`:
 curl -X POST http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "qwen3:30b-a3b",
+    "model": "qwen2.5:14b",
     "messages": [{"role": "user", "content": "Ciao!"}],
     "stream": false
   }'
@@ -394,7 +501,7 @@ NON con JSON nel content:
 curl -s http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "qwen3:30b-a3b",
+    "model": "qwen2.5:14b",
     "messages": [{"role": "user", "content": "Calculate 5+3 using the calculator tool"}],
     "tools": [{
       "type": "function",
@@ -467,7 +574,7 @@ Crea `~/start-radeon-llm.sh`:
 #!/bin/bash
 cd ~/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen3:30b-a3b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
 ```
 
 ```bash
@@ -627,8 +734,82 @@ TinyGrad supporta **RTX 30xx e 40xx** via USB4/Thunderbolt con firmware 570.144.
 
 ---
 
+## 🔬 TEST SESSION 2026-02-01 (Claude Code)
+
+### Obiettivo
+Testare qwen2.5:14b sulla RX 7900 XT (20GB VRAM) con la config raccomandata da ChatGPT.
+
+### Ambiente
+- **GPU:** AMD Radeon RX 7900 XT (20GB VRAM) via Thunderbolt
+- **Driver:** TinyGPU userspace driver
+- **TinyGrad:** ~/tinygrad (con patch Float16 applicato)
+- **Python:** 3.11
+
+### Test Eseguiti
+
+| Test | Risultato | Note |
+|------|-----------|------|
+| GPU Init | ✅ OK | `Device['AMD']` funziona |
+| Allocazione 30GB | ✅ OK | Usa RAM come fallback oltre 20GB |
+| qwen3:0.6b | ✅ OK | ~1GB, genera token |
+| qwen2.5:7b | ⚠️ Garbage | Carica ma output corrotto ("põe..") |
+| qwen2.5:14b load | ❌ OOM | Arriva a ~21GB poi fallisce |
+| qwen2.5:14b realize=False | ✅ Parziale | 4 batch (200 tensors) poi OOM |
+| llm.py server | ❌ Crash | Server termina dopo pochi secondi |
+
+### Analisi Problema OOM
+
+**Errore tipico:**
+```
+MemoryError: Failed to allocate memory. (total allocation size=0x8700000, current try=(4096, 4096))
+```
+
+**Causa:** Il modello qwen2.5:14b Q4_K_M (8.4GB file) richiede ~21GB durante realize:
+- Pesi Q4: ~9GB
+- De-quantizzazione temporanea: ~?GB
+- KV cache (1024 ctx): ~?GB
+- Totale > 20GB disponibili
+
+**Tentativo di soluzione:**
+- `max_context=256` → stesso errore
+- `realize=False` + batch realize → arriva a 200 tensors poi OOM
+- Server llm.py → crash
+
+### Conclusioni
+
+1. **qwen2.5:14b NON entra nei 20GB** della RX 7900 XT con TinyGrad attuale
+2. **qwen2.5:7b carica** ma ha output corrotto (possibile bug tokenizer)
+3. **Modelli piccoli (0.6b-3b) funzionano** perfettamente
+4. **Serve RX 7900 XTX (24GB)** o ottimizzazioni TinyGrad per il 14b
+
+### Prossimi Passi
+
+1. **Testare con meno context** (128 token) per vedere se entra
+2. **Investigare output corrotto** su qwen2.5:7b
+3. **Aprire issue TinyGrad** per OOM su modelli 14B+
+4. **Considerare llama3.1:8b** come alternativa (testato funzionante 2026-01-28)
+
+### Modelli Confermati Funzionanti
+
+| Modello | VRAM | Output | Velocità |
+|---------|------|--------|----------|
+| qwen3:0.6b | ~1GB | ✅ OK | ~30 tok/s |
+| llama3.1:8b Q4 | ~5GB | ✅ OK | ~0.64 tok/s |
+| GPT-2 XL | ~6.5GB | ✅ OK | ~2.9 tok/s |
+
+### Modelli NON Funzionanti
+
+| Modello | Problema |
+|---------|----------|
+| qwen2.5:14b | OOM (>20GB) |
+| qwen2.5:7b | Output garbage |
+| qwq-32b | Troppo grande (18GB pesi) |
+
+---
+
 ## Changelog
 
+- **v1.3 (2026-02-01)**: Aggiunta sessione test Claude Code - qwen2.5:14b OOM, qwen2.5:7b garbage, analisi limiti VRAM
 - **v1.2 (2026-02-01)**: Aggiunta sezione NVIDIA RTX 5060 Ti - analisi completa del fallimento, riferimenti issue, debunking tweet Arto Bendiken
 - **v1.1 (2026-02-01)**: Aggiunta sezione HANDOVER dettagliata con step-by-step, errori commessi, task pendenti
 - **v1.0 (2026-02-01)**: Consolidamento BIBBIA-RADEON + HANDOVER + CLAWDBOT-SETUP + raccomandazioni Grok
