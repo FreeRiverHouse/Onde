@@ -9,7 +9,6 @@
 /catalogo /catalogo/ 301
 /terms /terms/ 301
 /games/skin-creator /games/skin-creator/ 301
-/games/* /games/:splat/ 301
 
 # Short URL for Skin Creator
 /skin /games/skin-creator/ 301
