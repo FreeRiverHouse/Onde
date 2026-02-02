@@ -1,7 +1,7 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 2.0 - 2026-02-01
+> Versione 2.1 - 2026-02-01
 
 ---
 
@@ -1621,14 +1621,25 @@ VRAM aumenta linearmente con il context (KV cache più grande).
 | 1024 | 8.75 GB | 11.25 GB | Chat normali |
 | 4096 | 9.87 GB | 10.13 GB | Documenti medi |
 | 8192 | 11.37 GB | 8.63 GB | Documenti lunghi |
-| **16384** | **14.38 GB** | **5.62 GB** | **Max pratico su 20GB** |
+| 16384 | 14.38 GB | 5.62 GB | Documenti molto lunghi |
+| 20000 | 15.70 GB | 4.30 GB | Near-max |
+| 24000 | 17.17 GB | 2.83 GB | Near-max |
+| 28000 | 18.64 GB | 1.36 GB | Limite |
+| **30000** | **19.37 GB** | **0.63 GB** | **🔥 MAX ASSOLUTO** |
+| 30500+ | - | - | ❌ OOM |
 
 **Formula approssimativa:**
 ```
 VRAM ≈ 8.37GB (pesi) + (context × 0.00037 GB)
 ```
 
-**Raccomandazione**: Usare `--max_context 4096` per uso normale, `8192` per documenti lunghi.
+**MAX CONTEXT TESTATO: 30,000 tokens** (~22,500 parole = ~45 pagine!)
+
+**Raccomandazioni:**
+- Chat normale: `--max_context 4096`
+- Documenti lunghi: `--max_context 8192`
+- Documenti molto lunghi: `--max_context 16384`
+- Massimo possibile: `--max_context 30000` (ma solo 0.63GB headroom!)
 
 ### 📖 COME USARE - True Q4 Inference
 
@@ -1668,6 +1679,7 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 ## Changelog
 
+- **v2.1 (2026-02-01)**: 🔥 MAX CONTEXT TROVATO: 30,000 tokens (19.37GB)! Testato da 256 a 30K, tabella completa
 - **v2.0 (2026-02-01)**: 📊 Analisi VRAM vs Context Length - testato fino a 16K context (14.38GB), tabella completa, formula approssimativa
 - **v1.9 (2026-02-01)**: 🎉 **TRUE Q4 INFERENCE FUNZIONA!** Il fix era il KV cache mancante. Ora Qwen2.5-14B gira su 8.37GB con output corretto ("2+2 equals 4.")
 - **v1.8 (2026-02-01)**: 🔬 True Q4 Inference Project - creati quantized.py e llm_q4.py, VRAM ridotta a 8.37GB (vs 28GB)
