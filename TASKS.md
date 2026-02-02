@@ -103,3 +103,10 @@
 ---
 
 *Ultimo aggiornamento: 2026-01-31 12:28 PST*
+
+### GAMES (Priorità 3)
+| ID | Task | Status | Owner | Depends |
+|----|------|--------|-------|---------|
+| GAM-001 | Skin Creator: Mobile UX improvements (3D preview visibility, toolbar, gestures) | TODO | - | - |
+| GAM-002 | Skin Creator: Test su vari device mobile | TODO | - | GAM-001 |
+| GAM-003 | Skin Creator: Layout landscape mode | TODO | - | GAM-001 |
