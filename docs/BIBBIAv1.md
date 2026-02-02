@@ -1,7 +1,80 @@
 # BIBBIAv1 - AMD Radeon + ClawdBot + Modelli Open Source
 
 > **Guida COMPLETA per far funzionare ClawdBot con GPU AMD Radeon su macOS**
-> Versione 1.2 - 2026-02-01
+> Versione 1.7 - 2026-02-01
+
+---
+
+## 🌐 SERVER LAN ATTIVO - USA SUBITO!
+
+### Endpoint API (OpenAI Compatible)
+```
+http://192.168.1.111:11434/v1/chat/completions
+```
+
+### Modello Attivo
+| Campo | Valore |
+|-------|--------|
+| **Modello** | Qwen2.5-7B-Instruct Q4_K_M |
+| **GPU** | AMD Radeon RX 7900 XT (gfx1100) |
+| **VRAM Usata** | 14.2 GB / 20 GB |
+| **Velocità** | ~3 tok/s generazione |
+| **Context Max** | 256 tokens (configurabile) |
+
+### Esempio cURL (da qualsiasi Mac in LAN)
+```bash
+curl -X POST http://192.168.1.111:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen2.5:7b",
+    "messages": [{"role": "user", "content": "Ciao, come stai?"}],
+    "max_tokens": 100
+  }'
+```
+
+### Esempio Python
+```python
+import requests
+
+response = requests.post(
+    "http://192.168.1.111:11434/v1/chat/completions",
+    json={
+        "model": "qwen2.5:7b",
+        "messages": [{"role": "user", "content": "Spiega la relatività"}],
+        "max_tokens": 200
+    }
+)
+print(response.json()["choices"][0]["message"]["content"])
+```
+
+### Esempio con OpenAI SDK
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://192.168.1.111:11434/v1",
+    api_key="not-needed"  # qualsiasi valore
+)
+
+response = client.chat.completions.create(
+    model="qwen2.5:7b",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(response.choices[0].message.content)
+```
+
+### Avviare il Server (se spento)
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+pkill -9 -f "llm.py" 2>/dev/null
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434 &
+```
+
+### Verificare che Funziona
+```bash
+curl -s http://192.168.1.111:11434/v1/models
+```
 
 ---
 
@@ -45,16 +118,16 @@ brew list llvm
 
 **PASSO 3 - Verifica TinyGrad e GPU AMD:**
 ```bash
-cd ~/tinygrad
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
 DEBUG=2 AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; print('GPU AMD OK')"
 ```
 Deve mostrare `gfx1100` e `GPU AMD OK`.
 
 **PASSO 4 - Lancia il server LLM:**
 ```bash
-cd ~/tinygrad
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
 ```
 Il primo avvio è LENTO (compila kernel LLVM). Aspetta.
 
@@ -201,9 +274,9 @@ cp ~/Projects/tinygrad-fix/tinygrad/nn/state.py ~/tinygrad/tinygrad/nn/state.py
 
 ```bash
 # L'UNICO modo per usare AMD Radeon su macOS:
-cd ~/tinygrad
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
 ```
 
 **Questo espone un server OpenAI-compatible su `http://localhost:11434/v1`**
@@ -400,9 +473,9 @@ Su eGPU userspace: DISASTRO (latenza USB/TB domina)
 ### Lanciare Server TinyGrad
 
 ```bash
-cd ~/tinygrad
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
 ```
 
 Questo espone API su `http://localhost:11434/v1/chat/completions`
@@ -572,9 +645,9 @@ Crea `~/start-radeon-llm.sh`:
 
 ```bash
 #!/bin/bash
-cd ~/tinygrad
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
 PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
-  tinygrad/apps/llm.py --model qwen2.5:14b --serve 11434
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
 ```
 
 ```bash
@@ -1228,6 +1301,8 @@ MemoryError: Failed to allocate memory. (total allocation size=0x8700000, curren
 
 ## Changelog
 
+- **v1.7 (2026-02-01)**: 🌐 Server LAN attivo! API OpenAI-compatible su http://192.168.1.111:11434, esempi cURL/Python/OpenAI SDK, tutti i path aggiornati a vendor/tinygrad
+- **v1.6 (2026-02-01)**: Tabella receipts VRAM confermata (14.2 GB su gfx1100), istruzioni complete per modello
 - **v1.5 (2026-02-01)**: ✅ FIX CONFERMATO FUNZIONANTE! TinyGrad vendored in Onde/vendor/tinygrad, test qwen2.5:7b passa ("2+2 is 4.")
 - **v1.4 (2026-02-01)**: Bug fix attention bias per Qwen2.5 - trovata causa root garbage output, fix applicato a llm.py, documentata de-quantizzazione TinyGrad, SSD modelli vuota
 - **v1.3 (2026-02-01)**: Aggiunta sessione test Claude Code - qwen2.5:14b OOM, qwen2.5:7b garbage, analisi limiti VRAM

@@ -354,6 +354,40 @@ def ggml_data_to_tensor(t: Tensor, n: int, ggml_type: int) -> Tensor:
       return (fp4_val * d).flatten(-2)[:n].cast(dtypes.float16)
   raise ValueError(f"GGML type '{ggml_type}' is not supported!")
 
+def ggml_data_to_raw_blocks(t: Tensor, n: int, ggml_type: int) -> tuple[Tensor, int, int] | None:
+  """
+  Returns raw quantized blocks WITHOUT de-quantizing, for Q4_K type only.
+  Returns (raw_blocks, n_elements, ggml_type) or None if not a supported quantized type.
+
+  Q4_K (type 12): 256 elements per 144-byte block
+  - d: 2 bytes (float16 scale)
+  - dmin: 2 bytes (float16 min)
+  - scales: 12 bytes
+  - qs: 128 bytes (4-bit quantized)
+  """
+  # Q4_K format
+  if ggml_type == 12:
+    nelements, nbytes = 256, 144
+    num_blocks = n // nelements
+    raw_blocks = t[:num_blocks * nbytes].reshape((-1, nbytes))
+    return raw_blocks, n, ggml_type
+  # Other quantized types - return None (will use regular de-quant)
+  return None
+
+def dequant_q4k_tensor(blocks: Tensor, n: int) -> Tensor:
+  """De-quantize Q4_K blocks to float16. Used for on-the-fly de-quantization."""
+  def q_to_uint8(t: Tensor, b: int) -> Tensor:
+    shift_tensor, bitmask = Tensor.stack(*[Tensor(2**(i*b), device=t.device, dtype=t.dtype) for i in range(8//b)]), 0xff >> (8-b)
+    return t.unsqueeze(-1).expand((*t.shape, 8//b)).idiv(shift_tensor).bitwise_and(bitmask).transpose(-1, -2).flatten(-2)
+
+  d, dmin = (blocks[:,i:i+2].bitcast(dtypes.float16).cast(dtypes.float32).unsqueeze(-1) for i in [0, 2])
+  s = blocks[:,4:16]
+  sc = s[:,0:4].bitwise_and(63).cat(s[:,8:12].bitwise_and(0xF).bitwise_or(s[:,0:4].rshift(6).lshift(4)), dim=-1)
+  mn = s[:,4:8].bitwise_and(63).cat(s[:,8:12].rshift(4).bitwise_or(s[:,4:8].rshift(6).lshift(4)), dim=-1)
+  qs = blocks[:,16:144].reshape(-1, 4, 32)
+  q = Tensor.stack(qs.bitwise_and(0xF), qs.rshift(4), dim=2).reshape(-1, 8, 32).cast(dtypes.float32)
+  return (d * sc.unsqueeze(-1) * q - dmin * mn.unsqueeze(-1)).flatten(-2).cast(dtypes.float16)[:n]
+
 @accept_filename
 def gguf_load(tensor: Tensor) -> tuple[dict, dict[str, Tensor]]:
   """
