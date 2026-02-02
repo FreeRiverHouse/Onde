@@ -816,6 +816,93 @@ MemoryError: Failed to allocate memory. (total allocation size=0x8700000, curren
 
 ---
 
+## 🚨 TINYGRAD VENDORED - USA QUESTO! (2026-02-01)
+
+### Path Ufficiale TinyGrad per Onde
+
+**NON USARE** `~/tinygrad` (clone upstream)
+
+**USA SEMPRE:**
+```
+/Users/mattia/Projects/Onde/vendor/tinygrad/
+```
+
+Questo è il **fork privato** con tutti i fix applicati:
+- ✅ Fix attention bias per Qwen2.5
+- ✅ Float16 patch per GGUF
+- ✅ Altre modifiche future
+
+### Comandi Aggiornati
+
+**Test GPU AMD:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+DEBUG=2 AMD=1 /opt/homebrew/bin/python3.11 -c "from tinygrad import Device; Device['AMD']"
+```
+
+**Run LLM su AMD:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
+```
+
+**Test diretto Qwen2.5:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 -c "
+import os, sys
+from tinygrad import Tensor, dtypes
+sys.path.insert(0, 'tinygrad/apps')
+from llm import Transformer, SimpleTokenizer
+
+model_path = '/Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf'
+gguf = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
+model, kv = Transformer.from_gguf(gguf.to(None), max_context=256)
+tokenizer = SimpleTokenizer.from_gguf_kv(kv)
+print(f'Loaded: {kv[\"general.architecture\"]}')
+
+prompt = 'What is 2+2?'
+formatted = tokenizer.role('user') + tokenizer.encode(prompt) + tokenizer.end_turn(151645) + tokenizer.role('assistant')
+gen = model.generate(formatted, 0)
+output = [next(gen) for _ in range(20)]
+print(tokenizer.decode(output))
+"
+```
+
+### Struttura Directory
+
+```
+/Users/mattia/Projects/Onde/
+├── vendor/
+│   └── tinygrad/                    # ← FORK PRIVATO CON FIX
+│       ├── tinygrad/
+│       │   ├── apps/
+│       │   │   └── llm.py           # ← FIX ATTENTION BIAS
+│       │   ├── nn/
+│       │   │   └── state.py         # ← FLOAT16 PATCH
+│       │   └── runtime/
+│       │       └── ops_amd.py       # ← AMD DRIVER
+│       └── CLAUDE.md
+├── docs/
+│   └── BIBBIAv1.md                  # ← QUESTO FILE
+└── ...
+
+/Volumes/DATI-SSD/llm-models/        # ← MODELLI GGUF
+├── Qwen2.5-7B-Instruct-Q4_K_M.gguf
+└── (altri modelli)
+```
+
+### Differenze tra TinyGrad
+
+| Path | Uso | Note |
+|------|-----|------|
+| `~/tinygrad` | ❌ NON USARE | Clone upstream, senza fix |
+| **`Onde/vendor/tinygrad`** | ✅ **USA QUESTO** | Fork privato con fix Qwen2.5 |
+| `~/conductor/.../tinygrad-fix` | ❌ Obsoleto | Vecchio tentativo, ignora |
+
+---
+
 ## 🔬 TEST SESSION v1.4 - 2026-02-01 (BUG FIX ATTENTION BIAS)
 
 ### 🐛 BUG CRITICO TROVATO E FIXATO
@@ -1005,12 +1092,46 @@ print(f'Output: {tokenizer.decode(output)}')
 "
 ```
 
+### ✅ TEST RIUSCITO! (2026-02-01 17:03)
+
+**Output PRIMA del fix:**
+```
+põe..Ġ..ĠãĠ..  (garbage)
+```
+
+**Output DOPO il fix:**
+```
+2+2 is 4.
+```
+
+**Comando test:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 -c "
+import os, sys
+from tinygrad import Tensor, dtypes, Device
+Device['AMD']
+sys.path.insert(0, 'tinygrad/apps')
+from llm import Transformer, SimpleTokenizer
+model_path = '/Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf'
+gguf = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
+model, kv = Transformer.from_gguf(gguf.to(None), max_context=256)
+tokenizer = SimpleTokenizer.from_gguf_kv(kv)
+prompt = 'What is 2+2?'
+formatted = tokenizer.role('user') + tokenizer.encode(prompt) + tokenizer.end_turn(151645) + tokenizer.role('assistant')
+gen = model.generate(formatted, 0)
+output = [next(gen) for _ in range(20) if (tok := next(gen, None)) and tok not in [151645, 151643]]
+print(tokenizer.decode(output))
+"
+```
+
 ### 📋 PROSSIMI PASSI
 
-1. **Ri-scaricare qwen2.5:7b** sulla SSD
-2. **Testare il fix** - verificare che non produca più garbage
+1. ~~**Ri-scaricare qwen2.5:7b**~~ ✅ FATTO (4.4GB)
+2. ~~**Testare il fix**~~ ✅ FUNZIONA!
 3. **Verificare LLaMA su AMD** - confermare se i test precedenti erano realmente su AMD
 4. **Considerare PR a TinyGrad** - il fix attn_bias è generico e utile
+5. **Testare qwen2.5:14b** - verificare se entra nei 20GB
 
 ### 🚨 ERRORI OOM TIPICI
 
@@ -1028,6 +1149,7 @@ MemoryError: Failed to allocate memory. (total allocation size=0x8700000, curren
 
 ## Changelog
 
+- **v1.5 (2026-02-01)**: ✅ FIX CONFERMATO FUNZIONANTE! TinyGrad vendored in Onde/vendor/tinygrad, test qwen2.5:7b passa ("2+2 is 4.")
 - **v1.4 (2026-02-01)**: Bug fix attention bias per Qwen2.5 - trovata causa root garbage output, fix applicato a llm.py, documentata de-quantizzazione TinyGrad, SSD modelli vuota
 - **v1.3 (2026-02-01)**: Aggiunta sessione test Claude Code - qwen2.5:14b OOM, qwen2.5:7b garbage, analisi limiti VRAM
 - **v1.2 (2026-02-01)**: Aggiunta sezione NVIDIA RTX 5060 Ti - analisi completa del fallimento, riferimenti issue, debunking tweet Arto Bendiken
