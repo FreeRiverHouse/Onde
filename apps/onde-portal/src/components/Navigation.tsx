@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname, useParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useTranslations } from '@/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 import NotificationCenter from './NotificationCenter'
@@ -15,24 +15,21 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const params = useParams()
-  const locale = params?.locale as string || 'en'
   const t = useTranslations()
   const { open: openSearch } = useSearchModal()
 
   // Helper to check if current path matches a nav item
   const isActive = (href: string) => {
-    const cleanPath = pathname.replace(`/${locale}`, '') || '/'
-    const cleanHref = href.replace(`/${locale}`, '') || '/'
-    return cleanPath === cleanHref
+    return pathname === href || pathname === href.replace(/\/$/, '')
   }
 
+  // No locale prefix - routes are at root level
   const navItems = [
-    { href: `/${locale}/`, label: t.navigation.home },
-    { href: `/${locale}/libri`, label: t.navigation.books },
-    { href: `/${locale}/reader/`, label: t.navigation.read },
-    { href: `/${locale}/games`, label: t.navigation.games },
-    { href: `/${locale}/about`, label: t.navigation.about },
+    { href: '/', label: t.navigation.home },
+    { href: '/libri', label: t.navigation.books },
+    { href: '/reader/', label: t.navigation.read },
+    { href: '/games', label: t.navigation.games },
+    { href: '/about', label: t.navigation.about },
   ]
 
   useEffect(() => {
@@ -58,7 +55,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href={`/${locale}/`} className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <motion.div
                 className="relative"
                 whileHover={{ scale: 1.05 }}
@@ -129,7 +126,7 @@ export default function Navigation() {
               <CoinDisplay />
               <LanguageSwitcher />
               <NotificationCenter />
-              <Link href={`/${locale}/libri`}>
+              <Link href="/libri">
                 <motion.span
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
                              bg-gradient-to-r from-onde-coral to-onde-coral-light

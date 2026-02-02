@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { useTranslations } from '@/i18n';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navigation from '@/components/Navigation';
@@ -17,8 +16,6 @@ import { CoinProvider } from '@/hooks/useCoins';
 
 function Footer() {
   const t = useTranslations();
-  const params = useParams();
-  const locale = params?.locale as string || 'en';
 
   return (
     <footer className="relative z-10 mt-24 border-t border-onde-ocean/10">
@@ -38,9 +35,9 @@ function Footer() {
           <nav aria-label="Footer navigation">
             <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.explore}</h2>
             <ul className="space-y-2">
-              <li><Link href={`/${locale}/libri`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</Link></li>
-              <li><Link href={`/${locale}/reader/`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.read}</Link></li>
-              <li><Link href={`/${locale}/about`} className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</Link></li>
+              <li><Link href="/libri" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</Link></li>
+              <li><Link href="/reader/" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.read}</Link></li>
+              <li><Link href="/about" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</Link></li>
             </ul>
           </nav>
 
@@ -74,8 +71,8 @@ function Footer() {
             {t.footer.copyright}
           </p>
           <div className="flex gap-6 text-sm text-onde-ocean/40">
-            <Link href={`/${locale}/privacy`} className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</Link>
-            <Link href={`/${locale}/terms`} className="hover:text-onde-ocean transition-colors">{t.footer.terms}</Link>
+            <Link href="/privacy" className="hover:text-onde-ocean transition-colors">{t.footer.privacy}</Link>
+            <Link href="/terms" className="hover:text-onde-ocean transition-colors">{t.footer.terms}</Link>
           </div>
         </div>
       </div>
