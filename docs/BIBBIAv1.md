@@ -494,8 +494,142 @@ chmod +x ~/start-radeon-llm.sh
 
 ---
 
+## NVIDIA RTX 5060 Ti - NON FUNZIONA (Analisi 2026-02-01)
+
+### Status: ❌ IN ATTESA FIRMWARE GSP ≥575
+
+**La RTX 5060 Ti (Blackwell/GB206) NON FUNZIONA su macOS via eGPU.**
+
+Né con TinyGrad, né con nessun altro metodo. Serve firmware GSP ≥575 che **non è ancora pubblico**.
+
+---
+
+### Il Problema
+
+| Aspetto | Dettaglio |
+|---------|-----------|
+| **GPU** | NVIDIA RTX 5060 Ti 16GB (GB206/Blackwell) |
+| **Connessione** | USB4/Thunderbolt via dock ADT-UT3G o Razer Core X |
+| **Errore** | `GSP_INIT_DONE returns NV_ERR_TIMEOUT (result=101)` |
+| **Causa** | Firmware GSP 570.144 non supporta Blackwell via eGPU |
+| **Soluzione** | Aspettare firmware GSP ≥575 (non ancora nel repo pubblico) |
+
+---
+
+### Issue Aperti su TinyGrad
+
+- **[tinygrad#14334](https://github.com/tinygrad/tinygrad/issues/14334)** - RTX 5060 Ti GSP init timeout on macOS M1
+- **[tinygrad#14338](https://github.com/tinygrad/tinygrad/issues/14338)** - RTX 5060 Ti fails GSP initialization over USB4/Thunderbolt
+
+### Conferma dal Team TinyGrad
+
+**nimlgen** (membro team tinygrad) ha confermato:
+> "5060ti is not supported in gsp 570.144. gsp needs to be updated to >=575"
+
+---
+
+### Sequenza Errore GSP
+
+```
+0.0s - GSP FMC/COT boots successfully
+0.0s - RPC queues initialize (writePtr=1)
+0.5s - Display Engine initialization starts (NOCAT type 2)
+0.6s - FBFLCN error: UNRECOGNIZED_CLIENT -> HUBCLIENT_CE0 -> HUBCLIENT_VIP
+4.6s - Internal timeout
+4.6s - GSP_INIT_DONE returns NV_ERR_TIMEOUT (result=101)
+```
+
+---
+
+### Firmware nel Repo Pubblico
+
+```
+nvidia/gb202/gsp/
+├── bootloader-570.144.bin
+├── fmc-570.144.bin
+└── (NO gsp-*.bin per Blackwell!)
+```
+
+Il firmware 575+ necessario **non esiste ancora** nel repo [NVIDIA/linux-firmware](https://github.com/NVIDIA/linux-firmware).
+
+---
+
+### Cosa NON Funziona
+
+| Tentativo | Risultato |
+|-----------|-----------|
+| Registry keys (RMInitializeHeadless, etc.) | ❌ Stesso timeout |
+| FMC regkeys (0x0 - 0xFF) | ❌ Stesso timeout |
+| BDF values diversi | ❌ Stesso timeout |
+| NV_NAK=1 (LLVM compiler) | ❌ Serve comunque GSP per init |
+| Patch FRTS/WPR dinamici | ❌ Regressione |
+| Firmware 575.64 | ⏳ Non disponibile pubblicamente |
+
+---
+
+### Arto Bendiken (@bendiken) - NON È Riuscito
+
+Tweet virale del 21 Nov 2025: ["Late night hacking on making an RTX 5060 Ti work..."](https://x.com/bendiken/status/1992139703232188771)
+
+**ATTENZIONE:** Il tweet sembra mostrare successo, ma leggendo i commenti:
+
+1. **"Late night hacking on MAKING it work"** - Stava PROVANDO, non aveva fatto funzionare
+2. **Nessun follow-up "funziona!"** - Mai postato conferma di successo
+3. **Suoi commenti:**
+   - "Nobody's tested that yet that I've seen, though"
+   - "Not at the moment. You'd want an RTX 30xx or newer"
+4. **Libreria creata:** [artob/libegpu](https://github.com/artob/libegpu) - Solo per ENUMERARE eGPU, non per usarle
+
+**Conclusione:** Nessuno ha fatto funzionare la RTX 5060 Ti via eGPU su Mac (M1 o M4).
+
+---
+
+### Cosa Funziona (RTX 30/40 series)
+
+TinyGrad supporta **RTX 30xx e 40xx** via USB4/Thunderbolt con firmware 570.144.
+
+| GPU | Architettura | Boot Path | Status |
+|-----|--------------|-----------|--------|
+| RTX 3090 | Ampere (GA102) | Standard GSP | ✅ Funziona |
+| RTX 4090 | Ada (AD102) | Standard GSP | ✅ Funziona |
+| **RTX 5060 Ti** | **Blackwell (GB206)** | **FMC/COT** | **❌ Aspetta FW 575+** |
+| RTX 5070 | Blackwell (GB205) | FMC/COT | ❌ Aspetta FW 575+ |
+| RTX 5080 | Blackwell (GB203) | FMC/COT | ❌ Aspetta FW 575+ |
+| RTX 5090 | Blackwell (GB202) | FMC/COT | ❌ Aspetta FW 575+ |
+
+---
+
+### Issue NVIDIA Correlati
+
+- [NVIDIA/open-gpu-kernel-modules#979](https://github.com/NVIDIA/open-gpu-kernel-modules/issues/979) - RTX 5080 TB5 eGPU hard locks
+- [NVIDIA/open-gpu-kernel-modules#981](https://github.com/NVIDIA/open-gpu-kernel-modules/pull/981) - TB eGPU detection improvements (CHIUSO)
+
+---
+
+### Prossimi Passi
+
+1. **Monitorare** il repo [NVIDIA/linux-firmware](https://github.com/NVIDIA/linux-firmware) per firmware 575+
+2. **Monitorare** issue [tinygrad#14338](https://github.com/tinygrad/tinygrad/issues/14338) per aggiornamenti
+3. **Usare AMD RX 7900 XTX/XT** nel frattempo (funziona perfettamente!)
+
+---
+
+### Hardware Testato (NON Funzionante)
+
+| Componente | Dettaglio |
+|------------|-----------|
+| Mac | MacBook Pro M1 / MacBook Pro M4 |
+| GPU | NVIDIA RTX 5060 Ti 16GB |
+| Dock | ADT-UT3G / Razer Core X V2 |
+| Driver | TinyGPU (socket /tmp/tinygpu.sock OK) |
+| Firmware | 570.144 (unico disponibile) |
+| SIP | Disabilitato |
+
+---
+
 ## Changelog
 
+- **v1.2 (2026-02-01)**: Aggiunta sezione NVIDIA RTX 5060 Ti - analisi completa del fallimento, riferimenti issue, debunking tweet Arto Bendiken
 - **v1.1 (2026-02-01)**: Aggiunta sezione HANDOVER dettagliata con step-by-step, errori commessi, task pendenti
 - **v1.0 (2026-02-01)**: Consolidamento BIBBIA-RADEON + HANDOVER + CLAWDBOT-SETUP + raccomandazioni Grok
 
