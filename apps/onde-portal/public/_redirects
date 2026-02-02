@@ -1,5 +1,21 @@
-# Cloudflare Pages redirects for onde.surf
-# onde.surf homepage should show split-screen selector
+# Cloudflare Pages redirects for onde.la
+# Trailing slash redirects (fix 404s for URLs without trailing slash)
+/libri /libri/ 301
+/games /games/ 301
+/about /about/ 301
+/privacy /privacy/ 301
+/reader /reader/ 301
+/vr /vr/ 301
+/catalogo /catalogo/ 301
+/terms /terms/ 301
+/games/skin-creator /games/skin-creator/ 301
+/games/* /games/:splat/ 301
+
+# Short URL for Skin Creator
+/skin /games/skin-creator/ 301
+/minecraft /games/skin-creator/ 301
+
+# onde.surf hostname rewrite
 /:hostname=onde.surf /surf-selector 200
 
 # Free River Jams - uses public/freeriverjams/index.html directly
