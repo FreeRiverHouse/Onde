@@ -50,6 +50,15 @@
 | PUB-001 | Check stato catalogo libri disponibili | TODO | - | - |
 | PUB-002 | Verificare pipeline traduzione attiva | TODO | - | - |
 
+### SEO/MARKETING (Priorità 3.5)
+| ID | Task | Status | Owner | Depends |
+|----|------|--------|-------|---------|
+| SEO-001 | Creare OG image per /skin-creator (1200x630) | TODO | - | - |
+| SEO-002 | Submit skin-creator a Google Search Console | TODO | - | SEO-001 |
+| SEO-003 | URL dedicato /skin-creator con metadata SEO | DONE | @clawdinho | - |
+| MKTG-001 | Post skin creator su r/Minecraft e r/Roblox | TODO | - | SEO-001 |
+| MKTG-002 | YouTube Shorts demo skin creator | TODO | - | SEO-001 |
+
 ### CONTENT/SOCIAL (Priorità 4)
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
@@ -99,6 +108,12 @@
 - **MLH-016** - Notification badge in tab title: useEffect updates document.title with (N) prefix when unread count > 0, cleans up on unmount
 - **MLH-017** - Pull-to-refresh in notification panel: usePullToRefresh hook with touch gesture detection, visual indicator, resistance/threshold mechanics, haptic feedback, mobile-only (hidden on sm+)
 - **MLH-018** - Keyboard navigation in notification list: j/k to navigate up/down with wrap-around, Enter to mark as read, x/Delete/Backspace to dismiss, Home/End for first/last, visual cyan ring on selected item, scroll into view, footer shows shortcuts
+
+## ✅ COMPLETATI OGGI (2026-02-02)
+
+- **AUTO-002** - Alert per autotrader DRY RUN mode: check-dryrun-mode.sh script
+- **SEO-003** - /skin-creator URL dedicato con full SEO: title, description, OG tags, JSON-LD structured data, canonical
+- **FIX** - CI/CD onde.la: aggiunto build step per onde-portal (prima deployava solo public/)
 
 ---
 
