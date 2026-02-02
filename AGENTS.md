@@ -14,6 +14,26 @@
 
 ---
 
+## 📚 FILE OBBLIGATORI DA CONOSCERE
+
+| File | Cosa contiene | Quando leggerlo |
+|------|---------------|-----------------|
+| **AGENTS.md** | Questo file - regole base | Inizio sessione |
+| **TASK-RULES.md** | Come gestire task (lock/unlock) | Prima di toccare TASKS.md |
+| **REGOLE-AGENTI.md** | Le 4 regole d'oro (0-3) | Quando hai dubbi |
+| **TASKS.md** | Lista task condivisa | Prima di lavorare |
+
+### ⚠️ QUANDO SENTI "TASK" O "TODO"
+```bash
+git pull origin main
+cat TASKS.md           # PRIMA guarda cosa c'è
+# Aggiungi task con ID appropriato
+git commit && git push
+```
+**MAI creare task altrove (GitHub issues, note, ecc.) senza prima usare TASKS.md!**
+
+---
+
 # AGENTS.md - Your Workspace
 
 This folder is home. Treat it that way.
