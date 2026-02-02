@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawdBot Config</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+      --green: #3fb950; --red: #f85149; --orange: #d29922;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; padding: 20px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    header h1 { font-size: 24px; font-weight: 600; }
+    header .status { padding: 4px 12px; border-radius: 12px; font-size: 13px; }
+    header .status.ok { background: rgba(63,185,80,0.2); color: var(--green); }
+    header .status.error { background: rgba(248,81,73,0.2); color: var(--red); }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; margin-bottom: 16px;
+    }
+    .card h2 { font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .card h2 .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--border); }
+
+    .model-selector {
+      display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 13px; color: var(--muted); }
+    select, input {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      padding: 10px 12px; border-radius: 6px; font-size: 14px;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--accent); }
+
+    button {
+      background: var(--accent); color: #fff; border: none;
+      padding: 10px 20px; border-radius: 6px; cursor: pointer;
+      font-size: 14px; font-weight: 500; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary { background: var(--border); }
+    button.danger { background: var(--red); }
+
+    .providers-grid { display: grid; gap: 12px; }
+    .provider-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 16px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .provider-card.active { border-color: var(--green); }
+    .provider-info h3 { font-size: 15px; margin-bottom: 4px; }
+    .provider-info p { font-size: 13px; color: var(--muted); }
+    .provider-actions { display: flex; gap: 8px; }
+    .provider-actions button { padding: 6px 12px; font-size: 13px; }
+
+    .models-list { margin-top: 12px; }
+    .model-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: var(--bg); border-radius: 4px; margin-bottom: 6px;
+    }
+    .model-item .name { font-size: 14px; }
+    .model-item .size { font-size: 12px; color: var(--muted); }
+
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 100;
+    }
+    .modal.show { display: flex; }
+    .modal-content {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; width: 100%; max-width: 500px;
+    }
+    .modal-content h3 { margin-bottom: 20px; }
+    .modal-content .form-group { margin-bottom: 16px; }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
+
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+    .tab {
+      padding: 8px 16px; background: transparent; border: 1px solid var(--border);
+      border-radius: 6px; cursor: pointer; color: var(--muted); font-size: 14px;
+    }
+    .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; padding: 12px 20px;
+      background: var(--green); color: #fff; border-radius: 8px;
+      transform: translateY(100px); opacity: 0; transition: all 0.3s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: var(--red); }
+
+    .quick-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .quick-actions button { flex: 1; min-width: 200px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤖 ClawdBot Config</h1>
+      <span class="status" id="status">Caricamento...</span>
+    </header>
+
+    <!-- Selezione Modello Primario -->
+    <div class="card">
+      <h2>Modello Attivo</h2>
+      <div class="model-selector">
+        <div class="form-group">
+          <label>Modello Primario</label>
+          <select id="primaryModel">
+            <option value="">-- Seleziona modello --</option>
+          </select>
+        </div>
+        <button onclick="savePrimaryModel()">Applica</button>
+      </div>
+      <div class="form-group" style="margin-top: 16px;">
+        <label>Fallback (in ordine)</label>
+        <select id="fallbackModel" multiple style="height: 80px;">
+        </select>
+      </div>
+
+      <!-- Task Handover -->
+      <div class="handover-section" style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+        <h3 style="font-size: 14px; margin-bottom: 12px;">📋 Task Handover</h3>
+        <div class="form-group">
+          <label>Contesto da passare al nuovo modello</label>
+          <textarea id="handoverContext" placeholder="Descrivi il task in corso, cosa stavi facendo, dove eri arrivato..."
+            style="width: 100%; min-height: 80px; background: var(--bg); border: 1px solid var(--border);
+            color: var(--text); padding: 10px; border-radius: 6px; font-size: 14px; resize: vertical;"></textarea>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;">
+          <button class="secondary" onclick="loadLastHandover()">Carica Ultimo</button>
+          <button onclick="saveHandoverAndSwitch()">💾 Salva & Cambia Modello</button>
+        </div>
+        <div id="handoverHistory" style="margin-top: 12px;"></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+      <h2>Azioni Rapide</h2>
+      <div class="quick-actions">
+        <button onclick="discoverOllama()">🔍 Scopri Modelli Ollama</button>
+        <button onclick="showAddProvider('kimi')">🌙 Aggiungi Kimi 2.5</button>
+        <button onclick="showAddProvider('grok')">🤖 Aggiungi Grok (xAI)</button>
+        <button onclick="showAddProvider('radeon')">🔴 Configura Radeon Remota</button>
+        <button onclick="showAddProvider('custom')">➕ Provider Custom</button>
+      </div>
+    </div>
+
+    <!-- Provider Configurati -->
+    <div class="card">
+      <h2>Provider Configurati <span class="badge" id="providerCount">0</span></h2>
+      <div class="providers-grid" id="providersList"></div>
+    </div>
+
+    <!-- Modelli Ollama Locali -->
+    <div class="card">
+      <h2>Modelli Ollama Locali</h2>
+      <div class="models-list" id="ollamaModels">
+        <p style="color: var(--muted); font-size: 14px;">Clicca "Scopri Modelli Ollama" per vedere i modelli disponibili</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Aggiungi Provider -->
+  <div class="modal" id="addProviderModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Aggiungi Provider</h3>
+      <div class="form-group">
+        <label>Nome Provider</label>
+        <input type="text" id="providerName" placeholder="es: ollama-local">
+      </div>
+      <div class="form-group">
+        <label>Base URL</label>
+        <input type="text" id="providerUrl" placeholder="http://127.0.0.1:11434/v1">
+      </div>
+      <div class="form-group">
+        <label>API Key</label>
+        <input type="text" id="providerApiKey" placeholder="Lascia vuoto per Ollama">
+      </div>
+      <div class="form-group">
+        <label>Tipo API</label>
+        <select id="providerApi">
+          <option value="openai-completions">OpenAI Completions</option>
+          <option value="openai-responses">OpenAI Responses</option>
+          <option value="moonshot">Moonshot (Kimi)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Model ID</label>
+        <input type="text" id="providerModelId" placeholder="es: llama3:70b">
+      </div>
+      <div class="modal-actions">
+        <button class="secondary" onclick="closeModal()">Annulla</button>
+        <button onclick="testAndAddProvider()">Test & Aggiungi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let config = {};
+
+    // Carica config
+    async function loadConfig() {
+      try {
+        const res = await fetch('/api/config');
+        config = await res.json();
+        updateUI();
+        showStatus('Connesso', 'ok');
+      } catch (err) {
+        showStatus('Errore', 'error');
+      }
+    }
+
+    // Aggiorna UI
+    function updateUI() {
+      const providers = config.models?.providers || {};
+      const providerNames = Object.keys(providers);
+
+      // Lista provider
+      const list = document.getElementById('providersList');
+      if (providerNames.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); font-size: 14px;">Nessun provider configurato</p>';
+      } else {
+        list.innerHTML = providerNames.map(name => {
+          const p = providers[name];
+          const isPrimary = config.agents?.defaults?.model?.primary?.startsWith(name + '/');
+          return `
+            <div class="provider-card ${isPrimary ? 'active' : ''}">
+              <div class="provider-info">
+                <h3>${name} ${isPrimary ? '✓' : ''}</h3>
+                <p>${p.baseUrl} | ${p.api || 'openai-completions'}</p>
+              </div>
+              <div class="provider-actions">
+                <button class="secondary" onclick="testProvider('${name}')">Test</button>
+                <button class="danger" onclick="removeProvider('${name}')">Rimuovi</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('providerCount').textContent = providerNames.length;
+
+      // Popola select modelli
+      const select = document.getElementById('primaryModel');
+      const fallbackSelect = document.getElementById('fallbackModel');
+      select.innerHTML = '<option value="">-- Seleziona modello --</option>';
+      fallbackSelect.innerHTML = '';
+
+      // Modelli ordinati per qualità (testati)
+      const builtIn = [
+        { id: 'radeon/qwen2.5-coder:7b', name: '🥇 Qwen Coder 7B (Radeon) - Best quality' },
+        { id: 'ollama/qwen-coder-32k', name: '🥈 Qwen Coder 32k (Locale) - Fastest' },
+        { id: 'ollama/qwen2.5-coder:7b', name: '🥉 Qwen Coder 7B (Locale)' },
+        { id: 'radeon/llama31-8b', name: '4. Llama 3.1 8B (Radeon)' },
+        { id: 'radeon/deepseek-coder:6.7b', name: '5. DeepSeek Coder (Radeon)' },
+      ];
+
+      builtIn.forEach(m => {
+        select.innerHTML += `<option value="${m.id}">${m.name}</option>`;
+        fallbackSelect.innerHTML += `<option value="${m.id}">${m.name}</option>`;
+      });
+
+      // Aggiungi modelli custom
+      providerNames.forEach(name => {
+        const p = providers[name];
+        (p.models || []).forEach(m => {
+          const id = `${name}/${m.id}`;
+          select.innerHTML += `<option value="${id}">${m.name || m.id} (${name})</option>`;
+          fallbackSelect.innerHTML += `<option value="${id}">${m.name || m.id} (${name})</option>`;
+        });
+      });
+
+      // Seleziona attuale
+      const primary = config.agents?.defaults?.model?.primary;
+      if (primary) select.value = primary;
+
+      const fallbacks = config.agents?.defaults?.model?.fallbacks || [];
+      Array.from(fallbackSelect.options).forEach(opt => {
+        opt.selected = fallbacks.includes(opt.value);
+      });
+    }
+
+    // Scopri Ollama
+    async function discoverOllama(url = 'http://127.0.0.1:11434') {
+      try {
+        const res = await fetch(`/api/ollama/models?url=${encodeURIComponent(url)}`);
+        const models = await res.json();
+
+        if (models.error) {
+          showToast(models.error, true);
+          return;
+        }
+
+        const list = document.getElementById('ollamaModels');
+        if (models.length === 0) {
+          list.innerHTML = '<p style="color: var(--muted);">Nessun modello trovato in Ollama</p>';
+          return;
+        }
+
+        list.innerHTML = models.map(m => `
+          <div class="model-item">
+            <span class="name">${m.name}</span>
+            <span class="size">${formatSize(m.size)}</span>
+            <button onclick="addOllamaModel('${m.name}', '${url}')">Aggiungi</button>
+          </div>
+        `).join('');
+
+        showToast(`Trovati ${models.length} modelli Ollama`);
+      } catch (err) {
+        showToast('Errore connessione Ollama', true);
+      }
+    }
+
+    function formatSize(bytes) {
+      const gb = bytes / (1024 * 1024 * 1024);
+      return gb.toFixed(1) + ' GB';
+    }
+
+    // Aggiungi modello Ollama
+    async function addOllamaModel(modelName, baseUrl) {
+      config.models = config.models || { mode: 'merge', providers: {} };
+      config.models.providers = config.models.providers || {};
+
+      config.models.providers['ollama'] = config.models.providers['ollama'] || {
+        baseUrl: baseUrl + '/v1',
+        apiKey: 'ollama',
+        api: 'openai-completions',
+        models: []
+      };
+
+      const exists = config.models.providers['ollama'].models.some(m => m.id === modelName);
+      if (!exists) {
+        // Determina context window in base al modello
+        let contextWindow = 32000;
+        let maxTokens = 8192;
+        if (modelName.includes('llama3.1') || modelName.includes('llama3.2')) {
+          contextWindow = 128000;
+          maxTokens = 16384;
+        } else if (modelName.includes('llama3:')) {
+          contextWindow = 32000; // Forza 32k per compatibilità ClawdBot
+          maxTokens = 8192;
+        } else if (modelName.includes('mistral') || modelName.includes('mixtral')) {
+          contextWindow = 32000;
+        } else if (modelName.includes('qwen')) {
+          contextWindow = 128000;
+        }
+
+        config.models.providers['ollama'].models.push({
+          id: modelName,
+          name: modelName,
+          reasoning: false,
+          input: ['text'],
+          cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+          contextWindow,
+          maxTokens
+        });
+      }
+
+      await saveConfig();
+      showToast(`Aggiunto ${modelName}`);
+    }
+
+    // Modal provider
+    function showAddProvider(type) {
+      const modal = document.getElementById('addProviderModal');
+      const title = document.getElementById('modalTitle');
+
+      if (type === 'kimi') {
+        title.textContent = 'Aggiungi Kimi 2.5 (Moonshot)';
+        document.getElementById('providerName').value = 'kimi';
+        document.getElementById('providerUrl').value = 'https://api.moonshot.cn/v1';
+        document.getElementById('providerApiKey').value = '';
+        document.getElementById('providerApi').value = 'moonshot';
+        document.getElementById('providerModelId').value = 'kimi-k2-0905-preview';
+      } else if (type === 'grok') {
+        title.textContent = 'Aggiungi Grok (xAI)';
+        document.getElementById('providerName').value = 'xai';
+        document.getElementById('providerUrl').value = 'https://api.x.ai/v1';
+        document.getElementById('providerApiKey').value = '';
+        document.getElementById('providerApi').value = 'openai-completions';
+        document.getElementById('providerModelId').value = 'grok-2';
+      } else if (type === 'radeon') {
+        title.textContent = 'Configura Radeon Remota';
+        document.getElementById('providerName').value = 'radeon';
+        document.getElementById('providerUrl').value = 'http://192.168.1.111:11434/v1';
+        document.getElementById('providerApiKey').value = 'ollama';
+        document.getElementById('providerApi').value = 'openai-completions';
+        document.getElementById('providerModelId').value = 'llama3:70b';
+      } else {
+        title.textContent = 'Aggiungi Provider Custom';
+        document.getElementById('providerName').value = '';
+        document.getElementById('providerUrl').value = '';
+        document.getElementById('providerApiKey').value = '';
+        document.getElementById('providerApi').value = 'openai-completions';
+        document.getElementById('providerModelId').value = '';
+      }
+
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('addProviderModal').classList.remove('show');
+    }
+
+    // Test e aggiungi provider
+    async function testAndAddProvider() {
+      const name = document.getElementById('providerName').value.trim();
+      const baseUrl = document.getElementById('providerUrl').value.trim();
+      const apiKey = document.getElementById('providerApiKey').value.trim();
+      const api = document.getElementById('providerApi').value;
+      const modelId = document.getElementById('providerModelId').value.trim();
+
+      if (!name || !baseUrl || !modelId) {
+        showToast('Compila tutti i campi obbligatori', true);
+        return;
+      }
+
+      // Test connessione
+      try {
+        const res = await fetch('/api/test-provider', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ baseUrl, apiKey, api })
+        });
+        const result = await res.json();
+
+        if (!result.success) {
+          showToast(`Test fallito: ${result.error}`, true);
+          // Continua comunque se l'utente vuole
+        }
+      } catch (err) {
+        showToast(`Errore test: ${err.message}`, true);
+      }
+
+      // Aggiungi provider
+      config.models = config.models || { mode: 'merge', providers: {} };
+      config.models.providers = config.models.providers || {};
+
+      config.models.providers[name] = {
+        baseUrl,
+        apiKey: apiKey || 'ollama',
+        api,
+        models: [{
+          id: modelId,
+          name: modelId,
+          reasoning: api === 'moonshot',
+          input: ['text'],
+          cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+          contextWindow: api === 'moonshot' ? 128000 : 8192,
+          maxTokens: api === 'moonshot' ? 8192 : 4096
+        }]
+      };
+
+      await saveConfig();
+      closeModal();
+      showToast(`Provider ${name} aggiunto`);
+    }
+
+    // Testa provider esistente
+    async function testProvider(name) {
+      const p = config.models?.providers?.[name];
+      if (!p) return;
+
+      try {
+        const res = await fetch('/api/test-provider', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ baseUrl: p.baseUrl, apiKey: p.apiKey, api: p.api })
+        });
+        const result = await res.json();
+        showToast(result.success ? `${name}: OK` : `${name}: ${result.error}`, !result.success);
+      } catch (err) {
+        showToast(`Errore: ${err.message}`, true);
+      }
+    }
+
+    // Rimuovi provider
+    async function removeProvider(name) {
+      if (!confirm(`Rimuovere ${name}?`)) return;
+      delete config.models.providers[name];
+      await saveConfig();
+      showToast(`${name} rimosso`);
+    }
+
+    // Salva modello primario
+    async function savePrimaryModel() {
+      const primary = document.getElementById('primaryModel').value;
+      const fallbackSelect = document.getElementById('fallbackModel');
+      const fallbacks = Array.from(fallbackSelect.selectedOptions).map(o => o.value);
+
+      config.agents = config.agents || {};
+      config.agents.defaults = config.agents.defaults || {};
+      config.agents.defaults.model = {
+        primary,
+        fallbacks
+      };
+
+      await saveConfig();
+      showToast('Modello aggiornato');
+    }
+
+    // Salva config
+    async function saveConfig() {
+      await fetch('/api/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config)
+      });
+      updateUI();
+    }
+
+    // UI helpers
+    function showStatus(text, type) {
+      const el = document.getElementById('status');
+      el.textContent = text;
+      el.className = 'status ' + type;
+    }
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Task Handover
+    function getHandovers() {
+      return JSON.parse(localStorage.getItem('clawdbot-handovers') || '[]');
+    }
+
+    function saveHandover(context, fromModel, toModel) {
+      const handovers = getHandovers();
+      handovers.unshift({
+        id: Date.now(),
+        context,
+        fromModel,
+        toModel,
+        timestamp: new Date().toISOString()
+      });
+      // Tieni solo gli ultimi 10
+      localStorage.setItem('clawdbot-handovers', JSON.stringify(handovers.slice(0, 10)));
+      updateHandoverHistory();
+    }
+
+    function loadLastHandover() {
+      const handovers = getHandovers();
+      if (handovers.length > 0) {
+        document.getElementById('handoverContext').value = handovers[0].context;
+        showToast('Ultimo handover caricato');
+      } else {
+        showToast('Nessun handover salvato', true);
+      }
+    }
+
+    async function saveHandoverAndSwitch() {
+      const context = document.getElementById('handoverContext').value.trim();
+      const newModel = document.getElementById('primaryModel').value;
+      const oldModel = config.agents?.defaults?.model?.primary || 'nessuno';
+
+      if (!context) {
+        showToast('Scrivi il contesto del task', true);
+        return;
+      }
+
+      if (!newModel) {
+        showToast('Seleziona un modello', true);
+        return;
+      }
+
+      // Salva handover
+      saveHandover(context, oldModel, newModel);
+
+      // Cambia modello
+      await savePrimaryModel();
+
+      // Genera prompt di handover per ClawdBot
+      const handoverPrompt = `## Task Handover
+
+**Da:** ${oldModel}
+**A:** ${newModel}
+**Timestamp:** ${new Date().toLocaleString('it-IT')}
+
+### Contesto del task:
+${context}
+
+---
+*Continua da dove era rimasto il modello precedente.*`;
+
+      // Copia negli appunti
+      await navigator.clipboard.writeText(handoverPrompt);
+      showToast('Modello cambiato! Handover copiato negli appunti 📋');
+
+      // Pulisci textarea
+      document.getElementById('handoverContext').value = '';
+    }
+
+    function updateHandoverHistory() {
+      const handovers = getHandovers();
+      const container = document.getElementById('handoverHistory');
+
+      if (handovers.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+
+      container.innerHTML = `
+        <details style="font-size: 13px;">
+          <summary style="cursor: pointer; color: var(--muted); margin-bottom: 8px;">
+            Storico handover (${handovers.length})
+          </summary>
+          ${handovers.map(h => `
+            <div class="model-item" style="margin-bottom: 4px;">
+              <div>
+                <span style="color: var(--muted);">${new Date(h.timestamp).toLocaleString('it-IT')}</span>
+                <br><span>${h.fromModel} → ${h.toModel}</span>
+              </div>
+              <button class="secondary" style="padding: 4px 8px; font-size: 12px;"
+                onclick="document.getElementById('handoverContext').value = '${h.context.replace(/'/g, "\\'")}'; showToast('Handover caricato');">
+                Usa
+              </button>
+            </div>
+          `).join('')}
+        </details>
+      `;
+    }
+
+    // Init
+    loadConfig();
+    discoverOllama();
+    updateHandoverHistory();
+  </script>
+</body>
+</html>

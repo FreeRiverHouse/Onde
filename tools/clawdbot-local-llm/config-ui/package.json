@@ -1,0 +1,16 @@
+{
+  "name": "clawdbot-config-ui",
+  "version": "1.1.0",
+  "description": "Web UI per configurare ClawdBot - modelli locali e remoti + Tool Calling Wrapper",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "wrapper": "node tool-wrapper.js",
+    "all": "node server.js & node tool-wrapper.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

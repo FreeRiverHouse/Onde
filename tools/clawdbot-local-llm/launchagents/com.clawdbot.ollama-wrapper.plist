@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.clawdbot.ollama-wrapper</string>
+
+    <key>Comment</key>
+    <string>Ollama Tool Wrapper for ClawdBot (strips tools from requests)</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/opt/homebrew/bin/node</string>
+      <string>/Users/mattiapetrucciani/CascadeProjects/clawdbot-config-ui/tool-wrapper.js</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/mattiapetrucciani/CascadeProjects/clawdbot-config-ui</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/mattiapetrucciani/.clawdbot/logs/ollama-wrapper.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/mattiapetrucciani/.clawdbot/logs/ollama-wrapper.err.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>HOME</key>
+      <string>/Users/mattiapetrucciani</string>
+      <key>PATH</key>
+      <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+  </dict>
+</plist>
