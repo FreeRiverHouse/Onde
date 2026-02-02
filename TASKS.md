@@ -59,7 +59,7 @@
 | ID | Task | Status | Owner | Depends |
 |----|------|--------|-------|---------|
 | AUTO-001 | Creare script check siti live (onde.la, onde.surf HTTP 200) | DONE | @clawdinho | - |
-| AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | IN_PROGRESS | @clawdinho | - |
+| AUTO-002 | Aggiungere alert per autotrader DRY RUN mode | DONE | @clawdinho | - |
 | AUTO-003 | Documentare stato attuale Kalshi trading in memory | TODO | - | - |
 | AUTO-004 | Integrare SystemMonitor check nel ciclo HEARTBEAT | DONE | @clawdinho | - |
 | AUTO-005 | Creare watchdog-gpu-load.sh per monitoring periodico | DONE | @clawdinho | AUTO-004 |

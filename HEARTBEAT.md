@@ -12,6 +12,7 @@
 - `scripts/kalshi-circuit-breaker.alert` → CIRCUIT BREAKER! Trading pausato. Manda alert urgente, poi elimina
 - `scripts/kalshi-stop-loss.alert` → STOP-LOSS eseguito! Leggi message, manda a Mattia, poi elimina
 - `scripts/kalshi-health.alert` → Autotrader down >30min o win rate <30%! Manda alert, poi elimina
+- `scripts/kalshi-dryrun-mode.alert` → Autotrader in DRY RUN mode! No real trades. Manda alert, poi elimina
 - `scripts/onde-surf-auth-broken.alert` → AUTH BROKEN! Dashboard esposta! Manda alert URGENTE, poi elimina
 - `scripts/onde-la-down.alert` → ONDE.LA DOWN! Manda alert URGENTE, poi elimina
 - `scripts/ssl-critical.alert` → SSL CRITICO (<7 giorni)! Manda alert URGENTE, poi elimina
