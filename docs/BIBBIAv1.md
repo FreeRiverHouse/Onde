@@ -832,6 +832,85 @@ Questo è il **fork privato** con tutti i fix applicati:
 - ✅ Float16 patch per GGUF
 - ✅ Altre modifiche future
 
+---
+
+## ✅ MODELLI CONFERMATI FUNZIONANTI SU AMD RADEON
+
+### Receipt Table - Testati il 2026-02-01
+
+| Modello | File GGUF | VRAM Usata | Device | Output Test | Status |
+|---------|-----------|------------|--------|-------------|--------|
+| **Qwen2.5-7B Q4** | `Qwen2.5-7B-Instruct-Q4_K_M.gguf` (4.4GB) | **14.2 GB** | `gfx1100` AMD RX 7900 XT | `2 + 2 equals 4.` | ✅ OK |
+
+### Dettagli Hardware Confermati
+
+```
+AMDDevice: opening 0 with target (11, 0, 0) arch gfx1100
+opened device AMD from pid:34160
+```
+
+| Campo | Valore |
+|-------|--------|
+| **GPU** | AMD Radeon RX 7900 XT |
+| **Architettura** | gfx1100 (RDNA3) |
+| **VRAM Totale** | 20 GB |
+| **VRAM Usata (7B Q4)** | 14.2 GB |
+| **VRAM Libera** | ~5.8 GB |
+| **Driver** | TinyGrad userspace (NO ROCm) |
+| **Connessione** | USB4/Thunderbolt via Razer Core X V2 |
+
+### Istruzioni Per Modello
+
+#### Qwen2.5-7B-Instruct Q4
+
+**File:** `/Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf`
+**Download:**
+```bash
+curl -L -o /Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf \
+  "https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/resolve/main/Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+```
+
+**Test:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 -c "
+import os, sys
+from tinygrad import Tensor, dtypes, Device
+Device['AMD']
+sys.path.insert(0, 'tinygrad/apps')
+from llm import Transformer, SimpleTokenizer
+model_path = '/Volumes/DATI-SSD/llm-models/Qwen2.5-7B-Instruct-Q4_K_M.gguf'
+gguf = Tensor.empty(os.stat(model_path).st_size, dtype=dtypes.uint8, device=f'disk:{model_path}')
+model, kv = Transformer.from_gguf(gguf.to(None), max_context=256)
+tokenizer = SimpleTokenizer.from_gguf_kv(kv)
+prompt = 'What is 2+2?'
+formatted = tokenizer.role('user') + tokenizer.encode(prompt) + tokenizer.end_turn(151645) + tokenizer.role('assistant')
+gen = model.generate(formatted, 0)
+output = [next(gen) for _ in range(20)]
+print(tokenizer.decode(output))
+"
+```
+
+**Output atteso:**
+```
+2 + 2 equals 4.
+```
+
+**Server mode:**
+```bash
+cd /Users/mattia/Projects/Onde/vendor/tinygrad
+PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm.py --model qwen2.5:7b --serve 11434
+```
+
+#### Qwen2.5-14B-Instruct Q4 (DA TESTARE)
+
+**Stima VRAM:** ~28-30 GB (OOM su 20GB - vedi sezione de-quantizzazione)
+
+**NON FUNZIONA** con TinyGrad attuale perché de-quantizza tutto a FP16.
+
+---
+
 ### Comandi Aggiornati
 
 **Test GPU AMD:**
