@@ -1630,6 +1630,21 @@ export default function SkinCreator() {
   });
 
   const downloadSkin = (useSelectedLayers = false) => {
+    // Helper to download canvas as PNG with proper extension
+    const downloadCanvas = (sourceCanvas: HTMLCanvasElement, filename: string) => {
+      sourceCanvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename.endsWith('.png') ? filename : `${filename}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 'image/png');
+    };
+
     // If using selected layers, create a composite with only those layers
     if (useSelectedLayers) {
       const exportCanvas = document.createElement('canvas');
@@ -1648,18 +1663,12 @@ export default function SkinCreator() {
       });
       exportCtx.globalAlpha = 1;
 
-      const link = document.createElement('a');
-      link.download = `${skinName || 'my-skin'}.png`;
-      link.href = exportCanvas.toDataURL('image/png');
-      link.click();
+      downloadCanvas(exportCanvas, `${skinName || 'my-skin'}.png`);
     } else {
       // Default: export full composite
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const link = document.createElement('a');
-      link.download = `${skinName || 'my-skin'}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      downloadCanvas(canvas, `${skinName || 'my-skin'}.png`);
     }
 
     // 🎉 Confetti celebration!
