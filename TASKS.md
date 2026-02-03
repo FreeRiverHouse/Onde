@@ -140,3 +140,5 @@
 | 39 | SEO-003 | Verificare canonical URLs | ⭐ SEO | ✅ DONE | @clawdinho | Already configured |
 | 40 | i18n-ABOUT | Verificare i18n pagina About | ⭐ Professionalità | ✅ DONE | @clawdinho | Already using useTranslations |
 | 41 | OG-MAIN | Creare og-onde.png per main site | 🔥 Social sharing | ✅ DONE | @clawdinho | 1200x630 teal gradient |
+| 42 | SEC-001 | Verificare security headers | 🔧 Security | ✅ DONE | @clawdinho | _headers configured, CF partial |
+| 43 | PWA-002 | Verificare manifest.json e icone PWA | 📱 PWA | ✅ DONE | @clawdinho | icon-192 + icon-512 present |
