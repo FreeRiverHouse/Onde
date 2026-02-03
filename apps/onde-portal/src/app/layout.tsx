@@ -8,7 +8,7 @@ import ClientLayout from '@/components/ClientLayout'
 // Google Analytics 4 - set NEXT_PUBLIC_GA_ID in environment
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
 
-// Organization + WebSite JSON-LD for root
+// Organization + WebSite + FAQ JSON-LD for root
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -43,6 +43,44 @@ const organizationJsonLd = {
         },
         'query-input': 'required name=search_term_string',
       },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://onde.la/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Are the books really free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes! All our illustrated ebooks are completely free to download during our launch period. We believe beautiful literature should be accessible to everyone.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What formats are available?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Our books are available in PDF format, optimized for both screen reading and printing. EPUB versions are coming soon for e-reader compatibility.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does the Minecraft Skin Creator work?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Our free online skin creator lets you design custom Minecraft skins directly in your browser. Draw on the canvas, see a real-time 3D preview, and download your skin as a PNG file ready to use in Minecraft.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do I need to create an account?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No account required! You can download books and use our games completely free without signing up. We respect your privacy.',
+          },
+        },
+      ],
     },
   ],
 }
