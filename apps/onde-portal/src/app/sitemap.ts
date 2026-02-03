@@ -16,9 +16,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/famiglia',
     '/leggi',
     '/giochi',
+    '/games',
+    '/games/skin-creator',
+    '/games/moonlight-magic-house',
+    '/games/kids-chef-studio',
+    '/games/fortune-cookie',
     '/about',
     '/app',
     '/vr',
+    '/shop',
+    '/settings',
   ]
 
   const staticEntries = staticPages.map((path) => ({
