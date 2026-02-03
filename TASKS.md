@@ -14,7 +14,7 @@
 | 1 | SEO-001 | Creare OG image per /skin-creator (1200x630) | 🔥 Social sharing = viralità | ✅ DONE | @clawdinho |
 | 2 | SEO-002 | Submit skin-creator a Google Search Console | 🔥 Indicizzazione Google | TODO | - |
 | 3 | MKTG-001 | Post skin creator su r/Minecraft e r/Roblox | 🔥 Marketing diretto | TODO | - |
-| 4 | T851 | i18n: Completare audit stringhe hardcoded | 🔥 Professionalità | IN_PROGRESS | @clawdinho | Shop ✅, Games pending |
+| 4 | T851 | i18n: Completare audit stringhe hardcoded | 🔥 Professionalità | ✅ DONE | @clawdinho | Shop ✅, Games ✅ |
 | 5 | GAM-001 | Skin Creator: Mobile UX improvements | 🔥 Più utenti mobile | TODO | - |
 | 6 | MKTG-002 | YouTube Shorts demo skin creator | 🔥 Viralità video | TODO | - |
 | 7 | SOC-001 | Review X presence e engagement recente | 📈 Social presence | TODO | - |
@@ -78,6 +78,8 @@
 ## ✅ COMPLETATI RECENTEMENTE
 
 ### 2026-02-03
+- **T851** - i18n: Completare audit stringhe hardcoded (Shop + Games) ✅
+- **i18n-GAMES** - Integrare traduzioni /games page ✅
 - **T852** - i18n: skinCreator translations on homepage ✅
 - **i18n** - settings.loading translation ✅
 
@@ -113,7 +115,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 23 | i18n-GAMES | Integrare traduzioni nella pagina /games | ⭐ Professionalità | IN_PROGRESS | @clawdinho |
+| 23 | i18n-GAMES | Integrare traduzioni nella pagina /games | ⭐ Professionalità | ✅ DONE | @clawdinho |
 | 24 | OG-002 | Creare OG image per /games (Gaming Island) | 🔥 Social sharing | ✅ DONE | @clawdinho || - |
 | 25 | OG-003 | Creare OG image per /libri | 🔥 Social sharing | ✅ DONE | @clawdinho || - |
 | 26 | META-001 | Aggiungere structured data JSON-LD ai giochi | ⭐ SEO | ✅ DONE | @clawdinho || - |
