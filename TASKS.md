@@ -139,3 +139,4 @@
 | 38 | PERF-002 | Lazy load immagini sotto the fold | ⚡ Performance | ✅ DONE | @clawdinho | Next.js Image = auto lazy |
 | 39 | SEO-003 | Verificare canonical URLs | ⭐ SEO | ✅ DONE | @clawdinho | Already configured |
 | 40 | i18n-ABOUT | Verificare i18n pagina About | ⭐ Professionalità | ✅ DONE | @clawdinho | Already using useTranslations |
+| 41 | OG-MAIN | Creare og-onde.png per main site | 🔥 Social sharing | ✅ DONE | @clawdinho | 1200x630 teal gradient |
