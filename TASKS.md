@@ -145,6 +145,9 @@
 | 44 | ANALYTICS-001 | Setup Plausible/Umami analytics | 📊 Growth | 🔶 DOCS READY | @clawdinho | docs/analytics/privacy-analytics-setup.md |
 | 47 | CONTENT-001 | Add 3 more books to catalog | 📚 Content | TODO | - |
 | 48 | GAME-003 | Add loading skeleton to skin creator | ⭐ UX | ✅ DONE | @clawdinho | loading.tsx with animated skeleton |
+| 50 | UX-001 | Add loading skeleton to /libri page | ⭐ UX | ✅ DONE | @clawdinho | loading.tsx with book cards |
+| 51 | UX-002 | Add error boundary to games | ⭐ Reliability | TODO | - |
+| 52 | A11Y-003 | Add aria-live regions for dynamic content | ⭐ Accessibility | TODO | - |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
