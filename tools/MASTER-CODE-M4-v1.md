@@ -577,3 +577,94 @@ mlx-openai-server launch \
 - **ClawdBot**: Usa Qwen2.5-7B (stabile, 50 tok/s)
 - **Direct curl/API**: Può usare Qwen3-Coder-30B-A3B (87 tok/s) con context piccolo
 
+---
+
+## 🤖 CODER-AGENT: Memory-Safe Dual-Model Workflow (2026-02-03)
+
+### Il Problema
+- ClawdBot system prompt = ~27K chars → 21s response con Qwen2.5-7B
+- Qwen3-Coder-30B-A3B = 87 tok/s ma OOM con system prompt grande
+- 24GB RAM = non possiamo tenere entrambi i modelli in memoria
+
+### La Soluzione: Model Swapping
+```
+coder-agent.sh invocato
+    ↓
+1. Kill ALL MLX processes (libera memoria)
+    ↓
+2. Load Qwen3-Coder-30B-A3B (4K context)
+    ↓
+3. Coder genera codice (~10s)
+    ↓
+4. Salva codice su file (state persistence)
+    ↓
+5. Kill Coder, Load Qwen2.5-7B (orchestrator)
+    ↓
+6. Orchestrator legge state file e fa review
+    ↓
+7. Notifica Telegram con risultato
+    ↓
+8. Riavvia wrapper per ClawdBot
+```
+
+### Files
+| File | Path | Funzione |
+|------|------|----------|
+| `coder-agent.sh` | `tools/clawdbot-local-llm/skills/` | Main workflow |
+| `cervelletto.sh` | `tools/clawdbot-local-llm/skills/` | Genera contesto repo |
+| `mlx-coder-wrapper.js` | `tools/clawdbot-local-llm/wrappers/` | Proxy che strippa tools |
+
+### Performance Misurate (2026-02-03 03:27)
+| Componente | Tempo |
+|------------|-------|
+| Kill MLX + Load Coder | ~10s |
+| Coder genera codice | **~10s** |
+| Kill Coder + Load Orchestrator | ~6s |
+| Orchestrator review | ~5s |
+| **TOTALE coder-agent** | **~31s** |
+| MLX diretto (prompt piccolo) | **<1s** |
+| ClawdBot (27K system prompt) | ~21s |
+
+### Uso
+```bash
+# Invoca coder-agent con un task
+/Users/mattiapetrucciani/CascadeProjects/Onde/tools/clawdbot-local-llm/skills/coder-agent.sh "Write a function that..."
+
+# Output:
+# - Notifica Telegram con codice e review
+# - ClawdBot pronto per nuovi comandi
+```
+
+### State Persistence (cervelletto)
+- Task salvato in `/tmp/coder-agent-state/task.txt`
+- Codice in `/tmp/coder-agent-state/code.txt`
+- Contesto repo in `/tmp/coder-agent-state/cervelletto.md`
+- Log in `/tmp/coder-agent-state/log.txt`
+
+### Nota su ClawdBot System Prompt
+Il system prompt di ClawdBot è composto da:
+- Bootstrap interno: ~12K chars
+- AGENTS.md: ~8K chars
+- SOUL.md, USER.md, TOOLS.md: ~4K chars
+- MEMORY.md: ~3K chars
+- **TOTALE: ~27K chars**
+
+### 🚀 FIX: bootstrapMaxChars (2026-02-03 03:45 AM)
+**PROBLEMA:** ClawdBot con 27K system prompt = 21 secondi response
+**SOLUZIONE:** Aggiungere `bootstrapMaxChars: 8000` in clawdbot.json
+
+```json
+"agents": {
+  "defaults": {
+    "bootstrapMaxChars": 8000,
+    ...
+  }
+}
+```
+
+**RISULTATO:**
+- Prima: 21,000ms
+- Dopo: **814ms** ✅
+
+Richiede restart gateway: `pkill -f clawdbot-gateway && clawdbot gateway`
+
