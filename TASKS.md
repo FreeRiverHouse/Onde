@@ -17,14 +17,14 @@
 | 4 | T851 | i18n: Completare audit stringhe hardcoded | 🔥 Professionalità | ✅ DONE | @clawdinho | Shop ✅, Games ✅ |
 | 5 | GAM-001 | Skin Creator: Mobile UX improvements | 🔥 Più utenti mobile | TODO | - |
 | 6 | MKTG-002 | YouTube Shorts demo skin creator | 🔥 Viralità video | TODO | - |
-| 7 | SOC-001 | Review X presence e engagement recente | 📈 Social presence | TODO | - |
+| 7 | SOC-001 | Review X presence e engagement recente | 📈 Social presence | BLOCKED | - | Needs Typefully API key |
 
 ### ⭐ MEDIA PRIORITÀ - UX & Features
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | TODO | - |
-| 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | TODO | - |
+| 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | ✅ DONE | @clawdinho | Added CSS media queries |
 | 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
 | 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - | Complex, needs dedicated session |
 | 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | TODO | - |
