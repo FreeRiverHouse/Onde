@@ -169,6 +169,9 @@
 | 71 | COMP-002 | Add Modal component | ⭐ UX | ✅ DONE | @clawdinho | Focus trap + esc close |
 | 72 | COMP-003 | Add Tooltip component | ⭐ UX | ✅ DONE | @clawdinho | 4 positions + delay |
 | 73 | HOOK-004 | Add useOnClickOutside hook | 🔧 Dev | ✅ DONE | @clawdinho |
+| 74 | COMP-004 | Add Spinner/Loading component | ⭐ UX | ✅ DONE | @clawdinho | 3 sizes, 3 colors |
+| 75 | COMP-005 | Add Badge component | ⭐ UX | ✅ DONE | @clawdinho | 6 variants + presets |
+| 76 | EXPORT-001 | Create hooks index export | 🔧 Dev | ✅ DONE | @clawdinho | Barrel export |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
