@@ -1239,8 +1239,20 @@ export default function SkinCreator() {
 
     const t = TEMPLATES[template] || TEMPLATES.steve;
 
-    // 🎨 LAYER: BASE - Skin, face features (drawn on base layer)
-    // Head - front face (8x8 at position 8,8)
+    // 🎨 COMPLETE MINECRAFT SKIN TEMPLATE (64x64 format)
+    // Reference: https://minecraft.wiki/w/Skin#Skin_geometry
+    
+    // === HEAD (8x8 per face) ===
+    // Head top (8,0) - hair
+    baseCtx.fillStyle = t.hair;
+    baseCtx.fillRect(8, 0, 8, 8);
+    // Head bottom (16,0) - skin (neck area)
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(16, 0, 8, 8);
+    // Head right (0,8)
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(0, 8, 8, 8);
+    // Head front (8,8) - face with features
     baseCtx.fillStyle = t.skin;
     baseCtx.fillRect(8, 8, 8, 8);
     // Eyes
@@ -1250,7 +1262,7 @@ export default function SkinCreator() {
     baseCtx.fillStyle = t.pupils;
     baseCtx.fillRect(10, 11, 1, 1);
     baseCtx.fillRect(13, 11, 1, 1);
-    // Hair
+    // Hair bangs
     baseCtx.fillStyle = t.hair;
     baseCtx.fillRect(8, 8, 8, 1);
     baseCtx.fillRect(8, 8, 1, 2);
@@ -1258,60 +1270,99 @@ export default function SkinCreator() {
     // Mouth
     baseCtx.fillStyle = '#a87d5a';
     baseCtx.fillRect(11, 14, 2, 1);
-
-    // Head sides
+    // Head left (16,8)
     baseCtx.fillStyle = t.skin;
-    baseCtx.fillRect(0, 8, 8, 8); // right
-    baseCtx.fillRect(16, 8, 8, 8); // left
-    baseCtx.fillRect(24, 8, 8, 8); // back
+    baseCtx.fillRect(16, 8, 8, 8);
+    // Head back (24,8) - hair
     baseCtx.fillStyle = t.hair;
-    baseCtx.fillRect(24, 8, 8, 1);
+    baseCtx.fillRect(24, 8, 8, 8);
 
-    // Head top/bottom
-    baseCtx.fillStyle = t.hair;
-    baseCtx.fillRect(8, 0, 8, 8); // top
-    baseCtx.fillStyle = t.skin;
-    baseCtx.fillRect(16, 0, 8, 8); // bottom
-
-    // Arms - skin parts (base layer)
-    baseCtx.fillStyle = t.skin;
-    // Right arm - hand visible part
-    baseCtx.fillRect(44, 20, 4, 12);
-    baseCtx.fillRect(40, 20, 4, 12);
-    baseCtx.fillRect(48, 20, 4, 12);
-    baseCtx.fillRect(52, 20, 4, 12);
-    // Left arm
-    baseCtx.fillRect(36, 52, 4, 12);
-    baseCtx.fillRect(32, 52, 4, 12);
-    baseCtx.fillRect(40, 52, 4, 12);
-    baseCtx.fillRect(44, 52, 4, 12);
-
-    // 🎨 LAYER: CLOTHING - Shirt, pants, shoes (drawn on clothing layer)
-    // Body - front (8x12 at position 20,20)
+    // === BODY (8x12 per face, 8x4 top/bottom) ===
+    // Body top (20,16)
     clothingCtx.fillStyle = t.shirt;
-    clothingCtx.fillRect(20, 20, 8, 12);
-    // Body sides, back
+    clothingCtx.fillRect(20, 16, 8, 4);
+    // Body bottom (28,16)
+    clothingCtx.fillRect(28, 16, 8, 4);
+    // Body right (16,20)
     clothingCtx.fillRect(16, 20, 4, 12);
+    // Body front (20,20)
+    clothingCtx.fillRect(20, 20, 8, 12);
+    // Body left (28,20)
     clothingCtx.fillRect(28, 20, 4, 12);
+    // Body back (32,20)
     clothingCtx.fillRect(32, 20, 8, 12);
 
-    // Legs - pants
-    clothingCtx.fillStyle = t.pants;
-    // Right leg
-    clothingCtx.fillRect(4, 20, 4, 12);
-    clothingCtx.fillRect(0, 20, 4, 12);
-    clothingCtx.fillRect(8, 20, 4, 12);
-    clothingCtx.fillRect(12, 20, 4, 12);
-    // Left leg
-    clothingCtx.fillRect(20, 52, 4, 12);
-    clothingCtx.fillRect(16, 52, 4, 12);
-    clothingCtx.fillRect(24, 52, 4, 12);
-    clothingCtx.fillRect(28, 52, 4, 12);
+    // === RIGHT ARM (4x12 per face, 4x4 top/bottom) ===
+    // Right arm top (44,16)
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(44, 16, 4, 4);
+    // Right arm bottom (48,16)
+    baseCtx.fillRect(48, 16, 4, 4);
+    // Right arm right (40,20)
+    baseCtx.fillRect(40, 20, 4, 12);
+    // Right arm front (44,20)
+    baseCtx.fillRect(44, 20, 4, 12);
+    // Right arm left (48,20)
+    baseCtx.fillRect(48, 20, 4, 12);
+    // Right arm back (52,20)
+    baseCtx.fillRect(52, 20, 4, 12);
 
-    // Shoes
+    // === RIGHT LEG (4x12 per face, 4x4 top/bottom) ===
+    // Right leg top (4,16)
+    clothingCtx.fillStyle = t.pants;
+    clothingCtx.fillRect(4, 16, 4, 4);
+    // Right leg bottom (8,16)
+    clothingCtx.fillRect(8, 16, 4, 4);
+    // Right leg right (0,20)
+    clothingCtx.fillRect(0, 20, 4, 12);
+    // Right leg front (4,20)
+    clothingCtx.fillRect(4, 20, 4, 12);
+    // Right leg left (8,20)
+    clothingCtx.fillRect(8, 20, 4, 12);
+    // Right leg back (12,20)
+    clothingCtx.fillRect(12, 20, 4, 12);
+    // Shoe
     clothingCtx.fillStyle = t.shoes;
-    clothingCtx.fillRect(4, 31, 4, 1);
-    clothingCtx.fillRect(20, 63, 4, 1);
+    clothingCtx.fillRect(4, 28, 4, 4);
+    clothingCtx.fillRect(0, 28, 4, 4);
+    clothingCtx.fillRect(8, 28, 4, 4);
+    clothingCtx.fillRect(12, 28, 4, 4);
+
+    // === LEFT ARM (4x12 per face, 4x4 top/bottom) - 64x64 format at y=52 ===
+    // Left arm top (36,48)
+    baseCtx.fillStyle = t.skin;
+    baseCtx.fillRect(36, 48, 4, 4);
+    // Left arm bottom (40,48)
+    baseCtx.fillRect(40, 48, 4, 4);
+    // Left arm right (32,52)
+    baseCtx.fillRect(32, 52, 4, 12);
+    // Left arm front (36,52)
+    baseCtx.fillRect(36, 52, 4, 12);
+    // Left arm left (40,52)
+    baseCtx.fillRect(40, 52, 4, 12);
+    // Left arm back (44,52)
+    baseCtx.fillRect(44, 52, 4, 12);
+
+    // === LEFT LEG (4x12 per face, 4x4 top/bottom) - 64x64 format at y=52 ===
+    // Left leg top (20,48)
+    clothingCtx.fillStyle = t.pants;
+    clothingCtx.fillRect(20, 48, 4, 4);
+    // Left leg bottom (24,48)
+    clothingCtx.fillRect(24, 48, 4, 4);
+    // Left leg right (16,52)
+    clothingCtx.fillRect(16, 52, 4, 12);
+    // Left leg front (20,52)
+    clothingCtx.fillRect(20, 52, 4, 12);
+    // Left leg left (24,52)
+    clothingCtx.fillRect(24, 52, 4, 12);
+    // Left leg back (28,52)
+    clothingCtx.fillRect(28, 52, 4, 12);
+    // Shoe
+    clothingCtx.fillStyle = t.shoes;
+    clothingCtx.fillRect(20, 60, 4, 4);
+    clothingCtx.fillRect(16, 60, 4, 4);
+    clothingCtx.fillRect(24, 60, 4, 4);
+    clothingCtx.fillRect(28, 60, 4, 4);
 
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
