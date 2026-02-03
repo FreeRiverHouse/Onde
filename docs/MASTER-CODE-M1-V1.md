@@ -1,8 +1,8 @@
-# MASTER-CODE M1-V1 - AMD Radeon RX 7900 XTX + Qwen3-32B
+# MASTER-CODE M1-V1.4 - AMD Radeon RX 7900 XTX 20GB
 
-> **GOLDEN SETUP CERTIFICATO** - ~1 tok/s con Qwen3-32B Thinking Mode
-> **Hardware**: MacBook Pro M1 + eGPU Razer Core X V2 + RX 7900 XTX
-> **Data certificazione**: 2026-02-02
+> **GOLDEN SETUP CERTIFICATO** - 4.3 tok/s Qwen2.5-7B | 3 tok/s Qwen3-32B
+> **Hardware**: MacBook Pro M1 8GB + eGPU Razer Core X V2 + RX 7900 XTX 20GB
+> **Data certificazione**: 2026-02-02 (aggiornato 21:30)
 > **Autore**: Mattia Petrucciani
 
 ---
@@ -62,12 +62,32 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 ## PERFORMANCE
 
+### Qwen2.5-7B Q4 (BENCHMARK CERTIFICATO 2026-02-02)
+
+| Fase | Tempo | Note |
+|------|-------|------|
+| Model load | ~5s | Caricamento GGUF da /tmp |
+| Prima request (compilazione) | ~156s | Compila kernel LLVM per la shape |
+| Prefill (dopo cache) | **~4-5 tok/s** | Processing input tokens |
+| Generation (dopo cache) | **~4.3 tok/s** | Generating output tokens |
+| VRAM usage | **4.36 GB** | Stabile durante inferenza |
+
+### Qwen2.5-14B Q4
+
+| Fase | Tempo | Note |
+|------|-------|------|
+| Generation (dopo cache) | **~3-4 tok/s** | Generating output tokens |
+| VRAM usage | **~8.4 GB** | - |
+
+### Qwen3-32B Q4
+
 | Fase | Tempo | Note |
 |------|-------|------|
 | Model load | ~30s | Caricamento GGUF da SSD |
 | Prima request (compilazione) | ~3-4 min | Compila kernel LLVM per la shape |
 | Prefill (dopo cache) | **~4 tok/s** | Processing input tokens |
 | Generation (dopo cache) | **~3 tok/s** | Generating output tokens |
+| VRAM usage | **~18 GB** | - |
 
 ### Confronto con setup precedente
 - **v1.2 (con pre-warmup)**: Memory leak dopo 6-7 warmup lengths
@@ -80,9 +100,9 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 | Componente | Dettagli |
 |------------|----------|
-| **Mac** | MacBook Pro M1 |
+| **Mac** | MacBook Pro M1 8GB RAM |
 | **eGPU Enclosure** | Razer Core X V2 (Thunderbolt 3) |
-| **GPU** | AMD Radeon RX 7900 XTX (24GB VRAM) |
+| **GPU** | AMD Radeon RX 7900 XTX (**20GB VRAM**) |
 | **Device ID** | 0x744c |
 | **Vendor** | 0x1002 (AMD) |
 | **Architettura** | GFX1100 = RDNA3 |
@@ -323,8 +343,29 @@ Il wrapper li rimuove:
 
 ---
 
+## 📊 BENCHMARK vs M1 MLX (2026-02-02)
+
+**Test: Qwen2.5-7B-Instruct 4-bit**
+
+| Hardware | Framework | VRAM | Tok/s | Winner |
+|----------|-----------|------|-------|--------|
+| **M1 8GB** | MLX Metal | 4.37 GB | **6.5 tok/s** | ✅ **+51% faster** |
+| **Radeon 20GB** | TinyGrad AMD | 4.36 GB | 4.3 tok/s | - |
+
+**Verdetto:**
+- **M1 MLX vince su modelli ≤8B** (più veloce, zero setup, Metal nativo)
+- **Radeon TinyGrad vince su modelli >12B** (20GB VRAM vs 8GB, gestisce 32B models)
+
+---
+
 ## CHANGELOG
 
+- **M1-V1.4 (2026-02-02 21:30)**: Benchmark certificato Qwen2.5-7B + confronto M1 MLX
+  - Testato Qwen2.5-7B Q4: **4.3 tok/s** post-cache (CERTIFICATO)
+  - Confronto diretto M1 vs Radeon: M1 vince +51% su 7B
+  - Confermato limite M1: 8GB VRAM = max 8B parametri 4-bit
+  - Aggiornato VRAM Radeon: 20GB (non 24GB)
+  - Documentato setup MLX workspace su SSD
 - **M1-V1.3 (2026-02-02 20:30)**: Ottimizzazioni LLVM e test Tensor Cores
   - Aggiunto `LLVM_O3=1` per optimization level aggressivo (+25% prefill)
   - Aggiunto `LLVM_NOVERIFY=1` per compilazione più veloce
