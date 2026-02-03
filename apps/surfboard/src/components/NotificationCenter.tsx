@@ -643,6 +643,13 @@ function usePullToRefresh(
   }
 }
 
+interface NotificationAction {
+  label: string
+  url?: string
+  action?: string // For custom actions like 'dismiss', 'snooze', etc.
+  style?: 'primary' | 'secondary' | 'danger'
+}
+
 interface Notification {
   id: string
   type: 'alert' | 'event' | 'info' | 'success' | 'warning' | 'agent' | 'activity'
@@ -652,6 +659,7 @@ interface Notification {
   read: boolean
   source?: string
   actionUrl?: string
+  actions?: NotificationAction[]
   metadata?: Record<string, unknown>
 }
 
@@ -903,6 +911,39 @@ function NotificationItem({
             )}
           </div>
         </div>
+
+        {/* Action buttons */}
+        {notification.actions && notification.actions.length > 0 && (
+          <div className="absolute bottom-2 right-2 flex gap-1.5">
+            {notification.actions.map((action, idx) => {
+              const buttonStyles = {
+                primary: 'bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border-cyan-500/30',
+                secondary: 'bg-white/5 text-white/60 hover:bg-white/10 border-white/10',
+                danger: 'bg-red-500/20 text-red-300 hover:bg-red-500/30 border-red-500/30',
+              }
+              const style = action.style || 'secondary'
+              
+              return (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    if (action.url) {
+                      window.open(action.url, '_blank')
+                    }
+                    // Custom actions can be handled here
+                    if (action.action === 'dismiss') {
+                      onDismiss(notification.id)
+                    }
+                  }}
+                  className={`px-2 py-1 text-xs font-medium rounded-lg border transition-all ${buttonStyles[style]}`}
+                >
+                  {action.label}
+                </button>
+              )
+            })}
+          </div>
+        )}
 
         {/* Dismiss button (desktop) */}
         <button

@@ -27,7 +27,7 @@
 | 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | ✅ DONE | @clawdinho | Added CSS media queries |
 | 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
 | 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - | Complex, needs dedicated session |
-| 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | TODO | - |
+| 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | ✅ DONE | @clawdinho | Added actions array + button rendering |
 | 13 | MLH-024 | Notification filters persistence | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
 | 14 | MLH-025 | Notification dismiss-all button | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
 | 15 | MLH-026 | Notification priority levels | ⭐ UX onde.surf | TODO | - |
