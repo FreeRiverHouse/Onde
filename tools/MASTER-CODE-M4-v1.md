@@ -665,8 +665,23 @@ pkill -f clawdbot-gateway && clawdbot gateway
 
 **RISULTATO:**
 - Prima: 21,000ms
-- Dopo: **2,500ms** ✅
+- Dopo workspace cleanup: **2,500ms**
+- Steady state (dopo warmup): **6,800ms**
 
-**Nota:** `bootstrapMaxChars` in clawdbot.json sembra non avere effetto.
-La vera soluzione è mantenere il workspace pulito.
+### Performance Realistiche ClawdBot (2026-02-03 07:22)
+
+| Scenario | Tempo | Note |
+|----------|-------|------|
+| First request post-restart | ~1.7s | Nessun session state |
+| Subsequent requests | **~6.8s** | Session state overhead |
+| MLX diretto | 0.6s | Senza ClawdBot |
+| coder-agent | ~30s | Include model swap |
+
+**Ottimizzazioni applicate:**
+- `bootstrapMaxChars: 8000` (effetto limitato)
+- Rimossi file grandi dal workspace
+- Hooks disabilitati (boot-md, command-logger)
+- memoryFlush disabilitato
+
+**Nota:** Il ~6.8s steady state è il limite di ClawdBot con 26K system prompt su Qwen2.5-7B.
 
