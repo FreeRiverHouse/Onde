@@ -389,7 +389,7 @@ export default function SettingsPage() {
   if (!loaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white/50">Loading...</div>
+        <div className="text-white/50">{st.loading || 'Loading...'}</div>
       </div>
     )
   }
