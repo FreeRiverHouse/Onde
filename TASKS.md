@@ -163,6 +163,9 @@
 | 65 | UX-007 | Add copy-to-clipboard utility | ⭐ UX | ✅ DONE | @clawdinho | useCopyToClipboard hook |
 | 66 | HOOK-001 | Add useLocalStorage hook | 🔧 Dev | ✅ DONE | @clawdinho | SSR-safe + multi-tab sync |
 | 67 | HOOK-002 | Add useMediaQuery hook | 🔧 Dev | ✅ DONE | @clawdinho | + preset breakpoints |
+| 68 | HOOK-003 | Add useDebounce hook | 🔧 Dev | ✅ DONE | @clawdinho | + useDebouncedCallback |
+| 69 | UTIL-001 | Add cn() classname utility | 🔧 Dev | ✅ DONE | @clawdinho | lib/utils.ts |
+| 70 | COMP-001 | Add Toast notification component | ⭐ UX | ✅ DONE | @clawdinho | ToastProvider + useToast |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
