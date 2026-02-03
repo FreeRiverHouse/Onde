@@ -564,3 +564,16 @@ mlx-openai-server launch \
 - Verifica wrapper: `curl http://127.0.0.1:11435/health`
 - Verifica MLX: `curl http://127.0.0.1:8080/v1/models`
 - Check logs: `tail -f /tmp/mlx-wrapper.log`
+=== CLAWDBOT QWEN SETUP - RECEIPTS Tue Feb  3 03:05:03 PST 2026 ===
+
+### Test Results 2026-02-03 03:04 AM
+- ✅ ClawdBot Dashboard: Health OK
+- ✅ MLX Server: mlx-community/Qwen2.5-7B-Instruct-4bit
+- ✅ Wrapper: http://127.0.0.1:11435 → 8080
+- ✅ Response: ~4 secondi
+- ❌ Qwen3-Coder-30B-A3B: OOM con ClawdBot (system prompt troppo grande)
+
+### Conclusione
+- **ClawdBot**: Usa Qwen2.5-7B (stabile, 50 tok/s)
+- **Direct curl/API**: Può usare Qwen3-Coder-30B-A3B (87 tok/s) con context piccolo
+
