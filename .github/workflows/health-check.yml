@@ -33,13 +33,17 @@ jobs:
       
       - name: Check onde.surf
         run: |
-          # onde.surf requires auth, so it returns 307 redirect to /login (expected behavior)
+          # onde.surf requires auth, so it MUST return 307 redirect to /login
+          # If it returns 200, auth might be broken and dashboard is exposed!
           status=$(curl -s -o /dev/null -w '%{http_code}' https://onde.surf)
-          if [ "$status" != "200" ] && [ "$status" != "307" ]; then
+          if [ "$status" = "307" ]; then
+            echo "✅ onde.surf auth OK (HTTP 307 redirect to login)"
+          elif [ "$status" = "200" ]; then
+            echo "::warning::⚠️ onde.surf returned 200 - AUTH MIGHT BE BROKEN! Dashboard may be publicly exposed!"
+          else
             echo "::error::onde.surf is DOWN! Status: $status"
             exit 1
           fi
-          echo "✅ onde.surf is UP (HTTP $status - 307 is expected auth redirect)"
       
       - name: Verify onde.la content
         run: |
