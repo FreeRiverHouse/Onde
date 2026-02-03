@@ -668,13 +668,14 @@ pkill -f clawdbot-gateway && clawdbot gateway
 - Dopo workspace cleanup: **2,500ms**
 - Steady state (dopo warmup): **6,800ms**
 
-### Performance Realistiche ClawdBot (2026-02-03 07:22)
+### Performance Realistiche ClawdBot (2026-02-03 07:35)
 
 | Scenario | Tempo | Note |
 |----------|-------|------|
-| First request post-restart | ~1.7s | Nessun session state |
-| Subsequent requests | **~6.8s** | Session state overhead |
-| MLX diretto | 0.6s | Senza ClawdBot |
+| Nuova sessione (/new) | **~5s** | Session state pulito |
+| Sessione con history | ~18s | Degrada con messaggi |
+| MLX wrapper diretto | ~800ms | Senza ClawdBot overhead |
+| MLX server diretto | ~800ms | Minimo overhead |
 | coder-agent | ~30s | Include model swap |
 
 **Ottimizzazioni applicate:**
@@ -683,5 +684,11 @@ pkill -f clawdbot-gateway && clawdbot gateway
 - Hooks disabilitati (boot-md, command-logger)
 - memoryFlush disabilitato
 
-**Nota:** Il ~6.8s steady state è il limite di ClawdBot con 26K system prompt su Qwen2.5-7B.
+**⚠️ IMPORTANTE - Session State Degradation:**
+- ClawdBot accumula session state con ogni messaggio
+- Performance degrada da ~5s (pulito) a ~18s (dopo molti messaggi)
+- **Soluzione:** Usare `/new` per resettare quando diventa lento
+- Il 26K system prompt è il vero bottleneck (non ottimizzabile)
+
+**Nota:** MLX è velocissimo (~800ms). La latenza è quasi tutta di ClawdBot.
 
