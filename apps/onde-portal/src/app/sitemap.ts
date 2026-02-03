@@ -6,25 +6,49 @@ export const dynamic = 'force-static'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://onde.la'
   
-  // Static pages
+  // Static pages - ordered by priority
   const staticPages = [
+    // Core pages
     '',
     '/libri',
+    '/games',
+    '/about',
+    '/app',
+    
+    // Books & Reading
     '/libreria',
     '/catalogo',
     '/collezioni',
     '/famiglia',
     '/leggi',
-    '/giochi',
-    '/games',
+    
+    // Games - Featured
     '/games/skin-creator',
     '/games/moonlight-magic-house',
+    '/games/arcade',
     '/games/kids-chef-studio',
     '/games/fortune-cookie',
-    '/about',
-    '/app',
+    '/games/leaderboard',
+    
+    // Games - Mini-games (popular ones)
+    '/games/memory',
+    '/games/quiz',
+    '/games/puzzle',
+    '/games/snake',
+    '/games/tetris',
+    '/games/2048',
+    '/games/wordle',
+    
+    // Other sections
+    '/giochi',
     '/vr',
     '/shop',
+    '/explore',
+    '/skin-creator',
+    
+    // Legal & Settings
+    '/privacy',
+    '/terms',
     '/settings',
   ]
 
