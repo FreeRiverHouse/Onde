@@ -158,7 +158,7 @@
 | 60 | A11Y-004 | Add focus trap to modals | ⭐ Accessibility | ✅ DONE | @clawdinho | useFocusTrap hook |
 | 61 | PWA-003 | Add offline fallback page | 📱 PWA | ✅ DONE | @clawdinho | offline.html with auto-reload |
 | 62 | UX-006 | Add scroll-to-top button | ⭐ UX | ✅ DONE | @clawdinho | ScrollToTop component |
-| 63 | SEO-006 | Add article schema for book pages | ⭐ SEO | TODO | - |
+| 63 | SEO-006 | Add article schema for book pages | ⭐ SEO | ✅ DONE | @clawdinho | BookSchema + ArticleSchema |
 | 64 | PERF-005 | Add image blur placeholders | ⚡ Performance | ✅ DONE | @clawdinho | BlurImage + shimmer |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
