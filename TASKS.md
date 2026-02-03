@@ -135,18 +135,20 @@
 - **Notes:** Fixed about page - added timeline, contact form, mission, finalCta, whatWeDo, orchestra translations to both en.json and it.json
 
 ## T851: i18n Review - Check remaining pages for hardcoded strings
-- **Status:** TODO
-- **Priority:** MEDIUM
-- **Owner:** 
+- **Status:** IN_PROGRESS
+- **Priority:** HIGH
+- **Owner:** @clawdinho
 - **Created:** 2026-02-02
 - **Notes:** Continue i18n audit on: shop, settings, skin-creator, vr pages. Check for any remaining hardcoded English/Italian mix.
+- **Progress 2026-02-03:** Added skinCreator and common sections to translation files. Fixed homepage CTA. Skin-creator page has many hardcoded strings but it's a technical tool - may keep in English or add full i18n later.
 
 ## T852: i18n Review - Add missing Italian translations for skin-creator
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** MEDIUM
-- **Owner:** 
+- **Owner:** @clawdinho
 - **Created:** 2026-02-02
-- **Notes:** Skin creator has "Minecraft Skin Creator" in English on homepage CTA. Review full page.
+- **Completed:** 2026-02-03
+- **Notes:** Fixed! Added skinCreator section to it.json and en.json. Homepage CTA now uses t.skinCreator.title and t.skinCreator.newBadge.
 
 ## T853: SEO - Add hreflang tags for multi-language support
 - **Status:** TODO
