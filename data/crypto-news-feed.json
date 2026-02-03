@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-03T04:30:02.766415+00:00",
+  "timestamp": "2026-02-03T05:00:05.981585+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "HYPE pops 20% after Hyperliquid team nods prediction markets plan",
+      "url": "https://cointelegraph.com/news/hyperliquid-supports-predictions-market-proposal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Hyperliquid said the outcome trading feature would function like a form of derivatives trading without leverage, liquidations or margin calls.",
+      "published": "2026-02-03T04:52:10+00:00"
+    },
+    {
+      "title": "Tether expands support for USDT, Tether Gold in Opera\u2019s MiniPay wallet",
+      "url": "https://cointelegraph.com/news/tether-opera-team-up-expand-financial-access-in-emerging-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Stablecoin issuer Tether said the initiative will help millions of users from emerging markets such as Africa, Latin America and Southeast Asia with global financial inclusion.",
+      "published": "2026-02-03T04:41:45+00:00"
+    },
     {
       "title": "Tether releases open-source operating system for Bitcoin mining",
       "url": "https://cointelegraph.com/news/tether-releases-open-source-operating-system-for-bitcoin-miners?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -123,25 +137,11 @@
       "published": "2026-02-02T20:58:30+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-02T20:13:16+00:00"
-    },
-    {
       "title": "Bed Bath &#038; Beyond Makes Real World Asset Tokenization Move, Acquiring Tokens.com",
       "url": "https://decrypt.co/356652/bed-bath-beyond-real-world-asset-tokenization-acquiring-tokens-com",
       "source": "decrypt",
       "description": "Shares in publicly traded consumer brand Bed Bath and Beyond (BBBY) are up as the firm expands its blockchain push.",
       "published": "2026-02-02T20:06:11+00:00"
-    },
-    {
-      "title": "4 reasons why $75K may have been Bitcoin\u2019s 2026 price bottom",
-      "url": "https://cointelegraph.com/news/4-reasons-why-75k-may-have-been-bitcoin-s-2026-price-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Data suggests Bitcoin is unlikely to fall further than its year-to-date low of $74,680. Cointelegraph explains why.",
-      "published": "2026-02-02T20:03:56+00:00"
     },
     {
       "title": "Bitcoin Traders Swing Bearish as BTC Price Languishes Below $80K",

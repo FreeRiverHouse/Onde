@@ -130,7 +130,7 @@ const allGames: Game[] = [
   { id: 'draw', href: '/games/draw', title: 'Draw', desc: 'Free drawing', emoji: '✏️', color: 'from-rose-500 to-rose-800', glowColor: 'rose', category: 'Creative' },
   { id: 'coloring', href: '/games/coloring', title: 'Coloring', desc: 'Color the pictures', emoji: '🖍️', color: 'from-fuchsia-500 to-fuchsia-800', glowColor: 'fuchsia', category: 'Creative' },
   { id: 'music', href: '/games/music', title: 'Music', desc: 'Make music', emoji: '🎵', color: 'from-cyan-500 to-cyan-800', glowColor: 'cyan', category: 'Creative' },
-  { id: 'skin', href: '/games/skin-creator', title: 'Skin Studio', desc: 'Minecraft skins', emoji: '🎨', color: 'from-orange-500 to-orange-800', glowColor: 'orange', category: 'Creative' },
+  { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft skins', emoji: '🎨', color: 'from-orange-500 to-orange-800', glowColor: 'orange', category: 'Creative' },
   { id: 'chef', href: '/games/kids-chef-studio', title: 'Chef Studio', desc: 'Cook recipes', emoji: '👨‍🍳', color: 'from-amber-500 to-amber-800', glowColor: 'amber', category: 'Creative' },
   { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Magic pet house', emoji: '🐱', color: 'from-purple-600 to-purple-900', glowColor: 'purple', category: 'Creative' },
 ]

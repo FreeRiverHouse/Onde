@@ -6,7 +6,7 @@ import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
 
 const games = [
   { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Pet House', emoji: '🐱' },
-  { id: 'skin', href: '/games/skin-creator', title: 'Skin Studio', desc: 'Minecraft Skins', emoji: '🎨' },
+  { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft Skins', emoji: '🎨' },
   { id: 'chef', href: '/games/kids-chef-studio', title: 'Kids Chef', desc: 'Cooking', emoji: '👨‍🍳' },
   { id: 'fortune', href: '/games/fortune-cookie', title: 'Fortune', desc: 'Cookie', emoji: '🥠' },
 ]

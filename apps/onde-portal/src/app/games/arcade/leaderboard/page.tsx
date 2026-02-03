@@ -16,7 +16,7 @@ type LeaderboardEntry = {
 const GAMES = [
   { id: 'all', name: 'All Games', emoji: '🎮' },
   { id: 'moonlight', name: 'Moonlight', emoji: '🐱' },
-  { id: 'skin', name: 'Skin Studio', emoji: '🎨' },
+  { id: 'skin', name: 'Skin Creator', emoji: '🎨' },
   { id: 'chef', name: 'Kids Chef', emoji: '👨‍🍳' },
   { id: 'fortune', name: 'Fortune Cookie', emoji: '🥠' },
 ]

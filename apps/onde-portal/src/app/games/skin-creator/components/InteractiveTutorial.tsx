@@ -20,7 +20,7 @@ interface TutorialStep {
 const TUTORIAL_STEPS: TutorialStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to Skin Studio! 🎨',
+    title: 'Welcome to Skin Creator! 🎨',
     description: "Let's create an awesome Minecraft skin together! I'll show you how everything works.",
     emoji: '👋',
     position: 'center',

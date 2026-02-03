@@ -630,3 +630,4 @@
 {"timestamp": "2026-02-03T04:48:55.166332+00:00", "reason": "04:00 UTC not in active_hours (poor historical win rate)", "hour": 4, "day": 1}
 {"timestamp": "2026-02-03T04:53:55.665934+00:00", "reason": "04:00 UTC not in active_hours (poor historical win rate)", "hour": 4, "day": 1}
 {"timestamp": "2026-02-03T04:58:56.345786+00:00", "reason": "04:00 UTC not in active_hours (poor historical win rate)", "hour": 4, "day": 1}
+{"timestamp": "2026-02-03T05:03:56.872450+00:00", "reason": "05:00 UTC not in active_hours (poor historical win rate)", "hour": 5, "day": 1}

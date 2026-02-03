@@ -1894,7 +1894,7 @@ export default function SkinCreator() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Skin Studio - Minecraft Skin Creator",
+    "name": "Skin Creator - Minecraft Skin Creator",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -2087,7 +2087,7 @@ export default function SkinCreator() {
           </span>
         </div>
         <h1 className="text-2xl md:text-6xl font-black text-white drop-shadow-2xl">
-          🎨 Skin Studio
+          🎨 Skin Creator
         </h1>
         {/* Subtitle - simplified on mobile */}
         <p className="text-sm md:text-lg text-white/90 mt-1">
@@ -3631,7 +3631,7 @@ export default function SkinCreator() {
                 <div className="text-center mb-6">
                   <span className="text-6xl animate-bounce-soft">🎨</span>
                   <h2 className="text-3xl font-black mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
-                    Welcome to Skin Studio!
+                    Welcome to Skin Creator!
                   </h2>
                   <p className="text-gray-600 mt-2">Create awesome Minecraft & Roblox skins in minutes!</p>
                 </div>
