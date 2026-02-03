@@ -52,6 +52,29 @@ export const metadata: Metadata = {
   title: 'Onde - AI-Native Publishing House',
   description: 'AI-native publishing house based in Los Angeles. Free illustrated ebooks, classic literature, and original stories.',
   keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
+  openGraph: {
+    title: 'Onde - AI-Native Publishing House',
+    description: 'Free illustrated ebooks, classic literature, and original stories for families.',
+    url: 'https://onde.la',
+    siteName: 'Onde',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/images/og-onde.png',
+        width: 1200,
+        height: 630,
+        alt: 'Onde - Beautiful illustrated books',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Onde - AI-Native Publishing House',
+    description: 'Free illustrated ebooks, classic literature, and original stories.',
+    creator: '@Onde_FRH',
+    images: ['/images/og-onde.png'],
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
