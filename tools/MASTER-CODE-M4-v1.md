@@ -649,22 +649,24 @@ Il system prompt di ClawdBot è composto da:
 - MEMORY.md: ~3K chars
 - **TOTALE: ~27K chars**
 
-### 🚀 FIX: bootstrapMaxChars (2026-02-03 03:45 AM)
+### 🚀 FIX: Workspace File Cleanup (2026-02-03 03:53 AM)
 **PROBLEMA:** ClawdBot con 27K system prompt = 21 secondi response
-**SOLUZIONE:** Aggiungere `bootstrapMaxChars: 8000` in clawdbot.json
+**CAUSA:** File grandi nel workspace (~/.clawdbot o ~/clawd):
+- `chapter6_translation.md` (66KB!)
+- `OLLAMA-SETUP.md` (6.6KB)
+- Altri file non essenziali
 
-```json
-"agents": {
-  "defaults": {
-    "bootstrapMaxChars": 8000,
-    ...
-  }
-}
+**SOLUZIONE:** Rimuovere/spostare file grandi dal workspace:
+```bash
+mv ~/clawd/chapter6_translation.md /tmp/
+mv ~/clawd/OLLAMA-SETUP.md /tmp/
+pkill -f clawdbot-gateway && clawdbot gateway
 ```
 
 **RISULTATO:**
 - Prima: 21,000ms
-- Dopo: **814ms** ✅
+- Dopo: **2,500ms** ✅
 
-Richiede restart gateway: `pkill -f clawdbot-gateway && clawdbot gateway`
+**Nota:** `bootstrapMaxChars` in clawdbot.json sembra non avere effetto.
+La vera soluzione è mantenere il workspace pulito.
 
