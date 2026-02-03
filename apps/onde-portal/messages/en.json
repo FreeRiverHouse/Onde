@@ -1163,6 +1163,17 @@
     "comingSoon": "Coming Soon",
     "free": "Free"
   },
+  "gamesPage": {
+    "title": "Gaming Island",
+    "subtitle": "Have fun with our games!",
+    "playNow": "Play Now",
+    "comingSoon": "Coming Soon",
+    "leaderboard": "Leaderboard",
+    "topPlayers": "Top Players",
+    "featuredGames": "Featured Games",
+    "allGames": "All Games",
+    "points": "points"
+  },
   "shop": {
     "title": "Shop",
     "subtitle": "Spend your coins!",

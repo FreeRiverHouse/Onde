@@ -1163,6 +1163,17 @@
     "comingSoon": "Prossimamente",
     "free": "Gratis"
   },
+  "gamesPage": {
+    "title": "Gaming Island",
+    "subtitle": "Divertiti con i nostri giochi!",
+    "playNow": "Gioca Ora",
+    "comingSoon": "Prossimamente",
+    "leaderboard": "Classifica",
+    "topPlayers": "Migliori Giocatori",
+    "featuredGames": "Giochi in Evidenza",
+    "allGames": "Tutti i Giochi",
+    "points": "punti"
+  },
   "shop": {
     "title": "Negozio",
     "subtitle": "Spendi le tue monete!",

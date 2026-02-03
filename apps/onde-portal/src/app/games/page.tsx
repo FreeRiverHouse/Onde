@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
+import { useTranslations } from '@/i18n/I18nProvider'
 
 const games = [
   { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Pet House', emoji: '🐱' },
