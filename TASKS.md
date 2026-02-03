@@ -40,7 +40,7 @@
 | 17 | PUB-001 | Check stato catalogo libri disponibili | 📚 Content | ✅ DONE | @clawdinho | 4 PDF online, 0 EPUB |
 | 18 | PUB-002 | Verificare pipeline traduzione attiva | 📚 Content | ✅ DONE | @clawdinho | MLX v10 su M4, AMD scripts su M1 |
 | 19 | INF-004 | Setup staging environment | 🔧 Dev workflow | ✅ DONE | @clawdinho | Created staging script + docs |
-| 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | TODO | - |
+| 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | ✅ DONE | @clawdinho | Documented in STAGING-SETUP.md |
 | 21 | INF-006 | Script test automatici pre-deploy | 🔧 Dev workflow | ✅ DONE | @clawdinho | Already exists! |
 | 22 | AUTO-003 | Documentare stato Kalshi trading | 📝 Documentation | ✅ DONE | @clawdinho |
 
@@ -127,5 +127,5 @@
 | 32 | ROBOTS-001 | Verificare robots.txt | ⭐ SEO | ✅ DONE | @clawdinho | Added private paths |
 | 33 | 404-001 | Creare pagina 404 custom | ⭐ UX | ✅ DONE | @clawdinho | Fun ocean theme |
 | 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | ✅ DONE | @clawdinho | Fixed layout.tsx, manifest missing PNGs |
-| 35.1 | ICON-002 | Creare icon-192.png e icon-512.png per PWA | 🔧 Polish | TODO | - |
+| 35.1 | ICON-002 | Creare icon-192.png e icon-512.png per PWA | 🔧 Polish | ✅ DONE | @clawdinho | Generated with PIL |
 | 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | ✅ DONE | @clawdinho | Already implemented |
