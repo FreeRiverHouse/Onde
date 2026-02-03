@@ -71,6 +71,7 @@ const weatherIcons: Record<Weather, string> = {
 const weatherCycle: Weather[] = ['sunny', 'rain', 'snow']
 
 export default function GamingIsland() {
+  const t = useTranslations()
   const [hoveredArea, setHoveredArea] = useState<string | null>(null)
   const [weather, setWeather] = useState<Weather>('sunny')
   const { topPlayers } = useGlobalLeaderboard()
@@ -117,8 +118,8 @@ export default function GamingIsland() {
           <Link href="/games/leaderboard" className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-amber-600 shadow flex items-center gap-1">
             🏆 <span>Top</span>
           </Link>
-          <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🏝️ Gaming Island</h1>
-          <p className="text-white/90 text-sm mt-1">Pick a game and have fun!</p>
+          <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🏝️ {t.gamesPage?.title || 'Gaming Island'}</h1>
+          <p className="text-white/90 text-sm mt-1">{t.gamesPage?.pickGame || 'Pick a game and have fun!'}</p>
         </div>
 
         {/* Featured Games */}
@@ -141,7 +142,7 @@ export default function GamingIsland() {
           </div>
 
           {/* All Mini-Games Grid */}
-          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 Mini-Games</h2>
+          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 {t.gamesPage?.miniGames || 'Mini-Games'}</h2>
           <div className="grid grid-cols-4 gap-2">
             {allGames.map((game) => (
               <Link
@@ -158,7 +159,7 @@ export default function GamingIsland() {
 
         {/* Footer decoration */}
         <div className="text-center py-4 text-gray-400 text-sm">
-          🌈 More games coming soon!
+          🌈 {t.gamesPage?.moreGames || 'More games coming soon!'}
         </div>
       </div>
 
@@ -202,7 +203,7 @@ export default function GamingIsland() {
                   {/* Title */}
                   <div className="flex items-center gap-1 mb-2">
                     <span className="text-xl animate-trophy-wiggle">🏆</span>
-                    <span className="text-xs md:text-sm font-black text-white drop-shadow-md tracking-wide">CHAMPIONS</span>
+                    <span className="text-xs md:text-sm font-black text-white drop-shadow-md tracking-wide">{t.gamesPage?.champions || 'CHAMPIONS'}</span>
                     <span className="text-lg">🚩</span>
                   </div>
                   
@@ -228,14 +229,14 @@ export default function GamingIsland() {
                     </div>
                   ) : (
                     <div className="text-xs text-white/80 text-center py-2 font-medium">
-                      🎮 Play games to get on the leaderboard!
+                      🎮 {t.gamesPage?.playToGetOnLeaderboard || 'Play games to get on the leaderboard!'}
                     </div>
                   )}
                   
                   {/* Call to action */}
                   <div className="mt-2 text-center">
                     <span className="text-[10px] text-yellow-200 font-bold animate-pulse">
-                      ▶ TAP TO VIEW ALL ◀
+                      ▶ {t.gamesPage?.tapToView || 'TAP TO VIEW ALL'} ◀
                     </span>
                   </div>
                 </div>
@@ -354,10 +355,10 @@ export default function GamingIsland() {
       {/* Header */}
       <div className="text-center pt-6 pb-2 relative z-10">
         <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-          🏝️ Gaming Island
+          🏝️ {t.gamesPage?.title || 'Gaming Island'}
         </h1>
         <p className="text-lg text-white/95 mt-1 drop-shadow-md font-medium">
-          Welcome to Onde World! 🌈
+          {t.gamesPage?.welcome || 'Welcome to Onde World!'} 🌈
         </p>
       </div>
 

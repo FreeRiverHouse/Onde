@@ -1166,13 +1166,21 @@
   "gamesPage": {
     "title": "Gaming Island",
     "subtitle": "Divertiti con i nostri giochi!",
+    "welcome": "Benvenuto nel Mondo di Onde!",
+    "pickGame": "Scegli un gioco e divertiti!",
+    "miniGames": "Mini-Giochi",
+    "moreGames": "Altri giochi in arrivo!",
+    "backHome": "Home",
     "playNow": "Gioca Ora",
     "comingSoon": "Prossimamente",
     "leaderboard": "Classifica",
     "topPlayers": "Migliori Giocatori",
     "featuredGames": "Giochi in Evidenza",
     "allGames": "Tutti i Giochi",
-    "points": "punti"
+    "points": "punti",
+    "champions": "CAMPIONI",
+    "tapToView": "TOCCA PER VEDERE TUTTI",
+    "playToGetOnLeaderboard": "Gioca per entrare in classifica!"
   },
   "shop": {
     "title": "Negozio",

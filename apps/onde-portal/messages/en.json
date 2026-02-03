@@ -1166,13 +1166,21 @@
   "gamesPage": {
     "title": "Gaming Island",
     "subtitle": "Have fun with our games!",
+    "welcome": "Welcome to Onde World!",
+    "pickGame": "Pick a game and have fun!",
+    "miniGames": "Mini-Games",
+    "moreGames": "More games coming soon!",
+    "backHome": "Home",
     "playNow": "Play Now",
     "comingSoon": "Coming Soon",
     "leaderboard": "Leaderboard",
     "topPlayers": "Top Players",
     "featuredGames": "Featured Games",
     "allGames": "All Games",
-    "points": "points"
+    "points": "points",
+    "champions": "CHAMPIONS",
+    "tapToView": "TAP TO VIEW ALL",
+    "playToGetOnLeaderboard": "Play games to get on the leaderboard!"
   },
   "shop": {
     "title": "Shop",
