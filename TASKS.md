@@ -119,5 +119,5 @@
 | 26 | META-001 | Aggiungere structured data JSON-LD ai giochi | ⭐ SEO | TODO | - |
 | 27 | PERF-001 | Audit Core Web Vitals per onde.la | ⭐ Performance | ✅ DONE | @clawdinho || - |
 | 28 | A11Y-001 | Audit accessibilità (contrast, aria labels) | ⭐ Accessibilità | ✅ DONE | @clawdinho || - |
-| 29 | PWA-001 | Verificare offline support per libri | 📱 PWA | TODO | - |
-| 30 | CACHE-001 | Ottimizzare caching immagini/assets | ⚡ Performance | TODO | - |
+| 29 | PWA-001 | Verificare offline support per libri | 📱 PWA | ✅ DONE | @clawdinho | Documented || - |
+| 30 | CACHE-001 | Ottimizzare caching immagini/assets | ⚡ Performance | ✅ DONE | @clawdinho | _headers || - |
