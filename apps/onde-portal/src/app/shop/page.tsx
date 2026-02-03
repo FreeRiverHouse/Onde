@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { useTranslations } from '@/i18n/I18nProvider'
 import { 
   useCoins, 
   THEMES, 
@@ -53,10 +54,10 @@ function ShopItemCard({
   }
   
   const rarityLabel = {
-    common: 'Comune',
-    rare: 'Raro',
-    epic: 'Epico',
-    legendary: 'Leggendario'
+    common: shopT.rarity?.common || 'Common',
+    rare: shopT.rarity?.rare || 'Rare',
+    epic: shopT.rarity?.epic || 'Epic',
+    legendary: shopT.rarity?.legendary || 'Legendary'
   }
   
   return (
@@ -202,13 +203,17 @@ export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState<ShopCategory>('all')
   const [showHistory, setShowHistory] = useState(false)
   
+  // i18n
+  const t = useTranslations()
+  const shopT = t.shop || { categories: {}, rarity: {}, actions: {}, history: {} }
+  
   const categories: { id: ShopCategory; label: string; icon: string }[] = [
-    { id: 'all', label: 'Tutto', icon: '🏪' },
-    { id: 'theme', label: 'Temi', icon: '🎨' },
-    { id: 'pet', label: 'Cuccioli', icon: '🐾' },
-    { id: 'frame', label: 'Cornici', icon: '🖼️' },
-    { id: 'badge', label: 'Distintivi', icon: '🏅' },
-    { id: 'effect', label: 'Effetti', icon: '✨' }
+    { id: 'all', label: shopT.categories?.all || 'All', icon: '🏪' },
+    { id: 'theme', label: shopT.categories?.theme || 'Themes', icon: '🎨' },
+    { id: 'pet', label: shopT.categories?.pet || 'Pets', icon: '🐾' },
+    { id: 'frame', label: shopT.categories?.frame || 'Frames', icon: '🖼️' },
+    { id: 'badge', label: shopT.categories?.badge || 'Badges', icon: '🏅' },
+    { id: 'effect', label: shopT.categories?.effect || 'Effects', icon: '✨' }
   ]
   
   const allItems = useMemo(() => {
@@ -274,7 +279,7 @@ export default function ShopPage() {
                          font-medium text-onde-ocean hover:bg-onde-cream/50 transition-colors"
               whileTap={{ scale: 0.98 }}
             >
-              📜 {showHistory ? 'Nascondi' : 'Mostra'} Cronologia
+              📜 {showHistory ? (shopT.history?.hide || 'Hide History') : (shopT.history?.show || 'Show History')}
             </motion.button>
             
             {/* Transaction history */}
