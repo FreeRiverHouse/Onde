@@ -1162,5 +1162,38 @@
     "learnMore": "Learn More",
     "comingSoon": "Coming Soon",
     "free": "Free"
+  },
+  "shop": {
+    "title": "Shop",
+    "subtitle": "Spend your coins!",
+    "categories": {
+      "all": "All",
+      "theme": "Themes",
+      "pet": "Pets",
+      "frame": "Frames",
+      "badge": "Badges",
+      "effect": "Effects"
+    },
+    "rarity": {
+      "common": "Common",
+      "rare": "Rare",
+      "epic": "Epic",
+      "legendary": "Legendary"
+    },
+    "actions": {
+      "buy": "Buy",
+      "equip": "Equip",
+      "unequip": "Unequip",
+      "owned": "Owned",
+      "equipped": "Equipped",
+      "cantAfford": "Not enough coins"
+    },
+    "history": {
+      "show": "Show History",
+      "hide": "Hide History",
+      "title": "Transaction History"
+    },
+    "empty": "No items in this category",
+    "coins": "coins"
   }
 }

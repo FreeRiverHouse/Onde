@@ -1162,5 +1162,38 @@
     "learnMore": "Scopri di più",
     "comingSoon": "Prossimamente",
     "free": "Gratis"
+  },
+  "shop": {
+    "title": "Negozio",
+    "subtitle": "Spendi le tue monete!",
+    "categories": {
+      "all": "Tutto",
+      "theme": "Temi",
+      "pet": "Cuccioli",
+      "frame": "Cornici",
+      "badge": "Distintivi",
+      "effect": "Effetti"
+    },
+    "rarity": {
+      "common": "Comune",
+      "rare": "Raro",
+      "epic": "Epico",
+      "legendary": "Leggendario"
+    },
+    "actions": {
+      "buy": "Acquista",
+      "equip": "Equipaggia",
+      "unequip": "Rimuovi",
+      "owned": "Posseduto",
+      "equipped": "Equipaggiato",
+      "cantAfford": "Fondi insufficienti"
+    },
+    "history": {
+      "show": "Mostra Cronologia",
+      "hide": "Nascondi Cronologia",
+      "title": "Cronologia Transazioni"
+    },
+    "empty": "Nessun oggetto in questa categoria",
+    "coins": "monete"
   }
 }
