@@ -21,7 +21,7 @@ const organizationJsonLd = {
         '@type': 'ImageObject',
         url: 'https://onde.la/icon.svg',
       },
-      description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
+      description: 'AI-native publishing house based in Los Angeles.',
       sameAs: [
         'https://twitter.com/Onde_FRH',
         'https://youtube.com/@Onde',
@@ -49,8 +49,8 @@ const organizationJsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://onde.la'),
-  title: 'Onde - Crafted by Code, Touched by Soul',
-  description: 'AI-native publishing house based in Los Angeles. Crafted by code, touched by soul.',
+  title: 'Onde - AI-Native Publishing House',
+  description: 'AI-native publishing house based in Los Angeles. Free illustrated ebooks, classic literature, and original stories.',
   keywords: ['illustrated books', 'classic literature', 'digital publishing', 'ebooks', 'onde'],
   icons: {
     icon: '/icon.svg',
