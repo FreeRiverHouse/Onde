@@ -38,11 +38,11 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 17 | PUB-001 | Check stato catalogo libri disponibili | 📚 Content | ✅ DONE | @clawdinho | 4 PDF online, 0 EPUB |
-| 18 | PUB-002 | Verificare pipeline traduzione attiva | 📚 Content | TODO | - |
+| 18 | PUB-002 | Verificare pipeline traduzione attiva | 📚 Content | ✅ DONE | @clawdinho | MLX v10 su M4, AMD scripts su M1 |
 | 19 | INF-004 | Setup staging environment | 🔧 Dev workflow | TODO | - |
 | 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | TODO | - |
 | 21 | INF-006 | Script test automatici pre-deploy | 🔧 Dev workflow | TODO | - |
-| 22 | AUTO-003 | Documentare stato Kalshi trading | 📝 Documentation | TODO | - |
+| 22 | AUTO-003 | Documentare stato Kalshi trading | 📝 Documentation | ✅ DONE | @clawdinho |
 
 ---
 
