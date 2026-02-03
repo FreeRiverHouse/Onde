@@ -59,6 +59,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
+    languages: {
+      'en': 'https://onde.la',
+      'it': 'https://onde.la',
+      'x-default': 'https://onde.la',
+    },
     types: {
       'application/rss+xml': '/feed.xml',
       'application/atom+xml': '/feed.atom',
