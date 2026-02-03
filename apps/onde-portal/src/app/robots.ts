@@ -8,7 +8,19 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/health', '/preprod'],
+      disallow: [
+        '/api/',
+        '/health',
+        '/preprod',
+        '/account',
+        '/profile',
+        '/settings',
+        '/parental',
+        '/my-books',
+        '/goals',
+        '/current',
+        '/daily',
+      ],
     },
     sitemap: 'https://onde.la/sitemap.xml',
   }
