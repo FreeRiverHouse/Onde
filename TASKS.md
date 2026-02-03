@@ -129,3 +129,13 @@
 | 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | ✅ DONE | @clawdinho | Fixed layout.tsx, manifest missing PNGs |
 | 35.1 | ICON-002 | Creare icon-192.png e icon-512.png per PWA | 🔧 Polish | ✅ DONE | @clawdinho | Generated with PIL |
 | 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | ✅ DONE | @clawdinho | Already implemented |
+
+## 🆕 TASK AGGIUNTI DA CLAWDINHO (2026-02-03 09:55 PST)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 36 | META-002 | Verificare Open Graph tags su tutte le pagine | ⭐ SEO | IN_PROGRESS | @clawdinho |
+| 37 | A11Y-002 | Aggiungere skip links per accessibilità | ⭐ Accessibilità | TODO | - |
+| 38 | PERF-002 | Lazy load immagini sotto the fold | ⚡ Performance | TODO | - |
+| 39 | SEO-003 | Verificare canonical URLs | ⭐ SEO | TODO | - |
+| 40 | i18n-ABOUT | Verificare i18n pagina About | ⭐ Professionalità | TODO | - |
