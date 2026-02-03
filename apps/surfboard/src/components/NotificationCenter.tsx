@@ -1616,6 +1616,24 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     })
   }, [persistence, data?.notifications])
 
+  const [showDismissAllConfirm, setShowDismissAllConfirm] = useState(false)
+  
+  const handleDismissAll = useCallback(() => {
+    // Mark all current notifications as dismissed
+    if (data?.notifications) {
+      data.notifications.forEach(n => persistence.markDismissed(n.id))
+    }
+    
+    setData(prev => {
+      if (!prev) return prev
+      return {
+        notifications: [],
+        unreadCount: 0,
+      }
+    })
+    setShowDismissAllConfirm(false)
+  }, [persistence, data?.notifications])
+
   const filteredNotifications = data?.notifications.filter(n => {
     if (filter === 'all') return true
     if (filter === 'unread') return !n.read
@@ -1705,6 +1723,34 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
                 >
                   Mark all read
                 </button>
+              )}
+              
+              {/* Dismiss all with confirmation */}
+              {data?.notifications && data.notifications.length > 0 && (
+                showDismissAllConfirm ? (
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-red-400">Dismiss all?</span>
+                    <button
+                      onClick={handleDismissAll}
+                      className="text-xs text-red-400 hover:text-red-300 font-medium"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={() => setShowDismissAllConfirm(false)}
+                      className="text-xs text-white/50 hover:text-white/80"
+                    >
+                      No
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowDismissAllConfirm(true)}
+                    className="text-xs text-white/50 hover:text-red-400 transition-colors"
+                  >
+                    Dismiss all
+                  </button>
+                )
               )}
               
               {/* Export dropdown */}
