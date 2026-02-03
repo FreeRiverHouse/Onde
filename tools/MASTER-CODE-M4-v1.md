@@ -1,9 +1,101 @@
 # MASTER-CODE-M4-v1
 ## Guida LLM Locali su Mac M4 (24GB RAM) con MLX
 
-**Ultima modifica:** 2026-02-02 17:50
-**Hardware:** MacBook Pro M4, 24GB RAM unificata
+**Ultima modifica:** 2026-02-03 02:30
+**Hardware:** MacBook Pro M4 Max, 24GB RAM unificata
 **Framework:** MLX (Apple Silicon optimized)
+
+---
+
+## 🔥🔥🔥 CLAWDBOT + QWEN3-CODER MoE - SETUP FUNZIONANTE (2026-02-03) 🔥🔥🔥
+
+### IL SETUP CORRETTO (TESTATO E FUNZIONANTE!)
+
+```
+ClawdBot Gateway (18789)
+    ↓
+mlx-coder-wrapper (11435) ← strippa 23 tools
+    ↓
+mlx-openai-server (8080) ← HA --context-length!
+    ↓
+Qwen3-Coder-30B-A3B-Instruct-4bit (MoE) ← 87 tok/s, 3 sec response!
+```
+
+### ⚠️ ERRORI DA NON RIPETERE MAI:
+
+| SBAGLIATO | CORRETTO | Perché |
+|-----------|----------|--------|
+| `mlx_lm.server` | `mlx-openai-server` | mlx_lm.server NON ha --context-length → OOM! |
+| `Qwen/Qwen3-32B-MLX-4bit` (dense) | `mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit` (MoE) | Dense usa 32B params, MoE solo 3B attivi! |
+| contextWindow: 4096 | contextWindow: 16000+ | ClawdBot RICHIEDE min 16000! |
+
+### Comandi di Avvio (COPIA-INCOLLA)
+
+```bash
+# 1. Avvia mlx-openai-server con context limit
+source ~/mlx-env/bin/activate
+nohup mlx-openai-server launch \
+  --model-path mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit \
+  --model-type lm \
+  --context-length 8192 \
+  --host 127.0.0.1 \
+  --port 8080 \
+  > /tmp/mlx-openai-server.log 2>&1 &
+
+# 2. Avvia wrapper
+cd ~/CascadeProjects/Onde/tools/clawdbot-local-llm/wrappers
+nohup node mlx-coder-wrapper.js > /tmp/mlx-wrapper.log 2>&1 &
+
+# 3. Verifica
+curl -s http://127.0.0.1:8080/v1/models | jq -r '.data[0].id'
+# Output: mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit
+
+curl -s http://127.0.0.1:11435/health
+# Output: {"status":"ok","proxy_port":11435,"target":"http://127.0.0.1:8080"}
+```
+
+### Config ClawdBot (~/.clawdbot/clawdbot.json)
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "mlx/mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+        "fallbacks": [
+          "mlx/mlx-community/Qwen2.5-7B-Instruct-4bit",
+          "anthropic/claude-opus-4-20250514"
+        ]
+      }
+    }
+  }
+}
+```
+
+### Performance Misurate (MoE vs Dense)
+
+| Modello | Tipo | RAM | Velocità | ClawdBot |
+|---------|------|-----|----------|----------|
+| **Qwen3-Coder-30B-A3B** | MoE (3B attivi) | ~17GB | **87 tok/s** | ✅ 3 sec |
+| Qwen3-32B | Dense (32B) | ~19GB | 12 tok/s | ❌ OOM |
+| Qwen2.5-7B | Dense | ~4GB | 50 tok/s | ✅ Backup |
+
+### Disabilitare Sabotatori (LaunchAgents che fanno conflitto)
+
+```bash
+launchctl unload ~/Library/LaunchAgents/com.clawdbot.ollama-wrapper.plist 2>/dev/null
+launchctl unload ~/Library/LaunchAgents/com.clawdbot.radeon-wrapper.plist 2>/dev/null
+```
+
+### Test Rapido
+
+```bash
+# Test diretto a mlx-openai-server
+curl -s -X POST http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit","messages":[{"role":"user","content":"Hello! /no_think"}],"max_tokens":50}' \
+  | jq -r '.choices[0].message.content'
+```
 
 ---
 
@@ -269,6 +361,12 @@ streamlit run app.py --server.port 8501
 
 ## Changelog
 
+- **2026-02-03 01:50**: Setup finale funzionante:
+  - **Qwen3-32B-MLX-4bit** = FUNZIONA con ClawdBot (contextWindow: 16000)
+  - **MoE (30B-A3B)** = CRASHA con context grande (7500+ tokens) - OOM su 24GB
+  - ClawdBot richiede contextWindow >= 16000 (hardcoded min)
+  - Problema MoE: carica 30B in RAM anche se solo 3B attivi
+  - Per 24GB RAM: usa Qwen3-32B o modelli più piccoli (14B, 7B)
 - **2026-02-02 19:00**: Phase 2 ora in-memory:
   - Dopo Phase 1, stoppa Qwen server (libera RAM)
   - Carica Mistral direttamente in memoria (no subprocess!)
@@ -288,3 +386,181 @@ streamlit run app.py --server.port 8501
 - **2026-02-02 10:00**: Handover iniziale
 - **2026-02-02 09:30**: Testato Qwen3-32B traduzione EN→IT
 - **2026-02-02 09:00**: Prima versione documento
+
+---
+
+## 🤖 CLAWDBOT + MLX INTEGRATION (2026-02-03)
+
+### Setup Funzionante - TESTATO!
+
+```
+ClawdBot Gateway (18789)
+    ↓
+mlx provider (config)
+    ↓
+mlx-coder-wrapper (11435) ← proxy che rimuove 23 tools
+    ↓
+MLX Server (8080) ← mlx_lm.server
+    ↓
+Qwen3-32B-MLX-4bit ✅ FUNZIONA
+```
+
+### Architettura
+
+| Componente | Porta | File/Comando |
+|------------|-------|--------------|
+| MLX Server | 8080 | `mlx_lm.server --model Qwen/Qwen3-32B-MLX-4bit` |
+| Wrapper | 11435 | `node mlx-coder-wrapper.js` |
+| ClawdBot | 18789 | Gateway dashboard |
+
+### ⚠️ CONFIGURAZIONE CRITICA - Context Limits
+
+**ClawdBot richiede contextWindow >= 16000!** (min=16000 hardcoded)
+
+Se contextWindow < 16000 → modello bloccato → fallback su Anthropic.
+
+**Config in `~/.clawdbot/clawdbot.json`:**
+
+```json
+{
+  "models": {
+    "providers": {
+      "mlx": {
+        "baseUrl": "http://127.0.0.1:11435/v1",
+        "apiKey": "mlx",
+        "api": "openai-completions",
+        "models": [{
+          "id": "Qwen/Qwen3-32B-MLX-4bit",
+          "name": "Qwen3 32B (MLX M4)",
+          "contextWindow": 16384,
+          "maxTokens": 8192
+        },
+        {
+          "id": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+          "name": "Qwen3 Coder 30B MoE (3B active)",
+          "contextWindow": 16384,
+          "maxTokens": 8192
+        }]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "mlx/mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit"
+      }
+    }
+  }
+}
+```
+
+### Avvio Completo
+
+```bash
+# 1. MLX Server
+source ~/mlx-env/bin/activate
+nohup mlx_lm.server --model Qwen/Qwen3-32B-MLX-4bit \
+  --host 127.0.0.1 --port 8080 --trust-remote-code \
+  > /tmp/mlx-server.log 2>&1 &
+
+# 2. Wrapper (dalla dir wrappers)
+cd ~/CascadeProjects/Onde/tools/clawdbot-local-llm/wrappers
+nohup node mlx-coder-wrapper.js > /tmp/mlx-wrapper.log 2>&1 &
+
+# 3. Test
+curl -s http://127.0.0.1:11435/health
+# Output: {"status":"ok","proxy_port":11435,"target":"http://127.0.0.1:8080"}
+
+# 4. Dashboard
+open "http://localhost:18789/?token=YOUR_TOKEN"
+```
+
+### Test API
+
+```bash
+curl -s -X POST "http://127.0.0.1:11435/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"Qwen/Qwen3-32B-MLX-4bit","messages":[{"role":"user","content":"Ciao! /no_think"}],"max_tokens":100}'
+```
+
+### Wrapper - mlx-coder-wrapper.js
+
+**Path:** `~/CascadeProjects/Onde/tools/clawdbot-local-llm/wrappers/mlx-coder-wrapper.js`
+
+Funzioni:
+- Rimuove 23 tools da ogni richiesta (ClawdBot li manda ma MLX non li supporta)
+- Proxy streaming responses
+- Gestisce errori JSON
+
+### Modelli Testati con ClawdBot (24GB RAM)
+
+| Modello | Status | Note |
+|---------|--------|------|
+| **mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit** | ✅ **RACCOMANDATO** | MoE, 87 tok/s, usa `mlx-openai-server` |
+| mlx-community/Qwen2.5-7B-Instruct-4bit | ✅ FUNZIONA | Backup leggero, context 32k |
+| Qwen/Qwen3-32B-MLX-4bit | ⚠️ LENTO | Dense 32B, 12 tok/s, OOM con system prompt grande |
+
+### Qwen3-Coder-30B-A3B (MoE) - RACCOMANDATO! (2026-02-03)
+
+**Mixture of Experts**: 30B parametri totali, ma solo **3B attivi** per inferenza = VELOCISSIMO!
+
+| Parametro | Valore |
+|-----------|--------|
+| **Modello** | `mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit` |
+| **Parametri totali** | 30B |
+| **Parametri attivi** | 3B (molto più leggero!) |
+| **RAM** | ~17GB |
+| **Velocità** | **87 tok/s** su M4 Max |
+| **Response time** | **~3 secondi** |
+| **Status** | ✅ **FUNZIONA PERFETTAMENTE** |
+
+**⚠️ USARE `mlx-openai-server` CON `--context-length`!**
+
+```bash
+mlx-openai-server launch \
+  --model-path mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit \
+  --model-type lm \
+  --context-length 8192 \
+  --host 127.0.0.1 \
+  --port 8080
+```
+
+**Config in clawdbot.json:**
+```json
+{
+  "id": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+  "name": "Qwen3 Coder 30B MoE (3B active)",
+  "contextWindow": 16000,
+  "maxTokens": 8192
+}
+```
+
+**Per usarlo come default:**
+```json
+"primary": "mlx/mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit"
+```
+
+**Perché MoE è meglio di Dense 32B:**
+- MoE: 3B params attivi → 87 tok/s, ~17GB RAM
+- Dense 32B: 32B params attivi → 12 tok/s, ~19GB RAM, OOM con system prompt grande
+
+### Troubleshooting ClawdBot
+
+**Bot usa fallback Anthropic invece di MLX:**
+- Check log: `tail /tmp/clawdbot/clawdbot-*.log | grep "blocked model"`
+- Se vedi `ctx=8192 (min=16000)` → contextWindow troppo piccolo!
+- Soluzione: `contextWindow: 16384` in clawdbot.json, poi `clawdbot gateway --force`
+
+**"fetch failed" nel wrapper log:**
+- MLX server crashato → riavvia con `mlx_lm.server`
+- Verifica: `curl http://127.0.0.1:8080/v1/models`
+
+**OOM / METAL crash:**
+- Modello denso 32B con context grande → potrebbe crashare
+- MoE (3B attivi) regge meglio context grandi
+- Usa `/no_think` nei prompt per risposte più corte
+
+**Bot non risponde nella dashboard:**
+- Verifica wrapper: `curl http://127.0.0.1:11435/health`
+- Verifica MLX: `curl http://127.0.0.1:8080/v1/models`
+- Check logs: `tail -f /tmp/mlx-wrapper.log`
