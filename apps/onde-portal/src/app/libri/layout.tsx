@@ -117,10 +117,10 @@ export const metadata: Metadata = {
     siteName: 'Onde',
     images: [
       {
-        url: 'https://onde.la/books/meditations-cover.jpg',
-        width: 800,
-        height: 1200,
-        alt: 'Meditations by Marcus Aurelius - Illustrated Edition',
+        url: '/images/og-libri.png',
+        width: 1200,
+        height: 630,
+        alt: 'Onde Libri - Free Illustrated Ebooks',
       },
     ],
     locale: 'en_US',
@@ -130,7 +130,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Onde Libri - Free Illustrated Classics',
     description: 'Download free illustrated editions of timeless classics.',
-    images: ['https://onde.la/books/meditations-cover.jpg'],
+    images: ['/images/og-libri.png'],
   },
 }
 
