@@ -16,7 +16,7 @@
 | 3 | MKTG-001 | Post skin creator su r/Minecraft e r/Roblox | 🔥 Marketing diretto | 🔶 DRAFT READY | @clawdinho | docs/marketing/reddit-skin-creator-post.md |
 | 4 | T851 | i18n: Completare audit stringhe hardcoded | 🔥 Professionalità | ✅ DONE | @clawdinho | Shop ✅, Games ✅ |
 | 5 | GAM-001 | Skin Creator: Mobile UX improvements | 🔥 Più utenti mobile | ✅ DONE | @clawdinho | Enhanced CSS for touch |
-| 6 | MKTG-002 | YouTube Shorts demo skin creator | 🔥 Viralità video | TODO | - |
+| 6 | MKTG-002 | YouTube Shorts demo skin creator | 🔥 Viralità video | 🔶 SCRIPT READY | @clawdinho | scripts/record-skin-creator-demo.sh |
 | 7 | SOC-001 | Review X presence e engagement recente | 📈 Social presence | BLOCKED | - | Needs Typefully API key |
 
 ### ⭐ MEDIA PRIORITÀ - UX & Features
