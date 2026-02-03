@@ -30,7 +30,7 @@
 | 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | ✅ DONE | @clawdinho | Added actions array + button rendering |
 | 13 | MLH-024 | Notification filters persistence | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
 | 14 | MLH-025 | Notification dismiss-all button | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
-| 15 | MLH-026 | Notification priority levels | ⭐ UX onde.surf | TODO | - |
+| 15 | MLH-026 | Notification priority levels | ⭐ UX onde.surf | ✅ DONE | @clawdinho | Added low/normal/high/urgent with badges |
 | 16 | i18n-SHOP | Aggiungere i18n alla pagina Shop | ⭐ Professionalità | ✅ DONE | @clawdinho | Fixed hardcoded strings |
 
 ### 🔧 PRIORITÀ NORMALE - Infra & Content

@@ -650,6 +650,8 @@ interface NotificationAction {
   style?: 'primary' | 'secondary' | 'danger'
 }
 
+type NotificationPriority = 'low' | 'normal' | 'high' | 'urgent'
+
 interface Notification {
   id: string
   type: 'alert' | 'event' | 'info' | 'success' | 'warning' | 'agent' | 'activity'
@@ -660,6 +662,7 @@ interface Notification {
   source?: string
   actionUrl?: string
   actions?: NotificationAction[]
+  priority?: NotificationPriority
   metadata?: Record<string, unknown>
 }
 
@@ -886,6 +889,19 @@ function NotificationItem({
         {/* Unread indicator */}
         {!notification.read && (
           <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+        )}
+
+        {/* Priority indicator */}
+        {notification.priority && notification.priority !== 'normal' && (
+          <div className={`absolute top-3 left-3 px-1.5 py-0.5 text-[10px] font-bold uppercase rounded ${
+            notification.priority === 'urgent' ? 'bg-red-500 text-white animate-pulse' :
+            notification.priority === 'high' ? 'bg-orange-500/80 text-white' :
+            'bg-gray-500/50 text-white/60'
+          }`}>
+            {notification.priority === 'urgent' ? '🔥 URGENT' : 
+             notification.priority === 'high' ? '⚡ HIGH' : 
+             '↓ LOW'}
+          </div>
         )}
 
         {/* Icon */}
