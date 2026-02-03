@@ -90,6 +90,48 @@ def split_paragraphs(text: str, max_chars: int = MAX_PARA_CHARS) -> list:
     return result
 
 # ═══════════════════════════════════════════════════════════════
+# TITLE TRANSLATIONS (fast lookup, no LLM needed)
+# ═══════════════════════════════════════════════════════════════
+
+TITLE_TRANSLATIONS = {
+    "freedom": "Libertà",
+    "innovation": "Innovazione",
+    "plan": "Piano",
+    "introduction": "Introduzione",
+    "conclusion": "Conclusione",
+    "chapter": "Capitolo",
+    "section": "Sezione",
+    "part": "Parte",
+    "preface": "Prefazione",
+    "foreword": "Prefazione",
+    "epilogue": "Epilogo",
+    "prologue": "Prologo",
+    "appendix": "Appendice",
+    "notes": "Note",
+    "bibliography": "Bibliografia",
+    "references": "Riferimenti",
+    "acknowledgments": "Ringraziamenti",
+    "summary": "Sommario",
+    "abstract": "Abstract",
+    "contents": "Indice",
+    "index": "Indice",
+}
+
+def translate_title(text: str) -> str:
+    """Translate common titles without LLM"""
+    text_lower = text.strip().lower()
+    if text_lower in TITLE_TRANSLATIONS:
+        return TITLE_TRANSLATIONS[text_lower]
+    # Check for "Chapter X" pattern
+    if text_lower.startswith("chapter "):
+        return "Capitolo " + text[8:]
+    if text_lower.startswith("section "):
+        return "Sezione " + text[8:]
+    if text_lower.startswith("part "):
+        return "Parte " + text[5:]
+    return None  # Not a known title
+
+# ═══════════════════════════════════════════════════════════════
 # OUTPUT VALIDATION
 # ═══════════════════════════════════════════════════════════════
 
@@ -296,10 +338,15 @@ def run_pipeline(input_file: str, output_dir: str):
 
     fase_start = time.time()
     for i, para in enumerate(paragraphs, 1):
-        # Skip very short paragraphs (titles, citations) - just keep them
+        # Short paragraphs: try title translation first
         if len(para) < 50:
-            log(f"   [{i}/{total}] Titolo breve, mantengo: '{para[:50]}'")
-            translated.append(para)
+            title_trans = translate_title(para)
+            if title_trans:
+                log(f"   [{i}/{total}] Titolo tradotto: '{para}' → '{title_trans}'")
+                translated.append(title_trans)
+            else:
+                log(f"   [{i}/{total}] Breve, mantengo: '{para[:50]}'")
+                translated.append(para)
             continue
 
         log(f"   [{i}/{total}] Traducendo... ({len(para)} chars)")
