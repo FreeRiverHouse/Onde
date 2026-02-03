@@ -500,7 +500,11 @@ export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPr
     const ctx = skinCanvas.getContext('2d');
     if (!ctx) return;
 
-    characterRef.current.traverse((child) => {
+    // Small delay to ensure canvas has been updated
+    const timeoutId = setTimeout(() => {
+      if (!characterRef.current) return;
+      
+      characterRef.current.traverse((child) => {
       if (child instanceof THREE.Mesh && child.name in SKIN_UV_MAP) {
         const partName = child.name as keyof typeof SKIN_UV_MAP;
         const uvMap = SKIN_UV_MAP[partName];
@@ -523,6 +527,9 @@ export default function SkinPreview3D({ skinCanvas, textureVersion = 0 }: SkinPr
         child.material = newMaterials;
       }
     });
+    }, 50); // 50ms delay to ensure canvas is updated
+    
+    return () => clearTimeout(timeoutId);
   }, [skinCanvas, textureVersion, createFaceMaterial]);
 
   useEffect(() => { poseRef.current = pose; }, [pose]);

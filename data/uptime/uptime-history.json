@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T04:40:01.265739+00:00",
+  "generated_at": "2026-02-03T04:45:01.468662+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -5642,17 +5642,23 @@
           "status": 200,
           "latency_ms": 246,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-03T04:45:01.468662+00:00",
+          "status": 200,
+          "latency_ms": 201,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 96.98,
         "uptime_7d": 99.36,
         "avg_latency_24h": 319,
-        "avg_latency_7d": 702,
+        "avg_latency_7d": 701,
         "incidents_24h": 1,
         "incidents_7d": 1,
         "total_checks_24h": 199,
-        "total_checks_7d": 940
+        "total_checks_7d": 941
       }
     },
     "onde.surf": {
@@ -11296,17 +11302,23 @@
           "status": 200,
           "latency_ms": 186,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-03T04:45:01.468662+00:00",
+          "status": 200,
+          "latency_ms": 263,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 308,
+        "avg_latency_24h": 306,
         "avg_latency_7d": 616,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 199,
-        "total_checks_7d": 940
+        "total_checks_7d": 941
       }
     },
     "skin-studio": {
@@ -15216,17 +15228,23 @@
           "status": 200,
           "latency_ms": 148,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-03T04:45:01.468662+00:00",
+          "status": 200,
+          "latency_ms": 211,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 262,
+        "avg_latency_24h": 263,
         "avg_latency_7d": 401,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 199,
-        "total_checks_7d": 651
+        "total_checks_7d": 652
       }
     }
   }
