@@ -25,11 +25,11 @@
 |---|----|----- |--------|--------|-------|
 | 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | TODO | - |
 | 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | TODO | - |
-| 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | TODO | - |
+| 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
 | 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - |
 | 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | TODO | - |
-| 13 | MLH-024 | Notification filters persistence | ⭐ UX onde.surf | TODO | - |
-| 14 | MLH-025 | Notification dismiss-all button | ⭐ UX onde.surf | TODO | - |
+| 13 | MLH-024 | Notification filters persistence | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
+| 14 | MLH-025 | Notification dismiss-all button | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
 | 15 | MLH-026 | Notification priority levels | ⭐ UX onde.surf | TODO | - |
 | 16 | i18n-SHOP | Aggiungere i18n alla pagina Shop | ⭐ Professionalità | TODO | - |
 
@@ -37,7 +37,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 17 | PUB-001 | Check stato catalogo libri disponibili | 📚 Content | TODO | - |
+| 17 | PUB-001 | Check stato catalogo libri disponibili | 📚 Content | ✅ DONE | @clawdinho | 4 PDF online, 0 EPUB |
 | 18 | PUB-002 | Verificare pipeline traduzione attiva | 📚 Content | TODO | - |
 | 19 | INF-004 | Setup staging environment | 🔧 Dev workflow | TODO | - |
 | 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | TODO | - |
