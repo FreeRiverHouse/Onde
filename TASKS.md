@@ -140,7 +140,12 @@
 - **Owner:** @clawdinho
 - **Created:** 2026-02-02
 - **Notes:** Continue i18n audit on: shop, settings, skin-creator, vr pages. Check for any remaining hardcoded English/Italian mix.
-- **Progress 2026-02-03:** Added skinCreator and common sections to translation files. Fixed homepage CTA. Skin-creator page has many hardcoded strings but it's a technical tool - may keep in English or add full i18n later.
+- **Progress 2026-02-03:** 
+  - Added skinCreator and common sections to translation files
+  - Fixed homepage CTA (now uses t.skinCreator.title and t.skinCreator.newBadge)
+  - Added settings.loading translation + fixed hardcoded "Loading..." string
+  - **Shop page needs full i18n integration** (currently no useTranslations)
+  - Skin-creator page has many hardcoded strings (technical tool, lower priority)
 
 ## T852: i18n Review - Add missing Italian translations for skin-creator
 - **Status:** DONE
