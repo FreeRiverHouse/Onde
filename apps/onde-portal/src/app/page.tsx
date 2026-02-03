@@ -98,6 +98,7 @@ const testimonials = [
 const dockItems = [
   { title: "Books", icon: "📚", href: "#books" },
   { title: "Games", icon: "🎮", href: "/games" },
+  { title: "Skin Creator", icon: "🎨", href: "/games/skin-creator" },
   { title: "VR", icon: "🥽", href: "/vr" },
   { title: "About", icon: "✨", href: "#about" },
 ]
@@ -244,6 +245,14 @@ export default function Home() {
             >
               <span>{t.home.hero.playGames}</span>
               <span className="text-xl group-hover:animate-bounce">🎮</span>
+            </Link>
+
+            <Link 
+              href="/games/skin-creator"
+              className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 transition-all flex items-center gap-2"
+            >
+              <span>Minecraft Skin Creator</span>
+              <span className="text-xl group-hover:rotate-12 transition-transform">🎨</span>
             </Link>
           </motion.div>
 
