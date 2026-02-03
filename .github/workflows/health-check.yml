@@ -33,12 +33,13 @@ jobs:
       
       - name: Check onde.surf
         run: |
+          # onde.surf requires auth, so it returns 307 redirect to /login (expected behavior)
           status=$(curl -s -o /dev/null -w '%{http_code}' https://onde.surf)
-          if [ "$status" != "200" ]; then
+          if [ "$status" != "200" ] && [ "$status" != "307" ]; then
             echo "::error::onde.surf is DOWN! Status: $status"
             exit 1
           fi
-          echo "✅ onde.surf is UP (HTTP $status)"
+          echo "✅ onde.surf is UP (HTTP $status - 307 is expected auth redirect)"
       
       - name: Verify onde.la content
         run: |
