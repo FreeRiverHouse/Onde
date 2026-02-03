@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-02T10:00:03.163793+00:00",
+  "timestamp": "2026-02-03T04:30:02.766415+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,130 +11,193 @@
   "article_count": 30,
   "results": [
     {
-      "title": "No Relief For Crypto Investors As India Retains Current Crypto Tax In Budget 2026",
-      "url": "https://decrypt.co/356601/no-relief-for-crypto-investors-as-india-retains-current-crypto-tax-in-budget-2026",
+      "title": "Tether releases open-source operating system for Bitcoin mining",
+      "url": "https://cointelegraph.com/news/tether-releases-open-source-operating-system-for-bitcoin-miners?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Tether first announced plans for an open-source mining OS in June last year as it wanted Bitcoin miners to \"enter the game\" without expensive third-party vendors.",
+      "published": "2026-02-03T03:48:14+00:00"
+    },
+    {
+      "title": "Tom Lee tips lack of leverage and gold \u2018vortex\u2019 for Ether's 21% slump",
+      "url": "https://cointelegraph.com/news/fundstrat-tom-lee-cites-lack-leverage-metals-vortex-ether-slump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Ether has fallen despite strong fundamentals as leverage remained absent and precious metals diverted risk appetite, according to Fundstrat's research head.",
+      "published": "2026-02-03T03:38:52+00:00"
+    },
+    {
+      "title": "Trump denies knowledge of Abu Dhabi royal\u2018s $500M stake in WLFI",
+      "url": "https://cointelegraph.com/news/trump-denies-involvement-500m-uae-wlfi-stake?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The reported World Liberty Financial deal, said to have been made four days before the president\u2019s inauguration, would make the UAE company the largest shareholder in WLFI.",
+      "published": "2026-02-03T03:01:50+00:00"
+    },
+    {
+      "title": "Fenwick agrees to settle lawsuit over law firm\u2019s alleged role in FTX fraud",
+      "url": "https://cointelegraph.com/news/fenwick-settles-lawsuit-over-work-crypto-exchange-ftx?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "FTX users filed the lawsuit in 2023, accusing the law firm of playing \u201ca key and crucial role\" in \"how the FTX fraud was accomplished.\u201d",
+      "published": "2026-02-03T02:46:22+00:00"
+    },
+    {
+      "title": "Bitcoin flash crash recovery to $100K may take 6 months: Analyst",
+      "url": "https://cointelegraph.com/news/bitcoin-flash-crash-recovery-to-dollar100k-may-take-6-months-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Multiple charts and historical data suggest that Bitcoin\u2019s recovery from its weekend crash below $75,000 could take at least 6 months.",
+      "published": "2026-02-03T02:42:11+00:00"
+    },
+    {
+      "title": "Musk Folds xAI Into SpaceX, Cites Limits on Earth-Based AI Infrastructure",
+      "url": "https://decrypt.co/356736/musk-xai-spacex-limits-earth-based-ai-infrastructure",
       "source": "decrypt",
-      "description": "India's crypto tax regime remains unchanged, dashing industry hopes for relief from the framework that drove trading offshore.",
-      "published": "2026-02-02T09:58:17+00:00"
+      "description": "Elon Musk says power and cooling constraints on Earth are pushing AI compute into orbit, with Starship central to the plan.",
+      "published": "2026-02-03T02:10:25+00:00"
     },
     {
-      "title": "Odds that Bitcoin slips below $65K climb to 72% on Polymarket",
-      "url": "https://cointelegraph.com/news/polymarket-odds-bitcoin-below-65k-72-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin bets on Polymarket show elevated downside risk in 2026 as analysts point to bearish trends and tight US liquidity conditions.",
-      "published": "2026-02-02T09:11:44+00:00"
-    },
-    {
-      "title": "Nomura temporarily reduces crypto exposure as Q3 profits drop",
-      "url": "https://cointelegraph.com/news/nomura-temporarily-reducing-crypto-risk-exposure-after-q4-profit-drop?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Nomura's CFO, Hiroyuki Moriuchi, reportedly reaffirmed the company's long-term commitment to digital assets but said it had to manage short-term risks.",
-      "published": "2026-02-02T06:35:55+00:00"
-    },
-    {
-      "title": "Crypto thieves, scammers plunder $370M in January: CertiK",
-      "url": "https://cointelegraph.com/news/crypto-stolen-370m-january-quadrupling-year-on-year-certik?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The amount of crypto stolen in January is also a 214% increase from the month before, with a majority of the value lost due to a single phishing incident.",
-      "published": "2026-02-02T05:56:31+00:00"
-    },
-    {
-      "title": "Average Bitcoin ETF buy underwater as investors pull $2.8B in 2 weeks",
-      "url": "https://cointelegraph.com/news/average-bitcoin-etf-buy-underwater-after-investors-pull-2-8b-2-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Following its weekend rout, Bitcoin dropped to $74,600 on Monday, marking a nine-month low for the cryptocurrency.",
-      "published": "2026-02-02T05:51:32+00:00"
-    },
-    {
-      "title": "CrossCurve Threatens Legal Action After $3M Cross-Chain Bridge Exploit",
-      "url": "https://decrypt.co/356599/crosscurve-legal-action-3m-cross-chain-bridge-exploit",
+      "title": "OpenClaw Opens the Gates for AI Agents\u2014Here\u2019s What\u2019s Real and What\u2019s Not",
+      "url": "https://decrypt.co/356730/openclaw-ai-agents-whats-real",
       "source": "decrypt",
-      "description": "The protocol warned it may pursue criminal and civil action after identifying addresses tied to a hack of its token transfer system.",
-      "published": "2026-02-02T05:44:16+00:00"
+      "description": "OpenClaw hit 147,000 GitHub stars in a matter of weeks and spawned an entire ecosystem of AI agents. But just how much is revolutionary tech?",
+      "published": "2026-02-03T01:34:09+00:00"
     },
     {
-      "title": "Nevada Court Grants Temporary Restraining Order Against Polymarket",
-      "url": "https://decrypt.co/356597/nevada-court-temporary-restraining-order-polymarket",
+      "title": "ISM Manufacturing PMI at 40-month high: Analysts say BTC could benefit",
+      "url": "https://cointelegraph.com/news/ism-manufacturing-pmi-rise-bullish-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The rise and fall of the manufacturing index from mid-2020 through 2023 closely mirrored Bitcoin and the broader crypto market\u2019s price movements over the same timeframe.",
+      "published": "2026-02-03T01:05:33+00:00"
+    },
+    {
+      "title": "Will GameStop Dump Its Bitcoin? CEO Says \u2018Way More Compelling\u2019 Move Ahead",
+      "url": "https://decrypt.co/356724/gamestop-dump-bitcoin-ceo-compelling-move-ahead",
       "source": "decrypt",
-      "description": "Nevada's court ruling against Polymarket comes as prediction markets face global regulatory pressure and bans across multiple jurisdictions.",
-      "published": "2026-02-02T05:13:29+00:00"
+      "description": "GameStop moved its entire Bitcoin stash to an institutional exchange as CEO Ryan Cohen signals M&#038;A now outranks crypto.",
+      "published": "2026-02-02T23:10:04+00:00"
     },
     {
-      "title": "Buterin pitches DAOs, prediction markets to reward content creators",
-      "url": "https://cointelegraph.com/news/vitalik-buterin-pitches-idea-creator-coins-model?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Vitalik Buterin said the current creator token model favors those already popular and rewards mass content creation over high-quality content.",
-      "published": "2026-02-02T05:01:58+00:00"
-    },
-    {
-      "title": "Bitcoin Derivatives Signal Elevated Stress Following Market Rout",
-      "url": "https://decrypt.co/356594/bitcoin-derivatives-signal-elevated-stress",
+      "title": "Hyperliquid Eyes Prediction Markets With \u2018Outcome Trading\u2019 Proposal",
+      "url": "https://decrypt.co/356647/hyperliquid-prediction-markets-trading-proposal",
       "source": "decrypt",
-      "description": "Bitcoin\u2019s weekend plunge opened a rare CME futures gap, as macro and geopolitical pressures drove a broad deleveraging.",
-      "published": "2026-02-02T04:42:40+00:00"
+      "description": "The decentralized exchange is the latest crypto project venturing into the prediction market space through the HIP-4 upgrade.",
+      "published": "2026-02-02T22:33:24+00:00"
     },
     {
-      "title": "BitRiver CEO arrested for alleged tax concealment: Reports",
-      "url": "https://cointelegraph.com/news/bitriver-ceo-arrested-alleged-tax-concealment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Bitcoin hits \u2018fire-sale\u2019 value as capital flows capitulate: Bitwise",
+      "url": "https://cointelegraph.com/news/bitcoin-hits-fire-sale-value-as-capital-flows-capitulate-bitwise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "A Moscow court has reportedly ordered BitRiver CEO Igor Runets to remain under house arrest as investigators pursue tax evasion charges.",
-      "published": "2026-02-02T03:47:04+00:00"
+      "description": "Bitcoin flashed a major discount signal after capital outflows increased following BTC\u2019s abrupt drop below $75,000. Historical data now points to a potential 10% rebound rally in the short-term.",
+      "published": "2026-02-02T22:01:04+00:00"
     },
     {
-      "title": "Crypto selloff is likely due to US liquidity drought: Analyst",
-      "url": "https://cointelegraph.com/news/liquidity-drought-hurting-crypto-markets-raoul-pal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin\u2019s decline is mirroring SaaS stocks, proving that it is unlikely a crypto-specific narrative is driving the recent selloff, one analyst argues.",
-      "published": "2026-02-02T03:33:17+00:00"
-    },
-    {
-      "title": "UAE Royal\u2019s Alleged Stake in Trump Crypto Venture Raises Ethical Concerns",
-      "url": "https://decrypt.co/356591/uae-royals-trump-crypto-venture-ethical-concerns",
+      "title": "Bitcoin Falls Into 'Extreme Fear': How Low Will It Go?",
+      "url": "https://decrypt.co/356677/bitcoin-price-extreme-fear-how-low-will-it-go",
       "source": "decrypt",
-      "description": "A foreign investment in a Trump crypto firm reportedly preceded a reversal in U.S. AI chip restrictions, prompting corruption allegations.",
-      "published": "2026-02-02T01:28:36+00:00"
+      "description": "Bitcoin has dropped by 13% in the last 30 days and the charts are screaming caution. Where does the price of BTC go from here?",
+      "published": "2026-02-02T21:45:44+00:00"
     },
     {
-      "title": "Strategy\u2019s Saylor signals buy after BTC briefly dips below cost basis",
-      "url": "https://cointelegraph.com/news/strategy-hints-bought-bitcoin-after-weekend-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The latest crash came after US President Donald Trump nominated Kevin Warsh to replace Federal Reserve chair Jerome Powell, sending Bitcoin down to $75,892 late on Sunday.",
-      "published": "2026-02-02T00:39:41+00:00"
+      "title": "The Link Between Trump's Fed Pick and Tether's 'Made in America' Stablecoin",
+      "url": "https://decrypt.co/356673/link-between-trump-fed-pick-tether-made-america-stablecoin",
+      "source": "decrypt",
+      "description": "Kevin Warsh helped shape Anchorage Digital, a key player in Tether\u2019s efforts to gain a regulated foothold in U.S. markets through USAT.",
+      "published": "2026-02-02T21:39:43+00:00"
     },
     {
-      "title": "Crypto protocol CrossCurve under attack, $3M reportedly exploited",
-      "url": "https://cointelegraph.com/news/crypto-protocol-crosscurve-exploited-for-3m?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Opera Shares Jump After MiniPay Wallet Adds Support for Tether's USDT",
+      "url": "https://decrypt.co/356669/opera-shares-jump-after-minipay-wallet-adds-tether-usdt",
+      "source": "decrypt",
+      "description": "Browser firm Opera's stock climbed Monday after the company said its MiniPay wallet now supports USDT and Tether Gold.",
+      "published": "2026-02-02T21:02:52+00:00"
+    },
+    {
+      "title": "U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer",
+      "url": "https://bitcoinmagazine.com/news/u-s-takes-control-of-400m-in-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer The U.S. government has finalized the forfeiture of over $400 million in cryptocurrency, cash, and property linked to Helix, a major darknet bitcoin mixer, following the conviction of its operator, Larry Dean Harmon. This post U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-02T20:59:18+00:00"
+    },
+    {
+      "title": "White House officials met with crypto, banking reps to discuss stablecoins",
+      "url": "https://cointelegraph.com/news/white-house-officials-meeting-market-structure-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Crypto bridge CrossCurve has told users to pause interacting with its protocol while it conducts an investigation into a smart contract breach.",
-      "published": "2026-02-01T22:47:14+00:00"
+      "description": "The meeting came more than two weeks after the Senate Banking Committee postponed a markup on the CLARITY Act, adding that everyone \u201cremains at the table\u201c to work on the bill.",
+      "published": "2026-02-02T20:58:30+00:00"
     },
     {
       "title": "Here\u2019s what happened in crypto today",
       "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-01T20:57:03+00:00"
+      "published": "2026-02-02T20:13:16+00:00"
     },
     {
-      "title": "Will Artificial Intelligence Save Humanity\u2014Or End It?",
-      "url": "https://decrypt.co/356554/will-artificial-intelligence-save-humanity-end",
+      "title": "Bed Bath &#038; Beyond Makes Real World Asset Tokenization Move, Acquiring Tokens.com",
+      "url": "https://decrypt.co/356652/bed-bath-beyond-real-world-asset-tokenization-acquiring-tokens-com",
       "source": "decrypt",
-      "description": "A debate featuring prominent transhumanists and futurists revealed deep divides over whether AGI can be made safe, or will inevitably threaten human survival.",
-      "published": "2026-02-01T20:17:59+00:00"
+      "description": "Shares in publicly traded consumer brand Bed Bath and Beyond (BBBY) are up as the firm expands its blockchain push.",
+      "published": "2026-02-02T20:06:11+00:00"
     },
     {
-      "title": "Ethereum Founder Vitalik Buterin Made $70K Betting Against 'Crazy Mode' on Polymarket",
-      "url": "https://decrypt.co/356483/vitalik-buterin-made-70k-betting-against-crazy-mode-polymarket",
-      "source": "decrypt",
-      "description": "The Ethereum founder claims his strategy of betting against extreme market sentiment \"usually makes money\" on Polymarket.",
-      "published": "2026-02-01T17:54:11+00:00"
+      "title": "4 reasons why $75K may have been Bitcoin\u2019s 2026 price bottom",
+      "url": "https://cointelegraph.com/news/4-reasons-why-75k-may-have-been-bitcoin-s-2026-price-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Data suggests Bitcoin is unlikely to fall further than its year-to-date low of $74,680. Cointelegraph explains why.",
+      "published": "2026-02-02T20:03:56+00:00"
     },
     {
-      "title": "The Biggest Games Releasing in February 2026",
-      "url": "https://decrypt.co/356436/the-biggest-games-releasing-in-february-2026",
+      "title": "Bitcoin Traders Swing Bearish as BTC Price Languishes Below $80K",
+      "url": "https://decrypt.co/356605/bitcoin-traders-swing-bearish-btc-languishes-below-80k",
       "source": "decrypt",
-      "description": "February is packed with high-profile releases, led by Japanese developers and bolstered by new Switch 2 exclusives and long-awaited revivals.",
-      "published": "2026-02-01T15:01:02+00:00"
+      "description": "Myriad users give Bitcoin a 68% chance of dropping to $69K after the asset fell to its lowest price since 2024 this weekend.",
+      "published": "2026-02-02T19:20:44+00:00"
+    },
+    {
+      "title": "U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom",
+      "url": "https://bitcoinmagazine.com/markets/manufacturing-data-positive-as-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom U.S. manufacturing surprised to the upside last month, signaling economic growth as bitcoin struggles to stabilize after a sharp sell-off. This post U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-02T18:53:12+00:00"
+    },
+    {
+      "title": "Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-breaks-84k-support-drops-13-weekly-to-confirm-bear-market-below-100-week-sma",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone Bitcoin fell 13% last week after bears decisively broke $84,000 support, pushing prices to $75,600 before a minor recovery to $76,919 close. The loss of the 100-week SMA signals bear market confirmation, with resistance now at former support levels. This post Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone first appeared on Bitcoin Magazine and is written by Ethan Gree",
+      "published": "2026-02-02T18:14:03+00:00"
+    },
+    {
+      "title": "AceTrader Teams Up With Myriad for $30K Prediction Contest",
+      "url": "https://decrypt.co/356632/acetrader-teams-up-with-myriad-for-30k-prediction-contest",
+      "source": "decrypt",
+      "description": "Myriad users can put their smarts to the test and predict on the AceTrader 100, as elite traders compete for a $1M USDC trade fund.",
+      "published": "2026-02-02T17:53:32+00:00"
+    },
+    {
+      "title": "Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela",
+      "url": "https://bitcoinmagazine.com/news/crypto-fugitive-arrested-in-venezuela",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela Rosa Mar\u00eda Gonz\u00e1lez, a key figure in the collapse of Argentine crypto firm Generaci\u00f3n Zoe, was arrested in Venezuela. This post Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-02T17:37:11+00:00"
+    },
+    {
+      "title": "The Core Issue: Letter From The Editor",
+      "url": "https://bitcoinmagazine.com/print/the-core-issue-letter-from-the-editor",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine The Core Issue: Letter From The Editor The Core Issue explores the Bitcoin Core project, letting developers themselves discuss the projects they work on, how they approach their work, and more. This post The Core Issue: Letter From The Editor first appeared on Bitcoin Magazine and is written by Shinobi.",
+      "published": "2026-02-02T16:54:26+00:00"
+    },
+    {
+      "title": "Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-is-coming-off-a-brutal-week",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening Bitcoin plunged below $75,000 this weekend amid liquidations and retail panic. This post Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-02T14:55:28+00:00"
+    },
+    {
+      "title": "Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven",
+      "url": "https://bitcoinmagazine.com/markets/strategy-mstr-bought-855-bitcoin",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven Strategy (MSTR) bought 855 bitcoin for about $75.3 million at an average price near $88,000 just days before BTC\u2019s weekend drop below $75,000. This post Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-02T13:43:09+00:00"
     },
     {
       "title": "El Salvador\u2019s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge",
@@ -144,13 +207,6 @@
       "published": "2026-01-31T23:45:43+00:00"
     },
     {
-      "title": "Crypto Crash: Liquidations Top $2.5 Billion as Bitcoin, Ethereum and XRP Prices Plummet",
-      "url": "https://decrypt.co/356557/crypto-crash-liquidations-2-5-billion-bitcoin-ethereum-xrp-plummet",
-      "source": "decrypt",
-      "description": "The crypto market's recent decline only accelerated Saturday, with Bitcoin falling to nearly $77,000 as liquidations piled up.",
-      "published": "2026-01-31T20:35:16+00:00"
-    },
-    {
       "title": "Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-75000",
       "source": "bitcoinmagazine",
@@ -158,67 +214,11 @@
       "published": "2026-01-31T19:31:22+00:00"
     },
     {
-      "title": "India Faces Pressure to Rethink Crypto Taxes Ahead of Union Budget as Trading Shifts Offshore",
-      "url": "https://decrypt.co/356450/india-crypto-taxes-trading-shifts-offshore",
-      "source": "decrypt",
-      "description": "Industry leaders are pushing for tax reform as traders flee offshore, draining domestic exchanges and undermining regulatory oversight.",
-      "published": "2026-01-31T16:31:02+00:00"
-    },
-    {
       "title": "Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas",
       "url": "https://bitcoinmagazine.com/news/plan-b-network-cyphertank-bitcoin",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas Plan B Network has launched CypherTank, a global Bitcoin-focused pitch series that spotlights builders, ideas, and community discussion across multiple platforms. This post Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-01-30T21:56:39+00:00"
-    },
-    {
-      "title": "Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill",
-      "url": "https://bitcoinmagazine.com/news/tennessee-strategic-bitcoin-reserve",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill Tennessee lawmakers are considering a bill that would allow the state to invest up to 10% of certain public funds in bitcoin. This post Tennessee Lawmakers To Weigh Strategic Bitcoin Reserve Bill first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T21:37:51+00:00"
-    },
-    {
-      "title": "Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ",
-      "url": "https://bitcoinmagazine.com/news/jamie-dimon-tells-coinbase-ceo-full-of-it",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ JPMorgan CEO Jamie Dimon reportedly confronted and yelled at Brian Armstrong at Davos. This post Jamie Dimon Tells Coinbase CEO Brian Armstrong He\u2019s \u2018Full of Sh\u2014\u2019 in Davos Clash: WSJ first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T19:35:21+00:00"
-    },
-    {
-      "title": "Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-rainbow-chart-fire-sale",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory Bitcoin has dropped into historically \u201cfire sale\u201d levels on the Bitcoin Rainbow Chart, signaling deep undervaluation. This post Bitcoin Rainbow Chart Signals \u2018Fire Sale\u2019 Zone as BTC Enters Undervalued Territory first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T17:26:26+00:00"
-    },
-    {
-      "title": "Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning",
-      "url": "https://bitcoinmagazine.com/news/amboss-railsx-a-bitcoin-native-exchange",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning Amboss launched RailsX, a peer-to-peer platform for trading Bitcoin and stablecoins without centralized exchanges or losing custody. This post Amboss Launches \u2018RailsX,\u2019 a Bitcoin-Native Exchange Built on Lightning first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T16:21:08+00:00"
-    },
-    {
-      "title": "Binance to Move $1 Billion User Protection Fund Into Bitcoin\u00a0",
-      "url": "https://bitcoinmagazine.com/news/binance-to-move-1-billion-fund-to-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Binance to Move $1 Billion User Protection Fund Into Bitcoin As the bitcoin price slumps, Binance said it will convert the $1 billion stablecoin-backed Secure Asset Fund for Users entirely into bitcoin over the next 30 days. This post Binance to Move $1 Billion User Protection Fund Into Bitcoin first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T14:27:35+00:00"
-    },
-    {
-      "title": "Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair",
-      "url": "https://bitcoinmagazine.com/news/trump-names-kevin-warsh-as-pick-for-fed",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair President Donald Trump announced pro-bitcoin Kevin Warsh as his nominee to serve as chairman of the Federal Reserve, confirming speculation from prediction markets. This post Trump Names Bitcoin-Friendly Kevin Warsh as Pick for Federal Reserve Chair first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T13:06:38+00:00"
-    },
-    {
-      "title": "Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000",
-      "url": "https://bitcoinmagazine.com/markets/strategy-stock-mstr-hits-52-week-low",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000 Shares of Strategy ($MSTR) dropped as low as 12% today, currently trading at $140.88 and hitting a session low of $140.25. This post Strategy Stock ($MSTR) Hits 52-Week Low As Bitcoin Craters Below $84,000 first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-29T18:36:46+00:00"
     }
   ]
 }

@@ -108,12 +108,6 @@ const PAGE_TIPS: Record<string, string[]> = {
     "Customize your avatar!",
     "Check your achievements!",
   ],
-  '/reader': [
-    "Happy reading! 📖",
-    "Tap words you don't know!",
-    "Take breaks if your eyes get tired!",
-    "Adjust the text size if needed!",
-  ],
   '/daily': [
     "New challenge every day!",
     "Daily streaks earn bonus XP!",

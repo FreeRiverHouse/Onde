@@ -5,7 +5,9 @@
  * Falls back gracefully if not available
  */
 
-const LOCAL_LLM_URL = process.env.NEXT_PUBLIC_LOCAL_LLM_URL || 'http://192.168.1.111:8080';
+// Local LLM disabled by default to prevent browser local network access prompts
+// Set NEXT_PUBLIC_LOCAL_LLM_URL in env to enable (e.g., 'http://localhost:8080')
+const LOCAL_LLM_URL = process.env.NEXT_PUBLIC_LOCAL_LLM_URL || '';
 
 export interface LLMResponse {
   success: boolean;
@@ -17,6 +19,9 @@ export interface LLMResponse {
  * Check if local LLM is available
  */
 export async function checkLocalLLM(): Promise<boolean> {
+  // Skip if no URL configured
+  if (!LOCAL_LLM_URL) return false;
+  
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3000);

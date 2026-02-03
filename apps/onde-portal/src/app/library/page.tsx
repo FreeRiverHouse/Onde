@@ -206,7 +206,7 @@ export default function MagicLibrary() {
           🪑 Find a cozy spot and enjoy reading!
         </p>
         <Link 
-          href="/reader"
+          href="/libri"
           className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-all"
         >
           📖 Browse All Books

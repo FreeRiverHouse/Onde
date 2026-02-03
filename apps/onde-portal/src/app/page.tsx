@@ -99,7 +99,6 @@ const dockItems = [
   { title: "Books", icon: "📚", href: "#books" },
   { title: "Games", icon: "🎮", href: "/games" },
   { title: "Skin Creator", icon: "🎨", href: "/games/skin-creator" },
-  { title: "VR", icon: "🥽", href: "/vr" },
   { title: "About", icon: "✨", href: "#about" },
 ]
 
@@ -249,8 +248,12 @@ export default function Home() {
 
             <Link 
               href="/games/skin-creator"
-              className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 transition-all flex items-center gap-2"
+              className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 transition-all flex items-center gap-2"
             >
+              {/* NEW Badge */}
+              <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-black rounded-full shadow-lg animate-pulse border-2 border-white">
+                NEW!
+              </span>
               <span>Minecraft Skin Creator</span>
               <span className="text-xl group-hover:rotate-12 transition-transform">🎨</span>
             </Link>

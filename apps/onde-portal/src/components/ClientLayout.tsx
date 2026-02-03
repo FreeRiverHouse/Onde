@@ -36,7 +36,6 @@ function Footer() {
             <h2 className="font-display font-semibold text-onde-ocean mb-4 text-base">{t.footer.explore}</h2>
             <ul className="space-y-2">
               <li><Link href="/libri" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.books}</Link></li>
-              <li><Link href="/reader/" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.read}</Link></li>
               <li><Link href="/about" className="text-onde-ocean/60 hover:text-onde-coral transition-colors">{t.navigation.about}</Link></li>
             </ul>
           </nav>

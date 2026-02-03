@@ -27,7 +27,6 @@ export default function Navigation() {
   const navItems = [
     { href: '/', label: t.navigation.home },
     { href: '/libri', label: t.navigation.books },
-    { href: '/reader/', label: t.navigation.read },
     { href: '/games', label: t.navigation.games },
     { href: '/about', label: t.navigation.about },
   ]
@@ -54,22 +53,8 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
+            {/* Logo - Text only */}
             <Link href="/" className="flex items-center gap-2">
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Image
-                  src="/images/onde-logo.jpg"
-                  alt="Onde"
-                  width={48}
-                  height={48}
-                  className="rounded-xl"
-                  priority
-                />
-              </motion.div>
               <span className="text-2xl font-display font-bold text-onde-ocean">
                 Onde
               </span>

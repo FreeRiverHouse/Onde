@@ -170,7 +170,7 @@ export default function SkinCreator() {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [mirrorMode, setMirrorMode] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [show3D, setShow3D] = useState(false); // Toggle 2D/3D preview
+  const [show3D, setShow3D] = useState(true); // Toggle 2D/3D preview - start with 3D!
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [zoomLevel, setZoomLevel] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 6);
   const [showGrid, setShowGrid] = useState(true); // Grid overlay toggle
@@ -213,6 +213,7 @@ export default function SkinCreator() {
   const [showMobileColorPicker, setShowMobileColorPicker] = useState(false);
   const [showMobile3DPreview, setShowMobile3DPreview] = useState(false);
   const [skinModel, setSkinModel] = useState<'steve' | 'alex'>('steve'); // Steve (4px arms) or Alex (3px slim arms)
+  const [skinVersion, setSkinVersion] = useState(0); // Increment to force 3D preview texture refresh
   const lastPinchDistance = useRef<number | null>(null); // For pinch-to-zoom
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null); // Right-click menu
   const [aiPrompt, setAiPrompt] = useState('');
@@ -344,7 +345,7 @@ export default function SkinCreator() {
   const [layers, setLayers] = useState<Layer[]>(DEFAULT_LAYERS);
   const [activeLayer, setActiveLayer] = useState<LayerType>('base');
   // Hide layer panel by default on mobile
-  const [showLayerPanel, setShowLayerPanel] = useState(typeof window !== 'undefined' && window.innerWidth >= 768);
+  const [showLayerPanel, setShowLayerPanel] = useState(false); // Start with layer panel closed for cleaner UI
   const layerCanvasRefs = useRef<{ [key in LayerType]?: HTMLCanvasElement }>({});
 
   // 💾 MY SKINS - Save/Load System
@@ -914,6 +915,9 @@ export default function SkinCreator() {
     });
     setHistoryIndex(prev => Math.min(prev + 1, maxHistory - 1));
 
+    // 🔄 Force 3D preview texture refresh
+    setSkinVersion(v => v + 1);
+
     // Auto-save to localStorage 💾
     try {
       localStorage.setItem('minecraft-skin-autosave', canvas.toDataURL('image/png'));
@@ -1312,6 +1316,8 @@ export default function SkinCreator() {
     // 🎨 Composite all layers to main canvas
     compositeLayersToMain();
     updatePreview();
+    // 🔄 Force 3D preview texture refresh
+    setSkinVersion(v => v + 1);
   }, [getLayerCanvas, compositeLayersToMain]);
 
   const updatePreview = useCallback(() => {
@@ -2242,7 +2248,7 @@ export default function SkinCreator() {
 
           {show3D ? (
             <div className="rounded-xl mx-auto overflow-hidden" style={{ width: 200, height: 280 }}>
-              <SkinPreview3D skinCanvas={canvasRef.current} />
+              <SkinPreview3D skinCanvas={canvasRef.current} textureVersion={skinVersion} />
             </div>
           ) : (
             <canvas
@@ -2986,6 +2992,32 @@ export default function SkinCreator() {
           <p className="hidden md:block text-center mt-2 text-gray-500 text-sm">
             🎨 Draw here! See your character on the left! ✨
           </p>
+
+          {/* 📱 MOBILE TEMPLATES - Quick access to skins */}
+          <div className="md:hidden mt-3 px-2">
+            <p className="text-xs font-semibold text-gray-600 mb-2 text-center">✨ Start from:</p>
+            <div className="flex flex-wrap gap-1 justify-center">
+              {Object.entries(TEMPLATES).slice(0, 6).map(([key, template]) => (
+                <button
+                  key={key}
+                  onClick={() => loadTemplate(key as keyof typeof TEMPLATES)}
+                  className="px-2 py-1 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 active:scale-95 transition-all"
+                >
+                  {template.name}
+                </button>
+              ))}
+              <button
+                onClick={() => {
+                  setIsWiggling(true);
+                  generateRandomSkin();
+                  setTimeout(() => setIsWiggling(false), 500);
+                }}
+                className="px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold active:scale-95 transition-all"
+              >
+                🎲 Random!
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Right Panel - Colors (Hidden on mobile - use floating color picker) */}
@@ -4198,7 +4230,7 @@ export default function SkinCreator() {
           {/* 3D Preview */}
           <div className="flex-1 flex items-center justify-center p-4">
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 w-full max-w-sm aspect-square flex items-center justify-center">
-              <SkinPreview3D skinCanvas={canvasRef.current} />
+              <SkinPreview3D skinCanvas={canvasRef.current} textureVersion={skinVersion} />
             </div>
           </div>
           

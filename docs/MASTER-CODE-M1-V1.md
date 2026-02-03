@@ -65,12 +65,14 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 | Fase | Tempo | Note |
 |------|-------|------|
 | Model load | ~30s | Caricamento GGUF da SSD |
-| Prima request (compilazione) | ~5-6 min | Compila kernel LLVM per la shape |
-| Request successive | **~1 tok/s** | Kernel cachato |
+| Prima request (compilazione) | ~3-4 min | Compila kernel LLVM per la shape |
+| Prefill (dopo cache) | **~4 tok/s** | Processing input tokens |
+| Generation (dopo cache) | **~3 tok/s** | Generating output tokens |
 
 ### Confronto con setup precedente
 - **v1.2 (con pre-warmup)**: Memory leak dopo 6-7 warmup lengths
 - **M1-V1 (con --no-warmup)**: Stabile, ~1 tok/s
+- **M1-V1.2 (fix max_tokens + JIT)**: Stabile, ~3-4 tok/s, risposte coerenti
 
 ---
 
@@ -137,6 +139,47 @@ rm -f /tmp/am_remote:0.lock
 
 ---
 
+## OTTIMIZZAZIONI FUTURE (DA ESPLORARE)
+
+### Testate e funzionanti
+- ✅ LLVM O3 optimization (+25% prefill)
+- ✅ LLVM verification skip (compilazione più veloce)
+- ✅ JIT per generation (single token, T=1)
+- ✅ Disable prefill_jit (evita shape mismatch)
+
+### Testate, nessun miglioramento per Q4
+- ❌ USE_TC/TC_OPT (tensor cores) - Q4 dequant→float non matcha bene
+- ❌ BEAM search - troppo lento per uso pratico
+
+### Da esplorare in futuro
+- Fused dequantization kernel (dequant + matmul in un unico kernel)
+- Kernel custom per Q4 matmul
+- Memory prefetching ottimizzato
+- Batch processing per context più lunghi
+- **llama.cpp con HIP backend** (richiede Linux nativo, 30-78 tok/s!)
+- **Modelli Mamba/RWKV** - architettura SSM, 4-5x più veloce dei Transformer
+
+### Modelli alternativi da testare
+| Modello | Tipo | Perché potrebbe essere migliore |
+|---------|------|--------------------------------|
+| [mamba-2.8b-hf-GGUF](https://huggingface.co/bartowski/mamba-2.8b-hf-GGUF) | SSM | No KV cache, memoria costante |
+| [rwkv-6-world-7b-GGUF](https://huggingface.co/bartowski/rwkv-6-world-7b-GGUF) | SSM | Linear attention, velocità non degrada |
+| [mamba-gpt-7b-GGUF](https://huggingface.co/gultar/mamba-gpt-7b-GGUF) | Hybrid | Mamba + GPT merge |
+
+### Limiti teorici
+- RX 7900 XTX: 960 GB/s memory bandwidth
+- Per 14B Q4 (~8GB pesi): 8.3ms/token minimo teorico (~120 tok/s)
+- **Realtà**: Transformer decode = memory-bound → 3 tok/s
+- **Perché 40x gap**: ogni token richiede leggere TUTTI i pesi + KV cache
+- **llama.cpp HIP**: 30-78 tok/s (kernel ottimizzati nativi AMD)
+
+### VM ROCm su Mac? NO
+- macOS **non supporta** PCIe/GPU passthrough (limitazione Apple)
+- M1 non può virtualizzare x86 ROCm efficentemente
+- **Soluzione**: Linux nativo su PC separato o dual boot (non M1)
+
+---
+
 ## VARIABILI AMBIENTE
 
 | Variabile | Valore | Descrizione |
@@ -146,6 +189,21 @@ rm -f /tmp/am_remote:0.lock
 | `PYTHONPATH` | `.` | Include moduli TinyGrad |
 | `SHOW_THINKING` | `0/1` | Mostra blocchi `<think>` |
 | `DEBUG` | `0-7` | Verbosità (0=off, 7=max) |
+| `LLVM_O3` | `1` | **RACCOMANDATO** - Usa O3 invece di O2 (+25% prefill) |
+| `LLVM_NOVERIFY` | `1` | **RACCOMANDATO** - Disabilita verification (compilazione più veloce) |
+
+### Variabili Testate (non migliorano Q4 inference)
+| Variabile | Valore | Note |
+|-----------|--------|------|
+| `USE_TC` | `1` | Tensor cores - non aiuta per Q4 (pesi int4, non float16) |
+| `TC_OPT` | `2` | Padding per TC - stesso motivo sopra |
+| `BEAM` | `1-4` | Beam search - troppo lento per uso pratico |
+
+### Comando Ottimizzato (RACCOMANDATO)
+```bash
+PYTHONPATH=. AMD=1 AMD_LLVM=1 LLVM_O3=1 LLVM_NOVERIFY=1 /opt/homebrew/bin/python3.11 \
+  tinygrad/apps/llm_q4.py --model qwen2.5:14b --max_context 4096 --serve 11434 --no-warmup
+```
 
 ---
 
@@ -197,8 +255,88 @@ PYTHONPATH=. AMD=1 AMD_LLVM=1 /opt/homebrew/bin/python3.11 \
 
 ---
 
+---
+
+## CLAWDBOT INTEGRATION (Qwen2.5-14B)
+
+> Per uso con ClawdBot, usare Qwen2.5-14B (più veloce, meno VRAM)
+
+### Config ClawdBot (~/.clawdbot/clawdbot.json)
+
+```json
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "tinygrad": {
+        "baseUrl": "http://127.0.0.1:11435/v1",
+        "apiKey": "tinygrad",
+        "api": "openai-completions",
+        "models": [{
+          "id": "qwen2.5:14b",
+          "name": "Qwen2.5-14B (TinyGrad Q4)",
+          "reasoning": false,
+          "input": ["text"],
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+          "contextWindow": 4096,
+          "maxTokens": 4096
+        }]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "tinygrad/qwen2.5:14b",
+        "fallbacks": ["anthropic/claude-opus-4-5"]
+      }
+    }
+  }
+}
+```
+
+### Wrapper Tool-Stripping
+
+ClawdBot manda 23 tools - i modelli locali non li supportano.
+Il wrapper li rimuove:
+
+**Path:** `/Users/mattia/Projects/Onde/tools/clawdbot-local-llm/wrappers/m1-qwen-wrapper.js`
+
+**Porte:**
+- `11434` - Server TinyGrad diretto
+- `11435` - Wrapper (ClawdBot punta qui)
+
+### Script Avvio ClawdBot
+
+```bash
+/Users/mattia/Projects/Onde/tools/clawdbot-local-llm/start-clawdbot-qwen.sh
+```
+
+### Differenze Qwen2.5-14B vs Qwen3-32B
+
+| | Qwen2.5-14B | Qwen3-32B |
+|---|---|---|
+| VRAM | ~8.4 GB | ~18 GB |
+| Speed | **~3-4 tok/s** | ~1 tok/s |
+| max_context consigliato | 4096 | 512 |
+| Thinking mode | No | Si |
+
+---
+
 ## CHANGELOG
 
+- **M1-V1.3 (2026-02-02 20:30)**: Ottimizzazioni LLVM e test Tensor Cores
+  - Aggiunto `LLVM_O3=1` per optimization level aggressivo (+25% prefill)
+  - Aggiunto `LLVM_NOVERIFY=1` per compilazione più veloce
+  - Testato `USE_TC=1 TC_OPT=2` (tensor cores) - nessun miglioramento per Q4 inference
+  - Performance stabile: **~5-6 tok/s prefill, ~3 tok/s generation**
+  - Documentate variabili ambiente per tuning avanzato
+- **M1-V1.2 (2026-02-02 18:45)**: Performance e stabilità migliorati
+  - Fix bug `max_tokens` - ora rispetta il parametro API OpenAI
+  - Disabilitato `prefill_jit` (causava errori shape mismatch)
+  - Performance: **~4 tok/s prefill, ~3 tok/s generation** (da ~1 tok/s)
+  - Risposte ora coerenti (non più garbage output)
+- **M1-V1.1 (2026-02-03)**: Aggiunta sezione ClawdBot + Qwen2.5-14B
 - **M1-V1 (2026-02-02 12:00)**: Setup stabile con --no-warmup
   - Rimosso pre-warmup (causa memory leak)
   - Aggiunto flag `--no-warmup`

@@ -96,12 +96,77 @@ export default function GamingIsland() {
       size: 8 + (i % 8),
     })), [])
 
+  // All games combined for mobile grid
+  const mobileGames = [
+    { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight House', emoji: '🐱', color: 'from-purple-500 to-purple-600' },
+    { id: 'arcade', href: '/games/arcade', title: 'Arcade', emoji: '🕹️', color: 'from-orange-500 to-red-500' },
+    { id: 'library', href: '/libri', title: 'Library', emoji: '📚', color: 'from-amber-600 to-amber-700' },
+    ...allGames.map(g => ({ ...g, color: 'from-sky-400 to-blue-500' })),
+  ]
+
   return (
-    <div className={`min-h-screen relative overflow-hidden transition-all duration-700 ${
-      weather === 'sunny' ? 'bg-gradient-to-b from-amber-200 via-orange-200 to-green-300' :
-      weather === 'rain' ? 'bg-gradient-to-b from-slate-400 via-slate-500 to-green-400' :
-      'bg-gradient-to-b from-slate-200 via-blue-100 to-green-200'
-    }`}>
+    <>
+      {/* === MOBILE SIMPLE VIEW === */}
+      <div className="md:hidden min-h-screen bg-gradient-to-b from-sky-100 via-green-50 to-green-100">
+        {/* Mobile Header */}
+        <div className="bg-gradient-to-r from-green-400 to-emerald-500 pt-6 pb-8 px-4 text-center shadow-lg">
+          <Link href="/" className="absolute top-4 left-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-green-600 shadow">
+            ← Home
+          </Link>
+          <Link href="/games/leaderboard" className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-amber-600 shadow flex items-center gap-1">
+            🏆 <span>Top</span>
+          </Link>
+          <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🏝️ Gaming Island</h1>
+          <p className="text-white/90 text-sm mt-1">Pick a game and have fun!</p>
+        </div>
+
+        {/* Featured Games */}
+        <div className="px-4 py-6">
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            {[
+              { href: '/games/moonlight-magic-house', emoji: '🐱', title: 'Moonlight', color: 'from-purple-500 to-purple-600' },
+              { href: '/games/arcade', emoji: '🕹️', title: 'Arcade', color: 'from-orange-500 to-red-500' },
+              { href: '/libri', emoji: '📚', title: 'Library', color: 'from-amber-600 to-amber-700' },
+            ].map((game) => (
+              <Link 
+                key={game.href}
+                href={game.href}
+                className={`bg-gradient-to-br ${game.color} rounded-2xl p-4 text-center shadow-lg active:scale-95 transition-transform`}
+              >
+                <div className="text-4xl mb-2">{game.emoji}</div>
+                <div className="text-white font-bold text-sm">{game.title}</div>
+              </Link>
+            ))}
+          </div>
+
+          {/* All Mini-Games Grid */}
+          <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 Mini-Games</h2>
+          <div className="grid grid-cols-4 gap-2">
+            {allGames.map((game) => (
+              <Link
+                key={game.id}
+                href={game.href}
+                className="bg-white rounded-xl p-3 text-center shadow-md active:scale-95 transition-transform border border-gray-100"
+              >
+                <div className="text-2xl mb-1">{game.emoji}</div>
+                <div className="text-[10px] font-medium text-gray-600 truncate">{game.title}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer decoration */}
+        <div className="text-center py-4 text-gray-400 text-sm">
+          🌈 More games coming soon!
+        </div>
+      </div>
+
+      {/* === DESKTOP ISLAND VIEW === */}
+      <div className={`hidden md:block min-h-screen relative overflow-hidden transition-all duration-700 ${
+        weather === 'sunny' ? 'bg-gradient-to-b from-amber-200 via-orange-200 to-green-300' :
+        weather === 'rain' ? 'bg-gradient-to-b from-slate-400 via-slate-500 to-green-400' :
+        'bg-gradient-to-b from-slate-200 via-blue-100 to-green-200'
+      }`}>
       {/* Weather toggle button */}
       <button
         onClick={cycleWeather}
@@ -1119,6 +1184,7 @@ export default function GamingIsland() {
         .animate-game-bubble { animation: game-bubble 3s ease-in-out infinite; }
         .group-hover\\:animate-bounce-small:hover { animation: bounce-small 0.3s ease-in-out; }
       `}</style>
-    </div>
+      </div>
+    </>
   )
 }

@@ -128,6 +128,16 @@ class Q4Transformer:
         self.max_context = max_context
         # JIT compilation for fast token generation
         self.forward_jit = TinyJit(self.forward)
+        # JIT for prefill with fixed shapes (padded to PREFILL_LENGTHS)
+        self.prefill_jit = TinyJit(self.forward_prefill)
+
+    def forward_prefill(self, tokens: Tensor, start_pos: int) -> Tensor:
+        """Prefill forward pass - processes multiple tokens at once."""
+        x = self.token_embd(tokens)
+        for block in self.blk:
+            x = block(x, start_pos)
+        # Return logits for the LAST token only (for next token prediction)
+        return self.output(self.output_norm(x))[:, -1, :].softmax(-1, dtype="float").argmax(-1, keepdim=True)
 
     def forward(self, tokens: Tensor, start_pos: int | UOp) -> Tensor:
         x = self.token_embd(tokens)
@@ -137,7 +147,12 @@ class Q4Transformer:
 
     def __call__(self, tokens: Tensor, start_pos: int | UOp = 0) -> Tensor:
         # Use JIT for single token generation (T=1) with symbolic start_pos
-        return (self.forward_jit if getenv("JIT", 1) and tokens.shape[1] == 1 and isinstance(start_pos, UOp) else self.forward)(tokens, start_pos)
+        if getenv("JIT", 1) and tokens.shape[1] == 1 and isinstance(start_pos, UOp):
+            return self.forward_jit(tokens, start_pos)
+        # NOTE: prefill_jit disabled - causes shape mismatch errors with variable input lengths
+        # The overhead of non-JIT prefill is acceptable since it only runs once per request
+        else:
+            return self.forward(tokens, start_pos)
 
     @staticmethod
     def from_gguf_quantized(gguf: Tensor, max_context: int | None = None) -> tuple['Q4Transformer', dict]:
@@ -282,7 +297,16 @@ class Q4Transformer:
     def generate(self, tokens: list[int], start_pos: int = 0):
         # Create symbolic variable for JIT compilation
         v_start_pos = UOp.variable("start_pos", 1, self.max_context - 1)
-        t = Tensor([tokens[start_pos:]], dtype="int32")
+
+        # Pad input to fixed length for JIT caching (only for prefill)
+        input_tokens = tokens[start_pos:]
+        input_len = len(input_tokens)
+        padded_len = get_padded_length(input_len) if getenv("PAD_PREFILL", 1) else input_len
+        if padded_len > input_len:
+            # Pad with pad_token (use 0 or first token)
+            input_tokens = [0] * (padded_len - input_len) + input_tokens
+
+        t = Tensor([input_tokens], dtype="int32")
         while len(tokens) < self.max_context:
             # Use symbolic start_pos for JIT when generating single tokens
             sp = v_start_pos.bind(start_pos) if getenv("SYM", 1) and start_pos != 0 and t.shape[-1] == 1 else start_pos
@@ -331,7 +355,7 @@ async function send() {
 class Handler(HTTPRequestHandler):
   def log_request(self, code='-', size='-'): pass
   def do_GET(self): self.send_data(CHAT_HTML, content_type="text/html")
-  def run_model(self, ids:list[int], model_name:str, include_usage=False, show_thinking=False):
+  def run_model(self, ids:list[int], model_name:str, include_usage=False, show_thinking=False, max_tokens:int=4096):
     # Check if this length is pre-warmed
     nearest_warmup = get_padded_length(len(ids))
     warmup_status = "✓" if len(ids) in WARMUP_LENGTHS else f"→{nearest_warmup}"
@@ -347,6 +371,7 @@ class Handler(HTTPRequestHandler):
     for next_id in model.generate(ids):
       if len(out) == 0: stderr_log(f"prefill:{len(ids)/((pt:=time.perf_counter())-st):4.0f} tok/s  ")
       if next_id == eos_id: break
+      if len(out) >= max_tokens: break  # Respect max_tokens limit
       out.append(next_id)
       content = tok.decode([next_id])
 
@@ -403,12 +428,18 @@ class Handler(HTTPRequestHandler):
             if c["type"] == "text": ids += tok.encode(c["text"])
         ids += tok.end_turn(eos_id)
       ids += tok.role("assistant")
+      # Truncate if input is too long (keep last tokens to preserve recent context)
+      max_input = model.max_context - 100  # Reserve 100 tokens for output
+      if len(ids) > max_input:
+        stderr_log(f"[WARN] Input too long ({len(ids)} tokens), truncating to {max_input}\n")
+        ids = ids[-max_input:]
       # show_thinking: set to true to see <think>...</think> blocks in output
       # Can be set via: "show_thinking": true in request body
       show_thinking = body.get("show_thinking", False) or getenv("SHOW_THINKING", 0)
+      max_tokens = body.get("max_tokens", 4096)  # Default to 4096 if not specified
       chunks = self.run_model(ids, body["model"],
                               not body.get("stream") or body.get("stream_options",{}).get("include_usage", False),
-                              show_thinking=show_thinking)
+                              show_thinking=show_thinking, max_tokens=max_tokens)
       if body.get("stream"): self.stream_json(chunks)
       else:
         out = []

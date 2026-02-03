@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-02-01T12:00:03.688947",
+  "generated_at": "2026-02-02T12:00:03.936847",
   "status": "success",
   "correlation": {
-    "value": 0.8675,
+    "value": 0.8842,
     "period_days": 7,
     "interpretation": "high",
     "data_points": 169
@@ -13,10 +13,10 @@
     "risk_level": "medium"
   },
   "current_prices": {
-    "btc": 77027.04,
-    "eth": 2313.69,
-    "btc_7d_change_pct": -10.84,
-    "eth_7d_change_pct": -17.76
+    "btc": 78405.8,
+    "eth": 2335.52,
+    "btc_7d_change_pct": -10.86,
+    "eth_7d_change_pct": -20.0
   },
   "data_source": "coingecko"
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.clawdbot.m1-wrapper</string>
+
+    <key>Comment</key>
+    <string>M1 Qwen3 Tool Wrapper for ClawdBot (strips tools from TinyGrad requests)</string>
+
+    <!-- Avvia automaticamente al login -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Riavvia se crasha -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Comando da eseguire -->
+    <key>ProgramArguments</key>
+    <array>
+      <string>/opt/homebrew/bin/node</string>
+      <string>/Users/mattia/Projects/Onde/tools/clawdbot-local-llm/wrappers/m1-qwen-wrapper.js</string>
+    </array>
+
+    <!-- Working directory -->
+    <key>WorkingDirectory</key>
+    <string>/Users/mattia/Projects/Onde/tools/clawdbot-local-llm/wrappers</string>
+
+    <!-- Log files -->
+    <key>StandardOutPath</key>
+    <string>/Users/mattia/.clawdbot/logs/m1-wrapper.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/mattia/.clawdbot/logs/m1-wrapper.err.log</string>
+
+    <!-- Environment variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>HOME</key>
+      <string>/Users/mattia</string>
+      <key>PATH</key>
+      <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+  </dict>
+</plist>

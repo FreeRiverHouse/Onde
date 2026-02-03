@@ -20,169 +20,86 @@ interface Book {
   category: 'tech' | 'spiritual' | 'poetry' | 'growth' | 'mindfulness' | 'sensory';
 }
 
-// Onde Kids book catalog
+// Onde Books - Real published books only!
 const BOOKS: Book[] = [
   {
-    id: 'aiko',
-    title: { it: 'AIKO e l\'Intelligenza Artificiale', en: 'AIKO and Artificial Intelligence' },
+    id: 'meditations-en',
+    title: { it: 'Meditazioni', en: 'Meditations' },
     description: { 
-      it: 'Scopri il mondo dell\'AI con AIKO! Un\'avventura tecnologica per i piccoli curiosi.',
-      en: 'Discover the world of AI with AIKO! A tech adventure for curious kids.'
+      it: 'La saggezza senza tempo di Marco Aurelio per vivere con coraggio e serenità.',
+      en: 'Timeless wisdom from Marcus Aurelius on living with courage and tranquility.'
     },
-    cover: '/assets/books/aiko-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '5-10',
-    price: 4.99,
-    coinPrice: 50,
-    pages: 32,
-    freePreview: 3,
-    storeUrl: 'https://onde.la/books/aiko',
-    color: '#4FC3F7',
-    category: 'tech',
-  },
-  {
-    id: 'salmo23',
-    title: { it: 'Il Salmo 23 per Bambini', en: 'Psalm 23 for Kids' },
-    description: {
-      it: 'Una dolce interpretazione del Salmo più amato, con illustrazioni magiche.',
-      en: 'A sweet interpretation of the most beloved Psalm, with magical illustrations.'
-    },
-    cover: '/assets/books/salmo23-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '4-8',
-    price: 3.99,
-    coinPrice: 40,
-    pages: 24,
-    freePreview: 2,
-    storeUrl: 'https://onde.la/books/salmo23',
-    color: '#81C784',
+    cover: '/images/books/meditations-cover.jpg',
+    author: 'Marcus Aurelius',
+    ageRange: '12+',
+    price: 0,
+    coinPrice: 0, // Free!
+    pages: 120,
+    freePreview: 10,
+    storeUrl: 'https://onde.la/libro/meditations-en',
+    color: '#2C3E50',
     category: 'spiritual',
   },
   {
-    id: 'piccole-rime',
-    title: { it: 'Piccole Rime', en: 'Little Rhymes' },
-    description: {
-      it: 'Poesie dolci e divertenti per i più piccoli. Rime che fanno sorridere!',
-      en: 'Sweet and fun poems for little ones. Rhymes that make you smile!'
+    id: 'meditations-it',
+    title: { it: 'Meditazioni', en: 'Meditations (Italian)' },
+    description: { 
+      it: 'La saggezza senza tempo di Marco Aurelio per vivere con coraggio e serenità.',
+      en: 'Timeless wisdom from Marcus Aurelius. Italian edition.'
     },
-    cover: '/assets/books/piccole-rime-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '3-6',
-    price: 2.99,
-    coinPrice: 30,
-    pages: 20,
-    freePreview: 3,
-    storeUrl: 'https://onde.la/books/piccole-rime',
-    color: '#F48FB1',
-    category: 'poetry',
+    cover: '/images/books/meditations-cover.jpg',
+    author: 'Marco Aurelio',
+    ageRange: '12+',
+    price: 0,
+    coinPrice: 0, // Free!
+    pages: 120,
+    freePreview: 10,
+    storeUrl: 'https://onde.la/libro/meditations-it',
+    color: '#8E44AD',
+    category: 'spiritual',
   },
   {
-    id: 'desideri',
-    title: { it: 'Il Potere dei Desideri', en: 'The Power of Wishes' },
+    id: 'shepherds-promise',
+    title: { it: 'La Promessa del Pastore', en: "The Shepherd's Promise" },
     description: {
-      it: 'Impara a sognare in grande! Una storia sulla forza dei desideri.',
-      en: 'Learn to dream big! A story about the power of wishes.'
+      it: 'Una dolce interpretazione del Salmo 23 con bellissime illustrazioni.',
+      en: 'A gentle retelling of Psalm 23 with beautiful illustrations.'
     },
-    cover: '/assets/books/desideri-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '6-10',
-    price: 4.99,
-    coinPrice: 50,
-    pages: 36,
-    freePreview: 3,
-    storeUrl: 'https://onde.la/books/desideri',
-    color: '#FFD54F',
-    category: 'growth',
-  },
-  {
-    id: 'respiro-magico',
-    title: { it: 'Il Respiro Magico', en: 'The Magic Breath' },
-    description: {
-      it: 'Tecniche di respirazione per bambini. Calma e relax in modo divertente!',
-      en: 'Breathing techniques for kids. Calm and relaxation the fun way!'
-    },
-    cover: '/assets/books/respiro-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '4-8',
-    price: 3.99,
-    coinPrice: 40,
-    pages: 28,
-    freePreview: 2,
-    storeUrl: 'https://onde.la/books/respiro-magico',
-    color: '#B39DDB',
-    category: 'mindfulness',
-  },
-  {
-    id: 'inventore',
-    title: { it: 'Il Piccolo Inventore', en: 'The Little Inventor' },
-    description: {
-      it: 'Sogna, crea, inventa! La storia di un bambino che cambia il mondo.',
-      en: 'Dream, create, invent! The story of a child who changes the world.'
-    },
-    cover: '/assets/books/inventore-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '6-10',
-    price: 4.99,
-    coinPrice: 50,
+    cover: '/books/shepherds-promise-cover.jpg',
+    author: 'Onde',
+    ageRange: '4-10',
+    price: 0,
+    coinPrice: 0, // Free!
     pages: 32,
-    freePreview: 3,
-    storeUrl: 'https://onde.la/books/inventore',
-    color: '#FF8A65',
-    category: 'tech',
-  },
-  {
-    id: 'cinque-sensi',
-    title: { it: 'I Cinque Sensi di Luna', en: 'Luna\'s Five Senses' },
-    description: {
-      it: 'Esplora il mondo attraverso i sensi insieme a Luna!',
-      en: 'Explore the world through senses with Luna!'
-    },
-    cover: '/assets/books/sensi-cover.svg',
-    author: 'Onde Kids',
-    ageRange: '3-6',
-    price: 3.99,
-    coinPrice: 35,
-    pages: 24,
-    freePreview: 2,
-    storeUrl: 'https://onde.la/books/cinque-sensi',
-    color: '#4DB6AC',
-    category: 'sensory',
+    freePreview: 10,
+    storeUrl: 'https://onde.la/libro/shepherds-promise',
+    color: '#27AE60',
+    category: 'spiritual',
   },
 ];
 
-// Demo pages content (placeholder - would be actual page images in production)
+// Demo pages content - excerpts from our real books
 const DEMO_PAGES: Record<string, { it: string; en: string }[]> = {
-  aiko: [
-    { it: 'Ciao! Sono AIKO, un\'intelligenza artificiale...', en: 'Hi! I\'m AIKO, an artificial intelligence...' },
-    { it: 'Ti chiedi cosa sia l\'AI? È come avere un amico robot che impara!', en: 'Wondering what AI is? It\'s like having a robot friend who learns!' },
-    { it: 'Insieme possiamo esplorare come funziona la tecnologia!', en: 'Together we can explore how technology works!' },
+  'meditations-en': [
+    { it: 'Inizia ogni mattino dicendoti: oggi incontrerò...', en: 'Begin each day by telling yourself: Today I shall meet...' },
+    { it: 'L\'impedimento all\'azione fa avanzare l\'azione.', en: 'The impediment to action advances action.' },
+    { it: 'Non perdere tempo a discutere su cosa dovrebbe essere un brav\'uomo. Sii uno.', en: 'Waste no more time arguing about what a good man should be. Be one.' },
+    { it: 'La felicità della tua vita dipende dalla qualità dei tuoi pensieri.', en: 'The happiness of your life depends upon the quality of your thoughts.' },
+    { it: 'Ricevi senza superbia, lascia andare senza attaccamento.', en: 'Receive without pride, let go without attachment.' },
   ],
-  salmo23: [
+  'meditations-it': [
+    { it: 'Inizia ogni mattino dicendoti: oggi incontrerò...', en: 'Begin each day by telling yourself: Today I shall meet...' },
+    { it: 'L\'impedimento all\'azione fa avanzare l\'azione.', en: 'The impediment to action advances action.' },
+    { it: 'Non perdere tempo a discutere su cosa dovrebbe essere un brav\'uomo. Sii uno.', en: 'Waste no more time arguing about what a good man should be. Be one.' },
+    { it: 'La felicità della tua vita dipende dalla qualità dei tuoi pensieri.', en: 'The happiness of your life depends upon the quality of your thoughts.' },
+    { it: 'Ricevi senza superbia, lascia andare senza attaccamento.', en: 'Receive without pride, let go without attachment.' },
+  ],
+  'shepherds-promise': [
     { it: 'Il Signore è il mio pastore, non mi manca nulla...', en: 'The Lord is my shepherd, I shall not want...' },
     { it: 'Mi fa riposare in verdi pascoli...', en: 'He makes me lie down in green pastures...' },
-  ],
-  'piccole-rime': [
-    { it: 'La luna splende alta nel cielo, e illumina ogni bimbo bello...', en: 'The moon shines high in the sky, lighting every child passing by...' },
-    { it: 'Le stelle danzano la sera, come una grande festa vera!', en: 'The stars dance at night, what a wonderful sight!' },
-    { it: 'E quando chiudi gli occhietti, sogni dolci e perfetti!', en: 'And when you close your eyes tight, dreams are sweet and bright!' },
-  ],
-  desideri: [
-    { it: 'C\'era una volta un bambino che sapeva sognare...', en: 'Once upon a time there was a child who knew how to dream...' },
-    { it: 'I suoi desideri erano grandi come le stelle!', en: 'Her wishes were as big as the stars!' },
-    { it: 'E un giorno scoprì che i sogni possono avverarsi...', en: 'And one day she discovered that dreams can come true...' },
-  ],
-  'respiro-magico': [
-    { it: 'Inspira... 1, 2, 3... senti l\'aria entrare...', en: 'Breathe in... 1, 2, 3... feel the air come in...' },
-    { it: 'Espira... 3, 2, 1... lascia andare tutto!', en: 'Breathe out... 3, 2, 1... let everything go!' },
-  ],
-  inventore: [
-    { it: 'Tommaso aveva sempre mille idee in testa...', en: 'Tommy always had a thousand ideas in his head...' },
-    { it: 'Un giorno costruì una macchina speciale...', en: 'One day he built a special machine...' },
-    { it: 'Era fatta di cartone, bottoni e tanta fantasia!', en: 'It was made of cardboard, buttons, and lots of imagination!' },
-  ],
-  'cinque-sensi': [
-    { it: 'Luna tocca il velluto morbido... che bello!', en: 'Luna touches the soft velvet... how nice!' },
-    { it: 'Sente il profumo dei fiori nel giardino...', en: 'She smells the flowers in the garden...' },
+    { it: 'Mi conduce presso acque tranquille...', en: 'He leads me beside quiet waters...' },
+    { it: 'Rinfranca l\'anima mia...', en: 'He refreshes my soul...' },
+    { it: 'Anche se cammino in una valle oscura, non temo alcun male...', en: 'Even though I walk through the darkest valley, I will fear no evil...' },
   ],
 };
 
