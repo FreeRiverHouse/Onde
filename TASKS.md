@@ -106,3 +106,18 @@
 
 *Ultimo aggiornamento: 2026-02-03 01:30 PST*
 *Riordinato per impatto crescita sito*
+
+---
+
+## 🆕 NUOVI TASK (Aggiunti 2026-02-03)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 23 | i18n-GAMES | Integrare traduzioni nella pagina /games | ⭐ Professionalità | IN_PROGRESS | @clawdinho |
+| 24 | OG-002 | Creare OG image per /games (Gaming Island) | 🔥 Social sharing | TODO | - |
+| 25 | OG-003 | Creare OG image per /libri | 🔥 Social sharing | TODO | - |
+| 26 | META-001 | Aggiungere structured data JSON-LD ai giochi | ⭐ SEO | TODO | - |
+| 27 | PERF-001 | Audit Core Web Vitals per onde.la | ⭐ Performance | TODO | - |
+| 28 | A11Y-001 | Audit accessibilità (contrast, aria labels) | ⭐ Accessibilità | TODO | - |
+| 29 | PWA-001 | Verificare offline support per libri | 📱 PWA | TODO | - |
+| 30 | CACHE-001 | Ottimizzare caching immagini/assets | ⚡ Performance | TODO | - |
