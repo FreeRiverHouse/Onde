@@ -1092,7 +1092,24 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const [isOpen, setIsOpen] = useState(false)
   const [data, setData] = useState<NotificationsData | null>(null)
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>('all')
+  const [filter, setFilter] = useState<'all' | 'unread' | 'agents'>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('notification-filter')
+      if (stored && ['all', 'unread', 'agents'].includes(stored)) {
+        return stored as 'all' | 'unread' | 'agents'
+      }
+    }
+    return 'all'
+  })
+  
+  // Wrapper to persist filter to localStorage
+  const updateFilter = (newFilter: 'all' | 'unread' | 'agents') => {
+    setFilter(newFilter)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('notification-filter', newFilter)
+    }
+  }
+  
   const [selectedIndex, setSelectedIndex] = useState<number>(-1) // Keyboard navigation for flat list
   const [selectedGroupIndex, setSelectedGroupIndex] = useState<number>(-1) // Keyboard navigation for groups
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set()) // Track expanded group labels
@@ -2026,7 +2043,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
           {/* Filters */}
           <div className="px-4 py-2 border-b border-white/5 flex items-center gap-2">
             <button
-              onClick={() => setFilter('all')}
+              onClick={() => updateFilter('all')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 filter === 'all'
                   ? 'bg-white/10 text-white'
@@ -2036,7 +2053,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
               All
             </button>
             <button
-              onClick={() => setFilter('unread')}
+              onClick={() => updateFilter('unread')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 filter === 'unread'
                   ? 'bg-white/10 text-white'
@@ -2046,7 +2063,7 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
               Unread {unreadCount > 0 && `(${unreadCount})`}
             </button>
             <button
-              onClick={() => setFilter('agents')}
+              onClick={() => updateFilter('agents')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors flex items-center gap-1 ${
                 filter === 'agents'
                   ? 'bg-violet-500/20 text-violet-400'
