@@ -650,6 +650,15 @@ interface NotificationAction {
   style?: 'primary' | 'secondary' | 'danger'
 }
 
+// Snooze duration options
+const SNOOZE_OPTIONS = [
+  { label: '5 min', minutes: 5 },
+  { label: '15 min', minutes: 15 },
+  { label: '1 hour', minutes: 60 },
+  { label: '4 hours', minutes: 240 },
+  { label: 'Tomorrow 9am', minutes: -1 }, // Special case
+] as const
+
 type NotificationPriority = 'low' | 'normal' | 'high' | 'urgent'
 
 interface Notification {
@@ -663,6 +672,7 @@ interface Notification {
   actionUrl?: string
   actions?: NotificationAction[]
   priority?: NotificationPriority
+  snoozedUntil?: string // ISO timestamp when snooze expires
   metadata?: Record<string, unknown>
 }
 
@@ -833,15 +843,18 @@ function NotificationItem({
   notification, 
   onMarkRead,
   onDismiss,
+  onSnooze,
   isSelected = false,
   registerRef,
 }: { 
   notification: Notification
   onMarkRead: (id: string) => void
   onDismiss: (id: string) => void
+  onSnooze?: (id: string, minutes: number) => void
   isSelected?: boolean
   registerRef?: (id: string, el: HTMLDivElement | null) => void
 }) {
+  const [showSnoozeMenu, setShowSnoozeMenu] = useState(false)
   const config = TYPE_CONFIG[notification.type] || TYPE_CONFIG.info
   const { handlers, swipeOffset, swipeProgress, isSwiping } = useSwipeToDismiss(
     () => onDismiss(notification.id),
@@ -958,6 +971,44 @@ function NotificationItem({
                 </button>
               )
             })}
+          </div>
+        )}
+
+        {/* Snooze button (desktop) */}
+        {onSnooze && (
+          <div className="absolute top-2 right-8 hidden sm:block">
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowSnoozeMenu(!showSnoozeMenu)
+              }}
+              className="p-1 rounded-lg text-white/30 hover:text-white/60 hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
+              title="Snooze"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+            
+            {/* Snooze dropdown */}
+            {showSnoozeMenu && (
+              <div className="absolute right-0 top-full mt-1 py-1 bg-gray-800 rounded-lg shadow-xl border border-white/10 z-50 min-w-[120px]">
+                <div className="px-2 py-1 text-[10px] text-white/40 uppercase tracking-wider">Remind me</div>
+                {SNOOZE_OPTIONS.map((option) => (
+                  <button
+                    key={option.label}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onSnooze(notification.id, option.minutes)
+                      setShowSnoozeMenu(false)
+                    }}
+                    className="w-full px-3 py-1.5 text-left text-xs text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
