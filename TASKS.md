@@ -152,7 +152,7 @@
 | 54 | DOCS-001 | Create component documentation | 📝 Dev | ✅ DONE | @clawdinho | components/README.md |
 | 55 | TEST-002 | Add basic smoke tests | 🔧 QA | ✅ DONE | @clawdinho | __tests__/smoke.test.ts |
 | 56 | UX-004 | Add 404 page to games section | ⭐ UX | ✅ DONE | @clawdinho | Gaming-themed 404 |
-| 57 | SEO-005 | Add breadcrumb schema to book pages | ⭐ SEO | TODO | - |
+| 57 | SEO-005 | Add breadcrumb schema to book pages | ⭐ SEO | ✅ DONE | @clawdinho | BreadcrumbSchema component |
 | 58 | PERF-004 | Add resource hints (preconnect, prefetch) | ⚡ Performance | ✅ DONE | @clawdinho | dns-prefetch + prefetch nav |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
