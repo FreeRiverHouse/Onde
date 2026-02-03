@@ -668,12 +668,13 @@ pkill -f clawdbot-gateway && clawdbot gateway
 - Dopo workspace cleanup: **2,500ms**
 - Steady state (dopo warmup): **6,800ms**
 
-### Performance Realistiche ClawdBot (2026-02-03 07:35)
+### Performance Realistiche ClawdBot (2026-02-03 07:41)
 
 | Scenario | Tempo | Note |
 |----------|-------|------|
 | Nuova sessione (/new) | **~5s** | Session state pulito |
-| Sessione con history | ~18s | Degrada con messaggi |
+| Sessione con history (workspace pulito) | **~6s** | Stabile |
+| Sessione con history (workspace 700MB) | ~18s | Degrada! |
 | MLX wrapper diretto | ~800ms | Senza ClawdBot overhead |
 | MLX server diretto | ~800ms | Minimo overhead |
 | coder-agent | ~30s | Include model swap |
@@ -684,11 +685,16 @@ pkill -f clawdbot-gateway && clawdbot gateway
 - Hooks disabilitati (boot-md, command-logger)
 - memoryFlush disabilitato
 
-**⚠️ IMPORTANTE - Session State Degradation:**
-- ClawdBot accumula session state con ogni messaggio
-- Performance degrada da ~5s (pulito) a ~18s (dopo molti messaggi)
-- **Soluzione:** Usare `/new` per resettare quando diventa lento
+**⚠️ IMPORTANTE - Ottimizzazioni Workspace:**
+- **Workspace pulito** = performance migliori
+- Rimosso `translator-env/` (701MB) → workspace ora 3.2MB
+- Performance stabile ~5-6s anche con qualche messaggio in history
 - Il 26K system prompt è il vero bottleneck (non ottimizzabile)
+
+**Tips:**
+- Usare `/new` per resettare quando diventa lento
+- Tenere il workspace `~/clawd` piccolo (<10MB)
+- Evitare venv, node_modules nel workspace
 
 **Nota:** MLX è velocissimo (~800ms). La latenza è quasi tutta di ClawdBot.
 
