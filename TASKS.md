@@ -116,8 +116,13 @@
 | 23 | i18n-GAMES | Integrare traduzioni nella pagina /games | ⭐ Professionalità | IN_PROGRESS | @clawdinho |
 | 24 | OG-002 | Creare OG image per /games (Gaming Island) | 🔥 Social sharing | ✅ DONE | @clawdinho || - |
 | 25 | OG-003 | Creare OG image per /libri | 🔥 Social sharing | ✅ DONE | @clawdinho || - |
-| 26 | META-001 | Aggiungere structured data JSON-LD ai giochi | ⭐ SEO | TODO | - |
+| 26 | META-001 | Aggiungere structured data JSON-LD ai giochi | ⭐ SEO | ✅ DONE | @clawdinho || - |
 | 27 | PERF-001 | Audit Core Web Vitals per onde.la | ⭐ Performance | ✅ DONE | @clawdinho || - |
 | 28 | A11Y-001 | Audit accessibilità (contrast, aria labels) | ⭐ Accessibilità | ✅ DONE | @clawdinho || - |
 | 29 | PWA-001 | Verificare offline support per libri | 📱 PWA | ✅ DONE | @clawdinho | Documented || - |
 | 30 | CACHE-001 | Ottimizzare caching immagini/assets | ⚡ Performance | ✅ DONE | @clawdinho | _headers || - |
+| 31 | SITEMAP-001 | Verificare sitemap.xml completo | ⭐ SEO | TODO | - |
+| 32 | ROBOTS-001 | Verificare robots.txt | ⭐ SEO | TODO | - |
+| 33 | 404-001 | Creare pagina 404 custom | ⭐ UX | TODO | - |
+| 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | TODO | - |
+| 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | TODO | - |
