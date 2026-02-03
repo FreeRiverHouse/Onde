@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-03T05:30:02.628028+00:00",
+  "timestamp": "2026-02-03T09:00:05.799113+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,34 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bank ING Germany expands crypto ETPs and ETNs with Bitwise, VanEck",
+      "url": "https://cointelegraph.com/news/ing-germany-crypto-etp-etn-bitwise-vaneck?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "ING Germany expands crypto access with Bitwise ETPs and VanEck ETNs covering Bitcoin, Ether, Solana, XRP and other major digital assets.",
+      "published": "2026-02-03T08:24:51+00:00"
+    },
+    {
+      "title": "Spot crypto volumes plunge to 2024 lows amid investor demand weakens",
+      "url": "https://cointelegraph.com/news/crypto-volume-contraction-sends-markets-back-to-2024-levels-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Spot crypto trading volumes have fallen by half since October as liquidity dried up and investor engagement weakened.",
+      "published": "2026-02-03T06:45:29+00:00"
+    },
+    {
+      "title": "Cathie Wood\u2019s ARK boosts crypto shares amid stock pullback",
+      "url": "https://cointelegraph.com/news/ark-invest-boosts-shares-robinhood-bitmine-amid-crypto-stock-bloodbath?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "ARK Invest increased exposure to Robinhood, Circle, BitMine, Bullish and other crypto-linked firms within several innovation and fintech-focused ETFs this week.",
+      "published": "2026-02-03T06:20:19+00:00"
+    },
+    {
+      "title": "Bitcoin may fall to $56K as reasons for gains \u2018remain hard to find\u2019: Galaxy",
+      "url": "https://cointelegraph.com/news/bitcoin-risks-56k-reasons-for-gains-elusive-galaxy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Galaxy\u2019s Alex Thorn says Bitcoin\u2019s realized price is currently $56,000, a level it is likely to fall to without clear drivers to spark a rally.",
+      "published": "2026-02-03T06:14:24+00:00"
+    },
     {
       "title": "Arizona Attorney General Issues Warning as Crypto ATM Scams Hit Older Adults",
       "url": "https://decrypt.co/356743/crypto-atm-fraud-arizona",
@@ -42,36 +70,29 @@
       "title": "Tether releases open-source operating system for Bitcoin mining",
       "url": "https://cointelegraph.com/news/tether-releases-open-source-operating-system-for-bitcoin-miners?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Tether first announced plans for an open-source mining OS in June last year as it wanted Bitcoin miners to \"enter the game\" without expensive third-party vendors.",
+      "description": "Tether first announced plans for an open-source mining OS in June last year, aiming to let Bitcoin miners \u201center the game\u201d without relying on expensive third-party vendors.",
       "published": "2026-02-03T03:48:14+00:00"
     },
     {
-      "title": "Tom Lee tips lack of leverage and gold \u2018vortex\u2019 for Ether's 21% slump",
+      "title": "Tom Lee tips lack of leverage and gold \u2018vortex\u2019 for Ether\u2019s 21% slump",
       "url": "https://cointelegraph.com/news/fundstrat-tom-lee-cites-lack-leverage-metals-vortex-ether-slump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "Ether has fallen despite strong fundamentals as leverage remained absent and precious metals diverted risk appetite, according to Fundstrat's research head.",
       "published": "2026-02-03T03:38:52+00:00"
     },
     {
-      "title": "Trump denies knowledge of Abu Dhabi royal\u2018s $500M stake in WLFI",
+      "title": "Trump denies knowledge of Abu Dhabi royal\u2019s $500M stake in WLFI",
       "url": "https://cointelegraph.com/news/trump-denies-involvement-500m-uae-wlfi-stake?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "The reported World Liberty Financial deal, said to have been made four days before the president\u2019s inauguration, would make the UAE company the largest shareholder in WLFI.",
       "published": "2026-02-03T03:01:50+00:00"
     },
     {
-      "title": "Fenwick agrees to settle lawsuit over law firm\u2019s alleged role in FTX fraud",
+      "title": "Fenwick agrees to settle lawsuit alleging role in FTX collapse",
       "url": "https://cointelegraph.com/news/fenwick-settles-lawsuit-over-work-crypto-exchange-ftx?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "FTX users filed the lawsuit in 2023, accusing the law firm of playing \u201ca key and crucial role\" in \"how the FTX fraud was accomplished.\u201d",
       "published": "2026-02-03T02:46:22+00:00"
-    },
-    {
-      "title": "Bitcoin flash crash recovery to $100K may take 6 months: Analyst",
-      "url": "https://cointelegraph.com/news/bitcoin-flash-crash-recovery-to-dollar100k-may-take-6-months-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Multiple charts and historical data suggest that Bitcoin\u2019s recovery from its weekend crash below $75,000 could take at least 6 months.",
-      "published": "2026-02-03T02:42:11+00:00"
     },
     {
       "title": "Musk Folds xAI Into SpaceX, Cites Limits on Earth-Based AI Infrastructure",
@@ -88,13 +109,6 @@
       "published": "2026-02-03T01:34:09+00:00"
     },
     {
-      "title": "ISM Manufacturing PMI at 40-month high: Analysts say BTC could benefit",
-      "url": "https://cointelegraph.com/news/ism-manufacturing-pmi-rise-bullish-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The rise and fall of the manufacturing index from mid-2020 through 2023 closely mirrored Bitcoin and the broader crypto market\u2019s price movements over the same timeframe.",
-      "published": "2026-02-03T01:05:33+00:00"
-    },
-    {
       "title": "Will GameStop Dump Its Bitcoin? CEO Says \u2018Way More Compelling\u2019 Move Ahead",
       "url": "https://decrypt.co/356724/gamestop-dump-bitcoin-ceo-compelling-move-ahead",
       "source": "decrypt",
@@ -107,13 +121,6 @@
       "source": "decrypt",
       "description": "The decentralized exchange is the latest crypto project venturing into the prediction market space through the HIP-4 upgrade.",
       "published": "2026-02-02T22:33:24+00:00"
-    },
-    {
-      "title": "Bitcoin hits \u2018fire-sale\u2019 value as capital flows capitulate: Bitwise",
-      "url": "https://cointelegraph.com/news/bitcoin-hits-fire-sale-value-as-capital-flows-capitulate-bitwise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin flashed a major discount signal after capital outflows increased following BTC\u2019s abrupt drop below $75,000. Historical data now points to a potential 10% rebound rally in the short-term.",
-      "published": "2026-02-02T22:01:04+00:00"
     },
     {
       "title": "Bitcoin Falls Into 'Extreme Fear': How Low Will It Go?",
@@ -142,13 +149,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer The U.S. government has finalized the forfeiture of over $400 million in cryptocurrency, cash, and property linked to Helix, a major darknet bitcoin mixer, following the conviction of its operator, Larry Dean Harmon. This post U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-02T20:59:18+00:00"
-    },
-    {
-      "title": "White House officials met with crypto, banking reps to discuss stablecoins",
-      "url": "https://cointelegraph.com/news/white-house-officials-meeting-market-structure-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The meeting came more than two weeks after the Senate Banking Committee postponed a markup on the CLARITY Act, adding that everyone \u201cremains at the table\u201c to work on the bill.",
-      "published": "2026-02-02T20:58:30+00:00"
     },
     {
       "title": "Bed Bath &#038; Beyond Makes Real World Asset Tokenization Move, Acquiring Tokens.com",

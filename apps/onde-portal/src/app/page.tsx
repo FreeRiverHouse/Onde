@@ -252,9 +252,9 @@ export default function Home() {
             >
               {/* NEW Badge */}
               <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-black rounded-full shadow-lg animate-pulse border-2 border-white">
-                NEW!
+                {t.skinCreator?.newBadge || 'NEW!'}
               </span>
-              <span>Minecraft Skin Creator</span>
+              <span>{t.skinCreator?.title || 'Skin Creator'}</span>
               <span className="text-xl group-hover:rotate-12 transition-transform">🎨</span>
             </Link>
           </motion.div>

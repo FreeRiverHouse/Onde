@@ -1141,5 +1141,25 @@
       "cleared": "Cache svuotata con successo!",
       "exported": "Dati esportati con successo!"
     }
+  },
+  "skinCreator": {
+    "title": "Skin Creator",
+    "subtitle": "Crea skin per Minecraft e Roblox",
+    "newBadge": "NUOVO!",
+    "playNow": "Gioca Ora",
+    "description": "Crea e personalizza skin uniche per i tuoi giochi preferiti",
+    "features": {
+      "minecraft": "Skin Minecraft",
+      "roblox": "Skin Roblox",
+      "free": "Gratis",
+      "noDownload": "Nessun download"
+    }
+  },
+  "common": {
+    "new": "NUOVO!",
+    "playNow": "Gioca Ora",
+    "learnMore": "Scopri di più",
+    "comingSoon": "Prossimamente",
+    "free": "Gratis"
   }
 }
