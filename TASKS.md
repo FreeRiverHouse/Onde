@@ -126,5 +126,6 @@
 | 31 | SITEMAP-001 | Verificare sitemap.xml completo | ⭐ SEO | ✅ DONE | @clawdinho | Expanded 18→35 pages |
 | 32 | ROBOTS-001 | Verificare robots.txt | ⭐ SEO | ✅ DONE | @clawdinho | Added private paths |
 | 33 | 404-001 | Creare pagina 404 custom | ⭐ UX | ✅ DONE | @clawdinho | Fun ocean theme |
-| 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | TODO | - |
+| 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | ✅ DONE | @clawdinho | Fixed layout.tsx, manifest missing PNGs |
+| 35.1 | ICON-002 | Creare icon-192.png e icon-512.png per PWA | 🔧 Polish | TODO | - |
 | 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | TODO | - |
