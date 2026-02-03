@@ -94,6 +94,7 @@ def split_paragraphs(text: str, max_chars: int = MAX_PARA_CHARS) -> list:
 # ═══════════════════════════════════════════════════════════════
 
 TITLE_TRANSLATIONS = {
+    "fetters": "Catene",
     "freedom": "Libertà",
     "innovation": "Innovazione",
     "plan": "Piano",
@@ -209,6 +210,17 @@ def stop_qwen_server():
 # QWEN API - SOLO /translate (funziona!)
 # ═══════════════════════════════════════════════════════════════
 
+def restart_server_if_needed():
+    """Restart server after too many timeouts"""
+    log("🔄 Riavvio server dopo timeout...")
+    stop_qwen_server()
+    time.sleep(5)
+    gc.collect()
+    if not start_qwen_server():
+        log("❌ Impossibile riavviare server!")
+        return False
+    return True
+
 def qwen_translate(text_en: str) -> str:
     """Traduzione BOMB PROOF - riprova finché non traduce!"""
 
@@ -278,8 +290,14 @@ def qwen_translate(text_en: str) -> str:
 
         except requests.exceptions.Timeout:
             log(f"   ⚠️ Timeout attempt {attempt+1}")
+            # After 3 timeouts, restart server
+            if attempt == 2:
+                if restart_server_if_needed():
+                    log("   ✅ Server riavviato, riprovo...")
         except Exception as e:
             log(f"   Errore attempt {attempt+1}: {e}")
+            if "Connection" in str(e):
+                restart_server_if_needed()
 
         time.sleep(2)
 
