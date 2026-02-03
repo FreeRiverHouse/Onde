@@ -15,7 +15,7 @@
 | 2 | SEO-002 | Submit skin-creator a Google Search Console | 🔥 Indicizzazione Google | TODO | - |
 | 3 | MKTG-001 | Post skin creator su r/Minecraft e r/Roblox | 🔥 Marketing diretto | TODO | - |
 | 4 | T851 | i18n: Completare audit stringhe hardcoded | 🔥 Professionalità | ✅ DONE | @clawdinho | Shop ✅, Games ✅ |
-| 5 | GAM-001 | Skin Creator: Mobile UX improvements | 🔥 Più utenti mobile | TODO | - |
+| 5 | GAM-001 | Skin Creator: Mobile UX improvements | 🔥 Più utenti mobile | ✅ DONE | @clawdinho | Enhanced CSS for touch |
 | 6 | MKTG-002 | YouTube Shorts demo skin creator | 🔥 Viralità video | TODO | - |
 | 7 | SOC-001 | Review X presence e engagement recente | 📈 Social presence | BLOCKED | - | Needs Typefully API key |
 

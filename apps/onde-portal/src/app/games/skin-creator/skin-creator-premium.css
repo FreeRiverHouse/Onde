@@ -1339,3 +1339,119 @@
     gap: 2rem;
   }
 }
+
+/* ============================================
+   ENHANCED MOBILE UX IMPROVEMENTS
+   Task: GAM-001
+   ============================================ */
+
+/* Larger touch targets on small screens */
+@media (max-width: 480px) {
+  .skin-mobile-toolbar {
+    bottom: 16px;
+    padding: 14px 20px;
+    gap: 10px;
+  }
+  
+  .skin-mobile-toolbar-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+  }
+  
+  .skin-mobile-colors {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  
+  .skin-mobile-color-btn {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Larger 3D preview modal on mobile */
+.skin-mobile-3d-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.skin-mobile-3d-preview-modal canvas {
+  max-width: 100% !important;
+  max-height: 70vh !important;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+}
+
+/* Haptic feedback visual indicator */
+.skin-mobile-toolbar-btn:active::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.2);
+  animation: haptic-pulse 0.3s ease-out;
+}
+
+@keyframes haptic-pulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Better thumb reach zone - position toolbar lower */
+@media (max-height: 700px) and (orientation: portrait) {
+  .skin-mobile-toolbar {
+    bottom: 12px;
+  }
+}
+
+/* Quick brush size indicator on mobile toolbar active */
+.skin-brush-size-indicator {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--skin-primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: fadeInUp 0.2s ease;
+  pointer-events: none;
+}
+
+/* Swipe hint for color picker */
+.skin-swipe-hint {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 0.3s ease, pulse 2s infinite;
+}
+
+.skin-swipe-hint::before {
+  content: '👆';
+  animation: swipe-motion 1.5s infinite;
+}
+
+@keyframes swipe-motion {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
