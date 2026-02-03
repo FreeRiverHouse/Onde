@@ -154,6 +154,9 @@
 | 56 | UX-004 | Add 404 page to games section | ⭐ UX | ✅ DONE | @clawdinho | Gaming-themed 404 |
 | 57 | SEO-005 | Add breadcrumb schema to book pages | ⭐ SEO | ✅ DONE | @clawdinho | BreadcrumbSchema component |
 | 58 | PERF-004 | Add resource hints (preconnect, prefetch) | ⚡ Performance | ✅ DONE | @clawdinho | dns-prefetch + prefetch nav |
+| 59 | UX-005 | Add keyboard shortcuts help modal | ⭐ UX | TODO | - |
+| 60 | A11Y-004 | Add focus trap to modals | ⭐ Accessibility | ✅ DONE | @clawdinho | useFocusTrap hook |
+| 61 | PWA-003 | Add offline fallback page | 📱 PWA | TODO | - |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
