@@ -128,4 +128,4 @@
 | 33 | 404-001 | Creare pagina 404 custom | ⭐ UX | ✅ DONE | @clawdinho | Fun ocean theme |
 | 34 | FAVICON-001 | Verificare favicon su tutti i browser | 🔧 Polish | ✅ DONE | @clawdinho | Fixed layout.tsx, manifest missing PNGs |
 | 35.1 | ICON-002 | Creare icon-192.png e icon-512.png per PWA | 🔧 Polish | TODO | - |
-| 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | TODO | - |
+| 35 | SPEED-001 | Preload critical fonts | ⚡ Performance | ✅ DONE | @clawdinho | Already implemented |
