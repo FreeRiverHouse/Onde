@@ -23,7 +23,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | TODO | - |
+| 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | 🔶 CHECKLIST READY | @clawdinho | docs/testing/skin-creator-mobile-test.md |
 | 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | ✅ DONE | @clawdinho | Added CSS media queries |
 | 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
 | 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - | Complex, needs dedicated session |
