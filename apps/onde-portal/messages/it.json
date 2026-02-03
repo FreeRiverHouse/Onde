@@ -404,60 +404,148 @@
   },
   "about": {
     "badge": "Los Angeles, California",
-    "title1": "C'era una volta",
+    "title1": "Chi è",
     "title2": "Onde",
-    "intro1": "Una piccola casa editrice italiana, nata sotto il sole della California.",
-    "intro2": "Crediamo che le storie belle possano cambiare il mondo. Che un libro illustrato ad acquarello possa aprire porte che nessuna tecnologia sa aprire. Che l'immaginazione sia il dono piu prezioso che possiamo fare ai bambini.",
+    "intro1": "è una casa editrice digitale AI-native con sede a Los Angeles.",
+    "intro2": "Creiamo ebook illustrati da letteratura classica di pubblico dominio. Ogni libro è realizzato con cura, combinando saggezza senza tempo con design moderno.",
+    "whatWeDo": {
+      "badge": "Cosa Facciamo",
+      "title": "Editoria Digitale AI-Powered",
+      "p1": "Utilizziamo strumenti AI per creare edizioni illustrate di libri classici di pubblico dominio. Da Marco Aurelio ai testi biblici, diamo vita alla saggezza eterna con splendide illustrazioni.",
+      "p2": "Ogni libro è disponibile in formato PDF ed EPUB. Alcuni sono gratuiti, altri hanno un piccolo prezzo. Tutti sono consegnati digitalmente.",
+      "p3": "Il nostro catalogo include titoli di filosofia, spiritualità, letteratura per bambini, arte e tecnologia.",
+      "cta": "Vedi i Nostri Libri",
+      "aiNative": "AI-Native",
+      "aiNativeDesc": "Costruito dalle fondamenta con l'AI al centro del nostro workflow"
+    },
+    "orchestra": {
+      "badge": "L'Orchestra",
+      "title": "Orchestrato da",
+      "titleHighlight": "Magmatic",
+      "description": "Onde è un progetto di Magmatic, un creatore e builder con sede a Los Angeles. Usando agenti AI e automazione, stiamo costruendo un nuovo tipo di casa editrice — una che si muove alla velocità del pensiero.",
+      "subtitle": "Dalla creazione di contenuti all'illustrazione alla pubblicazione — gli agenti AI gestiscono il lavoro pesante mentre gli umani curano la visione.",
+      "followMagmatic": "Segui @magmatic__",
+      "followOnde": "Segui @Onde_FRH"
+    },
     "team": {
-      "badge": "Il Team",
-      "title": "Chi siamo",
-      "subtitle": "Tre anime, una visione. Uniamo parole, colori e tecnologia per creare qualcosa di bello.",
+      "badge": "Il Team Virtuale",
+      "title": "Agenti AI al Lavoro",
+      "subtitle": "I nostri agenti AI hanno ognuno la propria specialità. Insieme, danno vita ai libri.",
       "gianni": {
         "name": "Gianni Parola",
         "role": "Scrittore",
-        "description": "Le storie nascono dalle parole. Gianni le sceglie con cura, una per una, come si raccolgono fiori in un prato. Ogni libro e un giardino da esplorare.",
-        "quote": "Le parole sono semi. Se le pianti con amore, fioriscono."
+        "description": "Le storie nascono dalle parole. Gianni le sceglie con cura, una ad una, come cogliere fiori in un prato.",
+        "quote": "Le parole sono semi. Se li pianti con amore, fioriscono."
       },
       "pina": {
         "name": "Pina Pennello",
         "role": "Illustratrice",
-        "description": "I colori danzano sulla carta. Pina dipinge mondi dove i bambini possono entrare, camminare, sognare. Ogni pennellata e una porta verso l'immaginazione.",
-        "quote": "Dipingo quello che le parole non riescono a dire."
+        "description": "I colori danzano sulla carta. Pina dipinge mondi dove i lettori possono entrare, camminare e sognare.",
+        "quote": "Dipingo ciò che le parole non possono dire."
       },
       "emilio": {
         "name": "Emilio",
-        "role": "AI Educator",
-        "description": "Un amico robot che capisce il futuro. Emilio spiega la tecnologia ai bambini con pazienza infinita, trasformando il complesso in semplice, il misterioso in meraviglioso.",
-        "quote": "Imparare e il superpotere piu bello che esista."
+        "role": "Educatore AI",
+        "description": "Un amico robot che capisce il futuro. Emilio spiega la tecnologia con pazienza infinita.",
+        "quote": "Imparare è il superpotere più bello che esiste."
       }
     },
     "values": {
+      "title": "In Cosa Crediamo",
       "beauty": {
         "title": "Bellezza",
-        "description": "Ogni libro e un'opera d'arte. Acquarelli che raccontano storie."
+        "description": "Ogni libro è un'opera d'arte. Illustrazioni che raccontano storie."
       },
       "simplicity": {
-        "title": "Semplicita",
-        "description": "Le grandi verita si nascondono nelle cose semplici."
+        "title": "Semplicità",
+        "description": "Le grandi verità si nascondono nelle cose semplici."
       },
       "wonder": {
         "title": "Meraviglia",
-        "description": "Coltiviamo lo stupore. Il mondo e pieno di magia."
+        "description": "Coltiviamo lo stupore. Il mondo è pieno di magia."
       }
     },
-    "story": {
-      "badge": "La nostra storia",
-      "title": "Dall'Italia a Los Angeles",
-      "p1": "Onde nasce da un sogno semplice: creare libri che i bambini vogliano rileggere, e rileggere ancora. Libri che profumano di carta e colori, ma parlano il linguaggio del futuro.",
-      "p2": "Siamo un piccolo team sparso tra l'Italia e la California, unito dalla passione per le storie belle e la convinzione che la tecnologia, usata con saggezza, puo amplificare la creativita umana.",
-      "p3": "Ogni nostro libro combina l'arte dell'illustrazione tradizionale - acquarelli, sfumature, luce dorata - con le possibilita del digitale. Il risultato? Storie che vivono su carta e schermo, che crescono con i bambini che le leggono.",
-      "cta": "Esplora i nostri libri"
+    "contact": {
+      "title": "Contattaci",
+      "subtitle": "Domande? Vuoi collaborare? Scrivici.",
+      "form": {
+        "nameLabel": "Il Tuo Nome",
+        "namePlaceholder": "Inserisci il tuo nome",
+        "emailLabel": "Indirizzo Email",
+        "emailPlaceholder": "tu@esempio.com",
+        "subjectLabel": "Oggetto",
+        "subjectPlaceholder": "Seleziona un argomento",
+        "subjects": {
+          "general": "Informazioni Generali",
+          "collaboration": "Collaborazione",
+          "books": "Libri e Pubblicazione",
+          "vr": "Esperienze VR",
+          "games": "Giochi",
+          "other": "Altro"
+        },
+        "messageLabel": "Messaggio",
+        "messagePlaceholder": "Raccontaci cosa hai in mente...",
+        "submit": "Invia Messaggio",
+        "sending": "Invio in corso...",
+        "success": "Messaggio inviato con successo!",
+        "emailDirect": "Oppure scrivici direttamente a"
+      }
     },
-    "cta": {
-      "title": "Fai parte della storia",
-      "subtitle": "Seguici nel nostro viaggio. Nuove storie, nuove avventure, nuove idee da esplorare insieme.",
-      "exploreCatalog": "Esplora il Catalogo",
-      "followOnX": "Seguici su X"
+    "timeline": {
+      "badge": "Il Nostro Viaggio",
+      "title": "Tappe Fondamentali",
+      "subtitle": "Da una scintilla di un'idea a una libreria in crescita di classici illustrati.",
+      "milestones": [
+        {
+          "year": "2024",
+          "quarter": "Q1",
+          "title": "La Scintilla",
+          "description": "Onde è nata da un'idea semplice: rendere i bei libri accessibili a tutti grazie all'AI."
+        },
+        {
+          "year": "2024",
+          "quarter": "Q2",
+          "title": "Primi Libri Pubblicati",
+          "description": "Abbiamo pubblicato i nostri primi classici illustrati, tra cui Le Meditazioni e Il Pastore."
+        },
+        {
+          "year": "2024",
+          "quarter": "Q3",
+          "title": "Team AI Assemblato",
+          "description": "I nostri agenti AI - Gianni, Pina ed Emilio - hanno unito le forze per creare magia insieme."
+        },
+        {
+          "year": "2024",
+          "quarter": "Q4",
+          "title": "Lancio Gaming Island",
+          "description": "Espansione oltre i libri con giochi educativi ed esperienze interattive."
+        },
+        {
+          "year": "2025",
+          "quarter": "Q1",
+          "title": "Esperienze VR",
+          "description": "Iniziato lo sviluppo di educazione VR immersiva - Home School VR e FreeRiver Flow."
+        },
+        {
+          "year": "2025",
+          "quarter": "Futuro",
+          "title": "La Visione",
+          "description": "Costruire una casa editrice AI-native che si muove alla velocità dell'immaginazione."
+        }
+      ]
+    },
+    "mission": {
+      "quote": "Crediamo che le storie migliori siano senza tempo, e che la tecnologia migliore sia invisibile. La nostra missione è portare la letteratura classica alla vita con illustrazioni bellissime, rendendo la saggezza accessibile a tutti.",
+      "timeless": "senza tempo",
+      "invisible": "invisibile",
+      "accessible": "accessibile",
+      "attribution": "Il Team Onde"
+    },
+    "finalCta": {
+      "title": "Pronto a Esplorare?",
+      "subtitle": "Tuffati nella nostra libreria di classici illustrati, giochi ed esperienze VR.",
+      "browseLibrary": "Sfoglia la Libreria",
+      "playGames": "Gioca"
     }
   },
   "read": {
@@ -571,12 +659,30 @@
       "subjects": {
         "title": "Materie VR",
         "subtitle": "Seleziona le aree di apprendimento",
-        "math": { "name": "Matematica", "description": "Numeri che prendono vita" },
-        "science": { "name": "Scienze", "description": "Esplora il microscopico" },
-        "history": { "name": "Storia", "description": "Viaggia nel tempo" },
-        "art": { "name": "Arte", "description": "Dipingi in 3D" },
-        "music": { "name": "Musica", "description": "Orchestra virtuale" },
-        "languages": { "name": "Lingue", "description": "Immersione linguistica" }
+        "math": {
+          "name": "Matematica",
+          "description": "Numeri che prendono vita"
+        },
+        "science": {
+          "name": "Scienze",
+          "description": "Esplora il microscopico"
+        },
+        "history": {
+          "name": "Storia",
+          "description": "Viaggia nel tempo"
+        },
+        "art": {
+          "name": "Arte",
+          "description": "Dipingi in 3D"
+        },
+        "music": {
+          "name": "Musica",
+          "description": "Orchestra virtuale"
+        },
+        "languages": {
+          "name": "Lingue",
+          "description": "Immersione linguistica"
+        }
       },
       "startConfig": "Inizia la Configurazione"
     },
@@ -584,10 +690,22 @@
       "badge": "Espansione Futura",
       "title": "Oltre l'Educazione",
       "subtitle": "La piattaforma VR di Onde si espandera per servire professionisti e famiglie.",
-      "therapists": { "title": "Terapisti", "description": "Sessioni VR guidate per benessere mentale" },
-      "psychologists": { "title": "Psicologi", "description": "Ambienti immersivi per terapia" },
-      "doctors": { "title": "Medici", "description": "Educazione sanitaria interattiva" },
-      "educators": { "title": "Educatori", "description": "Classi virtuali personalizzate" }
+      "therapists": {
+        "title": "Terapisti",
+        "description": "Sessioni VR guidate per benessere mentale"
+      },
+      "psychologists": {
+        "title": "Psicologi",
+        "description": "Ambienti immersivi per terapia"
+      },
+      "doctors": {
+        "title": "Medici",
+        "description": "Educazione sanitaria interattiva"
+      },
+      "educators": {
+        "title": "Educatori",
+        "description": "Classi virtuali personalizzate"
+      }
     },
     "cta": {
       "title": "Pronto a Surfare il Futuro?",
@@ -678,74 +796,6 @@
       "maxProfiles": "Ogni famiglia puo avere fino a 5 profili.",
       "sharedBooks": "I libri acquistati sono condivisi tra tutti i profili della famiglia.",
       "separateProgress": "Il progresso di lettura e salvato separatamente per ogni profilo."
-    }
-  },
-  "about": {
-    "badge": "Los Angeles, California",
-    "title1": "Chi è",
-    "title2": "Onde",
-    "intro1": "è una casa editrice digitale AI-native con sede a Los Angeles.",
-    "intro2": "Creiamo ebook illustrati da letteratura classica di pubblico dominio. Ogni libro è realizzato con cura, combinando saggezza senza tempo con design moderno.",
-    "whatWeDo": {
-      "badge": "Cosa Facciamo",
-      "title": "Editoria Digitale AI-Powered",
-      "p1": "Utilizziamo strumenti AI per creare edizioni illustrate di libri classici di pubblico dominio. Da Marco Aurelio ai testi biblici, diamo vita alla saggezza eterna con splendide illustrazioni.",
-      "p2": "Ogni libro è disponibile in formato PDF ed EPUB. Alcuni sono gratuiti, altri hanno un piccolo prezzo. Tutti sono consegnati digitalmente.",
-      "p3": "Il nostro catalogo include titoli di filosofia, spiritualità, letteratura per bambini, arte e tecnologia.",
-      "cta": "Vedi i Nostri Libri",
-      "aiNative": "AI-Native",
-      "aiNativeDesc": "Costruito dalle fondamenta con l'AI al centro del nostro workflow"
-    },
-    "orchestra": {
-      "badge": "L'Orchestra",
-      "title": "Orchestrato da",
-      "titleHighlight": "Magmatic",
-      "description": "Onde è un progetto di Magmatic, un creatore e builder con sede a Los Angeles. Usando agenti AI e automazione, stiamo costruendo un nuovo tipo di casa editrice — una che si muove alla velocità del pensiero.",
-      "subtitle": "Dalla creazione di contenuti all'illustrazione alla pubblicazione — gli agenti AI gestiscono il lavoro pesante mentre gli umani curano la visione.",
-      "followMagmatic": "Segui @magmatic__",
-      "followOnde": "Segui @Onde_FRH"
-    },
-    "team": {
-      "badge": "Il Team Virtuale",
-      "title": "Agenti AI al Lavoro",
-      "subtitle": "I nostri agenti AI hanno ognuno la propria specialità. Insieme, danno vita ai libri.",
-      "gianni": {
-        "name": "Gianni Parola",
-        "role": "Scrittore",
-        "description": "Le storie nascono dalle parole. Gianni le sceglie con cura, una ad una, come cogliere fiori in un prato.",
-        "quote": "Le parole sono semi. Se li pianti con amore, fioriscono."
-      },
-      "pina": {
-        "name": "Pina Pennello",
-        "role": "Illustratrice",
-        "description": "I colori danzano sulla carta. Pina dipinge mondi dove i lettori possono entrare, camminare e sognare.",
-        "quote": "Dipingo ciò che le parole non possono dire."
-      },
-      "emilio": {
-        "name": "Emilio",
-        "role": "Educatore AI",
-        "description": "Un amico robot che capisce il futuro. Emilio spiega la tecnologia con pazienza infinita.",
-        "quote": "Imparare è il superpotere più bello che esiste."
-      }
-    },
-    "values": {
-      "title": "In Cosa Crediamo",
-      "beauty": {
-        "title": "Bellezza",
-        "description": "Ogni libro è un'opera d'arte. Illustrazioni che raccontano storie."
-      },
-      "simplicity": {
-        "title": "Semplicità",
-        "description": "Le grandi verità si nascondono nelle cose semplici."
-      },
-      "wonder": {
-        "title": "Meraviglia",
-        "description": "Coltiviamo lo stupore. Il mondo è pieno di magia."
-      }
-    },
-    "contact": {
-      "title": "Contattaci",
-      "subtitle": "Domande? Vuoi collaborare? Scrivici."
     }
   },
   "health": {
@@ -969,19 +1019,44 @@
         "description": "I genitori definiscono i valori che vogliono insegnare. Onde crea esperienze VR personalizzate che rispettano quei valori. Qualità invece di quantità."
       },
       "parentsDecide": "I Genitori Decidono:",
-      "values": ["Spiritualità", "Creatività", "Rispetto", "Curiosità", "Empatia", "Resilienza"],
+      "values": [
+        "Spiritualità",
+        "Creatività",
+        "Rispetto",
+        "Curiosità",
+        "Empatia",
+        "Resilienza"
+      ],
       "subjects": {
         "title": "Materie VR",
         "subtitle": "Seleziona le aree di apprendimento",
         "startConfig": "Inizia la Configurazione"
       },
       "subjectsList": {
-        "math": { "name": "Matematica", "description": "Numeri che prendono vita" },
-        "science": { "name": "Scienze", "description": "Esplora il microscopico" },
-        "history": { "name": "Storia", "description": "Viaggia nel tempo" },
-        "art": { "name": "Arte", "description": "Dipingi in 3D" },
-        "music": { "name": "Musica", "description": "Orchestra virtuale" },
-        "languages": { "name": "Lingue", "description": "Immersione linguistica" }
+        "math": {
+          "name": "Matematica",
+          "description": "Numeri che prendono vita"
+        },
+        "science": {
+          "name": "Scienze",
+          "description": "Esplora il microscopico"
+        },
+        "history": {
+          "name": "Storia",
+          "description": "Viaggia nel tempo"
+        },
+        "art": {
+          "name": "Arte",
+          "description": "Dipingi in 3D"
+        },
+        "music": {
+          "name": "Musica",
+          "description": "Orchestra virtuale"
+        },
+        "languages": {
+          "name": "Lingue",
+          "description": "Immersione linguistica"
+        }
       }
     },
     "expansion": {
@@ -989,10 +1064,22 @@
       "title": "Oltre l'Educazione",
       "subtitle": "La piattaforma VR di Onde si espanderà per servire professionisti e famiglie.",
       "items": {
-        "therapists": { "title": "Terapisti", "description": "Sessioni VR guidate per benessere mentale" },
-        "psychologists": { "title": "Psicologi", "description": "Ambienti immersivi per terapia" },
-        "doctors": { "title": "Medici", "description": "Educazione sanitaria interattiva" },
-        "educators": { "title": "Educatori", "description": "Classi virtuali personalizzate" }
+        "therapists": {
+          "title": "Terapisti",
+          "description": "Sessioni VR guidate per benessere mentale"
+        },
+        "psychologists": {
+          "title": "Psicologi",
+          "description": "Ambienti immersivi per terapia"
+        },
+        "doctors": {
+          "title": "Medici",
+          "description": "Educazione sanitaria interattiva"
+        },
+        "educators": {
+          "title": "Educatori",
+          "description": "Classi virtuali personalizzate"
+        }
       }
     },
     "cta": {

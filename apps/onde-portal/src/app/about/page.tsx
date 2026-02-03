@@ -6,9 +6,9 @@ import { useRef, useState, FormEvent } from 'react'
 import { useTranslations } from '@/i18n/I18nProvider'
 
 // ============================================
-// MOCK DATA - Team Members
+// MOCK DATA - Team Members (non-translatable config)
 // ============================================
-const teamMembers = [
+const teamMembersConfig = [
   {
     id: 'gianni',
     emoji: '✍️',
@@ -33,57 +33,15 @@ const teamMembers = [
 ]
 
 // ============================================
-// MOCK DATA - Timeline Milestones
+// MOCK DATA - Timeline Milestones (config only, translations in messages)
 // ============================================
-const milestones = [
-  {
-    year: '2024',
-    quarter: 'Q1',
-    title: 'The Spark',
-    description: 'Onde was born from a simple idea: make beautiful books accessible to everyone using AI.',
-    emoji: '💡',
-    color: 'onde-gold',
-  },
-  {
-    year: '2024',
-    quarter: 'Q2',
-    title: 'First Books Published',
-    description: 'Released our first illustrated classics including Meditations and The Shepherd\'s Promise.',
-    emoji: '📚',
-    color: 'onde-coral',
-  },
-  {
-    year: '2024',
-    quarter: 'Q3',
-    title: 'AI Team Assembled',
-    description: 'Our AI agents - Gianni, Pina, and Emilio - joined forces to create magic together.',
-    emoji: '🤖',
-    color: 'onde-teal',
-  },
-  {
-    year: '2024',
-    quarter: 'Q4',
-    title: 'Gaming Island Launch',
-    description: 'Expanded beyond books with educational games and interactive experiences.',
-    emoji: '🎮',
-    color: 'onde-purple',
-  },
-  {
-    year: '2025',
-    quarter: 'Q1',
-    title: 'VR Experiences',
-    description: 'Started development of immersive VR education - Home School VR and FreeRiver Flow.',
-    emoji: '🥽',
-    color: 'onde-blue',
-  },
-  {
-    year: '2025',
-    quarter: 'Future',
-    title: 'The Vision',
-    description: 'Building an AI-native publishing house that moves at the speed of imagination.',
-    emoji: '🌊',
-    color: 'onde-cyan',
-  },
+const milestonesConfig = [
+  { emoji: '💡', color: 'onde-gold' },
+  { emoji: '📚', color: 'onde-coral' },
+  { emoji: '🤖', color: 'onde-teal' },
+  { emoji: '🎮', color: 'onde-purple' },
+  { emoji: '🥽', color: 'onde-blue' },
+  { emoji: '🌊', color: 'onde-cyan' },
 ]
 
 // ============================================
@@ -147,7 +105,7 @@ function ParallaxOrb({
 // ============================================
 // TIMELINE COMPONENT
 // ============================================
-function Timeline() {
+function Timeline({ milestones }: { milestones: Array<{ year: string; quarter: string; title: string; description: string }> }) {
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -167,51 +125,54 @@ function Timeline() {
       </div>
 
       <div className="space-y-12 md:space-y-24">
-        {milestones.map((milestone, index) => (
-          <ScrollReveal key={milestone.title} delay={index * 0.1}>
-            <div className={`relative flex items-start gap-8 ${
-              index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-            }`}>
-              {/* Timeline Node */}
-              <motion.div 
-                className="absolute left-4 md:left-1/2 -translate-x-1/2 z-10"
-                whileHover={{ scale: 1.2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className={`w-12 h-12 rounded-2xl bg-${milestone.color}/20 border-2 border-${milestone.color}/50 
-                  flex items-center justify-center text-2xl shadow-lg shadow-${milestone.color}/20`}>
-                  {milestone.emoji}
-                </div>
-              </motion.div>
-
-              {/* Content Card */}
-              <div className={`ml-20 md:ml-0 md:w-[calc(50%-3rem)] ${
-                index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+        {milestones.map((milestone, index) => {
+          const config = milestonesConfig[index] || { emoji: '✨', color: 'onde-teal' }
+          return (
+            <ScrollReveal key={milestone.title} delay={index * 0.1}>
+              <div className={`relative flex items-start gap-8 ${
+                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}>
+                {/* Timeline Node */}
                 <motion.div 
-                  className="card-3d p-6 md:p-8"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="absolute left-4 md:left-1/2 -translate-x-1/2 z-10"
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <div className={`flex items-center gap-2 mb-3 ${
-                    index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'
-                  }`}>
-                    <span className={`text-${milestone.color} font-bold text-lg`}>
-                      {milestone.year}
-                    </span>
-                    <span className="text-white/40 text-sm">{milestone.quarter}</span>
+                  <div className={`w-12 h-12 rounded-2xl bg-${config.color}/20 border-2 border-${config.color}/50 
+                    flex items-center justify-center text-2xl shadow-lg shadow-${config.color}/20`}>
+                    {config.emoji}
                   </div>
-                  <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3">
-                    {milestone.title}
-                  </h3>
-                  <p className="text-white/60 leading-relaxed">
-                    {milestone.description}
-                  </p>
                 </motion.div>
+
+                {/* Content Card */}
+                <div className={`ml-20 md:ml-0 md:w-[calc(50%-3rem)] ${
+                  index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+                }`}>
+                  <motion.div 
+                    className="card-3d p-6 md:p-8"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className={`flex items-center gap-2 mb-3 ${
+                      index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'
+                    }`}>
+                      <span className={`text-${config.color} font-bold text-lg`}>
+                        {milestone.year}
+                      </span>
+                      <span className="text-white/40 text-sm">{milestone.quarter}</span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3">
+                      {milestone.title}
+                    </h3>
+                    <p className="text-white/60 leading-relaxed">
+                      {milestone.description}
+                    </p>
+                  </motion.div>
+                </div>
               </div>
-            </div>
-          </ScrollReveal>
-        ))}
+            </ScrollReveal>
+          )
+        })}
       </div>
     </div>
   )
@@ -220,7 +181,7 @@ function Timeline() {
 // ============================================
 // CONTACT FORM COMPONENT (UI Only)
 // ============================================
-function ContactForm() {
+function ContactForm({ t }: { t: ReturnType<typeof useTranslations>['about']['contact']['form'] }) {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -251,7 +212,7 @@ function ContactForm() {
         {/* Name Field */}
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-white/70 mb-2">
-            Your Name
+            {t.nameLabel}
           </label>
           <input
             type="text"
@@ -262,14 +223,14 @@ function ContactForm() {
             className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white 
               placeholder:text-white/30 focus:border-onde-teal focus:ring-2 focus:ring-onde-teal/20 
               transition-all duration-300 outline-none"
-            placeholder="Enter your name"
+            placeholder={t.namePlaceholder}
           />
         </div>
 
         {/* Email Field */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2">
-            Email Address
+            {t.emailLabel}
           </label>
           <input
             type="email"
@@ -280,7 +241,7 @@ function ContactForm() {
             className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white 
               placeholder:text-white/30 focus:border-onde-teal focus:ring-2 focus:ring-onde-teal/20 
               transition-all duration-300 outline-none"
-            placeholder="you@example.com"
+            placeholder={t.emailPlaceholder}
           />
         </div>
       </div>
@@ -288,7 +249,7 @@ function ContactForm() {
       {/* Subject Field */}
       <div>
         <label htmlFor="subject" className="block text-sm font-medium text-white/70 mb-2">
-          Subject
+          {t.subjectLabel}
         </label>
         <select
           id="subject"
@@ -299,20 +260,20 @@ function ContactForm() {
             focus:border-onde-teal focus:ring-2 focus:ring-onde-teal/20 
             transition-all duration-300 outline-none appearance-none cursor-pointer"
         >
-          <option value="" className="bg-onde-dark">Select a topic</option>
-          <option value="general" className="bg-onde-dark">General Inquiry</option>
-          <option value="collaboration" className="bg-onde-dark">Collaboration</option>
-          <option value="books" className="bg-onde-dark">Books & Publishing</option>
-          <option value="vr" className="bg-onde-dark">VR Experiences</option>
-          <option value="games" className="bg-onde-dark">Games</option>
-          <option value="other" className="bg-onde-dark">Other</option>
+          <option value="" className="bg-onde-dark">{t.subjectPlaceholder}</option>
+          <option value="general" className="bg-onde-dark">{t.subjects.general}</option>
+          <option value="collaboration" className="bg-onde-dark">{t.subjects.collaboration}</option>
+          <option value="books" className="bg-onde-dark">{t.subjects.books}</option>
+          <option value="vr" className="bg-onde-dark">{t.subjects.vr}</option>
+          <option value="games" className="bg-onde-dark">{t.subjects.games}</option>
+          <option value="other" className="bg-onde-dark">{t.subjects.other}</option>
         </select>
       </div>
 
       {/* Message Field */}
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-white/70 mb-2">
-          Message
+          {t.messageLabel}
         </label>
         <textarea
           id="message"
@@ -323,7 +284,7 @@ function ContactForm() {
           className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white 
             placeholder:text-white/30 focus:border-onde-teal focus:ring-2 focus:ring-onde-teal/20 
             transition-all duration-300 outline-none resize-none"
-          placeholder="Tell us what's on your mind..."
+          placeholder={t.messagePlaceholder}
         />
       </div>
 
@@ -343,11 +304,11 @@ function ContactForm() {
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
               />
-              Sending...
+              {t.sending}
             </>
           ) : (
             <>
-              Send Message
+              {t.submit}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -364,7 +325,7 @@ function ContactForm() {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            Message sent successfully!
+            {t.success}
           </motion.span>
         )}
       </div>
@@ -386,6 +347,9 @@ export default function About() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
   const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100])
+
+  // Get timeline milestones from translations
+  const milestones = t.about.timeline?.milestones || []
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -510,13 +474,10 @@ export default function About() {
                 viewport={{ once: true }}
               >
                 <p className="text-2xl md:text-3xl lg:text-4xl font-display font-medium text-white leading-relaxed mb-8">
-                  We believe the best stories are <span className="text-onde-teal">timeless</span>, 
-                  and the best technology is <span className="text-onde-gold">invisible</span>. 
-                  Our mission is to bring classic literature to life with beautiful 
-                  illustrations, making wisdom <span className="text-onde-coral">accessible</span> to everyone.
+                  {t.about.mission?.quote || "We believe the best stories are timeless, and the best technology is invisible. Our mission is to bring classic literature to life with beautiful illustrations, making wisdom accessible to everyone."}
                 </p>
                 <footer className="text-white/40 text-lg">
-                  — The Onde Team
+                  — {t.about.mission?.attribution || "The Onde Team"}
                 </footer>
               </motion.blockquote>
             </div>
@@ -534,17 +495,17 @@ export default function About() {
             <ScrollReveal>
               <span className="section-badge-futuristic mb-6">
                 <span className="w-2 h-2 rounded-full bg-onde-gold" />
-                {t.about.whatWeDo.badge}
+                {t.about.whatWeDo?.badge || "What We Do"}
               </span>
 
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
-                {t.about.whatWeDo.title}
+                {t.about.whatWeDo?.title || "AI-Powered Digital Publishing"}
               </h2>
 
               <div className="space-y-4 text-white/70 leading-relaxed text-lg">
-                <p>{t.about.whatWeDo.p1}</p>
-                <p>{t.about.whatWeDo.p2}</p>
-                <p>{t.about.whatWeDo.p3}</p>
+                <p>{t.about.whatWeDo?.p1}</p>
+                <p>{t.about.whatWeDo?.p2}</p>
+                <p>{t.about.whatWeDo?.p3}</p>
               </div>
 
               <motion.div
@@ -554,7 +515,7 @@ export default function About() {
               >
                 <Link href="/" className="btn-futuristic">
                   <span className="flex items-center gap-2">
-                    {t.about.whatWeDo.cta}
+                    {t.about.whatWeDo?.cta || "See Our Books"}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -579,10 +540,10 @@ export default function About() {
 
                   <div>
                     <h3 className="text-2xl font-display font-bold text-white mb-2">
-                      {t.about.whatWeDo.aiNative}
+                      {t.about.whatWeDo?.aiNative || "AI-Native"}
                     </h3>
                     <p className="text-white/60">
-                      {t.about.whatWeDo.aiNativeDesc}
+                      {t.about.whatWeDo?.aiNativeDesc || "Built from the ground up with AI at the core of our workflow"}
                     </p>
                   </div>
 
@@ -616,17 +577,17 @@ export default function About() {
             <div className="text-center mb-16 md:mb-24">
               <span className="section-badge-futuristic mb-6">
                 <span className="w-2 h-2 rounded-full bg-onde-cyan animate-pulse" />
-                Our Journey
+                {t.about.timeline?.badge || "Our Journey"}
               </span>
-              <h2 className="section-title-futuristic mb-4">Milestones</h2>
+              <h2 className="section-title-futuristic mb-4">{t.about.timeline?.title || "Milestones"}</h2>
               <p className="section-subtitle-futuristic max-w-2xl mx-auto">
-                From a spark of an idea to a growing library of illustrated classics.
+                {t.about.timeline?.subtitle || "From a spark of an idea to a growing library of illustrated classics."}
               </p>
               <div className="glow-line w-32 mx-auto mt-8" />
             </div>
           </ScrollReveal>
 
-          <Timeline />
+          <Timeline milestones={milestones} />
         </div>
       </section>
 
@@ -665,20 +626,20 @@ export default function About() {
                     viewport={{ once: true }}
                   >
                     <span className="w-2 h-2 rounded-full bg-onde-purple animate-pulse" />
-                    {t.about.orchestra.badge}
+                    {t.about.orchestra?.badge || "The Orchestra"}
                   </motion.span>
 
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
-                    {t.about.orchestra.title}{' '}
-                    <span className="text-gradient-fire">{t.about.orchestra.titleHighlight}</span>
+                    {t.about.orchestra?.title || "Orchestrated by"}{' '}
+                    <span className="text-gradient-fire">{t.about.orchestra?.titleHighlight || "Magmatic"}</span>
                   </h2>
 
                   <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-6 leading-relaxed">
-                    {t.about.orchestra.description}
+                    {t.about.orchestra?.description}
                   </p>
 
                   <p className="text-white/40 text-sm mb-8">
-                    {t.about.orchestra.subtitle}
+                    {t.about.orchestra?.subtitle}
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -694,7 +655,7 @@ export default function About() {
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
-                        {t.about.orchestra.followMagmatic}
+                        {t.about.orchestra?.followMagmatic || "Follow @magmatic__"}
                       </span>
                     </motion.a>
                     <motion.a
@@ -709,7 +670,7 @@ export default function About() {
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
-                        {t.about.orchestra.followOnde}
+                        {t.about.orchestra?.followOnde || "Follow @Onde_FRH"}
                       </span>
                     </motion.a>
                   </div>
@@ -740,7 +701,7 @@ export default function About() {
           </ScrollReveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {teamMembers.map((member, index) => {
+            {teamMembersConfig.map((member, index) => {
               const memberData = t.about.team[member.id as keyof typeof t.about.team] as {
                 name: string
                 role: string
@@ -821,10 +782,10 @@ export default function About() {
                     {value.emoji}
                   </motion.div>
                   <h3 className="text-xl font-display font-bold text-white mb-2">
-                    {t.about.values[value.key as keyof typeof t.about.values].title}
+                    {(t.about.values[value.key as keyof typeof t.about.values] as { title: string; description: string }).title}
                   </h3>
                   <p className="text-white/60">
-                    {t.about.values[value.key as keyof typeof t.about.values].description}
+                    {(t.about.values[value.key as keyof typeof t.about.values] as { title: string; description: string }).description}
                   </p>
                 </motion.div>
               </ScrollReveal>
@@ -857,7 +818,7 @@ export default function About() {
               </p>
               
               <p className="text-onde-teal">
-                Or email us directly at{' '}
+                {t.about.contact.form?.emailDirect || "Or email us directly at"}{' '}
                 <a 
                   href="mailto:onde.frh@proton.me" 
                   className="underline hover:text-onde-teal-light transition-colors"
@@ -870,7 +831,7 @@ export default function About() {
 
           <ScrollReveal delay={0.2}>
             <div className="card-3d p-8 md:p-10">
-              <ContactForm />
+              <ContactForm t={t.about.contact.form} />
             </div>
           </ScrollReveal>
         </div>
@@ -907,17 +868,17 @@ export default function About() {
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-                  Ready to Explore?
+                  {t.about.finalCta?.title || "Ready to Explore?"}
                 </h2>
                 <p className="text-lg text-white/60 mb-8 max-w-xl mx-auto">
-                  Dive into our library of beautifully illustrated classics, games, and VR experiences.
+                  {t.about.finalCta?.subtitle || "Dive into our library of beautifully illustrated classics, games, and VR experiences."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/" className="btn-futuristic">
-                    Browse Library
+                    {t.about.finalCta?.browseLibrary || "Browse Library"}
                   </Link>
                   <Link href="/games" className="btn-outline-glow">
-                    Play Games
+                    {t.about.finalCta?.playGames || "Play Games"}
                   </Link>
                 </div>
               </div>
