@@ -127,8 +127,8 @@
 | GAM-003 | Skin Creator: Layout landscape mode | TODO | - | GAM-001 |
 
 ## T850: i18n Review - Fix mix inglese/italiano su tutto il sito
-- **Status:** TODO
+- **Status:** IN_PROGRESS
 - **Priority:** HIGH
-- **Owner:** 
+- **Owner:** @clawdinho
 - **Created:** 2026-02-03
 - **Notes:** Mattia ha segnalato che c'è un mix di inglese e italiano su tutto il sito. Fare review completa e sistemare.
