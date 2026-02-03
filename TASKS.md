@@ -135,7 +135,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 36 | META-002 | Verificare Open Graph tags su tutte le pagine | ⭐ SEO | ✅ DONE | @clawdinho | Added OG + Twitter tags |
-| 37 | A11Y-002 | Aggiungere skip links per accessibilità | ⭐ Accessibilità | TODO | - |
+| 37 | A11Y-002 | Aggiungere skip links per accessibilità | ⭐ Accessibilità | ✅ DONE | @clawdinho | Already exists! |
 | 38 | PERF-002 | Lazy load immagini sotto the fold | ⚡ Performance | TODO | - |
-| 39 | SEO-003 | Verificare canonical URLs | ⭐ SEO | TODO | - |
+| 39 | SEO-003 | Verificare canonical URLs | ⭐ SEO | ✅ DONE | @clawdinho | Already configured |
 | 40 | i18n-ABOUT | Verificare i18n pagina About | ⭐ Professionalità | TODO | - |
