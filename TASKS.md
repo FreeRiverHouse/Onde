@@ -172,6 +172,9 @@
 | 74 | COMP-004 | Add Spinner/Loading component | ⭐ UX | ✅ DONE | @clawdinho | 3 sizes, 3 colors |
 | 75 | COMP-005 | Add Badge component | ⭐ UX | ✅ DONE | @clawdinho | 6 variants + presets |
 | 76 | EXPORT-001 | Create hooks index export | 🔧 Dev | ✅ DONE | @clawdinho | Barrel export |
+| 77 | EXPORT-002 | Create components index export | 🔧 Dev | ✅ DONE | @clawdinho | Barrel export |
+| 78 | TYPES-001 | Add shared TypeScript types | 🔧 Dev | ✅ DONE | @clawdinho | types/index.ts |
+| 79 | README-001 | Update hooks README | 📝 Docs | ✅ DONE | @clawdinho | Full docs |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
