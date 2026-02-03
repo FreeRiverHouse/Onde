@@ -151,6 +151,9 @@
 | 53 | UX-003 | Add global loading indicator | ⭐ UX | ✅ DONE | @clawdinho | Progress bar + overlay |
 | 54 | DOCS-001 | Create component documentation | 📝 Dev | ✅ DONE | @clawdinho | components/README.md |
 | 55 | TEST-002 | Add basic smoke tests | 🔧 QA | ✅ DONE | @clawdinho | __tests__/smoke.test.ts |
+| 56 | UX-004 | Add 404 page to games section | ⭐ UX | ✅ DONE | @clawdinho | Gaming-themed 404 |
+| 57 | SEO-005 | Add breadcrumb schema to book pages | ⭐ SEO | TODO | - |
+| 58 | PERF-004 | Add resource hints (preconnect, prefetch) | ⚡ Performance | TODO | - |
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
