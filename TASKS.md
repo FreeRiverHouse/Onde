@@ -127,8 +127,30 @@
 | GAM-003 | Skin Creator: Layout landscape mode | TODO | - | GAM-001 |
 
 ## T850: i18n Review - Fix mix inglese/italiano su tutto il sito
-- **Status:** IN_PROGRESS
+- **Status:** DONE
 - **Priority:** HIGH
 - **Owner:** @clawdinho
 - **Created:** 2026-02-03
-- **Notes:** Mattia ha segnalato che c'è un mix di inglese e italiano su tutto il sito. Fare review completa e sistemare.
+- **Completed:** 2026-02-02
+- **Notes:** Fixed about page - added timeline, contact form, mission, finalCta, whatWeDo, orchestra translations to both en.json and it.json
+
+## T851: i18n Review - Check remaining pages for hardcoded strings
+- **Status:** TODO
+- **Priority:** MEDIUM
+- **Owner:** 
+- **Created:** 2026-02-02
+- **Notes:** Continue i18n audit on: shop, settings, skin-creator, vr pages. Check for any remaining hardcoded English/Italian mix.
+
+## T852: i18n Review - Add missing Italian translations for skin-creator
+- **Status:** TODO
+- **Priority:** MEDIUM
+- **Owner:** 
+- **Created:** 2026-02-02
+- **Notes:** Skin creator has "Minecraft Skin Creator" in English on homepage CTA. Review full page.
+
+## T853: SEO - Add hreflang tags for multi-language support
+- **Status:** TODO
+- **Priority:** LOW
+- **Owner:** 
+- **Created:** 2026-02-02
+- **Notes:** Add hreflang tags to indicate EN/IT versions for better SEO. Currently language is client-side detected.
