@@ -696,5 +696,12 @@ pkill -f clawdbot-gateway && clawdbot gateway
 - Tenere il workspace `~/clawd` piccolo (<10MB)
 - Evitare venv, node_modules nel workspace
 
+**🔥 DRIFT TEST RESULTS (2026-02-03 08:10):**
+```
+PRIMA (workspace 700MB):  Test5 = 43,934ms (SPIKE!)
+DOPO  (workspace 3.2MB):  Test5 = 801ms    (STABILE!)
+```
+Il cleanup del workspace ha eliminato il drift.
+
 **Nota:** MLX è velocissimo (~800ms). La latenza è quasi tutta di ClawdBot.
 
