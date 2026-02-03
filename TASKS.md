@@ -26,7 +26,7 @@
 | 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | TODO | - |
 | 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | TODO | - |
 | 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
-| 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - |
+| 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | TODO | - | Complex, needs dedicated session |
 | 12 | MLH-023 | Notification action buttons | ⭐ UX onde.surf | TODO | - |
 | 13 | MLH-024 | Notification filters persistence | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
 | 14 | MLH-025 | Notification dismiss-all button | ⭐ UX onde.surf | ✅ DONE | @clawdinho |
@@ -41,7 +41,7 @@
 | 18 | PUB-002 | Verificare pipeline traduzione attiva | 📚 Content | ✅ DONE | @clawdinho | MLX v10 su M4, AMD scripts su M1 |
 | 19 | INF-004 | Setup staging environment | 🔧 Dev workflow | TODO | - |
 | 20 | INF-005 | Procedure deploy: staging first | 🔧 Dev workflow | TODO | - |
-| 21 | INF-006 | Script test automatici pre-deploy | 🔧 Dev workflow | TODO | - |
+| 21 | INF-006 | Script test automatici pre-deploy | 🔧 Dev workflow | ✅ DONE | @clawdinho | Already exists! |
 | 22 | AUTO-003 | Documentare stato Kalshi trading | 📝 Documentation | ✅ DONE | @clawdinho |
 
 ---
