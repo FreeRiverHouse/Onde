@@ -1205,6 +1205,7 @@
       "unequip": "Rimuovi",
       "owned": "Posseduto",
       "equipped": "Equipaggiato",
+      "purchased": "Acquistato!",
       "cantAfford": "Fondi insufficienti"
     },
     "history": {

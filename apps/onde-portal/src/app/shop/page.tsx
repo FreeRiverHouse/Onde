@@ -44,6 +44,8 @@ function ShopItemCard({
   onEquip,
   onUnequip 
 }: ShopItemCardProps) {
+  const t = useTranslations()
+  const shopT = t.shop || { rarity: {}, actions: {} }
   const [isHovered, setIsHovered] = useState(false)
   const [showPurchaseSuccess, setShowPurchaseSuccess] = useState(false)
   
@@ -82,7 +84,7 @@ function ShopItemCard({
       {/* Owned/Equipped badge */}
       {owned && (
         <div className="absolute -top-2 left-4 px-2 py-0.5 rounded-full text-xs font-bold bg-green-500 text-white">
-          {equipped ? '✓ Equipaggiato' : '✓ Posseduto'}
+          {equipped ? `✓ ${shopT.actions?.equipped || 'Equipped'}` : `✓ ${shopT.actions?.owned || 'Owned'}`}
         </div>
       )}
       
@@ -147,7 +149,7 @@ function ShopItemCard({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Equipaggia
+            {shopT.actions?.equip || 'Equip'}
           </motion.button>
         ) : (
           <motion.button
@@ -156,7 +158,7 @@ function ShopItemCard({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Rimuovi
+            {shopT.actions?.unequip || 'Unequip'}
           </motion.button>
         )}
       </div>
@@ -178,7 +180,7 @@ function ShopItemCard({
               >
                 ✓
               </motion.span>
-              <span className="font-bold">Acquistato!</span>
+              <span className="font-bold">{shopT.actions?.purchased || 'Purchased!'}</span>
             </div>
           </motion.div>
         )}
