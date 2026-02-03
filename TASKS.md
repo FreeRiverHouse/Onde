@@ -144,4 +144,4 @@
 | 43 | PWA-002 | Verificare manifest.json e icone PWA | 📱 PWA | ✅ DONE | @clawdinho | icon-192 + icon-512 present |
 | 44 | ANALYTICS-001 | Setup Plausible/Umami analytics | 📊 Growth | TODO | - | Privacy-friendly analytics |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
-| 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | TODO | - |
+| 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
