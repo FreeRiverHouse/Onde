@@ -45,7 +45,7 @@ app.post('/v1/chat/completions', async (req, res) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: model || 'qwen2.5:14b',
+        model: model || 'qwen2.5:7b-instruct-q4_K_M',
         messages,
         stream: stream === true,
         ...rest
