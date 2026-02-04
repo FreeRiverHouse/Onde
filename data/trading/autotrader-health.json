@@ -1,7 +1,7 @@
 {
   "is_running": true,
-  "last_cycle_time": "2026-02-03T09:05:24.013330+00:00",
-  "cycle_count": 23,
+  "last_cycle_time": "2026-02-04T08:03:09.880253+00:00",
+  "cycle_count": 297,
   "dry_run": false,
   "trades_today": 0,
   "today_won": 0,
@@ -13,6 +13,6 @@
   "cash_cents": 0,
   "circuit_breaker_active": false,
   "circuit_breaker_reason": null,
-  "consecutive_losses": 15,
+  "consecutive_losses": 21,
   "status": "\u2705 running"
 }
