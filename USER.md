@@ -2,9 +2,11 @@
 
 *Learn about the person you're helping. Update this as you go.*
 
-- **Name:** Mattia P
+- **Name:** Mattia Petrucciani
 - **What to call them:** Mattia
-- **Pronouns:** *(optional)*
+- **Email:** mattiapetrucciani@gmail.com
+- **Phone:** +1-646-812-3630
+- **Location:** Los Angeles, CA
 - **Timezone:** America/Los_Angeles (PST)
 - **Language:** Italiano 🇮🇹
 
