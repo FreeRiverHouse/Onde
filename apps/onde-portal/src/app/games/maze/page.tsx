@@ -740,7 +740,7 @@ export default function MazeGame() {
 
       {/* Header */}
       <Link
-        href="/games/arcade"
+        href="/games/arcade/"
         className="absolute top-4 left-4 bg-gray-900 px-4 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-all z-10 border border-green-500/30"
         style={{ color: COLORS.text }}
       >

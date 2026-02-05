@@ -559,7 +559,7 @@ export default function CountingGame() {
     <div className="flex flex-col items-center justify-center min-h-screen p-4 gap-6">
       {/* Back to Arcade */}
       <div className="absolute top-4 left-4 z-20">
-        <Link href="/games/arcade" className="bg-white/90 hover:bg-white px-4 py-2 rounded-full font-bold text-purple-600 shadow-lg transition-all hover:scale-105 text-sm">
+        <Link href="/games/arcade/" className="bg-white/90 hover:bg-white px-4 py-2 rounded-full font-bold text-purple-600 shadow-lg transition-all hover:scale-105 text-sm">
           ◀ Arcade
         </Link>
       </div>

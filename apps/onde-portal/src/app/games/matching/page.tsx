@@ -676,6 +676,8 @@ export default function MatchingGame() {
   // Render menu
   const renderMenu = () => (
     <div className="min-h-screen bg-gradient-to-b from-indigo-400 via-purple-400 to-pink-400 flex flex-col items-center justify-center p-4">
+
+      <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation"><span className="text-lg">←</span><span className="font-mono text-sm">Arcade</span></Link>
       <h1 className="text-4xl md:text-6xl font-black text-white mb-2 text-center drop-shadow-lg">
         🎯 Match It!
       </h1>
@@ -932,7 +934,7 @@ export default function MatchingGame() {
   return (
     <>
       <Link
-        href="/games"
+        href="/games/arcade/"
         className="fixed top-4 left-4 z-50 bg-white/90 px-4 py-2 rounded-full font-bold text-purple-700 shadow-lg hover:scale-105 transition-all"
       >
         ← Games

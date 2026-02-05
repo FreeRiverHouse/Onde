@@ -693,6 +693,8 @@ export default function MathGame() {
   // Render menu
   const renderMenu = () => (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 gap-6">
+
+      <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation"><span className="text-lg">←</span><span className="font-mono text-sm">Arcade</span></Link>
       {/* Title */}
       <div className="text-center">
         <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
@@ -1037,7 +1039,7 @@ export default function MathGame() {
       {/* Back link */}
       {gameState === 'menu' && (
         <Link
-          href="/games"
+          href="/games/arcade/"
           className="absolute top-4 left-4 z-20 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all backdrop-blur-sm"
         >
           ← Games

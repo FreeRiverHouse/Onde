@@ -621,7 +621,7 @@ export default function Game2048() {
 
       {/* Header */}
       <Link
-        href="/games/arcade"
+        href="/games/arcade/"
         className="absolute top-4 left-4 bg-[#8f7a66] text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:scale-105 transition-all z-10"
       >
         ← Arcade

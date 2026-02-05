@@ -1046,12 +1046,15 @@ export default function KidsChefStudio() {
 
   if (selectedRecipe) {
     return (
-      <PlayScreen 
-        recipe={selectedRecipe} 
-        onBack={() => setSelectedRecipe(null)} 
-        sounds={sounds} 
-        onComplete={() => saveRecipe(selectedRecipe.id)}
-      />
+      <>
+        <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation"><span className="text-lg">←</span><span className="font-mono text-sm">Arcade</span></Link>
+        <PlayScreen 
+          recipe={selectedRecipe} 
+          onBack={() => setSelectedRecipe(null)} 
+          sounds={sounds} 
+          onComplete={() => saveRecipe(selectedRecipe.id)}
+        />
+      </>
     )
   }
 
@@ -1066,8 +1069,8 @@ export default function KidsChefStudio() {
       
       {/* Header */}
       <div className="text-center pt-8 pb-4 relative">
-        <Link href="/games" onClick={() => sounds.playClick()} className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-gray-700 shadow-lg hover:scale-105 transition-all">
-          ← Gaming Island
+        <Link href="/games/arcade/" onClick={() => sounds.playClick()} className="absolute top-4 left-4 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation font-bold z-10">
+          ← Arcade
         </Link>
         <button 
           onClick={() => { sounds.playClick(); setShowRecipeBook(true) }}

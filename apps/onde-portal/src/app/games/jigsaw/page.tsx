@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import {
   GameLayout,
@@ -551,7 +552,7 @@ export default function JigsawPuzzle() {
       <Confetti active={showConfetti} />
 
       <GameHeader
-        backHref="/games/arcade"
+        backHref="/games/arcade/"
         backLabel="◀ Arcade"
         soundEnabled={soundEnabled}
         onSoundToggle={() => setSoundEnabled(!soundEnabled)}

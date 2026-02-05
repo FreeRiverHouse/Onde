@@ -382,6 +382,8 @@ export default function SpinWheel() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900 flex flex-col items-center p-4 relative overflow-hidden">
+
+      <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation"><span className="text-lg">←</span><span className="font-mono text-sm">Arcade</span></Link>
       {/* Confetti particles */}
       {particles.map(p => (
         <div
@@ -400,7 +402,7 @@ export default function SpinWheel() {
       ))}
       
       {/* Header */}
-      <Link href="/games" className="absolute top-4 left-4 bg-white/20 backdrop-blur px-4 py-2 rounded-full font-bold text-white shadow-lg hover:scale-105 transition-all z-10">
+      <Link href="/games/arcade/" className="absolute top-4 left-4 bg-white/20 backdrop-blur px-4 py-2 rounded-full font-bold text-white shadow-lg hover:scale-105 transition-all z-10">
         ← Games
       </Link>
 
