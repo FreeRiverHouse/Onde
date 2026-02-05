@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useCoins } from '@/hooks/useCoins'
 
 // =============================================================================
 // CUTE PLAYFUL SOUND EFFECTS
@@ -79,7 +80,49 @@ function useArcadeSounds() {
     }
   }, [getAudioContext])
 
-  return { playCoinBeep, playSelectSound, playNavigateSound }
+  const playUnlockSound = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // Magical ascending arpeggio
+      const notes = [523, 659, 784, 1047, 1319]
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08)
+        gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.08)
+        gain.gain.linearRampToValueAtTime(0.02, ctx.currentTime + i * 0.08 + 0.2)
+        osc.start(ctx.currentTime + i * 0.08)
+        osc.stop(ctx.currentTime + i * 0.08 + 0.25)
+      })
+    } catch {
+      // Audio not available
+    }
+  }, [getAudioContext])
+
+  const playLockedSound = useCallback(() => {
+    try {
+      const ctx = getAudioContext()
+      // Short "nope" sound
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.type = 'triangle'
+      osc.frequency.setValueAtTime(300, ctx.currentTime)
+      osc.frequency.setValueAtTime(200, ctx.currentTime + 0.1)
+      gain.gain.setValueAtTime(0.06, ctx.currentTime)
+      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.15)
+      osc.start(ctx.currentTime)
+      osc.stop(ctx.currentTime + 0.15)
+    } catch {
+      // Audio not available
+    }
+  }, [getAudioContext])
+
+  return { playCoinBeep, playSelectSound, playNavigateSound, playUnlockSound, playLockedSound }
 }
 
 // =============================================================================
@@ -99,33 +142,51 @@ interface Game {
   glowColor: string
   category: Category
   readingLevel: ReadingLevel
-  localStorageKey?: string  // for reading real scores
+  localStorageKey?: string
   isNew?: boolean
   isFeatured?: boolean
+  locked?: boolean
+  unlockCost?: number
+}
+
+const FREE_GAME_IDS = ['counting', 'math', 'alphabet', 'memory', 'draw', 'coloring', 'music', 'quiz']
+
+const UNLOCK_COSTS: Record<string, number> = {
+  '2048': 200,
+  'sudoku': 300,
+  'typing': 150,
+  'typing-race': 250,
+  'word': 200,
+  'wordle': 300,
+  'crossword': 350,
+  'matching': 150,
+  'puzzle': 200,
+  'jigsaw': 250,
+  'spot': 200,
 }
 
 const allGames: Game[] = [
   // 🔢 MATH & LOGIC
   { id: 'counting', href: '/games/counting', title: 'Counting', desc: 'Learn to count', emoji: '🔢', color: 'from-sky-300 to-sky-500', glowColor: 'sky', category: 'Math & Logic', readingLevel: 'no-reading' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math adventures', emoji: '➕', color: 'from-orange-300 to-orange-500', glowColor: 'orange', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-300 to-amber-500', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true },
-  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-300 to-indigo-500', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
+  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-300 to-amber-500', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true, locked: true, unlockCost: 200 },
+  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-300 to-indigo-500', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true, locked: true, unlockCost: 300 },
 
   // 📝 WORDS & LANGUAGE
   { id: 'alphabet', href: '/games/alphabet', title: 'ABC Fun', desc: 'Learn the alphabet', emoji: '🔤', color: 'from-emerald-300 to-emerald-500', glowColor: 'emerald', category: 'Words & Language', readingLevel: 'no-reading' },
-  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-slate-300 to-slate-500', glowColor: 'slate', category: 'Words & Language', readingLevel: 'can-read' },
-  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-rose-300 to-rose-500', glowColor: 'rose', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-blue-300 to-blue-500', glowColor: 'blue', category: 'Words & Language', readingLevel: 'can-read' },
-  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-300 to-green-500', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-violet-300 to-violet-500', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-slate-300 to-slate-500', glowColor: 'slate', category: 'Words & Language', readingLevel: 'can-read', locked: true, unlockCost: 150 },
+  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-rose-300 to-rose-500', glowColor: 'rose', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 250 },
+  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-blue-300 to-blue-500', glowColor: 'blue', category: 'Words & Language', readingLevel: 'can-read', locked: true, unlockCost: 200 },
+  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-300 to-green-500', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 300 },
+  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-violet-300 to-violet-500', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 350 },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz Time', desc: 'Test your knowledge', emoji: '❓', color: 'from-purple-300 to-purple-500', glowColor: 'purple', category: 'Words & Language', readingLevel: 'can-read' },
 
   // 🧩 MEMORY & PUZZLES
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match the pairs', emoji: '🧠', color: 'from-pink-300 to-pink-500', glowColor: 'pink', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-cyan-300 to-cyan-500', glowColor: 'cyan', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-fuchsia-300 to-fuchsia-500', glowColor: 'fuchsia', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-300 to-teal-500', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true },
-  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-lime-300 to-lime-500', glowColor: 'lime', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-cyan-300 to-cyan-500', glowColor: 'cyan', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 150 },
+  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-fuchsia-300 to-fuchsia-500', glowColor: 'fuchsia', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 200 },
+  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-300 to-teal-500', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true, locked: true, unlockCost: 250 },
+  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-lime-300 to-lime-500', glowColor: 'lime', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 200 },
 
   // 🎨 CREATIVE
   { id: 'draw', href: '/games/draw', title: 'Draw', desc: 'Creative drawing', emoji: '✏️', color: 'from-red-300 to-red-500', glowColor: 'red', category: 'Creative', readingLevel: 'no-reading' },
@@ -188,6 +249,51 @@ const SCORE_KEYS: Record<string, { key: string; type: 'leaderboard' | 'score' | 
 // =============================================================================
 // HOOKS
 // =============================================================================
+
+const UNLOCKED_STORAGE_KEY = 'onde-unlocked-games'
+
+function useUnlockedGames() {
+  const [unlockedGames, setUnlockedGames] = useState<string[]>([])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(UNLOCKED_STORAGE_KEY)
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        if (Array.isArray(parsed)) {
+          setUnlockedGames(parsed)
+        }
+      }
+    } catch {
+      // skip
+    }
+    setMounted(true)
+  }, [])
+
+  const unlockGame = useCallback((gameId: string) => {
+    setUnlockedGames(prev => {
+      if (prev.includes(gameId)) return prev
+      const next = [...prev, gameId]
+      try {
+        localStorage.setItem(UNLOCKED_STORAGE_KEY, JSON.stringify(next))
+      } catch {
+        // skip
+      }
+      return next
+    })
+  }, [])
+
+  const isUnlocked = useCallback((game: Game): boolean => {
+    // Free games are always unlocked
+    if (!game.locked) return true
+    if (FREE_GAME_IDS.includes(game.id)) return true
+    // Check localStorage
+    return unlockedGames.includes(game.id)
+  }, [unlockedGames])
+
+  return { unlockedGames, unlockGame, isUnlocked, mounted }
+}
 
 function useRealScores() {
   const [scores, setScores] = useState<{ name: string; game: string; score: number; emoji: string }[]>([])
@@ -332,6 +438,162 @@ function CheerfulBanner() {
   )
 }
 
+// Coin balance display
+function CoinBalanceDisplay({ balance }: { balance: number }) {
+  return (
+    <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-yellow-300 shadow-md">
+      <span className="text-lg animate-bounce-gentle">🪙</span>
+      <span className="font-extrabold text-yellow-700 text-base tabular-nums">
+        {balance.toLocaleString()}
+      </span>
+    </div>
+  )
+}
+
+// Sparkle/confetti burst animation overlay
+function UnlockCelebration({ show, onDone }: { show: boolean; onDone: () => void }) {
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(onDone, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [show, onDone])
+
+  if (!show) return null
+
+  const particles = Array.from({ length: 30 }, (_, i) => {
+    const angle = (i / 30) * 360
+    const distance = 60 + Math.random() * 120
+    const x = Math.cos((angle * Math.PI) / 180) * distance
+    const y = Math.sin((angle * Math.PI) / 180) * distance
+    const emojis = ['⭐', '✨', '🌟', '💫', '🎉', '🎊', '🪙', '💎', '🌈', '🎀']
+    const emoji = emojis[i % emojis.length]
+    const delay = Math.random() * 0.3
+    const size = 14 + Math.random() * 16
+
+    return (
+      <span
+        key={i}
+        className="absolute animate-celebration-particle"
+        style={{
+          '--tx': `${x}px`,
+          '--ty': `${y}px`,
+          animationDelay: `${delay}s`,
+          fontSize: `${size}px`,
+          left: '50%',
+          top: '50%',
+        } as React.CSSProperties}
+      >
+        {emoji}
+      </span>
+    )
+  })
+
+  return (
+    <div className="fixed inset-0 z-[100] pointer-events-none flex items-center justify-center">
+      <div className="relative">
+        {particles}
+        <div className="animate-unlock-badge text-center">
+          <span className="text-5xl md:text-7xl block mb-2">🔓</span>
+          <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-extrabold text-xl md:text-2xl px-6 py-2 rounded-full shadow-lg">
+            Unlocked! 🎉
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Unlock confirmation modal
+function UnlockModal({
+  game,
+  balance,
+  onConfirm,
+  onCancel,
+}: {
+  game: Game
+  balance: number
+  onConfirm: () => void
+  onCancel: () => void
+}) {
+  const cost = game.unlockCost || UNLOCK_COSTS[game.id] || 0
+  const canAfford = balance >= cost
+  const deficit = cost - balance
+
+  return (
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" onClick={onCancel}>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+      <div
+        className="relative bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl border-3 border-yellow-200 animate-modal-pop"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Game emoji */}
+        <div className="text-center mb-4">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl flex items-center justify-center border-2 border-yellow-200 shadow-md mb-3">
+            <span className="text-4xl">{game.emoji}</span>
+          </div>
+          <h3 className="text-xl font-extrabold text-gray-800">{game.title}</h3>
+          <p className="text-sm text-gray-500">{game.desc}</p>
+        </div>
+
+        {canAfford ? (
+          <>
+            <div className="bg-yellow-50 rounded-2xl p-4 mb-5 text-center border border-yellow-200">
+              <p className="text-gray-700 font-bold mb-1">Unlock this game?</p>
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-2xl">🪙</span>
+                <span className="text-2xl font-extrabold text-yellow-700">{cost}</span>
+                <span className="text-gray-500 text-sm">coins</span>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">
+                Balance after: {(balance - cost).toLocaleString()} coins
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={onCancel}
+                className="flex-1 px-4 py-3 rounded-2xl bg-gray-100 text-gray-600 font-bold hover:bg-gray-200 transition-colors text-sm"
+              >
+                Not Yet
+              </button>
+              <button
+                onClick={onConfirm}
+                className="flex-1 px-4 py-3 rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-extrabold shadow-md hover:shadow-lg hover:scale-105 transition-all text-sm"
+              >
+                🔓 Unlock!
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="bg-pink-50 rounded-2xl p-4 mb-5 text-center border border-pink-200">
+              <p className="text-pink-700 font-bold mb-1">Need more coins! 😊</p>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="text-xl">🪙</span>
+                <span className="text-xl font-extrabold text-gray-400 line-through">{cost}</span>
+              </div>
+              <p className="text-sm text-pink-600 font-medium">
+                You need <span className="font-extrabold">{deficit}</span> more coins
+              </p>
+              <p className="text-xs text-gray-400 mt-2">
+                Play free games to earn coins! 🎮
+              </p>
+            </div>
+
+            <button
+              onClick={onCancel}
+              className="w-full px-4 py-3 rounded-2xl bg-gradient-to-r from-pink-400 to-purple-400 text-white font-extrabold shadow-md hover:shadow-lg hover:scale-105 transition-all text-sm"
+            >
+              Got it! 💪
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // Real scores ticker from localStorage — bright & cheerful
 function HighScoresTicker({ scores }: { scores: { name: string; game: string; score: number; emoji: string }[] }) {
   const displayScores = scores.length > 0 ? scores : [
@@ -358,55 +620,92 @@ function HighScoresTicker({ scores }: { scores: { name: string; game: string; sc
 }
 
 // Game of the Day — cute star-game style
-function GameOfTheDay({ game, onClick }: { game: Game; onClick: () => void }) {
+function GameOfTheDay({ game, onClick, isLocked }: { game: Game; onClick: () => void; isLocked: boolean }) {
   return (
     <div className="mb-8 mx-4 md:mx-8">
-      <Link
-        href={game.href}
-        onClick={onClick}
-        className="block bg-white/80 backdrop-blur-sm rounded-3xl p-4 md:p-6 relative overflow-hidden group border-3 border-yellow-300 shadow-lg shadow-yellow-100 hover:shadow-xl hover:shadow-yellow-200 transition-all duration-300 hover:-translate-y-1"
-      >
-        {/* Cute star badge */}
-        <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-300 to-orange-300 px-5 py-1.5 rounded-b-2xl shadow-md">
-          <span className="font-extrabold text-orange-800 text-xs md:text-sm tracking-wider">
-            ⭐ Star Game of the Day! ⭐
-          </span>
-        </div>
-
-        <div className="flex items-center gap-6 pt-4">
-          <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-yellow-200 via-pink-100 to-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md border-2 border-white">
-            <span className="text-5xl md:text-7xl animate-bounce-gentle" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}>
-              {game.emoji}
+      {isLocked ? (
+        <div
+          onClick={onClick}
+          className="block bg-white/80 backdrop-blur-sm rounded-3xl p-4 md:p-6 relative overflow-hidden group border-3 border-yellow-300 shadow-lg shadow-yellow-100 hover:shadow-xl hover:shadow-yellow-200 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          {/* Cute star badge */}
+          <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-300 to-orange-300 px-5 py-1.5 rounded-b-2xl shadow-md">
+            <span className="font-extrabold text-orange-800 text-xs md:text-sm tracking-wider">
+              ⭐ Star Game of the Day! ⭐
             </span>
           </div>
 
-          <div className="flex-1">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-1">
-              {game.title}
-            </h2>
-            <p className="text-gray-500 text-sm md:text-lg">{game.desc}</p>
-            <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <span className={`text-xs px-3 py-1 rounded-full font-bold ${game.readingLevel === 'no-reading' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
-                {game.readingLevel === 'no-reading' ? '👶 No Reading' : '📖 Can Read'}
+          <div className="flex items-center gap-6 pt-4 opacity-70">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 flex items-center justify-center shadow-md border-2 border-white relative">
+              <span className="text-5xl md:text-7xl grayscale opacity-50" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15)) grayscale(100%)' }}>
+                {game.emoji}
               </span>
-              <span className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-700 font-bold border border-purple-200">
-                {game.category}
-              </span>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-4xl">🔒</span>
+              </div>
             </div>
-            <div className="mt-3 inline-block bg-gradient-to-r from-pink-400 to-orange-400 px-5 py-1.5 rounded-full shadow-md group-hover:scale-105 transition-transform">
-              <span className="text-white font-extrabold text-xs md:text-sm">
-                🎮 Tap to Play!
-              </span>
-            </div>
-          </div>
 
-          <div className="hidden md:flex flex-col items-center gap-2 text-yellow-400 text-2xl animate-sparkle">
-            <span>🌟</span>
-            <span>⭐</span>
-            <span>🌟</span>
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-1">
+                {game.title}
+              </h2>
+              <p className="text-gray-500 text-sm md:text-lg">{game.desc}</p>
+              <div className="mt-3 inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 px-5 py-1.5 rounded-full shadow-md">
+                <span className="text-white font-extrabold text-xs md:text-sm">
+                  🔒 Unlock for 🪙 {game.unlockCost || UNLOCK_COSTS[game.id]}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </Link>
+      ) : (
+        <Link
+          href={game.href}
+          onClick={onClick}
+          className="block bg-white/80 backdrop-blur-sm rounded-3xl p-4 md:p-6 relative overflow-hidden group border-3 border-yellow-300 shadow-lg shadow-yellow-100 hover:shadow-xl hover:shadow-yellow-200 transition-all duration-300 hover:-translate-y-1"
+        >
+          {/* Cute star badge */}
+          <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-300 to-orange-300 px-5 py-1.5 rounded-b-2xl shadow-md">
+            <span className="font-extrabold text-orange-800 text-xs md:text-sm tracking-wider">
+              ⭐ Star Game of the Day! ⭐
+            </span>
+          </div>
+
+          <div className="flex items-center gap-6 pt-4">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-yellow-200 via-pink-100 to-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md border-2 border-white">
+              <span className="text-5xl md:text-7xl animate-bounce-gentle" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}>
+                {game.emoji}
+              </span>
+            </div>
+
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-1">
+                {game.title}
+              </h2>
+              <p className="text-gray-500 text-sm md:text-lg">{game.desc}</p>
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                <span className={`text-xs px-3 py-1 rounded-full font-bold ${game.readingLevel === 'no-reading' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
+                  {game.readingLevel === 'no-reading' ? '👶 No Reading' : '📖 Can Read'}
+                </span>
+                <span className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-700 font-bold border border-purple-200">
+                  {game.category}
+                </span>
+              </div>
+              <div className="mt-3 inline-block bg-gradient-to-r from-pink-400 to-orange-400 px-5 py-1.5 rounded-full shadow-md group-hover:scale-105 transition-transform">
+                <span className="text-white font-extrabold text-xs md:text-sm">
+                  🎮 Tap to Play!
+                </span>
+              </div>
+            </div>
+
+            <div className="hidden md:flex flex-col items-center gap-2 text-yellow-400 text-2xl animate-sparkle">
+              <span>🌟</span>
+              <span>⭐</span>
+              <span>🌟</span>
+            </div>
+          </div>
+        </Link>
+      )}
     </div>
   )
 }
@@ -533,7 +832,7 @@ function SectionHeader({ icon, title }: { icon: string; title: string }) {
   )
 }
 
-// Game card — cute, rounded, colorful
+// Game card — cute, rounded, colorful — with lock support
 function GameCard({
   game,
   isSelected,
@@ -542,7 +841,9 @@ function GameCard({
   onSelect,
   playCoinBeep,
   size = 'normal',
-  colorIndex = 0
+  colorIndex = 0,
+  isLocked = false,
+  onLockedClick,
 }: {
   game: Game
   isSelected: boolean
@@ -552,6 +853,8 @@ function GameCard({
   playCoinBeep: () => void
   size?: 'small' | 'normal'
   colorIndex?: number
+  isLocked?: boolean
+  onLockedClick?: () => void
 }) {
   const handleHover = () => {
     onHover()
@@ -562,6 +865,81 @@ function GameCard({
   const bgColor = getPastelColor(colorIndex)
   const borderColor = getPastelBorder(colorIndex)
 
+  // Locked game — no Link, just a clickable div
+  if (isLocked) {
+    const cost = game.unlockCost || UNLOCK_COSTS[game.id] || 0
+    return (
+      <div
+        onMouseEnter={handleHover}
+        onMouseLeave={onLeave}
+        onClick={(e) => {
+          e.preventDefault()
+          onLockedClick?.()
+        }}
+        className="group block cursor-pointer"
+      >
+        <div className={`
+          relative transform transition-all duration-300 ease-out
+          ${isSelected ? 'scale-105 -translate-y-2 z-20' : 'hover:scale-105 hover:-translate-y-1'}
+        `}>
+          {/* Lock cost badge */}
+          <div className="absolute -top-2 -right-2 z-30 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+            <span>🪙</span>
+            <span>{cost}</span>
+          </div>
+
+          <div className={`relative bg-gray-100 rounded-3xl overflow-hidden border-2 border-gray-300 shadow-md transition-shadow duration-300 ${isSelected ? 'shadow-lg shadow-gray-200' : 'hover:shadow-lg'}`}>
+            {/* Emoji display area — dimmed */}
+            <div className={`p-3 ${isSmall ? 'pb-2' : 'pb-3'}`}>
+              <div className="relative bg-white/40 rounded-2xl overflow-hidden aspect-square flex items-center justify-center">
+                <span className={`
+                  ${isSmall ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl'} transform transition-all duration-300 opacity-30 grayscale
+                `} style={{
+                  filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.08)) grayscale(80%)'
+                }}>
+                  {game.emoji}
+                </span>
+
+                {/* Lock overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-white/80 rounded-full w-12 h-12 flex items-center justify-center shadow-md border-2 border-gray-200">
+                    <span className="text-2xl">🔒</span>
+                  </div>
+                </div>
+
+                {/* Reading level badge */}
+                <div className={`absolute top-1.5 left-1.5 text-xs px-2 py-0.5 rounded-full font-bold opacity-50 ${
+                  game.readingLevel === 'no-reading' ? 'bg-green-200 text-green-700' : 'bg-blue-200 text-blue-700'
+                }`}>
+                  {game.readingLevel === 'no-reading' ? '👶' : '📖'}
+                </div>
+
+                {isSelected && (
+                  <div className="absolute bottom-1.5 left-0 right-0 text-center">
+                    <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-0.5 rounded-full text-[10px] font-extrabold shadow-md">
+                      🔓 Unlock?
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Title area */}
+            <div className={`bg-white/40 px-3 ${isSmall ? 'py-2' : 'py-2.5'} text-center`}>
+              <h3 className={`${isSmall ? 'text-sm' : 'text-base md:text-lg'} font-extrabold text-gray-500 tracking-wide truncate`}>
+                {game.title}
+              </h3>
+              {!isSmall && (
+                <p className="text-[11px] text-gray-400 truncate">{game.desc}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Unlocked game — normal Link
   return (
     <Link
       href={game.href}
@@ -632,7 +1010,9 @@ function GameRow({
   setSelectedGame,
   playSelectSound,
   playCoinBeep,
-  colorOffset = 0
+  colorOffset = 0,
+  isGameLocked,
+  onLockedGameClick,
 }: {
   games: Game[]
   selectedGame: string | null
@@ -640,6 +1020,8 @@ function GameRow({
   playSelectSound: () => void
   playCoinBeep: () => void
   colorOffset?: number
+  isGameLocked: (game: Game) => boolean
+  onLockedGameClick: (game: Game) => void
 }) {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4 px-4 md:px-8 scrollbar-hide">
@@ -654,6 +1036,8 @@ function GameRow({
             playCoinBeep={playCoinBeep}
             size="small"
             colorIndex={i + colorOffset}
+            isLocked={isGameLocked(game)}
+            onLockedClick={() => onLockedGameClick(game)}
           />
         </div>
       ))}
@@ -670,8 +1054,40 @@ export default function ArcadePage() {
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
   const [selectedReadingLevel, setSelectedReadingLevel] = useState<ReadingLevel | null>(null)
-  const { playCoinBeep, playSelectSound, playNavigateSound } = useArcadeSounds()
+  const { playCoinBeep, playSelectSound, playNavigateSound, playUnlockSound, playLockedSound } = useArcadeSounds()
   const { scores, recentlyPlayed } = useRealScores()
+  const { balance, spendCoins } = useCoins()
+  const { isUnlocked, unlockGame, mounted: unlockMounted } = useUnlockedGames()
+
+  // Modal state
+  const [modalGame, setModalGame] = useState<Game | null>(null)
+  const [showCelebration, setShowCelebration] = useState(false)
+
+  const handleLockedGameClick = useCallback((game: Game) => {
+    playLockedSound()
+    setModalGame(game)
+  }, [playLockedSound])
+
+  const handleUnlockConfirm = useCallback(() => {
+    if (!modalGame) return
+    const cost = modalGame.unlockCost || UNLOCK_COSTS[modalGame.id] || 0
+    const success = spendCoins(cost, `Unlocked game: ${modalGame.title}`)
+    if (success) {
+      unlockGame(modalGame.id)
+      setModalGame(null)
+      playUnlockSound()
+      setShowCelebration(true)
+    }
+  }, [modalGame, spendCoins, unlockGame, playUnlockSound])
+
+  const handleCelebrationDone = useCallback(() => {
+    setShowCelebration(false)
+  }, [])
+
+  const isGameLocked = useCallback((game: Game): boolean => {
+    if (!unlockMounted) return false // Don't show locks during SSR/hydration
+    return !isUnlocked(game)
+  }, [isUnlocked, unlockMounted])
 
   // Game of the day (rotate daily)
   const gameOfTheDay = useMemo(() => {
@@ -713,6 +1129,10 @@ export default function ArcadePage() {
     }))
   }, [])
 
+  // Count unlocked/total
+  const unlockedCount = allGames.filter(g => !isGameLocked(g)).length
+  const totalCount = allGames.length
+
   return (
     <PlayroomFrame>
       <div className="min-h-screen relative overflow-hidden pt-4" style={{
@@ -726,9 +1146,22 @@ export default function ArcadePage() {
 
         <FloatingDecorations />
 
+        {/* Unlock celebration overlay */}
+        <UnlockCelebration show={showCelebration} onDone={handleCelebrationDone} />
+
+        {/* Unlock modal */}
+        {modalGame && (
+          <UnlockModal
+            game={modalGame}
+            balance={balance}
+            onConfirm={handleUnlockConfirm}
+            onCancel={() => setModalGame(null)}
+          />
+        )}
+
         <div className="relative z-10">
-          {/* Back button */}
-          <div className="absolute top-2 left-4 z-20">
+          {/* Top bar: back button + coin balance */}
+          <div className="flex items-center justify-between px-4 pt-2 pb-0 z-20 relative">
             <Link
               href="/games/arcade/"
               className="group flex items-center gap-2 bg-white/80 backdrop-blur-sm hover:bg-white px-4 py-2 rounded-full font-bold text-gray-600 shadow-md transition-all hover:scale-105 border-2 border-pink-200 hover:border-pink-300"
@@ -736,10 +1169,12 @@ export default function ArcadePage() {
               <span className="text-pink-500 text-lg">←</span>
               <span className="text-sm">Home</span>
             </Link>
+
+            <CoinBalanceDisplay balance={balance} />
           </div>
 
           {/* Header — Cute & Bouncy */}
-          <div className="text-center pt-6 pb-2 relative">
+          <div className="text-center pt-4 pb-2 relative">
             <div className="inline-block relative px-4">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0s' }}>🌈</span>
@@ -758,6 +1193,9 @@ export default function ArcadePage() {
                 </span>
               </h1>
               <p className="text-gray-500 font-medium text-sm mt-2">📚 Fun Educational Games — Learn While You Play! 🧠</p>
+              <p className="text-gray-400 font-medium text-xs mt-1">
+                🔓 {unlockedCount}/{totalCount} games unlocked
+              </p>
             </div>
           </div>
 
@@ -766,7 +1204,17 @@ export default function ArcadePage() {
 
           {/* Game of the Day */}
           <div className="py-6">
-            <GameOfTheDay game={gameOfTheDay} onClick={playSelectSound} />
+            <GameOfTheDay
+              game={gameOfTheDay}
+              onClick={() => {
+                if (isGameLocked(gameOfTheDay)) {
+                  handleLockedGameClick(gameOfTheDay)
+                } else {
+                  playSelectSound()
+                }
+              }}
+              isLocked={isGameLocked(gameOfTheDay)}
+            />
           </div>
 
           {/* Reading Level Filter */}
@@ -796,6 +1244,8 @@ export default function ArcadePage() {
                 playSelectSound={playSelectSound}
                 playCoinBeep={playCoinBeep}
                 colorOffset={0}
+                isGameLocked={isGameLocked}
+                onLockedGameClick={handleLockedGameClick}
               />
             </div>
           )}
@@ -813,6 +1263,8 @@ export default function ArcadePage() {
                     playSelectSound={playSelectSound}
                     playCoinBeep={playCoinBeep}
                     colorOffset={catIdx * 3}
+                    isGameLocked={isGameLocked}
+                    onLockedGameClick={handleLockedGameClick}
                   />
                 </div>
               ))}
@@ -851,6 +1303,8 @@ export default function ArcadePage() {
                       playCoinBeep={playCoinBeep}
                       size="small"
                       colorIndex={i}
+                      isLocked={isGameLocked(game)}
+                      onLockedClick={() => handleLockedGameClick(game)}
                     />
                   ))}
                 </div>
@@ -874,6 +1328,8 @@ export default function ArcadePage() {
                     playCoinBeep={playCoinBeep}
                     size="small"
                     colorIndex={i}
+                    isLocked={isGameLocked(game)}
+                    onLockedClick={() => handleLockedGameClick(game)}
                   />
                 ))}
               </div>
@@ -915,6 +1371,50 @@ export default function ArcadePage() {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
+          @keyframes celebration-particle {
+            0% {
+              transform: translate(-50%, -50%) scale(0);
+              opacity: 1;
+            }
+            50% {
+              transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2);
+              opacity: 1;
+            }
+            100% {
+              transform: translate(calc(-50% + var(--tx) * 1.5), calc(-50% + var(--ty) * 1.5 + 40px)) scale(0.3);
+              opacity: 0;
+            }
+          }
+          @keyframes unlock-badge {
+            0% {
+              transform: scale(0) rotate(-20deg);
+              opacity: 0;
+            }
+            50% {
+              transform: scale(1.2) rotate(5deg);
+              opacity: 1;
+            }
+            70% {
+              transform: scale(0.95) rotate(-2deg);
+            }
+            100% {
+              transform: scale(1) rotate(0deg);
+              opacity: 1;
+            }
+          }
+          @keyframes modal-pop {
+            0% {
+              transform: scale(0.8);
+              opacity: 0;
+            }
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
           .animate-float-gentle {
             animation: float-gentle 6s ease-in-out infinite;
           }
@@ -929,6 +1429,15 @@ export default function ArcadePage() {
           }
           .animate-ticker {
             animation: ticker 20s linear infinite;
+          }
+          .animate-celebration-particle {
+            animation: celebration-particle 1.5s ease-out forwards;
+          }
+          .animate-unlock-badge {
+            animation: unlock-badge 0.6s ease-out forwards;
+          }
+          .animate-modal-pop {
+            animation: modal-pop 0.3s ease-out forwards;
           }
           .scrollbar-hide {
             -ms-overflow-style: none;
