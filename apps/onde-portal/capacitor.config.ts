@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'com.onde.arcadegames',
-  appName: 'Onde Arcade Games',
+  appName: 'Onde Learning Games for Kids',
   webDir: 'out-arcade',
   server: {
     // Use local files, no server needed
