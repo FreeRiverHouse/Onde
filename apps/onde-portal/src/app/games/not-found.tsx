@@ -38,21 +38,13 @@ export default function GamesNotFound() {
 
         <div className="flex flex-col gap-3">
           <Link
-            href="/games"
+            href="/games/arcade/"
             className="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-xl hover:opacity-90 transition-all hover:scale-105 flex items-center justify-center gap-2"
           >
             <span>🕹️</span>
             Browse All Games
           </Link>
           
-          <Link
-            href="/games/skin-creator"
-            className="w-full px-6 py-3 bg-white/10 text-white font-medium rounded-xl hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
-          >
-            <span>🎨</span>
-            Try Skin Creator
-          </Link>
-
           <Link
             href="/"
             className="w-full px-6 py-3 text-white/60 hover:text-white transition-colors flex items-center justify-center gap-2"
@@ -64,7 +56,7 @@ export default function GamesNotFound() {
 
         {/* Fun hint */}
         <p className="mt-8 text-white/30 text-sm">
-          Hint: Try our popular Minecraft Skin Creator! ⬆️
+          Hint: Try our fun educational games! 🎮
         </p>
       </div>
     </div>

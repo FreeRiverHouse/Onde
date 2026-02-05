@@ -92,10 +92,10 @@ export default function LeaderboardPage() {
       {/* Back button */}
       <div className="absolute top-4 left-4 z-20">
         <Link 
-          href="/games"
+          href="/games/arcade/"
           className="bg-white/90 hover:bg-white px-5 py-2.5 rounded-full font-bold text-purple-600 shadow-xl transition-all hover:scale-105 border-2 border-purple-200"
         >
-          ← Back to Games
+          ← Back to Arcade
         </Link>
       </div>
 
@@ -167,7 +167,7 @@ export default function LeaderboardPage() {
               <h2 className="text-2xl font-bold text-white mb-2">No scores yet!</h2>
               <p className="text-purple-200 mb-6">Be the first champion on the leaderboard!</p>
               <Link
-                href="/games"
+                href="/games/arcade/"
                 className="inline-block bg-gradient-to-r from-green-400 to-emerald-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform"
               >
                 🎮 Play Now

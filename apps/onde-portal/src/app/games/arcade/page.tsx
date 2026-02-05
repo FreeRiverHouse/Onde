@@ -106,47 +106,38 @@ interface Game {
 
 const allGames: Game[] = [
   // 🔢 MATH & LOGIC
-  { id: 'counting', href: '/games/counting', title: 'Counting', desc: 'Learn to count', emoji: '🔢', color: 'from-blue-500 to-blue-800', glowColor: 'blue', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math adventures', emoji: '➕', color: 'from-orange-400 to-orange-700', glowColor: 'orange', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-500 to-amber-800', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true },
-  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-500 to-indigo-800', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
-  { id: 'connect4', href: '/games/connect4', title: 'Connect 4', desc: 'Strategy challenge', emoji: '🔴', color: 'from-red-500 to-red-800', glowColor: 'red', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: 'minesweeper', href: '/games/minesweeper', title: 'Minesweeper', desc: 'Logic deduction', emoji: '💣', color: 'from-gray-500 to-gray-800', glowColor: 'gray', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
-  { id: 'tictactoe', href: '/games/tictactoe', title: 'Tic Tac Toe', desc: 'Strategy classic', emoji: '⭕', color: 'from-slate-500 to-slate-800', glowColor: 'slate', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: 'maze', href: '/games/maze', title: 'Maze', desc: 'Find your way out', emoji: '🏁', color: 'from-emerald-500 to-emerald-800', glowColor: 'emerald', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
+  { id: 'counting', href: '/games/counting', title: 'Counting', desc: 'Learn to count', emoji: '🔢', color: 'from-sky-300 to-sky-500', glowColor: 'sky', category: 'Math & Logic', readingLevel: 'no-reading' },
+  { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math adventures', emoji: '➕', color: 'from-orange-300 to-orange-500', glowColor: 'orange', category: 'Math & Logic', readingLevel: 'no-reading' },
+  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-300 to-amber-500', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true },
+  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-300 to-indigo-500', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
 
   // 📝 WORDS & LANGUAGE
-  { id: 'alphabet', href: '/games/alphabet', title: 'ABC Fun', desc: 'Learn the alphabet', emoji: '🔤', color: 'from-green-400 to-emerald-700', glowColor: 'emerald', category: 'Words & Language', readingLevel: 'no-reading' },
-  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-gray-500 to-gray-800', glowColor: 'gray', category: 'Words & Language', readingLevel: 'can-read' },
-  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-red-400 to-red-700', glowColor: 'red', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-sky-500 to-sky-800', glowColor: 'sky', category: 'Words & Language', readingLevel: 'can-read' },
-  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-500 to-green-800', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-neutral-500 to-neutral-800', glowColor: 'neutral', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'hangman', href: '/games/hangman', title: 'Hangman', desc: 'Guess the letters', emoji: '🪢', color: 'from-stone-500 to-stone-800', glowColor: 'stone', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
-  { id: 'quiz', href: '/games/quiz', title: 'Quiz Time', desc: 'Test your knowledge', emoji: '❓', color: 'from-violet-500 to-violet-800', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read' },
+  { id: 'alphabet', href: '/games/alphabet', title: 'ABC Fun', desc: 'Learn the alphabet', emoji: '🔤', color: 'from-emerald-300 to-emerald-500', glowColor: 'emerald', category: 'Words & Language', readingLevel: 'no-reading' },
+  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-slate-300 to-slate-500', glowColor: 'slate', category: 'Words & Language', readingLevel: 'can-read' },
+  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-rose-300 to-rose-500', glowColor: 'rose', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-blue-300 to-blue-500', glowColor: 'blue', category: 'Words & Language', readingLevel: 'can-read' },
+  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-300 to-green-500', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-violet-300 to-violet-500', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'quiz', href: '/games/quiz', title: 'Quiz Time', desc: 'Test your knowledge', emoji: '❓', color: 'from-purple-300 to-purple-500', glowColor: 'purple', category: 'Words & Language', readingLevel: 'can-read' },
 
   // 🧩 MEMORY & PUZZLES
-  { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match the pairs', emoji: '🧠', color: 'from-pink-500 to-pink-800', glowColor: 'pink', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-indigo-500 to-indigo-800', glowColor: 'indigo', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'simon', href: '/games/simon', title: 'Simon Says', desc: 'Remember the pattern', emoji: '🔴', color: 'from-red-400 to-red-700', glowColor: 'red', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-purple-500 to-purple-800', glowColor: 'purple', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-500 to-teal-800', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true },
-  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-teal-500 to-teal-800', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match the pairs', emoji: '🧠', color: 'from-pink-300 to-pink-500', glowColor: 'pink', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-cyan-300 to-cyan-500', glowColor: 'cyan', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-fuchsia-300 to-fuchsia-500', glowColor: 'fuchsia', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-300 to-teal-500', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true },
+  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-lime-300 to-lime-500', glowColor: 'lime', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
 
   // 🎨 CREATIVE
-  { id: 'draw', href: '/games/draw', title: 'Draw', desc: 'Free drawing', emoji: '✏️', color: 'from-rose-500 to-rose-800', glowColor: 'rose', category: 'Creative', readingLevel: 'no-reading' },
-  { id: 'coloring', href: '/games/coloring', title: 'Coloring', desc: 'Color the pictures', emoji: '🖍️', color: 'from-fuchsia-500 to-fuchsia-800', glowColor: 'fuchsia', category: 'Creative', readingLevel: 'no-reading' },
-  { id: 'music', href: '/games/music', title: 'Music', desc: 'Make music', emoji: '🎵', color: 'from-cyan-500 to-cyan-800', glowColor: 'cyan', category: 'Creative', readingLevel: 'no-reading' },
-  { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft skins', emoji: '🎨', color: 'from-orange-500 to-orange-800', glowColor: 'orange', category: 'Creative', readingLevel: 'no-reading' },
-  { id: 'chef', href: '/games/kids-chef-studio', title: 'Chef Studio', desc: 'Cook & learn recipes', emoji: '👨‍🍳', color: 'from-amber-500 to-amber-800', glowColor: 'amber', category: 'Creative', readingLevel: 'can-read' },
-  { id: 'scratch', href: '/games/scratch', title: 'Scratch', desc: 'Learn to code', emoji: '💻', color: 'from-yellow-500 to-yellow-800', glowColor: 'yellow', category: 'Creative', readingLevel: 'can-read', isNew: true, isFeatured: true },
+  { id: 'draw', href: '/games/draw', title: 'Draw', desc: 'Creative drawing', emoji: '✏️', color: 'from-red-300 to-red-500', glowColor: 'red', category: 'Creative', readingLevel: 'no-reading' },
+  { id: 'coloring', href: '/games/coloring', title: 'Coloring', desc: 'Color the pictures', emoji: '🖍️', color: 'from-yellow-300 to-yellow-500', glowColor: 'yellow', category: 'Creative', readingLevel: 'no-reading' },
+  { id: 'music', href: '/games/music', title: 'Music', desc: 'Make music', emoji: '🎵', color: 'from-sky-300 to-indigo-400', glowColor: 'indigo', category: 'Creative', readingLevel: 'no-reading' },
 ]
 
 const categories: { name: Category; emoji: string; color: string }[] = [
-  { name: 'Math & Logic', emoji: '🔢', color: 'from-blue-500 to-indigo-500' },
-  { name: 'Words & Language', emoji: '📝', color: 'from-green-500 to-emerald-500' },
-  { name: 'Memory & Puzzles', emoji: '🧩', color: 'from-purple-500 to-pink-500' },
-  { name: 'Creative', emoji: '🎨', color: 'from-orange-500 to-rose-500' },
+  { name: 'Math & Logic', emoji: '🔢', color: 'from-sky-400 to-indigo-400' },
+  { name: 'Words & Language', emoji: '📝', color: 'from-emerald-400 to-green-400' },
+  { name: 'Memory & Puzzles', emoji: '🧩', color: 'from-purple-400 to-pink-400' },
+  { name: 'Creative', emoji: '🎨', color: 'from-orange-400 to-rose-400' },
 ]
 
 const readingLevels: { name: ReadingLevel; label: string; emoji: string; desc: string }[] = [
@@ -181,7 +172,6 @@ function getPastelBorder(index: number) {
 
 const SCORE_KEYS: Record<string, { key: string; type: 'leaderboard' | 'score' | 'best' }> = {
   'memory': { key: 'memory-leaderboard', type: 'leaderboard' },
-  'simon': { key: 'simon-leaderboard', type: 'leaderboard' },
   'matching': { key: 'matching-leaderboard', type: 'leaderboard' },
   'typing': { key: 'typing-leaderboard', type: 'leaderboard' },
   'quiz': { key: 'quiz-leaderboard', type: 'leaderboard' },
@@ -193,11 +183,6 @@ const SCORE_KEYS: Record<string, { key: string; type: 'leaderboard' | 'score' | 
   'sudoku': { key: 'sudoku-high-scores', type: 'leaderboard' },
   'crossword': { key: 'crossword-leaderboard', type: 'leaderboard' },
   'wordle': { key: 'wordle-stats', type: 'score' },
-  'minesweeper': { key: 'minesweeper-high-scores', type: 'leaderboard' },
-  'hangman': { key: 'hangman-leaderboard', type: 'leaderboard' },
-  'connect4': { key: 'connect4-stats', type: 'score' },
-  'maze': { key: 'maze-leaderboard', type: 'leaderboard' },
-  'tictactoe': { key: 'tictactoe-stats', type: 'score' },
 }
 
 // =============================================================================
@@ -745,11 +730,11 @@ export default function ArcadePage() {
           {/* Back button */}
           <div className="absolute top-2 left-4 z-20">
             <Link
-              href="/games"
+              href="/games/arcade/"
               className="group flex items-center gap-2 bg-white/80 backdrop-blur-sm hover:bg-white px-4 py-2 rounded-full font-bold text-gray-600 shadow-md transition-all hover:scale-105 border-2 border-pink-200 hover:border-pink-300"
             >
               <span className="text-pink-500 text-lg">←</span>
-              <span className="text-sm">Island</span>
+              <span className="text-sm">Home</span>
             </Link>
           </div>
 
@@ -900,7 +885,7 @@ export default function ArcadePage() {
             <div className="inline-flex items-center gap-3 bg-white/70 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-pink-200 shadow-md">
               <span className="text-2xl">🌈</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 font-extrabold tracking-wide text-sm md:text-base">
-                {allGames.length} Fun Games • Learn & Play • Free!
+                {allGames.length} Fun Games • Learn & Play!
               </span>
               <span className="text-2xl">⭐</span>
             </div>

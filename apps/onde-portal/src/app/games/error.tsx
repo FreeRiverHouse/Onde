@@ -43,11 +43,11 @@ export default function GamesError({
           </button>
           
           <a
-            href="/games"
+            href="/games/arcade/"
             className="w-full px-6 py-3 bg-white/10 text-white font-medium rounded-xl hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
           >
             <span>🏠</span>
-            Back to Games
+            Back to Arcade
           </a>
         </div>
 
