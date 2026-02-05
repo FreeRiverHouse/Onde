@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 
 // =============================================================================
-// RETRO ARCADE SOUND EFFECTS
+// CUTE PLAYFUL SOUND EFFECTS
 // =============================================================================
 
 function useArcadeSounds() {
@@ -26,15 +26,15 @@ function useArcadeSounds() {
       oscillator.connect(gainNode)
       gainNode.connect(ctx.destination)
       
-      oscillator.type = 'square'
-      oscillator.frequency.setValueAtTime(880, ctx.currentTime)
-      oscillator.frequency.setValueAtTime(1320, ctx.currentTime + 0.05)
+      oscillator.type = 'sine'
+      oscillator.frequency.setValueAtTime(800, ctx.currentTime)
+      oscillator.frequency.setValueAtTime(1200, ctx.currentTime + 0.06)
       
-      gainNode.gain.setValueAtTime(0.08, ctx.currentTime)
-      gainNode.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.08)
+      gainNode.gain.setValueAtTime(0.06, ctx.currentTime)
+      gainNode.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.1)
       
       oscillator.start(ctx.currentTime)
-      oscillator.stop(ctx.currentTime + 0.08)
+      oscillator.stop(ctx.currentTime + 0.1)
     } catch {
       // Audio not available
     }
@@ -43,18 +43,18 @@ function useArcadeSounds() {
   const playSelectSound = useCallback(() => {
     try {
       const ctx = getAudioContext()
-      const notes = [600, 800, 1000]
+      const notes = [523, 659, 784]
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator()
         const gain = ctx.createGain()
         osc.connect(gain)
         gain.connect(ctx.destination)
-        osc.type = 'square'
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08)
-        gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.08)
-        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + i * 0.08 + 0.1)
-        osc.start(ctx.currentTime + i * 0.08)
-        osc.stop(ctx.currentTime + i * 0.08 + 0.1)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1)
+        gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.1)
+        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.15)
+        osc.start(ctx.currentTime + i * 0.1)
+        osc.stop(ctx.currentTime + i * 0.1 + 0.15)
       })
     } catch {
       // Audio not available
@@ -68,12 +68,12 @@ function useArcadeSounds() {
       const gain = ctx.createGain()
       osc.connect(gain)
       gain.connect(ctx.destination)
-      osc.type = 'square'
-      osc.frequency.setValueAtTime(440, ctx.currentTime)
-      gain.gain.setValueAtTime(0.05, ctx.currentTime)
-      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.05)
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(600, ctx.currentTime)
+      gain.gain.setValueAtTime(0.04, ctx.currentTime)
+      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.06)
       osc.start(ctx.currentTime)
-      osc.stop(ctx.currentTime + 0.05)
+      osc.stop(ctx.currentTime + 0.06)
     } catch {
       // Audio not available
     }
@@ -153,6 +153,27 @@ const readingLevels: { name: ReadingLevel; label: string; emoji: string; desc: s
   { name: 'no-reading', label: 'No Reading', emoji: '👶', desc: 'Great for young kids' },
   { name: 'can-read', label: 'Can Read', emoji: '📖', desc: 'Needs reading skills' },
 ]
+
+// Pastel color palette for game cards
+const pastelColors = [
+  'bg-pink-100', 'bg-blue-100', 'bg-green-100', 'bg-yellow-100',
+  'bg-purple-100', 'bg-orange-100', 'bg-teal-100', 'bg-rose-100',
+  'bg-indigo-100', 'bg-lime-100', 'bg-cyan-100', 'bg-fuchsia-100',
+]
+
+const pastelBorderColors = [
+  'border-pink-300', 'border-blue-300', 'border-green-300', 'border-yellow-300',
+  'border-purple-300', 'border-orange-300', 'border-teal-300', 'border-rose-300',
+  'border-indigo-300', 'border-lime-300', 'border-cyan-300', 'border-fuchsia-300',
+]
+
+function getPastelColor(index: number) {
+  return pastelColors[index % pastelColors.length]
+}
+
+function getPastelBorder(index: number) {
+  return pastelBorderColors[index % pastelBorderColors.length]
+}
 
 // =============================================================================
 // LOCALSTORAGE SCORE KEYS — maps game IDs to their localStorage keys
@@ -275,28 +296,28 @@ function useRealScores() {
 }
 
 // =============================================================================
-// VISUAL COMPONENTS
+// VISUAL COMPONENTS — CUTE & KID-FRIENDLY
 // =============================================================================
 
-function FloatingCoinsAndStars() {
+function FloatingDecorations() {
+  const items = ['⭐', '🌈', '☁️', '✨', '🦋', '🌸', '💫', '🎈', '🌟', '🎀', '🍭', '🎪']
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(18)].map((_, i) => (
         <div
-          key={`coin-${i}`}
-          className="absolute animate-float-coin"
+          key={`deco-${i}`}
+          className="absolute animate-float-gentle"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 8}s`,
-            animationDuration: `${4 + Math.random() * 4}s`,
+            left: `${5 + (i * 5.5) % 90}%`,
+            top: `${3 + (i * 7.3) % 90}%`,
+            animationDelay: `${i * 0.6}s`,
+            animationDuration: `${6 + (i % 4) * 2}s`,
           }}
         >
-          <span className="text-xl md:text-2xl opacity-60" style={{
-            filter: 'drop-shadow(0 0 8px gold)',
-            transform: `rotate(${Math.random() * 360}deg)`
+          <span className="text-xl md:text-2xl opacity-40" style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
           }}>
-            {i % 4 === 0 ? '📚' : i % 4 === 1 ? '⭐' : i % 4 === 2 ? '✨' : '🧠'}
+            {items[i % items.length]}
           </span>
         </div>
       ))}
@@ -304,121 +325,45 @@ function FloatingCoinsAndStars() {
   )
 }
 
-function RainbowBorder({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`relative ${className}`}>
-      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-green-500 via-purple-500 to-pink-500 rounded-2xl opacity-75 blur animate-rainbow-shift" />
-      <div className="relative">
-        {children}
-      </div>
-    </div>
-  )
-}
-
-function ScanlinesOverlay() {
-  return (
-    <div
-      className="absolute inset-0 pointer-events-none opacity-[0.04]"
-      style={{
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,1) 2px, rgba(0,0,0,1) 4px)'
-      }}
-    />
-  )
-}
-
-function CRTFlicker() {
-  return (
-    <div className="absolute inset-0 pointer-events-none animate-crt-flicker opacity-[0.02] bg-white" />
-  )
-}
-
-function NeonTubes() {
-  return (
-    <>
-      <div className="absolute top-0 left-[10%] right-[10%] h-1">
-        <div className="h-full bg-gradient-to-r from-transparent via-green-500 to-transparent animate-neon-pulse" />
-        <div className="absolute inset-0 blur-lg bg-gradient-to-r from-transparent via-green-500 to-transparent" />
-      </div>
-      <div className="absolute left-0 top-[20%] bottom-[20%] w-1">
-        <div className="h-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent animate-neon-pulse" />
-        <div className="absolute inset-0 blur-lg bg-gradient-to-b from-transparent via-cyan-400 to-transparent" />
-      </div>
-      <div className="absolute right-0 top-[20%] bottom-[20%] w-1">
-        <div className="h-full bg-gradient-to-b from-transparent via-purple-500 to-transparent animate-neon-pulse" />
-        <div className="absolute inset-0 blur-lg bg-gradient-to-b from-transparent via-purple-500 to-transparent" />
-      </div>
-    </>
-  )
-}
-
-function ArcadeCabinetFrame({ children }: { children: React.ReactNode }) {
+function PlayroomFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen">
-      <div className="hidden md:block fixed left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 border-r-4 border-amber-950 z-40">
-        <div className="absolute inset-0 opacity-30" style={{
-          backgroundImage: 'repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-        }} />
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-gray-300 to-gray-600 border border-gray-700" />
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-gray-300 to-gray-600 border border-gray-700" />
-      </div>
-      <div className="hidden md:block fixed right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-amber-900 via-amber-800 to-amber-900 border-l-4 border-amber-950 z-40">
-        <div className="absolute inset-0 opacity-30" style={{
-          backgroundImage: 'repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-        }} />
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-gray-300 to-gray-600 border border-gray-700" />
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-gray-300 to-gray-600 border border-gray-700" />
-      </div>
-
-      <div className="fixed top-0 left-0 right-0 h-4 md:h-6 bg-gradient-to-b from-gray-800 to-gray-900 border-b-2 border-gray-700 z-50">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-green-900/50 to-cyan-900/50" />
-      </div>
-
-      <div className="fixed bottom-0 left-0 right-0 h-3 md:h-4 bg-gradient-to-t from-gray-900 to-gray-800 border-t-2 border-gray-700 z-50" />
-
-      <div className="md:mx-8">
-        {children}
-      </div>
+      {/* Soft pastel top bar */}
+      <div className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-300 via-yellow-200 via-green-200 via-blue-300 to-purple-300 z-50" />
+      {/* Soft pastel bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-300 via-blue-300 via-green-200 via-yellow-200 to-pink-300 z-50" />
+      {children}
     </div>
   )
 }
 
-function InsertCoinBanner() {
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    const interval = setInterval(() => setVisible(v => !v), 500)
-    return () => clearInterval(interval)
-  }, [])
-
+function CheerfulBanner() {
   return (
-    <div className={`text-center py-2 transition-opacity duration-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-      <span
-        className="font-mono text-2xl md:text-4xl font-black tracking-[0.3em] text-yellow-400"
-        style={{ textShadow: '0 0 10px #facc15, 0 0 20px #facc15, 0 0 40px #facc15' }}
-      >
-        ★ LEARN & PLAY ★
+    <div className="text-center py-2">
+      <span className="text-xl md:text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-500 to-green-500 animate-rainbow-text">
+        ✨ Learn & Play! ✨
       </span>
     </div>
   )
 }
 
-// Real scores ticker from localStorage
+// Real scores ticker from localStorage — bright & cheerful
 function HighScoresTicker({ scores }: { scores: { name: string; game: string; score: number; emoji: string }[] }) {
   const displayScores = scores.length > 0 ? scores : [
     { name: '???', game: 'Play a game!', score: 0, emoji: '🎮' },
   ]
 
   return (
-    <div className="bg-black/80 border-y-2 border-yellow-500/50 py-2 overflow-hidden">
+    <div className="bg-white/60 backdrop-blur-sm border-y-2 border-yellow-200 py-2 overflow-hidden">
       <div className="animate-ticker whitespace-nowrap">
-        <span className="inline-flex items-center gap-8 text-yellow-400 font-mono font-bold tracking-wider">
+        <span className="inline-flex items-center gap-8 font-bold tracking-wide">
           {[...displayScores, ...displayScores].map((s, i) => (
             <span key={i} className="inline-flex items-center gap-2">
-              <span className="text-red-400">★</span>
-              <span className="text-cyan-400">{s.name}</span>
-              <span className="text-gray-400">{s.emoji} {s.game}</span>
-              <span className="text-yellow-400">{s.score > 0 ? s.score.toLocaleString() : '---'}</span>
-              <span className="text-red-400">★</span>
+              <span className="text-yellow-500">⭐</span>
+              <span className="text-purple-600">{s.name}</span>
+              <span className="text-gray-500">{s.emoji} {s.game}</span>
+              <span className="text-pink-600 font-extrabold">{s.score > 0 ? s.score.toLocaleString() : '---'}</span>
+              <span className="text-yellow-500">⭐</span>
             </span>
           ))}
         </span>
@@ -427,65 +372,61 @@ function HighScoresTicker({ scores }: { scores: { name: string; game: string; sc
   )
 }
 
-// Game of the Day
+// Game of the Day — cute star-game style
 function GameOfTheDay({ game, onClick }: { game: Game; onClick: () => void }) {
   return (
-    <RainbowBorder className="mb-8 mx-4 md:mx-8">
+    <div className="mb-8 mx-4 md:mx-8">
       <Link
         href={game.href}
         onClick={onClick}
-        className="block bg-black rounded-xl p-4 md:p-6 relative overflow-hidden group"
+        className="block bg-white/80 backdrop-blur-sm rounded-3xl p-4 md:p-6 relative overflow-hidden group border-3 border-yellow-300 shadow-lg shadow-yellow-100 hover:shadow-xl hover:shadow-yellow-200 transition-all duration-300 hover:-translate-y-1"
       >
-        <ScanlinesOverlay />
-        <CRTFlicker />
-
-        <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-amber-500 px-4 py-1 rounded-b-lg">
-          <span className="font-mono font-black text-black text-xs md:text-sm tracking-wider">
-            👑 GAME OF THE DAY 👑
+        {/* Cute star badge */}
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-300 to-orange-300 px-5 py-1.5 rounded-b-2xl shadow-md">
+          <span className="font-extrabold text-orange-800 text-xs md:text-sm tracking-wider">
+            ⭐ Star Game of the Day! ⭐
           </span>
         </div>
 
         <div className="flex items-center gap-6 pt-4">
-          <div className={`w-24 h-24 md:w-32 md:h-32 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-            <span className="text-5xl md:text-7xl" style={{ filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' }}>
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-yellow-200 via-pink-100 to-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md border-2 border-white">
+            <span className="text-5xl md:text-7xl animate-bounce-gentle" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}>
               {game.emoji}
             </span>
           </div>
 
           <div className="flex-1">
-            <h2 className="text-2xl md:text-4xl font-black text-white mb-1" style={{
-              textShadow: '0 0 10px rgba(255,255,255,0.5)'
-            }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-1">
               {game.title}
             </h2>
-            <p className="text-gray-400 text-sm md:text-lg">{game.desc}</p>
-            <div className="flex items-center gap-2 mt-2">
-              <span className={`text-xs px-2 py-0.5 rounded-full font-mono font-bold ${game.readingLevel === 'no-reading' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>
+            <p className="text-gray-500 text-sm md:text-lg">{game.desc}</p>
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <span className={`text-xs px-3 py-1 rounded-full font-bold ${game.readingLevel === 'no-reading' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
                 {game.readingLevel === 'no-reading' ? '👶 No Reading' : '📖 Can Read'}
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 font-mono font-bold">
+              <span className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-700 font-bold border border-purple-200">
                 {game.category}
               </span>
             </div>
-            <div className="mt-3 inline-block bg-yellow-500/20 px-3 py-1 rounded-full">
-              <span className="text-yellow-400 font-mono font-bold text-xs md:text-sm animate-pulse">
-                TAP TO PLAY →
+            <div className="mt-3 inline-block bg-gradient-to-r from-pink-400 to-orange-400 px-5 py-1.5 rounded-full shadow-md group-hover:scale-105 transition-transform">
+              <span className="text-white font-extrabold text-xs md:text-sm">
+                🎮 Tap to Play!
               </span>
             </div>
           </div>
 
-          <div className="hidden md:flex flex-col items-center gap-2 text-yellow-400 text-2xl animate-pulse">
+          <div className="hidden md:flex flex-col items-center gap-2 text-yellow-400 text-2xl animate-sparkle">
+            <span>🌟</span>
             <span>⭐</span>
-            <span>⭐</span>
-            <span>⭐</span>
+            <span>🌟</span>
           </div>
         </div>
       </Link>
-    </RainbowBorder>
+    </div>
   )
 }
 
-// Reading level filter
+// Reading level filter — colorful pills
 function ReadingLevelFilter({
   selectedLevel,
   setSelectedLevel,
@@ -498,27 +439,27 @@ function ReadingLevelFilter({
   return (
     <div className="px-4 md:px-8 mb-4">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-sm font-mono text-gray-400">AGE FILTER:</span>
+        <span className="text-sm font-bold text-gray-500">🌈 Age Filter:</span>
       </div>
       <div className="flex flex-wrap gap-2 md:gap-3">
         <button
           onClick={() => { setSelectedLevel(null); onNavigate(); }}
-          className={`px-4 py-2 rounded-lg font-mono font-bold text-sm transition-all ${
+          className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 ${
             selectedLevel === null
-              ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.5)]'
-              : 'bg-black/50 text-gray-400 border border-gray-700 hover:border-gray-500'
+              ? 'bg-gradient-to-r from-yellow-300 to-orange-300 text-orange-800 shadow-md shadow-yellow-200 scale-105'
+              : 'bg-white/70 text-gray-500 border-2 border-gray-200 hover:border-yellow-300 hover:bg-yellow-50'
           }`}
         >
-          🌟 ALL AGES
+          🌟 All Ages
         </button>
         {readingLevels.map(level => (
           <button
             key={level.name}
             onClick={() => { setSelectedLevel(level.name); onNavigate(); }}
-            className={`px-4 py-2 rounded-lg font-mono font-bold text-sm transition-all flex items-center gap-2 ${
+            className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 ${
               selectedLevel === level.name
-                ? `bg-gradient-to-r ${level.name === 'no-reading' ? 'from-green-500 to-emerald-500' : 'from-blue-500 to-cyan-500'} text-white shadow-lg`
-                : 'bg-black/50 text-gray-400 border border-gray-700 hover:border-gray-500'
+                ? `bg-gradient-to-r ${level.name === 'no-reading' ? 'from-green-300 to-emerald-300 text-green-800 shadow-green-200' : 'from-blue-300 to-cyan-300 text-blue-800 shadow-blue-200'} shadow-md scale-105`
+                : 'bg-white/70 text-gray-500 border-2 border-gray-200 hover:border-green-300 hover:bg-green-50'
             }`}
           >
             <span>{level.emoji}</span>
@@ -531,7 +472,7 @@ function ReadingLevelFilter({
   )
 }
 
-// Search and category filter
+// Search and category filter — rounded, colorful
 function SearchAndFilter({
   search,
   setSearch,
@@ -550,15 +491,15 @@ function SearchAndFilter({
       <div className="relative mb-4">
         <input
           type="text"
-          placeholder="🔍 SEARCH GAMES..."
+          placeholder="🔍 Find a fun game..."
           value={search}
           onChange={(e) => { setSearch(e.target.value); onNavigate(); }}
-          className="w-full bg-black/80 border-2 border-cyan-500/50 rounded-xl px-4 py-3 text-cyan-400 font-mono placeholder-cyan-700 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all"
+          className="w-full bg-white/80 backdrop-blur-sm border-2 border-purple-200 rounded-2xl px-5 py-3.5 text-gray-700 font-medium placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:shadow-lg focus:shadow-purple-100 transition-all text-base"
         />
         {search && (
           <button
             onClick={() => setSearch('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-cyan-500 hover:text-cyan-300"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-500 transition-colors text-lg"
           >
             ✕
           </button>
@@ -568,22 +509,22 @@ function SearchAndFilter({
       <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
         <button
           onClick={() => { setSelectedCategory(null); onNavigate(); }}
-          className={`px-4 py-2 rounded-lg font-mono font-bold text-sm transition-all ${
+          className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 ${
             selectedCategory === null
-              ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.5)]'
-              : 'bg-black/50 text-gray-400 border border-gray-700 hover:border-gray-500'
+              ? 'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md shadow-pink-200 scale-105'
+              : 'bg-white/70 text-gray-500 border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50'
           }`}
         >
-          ALL SUBJECTS
+          🎮 All Subjects
         </button>
         {categories.map(cat => (
           <button
             key={cat.name}
             onClick={() => { setSelectedCategory(cat.name); onNavigate(); }}
-            className={`px-4 py-2 rounded-lg font-mono font-bold text-sm transition-all flex items-center gap-2 ${
+            className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 flex items-center gap-2 ${
               selectedCategory === cat.name
-                ? `bg-gradient-to-r ${cat.color} text-white shadow-lg`
-                : 'bg-black/50 text-gray-400 border border-gray-700 hover:border-gray-500'
+                ? `bg-gradient-to-r ${cat.color} text-white shadow-md scale-105`
+                : 'bg-white/70 text-gray-500 border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50'
             }`}
           >
             <span>{cat.emoji}</span>
@@ -599,17 +540,15 @@ function SectionHeader({ icon, title }: { icon: string; title: string }) {
   return (
     <div className="flex items-center gap-3 mb-4 px-4 md:px-8">
       <span className="text-2xl">{icon}</span>
-      <h2 className="text-xl md:text-2xl font-black text-white tracking-wider" style={{
-        textShadow: '0 0 10px rgba(255,255,255,0.3)'
-      }}>
+      <h2 className="text-xl md:text-2xl font-extrabold text-gray-700 tracking-wide">
         {title}
       </h2>
-      <div className="flex-1 h-0.5 bg-gradient-to-r from-white/20 to-transparent rounded" />
+      <div className="flex-1 h-1 bg-gradient-to-r from-pink-200 via-yellow-200 to-transparent rounded-full" />
     </div>
   )
 }
 
-// Game card
+// Game card — cute, rounded, colorful
 function GameCard({
   game,
   isSelected,
@@ -617,7 +556,8 @@ function GameCard({
   onLeave,
   onSelect,
   playCoinBeep,
-  size = 'normal'
+  size = 'normal',
+  colorIndex = 0
 }: {
   game: Game
   isSelected: boolean
@@ -626,24 +566,16 @@ function GameCard({
   onSelect: () => void
   playCoinBeep: () => void
   size?: 'small' | 'normal'
+  colorIndex?: number
 }) {
-  const [showInsertCoin, setShowInsertCoin] = useState(false)
-
-  useEffect(() => {
-    if (isSelected) {
-      setShowInsertCoin(true)
-      const interval = setInterval(() => setShowInsertCoin(prev => !prev), 500)
-      return () => clearInterval(interval)
-    }
-    setShowInsertCoin(false)
-  }, [isSelected])
-
   const handleHover = () => {
     onHover()
     playCoinBeep()
   }
 
   const isSmall = size === 'small'
+  const bgColor = getPastelColor(colorIndex)
+  const borderColor = getPastelBorder(colorIndex)
 
   return (
     <Link
@@ -654,83 +586,55 @@ function GameCard({
       className="group block"
     >
       <div className={`
-        relative transform transition-all duration-500 ease-out
+        relative transform transition-all duration-300 ease-out
         ${isSelected ? 'scale-105 -translate-y-2 z-20' : 'hover:scale-105 hover:-translate-y-1'}
       `}>
         {game.isNew && (
-          <div className="absolute -top-2 -right-2 z-30 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">
-            NEW!
+          <div className="absolute -top-2 -right-2 z-30 bg-gradient-to-r from-green-400 to-emerald-400 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md animate-bounce-gentle">
+            ✨ NEW!
           </div>
         )}
 
-        <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl overflow-hidden border-2 border-gray-700 shadow-xl">
-          <div className={`p-2 ${isSmall ? 'pb-1' : 'pb-2'}`}>
-            <div className={`
-              relative bg-gradient-to-br ${game.color}
-              rounded-lg overflow-hidden aspect-square
-            `}>
-              <div className="absolute inset-0 rounded-lg" style={{
-                background: 'radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%)'
-              }} />
-
-              <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
-                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px)'
-              }} />
-
-              {isSelected && <div className="absolute inset-0 bg-white/5 animate-flicker" />}
-
-              <div className="relative flex items-center justify-center h-full">
-                <span className={`
-                  ${isSmall ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl'} transform transition-all duration-300
-                  ${isSelected ? 'scale-110 animate-bounce-subtle' : 'group-hover:scale-105'}
-                `} style={{
-                  filter: isSelected ? 'drop-shadow(0 0 20px rgba(255,255,255,0.5))' : 'none'
-                }}>
-                  {game.emoji}
-                </span>
-              </div>
+        <div className={`relative ${bgColor} rounded-3xl overflow-hidden border-2 ${borderColor} shadow-md ${isSelected ? 'shadow-xl shadow-pink-200' : 'hover:shadow-lg'} transition-shadow duration-300`}>
+          {/* Emoji display area */}
+          <div className={`p-3 ${isSmall ? 'pb-2' : 'pb-3'}`}>
+            <div className="relative bg-white/60 rounded-2xl overflow-hidden aspect-square flex items-center justify-center">
+              <span className={`
+                ${isSmall ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl'} transform transition-all duration-300
+                ${isSelected ? 'scale-110 animate-bounce-gentle' : 'group-hover:scale-110'}
+              `} style={{
+                filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.12))'
+              }}>
+                {game.emoji}
+              </span>
 
               {/* Reading level badge */}
-              <div className={`absolute top-1 left-1 text-xs px-1.5 py-0.5 rounded font-mono font-bold ${
-                game.readingLevel === 'no-reading' ? 'bg-green-500/80 text-white' : 'bg-blue-500/80 text-white'
+              <div className={`absolute top-1.5 left-1.5 text-xs px-2 py-0.5 rounded-full font-bold ${
+                game.readingLevel === 'no-reading' ? 'bg-green-200 text-green-700' : 'bg-blue-200 text-blue-700'
               }`}>
                 {game.readingLevel === 'no-reading' ? '👶' : '📖'}
               </div>
 
-              {isSelected && showInsertCoin && (
-                <div className="absolute bottom-1 left-0 right-0 text-center">
-                  <span className="bg-black/80 text-yellow-400 px-2 py-0.5 rounded font-mono text-[10px] font-bold tracking-wider">
-                    PLAY!
+              {isSelected && (
+                <div className="absolute bottom-1.5 left-0 right-0 text-center">
+                  <span className="bg-gradient-to-r from-pink-400 to-orange-400 text-white px-3 py-0.5 rounded-full text-[10px] font-extrabold shadow-md">
+                    🎮 Play!
                   </span>
                 </div>
               )}
             </div>
           </div>
 
-          <div className={`bg-gradient-to-r ${game.color} px-2 ${isSmall ? 'py-1' : 'py-2'} text-center border-t-2 border-white/20`}>
-            <h3 className={`${isSmall ? 'text-sm' : 'text-base md:text-lg'} font-black text-white tracking-wide drop-shadow-lg truncate`}>
+          {/* Title area */}
+          <div className={`bg-white/50 px-3 ${isSmall ? 'py-2' : 'py-2.5'} text-center`}>
+            <h3 className={`${isSmall ? 'text-sm' : 'text-base md:text-lg'} font-extrabold text-gray-700 tracking-wide truncate`}>
               {game.title}
             </h3>
             {!isSmall && (
-              <p className="text-[10px] text-white/80 truncate">{game.desc}</p>
+              <p className="text-[11px] text-gray-500 truncate">{game.desc}</p>
             )}
           </div>
-
-          <div className={`bg-gray-900 ${isSmall ? 'p-1.5' : 'p-2'} flex items-center justify-center gap-2`}>
-            <div className="relative">
-              <div className={`${isSmall ? 'w-2 h-2' : 'w-3 h-3'} bg-gray-700 rounded-full`} />
-              <div className={`absolute -top-1 left-1/2 -translate-x-1/2 ${isSmall ? 'w-1 h-2' : 'w-1.5 h-3'} bg-gradient-to-b from-green-500 to-green-700 rounded-full transition-transform ${isSelected ? 'rotate-12' : ''}`} />
-            </div>
-            <div className="flex gap-1">
-              <div className={`${isSmall ? 'w-2 h-2' : 'w-3 h-3'} rounded-full bg-green-500 ${isSelected ? 'brightness-150' : ''}`} />
-              <div className={`${isSmall ? 'w-2 h-2' : 'w-3 h-3'} rounded-full bg-blue-500 ${isSelected ? 'brightness-150' : ''}`} />
-            </div>
-          </div>
         </div>
-
-        {isSelected && (
-          <div className={`absolute -inset-2 rounded-2xl blur-xl -z-10 opacity-60 bg-gradient-to-b ${game.color}`} />
-        )}
       </div>
     </Link>
   )
@@ -742,17 +646,19 @@ function GameRow({
   selectedGame,
   setSelectedGame,
   playSelectSound,
-  playCoinBeep
+  playCoinBeep,
+  colorOffset = 0
 }: {
   games: Game[]
   selectedGame: string | null
   setSelectedGame: (id: string | null) => void
   playSelectSound: () => void
   playCoinBeep: () => void
+  colorOffset?: number
 }) {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4 px-4 md:px-8 scrollbar-hide">
-      {games.map(game => (
+      {games.map((game, i) => (
         <div key={game.id} className="flex-shrink-0 w-28 md:w-36">
           <GameCard
             game={game}
@@ -762,6 +668,7 @@ function GameRow({
             onSelect={playSelectSound}
             playCoinBeep={playCoinBeep}
             size="small"
+            colorIndex={i + colorOffset}
           />
         </div>
       ))}
@@ -770,7 +677,7 @@ function GameRow({
 }
 
 // =============================================================================
-// MAIN ARCADE PAGE
+// MAIN ARCADE PAGE — KID-FRIENDLY & CUTE
 // =============================================================================
 
 export default function ArcadePage() {
@@ -822,58 +729,54 @@ export default function ArcadePage() {
   }, [])
 
   return (
-    <ArcadeCabinetFrame>
-      <div className="min-h-screen bg-gray-950 relative overflow-hidden pt-6">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-purple-950/30 to-gray-950" />
+    <PlayroomFrame>
+      <div className="min-h-screen relative overflow-hidden pt-4" style={{
+        background: 'linear-gradient(180deg, #E0F2FE 0%, #FCE7F3 25%, #FEF9C3 50%, #DCFCE7 75%, #E0E7FF 100%)'
+      }}>
+        {/* Soft cloud-like shapes in background */}
+        <div className="absolute top-10 left-[5%] w-40 h-20 bg-white/40 rounded-full blur-2xl" />
+        <div className="absolute top-32 right-[10%] w-60 h-24 bg-white/30 rounded-full blur-3xl" />
+        <div className="absolute top-[60%] left-[15%] w-48 h-20 bg-white/30 rounded-full blur-2xl" />
+        <div className="absolute bottom-32 right-[20%] w-52 h-24 bg-white/25 rounded-full blur-3xl" />
 
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `
-            radial-gradient(circle at 25% 25%, cyan 1px, transparent 1px),
-            radial-gradient(circle at 75% 75%, magenta 1px, transparent 1px),
-            radial-gradient(circle at 50% 50%, yellow 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px, 50px 50px, 50px 50px'
-        }} />
-
-        <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-purple-900/20 via-pink-900/10 to-transparent" />
-
-        <FloatingCoinsAndStars />
-        <NeonTubes />
-        <ScanlinesOverlay />
-        <CRTFlicker />
+        <FloatingDecorations />
 
         <div className="relative z-10">
           {/* Back button */}
           <div className="absolute top-2 left-4 z-20">
             <Link
               href="/games"
-              className="group flex items-center gap-2 bg-black/70 hover:bg-black/90 px-3 py-1.5 rounded-full font-bold text-white shadow-lg transition-all hover:scale-105 border border-cyan-500/30 backdrop-blur-sm"
+              className="group flex items-center gap-2 bg-white/80 backdrop-blur-sm hover:bg-white px-4 py-2 rounded-full font-bold text-gray-600 shadow-md transition-all hover:scale-105 border-2 border-pink-200 hover:border-pink-300"
             >
-              <span className="text-cyan-400">◀</span>
+              <span className="text-pink-500 text-lg">←</span>
               <span className="text-sm">Island</span>
             </Link>
           </div>
 
-          {/* Header */}
-          <div className="text-center pt-4 pb-2 relative">
+          {/* Header — Cute & Bouncy */}
+          <div className="text-center pt-6 pb-2 relative">
             <div className="inline-block relative px-4">
-              <h1 className="text-4xl md:text-7xl lg:text-8xl font-black tracking-tight">
-                <span className="text-cyan-400" style={{
-                  textShadow: '0 0 10px #22d3ee, 0 0 20px #22d3ee, 0 0 40px #22d3ee, 0 0 80px #22d3ee'
-                }}>ONDE</span>
-                <span className="mx-2 md:mx-4" />
-                <span className="text-green-400" style={{
-                  textShadow: '0 0 10px #4ade80, 0 0 20px #4ade80, 0 0 40px #4ade80, 0 0 80px #4ade80'
-                }}>ARCADE</span>
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0s' }}>🌈</span>
+                <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0.2s' }}>⭐</span>
+                <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0.4s' }}>🎮</span>
+                <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>⭐</span>
+                <span className="text-2xl md:text-3xl animate-bounce-gentle" style={{ animationDelay: '0.8s' }}>🌈</span>
+              </div>
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-tight">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
+                  Onde
+                </span>
+                <span className="mx-2 md:mx-3" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-500 to-green-500">
+                  Arcade
+                </span>
               </h1>
-              <p className="text-gray-400 font-mono text-sm mt-1">📚 Educational Games Only — Learn While You Play! 🧠</p>
-
-              <div className="hidden md:block absolute -left-16 top-1/2 -translate-y-1/2 text-5xl opacity-80">🕹️</div>
-              <div className="hidden md:block absolute -right-16 top-1/2 -translate-y-1/2 text-5xl opacity-80 scale-x-[-1]">🕹️</div>
+              <p className="text-gray-500 font-medium text-sm mt-2">📚 Fun Educational Games — Learn While You Play! 🧠</p>
             </div>
           </div>
 
-          <InsertCoinBanner />
+          <CheerfulBanner />
           <HighScoresTicker scores={scores} />
 
           {/* Game of the Day */}
@@ -900,13 +803,14 @@ export default function ArcadePage() {
           {/* Recently Played (only if they have real data) */}
           {!search && !selectedCategory && !selectedReadingLevel && recentGames.length > 0 && (
             <div className="py-4">
-              <SectionHeader icon="🕐" title="RECENTLY PLAYED" />
+              <SectionHeader icon="🕐" title="Recently Played" />
               <GameRow
                 games={recentGames}
                 selectedGame={selectedGame}
                 setSelectedGame={setSelectedGame}
                 playSelectSound={playSelectSound}
                 playCoinBeep={playCoinBeep}
+                colorOffset={0}
               />
             </div>
           )}
@@ -914,15 +818,16 @@ export default function ArcadePage() {
           {/* Browse by category when no filters active */}
           {!search && !selectedCategory && !selectedReadingLevel && (
             <>
-              {gamesByCategory.map(cat => (
+              {gamesByCategory.map((cat, catIdx) => (
                 <div key={cat.name} className="py-4">
-                  <SectionHeader icon={cat.emoji} title={cat.name.toUpperCase()} />
+                  <SectionHeader icon={cat.emoji} title={cat.name} />
                   <GameRow
                     games={cat.games}
                     selectedGame={selectedGame}
                     setSelectedGame={setSelectedGame}
                     playSelectSound={playSelectSound}
                     playCoinBeep={playCoinBeep}
+                    colorOffset={catIdx * 3}
                   />
                 </div>
               ))}
@@ -936,21 +841,21 @@ export default function ArcadePage() {
                 icon={selectedCategory ? categories.find(c => c.name === selectedCategory)?.emoji || '🎮' : '🎮'}
                 title={
                   selectedCategory
-                    ? `${selectedCategory.toUpperCase()}`
+                    ? selectedCategory
                     : selectedReadingLevel
-                    ? `${selectedReadingLevel === 'no-reading' ? '👶 NO READING REQUIRED' : '📖 CAN READ'}`
-                    : 'ALL GAMES'
+                    ? `${selectedReadingLevel === 'no-reading' ? '👶 No Reading Required' : '📖 Can Read'}`
+                    : 'All Games'
                 }
               />
 
               {filteredGames.length === 0 ? (
                 <div className="text-center py-12">
                   <span className="text-6xl mb-4 block">🔍</span>
-                  <p className="text-gray-400 font-mono">No games found. Try a different search!</p>
+                  <p className="text-gray-500 font-medium">No games found — try a different search! 🌈</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-4 md:px-8">
-                  {filteredGames.map(game => (
+                  {filteredGames.map((game, i) => (
                     <GameCard
                       key={game.id}
                       game={game}
@@ -960,6 +865,7 @@ export default function ArcadePage() {
                       onSelect={playSelectSound}
                       playCoinBeep={playCoinBeep}
                       size="small"
+                      colorIndex={i}
                     />
                   ))}
                 </div>
@@ -970,9 +876,9 @@ export default function ArcadePage() {
           {/* All Games Grid (when no filter, at the bottom) */}
           {!search && !selectedCategory && !selectedReadingLevel && (
             <div className="py-6">
-              <SectionHeader icon="🎮" title="ALL EDUCATIONAL GAMES" />
+              <SectionHeader icon="🎮" title="All Educational Games" />
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-4 md:px-8">
-                {allGames.map(game => (
+                {allGames.map((game, i) => (
                   <GameCard
                     key={game.id}
                     game={game}
@@ -982,76 +888,62 @@ export default function ArcadePage() {
                     onSelect={playSelectSound}
                     playCoinBeep={playCoinBeep}
                     size="small"
+                    colorIndex={i}
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Footer */}
+          {/* Footer — Cheerful */}
           <div className="text-center py-8 pb-16">
-            <div className="inline-flex items-center gap-3 bg-black/70 px-6 py-3 rounded-full border border-green-500/30 backdrop-blur">
-              <span className="text-2xl">📚</span>
-              <span className="text-green-400 font-mono font-bold tracking-wider text-sm md:text-base">
-                {allGames.length} EDUCATIONAL GAMES • LEARN & PLAY • FREE
+            <div className="inline-flex items-center gap-3 bg-white/70 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-pink-200 shadow-md">
+              <span className="text-2xl">🌈</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 font-extrabold tracking-wide text-sm md:text-base">
+                {allGames.length} Fun Games • Learn & Play • Free!
               </span>
-              <span className="text-2xl">🧠</span>
+              <span className="text-2xl">⭐</span>
             </div>
           </div>
         </div>
 
-        {/* Custom animations */}
+        {/* Custom animations — soft & cute */}
         <style jsx>{`
-          @keyframes float-coin {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
-            50% { transform: translateY(-30px) rotate(15deg); opacity: 0.9; }
+          @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-12px) rotate(3deg); }
+            75% { transform: translateY(-6px) rotate(-2deg); }
           }
-          @keyframes flicker {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.1; }
+          @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
           }
-          @keyframes bounce-subtle {
-            0%, 100% { transform: scale(1.1) translateY(0); }
-            50% { transform: scale(1.1) translateY(-5px); }
+          @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
           }
-          @keyframes rainbow-shift {
+          @keyframes rainbow-text {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
-          }
-          @keyframes neon-pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
           }
           @keyframes ticker {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
-          @keyframes crt-flicker {
-            0% { opacity: 0.02; }
-            5% { opacity: 0.04; }
-            10% { opacity: 0.02; }
-            100% { opacity: 0.02; }
+          .animate-float-gentle {
+            animation: float-gentle 6s ease-in-out infinite;
           }
-          .animate-float-coin {
-            animation: float-coin 5s ease-in-out infinite;
+          .animate-bounce-gentle {
+            animation: bounce-gentle 2s ease-in-out infinite;
           }
-          .animate-flicker {
-            animation: flicker 0.1s ease-in-out infinite;
+          .animate-sparkle {
+            animation: sparkle 2s ease-in-out infinite;
           }
-          .animate-bounce-subtle {
-            animation: bounce-subtle 0.6s ease-in-out infinite;
-          }
-          .animate-rainbow-shift {
-            animation: rainbow-shift 3s linear infinite;
-          }
-          .animate-neon-pulse {
-            animation: neon-pulse 2s ease-in-out infinite;
+          .animate-rainbow-text {
+            animation: rainbow-text 4s linear infinite;
           }
           .animate-ticker {
             animation: ticker 20s linear infinite;
-          }
-          .animate-crt-flicker {
-            animation: crt-flicker 4s ease-in-out infinite;
           }
           .scrollbar-hide {
             -ms-overflow-style: none;
@@ -1062,6 +954,6 @@ export default function ArcadePage() {
           }
         `}</style>
       </div>
-    </ArcadeCabinetFrame>
+    </PlayroomFrame>
   )
 }
