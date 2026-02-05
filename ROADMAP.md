@@ -425,6 +425,7 @@ Questo è Onde: non combattere le onde, ma imparare a surfarle con grazia.
 | **Salmo 23 per Bambini** | Spagnolo | ALTA | Fit religioso perfetto |
 | **Libri educational Matematica/AI** | Spagnolo | ALTA | Target diretto scuole |
 | **Libri italiano per bambini** | Italiano | ALTA | Proporre al programma italiano |
+| **The Immortal Friend (Krishnamurti)** | Italiano | MEDIA | Poesia spirituale 1928, pubblico dominio USA, NO traduzione ITA esistente |
 
 **Connessione a Onde Portal:**
 Onde Portal = scuola virtuale. Il bambino entra nel portale con PC/VR, parla con tutor AI per ogni materia. **Educational School è verticale chiave di Onde Portal.**
