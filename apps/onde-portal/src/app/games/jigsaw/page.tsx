@@ -551,6 +551,8 @@ export default function JigsawPuzzle() {
       <Confetti active={showConfetti} />
 
       <GameHeader
+        backHref="/games/arcade"
+        backLabel="◀ Arcade"
         soundEnabled={soundEnabled}
         onSoundToggle={() => setSoundEnabled(!soundEnabled)}
       >

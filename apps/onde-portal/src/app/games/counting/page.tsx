@@ -557,6 +557,12 @@ export default function CountingGame() {
   // Render menu
   const renderMenu = () => (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 gap-6">
+      {/* Back to Arcade */}
+      <div className="absolute top-4 left-4 z-20">
+        <Link href="/games/arcade" className="bg-white/90 hover:bg-white px-4 py-2 rounded-full font-bold text-purple-600 shadow-lg transition-all hover:scale-105 text-sm">
+          ◀ Arcade
+        </Link>
+      </div>
       {/* Title */}
       <div className="text-center">
         <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse">

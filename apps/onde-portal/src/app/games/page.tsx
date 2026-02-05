@@ -6,13 +6,13 @@ import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
 import { useTranslations } from '@/i18n/I18nProvider'
 
 const games = [
-  { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight', desc: 'Pet House', emoji: '🐱' },
   { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft Skins', emoji: '🎨' },
-  { id: 'chef', href: '/games/kids-chef-studio', title: 'Kids Chef', desc: 'Cooking', emoji: '👨‍🍳' },
-  { id: 'fortune', href: '/games/fortune-cookie', title: 'Fortune', desc: 'Cookie', emoji: '🥠' },
+  { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
+  { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
+  { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
 ]
 
-// All available games for the floating game cloud
+// All available games for the floating game cloud — EDUCATIONAL ONLY (no brain rot!)
 const allGames = [
   { id: 'quiz', href: '/games/quiz', emoji: '❓', title: 'Quiz' },
   { id: 'memory', href: '/games/memory', emoji: '🧠', title: 'Memory' },
@@ -28,11 +28,18 @@ const allGames = [
   { id: 'math', href: '/games/math', emoji: '➕', title: 'Math' },
   { id: 'alphabet', href: '/games/alphabet', emoji: '🔤', title: 'ABC' },
   { id: 'simon', href: '/games/simon', emoji: '🎯', title: 'Simon' },
-  { id: 'reaction', href: '/games/reaction', emoji: '⚡', title: 'Reaction' },
   { id: 'tictactoe', href: '/games/tictactoe', emoji: '⭕', title: 'Tic Tac' },
-  { id: 'whack', href: '/games/whack', emoji: '🔨', title: 'Whack' },
-  { id: 'bubbles', href: '/games/bubbles', emoji: '🫧', title: 'Bubbles' },
-  { id: 'catch', href: '/games/catch', emoji: '🧺', title: 'Catch' },
+  { id: 'sudoku', href: '/games/sudoku', emoji: '🧮', title: 'Sudoku' },
+  { id: 'wordle', href: '/games/wordle', emoji: '🟩', title: 'Wordle' },
+  { id: 'crossword', href: '/games/crossword', emoji: '📰', title: 'Crossword' },
+  { id: '2048', href: '/games/2048', emoji: '🔢', title: '2048' },
+  { id: 'maze', href: '/games/maze', emoji: '🏁', title: 'Maze' },
+  { id: 'connect4', href: '/games/connect4', emoji: '🔴', title: 'Connect 4' },
+  { id: 'hangman', href: '/games/hangman', emoji: '🪢', title: 'Hangman' },
+  { id: 'jigsaw', href: '/games/jigsaw', emoji: '🖼️', title: 'Jigsaw' },
+  { id: 'minesweeper', href: '/games/minesweeper', emoji: '💣', title: 'Minesweeper' },
+  { id: 'scratch', href: '/games/scratch', emoji: '💻', title: 'Scratch' },
+  { id: 'typing-race', href: '/games/typing-race', emoji: '🏎️', title: 'Type Race' },
 ]
 
 // Positions for floating game bubbles around the island (percentages)
@@ -97,10 +104,9 @@ export default function GamingIsland() {
       size: 8 + (i % 8),
     })), [])
 
-  // All games combined for mobile grid
+  // All games combined for mobile grid — educational only
   const mobileGames = [
-    { id: 'moonlight', href: '/games/moonlight-magic-house', title: 'Moonlight House', emoji: '🐱', color: 'from-purple-500 to-purple-600' },
-    { id: 'arcade', href: '/games/arcade', title: 'Arcade', emoji: '🕹️', color: 'from-orange-500 to-red-500' },
+    { id: 'arcade', href: '/games/arcade', title: 'Arcade', emoji: '🕹️', color: 'from-green-500 to-emerald-600' },
     { id: 'library', href: '/libri', title: 'Library', emoji: '📚', color: 'from-amber-600 to-amber-700' },
     ...allGames.map(g => ({ ...g, color: 'from-sky-400 to-blue-500' })),
   ]
@@ -125,9 +131,9 @@ export default function GamingIsland() {
         <div className="px-4 py-6">
           <div className="grid grid-cols-3 gap-3 mb-6">
             {[
-              { href: '/games/moonlight-magic-house', emoji: '🐱', title: 'Moonlight', color: 'from-purple-500 to-purple-600' },
-              { href: '/games/arcade', emoji: '🕹️', title: 'Arcade', color: 'from-orange-500 to-red-500' },
+              { href: '/games/arcade', emoji: '🕹️', title: 'Arcade', color: 'from-green-500 to-emerald-600' },
               { href: '/libri', emoji: '📚', title: 'Library', color: 'from-amber-600 to-amber-700' },
+              { href: '/games/skin-creator', emoji: '🎨', title: 'Skin Creator', color: 'from-orange-500 to-rose-500' },
             ].map((game) => (
               <Link 
                 key={game.href}
@@ -413,103 +419,80 @@ export default function GamingIsland() {
         <div className="absolute bottom-[16%] right-[35%] w-5 h-3 bg-stone-400 rounded-full opacity-55 shadow-sm" />
         <div className="absolute bottom-[18%] right-[28%] w-6 h-4 bg-stone-500 rounded-full opacity-50 shadow-sm" />
 
-        {/* === MOONLIGHT COTTAGE (Left) === */}
+        {/* === SCHOOL HOUSE (Left) === */}
         <Link
-          href="/games/moonlight-magic-house"
+          href="/games/skin-creator"
           className="absolute bottom-[26%] left-[3%] md:left-[8%] cursor-pointer group z-10"
-          onMouseEnter={() => setHoveredArea('moonlight')}
+          onMouseEnter={() => setHoveredArea('school')}
           onMouseLeave={() => setHoveredArea(null)}
         >
-          <div className={`transition-all duration-300 ${hoveredArea === 'moonlight' ? 'scale-110 -translate-y-2' : 'hover:scale-105'}`}>
+          <div className={`transition-all duration-300 ${hoveredArea === 'school' ? 'scale-110 -translate-y-2' : 'hover:scale-105'}`}>
             <div className="relative">
               {/* Warm glow behind house */}
-              <div className="absolute inset-0 bg-amber-300/40 rounded-full blur-3xl scale-150 -z-10" />
+              <div className="absolute inset-0 bg-green-300/40 rounded-full blur-3xl scale-150 -z-10" />
               
-              {/* Cottage structure */}
+              {/* School structure */}
               <div className="relative w-32 md:w-40 h-36 md:h-44">
-                {/* Main house body */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-28 md:w-36 h-24 md:h-28 bg-gradient-to-b from-amber-100 to-amber-200 rounded-lg shadow-xl border-2 border-amber-300">
-                  {/* Stone texture overlay */}
+                {/* Main building body */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-28 md:w-36 h-24 md:h-28 bg-gradient-to-b from-orange-100 to-orange-200 rounded-lg shadow-xl border-2 border-orange-300">
+                  {/* Brick texture overlay */}
                   <div className="absolute inset-0 opacity-20 rounded-lg" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #8b7355 1px, transparent 1px), radial-gradient(circle at 60% 60%, #8b7355 1px, transparent 1px), radial-gradient(circle at 80% 20%, #8b7355 1px, transparent 1px)', backgroundSize: '15px 15px' }} />
                   
-                  {/* Window with cat */}
-                  <div className="absolute top-3 left-3 w-8 h-8 md:w-10 md:h-10 bg-gradient-to-b from-amber-400 to-yellow-500 rounded-lg border-2 border-amber-600 shadow-inner overflow-hidden">
-                    {/* Window glow */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-amber-300/50 to-transparent" />
-                    {/* Cute cat */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-lg md:text-xl animate-cat-peek">🐱</div>
+                  {/* Window with art */}
+                  <div className="absolute top-3 left-3 w-8 h-8 md:w-10 md:h-10 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-lg border-2 border-orange-600 shadow-inner overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-cyan-300/50 to-transparent" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-lg md:text-xl">🎨</div>
                   </div>
                   
                   {/* Second window */}
-                  <div className="absolute top-3 right-3 w-8 h-8 md:w-10 md:h-10 bg-gradient-to-b from-amber-400 to-yellow-500 rounded-lg border-2 border-amber-600 shadow-inner">
-                    <div className="absolute inset-0 bg-gradient-to-t from-amber-300/50 to-transparent" />
-                    {/* Curtains */}
-                    <div className="absolute top-0 left-0 w-1/3 h-full bg-red-400/40 rounded-l-lg" />
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-red-400/40 rounded-r-lg" />
+                  <div className="absolute top-3 right-3 w-8 h-8 md:w-10 md:h-10 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-lg border-2 border-orange-600 shadow-inner">
+                    <div className="absolute inset-0 bg-gradient-to-t from-cyan-300/50 to-transparent" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-lg md:text-xl">✏️</div>
                   </div>
                   
                   {/* Door */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 md:w-10 h-14 md:h-16 bg-gradient-to-b from-amber-700 to-amber-900 rounded-t-lg border-2 border-amber-800">
-                    {/* Door details */}
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-5 h-3 bg-amber-600 rounded-sm" />
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-5 h-4 bg-amber-600 rounded-sm" />
-                    {/* Door knob */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 md:w-10 h-14 md:h-16 bg-gradient-to-b from-orange-700 to-orange-900 rounded-t-lg border-2 border-orange-800">
+                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-5 h-3 bg-orange-600 rounded-sm" />
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-5 h-4 bg-orange-600 rounded-sm" />
                     <div className="absolute top-1/2 right-1.5 w-2 h-2 bg-yellow-400 rounded-full shadow-md" />
                   </div>
                 </div>
                 
                 {/* Roof */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 md:w-44">
-                  {/* Main roof */}
-                  <div className="w-full h-16 md:h-20 bg-gradient-to-b from-red-700 to-red-800 rounded-t-lg shadow-lg" style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }}>
-                    {/* Roof tiles pattern */}
+                  <div className="w-full h-16 md:h-20 bg-gradient-to-b from-green-600 to-green-800 rounded-t-lg shadow-lg" style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }}>
                     <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.2) 8px, rgba(0,0,0,0.2) 10px)' }} />
-                  </div>
-                </div>
-                
-                {/* Chimney with animated smoke */}
-                <div className="absolute top-2 right-4 md:right-6">
-                  <div className="w-5 h-10 bg-gradient-to-b from-red-600 to-red-800 rounded-t border-2 border-red-900" />
-                  {/* Smoke puffs */}
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="text-2xl opacity-60 animate-smoke-1">💨</div>
-                  </div>
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-                    <div className="text-xl opacity-40 animate-smoke-2">💨</div>
-                  </div>
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-                    <div className="text-lg opacity-20 animate-smoke-3">💨</div>
                   </div>
                 </div>
               </div>
               
-              {/* Flower garden */}
+              {/* Art supplies outside */}
               <div className="absolute -bottom-2 left-0 right-0 flex justify-around">
-                <span className="text-lg animate-sway">🌷</span>
-                <span className="text-xl animate-sway" style={{ animationDelay: '0.3s' }}>🌸</span>
-                <span className="text-lg animate-sway" style={{ animationDelay: '0.6s' }}>🌺</span>
-                <span className="text-xl animate-sway" style={{ animationDelay: '0.2s' }}>🌻</span>
-                <span className="text-lg animate-sway" style={{ animationDelay: '0.5s' }}>🌼</span>
+                <span className="text-lg animate-sway">🖍️</span>
+                <span className="text-xl animate-sway" style={{ animationDelay: '0.3s' }}>✏️</span>
+                <span className="text-lg animate-sway" style={{ animationDelay: '0.6s' }}>🎨</span>
+                <span className="text-xl animate-sway" style={{ animationDelay: '0.2s' }}>🖌️</span>
+                <span className="text-lg animate-sway" style={{ animationDelay: '0.5s' }}>🎭</span>
               </div>
               
               {/* Fence */}
               <div className="absolute -bottom-4 -left-4 -right-4 flex justify-between">
                 {[...Array(7)].map((_, i) => (
-                  <div key={i} className="w-2 h-4 bg-amber-600 rounded-t shadow-sm" />
+                  <div key={i} className="w-2 h-4 bg-green-700 rounded-t shadow-sm" />
                 ))}
               </div>
             </div>
             
             {/* Sign */}
-            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-xl text-center shadow-xl mt-4 font-bold border-2 border-purple-400">
-              <span className="drop-shadow-md">🐾 Moonlight House</span>
+            <div className="bg-gradient-to-r from-orange-500 to-rose-500 text-white px-4 py-2 rounded-xl text-center shadow-xl mt-4 font-bold border-2 border-orange-400">
+              <span className="drop-shadow-md">🎨 Creative Studio</span>
             </div>
           </div>
           
           {/* Hover tooltip */}
-          {hoveredArea === 'moonlight' && (
-            <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur rounded-2xl px-5 py-3 shadow-2xl whitespace-nowrap z-20 border-2 border-purple-200 animate-bounce-in">
-              <p className="text-sm font-bold text-purple-600">🏠✨ Pet simulation adventure!</p>
+          {hoveredArea === 'school' && (
+            <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur rounded-2xl px-5 py-3 shadow-2xl whitespace-nowrap z-20 border-2 border-orange-200 animate-bounce-in">
+              <p className="text-sm font-bold text-orange-600">🎨✨ Create Minecraft skins!</p>
             </div>
           )}
         </Link>
