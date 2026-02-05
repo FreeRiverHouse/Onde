@@ -1,14 +1,22 @@
 {
-  "timestamp": "2026-02-05T20:34:19.670570+00:00",
+  "timestamp": "2026-02-05T21:00:03.327266+00:00",
   "sources": [
-    "coindesk",
     "cointelegraph",
     "bitcoinmagazine",
     "decrypt"
   ],
-  "failed_sources": [],
-  "article_count": 40,
+  "failed_sources": [
+    "coindesk"
+  ],
+  "article_count": 30,
   "results": [
+    {
+      "title": "Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies",
+      "url": "https://bitcoinmagazine.com/business/paystand-the-payments-giants-quietly-supporting-bitcoin-circular-economies",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies Paystand CEO Jeremy Almond revealed massive Bitcoin mining operation, teases B2B layer two protocol and his strategy to orange pill corporate America. This post Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies first appeared on Bitcoin Magazine and is written by Juan Galt.",
+      "published": "2026-02-05T20:49:24+00:00"
+    },
     {
       "title": "Gemini announces exit from UK, EU, Australia, slashes workforce",
       "url": "https://cointelegraph.com/news/gemini-exit-uk-eu-australia-slashes-workforce?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -17,7 +25,7 @@
       "published": "2026-02-05T20:28:07+00:00"
     },
     {
-      "title": "Bitcoin slips under $64K as record-high selling intensifies: Where is the price bottom?",
+      "title": "Bitcoin slips under $64K as record-high selling intensifies: Where is the bottom?",
       "url": "https://cointelegraph.com/news/bitcoin-slips-under-dollar64k-as-record-high-selling-intensifies-where-is-the-price-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "Bitcoin touched new lows under $64,000 as market selling reached a historic level, and analysts warn that the bottom is not in. Does data support analysts\u2019 sub-$60,000 prediction?",
@@ -38,25 +46,11 @@
       "published": "2026-02-05T20:07:18+00:00"
     },
     {
-      "title": "Bitcoin spirals toward $65,000, heading to worst one-day drawdown since FTX blowup",
-      "url": "https://www.coindesk.com/markets/2026/02/05/bitcoin-drops-below-usd65-000-heading-to-worst-one-day-drawdown-since-ftx-blowup",
-      "source": "coindesk",
-      "description": "Analyst points to the 200-day moving average \u2014 currently around $58,000 to $60,000 \u2014 as a potential support level to watch.",
-      "published": "2026-02-05T20:00:25+00:00"
-    },
-    {
       "title": "Here\u2019s what happened in crypto today",
       "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
       "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
       "published": "2026-02-05T19:58:58+00:00"
-    },
-    {
-      "title": "Bitcoin is the third most oversold ever, says one indicator, and violent upside could be next",
-      "url": "https://www.coindesk.com/markets/2026/02/05/bitcoin-is-the-third-most-oversold-ever-says-one-indicator-and-violent-upside-could-be-next",
-      "source": "coindesk",
-      "description": "The Relative Strength Index (RSI), a popular technical trading indicator, has plunged to 17. Only the bear market bottom in 2018 and the 2020 Covid crash saw lower reads.",
-      "published": "2026-02-05T19:34:43+00:00"
     },
     {
       "title": "Strategy ($MSTR) Falls 15% as Investors Brace for Earnings Call",
@@ -115,13 +109,6 @@
       "published": "2026-02-05T17:44:28+00:00"
     },
     {
-      "title": "U.S. Treasury's Bessent calls out crypto 'nihilists' resisting market structure bill",
-      "url": "https://www.coindesk.com/policy/2026/02/05/u-s-treasury-s-bessent-calls-out-crypto-nihilists-resisting-market-structure-bill",
-      "source": "coindesk",
-      "description": "Treasury Secretary Bessent said market participants who don't want strong regulation should \"move to El Salvador.\"",
-      "published": "2026-02-05T17:40:01+00:00"
-    },
-    {
       "title": "Aster layer-1 blockchain testnet goes live, mainnet rollout targeted for Q1",
       "url": "https://cointelegraph.com/news/aster-layer-1-testnet-live-all-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
@@ -134,13 +121,6 @@
       "source": "cointelegraph",
       "description": "Ether is testing holder conviction with its price dip, with data showing continued selling by smaller holders and steady accumulation by larger investors.",
       "published": "2026-02-05T17:30:51+00:00"
-    },
-    {
-      "title": "Tom Lee's Bitmine now $8 billion underwater as ether tumbles below $2,000",
-      "url": "https://www.coindesk.com/business/2026/02/05/tom-lee-s-bitmine-now-usd8-billion-underwater-as-ether-tumbles-below-usd2-000",
-      "source": "coindesk",
-      "description": "Despite its mounting losses and plunging share price, the ether treasury firm says it's under no pressure to sell its holdings.",
-      "published": "2026-02-05T17:21:27+00:00"
     },
     {
       "title": "Polymarket, Circle partner in shift to native USDC settlement",
@@ -157,13 +137,6 @@
       "published": "2026-02-05T17:15:02+00:00"
     },
     {
-      "title": "Gemini to exit U.K., EU and Australia, reduce staff by 25%, and focus on U.S. and prediction markets",
-      "url": "https://www.coindesk.com/markets/2026/02/05/gemini-to-exit-u-k-eu-and-australia-reduce-staff-and-focus-on-u-s-and-prediction-markets",
-      "source": "coindesk",
-      "description": "The crypto exchange has instructed affected customers to sign up with eToro by the end of March for withdrawals, while deposits and new accounts have been suspended.",
-      "published": "2026-02-05T17:11:13+00:00"
-    },
-    {
       "title": "Summer of Bitcoin 2026 Opens Applications for University Students Worldwide",
       "url": "https://bitcoinmagazine.com/news/summer-of-bitcoin-2026-opens-applications",
       "source": "bitcoinmagazine",
@@ -176,13 +149,6 @@
       "source": "decrypt",
       "description": "Publicly traded crypto exchange Gemini is exiting foreign markets and laying off around 25% of its staff to improve its path to profitability.",
       "published": "2026-02-05T16:58:26+00:00"
-    },
-    {
-      "title": "Strategy has $6.5 billion loss on BTC, but continues trading at premium to value of its assets",
-      "url": "https://www.coindesk.com/markets/2026/02/05/strategy-has-usd6-5-billion-loss-on-btc-but-continues-trading-at-premium-to-value-of-its-assets",
-      "source": "coindesk",
-      "description": "Ahead of the fourth-quarter earnings report tonight, shares are down another 13% as bitcoin falls back to $68,000.",
-      "published": "2026-02-05T16:50:20+00:00"
     },
     {
       "title": "XRP Leads Crypto Losses as Ethereum, Dogecoin Prices Crater Alongside Bitcoin",
@@ -199,25 +165,60 @@
       "published": "2026-02-05T16:33:37+00:00"
     },
     {
-      "title": "Sovcombank says it's the first Russian bank to offer bitcoin-backed loans to public",
-      "url": "https://www.coindesk.com/business/2026/02/05/sovcombank-says-it-s-the-first-russian-bank-to-offer-bitcoin-backed-loans-to-public",
-      "source": "coindesk",
-      "description": "Larger rival Sberbank beat Sovcombank to the punch, but it's still running as a pilot program.",
-      "published": "2026-02-05T16:23:57+00:00"
+      "title": "UK Teens Jailed After $4.3M Wrench Attack Robbery Caught on Police Video",
+      "url": "https://decrypt.co/357058/uk-teens-jailed-after-4-3m-wrench-attack-robbery-caught-on-police-video",
+      "source": "decrypt",
+      "description": "Police video shows Sheffield teens posing as delivery drivers to steal $4.3 million in crypto at knife point from a London flat owner.",
+      "published": "2026-02-05T15:45:16+00:00"
     },
     {
-      "title": "Solana Foundation's Liu: Focus on finance, not gaming 'misadventures' ",
-      "url": "https://www.coindesk.com/tech/2026/02/05/solana-foundation-s-liu-urges-refocus-on-finance-as-crypto-slides-and-narratives-narrow",
-      "source": "coindesk",
-      "description": "Liu\u2019s remarks come as cryptocurrencies plunge and other industry leaders are narrowing their own visions for blockchain utility.",
-      "published": "2026-02-05T16:16:39+00:00"
+      "title": "Bitcoin Crashes Below $67K, Erasing All Gains Since Trump's Election Win",
+      "url": "https://decrypt.co/357061/bitcoin-crashes-67k-erasing-gains-trump-election-win",
+      "source": "decrypt",
+      "description": "Bitcoin has fallen more than 9% on the day, cratering to a price not seen since before President Trump's 2024 election win.",
+      "published": "2026-02-05T15:41:58+00:00"
     },
     {
-      "title": "Tom Lee's Bitmine may be buying ETH, but Vitalik Buterin and everyone else appears to be selling",
-      "url": "https://www.coindesk.com/markets/2026/02/04/everyone-is-selling-eth-apart-from-tom-lee-s-bitmine",
-      "source": "coindesk",
-      "description": "Ether has dropped below $2,000, underperforming other major cryptocurrencies as selling accelerates from leveraged traders, onchain liquidations and long-term holders.",
-      "published": "2026-02-05T16:15:45+00:00"
+      "title": "Virginia Advances Bill in Committee to Establish State Bitcoin Fund",
+      "url": "https://bitcoinmagazine.com/news/virginia-advances-bill-for-bitcoin-fund",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Virginia Advances Bill in Committee to Establish State Bitcoin Fund Virginia lawmakers pushed forward a proposal that would allow state funds to be invested in bitcoin. This post Virginia Advances Bill in Committee to Establish State Bitcoin Fund first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-05T14:43:20+00:00"
+    },
+    {
+      "title": "Bitcoin price may drop below $64K as veteran raises \u2018campaign selling\u2019 alarm",
+      "url": "https://cointelegraph.com/news/bitcoin-price-may-drop-below-64k-veteran-campaign-selling?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin risks a deeper slide as miners and US spot ETFs cut BTC exposure, adding supply pressure during a fragile downtrend.",
+      "published": "2026-02-05T14:13:11+00:00"
+    },
+    {
+      "title": "Multiliquid, Metalayer launch instant redemption backstop for RWAs on Solana",
+      "url": "https://cointelegraph.com/news/multiliquid-metalayer-instant-redemption-backstop-rwas-solana?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The new facility allows institutions to redeem tokenized real-world assets into stablecoins instantly, addressing a key liquidity bottleneck in onchain markets.",
+      "published": "2026-02-05T14:00:00+00:00"
+    },
+    {
+      "title": "Morning Minute: Are Humans Ready to Work for Robots?",
+      "url": "https://decrypt.co/357045/morning-minute-are-humans-ready-to-work-for-robots",
+      "source": "decrypt",
+      "description": "Crypto developers are leaning into a hot new jobs sector: AI agents that employ humans for IRL tasks.",
+      "published": "2026-02-05T13:34:25+00:00"
+    },
+    {
+      "title": "Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-69000",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode The bitcoin price crashed to $69,000 in trading Thursday as a deepening selloff in global markets spilled into crypto markets. This post Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-05T13:04:54+00:00"
+    },
+    {
+      "title": "SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot",
+      "url": "https://bitcoinmagazine.com/news/sdm-executes-1-million-lightning-kraken",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot Secure Digital Markets and Kraken completed a $1 million Bitcoin pilot settlement over the Lightning Network\u2014claimed as the largest publicly reported Lightning payment\u2014demonstrating near-instant, low-fee institutional settlement. This post SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot first appeared on Bitcoin Magazine and is written by Mi",
+      "published": "2026-02-05T13:00:00+00:00"
     }
   ]
 }
