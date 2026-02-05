@@ -5,10 +5,20 @@
   "scripts": {
     "dev": "next dev -p 3004",
     "build": "next build",
+    "build:mobile": "cp next.config.mobile.js next.config.js.bak && cp next.config.mobile.js next.config.js && next build && mv next.config.js.bak next.config.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cap:ios": "npx cap add ios",
+    "cap:android": "npx cap add android",
+    "cap:sync": "npx cap sync",
+    "cap:open:ios": "npx cap open ios",
+    "cap:open:android": "npx cap open android"
   },
   "dependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.0.2",
+    "@capacitor/core": "^8.0.2",
+    "@capacitor/ios": "^8.0.2",
     "@types/three": "^0.182.0",
     "next": "14.2.35",
     "react": "^18.2.0",
