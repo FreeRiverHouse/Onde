@@ -124,6 +124,12 @@ export default function MusicMaker() {
   const [loopLength, setLoopLength] = useState(4000) // 4 seconds default
   const [currentLoopNotes, setCurrentLoopNotes] = useState<RecordedNote[]>([])
   
+  // Keep a ref to the latest pattern so the interval always reads current state
+  const sequencerPatternRef = useRef<SequencerPattern>(sequencerPattern)
+  useEffect(() => {
+    sequencerPatternRef.current = sequencerPattern
+  }, [sequencerPattern])
+
   const audioContextRef = useRef<AudioContext | null>(null)
   const recordingStartRef = useRef<number>(0)
   const playbackTimeoutsRef = useRef<NodeJS.Timeout[]>([])
@@ -655,16 +661,17 @@ export default function MusicMaker() {
     sequencerIntervalRef.current = setInterval(() => {
       setCurrentStep(step)
       
-      // Play all active drums on this step
+      // Read from ref so we always get the LATEST pattern (real-time updates!)
+      const currentPattern = sequencerPatternRef.current
       DRUM_PADS.forEach(drum => {
-        if (sequencerPattern[drum.id][step]) {
+        if (currentPattern[drum.id][step]) {
           playDrumSound(drum.id)
         }
       })
       
       step = (step + 1) % SEQUENCER_STEPS
     }, stepTime)
-  }, [bpm, sequencerPattern, playDrumSound])
+  }, [bpm, playDrumSound])
 
   const stopSequencer = () => {
     if (sequencerIntervalRef.current) {
