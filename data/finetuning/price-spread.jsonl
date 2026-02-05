@@ -1,1 +1,13 @@
 {"timestamp":"2026-02-04T18:30:02.511178+00:00","asset":"ETH","spread_pct":1.3282,"prices":{"coingecko":2095.67,"coinbase":2123.505},"high_exchange":"coinbase","low_exchange":"coingecko"}
+{
+  "timestamp": "2026-02-05T22:30:02.142737+00:00",
+  "asset": "BTC",
+  "spread_pct": 1.4114,
+  "prices": {
+    "coingecko": 63120,
+    "coinbase": 64010.885
+  },
+  "high_exchange": "coinbase",
+  "low_exchange": "coingecko",
+  "message": "\u26a0\ufe0f PRICE SPREAD ANOMALY: BTC shows 1.41% spread!\n\u2022 Coinbase: $64,010.89\n\u2022 Coingecko: $63,120.00\nPossible: exchange issue, arbitrage opportunity, or manipulation."
+}
