@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
 const config: CapacitorConfig = {
   appId: 'com.onde.arcadegames',
   appName: 'Onde Arcade Games',
-  webDir: 'out',
+  webDir: 'out-arcade',
   server: {
     // Use local files, no server needed
     androidScheme: 'https',
