@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { useTranslations } from '@/i18n';
 import Link from 'next/link';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -13,6 +13,19 @@ import { AICompanionProvider } from '@/components/AICompanion';
 import { TreasureFoundToast } from '@/components/TreasureChest';
 import { GlobalTreasureListener } from '@/components/HiddenTreasure';
 import { CoinProvider } from '@/hooks/useCoins';
+
+// Detect if running inside Capacitor native app
+function useIsNativeApp() {
+  const [isNative, setIsNative] = useState(false);
+  useEffect(() => {
+    // Capacitor sets this on window when running natively
+    const win = window as unknown as { Capacitor?: { isNativePlatform?: () => boolean } };
+    if (win.Capacitor?.isNativePlatform?.()) {
+      setIsNative(true);
+    }
+  }, []);
+  return isNative;
+}
 
 function Footer() {
   const t = useTranslations();
@@ -95,6 +108,23 @@ function SkipToContent() {
 }
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
+  const isNative = useIsNativeApp();
+
+  // Native app mode: no navigation, no footer, no site chrome
+  if (isNative) {
+    return (
+      <ThemeProvider>
+        <CoinProvider>
+          <main id="main-content" className="relative z-10" tabIndex={-1}>
+            <ErrorBoundary>
+              {children}
+            </ErrorBoundary>
+          </main>
+        </CoinProvider>
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider>
       <CoinProvider>
