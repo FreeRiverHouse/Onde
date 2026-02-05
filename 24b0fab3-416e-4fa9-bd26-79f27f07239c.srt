@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:04,000
+Beh sì, devi fare tutto in modo programmatico, non può usare il browser, quindi vedi tu
+
+2
+00:00:04,000 --> 00:00:07,560
+come fare nel modo più veloce possibile e usando più agenti possibili, ma si inizia
+
+3
+00:00:07,560 --> 00:00:08,760
+il numero di agenti paralleli.
+

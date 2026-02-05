@@ -1,0 +1,2 @@
+Usa la nostra architettura multi-agentica. Abbiamo un sistema di tasks già configurato e puoi spannare agenti per risolvere, quindi puoi
+mandarne un botto insieme, puoi far andare tutti i task in parallelo, no?

@@ -29,7 +29,6 @@ const allGames = [
   { id: 'alphabet', href: '/games/alphabet', emoji: '🔤', title: 'ABC' },
   { id: 'simon', href: '/games/simon', emoji: '🎯', title: 'Simon' },
   { id: 'reaction', href: '/games/reaction', emoji: '⚡', title: 'Reaction' },
-  { id: 'snake', href: '/games/snake', emoji: '🐍', title: 'Snake' },
   { id: 'tictactoe', href: '/games/tictactoe', emoji: '⭕', title: 'Tic Tac' },
   { id: 'whack', href: '/games/whack', emoji: '🔨', title: 'Whack' },
   { id: 'bubbles', href: '/games/bubbles', emoji: '🫧', title: 'Bubbles' },

@@ -1,0 +1,3 @@
+Beh sì, devi fare tutto in modo programmatico, non può usare il browser, quindi vedi tu
+come fare nel modo più veloce possibile e usando più agenti possibili, ma si inizia
+il numero di agenti paralleli.

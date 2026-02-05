@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:07,560
+Usa la nostra architettura multi-agentica. Abbiamo un sistema di tasks già configurato e puoi spannare agenti per risolvere, quindi puoi
+
+2
+00:00:08,100 --> 00:00:11,400
+mandarne un botto insieme, puoi far andare tutti i task in parallelo, no?
+

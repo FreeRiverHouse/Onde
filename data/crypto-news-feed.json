@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-03T09:00:05.799113+00:00",
+  "timestamp": "2026-02-05T04:30:02.516663+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,214 +11,214 @@
   "article_count": 30,
   "results": [
     {
-      "title": "Bank ING Germany expands crypto ETPs and ETNs with Bitwise, VanEck",
-      "url": "https://cointelegraph.com/news/ing-germany-crypto-etp-etn-bitwise-vaneck?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Crypto wallet provider Payy launches privacy-focused Ethereum L2",
+      "url": "https://cointelegraph.com/news/privacy-enabled-evm-l2-payy-launches-ethereum?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "ING Germany expands crypto access with Bitwise ETPs and VanEck ETNs covering Bitcoin, Ether, Solana, XRP and other major digital assets.",
-      "published": "2026-02-03T08:24:51+00:00"
+      "description": "Payy\u2019s new privacy layer 2 makes every ERC-20 transfer private by default without the need for new wallets or tokens.",
+      "published": "2026-02-05T04:22:58+00:00"
     },
     {
-      "title": "Spot crypto volumes plunge to 2024 lows amid investor demand weakens",
-      "url": "https://cointelegraph.com/news/crypto-volume-contraction-sends-markets-back-to-2024-levels-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "XRP traders more optimistic as BTC, ETH mood turns sour: Santiment",
+      "url": "https://cointelegraph.com/news/xrp-traders-sentiment-high-bitcoin-ethereum-santiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Spot crypto trading volumes have fallen by half since October as liquidity dried up and investor engagement weakened.",
-      "published": "2026-02-03T06:45:29+00:00"
+      "description": "Social media sentiment has turned \u201cextremely bearish\u201d toward Bitcoin and Ethereum this week, according to analytics platform Santiment.",
+      "published": "2026-02-05T04:10:44+00:00"
     },
     {
-      "title": "Cathie Wood\u2019s ARK boosts crypto shares amid stock pullback",
-      "url": "https://cointelegraph.com/news/ark-invest-boosts-shares-robinhood-bitmine-amid-crypto-stock-bloodbath?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "FCC Opens Review of Elon Musk's SpaceX Plan for Orbital AI Data Centers",
+      "url": "https://decrypt.co/357024/fcc-review-musk-spacex-plan-orbital-ai-data-centers",
+      "source": "decrypt",
+      "description": "The filing follows approval of Starlink\u2019s Gen2 expansion and Elon Musk\u2019s push to move AI infrastructure into orbit.",
+      "published": "2026-02-05T03:22:26+00:00"
+    },
+    {
+      "title": "Bitcoin Extends Selloff as Macro Pressures and Leverage Unwind",
+      "url": "https://decrypt.co/357025/bitcoin-extends-selloff-macro-pressures-leverage-unwind",
+      "source": "decrypt",
+      "description": "The latest decline reflects a broader unwind in leverage, with investors reassessing Bitcoin\u2019s short-term role as an inflation hedge.",
+      "published": "2026-02-05T03:07:33+00:00"
+    },
+    {
+      "title": "CFTC pulls Biden-era proposal to ban sports, political prediction markets",
+      "url": "https://cointelegraph.com/news/cftc-withdraws-proposal-ban-sports-political-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "ARK Invest increased exposure to Robinhood, Circle, BitMine, Bullish and other crypto-linked firms within several innovation and fintech-focused ETFs this week.",
-      "published": "2026-02-03T06:20:19+00:00"
+      "description": "CFTC Chair Mike Selig described the proposal as a \u201cfrolic into merit regulation\u201d by the Biden administration.",
+      "published": "2026-02-05T02:05:17+00:00"
     },
     {
-      "title": "Bitcoin may fall to $56K as reasons for gains \u2018remain hard to find\u2019: Galaxy",
-      "url": "https://cointelegraph.com/news/bitcoin-risks-56k-reasons-for-gains-elusive-galaxy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Startale, SBI launch blockchain for institutional FX, RWA trading",
+      "url": "https://cointelegraph.com/news/startale-sbi-launch-strium-blockchain-institutional-fx-rwa-trading?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Galaxy\u2019s Alex Thorn says Bitcoin\u2019s realized price is currently $56,000, a level it is likely to fall to without clear drivers to spark a rally.",
-      "published": "2026-02-03T06:14:24+00:00"
+      "description": "Strium will begin with synthetic US and Japanese stocks and commodities before expanding to real tokenized shares and asset-backed products with identity verification.",
+      "published": "2026-02-05T02:00:00+00:00"
     },
     {
-      "title": "Arizona Attorney General Issues Warning as Crypto ATM Scams Hit Older Adults",
-      "url": "https://decrypt.co/356743/crypto-atm-fraud-arizona",
-      "source": "decrypt",
-      "description": "Arizona has launched a fraud reporting tool as crypto ATM scams surge and losses mount, especially among older consumers.",
-      "published": "2026-02-03T05:28:38+00:00"
-    },
-    {
-      "title": "Bitcoin\u2019s Sell-Off May Carry a Silver Lining",
-      "url": "https://decrypt.co/356741/bitcoins-sell-off-may-carry-silver-lining",
-      "source": "decrypt",
-      "description": "Bitcoin\u2019s latest sell-off has revived debate over whether the move reflects short-term liquidity stress or something deeper.",
-      "published": "2026-02-03T05:03:10+00:00"
-    },
-    {
-      "title": "HYPE pops 20% after Hyperliquid team nods prediction markets plan",
-      "url": "https://cointelegraph.com/news/hyperliquid-supports-predictions-market-proposal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Kyle Samani leaves Multicoin in \u2018bittersweet moment\u2019 to explore new tech",
+      "url": "https://cointelegraph.com/news/multicoin-exec-kyle-samani-steps-down-explore-new-tech?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Hyperliquid said the outcome trading feature would function like a form of derivatives trading without leverage, liquidations or margin calls.",
-      "published": "2026-02-03T04:52:10+00:00"
+      "description": "Solana became one of Samani\u2019s favorite crypto projects at Multicoin in 2018 after he initially favored Ethereum but grew dissatisfied with how its developers addressed scaling.",
+      "published": "2026-02-05T01:01:25+00:00"
     },
     {
-      "title": "Tether expands support for USDT, Tether Gold in Opera\u2019s MiniPay wallet",
-      "url": "https://cointelegraph.com/news/tether-opera-team-up-expand-financial-access-in-emerging-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Anthropic\u2019s AI Tools Rattle Software Stocks, Prompt Rethink of Sector Valuations",
+      "url": "https://decrypt.co/357007/anthropics-ai-tools-software-stocks-rethink-sector-valuations",
+      "source": "decrypt",
+      "description": "A selloff in professional-services stocks followed fresh concerns that AI agents could disrupt traditional software pricing.",
+      "published": "2026-02-04T22:57:46+00:00"
+    },
+    {
+      "title": "Brock Pierce's Relationship With Jeffrey Epstein Went Deeper Than Anyone Knew",
+      "url": "https://decrypt.co/356972/brock-pierce-relationship-jeffrey-epstein-deeper-anyone-knew",
+      "source": "decrypt",
+      "description": "Convicted child sex offender Jeffrey Epstein was involved in Tether co-founder Brock Pierce's love life, among other things.",
+      "published": "2026-02-04T22:15:58+00:00"
+    },
+    {
+      "title": "Spot Bitcoin ETF outflows total $2.9B as BTC price drops to new 2026 low",
+      "url": "https://cointelegraph.com/news/spot-bitcoin-etf-outflows-total-2-9b-as-btc-price-drops-to-new-2026-low?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Stablecoin issuer Tether said the initiative will help millions of users from emerging markets such as Africa, Latin America and Southeast Asia with global financial inclusion.",
-      "published": "2026-02-03T04:41:45+00:00"
+      "description": "Bitcoin\u2019s 12-day ETF outflows, derivatives data and the crypto market in tandem trading with tech stocks suggest traders will continue to cut exposure to risk assets.",
+      "published": "2026-02-04T22:08:38+00:00"
     },
     {
-      "title": "Tether releases open-source operating system for Bitcoin mining",
-      "url": "https://cointelegraph.com/news/tether-releases-open-source-operating-system-for-bitcoin-miners?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "CME CEO Duffy says exchange is exploring issuing its own token",
+      "url": "https://cointelegraph.com/news/cme-group-exploring-issuing-token?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Tether first announced plans for an open-source mining OS in June last year, aiming to let Bitcoin miners \u201center the game\u201d without relying on expensive third-party vendors.",
-      "published": "2026-02-03T03:48:14+00:00"
+      "description": "Speaking on the company's earnings call, CEO Terry Duffy said the exchange is exploring a CME-issued token and is also piloting tokenized cash infrastructure with Google.",
+      "published": "2026-02-04T21:42:25+00:00"
     },
     {
-      "title": "Tom Lee tips lack of leverage and gold \u2018vortex\u2019 for Ether\u2019s 21% slump",
-      "url": "https://cointelegraph.com/news/fundstrat-tom-lee-cites-lack-leverage-metals-vortex-ether-slump?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Anthropic Trolls OpenAI's ChatGPT in Super Bowl Ad Campaign",
+      "url": "https://decrypt.co/356946/anthropic-trolls-openai-chatgpt-super-bowl-campaign",
+      "source": "decrypt",
+      "description": "Claude AI developer Anthropic is using the Super Bowl to mock OpenAI\u2019s planned shift toward ads in ChatGPT\u2014in front of a global audience.",
+      "published": "2026-02-04T21:42:13+00:00"
+    },
+    {
+      "title": "Telegram's Durov slams Spain's online age verification proposal",
+      "url": "https://cointelegraph.com/news/telegram-pavel-durov-slams-spain-online-age-verification?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Ether has fallen despite strong fundamentals as leverage remained absent and precious metals diverted risk appetite, according to Fundstrat's research head.",
-      "published": "2026-02-03T03:38:52+00:00"
+      "description": "The proposed laws are meant to create a mass-surveillance state and are not about protecting children, Pavel Durov warned on Wednesday.",
+      "published": "2026-02-04T21:34:35+00:00"
     },
     {
-      "title": "Trump denies knowledge of Abu Dhabi royal\u2019s $500M stake in WLFI",
-      "url": "https://cointelegraph.com/news/trump-denies-involvement-500m-uae-wlfi-stake?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "CME Explores Launching Its Own Coin as 24/7 Trading for Crypto Funds Nears",
+      "url": "https://decrypt.co/356948/cme-explores-launching-coin-247-crypto-fund-trading",
+      "source": "decrypt",
+      "description": "CME Group is looking at launching its own coin on a decentralized network, while moving crypto products to 24/7 trading as volumes jump 92%.",
+      "published": "2026-02-04T21:21:03+00:00"
+    },
+    {
+      "title": "New \u2018Axie Infinity\u2019 Ethereum Gaming Token Will Be Airdropped to AXS Stakers",
+      "url": "https://decrypt.co/356964/new-axie-infinity-ethereum-gaming-token-airdropped",
+      "source": "decrypt",
+      "description": "Ethereum crypto game Axie Infinity is introducing a new token that will be airdropped to stakers and those who play its upcoming land game.",
+      "published": "2026-02-04T20:47:12+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "The reported World Liberty Financial deal, said to have been made four days before the president\u2019s inauguration, would make the UAE company the largest shareholder in WLFI.",
-      "published": "2026-02-03T03:01:50+00:00"
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-04T20:41:56+00:00"
     },
     {
-      "title": "Fenwick agrees to settle lawsuit alleging role in FTX collapse",
-      "url": "https://cointelegraph.com/news/fenwick-settles-lawsuit-over-work-crypto-exchange-ftx?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Alleged Bitcoin Ransom Deepens Mystery in Nancy Guthrie Disappearance",
+      "url": "https://bitcoinmagazine.com/news/alleged-bitcoin-ransom-nancy-guthrie",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Alleged Bitcoin Ransom Deepens Mystery in Nancy Guthrie Disappearance The search for 84-year-old Nancy Guthrie has escalated after TMZ reported receiving an alleged ransom note demanding millions in Bitcoin, complete with a deadline, threats of harm, and a verified wallet address. This post Alleged Bitcoin Ransom Deepens Mystery in Nancy Guthrie Disappearance first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-04T20:37:58+00:00"
+    },
+    {
+      "title": "Bitcoin open interest falls by $55B in 30 days: What\u2019s next for BTC price?",
+      "url": "https://cointelegraph.com/news/bitcoin-open-interest-falls-by-dollar55b-in-30-days-what-s-next-for-btc-price?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "FTX users filed the lawsuit in 2023, accusing the law firm of playing \u201ca key and crucial role\" in \"how the FTX fraud was accomplished.\u201d",
-      "published": "2026-02-03T02:46:22+00:00"
+      "description": "Futures traders drastically reduced their activity as Bitcoin\u2019s weakness extends and new year-to-date lows become a daily occurrence. Cointelegraph reviews traders\u2019 BTC price expectations.",
+      "published": "2026-02-04T19:45:00+00:00"
     },
     {
-      "title": "Musk Folds xAI Into SpaceX, Cites Limits on Earth-Based AI Infrastructure",
-      "url": "https://decrypt.co/356736/musk-xai-spacex-limits-earth-based-ai-infrastructure",
+      "title": "Early Bitcoin Dev Calls on Adam Back to Resign After Epstein Files Revelations",
+      "url": "https://decrypt.co/356929/bitcoin-dev-calls-adam-back-resign-epstein-files",
       "source": "decrypt",
-      "description": "Elon Musk says power and cooling constraints on Earth are pushing AI compute into orbit, with Starship central to the plan.",
-      "published": "2026-02-03T02:10:25+00:00"
+      "description": "Bitcoin developer Luke Dashjr urged Blockstream CEO Adam Back to step down following a new release of files related to Jeffrey Epstein.",
+      "published": "2026-02-04T19:22:00+00:00"
     },
     {
-      "title": "OpenClaw Opens the Gates for AI Agents\u2014Here\u2019s What\u2019s Real and What\u2019s Not",
-      "url": "https://decrypt.co/356730/openclaw-ai-agents-whats-real",
+      "title": "Can the Government 'Bail Out' Bitcoin? Congressman Prompts Bizarre Exchange With Treasury Secretary",
+      "url": "https://decrypt.co/356936/can-government-bitcoin-congressman-bizarre-exchange-treasury-secretary",
       "source": "decrypt",
-      "description": "OpenClaw hit 147,000 GitHub stars in a matter of weeks and spawned an entire ecosystem of AI agents. But just how much is revolutionary tech?",
-      "published": "2026-02-03T01:34:09+00:00"
+      "description": "Treasury Secretary Scott Bessent got into a yelling match with another congressman over the Trump family\u2019s crypto company, during testimony on Capitol Hill.",
+      "published": "2026-02-04T18:34:31+00:00"
     },
     {
-      "title": "Will GameStop Dump Its Bitcoin? CEO Says \u2018Way More Compelling\u2019 Move Ahead",
-      "url": "https://decrypt.co/356724/gamestop-dump-bitcoin-ceo-compelling-move-ahead",
+      "title": "Strategy ($MSTR) Shares Sink Over 20% in 5 Days as Bitcoin Crashes to $72,000",
+      "url": "https://bitcoinmagazine.com/markets/mstr-shares-sink-as-bitcoin-hits-72000",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Strategy ($MSTR) Shares Sink Over 20% in 5 Days as Bitcoin Crashes to $72,000 Shares of Strategy ($MSTR) fell further today as Bitcoin\u2019s sell\u2011off deepened. This post Strategy ($MSTR) Shares Sink Over 20% in 5 Days as Bitcoin Crashes to $72,000 first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-04T18:15:28+00:00"
+    },
+    {
+      "title": "Vitalik Buterin Moves $29 Million Worth of Ethereum\u2014Here's Why",
+      "url": "https://decrypt.co/356914/vitalik-buterin-moves-29-million-worth-of-ethereum-heres-why",
       "source": "decrypt",
-      "description": "GameStop moved its entire Bitcoin stash to an institutional exchange as CEO Ryan Cohen signals M&#038;A now outranks crypto.",
-      "published": "2026-02-02T23:10:04+00:00"
+      "description": "Vitalik Buterin moves $29M in ETH to fund Ethereum Foundation as crypto markets tumble and he calls for major network changes.",
+      "published": "2026-02-04T18:12:37+00:00"
     },
     {
-      "title": "Hyperliquid Eyes Prediction Markets With \u2018Outcome Trading\u2019 Proposal",
-      "url": "https://decrypt.co/356647/hyperliquid-prediction-markets-trading-proposal",
-      "source": "decrypt",
-      "description": "The decentralized exchange is the latest crypto project venturing into the prediction market space through the HIP-4 upgrade.",
-      "published": "2026-02-02T22:33:24+00:00"
-    },
-    {
-      "title": "Bitcoin Falls Into 'Extreme Fear': How Low Will It Go?",
-      "url": "https://decrypt.co/356677/bitcoin-price-extreme-fear-how-low-will-it-go",
-      "source": "decrypt",
-      "description": "Bitcoin has dropped by 13% in the last 30 days and the charts are screaming caution. Where does the price of BTC go from here?",
-      "published": "2026-02-02T21:45:44+00:00"
-    },
-    {
-      "title": "The Link Between Trump's Fed Pick and Tether's 'Made in America' Stablecoin",
-      "url": "https://decrypt.co/356673/link-between-trump-fed-pick-tether-made-america-stablecoin",
-      "source": "decrypt",
-      "description": "Kevin Warsh helped shape Anchorage Digital, a key player in Tether\u2019s efforts to gain a regulated foothold in U.S. markets through USAT.",
-      "published": "2026-02-02T21:39:43+00:00"
-    },
-    {
-      "title": "Opera Shares Jump After MiniPay Wallet Adds Support for Tether's USDT",
-      "url": "https://decrypt.co/356669/opera-shares-jump-after-minipay-wallet-adds-tether-usdt",
-      "source": "decrypt",
-      "description": "Browser firm Opera's stock climbed Monday after the company said its MiniPay wallet now supports USDT and Tether Gold.",
-      "published": "2026-02-02T21:02:52+00:00"
-    },
-    {
-      "title": "U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer",
-      "url": "https://bitcoinmagazine.com/news/u-s-takes-control-of-400m-in-bitcoin",
+      "title": "Bhutan Continues Consistent BTC Selling as Bitcoin Price Tanks to $72,000",
+      "url": "https://bitcoinmagazine.com/markets/bhutan-continues-bitcoin-sales",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer The U.S. government has finalized the forfeiture of over $400 million in cryptocurrency, cash, and property linked to Helix, a major darknet bitcoin mixer, following the conviction of its operator, Larry Dean Harmon. This post U.S. Government Takes Control of $400M in Bitcoin, Assets Tied to Helix Mixer first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-02T20:59:18+00:00"
+      "description": "Bitcoin Magazine Bhutan Continues Consistent BTC Selling as Bitcoin Price Tanks to $72,000 It looks like Bhutan sold $22.4 million in Bitcoin this week, continuing its pattern of periodic, strategic BTC sales. This post Bhutan Continues Consistent BTC Selling as Bitcoin Price Tanks to $72,000 first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-04T18:10:08+00:00"
     },
     {
-      "title": "Bed Bath &#038; Beyond Makes Real World Asset Tokenization Move, Acquiring Tokens.com",
-      "url": "https://decrypt.co/356652/bed-bath-beyond-real-world-asset-tokenization-acquiring-tokens-com",
-      "source": "decrypt",
-      "description": "Shares in publicly traded consumer brand Bed Bath and Beyond (BBBY) are up as the firm expands its blockchain push.",
-      "published": "2026-02-02T20:06:11+00:00"
-    },
-    {
-      "title": "U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom",
-      "url": "https://bitcoinmagazine.com/markets/manufacturing-data-positive-as-bitcoin",
+      "title": "Rutherford Chang Retrospective:\u00a0Hundreds and Thousands\u00a0at UCCA Beijing",
+      "url": "https://bitcoinmagazine.com/culture/rutherford-chang-retrospective-hundreds-and-thousands-at-ucca-beijing",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom U.S. manufacturing surprised to the upside last month, signaling economic growth as bitcoin struggles to stabilize after a sharp sell-off. This post U.S. Manufacturing Data Turns Positive as Bitcoin Searches for a Bottom first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-02T18:53:12+00:00"
+      "description": "Bitcoin Magazine Rutherford Chang Retrospective: Hundreds and Thousands at UCCA Beijing How Rutherford Chang Made Time, Touch, and Circulation Visible Inside Mass-Produced Objects. This post Rutherford Chang Retrospective: Hundreds and Thousands at UCCA Beijing first appeared on Bitcoin Magazine and is written by Steven Reiss.",
+      "published": "2026-02-04T17:11:01+00:00"
     },
     {
-      "title": "Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-breaks-84k-support-drops-13-weekly-to-confirm-bear-market-below-100-week-sma",
+      "title": "U.S. Treasury: U.S. Government Cannot Deploy Taxpayer Funds to \u2018Bail Out\u2019 Bitcoin",
+      "url": "https://bitcoinmagazine.com/news/government-cannot-to-bail-out-bitcoin",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone Bitcoin fell 13% last week after bears decisively broke $84,000 support, pushing prices to $75,600 before a minor recovery to $76,919 close. The loss of the 100-week SMA signals bear market confirmation, with resistance now at former support levels. This post Bitcoin Bear Control Solidifies: $84K Support Broken, Price Eyes $68K\u2013$60K Zone first appeared on Bitcoin Magazine and is written by Ethan Gree",
-      "published": "2026-02-02T18:14:03+00:00"
+      "description": "Bitcoin Magazine U.S. Treasury: U.S. Government Cannot Deploy Taxpayer Funds to \u2018Bail Out\u2019 Bitcoin As Treasury Secretary Scott Bessent testified before the House Financial Services Committee Wednesday morning, Rep. Brad Sherman pressed Bessent over whether the U.S. government could ever step in to \u201cbail out\u201d bitcoin.&#160; Bessent was presenting over the Financial Stability Oversight Council\u2019s annual report on emerging economic risks and much of the comments and questions from [&#8230;] This pos",
+      "published": "2026-02-04T16:59:57+00:00"
     },
     {
-      "title": "Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela",
-      "url": "https://bitcoinmagazine.com/news/crypto-fugitive-arrested-in-venezuela",
+      "title": "UBS to Build Digital-Asset Infrastructure, Eyes Bitcoin Services for Individuals",
+      "url": "https://bitcoinmagazine.com/news/ubs-digital-assets-eyes-bitcoin",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela Rosa Mar\u00eda Gonz\u00e1lez, a key figure in the collapse of Argentine crypto firm Generaci\u00f3n Zoe, was arrested in Venezuela. This post Argentine Crypto Fugitive With $56 Million in Bitcoin Arrested in Venezuela first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-02T17:37:11+00:00"
+      "description": "Bitcoin Magazine UBS to Build Digital-Asset Infrastructure, Eyes Bitcoin Services for Individuals UBS CEO Sergio Ermotti said the bank is building digital-asset infrastructure and exploring bitcoin access for individual clients, joining a growing wave of European lenders moving toward regulated crypto services. This post UBS to Build Digital-Asset Infrastructure, Eyes Bitcoin Services for Individuals first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-04T14:38:55+00:00"
     },
     {
-      "title": "The Core Issue: Letter From The Editor",
-      "url": "https://bitcoinmagazine.com/print/the-core-issue-letter-from-the-editor",
+      "title": "Strategy ($MSTR) Plummets 8% As Bitcoin Hits One\u2011Year Lows",
+      "url": "https://bitcoinmagazine.com/markets/strategy-stock-plummets-8-percent",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine The Core Issue: Letter From The Editor The Core Issue explores the Bitcoin Core project, letting developers themselves discuss the projects they work on, how they approach their work, and more. This post The Core Issue: Letter From The Editor first appeared on Bitcoin Magazine and is written by Shinobi.",
-      "published": "2026-02-02T16:54:26+00:00"
+      "description": "Bitcoin Magazine Strategy ($MSTR) Plummets 8% As Bitcoin Hits One\u2011Year Lows Shares of Strategy ($MSTR) plunged today, dipping more than 7% as Bitcoin traded at new one-year lows. This post Strategy ($MSTR) Plummets 8% As Bitcoin Hits One\u2011Year Lows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-03T18:39:33+00:00"
     },
     {
-      "title": "Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-is-coming-off-a-brutal-week",
+      "title": "Bitcoin Price Plunges 40% From All-Time Highs to One-Year Lows",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-plunges-to-74000-range",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening Bitcoin plunged below $75,000 this weekend amid liquidations and retail panic. This post Bitcoin Is Coming Off a Brutal Week. Here\u2019s What\u2019s Happening first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-02T14:55:28+00:00"
+      "description": "Bitcoin Magazine Bitcoin Price Plunges 40% From All-Time Highs to One-Year Lows The bitcoin price is trading very near its one-year low. This post Bitcoin Price Plunges 40% From All-Time Highs to One-Year Lows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-03T18:05:47+00:00"
     },
     {
-      "title": "Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven",
-      "url": "https://bitcoinmagazine.com/markets/strategy-mstr-bought-855-bitcoin",
+      "title": "Bitcoin-Treasury The Smarter Web Company Listed on London Stock Exchange",
+      "url": "https://bitcoinmagazine.com/news/smarter-web-company-listed-on-london",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven Strategy (MSTR) bought 855 bitcoin for about $75.3 million at an average price near $88,000 just days before BTC\u2019s weekend drop below $75,000. This post Strategy ($MSTR) Bought 855 Bitcoin Ahead of Weekend Market Crash, Holdings Hover Near Breakeven first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-02T13:43:09+00:00"
+      "description": "Bitcoin Magazine Bitcoin-Treasury The Smarter Web Company Listed on London Stock Exchange Bitcoin treasury The Smarter Web Company began trading on the Main Market of the London Stock Exchange. This post Bitcoin-Treasury The Smarter Web Company Listed on London Stock Exchange first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-03T17:07:32+00:00"
     },
     {
-      "title": "El Salvador\u2019s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge",
-      "url": "https://bitcoinmagazine.com/culture/el-salvadors-bitcoin-beach-hosts-global-summit-strategies-for-sustainable-bitcoin-circular-economies-emerge",
+      "title": "Tether Launches Open-Source Bitcoin Mining Operating System",
+      "url": "https://bitcoinmagazine.com/news/tether-launches-open-bitcoin-mining-system",
       "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine El Salvador&#8217;s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge The invite-only Bitcoin Circular Economy Summit in El Zonte drew representatives from 29 countries, spotlighting concentrated adoption, high-trust teams, and Bitcoin-only focus for lasting impact in failing-currency regions. This post El Salvador&#8217;s Bitcoin Beach Hosts Global Summit: Strategies for Sustainable Bitcoin Circular Economies Emerge first appeared o",
-      "published": "2026-01-31T23:45:43+00:00"
-    },
-    {
-      "title": "Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-75000",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off The bitcoin price crashed into the $75,000 range, breaking below key technical support levels as heavy selling pressure swept through the market. This post Bitcoin Price Crashes to $75,000 Range As Broader Crypto Market Sells-Off first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-31T19:31:22+00:00"
-    },
-    {
-      "title": "Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas",
-      "url": "https://bitcoinmagazine.com/news/plan-b-network-cyphertank-bitcoin",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas Plan B Network has launched CypherTank, a global Bitcoin-focused pitch series that spotlights builders, ideas, and community discussion across multiple platforms. This post Plan B Network Launches CypherTank, a Bitcoin Pitch Series Showcasing Builders and Ideas first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-01-30T21:56:39+00:00"
+      "description": "Bitcoin Magazine Tether Launches Open-Source Bitcoin Mining Operating System Tether has unveiled MiningOS (MOS) as part of a broader push to reduce the industry\u2019s reliance on proprietary, vendor-controlled software. This post Tether Launches Open-Source Bitcoin Mining Operating System first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-03T15:53:16+00:00"
     }
   ]
 }

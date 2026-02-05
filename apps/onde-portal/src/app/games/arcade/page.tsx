@@ -106,7 +106,6 @@ const allGames: Game[] = [
   { id: 'catch', href: '/games/catch', title: 'Catch!', desc: 'Catch falling objects', emoji: '🧺', color: 'from-red-500 to-red-800', glowColor: 'red', category: 'Action' },
   { id: 'reaction', href: '/games/reaction', title: 'Reaction', desc: 'Test your reflexes', emoji: '⚡', color: 'from-yellow-400 to-orange-600', glowColor: 'yellow', category: 'Action' },
   { id: 'whack', href: '/games/whack', title: 'Whack-a-Mole', desc: 'Whack the moles!', emoji: '🔨', color: 'from-amber-500 to-amber-800', glowColor: 'amber', category: 'Action' },
-  { id: 'snake', href: '/games/snake', title: 'Snake', desc: 'Classic snake game', emoji: '🐍', color: 'from-green-500 to-green-800', glowColor: 'green', category: 'Action', isNew: true },
   { id: 'bubbles', href: '/games/bubbles', title: 'Bubbles', desc: 'Pop the bubbles!', emoji: '🫧', color: 'from-blue-400 to-cyan-600', glowColor: 'cyan', category: 'Action' },
   
   // 🧩 PUZZLE GAMES
