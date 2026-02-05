@@ -412,3 +412,15 @@
 {"timestamp": "2026-02-05T04:00:02.393074+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 128.93}
 {"timestamp": "2026-02-05T04:00:02.393074+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 171.56}
 {"timestamp": "2026-02-05T04:00:02.393074+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 123.17}
+{"timestamp": "2026-02-05T05:00:02.891980+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 234.78}
+{"timestamp": "2026-02-05T05:00:02.891980+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 396.13}
+{"timestamp": "2026-02-05T05:00:02.891980+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 113.06}
+{"timestamp": "2026-02-05T06:00:03.800764+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 152.69}
+{"timestamp": "2026-02-05T06:00:03.800764+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 212.95}
+{"timestamp": "2026-02-05T06:00:03.800764+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 157.29}
+{"timestamp": "2026-02-05T07:00:02.750454+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 118.39}
+{"timestamp": "2026-02-05T07:00:02.750454+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 128.28}
+{"timestamp": "2026-02-05T07:00:02.750454+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 126.44}
+{"timestamp": "2026-02-05T08:00:02.513087+00:00", "source": "binance", "btc": false, "eth": false, "error": "HTTP 451", "latency_ms": 210.82}
+{"timestamp": "2026-02-05T08:00:02.513087+00:00", "source": "coingecko", "btc": true, "eth": true, "error": null, "latency_ms": 194.82}
+{"timestamp": "2026-02-05T08:00:02.513087+00:00", "source": "coinbase", "btc": true, "eth": true, "error": null, "latency_ms": 115.32}
