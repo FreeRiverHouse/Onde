@@ -207,5 +207,5 @@
 | 90 | SITEMAP-002 | Add individual /libro/* reader pages to sitemap | ⭐ SEO | ✅ DONE | @clawdinho | 8 book reader pages added |
 | 91 | DASH-001 | Mission Control Dashboard: Activity Feed | 🔥 Agent monitoring | IN_PROGRESS | @clawdinho | Track every agent action/task/decision in a timeline feed. Inspired by @AlexFinn tweet. Integrate in onde.surf |
 | 92 | DASH-002 | Mission Control Dashboard: Calendar View | 🔥 Agent monitoring | ✅ DONE | @clawdinho | Timeline + List views, category filters, 27 scheduled tasks mapped | Show all scheduled tasks (cron jobs, reminders) in weekly calendar view. Integrate in onde.surf |
-| 93 | DASH-003 | Mission Control Dashboard: Global Search | 🔥 Agent monitoring | TODO | - | Search through memories, tasks, documents, past conversations. Integrate in onde.surf |
+| 93 | DASH-003 | Mission Control Dashboard: Global Search | 🔥 Agent monitoring | IN_PROGRESS | @clawdinho | Search through memories, tasks, documents, past conversations. Integrate in onde.surf |
 | 94 | GAM-FIX-001 | Test & fix ALL games on onde.la - click every interaction | 🔥 Quality | ✅ DONE | @clawdinho | All 44 games tested: HTTP 200 + 21 browser-verified interactive. Bugs fixed: puzzle images, jigsaw navbar, 2048 grid |
