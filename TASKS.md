@@ -196,7 +196,7 @@
 |---|----|----- |--------|--------|-------|
 | 80 | SEO-007 | Sitemap fix: remove 404 snake/tetris + add 8 popular games | ⭐ SEO | ✅ DONE | @clawdinho | Fixed broken links |
 | 81 | SEO-008 | Add metadata layouts to 8 games (breakout, invaders, etc) | ⭐ SEO | ✅ DONE | @clawdinho | layout.tsx with OG tags |
-| 82 | SEO-009 | Add JSON-LD GameApplication schema to all games | ⭐ SEO | ✅ DONE | @clawdinho | 23 new layouts + 8 existing = all games covered |
+| 82 | SEO-009 | Add JSON-LD GameApplication schema to all games | ⭐ SEO | ✅ DONE | @clawdinho | 44 games with VideoGame schema + parent hasPart expanded from 3→44 |
 | 83 | PERF-006 | Add Vercel Speed Insights or web-vitals tracking | ⚡ Performance | TODO | - | Measure real user perf |
 | 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | ✅ DONE | @clawdinho | localStorage tracking, bottle theme |
 | 85 | SEO-010 | Add all 40 games to sitemap.xml | ⭐ SEO | ✅ DONE | @clawdinho | Expanded from 13 to 40 games |
