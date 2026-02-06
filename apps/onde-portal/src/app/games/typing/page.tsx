@@ -111,7 +111,7 @@ const playSound = (type: 'type' | 'correct' | 'miss' | 'levelup' | 'gameover') =
         break
       case 'correct':
         osc.frequency.value = 523.25 // C5
-        gain.gain.value = 0.2
+        gain.gain.value = 0.06
         osc.start()
         setTimeout(() => { osc.frequency.value = 659.25 }, 80) // E5
         setTimeout(() => { osc.frequency.value = 783.99 }, 160) // G5
@@ -121,7 +121,7 @@ const playSound = (type: 'type' | 'correct' | 'miss' | 'levelup' | 'gameover') =
       case 'miss':
         osc.frequency.value = 150
         osc.type = 'sawtooth'
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.3)
         osc.stop(audio.currentTime + 0.3)
@@ -135,7 +135,7 @@ const playSound = (type: 'type' | 'correct' | 'miss' | 'levelup' | 'gameover') =
             osc2.connect(gain2)
             gain2.connect(audio.destination)
             osc2.frequency.value = freq
-            gain2.gain.value = 0.15
+            gain2.gain.value = 0.05
             osc2.start()
             gain2.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2)
             osc2.stop(audio.currentTime + 0.2)
@@ -146,7 +146,7 @@ const playSound = (type: 'type' | 'correct' | 'miss' | 'levelup' | 'gameover') =
       case 'gameover':
         osc.frequency.value = 300
         osc.type = 'sawtooth'
-        gain.gain.value = 0.2
+        gain.gain.value = 0.06
         osc.start()
         osc.frequency.linearRampToValueAtTime(100, audio.currentTime + 0.5)
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.5)

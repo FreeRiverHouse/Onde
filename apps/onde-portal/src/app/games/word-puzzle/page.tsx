@@ -275,7 +275,7 @@ export default function WordPuzzle() {
       gain.connect(audio.destination)
       osc.type = 'sine'
       osc.frequency.value = 523.25 // C5
-      gain.gain.value = 0.3
+      gain.gain.value = 0.08
       osc.start()
       setTimeout(() => {
         osc.frequency.value = 659.25 // E5

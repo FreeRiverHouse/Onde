@@ -84,7 +84,7 @@ const playSound = (type: 'move' | 'merge' | 'win' | 'lose' | 'undo') => {
       case 'win':
         osc.type = 'sine'
         osc.frequency.value = 523.25
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         setTimeout(() => {
           osc.frequency.value = 659.25
@@ -101,7 +101,7 @@ const playSound = (type: 'move' | 'merge' | 'win' | 'lose' | 'undo') => {
       case 'lose':
         osc.type = 'sawtooth'
         osc.frequency.value = 200
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         osc.frequency.exponentialRampToValueAtTime(50, audio.currentTime + 0.4)
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.4)

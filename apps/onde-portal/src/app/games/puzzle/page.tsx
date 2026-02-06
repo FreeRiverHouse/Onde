@@ -77,7 +77,7 @@ const playSound = (type: 'slide' | 'shuffle' | 'win' | 'click') => {
             osc2.connect(gain2)
             gain2.connect(audio.destination)
             osc2.frequency.value = freq
-            gain2.gain.value = 0.2
+            gain2.gain.value = 0.06
             osc2.start()
             gain2.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.3)
             osc2.stop(audio.currentTime + 0.3)

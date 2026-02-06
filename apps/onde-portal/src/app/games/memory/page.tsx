@@ -52,14 +52,14 @@ const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win' | 'hint') => {
     switch (type) {
       case 'flip':
         osc.frequency.value = 600
-        gain.gain.value = 0.15
+        gain.gain.value = 0.06
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.08)
         osc.stop(audio.currentTime + 0.08)
         break
       case 'match':
         osc.frequency.value = 523.25 // C5
-        gain.gain.value = 0.2
+        gain.gain.value = 0.08
         osc.start()
         setTimeout(() => {
           osc.frequency.value = 659.25 // E5
@@ -73,7 +73,7 @@ const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win' | 'hint') => {
       case 'nomatch':
         osc.frequency.value = 200
         osc.type = 'sawtooth'
-        gain.gain.value = 0.1
+        gain.gain.value = 0.04
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.15)
         osc.stop(audio.currentTime + 0.15)
@@ -81,7 +81,7 @@ const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win' | 'hint') => {
       case 'hint':
         osc.frequency.value = 880 // A5
         osc.type = 'sine'
-        gain.gain.value = 0.15
+        gain.gain.value = 0.06
         osc.start()
         setTimeout(() => { osc.frequency.value = 1047 }, 100) // C6
         setTimeout(() => { osc.frequency.value = 880 }, 200)
@@ -98,7 +98,7 @@ const playSound = (type: 'flip' | 'match' | 'nomatch' | 'win' | 'hint') => {
             osc2.connect(gain2)
             gain2.connect(audio.destination)
             osc2.frequency.value = freq
-            gain2.gain.value = 0.2
+            gain2.gain.value = 0.08
             osc2.start()
             gain2.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.3)
             osc2.stop(audio.currentTime + 0.3)

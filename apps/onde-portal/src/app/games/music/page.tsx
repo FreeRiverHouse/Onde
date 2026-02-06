@@ -252,7 +252,7 @@ export default function MusicMaker() {
     osc3.frequency.setValueAtTime(freq * 3, ctx.currentTime)
     
     const harmGain = ctx.createGain()
-    harmGain.gain.value = 0.15
+    harmGain.gain.value = 0.05
     
     osc1.connect(baseGain)
     osc2.connect(harmGain)

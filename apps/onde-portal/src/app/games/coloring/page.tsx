@@ -286,7 +286,7 @@ const playSound = (type: 'fill' | 'undo' | 'save' | 'select') => {
             o.connect(g)
             g.connect(audio.destination)
             o.frequency.value = freq
-            g.gain.value = 0.15
+            g.gain.value = 0.05
             o.start()
             g.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2)
             o.stop(audio.currentTime + 0.2)

@@ -142,7 +142,7 @@ const playSound = (type: 'type' | 'error' | 'correct' | 'finish' | 'countdown' |
       case 'error':
         osc.frequency.value = 150
         osc.type = 'sawtooth'
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.15)
         osc.stop(audio.currentTime + 0.15)
@@ -159,7 +159,7 @@ const playSound = (type: 'type' | 'error' | 'correct' | 'finish' | 'countdown' |
       case 'countdown':
         osc.frequency.value = 440
         osc.type = 'square'
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2)
         osc.stop(audio.currentTime + 0.2)
@@ -167,7 +167,7 @@ const playSound = (type: 'type' | 'error' | 'correct' | 'finish' | 'countdown' |
       case 'go':
         osc.frequency.value = 880
         osc.type = 'square'
-        gain.gain.value = 0.2
+        gain.gain.value = 0.06
         osc.start()
         osc.frequency.exponentialRampToValueAtTime(1760, audio.currentTime + 0.3)
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.4)
@@ -183,7 +183,7 @@ const playSound = (type: 'type' | 'error' | 'correct' | 'finish' | 'countdown' |
             g.connect(audio.destination)
             o.type = 'square'
             o.frequency.value = freq
-            g.gain.value = 0.15
+            g.gain.value = 0.05
             o.start()
             g.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2)
             o.stop(audio.currentTime + 0.2)

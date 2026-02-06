@@ -86,7 +86,7 @@ const playSound = (type: 'place' | 'note' | 'error' | 'win' | 'hint' | 'clear') 
       case 'error':
         osc.type = 'sawtooth'
         osc.frequency.value = 150
-        gain.gain.value = 0.15
+        gain.gain.value = 0.05
         osc.start()
         osc.frequency.exponentialRampToValueAtTime(100, audio.currentTime + 0.2)
         gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2)
