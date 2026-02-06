@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-02-06T07:30:01.372737Z",
+  "generated_at": "2026-02-06T14:30:01.594945Z",
   "overall": {
     "total_calls": 100,
     "total_errors": 5,
     "error_rate_pct": 5.0
   },
   "last_24h": {
-    "total_calls": 40,
-    "errors": 3,
-    "error_rate_pct": 7.5
+    "total_calls": 23,
+    "errors": 2,
+    "error_rate_pct": 8.7
   },
   "daily_breakdown": [
     {

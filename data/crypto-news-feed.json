@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T05:00:02.881837+00:00",
+  "timestamp": "2026-02-06T15:00:03.902109+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,25 +11,116 @@
   "article_count": 30,
   "results": [
     {
+      "title": "Crypto PACs secure massive war chests ahead of US midterms",
+      "url": "https://cointelegraph.com/news/crypto-pacs-massive-war-chests-us-midterms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Crypto super PACs are getting millions of dollars in contributions to spend supporting candidates who will advance their policies in Washington.",
+      "published": "2026-02-06T14:27:50+00:00"
+    },
+    {
+      "title": "Bitcoin Core dev Gloria Zhao quits maintainer role after six-year stint",
+      "url": "https://cointelegraph.com/news/bitcoin-core-dev-gloria-zhao-quits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin Core maintainer Gloria Zhao has stepped down and revoked her PGP signing key after six years as one of the project\u2019s most influential mempool and policy engineers.",
+      "published": "2026-02-06T13:59:47+00:00"
+    },
+    {
+      "title": "Official Trump Meme Coin, WLFI Lead Losses Following World Liberty Financial Probe",
+      "url": "https://decrypt.co/357179/official-trump-meme-coin-wlfi-lead-losses-following-world-liberty-financial-probe",
+      "source": "decrypt",
+      "description": "Trump-linked tokens have fallen on news of an investigation into World Liberty Financial\u2019s dealings with a member of the UAE royal family.",
+      "published": "2026-02-06T13:44:49+00:00"
+    },
+    {
+      "title": "Why privacy coins often appear in post-hack fund flows",
+      "url": "https://cointelegraph.com/news/why-privacy-coins-often-appear-in-post-hack-fund-flows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Privacy coins often appear after hacks, but they are only one link in a longer laundering chain that includes swaps, bridges and off-ramps.",
+      "published": "2026-02-06T13:42:32+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-06T13:35:44+00:00"
+    },
+    {
+      "title": "Morning Minute: Bitcoin Erases Trump Pump, Falls to $60k",
+      "url": "https://decrypt.co/357171/morning-minute-bitcoin-erases-trump-pump-falls-to-60k",
+      "source": "decrypt",
+      "description": "Thursday marked one of the worst days in crypto history, with majors plunging 15-20% before modest relief.",
+      "published": "2026-02-06T13:25:12+00:00"
+    },
+    {
+      "title": "Trend Research dumps over 400K ETH as liquidation risk rises",
+      "url": "https://cointelegraph.com/news/trend-research-reduces-eth-holdings-325k-187k-eth-binance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Trend Research has been reducing its Ether exposure, as ETH price closed in on some of the investment company's critical liquidation levels below $1,700.",
+      "published": "2026-02-06T13:17:01+00:00"
+    },
+    {
+      "title": "Bitcoin price rebounds 11% to $65K: Who is buying the dip?",
+      "url": "https://cointelegraph.com/news/bitcoin-price-rebounds-65k-who-is-buying-the-dip?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Over $2.6 billion was wiped out across the crypto market as institutions saw sub-$60,000 BTC as a buy-the-dip opportunity.",
+      "published": "2026-02-06T13:06:04+00:00"
+    },
+    {
+      "title": "NFT market cap slides back to 2021 pre-hype levels, near $1.5B",
+      "url": "https://cointelegraph.com/news/nft-market-cap-returns-pre-hype-levels-2021?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "NFT minting expanded in 2025 even as sales fell sharply, leaving more tokens chasing fewer buyers.",
+      "published": "2026-02-06T12:58:47+00:00"
+    },
+    {
+      "title": "Cathie Wood\u2019s ARK dumps $17M in Coinbase stock as shares fall 37% YTD",
+      "url": "https://cointelegraph.com/news/cathie-wood-ark-coinbase-dump-17-million-bullish-buy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "ARK Invest sold $17.4 million in Coinbase while buying $17.8 million of Bullish shares, signaling a major shift in strategy as crypto markets stumble.",
+      "published": "2026-02-06T11:40:51+00:00"
+    },
+    {
+      "title": "Polymarket Files for Crypto Token Trademarks as Legal Battles Mount",
+      "url": "https://decrypt.co/357166/polymarket-files-for-crypto-token-trademarks-as-legal-battles-mount",
+      "source": "decrypt",
+      "description": "The prediction market has filed trademark applications for POLY and $POLY tied to a digital token and crypto trading services.",
+      "published": "2026-02-06T10:58:22+00:00"
+    },
+    {
+      "title": "Pump.fun moves deeper into trading infrastructure with Vyper acquisition",
+      "url": "https://cointelegraph.com/news/pump-fun-vyper-acquisition-trading-infrastructure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The deal adds analytics and execution tools to Pump.fun\u2019s ecosystem as Vyper winds down its standalone product and migrates users to Terminal.",
+      "published": "2026-02-06T10:21:39+00:00"
+    },
+    {
+      "title": "Bitcoin sees record $10K drop as model says  $93.5K may only return in 2028",
+      "url": "https://cointelegraph.com/news/bitcoin-record-10k-drop-model-93-5k-only-return-2028?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin fell by more than $10,000 in a single day for the first time, with BTC price bear market analysis warning that a rebound could take several years.",
+      "published": "2026-02-06T10:20:22+00:00"
+    },
+    {
+      "title": "Crypto Advocates Round on Democrats\u2019 \u2018Crypto Crash\u2019 Message",
+      "url": "https://decrypt.co/357163/crypto-advocates-round-on-democrats-crypto-crash-message",
+      "source": "decrypt",
+      "description": "Industry leaders condemned a Democratic Party social media post mocking crypto market losses amid billions of dollars in liquidations.",
+      "published": "2026-02-06T10:18:15+00:00"
+    },
+    {
+      "title": "Crypto Sentiment Sinks to Lowest Level in 3.5 Years",
+      "url": "https://decrypt.co/357159/crypto-sentiment-sinks-lowest-level-3-5-years",
+      "source": "decrypt",
+      "description": "Investor fear in crypto has sunk to levels last seen during the year of Terra's collapse as macro pressures intensify.",
+      "published": "2026-02-06T05:41:34+00:00"
+    },
+    {
       "title": "Senator Lummis Urges Banks to 'Embrace' Stablecoins Amid CLARITY Act Stalemate",
       "url": "https://decrypt.co/357157/senator-lummis-banks-embrace-stablecoins-clarity-act-stalemate",
       "source": "decrypt",
       "description": "The Wyoming Senator said stablecoins give banks an \"entirely new financial product\" as the crypto market structure bill faces a delay.",
       "published": "2026-02-06T04:52:09+00:00"
-    },
-    {
-      "title": "Bitcoin miners IREN, CleanSpark shares plunge as earnings fall short",
-      "url": "https://cointelegraph.com/news/bitcoin-miners-iren-cleanspark-financial-earnings-short?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Crypto mining stocks have declined across the board the value of the entire crypto market fell almost 9% on Thursday.",
-      "published": "2026-02-06T04:45:26+00:00"
-    },
-    {
-      "title": "Kalshi boosts surveillance ahead of Super Bowl with independent committee",
-      "url": "https://cointelegraph.com/news/kalshi-boosts-predictions-markets-surveillance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Kalshi has seen nearly $170 million in Super Bowl-related bets, and its move to boost oversight comes amid scrutiny of prediction markets by regulators and Congress.",
-      "published": "2026-02-06T03:47:58+00:00"
     },
     {
       "title": "Bitcoin Miners IREN and CleanSpark Slide After Earnings Misses Deepen Sector Pressure",
@@ -39,25 +130,11 @@
       "published": "2026-02-06T03:09:09+00:00"
     },
     {
-      "title": "Crypto sentiment at lowest point since 2022 crash as Bitcoin tanks to $60K",
-      "url": "https://cointelegraph.com/news/crypto-sentiment-at-lowest-point-since-luna-crash-as-btc-tanks-to-60k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin plummeted to a low of around $60,000 after the Crypto Fear & Greed Index hit its lowest score since mid-2022, when the Terra blockchain collapsed.",
-      "published": "2026-02-06T03:01:59+00:00"
-    },
-    {
       "title": "Does Bitcoin's Retreat Signal a New Bear Market for Crypto?",
       "url": "https://decrypt.co/357151/bitcoins-retreat-signal-new-bear-market-crypto",
       "source": "decrypt",
       "description": "A single-day 14% drop and a drawdown of more than 50% have pushed Bitcoin into territory typically associated with bear markets.",
       "published": "2026-02-06T02:28:24+00:00"
-    },
-    {
-      "title": "BlackRock\u2019s IBIT hits daily volume record of $10B amid Bitcoin crash",
-      "url": "https://cointelegraph.com/news/blackrock-ibit-daily-volume-record-10-billion-bitcoin-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Traders were active in BlackRock\u2019s iShares Bitcoin Trust ETF on Thursday as Bitcoin plummeted, falling 12% in the last 24 hours.",
-      "published": "2026-02-06T01:52:34+00:00"
     },
     {
       "title": "OpenAI and Anthropic Roll Out Rival AI Models as Competition for Enterprise Heats Up",
@@ -67,39 +144,11 @@
       "published": "2026-02-06T00:29:18+00:00"
     },
     {
-      "title": "Strategy records $12.4B loss in Q4, shares dip 17% as Bitcoin tumbles",
-      "url": "https://cointelegraph.com/news/strategy-reports-12b-loss-q4-2025?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Strategy executives Phong Le and Andrew Kang say the company is on a strong financial footing despite it now being down 17.5% on its Bitcoin holdings.",
-      "published": "2026-02-05T23:36:13+00:00"
-    },
-    {
       "title": "Waymo\u2019s \u2018Self-Driving\u2019 Claims Called into Question on Capitol Hill",
       "url": "https://decrypt.co/357128/waymos-self-driving-claims-reality-check-capitol-hill",
       "source": "decrypt",
       "description": "Senators pressed Waymo over its use of human operators in the Philippines, questioning whether autonomy still means what Waymo says it does.",
       "published": "2026-02-05T23:04:43+00:00"
-    },
-    {
-      "title": "Crypto Treasuries Fall Deeply Underwater as Bitcoin, Ethereum and Solana Dive",
-      "url": "https://decrypt.co/357130/crypto-treasury-underwater-bitcoin-ethereum-solana-dive",
-      "source": "decrypt",
-      "description": "Prominent publicly traded crypto treasury firms are underwater on their holdings as Bitcoin and Ethereum keep falling.",
-      "published": "2026-02-05T22:41:35+00:00"
-    },
-    {
-      "title": "Will Bitcoin rebound to $90K by March? Here\u2019s what BTC options say",
-      "url": "https://cointelegraph.com/news/will-bitcoin-rebound-to-dollar90k-by-march-here-s-what-btc-options-say?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin fell below 63,000 as investors reacted to dismal US economic data, a weakening stock market and fears of an AI industry bubble. Does data forecast a return to $90,000 by March?",
-      "published": "2026-02-05T22:17:26+00:00"
-    },
-    {
-      "title": "Bitcoin Giant Strategy Records $12.4 Billion Q4 Loss as MSTR Shares Hit 18-Month Low",
-      "url": "https://decrypt.co/357129/bitcoin-giant-strategy-12-4-billion-q4-loss-shares-18-month-low",
-      "source": "decrypt",
-      "description": "Michael Saylor called his firm a \u201cdigital fortress,\" but leading Bitcoin treasury Strategy has taken some serious hits in recent months.",
-      "published": "2026-02-05T22:00:10+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",
@@ -109,53 +158,11 @@
       "published": "2026-02-05T21:42:10+00:00"
     },
     {
-      "title": "EU tokenization companies push for DLT pilot changes amid US momentum",
-      "url": "https://cointelegraph.com/news/eu-tokenization-dlt-pilot-rules-risk-pushing-onchain-markets-us?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "European tokenization companies urged EU lawmakers to quickly amend the DLT Pilot Regime, warning that current limits risk pushing onchain markets to the US.",
-      "published": "2026-02-05T21:42:07+00:00"
-    },
-    {
-      "title": "Bitcoin Miners Could Face Crisis After BTC Price Falls 50% From Peak",
-      "url": "https://decrypt.co/357071/bitcoin-miners-face-crisis-btc-price-falls-50-percent",
-      "source": "decrypt",
-      "description": "The price of Bitcoin crashed below $63,000 on Thursday, not far above the average production cost of publicly traded miners.",
-      "published": "2026-02-05T21:10:09+00:00"
-    },
-    {
       "title": "Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies",
       "url": "https://bitcoinmagazine.com/business/paystand-the-payments-giants-quietly-supporting-bitcoin-circular-economies",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies Paystand CEO Jeremy Almond revealed massive Bitcoin mining operation, teases B2B layer two protocol and his strategy to orange pill corporate America. This post Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies first appeared on Bitcoin Magazine and is written by Juan Galt.",
       "published": "2026-02-05T20:49:24+00:00"
-    },
-    {
-      "title": "Gemini announces exit from UK, EU, Australia, slashes workforce",
-      "url": "https://cointelegraph.com/news/gemini-exit-uk-eu-australia-slashes-workforce?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Gemini, a US-based cryptocurrency exchange founded in 2015, will focus on growth in the United States due to its deep capital markets.",
-      "published": "2026-02-05T20:28:07+00:00"
-    },
-    {
-      "title": "Bitcoin slips under $64K as record-high selling intensifies: Where is the bottom?",
-      "url": "https://cointelegraph.com/news/bitcoin-slips-under-dollar64k-as-record-high-selling-intensifies-where-is-the-price-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin touched new lows under $64,000 as market selling reached a historic level, and analysts warn that the bottom is not in. Does data support analysts\u2019 sub-$60,000 prediction?",
-      "published": "2026-02-05T20:21:14+00:00"
-    },
-    {
-      "title": "Myriad Moves: How Low Will Bitcoin and Ethereum Go?",
-      "url": "https://decrypt.co/357123/myriad-moves-how-low-bitcoin-ethereum-go",
-      "source": "decrypt",
-      "description": "Top markets on Myriad this week include predictions on Bitcoin and Ethereum\u2019s next respective stops, plus the outcome of Super Bowl LX.",
-      "published": "2026-02-05T20:15:27+00:00"
-    },
-    {
-      "title": "Tether backs Anchorage Digital in $100M equity investment",
-      "url": "https://cointelegraph.com/news/tether-backs-anchorage-digital-100m-equity-investment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The investment extends an existing partnership with Anchorage and comes as the federally regulated crypto bank explores a major capital raise ahead of a potential IPO.",
-      "published": "2026-02-05T20:07:18+00:00"
     },
     {
       "title": "Strategy ($MSTR) Falls 15% as Investors Brace for Earnings Call",
@@ -177,13 +184,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine The v2 Transport: Bitcoin P2P Traffic Goes Dark From The Core Issue: Learn about the v2 transport protocol upgrade from 2024 that aims to keep your nodes internet traffic private from snooping. This post The v2 Transport: Bitcoin P2P Traffic Goes Dark first appeared on Bitcoin Magazine and is written by Pieter Wuille.",
       "published": "2026-02-05T19:16:34+00:00"
-    },
-    {
-      "title": "Tom Lee's BitMine Hits 7-Month Stock Low as Ethereum Paper Losses Reach $8 Billion",
-      "url": "https://decrypt.co/357114/tom-lee-bitmine-7-month-stock-low-ethereum-paper-losses-8-billion",
-      "source": "decrypt",
-      "description": "Shares in publicly traded Ethereum treasury firm BitMine Immersion Technologies have fallen to a seven-month low as unrealized losses mount.",
-      "published": "2026-02-05T19:08:19+00:00"
     },
     {
       "title": "Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption\u00a0",
