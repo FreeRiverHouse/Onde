@@ -22,6 +22,38 @@ const games = [
     status: 'beta'
   },
   {
+    id: 'math-galaxy',
+    name: 'Math Galaxy',
+    description: 'Explore the universe with math! Timed quizzes with streaks & levels',
+    emoji: '🚀🔢',
+    url: '/static-games/math-galaxy/index.html',
+    status: 'beta'
+  },
+  {
+    id: 'world-explorer',
+    name: 'World Explorer',
+    description: 'Learn countries, flags & capitals from around the world',
+    emoji: '🌍🏳️',
+    url: '/static-games/world-explorer/index.html',
+    status: 'beta'
+  },
+  {
+    id: 'word-wizard',
+    name: 'Word Wizard',
+    description: 'Guess words, learn vocabulary & definitions! Hangman-style',
+    emoji: '🔤📚',
+    url: '/static-games/word-wizard/index.html',
+    status: 'beta'
+  },
+  {
+    id: 'music-lab',
+    name: 'Music Lab',
+    description: 'Play piano, create beats & train your musical ear',
+    emoji: '🎵🎹',
+    url: '/static-games/music-lab/index.html',
+    status: 'beta'
+  },
+  {
     id: 'vr-reader',
     name: 'Onde Books VR',
     description: 'Immersive reading experience for Meta Quest',

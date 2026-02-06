@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+  <title>World Explorer - Onde Kids</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a5276, #1abc9c, #2980b9);
+      background-size: 400% 400%;
+      animation: bgShift 15s ease infinite;
+      color: white; overflow-x: hidden;
+    }
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 600px; margin: 0 auto; padding: 20px;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    h1 {
+      font-size: 2.4em; text-align: center; margin: 15px 0 5px;
+    }
+    .subtitle { color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+
+    .stats-bar {
+      display: flex; gap: 15px; justify-content: center;
+      background: rgba(0,0,0,0.2); border-radius: 20px;
+      padding: 10px 25px; margin-bottom: 20px; flex-wrap: wrap;
+      backdrop-filter: blur(10px);
+    }
+    .stat { text-align: center; }
+    .stat-label { font-size: 0.7em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .stat-value { font-size: 1.3em; font-weight: 800; }
+
+    .card {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px; padding: 30px; width: 100%; text-align: center;
+      backdrop-filter: blur(10px); margin-bottom: 20px;
+    }
+
+    .flag-display {
+      font-size: 8em; line-height: 1.1; margin: 10px 0;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      transition: transform 0.3s;
+    }
+    .flag-display:hover { transform: scale(1.05); }
+
+    .capital-display {
+      font-size: 1.8em; font-weight: 800; margin: 10px 0;
+      color: #ffd200;
+    }
+
+    .mode-label {
+      display: inline-block; padding: 4px 12px; border-radius: 12px;
+      background: rgba(255,255,255,0.15); font-size: 0.8em;
+      margin-bottom: 10px; color: rgba(255,255,255,0.7);
+    }
+
+    .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
+    .answer-btn {
+      padding: 14px 10px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06); color: white; font-size: 1em;
+      font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .answer-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); transform: scale(1.02); }
+    .answer-btn.correct { border-color: #2ecc71; background: rgba(46,204,113,0.25); }
+    .answer-btn.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.25); animation: shake 0.4s; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); }
+    }
+
+    .feedback { font-size: 1.2em; font-weight: 700; min-height: 35px; margin: 8px 0; }
+
+    .progress-bar { width: 100%; height: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60); border-radius: 4px; transition: width 0.5s; }
+
+    .menu-screen { text-align: center; padding: 30px 0; }
+    .mode-select { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .mode-btn {
+      padding: 15px 20px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08); color: white; font-size: 1.05em;
+      font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: left;
+    }
+    .mode-btn:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); transform: translateX(5px); }
+    .mode-btn.active { border-color: #2ecc71; background: rgba(46,204,113,0.15); }
+    .mode-emoji { font-size: 1.5em; margin-right: 10px; }
+    .mode-desc { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+
+    .play-btn {
+      padding: 14px 45px; border-radius: 25px; border: none;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white; font-size: 1.2em; font-weight: 800;
+      cursor: pointer; transition: all 0.3s; margin-top: 15px;
+    }
+    .play-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(46,204,113,0.4); }
+
+    .game-over { text-align: center; padding: 30px 0; }
+    .final-score { font-size: 2.8em; font-weight: 800; color: #ffd200; }
+    .learned-flags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin: 15px 0; }
+    .learned-flag { font-size: 2em; transition: transform 0.2s; cursor: default; }
+    .learned-flag:hover { transform: scale(1.3); }
+
+    .back-link { display: inline-block; margin-top: 20px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+    .back-link:hover { color: white; }
+
+    .continent-filter { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 10px 0; }
+    .cont-btn {
+      padding: 5px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7);
+      font-size: 0.8em; cursor: pointer; transition: all 0.2s;
+    }
+    .cont-btn:hover { background: rgba(255,255,255,0.15); }
+    .cont-btn.active { border-color: #2ecc71; background: rgba(46,204,113,0.2); color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌍 World Explorer</h1>
+    <p class="subtitle">Learn countries, flags & capitals!</p>
+
+    <div id="menu" class="menu-screen">
+      <div style="font-size: 4em; margin: 10px 0;">🗺️</div>
+      <div class="mode-select">
+        <button class="mode-btn active" onclick="setMode('flag-country')">
+          <span class="mode-emoji">🏳️</span> Flag → Country
+          <div class="mode-desc">See a flag, guess the country</div>
+        </button>
+        <button class="mode-btn" onclick="setMode('country-capital')">
+          <span class="mode-emoji">🏛️</span> Country → Capital
+          <div class="mode-desc">Name the capital city</div>
+        </button>
+        <button class="mode-btn" onclick="setMode('capital-country')">
+          <span class="mode-emoji">🌆</span> Capital → Country
+          <div class="mode-desc">Which country has this capital?</div>
+        </button>
+      </div>
+
+      <div class="continent-filter" id="cont-filter">
+        <button class="cont-btn active" onclick="setContinent('all')">🌐 All</button>
+        <button class="cont-btn" onclick="setContinent('europe')">🇪🇺 Europe</button>
+        <button class="cont-btn" onclick="setContinent('americas')">🌎 Americas</button>
+        <button class="cont-btn" onclick="setContinent('asia')">🌏 Asia</button>
+        <button class="cont-btn" onclick="setContinent('africa')">🌍 Africa</button>
+        <button class="cont-btn" onclick="setContinent('oceania')">🏝️ Oceania</button>
+      </div>
+
+      <button class="play-btn" onclick="startGame()">🌍 Explore!</button>
+    </div>
+
+    <div id="game" style="display:none; width:100%;">
+      <div class="stats-bar">
+        <div class="stat"><div class="stat-label">Score</div><div class="stat-value" id="score" style="color:#ffd200;">0</div></div>
+        <div class="stat"><div class="stat-label">Correct</div><div class="stat-value" id="correct-count" style="color:#2ecc71;">0</div></div>
+        <div class="stat"><div class="stat-label">Question</div><div class="stat-value" id="qnum" style="color:#3498db;">1/15</div></div>
+      </div>
+
+      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%;"></div></div>
+
+      <div class="card">
+        <div class="mode-label" id="mode-label">🏳️ Which country?</div>
+        <div class="flag-display" id="flag-display">🇮🇹</div>
+        <div class="capital-display" id="capital-display" style="display:none;"></div>
+        <div class="feedback" id="feedback">&nbsp;</div>
+        <div class="answers" id="answers"></div>
+      </div>
+
+      <div id="fun-fact" style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 10px 15px; font-size: 0.85em; color: rgba(255,255,255,0.6); display: none;">
+        💡 <span id="fact-text"></span>
+      </div>
+    </div>
+
+    <div id="gameover" class="game-over" style="display:none;">
+      <h2 style="font-size: 2em;">🎉 Journey Complete!</h2>
+      <div class="final-score" id="final-score">0</div>
+      <p style="color: rgba(255,255,255,0.6);" id="final-detail"></p>
+      <p style="margin: 10px 0; font-weight: 600;">Countries you learned:</p>
+      <div class="learned-flags" id="learned-flags"></div>
+      <button class="play-btn" onclick="showMenu()">🔄 Explore Again</button>
+    </div>
+
+    <a href="/games" class="back-link">← Back to Games</a>
+  </div>
+
+  <script>
+    const countries = [
+      // Europe
+      { name:'Italy', flag:'🇮🇹', capital:'Rome', continent:'europe', fact:'Italy has more UNESCO World Heritage Sites than any other country!' },
+      { name:'France', flag:'🇫🇷', capital:'Paris', continent:'europe', fact:'The Eiffel Tower was supposed to be temporary!' },
+      { name:'Spain', flag:'🇪🇸', capital:'Madrid', continent:'europe', fact:'Spain has a tomato-throwing festival called La Tomatina!' },
+      { name:'Germany', flag:'🇩🇪', capital:'Berlin', continent:'europe', fact:'Germany has over 1,500 different types of beer!' },
+      { name:'United Kingdom', flag:'🇬🇧', capital:'London', continent:'europe', fact:'The London Underground is the oldest metro system in the world!' },
+      { name:'Portugal', flag:'🇵🇹', capital:'Lisbon', continent:'europe', fact:'Portugal is the oldest country in Europe with the same borders since 1139!' },
+      { name:'Netherlands', flag:'🇳🇱', capital:'Amsterdam', continent:'europe', fact:'The Netherlands has more bicycles than people!' },
+      { name:'Sweden', flag:'🇸🇪', capital:'Stockholm', continent:'europe', fact:'Sweden has an Ice Hotel that is rebuilt every winter!' },
+      { name:'Norway', flag:'🇳🇴', capital:'Oslo', continent:'europe', fact:'Norway has the longest coastline in Europe!' },
+      { name:'Greece', flag:'🇬🇷', capital:'Athens', continent:'europe', fact:'Greece has more archaeological museums than any other country!' },
+      { name:'Poland', flag:'🇵🇱', capital:'Warsaw', continent:'europe', fact:'Poland is home to the world\'s largest castle by area!' },
+      { name:'Switzerland', flag:'🇨🇭', capital:'Bern', continent:'europe', fact:'Switzerland has 4 official languages!' },
+      { name:'Ireland', flag:'🇮🇪', capital:'Dublin', continent:'europe', fact:'There are no snakes in Ireland!' },
+      { name:'Belgium', flag:'🇧🇪', capital:'Brussels', continent:'europe', fact:'Belgium produces 220,000 tons of chocolate per year!' },
+      { name:'Austria', flag:'🇦🇹', capital:'Vienna', continent:'europe', fact:'Austria\'s flag is one of the oldest in the world!' },
+      // Americas
+      { name:'United States', flag:'🇺🇸', capital:'Washington D.C.', continent:'americas', fact:'The US has no official language!' },
+      { name:'Canada', flag:'🇨🇦', capital:'Ottawa', continent:'americas', fact:'Canada has more lakes than all other countries combined!' },
+      { name:'Brazil', flag:'🇧🇷', capital:'Brasília', continent:'americas', fact:'Brazil is home to the Amazon, the largest rainforest!' },
+      { name:'Mexico', flag:'🇲🇽', capital:'Mexico City', continent:'americas', fact:'Mexico introduced chocolate, corn, and chili peppers to the world!' },
+      { name:'Argentina', flag:'🇦🇷', capital:'Buenos Aires', continent:'americas', fact:'Argentina is named after the Latin word for silver!' },
+      { name:'Colombia', flag:'🇨🇴', capital:'Bogotá', continent:'americas', fact:'Colombia is the second most biodiverse country in the world!' },
+      { name:'Chile', flag:'🇨🇱', capital:'Santiago', continent:'americas', fact:'Chile is the longest country in the world from north to south!' },
+      { name:'Peru', flag:'🇵🇪', capital:'Lima', continent:'americas', fact:'Peru is home to Machu Picchu, a Wonder of the World!' },
+      // Asia
+      { name:'Japan', flag:'🇯🇵', capital:'Tokyo', continent:'asia', fact:'Japan has over 6,800 islands!' },
+      { name:'China', flag:'🇨🇳', capital:'Beijing', continent:'asia', fact:'The Great Wall of China is over 13,000 miles long!' },
+      { name:'South Korea', flag:'🇰🇷', capital:'Seoul', continent:'asia', fact:'South Korea has the fastest internet in the world!' },
+      { name:'India', flag:'🇮🇳', capital:'New Delhi', continent:'asia', fact:'India has the most languages spoken — over 780!' },
+      { name:'Thailand', flag:'🇹🇭', capital:'Bangkok', continent:'asia', fact:'Thailand is the only Southeast Asian country never colonized!' },
+      { name:'Vietnam', flag:'🇻🇳', capital:'Hanoi', continent:'asia', fact:'Vietnam is the world\'s largest exporter of cashew nuts!' },
+      { name:'Turkey', flag:'🇹🇷', capital:'Ankara', continent:'asia', fact:'Istanbul is the only city in the world on two continents!' },
+      { name:'Philippines', flag:'🇵🇭', capital:'Manila', continent:'asia', fact:'The Philippines has over 7,600 islands!' },
+      // Africa
+      { name:'Egypt', flag:'🇪🇬', capital:'Cairo', continent:'africa', fact:'The pyramids of Giza are over 4,500 years old!' },
+      { name:'South Africa', flag:'🇿🇦', capital:'Pretoria', continent:'africa', fact:'South Africa has 11 official languages!' },
+      { name:'Nigeria', flag:'🇳🇬', capital:'Abuja', continent:'africa', fact:'Nigeria is called the "Giant of Africa"!' },
+      { name:'Kenya', flag:'🇰🇪', capital:'Nairobi', continent:'africa', fact:'Kenya is named after Mount Kenya!' },
+      { name:'Morocco', flag:'🇲🇦', capital:'Rabat', continent:'africa', fact:'Morocco has the world\'s oldest university, founded in 859 AD!' },
+      { name:'Ethiopia', flag:'🇪🇹', capital:'Addis Ababa', continent:'africa', fact:'Ethiopia has its own calendar with 13 months!' },
+      // Oceania
+      { name:'Australia', flag:'🇦🇺', capital:'Canberra', continent:'oceania', fact:'Australia is both a country and a continent!' },
+      { name:'New Zealand', flag:'🇳🇿', capital:'Wellington', continent:'oceania', fact:'New Zealand was the first country to give women the right to vote!' },
+    ];
+
+    let mode = 'flag-country';
+    let continent = 'all';
+    let score = 0, correctCount = 0, total = 0;
+    let currentCountry = null;
+    let pool = [];
+    let learnedFlags = [];
+    const TOTAL_Q = 15;
+
+    function setMode(m) {
+      mode = m;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function setContinent(c) {
+      continent = c;
+      document.querySelectorAll('.cont-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function getPool() {
+      let p = continent === 'all' ? [...countries] : countries.filter(c => c.continent === continent);
+      // Shuffle
+      for (let i = p.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [p[i], p[j]] = [p[j], p[i]];
+      }
+      return p;
+    }
+
+    function getOptions(correct, field) {
+      const opts = [correct[field]];
+      const others = countries.filter(c => c[field] !== correct[field]);
+      while (opts.length < 4 && others.length > 0) {
+        const idx = Math.floor(Math.random() * others.length);
+        const val = others[idx][field];
+        if (!opts.includes(val)) opts.push(val);
+        others.splice(idx, 1);
+      }
+      return opts.sort(() => Math.random() - 0.5);
+    }
+
+    function showQuestion() {
+      if (pool.length === 0) pool = getPool();
+      currentCountry = pool.pop();
+
+      const flagEl = document.getElementById('flag-display');
+      const capEl = document.getElementById('capital-display');
+      const labelEl = document.getElementById('mode-label');
+      const factEl = document.getElementById('fun-fact');
+      factEl.style.display = 'none';
+
+      let options, answerField;
+
+      if (mode === 'flag-country') {
+        flagEl.style.display = 'block'; flagEl.textContent = currentCountry.flag;
+        capEl.style.display = 'none';
+        labelEl.textContent = '🏳️ Which country has this flag?';
+        options = getOptions(currentCountry, 'name');
+        answerField = 'name';
+      } else if (mode === 'country-capital') {
+        flagEl.style.display = 'block'; flagEl.textContent = currentCountry.flag;
+        capEl.style.display = 'block'; capEl.textContent = currentCountry.name;
+        labelEl.textContent = '🏛️ What is the capital?';
+        options = getOptions(currentCountry, 'capital');
+        answerField = 'capital';
+      } else {
+        flagEl.style.display = 'none';
+        capEl.style.display = 'block'; capEl.textContent = currentCountry.capital;
+        labelEl.textContent = '🌆 Which country has this capital?';
+        options = getOptions(currentCountry, 'name');
+        answerField = 'name';
+      }
+
+      document.getElementById('qnum').textContent = `${total + 1}/${TOTAL_Q}`;
+      document.getElementById('progress').style.width = `${(total / TOTAL_Q) * 100}%`;
+      document.getElementById('feedback').innerHTML = '&nbsp;';
+
+      const answersDiv = document.getElementById('answers');
+      answersDiv.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt, currentCountry[answerField], btn);
+        answersDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected, correctAns, btn) {
+      document.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
+      const fb = document.getElementById('feedback');
+      const factEl = document.getElementById('fun-fact');
+
+      if (selected === correctAns) {
+        correctCount++;
+        score += 10;
+        btn.classList.add('correct');
+        fb.innerHTML = `<span style="color:#2ecc71">✅ Correct! ${currentCountry.flag}</span>`;
+        if (!learnedFlags.includes(currentCountry.flag)) learnedFlags.push(currentCountry.flag);
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.answer-btn').forEach(b => {
+          if (b.textContent === correctAns) b.classList.add('correct');
+        });
+        fb.innerHTML = `<span style="color:#e74c3c">❌ It was ${correctAns} ${currentCountry.flag}</span>`;
+      }
+
+      // Show fun fact
+      document.getElementById('fact-text').textContent = currentCountry.fact;
+      factEl.style.display = 'block';
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('correct-count').textContent = correctCount;
+
+      total++;
+      setTimeout(() => {
+        if (total >= TOTAL_Q) endGame();
+        else showQuestion();
+      }, 2200);
+    }
+
+    function endGame() {
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover').style.display = 'block';
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('final-detail').textContent = `${correctCount}/${TOTAL_Q} correct`;
+      document.getElementById('learned-flags').innerHTML =
+        learnedFlags.map(f => `<span class="learned-flag" title="">${f}</span>`).join('');
+    }
+
+    function startGame() {
+      score = 0; correctCount = 0; total = 0; learnedFlags = [];
+      pool = getPool();
+      document.getElementById('score').textContent = '0';
+      document.getElementById('correct-count').textContent = '0';
+      document.getElementById('progress').style.width = '0%';
+      document.getElementById('menu').style.display = 'none';
+      document.getElementById('gameover').style.display = 'none';
+      document.getElementById('game').style.display = 'block';
+      showQuestion();
+    }
+
+    function showMenu() {
+      document.getElementById('menu').style.display = 'block';
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

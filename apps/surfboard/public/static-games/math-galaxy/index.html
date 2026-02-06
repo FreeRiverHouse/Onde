@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+  <title>Math Galaxy - Onde Kids</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--dur) ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .container {
+      position: relative; z-index: 1;
+      max-width: 600px; margin: 0 auto; padding: 20px;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em; text-align: center; margin: 20px 0 5px;
+      background: linear-gradient(to right, #f7971e, #ffd200);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle { color: rgba(255,255,255,0.6); margin-bottom: 20px; font-size: 0.95em; }
+
+    .stats-bar {
+      display: flex; gap: 15px; justify-content: center;
+      background: rgba(255,255,255,0.1); border-radius: 20px;
+      padding: 10px 25px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-label { font-size: 0.7em; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 1.4em; font-weight: 800; }
+    .stat-value.score { color: #ffd200; }
+    .stat-value.streak { color: #ff6b6b; }
+    .stat-value.level { color: #6bcb77; }
+
+    .level-select {
+      display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center;
+    }
+    .level-btn {
+      padding: 8px 18px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05); color: white; font-weight: 700;
+      cursor: pointer; transition: all 0.3s; font-size: 0.9em;
+    }
+    .level-btn:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.1); }
+    .level-btn.active { border-color: #ffd200; background: rgba(255,210,0,0.15); color: #ffd200; }
+    .level-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+    .question-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px; padding: 30px; width: 100%; text-align: center;
+      backdrop-filter: blur(10px); margin-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .question-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+
+    .question-emoji { font-size: 3em; margin-bottom: 10px; }
+    .question-text { font-size: 2.2em; font-weight: 800; margin: 15px 0; letter-spacing: 2px; }
+    .question-hint { color: rgba(255,255,255,0.4); font-size: 0.85em; margin-bottom: 15px; }
+
+    .answers {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      width: 100%; margin-top: 15px;
+    }
+    .answer-btn {
+      padding: 18px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06); color: white; font-size: 1.4em;
+      font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .answer-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); transform: scale(1.03); }
+    .answer-btn:active { transform: scale(0.97); }
+    .answer-btn.correct {
+      border-color: #6bcb77; background: rgba(107,203,119,0.2);
+      animation: correctPulse 0.5s ease;
+    }
+    .answer-btn.wrong {
+      border-color: #ff6b6b; background: rgba(255,107,107,0.2);
+      animation: shake 0.4s ease;
+    }
+    @keyframes correctPulse {
+      0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    .timer-bar {
+      width: 100%; height: 6px; background: rgba(255,255,255,0.1);
+      border-radius: 3px; margin-bottom: 20px; overflow: hidden;
+    }
+    .timer-fill {
+      height: 100%; border-radius: 3px;
+      transition: width 0.1s linear, background-color 0.3s;
+    }
+
+    .feedback {
+      font-size: 1.3em; font-weight: 700; margin: 10px 0;
+      min-height: 40px; display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+    }
+    .feedback.correct-fb { color: #6bcb77; }
+    .feedback.wrong-fb { color: #ff6b6b; }
+
+    .menu-screen {
+      text-align: center; padding: 40px 0;
+    }
+    .play-btn {
+      padding: 16px 50px; border-radius: 30px; border: none;
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      color: #1a1a2e; font-size: 1.3em; font-weight: 800;
+      cursor: pointer; transition: all 0.3s; margin-top: 20px;
+    }
+    .play-btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,210,0,0.3); }
+
+    .planet {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: inline-block; margin: 0 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .planet-1 { background: linear-gradient(135deg, #ff6b6b, #ee5a24); animation-delay: 0s; }
+    .planet-2 { background: linear-gradient(135deg, #4D96FF, #6c5ce7); animation-delay: 0.5s; }
+    .planet-3 { background: linear-gradient(135deg, #6bcb77, #00b894); animation-delay: 1s; }
+
+    .game-over {
+      text-align: center; padding: 30px 0;
+    }
+    .game-over h2 { font-size: 2em; margin-bottom: 10px; }
+    .final-score { font-size: 3em; font-weight: 800; color: #ffd200; }
+    .final-detail { color: rgba(255,255,255,0.6); margin: 5px 0; }
+
+    .badge { display: inline-block; font-size: 3em; margin: 10px 5px; animation: float 2s ease-in-out infinite; }
+
+    .back-link {
+      display: inline-block; margin-top: 20px; color: rgba(255,255,255,0.5);
+      text-decoration: none; font-size: 0.9em; transition: color 0.3s;
+    }
+    .back-link:hover { color: white; }
+
+    .difficulty-info {
+      font-size: 0.8em; color: rgba(255,255,255,0.4); margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="container">
+    <h1>🚀 Math Galaxy</h1>
+    <p class="subtitle">Explore the universe with math!</p>
+
+    <div id="menu" class="menu-screen">
+      <div style="margin: 20px 0;">
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
+      </div>
+      <p style="color: rgba(255,255,255,0.7); margin: 20px 0; font-size: 1.1em;">
+        Answer math questions to travel across the galaxy!<br/>
+        🔥 Build streaks for bonus points!
+      </p>
+      <div class="level-select" id="menu-levels">
+        <button class="level-btn active" onclick="setDifficulty('easy')">🌟 Easy</button>
+        <button class="level-btn" onclick="setDifficulty('medium')">⭐ Medium</button>
+        <button class="level-btn" onclick="setDifficulty('hard')">💫 Hard</button>
+        <button class="level-btn" onclick="setDifficulty('expert')">🌀 Expert</button>
+      </div>
+      <div class="difficulty-info" id="diff-info">Addition & subtraction up to 20</div>
+      <button class="play-btn" onclick="startGame()">🚀 Launch!</button>
+      <div id="high-score-display" style="margin-top: 15px; color: rgba(255,255,255,0.5); font-size: 0.9em;"></div>
+    </div>
+
+    <div id="game" style="display:none; width:100%;">
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-label">Score</div>
+          <div class="stat-value score" id="score">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Streak</div>
+          <div class="stat-value streak" id="streak">0 🔥</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Question</div>
+          <div class="stat-value level" id="qnum">1/15</div>
+        </div>
+      </div>
+
+      <div class="timer-bar">
+        <div class="timer-fill" id="timer-fill" style="width:100%; background: #6bcb77;"></div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-emoji" id="q-emoji">🪐</div>
+        <div class="question-text" id="q-text">5 + 3 = ?</div>
+        <div class="question-hint" id="q-hint"></div>
+        <div class="feedback" id="feedback">&nbsp;</div>
+        <div class="answers" id="answers"></div>
+      </div>
+    </div>
+
+    <div id="gameover" class="game-over" style="display:none;">
+      <h2>🎉 Mission Complete!</h2>
+      <div class="final-score" id="final-score">0</div>
+      <div class="final-detail" id="final-correct"></div>
+      <div class="final-detail" id="final-streak"></div>
+      <div id="badges" style="margin: 15px 0;"></div>
+      <div id="new-record" style="color: #ffd200; font-weight: 700; margin: 10px 0; display: none;">
+        🏆 NEW HIGH SCORE! 🏆
+      </div>
+      <button class="play-btn" onclick="showMenu()">🔄 Play Again</button>
+    </div>
+
+    <a href="/games" class="back-link">← Back to Games</a>
+  </div>
+
+  <script>
+    // Stars background
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      star.style.cssText = `
+        width: ${size}px; height: ${size}px;
+        left: ${Math.random()*100}%; top: ${Math.random()*100}%;
+        --dur: ${Math.random()*3+2}s;
+        animation-delay: ${Math.random()*3}s;
+      `;
+      starsEl.appendChild(star);
+    }
+
+    let difficulty = 'easy';
+    let score = 0, streak = 0, bestStreak = 0, correct = 0, total = 0;
+    let currentAnswer = null;
+    let timerInterval = null;
+    let timeLeft = 100;
+    const TOTAL_QUESTIONS = 15;
+    const emojis = ['🪐','🌍','🌙','⭐','☀️','🛸','🌌','💫','🔭','🚀','🌠','☄️','🌑','🌕','🪐'];
+
+    const diffInfo = {
+      easy: 'Addition & subtraction up to 20',
+      medium: 'Multiplication tables up to 10',
+      hard: 'Mixed operations, bigger numbers',
+      expert: 'Division, order of operations'
+    };
+
+    const diffTimers = { easy: 15, medium: 12, hard: 10, expert: 8 };
+
+    function setDifficulty(d) {
+      difficulty = d;
+      document.querySelectorAll('#menu-levels .level-btn').forEach((b, i) => {
+        b.classList.toggle('active', ['easy','medium','hard','expert'][i] === d);
+      });
+      document.getElementById('diff-info').textContent = diffInfo[d];
+    }
+
+    function generateQuestion() {
+      let a, b, op, answer, text;
+      switch(difficulty) {
+        case 'easy':
+          op = Math.random() < 0.5 ? '+' : '-';
+          a = Math.floor(Math.random() * 15) + 3;
+          b = Math.floor(Math.random() * (op === '-' ? a : 15)) + 1;
+          answer = op === '+' ? a + b : a - b;
+          text = `${a} ${op} ${b} = ?`;
+          break;
+        case 'medium':
+          op = '×';
+          a = Math.floor(Math.random() * 9) + 2;
+          b = Math.floor(Math.random() * 9) + 2;
+          answer = a * b;
+          text = `${a} × ${b} = ?`;
+          break;
+        case 'hard':
+          const ops = ['+','-','×'];
+          op = ops[Math.floor(Math.random() * ops.length)];
+          if (op === '×') {
+            a = Math.floor(Math.random() * 12) + 2;
+            b = Math.floor(Math.random() * 12) + 2;
+            answer = a * b;
+          } else if (op === '-') {
+            a = Math.floor(Math.random() * 80) + 20;
+            b = Math.floor(Math.random() * a) + 1;
+            answer = a - b;
+          } else {
+            a = Math.floor(Math.random() * 50) + 10;
+            b = Math.floor(Math.random() * 50) + 10;
+            answer = a + b;
+          }
+          text = `${a} ${op} ${b} = ?`;
+          break;
+        case 'expert':
+          const type = Math.floor(Math.random() * 3);
+          if (type === 0) {
+            // Division
+            b = Math.floor(Math.random() * 10) + 2;
+            answer = Math.floor(Math.random() * 10) + 2;
+            a = b * answer;
+            text = `${a} ÷ ${b} = ?`;
+          } else if (type === 1) {
+            // Two operations
+            a = Math.floor(Math.random() * 10) + 2;
+            b = Math.floor(Math.random() * 10) + 2;
+            const c = Math.floor(Math.random() * 10) + 1;
+            answer = a * b + c;
+            text = `${a} × ${b} + ${c} = ?`;
+          } else {
+            // Squared
+            a = Math.floor(Math.random() * 10) + 2;
+            answer = a * a;
+            text = `${a}² = ?`;
+          }
+          break;
+      }
+      return { text, answer };
+    }
+
+    function generateOptions(answer) {
+      const options = [answer];
+      while (options.length < 4) {
+        let offset = Math.floor(Math.random() * 10) - 5;
+        if (offset === 0) offset = Math.random() < 0.5 ? -1 : 1;
+        let opt = answer + offset;
+        if (opt < 0) opt = answer + Math.abs(offset);
+        if (!options.includes(opt)) options.push(opt);
+      }
+      return options.sort(() => Math.random() - 0.5);
+    }
+
+    function startTimer() {
+      const seconds = diffTimers[difficulty];
+      timeLeft = 100;
+      const fill = document.getElementById('timer-fill');
+      fill.style.width = '100%';
+      fill.style.backgroundColor = '#6bcb77';
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft -= (100 / (seconds * 10));
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+          clearInterval(timerInterval);
+          handleTimeout();
+        }
+        fill.style.width = timeLeft + '%';
+        if (timeLeft < 30) fill.style.backgroundColor = '#ff6b6b';
+        else if (timeLeft < 60) fill.style.backgroundColor = '#ffd200';
+      }, 100);
+    }
+
+    function handleTimeout() {
+      streak = 0;
+      document.getElementById('streak').textContent = '0 🔥';
+      document.getElementById('feedback').className = 'feedback wrong-fb';
+      document.getElementById('feedback').textContent = '⏰ Time\'s up!';
+      document.querySelectorAll('.answer-btn').forEach(b => {
+        b.disabled = true;
+        if (parseInt(b.textContent) === currentAnswer) b.classList.add('correct');
+      });
+      setTimeout(nextQuestion, 1500);
+    }
+
+    function showQuestion() {
+      const q = generateQuestion();
+      currentAnswer = q.answer;
+      const options = generateOptions(q.answer);
+
+      document.getElementById('q-emoji').textContent = emojis[total % emojis.length];
+      document.getElementById('q-text').textContent = q.text;
+      document.getElementById('qnum').textContent = `${total + 1}/${TOTAL_QUESTIONS}`;
+      document.getElementById('feedback').innerHTML = '&nbsp;';
+      document.getElementById('feedback').className = 'feedback';
+
+      const answersDiv = document.getElementById('answers');
+      answersDiv.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt, btn);
+        answersDiv.appendChild(btn);
+      });
+
+      startTimer();
+    }
+
+    function checkAnswer(selected, btn) {
+      clearInterval(timerInterval);
+      document.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
+
+      const fb = document.getElementById('feedback');
+      if (selected === currentAnswer) {
+        correct++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+        const bonus = streak >= 5 ? 3 : streak >= 3 ? 2 : 1;
+        const timeBonus = Math.floor(timeLeft / 10);
+        const points = 10 * bonus + timeBonus;
+        score += points;
+        btn.classList.add('correct');
+        fb.className = 'feedback correct-fb';
+        const msgs = ['🎯 Correct!','⭐ Amazing!','🚀 Stellar!','💫 Brilliant!','🌟 Perfect!'];
+        fb.textContent = msgs[Math.floor(Math.random()*msgs.length)] + (bonus > 1 ? ` (${bonus}x!)` : '');
+      } else {
+        streak = 0;
+        btn.classList.add('wrong');
+        document.querySelectorAll('.answer-btn').forEach(b => {
+          if (parseInt(b.textContent) === currentAnswer) b.classList.add('correct');
+        });
+        fb.className = 'feedback wrong-fb';
+        fb.textContent = `❌ It was ${currentAnswer}`;
+      }
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('streak').textContent = streak + ' 🔥';
+
+      setTimeout(nextQuestion, 1200);
+    }
+
+    function nextQuestion() {
+      total++;
+      if (total >= TOTAL_QUESTIONS) {
+        endGame();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function endGame() {
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover').style.display = 'block';
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('final-correct').textContent = `${correct}/${TOTAL_QUESTIONS} correct answers`;
+      document.getElementById('final-streak').textContent = `Best streak: ${bestStreak} 🔥`;
+
+      // Badges
+      const badges = [];
+      if (correct === TOTAL_QUESTIONS) badges.push('🏅');
+      if (bestStreak >= 10) badges.push('🔥');
+      if (bestStreak >= 5) badges.push('⚡');
+      if (score >= 200) badges.push('🌟');
+      if (score >= 150) badges.push('⭐');
+      document.getElementById('badges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
+
+      // High score
+      const key = `math-galaxy-${difficulty}`;
+      const prev = parseInt(localStorage.getItem(key) || '0');
+      if (score > prev) {
+        localStorage.setItem(key, score);
+        document.getElementById('new-record').style.display = 'block';
+      } else {
+        document.getElementById('new-record').style.display = 'none';
+      }
+    }
+
+    function startGame() {
+      score = 0; streak = 0; bestStreak = 0; correct = 0; total = 0;
+      document.getElementById('score').textContent = '0';
+      document.getElementById('streak').textContent = '0 🔥';
+      document.getElementById('menu').style.display = 'none';
+      document.getElementById('gameover').style.display = 'none';
+      document.getElementById('game').style.display = 'block';
+      showQuestion();
+    }
+
+    function showMenu() {
+      document.getElementById('menu').style.display = 'block';
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover').style.display = 'none';
+      updateHighScoreDisplay();
+    }
+
+    function updateHighScoreDisplay() {
+      const key = `math-galaxy-${difficulty}`;
+      const hs = localStorage.getItem(key);
+      const el = document.getElementById('high-score-display');
+      el.textContent = hs ? `🏆 Best: ${hs} (${difficulty})` : '';
+    }
+
+    updateHighScoreDisplay();
+  </script>
+</body>
+</html>
