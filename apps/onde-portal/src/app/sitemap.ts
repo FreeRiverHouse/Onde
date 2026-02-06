@@ -36,6 +36,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/puzzle',
     '/games/2048',
     '/games/wordle',
+    '/games/sudoku',
+    '/games/minesweeper',
+    '/games/tictactoe',
+    '/games/breakout',
+    '/games/flappy',
+    '/games/pong',
+    '/games/invaders',
+    '/games/dino',
     
     // Other sections
     '/giochi',
