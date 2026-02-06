@@ -198,4 +198,4 @@
 | 81 | SEO-008 | Add metadata layouts to 8 games (breakout, invaders, etc) | ⭐ SEO | ✅ DONE | @clawdinho | layout.tsx with OG tags |
 | 82 | SEO-009 | Add JSON-LD GameApplication schema to all games | ⭐ SEO | 🔄 IN_PROGRESS | @clawdinho | Rich results in Google |
 | 83 | PERF-006 | Add Vercel Speed Insights or web-vitals tracking | ⚡ Performance | TODO | - | Measure real user perf |
-| 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | 🔄 IN_PROGRESS | @clawdinho | localStorage tracking |
+| 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | ✅ DONE | @clawdinho | localStorage tracking, bottle theme |
