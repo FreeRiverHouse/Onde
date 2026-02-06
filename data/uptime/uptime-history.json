@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-06T19:40:00.747896+00:00",
+  "generated_at": "2026-02-06T19:45:01.482153+00:00",
   "sites": {
     "onde.la": {
       "checks": [
@@ -11894,17 +11894,23 @@
           "status": 200,
           "latency_ms": 161,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-06T19:45:01.482153+00:00",
+          "status": 200,
+          "latency_ms": 176,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 99.66,
-        "avg_latency_24h": 222,
+        "avg_latency_24h": 221,
         "avg_latency_7d": 479,
         "incidents_24h": 0,
         "incidents_7d": 1,
         "total_checks_24h": 287,
-        "total_checks_7d": 1745
+        "total_checks_7d": 1744
       }
     },
     "onde.surf": {
@@ -23800,17 +23806,23 @@
           "status": 200,
           "latency_ms": 198,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-06T19:45:01.482153+00:00",
+          "status": 200,
+          "latency_ms": 207,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 247,
+        "avg_latency_24h": 246,
         "avg_latency_7d": 440,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 287,
-        "total_checks_7d": 1745
+        "total_checks_7d": 1744
       }
     },
     "skin-studio": {
@@ -33972,17 +33984,23 @@
           "status": 200,
           "latency_ms": 131,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-06T19:45:01.482153+00:00",
+          "status": 200,
+          "latency_ms": 189,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 200,
+        "avg_latency_24h": 199,
         "avg_latency_7d": 281,
         "incidents_24h": 0,
         "incidents_7d": 0,
         "total_checks_24h": 287,
-        "total_checks_7d": 1693
+        "total_checks_7d": 1694
       }
     }
   }
