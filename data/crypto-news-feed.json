@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T15:00:03.902109+00:00",
+  "timestamp": "2026-02-06T18:30:03.176756+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,104 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Strategy ($MSTR) Soars 25% as Bitcoin Rebounds",
+      "url": "https://bitcoinmagazine.com/markets/strategy-soars-as-bitcoin-rebounds",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Strategy ($MSTR) Soars 25% as Bitcoin Rebounds Strategy ($MSTR) surged sharply Friday, lifting more than 25% at times. This post Strategy ($MSTR) Soars 25% as Bitcoin Rebounds first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-06T18:17:07+00:00"
+    },
+    {
+      "title": "What\u2019s really weighing on Bitcoin? Samson Mow breaks it down",
+      "url": "https://cointelegraph.com/news/what-really-weighing-on-bitcoin-samson-mow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "In a video interview, Samson Mow shares his views on Bitcoin's latest bloodbath, quantum fears and the catalysts that could drive Bitcoin\u2019s next recovery.",
+      "published": "2026-02-06T17:56:19+00:00"
+    },
+    {
+      "title": "South Korean Crypto Exchange Accidentally Gave Away $95 Billion in Bitcoin",
+      "url": "https://decrypt.co/357257/south-korean-crypto-exchange-accidentally-gave-away-95-billion-bitcoin",
+      "source": "decrypt",
+      "description": "The error was quickly corrected, but not before Bithumb users sold off billions in Bitcoin, temporarily crashing its listed price.",
+      "published": "2026-02-06T17:46:18+00:00"
+    },
+    {
+      "title": "Bitcoin Price Roars Above $71,000 After Days of Sell-Offs",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-roars-above-71000",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Roars Above $71,000 After Days of Sell-Offs The bitcoin price rebounded above $71,000 today after days of large-scale selling. This post Bitcoin Price Roars Above $71,000 After Days of Sell-Offs first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-06T17:26:02+00:00"
+    },
+    {
+      "title": "China bans stablecoin and RWA issuance by foreign and domestic companies",
+      "url": "https://cointelegraph.com/news/china-bans-stablecoin-rwa-foreign-domestic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The latest announcement from the People's Bank of China follows months of flip-flopping on privately issued yuan-pegged stablecoins.",
+      "published": "2026-02-06T17:20:05+00:00"
+    },
+    {
+      "title": "Michael Saylor Says Strategy ($MSTR) Will Lead Global Bitcoin Effort Against Quantum Threats",
+      "url": "https://bitcoinmagazine.com/news/strategy-mstr-will-lead-bitcoin-effort",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Michael Saylor Says Strategy ($MSTR) Will Lead Global Bitcoin Effort Against Quantum Threats Strategy (MSTR) is moving to take a more active role in preparing Bitcoin for potential future threats from quantum computing. This post Michael Saylor Says Strategy ($MSTR) Will Lead Global Bitcoin Effort Against Quantum Threats first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-06T17:18:40+00:00"
+    },
+    {
+      "title": "'Bitcoin is Offensive, Gold is Defensive': Bitwise",
+      "url": "https://decrypt.co/357225/bitcoin-is-offensive-gold-is-defensive-bitwise",
+      "source": "decrypt",
+      "description": "Bitwise\u2019s Head of Europe argues that gold offers a cushion when markets fall, while Bitcoin boosts portfolios during rebounds.",
+      "published": "2026-02-06T17:09:23+00:00"
+    },
+    {
+      "title": "Galaxy approves up to $200M buyback of Class A shares",
+      "url": "https://cointelegraph.com/news/galaxy-approves-buyback-class-a-shares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The 12-month buyback authorization comes as Galaxy\u2019s shares and other crypto-linked stocks have declined alongside Bitcoin.",
+      "published": "2026-02-06T17:02:31+00:00"
+    },
+    {
+      "title": "Bithumb Accidentally Sends Large Amounts of Bitcoin to Users, Triggers Price Crash Amid Market Selloff",
+      "url": "https://bitcoinmagazine.com/news/bithumb-accidentally-sends-bitcoin-users",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bithumb Accidentally Sends Large Amounts of Bitcoin to Users, Triggers Price Crash Amid Market Selloff Bithumb reportedly made a mistake that led to the accidental deposit of large amounts of Bitcoin to various users. This post Bithumb Accidentally Sends Large Amounts of Bitcoin to Users, Triggers Price Crash Amid Market Selloff first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-06T16:39:49+00:00"
+    },
+    {
+      "title": "China Formalizes Ban on Yuan Stablecoins, RWA Tokenization",
+      "url": "https://decrypt.co/357221/china-formalizes-ban-on-yuan-stablecoins-rwa-tokenization",
+      "source": "decrypt",
+      "description": "Chinese regulators have locked in a sweeping crypto clampdown, banning unapproved yuan-linked stablecoins and curbing tokenized assets.",
+      "published": "2026-02-06T16:36:13+00:00"
+    },
+    {
+      "title": "Cathie Wood's Ark Invest Dumps Coinbase Shares Amid Bitcoin Crash",
+      "url": "https://decrypt.co/357184/cathie-woods-ark-invest-dumps-coinbase-shares-bitcoin-crash",
+      "source": "decrypt",
+      "description": "Noted tech investor Cathie Wood's Ark Invest dumped shares in Coinbase on Thursday amid Bitcoin's slide to nearly $60,000.",
+      "published": "2026-02-06T16:21:11+00:00"
+    },
+    {
+      "title": "What Is World Liberty Financial? The Trump Family DeFi Project Explained",
+      "url": "https://decrypt.co/resources/what-is-world-liberty-financial-the-trump-family-defi-project-explained",
+      "source": "decrypt",
+      "description": "The biggest crypto venture linked to U.S. President Donald Trump is a DeFi project promising to help the unbanked. But how does it work?",
+      "published": "2026-02-06T16:10:03+00:00"
+    },
+    {
+      "title": "Bitcoin beats FTX, COVID-19 crash with record dive below 200-day trend line",
+      "url": "https://cointelegraph.com/news/bitcoin-beats-ftx-covid-19-crash-record-dive-below-200-day-trend-line?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin bear market momentum sparked a record crash below the 200-day simple moving average as analysis expected BTC price \"mean reversion\" next.",
+      "published": "2026-02-06T15:52:48+00:00"
+    },
+    {
+      "title": "Ether leads crypto losses with 30% crash: Where is the bottom?",
+      "url": "https://cointelegraph.com/news/ether-leads-crypto-losses-30-percent-crash-where-is-the-bottom?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Ether price still risks declining toward the $1,000-$1,400 range, according to a confluence of bearish technical and onchain indicators.",
+      "published": "2026-02-06T15:10:16+00:00"
+    },
     {
       "title": "Crypto PACs secure massive war chests ahead of US midterms",
       "url": "https://cointelegraph.com/news/crypto-pacs-massive-war-chests-us-midterms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -60,46 +158,11 @@
       "published": "2026-02-06T13:17:01+00:00"
     },
     {
-      "title": "Bitcoin price rebounds 11% to $65K: Who is buying the dip?",
-      "url": "https://cointelegraph.com/news/bitcoin-price-rebounds-65k-who-is-buying-the-dip?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Over $2.6 billion was wiped out across the crypto market as institutions saw sub-$60,000 BTC as a buy-the-dip opportunity.",
-      "published": "2026-02-06T13:06:04+00:00"
-    },
-    {
-      "title": "NFT market cap slides back to 2021 pre-hype levels, near $1.5B",
-      "url": "https://cointelegraph.com/news/nft-market-cap-returns-pre-hype-levels-2021?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "NFT minting expanded in 2025 even as sales fell sharply, leaving more tokens chasing fewer buyers.",
-      "published": "2026-02-06T12:58:47+00:00"
-    },
-    {
-      "title": "Cathie Wood\u2019s ARK dumps $17M in Coinbase stock as shares fall 37% YTD",
-      "url": "https://cointelegraph.com/news/cathie-wood-ark-coinbase-dump-17-million-bullish-buy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "ARK Invest sold $17.4 million in Coinbase while buying $17.8 million of Bullish shares, signaling a major shift in strategy as crypto markets stumble.",
-      "published": "2026-02-06T11:40:51+00:00"
-    },
-    {
       "title": "Polymarket Files for Crypto Token Trademarks as Legal Battles Mount",
       "url": "https://decrypt.co/357166/polymarket-files-for-crypto-token-trademarks-as-legal-battles-mount",
       "source": "decrypt",
       "description": "The prediction market has filed trademark applications for POLY and $POLY tied to a digital token and crypto trading services.",
       "published": "2026-02-06T10:58:22+00:00"
-    },
-    {
-      "title": "Pump.fun moves deeper into trading infrastructure with Vyper acquisition",
-      "url": "https://cointelegraph.com/news/pump-fun-vyper-acquisition-trading-infrastructure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The deal adds analytics and execution tools to Pump.fun\u2019s ecosystem as Vyper winds down its standalone product and migrates users to Terminal.",
-      "published": "2026-02-06T10:21:39+00:00"
-    },
-    {
-      "title": "Bitcoin sees record $10K drop as model says  $93.5K may only return in 2028",
-      "url": "https://cointelegraph.com/news/bitcoin-record-10k-drop-model-93-5k-only-return-2028?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin fell by more than $10,000 in a single day for the first time, with BTC price bear market analysis warning that a rebound could take several years.",
-      "published": "2026-02-06T10:20:22+00:00"
     },
     {
       "title": "Crypto Advocates Round on Democrats\u2019 \u2018Crypto Crash\u2019 Message",
@@ -114,41 +177,6 @@
       "source": "decrypt",
       "description": "Investor fear in crypto has sunk to levels last seen during the year of Terra's collapse as macro pressures intensify.",
       "published": "2026-02-06T05:41:34+00:00"
-    },
-    {
-      "title": "Senator Lummis Urges Banks to 'Embrace' Stablecoins Amid CLARITY Act Stalemate",
-      "url": "https://decrypt.co/357157/senator-lummis-banks-embrace-stablecoins-clarity-act-stalemate",
-      "source": "decrypt",
-      "description": "The Wyoming Senator said stablecoins give banks an \"entirely new financial product\" as the crypto market structure bill faces a delay.",
-      "published": "2026-02-06T04:52:09+00:00"
-    },
-    {
-      "title": "Bitcoin Miners IREN and CleanSpark Slide After Earnings Misses Deepen Sector Pressure",
-      "url": "https://decrypt.co/357154/bitcoin-miners-iren-cleanspark-slide-earnings-misses-expectations",
-      "source": "decrypt",
-      "description": "Shares fell after both companies reported quarterly revenue below Wall Street expectations as Bitcoin dropped sharply.",
-      "published": "2026-02-06T03:09:09+00:00"
-    },
-    {
-      "title": "Does Bitcoin's Retreat Signal a New Bear Market for Crypto?",
-      "url": "https://decrypt.co/357151/bitcoins-retreat-signal-new-bear-market-crypto",
-      "source": "decrypt",
-      "description": "A single-day 14% drop and a drawdown of more than 50% have pushed Bitcoin into territory typically associated with bear markets.",
-      "published": "2026-02-06T02:28:24+00:00"
-    },
-    {
-      "title": "OpenAI and Anthropic Roll Out Rival AI Models as Competition for Enterprise Heats Up",
-      "url": "https://decrypt.co/357142/openai-anthropic-rival-ai-models-competition-enterprise-heats-up",
-      "source": "decrypt",
-      "description": "OpenAI and Anthropic released new flagship AI models within hours of each other on Thursday, with benchmark results suggesting they're optimized for different strengths.",
-      "published": "2026-02-06T00:29:18+00:00"
-    },
-    {
-      "title": "Waymo\u2019s \u2018Self-Driving\u2019 Claims Called into Question on Capitol Hill",
-      "url": "https://decrypt.co/357128/waymos-self-driving-claims-reality-check-capitol-hill",
-      "source": "decrypt",
-      "description": "Senators pressed Waymo over its use of human operators in the Philippines, questioning whether autonomy still means what Waymo says it does.",
-      "published": "2026-02-05T23:04:43+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",
@@ -191,34 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption In hearings today, Senator Lummis signaled willingness to work with Treasury on clearer Bitcoin tax guidance, including a potential de minimis exemption. This post Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-05T17:15:02+00:00"
-    },
-    {
-      "title": "Summer of Bitcoin 2026 Opens Applications for University Students Worldwide",
-      "url": "https://bitcoinmagazine.com/news/summer-of-bitcoin-2026-opens-applications",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Summer of Bitcoin 2026 Opens Applications for University Students Worldwide Summer of Bitcoin has opened applications for its 2026 cohort. This post Summer of Bitcoin 2026 Opens Applications for University Students Worldwide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-05T17:05:15+00:00"
-    },
-    {
-      "title": "Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-falls-over-59000-in-large-dip",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High Bitcoin\u2019s price crashed sharply on Thursday, sliding through critical support and dipping near $66,000 in volatile trading. This post Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-05T16:33:37+00:00"
-    },
-    {
-      "title": "Virginia Advances Bill in Committee to Establish State Bitcoin Fund",
-      "url": "https://bitcoinmagazine.com/news/virginia-advances-bill-for-bitcoin-fund",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Virginia Advances Bill in Committee to Establish State Bitcoin Fund Virginia lawmakers pushed forward a proposal that would allow state funds to be invested in bitcoin. This post Virginia Advances Bill in Committee to Establish State Bitcoin Fund first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-05T14:43:20+00:00"
-    },
-    {
-      "title": "Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode",
-      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-69000",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode The bitcoin price crashed to $69,000 in trading Thursday as a deepening selloff in global markets spilled into crypto markets. This post Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-05T13:04:54+00:00"
     }
   ]
 }
