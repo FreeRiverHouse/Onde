@@ -209,3 +209,11 @@
 | 92 | DASH-002 | Mission Control Dashboard: Calendar View | 🔥 Agent monitoring | ✅ DONE | @clawdinho | Timeline + List views, category filters, 27 scheduled tasks mapped | Show all scheduled tasks (cron jobs, reminders) in weekly calendar view. Integrate in onde.surf |
 | 93 | DASH-003 | Mission Control Dashboard: Global Search | 🔥 Agent monitoring | ✅ DONE | @clawdinho | ⌘K command palette, searches tasks/activities/schedules, keyboard nav | Search through memories, tasks, documents, past conversations. Integrate in onde.surf |
 | 94 | GAM-FIX-001 | Test & fix ALL games on onde.la - click every interaction | 🔥 Quality | ✅ DONE | @clawdinho | All 44 games tested: HTTP 200 + 21 browser-verified interactive. Bugs fixed: puzzle images, jigsaw navbar, 2048 grid |
+
+## 🆕 TASK AGGIUNTI (2026-02-06 11:30 PST)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | TODO | - | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
+| 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | TODO | - | Post activity events to /api/activity during heartbeats (tasks done, alerts, deploys) |
+| 97 | SEO-012 | Internal linking audit: cross-link games↔books↔skin-creator | ⭐ SEO | TODO | - | Add contextual links between sections to improve crawlability and session time |
