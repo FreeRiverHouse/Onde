@@ -228,6 +228,6 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 104 | SEO-014 | Add llms.txt (LLMs Full) to onde.la for AI discoverability | ⭐ SEO/AI | TODO | - | AI crawlers look for /llms.txt. surfboard has it but onde.la doesn't |
-| 105 | A11Y-002 | Add skip-to-content link on onde.la main layout | ⭐ Accessibility | TODO | - | WCAG 2.4.1 bypass blocks requirement |
-| 106 | PERF-004 | Lazy-load Three.js in skin creator (dynamic import) | 🔥 Performance | TODO | - | Three.js is heavy, should only load when 3D preview is visible |
+| 104 | SEO-014 | Add llms.txt (LLMs Full) to onde.la for AI discoverability | ⭐ SEO/AI | ✅ DONE | @clawdinho | apps/onde-portal/public/llms.txt created |
+| 105 | A11Y-002 | Add skip-to-content link on onde.la main layout | ⭐ Accessibility | ✅ DONE | @clawdinho | Already exists: SkipToContent component in ClientLayout.tsx |
+| 106 | PERF-004 | Lazy-load Three.js in skin creator (dynamic import) | 🔥 Performance | ✅ DONE | @clawdinho | Already implemented: SkinPreview3D uses dynamic(() => import(...), { ssr: false }) |
