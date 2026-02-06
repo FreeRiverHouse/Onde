@@ -93,6 +93,7 @@ export default function PuzzleCategoryPage() {
         relatedCategories={[
           { href: '/games/category/educational', emoji: '📚', name: 'Educational' },
           { href: '/games/category/creative', emoji: '🎨', name: 'Creative' },
+          { href: '/games/category/action', emoji: '🕹️', name: 'Action & Arcade' },
         ]}
       />
     </>

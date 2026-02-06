@@ -90,6 +90,7 @@ export default function EducationalCategoryPage() {
         relatedCategories={[
           { href: '/games/category/puzzle', emoji: '🧩', name: 'Puzzle & Brain' },
           { href: '/games/category/creative', emoji: '🎨', name: 'Creative' },
+          { href: '/games/category/action', emoji: '🕹️', name: 'Action & Arcade' },
         ]}
       />
     </>

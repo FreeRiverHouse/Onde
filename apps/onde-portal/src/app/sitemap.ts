@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/category/puzzle',
     '/games/category/educational',
     '/games/category/creative',
+    '/games/category/action',
     
     // Games - Featured
     '/games/skin-creator',
