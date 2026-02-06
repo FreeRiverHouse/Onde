@@ -216,4 +216,4 @@
 |---|----|----- |--------|--------|-------|
 | 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | TODO | - | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
 | 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | TODO | - | Post activity events to /api/activity during heartbeats (tasks done, alerts, deploys) |
-| 97 | SEO-012 | Internal linking audit: cross-link games↔books↔skin-creator | ⭐ SEO | TODO | - | Add contextual links between sections to improve crawlability and session time |
+| 97 | SEO-012 | Internal linking audit: cross-link games↔books↔skin-creator | ⭐ SEO | ✅ DONE | @clawdinho | Added "Explore More" cross-link sections to games, libri, and skin-creator pages |

@@ -4326,10 +4326,32 @@ export default function SkinCreator() {
         </div>
       )}
 
-      {/* Footer */}
-      <p className="mt-4 text-white/70 text-sm">
-        Made with 💖 by Onde • Works with Minecraft Java & Bedrock!
-      </p>
+      {/* Footer with Cross Links */}
+      <div className="mt-6 w-full max-w-2xl mx-auto">
+        <p className="text-white/70 text-sm text-center mb-4">
+          Made with 💖 by Onde • Works with Minecraft Java & Bedrock!
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <a
+            href="/games"
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
+          >
+            🎮 More Games
+          </a>
+          <a
+            href="/libri"
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
+          >
+            📚 Free Books
+          </a>
+          <a
+            href="/shop"
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
+          >
+            🛍️ Shop
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

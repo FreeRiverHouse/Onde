@@ -348,7 +348,7 @@ export default function LibriPage() {
       </section>
 
       {/* Coming Soon */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div
           className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-onde-ocean/5 to-onde-teal/10
                      p-8 md:p-12 text-center border border-onde-ocean/10"
@@ -364,6 +364,49 @@ export default function LibriPage() {
             We&apos;re preparing more beautifully illustrated editions of classic literature.
             Stay tuned for new releases.
           </p>
+        </motion.div>
+      </section>
+
+      {/* Explore More - Cross Links */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-2xl font-display font-bold text-center text-amber-800 mb-8">✨ Explore More on Onde</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link
+              href="/games"
+              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-sky-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+            >
+              <span className="text-3xl group-hover:scale-110 transition-transform">🎮</span>
+              <div>
+                <p className="font-bold text-sky-800">Games</p>
+                <p className="text-sm text-sky-600/70">50+ free browser games for kids</p>
+              </div>
+            </Link>
+            <Link
+              href="/games/skin-creator"
+              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-purple-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+            >
+              <span className="text-3xl group-hover:scale-110 transition-transform">🎨</span>
+              <div>
+                <p className="font-bold text-purple-800">Skin Creator</p>
+                <p className="text-sm text-purple-600/70">Design Minecraft skins with AI</p>
+              </div>
+            </Link>
+            <Link
+              href="/shop"
+              className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+            >
+              <span className="text-3xl group-hover:scale-110 transition-transform">🛍️</span>
+              <div>
+                <p className="font-bold text-teal-800">Shop</p>
+                <p className="text-sm text-teal-600/70">Stickers, merch & more</p>
+              </div>
+            </Link>
+          </div>
         </motion.div>
       </section>
     </div>

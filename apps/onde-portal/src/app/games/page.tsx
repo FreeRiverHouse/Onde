@@ -924,6 +924,43 @@ export default function GamingIsland() {
         })}
       </div>
 
+      {/* Explore More - Cross Links */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16">
+        <h2 className="text-2xl font-bold text-center text-sky-800 mb-8">✨ Explore More on Onde</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Link
+            href="/libri"
+            className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-amber-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+          >
+            <span className="text-3xl group-hover:scale-110 transition-transform">📚</span>
+            <div>
+              <p className="font-bold text-amber-800">Free Books</p>
+              <p className="text-sm text-amber-600/70">Classic stories & illustrated editions</p>
+            </div>
+          </Link>
+          <Link
+            href="/games/skin-creator"
+            className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-purple-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+          >
+            <span className="text-3xl group-hover:scale-110 transition-transform">🎨</span>
+            <div>
+              <p className="font-bold text-purple-800">Skin Creator</p>
+              <p className="text-sm text-purple-600/70">Design Minecraft skins with AI</p>
+            </div>
+          </Link>
+          <Link
+            href="/shop"
+            className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
+          >
+            <span className="text-3xl group-hover:scale-110 transition-transform">🛍️</span>
+            <div>
+              <p className="font-bold text-teal-800">Shop</p>
+              <p className="text-sm text-teal-600/70">Stickers, merch & more</p>
+            </div>
+          </Link>
+        </div>
+      </div>
+
       {/* Back link */}
       <div className="absolute top-4 left-4 z-20">
         <Link 
