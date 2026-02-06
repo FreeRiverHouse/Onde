@@ -327,11 +327,11 @@ export default function ShopPage() {
               <ul className="space-y-2 text-sm text-onde-ocean/70">
                 <li className="flex items-center gap-2">
                   <span>🎮</span>
-                  <Link href="/games" className="hover:text-onde-coral">Gioca ai minigiochi</Link>
+                  <Link href="/games/" className="hover:text-onde-coral">Gioca ai minigiochi</Link>
                 </li>
                 <li className="flex items-center gap-2">
                   <span>📖</span>
-                  <Link href="/libri" className="hover:text-onde-coral">Leggi i libri</Link>
+                  <Link href="/libri/" className="hover:text-onde-coral">Leggi i libri</Link>
                 </li>
                 <li className="flex items-center gap-2">
                   <span>🏆</span>

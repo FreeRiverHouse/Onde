@@ -128,7 +128,7 @@ export default function CoinDisplay() {
   
   return (
     <>
-      <Link href="/shop">
+      <Link href="/shop/">
         <motion.div
           ref={containerRef}
           className="relative flex items-center gap-2 px-3 py-2 rounded-xl
@@ -206,7 +206,7 @@ export function CoinDisplayCompact() {
   }
   
   return (
-    <Link href="/shop">
+    <Link href="/shop/">
       <motion.div
         className="flex items-center gap-1 text-sm font-medium text-onde-ocean"
         whileTap={{ scale: 0.95 }}

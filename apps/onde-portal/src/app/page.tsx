@@ -234,7 +234,7 @@ export default function Home() {
             </Link>
             
             <Link 
-              href="/games"
+              href="/games/"
               className="group px-8 py-4 bg-white/80 backdrop-blur text-teal-700 font-bold text-lg border-2 border-teal-300 rounded-full hover:bg-white hover:border-teal-400 hover:scale-105 transition-all flex items-center gap-2"
             >
               <span>{t.home.hero.playGames}</span>
@@ -408,7 +408,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <Link 
-              href="/libri"
+              href="/libri/"
               className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 transition-colors group font-medium"
             >
               <span>{t.home.library.viewAll}</span>
@@ -461,7 +461,7 @@ export default function Home() {
                 {t.home.ctaNew.subtitle}
               </p>
               <Link 
-                href="/libri"
+                href="/libri/"
                 className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 text-white font-bold text-lg rounded-full hover:shadow-xl hover:shadow-teal-500/30 transition-all transform hover:scale-105"
               >
                 <span>{t.home.ctaNew.button}</span>

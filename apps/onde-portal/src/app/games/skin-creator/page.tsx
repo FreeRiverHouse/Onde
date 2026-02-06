@@ -4230,6 +4230,7 @@ export default function SkinCreator() {
                 onClick={() => { setSelectedColor(color); setShowMobileColorPicker(false); }}
                 className={`skin-mobile-color-btn ${selectedColor === color ? 'selected' : ''}`}
                 style={{ backgroundColor: color }}
+                aria-label={`Select color ${color}`}
               />
             ))}
           </div>
@@ -4333,19 +4334,19 @@ export default function SkinCreator() {
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <a
-            href="/games"
+            href="/games/"
             className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
           >
             🎮 More Games
           </a>
           <a
-            href="/libri"
+            href="/libri/"
             className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
           >
             📚 Free Books
           </a>
           <a
-            href="/shop"
+            href="/shop/"
             className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5"
           >
             🛍️ Shop

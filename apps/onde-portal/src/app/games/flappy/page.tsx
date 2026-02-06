@@ -716,7 +716,7 @@ export default function FlappyGame() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-black/20 backdrop-blur-sm z-20">
         <Link
-          href="/games"
+          href="/games/"
           className="text-2xl hover:scale-110 transition-transform bg-white/20 rounded-full w-10 h-10 flex items-center justify-center"
         >
           ←

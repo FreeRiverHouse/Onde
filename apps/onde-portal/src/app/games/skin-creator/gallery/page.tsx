@@ -852,7 +852,7 @@ export default function CommunityGalleryPage() {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-500">
             Made with 💜 by Onde • 
-            <Link href="/games" className="hover:text-purple-600 ml-1">More Games</Link> •
+            <Link href="/games/" className="hover:text-purple-600 ml-1">More Games</Link> •
             <Link href="/games/skin-creator" className="hover:text-purple-600 ml-1">Skin Editor</Link>
           </p>
           <p className="text-sm text-gray-400 mt-2">

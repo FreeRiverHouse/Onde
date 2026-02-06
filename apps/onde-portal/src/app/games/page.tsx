@@ -614,7 +614,7 @@ export default function GamingIsland() {
 
         {/* === LIBRARY BOOKSHOP (Right) === */}
         <Link
-          href="/libri"
+          href="/libri/"
           className="absolute bottom-[26%] right-[3%] md:right-[8%] cursor-pointer group z-10"
           onMouseEnter={() => setHoveredArea('library')}
           onMouseLeave={() => setHoveredArea(null)}
@@ -930,7 +930,7 @@ export default function GamingIsland() {
         <h2 className="text-2xl font-bold text-center text-sky-800 mb-8">✨ Explore More on Onde</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
-            href="/libri"
+            href="/libri/"
             className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-amber-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">📚</span>
@@ -950,7 +950,7 @@ export default function GamingIsland() {
             </div>
           </Link>
           <Link
-            href="/shop"
+            href="/shop/"
             className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">🛍️</span>

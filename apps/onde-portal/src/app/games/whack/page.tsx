@@ -539,7 +539,7 @@ export default function WhackAMole() {
       {/* Header */}
       <div className="flex justify-between items-center w-full max-w-lg mb-4 z-10">
         <Link
-          href="/games"
+          href="/games/"
           className="bg-white/90 px-4 py-2 rounded-full font-bold text-green-700 shadow-lg hover:scale-105 transition-all"
         >
           ← Games

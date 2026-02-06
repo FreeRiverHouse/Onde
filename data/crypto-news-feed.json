@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T19:00:05.025838+00:00",
+  "timestamp": "2026-02-06T19:30:02.820982+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Coinbase's Crypto-Backed Loans Notch Record Liquidations Amid Bitcoin, Ethereum Plunge",
+      "url": "https://decrypt.co/357265/coinbases-loans-record-liquidations-bitcoin-ethereum-plunge",
+      "source": "decrypt",
+      "description": "Coinbase customers faced losses in fresh ways through the exchange\u2019s crypto-backed lending product as Bitcoin and Ethereum tumbled this week.",
+      "published": "2026-02-06T19:19:12+00:00"
+    },
+    {
+      "title": "Bitcoin dips to $60K, TRM Labs becomes crypto unicorn: Finance Redefined",
+      "url": "https://cointelegraph.com/news/bitcoin-dips-to-60k-trm-labs-becomes-crypto-unicorn-finance-redefined?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin dipped toward $60,000 after liquidations across crypto derivatives markets reached $2.56 billion, the 10th-largest daily total on record.",
+      "published": "2026-02-06T19:00:00+00:00"
+    },
     {
       "title": "Price predictions 2/6: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
       "url": "https://cointelegraph.com/news/price-predictions-2-6-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -151,13 +165,6 @@
       "published": "2026-02-06T13:42:32+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-06T13:35:44+00:00"
-    },
-    {
       "title": "Morning Minute: Bitcoin Erases Trump Pump, Falls to $60k",
       "url": "https://decrypt.co/357171/morning-minute-bitcoin-erases-trump-pump-falls-to-60k",
       "source": "decrypt",
@@ -170,13 +177,6 @@
       "source": "decrypt",
       "description": "The prediction market has filed trademark applications for POLY and $POLY tied to a digital token and crypto trading services.",
       "published": "2026-02-06T10:58:22+00:00"
-    },
-    {
-      "title": "Crypto Advocates Round on Democrats\u2019 \u2018Crypto Crash\u2019 Message",
-      "url": "https://decrypt.co/357163/crypto-advocates-round-on-democrats-crypto-crash-message",
-      "source": "decrypt",
-      "description": "Industry leaders condemned a Democratic Party social media post mocking crypto market losses amid billions of dollars in liquidations.",
-      "published": "2026-02-06T10:18:15+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",

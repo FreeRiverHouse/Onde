@@ -115,7 +115,7 @@ export default function MyBooksPage() {
           {/* Actions */}
           <div className="mt-6 flex items-center justify-center gap-4">
             <Link
-              href="/libri"
+              href="/libri/"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full
                          bg-onde-ocean/10 text-onde-ocean text-sm font-medium
                          hover:bg-onde-ocean/20 transition-colors"
@@ -159,7 +159,7 @@ export default function MyBooksPage() {
               Browse our library and click the bookmark icon on any book to save it for later.
             </p>
             <Link
-              href="/libri"
+              href="/libri/"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
                          bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold
                          shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40

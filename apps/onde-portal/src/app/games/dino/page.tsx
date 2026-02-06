@@ -762,7 +762,7 @@ export default function DinoRunnerGame() {
       <div className="w-full max-w-4xl mb-6">
         <div className="flex items-center justify-between">
           <Link
-            href="/games"
+            href="/games/"
             className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
           >
             <span className="text-2xl">←</span>

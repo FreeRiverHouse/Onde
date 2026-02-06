@@ -877,7 +877,7 @@ export default function About() {
                   <Link href="/" className="btn-futuristic">
                     {t.about.finalCta?.browseLibrary || "Browse Library"}
                   </Link>
-                  <Link href="/games" className="btn-outline-glow">
+                  <Link href="/games/" className="btn-outline-glow">
                     {t.about.finalCta?.playGames || "Play Games"}
                   </Link>
                 </div>

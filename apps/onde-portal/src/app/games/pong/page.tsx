@@ -712,7 +712,7 @@ export default function PongPage() {
       {/* Header */}
       <div className="w-full max-w-4xl flex items-center justify-between mb-4">
         <Link
-          href="/games"
+          href="/games/"
           className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors"
         >
           <span className="text-2xl">←</span>

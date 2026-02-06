@@ -386,7 +386,7 @@ export default function LibriPage() {
           <h2 className="text-2xl font-display font-bold text-center text-amber-800 mb-8">✨ Explore More on Onde</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
-              href="/games"
+              href="/games/"
               className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-sky-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🎮</span>
@@ -406,7 +406,7 @@ export default function LibriPage() {
               </div>
             </Link>
             <Link
-              href="/shop"
+              href="/shop/"
               className="group flex items-center gap-3 p-5 bg-white/90 backdrop-blur-sm rounded-2xl border-2 border-teal-200 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all"
             >
               <span className="text-3xl group-hover:scale-110 transition-transform">🛍️</span>

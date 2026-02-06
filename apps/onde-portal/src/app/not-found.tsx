@@ -45,7 +45,7 @@ export default function NotFound() {
             🏠 Torna alla Home
           </Link>
           <Link
-            href="/games"
+            href="/games/"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl
                        bg-gradient-to-r from-purple-500 to-pink-500
                        text-white font-bold text-lg shadow-xl hover:scale-105 

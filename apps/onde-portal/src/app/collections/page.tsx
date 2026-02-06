@@ -544,13 +544,13 @@ function CollectionDetail({
             </p>
             <div className="flex justify-center gap-4">
               <Link
-                href="/libri"
+                href="/libri/"
                 className="px-6 py-3 rounded-xl bg-onde-gold text-onde-dark font-bold hover:opacity-90 transition-opacity"
               >
                 📚 Browse Books
               </Link>
               <Link
-                href="/games"
+                href="/games/"
                 className="px-6 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors"
               >
                 🎮 Browse Games

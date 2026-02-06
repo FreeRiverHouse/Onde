@@ -1,9 +1,18 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { Playfair_Display } from 'next/font/google'
 import { I18nProvider } from '@/i18n/I18nProvider'
 
 import ClientLayout from '@/components/ClientLayout'
+
+// Self-hosted font via next/font — eliminates render-blocking Google Fonts request
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-playfair',
+})
 
 // Google Analytics 4 - set NEXT_PUBLIC_GA_ID in environment
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
@@ -141,7 +150,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={playfair.variable} suppressHydrationWarning>
       <head>
         {/* Critical viewport meta tag for mobile stability */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -152,25 +161,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" type="application/rss+xml" title="Onde Books RSS Feed" href="/feed.xml" />
         <link rel="alternate" type="application/atom+xml" title="Onde Books Atom Feed" href="/feed.atom" />
         {/* Resource hints for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         {/* Prefetch critical navigation paths */}
-        <link rel="prefetch" href="/libri" as="document" />
-        <link rel="prefetch" href="/games" as="document" />
-        {/* Preload critical font for faster LCP */}
-        <link
-          rel="preload"
-          href="https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="prefetch" href="/libri/" as="document" />
+        <link rel="prefetch" href="/games/" as="document" />
+        {/* Playfair Display font is self-hosted via next/font (see layout import) */}
         <Script
           id="organization-jsonld"
           type="application/ld+json"

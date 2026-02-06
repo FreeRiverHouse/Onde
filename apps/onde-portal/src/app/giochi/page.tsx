@@ -482,7 +482,7 @@ export default function GiochiPage() {
               <Button href="/app" variant="teal">
                 {t.games.cta.discoverApps}
               </Button>
-              <Button href="/libri" variant="secondary">
+              <Button href="/libri/" variant="secondary">
                 {t.games.cta.exploreBooks}
               </Button>
             </motion.div>

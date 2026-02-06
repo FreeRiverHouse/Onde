@@ -1029,7 +1029,7 @@ export default function ExploreIsland() {
       
       {/* Back to home link */}
       <Link
-        href="/games"
+        href="/games/"
         className="absolute top-4 left-1/2 transform -translate-x-1/2 
           bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full px-4 py-2
           text-white text-sm z-50 transition-all"

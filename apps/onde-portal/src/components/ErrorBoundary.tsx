@@ -196,7 +196,7 @@ export class GameErrorBoundary extends Component<GameErrorBoundaryProps, GameErr
                 ⟳ Reload Page
               </button>
               <a
-                href="/games"
+                href="/games/"
                 className="px-8 py-4 rounded-xl bg-purple-500 text-white font-bold text-lg
                          hover:bg-purple-400 transition-all transform hover:scale-105
                          shadow-lg shadow-purple-500/30"

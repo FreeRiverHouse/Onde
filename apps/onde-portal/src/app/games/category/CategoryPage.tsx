@@ -38,7 +38,7 @@ export default function CategoryPage({
         <div className="absolute top-6 right-8 text-3xl opacity-20 animate-pulse" style={{ animationDelay: '0.5s' }}>✨</div>
         <div className="absolute bottom-2 left-1/4 text-2xl opacity-15 animate-pulse" style={{ animationDelay: '1s' }}>⭐</div>
 
-        <Link href="/games" className="absolute top-4 left-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-green-600 shadow hover:bg-white transition-colors">
+        <Link href="/games/" className="absolute top-4 left-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-green-600 shadow hover:bg-white transition-colors">
           ← Games
         </Link>
 
@@ -97,7 +97,7 @@ export default function CategoryPage({
 
       {/* Footer */}
       <div className="text-center py-6 text-gray-400 text-sm">
-        🌈 More games coming soon! • <Link href="/games" className="text-green-500 hover:underline">Back to Gaming Island</Link>
+        🌈 More games coming soon! • <Link href="/games/" className="text-green-500 hover:underline">Back to Gaming Island</Link>
       </div>
     </div>
   )

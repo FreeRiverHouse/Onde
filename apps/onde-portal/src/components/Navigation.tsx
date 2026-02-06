@@ -111,7 +111,7 @@ export default function Navigation() {
               <CoinDisplay />
               <LanguageSwitcher />
               <NotificationCenter />
-              <Link href="/libri">
+              <Link href="/libri/">
                 <motion.span
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
                              bg-gradient-to-r from-onde-coral to-onde-coral-light

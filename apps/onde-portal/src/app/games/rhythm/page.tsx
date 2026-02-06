@@ -667,7 +667,7 @@ export default function RhythmGame() {
       {/* Header */}
       <div className="flex justify-between items-center p-4 z-20">
         <Link
-          href="/games"
+          href="/games/"
           className="bg-white/90 px-4 py-2 rounded-full font-bold text-purple-700 shadow-lg hover:scale-105 transition-all"
         >
           ← Games

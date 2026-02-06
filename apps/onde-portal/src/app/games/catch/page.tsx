@@ -272,7 +272,7 @@ export default function CatchGame() {
       {/* Header */}
       <header className="flex justify-between items-center p-4 bg-white/20 backdrop-blur-sm">
         <Link 
-          href="/games" 
+          href="/games/" 
           className="text-2xl hover:scale-110 transition-transform"
         >
           ←

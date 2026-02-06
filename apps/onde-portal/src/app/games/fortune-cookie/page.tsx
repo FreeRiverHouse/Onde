@@ -250,7 +250,7 @@ export default function FortuneCookie() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-200 via-orange-200 to-red-200 flex flex-col items-center justify-center p-4">
       {/* Header */}
-      <Link href="/games" className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg hover:scale-105 transition-all">
+      <Link href="/games/" className="absolute top-4 left-4 bg-white/80 px-4 py-2 rounded-full font-bold text-amber-700 shadow-lg hover:scale-105 transition-all">
         ← Games
       </Link>
 
