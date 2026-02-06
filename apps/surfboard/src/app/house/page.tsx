@@ -89,12 +89,21 @@ export default function HouseDashboard() {
     <div className="min-h-screen bg-[#0f0f0f] text-white">
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <span className="text-4xl">🏠</span>
-            FreeRiverHouse HQ
-          </h1>
-          <p className="text-white/50">Central Operations Dashboard</p>
+        <div className="mb-8 flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
+              <span className="text-4xl">🏠</span>
+              FreeRiverHouse HQ
+            </h1>
+            <p className="text-white/50">Central Operations Dashboard</p>
+          </div>
+          <a
+            href="/house/mission-control"
+            className="flex items-center gap-2 px-4 py-2.5 bg-cyan-400/10 border border-cyan-400/20 rounded-xl text-sm text-cyan-400 hover:bg-cyan-400/20 transition-colors"
+          >
+            <span>🎛️</span>
+            Mission Control
+          </a>
         </div>
 
         {/* Stats Grid */}

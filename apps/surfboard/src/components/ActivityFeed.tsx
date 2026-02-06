@@ -2,99 +2,43 @@
 
 import { useState, useEffect, useCallback } from 'react'
 
-// Activity types with their icons and colors
-const activityTypes = {
-  post_approved: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-      </svg>
-    ),
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-400/10',
-    border: 'border-emerald-400/20'
-  },
-  post_rejected: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    ),
-    color: 'text-red-400',
-    bg: 'bg-red-400/10',
-    border: 'border-red-400/20'
-  },
-  post_created: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-      </svg>
-    ),
-    color: 'text-blue-400',
-    bg: 'bg-blue-400/10',
-    border: 'border-blue-400/20'
-  },
-  post_posted: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
-      </svg>
-    ),
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-400/10',
-    border: 'border-cyan-400/20'
-  },
-  image_generated: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    color: 'text-purple-400',
-    bg: 'bg-purple-400/10',
-    border: 'border-purple-400/20'
-  },
-  deploy: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-      </svg>
-    ),
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-400/10',
-    border: 'border-cyan-400/20'
-  },
-  book_updated: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    color: 'text-amber-400',
-    bg: 'bg-amber-400/10',
-    border: 'border-amber-400/20'
-  },
-  agent_action: {
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-    color: 'text-blue-400',
-    bg: 'bg-blue-400/10',
-    border: 'border-blue-400/20'
-  }
+// Activity types with their emoji icons and colors
+const activityTypes: Record<string, { emoji: string; color: string }> = {
+  // Content
+  post_approved: { emoji: '✅', color: 'emerald-400' },
+  post_rejected: { emoji: '❌', color: 'red-400' },
+  post_created: { emoji: '✏️', color: 'blue-400' },
+  post_posted: { emoji: '📤', color: 'cyan-400' },
+  image_generated: { emoji: '🎨', color: 'purple-400' },
+  book_updated: { emoji: '📚', color: 'amber-400' },
+  // Agent
+  agent_action: { emoji: '🤖', color: 'blue-400' },
+  task_completed: { emoji: '✅', color: 'emerald-400' },
+  task_started: { emoji: '🚀', color: 'blue-400' },
+  git_commit: { emoji: '📝', color: 'violet-400' },
+  heartbeat: { emoji: '💓', color: 'pink-400' },
+  alert: { emoji: '🚨', color: 'red-400' },
+  game_tested: { emoji: '🎮', color: 'green-400' },
+  translation: { emoji: '🌍', color: 'teal-400' },
+  memory_update: { emoji: '🧠', color: 'purple-400' },
+  cron_job: { emoji: '⏰', color: 'orange-400' },
+  // Infra
+  deploy: { emoji: '🚀', color: 'cyan-400' },
+  monitor: { emoji: '📊', color: 'sky-400' },
+  error: { emoji: '💥', color: 'red-500' },
+  chat_message: { emoji: '💬', color: 'indigo-400' },
 }
 
-type ActivityType = keyof typeof activityTypes
+const defaultType = { emoji: '⚡', color: 'gray-400' }
 
 interface Activity {
   id: string | number
-  type: ActivityType
+  type: string
   title: string
   description?: string
   created_at: string
   actor?: string
+  metadata?: Record<string, unknown>
 }
 
 function formatTimeAgo(dateStr: string): string {
@@ -111,9 +55,11 @@ interface ActivityFeedProps {
   maxItems?: number
   showHeader?: boolean
   className?: string
+  filterType?: string
+  filterActor?: string
 }
 
-export function ActivityFeed({ maxItems = 8, showHeader = true, className = '' }: ActivityFeedProps) {
+export function ActivityFeed({ maxItems = 8, showHeader = true, className = '', filterType, filterActor }: ActivityFeedProps) {
   const [activities, setActivities] = useState<Activity[]>([])
   const [isLive, setIsLive] = useState(true)
   const [newActivityCount, setNewActivityCount] = useState(0)
@@ -121,7 +67,10 @@ export function ActivityFeed({ maxItems = 8, showHeader = true, className = '' }
 
   const fetchActivities = useCallback(async () => {
     try {
-      const res = await fetch(`/api/activity?limit=${maxItems}`)
+      const params = new URLSearchParams({ limit: String(maxItems) })
+      if (filterType) params.set('type', filterType)
+      if (filterActor) params.set('actor', filterActor)
+      const res = await fetch(`/api/activity?${params}`)
       if (res.ok) {
         const data = await res.json()
         setActivities(data.activities || [])
@@ -131,7 +80,7 @@ export function ActivityFeed({ maxItems = 8, showHeader = true, className = '' }
     } finally {
       setIsLoading(false)
     }
-  }, [maxItems])
+  }, [maxItems, filterType, filterActor])
 
   // Initial fetch
   useEffect(() => {
@@ -204,7 +153,7 @@ export function ActivityFeed({ maxItems = 8, showHeader = true, className = '' }
           </div>
         ) : (
           activities.map((activity, index) => {
-            const config = activityTypes[activity.type] || activityTypes.agent_action
+            const config = activityTypes[activity.type] || defaultType
             return (
               <div
                 key={activity.id}
@@ -215,8 +164,8 @@ export function ActivityFeed({ maxItems = 8, showHeader = true, className = '' }
                 }}
               >
                 <div className="flex items-start gap-3">
-                  <div className={`p-1.5 rounded-lg ${config.bg} ${config.color} ${config.border} border`}>
-                    {config.icon}
+                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-base flex-shrink-0">
+                    {config.emoji}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
