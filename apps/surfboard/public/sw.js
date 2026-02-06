@@ -1,9 +1,8 @@
 // Surfboard Service Worker - Offline PWA Support
-// Version: 1.1.0 - Added Background Sync
+// Version: 2.0.0 - Fixed caching to prevent stale build mismatches
 
-const CACHE_NAME = 'surfboard-v1';
-const STATIC_CACHE = 'surfboard-static-v1';
-const API_CACHE = 'surfboard-api-v1';
+const CACHE_NAME = 'surfboard-v2';
+const API_CACHE = 'surfboard-api-v2';
 
 // Background Sync tags
 const SYNC_TRADING_STATS = 'sync-trading-stats';
@@ -13,19 +12,6 @@ const SYNC_ALL = 'sync-all';
 // Pending sync requests (for browsers without Background Sync API)
 let pendingSyncs = new Set();
 
-// Static assets to precache
-const PRECACHE_ASSETS = [
-  '/',
-  '/betting',
-  '/house',
-  '/corde',
-  '/pr',
-  '/manifest.json',
-  '/icon.svg',
-  '/apple-icon.svg',
-  '/robots.txt',
-];
-
 // API routes to cache (network-first with cache fallback)
 const API_ROUTES = [
   '/api/trading/stats',
@@ -34,31 +20,35 @@ const API_ROUTES = [
   '/api/health/cron',
 ];
 
-// Install: Precache static assets
+// Install: Skip precaching HTML pages (they change on every build)
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker...');
+  console.log('[SW] Installing service worker v2.0.0...');
+  // Don't precache HTML pages - they contain build-specific chunk references
+  // Only cache truly static assets
   event.waitUntil(
-    caches.open(STATIC_CACHE)
+    caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('[SW] Precaching static assets');
-        return cache.addAll(PRECACHE_ASSETS);
+        return cache.addAll([
+          '/manifest.json',
+          '/icon.svg',
+          '/apple-icon.svg',
+        ]);
       })
       .then(() => self.skipWaiting())
   );
 });
 
-// Activate: Clean up old caches
+// Activate: Clean up ALL old caches to prevent stale chunk mismatches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker...');
+  console.log('[SW] Activating service worker v2.0.0...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
           .filter((name) => {
-            // Delete old versioned caches
+            // Delete ALL old versioned caches
             return name.startsWith('surfboard-') && 
                    name !== CACHE_NAME && 
-                   name !== STATIC_CACHE && 
                    name !== API_CACHE;
           })
           .map((name) => {
@@ -70,15 +60,61 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Handle messages from clients (for manual update trigger)
+// Handle messages from clients
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     console.log('[SW] Received SKIP_WAITING message, activating new version');
     self.skipWaiting();
   }
+
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+  }
+  
+  if (event.data === 'clearCache') {
+    caches.keys().then((names) => {
+      names.forEach((name) => {
+        if (name.startsWith('surfboard-')) {
+          caches.delete(name);
+        }
+      });
+    });
+  }
+  
+  // Request background sync
+  if (event.data && event.data.type === 'REQUEST_SYNC') {
+    const syncTag = event.data.tag || SYNC_ALL;
+    console.log('[SW] Sync requested:', syncTag);
+    
+    if ('sync' in self.registration) {
+      self.registration.sync.register(syncTag)
+        .then(() => console.log('[SW] Sync registered:', syncTag))
+        .catch((err) => {
+          console.log('[SW] Sync registration failed:', err);
+          pendingSyncs.add(syncTag);
+        });
+    } else {
+      pendingSyncs.add(syncTag);
+    }
+    
+    if (event.ports && event.ports[0]) {
+      event.ports[0].postMessage({ type: 'SYNC_QUEUED', tag: syncTag });
+    }
+  }
+  
+  // Manual sync trigger
+  if (event.data && event.data.type === 'FORCE_SYNC') {
+    const syncTag = event.data.tag || SYNC_ALL;
+    performSync(syncTag).then((results) => {
+      if (event.ports && event.ports[0]) {
+        event.ports[0].postMessage({ type: 'SYNC_COMPLETE', tag: syncTag, results });
+      }
+      notifyClientsOfSync(syncTag, results);
+    });
+  }
 });
 
-// Fetch: Implement caching strategies
+// Fetch: Network-first for everything, cache only for offline fallback
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -93,19 +129,28 @@ self.addEventListener('fetch', (event) => {
 
   // API routes: Network first, cache fallback
   if (API_ROUTES.some(route => url.pathname.startsWith(route))) {
-    event.respondWith(networkFirstWithCache(request, API_CACHE, 60)); // 60s TTL
+    event.respondWith(networkFirstWithCache(request, API_CACHE, 60));
     return;
   }
 
-  // Static assets: Cache first, network fallback
-  if (isStaticAsset(url.pathname)) {
-    event.respondWith(cacheFirstWithNetwork(request, STATIC_CACHE));
+  // Next.js static chunks: Network first, cache fallback
+  // IMPORTANT: Don't use cache-first for chunks! Chunks change between builds.
+  // The chunk filenames are content-hashed, so each build creates new ones.
+  // Using cache-first can cause mismatches if old chunks are cached.
+  if (url.pathname.startsWith('/_next/static/')) {
+    event.respondWith(networkFirstWithCache(request, CACHE_NAME, 86400));
     return;
   }
 
-  // HTML pages: Network first, cache fallback (for offline)
+  // HTML pages: Always network first (they reference build-specific chunks)
   if (request.mode === 'navigate' || request.headers.get('accept')?.includes('text/html')) {
-    event.respondWith(networkFirstWithCache(request, STATIC_CACHE));
+    event.respondWith(networkFirstWithCache(request, CACHE_NAME));
+    return;
+  }
+
+  // Static assets (icons, manifest, etc.): Network first with cache
+  if (isStaticAsset(url.pathname)) {
+    event.respondWith(networkFirstWithCache(request, CACHE_NAME, 3600));
     return;
   }
 
@@ -115,32 +160,7 @@ self.addEventListener('fetch', (event) => {
 
 // Check if URL is a static asset
 function isStaticAsset(pathname) {
-  return /\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot)$/.test(pathname) ||
-         pathname.startsWith('/_next/static/');
-}
-
-// Cache-first strategy
-async function cacheFirstWithNetwork(request, cacheName) {
-  const cache = await caches.open(cacheName);
-  const cached = await cache.match(request);
-  
-  if (cached) {
-    // Return cached, but refresh in background
-    refreshCache(request, cache);
-    return cached;
-  }
-  
-  // No cache, fetch from network
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      cache.put(request, response.clone());
-    }
-    return response;
-  } catch (error) {
-    console.log('[SW] Network error, no cache available');
-    return new Response('Offline', { status: 503 });
-  }
+  return /\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot)$/.test(pathname);
 }
 
 // Network-first strategy with cache fallback
@@ -170,11 +190,7 @@ async function networkFirstWithCache(request, cacheName, ttlSeconds = 300) {
     const cached = await cache.match(request);
     
     if (cached) {
-      const cacheTime = cached.headers.get('sw-cache-time');
-      const age = cacheTime ? (Date.now() - parseInt(cacheTime)) / 1000 : Infinity;
-      
-      // Return cached even if stale when offline
-      console.log(`[SW] Serving cached (age: ${Math.round(age)}s):`, request.url);
+      console.log(`[SW] Serving from cache (offline):`, request.url);
       return cached;
     }
     
@@ -194,73 +210,6 @@ async function networkFirstWithCache(request, cacheName, ttlSeconds = 300) {
   }
 }
 
-// Background cache refresh
-async function refreshCache(request, cache) {
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      cache.put(request, response);
-    }
-  } catch (e) {
-    // Ignore - just a background refresh
-  }
-}
-
-// Handle messages from clients
-self.addEventListener('message', (event) => {
-  if (event.data === 'skipWaiting') {
-    self.skipWaiting();
-  }
-  
-  if (event.data === 'clearCache') {
-    caches.keys().then((names) => {
-      names.forEach((name) => {
-        if (name.startsWith('surfboard-')) {
-          caches.delete(name);
-        }
-      });
-    });
-  }
-  
-  // Request background sync (for when client wants to queue a refresh)
-  if (event.data && event.data.type === 'REQUEST_SYNC') {
-    const syncTag = event.data.tag || SYNC_ALL;
-    console.log('[SW] Sync requested:', syncTag);
-    
-    // Try to register a sync (if supported)
-    if ('sync' in self.registration) {
-      self.registration.sync.register(syncTag)
-        .then(() => console.log('[SW] Sync registered:', syncTag))
-        .catch((err) => {
-          console.log('[SW] Sync registration failed, will retry on connect:', err);
-          pendingSyncs.add(syncTag);
-        });
-    } else {
-      // Fallback: store pending sync and retry when online
-      pendingSyncs.add(syncTag);
-      console.log('[SW] Background Sync not supported, queued for retry');
-    }
-    
-    // Notify client
-    if (event.ports && event.ports[0]) {
-      event.ports[0].postMessage({ type: 'SYNC_QUEUED', tag: syncTag });
-    }
-  }
-  
-  // Manual sync trigger (for testing or forced refresh)
-  if (event.data && event.data.type === 'FORCE_SYNC') {
-    const syncTag = event.data.tag || SYNC_ALL;
-    console.log('[SW] Force sync:', syncTag);
-    performSync(syncTag).then((results) => {
-      if (event.ports && event.ports[0]) {
-        event.ports[0].postMessage({ type: 'SYNC_COMPLETE', tag: syncTag, results });
-      }
-      // Notify all clients about the refresh
-      notifyClientsOfSync(syncTag, results);
-    });
-  }
-});
-
 // Background Sync event handler
 self.addEventListener('sync', (event) => {
   console.log('[SW] Background sync triggered:', event.tag);
@@ -273,7 +222,6 @@ self.addEventListener('sync', (event) => {
     event.waitUntil(performSync(SYNC_ALL));
   }
   
-  // Remove from pending syncs if it was there
   pendingSyncs.delete(event.tag);
 });
 
@@ -284,7 +232,6 @@ async function performSync(syncTag) {
   
   const cache = await caches.open(API_CACHE);
   
-  // Determine which endpoints to refresh
   const endpoints = [];
   if (syncTag === SYNC_TRADING_STATS || syncTag === SYNC_ALL) {
     endpoints.push('/api/trading/stats');
@@ -297,7 +244,6 @@ async function performSync(syncTag) {
     endpoints.push('/api/health/cron');
   }
   
-  // Fetch and cache each endpoint
   for (const endpoint of endpoints) {
     try {
       const response = await fetch(endpoint, { 
@@ -306,7 +252,6 @@ async function performSync(syncTag) {
       });
       
       if (response.ok) {
-        // Add timestamp to cached response
         const headers = new Headers(response.headers);
         headers.set('sw-cache-time', Date.now().toString());
         headers.set('sw-sync-time', new Date().toISOString());
@@ -320,14 +265,11 @@ async function performSync(syncTag) {
         
         await cache.put(endpoint, cachedResponse);
         results.success.push(endpoint);
-        console.log('[SW] Synced:', endpoint);
       } else {
         results.failed.push({ endpoint, status: response.status });
-        console.log('[SW] Sync failed:', endpoint, response.status);
       }
     } catch (error) {
       results.failed.push({ endpoint, error: error.message });
-      console.log('[SW] Sync error:', endpoint, error.message);
     }
   }
   
@@ -358,4 +300,4 @@ self.addEventListener('online', () => {
   });
 });
 
-console.log('[SW] Service worker loaded (v1.1.0 with Background Sync)');
+console.log('[SW] Service worker loaded (v2.0.0 - Fixed caching)');
