@@ -154,7 +154,7 @@
 | 42 | SEC-001 | Verificare security headers | 🔧 Security | ✅ DONE | @clawdinho | _headers configured, CF partial |
 | 43 | PWA-002 | Verificare manifest.json e icone PWA | 📱 PWA | ✅ DONE | @clawdinho | icon-192 + icon-512 present |
 | 44 | ANALYTICS-001 | Setup Plausible/Umami analytics | 📊 Growth | 🔶 DOCS READY | @clawdinho | docs/analytics/privacy-analytics-setup.md |
-| 47 | CONTENT-001 | Add 3 more books to catalog | 📚 Content | TODO | - |
+| 47 | CONTENT-001 | Add 3 more books to catalog | 📚 Content | ✅ DONE | @clawdinho | Alice, Jungle Book, Peter Rabbit (ePub + catalog) |
 | 48 | GAME-003 | Add loading skeleton to skin creator | ⭐ UX | ✅ DONE | @clawdinho | loading.tsx with animated skeleton |
 | 50 | UX-001 | Add loading skeleton to /libri page | ⭐ UX | ✅ DONE | @clawdinho | loading.tsx with book cards |
 | 51 | UX-002 | Add error boundary to games | ⭐ Reliability | ✅ DONE | @clawdinho | error.tsx with retry button |

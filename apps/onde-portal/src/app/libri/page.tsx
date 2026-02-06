@@ -125,6 +125,45 @@ const books: Book[] = [
     price: 'Free',
     isFree: true,
   },
+  {
+    id: 'alice-wonderland-en',
+    title: 'Alice\'s Adventures in Wonderland',
+    subtitle: 'A Journey Down the Rabbit Hole',
+    author: 'Lewis Carroll',
+    description: 'Follow Alice through a fantastical underground world filled with peculiar creatures, mad tea parties, and unforgettable adventures. The beloved 1865 classic.',
+    category: 'Classics',
+    coverImage: '/books/alice-cover.svg',
+    pdfLink: '',
+    epubLink: '/books/epub/alice-wonderland-en.epub',
+    price: 'Free',
+    isFree: true,
+  },
+  {
+    id: 'jungle-book-en',
+    title: 'The Jungle Book',
+    subtitle: 'Stories of Mowgli and the Jungle',
+    author: 'Rudyard Kipling',
+    description: 'The timeless tales of Mowgli, raised by wolves in the Indian jungle, and his adventures with Baloo, Bagheera, and the fearsome Shere Khan. Published 1894.',
+    category: 'Classics',
+    coverImage: '/books/jungle-cover.svg',
+    pdfLink: '',
+    epubLink: '/books/epub/jungle-book-en.epub',
+    price: 'Free',
+    isFree: true,
+  },
+  {
+    id: 'peter-rabbit-en',
+    title: 'The Tale of Peter Rabbit',
+    subtitle: 'A Classic Children\'s Story',
+    author: 'Beatrix Potter',
+    description: 'The charming tale of a mischievous young rabbit who sneaks into Mr. McGregor\'s garden. Beatrix Potter\'s most beloved story, first published in 1893.',
+    category: 'Children',
+    coverImage: '/books/peter-rabbit-cover.svg',
+    pdfLink: '',
+    epubLink: '/books/epub/peter-rabbit-en.epub',
+    price: 'Free',
+    isFree: true,
+  },
 ]
 
 export default function LibriPage() {
@@ -205,6 +244,7 @@ export default function LibriPage() {
                 {/* Action Buttons */}
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col sm:flex-row gap-3">
+                    {book.pdfLink && (
                     <a
                       href={book.pdfLink}
                       download
@@ -219,6 +259,7 @@ export default function LibriPage() {
                       </svg>
                       Download PDF
                     </a>
+                    )}
                     {book.epubLink && (
                       <a
                         href={book.epubLink}
