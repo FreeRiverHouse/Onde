@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
-import { WinModal } from '../components/KidUI'
 
 // Types
 type GridSize = 3 | 4 | 5
@@ -21,16 +20,64 @@ interface LeaderboardEntry {
   date: string
 }
 
-// Cute animal puzzles using emoji patterns and colors
+// Puzzle images - use beautiful Unsplash photos that look great as puzzles
 const PUZZLES = [
-  { id: 'cat', name: '🐱 Kitty', emoji: '🐱', bg: 'from-orange-300 to-amber-400' },
-  { id: 'dog', name: '🐶 Puppy', emoji: '🐶', bg: 'from-amber-300 to-yellow-400' },
-  { id: 'bunny', name: '🐰 Bunny', emoji: '🐰', bg: 'from-pink-300 to-rose-400' },
-  { id: 'panda', name: '🐼 Panda', emoji: '🐼', bg: 'from-gray-200 to-slate-300' },
-  { id: 'fox', name: '🦊 Fox', emoji: '🦊', bg: 'from-orange-400 to-red-400' },
-  { id: 'koala', name: '🐨 Koala', emoji: '🐨', bg: 'from-gray-300 to-blue-300' },
-  { id: 'unicorn', name: '🦄 Unicorn', emoji: '🦄', bg: 'from-purple-300 to-pink-400' },
-  { id: 'lion', name: '🦁 Lion', emoji: '🦁', bg: 'from-yellow-400 to-orange-500' },
+  { 
+    id: 'sunset', 
+    name: '🌅 Sunset', 
+    emoji: '🌅',
+    image: 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'ocean', 
+    name: '🌊 Ocean', 
+    emoji: '🌊',
+    image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'forest', 
+    name: '🌲 Forest', 
+    emoji: '🌲',
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'space', 
+    name: '🌌 Space', 
+    emoji: '🌌',
+    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'flowers', 
+    name: '🌸 Flowers', 
+    emoji: '🌸',
+    image: 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'mountains', 
+    name: '🏔️ Mountains', 
+    emoji: '🏔️',
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'kitten', 
+    name: '🐱 Kitten', 
+    emoji: '🐱',
+    image: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&h=600&fit=crop',
+    thumb: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=80&h=80&fit=crop',
+  },
+  { 
+    id: 'rainbow', 
+    name: '🌈 Rainbow', 
+    emoji: '🌈',
+    image: 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=600&h=600&fit=crop&sat=-100&blur=0',
+    thumb: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=80&h=80&fit=crop',
+  },
 ]
 
 // Sound effects using Web Audio API
@@ -177,7 +224,7 @@ const shufflePuzzle = (gridSize: number, shuffleCount: number): Tile[] => {
   return tiles
 }
 
-// Tile component
+// Tile component with real image pieces
 const PuzzleTile = ({
   tile,
   gridSize,
@@ -185,6 +232,7 @@ const PuzzleTile = ({
   onClick,
   isAdjacent,
   isShuffling,
+  boardSize,
 }: {
   tile: Tile
   gridSize: GridSize
@@ -192,78 +240,90 @@ const PuzzleTile = ({
   onClick: () => void
   isAdjacent: boolean
   isShuffling: boolean
+  boardSize: number
 }) => {
   const isEmpty = tile.id === gridSize * gridSize - 1
   const row = Math.floor(tile.currentPos / gridSize)
   const col = tile.currentPos % gridSize
 
-  // Calculate original position for background
+  // Original position for background offset
   const origRow = Math.floor(tile.id / gridSize)
   const origCol = tile.id % gridSize
 
-  const tileSize = gridSize === 3 ? 'w-24 h-24 md:w-28 md:h-28' : 
-                   gridSize === 4 ? 'w-20 h-20 md:w-24 md:h-24' : 
-                   'w-16 h-16 md:w-20 md:h-20'
-
-  const fontSize = gridSize === 3 ? 'text-4xl md:text-5xl' :
-                   gridSize === 4 ? 'text-3xl md:text-4xl' :
-                   'text-2xl md:text-3xl'
+  const tileSize = boardSize / gridSize
+  const gap = gridSize === 3 ? 4 : gridSize === 4 ? 3 : 2
 
   if (isEmpty) {
-    return (
-      <div
-        className={`${tileSize} rounded-xl`}
-        style={{
-          gridRow: row + 1,
-          gridColumn: col + 1,
-        }}
-      />
-    )
+    return null
   }
 
-  // Calculate background position for the visual effect
-  const bgSize = 100 * gridSize
-  const bgPosX = -(origCol * 100)
-  const bgPosY = -(origRow * 100)
+  // Calculate background position so tile shows correct piece of image
+  const bgPosX = -(origCol * tileSize)
+  const bgPosY = -(origRow * tileSize)
 
   return (
     <button
       onClick={onClick}
       disabled={!isAdjacent || isShuffling}
       className={`
-        ${tileSize} rounded-xl shadow-lg font-bold text-white
-        flex items-center justify-center relative overflow-hidden
-        transition-all duration-200
-        ${isAdjacent && !isShuffling ? 'cursor-pointer hover:scale-105 hover:shadow-xl ring-4 ring-white/50' : 'cursor-default'}
+        absolute rounded-lg shadow-lg overflow-hidden
+        transition-all duration-200 ease-out
+        ${isAdjacent && !isShuffling ? 'cursor-pointer hover:brightness-110 ring-2 ring-white/70 z-10' : 'cursor-default'}
         ${isShuffling ? 'animate-pulse' : ''}
       `}
       style={{
-        gridRow: row + 1,
-        gridColumn: col + 1,
-        transition: 'all 0.15s ease-out',
+        width: `${tileSize - gap}px`,
+        height: `${tileSize - gap}px`,
+        left: `${col * tileSize + gap / 2}px`,
+        top: `${row * tileSize + gap / 2}px`,
+        backgroundImage: `url(${puzzle.image})`,
+        backgroundSize: `${boardSize}px ${boardSize}px`,
+        backgroundPosition: `${bgPosX}px ${bgPosY}px`,
+        transition: 'left 0.15s ease-out, top 0.15s ease-out',
       }}
     >
-      {/* Gradient background with number overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${puzzle.bg}`} />
-      
-      {/* Pattern based on position */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at ${30 + origCol * 20}% ${30 + origRow * 20}%, white 0%, transparent 60%)`,
-        }}
-      />
-
-      {/* Tile number and emoji */}
-      <div className="relative z-10 flex flex-col items-center">
-        <span className={fontSize}>{puzzle.emoji}</span>
-        <span className="text-xs md:text-sm font-black opacity-80 mt-1">
-          {tile.id + 1}
-        </span>
+      {/* Small number overlay in corner */}
+      <div className="absolute bottom-1 right-1 bg-black/40 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center backdrop-blur-sm">
+        {tile.id + 1}
       </div>
+      
+      {/* Highlight border for adjacent tiles */}
+      {isAdjacent && !isShuffling && (
+        <div className="absolute inset-0 border-2 border-white/50 rounded-lg pointer-events-none" />
+      )}
+    </button>
+  )
+}
 
-      {/* Border */}
-      <div className="absolute inset-0.5 border-2 border-white/30 rounded-lg pointer-events-none" />
+// Image selector button
+const ImageButton = ({ 
+  puzzle, 
+  selected, 
+  onClick, 
+  disabled 
+}: { 
+  puzzle: typeof PUZZLES[0]
+  selected: boolean
+  onClick: () => void
+  disabled: boolean
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden flex-shrink-0
+        transition-all duration-200
+        ${selected ? 'ring-3 ring-white shadow-lg scale-110' : 'ring-1 ring-white/30 hover:ring-white/60'}
+        ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105'}
+      `}
+    >
+      <img 
+        src={puzzle.thumb} 
+        alt={puzzle.name}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
     </button>
   )
 }
@@ -283,8 +343,30 @@ export default function SlidingPuzzle() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const boardRef = useRef<HTMLDivElement>(null)
+  const [boardSize, setBoardSize] = useState(320)
+
+  // Calculate board size responsively
+  useEffect(() => {
+    const updateSize = () => {
+      const maxSize = Math.min(window.innerWidth - 48, 420)
+      setBoardSize(Math.max(240, maxSize))
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
+
+  // Preload image when puzzle changes
+  useEffect(() => {
+    setImageLoaded(false)
+    const img = new Image()
+    img.onload = () => setImageLoaded(true)
+    img.src = selectedPuzzle.image
+  }, [selectedPuzzle])
 
   // Load leaderboard from localStorage
   useEffect(() => {
@@ -351,11 +433,10 @@ export default function SlidingPuzzle() {
       playSound('shuffle')
     }
 
-    // Animate shuffle
     const shuffleSteps = gridSize === 3 ? 30 : gridSize === 4 ? 50 : 80
     const newTiles = shufflePuzzle(gridSize, shuffleSteps)
 
-    // Quick animation showing some intermediate states
+    // Quick animation
     for (let i = 0; i < 5; i++) {
       await new Promise((resolve) => setTimeout(resolve, 50))
       const intermediateTiles = shufflePuzzle(gridSize, shuffleSteps / 2)
@@ -391,7 +472,6 @@ export default function SlidingPuzzle() {
       playSound('slide')
     }
 
-    // Swap positions
     const newTiles = tiles.map((t) => {
       if (t.id === clickedTile.id) {
         return { ...t, currentPos: emptyTile.currentPos }
@@ -415,7 +495,6 @@ export default function SlidingPuzzle() {
         playSound('win')
       }
 
-      // Save to leaderboard
       const newEntry: LeaderboardEntry = {
         time,
         moves: moves + 1,
@@ -459,33 +538,26 @@ export default function SlidingPuzzle() {
     .sort((a, b) => a.time - b.time || a.moves - b.moves)
     .slice(0, 5)
 
-  const gridClass = gridSize === 3 ? 'grid-cols-3' : gridSize === 4 ? 'grid-cols-4' : 'grid-cols-5'
-  const gridGap = gridSize === 3 ? 'gap-2' : gridSize === 4 ? 'gap-1.5' : 'gap-1'
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-400 via-blue-400 to-purple-500 flex flex-col items-center p-4">
 
-      <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation"><span className="text-lg">←</span><span className="font-mono text-sm">Arcade</span></Link>
-      <Confetti active={showConfetti} />
-
-      {/* Header */}
-      <Link
-        href="/games/arcade/"
-        className="absolute top-4 left-4 bg-white/90 px-4 py-2 rounded-full font-bold text-blue-700 shadow-lg hover:scale-105 transition-all"
-      >
-        ← Games
+      <Link href="/games/arcade/" className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all active:scale-95 touch-manipulation">
+        <span className="text-lg">←</span>
+        <span className="font-mono text-sm">Games</span>
       </Link>
+
+      <Confetti active={showConfetti} />
 
       {/* Sound toggle */}
       <button
         onClick={() => setSoundEnabled(!soundEnabled)}
-        className="absolute top-4 right-4 bg-white/90 px-4 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-all"
+        className="fixed top-4 right-4 z-50 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 transition-all"
       >
         {soundEnabled ? '🔊' : '🔇'}
       </button>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-5xl font-black text-white mb-2 mt-12 text-center drop-shadow-lg">
+      <h1 className="text-3xl md:text-5xl font-black text-white mb-2 mt-14 text-center drop-shadow-lg">
         🧩 Sliding Puzzle
       </h1>
       <p className="text-white/90 mb-4 text-center">
@@ -503,7 +575,7 @@ export default function SlidingPuzzle() {
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-2 mb-4 justify-center">
+      <div className="flex flex-wrap gap-3 mb-4 justify-center items-center">
         {/* Grid size */}
         <div className="flex gap-1 bg-white/30 p-1 rounded-full">
           {([3, 4, 5] as GridSize[]).map((size) => (
@@ -525,24 +597,19 @@ export default function SlidingPuzzle() {
           ))}
         </div>
 
-        {/* Puzzle selection */}
-        <div className="flex gap-1 bg-white/30 p-1 rounded-full overflow-x-auto max-w-xs md:max-w-none">
-          {PUZZLES.slice(0, 5).map((p) => (
-            <button
+        {/* Image selection - now with real image thumbnails */}
+        <div className="flex gap-2 bg-white/20 p-2 rounded-2xl overflow-x-auto max-w-xs md:max-w-lg">
+          {PUZZLES.map((p) => (
+            <ImageButton
               key={p.id}
+              puzzle={p}
+              selected={selectedPuzzle.id === p.id}
               onClick={() => {
                 if (soundEnabled) playSound('click')
                 setSelectedPuzzle(p)
               }}
               disabled={isPlaying && !gameWon}
-              className={`px-2 py-1 rounded-full text-lg transition-all flex-shrink-0 ${
-                selectedPuzzle.id === p.id
-                  ? 'bg-white shadow scale-110'
-                  : 'hover:bg-white/20'
-              } ${isPlaying && !gameWon ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              {p.emoji}
-            </button>
+            />
           ))}
         </div>
       </div>
@@ -550,9 +617,23 @@ export default function SlidingPuzzle() {
       {/* Game board */}
       <div className="relative">
         <div
-          className={`grid ${gridClass} ${gridGap} p-4 bg-white/20 backdrop-blur rounded-2xl shadow-2xl`}
+          ref={boardRef}
+          className="relative bg-white/20 backdrop-blur rounded-2xl shadow-2xl overflow-hidden"
+          style={{ 
+            width: `${boardSize}px`, 
+            height: `${boardSize}px`,
+            padding: '4px',
+          }}
         >
-          {tiles
+          {/* Loading state */}
+          {!imageLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/10 rounded-2xl z-20">
+              <div className="text-white text-lg animate-pulse">Loading image...</div>
+            </div>
+          )}
+
+          {/* Tiles */}
+          {imageLoaded && tiles
             .filter((t) => t.id !== gridSize * gridSize - 1)
             .map((tile) => (
               <PuzzleTile
@@ -563,37 +644,25 @@ export default function SlidingPuzzle() {
                 onClick={() => handleTileClick(tile)}
                 isAdjacent={adjacentPositions.includes(tile.currentPos)}
                 isShuffling={isShuffling}
+                boardSize={boardSize - 8} // Account for padding
               />
             ))}
-          {/* Empty space */}
-          {emptyTile && (
-            <div
-              className="rounded-xl bg-black/10"
-              style={{
-                gridRow: Math.floor(emptyTile.currentPos / gridSize) + 1,
-                gridColumn: (emptyTile.currentPos % gridSize) + 1,
-              }}
-            />
-          )}
         </div>
 
-        {/* Hint overlay */}
+        {/* Hint overlay - shows full image */}
         {showHint && (
-          <div className="absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center p-4 z-10">
-            <h3 className="text-xl font-bold text-gray-700 mb-4">📸 Original Order</h3>
-            <div className={`grid ${gridClass} ${gridGap}`}>
-              {Array.from({ length: gridSize * gridSize - 1 }, (_, i) => (
-                <div
-                  key={i}
-                  className={`${
-                    gridSize === 3 ? 'w-16 h-16' : gridSize === 4 ? 'w-14 h-14' : 'w-12 h-12'
-                  } rounded-lg bg-gradient-to-br ${selectedPuzzle.bg} flex items-center justify-center text-white font-bold shadow`}
-                >
-                  <span className="text-lg">{selectedPuzzle.emoji}</span>
-                  <span className="text-xs ml-1">{i + 1}</span>
-                </div>
-              ))}
-            </div>
+          <div className="absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center p-4 z-30">
+            <h3 className="text-xl font-bold text-gray-700 mb-4">📸 Original Image</h3>
+            <img 
+              src={selectedPuzzle.image} 
+              alt={selectedPuzzle.name}
+              className="rounded-xl shadow-lg"
+              style={{ 
+                width: `${boardSize - 48}px`, 
+                height: `${boardSize - 48}px`,
+                objectFit: 'cover',
+              }}
+            />
             <button
               onClick={() => setShowHint(false)}
               className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-600 transition-all"
@@ -608,7 +677,7 @@ export default function SlidingPuzzle() {
       <div className="flex flex-wrap gap-3 mt-6 justify-center">
         <button
           onClick={handleShuffle}
-          disabled={isShuffling}
+          disabled={isShuffling || !imageLoaded}
           className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all disabled:opacity-50"
         >
           🔀 {isPlaying ? 'Reshuffle' : 'Shuffle & Play'}
@@ -633,7 +702,7 @@ export default function SlidingPuzzle() {
         <div className="mt-6 text-center text-white/80 max-w-md">
           <p className="text-sm">
             👆 Click tiles next to the empty space to slide them.<br />
-            Arrange all tiles in order (1 to {gridSize * gridSize - 1}) to win!
+            Arrange the image pieces to complete the picture!
           </p>
         </div>
       )}
@@ -644,6 +713,14 @@ export default function SlidingPuzzle() {
           <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl animate-bounceIn">
             <div className="text-6xl mb-4">🎉</div>
             <h2 className="text-3xl font-black text-blue-700 mb-4">Puzzle Complete!</h2>
+            
+            {/* Show completed image */}
+            <img 
+              src={selectedPuzzle.image} 
+              alt={selectedPuzzle.name}
+              className="w-32 h-32 mx-auto rounded-xl shadow-lg mb-4 object-cover"
+            />
+            
             <div className="flex justify-center gap-6 mb-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-cyan-500">{formatTime(time)}</div>
@@ -705,7 +782,7 @@ export default function SlidingPuzzle() {
             ) : (
               <div className="space-y-2">
                 {currentLeaderboard.map((entry, index) => {
-                  const puzzleEmoji = PUZZLES.find((p) => p.id === entry.puzzle)?.emoji || '🧩'
+                  const puzzleData = PUZZLES.find((p) => p.id === entry.puzzle)
                   return (
                     <div
                       key={index}
@@ -725,7 +802,10 @@ export default function SlidingPuzzle() {
                         </span>
                         <div>
                           <div className="font-bold text-blue-700 flex items-center gap-2">
-                            {puzzleEmoji} {formatTime(entry.time)}
+                            {puzzleData && (
+                              <img src={puzzleData.thumb} alt="" className="w-6 h-6 rounded object-cover" />
+                            )}
+                            {formatTime(entry.time)}
                           </div>
                           <div className="text-xs text-gray-500">{entry.moves} moves</div>
                         </div>
@@ -768,11 +848,11 @@ export default function SlidingPuzzle() {
       )}
 
       {/* Decorative elements */}
-      <div className="fixed bottom-8 left-8 text-4xl animate-bounce opacity-60">🌟</div>
-      <div className="fixed bottom-12 right-8 text-3xl animate-bounce opacity-60" style={{ animationDelay: '0.3s' }}>
+      <div className="fixed bottom-8 left-8 text-4xl animate-bounce opacity-60 pointer-events-none">🌟</div>
+      <div className="fixed bottom-12 right-8 text-3xl animate-bounce opacity-60 pointer-events-none" style={{ animationDelay: '0.3s' }}>
         ✨
       </div>
-      <div className="fixed top-24 right-16 text-2xl animate-bounce opacity-40" style={{ animationDelay: '0.6s' }}>
+      <div className="fixed top-24 right-16 text-2xl animate-bounce opacity-40 pointer-events-none" style={{ animationDelay: '0.6s' }}>
         ⭐
       </div>
 
