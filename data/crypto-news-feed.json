@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T20:00:03.242407+00:00",
+  "timestamp": "2026-02-06T20:30:03.404632+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,34 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "AI platform founded by Crypto.com's Kris Marszalek launches AI agents",
+      "url": "https://cointelegraph.com/news/kris-marszalek-ai-launches-ai-agents?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Proponents of AI agents say the new technology will simplify crypto trading and other financial activities for the average user.",
+      "published": "2026-02-06T20:22:07+00:00"
+    },
+    {
+      "title": "President Trump Launches TrumpRx, Promising Lower Drug Prices: Is It Legit?",
+      "url": "https://decrypt.co/357223/president-trump-trumprx-promising-lower-drug-prices",
+      "source": "decrypt",
+      "description": "The White House is betting that a new cash-pay platform\u2014built around blockbuster GLP-1 drugs\u2014can pressure Big Pharma and bypass the middlemen who keep U.S. prices high.",
+      "published": "2026-02-06T20:11:33+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-06T20:07:13+00:00"
+    },
+    {
+      "title": "Bithumb confirms reward payout error after abnormal Bitcoin trades",
+      "url": "https://cointelegraph.com/news/bithumb-confirms-reward-payout-error-after-abnormal-bitcoin-trades?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The South Korean exchange said an internal error during a promotional event led to brief price dislocations, stressing that no customer assets were lost.",
+      "published": "2026-02-06T20:02:03+00:00"
+    },
     {
       "title": "Bitfarms Stock Pumps as It Dumps Bitcoin Mining for AI With Name Change, Move to US",
       "url": "https://decrypt.co/357222/bitfarms-stock-pumps-dumps-bitcoin-mining-business",
@@ -144,39 +172,11 @@
       "published": "2026-02-06T15:10:16+00:00"
     },
     {
-      "title": "Crypto PACs secure massive war chests ahead of US midterms",
-      "url": "https://cointelegraph.com/news/crypto-pacs-massive-war-chests-us-midterms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Crypto super PACs are getting millions of dollars in contributions to spend supporting candidates who will advance their policies in Washington.",
-      "published": "2026-02-06T14:27:50+00:00"
-    },
-    {
-      "title": "Bitcoin Core dev Gloria Zhao quits maintainer role after six-year stint",
-      "url": "https://cointelegraph.com/news/bitcoin-core-dev-gloria-zhao-quits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin Core maintainer Gloria Zhao has stepped down and revoked her PGP signing key after six years as one of the project\u2019s most influential mempool and policy engineers.",
-      "published": "2026-02-06T13:59:47+00:00"
-    },
-    {
       "title": "Official Trump Meme Coin, WLFI Lead Losses Following World Liberty Financial Probe",
       "url": "https://decrypt.co/357179/official-trump-meme-coin-wlfi-lead-losses-following-world-liberty-financial-probe",
       "source": "decrypt",
       "description": "Trump-linked tokens have fallen on news of an investigation into World Liberty Financial\u2019s dealings with a member of the UAE royal family.",
       "published": "2026-02-06T13:44:49+00:00"
-    },
-    {
-      "title": "Why privacy coins often appear in post-hack fund flows",
-      "url": "https://cointelegraph.com/news/why-privacy-coins-often-appear-in-post-hack-fund-flows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Privacy coins often appear after hacks, but they are only one link in a longer laundering chain that includes swaps, bridges and off-ramps.",
-      "published": "2026-02-06T13:42:32+00:00"
-    },
-    {
-      "title": "Morning Minute: Bitcoin Erases Trump Pump, Falls to $60k",
-      "url": "https://decrypt.co/357171/morning-minute-bitcoin-erases-trump-pump-falls-to-60k",
-      "source": "decrypt",
-      "description": "Thursday marked one of the worst days in crypto history, with majors plunging 15-20% before modest relief.",
-      "published": "2026-02-06T13:25:12+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",
