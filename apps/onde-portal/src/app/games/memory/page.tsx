@@ -468,7 +468,7 @@ export default function MemoryGame() {
 
       const [first, second] = newFlipped
       if (newCards[first].emoji === newCards[second].emoji) {
-        // Match!
+        // Match! Keep cards face-up and mark as matched
         setTimeout(() => {
           if (soundEnabled) {
             playSound('match')
@@ -476,7 +476,7 @@ export default function MemoryGame() {
           setCards((prev) =>
             prev.map((card) =>
               card.id === first || card.id === second
-                ? { ...card, isMatched: true }
+                ? { ...card, isFlipped: true, isMatched: true }
                 : card
             )
           )
