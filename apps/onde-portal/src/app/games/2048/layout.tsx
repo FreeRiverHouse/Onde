@@ -4,11 +4,11 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Pong',
+  name: '2048',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  url: 'https://onde.la/games/pong/',
-  genre: ['Arcade', 'Educational'],
+    'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game that trains your brain. Free to play online.',
+  url: 'https://onde.la/games/2048/',
+  genre: ['Educational', 'Math'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,23 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Pong - Free Online Game | Onde',
+  title: '2048 - Free Online Math Puzzle | Onde',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  keywords: 'pong game, table tennis, classic arcade, retro game',
+    'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game that trains your brain. Free to play online.',
+  keywords: '2048 game, number puzzle, math game, brain teaser, sliding puzzle',
   openGraph: {
-    title: '🎮 Pong - Play Free Online!',
+    title: '🎮 2048 - Play Free Online!',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-    url: 'https://onde.la/games/pong/',
+      'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle that trains your brain.',
+    url: 'https://onde.la/games/2048/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Pong - Free Online Game',
+    title: '🎮 2048 - Free Online Math Puzzle',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
+      'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game. Free to play.',
   },
 };
 
@@ -54,7 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Script
-        id="pong-jsonld"
+        id="2048-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
       />

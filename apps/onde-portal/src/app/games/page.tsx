@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
 import { useTranslations } from '@/i18n/I18nProvider'
+import RecentlyPlayedSection from './components/RecentlyPlayedSection'
 
 const games = [
   { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft Skins', emoji: '🎨' },
@@ -145,6 +146,9 @@ export default function GamingIsland() {
               </Link>
             ))}
           </div>
+
+          {/* Recently Played (mobile) */}
+          <RecentlyPlayedSection />
 
           {/* All Mini-Games Grid */}
           <h2 className="text-lg font-bold text-gray-700 mb-3 px-1">🎮 {t.gamesPage?.miniGames || 'Mini-Games'}</h2>
@@ -366,6 +370,9 @@ export default function GamingIsland() {
           {t.gamesPage?.welcome || 'Welcome to Onde World!'} 🌈
         </p>
       </div>
+
+      {/* Recently Played (desktop) */}
+      <RecentlyPlayedSection />
 
       {/* Main Scene */}
       <div className="relative w-full max-w-6xl mx-auto h-[70vh] px-4">

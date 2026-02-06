@@ -9,3 +9,5 @@ export { useMediaQuery, useIsMobile, useIsTablet, useIsDesktop, usePrefersReduce
 export { useCopyToClipboard } from './useCopyToClipboard'
 export { useDebounce, useDebouncedCallback } from './useDebounce'
 export { useOnClickOutside } from './useOnClickOutside'
+export { useRecentlyPlayed } from './useRecentlyPlayed'
+export type { RecentlyPlayedGame } from './useRecentlyPlayed'

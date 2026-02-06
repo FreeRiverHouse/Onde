@@ -4,10 +4,10 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Pong',
+  name: 'Onde Arcade',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  url: 'https://onde.la/games/pong/',
+    'The ultimate arcade hub! Play dozens of free mini-games: classics, puzzles, brain teasers and more. All in one place.',
+  url: 'https://onde.la/games/arcade/',
   genre: ['Arcade', 'Educational'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Pong - Free Online Game | Onde',
+  title: 'Onde Arcade - Free Mini Games Collection | Onde',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  keywords: 'pong game, table tennis, classic arcade, retro game',
+    'The ultimate arcade hub! Play dozens of free mini-games: classics, puzzles, brain teasers and more. All in one place.',
+  keywords:
+    'arcade games, mini games, free games collection, online arcade, play free',
   openGraph: {
-    title: '🎮 Pong - Play Free Online!',
+    title: '🕹️ Onde Arcade - Free Mini Games!',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-    url: 'https://onde.la/games/pong/',
+      'The ultimate arcade hub! Play dozens of free mini-games: classics, puzzles, brain teasers and more.',
+    url: 'https://onde.la/games/arcade/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Pong - Free Online Game',
+    title: '🕹️ Onde Arcade - Free Mini Games Collection',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
+      'The ultimate arcade hub! Play dozens of free mini-games. All in one place. Free to play.',
   },
 };
 
@@ -54,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Script
-        id="pong-jsonld"
+        id="arcade-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
       />

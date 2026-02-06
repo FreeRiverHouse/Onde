@@ -4,11 +4,11 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Pong',
+  name: 'ABC Fun',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  url: 'https://onde.la/games/pong/',
-  genre: ['Arcade', 'Educational'],
+    'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary. Perfect for young learners.',
+  url: 'https://onde.la/games/alphabet/',
+  genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 4,
+    suggestedMinAge: 3,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Pong - Free Online Game | Onde',
+  title: 'ABC Fun - Learn the Alphabet | Onde',
   description:
-    'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-  keywords: 'pong game, table tennis, classic arcade, retro game',
+    'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary. Perfect for young learners.',
+  keywords:
+    'alphabet game, learn ABC, letter tracing, phonics game, kids education',
   openGraph: {
-    title: '🎮 Pong - Play Free Online!',
+    title: '🔤 ABC Fun - Learn the Alphabet!',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
-    url: 'https://onde.la/games/pong/',
+      'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary.',
+    url: 'https://onde.la/games/alphabet/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Pong - Free Online Game',
+    title: '🔤 ABC Fun - Learn the Alphabet',
     description:
-      'Classic table tennis arcade game! Play Pong online for free. Simple, addictive, timeless.',
+      'Learn the alphabet with fun interactive games! Perfect for young learners. Free to play.',
   },
 };
 
@@ -54,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Script
-        id="pong-jsonld"
+        id="alphabet-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
       />
