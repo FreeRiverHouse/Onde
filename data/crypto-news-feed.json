@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T19:30:02.820982+00:00",
+  "timestamp": "2026-02-06T20:00:03.242407+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitfarms Stock Pumps as It Dumps Bitcoin Mining for AI With Name Change, Move to US",
+      "url": "https://decrypt.co/357222/bitfarms-stock-pumps-dumps-bitcoin-mining-business",
+      "source": "decrypt",
+      "description": "Publicly traded Bitcoin miner Bitfarms is planning a move to the United States and a name change as it transitions from crypto to AI compute.",
+      "published": "2026-02-06T19:52:37+00:00"
+    },
     {
       "title": "Coinbase's Crypto-Backed Loans Notch Record Liquidations Amid Bitcoin, Ethereum Plunge",
       "url": "https://decrypt.co/357265/coinbases-loans-record-liquidations-bitcoin-ethereum-plunge",
@@ -170,13 +177,6 @@
       "source": "decrypt",
       "description": "Thursday marked one of the worst days in crypto history, with majors plunging 15-20% before modest relief.",
       "published": "2026-02-06T13:25:12+00:00"
-    },
-    {
-      "title": "Polymarket Files for Crypto Token Trademarks as Legal Battles Mount",
-      "url": "https://decrypt.co/357166/polymarket-files-for-crypto-token-trademarks-as-legal-battles-mount",
-      "source": "decrypt",
-      "description": "The prediction market has filed trademark applications for POLY and $POLY tied to a digital token and crypto trading services.",
-      "published": "2026-02-06T10:58:22+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",

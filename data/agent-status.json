@@ -1,33 +1,33 @@
 {
-  "timestamp": "2026-01-31T06:44:50.177426Z",
+  "timestamp": "2026-02-06T20:22:29.132925Z",
   "tasks": {
-    "total": 1008,
-    "done": 909,
-    "in_progress": 12,
-    "todo": 87,
-    "completion_rate": 90.2
+    "total": 0,
+    "done": 0,
+    "in_progress": 0,
+    "todo": 0,
+    "completion_rate": 0.0
   },
   "memory": {
-    "entries_today": 121,
+    "entries_today": 33,
     "file_exists": true,
-    "size_bytes": 95507,
-    "file_path": "memory/2026-01-30.md"
+    "size_bytes": 24566,
+    "file_path": "memory/2026-02-06.md"
   },
   "git": {
     "clawdinho": {
-      "hash": "c7635550c",
-      "message": "task: lock T935 T936 - @clawdinho FACTORY MODE \ud83d\udd25",
-      "date": "2026-01-30 22:42:14 -0800",
-      "ago": "3 minutes ago"
+      "hash": "e8635bf61",
+      "message": "memory: log Mattia voice feedback - fix errors wit",
+      "date": "2026-02-06 12:21:44 -0800",
+      "ago": "45 seconds ago"
     },
     "ondinho": null,
-    "total_commits_today": 616
+    "total_commits_today": 79
   },
   "autotrader": {
     "running": true,
-    "pid": "16949",
+    "pid": "2027",
     "circuit_breaker": false,
-    "consecutive_losses": 15,
+    "consecutive_losses": 0,
     "last_trade": null,
     "uptime_hours": null
   },
@@ -40,10 +40,8 @@
     "running": true,
     "location": "local",
     "models": [
-      "deepseek-coder:6.7b",
-      "qwen2.5-coder:7b",
-      "llama31-8b:latest",
-      "llama3.2:3b"
+      "qwen7b-16k:latest",
+      "qwen2.5:7b-instruct-q4_K_M"
     ]
   },
   "alerts_pending": 0,
@@ -52,19 +50,13 @@
       "host": "FRH-M1-PRO",
       "model": "claude-opus-4-5",
       "status": "active",
-      "current_task": {
-        "id": "T935",
-        "title": "Dashboard FRH: Agents Monitoring"
-      }
+      "current_task": null
     },
     "ondinho": {
       "host": "M4-Pro",
       "model": "claude-sonnet-4",
       "status": "idle",
-      "current_task": {
-        "id": "T892",
-        "title": "Skin Creator: Localize App Store Listings"
-      }
+      "current_task": null
     }
   }
 }

@@ -1273,3 +1273,11 @@
 {"timestamp": "2026-02-06T19:34:31.335547+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
 {"timestamp": "2026-02-06T19:39:32.251441+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
 {"timestamp": "2026-02-06T19:44:33.063488+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
+{"timestamp": "2026-02-06T19:49:33.756438+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
+{"timestamp": "2026-02-06T19:54:34.399238+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
+{"timestamp": "2026-02-06T19:59:35.140368+00:00", "reason": "19:00 UTC not in active_hours (poor historical win rate)", "hour": 19, "day": 4}
+{"timestamp": "2026-02-06T20:04:35.905904+00:00", "reason": "20:00 UTC not in active_hours (poor historical win rate)", "hour": 20, "day": 4}
+{"timestamp": "2026-02-06T20:09:37.449686+00:00", "reason": "20:00 UTC not in active_hours (poor historical win rate)", "hour": 20, "day": 4}
+{"timestamp": "2026-02-06T20:14:38.139744+00:00", "reason": "20:00 UTC not in active_hours (poor historical win rate)", "hour": 20, "day": 4}
+{"timestamp": "2026-02-06T20:19:38.943101+00:00", "reason": "20:00 UTC not in active_hours (poor historical win rate)", "hour": 20, "day": 4}
+{"timestamp": "2026-02-06T20:24:39.642915+00:00", "reason": "20:00 UTC not in active_hours (poor historical win rate)", "hour": 20, "day": 4}

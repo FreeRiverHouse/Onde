@@ -9,7 +9,7 @@ Cron: */5 * * * * python3 /Users/mattia/Projects/Onde/scripts/push-agent-status-
 import json
 import os
 import subprocess
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 import requests
 
@@ -28,68 +28,89 @@ def run_command(cmd: list[str], cwd: str = None) -> str:
         return f"error: {e}"
 
 def get_task_stats() -> dict:
-    """Get task statistics from TASKS.md."""
+    """Get task statistics from TASKS.md (pipe-delimited tables)."""
     tasks_file = PROJECT_DIR / "TASKS.md"
     if not tasks_file.exists():
         return {"total": 0, "done": 0, "in_progress": 0, "todo": 0}
     
     content = tasks_file.read_text()
-    done = content.count("Status**: DONE") + content.count("Status**: done")
-    in_progress = content.count("Status**: IN_PROGRESS") + content.count("Status**: in_progress")
-    todo = content.count("Status**: TODO") + content.count("Status**: todo")
+    import re
     
+    done = 0
+    in_progress = 0
+    todo = 0
+    
+    # Parse pipe-delimited table rows: | # | ID | Task | Impact | Status | Owner |
+    for line in content.split("\n"):
+        # Skip header/separator lines
+        if not line.strip().startswith("|") or line.strip().startswith("|---") or line.strip().startswith("| #"):
+            continue
+        
+        cells = [c.strip() for c in line.split("|")]
+        # cells[0] is empty (before first |), actual data starts at cells[1]
+        # We need at least 6 cells for a valid task row: empty, #, ID, Task, Impact, Status, Owner, ...
+        if len(cells) < 6:
+            continue
+        
+        # Status is typically the 5th cell (index 5)
+        status_cell = cells[5] if len(cells) > 5 else ""
+        
+        if "✅ DONE" in status_cell or "DONE" in status_cell.upper():
+            done += 1
+        elif "IN_PROGRESS" in status_cell.upper():
+            in_progress += 1
+        elif "TODO" in status_cell.upper():
+            todo += 1
+        elif "BLOCKED" in status_cell.upper():
+            todo += 1  # Count blocked as todo
+        elif "READY" in status_cell.upper() or "DRAFT" in status_cell.upper() or "PARTIAL" in status_cell.upper():
+            todo += 1  # Count various ready/draft/partial states as todo
+    
+    total = done + in_progress + todo
     return {
-        "total": done + in_progress + todo,
+        "total": total,
         "done": done,
         "in_progress": in_progress,
         "todo": todo,
-        "completion_rate": round(done / max(1, done + in_progress + todo) * 100, 1)
+        "completion_rate": round(done / max(1, total) * 100, 1)
     }
 
 def get_current_tasks_by_agent() -> dict:
-    """Get current IN_PROGRESS tasks for each agent."""
+    """Get current IN_PROGRESS tasks for each agent (from pipe-delimited tables)."""
     tasks_file = PROJECT_DIR / "TASKS.md"
     if not tasks_file.exists():
         return {"clawdinho": None, "ondinho": None}
     
     content = tasks_file.read_text()
-    import re
     
     result = {"clawdinho": None, "ondinho": None}
     
-    # Split into task blocks (### [TXXX] to next ### or end)
-    task_blocks = re.split(r'(?=### \[T\d+\])', content)
-    
-    for block in task_blocks:
-        if not block.strip():
-            continue
-            
-        # Extract task ID and title
-        title_match = re.match(r'### \[(T\d+)\] ([^\n]+)', block)
-        if not title_match:
+    # Parse pipe-delimited table rows: | # | ID | Task | Impact | Status | Owner |
+    for line in content.split("\n"):
+        if not line.strip().startswith("|") or line.strip().startswith("|---") or line.strip().startswith("| #"):
             continue
         
-        task_id = title_match.group(1)
-        title = title_match.group(2).strip()[:60]
-        
-        # Check if IN_PROGRESS
-        if 'Status**: IN_PROGRESS' not in block and 'Status**: in_progress' not in block:
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 7:
             continue
         
-        # Extract owner
-        owner_match = re.search(r'Owner\*\*:\s*@(\S+)', block)
-        if not owner_match:
+        task_id = cells[2]    # ID column
+        task_name = cells[3]  # Task column
+        status = cells[5]     # Status column
+        owner = cells[6]      # Owner column
+        
+        # Only IN_PROGRESS tasks
+        if "IN_PROGRESS" not in status.upper():
             continue
         
-        owner = owner_match.group(1).lower()
+        owner_lower = owner.lower()
         
-        # Map owner names to agent keys
-        if 'clawd' in owner:
-            if result["clawdinho"] is None:  # Only first task (most recent)
-                result["clawdinho"] = {"id": task_id, "title": title}
-        elif 'onde' in owner or 'bot' in owner:
+        if 'clawd' in owner_lower:
+            if result["clawdinho"] is None:
+                result["clawdinho"] = {"id": task_id, "title": task_name[:60]}
+        elif 'onde' in owner_lower or 'bot' in owner_lower:
             if result["ondinho"] is None:
-                result["ondinho"] = {"id": task_id, "title": title}
+                result["ondinho"] = {"id": task_id, "title": task_name[:60]}
     
     return result
 
@@ -240,7 +261,7 @@ def build_dashboard_data() -> dict:
         return "idle"
     
     return {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "tasks": get_task_stats(),
         "memory": get_memory_stats(),
         "git": git,
