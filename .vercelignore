@@ -43,8 +43,8 @@ apps/whisperflow
 apps/worker-dashboard
 
 # Non-essential dirs
-data
-memory
+/data
+/memory
 tools
 scripts
 docs
