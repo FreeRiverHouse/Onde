@@ -5,6 +5,7 @@ export const runtime = 'edge'
 import { useState, useEffect, useCallback } from 'react'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { CalendarView } from '@/components/CalendarView'
+import { GlobalSearch } from '@/components/GlobalSearch'
 
 interface AgentStatus {
   name: string
@@ -135,6 +136,7 @@ export default function MissionControlPage() {
             <p className="text-white/40 text-sm mt-1">Free River House Agent Operations Center</p>
           </div>
           <div className="flex items-center gap-3">
+            <GlobalSearch />
             <a
               href="/house"
               className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/10 transition-colors"
