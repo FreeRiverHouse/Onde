@@ -1,8 +1,8 @@
 {
   "type": "Prerender",
   "expiration": false,
-  "group": 3,
-  "bypassToken": "af050508911e7f2b699b0094cebc52b8",
+  "group": 16,
+  "bypassToken": "e7d4a3baf0a50f7989b21cea12eec237",
   "experimentalBypassFor": [
     {
       "type": "header",
@@ -22,7 +22,7 @@
   "initialHeaders": {
     "x-nextjs-stale-time": "300",
     "x-nextjs-prerender": "1",
-    "x-next-cache-tags": "_N_T_/layout,_N_T_/libreria/layout,_N_T_/libreria/page,_N_T_/libreria",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/libreria/layout,_N_T_/libreria/page,_N_T_/libreria/",
     "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
   },
   "allowQuery": [],

@@ -2,9 +2,23 @@
   "version": 3,
   "routes": [
     {
-      "src": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$",
+      "src": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+))/$",
       "headers": {
         "Location": "/$1"
+      },
+      "status": 308,
+      "missing": [
+        {
+          "type": "header",
+          "key": "x-nextjs-data"
+        }
+      ],
+      "continue": true
+    },
+    {
+      "src": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+))$",
+      "headers": {
+        "Location": "/$1/"
       },
       "status": 308,
       "continue": true
@@ -29,6 +43,13 @@
     {
       "src": "/500",
       "status": 500,
+      "continue": true
+    },
+    {
+      "src": "^/static-games(?:/(.*))$",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      },
       "continue": true
     },
     {
@@ -124,22 +145,6 @@
       "status": 404
     },
     {
-      "src": "^/api/book/(?<nxtPid>[^/]+?)(?:\\.rsc)(?:/)?$",
-      "dest": "/api/book/[id].rsc?nxtPid=$nxtPid"
-    },
-    {
-      "src": "^/api/book/(?<nxtPid>[^/]+?)(?:/)?$",
-      "dest": "/api/book/[id]?nxtPid=$nxtPid"
-    },
-    {
-      "src": "^/api/family/profiles/(?<nxtPid>[^/]+?)(?:\\.rsc)(?:/)?$",
-      "dest": "/api/family/profiles/[id].rsc?nxtPid=$nxtPid"
-    },
-    {
-      "src": "^/api/family/profiles/(?<nxtPid>[^/]+?)(?:/)?$",
-      "dest": "/api/family/profiles/[id]?nxtPid=$nxtPid"
-    },
-    {
       "src": "^/libro/(?<nxtPid>[^/]+?)(?:\\.rsc)(?:/)?$",
       "dest": "/libro/[id].rsc?nxtPid=$nxtPid"
     },
@@ -148,10 +153,18 @@
       "dest": "/libro/[id]?nxtPid=$nxtPid"
     },
     {
+      "src": "^/playlist/(?<nxtPid>[^/]+?)(?:\\.rsc)(?:/)?$",
+      "dest": "/playlist/[id].rsc?nxtPid=$nxtPid"
+    },
+    {
+      "src": "^/playlist/(?<nxtPid>[^/]+?)(?:/)?$",
+      "dest": "/playlist/[id]?nxtPid=$nxtPid"
+    },
+    {
       "handle": "hit"
     },
     {
-      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|qGWqsaocrsuO9az9WRl0Q)/.+",
+      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|Sx93ClVN_zBbMOTmNlbUb)/.+",
       "headers": {
         "cache-control": "public,max-age=31536000,immutable"
       },
@@ -180,14 +193,49 @@
     {
       "src": "/.*",
       "dest": "/404",
-      "status": 404
+      "status": 404,
+      "headers": {
+        "x-next-error-status": "404"
+      }
     },
     {
       "src": "/.*",
       "dest": "/500",
-      "status": 500
+      "status": 500,
+      "headers": {
+        "x-next-error-status": "500"
+      }
     }
   ],
+  "images": {
+    "domains": [],
+    "sizes": [
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1920,
+      2048,
+      3840,
+      16,
+      32,
+      48,
+      64,
+      96,
+      128,
+      256,
+      384
+    ],
+    "remotePatterns": [],
+    "minimumCacheTTL": 60,
+    "formats": [
+      "image/webp"
+    ],
+    "dangerouslyAllowSVG": false,
+    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+    "contentDispositionType": "attachment"
+  },
   "overrides": {
     "404.html": {
       "path": "404",
@@ -197,12 +245,12 @@
       "path": "500",
       "contentType": "text/html; charset=utf-8"
     },
-    "_error.rsc.json": {
-      "path": "_error.rsc",
-      "contentType": "application/json"
-    },
     "_app.rsc.json": {
       "path": "_app.rsc",
+      "contentType": "application/json"
+    },
+    "_error.rsc.json": {
+      "path": "_error.rsc",
       "contentType": "application/json"
     },
     "_document.rsc.json": {

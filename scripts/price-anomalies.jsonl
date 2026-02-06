@@ -1,1 +1,5 @@
 {"timestamp": "2026-02-04T18:30:02.510659+00:00", "asset": "ETH", "spread_pct": 1.3282, "prices": {"coingecko": 2095.67, "coinbase": 2123.505}, "high_exchange": "coinbase", "low_exchange": "coingecko"}
+{"timestamp": "2026-02-05T22:30:02.141609+00:00", "asset": "BTC", "spread_pct": 1.4114, "prices": {"coingecko": 63120, "coinbase": 64010.885}, "high_exchange": "coinbase", "low_exchange": "coingecko"}
+{"timestamp": "2026-02-05T22:30:02.829254+00:00", "asset": "ETH", "spread_pct": 1.9248, "prices": {"coingecko": 1839.43, "coinbase": 1874.835}, "high_exchange": "coinbase", "low_exchange": "coingecko"}
+{"timestamp": "2026-02-06T00:15:01.582467+00:00", "asset": "BTC", "spread_pct": 1.0014, "prices": {"coingecko": 60942, "coinbase": 60337.76}, "high_exchange": "coingecko", "low_exchange": "coinbase"}
+{"timestamp": "2026-02-06T00:15:01.852685+00:00", "asset": "ETH", "spread_pct": 1.5056, "prices": {"coingecko": 1799.36, "coinbase": 1772.67}, "high_exchange": "coingecko", "low_exchange": "coinbase"}

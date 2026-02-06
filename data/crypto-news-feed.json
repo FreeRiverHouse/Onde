@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-05T21:00:03.327266+00:00",
+  "timestamp": "2026-02-06T05:00:02.881837+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,118 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Senator Lummis Urges Banks to 'Embrace' Stablecoins Amid CLARITY Act Stalemate",
+      "url": "https://decrypt.co/357157/senator-lummis-banks-embrace-stablecoins-clarity-act-stalemate",
+      "source": "decrypt",
+      "description": "The Wyoming Senator said stablecoins give banks an \"entirely new financial product\" as the crypto market structure bill faces a delay.",
+      "published": "2026-02-06T04:52:09+00:00"
+    },
+    {
+      "title": "Bitcoin miners IREN, CleanSpark shares plunge as earnings fall short",
+      "url": "https://cointelegraph.com/news/bitcoin-miners-iren-cleanspark-financial-earnings-short?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Crypto mining stocks have declined across the board the value of the entire crypto market fell almost 9% on Thursday.",
+      "published": "2026-02-06T04:45:26+00:00"
+    },
+    {
+      "title": "Kalshi boosts surveillance ahead of Super Bowl with independent committee",
+      "url": "https://cointelegraph.com/news/kalshi-boosts-predictions-markets-surveillance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Kalshi has seen nearly $170 million in Super Bowl-related bets, and its move to boost oversight comes amid scrutiny of prediction markets by regulators and Congress.",
+      "published": "2026-02-06T03:47:58+00:00"
+    },
+    {
+      "title": "Bitcoin Miners IREN and CleanSpark Slide After Earnings Misses Deepen Sector Pressure",
+      "url": "https://decrypt.co/357154/bitcoin-miners-iren-cleanspark-slide-earnings-misses-expectations",
+      "source": "decrypt",
+      "description": "Shares fell after both companies reported quarterly revenue below Wall Street expectations as Bitcoin dropped sharply.",
+      "published": "2026-02-06T03:09:09+00:00"
+    },
+    {
+      "title": "Crypto sentiment at lowest point since 2022 crash as Bitcoin tanks to $60K",
+      "url": "https://cointelegraph.com/news/crypto-sentiment-at-lowest-point-since-luna-crash-as-btc-tanks-to-60k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin plummeted to a low of around $60,000 after the Crypto Fear & Greed Index hit its lowest score since mid-2022, when the Terra blockchain collapsed.",
+      "published": "2026-02-06T03:01:59+00:00"
+    },
+    {
+      "title": "Does Bitcoin's Retreat Signal a New Bear Market for Crypto?",
+      "url": "https://decrypt.co/357151/bitcoins-retreat-signal-new-bear-market-crypto",
+      "source": "decrypt",
+      "description": "A single-day 14% drop and a drawdown of more than 50% have pushed Bitcoin into territory typically associated with bear markets.",
+      "published": "2026-02-06T02:28:24+00:00"
+    },
+    {
+      "title": "BlackRock\u2019s IBIT hits daily volume record of $10B amid Bitcoin crash",
+      "url": "https://cointelegraph.com/news/blackrock-ibit-daily-volume-record-10-billion-bitcoin-crash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Traders were active in BlackRock\u2019s iShares Bitcoin Trust ETF on Thursday as Bitcoin plummeted, falling 12% in the last 24 hours.",
+      "published": "2026-02-06T01:52:34+00:00"
+    },
+    {
+      "title": "OpenAI and Anthropic Roll Out Rival AI Models as Competition for Enterprise Heats Up",
+      "url": "https://decrypt.co/357142/openai-anthropic-rival-ai-models-competition-enterprise-heats-up",
+      "source": "decrypt",
+      "description": "OpenAI and Anthropic released new flagship AI models within hours of each other on Thursday, with benchmark results suggesting they're optimized for different strengths.",
+      "published": "2026-02-06T00:29:18+00:00"
+    },
+    {
+      "title": "Strategy records $12.4B loss in Q4, shares dip 17% as Bitcoin tumbles",
+      "url": "https://cointelegraph.com/news/strategy-reports-12b-loss-q4-2025?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Strategy executives Phong Le and Andrew Kang say the company is on a strong financial footing despite it now being down 17.5% on its Bitcoin holdings.",
+      "published": "2026-02-05T23:36:13+00:00"
+    },
+    {
+      "title": "Waymo\u2019s \u2018Self-Driving\u2019 Claims Called into Question on Capitol Hill",
+      "url": "https://decrypt.co/357128/waymos-self-driving-claims-reality-check-capitol-hill",
+      "source": "decrypt",
+      "description": "Senators pressed Waymo over its use of human operators in the Philippines, questioning whether autonomy still means what Waymo says it does.",
+      "published": "2026-02-05T23:04:43+00:00"
+    },
+    {
+      "title": "Crypto Treasuries Fall Deeply Underwater as Bitcoin, Ethereum and Solana Dive",
+      "url": "https://decrypt.co/357130/crypto-treasury-underwater-bitcoin-ethereum-solana-dive",
+      "source": "decrypt",
+      "description": "Prominent publicly traded crypto treasury firms are underwater on their holdings as Bitcoin and Ethereum keep falling.",
+      "published": "2026-02-05T22:41:35+00:00"
+    },
+    {
+      "title": "Will Bitcoin rebound to $90K by March? Here\u2019s what BTC options say",
+      "url": "https://cointelegraph.com/news/will-bitcoin-rebound-to-dollar90k-by-march-here-s-what-btc-options-say?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin fell below 63,000 as investors reacted to dismal US economic data, a weakening stock market and fears of an AI industry bubble. Does data forecast a return to $90,000 by March?",
+      "published": "2026-02-05T22:17:26+00:00"
+    },
+    {
+      "title": "Bitcoin Giant Strategy Records $12.4 Billion Q4 Loss as MSTR Shares Hit 18-Month Low",
+      "url": "https://decrypt.co/357129/bitcoin-giant-strategy-12-4-billion-q4-loss-shares-18-month-low",
+      "source": "decrypt",
+      "description": "Michael Saylor called his firm a \u201cdigital fortress,\" but leading Bitcoin treasury Strategy has taken some serious hits in recent months.",
+      "published": "2026-02-05T22:00:10+00:00"
+    },
+    {
+      "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",
+      "url": "https://bitcoinmagazine.com/news/bitcoin-price-plunges-toward-60000",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours Bitcoin price has fallen roughly 50% from its all-time highs, with over $1 billion in liquidations recorded in the past 24 hours. This post Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-05T21:42:10+00:00"
+    },
+    {
+      "title": "EU tokenization companies push for DLT pilot changes amid US momentum",
+      "url": "https://cointelegraph.com/news/eu-tokenization-dlt-pilot-rules-risk-pushing-onchain-markets-us?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "European tokenization companies urged EU lawmakers to quickly amend the DLT Pilot Regime, warning that current limits risk pushing onchain markets to the US.",
+      "published": "2026-02-05T21:42:07+00:00"
+    },
+    {
+      "title": "Bitcoin Miners Could Face Crisis After BTC Price Falls 50% From Peak",
+      "url": "https://decrypt.co/357071/bitcoin-miners-face-crisis-btc-price-falls-50-percent",
+      "source": "decrypt",
+      "description": "The price of Bitcoin crashed below $63,000 on Thursday, not far above the average production cost of publicly traded miners.",
+      "published": "2026-02-05T21:10:09+00:00"
+    },
     {
       "title": "Paystand: The Payments Giants Quietly Supporting Bitcoin Circular Economies",
       "url": "https://bitcoinmagazine.com/business/paystand-the-payments-giants-quietly-supporting-bitcoin-circular-economies",
@@ -46,13 +158,6 @@
       "published": "2026-02-05T20:07:18+00:00"
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-05T19:58:58+00:00"
-    },
-    {
       "title": "Strategy ($MSTR) Falls 15% as Investors Brace for Earnings Call",
       "url": "https://bitcoinmagazine.com/news/strategy-falls-brace-for-earnings",
       "source": "bitcoinmagazine",
@@ -81,55 +186,6 @@
       "published": "2026-02-05T19:08:19+00:00"
     },
     {
-      "title": "Elite Scientists Admit AI Now Does Most of Their Thinking",
-      "url": "https://decrypt.co/357062/elite-scientists-admit-ai-most-thinking",
-      "source": "decrypt",
-      "description": "At a closed-door meeting in Princeton, leading researchers said agentic AI tools now handle up to 90% of their intellectual workload\u2014forcing a reckoning over who, or what, drives scientific discovery.",
-      "published": "2026-02-05T18:45:43+00:00"
-    },
-    {
-      "title": "Bitcoin Crash Could Deepen to $38K, Say Analysts\u2014Here's Why",
-      "url": "https://decrypt.co/357089/bitcoin-crash-deepen-38k-analysts-heres-why",
-      "source": "decrypt",
-      "description": "Bitcoin has already tumbled far from its October high, but history suggests the rout could deepen before momentum shifts, according to Stifel.",
-      "published": "2026-02-05T18:27:48+00:00"
-    },
-    {
-      "title": "Treasury Secretary: Crypto 'Nihilists' Who Say They Don't Need Clarity Act 'Should Move to El Salvador'",
-      "url": "https://decrypt.co/357082/treasury-secretary-crypto-nihilists-clarity-act-move-el-salvador",
-      "source": "decrypt",
-      "description": "Scott Bessent also appeared to empathize with the banking lobby\u2019s concerns about the bill during Senate testimony on Thursday.",
-      "published": "2026-02-05T17:49:29+00:00"
-    },
-    {
-      "title": "Three signs that Bitcoin price could be near \u2018full capitulation\u2019",
-      "url": "https://cointelegraph.com/news/three-signs-bitcoin-price-near-full-capitulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Panic selling by short-term holders, extreme fear, and oversold RSI suggested that BTC could be nearing the final phase of capitulation.",
-      "published": "2026-02-05T17:44:28+00:00"
-    },
-    {
-      "title": "Aster layer-1 blockchain testnet goes live, mainnet rollout targeted for Q1",
-      "url": "https://cointelegraph.com/news/aster-layer-1-testnet-live-all-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Aster rebranded to become a crypto perpetual futures decentralized exchange in 2025, as perp DEX trading volume surged by trillions of dollars.",
-      "published": "2026-02-05T17:34:00+00:00"
-    },
-    {
-      "title": "Ether slips below $2K as ETH holder confidence faces major stress test",
-      "url": "https://cointelegraph.com/news/ether-slips-below-dollar2k-as-eth-holder-confidence-faces-major-stress-test?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Ether is testing holder conviction with its price dip, with data showing continued selling by smaller holders and steady accumulation by larger investors.",
-      "published": "2026-02-05T17:30:51+00:00"
-    },
-    {
-      "title": "Polymarket, Circle partner in shift to native USDC settlement",
-      "url": "https://cointelegraph.com/news/polymarket-circle-partnership-usdc-settlement?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Polymarket will migrate from bridged USDC on Polygon to Circle-issued native USDC, reducing reliance on cross-chain bridges as prediction markets expand.",
-      "published": "2026-02-05T17:16:31+00:00"
-    },
-    {
       "title": "Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption\u00a0",
       "url": "https://bitcoinmagazine.com/news/senator-lummis-bitcoin-tax-guidance",
       "source": "bitcoinmagazine",
@@ -144,39 +200,11 @@
       "published": "2026-02-05T17:05:15+00:00"
     },
     {
-      "title": "Crypto Exchange Gemini Slashes Jobs Amid Exit From Europe, Australia",
-      "url": "https://decrypt.co/357070/crypto-exchange-gemini-slashes-jobs-amid-exit-from-europe-australia",
-      "source": "decrypt",
-      "description": "Publicly traded crypto exchange Gemini is exiting foreign markets and laying off around 25% of its staff to improve its path to profitability.",
-      "published": "2026-02-05T16:58:26+00:00"
-    },
-    {
-      "title": "XRP Leads Crypto Losses as Ethereum, Dogecoin Prices Crater Alongside Bitcoin",
-      "url": "https://decrypt.co/357044/xrp-leads-crypto-losses-ethereum-dogecoin-crater-bitcoin",
-      "source": "decrypt",
-      "description": "XRP crashes 15% as crypto markets plunge into \"Extreme Fear\" territory, wiping out over $1.4 billion in value for traders.",
-      "published": "2026-02-05T16:35:51+00:00"
-    },
-    {
       "title": "Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-falls-over-59000-in-large-dip",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High Bitcoin\u2019s price crashed sharply on Thursday, sliding through critical support and dipping near $66,000 in volatile trading. This post Bitcoin Falls Over $59,000 in Largest Drawdown Ever, Down Nearly 47% From All-Time High first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-05T16:33:37+00:00"
-    },
-    {
-      "title": "UK Teens Jailed After $4.3M Wrench Attack Robbery Caught on Police Video",
-      "url": "https://decrypt.co/357058/uk-teens-jailed-after-4-3m-wrench-attack-robbery-caught-on-police-video",
-      "source": "decrypt",
-      "description": "Police video shows Sheffield teens posing as delivery drivers to steal $4.3 million in crypto at knife point from a London flat owner.",
-      "published": "2026-02-05T15:45:16+00:00"
-    },
-    {
-      "title": "Bitcoin Crashes Below $67K, Erasing All Gains Since Trump's Election Win",
-      "url": "https://decrypt.co/357061/bitcoin-crashes-67k-erasing-gains-trump-election-win",
-      "source": "decrypt",
-      "description": "Bitcoin has fallen more than 9% on the day, cratering to a price not seen since before President Trump's 2024 election win.",
-      "published": "2026-02-05T15:41:58+00:00"
     },
     {
       "title": "Virginia Advances Bill in Committee to Establish State Bitcoin Fund",
@@ -186,39 +214,11 @@
       "published": "2026-02-05T14:43:20+00:00"
     },
     {
-      "title": "Bitcoin price may drop below $64K as veteran raises \u2018campaign selling\u2019 alarm",
-      "url": "https://cointelegraph.com/news/bitcoin-price-may-drop-below-64k-veteran-campaign-selling?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin risks a deeper slide as miners and US spot ETFs cut BTC exposure, adding supply pressure during a fragile downtrend.",
-      "published": "2026-02-05T14:13:11+00:00"
-    },
-    {
-      "title": "Multiliquid, Metalayer launch instant redemption backstop for RWAs on Solana",
-      "url": "https://cointelegraph.com/news/multiliquid-metalayer-instant-redemption-backstop-rwas-solana?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The new facility allows institutions to redeem tokenized real-world assets into stablecoins instantly, addressing a key liquidity bottleneck in onchain markets.",
-      "published": "2026-02-05T14:00:00+00:00"
-    },
-    {
-      "title": "Morning Minute: Are Humans Ready to Work for Robots?",
-      "url": "https://decrypt.co/357045/morning-minute-are-humans-ready-to-work-for-robots",
-      "source": "decrypt",
-      "description": "Crypto developers are leaning into a hot new jobs sector: AI agents that employ humans for IRL tasks.",
-      "published": "2026-02-05T13:34:25+00:00"
-    },
-    {
       "title": "Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-crashes-to-69000",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode The bitcoin price crashed to $69,000 in trading Thursday as a deepening selloff in global markets spilled into crypto markets. This post Bitcoin Price Crashes 9% to $69,000 As Markets Spiral Into Full Risk-Off Mode first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-05T13:04:54+00:00"
-    },
-    {
-      "title": "SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot",
-      "url": "https://bitcoinmagazine.com/news/sdm-executes-1-million-lightning-kraken",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot Secure Digital Markets and Kraken completed a $1 million Bitcoin pilot settlement over the Lightning Network\u2014claimed as the largest publicly reported Lightning payment\u2014demonstrating near-instant, low-fee institutional settlement. This post SDM Executes First Ever $1 Million Lightning Network Payment to Kraken in Institutional Pilot first appeared on Bitcoin Magazine and is written by Mi",
-      "published": "2026-02-05T13:00:00+00:00"
     }
   ]
 }
