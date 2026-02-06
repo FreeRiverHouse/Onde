@@ -35,9 +35,9 @@ echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 
 # Step 1: Build
-echo -e "${YELLOW}📦 Building portal...${NC}"
+echo -e "${YELLOW}📦 Building portal (static export for CF)...${NC}"
 cd "$PORTAL_DIR"
-npm run build
+NEXT_OUTPUT=export npm run build
 echo -e "${GREEN}✅ Build complete${NC}"
 echo ""
 

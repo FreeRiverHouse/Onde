@@ -2,10 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true,
+    // Vercel handles image optimization natively
+    // Set unoptimized only for static export (Cloudflare Pages)
+    unoptimized: process.env.NEXT_OUTPUT === 'export',
   },
-  // Static export for Cloudflare Pages
-  output: 'export',
+  // Static export for Cloudflare Pages (set NEXT_OUTPUT=export)
+  // Vercel uses default SSR mode
+  ...(process.env.NEXT_OUTPUT === 'export' ? { output: 'export' } : {}),
   // Ignore ESLint errors during build (fix later)
   eslint: {
     ignoreDuringBuilds: true,
@@ -14,7 +17,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Skip API routes in static export
+  // Trailing slash for consistent URLs
   trailingSlash: true,
 }
 
