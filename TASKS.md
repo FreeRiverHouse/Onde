@@ -197,9 +197,9 @@
 | 80 | SEO-007 | Sitemap fix: remove 404 snake/tetris + add 8 popular games | ⭐ SEO | ✅ DONE | @clawdinho | Fixed broken links |
 | 81 | SEO-008 | Add metadata layouts to 8 games (breakout, invaders, etc) | ⭐ SEO | ✅ DONE | @clawdinho | layout.tsx with OG tags |
 | 82 | SEO-009 | Add JSON-LD GameApplication schema to all games | ⭐ SEO | ✅ DONE | @clawdinho | 44 games with VideoGame schema + parent hasPart expanded from 3→44 |
-| 83 | PERF-006 | Add Vercel Speed Insights or web-vitals tracking | ⚡ Performance | TODO | - | Measure real user perf |
+| 83 | PERF-006 | Add Vercel Speed Insights or web-vitals tracking | ⚡ Performance | ✅ DONE | @clawdinho | Already exists: GA4 auto-collects CWV + /health page with web-vitals lib |
 | 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | ✅ DONE | @clawdinho | localStorage tracking, bottle theme |
 | 85 | SEO-010 | Add all 40 games to sitemap.xml | ⭐ SEO | ✅ DONE | @clawdinho | Expanded from 13 to 40 games |
 | 86 | SEO-011 | Add SoftwareApplication JSON-LD to skin-creator layout | ⭐ SEO | ✅ DONE | @clawdinho | SoftwareApplication schema with features |
-| 87 | CONTENT-002 | Create /games category pages (puzzle, arcade, educational) | 📈 SEO | TODO | - | Category landing pages for long-tail keywords |
+| 87 | CONTENT-002 | Create /games category pages (puzzle, arcade, educational) | 📈 SEO | 🔄 IN_PROGRESS | @clawdinho | Category landing pages for long-tail keywords |
 | 88 | INT-001 | Add inter-game recommendations ("You might also like...") | ⭐ UX/Engagement | ✅ DONE | @clawdinho | GameRecommendations component + auto-wrapper in layout |
