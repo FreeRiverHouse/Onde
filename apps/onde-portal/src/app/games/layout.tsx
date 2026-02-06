@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import GameRecommendationsWrapper from './components/GameRecommendationsWrapper';
 
 // Structured data for games collection
 const gamesJsonLd = {
@@ -99,6 +100,7 @@ export default function GamesLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gamesJsonLd) }}
       />
       {children}
+      <GameRecommendationsWrapper />
     </>
   );
 }
