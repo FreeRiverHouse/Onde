@@ -214,7 +214,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | TODO | - | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
+| 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | IN_PROGRESS | @clawdinho | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
 | 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | BLOCKED | @clawdinho | Script ready (scripts/post-activity.sh) but D1 migration 0008 not applied — need Mattia to run wrangler d1 migrations apply |
 | 98 | SEO-013 | Add JSON-LD structured data to key pages (games, books, skin-creator) | ⭐ SEO | ✅ DONE | @clawdinho | Already exists in layout.tsx: CollectionPage+VideoGame for games, Book schema for libri, WebApplication+VideoGame for skin-creator |
 | 99 | PERF-001 | Lighthouse audit on key pages and fix critical issues | ⭐ Performance | ✅ DONE | @clawdinho | Audited all 4 pages. Fixed: self-hosted fonts (-848ms), optimized images (-636KB), trailing slash links (-1.16s redirect), a11y button labels. Remaining: skin-creator TBT needs code-splitting (4.3s JS eval) |
