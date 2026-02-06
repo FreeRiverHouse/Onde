@@ -7,8 +7,8 @@ import { TEMPLATES, Layer, LayerType, SavedSkin, SKIN_WIDTH, SKIN_HEIGHT } from 
 const SkinPreview3D = dynamic(() => import('./SkinPreview3D'), { ssr: false });
 
 interface PreviewPanelProps {
-  canvasRef: React.RefObject<HTMLCanvasElement | null>;
-  previewRef: React.RefObject<HTMLCanvasElement | null>;
+  canvasRef: React.RefObject<HTMLCanvasElement>;
+  previewRef: React.RefObject<HTMLCanvasElement>;
   show3D: boolean;
   setShow3D: (show: boolean) => void;
   loadTemplate: (template: keyof typeof TEMPLATES | 'blank') => void;
@@ -46,7 +46,7 @@ export default function PreviewPanel({
   generateRandomSkin,
   isWiggling,
   setIsWiggling,
-  showConfetti,
+  showConfetti: _showConfetti,
   setShowConfetti,
   playSound,
   setLayers,

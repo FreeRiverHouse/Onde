@@ -214,13 +214,13 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | IN_PROGRESS | @clawdinho | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
+| 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | ✅ DONE | @clawdinho | Live API fetch, 6 stat cards, infra status pills, auto-refresh 60s |
 | 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | BLOCKED | @clawdinho | Script ready (scripts/post-activity.sh) but D1 migration 0008 not applied — need Mattia to run wrangler d1 migrations apply |
 | 98 | SEO-013 | Add JSON-LD structured data to key pages (games, books, skin-creator) | ⭐ SEO | ✅ DONE | @clawdinho | Already exists in layout.tsx: CollectionPage+VideoGame for games, Book schema for libri, WebApplication+VideoGame for skin-creator |
 | 99 | PERF-001 | Lighthouse audit on key pages and fix critical issues | ⭐ Performance | ✅ DONE | @clawdinho | Audited all 4 pages. Fixed: self-hosted fonts (-848ms), optimized images (-636KB), trailing slash links (-1.16s redirect), a11y button labels. Remaining: skin-creator TBT needs code-splitting (4.3s JS eval) |
 | 100 | UX-001 | Add breadcrumb navigation to game and book pages | ⭐ UX + SEO | ✅ DONE | @clawdinho | Breadcrumb component created, visible breadcrumb on /libri, JSON-LD breadcrumbs on /games + /libri |
 | 97 | SEO-012 | Internal linking audit: cross-link games↔books↔skin-creator | ⭐ SEO | ✅ DONE | @clawdinho | Added "Explore More" cross-link sections to games, libri, and skin-creator pages |
-| 101 | PERF-002 | Skin Creator: Code-split 4357-line page.tsx into lazy-loaded components | 🔥 Performance | IN_PROGRESS | @clawdinho | TBT=2.5s, JS eval=4.2s. Spawned sub-agent to split into 15+ components |
+| 101 | PERF-002 | Skin Creator: Code-split 4357-line page.tsx into lazy-loaded components | 🔥 Performance | ✅ DONE | @clawdinho | 4358→350 lines (92% reduction), 19 components + useSkinCreator hook |
 | 102 | PERF-003 | Fix Cloudflare robots.txt conflict (duplicate User-agent blocks) | ⭐ SEO | 🔶 PARTIAL | @clawdinho | Added explicit AI crawler Allow rules to robots.ts + documented fix. CF AI Audit feature still blocking AI bots — needs Mattia to disable in CF dashboard: AI > AI Audit > Toggle OFF |
 | 103 | A11Y-001 | Skin Creator: Fix contrast ratios and touch target sizes | ⭐ Accessibility | ✅ DONE | @clawdinho | Fixed: all buttons min 44px touch targets, aria-labels on all interactive elements, text-gray-500→gray-600/700 for WCAG AA contrast, aria-pressed/role attributes, modal a11y |
 

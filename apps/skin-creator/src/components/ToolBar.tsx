@@ -31,7 +31,7 @@ interface ToolBarProps {
   copyToClipboard: () => void;
   clearCanvas: () => void;
   importSkin: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  fileInputRef: React.RefObject<HTMLInputElement | null>;
+  fileInputRef: React.RefObject<HTMLInputElement>;
   playSound: (type: 'draw' | 'click' | 'download' | 'undo' | 'redo' | 'error' | 'success' | 'save') => void;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
