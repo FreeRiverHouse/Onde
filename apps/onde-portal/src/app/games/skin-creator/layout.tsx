@@ -1,4 +1,40 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
+
+const skinCreatorJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Skin Creator - Minecraft & Roblox Skin Maker',
+  description:
+    'Create custom Minecraft skins for free with our online skin maker! AI-powered editor with 3D preview, layers, and easy export. Works with Java & Bedrock.',
+  url: 'https://onde.la/games/skin-creator/',
+  applicationCategory: 'DesignApplication',
+  operatingSystem: 'Any',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'AI-powered skin generation',
+    '3D real-time preview',
+    'Layer-based editing',
+    'Export for Java & Bedrock',
+    'Community gallery',
+    'Pixel-level editor',
+  ],
+  screenshot: 'https://onde.la/images/og-skin-creator.png',
+  audience: {
+    '@type': 'PeopleAudience',
+    suggestedMinAge: 6,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
 
 export const metadata: Metadata = {
   title: 'Free Minecraft Skin Creator Online - Make Custom Skins | Skin Creator',
@@ -55,5 +91,14 @@ export default function SkinCreatorLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <Script
+        id="skin-creator-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(skinCreatorJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }
