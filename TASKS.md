@@ -7,6 +7,12 @@
 
 ## 🚀 TOP 30 TASK DA FARE (Ordinati per Impatto Crescita)
 
+### 🚨 BLOCCANTE - Non smettere finché non è fatto!
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 0 | DEPLOY-001 | onde.la su Vercel - deploy funzionante | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | Verified: onde.la returns 200, sitemap includes skin-creator |
+
 ### 🔥 ALTA PRIORITÀ - Crescita & Traffico
 
 | # | ID | Task | Impact | Status | Owner |

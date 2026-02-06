@@ -17,7 +17,7 @@ const buildings = [
     x: 45, y: 35, 
     width: 12, height: 16,
     color: 'from-purple-500 to-pink-500',
-    games: ['/games/snake', '/games/tetris', '/games/pong'],
+    games: ['/games/breakout', '/games/invaders', '/games/pong'],
     description: 'Classic arcade games!'
   },
   { 

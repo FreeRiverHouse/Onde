@@ -34,8 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/memory',
     '/games/quiz',
     '/games/puzzle',
-    '/games/snake',
-    '/games/tetris',
     '/games/2048',
     '/games/wordle',
     
