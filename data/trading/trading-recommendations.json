@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-05T08:00:01.500110Z",
-  "trades_analyzed": 118,
+  "generated_at": "2026-02-06T08:00:02.156730Z",
+  "trades_analyzed": 124,
   "min_trades_threshold": 3,
   "confidence_level": "95%",
   "analysis": {
@@ -114,39 +114,39 @@
         "day_name": "Thu",
         "hour": 20,
         "wins": 1,
-        "losses": 3,
-        "total": 4,
-        "win_rate": 25.0,
-        "win_rate_lower": 4.6,
-        "win_rate_upper": 69.9,
-        "pnl": -3.5,
-        "avg_pnl_per_trade": -0.88
+        "losses": 6,
+        "total": 7,
+        "win_rate": 14.3,
+        "win_rate_lower": 2.6,
+        "win_rate_upper": 51.3,
+        "pnl": -5.0,
+        "avg_pnl_per_trade": -0.71
       },
       {
         "day": 3,
         "day_name": "Thu",
         "hour": 21,
-        "wins": 10,
+        "wins": 11,
         "losses": 0,
-        "total": 10,
+        "total": 11,
         "win_rate": 100.0,
-        "win_rate_lower": 72.2,
+        "win_rate_lower": 74.1,
         "win_rate_upper": 100,
-        "pnl": 5.0,
+        "pnl": 5.5,
         "avg_pnl_per_trade": 0.5
       },
       {
         "day": 3,
         "day_name": "Thu",
         "hour": 22,
-        "wins": 1,
+        "wins": 3,
         "losses": 8,
-        "total": 9,
-        "win_rate": 11.1,
-        "win_rate_lower": 2.0,
-        "win_rate_upper": 43.5,
-        "pnl": -4.5,
-        "avg_pnl_per_trade": -0.5
+        "total": 11,
+        "win_rate": 27.3,
+        "win_rate_lower": 9.7,
+        "win_rate_upper": 56.6,
+        "pnl": -3.5,
+        "avg_pnl_per_trade": -0.32
       },
       {
         "day": 3,
@@ -221,27 +221,27 @@
       },
       {
         "hour": 20,
-        "total": 4,
-        "win_rate": 25.0,
-        "win_rate_lower": 4.6,
-        "win_rate_upper": 69.9,
-        "pnl": -3.5
+        "total": 7,
+        "win_rate": 14.3,
+        "win_rate_lower": 2.6,
+        "win_rate_upper": 51.3,
+        "pnl": -5.0
       },
       {
         "hour": 21,
-        "total": 16,
-        "win_rate": 62.5,
-        "win_rate_lower": 38.6,
-        "win_rate_upper": 81.5,
-        "pnl": 1.0
+        "total": 17,
+        "win_rate": 64.7,
+        "win_rate_lower": 41.3,
+        "win_rate_upper": 82.7,
+        "pnl": 1.5
       },
       {
         "hour": 22,
-        "total": 9,
-        "win_rate": 11.1,
-        "win_rate_lower": 2.0,
-        "win_rate_upper": 43.5,
-        "pnl": -4.5
+        "total": 11,
+        "win_rate": 27.3,
+        "win_rate_lower": 9.7,
+        "win_rate_upper": 56.6,
+        "pnl": -3.5
       },
       {
         "hour": 23,
@@ -274,10 +274,10 @@
       {
         "day": 3,
         "day_name": "Thursday",
-        "total": 30,
-        "win_rate": 40.0,
-        "win_rate_lower": 24.6,
-        "win_rate_upper": 57.7,
+        "total": 36,
+        "win_rate": 41.7,
+        "win_rate_lower": 27.1,
+        "win_rate_upper": 57.8,
         "pnl": -6.5
       }
     ]
@@ -288,13 +288,13 @@
         "day": 3,
         "day_name": "Thu",
         "hour": 21,
-        "wins": 10,
+        "wins": 11,
         "losses": 0,
-        "total": 10,
+        "total": 11,
         "win_rate": 100.0,
-        "win_rate_lower": 72.2,
+        "win_rate_lower": 74.1,
         "win_rate_upper": 100,
-        "pnl": 5.0,
+        "pnl": 5.5,
         "avg_pnl_per_trade": 0.5
       }
     ],
@@ -415,19 +415,6 @@
         "win_rate_upper": 39.0,
         "pnl": -4.0,
         "avg_pnl_per_trade": -0.67
-      },
-      {
-        "day": 3,
-        "day_name": "Thu",
-        "hour": 22,
-        "wins": 1,
-        "losses": 8,
-        "total": 9,
-        "win_rate": 11.1,
-        "win_rate_lower": 2.0,
-        "win_rate_upper": 43.5,
-        "pnl": -4.5,
-        "avg_pnl_per_trade": -0.5
       }
     ],
     "best_hours": [],
@@ -496,30 +483,7 @@
     ],
     "schedule": {
       "active_hours": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23
+        21
       ],
       "avoid_days": [
         1,
