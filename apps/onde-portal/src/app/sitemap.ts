@@ -22,6 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/famiglia',
     '/leggi',
     
+    // Games - Categories
+    '/games/category/puzzle',
+    '/games/category/educational',
+    '/games/category/creative',
+    
     // Games - Featured
     '/games/skin-creator',
     '/games/moonlight-magic-house',
