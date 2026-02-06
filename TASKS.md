@@ -215,5 +215,8 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 95 | DASH-004 | Mission Control: Live agent status via API (replace hardcoded) | ⭐ Agent monitoring | TODO | - | Fetch real agent status from Clawdbot sessions API instead of hardcoded array |
-| 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | TODO | - | Post activity events to /api/activity during heartbeats (tasks done, alerts, deploys) |
+| 96 | DASH-005 | Mission Control: Activity logging from heartbeats | 🔥 Agent monitoring | BLOCKED | @clawdinho | Script ready (scripts/post-activity.sh) but D1 migration 0008 not applied — need Mattia to run wrangler d1 migrations apply |
+| 98 | SEO-013 | Add JSON-LD structured data to key pages (games, books, skin-creator) | ⭐ SEO | ✅ DONE | @clawdinho | Already exists in layout.tsx: CollectionPage+VideoGame for games, Book schema for libri, WebApplication+VideoGame for skin-creator |
+| 99 | PERF-001 | Lighthouse audit on key pages and fix critical issues | ⭐ Performance | TODO | - | Run Lighthouse on /, /games, /libri, /skin-creator and fix scores <80 |
+| 100 | UX-001 | Add breadcrumb navigation to game and book pages | ⭐ UX + SEO | ✅ DONE | @clawdinho | Breadcrumb component created, visible breadcrumb on /libri, JSON-LD breadcrumbs on /games + /libri |
 | 97 | SEO-012 | Internal linking audit: cross-link games↔books↔skin-creator | ⭐ SEO | ✅ DONE | @clawdinho | Added "Explore More" cross-link sections to games, libri, and skin-creator pages |

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import SectionHeader from '@/components/ui/SectionHeader'
+import Breadcrumb from '@/components/ui/Breadcrumb'
 import { useTranslations } from '@/i18n'
 
 interface Book {
@@ -210,8 +211,16 @@ export default function LibriPage() {
 
   return (
     <div className="min-h-screen py-12">
+      {/* Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <Breadcrumb items={[
+          { label: 'Home', href: '/', emoji: '🏠' },
+          { label: 'Books', emoji: '📚' },
+        ]} />
+      </div>
+
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { useGlobalLeaderboard } from '@/hooks/useGlobalLeaderboard'
 import { useTranslations } from '@/i18n/I18nProvider'
+import Breadcrumb from '@/components/ui/Breadcrumb'
 import RecentlyPlayedSection from './components/RecentlyPlayedSection'
 
 const games = [

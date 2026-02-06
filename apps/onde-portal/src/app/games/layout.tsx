@@ -1,6 +1,26 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
+// Breadcrumb JSON-LD for /games
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://onde.la',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Games',
+      item: 'https://onde.la/games',
+    },
+  ],
+};
+
 // Structured data for games collection
 const gamesJsonLd = {
   '@context': 'https://schema.org',
@@ -421,6 +441,11 @@ export default function GamesLayout({
 }) {
   return (
     <>
+      <Script
+        id="games-breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Script
         id="games-jsonld"
         type="application/ld+json"
