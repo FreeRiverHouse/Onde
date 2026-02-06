@@ -223,3 +223,11 @@
 | 101 | PERF-002 | Skin Creator: Code-split 4357-line page.tsx into lazy-loaded components | 🔥 Performance | IN_PROGRESS | @clawdinho | TBT=2.5s, JS eval=4.2s. Spawned sub-agent to split into 15+ components |
 | 102 | PERF-003 | Fix Cloudflare robots.txt conflict (duplicate User-agent blocks) | ⭐ SEO | 🔶 PARTIAL | @clawdinho | Added explicit AI crawler Allow rules to robots.ts + documented fix. CF AI Audit feature still blocking AI bots — needs Mattia to disable in CF dashboard: AI > AI Audit > Toggle OFF |
 | 103 | A11Y-001 | Skin Creator: Fix contrast ratios and touch target sizes | ⭐ Accessibility | ✅ DONE | @clawdinho | Fixed: all buttons min 44px touch targets, aria-labels on all interactive elements, text-gray-500→gray-600/700 for WCAG AA contrast, aria-pressed/role attributes, modal a11y |
+
+## 🆕 TASK AGGIUNTI (2026-02-06 12:10 PST)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 104 | SEO-014 | Add llms.txt (LLMs Full) to onde.la for AI discoverability | ⭐ SEO/AI | TODO | - | AI crawlers look for /llms.txt. surfboard has it but onde.la doesn't |
+| 105 | A11Y-002 | Add skip-to-content link on onde.la main layout | ⭐ Accessibility | TODO | - | WCAG 2.4.1 bypass blocks requirement |
+| 106 | PERF-004 | Lazy-load Three.js in skin creator (dynamic import) | 🔥 Performance | TODO | - | Three.js is heavy, should only load when 3D preview is visible |
