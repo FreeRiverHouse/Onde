@@ -203,3 +203,5 @@
 | 86 | SEO-011 | Add SoftwareApplication JSON-LD to skin-creator layout | ⭐ SEO | ✅ DONE | @clawdinho | SoftwareApplication schema with features |
 | 87 | CONTENT-002 | Create /games category pages (puzzle, educational, creative) | 📈 SEO | ✅ DONE | @clawdinho | Created /games/category/puzzle, /educational, /creative with SEO metadata, JSON-LD, sitemap |
 | 88 | INT-001 | Add inter-game recommendations ("You might also like...") | ⭐ UX/Engagement | ✅ DONE | @clawdinho | GameRecommendations component + auto-wrapper in layout |
+| 89 | CONTENT-003 | Add 3 more classics: Grimm, Wizard of Oz, Andersen | 📚 Content | ✅ DONE | @clawdinho | ePubs from Gutenberg + catalog + sitemap |
+| 90 | SITEMAP-002 | Add individual /libro/* reader pages to sitemap | ⭐ SEO | ✅ DONE | @clawdinho | 8 book reader pages added |

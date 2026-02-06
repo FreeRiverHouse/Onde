@@ -78,6 +78,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/word-puzzle',
     '/games/wordle',
     
+    // Individual books (reader pages)
+    '/libro/meditations',
+    '/libro/shepherds-promise',
+    '/libro/alice-wonderland-en',
+    '/libro/jungle-book-en',
+    '/libro/peter-rabbit-en',
+    '/libro/grimm-fairy-tales-en',
+    '/libro/wizard-of-oz-en',
+    '/libro/andersen-fairy-tales-en',
+    
     // Other sections
     '/giochi',
     '/vr',
