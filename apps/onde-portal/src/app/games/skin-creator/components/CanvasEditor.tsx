@@ -156,7 +156,8 @@ export default function CanvasEditor({
                 👆 Click and drag to draw!
                 <button 
                   onClick={() => dismissTip('canvas')}
-                  className="ml-1 hover:bg-blue-600 rounded-full w-5 h-5 text-xs"
+                  className="ml-1 hover:bg-blue-600 rounded-full w-8 h-8 min-w-[32px] min-h-[32px] text-sm flex items-center justify-center"
+                  aria-label="Dismiss tip"
                 >
                   ✕
                 </button>

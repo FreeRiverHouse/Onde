@@ -43,7 +43,7 @@ export default function TemplateSelector({
   return (
     <div className="mt-4">
       <p className="text-sm font-semibold text-gray-700 mb-2">Start from:</p>
-      <div className="flex flex-wrap gap-1 justify-center">
+      <div className="flex flex-wrap gap-1.5 justify-center">
         {Object.entries(templates).map(([key, template]) => (
           <button
             key={key}
@@ -60,14 +60,14 @@ export default function TemplateSelector({
                 setTimeout(() => setShowConfetti(false), 2000);
               }
             }}
-            className={`px-2 py-1 text-white rounded-lg text-xs font-bold hover:scale-105 transition-all ${key === 'creeper' ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
+            className={`px-3 py-2 min-h-[44px] text-white rounded-lg text-xs font-bold hover:scale-105 transition-all ${key === 'creeper' ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
           >
             {template.name}
           </button>
         ))}
         <button
           onClick={() => loadTemplate('blank')}
-          className="px-2 py-1 bg-gray-500 text-white rounded-lg text-xs font-bold hover:bg-gray-600"
+          className="px-3 py-2 min-h-[44px] bg-gray-500 text-white rounded-lg text-xs font-bold hover:bg-gray-600"
         >
           ⬜ Blank
         </button>
@@ -77,7 +77,7 @@ export default function TemplateSelector({
             generateRandomSkin();
             setTimeout(() => setIsWiggling(false), 500);
           }}
-          className={`px-2 py-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform ${isWiggling ? 'animate-wiggle' : 'animate-pulse'}`}
+          className={`px-3 py-2 min-h-[44px] bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform ${isWiggling ? 'animate-wiggle' : 'animate-pulse'}`}
         >
           🎲 Random!
         </button>
@@ -99,7 +99,7 @@ export default function TemplateSelector({
             playSound('download');
             setTimeout(() => setShowConfetti(false), 2000);
           }}
-          className="px-2 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+          className="px-3 py-2 min-h-[44px] bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
           title="🎁 Mystery surprise skin!"
         >
           🎁 Mystery!
@@ -116,7 +116,7 @@ export default function TemplateSelector({
             }));
             playSound('download');
           }}
-          className="px-2 py-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+          className="px-3 py-2 min-h-[44px] bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
           title="🎭 Randomize outfit colors!"
         >
           🎭 Outfit!
@@ -143,7 +143,7 @@ export default function TemplateSelector({
             }));
             playSound('success');
           }}
-          className="px-2 py-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
+          className="px-3 py-2 min-h-[44px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform animate-pulse"
           title="✨ AI-inspired color palette"
         >
           ✨ AI Colors
@@ -152,14 +152,14 @@ export default function TemplateSelector({
         {/* Save/My Skins */}
         <button
           onClick={() => { saveSkin(); playSound('save'); }}
-          className="px-2 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+          className="px-3 py-2 min-h-[44px] bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
           title="💾 Save current skin"
         >
           💾 Save
         </button>
         <button
           onClick={() => setShowMySkins(!showMySkins)}
-          className={`px-2 py-1 rounded-lg text-xs font-bold hover:scale-105 transition-transform ${
+          className={`px-3 py-2 min-h-[44px] rounded-lg text-xs font-bold hover:scale-105 transition-transform ${
             showMySkins ? 'bg-blue-500 text-white' : 'bg-gradient-to-r from-blue-400 to-indigo-500 text-white'
           }`}
           title="📂 My saved skins"
@@ -168,7 +168,7 @@ export default function TemplateSelector({
         </button>
         <button
           onClick={shareSkin}
-          className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
+          className="px-3 py-2 min-h-[44px] bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-bold hover:scale-105 transition-transform"
           title="🔗 Share skin via link"
         >
           🔗 Share
@@ -195,26 +195,26 @@ export default function TemplateSelector({
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out my Minecraft skin! 🎮')}&url=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2 py-1 bg-black text-white rounded text-xs hover:bg-gray-800"
+              className="px-3 py-2 min-h-[44px] bg-black text-white rounded text-xs hover:bg-gray-800"
             >𝕏</a>
             <a
               href={`https://reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent('My Minecraft Skin')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2 py-1 bg-orange-500 text-white rounded text-xs hover:bg-orange-600"
+              className="px-3 py-2 min-h-[44px] bg-orange-500 text-white rounded text-xs hover:bg-orange-600"
             >Reddit</a>
             <a
               href={`https://discord.com/channels/@me?content=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2 py-1 bg-indigo-500 text-white rounded text-xs hover:bg-indigo-600"
+              className="px-3 py-2 min-h-[44px] bg-indigo-500 text-white rounded text-xs hover:bg-indigo-600"
             >Discord</a>
             <button
               onClick={() => {
                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`;
                 window.open(qrUrl, '_blank');
               }}
-              className="px-2 py-1 bg-gray-700 text-white rounded text-xs hover:bg-gray-800"
+              className="px-3 py-2 min-h-[44px] bg-gray-700 text-white rounded text-xs hover:bg-gray-800"
               title="Generate QR Code"
             >📱 QR</button>
           </div>

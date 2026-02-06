@@ -56,7 +56,7 @@ export default function SkinCreator() {
   const s = useSkinCreator();
 
   return (
-    <div className={`min-h-screen p-6 flex flex-col items-center transition-all duration-700 ${
+    <div className={`min-h-screen p-3 md:p-6 flex flex-col items-center transition-all duration-700 ${
       s.darkMode
         ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900'
         : 'bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500'
@@ -100,7 +100,7 @@ export default function SkinCreator() {
 
       {/* Header */}
       <div className="text-center mb-4 md:mb-6 relative">
-        <button onClick={() => s.setShowMobileMenu(!s.showMobileMenu)} className="md:hidden absolute left-2 top-0 p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-all" aria-label="Menu">
+        <button onClick={() => s.setShowMobileMenu(!s.showMobileMenu)} className="md:hidden absolute left-0 top-0 p-3 min-w-[44px] min-h-[44px] bg-white/20 rounded-xl hover:bg-white/30 transition-all flex items-center justify-center" aria-label="Menu">
           <span className="text-2xl">{s.showMobileMenu ? '✕' : '☰'}</span>
         </button>
         <div className="hidden md:flex items-center justify-center gap-2 mb-1">
@@ -140,8 +140,8 @@ export default function SkinCreator() {
         {/* Model Selector */}
         {s.selectedGame === 'minecraft' && (
           <div className="flex gap-2 mt-2">
-            <button onClick={() => s.setSkinModel('steve')} className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${s.skinModel === 'steve' ? 'bg-blue-500 text-white shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`} title="Steve model - 4px arms">👦 Steve</button>
-            <button onClick={() => s.setSkinModel('alex')} className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${s.skinModel === 'alex' ? 'bg-pink-500 text-white shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`} title="Alex model - 3px slim arms">👧 Alex (slim)</button>
+            <button onClick={() => s.setSkinModel('steve')} className={`px-3 py-2 min-h-[44px] rounded-full text-sm font-bold transition-all ${s.skinModel === 'steve' ? 'bg-blue-500 text-white shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`} title="Steve model - 4px arms">👦 Steve</button>
+            <button onClick={() => s.setSkinModel('alex')} className={`px-3 py-2 min-h-[44px] rounded-full text-sm font-bold transition-all ${s.skinModel === 'alex' ? 'bg-pink-500 text-white shadow-lg' : 'bg-white/20 text-white hover:bg-white/30'}`} title="Alex model - 3px slim arms">👧 Alex (slim)</button>
           </div>
         )}
 
@@ -340,9 +340,9 @@ export default function SkinCreator() {
       <div className="mt-6 w-full max-w-2xl mx-auto">
         <p className="text-white/70 text-sm text-center mb-4">Made with 💖 by Onde • Works with Minecraft Java & Bedrock!</p>
         <div className="flex flex-wrap justify-center gap-3">
-          <a href="/games/" className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">🎮 More Games</a>
-          <a href="/libri/" className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">📚 Free Books</a>
-          <a href="/shop/" className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">🛍️ Shop</a>
+          <a href="/games/" className="px-4 py-3 min-h-[44px] bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">🎮 More Games</a>
+          <a href="/libri/" className="px-4 py-3 min-h-[44px] bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">📚 Free Books</a>
+          <a href="/shop/" className="px-4 py-3 min-h-[44px] bg-white/10 hover:bg-white/20 rounded-full text-white/80 hover:text-white text-sm font-medium transition-all flex items-center gap-1.5">🛍️ Shop</a>
         </div>
       </div>
     </div>

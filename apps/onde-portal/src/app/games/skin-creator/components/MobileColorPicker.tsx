@@ -18,7 +18,7 @@ export default function MobileColorPicker({
         <div className="bg-white rounded-t-2xl shadow-2xl p-4 mx-2">
           <div className="flex justify-between items-center mb-3">
             <span className="font-bold text-gray-800">🎨 Colors</span>
-            <button onClick={onClose} className="text-gray-500 text-xl">✕</button>
+            <button onClick={onClose} className="text-gray-500 text-xl w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-gray-100" aria-label="Close color picker">✕</button>
           </div>
           <div className="skin-mobile-colors">
             {colors.slice(0, 24).map((color) => (

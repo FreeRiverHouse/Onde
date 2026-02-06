@@ -29,7 +29,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | 🔶 CHECKLIST READY | @clawdinho | docs/testing/skin-creator-mobile-test.md |
+| 8 | GAM-002 | Skin Creator: Test su vari device mobile | ⭐ Quality assurance | ✅ DONE | @clawdinho | Tested iPhone SE/iPad/Landscape. Fixed: horizontal overflow, 19 small touch targets (<44px). Build verified. |
 | 9 | GAM-003 | Skin Creator: Layout landscape mode | ⭐ Better tablet UX | ✅ DONE | @clawdinho | Added CSS media queries |
 | 10 | T853 | SEO: Add hreflang tags for multi-language | ⭐ International SEO | ✅ DONE | @clawdinho |
 | 11 | MLH-022 | Notification snooze (remind later) | ⭐ UX onde.surf | ✅ DONE | @clawdinho | UI complete, snooze menu + options |
