@@ -83,6 +83,11 @@
 
 ## ✅ COMPLETATI RECENTEMENTE
 
+### 2026-02-06
+- **DEPLOY-001** - onde.la deploy verified (200 OK) ✅
+- **SEO-007** - Sitemap: removed 404 snake/tetris, added 8 popular games ✅
+- **SEO-008** - Added metadata layouts to 8 games ✅
+
 ### 2026-02-03
 - **T851** - i18n: Completare audit stringhe hardcoded (Shop + Games) ✅
 - **i18n-GAMES** - Integrare traduzioni /games page ✅
@@ -112,7 +117,7 @@
 
 ---
 
-*Ultimo aggiornamento: 2026-02-03 01:30 PST*
+*Ultimo aggiornamento: 2026-02-06 08:06 PST*
 *Riordinato per impatto crescita sito*
 
 ---
@@ -184,3 +189,13 @@
 | 49 | SEO-004 | Add FAQ schema to homepage | ⭐ SEO | ✅ DONE | @clawdinho | 4 FAQs in JSON-LD |
 | 45 | PERF-003 | Lighthouse audit e ottimizzazioni | ⚡ Performance | ✅ DONE | @clawdinho | Checklist: docs/performance/lighthouse-checklist.md |
 | 46 | EMAIL-001 | Setup newsletter signup form | 📧 Retention | ✅ DONE | @clawdinho | NewsletterSignup component (3 variants) |
+
+## 🆕 TASK AGGIUNTI (2026-02-06)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 80 | SEO-007 | Sitemap fix: remove 404 snake/tetris + add 8 popular games | ⭐ SEO | ✅ DONE | @clawdinho | Fixed broken links |
+| 81 | SEO-008 | Add metadata layouts to 8 games (breakout, invaders, etc) | ⭐ SEO | ✅ DONE | @clawdinho | layout.tsx with OG tags |
+| 82 | SEO-009 | Add JSON-LD GameApplication schema to all games | ⭐ SEO | TODO | - | Rich results in Google |
+| 83 | PERF-006 | Add Vercel Speed Insights or web-vitals tracking | ⚡ Performance | TODO | - | Measure real user perf |
+| 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | TODO | - | localStorage tracking |
