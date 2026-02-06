@@ -169,24 +169,24 @@ const allGames: Game[] = [
   // 🔢 MATH & LOGIC
   { id: 'counting', href: '/games/counting', title: 'Counting', desc: 'Learn to count', emoji: '🔢', color: 'from-sky-300 to-sky-500', glowColor: 'sky', category: 'Math & Logic', readingLevel: 'no-reading' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math adventures', emoji: '➕', color: 'from-orange-300 to-orange-500', glowColor: 'orange', category: 'Math & Logic', readingLevel: 'no-reading' },
-  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-300 to-amber-500', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true, locked: true, unlockCost: 200 },
-  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-300 to-indigo-500', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true, locked: true, unlockCost: 300 },
+  { id: '2048', href: '/games/2048', title: '2048', desc: 'Merge the numbers', emoji: '🔢', color: 'from-amber-300 to-amber-500', glowColor: 'amber', category: 'Math & Logic', readingLevel: 'no-reading', localStorageKey: '2048-best-score', isNew: true },
+  { id: 'sudoku', href: '/games/sudoku', title: 'Sudoku', desc: 'Number logic puzzle', emoji: '🧮', color: 'from-indigo-300 to-indigo-500', glowColor: 'indigo', category: 'Math & Logic', readingLevel: 'no-reading', isNew: true },
 
   // 📝 WORDS & LANGUAGE
   { id: 'alphabet', href: '/games/alphabet', title: 'ABC Fun', desc: 'Learn the alphabet', emoji: '🔤', color: 'from-emerald-300 to-emerald-500', glowColor: 'emerald', category: 'Words & Language', readingLevel: 'no-reading' },
-  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-slate-300 to-slate-500', glowColor: 'slate', category: 'Words & Language', readingLevel: 'can-read', locked: true, unlockCost: 150 },
-  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-rose-300 to-rose-500', glowColor: 'rose', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 250 },
-  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-blue-300 to-blue-500', glowColor: 'blue', category: 'Words & Language', readingLevel: 'can-read', locked: true, unlockCost: 200 },
-  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-300 to-green-500', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 300 },
-  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-violet-300 to-violet-500', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read', isNew: true, locked: true, unlockCost: 350 },
+  { id: 'typing', href: '/games/typing', title: 'Typing', desc: 'Learn to type', emoji: '⌨️', color: 'from-slate-300 to-slate-500', glowColor: 'slate', category: 'Words & Language', readingLevel: 'can-read' },
+  { id: 'typing-race', href: '/games/typing-race', title: 'Typing Race', desc: 'Speed typing', emoji: '🏎️', color: 'from-rose-300 to-rose-500', glowColor: 'rose', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'word', href: '/games/word-puzzle', title: 'Word Puzzle', desc: 'Solve word games', emoji: '📝', color: 'from-blue-300 to-blue-500', glowColor: 'blue', category: 'Words & Language', readingLevel: 'can-read' },
+  { id: 'wordle', href: '/games/wordle', title: 'Wordle', desc: 'Guess the word', emoji: '🟩', color: 'from-green-300 to-green-500', glowColor: 'green', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
+  { id: 'crossword', href: '/games/crossword', title: 'Crossword', desc: 'Word puzzle grid', emoji: '📰', color: 'from-violet-300 to-violet-500', glowColor: 'violet', category: 'Words & Language', readingLevel: 'can-read', isNew: true },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz Time', desc: 'Test your knowledge', emoji: '❓', color: 'from-purple-300 to-purple-500', glowColor: 'purple', category: 'Words & Language', readingLevel: 'can-read' },
 
   // 🧩 MEMORY & PUZZLES
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match the pairs', emoji: '🧠', color: 'from-pink-300 to-pink-500', glowColor: 'pink', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
-  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-cyan-300 to-cyan-500', glowColor: 'cyan', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 150 },
-  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-fuchsia-300 to-fuchsia-500', glowColor: 'fuchsia', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 200 },
-  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-300 to-teal-500', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true, locked: true, unlockCost: 250 },
-  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-lime-300 to-lime-500', glowColor: 'lime', category: 'Memory & Puzzles', readingLevel: 'no-reading', locked: true, unlockCost: 200 },
+  { id: 'matching', href: '/games/matching', title: 'Matching', desc: 'Find the matches', emoji: '🎴', color: 'from-cyan-300 to-cyan-500', glowColor: 'cyan', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'puzzle', href: '/games/puzzle', title: 'Puzzle', desc: 'Solve the puzzle', emoji: '🧩', color: 'from-fuchsia-300 to-fuchsia-500', glowColor: 'fuchsia', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
+  { id: 'jigsaw', href: '/games/jigsaw', title: 'Jigsaw', desc: 'Piece it together', emoji: '🖼️', color: 'from-teal-300 to-teal-500', glowColor: 'teal', category: 'Memory & Puzzles', readingLevel: 'no-reading', isNew: true },
+  { id: 'spot', href: '/games/spot-difference', title: 'Spot It!', desc: 'Find the difference', emoji: '🔍', color: 'from-lime-300 to-lime-500', glowColor: 'lime', category: 'Memory & Puzzles', readingLevel: 'no-reading' },
 
   // 🎨 CREATIVE
   { id: 'draw', href: '/games/draw', title: 'Draw', desc: 'Creative drawing', emoji: '✏️', color: 'from-red-300 to-red-500', glowColor: 'red', category: 'Creative', readingLevel: 'no-reading' },
