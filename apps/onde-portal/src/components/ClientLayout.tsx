@@ -3,6 +3,7 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { useTranslations } from '@/i18n';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navigation from '@/components/Navigation';
 import SearchModal from '@/components/SearchModal';
@@ -107,8 +108,21 @@ function SkipToContent() {
   );
 }
 
+// Routes that are individual game pages (have their own navigation)
+// These get a minimal layout without site nav/footer to avoid duplication
+function useIsGamePage() {
+  const pathname = usePathname();
+  if (!pathname) return false;
+  // Match /games/<game-name> but NOT /games, /games/, /games/arcade, /games/category, /games/leaderboard
+  const nonGamePaths = ['/games', '/games/', '/games/arcade', '/games/category', '/games/leaderboard'];
+  if (nonGamePaths.some(p => pathname === p || pathname === p + '/')) return false;
+  // Match /games/<something> (individual game pages)
+  return /^\/games\/[a-z0-9-]+\/?$/.test(pathname);
+}
+
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const isNative = useIsNativeApp();
+  const isGamePage = useIsGamePage();
 
   // Native app mode: no navigation, no footer, no site chrome
   if (isNative) {
@@ -120,6 +134,26 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
               {children}
             </ErrorBoundary>
           </main>
+        </CoinProvider>
+      </ThemeProvider>
+    );
+  }
+
+  // Individual game pages: no site nav/footer (games have their own navigation)
+  if (isGamePage) {
+    return (
+      <ThemeProvider>
+        <CoinProvider>
+          <AICompanionProvider>
+            <main id="main-content" className="relative z-10" tabIndex={-1}>
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
+            </main>
+            <TreasureFoundToast />
+            <GlobalTreasureListener />
+            <VercelAnalytics />
+          </AICompanionProvider>
         </CoinProvider>
       </ThemeProvider>
     );

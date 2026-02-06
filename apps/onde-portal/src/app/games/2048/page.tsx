@@ -409,10 +409,19 @@ export default function Game2048() {
     if (savedGame) {
       try {
         const { grid: savedGrid, score: savedScore, history: savedHistory } = JSON.parse(savedGame)
-        setGrid(savedGrid)
-        setScore(savedScore)
-        setHistory(savedHistory || [])
+        // Validate that the saved grid actually has tiles
+        const hasTiles = savedGrid && savedGrid.some((row: Cell[]) => row.some((cell: Cell) => cell !== null))
+        if (hasTiles) {
+          setGrid(savedGrid)
+          setScore(savedScore)
+          setHistory(savedHistory || [])
+        } else {
+          // Saved state was empty/corrupted, start fresh
+          localStorage.removeItem('2048-game-state')
+          initGame()
+        }
       } catch {
+        localStorage.removeItem('2048-game-state')
         initGame()
       }
     } else {
@@ -420,9 +429,9 @@ export default function Game2048() {
     }
   }, [initGame])
 
-  // Save game state
+  // Save game state (only when grid has tiles - avoid saving empty initial state)
   useEffect(() => {
-    if (gameState === 'playing') {
+    if (gameState === 'playing' && grid.some(row => row.some(cell => cell !== null))) {
       localStorage.setItem('2048-game-state', JSON.stringify({ grid, score, history }))
     }
   }, [grid, score, history, gameState])
