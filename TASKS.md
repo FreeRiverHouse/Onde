@@ -201,5 +201,5 @@
 | 84 | UX-008 | Add "Recently Played" games section on /games | ⭐ UX | ✅ DONE | @clawdinho | localStorage tracking, bottle theme |
 | 85 | SEO-010 | Add all 40 games to sitemap.xml | ⭐ SEO | ✅ DONE | @clawdinho | Expanded from 13 to 40 games |
 | 86 | SEO-011 | Add SoftwareApplication JSON-LD to skin-creator layout | ⭐ SEO | ✅ DONE | @clawdinho | SoftwareApplication schema with features |
-| 87 | CONTENT-002 | Create /games category pages (puzzle, arcade, educational) | 📈 SEO | 🔄 IN_PROGRESS | @clawdinho | Category landing pages for long-tail keywords |
+| 87 | CONTENT-002 | Create /games category pages (puzzle, educational, creative) | 📈 SEO | ✅ DONE | @clawdinho | Created /games/category/puzzle, /educational, /creative with SEO metadata, JSON-LD, sitemap |
 | 88 | INT-001 | Add inter-game recommendations ("You might also like...") | ⭐ UX/Engagement | ✅ DONE | @clawdinho | GameRecommendations component + auto-wrapper in layout |
