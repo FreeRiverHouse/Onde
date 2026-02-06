@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06T18:30:03.176756+00:00",
+  "timestamp": "2026-02-06T19:00:05.025838+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Price predictions 2/6: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
+      "url": "https://cointelegraph.com/news/price-predictions-2-6-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin and altcoins saw strong double-digit price rebounds after this week\u2019s brutal sell-off, but do technical charts forecast a longer-term recovery, or is today\u2019s rally just a dead cat bounce?",
+      "published": "2026-02-06T18:47:21+00:00"
+    },
+    {
+      "title": "Strategy, BitMine, Coinbase Shares Chart Major Rebound as Bitcoin Stabilizes",
+      "url": "https://decrypt.co/357183/strategy-bitmine-coinbase-major-rebound-bitcoin-stabilizes",
+      "source": "decrypt",
+      "description": "Strategy (MSTR), BitMine (BMNR), and Coinbase (COIN) helped lead the crypto stock rebound as Bitcoin bounced back from a dip near $60K.",
+      "published": "2026-02-06T18:32:30+00:00"
+    },
     {
       "title": "Strategy ($MSTR) Soars 25% as Bitcoin Rebounds",
       "url": "https://bitcoinmagazine.com/markets/strategy-soars-as-bitcoin-rebounds",
@@ -151,13 +165,6 @@
       "published": "2026-02-06T13:25:12+00:00"
     },
     {
-      "title": "Trend Research dumps over 400K ETH as liquidation risk rises",
-      "url": "https://cointelegraph.com/news/trend-research-reduces-eth-holdings-325k-187k-eth-binance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Trend Research has been reducing its Ether exposure, as ETH price closed in on some of the investment company's critical liquidation levels below $1,700.",
-      "published": "2026-02-06T13:17:01+00:00"
-    },
-    {
       "title": "Polymarket Files for Crypto Token Trademarks as Legal Battles Mount",
       "url": "https://decrypt.co/357166/polymarket-files-for-crypto-token-trademarks-as-legal-battles-mount",
       "source": "decrypt",
@@ -170,13 +177,6 @@
       "source": "decrypt",
       "description": "Industry leaders condemned a Democratic Party social media post mocking crypto market losses amid billions of dollars in liquidations.",
       "published": "2026-02-06T10:18:15+00:00"
-    },
-    {
-      "title": "Crypto Sentiment Sinks to Lowest Level in 3.5 Years",
-      "url": "https://decrypt.co/357159/crypto-sentiment-sinks-lowest-level-3-5-years",
-      "source": "decrypt",
-      "description": "Investor fear in crypto has sunk to levels last seen during the year of Terra's collapse as macro pressures intensify.",
-      "published": "2026-02-06T05:41:34+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",

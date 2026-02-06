@@ -4,6 +4,7 @@ export const runtime = 'edge'
 
 import { useState, useEffect, useCallback } from 'react'
 import { ActivityFeed } from '@/components/ActivityFeed'
+import { CalendarView } from '@/components/CalendarView'
 
 interface AgentStatus {
   name: string
@@ -167,12 +168,22 @@ export default function MissionControlPage() {
           </div>
         </div>
 
-        {/* Activity Feed - Full Width */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold flex items-center gap-2">
-              <span>⚡</span> Activity Timeline
+        {/* Calendar + Activity Feed - Side by Side on Desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Calendar View */}
+          <div>
+            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <span>📅</span> Scheduled Operations
             </h2>
+            <CalendarView className="bg-white/[0.02]" />
+          </div>
+
+          {/* Activity Feed */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold flex items-center gap-2">
+                <span>⚡</span> Activity Timeline
+              </h2>
             <div className="flex gap-2">
               {(Object.keys(filterCategories) as FilterType[]).map(filter => (
                 <button
@@ -197,6 +208,7 @@ export default function MissionControlPage() {
             showHeader={false}
             className="bg-white/[0.02]"
           />
+          </div>
         </div>
 
         {/* Footer */}
