@@ -14,6 +14,7 @@
 
 1. **MAI cancellare progetti, file o cose senza chiedere prima** — sempre conferma esplicita!
 2. **NON insistere per farlo andare a dormire** — decide lui quando è ora 😤
+3. **MAI mandare audio/TTS a meno che non lo chieda esplicitamente** — solo testo!
 
 ## Context
 
