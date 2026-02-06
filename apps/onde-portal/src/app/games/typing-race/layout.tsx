@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Typing Race',
   description:
-    'Race against the clock by typing words! Improve your typing speed and accuracy.',
+    'Race against time by typing words as fast as you can! Competitive typing game with leaderboards. Can you be the fastest typist?',
   url: 'https://onde.la/games/typing-race/',
-  genre: ['Educational'],
+  genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Typing Race - Free Online Game | Onde',
+  title: 'Typing Race - Free Online Speed Typing Game | Onde',
   description:
-    'Race against the clock by typing words! Improve your typing speed and accuracy.',
-  keywords: 'typing race, speed typing, keyboard game',
+    'Race against time by typing words as fast as you can! Competitive typing game with leaderboards. Can you be the fastest typist?',
+  keywords:
+    'typing race, speed typing, typing competition, WPM test, fast typing game',
   openGraph: {
-    title: '🎮 Typing Race - Play Free Online!',
+    title: '🏎️ Typing Race - Play Free Online!',
     description:
-      'Race against the clock by typing words! Improve your typing speed and accuracy.',
+      'Race against time by typing words as fast as you can! Can you be the fastest typist?',
     url: 'https://onde.la/games/typing-race/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Typing Race - Free Online Game',
+    title: '🏎️ Typing Race - Free Online Speed Typing Game',
     description:
-      'Race against the clock by typing words! Improve your typing speed and accuracy.',
+      'Race against time by typing words as fast as you can! Free to play.',
   },
 };
 

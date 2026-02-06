@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Spot the Difference',
   description:
-    'Find the hidden differences between two pictures! A classic observation game.',
+    'Compare two pictures and find all the differences! Sharpen your observation skills with increasingly tricky puzzles. Fun for the whole family.',
   url: 'https://onde.la/games/spot-difference/',
-  genre: ['Puzzle', 'Educational'],
+  genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Spot the Difference - Free Online Game | Onde',
+  title: 'Spot the Difference - Free Online Puzzle | Onde',
   description:
-    'Find the hidden differences between two pictures! A classic observation game.',
-  keywords: 'spot difference, find difference, observation game',
+    'Compare two pictures and find all the differences! Sharpen your observation skills with increasingly tricky puzzles. Fun for the whole family.',
+  keywords:
+    'spot the difference, find differences, observation game, visual puzzle, picture puzzle',
   openGraph: {
-    title: '🎮 Spot the Difference - Play Free Online!',
+    title: '🔍 Spot the Difference - Play Free Online!',
     description:
-      'Find the hidden differences between two pictures! A classic observation game.',
+      'Compare two pictures and find all the differences! Sharpen your observation skills.',
     url: 'https://onde.la/games/spot-difference/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Spot the Difference - Free Online Game',
+    title: '🔍 Spot the Difference - Free Online Puzzle',
     description:
-      'Find the hidden differences between two pictures! A classic observation game.',
+      'Compare two pictures and find all the differences! Fun for the whole family. Free to play.',
   },
 };
 

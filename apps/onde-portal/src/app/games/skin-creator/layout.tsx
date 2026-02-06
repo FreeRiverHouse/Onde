@@ -1,29 +1,22 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-const skinCreatorJsonLd = {
+const gameJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Skin Creator - Minecraft & Roblox Skin Maker',
+  '@type': 'VideoGame',
+  name: 'Skin Creator',
   description:
     'Create custom Minecraft skins for free with our online skin maker! AI-powered editor with 3D preview, layers, and easy export. Works with Java & Bedrock.',
   url: 'https://onde.la/games/skin-creator/',
-  applicationCategory: 'DesignApplication',
+  genre: ['Educational', 'Creative'],
+  gamePlatform: ['Web Browser'],
+  applicationCategory: 'Game',
   operatingSystem: 'Any',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'USD',
   },
-  featureList: [
-    'AI-powered skin generation',
-    '3D real-time preview',
-    'Layer-based editing',
-    'Export for Java & Bedrock',
-    'Community gallery',
-    'Pixel-level editor',
-  ],
-  screenshot: 'https://onde.la/images/og-skin-creator.png',
   audience: {
     '@type': 'PeopleAudience',
     suggestedMinAge: 6,
@@ -96,7 +89,7 @@ export default function SkinCreatorLayout({
       <Script
         id="skin-creator-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(skinCreatorJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
       />
       {children}
     </>

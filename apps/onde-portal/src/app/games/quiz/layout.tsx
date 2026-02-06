@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Quiz Challenge',
   description:
-    'Test your knowledge with fun trivia questions! Multiple categories and difficulty levels.',
+    'Test your knowledge with fun trivia questions! Multiple categories from science to history. Learn something new with every round.',
   url: 'https://onde.la/games/quiz/',
-  genre: ['Educational'],
+  genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 6,
+    suggestedMinAge: 5,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Quiz Challenge - Free Online Game | Onde',
+  title: 'Quiz Challenge - Free Trivia Game | Onde',
   description:
-    'Test your knowledge with fun trivia questions! Multiple categories and difficulty levels.',
-  keywords: 'quiz game, trivia, knowledge test',
+    'Test your knowledge with fun trivia questions! Multiple categories from science to history. Learn something new with every round.',
+  keywords:
+    'quiz game, trivia, knowledge test, educational quiz, kids trivia',
   openGraph: {
-    title: '🎮 Quiz Challenge - Play Free Online!',
+    title: '❓ Quiz Challenge - Play Free Online!',
     description:
-      'Test your knowledge with fun trivia questions! Multiple categories and difficulty levels.',
+      'Test your knowledge with fun trivia questions! Multiple categories. Learn something new every round.',
     url: 'https://onde.la/games/quiz/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Quiz Challenge - Free Online Game',
+    title: '❓ Quiz Challenge - Free Trivia Game',
     description:
-      'Test your knowledge with fun trivia questions! Multiple categories and difficulty levels.',
+      'Test your knowledge with fun trivia questions! Learn something new. Free to play.',
   },
 };
 

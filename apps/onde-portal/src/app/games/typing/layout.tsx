@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Typing Practice',
   description:
-    'Learn to type faster! Fun typing exercises to improve your keyboard skills.',
+    'Improve your typing speed and accuracy! Fun typing exercises with words, sentences, and timed challenges. Track your progress over time.',
   url: 'https://onde.la/games/typing/',
-  genre: ['Educational'],
+  genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Typing Practice - Free Online Game | Onde',
+  title: 'Typing Practice - Free Online Typing Game | Onde',
   description:
-    'Learn to type faster! Fun typing exercises to improve your keyboard skills.',
-  keywords: 'typing practice, learn typing, keyboard skills',
+    'Improve your typing speed and accuracy! Fun typing exercises with words, sentences, and timed challenges. Track your progress over time.',
+  keywords:
+    'typing practice, typing game, keyboard skills, typing speed, learn to type',
   openGraph: {
-    title: '🎮 Typing Practice - Play Free Online!',
+    title: '⌨️ Typing Practice - Play Free Online!',
     description:
-      'Learn to type faster! Fun typing exercises to improve your keyboard skills.',
+      'Improve your typing speed and accuracy! Fun typing exercises with timed challenges.',
     url: 'https://onde.la/games/typing/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Typing Practice - Free Online Game',
+    title: '⌨️ Typing Practice - Free Online Typing Game',
     description:
-      'Learn to type faster! Fun typing exercises to improve your keyboard skills.',
+      'Improve your typing speed and accuracy! Fun typing exercises. Free to play.',
   },
 };
 

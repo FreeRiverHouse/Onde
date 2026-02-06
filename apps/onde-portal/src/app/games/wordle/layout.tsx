@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Wordle',
   description:
-    'Guess the 5-letter word in 6 tries! The viral word guessing game.',
+    'Guess the five-letter word in six tries! Color-coded hints guide you to the answer. The addictive daily word game everyone loves.',
   url: 'https://onde.la/games/wordle/',
-  genre: ['Puzzle'],
+  genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 8,
+    suggestedMinAge: 6,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Wordle - Free Online Game | Onde',
+  title: 'Wordle - Free Online Word Game | Onde',
   description:
-    'Guess the 5-letter word in 6 tries! The viral word guessing game.',
-  keywords: 'wordle, word guess, daily word game',
+    'Guess the five-letter word in six tries! Color-coded hints guide you to the answer. The addictive daily word game everyone loves.',
+  keywords:
+    'wordle, word game, five letter word, daily word game, guess the word',
   openGraph: {
-    title: '🎮 Wordle - Play Free Online!',
+    title: '🟩 Wordle - Play Free Online!',
     description:
-      'Guess the 5-letter word in 6 tries! The viral word guessing game.',
+      'Guess the five-letter word in six tries! Color-coded hints guide you. The addictive word game.',
     url: 'https://onde.la/games/wordle/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Wordle - Free Online Game',
+    title: '🟩 Wordle - Free Online Word Game',
     description:
-      'Guess the 5-letter word in 6 tries! The viral word guessing game.',
+      'Guess the five-letter word in six tries! The addictive daily word game. Free to play.',
   },
 };
 

@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Whack-a-Mole',
   description:
-    'Whack the moles as they pop up! A fast-paced arcade classic that tests your reflexes.',
+    'Whack the moles as they pop up from their holes! Classic arcade reflex game with faster rounds and bonus targets. Test your speed!',
   url: 'https://onde.la/games/whack/',
-  genre: ['Arcade'],
+  genre: ['Arcade', 'Educational'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 4,
+    suggestedMinAge: 3,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Whack-a-Mole - Free Online Game | Onde',
+  title: 'Whack-a-Mole - Free Online Arcade Game | Onde',
   description:
-    'Whack the moles as they pop up! A fast-paced arcade classic that tests your reflexes.',
-  keywords: 'whack a mole, arcade game, reflex game',
+    'Whack the moles as they pop up from their holes! Classic arcade reflex game with faster rounds and bonus targets. Test your speed!',
+  keywords:
+    'whack a mole, reflex game, arcade game, tap game, speed game',
   openGraph: {
-    title: '🎮 Whack-a-Mole - Play Free Online!',
+    title: '🔨 Whack-a-Mole - Play Free Online!',
     description:
-      'Whack the moles as they pop up! A fast-paced arcade classic that tests your reflexes.',
+      'Whack the moles as they pop up! Classic arcade reflex game with faster rounds.',
     url: 'https://onde.la/games/whack/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Whack-a-Mole - Free Online Game',
+    title: '🔨 Whack-a-Mole - Free Online Arcade Game',
     description:
-      'Whack the moles as they pop up! A fast-paced arcade classic that tests your reflexes.',
+      'Whack the moles as they pop up! Classic arcade reflex game. Free to play.',
   },
 };
 

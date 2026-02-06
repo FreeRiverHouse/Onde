@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Reaction Time',
   description:
-    'How fast are you? Test your reflexes in this lightning-fast reaction time game!',
+    'How fast are your reflexes? Test your reaction time with this quick-fire challenge! Compete against yourself and beat your best score.',
   url: 'https://onde.la/games/reaction/',
-  genre: ['Arcade'],
+  genre: ['Arcade', 'Educational'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 6,
+    suggestedMinAge: 4,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Reaction Time - Free Online Game | Onde',
+  title: 'Reaction Time Test - Free Online Game | Onde',
   description:
-    'How fast are you? Test your reflexes in this lightning-fast reaction time game!',
-  keywords: 'reaction time, reflex test, speed game',
+    'How fast are your reflexes? Test your reaction time with this quick-fire challenge! Compete against yourself and beat your best score.',
+  keywords:
+    'reaction time, reflex test, speed test, reaction game, brain speed',
   openGraph: {
-    title: '🎮 Reaction Time - Play Free Online!',
+    title: '⚡ Reaction Time Test - Play Free Online!',
     description:
-      'How fast are you? Test your reflexes in this lightning-fast reaction time game!',
+      'How fast are your reflexes? Test your reaction time with this quick-fire challenge!',
     url: 'https://onde.la/games/reaction/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Reaction Time - Free Online Game',
+    title: '⚡ Reaction Time Test - Free Online Game',
     description:
-      'How fast are you? Test your reflexes in this lightning-fast reaction time game!',
+      'How fast are your reflexes? Test your reaction time! Free to play.',
   },
 };
 

@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Simon Says',
   description:
-    'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder each round.',
+    'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder with each round. How long can you remember?',
   url: 'https://onde.la/games/simon/',
-  genre: ['Puzzle', 'Educational'],
+  genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 5,
+    suggestedMinAge: 4,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Simon Says - Free Online Game | Onde',
+  title: 'Simon Says - Free Online Memory Game | Onde',
   description:
-    'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder each round.',
-  keywords: 'simon says, pattern memory, sequence game',
+    'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder with each round. How long can you remember?',
+  keywords:
+    'simon says, simon game, pattern memory, sequence game, memory challenge',
   openGraph: {
-    title: '🎮 Simon Says - Play Free Online!',
+    title: '🔴🟢🔵🟡 Simon Says - Play Free Online!',
     description:
-      'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder each round.',
+      'Follow the pattern of lights and sounds! Classic Simon memory game. How long can you remember?',
     url: 'https://onde.la/games/simon/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Simon Says - Free Online Game',
+    title: '🔴🟢🔵🟡 Simon Says - Free Online Memory Game',
     description:
-      'Follow the pattern of lights and sounds! Classic Simon memory game that gets harder each round.',
+      'Follow the pattern of lights and sounds! Classic Simon memory game. Free to play.',
   },
 };
 

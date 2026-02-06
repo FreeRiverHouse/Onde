@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Word Puzzle',
   description:
-    'Unscramble letters to form words! A fun word game that builds vocabulary.',
+    'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary and spelling skills. New challenges every time.',
   url: 'https://onde.la/games/word-puzzle/',
-  genre: ['Puzzle', 'Educational'],
+  genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Word Puzzle - Free Online Game | Onde',
+  title: 'Word Puzzle - Free Online Word Game | Onde',
   description:
-    'Unscramble letters to form words! A fun word game that builds vocabulary.',
-  keywords: 'word puzzle, word scramble, vocabulary game',
+    'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary and spelling skills. New challenges every time.',
+  keywords:
+    'word puzzle, word scramble, vocabulary game, spelling game, word search',
   openGraph: {
-    title: '🎮 Word Puzzle - Play Free Online!',
+    title: '🔤 Word Puzzle - Play Free Online!',
     description:
-      'Unscramble letters to form words! A fun word game that builds vocabulary.',
+      'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary.',
     url: 'https://onde.la/games/word-puzzle/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Word Puzzle - Free Online Game',
+    title: '🔤 Word Puzzle - Free Online Word Game',
     description:
-      'Unscramble letters to form words! A fun word game that builds vocabulary.',
+      'Unscramble letters and find hidden words! Builds vocabulary and spelling. Free to play.',
   },
 };
 

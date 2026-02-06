@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Rhythm Game',
   description:
-    'Hit the notes to the beat! A musical rhythm game that tests your timing.',
+    'Hit the beats in time with the music! Tap along to catchy tunes and score points for accuracy. A musical challenge for all ages.',
   url: 'https://onde.la/games/rhythm/',
-  genre: ['Music', 'Arcade'],
+  genre: ['Educational', 'Music'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 6,
+    suggestedMinAge: 4,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Rhythm Game - Free Online Game | Onde',
+  title: 'Rhythm Game - Free Online Music Game | Onde',
   description:
-    'Hit the notes to the beat! A musical rhythm game that tests your timing.',
-  keywords: 'rhythm game, music beat, timing game',
+    'Hit the beats in time with the music! Tap along to catchy tunes and score points for accuracy. A musical challenge for all ages.',
+  keywords:
+    'rhythm game, music game, beat game, tap to music, timing game',
   openGraph: {
-    title: '🎮 Rhythm Game - Play Free Online!',
+    title: '🎶 Rhythm Game - Play Free Online!',
     description:
-      'Hit the notes to the beat! A musical rhythm game that tests your timing.',
+      'Hit the beats in time with the music! Tap along to catchy tunes and score points.',
     url: 'https://onde.la/games/rhythm/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Rhythm Game - Free Online Game',
+    title: '🎶 Rhythm Game - Free Online Music Game',
     description:
-      'Hit the notes to the beat! A musical rhythm game that tests your timing.',
+      'Hit the beats in time with the music! A musical challenge for all ages. Free to play.',
   },
 };
 

@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Tic Tac Toe',
   description:
-    'Classic X and O game! Play against a friend or challenge the computer.',
+    'Classic X and O strategy game! Play against the computer or a friend. Simple to learn, fun to master. Three in a row wins!',
   url: 'https://onde.la/games/tictactoe/',
-  genre: ['Strategy'],
+  genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Tic Tac Toe - Free Online Game | Onde',
+  title: 'Tic Tac Toe - Free Online Strategy Game | Onde',
   description:
-    'Classic X and O game! Play against a friend or challenge the computer.',
-  keywords: 'tic tac toe, noughts and crosses, x and o',
+    'Classic X and O strategy game! Play against the computer or a friend. Simple to learn, fun to master. Three in a row wins!',
+  keywords:
+    'tic tac toe, noughts and crosses, X and O, strategy game, two player',
   openGraph: {
-    title: '🎮 Tic Tac Toe - Play Free Online!',
+    title: '❌⭕ Tic Tac Toe - Play Free Online!',
     description:
-      'Classic X and O game! Play against a friend or challenge the computer.',
+      'Classic X and O strategy game! Play against the computer or a friend. Three in a row wins!',
     url: 'https://onde.la/games/tictactoe/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Tic Tac Toe - Free Online Game',
+    title: '❌⭕ Tic Tac Toe - Free Online Strategy Game',
     description:
-      'Classic X and O game! Play against a friend or challenge the computer.',
+      'Classic X and O strategy game! Simple to learn, fun to master. Free to play.',
   },
 };
 

@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Lucky Slots',
   description:
-    'Spin the reels for fun! A kid-friendly slot machine game with cute symbols.',
+    'Spin the reels and match symbols! Fun slot machine game with colorful themes and exciting animations. Kid-friendly with virtual coins.',
   url: 'https://onde.la/games/slots/',
-  genre: ['Casual'],
+  genre: ['Arcade', 'Casual'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 8,
+    suggestedMinAge: 4,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Lucky Slots - Free Online Game | Onde',
+  title: 'Lucky Slots - Free Online Slot Game | Onde',
   description:
-    'Spin the reels for fun! A kid-friendly slot machine game with cute symbols.',
-  keywords: 'slot machine, spin game, lucky game',
+    'Spin the reels and match symbols! Fun slot machine game with colorful themes and exciting animations. Kid-friendly with virtual coins.',
+  keywords:
+    'slot machine, spin game, matching game, arcade game, fun slots',
   openGraph: {
-    title: '🎮 Lucky Slots - Play Free Online!',
+    title: '🎰 Lucky Slots - Play Free Online!',
     description:
-      'Spin the reels for fun! A kid-friendly slot machine game with cute symbols.',
+      'Spin the reels and match symbols! Fun slot machine game with colorful themes.',
     url: 'https://onde.la/games/slots/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Lucky Slots - Free Online Game',
+    title: '🎰 Lucky Slots - Free Online Slot Game',
     description:
-      'Spin the reels for fun! A kid-friendly slot machine game with cute symbols.',
+      'Spin the reels and match symbols! Fun slot machine game. Free to play.',
   },
 };
 

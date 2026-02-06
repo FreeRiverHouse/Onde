@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Spin the Wheel',
   description:
-    'Spin the colorful wheel and see where it lands! Customize with your own options.',
+    'Spin the colorful wheel and see where it lands! Customizable wheel with fun categories and prizes. Great for decisions and party games.',
   url: 'https://onde.la/games/wheel/',
-  genre: ['Casual'],
+  genre: ['Arcade', 'Casual'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -19,7 +19,7 @@ const gameJsonLd = {
   },
   audience: {
     '@type': 'PeopleAudience',
-    suggestedMinAge: 4,
+    suggestedMinAge: 3,
   },
   publisher: {
     '@type': 'Organization',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Spin the Wheel - Free Online Game | Onde',
+  title: 'Spin the Wheel - Free Online Random Picker | Onde',
   description:
-    'Spin the colorful wheel and see where it lands! Customize with your own options.',
-  keywords: 'spin wheel, fortune wheel, random picker',
+    'Spin the colorful wheel and see where it lands! Customizable wheel with fun categories and prizes. Great for decisions and party games.',
+  keywords:
+    'spin the wheel, random picker, wheel spinner, decision maker, party game',
   openGraph: {
-    title: '🎮 Spin the Wheel - Play Free Online!',
+    title: '🎡 Spin the Wheel - Play Free Online!',
     description:
-      'Spin the colorful wheel and see where it lands! Customize with your own options.',
+      'Spin the colorful wheel and see where it lands! Customizable wheel with fun categories.',
     url: 'https://onde.la/games/wheel/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Spin the Wheel - Free Online Game',
+    title: '🎡 Spin the Wheel - Free Online Random Picker',
     description:
-      'Spin the colorful wheel and see where it lands! Customize with your own options.',
+      'Spin the colorful wheel and see where it lands! Great for decisions and fun. Free to play.',
   },
 };
 

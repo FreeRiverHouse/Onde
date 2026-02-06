@@ -6,9 +6,9 @@ const gameJsonLd = {
   '@type': 'VideoGame',
   name: 'Scratch Card',
   description:
-    'Scratch to reveal hidden surprises! A fun digital scratch card experience.',
+    'Scratch and reveal hidden surprises! Virtual scratch cards with fun themes and prizes. Exciting instant-win feeling for kids.',
   url: 'https://onde.la/games/scratch/',
-  genre: ['Casual'],
+  genre: ['Arcade', 'Casual'],
   gamePlatform: ['Web Browser'],
   applicationCategory: 'Game',
   operatingSystem: 'Any',
@@ -30,23 +30,24 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Scratch Card - Free Online Game | Onde',
+  title: 'Scratch Card - Free Online Fun | Onde',
   description:
-    'Scratch to reveal hidden surprises! A fun digital scratch card experience.',
-  keywords: 'scratch card, reveal game, surprise',
+    'Scratch and reveal hidden surprises! Virtual scratch cards with fun themes and prizes. Exciting instant-win feeling for kids.',
+  keywords:
+    'scratch card, scratch off, reveal game, surprise game, kids game',
   openGraph: {
-    title: '🎮 Scratch Card - Play Free Online!',
+    title: '🎫 Scratch Card - Play Free Online!',
     description:
-      'Scratch to reveal hidden surprises! A fun digital scratch card experience.',
+      'Scratch and reveal hidden surprises! Virtual scratch cards with fun themes and prizes.',
     url: 'https://onde.la/games/scratch/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Scratch Card - Free Online Game',
+    title: '🎫 Scratch Card - Free Online Fun',
     description:
-      'Scratch to reveal hidden surprises! A fun digital scratch card experience.',
+      'Scratch and reveal hidden surprises! Exciting instant-win feeling. Free to play.',
   },
 };
 
