@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🏗️ Code Builder</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #0c0c1d 0%, #1a0a2e 50%, #16213e 100%);
+  min-height: 100vh; overflow-x: hidden; color: #fff;
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.back-btn {
+  position: fixed; top: 12px; left: 12px; z-index: 100;
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+  color: #fff; border-radius: 50px; padding: 8px 16px; font-size: 16px;
+  cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s;
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
+.header { text-align: center; padding: 15px 60px 5px; }
+.header h1 { font-size: 1.8em; }
+.header p { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+
+.level-bar {
+  display: flex; justify-content: center; gap: 8px; padding: 10px; flex-wrap: wrap;
+}
+.level-btn {
+  background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2);
+  color: #fff; border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-weight: bold; font-size: 0.9em; transition: all 0.3s;
+}
+.level-btn.active { border-color: #ffd700; background: rgba(255,215,0,0.2); color: #ffd700; }
+.level-btn.completed { border-color: #00b894; background: rgba(0,184,148,0.2); color: #00b894; }
+.level-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+.game-area {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+  padding: 10px 15px; max-width: 1000px; margin: 0 auto;
+}
+
+/* Maze */
+.maze-panel {
+  background: rgba(255,255,255,0.05); border-radius: 16px; padding: 12px;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+.maze-info { text-align: center; margin-bottom: 8px; font-size: 0.85em; color: rgba(255,255,255,0.7); }
+.maze-grid {
+  display: grid; gap: 2px; margin: 0 auto;
+}
+.cell {
+  width: 100%; aspect-ratio: 1; border-radius: 4px; display: flex;
+  align-items: center; justify-content: center; font-size: 1.2em;
+  transition: all 0.3s;
+}
+.cell.wall { background: #2d3436; }
+.cell.path { background: rgba(255,255,255,0.08); }
+.cell.goal { background: rgba(0,184,148,0.3); border: 2px solid #00b894; }
+.cell.robot { background: rgba(108,92,231,0.4); border: 2px solid #6c5ce7; }
+.cell.visited { background: rgba(108,92,231,0.15); }
+.cell.coin { background: rgba(255,215,0,0.2); }
+
+/* Blocks panel */
+.blocks-panel {
+  flex: 1; min-width: 260px; max-width: 400px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.block-palette {
+  background: rgba(255,255,255,0.05); border-radius: 16px; padding: 12px;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+.block-palette h3 { font-size: 0.95em; margin-bottom: 8px; text-align: center; }
+.palette-blocks { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.block {
+  padding: 8px 14px; border-radius: 10px; font-size: 0.85em; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  border: 2px solid transparent;
+}
+.block:hover { transform: scale(1.05); }
+.block.forward { background: #0984e3; }
+.block.left { background: #e17055; }
+.block.right { background: #00b894; }
+.block.repeat { background: #6c5ce7; }
+
+.code-area {
+  background: rgba(0,0,0,0.3); border-radius: 16px; padding: 12px;
+  border: 2px solid rgba(255,255,255,0.1); min-height: 120px; flex: 1;
+}
+.code-area h3 { font-size: 0.95em; margin-bottom: 8px; text-align: center; }
+.code-blocks { display: flex; flex-wrap: wrap; gap: 4px; min-height: 40px; }
+.code-block {
+  padding: 6px 10px; border-radius: 8px; font-size: 0.8em; font-weight: 600;
+  display: flex; align-items: center; gap: 4px; cursor: pointer;
+  transition: all 0.2s; animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } }
+.code-block:hover { opacity: 0.7; }
+.code-block.forward { background: #0984e3; }
+.code-block.left { background: #e17055; }
+.code-block.right { background: #00b894; }
+.code-block.repeat { background: #6c5ce7; }
+.repeat-count {
+  background: rgba(255,255,255,0.3); border-radius: 4px; padding: 1px 6px;
+  font-size: 0.85em; cursor: pointer;
+}
+
+.controls {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+}
+.ctrl-btn {
+  padding: 10px 20px; border-radius: 50px; font-size: 0.9em; font-weight: bold;
+  cursor: pointer; border: none; color: #fff; transition: all 0.3s;
+}
+.ctrl-btn:hover { transform: scale(1.05); }
+.run-btn { background: linear-gradient(135deg, #00b894, #00cec9); box-shadow: 0 4px 15px rgba(0,184,148,0.4); }
+.clear-btn { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.2); }
+.reset-btn { background: rgba(255,107,107,0.3); border: 2px solid rgba(255,107,107,0.4); }
+
+/* Success overlay */
+.success-overlay {
+  display: none; position: fixed; inset: 0; z-index: 50;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+  justify-content: center; align-items: center; padding: 20px;
+}
+.success-overlay.show { display: flex; }
+.success-card {
+  background: linear-gradient(135deg, #00b894, #0984e3);
+  border-radius: 24px; padding: 30px; max-width: 400px; width: 100%;
+  text-align: center; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.success-card .big-emoji { font-size: 4em; }
+.success-card h2 { font-size: 1.5em; margin: 10px 0; }
+.success-card p { opacity: 0.9; margin-bottom: 15px; }
+.success-card .stars { font-size: 2em; margin: 10px 0; }
+.next-btn {
+  background: #fff; color: #00b894; border: none; padding: 12px 30px;
+  border-radius: 50px; font-size: 1em; font-weight: bold; cursor: pointer;
+  transition: all 0.3s;
+}
+.next-btn:hover { transform: scale(1.05); }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.3em; padding-top: 35px; }
+  .cell { font-size: 0.9em; }
+  .block { padding: 6px 10px; font-size: 0.8em; }
+}
+</style>
+</head>
+<body>
+
+<a href="/games" class="back-btn">← Back</a>
+
+<div class="header">
+  <h1>🏗️ Code Builder</h1>
+  <p>Program the robot to reach the goal! 🤖</p>
+</div>
+
+<div class="level-bar" id="levelBar"></div>
+
+<div class="game-area">
+  <div class="maze-panel">
+    <div class="maze-info" id="mazeInfo">Level 1: Move Forward</div>
+    <div class="maze-grid" id="mazeGrid"></div>
+  </div>
+
+  <div class="blocks-panel">
+    <div class="block-palette">
+      <h3>📦 Blocks</h3>
+      <div class="palette-blocks" id="paletteBlocks"></div>
+    </div>
+    <div class="code-area">
+      <h3>📝 Your Code</h3>
+      <div class="code-blocks" id="codeBlocks"></div>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn run-btn" onclick="runCode()">▶️ Run</button>
+      <button class="ctrl-btn clear-btn" onclick="clearCode()">🗑️ Clear</button>
+      <button class="ctrl-btn reset-btn" onclick="resetLevel()">🔄 Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="big-emoji">🎉</div>
+    <h2 id="successTitle">Level Complete!</h2>
+    <div class="stars" id="successStars">⭐⭐⭐</div>
+    <p id="successMsg">Great job!</p>
+    <button class="next-btn" onclick="nextLevel()">Next Level →</button>
+  </div>
+</div>
+
+<script>
+// Direction: 0=up, 1=right, 2=down, 3=left
+const DIR = [{r:-1,c:0},{r:0,c:1},{r:1,c:0},{r:0,c:-1}];
+const DIR_EMOJI = ['⬆️','➡️','⬇️','⬅️'];
+
+const levels = [
+  {
+    name: "Move Forward",
+    hint: "Use Forward blocks to reach the star!",
+    rows: 5, cols: 5,
+    robot: {r: 4, c: 2, dir: 0},
+    goal: {r: 0, c: 2},
+    walls: [],
+    coins: [],
+    blocks: ['forward'],
+    maxBlocks: 6,
+    optimalMoves: 4
+  },
+  {
+    name: "Turn Right",
+    hint: "Turn right, then go forward!",
+    rows: 5, cols: 5,
+    robot: {r: 2, c: 0, dir: 0},
+    goal: {r: 2, c: 4},
+    walls: [[0,1],[0,2],[0,3],[1,1],[1,3],[3,1],[3,3],[4,1],[4,2],[4,3]],
+    coins: [{r:2,c:2}],
+    blocks: ['forward','right'],
+    maxBlocks: 8,
+    optimalMoves: 5
+  },
+  {
+    name: "Turns & Paths",
+    hint: "Navigate around the walls!",
+    rows: 6, cols: 6,
+    robot: {r: 5, c: 0, dir: 0},
+    goal: {r: 0, c: 5},
+    walls: [[1,0],[1,1],[1,2],[3,3],[3,4],[3,5],[2,3],[4,1],[4,2]],
+    coins: [{r:3,c:0},{r:0,c:3}],
+    blocks: ['forward','left','right'],
+    maxBlocks: 15,
+    optimalMoves: 10
+  },
+  {
+    name: "Repeat Power!",
+    hint: "Use Repeat to do the same thing multiple times!",
+    rows: 7, cols: 7,
+    robot: {r: 6, c: 0, dir: 0},
+    goal: {r: 0, c: 6},
+    walls: [[1,1],[2,1],[3,1],[4,1],[1,5],[2,5],[3,5],[4,5],[3,3]],
+    coins: [{r:6,c:6},{r:0,c:0}],
+    blocks: ['forward','left','right','repeat'],
+    maxBlocks: 10,
+    optimalMoves: 6
+  },
+  {
+    name: "The Maze",
+    hint: "Find the path through the maze!",
+    rows: 7, cols: 7,
+    robot: {r: 6, c: 0, dir: 0},
+    goal: {r: 0, c: 6},
+    walls: [
+      [0,1],[0,3],[0,5],
+      [1,1],[1,3],[1,5],
+      [2,1],[2,3],[2,5],
+      [3,1],[3,3],
+      [4,1],[4,3],[4,5],
+      [5,3],[5,5],
+      [6,2],[6,3],[6,5]
+    ],
+    coins: [{r:3,c:6},{r:6,c:4},{r:2,c:2}],
+    blocks: ['forward','left','right','repeat'],
+    maxBlocks: 20,
+    optimalMoves: 12
+  },
+  {
+    name: "Zigzag Challenge",
+    hint: "Navigate the zigzag corridor!",
+    rows: 7, cols: 7,
+    robot: {r: 6, c: 0, dir: 0},
+    goal: {r: 0, c: 0},
+    walls: [
+      [5,0],[5,1],[5,2],[5,3],[5,4],
+      [3,2],[3,3],[3,4],[3,5],[3,6],
+      [1,0],[1,1],[1,2],[1,3],[1,4]
+    ],
+    coins: [{r:4,c:5},{r:2,c:5},{r:0,c:5}],
+    blocks: ['forward','left','right','repeat'],
+    maxBlocks: 20,
+    optimalMoves: 14
+  },
+  {
+    name: "Master Coder",
+    hint: "The ultimate challenge! Use all your skills!",
+    rows: 8, cols: 8,
+    robot: {r: 7, c: 0, dir: 0},
+    goal: {r: 0, c: 7},
+    walls: [
+      [0,1],[0,3],[0,5],
+      [1,1],[1,3],[1,5],[1,7],
+      [2,1],[2,3],[2,5],
+      [3,3],[3,5],[3,7],
+      [4,1],[4,3],
+      [5,1],[5,3],[5,5],[5,7],
+      [6,1],[6,5],[6,7],
+      [7,2],[7,3],[7,5]
+    ],
+    coins: [{r:7,c:7},{r:0,c:0},{r:4,c:4},{r:3,c:0}],
+    blocks: ['forward','left','right','repeat'],
+    maxBlocks: 25,
+    optimalMoves: 18
+  }
+];
+
+let currentLevel = 0;
+let code = [];
+let robotState = {};
+let visited = new Set();
+let collectedCoins = new Set();
+let isRunning = false;
+let completedLevels = new Set();
+
+try {
+  const saved = JSON.parse(localStorage.getItem('codeBuilder_completed') || '[]');
+  saved.forEach(i => completedLevels.add(i));
+} catch(e) {}
+
+function renderLevelBar() {
+  const bar = document.getElementById('levelBar');
+  bar.innerHTML = levels.map((l, i) => {
+    let cls = '';
+    if (i === currentLevel) cls = 'active';
+    else if (completedLevels.has(i)) cls = 'completed';
+    else if (i > 0 && !completedLevels.has(i - 1) && i !== currentLevel) cls = 'locked';
+    return `<div class="level-btn ${cls}" onclick="selectLevel(${i})">${i + 1}</div>`;
+  }).join('');
+}
+
+function selectLevel(i) {
+  if (i > 0 && !completedLevels.has(i - 1) && i !== currentLevel) return;
+  currentLevel = i;
+  code = [];
+  loadLevel();
+}
+
+function loadLevel() {
+  const level = levels[currentLevel];
+  robotState = { r: level.robot.r, c: level.robot.c, dir: level.robot.dir };
+  visited = new Set();
+  collectedCoins = new Set();
+  visited.add(`${robotState.r},${robotState.c}`);
+  
+  document.getElementById('mazeInfo').textContent = `Level ${currentLevel + 1}: ${level.name} — ${level.hint}`;
+  
+  renderMaze();
+  renderPalette();
+  renderCode();
+  renderLevelBar();
+}
+
+function renderMaze() {
+  const level = levels[currentLevel];
+  const grid = document.getElementById('mazeGrid');
+  const cellSize = Math.min(45, (Math.min(window.innerWidth - 30, 400) - level.cols * 2) / level.cols);
+  grid.style.gridTemplateColumns = `repeat(${level.cols}, ${cellSize}px)`;
+  grid.style.gridTemplateRows = `repeat(${level.rows}, ${cellSize}px)`;
+  
+  let html = '';
+  for (let r = 0; r < level.rows; r++) {
+    for (let c = 0; c < level.cols; c++) {
+      const isWall = level.walls.some(w => w[0] === r && w[1] === c);
+      const isGoal = level.goal.r === r && level.goal.c === c;
+      const isRobot = robotState.r === r && robotState.c === c;
+      const isCoin = level.coins.some(co => co.r === r && co.c === c) && !collectedCoins.has(`${r},${c}`);
+      const isVisited = visited.has(`${r},${c}`);
+      
+      let cls = 'cell ';
+      let content = '';
+      
+      if (isWall) { cls += 'wall'; content = '🧱'; }
+      else if (isRobot) { cls += 'robot'; content = DIR_EMOJI[robotState.dir]; }
+      else if (isGoal) { cls += 'goal'; content = '⭐'; }
+      else if (isCoin) { cls += 'coin'; content = '🪙'; }
+      else if (isVisited) { cls += 'visited'; }
+      else { cls += 'path'; }
+      
+      html += `<div class="${cls}" style="font-size:${cellSize * 0.5}px">${content}</div>`;
+    }
+  }
+  grid.innerHTML = html;
+}
+
+function renderPalette() {
+  const level = levels[currentLevel];
+  const palette = document.getElementById('paletteBlocks');
+  const blockDefs = {
+    forward: { label: '⬆️ Forward', cls: 'forward' },
+    left: { label: '↩️ Turn Left', cls: 'left' },
+    right: { label: '↪️ Turn Right', cls: 'right' },
+    repeat: { label: '🔄 Repeat ×2', cls: 'repeat' }
+  };
+  palette.innerHTML = level.blocks.map(b => {
+    const def = blockDefs[b];
+    return `<div class="block ${def.cls}" onclick="addBlock('${b}')">${def.label}</div>`;
+  }).join('');
+}
+
+function addBlock(type) {
+  const level = levels[currentLevel];
+  if (code.length >= level.maxBlocks) return;
+  if (type === 'repeat') {
+    code.push({ type: 'repeat', count: 2 });
+  } else {
+    code.push({ type });
+  }
+  renderCode();
+}
+
+function renderCode() {
+  const container = document.getElementById('codeBlocks');
+  if (code.length === 0) {
+    container.innerHTML = '<span style="color:rgba(255,255,255,0.3);font-size:0.8em;">Tap blocks to add code</span>';
+    return;
+  }
+  const labels = { forward: '⬆️ Forward', left: '↩️ Left', right: '↪️ Right', repeat: '🔄 Repeat' };
+  container.innerHTML = code.map((b, i) => {
+    let extra = '';
+    if (b.type === 'repeat') {
+      extra = ` <span class="repeat-count" onclick="event.stopPropagation();cycleRepeat(${i})">×${b.count}</span>`;
+    }
+    return `<div class="code-block ${b.type}" onclick="removeBlock(${i})">${labels[b.type]}${extra}</div>`;
+  }).join('');
+}
+
+function cycleRepeat(i) {
+  if (code[i] && code[i].type === 'repeat') {
+    code[i].count = code[i].count >= 5 ? 2 : code[i].count + 1;
+    renderCode();
+  }
+}
+
+function removeBlock(i) {
+  if (isRunning) return;
+  code.splice(i, 1);
+  renderCode();
+}
+
+function clearCode() {
+  if (isRunning) return;
+  code = [];
+  renderCode();
+}
+
+function resetLevel() {
+  if (isRunning) return;
+  code = [];
+  loadLevel();
+}
+
+function expandCode(codeList) {
+  let result = [];
+  for (let i = 0; i < codeList.length; i++) {
+    if (codeList[i].type === 'repeat') {
+      const count = codeList[i].count;
+      // Repeat previous blocks up to the last repeat or start
+      let prevBlocks = [];
+      for (let j = i - 1; j >= 0; j--) {
+        if (codeList[j].type === 'repeat') break;
+        prevBlocks.unshift(codeList[j]);
+      }
+      if (prevBlocks.length === 0 && result.length > 0) {
+        prevBlocks = [result[result.length - 1]];
+      }
+      for (let r = 1; r < count; r++) {
+        result.push(...prevBlocks.map(b => ({...b})));
+      }
+    } else {
+      result.push(codeList[i]);
+    }
+  }
+  return result;
+}
+
+async function runCode() {
+  if (isRunning || code.length === 0) return;
+  isRunning = true;
+  
+  const level = levels[currentLevel];
+  robotState = { r: level.robot.r, c: level.robot.c, dir: level.robot.dir };
+  visited = new Set();
+  collectedCoins = new Set();
+  visited.add(`${robotState.r},${robotState.c}`);
+  renderMaze();
+  
+  const expanded = expandCode(code);
+  let success = false;
+  let moves = 0;
+  
+  for (const cmd of expanded) {
+    await sleep(300);
+    
+    if (cmd.type === 'forward') {
+      const d = DIR[robotState.dir];
+      const nr = robotState.r + d.r;
+      const nc = robotState.c + d.c;
+      if (nr >= 0 && nr < level.rows && nc >= 0 && nc < level.cols &&
+          !level.walls.some(w => w[0] === nr && w[1] === nc)) {
+        robotState.r = nr;
+        robotState.c = nc;
+        visited.add(`${nr},${nc}`);
+        moves++;
+        // Coin?
+        if (level.coins.some(co => co.r === nr && co.c === nc)) {
+          collectedCoins.add(`${nr},${nc}`);
+        }
+      }
+    } else if (cmd.type === 'left') {
+      robotState.dir = (robotState.dir + 3) % 4;
+    } else if (cmd.type === 'right') {
+      robotState.dir = (robotState.dir + 1) % 4;
+    }
+    
+    renderMaze();
+    
+    if (robotState.r === level.goal.r && robotState.c === level.goal.c) {
+      success = true;
+      break;
+    }
+  }
+  
+  isRunning = false;
+  
+  if (success) {
+    completedLevels.add(currentLevel);
+    localStorage.setItem('codeBuilder_completed', JSON.stringify([...completedLevels]));
+    
+    const coinsCollected = collectedCoins.size;
+    const totalCoins = level.coins.length;
+    const stars = code.length <= level.optimalMoves ? 3 : code.length <= level.optimalMoves + 3 ? 2 : 1;
+    
+    await sleep(500);
+    document.getElementById('successTitle').textContent = `Level ${currentLevel + 1} Complete!`;
+    document.getElementById('successStars').textContent = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+    document.getElementById('successMsg').textContent = 
+      `Moves: ${code.length} (optimal: ${level.optimalMoves})${totalCoins > 0 ? ` | Coins: ${coinsCollected}/${totalCoins}` : ''}`;
+    document.getElementById('successOverlay').classList.add('show');
+    renderLevelBar();
+  }
+}
+
+function nextLevel() {
+  document.getElementById('successOverlay').classList.remove('show');
+  if (currentLevel < levels.length - 1) {
+    currentLevel++;
+    code = [];
+    loadLevel();
+  }
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// Init
+loadLevel();
+</script>
+</body>
+</html>

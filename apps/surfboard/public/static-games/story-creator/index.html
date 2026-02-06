@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>📖 Story Creator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #2d1b69 0%, #1a0a2e 50%, #0c0c2d 100%);
+  min-height: 100vh; overflow-x: hidden; color: #fff;
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.back-btn {
+  position: fixed; top: 12px; left: 12px; z-index: 100;
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+  color: #fff; border-radius: 50px; padding: 8px 16px; font-size: 16px;
+  cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s;
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
+.header { text-align: center; padding: 15px 60px 5px; }
+.header h1 { font-size: 1.8em; }
+.header p { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+
+/* Views */
+.view { display: none; }
+.view.active { display: block; }
+
+/* Editor */
+.editor { max-width: 800px; margin: 0 auto; padding: 10px 15px; }
+.section {
+  background: rgba(255,255,255,0.06); border-radius: 16px; padding: 15px;
+  margin-bottom: 12px; border: 2px solid rgba(255,255,255,0.08);
+}
+.section h3 { font-size: 1em; margin-bottom: 10px; }
+.option-grid {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+}
+.option {
+  background: rgba(255,255,255,0.08); border: 2px solid transparent;
+  border-radius: 12px; padding: 10px 14px; cursor: pointer;
+  transition: all 0.2s; text-align: center; min-width: 80px;
+}
+.option:hover { background: rgba(255,255,255,0.15); }
+.option.selected { border-color: #ffd700; background: rgba(255,215,0,0.15); }
+.option .emoji { font-size: 1.8em; display: block; margin-bottom: 4px; }
+.option .label { font-size: 0.75em; color: rgba(255,255,255,0.7); }
+
+.page-editor {
+  background: rgba(0,0,0,0.2); border-radius: 16px; padding: 15px;
+  margin-bottom: 12px;
+}
+.page-editor h3 { font-size: 0.95em; margin-bottom: 10px; text-align: center; }
+.page-nav {
+  display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;
+}
+.page-nav button {
+  background: rgba(255,255,255,0.15); border: none; color: #fff;
+  width: 36px; height: 36px; border-radius: 50%; font-size: 1.1em;
+  cursor: pointer; transition: all 0.2s;
+}
+.page-nav button:hover { background: rgba(255,255,255,0.25); }
+.page-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.page-num { font-size: 0.9em; color: rgba(255,255,255,0.7); }
+
+.text-input {
+  width: 100%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 12px; padding: 12px; color: #fff; font-size: 1em;
+  font-family: inherit; resize: vertical; min-height: 80px;
+  -webkit-user-select: text; user-select: text;
+}
+.text-input::placeholder { color: rgba(255,255,255,0.3); }
+.text-input:focus { outline: none; border-color: #ffd700; }
+
+.title-input {
+  width: 100%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 12px; padding: 10px; color: #fff; font-size: 1.1em;
+  font-family: inherit; text-align: center;
+  -webkit-user-select: text; user-select: text;
+}
+.title-input:focus { outline: none; border-color: #ffd700; }
+
+.character-select {
+  display: flex; gap: 8px; margin-bottom: 8px; justify-content: center; flex-wrap: wrap;
+}
+.char-btn {
+  font-size: 1.8em; background: rgba(255,255,255,0.08); border: 2px solid transparent;
+  border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s;
+}
+.char-btn.selected { border-color: #ffd700; background: rgba(255,215,0,0.15); }
+.char-btn:hover { background: rgba(255,255,255,0.15); }
+
+.action-btns {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 10px;
+}
+.action-btn {
+  padding: 10px 20px; border-radius: 50px; font-size: 0.9em; font-weight: bold;
+  cursor: pointer; border: none; color: #fff; transition: all 0.3s;
+}
+.action-btn:hover { transform: scale(1.05); }
+.action-btn.primary { background: linear-gradient(135deg, #6c5ce7, #a29bfe); box-shadow: 0 4px 15px rgba(108,92,231,0.4); }
+.action-btn.secondary { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.2); }
+.action-btn.add { background: linear-gradient(135deg, #00b894, #00cec9); }
+.action-btn.danger { background: rgba(255,107,107,0.3); border: 2px solid rgba(255,107,107,0.4); }
+
+/* Book viewer */
+.book-viewer {
+  max-width: 600px; margin: 10px auto; padding: 10px 15px;
+}
+.book {
+  background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+  border-radius: 20px; padding: 30px 25px; min-height: 400px;
+  color: #2d3436; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.book-title {
+  font-size: 1.6em; font-weight: bold; text-align: center; margin-bottom: 10px;
+  color: #6c5ce7;
+}
+.book-setting { font-size: 3em; margin: 10px 0; }
+.book-page-num {
+  position: absolute; bottom: 15px; right: 20px; font-size: 0.8em;
+  color: rgba(0,0,0,0.3);
+}
+.book-character { font-size: 3em; margin: 5px 0; }
+.book-text {
+  font-size: 1.1em; line-height: 1.6; text-align: center; max-width: 400px;
+  color: #2d3436; margin: 10px 0;
+}
+.book-dialogue {
+  background: rgba(255,255,255,0.5); border-radius: 15px; padding: 12px 18px;
+  margin: 8px 0; font-style: italic; position: relative; max-width: 350px;
+}
+.book-dialogue::after {
+  content: ''; position: absolute; bottom: -8px; left: 30px;
+  border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-top: 8px solid rgba(255,255,255,0.5);
+}
+.book-nav {
+  display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;
+}
+.book-nav button {
+  background: rgba(108,92,231,0.8); border: none; color: #fff;
+  padding: 10px 20px; border-radius: 50px; font-size: 1em;
+  cursor: pointer; transition: all 0.3s;
+}
+.book-nav button:hover { background: rgba(108,92,231,1); }
+.book-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Templates */
+.template-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; padding: 10px;
+}
+.template-card {
+  background: rgba(255,255,255,0.08); border-radius: 16px; padding: 15px;
+  cursor: pointer; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+.template-card:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,215,0,0.3); transform: translateY(-2px); }
+.template-card .emoji { font-size: 2.5em; margin-bottom: 8px; }
+.template-card .name { font-weight: bold; margin-bottom: 4px; }
+.template-card .desc { font-size: 0.8em; color: rgba(255,255,255,0.6); }
+
+/* Saved stories */
+.saved-list { padding: 10px 15px; max-width: 600px; margin: 0 auto; }
+.saved-item {
+  background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 15px;
+  margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.saved-item:hover { background: rgba(255,255,255,0.15); }
+.saved-item .info { flex: 1; }
+.saved-item .title { font-weight: bold; }
+.saved-item .meta { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.saved-item .del-btn {
+  background: rgba(255,107,107,0.3); border: none; color: #fff;
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+  font-size: 0.9em; transition: all 0.2s;
+}
+.saved-item .del-btn:hover { background: rgba(255,107,107,0.6); }
+
+.tab-bar {
+  display: flex; justify-content: center; gap: 8px; padding: 8px 15px; flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 18px; border-radius: 50px; font-size: 0.85em; font-weight: 600;
+  cursor: pointer; transition: all 0.3s; background: rgba(255,255,255,0.08);
+  border: 2px solid transparent;
+}
+.tab:hover { background: rgba(255,255,255,0.15); }
+.tab.active { border-color: #ffd700; background: rgba(255,215,0,0.15); color: #ffd700; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.3em; padding-top: 35px; }
+  .book { padding: 20px 15px; min-height: 350px; }
+  .book-title { font-size: 1.3em; }
+  .book-text { font-size: 1em; }
+  .template-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a href="/games" class="back-btn">← Back</a>
+
+<div class="header">
+  <h1>📖 Story Creator</h1>
+  <p>Create your own illustrated stories!</p>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active" onclick="switchTab('create')">✏️ Create</div>
+  <div class="tab" onclick="switchTab('templates')">📋 Templates</div>
+  <div class="tab" onclick="switchTab('saved')">💾 My Stories</div>
+  <div class="tab" onclick="switchTab('read')" id="readTab" style="display:none;">📖 Read</div>
+</div>
+
+<!-- CREATE VIEW -->
+<div class="view active" id="createView">
+  <div class="editor">
+    <div class="section">
+      <h3>📝 Story Title</h3>
+      <input type="text" class="title-input" id="storyTitle" placeholder="My Amazing Story..." maxlength="50">
+    </div>
+
+    <div class="section">
+      <h3>🌍 Setting</h3>
+      <div class="option-grid" id="settingGrid"></div>
+    </div>
+
+    <div class="section">
+      <h3>👥 Characters (pick up to 3)</h3>
+      <div class="option-grid" id="characterGrid"></div>
+    </div>
+
+    <div class="page-editor">
+      <h3>📄 Pages</h3>
+      <div class="page-nav">
+        <button onclick="prevPage()" id="prevPageBtn" disabled>◀</button>
+        <span class="page-num" id="pageNum">Page 1 of 1</span>
+        <button onclick="nextPage()" id="nextPageBtn" disabled>▶</button>
+      </div>
+      <div class="character-select" id="pageCharSelect"></div>
+      <textarea class="text-input" id="pageText" placeholder="Write what happens on this page..." 
+                oninput="updatePageText()"></textarea>
+      <div class="action-btns" style="margin-top: 8px;">
+        <button class="action-btn add" onclick="addPage()">+ Add Page</button>
+        <button class="action-btn danger" onclick="removePage()" id="removePageBtn" style="display:none;">🗑️ Remove</button>
+      </div>
+    </div>
+
+    <div class="action-btns">
+      <button class="action-btn primary" onclick="previewStory()">📖 Preview Story</button>
+      <button class="action-btn secondary" onclick="saveStory()">💾 Save</button>
+      <button class="action-btn danger" onclick="clearStory()">🗑️ New Story</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATES VIEW -->
+<div class="view" id="templatesView">
+  <div class="template-grid" style="max-width:700px;margin:0 auto;padding:15px;" id="templateGrid"></div>
+</div>
+
+<!-- SAVED VIEW -->
+<div class="view" id="savedView">
+  <div class="saved-list" id="savedList"></div>
+</div>
+
+<!-- READ VIEW -->
+<div class="view" id="readView">
+  <div class="book-viewer">
+    <div class="book" id="bookDisplay"></div>
+    <div class="book-nav">
+      <button onclick="bookPrev()" id="bookPrevBtn">◀ Back</button>
+      <span id="bookPageNum" style="color:rgba(255,255,255,0.5);font-size:0.85em;"></span>
+      <button onclick="bookNext()" id="bookNextBtn">Next ▶</button>
+    </div>
+    <div class="action-btns" style="margin-top: 15px;">
+      <button class="action-btn secondary" onclick="switchTab('create')">✏️ Edit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const settings = [
+  { id: 'forest', emoji: '🌲🍄', label: 'Enchanted Forest' },
+  { id: 'space', emoji: '🚀🌌', label: 'Outer Space' },
+  { id: 'ocean', emoji: '🌊🐚', label: 'Deep Ocean' },
+  { id: 'castle', emoji: '🏰👑', label: 'Magic Castle' },
+  { id: 'city', emoji: '🏙️🌃', label: 'Big City' },
+  { id: 'desert', emoji: '🏜️🐪', label: 'Sandy Desert' },
+  { id: 'arctic', emoji: '❄️🐧', label: 'Arctic Ice' },
+  { id: 'jungle', emoji: '🌴🦜', label: 'Wild Jungle' },
+];
+
+const characters = [
+  { id: 'princess', emoji: '👸', label: 'Princess' },
+  { id: 'knight', emoji: '🤺', label: 'Knight' },
+  { id: 'wizard', emoji: '🧙', label: 'Wizard' },
+  { id: 'dragon', emoji: '🐉', label: 'Dragon' },
+  { id: 'robot', emoji: '🤖', label: 'Robot' },
+  { id: 'astronaut', emoji: '👨‍🚀', label: 'Astronaut' },
+  { id: 'fairy', emoji: '🧚', label: 'Fairy' },
+  { id: 'pirate', emoji: '🏴‍☠️', label: 'Pirate' },
+  { id: 'cat', emoji: '🐱', label: 'Cat' },
+  { id: 'dog', emoji: '🐶', label: 'Dog' },
+  { id: 'unicorn', emoji: '🦄', label: 'Unicorn' },
+  { id: 'alien', emoji: '👽', label: 'Alien' },
+];
+
+const templates = [
+  {
+    name: 'Space Adventure',
+    desc: 'An astronaut discovers a new planet!',
+    emoji: '🚀',
+    data: {
+      title: 'The New Planet',
+      setting: 'space',
+      characters: ['astronaut', 'alien', 'robot'],
+      pages: [
+        { character: 'astronaut', text: 'Captain Star zoomed through the galaxy in her shiny spaceship. "Today we\'ll find something amazing!" she said.' },
+        { character: 'robot', text: 'Beep-Boop the robot pointed at the radar. "Captain! I see a new planet! It\'s purple and glowing!"' },
+        { character: 'astronaut', text: 'They landed on the purple planet. The ground was soft like marshmallows, and the trees were made of crystals!' },
+        { character: 'alien', text: 'A friendly alien appeared! "Welcome to Planet Zorp! I\'m Ziggy. Want to see our rainbow waterfall?"' },
+        { character: 'astronaut', text: 'Captain Star smiled. "We made a new friend today. The universe is full of wonderful surprises!"' }
+      ]
+    }
+  },
+  {
+    name: 'Dragon\'s Treasure',
+    desc: 'A brave knight befriends a dragon!',
+    emoji: '🐉',
+    data: {
+      title: 'The Friendly Dragon',
+      setting: 'castle',
+      characters: ['knight', 'dragon', 'princess'],
+      pages: [
+        { character: 'knight', text: 'Sir Brave climbed the mountain to find the dragon\'s cave. Everyone in the kingdom was scared, but not him!' },
+        { character: 'dragon', text: 'Inside the cave, a big green dragon was... crying? "I\'m so lonely up here," sniffled the dragon. "Everyone runs away!"' },
+        { character: 'knight', text: '"Don\'t be sad!" said Sir Brave. "I came to be your friend, not to fight you. What\'s your name?"' },
+        { character: 'dragon', text: '"I\'m Ember!" said the dragon happily. "Want to see my collection of shiny rocks? I have 3,000!"' },
+        { character: 'princess', text: 'Princess Rose heard the news. "A friendly dragon? Let\'s invite Ember to our next birthday party!" And they all lived happily ever after.' }
+      ]
+    }
+  },
+  {
+    name: 'Ocean Mystery',
+    desc: 'A cat explores underwater!',
+    emoji: '🌊',
+    data: {
+      title: 'The Cat Who Could Swim',
+      setting: 'ocean',
+      characters: ['cat', 'fairy', 'pirate'],
+      pages: [
+        { character: 'cat', text: 'Whiskers the cat found a magical seashell on the beach. When she touched it, she could breathe underwater!' },
+        { character: 'fairy', text: 'A tiny sea fairy appeared. "The Ocean Queen lost her crown! Can you help find it, Whiskers?"' },
+        { character: 'cat', text: 'Whiskers dove deep into the blue ocean. Fish of every color swam around her. "This is amazing!" she purred.' },
+        { character: 'pirate', text: 'An old pirate octopus guarded a treasure chest. "Solve my riddle and you can have what\'s inside: What has keys but no locks?"' },
+        { character: 'cat', text: '"A piano!" said Whiskers. The chest opened and inside was the Ocean Queen\'s sparkling crown! Whiskers saved the day!' }
+      ]
+    }
+  },
+  {
+    name: 'Jungle Explorer',
+    desc: 'A dog discovers hidden ruins!',
+    emoji: '🌴',
+    data: {
+      title: 'Lost Temple of Woof',
+      setting: 'jungle',
+      characters: ['dog', 'unicorn', 'wizard'],
+      pages: [
+        { character: 'dog', text: 'Explorer Barkley sniffed the air. His nose had found something exciting deep in the jungle!' },
+        { character: 'unicorn', text: 'A golden unicorn blocked the path. "To enter the Lost Temple, you must answer three questions about kindness."' },
+        { character: 'dog', text: '"Kindness is sharing your treats, helping friends, and wagging your tail at everyone!" said Barkley. The unicorn smiled.' },
+        { character: 'wizard', text: 'Inside the temple, old Wizard Owlbert was waiting. "You found me! I\'ve been stuck here for 100 years! Only a kind heart could open the door."' },
+        { character: 'dog', text: 'Barkley led everyone home. The jungle animals threw a party, and Barkley got the biggest bone he\'d ever seen! THE END 🦴' }
+      ]
+    }
+  },
+];
+
+let story = {
+  title: '',
+  setting: null,
+  characters: [],
+  pages: [{ character: null, text: '' }]
+};
+let currentPage = 0;
+let currentBookPage = -1; // -1 = cover
+let activeTab = 'create';
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const tabs = { create: 0, templates: 1, saved: 2, read: 3 };
+  document.querySelectorAll('.tab')[tabs[tab]].classList.add('active');
+  document.getElementById(tab + 'View').classList.add('active');
+  
+  if (tab === 'saved') renderSavedList();
+  if (tab === 'templates') renderTemplates();
+  if (tab === 'read') renderBook();
+}
+
+function renderSettings() {
+  document.getElementById('settingGrid').innerHTML = settings.map(s => `
+    <div class="option ${story.setting === s.id ? 'selected' : ''}" onclick="selectSetting('${s.id}')">
+      <span class="emoji">${s.emoji}</span>
+      <span class="label">${s.label}</span>
+    </div>
+  `).join('');
+}
+
+function selectSetting(id) {
+  story.setting = id;
+  renderSettings();
+}
+
+function renderCharacters() {
+  document.getElementById('characterGrid').innerHTML = characters.map(c => `
+    <div class="option ${story.characters.includes(c.id) ? 'selected' : ''}" onclick="toggleCharacter('${c.id}')">
+      <span class="emoji">${c.emoji}</span>
+      <span class="label">${c.label}</span>
+    </div>
+  `).join('');
+}
+
+function toggleCharacter(id) {
+  const idx = story.characters.indexOf(id);
+  if (idx >= 0) {
+    story.characters.splice(idx, 1);
+  } else {
+    if (story.characters.length >= 3) story.characters.shift();
+    story.characters.push(id);
+  }
+  renderCharacters();
+  renderPageCharSelect();
+}
+
+function renderPageCharSelect() {
+  const container = document.getElementById('pageCharSelect');
+  if (story.characters.length === 0) {
+    container.innerHTML = '<span style="color:rgba(255,255,255,0.3);font-size:0.8em;">Select characters above first</span>';
+    return;
+  }
+  const page = story.pages[currentPage];
+  container.innerHTML = story.characters.map(cid => {
+    const ch = characters.find(c => c.id === cid);
+    return `<div class="char-btn ${page.character === cid ? 'selected' : ''}" onclick="selectPageChar('${cid}')">${ch.emoji}</div>`;
+  }).join('');
+}
+
+function selectPageChar(id) {
+  story.pages[currentPage].character = id;
+  renderPageCharSelect();
+}
+
+function renderPageEditor() {
+  const page = story.pages[currentPage];
+  document.getElementById('pageNum').textContent = `Page ${currentPage + 1} of ${story.pages.length}`;
+  document.getElementById('pageText').value = page.text;
+  document.getElementById('prevPageBtn').disabled = currentPage === 0;
+  document.getElementById('nextPageBtn').disabled = currentPage >= story.pages.length - 1;
+  document.getElementById('removePageBtn').style.display = story.pages.length > 1 ? '' : 'none';
+  renderPageCharSelect();
+}
+
+function updatePageText() {
+  story.pages[currentPage].text = document.getElementById('pageText').value;
+}
+
+function prevPage() {
+  if (currentPage > 0) { currentPage--; renderPageEditor(); }
+}
+
+function nextPage() {
+  if (currentPage < story.pages.length - 1) { currentPage++; renderPageEditor(); }
+}
+
+function addPage() {
+  story.pages.push({ character: story.characters[0] || null, text: '' });
+  currentPage = story.pages.length - 1;
+  renderPageEditor();
+}
+
+function removePage() {
+  if (story.pages.length <= 1) return;
+  story.pages.splice(currentPage, 1);
+  if (currentPage >= story.pages.length) currentPage = story.pages.length - 1;
+  renderPageEditor();
+}
+
+function previewStory() {
+  story.title = document.getElementById('storyTitle').value || 'Untitled Story';
+  if (story.pages.length === 0 || !story.pages.some(p => p.text.trim())) {
+    alert('Write something on at least one page!');
+    return;
+  }
+  currentBookPage = -1;
+  document.getElementById('readTab').style.display = '';
+  switchTab('read');
+}
+
+function renderBook() {
+  const book = document.getElementById('bookDisplay');
+  const setting = settings.find(s => s.id === story.setting);
+  
+  if (currentBookPage === -1) {
+    // Cover
+    book.innerHTML = `
+      <div style="font-size:4em;margin-bottom:10px;">${setting ? setting.emoji : '📖'}</div>
+      <div class="book-title">${story.title || 'Untitled Story'}</div>
+      <div style="color:rgba(0,0,0,0.4);margin-top:10px;font-size:0.9em;">
+        ${story.characters.map(cid => characters.find(c => c.id === cid)?.emoji || '').join(' ')}
+      </div>
+      <div style="color:rgba(0,0,0,0.3);margin-top:15px;font-size:0.8em;">Tap Next to read →</div>
+    `;
+  } else {
+    const page = story.pages[currentBookPage];
+    const ch = characters.find(c => c.id === page.character);
+    book.innerHTML = `
+      ${setting ? `<div class="book-setting">${setting.emoji}</div>` : ''}
+      ${ch ? `<div class="book-character">${ch.emoji}</div>` : ''}
+      ${ch ? `<div style="font-size:0.85em;color:rgba(0,0,0,0.5);margin-bottom:5px;">${ch.label}</div>` : ''}
+      <div class="book-dialogue">${page.text || '...'}</div>
+      <div class="book-page-num">Page ${currentBookPage + 1} of ${story.pages.length}</div>
+    `;
+  }
+  
+  document.getElementById('bookPrevBtn').disabled = currentBookPage <= -1;
+  document.getElementById('bookNextBtn').disabled = currentBookPage >= story.pages.length - 1;
+  document.getElementById('bookPageNum').textContent = 
+    currentBookPage === -1 ? 'Cover' : `${currentBookPage + 1} / ${story.pages.length}`;
+}
+
+function bookPrev() {
+  if (currentBookPage > -1) { currentBookPage--; renderBook(); }
+}
+
+function bookNext() {
+  if (currentBookPage < story.pages.length - 1) { currentBookPage++; renderBook(); }
+}
+
+function renderTemplates() {
+  document.getElementById('templateGrid').innerHTML = templates.map((t, i) => `
+    <div class="template-card" onclick="loadTemplate(${i})">
+      <div class="emoji">${t.emoji}</div>
+      <div class="name">${t.name}</div>
+      <div class="desc">${t.desc}</div>
+    </div>
+  `).join('');
+}
+
+function loadTemplate(i) {
+  const t = templates[i];
+  story = JSON.parse(JSON.stringify(t.data));
+  document.getElementById('storyTitle').value = story.title;
+  currentPage = 0;
+  renderSettings();
+  renderCharacters();
+  renderPageEditor();
+  switchTab('create');
+}
+
+function saveStory() {
+  story.title = document.getElementById('storyTitle').value || 'Untitled Story';
+  const saved = JSON.parse(localStorage.getItem('storyCreator_stories') || '[]');
+  saved.push({
+    ...JSON.parse(JSON.stringify(story)),
+    savedAt: new Date().toISOString()
+  });
+  localStorage.setItem('storyCreator_stories', JSON.stringify(saved));
+  alert('Story saved! ✨');
+}
+
+function renderSavedList() {
+  const saved = JSON.parse(localStorage.getItem('storyCreator_stories') || '[]');
+  const list = document.getElementById('savedList');
+  if (saved.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);">No saved stories yet. Create one! ✨</div>';
+    return;
+  }
+  list.innerHTML = saved.map((s, i) => `
+    <div class="saved-item" onclick="loadSavedStory(${i})">
+      <div class="info">
+        <div class="title">${s.title}</div>
+        <div class="meta">${s.pages.length} pages · ${new Date(s.savedAt).toLocaleDateString()}</div>
+      </div>
+      <button class="del-btn" onclick="event.stopPropagation();deleteSavedStory(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function loadSavedStory(i) {
+  const saved = JSON.parse(localStorage.getItem('storyCreator_stories') || '[]');
+  if (saved[i]) {
+    story = JSON.parse(JSON.stringify(saved[i]));
+    document.getElementById('storyTitle').value = story.title;
+    currentPage = 0;
+    renderSettings();
+    renderCharacters();
+    renderPageEditor();
+    switchTab('create');
+  }
+}
+
+function deleteSavedStory(i) {
+  const saved = JSON.parse(localStorage.getItem('storyCreator_stories') || '[]');
+  saved.splice(i, 1);
+  localStorage.setItem('storyCreator_stories', JSON.stringify(saved));
+  renderSavedList();
+}
+
+function clearStory() {
+  story = { title: '', setting: null, characters: [], pages: [{ character: null, text: '' }] };
+  document.getElementById('storyTitle').value = '';
+  currentPage = 0;
+  renderSettings();
+  renderCharacters();
+  renderPageEditor();
+}
+
+// Init
+renderSettings();
+renderCharacters();
+renderPageEditor();
+</script>
+</body>
+</html>

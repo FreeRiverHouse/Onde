@@ -22,35 +22,35 @@ const games = [
     status: 'beta'
   },
   {
-    id: 'math-galaxy',
-    name: 'Math Galaxy',
-    description: 'Explore the universe with math! Timed quizzes with streaks & levels',
-    emoji: '🚀🔢',
-    url: '/static-games/math-galaxy/index.html',
+    id: 'science-lab',
+    name: 'Science Lab',
+    description: 'Mix ingredients and discover chemistry! Virtual experiments with real science',
+    emoji: '🧪🔬',
+    url: '/static-games/science-lab/index.html',
     status: 'beta'
   },
   {
-    id: 'world-explorer',
-    name: 'World Explorer',
-    description: 'Learn countries, flags & capitals from around the world',
-    emoji: '🌍🏳️',
-    url: '/static-games/world-explorer/index.html',
+    id: 'code-builder',
+    name: 'Code Builder',
+    description: 'Learn coding with visual blocks! Guide a robot through mazes',
+    emoji: '🏗️🤖',
+    url: '/static-games/code-builder/index.html',
     status: 'beta'
   },
   {
-    id: 'word-wizard',
-    name: 'Word Wizard',
-    description: 'Guess words, learn vocabulary & definitions! Hangman-style',
-    emoji: '🔤📚',
-    url: '/static-games/word-wizard/index.html',
+    id: 'story-creator',
+    name: 'Story Creator',
+    description: 'Create your own illustrated stories with characters & dialogue',
+    emoji: '📖✨',
+    url: '/static-games/story-creator/index.html',
     status: 'beta'
   },
   {
-    id: 'music-lab',
-    name: 'Music Lab',
-    description: 'Play piano, create beats & train your musical ear',
-    emoji: '🎵🎹',
-    url: '/static-games/music-lab/index.html',
+    id: 'ocean-explorer',
+    name: 'Ocean Explorer',
+    description: 'Dive deep and discover amazing sea creatures & ocean facts',
+    emoji: '🌊🐙',
+    url: '/static-games/ocean-explorer/index.html',
     status: 'beta'
   },
   {

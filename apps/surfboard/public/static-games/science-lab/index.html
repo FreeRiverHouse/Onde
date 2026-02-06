@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🧪 Science Lab</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh; overflow-x: hidden; color: #fff;
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.back-btn {
+  position: fixed; top: 12px; left: 12px; z-index: 100;
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+  color: #fff; border-radius: 50px; padding: 8px 16px; font-size: 16px;
+  cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s;
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
+h1 { text-align: center; font-size: 2em; padding: 20px 60px 5px; }
+.subtitle { text-align: center; color: rgba(255,255,255,0.6); margin-bottom: 15px; font-size: 0.95em; }
+
+/* Lab area */
+.lab-container {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 20px; padding: 10px 15px; max-width: 900px; margin: 0 auto;
+}
+.ingredients-panel {
+  background: rgba(255,255,255,0.08); border-radius: 20px; padding: 15px;
+  border: 2px solid rgba(255,255,255,0.1); flex: 1; min-width: 280px; max-width: 400px;
+}
+.ingredients-panel h3 { font-size: 1.1em; margin-bottom: 10px; text-align: center; }
+.ingredient-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.ingredient {
+  background: rgba(255,255,255,0.1); border-radius: 12px; padding: 10px 6px;
+  text-align: center; cursor: grab; transition: all 0.2s; border: 2px solid transparent;
+  font-size: 0.85em; touch-action: none;
+}
+.ingredient:hover, .ingredient:active { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+.ingredient.selected { border-color: #00d2ff; background: rgba(0,210,255,0.15); }
+.ingredient .emoji { font-size: 2em; display: block; margin-bottom: 4px; }
+.ingredient .name { font-size: 0.8em; color: rgba(255,255,255,0.8); }
+
+.beaker-area {
+  display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 250px;
+}
+.beaker-container { position: relative; width: 180px; height: 220px; }
+.beaker {
+  position: absolute; bottom: 0; width: 100%; height: 200px;
+  background: rgba(255,255,255,0.06); border: 3px solid rgba(200,230,255,0.4);
+  border-top: none; border-radius: 0 0 20px 20px; overflow: hidden;
+  transition: border-color 0.5s;
+}
+.beaker::before {
+  content: ''; position: absolute; top: -3px; left: -15px; right: -15px; height: 6px;
+  background: rgba(200,230,255,0.4); border-radius: 3px;
+}
+.beaker-liquid {
+  position: absolute; bottom: 0; width: 100%; height: 0;
+  background: linear-gradient(180deg, rgba(0,210,255,0.3), rgba(0,210,255,0.6));
+  transition: height 0.8s ease, background 1s ease; border-radius: 0 0 17px 17px;
+}
+.beaker-bubbles { position: absolute; bottom: 0; width: 100%; height: 100%; pointer-events: none; }
+.bubble {
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.3);
+  animation: bubbleUp 2s ease-in infinite;
+}
+@keyframes bubbleUp {
+  0% { transform: translateY(0) scale(1); opacity: 0.7; }
+  100% { transform: translateY(-200px) scale(0.3); opacity: 0; }
+}
+.selected-items {
+  display: flex; gap: 8px; min-height: 50px; align-items: center;
+  background: rgba(255,255,255,0.05); border-radius: 12px; padding: 8px 15px;
+  flex-wrap: wrap; justify-content: center;
+}
+.selected-item {
+  background: rgba(255,255,255,0.15); border-radius: 8px; padding: 4px 10px;
+  font-size: 0.85em; display: flex; align-items: center; gap: 4px;
+  cursor: pointer; transition: all 0.2s;
+}
+.selected-item:hover { background: rgba(255,100,100,0.3); }
+.mix-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ffa502); border: none;
+  color: #fff; padding: 14px 40px; border-radius: 50px; font-size: 1.1em;
+  font-weight: bold; cursor: pointer; transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(255,107,107,0.4);
+}
+.mix-btn:hover { transform: scale(1.08); box-shadow: 0 6px 30px rgba(255,107,107,0.6); }
+.mix-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Result */
+.result-overlay {
+  display: none; position: fixed; inset: 0; z-index: 50;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+  justify-content: center; align-items: center; padding: 20px;
+}
+.result-overlay.show { display: flex; }
+.result-card {
+  background: linear-gradient(135deg, #1e3a5f, #2d1b69);
+  border-radius: 24px; padding: 30px; max-width: 500px; width: 100%;
+  text-align: center; border: 2px solid rgba(255,255,255,0.15);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-height: 90vh; overflow-y: auto;
+}
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.result-emoji { font-size: 4em; margin-bottom: 10px; }
+.result-title { font-size: 1.5em; font-weight: bold; margin-bottom: 8px; color: #ffd700; }
+.result-desc { color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 15px; font-size: 0.95em; }
+.result-fact {
+  background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;
+  margin-bottom: 15px; border-left: 4px solid #00d2ff; text-align: left;
+  font-size: 0.9em; line-height: 1.5;
+}
+.result-fact .label { color: #00d2ff; font-weight: bold; margin-bottom: 4px; }
+.close-btn {
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+  color: #fff; padding: 10px 30px; border-radius: 50px; font-size: 1em;
+  cursor: pointer; transition: all 0.3s;
+}
+.close-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* Reaction animation */
+.reaction-anim {
+  position: fixed; inset: 0; pointer-events: none; z-index: 40;
+}
+.reaction-particle {
+  position: absolute; border-radius: 50%; animation: explode 1.5s ease-out forwards;
+}
+@keyframes explode {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* Experiment counter */
+.exp-counter {
+  text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85em; padding: 5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 { font-size: 1.4em; padding-top: 50px; }
+  .ingredient-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .ingredient { padding: 8px 4px; }
+  .ingredient .emoji { font-size: 1.5em; }
+  .beaker-container { width: 140px; height: 180px; }
+  .beaker { height: 160px; }
+  .result-card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<a href="/games" class="back-btn">← Back</a>
+
+<h1>🧪 Science Lab</h1>
+<p class="subtitle">Mix ingredients and see what happens!</p>
+
+<div class="lab-container">
+  <div class="ingredients-panel">
+    <h3>🧪 Ingredients</h3>
+    <div class="ingredient-grid" id="ingredientGrid"></div>
+  </div>
+
+  <div class="beaker-area">
+    <div class="beaker-container">
+      <div class="beaker" id="beaker">
+        <div class="beaker-liquid" id="beakerLiquid"></div>
+        <div class="beaker-bubbles" id="beakerBubbles"></div>
+      </div>
+    </div>
+    <div class="selected-items" id="selectedItems">
+      <span style="color:rgba(255,255,255,0.4); font-size:0.85em;">Tap ingredients to add</span>
+    </div>
+    <button class="mix-btn" id="mixBtn" disabled onclick="mixIngredients()">🔬 Mix It!</button>
+    <div class="exp-counter" id="expCounter">Experiments discovered: 0 / 12</div>
+  </div>
+</div>
+
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-card" id="resultCard">
+    <div class="result-emoji" id="resultEmoji"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <div class="result-fact" id="resultFact"></div>
+    <button class="close-btn" onclick="closeResult()">✨ Cool! Try Another</button>
+  </div>
+</div>
+
+<div class="reaction-anim" id="reactionAnim"></div>
+
+<script>
+const ingredients = [
+  { id: 'vinegar', name: 'Vinegar', emoji: '🫗', color: '#f5f5dc' },
+  { id: 'baking-soda', name: 'Baking Soda', emoji: '🧂', color: '#ffffff' },
+  { id: 'lemon', name: 'Lemon Juice', emoji: '🍋', color: '#fff44f' },
+  { id: 'soap', name: 'Dish Soap', emoji: '🧴', color: '#87ceeb' },
+  { id: 'food-color', name: 'Food Color', emoji: '🎨', color: '#ff4757' },
+  { id: 'water', name: 'Water', emoji: '💧', color: '#74b9ff' },
+  { id: 'oil', name: 'Oil', emoji: '🛢️', color: '#ffa502' },
+  { id: 'salt', name: 'Salt', emoji: '🧂', color: '#dfe6e9' },
+  { id: 'milk', name: 'Milk', emoji: '🥛', color: '#ffeaa7' },
+  { id: 'mentos', name: 'Mentos', emoji: '🍬', color: '#a29bfe' },
+  { id: 'cola', name: 'Cola', emoji: '🥤', color: '#6c5ce7' },
+  { id: 'ice', name: 'Ice', emoji: '🧊', color: '#dff9fb' },
+  { id: 'egg', name: 'Egg', emoji: '🥚', color: '#ffeaa7' },
+  { id: 'cornstarch', name: 'Cornstarch', emoji: '🌽', color: '#fdcb6e' },
+  { id: 'pepper', name: 'Pepper', emoji: '🌶️', color: '#e17055' },
+];
+
+const experiments = [
+  {
+    ingredients: ['vinegar', 'baking-soda'],
+    title: '🌋 Volcano Eruption!',
+    emoji: '🌋',
+    desc: 'The mixture fizzes and bubbles like a volcano erupting!',
+    fact: '🔬 Science: Vinegar (acetic acid) reacts with baking soda (sodium bicarbonate) to create carbon dioxide gas — those are the bubbles! This is called an acid-base reaction.',
+    color: '#ff6b6b', bubbleColor: '#fff'
+  },
+  {
+    ingredients: ['oil', 'water'],
+    title: '🫧 Oil & Water Don\'t Mix!',
+    emoji: '🫧',
+    desc: 'The oil floats on top of the water in separate layers!',
+    fact: '🔬 Science: Oil molecules are "hydrophobic" — they don\'t like water. Oil is also less dense than water, so it floats. This is why oil spills spread on the ocean surface!',
+    color: '#ffa502', bubbleColor: '#ffeaa7'
+  },
+  {
+    ingredients: ['milk', 'food-color', 'soap'],
+    title: '🌈 Magic Milk Rainbow!',
+    emoji: '🌈',
+    desc: 'Colors swirl and dance in the milk, creating beautiful patterns!',
+    fact: '🔬 Science: Dish soap breaks the fat molecules in milk, causing the food coloring to move and swirl. Fat molecules run away from soap — creating that cool effect!',
+    color: '#a29bfe', bubbleColor: '#fd79a8'
+  },
+  {
+    ingredients: ['cola', 'mentos'],
+    title: '🚀 Mentos Geyser!',
+    emoji: '🚀',
+    desc: 'A huge fountain of foam shoots up like a geyser!',
+    fact: '🔬 Science: Mentos have tiny bumps that create nucleation sites. CO₂ gas trapped in cola rushes to these bumps and escapes all at once — creating the famous geyser! It\'s physics, not chemistry!',
+    color: '#6c5ce7', bubbleColor: '#dfe6e9'
+  },
+  {
+    ingredients: ['water', 'oil', 'food-color'],
+    title: '🪩 Lava Lamp Effect!',
+    emoji: '🪩',
+    desc: 'Colored drops sink through oil and burst in the water below!',
+    fact: '🔬 Science: Food coloring is water-based so it sinks through the oil. When it reaches the water layer, it dissolves and colors it. You can use fizzy tablets to make it even more like a real lava lamp!',
+    color: '#e17055', bubbleColor: '#ff6348'
+  },
+  {
+    ingredients: ['lemon', 'baking-soda'],
+    title: '🍋 Fizzy Lemon Soda!',
+    emoji: '🍋',
+    desc: 'The lemon juice fizzes and bubbles — you made natural soda!',
+    fact: '🔬 Science: Lemon juice contains citric acid. Like vinegar, it reacts with baking soda to produce CO₂ gas. Add some sugar and you\'ve basically made lemonade soda!',
+    color: '#fff44f', bubbleColor: '#fdcb6e'
+  },
+  {
+    ingredients: ['water', 'cornstarch'],
+    title: '🤯 Oobleck - Magic Goo!',
+    emoji: '🤯',
+    desc: 'It\'s solid when you squeeze it, but liquid when you let go!',
+    fact: '🔬 Science: This is a "non-Newtonian fluid" — it doesn\'t follow normal liquid rules. When you apply force (squeeze), the cornstarch particles lock together. When you stop, they flow again. Named after Dr. Seuss\'s "Bartholomew and the Oobleck"!',
+    color: '#fdcb6e', bubbleColor: '#fff'
+  },
+  {
+    ingredients: ['water', 'pepper', 'soap'],
+    title: '✨ Magic Pepper Scatter!',
+    emoji: '✨',
+    desc: 'Touch soap to the water and the pepper zooms away!',
+    fact: '🔬 Science: Water has "surface tension" — a thin elastic layer on top. Pepper floats on it. Soap breaks the surface tension, and the remaining tension pulls the pepper outward. It\'s like popping a tiny trampoline!',
+    color: '#00b894', bubbleColor: '#55efc4'
+  },
+  {
+    ingredients: ['vinegar', 'egg'],
+    title: '🥚 Rubber Bouncy Egg!',
+    emoji: '🥚',
+    desc: 'The egg shell dissolves and the egg becomes bouncy like rubber!',
+    fact: '🔬 Science: Eggshells are made of calcium carbonate. Vinegar (acid) dissolves it over 24-48 hours. What\'s left is the inner membrane — flexible and bouncy! You can even see through it. (Don\'t try bouncing too high though!)',
+    color: '#ffeaa7', bubbleColor: '#fff'
+  },
+  {
+    ingredients: ['water', 'salt', 'ice'],
+    title: '❄️ Super Cooling!',
+    emoji: '❄️',
+    desc: 'The water gets even colder than normal ice! Below zero!',
+    fact: '🔬 Science: Salt lowers the freezing point of water. This is called "freezing point depression." That\'s why cities put salt on icy roads! The salt-ice mix can reach -21°C (-6°F) — cold enough to make instant ice cream!',
+    color: '#74b9ff', bubbleColor: '#dff9fb'
+  },
+  {
+    ingredients: ['oil', 'food-color'],
+    title: '🎨 Color Drops in Oil!',
+    emoji: '🎨',
+    desc: 'The food coloring forms perfect round drops floating in oil!',
+    fact: '🔬 Science: Since food coloring is water-based and oil is hydrophobic, the colored drops form spheres. Spheres have the smallest surface area for a given volume — it\'s nature\'s favorite shape! Same reason raindrops are round.',
+    color: '#e74c3c', bubbleColor: '#fab1a0'
+  },
+  {
+    ingredients: ['soap', 'water', 'salt'],
+    title: '🫧 Super Bubbles!',
+    emoji: '🫧',
+    desc: 'Adding salt makes super strong bubbles that last way longer!',
+    fact: '🔬 Science: Salt strengthens the soap film by interacting with the soap molecules. This makes bubbles thicker and harder to pop. For even better bubbles, add a bit of glycerin or corn syrup!',
+    color: '#81ecec', bubbleColor: '#00cec9'
+  },
+];
+
+let selectedIngredients = [];
+let discoveredExperiments = new Set();
+
+// Load saved progress
+try {
+  const saved = JSON.parse(localStorage.getItem('scienceLab_discovered') || '[]');
+  saved.forEach(i => discoveredExperiments.add(i));
+} catch(e) {}
+
+function renderIngredients() {
+  const grid = document.getElementById('ingredientGrid');
+  grid.innerHTML = ingredients.map(ing => `
+    <div class="ingredient ${selectedIngredients.includes(ing.id) ? 'selected' : ''}" 
+         onclick="toggleIngredient('${ing.id}')" data-id="${ing.id}">
+      <span class="emoji">${ing.emoji}</span>
+      <span class="name">${ing.name}</span>
+    </div>
+  `).join('');
+}
+
+function toggleIngredient(id) {
+  const idx = selectedIngredients.indexOf(id);
+  if (idx >= 0) {
+    selectedIngredients.splice(idx, 1);
+  } else {
+    if (selectedIngredients.length >= 3) {
+      selectedIngredients.shift();
+    }
+    selectedIngredients.push(id);
+  }
+  updateUI();
+}
+
+function updateUI() {
+  renderIngredients();
+  const container = document.getElementById('selectedItems');
+  if (selectedIngredients.length === 0) {
+    container.innerHTML = '<span style="color:rgba(255,255,255,0.4);font-size:0.85em;">Tap ingredients to add</span>';
+  } else {
+    container.innerHTML = selectedIngredients.map(id => {
+      const ing = ingredients.find(i => i.id === id);
+      return `<div class="selected-item" onclick="toggleIngredient('${id}')">${ing.emoji} ${ing.name} ✕</div>`;
+    }).join('');
+  }
+  const liquid = document.getElementById('beakerLiquid');
+  const height = selectedIngredients.length * 25;
+  liquid.style.height = height + '%';
+  if (selectedIngredients.length > 0) {
+    const lastIng = ingredients.find(i => i.id === selectedIngredients[selectedIngredients.length - 1]);
+    liquid.style.background = `linear-gradient(180deg, ${lastIng.color}44, ${lastIng.color}88)`;
+  }
+  document.getElementById('mixBtn').disabled = selectedIngredients.length < 2;
+  document.getElementById('expCounter').textContent = `Experiments discovered: ${discoveredExperiments.size} / ${experiments.length}`;
+}
+
+function findExperiment() {
+  const selected = [...selectedIngredients].sort();
+  for (const exp of experiments) {
+    const expSorted = [...exp.ingredients].sort();
+    if (selected.length === expSorted.length && selected.every((v, i) => v === expSorted[i])) {
+      return exp;
+    }
+  }
+  return null;
+}
+
+function mixIngredients() {
+  const exp = findExperiment();
+  if (exp) {
+    const key = exp.ingredients.sort().join('+');
+    discoveredExperiments.add(key);
+    localStorage.setItem('scienceLab_discovered', JSON.stringify([...discoveredExperiments]));
+    showReaction(exp);
+    showResult(exp);
+  } else {
+    showResult({
+      emoji: '🤔',
+      title: 'Hmm, nothing happened...',
+      desc: 'These ingredients don\'t have a special reaction. Try a different combination!',
+      fact: '💡 Hint: Try mixing vinegar + baking soda, or milk + food color + soap!',
+      color: '#636e72'
+    });
+  }
+}
+
+function showReaction(exp) {
+  const anim = document.getElementById('reactionAnim');
+  anim.innerHTML = '';
+  const colors = [exp.color, exp.bubbleColor || '#fff', '#ffd700', '#ff6b6b', '#a29bfe'];
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'reaction-particle';
+    const size = 8 + Math.random() * 16;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.left = '50%';
+    p.style.top = '40%';
+    p.style.setProperty('--tx', (Math.random() - 0.5) * 400 + 'px');
+    p.style.setProperty('--ty', (Math.random() - 0.5) * 400 + 'px');
+    p.style.animationDelay = Math.random() * 0.3 + 's';
+    anim.appendChild(p);
+  }
+  // Bubbles in beaker
+  const bubbles = document.getElementById('beakerBubbles');
+  bubbles.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const s = 4 + Math.random() * 10;
+    b.style.width = s + 'px';
+    b.style.height = s + 'px';
+    b.style.left = (10 + Math.random() * 80) + '%';
+    b.style.bottom = '10%';
+    b.style.animationDelay = Math.random() * 1.5 + 's';
+    b.style.animationDuration = (1 + Math.random() * 2) + 's';
+    bubbles.appendChild(b);
+  }
+  const liquid = document.getElementById('beakerLiquid');
+  liquid.style.background = `linear-gradient(180deg, ${exp.color}66, ${exp.color}cc)`;
+  liquid.style.height = '70%';
+  setTimeout(() => { anim.innerHTML = ''; }, 2000);
+  setTimeout(() => { bubbles.innerHTML = ''; }, 4000);
+}
+
+function showResult(exp) {
+  document.getElementById('resultEmoji').textContent = exp.emoji;
+  document.getElementById('resultTitle').textContent = exp.title;
+  document.getElementById('resultDesc').textContent = exp.desc;
+  const factEl = document.getElementById('resultFact');
+  factEl.innerHTML = `<div class="label">📚 Learn:</div>${exp.fact}`;
+  document.getElementById('resultOverlay').classList.add('show');
+}
+
+function closeResult() {
+  document.getElementById('resultOverlay').classList.remove('show');
+  selectedIngredients = [];
+  updateUI();
+}
+
+// Init
+renderIngredients();
+updateUI();
+</script>
+</body>
+</html>
