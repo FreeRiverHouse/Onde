@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-06T20:30:02.754497+00:00",
+  "updated_at": "2026-02-07T01:30:02.458255+00:00",
   "last_24h": {
     "uptime_pct": 100.0,
     "healthy_checks": 384,
@@ -8,16 +8,16 @@
     "hours_analyzed": 24
   },
   "last_7d": {
-    "uptime_pct": 99.51,
-    "healthy_checks": 3480,
+    "uptime_pct": 99.52,
+    "healthy_checks": 3516,
     "restart_events": 17,
-    "total_checks": 3497,
+    "total_checks": 3533,
     "hours_analyzed": 168
   },
   "daily": {
     "2026-02-06": {
       "uptime_pct": 100.0,
-      "healthy": 302,
+      "healthy": 422,
       "restarts": 0
     },
     "2026-02-05": {

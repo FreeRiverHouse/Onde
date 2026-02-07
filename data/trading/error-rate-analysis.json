@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-02-06T20:30:01.925710Z",
+  "generated_at": "2026-02-07T01:30:01.545893Z",
   "overall": {
-    "total_calls": 100,
+    "total_calls": 104,
     "total_errors": 5,
-    "error_rate_pct": 5.0
+    "error_rate_pct": 4.81
   },
   "last_24h": {
-    "total_calls": 18,
+    "total_calls": 4,
     "errors": 0,
     "error_rate_pct": 0.0
   },
@@ -49,7 +49,7 @@
     },
     {
       "date": "2026-02-06",
-      "total": 1,
+      "total": 5,
       "errors": 0,
       "error_rate": 0.0
     }
