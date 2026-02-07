@@ -87,6 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/libro/grimm-fairy-tales-en',
     '/libro/wizard-of-oz-en',
     '/libro/andersen-fairy-tales-en',
+    '/libro/frankenstein-en',
     
     // Other sections
     '/giochi',

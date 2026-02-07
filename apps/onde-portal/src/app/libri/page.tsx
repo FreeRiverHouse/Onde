@@ -204,6 +204,19 @@ const books: Book[] = [
     price: 'Free',
     isFree: true,
   },
+  {
+    id: 'frankenstein-en',
+    title: 'Frankenstein',
+    subtitle: 'Or, The Modern Prometheus',
+    author: 'Mary Shelley',
+    description: 'The legendary tale of Victor Frankenstein and his monstrous creation. A masterpiece of Gothic literature exploring ambition, isolation, and the consequences of playing God. First published in 1818.',
+    category: 'Classics',
+    coverImage: '/books/frankenstein-cover.svg',
+    pdfLink: '',
+    epubLink: '/books/epub/frankenstein-en.epub',
+    price: 'Free',
+    isFree: true,
+  },
 ]
 
 export default function LibriPage() {

@@ -96,6 +96,18 @@ export const books: Book[] = [
     coverImage: '/books/peter-rabbit-cover.svg',
     epubUrl: '/books/epub/peter-rabbit-en.epub',
   },
+  {
+    id: 'frankenstein-en',
+    title: 'Frankenstein; or, The Modern Prometheus',
+    author: 'Mary Shelley',
+    category: 'classici',
+    lang: 'en',
+    source: 'onde-studio',
+    pages: 280,
+    readingTime: '~7 hours',
+    coverImage: '/books/frankenstein-cover.svg',
+    epubUrl: '/books/epub/frankenstein-en.epub',
+  },
 ]
 
 export const bookCount = books.length
