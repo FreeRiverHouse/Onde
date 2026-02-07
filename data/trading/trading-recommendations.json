@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-06T08:00:02.156730Z",
-  "trades_analyzed": 124,
+  "generated_at": "2026-02-07T08:00:01.716300Z",
+  "trades_analyzed": 128,
   "min_trades_threshold": 3,
   "confidence_level": "95%",
   "analysis": {
@@ -160,6 +160,19 @@
         "win_rate_upper": 35.4,
         "pnl": -3.5,
         "avg_pnl_per_trade": -0.5
+      },
+      {
+        "day": 4,
+        "day_name": "Fri",
+        "hour": 21,
+        "wins": 0,
+        "losses": 4,
+        "total": 4,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 49.0,
+        "pnl": -2.0,
+        "avg_pnl_per_trade": -0.5
       }
     ],
     "by_hour": [
@@ -229,11 +242,11 @@
       },
       {
         "hour": 21,
-        "total": 17,
-        "win_rate": 64.7,
-        "win_rate_lower": 41.3,
-        "win_rate_upper": 82.7,
-        "pnl": 1.5
+        "total": 21,
+        "win_rate": 52.4,
+        "win_rate_lower": 32.4,
+        "win_rate_upper": 71.7,
+        "pnl": -0.5
       },
       {
         "hour": 22,
@@ -279,6 +292,15 @@
         "win_rate_lower": 27.1,
         "win_rate_upper": 57.8,
         "pnl": -6.5
+      },
+      {
+        "day": 4,
+        "day_name": "Friday",
+        "total": 4,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 49.0,
+        "pnl": -2.0
       }
     ]
   },
@@ -415,6 +437,19 @@
         "win_rate_upper": 39.0,
         "pnl": -4.0,
         "avg_pnl_per_trade": -0.67
+      },
+      {
+        "day": 4,
+        "day_name": "Fri",
+        "hour": 21,
+        "wins": 0,
+        "losses": 4,
+        "total": 4,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 49.0,
+        "pnl": -2.0,
+        "avg_pnl_per_trade": -0.5
       }
     ],
     "best_hours": [],
@@ -479,11 +514,43 @@
         "win_rate_lower": 0,
         "win_rate_upper": 39.0,
         "pnl": -4.0
+      },
+      {
+        "day": 4,
+        "day_name": "Friday",
+        "total": 4,
+        "win_rate": 0.0,
+        "win_rate_lower": 0,
+        "win_rate_upper": 49.0,
+        "pnl": -2.0
       }
     ],
     "schedule": {
       "active_hours": [
-        21
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
       ],
       "avoid_days": [
         1,
