@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-02-08T16:00:01.612100+00:00",
+  "week": "2026-W06",
+  "year": 2026,
+  "week_number": 6,
+  "assets": {
+    "BTC": {
+      "label": "Bitcoin",
+      "model_assumption_hourly": 0.005,
+      "realized_7d": {
+        "volatility_hourly": 0.003438279968725181,
+        "volatility_annual_pct": 32.18053723846615,
+        "candles_used": 5,
+        "comparison": {
+          "realized": 0.003438279968725181,
+          "model": 0.005,
+          "ratio": 0.6876559937450362,
+          "deviation_pct": 31.234400625496384,
+          "status": "DIVERGENT",
+          "direction": "LOWER"
+        }
+      },
+      "realized_30d": {
+        "period_requested_days": 30,
+        "period_actual_days": 28.0,
+        "candle_interval_hours": 96,
+        "candles_used": 7,
+        "returns_calculated": 6,
+        "volatility_candle": 0.05293851781795501,
+        "volatility_hourly": 0.005403014849717721,
+        "volatility_annual": 0.5056944814060432,
+        "mean_return": -0.02978945634823942,
+        "comparison": {
+          "realized": 0.005403014849717721,
+          "model": 0.005,
+          "ratio": 1.0806029699435442,
+          "deviation_pct": 8.06029699435442,
+          "status": "MATCH",
+          "direction": "HIGHER"
+        }
+      }
+    },
+    "ETH": {
+      "label": "Ethereum",
+      "model_assumption_hourly": 0.007,
+      "realized_7d": {
+        "volatility_hourly": 0.006812810342980803,
+        "volatility_annual_pct": 63.76441096569258,
+        "candles_used": 5,
+        "comparison": {
+          "realized": 0.006812810342980803,
+          "model": 0.007,
+          "ratio": 0.973258620425829,
+          "deviation_pct": 2.6741379574171,
+          "status": "MATCH",
+          "direction": "LOWER"
+        }
+      },
+      "realized_30d": {
+        "period_requested_days": 30,
+        "period_actual_days": 28.0,
+        "candle_interval_hours": 96,
+        "candles_used": 7,
+        "returns_calculated": 6,
+        "volatility_candle": 0.0872027634365276,
+        "volatility_hourly": 0.008900094774171764,
+        "volatility_annual": 0.8330032281004308,
+        "mean_return": -0.05420708669259507,
+        "comparison": {
+          "realized": 0.008900094774171764,
+          "model": 0.007,
+          "ratio": 1.2714421105959663,
+          "deviation_pct": 27.144211059596635,
+          "status": "DIVERGENT",
+          "direction": "HIGHER"
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_assets": 2,
+    "divergent_assets": [
+      {
+        "asset": "BTC",
+        "deviation_pct": 31.234400625496384,
+        "direction": "LOWER"
+      }
+    ],
+    "alerts_triggered": 1
+  },
+  "recommendations": [
+    "\u26a0\ufe0f BTC: Realized vol 31.2% LOWER than model. Model may be too conservative - consider tightening assumptions."
+  ]
+}

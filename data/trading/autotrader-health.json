@@ -1,7 +1,7 @@
 {
   "is_running": true,
-  "last_cycle_time": "2026-02-07T08:04:40.651572+00:00",
-  "cycle_count": 1132,
+  "last_cycle_time": "2026-02-08T16:22:28.528258+00:00",
+  "cycle_count": 9,
   "dry_run": false,
   "trades_today": 0,
   "today_won": 0,
@@ -9,7 +9,7 @@
   "today_pending": 0,
   "win_rate_today": 0.0,
   "pnl_today_cents": 0,
-  "positions_count": 9,
+  "positions_count": 8,
   "cash_cents": 0,
   "circuit_breaker_active": false,
   "circuit_breaker_reason": null,

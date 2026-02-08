@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-07T02:00:02.859169+00:00",
+  "timestamp": "2026-02-08T16:00:03.624649+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -11,11 +11,109 @@
   "article_count": 30,
   "results": [
     {
-      "title": "Bitcoin rallies to $71.5K after historic sell-off, but derivatives metrics remain soft",
-      "url": "https://cointelegraph.com/news/bitcoin-rallies-to-71-5k-after-historic-sell-off-but-derivatives-metrics-remain-soft?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Bitcoin Price Reclaims $71,000 as Institutions Buy the Dip and Retail Interest Surges",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-71000-buy-the-dip",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Reclaims $71,000 as Institutions Buy the Dip and Retail Interest Surges After a rocky week, the bitcoin price is trading above $71,000. This post Bitcoin Price Reclaims $71,000 as Institutions Buy the Dip and Retail Interest Surges first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-08T15:00:00+00:00"
+    },
+    {
+      "title": "Bitcoin bear market not over? Trader sees BTC price 'real bottom' at $50K",
+      "url": "https://cointelegraph.com/news/bitcoin-bear-market-not-over-trader-btc-price-real-bottom-50k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "cointelegraph",
-      "description": "Bitcoin price soared back above $71,000, but BTC options data shows pro traders are still extremely cautious about the sustainability of the rebound rally. Is the sell-off really over?",
-      "published": "2026-02-06T21:27:05+00:00"
+      "description": "Bitcoin price analysis stayed bearish on the outlook for BTC, predicting new macro lows in a repeat of the 2022 bear market.",
+      "published": "2026-02-08T14:51:00+00:00"
+    },
+    {
+      "title": "Bithumb Bitcoin Blunder Sends $44 Billion to Users, Rattles Crypto Markets\u00a0",
+      "url": "https://bitcoinmagazine.com/news/bithumb-bitcoin-blunder-sends-44-billion",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bithumb Bitcoin Blunder Sends $44 Billion to Users, Rattles Crypto Markets Bithumb triggered a major market shock after an employee mistakenly sent billions of dollars worth of bitcoin to users instead of small cash rewards. This post Bithumb Bitcoin Blunder Sends $44 Billion to Users, Rattles Crypto Markets first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-08T13:56:24+00:00"
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-08T13:11:48+00:00"
+    },
+    {
+      "title": "Jack Dorsey\u2019s Block may cut up to 10% of staff in business overhaul: Report",
+      "url": "https://cointelegraph.com/news/jack-dorsey-block-may-cut-10-percent-staff-restructuring?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Analysts forecast Block to post $403 million in Q4 profit on $6.25 billion revenue, following a third quarter marked by strong gross profit growth but mixed market reaction.",
+      "published": "2026-02-08T12:02:41+00:00"
+    },
+    {
+      "title": "ARK extends Coinbase selling streak with another $22M sale, adds Bullish",
+      "url": "https://cointelegraph.com/news/ark-sells-22m-coinbase-adds-bullish-across-etfs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Cathie Wood\u2019s ARK Invest sold 134,472 Coinbase shares across three ETFs while buying over 393,000 shares of crypto platform Bullish.",
+      "published": "2026-02-08T09:14:53+00:00"
+    },
+    {
+      "title": "Bitcoin under $70K gives institutions a \u2018new crack of the apple\u2019: Bitwise CEO",
+      "url": "https://cointelegraph.com/news/bitcoin-price-institutional-interest-ramping-up-bitwise-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bitcoin is in a bear market and is \u201cgetting swept up\u201d with the rest of the macro assets, Bitwise CEO Hunter Horsley declared during a television interview.",
+      "published": "2026-02-08T08:48:21+00:00"
+    },
+    {
+      "title": "Bithumb claws back 99.7% of overpaid Bitcoin, covers remaining shortfall",
+      "url": "https://cointelegraph.com/news/bithumb-claws-back-99-7-of-overpaid-bitcoin-covers-remaining-shortfall?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Bithumb says it has reclaimed most of the excess BTC credited during a promotional error and used company funds to cover 1,788 Bitcoin that had already been sold.",
+      "published": "2026-02-08T07:46:04+00:00"
+    },
+    {
+      "title": "'Massive consolidation' expected across crypto industry: Bullish CEO",
+      "url": "https://cointelegraph.com/news/crypto-companies-consolidation-industry-bullish-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The crypto industry is about to get a wakeup call, as many companies will realize \"they don\u2019t have businesses, they have products,\" says Bullish CEO Tom Farley.",
+      "published": "2026-02-08T05:08:34+00:00"
+    },
+    {
+      "title": "Crypto retail investors are trying to 'meta-analyze' crypto crash: Santiment",
+      "url": "https://cointelegraph.com/news/crypto-retail-investors-analyze-market-bitcoin-price-santiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Santiment said the increased use of \u201ccapitulation\u201d among crypto users on social media could suggest the market bottom has already happened.",
+      "published": "2026-02-08T01:38:04+00:00"
+    },
+    {
+      "title": "Over 23% of traders now expect interest rate cut at next FOMC meeting",
+      "url": "https://cointelegraph.com/news/23expect-interest-rate-cut-fomc-march?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The number of traders expecting a rate cut at the March Federal Open Market Committee meeting rose following fears of a hawkish Fed nominee.",
+      "published": "2026-02-07T22:09:21+00:00"
+    },
+    {
+      "title": "CFTC expands payment stablecoin criteria to include national trust banks",
+      "url": "https://cointelegraph.com/news/cftc-stablecoins-national-trust-banks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The Commodity Futures Trading Commission (CFTC) revised a previous staff letter to reflect the regulations in the GENIUS stablecoin framework.",
+      "published": "2026-02-07T20:49:39+00:00"
+    },
+    {
+      "title": "The Most Surprising Bitcoin and Crypto Stories in the Epstein Files",
+      "url": "https://decrypt.co/357296/most-surprising-bitcoin-crypto-stories-epstein-files",
+      "source": "decrypt",
+      "description": "The Justice Department's release of millions of files related to Jeffrey Epstein has unearthed some wild Bitcoin and crypto stories.",
+      "published": "2026-02-07T20:38:14+00:00"
+    },
+    {
+      "title": "South Korean Crypto Exchange Accidentally Gave Away $43 Billion in Bitcoin",
+      "url": "https://decrypt.co/357257/south-korean-crypto-exchange-accidentally-gave-away-95-billion-bitcoin",
+      "source": "decrypt",
+      "description": "The error was quickly corrected, Bithumb said, but not before some users sold off their Bitcoin, temporarily crashing its listed price.",
+      "published": "2026-02-07T20:09:13+00:00"
+    },
+    {
+      "title": "Japan's Crypto Industry Faces Critical Test Ahead of Snap Election",
+      "url": "https://decrypt.co/357162/japan-crypto-industry-faces-critical-test-snap-election",
+      "source": "decrypt",
+      "description": "Japan heads to polls as crypto industry watches tax reform, stablecoin rules, and legal reclassification timelines.",
+      "published": "2026-02-07T14:01:02+00:00"
     },
     {
       "title": "Justin Bieber Paid $1.3 Million for a Bored Ape NFT. It's Now Worth $12K",
@@ -25,39 +123,11 @@
       "published": "2026-02-06T21:12:00+00:00"
     },
     {
-      "title": "Crypto\u2019s stress test hits balance sheets as Bitcoin, Ether collapse",
-      "url": "https://cointelegraph.com/news/crypto-stress-test-hits-balance-sheets-bitcoin-ether-collapse?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Crypto\u2019s downturn is rippling through treasuries, ETFs and mining infrastructure, exposing how digital asset volatility reshapes balance sheets and operations.",
-      "published": "2026-02-06T21:00:00+00:00"
-    },
-    {
-      "title": "AI platform founded by Crypto.com's Kris Marszalek launches AI agents",
-      "url": "https://cointelegraph.com/news/kris-marszalek-ai-launches-ai-agents?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Proponents of AI agents say the new technology will simplify crypto trading and other financial activities for the average user.",
-      "published": "2026-02-06T20:22:07+00:00"
-    },
-    {
       "title": "President Trump Launches TrumpRx, Promising Lower Drug Prices: Is It Legit?",
       "url": "https://decrypt.co/357223/president-trump-trumprx-promising-lower-drug-prices",
       "source": "decrypt",
       "description": "The White House is betting that a new cash-pay platform\u2014built around blockbuster GLP-1 drugs\u2014can pressure Big Pharma and bypass the middlemen who keep U.S. prices high.",
       "published": "2026-02-06T20:11:33+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-06T20:07:13+00:00"
-    },
-    {
-      "title": "Bithumb confirms reward payout error after abnormal Bitcoin trades",
-      "url": "https://cointelegraph.com/news/bithumb-confirms-reward-payout-error-after-abnormal-bitcoin-trades?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The South Korean exchange said an internal error during a promotional event led to brief price dislocations, stressing that no customer assets were lost.",
-      "published": "2026-02-06T20:02:03+00:00"
     },
     {
       "title": "Bitfarms Stock Pumps as It Dumps Bitcoin Mining for AI With Name Change, Move to US",
@@ -74,20 +144,6 @@
       "published": "2026-02-06T19:19:12+00:00"
     },
     {
-      "title": "Bitcoin dips to $60K, TRM Labs becomes crypto unicorn: Finance Redefined",
-      "url": "https://cointelegraph.com/news/bitcoin-dips-to-60k-trm-labs-becomes-crypto-unicorn-finance-redefined?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin dipped toward $60,000 after liquidations across crypto derivatives markets reached $2.56 billion, the 10th-largest daily total on record.",
-      "published": "2026-02-06T19:00:00+00:00"
-    },
-    {
-      "title": "Price predictions 2/6: BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH, HYPE, XMR",
-      "url": "https://cointelegraph.com/news/price-predictions-2-6-btc-eth-bnb-xrp-sol-doge-ada-bch-hype-xmr?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Bitcoin and altcoins saw strong double-digit price rebounds after this week\u2019s brutal sell-off, but do technical charts forecast a longer-term recovery, or is today\u2019s rally just a dead cat bounce?",
-      "published": "2026-02-06T18:47:21+00:00"
-    },
-    {
       "title": "Strategy, BitMine, Coinbase Shares Chart Major Rebound as Bitcoin Stabilizes",
       "url": "https://decrypt.co/357183/strategy-bitmine-coinbase-major-rebound-bitcoin-stabilizes",
       "source": "decrypt",
@@ -102,32 +158,11 @@
       "published": "2026-02-06T18:17:07+00:00"
     },
     {
-      "title": "What\u2019s really weighing on Bitcoin? Samson Mow breaks it down",
-      "url": "https://cointelegraph.com/news/what-really-weighing-on-bitcoin-samson-mow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "In a video interview, Samson Mow shares his views on Bitcoin's latest bloodbath, quantum fears and the catalysts that could drive Bitcoin\u2019s next recovery.",
-      "published": "2026-02-06T17:56:19+00:00"
-    },
-    {
-      "title": "South Korean Crypto Exchange Accidentally Gave Away $95 Billion in Bitcoin",
-      "url": "https://decrypt.co/357257/south-korean-crypto-exchange-accidentally-gave-away-95-billion-bitcoin",
-      "source": "decrypt",
-      "description": "The error was quickly corrected, but not before Bithumb users sold off billions in Bitcoin, temporarily crashing its listed price.",
-      "published": "2026-02-06T17:46:18+00:00"
-    },
-    {
       "title": "Bitcoin Price Roars Above $71,000 After Days of Sell-Offs",
       "url": "https://bitcoinmagazine.com/markets/bitcoin-price-roars-above-71000",
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Bitcoin Price Roars Above $71,000 After Days of Sell-Offs The bitcoin price rebounded above $71,000 today after days of large-scale selling. This post Bitcoin Price Roars Above $71,000 After Days of Sell-Offs first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-06T17:26:02+00:00"
-    },
-    {
-      "title": "China bans stablecoin and RWA issuance by foreign and domestic companies",
-      "url": "https://cointelegraph.com/news/china-bans-stablecoin-rwa-foreign-domestic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The latest announcement from the People's Bank of China follows months of flip-flopping on privately issued yuan-pegged stablecoins.",
-      "published": "2026-02-06T17:20:05+00:00"
     },
     {
       "title": "Michael Saylor Says Strategy ($MSTR) Will Lead Global Bitcoin Effort Against Quantum Threats",
@@ -144,13 +179,6 @@
       "published": "2026-02-06T17:09:23+00:00"
     },
     {
-      "title": "Galaxy approves up to $200M buyback of Class A shares",
-      "url": "https://cointelegraph.com/news/galaxy-approves-buyback-class-a-shares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The 12-month buyback authorization comes as Galaxy\u2019s shares and other crypto-linked stocks have declined alongside Bitcoin.",
-      "published": "2026-02-06T17:02:31+00:00"
-    },
-    {
       "title": "Bithumb Accidentally Sends Large Amounts of Bitcoin to Users, Triggers Price Crash Amid Market Selloff",
       "url": "https://bitcoinmagazine.com/news/bithumb-accidentally-sends-bitcoin-users",
       "source": "bitcoinmagazine",
@@ -163,20 +191,6 @@
       "source": "decrypt",
       "description": "Chinese regulators have locked in a sweeping crypto clampdown, banning unapproved yuan-linked stablecoins and curbing tokenized assets.",
       "published": "2026-02-06T16:36:13+00:00"
-    },
-    {
-      "title": "Cathie Wood's Ark Invest Dumps Coinbase Shares Amid Bitcoin Crash",
-      "url": "https://decrypt.co/357184/cathie-woods-ark-invest-dumps-coinbase-shares-bitcoin-crash",
-      "source": "decrypt",
-      "description": "Noted tech investor Cathie Wood's Ark Invest dumped shares in Coinbase on Thursday amid Bitcoin's slide to nearly $60,000.",
-      "published": "2026-02-06T16:21:11+00:00"
-    },
-    {
-      "title": "What Is World Liberty Financial? The Trump Family DeFi Project Explained",
-      "url": "https://decrypt.co/resources/what-is-world-liberty-financial-the-trump-family-defi-project-explained",
-      "source": "decrypt",
-      "description": "The biggest crypto venture linked to U.S. President Donald Trump is a DeFi project promising to help the unbanked. But how does it work?",
-      "published": "2026-02-06T16:10:03+00:00"
     },
     {
       "title": "Bitcoin Price Plunges Toward $60,000 as $1 Billion in Liquidations Hit in 24 Hours",
@@ -205,20 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine JPMorgan: Bitcoin is Now a More Attractive Investment Than Gold Long Term JPMorgan says Bitcoin\u2019s long-term case versus gold is strengthening despite its historic sell-off. This post JPMorgan: Bitcoin is Now a More Attractive Investment Than Gold Long Term first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-05T19:23:16+00:00"
-    },
-    {
-      "title": "The v2 Transport: Bitcoin P2P Traffic Goes Dark",
-      "url": "https://bitcoinmagazine.com/print/the-v2-transport-bitcoin-p2p-traffic-goes-dark",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine The v2 Transport: Bitcoin P2P Traffic Goes Dark From The Core Issue: Learn about the v2 transport protocol upgrade from 2024 that aims to keep your nodes internet traffic private from snooping. This post The v2 Transport: Bitcoin P2P Traffic Goes Dark first appeared on Bitcoin Magazine and is written by Pieter Wuille.",
-      "published": "2026-02-05T19:16:34+00:00"
-    },
-    {
-      "title": "Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption\u00a0",
-      "url": "https://bitcoinmagazine.com/news/senator-lummis-bitcoin-tax-guidance",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption In hearings today, Senator Lummis signaled willingness to work with Treasury on clearer Bitcoin tax guidance, including a potential de minimis exemption. This post Senator Lummis to Work With Treasury on Bitcoin Tax Guidance, Hints At Potential Exemption first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-05T17:15:02+00:00"
     }
   ]
 }

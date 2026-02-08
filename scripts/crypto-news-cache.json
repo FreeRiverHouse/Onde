@@ -1,18 +1,16 @@
 {
   "sentiment_both": {
-    "timestamp": "2026-02-06T21:52:27.386089",
+    "timestamp": "2026-02-08T16:11:41.759899",
     "result": {
       "sentiment": "neutral",
       "confidence": 0.5,
       "reasons": [
-        "rally",
-        "soar",
-        "sell-off",
-        "collapse"
+        "surge",
+        "bearish"
       ],
       "events": [],
       "event_warning": null,
-      "timestamp": "2026-02-06T21:52:27.386074+00:00",
+      "timestamp": "2026-02-08T16:11:41.759873+00:00",
       "should_trade": true,
       "edge_adjustment": 0.0,
       "news_count": 9

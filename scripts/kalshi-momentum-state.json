@@ -1,20 +1,20 @@
 {
-  "btc": "bearish",
-  "eth": "bearish",
-  "last_alert": 1770152549.977442,
+  "btc": "bullish",
+  "eth": "bullish",
+  "last_alert": 1770565218.197948,
   "direction_history": {
     "btc": [
       {
-        "timestamp": 1770152549.978165,
-        "old": "bullish",
-        "new": "bearish"
+        "timestamp": 1770565218.198773,
+        "old": "bearish",
+        "new": "bullish"
       }
     ],
     "eth": [
       {
-        "timestamp": 1770152549.978165,
-        "old": "bullish",
-        "new": "bearish"
+        "timestamp": 1770565218.198773,
+        "old": "bearish",
+        "new": "bullish"
       }
     ]
   }

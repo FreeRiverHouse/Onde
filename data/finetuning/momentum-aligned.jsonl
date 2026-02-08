@@ -19157,4 +19157,2468 @@
     }
   ],
   "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 11:56 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:01:36.692323+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:01 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:06:53.399491+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:06 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:12:09.454639+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:12 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:17:25.884826+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:17 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:22:43.406765+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:22 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:27:59.555342+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:27 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:33:15.912044+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:33 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:38:34.106378+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:38 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:43:50.511923+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:43 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:49:06.930432+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:49 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:54:24.669948+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:54 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T12:59:41.154529+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 12:59 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:04:57.524587+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:04 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:10:12.612515+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:10 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:15:28.199697+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:15 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:20:43.317373+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:20 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:25:59.377647+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:25 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:31:15.192869+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:31 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:36:30.739628+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:36 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:41:46.697860+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:41 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:47:01.983349+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:47 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:52:17.812753+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:52 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T13:57:34.337180+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 13:57 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:02:49.833631+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:02 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:08:05.265442+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:08 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:13:20.862713+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:13 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:18:36.448576+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:18 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:29:09.780372+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:29 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:34:25.209458+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:34 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:39:40.834242+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:39 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:44:55.643349+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:44 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:50:11.140376+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:50 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T14:55:27.148122+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 14:55 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:00:45.733842+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:00 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:06:01.141077+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:06 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:11:16.576525+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:11 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:16:31.852610+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:16 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:21:47.497191+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:21 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:27:03.423452+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:27 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:32:19.696862+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:32 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:37:35.537263+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:37 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:42:51.648351+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:42 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:48:07.085919+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:48 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
+}{
+  "timestamp": "2026-02-07T15:53:21.986288+00:00",
+  "type": "momentum_alignment",
+  "alerts": [
+    {
+      "asset": "BTC",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.15433292711559318
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2684533250802739
+        }
+      }
+    },
+    {
+      "asset": "ETH",
+      "direction": "\ud83d\udd34 BEARISH",
+      "signal": "Strong downward momentum across all timeframes",
+      "action": "Consider NO bets on upside targets",
+      "composite_dir": -0.5,
+      "composite_str": 0.5,
+      "timeframes": {
+        "1h": {
+          "direction": 0,
+          "strength": 0.0,
+          "pct_change": 0.0
+        },
+        "4h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.2446477268102081
+        },
+        "24h": {
+          "direction": -1,
+          "strength": 1.0,
+          "pct_change": -0.3515541514405929
+        }
+      }
+    }
+  ],
+  "message": "\ud83c\udfaf FULL MOMENTUM ALIGNMENT DETECTED!\n\nAll timeframes (1h/4h/24h) agree - HIGH CONVICTION signal\n\n\ud83d\udcca BTC: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\n\ud83d\udcca ETH: \ud83d\udd34 BEARISH\n   Strong downward momentum across all timeframes\n\n   1h: \u2192 dir=+0.00 str=0.00\n   4h: \u2193 dir=-1.00 str=1.00\n   24h: \u2193 dir=-1.00 str=1.00\n\n   Composite: -0.50 | Strength: 0.50\n   \ud83d\udca1 Consider NO bets on upside targets\n\nTime: 2026-02-07 15:53 UTC\n\n\u26a0\ufe0f This is a rare high-confidence signal. Use appropriate position sizing!"
 }
