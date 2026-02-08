@@ -76,3 +76,6 @@ env/
 .env*.local
 apps/onde-portal/.vercel
 **/.vercel
+tools/translation-mlx/capussela.txt
+tools/translation-mlx/capussela.docx
+tools/translation-mlx/capussela_output/

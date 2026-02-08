@@ -1,4 +1,4 @@
-# MLX Translation System v11
+# MLX Translation Pipeline (v12.0 - Resume Capable)
 
 Sistema di traduzione EN→IT usando Qwen3-32B su Apple Silicon.
 
@@ -13,7 +13,7 @@ source ~/mlx-env/bin/activate
 
 ## Uso
 ```bash
-python3 translate-mlx-bomproof-v11.py input.txt output_dir/
+python3 translate-mlx-bomproof-v12.py input.txt output_dir/
 ```
 
 Lo script:
@@ -34,7 +34,7 @@ cd tools/translation-mlx
 echo "The coffee is hot." > test_quick.txt
 
 # 3. Esegui traduzione
-python3 translate-mlx-bomproof-v11.py test_quick.txt ./test_out/
+python3 translate-mlx-bomproof-v12.py test_quick.txt ./test_out/
 
 # 4. Verifica output
 cat ./test_out/traduzione_finale.txt
@@ -62,31 +62,27 @@ pkill -f mlx_server
 pkill -9 -f mlx_server
 rm -f server.lock server.pid
 
-# Log file (v11)
-cat /tmp/bomproof_v11.log
+# Log file (v12)
+cat /tmp/bomproof_v12.log
 ```
 
-## Performance v11 (Stable)
+## Performance v12 (Stable & Resumable)
+- **Resume Capability:** Se lo script si interrompe, riavvialo e riprenderà dall'ultimo paragrafo salvato!
+- **Incremental Save:** Ogni paragrafo tradotto viene salvato immediatamente in `checkpoint_translated.txt`.
+- **Smart Chunking:** Il testo viene diviso automaticamente in chunk <500 caratteri per massima stabilità (1154 chunk per il libro completo).
 - ~15s per paragrafo (chunk 500 chars)
 - Revisione disattivata (`revise=False`) per evitare OOM su 24GB RAM
-- 100% Reliability su test lunghi
-- Prompt /no_think + Slop removal attivi
 
 ## Configurazione Avanzata
 Se hai >32GB RAM, puoi riattivare la revisione modificando:
-`translate-mlx-bomproof-v11.py`:
+`translate-mlx-bomproof-v12.py`:
 ```python
 MAX_PARA_CHARS = 1000  # Aumenta chunk
 ...
 json={"text": text_en, "revise": True},  # Riattiva revisione
 ```
 
-## File
-- `mlx_server.py` - Server HTTP con Qwen3-32B + pulizia automatica
-- `translate-mlx-bomproof-v11.py` - Script traduzione bomproof v11
-
-## Changelog v11
-- Prompt con /no_think all'inizio per disabilitare reasoning
-- Pulizia token Qwen3 (<im_start>, <im_end>)  
-- Sentence-level slop detection
-- Performance migliorate per chunk piccoli
+## File Principali
+- `translate-mlx-bomproof-v12.py` - Script Principale (v12 con Resume)
+- `mlx_server.py` - Server HTTP con Qwen3-32B
+- `checkpoint_translated.txt` - File di salvataggio incrementale (nella cartella output)
