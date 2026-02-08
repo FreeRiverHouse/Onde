@@ -116,6 +116,12 @@ def clean_translation_output(raw_output, original_text):
     if "/no_think" in translation:
         translation = translation.split("/no_think")[-1].strip()
 
+    # Remove Qwen3 special tokens
+    translation = re.sub(r'<\s*im_start\s*>', '', translation)
+    translation = re.sub(r'<\s*im_end\s*>', '', translation)
+    translation = re.sub(r'<\|im_start\|>', '', translation)
+    translation = re.sub(r'<\|im_end\|>', '', translation)
+
     # Remove <think>...</think> blocks
     translation = re.sub(r'<think>.*?</think>', '', translation, flags=re.DOTALL|re.IGNORECASE)
     if "</think>" in translation.lower():
@@ -135,9 +141,10 @@ def clean_translation_output(raw_output, original_text):
     # CRITICAL: Detect prompt leaking into output - AGGRESSIVE removal
     prompt_indicators = [
         "sei un revisore", "migliora questa", "rispondi solo",
-        "traduci in italiano", "versione migliorata:", "originale inglese:",
+        "traduci in italiano", "traduci tutto", "versione migliorata:", "originale inglese:",
         "traduzione da migliorare:", "nient'altro", "migliorata:",
-        "revisore editoriale", "testo rivisto", "esperto."
+        "revisore editoriale", "testo rivisto", "esperto.",
+        "ogni parola deve essere", "chapter→capitolo", "section→sezione"
     ]
 
     # Remove ENTIRE lines containing prompt indicators
@@ -201,6 +208,18 @@ def clean_translation_output(raw_output, original_text):
             translation = '. '.join(clean_sentences).strip()
             if translation and not translation.endswith('.') and not translation.endswith('!') and not translation.endswith('?'):
                 translation += '.'
+
+    # SENTENCE-LEVEL prompt removal (catches mid-paragraph leakage)
+    sentence_prompt_indicators = [
+        "traduci tutto", "traduci in italiano", "rispondi solo",
+        "ogni parola deve", "chapter→", "section→"
+    ]
+    sentences = translation.replace('. ', '.|').split('|')
+    clean_sentences = []
+    for s in sentences:
+        if not any(p in s.lower() for p in sentence_prompt_indicators):
+            clean_sentences.append(s)
+    translation = ' '.join(clean_sentences).strip()
 
     # Final loop check - if same 50 chars repeat, truncate
     if len(translation) > 100:
@@ -289,13 +308,13 @@ class TranslationHandler(BaseHTTPRequestHandler):
 
             try:
                 # === STEP 1: Translate with Qwen ===
-                prompt = f"""Traduci TUTTO in italiano. OGNI parola deve essere in italiano.
-Traduci anche: Chapter→Capitolo, Section→Sezione, Introduction→Introduzione, etc.
-Rispondi SOLO con la traduzione, nient'altro.
+                # NOTE: /no_think must be at END for Qwen3 to respect it
+                prompt = f"""/no_think
+Traduci il seguente testo in italiano. Rispondi SOLO con la traduzione italiana, senza spiegazioni.
 
-{text}
+Testo: {text}
 
-/no_think"""
+Traduzione:"""
 
                 start = time.time()
                 raw_output = generate(qwen_model, qwen_tokenizer, prompt, max_tokens=600)
@@ -313,18 +332,14 @@ Rispondi SOLO con la traduzione, nient'altro.
                 revised = translation
                 revise_time = 0
                 if data.get('revise', True) and translation != text:
-                    revise_prompt = f"""Sei un revisore editoriale italiano esperto.
-Migliora questa traduzione rendendola più fluida e naturale in italiano.
-Rispondi SOLO con il testo rivisto, nient'altro.
+                    revise_prompt = f"""/no_think
+Riscrivi questa traduzione italiana in modo più fluido e naturale. Rispondi SOLO con il testo rivisto.
 
-ORIGINALE INGLESE:
-{text}
+Originale inglese: {text}
 
-TRADUZIONE DA MIGLIORARE:
-{translation}
+Traduzione da migliorare: {translation}
 
-VERSIONE MIGLIORATA:
-/no_think"""
+Versione migliorata:"""
 
                     start = time.time()
                     raw_revised = generate(qwen_model, qwen_tokenizer, revise_prompt, max_tokens=600)
