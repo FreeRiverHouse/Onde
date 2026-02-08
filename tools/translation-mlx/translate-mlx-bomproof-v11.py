@@ -2,12 +2,12 @@
 """
 🚀 TRANSLATION PIPELINE MLX - BOMPROOF v11.0 🚀
 
-QWEN3-32B OTTIMIZZATO con /no_think per risposte dirette
-  FASE 0: Qwen → Traduzione + Revisione (via /translate con pulizia integrata)
+QWEN3-32B OTTIMIZZATO (Stable Config)
+  FASE 0: Qwen → Traduzione (Revisione disattivata per default su 24GB RAM)
   FASE 1: Formattazione finale
 
-NOTA: v11 fix - prompt aggiornati per Qwen3 con /no_think e pulizia token.
-      Funziona velocemente con chunk piccoli (10-15s per paragrafo).
+NOTA: Chunk ridotti a 500 chars per stabilità.
+      Per riattivare revisione setting `revise=True`.
 
 Casa Editrice Onde - FreeRiverHouse
 """
@@ -30,7 +30,7 @@ from datetime import datetime
 SERVER_URL = "http://localhost:8765"
 SERVER_SCRIPT = Path(__file__).parent / "mlx_server.py"
 
-MAX_PARA_CHARS = 1000  # Max chars per paragraph
+MAX_PARA_CHARS = 500  # Max chars per paragraph (REDUCED for stability)
 LOG_FILE = Path("/tmp/bomproof_v11.log")
 _server_process = None
 
@@ -247,8 +247,8 @@ def qwen_translate(text_en: str) -> str:
                 # Usa /translate endpoint
                 r = requests.post(
                     f"{SERVER_URL}/translate",
-                    json={"text": text_en, "revise": True},
-                    timeout=120
+                    json={"text": text_en, "revise": False},
+                    timeout=300
                 )
                 if r.status_code == 200:
                     data = r.json()
@@ -258,7 +258,7 @@ def qwen_translate(text_en: str) -> str:
                 r = requests.post(
                     f"{SERVER_URL}/generate",
                     json={"prompt": prompt, "max_tokens": 800},
-                    timeout=120
+                    timeout=300
                 )
                 if r.status_code == 200:
                     result = r.json().get("result", "")

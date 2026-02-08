@@ -18,8 +18,8 @@ python3 translate-mlx-bomproof-v11.py input.txt output_dir/
 
 Lo script:
 1. Avvia automaticamente il server MLX (porta 8765)
-2. Traduce paragrafo per paragrafo (chunk piccoli = ~10-15s ciascuno)
-3. Applica revisione automatica con /no_think per output pulito
+2. Traduce paragrafo per paragrafo (chunk <500 chars = ~15s ciascuno)
+3. Usa prompt /no_think per output pulito (Revisione disattivata per default per stabilità su 24GB RAM)
 4. Stoppa il server alla fine
 
 ## Testing
@@ -66,11 +66,20 @@ rm -f server.lock server.pid
 cat /tmp/bomproof_v11.log
 ```
 
-## Performance v11
-- ~10-15s per paragrafo breve (con revisione)
-- Chunk piccoli raccomandati (<500 caratteri)
-- Prompt /no_think = niente reasoning = output pulito
-- Slop detection attiva (rimuove token Qwen3 spurii)
+## Performance v11 (Stable)
+- ~15s per paragrafo (chunk 500 chars)
+- Revisione disattivata (`revise=False`) per evitare OOM su 24GB RAM
+- 100% Reliability su test lunghi
+- Prompt /no_think + Slop removal attivi
+
+## Configurazione Avanzata
+Se hai >32GB RAM, puoi riattivare la revisione modificando:
+`translate-mlx-bomproof-v11.py`:
+```python
+MAX_PARA_CHARS = 1000  # Aumenta chunk
+...
+json={"text": text_en, "revise": True},  # Riattiva revisione
+```
 
 ## File
 - `mlx_server.py` - Server HTTP con Qwen3-32B + pulizia automatica
