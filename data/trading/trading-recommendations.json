@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-07T08:00:01.716300Z",
-  "trades_analyzed": 128,
+  "generated_at": "2026-02-09T08:00:02.939204Z",
+  "trades_analyzed": 131,
   "min_trades_threshold": 3,
   "confidence_level": "95%",
   "analysis": {
@@ -301,6 +301,15 @@
         "win_rate_lower": 0,
         "win_rate_upper": 49.0,
         "pnl": -2.0
+      },
+      {
+        "day": 6,
+        "day_name": "Sunday",
+        "total": 3,
+        "win_rate": 100.0,
+        "win_rate_lower": 43.8,
+        "win_rate_upper": 100,
+        "pnl": 1.5
       }
     ]
   },

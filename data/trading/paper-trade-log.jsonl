@@ -1,0 +1,1 @@
+{"timestamp": "2026-02-08T16:47:30.991881+00:00", "ticker": "KXHIGHNY-26FEB09-B32.5", "asset": "weather", "side": "no", "contracts": 3, "price_cents": 76, "cost_cents": 228, "edge": 0.1697, "our_prob": 0.0703, "result_status": "lost", "pnl_cents": -228, "reason": "Weather: NYC high temp, NWS forecast 30\u00b0F, gap 2.5\u00b0F, edge 17.0%", "paper_trade": true}
