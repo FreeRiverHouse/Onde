@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || '/Users/mattia/Projects/Onde';
+const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const HANDOFF_DIR = path.join(ONDE_ROOT, 'chat-history', 'handoffs');
 const MEMORY_DB = path.join(ONDE_ROOT, '.claude-memory', 'memories.db');
 

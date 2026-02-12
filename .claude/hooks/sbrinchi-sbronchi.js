@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
 async function readStdin() {
   return new Promise((resolve) => {

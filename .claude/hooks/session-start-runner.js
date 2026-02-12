@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const HANDOFF_DIR = path.join(ONDE_ROOT, 'chat-history', 'handoffs');
 const CHEATSHEET_PATH = path.join(ONDE_ROOT, 'CHEATSHEET.md');
 

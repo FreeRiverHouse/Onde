@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ONDE_ROOT = '/Users/mattiapetrucciani/CascadeProjects/Onde';
+const ONDE_ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
 function getLatestHandoff() {
   const handoffDir = path.join(ONDE_ROOT, 'chat-history', 'handoffs');
