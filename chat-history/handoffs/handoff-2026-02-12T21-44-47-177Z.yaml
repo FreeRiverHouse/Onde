@@ -1,0 +1,32 @@
+# Onde Continuous Claude - Handoff
+# Generated: 2026-02-12T21:44:48.354Z
+# Trigger: auto
+
+session_meta:
+  id: "session-1770932688354-dvgbvf"
+  timestamp: "2026-02-12T21:44:48.354Z"
+  trigger: "auto"
+  transcript: ""
+
+recent_files:
+  - ".claude/hooks/precompact-runner.js"
+  - ".claude/hooks/precompact.js"
+  - ".claude/hooks/sbrinchi-sbronchi.js"
+  - ".claude/hooks/session-start-runner.js"
+  - ".claude/hooks/session-start.js"
+  - ".gitignore"
+  - "data/crypto-news-feed.json"
+  - "data/finetuning/momentum-aligned.jsonl"
+  - "data/finetuning/regime-change.jsonl"
+  - "data/reports/volatility-week-2026-W06.json"
+
+current_priorities:
+  - "**Lunedì**: AIKO EN + Psalm 23 EN + AIKO IT → KDP"
+  - "**Martedì**: Psalm 23 ES + DE + FR → KDP"
+  - "**Mercoledì**: Piccole Rime IT + Psalm 23 KO → KDP"
+  - "**Giovedì**: Generare illustrazioni Il Piccolo Inventore"
+  - "**Venerdì**: Generare illustrazioni Il Respiro Magico"
+
+notes: |
+  Questo handoff e' stato salvato automaticamente prima della compaction.
+  Al prossimo avvio, Claude vedra' questo contesto.
