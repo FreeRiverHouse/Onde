@@ -68,3 +68,10 @@
     "Thu 21:00"
   ]
 }}
+{"timestamp": "2026-02-12T08:00:02Z", "metrics": {
+  "avoid_days": null,
+  "active_hours": null,
+  "best_hours": [
+    "Thu 21:00"
+  ]
+}}
