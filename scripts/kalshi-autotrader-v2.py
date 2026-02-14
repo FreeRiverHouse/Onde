@@ -5212,7 +5212,11 @@ def run_cycle():
     
     # Streak-based position sizing (T388) - reduce size during tilt risk or hot hand
     streak_multiplier = 1.0
-    if streak_ctx.get("tilt_risk") or streak_ctx.get("hot_hand"):
+    
+    # AGGRESSIVE PAPER MODE (User Request): Ignore streak penalties in dry run
+    if DRY_RUN:
+       print(f"   🧪 DRY RUN: Ignoring streak penalty (aggressive mode)")
+    elif streak_ctx.get("tilt_risk") or streak_ctx.get("hot_hand"):
         streak_multiplier = STREAK_SIZE_REDUCTION
         adjusted_kelly = adjusted_kelly * streak_multiplier
         streak_reason = "tilt_risk" if streak_ctx.get("tilt_risk") else "hot_hand"
@@ -5274,6 +5278,11 @@ def run_cycle():
         print(f"   🎄 Holiday size reduction: {HOLIDAY_SIZE_REDUCTION*100:.0f}%")
     
     contracts = int(bet_size * 100 / best["price"])
+    
+    # AGGRESSIVE PAPER MODE: Force at least 1 contract if DRY_RUN
+    if contracts < 1 and DRY_RUN:
+        contracts = 1
+        print(f"   🧪 DRY RUN: Forcing 1 contract for data collection (aggressive mode)")
     
     if contracts < 1:
         print("❌ Bet too small")
