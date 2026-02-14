@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-13T08:00:21.654743Z",
-  "trades_analyzed": 132,
+  "generated_at": "2026-02-14T08:00:02.060430Z",
+  "trades_analyzed": 134,
   "min_trades_threshold": 3,
   "confidence_level": "95%",
   "analysis": {
@@ -166,12 +166,12 @@
         "day_name": "Fri",
         "hour": 21,
         "wins": 0,
-        "losses": 4,
-        "total": 4,
+        "losses": 6,
+        "total": 6,
         "win_rate": 0.0,
         "win_rate_lower": 0,
-        "win_rate_upper": 49.0,
-        "pnl": -2.0,
+        "win_rate_upper": 39.0,
+        "pnl": -3.0,
         "avg_pnl_per_trade": -0.5
       }
     ],
@@ -242,11 +242,11 @@
       },
       {
         "hour": 21,
-        "total": 21,
-        "win_rate": 52.4,
-        "win_rate_lower": 32.4,
-        "win_rate_upper": 71.7,
-        "pnl": -0.5
+        "total": 23,
+        "win_rate": 47.8,
+        "win_rate_lower": 29.2,
+        "win_rate_upper": 67.0,
+        "pnl": -1.5
       },
       {
         "hour": 22,
@@ -296,11 +296,11 @@
       {
         "day": 4,
         "day_name": "Friday",
-        "total": 4,
+        "total": 6,
         "win_rate": 0.0,
         "win_rate_lower": 0,
-        "win_rate_upper": 49.0,
-        "pnl": -2.0
+        "win_rate_upper": 39.0,
+        "pnl": -3.0
       },
       {
         "day": 6,
@@ -452,12 +452,12 @@
         "day_name": "Fri",
         "hour": 21,
         "wins": 0,
-        "losses": 4,
-        "total": 4,
+        "losses": 6,
+        "total": 6,
         "win_rate": 0.0,
         "win_rate_lower": 0,
-        "win_rate_upper": 49.0,
-        "pnl": -2.0,
+        "win_rate_upper": 39.0,
+        "pnl": -3.0,
         "avg_pnl_per_trade": -0.5
       }
     ],
@@ -527,11 +527,11 @@
       {
         "day": 4,
         "day_name": "Friday",
-        "total": 4,
+        "total": 6,
         "win_rate": 0.0,
         "win_rate_lower": 0,
-        "win_rate_upper": 49.0,
-        "pnl": -2.0
+        "win_rate_upper": 39.0,
+        "pnl": -3.0
       }
     ],
     "schedule": {
@@ -563,7 +563,8 @@
       ],
       "avoid_days": [
         1,
-        2
+        2,
+        4
       ],
       "confidence_threshold": 50
     }

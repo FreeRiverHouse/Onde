@@ -1,22 +1,16 @@
 {
-  "generated_at": "2026-02-13T07:30:01.724216Z",
+  "generated_at": "2026-02-14T05:30:01.505746Z",
   "overall": {
-    "total_calls": 116,
+    "total_calls": 119,
     "total_errors": 5,
-    "error_rate_pct": 4.31
+    "error_rate_pct": 4.2
   },
   "last_24h": {
-    "total_calls": 0,
+    "total_calls": 3,
     "errors": 0,
-    "error_rate_pct": 0
+    "error_rate_pct": 0.0
   },
   "daily_breakdown": [
-    {
-      "date": "2026-02-02",
-      "total": 5,
-      "errors": 0,
-      "error_rate": 0.0
-    },
     {
       "date": "2026-02-03",
       "total": 7,
@@ -50,6 +44,12 @@
     {
       "date": "2026-02-09",
       "total": 2,
+      "errors": 0,
+      "error_rate": 0.0
+    },
+    {
+      "date": "2026-02-13",
+      "total": 3,
       "errors": 0,
       "error_rate": 0.0
     }
