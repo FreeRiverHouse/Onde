@@ -5585,6 +5585,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")  # Enable CORS for dashboard
             self.send_header("Content-Length", len(response))
             self.end_headers()
             self.wfile.write(response.encode())
@@ -5593,6 +5594,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             error_response = json.dumps({"error": str(e), "is_running": False})
             self.send_response(500)
             self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")  # Enable CORS even on error
             self.end_headers()
             self.wfile.write(error_response.encode())
     
@@ -5600,6 +5602,7 @@ class HealthHandler(BaseHTTPRequestHandler):
         """Simple readiness check - returns 200 if server is up."""
         self.send_response(200)
         self.send_header("Content-Type", "text/plain")
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         self.wfile.write(b"OK")
     
@@ -5670,6 +5673,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
             self.send_header("Content-Length", len(response))
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(response.encode())
             
@@ -5677,6 +5681,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             error_msg = f"# Error generating metrics: {e}\n"
             self.send_response(500)
             self.send_header("Content-Type", "text/plain")
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(error_msg.encode())
 
@@ -5727,12 +5732,32 @@ def write_health_status(cycle_count: int):
         except Exception:
             positions_count = None
         
+        
         # Get circuit breaker status (returns 3 values: paused, losses, message)
         is_paused, _, pause_reason = check_circuit_breaker()
         
         # Get consecutive losses
         consecutive_losses = get_consecutive_losses()
         
+        # Get recent trades (last 10)
+        recent_trades = []
+        try:
+            target_log = Path(DRY_RUN_LOG_FILE if DRY_RUN else TRADE_LOG_FILE)
+            if target_log.exists():
+                with open(target_log) as f:
+                    lines = [line.strip() for line in f if line.strip()]
+                    # Take last 10 valid lines
+                    for line in reversed(lines[-20:]):  # Look at last 20 to be safe
+                        if len(recent_trades) >= 10:
+                            break
+                        try:
+                            trade = json.loads(line)
+                            recent_trades.append(trade)
+                        except:
+                            pass
+        except Exception as e:
+            print(f"⚠️ Error reading recent trades: {e}")
+
         # Build health status
         health = {
             "is_running": True,
@@ -5750,7 +5775,8 @@ def write_health_status(cycle_count: int):
             "circuit_breaker_active": is_paused,
             "circuit_breaker_reason": pause_reason if is_paused else None,
             "consecutive_losses": consecutive_losses,
-            "status": "🧪 dry_run" if DRY_RUN else ("⏸️ paused" if is_paused else "✅ running")
+            "status": "🧪 dry_run" if DRY_RUN else ("⏸️ paused" if is_paused else "✅ running"),
+            "recent_trades": recent_trades
         }
         
         # Ensure directory exists
