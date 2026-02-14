@@ -2572,15 +2572,15 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
         confidence_adj = (1 - result["confidence"]) * 0.03  # up to 3% more if low confidence
         result["dynamic_min_edge"] = base_edge + confidence_adj
     elif result["regime"] == "choppy":
-        # Choppy = highest edge required (hardest to trade)
-        result["dynamic_min_edge"] = 0.15  # 15% minimum
+        # Choppy = higher edge required, but not impossibly high
+        result["dynamic_min_edge"] = 0.08  # 8% minimum (was 15% - way too high, blocked all trades)
     else:  # sideways
         # Sideways = moderate edge
-        result["dynamic_min_edge"] = 0.12  # 12% minimum
+        result["dynamic_min_edge"] = 0.06  # 6% minimum (was 12%)
     
     # Volatility adjustment
     if vol_class == "high":
-        result["dynamic_min_edge"] += 0.02  # +2% for high vol
+        result["dynamic_min_edge"] += 0.01  # +1% for high vol (was +2%, too conservative)
     elif vol_class == "low":
         result["dynamic_min_edge"] -= 0.01  # -1% for low vol (more predictable)
     
@@ -5429,6 +5429,11 @@ def run_cycle():
         print(f"   🎄 Holiday size reduction: {HOLIDAY_SIZE_REDUCTION*100:.0f}%")
     
     contracts = int(bet_size * 100 / best["price"])
+    
+    # In DRY_RUN/paper mode, force at least 1 contract for data collection
+    if contracts < 1 and DRY_RUN:
+        contracts = 1
+        print(f"   🧪 DRY RUN: Forcing 1 contract for data collection")
     
     if contracts < 1:
         print("❌ Bet too small")
