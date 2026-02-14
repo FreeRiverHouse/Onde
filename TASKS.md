@@ -245,3 +245,12 @@
 | 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | TODO | - | Dipende da GAME-001 |
 | 37 | GAME-003 | Sistema sblocchi/progressione funzionante | ⭐ Games | TODO | - | Verificare stato attuale, fixare se rotto |
 | 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | TODO | - | Grafici PnL cumulativo, win rate evolution |
+
+## BUG-001: onde.surf "Cannot access uninitialized variable" crash
+- **Status:** TODO
+- **Priority:** HIGH
+- **Reporter:** Mattia (screenshot 2026-02-14)
+- **Description:** onde.surf shows error page "Something went wrong - Cannot access uninitialized variable" after login
+- **Page:** Main dashboard (/)
+- **Notes:** Build succeeds, likely client-side TDZ error or Cloudflare edge runtime issue
+- **Screenshot:** message_id 5555
