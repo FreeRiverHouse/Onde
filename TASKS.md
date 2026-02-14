@@ -231,3 +231,17 @@
 | 104 | SEO-014 | Add llms.txt (LLMs Full) to onde.la for AI discoverability | ⭐ SEO/AI | ✅ DONE | @clawdinho | apps/onde-portal/public/llms.txt created |
 | 105 | A11Y-002 | Add skip-to-content link on onde.la main layout | ⭐ Accessibility | ✅ DONE | @clawdinho | Already exists: SkipToContent component in ClientLayout.tsx |
 | 106 | PERF-004 | Lazy-load Three.js in skin creator (dynamic import) | 🔥 Performance | ✅ DONE | @clawdinho | Already implemented: SkinPreview3D uses dynamic(() => import(...), { ssr: false }) |
+
+### 🔥 NUOVI TASK (2026-02-14) - Da Mattia
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 30 | TRADE-001 | Riavviare autotrader con fix algoritmo (paper mode) | 🔥 Trading | TODO | - |
+| 31 | TRADE-002 | Dashboard autotrader su onde.surf funzionante con grafici trend | 🔥 Trading | IN_PROGRESS | @clawdinho | Dashboard locale su :8888 funziona, deploy su onde.surf fatto ma serve connessione al backend |
+| 32 | TRADE-003 | Implementare backtesting framework per autotrader | ⭐ Trading | TODO | - |
+| 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | TODO | - | Ispirato a Grok 4.2 results |
+| 34 | ANAL-001 | Analytics dettagliate onde.la - referrer, geo, device | 🔥 Growth | TODO | - | CF Web Analytics attive, servono analytics più dettagliate |
+| 35 | GAME-001 | Multi-tenancy giocatori - sistema username leggero senza login | 🔥 Games | TODO | - | Cookie/localStorage, salva punti e progressi |
+| 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | TODO | - | Dipende da GAME-001 |
+| 37 | GAME-003 | Sistema sblocchi/progressione funzionante | ⭐ Games | TODO | - | Verificare stato attuale, fixare se rotto |
+| 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | TODO | - | Grafici PnL cumulativo, win rate evolution |
