@@ -630,5 +630,11 @@ renderSettings();
 renderCharacters();
 renderPageEditor();
 </script>
+<script src="/static-games/onde-gamer.js"></script>
+<script>
+  if (window.OndeGamer) {
+    OndeGamer.init({ gameId: 'story-creator' });
+  }
+</script>
 </body>
 </html>

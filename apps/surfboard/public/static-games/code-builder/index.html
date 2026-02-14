@@ -558,5 +558,11 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 // Init
 loadLevel();
 </script>
+<script src="/static-games/onde-gamer.js"></script>
+<script>
+  if (window.OndeGamer) {
+    OndeGamer.init({ gameId: 'code-builder' });
+  }
+</script>
 </body>
 </html>

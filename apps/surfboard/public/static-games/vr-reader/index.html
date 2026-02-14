@@ -880,5 +880,11 @@
     window.setAmbientVolume = setAmbientVolume;
     window.toggleAmbient = toggleAmbient;
   </script>
+  <script src="/static-games/onde-gamer.js"></script>
+  <script>
+    if (window.OndeGamer) {
+      OndeGamer.init({ gameId: 'vr-reader' });
+    }
+  </script>
 </body>
 </html>
