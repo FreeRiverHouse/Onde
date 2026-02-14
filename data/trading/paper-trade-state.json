@@ -2,7 +2,7 @@
   "session_id": "20260208_164725",
   "started_at": "2026-02-08T16:47:25.989023+00:00",
   "starting_balance_cents": 5000,
-  "current_balance_cents": 4772,
+  "current_balance_cents": 5000,
   "mode": "paper",
   "strategy_version": "v2.1-improved",
   "safety_guards": {
@@ -14,37 +14,21 @@
     "min_edge": 0.12
   },
   "stats": {
-    "total_trades": 1,
+    "total_trades": 0,
     "wins": 0,
-    "losses": 1,
+    "losses": 0,
     "pending": 0,
     "win_rate": 0.0,
-    "pnl_cents": -228,
+    "pnl_cents": 0,
     "gross_profit_cents": 0,
     "gross_loss_cents": 228,
-    "current_streak": -1,
+    "current_streak": 2,
     "streak_type": "loss",
     "max_drawdown_cents": 228,
     "peak_balance_cents": 5000
   },
   "positions": [],
-  "recent_trades": [
-    {
-      "timestamp": "2026-02-08T16:47:30.991881+00:00",
-      "ticker": "KXHIGHNY-26FEB09-B32.5",
-      "asset": "weather",
-      "side": "no",
-      "contracts": 3,
-      "price_cents": 76,
-      "cost_cents": 228,
-      "edge": 0.1697,
-      "our_prob": 0.0703,
-      "result_status": "lost",
-      "pnl_cents": -228,
-      "reason": "Weather: NYC high temp, NWS forecast 30\u00b0F, gap 2.5\u00b0F, edge 17.0%",
-      "paper_trade": true
-    }
-  ],
+  "recent_trades": [],
   "weather_stats": {
     "trades": 1,
     "wins": 0,
@@ -62,7 +46,10 @@
     "pnl_cents": 0,
     "by_asset": {}
   },
-  "last_cycle": "trade_executed",
+  "last_cycle": "2026-02-14T22:03:29.907248+00:00",
   "cycle_count": 1,
-  "last_updated": "2026-02-08T16:47:30.991921+00:00"
+  "last_updated": "2026-02-14T22:07:05.697350+00:00",
+  "uptime_human": "0:03:48",
+  "circuit_breaker_active": false,
+  "status": "\ud83e\uddea dry_run"
 }
