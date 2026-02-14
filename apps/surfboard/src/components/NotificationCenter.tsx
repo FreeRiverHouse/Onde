@@ -1241,8 +1241,6 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
   const persistence = useNotificationPersistence()
   const desktop = useDesktopNotifications()
   const dnd = useDndMode()
-  const pullToRefresh = usePullToRefresh(fetchNotifications)
-
   // Fetch notifications (combine alerts + events + agents + activity)
   const fetchNotifications = useCallback(async () => {
     try {
@@ -1416,6 +1414,8 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
       setLoading(false)
     }
   }, [playSound, persistence, dnd, desktop])
+
+  const pullToRefresh = usePullToRefresh(fetchNotifications)
 
   // Initial fetch
   useEffect(() => {
