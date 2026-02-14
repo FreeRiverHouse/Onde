@@ -1,0 +1,269 @@
+{
+  "timestamp": "2026-02-14T23:21:01.673489+00:00",
+  "analysis": {
+    "total_trades": 159,
+    "timestamp": "2026-02-14T23:21:01.671010+00:00",
+    "by_asset": {
+      "eth": {
+        "trades": 24,
+        "wins": 0,
+        "losses": 0,
+        "pending": 24,
+        "pnl_cents": 0,
+        "avg_edge": 0.1265
+      },
+      "btc": {
+        "trades": 20,
+        "wins": 0,
+        "losses": 0,
+        "pending": 20,
+        "pnl_cents": 0,
+        "avg_edge": 0.1011
+      },
+      "weather": {
+        "trades": 115,
+        "wins": 19,
+        "losses": 33,
+        "pending": 63,
+        "pnl_cents": 0,
+        "win_rate": 0.365,
+        "avg_edge": 0.6971
+      }
+    },
+    "by_side": {
+      "no": {
+        "trades": 117,
+        "wins": 19,
+        "losses": 33,
+        "pending": 65,
+        "win_rate": 0.365,
+        "avg_edge": 0.6015
+      },
+      "yes": {
+        "trades": 42,
+        "wins": 0,
+        "losses": 0,
+        "pending": 42,
+        "avg_edge": 0.3533
+      }
+    },
+    "by_regime": {
+      "sideways": {
+        "trades": 4,
+        "wins": 0,
+        "losses": 0,
+        "pending": 4,
+        "avg_edge": 0.2283
+      },
+      "choppy": {
+        "trades": 40,
+        "wins": 0,
+        "losses": 0,
+        "pending": 40,
+        "avg_edge": 0.1036
+      },
+      "unknown": {
+        "trades": 115,
+        "wins": 19,
+        "losses": 33,
+        "pending": 63,
+        "win_rate": 0.365,
+        "avg_edge": 0.6971
+      }
+    },
+    "by_edge_bucket": {
+      "20%+": {
+        "trades": 118,
+        "wins": 19,
+        "losses": 33,
+        "pending": 66,
+        "win_rate": 0.365
+      },
+      "10-15%": {
+        "trades": 26,
+        "wins": 0,
+        "losses": 0,
+        "pending": 26
+      },
+      "5-10%": {
+        "trades": 15,
+        "wins": 0,
+        "losses": 0,
+        "pending": 15
+      }
+    },
+    "by_hour": {
+      "22": {
+        "trades": 24,
+        "wins": 3,
+        "losses": 8,
+        "pending": 13,
+        "win_rate": 0.273
+      },
+      "23": {
+        "trades": 49,
+        "wins": 0,
+        "losses": 7,
+        "pending": 42,
+        "win_rate": 0.0
+      },
+      "20": {
+        "trades": 8,
+        "wins": 1,
+        "losses": 6,
+        "pending": 1,
+        "win_rate": 0.143
+      },
+      "21": {
+        "trades": 31,
+        "wins": 11,
+        "losses": 12,
+        "pending": 8,
+        "win_rate": 0.478
+      },
+      "12": {
+        "trades": 3,
+        "wins": 0,
+        "losses": 0,
+        "pending": 3
+      },
+      "16": {
+        "trades": 1,
+        "wins": 0,
+        "losses": 0,
+        "pending": 1
+      },
+      "00": {
+        "trades": 6,
+        "wins": 0,
+        "losses": 0,
+        "pending": 6
+      },
+      "01": {
+        "trades": 3,
+        "wins": 0,
+        "losses": 0,
+        "pending": 3
+      },
+      "02": {
+        "trades": 5,
+        "wins": 0,
+        "losses": 0,
+        "pending": 5
+      },
+      "03": {
+        "trades": 1,
+        "wins": 0,
+        "losses": 0,
+        "pending": 1
+      },
+      "07": {
+        "trades": 2,
+        "wins": 0,
+        "losses": 0,
+        "pending": 2
+      },
+      "10": {
+        "trades": 14,
+        "wins": 0,
+        "losses": 0,
+        "pending": 14
+      },
+      "11": {
+        "trades": 5,
+        "wins": 0,
+        "losses": 0,
+        "pending": 5
+      },
+      "09": {
+        "trades": 2,
+        "wins": 0,
+        "losses": 0,
+        "pending": 2
+      },
+      "17": {
+        "trades": 1,
+        "wins": 0,
+        "losses": 0,
+        "pending": 1
+      },
+      "18": {
+        "trades": 2,
+        "wins": 2,
+        "losses": 0,
+        "pending": 0,
+        "win_rate": 1.0
+      },
+      "19": {
+        "trades": 2,
+        "wins": 2,
+        "losses": 0,
+        "pending": 0,
+        "win_rate": 1.0
+      }
+    },
+    "edge_stats": {
+      "mean": 0.5359778477762247,
+      "median": 0.6785,
+      "stdev": 0.28532763845287373,
+      "min": 0.090589563897707,
+      "max": 0.9374,
+      "count": 159
+    },
+    "prob_calibration": [
+      {
+        "predicted_prob": 0.1,
+        "actual_win_rate": 0.727,
+        "expected_win_rate": 0.105,
+        "sample_size": 22,
+        "calibration_error": 0.622
+      },
+      {
+        "predicted_prob": 0.2,
+        "actual_win_rate": 0.1,
+        "expected_win_rate": 0.191,
+        "sample_size": 30,
+        "calibration_error": -0.091
+      }
+    ],
+    "timing": []
+  },
+  "recommendations": [
+    {
+      "type": "regime_underperform",
+      "regime": "unknown",
+      "win_rate": 0.365,
+      "avg_edge": 0.6971,
+      "message": "Regime 'unknown' has 36% WR (52 trades). Consider raising min_edge.",
+      "action": "raise_min_edge",
+      "param": "regime.unknown.dynamic_min_edge",
+      "current_edge": 0.6971,
+      "suggested_edge": 1.0456500000000002
+    },
+    {
+      "type": "prob_miscalibrated",
+      "avg_cal_error": 0.3565,
+      "message": "Probability model miscalibrated by avg 35.6%. Need to adjust probability calculation.",
+      "action": "recalibrate_probs",
+      "details": [
+        {
+          "predicted_prob": 0.1,
+          "actual_win_rate": 0.727,
+          "expected_win_rate": 0.105,
+          "sample_size": 22,
+          "calibration_error": 0.622
+        },
+        {
+          "predicted_prob": 0.2,
+          "actual_win_rate": 0.1,
+          "expected_win_rate": 0.191,
+          "sample_size": 30,
+          "calibration_error": -0.091
+        }
+      ]
+    }
+  ],
+  "changes_applied": [],
+  "auto_tune_active": true,
+  "trades_until_auto": 0
+}
