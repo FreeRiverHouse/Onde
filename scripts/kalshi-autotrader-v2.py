@@ -2601,7 +2601,9 @@ def detect_market_regime(ohlc_data: list, momentum: dict) -> dict:
         result["vix_size_multiplier"] = 1.0  # No VIX data, normal sizing
     
     # Ensure min edge stays in reasonable bounds
-    result["dynamic_min_edge"] = max(0.05, min(0.20, result["dynamic_min_edge"]))
+    # In paper mode, use lower floor to generate more data
+    min_floor = 0.03 if DRY_RUN else 0.05
+    result["dynamic_min_edge"] = max(min_floor, min(0.20, result["dynamic_min_edge"]))
     
     return result
 
@@ -5252,6 +5254,11 @@ def run_cycle():
         print("😴 No opportunities found (crypto or weather)")
         return
     
+    # In paper mode, trade top N opportunities for maximum data collection
+    if DRY_RUN and len(all_opportunities) > 1:
+        max_paper_trades = min(5, len(all_opportunities))  # Top 5 per cycle
+        print(f"\n🧪 PAPER MODE: Will trade top {max_paper_trades} of {len(all_opportunities)} opportunities!")
+    
     # Take best opportunity
     best = all_opportunities[0]
     asset_type = best.get('asset', 'btc')
@@ -5566,6 +5573,39 @@ def run_cycle():
         print(f"   🧪 Simulating execution (no real money at risk)")
         log_dry_run_trade(trade_data)
         print(f"✅ [DRY RUN] Trade logged to {DRY_RUN_LOG_FILE}")
+        
+        # Paper mode: also log additional opportunities for more data
+        if len(all_opportunities) > 1:
+            extra_count = 0
+            for extra_opp in all_opportunities[1:5]:  # Top 5 total
+                extra_data = {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "type": "trade",
+                    "ticker": extra_opp["ticker"],
+                    "asset": extra_opp.get("asset", "btc"),
+                    "side": extra_opp["side"],
+                    "contracts": 1,
+                    "price_cents": extra_opp["price"],
+                    "cost_cents": extra_opp["price"],
+                    "edge": extra_opp["edge"],
+                    "edge_with_bonus": extra_opp.get("edge_with_bonus", extra_opp["edge"]),
+                    "our_prob": extra_opp["our_prob"],
+                    "base_prob": extra_opp.get("base_prob", extra_opp["our_prob"]),
+                    "market_prob": extra_opp["market_prob"],
+                    "strike": extra_opp.get("strike", 0),
+                    "current_price": extra_opp.get("current_price", 0),
+                    "minutes_to_expiry": extra_opp.get("minutes_left", 0),
+                    "momentum_aligned": extra_opp.get("momentum_aligned", False),
+                    "regime": extra_opp.get("regime", "unknown"),
+                    "dynamic_min_edge": extra_opp.get("dynamic_min_edge", 0),
+                    "result_status": "pending",
+                    "dry_run": True
+                }
+                log_dry_run_trade(extra_data)
+                extra_count += 1
+                print(f"   🧪 +{extra_count}: {extra_opp['ticker']} {extra_opp['side'].upper()} @{extra_opp['price']}¢ edge:{extra_opp['edge']*100:.1f}%")
+            if extra_count:
+                print(f"   📊 Total paper trades this cycle: {extra_count + 1}")
         return
     
     # Print streak position warning/note if applicable (T770)
@@ -5986,9 +6026,13 @@ def main():
             print(f"\n❌ Error: {e}")
             traceback.print_exc()
         
-        # Wait 5 minutes between cycles
-        print("\n💤 Sleeping 5 minutes...")
-        time.sleep(300)
+        # Wait between cycles - shorter in paper mode for more data
+        if DRY_RUN:
+            print("\n💤 Sleeping 1 minute (paper mode - fast cycle)...")
+            time.sleep(60)
+        else:
+            print("\n💤 Sleeping 5 minutes...")
+            time.sleep(300)
 
 
 # ============== SAFETY LIMITS (Added after 0% WR disaster) ==============
