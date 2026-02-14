@@ -107,6 +107,7 @@ BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters - MORE CONSERVATIVE
 MIN_EDGE = 0.04  # 4% minimum edge (was 10% — too high, generated 0 crypto trades)
+MAX_EDGE = 0.25  # 25% max edge — edges above this are likely model errors, not real alpha
 MAX_POSITION_PCT = 0.03  # 3% max per position (default, see per-asset below)
 KELLY_FRACTION = 0.05  # Very conservative Kelly (default, see per-asset below)
 MIN_BET_CENTS = 5
@@ -4233,6 +4234,92 @@ def update_trade_results():
     return {"updated": updated, "wins": wins, "losses": losses}
 
 
+def update_dryrun_trade_results():
+    """
+    Check settled markets and update DRY RUN trade log with actual results.
+    This is the missing feedback loop for paper trading!
+    Without this, we can never know if our predictions were correct.
+    """
+    log_path = Path(DRY_RUN_LOG_FILE)
+    if not log_path.exists():
+        return {"updated": 0, "wins": 0, "losses": 0}
+    
+    # Read all trades
+    trades = []
+    with open(log_path) as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                trades.append(json.loads(line))
+    
+    # Find pending trades
+    pending_trades = [t for t in trades if t.get("type") == "trade" and t.get("result_status") == "pending"]
+    
+    if not pending_trades:
+        return {"updated": 0, "wins": 0, "losses": 0}
+    
+    # Check unique tickers only (avoid redundant API calls)
+    unique_tickers = set(t.get("ticker") for t in pending_trades if t.get("ticker"))
+    
+    updated = 0
+    wins = 0
+    losses = 0
+    
+    # Fetch market results for each unique ticker
+    ticker_results = {}
+    for ticker in unique_tickers:
+        try:
+            market = get_market(ticker)
+            status = market.get("status")
+            result = market.get("result")
+            
+            if status == "finalized" and result:
+                ticker_results[ticker] = result
+        except Exception as e:
+            print(f"   ⚠️ Failed to check {ticker}: {e}")
+    
+    if not ticker_results:
+        return {"updated": 0, "wins": 0, "losses": 0}
+    
+    # Update all trades for settled tickers
+    for trade in trades:
+        if trade.get("type") != "trade" or trade.get("result_status") != "pending":
+            continue
+        
+        ticker = trade.get("ticker")
+        if ticker not in ticker_results:
+            continue
+        
+        result = ticker_results[ticker]
+        our_side = trade.get("side", "no")
+        
+        # Did we win?
+        we_won = (our_side == result)
+        
+        # Update trade record
+        trade["result_status"] = "win" if we_won else "loss"
+        trade["market_result"] = result
+        trade["settled_at"] = datetime.now(timezone.utc).isoformat()
+        
+        if we_won:
+            trade["profit_cents"] = (100 * trade.get("contracts", 1)) - trade.get("cost_cents", 0)
+            wins += 1
+        else:
+            trade["profit_cents"] = -trade.get("cost_cents", 0)
+            losses += 1
+        
+        updated += 1
+    
+    # Write back updated trades
+    if updated > 0:
+        with open(log_path, "w") as f:
+            for trade in trades:
+                f.write(json.dumps(trade) + "\n")
+        print(f"   📊 [PAPER] Updated {updated} dry-run trades: {wins}W / {losses}L")
+    
+    return {"updated": updated, "wins": wins, "losses": losses}
+
+
 def get_trade_stats() -> dict:
     """Calculate win/loss stats from trade log"""
     stats = {"total": 0, "wins": 0, "losses": 0, "pending": 0, "profit_cents": 0}
@@ -4273,10 +4360,37 @@ def log_trade(trade_data: dict):
 
 
 def log_dry_run_trade(trade_data: dict):
-    """Log a simulated trade (dry run mode)"""
+    """Log a simulated trade (dry run mode) with deduplication.
+    
+    Avoids re-logging the same ticker/side within the last N entries,
+    as paper mode runs every minute and would otherwise create many duplicates.
+    """
     trade_data["dry_run"] = True
     log_path = Path(DRY_RUN_LOG_FILE)
     log_path.parent.mkdir(exist_ok=True)
+    
+    # Deduplication: check last 10 entries for same ticker+side
+    ticker = trade_data.get("ticker", "")
+    side = trade_data.get("side", "")
+    
+    if ticker and side and log_path.exists():
+        try:
+            with open(log_path) as f:
+                lines = f.readlines()
+            # Check last 10 entries
+            recent = lines[-10:] if len(lines) >= 10 else lines
+            for line in recent:
+                try:
+                    entry = json.loads(line.strip())
+                    if entry.get("ticker") == ticker and entry.get("side") == side:
+                        # Same ticker+side recently logged, skip
+                        print(f"   🔄 Dedup: skipping {ticker} {side} (already in last 10 entries)")
+                        return
+                except json.JSONDecodeError:
+                    continue
+        except Exception:
+            pass  # If dedup check fails, proceed with logging
+    
     with open(log_path, "a") as f:
         f.write(json.dumps(trade_data) + "\n")
 
@@ -4828,6 +4942,13 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 gap = (MIN_EDGE - skip["best_edge"]) * 100
                 print(f"      {skip['ticker']} | Strike ${skip['strike']:,.0f} | {skip['best_side']} edge {edge_pct:+.1f}% (need {gap:.1f}% more) | {skip['minutes_left']}min left")
     
+    # Filter out suspiciously high edges (likely model errors, not real alpha)
+    before_cap = len(opportunities)
+    opportunities = [o for o in opportunities if o.get("edge", 0) <= MAX_EDGE]
+    if before_cap > len(opportunities):
+        capped = before_cap - len(opportunities)
+        print(f"   ⚠️ Edge cap: filtered {capped} trades with edge >{MAX_EDGE*100:.0f}% (suspicious)")
+    
     # Sort by edge (with momentum bonus for aligned trades)
     opportunities.sort(key=lambda x: x.get("edge_with_bonus", x["edge"]), reverse=True)
     return opportunities
@@ -5066,6 +5187,12 @@ def run_cycle():
         # Check for streak records when trades settle (T288)
         streak_status = check_streak_records()
         print(f"🎖️ {streak_status}")
+    
+    # Also update dry-run trades (PAPER TRADING FEEDBACK LOOP!)
+    if DRY_RUN:
+        dryrun_result = update_dryrun_trade_results()
+        if dryrun_result["updated"] > 0:
+            print(f"🧪 Paper trades settled: {dryrun_result['updated']} ({dryrun_result['wins']}W / {dryrun_result['losses']}L)")
     
     # Get stats
     stats = get_trade_stats()

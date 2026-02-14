@@ -1,0 +1,204 @@
+{
+  "generated_at": "2026-02-14T23:21:32.610852+00:00",
+  "source_file": "/Users/mattia/Projects/Onde/scripts/kalshi-trades-dryrun.jsonl",
+  "basic_stats": {
+    "total": 44,
+    "wins": 0,
+    "losses": 0,
+    "pending": 44,
+    "settled": 0,
+    "win_rate": null,
+    "total_pnl_cents": 0,
+    "max_consecutive_losses": 0,
+    "edge": {
+      "min": 0.090589563897707,
+      "max": 0.26879191101912414,
+      "avg": 0.11496313173681189,
+      "median": 0.10606077881425657
+    },
+    "edge_with_bonus": {
+      "min": 0.09080462213223861,
+      "max": 0.28879191101912416,
+      "avg": 0.12510631355499371
+    },
+    "our_prob": {
+      "min": 0.3025882416138037,
+      "max": 0.9495299167240504,
+      "avg": 0.8438267681004482
+    },
+    "market_prob": {
+      "min": 0.06,
+      "max": 0.85,
+      "avg": 0.7288636363636364
+    },
+    "price_cents": {
+      "min": 6,
+      "max": 85,
+      "avg": 72.88636363636364
+    },
+    "minutes_to_expiry": {
+      "min": 1359.5879051333332,
+      "max": 1420.1087926166665,
+      "avg": 1371.1541493200757
+    },
+    "assets": {
+      "eth": 24,
+      "btc": 20
+    },
+    "sides": {
+      "no": 26,
+      "yes": 18
+    },
+    "regimes": {
+      "sideways": 4,
+      "choppy": 40
+    },
+    "unique_tickers": 8,
+    "first_trade": "2026-02-14T22:19:55.446303+00:00",
+    "last_trade": "2026-02-14T23:20:26.564150+00:00"
+  },
+  "calibration": {
+    "status": "insufficient_data",
+    "settled_trades": 0,
+    "needed": 10,
+    "message": "Need at least 10 settled trades for calibration (have 0)"
+  },
+  "edge_analysis": {
+    "9-12%": {
+      "count": 40,
+      "wins": 0,
+      "losses": 0,
+      "pending": 40,
+      "win_rate": null,
+      "pnl_cents": 0,
+      "avg_edge": 0.1036,
+      "avg_price": 78.6
+    },
+    "12-15%": {
+      "count": 1,
+      "wins": 0,
+      "losses": 0,
+      "pending": 1,
+      "win_rate": null,
+      "pnl_cents": 0,
+      "avg_edge": 0.1375,
+      "avg_price": 33.0
+    },
+    "20-30%": {
+      "count": 3,
+      "wins": 0,
+      "losses": 0,
+      "pending": 3,
+      "win_rate": null,
+      "pnl_cents": 0,
+      "avg_edge": 0.2585,
+      "avg_price": 9.7
+    }
+  },
+  "regime_analysis": {
+    "sideways": {
+      "count": 4,
+      "wins": 0,
+      "losses": 0,
+      "pending": 4,
+      "win_rate": null,
+      "avg_edge": 0.2283,
+      "pnl_cents": 0,
+      "avg_dynamic_min_edge": 0.04
+    },
+    "choppy": {
+      "count": 40,
+      "wins": 0,
+      "losses": 0,
+      "pending": 40,
+      "win_rate": null,
+      "avg_edge": 0.1036,
+      "pnl_cents": 0,
+      "avg_dynamic_min_edge": 0.09
+    }
+  },
+  "timing_analysis": {
+    "by_hour": {
+      "22:00": {
+        "count": 8,
+        "wins": 0,
+        "losses": 0,
+        "pending": 8,
+        "win_rate": null
+      },
+      "23:00": {
+        "count": 36,
+        "wins": 0,
+        "losses": 0,
+        "pending": 36,
+        "win_rate": null
+      }
+    },
+    "by_day": {
+      "Saturday": {
+        "count": 44,
+        "wins": 0,
+        "losses": 0,
+        "pending": 44,
+        "win_rate": null
+      }
+    }
+  },
+  "duplication": {
+    "total_trades": 44,
+    "unique_ticker_side_combos": 9,
+    "unique_ratio": 0.2045,
+    "most_repeated": {
+      "KXETHD-26FEB1517-T2049.99 yes": 14,
+      "KXBTCD-26FEB1517-T70999.99 no": 8,
+      "KXBTCD-26FEB1517-T71499.99 no": 8,
+      "KXETHD-26FEB1517-T2129.99 no": 6,
+      "KXBTCD-26FEB1517-T68999.99 yes": 3,
+      "KXETHD-26FEB1517-T2009.99 no": 2
+    },
+    "conflicting_tickers": {
+      "KXETHD-26FEB1517-T2049.99": [
+        "yes",
+        "no"
+      ]
+    },
+    "has_conflicts": true
+  },
+  "readiness": {
+    "ready": false,
+    "checks_passed": 1,
+    "checks_total": 5,
+    "details": {
+      "min_trades": {
+        "value": 0,
+        "threshold": 200,
+        "pass": false,
+        "progress": "0/200"
+      },
+      "win_rate": {
+        "value": null,
+        "threshold": 0.55,
+        "pass": false,
+        "progress": "N/A"
+      },
+      "max_consec_losses": {
+        "value": 0,
+        "threshold": 8,
+        "pass": true,
+        "progress": "0/8"
+      },
+      "brier_score": {
+        "value": null,
+        "threshold": 0.08,
+        "pass": false,
+        "progress": "N/A"
+      },
+      "profit_factor": {
+        "value": null,
+        "threshold": 1.2,
+        "pass": false,
+        "progress": "N/A"
+      }
+    }
+  }
+}
