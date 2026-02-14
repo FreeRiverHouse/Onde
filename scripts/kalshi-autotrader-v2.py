@@ -106,7 +106,7 @@ YJZnQlMSeGK5ezv10pi0K5q7luyW8TNfknr5uafM5vq2c/LLcAJn
 BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters - MORE CONSERVATIVE
-MIN_EDGE = 0.10  # 10% minimum edge (was 15% but with wrong probabilities)
+MIN_EDGE = 0.04  # 4% minimum edge (was 10% — too high, generated 0 crypto trades)
 MAX_POSITION_PCT = 0.03  # 3% max per position (default, see per-asset below)
 KELLY_FRACTION = 0.05  # Very conservative Kelly (default, see per-asset below)
 MIN_BET_CENTS = 5
@@ -120,24 +120,26 @@ MAX_POSITIONS = 30
 # KEY INSIGHT: Different assets have different edge sources and liquidity profiles
 ASSET_CONFIG = {
     "btc": {
-        "kelly_fraction": 0.05,     # Standard Kelly
-        "max_position_pct": 0.03,   # 3% max per position
-        "min_edge": 0.10,           # 10% min edge
+        "kelly_fraction": 0.10,     # Higher Kelly - crypto is our main focus
+        "max_position_pct": 0.05,   # 5% max per position
+        "min_edge": 0.04,           # 4% min edge — realistic for crypto (was 10%, too high, produced 0 trades)
     },
     "eth": {
-        "kelly_fraction": 0.04,     # Lower Kelly (more volatile)
-        "max_position_pct": 0.025,  # 2.5% max per position (less liquid than BTC)
-        "min_edge": 0.12,           # 12% min edge (higher threshold for higher vol)
+        "kelly_fraction": 0.08,     # Slightly lower than BTC (more volatile)
+        "max_position_pct": 0.04,   # 4% max per position
+        "min_edge": 0.05,           # 5% min edge (was 12%, too high)
     },
     "sol": {  # T423 - Solana support
-        "kelly_fraction": 0.03,     # Conservative Kelly (high volatility, less predictable)
-        "max_position_pct": 0.02,   # 2% max per position (newer market, less liquid)
-        "min_edge": 0.15,           # 15% min edge (higher threshold for higher vol)
+        "kelly_fraction": 0.05,     # Conservative Kelly (high volatility, less predictable)
+        "max_position_pct": 0.03,   # 3% max per position (newer market, less liquid)
+        "min_edge": 0.06,           # 6% min edge (was 15%, too high)
     },
     "weather": {
-        "kelly_fraction": 0.08,     # Higher Kelly (NWS forecasts reliable)
+        # UPDATED 2026-02-08: Backtest showed 17.9% WR with old params, 75%+ with new
+        # Key insight: NWS forecasts have 2.8°F MAE, must require buffer from strike
+        "kelly_fraction": 0.05,     # Reduced from 0.08 (more conservative after analysis)
         "max_position_pct": 0.02,   # 2% max (weather markets less liquid)
-        "min_edge": 0.10,           # 10% min edge
+        "min_edge": 0.15,           # Increased from 0.10 (require stronger edge)
     },
     # Default for unknown assets
     "default": {
@@ -152,10 +154,15 @@ def get_asset_config(asset_type):
     asset_key = asset_type.lower() if asset_type else "default"
     return ASSET_CONFIG.get(asset_key, ASSET_CONFIG["default"])
 
-# Volatility assumptions
-BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical)
-ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility
+# Volatility assumptions (DEFAULTS - overridden by dynamic calculation when OHLC available)
+BTC_HOURLY_VOL = 0.005  # ~0.5% hourly volatility (empirical fallback)
+ETH_HOURLY_VOL = 0.007  # ~0.7% hourly volatility (empirical fallback)
 SOL_HOURLY_VOL = 0.012  # ~1.2% hourly volatility (T423 - Solana is more volatile)
+
+# Fat-tail adjustment: crypto returns have excess kurtosis (heavy tails)
+# Lognormal model underestimates tail probabilities → multiply vol by this factor
+# to widen the distribution and produce more realistic probabilities near strikes
+CRYPTO_FAT_TAIL_MULTIPLIER = float(os.getenv("FAT_TAIL_MULT", "1.4"))  # 1.4x widens distribution
 
 # Momentum config
 MOMENTUM_TIMEFRAMES = ["1h", "4h", "24h"]
@@ -164,9 +171,18 @@ MOMENTUM_WEIGHT = {"1h": 0.5, "4h": 0.3, "24h": 0.2}  # Short-term matters more 
 # Weather market config (T422 - Based on PredictionArena research)
 # Key insight: NWS forecasts are accurate within ±2-3°F for <48h predictions
 # Edge source: favorite-longshot bias + forecast accuracy
-WEATHER_ENABLED = os.getenv("WEATHER_ENABLED", "true").lower() in ("true", "1", "yes")
-WEATHER_CITIES = ["NYC", "MIA", "DEN", "CHI"]  # Top liquidity weather markets
+WEATHER_ENABLED = os.getenv("WEATHER_ENABLED", "false").lower() in ("true", "1", "yes")  # Disabled by default: 20% WR, model is broken (see docs/autotrader-improvement-plan.md)
+WEATHER_CITIES = ["NYC", "CHI", "DEN"]  # Removed MIA (0% WR), focus on higher-performing cities
 WEATHER_MAX_HOURS_TO_SETTLEMENT = 48  # Only trade within 48h of settlement (highest forecast accuracy)
+
+# ============== WEATHER SAFETY GUARDS (2026-02-08 Backtest-Validated) ==============
+# These filters improved win rate from 17.9% to 75%+ in backtesting
+# Key finding: 0°F gap = 6.4% WR, 2°F gap = 40% WR, 7°F+ gap = 100% WR
+WEATHER_MIN_FORECAST_STRIKE_GAP = float(os.getenv("WEATHER_MIN_GAP", "2.0"))  # Minimum °F between forecast and strike
+WEATHER_MAX_MARKET_CONVICTION = float(os.getenv("WEATHER_MAX_CONVICTION", "0.85"))  # Don't bet against 85%+ conviction
+WEATHER_MIN_OUR_PROB = float(os.getenv("WEATHER_MIN_PROB", "0.05"))  # Reject trades where our_prob < 5%
+WEATHER_FORECAST_UNCERTAINTY_OVERRIDE = float(os.getenv("WEATHER_UNCERTAINTY", "4.0"))  # Override default 2.0 with 4.0 based on MAE
+
 # Legacy constants for backwards compatibility - now use ASSET_CONFIG["weather"] (T441)
 WEATHER_MIN_EDGE = ASSET_CONFIG["weather"]["min_edge"]
 WEATHER_KELLY_FRACTION = ASSET_CONFIG["weather"]["kelly_fraction"]
@@ -2050,6 +2066,62 @@ def calculate_composite_signal_score(asset: str, side: str, ohlc_data: dict,
 
 # ============== PROPER PROBABILITY MODEL ==============
 
+def kelly_criterion_check(our_prob: float, price_cents: int) -> float:
+    """
+    Calculate correct Kelly fraction for a binary market bet.
+    
+    Kelly formula: f* = (b*p - q) / b
+    where:
+        b = net odds (payout / stake - 1) = (100/price - 1) for Kalshi
+        p = true probability of winning
+        q = 1 - p
+    
+    Returns: Optimal fraction to bet (0 if trade is -EV, never negative)
+    
+    CRITICAL: This was missing! The old code used fake edges of 60-90%
+    without checking if Kelly is positive. Most weather trades had negative Kelly
+    because our_prob was <20% while buying at 8-10 cents (which requires >8-10% prob to be +EV).
+    """
+    if price_cents <= 0 or price_cents >= 100 or our_prob <= 0:
+        return 0.0
+    
+    b = (100 - price_cents) / price_cents  # Net odds ratio
+    p = our_prob
+    q = 1 - p
+    
+    f = (b * p - q) / b
+    return max(0.0, f)  # Never bet negative Kelly
+
+
+def get_dynamic_hourly_vol(ohlc_data: list, asset: str) -> float:
+    """
+    Calculate realized hourly volatility from recent OHLC data.
+    
+    Falls back to hardcoded defaults if OHLC data is unavailable.
+    This replaces the static BTC_HOURLY_VOL/ETH_HOURLY_VOL constants
+    for more accurate probability calculations.
+    """
+    defaults = {"btc": BTC_HOURLY_VOL, "eth": ETH_HOURLY_VOL, "sol": SOL_HOURLY_VOL}
+    
+    if not ohlc_data or len(ohlc_data) < 10:
+        return defaults.get(asset, 0.005)
+    
+    # Calculate from OHLC: use close-to-close returns
+    try:
+        rv = calculate_realized_volatility(ohlc_data, hours=24)
+        if rv and rv > 0:
+            hourly_vol = rv / math.sqrt(24)  # Convert 24h vol to hourly
+            # Sanity bounds: don't let dynamic vol go crazy
+            min_vol = defaults.get(asset, 0.005) * 0.3  # Min 30% of default
+            max_vol = defaults.get(asset, 0.005) * 5.0   # Max 5x default
+            clamped = max(min_vol, min(max_vol, hourly_vol))
+            return clamped
+    except Exception:
+        pass
+    
+    return defaults.get(asset, 0.005)
+
+
 def norm_cdf(x):
     """Standard normal CDF approximation (no scipy needed)"""
     # Abramowitz and Stegun approximation
@@ -2063,15 +2135,21 @@ def norm_cdf(x):
 
 
 def calculate_prob_above_strike(current_price: float, strike: float, 
-                                 minutes_to_expiry: float, hourly_vol: float) -> float:
+                                 minutes_to_expiry: float, hourly_vol: float,
+                                 fat_tail: bool = True) -> float:
     """
     Calculate probability that price will be ABOVE strike at expiry.
-    Uses log-normal price model (simplified Black-Scholes).
+    Uses log-normal price model (simplified Black-Scholes) with fat-tail adjustment.
     
     P(S_T > K) = N(d2) where:
     d2 = (ln(S/K) + (r - σ²/2)T) / (σ√T)
     
     For short-term crypto, r ≈ 0 (no drift assumption for hourly)
+    
+    Fat-tail adjustment: crypto returns have excess kurtosis, so we multiply
+    sigma by CRYPTO_FAT_TAIL_MULTIPLIER to widen the distribution and produce
+    less extreme probabilities (closer to 50% for near-strike prices).
+    This creates more edge opportunities compared to the pure lognormal model.
     """
     if minutes_to_expiry <= 0:
         return 1.0 if current_price > strike else 0.0
@@ -2082,6 +2160,10 @@ def calculate_prob_above_strike(current_price: float, strike: float,
     # Annualized volatility (hourly vol * sqrt(24*365) for proper scaling)
     # But for short periods, we use hourly vol directly scaled by sqrt(time)
     sigma = hourly_vol * math.sqrt(T)  # Vol for this time period
+    
+    # Apply fat-tail adjustment for crypto (makes distribution wider = less extreme probabilities)
+    if fat_tail:
+        sigma = sigma * CRYPTO_FAT_TAIL_MULTIPLIER
     
     if sigma <= 0:
         return 1.0 if current_price > strike else 0.0
@@ -4174,6 +4256,12 @@ def get_trade_stats() -> dict:
     return stats
 
 
+def log_skip(skip_data: dict):
+    """Log a skipped trade to the skip log file."""
+    with open(SKIP_LOG_FILE, "a") as f:
+        f.write(json.dumps(skip_data) + "\n")
+
+
 def log_trade(trade_data: dict):
     """Log a trade"""
     log_path = Path(TRADE_LOG_FILE)
@@ -4429,11 +4517,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
         if ticker.startswith("KXBTCD"):
             asset = "btc"
             current_price = prices.get("btc", 0)
-            hourly_vol = BTC_HOURLY_VOL
+            # Use dynamic volatility from OHLC data when available
+            hourly_vol = get_dynamic_hourly_vol(ohlc_data.get("btc", []) if ohlc_data else [], "btc")
         elif ticker.startswith("KXETHD"):
             asset = "eth"
             current_price = prices.get("eth", 0)
-            hourly_vol = ETH_HOURLY_VOL
+            hourly_vol = get_dynamic_hourly_vol(ohlc_data.get("eth", []) if ohlc_data else [], "eth")
         else:
             skip_reasons["not_crypto"] += 1
             continue
@@ -4512,8 +4601,12 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
         if yes_extreme:
             skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
         elif prob_above > market_prob_yes + dynamic_edge:
+            # KELLY CHECK: Skip if Kelly fraction is negative (trade is -EV)
+            kelly_f = kelly_criterion_check(prob_above, yes_ask) if yes_ask else 0
+            if kelly_f <= 0:
+                skip_reasons["negative_kelly"] = skip_reasons.get("negative_kelly", 0) + 1
             # Skip YES if momentum is strongly bearish (dir < -0.3 with strength > 0.3)
-            if mom_dir < -0.3 and mom_str > 0.3:
+            elif mom_dir < -0.3 and mom_str > 0.3:
                 skip_due_to_momentum = True
                 skip_reasons["momentum_conflict"] += 1
             else:
@@ -4602,8 +4695,13 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
             if no_price:  # Only count as extreme if we have a price
                 skip_reasons["extreme_price"] = skip_reasons.get("extreme_price", 0) + 1
         elif prob_below > market_prob_no + dynamic_edge:
+            # KELLY CHECK: Skip if Kelly fraction is negative (trade is -EV)
+            no_price_for_kelly = 100 - yes_bid if yes_bid else 0
+            kelly_f_no = kelly_criterion_check(prob_below, no_price_for_kelly) if no_price_for_kelly else 0
+            if kelly_f_no <= 0:
+                skip_reasons["negative_kelly"] = skip_reasons.get("negative_kelly", 0) + 1
             # Skip NO if momentum is strongly bullish (dir > 0.3 with strength > 0.3)
-            if mom_dir > 0.3 and mom_str > 0.3:
+            elif mom_dir > 0.3 and mom_str > 0.3:
                 if not skip_due_to_momentum:  # Don't double count
                     skip_reasons["momentum_conflict"] += 1
             else:
@@ -4704,7 +4802,7 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 })
     
     # Log skip summary if verbose
-    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price")):
+    if verbose and (skip_reasons["insufficient_edge"] or skip_reasons["too_close_expiry"] or skip_reasons["momentum_conflict"] or skip_reasons.get("extreme_price") or skip_reasons.get("negative_kelly")):
         print(f"\n📋 Skip Summary:")
         if skip_reasons["not_crypto"]:
             print(f"   - Not crypto markets: {skip_reasons['not_crypto']}")
@@ -4716,6 +4814,8 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
             print(f"   - Extreme price (≤5¢ or ≥95¢): {skip_reasons['extreme_price']}")
         if skip_reasons["momentum_conflict"]:
             print(f"   - Momentum conflict (betting against trend): {skip_reasons['momentum_conflict']}")
+        if skip_reasons.get("negative_kelly"):
+            print(f"   - Negative Kelly (trade is -EV despite apparent edge): {skip_reasons['negative_kelly']}")
         
         if skip_reasons["insufficient_edge"]:
             print(f"   - Insufficient edge (need >{MIN_EDGE*100:.0f}%): {len(skip_reasons['insufficient_edge'])}")
@@ -4850,8 +4950,51 @@ def find_weather_opportunities(verbose: bool = True) -> list:
                         skip_reasons["insufficient_edge"] += 1
                         continue
                     
-                    # Determine side and price
+                    # ============== SAFETY GUARDS (2026-02-08 Backtest-Validated) ==============
+                    # These filters improved win rate from 17.9% to 75%+ in backtesting
+                    
+                    our_prob = edge_result.get("calculated_probability", 0)
+                    market_prob = edge_result.get("market_probability", 0.5)
+                    forecast_temp = edge_result.get("forecast_temp")
                     side = "yes" if recommendation == "BUY_YES" else "no"
+                    
+                    # 1. Reject near-zero probability trades (our_prob < 5%)
+                    # These are trades where we have no confidence but edge appears high due to formula
+                    if our_prob < WEATHER_MIN_OUR_PROB:
+                        skip_reasons["low_prob"] = skip_reasons.get("low_prob", 0) + 1
+                        if verbose:
+                            print(f"   ⛔ {ticker}: Rejected - our_prob {our_prob:.1%} < {WEATHER_MIN_OUR_PROB:.0%} threshold")
+                        continue
+                    
+                    # 2. Don't bet against extreme market conviction (>85%)
+                    # When market says 85%+ YES, betting NO rarely succeeds
+                    # When market says 85%+ NO (15% YES), betting YES rarely succeeds
+                    if side == "no" and market_prob > WEATHER_MAX_MARKET_CONVICTION:
+                        skip_reasons["high_conviction"] = skip_reasons.get("high_conviction", 0) + 1
+                        if verbose:
+                            print(f"   ⛔ {ticker}: Rejected - market conviction {market_prob:.0%} > {WEATHER_MAX_MARKET_CONVICTION:.0%} (betting NO)")
+                        continue
+                    if side == "yes" and (1 - market_prob) > WEATHER_MAX_MARKET_CONVICTION:
+                        skip_reasons["high_conviction"] = skip_reasons.get("high_conviction", 0) + 1
+                        if verbose:
+                            print(f"   ⛔ {ticker}: Rejected - market conviction {(1-market_prob):.0%} > {WEATHER_MAX_MARKET_CONVICTION:.0%} (betting YES)")
+                        continue
+                    
+                    # 3. Require minimum gap between forecast and strike
+                    # Backtesting: 0°F gap = 6.4% WR, 2°F gap = 40% WR, 7°F+ gap = 100% WR
+                    if forecast_temp is not None and WEATHER_MIN_FORECAST_STRIKE_GAP > 0:
+                        midpoint = parsed.get("midpoint")
+                        if midpoint is not None:
+                            gap = abs(forecast_temp - midpoint)
+                            if gap < WEATHER_MIN_FORECAST_STRIKE_GAP:
+                                skip_reasons["insufficient_gap"] = skip_reasons.get("insufficient_gap", 0) + 1
+                                if verbose:
+                                    print(f"   ⛔ {ticker}: Rejected - gap {gap:.1f}°F < {WEATHER_MIN_FORECAST_STRIKE_GAP:.1f}°F minimum")
+                                continue
+                    
+                    # ============== END SAFETY GUARDS ==============
+                    
+                    # Determine price for the order
                     price = yes_ask if side == "yes" else (100 - yes_bid if yes_bid else None)
                     
                     if not price or price <= 0:
@@ -4865,18 +5008,19 @@ def find_weather_opportunities(verbose: bool = True) -> list:
                         "price": price,
                         "edge": edge,
                         "edge_with_bonus": edge,  # No momentum/news bonus for weather
-                        "our_prob": edge_result.get("calculated_probability", 0.5),
-                        "market_prob": edge_result.get("market_probability", 0.5),
-                        "forecast_temp": edge_result.get("forecast_temp"),
+                        "our_prob": our_prob,
+                        "market_prob": market_prob,
+                        "forecast_temp": forecast_temp,
                         "uncertainty": edge_result.get("uncertainty"),
                         "city": city,
                         "is_high_temp": parsed.get("is_high_temp", True),
                         "market_type": parsed.get("market_type", "threshold"),
                         "title": title,
+                        "forecast_strike_gap": abs(forecast_temp - parsed.get("midpoint", forecast_temp)) if forecast_temp else None,
                         # Weather-specific Kelly (slightly higher confidence)
                         "kelly_override": WEATHER_KELLY_FRACTION,
                         # Reason for trade log
-                        "reason": f"Weather: {city} {'high' if parsed.get('is_high_temp') else 'low'} temp, NWS forecast {edge_result.get('forecast_temp', '?')}°F ± {edge_result.get('uncertainty', '?')}°F, edge {edge*100:.1f}%",
+                        "reason": f"Weather: {city} {'high' if parsed.get('is_high_temp') else 'low'} temp, NWS forecast {forecast_temp}°F, gap {abs(forecast_temp - parsed.get('midpoint', forecast_temp)) if forecast_temp else '?'}°F, edge {edge*100:.1f}%",
                     }
                     opportunities.append(opp)
                     
@@ -5067,6 +5211,11 @@ def run_cycle():
     
     # Pass OHLC data for regime detection
     ohlc_data = {"btc": btc_ohlc, "eth": eth_ohlc}
+    
+    # Show dynamic volatility (new: replaces hardcoded vol)
+    btc_dyn_vol = get_dynamic_hourly_vol(btc_ohlc, "btc")
+    eth_dyn_vol = get_dynamic_hourly_vol(eth_ohlc, "eth")
+    print(f"📊 Dynamic Vol: BTC={btc_dyn_vol*100:.3f}%/hr (fat-tail adj: {btc_dyn_vol*CRYPTO_FAT_TAIL_MULTIPLIER*100:.3f}%) | ETH={eth_dyn_vol*100:.3f}%/hr")
     
     # CHECK FOR REGIME CHANGES (alert on shift)
     btc_regime = detect_market_regime(btc_ohlc, btc_momentum)
@@ -5262,7 +5411,13 @@ def run_cycle():
             multiplier_parts += f", vix={vix_multiplier:.0%}"
         print(f"   Position size: {adj_direction} {total_multiplier:.0%} ({multiplier_parts})")
     
-    kelly_bet = cash * adjusted_kelly * best["edge"]
+    # Use correct Kelly criterion: f* = (b*p - q) / b, then scale by our conservative fraction
+    correct_kelly_f = kelly_criterion_check(best["our_prob"], best["price"])
+    if correct_kelly_f <= 0:
+        print(f"⛔ Kelly says don't bet (f*={correct_kelly_f:.4f}) — skipping")
+        return
+    # Scale by our conservative fraction (adjusted_kelly is already regime/streak/latency adjusted)
+    kelly_bet = cash * min(correct_kelly_f, adjusted_kelly) * best["edge"]
     # Apply per-asset max position limit (T441)
     bet_size = max(MIN_BET_CENTS / 100, min(kelly_bet, cash * max_position_pct))
     
@@ -5539,6 +5694,14 @@ class HealthHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         """Suppress default logging to avoid noise."""
         pass
+    
+    def do_OPTIONS(self):
+        """Handle CORS preflight requests."""
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
     
     def do_GET(self):
         if self.path == "/health" or self.path == "/":
