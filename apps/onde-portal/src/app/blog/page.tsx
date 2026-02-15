@@ -3,45 +3,9 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import { blogPosts } from '@/data/blog-posts'
 
-interface BlogPost {
-  slug: string
-  title: string
-  subtitle: string
-  date: string
-  readTime: string
-  tags: string[]
-  emoji: string
-  gradient: string
-  excerpt: string
-}
-
-const posts: BlogPost[] = [
-  {
-    slug: 'kalshi-trading-bot-ai',
-    title: 'Come funziona il nostro trading bot AI su Kalshi',
-    subtitle: '7.000 righe di Python che tradano da sole',
-    date: 'February 2026',
-    readTime: '12 min read',
-    tags: ['Trading', 'AI', 'Kalshi', 'Kelly Criterion', 'Python', 'Prediction Markets'],
-    emoji: '🤖',
-    gradient: 'from-onde-teal via-cyan-500 to-blue-500',
-    excerpt:
-      'Dietro le quinte del nostro autotrader: architettura multi-agente (Forecaster, Critic, Trader), Kelly criterion, momentum detection e edge calibration su prediction markets.',
-  },
-  {
-    slug: 'radeon-7900-xtx-mac-tinygrad',
-    title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad',
-    subtitle: 'The "Impossible" Setup',
-    date: 'February 2026',
-    readTime: '8 min read',
-    tags: ['GPU', 'TinyGrad', 'macOS', 'AMD', 'ML', 'eGPU'],
-    emoji: '🔥',
-    gradient: 'from-red-500 via-orange-500 to-amber-500',
-    excerpt:
-      'We got a Radeon RX 7900 XTX (24GB VRAM) running ML inference on a MacBook Pro M1 via Thunderbolt eGPU, using TinyGrad with a small patch. Everyone said it was impossible.',
-  },
-]
+const posts = blogPosts
 
 export default function BlogPage() {
   return (

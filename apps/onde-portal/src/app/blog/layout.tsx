@@ -45,6 +45,9 @@ export const metadata: Metadata = {
   keywords: ['tech', 'behind the scenes', 'AI agents', 'trading bots', 'eGPU', 'engineering', 'open source', 'machine learning', 'GPU', 'tinygrad', 'AMD', 'macOS'],
   alternates: {
     canonical: '/blog',
+    types: {
+      'application/rss+xml': '/blog/feed.xml/',
+    },
   },
   openGraph: {
     title: 'Onde Tech — Behind the Scenes',
