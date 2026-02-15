@@ -5,6 +5,15 @@
 ## POLYMARKET = SOLO PHONE MIRROR!!!
 ## ⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔
 
+## 📱 iPhone Mirroring - CHECK CORRETTO
+**PRIMA di dire "scollegato" nei report, VERIFICA con lo script:**
+```bash
+./scripts/check-iphone-mirror.sh
+# Output: CONNECTED | DISCONNECTED | NOT_RUNNING
+```
+**MAI assumere che sia scollegato senza verificare!**
+Se lo script dice CONNECTED → è connesso. Punto.
+
 ## 🤖 DIVISIONE HARDWARE AGENTI
 
 | Agente | Hardware | GPU | Note |
