@@ -1722,10 +1722,10 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 20, max_trades
         print("❌ No balance available for trading!")
         return
     
-    # Use a virtual balance for dry run
-    if dry_run and balance <= 0:
+    # Use a virtual balance for dry run (if balance too low for any real trade)
+    if dry_run and balance < 1.0:
         balance = 100.0
-        print(f"   Using virtual balance: ${balance:.2f}")
+        print(f"   📝 Using virtual balance: ${balance:.2f} (paper mode)")
     
     # Get current positions
     positions = get_positions()
