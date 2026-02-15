@@ -14,7 +14,7 @@ const breadcrumbJsonLd = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Blog',
+      name: 'Tech',
       item: 'https://onde.la/blog',
     },
   ],
@@ -24,8 +24,8 @@ const blogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   '@id': 'https://onde.la/blog',
-  name: 'Onde Blog',
-  description: 'Engineering stories, open-source exploits, and impossible setups from the FreeRiverHouse lab.',
+  name: 'Onde Tech',
+  description: 'Behind the scenes at Onde — the tech stack, AI agents, trading bots, eGPU setups, and engineering deep dives from the FreeRiverHouse lab.',
   url: 'https://onde.la/blog',
   publisher: {
     '@type': 'Organization',
@@ -40,15 +40,15 @@ const blogJsonLd = {
 }
 
 export const metadata: Metadata = {
-  title: 'Blog | Onde — Engineering Stories & Open Source',
-  description: 'Engineering stories, open-source exploits, and impossible setups from the FreeRiverHouse lab. GPU hacking, ML on Mac, and more.',
-  keywords: ['blog', 'engineering', 'open source', 'machine learning', 'GPU', 'tinygrad', 'AMD', 'macOS', 'eGPU'],
+  title: 'Tech | Onde — Behind the Scenes',
+  description: 'Behind the scenes at Onde — the tech stack, AI agents, trading bots, eGPU setups, and engineering deep dives from the FreeRiverHouse lab.',
+  keywords: ['tech', 'behind the scenes', 'AI agents', 'trading bots', 'eGPU', 'engineering', 'open source', 'machine learning', 'GPU', 'tinygrad', 'AMD', 'macOS'],
   alternates: {
     canonical: '/blog',
   },
   openGraph: {
-    title: 'Onde Blog — Engineering Stories & Open Source',
-    description: 'Engineering stories, open-source exploits, and impossible setups from the FreeRiverHouse lab.',
+    title: 'Onde Tech — Behind the Scenes',
+    description: 'Behind the scenes at Onde — the tech stack, AI agents, trading bots, eGPU setups, and engineering deep dives.',
     url: 'https://onde.la/blog',
     siteName: 'Onde',
     images: [
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
         url: '/images/og-onde.png',
         width: 1200,
         height: 630,
-        alt: 'Onde Blog',
+        alt: 'Onde Tech',
       },
     ],
     locale: 'en_US',
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Onde Blog — Engineering Stories & Open Source',
-    description: 'Engineering stories, open-source exploits, and impossible setups from the FreeRiverHouse lab.',
+    title: 'Onde Tech — Behind the Scenes',
+    description: 'Behind the scenes at Onde — the tech stack, AI agents, trading bots, eGPU setups, and engineering deep dives.',
     creator: '@Onde_FRH',
     images: ['/images/og-onde.png'],
   },

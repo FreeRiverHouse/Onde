@@ -55,7 +55,7 @@ const breadcrumbJsonLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://onde.la' },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://onde.la/blog' },
+    { '@type': 'ListItem', position: 2, name: 'Tech', item: 'https://onde.la/blog' },
     {
       '@type': 'ListItem',
       position: 3,
@@ -66,7 +66,7 @@ const breadcrumbJsonLd = {
 }
 
 export const metadata: Metadata = {
-  title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad | Onde Blog',
+  title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad | Onde Tech',
   description:
     'We got a Radeon RX 7900 XTX (24GB VRAM) running ML inference on a MacBook Pro M1 via Thunderbolt eGPU using TinyGrad. GPT-2, LLaMA 3.1 8B, and more.',
   keywords: [

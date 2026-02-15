@@ -117,7 +117,7 @@ export default function RadeonTinygradArticle() {
         <Breadcrumb
           items={[
             { label: 'Home', href: '/', emoji: '🏠' },
-            { label: 'Blog', href: '/blog', emoji: '📝' },
+            { label: 'Tech', href: '/blog', emoji: '⚡' },
             { label: 'Radeon 7900 XTX + TinyGrad', emoji: '🔥' },
           ]}
         />

@@ -55,7 +55,7 @@ export default function BlogPage() {
         <Breadcrumb
           items={[
             { label: 'Home', href: '/', emoji: '🏠' },
-            { label: 'Blog', emoji: '📝' },
+            { label: 'Tech', emoji: '⚡' },
           ]}
         />
       </div>
@@ -71,7 +71,7 @@ export default function BlogPage() {
                        bg-gradient-to-br from-onde-teal/20 to-onde-purple/20
                        border border-white/10 shadow-xl shadow-onde-teal/10 mb-8"
           >
-            <span className="text-4xl">📝</span>
+            <span className="text-4xl">⚡</span>
           </motion.div>
 
           <motion.div
@@ -81,7 +81,7 @@ export default function BlogPage() {
             transition={{ delay: 0.1 }}
           >
             <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-            From the Lab
+            Behind the Scenes
           </motion.div>
 
           <motion.h1
@@ -91,7 +91,7 @@ export default function BlogPage() {
             transition={{ delay: 0.2 }}
           >
             <span className="text-white">Onde </span>
-            <span className="text-gradient-neon">Blog</span>
+            <span className="text-gradient-neon">Tech</span>
           </motion.h1>
 
           <motion.p
@@ -100,8 +100,8 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Engineering stories, open-source exploits, and impossible setups
-            from the FreeRiverHouse lab.
+            Behind the scenes at Onde — the tech stack, AI agents, trading bots,
+            eGPU setups, and engineering deep dives from the lab.
           </motion.p>
 
           <div className="glow-line w-32 mx-auto mt-8" />
