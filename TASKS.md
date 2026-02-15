@@ -374,3 +374,6 @@
 | 158 | DASH-005 | Integrare CF Analytics nella dashboard onde.surf (widget pageviews/referrer) | ⭐ Dashboard | DONE | @clawdinho | Already done by DASH-004 - /api/analytics route fetches CF GraphQL, EnhancedStats shows real data |
 | 159 | MOBILE-001 | Ottimizzare onde.la per mobile (72% traffico è mobile) | 🔥 UX | DONE | @clawdinho | 9 files, 44px touch targets, 16px min text, skin creator touch-action, deployed | CF Analytics mostra 72% mobile, iOS dominante |
 | 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | DONE | @clawdinho | kalshi-forecast-tracker.py, reads opus-forecasts.jsonl, checks settled markets | opus-forecasts.jsonl creato, serve script di analisi accuracy |
+| 161 | BLOG-010 | Scrivere blog post "How We Built onde.la" - tech stack, design decisions, CF deployment | ⭐ Content | TODO | - | Next.js + CF Pages + Tailwind + Framer Motion |
+| 162 | SEO-023 | Aggiungere structured data (JSON-LD) alle pagine games per rich snippets | ⭐ SEO | TODO | - | SoftwareApplication schema per games, AggregateRating |
+| 163 | PERF-001 | Lighthouse audit onde.la e fixare performance issues (LCP, CLS, FID) | ⭐ Performance | TODO | - | Target: 90+ performance su mobile |
