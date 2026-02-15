@@ -441,6 +441,9 @@ def recalculate_prob(trade: Trade, params: dict) -> float:
     if sigma <= 0:
         return 1.0 if trade.current_price > trade.strike else 0.0
 
+    if trade.strike <= 0 or trade.current_price <= 0:
+        return trade.our_prob
+
     log_ratio = math.log(trade.current_price / trade.strike)
     d2 = log_ratio / sigma - sigma / 2
     prob_above = norm_cdf(d2)

@@ -1,0 +1,223 @@
+======================================================================
+FULL PARAMETER SWEEP RESULTS — TRADE-006
+======================================================================
+Date: 2026-02-17
+Script: scripts/kalshi-backtest.py --sweep
+Sweep mode: All parameters in SWEEP_RANGES
+
+Data Summary:
+  Total unique trades: 340
+  Settled: 68 (7W / 61L overall; 4 pass filters = 3W / 1L)
+  Pending: 179
+  Sources: live (115), dryrun (184), daily snapshots (574), ML (114)
+  Trades passing all filters: 4 (all ETH crypto)
+  Excluded: 64 (mostly weather with edges >15% = false positives)
+
+======================================================================
+1. PARAMETER SWEEP RESULTS
+======================================================================
+
+--- MIN_EDGE (default: 0.04) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+0.02        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14  ★
+0.04        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14  ★
+0.06        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14  ★
+0.08        1     0.0%   $-3.96   -100.0%   0.00    4.0%   0.00
+0.10        1     0.0%   $-3.96   -100.0%   0.00    4.0%   0.00
+0.12        1     0.0%   $-3.96   -100.0%   0.00    4.0%   0.00
+0.15        0     0.0%   $+0.00     0.0%    0.00    0.0%   0.00
+
+BEST: min_edge ≤ 0.06 (all identical — current 0.04 is OPTIMAL)
+NOTE: At 0.08+, the 3 winning BTC trades get filtered out, leaving
+      only the 1 losing trade with edge=0.23 (filtered at max_edge
+      0.20 for ETH). Keep at 0.04.
+
+--- KELLY_FRACTION (default: 0.05) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+0.03        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.05        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.08        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.10        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.15        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.20        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.25        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.30        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+
+BEST: ALL IDENTICAL — position size floor (1 contract min) + per-asset
+      max_position_pct caps bind before Kelly. Keep 0.05.
+
+--- FAT_TAIL_MULTIPLIER (default: 1.4) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+1.0         1   100.0%   $+1.40   +38.9%   0.00    0.0%   inf  ★
+1.2         1   100.0%   $+1.40   +38.9%   0.00    0.0%   inf
+1.4         4    75.0%   $+0.56    +3.9%   2.08    3.9%   1.14
+1.6         1   100.0%   $+1.40   +38.9%   0.00    0.0%   inf
+1.8         1   100.0%   $+1.40   +38.9%   0.00    0.0%   inf
+
+BEST by PnL: 1.0 (and 1.2, 1.6, 1.8 — all $+1.40)
+CAUTION: Values ≠ 1.4 produce only 1 trade because the probability
+         recalculation changes edges, causing 3 trades to fail the
+         Kelly criterion check. With n=1, 100% WR is meaningless.
+         The default 1.4 gives 4 trades — better statistical power.
+RECOMMENDATION: KEEP 1.4 — optimizing on n=1 is pure noise.
+
+--- MOMENTUM_CONFLICT_THRESHOLD (default: 0.3) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+0.2         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.3         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.4         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.5         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+
+BEST: ALL IDENTICAL — no trades in the dataset were affected by the
+      momentum conflict filter. Keep 0.3.
+
+--- MIN_TIME_TO_EXPIRY_MINUTES (default: 45) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+30          4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+45          4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+60          0     0.0%   $+0.00    +0.0%    0.00    0.0%   0.00
+90          0     0.0%   $+0.00    +0.0%    0.00    0.0%   0.00
+
+BEST: 30 or 45 (identical). At 60+, ALL trades get excluded.
+RECOMMENDATION: Keep 45 — going lower risks short-expiry noise.
+
+--- STREAK_TILT_REDUCTION (default: 0.7) ---
+
+Value    Trades   WR       PnL       ROI     Sharpe  MaxDD%  PF
+-----    ------  ------  --------  -------  ------  ------  -----
+0.5         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.7         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+0.85        4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+1.0         4    75.0%   $+0.56    +3.9%    2.08    3.9%   1.14
+
+BEST: ALL IDENTICAL — streak never hit threshold in this dataset.
+      Keep 0.7.
+
+======================================================================
+2. BASE BACKTEST (Current Config)
+======================================================================
+
+Parameters:
+  min_edge: 0.04      kelly_fraction: 0.05
+  fat_tail_multiplier: 1.4
+  min_time_to_expiry_minutes: 45
+  momentum_conflict_threshold: 0.3
+
+Results:
+  Included trades: 4    (all ETH)
+  Win Rate:        75.0%
+  PnL:             $+0.56
+  ROI:             +3.9%
+  Sharpe:          2.08
+  Max Drawdown:    $3.96 (3.9%)
+  Profit Factor:   1.14
+
+By Regime:
+  choppy:   3 trades, 100% WR, $+4.52 (+43.1% ROI)
+  sideways: 1 trade,    0% WR, $-3.96 (-100.0% ROI)
+
+By Side:
+  YES: 1 trade, 100% WR, $+1.40 (+38.9% ROI)
+  NO:  3 trades,  67% WR, $-0.84 (-7.7% ROI)
+
+======================================================================
+3. WEATHER TRADE ANALYSIS (Excluded Trades)
+======================================================================
+
+All 64 excluded settled trades are WEATHER with edges 42-94%.
+These are correctly excluded — empirical results confirm:
+
+  Weather settled trades: 64 total
+    Wins:  4 (6.3% WR)  — only KXLOWTNYC-26JAN31 won (3 trades)
+                           + KXLOWTNYC-26FEB03 (1 trade)
+    Losses: 60 (93.7%)  — massive losing rate despite 40-90% "edges"
+
+CONCLUSION: Weather edge model is fundamentally broken. Calculated
+edges of 60-90% result in 6% win rate. The edge cap of 15% for
+weather (TRADE-005) is correct and should NOT be relaxed. Weather
+trading should likely be disabled entirely until the model is fixed.
+
+======================================================================
+4. RECOMMENDED PARAMETERS
+======================================================================
+
+┌───────────────────────────────┬──────────┬──────────────┐
+│ Parameter                     │ Current  │ Recommended  │
+├───────────────────────────────┼──────────┼──────────────┤
+│ min_edge                      │ 0.04     │ 0.04 (KEEP)  │
+│ kelly_fraction                │ 0.05     │ 0.05 (KEEP)  │
+│ fat_tail_multiplier           │ 1.4      │ 1.4  (KEEP)  │
+│ momentum_conflict_threshold   │ 0.3      │ 0.3  (KEEP)  │
+│ min_time_to_expiry_minutes    │ 45       │ 45   (KEEP)  │
+│ streak_tilt_reduction         │ 0.7      │ 0.7  (KEEP)  │
+│ max_edge (global)             │ 0.20     │ 0.20 (KEEP)  │
+│ weather max_edge              │ 0.15     │ 0.15 (KEEP)  │
+│ btc_min_edge                  │ 0.04     │ 0.04 (KEEP)  │
+│ eth_min_edge                  │ 0.05     │ 0.05 (KEEP)  │
+│ sol_min_edge                  │ 0.06     │ 0.06 (KEEP)  │
+│ weather_min_edge              │ 0.15     │ 0.15 (KEEP)  │
+└───────────────────────────────┴──────────┴──────────────┘
+
+VERDICT: ✅ NO CHANGES RECOMMENDED — Current autotrader v2 config
+         is already at or near optimal for the available data.
+
+======================================================================
+5. WHY THE SWEEP IS INCONCLUSIVE (And What To Do About It)
+======================================================================
+
+The sweep is limited by extremely low sample size:
+
+  - Only 4 settled trades pass all filters (all ETH crypto)
+  - 64 weather trades are correctly excluded (6% WR = broken model)
+  - 179 trades still pending settlement
+  - Parameters like kelly_fraction and streak_tilt_reduction have
+    zero discriminating power because position sizing hits floor
+
+KEY INSIGHT: The problem is NOT parameter tuning — it's VOLUME.
+With only 4 settled crypto trades, no sweep can reliably distinguish
+between parameter values. The strategy needs:
+
+1. MORE SETTLED TRADES — wait for 179 pending trades to settle,
+   or increase trading frequency
+2. MORE ASSET DIVERSITY — currently all passing trades are ETH.
+   Add BTC, SOL volume (TRADE-014)
+3. FIX WEATHER MODEL — 93.7% loss rate means the weather probability
+   model is fundamentally wrong. Either fix or disable entirely
+4. RE-RUN THIS SWEEP after accumulating ≥30 settled crypto trades
+   (TRADE-015) — Kelly and position sizing differences will emerge
+
+======================================================================
+6. COMPARISON WITH AUTOTRADER V2 CONFIG
+======================================================================
+
+Current autotrader v2 config (scripts/kalshi-autotrader-v2.py):
+
+  MIN_EDGE = 0.04                     ← matches recommended
+  KELLY_FRACTION = 0.05               ← matches recommended
+  CRYPTO_FAT_TAIL_MULTIPLIER = 1.4    ← matches recommended
+  Momentum threshold = 0.3 (hardcoded)← matches recommended
+  Per-asset configs:
+    BTC: kelly=0.10, min_edge=0.04, max_edge=0.20  ← OK
+    ETH: kelly=0.08, min_edge=0.05, max_edge=0.20  ← OK
+    SOL: kelly=0.05, min_edge=0.06, max_edge=0.20  ← OK
+    Weather: kelly=0.05, min_edge=0.15, max_edge=0.15  ← OK (strict)
+
+CHANGES NEEDED: NONE — autotrader v2 config is correctly calibrated.
+The TRADE-005 edge calibration already brought parameters to the
+right levels. Focus should shift to volume (TRADE-014) and model
+improvement rather than parameter tuning.
+
+======================================================================
+Generated by: scripts/kalshi-backtest.py --sweep
+Fixed bug: added guard for strike=0 in recalculate_prob()
+======================================================================

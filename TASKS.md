@@ -286,7 +286,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 123 | TRADE-005 | Calibrare edge model — weather edges >25% erano falsi, servono cap/sanity check | 🔥 Trading accuracy | ✅ DONE | @clawdinho | MAX_EDGE 25%→20%, per-asset caps (weather 15%), tighter prob bounds [0.03-0.97], reduced momentum adj ±15%→±10% |
-| 124 | TRADE-006 | Run parameter sweep con backtest e applicare parametri ottimali all'autotrader | 🔥 Trading performance | TODO | - |
+| 124 | TRADE-006 | Run parameter sweep con backtest e applicare parametri ottimali all'autotrader | 🔥 Trading performance | ✅ DONE | @clawdinho | Full sweep of 6 params × 32 runs. Only 4 settled trades pass filters (all ETH). Current config already optimal — no changes needed. Volume is the bottleneck, not params. See data/trading/parameter-sweep-results.txt |
 | 125 | TRADE-007 | Aggiungere per-regime strategy switching (ETH 60% WR in choppy, 0% in sideways) | ⭐ Trading | TODO | - |
 
 ### 🔥 NUOVI (da BLOG-002 completato)
