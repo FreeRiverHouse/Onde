@@ -6,11 +6,12 @@ Creates/updates a public gist with trading stats JSON that the static site
 can fetch at runtime, bypassing the static export limitation.
 
 Usage:
-    python push-stats-to-gist.py [--create] [--source v1|v2|all]
+    python push-stats-to-gist.py [--create] [--source v1|v2|v3|all] [--polymarket]
 
 Options:
     --create        Create a new gist (first run only)
-    --source X      Data source: v1, v2, or all (combined). Default: v2
+    --source X      Data source: v1, v2, v3, or all (combined). Default: v2
+    --polymarket    Also push Polymarket positions data to gist
 """
 
 import json
@@ -24,6 +25,9 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent
 TRADES_FILE_V1 = SCRIPT_DIR / "kalshi-trades.jsonl"
 TRADES_FILE_V2 = SCRIPT_DIR / "kalshi-trades-v2.jsonl"
+TRADES_FILE_V3 = SCRIPT_DIR.parent / "data" / "trading" / "kalshi-v3-trades.jsonl"
+POLYMARKET_POSITIONS_FILE = SCRIPT_DIR.parent / "data" / "memory-backups" / "2026-02-15" / "memory" / "polymarket-positions.json"
+POLYMARKET_STATS_FILENAME = "onde-polymarket-stats.json"
 SETTLEMENTS_FILE_V1 = SCRIPT_DIR / "kalshi-settlements.json"  # T349
 SETTLEMENTS_FILE_V2 = SCRIPT_DIR / "kalshi-settlements-v2.json"  # T349
 GIST_ID_FILE = SCRIPT_DIR.parent / "data" / "trading" / "stats-gist-id.txt"
@@ -1254,17 +1258,71 @@ def load_trades_from_file(filepath, source_tag=None):
                 continue
     return trades
 
+def load_v3_trades_from_file(filepath, source_tag='v3'):
+    """Load v3 trades from JSONL file.
+    
+    V3 trades have a different format (dry_run autotrader v3):
+    - action: BUY_YES/BUY_NO/SKIP (we only want BUY_*)
+    - price_cents instead of price (sometimes market_price_yes/market_price_no)
+    - edge, kelly_size, forecast_prob fields
+    - No result_status yet (all pending/dry_run)
+    """
+    trades = []
+    if not filepath.exists():
+        print(f"Warning: V3 trades file not found: {filepath}")
+        return trades
+    
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                trade = json.loads(line)
+                # Only include actual trades (BUY_YES or BUY_NO), skip SKIPs
+                action = trade.get('action', '')
+                if action not in ('BUY_YES', 'BUY_NO'):
+                    continue
+                
+                # Normalize v3 format to match v2 for stats calculation
+                normalized = {
+                    'timestamp': trade.get('timestamp', ''),
+                    'ticker': trade.get('ticker', ''),
+                    'side': 'yes' if action == 'BUY_YES' else 'no',
+                    'contracts': trade.get('contracts', 1),
+                    'price': trade.get('price_cents', trade.get('market_price_yes', 50)),
+                    'price_cents': trade.get('price_cents', trade.get('market_price_yes', 50)),
+                    'result_status': 'pending',  # v3 dry run trades are all pending
+                    'edge': trade.get('edge', 0),
+                    'edge_with_bonus': trade.get('edge', 0),
+                    'kelly_size': trade.get('kelly_size', 0),
+                    'forecast_prob': trade.get('forecast_prob', 0),
+                    'forecast_confidence': trade.get('forecast_confidence', ''),
+                    'dry_run': trade.get('dry_run', True),
+                    'title': trade.get('title', ''),
+                    'category': trade.get('category', ''),
+                    '_source': source_tag,
+                }
+                trades.append(normalized)
+            except json.JSONDecodeError:
+                continue
+    return trades
+
+
 def load_trades(source='v2'):
     """Load trades based on source selection."""
     if source == 'v1':
         return load_trades_from_file(TRADES_FILE_V1, 'v1')
     elif source == 'v2':
         return load_trades_from_file(TRADES_FILE_V2, 'v2')
+    elif source == 'v3':
+        return load_v3_trades_from_file(TRADES_FILE_V3, 'v3')
     elif source == 'all':
         v1_trades = load_trades_from_file(TRADES_FILE_V1, 'v1')
         v2_trades = load_trades_from_file(TRADES_FILE_V2, 'v2')
+        v3_trades = load_v3_trades_from_file(TRADES_FILE_V3, 'v3')
         # Combine and sort by timestamp
-        combined = v1_trades + v2_trades
+        combined = v1_trades + v2_trades + v3_trades
         combined.sort(key=lambda t: t.get('timestamp', ''))
         return combined
     else:
@@ -1460,7 +1518,7 @@ def calculate_stats(trades, source='v2'):
     by_source = None
     if source == 'all':
         by_source = {}
-        for src in ['v1', 'v2']:
+        for src in ['v1', 'v2', 'v3']:
             src_trades = [t for t in settled if t.get('_source') == src]
             src_wins = sum(1 for t in src_trades if t.get('result_status') == 'won')
             src_total = len(src_trades)
@@ -1596,6 +1654,80 @@ def calculate_stats(trades, source='v2'):
     
     return result
 
+def load_polymarket_positions():
+    """Load Polymarket positions from backup file.
+    
+    Also searches for most recent polymarket-positions.json in memory-backups.
+    Returns structured data suitable for gist/dashboard consumption.
+    """
+    # Try the specific path first, then search for most recent
+    pm_file = POLYMARKET_POSITIONS_FILE
+    
+    if not pm_file.exists():
+        # Search for most recent backup
+        backup_dir = SCRIPT_DIR.parent / "data" / "memory-backups"
+        if backup_dir.exists():
+            candidates = []
+            for d in sorted(backup_dir.iterdir(), reverse=True):
+                candidate = d / "memory" / "polymarket-positions.json"
+                if candidate.exists():
+                    candidates.append(candidate)
+            if candidates:
+                pm_file = candidates[0]
+                print(f"Using Polymarket positions from: {pm_file}")
+    
+    if not pm_file.exists():
+        print("Warning: No Polymarket positions file found")
+        return None
+    
+    try:
+        with open(pm_file, 'r') as f:
+            data = json.load(f)
+        
+        positions = data.get('positions', [])
+        bankroll = data.get('bankroll', 0)
+        available = data.get('available', 0)
+        total_pnl = data.get('total_pnl', 0)
+        daily_pnl = data.get('daily_pnl', 0)
+        
+        # Calculate stats from positions
+        open_positions = [p for p in positions if p.get('status') == 'open']
+        total_cost = sum(p.get('cost', 0) for p in open_positions)
+        total_potential_win = sum(p.get('to_win', 0) for p in open_positions)
+        
+        return {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "source_file": str(pm_file),
+            "data_updated_at": data.get('updated_at', ''),
+            "bankroll": bankroll,
+            "available": available,
+            "total_pnl": total_pnl,
+            "daily_pnl": daily_pnl,
+            "positions": [{
+                "id": p.get('id', ''),
+                "market": p.get('market', ''),
+                "side": p.get('side', ''),
+                "cost": p.get('cost', 0),
+                "odds": p.get('odds', 0),
+                "to_win": p.get('to_win', 0),
+                "status": p.get('status', 'unknown'),
+                "opened_at": p.get('opened_at', ''),
+                "note": p.get('note', ''),
+            } for p in positions],
+            "summary": {
+                "total_positions": len(positions),
+                "open_positions": len(open_positions),
+                "total_invested": round(total_cost, 2),
+                "total_potential_win": round(total_potential_win, 2),
+                "exposure_pct": round((total_cost / bankroll * 100) if bankroll > 0 else 0, 1),
+            },
+            "notes": data.get('notes', ''),
+        }
+    except Exception as e:
+        print(f"Warning: Could not load Polymarket positions: {e}")
+        return None
+
+
 def get_gist_id():
     """Get existing gist ID or return None."""
     if GIST_ID_FILE.exists():
@@ -1677,21 +1809,94 @@ def update_gist(gist_id, stats_json):
     track_consecutive_failures(success=False)
     return False
 
+def update_gist_multi(gist_id, files_dict):
+    """Update existing gist with multiple files using GitHub API (T767)."""
+    import tempfile
+    
+    # Build the -f arguments for multiple files
+    last_error = None
+    for attempt in range(MAX_RETRIES):
+        if attempt > 0:
+            backoff = INITIAL_BACKOFF_SECONDS * (2 ** (attempt - 1))
+            print(f"  Retry {attempt}/{MAX_RETRIES-1} in {backoff}s...")
+            time.sleep(backoff)
+        
+        # Build gh api command with multiple file contents
+        cmd = ["gh", "api", "-X", "PATCH", f"/gists/{gist_id}"]
+        for filename, content in files_dict.items():
+            cmd.extend(["-f", f"files[{filename}][content]={content}"])
+        
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            print(f"Updated gist with {len(files_dict)} files: https://gist.github.com/{gist_id}")
+            track_consecutive_failures(success=True)
+            return True
+        
+        last_error = result.stderr
+        print(f"Error updating gist (attempt {attempt + 1}/{MAX_RETRIES}): {last_error}")
+    
+    log_gist_error(f"update_gist_multi({gist_id}) failed after {MAX_RETRIES} attempts: {last_error}")
+    track_consecutive_failures(success=False)
+    return False
+
+
 def main():
     create_new = "--create" in sys.argv
+    push_polymarket = "--polymarket" in sys.argv
     
     # Parse source argument
     source = 'v2'  # default
     for i, arg in enumerate(sys.argv):
         if arg == '--source' and i + 1 < len(sys.argv):
             source = sys.argv[i + 1]
-            if source not in ['v1', 'v2', 'all']:
-                print(f"Invalid source '{source}'. Use v1, v2, or all.")
+            if source not in ['v1', 'v2', 'v3', 'all']:
+                print(f"Invalid source '{source}'. Use v1, v2, v3, or all.")
                 sys.exit(1)
     
     # Load trades and calculate stats
     trades = load_trades(source)
     stats = calculate_stats(trades, source)
+    
+    # Add v3 paper trading summary if available (always include for dashboard)
+    v3_trades = load_v3_trades_from_file(TRADES_FILE_V3, 'v3')
+    if v3_trades:
+        v3_buy_trades = [t for t in v3_trades if t.get('side') in ('yes', 'no')]
+        stats["v3PaperTrading"] = {
+            "totalTrades": len(v3_buy_trades),
+            "pendingTrades": len(v3_buy_trades),  # all v3 are dry run = pending
+            "dryRun": True,
+            "avgEdge": round(sum(t.get('edge', 0) for t in v3_buy_trades) / len(v3_buy_trades) * 100, 2) if v3_buy_trades else 0,
+            "avgKellySize": round(sum(t.get('kelly_size', 0) for t in v3_buy_trades) / len(v3_buy_trades), 4) if v3_buy_trades else 0,
+            "byAction": {
+                "BUY_YES": len([t for t in v3_buy_trades if t.get('side') == 'yes']),
+                "BUY_NO": len([t for t in v3_buy_trades if t.get('side') == 'no']),
+            },
+            "dateRange": {
+                "first": v3_buy_trades[0].get('timestamp', '') if v3_buy_trades else None,
+                "last": v3_buy_trades[-1].get('timestamp', '') if v3_buy_trades else None,
+            },
+            "recentTrades": [{
+                "timestamp": t.get('timestamp'),
+                "ticker": t.get('ticker'),
+                "title": t.get('title', ''),
+                "side": t.get('side'),
+                "contracts": t.get('contracts'),
+                "price_cents": t.get('price_cents', t.get('price', 0)),
+                "edge": round(t.get('edge', 0) * 100, 1),
+                "forecast_prob": round(t.get('forecast_prob', 0) * 100, 1),
+                "forecast_confidence": t.get('forecast_confidence', ''),
+            } for t in sorted(v3_buy_trades, key=lambda x: x.get('timestamp', ''), reverse=True)[:10]],
+        }
+        print(f"V3 paper trades: {len(v3_buy_trades)} trades (dry run)")
+    
+    # Load and embed Polymarket data (always include for dashboard)
+    pm_data = load_polymarket_positions()
+    if pm_data:
+        stats["polymarket"] = pm_data
+        print(f"Polymarket: {pm_data['summary']['open_positions']} open positions, "
+              f"${pm_data['bankroll']} bankroll")
+    
     stats_json = json.dumps(stats, indent=2)
     
     source_label = f"[{source}] " if source != 'v2' else ""
@@ -1712,12 +1917,28 @@ def main():
             print(f"Saved gist ID to {GIST_ID_FILE}")
     else:
         print(f"Updating existing gist {gist_id}...")
-        update_gist(gist_id, stats_json)
+        
+        # Build files dict for multi-file gist update
+        files = {STATS_FILENAME: stats_json}
+        
+        # Add Polymarket as separate file if requested
+        if push_polymarket and pm_data:
+            pm_json = json.dumps(pm_data, indent=2)
+            files[POLYMARKET_STATS_FILENAME] = pm_json
+            print(f"Also pushing Polymarket data as {POLYMARKET_STATS_FILENAME}")
+        
+        if len(files) > 1:
+            update_gist_multi(gist_id, files)
+        else:
+            update_gist(gist_id, stats_json)
     
     # Print raw URL for static site
     if gist_id:
         raw_url = f"https://gist.githubusercontent.com/FreeRiverHouse/{gist_id}/raw/{STATS_FILENAME}"
         print(f"\nFetch URL for static site:\n{raw_url}")
+        if push_polymarket and pm_data:
+            pm_url = f"https://gist.githubusercontent.com/FreeRiverHouse/{gist_id}/raw/{POLYMARKET_STATS_FILENAME}"
+            print(f"Polymarket URL:\n{pm_url}")
 
 if __name__ == "__main__":
     main()

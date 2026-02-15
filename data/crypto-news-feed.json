@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T16:00:05.357885+00:00",
+  "timestamp": "2026-02-15T16:30:03.402501+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin Takes Step Towards Quantum Fix as Experts Diverge on Urgency of Threat",
+      "url": "https://decrypt.co/358068/bitcoin-quantum-fix-experts-diverge-urgency-threat",
+      "source": "decrypt",
+      "description": "Bitcoin developers lay the groundwork for post-quantum upgrades, but experts vary on whether the threat is years or decades away.",
+      "published": "2026-02-15T16:17:16+00:00"
+    },
     {
       "title": "Here\u2019s what happened in crypto today",
       "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -184,13 +191,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network Lightning Labs released a new toolkit that enables AI agents to operate directly on the Bitcoin Lightning Network. This post Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-13T16:49:58+00:00"
-    },
-    {
-      "title": "State-Sponsored Hackers Using Popular AI Tools Including Gemini, Google Warns",
-      "url": "https://decrypt.co/358028/state-sponsored-hackers-using-popular-ai-tools-including-gemini-google-warns",
-      "source": "decrypt",
-      "description": "A new report from Google AI Threat Tracker shows how hackers from North Korea, Iran and Russia are using AI to speed up their attacks.",
-      "published": "2026-02-13T16:46:02+00:00"
     },
     {
       "title": "U.S. Treasury: Congress Needs to Pass Crypto Legislation This Spring\u00a0",

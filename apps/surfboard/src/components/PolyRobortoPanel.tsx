@@ -1,183 +1,202 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { useToast } from './Toast'
+import { useState } from 'react'
+import { TrendingUp, TrendingDown, DollarSign, Clock } from 'lucide-react'
 
-interface TradingStatus {
-  isRunning: boolean
-  balance: number
-  openPositions: number
-  todayPnL: number
-  weeklyPnL: number
+// Polymarket data embedded in the main trading stats gist
+interface PolymarketPosition {
+  id: string
+  market: string
+  side: string
+  cost: number
+  odds: number
+  to_win: number
+  status: string
+  opened_at: string
+  note: string
 }
 
-type ServiceStatus = 'online' | 'offline' | 'checking'
+interface PolymarketData {
+  generated_at: string
+  data_updated_at: string
+  bankroll: number
+  available: number
+  total_pnl: number
+  daily_pnl: number
+  positions: PolymarketPosition[]
+  summary: {
+    total_positions: number
+    open_positions: number
+    total_invested: number
+    total_potential_win: number
+    exposure_pct: number
+  }
+  notes: string
+}
 
-export function PolyRobortoPanel() {
-  const [status, setStatus] = useState<TradingStatus | null>(null)
-  const [feedback, setFeedback] = useState('')
-  const [sending, setSending] = useState(false)
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>('checking')
-  const [loading, setLoading] = useState(true)
-  const { showToast } = useToast()
+export function PolyRobortoPanel({ data, loading }: { data?: PolymarketData | null; loading?: boolean }) {
+  const [expanded, setExpanded] = useState(false)
 
-  const fetchStatus = useCallback(async () => {
-    try {
-      const res = await fetch('/api/polyroborto/status')
-      if (res.ok) {
-        const data = await res.json()
-        setStatus(data)
-        setServiceStatus('online')
-      } else {
-        throw new Error('API error')
-      }
-    } catch {
-      // Demo data for when service is offline
-      setStatus({
-        isRunning: false,
-        balance: 0,
-        openPositions: 0,
-        todayPnL: 0,
-        weeklyPnL: 0
-      })
-      setServiceStatus('offline')
-    }
-    setLoading(false)
-  }, [])
+  if (loading) {
+    return (
+      <section aria-label="Polymarket Trading" className="space-y-3">
+        <div className="animate-pulse h-8 bg-white/5 rounded-lg w-48" />
+        <div className="grid grid-cols-2 gap-3">
+          <div className="animate-pulse h-20 bg-white/5 rounded-xl" />
+          <div className="animate-pulse h-20 bg-white/5 rounded-xl" />
+          <div className="animate-pulse h-20 bg-white/5 rounded-xl" />
+          <div className="animate-pulse h-20 bg-white/5 rounded-xl" />
+        </div>
+      </section>
+    )
+  }
 
-  useEffect(() => {
-    fetchStatus()
-    const interval = setInterval(fetchStatus, 60000)
-    return () => clearInterval(interval)
-  }, [fetchStatus])
+  if (!data) {
+    return (
+      <section aria-label="Polymarket Trading" className="flex flex-col items-center justify-center py-8 text-gray-400">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-3">
+          <div className="w-5 h-5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-30" />
+        </div>
+        <p className="text-sm">No Polymarket data available</p>
+        <p className="text-[10px] text-gray-600 mt-1">Run push-stats-to-gist.py --polymarket</p>
+      </section>
+    )
+  }
 
-  const sendFeedback = useCallback(async () => {
-    if (!feedback.trim()) return
-
-    setSending(true)
-    try {
-      await fetch('/api/polyroborto/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ feedback })
-      })
-      setFeedback('')
-      showToast('Feedback sent to trading agent', 'success')
-    } catch {
-      showToast('Feedback saved locally', 'info')
-    }
-    setSending(false)
-  }, [feedback, showToast])
+  const openPositions = data.positions.filter(p => p.status === 'open')
 
   return (
-    <section aria-label="PolyRoborto Trading Bot" className="bg-white/5 rounded-2xl p-6 border border-white/10 card-lift">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <h2 className="text-lg font-medium text-white">PolyRoborto</h2>
-          <div className="flex items-center gap-2">
-            <div className={`status-dot ${serviceStatus === 'online' ? 'status-dot-online' : serviceStatus === 'offline' ? 'status-dot-offline' : 'status-dot-warning'}`} />
-            <span className="text-xs text-white/40">
-              {serviceStatus === 'online' ? 'Connected' : serviceStatus === 'offline' ? 'Offline' : 'Checking...'}
-            </span>
+    <section aria-label="Polymarket Trading" className="space-y-4">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10 border border-white/[0.05]">
+          <div className="flex items-center gap-1.5 mb-1">
+            <DollarSign className="w-3 h-3 text-purple-400" />
+            <span className="text-[10px] text-gray-500 uppercase tracking-wider">Bankroll</span>
+          </div>
+          <div className="text-lg font-semibold font-mono text-white">
+            ${data.bankroll.toFixed(2)}
+          </div>
+          <div className="text-[10px] text-gray-600">
+            ${data.available.toFixed(2)} available
           </div>
         </div>
-        <span className={`text-xs px-2 py-1 rounded-full ${
-          status?.isRunning
-            ? 'bg-emerald-500/20 text-emerald-400'
-            : 'bg-white/10 text-white/40'
-        }`}>
-          {status?.isRunning ? 'Trading' : 'Paused'}
-        </span>
+
+        <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10 border border-white/[0.05]">
+          <div className="flex items-center gap-1.5 mb-1">
+            <TrendingUp className="w-3 h-3 text-purple-400" />
+            <span className="text-[10px] text-gray-500 uppercase tracking-wider">Positions</span>
+          </div>
+          <div className="text-lg font-semibold font-mono text-white">
+            {data.summary.open_positions}
+          </div>
+          <div className="text-[10px] text-gray-600">
+            {data.summary.exposure_pct}% exposed
+          </div>
+        </div>
+
+        <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10 border border-white/[0.05]">
+          <div className="flex items-center gap-1.5 mb-1">
+            {data.total_pnl >= 0 ? (
+              <TrendingUp className="w-3 h-3 text-emerald-400" />
+            ) : (
+              <TrendingDown className="w-3 h-3 text-red-400" />
+            )}
+            <span className="text-[10px] text-gray-500 uppercase tracking-wider">Total PnL</span>
+          </div>
+          <div className={`text-lg font-semibold font-mono ${
+            data.total_pnl >= 0 ? 'text-emerald-400' : 'text-red-400'
+          }`}>
+            {data.total_pnl >= 0 ? '+' : ''}${data.total_pnl.toFixed(2)}
+          </div>
+        </div>
+
+        <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10 border border-white/[0.05]">
+          <div className="flex items-center gap-1.5 mb-1">
+            <DollarSign className="w-3 h-3 text-cyan-400" />
+            <span className="text-[10px] text-gray-500 uppercase tracking-wider">Invested</span>
+          </div>
+          <div className="text-lg font-semibold font-mono text-white">
+            ${data.summary.total_invested.toFixed(2)}
+          </div>
+          <div className="text-[10px] text-gray-600">
+            to win ${data.summary.total_potential_win.toFixed(2)}
+          </div>
+        </div>
       </div>
 
-      {/* Offline notice */}
-      {serviceStatus === 'offline' && (
-        <div className="mb-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-          <div className="flex items-center gap-2 text-amber-400 text-sm">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Trading bot requires local server - start it on your machine</span>
-          </div>
-        </div>
-      )}
-
-      {/* Stats Grid */}
-      {loading ? (
-        <div className="grid grid-cols-2 gap-3 mb-6" role="status" aria-label="Loading trading stats">
-          <div className="skeleton-enhanced h-16 w-full" aria-hidden="true" />
-          <div className="skeleton-enhanced h-16 w-full" aria-hidden="true" />
-          <div className="skeleton-enhanced h-16 w-full" aria-hidden="true" />
-          <div className="skeleton-enhanced h-16 w-full" aria-hidden="true" />
-          <span className="sr-only">Loading trading statistics...</span>
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10">
-            <div className="text-lg font-semibold text-white number-animate">
-              ${status?.balance?.toFixed(2) || '0.00'}
-            </div>
-            <div className="text-xs text-white/40">Balance</div>
-          </div>
-          <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10">
-            <div className="text-lg font-semibold text-white number-animate">
-              {status?.openPositions ?? 0}
-            </div>
-            <div className="text-xs text-white/40">Positions</div>
-          </div>
-          <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10">
-            <div className={`text-lg font-semibold number-animate ${
-              (status?.todayPnL ?? 0) >= 0 ? 'text-emerald-400' : 'text-red-400'
-            }`}>
-              {status?.todayPnL !== undefined
-                ? `${status.todayPnL >= 0 ? '+' : ''}$${status.todayPnL.toFixed(2)}`
-                : '$0.00'
-              }
-            </div>
-            <div className="text-xs text-white/40">Today</div>
-          </div>
-          <div className="bg-white/5 rounded-xl p-3 transition-all hover:bg-white/10">
-            <div className={`text-lg font-semibold number-animate ${
-              (status?.weeklyPnL ?? 0) >= 0 ? 'text-emerald-400' : 'text-red-400'
-            }`}>
-              {status?.weeklyPnL !== undefined
-                ? `${status.weeklyPnL >= 0 ? '+' : ''}$${status.weeklyPnL.toFixed(2)}`
-                : '$0.00'
-              }
-            </div>
-            <div className="text-xs text-white/40">Week</div>
-          </div>
-        </div>
-      )}
-
-      {/* Feedback Section */}
-      <div className="border-t border-white/10 pt-4">
-        <label htmlFor="polyroborto-feedback" className="text-sm text-white/60 mb-2 block">
-          Tech Support Feedback
-        </label>
-        <textarea
-          id="polyroborto-feedback"
-          placeholder="Send feedback to tech agent for optimization..."
-          value={feedback}
-          onChange={e => setFeedback(e.target.value)}
-          className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-amber-500/50 transition-colors resize-none h-20"
-        />
-        <div className="flex items-center justify-end mt-2">
+      {/* Open Positions */}
+      {openPositions.length > 0 && (
+        <div>
           <button
-            onClick={sendFeedback}
-            disabled={sending || !feedback.trim()}
-            aria-label="Send feedback to trading agent"
-            className="px-4 py-2 rounded-lg bg-amber-500/20 text-amber-400 text-sm font-medium hover:bg-amber-500/30 btn-press transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
+            onClick={() => setExpanded(!expanded)}
+            className="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-300 transition-colors mb-2"
           >
-            {sending && (
-              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-            )}
-            {sending ? 'Sending...' : 'Send Feedback'}
+            <span className="uppercase tracking-wider font-medium">Open Positions ({openPositions.length})</span>
+            <span>{expanded ? '▲' : '▼'}</span>
           </button>
+
+          {expanded && (
+            <div className="space-y-2">
+              {openPositions.map((pos) => (
+                <div
+                  key={pos.id}
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-all"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                        pos.side === pos.side.toUpperCase() 
+                          ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                          : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                      }`}>
+                        {pos.side}
+                      </span>
+                      <p className="text-sm text-gray-300 truncate">
+                        {pos.market}
+                      </p>
+                    </div>
+                    {pos.note && (
+                      <p className="text-[10px] text-gray-600 mt-0.5 truncate">{pos.note}</p>
+                    )}
+                    <div className="flex items-center gap-2 mt-1 text-[10px] text-gray-600">
+                      <Clock className="w-3 h-3" />
+                      <span>{new Date(pos.opened_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                  <div className="text-right ml-3">
+                    <p className="text-sm font-mono text-gray-300">
+                      ${pos.cost.toFixed(2)}
+                    </p>
+                    <p className="text-[10px] text-gray-500">
+                      odds: {(pos.odds * 100).toFixed(0)}¢
+                    </p>
+                    <p className="text-[10px] text-emerald-500/70">
+                      → ${pos.to_win.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+      )}
+
+      {/* Notes */}
+      {data.notes && (
+        <div className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.03]">
+          <p className="text-[10px] text-gray-500 italic">{data.notes}</p>
+        </div>
+      )}
+
+      {/* Last updated */}
+      <div className="flex items-center justify-between text-[10px] text-gray-600">
+        <span>
+          Data from: {data.data_updated_at ? new Date(data.data_updated_at).toLocaleDateString() : 'unknown'}
+        </span>
+        <span className="px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500/70 border border-yellow-500/20">
+          📱 iPhone Mirror
+        </span>
       </div>
     </section>
   )

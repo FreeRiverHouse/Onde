@@ -64,6 +64,7 @@ import { DailyGoalTracker } from '@/components/DailyGoalTracker';
 import { ComparisonIndicator } from '@/components/ComparisonIndicator';
 import { DailyVolumeWidget } from '@/components/DailyVolumeWidget';
 import { StatsComparisonTooltip, useComparisonTooltip, ComparisonTooltipToggle } from '@/components/StatsComparisonTooltip';
+import { PolyRobortoPanel } from '@/components/PolyRobortoPanel';
 
 // ============== CONSTANTS ==============
 // External gist URL for trading stats (works on static Cloudflare Pages deploy)
@@ -509,6 +510,58 @@ interface TradingStats {
   } | null;
   // Win rate trend from real trade data (DASH-001)
   winRateTrend?: WinRateTrendData | null;
+  // V3 paper trading summary
+  v3PaperTrading?: {
+    totalTrades: number;
+    pendingTrades: number;
+    dryRun: boolean;
+    avgEdge: number;
+    avgKellySize: number;
+    byAction: { BUY_YES: number; BUY_NO: number };
+    dateRange: { first: string | null; last: string | null };
+    recentTrades: Array<{
+      timestamp: string;
+      ticker: string;
+      title: string;
+      side: string;
+      contracts: number;
+      price_cents: number;
+      edge: number;
+      forecast_prob: number;
+      forecast_confidence: string;
+    }>;
+  } | null;
+  // Polymarket positions
+  polymarket?: PolymarketGistData | null;
+}
+
+// Polymarket data from gist
+interface PolymarketGistData {
+  generated_at: string;
+  data_updated_at: string;
+  bankroll: number;
+  available: number;
+  total_pnl: number;
+  daily_pnl: number;
+  positions: Array<{
+    id: string;
+    market: string;
+    side: string;
+    cost: number;
+    odds: number;
+    to_win: number;
+    status: string;
+    opened_at: string;
+    note: string;
+  }>;
+  summary: {
+    total_positions: number;
+    open_positions: number;
+    total_invested: number;
+    total_potential_win: number;
+    exposure_pct: number;
+  };
+  notes: string;
 }
 
 interface AutotraderHealth {
@@ -1144,6 +1197,12 @@ export default function BettingDashboard() {
 
           // Win rate trend from real trade data (DASH-001)
           winRateTrend: gistData.winRateTrend ?? null,
+
+          // V3 paper trading data
+          v3PaperTrading: gistData.v3PaperTrading ?? null,
+
+          // Polymarket positions
+          polymarket: gistData.polymarket ?? null,
 
           // Empty fields (not in gist but needed for interface)
           recentTrades: [],
@@ -2764,25 +2823,130 @@ export default function BettingDashboard() {
 
             {/* Polymarket Section */}
             <GlassCard glowColor="purple" className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/30 flex items-center justify-center">
-                  <div className="w-5 h-5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold">Polymarket</h2>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                      iPhone Mirror
-                    </span>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/30 flex items-center justify-center">
+                    <div className="w-5 h-5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-bold">Polymarket</h2>
+                    <div className="flex items-center gap-2">
+                      {tradingStats?.polymarket ? (
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                          Live Data
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                          iPhone Mirror
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
+                {tradingStats?.polymarket && (
+                  <span className="text-xs font-mono text-purple-400/60">
+                    ${tradingStats.polymarket.bankroll.toFixed(2)}
+                  </span>
+                )}
               </div>
-              <div className="flex flex-col items-center justify-center py-8 text-gray-400">
-                <Cpu className="w-10 h-10 mb-3 opacity-30" />
-                <p className="text-sm">Stats via iPhone mirroring only</p>
-                <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5 sm:mt-1">(No browser access per TOOLS.md rules)</p>
-              </div>
+              <PolyRobortoPanel
+                data={tradingStats?.polymarket ?? null}
+                loading={isLoading}
+              />
             </GlassCard>
+
+            {/* V3 Paper Trading Section */}
+            {tradingStats?.v3PaperTrading && tradingStats.v3PaperTrading.totalTrades > 0 && (
+              <GlassCard glowColor="orange" className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/30 to-amber-500/30 flex items-center justify-center">
+                      <Cpu className="w-5 h-5 text-orange-400" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold">Autotrader v3</h2>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                          🧪 Dry Run
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* V3 Stats Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-white/5 rounded-xl p-3 border border-white/[0.05]">
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Paper Trades</div>
+                    <div className="text-lg font-semibold font-mono text-white">
+                      {tradingStats.v3PaperTrading.totalTrades}
+                    </div>
+                    <div className="text-[10px] text-gray-600">
+                      {tradingStats.v3PaperTrading.byAction.BUY_YES} YES / {tradingStats.v3PaperTrading.byAction.BUY_NO} NO
+                    </div>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-3 border border-white/[0.05]">
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Avg Edge</div>
+                    <div className="text-lg font-semibold font-mono text-orange-400">
+                      {tradingStats.v3PaperTrading.avgEdge.toFixed(1)}%
+                    </div>
+                    <div className="text-[10px] text-gray-600">
+                      Kelly: {(tradingStats.v3PaperTrading.avgKellySize * 100).toFixed(2)}%
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent V3 Trades */}
+                {tradingStats.v3PaperTrading.recentTrades.length > 0 && (
+                  <div>
+                    <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-2">
+                      Recent Paper Trades
+                    </h3>
+                    <div className="space-y-1.5 max-h-[250px] overflow-y-auto">
+                      {tradingStats.v3PaperTrading.recentTrades.slice(0, 5).map((trade, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between p-2 rounded-lg bg-white/[0.03] border border-white/[0.05] text-sm"
+                        >
+                          <div className="flex items-center gap-2 flex-1 min-w-0">
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
+                              trade.side === 'yes'
+                                ? 'bg-emerald-500/20 text-emerald-400'
+                                : 'bg-red-500/20 text-red-400'
+                            }`}>
+                              {trade.side.toUpperCase()}
+                            </span>
+                            <span className="text-gray-400 text-xs truncate" title={trade.title}>
+                              {trade.title.slice(0, 40)}{trade.title.length > 40 ? '...' : ''}
+                            </span>
+                          </div>
+                          <div className="text-right ml-2 flex-shrink-0">
+                            <span className="text-orange-400/80 text-xs font-mono">
+                              {trade.edge}% edge
+                            </span>
+                            <span className="text-gray-600 text-[10px] ml-1">
+                              @{trade.price_cents}¢
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Date range */}
+                <div className="mt-3 text-[10px] text-gray-600 flex items-center justify-between">
+                  <span>
+                    {tradingStats.v3PaperTrading.dateRange.first
+                      ? new Date(tradingStats.v3PaperTrading.dateRange.first).toLocaleDateString()
+                      : ''} → {tradingStats.v3PaperTrading.dateRange.last
+                      ? new Date(tradingStats.v3PaperTrading.dateRange.last).toLocaleDateString()
+                      : ''}
+                  </span>
+                  <span className="text-orange-500/50">All simulated</span>
+                </div>
+              </GlassCard>
+            )}
           </div>
 
           {/* Right Column - Inbox */}
