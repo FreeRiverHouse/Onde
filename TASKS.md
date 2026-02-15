@@ -82,6 +82,16 @@
 
 ---
 
+## 🔥 URGENTE - TRADING
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 1 | TRADE-001 | Consolidare V2+V3 Kalshi autotrader in uno solo | 🔥 Due bot che non fanno niente → uno che funziona | 🔶 TODO | - |
+| 2 | TRADE-002 | Fix V3: capire perché skippa tutti i trade | 🔥 Paper trading fermo | 🔶 TODO | - |
+| 3 | TRADE-003 | Migliorare risk/reward V3 (loss 2x > win) | ⭐ PnL negativo per asimmetria | 🔶 TODO | - |
+
+---
+
 ## ✅ COMPLETATI RECENTEMENTE
 
 ### 2026-02-06
