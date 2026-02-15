@@ -395,8 +395,8 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 23 | PM-001 | Polymarket: Piazza prima bet via phone mirror | 🚨 BLOCCANTE | 🔄 IN_PROGRESS | @clawdinho |
-| 24 | PM-002 | Polymarket: Aggiorna GOLDEN-CONFIG su GitHub | 🔥 Alta | 🔄 IN_PROGRESS | @clawdinho |
+| 23 | PM-001 | Polymarket: Piazza prima bet via phone mirror | 🚨 BLOCCANTE | ✅ DONE | @clawdinho | MURR bet piazzata con successo! Playbook documentato in tools/iphone-mirroring/POLYMARKET-BETTING-PLAYBOOK.md |
+| 24 | PM-002 | Polymarket: Aggiorna GOLDEN-CONFIG su GitHub | 🔥 Alta | ✅ DONE | @clawdinho | Committed e pushato |
 | 25 | PM-003 | Polymarket: Sub-agent scanner mercati sport | ⭐ Media | TODO | @clawdinho |
 | 26 | PM-004 | Polymarket: Collegare dashboard PolyRoborto a dati reali | ⭐ Media | TODO | @clawdinho |
 
