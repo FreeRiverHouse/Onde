@@ -81,8 +81,8 @@ test_url "Giochi page (IT)" "https://onde.la/giochi/" "200"
 test_url "Moonlight House" "https://moonlight-house.pages.dev" "200"
 test_content "Moonlight House content" "https://moonlight-house.pages.dev" "Moonlight"
 
-# VR Books
-test_url "VR page" "https://onde.la/vr/" "200"
+# VR Books - removed: /vr/ route never existed, was causing false 404 alerts
+# test_url "VR page" "https://onde.la/vr/" "200"
 
 # Note: vecchio onde-dashboard.pages.dev non più usato, onde.surf è la dashboard attiva
 
