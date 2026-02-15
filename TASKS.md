@@ -280,3 +280,11 @@
 | 120 | SEO-017 | Disabilitare CF AI Audit che blocca crawler AI (ClaudeBot, GPTBot, Google-Extended) | 🚨 BLOCCANTE | TODO | @mattia | Serve accesso CF Dashboard → AI → AI Audit |
 | 121 | SEO-018 | Fix trailing slashes in sitemap URLs (evitare 301 redirect chains) | ⭐ SEO | TODO | - | In next.config.mjs o sitemap.ts |
 | 122 | SEO-019 | Aggiungere hreflang tags a sub-pages (non solo root) | ⭐ International SEO | TODO | - | Bassa priorità se stessa URL serve EN+IT |
+
+### 🔥 NUOVI (da TRADE-003 backtest findings)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 123 | TRADE-005 | Calibrare edge model — weather edges >25% erano falsi, servono cap/sanity check | 🔥 Trading accuracy | TODO | - |
+| 124 | TRADE-006 | Run parameter sweep con backtest e applicare parametri ottimali all'autotrader | 🔥 Trading performance | TODO | - |
+| 125 | TRADE-007 | Aggiungere per-regime strategy switching (ETH 60% WR in choppy, 0% in sideways) | ⭐ Trading | TODO | - |
