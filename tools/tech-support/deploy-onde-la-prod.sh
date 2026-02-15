@@ -1,48 +1,59 @@
 #!/bin/bash
-# Deploy onde.la (apps/onde-portal) to Vercel Production
+# Deploy onde.la (apps/onde-portal) to Cloudflare Pages via Wrangler
 # Usage: ./tools/tech-support/deploy-onde-la-prod.sh
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../../apps/onde-portal" && pwd)"
-VERCEL_CMD="/opt/homebrew/bin/vercel"
 
-echo "🌊 Deploying onde.la to Vercel..."
+# Cloudflare credentials
+export CLOUDFLARE_API_TOKEN="RGNdXWCWyAHpUKqKRMf5vezPEVQSq3uw1TuX62aw"
+export CLOUDFLARE_ACCOUNT_ID="91ddd4ffd23fb9da94bb8c2a99225a3f"
+CF_PROJECT="onde-portal"
+
+echo "🌊 Deploying onde.la to Cloudflare Pages..."
 echo "📂 Project: $PROJECT_DIR"
 
 cd "$PROJECT_DIR"
 
-# Step 1: Build locally with production target
+# Step 1: Clean previous build artifacts
 echo ""
-echo "📦 Building with Vercel (production target)..."
-$VERCEL_CMD build --prod --yes
+echo "🧹 Cleaning previous build..."
+rm -rf out .next
 
-# Step 2: Deploy prebuilt output
+# Step 2: Build with static export
 echo ""
-echo "🚀 Deploying prebuilt output to Vercel..."
-DEPLOY_URL=$($VERCEL_CMD deploy --prebuilt --prod --yes --archive=tgz 2>&1 | grep -oE 'https://[^ ]+\.vercel\.app' | head -1)
+echo "📦 Building (static export)..."
+npm run build
 
-if [ -z "$DEPLOY_URL" ]; then
-    echo "⚠️  Could not extract deploy URL, trying without archive..."
-    DEPLOY_URL=$($VERCEL_CMD deploy --prebuilt --prod --yes 2>&1 | grep -oE 'https://[^ ]+\.vercel\.app' | head -1)
-fi
-
-if [ -z "$DEPLOY_URL" ]; then
-    echo "❌ Deploy failed! Check Vercel dashboard."
+# Verify output dir exists
+if [ ! -d "out" ]; then
+    echo "❌ Build failed! 'out' directory not found."
+    echo "   Make sure next.config has output: 'export' or NEXT_OUTPUT=export is set."
     exit 1
 fi
 
+# Step 3: Deploy to Cloudflare Pages
 echo ""
-echo "✅ Deploy URL: $DEPLOY_URL"
+echo "🚀 Deploying to Cloudflare Pages (project: $CF_PROJECT)..."
+npx wrangler pages deploy out --project-name="$CF_PROJECT" --commit-dirty=true
 
-# Step 3: Verify
+# Step 4: Verify
 echo ""
 echo "🔍 Verifying deployment..."
-HTTP_STATUS=$(curl -sI "$DEPLOY_URL" -o /dev/null -w "%{http_code}" --max-time 10 || echo "000")
-echo "   Deploy URL status: $HTTP_STATUS"
+sleep 5
 
-DOMAIN_STATUS=$(curl -sI "https://onde.la" -o /dev/null -w "%{http_code}" --max-time 10 || echo "000")
+DOMAIN_STATUS=$(curl -sI "https://onde.la" -o /dev/null -w "%{http_code}" --max-time 15 || echo "000")
 echo "   onde.la status: $DOMAIN_STATUS"
 
+if [ "$DOMAIN_STATUS" = "200" ]; then
+    echo ""
+    echo "✅ Deploy successful! onde.la is live."
+else
+    echo ""
+    echo "⚠️  onde.la returned $DOMAIN_STATUS — check Cloudflare dashboard."
+    echo "   It may take a minute for the deployment to propagate."
+fi
+
 echo ""
-echo "🏁 Done! Deploy URL: $DEPLOY_URL"
+echo "🏁 Done!"
