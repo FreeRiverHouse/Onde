@@ -7,6 +7,7 @@ import ReadingTimeBadge from '@/components/blog/ReadingTimeBadge'
 import TableOfContents, { type TocItem } from '@/components/blog/TableOfContents'
 import ShareButtons from '@/components/ShareButtons'
 import RelatedPosts from '@/components/blog/RelatedPosts'
+import BlogReactions from '@/components/ui/BlogReactions'
 
 /* ─── Table of contents items ─── */
 const tocItems: TocItem[] = [
@@ -798,6 +799,9 @@ def compute_kelly(true_prob, market_price):
             </a>
           </div>
         </motion.div>
+
+        {/* ── Reactions ── */}
+        <BlogReactions slug="ai-trading-bot-kalshi" />
 
         {/* ── Related posts ── */}
         <RelatedPosts currentSlug="ai-trading-bot-kalshi" maxPosts={3} />

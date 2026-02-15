@@ -7,6 +7,7 @@ import ReadingTimeBadge from '@/components/blog/ReadingTimeBadge'
 import TableOfContents, { type TocItem } from '@/components/blog/TableOfContents'
 import ShareButtons from '@/components/ShareButtons'
 import RelatedPosts from '@/components/blog/RelatedPosts'
+import BlogReactions from '@/components/ui/BlogReactions'
 
 /* ─── Table of contents items ─── */
 const tocItems: TocItem[] = [
@@ -722,6 +723,9 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
             </a>
           </div>
         </motion.div>
+
+        {/* ── Reactions ── */}
+        <BlogReactions slug="radeon-7900-xtx-mac-tinygrad" />
 
         {/* ── Related posts ── */}
         <RelatedPosts currentSlug="radeon-7900-xtx-mac-tinygrad" maxPosts={3} />
