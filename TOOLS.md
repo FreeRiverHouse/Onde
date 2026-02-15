@@ -8,6 +8,7 @@
 ## 📱 iPhone Mirroring - GUIDA RAPIDA
 
 **Doc completa:** `tools/iphone-mirroring/IPHONE-MIRRORING.md`
+**Playbook Polymarket:** `tools/iphone-mirroring/POLYMARKET-BETTING-PLAYBOOK.md`
 **Script helper:** `scripts/iphone-mirror-actions.py`
 
 ### Check Connessione
