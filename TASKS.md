@@ -399,3 +399,31 @@
 - **Cosa:** Commit e push POLYMARKET-GOLDEN-CONFIG.md su GitHub
 - **Come:** git add/commit/push
 - **ETA:** 2 minuti
+
+## 🎯 TASK PERMANENTI - TRADING 24/7
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| P1 | PERM-001 | Polymarket: Microbet a raffica via phone mirror (24/7) | 🚨 PERMANENTE | 🔄 ACTIVE | @clawdinho |
+| P2 | PERM-002 | Kalshi: Paper trading continuo con autotrader v3 (24/7) | 🚨 PERMANENTE | 🔄 ACTIVE | @kalshi-paper-agent |
+| P3 | PERM-003 | Kalshi: Monitor win rate → passare a live quando profittevole | 🚨 PERMANENTE | 🔄 ACTIVE | @kalshi-winrate-monitor |
+
+### PERM-001: Polymarket Microbet 24/7
+- **Cosa:** Piazzare microbet $1-2 su mercati sport/eventi via phone mirror
+- **Come:** polymarket-navigator.py → screenshot → trova opportunità → bet → conferma
+- **Vincoli:** Solo phone mirror, NO browser, NO API. Micro-bet $1-2
+- **Frequenza:** Ogni heartbeat controlla nuove opportunità
+- **MAI FERMARSI:** Questo task è PERMANENTE
+
+### PERM-002: Kalshi Paper Trading 24/7
+- **Cosa:** Autotrader v3 in dry run mode, accumula paper trades
+- **Stato:** GIÀ ATTIVO - 191 paper trades, v3 running con --loop 5 --markets 15
+- **Agente:** Sub-agent dedicato monitora e ottimizza
+
+### PERM-003: Kalshi Win Rate Monitor → Go Live
+- **Cosa:** Monitorare win rate del paper trading, quando >55% per 100+ trades → passare a live
+- **Criteri per go-live:**
+  - Win rate >55% su almeno 100 settled trades
+  - PnL positivo per almeno 3 giorni consecutivi
+  - No drawdown >20% del paper balance
+- **Quando criteri met:** Alert Mattia e switch a live trading
