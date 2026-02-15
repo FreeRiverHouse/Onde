@@ -46,50 +46,10 @@
     "pnl_cents": 0,
     "by_asset": {}
   },
-  "last_cycle": "2026-02-15T14:57:24.359996+00:00",
-  "cycle_count": 55,
-  "last_updated": "2026-02-15T15:00:01.509945+00:00",
-  "uptime_human": "4:44:25",
+  "last_cycle": "2026-02-15T15:13:03.515554+00:00",
+  "cycle_count": 58,
+  "last_updated": "2026-02-15T15:16:00.927579+00:00",
+  "uptime_human": "5:00:25",
   "circuit_breaker_active": false,
-  "status": "\u2705 running",
-  "analysis": {
-    "last_tune": "2026-02-15T15:00:01.686916+00:00",
-    "total_paper_trades": 306,
-    "edge_stats": {
-      "mean": 0.34163117252381964,
-      "median": 0.17224772068806946,
-      "stdev": 0.29037014201838984,
-      "min": 0.09003942444252377,
-      "max": 0.9374,
-      "count": 306
-    },
-    "by_asset": {
-      "eth": {
-        "trades": 87,
-        "avg_edge": 0.1367
-      },
-      "btc": {
-        "trades": 104,
-        "avg_edge": 0.12
-      },
-      "weather": {
-        "trades": 115,
-        "avg_edge": 0.6971
-      }
-    },
-    "by_regime": {
-      "sideways": {
-        "trades": 45,
-        "avg_edge": 0.2055
-      },
-      "choppy": {
-        "trades": 146,
-        "avg_edge": 0.1036
-      },
-      "unknown": {
-        "trades": 115,
-        "avg_edge": 0.6971
-      }
-    }
-  }
+  "status": "\u2705 running"
 }
