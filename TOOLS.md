@@ -5,14 +5,43 @@
 ## POLYMARKET = SOLO PHONE MIRROR!!!
 ## ⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔
 
-## 📱 iPhone Mirroring - CHECK CORRETTO
-**PRIMA di dire "scollegato" nei report, VERIFICA con lo script:**
+## 📱 iPhone Mirroring - GUIDA RAPIDA
+
+**Doc completa:** `tools/iphone-mirroring/IPHONE-MIRRORING.md`
+**Script helper:** `scripts/iphone-mirror-actions.py`
+
+### Check Connessione
 ```bash
-./scripts/check-iphone-mirror.sh
-# Output: CONNECTED | DISCONNECTED | NOT_RUNNING
+./scripts/check-iphone-mirror.sh  # CONNECTED | DISCONNECTED | NOT_RUNNING
 ```
-**MAI assumere che sia scollegato senza verificare!**
-Se lo script dice CONNECTED → è connesso. Punto.
+**MAI assumere scollegato senza verificare!**
+
+### Operazioni Disponibili
+| Operazione | Tool | Funziona? |
+|-----------|------|-----------|
+| **Click** | `cliclick c:X,Y` | ✅ |
+| **Scroll** | CGEvent `kCGScrollEventUnitPixel` | ✅ |
+| **Screenshot** | `/usr/sbin/screencapture -R` | ✅ |
+| **Swipe confirm** | Pixel scroll sul bottone | ✅ |
+| Scroll (line-based) | CGEvent UnitLine | ❌ |
+| Drag (cliclick) | cliclick dd/du | ❌ per scroll |
+
+### Script Helper
+```bash
+python3 scripts/iphone-mirror-actions.py window_info
+python3 scripts/iphone-mirror-actions.py screenshot /tmp/out.png
+python3 scripts/iphone-mirror-actions.py click X Y
+python3 scripts/iphone-mirror-actions.py scroll_down [steps] [amount]
+python3 scripts/iphone-mirror-actions.py scroll_up [steps] [amount]
+python3 scripts/iphone-mirror-actions.py swipe_confirm
+python3 scripts/iphone-mirror-actions.py pixel_to_point PX PY
+```
+
+### Coordinate
+```
+punto_assoluto = window_origin + (pixel_immagine / 2)
+```
+Immagine è 2x Retina → dividi per 2 per ottenere punti.
 
 ## 🤖 DIVISIONE HARDWARE AGENTI
 
