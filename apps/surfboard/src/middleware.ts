@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 // Routes that don't require authentication (minimal - only auth endpoints, health checks, and agent APIs with own auth)
-const publicRoutes = ["/login", "/api/auth", "/health", "/api/health", "/api/agent-executor", "/api/agent-tasks", "/api/house", "/api/activity", "/api/agents", "/api/test-status", "/api/agent-chat"]
+const publicRoutes = ["/login", "/api/auth", "/health", "/api/health", "/api/agent-executor", "/api/agent-tasks", "/api/house", "/api/activity", "/api/agents", "/api/test-status", "/api/agent-chat", "/api/admin/migrate"]
 
 // Protected paths that require auth even if they look like static files
 // NOTE: All games require auth - onde.surf is PRIVATE (only mattiapetrucciani@gmail.com)
