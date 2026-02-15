@@ -990,6 +990,112 @@ def calculate_edge_distribution(trades):
     }
 
 
+def calculate_win_rate_trend(trades):
+    """Calculate daily win rate trend data for dashboard chart (DASH-001).
+    
+    Groups settled trades by day and computes:
+    - Daily win rate
+    - Cumulative win rate (rolling)
+    - Daily PnL and cumulative PnL
+    - Trade count per day
+    
+    Returns:
+        dict with 'data' array and 'summary' for the WinRateTrendChart component
+    """
+    from collections import defaultdict
+    
+    # Filter to settled trades only
+    settled = [t for t in trades if t.get('result_status') in ('won', 'lost')]
+    if not settled:
+        return None
+    
+    # Sort by timestamp
+    settled.sort(key=lambda t: t.get('timestamp', ''))
+    
+    # Group by date
+    by_date = defaultdict(list)
+    for t in settled:
+        date = t.get('timestamp', '')[:10]
+        if date:
+            by_date[date].append(t)
+    
+    if not by_date:
+        return None
+    
+    # Calculate daily and cumulative stats
+    data_points = []
+    cum_wins = 0
+    cum_total = 0
+    cum_pnl = 0
+    
+    for date in sorted(by_date.keys()):
+        day_trades = by_date[date]
+        wins = sum(1 for t in day_trades if t.get('result_status') == 'won')
+        losses = len(day_trades) - wins
+        
+        # Daily PnL
+        day_pnl = 0
+        for t in day_trades:
+            price = t.get('price', 50)
+            contracts = t.get('contracts', 1)
+            if t.get('result_status') == 'won':
+                day_pnl += (100 - price) * contracts
+            else:
+                day_pnl -= price * contracts
+        
+        cum_wins += wins
+        cum_total += len(day_trades)
+        cum_pnl += day_pnl
+        
+        cum_wr = (cum_wins / cum_total * 100) if cum_total > 0 else 0
+        day_wr = (wins / len(day_trades) * 100) if day_trades else 0
+        
+        data_points.append({
+            "date": date,
+            "winRate": round(cum_wr, 1),  # Cumulative win rate (smoother for chart)
+            "dailyWinRate": round(day_wr, 1),
+            "trades": len(day_trades),
+            "won": wins,
+            "lost": losses,
+            "pnlCents": day_pnl,
+            "cumulativePnlCents": cum_pnl,
+        })
+    
+    if len(data_points) < 2:
+        return None
+    
+    # Calculate trend direction (last 7 days vs previous 7 days)
+    recent = data_points[-7:]
+    previous = data_points[-14:-7] if len(data_points) >= 14 else data_points[:len(data_points)//2]
+    
+    recent_avg_wr = sum(d['winRate'] for d in recent) / len(recent) if recent else 0
+    prev_avg_wr = sum(d['winRate'] for d in previous) / len(previous) if previous else recent_avg_wr
+    
+    if recent_avg_wr > prev_avg_wr + 2:
+        trend = 'improving'
+    elif recent_avg_wr < prev_avg_wr - 2:
+        trend = 'declining'
+    else:
+        trend = 'stable'
+    
+    return {
+        "data": data_points,
+        "summary": {
+            "days": len(data_points),
+            "source": "v2",
+            "totalTrades": cum_total,
+            "totalWon": cum_wins,
+            "totalLost": cum_total - cum_wins,
+            "overallWinRate": round(cum_wins / cum_total * 100, 1) if cum_total > 0 else 0,
+            "totalPnlCents": cum_pnl,
+            "trend": trend,
+            "recentAvgWinRate": round(recent_avg_wr, 1),
+            "previousAvgWinRate": round(prev_avg_wr, 1),
+        },
+        "lastUpdated": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 def calculate_daily_volume(trades):
     """Calculate daily trading volume stats (T754).
     
@@ -1482,6 +1588,11 @@ def calculate_stats(trades, source='v2'):
     volume_stats = calculate_daily_volume(trades)
     if volume_stats:
         result["dailyVolume"] = volume_stats
+    
+    # Add win rate trend data for dashboard chart (DASH-001)
+    win_rate_trend = calculate_win_rate_trend(trades)
+    if win_rate_trend:
+        result["winRateTrend"] = win_rate_trend
     
     return result
 

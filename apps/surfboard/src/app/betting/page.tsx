@@ -507,6 +507,8 @@ interface TradingStats {
     }>;
     generatedAt: string;
   } | null;
+  // Win rate trend from real trade data (DASH-001)
+  winRateTrend?: WinRateTrendData | null;
 }
 
 interface AutotraderHealth {
@@ -1140,6 +1142,9 @@ export default function BettingDashboard() {
           // Autotrader health history (T829)
           healthHistory: gistData.healthHistory ?? null,
 
+          // Win rate trend from real trade data (DASH-001)
+          winRateTrend: gistData.winRateTrend ?? null,
+
           // Empty fields (not in gist but needed for interface)
           recentTrades: [],
           lastUpdated: gistData.lastUpdated ?? new Date().toISOString(),
@@ -1182,13 +1187,18 @@ export default function BettingDashboard() {
         if (statsData.healthStatus) {
           setAutotraderHealth(statsData.healthStatus);
         }
+        // Use real win rate trend from gist if available (DASH-001)
+        if (statsData.winRateTrend) {
+          setWinRateTrend(statsData.winRateTrend);
+        }
       }
 
       if (kalshiRes.ok) setKalshiStatus(await kalshiRes.json());
       if (cryptoRes.ok) setCryptoPrices(await cryptoRes.json());
       if (inboxRes.ok) setInbox(await inboxRes.json());
       if (momentumRes.ok) setMomentum(await momentumRes.json());
-      if (trendRes.ok) setWinRateTrend(await trendRes.json());
+      // Only use mock trend API as fallback if gist didn't provide real data (DASH-001)
+      if (!statsData?.winRateTrend && trendRes.ok) setWinRateTrend(await trendRes.json());
       if (agentRes.ok) setAgentStatus(await agentRes.json());
 
       setLastRefresh(new Date());
