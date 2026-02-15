@@ -81,15 +81,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/games/word-puzzle',
     '/games/wordle',
     
-    // Individual books (reader pages)
-    '/libro/meditations',
+    // Individual books (reader pages) — slugs must match built output in out/libro/
+    '/libro/meditations-en',
+    '/libro/meditations-it',
     '/libro/shepherds-promise',
     '/libro/alice-wonderland-en',
     '/libro/jungle-book-en',
     '/libro/peter-rabbit-en',
-    '/libro/grimm-fairy-tales-en',
-    '/libro/wizard-of-oz-en',
-    '/libro/andersen-fairy-tales-en',
     '/libro/frankenstein-en',
     
     // Other sections
