@@ -38,7 +38,7 @@ function generateRss(): string {
       <content:encoded>${contentEncoded}</content:encoded>
       <pubDate>${pubDate}</pubDate>
 ${categories}
-      <author>tech@onde.la (Onde Tech)</author>
+      <author>blog@onde.la (Onde)</author>
     </item>`
     })
     .join('\n')

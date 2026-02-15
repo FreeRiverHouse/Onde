@@ -3,6 +3,18 @@
  * Used by /blog page, RSS feed, and sitemap.
  */
 
+/** Blog post categories */
+export type BlogCategory = 'Tech' | 'Trading' | 'AI' | 'Design' | 'Updates'
+
+export const BLOG_CATEGORIES: { value: BlogCategory | 'All'; label: string; emoji: string }[] = [
+  { value: 'All', label: 'All', emoji: '🌊' },
+  { value: 'Tech', label: 'Tech', emoji: '⚡' },
+  { value: 'Trading', label: 'Trading', emoji: '📈' },
+  { value: 'AI', label: 'AI', emoji: '🤖' },
+  { value: 'Design', label: 'Design', emoji: '🎨' },
+  { value: 'Updates', label: 'Updates', emoji: '📣' },
+]
+
 export interface BlogPost {
   slug: string
   title: string
@@ -11,6 +23,7 @@ export interface BlogPost {
   date: string          // Human-readable: "February 2026"
   dateISO: string       // ISO 8601: "2026-02-15T00:00:00Z"
   readTime: string
+  category: BlogCategory
   tags: string[]
   emoji: string
   gradient: string
@@ -23,23 +36,6 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: 'kalshi-trading-bot-ai',
-    title: 'Come funziona il nostro trading bot AI su Kalshi',
-    subtitle: '7.000 righe di Python che tradano da sole',
-    description:
-      'Dietro le quinte del nostro autotrader: architettura multi-agente (Forecaster, Critic, Trader), Kelly criterion, momentum detection e edge calibration su prediction markets.',
-    date: 'February 2026',
-    dateISO: '2026-02-15T12:00:00Z',
-    readTime: '12 min read',
-    tags: ['Trading', 'AI', 'Kalshi', 'Kelly Criterion', 'Python', 'Prediction Markets'],
-    emoji: '🤖',
-    gradient: 'from-onde-teal via-cyan-500 to-blue-500',
-    excerpt:
-      'Dietro le quinte del nostro autotrader: architettura multi-agente (Forecaster, Critic, Trader), Kelly criterion, momentum detection e edge calibration su prediction markets.',
-    lang: 'it',
-    contentHtml: `<p>Dietro le quinte del nostro autotrader su Kalshi: architettura multi-agente con Forecaster, Critic e Trader, Kelly criterion per il position sizing, momentum detection e edge calibration su prediction markets.</p><p>7.000 righe di Python che analizzano il mercato, stimano probabilità, calibrano gli edge e piazzano trade — completamente in automatico.</p><p><a href="https://onde.la/blog/kalshi-trading-bot-ai/">Read the full article →</a></p>`,
-  },
-  {
     slug: 'radeon-7900-xtx-mac-tinygrad',
     title: 'Running AMD Radeon RX 7900 XTX on macOS with TinyGrad',
     subtitle: 'The "Impossible" Setup',
@@ -48,6 +44,7 @@ export const blogPosts: BlogPost[] = [
     date: 'February 2026',
     dateISO: '2026-02-15T00:00:00Z',
     readTime: '8 min read',
+    category: 'Tech',
     tags: ['GPU', 'TinyGrad', 'macOS', 'AMD', 'ML', 'eGPU'],
     emoji: '🔥',
     gradient: 'from-red-500 via-orange-500 to-amber-500',
@@ -65,6 +62,6 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 
 /** Site metadata for the feed */
 export const SITE_URL = 'https://onde.la'
-export const BLOG_TITLE = 'Onde Tech'
+export const BLOG_TITLE = 'Onde Blog'
 export const BLOG_DESCRIPTION =
-  'Behind the scenes at Onde — the tech stack, AI agents, trading bots, eGPU setups, and engineering deep dives from the FreeRiverHouse lab.'
+  'The Onde Blog — tech deep dives, AI experiments, eGPU setups, and engineering stories from the FreeRiverHouse lab.'

@@ -1,13 +1,19 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Breadcrumb from '@/components/ui/Breadcrumb'
-import { blogPosts } from '@/data/blog-posts'
-
-const posts = blogPosts
+import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/blog-posts'
 
 export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All')
+
+  const filteredPosts =
+    activeCategory === 'All'
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === activeCategory)
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background orbs */}
@@ -31,14 +37,14 @@ export default function BlogPage() {
         <Breadcrumb
           items={[
             { label: 'Home', href: '/', emoji: '🏠' },
-            { label: 'Tech', emoji: '⚡' },
+            { label: 'Blog', emoji: '📝' },
           ]}
         />
       </div>
 
       {/* Hero */}
-      <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
-        <div className="text-center mb-16">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+        <div className="text-center mb-12">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -47,7 +53,7 @@ export default function BlogPage() {
                        bg-gradient-to-br from-onde-teal/20 to-onde-purple/20
                        border border-white/10 shadow-xl shadow-onde-teal/10 mb-8"
           >
-            <span className="text-4xl">⚡</span>
+            <span className="text-4xl">📝</span>
           </motion.div>
 
           <motion.div
@@ -57,7 +63,7 @@ export default function BlogPage() {
             transition={{ delay: 0.1 }}
           >
             <span className="w-2 h-2 rounded-full bg-onde-teal animate-pulse" />
-            Behind the Scenes
+            Stories from the Lab
           </motion.div>
 
           <motion.h1
@@ -67,7 +73,7 @@ export default function BlogPage() {
             transition={{ delay: 0.2 }}
           >
             <span className="text-white">Onde </span>
-            <span className="text-gradient-neon">Tech</span>
+            <span className="text-gradient-neon">Blog</span>
           </motion.h1>
 
           <motion.p
@@ -76,106 +82,181 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Behind the scenes at Onde — the tech stack, AI agents, trading bots,
-            eGPU setups, and engineering deep dives from the lab.
+            Tech deep dives, AI agents, eGPU setups, and
+            engineering stories from the FreeRiverHouse lab.
           </motion.p>
 
           <div className="glow-line w-32 mx-auto mt-8" />
         </div>
+
+        {/* Category Filter Tabs */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-2 mb-4"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+        >
+          {BLOG_CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.value
+            const count =
+              cat.value === 'All'
+                ? blogPosts.length
+                : blogPosts.filter((p) => p.category === cat.value).length
+
+            // Hide empty categories (except "All")
+            if (cat.value !== 'All' && count === 0) return null
+
+            return (
+              <button
+                key={cat.value}
+                onClick={() => setActiveCategory(cat.value)}
+                className={`
+                  group relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                  border transition-all duration-300 cursor-pointer
+                  ${
+                    isActive
+                      ? 'bg-onde-teal/15 border-onde-teal/40 text-onde-teal shadow-lg shadow-onde-teal/10'
+                      : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10 hover:text-white/70 hover:border-white/20'
+                  }
+                `}
+              >
+                <span className="text-base">{cat.emoji}</span>
+                <span>{cat.label}</span>
+                <span
+                  className={`
+                    text-xs px-1.5 py-0.5 rounded-full
+                    ${isActive ? 'bg-onde-teal/20 text-onde-teal' : 'bg-white/10 text-white/40'}
+                  `}
+                >
+                  {count}
+                </span>
+              </button>
+            )
+          })}
+        </motion.div>
       </section>
 
       {/* Posts Grid */}
       <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="space-y-8">
-          {posts.map((post, index) => (
-            <motion.div
-              key={post.slug}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.15 }}
-            >
-              <Link href={`/blog/${post.slug}`} className="group block">
-                <div
-                  className="card-3d p-8 md:p-10 relative overflow-hidden
-                             hover:border-white/20 transition-all duration-500"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            {filteredPosts.length === 0 ? (
+              <motion.div
+                className="text-center py-20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <span className="text-5xl mb-4 block">🏗️</span>
+                <p className="text-white/50 text-lg">
+                  No posts in this category yet. Stay tuned!
+                </p>
+              </motion.div>
+            ) : (
+              filteredPosts.map((post, index) => (
+                <motion.div
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  {/* Gradient accent */}
-                  <div
-                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${post.gradient}
-                               opacity-60 group-hover:opacity-100 transition-opacity`}
-                  />
-
-                  <div className="flex flex-col md:flex-row md:items-start gap-6">
-                    {/* Emoji icon */}
-                    <motion.div
-                      className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10
-                                 flex items-center justify-center text-3xl
-                                 group-hover:scale-110 group-hover:bg-white/10 transition-all duration-300"
-                      whileHover={{ rotate: [0, -5, 5, 0] }}
-                    >
-                      {post.emoji}
-                    </motion.div>
-
-                    <div className="flex-1 min-w-0">
-                      {/* Meta */}
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-white/40 mb-3">
-                        <span>{post.date}</span>
-                        <span className="w-1 h-1 rounded-full bg-white/20" />
-                        <span>{post.readTime}</span>
-                      </div>
-
-                      {/* Title */}
-                      <h2
-                        className="text-2xl md:text-3xl font-display font-bold text-white mb-2
-                                   group-hover:text-onde-teal transition-colors duration-300"
-                      >
-                        {post.title}
-                      </h2>
-
-                      <p className="text-onde-teal/80 font-medium mb-3">{post.subtitle}</p>
-
-                      {/* Excerpt */}
-                      <p className="text-white/60 leading-relaxed mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 rounded-full text-xs font-medium
-                                       bg-white/5 text-white/50 border border-white/10
-                                       group-hover:bg-white/10 group-hover:text-white/70
-                                       transition-all duration-300"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Arrow */}
+                  <Link href={`/blog/${post.slug}`} className="group block">
                     <div
-                      className="hidden md:flex flex-shrink-0 items-center self-center
-                                 text-white/20 group-hover:text-onde-teal group-hover:translate-x-1
-                                 transition-all duration-300"
+                      className="card-3d p-8 md:p-10 relative overflow-hidden
+                                 hover:border-white/20 transition-all duration-500"
                     >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                      {/* Gradient accent */}
+                      <div
+                        className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${post.gradient}
+                                   opacity-60 group-hover:opacity-100 transition-opacity`}
+                      />
+
+                      <div className="flex flex-col md:flex-row md:items-start gap-6">
+                        {/* Emoji icon */}
+                        <motion.div
+                          className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10
+                                     flex items-center justify-center text-3xl
+                                     group-hover:scale-110 group-hover:bg-white/10 transition-all duration-300"
+                          whileHover={{ rotate: [0, -5, 5, 0] }}
+                        >
+                          {post.emoji}
+                        </motion.div>
+
+                        <div className="flex-1 min-w-0">
+                          {/* Meta */}
+                          <div className="flex flex-wrap items-center gap-3 text-sm text-white/40 mb-3">
+                            <span
+                              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full
+                                         bg-white/5 border border-white/10 text-white/60 text-xs font-medium"
+                            >
+                              {BLOG_CATEGORIES.find((c) => c.value === post.category)?.emoji}{' '}
+                              {post.category}
+                            </span>
+                            <span>{post.date}</span>
+                            <span className="w-1 h-1 rounded-full bg-white/20" />
+                            <span>{post.readTime}</span>
+                          </div>
+
+                          {/* Title */}
+                          <h2
+                            className="text-2xl md:text-3xl font-display font-bold text-white mb-2
+                                       group-hover:text-onde-teal transition-colors duration-300"
+                          >
+                            {post.title}
+                          </h2>
+
+                          <p className="text-onde-teal/80 font-medium mb-3">{post.subtitle}</p>
+
+                          {/* Excerpt */}
+                          <p className="text-white/60 leading-relaxed mb-4 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2">
+                            {post.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-3 py-1 rounded-full text-xs font-medium
+                                           bg-white/5 text-white/50 border border-white/10
+                                           group-hover:bg-white/10 group-hover:text-white/70
+                                           transition-all duration-300"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Arrow */}
+                        <div
+                          className="hidden md:flex flex-shrink-0 items-center self-center
+                                     text-white/20 group-hover:text-onde-teal group-hover:translate-x-1
+                                     transition-all duration-300"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+                  </Link>
+                </motion.div>
+              ))
+            )}
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {/* Explore More */}
