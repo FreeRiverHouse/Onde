@@ -10,6 +10,7 @@ import RecentlyPlayedSection from './components/RecentlyPlayedSection'
 const games = [
   { id: 'skin', href: '/games/skin-creator', title: 'Skin Creator', desc: 'Minecraft Skins', emoji: '🎨' },
   { id: 'banner', href: '/games/banner-maker', title: 'Banner Maker', desc: 'Minecraft Banners', emoji: '🏳️' },
+  { id: 'enchant', href: '/games/enchant-calc', title: 'Enchant Calc', desc: 'Enchantment Guide', emoji: '✨' },
   { id: 'quiz', href: '/games/quiz', title: 'Quiz', desc: 'Knowledge', emoji: '❓' },
   { id: 'math', href: '/games/math', title: 'Math Quest', desc: 'Math Fun', emoji: '➕' },
   { id: 'memory', href: '/games/memory', title: 'Memory', desc: 'Match Pairs', emoji: '🧠' },
@@ -138,6 +139,7 @@ export default function GamingIsland() {
               { href: '/libri', emoji: '📚', title: 'Library', color: 'from-amber-600 to-amber-700' },
               { href: '/games/skin-creator', emoji: '🎨', title: 'Skin Creator', color: 'from-orange-500 to-rose-500' },
               { href: '/games/banner-maker', emoji: '🏳️', title: 'Banner Maker', color: 'from-indigo-500 to-blue-500' },
+              { href: '/games/enchant-calc', emoji: '✨', title: 'Enchant Calc', color: 'from-purple-500 to-violet-600' },
             ].map((game) => (
               <Link 
                 key={game.href}
