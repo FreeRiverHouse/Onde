@@ -8,6 +8,24 @@ interface EnhancedStatsProps {
   stats?: DashboardStats
 }
 
+interface CFAnalytics {
+  summary: {
+    pageViews7d: number
+    pageViews30d: number
+  }
+  daily: { date: string; views: number }[]
+  topPages: { path: string; views: number }[]
+  topReferrers: { referrer: string; views: number }[]
+  devices: { type: string; views: number }[]
+  browsers: { browser: string; views: number }[]
+  countries: { country: string; views: number }[]
+  operatingSystems: { os: string; views: number }[]
+  meta: {
+    generated: string
+    period: { start: string; end: string; days: number }
+  }
+}
+
 interface MetricsData {
   publishing: {
     booksPublished: number | null
@@ -25,6 +43,7 @@ interface MetricsData {
   }
   analytics: {
     pageviews: number | null
+    visitors7d: number | null
     users: number | null
     sessions: number | null
     bounceRate: number | null
@@ -36,37 +55,29 @@ interface MetricsData {
 
 export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
   const [metrics, setMetrics] = useState<MetricsData | null>(null)
+  const [cfAnalytics, setCfAnalytics] = useState<CFAnalytics | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchMetrics() {
-      try {
-        const response = await fetch('/api/metrics')
-        if (response.ok) {
-          const data = await response.json()
-          if (data.hasData) {
-            setMetrics(data)
-            return
-          }
-        }
-      } catch { /* fall through to fallback */ }
+    async function fetchAll() {
+      // Fetch CF analytics directly (primary source for analytics data)
+      const cfPromise = fetch('/api/analytics')
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null)
 
-      // Fallback: use known real data when DB not available
-      try {
-        // Fetch real Cloudflare analytics from gist
-        const gistRes = await fetch(
-          'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-dashboard-metrics.json',
-          { cache: 'no-store' }
-        )
-        if (gistRes.ok) {
-          const gistData = await gistRes.json()
-          setMetrics({ ...gistData, hasData: true })
-          return
-        }
-      } catch { /* fall through to hardcoded */ }
+      // Fetch other metrics from /api/metrics (publishing, social)
+      const metricsPromise = fetch('/api/metrics')
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null)
 
-      // Last resort: hardcoded known values
-      setMetrics({
+      const [cfData, metricsData] = await Promise.all([cfPromise, metricsPromise])
+
+      if (cfData && cfData.summary) {
+        setCfAnalytics(cfData as CFAnalytics)
+      }
+
+      // Build metrics - merge CF analytics into metrics format
+      const base: MetricsData = metricsData?.hasData ? metricsData : {
         publishing: {
           booksPublished: 2,
           audiobooks: 0,
@@ -83,6 +94,7 @@ export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
         },
         analytics: {
           pageviews: null,
+          visitors7d: null,
           users: null,
           sessions: null,
           bounceRate: null,
@@ -90,17 +102,58 @@ export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
         },
         lastUpdated: new Date().toISOString(),
         hasData: true
-      })
+      }
+
+      // Overlay real CF analytics data
+      if (cfData?.summary) {
+        base.analytics = {
+          ...base.analytics,
+          pageviews: cfData.summary.pageViews30d,
+          visitors7d: cfData.summary.pageViews7d,
+          users: cfData.summary.pageViews7d, // visitors ≈ pageviews for CF Web Analytics
+          sessions: cfData.summary.pageViews30d,
+          history: (cfData.daily || []).map((d: { date: string; views: number }) => ({
+            date: d.date,
+            value: d.views
+          }))
+        }
+        base.lastUpdated = cfData.meta?.generated || new Date().toISOString()
+        base.hasData = true
+      }
+
+      setMetrics(base)
     }
-    fetchMetrics().finally(() => setLoading(false))
+
+    fetchAll().finally(() => setLoading(false))
   }, [])
 
-  // No data state
   const noData = !metrics?.hasData
 
-  // Extract history as sparkline data
+  // Daily views history for sparklines
+  const dailyViews = cfAnalytics?.daily?.map(d => d.views) || metrics?.analytics?.history?.map(h => h.value) || []
+  // Use last 14 days for sparkline
+  const sparklineData = dailyViews.slice(-14)
   const booksHistory = metrics?.publishing?.history?.map(h => h.value) || []
-  const analyticsHistory = metrics?.analytics?.history?.map(h => h.value) || []
+
+  // Calculate avg daily visitors from last 7 days
+  const last7dViews = cfAnalytics?.daily?.slice(-7) || []
+  const avgDailyVisitors = last7dViews.length > 0
+    ? Math.round(last7dViews.reduce((s, d) => s + d.views, 0) / last7dViews.length)
+    : null
+
+  // Total 30d pageviews
+  const totalPageviews = cfAnalytics?.summary?.pageViews30d ?? metrics?.analytics?.pageviews ?? null
+
+  // Device breakdown for subtitle
+  const deviceBreakdown = cfAnalytics?.devices
+    ?.map(d => `${d.type}: ${Math.round(d.views / (cfAnalytics?.summary?.pageViews30d || 1) * 100)}%`)
+    .join(' · ') || undefined
+
+  // Top country
+  const topCountry = cfAnalytics?.countries?.[0]
+  const topCountryStr = topCountry
+    ? `Top: ${topCountry.country} (${Math.round(topCountry.views / (cfAnalytics?.summary?.pageViews30d || 1) * 100)}%)`
+    : undefined
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -122,13 +175,13 @@ export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
 
       <StatsCard
         title="Daily Visitors"
-        value={metrics?.analytics?.users ?? null}
-        sparklineData={analyticsHistory.length > 0 ? analyticsHistory : undefined}
+        value={avgDailyVisitors}
+        sparklineData={sparklineData.length > 0 ? sparklineData : undefined}
         chartType="sparkline"
         color="emerald"
         loading={loading}
-        noData={noData || metrics?.analytics?.users === null}
-        subtitle="from Google Analytics"
+        noData={noData || avgDailyVisitors === null}
+        subtitle="avg/day (last 7d)"
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -138,32 +191,29 @@ export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
       />
 
       <StatsCard
-        title="Social Followers"
-        value={
-          metrics?.social?.xFollowers !== null || metrics?.social?.igFollowers !== null
-            ? (metrics?.social?.xFollowers || 0) + (metrics?.social?.igFollowers || 0) + (metrics?.social?.tiktokFollowers || 0)
-            : null
-        }
-        chartType="sparkline"
+        title="Top Traffic"
+        value={cfAnalytics?.summary?.pageViews7d ?? null}
+        chartType="none"
         color="amber"
         loading={loading}
-        noData={noData || (metrics?.social?.xFollowers === null && metrics?.social?.igFollowers === null)}
-        subtitle="X + IG + TikTok"
+        noData={noData || !cfAnalytics}
+        subtitle={topCountryStr || deviceBreakdown || "last 7 days"}
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         }
       />
 
       <StatsCard
         title="Page Views"
-        value={metrics?.analytics?.pageviews ?? null}
+        value={totalPageviews}
+        sparklineData={sparklineData.length > 0 ? sparklineData : undefined}
         chartType="bars"
         color="purple"
         loading={loading}
-        noData={noData || metrics?.analytics?.pageviews === null}
-        subtitle="today"
+        noData={noData || totalPageviews === null}
+        subtitle={deviceBreakdown || "last 30 days"}
         icon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -180,25 +230,23 @@ interface WeeklyComparisonProps {
 }
 
 export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
+  const [cfAnalytics, setCfAnalytics] = useState<CFAnalytics | null>(null)
   const [metrics, setMetrics] = useState<MetricsData | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchMetrics() {
-      try {
-        const response = await fetch('/api/metrics')
-        if (response.ok) {
-          const data = await response.json()
-          setMetrics(data)
-        }
-      } finally {
-        setLoading(false)
-      }
+    async function fetchData() {
+      const [cfRes, metricsRes] = await Promise.all([
+        fetch('/api/analytics').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('/api/metrics').then(r => r.ok ? r.json() : null).catch(() => null),
+      ])
+      if (cfRes?.summary) setCfAnalytics(cfRes)
+      if (metricsRes) setMetrics(metricsRes)
     }
-    fetchMetrics()
+    fetchData().finally(() => setLoading(false))
   }, [])
 
-  const noData = !metrics?.hasData
+  const hasData = !!cfAnalytics || metrics?.hasData
 
   if (loading) {
     return (
@@ -215,7 +263,7 @@ export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
     )
   }
 
-  if (noData) {
+  if (!hasData) {
     return (
       <div className="bg-white/5 rounded-xl p-4 border border-white/10">
         <div className="flex items-center justify-between mb-4">
@@ -230,6 +278,21 @@ export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
     )
   }
 
+  // Compute weekly change from daily data
+  const daily = cfAnalytics?.daily || []
+  const thisWeek = daily.slice(-7)
+  const lastWeek = daily.slice(-14, -7)
+  const thisWeekTotal = thisWeek.reduce((s, d) => s + d.views, 0)
+  const lastWeekTotal = lastWeek.reduce((s, d) => s + d.views, 0)
+  const weeklyChange = lastWeekTotal > 0 ? thisWeekTotal - lastWeekTotal : null
+
+  // Top pages this period
+  const topPages = cfAnalytics?.topPages?.slice(0, 3) || []
+
+  // Device split
+  const devices = cfAnalytics?.devices || []
+  const totalDeviceViews = devices.reduce((s, d) => s + d.views, 0)
+
   return (
     <div className="bg-white/5 rounded-xl p-4 border border-white/10">
       <div className="flex items-center justify-between mb-4">
@@ -239,26 +302,59 @@ export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
 
       <div className="space-y-3">
         <MetricRow 
+          label="Page Views (7d)" 
+          value={cfAnalytics?.summary?.pageViews7d ?? null}
+          change={weeklyChange}
+        />
+        <MetricRow 
+          label="Page Views (30d)" 
+          value={cfAnalytics?.summary?.pageViews30d ?? metrics?.analytics?.pageviews ?? null}
+        />
+        <MetricRow 
           label="Books Published" 
-          value={metrics?.publishing?.booksPublished} 
-          history={metrics?.publishing?.history}
-        />
-        <MetricRow 
-          label="Page Views" 
-          value={metrics?.analytics?.pageviews} 
-          history={metrics?.analytics?.history}
-        />
-        <MetricRow 
-          label="X Followers" 
-          value={metrics?.social?.xFollowers}
+          value={metrics?.publishing?.booksPublished ?? 2} 
         />
       </div>
 
+      {/* Top Pages */}
+      {topPages.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-white/5">
+          <div className="text-xs text-white/40 mb-2">Top Pages (30d)</div>
+          <div className="space-y-1.5">
+            {topPages.map((p, i) => (
+              <div key={i} className="flex items-center justify-between">
+                <span className="text-xs text-white/60 truncate max-w-[180px]" title={p.path}>{p.path}</span>
+                <span className="text-xs font-medium text-white/80">{p.views}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Device breakdown */}
+      {devices.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-white/5">
+          <div className="text-xs text-white/40 mb-2">Devices</div>
+          <div className="flex gap-2">
+            {devices.map((d, i) => {
+              const pct = totalDeviceViews > 0 ? Math.round(d.views / totalDeviceViews * 100) : 0
+              const emoji = d.type === 'mobile' ? '📱' : d.type === 'desktop' ? '🖥️' : '📟'
+              return (
+                <div key={i} className="flex items-center gap-1 text-xs text-white/50">
+                  <span>{emoji}</span>
+                  <span>{pct}%</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Last updated */}
-      {metrics?.lastUpdated && (
+      {cfAnalytics?.meta?.generated && (
         <div className="mt-4 pt-4 border-t border-white/5">
           <div className="text-xs text-white/30">
-            Last updated: {new Date(metrics.lastUpdated).toLocaleString()}
+            Last updated: {new Date(cfAnalytics.meta.generated).toLocaleString()}
           </div>
         </div>
       )}
@@ -269,21 +365,12 @@ export function WeeklyComparison({ stats: _stats }: WeeklyComparisonProps) {
 function MetricRow({ 
   label, 
   value, 
-  history 
+  change 
 }: { 
   label: string
   value: number | null | undefined
-  history?: { date: string; value: number }[]
+  change?: number | null
 }) {
-  // Calculate change from history
-  let change: number | null = null
-  if (history && history.length > 7 && value !== null && value !== undefined) {
-    const weekAgoValue = history[history.length - 8]?.value
-    if (weekAgoValue !== undefined) {
-      change = value - weekAgoValue
-    }
-  }
-
   return (
     <div className="flex items-center justify-between">
       <span className="text-sm text-white/60">{label}</span>
@@ -291,7 +378,7 @@ function MetricRow({
         {value !== null && value !== undefined ? (
           <>
             <span className="text-sm font-medium text-white">{value.toLocaleString()}</span>
-            {change !== null && (
+            {change !== null && change !== undefined && (
               <span className={`text-xs ${change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {change >= 0 ? '+' : ''}{change}
               </span>
