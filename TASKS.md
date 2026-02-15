@@ -267,3 +267,8 @@
 | 111 | RADEON-002 | Submit TinyGrad float16 patch as PR to tinygrad/tinygrad | ⭐ Open Source | TODO | - | Depends on RADEON-001 verification |
 | 112 | DASH-004 | Populate Visitors/Followers/PageViews with Cloudflare Analytics | ⭐ Dashboard | TODO | - | Integrate CF Web Analytics API |
 | 113 | CYCLE-001 | Continuous improvement: add error boundaries to all dashboard pages | ⭐ Quality | TODO | - | Prevent full-page crashes from single component errors |
+| 114 | SEO-015 | Full SEO audit onde.la - meta tags, OG, structured data, sitemap | 🔥 SEO | TODO | - | Skin Creator non esce su Google |
+| 115 | SEO-016 | Keyword research per games (skin creator, games for kids) | 🔥 SEO | TODO | - | Capire cosa cerca la gente |
+| 116 | GROWTH-001 | Implementare Google Analytics o CF Analytics dashboard | 🔥 Growth | TODO | - | Dati traffico reali sul sito |
+| 117 | MONEY-001 | Valutare e aggiungere ads kid-friendly su onde.la | ⭐ Revenue | TODO | - | Banner per prodotti bambini/videogiochi. Dopo che c'è traffico |
+| 118 | SEO-017 | Ottimizzare titoli/descrizioni giochi per search intent | 🔥 SEO | TODO | - | "skin creator online free", "games for kids" etc |
