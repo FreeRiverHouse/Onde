@@ -350,10 +350,33 @@ export default function PaperDashboardPage() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/trading/paper', { cache: 'no-store' })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const json = await res.json()
-      setData(json)
+      // Try API first (works when authenticated)
+      let json = null
+      try {
+        const res = await fetch('/api/trading/paper', { cache: 'no-store' })
+        if (res.ok) {
+          json = await res.json()
+          if (json?.paper_trading?.total_trades > 0) {
+            setData(json)
+            return
+          }
+        }
+      } catch { /* fall through to gist */ }
+
+      // Fallback: fetch from gist directly
+      const gistRes = await fetch(
+        'https://gist.githubusercontent.com/FreeRiverHouse/43b0815cc640bba8ac799ecb27434579/raw/onde-paper-stats.json',
+        { cache: 'no-store' }
+      )
+      if (!gistRes.ok) throw new Error(`Gist HTTP ${gistRes.status}`)
+      const gistData = await gistRes.json()
+      // Map gist format to expected format
+      setData({
+        generated_at: gistData.generated_at,
+        paper_trading: gistData.paper_trading,
+        auto_tune: gistData.auto_tune,
+        real_stats_comparison: gistData.real_stats_comparison ?? null,
+      })
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
@@ -452,8 +475,8 @@ export default function PaperDashboardPage() {
                 color={paper.pnl_cents >= 0 ? 'green' : 'red'}
               />
               <StatBox
-                label="Avg Edge" value={`${paper.edge_stats.mean}%`}
-                sub={`Median: ${paper.edge_stats.median}%`} icon={Zap} color="purple"
+                label="Avg Edge" value={`${paper?.edge_stats?.mean ?? 0}%`}
+                sub={`Median: ${paper?.edge_stats?.median ?? 0}%`} icon={Zap} color="purple"
               />
             </div>
 
@@ -728,7 +751,7 @@ export default function PaperDashboardPage() {
                       <p className="text-xs text-gray-500 mb-2">Edge Distribution (from analysis)</p>
                       <div className="grid grid-cols-4 gap-2">
                         {[
-                          { label: 'Mean', val: tune.latest_report.edge_stats.mean },
+                          { label: 'Mean', val: tune?.latest_report?.edge_stats?.mean ?? 0 },
                           { label: 'Median', val: tune.latest_report.edge_stats.median },
                           { label: 'Min', val: tune.latest_report.edge_stats.min },
                           { label: 'Max', val: tune.latest_report.edge_stats.max },
