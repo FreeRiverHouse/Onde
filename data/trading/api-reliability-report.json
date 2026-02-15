@@ -1,32 +1,34 @@
 {
-  "generated_at": "2026-02-08T18:00:15.506555+00:00",
+  "generated_at": "2026-02-15T18:00:02.783185+00:00",
   "period_days": 7,
   "sources": {
     "binance": {
-      "total_checks": 134,
+      "total_checks": 111,
       "btc_uptime_pct": 0.0,
       "eth_uptime_pct": 0.0,
       "overall_uptime_pct": 0.0,
-      "avg_latency_ms": 240.89,
+      "avg_latency_ms": 297.69,
       "errors": {
-        "HTTP 451": 134
+        "HTTP 451": 111
       }
     },
     "coinbase": {
-      "total_checks": 134,
+      "total_checks": 111,
       "btc_uptime_pct": 100.0,
       "eth_uptime_pct": 100.0,
       "overall_uptime_pct": 100.0,
-      "avg_latency_ms": 173.11,
+      "avg_latency_ms": 181.14,
       "errors": {}
     },
     "coingecko": {
-      "total_checks": 134,
-      "btc_uptime_pct": 100.0,
-      "eth_uptime_pct": 100.0,
-      "overall_uptime_pct": 100.0,
-      "avg_latency_ms": 279.65,
-      "errors": {}
+      "total_checks": 111,
+      "btc_uptime_pct": 99.1,
+      "eth_uptime_pct": 99.1,
+      "overall_uptime_pct": 99.1,
+      "avg_latency_ms": 237.31,
+      "errors": {
+        "HTTP 429": 1
+      }
     }
   }
 }

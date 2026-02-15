@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T16:30:03.402501+00:00",
+  "timestamp": "2026-02-15T18:30:03.677480+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Her Divorce Was Ugly. Crypto Became a Lifeline",
+      "url": "https://decrypt.co/358087/her-divorce-ugly-crypto-lifeline",
+      "source": "decrypt",
+      "description": "A mother in Texas said that crypto helped her overcome financial abuse.",
+      "published": "2026-02-15T18:01:02+00:00"
+    },
     {
       "title": "Bitcoin Takes Step Towards Quantum Fix as Experts Diverge on Urgency of Threat",
       "url": "https://decrypt.co/358068/bitcoin-quantum-fix-experts-diverge-urgency-threat",
@@ -170,13 +177,6 @@
       "source": "decrypt",
       "description": "Wallets linked to the $200 million exploit of Mixin in 2023 woke after nearly two years and moved funds to coin mixer Tornado Cash.",
       "published": "2026-02-13T17:50:53+00:00"
-    },
-    {
-      "title": "Coinbase Stock Surges After Q4 Miss as Analysts Call It 'Too Cheap to Sell'",
-      "url": "https://decrypt.co/358033/coinbase-stock-surges-q4-miss-analysts-too-cheap-sell",
-      "source": "decrypt",
-      "description": "Coinbase just fell short of Wall Street expectations, but investors are overlooking the exchange\u2019s resiliency, according to Bernstein.",
-      "published": "2026-02-13T17:45:21+00:00"
     },
     {
       "title": "Brazil Proposes National Bitcoin Reserve, Targets 1 Million BTC Over Five Years",
