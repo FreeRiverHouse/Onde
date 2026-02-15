@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-02-15T08:00:02.388304+00:00",
+  "timestamp": "2026-02-15T08:30:02.056071+00:00",
   "analysis": {
-    "total_trades": 299,
-    "timestamp": "2026-02-15T08:00:02.201976+00:00",
+    "total_trades": 304,
+    "timestamp": "2026-02-15T08:30:01.904227+00:00",
     "by_asset": {
       "eth": {
-        "trades": 86,
+        "trades": 87,
         "wins": 0,
         "losses": 0,
-        "pending": 86,
+        "pending": 87,
         "pnl_cents": 0,
-        "avg_edge": 0.137
+        "avg_edge": 0.1367
       },
       "btc": {
-        "trades": 98,
+        "trades": 102,
         "wins": 0,
         "losses": 0,
-        "pending": 98,
+        "pending": 102,
         "pnl_cents": 0,
-        "avg_edge": 0.1197
+        "avg_edge": 0.1191
       },
       "weather": {
         "trades": 115,
@@ -32,19 +32,19 @@
     },
     "by_side": {
       "no": {
-        "trades": 208,
+        "trades": 211,
         "wins": 19,
         "losses": 33,
-        "pending": 156,
+        "pending": 159,
         "win_rate": 0.365,
-        "avg_edge": 0.4029
+        "avg_edge": 0.3987
       },
       "yes": {
-        "trades": 91,
+        "trades": 93,
         "wins": 0,
         "losses": 0,
-        "pending": 91,
-        "avg_edge": 0.2184
+        "pending": 93,
+        "avg_edge": 0.2158
       }
     },
     "by_regime": {
@@ -56,10 +56,10 @@
         "avg_edge": 0.2072
       },
       "choppy": {
-        "trades": 141,
+        "trades": 146,
         "wins": 0,
         "losses": 0,
-        "pending": 141,
+        "pending": 146,
         "avg_edge": 0.1036
       },
       "unknown": {
@@ -80,16 +80,16 @@
         "win_rate": 0.365
       },
       "10-15%": {
-        "trades": 80,
+        "trades": 83,
         "wins": 0,
         "losses": 0,
-        "pending": 80
+        "pending": 83
       },
       "5-10%": {
-        "trades": 64,
+        "trades": 66,
         "wins": 0,
         "losses": 0,
-        "pending": 64
+        "pending": 66
       },
       "15-20%": {
         "trades": 7,
@@ -161,6 +161,12 @@
         "losses": 0,
         "pending": 4
       },
+      "08": {
+        "trades": 5,
+        "wins": 0,
+        "losses": 0,
+        "pending": 5
+      },
       "20": {
         "trades": 8,
         "wins": 1,
@@ -227,12 +233,12 @@
       }
     },
     "edge_stats": {
-      "mean": 0.34674481473097596,
-      "median": 0.19705694024074813,
-      "stdev": 0.29175095207015206,
+      "mean": 0.3427645505419773,
+      "median": 0.17224772068806946,
+      "stdev": 0.29097331587368314,
       "min": 0.09003942444252377,
       "max": 0.9374,
-      "count": 299
+      "count": 304
     },
     "prob_calibration": [
       {

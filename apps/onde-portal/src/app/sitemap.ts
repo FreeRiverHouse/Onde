@@ -92,7 +92,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // Blog
     '/blog',
-    '/blog/kalshi-trading-bot-ai',
     '/blog/radeon-7900-xtx-mac-tinygrad',
     
     // Other sections
