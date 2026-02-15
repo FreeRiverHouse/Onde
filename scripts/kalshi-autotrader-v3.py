@@ -183,6 +183,13 @@ LLM_CONFIG = get_llm_config()
 
 # Trading parameters
 MIN_EDGE = 0.01           # 1% minimum edge - AGGRESSIVE in paper mode to collect data
+# Data-driven insight (126 settled trades, 2026-02-15):
+# BUY_NO: 15.5% WR, +$2.37 (profitable)
+# BUY_YES: 4.4% WR, -$3.48 (disaster)
+# High edge (>10%): 0% WR (overconfident forecaster)
+# Strategy: on parlays, ONLY bet NO; cap max perceived edge
+PARLAY_ONLY_NO = True     # On multi-leg parlays, only take BUY_NO positions
+MAX_EDGE_CAP = 0.08       # Cap: if forecaster claims >8% edge, it's probably wrong
 MAX_POSITION_PCT = 0.05   # 5% max per position
 KELLY_FRACTION = 0.15     # Aggressive in paper mode - collect more data
 MIN_BET_CENTS = 5         # Minimum 5 cents per contract
@@ -1284,9 +1291,29 @@ def make_trade_decision(market: MarketInfo, forecast: ForecastResult, critic: Cr
             critic=critic
         )
     
+    # Data-driven edge cap: forecaster overconfident at high edges (0% WR on >10%)
+    if abs(edge_yes) > MAX_EDGE_CAP:
+        # Clip to cap — don't trust large perceived edges
+        edge_yes = MAX_EDGE_CAP if edge_yes > 0 else -MAX_EDGE_CAP
+        # Recalculate final_prob from capped edge
+        final_prob = market_prob + edge_yes
+
     # Decide YES or NO
+    market_type = classify_market_type(market)
     if edge_yes > 0:
         # YES is underpriced → buy YES
+        # But for parlays: data shows BUY_YES has 4.4% WR → skip
+        if PARLAY_ONLY_NO and market_type == "combo":
+            return TradeDecision(
+                action="SKIP",
+                edge=edge_yes,
+                kelly_size=0,
+                contracts=0,
+                price_cents=0,
+                reason=f"Parlay BUY_YES blocked (data: 4.4% WR). Only BUY_NO on parlays.",
+                forecast=forecast,
+                critic=critic
+            )
         action = "BUY_YES"
         side_price = market.yes_price
         edge = edge_yes
