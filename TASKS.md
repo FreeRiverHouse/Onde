@@ -376,4 +376,4 @@
 | 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | DONE | @clawdinho | kalshi-forecast-tracker.py, reads opus-forecasts.jsonl, checks settled markets | opus-forecasts.jsonl creato, serve script di analisi accuracy |
 | 161 | BLOG-010 | Scrivere blog post "How We Built onde.la" - tech stack, design decisions, CF deployment | ⭐ Content | TODO | - | Next.js + CF Pages + Tailwind + Framer Motion |
 | 162 | SEO-023 | Aggiungere structured data (JSON-LD) alle pagine games per rich snippets | ⭐ SEO | DONE | @clawdinho | SoftwareApplication JSON-LD on all 48 game pages + games hub | SoftwareApplication schema per games, AggregateRating |
-| 163 | PERF-001 | Lighthouse audit onde.la e fixare performance issues (LCP, CLS, FID) | ⭐ Performance | TODO | - | Target: 90+ performance su mobile |
+| 163 | PERF-001 | Lighthouse audit onde.la e fixare performance issues (LCP, CLS, FID) | ⭐ Performance | DONE | @clawdinho | Score 78→84, FCP 32% faster, TBT 88% reduction, WebP images, dynamic imports | Target: 90+ performance su mobile |
