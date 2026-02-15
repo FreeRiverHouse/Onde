@@ -8,6 +8,7 @@ import { EnhancedStats, WeeklyComparison } from '@/components/EnhancedStats'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { AgentTasksPanel } from '@/components/AgentTasksPanel'
 import { FreeRiverHouse } from '@/components/FreeRiverHouse'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { GlowCard } from '@/components/ui/GlowCard'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GradientText } from '@/components/ui/AnimatedText'
@@ -80,7 +81,9 @@ export default async function Dashboard() {
       {/* Enhanced Stats with Sparklines */}
       <ScrollReveal animation="fade-up" delay={100}>
         <div className="mb-10">
-          <EnhancedStats stats={stats} />
+          <ErrorBoundary name="Enhanced Stats">
+            <EnhancedStats stats={stats} />
+          </ErrorBoundary>
         </div>
       </ScrollReveal>
 
@@ -89,14 +92,18 @@ export default async function Dashboard() {
         {/* Left column: Post Approval */}
         <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
           <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
-            <PostApproval />
+            <ErrorBoundary name="Post Approval">
+              <PostApproval />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
 
         {/* Right column: Activity Feed */}
         <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
           <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
-            <ActivityFeed maxItems={6} />
+            <ErrorBoundary name="Activity Feed">
+              <ActivityFeed maxItems={6} />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
       </div>
@@ -105,12 +112,16 @@ export default async function Dashboard() {
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
         <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
           <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
-            <PolyRobortoPanel />
+            <ErrorBoundary name="PolyRoborto">
+              <PolyRobortoPanel />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
         <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
           <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
-            <WeeklyComparison stats={stats} />
+            <ErrorBoundary name="Weekly Comparison">
+              <WeeklyComparison stats={stats} />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
       </div>
@@ -119,7 +130,9 @@ export default async function Dashboard() {
       <ScrollReveal animation="zoom-in" delay={0}>
         <div className="mb-8">
           <GlowCard variant="emerald" noPadding noTilt glassIntensity="high">
-            <FreeRiverHouse />
+            <ErrorBoundary name="Free River House">
+              <FreeRiverHouse />
+            </ErrorBoundary>
           </GlowCard>
         </div>
       </ScrollReveal>
@@ -128,7 +141,9 @@ export default async function Dashboard() {
       <div className="grid lg:grid-cols-2 gap-6 mb-8">
         <ScrollReveal animation="fade-right" delay={0}>
           <GlowCard variant="purple" noPadding noTilt glassIntensity="high">
-            <AgentTasksPanel />
+            <ErrorBoundary name="Agent Tasks">
+              <AgentTasksPanel />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
         <ScrollReveal animation="fade-left" delay={100}>
@@ -156,11 +171,15 @@ export default async function Dashboard() {
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
         <ScrollReveal animation="fade-right" delay={0} className="lg:col-span-2">
           <GlowCard variant="gold" noPadding noTilt glassIntensity="high">
-            <TechSupportPanel />
+            <ErrorBoundary name="Tech Support">
+              <TechSupportPanel />
+            </ErrorBoundary>
           </GlowCard>
         </ScrollReveal>
         <ScrollReveal animation="fade-left" delay={100} className="lg:col-span-1">
-          <TestStatusPanel />
+          <ErrorBoundary name="Test Status">
+            <TestStatusPanel />
+          </ErrorBoundary>
         </ScrollReveal>
       </div>
 

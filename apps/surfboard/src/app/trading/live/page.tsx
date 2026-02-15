@@ -3,6 +3,7 @@
 export const runtime = 'edge'
 
 import { KalshiTraderDashboard } from '@/components/KalshiTraderDashboard'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ArrowLeft, ExternalLink, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
@@ -53,7 +54,9 @@ export default function KalshiDashboardPage() {
 
                 {/* Main Dashboard */}
                 <main className="space-y-6">
-                    <KalshiTraderDashboard />
+                    <ErrorBoundary name="Kalshi Trader Dashboard">
+                      <KalshiTraderDashboard />
+                    </ErrorBoundary>
 
                     {/* Info Cards */}
                     <div className="grid md:grid-cols-3 gap-4">

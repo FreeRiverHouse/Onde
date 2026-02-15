@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const metadata: Metadata = {
   title: 'Trading History | Onde Trading Terminal',
@@ -11,5 +12,9 @@ export default function TradingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <ErrorBoundary name="Trading">
+      {children}
+    </ErrorBoundary>
+  );
 }

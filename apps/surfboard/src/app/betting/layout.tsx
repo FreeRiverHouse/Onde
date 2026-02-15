@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const metadata: Metadata = {
   title: 'Trading Terminal | Onde',
@@ -10,5 +11,9 @@ export default function BettingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <ErrorBoundary name="Betting Dashboard">
+      {children}
+    </ErrorBoundary>
+  );
 }
