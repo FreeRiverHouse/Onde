@@ -311,7 +311,7 @@
 | 130 | SOC-004 | Creare thread X su AI agents + prediction markets (dietro le quinte Kalshi bot) | ⭐ Content | DONE | @clawdinho | Draft in content/drafts/x-thread-ai-trading-bot.md, serve review Mattia |
 | 131 | SOC-005 | Creare thread X su setup multi-agent (Clawdinho M1 + Ondinho M4) | ⭐ Content | TODO | - |
 | 132 | SEO-020 | Deploy onde.la con sitemap fix + blog section e verificare indicizzazione | 🔥 SEO | IN_PROGRESS | @clawdinho |
-| 133 | SEO-021 | Submit nuova sitemap a Google Search Console dopo deploy | ⭐ SEO | TODO | - |
+| 133 | SEO-021 | Submit nuova sitemap a Google Search Console dopo deploy | ⭐ SEO | DONE | @clawdinho | IndexNow submitted for new blog posts (202 accepted). Google ping deprecated. |
 | 134 | SEO-022 | Monitorare crawl stats in GSC dopo fix trailing slash (baseline → after) | ⭐ SEO | TODO | - |
 
 ### 🔥 NUOVI (da TRADE-005 edge calibration)
