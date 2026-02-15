@@ -68,7 +68,7 @@ export function EnhancedStats({ stats: _stats }: EnhancedStatsProps) {
       // Last resort: hardcoded known values
       setMetrics({
         publishing: {
-          booksPublished: 3,
+          booksPublished: 2,
           audiobooks: 0,
           podcasts: 0,
           videos: 2,
