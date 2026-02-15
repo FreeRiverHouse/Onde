@@ -1,14 +1,8 @@
 {
-  "generated_at": "2026-02-15T18:30:02.517328+00:00",
+  "generated_at": "2026-02-15T18:35:00.824022+00:00",
   "sites": {
     "onde.la": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T10:25:01.324514+00:00",
-          "status": 200,
-          "latency_ms": 164,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T10:30:02.310175+00:00",
           "status": 200,
@@ -12098,27 +12092,27 @@
           "status": 200,
           "latency_ms": 323,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-15T18:35:00.824022+00:00",
+          "status": 200,
+          "latency_ms": 305,
+          "ok": true
         }
       ],
       "stats": {
         "uptime_24h": 100.0,
         "uptime_7d": 100.0,
-        "avg_latency_24h": 215,
+        "avg_latency_24h": 216,
         "avg_latency_7d": 475,
         "incidents_24h": 0,
         "incidents_7d": 0,
-        "total_checks_24h": 287,
+        "total_checks_24h": 288,
         "total_checks_7d": 1321
       }
     },
     "onde.surf": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T10:25:01.324514+00:00",
-          "status": 200,
-          "latency_ms": 177,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T10:30:02.310175+00:00",
           "status": 200,
@@ -24209,6 +24203,12 @@
           "status": 200,
           "latency_ms": 367,
           "ok": true
+        },
+        {
+          "timestamp": "2026-02-15T18:35:00.824022+00:00",
+          "status": 200,
+          "latency_ms": 188,
+          "ok": true
         }
       ],
       "stats": {
@@ -24224,12 +24224,6 @@
     },
     "skin-studio": {
       "checks": [
-        {
-          "timestamp": "2026-02-05T10:25:01.324514+00:00",
-          "status": 200,
-          "latency_ms": 182,
-          "ok": true
-        },
         {
           "timestamp": "2026-02-05T10:30:02.310175+00:00",
           "status": 200,
@@ -36318,6 +36312,12 @@
           "timestamp": "2026-02-15T18:30:02.517328+00:00",
           "status": 200,
           "latency_ms": 193,
+          "ok": true
+        },
+        {
+          "timestamp": "2026-02-15T18:35:00.824022+00:00",
+          "status": 200,
+          "latency_ms": 212,
           "ok": true
         }
       ],
