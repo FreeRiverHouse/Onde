@@ -123,12 +123,49 @@ X = 106 (left/underdog) | 219 (right/favorite)
 10. Log risultato in data/trading/polymarket-bets.jsonl
 ```
 
-### ⚠️ CONFERMA BET = SCROLL UP
-```bash
-# Questo è il "Swipe to Buy" di Polymarket
-python3 scripts/polymarket-navigator.py swipe up --distance long
+### ⚠️ CONFERMA BET = QUARTZ CGEVENT SWIPE (NON cliclick!)
+
+**IMPORTANTE:** `cliclick` e `polymarket-navigator.py swipe` NON funzionano per il "Swipe to Buy".
+Solo Quartz CGEvent a basso livello viene riconosciuto come touch swipe da iPhone Mirroring.
+
+```python
+# METODO FUNZIONANTE - Quartz CGEvent drag
+import Quartz, time
+
+# Coordinate: centro del bottone "Swipe to buy" (in basso)
+# NOTA: aggiusta in base a posizione finestra (usa `info` per coordinate)
+start_x, start_y = 529, 770  # Centro bottone swipe (screen coords)
+end_x, end_y = 529, 350      # Destinazione (più in alto)
+
+# Move to start
+move = Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventMouseMoved, (start_x, start_y), Quartz.kCGMouseButtonLeft)
+Quartz.CGEventPost(Quartz.kCGHIDEventTap, move)
+time.sleep(0.1)
+
+# Mouse down
+down = Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseDown, (start_x, start_y), Quartz.kCGMouseButtonLeft)
+Quartz.CGEventPost(Quartz.kCGHIDEventTap, down)
+time.sleep(0.05)
+
+# Smooth drag upward (40 steps, 8ms each = fast swipe)
+steps = 40
+for i in range(1, steps + 1):
+    frac = i / steps
+    cur_y = start_y + (end_y - start_y) * frac
+    drag = Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseDragged, (start_x, cur_y), Quartz.kCGMouseButtonLeft)
+    Quartz.CGEventPost(Quartz.kCGHIDEventTap, drag)
+    time.sleep(0.008)
+
+# Mouse up
+up = Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseUp, (end_x, end_y), Quartz.kCGMouseButtonLeft)
+Quartz.CGEventPost(Quartz.kCGHIDEventTap, up)
 ```
-Lo scroll up simula lo swipe verso l'alto che conferma l'acquisto nell'app Polymarket.
+
+**Perché funziona:** Quartz CGEvent simula a livello HID (hardware input device), 
+che iPhone Mirroring traduce correttamente in touch gesture.
+cliclick e AppleScript usano API di livello superiore che non vengono mappate come swipe.
+
+**Prima bet confermata con questo metodo:** 2026-02-15, RUTG $9.87 at 71¢ → $14
 
 ---
 
