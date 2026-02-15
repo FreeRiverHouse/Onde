@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { trackPlayerRegister } from '@/hooks/useAnalytics'
 
 const STORAGE_KEY = 'onde-player-name'
 
@@ -24,17 +25,22 @@ export function usePlayerName() {
 
   const setName = useCallback((newName: string) => {
     const trimmed = newName.trim().substring(0, 20)
+    const hadName = !!name
     setNameState(trimmed)
     try {
       if (trimmed) {
         localStorage.setItem(STORAGE_KEY, trimmed)
+        // Track first-time registration only
+        if (!hadName) {
+          trackPlayerRegister()
+        }
       } else {
         localStorage.removeItem(STORAGE_KEY)
       }
     } catch {
       // Storage not available
     }
-  }, [])
+  }, [name])
 
   return {
     name,

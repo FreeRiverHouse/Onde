@@ -17,6 +17,11 @@ const playfair = Playfair_Display({
 // Google Analytics 4 - set NEXT_PUBLIC_GA_ID in environment
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
 
+// Privacy-friendly analytics
+const CF_ANALYTICS_TOKEN = process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN
+const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID
+const UMAMI_SRC = process.env.NEXT_PUBLIC_UMAMI_SRC || 'https://cloud.umami.is/script.js'
+
 // Organization + WebSite + FAQ JSON-LD for root
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -188,6 +193,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               `}
             </Script>
           </>
+        )}
+
+        {/* Cloudflare Web Analytics (privacy-friendly, page views) */}
+        {CF_ANALYTICS_TOKEN && (
+          <Script
+            id="cf-analytics"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
+            strategy="afterInteractive"
+          />
+        )}
+
+        {/* Umami Analytics (privacy-friendly, page views + custom events) */}
+        {UMAMI_WEBSITE_ID && (
+          <Script
+            id="umami-analytics"
+            src={UMAMI_SRC}
+            data-website-id={UMAMI_WEBSITE_ID}
+            strategy="afterInteractive"
+          />
         )}
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">

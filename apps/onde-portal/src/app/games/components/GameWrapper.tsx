@@ -3,6 +3,7 @@
 import { ReactNode, Suspense, createContext, useContext, useEffect } from 'react';
 import { GameErrorBoundary } from '@/components/ErrorBoundary';
 import { useGameRewards, type UseGameRewardsReturn } from '@/hooks/useGameRewards';
+import { trackGamePlay, trackGameWin } from '@/hooks/useAnalytics';
 import XPNotification from './XPNotification';
 
 // Context so child components can call trackWin / trackPerfect
@@ -83,7 +84,7 @@ export default function GameWrapper({
     <GameErrorBoundary gameName={gameName}>
       <Suspense fallback={loading || defaultLoading}>
         <GameRewardsContext.Provider value={rewards}>
-          {autoTrackPlay && <AutoTrackPlay rewards={rewards} />}
+          {autoTrackPlay && <AutoTrackPlay rewards={rewards} gameName={gameName} />}
           <XPNotification rewards={rewards} />
           {children}
         </GameRewardsContext.Provider>
@@ -92,10 +93,11 @@ export default function GameWrapper({
   );
 }
 
-/** Small helper that fires trackPlay once on mount */
-function AutoTrackPlay({ rewards }: { rewards: UseGameRewardsReturn }) {
+/** Small helper that fires trackPlay + analytics event once on mount */
+function AutoTrackPlay({ rewards, gameName }: { rewards: UseGameRewardsReturn; gameName: string }) {
   useEffect(() => {
     rewards.trackPlay();
+    trackGamePlay(gameName);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return null;

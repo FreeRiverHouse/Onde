@@ -4,6 +4,7 @@ import { useCallback, useRef } from 'react'
 import { usePlayerLevel } from './usePlayerLevel'
 import { useCoins } from './useCoins'
 import { useRecentlyPlayed } from './useRecentlyPlayed'
+import { trackGameWin as analyticsTrackWin } from './useAnalytics'
 
 /**
  * Unified game rewards hook.
@@ -41,6 +42,7 @@ export function useGameRewards({ gameId, title, emoji }: GameRewardsConfig) {
   const trackWin = useCallback(() => {
     awardXP('game_won', { description: `Won ${title}`, metadata: { gameId } })
     earnCoins('game_win', undefined, `Won ${title}`)
+    analyticsTrackWin(title)
   }, [gameId, title, awardXP, earnCoins])
 
   /** Track perfect game. Awards 75 XP + 50 coins. */
