@@ -1,8 +1,8 @@
 {
   "is_running": true,
-  "last_cycle_time": "2026-02-15T10:14:21.449465+00:00",
-  "cycle_count": 514,
-  "dry_run": true,
+  "last_cycle_time": "2026-02-15T10:15:51.012294+00:00",
+  "cycle_count": 1,
+  "dry_run": false,
   "trades_today": 0,
   "today_won": 0,
   "today_lost": 0,
@@ -14,5 +14,5 @@
   "circuit_breaker_active": false,
   "circuit_breaker_reason": null,
   "consecutive_losses": 2,
-  "status": "\ud83e\uddea dry_run"
+  "status": "\u2705 running"
 }

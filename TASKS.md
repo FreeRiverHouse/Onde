@@ -236,7 +236,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 30 | TRADE-001 | Riavviare autotrader con fix algoritmo (paper mode) | 🔥 Trading | TODO | - |
+| 30 | TRADE-001 | Riavviare autotrader con fix algoritmo (paper mode) | 🔥 Trading | DONE | @clawdinho | Restarted v2 autotrader PID 26431, picks up all edge cap fixes |
 | 31 | TRADE-002 | Dashboard autotrader su onde.surf funzionante con grafici trend | 🔥 Trading | IN_PROGRESS | @clawdinho | Dashboard locale su :8888 funziona, deploy su onde.surf fatto ma serve connessione al backend |
 | 32 | TRADE-003 | Implementare backtesting framework per autotrader | ⭐ Trading | ✅ DONE | @clawdinho | scripts/kalshi-backtest.py - Replay historical data, param sweep, Monte Carlo CI, strategy comparison |
 | 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | DONE | @clawdinho | Opus IS the forecaster - no external API needed. kalshi-opus-trader.py + v3 script done. 2 real CPI trades placed. |
@@ -334,7 +334,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | TODO | - |
+| 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | DONE | @clawdinho | Done with TRADE-001 restart |
 | 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | DONE | @clawdinho | kalshi-daily-backtest-compare.py - daily report + forecast comparison |
 | 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | ✅ DONE | @clawdinho | Swept 0.05-0.30 in 0.05 steps. All values identical (4 trades, 75% WR, Sharpe 2.08) — position size floor + per-asset caps bind before Kelly. Keep 0.05 default. Re-run when n≥30 settled trades. See data/trading/kelly-sweep-results.txt |
 
@@ -342,7 +342,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 144 | TRADE-014 | Aumentare volume trade crypto: aggiungere più asset (SOL, DOGE, etc) all'autotrader | 🔥 Trading volume | TODO | - |
+| 144 | TRADE-014 | Aumentare volume trade crypto: aggiungere più asset (SOL, DOGE, etc) all.autotrader | 🔥 Trading volume | DONE | @clawdinho | SOL already supported. DOGE not on Kalshi. No other crypto assets available. |
 | 145 | TRADE-015 | Re-run kelly sweep dopo 30+ settled crypto trades | ⭐ Trading | TODO | - | Dipende da volume trade |
 | 146 | TRADE-016 | Review per-asset max_position_pct — ETH 4% potrebbe essere troppo basso | ⭐ Trading | DONE | @clawdinho | Reviewed: BTC 5%, ETH 4%, SOL 3%, weather 2%, default 2%. ETH at 4% is appropriate given higher volatility vs BTC. |
 
@@ -360,7 +360,7 @@
 |---|----|----- |--------|--------|-------|
 | 150 | BLOG-006 | Aggiungere RSS feed link visibile nella UI del blog (icona RSS) | ⭐ UX | DONE | @clawdinho | RSS icon+link added below blog subtitle |
 | 151 | BLOG-007 | Submit RSS feed a aggregatori (Feedly, Hacker News RSS) | ⭐ Distribution | DONE | @clawdinho | PubSubHubbub 204, Feedly search submitted, will index over time |
-| 152 | TRADE-017 | Aggiungere più asset crypto all'autotrader (SOL, DOGE) per aumentare volume trade | 🔥 Trading volume | TODO | - |
+| 152 | TRADE-017 | Aggiungere più asset crypto all.autotrader (SOL, DOGE) per aumentare volume trade | 🔥 Trading volume | DONE | @clawdinho | Duplicate of TRADE-014. SOL supported, DOGE N/A on Kalshi. |
 
 ### 🔥 NUOVI (da BLOG-005 TOC + keyword research)
 

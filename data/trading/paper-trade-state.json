@@ -3,7 +3,7 @@
   "started_at": "2026-02-08T16:47:25.989023+00:00",
   "starting_balance_cents": 5000,
   "current_balance_cents": 5000,
-  "mode": "paper",
+  "mode": "live",
   "strategy_version": "v2.1-improved",
   "safety_guards": {
     "min_forecast_strike_gap": 2.0,
@@ -46,10 +46,10 @@
     "pnl_cents": 0,
     "by_asset": {}
   },
-  "last_cycle": "2026-02-15T10:14:21.449465+00:00",
-  "cycle_count": 514,
-  "last_updated": "2026-02-15T10:15:00.944852+00:00",
-  "uptime_human": "10:50:00",
+  "last_cycle": "2026-02-15T10:15:51.012294+00:00",
+  "cycle_count": 1,
+  "last_updated": "2026-02-15T10:16:00.424697+00:00",
+  "uptime_human": "0:00:24",
   "circuit_breaker_active": false,
-  "status": "\ud83e\uddea dry_run"
+  "status": "\u2705 running"
 }
