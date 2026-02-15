@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T18:30:03.677480+00:00",
+  "timestamp": "2026-02-15T20:00:04.264164+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Michael Saylor signals another Bitcoin buy amid market rout",
+      "url": "https://cointelegraph.com/news/michael-saylor-signals-strategy-buy-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The purchase will mark week 12 of consecutive buys by Strategy, which continues accumulating BTC despite a sharp decline in the company's stock price.",
+      "published": "2026-02-15T18:55:52+00:00"
+    },
     {
       "title": "Her Divorce Was Ugly. Crypto Became a Lifeline",
       "url": "https://decrypt.co/358087/her-divorce-ugly-crypto-lifeline",
@@ -107,13 +114,6 @@
       "source": "decrypt",
       "description": "Despite its 45% fall since its October peak, Bitcoin has not yet found its bear market bottom, according to a new report from CryptoQuant.",
       "published": "2026-02-14T16:11:05+00:00"
-    },
-    {
-      "title": "Figure Technology suffers data breach, exposing personal customer details",
-      "url": "https://cointelegraph.com/news/figure-technology-data-breach-customer-details-exposed?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "ShinyHunters hackers leaked user data after a social-engineering attack on a Figure employee and the company reportedly refused to pay a ransom.",
-      "published": "2026-02-14T12:57:59+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",

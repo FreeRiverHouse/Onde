@@ -108,3 +108,9 @@ Time: 2026-02-15 08:16 UTC🔄 MARKET REGIME CHANGE DETECTED
    New MIN_EDGE: 7%
 
 Time: 2026-02-15 12:15 UTC{"timestamp":"2026-02-15T16:15:32Z","type":"regime_change","message":"ETH: sideways → trending_bearish, 4h: -2.49%, 24h: -5.58%, MIN_EDGE: 8%"}
+🔄 MARKET REGIME CHANGE DETECTED
+
+➡️ ETH: trending_bearish → sideways
+   New MIN_EDGE: 4%
+
+Time: 2026-02-15 20:00 UTC
