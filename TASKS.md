@@ -344,7 +344,7 @@
 |---|----|----- |--------|--------|-------|
 | 144 | TRADE-014 | Aumentare volume trade crypto: aggiungere più asset (SOL, DOGE, etc) all'autotrader | 🔥 Trading volume | TODO | - |
 | 145 | TRADE-015 | Re-run kelly sweep dopo 30+ settled crypto trades | ⭐ Trading | TODO | - | Dipende da volume trade |
-| 146 | TRADE-016 | Review per-asset max_position_pct — ETH 4% potrebbe essere troppo basso | ⭐ Trading | TODO | - |
+| 146 | TRADE-016 | Review per-asset max_position_pct — ETH 4% potrebbe essere troppo basso | ⭐ Trading | DONE | @clawdinho | Reviewed: BTC 5%, ETH 4%, SOL 3%, weather 2%, default 2%. ETH at 4% is appropriate given higher volatility vs BTC. |
 
 ### 🔥 NUOVI (da TECH-001 Kalshi post)
 
@@ -359,7 +359,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 150 | BLOG-006 | Aggiungere RSS feed link visibile nella UI del blog (icona RSS) | ⭐ UX | DONE | @clawdinho | RSS icon+link added below blog subtitle |
-| 151 | BLOG-007 | Submit RSS feed a aggregatori (Feedly, Hacker News RSS) | ⭐ Distribution | TODO | - |
+| 151 | BLOG-007 | Submit RSS feed a aggregatori (Feedly, Hacker News RSS) | ⭐ Distribution | DONE | @clawdinho | PubSubHubbub 204, Feedly search submitted, will index over time |
 | 152 | TRADE-017 | Aggiungere più asset crypto all'autotrader (SOL, DOGE) per aumentare volume trade | 🔥 Trading volume | TODO | - |
 
 ### 🔥 NUOVI (da BLOG-005 TOC + keyword research)
@@ -371,6 +371,6 @@
 | 155 | PM-001 | Creare script polymarket-navigator.py con funzioni navigate/scroll/bet/screenshot | 🔥 Trading | TODO | - | Unifica cliclick + CGEvent scroll + screenshot in un tool |
 | 156 | TRADE-005 | Opus Forecaster: automated market scanning + trading ogni heartbeat | 🔥 Trading | IN_PROGRESS | @clawdinho | kalshi-opus-trader.py creato, 202 mercati, serve loop automatico |
 | 157 | TRADE-006 | Kalshi: deposit più fondi per tradare mercati grossi (GDP, BTC) | 🚨 BLOCCANTE | TODO | @mattia | Balance $0.03, serve capital per fare profitti reali |
-| 158 | DASH-005 | Integrare CF Analytics nella dashboard onde.surf (widget pageviews/referrer) | ⭐ Dashboard | TODO | - | Script fetch-cf-analytics.sh già creato, dati in data/analytics/ |
+| 158 | DASH-005 | Integrare CF Analytics nella dashboard onde.surf (widget pageviews/referrer) | ⭐ Dashboard | DONE | @clawdinho | Already done by DASH-004 - /api/analytics route fetches CF GraphQL, EnhancedStats shows real data |
 | 159 | MOBILE-001 | Ottimizzare onde.la per mobile (72% traffico è mobile) | 🔥 UX | DONE | @clawdinho | 9 files, 44px touch targets, 16px min text, skin creator touch-action, deployed | CF Analytics mostra 72% mobile, iOS dominante |
 | 160 | TRADE-007 | Tracking forecast accuracy: confrontare mie previsioni vs risultati reali | ⭐ Trading | DONE | @clawdinho | kalshi-forecast-tracker.py, reads opus-forecasts.jsonl, checks settled markets | opus-forecasts.jsonl creato, serve script di analisi accuracy |
