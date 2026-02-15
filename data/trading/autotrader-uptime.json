@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-15T13:30:02.499597+00:00",
+  "updated_at": "2026-02-15T14:30:02.939942+00:00",
   "last_24h": {
     "uptime_pct": 100.0,
     "healthy_checks": 384,
@@ -9,15 +9,15 @@
   },
   "last_7d": {
     "uptime_pct": 100.0,
-    "healthy_checks": 2452,
+    "healthy_checks": 2450,
     "restart_events": 0,
-    "total_checks": 2452,
+    "total_checks": 2450,
     "hours_analyzed": 168
   },
   "daily": {
     "2026-02-15": {
       "uptime_pct": 100.0,
-      "healthy": 134,
+      "healthy": 158,
       "restarts": 0
     },
     "2026-02-14": {
