@@ -48,7 +48,7 @@ from typing import Optional
 # Default strategy parameters (mirrors kalshi-autotrader-v2.py defaults)
 DEFAULT_PARAMS = {
     "min_edge": 0.04,
-    "max_edge": 0.25,
+    "max_edge": 0.20,  # TRADE-005: Reduced from 0.25 — backtest found >25% edges were false positives
     "kelly_fraction": 0.05,
     "max_position_pct": 0.03,
     "min_time_to_expiry_minutes": 45,
@@ -477,9 +477,16 @@ def should_include_trade(trade: Trade, params: dict) -> tuple[bool, str]:
         return False, f"edge_{trade.edge:.3f}_below_{asset_min_edge:.3f}"
 
     # 2. Maximum edge check (suspiciously high = model error)
-    max_edge = params.get("max_edge", 0.25)
-    if trade.edge > max_edge:
-        return False, f"edge_{trade.edge:.3f}_above_max_{max_edge:.3f}"
+    # TRADE-005: Per-asset max edge caps — weather has strictest cap (false positives in backtest)
+    BACKTEST_ASSET_MAX_EDGE = {
+        "btc": 0.20, "eth": 0.20, "sol": 0.20,
+        "weather": 0.15, "other": 0.15,
+    }
+    global_max_edge = params.get("max_edge", 0.20)
+    asset_max_edge = BACKTEST_ASSET_MAX_EDGE.get(asset, 0.15)
+    effective_max_edge = min(global_max_edge, asset_max_edge)
+    if trade.edge > effective_max_edge:
+        return False, f"edge_{trade.edge:.3f}_above_max_{effective_max_edge:.3f}_{asset}"
 
     # 3. Time to expiry check
     min_expiry = params.get("min_time_to_expiry_minutes", 45)

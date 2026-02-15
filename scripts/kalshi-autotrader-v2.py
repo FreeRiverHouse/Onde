@@ -107,7 +107,9 @@ BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters - MORE CONSERVATIVE
 MIN_EDGE = 0.04  # 4% minimum edge (was 10% — too high, generated 0 crypto trades)
-MAX_EDGE = 0.25  # 25% max edge — edges above this are likely model errors, not real alpha
+MAX_EDGE = 0.20  # 20% max edge — edges above this are likely model errors, not real alpha
+                  # Reduced from 25%: backtest (TRADE-003) found weather edges >25% were false positives
+                  # and crypto edges >20% are also suspicious (model overconfidence near strikes)
 MAX_POSITION_PCT = 0.03  # 3% max per position (default, see per-asset below)
 KELLY_FRACTION = 0.05  # Very conservative Kelly (default, see per-asset below)
 MIN_BET_CENTS = 5
@@ -124,16 +126,19 @@ ASSET_CONFIG = {
         "kelly_fraction": 0.10,     # Higher Kelly - crypto is our main focus
         "max_position_pct": 0.05,   # 5% max per position
         "min_edge": 0.04,           # 4% min edge — realistic for crypto (was 10%, too high, produced 0 trades)
+        "max_edge": 0.20,           # TRADE-005: Cap at 20% — edges above this are model overconfidence
     },
     "eth": {
         "kelly_fraction": 0.08,     # Slightly lower than BTC (more volatile)
         "max_position_pct": 0.04,   # 4% max per position
         "min_edge": 0.05,           # 5% min edge (was 12%, too high)
+        "max_edge": 0.20,           # TRADE-005: Cap at 20%
     },
     "sol": {  # T423 - Solana support
         "kelly_fraction": 0.05,     # Conservative Kelly (high volatility, less predictable)
         "max_position_pct": 0.03,   # 3% max per position (newer market, less liquid)
         "min_edge": 0.06,           # 6% min edge (was 15%, too high)
+        "max_edge": 0.20,           # TRADE-005: Cap at 20%
     },
     "weather": {
         # UPDATED 2026-02-08: Backtest showed 17.9% WR with old params, 75%+ with new
@@ -141,12 +146,14 @@ ASSET_CONFIG = {
         "kelly_fraction": 0.05,     # Reduced from 0.08 (more conservative after analysis)
         "max_position_pct": 0.02,   # 2% max (weather markets less liquid)
         "min_edge": 0.15,           # Increased from 0.10 (require stronger edge)
+        "max_edge": 0.15,           # TRADE-005: Strictest cap — backtest showed >25% edges were false positives
     },
     # Default for unknown assets
     "default": {
         "kelly_fraction": 0.03,     # Very conservative for unknown assets
         "max_position_pct": 0.02,   # 2% max
         "min_edge": 0.15,           # 15% min edge (be extra careful)
+        "max_edge": 0.15,           # TRADE-005: Strict cap for unknown assets
     }
 }
 
@@ -2176,7 +2183,10 @@ def calculate_prob_above_strike(current_price: float, strike: float,
     
     prob_above = norm_cdf(d2)
     
-    return max(0.01, min(0.99, prob_above))
+    # TRADE-005: Tighter bounds to prevent edge inflation from extreme probabilities.
+    # A probability of 0.01 against a 5¢ contract would generate a fake 96% edge.
+    # Capping at [0.03, 0.97] keeps calculated edges under ~20% for most strikes.
+    return max(0.03, min(0.97, prob_above))
 
 
 def get_trend_adjustment(prices_1h: list) -> float:
@@ -2445,8 +2455,10 @@ def adjust_probability_with_momentum(prob: float, strike: float, current_price: 
     composite_str = momentum.get("composite_strength", 0)
     alignment = momentum.get("alignment", False)
     
-    # Max adjustment is ±15% with full alignment, ±8% without
-    max_adj = 0.15 if alignment else 0.08
+    # TRADE-005: Reduced max adjustment from ±15%/±8% to ±10%/±5%
+    # Old values were too aggressive and pushed probabilities to extremes,
+    # generating inflated edges that the backtest showed were false positives.
+    max_adj = 0.10 if alignment else 0.05
     
     # Calculate adjustment
     adjustment = composite_dir * composite_str * max_adj
@@ -2459,8 +2471,10 @@ def adjust_probability_with_momentum(prob: float, strike: float, current_price: 
         # Bearish momentum helps NO bets (so we flip the sign)
         adjusted = prob - adjustment
     
-    # Clamp to valid probability range
-    return max(0.01, min(0.99, adjusted))
+    # TRADE-005: Tighter probability bounds to prevent edge inflation
+    # Probabilities near 0 or 1 generate huge edges against cheap contracts.
+    # Cap at [0.03, 0.97] to keep edges realistic.
+    return max(0.03, min(0.97, adjusted))
 
 
 # ============== MARKET REGIME DETECTION ==============
@@ -4942,12 +4956,53 @@ def find_opportunities(markets: list, prices: dict, momentum_data: dict = None,
                 gap = (MIN_EDGE - skip["best_edge"]) * 100
                 print(f"      {skip['ticker']} | Strike ${skip['strike']:,.0f} | {skip['best_side']} edge {edge_pct:+.1f}% (need {gap:.1f}% more) | {skip['minutes_left']}min left")
     
+    # ============== EDGE SANITY CHECKS (TRADE-005) ==============
     # Filter out suspiciously high edges (likely model errors, not real alpha)
+    # Backtest found that edges >25% for weather were false positives (17.9% WR).
+    # For crypto, edges >20% are also suspicious — our Black-Scholes model overestimates
+    # edge near extreme strikes where the lognormal assumption breaks down.
+    #
+    # Per-asset max edge caps:
+    #   BTC/ETH/SOL: 20% — crypto model has fat-tail adjustment but still overestimates
+    #   Weather:     15% — NWS forecast ±2.8°F MAE makes high edges unreliable
+    #   Default:     15% — unknown assets get strictest cap
+    ASSET_MAX_EDGE = {
+        "btc": 0.20,
+        "eth": 0.20,
+        "sol": 0.20,
+        "weather": 0.15,
+        "default": 0.15,
+    }
+    
     before_cap = len(opportunities)
-    opportunities = [o for o in opportunities if o.get("edge", 0) <= MAX_EDGE]
+    filtered_opps = []
+    capped_details = []
+    for o in opportunities:
+        asset_type = o.get("asset", "default")
+        asset_cap = ASSET_MAX_EDGE.get(asset_type, ASSET_MAX_EDGE["default"])
+        raw_edge = o.get("edge", 0)
+        edge_with_bonus = o.get("edge_with_bonus", raw_edge)
+        
+        # Check raw edge against per-asset cap
+        if raw_edge > asset_cap:
+            capped_details.append(f"{o.get('ticker','')} {o.get('side','').upper()} edge={raw_edge*100:.1f}% > {asset_cap*100:.0f}% cap ({asset_type})")
+            continue
+        
+        # Also sanity-check: edge_with_bonus shouldn't exceed global MAX_EDGE
+        # Bonuses can push total edge unrealistically high
+        if edge_with_bonus > MAX_EDGE:
+            # Clamp the bonus edge rather than reject outright
+            o["edge_with_bonus"] = MAX_EDGE
+            o["edge_bonus_clamped"] = True
+        
+        filtered_opps.append(o)
+    
+    opportunities = filtered_opps
     if before_cap > len(opportunities):
         capped = before_cap - len(opportunities)
-        print(f"   ⚠️ Edge cap: filtered {capped} trades with edge >{MAX_EDGE*100:.0f}% (suspicious)")
+        print(f"   ⚠️ Edge cap: filtered {capped} trades with suspicious edges:")
+        for detail in capped_details[:5]:  # Show top 5
+            print(f"      {detail}")
     
     # Sort by edge (with momentum bonus for aligned trades)
     opportunities.sort(key=lambda x: x.get("edge_with_bonus", x["edge"]), reverse=True)

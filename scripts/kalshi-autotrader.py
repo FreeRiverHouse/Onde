@@ -62,6 +62,7 @@ BASE_URL = "https://api.elections.kalshi.com"
 
 # Trading parameters
 MIN_EDGE = 0.15  # 15% minimum edge to trade (conservative!)
+MAX_EDGE = 0.20  # TRADE-005: 20% max edge — edges above this are model errors, not real alpha
 MAX_POSITION_PCT = 0.05  # Max 5% of portfolio per position (smaller bets!)
 MAX_POSITIONS = 50  # More positions allowed
 KELLY_FRACTION = 0.08  # Conservative Kelly for risk management (was 0.15)
@@ -642,6 +643,14 @@ def find_opportunities(markets: list, btc_price: float, eth_price: float, volati
         })
         print(f"   ⏰ Skipped {skipped_expiry} markets too close to expiry")
         print(f"   📉 Skipped {skipped_low_edge} markets with edge < {MIN_EDGE*100:.0f}%")
+    
+    # TRADE-005: Filter out suspiciously high edges (likely model errors)
+    # Backtest found edges >25% were false positives. Cap at MAX_EDGE.
+    before_cap = len(opportunities)
+    opportunities = [o for o in opportunities if o.get("edge", 0) <= MAX_EDGE]
+    if before_cap > len(opportunities):
+        capped = before_cap - len(opportunities)
+        print(f"   ⚠️ Edge cap: filtered {capped} trades with edge >{MAX_EDGE*100:.0f}% (model error)")
     
     # Sort by edge (best first)
     opportunities.sort(key=lambda x: x["edge"], reverse=True)
