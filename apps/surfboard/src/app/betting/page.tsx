@@ -583,9 +583,9 @@ function AnimatedNumber({
   className?: string;
   glowColor?: 'cyan' | 'green' | 'red' | 'purple' | 'orange';
 }) {
-  const [displayValue, setDisplayValue] = useState(value);
+  const [displayValue, setDisplayValue] = useState(value ?? 0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const prevValue = useRef(value);
+  const prevValue = useRef(value ?? 0);
 
   useEffect(() => {
     if (prevValue.current !== value) {
@@ -624,7 +624,7 @@ function AnimatedNumber({
 
   return (
     <span className={`font-mono font-bold transition-all duration-300 ${glowClasses[glowColor]} ${isAnimating ? 'scale-105' : ''} ${className}`}>
-      {prefix}{displayValue.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}
+      {prefix}{(displayValue ?? 0).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}
     </span>
   );
 }
@@ -1059,8 +1059,9 @@ export default function BettingDashboard() {
       const statsRes = await fetch(buildStatsUrl());
       if (statsRes.ok) {
         const data = await statsRes.json();
-        // If we got real data, return it
-        if (data && typeof data.totalTrades === 'number') {
+        // If we got real data (not edge stub), return it
+        // Edge runtime returns totalTrades: 0 AND edgeRuntime: true
+        if (data && typeof data.totalTrades === 'number' && !data.edgeRuntime && data.totalTrades > 0) {
           return data;
         }
       }
@@ -1678,7 +1679,7 @@ export default function BettingDashboard() {
                       </div>
                       <div>
                         <span className="text-gray-300 font-medium">{asset.asset}</span>
-                        <p className="text-xs text-gray-600">${asset.currentPrice.toLocaleString()}</p>
+                        <p className="text-xs text-gray-600">${(asset.currentPrice ?? 0).toLocaleString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -1951,7 +1952,7 @@ export default function BettingDashboard() {
                     <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Total PnL</span>
                   </div>
                   <AnimatedNumber
-                    value={tradingStats.totalPnlCents / 100}
+                    value={Math.abs(tradingStats.totalPnlCents / 100)}
                     prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
                     decimals={2}
                     glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}

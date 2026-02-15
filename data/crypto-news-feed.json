@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T02:30:03.516062+00:00",
+  "timestamp": "2026-02-15T03:30:03.173394+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Roundhill\u2019s election event contract ETFs \u2018potentially groundbreaking'",
+      "url": "https://cointelegraph.com/news/roundhill-investments-event-contracts-prediction-markets-etf-united-states-election?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "The ETF issuer warned that investors who pick the fund tied to the losing US presidential outcome could lose nearly all invested capital.",
+      "published": "2026-02-15T03:04:18+00:00"
+    },
     {
       "title": "Here\u2019s what happened in crypto today",
       "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -93,13 +100,6 @@
       "source": "decrypt",
       "description": "Blockchain lender Figure said hackers accessed customer data after an employee was targeted in a social engineering attack.",
       "published": "2026-02-14T00:04:45+00:00"
-    },
-    {
-      "title": "Ether holds $2K, but will $242M spot ETH ETF outflow reignite price downside?",
-      "url": "https://cointelegraph.com/news/ether-holds-dollar2k-but-will-dollar242m-spot-eth-etf-outflow-reignite-price-downside?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Ether holds $2,000, but may remain under pressure as traders watch corporate earnings, US government debt and growing global tensions.",
-      "published": "2026-02-13T23:37:49+00:00"
     },
     {
       "title": "Trump Media Files to Launch Truth Social-Branded Bitcoin, Ethereum, Cronos ETFs",

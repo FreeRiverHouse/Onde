@@ -6,3 +6,5 @@
 {"timestamp": "2026-02-15T01:30:01.511453+00:00", "total_trades": 184, "edge_mean": 0.47787466273969514, "recommendations": 2, "changes": 0}
 {"timestamp": "2026-02-15T02:00:02.416469+00:00", "total_trades": 206, "edge_mean": 0.4406028024370023, "recommendations": 2, "changes": 0}
 {"timestamp": "2026-02-15T02:30:02.061978+00:00", "total_trades": 210, "edge_mean": 0.434037354294384, "recommendations": 2, "changes": 0}
+{"timestamp": "2026-02-15T03:00:02.005239+00:00", "total_trades": 220, "edge_mean": 0.42026461179429925, "recommendations": 2, "changes": 0}
+{"timestamp": "2026-02-15T03:30:01.627182+00:00", "total_trades": 230, "edge_mean": 0.4081841219459039, "recommendations": 2, "changes": 0}
