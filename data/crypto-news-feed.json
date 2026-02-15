@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T03:30:03.173394+00:00",
+  "timestamp": "2026-02-15T06:00:03.422536+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Bitcoin Price Reclaims $70,000 After Deep February Slide",
+      "url": "https://bitcoinmagazine.com/markets/bitcoin-price-reclaims-70000-after-feb",
+      "source": "bitcoinmagazine",
+      "description": "Bitcoin Magazine Bitcoin Price Reclaims $70,000 After Deep February Slide After a rough sell-off that dragged BTC near $60,000, the bitcoin price has rebounded above $70,000. This post Bitcoin Price Reclaims $70,000 After Deep February Slide first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
+      "published": "2026-02-15T05:00:44+00:00"
+    },
     {
       "title": "Roundhill\u2019s election event contract ETFs \u2018potentially groundbreaking'",
       "url": "https://cointelegraph.com/news/roundhill-investments-event-contracts-prediction-markets-etf-united-states-election?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -212,13 +219,6 @@
       "source": "bitcoinmagazine",
       "description": "Bitcoin Magazine Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows The corporate adoption of bitcoin was dominated by a single player last month \u2014 Strategy. This post Strategy (MSTR) Accounted for 97.5% of Corporate Bitcoin Buying Last Month, Report Shows first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
       "published": "2026-02-12T18:52:50+00:00"
-    },
-    {
-      "title": "Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output",
-      "url": "https://bitcoinmagazine.com/news/bitcoin-advances-toward-quantum-resistance",
-      "source": "bitcoinmagazine",
-      "description": "Bitcoin Magazine Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output BIP 360, a proposal to make Bitcoin more resistant to future quantum computing threats, has been updated and merged into the official BIP GitHub repository. This post Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output first appeared on Bitcoin Magazine and is written by Micah Zimmerman.",
-      "published": "2026-02-12T16:58:15+00:00"
     }
   ]
 }
