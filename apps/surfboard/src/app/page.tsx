@@ -1,7 +1,7 @@
 import { getDashboardStats } from '@/lib/data'
 import { PostApproval } from '@/components/PostApproval'
 import { PolyRobortoPanel } from '@/components/PolyRobortoPanel'
-import { CordePanel } from '@/components/CordePanel'
+// CordePanel removed - was showing fake characters (Milo Matita etc.)
 import { TechSupportPanel } from '@/components/TechSupportPanel'
 import { TestStatusPanel } from '@/components/TestStatusPanel'
 import { EnhancedStats, WeeklyComparison } from '@/components/EnhancedStats'
@@ -133,7 +133,21 @@ export default async function Dashboard() {
         </ScrollReveal>
         <ScrollReveal animation="fade-left" delay={100}>
           <GlowCard variant="cyan" noPadding noTilt glassIntensity="high">
-            <CordePanel />
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-white/90 flex items-center gap-2 mb-4">
+                <span>📊</span> Kalshi Trading
+              </h3>
+              <div className="space-y-3">
+                <a href="/betting" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-all">
+                  <div className="text-sm text-white/60">Live Dashboard</div>
+                  <div className="text-white/90 font-medium">View positions & performance →</div>
+                </a>
+                <a href="/trading" className="block p-3 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-all">
+                  <div className="text-sm text-white/60">AutoTrader v3</div>
+                  <div className="text-white/90 font-medium">Claude-as-Forecaster pipeline →</div>
+                </a>
+              </div>
+            </div>
           </GlowCard>
         </ScrollReveal>
       </div>
