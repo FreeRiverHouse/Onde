@@ -1486,6 +1486,36 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     setSelectedGroupIndex(-1)
   }, [filter, isOpen, groupMode])
 
+  const handleMarkRead = useCallback((id: string) => {
+    // Persist to localStorage
+    persistence.markRead(id)
+    
+    setData(prev => {
+      if (!prev) return prev
+      const updated = prev.notifications.map(n =>
+        n.id === id ? { ...n, read: true } : n
+      )
+      return {
+        notifications: updated,
+        unreadCount: updated.filter(n => !n.read).length,
+      }
+    })
+  }, [persistence])
+
+  const handleDismiss = useCallback((id: string) => {
+    // Persist dismissal to localStorage
+    persistence.markDismissed(id)
+    
+    setData(prev => {
+      if (!prev) return prev
+      const updated = prev.notifications.filter(n => n.id !== id)
+      return {
+        notifications: updated,
+        unreadCount: updated.filter(n => !n.read).length,
+      }
+    })
+  }, [persistence])
+
   // Keyboard shortcuts
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -1678,36 +1708,6 @@ export function NotificationCenter({ className = '' }: NotificationCenterProps) 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, filteredNotifications, selectedIndex, selectedGroupIndex, groupMode, expandedGroups, toggleGroupExpansion, handleMarkRead, handleDismiss])
-
-  const handleMarkRead = useCallback((id: string) => {
-    // Persist to localStorage
-    persistence.markRead(id)
-    
-    setData(prev => {
-      if (!prev) return prev
-      const updated = prev.notifications.map(n =>
-        n.id === id ? { ...n, read: true } : n
-      )
-      return {
-        notifications: updated,
-        unreadCount: updated.filter(n => !n.read).length,
-      }
-    })
-  }, [persistence])
-
-  const handleDismiss = useCallback((id: string) => {
-    // Persist dismissal to localStorage
-    persistence.markDismissed(id)
-    
-    setData(prev => {
-      if (!prev) return prev
-      const updated = prev.notifications.filter(n => n.id !== id)
-      return {
-        notifications: updated,
-        unreadCount: updated.filter(n => !n.read).length,
-      }
-    })
-  }, [persistence])
 
   const handleMarkAllRead = useCallback(() => {
     // Persist all as read to localStorage

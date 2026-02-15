@@ -4,13 +4,14 @@ export const runtime = 'edge';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  DollarSign, 
-  Wallet, 
-  BarChart3, 
-  Send, 
+import Link from 'next/link';
+import {
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
+  Wallet,
+  BarChart3,
+  Send,
   RefreshCw,
   ExternalLink,
   Trash2,
@@ -31,7 +32,7 @@ import {
   Moon,
   Monitor,
   Clock,
-  Download
+  Download,
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { WinRateTrendChart, generateMockWinRateTrend } from '@/components/WinRateTrendChart';
@@ -138,21 +139,21 @@ function parseTickerExpiration(ticker: string): Date | null {
     // Extract date part: KXBTCD-26JAN2917-T89249.99 -> 26JAN2917
     const match = ticker.match(/(?:KXBTCD|KXETHD)-(\d{2})([A-Z]{3})(\d{2})(\d{2})-/);
     if (!match) return null;
-    
+
     const [, day, monthStr, year, hour] = match;
     const months: Record<string, number> = {
       JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5,
       JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11
     };
-    
+
     const monthNum = months[monthStr];
     if (monthNum === undefined) return null;
-    
+
     // Parse year - assume 2020s for now
     const fullYear = 2000 + parseInt(year, 10);
     const dayNum = parseInt(day, 10);
     const hourNum = parseInt(hour, 10);
-    
+
     return new Date(Date.UTC(fullYear, monthNum, dayNum, hourNum, 0, 0));
   } catch {
     return null;
@@ -164,9 +165,9 @@ function parseTickerExpiration(ticker: string): Date | null {
  * @param ticker - Kalshi ticker string
  * @returns Object with formatted time, hours remaining, and color
  */
-function getPositionExpiryInfo(ticker: string): { 
-  timeStr: string; 
-  hoursLeft: number; 
+function getPositionExpiryInfo(ticker: string): {
+  timeStr: string;
+  hoursLeft: number;
   color: 'emerald' | 'yellow' | 'red' | 'gray';
   label: string;
 } {
@@ -174,14 +175,14 @@ function getPositionExpiryInfo(ticker: string): {
   if (!expiry) {
     return { timeStr: '—', hoursLeft: -1, color: 'gray', label: 'Unknown' };
   }
-  
+
   const now = new Date();
   const hoursLeft = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60);
-  
+
   if (hoursLeft < 0) {
     return { timeStr: 'Expired', hoursLeft: 0, color: 'red', label: 'Expired' };
   }
-  
+
   // Color coding: green >24h, yellow 4-24h, red <4h
   let color: 'emerald' | 'yellow' | 'red' = 'emerald';
   let label = 'Safe';
@@ -192,12 +193,12 @@ function getPositionExpiryInfo(ticker: string): {
     color = 'yellow';
     label = 'Today';
   }
-  
-  return { 
-    timeStr: formatDuration(hoursLeft), 
-    hoursLeft, 
+
+  return {
+    timeStr: formatDuration(hoursLeft),
+    hoursLeft,
     color,
-    label 
+    label
   };
 }
 
@@ -567,14 +568,14 @@ interface WinRateTrendData {
 }
 
 // ============== ANIMATED NUMBER COMPONENT ==============
-function AnimatedNumber({ 
-  value, 
-  prefix = '', 
+function AnimatedNumber({
+  value,
+  prefix = '',
   suffix = '',
   decimals = 2,
   className = '',
   glowColor = 'cyan'
-}: { 
+}: {
   value: number;
   prefix?: string;
   suffix?: string;
@@ -629,13 +630,13 @@ function AnimatedNumber({
 }
 
 // ============== GLASS CARD COMPONENT ==============
-function GlassCard({ 
-  children, 
+function GlassCard({
+  children,
   className = '',
   glowColor = 'cyan',
   pulse = false
-}: { 
-  children: React.ReactNode; 
+}: {
+  children: React.ReactNode;
   className?: string;
   glowColor?: 'cyan' | 'green' | 'purple' | 'orange' | 'red';
   pulse?: boolean;
@@ -669,18 +670,18 @@ function GlassCard({
 }
 
 // ============== STAT CARD COMPONENT ==============
-function StatCard({ 
-  title, 
-  value, 
-  subtitle, 
-  icon: Icon, 
+function StatCard({
+  title,
+  value,
+  subtitle,
+  icon: Icon,
   trend,
   trendValue,
   glowColor = 'cyan',
   prefix = '',
   suffix = '',
   decimals = 2
-}: { 
+}: {
   title: string;
   value: number;
   subtitle?: string;
@@ -706,8 +707,8 @@ function StatCard({
         <div className="flex-1">
           <p className="text-gray-400 text-xs font-medium uppercase tracking-wider">{title}</p>
           <div className="mt-2">
-            <AnimatedNumber 
-              value={value} 
+            <AnimatedNumber
+              value={value}
               prefix={prefix}
               suffix={suffix}
               decimals={decimals}
@@ -719,12 +720,11 @@ function StatCard({
             <p className="text-gray-500 text-xs mt-1">{subtitle}</p>
           )}
           {trendValue && (
-            <div className={`flex items-center mt-2 text-sm font-medium ${
-              trend === 'up' ? 'text-emerald-400' : 
+            <div className={`flex items-center mt-2 text-sm font-medium ${trend === 'up' ? 'text-emerald-400' :
               trend === 'down' ? 'text-red-400' : 'text-gray-400'
-            }`}>
-              {trend === 'up' ? <TrendingUp className="w-4 h-4 mr-1" /> : 
-               trend === 'down' ? <TrendingDown className="w-4 h-4 mr-1" /> : null}
+              }`}>
+              {trend === 'up' ? <TrendingUp className="w-4 h-4 mr-1" /> :
+                trend === 'down' ? <TrendingDown className="w-4 h-4 mr-1" /> : null}
               {trendValue}
             </div>
           )}
@@ -795,11 +795,11 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="relative bg-gradient-to-br from-gray-900/95 to-gray-950/95 border border-white/10 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-purple-500/10">
         <div className="flex items-center justify-between mb-6">
@@ -819,7 +819,7 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
 
         <div className="space-y-2">
           {shortcuts.map((shortcut) => (
-            <div 
+            <div
               key={shortcut.key}
               className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05]"
             >
@@ -879,18 +879,18 @@ function exportTradesToCSV(trades: TradeForExport[], filename?: string) {
 
   // CSV header
   const headers = ['Timestamp', 'Ticker', 'Side', 'Contracts', 'Price (cents)', 'PnL (cents)', 'Result'];
-  
+
   // Calculate PnL for each trade
   const rows = trades.map(trade => {
     let pnlCents = 0;
     if (trade.result_status === 'won') {
-      pnlCents = trade.side === 'no' 
-        ? (100 - trade.price_cents) * trade.contracts 
+      pnlCents = trade.side === 'no'
+        ? (100 - trade.price_cents) * trade.contracts
         : (100 - trade.price_cents) * trade.contracts;
     } else if (trade.result_status === 'lost') {
       pnlCents = -trade.price_cents * trade.contracts;
     }
-    
+
     return [
       trade.timestamp,
       trade.ticker,
@@ -912,7 +912,7 @@ function exportTradesToCSV(trades: TradeForExport[], filename?: string) {
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
-  
+
   const date = new Date().toISOString().split('T')[0];
   link.setAttribute('href', url);
   link.setAttribute('download', filename || `kalshi-trades-${date}.csv`);
@@ -926,11 +926,11 @@ function exportTradesToCSV(trades: TradeForExport[], filename?: string) {
 export default function BettingDashboard() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   // Initialize from URL params
   const urlSource = searchParams.get('source') as 'v1' | 'v2' | null;
   const urlPeriod = searchParams.get('period') as DatePeriod | null;
-  
+
   const [kalshiStatus, setKalshiStatus] = useState<KalshiStatus | null>(null);
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices | null>(null);
   const [inbox, setInbox] = useState<InboxData | null>(null);
@@ -949,7 +949,7 @@ export default function BettingDashboard() {
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [dataFromCache, setDataFromCache] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
-  
+
   // Collapsible chart sections for mobile (T756)
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
     charts: true, // Start collapsed on initial load
@@ -958,13 +958,13 @@ export default function BettingDashboard() {
   const toggleSection = (section: string) => {
     setCollapsedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
-  
+
   // Countdown timer state (T740)
   const REFRESH_INTERVAL = 30; // seconds
   const [countdown, setCountdown] = useState(REFRESH_INTERVAL);
   const [isPaused, setIsPaused] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(true);
-  
+
   // Load auto-refresh preference from localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -974,7 +974,7 @@ export default function BettingDashboard() {
       }
     }
   }, []);
-  
+
   // Toggle auto-refresh and save to localStorage
   const toggleAutoRefresh = useCallback(() => {
     setAutoRefresh(prev => {
@@ -989,10 +989,10 @@ export default function BettingDashboard() {
   const inputRef = useRef<HTMLInputElement>(null);
   const fetchDataRef = useRef<(() => Promise<void>) | null>(null);
   const { toggleTheme, theme, resolvedTheme } = useTheme();
-  
+
   // Comparison tooltip state (T744)
   const { enabled: compareEnabled, toggle: toggleCompare, isLoaded: compareLoaded } = useComparisonTooltip();
-  
+
   // Touch gestures for mobile (pull-to-refresh, swipe gestures)
   const { handlers: touchHandlers, state: touchState } = useTouchGestures({
     onRefresh: async () => {
@@ -1003,7 +1003,7 @@ export default function BettingDashboard() {
     pullThreshold: 80,
     enabled: true,
   });
-  
+
   // Sync filters to URL
   useEffect(() => {
     const params = new URLSearchParams();
@@ -1078,7 +1078,7 @@ export default function BettingDashboard() {
         const winRate = gistData.winRate ?? 0;
         const wonTrades = Math.round((winRate * totalTrades) / 100);
         const lostTrades = totalTrades - wonTrades;
-        
+
         return {
           // Core stats
           totalTrades,
@@ -1087,58 +1087,58 @@ export default function BettingDashboard() {
           pendingTrades: gistData.pendingTrades ?? 0,
           winRate,
           totalPnlCents: gistData.pnlCents ?? 0,
-          
+
           // Profit metrics
           grossProfitCents: gistData.grossProfitCents,
           grossLossCents: gistData.grossLossCents,
           profitFactor: gistData.profitFactor === "∞" ? Infinity : gistData.profitFactor,
-          
+
           // Risk metrics
           maxDrawdownCents: gistData.maxDrawdownCents,
           maxDrawdownPercent: gistData.maxDrawdownPercent,
-          
+
           // Calculate avg return from PnL/trades
           avgReturnCents: totalTrades > 0 ? Math.round((gistData.pnlCents ?? 0) / totalTrades) : 0,
-          
+
           // Today stats
           todayTrades: gistData.todayTrades ?? 0,
           todayWinRate: gistData.todayWinRate ?? 0,
           todayPnlCents: gistData.todayPnlCents ?? 0,
-          
+
           // Yesterday comparison (T364)
           yesterdayTrades: gistData.yesterdayTrades ?? 0,
           yesterdayWinRate: gistData.yesterdayWinRate ?? 0,
           yesterdayPnlCents: gistData.yesterdayPnlCents ?? 0,
-          
+
           // Week comparison (T364)
           thisWeek: gistData.thisWeek ?? { trades: 0, winRate: 0, pnlCents: 0 },
           prevWeek: gistData.prevWeek ?? { trades: 0, winRate: 0, pnlCents: 0 },
-          
+
           // Latency stats
           avgLatencyMs: gistData.avgLatencyMs ?? null,
           p95LatencyMs: gistData.p95LatencyMs ?? null,
           minLatencyMs: gistData.minLatencyMs ?? null,
           maxLatencyMs: gistData.maxLatencyMs ?? null,
           latencyTradeCount: gistData.latencyTradeCount ?? 0,
-          
+
           // Volatility analysis
           volatility: gistData.volatility,
-          
+
           // Edge distribution (T368)
           edgeDistribution: gistData.edgeDistribution ?? null,
-          
+
           // API latency breakdown (T445)
           apiLatency: gistData.apiLatency ?? null,
-          
+
           // Latency history for sparkline (T800)
           latencyHistory: gistData.latencyHistory ?? null,
-          
+
           // Autotrader health status (T623)
           healthStatus: gistData.healthStatus ?? null,
-          
+
           // Autotrader health history (T829)
           healthHistory: gistData.healthHistory ?? null,
-          
+
           // Empty fields (not in gist but needed for interface)
           recentTrades: [],
           lastUpdated: gistData.lastUpdated ?? new Date().toISOString(),
@@ -1155,7 +1155,7 @@ export default function BettingDashboard() {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     let fromCache = false;
-    
+
     try {
       const [kalshiRes, cryptoRes, inboxRes, momentumRes, trendRes, agentRes] = await Promise.all([
         fetch('/api/kalshi/status'),
@@ -1208,11 +1208,11 @@ export default function BettingDashboard() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-  
+
   // Countdown timer logic (T740)
   useEffect(() => {
     if (!autoRefresh || isPaused || isLoading) return;
-    
+
     const timer = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 1) {
@@ -1226,7 +1226,7 @@ export default function BettingDashboard() {
 
     return () => clearInterval(timer);
   }, [autoRefresh, isPaused, isLoading, fetchData]);
-  
+
   // Reset countdown when refresh completes
   useEffect(() => {
     if (!isLoading) {
@@ -1344,38 +1344,33 @@ export default function BettingDashboard() {
   const ethChartData = ethMomentumAsset?.priceHistory?.length ? ethMomentumAsset.priceHistory : [2950, 2980, 2960, 3010, 2990, 3020, 3000, 2995, 2999];
 
   return (
-    <div 
-      className={`min-h-screen overflow-hidden transition-colors duration-300 ${
-        resolvedTheme === 'light' 
-          ? 'bg-slate-50 text-gray-900' 
-          : 'bg-[#0a0a0f] text-white'
-      }`}
+    <div
+      className={`min-h-screen overflow-hidden transition-colors duration-300 ${resolvedTheme === 'light'
+        ? 'bg-slate-50 text-gray-900'
+        : 'bg-[#0a0a0f] text-white'
+        }`}
       {...touchHandlers}
     >
       {/* Pull-to-refresh indicator for mobile */}
-      <PullToRefreshIndicator 
-        pullDistance={touchState.pullDistance} 
-        threshold={80} 
-        isRefreshing={touchState.isRefreshing} 
+      <PullToRefreshIndicator
+        pullDistance={touchState.pullDistance}
+        threshold={80}
+        isRefreshing={touchState.isRefreshing}
       />
-      
+
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] animate-blob ${
-          resolvedTheme === 'light' ? 'bg-purple-300/20' : 'bg-purple-500/10'
-        }`} />
-        <div className={`absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] animate-blob animation-delay-2000 ${
-          resolvedTheme === 'light' ? 'bg-cyan-300/20' : 'bg-cyan-500/10'
-        }`} />
-        <div className={`absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full blur-[150px] animate-blob animation-delay-4000 ${
-          resolvedTheme === 'light' ? 'bg-blue-300/20' : 'bg-blue-500/10'
-        }`} />
+        <div className={`absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] animate-blob ${resolvedTheme === 'light' ? 'bg-purple-300/20' : 'bg-purple-500/10'
+          }`} />
+        <div className={`absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] animate-blob animation-delay-2000 ${resolvedTheme === 'light' ? 'bg-cyan-300/20' : 'bg-cyan-500/10'
+          }`} />
+        <div className={`absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full blur-[150px] animate-blob animation-delay-4000 ${resolvedTheme === 'light' ? 'bg-blue-300/20' : 'bg-blue-500/10'
+          }`} />
         {/* Grid overlay */}
-        <div className={`absolute inset-0 bg-[size:50px_50px] ${
-          resolvedTheme === 'light' 
-            ? 'bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)]'
-            : 'bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]'
-        }`} />
+        <div className={`absolute inset-0 bg-[size:50px_50px] ${resolvedTheme === 'light'
+          ? 'bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)]'
+          : 'bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]'
+          }`} />
       </div>
 
       <div className="relative z-10 p-4 md:p-8 max-w-[1600px] mx-auto">
@@ -1403,39 +1398,36 @@ export default function BettingDashboard() {
           <div className="flex items-center gap-2 sm:gap-4 flex-wrap sm:flex-nowrap">
             {/* Autotrader Status Indicator (T623) */}
             {autotraderHealth && (
-              <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border ${
-                autotraderHealth.is_running && autotraderHealth.status === 'healthy' 
-                  ? 'bg-green-500/10 border-green-500/30' :
+              <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border ${autotraderHealth.is_running && autotraderHealth.status === 'healthy'
+                ? 'bg-green-500/10 border-green-500/30' :
                 autotraderHealth.is_running && autotraderHealth.status === 'warning'
                   ? 'bg-yellow-500/10 border-yellow-500/30' :
-                autotraderHealth.circuit_breaker_active
-                  ? 'bg-red-500/10 border-red-500/30' :
-                !autotraderHealth.is_running
-                  ? 'bg-red-500/10 border-red-500/30' :
-                'bg-white/5 border-white/10'
-              }`}>
-                <div className={`w-2 h-2 rounded-full ${
-                  autotraderHealth.is_running 
-                    ? autotraderHealth.circuit_breaker_active 
-                      ? 'bg-red-500' 
-                      : autotraderHealth.status === 'healthy' 
-                        ? 'bg-green-500 animate-pulse' 
-                        : 'bg-yellow-500 animate-pulse'
-                    : 'bg-red-500'
-                }`} />
-                <span className={`text-xs font-medium ${
-                  autotraderHealth.is_running 
-                    ? autotraderHealth.circuit_breaker_active 
-                      ? 'text-red-400'
-                      : autotraderHealth.status === 'healthy' 
-                        ? 'text-green-400' 
-                        : 'text-yellow-400'
-                    : 'text-red-400'
+                  autotraderHealth.circuit_breaker_active
+                    ? 'bg-red-500/10 border-red-500/30' :
+                    !autotraderHealth.is_running
+                      ? 'bg-red-500/10 border-red-500/30' :
+                      'bg-white/5 border-white/10'
                 }`}>
-                  {autotraderHealth.circuit_breaker_active 
-                    ? '🛑 Circuit Breaker' 
-                    : autotraderHealth.is_running 
-                      ? `🤖 ${autotraderHealth.dry_run ? 'Dry Run' : 'Trading'}` 
+                <div className={`w-2 h-2 rounded-full ${autotraderHealth.is_running
+                  ? autotraderHealth.circuit_breaker_active
+                    ? 'bg-red-500'
+                    : autotraderHealth.status === 'healthy'
+                      ? 'bg-green-500 animate-pulse'
+                      : 'bg-yellow-500 animate-pulse'
+                  : 'bg-red-500'
+                  }`} />
+                <span className={`text-xs font-medium ${autotraderHealth.is_running
+                  ? autotraderHealth.circuit_breaker_active
+                    ? 'text-red-400'
+                    : autotraderHealth.status === 'healthy'
+                      ? 'text-green-400'
+                      : 'text-yellow-400'
+                  : 'text-red-400'
+                  }`}>
+                  {autotraderHealth.circuit_breaker_active
+                    ? '🛑 Circuit Breaker'
+                    : autotraderHealth.is_running
+                      ? `🤖 ${autotraderHealth.dry_run ? 'Dry Run' : 'Trading'}`
                       : '🤖 Offline'}
                 </span>
               </div>
@@ -1497,8 +1489,8 @@ export default function BettingDashboard() {
             </button>
             {/* Comparison tooltip toggle (T744) */}
             {compareLoaded && (
-              <ComparisonTooltipToggle 
-                enabled={compareEnabled} 
+              <ComparisonTooltipToggle
+                enabled={compareEnabled}
                 onToggle={toggleCompare}
                 className="hidden sm:flex"
               />
@@ -1506,20 +1498,18 @@ export default function BettingDashboard() {
             {/* Auto-refresh toggle (T740) */}
             <button
               onClick={toggleAutoRefresh}
-              className={`relative w-10 h-5 rounded-full transition-colors ${
-                autoRefresh ? 'bg-emerald-500' : 'bg-gray-600'
-              }`}
+              className={`relative w-10 h-5 rounded-full transition-colors ${autoRefresh ? 'bg-emerald-500' : 'bg-gray-600'
+                }`}
               aria-label="Toggle auto-refresh"
               title={`Auto-refresh ${autoRefresh ? 'on' : 'off'}`}
             >
-              <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
-                autoRefresh ? 'translate-x-5' : 'translate-x-0.5'
-              }`} />
+              <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${autoRefresh ? 'translate-x-5' : 'translate-x-0.5'
+                }`} />
             </button>
-            
+
             {/* Countdown timer (T740) */}
             {autoRefresh && !isLoading && (
-              <div 
+              <div
                 className="flex items-center gap-1.5"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
@@ -1562,7 +1552,7 @@ export default function BettingDashboard() {
             {isLoading && (
               <span className="text-xs text-cyan-400 animate-pulse">Refreshing...</span>
             )}
-            
+
             <button
               onClick={fetchData}
               disabled={isLoading}
@@ -1588,17 +1578,16 @@ export default function BettingDashboard() {
                 <span className="text-gray-400 text-sm font-medium">Bitcoin</span>
               </div>
               {cryptoPrices?.btc24hChange && (
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                  cryptoPrices.btc24hChange >= 0 
-                    ? 'bg-emerald-500/20 text-emerald-400' 
-                    : 'bg-red-500/20 text-red-400'
-                }`}>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${cryptoPrices.btc24hChange >= 0
+                  ? 'bg-emerald-500/20 text-emerald-400'
+                  : 'bg-red-500/20 text-red-400'
+                  }`}>
                   {cryptoPrices.btc24hChange >= 0 ? '+' : ''}{cryptoPrices.btc24hChange.toFixed(2)}%
                 </span>
               )}
             </div>
-            <AnimatedNumber 
-              value={cryptoPrices?.btc || 0} 
+            <AnimatedNumber
+              value={cryptoPrices?.btc || 0}
               prefix="$"
               decimals={0}
               glowColor="orange"
@@ -1617,17 +1606,16 @@ export default function BettingDashboard() {
                 <span className="text-gray-400 text-sm font-medium">Ethereum</span>
               </div>
               {cryptoPrices?.eth24hChange && (
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                  cryptoPrices.eth24hChange >= 0 
-                    ? 'bg-emerald-500/20 text-emerald-400' 
-                    : 'bg-red-500/20 text-red-400'
-                }`}>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${cryptoPrices.eth24hChange >= 0
+                  ? 'bg-emerald-500/20 text-emerald-400'
+                  : 'bg-red-500/20 text-red-400'
+                  }`}>
                   {cryptoPrices.eth24hChange >= 0 ? '+' : ''}{cryptoPrices.eth24hChange.toFixed(2)}%
                 </span>
               )}
             </div>
-            <AnimatedNumber 
-              value={cryptoPrices?.eth || 0} 
+            <AnimatedNumber
+              value={cryptoPrices?.eth || 0}
               prefix="$"
               decimals={0}
               glowColor="purple"
@@ -1670,21 +1658,20 @@ export default function BettingDashboard() {
                 <p className="text-xs text-gray-500">1h / 4h / 24h price change</p>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {momentum.data.map((asset) => (
-                <GlassCard 
-                  key={asset.symbol} 
-                  glowColor={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'red' : 'cyan'} 
+                <GlassCard
+                  key={asset.symbol}
+                  glowColor={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'red' : 'cyan'}
                   className="p-4"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        asset.symbol === 'BTC' 
-                          ? 'bg-gradient-to-br from-orange-500/30 to-amber-500/30' 
-                          : 'bg-gradient-to-br from-purple-500/30 to-blue-500/30'
-                      }`}>
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${asset.symbol === 'BTC'
+                        ? 'bg-gradient-to-br from-orange-500/30 to-amber-500/30'
+                        : 'bg-gradient-to-br from-purple-500/30 to-blue-500/30'
+                        }`}>
                         <span className={`font-bold text-sm ${asset.symbol === 'BTC' ? 'text-orange-400' : 'text-purple-400'}`}>
                           {asset.symbol === 'BTC' ? '₿' : '◆'}
                         </span>
@@ -1697,35 +1684,31 @@ export default function BettingDashboard() {
                     <div className="flex items-center gap-2">
                       {/* Signal Strength Bars */}
                       <div className="flex items-end gap-0.5 h-4" title={`Strength: ${asset.strength}`}>
-                        <div className={`w-1 rounded-full transition-all ${
-                          asset.strength !== 'weak' && asset.strength !== 'moderate' && asset.strength !== 'strong' ? 'h-1.5 bg-gray-600' :
+                        <div className={`w-1 rounded-full transition-all ${asset.strength !== 'weak' && asset.strength !== 'moderate' && asset.strength !== 'strong' ? 'h-1.5 bg-gray-600' :
                           asset.signal === 'bullish' ? 'h-1.5 bg-emerald-400' :
-                          asset.signal === 'bearish' ? 'h-1.5 bg-red-400' :
-                          'h-1.5 bg-gray-500'
-                        }`} />
-                        <div className={`w-1 rounded-full transition-all ${
-                          asset.strength === 'moderate' || asset.strength === 'strong'
-                            ? asset.signal === 'bullish' ? 'h-2.5 bg-emerald-400' :
-                              asset.signal === 'bearish' ? 'h-2.5 bg-red-400' :
+                            asset.signal === 'bearish' ? 'h-1.5 bg-red-400' :
+                              'h-1.5 bg-gray-500'
+                          }`} />
+                        <div className={`w-1 rounded-full transition-all ${asset.strength === 'moderate' || asset.strength === 'strong'
+                          ? asset.signal === 'bullish' ? 'h-2.5 bg-emerald-400' :
+                            asset.signal === 'bearish' ? 'h-2.5 bg-red-400' :
                               'h-2.5 bg-gray-500'
-                            : 'h-2.5 bg-gray-700'
-                        }`} />
-                        <div className={`w-1 rounded-full transition-all ${
-                          asset.strength === 'strong'
-                            ? asset.signal === 'bullish' ? 'h-3.5 bg-emerald-400' :
-                              asset.signal === 'bearish' ? 'h-3.5 bg-red-400' :
+                          : 'h-2.5 bg-gray-700'
+                          }`} />
+                        <div className={`w-1 rounded-full transition-all ${asset.strength === 'strong'
+                          ? asset.signal === 'bullish' ? 'h-3.5 bg-emerald-400' :
+                            asset.signal === 'bearish' ? 'h-3.5 bg-red-400' :
                               'h-3.5 bg-gray-500'
-                            : 'h-3.5 bg-gray-700'
-                        }`} />
+                          : 'h-3.5 bg-gray-700'
+                          }`} />
                       </div>
                       {/* Signal Badge */}
-                      <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${
-                        asset.signal === 'bullish' 
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
-                          : asset.signal === 'bearish'
+                      <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${asset.signal === 'bullish'
+                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                        : asset.signal === 'bearish'
                           ? 'bg-red-500/20 text-red-400 border border-red-500/30'
                           : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                      }`}>
+                        }`}>
                         {asset.signal === 'bullish' ? (
                           <TrendingUp className="w-4 h-4" />
                         ) : asset.signal === 'bearish' ? (
@@ -1737,58 +1720,53 @@ export default function BettingDashboard() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-4 gap-2">
                     <div className="text-center p-2 rounded-lg bg-white/[0.03]">
                       <div className="text-xs text-gray-500 mb-1">1H</div>
-                      <div className={`text-sm font-mono font-bold ${
-                        asset.momentum.h1 >= 0 ? 'text-emerald-400' : 'text-red-400'
-                      }`}>
+                      <div className={`text-sm font-mono font-bold ${asset.momentum.h1 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                        }`}>
                         {asset.momentum.h1 >= 0 ? '+' : ''}{asset.momentum.h1.toFixed(2)}%
                       </div>
                     </div>
                     <div className="text-center p-2 rounded-lg bg-white/[0.03]">
                       <div className="text-xs text-gray-500 mb-1">4H</div>
-                      <div className={`text-sm font-mono font-bold ${
-                        asset.momentum.h4 >= 0 ? 'text-emerald-400' : 'text-red-400'
-                      }`}>
+                      <div className={`text-sm font-mono font-bold ${asset.momentum.h4 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                        }`}>
                         {asset.momentum.h4 >= 0 ? '+' : ''}{asset.momentum.h4.toFixed(2)}%
                       </div>
                     </div>
                     <div className="text-center p-2 rounded-lg bg-white/[0.03]">
                       <div className="text-xs text-gray-500 mb-1">24H</div>
-                      <div className={`text-sm font-mono font-bold ${
-                        asset.momentum.h24 >= 0 ? 'text-emerald-400' : 'text-red-400'
-                      }`}>
+                      <div className={`text-sm font-mono font-bold ${asset.momentum.h24 >= 0 ? 'text-emerald-400' : 'text-red-400'
+                        }`}>
                         {asset.momentum.h24 >= 0 ? '+' : ''}{asset.momentum.h24.toFixed(2)}%
                       </div>
                     </div>
                     <div className="text-center p-2 rounded-lg bg-white/[0.05] border border-white/[0.08]">
                       <div className="text-xs text-gray-500 mb-1">Score</div>
-                      <div className={`text-sm font-mono font-bold ${
-                        asset.momentum.composite >= 0.3 ? 'text-emerald-400' : 
+                      <div className={`text-sm font-mono font-bold ${asset.momentum.composite >= 0.3 ? 'text-emerald-400' :
                         asset.momentum.composite <= -0.3 ? 'text-red-400' : 'text-gray-400'
-                      }`}>
+                        }`}>
                         {asset.momentum.composite >= 0 ? '+' : ''}{asset.momentum.composite.toFixed(2)}
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* 24h Price Trend Sparkline */}
                   {asset.priceHistory && asset.priceHistory.length > 1 && (
                     <div className="mt-3 pt-3 border-t border-white/[0.05]">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[10px] text-gray-500">24h Price Trend</span>
-                        <span className={`text-[10px] font-medium ${
-                          asset.priceHistory[asset.priceHistory.length - 1] > asset.priceHistory[0]
-                            ? 'text-emerald-400' : 'text-red-400'
-                        }`}>
+                        <span className={`text-[10px] font-medium ${asset.priceHistory[asset.priceHistory.length - 1] > asset.priceHistory[0]
+                          ? 'text-emerald-400' : 'text-red-400'
+                          }`}>
                           {((asset.priceHistory[asset.priceHistory.length - 1] - asset.priceHistory[0]) / asset.priceHistory[0] * 100).toFixed(2)}%
                         </span>
                       </div>
-                      <MiniChart 
-                        data={asset.priceHistory} 
-                        color={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'orange' : 'cyan'} 
+                      <MiniChart
+                        data={asset.priceHistory}
+                        color={asset.signal === 'bullish' ? 'green' : asset.signal === 'bearish' ? 'orange' : 'cyan'}
                       />
                     </div>
                   )}
@@ -1836,7 +1814,7 @@ export default function BettingDashboard() {
                   )}
                 </button>
               </div>
-              
+
               {/* Horizontally scrollable filter controls on mobile (T756) */}
               <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible scrollbar-none">
                 {/* Date Period Filter - larger touch targets on mobile */}
@@ -1845,22 +1823,20 @@ export default function BettingDashboard() {
                     <button
                       key={period}
                       onClick={() => setStatsPeriod(period)}
-                      className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all capitalize min-w-[48px] ${
-                        statsPeriod === period 
-                          ? 'bg-white/10 text-gray-200' 
-                          : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
-                      }`}
+                      className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all capitalize min-w-[48px] ${statsPeriod === period
+                        ? 'bg-white/10 text-gray-200'
+                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
+                        }`}
                     >
                       {period === 'all' ? 'All' : period === 'today' ? 'Today' : period === 'week' ? '7D' : '30D'}
                     </button>
                   ))}
                   <button
                     onClick={() => setStatsPeriod('custom')}
-                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all flex items-center gap-1 ${
-                      statsPeriod === 'custom' 
-                        ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
-                    }`}
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all flex items-center gap-1 ${statsPeriod === 'custom'
+                      ? 'bg-white/10 text-gray-200'
+                      : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
+                      }`}
                     title="Custom date range"
                   >
                     <Calendar className="w-4 h-4 sm:w-3 sm:h-3" />
@@ -1888,39 +1864,37 @@ export default function BettingDashboard() {
                 <div className="flex items-center rounded-xl bg-white/5 border border-white/10 p-0.5 flex-shrink-0">
                   <button
                     onClick={() => setStatsSource('v1')}
-                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${
-                      statsSource === 'v1' 
-                        ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
-                    }`}
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${statsSource === 'v1'
+                      ? 'bg-white/10 text-gray-200'
+                      : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
+                      }`}
                   >
                     v1
                   </button>
                   <button
                     onClick={() => setStatsSource('v2')}
-                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${
-                      statsSource === 'v2' 
-                        ? 'bg-white/10 text-gray-200' 
-                        : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
-                    }`}
+                    className={`px-3 py-2 sm:px-2 sm:py-1 rounded-lg sm:rounded-md text-sm sm:text-xs font-medium transition-all min-w-[40px] ${statsSource === 'v2'
+                      ? 'bg-white/10 text-gray-200'
+                      : 'text-gray-500 hover:text-gray-400 active:bg-white/5'
+                      }`}
                   >
                     v2
                   </button>
                 </div>
               </div>
             </div>
-            
+
             {/* Trade Ticker (T333) */}
             {tradingStats.recentTrades && tradingStats.recentTrades.length > 0 && (
               <div className="mb-4">
-                <TradeTicker 
+                <TradeTicker
                   trades={tradingStats.recentTrades.slice(0, 20)}
                   speed="normal"
                   showTimestamp={false}
                 />
               </div>
             )}
-            
+
             <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4 ${!showAllStats ? 'max-md:[&>*:nth-child(n+7)]:hidden' : ''}`}>
               {/* Win Rate */}
               <StatsComparisonTooltip
@@ -1940,15 +1914,15 @@ export default function BettingDashboard() {
                       <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Win Rate</span>
                     </div>
                     {/* 7-day trend sparkline */}
-                    <WinRateSparkline 
+                    <WinRateSparkline
                       data={parseWinRateTrendFromStats(winRateTrend) || generateMockSparklineData(7)}
                       width={50}
                       height={20}
                       showTrendIcon={false}
                     />
                   </div>
-                  <AnimatedNumber 
-                    value={tradingStats.winRate} 
+                  <AnimatedNumber
+                    value={tradingStats.winRate}
                     suffix="%"
                     decimals={1}
                     glowColor={tradingStats.winRate >= 50 ? 'green' : 'red'}
@@ -1976,8 +1950,8 @@ export default function BettingDashboard() {
                     <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                     <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Total PnL</span>
                   </div>
-                  <AnimatedNumber 
-                    value={tradingStats.totalPnlCents / 100} 
+                  <AnimatedNumber
+                    value={tradingStats.totalPnlCents / 100}
                     prefix={tradingStats.totalPnlCents >= 0 ? '+$' : '-$'}
                     decimals={2}
                     glowColor={tradingStats.totalPnlCents >= 0 ? 'green' : 'red'}
@@ -2016,15 +1990,15 @@ export default function BettingDashboard() {
                     <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                     <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today</span>
                     {(tradingStats.yesterdayPnlCents ?? 0) !== 0 && (
-                      <ComparisonIndicator 
-                        current={tradingStats.todayPnlCents} 
+                      <ComparisonIndicator
+                        current={tradingStats.todayPnlCents}
                         previous={tradingStats.yesterdayPnlCents ?? 0}
                         type="pnl"
                       />
                     )}
                   </div>
-                  <AnimatedNumber 
-                    value={Math.abs(tradingStats.todayPnlCents / 100)} 
+                  <AnimatedNumber
+                    value={Math.abs(tradingStats.todayPnlCents / 100)}
                     prefix={tradingStats.todayPnlCents >= 0 ? '+$' : '-$'}
                     decimals={2}
                     glowColor={tradingStats.todayPnlCents >= 0 ? 'green' : 'red'}
@@ -2063,15 +2037,15 @@ export default function BettingDashboard() {
                     <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                     <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Today WR</span>
                     {(tradingStats.yesterdayWinRate ?? 0) !== 0 && (
-                      <ComparisonIndicator 
-                        current={tradingStats.todayWinRate} 
+                      <ComparisonIndicator
+                        current={tradingStats.todayWinRate}
                         previous={tradingStats.yesterdayWinRate ?? 0}
                         type="rate"
                       />
                     )}
                   </div>
-                  <AnimatedNumber 
-                    value={tradingStats.todayWinRate || 0} 
+                  <AnimatedNumber
+                    value={tradingStats.todayWinRate || 0}
                     suffix="%"
                     decimals={1}
                     glowColor={tradingStats.todayWinRate >= 50 ? 'green' : 'orange'}
@@ -2086,8 +2060,8 @@ export default function BettingDashboard() {
                   <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Avg Return</span>
                 </div>
-                <AnimatedNumber 
-                  value={Math.abs((tradingStats.avgReturnCents ?? 0) / 100)} 
+                <AnimatedNumber
+                  value={Math.abs((tradingStats.avgReturnCents ?? 0) / 100)}
                   prefix={(tradingStats.avgReturnCents ?? 0) >= 0 ? '+$' : '-$'}
                   decimals={2}
                   glowColor={(tradingStats.avgReturnCents ?? 0) >= 0 ? 'green' : 'red'}
@@ -2102,8 +2076,8 @@ export default function BettingDashboard() {
                   <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Profit Factor</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.profitFactor ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.profitFactor ?? 0}
                   decimals={2}
                   glowColor={(tradingStats.profitFactor ?? 0) >= 1 ? 'green' : 'red'}
                   className="text-lg sm:text-xl md:text-2xl"
@@ -2119,8 +2093,8 @@ export default function BettingDashboard() {
                   <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Sharpe Ratio</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.sharpeRatio ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.sharpeRatio ?? 0}
                   decimals={2}
                   glowColor={(tradingStats.sharpeRatio ?? 0) >= 1 ? 'green' : (tradingStats.sharpeRatio ?? 0) >= 0 ? 'purple' : 'red'}
                   className="text-lg sm:text-xl md:text-2xl"
@@ -2136,8 +2110,8 @@ export default function BettingDashboard() {
                   <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Sortino Ratio</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.sortinoRatio ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.sortinoRatio ?? 0}
                   decimals={2}
                   glowColor={(tradingStats.sortinoRatio ?? 0) >= 2 ? 'green' : (tradingStats.sortinoRatio ?? 0) >= 1 ? 'purple' : 'orange'}
                   className="text-lg sm:text-xl md:text-2xl"
@@ -2153,8 +2127,8 @@ export default function BettingDashboard() {
                   <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Max Drawdown</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.maxDrawdownPercent ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.maxDrawdownPercent ?? 0}
                   suffix="%"
                   decimals={1}
                   glowColor={(tradingStats.maxDrawdownPercent ?? 0) <= 10 ? 'green' : (tradingStats.maxDrawdownPercent ?? 0) <= 20 ? 'orange' : 'red'}
@@ -2171,8 +2145,8 @@ export default function BettingDashboard() {
                   <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Calmar Ratio</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.calmarRatio ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.calmarRatio ?? 0}
                   decimals={2}
                   glowColor={(tradingStats.calmarRatio ?? 0) >= 3 ? 'green' : (tradingStats.calmarRatio ?? 0) >= 1 ? 'purple' : 'orange'}
                   className="text-lg sm:text-xl md:text-2xl"
@@ -2188,8 +2162,8 @@ export default function BettingDashboard() {
                   <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Pending</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.pendingTrades} 
+                <AnimatedNumber
+                  value={tradingStats.pendingTrades}
                   decimals={0}
                   glowColor="cyan"
                   className="text-lg sm:text-xl md:text-2xl"
@@ -2203,8 +2177,8 @@ export default function BettingDashboard() {
                   <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Avg Duration</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.avgTradeDurationHours ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.avgTradeDurationHours ?? 0}
                   suffix="h"
                   decimals={1}
                   glowColor="purple"
@@ -2221,8 +2195,8 @@ export default function BettingDashboard() {
                   <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Current Streak</span>
                 </div>
-                <AnimatedNumber 
-                  value={Math.abs(tradingStats.currentStreak ?? 0)} 
+                <AnimatedNumber
+                  value={Math.abs(tradingStats.currentStreak ?? 0)}
                   prefix={tradingStats.currentStreakType === 'win' ? '🔥 ' : tradingStats.currentStreakType === 'loss' ? '❄️ ' : ''}
                   decimals={0}
                   glowColor={tradingStats.currentStreakType === 'win' ? 'green' : tradingStats.currentStreakType === 'loss' ? 'red' : 'cyan'}
@@ -2239,8 +2213,8 @@ export default function BettingDashboard() {
                   <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Best Streak</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.longestWinStreak ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.longestWinStreak ?? 0}
                   prefix="🏆 "
                   decimals={0}
                   glowColor="green"
@@ -2255,8 +2229,8 @@ export default function BettingDashboard() {
                   <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">Worst Streak</span>
                 </div>
-                <AnimatedNumber 
-                  value={tradingStats.longestLossStreak ?? 0} 
+                <AnimatedNumber
+                  value={tradingStats.longestLossStreak ?? 0}
                   prefix="💀 "
                   decimals={0}
                   glowColor="red"
@@ -2268,8 +2242,8 @@ export default function BettingDashboard() {
               {/* Order Latency */}
               <GlassCard glowColor={
                 (tradingStats.avgLatencyMs ?? 0) === 0 ? 'cyan' :
-                (tradingStats.avgLatencyMs ?? 0) < 500 ? 'green' :
-                (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
+                  (tradingStats.avgLatencyMs ?? 0) < 500 ? 'green' :
+                    (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
               } className="p-3 sm:p-4">
                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                   <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
@@ -2277,13 +2251,13 @@ export default function BettingDashboard() {
                 </div>
                 {tradingStats.latencyTradeCount && tradingStats.latencyTradeCount > 0 ? (
                   <>
-                    <AnimatedNumber 
-                      value={tradingStats.avgLatencyMs ?? 0} 
+                    <AnimatedNumber
+                      value={tradingStats.avgLatencyMs ?? 0}
                       suffix="ms"
                       decimals={0}
                       glowColor={
                         (tradingStats.avgLatencyMs ?? 0) < 500 ? 'green' :
-                        (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
+                          (tradingStats.avgLatencyMs ?? 0) < 1000 ? 'orange' : 'red'
                       }
                       className="text-lg sm:text-xl md:text-2xl"
                     />
@@ -2325,15 +2299,14 @@ export default function BettingDashboard() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   {tradingStats.recentTrades.slice(0, 10).map((trade, i) => (
-                    <div 
+                    <div
                       key={i}
-                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full transition-all ${
-                        trade.result_status === 'won' 
-                          ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' 
-                          : trade.result_status === 'lost'
+                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full transition-all ${trade.result_status === 'won'
+                        ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'
+                        : trade.result_status === 'lost'
                           ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'
                           : 'bg-gray-600 animate-pulse'
-                      }`}
+                        }`}
                       title={`${trade.side.toUpperCase()} ${trade.contracts}x @ ${trade.price_cents}¢ - ${trade.result_status || 'pending'}`}
                     />
                   ))}
@@ -2368,24 +2341,23 @@ export default function BettingDashboard() {
                   <BarChart3 className="w-4 h-4 text-cyan-400" />
                   <span className="text-gray-400 text-xs font-medium">Win Rate Trend (30 days)</span>
                   {winRateTrend?.summary?.trend && (
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                      winRateTrend.summary.trend === 'improving' 
-                        ? 'bg-emerald-500/20 text-emerald-400' 
-                        : winRateTrend.summary.trend === 'declining'
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${winRateTrend.summary.trend === 'improving'
+                      ? 'bg-emerald-500/20 text-emerald-400'
+                      : winRateTrend.summary.trend === 'declining'
                         ? 'bg-red-500/20 text-red-400'
                         : 'bg-gray-500/20 text-gray-400'
-                    }`}>
+                      }`}>
                       {winRateTrend.summary.trend === 'improving' ? '↑' : winRateTrend.summary.trend === 'declining' ? '↓' : '→'} {winRateTrend.summary.trend}
                     </span>
                   )}
                 </div>
                 <span className="text-gray-600 text-[10px]">
-                  {winRateTrend?.summary?.overallWinRate !== undefined 
+                  {winRateTrend?.summary?.overallWinRate !== undefined
                     ? `${winRateTrend.summary.overallWinRate}% avg (${winRateTrend.summary.totalTrades} trades)`
                     : 'Rolling daily average'}
                 </span>
               </div>
-              <WinRateTrendChart 
+              <WinRateTrendChart
                 data={winRateTrend?.data || generateMockWinRateTrend(30)}
                 height={140}
                 showLabels={true}
@@ -2397,14 +2369,14 @@ export default function BettingDashboard() {
 
             {/* Return Distribution Histogram */}
             <div className={`mt-4 ${collapsedSections.charts ? 'hidden md:block' : ''}`}>
-              <ReturnDistributionChart 
-                trades={tradingStats.recentTrades && tradingStats.recentTrades.length > 5 
+              <ReturnDistributionChart
+                trades={tradingStats.recentTrades && tradingStats.recentTrades.length > 5
                   ? tradingStats.recentTrades.map(t => ({
-                      result_status: t.result_status as 'won' | 'lost' | 'pending',
-                      price_cents: t.price_cents,
-                      contracts: t.contracts,
-                      side: t.side as 'yes' | 'no'
-                    }))
+                    result_status: t.result_status as 'won' | 'lost' | 'pending',
+                    price_cents: t.price_cents,
+                    contracts: t.contracts,
+                    side: t.side as 'yes' | 'no'
+                  }))
                   : generateMockTrades(50)
                 }
                 width={400}
@@ -2421,7 +2393,7 @@ export default function BettingDashboard() {
             {/* Latency Trend Chart */}
             {tradingStats.avgLatencyMs !== null && tradingStats.avgLatencyMs !== undefined && (
               <div className={`mt-4 ${collapsedSections.charts ? 'hidden md:block' : ''}`}>
-                <LatencyTrendChart 
+                <LatencyTrendChart
                   data={generateMockLatencyTrend(14)}
                   height={160}
                   showP95={true}
@@ -2451,7 +2423,7 @@ export default function BettingDashboard() {
 
             {/* Volatility Analysis */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <VolatilityCard 
+              <VolatilityCard
                 volatility={tradingStats.volatility}
                 loading={isLoading}
               />
@@ -2459,7 +2431,7 @@ export default function BettingDashboard() {
 
             {/* Edge Distribution (T368) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <EdgeDistributionChart 
+              <EdgeDistributionChart
                 data={tradingStats.edgeDistribution ?? null}
               />
             </div>
@@ -2483,7 +2455,7 @@ export default function BettingDashboard() {
 
             {/* Model Comparison (T350) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <ModelComparisonChart 
+              <ModelComparisonChart
                 v1Stats={tradingStats.bySource?.v1 || null}
                 v2Stats={tradingStats.bySource?.v2 || null}
               />
@@ -2491,7 +2463,7 @@ export default function BettingDashboard() {
 
             {/* Weather Market Performance (T443) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <WeatherPerformanceWidget 
+              <WeatherPerformanceWidget
                 data={parseWeatherPerformance(tradingStats.recentTrades || [])}
                 loading={isLoading}
               />
@@ -2499,7 +2471,7 @@ export default function BettingDashboard() {
 
             {/* Weather vs Crypto PnL Comparison (T448) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <WeatherCryptoPnLChart 
+              <WeatherCryptoPnLChart
                 data={
                   tradingStats.recentTrades && tradingStats.recentTrades.length >= 5
                     ? parsePnLByMarketType(tradingStats.recentTrades)
@@ -2510,7 +2482,7 @@ export default function BettingDashboard() {
 
             {/* Portfolio Concentration History (T482) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <ConcentrationHistoryChart 
+              <ConcentrationHistoryChart
                 data={tradingStats.concentrationHistory?.snapshots}
                 loading={isLoading}
               />
@@ -2518,7 +2490,7 @@ export default function BettingDashboard() {
 
             {/* Autotrader Health History (T829) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <HealthHistoryWidget 
+              <HealthHistoryWidget
                 data={tradingStats.healthHistory || undefined}
                 loading={isLoading}
               />
@@ -2526,7 +2498,7 @@ export default function BettingDashboard() {
 
             {/* Asset Correlation Heatmap (T721) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <CorrelationHeatmapWidget 
+              <CorrelationHeatmapWidget
                 correlationData={tradingStats.assetCorrelation || undefined}
                 loading={isLoading}
               />
@@ -2534,7 +2506,7 @@ export default function BettingDashboard() {
 
             {/* GPU & Agent Status Widget (T966) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <GpuStatusWidget 
+              <GpuStatusWidget
                 gpu={agentStatus?.gpu}
                 ollama={agentStatus?.ollama}
                 agents={agentStatus?.agents}
@@ -2545,7 +2517,7 @@ export default function BettingDashboard() {
 
             {/* Momentum Regime Widget (T853/T859) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <MomentumRegimeWidget 
+              <MomentumRegimeWidget
                 regimeData={tradingStats.momentumRegime || undefined}
                 loading={isLoading}
               />
@@ -2553,7 +2525,7 @@ export default function BettingDashboard() {
 
             {/* Stop-Loss Effectiveness (T366) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <StopLossEffectivenessWidget 
+              <StopLossEffectivenessWidget
                 data={tradingStats.stopLossStats || undefined}
                 loading={isLoading}
               />
@@ -2561,7 +2533,7 @@ export default function BettingDashboard() {
 
             {/* Time-of-Day Trading Heatmap (T411) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <TimeOfDayHeatmap 
+              <TimeOfDayHeatmap
                 heatmapData={tradingStats.hourDayHeatmap || undefined}
                 loading={isLoading}
               />
@@ -2569,7 +2541,7 @@ export default function BettingDashboard() {
 
             {/* Position Expiry Heatmap (T830) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <PositionExpiryHeatmap 
+              <PositionExpiryHeatmap
                 positions={kalshiStatus?.positions}
                 loading={isLoading}
               />
@@ -2577,7 +2549,7 @@ export default function BettingDashboard() {
 
             {/* Streak Position Analysis (T387) */}
             <div className={`mt-4 ${collapsedSections.analytics ? 'hidden md:block' : ''}`}>
-              <StreakPositionWidget 
+              <StreakPositionWidget
                 data={tradingStats.streakPosition || undefined}
                 loading={isLoading}
               />
@@ -2591,20 +2563,18 @@ export default function BettingDashboard() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {tradingStats.recentTrades.slice(0, 6).map((trade, i) => (
-                    <div 
+                    <div
                       key={i}
-                      className={`flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] ${
-                        trade.result_status === 'won' ? 'border-l-2 border-l-emerald-500' :
+                      className={`flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] ${trade.result_status === 'won' ? 'border-l-2 border-l-emerald-500' :
                         trade.result_status === 'lost' ? 'border-l-2 border-l-red-500' :
-                        'border-l-2 border-l-gray-500'
-                      }`}
+                          'border-l-2 border-l-gray-500'
+                        }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${
-                          trade.result_status === 'won' ? 'bg-emerald-400' :
+                        <div className={`w-2 h-2 rounded-full ${trade.result_status === 'won' ? 'bg-emerald-400' :
                           trade.result_status === 'lost' ? 'bg-red-400' :
-                          'bg-gray-400 animate-pulse'
-                        }`} />
+                            'bg-gray-400 animate-pulse'
+                          }`} />
                         <div>
                           <p className="text-sm font-mono text-gray-300">
                             {trade.side.toUpperCase()} {trade.contracts}x @ {trade.price_cents}¢
@@ -2614,17 +2584,16 @@ export default function BettingDashboard() {
                           </p>
                         </div>
                       </div>
-                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                        trade.result_status === 'won' ? 'bg-emerald-500/20 text-emerald-400' :
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${trade.result_status === 'won' ? 'bg-emerald-500/20 text-emerald-400' :
                         trade.result_status === 'lost' ? 'bg-red-500/20 text-red-400' :
-                        'bg-gray-500/20 text-gray-400'
-                      }`}>
+                          'bg-gray-500/20 text-gray-400'
+                        }`}>
                         {trade.result_status || 'pending'}
                       </span>
                     </div>
                   ))}
                 </div>
-                <a 
+                <a
                   href="/trading/history"
                   className="mt-3 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.05] transition-colors text-gray-400 hover:text-gray-300 text-sm"
                 >
@@ -2654,14 +2623,24 @@ export default function BettingDashboard() {
                     <p className="text-xs text-gray-500">{positionsCount} active</p>
                   </div>
                 </div>
-                <a 
-                  href="https://kalshi.com/portfolio" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                </a>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/trading/live"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-medium transition-colors border border-emerald-500/20"
+                  >
+                    <Activity className="w-3.5 h-3.5" />
+                    Live Autotrader
+                  </Link>
+                  <a
+                    href="https://kalshi.com/portfolio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 transition-colors"
+                    title="Open Kalshi Portfolio"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
 
               <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
@@ -2671,17 +2650,17 @@ export default function BettingDashboard() {
                     const perContractCost = contracts > 0 ? Math.abs(pos.exposure) / contracts : 0;
                     const isYes = pos.position > 0;
                     const assetType = pos.ticker.includes('KXETHD') ? 'ETH' : 'BTC';
-                    
+
                     // Calculate risk % of portfolio
                     const portfolioTotal = (kalshiStatus?.portfolioValue || 0) + (kalshiStatus?.cash || 0);
                     const riskPercent = portfolioTotal > 0 ? (Math.abs(pos.exposure) / portfolioTotal) * 100 : 0;
                     const riskColor = riskPercent < 10 ? 'emerald' : riskPercent < 25 ? 'yellow' : 'red';
-                    
+
                     // Calculate time to expiry (T743)
                     const expiryInfo = getPositionExpiryInfo(pos.ticker);
-                    
+
                     return (
-                      <div 
+                      <div
                         key={i}
                         className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-cyan-500/30 transition-all duration-300"
                       >
@@ -2697,7 +2676,7 @@ export default function BettingDashboard() {
                               </p>
                               {/* Expiry indicator (T743) */}
                               {expiryInfo.color !== 'gray' && (
-                                <span 
+                                <span
                                   className={`flex items-center gap-0.5 text-[9px] px-1.5 py-0.5 rounded-full font-bold whitespace-nowrap
                                     ${expiryInfo.color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
                                     ${expiryInfo.color === 'yellow' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
@@ -2726,7 +2705,7 @@ export default function BettingDashboard() {
                               ${Math.abs(pos.exposure).toFixed(2)}
                             </p>
                             {/* Risk indicator */}
-                            <span 
+                            <span
                               className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold
                                 ${riskColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
                                 ${riskColor === 'yellow' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
@@ -2848,18 +2827,17 @@ export default function BettingDashboard() {
                 <div className="space-y-2 max-h-[350px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                   {inbox?.messages && inbox.messages.length > 0 ? (
                     inbox.messages.map((msg) => (
-                      <div 
+                      <div
                         key={msg.id}
-                        className={`group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 ${
-                          msg.processed 
-                            ? 'bg-white/[0.02] opacity-50' 
-                            : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-emerald-500/30'
-                        }`}
+                        className={`group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 ${msg.processed
+                          ? 'bg-white/[0.02] opacity-50'
+                          : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-emerald-500/30'
+                          }`}
                       >
                         <div className="mt-0.5">{getMessageIcon(msg.type)}</div>
                         <div className="flex-1 min-w-0">
                           {msg.type === 'link' ? (
-                            <a 
+                            <a
                               href={msg.content}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -2900,13 +2878,13 @@ export default function BettingDashboard() {
             AUTO-REFRESH 30s • BUILT FOR ONDE.SURF • v2.0 • Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-gray-500">?</kbd> for shortcuts
           </p>
         </div>
-      </div>
+      </div >
 
       {/* Keyboard Shortcuts Modal */}
-      <KeyboardShortcutsModal 
-        isOpen={showShortcuts} 
-        onClose={() => setShowShortcuts(false)} 
+      <KeyboardShortcutsModal
+        isOpen={showShortcuts}
+        onClose={() => setShowShortcuts(false)}
       />
-    </div>
+    </div >
   );
 }

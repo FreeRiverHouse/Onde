@@ -1,8 +1,8 @@
 // Surfboard Service Worker - Offline PWA Support
 // Version: 2.0.0 - Fixed caching to prevent stale build mismatches
 
-const CACHE_NAME = 'surfboard-v2';
-const API_CACHE = 'surfboard-api-v2';
+const CACHE_NAME = 'surfboard-v3';
+const API_CACHE = 'surfboard-api-v3';
 
 // Background Sync tags
 const SYNC_TRADING_STATS = 'sync-trading-stats';
@@ -22,7 +22,7 @@ const API_ROUTES = [
 
 // Install: Skip precaching HTML pages (they change on every build)
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker v2.0.0...');
+  console.log('[SW] Installing service worker v3.0.0 (force cache clear)...');
   // Don't precache HTML pages - they contain build-specific chunk references
   // Only cache truly static assets
   event.waitUntil(

@@ -6,7 +6,7 @@ import { useToast } from './Toast';
 import { AgentLeaderboard } from './AgentLeaderboard';
 import { calculateAgentMood } from '../lib/gamification';
 import { useTTS, cleanTextForTTS } from '../lib/useTTS';
-import { NotificationBell } from './NotificationCenter';
+// import { NotificationBell } from './NotificationCenter'; // DISABLED: causes TDZ crash
 
 // Monument Valley color palette
 const MV_COLORS = {
@@ -772,7 +772,7 @@ export function FreeRiverHouse() {
             </svg>
           </button>
           {/* Notification Center */}
-          <NotificationBell />
+          {/* NotificationBell disabled */}
           {/* All Tasks Button */}
           <button
             onClick={() => setShowAllTasks(!showAllTasks)}

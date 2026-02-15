@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-07T13:00:01.605837+00:00",
+  "timestamp": "2026-02-15T01:00:02.355761+00:00",
   "run_type": "daily",
   "tests": [
     {
@@ -7,160 +7,160 @@
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 220,
-      "timestamp": "2026-02-07T13:00:01.831865+00:00"
+      "duration_ms": 354,
+      "timestamp": "2026-02-15T01:00:02.711067+00:00"
     },
     {
       "name": "onde.la /libri",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 137,
-      "timestamp": "2026-02-07T13:00:01.969333+00:00"
+      "duration_ms": 214,
+      "timestamp": "2026-02-15T01:00:02.926109+00:00"
     },
     {
       "name": "onde.la /catalogo",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 142,
-      "timestamp": "2026-02-07T13:00:02.111716+00:00"
+      "duration_ms": 222,
+      "timestamp": "2026-02-15T01:00:03.148608+00:00"
     },
     {
       "name": "onde.la /about",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 129,
-      "timestamp": "2026-02-07T13:00:02.245499+00:00"
+      "duration_ms": 127,
+      "timestamp": "2026-02-15T01:00:03.276159+00:00"
     },
     {
       "name": "onde.la /health",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 147,
-      "timestamp": "2026-02-07T13:00:02.392985+00:00"
+      "duration_ms": 176,
+      "timestamp": "2026-02-15T01:00:03.483685+00:00"
     },
     {
       "name": "onde.la RSS Feed",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 104,
-      "timestamp": "2026-02-07T13:00:02.497797+00:00"
+      "duration_ms": 207,
+      "timestamp": "2026-02-15T01:00:03.691262+00:00"
     },
     {
       "name": "onde.la SSL",
       "category": "ssl",
       "passed": true,
-      "details": "Expires in 62 days",
-      "duration_ms": 93,
-      "timestamp": "2026-02-07T13:00:02.591155+00:00"
+      "details": "Expires in 54 days",
+      "duration_ms": 111,
+      "timestamp": "2026-02-15T01:00:03.802635+00:00"
     },
     {
       "name": "onde.la Performance",
       "category": "performance",
       "passed": true,
-      "details": "163ms (threshold: 3000ms)",
-      "duration_ms": 163,
-      "timestamp": "2026-02-07T13:00:02.758060+00:00"
+      "details": "123ms (threshold: 3000ms)",
+      "duration_ms": 123,
+      "timestamp": "2026-02-15T01:00:03.927627+00:00"
     },
     {
       "name": "onde.la Content Check",
       "category": "content",
       "passed": true,
       "details": "Found 'Onde'",
-      "duration_ms": 160,
-      "timestamp": "2026-02-07T13:00:02.920262+00:00"
+      "duration_ms": 209,
+      "timestamp": "2026-02-15T01:00:04.139315+00:00"
     },
     {
       "name": "onde.la API Health",
       "category": "api",
       "passed": true,
       "details": "Status: unavailable (static export - expected)",
-      "duration_ms": 157,
-      "timestamp": "2026-02-07T13:00:03.077369+00:00"
+      "duration_ms": 130,
+      "timestamp": "2026-02-15T01:00:04.269968+00:00"
     },
     {
       "name": "onde.la Reader App",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 203,
-      "timestamp": "2026-02-07T13:00:03.281127+00:00"
+      "duration_ms": 211,
+      "timestamp": "2026-02-15T01:00:04.481714+00:00"
     },
     {
       "name": "onde.la Reader VR",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 135,
-      "timestamp": "2026-02-07T13:00:03.417528+00:00"
+      "duration_ms": 290,
+      "timestamp": "2026-02-15T01:00:04.772913+00:00"
     },
     {
       "name": "Moonlight Magic House",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 126,
-      "timestamp": "2026-02-07T13:00:03.544447+00:00"
+      "duration_ms": 142,
+      "timestamp": "2026-02-15T01:00:04.916101+00:00"
     },
     {
       "name": "onde.surf Auth Check",
       "category": "auth",
       "passed": true,
       "details": "Status: 307 (protected)",
-      "duration_ms": 112,
-      "timestamp": "2026-02-07T13:00:03.657528+00:00"
+      "duration_ms": 116,
+      "timestamp": "2026-02-15T01:00:05.032680+00:00"
     },
     {
       "name": "onde.surf Login Page",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 115,
-      "timestamp": "2026-02-07T13:00:03.774278+00:00"
+      "duration_ms": 212,
+      "timestamp": "2026-02-15T01:00:05.246616+00:00"
     },
     {
       "name": "onde.surf SSL",
       "category": "ssl",
       "passed": true,
-      "details": "Expires in 62 days",
-      "duration_ms": 74,
-      "timestamp": "2026-02-07T13:00:03.848589+00:00"
+      "details": "Expires in 55 days",
+      "duration_ms": 73,
+      "timestamp": "2026-02-15T01:00:05.320975+00:00"
     },
     {
       "name": "onde.surf Performance",
       "category": "performance",
       "passed": true,
-      "details": "133ms (threshold: 3000ms)",
-      "duration_ms": 133,
-      "timestamp": "2026-02-07T13:00:03.983709+00:00"
+      "details": "135ms (threshold: 3000ms)",
+      "duration_ms": 135,
+      "timestamp": "2026-02-15T01:00:05.459126+00:00"
     },
     {
       "name": "Skin Studio",
       "category": "http",
       "passed": true,
       "details": "Status: 200",
-      "duration_ms": 116,
-      "timestamp": "2026-02-07T13:00:04.100847+00:00"
+      "duration_ms": 109,
+      "timestamp": "2026-02-15T01:00:05.569385+00:00"
     },
     {
       "name": "Skin Studio Performance",
       "category": "performance",
       "passed": true,
-      "details": "147ms (threshold: 3000ms)",
-      "duration_ms": 147,
-      "timestamp": "2026-02-07T13:00:04.248564+00:00"
+      "details": "230ms (threshold: 3000ms)",
+      "duration_ms": 230,
+      "timestamp": "2026-02-15T01:00:05.800015+00:00"
     },
     {
       "name": "Skin Studio Content Check",
       "category": "content",
       "passed": true,
       "details": "Found 'Skin Studio'",
-      "duration_ms": 120,
-      "timestamp": "2026-02-07T13:00:04.369337+00:00"
+      "duration_ms": 109,
+      "timestamp": "2026-02-15T01:00:05.910537+00:00"
     }
   ],
   "summary": {

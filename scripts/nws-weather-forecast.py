@@ -38,12 +38,14 @@ NWS_POINTS = {
 }
 
 # Forecast uncertainty (standard deviation in °F)
-# Based on NWS accuracy studies: ~2-3°F for 1-2 day forecasts
+# UPDATED 2026-02-08: Actual MAE is 2.81°F. Using higher uncertainty for conservative edge calculation.
+# Previous values (2.0-2.5°F same-day) led to overconfident probability estimates and 17.9% win rate.
+# New values use 1.5-2x the observed MAE to properly capture distribution tails.
 FORECAST_UNCERTAINTY = {
-    "day_0": 2.0,   # Same day: ±2°F
-    "day_1": 2.5,   # Next day: ±2.5°F
-    "day_2": 3.0,   # 2 days out: ±3°F
-    "day_3": 4.0,   # 3+ days out: ±4°F
+    "day_0": 4.0,   # Same day: ±4°F (was 2.0, actual MAE 2.81)
+    "day_1": 5.0,   # Next day: ±5°F (was 2.5)
+    "day_2": 6.0,   # 2 days out: ±6°F (was 3.0)
+    "day_3": 8.0,   # 3+ days out: ±8°F (was 4.0)
 }
 
 def get_nws_headers():

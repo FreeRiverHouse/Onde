@@ -1,0 +1,553 @@
+{
+  "generated_at": "2026-02-08T16:37:11.655167+00:00",
+  "current_strategy": {
+    "params": {
+      "min_edge": 0.1,
+      "min_forecast_strike_gap": 0.0,
+      "max_market_conviction": 1.0,
+      "min_our_prob": 0.0,
+      "forecast_uncertainty": 2.0,
+      "kelly_fraction": 0.08
+    },
+    "total_trades": 107,
+    "filtered_in": 107,
+    "filtered_out": 0,
+    "filter_reasons": {},
+    "wins": 19,
+    "losses": 87,
+    "pending": 1,
+    "pnl_cents": -517,
+    "win_rate": 0.1792452830188679,
+    "avg_win_cents": 19.05263157894737,
+    "avg_loss_cents": 15.793103448275861,
+    "trades_by_city": {
+      "CHI": {
+        "wins": 11,
+        "losses": 19,
+        "pnl": 0
+      },
+      "NYC": {
+        "wins": 5,
+        "losses": 61,
+        "pnl": -405
+      },
+      "DEN": {
+        "wins": 3,
+        "losses": 4,
+        "pnl": -112
+      },
+      "MIA": {
+        "wins": 0,
+        "losses": 3,
+        "pnl": 0
+      }
+    },
+    "trades_by_side": {
+      "no": {
+        "wins": 15,
+        "losses": 69,
+        "pnl": -622
+      },
+      "yes": {
+        "wins": 4,
+        "losses": 18,
+        "pnl": 105
+      }
+    },
+    "sample_filtered_out": [],
+    "sample_wins": [
+      {
+        "ticker": "KXHIGHNY-26JAN29-B23.5",
+        "edge": 0.6182,
+        "profit": 0
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B18.5",
+        "edge": 0.7482,
+        "profit": 0
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B18.5",
+        "edge": 0.6682,
+        "profit": 0
+      }
+    ],
+    "sample_losses": [
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6685,
+        "loss": 0
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.7285,
+        "loss": 0
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6785,
+        "loss": 0
+      }
+    ]
+  },
+  "improved_strategy": {
+    "params": {
+      "min_edge": 0.15,
+      "min_forecast_strike_gap": 3.0,
+      "max_market_conviction": 0.85,
+      "min_our_prob": 0.05,
+      "forecast_uncertainty": 4.0,
+      "kelly_fraction": 0.05
+    },
+    "total_trades": 107,
+    "filtered_in": 4,
+    "filtered_out": 103,
+    "filter_reasons": {
+      "market": 60,
+      "gap": 24,
+      "our_prob": 19
+    },
+    "wins": 3,
+    "losses": 1,
+    "pending": 0,
+    "pnl_cents": 174,
+    "win_rate": 0.75,
+    "avg_win_cents": 68.0,
+    "avg_loss_cents": 30.0,
+    "trades_by_city": {
+      "NYC": {
+        "wins": 3,
+        "losses": 0,
+        "pnl": 204
+      },
+      "DEN": {
+        "wins": 0,
+        "losses": 1,
+        "pnl": -30
+      }
+    },
+    "trades_by_side": {
+      "yes": {
+        "wins": 3,
+        "losses": 0,
+        "pnl": 204
+      },
+      "no": {
+        "wins": 0,
+        "losses": 1,
+        "pnl": -30
+      }
+    },
+    "sample_filtered_out": [
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "reason": "market conviction 86.00% > max 85.00% (betting NO)",
+        "would_have_lost": 28
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "reason": "market conviction 92.00% > max 85.00% (betting NO)",
+        "would_have_lost": 32
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "reason": "market conviction 87.00% > max 85.00% (betting NO)",
+        "would_have_lost": 26
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "reason": "market conviction 87.00% > max 85.00% (betting NO)",
+        "would_have_lost": 13
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "reason": "gap 0.5\u00b0F < min 3.0\u00b0F",
+        "would_have_lost": 15
+      }
+    ],
+    "sample_wins": [
+      {
+        "ticker": "KXLOWTNYC-26JAN31-T7",
+        "edge": 0.7593,
+        "profit": 69
+      },
+      {
+        "ticker": "KXLOWTNYC-26JAN31-T7",
+        "edge": 0.69,
+        "profit": 63
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB03-T16",
+        "edge": 0.7274,
+        "profit": 72
+      }
+    ],
+    "sample_losses": [
+      {
+        "ticker": "KXHIGHDEN-26FEB02-T53",
+        "edge": 0.7832,
+        "loss": -30
+      }
+    ]
+  },
+  "forecast_accuracy": {
+    "total": 106,
+    "with_forecast": 106,
+    "by_city": {
+      "CHI": {
+        "count": 30,
+        "wins": 11,
+        "losses": 19,
+        "win_rate": 0.36666666666666664
+      },
+      "NYC": {
+        "count": 66,
+        "wins": 5,
+        "losses": 61,
+        "win_rate": 0.07575757575757576
+      },
+      "DEN": {
+        "count": 7,
+        "wins": 3,
+        "losses": 4,
+        "win_rate": 0.42857142857142855
+      },
+      "MIA": {
+        "count": 3,
+        "wins": 0,
+        "losses": 3,
+        "win_rate": 0.0
+      }
+    },
+    "by_gap": {
+      "0\u00b0F": {
+        "count": 47,
+        "wins": 3,
+        "win_rate": 0.06382978723404255
+      },
+      "2\u00b0F": {
+        "count": 30,
+        "wins": 12,
+        "win_rate": 0.4
+      },
+      "3\u00b0F": {
+        "count": 5,
+        "wins": 0,
+        "win_rate": 0.0
+      },
+      "4\u00b0F": {
+        "count": 7,
+        "wins": 1,
+        "win_rate": 0.14285714285714285
+      },
+      "8\u00b0F": {
+        "count": 14,
+        "wins": 2,
+        "win_rate": 0.14285714285714285
+      },
+      "7\u00b0F": {
+        "count": 1,
+        "wins": 1,
+        "win_rate": 1.0
+      },
+      "1\u00b0F": {
+        "count": 2,
+        "wins": 0,
+        "win_rate": 0.0
+      }
+    },
+    "low_prob_trades": [
+      {
+        "ticker": "KXLOWTNYC-26JAN30-B9.5",
+        "our_prob": 0.0441,
+        "market_prob": 0.65,
+        "edge": 0.6059,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.75,
+        "edge": 0.75,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.76,
+        "edge": 0.76,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.76,
+        "edge": 0.76,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.76,
+        "edge": 0.76,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.76,
+        "edge": 0.76,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.75,
+        "edge": 0.75,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.76,
+        "edge": 0.76,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.79,
+        "edge": 0.79,
+        "result": "loss"
+      },
+      {
+        "ticker": "KXLOWTNYC-26FEB04-T23",
+        "our_prob": 0.0,
+        "market_prob": 0.8,
+        "edge": 0.8,
+        "result": "loss"
+      }
+    ],
+    "high_edge_losses": [
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6685,
+        "our_prob": 0.1915,
+        "market_prob": 0.86,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.7285,
+        "our_prob": 0.1915,
+        "market_prob": 0.92,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6785,
+        "our_prob": 0.1915,
+        "market_prob": 0.87,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6785,
+        "our_prob": 0.1915,
+        "market_prob": 0.87,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6585,
+        "our_prob": 0.1915,
+        "market_prob": 0.85,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.7185,
+        "our_prob": 0.1915,
+        "market_prob": 0.91,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.7185,
+        "our_prob": 0.1915,
+        "market_prob": 0.91,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6585,
+        "our_prob": 0.1915,
+        "market_prob": 0.85,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6585,
+        "our_prob": 0.1915,
+        "market_prob": 0.85,
+        "forecast_temp": 16
+      },
+      {
+        "ticker": "KXHIGHCHI-26JAN29-B16.5",
+        "edge": 0.6285,
+        "our_prob": 0.1915,
+        "market_prob": 0.82,
+        "forecast_temp": 16
+      }
+    ]
+  },
+  "parameter_sweep_top10": [
+    {
+      "params": {
+        "min_edge": 0.05,
+        "min_forecast_strike_gap": 1.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.05,
+        "min_forecast_strike_gap": 2.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.1,
+        "min_forecast_strike_gap": 1.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.1,
+        "min_forecast_strike_gap": 2.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.15,
+        "min_forecast_strike_gap": 1.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.15,
+        "min_forecast_strike_gap": 2.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.2,
+        "min_forecast_strike_gap": 1.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.2,
+        "min_forecast_strike_gap": 2.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.25,
+        "min_forecast_strike_gap": 1.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    },
+    {
+      "params": {
+        "min_edge": 0.25,
+        "min_forecast_strike_gap": 2.0,
+        "max_market_conviction": 0.8,
+        "min_our_prob": 0.05
+      },
+      "win_rate": 1.0,
+      "wins": 10,
+      "losses": 0,
+      "pnl_cents": 204,
+      "filtered_in": 10,
+      "filtered_out": 97
+    }
+  ],
+  "recommendations": {
+    "min_forecast_strike_gap": 3.0,
+    "min_our_prob": 0.05,
+    "max_market_conviction": 0.85,
+    "forecast_uncertainty": 4.0,
+    "kelly_fraction": 0.05
+  }
+}

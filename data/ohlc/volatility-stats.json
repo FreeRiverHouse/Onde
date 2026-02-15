@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T07:46:11.270854+00:00",
+  "generated_at": "2026-02-08T17:00:00.988406+00:00",
   "model_assumptions": {
     "BTC": "0.5%",
     "ETH": "0.7000000000000001%"
@@ -8,108 +8,48 @@
     "BTC": {
       "symbol": "BTC",
       "model_assumption_hourly": 0.005,
-      "total_candles": 180,
-      "cache_updated": "2026-01-29T06:50:28.001933+00:00",
+      "total_candles": 23,
+      "cache_updated": "2026-02-06T15:58:12.965783+00:00",
       "periods": {
         "7d": {
           "days": 7,
-          "candles_used": 42,
-          "returns_count": 41,
-          "vol_4h": 0.617,
-          "vol_hourly": 0.3085,
-          "vol_hourly_decimal": 0.003085,
-          "model_assumption_pct": 0.5,
-          "deviation_from_model_pct": -38.3,
-          "price_min": 86395.0,
-          "price_max": 89896.0,
-          "price_range_pct": 4.05,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 42)"
         },
         "14d": {
           "days": 14,
-          "candles_used": 84,
-          "returns_count": 83,
-          "vol_4h": 0.626,
-          "vol_hourly": 0.313,
-          "vol_hourly_decimal": 0.00313,
-          "model_assumption_pct": 0.5,
-          "deviation_from_model_pct": -37.4,
-          "price_min": 86395.0,
-          "price_max": 96561.0,
-          "price_range_pct": 11.77,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 84)"
         },
         "30d": {
           "days": 30,
-          "candles_used": 180,
-          "returns_count": 179,
-          "vol_4h": 0.6404,
-          "vol_hourly": 0.3202,
-          "vol_hourly_decimal": 0.003202,
-          "model_assumption_pct": 0.5,
-          "deviation_from_model_pct": -36.0,
-          "price_min": 86395.0,
-          "price_max": 97289.0,
-          "price_range_pct": 12.61,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 180)"
         },
         "60d": {
           "days": 60,
-          "error": "Not enough data (180 candles, need 360)"
+          "error": "Not enough data (23 candles, need 360)"
         }
       }
     },
     "ETH": {
       "symbol": "ETH",
       "model_assumption_hourly": 0.007,
-      "total_candles": 180,
-      "cache_updated": "2026-01-29T06:50:29.479635+00:00",
+      "total_candles": 23,
+      "cache_updated": "2026-02-06T15:58:14.744185+00:00",
       "periods": {
         "7d": {
           "days": 7,
-          "candles_used": 42,
-          "returns_count": 41,
-          "vol_4h": 0.9763,
-          "vol_hourly": 0.4881,
-          "vol_hourly_decimal": 0.004881,
-          "model_assumption_pct": 0.7,
-          "deviation_from_model_pct": -30.3,
-          "price_min": 2806.73,
-          "price_max": 3036.78,
-          "price_range_pct": 8.2,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 42)"
         },
         "14d": {
           "days": 14,
-          "candles_used": 84,
-          "returns_count": 83,
-          "vol_4h": 1.0268,
-          "vol_hourly": 0.5134,
-          "vol_hourly_decimal": 0.005134,
-          "model_assumption_pct": 0.7,
-          "deviation_from_model_pct": -26.7,
-          "price_min": 2806.73,
-          "price_max": 3348.93,
-          "price_range_pct": 19.32,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 84)"
         },
         "30d": {
           "days": 30,
-          "candles_used": 180,
-          "returns_count": 179,
-          "vol_4h": 0.9254,
-          "vol_hourly": 0.4627,
-          "vol_hourly_decimal": 0.004627,
-          "model_assumption_pct": 0.7,
-          "deviation_from_model_pct": -33.9,
-          "price_min": 2806.73,
-          "price_max": 3366.12,
-          "price_range_pct": 19.93,
-          "recommendation": "\ud83d\udfe1 Model OVERESTIMATES volatility - consider decreasing"
+          "error": "Not enough data (23 candles, need 180)"
         },
         "60d": {
           "days": 60,
-          "error": "Not enough data (180 candles, need 360)"
+          "error": "Not enough data (23 candles, need 360)"
         }
       }
     }
