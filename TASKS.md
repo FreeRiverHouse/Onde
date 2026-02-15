@@ -350,7 +350,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 147 | TECH-004 | Creare thread X dal post Kalshi trading bot (come SOC-002 per Radeon) | 🔥 Social | TODO | - |
+| 147 | TECH-004 | Creare thread X dal post Kalshi trading bot (come SOC-002 per Radeon) | 🔥 Social | DONE | @clawdinho | Draft in content/drafts/x-thread-ai-trading-bot.md, no Typefully API key |
 | 148 | TECH-005 | Aggiungere grafici/chart interattivi ai post Tech (equity curve, regime chart) | ⭐ UX | TODO | - |
 | 149 | TECH-006 | Aggiungere comments/reactions ai post Tech (lightweight, no login required) | ⭐ Engagement | TODO | - |
 
@@ -358,7 +358,7 @@
 
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
-| 150 | BLOG-006 | Aggiungere RSS feed link visibile nella UI del blog (icona RSS) | ⭐ UX | TODO | - |
+| 150 | BLOG-006 | Aggiungere RSS feed link visibile nella UI del blog (icona RSS) | ⭐ UX | DONE | @clawdinho | RSS icon+link added below blog subtitle |
 | 151 | BLOG-007 | Submit RSS feed a aggregatori (Feedly, Hacker News RSS) | ⭐ Distribution | TODO | - |
 | 152 | TRADE-017 | Aggiungere più asset crypto all'autotrader (SOL, DOGE) per aumentare volume trade | 🔥 Trading volume | TODO | - |
 

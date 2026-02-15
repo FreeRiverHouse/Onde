@@ -86,6 +86,28 @@ export default function BlogPage() {
             engineering stories from the FreeRiverHouse lab.
           </motion.p>
 
+          {/* RSS Feed Link */}
+          <motion.div
+            className="mt-6 flex justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <a
+              href="/blog/feed.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/60 hover:text-orange-400 hover:border-orange-400/30 hover:bg-orange-400/5 transition-all duration-300 text-sm min-h-[44px]"
+              title="Subscribe via RSS"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="6.18" cy="17.82" r="2.18"/>
+                <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+              </svg>
+              RSS Feed
+            </a>
+          </motion.div>
+
           <div className="glow-line w-32 mx-auto mt-8" />
         </div>
 
