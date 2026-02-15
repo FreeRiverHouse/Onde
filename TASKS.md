@@ -296,3 +296,9 @@
 | 126 | BLOG-003 | Aggiungere RSS feed per /blog (SEO + aggregatori) | ⭐ SEO | TODO | - |
 | 127 | BLOG-004 | Scrivere secondo blog post (topic TBD - trading, AI agents, Onde vision) | ⭐ Content | TODO | - |
 | 128 | BLOG-005 | Aggiungere reading time estimate e table of contents ai blog post | ⭐ UX | TODO | - |
+
+### 🔥 NUOVI (X Post per Radeon blog)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 129 | SOC-002 | Post X thread su Radeon 7900 XTX + TinyGrad on Mac | 🔥 Social/Content | BLOCKED | @clawdinho | Thread drafted at content/social/x-radeon-7900-xtx-tinygrad-thread.md (8 tweets). ⚠️ BLOCKED: No Typefully API key — Mattia needs to get key at typefully.com/?settings=api and save to ~/.clawdbot/.env.typefully. Then run Typefully script with --threadify --share |
