@@ -266,7 +266,7 @@
 | 110 | RADEON-001 | Verify Radeon patch still works, test with eGPU connected | ⭐ Tech | TODO | - | Need eGPU connected to test |
 | 111 | RADEON-002 | Submit TinyGrad float16 patch as PR to tinygrad/tinygrad | ⭐ Open Source | TODO | - | Depends on RADEON-001 verification |
 | 112 | DASH-004 | Populate Visitors/Followers/PageViews with Cloudflare Analytics | ⭐ Dashboard | TODO | - | Integrate CF Web Analytics API |
-| 113 | CYCLE-001 | Continuous improvement: add error boundaries to all dashboard pages | ⭐ Quality | TODO | - | Prevent full-page crashes from single component errors |
+| 113 | CYCLE-001 | Continuous improvement: add error boundaries to all dashboard pages | ⭐ Quality | DONE | @clawdinho | ErrorBoundary wraps 9 panels + betting + trading, deployed | Prevent full-page crashes from single component errors |
 | 114 | SEO-015 | Full SEO audit onde.la - meta tags, OG, structured data, sitemap | 🔥 SEO | ✅ DONE | @clawdinho | Report: docs/seo/full-audit-2026-02.md. Fixed sitemap 404s (4 broken book URLs). CF AI Audit blocks crawlers — needs Mattia to disable in CF dashboard |
 | 115 | SEO-016 | Keyword research per games (skin creator, games for kids) | 🔥 SEO | ✅ DONE | @clawdinho | Report: docs/seo/keyword-research-games.md — 100+ keywords researched, title/description optimizations for all 44 games |
 | 116 | GROWTH-001 | Implementare Google Analytics o CF Analytics dashboard | 🔥 Growth | TODO | - | Dati traffico reali sul sito |
