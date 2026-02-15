@@ -337,3 +337,11 @@
 | 141 | TRADE-011 | Restartare autotrader con nuovi edge caps (v2 è già aggiornato, serve restart) | 🔥 Trading | TODO | - |
 | 142 | TRADE-012 | Setup daily backtest cron che compara performance live vs backtest expected | ⭐ Monitoring | TODO | - |
 | 143 | TRADE-013 | Sweep kelly_fraction con nuovi caps per trovare sizing ottimale | ⭐ Trading | ✅ DONE | @clawdinho | Swept 0.05-0.30 in 0.05 steps. All values identical (4 trades, 75% WR, Sharpe 2.08) — position size floor + per-asset caps bind before Kelly. Keep 0.05 default. Re-run when n≥30 settled trades. See data/trading/kelly-sweep-results.txt |
+
+### 🔥 NUOVI (da TRADE-013 kelly sweep)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 144 | TRADE-014 | Aumentare volume trade crypto: aggiungere più asset (SOL, DOGE, etc) all'autotrader | 🔥 Trading volume | TODO | - |
+| 145 | TRADE-015 | Re-run kelly sweep dopo 30+ settled crypto trades | ⭐ Trading | TODO | - | Dipende da volume trade |
+| 146 | TRADE-016 | Review per-asset max_position_pct — ETH 4% potrebbe essere troppo basso | ⭐ Trading | TODO | - |
