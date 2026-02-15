@@ -107,8 +107,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/settings',
   ]
 
+  // Add trailing slash to all paths to match trailingSlash:true in next.config.mjs
+  // Without this, every sitemap URL triggers a 301 redirect, wasting crawl budget
   const staticEntries = staticPages.map((path) => ({
-    url: `${baseUrl}${path}`,
+    url: path === '' ? `${baseUrl}/` : `${baseUrl}${path}/`,
     lastModified: new Date(),
     changeFrequency: path === '' ? 'daily' as const : 'weekly' as const,
     priority: path === '' ? 1 : path === '/libri' ? 0.9 : 0.7,

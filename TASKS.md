@@ -278,7 +278,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 120 | SEO-017 | Disabilitare CF AI Audit che blocca crawler AI (ClaudeBot, GPTBot, Google-Extended) | 🚨 BLOCCANTE | TODO | @mattia | Serve accesso CF Dashboard → AI → AI Audit |
-| 121 | SEO-018 | Fix trailing slashes in sitemap URLs (evitare 301 redirect chains) | ⭐ SEO | TODO | - | In next.config.mjs o sitemap.ts |
+| 121 | SEO-018 | Fix trailing slashes in sitemap URLs (evitare 301 redirect chains) | ⭐ SEO | ✅ DONE | @clawdinho | Added trailing slashes to all sitemap URLs to match trailingSlash:true in next.config.mjs |
 | 122 | SEO-019 | Aggiungere hreflang tags a sub-pages (non solo root) | ⭐ International SEO | TODO | - | Bassa priorità se stessa URL serve EN+IT |
 
 ### 🔥 NUOVI (da TRADE-003 backtest findings)
