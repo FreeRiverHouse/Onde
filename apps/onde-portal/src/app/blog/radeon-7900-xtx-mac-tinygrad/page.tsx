@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import ReadingTimeBadge from '@/components/blog/ReadingTimeBadge'
 import TableOfContents, { type TocItem } from '@/components/blog/TableOfContents'
+import ShareButtons from '@/components/ShareButtons'
+import RelatedPosts from '@/components/blog/RelatedPosts'
 
 /* ─── Table of contents items ─── */
 const tocItems: TocItem[] = [
@@ -177,6 +179,13 @@ export default function RadeonTinygradArticle() {
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <ReadingTimeBadge minutes={READING_TIME} />
           </div>
+
+          {/* Share buttons — top */}
+          <ShareButtons
+            title="Running AMD Radeon RX 7900 XTX on macOS with TinyGrad"
+            url="https://onde.la/blog/radeon-7900-xtx-mac-tinygrad"
+            className="mt-6"
+          />
         </motion.div>
       </header>
 
@@ -651,9 +660,17 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
      # Add .cast(dtypes.float16) to the return value`}</CodeBlock>
         </div>
 
+        {/* ── Share buttons — bottom ── */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <ShareButtons
+            title="Running AMD Radeon RX 7900 XTX on macOS with TinyGrad"
+            url="https://onde.la/blog/radeon-7900-xtx-mac-tinygrad"
+          />
+        </div>
+
         {/* ── Author card / footer ── */}
         <motion.div
-          className="mt-16 card-3d p-6 md:p-8 text-center"
+          className="mt-10 card-3d p-6 md:p-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -705,6 +722,9 @@ GSP_INIT_DONE returns NV_ERR_TIMEOUT`}</CodeBlock>
             </a>
           </div>
         </motion.div>
+
+        {/* ── Related posts ── */}
+        <RelatedPosts currentSlug="radeon-7900-xtx-mac-tinygrad" maxPosts={3} />
 
         {/* ── Back to blog ── */}
         <div className="mt-12 text-center">
