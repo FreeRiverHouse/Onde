@@ -604,7 +604,7 @@ Remember to end with PROBABILITY: XX% on its own line."""
         confidence=confidence,
         key_factors=key_factors,
         raw_response=content,
-        model_used=result.get("model", CLAUDE_MODEL),
+        model_used=result.get("model", LLM_CONFIG.get("model", "unknown") if LLM_CONFIG else "unknown"),
         tokens_used=result.get("tokens_used", 0)
     )
 
@@ -1818,20 +1818,25 @@ def run_cycle(dry_run: bool = True, max_markets_to_analyze: int = 20, max_trades
     # Cycle summary
     cycle_duration = time.time() - cycle_start
     
+    forecaster_mode = "heuristic" if use_heuristic else "llm"
+    
     print(f"\n{'='*70}")
     print(f"📊 CYCLE SUMMARY")
+    print(f"   Forecaster: {'🧮 HEURISTIC (built-in)' if use_heuristic else '🧠 LLM (Claude)'}")
     print(f"   Duration: {cycle_duration:.1f}s")
     print(f"   Markets scanned: {len(markets)}")
     print(f"   Markets analyzed: {min(len(top_markets), max_markets_to_analyze)}")
     print(f"   Trades executed: {trades_executed}")
     print(f"   Trades skipped: {trades_skipped}")
-    print(f"   Total tokens used: {total_tokens:,}")
-    print(f"   Est. API cost: ${total_tokens * 0.000004:.4f}")  # rough estimate
+    if not use_heuristic:
+        print(f"   Total tokens used: {total_tokens:,}")
+        print(f"   Est. API cost: ${total_tokens * 0.000004:.4f}")
     print(f"{'='*70}")
     
     # Log cycle stats
     log_cycle({
         "dry_run": dry_run,
+        "forecaster_mode": forecaster_mode,
         "duration_seconds": round(cycle_duration, 1),
         "markets_scanned": len(markets),
         "markets_analyzed": min(len(top_markets), max_markets_to_analyze),

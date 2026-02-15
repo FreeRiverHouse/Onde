@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Draw',
+  name: 'Drawing Game Online Free for Kids',
   description:
-    'Unleash your inner artist! Free drawing canvas with brushes, colors, and tools. Create, save, and share your masterpieces.',
+    'Free online drawing game for kids. Digital art canvas with colors, brushes, and tools. No download, no ads. Save and share your drawings!',
   url: 'https://onde.la/games/draw/',
   genre: ['Educational', 'Creative'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,33 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Draw - Free Online Drawing Canvas | Onde',
+  title: 'Drawing Game Online Free for Kids - Creative Art Canvas | Onde',
   description:
-    'Unleash your inner artist! Free drawing canvas with brushes, colors, and tools. Create, save, and share your masterpieces.',
-  keywords:
-    'drawing game, online canvas, digital art, kids drawing, creative tool',
+    'Free online drawing game for kids. Digital art canvas with colors, brushes, stamps, and tools. Creative fun with no download, no ads. Save and share your drawings!',
+  keywords: [
+    'drawing game online',
+    'drawing game online kids',
+    'drawing game online free',
+    'online drawing canvas',
+    'digital art for kids',
+    'kids drawing game',
+    'creative drawing tool',
+    'draw online free',
+    'drawing no ads',
+  ],
   openGraph: {
-    title: '🎨 Draw - Free Online Drawing Canvas!',
+    title: '🎨 Drawing Game Online Free for Kids - Art Canvas | Onde',
     description:
-      'Unleash your inner artist! Free drawing canvas with brushes, colors, and tools.',
+      'Free online drawing game for kids! Digital art canvas with colors & brushes. No download, no ads!',
     url: 'https://onde.la/games/draw/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎨 Draw - Free Online Drawing Canvas',
+    title: '🎨 Drawing Game Online Free for Kids | Onde',
     description:
-      'Unleash your inner artist! Free drawing canvas with brushes, colors, and tools. Free to play.',
+      'Free online drawing game for kids! Digital canvas, colors & brushes. No download, no ads.',
   },
 };
 

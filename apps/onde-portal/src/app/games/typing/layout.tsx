@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Typing Practice',
+  name: 'Typing Games for Kids Free Online',
   description:
-    'Improve your typing speed and accuracy! Fun typing exercises with words, sentences, and timed challenges. Track your progress over time.',
+    'Free typing games for kids online. Type falling words before they reach the bottom! Easy to hard difficulty, speed tracking. Learn to type while having fun. No ads.',
   url: 'https://onde.la/games/typing/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,34 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Typing Practice - Free Online Typing Game | Onde',
+  title: 'Typing Games for Kids Free Online - Learn to Type with Fun | Onde',
   description:
-    'Improve your typing speed and accuracy! Fun typing exercises with words, sentences, and timed challenges. Track your progress over time.',
-  keywords:
-    'typing practice, typing game, keyboard skills, typing speed, learn to type',
+    'Free typing games for kids online. Type falling words before they reach the bottom! Easy to hard difficulty, speed tracking, combos. Learn to type while having fun. No download, no ads.',
+  keywords: [
+    'typing games for kids',
+    'typing games for kids free',
+    'typing games for kids online',
+    'typing practice online',
+    'learn to type for kids',
+    'typing speed game',
+    'keyboard skills game',
+    'typing game free',
+    'typing test game online for kids',
+    'typing no ads',
+  ],
   openGraph: {
-    title: '⌨️ Typing Practice - Play Free Online!',
+    title: '⌨️ Typing Games for Kids Free Online - Learn to Type | Onde',
     description:
-      'Improve your typing speed and accuracy! Fun typing exercises with timed challenges.',
+      'Free typing games for kids online! Learn to type while having fun. Speed tracking & combos. No download, no ads!',
     url: 'https://onde.la/games/typing/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '⌨️ Typing Practice - Free Online Typing Game',
+    title: '⌨️ Typing Games for Kids Free Online | Onde',
     description:
-      'Improve your typing speed and accuracy! Fun typing exercises. Free to play.',
+      'Free typing games for kids. Learn to type while having fun! No download, no ads.',
   },
 };
 

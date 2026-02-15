@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Hangman',
+  name: 'Hangman Game Online Free',
   description:
-    'Guess the hidden word letter by letter! Classic word guessing game with categories and hints. Build your vocabulary while playing.',
+    'Play Hangman online free - guess the word letter by letter! Fun word game for kids and adults. No download, no ads. Educational vocabulary builder.',
   url: 'https://onde.la/games/hangman/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Hangman - Free Online Word Game | Onde',
+  title: 'Hangman Game Online Free - Word Guessing Game for Kids | Onde',
   description:
-    'Guess the hidden word letter by letter! Classic word guessing game with categories and hints. Build your vocabulary while playing.',
-  keywords:
-    'hangman, word guessing game, vocabulary game, spelling game, letter game',
+    'Play Hangman online free - guess the word letter by letter! Fun word game for kids and adults with categories and hints. No download, no ads. Educational vocabulary builder.',
+  keywords: [
+    'hangman game online',
+    'hangman game online free',
+    'hangman game online for kids',
+    'word guessing game',
+    'vocabulary game for kids',
+    'spelling game online',
+    'hangman no ads',
+    'hangman free',
+  ],
   openGraph: {
-    title: '🔤 Hangman - Play Free Online!',
+    title: '🔤 Hangman Game Online Free - Word Game for Kids | Onde',
     description:
-      'Guess the hidden word letter by letter! Classic word guessing game with categories and hints.',
+      'Play Hangman online free! Guess the word letter by letter. Categories & hints. No download, no ads!',
     url: 'https://onde.la/games/hangman/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔤 Hangman - Free Online Word Game',
+    title: '🔤 Hangman Game Online Free for Kids | Onde',
     description:
-      'Guess the hidden word letter by letter! Classic word guessing game. Free to play.',
+      'Play Hangman online free! Guess the word letter by letter. Word game for kids. No download, no ads.',
   },
 };
 

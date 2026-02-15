@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Spot the Difference',
+  name: 'Spot the Difference Game Online Free',
   description:
-    'Compare two pictures and find all the differences! Sharpen your observation skills with increasingly tricky puzzles. Fun for the whole family.',
+    'Play spot the difference game online free. Find hidden differences between two images! Fun observation game for kids and adults. No download, no ads.',
   url: 'https://onde.la/games/spot-difference/',
   genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Spot the Difference - Free Online Puzzle | Onde',
+  title: 'Spot the Difference Game Online Free - Find Differences for Kids | Onde',
   description:
-    'Compare two pictures and find all the differences! Sharpen your observation skills with increasingly tricky puzzles. Fun for the whole family.',
-  keywords:
-    'spot the difference, find differences, observation game, visual puzzle, picture puzzle',
+    'Play spot the difference game online free. Find hidden differences between two images! Fun observation game for kids and adults. No download, no ads.',
+  keywords: [
+    'spot the difference game online',
+    'spot the difference game online for kids',
+    'find the difference game online free',
+    'spot the difference free',
+    'observation game for kids',
+    'visual puzzle game',
+    'picture puzzle online',
+    'spot difference no ads',
+  ],
   openGraph: {
-    title: '🔍 Spot the Difference - Play Free Online!',
+    title: '🔍 Spot the Difference Game Online Free for Kids | Onde',
     description:
-      'Compare two pictures and find all the differences! Sharpen your observation skills.',
+      'Play spot the difference online free! Find hidden differences between images. Fun for kids & adults. No ads!',
     url: 'https://onde.la/games/spot-difference/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔍 Spot the Difference - Free Online Puzzle',
+    title: '🔍 Spot the Difference Game Online Free | Onde',
     description:
-      'Compare two pictures and find all the differences! Fun for the whole family. Free to play.',
+      'Find hidden differences between two images! Fun for kids & adults. No download, no ads.',
   },
 };
 

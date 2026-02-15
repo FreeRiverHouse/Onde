@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Memory Game',
+  name: 'Memory Game Online Free for Kids',
   description:
-    'Test your memory with card matching! Find all pairs in the fewest moves possible.',
+    'Play memory card matching game online free. Multiple grid sizes. Fun brain training for kids. Timer, move counter. No download, no ads.',
   url: 'https://onde.la/games/memory/',
   genre: ['Puzzle', 'Educational'],
   gamePlatform: ['Web Browser'],
@@ -30,23 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Memory Game - Free Online Game | Onde',
+  title: 'Memory Game Online Free for Kids - Match Cards Brain Training | Onde',
   description:
-    'Test your memory with card matching! Find all pairs in the fewest moves possible.',
-  keywords: 'memory game, card pairs, brain training',
+    'Play memory card matching game online free. Multiple grid sizes (4x4 to 8x8). Fun brain training for kids. Timer, move counter, hints. No download, no ads.',
+  keywords: [
+    'memory game online',
+    'memory game online free',
+    'memory game online for kids',
+    'card matching game',
+    'brain training game',
+    'memory match free',
+    'memory game no ads',
+    'kids memory game',
+  ],
   openGraph: {
-    title: '🎮 Memory Game - Play Free Online!',
+    title: '🧠 Memory Game Online Free for Kids - Brain Training | Onde',
     description:
-      'Test your memory with card matching! Find all pairs in the fewest moves possible.',
+      'Play memory card matching game online free! Multiple grid sizes. Fun brain training for kids. No download, no ads!',
     url: 'https://onde.la/games/memory/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Memory Game - Free Online Game',
+    title: '🧠 Memory Game Online Free for Kids | Onde',
     description:
-      'Test your memory with card matching! Find all pairs in the fewest moves possible.',
+      'Play memory card matching game free. Brain training for kids. No download, no ads.',
   },
 };
 

@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Minecraft Banner Maker',
+  name: 'Minecraft Banner Maker Online Free',
   description:
-    'Create custom Minecraft banners for free! Design beautiful banners with 16 colors and 40+ patterns. Preview in real-time and get the crafting recipe. Works with Java & Bedrock.',
+    'Create custom Minecraft banners free online. Design banners with 16 colors, 40+ patterns, crafting recipes. Compatible with Java & Bedrock 1.21. No ads.',
   url: 'https://onde.la/games/banner-maker/',
   genre: ['Educational', 'Creative'],
   applicationCategory: 'DesignApplication',
@@ -39,9 +39,9 @@ const breadcrumbJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Free Minecraft Banner Maker Online - Design Custom Banners | Onde',
+  title: 'Minecraft Banner Maker Online Free - Design Banners for Java & Bedrock 1.21 | Onde',
   description:
-    'Create custom Minecraft banners for free with our online banner designer! 16 colors, 40+ patterns, real-time preview, and crafting recipe. Works with Java & Bedrock. No download required.',
+    'Create custom Minecraft banners with our free online banner maker. 16 colors, 40+ patterns, crafting recipes, /give commands. Compatible with Java & Bedrock Edition 1.21. No download, no ads.',
   keywords: [
     'minecraft banner maker',
     'minecraft banner maker online',
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     'minecraft banner letters',
   ],
   openGraph: {
-    title: '🏳️ Minecraft Banner Maker - Design Custom Banners Free!',
+    title: '🏳️ Minecraft Banner Maker Online Free - Java & Bedrock 1.21 | Onde',
     description:
-      'Design beautiful Minecraft banners with 16 colors and 40+ patterns. Get the crafting recipe instantly!',
+      'Design custom Minecraft banners with 16 colors, 40+ patterns & crafting recipes. Free, no ads, works with Java & Bedrock 1.21!',
     url: 'https://onde.la/games/banner-maker/',
     siteName: 'Onde',
     images: [
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '🏳️ Minecraft Banner Maker - Design Custom Banners Free!',
-    description: 'Create custom Minecraft banners with 40+ patterns. Free & no download!',
+    title: '🏳️ Minecraft Banner Maker Online Free - Java & Bedrock 1.21 | Onde',
+    description: 'Create custom Minecraft banners with 40+ patterns & crafting recipes. Free, no ads, no download!',
     images: ['/images/og-banner-maker.png'],
     creator: '@Onde_FRH',
   },

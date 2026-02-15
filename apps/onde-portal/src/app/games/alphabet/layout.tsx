@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'ABC Fun',
+  name: 'Alphabet Game for Kids Online Free',
   description:
-    'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary. Perfect for young learners.',
+    'Fun alphabet learning game for kids online. Learn ABC letters with interactive activities. Free, educational, no download, no ads. Perfect for preschool & kindergarten.',
   url: 'https://onde.la/games/alphabet/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,34 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'ABC Fun - Learn the Alphabet | Onde',
+  title: 'Alphabet Game for Kids Online Free - Learn ABC Letters | Onde',
   description:
-    'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary. Perfect for young learners.',
-  keywords:
-    'alphabet game, learn ABC, letter tracing, phonics game, kids education',
+    'Fun alphabet learning game for kids online. Learn ABC letters with interactive activities. Trace letters, match sounds, build vocabulary. Free, no download, no ads. Perfect for preschool & kindergarten.',
+  keywords: [
+    'alphabet game for kids',
+    'alphabet game for kids online',
+    'learn ABC letters',
+    'letter tracing game',
+    'phonics game for kids',
+    'alphabet learning free',
+    'ABC game for kids',
+    'preschool alphabet game',
+    'kindergarten letter game',
+    'alphabet no ads',
+  ],
   openGraph: {
-    title: '🔤 ABC Fun - Learn the Alphabet!',
+    title: '🔤 Alphabet Game for Kids Online Free - Learn ABC | Onde',
     description:
-      'Learn the alphabet with fun interactive games! Trace letters, match sounds, and build vocabulary.',
+      'Fun alphabet learning game for kids! Learn ABC letters with interactive activities. Free, no download, no ads!',
     url: 'https://onde.la/games/alphabet/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔤 ABC Fun - Learn the Alphabet',
+    title: '🔤 Alphabet Game for Kids Free Online | Onde',
     description:
-      'Learn the alphabet with fun interactive games! Perfect for young learners. Free to play.',
+      'Fun alphabet game for kids. Learn ABC letters interactively. Free, no download, no ads.',
   },
 };
 

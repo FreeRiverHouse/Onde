@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: '2048',
+  name: '2048 Game Online Free',
   description:
-    'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game that trains your brain. Free to play online.',
+    'Play 2048 online free. Swipe to merge tiles and reach 2048! Addictive number puzzle game. No download, no ads.',
   url: 'https://onde.la/games/2048/',
   genre: ['Educational', 'Math'],
   gamePlatform: ['Web Browser'],
@@ -30,23 +30,33 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: '2048 - Free Online Math Puzzle | Onde',
+  title: '2048 Game Online Free - Play the Number Puzzle No Download | Onde',
   description:
-    'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game that trains your brain. Free to play online.',
-  keywords: '2048 game, number puzzle, math game, brain teaser, sliding puzzle',
+    'Play 2048 online free - the addictive number puzzle game. Swipe to merge tiles and reach 2048! Undo button, high score tracking. No download, no ads.',
+  keywords: [
+    '2048 game online',
+    '2048 game online free',
+    '2048 game online free no download',
+    '2048 number puzzle',
+    '2048 math game',
+    '2048 brain teaser',
+    '2048 sliding puzzle',
+    '2048 for kids',
+    '2048 no ads',
+  ],
   openGraph: {
-    title: '🎮 2048 - Play Free Online!',
+    title: '🔢 2048 Game Online Free - Number Puzzle No Download | Onde',
     description:
-      'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle that trains your brain.',
+      'Play 2048 online free! Swipe to merge tiles and reach 2048. Undo button, high scores. No download, no ads!',
     url: 'https://onde.la/games/2048/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 2048 - Free Online Math Puzzle',
+    title: '🔢 2048 Game Online Free - No Download | Onde',
     description:
-      'Slide numbered tiles to combine them and reach 2048! Addictive math puzzle game. Free to play.',
+      'Play 2048 online free - merge tiles to reach 2048! No download, no ads. Addictive number puzzle.',
   },
 };
 

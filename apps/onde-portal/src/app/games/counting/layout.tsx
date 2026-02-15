@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Counting Fun',
+  name: 'Counting Game for Kids Online Free',
   description:
-    'Learn to count with colorful objects and fun animations! Perfect for preschoolers learning numbers 1-20. Interactive and engaging.',
+    'Free counting game for kids online. Learn numbers with fun interactive challenges. Perfect for preschool and early learners. No download, no ads.',
   url: 'https://onde.la/games/counting/',
   genre: ['Educational', 'Math'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Counting Fun - Learn Numbers for Kids | Onde',
+  title: 'Counting Game for Kids Online Free - Learn Numbers 1-100 | Onde',
   description:
-    'Learn to count with colorful objects and fun animations! Perfect for preschoolers learning numbers 1-20. Interactive and engaging.',
-  keywords:
-    'counting game, learn numbers, preschool math, kids counting, number recognition',
+    'Free counting game for kids online. Learn numbers 1-20 with colorful objects and fun animations. Interactive, engaging. Perfect for preschool and early learners. No download, no ads.',
+  keywords: [
+    'counting game for kids',
+    'counting game for kids online',
+    'number game for kids online',
+    'learn numbers game',
+    'preschool counting game',
+    'kids counting free',
+    'number recognition game',
+    'counting no ads',
+  ],
   openGraph: {
-    title: '🔢 Counting Fun - Learn Numbers!',
+    title: '🔢 Counting Game for Kids Online Free - Learn Numbers | Onde',
     description:
-      'Learn to count with colorful objects and fun animations! Perfect for preschoolers.',
+      'Free counting game for kids! Learn numbers with fun interactive challenges. Perfect for preschool. No download, no ads!',
     url: 'https://onde.la/games/counting/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔢 Counting Fun - Learn Numbers for Kids',
+    title: '🔢 Counting Game for Kids Free Online | Onde',
     description:
-      'Learn to count with colorful objects and fun animations! Perfect for preschoolers. Free to play.',
+      'Free counting game for kids. Learn numbers interactively. Perfect for preschool. No download, no ads.',
   },
 };
 

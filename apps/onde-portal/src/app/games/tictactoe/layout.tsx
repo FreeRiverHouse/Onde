@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Tic Tac Toe',
+  name: 'Tic Tac Toe Online Free',
   description:
-    'Classic X and O strategy game! Play against the computer or a friend. Simple to learn, fun to master. Three in a row wins!',
+    'Play Tic Tac Toe online free against the computer or a friend. Classic X and O strategy game. No download, no ads. Perfect for kids!',
   url: 'https://onde.la/games/tictactoe/',
   genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Tic Tac Toe - Free Online Strategy Game | Onde',
+  title: 'Tic Tac Toe Online Free - Play vs Computer or Friends | Onde',
   description:
-    'Classic X and O strategy game! Play against the computer or a friend. Simple to learn, fun to master. Three in a row wins!',
-  keywords:
-    'tic tac toe, noughts and crosses, X and O, strategy game, two player',
+    'Play Tic Tac Toe online free against the computer or a friend. Classic X and O strategy game. No download, no ads. Perfect for kids!',
+  keywords: [
+    'tic tac toe online',
+    'tic tac toe online free',
+    'tic tac toe online vs computer',
+    'noughts and crosses online',
+    'x and o game free',
+    'tic tac toe for kids',
+    'strategy game free',
+    'tic tac toe no ads',
+  ],
   openGraph: {
-    title: '❌⭕ Tic Tac Toe - Play Free Online!',
+    title: '❌⭕ Tic Tac Toe Online Free - vs Computer or Friends | Onde',
     description:
-      'Classic X and O strategy game! Play against the computer or a friend. Three in a row wins!',
+      'Play Tic Tac Toe online free vs computer or friends! Classic X and O strategy. No download, no ads!',
     url: 'https://onde.la/games/tictactoe/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '❌⭕ Tic Tac Toe - Free Online Strategy Game',
+    title: '❌⭕ Tic Tac Toe Online Free - vs Computer | Onde',
     description:
-      'Classic X and O strategy game! Simple to learn, fun to master. Free to play.',
+      'Play Tic Tac Toe online free vs computer or friends! No download, no ads. Fun for kids!',
   },
 };
 

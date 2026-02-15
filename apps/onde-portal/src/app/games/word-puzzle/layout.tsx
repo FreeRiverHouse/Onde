@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Word Puzzle',
+  name: 'Word Puzzle Games Online Free',
   description:
-    'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary and spelling skills. New challenges every time.',
+    'Play free word puzzle games online. Build vocabulary, solve word challenges, and learn new words. Educational fun for kids. No download, no ads.',
   url: 'https://onde.la/games/word-puzzle/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Word Puzzle - Free Online Word Game | Onde',
+  title: 'Word Puzzle Games Online Free - Vocabulary Builder for Kids | Onde',
   description:
-    'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary and spelling skills. New challenges every time.',
-  keywords:
-    'word puzzle, word scramble, vocabulary game, spelling game, word search',
+    'Play free word puzzle games online. Unscramble letters, find hidden words, build vocabulary & spelling skills. Educational fun for kids. No download, no ads.',
+  keywords: [
+    'word puzzle games online',
+    'word puzzle games online free',
+    'word puzzle games online for kids',
+    'word scramble game',
+    'vocabulary builder game',
+    'spelling game for kids',
+    'word game free',
+    'word puzzle no ads',
+  ],
   openGraph: {
-    title: '🔤 Word Puzzle - Play Free Online!',
+    title: '📝 Word Puzzle Games Online Free - For Kids | Onde',
     description:
-      'Unscramble letters and find hidden words! Engaging word puzzle that builds vocabulary.',
+      'Play free word puzzle games online! Build vocabulary & spelling skills. Educational fun for kids. No ads!',
     url: 'https://onde.la/games/word-puzzle/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔤 Word Puzzle - Free Online Word Game',
+    title: '📝 Word Puzzle Games Online Free for Kids | Onde',
     description:
-      'Unscramble letters and find hidden words! Builds vocabulary and spelling. Free to play.',
+      'Free word puzzle games online. Build vocabulary & spelling skills. No download, no ads.',
   },
 };
 

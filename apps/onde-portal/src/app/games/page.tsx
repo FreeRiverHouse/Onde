@@ -128,8 +128,8 @@ export default function GamingIsland() {
           <Link href="/games/leaderboard" className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 rounded-full text-sm font-bold text-amber-600 shadow flex items-center gap-1">
             🏆 <span>Top</span>
           </Link>
-          <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🏝️ {t.gamesPage?.title || 'Gaming Island'}</h1>
-          <p className="text-white/90 text-sm mt-1">{t.gamesPage?.pickGame || 'Pick a game and have fun!'}</p>
+          <h1 className="text-3xl font-black text-white drop-shadow-md mt-4">🎮 {t.gamesPage?.title || 'Free Online Games for Kids'}</h1>
+          <p className="text-white/90 text-sm mt-1">{t.gamesPage?.pickGame || 'Educational & fun browser games - no ads!'}</p>
         </div>
 
         {/* Featured Games */}
@@ -371,10 +371,10 @@ export default function GamingIsland() {
       {/* Header */}
       <div className="text-center pt-6 pb-2 relative z-10">
         <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-          🏝️ {t.gamesPage?.title || 'Gaming Island'}
+          🎮 {t.gamesPage?.title || 'Free Online Games for Kids'}
         </h1>
         <p className="text-lg text-white/95 mt-1 drop-shadow-md font-medium">
-          {t.gamesPage?.welcome || 'Welcome to Onde World!'} 🌈
+          {t.gamesPage?.welcome || 'Educational & fun browser games - no ads!'} 🌈
         </p>
       </div>
 

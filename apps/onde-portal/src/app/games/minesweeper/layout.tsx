@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Minesweeper',
+  name: 'Minesweeper Online Free',
   description:
-    'Classic logic puzzle! Clear the minefield without hitting a mine. Multiple difficulty levels.',
+    'Play Minesweeper online free. Classic mine sweeper game with easy, medium, and hard modes. No download, no ads. Mobile-friendly.',
   url: 'https://onde.la/games/minesweeper/',
   genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,23 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Minesweeper - Free Online Game | Onde',
+  title: 'Minesweeper Online Free - Play Classic Mine Sweeper Game | Onde',
   description:
-    'Classic logic puzzle! Clear the minefield without hitting a mine. Multiple difficulty levels.',
-  keywords: 'minesweeper, logic puzzle, strategy game, classic game',
+    'Play Minesweeper online free with easy, medium, and hard modes. Classic mine sweeper logic game. No download, no ads. Mobile-friendly with flag mode.',
+  keywords: [
+    'minesweeper online',
+    'minesweeper online free',
+    'minesweeper game free',
+    'mine sweeper online',
+    'minesweeper classic',
+    'minesweeper online mobile',
+    'logic puzzle free',
+    'minesweeper no ads',
+  ],
   openGraph: {
-    title: '🎮 Minesweeper - Play Free Online!',
+    title: '💣 Minesweeper Online Free - Classic Mine Sweeper Game | Onde',
     description:
-      'Classic logic puzzle! Clear the minefield without hitting a mine. Multiple difficulty levels.',
+      'Play Minesweeper online free! Easy, medium & hard modes. Classic logic puzzle. No download, no ads!',
     url: 'https://onde.la/games/minesweeper/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Minesweeper - Free Online Game',
+    title: '💣 Minesweeper Online Free - Classic Game | Onde',
     description:
-      'Classic logic puzzle! Clear the minefield without hitting a mine. Multiple difficulty levels.',
+      'Play Minesweeper online free. Easy, medium & hard modes. No download, no ads. Mobile-friendly.',
   },
 };
 

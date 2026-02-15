@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Coloring Book',
+  name: 'Coloring Pages Online Free for Kids',
   description:
-    'Express your creativity with a digital coloring book! Choose from beautiful templates, pick colors, and create art. Great for kids.',
+    'Free online coloring pages for kids. Digital coloring book with beautiful pictures. Tap to color, choose colors, and create! No download, no ads.',
   url: 'https://onde.la/games/coloring/',
   genre: ['Educational', 'Creative'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Coloring Book - Free Online for Kids | Onde',
+  title: 'Coloring Pages Online Free for Kids - Digital Coloring Book | Onde',
   description:
-    'Express your creativity with a digital coloring book! Choose from beautiful templates, pick colors, and create art. Great for kids.',
-  keywords:
-    'coloring book, kids coloring, digital art, creative game, drawing for kids',
+    'Free online coloring pages for kids. Digital coloring book with beautiful pictures. Tap to color, choose colors, and create! No download, no ads needed.',
+  keywords: [
+    'coloring pages online free for kids',
+    'coloring book online free',
+    'digital coloring book',
+    'kids coloring game',
+    'coloring game online',
+    'coloring for kids free',
+    'coloring no ads',
+    'creative game for kids',
+  ],
   openGraph: {
-    title: '🎨 Coloring Book - Free Online for Kids!',
+    title: '🖍️ Coloring Pages Online Free for Kids - Digital Coloring Book | Onde',
     description:
-      'Express your creativity with a digital coloring book! Choose from beautiful templates and create art.',
+      'Free online coloring pages for kids! Beautiful pictures, tap to color. No download, no ads!',
     url: 'https://onde.la/games/coloring/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎨 Coloring Book - Free Online for Kids',
+    title: '🖍️ Coloring Pages Online Free for Kids | Onde',
     description:
-      'Express your creativity with a digital coloring book! Great for kids. Free to play.',
+      'Free online coloring pages for kids! Digital coloring book. No download, no ads.',
   },
 };
 

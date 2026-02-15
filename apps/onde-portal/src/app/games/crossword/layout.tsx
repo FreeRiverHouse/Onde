@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Crossword',
+  name: 'Free Crossword Puzzle Online',
   description:
-    'Solve crossword puzzles with kid-friendly clues! Build vocabulary and spelling skills while having fun. New puzzles every time.',
+    'Play free crossword puzzles online. Easy to hard difficulty, kid-friendly clues. Educational word game. No download, no ads.',
   url: 'https://onde.la/games/crossword/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,33 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Crossword Puzzle - Free Online Word Game | Onde',
+  title: 'Free Crossword Puzzle Online - Easy Word Game for Kids & Adults | Onde',
   description:
-    'Solve crossword puzzles with kid-friendly clues! Build vocabulary and spelling skills while having fun. New puzzles every time.',
-  keywords:
-    'crossword puzzle, word game, vocabulary builder, spelling game, educational puzzle',
+    'Play crossword puzzles online free. Easy to hard difficulty with kid-friendly clues. Build vocabulary & spelling skills. No download, no ads. Perfect for kids and families.',
+  keywords: [
+    'crossword puzzle online free',
+    'crossword puzzle online free kids',
+    'crossword puzzle online free easy',
+    'free crossword puzzle',
+    'word game for kids',
+    'vocabulary builder game',
+    'spelling game online',
+    'educational puzzle free',
+    'crossword no ads',
+  ],
   openGraph: {
-    title: '✏️ Crossword Puzzle - Play Free Online!',
+    title: '✏️ Free Crossword Puzzle Online - For Kids & Adults | Onde',
     description:
-      'Solve crossword puzzles with kid-friendly clues! Build vocabulary and spelling skills.',
+      'Play crossword puzzles online free. Easy to hard difficulty, kid-friendly clues. No download, no ads!',
     url: 'https://onde.la/games/crossword/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '✏️ Crossword Puzzle - Free Online Word Game',
+    title: '✏️ Free Crossword Puzzle Online - For Kids & Adults | Onde',
     description:
-      'Solve crossword puzzles with kid-friendly clues! Build vocabulary and spelling skills. Free to play.',
+      'Play crossword puzzles online free. Easy to hard difficulty, kid-friendly clues. No download, no ads!',
   },
 };
 

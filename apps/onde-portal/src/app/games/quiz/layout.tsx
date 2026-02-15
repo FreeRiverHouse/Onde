@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Quiz Challenge',
+  name: 'Quiz Games for Kids Online Free',
   description:
-    'Test your knowledge with fun trivia questions! Multiple categories from science to history. Learn something new with every round.',
+    'Play fun quiz games for kids online free. Educational trivia, general knowledge, and learning quizzes. No download, no ads. Perfect for classroom or home.',
   url: 'https://onde.la/games/quiz/',
   genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Quiz Challenge - Free Trivia Game | Onde',
+  title: 'Quiz Games for Kids Online Free - Fun Trivia & Learning | Onde',
   description:
-    'Test your knowledge with fun trivia questions! Multiple categories from science to history. Learn something new with every round.',
-  keywords:
-    'quiz game, trivia, knowledge test, educational quiz, kids trivia',
+    'Play fun quiz games for kids online free. Educational trivia, general knowledge, science, history & more. No download, no ads. Perfect for classroom or home.',
+  keywords: [
+    'quiz games for kids online',
+    'quiz games for kids free',
+    'trivia games for kids online',
+    'educational quiz free',
+    'knowledge test for kids',
+    'trivia game online',
+    'kids trivia free',
+    'quiz no ads',
+  ],
   openGraph: {
-    title: '❓ Quiz Challenge - Play Free Online!',
+    title: '❓ Quiz Games for Kids Online Free - Trivia & Learning | Onde',
     description:
-      'Test your knowledge with fun trivia questions! Multiple categories. Learn something new every round.',
+      'Fun quiz & trivia games for kids online free! Science, history, general knowledge. No download, no ads!',
     url: 'https://onde.la/games/quiz/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '❓ Quiz Challenge - Free Trivia Game',
+    title: '❓ Quiz Games for Kids Online Free | Onde',
     description:
-      'Test your knowledge with fun trivia questions! Learn something new. Free to play.',
+      'Fun quiz & trivia games for kids online free! Educational. No download, no ads.',
   },
 };
 

@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Connect 4',
+  name: 'Connect Four Online Free',
   description:
-    'Drop discs to connect four in a row! Classic strategy board game against the computer. Think ahead to win!',
+    'Play Connect Four online free against the computer or friends. Classic 4-in-a-row strategy game. No download, no ads. Fun for kids and adults!',
   url: 'https://onde.la/games/connect4/',
   genre: ['Educational', 'Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Connect 4 - Free Online Strategy Game | Onde',
+  title: 'Connect Four Online Free - Play Connect 4 vs Computer | Onde',
   description:
-    'Drop discs to connect four in a row! Classic strategy board game against the computer. Think ahead to win!',
-  keywords:
-    'connect 4, four in a row, strategy game, board game, two player game',
+    'Play Connect Four online free against the computer or friends. Classic 4-in-a-row strategy board game. No download, no ads. Fun for kids and adults!',
+  keywords: [
+    'connect four online',
+    'connect four online free',
+    'connect four online vs computer',
+    'connect 4 online free',
+    'four in a row game',
+    'strategy board game online',
+    'connect four for kids',
+    'connect 4 no ads',
+  ],
   openGraph: {
-    title: '🔴 Connect 4 - Play Free Online!',
+    title: '🔴 Connect Four Online Free - Play vs Computer | Onde',
     description:
-      'Drop discs to connect four in a row! Classic strategy board game. Think ahead to win!',
+      'Play Connect Four online free vs computer or friends! Classic 4-in-a-row strategy game. No download, no ads!',
     url: 'https://onde.la/games/connect4/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🔴 Connect 4 - Free Online Strategy Game',
+    title: '🔴 Connect Four Online Free - vs Computer | Onde',
     description:
-      'Drop discs to connect four in a row! Classic strategy board game. Free to play.',
+      'Play Connect Four online free vs computer or friends! No download, no ads. Fun for kids!',
   },
 };
 

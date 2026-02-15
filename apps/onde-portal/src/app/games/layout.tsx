@@ -25,8 +25,8 @@ const breadcrumbJsonLd = {
 const gamesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Onde Arcade - Educational Games for Kids',
-  description: 'Fun educational games for kids! Math, words, puzzles, memory, drawing, music and more.',
+  name: 'Free Online Games for Kids - Educational & Fun | Onde',
+  description: 'Play 40+ free online games for kids. Educational games, Minecraft tools, puzzles, word games & more. No download, no ads, no login.',
   url: 'https://onde.la/games/arcade/',
   publisher: {
     '@type': 'Organization',
@@ -414,21 +414,26 @@ const gamesJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Onde Arcade - Educational Games for Kids | Onde',
-  description: 'Fun educational games for kids! Math, words, puzzles, memory, drawing, music and more. Safe and ad-free learning games.',
+  title: 'Free Online Games for Kids - Educational & Fun Browser Games No Ads | Onde',
+  description: 'Play 40+ free online games for kids. Educational games, Minecraft tools, puzzles, word games & more. No download, no ads, no login. Safe & fun for all ages!',
   keywords: [
-    'educational games for kids',
-    'learning games',
-    'kids games',
+    'online games for kids',
+    'online games for kids free',
+    'educational games for kids online',
+    'educational games for kids free online',
+    'free browser games for kids',
+    'free browser games no download',
+    'kids games online free no download',
+    'free online games for kids no ads',
     'safe games for children',
-    'math games',
-    'puzzle games',
-    'memory games',
-    'drawing games',
+    'learning games for kids',
+    'math games for kids',
+    'puzzle games for kids',
+    'minecraft tools online',
   ],
   openGraph: {
-    title: '🎮 Onde Arcade - Educational Games for Kids!',
-    description: 'Fun educational games for children. Math, words, puzzles, memory, drawing, music and more. Safe and ad-free!',
+    title: '🎮 Free Online Games for Kids - Educational & Fun | No Ads | Onde',
+    description: 'Play 40+ free online games for kids! Educational games, Minecraft tools, puzzles & more. No download, no ads, no login!',
     url: 'https://onde.la/games/arcade/',
     siteName: 'Onde',
     images: [
@@ -444,8 +449,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '🎮 Onde Arcade - Educational Games for Kids!',
-    description: 'Fun educational games for children. Safe and ad-free!',
+    title: '🎮 Free Online Games for Kids - No Ads | Onde',
+    description: '40+ free online games for kids. Educational, fun & safe. No download, no ads!',
     images: ['/images/og-games.png'],
     creator: '@Onde_FRH',
   },

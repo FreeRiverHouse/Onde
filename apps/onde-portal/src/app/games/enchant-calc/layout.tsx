@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Minecraft Enchantment Calculator',
+  name: 'Minecraft Enchantment Calculator 1.21',
   description:
-    'Calculate Minecraft enchantment costs and find the best enchantment combinations! See all compatible enchantments for every item, check conflicts, max levels, and total XP cost. Free online tool for Java & Bedrock.',
+    'Calculate the best Minecraft enchantment order for any item. Minimize XP cost, find optimal combos, check conflicts & max levels. Free tool for Java & Bedrock 1.21.',
   url: 'https://onde.la/games/enchant-calc/',
   genre: ['Educational', 'Utility'],
   applicationCategory: 'GameApplication',
@@ -39,9 +39,9 @@ const breadcrumbJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Minecraft Enchantment Calculator - Best Enchantment Combos & XP Cost | Onde',
+  title: 'Minecraft Enchantment Calculator 1.21 - Best Combos, XP Cost & Order | Onde',
   description:
-    'Free Minecraft enchantment calculator! Find the best enchantments for swords, pickaxes, armor, bows & more. See max levels, conflicts, descriptions, and calculate total XP cost. Works with Java & Bedrock Edition.',
+    'Calculate the best Minecraft enchantment order for any item. Minimize XP cost, find optimal combos for swords, pickaxes, armor & more. Java & Bedrock 1.21. Free, no ads, works on mobile.',
   keywords: [
     'minecraft enchantment calculator',
     'minecraft enchantment guide',
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     'free minecraft enchantment tool',
   ],
   openGraph: {
-    title: '⚔️ Minecraft Enchantment Calculator - Best Combos & XP Cost!',
+    title: '⚔️ Minecraft Enchantment Calculator 1.21 - Best Combos & XP Cost | Onde',
     description:
-      'Find the best Minecraft enchantments for every item. Calculate XP cost, check conflicts, and see max levels!',
+      'Calculate the best enchantment order for any Minecraft item. Minimize XP cost for Java & Bedrock 1.21. Free, no ads!',
     url: 'https://onde.la/games/enchant-calc/',
     siteName: 'Onde',
     images: [
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '⚔️ Minecraft Enchantment Calculator - Best Combos & XP Cost!',
-    description: 'Calculate enchantment costs & find the best combos for every Minecraft item. Free!',
+    title: '⚔️ Minecraft Enchantment Calculator 1.21 - Best Combos & XP Cost | Onde',
+    description: 'Calculate enchantment costs & find the best combos for every Minecraft item. Java & Bedrock 1.21. Free, no ads!',
     images: ['/images/og-enchant-calc.png'],
     creator: '@Onde_FRH',
   },

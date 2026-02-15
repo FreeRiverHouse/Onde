@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Minecraft Pixel Art Generator',
+  name: 'Free Pixel Art Maker Online - Minecraft Image to Blocks',
   description:
-    'Convert any image into Minecraft block pixel art! Upload a photo or drawing and get a block-by-block guide using wool, concrete, and terracotta. Adjustable grid sizes from 16x16 to 128x128.',
+    'Convert any image to Minecraft block pixel art. Free online pixel art maker with wool, concrete & terracotta palettes. Adjustable grid sizes from 16x16 to 128x128. No ads.',
   url: 'https://onde.la/games/pixel-art/',
   genre: ['Creative', 'Educational'],
   applicationCategory: 'DesignApplication',
@@ -39,9 +39,9 @@ const breadcrumbJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Free Minecraft Pixel Art Generator - Image to Blocks | Onde',
+  title: 'Free Pixel Art Maker Online - Minecraft Image to Blocks Generator | Onde',
   description:
-    'Convert any image to Minecraft pixel art! Upload a photo and get a block-by-block guide with wool, concrete & terracotta. Adjustable sizes (16x16 to 128x128). Free, no download required.',
+    'Convert any image to Minecraft block pixel art. Free online pixel art maker with wool, concrete & terracotta palettes. Adjustable sizes (16x16 to 128x128). No download, no ads.',
   keywords: [
     'minecraft pixel art generator',
     'minecraft pixel art from image',
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     'minecraft concrete art',
   ],
   openGraph: {
-    title: '🎨 Minecraft Pixel Art Generator - Convert Images to Blocks!',
+    title: '🎨 Free Pixel Art Maker Online - Minecraft Image to Blocks | Onde',
     description:
-      'Turn any image into Minecraft pixel art! Get block-by-block building guides with wool, concrete & terracotta.',
+      'Convert any image to Minecraft block pixel art. Free online pixel art maker with wool, concrete & terracotta. No download, no ads!',
     url: 'https://onde.la/games/pixel-art/',
     siteName: 'Onde',
     images: [
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '🎨 Minecraft Pixel Art Generator - Convert Images to Blocks!',
-    description: 'Turn any image into Minecraft block art. Free & no download!',
+    title: '🎨 Free Pixel Art Maker Online - Minecraft Image to Blocks | Onde',
+    description: 'Convert any image to Minecraft block pixel art. Free online maker, no download, no ads!',
     images: ['/images/og-pixel-art.png'],
     creator: '@Onde_FRH',
   },

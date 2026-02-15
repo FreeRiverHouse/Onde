@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Wordle',
+  name: 'Wordle Online Free',
   description:
-    'Guess the five-letter word in six tries! Color-coded hints guide you to the answer. The addictive daily word game everyone loves.',
+    'Play Wordle online free. Guess the 5-letter word in 6 tries! Color-coded hints, daily challenge + unlimited practice. No download, no ads. Fun for kids & adults.',
   url: 'https://onde.la/games/wordle/',
   genre: ['Educational', 'Language'],
   gamePlatform: ['Web Browser'],
@@ -30,24 +30,34 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Wordle - Free Online Word Game | Onde',
+  title: 'Wordle Online Free - Play Word Guessing Game for Kids & Adults | Onde',
   description:
-    'Guess the five-letter word in six tries! Color-coded hints guide you to the answer. The addictive daily word game everyone loves.',
-  keywords:
-    'wordle, word game, five letter word, daily word game, guess the word',
+    'Play Wordle online free - no download, no ads! Guess the 5-letter word in 6 tries. Daily challenge + unlimited practice mode. Kid-friendly word game for all ages.',
+  keywords: [
+    'wordle online free',
+    'wordle online free for kids',
+    'wordle play online',
+    'wordle free no download',
+    'word guessing game online',
+    'wordle game free',
+    'five letter word game',
+    'daily word game free',
+    'wordle for kids',
+    'wordle no ads',
+  ],
   openGraph: {
-    title: '🟩 Wordle - Play Free Online!',
+    title: '🟩 Wordle Online Free - Word Guessing Game for Kids & Adults | Onde',
     description:
-      'Guess the five-letter word in six tries! Color-coded hints guide you. The addictive word game.',
+      'Play Wordle online free! Guess the 5-letter word in 6 tries. Daily challenge + unlimited practice. No download, no ads!',
     url: 'https://onde.la/games/wordle/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🟩 Wordle - Free Online Word Game',
+    title: '🟩 Wordle Online Free - Word Guessing Game | Onde',
     description:
-      'Guess the five-letter word in six tries! The addictive daily word game. Free to play.',
+      'Play Wordle online free - guess the 5-letter word in 6 tries! No download, no ads. Fun for kids & adults.',
   },
 };
 

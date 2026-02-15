@@ -4,9 +4,9 @@ import Script from 'next/script';
 const gameJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'VideoGame',
-  name: 'Jigsaw Puzzle',
+  name: 'Jigsaw Puzzle Online Free',
   description:
-    'Drag and drop pieces to complete beautiful jigsaw puzzles! Multiple difficulty levels for all ages.',
+    'Play free jigsaw puzzles online. Multiple images, drag & drop puzzle game for kids and adults. No download, no ads, works on mobile.',
   url: 'https://onde.la/games/jigsaw/',
   genre: ['Puzzle'],
   gamePlatform: ['Web Browser'],
@@ -30,23 +30,32 @@ const gameJsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: 'Jigsaw Puzzle - Free Online Game | Onde',
+  title: 'Jigsaw Puzzle Online Free - Play Puzzle Games for Kids No Download | Onde',
   description:
-    'Drag and drop pieces to complete beautiful jigsaw puzzles! Multiple difficulty levels for all ages.',
-  keywords: 'jigsaw puzzle, picture puzzle, drag and drop',
+    'Play free jigsaw puzzles online. Multiple images, 3x3 to 6x6 difficulty. Drag & drop puzzle game for kids and adults. No download, no ads, works on mobile.',
+  keywords: [
+    'jigsaw puzzle online free',
+    'jigsaw puzzle online free for kids',
+    'jigsaw puzzle online free no download',
+    'puzzle game for kids',
+    'picture puzzle online',
+    'drag and drop puzzle',
+    'jigsaw game free',
+    'jigsaw no ads',
+  ],
   openGraph: {
-    title: '🎮 Jigsaw Puzzle - Play Free Online!',
+    title: '🧩 Jigsaw Puzzle Online Free - For Kids & Adults | Onde',
     description:
-      'Drag and drop pieces to complete beautiful jigsaw puzzles! Multiple difficulty levels for all ages.',
+      'Play free jigsaw puzzles online! Multiple images & difficulty levels. Drag & drop. No download, no ads!',
     url: 'https://onde.la/games/jigsaw/',
     siteName: 'Onde',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: '🎮 Jigsaw Puzzle - Free Online Game',
+    title: '🧩 Jigsaw Puzzle Online Free - No Download | Onde',
     description:
-      'Drag and drop pieces to complete beautiful jigsaw puzzles! Multiple difficulty levels for all ages.',
+      'Play free jigsaw puzzles online. Drag & drop, multiple difficulty levels. No download, no ads!',
   },
 };
 
