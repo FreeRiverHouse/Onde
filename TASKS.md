@@ -242,7 +242,7 @@
 | 33 | TRADE-004 | Phase 2: LLM-based probability assessment per Kalshi | ⭐ Trading | DONE | @clawdinho | Opus IS the forecaster - no external API needed. kalshi-opus-trader.py + v3 script done. 2 real CPI trades placed. |
 | 34 | ANAL-001 | Analytics dettagliate onde.la - referrer, geo, device | 🔥 Growth | DONE | @clawdinho | CF GraphQL script created, 1080 pageviews/30d, 72% mobile, top pages: home/skin-creator/games |
 | 35 | GAME-001 | Multi-tenancy giocatori - sistema username leggero senza login | 🔥 Games | ✅ DONE | @clawdinho | usePlayerName hook globale + usePlayerLevel XP + useCoins. Tutti 44 giochi integrati (2026-02-14) |
-| 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | TODO | - | Dipende da GAME-001 (DONE). Serve analytics su quanti usano il sistema |
+| 36 | GAME-002 | Tracking giocatori - chi si registra, quanti tornano | ⭐ Games | DONE | @clawdinho | useGameTracking hook + gtag events + localStorage return tracking | Dipende da GAME-001 (DONE). Serve analytics su quanti usano il sistema |
 | 37 | GAME-003 | Sistema sblocchi/progressione funzionante | ⭐ Games | ✅ DONE | @clawdinho | usePlayerLevel con 100 livelli, milestones, badges. useCoins per negozio. Integrato in tutti i giochi (2026-02-14) |
 | 38 | DASH-001 | Migliorare dashboard onde.surf/betting con trend storici | ⭐ Trading | TODO | - | Grafici PnL cumulativo, win rate evolution |
 
@@ -327,7 +327,7 @@
 | # | ID | Task | Impact | Status | Owner |
 |---|----|----- |--------|--------|-------|
 | 138 | TECH-001 | Scrivere post Tech: "Come funziona il nostro trading bot AI su Kalshi" | 🔥 Content | ✅ DONE | @clawdinho | /blog/kalshi-trading-bot-ai — 12min read, IT, multi-agent architecture, Kelly criterion, momentum/regime detection, edge calibration |
-| 139 | TECH-002 | Scrivere post Tech: "Multi-agent setup: 2 Mac, 5 bot, 0 umani" | ⭐ Content | TODO | - |
+| 139 | TECH-002 | Scrivere post Tech: "Multi-agent setup: 2 Mac, 5 bot, 0 umani" | ⭐ Content | DONE | @clawdinho | Blog post live at onde.la/blog/multi-agent-setup |
 | 140 | TECH-003 | Aggiungere tag/categoria system ai post Tech (AI, Trading, Hardware, Infra) | ⭐ UX | DONE | @clawdinho | Category system already existed, added Trading category |
 
 ### 🔥 NUOVI (da TRADE-008 backtest validation)
