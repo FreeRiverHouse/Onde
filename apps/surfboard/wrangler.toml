@@ -15,3 +15,7 @@ id = "4c58636ecde440cf9ac910cccce98690"
 [[kv_namespaces]]
 binding = "HEALTH_ALERTS_KV"
 id = "0afc4af3af8e48cd943be70bf3d06faf"
+
+[[kv_namespaces]]
+binding = "PLAYERS_KV"
+id = "d71b6a15968a400c9cc6a4696a05782f"
