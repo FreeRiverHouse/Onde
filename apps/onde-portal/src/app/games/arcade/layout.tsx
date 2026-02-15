@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Onde Arcade',
+  description:
+    'The ultimate arcade hub! Play dozens of free mini-games: classics, puzzles, brain teasers and more. All in one place.',
+  url: 'https://onde.la/games/arcade/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Onde Arcade - Free Mini Games Collection | Onde',
   description:
@@ -58,6 +81,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="arcade-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="arcade-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

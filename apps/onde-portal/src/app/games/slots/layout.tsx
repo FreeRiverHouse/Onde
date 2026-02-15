@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Lucky Slots',
+  description:
+    'Spin the reels and match symbols! Fun slot machine game with colorful themes and exciting animations. Kid-friendly with virtual coins.',
+  url: 'https://onde.la/games/slots/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Lucky Slots - Free Online Slot Game | Onde',
   description:
@@ -58,6 +81,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="slots-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="slots-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

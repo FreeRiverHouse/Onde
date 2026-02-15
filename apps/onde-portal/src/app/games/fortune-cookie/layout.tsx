@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Fortune Cookie',
+  description:
+    'Crack open a virtual fortune cookie and discover your fortune! Fun daily wisdom, lucky numbers, and inspiring messages for kids.',
+  url: 'https://onde.la/games/fortune-cookie/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Fortune Cookie - Free Online Fun | Onde',
   description:
@@ -58,6 +81,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="fortune-cookie-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="fortune-cookie-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

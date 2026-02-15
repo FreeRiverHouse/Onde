@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Maze Runner',
+  description:
+    'Navigate through challenging mazes! Find the exit before time runs out.',
+  url: 'https://onde.la/games/maze/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Maze Runner - Free Online Game | Onde',
   description:
@@ -57,6 +80,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="maze-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="maze-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

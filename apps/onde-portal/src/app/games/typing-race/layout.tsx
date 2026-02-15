@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Typing Race',
+  description:
+    'Race against time by typing words as fast as you can! Competitive typing game with leaderboards. Can you be the fastest typist?',
+  url: 'https://onde.la/games/typing-race/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Typing Race - Free Online Speed Typing Game | Onde',
   description:
@@ -58,6 +81,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="typing-race-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="typing-race-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

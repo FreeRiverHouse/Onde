@@ -38,6 +38,29 @@ const breadcrumbJsonLd = {
   ],
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Minecraft Enchantment Calculator 1.21',
+  description:
+    'Calculate the best Minecraft enchantment order for any item. Minimize XP cost, find optimal combos, check conflicts & max levels. Free tool for Java & Bedrock 1.21.',
+  url: 'https://onde.la/games/enchant-calc/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Minecraft Enchantment Calculator 1.21 - Best Combos, XP Cost & Order | Onde',
   description:
@@ -99,6 +122,11 @@ export default function EnchantCalcLayout({ children }: { children: React.ReactN
         id="enchant-calc-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
+        id="enchant-calc-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

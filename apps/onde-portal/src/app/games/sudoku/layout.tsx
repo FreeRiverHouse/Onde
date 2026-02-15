@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Sudoku Online Free - No Ads',
+  description:
+    'Play Sudoku online free with no ads. Easy, medium, and hard difficulty. Timer, hints, notes mode. No download or signup needed.',
+  url: 'https://onde.la/games/sudoku/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Sudoku Online Free - Easy, Medium & Hard Puzzles No Ads | Onde',
   description:
@@ -68,6 +91,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="sudoku-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="sudoku-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

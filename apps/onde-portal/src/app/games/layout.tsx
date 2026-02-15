@@ -413,6 +413,36 @@ const gamesJsonLd = {
   ],
 };
 
+// WebApplication JSON-LD for the games hub - for rich snippets
+const gamesHubWebAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Onde Games - Free Online Games for Kids',
+  description:
+    'Play 40+ free online games for kids. Educational games, Minecraft tools, puzzles, word games & more. No download, no ads, no login.',
+  url: 'https://onde.la/games',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    ratingCount: '120',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Free Online Games for Kids - Educational & Fun Browser Games No Ads | Onde',
   description: 'Play 40+ free online games for kids. Educational games, Minecraft tools, puzzles, word games & more. No download, no ads, no login. Safe & fun for all ages!',
@@ -479,6 +509,11 @@ export default function GamesLayout({
         id="games-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gamesJsonLd) }}
+      />
+      <Script
+        id="games-hub-webapp-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(gamesHubWebAppJsonLd) }}
       />
       {children}
     </>

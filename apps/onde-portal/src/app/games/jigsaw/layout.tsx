@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Jigsaw Puzzle Online Free',
+  description:
+    'Play free jigsaw puzzles online. Multiple images, drag & drop puzzle game for kids and adults. No download, no ads, works on mobile.',
+  url: 'https://onde.la/games/jigsaw/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Jigsaw Puzzle Online Free - Play Puzzle Games for Kids No Download | Onde',
   description:
@@ -66,6 +89,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="jigsaw-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="jigsaw-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

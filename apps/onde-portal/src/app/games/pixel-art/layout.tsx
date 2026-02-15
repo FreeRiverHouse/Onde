@@ -38,6 +38,29 @@ const breadcrumbJsonLd = {
   ],
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Free Pixel Art Maker Online - Minecraft Image to Blocks',
+  description:
+    'Convert any image to Minecraft block pixel art. Free online pixel art maker with wool, concrete & terracotta palettes. Adjustable grid sizes from 16x16 to 128x128. No ads.',
+  url: 'https://onde.la/games/pixel-art/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Free Pixel Art Maker Online - Minecraft Image to Blocks Generator | Onde',
   description:
@@ -99,6 +122,11 @@ export default function PixelArtLayout({ children }: { children: React.ReactNode
         id="pixel-art-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
+        id="pixel-art-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

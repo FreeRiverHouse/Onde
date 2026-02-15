@@ -38,6 +38,29 @@ const breadcrumbJsonLd = {
   ],
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Minecraft Banner Maker Online Free',
+  description:
+    'Create custom Minecraft banners free online. Design banners with 16 colors, 40+ patterns, crafting recipes. Compatible with Java & Bedrock 1.21. No ads.',
+  url: 'https://onde.la/games/banner-maker/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Minecraft Banner Maker Online Free - Design Banners for Java & Bedrock 1.21 | Onde',
   description:
@@ -99,6 +122,11 @@ export default function BannerMakerLayout({ children }: { children: React.ReactN
         id="banner-maker-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
+        id="banner-maker-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

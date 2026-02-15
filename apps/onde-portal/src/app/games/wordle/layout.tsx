@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Wordle Online Free',
+  description:
+    'Play Wordle online free. Guess the 5-letter word in 6 tries! Color-coded hints, daily challenge + unlimited practice. No download, no ads. Fun for kids & adults.',
+  url: 'https://onde.la/games/wordle/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Wordle Online Free - Play Word Guessing Game for Kids & Adults | Onde',
   description:
@@ -68,6 +91,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         id="wordle-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="wordle-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>

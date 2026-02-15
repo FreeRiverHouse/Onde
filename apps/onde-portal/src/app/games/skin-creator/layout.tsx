@@ -29,6 +29,29 @@ const gameJsonLd = {
   inLanguage: 'en',
 };
 
+
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Free Minecraft Skin Creator & Editor Online',
+  description:
+    'Create custom Minecraft skins free online with our AI-powered skin maker & editor. 3D preview, layers, templates for Java & Bedrock. No download, no ads.',
+  url: 'https://onde.la/games/skin-creator/',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Onde',
+    url: 'https://onde.la',
+  },
+  inLanguage: 'en',
+};
+
 export const metadata: Metadata = {
   title: 'Free Minecraft Skin Creator & Editor Online - AI Skin Maker | Onde',
   description: 'Create custom Minecraft skins free online with our AI-powered skin maker & editor. 3D preview, layers, templates for Java & Bedrock. No download, no ads. Works on mobile!',
@@ -92,6 +115,11 @@ export default function SkinCreatorLayout({
         id="skin-creator-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(gameJsonLd) }}
+      />
+      <Script
+        id="skin-creator-software-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       {children}
     </>
