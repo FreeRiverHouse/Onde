@@ -25,7 +25,6 @@ import {
   failAgentTaskInD1,
   AgentTask
 } from '@/lib/agent-tasks'
-import Anthropic from '@anthropic-ai/sdk'
 
 export const runtime = 'edge'
 
@@ -50,10 +49,8 @@ function getAgentForTask(task: AgentTask): string {
   return task.assigned_to || 'default'
 }
 
-// Execute a task using Claude
+// Execute a task using Claude (direct fetch - no SDK to avoid async_hooks on edge)
 async function executeTask(task: AgentTask, anthropicKey: string): Promise<string> {
-  const client = new Anthropic({ apiKey: anthropicKey })
-  
   const agentName = getAgentForTask(task)
   const persona = AGENT_PERSONAS[agentName] || AGENT_PERSONAS['default']
   
@@ -72,18 +69,33 @@ async function executeTask(task: AgentTask, anthropicKey: string): Promise<strin
   
   prompt += `\nPlease complete this task and provide the result.`
   
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 4096,
-    system: persona,
-    messages: [
-      { role: 'user', content: prompt }
-    ]
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': anthropicKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 4096,
+      system: persona,
+      messages: [
+        { role: 'user', content: prompt }
+      ]
+    })
   })
   
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`Anthropic API error ${response.status}: ${errorText}`)
+  }
+  
+  const message = await response.json() as { content: Array<{ type: string; text?: string }> }
+  
   // Extract text from response
-  const textContent = message.content.find(c => c.type === 'text')
-  return textContent?.text || 'Task completed but no text response generated.'
+  const textContent = message.content.find((c: { type: string }) => c.type === 'text')
+  return (textContent as { text?: string })?.text || 'Task completed but no text response generated.'
 }
 
 export async function POST(request: NextRequest) {
