@@ -90,6 +90,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/libro/peter-rabbit-en',
     '/libro/frankenstein-en',
     
+    // Blog
+    '/blog',
+    '/blog/radeon-7900-xtx-mac-tinygrad',
+    
     // Other sections
     '/giochi',
     '/vr',

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T06:30:04.769621+00:00",
+  "timestamp": "2026-02-15T07:30:02.948444+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,13 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Senators ask Bessent to probe $500M UAE stake in Trump-linked WLFI",
+      "url": "https://cointelegraph.com/news/senators-urge-cfius-probe-uae-stake-trump-linked-wlfi?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Elizabeth Warren and Andy Kim call on Treasury\u2019s Scott Bessent to review a UAE-backed investment in the Trump-linked crypto firm over national security concerns.",
+      "published": "2026-02-15T07:15:57+00:00"
+    },
     {
       "title": "Institutions may get 'fed up' and fire Bitcoin devs over quantum: VC",
       "url": "https://cointelegraph.com/news/bitcoin-quantum-computing-risk-institutions-developers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -93,13 +100,6 @@
       "source": "cointelegraph",
       "description": "US spot Bitcoin ETFs recorded four straight weeks of net outflows, with about $360 million withdrawn in the latest week.",
       "published": "2026-02-14T07:47:53+00:00"
-    },
-    {
-      "title": "Memecoin market showing 'classic capitulation signal': Santiment",
-      "url": "https://cointelegraph.com/news/memecoin-season-crypto-social-media-sentiment-low-santiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "The total memecoin market capitalization has dropped roughly 34% over the past month as the broader market sold off, but Santiment suggests the slump may not last long.",
-      "published": "2026-02-14T06:24:14+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",

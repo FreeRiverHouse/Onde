@@ -259,8 +259,8 @@
 
 | # | ID | Task | Priority | Status | Owner | Notes |
 |---|-----|------|----------|--------|-------|-------|
-| 106 | BLOG-001 | Publish Radeon 7900 XTX + TinyGrad blog post on onde.la | 🔥 Content | IN_PROGRESS | @clawdinho | Draft ready at content/blog/radeon-7900-xtx-mac-tinygrad.md |
-| 107 | BLOG-002 | Create /blog section on onde.la | 🔥 Infra | TODO | - | Needed to host BLOG-001 |
+| 106 | BLOG-001 | Publish Radeon 7900 XTX + TinyGrad blog post on onde.la | 🔥 Content | ✅ DONE | @clawdinho | Published at /blog/radeon-7900-xtx-mac-tinygrad with full SEO, JSON-LD TechArticle schema |
+| 107 | BLOG-002 | Create /blog section on onde.la | 🔥 Infra | ✅ DONE | @clawdinho | /blog listing page + layout with Blog JSON-LD, breadcrumbs, dark glass UI, sitemap updated, footer nav link added |
 | 108 | DASH-002 | FRH agent chat fully working end-to-end | ⭐ Dashboard | ✅ DONE | @clawdinho | D1 tables created, API working, tested send+receive |
 | 109 | DASH-003 | Dashboard stats show real data (books=2, gist fallback) | ⭐ Dashboard | ✅ DONE | @clawdinho | EnhancedStats fetches from gist when DB unavailable |
 | 110 | RADEON-001 | Verify Radeon patch still works, test with eGPU connected | ⭐ Tech | TODO | - | Need eGPU connected to test |
