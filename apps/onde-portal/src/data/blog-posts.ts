@@ -4,12 +4,13 @@
  */
 
 /** Blog post categories */
-export type BlogCategory = 'Tech' | 'AI' | 'Design' | 'Updates'
+export type BlogCategory = 'Tech' | 'AI' | 'Trading' | 'Design' | 'Updates'
 
 export const BLOG_CATEGORIES: { value: BlogCategory | 'All'; label: string; emoji: string }[] = [
   { value: 'All', label: 'All', emoji: '🌊' },
   { value: 'Tech', label: 'Tech', emoji: '⚡' },
   { value: 'AI', label: 'AI', emoji: '🤖' },
+  { value: 'Trading', label: 'Trading', emoji: '📈' },
   { value: 'Design', label: 'Design', emoji: '🎨' },
   { value: 'Updates', label: 'Updates', emoji: '📣' },
 ]
