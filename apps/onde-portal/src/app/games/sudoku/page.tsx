@@ -443,6 +443,8 @@ function SudokuGameInner() {
       if (!noteMode && checkWin(newBoard)) {
         setGameState('won')
         rewards.trackWin()
+        rewards.trackGameEnd('win', timer)
+        rewards.trackScore(timer, { difficulty })
         if (timerRef.current) clearInterval(timerRef.current)
         saveHighScore(timer)
       }
@@ -506,6 +508,8 @@ function SudokuGameInner() {
     if (checkWin(newBoard)) {
       setGameState('won')
       rewards.trackWin()
+      rewards.trackGameEnd('win', timer)
+      rewards.trackScore(timer, { difficulty })
       if (timerRef.current) clearInterval(timerRef.current)
       saveHighScore(timer)
     }

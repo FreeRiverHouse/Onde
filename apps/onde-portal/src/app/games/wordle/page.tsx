@@ -479,6 +479,7 @@ function WordleGameInner() {
         playSound('win')
         setGameMode('won')
         rewards.trackWin()
+        rewards.trackGameEnd('win', newGuesses.length)
         setMessage(['Geniale! 🧠', 'Magnifico! ✨', 'Impressionante! 🌟', 'Splendido! 💫', 'Grandioso! 🎯', 'Perfetto! 🎉'][newGuesses.length - 1])
 
         // Update stats
@@ -504,6 +505,7 @@ function WordleGameInner() {
       setTimeout(() => {
         playSound('lose')
         setGameMode('lost')
+        rewards.trackGameEnd('loss', newGuesses.length)
         setMessage(`La parola era: ${targetWord}`)
 
         // Update stats

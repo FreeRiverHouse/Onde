@@ -56,6 +56,14 @@ const structuredData = {
 
 function SkinCreatorInner() {
   const s = useSkinCreator();
+  const rewards = useGameContext();
+
+  // Track skin downloads as game completions
+  const originalDownloadSkin = s.downloadSkin;
+  s.downloadSkin = (...args: Parameters<typeof s.downloadSkin>) => {
+    rewards.trackGameEnd('complete');
+    return originalDownloadSkin(...args);
+  };
 
   return (
     <div className={`min-h-screen p-3 md:p-6 flex flex-col items-center transition-all duration-700 ${
