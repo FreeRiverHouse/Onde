@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15T13:00:02.723218+00:00",
+  "timestamp": "2026-02-15T13:30:02.762946+00:00",
   "sources": [
     "cointelegraph",
     "bitcoinmagazine",
@@ -10,6 +10,20 @@
   ],
   "article_count": 30,
   "results": [
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "published": "2026-02-15T13:19:54+00:00"
+    },
+    {
+      "title": "Study suggests WLFI could act as an \u2018early warning signal\u2019 in crypto",
+      "url": "https://cointelegraph.com/news/wlfi-early-warning-signal-crypto-amberdata-study?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "cointelegraph",
+      "description": "Trump-linked WLFI dropped more than five hours before a $6.9 billion crypto liquidation event, raising questions about early market stress signals.",
+      "published": "2026-02-15T13:04:28+00:00"
+    },
     {
       "title": "Mirae Asset agrees to buy 92% stake in Korean exchange Korbit for $93M",
       "url": "https://cointelegraph.com/news/mirae-asset-buy-92-percent-korbit-korea-crypto-exchange?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -44,13 +58,6 @@
       "source": "cointelegraph",
       "description": "The ETF issuer warned that investors who pick the fund tied to the losing US presidential outcome could lose nearly all invested capital.",
       "published": "2026-02-15T03:04:18+00:00"
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "published": "2026-02-14T22:31:39+00:00"
     },
     {
       "title": "Prediction markets should become hedging platforms, says Buterin",
@@ -93,13 +100,6 @@
       "source": "cointelegraph",
       "description": "ShinyHunters hackers leaked user data after a social-engineering attack on a Figure employee and the company reportedly refused to pay a ransom.",
       "published": "2026-02-14T12:57:59+00:00"
-    },
-    {
-      "title": "ARK turns bullish on Coinbase again with $15M purchase after selling spree",
-      "url": "https://cointelegraph.com/news/ark-invest-buys-coinbase-15m-after-selling?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "cointelegraph",
-      "description": "Cathie Wood\u2019s ARK Invest added nearly $15.2 million in Coinbase stock across three ETFs, reversing course days after offloading more than $39 million in shares.",
-      "published": "2026-02-14T10:19:56+00:00"
     },
     {
       "title": "Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach",
