@@ -345,3 +345,11 @@
 | 144 | TRADE-014 | Aumentare volume trade crypto: aggiungere più asset (SOL, DOGE, etc) all'autotrader | 🔥 Trading volume | TODO | - |
 | 145 | TRADE-015 | Re-run kelly sweep dopo 30+ settled crypto trades | ⭐ Trading | TODO | - | Dipende da volume trade |
 | 146 | TRADE-016 | Review per-asset max_position_pct — ETH 4% potrebbe essere troppo basso | ⭐ Trading | TODO | - |
+
+### 🔥 NUOVI (da TECH-001 Kalshi post)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 147 | TECH-004 | Creare thread X dal post Kalshi trading bot (come SOC-002 per Radeon) | 🔥 Social | TODO | - |
+| 148 | TECH-005 | Aggiungere grafici/chart interattivi ai post Tech (equity curve, regime chart) | ⭐ UX | TODO | - |
+| 149 | TECH-006 | Aggiungere comments/reactions ai post Tech (lightweight, no login required) | ⭐ Engagement | TODO | - |
