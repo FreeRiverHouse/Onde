@@ -3,6 +3,25 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import ReadingTimeBadge from '@/components/blog/ReadingTimeBadge'
+import TableOfContents, { type TocItem } from '@/components/blog/TableOfContents'
+
+/* ─── Table of contents items ─── */
+const tocItems: TocItem[] = [
+  { id: 'problem', label: 'The Problem', emoji: '🧩' },
+  { id: 'hardware', label: 'Hardware Setup', emoji: '🔧' },
+  { id: 'patch', label: 'The Patch', emoji: '🩹' },
+  { id: 'running', label: 'Running Models', emoji: '🚀' },
+  { id: 'performance', label: 'Performance', emoji: '📊' },
+  { id: 'failures', label: 'What Failed', emoji: '💀' },
+  { id: 'reproduce', label: 'How to Reproduce', emoji: '🔬' },
+  { id: 'why', label: 'Why This Matters', emoji: '🌊' },
+  { id: 'patch-diff', label: 'The Full Patch', emoji: '📄' },
+]
+
+/* ─── Article word count (pre-calculated for reading time) ─── */
+const ARTICLE_WORD_COUNT = 1420
+const READING_TIME = Math.max(1, Math.ceil(ARTICLE_WORD_COUNT / 200))
 
 /* ─── helper: code block ─── */
 function CodeBlock({ children, lang }: { children: string; lang?: string }) {
@@ -112,6 +131,9 @@ export default function RadeonTinygradArticle() {
         />
       </div>
 
+      {/* ── Table of Contents (sticky sidebar on desktop) ── */}
+      <TableOfContents items={tocItems} />
+
       {/* ── Breadcrumb ── */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <Breadcrumb
@@ -153,7 +175,7 @@ export default function RadeonTinygradArticle() {
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <span>FreeRiverHouse</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
-            <span>8 min read</span>
+            <ReadingTimeBadge minutes={READING_TIME} />
           </div>
         </motion.div>
       </header>
