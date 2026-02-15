@@ -361,3 +361,11 @@
 | 150 | BLOG-006 | Aggiungere RSS feed link visibile nella UI del blog (icona RSS) | ⭐ UX | TODO | - |
 | 151 | BLOG-007 | Submit RSS feed a aggregatori (Feedly, Hacker News RSS) | ⭐ Distribution | TODO | - |
 | 152 | TRADE-017 | Aggiungere più asset crypto all'autotrader (SOL, DOGE) per aumentare volume trade | 🔥 Trading volume | TODO | - |
+
+### 🔥 NUOVI (da BLOG-005 TOC + keyword research)
+
+| # | ID | Task | Impact | Status | Owner |
+|---|----|----- |--------|--------|-------|
+| 153 | BLOG-008 | Aggiungere social share buttons ai post (X, LinkedIn, copy link) | ⭐ Distribution | TODO | - |
+| 154 | BLOG-009 | Aggiungere related posts / "Read next" in fondo ai post | ⭐ Engagement | TODO | - |
+| 155 | PM-001 | Creare script polymarket-navigator.py con funzioni navigate/scroll/bet/screenshot | 🔥 Trading | TODO | - | Unifica cliclick + CGEvent scroll + screenshot in un tool |
